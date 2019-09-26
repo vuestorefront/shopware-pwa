@@ -4,7 +4,7 @@
 
 ## Installation
 
-1. Copy VS 2.0 and this repo in the same folder
+1. Copy VS 2.0 and this repo in the same folder ( https://github.com/filrak/vue-storefront/tree/release/2.0 )
 2. Create symlinks for theme and catalog
 
 ```bash
