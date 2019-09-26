@@ -1,0 +1,15 @@
+{
+  "name": "@shopware/pwa-theme",
+  "version": "0.0.1",
+  "description": "Shopware Theme for Vue Storefront",
+  "main": "index.js",
+  "author": "",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@vue-storefront/core": "1.11.0-rc.1",
+    "vsf-shopware-catalog": "^0.0.1"
+  }
+}

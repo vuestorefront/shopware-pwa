@@ -1,0 +1,17 @@
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "@vue-storefront/core": "file:../vue-storefront/core",
+    "lerna": "^3.15.0",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.2",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
+  },
+  "dependencies": {
+    "@shopware/pwa-catalog": "file:catalog",
+    "@shopware/pwa-theme": "file:theme"
+  },
+  "workspaces": ["catalog", "theme" ]
+}

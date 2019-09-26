@@ -1,0 +1,4 @@
+0 silly argv { _: [ 'bootstrap' ], lernaVersion: '3.15.0', '$0': 'lerna' }
+1 notice cli v3.15.0
+2 verbose rootPath /Users/frakowski/Desktop/vsf-shopware
+3 error
