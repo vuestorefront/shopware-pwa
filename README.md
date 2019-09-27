@@ -4,7 +4,7 @@
 
 ## Installation
 
-1. Copy VS 2.0 and this repo in the same folder ( https://github.com/filrak/vue-storefront/tree/release/2.0 )
+1. Copy VS 2.0 and this repo in the same folder ( https://github.com/DivanteLtd/vue-storefront/tree/release/v2.0 )
 2. Run `yarn installer` and follow defaults
 3. Create symlinks for theme and catalog
 
