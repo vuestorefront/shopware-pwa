@@ -36,14 +36,14 @@ yarn link "vsf-shopware-catalog"
 
 ## Installation problems
 
-__Q__: `Error: ENOENT: no such file or directory, scandir '[...]/vue-storefront/node_modules/vsf-shopware-theme/resource/i18n'
-__A__: Create empty `resource/i18n` folder manually. 
+**Q:** Error: ENOENT: no such file or directory, scandir /vue-storefront/node_modules/vsf-shopware-theme/resource/i18n.  
+**A:** Create empty `resource/i18n` folder manually. 
 
-__Q__: Errors associated with `storefront-ui`.
-__A__: Clone https://github.com/DivanteLtd/storefront-ui repository to the same folder as you have `shopware-pwa` and `vue-storefront` repositories.
+**Q:** Errors associated with `storefront-ui`.  
+**A:** Clone https://github.com/DivanteLtd/storefront-ui repository to the same folder as you have `shopware-pwa` and `vue-storefront` repositories.
 
-__Q__: Running `yarn` in `vue-storefront` directory does not end.
-__A__: It takes about 200-400 seconds to finish. Be patient.
+**Q:** Running `yarn` in `vue-storefront` directory does not end.  
+**A:** It takes about 200-400 seconds to finish. Be patient.
 
-__Q:__ Running `yarn dev` fails to compile / build.
-__A:__ Make sure you checked out `release/v2.0` branch. Make sure you run `yarn` command in both `shopware-pwa` and `vue-storefront` repositories. 
+**Q:** Running `yarn dev` fails to compile / build.  
+**A:** Make sure you checked out `release/v2.0` branch. Make sure you run `yarn` command in both `shopware-pwa` and `vue-storefront` repositories. 
