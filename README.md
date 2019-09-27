@@ -15,10 +15,12 @@ cd catalog && yarn link
 ```
 3. Inside VS 2.0 repo symlink theme in a root of your project
 ```bash
-yarn link "@shopware/pwa-theme"
+yarn link "vsf-shopware-theme"
 ```
-4. Inside `node_modules/@shopware/pwa-theme` symilnk catalog
+4. Inside `node_modules/vsf-shopware-theme` symilnk catalog
 ```bash
-yarn link "@shopware/pwa-catalog"
+yarn link "vsf-shopware-catalog"
 ```
-5. Run `yarn dev`
+5. Change `theme` field in `config/local.json` to `vsf-shopware-theme`
+6. Run `yarn dev`on VS repo to start dev server and watch for file changes in both repos.
+7. On localhost:3000 (or 3001, 3002 etc if it's occupied) you should see new theme.

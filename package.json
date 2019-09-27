@@ -10,8 +10,8 @@
     "webpack-cli": "^3.3.5"
   },
   "dependencies": {
-    "@shopware/pwa-catalog": "file:catalog",
-    "@shopware/pwa-theme": "file:theme"
+    "vsf-shopware-catalog": "file:catalog",
+    "vsf-shopware-theme": "file:theme"
   },
   "workspaces": ["catalog", "theme" ]
 }

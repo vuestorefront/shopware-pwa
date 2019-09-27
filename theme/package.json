@@ -1,5 +1,5 @@
 {
-  "name": "@shopware/pwa-theme",
+  "name": "vsf-shopware-theme",
   "version": "0.0.1",
   "description": "Shopware Theme for Vue Storefront",
   "main": "index.js",
