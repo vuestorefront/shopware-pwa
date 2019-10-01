@@ -1,0 +1,14 @@
+dist: trusty
+branches:
+  only:
+  - master
+env:
+  - REGISTRY_URL=registry-1.divante.pl
+language: node_js
+node_js:
+  - "10"
+services:
+  - docker
+script:
+  - echo "building image..."
+  - docker build -t $REGISTRY_URL/shopware-pwa/vsf:$TRAVIS_BUILD_ID .
