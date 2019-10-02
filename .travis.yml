@@ -7,6 +7,8 @@ env:
 language: node_js
 node_js:
   - "10"
+install:
+  - echo "skipping install"
 services:
   - docker
 script:
