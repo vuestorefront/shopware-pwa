@@ -2,13 +2,11 @@ dist: trusty
 branches:
   only:
   - master
-env:
-  - REGISTRY_URL=registry-1.divante.pl:5000
 language: node_js
 node_js:
   - "10"
 install:
-  - echo "skipping install"
+  - echo "skipping installation"
 services:
   - docker
 
@@ -16,8 +14,7 @@ jobs:
   include:
     - stage: test
       script: skip # TODO
-    - stage: "Build & push"
+    - stage: "Build on gitlab"
       script:
-        - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY_URL
-        - docker build -t $REGISTRY_URL/shopware/pwa:$TRAVIS_BUILD_ID . # TODO consider passing ARG pointing current GIT revision
-        - docker push $REGISTRY_URL/shopware/pwa:$TRAVIS_BUILD_ID
+        - git remote add mirror https://$GITLAB_USER:GITLAB_TOKEN@$GITLAB_MIRROR_PATH
+        - git push -f mirror master
