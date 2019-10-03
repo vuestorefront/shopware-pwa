@@ -15,5 +15,5 @@ jobs:
     - stage: "Build on gitlab"
       script:
         - git config --global http.sslverify false
-        - git remote add mirror https://$GITLAB_USER:GITLAB_TOKEN@$GITLAB_MIRROR_PATH
+        - git remote add mirror https://$GITLAB_USER:$GITLAB_TOKEN@$GITLAB_MIRROR_PATH
         - git push -f mirror master
