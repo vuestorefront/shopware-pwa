@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    Hello Marciej
+    Thanks to Marciej! Continuous deployment works!
   </div>
 </template>
 
