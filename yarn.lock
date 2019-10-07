@@ -3789,7 +3789,7 @@ lean-he@^2.0.0:
   resolved "https://registry.yarnpkg.com/lean-he/-/lean-he-2.1.2.tgz#50c2422f0ca42f6737c9c1988b555cf00ebc712f"
   integrity sha512-g/cq01j/rnv7JWoxFmeLgJdd/CucksyDtS+pyepO89EdT0O4KfHJokOVz/xQ4mvjKJzcrj87Q3/s2ESou90WCQ==
 
-lerna@^3.15.0:
+lerna@^3.16.4:
   version "3.16.4"
   resolved "https://registry.yarnpkg.com/lerna/-/lerna-3.16.4.tgz#158cb4f478b680f46f871d5891f531f3a2cb31ec"
   integrity sha512-0HfwXIkqe72lBLZcNO9NMRfylh5Ng1l8tETgYQ260ZdHRbPuaLKE3Wqnd2YYRRkWfwPyEyZO8mZweBR+slVe1A==
@@ -5026,6 +5026,11 @@ posix-character-classes@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
   integrity sha1-AerA/jta9xoqbAL+q7jB/vfgDqs=
+
+prettier@~1.14.0:
+  version "1.14.3"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.14.3.tgz#90238dd4c0684b7edce5f83b0fb7328e48bd0895"
+  integrity sha512-qZDVnCrnpsRJJq5nSsiHCE3BYMED2OtsI+cmzIzF1QIfqm5ALf8tEJcO27zV1gKNKRPdhjO0dNWnrzssDQ1tFg==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
@@ -6497,8 +6502,6 @@ vm-browserify@^1.0.1:
 
 "vsf-shopware-theme@file:theme":
   version "0.0.1"
-  dependencies:
-    vsf-shopware-catalog "^0.0.1"
 
 vue-carousel@^0.6.9:
   version "0.6.15"

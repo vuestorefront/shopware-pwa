@@ -1,9 +1,38 @@
 {
-  "name": "root",
+  "name": "shopware-pwa",
   "private": true,
+  "workspaces": [
+    "catalog", 
+    "theme",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "node scripts/dev.js",
+    "build": "node scripts/build.js",
+    "size-runtime": "node scripts/build.js runtime-dom -p -f esm-browser",
+    "size-compiler": "node scripts/build.js compiler-dom -p -f esm-browser",
+    "size": "yarn size-runtime && yarn size-compiler",
+    "lint": "prettier --write --parser typescript 'packages/**/*.ts'",
+    "test": "jest"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged",
+    "commit-msg": "node scripts/verifyCommit.js"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.ts": [
+      "prettier --parser=typescript --write",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "@vue-storefront/core": "file:../vue-storefront/core",
-    "lerna": "^3.15.0",
+    "lerna": "^3.16.4",
+    "prettier": "~1.14.0",
     "ts-loader": "^6.0.4",
     "typescript": "^3.5.2",
     "webpack": "^4.35.2",
@@ -12,6 +41,5 @@
   "dependencies": {
     "vsf-shopware-catalog": "file:catalog",
     "vsf-shopware-theme": "file:theme"
-  },
-  "workspaces": ["catalog", "theme" ]
+  }
 }
