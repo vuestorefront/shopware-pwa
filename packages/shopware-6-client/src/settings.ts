@@ -9,7 +9,7 @@ const defaultConfig: ClientSettings = {
 let clientConfig: ClientSettings = {};
 
 const setup = function(config: ClientSettings = {}): void {
-  clientConfig = Object.assign({}, defaultConfig, config);
+  clientConfig = Object.assign(clientConfig, defaultConfig, config);
 };
 setup();
 
