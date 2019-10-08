@@ -6,11 +6,16 @@ export interface Category {
   name: String;
 }
 
-export interface CategoryService {
-  getCategories: () => Promise<Category[]>;
+export interface SearchResult<T> {
+  total: Number;
+  data: T[];
 }
 
-const getCategories = async function(): Promise<Category[]> {
+export interface CategoryService {
+  getCategories: () => Promise<SearchResult<Category[]>>;
+}
+
+const getCategories = async function(): Promise<SearchResult<Category[]>> {
   const resp = await axios.get(config.endpoint + CATEGORY_ENDPOINT);
   return resp.data;
 };

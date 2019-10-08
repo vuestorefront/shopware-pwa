@@ -7,12 +7,13 @@ module.exports = {
     __FEATURE_OPTIONS__: true,
     __FEATURE_SUSPENSE__: true
   },
+  collectCoverage: true,
   coverageDirectory: "coverage",
   coverageReporters: ["html", "lcov", "text"],
   collectCoverageFrom: ["packages/*/src/**/*.ts"],
   moduleFileExtensions: ["ts", "tsx", "js", "json"],
   moduleNameMapper: {
-    "^@vue/(.*?)$": "<rootDir>/packages/$1/src"
+    "^@shopware-pwa/(.*?)$": "<rootDir>/packages/$1/src"
   },
   rootDir: __dirname,
   testMatch: ["<rootDir>/packages/**/__tests__/**/*spec.[jt]s?(x)"]
