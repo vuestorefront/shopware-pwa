@@ -18,4 +18,6 @@ jobs:
   include:
     - stage: Test
       script: 
-        - yarn test:ci
+        - yarn test:coverage
+      after_script:
+        - cat ./coverage/lcov.info | coveralls

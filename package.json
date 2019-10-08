@@ -9,7 +9,6 @@
     "build": "node scripts/build.js",
     "lint": "prettier --write --parser typescript 'packages/**/*.ts'",
     "test": "jest",
-    "test:ci": "yarn test --coverage && cat ./coverage/lcov.info | coveralls",
     "test:coverage": "yarn test --coverage"
   },
   "gitHooks": {
