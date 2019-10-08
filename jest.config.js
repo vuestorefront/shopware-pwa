@@ -7,6 +7,7 @@ module.exports = {
     __FEATURE_OPTIONS__: true,
     __FEATURE_SUSPENSE__: true
   },
+  collectCoverage: true,
   coverageDirectory: "coverage",
   coverageReporters: ["html", "lcov", "text"],
   collectCoverageFrom: ["packages/*/src/**/*.ts"],
