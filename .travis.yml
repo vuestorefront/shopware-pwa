@@ -2,6 +2,9 @@ dist: trusty
 language: node_js
 node_js:
   - "10"
+branches:
+  only:
+    - master
 
 cache:
   yarn: true
@@ -14,4 +17,5 @@ install:
 jobs:
   include:
     - stage: Test
-      script: yarn test
+      script: 
+        - yarn test

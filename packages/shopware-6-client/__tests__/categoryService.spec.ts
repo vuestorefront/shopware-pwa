@@ -1,4 +1,4 @@
-import { CategoryService } from "../src/categoryService";
+import { CategoryService } from "../src/index";
 
 describe("CategoryService", () => {
   describe("getCategories", () => {
