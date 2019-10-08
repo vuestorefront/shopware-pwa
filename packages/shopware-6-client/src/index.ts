@@ -1,2 +1,2 @@
 export { setup, config } from "./settings";
-export { getCategories } from "./categoryService";
+export { Category, CategoryService } from "./categoryService";
