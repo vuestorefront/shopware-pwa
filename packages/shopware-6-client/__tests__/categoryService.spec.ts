@@ -1,11 +1,11 @@
-import { getCategories } from "../src/categoryService";
+import { CategoryService } from "../src/categoryService";
 
-describe("categoryService - getCategories", () => {
+describe("CategoryService", () => {
   describe("getCategories", () => {
     it("should return array with categories", async () => {
       try {
-        const result = await getCategories();
-        expect(result.data.length).toEqual(100);
+        const result = await CategoryService.getCategories();
+        expect(result.length).toEqual(100);
       } catch (e) {
         console.error("Connection problem", e);
       }
