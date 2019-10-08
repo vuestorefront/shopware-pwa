@@ -1,2 +1,8 @@
 node_modules
 lerna-debug.log
+dist
+.DS_Store
+coverage
+temp
+explorations
+TODOs.md

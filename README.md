@@ -1,49 +1,49 @@
 # Shopware PWA
 
-**This reposoitory is not ready for external contributions**
+**This repository is not ready for external contributions**
 
-## Installation
+## Quick setup
 
-1. Copy VS 2.0 and this repo in the same folder ( https://github.com/DivanteLtd/vue-storefront/tree/release/v2.0 ).
-2. Go to `shopware-pwa` repo.
-3. Create `resource/i18n` folder in `shopware-pwa/theme`.
-4. Create symlinks for theme and catalog:
+Just run `yarn`, and you're ready to develop.
+Please remember to always during development have opened terminal with `yarn test --watch` command fired.
 
-```bash
-cd theme && yarn link
-```
-```bash
-cd catalog && yarn link
-```
-5. Run `yarn`command in `shopware-pwa` repo.
-6. Go to to `vue-storefront` repo.
-7. Checkout to `release/v2.0` branch.
-8. Run `yarn && yarn installer` and follow defaults.
-9. Inside VS 2.0 repo symlink theme in a root of your project:
+## Installation for using the package in some other project
+
+1. Run `yarn`
+2. Build package with types definition `yarn build --types`
+3. Create symlink for client:
 
 ```bash
-yarn link "vsf-shopware-theme"
+cd ./packages/shopware-6-client && yarn link && cd ../../
 ```
 
-10. Inside `node_modules/vsf-shopware-theme` symlink catalog:
+4. In another project (can be generated from vue-cli) link client package
 
 ```bash
-yarn link "vsf-shopware-catalog"
+yarn link @shopware-pwa/shopware-6-client
 ```
+5. In project main file setup shopware config
 
-11. Change `theme` field in `config/local.json` to `vsf-shopware-theme`.
-12. Run `yarn dev`on VS repo to start dev server and watch for file changes in both repos.
+```js
+import {setup} from "@shopware-pwa/shopware-6-client"
+
+setup({
+  endpoint: 'https://address-to-my-shopware-instance.com'
+})
+```
+6. Use ShopwareClient services around your project. Example:
+
+```js
+import {CategoryService} from "@shopware-pwa/shopware-6-client"
+
+// later in component
+
+async mounted() {
+  this.categories = await CategoryService.getCategories();
+}
+```
 
 ## Installation problems
 
-**Q:** Error: ENOENT: no such file or directory, scandir /vue-storefront/node_modules/vsf-shopware-theme/resource/i18n.  
-**A:** Create empty `resource/i18n` folder manually. 
-
-**Q:** Errors associated with `storefront-ui`.  
-**A:** Clone https://github.com/DivanteLtd/storefront-ui repository to the same folder as you have `shopware-pwa` and `vue-storefront` repositories.
-
-**Q:** Running `yarn` in `vue-storefront` directory does not end.  
-**A:** It takes about 200-400 seconds to finish. Be patient.
-
-**Q:** Running `yarn dev` fails to compile / build.  
-**A:** Make sure you checked out `release/v2.0` branch. Make sure you run `yarn` command in both `shopware-pwa` and `vue-storefront` repositories. 
+**Q:** Please report problems.  
+**A:** We'll add info how to handle them here. 
