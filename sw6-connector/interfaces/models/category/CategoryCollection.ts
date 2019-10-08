@@ -1,6 +1,6 @@
-import { ICategoryEntity } from './ICategoryEntity'
+import { CategoryEntity } from './CategoryEntity'
 
-export interface ICategoryCollection {
-    [index:number]: ICategoryEntity;
+export interface CategoryCollection {
+    [index:number]: CategoryEntity;
     aggregations: [];
 }

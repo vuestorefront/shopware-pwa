@@ -2,7 +2,7 @@ import { ProductCollection } from "./product/ProductCollection";
 import { CategoryCollection } from "./category/CategoryCollection";
 import { ShippingMethodCollection } from "./context/Context";
 import { MediaCollection } from "./media/MediaCollection";
-import { NewsletterRecipientCollection } from "./newsletter/Newsletter"
+import { NewsletterRecipientCollection } from "./newsletter/NewsletterRecipientCollection";
 import { OrderCollection } from "./checkout/OrderCollection";
 
 export interface TagCollection {

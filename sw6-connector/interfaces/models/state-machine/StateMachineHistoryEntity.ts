@@ -1,0 +1,14 @@
+import { StateMachineStateEntity } from "./StateMachineStateEntity";
+import { StateMachineEntity } from "./StateMachineEntity";
+export interface StateMachineHistoryEntity {
+    stateMachineId: string;
+    stateMachine: StateMachineEntity | null;
+    entityName: string;
+    entityId: [];
+    fromStateId: string;
+    fromStateMachineState: StateMachineStateEntity | null;
+    toStateId: string;
+    toStateMachineState: StateMachineStateEntity | null;
+    userId: string;
+    user: UserEntity | null;
+}
