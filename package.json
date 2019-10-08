@@ -28,7 +28,6 @@
   "devDependencies": {
     "@microsoft/api-extractor": "^7.3.9",
     "@types/jest": "^24.0.18",
-    "@vue-storefront/core": "file:../vue-storefront/core",
     "brotli": "^1.3.2",
     "chalk": "^2.4.2",
     "coveralls": "^3.0.6",
