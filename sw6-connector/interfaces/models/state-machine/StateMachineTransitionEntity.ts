@@ -1,4 +1,5 @@
-import { StateMachineStateEntity } from "../stateMachine/StateMachineStateEntity";
+import { StateMachineStateEntity } from "./StateMachineStateEntity";
+
 export interface StateMachineTransitionEntity {
     actionName: string;
     stateMachineId: string;
