@@ -3,7 +3,7 @@ export interface ClientSettings {
 }
 
 const defaultConfig: ClientSettings = {
-  endpoint: "https://jsonplaceholder.typicode.com"
+  endpoint: "https://shopware-2.vuestorefront.io/sales-channel-api/v1"
 };
 
 let clientConfig: ClientSettings = {};

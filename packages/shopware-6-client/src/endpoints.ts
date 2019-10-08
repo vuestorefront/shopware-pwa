@@ -1,1 +1,1 @@
-export const CATEGORY_ENDPOINT = "/posts";
+export const CATEGORY_ENDPOINT = "/category";

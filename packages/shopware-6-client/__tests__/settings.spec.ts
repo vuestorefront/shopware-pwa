@@ -1,6 +1,7 @@
 import { config, setup } from "../src/settings";
 
-const DEFAULT_ENDPOINT = "https://jsonplaceholder.typicode.com";
+const DEFAULT_ENDPOINT =
+  "https://shopware-2.vuestorefront.io/sales-channel-api/v1";
 
 describe("Settings", () => {
   beforeEach(() => {
