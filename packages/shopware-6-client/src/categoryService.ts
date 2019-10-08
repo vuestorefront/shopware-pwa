@@ -16,7 +16,6 @@ export interface CategoryService {
 }
 
 const getCategories = async function(): Promise<SearchResult<Category[]>> {
-  axios.defaults.headers.common["sw-access-key"] = "SWSCBVBBZET1RTFIYWY4YVLICA";
   const resp = await axios.get(config.endpoint + CATEGORY_ENDPOINT);
   return resp.data;
 };
