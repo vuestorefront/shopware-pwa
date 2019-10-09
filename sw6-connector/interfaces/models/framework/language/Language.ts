@@ -66,11 +66,11 @@ import { ProductKeywordDictionaryCollection } from "../../content/product/Produc
 
 import { MailTemplateTypeTranslationCollection } from "../../content/mail-template/MailTemplateTypeTranslationCollection";
 
-import { PromotionTranslationCollection } from "../../checkout/promotion/PromotionTranslationCollection";
-
 import { NumberRangeTranslationCollection } from "../../system/number-range/NumberRangeTranslationCollection";
 
 import { ProductReviewCollection } from "../../content/product/ProductReviewCollection";
+
+import { PromotionTranslationCollection } from "../../checkout/promotion/PromotionTranslationCollection"}
 
 export interface Language {
     parentId: string | null;
