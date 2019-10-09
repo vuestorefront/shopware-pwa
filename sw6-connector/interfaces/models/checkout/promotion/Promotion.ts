@@ -1,0 +1,35 @@
+import { TaxRuleCollection } from "../../system/tax/TaxRuleCollection";
+import { PromotionSalesChannelCollection } from "./PromotionSalesChannelCollection";
+import { PromotionIndividualCodeCollection } from "./PromotionIndividualCodeCollection";
+import { PromotionSetGroupCollection } from "./PromotionSetGroupCollection";
+import { PromotionDiscountCollection } from "./PromotionDiscountCollection";
+import { RuleCollection } from "../../content/rule/RuleCollection";
+import { PromotionTranslationCollection } from "./PromotionTranslationCollection";
+import CustomerCollection from "../customer/CustomerCollection";
+export interface Promotion {
+    name: string | null;
+    active: boolean;
+    validFrom: Date;
+    validUntil: Date;
+    maxRedemptionsGlobal: number;
+    maxRedemptionsPerCustomer: number;
+    exclusive: boolean;
+    useCodes: boolean;
+    useSetGroups: boolean;
+    customerRestriction: boolean;
+    useIndividualCodes: boolean;
+    individualCodePattern: string;
+    salesChannels: PromotionSalesChannelCollection | null;
+    code: string | null;
+    discounts: PromotionDiscountCollection | null;
+    individualCodes: PromotionIndividualCodeCollection | null;
+    setgroups: PromotionSetGroupCollection | null;
+    orderRules: RuleCollection | null;
+    personaRules: RuleCollection | null;
+    personaCustomers: CustomerCollection | null;
+    cartRules: TaxRuleCollection;
+    translations: PromotionTranslationCollection | null;
+    orderCount: number;
+    ordersPerCustomerCount: [] | null;
+    exclusionIds: [];
+}

@@ -40,11 +40,11 @@ import { SalutationTranslationCollection } from "../../system/salutation/Salutat
 
 import { SalesChannelDomainCollection } from "../../system/sales-channel/SalesChannelDomainCollection";
 
-import { PluginTranslationCollection } from "../../framework/plugin/PluginTranslationCollection";
+import { PluginTranslationCollection } from "../plugin/PluginTranslationCollection";
 
 import { ProductStreamTranslationCollection } from "../../content/product-stream/ProductStreamTranslationCollection";
 
-import { Collection } from "../../framework/struct/Collection";
+import { Collection } from "../struct/Collection";
 
 import { MailTemplateCollection } from "../../content/mail-template/MailTemplateCollection";
 
