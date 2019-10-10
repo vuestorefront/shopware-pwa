@@ -5,7 +5,7 @@ import { PromotionSetGroupCollection } from "./PromotionSetGroupCollection";
 import { PromotionDiscountCollection } from "./PromotionDiscountCollection";
 import { RuleCollection } from "../../content/rule/RuleCollection";
 import { PromotionTranslationCollection } from "./PromotionTranslationCollection";
-import CustomerCollection from "../customer/CustomerCollection";
+import { CustomerCollection } from "../customer/CustomerCollection";
 export interface Promotion {
   name: string | null;
   active: boolean;

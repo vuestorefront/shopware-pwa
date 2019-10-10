@@ -1,6 +1,6 @@
 import { Media } from "../../content/media/Media";
 import { Plugin } from "../../framework/plugin/Plugin";
-import CustomerCollection from "../customer/CustomerCollection";
+import { CustomerCollection } from "../customer/CustomerCollection";
 import { SalesChannelCollection } from "../../system/sales-channel/SalesChannelCollection";
 import { Rule } from "../../content/rule/Rule";
 import { PaymentMethodTranslationCollection } from "./PaymentMethodTranslationCollection";

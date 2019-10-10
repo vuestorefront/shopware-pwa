@@ -1,4 +1,4 @@
-import { iCustomer } from "../customer/Customer";
+import { Customer } from "../customer/Customer";
 import { Order } from "./Order";
 import { Salutation } from "../../system/salutation/Salutation";
 export interface OrderCustomer {
@@ -11,7 +11,7 @@ export interface OrderCustomer {
   company: string | null;
   customerNumber: string | null;
   customerId: string;
-  customer: iCustomer | null;
+  customer: Customer | null;
   salutation: Salutation | null;
   order: Order | null;
 }
