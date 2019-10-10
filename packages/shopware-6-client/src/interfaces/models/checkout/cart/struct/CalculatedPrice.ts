@@ -7,5 +7,5 @@ export interface CalculatedPrice {
   totalPrice: number;
   calculatedTaxes: CalculatedTax[];
   taxRules: TaxRule[];
-  referencePRice: ReferencePrice;
+  referencePrice: ReferencePrice;
 }
