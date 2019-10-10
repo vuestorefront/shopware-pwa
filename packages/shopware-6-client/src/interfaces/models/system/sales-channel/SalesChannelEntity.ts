@@ -16,7 +16,7 @@ import { SalesChannelTranslationCollection } from "./SalesChannelTranslationColl
 import { CountryCollection } from "../country/CountryCollection";
 import { Country } from "../country/Country";
 import { PaymentMethod } from "../../checkout/payment/PaymentMethod";
-import CustomerCollection from "../../checkout/customer/CustomerCollection";
+import { CustomerCollection } from "../../checkout/customer/CustomerCollection";
 import { MailHeaderFooter } from "../../content/mail-template/MailHeaderFooter";
 import { CustomerGroup } from "../../checkout/customer/CustomerGroup";
 import { MailTemplateSalesChannelCollection } from "../../content/mail-template/MailTemplateSalesChannelCollection";

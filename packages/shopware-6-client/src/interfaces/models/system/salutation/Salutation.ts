@@ -1,5 +1,5 @@
 import { SalutationTranslationCollection } from "./SalutationTranslationCollection";
-import CustomerCollection from "../../checkout/customer/CustomerCollection";
+import { CustomerCollection } from "../../checkout/customer/CustomerCollection";
 import { CustomerAddressCollection } from "../../checkout/customer/CustomerAddressCollection";
 import { OrderAddressCollection } from "../../checkout/order/OrderAddressCollection";
 import { NewsletterRecipientCollection } from "../../content/newsletter/NewsletterRecipientCollection";
