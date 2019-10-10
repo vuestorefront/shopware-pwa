@@ -1,6 +1,6 @@
 import { Language } from "../../framework/language/Language";
 import { SalesChannel } from "../../system/sales-channel/SalesChannel";
-import { TagEntity } from "../../system/tag/Tag";
+import { Tag } from "../../system/tag/Tag";
 import { Salutation } from "../../system/salutation/Salutation";
 import { CustomField } from "../../common/CustomField";
 export interface NewsletterRecipient {
@@ -23,5 +23,5 @@ export interface NewsletterRecipient {
   confirmedAt: Date | null;
   createdAt: Date;
   updatedAt: Date | null;
-  tags: TagEntity[] | null;
+  tags: Tag[] | null;
 }

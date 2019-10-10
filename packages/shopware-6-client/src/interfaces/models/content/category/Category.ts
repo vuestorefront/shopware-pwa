@@ -33,7 +33,6 @@ export interface Category extends Entity {
   visible: boolean;
   type: string;
   description: string;
-  extensions: [];
   id: string;
   parentVersionId: string;
   afterCategoryVersionId: string;
