@@ -1,7 +1,7 @@
-import { MailTemplateMediaCollection } from "../media/MailTemplateMediaCollection";
-import { MailTemplateSalesChannelCollection } from "./MailTemplateSalesChannelCollection";
+import { MailTemplateMedia } from "./MailTemplateMedia";
+import { MailTemplateSalesChannel } from "./MailTemplateSalesChannel";
 import { MailTemplateType } from "./MailTemplateType";
-import { MailTemplateTranslationCollection } from "./MailTemplateTranslationCollection";
+import { MailTemplateTranslation } from "./MailTemplateTranslation";
 export interface MailTemplate {
   mailTemplateTypeId: string | null;
   mailTemplateType: MailTemplateType | null;
@@ -11,7 +11,7 @@ export interface MailTemplate {
   subject: string | null;
   contentHtml: string | null;
   contentPlain: string | null;
-  salesChannels: MailTemplateSalesChannelCollection | null;
-  translations: MailTemplateTranslationCollection | null;
-  media: MailTemplateMediaCollection | null;
+  salesChannels: MailTemplateSalesChannel[] | null;
+  translations: MailTemplateTranslation[] | null;
+  media: MailTemplateMedia[] | null;
 }

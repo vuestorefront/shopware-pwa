@@ -1,4 +1,4 @@
-import { SalesChannelEntity } from "../../system/sales-channel/SalesChannelEntity";
+import { SalesChannel } from "../../system/sales-channel/SalesChannel";
 import { MailTemplateType } from "./MailTemplateType";
 export interface MailTemplateSalesChannel {
   mailTemplateId: string;
@@ -6,5 +6,5 @@ export interface MailTemplateSalesChannel {
   mailTemplateTypeId: string;
   mailTemplateType: MailTemplateType | null;
   mailTemplate: MailTemplateSalesChannel | null;
-  salesChannel: SalesChannelEntity | null;
+  salesChannel: SalesChannel | null;
 }

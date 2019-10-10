@@ -1,15 +1,16 @@
 import { Media } from "../media/Media";
-import { PropertyGroupOptionEntity } from "../property/PropertyGroupOptionEntity";
+import { PropertyGroupOption } from "../property/PropertyGroupOption";
 import { Product } from "./Product";
+import { CustomField } from "../../common/CustomField";
 export interface ProductConfiguratorSetting {
   productId: number;
   optionId: number;
   mediaId: number;
   position: number;
   price: [] | null;
-  option: PropertyGroupOptionEntity | null;
+  option: PropertyGroupOption | null;
   media: Media | null;
   selected: boolean;
   product: Product | null;
-  customFields: [] | null;
+  customFields: CustomField[];
 }

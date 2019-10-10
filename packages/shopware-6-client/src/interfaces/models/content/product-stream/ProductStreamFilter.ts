@@ -1,5 +1,6 @@
 import { ProductStream } from "./ProductStream";
-import { ProductStreamFilterCollection } from "./ProductStreamFilterCollection";
+import { ProductStreamFilter } from "./ProductStreamFilter";
+import { CustomField } from "../../common/CustomField";
 export interface ProductStreamFilter {
   type: string;
   field: string | null;
@@ -8,9 +9,9 @@ export interface ProductStreamFilter {
   productStreamId: string;
   parentId: string | null;
   productStream: ProductStream | null;
-  queries: ProductStreamFilterCollection | null;
+  queries: ProductStreamFilter[] | null;
   parent: ProductStreamFilter | null;
   position: number;
   parameters: [] | null;
-  customFields: [] | null;
+  customFields: CustomField[];
 }

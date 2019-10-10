@@ -1,8 +1,9 @@
 import { Media } from "../media/Media";
 import { PropertyGroup } from "./PropertyGroup";
-import { PropertyGroupOptionTranslationCollection } from "./PropertyGroupOptionTranslationCollection";
-import { ProductConfiguratorSettingCollection } from "../product/ProductConfiguratorSettingCollection";
-import { ProductCollection } from "../product/ProductCollection";
+import { PropertyGroupOptionTranslation } from "./PropertyGroupOptionTranslation";
+import { ProductConfiguratorSetting } from "../product/ProductConfiguratorSetting";
+import { Product } from "../product/Product";
+import { CustomField } from "../../common/CustomField";
 export interface PropertyGroupOption {
   groupId: string;
   name: string | null;
@@ -10,10 +11,10 @@ export interface PropertyGroupOption {
   colorHexCode: string | null;
   mediaId: string | null;
   group: PropertyGroup | null;
-  translations: PropertyGroupOptionTranslationCollection | null;
-  productConfiguratorSettings: ProductConfiguratorSettingCollection | null;
-  productProperties: ProductCollection | null;
-  productOptions: ProductCollection | null;
+  translations: PropertyGroupOptionTranslation[] | null;
+  productConfiguratorSettings: ProductConfiguratorSetting[] | null;
+  productProperties: Product[] | null;
+  productOptions: Product[] | null;
   media: Media | null;
-  customFields: [] | null;
+  customFields: CustomField[];
 }

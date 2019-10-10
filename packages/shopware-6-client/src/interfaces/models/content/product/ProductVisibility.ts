@@ -1,9 +1,9 @@
 import { Product } from "./Product";
-import { SalesChannelEntity } from "../../system/sales-channel/SalesChannelEntity";
+import { SalesChannel } from "../../system/sales-channel/SalesChannel";
 export interface ProductVisibility {
   visibility: number;
   productId: string;
   salesChannelId: string;
   product: Product | null;
-  salesChannel: SalesChannelEntity | null;
+  salesChannel: SalesChannel | null;
 }

@@ -1,11 +1,12 @@
-import { PropertyGroupOptionCollection } from "./PropertyGroupOptionCollection";
-import { PropertyGroupOptionTranslationCollection } from "./PropertyGroupOptionTranslationCollection";
+import { PropertyGroupOption } from "./PropertyGroupOption";
+import { CustomField } from "../../common/CustomField";
+import { PropertyGroupOptionTranslation } from "./PropertyGroupOptionTranslation";
 export interface PropertyGroup {
   name: string | null;
   displayType: string;
   sortingType: string;
   description: string | null;
-  options: PropertyGroupOptionCollection | null;
-  translations: PropertyGroupOptionTranslationCollection | null;
-  customFields: [] | null;
+  options: PropertyGroupOption[] | null;
+  translations: PropertyGroupOptionTranslation[] | null;
+  customFields: CustomField[];
 }

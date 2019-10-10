@@ -1,10 +1,11 @@
 import { Media } from "../media/Media";
-import { CategoryCollection } from "./CategoryCollection";
+import { Category } from "./Category";
 import { CmsPage } from "../cms/CmsPage";
-import { ProductCollection } from "../product/ProductCollection";
-import { Entity } from "../../framework/struct/Entity";
-import { TagCollection } from "../../system/tag/Tag";
-import { CategoryTranslationCollection } from "./CategoryTranslationCollection";
+import { Product } from "../product/Product";
+import { Entity } from "../../common/Entity";
+import { TagEntity } from "../../system/tag/Tag";
+import { CategoryTranslation } from "./CategoryTranslation";
+import { CustomField } from "../../common/CustomField";
 
 export interface Category extends Entity {
   parentId: string | null;
@@ -17,14 +18,14 @@ export interface Category extends Entity {
   childCount: number;
   displayNestedProducts: boolean;
   parent: Category | null;
-  children: CategoryCollection | null;
-  translations: CategoryTranslationCollection | null;
+  children: Category[] | null;
+  translations: CategoryTranslation[] | null;
   media: Media | null;
-  products: ProductCollection | null;
-  nestedProducts: ProductCollection | null;
+  products: Product[] | null;
+  nestedProducts: Product[] | null;
   afterCategoryId: string | null;
-  customFields: [] | null;
-  tags: TagCollection | null;
+  customFields: CustomField[];
+  tags: TagEntity[] | null;
   cmsPageId: string | null;
   cmsPage: CmsPage | null;
   slotConfig: [] | null;

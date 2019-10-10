@@ -1,5 +1,5 @@
-import { SalesChannelCollection } from "../../system/sales-channel/SalesChannelCollection";
-import { MailHeaderFooterTranslationCollection } from "./MailHeaderFooterTranslationCollection";
+import { MailHeaderFooterTranslation } from "./MailHeaderFooterTranslation";
+import { SalesChannel } from "../../system/sales-channel/SalesChannel";
 export interface MailHeaderFooter {
   name: string | null;
   systemDefault: boolean;
@@ -8,6 +8,6 @@ export interface MailHeaderFooter {
   headerPlain: string | null;
   footerHtml: string | null;
   footerPlain: string | null;
-  salesChannels: SalesChannelCollection | null;
-  translations: MailHeaderFooterTranslationCollection | null;
+  salesChannels: SalesChannel[] | null;
+  translations: MailHeaderFooterTranslation[] | null;
 }

@@ -1,4 +1,5 @@
 import { Product } from "./Product";
+import { CustomField } from "../../common/CustomField";
 export interface ProductTranslation {
   productId: string;
   additionalText: string | null;
@@ -8,5 +9,5 @@ export interface ProductTranslation {
   metaTitle: string | null;
   packUnit: string | null;
   product: Product;
-  customFields: [] | null;
+  customFields: CustomField | null;
 }

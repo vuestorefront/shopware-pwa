@@ -1,4 +1,4 @@
-import { SalesChannelEntity } from "../../system/sales-channel/SalesChannelEntity";
+import { SalesChannel } from "../../system/sales-channel/SalesChannel";
 import { Language } from "../../framework/language/Language";
 import { Product } from "./Product";
 import { Customer } from "../../checkout/customer/Customer";
@@ -13,7 +13,7 @@ export interface ProductReview {
   points: number | null;
   status: boolean;
   comment: string | null;
-  salesChannel: SalesChannelEntity | null;
+  salesChannel: SalesChannel | null;
   language: Language | null;
   customer: Customer | null;
   product: Product | null;

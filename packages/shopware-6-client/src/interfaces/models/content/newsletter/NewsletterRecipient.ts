@@ -1,8 +1,8 @@
 import { Language } from "../../framework/language/Language";
-import { SalesChannelEntity } from "../../system/sales-channel/SalesChannelEntity";
-import { iCustomField } from "../../Common";
-import { TagCollection } from "../../system/tag/Tag";
+import { SalesChannel } from "../../system/sales-channel/SalesChannel";
+import { TagEntity } from "../../system/tag/Tag";
 import { Salutation } from "../../system/salutation/Salutation";
+import { CustomField } from "../../common/CustomField";
 export interface NewsletterRecipient {
   email: string;
   title: string | null;
@@ -18,10 +18,10 @@ export interface NewsletterRecipient {
   languageId: string;
   language: Language | null;
   salesChannelId: string;
-  salesChannel: SalesChannelEntity | null;
-  customFields: iCustomField | null;
+  salesChannel: SalesChannel | null;
+  customFields: CustomField[];
   confirmedAt: Date | null;
   createdAt: Date;
   updatedAt: Date | null;
-  tags: TagCollection | null;
+  tags: TagEntity[] | null;
 }
