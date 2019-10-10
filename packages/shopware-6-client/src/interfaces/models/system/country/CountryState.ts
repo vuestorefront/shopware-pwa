@@ -1,8 +1,9 @@
-import { iCustomField } from "../../Common";
 import { Country } from "./Country";
+import { CountryStateTranslation } from "./CountryStateTranslation";
+import { CustomerAddress } from "../../checkout/customer/CustomerAddress";
 import { OrderAddress } from "../../checkout/order/OrderAddress";
-import { CustomerAddressCollection } from "../../checkout/customer/CustomerAddressCollection";
-import { CountryStateTranslationCollection } from "./CountryStateTranslationCollection";
+import { CustomField } from "../../common/CustomField";
+
 export interface CountryState {
   countryId: string;
   shortCode: string;
@@ -10,8 +11,8 @@ export interface CountryState {
   position: number;
   active: boolean;
   country: Country | null;
-  translations: CountryStateTranslationCollection | null;
-  customerAddresses: CustomerAddressCollection | null;
-  orderAddressCollection: OrderAddress | null;
-  customFields: iCustomField;
+  translations: CountryStateTranslation[] | null;
+  customerAddresses: CustomerAddress[] | null;
+  orderAddresses: OrderAddress[] | null;
+  customFields: CustomField[];
 }

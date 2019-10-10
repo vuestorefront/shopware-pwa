@@ -1,9 +1,10 @@
-import { CurrencyTranslationCollection } from "./CurrencyTranslationCollection";
-import { OrderCollection } from "../../checkout/order/OrderCollection";
-import { SalesChannelCollection } from "../sales-channel/SalesChannelCollection";
-import { SalesChannelDomainCollection } from "../sales-channel/SalesChannelDomainCollection";
-import { ShippingMethodPriceCollection } from "../../checkout/shipping/ShippingMethodPriceCollection";
-import { PromotionDiscountPriceCollection } from "../../checkout/promotion/PromotionDiscountPriceCollection";
+import { CurrencyTranslation } from "./CurrencyTranslation";
+import { Order } from "../../checkout/order/Order";
+import { ShippingMethodPrice } from "../../checkout/shipping/ShippingMethodPrice";
+import { PromotionDiscountPrice } from "../../checkout/promotion/PromotionDiscountPrice";
+import { SalesChannel } from "../sales-channel/SalesChannel";
+import { SalesChannelDomain } from "../sales-channel/SalesChannelDomain";
+import { CustomField } from "../../common/CustomField";
 
 export interface Currency {
   isoCode: string;
@@ -13,13 +14,13 @@ export interface Currency {
   name: string | null;
   position: number;
   decimalPrecision: number;
-  translations: CurrencyTranslationCollection | null;
-  orders: OrderCollection | null;
-  salesChannels: SalesChannelCollection | null;
-  salesChannelDefaultAssignments: SalesChannelCollection | null;
-  salesChannelDomains: SalesChannelDomainCollection | null;
-  customFields: [] | null;
-  shippingMethodPrices: ShippingMethodPriceCollection | null;
-  promotionDiscountPrices: PromotionDiscountPriceCollection;
+  translations: CurrencyTranslation[] | null;
+  orders: Order[] | null;
+  salesChannels: SalesChannel[] | null;
+  salesChannelDefaultAssignments: SalesChannel[] | null;
+  salesChannelDomains: SalesChannelDomain[] | null;
+  customFields: CustomField[];
+  shippingMethodPrices: ShippingMethodPrice[] | null;
+  promotionDiscountPrices: PromotionDiscountPrice[];
   isSystemDefault: boolean | null;
 }

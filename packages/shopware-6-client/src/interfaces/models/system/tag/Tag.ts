@@ -1,20 +1,16 @@
-import { ProductCollection } from "../../content/product/ProductCollection";
-import { CategoryCollection } from "../../content/category/CategoryCollection";
-import { ShippingMethodCollection } from "../../checkout/shipping/ShippingMethodCollection";
-import { MediaCollection } from "../../content/media/MediaCollection";
-import { NewsletterRecipientCollection } from "../../content/newsletter/NewsletterRecipientCollection";
-import { OrderCollection } from "../../checkout/order/OrderCollection";
-
-export interface TagCollection {
-  [index: number]: TagEntity;
-}
+import { Product } from "../../content/product/Product";
+import { Media } from "../../content/media/Media";
+import { Category } from "packages/shopware-6-client/src";
+import { Order } from "../../checkout/order/Order";
+import { NewsletterRecipient } from "../../content/newsletter/NewsletterRecipient";
+import { ShippingMethod } from "../../checkout/shipping/ShippingMethod";
 
 export interface TagEntity {
   name: string;
-  products: ProductCollection | null;
-  media: MediaCollection | null;
-  categories: CategoryCollection | null;
-  orders: OrderCollection | null;
-  shippingMethods: ShippingMethodCollection | null;
-  newsletterRecipients: NewsletterRecipientCollection | null;
+  products: Product[] | null;
+  media: Media[] | null;
+  categories: Category[] | null;
+  orders: Order[] | null;
+  shippingMethods: ShippingMethod[] | null;
+  newsletterRecipients: NewsletterRecipient[] | null;
 }

@@ -1,8 +1,9 @@
-import { iCustomField } from "../../Common";
-import { NumberRangeTranslationCollection } from "./NumberRangeTranslationCollection";
-import { NumberRangeSalesChannelCollection } from "./NumberRangeSalesChannelCollection";
-import { NumberRangeState } from "./NumberRangeState";
+import { CustomField } from "../../common/CustomField";
 import { NumberRangeType } from "./NumberRangeType";
+import { NumberRangeSalesChannel } from "./NumberRangeSalesChannel";
+import { NumberRangeState } from "./NumberRangeState";
+import { NumberRangeTranslation } from "./NumberRangeTranslation";
+
 export interface NumberRange {
   typeId: string | null;
   global: boolean;
@@ -11,8 +12,8 @@ export interface NumberRange {
   pattern: string | null;
   start: number | null;
   type: NumberRangeType | null;
-  numberRangeSalesChannels: NumberRangeSalesChannelCollection | null;
+  numberRangeSalesChannels: NumberRangeSalesChannel[] | null;
   state: NumberRangeState | null;
-  customFields: iCustomField | null;
-  translations: NumberRangeTranslationCollection | null;
+  customFields: CustomField[];
+  translations: NumberRangeTranslation[] | null;
 }

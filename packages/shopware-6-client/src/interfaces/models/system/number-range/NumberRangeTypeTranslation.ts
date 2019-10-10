@@ -1,8 +1,8 @@
-import { iCustomField } from "../../Common";
 import { NumberRangeType } from "./NumberRangeType";
-interface NumberRangeTypeTranslation {
+import { CustomField } from "../../common/CustomField";
+export interface NumberRangeTypeTranslation {
   numberRangeTypeId: string;
   typeName: string | null;
   numberRangeType: NumberRangeType | null;
-  customFields: iCustomField | null;
+  customFields: CustomField[];
 }

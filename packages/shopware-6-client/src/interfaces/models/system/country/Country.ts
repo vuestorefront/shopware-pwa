@@ -1,8 +1,9 @@
-import { SalesChannelCollection } from "../sales-channel/SalesChannelCollection";
-import { CountryStateCollection } from "./CountryStateCollection";
-import { OrderAddressCollection } from "../../checkout/order/OrderAddressCollection";
-import { CountryTranslationCollection } from "./CountryTranslationCollection";
-import { CustomerAddressCollection } from "../../checkout/customer/CustomerAddressCollection";
+import { CountryState } from "./CountryState";
+import { CountryTranslation } from "./CountryTranslation";
+import { OrderAddress } from "../../checkout/order/OrderAddress";
+import { CustomerAddress } from "../../checkout/customer/CustomerAddress";
+import { SalesChannel } from "../sales-channel/SalesChannel";
+
 export interface Country {
   name: string | null;
   iso: string | null;
@@ -13,10 +14,10 @@ export interface Country {
   iso3: string | null;
   displayStateInRegistration: boolean;
   forceStateInRegistration: boolean;
-  states: CountryStateCollection | null;
-  translations: CountryTranslationCollection | null;
-  orderAddresses: OrderAddressCollection | null;
-  customerAddress: CustomerAddressCollection | null;
-  salesChannelDefaultAssignments: SalesChannelCollection | null;
-  salesChannels: SalesChannelCollection | null;
+  states: CountryState[] | null;
+  translations: CountryTranslation[] | null;
+  orderAddresses: OrderAddress[] | null;
+  customerAddress: CustomerAddress[] | null;
+  salesChannelDefaultAssignments: SalesChannel[] | null;
+  salesChannels: SalesChannel[] | null;
 }

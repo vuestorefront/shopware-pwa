@@ -1,12 +1,14 @@
-import { LocaleTranslationCollection } from "./LocaleTranslationCollection";
-import { LanguageCollection } from "../../framework/language/LanguageCollection";
-import { UserCollection } from "../user/UserCollection";
+import { LocaleTranslation } from "./LocaleTranslation";
+import { User } from "../user/User";
+import { Language } from "../../framework/language/Language";
+import { CustomField } from "../../common/CustomField";
+
 export interface Locale {
   code: string;
   name: string | null;
   territory: string | null;
-  translations: LocaleTranslationCollection | null;
-  users: UserCollection | null;
-  languages: LanguageCollection | null;
-  customFields: [] | null;
+  translations: LocaleTranslation[] | null;
+  users: User[] | null;
+  languages: Language[] | null;
+  customFields: CustomField | null;
 }

@@ -1,13 +1,14 @@
-import { iCustomField } from "../../Common";
-import { NumberRangeCollection } from "./NumberRangeCollection";
+import { NumberRange } from "./NumberRange";
 import { NumberRangeSalesChannel } from "./NumberRangeSalesChannel";
-import { NumberRangeTypeTranslationCollection } from "./NumberRangeTypeTranslationCollection";
+import { CustomField } from "../../common/CustomField";
+import { NumberRangeTypeTranslation } from "./NumberRangeTypeTranslation";
+
 export interface NumberRangeType {
   typeName: string;
   technicalName: string;
   global: boolean;
-  numberRanges: NumberRangeCollection | null;
+  numberRanges: NumberRange[] | null;
   numberRangeSalesChannels: NumberRangeSalesChannel | null;
-  customFields: iCustomField | null;
-  translations: NumberRangeTypeTranslationCollection | null;
+  customFields: CustomField[];
+  translations: NumberRangeTypeTranslation[] | null;
 }
