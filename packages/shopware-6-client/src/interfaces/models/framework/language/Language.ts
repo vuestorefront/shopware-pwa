@@ -1,6 +1,6 @@
 import { LanguageCollection } from "./LanguageCollection";
 import { SalesChannelCollection } from "../../system/sales-channel/SalesChannelCollection";
-import CustomerCollection from "../../checkout/customer/CustomerCollection";
+import { CustomerCollection } from "../../checkout/customer/CustomerCollection";
 import { CategoryTranslationCollection } from "../../content/category/CategoryTranslationCollection";
 import { CurrencyTranslationCollection } from "../../system/currency/CurrencyTranslationCollection";
 import { MediaTranslationCollection } from "../../content/media/MediaTranslationCollection";
