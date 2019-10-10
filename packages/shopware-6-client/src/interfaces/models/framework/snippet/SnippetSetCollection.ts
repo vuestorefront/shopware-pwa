@@ -1,4 +1,4 @@
 import { SnippetSetEntity } from "./SnippetSetEntity";
 interface SnippetSetCollection {
-    [index: number]: SnippetSetEntity;
+  [index: number]: SnippetSetEntity;
 }
