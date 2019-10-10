@@ -3,5 +3,5 @@ export interface PromotionIndividualCode {
   promotionId: string;
   code: string;
   promotion: Promotion | null;
-  payload: [] | null;
+  payload: string[] | null;
 }

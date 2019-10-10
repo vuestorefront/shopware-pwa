@@ -4,7 +4,7 @@ import { OrderDelivery } from "../order/OrderDelivery";
 import { Rule } from "../../content/rule/Rule";
 import { ShippingMethodPrice } from "./ShippingMethodPrice";
 import { Media } from "../../content/media/Media";
-import { TagEntity } from "../../system/tag/Tag";
+import { Tag } from "../../system/tag/Tag";
 import { ShippingMethodTranslation } from "./ShippingMethodTranslation";
 import { CustomField } from "../../common/CustomField";
 export interface ShippingMethod {
@@ -23,5 +23,5 @@ export interface ShippingMethod {
   prices: ShippingMethodPrice[];
   mediaId: string | null;
   media: Media | null;
-  tags: TagEntity[] | null;
+  tags: Tag[] | null;
 }

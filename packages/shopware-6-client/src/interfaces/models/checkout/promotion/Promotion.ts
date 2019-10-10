@@ -31,5 +31,5 @@ export interface Promotion {
   translations: PromotionTranslation[] | null;
   orderCount: number;
   ordersPerCustomerCount: [] | null;
-  exclusionIds: [];
+  exclusionIds: string[];
 }
