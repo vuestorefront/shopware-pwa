@@ -1,4 +1,5 @@
 import { Plugin } from "./Plugin";
+import { CustomField } from "../../common/CustomField";
 export interface PluginTranslation {
   pluginId: string;
   label: string | null;
@@ -7,5 +8,5 @@ export interface PluginTranslation {
   supportLink: string | null;
   changelog: [] | null;
   plugin: Plugin | null;
-  customFields: [] | null;
+  customFields: CustomField[];
 }

@@ -1,6 +1,6 @@
-import { LanguageEntity } from "./context/LanguageEntity";
+import { Language } from "../language/Language";
 
 export interface Translation {
   languageId: string;
-  language: LanguageEntity;
+  language: Language;
 }

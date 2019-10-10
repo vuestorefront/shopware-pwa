@@ -1,5 +1,6 @@
-import { PluginTranslationCollection } from "./PluginTranslationCollection";
-import { PaymentMethodCollection } from "../../checkout/payment/PaymentMethodCollection";
+import { PluginTranslation } from "./PluginTranslation";
+import { PaymentMethod } from "../../checkout/payment/PaymentMethod";
+import { CustomField } from "../../common/CustomField";
 export interface Plugin {
   baseClass: string;
   name: string;
@@ -21,8 +22,8 @@ export interface Plugin {
   manufacturerLink: string | null;
   supportLink: string | null;
   changelog: [] | null;
-  translations: PluginTranslationCollection | null;
-  paymentMethods: PaymentMethodCollection | null;
-  customFields: [] | null;
+  translations: PluginTranslation[] | null;
+  paymentMethods: PaymentMethod[] | null;
+  customFields: CustomField[];
   autoload: [];
 }
