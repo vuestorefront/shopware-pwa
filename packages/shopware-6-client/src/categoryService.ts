@@ -11,6 +11,12 @@ export interface SearchResult<T> {
   data: T[];
 }
 
+/**
+ * Usage example:
+ * ```ts
+ * import { CategoryService } from "@shopware-pwa/shopware-6-client"
+ * ```
+ */
 export interface CategoryService {
   getCategories: () => Promise<SearchResult<Category[]>>;
 }
