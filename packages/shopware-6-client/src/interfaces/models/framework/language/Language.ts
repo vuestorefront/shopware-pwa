@@ -34,6 +34,7 @@ import { SalesChannelTypeTranslation } from "../../system/sales-channel/SalesCha
 import { SalesChannelDomain } from "../../system/sales-channel/SalesChannelDomain";
 import { NumberRangeTypeTranslation } from "../../system/number-range/NumberRangeTypeTranslation";
 import { CustomField } from "../../common/CustomField";
+import { Collection } from "../../common/Collection";
 
 export interface Language {
   parentId: string | null;
@@ -68,10 +69,10 @@ export interface Language {
   salesChannelDomains: SalesChannelDomain[] | null;
   pluginTranslations: PluginTranslation[] | null;
   productStreamTranslations: ProductStreamTranslation[] | null;
-  stateMachineTranslations: [] | null;
-  stateMachineStateTranslations: [] | null;
-  cmsPageTranslation: [] | null;
-  cmsSlotTranslations: [] | null;
+  stateMachineTranslations: Collection[] | null;
+  stateMachineStateTranslations: Collection[] | null;
+  cmsPageTranslations: Collection[] | null;
+  cmsSlotTranslations: Collection[] | null;
   mailTemplateTranslations: MailTemplate[] | null;
   mailHeaderFooterTranslation: MailHeaderFooter[] | null;
   documentTypeTranslations: DocumentTypeTranslation[] | null;
