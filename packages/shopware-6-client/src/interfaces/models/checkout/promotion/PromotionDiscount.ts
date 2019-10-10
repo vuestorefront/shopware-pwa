@@ -1,4 +1,4 @@
-import { RuleCollection } from "../../content/rule/RuleCollection";
+import { Rule } from "../../content/rule/Rule";
 import { Promotion } from "./Promotion";
 export interface PromotionDiscount {
   promotionId: string;
@@ -6,7 +6,7 @@ export interface PromotionDiscount {
   type: string;
   value: number;
   promotion: Promotion | null;
-  discountRules: RuleCollection | null;
+  discountRules: Rule[] | null;
   considerAdvancedRules: boolean;
   maxValue: number | null;
   promotionDiscountPrices: number | null;

@@ -1,9 +1,10 @@
 import { CalculatedPrice } from "../cart/price/CalculatedPrice";
 import { PriceDefinitionInterface } from "../cart/price/PriceDefinitionInterface";
 import { Order } from "./Order";
-import { OrderDeliveryPositionCollection } from "./OrderDeliveryPositionCollection";
+import { OrderDeliveryPosition } from "./OrderDeliveryPosition";
 import { Media } from "../../content/media/Media";
-import { OrderLineItemCollection } from "./OrderLineItemCollection";
+import { OrderLineItem } from "./OrderLineItem";
+import { CustomField } from "../../common/CustomField";
 
 export interface OrderLineItem {
   orderId: string;
@@ -24,8 +25,8 @@ export interface OrderLineItem {
   parentId: string | null;
   type: string | null;
   order: Order | null;
-  orderDeliveryPosition: OrderDeliveryPositionCollection | null;
-  customFields: [] | null;
+  orderDeliveryPosition: OrderDeliveryPosition[] | null;
+  customFields: CustomField[];
   cover: Media | null;
-  children: OrderLineItemCollection | null;
+  children: OrderLineItem[] | null;
 }

@@ -1,9 +1,9 @@
 import { Order } from "./Order";
 import { ShippingMethodPrice } from "../shipping/ShippingMethodPrice";
-import { StateMachineStateEntity } from "../../system/state-machine/StateMachineStateEntity";
+import { StateMachineState } from "../../system/state-machine/StateMachineState";
 import { CalculatedPrice } from "../cart/price/CalculatedPrice";
 import { OrderAddress } from "./OrderAddress";
-import { OrderDeliveryPositionCollection } from "./OrderDeliveryPositionCollection";
+import { OrderDeliveryPosition } from "./OrderDeliveryPosition";
 export interface OrderDelivery {
   orderId: string;
   shippingOrderAddressId: string;
@@ -14,8 +14,8 @@ export interface OrderDelivery {
   shippingCosts: CalculatedPrice;
   shippingOrderAddress: OrderAddress | null;
   stateId: string;
-  stateMachineState: StateMachineStateEntity | null;
+  stateMachineState: StateMachineState | null;
   shippingMethod: ShippingMethodPrice | null;
   order: Order | null;
-  positions: OrderDeliveryPositionCollection | null;
+  positions: OrderDeliveryPosition[] | null;
 }

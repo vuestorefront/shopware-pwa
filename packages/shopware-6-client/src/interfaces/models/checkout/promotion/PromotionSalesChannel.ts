@@ -1,9 +1,9 @@
-import { SalesChannelEntity } from "../../system/sales-channel/SalesChannelEntity";
+import { SalesChannel } from "../../system/sales-channel/SalesChannel";
 import { Promotion } from "./Promotion";
 export interface PromotionSalesChannel {
   promotionId: string;
   salesChannelId: string;
   priority: number;
   promotion: Promotion | null;
-  salesChannel: SalesChannelEntity | null;
+  salesChannel: SalesChannel | null;
 }

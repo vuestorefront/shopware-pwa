@@ -1,11 +1,11 @@
-import { CalculatedTaxCollection } from "../../../system/tax/CalculatedTaxCollection";
-import { TaxRuleCollection } from "../../../system/tax/TaxRuleCollection";
+import { CalculatedTax } from "../../../system/tax/CalculatedTax";
+import { TaxRule } from "../../../system/tax/TaxRule";
 import { ReferencePrice } from "../price/ReferencePrice";
 export interface CalculatedPrice {
   unitPrice: number;
   quantity: number;
   totalPrice: number;
-  calculatedTaxes: CalculatedTaxCollection;
-  taxRules: TaxRuleCollection;
+  calculatedTaxes: CalculatedTax[];
+  taxRules: TaxRule[];
   referencePRice: ReferencePrice;
 }

@@ -4,7 +4,7 @@ import { Rule } from "../../../framework/rule/Rule";
 import { DeliveryInformation } from "../../delivery/DeliveryInformation";
 import { PriceDefinitionInterface } from "../price/PriceDefinitionInterface";
 import { QuantityInformation } from "./QuantityInformation";
-import { LineItemCollection } from "./LineItemCollection";
+import { LineItem } from "./LineItem";
 export interface LineItem {
   id: string;
   referencedId: string | null;
@@ -18,7 +18,7 @@ export interface LineItem {
   description: string | null;
   cover: Media | null;
   deliveryInformation: DeliveryInformation | null;
-  children: LineItemCollection;
+  children: LineItem[];
   requirement: Rule | null;
   removable: boolean;
   stackable: boolean;

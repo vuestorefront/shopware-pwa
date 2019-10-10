@@ -1,16 +1,16 @@
-import { LineItemCollection } from "./line-item/LineItemCollection";
+import { LineItem } from "./line-item/LineItem";
 import { CartPrice } from "./price/CartPrice";
-import { ErrorCollection } from "./error/ErrorCollection";
-import { DeliveryCollection } from "../delivery/DeliveryCollection";
-import { TransactionCollection } from "./transaction/TransactionCollection";
+import { Error } from "./error/Error";
+import { Delivery } from "../delivery/Delivery";
+import { Transaction } from "./transaction/Transaction";
 
-interface Cart {
+export interface Cart {
   name: string;
   token: string;
   price: CartPrice;
-  lineItems: LineItemCollection;
-  errors: ErrorCollection;
-  deliveries: DeliveryCollection;
-  transactions: TransactionCollection;
+  lineItems: LineItem[];
+  errors: Error[];
+  deliveries: Delivery[];
+  transactions: Transaction[];
   modified: boolean;
 }

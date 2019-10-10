@@ -1,14 +1,15 @@
 import { Order } from "./Order";
 import { PaymentMethod } from "../payment/PaymentMethod";
-import { StateMachineStateEntity } from "../../system/state-machine/StateMachineStateEntity";
+import { StateMachineState } from "../../system/state-machine/StateMachineState";
 import { CalculatedPrice } from "../cart/price/CalculatedPrice";
+import { CustomField } from "../../common/CustomField";
 export interface OrderTransaction {
   orderId: string;
   paymentMethodId: string;
   amount: CalculatedPrice;
   paymentMethod: PaymentMethod | null;
   order: Order | null;
-  stateMachineState: StateMachineStateEntity | null;
+  stateMachineState: StateMachineState | null;
   stateId: string;
-  customFields: [] | null;
+  customFields: CustomField[];
 }

@@ -1,8 +1,8 @@
 import { Country } from "../../system/country/Country";
 import { CountryState } from "../../system/country/CountryState";
-import { iCustomerAddress } from "../customer/Address";
+import { CustomerAddress } from "../customer/CustomerAddress";
 export interface ShippingLocation {
   country: Country;
   state: CountryState;
-  address: iCustomerAddress;
+  address: CustomerAddress;
 }

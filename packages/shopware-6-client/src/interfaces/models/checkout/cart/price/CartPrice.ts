@@ -1,10 +1,10 @@
-import { CalculatedTaxCollection } from "../../../system/tax/CalculatedTaxCollection";
-import { TaxRuleCollection } from "../../../system/tax/TaxRuleCollection";
+import { CalculatedTax } from "../../../system/tax/CalculatedTax";
+import { TaxRule } from "../../../system/tax/TaxRule";
 export interface CartPrice {
   netPrice: number;
   totalPrice: number;
-  calculatedTaxes: CalculatedTaxCollection;
-  taxRules: TaxRuleCollection;
+  calculatedTaxes: CalculatedTax[];
+  taxRules: TaxRule[];
   positionPrice: number;
   taxStatus: string;
 }

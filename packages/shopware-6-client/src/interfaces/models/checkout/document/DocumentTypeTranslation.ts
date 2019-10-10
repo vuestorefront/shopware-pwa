@@ -1,7 +1,8 @@
-import { iCustomField } from "../../Common";
+import { CustomField } from "../../common/CustomField";
+
 export interface DocumentTypeTranslation {
   documentTypeId: string;
   documentType: DocumentType | null;
   name: string | null;
-  customFields: iCustomField;
+  customFields: CustomField[];
 }

@@ -1,11 +1,12 @@
-import { ShippingMethodCollection } from "../shipping/ShippingMethodCollection";
-import { EntityCollection } from "../../framework/struct/EntityCollection";
+import { ShippingMethod } from "../shipping/ShippingMethod";
+import { Entity } from "../../common/Entity";
+import { CustomField } from "../../common/CustomField";
 export interface DeliveryTime {
   name: string | null;
   min: number;
   max: number;
   unit: string;
-  shippingMethods: ShippingMethodCollection | null;
-  translations: EntityCollection;
-  customFields: [] | null;
+  shippingMethods: ShippingMethod[] | null;
+  translations: Entity[];
+  customFields: CustomField[];
 }

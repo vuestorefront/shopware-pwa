@@ -1,10 +1,11 @@
 import { Media } from "../../content/media/Media";
 import { Plugin } from "../../framework/plugin/Plugin";
-import { CustomerCollection } from "../customer/CustomerCollection";
-import { SalesChannelCollection } from "../../system/sales-channel/SalesChannelCollection";
+import { Customer } from "../customer/Customer";
+import { SalesChannel } from "../../system/sales-channel/SalesChannel";
 import { Rule } from "../../content/rule/Rule";
-import { PaymentMethodTranslationCollection } from "./PaymentMethodTranslationCollection";
-import { OrderTransactionCollection } from "../order/OrderTransactionCollection";
+import { PaymentMethodTranslation } from "./PaymentMethodTranslation";
+import { OrderTransaction } from "../order/OrderTransaction";
+import { CustomField } from "../../common/CustomField";
 export interface PaymentMethod {
   pluginId: string | null;
   handlerIdentifier: string;
@@ -13,14 +14,14 @@ export interface PaymentMethod {
   position: number;
   active: boolean;
   plugin: Plugin | null;
-  translations: PaymentMethodTranslationCollection | null;
-  orderTransactions: OrderTransactionCollection | null;
-  customers: CustomerCollection | null;
-  salesChannelDefaultAssignments: SalesChannelCollection | null;
+  translations: PaymentMethodTranslation[] | null;
+  orderTransactions: OrderTransaction[] | null;
+  customers: Customer[] | null;
+  salesChannelDefaultAssignments: SalesChannel[] | null;
   availabilityRule: Rule | null;
   availabilityRuleId: string;
   mediaId: string | null;
   media: Media | null;
-  customFields: [] | null;
+  customFields: CustomField[];
   formattedHandlerIDentifier: string;
 }

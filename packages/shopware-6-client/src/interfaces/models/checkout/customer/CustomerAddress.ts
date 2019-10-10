@@ -1,5 +1,5 @@
-import { CustomField } from "../../Common";
 import { Country } from "../../system/country/Country";
+import { CustomField } from "../../common/CustomField";
 
 export interface CustomerAddress {
   customerId: string;
