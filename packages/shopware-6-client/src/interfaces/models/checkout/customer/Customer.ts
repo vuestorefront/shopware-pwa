@@ -6,7 +6,7 @@ import { ShippingAddress } from "./ShippingAddress";
 import { BillingAddress } from "./BillingAddress";
 import { CustomerAddress } from "./CustomerAddress";
 import { Promotion } from "../promotion/Promotion";
-import { TagEntity } from "../../system/tag/Tag";
+import { Tag } from "../../system/tag/Tag";
 import { CustomField } from "../../common/CustomField";
 
 export interface Customer {
@@ -44,7 +44,7 @@ export interface Customer {
   addresses: Array<CustomerAddress>;
   orderCustomers: Array<OrderCustomer> | null;
   autoIncrement: number;
-  tags: TagEntity[] | null;
+  tags: Tag[] | null;
   promotions: Promotion[] | null;
   customFields: CustomField[];
   productReviews: ProductReview[];
