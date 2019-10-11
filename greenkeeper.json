@@ -1,0 +1,10 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "package.json",
+        "packages/shopware-6-client/package.json"
+      ]
+    }
+  }
+}
