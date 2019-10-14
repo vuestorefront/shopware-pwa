@@ -11,6 +11,7 @@ module.exports = {
   coverageDirectory: "coverage",
   coverageReporters: ["html", "lcov", "text"],
   collectCoverageFrom: ["packages/*/src/**/*.ts"],
+  watchPathIgnorePatterns: ["/node_modules/"],
   moduleFileExtensions: ["ts", "tsx", "js", "json"],
   moduleNameMapper: {
     "^@shopware-pwa/(.*?)$": "<rootDir>/packages/$1/src"

@@ -3,7 +3,7 @@ import { Category } from "./Category";
 import { CmsPage } from "../cms/CmsPage";
 import { Product } from "../product/Product";
 import { Entity } from "../../common/Entity";
-import { TagEntity } from "../../system/tag/Tag";
+import { Tag } from "../../system/tag/Tag";
 import { CategoryTranslation } from "./CategoryTranslation";
 import { CustomField } from "../../common/CustomField";
 
@@ -25,7 +25,7 @@ export interface Category extends Entity {
   nestedProducts: Product[] | null;
   afterCategoryId: string | null;
   customFields: CustomField[];
-  tags: TagEntity[] | null;
+  tags: Tag[] | null;
   cmsPageId: string | null;
   cmsPage: CmsPage | null;
   slotConfig: [] | null;

@@ -6,7 +6,7 @@ import { MediaThumbnail } from "./MediaThumbnail";
 import { MediaFolder } from "./MediaFolder";
 import { PropertyGroupOption } from "../property/PropertyGroupOption";
 import { MailTemplateMedia } from "../mail-template/MailTemplateMedia";
-import { TagEntity } from "../../system/tag/Tag";
+import { Tag } from "../../system/tag/Tag";
 import { DocumentBaseConfig } from "../../checkout/document/DocumentBaseConfig";
 import { ShippingMethod } from "../../checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "../../checkout/payment/PaymentMethod";
@@ -44,7 +44,7 @@ export interface Media {
   propertyGroupOptions: PropertyGroupOption[] | null;
   mailTemplateMedia: MailTemplateMedia[] | null;
   customFields: CustomField[];
-  tags: TagEntity | null;
+  tags: Tag | null;
   thumbnailsRo: string | null;
   documentBaseConfigs: DocumentBaseConfig[] | null;
   shippingMethods: ShippingMethod[] | null;

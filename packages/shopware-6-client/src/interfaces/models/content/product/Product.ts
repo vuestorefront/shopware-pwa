@@ -13,7 +13,7 @@ import { ProductManufacturer } from "./ProductManufacturer";
 import { ProductTranslation } from "./ProductTranslation";
 import { PropertyGroupOption } from "../property/PropertyGroupOption";
 import { Category } from "../category/Category";
-import { TagEntity } from "../../system/tag/Tag";
+import { Tag } from "../../system/tag/Tag";
 import { CustomField } from "../../common/CustomField";
 
 export interface Product {
@@ -74,7 +74,7 @@ export interface Product {
   media: ProductMedia[];
   translations: ProductTranslation[];
   categories: Category[];
-  tags: TagEntity[];
+  tags: Tag[];
   properties: PropertyGroupOption[] | null;
   options: PropertyGroupOption[] | null;
   categoriesRo: Category[] | null;
