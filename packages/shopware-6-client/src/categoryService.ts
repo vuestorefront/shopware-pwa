@@ -22,7 +22,7 @@ export interface CategoryService {
 }
 
 const getCategories = async function(): Promise<SearchResult<Category[]>> {
-  const resp = await axios.get(config.endpoint + CATEGORY_ENDPOINT);
+  const resp = await axios.get(config.endpoint + CATEGORY_ENDPOINT());
   return resp.data;
 };
 
