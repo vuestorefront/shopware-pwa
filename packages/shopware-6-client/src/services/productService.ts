@@ -3,6 +3,7 @@ import { config } from "../settings";
 import { getProductEndpoint } from "../endpoints";
 import { SearchResult } from "../interfaces/response/SearchResult";
 import { Product } from "../interfaces/models/content/product/Product";
+import { ParamsConverter } from "../helpers/paramsConverter";
 
 /**
  * Usage example:
@@ -12,14 +13,16 @@ import { Product } from "../interfaces/models/content/product/Product";
  */
 export interface ProductService {
   getProductsIds: () => Promise<SearchResult<string[]>>;
-  getProducts: () => Promise<SearchResult<Product[]>>;
-  getProduct: (productId: string) => Promise<SearchResult<Partial<Product>>>;
+  getProducts: (
+    pagination?: any,
+    sort?: any,
+    filter?: any
+  ) => Promise<SearchResult<Product[]>>;
+  getProduct: (productId: string) => Promise<Product>;
 }
 
 /**
- * Get default amount of products
- *
- * @returns Promise<SearchResult<Product[]>>
+ * @description Get default amount of products
  */
 const getProductsIds = async function(): Promise<SearchResult<string[]>> {
   const resp = await axios.post(
@@ -29,32 +32,32 @@ const getProductsIds = async function(): Promise<SearchResult<string[]>> {
 };
 
 /**
- * Get default amount of products' ids
- *
- * @returns Promise<SearchResult<string[]>>
+ * @description Get default amount of products' ids
  */
-const getProducts = async function(): Promise<SearchResult<Product[]>> {
-  const resp = await axios.get(`${config.endpoint}${getProductEndpoint()}`);
+
+const getProducts = async function(
+  pagination?: any,
+  sort?: any,
+  filters?: any
+): Promise<SearchResult<Product[]>> {
+  const resp = await axios.get(`${config.endpoint}${getProductEndpoint()}`, {
+    params: ParamsConverter.getParams(pagination, sort, filters)
+  });
   return resp.data;
 };
 
 /**
- * Get the product with passed productId
- *
- * @param productId
- * @returns Promise<SearchResult<Partial<Product>>>
+ * @description Get the product with passed productId
  */
-const getProduct = async function(
-  productId: string
-): Promise<SearchResult<Partial<Product>>> {
+const getProduct = async function(productId: string): Promise<Product> {
   const resp = await axios.get(
     `${config.endpoint}${getProductEndpoint()}/${productId}`
   );
-  return resp.data;
+  return resp.data.data;
 };
 
 /**
- * Expose public methods of the service
+ * @description Expose public methods of the service
  */
 export const ProductService: ProductService = {
   getProductsIds,
