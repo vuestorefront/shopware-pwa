@@ -36,8 +36,6 @@ export const CUSTOMER_LOGIN_ENDPOINT = () => `/customer/login`;
 
 export const CUSTOMER_LOGOUT_ENDPOINT = () => `/customer/logout`;
 
-export const CUSTOMER_CURRENT_ORDER_ENDPOINT = () => `/customer/order`;
-
 export const CUSTOMER_ORDER_ENDPOINT = () => `/customer/order`;
 
 // checkout
@@ -62,7 +60,7 @@ export const CHECKOUT_GUEST_ORDER_DETAILS_ENDPOINT = (orderId: string) =>
 
 // context
 
-export const CONTEXT_CURRENCY_ENDPOINT = () => `/currecy`;
+export const CONTEXT_CURRENCY_ENDPOINT = () => `/currency`;
 
 export const CONTEXT_LANGUAGE_ENDPOINT = () => `/language`;
 
@@ -78,4 +76,4 @@ export const CONTEXT_SALUTATION_ENDPOINT = () => `/salutation`;
 
 export const NEWSLETTER_SUBSCRIBE_ENDPOINT = () => `/newsletter/subscrube`;
 
-export const NEWSLETTER_UNSUBSCRIBE_ENDPOINT = () => `/newsletter/unsubscrube`;
+export const NEWSLETTER_UNSUBSCRIBE_ENDPOINT = () => `/newsletter/unsubscribe`;
