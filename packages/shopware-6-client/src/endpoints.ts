@@ -74,6 +74,6 @@ export const CONTEXT_SALUTATION_ENDPOINT = () => `/salutation`;
 
 // newsletter
 
-export const NEWSLETTER_SUBSCRIBE_ENDPOINT = () => `/newsletter/subscrube`;
+export const NEWSLETTER_SUBSCRIBE_ENDPOINT = () => `/newsletter/subscribe`;
 
 export const NEWSLETTER_UNSUBSCRIBE_ENDPOINT = () => `/newsletter/unsubscribe`;
