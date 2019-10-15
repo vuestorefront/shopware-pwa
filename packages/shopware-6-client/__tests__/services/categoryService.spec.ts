@@ -27,6 +27,32 @@ describe("CategoryService", () => {
       }
     });
 
+    it("should return different categories for page 1 and page 2", async () => {
+      try {
+        const searchCriteriaForFirstPage = {
+          page: 1,
+          limit: 5
+        };
+
+        const searchCriteriaForSecondPage = {
+          page: 2,
+          limit: 5
+        };
+
+        const resultFirstPage = await CategoryService.getCategories(
+          searchCriteriaForFirstPage
+        );
+        const resultSecondPage = await CategoryService.getCategories(
+          searchCriteriaForSecondPage
+        );
+        expect(resultFirstPage).not.toBe(resultSecondPage);
+        expect(resultFirstPage).not.toBeNull;
+        expect(resultSecondPage).not.toBeNull;
+      } catch (e) {
+        console.error("Connection problem", e);
+      }
+    });
+
     it("should return a different array of first category sorted by category.name", async () => {
       try {
         const pagination = {
