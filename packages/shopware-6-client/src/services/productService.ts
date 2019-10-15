@@ -1,9 +1,9 @@
-import axios from "axios";
 import { config } from "../settings";
 import { getProductEndpoint } from "../endpoints";
 import { SearchResult } from "../interfaces/response/SearchResult";
 import { Product } from "../interfaces/models/content/product/Product";
 import { ParamsConverter } from "../helpers/paramsConverter";
+import { apiService } from "../apiService";
 
 /**
  * Usage example:
@@ -25,7 +25,7 @@ export interface ProductService {
  * @description Get default amount of products' ids
  */
 const getProductsIds = async function(): Promise<SearchResult<string[]>> {
-  const resp = await axios.post(
+  const resp = await apiService.post(
     `${config.endpoint}/search-ids${getProductEndpoint()}`
   );
   return resp.data;
@@ -40,9 +40,12 @@ const getProducts = async function(
   sort?: any,
   filters?: any
 ): Promise<SearchResult<Product[]>> {
-  const resp = await axios.get(`${config.endpoint}${getProductEndpoint()}`, {
-    params: ParamsConverter.getParams(pagination, sort, filters)
-  });
+  const resp = await apiService.get(
+    `${config.endpoint}${getProductEndpoint()}`,
+    {
+      params: ParamsConverter.getParams(pagination, sort, filters)
+    }
+  );
   return resp.data;
 };
 
@@ -50,7 +53,7 @@ const getProducts = async function(
  * @description Get the product with passed productId
  */
 const getProduct = async function(productId: string): Promise<Product> {
-  const resp = await axios.get(
+  const resp = await apiService.get(
     `${config.endpoint}${getProductEndpoint()}/${productId}`
   );
   return resp.data.data;
