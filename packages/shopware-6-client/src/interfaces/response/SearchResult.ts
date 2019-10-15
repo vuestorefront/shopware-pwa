@@ -1,4 +1,4 @@
 export interface SearchResult<T> {
-  count: number,
-  data: T
+  total: number;
+  data: T;
 }
