@@ -9,3 +9,4 @@ export function reloadConfiguration() {
   apiService.defaults.baseURL = config.endpoint;
   apiService.defaults.headers.common["sw-access-key"] = config.accessToken;
 }
+reloadConfiguration();
