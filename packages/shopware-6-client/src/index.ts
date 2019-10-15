@@ -9,3 +9,4 @@ export function setup(config: ClientSettings = {}): void {
   setupConfig(config);
   reloadConfiguration();
 }
+setup();
