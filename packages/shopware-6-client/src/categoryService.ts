@@ -10,21 +10,7 @@ export interface SearchResult<T> {
   data: T[];
 }
 
-/**
- * Usage example:
- * ```ts
- * import { CategoryService } from "@shopware-pwa/shopware-6-client"
- * ```
- */
-export interface CategoryService {
-  getCategories: () => Promise<SearchResult<Category[]>>;
-}
-
-const getCategories = async function(): Promise<SearchResult<Category[]>> {
+export async function getCategories(): Promise<SearchResult<Category[]>> {
   const resp = await apiService.get(getCategoryEndpoint());
   return resp.data;
-};
-
-export const CategoryService: CategoryService = {
-  getCategories
-};
+}
