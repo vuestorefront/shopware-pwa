@@ -1,4 +1,4 @@
-import { ParamsConverter } from "../../src/index";
+import { ParamsConverter } from "../../src/helpers/paramsConverter";
 
 describe("ParamsConverter", () => {
   describe("getParams", () => {
