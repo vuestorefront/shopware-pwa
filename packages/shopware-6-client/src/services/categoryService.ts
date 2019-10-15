@@ -1,5 +1,5 @@
-import { getCategoryEndpoint } from "./endpoints";
-import { apiService } from "./apiService";
+import { getCategoryEndpoint } from "../endpoints";
+import { apiService } from "../apiService";
 
 export interface Category {
   name: String;

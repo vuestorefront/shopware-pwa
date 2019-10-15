@@ -1,4 +1,4 @@
-import { ProductService } from "../../src/index";
+import { ProductService } from "@shopware-pwa/shopware-6-client";
 
 describe("ProductService", () => {
   describe("getProductsIds", () => {
