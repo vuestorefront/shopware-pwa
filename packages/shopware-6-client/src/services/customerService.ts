@@ -3,6 +3,7 @@ import { config } from "../settings";
 import { CUSTOMER_ENDPOINT } from "../endpoints";
 import { BillingAddress } from "../interfaces/models/checkout/customer/BillingAddress";
 import { ShippingAddress } from "../interfaces/models/checkout/customer/ShippingAddress";
+import { Customer } from "../interfaces/models/checkout/customer/Customer";
 
 interface CustomerLoginParam {
   username: string;
@@ -41,10 +42,11 @@ interface CustomerRegisterResponse {
  */
 export interface CustomerService {
   login: (params: CustomerLoginParam) => Promise<CustomerLoginResponse>;
-  logout: (contextToken?: string) => Promise<null>;
+  logout: (contextToken: string) => Promise<null>;
   register: (
     params: CustomerRegisterParam
   ) => Promise<CustomerRegisterResponse>;
+  getCustomer: (contextToken: string) => Promise<Customer>;
 }
 
 /**
@@ -91,10 +93,24 @@ const logout = async function(contextToken?: string): Promise<null> {
 };
 
 /**
+ * @description End up the session
+ */
+const getCustomer = async function(contextToken: string): Promise<Customer> {
+  const resp = await axios.get(`${config.endpoint}${CUSTOMER_ENDPOINT}`, {
+    headers: {
+      /** TODO: move into different layer if created */
+      "sw-context-token": contextToken
+    }
+  });
+  return resp.data.data;
+};
+
+/**
  * @description Expose public methods of the service
  */
 export const CustomerService: CustomerService = {
   register,
   login,
-  logout
+  logout,
+  getCustomer
 };

@@ -98,4 +98,35 @@ describe("CustomerService", () => {
       }
     });
   });
+  describe("getCustomer", () => {
+    it("should return customer related to the current context with basic fields", async () => {
+      try {
+        /** 1st step - login */
+        const loginResult = await CustomerService.login(loginCredentials);
+        const currentContextToken = loginResult["sw-context-token"];
+        /** 2nd step - get the details */
+        const customerResponse = await CustomerService.getCustomer(
+          currentContextToken
+        );
+        expect(customerResponse).toHaveProperty("salutationId");
+        expect(customerResponse).toHaveProperty("firstName");
+        expect(customerResponse).toHaveProperty("lastName");
+        expect(customerResponse).toHaveProperty("email");
+        expect(customerResponse).toHaveProperty("defaultBillingAddress");
+        expect(customerResponse.email).toEqual(loginCredentials.username);
+      } catch (e) {
+        console.error("Connection problem", e);
+      }
+    });
+    it("should throw 403 when token is invalid", async () => {
+      try {
+        /** 1st step - login */
+        const currentContextToken = "some-fake-token";
+        /** 2nd step - get the details */
+        await CustomerService.getCustomer(currentContextToken);
+      } catch (e) {
+        e.response && expect(e.response.status).toEqual(403);
+      }
+    });
+  });
 });
