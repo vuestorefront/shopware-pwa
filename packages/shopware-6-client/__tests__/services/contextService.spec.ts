@@ -26,7 +26,7 @@ describe("ContextService", () => {
   describe("getCountries", () => {
     it("should return all countries", async () => {
       try {
-        const result = await ContextService.getLanguages();
+        const result = await ContextService.getCountries();
         expect(result.data).toHaveLength(2);
       } catch (e) {
         console.error("Connection problem", e);
