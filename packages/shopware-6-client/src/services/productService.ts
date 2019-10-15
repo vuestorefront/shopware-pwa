@@ -22,7 +22,7 @@ export interface ProductService {
 }
 
 /**
- * @description Get default amount of products
+ * @description Get default amount of products' ids
  */
 const getProductsIds = async function(): Promise<SearchResult<string[]>> {
   const resp = await axios.post(
@@ -32,7 +32,7 @@ const getProductsIds = async function(): Promise<SearchResult<string[]>> {
 };
 
 /**
- * @description Get default amount of products' ids
+ * @description Get default amount of products
  */
 
 const getProducts = async function(
