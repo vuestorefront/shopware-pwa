@@ -5,11 +5,15 @@ jest.mock("../../src/apiService");
 const mockedAxios = apiService as jest.Mocked<typeof apiService>;
 
 describe("CategoryService - getCategories", () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
   it("should return array with categories", async () => {
-    mockedAxios.get.mockResolvedValue({ data: { total: 22 } });
+    mockedAxios.get.mockResolvedValueOnce({ data: { total: 22 } });
 
     const result = await getCategories();
+    expect(mockedAxios.get).toBeCalledTimes(1);
+    expect(mockedAxios.get).toBeCalledWith("/category");
     expect(result.total).toEqual(22);
-    expect(mockedAxios.get).toHaveBeenCalledTimes(1);
   });
 });

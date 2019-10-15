@@ -1,33 +1,20 @@
-import { config } from "../settings";
-import { getProductEndpoint } from "../endpoints";
+import {
+  getProductEndpoint,
+  getProductDetailsEndpoint,
+  getProductsIdsEndpoint
+} from "../endpoints";
 import { SearchResult } from "../interfaces/response/SearchResult";
 import { Product } from "../interfaces/models/content/product/Product";
 import { ParamsConverter } from "../helpers/paramsConverter";
 import { apiService } from "../apiService";
 
 /**
- * Usage example:
- * ```ts
- * import { ProductService } from '@shopware-pwa/shopware-6-client'
- * ```
- */
-export interface ProductService {
-  getProductsIds: () => Promise<SearchResult<string[]>>;
-  getProducts: (
-    pagination?: any,
-    sort?: any,
-    filter?: any
-  ) => Promise<SearchResult<Product[]>>;
-  getProduct: (productId: string) => Promise<Product>;
-}
-
-/**
  * @description Get default amount of products' ids
  */
-const getProductsIds = async function(): Promise<SearchResult<string[]>> {
-  const resp = await apiService.post(
-    `${config.endpoint}/search-ids${getProductEndpoint()}`
-  );
+export const getProductsIds = async function(): Promise<
+  SearchResult<string[]>
+> {
+  const resp = await apiService.post(getProductsIdsEndpoint());
   return resp.data;
 };
 
@@ -35,35 +22,21 @@ const getProductsIds = async function(): Promise<SearchResult<string[]>> {
  * @description Get default amount of products
  */
 
-const getProducts = async function(
+export const getProducts = async function(
   pagination?: any,
   sort?: any,
   filters?: any
 ): Promise<SearchResult<Product[]>> {
-  const resp = await apiService.get(
-    `${config.endpoint}${getProductEndpoint()}`,
-    {
-      params: ParamsConverter.getParams(pagination, sort, filters)
-    }
-  );
+  const resp = await apiService.get(getProductEndpoint(), {
+    params: ParamsConverter.getParams(pagination, sort, filters)
+  });
   return resp.data;
 };
 
 /**
  * @description Get the product with passed productId
  */
-const getProduct = async function(productId: string): Promise<Product> {
-  const resp = await apiService.get(
-    `${config.endpoint}${getProductEndpoint()}/${productId}`
-  );
+export async function getProduct(productId: string): Promise<Product> {
+  const resp = await apiService.get(getProductDetailsEndpoint(productId));
   return resp.data.data;
-};
-
-/**
- * @description Expose public methods of the service
- */
-export const ProductService: ProductService = {
-  getProductsIds,
-  getProducts,
-  getProduct
-};
+}
