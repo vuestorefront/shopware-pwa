@@ -2,7 +2,7 @@ import { ClientSettings, setupConfig } from "./settings";
 import { reloadConfiguration } from "./apiService";
 
 export { config } from "./settings";
-export { Category, CategoryService } from "./categoryService";
+export { CategoryService } from "./services/categoryService";
 export { ProductService } from "./services/productService";
 
 export function setup(config: ClientSettings = {}): void {
