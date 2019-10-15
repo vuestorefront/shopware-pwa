@@ -1,6 +1,6 @@
 import axios from "axios";
 import { config } from "../settings";
-import { CUSTOMER_ENDPOINT } from "../endpoints";
+import { getCustomerEndpoint } from "../endpoints";
 import { BillingAddress } from "../interfaces/models/checkout/customer/BillingAddress";
 import { ShippingAddress } from "../interfaces/models/checkout/customer/ShippingAddress";
 import { Customer } from "../interfaces/models/checkout/customer/Customer";
@@ -56,7 +56,7 @@ const register = async function(
   params: CustomerRegisterParam
 ): Promise<CustomerRegisterResponse> {
   const resp = await axios.post(
-    `${config.endpoint}${CUSTOMER_ENDPOINT}`,
+    `${config.endpoint}${getCustomerEndpoint()}`,
     params
   );
   return resp.data;
@@ -69,7 +69,7 @@ const login = async function(
   params: CustomerLoginParam
 ): Promise<CustomerLoginResponse> {
   const resp = await axios.post(
-    `${config.endpoint}${CUSTOMER_ENDPOINT}/login`,
+    `${config.endpoint}${getCustomerEndpoint()}/login`,
     params
   );
   return resp.data;
@@ -80,7 +80,7 @@ const login = async function(
  */
 const logout = async function(contextToken?: string): Promise<null> {
   const resp = await axios.post(
-    `${config.endpoint}${CUSTOMER_ENDPOINT}/logout`,
+    `${config.endpoint}${getCustomerEndpoint()}/logout`,
     null,
     {
       headers: {
@@ -96,7 +96,7 @@ const logout = async function(contextToken?: string): Promise<null> {
  * @description End up the session
  */
 const getCustomer = async function(contextToken: string): Promise<Customer> {
-  const resp = await axios.get(`${config.endpoint}${CUSTOMER_ENDPOINT}`, {
+  const resp = await axios.get(`${config.endpoint}${getCustomerEndpoint()}`, {
     headers: {
       /** TODO: move into different layer if created */
       "sw-context-token": contextToken
