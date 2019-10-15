@@ -1,79 +1,79 @@
 // category
 
-export const CATEGORY_ENDPOINT = () => `/category`;
+export const getCategoryEndpoint = () => `/category`;
 
-export const CATEGORY_DETAILS_ENDPOINT = (categoryId: string) =>
+export const getCategoryDetailsEndpoint = (categoryId: string) =>
   `/category/${categoryId}`;
 
 // product
 
-export const PRODUCT_ENDPOINT = () => `/product`;
+export const getProductEndpoint = () => `/product`;
 
-export const PRODUCT_DETAILS_ENDPOINT = (productId: string) =>
+export const getProductDetailsEndpoint = (productId: string) =>
   `/product/${productId}`;
 
 // customer
 
-export const CUSTOMER_ADDRESS_ENDPOINT = () => `/customer/address`;
+export const getCustomerAddressEndpoint = () => `/customer/address`;
 
-export const CUSTOMER_ADDRESS_DETAILS_ENDPOINT = (addressId: string) =>
+export const getCustomerAddressDetailsEndpoint = (addressId: string) =>
   `/customer/address/${addressId}`;
 
-export const CUSTOMER_ADDRESS_SET_DEFAULT_SHIPPING_ENDPOINT = (
+export const getCustomerAddressSetDefaultShippingEndpoint = (
   addressId: string
 ) => `/customer/address/${addressId}/default-shipping`;
 
-export const CUSTOMER_ADDRESS_SET_DEFAULT_BILLING_ENDPOINT = (
+export const getCustomerAddressSetDefaultBillingEndpoint = (
   addressId: string
 ) => `/customer/address/${addressId}/default-billing`;
 
-export const CUSTOMER_ENDPOINT = () => `/customer`;
+export const getCustomerEndpoint = () => `/customer`;
 
-export const CUSTOMER_DETAILS_ENDPOINT = (customerId: string) =>
+export const getCustomerDetailsEndpoint = (customerId: string) =>
   `/customer/${customerId}`;
 
-export const CUSTOMER_LOGIN_ENDPOINT = () => `/customer/login`;
+export const getCustomerLoginEndpoint = () => `/customer/login`;
 
-export const CUSTOMER_LOGOUT_ENDPOINT = () => `/customer/logout`;
+export const getCustomerLogoutEndpoint = () => `/customer/logout`;
 
-export const CUSTOMER_ORDER_ENDPOINT = () => `/customer/order`;
+export const getCustomerOrderEndpoint = () => `/customer/order`;
 
 // checkout
 
-export const CHECKOUT_CART_ENDPOINT = () => `/checkout/cart`;
+export const getCheckoutCartEndpoint = () => `/checkout/cart`;
 
-export const CHECKOUT_CART_PRODUCT_ENDPOINT = (productId: string) =>
+export const getCheckoutCartProductEndpoint = (productId: string) =>
   `/checkout/cart/${productId}`;
 
-export const CHECKOUT_CART_LINE_ITEM_ENDPOINT = (lineItemId: string) =>
+export const getCheckoutCartLineItemEndpoint = (lineItemId: string) =>
   `/checkout/cart/line-item/${lineItemId}`;
 
-export const CHECKOUT_ORDER_ENDPOINT = () => `/checkout/order`;
+export const getCheckoutOrderEndpoint = () => `/checkout/order`;
 
-export const CHECKOUT_GUEST_ORDER_ENDPOINT = () => `/checkout/guest-order`;
+export const getCheckoutGuestOrderEndpoint = () => `/checkout/guest-order`;
 
-export const CHECKOUT_ORDER_PAY_ENDPOINT = (orderId: string) =>
+export const getCheckoutOrderPayEndpoint = (orderId: string) =>
   `/checkout/order/${orderId}/pay`;
 
-export const CHECKOUT_GUEST_ORDER_DETAILS_ENDPOINT = (orderId: string) =>
+export const getCheckoutGuestOrderDetailsEndpoint = (orderId: string) =>
   `/checkout/guest-order/${orderId}`;
 
 // context
 
-export const CONTEXT_CURRENCY_ENDPOINT = () => `/currency`;
+export const getContextCurrencyEndpoint = () => `/currency`;
 
-export const CONTEXT_LANGUAGE_ENDPOINT = () => `/language`;
+export const getContextLanguageEndpoint = () => `/language`;
 
-export const CONTEXT_COUNTRY_ENDPOINT = () => `/country`;
+export const getContextCountryEndpoint = () => `/country`;
 
-export const CONTEXT_PAYMENT_METHOD_ENDPOINT = () => `/payment-method`;
+export const getContextPaymentMethodEndpoint = () => `/payment-method`;
 
-export const CONTEXT_SHIPPING_METHOD_ENDPOINT = () => `/shipping-method`;
+export const getContextShippingMethodEndpoint = () => `/shipping-method`;
 
-export const CONTEXT_SALUTATION_ENDPOINT = () => `/salutation`;
+export const getContextSalutationEndpoint = () => `/salutation`;
 
 // newsletter
 
-export const NEWSLETTER_SUBSCRIBE_ENDPOINT = () => `/newsletter/subscribe`;
+export const getNewsletterSubscribeEndpoint = () => `/newsletter/subscribe`;
 
-export const NEWSLETTER_UNSUBSCRIBE_ENDPOINT = () => `/newsletter/unsubscribe`;
+export const getNewsletterUnsubscribeEndpoint = () => `/newsletter/unsubscribe`;
