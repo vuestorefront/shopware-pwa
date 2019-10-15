@@ -1,4 +1,3 @@
-import { config } from "./settings";
 import { getCategoryEndpoint } from "./endpoints";
 import { apiService } from "./apiService";
 
@@ -22,7 +21,7 @@ export interface CategoryService {
 }
 
 const getCategories = async function(): Promise<SearchResult<Category[]>> {
-  const resp = await apiService.get(config.endpoint + getCategoryEndpoint());
+  const resp = await apiService.get(getCategoryEndpoint());
   return resp.data;
 };
 
