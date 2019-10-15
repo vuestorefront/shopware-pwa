@@ -5,6 +5,7 @@ export { config } from "./settings";
 
 export * from "./services/categoryService";
 export * from "./services/productService";
+export * from "./services/contextService";
 
 export function setup(config: ClientSettings = {}): void {
   setupConfig(config);
