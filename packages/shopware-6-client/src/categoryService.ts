@@ -1,6 +1,6 @@
 import axios from "axios";
 import { config } from "./settings";
-import { CATEGORY_ENDPOINT } from "./endpoints";
+import { getCategoryEndpoint } from "./endpoints";
 
 export interface Category {
   name: String;
@@ -22,7 +22,7 @@ export interface CategoryService {
 }
 
 const getCategories = async function(): Promise<SearchResult<Category[]>> {
-  const resp = await axios.get(config.endpoint + CATEGORY_ENDPOINT);
+  const resp = await axios.get(config.endpoint + getCategoryEndpoint());
   return resp.data;
 };
 
