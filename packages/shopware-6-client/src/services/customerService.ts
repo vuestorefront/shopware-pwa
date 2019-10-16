@@ -1,9 +1,10 @@
-import axios from "axios";
 import { config } from "../settings";
-import { getCustomerEndpoint } from "../endpoints";
+import { getCustomerEndpoint, getCustomerAddressEndpoint } from "../endpoints";
 import { BillingAddress } from "../interfaces/models/checkout/customer/BillingAddress";
 import { ShippingAddress } from "../interfaces/models/checkout/customer/ShippingAddress";
 import { Customer } from "../interfaces/models/checkout/customer/Customer";
+import { apiService } from "../apiService";
+import { CustomerAddress } from "../interfaces/models/checkout/customer/CustomerAddress";
 
 interface CustomerLoginParam {
   username: string;
@@ -47,6 +48,7 @@ export interface CustomerService {
     params: CustomerRegisterParam
   ) => Promise<CustomerRegisterResponse>;
   getCustomer: (contextToken: string) => Promise<Customer>;
+  getCustomerAddresses: (contextToken: string) => Promise<CustomerAddress[]>;
 }
 
 /**
@@ -55,7 +57,7 @@ export interface CustomerService {
 const register = async function(
   params: CustomerRegisterParam
 ): Promise<CustomerRegisterResponse> {
-  const resp = await axios.post(
+  const resp = await apiService.post(
     `${config.endpoint}${getCustomerEndpoint()}`,
     params
   );
@@ -68,7 +70,7 @@ const register = async function(
 const login = async function(
   params: CustomerLoginParam
 ): Promise<CustomerLoginResponse> {
-  const resp = await axios.post(
+  const resp = await apiService.post(
     `${config.endpoint}${getCustomerEndpoint()}/login`,
     params
   );
@@ -79,7 +81,7 @@ const login = async function(
  * @description End up the session
  */
 const logout = async function(contextToken?: string): Promise<null> {
-  const resp = await axios.post(
+  const resp = await apiService.post(
     `${config.endpoint}${getCustomerEndpoint()}/logout`,
     null,
     {
@@ -96,12 +98,33 @@ const logout = async function(contextToken?: string): Promise<null> {
  * @description End up the session
  */
 const getCustomer = async function(contextToken: string): Promise<Customer> {
-  const resp = await axios.get(`${config.endpoint}${getCustomerEndpoint()}`, {
-    headers: {
-      /** TODO: move into different layer if created */
-      "sw-context-token": contextToken
+  const resp = await apiService.get(
+    `${config.endpoint}${getCustomerEndpoint()}`,
+    {
+      headers: {
+        /** TODO: move into different layer if created */
+        "sw-context-token": contextToken
+      }
     }
-  });
+  );
+  return resp.data.data;
+};
+
+/**
+ * @description Get all customer's addresses
+ */
+const getCustomerAddresses = async function(
+  contextToken: string
+): Promise<CustomerAddress[]> {
+  const resp = await apiService.get(
+    `${config.endpoint}${getCustomerAddressEndpoint()}`,
+    {
+      headers: {
+        /** TODO: move into different layer if created */
+        "sw-context-token": contextToken
+      }
+    }
+  );
   return resp.data.data;
 };
 
@@ -112,5 +135,6 @@ export const CustomerService: CustomerService = {
   register,
   login,
   logout,
-  getCustomer
+  getCustomer,
+  getCustomerAddresses
 };

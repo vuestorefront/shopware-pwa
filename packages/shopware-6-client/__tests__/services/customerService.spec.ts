@@ -129,4 +129,22 @@ describe("CustomerService", () => {
       }
     });
   });
+  describe("getCustomerAddresses", () => {
+    it("should return array of addresses", async () => {
+      try {
+        /** 1st step - login */
+        const loginResult = await CustomerService.login(loginCredentials);
+        const currentContextToken = loginResult["sw-context-token"];
+        console.log(currentContextToken);
+        /** 2nd step - get the data */
+        const result = await CustomerService.getCustomerAddresses(
+          currentContextToken
+        );
+
+        expect(result).toBeInstanceOf("Object");
+      } catch (e) {
+        console.error("Connection problem", e);
+      }
+    });
+  });
 });
