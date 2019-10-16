@@ -12,6 +12,8 @@ export const getProductEndpoint = () => `/product`;
 export const getProductDetailsEndpoint = (productId: string) =>
   `/product/${productId}`;
 
+export const getProductsIdsEndpoint = () => `/search-ids/product`;
+
 // customer
 
 export const getCustomerAddressEndpoint = () => `/customer/address`;

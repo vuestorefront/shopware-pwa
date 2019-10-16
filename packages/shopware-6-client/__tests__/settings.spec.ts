@@ -1,4 +1,4 @@
-import { config, setup } from "../src/index";
+import { config, setup } from "@shopware-pwa/shopware-6-client";
 
 const DEFAULT_ENDPOINT =
   "https://shopware-2.vuestorefront.io/sales-channel-api/v1";
