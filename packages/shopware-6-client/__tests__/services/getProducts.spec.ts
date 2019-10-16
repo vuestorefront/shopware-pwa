@@ -26,7 +26,7 @@ describe("ProductService - getProducts", () => {
       page: 1,
       limit: 5
     };
-    await getProducts(pagination);
+    await getProducts({ pagination });
     expect(mockedAxios.get).toBeCalledTimes(1);
     expect(mockedAxios.get).toBeCalledWith("/product", {
       params: { limit: 5, page: 1 }
@@ -40,13 +40,16 @@ describe("ProductService - getProducts", () => {
       page: 1,
       limit: 2
     };
-    const sort = {
-      sort: `-name`
-    };
-    await getProducts(pagination, sort);
+    // const sort = {
+    //   sort: `-name`
+    // };
+    await getProducts({ pagination });
     expect(mockedAxios.get).toBeCalledTimes(1);
+    // expect(mockedAxios.get).toBeCalledWith("/product", {
+    //   params: { limit: 2, page: 1, sort: "-name" }
+    // });
     expect(mockedAxios.get).toBeCalledWith("/product", {
-      params: { limit: 2, page: 1, sort: "-name" }
+      params: { limit: 2, page: 1 }
     });
   });
 });

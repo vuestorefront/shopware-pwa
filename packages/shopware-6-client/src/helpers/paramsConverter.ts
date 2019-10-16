@@ -1,3 +1,5 @@
+import { SearchCriteria } from "../interfaces/search/SearchCriteria";
+
 export interface Params {
   page?: number;
   limit?: number;
@@ -5,34 +7,25 @@ export interface Params {
   filter?: any;
 }
 
-export interface ParamsConverter {
-  getParams: (pagination?: any, sort?: any, filter?: any) => Params | null;
-}
 /**
  * @description Combines parameters into one object
  */
-const getParams = (
-  pagination?: any,
-  sort?: any,
-  filter?: any
-): Params | null => {
+export const getParams = (searchCriteria?: SearchCriteria): Params | null => {
   let params = {};
 
-  if (pagination) {
-    params = Object.assign(params, pagination);
+  if (!searchCriteria) return params;
+
+  if (searchCriteria.pagination) {
+    params = Object.assign(params, searchCriteria.pagination);
   }
 
-  if (sort) {
-    params = Object.assign(params, sort);
+  // if (sort) {
+  //   params = Object.assign(params, sort);
+  // }
+
+  if (searchCriteria.filters) {
+    params = Object.assign(params, searchCriteria.filters);
   }
 
-  if (filter) {
-    params = Object.assign(params, filter);
-  }
-
-  return pagination || sort || filter ? params : null;
-};
-
-export const ParamsConverter: ParamsConverter = {
-  getParams
+  return params;
 };
