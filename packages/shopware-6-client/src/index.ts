@@ -2,6 +2,7 @@ import { ClientSettings, setupConfig } from "./settings";
 import { reloadConfiguration } from "./apiService";
 
 export { config } from "./settings";
+
 export * from "./services/categoryService";
 export * from "./services/productService";
 

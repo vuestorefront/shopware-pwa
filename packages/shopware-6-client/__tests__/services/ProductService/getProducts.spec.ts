@@ -1,7 +1,7 @@
 import { getProducts } from "@shopware-pwa/shopware-6-client";
-import { apiService } from "../../src/apiService";
+import { apiService } from "../../../src/apiService";
 
-jest.mock("../../src/apiService");
+jest.mock("../../../src/apiService");
 const mockedAxios = apiService as jest.Mocked<typeof apiService>;
 
 describe("ProductService - getProducts", () => {
