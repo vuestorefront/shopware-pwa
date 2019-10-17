@@ -1,5 +1,6 @@
 import { getProducts } from "@shopware-pwa/shopware-6-client";
 import { apiService } from "../../../src/apiService";
+import { Sort } from "packages/shopware-6-client/src/interfaces/search/SearchCriteria";
 
 jest.mock("../../../src/apiService");
 const mockedAxios = apiService as jest.Mocked<typeof apiService>;
@@ -40,16 +41,14 @@ describe("ProductService - getProducts", () => {
       page: 1,
       limit: 2
     };
-    // const sort = {
-    //   sort: `-name`
-    // };
-    await getProducts({ pagination });
+    const sort: Sort = {
+      field: `name`,
+      desc: true
+    };
+    await getProducts({ pagination, sort });
     expect(mockedAxios.get).toBeCalledTimes(1);
-    // expect(mockedAxios.get).toBeCalledWith("/product", {
-    //   params: { limit: 2, page: 1, sort: "-name" }
-    // });
     expect(mockedAxios.get).toBeCalledWith("/product", {
-      params: { limit: 2, page: 1 }
+      params: { limit: 2, page: 1, sort: "-name" }
     });
   });
 });

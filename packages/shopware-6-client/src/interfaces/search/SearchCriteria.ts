@@ -4,7 +4,7 @@ import { Association } from "./Association";
 import { Aggregation } from "./Aggregation";
 import { TotalCountMode } from "./TotalCountMode";
 
-interface Sort {
+export interface Sort {
   field: string;
   desc?: boolean;
 }
