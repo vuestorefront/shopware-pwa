@@ -1,3 +1,3 @@
 export interface UpdateContextResponse {
-  swContextToken: string;
+  contextToken: string;
 }

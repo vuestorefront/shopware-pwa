@@ -8,5 +8,6 @@ export const apiService = axios.create({
 export function reloadConfiguration() {
   apiService.defaults.baseURL = config.endpoint;
   apiService.defaults.headers.common["sw-access-key"] = config.accessToken;
+  apiService.defaults.headers.common["sw-context-token"] = config.contextToken;
 }
 reloadConfiguration();

@@ -1,6 +1,7 @@
 export interface ClientSettings {
   endpoint?: string;
   accessToken?: string;
+  contextToken?: string;
 }
 
 const defaultConfig: ClientSettings = {
@@ -15,6 +16,10 @@ const setupConfig = function(config: ClientSettings = {}): void {
 };
 setupConfig();
 
+const updateConfig = function(config: ClientSettings = {}): void {
+  clientConfig = Object.assign(clientConfig, config);
+};
+
 const config: ClientSettings = clientConfig;
 
-export { config, setupConfig };
+export { config, setupConfig, updateConfig };

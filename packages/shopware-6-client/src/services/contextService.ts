@@ -15,18 +15,15 @@ import { Language } from "../interfaces/models/framework/language/Language";
 import { SearchResult } from "../interfaces/response/SearchResult";
 import { UpdateContextParams } from "../interfaces/request/UpdateContextParams";
 import { UpdateContextResponse } from "../interfaces/response/UpdateContextResponse";
+import { update } from "..";
 
 async function updateContext(
-  contextToken: string | null,
   params: UpdateContextParams
 ): Promise<UpdateContextResponse> {
-  const resp = contextToken
-    ? await apiService.patch(getContextEndpoint(), params, {
-        headers: { "sw-context-token": contextToken }
-      })
-    : await apiService.patch(getContextEndpoint(), params, undefined);
-
-  return resp.data;
+  const resp = await apiService.patch(getContextEndpoint(), params);
+  const contextToken = resp.data["sw-context-token"];
+  update({ contextToken });
+  return { contextToken };
 }
 
 export async function getAvailableCurrencies(): Promise<
@@ -38,11 +35,10 @@ export async function getAvailableCurrencies(): Promise<
 }
 
 export async function setCurrentCurrency(
-  contextToken: string | null,
   newCurrencyID: string
 ): Promise<UpdateContextResponse> {
   let params = { currencyId: newCurrencyID };
-  const resp = await updateContext(contextToken, params);
+  const resp = await updateContext(params);
 
   return resp;
 }
@@ -56,11 +52,10 @@ export async function getAvailableLanguages(): Promise<
 }
 
 export async function setCurrentLanguage(
-  contextToken: string | null,
   newLanguageId: string
 ): Promise<UpdateContextResponse> {
   let params = { languageId: newLanguageId };
-  const resp = await updateContext(contextToken, params);
+  const resp = await updateContext(params);
 
   return resp;
 }
@@ -82,11 +77,10 @@ export async function getAvailablePaymentMethods(): Promise<
 }
 
 export async function setCurrentPaymentMethod(
-  contextToken: string | null,
   newPaymentMethodId: string
 ): Promise<UpdateContextResponse> {
   let params = { paymentMethodId: newPaymentMethodId };
-  const resp = await updateContext(contextToken, params);
+  const resp = await updateContext(params);
 
   return resp;
 }
@@ -100,11 +94,10 @@ export async function getAvailableShippingMethods(): Promise<
 }
 
 export async function setCurrentShippingMethod(
-  contextToken: string | null,
   newShippingMethodId: string
 ): Promise<UpdateContextResponse> {
   let params = { shippingMethodId: newShippingMethodId };
-  const resp = await updateContext(contextToken, params);
+  const resp = await updateContext(params);
 
   return resp;
 }
