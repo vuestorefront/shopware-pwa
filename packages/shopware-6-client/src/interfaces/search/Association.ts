@@ -1,10 +1,12 @@
 import { SearchFilter } from "./SearchFilter";
 
-/**
- * @param name for instance `product.media.url` or something nested
- * @param filters nested filter on association
- */
 export interface Association {
+  /**
+   * for instance `product.media.url` or something nested
+   */
   name: string;
+  /**
+   * nested filter on association
+   */
   filters?: SearchFilter[];
 }
