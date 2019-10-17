@@ -63,7 +63,11 @@ interface ContextService {
   getLanguages: () => Promise<SearchResult<Language[]>>;
   getCountries: () => Promise<SearchResult<Country[]>>;
   getPaymentMethods: () => Promise<SearchResult<PaymentMethod[]>>;
-  getShippingMethods: () => Promise<SearchResult<ShippingMethod[]>>;
+  getAvailableCurrencies: () => Promise<SearchResult<Currency[]>>;
+  getAvailableLanguages: () => Promise<SearchResult<Language[]>>;
+  getAvailableCountries: () => Promise<SearchResult<Country[]>>;
+  getAvailablePaymentMethods: () => Promise<SearchResult<PaymentMethod[]>>;
+  getAvailableShippingMethods: () => Promise<SearchResult<ShippingMethod[]>>;
 }
 
 export const ContextService: ContextService = {
