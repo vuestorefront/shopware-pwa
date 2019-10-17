@@ -5,7 +5,7 @@ import {
 } from "../endpoints";
 import { SearchResult } from "../interfaces/response/SearchResult";
 import { Product } from "../interfaces/models/content/product/Product";
-import { getParams } from "../helpers/paramsConverter";
+import { convertSearchCriteria } from "../helpers/searchConverter";
 import { apiService } from "../apiService";
 import { SearchCriteria } from "../interfaces/search/SearchCriteria";
 
@@ -27,7 +27,7 @@ export const getProducts = async function(
   searchCriteria?: SearchCriteria
 ): Promise<SearchResult<Product[]>> {
   const resp = await apiService.get(`${getProductEndpoint()}`, {
-    params: getParams(searchCriteria)
+    params: convertSearchCriteria(searchCriteria)
   });
   return resp.data;
 };

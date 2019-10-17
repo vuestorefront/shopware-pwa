@@ -1,0 +1,79 @@
+import { SearchCriteria } from "../interfaces/search/SearchCriteria";
+import { SearchFilter } from "../interfaces/search/SearchFilter";
+
+export interface ShopwareParams {
+  page?: number;
+  limit?: number;
+  sort?: string;
+  filter?: SearchFilter[];
+}
+// simple
+// const equals = {
+//   type: "equals",
+//   field: string,
+//   value: string | number
+// }
+
+// const contains = {
+//   type: "contains",
+//   field: string,
+//   value: string | number
+// }
+
+// const equalsAny = {
+//   type: "equalsAny",
+//   field: string,
+//   value: string // "wartosc|wartosc2|wartosc3"
+// }
+
+// interface range {
+//   type: string // "range",
+//   field: string,
+//   parameters: {
+//     lt?: string|number
+//     gt?: string|number
+//     lte?:  string|number
+//     gte?: string|number
+//   }
+// }
+
+// advanced
+// const not = {
+//   type: "not",
+//   operator: "AND" | "OR" | "XOR"
+//   queries: Array[ShopwareFilter]
+// }
+
+// const multi = {
+//   type: "multi",
+//   operator: "AND" | "OR" | "XOR"
+//   queries: Array[ShopwareFilter]
+// }
+
+// interface ShopwareSort { //?sort=-field
+
+// }
+
+export const convertSearchCriteria = (
+  searchCriteria?: SearchCriteria
+): ShopwareParams => {
+  let params: ShopwareParams = {};
+
+  if (!searchCriteria) return params;
+  const { filters, sort } = searchCriteria;
+
+  if (searchCriteria.pagination) {
+    params = Object.assign(params, searchCriteria.pagination);
+  }
+
+  if (sort) {
+    let prefix = sort.desc ? "-" : "";
+    params.sort = `${prefix}${sort.field}`;
+  }
+
+  if (filters && filters.length) {
+    params.filter = filters;
+  }
+
+  return params;
+};

@@ -4,17 +4,18 @@ import { Association } from "./Association";
 import { Aggregation } from "./Aggregation";
 import { TotalCountMode } from "./TotalCountMode";
 
+interface Sort {
+  field: string;
+  desc?: boolean;
+}
 export interface SearchCriteria {
   filters?: SearchFilter[];
   pagination?: Pagination;
-  // sort?: Sort[];
-  // term?: Term;
+  sort?: Sort;
+  term?: string;
   configuration?: {
-    association?: Association[];
-    aggregation?: Aggregation[];
+    associations?: Association[];
+    aggregations?: Aggregation[];
     totalCountMode?: TotalCountMode;
   };
 }
-
-// examples
-// {{shopware-domain}}/sales-channel-api/v1/category?associations[products][]&associations[tags][]&sort=level&sort=-name&limit=10&page=1&filter[name]=Shoes
