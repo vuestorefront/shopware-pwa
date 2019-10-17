@@ -1,7 +1,7 @@
 import { convertSearchCriteria } from "../../src/helpers/searchConverter";
 import {
   SearchFilterType,
-  SimpleFilter as EqualsFilter,
+  EqualsFilter,
   RangeFilter,
   MultiFilter
 } from "../../src/interfaces/search/SearchFilter";

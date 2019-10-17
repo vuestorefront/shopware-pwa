@@ -22,7 +22,7 @@ export interface SearchFilter {
   type: SearchFilterType;
 }
 
-export interface SimpleFilter extends SearchFilter {
+export interface EqualsFilter extends SearchFilter {
   value: string;
   field: string;
 }
