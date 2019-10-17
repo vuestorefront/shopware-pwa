@@ -7,7 +7,7 @@ import { ShippingMethodPrice } from "../../checkout/shipping/ShippingMethodPrice
 import { Country } from "../country/Country";
 import { Order } from "../../checkout/order/Order";
 import { Customer } from "../../checkout/customer/Customer";
-import { Category } from "packages/shopware-6-client/src";
+import { Category } from "../../content/category/Category";
 import { ProductVisibility } from "../../content/product/ProductVisibility";
 import { MailTemplateSalesChannel } from "../../content/mail-template/MailTemplateSalesChannel";
 import { NumberRangeSalesChannel } from "../number-range/NumberRangeSalesChannel";
