@@ -1,4 +1,4 @@
-import { CategoryService } from "@shopware-pwa/shopware-6-client";
+import { getCategory } from "@shopware-pwa/shopware-6-client";
 import { apiService } from "../../../src/apiService";
 
 jest.mock("../../../src/apiService");
@@ -18,7 +18,7 @@ describe("CategoryService - getCategory", () => {
       }
     });
     const categoryId = "3a64e872ca404522a2c5d43ebc751e6b";
-    const result = await CategoryService.getCategory(categoryId);
+    const result = await getCategory(categoryId);
     expect(mockedAxios.get).toBeCalledTimes(1);
     expect(mockedAxios.get).toBeCalledWith(
       "/category/3a64e872ca404522a2c5d43ebc751e6b"

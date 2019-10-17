@@ -4,7 +4,7 @@ import { ParamsConverter } from "../helpers/paramsConverter";
 import { SearchResult } from "../interfaces/response/SearchResult";
 import { apiService } from "../apiService";
 
-const getCategories = async function(
+export async function getCategories(
   pagination?: any,
   sort?: any,
   filter?: any
@@ -14,15 +14,15 @@ const getCategories = async function(
   });
 
   return resp.data;
-};
+}
 
-const getCategory = async function(categoryId: string): Promise<Category> {
+export async function getCategory(categoryId: string): Promise<Category> {
   const resp = await apiService.get(getCategoryDetailsEndpoint(categoryId));
 
   return resp.data.data;
-};
+}
 
-const getCategoryWithAssociation = async function(
+export async function getCategoryWithAssociation(
   categoryId: string,
   associationName: string
 ): Promise<Category> {
@@ -33,25 +33,4 @@ const getCategoryWithAssociation = async function(
   );
 
   return resp.data.data;
-};
-
-interface CategoryService {
-  getCategories: (
-    pagination?: any,
-    sort?: any,
-    filter?: any
-  ) => Promise<SearchResult<Category[]>>;
-
-  getCategory: (categoryId: string) => Promise<Category>;
-
-  getCategoryWithAssociation: (
-    categoryId: string,
-    associationName: string
-  ) => Promise<Category>;
 }
-
-export const CategoryService: CategoryService = {
-  getCategories,
-  getCategory,
-  getCategoryWithAssociation
-};
