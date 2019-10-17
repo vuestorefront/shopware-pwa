@@ -3,14 +3,13 @@ import { getCategoryEndpoint, getCategoryDetailsEndpoint } from "../endpoints";
 import { ParamsConverter } from "../helpers/paramsConverter";
 import { SearchResult } from "../interfaces/response/SearchResult";
 import { apiService } from "../apiService";
-import { config } from "../settings";
 
 const getCategories = async function(
   pagination?: any,
   sort?: any,
   filter?: any
 ): Promise<SearchResult<Category[]>> {
-  const resp = await apiService.get(config.endpoint + getCategoryEndpoint(), {
+  const resp = await apiService.get(getCategoryEndpoint(), {
     params: ParamsConverter.getParams(pagination, sort, filter)
   });
 
@@ -18,9 +17,7 @@ const getCategories = async function(
 };
 
 const getCategory = async function(categoryId: string): Promise<Category> {
-  const resp = await apiService.get(
-    config.endpoint + getCategoryDetailsEndpoint(categoryId)
-  );
+  const resp = await apiService.get(getCategoryDetailsEndpoint(categoryId));
 
   return resp.data.data;
 };
@@ -30,9 +27,9 @@ const getCategoryWithAssociation = async function(
   associationName: string
 ): Promise<Category> {
   const resp = await apiService.get(
-    config.endpoint +
-      getCategoryDetailsEndpoint(categoryId) +
-      `?associations[${associationName}][]`
+    `${getCategoryDetailsEndpoint(
+      categoryId
+    )}?associations[${associationName}][]`
   );
 
   return resp.data.data;

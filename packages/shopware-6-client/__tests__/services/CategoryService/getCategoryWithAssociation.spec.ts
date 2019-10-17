@@ -25,7 +25,7 @@ describe("CategoryService - getCategoryWithAssociation", () => {
     );
     expect(mockedAxios.get).toBeCalledTimes(1);
     expect(mockedAxios.get).toBeCalledWith(
-      `${apiService.defaults.baseURL}/category/3a64e872ca404522a2c5d43ebc751e6b?associations[products][]`
+      "/category/3a64e872ca404522a2c5d43ebc751e6b?associations[products][]"
     );
     expect(result).toHaveProperty("id");
     expect(result.id).toEqual(categoryId);
