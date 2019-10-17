@@ -1,5 +1,6 @@
 import { SearchCriteria } from "../interfaces/search/SearchCriteria";
 import { SearchFilter } from "../interfaces/search/SearchFilter";
+import { PaginationLimit } from "../interfaces/search/Pagination";
 
 export interface ShopwareParams {
   page?: number;
@@ -60,10 +61,13 @@ export const convertSearchCriteria = (
   let params: ShopwareParams = {};
 
   if (!searchCriteria) return params;
-  const { filters, sort } = searchCriteria;
+  const { filters, sort, pagination } = searchCriteria;
 
-  if (searchCriteria.pagination) {
-    params = Object.assign(params, searchCriteria.pagination);
+  if (pagination) {
+    const { limit, page } = pagination;
+    if (page) params.page = page;
+    if (limit && Object.values(PaginationLimit).includes(limit))
+      params.limit = limit;
   }
 
   if (sort) {

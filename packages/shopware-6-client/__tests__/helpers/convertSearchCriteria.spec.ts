@@ -5,6 +5,7 @@ import {
   RangeFilter,
   MultiFilter
 } from "../../src/interfaces/search/SearchFilter";
+import { PaginationLimit } from "../../src/interfaces/search/Pagination";
 
 describe("SearchConverter - convertSearchCriteria", () => {
   it("should returns empty object if no params provided", () => {
@@ -13,12 +14,18 @@ describe("SearchConverter - convertSearchCriteria", () => {
   });
   describe("pagination", () => {
     it("should have page number", () => {
-      const result = convertSearchCriteria({ pagination: { page: 1 } });
+      const result = convertSearchCriteria({
+        pagination: { page: PaginationLimit.ONE }
+      });
       expect(result).toEqual({ page: 1 });
     });
     it("should have page number", () => {
       const result = convertSearchCriteria({ pagination: { limit: 5 } });
       expect(result).toEqual({ limit: 5 });
+    });
+    it("should not have not existing limit", () => {
+      const result = convertSearchCriteria({ pagination: { limit: 7 } });
+      expect(result).toEqual({});
     });
     it("should not add pagination for an empty object", () => {
       const result = convertSearchCriteria({ pagination: {} });
