@@ -17,7 +17,7 @@ const setupConfig = function(config: ClientSettings = {}): void {
 };
 setupConfig();
 
-const updateConfig = function(config: ClientSettings = {}): void {
+const updateConfig = function(config: ClientSettings): void {
   clientConfig = Object.assign(clientConfig, config);
 };
 

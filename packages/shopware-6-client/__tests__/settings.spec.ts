@@ -56,5 +56,11 @@ describe("Settings", () => {
         apiService.defaults.headers.common["sw-context-token"]
       ).toBeUndefined();
     });
+
+    it("should have default config with empty invocation", () => {
+      update();
+      expect(config.accessToken).toEqual("SWSCBVBBZET1RTFIYWY4YVLICA");
+      expect(config.contextToken).toEqual("");
+    });
   });
 });
