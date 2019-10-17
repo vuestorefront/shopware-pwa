@@ -13,7 +13,7 @@ describe("CategoryService - getCategories", () => {
 
     const result = await getCategories();
     expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith("/category", { params: null });
+    expect(mockedAxios.get).toBeCalledWith("/category", { params: {} });
     expect(result.total).toEqual(22);
   });
 });
