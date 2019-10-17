@@ -7,8 +7,9 @@ const msg = require("fs")
   .trim();
 
 const commitRE = /^(revert: )?(feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip)(\(.+\))?: .{1,50}/;
+const mergeCommitRE = /^Merge branch .{1,50}/;
 
-if (!commitRE.test(msg)) {
+if (!commitRE.test(msg) && !mergeCommitRE.test(msg)) {
   console.log();
   console.error(
     `  ${chalk.bgRed.white(" ERROR ")} ${chalk.red(
