@@ -4,6 +4,7 @@ const ts = require("rollup-plugin-typescript2");
 const replace = require("rollup-plugin-replace");
 const alias = require("rollup-plugin-alias");
 const json = require("rollup-plugin-json");
+const peerDepsExternal = require("rollup-plugin-peer-deps-external");
 
 if (!process.env.TARGET) {
   throw new Error("TARGET package must be specified via --environment flag.");
@@ -19,11 +20,11 @@ const packageOptions = pkg.buildOptions || {};
 // build aliases dynamically
 const aliasOptions = { resolve: [".ts"] };
 fs.readdirSync(packagesDir).forEach(dir => {
-  if (dir === "vue") {
-    return;
-  }
   if (fs.statSync(path.resolve(packagesDir, dir)).isDirectory()) {
-    aliasOptions[`@vue/${dir}`] = path.resolve(packagesDir, `${dir}/src/index`);
+    aliasOptions[`@shopware-pwa/${dir}`] = path.resolve(
+      packagesDir,
+      `${dir}/src/index`
+    );
   }
 });
 const aliasPlugin = alias(aliasOptions);
@@ -82,6 +83,10 @@ function createConfig(output, plugins = []) {
     output.name = packageOptions.name;
   }
 
+  output.globals = {
+    axios: "axios"
+  };
+
   const shouldEmitDeclarations =
     process.env.TYPES != null &&
     process.env.NODE_ENV === "production" &&
@@ -104,19 +109,20 @@ function createConfig(output, plugins = []) {
   // during a single build.
   hasTSChecked = true;
 
-  const externals = Object.keys(aliasOptions).filter(p => p !== "@vue/shared");
+  const externals = [...Object.keys(aliasOptions), "axios"];
 
   return {
     input: resolve(`src/index.ts`),
     // Global and Browser ESM builds inlines everything so that they can be
     // used alone.
-    external: isGlobalBuild || isBrowserESMBuild ? [] : externals,
+    external: isGlobalBuild || isBrowserESMBuild ? ["axios"] : externals,
     plugins: [
       json({
         namedExports: false
       }),
       tsPlugin,
       aliasPlugin,
+      peerDepsExternal(),
       createReplacePlugin(
         isProductionBuild,
         isBunlderESMBuild,
