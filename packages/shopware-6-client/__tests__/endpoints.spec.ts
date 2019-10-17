@@ -26,7 +26,8 @@ import {
   getContextShippingMethodEndpoint,
   getContextSalutationEndpoint,
   getNewsletterSubscribeEndpoint,
-  getNewsletterUnsubscribeEndpoint
+  getNewsletterUnsubscribeEndpoint,
+  getProductsIdsEndpoint
 } from "../src/endpoints";
 
 const sampleProductId = "eea0f69ec02d44f7a4224272b3d99478";
@@ -48,6 +49,13 @@ describe("endpoints", () => {
     it("should return Shopware product details endpoint", async () => {
       const result = getProductDetailsEndpoint(sampleProductId);
       expect(result).toEqual("/product/" + sampleProductId);
+    });
+  });
+
+  describe("getProductsIdsEndpoint", () => {
+    it("should return Shopware product details endpoint", async () => {
+      const result = getProductsIdsEndpoint();
+      expect(result).toEqual("/search-ids/product");
     });
   });
 
