@@ -10,7 +10,7 @@ import { apiService } from "../apiService";
 import { SearchCriteria } from "../interfaces/search/SearchCriteria";
 
 /**
- * @description Get default amount of products' ids
+ * Get default amount of products' ids
  */
 export const getProductsIds = async function(): Promise<
   SearchResult<string[]>
@@ -20,7 +20,7 @@ export const getProductsIds = async function(): Promise<
 };
 
 /**
- * @description Get default amount of products
+ * Get default amount of products
  */
 
 export const getProducts = async function(
@@ -33,7 +33,7 @@ export const getProducts = async function(
 };
 
 /**
- * @description Get the product with passed productId
+ * Get the product with passed productId
  */
 export async function getProduct(productId: string): Promise<Product> {
   const resp = await apiService.get(getProductDetailsEndpoint(productId));
