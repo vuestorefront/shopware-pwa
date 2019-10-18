@@ -14,12 +14,12 @@ import { PaymentMethod } from "../interfaces/models/checkout/payment/PaymentMeth
 import { Language } from "../interfaces/models/framework/language/Language";
 import { SearchResult } from "../interfaces/response/SearchResult";
 import { UpdateContextParams } from "../interfaces/request/UpdateContextParams";
-import { UpdateContextResponse } from "../interfaces/response/UpdateContextResponse";
+import { ContextTokenResponse } from "../interfaces/response/ContextTokenResponse";
 import { update } from "..";
 
 async function updateContext(
   params: UpdateContextParams
-): Promise<UpdateContextResponse> {
+): Promise<ContextTokenResponse> {
   const resp = await apiService.patch(getContextEndpoint(), params);
   const contextToken = resp.data["sw-context-token"];
   update({ contextToken });
@@ -36,7 +36,7 @@ export async function getAvailableCurrencies(): Promise<
 
 export async function setCurrentCurrency(
   newCurrencyID: string
-): Promise<UpdateContextResponse> {
+): Promise<ContextTokenResponse> {
   let params = { currencyId: newCurrencyID };
   const resp = await updateContext(params);
 
@@ -53,7 +53,7 @@ export async function getAvailableLanguages(): Promise<
 
 export async function setCurrentLanguage(
   newLanguageId: string
-): Promise<UpdateContextResponse> {
+): Promise<ContextTokenResponse> {
   let params = { languageId: newLanguageId };
   const resp = await updateContext(params);
 
@@ -78,7 +78,7 @@ export async function getAvailablePaymentMethods(): Promise<
 
 export async function setCurrentPaymentMethod(
   newPaymentMethodId: string
-): Promise<UpdateContextResponse> {
+): Promise<ContextTokenResponse> {
   let params = { paymentMethodId: newPaymentMethodId };
   const resp = await updateContext(params);
 
@@ -95,7 +95,7 @@ export async function getAvailableShippingMethods(): Promise<
 
 export async function setCurrentShippingMethod(
   newShippingMethodId: string
-): Promise<UpdateContextResponse> {
+): Promise<ContextTokenResponse> {
   let params = { shippingMethodId: newShippingMethodId };
   const resp = await updateContext(params);
 
