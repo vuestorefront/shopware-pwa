@@ -3,8 +3,14 @@ import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
+import { setup } from "@shopware-pwa/shopware-6-client";
 
 Vue.config.productionTip = false;
+
+setup({
+  endpoint: "https://shopware-2.vuestorefront.io/sales-channel-api/v1",
+  accessToken: "SWSCBVBBZET1RTFIYWY4YVLICA"
+});
 
 new Vue({
   router,

@@ -1,5 +1,20 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <pre> {{ categories }} </pre>
   </div>
 </template>
+
+<script>
+import { getCategories } from "@shopware-pwa/shopware-6-client";
+
+export default {
+  data() {
+    return {
+      categories: []
+    };
+  },
+  async mounted() {
+    this.categories = await getCategories();
+  }
+};
+</script>
