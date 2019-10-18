@@ -51,8 +51,10 @@
         </div>
         <div class="navbar__counter">
           <span class="navbar__label desktop-only">Products found:</span>
-          <strong class="desktop-only">280</strong>
-          <span class="navbar__label mobile-only">280 Items</span>
+          <strong class="desktop-only">{{ getProductsCount }}</strong>
+          <span class="navbar__label mobile-only"
+            >{{ getProductsCount }} Items</span
+          >
         </div>
         <div class="navbar__view desktop-only">
           <span>View</span>
@@ -115,13 +117,10 @@
           <SfProductCard
             v-for="(product, i) in products"
             :key="i"
-            :title="product.title"
-            :image="product.image"
-            :regular-price="product.price.regular"
-            :special-price="product.price.special"
-            :max-rating="product.rating.max"
-            :score-rating="product.rating.score"
-            :isOnWishlist="product.isOnWishlist"
+            :title="product.name"
+            image="/img/product_thumb.png"
+            :regular-price="product.calculatedPrice.unitPrice"
+            :isOnWishlist="false"
             @click:wishlist="toggleWishlist(i)"
             class="products__product-card"
           />
@@ -129,11 +128,7 @@
         <SfPagination
           class="products__pagination desktop-only"
           :current="currentPage"
-          @click="
-            page => {
-              this.currentPage = page;
-            }
-          "
+          @click="changeCurrentPage"
           :total="4"
           :visible="5"
         />
@@ -230,6 +225,7 @@
   </div>
 </template>
 <script>
+import { getProducts } from "@shopware-pwa/shopware-6-client";
 import {
   SfSidebar,
   SfButton,
@@ -246,6 +242,20 @@ import {
 } from "@storefront-ui/vue";
 
 export default {
+  components: {
+    SfButton,
+    SfSidebar,
+    SfIcon,
+    SfList,
+    SfFilter,
+    SfProductCard,
+    SfPagination,
+    SfMenuItem,
+    SfAccordion,
+    SfSelect,
+    SfBottomNavigation,
+    SfCircleIcon
+  },
   data() {
     return {
       currentPage: 1,
@@ -310,64 +320,7 @@ export default {
           ]
         }
       ],
-      products: [
-        {
-          title: "Cream Beach Bag",
-          image: "img/product_thumb.png",
-          price: { regular: "$50.00", special: "$20.00" },
-          rating: { max: 5, score: false },
-          isOnWishlist: true
-        },
-        {
-          title: "Cream Beach Bag",
-          image: "img/product_thumb.png",
-          price: { regular: "$50.00" },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: "Cream Beach Bag",
-          image: "img/product_thumb.png",
-          price: { regular: "$50.00" },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: "Cream Beach Bag",
-          image: "img/product_thumb.png",
-          price: { regular: "$50.00" },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: "Cream Beach Bag",
-          image: "img/product_thumb.png",
-          price: { regular: "$50.00" },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: "Cream Beach Bag",
-          image: "img/product_thumb.png",
-          price: { regular: "$50.00" },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: "Cream Beach Bag",
-          image: "img/product_thumb.png",
-          price: { regular: "$50.00" },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: "Cream Beach Bag",
-          image: "img/product_thumb.png",
-          price: { regular: "$50.00" },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        }
-      ],
+      productsResponse: {},
       filtersOptions: {
         collection: [
           { label: "Summer fly", value: "summer-fly", count: "10" },
@@ -402,6 +355,21 @@ export default {
       }
     };
   },
+  async mounted() {
+    this.productsResponse = await getProducts();
+  },
+  computed: {
+    products() {
+      return this.productsResponse && this.productsResponse.data
+        ? this.productsResponse.data
+        : [];
+    },
+    getProductsCount() {
+      return this.productsResponse && this.productsResponse.total
+        ? this.productsResponse.total
+        : 0;
+    }
+  },
   methods: {
     clearAllFilters() {
       const filters = {};
@@ -412,22 +380,13 @@ export default {
       this.filters = filters;
     },
     toggleWishlist(index) {
-      this.products[index].isOnWishlist = !this.products[index].isOnWishlist;
+      console.error("WISHLIST", index);
+      //   this.products[index].isOnWishlist = !this.products[index].isOnWishlist;
+    },
+    async changeCurrentPage(page) {
+      this.currentPage = page;
+      this.productsResponse = await getProducts({ pagination: { page: page } });
     }
-  },
-  components: {
-    SfButton,
-    SfSidebar,
-    SfIcon,
-    SfList,
-    SfFilter,
-    SfProductCard,
-    SfPagination,
-    SfMenuItem,
-    SfAccordion,
-    SfSelect,
-    SfBottomNavigation,
-    SfCircleIcon
   }
 };
 </script>
