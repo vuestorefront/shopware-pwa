@@ -17,7 +17,7 @@ export async function createCart(): Promise<ContextTokenResponse> {
 export async function getCart(): Promise<Cart> {
   const resp = await apiService.get(getCheckoutCartEndpoint());
 
-  return resp.data.data;
+  return resp.data;
 }
 
 export async function addProduct(
