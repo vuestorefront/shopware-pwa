@@ -4,6 +4,7 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 import { setup } from "@shopware-pwa/shopware-6-client";
+import "@storefront-ui/vue/styles.scss";
 
 Vue.config.productionTip = false;
 
