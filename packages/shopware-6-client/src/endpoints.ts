@@ -60,6 +60,9 @@ export const getCheckoutOrderPayEndpoint = (orderId: string) =>
 export const getCheckoutGuestOrderDetailsEndpoint = (orderId: string) =>
   `/checkout/guest-order/${orderId}`;
 
+export const getCheckoutPromotionCodeEndpoint = (code: string) =>
+  `/checkout/cart/code/${code}`;
+
 // context
 
 export const getContextEndpoint = () => `/context`;
