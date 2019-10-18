@@ -1,11 +1,16 @@
 import { apiService } from "../../../src/apiService";
-import { setCurrentCurrency, config } from "@shopware-pwa/shopware-6-client";
+import {
+  setCurrentCurrency,
+  config,
+  update
+} from "@shopware-pwa/shopware-6-client";
 
 jest.mock("../../../src/apiService");
 const mockedAxios = apiService as jest.Mocked<typeof apiService>;
 
 describe("ContextService - setCurrentCurrency with contextToken given", () => {
   beforeEach(() => {
+    update({ contextToken: "NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6" });
     jest.resetAllMocks();
   });
 
@@ -30,6 +35,7 @@ describe("ContextService - setCurrentCurrency with contextToken given", () => {
 
 describe("ContextService - setCurrentCurrency without contextToken given", () => {
   beforeEach(() => {
+    update({ contextToken: undefined });
     jest.resetAllMocks();
   });
 

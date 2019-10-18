@@ -1,11 +1,16 @@
 import { apiService } from "../../../src/apiService";
-import { setCurrentLanguage, config } from "@shopware-pwa/shopware-6-client";
+import {
+  setCurrentLanguage,
+  config,
+  update
+} from "@shopware-pwa/shopware-6-client";
 
 jest.mock("../../../src/apiService");
 const mockedAxios = apiService as jest.Mocked<typeof apiService>;
 
 describe("ContextService - setCurrentLanguage with contextToken given", () => {
   beforeEach(() => {
+    update({ contextToken: "NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6" });
     jest.resetAllMocks();
   });
 
@@ -30,6 +35,7 @@ describe("ContextService - setCurrentLanguage with contextToken given", () => {
 
 describe("ContextService - setCurrentLanguage without contextToken given", () => {
   beforeEach(() => {
+    update({ contextToken: undefined });
     jest.resetAllMocks();
   });
 

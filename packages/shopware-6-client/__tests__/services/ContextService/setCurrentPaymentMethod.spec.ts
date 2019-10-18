@@ -1,7 +1,8 @@
 import { apiService } from "../../../src/apiService";
 import {
   setCurrentPaymentMethod,
-  config
+  config,
+  update
 } from "@shopware-pwa/shopware-6-client";
 
 jest.mock("../../../src/apiService");
@@ -9,6 +10,7 @@ const mockedAxios = apiService as jest.Mocked<typeof apiService>;
 
 describe("ContextService - setCurrentPaymentMethod with contextToken given", () => {
   beforeEach(() => {
+    update({ contextToken: "NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6" });
     jest.resetAllMocks();
   });
 
@@ -33,6 +35,7 @@ describe("ContextService - setCurrentPaymentMethod with contextToken given", () 
 
 describe("ContextService - setCurrentPaymentMethod without contextToken given", () => {
   beforeEach(() => {
+    update({ contextToken: undefined });
     jest.resetAllMocks();
   });
 
