@@ -1,4 +1,11 @@
-import { getCustomerEndpoint, getCustomerAddressEndpoint } from "../endpoints";
+import {
+  getCustomerEndpoint,
+  getCustomerAddressEndpoint,
+  getCustomerUpdateEmailEndpoint,
+  getCustomerUpdatePasswordEndpoint,
+  getCustomerDefaultBillingAddressEndpoint,
+  getCustomerDefaultShippingAddressEndpoint
+} from "../endpoints";
 import { BillingAddress } from "../interfaces/models/checkout/customer/BillingAddress";
 import { ShippingAddress } from "../interfaces/models/checkout/customer/ShippingAddress";
 import { Customer } from "../interfaces/models/checkout/customer/Customer";
@@ -26,6 +33,27 @@ interface CustomerRegisterParam {
   shippingAddress?: ShippingAddress;
 }
 
+interface CustomerUpdateEmailParam {
+  email: string;
+  emailConfirmation: string;
+  password: string;
+}
+
+interface CustomerUpdatePasswordParam {
+  password: string;
+  newPassword: string;
+  newPasswordConfirm: string;
+}
+
+interface CustomerUpdateProfileParam {
+  firstName: string;
+  lastName: string;
+  salutationId: string;
+  title: string;
+}
+
+interface CustomerAddressParam extends Partial<CustomerAddress> {}
+
 interface CustomerLoginResponse {
   "sw-context-token": string;
 }
@@ -47,7 +75,18 @@ export interface CustomerService {
     params: CustomerRegisterParam
   ) => Promise<CustomerRegisterResponse>;
   getCustomer: (contextToken: string) => Promise<Customer> | Promise<never>;
-  getCustomerAddresses: (contextToken: string) => Promise<CustomerAddress[]>;
+  getCustomerAddresses: (contextToken?: string) => Promise<CustomerAddress[]>;
+  getCustomerAddress: (
+    addressId: string,
+    contextToken?: string
+  ) => Promise<CustomerAddress>;
+  createCustomerAddress: (
+    params: CustomerAddressParam,
+    contextToken?: string
+  ) => Promise<string>;
+  updateEmail: (params: CustomerUpdateEmailParam) => Promise<null>;
+  updatePassword: (params: CustomerUpdatePasswordParam) => Promise<null>;
+  updateProfile: (params: CustomerUpdateProfileParam) => Promise<null>;
 }
 
 /**
@@ -114,6 +153,122 @@ export const getCustomerAddresses = async function(
 };
 
 /**
+ * @description Get the customer's address by id
+ */
+export const getCustomerAddress = async function(
+  addressId: string,
+  contextToken?: string
+): Promise<CustomerAddress> {
+  const resp = await apiService.get(getCustomerAddressEndpoint(addressId), {
+    headers: {
+      /** TODO: move into different layer if created */
+      "sw-context-token": contextToken
+    }
+  });
+  return resp.data.data;
+};
+
+/**
+ * @description Get the customer's address by id
+ */
+export const createCustomerAddress = async function(
+  params: CustomerAddressParam,
+  contextToken?: string
+): Promise<string> {
+  const resp = await apiService.post(getCustomerAddressEndpoint(), params, {
+    headers: {
+      /** TODO: move into different layer if created */
+      "sw-context-token": contextToken
+    }
+  });
+  return resp.data;
+};
+
+/**
+ * @description Delete's the customer's address by id
+ */
+export const deleteCustomerAddress = async function(
+  addressId: string,
+  contextToken?: string
+): Promise<null> {
+  await apiService.delete(getCustomerAddressEndpoint(addressId), {
+    headers: {
+      /** TODO: move into different layer if created */
+      "sw-context-token": contextToken
+    }
+  });
+  return null;
+};
+
+/**
+ * @description Set address as default
+ */
+export const setDefaultCustomerBillingAddress = async function(
+  addressId: string,
+  contextToken?: string
+): Promise<string> {
+  const response = await apiService.patch(
+    getCustomerDefaultBillingAddressEndpoint(addressId),
+    {
+      headers: {
+        /** TODO: move into different layer if created */
+        "sw-context-token": contextToken
+      }
+    }
+  );
+  return response.data;
+};
+
+/**
+ * @description Set address as default
+ */
+export const setDefaultCustomerShippingAddress = async function(
+  addressId: string,
+  contextToken?: string
+): Promise<string> {
+  const response = await apiService.patch(
+    getCustomerDefaultShippingAddressEndpoint(addressId),
+    {
+      headers: {
+        /** TODO: move into different layer if created */
+        "sw-context-token": contextToken
+      }
+    }
+  );
+  return response.data;
+};
+
+/**
+ * @description Update a customer's email
+ */
+export const updateEmail = async function(
+  params: CustomerUpdateEmailParam
+): Promise<null> {
+  await apiService.patch(getCustomerUpdateEmailEndpoint(), params);
+  return null;
+};
+
+/**
+ * @description Update a customer's password
+ */
+export const updatePassword = async function(
+  params: CustomerUpdatePasswordParam
+): Promise<null> {
+  await apiService.patch(getCustomerUpdatePasswordEndpoint(), params);
+  return null;
+};
+
+/**
+ * @description Update a customer's profile data
+ */
+export const updateProfile = async function(
+  params: CustomerUpdateProfileParam
+): Promise<null> {
+  await apiService.patch(getCustomerEndpoint(), params);
+  return null;
+};
+
+/**
  * @description Expose public methods of the service
  */
 export const CustomerService: CustomerService = {
@@ -121,5 +276,10 @@ export const CustomerService: CustomerService = {
   login,
   logout,
   getCustomer,
-  getCustomerAddresses
+  getCustomerAddresses,
+  getCustomerAddress,
+  createCustomerAddress,
+  updateEmail,
+  updatePassword,
+  updateProfile
 };

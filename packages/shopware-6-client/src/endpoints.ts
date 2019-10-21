@@ -16,7 +16,17 @@ export const getProductsIdsEndpoint = () => `/search-ids/product`;
 
 // customer
 
-export const getCustomerAddressEndpoint = () => `/customer/address`;
+export const getCustomerAddressEndpoint = (addressId?: string) =>
+  addressId ? `/customer/address/${addressId}` : "/customer/address";
+
+const getCustomerDefaultAddressEndpoint = (type: string, addressId: string) =>
+  `/customer/address/${addressId}/default-${type}`;
+
+export const getCustomerDefaultBillingAddressEndpoint = (addressId: string) =>
+  getCustomerDefaultAddressEndpoint("billing", addressId);
+
+export const getCustomerDefaultShippingAddressEndpoint = (addressId: string) =>
+  getCustomerDefaultAddressEndpoint("shipping", addressId);
 
 export const getCustomerAddressDetailsEndpoint = (addressId: string) =>
   `/customer/address/${addressId}`;
@@ -39,6 +49,10 @@ export const getCustomerLoginEndpoint = () => `/customer/login`;
 export const getCustomerLogoutEndpoint = () => `/customer/logout`;
 
 export const getCustomerOrderEndpoint = () => `/customer/order`;
+
+export const getCustomerUpdateEmailEndpoint = () => `/customer/email`;
+
+export const getCustomerUpdatePasswordEndpoint = () => `/customer/password`;
 
 // checkout
 
