@@ -76,6 +76,8 @@ export const getCheckoutGuestOrderDetailsEndpoint = (orderId: string) =>
 
 // context
 
+export const getContextEndpoint = () => `/context`;
+
 export const getContextCurrencyEndpoint = () => `/currency`;
 
 export const getContextLanguageEndpoint = () => `/language`;

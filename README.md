@@ -15,39 +15,45 @@ Please remember to always during development have opened terminal with `yarn tes
 
 1. Run `yarn`
 2. Build package with types definition `yarn build --types`
-3. Create symlink for client:
-
-```bash
-cd ./packages/shopware-6-client && yarn link && cd ../../
-```
-
-4. In another project (can be generated from vue-cli) link client package
+3. Create symlink for local usage `yarn link-packages`
+4. In another project (can be generated from vue-cli) link client package and install axios (nothing will happen if you already have axios there)
 
 ```bash
 yarn link @shopware-pwa/shopware-6-client
+yarn add axios
 ```
-5. In project main file setup shopware config
+5. In main project file (`main.js`) setup shopware config
 
 ```js
 import {setup} from "@shopware-pwa/shopware-6-client"
 
 setup({
-  endpoint: 'https://address-to-my-shopware-instance.com'
+  endpoint: 'https://address-to-my-shopware-instance.com',
+  accessToken: 'myaccesstoken'
 })
 ```
 6. Use ShopwareClient services around your project. Example:
 
 ```js
-import {CategoryService} from "@shopware-pwa/shopware-6-client"
+import { getCategories } from "@shopware-pwa/shopware-6-client"
 
 // later in component
 
 async mounted() {
-  this.categories = await CategoryService.getCategories();
+  this.categories = await getCategories();
 }
 ```
 
 ## Installation problems
 
-**Q:** Please report problems.  
-**A:** We'll add info how to handle them here. 
+**Q:** Problem with `yarn serve` on external project  
+**A:** By default webpack resolves symlinks to their real location. 
+Add `config.resolve.symlinks(false)` to your `vue.config.js` file ([read more here](https://cli.vuejs.org/guide/troubleshooting.html#symbolic-links-in-node-modules))
+
+```js
+module.exports = {
+  chainWebpack: (config) => {
+    config.resolve.symlinks(false)
+  }
+}
+```

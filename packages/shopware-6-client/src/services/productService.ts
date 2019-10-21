@@ -5,11 +5,12 @@ import {
 } from "../endpoints";
 import { SearchResult } from "../interfaces/response/SearchResult";
 import { Product } from "../interfaces/models/content/product/Product";
-import { ParamsConverter } from "../helpers/paramsConverter";
+import { convertSearchCriteria } from "../helpers/searchConverter";
 import { apiService } from "../apiService";
+import { SearchCriteria } from "../interfaces/search/SearchCriteria";
 
 /**
- * @description Get default amount of products' ids
+ * Get default amount of products' ids
  */
 export const getProductsIds = async function(): Promise<
   SearchResult<string[]>
@@ -19,22 +20,20 @@ export const getProductsIds = async function(): Promise<
 };
 
 /**
- * @description Get default amount of products
+ * Get default amount of products
  */
 
 export const getProducts = async function(
-  pagination?: any,
-  sort?: any,
-  filters?: any
+  searchCriteria?: SearchCriteria
 ): Promise<SearchResult<Product[]>> {
-  const resp = await apiService.get(getProductEndpoint(), {
-    params: ParamsConverter.getParams(pagination, sort, filters)
+  const resp = await apiService.get(`${getProductEndpoint()}`, {
+    params: convertSearchCriteria(searchCriteria)
   });
   return resp.data;
 };
 
 /**
- * @description Get the product with passed productId
+ * Get the product with passed productId
  */
 export async function getProduct(productId: string): Promise<Product> {
   const resp = await apiService.get(getProductDetailsEndpoint(productId));
