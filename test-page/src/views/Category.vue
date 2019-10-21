@@ -379,8 +379,7 @@ export default {
       });
       this.filters = filters;
     },
-    toggleWishlist(index) {
-      console.error("WISHLIST", index);
+    toggleWishlist() {
       //   this.products[index].isOnWishlist = !this.products[index].isOnWishlist;
     },
     async changeCurrentPage(page) {

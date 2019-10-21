@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "node scripts/dev.js",
     "build": "node scripts/build.js",
+    "postbuild": "cd ./test-page && yarn build && cd ..",
+    "postinstall": "cd ./test-page && yarn install && cd ..",
     "lint": "prettier --write --parser typescript 'packages/**/*.ts'",
     "test": "jest",
     "test:coverage": "yarn test --coverage",
