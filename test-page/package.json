@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "postinstall": "yarn link @shopware-pwa/shopware-6-client",
+    "postinstall": "cd ../ && yarn install && cd ./test-page && yarn link @shopware-pwa/shopware-6-client",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "cd ../ && yarn build && cd ./test-page && vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
