@@ -2,14 +2,8 @@
   <div id="product">
     <SfSlidingSection class="product">
       <template #static>
-        <SfImage
-          src="img/product/productA.png"
-          class="desktop-only"
-        />
-        <SfImage
-          src="img/product/productB.png"
-          class="desktop-only"
-        />
+        <SfImage src="img/product/productA.png" class="desktop-only" />
+        <SfImage src="img/product/productB.png" class="desktop-only" />
         <SfGallery
           class="gallery-mobile mobile-only"
           :images="[
@@ -212,36 +206,24 @@
       <div class="grid">
         <div class="grid__row">
           <div class="grid__col">
-            <SfImage src="img/imageA.png"
-              >katherina_trn</SfImage
-            >
+            <SfImage src="img/imageA.png">katherina_trn</SfImage>
           </div>
           <div class="grid__col">
-            <SfImage src="img/imageB.png"
-              >katherina_trn</SfImage
-            >
+            <SfImage src="img/imageB.png">katherina_trn</SfImage>
           </div>
           <div class="grid__col">
-            <SfImage src="img/imageC.png"
-              >katherina_trn</SfImage
-            >
+            <SfImage src="img/imageC.png">katherina_trn</SfImage>
           </div>
         </div>
         <div class="grid__row">
           <div class="grid__col">
-            <SfImage src="img/imageC.png"
-              >katherina_trn</SfImage
-            >
+            <SfImage src="img/imageC.png">katherina_trn</SfImage>
           </div>
           <div class="grid__col">
-            <SfImage src="img/imageD.png"
-              >katherina_trn</SfImage
-            >
+            <SfImage src="img/imageD.png">katherina_trn</SfImage>
           </div>
           <div class="grid__col">
-            <SfImage src="img/imageA.png"
-              >katherina_trn</SfImage
-            >
+            <SfImage src="img/imageA.png">katherina_trn</SfImage>
           </div>
         </div>
       </div>
