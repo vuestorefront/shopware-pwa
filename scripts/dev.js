@@ -11,27 +11,35 @@ yarn dev core --formats cjs
 __DEV__=false yarn dev
 ```
 */
-
+const fs = require("fs-extra");
+const path = require("path");
 const execa = require("execa");
 const { targets, fuzzyMatchTarget } = require("./utils");
 
 const args = require("minimist")(process.argv.slice(2));
-const target = args._.length ? fuzzyMatchTarget(args._)[0] : "client";
+const target = args._.length
+  ? fuzzyMatchTarget(args._)[0]
+  : "shopware-6-client";
 const formats = args.formats || args.f;
 const commit = execa.sync("git", ["rev-parse", "HEAD"]).stdout.slice(0, 7);
 
-execa(
-  "rollup",
-  [
-    "-wc",
-    "--environment",
+async function dev() {
+  const pkgDir = path.resolve(`packages/${target}`);
+  await fs.remove(`${pkgDir}/dist`);
+  execa(
+    "rollup",
     [
-      `COMMIT:${commit}`,
-      `TARGET:${target}`,
-      `FORMATS:${formats || "global"}`
-    ].join(",")
-  ],
-  {
-    stdio: "inherit"
-  }
-);
+      "-wc",
+      "--environment",
+      [
+        `COMMIT:${commit}`,
+        `TARGET:${target}`,
+        `FORMATS:${formats || "global"}`
+      ].join(",")
+    ],
+    {
+      stdio: "inherit"
+    }
+  );
+}
+dev();
