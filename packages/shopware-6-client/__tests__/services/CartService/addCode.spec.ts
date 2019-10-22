@@ -16,6 +16,12 @@ describe("CartService - addCode", () => {
         token: "NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6",
         price: {
           netPrice: 150
+        },
+        lineItems: {
+          type: "promotion",
+          payload: {
+            code: "your_secret_discount_code_239kfdu24"
+          }
         }
       }
     });

@@ -43,6 +43,7 @@ describe("CartService - addProduct", () => {
       "/checkout/cart/044a190a54ab4f06803909c3ee8063ef",
       { quantity: 1 }
     );
+
     expect(result.lineItems).toHaveLength(2);
   });
 });
