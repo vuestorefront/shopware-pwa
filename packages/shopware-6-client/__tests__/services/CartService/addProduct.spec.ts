@@ -1,21 +1,12 @@
-import { addProduct, update, config } from "@shopware-pwa/shopware-6-client";
+import { addProduct } from "@shopware-pwa/shopware-6-client";
 import { apiService } from "../../../src/apiService";
-import { random } from "faker";
 
 jest.mock("../../../src/apiService");
 const mockedAxios = apiService as jest.Mocked<typeof apiService>;
 
 describe("CartService - addProduct", () => {
-  let contextToken: string;
-
   beforeEach(() => {
     jest.resetAllMocks();
-    contextToken = random.uuid();
-    update({ contextToken });
-  });
-
-  afterEach(() => {
-    expect(config.contextToken).toEqual(contextToken);
   });
 
   it("should call valid endpoint and return a cart", async () => {
