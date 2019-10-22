@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/category"
+  to = "/"
+  status = 200
+
+[[redirects]]
+  from = "/product"
+  to = "/"
+  status = 200
