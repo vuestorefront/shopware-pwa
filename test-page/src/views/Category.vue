@@ -117,7 +117,7 @@
           <SfProductCard
             v-for="(product, i) in products"
             :key="i"
-            :title="product.name"
+            :title="product.name || ''"
             :image="
               product.media && product.media.length
                 ? product.media[0].media.url
