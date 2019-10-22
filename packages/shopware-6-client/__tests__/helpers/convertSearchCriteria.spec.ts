@@ -189,4 +189,45 @@ describe("SearchConverter - convertSearchCriteria", () => {
       });
     });
   });
+  describe("configuration", () => {
+    describe("associations", () => {
+      it("should return association", () => {
+        const result = convertSearchCriteria({
+          configuration: {
+            associations: [
+              {
+                name: "media"
+              }
+            ]
+          }
+        });
+        expect(result).toEqual({ associations: { media: {} } });
+      });
+
+      it("should not add associations on empty array", () => {
+        const result = convertSearchCriteria({
+          configuration: {
+            associations: []
+          }
+        });
+        expect(result).toEqual({});
+      });
+
+      it("should return multiple associations", () => {
+        const result = convertSearchCriteria({
+          configuration: {
+            associations: [
+              {
+                name: "media"
+              },
+              {
+                name: "stock"
+              }
+            ]
+          }
+        });
+        expect(result).toEqual({ associations: { media: {}, stock: {} } });
+      });
+    });
+  });
 });
