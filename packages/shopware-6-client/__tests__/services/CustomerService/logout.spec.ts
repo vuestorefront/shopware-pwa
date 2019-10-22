@@ -1,5 +1,4 @@
-import { logout } from "../../../src/index";
-import { when } from "jest-when";
+import { logout } from "@shopware-pwa/shopware-6-client";
 import { getCustomerLogoutEndpoint } from "../../../src/endpoints";
 import { apiService } from "../../../src/apiService";
 
@@ -12,14 +11,9 @@ describe("CustomerService - logout", () => {
   });
 
   it("should log out the customer", async () => {
-    when(mockedAxios.post)
-      .expectCalledWith(getCustomerLogoutEndpoint())
-      .mockReturnValueOnce("");
-    const result = await logout();
+    mockedAxios.get.mockResolvedValueOnce({ data: null });
+    await logout();
     expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith(getCustomerLogoutEndpoint(), null, {
-      headers: { "sw-context-token": undefined }
-    });
-    expect(result).toBeUndefined();
+    expect(mockedAxios.post).toBeCalledWith(getCustomerLogoutEndpoint());
   });
 });

@@ -1,7 +1,7 @@
 import { getCustomerUpdateEmailEndpoint } from "../../../src/endpoints";
 import { apiService } from "../../../src/apiService";
-import { internet } from "faker";
-import { updateEmail } from "../../../src";
+import { internet, random } from "faker";
+import { updateEmail, update, config } from "@shopware-pwa/shopware-6-client";
 
 const credentials = {
   email: internet.email(),
@@ -12,8 +12,14 @@ jest.mock("../../../src/apiService");
 const mockedAxios = apiService as jest.Mocked<typeof apiService>;
 
 describe("CustomerService - updateEmail", () => {
+  let contextToken: string;
   beforeEach(() => {
     jest.resetAllMocks();
+    contextToken = random.uuid();
+    update({ contextToken });
+  });
+  afterEach(() => {
+    expect(config.contextToken).toEqual(contextToken);
   });
 
   it("rejects the promise if the email confirmation is wrong", async () => {
@@ -38,12 +44,11 @@ describe("CustomerService - updateEmail", () => {
 
   it("returns no data if successfully updated", async () => {
     mockedAxios.patch.mockResolvedValueOnce(null);
-    const result = await updateEmail({
+    await updateEmail({
       email: credentials.email,
       emailConfirmation: credentials.email,
       password: credentials.password
     });
-    expect(result).toBeFalsy();
     expect(mockedAxios.patch).toBeCalledTimes(1);
     expect(mockedAxios.patch).toBeCalledWith(getCustomerUpdateEmailEndpoint(), {
       email: credentials.email,

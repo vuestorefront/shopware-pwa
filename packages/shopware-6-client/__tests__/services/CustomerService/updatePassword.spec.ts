@@ -1,7 +1,11 @@
 import { getCustomerUpdatePasswordEndpoint } from "../../../src/endpoints";
 import { apiService } from "../../../src/apiService";
-import { internet } from "faker";
-import { updatePassword } from "../../../src";
+import { internet, random } from "faker";
+import {
+  updatePassword,
+  update,
+  config
+} from "@shopware-pwa/shopware-6-client";
 
 const newPassword = internet.password(8);
 const credentials = {
@@ -14,13 +18,19 @@ jest.mock("../../../src/apiService");
 const mockedAxios = apiService as jest.Mocked<typeof apiService>;
 
 describe("CustomerService - updatePassword", () => {
+  let contextToken: string;
   beforeEach(() => {
     jest.resetAllMocks();
+    contextToken = random.uuid();
+    update({ contextToken });
+  });
+  afterEach(() => {
+    expect(config.contextToken).toEqual(contextToken);
   });
 
   it("rejects the promise if the password is to short", async () => {
     mockedAxios.patch.mockRejectedValueOnce(
-      new Error("400 - password to short")
+      new Error("400 - password too short")
     );
     expect(
       updatePassword({
@@ -28,7 +38,7 @@ describe("CustomerService - updatePassword", () => {
         newPassword: "!23",
         newPasswordConfirm: "!23"
       })
-    ).rejects.toThrow("400 - password to short");
+    ).rejects.toThrow("400 - password too short");
     expect(mockedAxios.patch).toBeCalledTimes(1);
     expect(mockedAxios.patch).toBeCalledWith(
       getCustomerUpdatePasswordEndpoint(),

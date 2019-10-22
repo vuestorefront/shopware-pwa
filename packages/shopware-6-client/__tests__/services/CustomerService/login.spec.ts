@@ -1,5 +1,4 @@
-import { login } from "../../../src/index";
-import { when } from "jest-when";
+import { login, config } from "@shopware-pwa/shopware-6-client";
 import { getCustomerLoginEndpoint } from "../../../src/endpoints";
 import { apiService } from "../../../src/apiService";
 import { internet } from "faker";
@@ -17,14 +16,10 @@ describe("CustomerService - login", () => {
     jest.resetAllMocks();
   });
   it("should return context token", async () => {
-    when(mockedAxios.post)
-      .expectCalledWith(getCustomerLoginEndpoint(), {
-        username: credentials.username,
-        password: credentials.password
-      })
-      .mockReturnValueOnce({
-        data: { "sw-context-token": "RmzTExFStSBW5GhPmQNicSK6bhUQhqXi" }
-      });
+    mockedAxios.post.mockResolvedValueOnce({
+      data: { "sw-context-token": "RmzTExFStSBW5GhPmQNicSK6bhUQhqXi" }
+    });
+
     const result = await login({
       username: credentials.username,
       password: credentials.password
@@ -34,16 +29,12 @@ describe("CustomerService - login", () => {
       username: credentials.username,
       password: credentials.password
     });
-    expect(result).toHaveProperty("sw-context-token");
+
+    expect(result.contextToken).toEqual("RmzTExFStSBW5GhPmQNicSK6bhUQhqXi");
+    expect(config.contextToken).toEqual("RmzTExFStSBW5GhPmQNicSK6bhUQhqXi");
   });
   it("should throws unhandled rejection - 401", async () => {
-    when(mockedAxios.post.mockRejectedValue(new Error())).expectCalledWith(
-      getCustomerLoginEndpoint(),
-      {
-        username: credentials.username,
-        password: "wrong-password-123456"
-      }
-    );
+    mockedAxios.post.mockRejectedValue(new Error());
 
     expect(
       login({

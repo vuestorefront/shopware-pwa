@@ -1,6 +1,9 @@
 import { random } from "faker";
-import { when } from "jest-when";
-import { getCustomerAddresses } from "../../../src/index";
+import {
+  getCustomerAddresses,
+  update,
+  config
+} from "@shopware-pwa/shopware-6-client";
 import { getCustomerEndpoint } from "../../../src/endpoints";
 import { apiService } from "../../../src/apiService";
 
@@ -8,19 +11,23 @@ jest.mock("../../../src/apiService");
 const mockedAxios = apiService as jest.Mocked<typeof apiService>;
 
 describe("CustomerService - register", () => {
-  const customerToken = random.uuid();
+  let contextToken: string;
   beforeEach(() => {
     jest.resetAllMocks();
+    contextToken = random.uuid();
+    update({ contextToken });
   });
-  it("should return object of addresses", async () => {
-    when(mockedAxios.get)
-      .expectCalledWith(`${getCustomerEndpoint()}/address`)
-      .mockReturnValueOnce({ data: { data: {} } });
-    const result = await getCustomerAddresses(customerToken);
-    expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith(`${getCustomerEndpoint()}/address`, {
-      headers: { "sw-context-token": customerToken }
+  afterEach(() => {
+    afterEach(() => {
+      expect(config.contextToken).toEqual(contextToken);
     });
+  });
+
+  it("should return object of addresses", async () => {
+    mockedAxios.get.mockResolvedValueOnce({ data: { data: {} } });
+    const result = await getCustomerAddresses();
+    expect(mockedAxios.get).toBeCalledTimes(1);
+    expect(mockedAxios.get).toBeCalledWith(`${getCustomerEndpoint()}/address`);
     expect(result).toMatchObject({});
   });
 });
