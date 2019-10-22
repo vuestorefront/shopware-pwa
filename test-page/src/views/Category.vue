@@ -118,7 +118,11 @@
             v-for="(product, i) in products"
             :key="i"
             :title="product.name"
-            :image="product.media && product.media.length ? product.media[0].media.url : '/img/product_thumb.png'"
+            :image="
+              product.media && product.media.length
+                ? product.media[0].media.url
+                : '/img/product_thumb.png'
+            "
             :regular-price="product.calculatedPrice.unitPrice"
             :isOnWishlist="false"
             @click:wishlist="toggleWishlist(i)"
