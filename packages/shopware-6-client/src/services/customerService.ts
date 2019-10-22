@@ -4,7 +4,9 @@ import {
   getCustomerUpdateEmailEndpoint,
   getCustomerUpdatePasswordEndpoint,
   getCustomerDefaultBillingAddressEndpoint,
-  getCustomerDefaultShippingAddressEndpoint
+  getCustomerDefaultShippingAddressEndpoint,
+  getCustomerLogoutEndpoint,
+  getCustomerLoginEndpoint
 } from "../endpoints";
 import { Customer } from "../interfaces/models/checkout/customer/Customer";
 import { apiService } from "../apiService";
@@ -38,7 +40,7 @@ interface CustomerLoginParam {
 export async function login(
   params: CustomerLoginParam
 ): Promise<UpdateContextResponse> {
-  const resp = await apiService.post(`${getCustomerEndpoint()}/login`, params);
+  const resp = await apiService.post(getCustomerLoginEndpoint(), params);
   const contextToken = resp.data["sw-context-token"];
   update({ contextToken });
   return { contextToken };
@@ -48,7 +50,7 @@ export async function login(
  * End up the session
  */
 export async function logout(): Promise<void> {
-  await apiService.post(`${getCustomerEndpoint()}/logout`);
+  await apiService.post(getCustomerLogoutEndpoint());
   update({ contextToken: "" });
 }
 
