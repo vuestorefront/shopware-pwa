@@ -45,7 +45,7 @@ export const getCustomerOrderEndpoint = () => `/customer/order`;
 export const getCheckoutCartEndpoint = () => `/checkout/cart`;
 
 export const getCheckoutCartProductEndpoint = (productId: string) =>
-  `/checkout/cart/${productId}`;
+  `/checkout/cart/product/${productId}`;
 
 export const getCheckoutCartLineItemEndpoint = (lineItemId: string) =>
   `/checkout/cart/line-item/${lineItemId}`;

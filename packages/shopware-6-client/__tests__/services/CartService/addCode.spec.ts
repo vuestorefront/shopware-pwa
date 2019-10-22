@@ -35,4 +35,14 @@ describe("CartService - addCode", () => {
     );
     expect(result.price.netPrice).toEqual(150);
   });
+
+  it("should throw unhandled 404 error when empty promotion code given", async () => {
+    mockedAxios.post.mockRejectedValueOnce(new Error("404: Not Found"));
+
+    let discountCode = "";
+
+    expect(addCode(discountCode)).rejects.toThrow("404: Not Found");
+    expect(mockedAxios.post).toBeCalledTimes(1);
+    expect(mockedAxios.post).toBeCalledWith("/checkout/cart/code/");
+  });
 });

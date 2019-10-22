@@ -37,4 +37,40 @@ describe("CartService - addLineItem", () => {
     );
     expect(result.lineItems[0].quantity).toEqual(3);
   });
+
+  it("should throw unhandled 400 error when non-existing lineItemId given", async () => {
+    mockedAxios.patch.mockRejectedValueOnce(
+      new Error("400: CHECKOUT__CART_LINEITEM_NOT_FOUND")
+    );
+
+    let lineItemId = "someNonExistingLineItemId";
+
+    expect(updateLineItem(lineItemId, 1)).rejects.toThrow(
+      "400: CHECKOUT__CART_LINEITEM_NOT_FOUND"
+    );
+    expect(mockedAxios.patch).toBeCalledTimes(1);
+    expect(mockedAxios.patch).toBeCalledWith(
+      "/checkout/cart/line-item/someNonExistingLineItemId",
+      { quantity: 1 }
+    );
+  });
+
+  it("should throw unhandled 400 error when negative quantity given", async () => {
+    mockedAxios.patch.mockRejectedValueOnce(
+      new Error("400: CHECKOUT__CART_INVALID_LINEITEM_QUANTITY")
+    );
+
+    let lineItemId = "geawq90a5dab4206843d0vc3sa8wefdf";
+
+    expect(updateLineItem(lineItemId, -2)).rejects.toThrow(
+      "400: CHECKOUT__CART_INVALID_LINEITEM_QUANTITY"
+    );
+    expect(mockedAxios.patch).toBeCalledTimes(1);
+    expect(mockedAxios.patch).toBeCalledWith(
+      "/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
+      {
+        quantity: -2
+      }
+    );
+  });
 });
