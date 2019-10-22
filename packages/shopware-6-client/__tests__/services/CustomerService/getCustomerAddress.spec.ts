@@ -20,9 +20,6 @@ describe("CustomerService - getCustomerAddress", () => {
     update({ contextToken });
   });
   afterEach(() => {
-    // expect(
-    //   mockedAxios.defaults.headers.common["sw-context-token"]
-    // ).toEqual(contextToken);
     expect(config.contextToken).toEqual(contextToken);
   });
 
