@@ -2,9 +2,9 @@ import { ClientSettings, setupConfig, updateConfig } from "./settings";
 import { reloadConfiguration } from "./apiService";
 
 export { config } from "./settings";
-
 export * from "./services/categoryService";
 export * from "./services/productService";
+export * from "./services/customerService";
 export * from "./services/contextService";
 
 /**
