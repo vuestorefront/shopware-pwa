@@ -62,5 +62,11 @@ describe("Settings", () => {
       expect(config.accessToken).toEqual("SWSCBVBBZET1RTFIYWY4YVLICA");
       expect(config.contextToken).toEqual("");
     });
+
+    it("should change defaultPaginationLimit", () => {
+      update({ defaultPaginationLimit: 50 });
+      expect(config.accessToken).toEqual("SWSCBVBBZET1RTFIYWY4YVLICA");
+      expect(config.defaultPaginationLimit).toEqual(50);
+    });
   });
 });

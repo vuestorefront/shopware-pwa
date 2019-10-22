@@ -6,18 +6,22 @@ import {
   MultiFilter
 } from "../../src/interfaces/search/SearchFilter";
 import { PaginationLimit } from "../../src/interfaces/search/Pagination";
+import { config, setup, update } from "@shopware-pwa/shopware-6-client";
 
 describe("SearchConverter - convertSearchCriteria", () => {
+  beforeEach(() => {
+    setup();
+  });
   it("should returns empty object if no params provided", () => {
     const result = convertSearchCriteria();
     expect(result).toEqual({});
   });
   describe("pagination", () => {
-    it("should have page number", () => {
+    it("should have page number with default limit if not provided", () => {
       const result = convertSearchCriteria({
         pagination: { page: PaginationLimit.ONE }
       });
-      expect(result).toEqual({ page: 1 });
+      expect(result).toEqual({ page: 1, limit: config.defaultPaginationLimit });
     });
     it("should have page number", () => {
       const result = convertSearchCriteria({ pagination: { limit: 5 } });
@@ -40,6 +44,13 @@ describe("SearchConverter - convertSearchCriteria", () => {
       });
       expect(result).toEqual({ page: 3, limit: 5 });
     });
+    it("should change default pagination limit", () => {
+      update({ defaultPaginationLimit: 50 });
+      const result = convertSearchCriteria({
+        pagination: { page: PaginationLimit.ONE }
+      });
+      expect(result).toEqual({ page: 1, limit: 50 });
+    });
   });
   describe("sorting", () => {
     it("should have pagination and sort params", () => {
@@ -50,7 +61,11 @@ describe("SearchConverter - convertSearchCriteria", () => {
         },
         filters: []
       });
-      expect(paramsObject).toEqual({ page: 1, sort: "name" });
+      expect(paramsObject).toEqual({
+        page: 1,
+        limit: config.defaultPaginationLimit,
+        sort: "name"
+      });
     });
     it("should add prefix when desc sort", () => {
       const result = convertSearchCriteria({

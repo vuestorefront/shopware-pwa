@@ -1,6 +1,7 @@
 import { SearchCriteria } from "../interfaces/search/SearchCriteria";
 import { SearchFilter } from "../interfaces/search/SearchFilter";
 import { PaginationLimit } from "../interfaces/search/Pagination";
+import { config } from "@shopware-pwa/shopware-6-client";
 
 interface ShopwareAssociation {
   [name: string]: any;
@@ -13,6 +14,7 @@ export interface ShopwareParams {
   filter?: SearchFilter[];
   associations?: ShopwareAssociation;
 }
+
 // simple
 // const equals = {
 //   type: "equals",
@@ -70,9 +72,12 @@ export const convertSearchCriteria = (
 
   if (pagination) {
     const { limit, page } = pagination;
-    if (page) params.page = page;
     if (limit && Object.values(PaginationLimit).includes(limit))
       params.limit = limit;
+    if (page) {
+      params.page = page;
+      if (!params.limit) params.limit = config.defaultPaginationLimit;
+    }
   }
 
   if (sort) {
