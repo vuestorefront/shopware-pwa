@@ -97,7 +97,7 @@ faker can be used by importing it with  `import faker from "faker"`  or import o
 -   vehicle
 
 #### real world example:
-```
+```js
 import { name, address, random, phone, internet } from "faker";
 
 const customerData = {
