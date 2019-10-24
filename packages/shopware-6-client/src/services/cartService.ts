@@ -25,7 +25,7 @@ export async function createCart(): Promise<ContextTokenResponse> {
 }
 
 /**
- * Get the current cart for the sw-context-token.
+ * Gets the current cart for the sw-context-token.
  */
 export async function getCart(): Promise<Cart> {
   const resp = await apiService.get(getCheckoutCartEndpoint());
@@ -34,7 +34,7 @@ export async function getCart(): Promise<Cart> {
 }
 
 /**
- * Add specific quantity of the product to the cart by productId.
+ * Adds specific quantity of the product to the cart by productId. It creates a new cart line item.
  *
  * Warning: This method does not change the state of the cart in any way if productId already exists in a cart. For changing the quantity use addQuantityToCartLineItem or changeCartLineItemQuantity methods.
  */
@@ -52,7 +52,7 @@ export async function addProductToCart(
 }
 
 /**
- * Increase the current quantity in specific cart line item by given quantity.
+ * Increases the current quantity in specific cart line item by given quantity.
  *
  * Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 5.
  */
@@ -70,7 +70,7 @@ export async function addQuantityToCartLineItem(
 }
 
 /**
- * Change the current quantity in specific cart line item to given quantity.
+ * Changes the current quantity in specific cart line item to given quantity.
  *
  * Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 2.
  */
@@ -88,7 +88,7 @@ export async function changeCartLineItemQuantity(
 }
 
 /**
- * Delete the cart line item by id.
+ * Deletes the cart line item by id.
  *
  * This method may be used for deleting "product" type item lines as well as "promotion" type item lines.
  */
@@ -99,7 +99,9 @@ export async function removeCartLineItem(itemId: string): Promise<Cart> {
 }
 
 /**
- * Add new promotion code to the cart by its code.
+ * Adds new promotion code to the cart by its code.
+ *
+ * Promotion code is being added as separate cart item line.
  *
  */
 export async function addPromotionCode(promotionCode: string): Promise<Cart> {
