@@ -57,3 +57,61 @@ module.exports = {
   }
 }
 ```
+
+___
+
+## Faker
+faker.js - generate massive amounts of fake data in the browser and node.js
+
+### sources
+[GitHub](https://github.com/marak/faker.js)
+
+[Playground](https://cdn.rawgit.com/Marak/faker.js/master/examples/browser/index.html)
+
+### installation
+`npm i faker` 
+
+or 
+
+`yarn add faker`
+
+### how to use
+faker can be used by importing it with  `import faker from "faker"`  or import only the selected methods which are grouped by functionalities, here is a list of them:
+
+-   address
+-   commerce
+-   company
+-   database
+-   date
+-   finance
+-   git
+-   hacker
+-   helpers
+-   image
+-   internet
+-   lorem
+-   name
+-   phone
+-   random
+-   system
+-   vehicle
+
+#### real world example:
+```js
+import { name, address, random, phone, internet } from "faker";
+
+const customerData = {
+  salutationId: random.uuid(),
+  firstName: name.firstName(),
+  lastName: name.lastName(),
+  password: internet.password(8),
+  email: internet.email(),
+  billingAddress: {
+    countryId: random.uuid(),
+    street: address.streetName(),
+    zipcode: address.zipCode(),
+    city: address.city(),
+    phoneNumber: phone.phoneNumber()
+  }
+}
+```

@@ -117,8 +117,12 @@
           <SfProductCard
             v-for="(product, i) in products"
             :key="i"
-            :title="product.name"
-            image="/img/product_thumb.png"
+            :title="product.name || ''"
+            :image="
+              product.media && product.media.length
+                ? product.media[0].media.url
+                : '/img/product_thumb.png'
+            "
             :regular-price="product.calculatedPrice.unitPrice"
             :isOnWishlist="false"
             @click:wishlist="toggleWishlist(i)"
@@ -356,7 +360,9 @@ export default {
     };
   },
   async mounted() {
-    this.productsResponse = await getProducts();
+    this.productsResponse = await getProducts({
+      configuration: { associations: [{ name: "media" }] }
+    });
   },
   computed: {
     products() {
