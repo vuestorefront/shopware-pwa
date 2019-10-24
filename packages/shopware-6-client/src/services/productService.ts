@@ -26,9 +26,10 @@ export const getProductsIds = async function(): Promise<
 export const getProducts = async function(
   searchCriteria?: SearchCriteria
 ): Promise<SearchResult<Product[]>> {
-  const resp = await apiService.get(`${getProductEndpoint()}`, {
-    params: convertSearchCriteria(searchCriteria)
-  });
+  const resp = await apiService.post(
+    `${getProductEndpoint()}`,
+    convertSearchCriteria(searchCriteria)
+  );
   return resp.data;
 };
 

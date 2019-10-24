@@ -11,17 +11,17 @@ describe("ProductService - getProducts", () => {
     jest.resetAllMocks();
   });
   it("should return array of products (default amount of 10)", async () => {
-    mockedAxios.get.mockResolvedValueOnce({
+    mockedAxios.post.mockResolvedValueOnce({
       data: { total: 3, data: [1, 2, 3] }
     });
 
     const result = await getProducts();
     expect(result.total).toEqual(3);
     expect(result.data).toHaveLength(result.total);
-    expect(mockedAxios.get).toBeCalledTimes(1);
+    expect(mockedAxios.post).toBeCalledTimes(1);
   });
   it("should invoke api with limit", async () => {
-    mockedAxios.get.mockResolvedValueOnce({
+    mockedAxios.post.mockResolvedValueOnce({
       data: { total: 3, data: [1, 2, 3] }
     });
     const pagination = {
@@ -29,13 +29,11 @@ describe("ProductService - getProducts", () => {
       limit: 5
     };
     await getProducts({ pagination });
-    expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith("/product", {
-      params: { limit: 5, page: 1 }
-    });
+    expect(mockedAxios.post).toBeCalledTimes(1);
+    expect(mockedAxios.post).toBeCalledWith("/product", { limit: 5, page: 1 });
   });
   it("should invoke api with limit and sort", async () => {
-    mockedAxios.get.mockResolvedValueOnce({
+    mockedAxios.post.mockResolvedValueOnce({
       data: { total: 3, data: [1, 2, 3] }
     });
     const pagination = {
@@ -47,9 +45,11 @@ describe("ProductService - getProducts", () => {
       desc: true
     };
     await getProducts({ pagination, sort });
-    expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith("/product", {
-      params: { limit: 75, page: 1, sort: "-name" }
+    expect(mockedAxios.post).toBeCalledTimes(1);
+    expect(mockedAxios.post).toBeCalledWith("/product", {
+      limit: 75,
+      page: 1,
+      sort: "-name"
     });
   });
 });

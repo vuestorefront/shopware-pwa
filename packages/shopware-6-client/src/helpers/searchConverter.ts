@@ -1,13 +1,20 @@
 import { SearchCriteria } from "../interfaces/search/SearchCriteria";
 import { SearchFilter } from "../interfaces/search/SearchFilter";
 import { PaginationLimit } from "../interfaces/search/Pagination";
+import { config } from "@shopware-pwa/shopware-6-client";
+
+interface ShopwareAssociation {
+  [name: string]: any;
+}
 
 export interface ShopwareParams {
   page?: number;
   limit?: number;
   sort?: string;
   filter?: SearchFilter[];
+  associations?: ShopwareAssociation;
 }
+
 // simple
 // const equals = {
 //   type: "equals",
@@ -61,13 +68,16 @@ export const convertSearchCriteria = (
   let params: ShopwareParams = {};
 
   if (!searchCriteria) return params;
-  const { filters, sort, pagination } = searchCriteria;
+  const { filters, sort, pagination, configuration } = searchCriteria;
 
   if (pagination) {
     const { limit, page } = pagination;
-    if (page) params.page = page;
     if (limit && Object.values(PaginationLimit).includes(limit))
       params.limit = limit;
+    if (page) {
+      params.page = page;
+      if (!params.limit) params.limit = config.defaultPaginationLimit;
+    }
   }
 
   if (sort) {
@@ -77,6 +87,17 @@ export const convertSearchCriteria = (
 
   if (filters && filters.length) {
     params.filter = filters;
+  }
+
+  if (configuration) {
+    const associations = configuration.associations;
+    if (associations && associations.length) {
+      let shopwareAssociations: ShopwareAssociation = {};
+      associations.forEach(association => {
+        shopwareAssociations[association.name] = {};
+      });
+      params.associations = shopwareAssociations;
+    }
   }
 
   return params;
