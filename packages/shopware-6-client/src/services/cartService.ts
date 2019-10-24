@@ -15,7 +15,7 @@ import { CartLineItemType } from "../interfaces/cart/CartLineItemType";
  *
  * When sw-context-token given then this method simply returns the current state of the cart.
  *
- * As the purpose of this method is not clear we recommend to use getCart() method for that.
+ * As the purpose of this method is not clear we recommend to use getCart() method because its behaviour seems to be the same.
  */
 export async function createCart(): Promise<ContextTokenResponse> {
   const resp = await apiService.post(getCheckoutCartEndpoint());
@@ -35,6 +35,8 @@ export async function getCart(): Promise<Cart> {
 
 /**
  * Add specific quantity of the product to the cart by productId.
+ *
+ * Warning: This method does not change the state of the cart in any way if productId already exists in a cart. For changing the quantity use addQuantityToCartLineItem or changeCartLineItemQuantity methods.
  */
 export async function addProductToCart(
   productId: string,
