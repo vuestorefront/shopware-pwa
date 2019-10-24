@@ -1,0 +1,13 @@
+diff a/packages/shopware-6-client/src/interfaces/cart/LineItemType.ts b/packages/shopware-6-client/src/interfaces/cart/LineItemType.ts	(rejected hunks)
+@@ -2,5 +2,5 @@ export enum LineItemType {
+-    PRODUCT = "product",
+-    CREDIT = "credit",
+-    CUSTOM = "custom",
+-    PROMOTION = "promotion"
+-  }
+\ No newline at end of file
++  PRODUCT = "product",
++  CREDIT = "credit",
++  CUSTOM = "custom",
++  PROMOTION = "promotion"
++}
