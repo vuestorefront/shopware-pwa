@@ -1,22 +1,26 @@
 interface PageForHeadless {
   pageTypeId: Enumerator;
   pageType: string;
-  data: CategoryPageForHeadless | ProductPageForHeadless;
+  pathInfo: string;
+  seoPathInfo: string;
+  isCanonical: boolean;
+  resourceIdentifier: string;
+  data: CategoryPageHeadless | ProductPageHeadless;
 }
 
-interface CategoryPageForHeadless {
+interface CategoryPageHeadless {
   CategoryCmsPage: CmsPage;
   availableFilters: AvailableFilters;
   availableSortings: AvailableSortings;
   categories: CategoryForHeadless[];
 }
 
-interface ProductPageForHeadless {
+interface ProductPageHeadless {
   ProductCmsPage: CmsPage;
   product: ProductForHeadless;
 }
 
-interface CategoryForHeadless {
+interface CategoryForCategoryPageHeadless {
   // basic category data
   id: string;
   name: string | null;
@@ -55,7 +59,7 @@ interface CategoryForHeadless {
   media: Media | null;
 }
 
-interface ProductForCategoryHeadless {
+interface ProductForCategoryPageHeadless {
   // basic product data for category page
   id: string;
   name: string | null;
@@ -89,87 +93,90 @@ interface ProductForCategoryHeadless {
   ratingAverage: number | null;
 }
 
-interface ProductForHeadless {
+interface ProductForProductPageHeadless {
+  // basic product data
   id: string;
   ean: string | null;
   productNumber: string;
+  additionalText: string | null;
+  name: string | null;
+  keywords: string | null;
+  description: string | null;
+  metaTitle: string | null;
+  manufacturerNumber: string | null;
+  manufacturerId: string | null;
+  manufacturer: ProductManufacturer | null;
+
+  unitId: string | null;
+  unit: Unit | null;
+
+  // labels
+  isCloseout: boolean | null;
+  shippingFree: boolean | null;
+  markAsTopseller: boolean | null;
+  isNew: boolean;
 
   // whats the difference between calculated and not calculated prices?
   calculatedListingPrice: ListingPrice[];
   calculatedPrices: Price[];
   calculatedPrice: CalculatedPrice;
   price: Price[] | null;
+  taxId: string | null;
+  tax: Tax;
+  prices: ProductPrice[];
+  listingPrices: ListingPrice[] | null;
 
-  // variants handling?
+  // parent categoryId?
   parentId: string | null;
 
+  // what are sortedProperties?
   sortedProperties: PropertyGroup[] | null;
-  isNew: boolean;
 
   // maybe endpoint can simply return an error instead of returning not-active products?
   active: boolean;
 
-  taxId: string | null;
-  manufacturerId: string | null;
-  unitId: string | null;
-
   // what's a displayGroup?
   displayGroup: string;
 
-  manufacturerNumber: string | null;
-
+  // stocks
   stock: number;
   availableStock: number | null;
   available: boolean;
+
+  // shipping
   deliveryTimeId: string | null;
   deliveryTime: DeliveryTime;
-  restockTime: number;
-  isCloseout: boolean | null;
+
+  // what are purchaseSteps?
   purchaseSteps: number | null;
   maxPurchase: number | null;
   minPurchase: number | null;
   purchaseUnit: number | null;
-  referenceUnit: number | null;
-  shippingFree: boolean | null;
-  purchasePrice: number | null;
-  markAsTopseller: boolean | null;
+
+  // properties
   weight: number | null;
   width: number | null;
   height: number | null;
   length: number | null;
-  releaseDate: Date;
-  categoryTree: [] | null;
+
+  // variants and proprties
   optionsIds: [] | null;
   propertyIds: [] | null;
-  additionalText: string | null;
-  name: string | null;
-  keywords: string | null;
-  description: string | null;
-  metaTitle: string | null;
-  packUnit: string | null;
-  tax: Tax;
-  manufacturer: ProductManufacturer | null;
-  unit: Unit | null;
-  prices: ProductPrice[];
-  listingPrices: ListingPrice[] | null;
-  cover: ProductMedia;
-  parent: Product;
-  children: Product[];
-  media: ProductMedia[];
-  translations: ProductTranslation[];
-  categories: Category[];
-  tags: Tag[];
   properties: PropertyGroupOption[] | null;
   options: PropertyGroupOption[] | null;
-  categoriesRo: Category[] | null;
-  coverId: string | null;
-  customFields: CustomField[];
+  parent: Product;
+  children: Product[];
+
+  // tags
   tagIds: [] | null;
+  tags: Tag[];
+
+  // images
+  coverId: string | null;
+  cover: ProductMedia;
+  media: ProductMedia[];
+
+  // reviews
   productReviews: ProductReview[] | null;
   ratingAverage: number | null;
-  extensions: [];
-
-  parentVersionId: string;
-  productManufacturerVersionId: string;
-  productMediaVersiond: null;
 }
