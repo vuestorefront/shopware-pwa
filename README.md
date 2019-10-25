@@ -236,6 +236,17 @@ Versioning of Shopware-PWA is not dependent on Shopware 6 versioning. We will st
 
 We experimentally use conventional commit messages to automatically generate the change log. https://www.conventionalcommits.org
 
+___
+
+# Checklists
+
+## Performance QA Checklist
+
+* Bundle size verified with `webpack-bundle-analyzer`.
+* Size lower than 300 kB for JS loaded immediately.
+* Everything, that may exceed 300 KB must be lazy loaded.
+___
+
 # Instructions for 3-party tools
 
 ## Faker
