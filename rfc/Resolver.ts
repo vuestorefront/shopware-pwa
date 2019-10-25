@@ -2,7 +2,7 @@ import axios from "axios";
 import { PageCriteria } from "./ResolverInterface";
 
 /**
- * use case for category
+ * use case for specific category
  */
 const getPageForHeadless = (params: PageCriteria) =>
   axios.post("/resolver", params);
@@ -24,6 +24,40 @@ const searchCriteria: PageCriteria = {
   //   isCanonical: true,
   //   resourceIdentifier: "03dfd5badd3d43bd8a345ef660761e09",
   //   data: {
+  //     availableSorting: [
+  //       {
+  //         field: "name",
+  //         label: "Product name"
+  //       },
+  //       {
+  //         price: "price",
+  //         label: "Price"
+  //       }
+  //     ],
+  //     availableFiltering: [
+  //       {
+  //         groupId: "a79e0b21158b4586bb8a5349d37cacf7",
+  //         code: "size",
+  //         label: "Size",
+  //         type: "option",
+  //         properties: [
+  //           {
+  //             id: "43231c2e5de1434a8bda2ddd0cd3239c",
+  //             label: "Black"
+  //           },
+  //           {
+  //             id: "c8c382b1e90748d2bb5719f456dc2cb9",
+  //             label: "white"
+  //           }
+  //         ]
+  //       },
+  //       {
+  //         groupId: "bfeb468ae333484fbce5a28d4064c960",
+  //         code: "price",
+  //         label: "Price",
+  //         type: "range"
+  //       }
+  //     ],
   //     name: "Health & Beauty", // only name and products were in includes parameter
   //     products: [
   //       {
@@ -155,7 +189,7 @@ const searchCriteria: PageCriteria = {
 })();
 
 /**
- * use case for product
+ * use case for specific product
  */
 const resolveProductCriteria: PageCriteria = {
   path: "Aerodynamic-Iron-Jetsilk/eea0f69ec02d44f7a4224272b3d99478",
@@ -163,7 +197,7 @@ const resolveProductCriteria: PageCriteria = {
 };
 
 !(async () => {
-  const { data } = await getPageForHeadless(searchCriteria);
+  const { data } = await getPageForHeadless(resolveProductCriteria);
   // here is an output of the query.
   // it discovers a type and returnes data for specific product for provided path
 
