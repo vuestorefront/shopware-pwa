@@ -13,7 +13,7 @@ import { apiService } from "../apiService";
 import { CustomerAddress } from "../interfaces/models/checkout/customer/CustomerAddress";
 import { CustomerRegistrationParams } from "../interfaces/request/CustomerRegistrationParams";
 import { update } from "..";
-import { UpdateContextResponse } from "../interfaces/response/UpdateContextResponse";
+import { ContextTokenResponse } from "../interfaces/response/ContextTokenResponse";
 
 interface CustomerRegisterResponse {
   data: string;
@@ -39,7 +39,7 @@ interface CustomerLoginParam {
  */
 export async function login(
   params: CustomerLoginParam
-): Promise<UpdateContextResponse> {
+): Promise<ContextTokenResponse> {
   const resp = await apiService.post(getCustomerLoginEndpoint(), params);
   const contextToken = resp.data["sw-context-token"];
   update({ contextToken });
