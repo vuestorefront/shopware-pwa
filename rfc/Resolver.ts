@@ -153,3 +153,82 @@ const searchCriteria: PageCriteria = {
   //   }
   // }
 })();
+
+/**
+ * use case for product
+ */
+const resolveProductCriteria: PageCriteria = {
+  path: "Aerodynamic-Iron-Jetsilk/eea0f69ec02d44f7a4224272b3d99478",
+  includes: ["price", "name", "stock", "properties"]
+};
+
+!(async () => {
+  const { data } = await getPageForHeadless(searchCriteria);
+  // here is an output of the query.
+  // it discovers a type and returnes data for specific product for provided path
+
+  // data = {
+  //   pageTypeId: "product",
+  //   pathInfo: "/detail/044a190a54ab4f06803909c3ee8063ef",
+  //   seoPathInfo: "Aerodynamic-Iron-Jetsilk/044a190a54ab4f06803909c3ee8063ef",
+  //   isCanonical: true,
+  //   resourceIdentifier: "044a190a54ab4f06803909c3ee8063ef",
+  //   data: {
+  //     price: 141.46,
+  //     name: "Aerodynamic Iron Jetsilk",
+  //     stock: 16,
+  //     properties: [
+  //       {
+  //           "groupId": "a79e0b21158b4586bb8a5349d37cacf7",
+  //           "name": "8 mm",
+  //           "position": 1,
+  //           "colorHexCode": null,
+  //           "mediaId": null,
+  //           "group": null,
+  //           "translations": null,
+  //           "productConfiguratorSettings": null,
+  //           "productProperties": null,
+  //           "productOptions": null,
+  //           "media": null,
+  //           "customFields": null,
+  //           "_uniqueIdentifier": "003a81c935674e90a48eb0a52a6575dc",
+  //           "versionId": null,
+  //           "translated": {
+  //               "name": "8 mm",
+  //               "position": 1,
+  //               "customFields": []
+  //           },
+  //           "createdAt": "2019-10-08T09:42:14+00:00",
+  //           "updatedAt": null,
+  //           "extensions": [],
+  //           "id": "003a81c935674e90a48eb0a52a6575dc"
+  //       },
+  //       {
+  //           "groupId": "a73f47ebd9f541bd9fb9f037bc399cf8",
+  //           "name": "12 mm",
+  //           "position": 1,
+  //           "colorHexCode": null,
+  //           "mediaId": null,
+  //           "group": null,
+  //           "translations": null,
+  //           "productConfiguratorSettings": null,
+  //           "productProperties": null,
+  //           "productOptions": null,
+  //           "media": null,
+  //           "customFields": null,
+  //           "_uniqueIdentifier": "0a4ff74816154e7fa1ba043d35b46014",
+  //           "versionId": null,
+  //           "translated": {
+  //               "name": "12 mm",
+  //               "position": 1,
+  //               "customFields": []
+  //           },
+  //           "createdAt": "2019-10-08T09:42:14+00:00",
+  //           "updatedAt": null,
+  //           "extensions": [],
+  //           "id": "0a4ff74816154e7fa1ba043d35b46014"
+  //       }
+  //     ]
+  //   }
+  // }
+})();
