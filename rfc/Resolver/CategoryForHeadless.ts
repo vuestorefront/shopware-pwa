@@ -10,7 +10,7 @@ export interface CategoryForHeadless extends Category {
 }
 
 interface Sort {
-  name: string; // field name to sort by
+  field: string; // field name to sort by
   label: string; // translated label
 }
 
