@@ -1,11 +1,11 @@
-import { changeCartLineItemQuantity } from "@shopware-pwa/shopware-6-client";
+import { changeCartItemQuantity } from "@shopware-pwa/shopware-6-client";
 import { apiService } from "../../../src/apiService";
 import { random, commerce } from "faker";
 
 jest.mock("../../../src/apiService");
 const mockedAxios = apiService as jest.Mocked<typeof apiService>;
 
-describe("CartService - changeCartLineItemQuantity", () => {
+describe("CartService - changeCartItemQuantity", () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
@@ -30,7 +30,7 @@ describe("CartService - changeCartLineItemQuantity", () => {
 
     let lineItemId = "geawq90a5dab4206843d0vc3sa8wefdf";
 
-    const result = await changeCartLineItemQuantity(lineItemId, 3);
+    const result = await changeCartItemQuantity(lineItemId, 3);
     expect(mockedAxios.patch).toBeCalledTimes(1);
     expect(mockedAxios.patch).toBeCalledWith(
       "/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
@@ -46,7 +46,7 @@ describe("CartService - changeCartLineItemQuantity", () => {
 
     let lineItemId = "someNonExistingLineItemId";
 
-    expect(changeCartLineItemQuantity(lineItemId, 1)).rejects.toThrow(
+    expect(changeCartItemQuantity(lineItemId, 1)).rejects.toThrow(
       "400: CHECKOUT__CART_LINEITEM_NOT_FOUND"
     );
     expect(mockedAxios.patch).toBeCalledTimes(1);
@@ -63,7 +63,7 @@ describe("CartService - changeCartLineItemQuantity", () => {
 
     let lineItemId = "geawq90a5dab4206843d0vc3sa8wefdf";
 
-    expect(changeCartLineItemQuantity(lineItemId, -2)).rejects.toThrow(
+    expect(changeCartItemQuantity(lineItemId, -2)).rejects.toThrow(
       "400: CHECKOUT__CART_INVALID_LINEITEM_QUANTITY"
     );
     expect(mockedAxios.patch).toBeCalledTimes(1);

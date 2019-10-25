@@ -1,11 +1,11 @@
-import { createCart } from "@shopware-pwa/shopware-6-client";
+import { clearCart } from "@shopware-pwa/shopware-6-client";
 import { apiService } from "../../../src/apiService";
 import { random } from "faker";
 
 jest.mock("../../../src/apiService");
 const mockedAxios = apiService as jest.Mocked<typeof apiService>;
 
-describe("CartService - createCart", () => {
+describe("CartService - clearCart", () => {
   let contextToken = random.uuid();
 
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe("CartService - createCart", () => {
       data: { "sw-context-token": contextToken }
     });
 
-    const result = await createCart();
+    const result = await clearCart();
     expect(mockedAxios.post).toBeCalledTimes(1);
     expect(mockedAxios.post).toBeCalledWith("/checkout/cart");
     expect(result.contextToken).toEqual(contextToken);

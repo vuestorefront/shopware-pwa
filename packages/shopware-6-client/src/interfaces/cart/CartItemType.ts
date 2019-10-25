@@ -1,4 +1,4 @@
-export enum CartLineItemType {
+export enum CartItemType {
   PRODUCT = "product",
   CREDIT = "credit",
   CUSTOM = "custom",

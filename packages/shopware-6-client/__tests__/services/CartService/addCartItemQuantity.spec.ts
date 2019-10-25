@@ -1,11 +1,11 @@
-import { addQuantityToCartLineItem } from "@shopware-pwa/shopware-6-client";
+import { addCartItemQuantity } from "@shopware-pwa/shopware-6-client";
 import { apiService } from "../../../src/apiService";
 import { random, commerce } from "faker";
 
 jest.mock("../../../src/apiService");
 const mockedAxios = apiService as jest.Mocked<typeof apiService>;
 
-describe("CartService - addQuantityToCartLineItem", () => {
+describe("CartService - addCartItemQuantity", () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
@@ -30,7 +30,7 @@ describe("CartService - addQuantityToCartLineItem", () => {
 
     let lineItemId = "3a64e872ca404522a2c5d43ebc751e6b";
 
-    const result = await addQuantityToCartLineItem(lineItemId, 3);
+    const result = await addCartItemQuantity(lineItemId, 3);
     expect(mockedAxios.post).toBeCalledTimes(1);
     expect(mockedAxios.post).toBeCalledWith(
       `/checkout/cart/line-item/3a64e872ca404522a2c5d43ebc751e6b`,
@@ -49,7 +49,7 @@ describe("CartService - addQuantityToCartLineItem", () => {
 
     let lineItemId = "someNonExistingLineItemId";
 
-    expect(addQuantityToCartLineItem(lineItemId, 1)).rejects.toThrow(
+    expect(addCartItemQuantity(lineItemId, 1)).rejects.toThrow(
       "500: FRAMEWORK__INCONSISTENT_CRITERIA_IDS"
     );
     expect(mockedAxios.post).toBeCalledTimes(1);
@@ -69,7 +69,7 @@ describe("CartService - addQuantityToCartLineItem", () => {
 
     let lineItemId = "someNonExistingLineItemId";
 
-    expect(addQuantityToCartLineItem(lineItemId, -2)).rejects.toThrow(
+    expect(addCartItemQuantity(lineItemId, -2)).rejects.toThrow(
       "400: CHECKOUT__CART_INVALID_LINEITEM_QUANTITY"
     );
     expect(mockedAxios.post).toBeCalledTimes(1);
@@ -87,7 +87,7 @@ describe("CartService - addQuantityToCartLineItem", () => {
 
     let lineItemId = "";
 
-    expect(addQuantityToCartLineItem(lineItemId, 2)).rejects.toThrow(
+    expect(addCartItemQuantity(lineItemId, 2)).rejects.toThrow(
       "404: Not Found"
     );
     expect(mockedAxios.post).toBeCalledTimes(1);

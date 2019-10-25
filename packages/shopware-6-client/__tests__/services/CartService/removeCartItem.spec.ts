@@ -1,11 +1,11 @@
-import { removeCartLineItem } from "@shopware-pwa/shopware-6-client";
+import { removeCartItem } from "@shopware-pwa/shopware-6-client";
 import { apiService } from "../../../src/apiService";
 import { random } from "faker";
 
 jest.mock("../../../src/apiService");
 const mockedAxios = apiService as jest.Mocked<typeof apiService>;
 
-describe("CartService - removeCartLineItem", () => {
+describe("CartService - removeCartItem", () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
@@ -21,7 +21,7 @@ describe("CartService - removeCartLineItem", () => {
 
     let lineItemId = "geawq90a5dab4206843d0vc3sa8wefdf";
 
-    const result = await removeCartLineItem(lineItemId);
+    const result = await removeCartItem(lineItemId);
     expect(mockedAxios.delete).toBeCalledTimes(1);
     expect(mockedAxios.delete).toBeCalledWith(
       "/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf"
@@ -36,7 +36,7 @@ describe("CartService - removeCartLineItem", () => {
 
     let lineItemId = "someNonExistingLineItemId";
 
-    expect(removeCartLineItem(lineItemId)).rejects.toThrow(
+    expect(removeCartItem(lineItemId)).rejects.toThrow(
       "400: CHECKOUT__CART_LINEITEM_NOT_FOUND"
     );
     expect(mockedAxios.delete).toBeCalledTimes(1);

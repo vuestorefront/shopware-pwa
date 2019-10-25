@@ -8,7 +8,7 @@ import {
 import { apiService } from "../apiService";
 import { ContextTokenResponse } from "../interfaces/response/ContextTokenResponse";
 import { update } from "..";
-import { CartLineItemType } from "../interfaces/cart/CartLineItemType";
+import { CartItemType } from "../interfaces/cart/CartItemType";
 
 /**
  * When no sw-context-token given then this method return an empty cart with the new sw-context-token.
@@ -17,7 +17,7 @@ import { CartLineItemType } from "../interfaces/cart/CartLineItemType";
  *
  * As the purpose of this method is not clear we recommend to use getCart() method because its behaviour seems to be the same.
  */
-export async function createCart(): Promise<ContextTokenResponse> {
+export async function clearCart(): Promise<ContextTokenResponse> {
   const resp = await apiService.post(getCheckoutCartEndpoint());
   let contextToken = resp.data["sw-context-token"];
   update({ contextToken });
@@ -42,10 +42,9 @@ export async function addProductToCart(
   productId: string,
   quantity: number
 ): Promise<Cart> {
-  let params = { quantity: quantity };
   const resp = await apiService.post(
     getCheckoutCartProductEndpoint(productId),
-    params
+    { quantity: quantity }
   );
 
   return resp.data;
@@ -56,11 +55,11 @@ export async function addProductToCart(
  *
  * Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 5.
  */
-export async function addQuantityToCartLineItem(
+export async function addCartItemQuantity(
   itemId: string,
   quantity: number
 ): Promise<Cart> {
-  let params = { type: CartLineItemType.PRODUCT, quantity: quantity };
+  let params = { type: CartItemType.PRODUCT, quantity: quantity };
   const resp = await apiService.post(
     getCheckoutCartLineItemEndpoint(itemId),
     params
@@ -74,7 +73,7 @@ export async function addQuantityToCartLineItem(
  *
  * Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 2.
  */
-export async function changeCartLineItemQuantity(
+export async function changeCartItemQuantity(
   itemId: string,
   newQuantity: number
 ): Promise<Cart> {
@@ -92,7 +91,7 @@ export async function changeCartLineItemQuantity(
  *
  * This method may be used for deleting "product" type item lines as well as "promotion" type item lines.
  */
-export async function removeCartLineItem(itemId: string): Promise<Cart> {
+export async function removeCartItem(itemId: string): Promise<Cart> {
   const resp = await apiService.delete(getCheckoutCartLineItemEndpoint(itemId));
 
   return resp.data;
