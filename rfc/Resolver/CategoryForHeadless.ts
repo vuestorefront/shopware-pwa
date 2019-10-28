@@ -1,13 +1,47 @@
 import { Category } from "../../packages/shopware-6-client/src/interfaces/models/content/category/Category";
+import { Media } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/media/Media";
+import { CmsPage } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/cms/CmsPage";
+import { Breadcrumb } from "./Breadcrumb";
+import { ProductForHeadless } from "./ProductForHeadless";
 
-/**
- *  extended current category with two fields
- */
+// PLACEHOLDERS IN CMS PAGES OF SHOPWARE 6
+//
+// category.type
+// category.name
+// category.externalLink
+// category.description
+// category.media.alt
+// category.media.title
+// category.media.url
+// category.media
 
 export interface CategoryForHeadless {
   availableSorting: [Sort];
   availableFiltering: [Filter];
-  breadcrumbs: any;
+
+  // basic category data
+  id: string;
+  name: string | null;
+  description: string;
+  childCount: number;
+  // type: string;
+
+  // structure in a tree
+  parentId: string | null;
+  breadcrumb: Breadcrumb[];
+  level: number;
+
+  // child categories and products
+  children: CategoryForHeadless[] | null;
+  products: ProductForHeadless[] | null;
+
+  // how to handle cms pages?
+  // cmsPageId: string | null;
+  cmsPage: CmsPage | null;
+
+  // I guess we do not need media on category level. More like on cms page level?
+  //mediaId: string | null;
+  media: Media | null;
 }
 
 interface Sort {

@@ -1,13 +1,15 @@
 import { ShopwareParams } from "@shopware-pwa/shopware-6-client/src/helpers/searchConverter";
-import { CategoryForHeadless } from "./Resolver/CategoryForHeadless";
-import { ProductForHeadless } from "./Resolver/ProductForHeadless";
 import { CmsPageForHeadless } from "./Resolver/CmsPageForHeadless";
+import { ProductForCategoryPageHeadless } from "./Resolver/ProductForCategoryPageHeadless";
+import { ProductForProductPageHeadless } from "./Resolver/ProductForProductPageHeadless";
 
 export interface Resolver {
   getPageForHeadless: (
     criteria: PageCriteria
   ) => PageForHeadless<
-    ProductForHeadless | CategoryForHeadless | CmsPageForHeadless
+    | ProductForCategoryPageHeadless
+    | ProductForProductPageHeadless
+    | CmsPageForHeadless
   >;
 }
 
