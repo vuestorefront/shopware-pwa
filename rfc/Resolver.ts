@@ -30,7 +30,7 @@ const searchCriteria: PageCriteria = {
   //         label: "Product name"
   //       },
   //       {
-  //         price: "price",
+  //         field: "price",
   //         label: "Price"
   //       }
   //     ],
@@ -203,10 +203,10 @@ const resolveProductCriteria: PageCriteria = {
 
   // data = {
   //   pageTypeId: "product",
-  //   pathInfo: "/detail/044a190a54ab4f06803909c3ee8063ef",
-  //   seoPathInfo: "Aerodynamic-Iron-Jetsilk/044a190a54ab4f06803909c3ee8063ef",
+  //   pathInfo: "/detail/eea0f69ec02d44f7a4224272b3d99478",
+  //   seoPathInfo: "Aerodynamic-Iron-Jetsilk/eea0f69ec02d44f7a4224272b3d99478",
   //   isCanonical: true,
-  //   resourceIdentifier: "044a190a54ab4f06803909c3ee8063ef",
+  //   resourceIdentifier: "eea0f69ec02d44f7a4224272b3d99478",
   //   data: {
   //     price: 141.46,
   //     name: "Aerodynamic Iron Jetsilk",
