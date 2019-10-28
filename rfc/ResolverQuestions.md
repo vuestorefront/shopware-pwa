@@ -62,3 +62,5 @@ would it be possible to get the breadcrumbs objects with links included? Like be
 15. What is `Product.sortedProperties` field? We found only nulls in that field. Is it something important for us?
 
 16. What is `product.displayGroup` field? Is it something important for us?
+
+17. Can we get /navigation endpoint?
