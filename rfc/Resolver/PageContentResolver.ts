@@ -16,7 +16,7 @@ interface CategoryPageHeadless {
 }
 
 interface ProductPageHeadless {
-  ProductCmsPage: CmsPage;
+  cmsPage: CmsPage;
   product: ProductForHeadless;
 }
 
