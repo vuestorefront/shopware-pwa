@@ -9,7 +9,7 @@ interface PageForHeadless {
 }
 
 interface CategoryPageHeadless {
-  CategoryCmsPage: CmsPage;
+  cmsPage: CmsPage;
   availableFilters: AvailableFilters;
   availableSortings: AvailableSortings;
   categories: CategoryForHeadless[];
