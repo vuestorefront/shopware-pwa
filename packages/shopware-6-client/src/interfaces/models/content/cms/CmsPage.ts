@@ -62,7 +62,7 @@ interface Slot {
   data?: any;
 }
 
-interface Block {
+interface CmsBlock {
   name: string;
   sectionPosition: string;
   marginTop: string;
