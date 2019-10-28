@@ -42,7 +42,7 @@ interface CmsFieldConfig {
   value: string;
 }
 
-interface Slot {
+interface CmsSlot {
   type: SlotType;
   customFields: [CustomField] | null;
   locked: boolean;
