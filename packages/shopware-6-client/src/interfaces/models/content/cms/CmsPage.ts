@@ -27,7 +27,7 @@ export interface CmsPage {
   previewMedia: any | null;
 }
 
-enum SlotType {
+enum CmsSlotType {
   image = "image",
   productSlider = "product-slider",
   productListing = "product-listing",
