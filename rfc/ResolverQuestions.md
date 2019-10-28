@@ -19,7 +19,7 @@
 would it be possible to get the breadcrumbs objects with links included? Like below:
 
 ```
-[
+"breadcrumb": [
   {
     name: "Man",
     path: "/man"        
