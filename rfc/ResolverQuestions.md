@@ -10,7 +10,7 @@
 
 6. Would it be possible to get only active / visible categories and products? Only the data that the storefront needs to display.
 
-7. Rights now breadcrumbs are 
+7. Right now breadcrumbs are 
 
 ```
     "breadcrumb": ["Catalogue #1", "Clothing"]
