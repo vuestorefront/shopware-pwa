@@ -1,3 +1,5 @@
+import { CmsPage } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/cms/CmsPage";
+
 interface PageForHeadless {
   pageTypeId: Enumerator;
   pageType: string;
@@ -12,12 +14,17 @@ interface CategoryPageHeadless {
   cmsPage: CmsPage;
   availableFilters: AvailableFilters;
   availableSortings: AvailableSortings;
-  categories: CategoryForHeadless[];
+  categories: CategoryForCategoryPageHeadless[];
 }
 
 interface ProductPageHeadless {
   cmsPage: CmsPage;
   product: ProductForHeadless;
+}
+
+interface Breadcrumb {
+  name: string;
+  path: string;
 }
 
 interface CategoryForCategoryPageHeadless {
@@ -26,37 +33,24 @@ interface CategoryForCategoryPageHeadless {
   name: string | null;
   description: string;
   childCount: number;
-  type: string;
-
-  // url to external resource if "category" is not a category but external link
-  externalLink: string | null;
-
-  // can we delete that field and include only visible categories in response?
-  visible: boolean;
-  // can we delete that field and include only active categories in response?
-  active: boolean;
+  // type: string;
 
   // structure in a tree
   parentId: string | null;
-  breadcrumb: string[];
+  breadcrumb: Breadcrumb[];
   level: number;
-  afterCategoryId: string | null;
 
   // child categories and products
-  children: Category[] | null;
-  products: Product[] | null;
-
-  // what's that?
-  displayNestedProducts: boolean;
-  nestedProducts: Product[] | null;
+  children: CategoryForCategoryPageHeadless[] | null;
+  products: ProductForCategoryPageHeadless[] | null;
 
   // how to handle cms pages?
-  cmsPageId: string | null;
+  // cmsPageId: string | null;
   cmsPage: CmsPage | null;
 
   // I guess we do not need media on category level. More like on cms page level?
-  mediaId: string | null;
-  media: Media | null;
+  //mediaId: string | null;
+  //media: Media | null;
 }
 
 interface ProductForCategoryPageHeadless {

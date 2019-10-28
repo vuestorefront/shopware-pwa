@@ -4,9 +4,10 @@ import { Category } from "../../packages/shopware-6-client/src/interfaces/models
  *  extended current category with two fields
  */
 
-export interface CategoryForHeadless extends Category {
+export interface CategoryForHeadless {
   availableSorting: [Sort];
   availableFiltering: [Filter];
+  breadcrumbs: any;
 }
 
 interface Sort {

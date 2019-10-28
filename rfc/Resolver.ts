@@ -8,14 +8,12 @@ const getPageForHeadless = (params: PageCriteria) =>
   axios.post("/resolver", params);
 
 const searchCriteria: PageCriteria = {
-  path: "Kids-Toys/Health-Beauty",
-  includes: ["products", "name"]
+  path: "Kids-Toys/Health-Beauty"
 };
 
 !(async () => {
   const { data } = await getPageForHeadless(searchCriteria);
   // here is an output of the query.
-  // the includes parameter for associated products should be also handled on server-side, or prepare data models (take them from ./Resolver/PageContentResolver.ts)
   //
   // data = {
   //   pageTypeId: "category",
@@ -58,7 +56,7 @@ const searchCriteria: PageCriteria = {
   //         type: "range"
   //       }
   //     ],
-  //     name: "Health & Beauty", // only name and products were in includes parameter
+  //     name: "Health & Beauty",
   //     products: [
   //       {
   //         "calculatedListingPrice": {},
@@ -192,8 +190,7 @@ const searchCriteria: PageCriteria = {
  * use case for specific product
  */
 const resolveProductCriteria: PageCriteria = {
-  path: "Aerodynamic-Iron-Jetsilk/eea0f69ec02d44f7a4224272b3d99478",
-  includes: ["price", "name", "stock", "properties"]
+  path: "Aerodynamic-Iron-Jetsilk/eea0f69ec02d44f7a4224272b3d99478"
 };
 
 !(async () => {
