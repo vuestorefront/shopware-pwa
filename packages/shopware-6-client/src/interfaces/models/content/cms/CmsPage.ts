@@ -36,7 +36,7 @@ enum CmsSlotType {
   text = "text"
 }
 
-interface FieldConfig {
+interface CmsFieldConfig {
   name: string;
   source: string;
   value: string;
