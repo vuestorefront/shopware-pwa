@@ -9,7 +9,7 @@ enum CmsPageType {
 export interface CmsPage {
   type: CmsPageType;
   name: string;
-  customFields: [CustomField] | null;
+  customFields: CustomFields[] | null;
   locked: boolean;
   _uniqueIdentifier: string;
   versionId: string | null;
