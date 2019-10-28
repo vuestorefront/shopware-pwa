@@ -2,11 +2,13 @@ import { ShopwareParams } from "@shopware-pwa/shopware-6-client/src/helpers/sear
 import { CmsPageForHeadless } from "./Resolver/CmsPageForHeadless";
 import { ProductForCategoryPageHeadless } from "./Resolver/ProductForCategoryPageHeadless";
 import { ProductForProductPageHeadless } from "./Resolver/ProductForProductPageHeadless";
+import { CategoryForHeadless } from "./Resolver/CategoryForHeadless";
 
 export interface Resolver {
   getPageForHeadless: (
     criteria: PageCriteria
   ) => PageForHeadless<
+    | CategoryForHeadless
     | ProductForCategoryPageHeadless
     | ProductForProductPageHeadless
     | CmsPageForHeadless
