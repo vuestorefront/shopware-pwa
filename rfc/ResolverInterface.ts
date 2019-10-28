@@ -29,7 +29,7 @@ enum PageType {
 
 export interface PageCriteria extends SearchCriteria {
   path: string; // path + other possible criteria
-  includes?: Array<string>; // array of fields to be included (removes others from payload)
+  includes?: string[]; // array of fields to be included (removes others from payload)
   // 1. includes might be available for associated resources as well - to consider
   // 2. would be awesome to have a deep mode for associations to get the deeper objects returned
 }
