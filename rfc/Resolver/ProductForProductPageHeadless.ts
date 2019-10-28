@@ -1,9 +1,9 @@
-import { ProductManufacturer } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/ProductManufacturer";
-import { Unit } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/unit/Unit";
-import { ProductPrice } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/ProductPrice";
-import { Tax } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/tax/Tax";
-import { Price } from "@shopware-pwa/shopware-6-client/src/interfaces/models/framework/pricing/Price";
-import { CalculatedPrice } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/cart/price/CalculatedPrice";
+import { ProductManufacturer } from "../../packages/shopware-6-client/src/interfaces/models/content/product/ProductManufacturer";
+import { Unit } from "../../packages/shopware-6-client/src/interfaces/models/system/unit/Unit";
+import { Price } from "../../packages/shopware-6-client/src/interfaces/models/framework/pricing/Price";
+import { CalculatedPrice } from "../../packages/shopware-6-client/src/interfaces/models/checkout/cart/price/CalculatedPrice";
+import { Tax } from "../../packages/shopware-6-client/src/interfaces/models/system/tax/Tax";
+import { ProductPrice } from "../../packages/shopware-6-client/src/interfaces/models/content/product/ProductPrice";
 
 export interface ProductForProductPageHeadless {
   // basic product data
@@ -26,6 +26,7 @@ export interface ProductForProductPageHeadless {
   isNew: boolean;
 
   // whats the difference between calculated and not calculated prices?
+  // can we get the price objects just to display for given sw-context-token and product page url path?
   calculatedPrices: Price[];
   calculatedPrice: CalculatedPrice;
   price: Price[] | null;
@@ -33,7 +34,7 @@ export interface ProductForProductPageHeadless {
   prices: ProductPrice[];
   parentId: string | null;
 
-  // stocks
+  // warehouse stocks
   available: boolean;
 
   // decission on how to display a quantity? as a text field, drop down etc.

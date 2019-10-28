@@ -1,8 +1,7 @@
-import { Category } from "../../packages/shopware-6-client/src/interfaces/models/content/category/Category";
-import { Media } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/media/Media";
-import { CmsPage } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/cms/CmsPage";
 import { Breadcrumb } from "./Breadcrumb";
-import { ProductForHeadless } from "./ProductForHeadless";
+import { ProductForCategoryPageHeadless } from "./ProductForCategoryPageHeadless";
+import { CmsPage } from "../../packages/shopware-6-client/src/interfaces/models/content/cms/CmsPage";
+import { Media } from "../../packages/shopware-6-client/src/interfaces/models/content/media/Media";
 
 // PLACEHOLDERS IN CMS PAGES OF SHOPWARE 6
 //
@@ -19,28 +18,21 @@ export interface CategoryForHeadless {
   availableSorting: [Sort];
   availableFiltering: [Filter];
 
-  // basic category data
   id: string;
   name: string | null;
   description: string;
   childCount: number;
-  // type: string;
 
-  // structure in a tree
   parentId: string | null;
   breadcrumb: Breadcrumb[];
   level: number;
 
-  // child categories and products
   children: CategoryForHeadless[] | null;
-  products: ProductForHeadless[] | null;
+  products: ProductForCategoryPageHeadless[] | null;
 
-  // how to handle cms pages?
-  // cmsPageId: string | null;
   cmsPage: CmsPage | null;
 
-  // I guess we do not need media on category level. More like on cms page level?
-  //mediaId: string | null;
+  // what is media here? some thumbnail of a category?
   media: Media | null;
 }
 
