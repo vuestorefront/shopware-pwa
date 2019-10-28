@@ -93,7 +93,7 @@ enum BackgroundMediaMode {
   cover = "cover"
 }
 
-interface Section {
+interface CmsSection {
   type: SectionType;
   pageId: string;
   page: null;
