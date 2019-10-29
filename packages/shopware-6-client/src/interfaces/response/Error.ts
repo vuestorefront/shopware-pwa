@@ -4,7 +4,7 @@ interface Error {
   title: string;
   detail: string;
   meta: any;
-  trace?: Array<{
+  trace?: ErrorTrace[];
     file: string;
     line: number;
     function: string;
