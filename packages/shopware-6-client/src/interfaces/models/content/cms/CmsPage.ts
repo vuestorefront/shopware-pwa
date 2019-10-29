@@ -1,10 +1,10 @@
 import { CustomField } from "../../common/CustomField";
 import { Category } from "../category/Category";
 
-enum CmsPageType {
-  default = "default",
-  product_listing = "product_list",
-  landingpage = "landingpage"
+export enum CmsPageType {
+  DEFAULT = "default",
+  PRODUCT_LISTING = "product_list",
+  LANDING_PAGE = "landingpage"
 }
 export interface CmsPage {
   type: CmsPageType;
@@ -27,22 +27,22 @@ export interface CmsPage {
   previewMedia: any | null;
 }
 
-enum CmsSlotType {
-  image = "image",
-  productSlider = "product-slider",
-  productListing = "product-listing",
-  productBox = "product-box",
-  slot = "slot",
-  text = "text"
+export enum CmsSlotType {
+  IMAGE = "image",
+  PRODUCT_SLIDER = "product-slider",
+  PRODUCT_LISTING = "product-listing",
+  PRODUCT_BOX = "product-box",
+  SLOT = "slot",
+  TEXT = "text"
 }
 
-interface CmsFieldConfig {
+export interface CmsFieldConfig {
   name: string;
   source: string;
   value: string;
 }
 
-interface CmsSlot {
+export interface CmsSlot {
   type: CmsSlotType;
   customFields: CustomField[] | null;
   locked: boolean;
@@ -62,7 +62,7 @@ interface CmsSlot {
   data?: any;
 }
 
-interface CmsBlock {
+export interface CmsBlock {
   name: string;
   sectionPosition: string;
   marginTop: string;
@@ -76,24 +76,24 @@ interface CmsBlock {
   slots: CmsSlot[];
 }
 
-enum SectionType {
-  default = "default"
+export enum SectionType {
+  DEFAULT = "default"
 }
 
-enum SizingMode {
-  boxed = "boxed"
+export enum SizingMode {
+  BOXED = "boxed"
 }
 
-enum MobileBehavior {
-  boxed = "boxed",
-  wrap = "wrap"
+export enum MobileBehavior {
+  BOXED = "boxed",
+  WRAP = "wrap"
 }
 
-enum BackgroundMediaMode {
-  cover = "cover"
+export enum BackgroundMediaMode {
+  COVER = "cover"
 }
 
-interface CmsSection {
+export interface CmsSection {
   type: SectionType;
   pageId: string;
   page: null;

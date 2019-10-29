@@ -16,7 +16,7 @@ export interface ProductForCategoryPageHeadless {
   // it is a parent product of some variant
   parentId: string | null;
 
-  // we would like to get price ranges or specific price, that we need to display in Category Page for given sw-context-token
+  // we would like to get price ranges or specific price, that we need to display in Category Page for given sw-context-token only
   listingPrices: ListingPriceForHeadless;
 
   // thumbnail
