@@ -10,7 +10,7 @@ interface Error {
     function: string;
     class: string;
     type: string;
-    args: Array<any>;
+    args: any[];
   }>;
 }
 
