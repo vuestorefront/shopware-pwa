@@ -15,5 +15,5 @@ interface Error {
 }
 
 export interface ErrorResponse {
-  errors: Array<Error>;
+  errors: Error[];
 }
