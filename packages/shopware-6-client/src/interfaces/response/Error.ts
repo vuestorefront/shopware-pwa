@@ -1,3 +1,12 @@
+interface ErrorTrace {
+  file: string;
+  line: number;
+  function: string;
+  class: string;
+  type: string;
+  args: any[];
+}
+
 interface Error {
   status: string;
   code: string;
@@ -5,13 +14,6 @@ interface Error {
   detail: string;
   meta: any;
   trace?: ErrorTrace[];
-    file: string;
-    line: number;
-    function: string;
-    class: string;
-    type: string;
-    args: any[];
-  }>;
 }
 
 export interface ErrorResponse {
