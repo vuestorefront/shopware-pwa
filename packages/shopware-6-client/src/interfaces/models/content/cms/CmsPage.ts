@@ -9,7 +9,7 @@ enum CmsPageType {
 export interface CmsPage {
   type: CmsPageType;
   name: string;
-  customFields: CustomFields[] | null;
+  customFields: CustomField[] | null;
   locked: boolean;
   _uniqueIdentifier: string;
   versionId: string | null;
@@ -19,7 +19,7 @@ export interface CmsPage {
   extensions: [any];
   id: string;
   entity: any | null;
-  sections: [Section];
+  sections: CmsSection[];
   translations: [any] | null;
   categories: [Category] | null;
   config: any | null;
@@ -43,8 +43,8 @@ interface CmsFieldConfig {
 }
 
 interface CmsSlot {
-  type: SlotType;
-  customFields: [CustomField] | null;
+  type: CmsSlotType;
+  customFields: CustomField[] | null;
   locked: boolean;
   _uniqueIdentifier: string;
   versionId: string;
@@ -56,9 +56,9 @@ interface CmsSlot {
   translations: any | null;
   config: any;
   slot: string;
-  block: Block | null;
+  block: CmsBlock | null;
   blockId: string;
-  fieldConfig: [FieldConfig];
+  fieldConfig: CmsFieldConfig[];
   data?: any;
 }
 
@@ -73,7 +73,7 @@ interface CmsBlock {
   backgroundMediaId: string;
   backgroundMediaMode: string;
   cssClass: string;
-  slots: [Slot];
+  slots: CmsSlot[];
 }
 
 enum SectionType {
@@ -106,7 +106,7 @@ interface CmsSection {
   backgroundMedia: null;
   backgroundMediaMode: BackgroundMediaMode;
   cssClass: string | null;
-  customFields: [CustomField] | null;
+  customFields: CustomField[] | null;
   locked: false;
   _uniqueIdentifier: string;
   versionId: string | null;
@@ -115,5 +115,5 @@ interface CmsSection {
   updatedAt: Date;
   extensions: [any];
   id: string;
-  blocks: [Block];
+  blocks: CmsBlock[];
 }

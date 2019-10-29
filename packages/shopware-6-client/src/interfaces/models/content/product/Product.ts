@@ -14,7 +14,7 @@ import { ProductTranslation } from "./ProductTranslation";
 import { PropertyGroupOption } from "../property/PropertyGroupOption";
 import { Category } from "../category/Category";
 import { Tag } from "../../system/tag/Tag";
-import { CustomFields } from "../../common/CustomField";
+import { CustomField } from "../../common/CustomField";
 
 export interface Product {
   calculatedListingPrice: ListingPrice[];
@@ -79,7 +79,7 @@ export interface Product {
   options: PropertyGroupOption[] | null;
   categoriesRo: Category[] | null;
   coverId: string | null;
-  customFields: CustomFields;
+  customFields: CustomField[];
   tagIds: [] | null;
   productReviews: ProductReview[] | null;
   ratingAverage: number | null;
