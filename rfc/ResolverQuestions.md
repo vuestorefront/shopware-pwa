@@ -63,4 +63,4 @@ would it be possible to get the breadcrumbs objects with links included? Like be
 
 16. What is `product.displayGroup` field? Is it something important for us?
 
-17. Can we get /navigation endpoint?
+17. During the workshop we had a short discussion associated with fetching the navigation. One way that we see to display the navigation in the frontend is to use `/category` endpoint to get the whole structure of categories, external links and structing elements. However, this endpoint is pretty big. Right now we are not 100% sure what would be the most efficient way to fetch the navigation / menu. How do you currently solve that in Shopware? What's the best way to fetch it in a light way? Assuming the eCommerce may have even more than 1000 categories we would love to find the way of fetching not only everything at once but also sub-menu or level only.
