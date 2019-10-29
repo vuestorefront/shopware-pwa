@@ -154,7 +154,7 @@ describe("endpoints", () => {
   describe("getCheckoutCartProductEndpoint", () => {
     it("should return Shopware checkout-cart-product endpoint", async () => {
       const result = getCheckoutCartProductEndpoint(sampleProductId);
-      expect(result).toEqual("/checkout/cart/" + sampleProductId);
+      expect(result).toEqual("/checkout/cart/product/" + sampleProductId);
     });
   });
 
