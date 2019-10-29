@@ -2,9 +2,12 @@ import { SearchCriteria } from "../interfaces/search/SearchCriteria";
 import { SearchFilter } from "../interfaces/search/SearchFilter";
 import { PaginationLimit } from "../interfaces/search/Pagination";
 import { config } from "@shopware-pwa/shopware-6-client";
+import { Association } from "../interfaces/search/Association";
 
 interface ShopwareAssociation {
-  [name: string]: any;
+  [name: string]: {
+    associations?: ShopwareAssociation;
+  };
 }
 
 export interface ShopwareParams {
@@ -62,6 +65,20 @@ export interface ShopwareParams {
 
 // }
 
+function convertAssociations(
+  associations: Association[] = []
+): ShopwareAssociation | undefined {
+  if (!associations || !associations.length) return;
+  let shopwareAssociations: ShopwareAssociation = {};
+  associations.forEach(association => {
+    shopwareAssociations[association.name] = {};
+    shopwareAssociations[association.name].associations = convertAssociations(
+      association.associations
+    );
+  });
+  return shopwareAssociations;
+}
+
 export const convertSearchCriteria = (
   searchCriteria?: SearchCriteria
 ): ShopwareParams => {
@@ -90,14 +107,7 @@ export const convertSearchCriteria = (
   }
 
   if (configuration) {
-    const associations = configuration.associations;
-    if (associations && associations.length) {
-      let shopwareAssociations: ShopwareAssociation = {};
-      associations.forEach(association => {
-        shopwareAssociations[association.name] = {};
-      });
-      params.associations = shopwareAssociations;
-    }
+    params.associations = convertAssociations(configuration.associations);
   }
 
   return params;

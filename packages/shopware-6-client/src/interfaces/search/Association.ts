@@ -9,4 +9,5 @@ export interface Association {
    * nested filter on association
    */
   filters?: SearchFilter[];
+  associations?: Association[];
 }
