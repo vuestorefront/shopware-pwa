@@ -71,10 +71,9 @@ function convertAssociations(
   if (!associations || !associations.length) return;
   let shopwareAssociations: ShopwareAssociation = {};
   associations.forEach(association => {
-    shopwareAssociations[association.name] = {};
-    shopwareAssociations[association.name].associations = convertAssociations(
-      association.associations
-    );
+    shopwareAssociations[association.name] = {
+      associations: convertAssociations(association.associations)
+    };
   });
   return shopwareAssociations;
 }
