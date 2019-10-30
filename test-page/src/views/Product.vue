@@ -1,27 +1,15 @@
 <template>
-  <div id="product">
+  <div id="product" v-if="product">
     <div class="product">
       <div class="product__gallery">
-        <SfImage
-          src="assets/storybook/productpage/productA.jpg"
+        <SfImage v-if="mainImage"
+          :src="mainImage"
           class="desktop-only"
         />
-        <SfImage
-          src="assets/storybook/productpage/productB.jpg"
-          class="desktop-only"
-        />
-        <SfGallery
+       
+        <SfGallery v-if="mediaGallery"
           class="gallery-mobile mobile-only"
-          :images="[
-            {
-              small: { url: 'assets/storybook/productpage/productM.jpg' },
-              big: { url: 'assets/storybook/productpage/productM.jpg' }
-            },
-            {
-              small: { url: 'assets/storybook/productpage/productM.jpg' },
-              big: { url: 'assets/storybook/productpage/productM.jpg' }
-            }
-          ]"
+          :images="mediaGallery"
         />
       </div>
       <div class="product__description">
@@ -29,17 +17,17 @@
           <div class="product-details__mobile-top">
             <div>
               <SfHeading
-                title="Cashmere Sweater"
+                :title="product.name"
                 :level="1"
                 class="sf-heading--no-underline sf-heading--left product-details__heading"
               />
               <div class="product-details__sub">
                 <SfPrice
-                  regular="$50.00"
+                  :regular="`$${price}`"
                   class="sf-price--big product-details__sub-price"
                 />
-                <div class="product-details__sub-rating">
-                  <SfRating :score="4" :max="5" />
+                <div class="product-details__sub-rating" v-if="reviews.length > 0">
+                  <SfRating :score="product.ratingAverage" :max="5" />
                   <div class="product-details__sub-reviews desktop-only">
                     Read all 1 review
                   </div>
@@ -51,15 +39,14 @@
             </div>
           </div>
           <p class="product-details__description desktop-only">
-            Find stunning women cocktail and party dresses. Stand out in lace
-            and metallic cocktail dresses and party dresses from all your
-            favorite brands.
+            {{ product.description }}
           </p>
           <div class="product-details__action">
             <button class="sf-action">Size guide</button>
           </div>
-          <div class="product-details__section">
+          <div class="product-details__section" v-if="hasChildren">
             <SfSelect
+              v-if="sizes.length > 0"
               v-model="size"
               label="Size"
               class="sf-select--bordered product-details__attribute"
@@ -73,6 +60,7 @@
               </SfSelectOption>
             </SfSelect>
             <SfSelect
+              v-if="colors.length > 0"
               v-model="color"
               label="Color"
               class="sf-select--bordered product-details__attribute"
@@ -105,17 +93,15 @@
               <button class="sf-action">Add to compare</button>
             </div>
           </div>
-          <SfTabs class="product-details__tabs" :openTab="2">
+          <SfTabs class="product-details__tabs" :openTab="1">
             <SfTab title="Description">
               <div>
                 <p>
-                  The Karissa V-Neck Tee features a semi-fitted shape that's
-                  flattering for every figure. You can hit the gym with
-                  confidence while it hugs curves and hides common "problem"
-                  areas. Find stunning women's cocktail dresses and party
-                  dresses.
+                 {{ product.description }}
                 </p>
               </div>
+            </SfTab>
+            <SfTab title="Properties">
               <div class="product-details__properties">
                 <SfProperty
                   v-for="(property, i) in properties"
@@ -126,29 +112,26 @@
                 />
               </div>
             </SfTab>
-            <SfTab title="Read reviews">
+            <SfTab title="Read reviews" v-if="reviews.length > 0">
               <SfReview
                 class="product-details__review"
                 v-for="(review, i) in reviews"
                 :key="i"
-                :author="review.author"
-                :date="review.date"
-                :message="review.message"
-                :rating="review.rating"
+                :author="review.externalUser"
+                :date="review.createdAt"
+                :message="review.content"
+                :rating="review.points"
                 :max-rating="5"
               />
             </SfTab>
-            <SfTab title="Additional Information">
+            <SfTab title="Manufacturer" v-if="product.manufacturer">
               <SfHeading
-                title="Brand"
+                :title="product.manufacturer.name"
                 :level="3"
                 class="sf-heading--no-underline sf-heading--left"
               />
-              <p>
-                <u>Brand name</u> is the perfect pairing of quality and design.
-                This label creates major everyday vibes with its collection of
-                modern brooches, silver and gold jewellery, or clips it back
-                with hair accessories in geo styles.
+              <p v-if="product.manufacturer.description">
+                {{ product.manufacturer.description }}
               </p>
             </SfTab>
           </SfTabs>
@@ -308,50 +291,18 @@ import {
   SfSticky,
   SfReview
 } from "@storefront-ui/vue";
+import { getProduct } from "@shopware-pwa/shopware-6-client";
 
 export default {
   name: "Product",
   data() {
     return {
+      productResponse: null,
       qty: "1",
       stock: 5,
       size: "",
-      sizes: [
-        { label: "XXS", value: "xxs" },
-        { label: "XS", value: "xs" },
-        { label: "S", value: "s" },
-        { label: "M", value: "m" },
-        { label: "L", value: "l" },
-        { label: "XL", value: "xl" },
-        { label: "XXL", value: "xxl" }
-      ],
       color: "",
-      colors: [
-        { label: "Red", value: "red", color: "#990611" },
-        { label: "Black", value: "black", color: "#000000" },
-        { label: "Yellow", value: "yellow", color: "#DCA742" },
-        { label: "Blue", value: "blue", color: "#004F97" },
-        { label: "Navy", value: "navy", color: "#656466" },
-        { label: "White", value: "white", color: "#FFFFFF" }
-      ],
-      properties: [
-        {
-          name: "Product Code",
-          value: "578902-00"
-        },
-        {
-          name: "Category",
-          value: "Pants"
-        },
-        {
-          name: "Material",
-          value: "Cotton"
-        },
-        {
-          name: "Country",
-          value: "Germany"
-        }
-      ],
+
       products: [
         {
           title: "Cream Beach Bag",
@@ -410,22 +361,6 @@ export default {
           isOnWishlist: false
         }
       ],
-      reviews: [
-        {
-          author: "Jane D.Smith",
-          date: "April 2019",
-          message:
-            "I was looking for a bright light for the kitchen but wanted some item more modern than a strip light. this one is perfect, very bright and looks great. I can't comment on interlation as I had an electrition instal it. Would recommend",
-          rating: 4
-        },
-        {
-          author: "Mari",
-          date: "Jan 2018",
-          message:
-            "Excellent light output from this led fitting. Relatively easy to fix to the ceiling,but having two people makes it easier, to complete the installation. Unable to comment on reliability at this time, but I am hopeful of years of use with good light levels. Excellent light output from this led fitting. Relatively easy to fix to the ceiling,",
-          rating: 5
-        }
-      ],
       detailsIsActive: false
     };
   },
@@ -451,9 +386,93 @@ export default {
     SfSticky,
     SfReview
   },
+  async mounted() {
+    const associations = {
+      "associations[media][]": true,
+      "associations[properties][associations][group][]": true,
+      "associations[productReviews][]": true,
+      "associations[manufacturer][]": true,
+      "associations[children][associations][options][associations][group][]": true,
+    }
+    this.productResponse = await getProduct(this.$route.params.id, associations);
+  },
+  computed: {
+    product() {
+      return this.productResponse
+    },
+    price() {
+      return this.product.price ? this.product.price[0].gross : 0
+    },
+    hasChildren() {
+      return this.product.childCount > 0
+    },
+    mainImage() {
+      return this.product.cover ? this.product.cover.media.url : ""
+    },
+    mediaGallery() {
+      return this.product && this.product.media ? this.product.media.map(media => 
+        {
+            const smallThumb = media.media.thumbnails.find(thumb => thumb.width == "400")
+            const normalThumb = media.media.thumbnails.find(thumb => thumb.width == "800")
+            const bigThumb = media.media.thumbnails.find(thumb => thumb.width == "1920")
+            return {
+              small: { url: smallThumb ? smallThumb.url : "" },
+              normal: { url: normalThumb ? normalThumb.url: "" },
+              big: { url: bigThumb ? bigThumb.url: "" }
+            }
+        }
+      ) : []
+    },
+    properties() {
+      if (!this.product || !this.product.properties) {
+        return []
+      }
+
+      const propertyList = this.product.properties.map(property => ({
+        name: property.group.name,
+        value: property.name
+      }))
+ 
+      return propertyList
+    },
+    colors() {
+      if (!this.product && !this.product.children) {
+        return []
+      }
+      
+      return this.extractOptions("color")
+    },
+    sizes() {
+      if (!this.product && !this.product.children) {
+        return []
+      }
+
+      return this.extractOptions("size")
+    },
+    reviews() {
+      return this.product.productReviews
+    }
+  },
   methods: {
     toggleWishlist(index) {
       this.products[index].isOnWishlist = !this.products[index].isOnWishlist;
+    },
+    extractOptions(type) {
+      const typeOptions = new Map();
+      this.product.children.forEach(variant => {
+        
+          for(let option of variant.options) {
+            if (option.group.name === type) {
+              if (!typeOptions.has(option.id)) {
+                typeOptions.set(option.id, {
+                  label: option.name,
+                  value: option.id
+                })
+              }
+            }
+          }
+      })
+      return Array.from(typeOptions.values())
     }
   }
 };

@@ -125,7 +125,7 @@
             "
             :regular-price="product.calculatedPrice.unitPrice"
             :isOnWishlist="false"
-            @click:wishlist="toggleWishlist(i)"
+            @click:wishlist="$router.push({name: 'product', params: {id: product.id}})"
             class="products__product-card"
           />
         </div>
@@ -361,7 +361,14 @@ export default {
   },
   async mounted() {
     this.productsResponse = await getProducts({
-      configuration: { associations: [{ name: "media" }] }
+      configuration: { associations: [{ name: "media" }]  },
+      filters: [
+        {
+          type: "equals",
+          field: "parentId", // get the parent's only
+          value: null
+        }
+      ]
     });
   },
   computed: {
