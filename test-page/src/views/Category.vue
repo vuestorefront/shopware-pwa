@@ -361,14 +361,7 @@ export default {
   },
   async mounted() {
     this.productsResponse = await getProducts({
-      configuration: { associations: [{ name: "media" }]  },
-      filters: [
-        {
-          type: "equals",
-          field: "parentId", // get the parent's only
-          value: null
-        }
-      ]
+      configuration: { associations: [{ name: "media" }]  }
     });
   },
   computed: {
