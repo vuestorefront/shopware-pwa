@@ -17,7 +17,7 @@
           <div class="product-details__mobile-top">
             <div>
               <SfHeading
-                :title="product.name"
+                :title="name"
                 :level="1"
                 class="sf-heading--no-underline sf-heading--left product-details__heading"
               />
@@ -27,22 +27,30 @@
                   class="sf-price--big product-details__sub-price"
                 />
                 <div class="product-details__sub-rating" v-if="reviews.length > 0">
-                  <SfRating :score="product.ratingAverage" :max="5" />
+                  <SfRating :score="ratingAverage" :max="5" />
                   <div class="product-details__sub-reviews desktop-only">
-                    Read all 1 review
+                    Read all {{ reviews.length }} review
                   </div>
                   <div class="product-details__sub-reviews mobile-only">
-                    (1)
+                    ({{ reviews.length }})
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <p class="product-details__description desktop-only">
-            {{ product.description }}
+            {{ description }}
           </p>
           <div class="product-details__action">
-            <button class="sf-action">Size guide</button>
+            <button class="sf-action" v-if="sizes.length > 0">Size guide</button>
+          </div>
+          <div class="product-details__section" v-if="isSimple">
+            <SfProperty v-if="color"
+            name="Color"
+            :value="color.name"/>
+            <SfProperty v-if="size"
+            name="Size"
+            :value="size.name"/>  
           </div>
           <div class="product-details__section" v-if="hasChildren">
             <SfSelect
@@ -61,7 +69,7 @@
             </SfSelect>
             <SfSelect
               v-if="colors.length > 0"
-              v-model="color"
+              v-model="selectedColor"
               label="Color"
               class="sf-select--bordered product-details__attribute"
             >
@@ -117,7 +125,7 @@
                 class="product-details__review"
                 v-for="(review, i) in reviews"
                 :key="i"
-                :author="review.externalUser"
+                :author="review.externalUser ? review.externalUser : review.customerId"
                 :date="review.createdAt"
                 :message="review.content"
                 :rating="review.points"
@@ -299,10 +307,7 @@ export default {
     return {
       productResponse: null,
       qty: "1",
-      stock: 5,
-      size: "",
-      color: "",
-
+      selectedColor: null,
       products: [
         {
           title: "Cream Beach Bag",
@@ -361,7 +366,6 @@ export default {
           isOnWishlist: false
         }
       ],
-      detailsIsActive: false
     };
   },
   components: {
@@ -389,12 +393,28 @@ export default {
   async mounted() {
     const associations = {
       "associations[media][]": true,
+      "associations[options][associations][group][]": true,
       "associations[properties][associations][group][]": true,
       "associations[productReviews][]": true,
       "associations[manufacturer][]": true,
       "associations[children][associations][options][associations][group][]": true,
     }
     this.productResponse = await getProduct(this.$route.params.id, associations);
+    // get the missing info from parent product
+    if (this.productResponse.parentId) {
+      const { name, description, media, cover } = await getProduct(this.productResponse.parentId, {
+              "associations[media][]": true
+      })
+      this.productResponse.name = name;
+      this.productResponse.description = description
+      this.productResponse.media = media
+      this.productResponse.cover = cover
+    }
+  },
+  watch: {
+    selectedColor(value) {
+      this.redirectToSimple(value)
+    }
   },
   computed: {
     product() {
@@ -403,8 +423,20 @@ export default {
     price() {
       return this.product.price ? this.product.price[0].gross : 0
     },
+    name(){
+      return this.product.name
+    },
+    description() {
+      return this.product.description
+    },
+    ratingAverage(){
+      return this.product.ratingAverage
+    },
     hasChildren() {
       return this.product.childCount > 0
+    },
+    isSimple() {
+      return !!this.product.parentId
     },
     mainImage() {
       return this.product.cover ? this.product.cover.media.url : ""
@@ -435,6 +467,20 @@ export default {
  
       return propertyList
     },
+    color() {
+      if (!this.isSimple) {
+        return ""
+      }
+
+      return this.product.options.find(option => option.group.name === "color")
+    },
+    size() {
+      if (!this.isSimple) {
+        return ""
+      }
+
+      return this.product.options.find(option => option.group.name === "size")
+    },
     colors() {
       if (!this.product && !this.product.children) {
         return []
@@ -451,9 +497,19 @@ export default {
     },
     reviews() {
       return this.product.productReviews
+    },
+    stock() {
+      return this.product.stock
     }
   },
+  beforeRouteUpdate (to, from, next) {
+    this.$router.go(this.$router.currentRoute)
+    next();
+  },
   methods: {
+    redirectToSimple(simpleId) {
+      return this.$router.push({name: 'product', params: {id: simpleId}})
+    },
     toggleWishlist(index) {
       this.products[index].isOnWishlist = !this.products[index].isOnWishlist;
     },
@@ -466,7 +522,7 @@ export default {
               if (!typeOptions.has(option.id)) {
                 typeOptions.set(option.id, {
                   label: option.name,
-                  value: option.id
+                  value: variant.id
                 })
               }
             }
