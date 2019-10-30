@@ -243,6 +243,43 @@ describe("SearchConverter - convertSearchCriteria", () => {
         });
         expect(result).toEqual({ associations: { media: {}, stock: {} } });
       });
+
+      it("should return deep association", () => {
+        const result = convertSearchCriteria({
+          configuration: {
+            associations: [
+              {
+                name: "cmsPage",
+                associations: [
+                  {
+                    name: "sections",
+                    associations: [
+                      { name: "blocks", associations: [{ name: "slots" }] }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        });
+        expect(result).toEqual({
+          associations: {
+            cmsPage: {
+              associations: {
+                sections: {
+                  associations: {
+                    blocks: {
+                      associations: {
+                        slots: {}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        });
+      });
     });
   });
 });
