@@ -1,9 +1,7 @@
 import axios from "axios";
 import { config } from "./settings";
 
-export const apiService = axios.create({
-  timeout: 1000
-});
+export const apiService = axios.create({});
 
 export function reloadConfiguration() {
   apiService.defaults.baseURL = config.endpoint;
