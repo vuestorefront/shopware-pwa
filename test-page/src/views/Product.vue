@@ -522,7 +522,8 @@ export default {
               if (!typeOptions.has(option.id)) {
                 typeOptions.set(option.id, {
                   label: option.name,
-                  value: variant.id
+                  value: variant.id,
+                  color: option.name
                 })
               }
             }
