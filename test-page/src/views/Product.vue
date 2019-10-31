@@ -55,7 +55,7 @@
           <div class="product-details__section" v-if="hasChildren">
             <SfSelect
               v-if="sizes.length > 0"
-              v-model="size"
+              v-model="selectedSize"
               label="Size"
               class="sf-select--bordered product-details__attribute"
             >
@@ -308,6 +308,7 @@ export default {
       productResponse: null,
       qty: "1",
       selectedColor: null,
+      selectedSize: null,
       products: [
         {
           title: "Cream Beach Bag",
@@ -409,11 +410,6 @@ export default {
       this.productResponse.description = description
       this.productResponse.media = media
       this.productResponse.cover = cover
-    }
-  },
-  watch: {
-    selectedColor(value) {
-      this.redirectToSimple(value)
     }
   },
   computed: {
