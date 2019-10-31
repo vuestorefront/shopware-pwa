@@ -115,8 +115,8 @@
       <div class="products">
         <div class="products__list">
           <SfProductCard
-            v-for="(product, i) in products"
-            :key="i"
+            v-for="(product) in products"
+            :key="product.id"
             :title="product.name || ''"
             :image="
               product.cover
@@ -361,7 +361,7 @@ export default {
   },
   async mounted() {
     this.productsResponse = await getProducts({
-      configuration: { associations: [{ name: "media" }]  }
+      configuration: { associations: [{ name: "media" }, { name: "options"}]  }
     });
   },
   computed: {
