@@ -403,13 +403,13 @@ export default {
     this.productResponse = await getProduct(this.$route.params.id, associations);
     // get the missing info from parent product
     if (this.productResponse.parentId) {
-      const { name, description, media, cover } = await getProduct(this.productResponse.parentId, {
+      const { name, description, media } = await getProduct(this.productResponse.parentId, {
               "associations[media][]": true
       })
       this.productResponse.name = name;
       this.productResponse.description = description
       this.productResponse.media = media
-      this.productResponse.cover = cover
+      //this.productResponse.cover = this.productResponse.cover ? cover : this.productResponse.cover
     }
   },
   computed: {
@@ -435,7 +435,7 @@ export default {
       return !!this.product.parentId
     },
     mainImage() {
-      return this.product.cover ? this.product.cover.media.url : ""
+      return this.product.cover ? this.product.cover.media.url : '/img/product_thumb.png'
     },
     mediaGallery() {
       return this.product && this.product.media ? this.product.media.map(media => 

@@ -119,8 +119,8 @@
             :key="i"
             :title="product.name || ''"
             :image="
-              product.media && product.media.length
-                ? product.media[0].media.url
+              product.cover
+                ? product.cover.media.url
                 : '/img/product_thumb.png'
             "
             :regular-price="product.calculatedPrice.unitPrice"
