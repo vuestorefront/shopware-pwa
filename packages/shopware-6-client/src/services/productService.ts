@@ -37,6 +37,10 @@ export const getProducts = async function(
  * Get the product with passed productId
  */
 export async function getProduct(productId: string): Promise<Product> {
-  const resp = await apiService.get(getProductDetailsEndpoint(productId));
+  const resp = await apiService.get(getProductDetailsEndpoint(productId), {
+    params: {
+      "associations[media][]": true
+    }
+  });
   return resp.data.data;
 }
