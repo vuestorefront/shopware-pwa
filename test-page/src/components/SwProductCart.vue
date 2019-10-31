@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     toggleWishlist() {
-      console.log("WISHLIST TOGGLE");
+      console.error("WISHLIST TOGGLE");
     }
   }
 };
