@@ -1,5 +1,6 @@
 <template>
   <div id="home">
+    <CmsPage :content="cmsPage" />
     <SfHero class="section">
       <SfHeroItem
         v-for="(hero, i) in heroes"
@@ -163,11 +164,14 @@ import {
   SfIcon,
   SfCircleIcon
 } from "@storefront-ui/vue";
+import CmsPage from "@/components/CmsPage";
+import { getCategories } from "@shopware-pwa/shopware-6-client";
 
 export default {
   name: "Home",
   data() {
     return {
+      category: null,
       heroes: [
         {
           title: "Colorful summer dresses are already in store",
@@ -264,11 +268,44 @@ export default {
     SfBannerGrid,
     SfBottomNavigation,
     SfIcon,
-    SfCircleIcon
+    SfCircleIcon,
+    CmsPage
+  },
+  async mounted() {
+    const categories = await getCategories({
+      filters: [
+        {
+          type: "equals",
+          value: "1",
+          field: "level"
+        }
+      ],
+      configuration: {
+        associations: [
+          {
+            name: "cmsPage",
+            associations: [
+              {
+                name: "sections",
+                associations: [
+                  { name: "blocks", associations: [{ name: "slots" }] }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    });
+    this.category = categories && categories.data && categories.data[0];
   },
   methods: {
     toggleWishlist(index) {
       this.products[index].isOnWishlist = !this.products[index].isOnWishlist;
+    }
+  },
+  computed: {
+    cmsPage() {
+      return this.category && this.category.cmsPage;
     }
   }
 };
