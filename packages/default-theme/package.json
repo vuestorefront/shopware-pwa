@@ -1,0 +1,19 @@
+{
+  "name": "@shopware-pwa/default-theme",
+  "version": "0.1.0",
+  "description": "@shopware-pwa/default-theme",
+  "main": "index.js",
+  "module": "dist/default-theme.esm-bundler.js",
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "types": "dist/default-theme.d.ts",
+  "unpkg": "dist/default-theme.global.js",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DivanteLtd/shopware-pwa"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,1 @@
+# @shopware-pwa/default-theme
