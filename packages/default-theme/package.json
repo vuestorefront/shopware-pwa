@@ -1,19 +1,44 @@
 {
   "name": "@shopware-pwa/default-theme",
-  "version": "0.1.0",
-  "description": "@shopware-pwa/default-theme",
-  "main": "index.js",
-  "module": "dist/default-theme.esm-bundler.js",
-  "files": [
-    "index.js",
-    "dist"
-  ],
-  "types": "dist/default-theme.d.ts",
-  "unpkg": "dist/default-theme.global.js",
-  "sideEffects": false,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DivanteLtd/shopware-pwa"
+  "version": "1.0.0",
+  "description": "Shopware PWA theme",
+  "author": "patzick",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "test": "jest"
   },
-  "license": "MIT"
+  "lint-staged": {
+    "*.{js,vue}": "eslint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "nuxt": "^2.0.0",
+    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/pwa": "^3.0.0-0"
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-config": "^1.0.1",
+    "@nuxtjs/eslint-module": "^1.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^6.1.0",
+    "eslint-plugin-nuxt": ">=0.4.2",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "^1.16.4",
+    "husky": "^2.6.0",
+    "lint-staged": "^8.2.1",
+    "@vue/test-utils": "^1.0.0-beta.27",
+    "babel-jest": "^24.1.0",
+    "jest": "^24.1.0",
+    "vue-jest": "^4.0.0-0"
+  }
 }
