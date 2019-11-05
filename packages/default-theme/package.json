@@ -22,26 +22,27 @@
     }
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.3.6",
-    "@nuxtjs/pwa": "^3.0.0-0",
+    "@nuxtjs/axios": "^5.8.0",
+    "@nuxtjs/pwa": "^3.0.0-beta.19",
+    "@storefront-ui/vue": "^0.3.3",
     "@vue-storefront/nuxt": "link:../../local/next/packages/nuxt-module",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.10.2"
   },
   "devDependencies": {
-    "@nuxtjs/eslint-config": "^1.0.1",
-    "@nuxtjs/eslint-module": "^1.0.0",
-    "@vue/test-utils": "^1.0.0-beta.27",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.1.0",
-    "eslint": "^6.1.0",
+    "@babel/runtime-corejs3": "^7.7.1",
+    "@nuxtjs/eslint-config": "^1.0.2",
+    "@nuxtjs/eslint-module": "^1.1.0",
+    "@vue/test-utils": "^1.0.0-beta.29",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.6.0",
     "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-nuxt": ">=0.4.2",
-    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-nuxt": ">=0.4.3",
+    "eslint-plugin-prettier": "^3.1.1",
     "husky": "^2.6.0",
-    "jest": "^24.1.0",
-    "lint-staged": "^8.2.1",
-    "now": "^16.4.4",
-    "prettier": "^1.16.4",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.4.2",
+    "prettier": "^1.18.2",
     "vue-jest": "^4.0.0-0"
   },
   "engines": {
