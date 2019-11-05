@@ -4,6 +4,6 @@ import { CustomField } from "../../common/CustomField";
 export interface Tax {
   taxRate: number;
   name: string;
-  products: Product[];
+  products: Product[] | null;
   customFields: CustomField[];
 }

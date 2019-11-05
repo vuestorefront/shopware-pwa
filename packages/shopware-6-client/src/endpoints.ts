@@ -59,7 +59,7 @@ export const getCustomerUpdatePasswordEndpoint = () => `/customer/password`;
 export const getCheckoutCartEndpoint = () => `/checkout/cart`;
 
 export const getCheckoutCartProductEndpoint = (productId: string) =>
-  `/checkout/cart/${productId}`;
+  `/checkout/cart/product/${productId}`;
 
 export const getCheckoutCartLineItemEndpoint = (lineItemId: string) =>
   `/checkout/cart/line-item/${lineItemId}`;
@@ -73,6 +73,9 @@ export const getCheckoutOrderPayEndpoint = (orderId: string) =>
 
 export const getCheckoutGuestOrderDetailsEndpoint = (orderId: string) =>
   `/checkout/guest-order/${orderId}`;
+
+export const getCheckoutPromotionCodeEndpoint = (code: string) =>
+  `/checkout/cart/code/${code}`;
 
 // context
 

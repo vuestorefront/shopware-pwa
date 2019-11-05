@@ -1,10 +1,8 @@
 {
   "packages": [
-    "catalog", 
-    "theme",
     "packages/*"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "version": "independent"
+  "version": "0.1.0"
 }

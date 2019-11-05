@@ -1,0 +1,27 @@
+{
+  "name": "@shopware-pwa/vue",
+  "version": "0.1.0",
+  "description": "@shopware-pwa/vue",
+  "main": "index.js",
+  "module": "dist/vue.esm-bundler.js",
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "types": "dist/vue.d.ts",
+  "unpkg": "dist/vue.global.js",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DivanteLtd/shopware-pwa"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@vue/composition-api": "^0.3.2",
+    "vue": "^2.6.10"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^0.3.2",
+    "vue": "^2.6.10"
+  }
+}
