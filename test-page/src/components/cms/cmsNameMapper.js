@@ -7,7 +7,8 @@ const namesMap = {
   text: "SwSlots",
   "text-teaser": "SwSlots",
   "text-two-column": "SwSlots",
-  "text-three-column": "SwSlots"
+  "text-three-column": "SwSlots",
+  "text-teaser-section": "SwSlots"
 };
 
 const slotsMap = {
