@@ -6,5 +6,6 @@ module.exports = {
   exclude: "**/__tests__/**",
   mode: "file",
   excludePrivate: true,
-  theme: "vuepress"
+  theme: "vuepress",
+  disableOutputCheck: true
 };
