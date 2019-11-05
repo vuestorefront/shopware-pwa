@@ -1,3 +1,5 @@
+const coreDevelopment = true
+
 export default {
   mode: 'universal',
   /*
@@ -41,7 +43,17 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    [
+      '@vue-storefront/nuxt',
+      {
+        coreDevelopment,
+        useRawSource: {
+          dev: coreDevelopment ? ['@shopware-pwa/shopware-6-client'] : [],
+          prod: ['@shopware-pwa/shopware-6-client']
+        }
+      }
+    ]
   ],
   /*
    ** Axios module configuration

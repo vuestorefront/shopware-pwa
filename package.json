@@ -1,19 +1,18 @@
 {
   "name": "shopware-pwa",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": ["packages/*"],
+    "nohoist": ["**/**/**"]
+  },
   "scripts": {
     "dev": "node scripts/dev.js",
     "dev:client": "yarn dev shopware-6-client -format=esm",
     "build": "node scripts/build.js",
-    "preinstall": "node scripts/prepareCoreRepoClone.js",
-    "postinstall": "yarn link-packages",
+    "postinstall": "node scripts/prepareCoreRepoClone.js",
     "lint": "prettier --write --parser typescript 'packages/**/*.ts'",
     "test": "jest",
-    "test:coverage": "yarn test --coverage",
-    "link-packages": "cd ./packages/shopware-6-client && yarn link && cd ../../"
+    "test:coverage": "yarn test --coverage"
   },
   "gitHooks": {
     "pre-commit": "lint-staged",
