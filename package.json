@@ -14,7 +14,7 @@
     "test:coverage": "yarn test --coverage",
     "link-packages": "cd ./packages/shopware-6-client && yarn link && cd ../../",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "npx typedoc --out docs/ --theme vuepress --disableOutputCheck --readme README.md && vuepress build docs"
+    "docs:build": "npx typedoc --options ./typedoc.js --disableOutputCheck && vuepress build docs"
   },
   "gitHooks": {
     "pre-commit": "lint-staged",
