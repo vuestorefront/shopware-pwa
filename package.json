@@ -8,6 +8,7 @@
     "dev": "node scripts/dev.js",
     "dev:client": "yarn dev shopware-6-client -format=esm",
     "build": "node scripts/build.js",
+    "preinstall": "node scripts/prepareCoreRepoClone.js",
     "postinstall": "yarn link-packages",
     "lint": "prettier --write --parser typescript 'packages/**/*.ts'",
     "test": "jest",

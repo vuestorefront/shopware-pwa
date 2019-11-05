@@ -4,6 +4,7 @@ dist
 .DS_Store
 coverage
 temp
+local
 explorations
 TODOs.md
 docs/
