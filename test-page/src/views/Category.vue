@@ -125,7 +125,7 @@
             "
             :regular-price="product.calculatedPrice.unitPrice"
             :isOnWishlist="false"
-            @click:wishlist="$router.push({name: 'product', params: {id: product.id}})"
+            @click:wishlist="toggleWishlist(i)"
             class="products__product-card"
           />
         </div>

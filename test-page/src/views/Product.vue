@@ -26,7 +26,7 @@
                   :regular="`$${price}`"
                   class="sf-price--big product-details__sub-price"
                 />
-                <div class="product-details__sub-rating" v-if="reviews.length > 0">
+                <div class="product-details__sub-rating" v-if="reviews.length">
                   <SfRating :score="ratingAverage" :max="5" />
                   <div class="product-details__sub-reviews desktop-only">
                     Read all {{ reviews.length }} review
@@ -120,11 +120,11 @@
                 />
               </div>
             </SfTab>
-            <SfTab title="Read reviews" v-if="reviews.length > 0">
+            <SfTab title="Read reviews" v-if="reviews.length">
               <SfReview
                 class="product-details__review"
-                v-for="(review, i) in reviews"
-                :key="i"
+                v-for="review in reviews"
+                :key="review.id"
                 :author="review.externalUser ? review.externalUser : review.customerId"
                 :date="review.createdAt"
                 :message="review.content"
@@ -148,7 +148,7 @@
     </div>
     <SfSection title-heading="Match it with" class="section">
       <SfCarousel class="product-carousel">
-        <SfCarouselItem v-for="(product, i) in products" :key="i">
+        <SfCarouselItem v-for="(product, i) in relatedProducts" :key="i">
           <SfProductCard
             :title="product.title"
             :image="product.image"
@@ -164,7 +164,7 @@
     </SfSection>
     <SfSection title-heading="You might also like" class="section">
       <SfCarousel class="product-carousel">
-        <SfCarouselItem v-for="(product, i) in products" :key="i">
+        <SfCarouselItem v-for="(product, i) in relatedProducts" :key="i">
           <SfProductCard
             :title="product.title"
             :image="product.image"
@@ -309,7 +309,7 @@ export default {
       qty: "1",
       selectedColor: null,
       selectedSize: null,
-      products: [
+      relatedProducts: [
         {
           title: "Cream Beach Bag",
           image: "assets/storybook/homepage/productA.jpg",
