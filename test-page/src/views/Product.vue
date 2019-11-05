@@ -492,7 +492,7 @@ export default {
       return this.extractOptions("size")
     },
     reviews() {
-      return this.product.productReviews
+      return this.product.productReviews || []
     },
     stock() {
       return this.product.stock
