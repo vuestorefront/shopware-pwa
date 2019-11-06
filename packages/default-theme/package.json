@@ -6,12 +6,12 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
+    "prebuild": "cd ../../ && yarn && yarn build && cd ./packages/default-theme",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "prettier --write '*.{js,vue}'",
-    "test": "jest",
-    "postinstall": "cd ../../ && yarn && yarn build"
+    "test": "jest"
   },
   "lint-staged": {
     "*.{js,vue}": "prettier"
