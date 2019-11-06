@@ -35,12 +35,17 @@ const commit = execa.sync("git", ["rev-parse", "HEAD"]).stdout.slice(0, 7);
 run();
 
 async function run() {
-  if (!targets.length) {
-    await buildAll(allTargets);
-    checkAllSizes(allTargets);
-  } else {
-    await buildAll(fuzzyMatchTarget(targets, buildAllMatching));
-    checkAllSizes(fuzzyMatchTarget(targets, buildAllMatching));
+  try {
+    if (!targets.length) {
+      await buildAll(allTargets);
+      checkAllSizes(allTargets);
+    } else {
+      await buildAll(fuzzyMatchTarget(targets, buildAllMatching));
+      checkAllSizes(fuzzyMatchTarget(targets, buildAllMatching));
+    }
+  } catch (e) {
+    console.error("ERROR during build script", e);
+    return -1;
   }
 }
 
