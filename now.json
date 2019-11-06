@@ -2,6 +2,11 @@
   "version": 2,
   "builds": [
     {
+      "src": "scripts/build.js",
+      "use": "@now/node",
+      "config": {}
+    },
+    {
       "src": "packages/default-theme/nuxt.config.js",
       "use": "@nuxtjs/now-builder",
       "config": {}
