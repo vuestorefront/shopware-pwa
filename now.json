@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "scripts/build.js",
+      "src": "*",
       "use": "@now/node",
       "config": {}
     },
