@@ -4,6 +4,12 @@ const namesMap = {
   "product-slider": "SwSlots",
   "product-three-column": "SwSlots",
   image: "SwSlots",
+  "image-text": "SwSlots",
+  text: "SwSlots",
+  "text-teaser": "SwSlots",
+  "text-two-column": "SwSlots",
+  "text-three-column": "SwSlots",
+  "text-teaser-section": "SwSlots",
   "youtube-video": "SwSlots"
 };
 
@@ -11,6 +17,7 @@ const slotsMap = {
   "product-box": "CmsSwProductCart",
   "product-slider": "SwProductSlider",
   image: "SwImage",
+  text: "SwTextSlot",
   "youtube-video": "SwYoutubeVideo"
 };
 
