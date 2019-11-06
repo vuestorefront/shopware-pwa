@@ -25,7 +25,7 @@
     "@nuxtjs/axios": "^5.8.0",
     "@nuxtjs/pwa": "^3.0.0-beta.19",
     "@storefront-ui/vue": "^0.3.3",
-    "@shopware-pwa/shopware-6-client": "^0.1.0",
+    "@shopware-pwa/shopware-6-client": "link:../shopware-6-client",
     "nuxt": "^2.10.2"
   },
   "devDependencies": {

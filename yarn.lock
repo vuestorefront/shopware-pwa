@@ -2885,6 +2885,9 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@shopware-pwa/shopware-6-client@link:packages/shopware-6-client":
+  version "0.1.0"
+
 "@storefront-ui/shared@^0.3.3":
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@storefront-ui/shared/-/shared-0.3.3.tgz#eccd5a05d54aa4bb2487763a3e73a9686fb0e871"
