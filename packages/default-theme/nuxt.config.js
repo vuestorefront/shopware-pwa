@@ -43,7 +43,9 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
+    '@nuxtjs/pwa'
+  ],
+  devModules: [
     [
       '@vue-storefront/nuxt',
       {
@@ -55,7 +57,6 @@ export default {
       }
     ]
   ],
-  devModules: ['@vue-storefront/nuxt'],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
