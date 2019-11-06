@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "scripts/testScript.js",
+      "src": "yarn build",
       "use": "@now/node",
       "config": {}
     },

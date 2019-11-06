@@ -1,1 +1,0 @@
-console.log('NOW succesfully build')
