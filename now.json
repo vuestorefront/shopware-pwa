@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "yarn build",
+      "src": "package.json",
       "use": "@now/node",
       "config": {}
     },
