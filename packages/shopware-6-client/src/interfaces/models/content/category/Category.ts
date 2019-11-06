@@ -1,5 +1,4 @@
 import { Media } from "../media/Media";
-import { Category } from "./Category";
 import { CmsPage } from "../cms/CmsPage";
 import { Product } from "../product/Product";
 import { Entity } from "../../common/Entity";
