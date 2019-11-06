@@ -14,7 +14,8 @@
     "test": "jest",
     "test:coverage": "yarn test --coverage",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "npx typedoc --options ./typedoc.js && vuepress build docs"
+    "docs:build": "npx typedoc --options ./typedoc.js && vuepress build docs",
+    "now-build": "node scripts/build.js && node scripts/linkDependencies.js"
   },
   "gitHooks": {
     "pre-commit": "lint-staged",
