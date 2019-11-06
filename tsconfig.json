@@ -21,7 +21,8 @@
     "rootDir": ".",
     "paths": {
       "@shopware-pwa/shopware-6-client": ["packages/shopware-6-client/src"],
-    }
+    },
+    "preserveSymlinks": true
   },
   "include": [
     "packages/global.d.ts",
