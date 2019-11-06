@@ -10,7 +10,8 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "prettier --write '*.{js,vue}'",
-    "test": "jest"
+    "test": "jest",
+    "now-build": "cd ../../ && yarn && yarn build"
   },
   "lint-staged": {
     "*.{js,vue}": "prettier"
