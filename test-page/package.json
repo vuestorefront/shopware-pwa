@@ -15,7 +15,6 @@
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
-    "vue-youtube-embed": "^2.2.2",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
