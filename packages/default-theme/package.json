@@ -25,7 +25,7 @@
     "@nuxtjs/axios": "^5.8.0",
     "@nuxtjs/pwa": "^3.0.0-beta.19",
     "@storefront-ui/vue": "^0.3.3",
-    "@vue-storefront/nuxt": "link:../../vsf-core-packages/nuxt-module",
+    "@vue-storefront/nuxt": "^0.0.1",
     "nuxt": "^2.10.2"
   },
   "devDependencies": {
