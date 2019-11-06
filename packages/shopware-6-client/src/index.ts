@@ -7,6 +7,7 @@ export * from "./services/productService";
 export * from "./services/customerService";
 export * from "./services/contextService";
 export * from "./services/cartService";
+export * from "./services/pageService";
 
 /**
  * Setup configuration. Merge default values with provided in param.
