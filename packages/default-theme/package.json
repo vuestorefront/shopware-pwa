@@ -11,7 +11,7 @@
     "generate": "nuxt generate",
     "lint": "prettier --write '*.{js,vue}'",
     "test": "jest",
-    "now-build": "cd ../../ && yarn && yarn build"
+    "postinstall": "cd ../../ && yarn && yarn build"
   },
   "lint-staged": {
     "*.{js,vue}": "prettier"
