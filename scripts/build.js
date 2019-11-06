@@ -65,8 +65,9 @@ async function build(target) {
     (pkg.buildOptions && pkg.buildOptions.env) ||
     (devOnly ? "development" : "production");
   await execa(
-    "rollup",
+    "yarn",
     [
+      "rollup",
       "-c",
       "--environment",
       [
