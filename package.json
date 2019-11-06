@@ -9,7 +9,7 @@
     "dev": "node scripts/dev.js",
     "dev:client": "yarn dev shopware-6-client -format=esm",
     "build": "node scripts/build.js",
-    "postinstall": "node scripts/linkDependencies.js && yarn build",
+    "postinstall": "node scripts/linkDependencies.js",
     "lint": "prettier --write --parser typescript 'packages/**/*.ts'",
     "test": "jest",
     "test:coverage": "yarn test --coverage",
