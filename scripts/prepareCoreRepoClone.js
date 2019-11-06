@@ -6,9 +6,11 @@ const execa = require("execa");
 const path = require("path");
 const fs = require("fs-extra");
 
-const tempDir = path.resolve(__dirname, "../local");
+const tempDir = path.resolve(__dirname, "../temp");
 const repoDir = `${tempDir}/next`;
 const nuxtModuleDir = `${repoDir}/packages/nuxt-module`;
+const corePackagesDir = path.resolve(__dirname, "../vsf-core-packages");
+const nuxtModuleDestinationDir = `${corePackagesDir}/nuxt-module`;
 
 async function run() {
   /**
@@ -17,16 +19,21 @@ async function run() {
   if (fs.existsSync(repoDir)) {
     fs.removeSync(repoDir);
   }
-  await execa("git", ["clone", "https://github.com/filrak/next", repoDir], {
+  await execa("git", ["clone", "https://github.com/DivanteLtd/next", repoDir], {
     stdio: "inherit"
   });
+  if (!fs.existsSync(nuxtModuleDestinationDir)) {
+    fs.mkdirSync(corePackagesDir);
+  }
 
   /**
-   * Build dependencies
+   * Prepare nuxt-module package
    */
-  execa("yarn", [], {
-    stdio: "inherit",
-    cwd: nuxtModuleDir
+  if (fs.existsSync(nuxtModuleDestinationDir)) {
+    fs.removeSync(nuxtModuleDestinationDir);
+  }
+  await execa("cp", ["-r", nuxtModuleDir, nuxtModuleDestinationDir], {
+    stdio: "inherit"
   });
 }
 

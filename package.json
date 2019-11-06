@@ -2,14 +2,13 @@
   "name": "shopware-pwa",
   "private": true,
   "workspaces": {
-    "packages": ["packages/*"],
+    "packages": ["packages/*", "vsf-core-packages/*"],
     "nohoist": ["**/**/**"]
   },
   "scripts": {
     "dev": "node scripts/dev.js",
     "dev:client": "yarn dev shopware-6-client -format=esm",
     "build": "node scripts/build.js",
-    "preinstall": "rm -rf ./local/next && git clone https://github.com/filrak/next ./local/next",
     "postinstall": "node scripts/linkDependencies.js",
     "lint": "prettier --write --parser typescript 'packages/**/*.ts'",
     "test": "jest",

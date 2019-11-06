@@ -3009,7 +3009,7 @@
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-"@vue-storefront/nuxt@link:local/next/packages/nuxt-module":
+"@vue-storefront/nuxt@link:vsf-core-packages/nuxt-module":
   version "0.0.0"
   uid ""
 
