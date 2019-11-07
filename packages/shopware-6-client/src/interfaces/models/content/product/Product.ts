@@ -7,7 +7,6 @@ import { Price } from "../../framework/pricing/Price";
 import { CalculatedPrice } from "../../checkout/cart/price/CalculatedPrice";
 import { ProductPrice } from "./ProductPrice";
 import { PropertyGroup } from "../property/PropertyGroup";
-import { Product } from "./Product";
 import { DeliveryTime } from "../../checkout/delivery/DeliveryTime";
 import { ProductManufacturer } from "./ProductManufacturer";
 import { ProductTranslation } from "./ProductTranslation";

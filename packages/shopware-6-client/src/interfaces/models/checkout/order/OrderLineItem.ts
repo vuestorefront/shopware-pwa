@@ -3,7 +3,6 @@ import { PriceDefinitionInterface } from "../cart/price/PriceDefinitionInterface
 import { Order } from "./Order";
 import { OrderDeliveryPosition } from "./OrderDeliveryPosition";
 import { Media } from "../../content/media/Media";
-import { OrderLineItem } from "./OrderLineItem";
 import { CustomField } from "../../common/CustomField";
 
 export interface OrderLineItem {
