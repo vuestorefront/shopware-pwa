@@ -229,7 +229,7 @@
   </div>
 </template>
 <script>
-// import { getProducts } from "@shopware-pwa/shopware-6-client";
+import { getProducts } from "@shopware-pwa/shopware-6-client";
 import {
   SfSidebar,
   SfButton,
@@ -360,9 +360,9 @@ export default {
     };
   },
   async mounted() {
-    // this.productsResponse = await getProducts({
-    //   configuration: { associations: [{ name: "media" }] }
-    // });
+    this.productsResponse = await getProducts({
+      configuration: { associations: [{ name: "media" }] }
+    });
   },
   computed: {
     products() {
