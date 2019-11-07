@@ -1,5 +1,4 @@
 import { ProductStream } from "./ProductStream";
-import { ProductStreamFilter } from "./ProductStreamFilter";
 import { CustomField } from "../../common/CustomField";
 export interface ProductStreamFilter {
   type: string;

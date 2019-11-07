@@ -1,0 +1,51 @@
+{
+  "name": "@shopware-pwa/default-theme",
+  "version": "1.0.0",
+  "description": "Shopware PWA theme",
+  "author": "patzick",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "prettier --write '*.{js,vue}'",
+    "test": "jest"
+  },
+  "lint-staged": {
+    "*.{js,vue}": "prettier"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.8.0",
+    "@nuxtjs/pwa": "^3.0.0-beta.19",
+    "@shopware-pwa/shopware-6-client": "^0.1.0",
+    "@storefront-ui/vue": "^0.3.3",
+    "nuxt": "^2.10.2"
+  },
+  "devDependencies": {
+    "@babel/runtime-corejs3": "^7.7.1",
+    "@nuxtjs/eslint-config": "^1.0.2",
+    "@nuxtjs/eslint-module": "^1.1.0",
+    "@vue/test-utils": "^1.0.0-beta.29",
+    "@vue-storefront/nuxt": "^0.0.1",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-nuxt": ">=0.4.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^2.6.0",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.4.2",
+    "prettier": "^1.18.2",
+    "vue-jest": "^4.0.0-0"
+  },
+  "engines": {
+    "node": "10.x"
+  }
+}

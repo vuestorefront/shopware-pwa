@@ -1,4 +1,3 @@
-import { MailTemplateType } from "./MailTemplateType";
 import { MailTemplateSalesChannel } from "./MailTemplateSalesChannel";
 import { MailTemplateTypeTranslation } from "./MailTemplateTypeTranslation";
 import { CustomField } from "../../common/CustomField";
