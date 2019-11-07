@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Rest API client for Shopware 6.",
   "main": "index.js",
-  "module": "dist/shopware-6-client.esm-bundler.js",
+  "module": "index.js",
   "files": [
     "index.js",
     "dist"

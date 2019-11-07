@@ -12,7 +12,8 @@
     "@vue/composition-api": "^0.3.2",
     "chalk": "^2.4.2",
     "lodash": "^4.17.15",
-    "@nuxt/typescript-build": "^0.3.1",
+    "@nuxt/typescript-build": "^0.3.4",
+    "@nuxt/typescript-runtime": "^0.2.4",
     "consola": "^2.10.1"
   }
 }
