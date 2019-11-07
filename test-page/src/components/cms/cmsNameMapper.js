@@ -3,13 +3,15 @@ const namesMap = {
   default: "SwSection",
   "product-slider": "SwSlots",
   "product-three-column": "SwSlots",
-  image: "SwSlots"
+  image: "SwSlots",
+  "category-navigation": "SwSlots"
 };
 
 const slotsMap = {
   "product-box": "CmsSwProductCart",
   "product-slider": "SwProductSlider",
-  image: "SwImage"
+  image: "SwImage",
+  "category-navigation": "SwCategoryNavigationSlot"
 };
 
 export function getComponentBy(content) {

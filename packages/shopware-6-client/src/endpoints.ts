@@ -98,3 +98,5 @@ export const getContextSalutationEndpoint = () => `/salutation`;
 export const getNewsletterSubscribeEndpoint = () => `/newsletter/subscribe`;
 
 export const getNewsletterUnsubscribeEndpoint = () => `/newsletter/unsubscribe`;
+
+export const getNavigationEndpoint = () => `/navigation`;

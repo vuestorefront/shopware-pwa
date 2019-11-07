@@ -276,8 +276,8 @@ export default {
       filters: [
         {
           type: "equals",
-          value: "1",
-          field: "level"
+          value: "cc921c5fd5e2430ba878fb194c1aeb8a",
+          field: "id"
         }
       ],
       configuration: {
