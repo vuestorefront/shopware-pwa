@@ -82,6 +82,10 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, { isDev, isClient }) {
+      if (isClient && !isDev) { 
+        config.optimization.splitChunks.cacheGroups.commons.minChunks = 2 
+      }
+    }
   }
 }
