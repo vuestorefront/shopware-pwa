@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build": "cd ../../ && yarn && yarn build && cd ./packages/default-theme && nuxt build",
+    "build": "nuxt build",
+    "postinstall": "cd ../../ && yarn && yarn build",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "prettier --write '*.{js,vue}'",
