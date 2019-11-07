@@ -1,6 +1,6 @@
 <template>
   <div class="sw-product-slider">
-    <SfSection title-heading="Best Sellers" class="section">
+    <SfSection :title-heading="title" class="section">
       <SfCarousel class="product-carousel">
         <SfCarouselItem v-for="(productId, i) in products" :key="i">
           <SwIdProductCart :product-id="productId" />
@@ -31,6 +31,9 @@ export default {
       return this.content && this.content.config
         ? this.content.config.products.value
         : [];
+    },
+    title() {
+      return this.content && this.content.config.title.value ? this.content.config.title.value : ""
     }
   }
 };

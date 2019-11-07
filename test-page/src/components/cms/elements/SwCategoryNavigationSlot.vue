@@ -20,18 +20,9 @@
 
 <script>
 import {
-  SfSidebar,
-  SfButton,
   SfList,
-  SfIcon,
-  SfMenuItem,
-  SfFilter,
-  SfProductCard,
-  SfPagination,
   SfAccordion,
-  SfSelect,
-  SfBottomNavigation,
-  SfCircleIcon
+  SfMenuItem
 } from "@storefront-ui/vue";
 import { getNavigationTemp } from "@shopware-pwa/shopware-6-client";
 export default {

@@ -23,7 +23,6 @@ Vue.use(vueVimeoPlayer);
 
 export default {
   components: {
-    vueVimeoPlayer
   },
   props: {
     content: {
