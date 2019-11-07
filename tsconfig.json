@@ -27,7 +27,7 @@
     "preserveSymlinks": true
   },
   "include": [
-    "packages/global.d.ts",
+    "packages/global",
     "packages/*/src",
     "packages/*/__tests__"
   ]
