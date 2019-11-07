@@ -27,9 +27,9 @@
     "preserveSymlinks": true
   },
   "include": [
-    "packages/**/*"
+    "packages/global.d.ts",
+    "packages/*/src",
+    "packages/*/__tests__",
+    "node_modules/@shopware-pwa",
   ],
-  "exclude": [
-    "packages/default-theme/**/*"
-  ]
 }
