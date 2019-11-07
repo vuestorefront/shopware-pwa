@@ -34,8 +34,8 @@ export default {
       );
     },
     getImageUrl() {
-      return this.product.media && this.product.media.length
-        ? this.product.media[0].media.url
+      return this.product.cover
+        ? this.product.cover.media.url
         : "";
     }
   },

@@ -1,4 +1,5 @@
 import Vue from "vue";
+import VueYouTubeEmbed from "vue-youtube-embed";
 import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
@@ -8,9 +9,11 @@ import "@storefront-ui/vue/styles.scss";
 
 Vue.config.productionTip = false;
 
+Vue.use(VueYouTubeEmbed);
+
 setup({
   endpoint: "https://shopware-2.vuestorefront.io/sales-channel-api/v1",
-  accessToken: "SWSCBVBBZET1RTFIYWY4YVLICA"
+  accessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG"
 });
 
 new Vue({
