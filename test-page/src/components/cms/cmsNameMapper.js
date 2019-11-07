@@ -8,14 +8,16 @@ const namesMap = {
   "text-teaser": "SwSlots",
   "text-two-column": "SwSlots",
   "text-three-column": "SwSlots",
-  "text-teaser-section": "SwSlots"
+  "text-teaser-section": "SwSlots",
+  "vimeo-video": "SwSlots"
 };
 
 const slotsMap = {
   "product-box": "CmsSwProductCart",
   "product-slider": "SwProductSlider",
   image: "SwImage",
-  text: "SwTextSlot"
+  text: "SwTextSlot",
+  "vimeo-video": "SwVimeoVideo"
 };
 
 export function getComponentBy(content) {
