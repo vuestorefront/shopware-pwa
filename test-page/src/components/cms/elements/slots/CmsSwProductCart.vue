@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import SwIdProductCart from "../SwIdProductCart";
+import SwIdProductCart from "./SwIdProductCart";
 
 export default {
   components: {

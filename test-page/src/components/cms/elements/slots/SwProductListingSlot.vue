@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import SwProductCart from "../../SwProductCart";
+import SwProductCart from "./SwProductCart";
 import { SfPagination } from "@storefront-ui/vue";
 export default {
   components: {

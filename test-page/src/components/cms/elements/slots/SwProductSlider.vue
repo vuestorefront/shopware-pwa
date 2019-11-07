@@ -12,7 +12,7 @@
 
 <script>
 import { SfSection, SfCarousel } from "@storefront-ui/vue";
-import SwIdProductCart from "../SwIdProductCart";
+import SwIdProductCart from "./SwIdProductCart";
 
 export default {
   components: {
