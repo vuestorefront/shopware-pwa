@@ -11,7 +11,8 @@ const namesMap = {
   "text-teaser-section": "SwSlots",
   "vimeo-video": "SwSlots",
   "youtube-video": "SwSlots",
-  "product-listing": "SwSlots"
+  "product-listing": "SwSlots",
+  "category-navigation": "SwSlots"
 };
 
 const slotsMap = {
@@ -21,7 +22,8 @@ const slotsMap = {
   text: "SwTextSlot",
   "vimeo-video": "SwVimeoVideo",
   "youtube-video": "SwYoutubeVideo",
-  "product-listing": "SwProductListingSlot"
+  "product-listing": "SwProductListingSlot",
+  "category-navigation": "SwCategoryNavigationSlot"
 };
 
 export function getComponentBy(content) {

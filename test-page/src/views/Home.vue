@@ -274,6 +274,8 @@ export default {
   async mounted() {
     const page = await getPage("Sports/Grocery-Garden")
     this.page = page
+
+    this.category = categories && categories.data && categories.data[0];
   },
   methods: {
     toggleWishlist(index) {
