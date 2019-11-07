@@ -27,8 +27,9 @@
     "preserveSymlinks": true
   },
   "include": [
-    "packages/global.d.ts",
-    "packages/*/src",
-    "packages/*/__tests__"
+    "packages/**/*"
+  ],
+  "exclude": [
+    "packages/default-theme/**/*"
   ]
 }
