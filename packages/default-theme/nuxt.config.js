@@ -36,7 +36,13 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     // '@nuxtjs/eslint-module'
-    '@nuxt/typescript-build',
+    ['@nuxt/typescript-build', {
+      typeCheck: {
+        memoryLimit: 4096,
+        workers: 2
+      },
+      ignoreNotFoundWarnings: false
+    }],
     [
       '@vue-storefront/nuxt',
       {
