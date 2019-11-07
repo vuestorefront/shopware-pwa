@@ -16,6 +16,7 @@
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
     "vue-vimeo-player": "^0.0.10",
+    "vue-youtube-embed": "^2.2.2",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

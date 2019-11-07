@@ -9,7 +9,8 @@ const namesMap = {
   "text-two-column": "SwSlots",
   "text-three-column": "SwSlots",
   "text-teaser-section": "SwSlots",
-  "vimeo-video": "SwSlots"
+  "vimeo-video": "SwSlots",
+  "youtube-video": "SwSlots"
 };
 
 const slotsMap = {
@@ -17,7 +18,8 @@ const slotsMap = {
   "product-slider": "SwProductSlider",
   image: "SwImage",
   text: "SwTextSlot",
-  "vimeo-video": "SwVimeoVideo"
+  "vimeo-video": "SwVimeoVideo",
+  "youtube-video": "SwYoutubeVideo"
 };
 
 export function getComponentBy(content) {

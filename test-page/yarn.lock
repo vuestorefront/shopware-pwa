@@ -12222,6 +12222,11 @@ vue-vimeo-player@^0.0.10:
   dependencies:
     "@vimeo/player" "^2.6.3"
     object-assign "^4.1.1"
+    
+vue-youtube-embed@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/vue-youtube-embed/-/vue-youtube-embed-2.2.2.tgz#e4fc27bc09ecd77488e6709f7c6694585c972d2d"
+  integrity sha512-l/EJuFMRK43AN73N+qxJnN0LB3uPl2xAghmr3dCvODWGCRWGjmGfrHaOtD93fu9J4co+CZLv1KP3akAsldC1aw==
 
 vue2-leaflet@^2.1.1:
   version "2.2.1"
