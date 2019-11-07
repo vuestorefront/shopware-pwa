@@ -38,7 +38,7 @@ export default {
     // '@nuxtjs/eslint-module'
     ['@nuxt/typescript-build', {
       typeCheck: {
-        memoryLimit: 512,
+        memoryLimit: 256,
         workers: 1
       },
       ignoreNotFoundWarnings: false
