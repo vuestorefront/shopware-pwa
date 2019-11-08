@@ -1,14 +1,12 @@
 <template>
   <div class="sw-text">
-    <div class="sw-text-content" :id="slotId" v-html="rawHtml">
-    </div>
+    <div class="sw-text-content" :id="slotId" v-html="rawHtml"></div>
   </div>
 </template>
 
 <script>
 export default {
-  components: {
-  },
+  components: {},
   props: {
     content: {
       type: Object,
@@ -21,23 +19,22 @@ export default {
             value: null
           }
         },
-        id: null,
+        id: null
       })
     }
   },
   computed: {
     rawHtml() {
-      return this.content.config.content.value
+      return this.content.config.content.value;
     },
     slotId() {
-      return this.content.id
+      return this.content.id;
     },
     verticalAlign() {
-      return this.content.config.verticalAlign.value
+      return this.content.config.verticalAlign.value;
     }
   }
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

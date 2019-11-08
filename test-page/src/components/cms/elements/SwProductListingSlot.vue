@@ -6,25 +6,23 @@
         :key="product.id"
         :product="product"
       />
-      
     </div>
     <SfPagination
-          class="sw-product-list__pagination desktop-only"
-          :current="1"
-          :total="5"
-          :visible="5"
-        />
+      class="sw-product-list__pagination desktop-only"
+      :current="1"
+      :total="5"
+      :visible="5"
+    />
   </div>
-   
 </template>
 
 <script>
-import SwProductCart from "./SwProductCart";
+import SwProductCart from "../../SwProductCart";
 import { SfPagination } from "@storefront-ui/vue";
 export default {
   components: {
-     SwProductCart,
-     SfPagination
+    SwProductCart,
+    SfPagination
   },
   props: {
     content: {
@@ -34,7 +32,7 @@ export default {
   },
   computed: {
     products() {
-      return this.content.data.listing || []
+      return this.content.data.listing || [];
     }
   }
 };
@@ -82,5 +80,4 @@ export default {
     padding-right: $spacer-big;
   }
 }
-
 </style>

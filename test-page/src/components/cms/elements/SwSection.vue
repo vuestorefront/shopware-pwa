@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import SwGenericBlock from "./blocks/SwGenericBlock";
+import SwGenericBlock from "./SwGenericBlock";
 
 export default {
   components: {

@@ -272,8 +272,8 @@ export default {
     CmsPage
   },
   async mounted() {
-    const page = await getPage("Sports/Grocery-Garden")
-    this.page = page
+    const page = await getPage("Sports/Grocery-Garden");
+    this.page = page;
   },
   methods: {
     toggleWishlist(index) {

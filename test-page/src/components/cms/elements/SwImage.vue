@@ -25,11 +25,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .sw-image {
-    border: 1px dashed #ff000a;
-    h3 {
-      padding: 10px;
-      color: #ff000a;
-    }
+.sw-image {
+  border: 1px dashed #ff000a;
+  h3 {
+    padding: 10px;
+    color: #ff000a;
   }
+}
 </style>

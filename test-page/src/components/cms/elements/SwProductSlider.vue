@@ -2,8 +2,8 @@
   <div class="sw-product-slider">
     <SfSection :title-heading="title" class="section">
       <SfCarousel class="product-carousel">
-        <SfCarouselItem v-for="(productId, i) in products" :key="i">
-          <SwIdProductCart :product-id="productId" />
+        <SfCarouselItem v-for="product in products" :key="product.id">
+          <SwProductCart :product="product" />
         </SfCarouselItem>
       </SfCarousel>
     </SfSection>
@@ -12,13 +12,13 @@
 
 <script>
 import { SfSection, SfCarousel } from "@storefront-ui/vue";
-import SwIdProductCart from "./SwIdProductCart";
+import SwProductCart from "../../SwProductCart";
 
 export default {
   components: {
     SfSection,
     SfCarousel,
-    SwIdProductCart
+    SwProductCart
   },
   props: {
     content: {
@@ -28,12 +28,14 @@ export default {
   },
   computed: {
     products() {
-      return this.content && this.content.config
-        ? this.content.config.products.value
+      return this.content && this.content.data
+        ? this.content.data.products
         : [];
     },
     title() {
-      return this.content && this.content.config.title.value ? this.content.config.title.value : ""
+      return this.content && this.content.config.title.value
+        ? this.content.config.title.value
+        : "";
     }
   }
 };

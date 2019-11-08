@@ -34,14 +34,11 @@ export default {
       );
     },
     getImageUrl() {
-      return this.product.cover
-        ? this.product.cover.media.url
-        : "";
+      return this.product.cover ? this.product.cover.media.url : "";
     }
   },
   methods: {
-    toggleWishlist() {
-    }
+    toggleWishlist() {}
   }
 };
 </script>

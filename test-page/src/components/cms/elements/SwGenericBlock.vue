@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { getComponentBy } from "../../cmsNameMapper";
+import { getComponentBy } from "../cmsNameMapper";
 
 export default {
   props: {

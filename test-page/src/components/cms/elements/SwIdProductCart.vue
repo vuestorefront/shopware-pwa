@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import SwProductCart from "./SwProductCart";
+import SwProductCart from "../../SwProductCart";
 import { getProduct } from "@shopware-pwa/shopware-6-client";
 
 export default {
