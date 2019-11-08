@@ -1,6 +1,6 @@
 <template>
   <div class="sw-product-list">
-    <div class="sw-product-list__list" v-if="products">
+    <div class="sw-product-list__list">
       <SwProductCart
         v-for="product in products"
         :key="product.id"

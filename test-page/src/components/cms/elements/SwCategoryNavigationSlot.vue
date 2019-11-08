@@ -1,6 +1,6 @@
 <template>
   <div class="sw-category-navigation">
-    <SfAccordion :firstOpen="true" :showChevron="false">
+    <SfAccordion :firstOpen="true" :showChevron="true">
       <SfAccordionItem
         v-for="accordion in navigation"
         :key="accordion.id"

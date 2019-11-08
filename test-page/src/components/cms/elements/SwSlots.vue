@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-slots">
+  <div :class="slotClass">
     <SwGenericBlock
       :content="cmsSlot"
       v-for="cmsSlot in cmsSlots"
@@ -23,8 +23,12 @@ export default {
     }
   },
   computed: {
+    isBlock() {
+      return this.content.blocks && this.content.blocks.length;
+    },
     cmsSlots() {
-      return this.content && this.content.slots ? this.content.slots : [];
+      const key = this.isBlock ? "blocks" : "slots";
+      return this.content && this.content[key] ? this.content[key] : [];
     },
     backgroundMediaId() {
       return this.content.backgroundMediaId;
@@ -50,12 +54,18 @@ export default {
         marginRight,
         backgroundColor
       };
+    },
+    slotClass() {
+      return this.isBlock ? "sw-blocks" : "sw-slots";
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.sw-blocks {
+}
+
 .sw-slots {
   display: flex;
   width: 100%;

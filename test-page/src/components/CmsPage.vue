@@ -1,6 +1,6 @@
 <template>
   <div class="cms-page">
-    <SwSection
+    <SwSlots
       :content="cmsSection"
       v-for="cmsSection in cmsSections"
       :key="cmsSection.id"
@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import SwSection from "./cms/elements/SwSection";
+import SwSlots from "./cms/elements/SwSlots";
 
 export default {
   components: {
-    SwSection
+    SwSlots
   },
   props: {
     content: {

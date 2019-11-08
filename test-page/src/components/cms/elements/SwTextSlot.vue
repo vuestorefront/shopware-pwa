@@ -1,6 +1,6 @@
 <template>
   <div class="sw-text">
-    <div class="sw-text-content" :id="slotId" v-html="rawHtml"></div>
+    <div class="sw-text-content" v-html="rawHtml"></div>
   </div>
 </template>
 
@@ -10,28 +10,25 @@ export default {
   props: {
     content: {
       type: Object,
-      default: () => ({
-        config: {
-          content: {
-            value: ""
-          },
-          verticalAlign: {
-            value: null
-          }
-        },
-        id: null
-      })
+      default: () => ({})
     }
   },
   computed: {
     rawHtml() {
-      return this.content.config.content.value;
-    },
-    slotId() {
-      return this.content.id;
+      return (
+        this.content &&
+        this.content.config &&
+        this.content.config.content &&
+        this.content.config.content.value
+      );
     },
     verticalAlign() {
-      return this.content.config.verticalAlign.value;
+      return (
+        this.content &&
+        this.content.config &&
+        this.content.config.verticalAlign &&
+        this.content.config.verticalAlign.value
+      );
     }
   }
 };
