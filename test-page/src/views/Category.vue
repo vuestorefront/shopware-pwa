@@ -388,7 +388,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "~@storefront-ui/vue/styles.scss";
+@import "~@storefront-ui/vue/styles";
 @import "~@storefront-ui/shared/styles/helpers/visibility";
 @mixin for-desktop {
   @media screen and (min-width: $desktop-min) {
@@ -397,18 +397,23 @@ export default {
 }
 #category {
   box-sizing: border-box;
-  margin: 0 0 60px 0;
   @include for-desktop {
     max-width: 1240px;
     margin: auto;
   }
 }
+.breadcrumbs {
+  padding: $spacer-big $spacer-extra-big $spacer-extra-big;
+}
+.main {
+  display: flex;
+}
 .navbar {
   position: relative;
   display: flex;
   @include for-desktop {
-    border-top: 1px solid $c-border;
-    border-bottom: 1px solid $c-border;
+    border-top: 1px solid $c-light;
+    border-bottom: 1px solid $c-light;
   }
   &::after {
     position: absolute;
@@ -416,7 +421,7 @@ export default {
     left: $spacer-big;
     width: calc(100% - (#{$spacer-big} * 2));
     height: 1px;
-    background-color: $c-border;
+    background-color: $c-light;
     content: "";
     @include for-desktop {
       content: none;
@@ -426,8 +431,8 @@ export default {
     display: flex;
     align-items: center;
     flex: 0 0 15%;
-    padding: 1.85rem $spacer-extra-big;
-    border-right: 1px solid $c-border;
+    padding: $spacer-big $spacer-extra-big;
+    border-right: 1px solid $c-light;
   }
   &__main {
     flex: 1;
@@ -436,7 +441,7 @@ export default {
     padding: $spacer-medium 0;
     font-size: $font-size-small-desktop;
     @include for-desktop {
-      padding: 1.85rem 0;
+      padding: $spacer-big 0;
     }
   }
   &__title {
@@ -459,20 +464,20 @@ export default {
       text-transform: none;
     }
     svg {
-      fill: $c-dark-primary;
+      fill: $c-dark;
       @include for-desktop {
-        fill: $c-gray-secondary;
+        fill: $c-gray-variant;
       }
     }
     &:hover {
-      color: $c-accent-primary;
+      color: $c-primary;
       svg {
-        fill: $c-accent-primary;
+        fill: $c-primary;
       }
     }
   }
   &__label {
-    color: $c-gray-secondary;
+    color: $c-gray-variant;
   }
   &__sort {
     display: flex;
@@ -494,14 +499,6 @@ export default {
       margin-left: 10px;
     }
   }
-}
-.main {
-  display: flex;
-}
-.sidebar {
-  flex: 0 0 15%;
-  padding: $spacer-extra-big;
-  border-right: 1px solid $c-border;
 }
 .products {
   box-sizing: border-box;
@@ -531,25 +528,18 @@ export default {
     }
   }
 }
-.filters {
-  position: relative;
-  z-index: 10;
-  &__title:not(:first-child),
-  &__buttons {
-    margin-top: $spacer-big * 3;
+.section {
+  padding-left: $spacer-big;
+  padding-right: $spacer-big;
+  @include for-desktop {
+    padding-left: 0;
+    padding-right: 0;
   }
-  &__title {
-    font-size: $font-size-big-desktop;
-    line-height: 2.23;
-  }
-  &__button-clear {
-    margin-top: 10px;
-    background: $c-light-primary;
-    color: #a3a5ad;
-  }
-  &__item {
-    padding: $spacer-small 0;
-  }
+}
+.sidebar {
+  flex: 0 0 15%;
+  padding: $spacer-extra-big;
+  border-right: 1px solid $c-light;
 }
 .sort-by {
   flex: unset;
@@ -561,13 +551,33 @@ export default {
     font-size: inherit;
   }
 }
-.bottom-navigation-circle {
-  opacity: 1;
-}
-.section {
-  @media (max-width: $desktop-min) {
-    padding-left: $spacer-big;
-    padding-right: $spacer-big;
+.filters {
+  box-sizing: border-box;
+  width: 20rem;
+  padding: 0 $spacer-big * 3;
+  height: 100%;
+  overflow-y: auto;
+  @include for-desktop {
+    width: 22.875rem;
+  }
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+  &__title {
+    margin: $spacer-big * 3 0 $spacer-big;
+    font-size: $font-size-big-desktop;
+    line-height: 1.6;
+  }
+  &__item {
+    padding: $spacer-small 0;
+  }
+  &__buttons {
+    margin: $spacer-big * 3 0;
+  }
+  &__button-clear {
+    color: #a3a5ad;
+    margin-top: 10px;
+    background-color: $c-light;
   }
 }
 </style>
