@@ -1,18 +1,17 @@
 <template>
   <div class="sw-image">
-    <!-- <SfImage :content="getCmsSlot" /> -->
-    <h3>image but no content</h3>
+    <SfImage :src="imgUrl" :title="title" :alt="alt" :lazy="lazyLoad" />
   </div>
 </template>
 
 <script>
-// import {
-//   SfImage
-// } from "@storefront-ui/vue";
+ import {
+   SfImage
+ } from "@storefront-ui/vue";
 
 export default {
   components: {
-    // SfImage
+     SfImage
   },
   props: {
     content: {
@@ -20,16 +19,21 @@ export default {
       default: () => ({})
     }
   },
-  computed: {}
+  computed: {
+    imgUrl() {
+      return this.content.data.media.url || ""
+    },
+    alt() {
+      return this.content.data.media.alt || ""
+    },
+    title() {
+      return this.content.data.media.title || ""
+    },
+    lazyLoad() {
+      return true;
+    }
+  }
 };
 </script>
 
-<style lang="scss" scoped>
-.sw-image {
-  border: 1px dashed #ff000a;
-  h3 {
-    padding: 10px;
-    color: #ff000a;
-  }
-}
-</style>
+<style lang="scss" scoped></style>
