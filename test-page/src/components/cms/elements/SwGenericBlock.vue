@@ -19,9 +19,6 @@ export default {
     backgroundMediaMode() {
       return this.content.backgroundMediaMode;
     },
-    backgroundMediaMode() {
-      return this.content.backgroundMediaMode;
-    },
     slotStyles() {
       const {
        backgroundMedia
