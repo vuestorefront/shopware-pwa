@@ -1,0 +1,23 @@
+{
+  "name": "@shopware-pwa/helpers",
+  "version": "0.1.0",
+  "description": "@shopware-pwa/helpers",
+  "main": "index.js",
+  "module": "dist/helpers.esm-bundler.js",
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "types": "dist/helpers.d.ts",
+  "unpkg": "dist/helpers.global.js",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DivanteLtd/shopware-pwa"
+  },
+  "buildOptions": {
+    "name": "helpers",
+    "formats": ["esm", "cjs", "global", "esm-browser"]
+  },
+  "license": "MIT"
+}

@@ -1,5 +1,4 @@
 import { Rule } from "./Rule";
-import { RuleCondition } from "./RuleCondition";
 import { CustomField } from "../../common/CustomField";
 export interface RuleCondition {
   type: string;
