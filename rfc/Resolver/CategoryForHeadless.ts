@@ -8,7 +8,6 @@ export interface CategoryForHeadless {
 
 // <SORTING>
 interface Sort {
-  code: string
   value: string // field name to sort by
   label: string // translated label
   default: string
@@ -25,7 +24,6 @@ interface SortProperty {
 // /category/Sports (default)
 // /category/Sports?sort=-price
 const avaiableSortingResponseExample = {
-  code: "sort",
   label: "Sort by",
   default: "-price",
   properties: [ 
