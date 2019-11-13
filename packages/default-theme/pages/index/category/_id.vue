@@ -1,5 +1,6 @@
 <template>
   <div id="category">
+    {{ $route.params.id }}
     <div class="navbar section">
       <div class="navbar__aside desktop-only">
         <h1 class="navbar__title">Categories</h1>

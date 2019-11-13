@@ -1,12 +1,14 @@
 import { ClientSettings, setupConfig, updateConfig } from "./settings";
 import { reloadConfiguration } from "./apiService";
 
-export { config } from "./settings";
+export { config } from "./settings";import { Cart } from "../interfaces/models/checkout/cart/Cart";
+
 export * from "./services/categoryService";
 export * from "./services/productService";
 export * from "./services/customerService";
 export * from "./services/contextService";
 export * from "./services/cartService";
+export * from "./services/navigationService";
 
 /**
  * Setup configuration. Merge default values with provided in param.
