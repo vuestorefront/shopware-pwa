@@ -11,7 +11,7 @@ interface Sort {
   code: string
   value: string // field name to sort by
   label: string // translated label
-  default: string // desc
+  default: string
   properties: SortProperty[]
 }
 
