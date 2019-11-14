@@ -17,9 +17,7 @@ const updateConfig = function (config) {
 };
 const config = clientConfig;
 
-const apiService = axios.create({
-    timeout: 1000
-});
+const apiService = axios.create({});
 function reloadConfiguration() {
     apiService.defaults.baseURL = config.endpoint;
     apiService.defaults.headers.common["sw-access-key"] = config.accessToken;
@@ -62,6 +60,7 @@ const getContextLanguageEndpoint = () => `/language`;
 const getContextCountryEndpoint = () => `/country`;
 const getContextPaymentMethodEndpoint = () => `/payment-method`;
 const getContextShippingMethodEndpoint = () => `/shipping-method`;
+const getPageResolverEndpoint = () => `/vsf/page`;
 
 var PaginationLimit;
 (function (PaginationLimit) {
@@ -400,6 +399,13 @@ async function addPromotionCode(promotionCode) {
     return resp.data;
 }
 
+async function getPage(path, searchCriteria) {
+    const resp = await apiService.post(getPageResolverEndpoint(), {
+        path: path
+    });
+    return resp.data;
+}
+
 /**
  * Setup configuration. Merge default values with provided in param.
  * This method will override existing config. For config update invoke **update** method.
@@ -416,4 +422,4 @@ function update(config = {}) {
     reloadConfiguration();
 }
 
-export { addCartItemQuantity, addProductToCart, addPromotionCode, changeCartItemQuantity, clearCart, config, createCustomerAddress, deleteCustomerAddress, getAvailableCountries, getAvailableCurrencies, getAvailableLanguages, getAvailablePaymentMethods, getAvailableShippingMethods, getCart, getCategories, getCategory, getCustomer, getCustomerAddress, getCustomerAddresses, getProduct, getProducts, getProductsIds, login, logout, register, removeCartItem, setCurrentCurrency, setCurrentLanguage, setCurrentPaymentMethod, setCurrentShippingMethod, setDefaultCustomerBillingAddress, setDefaultCustomerShippingAddress, setup, update, updateEmail, updatePassword, updateProfile };
+export { addCartItemQuantity, addProductToCart, addPromotionCode, changeCartItemQuantity, clearCart, config, createCustomerAddress, deleteCustomerAddress, getAvailableCountries, getAvailableCurrencies, getAvailableLanguages, getAvailablePaymentMethods, getAvailableShippingMethods, getCart, getCategories, getCategory, getCustomer, getCustomerAddress, getCustomerAddresses, getPage, getProduct, getProducts, getProductsIds, login, logout, register, removeCartItem, setCurrentCurrency, setCurrentLanguage, setCurrentPaymentMethod, setCurrentShippingMethod, setDefaultCustomerBillingAddress, setDefaultCustomerShippingAddress, setup, update, updateEmail, updatePassword, updateProfile };

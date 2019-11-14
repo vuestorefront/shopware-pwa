@@ -1,5 +1,9 @@
 <template>
   <div id="category">
+    <SfBreadcrumbs
+      class="breadcrumbs desktop-only"
+      :breadcrumbs="breadcrumbs"
+    />
     <div class="navbar section">
       <div class="navbar__aside desktop-only">
         <h1 class="navbar__title">Categories</h1>
@@ -34,8 +38,9 @@
                   d="m9.0959 13.786h-0.19266c-1.1109 5e-3 -2.0095 0.9064-2.0117 2.0173v0.1786c0.00211 1.1116 0.9007 2.0124 2.0117 2.018h0.19266c1.111-0.0057 2.0096-0.9064 2.0117-2.018v-0.1786c-0.0021-1.1109-0.9007-2.0124-2.0117-2.0173zm1.4421 2.1966l-7e-4 -7e-4c-7e-4 0.7959-0.64612 1.4407-1.4414 1.4421h-0.19266c-0.79524-0.0014-1.4407-0.6462-1.4414-1.4421v-0.1786c7e-4 -0.7953 0.64616-1.4407 1.4414-1.4414h0.19266c0.79524 7e-4 1.4407 0.6461 1.4414 1.4414l7e-4 0.1793z"
                 />
               </g>
-            </svg> </SfIcon
-          >Filters
+            </svg>
+          </SfIcon>
+          Filters
         </SfButton>
         <div class="navbar__sort desktop-only">
           <span class="navbar__label">Sort by:</span>
@@ -50,14 +55,12 @@
           </SfSelect>
         </div>
         <div class="navbar__counter">
-          <span class="navbar__label desktop-only">Products found:</span>
-          <strong class="desktop-only">{{ getProductsCount }}</strong>
-          <span class="navbar__label mobile-only"
-            >{{ getProductsCount }} Items</span
-          >
+          <span class="navbar__label desktop-only">Products found: </span>
+          <strong class="desktop-only">280</strong>
+          <span class="navbar__label mobile-only">280 Items</span>
         </div>
         <div class="navbar__view desktop-only">
-          <span>View</span>
+          <span>View </span>
           <SfIcon class="navbar__view-icon" size="10px">
             <svg viewBox="0 0 10 10">
               <rect width="2" height="2" fill="#1D1F22" />
@@ -141,91 +144,66 @@
     <SfSidebar
       :visible="isFilterSidebarOpen"
       @close="isFilterSidebarOpen = false"
-      class="filters"
     >
-      <h3 class="filters__title">Collection</h3>
-      <SfFilter
-        v-for="filter in filtersOptions.collection"
-        :key="filter.value"
-        :label="filter.label"
-        :count="filter.count"
-        class="filters__item"
-      />
-      <h3 class="filters__title">Color</h3>
-      <SfFilter
-        v-for="filter in filtersOptions.color"
-        :key="filter.value"
-        :value="filter.value"
-        :label="filter.label"
-        :color="filter.color"
-        class="filters__item"
-      />
-      <h3 class="filters__title">Size</h3>
-      <SfFilter
-        v-for="filter in filtersOptions.size"
-        :key="filter.value"
-        :value="filter.value"
-        :label="filter.label"
-        :count="filter.count"
-        class="filters__item"
-      />
-      <h3 class="filters__title">Price</h3>
-      <SfFilter
-        v-for="filter in filtersOptions.price"
-        :key="filter.value"
-        :value="filter.value"
-        :label="filter.label"
-        :count="filter.count"
-        class="filters__item"
-      />
-      <h3 class="filters__title">Material</h3>
-      <SfFilter
-        v-for="filter in filtersOptions.material"
-        :key="filter.value"
-        :value="filter.value"
-        :label="filter.label"
-        :count="filter.count"
-        class="filters__item"
-      />
-      <div class="filters__buttons">
-        <SfButton
-          @click="isFilterSidebarOpen = false"
-          class="sf-button--full-width"
-          >Done</SfButton
-        >
-        <SfButton
-          @click="clearAllFilters"
-          class="sf-button--full-width filters__button-clear"
-          >Clear all</SfButton
-        >
+      <div class="filters">
+        <h3 class="filters__title">Collection</h3>
+        <SfFilter
+          v-for="filter in filtersOptions.collection"
+          :key="filter.value"
+          :label="filter.label"
+          :count="filter.count"
+          class="filters__item"
+        />
+        <h3 class="filters__title">Color</h3>
+        <SfFilter
+          v-for="filter in filtersOptions.color"
+          :key="filter.value"
+          :value="filter.value"
+          :label="filter.label"
+          :color="filter.color"
+          class="filters__item"
+        />
+        <h3 class="filters__title">Size</h3>
+        <SfFilter
+          v-for="filter in filtersOptions.size"
+          :key="filter.value"
+          :value="filter.value"
+          :label="filter.label"
+          :count="filter.count"
+          class="filters__item"
+        />
+        <h3 class="filters__title">Price</h3>
+        <SfFilter
+          v-for="filter in filtersOptions.price"
+          :key="filter.value"
+          :value="filter.value"
+          :label="filter.label"
+          :count="filter.count"
+          class="filters__item"
+        />
+        <h3 class="filters__title">Material</h3>
+        <SfFilter
+          v-for="filter in filtersOptions.material"
+          :key="filter.value"
+          :value="filter.value"
+          :label="filter.label"
+          :count="filter.count"
+          class="filters__item"
+        />
+        <div class="filters__buttons">
+          <SfButton
+            @click="isFilterSidebarOpen = false"
+            class="sf-button--full-width"
+            >Done</SfButton
+          >
+          <SfButton
+            @click="clearAllFilters"
+            class="sf-button--full-width filters__button-clear"
+            >Clear all</SfButton
+          >
+        </div>
       </div>
     </SfSidebar>
-    <SfBottomNavigation class="mobile-only">
-      <SfBottomNavigationItem>
-        <SfIcon icon="home" size="20px" />
-      </SfBottomNavigationItem>
-      <SfBottomNavigationItem>
-        <SfIcon icon="menu" size="20px" style="width: 25px" />
-      </SfBottomNavigationItem>
-      <SfBottomNavigationItem>
-        <SfIcon icon="heart" size="20px" />
-      </SfBottomNavigationItem>
-      <SfBottomNavigationItem>
-        <SfIcon icon="profile" size="20px" />
-      </SfBottomNavigationItem>
-      <SfBottomNavigationItem class="bottom-navigation-circle">
-        <SfCircleIcon
-          class="sf-bottom-navigation__floating-icon sf-circle-icon--big"
-        >
-          <SfIcon
-            icon="add_to_cart"
-            size="20px"
-            color="white"
-            style="margin-right: 4px;"
-          />
-        </SfCircleIcon>
-      </SfBottomNavigationItem>
-    </SfBottomNavigation>
   </div>
 </template>
 <script>
@@ -241,8 +219,7 @@ import {
   SfPagination,
   SfAccordion,
   SfSelect,
-  SfBottomNavigation,
-  SfCircleIcon
+  SfBreadcrumbs
 } from "@storefront-ui/vue";
 
 export default {
@@ -257,8 +234,7 @@ export default {
     SfMenuItem,
     SfAccordion,
     SfSelect,
-    SfBottomNavigation,
-    SfCircleIcon
+    SfBreadcrumbs
   },
   data() {
     return {
@@ -319,7 +295,21 @@ export default {
           { label: "Cotton", value: "coton", count: "33" },
           { label: "Silk", value: "silk", count: "73" }
         ]
-      }
+      },
+      breadcrumbs: [
+        {
+          text: "Home",
+          route: {
+            link: "#"
+          }
+        },
+        {
+          text: "Women",
+          route: {
+            link: "#"
+          }
+        }
+      ]
     };
   },
   async mounted() {
@@ -395,6 +385,7 @@ export default {
     @content;
   }
 }
+
 #category {
   box-sizing: border-box;
   @include for-desktop {
@@ -466,7 +457,7 @@ export default {
     svg {
       fill: $c-dark;
       @include for-desktop {
-        fill: $c-gray-variant;
+        fill: $c-gray-secondary;
       }
     }
     &:hover {
@@ -477,7 +468,7 @@ export default {
     }
   }
   &__label {
-    color: $c-gray-variant;
+    color: $c-gray-secondary;
   }
   &__sort {
     display: flex;

@@ -98,3 +98,6 @@ export const getContextSalutationEndpoint = () => `/salutation`;
 export const getNewsletterSubscribeEndpoint = () => `/newsletter/subscribe`;
 
 export const getNewsletterUnsubscribeEndpoint = () => `/newsletter/unsubscribe`;
+
+export const getPageResolverEndpoint = () => `/vsf/page`;
+export const getNavigationEndpoint = () => `/navigation`;
