@@ -29,7 +29,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/api-client'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -53,7 +53,8 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    'cookie-universal-nuxt'
   ],
   /*
    ** Axios module configuration
@@ -82,8 +83,8 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, { isDev, isClient }) {
-      if (isClient && !isDev) { 
-        config.optimization.splitChunks.cacheGroups.commons.minChunks = 2 
+      if (isClient && !isDev) {
+        config.optimization.splitChunks.cacheGroups.commons.minChunks = 2
       }
     }
   }
