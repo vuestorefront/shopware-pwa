@@ -17,7 +17,7 @@ describe("ProductService - getProduct", () => {
     expect(mockedAxios.get).toBeCalledTimes(1);
     expect(mockedAxios.get).toBeCalledWith(
       "/product/044a190a54ab4f06803909c3ee8063ef",
-      { params: { "associations[media][]": true } }
+      { params: null }
     );
     expect(result).toHaveProperty("id");
     expect(result.id).toEqual(productId);

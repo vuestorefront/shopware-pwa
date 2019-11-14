@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { config as config$1 } from '@shopware-pwa/shopware-6-client';
 
 const defaultConfig = {
     endpoint: "https://shopware-2.vuestorefront.io/sales-channel-api/v1",
@@ -17,7 +16,9 @@ const updateConfig = function (config) {
 };
 const config = clientConfig;
 
-const apiService = axios.create({});
+const apiService = axios.create({
+    timeout: 1000
+});
 function reloadConfiguration() {
     apiService.defaults.baseURL = config.endpoint;
     apiService.defaults.headers.common["sw-access-key"] = config.accessToken;
@@ -60,8 +61,6 @@ const getContextLanguageEndpoint = () => `/language`;
 const getContextCountryEndpoint = () => `/country`;
 const getContextPaymentMethodEndpoint = () => `/payment-method`;
 const getContextShippingMethodEndpoint = () => `/shipping-method`;
-const getPageResolverEndpoint = () => `/vsf/page`;
-const getNavigationEndpoint = () => `/navigation`;
 
 var PaginationLimit;
 (function (PaginationLimit) {
@@ -137,7 +136,7 @@ const convertSearchCriteria = (searchCriteria) => {
         if (page) {
             params.page = page;
             if (!params.limit)
-                params.limit = config$1.defaultPaginationLimit;
+                params.limit = config.defaultPaginationLimit;
         }
     }
     if (sort) {
@@ -400,54 +399,6 @@ async function addPromotionCode(promotionCode) {
     return resp.data;
 }
 
-async function getPage(path, searchCriteria) {
-    const resp = await apiService.post(getPageResolverEndpoint(), {
-        path: path
-    });
-    return resp.data;
-}
-
-var SearchFilterType;
-(function (SearchFilterType) {
-    SearchFilterType["EQUALS"] = "equals";
-    SearchFilterType["CONTAINS"] = "contains";
-    SearchFilterType["EQUALS_ANY"] = "equalsAny";
-    SearchFilterType["NOT"] = "not";
-    SearchFilterType["MULTI"] = "multi";
-    SearchFilterType["RANGE"] = "range";
-})(SearchFilterType || (SearchFilterType = {}));
-
-async function getNavigation() {
-    const resp = await apiService.post(getNavigationEndpoint());
-    return resp.data;
-}
-/**
- * remove when https://github.com/elkmod/SwagVueStorefront/issues/15 is done
- */
-async function getNavigationTemp(parentId) {
-    const resp = await getCategories({
-        filters: [
-            {
-                type: SearchFilterType.EQUALS,
-                field: "parentId",
-                value: parentId
-            }
-        ],
-        configuration: { associations: [{ name: "children" }] }
-    });
-    const navigation = resp.data.map(category => ({
-        header: category.name,
-        id: category.id,
-        items: category.children
-            ? category.children.map(child => ({
-                label: child.name,
-                count: child.childrenCount
-            }))
-            : []
-    }));
-    return navigation;
-}
-
 /**
  * Setup configuration. Merge default values with provided in param.
  * This method will override existing config. For config update invoke **update** method.
@@ -464,4 +415,4 @@ function update(config = {}) {
     reloadConfiguration();
 }
 
-export { addCartItemQuantity, addProductToCart, addPromotionCode, changeCartItemQuantity, clearCart, config, createCustomerAddress, deleteCustomerAddress, getAvailableCountries, getAvailableCurrencies, getAvailableLanguages, getAvailablePaymentMethods, getAvailableShippingMethods, getCart, getCategories, getCategory, getCustomer, getCustomerAddress, getCustomerAddresses, getNavigation, getNavigationTemp, getPage, getProduct, getProducts, getProductsIds, login, logout, register, removeCartItem, setCurrentCurrency, setCurrentLanguage, setCurrentPaymentMethod, setCurrentShippingMethod, setDefaultCustomerBillingAddress, setDefaultCustomerShippingAddress, setup, update, updateEmail, updatePassword, updateProfile };
+export { addCartItemQuantity, addProductToCart, addPromotionCode, changeCartItemQuantity, clearCart, config, createCustomerAddress, deleteCustomerAddress, getAvailableCountries, getAvailableCurrencies, getAvailableLanguages, getAvailablePaymentMethods, getAvailableShippingMethods, getCart, getCategories, getCategory, getCustomer, getCustomerAddress, getCustomerAddresses, getProduct, getProducts, getProductsIds, login, logout, register, removeCartItem, setCurrentCurrency, setCurrentLanguage, setCurrentPaymentMethod, setCurrentShippingMethod, setDefaultCustomerBillingAddress, setDefaultCustomerShippingAddress, setup, update, updateEmail, updatePassword, updateProfile };

@@ -118,12 +118,12 @@
       <div class="products">
         <div class="products__list">
           <SfProductCard
-            v-for="(product, i) in products"
-            :key="i"
+            v-for="(product) in products"
+            :key="product.id"
             :title="product.name || ''"
             :image="
-              product.media && product.media.length
-                ? product.media[0].media.url
+              product.cover
+                ? product.cover.media.url
                 : '/img/product_thumb.png'
             "
             :regular-price="product.calculatedPrice.unitPrice"
@@ -207,7 +207,7 @@
   </div>
 </template>
 <script>
-import { getProducts } from "@shopware-pwa/shopware-6-client";
+import { getProducts, getCategories } from "@shopware-pwa/shopware-6-client";
 import {
   SfSidebar,
   SfButton,
@@ -262,44 +262,7 @@ export default {
           label: "Price from high to low"
         }
       ],
-      sidebarAccordion: [
-        {
-          header: "Clothing",
-          items: [
-            { label: "All", count: "280" },
-            { label: "Skirts", count: "23" },
-            { label: "Sweaters", count: "54" },
-            { label: "Dresses", count: "34" },
-            { label: "T-shirts", count: "56" },
-            { label: "Pants", count: "7" },
-            { label: "Underwear", count: "12" }
-          ]
-        },
-        {
-          header: "Accesorries",
-          items: [
-            { label: "All", count: "280" },
-            { label: "Skirts", count: "23" },
-            { label: "Sweaters", count: "54" },
-            { label: "Dresses", count: "34" },
-            { label: "T-shirts", count: "56" },
-            { label: "Pants", count: "7" },
-            { label: "Underwear", count: "12" }
-          ]
-        },
-        {
-          header: "Shoes",
-          items: [
-            { label: "All", count: "280" },
-            { label: "Skirts", count: "23" },
-            { label: "Sweaters", count: "54" },
-            { label: "Dresses", count: "34" },
-            { label: "T-shirts", count: "56" },
-            { label: "Pants", count: "7" },
-            { label: "Underwear", count: "12" }
-          ]
-        }
-      ],
+      categoriesResponse: [],
       productsResponse: {},
       filtersOptions: {
         collection: [
@@ -351,7 +314,24 @@ export default {
   },
   async mounted() {
     this.productsResponse = await getProducts({
-      configuration: { associations: [{ name: "media" }] }
+      configuration: { associations: [{ name: "media" }, { name: "options"}]  },
+      filters: [
+        {
+          type: "equals",
+          field: "parentId",
+          value: null
+        }
+      ],
+    });
+    this.categoriesResponse = await getCategories({
+      filters: [
+        {
+          type: "equals",
+          field: "level",
+          value: "2"
+        }
+      ],
+      configuration: { associations: [{ name: "children" }]  }
     });
   },
   computed: {
@@ -364,7 +344,19 @@ export default {
       return this.productsResponse && this.productsResponse.total
         ? this.productsResponse.total
         : 0;
-    }
+    },
+    sidebarAccordion(){
+      if (!this.categoriesResponse.data) { return [] }
+      const accordion = this.categoriesResponse.data.map(category => ({
+        header: category.name,
+        items: category.children.length ? category.children.map(child => ({
+          label: child.name,
+          count: child.childrenCount
+        })) : null
+      }))
+
+      return accordion
+    } 
   },
   methods: {
     clearAllFilters() {
@@ -499,7 +491,6 @@ export default {
     }
   }
 }
-
 .products {
   box-sizing: border-box;
   flex: 1;

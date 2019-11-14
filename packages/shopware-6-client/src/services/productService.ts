@@ -36,11 +36,12 @@ export const getProducts = async function(
 /**
  * Get the product with passed productId
  */
-export async function getProduct(productId: string): Promise<Product> {
+export async function getProduct(
+  productId: string,
+  params: any = null
+): Promise<Product> {
   const resp = await apiService.get(getProductDetailsEndpoint(productId), {
-    params: {
-      "associations[media][]": true
-    }
+    params
   });
   return resp.data.data;
 }
