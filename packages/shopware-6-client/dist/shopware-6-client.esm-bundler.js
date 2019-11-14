@@ -61,7 +61,6 @@ const getContextCountryEndpoint = () => `/country`;
 const getContextPaymentMethodEndpoint = () => `/payment-method`;
 const getContextShippingMethodEndpoint = () => `/shipping-method`;
 const getPageResolverEndpoint = () => `/vsf/page`;
-const getNavigationEndpoint = () => `/navigation`;
 
 var PaginationLimit;
 (function (PaginationLimit) {
@@ -407,47 +406,6 @@ async function getPage(path, searchCriteria) {
     return resp.data;
 }
 
-var SearchFilterType;
-(function (SearchFilterType) {
-    SearchFilterType["EQUALS"] = "equals";
-    SearchFilterType["CONTAINS"] = "contains";
-    SearchFilterType["EQUALS_ANY"] = "equalsAny";
-    SearchFilterType["NOT"] = "not";
-    SearchFilterType["MULTI"] = "multi";
-    SearchFilterType["RANGE"] = "range";
-})(SearchFilterType || (SearchFilterType = {}));
-
-async function getNavigation() {
-    const resp = await apiService.post(getNavigationEndpoint());
-    return resp.data;
-}
-/**
- * remove when https://github.com/elkmod/SwagVueStorefront/issues/15 is done
- */
-async function getNavigationTemp(parentId) {
-    const resp = await getCategories({
-        filters: [
-            {
-                type: SearchFilterType.EQUALS,
-                field: "parentId",
-                value: parentId
-            }
-        ],
-        configuration: { associations: [{ name: "children" }] }
-    });
-    const navigation = resp.data.map(category => ({
-        header: category.name,
-        id: category.id,
-        items: category.children
-            ? category.children.map(child => ({
-                label: child.name,
-                count: child.childrenCount
-            }))
-            : []
-    }));
-    return navigation;
-}
-
 /**
  * Setup configuration. Merge default values with provided in param.
  * This method will override existing config. For config update invoke **update** method.
@@ -464,4 +422,4 @@ function update(config = {}) {
     reloadConfiguration();
 }
 
-export { addCartItemQuantity, addProductToCart, addPromotionCode, changeCartItemQuantity, clearCart, config, createCustomerAddress, deleteCustomerAddress, getAvailableCountries, getAvailableCurrencies, getAvailableLanguages, getAvailablePaymentMethods, getAvailableShippingMethods, getCart, getCategories, getCategory, getCustomer, getCustomerAddress, getCustomerAddresses, getNavigation, getNavigationTemp, getPage, getProduct, getProducts, getProductsIds, login, logout, register, removeCartItem, setCurrentCurrency, setCurrentLanguage, setCurrentPaymentMethod, setCurrentShippingMethod, setDefaultCustomerBillingAddress, setDefaultCustomerShippingAddress, setup, update, updateEmail, updatePassword, updateProfile };
+export { addCartItemQuantity, addProductToCart, addPromotionCode, changeCartItemQuantity, clearCart, config, createCustomerAddress, deleteCustomerAddress, getAvailableCountries, getAvailableCurrencies, getAvailableLanguages, getAvailablePaymentMethods, getAvailableShippingMethods, getCart, getCategories, getCategory, getCustomer, getCustomerAddress, getCustomerAddresses, getPage, getProduct, getProducts, getProductsIds, login, logout, register, removeCartItem, setCurrentCurrency, setCurrentLanguage, setCurrentPaymentMethod, setCurrentShippingMethod, setDefaultCustomerBillingAddress, setDefaultCustomerShippingAddress, setup, update, updateEmail, updatePassword, updateProfile };

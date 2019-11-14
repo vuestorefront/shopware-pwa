@@ -63,7 +63,6 @@ var Shopware6Client = (function (exports, axios) {
   const getContextPaymentMethodEndpoint = () => `/payment-method`;
   const getContextShippingMethodEndpoint = () => `/shipping-method`;
   const getPageResolverEndpoint = () => `/vsf/page`;
-  const getNavigationEndpoint = () => `/navigation`;
 
   var PaginationLimit;
   (function (PaginationLimit) {
@@ -409,47 +408,6 @@ var Shopware6Client = (function (exports, axios) {
       return resp.data;
   }
 
-  var SearchFilterType;
-  (function (SearchFilterType) {
-      SearchFilterType["EQUALS"] = "equals";
-      SearchFilterType["CONTAINS"] = "contains";
-      SearchFilterType["EQUALS_ANY"] = "equalsAny";
-      SearchFilterType["NOT"] = "not";
-      SearchFilterType["MULTI"] = "multi";
-      SearchFilterType["RANGE"] = "range";
-  })(SearchFilterType || (SearchFilterType = {}));
-
-  async function getNavigation() {
-      const resp = await apiService.post(getNavigationEndpoint());
-      return resp.data;
-  }
-  /**
-   * remove when https://github.com/elkmod/SwagVueStorefront/issues/15 is done
-   */
-  async function getNavigationTemp(parentId) {
-      const resp = await getCategories({
-          filters: [
-              {
-                  type: SearchFilterType.EQUALS,
-                  field: "parentId",
-                  value: parentId
-              }
-          ],
-          configuration: { associations: [{ name: "children" }] }
-      });
-      const navigation = resp.data.map(category => ({
-          header: category.name,
-          id: category.id,
-          items: category.children
-              ? category.children.map(child => ({
-                  label: child.name,
-                  count: child.childrenCount
-              }))
-              : []
-      }));
-      return navigation;
-  }
-
   /**
    * Setup configuration. Merge default values with provided in param.
    * This method will override existing config. For config update invoke **update** method.
@@ -485,8 +443,6 @@ var Shopware6Client = (function (exports, axios) {
   exports.getCustomer = getCustomer;
   exports.getCustomerAddress = getCustomerAddress;
   exports.getCustomerAddresses = getCustomerAddresses;
-  exports.getNavigation = getNavigation;
-  exports.getNavigationTemp = getNavigationTemp;
   exports.getPage = getPage;
   exports.getProduct = getProduct;
   exports.getProducts = getProducts;
