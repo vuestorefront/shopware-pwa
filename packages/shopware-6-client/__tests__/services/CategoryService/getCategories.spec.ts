@@ -9,11 +9,11 @@ describe("CategoryService - getCategories", () => {
     jest.resetAllMocks();
   });
   it("should return array with categories", async () => {
-    mockedAxios.get.mockResolvedValueOnce({ data: { total: 22 } });
+    mockedAxios.post.mockResolvedValueOnce({ data: { total: 22 } });
 
     const result = await getCategories();
-    expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith("/category", { params: {} });
+    expect(mockedAxios.post).toBeCalledTimes(1);
+    expect(mockedAxios.post).toBeCalledWith("/category", {});
     expect(result.total).toEqual(22);
   });
 });
