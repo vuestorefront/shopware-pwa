@@ -8,9 +8,10 @@ import { SearchCriteria } from "../interfaces/search/SearchCriteria";
 export async function getCategories(
   searchCriteria?: SearchCriteria
 ): Promise<SearchResult<Category[]>> {
-  const resp = await apiService.get(getCategoryEndpoint(), {
-    params: convertSearchCriteria(searchCriteria)
-  });
+  const resp = await apiService.post(
+    getCategoryEndpoint(),
+    convertSearchCriteria(searchCriteria)
+  );
 
   return resp.data;
 }
