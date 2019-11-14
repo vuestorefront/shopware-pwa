@@ -1,5 +1,5 @@
 <template>
-  <component :is="getComponent" :content="content" />
+  <component :is="getComponent" :content="content" :style="slotStyles"/>
 </template>
 
 <script>
@@ -15,6 +15,17 @@ export default {
   computed: {
     getComponent() {
       return getComponentBy(this.content);
+    },
+    backgroundMediaMode() {
+      return this.content.backgroundMediaMode;
+    },
+    slotStyles() {
+      const {
+       backgroundMedia
+      } = this.content;
+      return {
+        backgroundImage: backgroundMedia ? `url(${backgroundMedia.url})` : null,
+      };
     }
   }
 };

@@ -30,15 +30,6 @@ export default {
       const key = this.isBlock ? "blocks" : "slots";
       return this.content && this.content[key] ? this.content[key] : [];
     },
-    backgroundMediaId() {
-      return this.content.backgroundMediaId;
-    },
-    backgroundMedia() {
-      return this.content.backgroundMedia;
-    },
-    backgroundMediaMode() {
-      return this.content.backgroundMediaMode;
-    },
     slotStyles() {
       const {
         marginTop,
