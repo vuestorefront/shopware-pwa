@@ -465,7 +465,7 @@ export default {
     svg {
       fill: $c-dark;
       @include for-desktop {
-        fill: $c-gray-variant;
+        fill: $c-gray-secondary;
       }
     }
     &:hover {
@@ -476,7 +476,7 @@ export default {
     }
   }
   &__label {
-    color: $c-gray-variant;
+    color: $c-gray-secondary;
   }
   &__sort {
     display: flex;
