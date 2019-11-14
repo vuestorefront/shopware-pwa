@@ -1,62 +1,132 @@
-import { Breadcrumb } from "./Breadcrumb";
-import { ProductForCategoryPageHeadless } from "./ProductForCategoryPageHeadless";
 import { CmsPage } from "../../packages/shopware-6-client/src/interfaces/models/content/cms/CmsPage";
-import { Media } from "../../packages/shopware-6-client/src/interfaces/models/content/media/Media";
-
-// PLACEHOLDERS IN CMS PAGES OF SHOPWARE 6
-//
-// category.type
-// category.name
-// category.externalLink
-// category.description
-// category.media.alt
-// category.media.title
-// category.media.url
-// category.media
 
 export interface CategoryForHeadless {
-  availableSorting: [Sort];
-  availableFiltering: [Filter];
-
-  id: string;
-  name: string | null;
-  description: string;
-  childCount: number;
-
-  parentId: string | null;
-  breadcrumb: Breadcrumb[];
-  level: number;
-
-  children: CategoryForHeadless[] | null;
-  products: ProductForCategoryPageHeadless[] | null;
-
-  cmsPage: CmsPage | null;
-
-  // what is media here? some thumbnail of a category?
-  media: Media | null;
+  availableSorting: Sort // sample below within avaiableSortingResponseExample
+  availableFiltering: Array<OptionFilter | RangeFilter | BooleanFilter> // sample below within avaiableFiltersResponseExample
+  cmsPage: CmsPage | null
 }
 
+// <SORTING>
 interface Sort {
-  field: string; // field name to sort by
-  label: string; // translated label
+  value: string // field name to sort by
+  label: string // translated label
+  default: string
+  properties: SortProperty[]
 }
 
+interface SortProperty {
+  label: string
+  value: string
+}
+
+// Example of sorting response
+//
+// /category/Sports (default)
+// /category/Sports?sort=-price
+const avaiableSortingResponseExample = {
+  label: "Sort by",
+  default: "-price",
+  properties: [ 
+    { 
+      label: "Price asc", 
+      value: "price"
+    },
+    { 
+      label: "Price desc", 
+      value: "-price"
+    },        
+    { 
+      label: "Name asc", 
+      value: "name"
+    },
+    { 
+      label: "Name desc", 
+      value: "-name"
+    },        
+  ]
+}
+// </SORTING>
+
+
+// <FILTERING>
+
+// BASE TYPES
 enum FilterType {
   option = "option", // it's default and only one for properties - internally in SW
-  range = "range" // additional, does not exist in SW, but could be only marked as the range for price
+  range = "range", // additional, does not exist in SW, but could be only marked as the range for price
+  boolean = "boolean"
   // ...
 }
 
-interface FilterProperty {
-  id: string; // property id
-  label: string; // property label
+interface BaseFilter {
+  code: string; // literal code (user friendly insted of using groupId) 43434343434343223 -> color
+  label: string; // translated label, the name of the Field name you can filter by
+  type: FilterType;
 }
 
-interface Filter {
-  groupId: string; // id of the group the attribute belongs to
-  code: string; // literal code (user friendly insted of using groupId)
-  label: string; // translated label, the name of the Field name you can filter by
-  // translated : {} or just follow the SW translation standard and use to translated object inside the filter
-  type: FilterType;
-  properties?: [FilterProperty]; // optional, if type == 'option'
+
+// SPECIFIC TYPES
+
+// 1. Type == option
+interface OptionFilter extends BaseFilter {
+  properties: [OptionFilterProperty];
 }
+
+interface OptionFilterProperty {
+  id: string; // property id
+  label: string; // property label,
+  value: string;
+  foundInCollection: number;
+}
+
+// 2. Type == range
+interface RangeFilter extends BaseFilter {
+}
+
+// 2. Type == boolean
+interface BooleanFilter extends BaseFilter {
+  foundInCollection: number;
+}
+
+
+// Example of all types of filter in one response
+const avaiableFiltersResponseExample = [
+  {
+    code: "color",
+    label: "Color",
+    type: "option", // single-select, multi-select?
+    properties: [ // only if type == option
+      { // specific ids/labels should be sorted in a way, that storefront should display them
+        id: "43231c2e5de1434a8bda2ddd0cd3239c",
+        label: "Dark", // is it possible to get counts of products for each filter?
+        value: "#ccc",
+        foundInCollection: 22
+      },
+      {
+        id: "c8c382b1e90748d2bb5719f456dc2cb9",
+        label: "white",
+        value: "#fff",
+        foundInCollection: 0
+      },
+      {
+        id: "a8c382b1e90748d2bb5719f456dc2cb3",
+        label: "Light blue sea",
+        value: "#ff0",
+        foundInCollection: 19
+      }
+    ]
+  },
+  { // /category/Sports?sort=-name&min-price=200&max-price=250
+    code: "price",
+    label: "Price",
+    type: "range"
+  },
+  { // /category/Sports?sort=-name&filters[isNew]=1
+    code: "isNew",
+    label: "New",
+    type: "boolean",
+    foundInCollection: 22
+  }
+]
+
+// </FILTERING>
