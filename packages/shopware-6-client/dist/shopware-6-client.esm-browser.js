@@ -153,9 +153,7 @@ const convertSearchCriteria = (searchCriteria) => {
 };
 
 async function getCategories(searchCriteria) {
-    const resp = await apiService.get(getCategoryEndpoint(), {
-        params: convertSearchCriteria(searchCriteria)
-    });
+    const resp = await apiService.post(getCategoryEndpoint(), convertSearchCriteria(searchCriteria));
     return resp.data;
 }
 async function getCategory(categoryId) {
@@ -180,8 +178,10 @@ const getProducts = async function (searchCriteria) {
 /**
  * Get the product with passed productId
  */
-async function getProduct(productId) {
-    const resp = await apiService.get(getProductDetailsEndpoint(productId));
+async function getProduct(productId, params = null) {
+    const resp = await apiService.get(getProductDetailsEndpoint(productId), {
+        params
+    });
     return resp.data.data;
 }
 
