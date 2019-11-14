@@ -61,11 +61,12 @@ describe("CartService - addProductToCart", () => {
       "400: FRAMEWORK__INVALID_UUID"
     );
     expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(
-      mockedAxios.post
-    ).toBeCalledWith("/checkout/cart/product/someNonExistingProductId", {
-      quantity: 1
-    });
+    expect(mockedAxios.post).toBeCalledWith(
+      "/checkout/cart/product/someNonExistingProductId",
+      {
+        quantity: 1
+      }
+    );
   });
 
   it("should throw unhandled 404 error when empty productId given", async () => {

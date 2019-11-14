@@ -52,11 +52,12 @@ describe("CartService - changeCartItemQuantity", () => {
       "400: CHECKOUT__CART_LINEITEM_NOT_FOUND"
     );
     expect(mockedAxios.patch).toBeCalledTimes(1);
-    expect(
-      mockedAxios.patch
-    ).toBeCalledWith("/checkout/cart/line-item/someNonExistingLineItemId", {
-      quantity: 1
-    });
+    expect(mockedAxios.patch).toBeCalledWith(
+      "/checkout/cart/line-item/someNonExistingLineItemId",
+      {
+        quantity: 1
+      }
+    );
   });
 
   it("should throw unhandled 400 error when negative quantity given", async () => {
