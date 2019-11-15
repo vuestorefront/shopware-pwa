@@ -19,6 +19,19 @@ var Shopware6Client = (function (exports, axios) {
   };
   const config = clientConfig;
 
+  function responseInterceptor(response) {
+      // Any status code that lie within the range of 2xx cause this function to trigger
+      // Do something with response data
+      const contextToken = response.headers["sw-context-token"];
+      update({ contextToken });
+      return response;
+  }
+  async function errorInterceptor(error) {
+      // Any status codes that falls outside the range of 2xx cause this function to trigger
+      // Do something with response error
+      throw error;
+  }
+
   const apiService = axios.create({});
   function reloadConfiguration() {
       apiService.defaults.baseURL = config.endpoint;
@@ -32,6 +45,7 @@ var Shopware6Client = (function (exports, axios) {
       }
   }
   reloadConfiguration();
+  apiService.interceptors.response.use(responseInterceptor, errorInterceptor);
 
   // category
   const getCategoryEndpoint = () => `/category`;
@@ -280,7 +294,6 @@ var Shopware6Client = (function (exports, axios) {
   async function updateContext(params) {
       const resp = await apiService.patch(getContextEndpoint(), params);
       const contextToken = resp.data["sw-context-token"];
-      update({ contextToken });
       return { contextToken };
   }
   async function getAvailableCurrencies() {
@@ -422,6 +435,14 @@ var Shopware6Client = (function (exports, axios) {
   function update(config = {}) {
       updateConfig(config);
       reloadConfiguration();
+      configChanged();
+  }
+  const callbackMethods = [];
+  function onConfigChange(fn) {
+      callbackMethods.push(fn);
+  }
+  function configChanged() {
+      callbackMethods.forEach(fn => fn({ config }));
   }
 
   exports.addCartItemQuantity = addCartItemQuantity;
@@ -449,6 +470,7 @@ var Shopware6Client = (function (exports, axios) {
   exports.getProductsIds = getProductsIds;
   exports.login = login;
   exports.logout = logout;
+  exports.onConfigChange = onConfigChange;
   exports.register = register;
   exports.removeCartItem = removeCartItem;
   exports.setCurrentCurrency = setCurrentCurrency;
