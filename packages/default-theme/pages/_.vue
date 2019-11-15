@@ -1,6 +1,7 @@
 <template>
   <div>
     <h2> Shopware dynamic page </h2>
+    <pre> {{ cmsPageName }} </pre>
   </div>
 </template>
 <script>
@@ -20,14 +21,22 @@ export default {
   name: 'DynamicRoute',
   components: {
   },
-  async mounted() {
+  asyncData: async ({ req, params }) => {
+    let page = {}
     try {
-      console.error('LOADED PAGE', this.$route.params.pathMatch)
+      console.error('LOADED PAGE', params.pathMatch)
       // example -> Sports/Grocery-Garden
-      const page = await getPage(this.$route.params.pathMatch);
-      console.error('Page content', page)
+      page = await getPage(params.pathMatch);
     } catch (e) {
       console.error('Page not found', e)
+    }
+
+    const name = page && page.cmsPage && page.cmsPage.name
+    
+    return {
+      cmsPageName: name,
+      page,
+      breadcrumbs: page.breadcrumb
     }
   },
   data() {
