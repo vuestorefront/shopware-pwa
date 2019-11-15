@@ -1,5 +1,6 @@
 import axios from "axios";
 import { config } from "./settings";
+import { responseInterceptor, errorInterceptor } from "./apiInterceptors";
 
 export const apiService = axios.create({});
 
@@ -14,3 +15,5 @@ export function reloadConfiguration() {
   }
 }
 reloadConfiguration();
+
+apiService.interceptors.response.use(responseInterceptor, errorInterceptor);

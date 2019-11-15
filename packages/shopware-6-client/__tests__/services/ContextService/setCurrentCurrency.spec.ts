@@ -54,6 +54,5 @@ describe("ContextService - setCurrentCurrency without contextToken given", () =>
     });
 
     expect(result.contextToken).toEqual("NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6");
-    expect(config.contextToken).toEqual("NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6");
   });
 });

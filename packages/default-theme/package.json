@@ -25,14 +25,15 @@
     "@nuxtjs/pwa": "^3.0.0-beta.19",
     "@shopware-pwa/shopware-6-client": "^0.1.0",
     "@storefront-ui/vue": "^0.3.3",
+    "cookie-universal-nuxt": "^2.0.18",
     "nuxt": "^2.10.2"
   },
   "devDependencies": {
     "@babel/runtime-corejs3": "^7.7.1",
     "@nuxtjs/eslint-config": "^1.0.2",
     "@nuxtjs/eslint-module": "^1.1.0",
-    "@vue/test-utils": "^1.0.0-beta.29",
     "@vue-storefront/nuxt": "^0.0.1",
+    "@vue/test-utils": "^1.0.0-beta.29",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "eslint": "^6.6.0",

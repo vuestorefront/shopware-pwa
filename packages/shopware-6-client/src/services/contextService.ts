@@ -15,14 +15,12 @@ import { Language } from "../interfaces/models/framework/language/Language";
 import { SearchResult } from "../interfaces/response/SearchResult";
 import { UpdateContextParams } from "../interfaces/request/UpdateContextParams";
 import { ContextTokenResponse } from "../interfaces/response/ContextTokenResponse";
-import { update } from "..";
 
 async function updateContext(
   params: UpdateContextParams
 ): Promise<ContextTokenResponse> {
   const resp = await apiService.patch(getContextEndpoint(), params);
   const contextToken = resp.data["sw-context-token"];
-  update({ contextToken });
   return { contextToken };
 }
 

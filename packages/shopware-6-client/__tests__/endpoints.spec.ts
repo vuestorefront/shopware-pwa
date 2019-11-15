@@ -27,7 +27,8 @@ import {
   getContextSalutationEndpoint,
   getNewsletterSubscribeEndpoint,
   getNewsletterUnsubscribeEndpoint,
-  getProductsIdsEndpoint
+  getProductsIdsEndpoint,
+  getNavigationEndpoint
 } from "../src/endpoints";
 
 const sampleProductId = "eea0f69ec02d44f7a4224272b3d99478";
@@ -245,6 +246,13 @@ describe("endpoints", () => {
     it("should return Shopware newsletter unsubscribe endpoint", async () => {
       const result = getNewsletterUnsubscribeEndpoint();
       expect(result).toEqual("/newsletter/unsubscribe");
+    });
+  });
+
+  describe("getNavigationEndpoint", () => {
+    it("should return navigation endpoint", async () => {
+      const result = getNavigationEndpoint();
+      expect(result).toEqual("/navigation");
     });
   });
 });
