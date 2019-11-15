@@ -12,9 +12,9 @@ import { SearchCriteria } from "../interfaces/search/SearchCriteria";
 /**
  * Get default amount of products' ids
  */
-export const getProductsIds = async function(): Promise<
-  SearchResult<string[]>
-> {
+export const getProductsIds = async function(): Promise<SearchResult<
+  string[]
+>> {
   const resp = await apiService.post(getProductsIdsEndpoint());
   return resp.data;
 };
@@ -36,7 +36,12 @@ export const getProducts = async function(
 /**
  * Get the product with passed productId
  */
-export async function getProduct(productId: string): Promise<Product> {
-  const resp = await apiService.get(getProductDetailsEndpoint(productId));
+export async function getProduct(
+  productId: string,
+  params: any = null
+): Promise<Product> {
+  const resp = await apiService.get(getProductDetailsEndpoint(productId), {
+    params
+  });
   return resp.data.data;
 }

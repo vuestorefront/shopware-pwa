@@ -1,5 +1,9 @@
 <template>
   <div id="category">
+    <SfBreadcrumbs
+      class="breadcrumbs desktop-only"
+      :breadcrumbs="breadcrumbs"
+    />
     <div class="navbar section">
       <div class="navbar__aside desktop-only">
         <h1 class="navbar__title">Categories</h1>
@@ -34,8 +38,9 @@
                   d="m9.0959 13.786h-0.19266c-1.1109 5e-3 -2.0095 0.9064-2.0117 2.0173v0.1786c0.00211 1.1116 0.9007 2.0124 2.0117 2.018h0.19266c1.111-0.0057 2.0096-0.9064 2.0117-2.018v-0.1786c-0.0021-1.1109-0.9007-2.0124-2.0117-2.0173zm1.4421 2.1966l-7e-4 -7e-4c-7e-4 0.7959-0.64612 1.4407-1.4414 1.4421h-0.19266c-0.79524-0.0014-1.4407-0.6462-1.4414-1.4421v-0.1786c7e-4 -0.7953 0.64616-1.4407 1.4414-1.4414h0.19266c0.79524 7e-4 1.4407 0.6461 1.4414 1.4414l7e-4 0.1793z"
                 />
               </g>
-            </svg> </SfIcon
-          >Filters
+            </svg>
+          </SfIcon>
+          Filters
         </SfButton>
         <div class="navbar__sort desktop-only">
           <span class="navbar__label">Sort by:</span>
@@ -50,14 +55,12 @@
           </SfSelect>
         </div>
         <div class="navbar__counter">
-          <span class="navbar__label desktop-only">Products found:</span>
-          <strong class="desktop-only">{{ getProductsCount }}</strong>
-          <span class="navbar__label mobile-only"
-            >{{ getProductsCount }} Items</span
-          >
+          <span class="navbar__label desktop-only">Products found: </span>
+          <strong class="desktop-only">280</strong>
+          <span class="navbar__label mobile-only">280 Items</span>
         </div>
         <div class="navbar__view desktop-only">
-          <span>View</span>
+          <span>View </span>
           <SfIcon class="navbar__view-icon" size="10px">
             <svg viewBox="0 0 10 10">
               <rect width="2" height="2" fill="#1D1F22" />
@@ -115,12 +118,12 @@
       <div class="products">
         <div class="products__list">
           <SfProductCard
-            v-for="(product, i) in products"
-            :key="i"
+            v-for="(product) in products"
+            :key="product.id"
             :title="product.name || ''"
             :image="
-              product.media && product.media.length
-                ? product.media[0].media.url
+              product.cover
+                ? product.cover.media.url
                 : '/img/product_thumb.png'
             "
             :regular-price="product.calculatedPrice.unitPrice"
@@ -141,95 +144,70 @@
     <SfSidebar
       :visible="isFilterSidebarOpen"
       @close="isFilterSidebarOpen = false"
-      class="filters"
     >
-      <h3 class="filters__title">Collection</h3>
-      <SfFilter
-        v-for="filter in filtersOptions.collection"
-        :key="filter.value"
-        :label="filter.label"
-        :count="filter.count"
-        class="filters__item"
-      />
-      <h3 class="filters__title">Color</h3>
-      <SfFilter
-        v-for="filter in filtersOptions.color"
-        :key="filter.value"
-        :value="filter.value"
-        :label="filter.label"
-        :color="filter.color"
-        class="filters__item"
-      />
-      <h3 class="filters__title">Size</h3>
-      <SfFilter
-        v-for="filter in filtersOptions.size"
-        :key="filter.value"
-        :value="filter.value"
-        :label="filter.label"
-        :count="filter.count"
-        class="filters__item"
-      />
-      <h3 class="filters__title">Price</h3>
-      <SfFilter
-        v-for="filter in filtersOptions.price"
-        :key="filter.value"
-        :value="filter.value"
-        :label="filter.label"
-        :count="filter.count"
-        class="filters__item"
-      />
-      <h3 class="filters__title">Material</h3>
-      <SfFilter
-        v-for="filter in filtersOptions.material"
-        :key="filter.value"
-        :value="filter.value"
-        :label="filter.label"
-        :count="filter.count"
-        class="filters__item"
-      />
-      <div class="filters__buttons">
-        <SfButton
-          @click="isFilterSidebarOpen = false"
-          class="sf-button--full-width"
-          >Done</SfButton
-        >
-        <SfButton
-          @click="clearAllFilters"
-          class="sf-button--full-width filters__button-clear"
-          >Clear all</SfButton
-        >
+      <div class="filters">
+        <h3 class="filters__title">Collection</h3>
+        <SfFilter
+          v-for="filter in filtersOptions.collection"
+          :key="filter.value"
+          :label="filter.label"
+          :count="filter.count"
+          class="filters__item"
+        />
+        <h3 class="filters__title">Color</h3>
+        <SfFilter
+          v-for="filter in filtersOptions.color"
+          :key="filter.value"
+          :value="filter.value"
+          :label="filter.label"
+          :color="filter.color"
+          class="filters__item"
+        />
+        <h3 class="filters__title">Size</h3>
+        <SfFilter
+          v-for="filter in filtersOptions.size"
+          :key="filter.value"
+          :value="filter.value"
+          :label="filter.label"
+          :count="filter.count"
+          class="filters__item"
+        />
+        <h3 class="filters__title">Price</h3>
+        <SfFilter
+          v-for="filter in filtersOptions.price"
+          :key="filter.value"
+          :value="filter.value"
+          :label="filter.label"
+          :count="filter.count"
+          class="filters__item"
+        />
+        <h3 class="filters__title">Material</h3>
+        <SfFilter
+          v-for="filter in filtersOptions.material"
+          :key="filter.value"
+          :value="filter.value"
+          :label="filter.label"
+          :count="filter.count"
+          class="filters__item"
+        />
+        <div class="filters__buttons">
+          <SfButton
+            @click="isFilterSidebarOpen = false"
+            class="sf-button--full-width"
+            >Done</SfButton
+          >
+          <SfButton
+            @click="clearAllFilters"
+            class="sf-button--full-width filters__button-clear"
+            >Clear all</SfButton
+          >
+        </div>
       </div>
     </SfSidebar>
-    <SfBottomNavigation class="mobile-only">
-      <SfBottomNavigationItem>
-        <SfIcon icon="home" size="20px" />
-      </SfBottomNavigationItem>
-      <SfBottomNavigationItem>
-        <SfIcon icon="menu" size="20px" style="width: 25px" />
-      </SfBottomNavigationItem>
-      <SfBottomNavigationItem>
-        <SfIcon icon="heart" size="20px" />
-      </SfBottomNavigationItem>
-      <SfBottomNavigationItem>
-        <SfIcon icon="profile" size="20px" />
-      </SfBottomNavigationItem>
-      <SfBottomNavigationItem class="bottom-navigation-circle">
-        <SfCircleIcon
-          class="sf-bottom-navigation__floating-icon sf-circle-icon--big"
-        >
-          <SfIcon
-            icon="add_to_cart"
-            size="20px"
-            color="white"
-            style="margin-right: 4px;"
-          />
-        </SfCircleIcon>
-      </SfBottomNavigationItem>
-    </SfBottomNavigation>
   </div>
 </template>
 <script>
-import { getProducts } from "@shopware-pwa/shopware-6-client";
+import { getProducts, getCategories } from "@shopware-pwa/shopware-6-client";
 import {
   SfSidebar,
   SfButton,
@@ -241,8 +219,7 @@ import {
   SfPagination,
   SfAccordion,
   SfSelect,
-  SfBottomNavigation,
-  SfCircleIcon
+  SfBreadcrumbs
 } from "@storefront-ui/vue";
 
 export default {
@@ -257,8 +234,7 @@ export default {
     SfMenuItem,
     SfAccordion,
     SfSelect,
-    SfBottomNavigation,
-    SfCircleIcon
+    SfBreadcrumbs
   },
   data() {
     return {
@@ -286,44 +262,7 @@ export default {
           label: "Price from high to low"
         }
       ],
-      sidebarAccordion: [
-        {
-          header: "Clothing",
-          items: [
-            { label: "All", count: "280" },
-            { label: "Skirts", count: "23" },
-            { label: "Sweaters", count: "54" },
-            { label: "Dresses", count: "34" },
-            { label: "T-shirts", count: "56" },
-            { label: "Pants", count: "7" },
-            { label: "Underwear", count: "12" }
-          ]
-        },
-        {
-          header: "Accesorries",
-          items: [
-            { label: "All", count: "280" },
-            { label: "Skirts", count: "23" },
-            { label: "Sweaters", count: "54" },
-            { label: "Dresses", count: "34" },
-            { label: "T-shirts", count: "56" },
-            { label: "Pants", count: "7" },
-            { label: "Underwear", count: "12" }
-          ]
-        },
-        {
-          header: "Shoes",
-          items: [
-            { label: "All", count: "280" },
-            { label: "Skirts", count: "23" },
-            { label: "Sweaters", count: "54" },
-            { label: "Dresses", count: "34" },
-            { label: "T-shirts", count: "56" },
-            { label: "Pants", count: "7" },
-            { label: "Underwear", count: "12" }
-          ]
-        }
-      ],
+      categoriesResponse: [],
       productsResponse: {},
       filtersOptions: {
         collection: [
@@ -356,12 +295,43 @@ export default {
           { label: "Cotton", value: "coton", count: "33" },
           { label: "Silk", value: "silk", count: "73" }
         ]
-      }
+      },
+      breadcrumbs: [
+        {
+          text: "Home",
+          route: {
+            link: "#"
+          }
+        },
+        {
+          text: "Women",
+          route: {
+            link: "#"
+          }
+        }
+      ]
     };
   },
   async mounted() {
     this.productsResponse = await getProducts({
-      configuration: { associations: [{ name: "media" }] }
+      configuration: { associations: [{ name: "media" }, { name: "options"}]  },
+      filters: [
+        {
+          type: "equals",
+          field: "parentId",
+          value: null
+        }
+      ],
+    });
+    this.categoriesResponse = await getCategories({
+      filters: [
+        {
+          type: "equals",
+          field: "level",
+          value: "2"
+        }
+      ],
+      configuration: { associations: [{ name: "children" }]  }
     });
   },
   computed: {
@@ -374,7 +344,19 @@ export default {
       return this.productsResponse && this.productsResponse.total
         ? this.productsResponse.total
         : 0;
-    }
+    },
+    sidebarAccordion(){
+      if (!this.categoriesResponse.data) { return [] }
+      const accordion = this.categoriesResponse.data.map(category => ({
+        header: category.name,
+        items: category.children.length ? category.children.map(child => ({
+          label: child.name,
+          count: child.childrenCount
+        })) : null
+      }))
+
+      return accordion
+    } 
   },
   methods: {
     clearAllFilters() {
@@ -396,27 +378,33 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "~@storefront-ui/vue/styles.scss";
+@import "~@storefront-ui/vue/styles";
 @import "~@storefront-ui/shared/styles/helpers/visibility";
 @mixin for-desktop {
   @media screen and (min-width: $desktop-min) {
     @content;
   }
 }
+
 #category {
   box-sizing: border-box;
-  margin: 0 0 60px 0;
   @include for-desktop {
     max-width: 1240px;
     margin: auto;
   }
 }
+.breadcrumbs {
+  padding: $spacer-big $spacer-extra-big $spacer-extra-big;
+}
+.main {
+  display: flex;
+}
 .navbar {
   position: relative;
   display: flex;
   @include for-desktop {
-    border-top: 1px solid $c-border;
-    border-bottom: 1px solid $c-border;
+    border-top: 1px solid $c-light;
+    border-bottom: 1px solid $c-light;
   }
   &::after {
     position: absolute;
@@ -424,7 +412,7 @@ export default {
     left: $spacer-big;
     width: calc(100% - (#{$spacer-big} * 2));
     height: 1px;
-    background-color: $c-border;
+    background-color: $c-light;
     content: "";
     @include for-desktop {
       content: none;
@@ -434,8 +422,8 @@ export default {
     display: flex;
     align-items: center;
     flex: 0 0 15%;
-    padding: 1.85rem $spacer-extra-big;
-    border-right: 1px solid $c-border;
+    padding: $spacer-big $spacer-extra-big;
+    border-right: 1px solid $c-light;
   }
   &__main {
     flex: 1;
@@ -444,7 +432,7 @@ export default {
     padding: $spacer-medium 0;
     font-size: $font-size-small-desktop;
     @include for-desktop {
-      padding: 1.85rem 0;
+      padding: $spacer-big 0;
     }
   }
   &__title {
@@ -467,15 +455,15 @@ export default {
       text-transform: none;
     }
     svg {
-      fill: $c-dark-primary;
+      fill: $c-dark;
       @include for-desktop {
         fill: $c-gray-secondary;
       }
     }
     &:hover {
-      color: $c-accent-primary;
+      color: $c-primary;
       svg {
-        fill: $c-accent-primary;
+        fill: $c-primary;
       }
     }
   }
@@ -502,14 +490,6 @@ export default {
       margin-left: 10px;
     }
   }
-}
-.main {
-  display: flex;
-}
-.sidebar {
-  flex: 0 0 15%;
-  padding: $spacer-extra-big;
-  border-right: 1px solid $c-border;
 }
 .products {
   box-sizing: border-box;
@@ -539,25 +519,18 @@ export default {
     }
   }
 }
-.filters {
-  position: relative;
-  z-index: 10;
-  &__title:not(:first-child),
-  &__buttons {
-    margin-top: $spacer-big * 3;
+.section {
+  padding-left: $spacer-big;
+  padding-right: $spacer-big;
+  @include for-desktop {
+    padding-left: 0;
+    padding-right: 0;
   }
-  &__title {
-    font-size: $font-size-big-desktop;
-    line-height: 2.23;
-  }
-  &__button-clear {
-    margin-top: 10px;
-    background: $c-light-primary;
-    color: #a3a5ad;
-  }
-  &__item {
-    padding: $spacer-small 0;
-  }
+}
+.sidebar {
+  flex: 0 0 15%;
+  padding: $spacer-extra-big;
+  border-right: 1px solid $c-light;
 }
 .sort-by {
   flex: unset;
@@ -569,13 +542,33 @@ export default {
     font-size: inherit;
   }
 }
-.bottom-navigation-circle {
-  opacity: 1;
-}
-.section {
-  @media (max-width: $desktop-min) {
-    padding-left: $spacer-big;
-    padding-right: $spacer-big;
+.filters {
+  box-sizing: border-box;
+  width: 20rem;
+  padding: 0 $spacer-big * 3;
+  height: 100%;
+  overflow-y: auto;
+  @include for-desktop {
+    width: 22.875rem;
+  }
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+  &__title {
+    margin: $spacer-big * 3 0 $spacer-big;
+    font-size: $font-size-big-desktop;
+    line-height: 1.6;
+  }
+  &__item {
+    padding: $spacer-small 0;
+  }
+  &__buttons {
+    margin: $spacer-big * 3 0;
+  }
+  &__button-clear {
+    color: #a3a5ad;
+    margin-top: 10px;
+    background-color: $c-light;
   }
 }
 </style>

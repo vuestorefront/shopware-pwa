@@ -16,7 +16,10 @@ describe("ProductService - getProduct", () => {
     const result = await getProduct(productId);
     expect(mockedAxios.get).toBeCalledTimes(1);
     expect(mockedAxios.get).toBeCalledWith(
-      "/product/044a190a54ab4f06803909c3ee8063ef"
+      "/product/044a190a54ab4f06803909c3ee8063ef",
+      {
+        params: null
+      }
     );
     expect(result).toHaveProperty("id");
     expect(result.id).toEqual(productId);

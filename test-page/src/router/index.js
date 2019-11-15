@@ -20,7 +20,7 @@ const routes = [
     component: Category
   },
   {
-    path: "/product",
+    path: "/product/:id",
     name: "product",
     component: Product
   }

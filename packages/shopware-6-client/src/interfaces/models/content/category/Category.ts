@@ -34,5 +34,6 @@ export interface Category extends Entity {
   description: string;
   id: string;
   parentVersionId: string;
+  childrenCount: number;
   afterCategoryVersionId: string;
 }

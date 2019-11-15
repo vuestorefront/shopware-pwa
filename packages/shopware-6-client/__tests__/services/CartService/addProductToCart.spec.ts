@@ -40,7 +40,9 @@ describe("CartService - addProductToCart", () => {
 
     const result = await addProductToCart(productId, 1);
     expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith(
+    expect(
+      mockedAxios.post
+    ).toBeCalledWith(
       "/checkout/cart/product/044a190a54ab4f06803909c3ee8063ef",
       { quantity: 1 }
     );
@@ -61,7 +63,9 @@ describe("CartService - addProductToCart", () => {
     expect(mockedAxios.post).toBeCalledTimes(1);
     expect(mockedAxios.post).toBeCalledWith(
       "/checkout/cart/product/someNonExistingProductId",
-      { quantity: 1 }
+      {
+        quantity: 1
+      }
     );
   });
 

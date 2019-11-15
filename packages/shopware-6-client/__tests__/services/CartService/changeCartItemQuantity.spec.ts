@@ -32,7 +32,9 @@ describe("CartService - changeCartItemQuantity", () => {
 
     const result = await changeCartItemQuantity(lineItemId, 3);
     expect(mockedAxios.patch).toBeCalledTimes(1);
-    expect(mockedAxios.patch).toBeCalledWith(
+    expect(
+      mockedAxios.patch
+    ).toBeCalledWith(
       "/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
       { quantity: 3 }
     );
@@ -52,7 +54,9 @@ describe("CartService - changeCartItemQuantity", () => {
     expect(mockedAxios.patch).toBeCalledTimes(1);
     expect(mockedAxios.patch).toBeCalledWith(
       "/checkout/cart/line-item/someNonExistingLineItemId",
-      { quantity: 1 }
+      {
+        quantity: 1
+      }
     );
   });
 
