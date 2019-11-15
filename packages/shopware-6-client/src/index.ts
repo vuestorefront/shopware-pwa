@@ -29,13 +29,13 @@ export function update(config: ClientSettings = {}): void {
 }
 
 export interface ConfigChangedArgs {
-  config:ClientSettings
+  config: ClientSettings;
 }
-const callbackMethods: ((context: ConfigChangedArgs) => void)[] = []
+const callbackMethods: ((context: ConfigChangedArgs) => void)[] = [];
 
-export function onConfigChange (fn: (context: ConfigChangedArgs) => void) {
-  callbackMethods.push(fn)
+export function onConfigChange(fn: (context: ConfigChangedArgs) => void) {
+  callbackMethods.push(fn);
 }
-function configChanged (): void {
-  callbackMethods.forEach(fn => fn({config}))
+function configChanged(): void {
+  callbackMethods.forEach(fn => fn({ config }));
 }
