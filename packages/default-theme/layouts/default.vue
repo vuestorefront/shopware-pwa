@@ -4,9 +4,35 @@
       <nuxt-link to="/">Home</nuxt-link> |
       <nuxt-link to="/category">Category</nuxt-link>
     </div>
+    <SfBreadcrumbs :breadcrumbs="getBreadcrumbs" />
     <nuxt />
   </div>
 </template>
+
+<script>
+import { SfBreadcrumbs } from "@storefront-ui/vue";
+
+export default {
+  components: {
+    SfBreadcrumbs
+  },
+  computed: {
+    componentBreadcrumbs () { // TODO probably move to vuex now as it's not rendered on server side
+      return this.$route.matched.map((r) => {
+        return r.components.default.options.data().breadcrumbs
+      })[0] || {}
+    },
+    getBreadcrumbs () {
+      return Object.keys(this.componentBreadcrumbs).map(key => this.componentBreadcrumbs[key]).map(breadcrumb => ({
+        text: breadcrumb.name,
+        route: {
+          link: breadcrumb.path
+        }
+      }))
+    }
+  },
+}
+</script>
 
 <style lang="scss">
 @import '~@storefront-ui/vue/styles.scss';
