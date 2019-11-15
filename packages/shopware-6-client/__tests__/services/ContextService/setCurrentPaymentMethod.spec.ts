@@ -1,7 +1,6 @@
 import { apiService } from "../../../src/apiService";
 import {
   setCurrentPaymentMethod,
-  config,
   update
 } from "@shopware-pwa/shopware-6-client";
 
@@ -29,7 +28,6 @@ describe("ContextService - setCurrentPaymentMethod with contextToken given", () 
     });
 
     expect(result.contextToken).toEqual("NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6");
-    expect(config.contextToken).toEqual("NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6");
   });
 });
 
@@ -54,6 +52,5 @@ describe("ContextService - setCurrentPaymentMethod without contextToken given", 
     });
 
     expect(result.contextToken).toEqual("NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6");
-    expect(config.contextToken).toEqual("NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6");
   });
 });
