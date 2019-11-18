@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`/detail/${product.id}`">
+  <router-link :to="getRouterLink">
     <SfProductCard
       :title="product.name || ''"
       :image="getImageUrl"
@@ -28,6 +28,10 @@ export default {
     }
   },
   computed: {
+    // should be replaced with prettyUrl attribute when pretty urls are included in product entity
+    getRouterLink() {
+      return `/detail/${this.product.id}`
+    },
     getUnitPrice() {
       return (
         this.product.calculatedPrice && this.product.calculatedPrice.unitPrice
