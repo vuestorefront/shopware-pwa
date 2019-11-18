@@ -12,7 +12,7 @@ export interface NavigationElement {
   id: string
   path: string
   name: string
-  children: NaviationElement[] | null,
+  children: NavigationElement[] | null,
   count: number,
   level: number,
   extensions: any[]
