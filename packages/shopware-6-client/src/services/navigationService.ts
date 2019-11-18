@@ -5,7 +5,7 @@ import { apiService } from "../apiService";
 
 export interface NavigationResponse {
   count: number,
-  elements: NaviationElement[]
+  elements: NavigationElement[]
 }
 
 export interface NavigationElement {
