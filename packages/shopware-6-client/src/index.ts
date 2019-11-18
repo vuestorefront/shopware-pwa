@@ -1,7 +1,7 @@
 import { ClientSettings, setupConfig, updateConfig } from "./settings";
 import { reloadConfiguration } from "./apiService";
 
-export { config } from "./settings";import { Cart } from "../interfaces/models/checkout/cart/Cart";
+export { config } from "./settings";
 
 export * from "./services/categoryService";
 export * from "./services/productService";
