@@ -8,7 +8,7 @@ interface NavigationResponse {
   elements: NaviationElement[]
 }
 
-interface NaviationElement {
+export interface NavigationElement {
   id: string
   path: string
   name: string
