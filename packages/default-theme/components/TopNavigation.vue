@@ -15,7 +15,7 @@ export default {
     }
   },
   async mounted () {
-    const { elements } = await getNavigation()
+    const { elements } = await getNavigation({depth:1})
     this.navigationElements = elements
   },
   methods: {

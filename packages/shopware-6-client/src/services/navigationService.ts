@@ -18,14 +18,15 @@ interface NaviationElement {
   extensions: any[]
 }
 
-
-export async function getNavigation(
+interface GetNavigationParams {
   depth: number,
   rootNode?: string
-): Promise<NavigationResponse> {
-  const resp = await apiService.post(getNavigationEndpoint(), {
-    depth: 1
-  });
+}
+
+export async function getNavigation(params: GetNavigationParams): Promise<NavigationResponse> {
+  const resp = await apiService.post(getNavigationEndpoint(), 
+    params
+  );
   
   return resp.data
 }
