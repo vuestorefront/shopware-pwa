@@ -252,7 +252,7 @@ describe("endpoints", () => {
   describe("getNavigationEndpoint", () => {
     it("should return navigation endpoint", async () => {
       const result = getNavigationEndpoint();
-      expect(result).toEqual("/navigation");
+      expect(result).toEqual("/vsf/navigation");
     });
   });
 });
