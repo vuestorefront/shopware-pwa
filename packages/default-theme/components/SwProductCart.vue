@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'product', params: { id: product.id } }">
+  <n-link :to="`/detail/${product.id}`">
     <SfProductCard
       :title="product.name || ''"
       :image="getImageUrl"
@@ -8,7 +8,7 @@
       @click:wishlist="toggleWishlist"
       class="products__product-card"
     />
-  </router-link>
+  </n-link>
 </template>
 
 <script>

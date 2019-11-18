@@ -19,7 +19,7 @@ import { getPage } from "@shopware-pwa/shopware-6-client";
 
 const pagesMap = {
   "frontend.navigation.page": "CategoryView",
-  "frontend.details.page": "ProductView"
+  "frontend.detail.page": "ProductView"
 };
 
 export function getComponentBy(resourceType) {
