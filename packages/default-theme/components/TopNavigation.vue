@@ -1,7 +1,7 @@
 <template>
   <div id="nav">
       <nuxt-link to="/">Home</nuxt-link>
-      <nuxt-link v-for="element in navigationElements" :key="element.id" :to="`/category/${convertToSlug(element.name)}`"> | {{ element.name }}</nuxt-link>
+      <nuxt-link v-for="element in navigationElements" :key="element.id" :to="convertToSlug(element.name)"> | {{ element.name }}</nuxt-link>
 </div>
 </template>
 <script>
@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     convertToSlug(name) {
-      return slugify(name, {
+      return "/" + slugify(name, {
         remove: /and|[*+~.,()'"!:@]/g
       })
     }

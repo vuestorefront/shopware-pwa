@@ -1,6 +1,7 @@
 <template>
   <div>
     <TopNavigation/>
+    <SfBreadcrumbs :breadcrumbs="getBreadcrumbs" />
     <nuxt />
   </div>
 </template>

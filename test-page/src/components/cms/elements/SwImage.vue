@@ -20,14 +20,17 @@ export default {
     }
   },
   computed: {
+    getMedia() {
+      return this.content && this.content.data && this.content.data.media
+    },
     imgUrl() {
-      return this.content.data.media.url || ""
+      return this.getMedia && this.getMedia.url
     },
     alt() {
-      return this.content.data.media.alt || ""
+      return this.getMedia && this.getMedia.alt
     },
     title() {
-      return this.content.data.media.title || ""
+      return this.getMedia && this.getMedia.title
     },
     lazyLoad() {
       return true;
