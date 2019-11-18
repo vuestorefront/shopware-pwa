@@ -1,12 +1,15 @@
 <template>
   <div>
+    <TopNavigation/>
     <nuxt />
   </div>
 </template>
 <script>
-
+import TopNavigation from "../components/TopNavigation"
 export default {
-  
+  components: {
+    TopNavigation
+  }
 }
 </script>
 <style lang="scss">
