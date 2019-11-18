@@ -400,10 +400,8 @@ async function addPromotionCode(promotionCode) {
     return resp.data;
 }
 
-async function getNavigation(depth, rootNode) {
-    const resp = await apiService.post(getNavigationEndpoint(), {
-        depth: 1
-    });
+async function getNavigation(params) {
+    const resp = await apiService.post(getNavigationEndpoint(), params);
     return resp.data;
 }
 

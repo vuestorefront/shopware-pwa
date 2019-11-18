@@ -6,7 +6,7 @@
 </template>
 <script>
 import { getNavigation, getPage } from "@shopware-pwa/shopware-6-client";
-import slugify from "slugify"
+import slugify from "slugify" // todo remove after the navigation is fully implemented
 
 export default {
   data: function () {
