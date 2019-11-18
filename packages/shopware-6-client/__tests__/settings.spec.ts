@@ -66,13 +66,13 @@ describe("Settings", () => {
 
     it("should have default config with empty invocation", () => {
       update();
-      expect(config.accessToken).toEqual("SWSCBVBBZET1RTFIYWY4YVLICA");
+      expect(config.accessToken).toEqual("SWSCMUDKAKHSRXPJEHNOSNHYAG");
       expect(config.contextToken).toEqual("");
     });
 
     it("should change defaultPaginationLimit", () => {
       update({ defaultPaginationLimit: 50 });
-      expect(config.accessToken).toEqual("SWSCBVBBZET1RTFIYWY4YVLICA");
+      expect(config.accessToken).toEqual("SWSCMUDKAKHSRXPJEHNOSNHYAG");
       expect(config.defaultPaginationLimit).toEqual(50);
     });
   });
