@@ -3,11 +3,13 @@ import { reloadConfiguration } from "./apiService";
 import { config } from "./settings";
 
 export { config } from "./settings";
+
 export * from "./services/categoryService";
 export * from "./services/productService";
 export * from "./services/customerService";
 export * from "./services/contextService";
 export * from "./services/cartService";
+export * from "./services/navigationService";
 export * from "./services/pageService";
 
 /**

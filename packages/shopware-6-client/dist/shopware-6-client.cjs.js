@@ -9,7 +9,7 @@ var shopware6Client = require('@shopware-pwa/shopware-6-client');
 
 const defaultConfig = {
     endpoint: "https://shopware-2.vuestorefront.io/sales-channel-api/v1",
-    accessToken: "SWSCBVBBZET1RTFIYWY4YVLICA",
+    accessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG",
     contextToken: "",
     defaultPaginationLimit: 10
 };
@@ -81,6 +81,7 @@ const getContextCountryEndpoint = () => `/country`;
 const getContextPaymentMethodEndpoint = () => `/payment-method`;
 const getContextShippingMethodEndpoint = () => `/shipping-method`;
 const getPageResolverEndpoint = () => `/vsf/page`;
+const getNavigationEndpoint = () => `/vsf/navigation`;
 
 var PaginationLimit;
 (function (PaginationLimit) {
@@ -418,6 +419,11 @@ async function addPromotionCode(promotionCode) {
     return resp.data;
 }
 
+async function getNavigation(params) {
+    const resp = await apiService.post(getNavigationEndpoint(), params);
+    return resp.data;
+}
+
 async function getPage(path, searchCriteria) {
     const resp = await apiService.post(getPageResolverEndpoint(), {
         path: path
@@ -468,6 +474,7 @@ exports.getCategory = getCategory;
 exports.getCustomer = getCustomer;
 exports.getCustomerAddress = getCustomerAddress;
 exports.getCustomerAddresses = getCustomerAddresses;
+exports.getNavigation = getNavigation;
 exports.getPage = getPage;
 exports.getProduct = getProduct;
 exports.getProducts = getProducts;

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const defaultConfig = {
     endpoint: "https://shopware-2.vuestorefront.io/sales-channel-api/v1",
-    accessToken: "SWSCBVBBZET1RTFIYWY4YVLICA",
+    accessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG",
     contextToken: "",
     defaultPaginationLimit: 10
 };
@@ -74,6 +74,7 @@ const getContextCountryEndpoint = () => `/country`;
 const getContextPaymentMethodEndpoint = () => `/payment-method`;
 const getContextShippingMethodEndpoint = () => `/shipping-method`;
 const getPageResolverEndpoint = () => `/vsf/page`;
+const getNavigationEndpoint = () => `/vsf/navigation`;
 
 var PaginationLimit;
 (function (PaginationLimit) {
@@ -411,6 +412,11 @@ async function addPromotionCode(promotionCode) {
     return resp.data;
 }
 
+async function getNavigation(params) {
+    const resp = await apiService.post(getNavigationEndpoint(), params);
+    return resp.data;
+}
+
 async function getPage(path, searchCriteria) {
     const resp = await apiService.post(getPageResolverEndpoint(), {
         path: path
@@ -442,4 +448,4 @@ function configChanged() {
     callbackMethods.forEach(fn => fn({ config }));
 }
 
-export { addCartItemQuantity, addProductToCart, addPromotionCode, changeCartItemQuantity, clearCart, config, createCustomerAddress, deleteCustomerAddress, getAvailableCountries, getAvailableCurrencies, getAvailableLanguages, getAvailablePaymentMethods, getAvailableShippingMethods, getCart, getCategories, getCategory, getCustomer, getCustomerAddress, getCustomerAddresses, getPage, getProduct, getProducts, getProductsIds, login, logout, onConfigChange, register, removeCartItem, setCurrentCurrency, setCurrentLanguage, setCurrentPaymentMethod, setCurrentShippingMethod, setDefaultCustomerBillingAddress, setDefaultCustomerShippingAddress, setup, update, updateEmail, updatePassword, updateProfile };
+export { addCartItemQuantity, addProductToCart, addPromotionCode, changeCartItemQuantity, clearCart, config, createCustomerAddress, deleteCustomerAddress, getAvailableCountries, getAvailableCurrencies, getAvailableLanguages, getAvailablePaymentMethods, getAvailableShippingMethods, getCart, getCategories, getCategory, getCustomer, getCustomerAddress, getCustomerAddresses, getNavigation, getPage, getProduct, getProducts, getProductsIds, login, logout, onConfigChange, register, removeCartItem, setCurrentCurrency, setCurrentLanguage, setCurrentPaymentMethod, setCurrentShippingMethod, setDefaultCustomerBillingAddress, setDefaultCustomerShippingAddress, setup, update, updateEmail, updatePassword, updateProfile };
