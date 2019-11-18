@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2> Shopware dynamic page </h2>
-    <pre> {{ cmsPageName }} </pre>
+    <component :is="getComponent" :cms-page="cmsPage"/>
   </div>
 </template>
 <script>
@@ -16,6 +16,18 @@
 //   SfBannerGrid
 // } from '@storefront-ui/vue'
 import { getPage } from "@shopware-pwa/shopware-6-client";
+
+const pagesMap = {
+  "frontend.navigation.page": "CategoryView",
+  "frontend.details.page": "ProductView"
+};
+
+export function getComponentBy(resourceType) {
+  if (!resourceType) return;
+  let componentName = pagesMap[resourceType];
+  if (!componentName) componentName = "SwNoComponent";
+  return () => import(`@/components/views/${componentName}`);
+}
 
 export default {
   name: 'DynamicRoute',
@@ -36,11 +48,17 @@ export default {
     return {
       cmsPageName: name,
       page,
-      breadcrumbs: page.breadcrumb
+      breadcrumbs: page.breadcrumb,
+      cmsPage: page.cmsPage
     }
   },
   data() {
     return {
+    }
+  },
+  computed: {
+    getComponent() {
+      return getComponentBy(this.page.resourceType);
     }
   },
   methods: {
