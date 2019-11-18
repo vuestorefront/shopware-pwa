@@ -3,7 +3,7 @@ import {
 } from "../endpoints";
 import { apiService } from "../apiService";
 
-interface NavigationResponse {
+export interface NavigationResponse {
   count: number,
   elements: NaviationElement[]
 }
