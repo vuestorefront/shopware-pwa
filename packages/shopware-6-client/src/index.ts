@@ -1,5 +1,6 @@
 import { ClientSettings, setupConfig, updateConfig } from "./settings";
 import { reloadConfiguration } from "./apiService";
+import { config } from "./settings";
 
 export { config } from "./settings";
 
@@ -26,4 +27,17 @@ export function setup(config: ClientSettings = {}): void {
 export function update(config: ClientSettings = {}): void {
   updateConfig(config);
   reloadConfiguration();
+  configChanged();
+}
+
+export interface ConfigChangedArgs {
+  config: ClientSettings;
+}
+const callbackMethods: ((context: ConfigChangedArgs) => void)[] = [];
+
+export function onConfigChange(fn: (context: ConfigChangedArgs) => void) {
+  callbackMethods.push(fn);
+}
+function configChanged(): void {
+  callbackMethods.forEach(fn => fn({ config }));
 }

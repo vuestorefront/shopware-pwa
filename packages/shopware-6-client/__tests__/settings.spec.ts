@@ -1,5 +1,12 @@
-import { config, setup, update } from "@shopware-pwa/shopware-6-client";
+import {
+  config,
+  setup,
+  update,
+  onConfigChange
+} from "@shopware-pwa/shopware-6-client";
 import { apiService } from "../src/apiService";
+import { ConfigChangedArgs } from "../src";
+import { random } from "faker";
 
 const DEFAULT_ENDPOINT =
   "https://shopware-2.vuestorefront.io/sales-channel-api/v1";
@@ -67,6 +74,16 @@ describe("Settings", () => {
       update({ defaultPaginationLimit: 50 });
       expect(config.accessToken).toEqual("SWSCBVBBZET1RTFIYWY4YVLICA");
       expect(config.defaultPaginationLimit).toEqual(50);
+    });
+  });
+
+  describe("onConfigChange", () => {
+    it("should notify, when update method has been called", () => {
+      const contextToken = random.uuid();
+      onConfigChange((configChangedArgs: ConfigChangedArgs) => {
+        expect(configChangedArgs.config.contextToken).toEqual(contextToken);
+      });
+      update({ contextToken: contextToken });
     });
   });
 });

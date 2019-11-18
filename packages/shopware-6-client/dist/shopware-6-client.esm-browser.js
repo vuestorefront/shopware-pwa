@@ -16,6 +16,19 @@ const updateConfig = function (config) {
 };
 const config = clientConfig;
 
+function responseInterceptor(response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    const contextToken = response.headers["sw-context-token"];
+    update({ contextToken });
+    return response;
+}
+async function errorInterceptor(error) {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    throw error;
+}
+
 const apiService = axios.create({});
 function reloadConfiguration() {
     apiService.defaults.baseURL = config.endpoint;
@@ -29,6 +42,7 @@ function reloadConfiguration() {
     }
 }
 reloadConfiguration();
+apiService.interceptors.response.use(responseInterceptor, errorInterceptor);
 
 // category
 const getCategoryEndpoint = () => `/category`;
@@ -278,7 +292,6 @@ async function updateProfile(params) {
 async function updateContext(params) {
     const resp = await apiService.patch(getContextEndpoint(), params);
     const contextToken = resp.data["sw-context-token"];
-    update({ contextToken });
     return { contextToken };
 }
 async function getAvailableCurrencies() {
@@ -425,6 +438,14 @@ function setup(config = {}) {
 function update(config = {}) {
     updateConfig(config);
     reloadConfiguration();
+    configChanged();
+}
+const callbackMethods = [];
+function onConfigChange(fn) {
+    callbackMethods.push(fn);
+}
+function configChanged() {
+    callbackMethods.forEach(fn => fn({ config }));
 }
 
-export { addCartItemQuantity, addProductToCart, addPromotionCode, changeCartItemQuantity, clearCart, config, createCustomerAddress, deleteCustomerAddress, getAvailableCountries, getAvailableCurrencies, getAvailableLanguages, getAvailablePaymentMethods, getAvailableShippingMethods, getCart, getCategories, getCategory, getCustomer, getCustomerAddress, getCustomerAddresses, getNavigation, getPage, getProduct, getProducts, getProductsIds, login, logout, register, removeCartItem, setCurrentCurrency, setCurrentLanguage, setCurrentPaymentMethod, setCurrentShippingMethod, setDefaultCustomerBillingAddress, setDefaultCustomerShippingAddress, setup, update, updateEmail, updatePassword, updateProfile };
+export { addCartItemQuantity, addProductToCart, addPromotionCode, changeCartItemQuantity, clearCart, config, createCustomerAddress, deleteCustomerAddress, getAvailableCountries, getAvailableCurrencies, getAvailableLanguages, getAvailablePaymentMethods, getAvailableShippingMethods, getCart, getCategories, getCategory, getCustomer, getCustomerAddress, getCustomerAddresses, getPage, getProduct, getProducts, getProductsIds, login, logout, onConfigChange, register, removeCartItem, setCurrentCurrency, setCurrentLanguage, setCurrentPaymentMethod, setCurrentShippingMethod, setDefaultCustomerBillingAddress, setDefaultCustomerShippingAddress, setup, update, updateEmail, updatePassword, updateProfile };
