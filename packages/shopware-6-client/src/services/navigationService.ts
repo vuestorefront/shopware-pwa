@@ -3,16 +3,16 @@ import {
 } from "../endpoints";
 import { apiService } from "../apiService";
 
-interface NavigationResponse {
+export interface NavigationResponse {
   count: number,
-  elements: NaviationElement[]
+  elements: NavigationElement[]
 }
 
-interface NaviationElement {
+export interface NavigationElement {
   id: string
   path: string
   name: string
-  children: NaviationElement[] | null,
+  children: NavigationElement[] | null,
   count: number,
   level: number,
   extensions: any[]
