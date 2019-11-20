@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
+    "preinstall": "lerna bootstrap",
+    "postinstall": "lerna link",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "prettier --write '*.{js,vue}'",
