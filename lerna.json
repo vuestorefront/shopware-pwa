@@ -1,6 +1,7 @@
 {
   "packages": [
-    "packages/*"
+    "packages/*",
+    "vsf-core-packages/*"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
