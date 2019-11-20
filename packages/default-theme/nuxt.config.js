@@ -2,6 +2,8 @@ const coreDevelopment = true
 
 export default {
   mode: 'universal',
+  srcDir: __dirname,
+  lambdaName: 'index', // main app should be index
   /*
    ** Headers of the page
    */

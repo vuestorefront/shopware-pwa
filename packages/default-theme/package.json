@@ -8,7 +8,7 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "preinstall": "lerna bootstrap",
-    "postinstall": "lerna link",
+    "postinstall": "cd ../../ && yarn build && cd ./packages/default-theme",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "prettier --write '*.{js,vue}'",
