@@ -36,16 +36,8 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     // '@nuxtjs/eslint-module'
-    [
-      '@vue-storefront/nuxt',
-      {
-        coreDevelopment,
-        useRawSource: {
-          dev: coreDevelopment ? ['@shopware-pwa/shopware-6-client'] : [],
-          prod: ['@shopware-pwa/shopware-6-client']
-        }
-      }
-    ]
+    ['@nuxt/typescript-build'],
+    ['@vue-storefront/nuxt', {}]
   ],
   /*
    ** Nuxt.js modules
@@ -77,8 +69,9 @@ export default {
             }
           ]
         ]
-      }
+      },
     },
+    transpile: ['@shopware-pwa/shopware-6-client'],
     /*
      ** You can extend webpack config here
      */
