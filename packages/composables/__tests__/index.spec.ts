@@ -21,7 +21,9 @@ describe("Shopware composables", () => {
     expect(page.value).toEqual(null);
     await search();
     expect(page.value).toBeTruthy();
-    expect(page.value.resourceIdentifier).toEqual("3f637f17cd9f4891a2d7625d19fb37c9");
+    expect(page.value.resourceIdentifier).toEqual(
+      "3f637f17cd9f4891a2d7625d19fb37c9"
+    );
   });
 
   it("should have failed on bad url settings", async () => {
