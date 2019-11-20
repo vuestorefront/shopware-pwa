@@ -1,11 +1,14 @@
 const fs = require("fs");
 const chalk = require("chalk");
+const path = require("path");
 
-const targets = (exports.targets = fs.readdirSync("packages").filter(f => {
-  if (!fs.statSync(`packages/${f}`).isDirectory()) {
+const packagesDir = path.resolve(__dirname, "../packages");
+
+const targets = (exports.targets = fs.readdirSync(packagesDir).filter(f => {
+  if (!fs.statSync(`${packagesDir}/${f}`).isDirectory()) {
     return false;
   }
-  const pkg = require(`../packages/${f}/package.json`);
+  const pkg = require(`${packagesDir}/${f}/package.json`);
   if (pkg.private && !pkg.buildOptions) {
     return false;
   }

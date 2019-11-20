@@ -56,8 +56,9 @@ async function buildAll(targets) {
 }
 
 async function build(target) {
-  const pkgDir = path.resolve(`packages/${target}`);
+  const pkgDir = path.resolve(__dirname, `../packages/${target}`); // path.resolve(`packages/${target}`);
   const pkg = require(`${pkgDir}/package.json`);
+  const rootDir = path.resolve(__dirname, `../`);
 
   await fs.remove(`${pkgDir}/dist`);
 
@@ -82,7 +83,7 @@ async function build(target) {
         .filter(Boolean)
         .join(",")
     ],
-    { stdio: "inherit" }
+    { stdio: "inherit", cwd: rootDir }
   );
 
   if (buildTypes && pkg.types) {
