@@ -92,5 +92,6 @@ export default {
 .elements {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 </style>
