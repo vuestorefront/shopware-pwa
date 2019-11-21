@@ -14,7 +14,7 @@
 //   SfImage,
 //   SfBannerGrid
 // } from '@storefront-ui/vue'
-import { getPage } from "@shopware-pwa/shopware-6-client";
+import { useCms } from "@shopware-pwa/composables";
 
 const pagesMap = {
   "frontend.navigation.page": "CategoryView",
@@ -33,23 +33,22 @@ export default {
   components: {
   },
   asyncData: async ({ req, params }) => {
-    let page = {}
-    try {
-      console.error('LOADED PAGE', params.pathMatch)
-      // example -> Sports/Grocery-Garden
-      page = await getPage(params.pathMatch);
-    } catch (e) {
-      console.error('Page not found', e)
-    }
+    const {search, page} = useCms()
+    const searchResult = await search(params.pathMatch);
 
-const name = page && page.cmsPage && page.cmsPage.name
+    const unwrappedPage = page && page.value ? page.value : searchResult
+
+
+    const name = unwrappedPage && unwrappedPage.cmsPage && unwrappedPage.cmsPage.name
+    const breadcrumbs = unwrappedPage && unwrappedPage.breadcrumb
+    const cmsPage = unwrappedPage && unwrappedPage.cmsPage
     
     return {
       cmsPageName: name,
-      page,
-      breadcrumbs: page.breadcrumb,
-      cmsPage: page.cmsPage || {},
-      product: page.product || {} // TODO remove when cms pages for product is done
+      page: unwrappedPage,
+      breadcrumbs,
+      cmsPage,
+      product: page.product || {}
     }
   },
   data() {
@@ -58,7 +57,7 @@ const name = page && page.cmsPage && page.cmsPage.name
   },
   computed: {
     getComponent() {
-      return getComponentBy(this.page.resourceType);
+      return this.page && getComponentBy(this.page.resourceType);
     }
   },
   methods: {

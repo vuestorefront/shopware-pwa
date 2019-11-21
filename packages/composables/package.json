@@ -19,5 +19,13 @@
     "name": "composables",
     "formats": ["esm", "cjs", "global", "esm-browser"]
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@vue/composition-api": "^0.3.2",
+    "vue": "^2.6.10"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^0.3.2",
+    "vue": "^2.6.10"
+  }
 }
