@@ -1,11 +1,20 @@
 <template>
   <div :class="slotClass">
-    <SwGenericBlock
-      :content="cmsSlot"
-      v-for="cmsSlot in cmsSlots"
-      :key="cmsSlot.id"
-      :style="slotStyles"
-    />
+    <div v-if="hasSidebar && sidebarSlot">
+      <SwGenericBlock
+        :content="sidebarSlot"
+        :key="sidebarSlot.id"
+        :style="slotStyles"
+      />
+    </div>
+    <div class="elements">
+      <SwGenericBlock
+        :content="cmsSlot"
+        v-for="cmsSlot in elementsSlots"
+        :key="cmsSlot.id"
+        :style="slotStyles"
+      />
+    </div>
   </div>
 </template>
 
@@ -30,6 +39,12 @@ export default {
       const key = this.isBlock ? "blocks" : "slots";
       return this.content && this.content[key] ? this.content[key] : [];
     },
+    elementsSlots () {
+      return this.hasSidebar ? this.cmsSlots.slice(1) : this.cmsSlots
+    },
+    sidebarSlot () {
+      return this.cmsSlots && this.cmsSlots.length ? this.cmsSlots[0] : null
+    },
     slotStyles() {
       const {
         marginTop,
@@ -47,7 +62,14 @@ export default {
       };
     },
     slotClass() {
-      return this.isBlock ? "sw-blocks" : "sw-slots";
+      return {
+        "sw-blocks": this.isBlock,
+        "sw-slots": !this.isBlock,
+        "has-sidebar": this.hasSidebar
+      }
+    },
+    hasSidebar () {
+      return this.content && this.content.type === "sidebar"
     }
   }
 };
@@ -61,5 +83,15 @@ export default {
   display: flex;
   width: 100%;
   justify-content: center;
+}
+
+.has-sidebar {
+  display: flex;
+}
+
+.elements {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 </style>

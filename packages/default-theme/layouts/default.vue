@@ -1,7 +1,7 @@
 <template>
   <div>
     <TopNavigation/>
-    <SfBreadcrumbs :breadcrumbs="getBreadcrumbs" />
+    <SfBreadcrumbs :breadcrumbs="getBreadcrumbs" class="sw-breadcrumbs"/>
     <nuxt />
   </div>
 </template>
@@ -39,5 +39,9 @@ export default {
 body {
   padding: 0;
   margin: 0;
+}
+
+.sw-breadcrumbs {
+  padding: 0 1rem;
 }
 </style>

@@ -10,3 +10,4 @@ explorations
 TODOs.md
 docs/
 !packages/shopware-6-client/dist/
+!packages/composables/dist/
