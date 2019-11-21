@@ -6,7 +6,7 @@ const slotsMap = {
   "vimeo-video": "SwVimeoVideo",
   "youtube-video": "SwYoutubeVideo",
   "product-listing": "SwProductListingSlot",
-  // "category-navigation": "SwCategoryNavigationSlot", // waiting for navigation hydration, and domething wrong with accordion
+  "category-navigation": "SwCategoryNavigationSlot", // waiting for navigation hydration, and domething wrong with accordion
   "sidebar-filter": "SwCategorySidebarFilter"
 };
 

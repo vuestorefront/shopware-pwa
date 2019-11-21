@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2> Dumb category component, as a param takes cms page - {{ cmsPageDescription }} </h2>
     <CmsPage :content="cmsPage" />
   </div>
 </template>

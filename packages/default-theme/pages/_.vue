@@ -1,20 +1,9 @@
 <template>
   <div>
-    <h2> Shopware dynamic page </h2>
     <component :is="getComponent" :cms-page="cmsPage"/>
   </div>
 </template>
 <script>
-// import {
-//   SfHero,
-//   SfBanner,
-//   SfCallToAction,
-//   SfSection,
-//   SfCarousel,
-//   SfProductCard,
-//   SfImage,
-//   SfBannerGrid
-// } from '@storefront-ui/vue'
 import { useCms } from "@shopware-pwa/composables";
 
 const pagesMap = {
