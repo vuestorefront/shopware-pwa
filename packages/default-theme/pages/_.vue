@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h2> Shopware dynamic page </h2>
-    <component :is="getComponent" :cms-page="cmsPage"/>
+    <component :is="getComponent" :cms-page="cmsPage" :product="product"/>
   </div>
 </template>
 <script>
@@ -43,13 +42,14 @@ export default {
       console.error('Page not found', e)
     }
 
-    const name = page && page.cmsPage && page.cmsPage.name
+const name = page && page.cmsPage && page.cmsPage.name
     
     return {
       cmsPageName: name,
       page,
       breadcrumbs: page.breadcrumb,
-      cmsPage: page.cmsPage
+      cmsPage: page.cmsPage || {},
+      product: page.product || {} // TODO remove when cms pages for product is done
     }
   },
   data() {
