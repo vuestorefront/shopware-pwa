@@ -1,2 +1,1 @@
-// TODO
-export const test = 1;
+export * from "./hooks/useCms";

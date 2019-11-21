@@ -2167,18 +2167,18 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@storefront-ui/shared@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@storefront-ui/shared/-/shared-0.3.3.tgz#eccd5a05d54aa4bb2487763a3e73a9686fb0e871"
-  integrity sha512-E1+iTXug3XYdXeTbBZO5DIdj2EvwzEiPG53Izah1M+4/M97XwpNIdazOe4dOx8bGwRHaJ2xCAqV+vkZ29EEEUw==
+"@storefront-ui/shared@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@storefront-ui/shared/-/shared-0.3.4.tgz#72a7b80e6110935f56aa0c41154e8d7de20eeb9f"
+  integrity sha512-giYs0PsjnPffj+Q5fuQwcoJzBXteTI8zdh8HNEnDlAMLBek2/wPFB3jp5+NdDDYsUtk/t3fBiZNHxSxDIF5Ddw==
 
-"@storefront-ui/vue@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@storefront-ui/vue/-/vue-0.3.3.tgz#44a6e2523caf699cce9a6eb71d4eec36776b2fab"
-  integrity sha512-azDLDfMSL0m5aWw2P2O/UBTZ9PjyvgGh5vsY7iQ5eJB4kiZgvTxgSKrpHNOU0dan2j8KfYf+fUF4VAoISRFuMQ==
+"@storefront-ui/vue@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@storefront-ui/vue/-/vue-0.3.4.tgz#dad354ba60ab834613fc217a3c9042f32b1d77ae"
+  integrity sha512-GjaVKRQHlDKZEjspZZpMUdQOXgvVshYMcqlpyrqpy+/vTs9iV+y7RfcuKa8aVIHbrvsSMrBgJtSoGQiK3/zdmw==
   dependencies:
     "@glidejs/glide" "^3.3.0"
-    "@storefront-ui/shared" "^0.3.3"
+    "@storefront-ui/shared" "^0.3.4"
     "@vue/babel-preset-app" "^4.0.0-alpha.1"
     core-js "^3.1.3"
     hammerjs "^2.0.8"
