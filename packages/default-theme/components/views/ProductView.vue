@@ -127,10 +127,10 @@
                 class="product-details__review"
                 v-for="review in reviews"
                 :key="review.id"
-                :author="review.externalUser ? review.externalUser : review.customerId"
-                :date="review.createdAt"
-                :message="review.content"
-                :rating="review.points"
+                :author="review.author"
+                :date="review.date"
+                :message="review.message"
+                :rating="review.rating"
                 :max-rating="5"
               />
             </SfTab>
@@ -176,18 +176,10 @@ import {
   SfReview
 } from "@storefront-ui/vue";
  import { getProduct, getPage } from "@shopware-pwa/shopware-6-client";
-const extractProductId = (path) => { // TODO remove when page resolver is fully done
-      const productId = path.substring(path.search(/[0-9a-fA-F]{32}/))
-      return productId
-    }
+ import { useProduct, helpers } from "@shopware-pwa/composables";
+
 export default {
   name: "Product",
-  props: {
-    product: {
-      type: Object,
-      default: () => ({})
-    }
-  },
   components: {
     SfAlert,
     SfProperty,
@@ -210,6 +202,12 @@ export default {
     SfSticky,
     SfReview
   },
+  props: {
+    page: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data() {
     return {
       qty: "1",
@@ -229,14 +227,20 @@ export default {
       "associations[manufacturer][]": true,
       "associations[children][associations][options][associations][group][]": true,
     }
-    this.productWithAssociations = await getProduct(extractProductId(this.$route.params.pathMatch), associations);
+
+    const { loadAssociations, product } = useProduct(this.page.product);
+    this.productWithAssociations = product
+    loadAssociations(associations)
   },
   computed: {
+    product() {
+      return this.productWithAssociations && this.productWithAssociations.value || this.page.product
+    },
     price() {
-      return this.product && this.product.price ? this.product.price[0].gross : 0
+      return helpers.getRegularPrice(this.product)
     },
     name(){
-      return this.product && this.product.name || this.productWithAssociations && this.productWithAssociations.name
+      return this.product && this.product.name
     },
     description() {
       return this.product && this.product.description
@@ -245,70 +249,42 @@ export default {
       return this.product && this.product.ratingAverage
     },
     hasChildren() {
-      return this.productWithAssociations && this.productWithAssociations.childCount > 0
+      return this.product && this.product.childCount > 0
     },
     isSimple() {
-      return this.productWithAssociations && !!this.productWithAssociations.parentId
+      return helpers.isSimple(this.product)
     },
     mainImage() {
-      return this.product && this.product.cover ? this.product.cover.media.url : '/img/product_thumb.png'
+      return helpers.getMainImageUrl(this.product)
     },
     mediaGallery() {
-      return this.productWithAssociations && this.productWithAssociations.media ? this.productWithAssociations.media.map(media => 
-        {
-            const smallThumb = media.media.thumbnails.find(thumb => thumb.width == "400")
-            const normalThumb = media.media.thumbnails.find(thumb => thumb.width == "800")
-            const bigThumb = media.media.thumbnails.find(thumb => thumb.width == "1920")
-            return {
-              small: { url: smallThumb ? smallThumb.url : "" },
-              normal: { url: normalThumb ? normalThumb.url: "" },
-              big: { url: bigThumb ? bigThumb.url: "" }
-            }
-        }
-      ) : []
+      return helpers.getMediaGallery(this.product)
     },
     properties() {
-      if (!this.productWithAssociations || !this.productWithAssociations.properties) {
-        return []
-      }
-
-      const propertyList = this.productWithAssociations.properties.map(property => ({
-        name: property.group.name,
-        value: property.name
-      }))
- 
-      return propertyList
+      return helpers.getProperties(this.product)
     },
     color() {
       if (!this.isSimple) {
         return ""
       }
 
-      return this.productWithAssociations.options.find(option => option.group.name === "color")
+      return helpers.getProductOption(this.product, "color")
     },
     size() {
       if (!this.isSimple) {
         return ""
       }
 
-      return this.productWithAssociations.options.find(option => option.group.name === "size")
+      return helpers.getProductOption(this.product, "size")
     },
     colors() {
-      if (!this.productWithAssociations || !this.productWithAssociations.children) {
-        return []
-      }
-      
-      return this.extractOptions("color")
+      return helpers.getProductOptions(this.product, "color")
     },
     sizes() {
-      if (!this.productWithAssociations || !this.productWithAssociations.children) {
-        return []
-      }
-
-      return this.extractOptions("size")
+      return helpers.getProductOptions(this.product, "size")
     },
     reviews() {
-      return this.productWithAssociations && this.productWithAssociations.productReviews || []
+      return helpers.getReviews(this.product)
     },
     stock() {
       return this.product && this.product.stock
@@ -322,28 +298,6 @@ export default {
     },
     toggleWishlist(index) {
       this.products[index].isOnWishlist = !this.products[index].isOnWishlist;
-    },
-    extractOptions(type) {
-      if (!this.productWithAssociations || !this.productWithAssociations.children) {
-        return []
-      }
-
-      const typeOptions = new Map();
-      this.productWithAssociations.children.forEach(variant => {
-        
-          for(let option of variant.options) {
-            if (option.group.name === type) {
-              if (!typeOptions.has(option.id)) {
-                typeOptions.set(option.id, {
-                  label: option.name,
-                  value: variant.id,
-                  color: option.name
-                })
-              }
-            }
-          }
-      })
-      return Array.from(typeOptions.values())
     }
   }
 }
@@ -487,11 +441,11 @@ export default {
     padding-bottom: $spacer-big;
     @include for-desktop {
       padding-bottom: $spacer-extra-big;
-      border-bottom: 1px solid $c-light-primary;
+      border-bottom: 1px solid $c-primary;
     }
     & + & {
       padding-top: $spacer-extra-big;
-      border-top: 1px solid $c-light-primary;
+      border-top: 1px solid $c-primary;
       @include for-desktop {
         border-top: 0;
         padding-top: $spacer-extra-big;
@@ -653,7 +607,7 @@ export default {
   border: 0;
   outline: none;
   background-color: transparent;
-  color: $c-text-primary;
+  color: $c-primary;
   font-family: $body-font-family-secondary;
   font-size: $font-size-regular-mobile;
   font-weight: $body-font-weight-secondary;

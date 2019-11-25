@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component :is="getComponent" :cms-page="cmsPage"/>
+    <component :is="getComponent" :cms-page="cmsPage" :page="page"/>
   </div>
 </template>
 <script>
@@ -38,7 +38,6 @@ export default {
       page: unwrappedPage,
       breadcrumbs,
       cmsPage,
-      product: page.product || {}
     }
   },
   data() {
