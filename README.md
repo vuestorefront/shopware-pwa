@@ -1,23 +1,29 @@
 # Shopware PWA
-[![Build Status](https://travis-ci.org/DivanteLtd/shopware-pwa.svg?branch=master)](https://travis-ci.org/DivanteLtd/shopware-pwa)
-[![Coverage Status](https://coveralls.io/repos/github/DivanteLtd/shopware-pwa/badge.svg)](https://coveralls.io/github/DivanteLtd/shopware-pwa) [![Greenkeeper badge](https://badges.greenkeeper.io/DivanteLtd/shopware-pwa.svg)](https://greenkeeper.io/)
 
-[Documentation](https://shopware-pwa-docs.netlify.com/)
+[![Build Status](https://travis-ci.org/DivanteLtd/shopware-pwa.svg?branch=master)](https://travis-ci.org/DivanteLtd/shopware-pwa) [![Coverage Status](https://coveralls.io/repos/github/DivanteLtd/shopware-pwa/badge.svg?branch=master)](https://coveralls.io/github/DivanteLtd/shopware-pwa) [![Greenkeeper badge](https://badges.greenkeeper.io/DivanteLtd/shopware-pwa.svg)](https://greenkeeper.io/)
 
-**This repository is not ready for external contributions**
+>:warning:**This repository is not ready for external contributions**   
 
-## Installation 
 
-### Quick setup
+## Getting started
 
-Just run `yarn`, and you're ready to develop.
-Please remember to always during development have opened terminal with `yarn test --watch` command fired.
+### Documentation
+
+See [the documentation](https://deploy-preview-132--goofy-meninsky-b11fca.netlify.com/#introduction-to-shopware-pwa) to get started.
+
+### Development
+
+Just type `yarn` to install node dependencies and run the post-install script that links unpublished packages. Now, you're ready to develop. You can watch the compilation process by running `yarn dev` or `yarn dev:<package-name> `to specify the package that you will be working on.  
+
+Please, remember to always during development have opened terminal with `yarn test --watch` command fired.  
+
+To start working on the default-theme go to `./packages/default-theme` and run `yarn`. After installation type `yarn dev`. The project will be available in your browser at http://localhost:3000.
 
 ### Installation for using the package in some other project
 
 1. Run `yarn`
 2. Build package with types definition `yarn build --types`
-3. Create symlink for local usage `yarn link-packages`
+3. Create symlink for local usage `yarn link`
 4. In another project (can be generated from vue-cli) link client package and install axios (nothing will happen if you already have axios there)
 
 ```bash
@@ -189,8 +195,7 @@ We also setup Prettier (https://prettier.io/) on git pre-commit hook to automati
 * Code does not destroy build.
 * All unit tests pass.
 * Code meets our Coding standards.
-* Code is merged to develop branch.
-* User story is verified by QA in develop branch.
+* User story is verified by QA.
 * User story is tested on the newest browsers and newest-1 versions.
 * At least minimal documentation is created.
 
@@ -304,5 +309,3 @@ const customerData = {
   }
 }
 ```
-
-___
