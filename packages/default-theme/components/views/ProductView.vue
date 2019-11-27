@@ -176,7 +176,16 @@ import {
   SfReview
 } from "@storefront-ui/vue";
  import { getProduct, getPage } from "@shopware-pwa/shopware-6-client";
- import { useProduct, helpers } from "@shopware-pwa/composables";
+ import { useProduct } from "@shopware-pwa/composables";
+ import { 
+  getProductMainImageUrl,
+  getProductMediaGallery,
+  getProductOptions,
+  getProductProperties,
+  getProductOption,
+  getProductReviews,
+  getProductRegularPrice,
+  isProductSimple } from "@shopware-pwa/helpers";
 
 export default {
   name: "Product",
@@ -223,7 +232,7 @@ export default {
       "associations[media][]": true,
       "associations[options][associations][group][]": true,
       "associations[properties][associations][group][]": true,
-      "associations[productReviews][]": true,
+      "associations[productReviews][]": true, // can be fetched asynchronously
       "associations[manufacturer][]": true,
       "associations[children][associations][options][associations][group][]": true,
     }
@@ -237,7 +246,7 @@ export default {
       return this.productWithAssociations && this.productWithAssociations.value || this.page.product
     },
     price() {
-      return helpers.getRegularPrice(this.product)
+      return getProductRegularPrice({product: this.product})
     },
     name(){
       return this.product && this.product.name
@@ -252,39 +261,45 @@ export default {
       return this.product && this.product.childCount > 0
     },
     isSimple() {
-      return helpers.isSimple(this.product)
+      return isProductSimple(this.product)
     },
     mainImage() {
-      return helpers.getMainImageUrl(this.product)
+      return getProductMainImageUrl(this.product)
     },
     mediaGallery() {
-      return helpers.getMediaGallery(this.product)
+      return getProductMediaGallery(this.product)
     },
     properties() {
-      return helpers.getProperties(this.product)
+      return getProductProperties({product: this.product})
     },
     color() {
       if (!this.isSimple) {
         return ""
       }
 
-      return helpers.getProductOption(this.product, "color")
+      return getProductOption({
+        product: this.product,
+        attribute: "color"
+      })
     },
     size() {
       if (!this.isSimple) {
         return ""
       }
 
-      return helpers.getProductOption(this.product, "size")
+      return getProductOption({
+        product: this.product,
+        attribute: "size"
+      })
     },
     colors() {
-      return helpers.getProductOptions(this.product, "color")
+      return getProductOptions(this.product, "color")
     },
     sizes() {
-      return helpers.getProductOptions(this.product, "size")
+      return getProductOptions(this.product, "size")
     },
     reviews() {
-      return helpers.getReviews(this.product)
+      return getProductReviews(this.product)
     },
     stock() {
       return this.product && this.product.stock

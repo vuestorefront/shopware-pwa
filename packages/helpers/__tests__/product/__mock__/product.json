@@ -1,0 +1,1778 @@
+{
+  "calculatedListingPrice": {
+    "from": {
+      "unitPrice": 232,
+      "quantity": 1,
+      "totalPrice": 232,
+      "calculatedTaxes": [
+        {
+          "tax": 37.04,
+          "taxRate": 19,
+          "price": 231.99999999999997,
+          "extensions": []
+        }
+      ],
+      "taxRules": [
+        {
+          "taxRate": 19,
+          "percentage": 100,
+          "extensions": []
+        }
+      ],
+      "referencePrice": null,
+      "extensions": []
+    },
+    "to": {
+      "unitPrice": 681,
+      "quantity": 1,
+      "totalPrice": 681,
+      "calculatedTaxes": [
+        {
+          "tax": 108.73,
+          "taxRate": 19,
+          "price": 681,
+          "extensions": []
+        }
+      ],
+      "taxRules": [
+        {
+          "taxRate": 19,
+          "percentage": 100,
+          "extensions": []
+        }
+      ],
+      "referencePrice": null,
+      "extensions": []
+    },
+    "extensions": []
+  },
+  "calculatedPrices": [
+    {
+      "unitPrice": 681,
+      "quantity": 10,
+      "totalPrice": 6810,
+      "calculatedTaxes": [
+        {
+          "tax": 1087.31,
+          "taxRate": 19,
+          "price": 6810,
+          "extensions": []
+        }
+      ],
+      "taxRules": [
+        {
+          "taxRate": 19,
+          "percentage": 100,
+          "extensions": []
+        }
+      ],
+      "referencePrice": null,
+      "extensions": []
+    },
+    {
+      "unitPrice": 232,
+      "quantity": 11,
+      "totalPrice": 2552,
+      "calculatedTaxes": [
+        {
+          "tax": 407.46,
+          "taxRate": 19,
+          "price": 2551.9999999999995,
+          "extensions": []
+        }
+      ],
+      "taxRules": [
+        {
+          "taxRate": 19,
+          "percentage": 100,
+          "extensions": []
+        }
+      ],
+      "referencePrice": null,
+      "extensions": []
+    }
+  ],
+  "calculatedPrice": {
+    "unitPrice": 626,
+    "quantity": 1,
+    "totalPrice": 626,
+    "calculatedTaxes": [
+      {
+        "tax": 99.95,
+        "taxRate": 19,
+        "price": 626,
+        "extensions": []
+      }
+    ],
+    "taxRules": [
+      {
+        "taxRate": 19,
+        "percentage": 100,
+        "extensions": []
+      }
+    ],
+    "referencePrice": null,
+    "extensions": []
+  },
+  "sortedProperties": null,
+  "isNew": false,
+  "parentId": null,
+  "childCount": 0,
+  "autoIncrement": 9,
+  "taxId": "422551e3c12046799dd3640887c7d249",
+  "manufacturerId": "393883cc1e284e87a5eb4524e320868b",
+  "unitId": null,
+  "active": true,
+  "displayGroup": "13038938f32b75219fdcaaa5bf7684ea",
+  "price": [
+    {
+      "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
+      "net": 526.0504201680673,
+      "gross": 626,
+      "linked": true,
+      "extensions": []
+    }
+  ],
+  "manufacturerNumber": null,
+  "ean": null,
+  "productNumber": "6658ff91b2de47948b3787cc0a43c656",
+  "stock": 36,
+  "availableStock": 36,
+  "available": true,
+  "deliveryTimeId": null,
+  "deliveryTime": null,
+  "restockTime": 3,
+  "isCloseout": false,
+  "purchaseSteps": 1,
+  "maxPurchase": null,
+  "minPurchase": 1,
+  "purchaseUnit": null,
+  "referenceUnit": null,
+  "shippingFree": false,
+  "purchasePrice": null,
+  "markAsTopseller": null,
+  "weight": null,
+  "width": null,
+  "height": null,
+  "length": null,
+  "releaseDate": null,
+  "categoryTree": [
+    "3f637f17cd9f4891a2d7625d19fb37c9",
+    "83e555dee2d2425eba42b7c628b65c67",
+    "31069346fab64ee591343728e09bf913"
+  ],
+  "optionIds": null,
+  "propertyIds": [
+    "20beab74a1284d05b9661f973bbc6a4b",
+    "282369ca18f441168d34dfd853af01de",
+    "2e0fd2231732496caa810a16fc1b7f51",
+    "2fab6eebc75e43899b833f183adc1939",
+    "3b445efcc4a34c47bea88b55fc215a07",
+    "44353d5f4b2f460fa9015ee523243bb6",
+    "52593112fd4a4630a39299dd318f0fb7",
+    "5ce324943a694a1d833dcc6b798f1a47",
+    "5ffb3e52edc244549efd1331fb1b60ac",
+    "6a29887639614dc59380245a3baaf1b6",
+    "7f2802a334504e0b921295862da6087d",
+    "8414633917e64d16ada513a5f170ed41",
+    "872a36ad229f4a2bb747e8f504bd8d67",
+    "a4896fec5a3e496f8f8d5f50e91cc09d",
+    "b27071703d9c4bbe902bdf8d593035d3",
+    "c86ec38d46674fb593c3f1ffc3b1a523",
+    "e908d80a5e104c50b78cc1b170f331b2",
+    "eea312ba945240289629e00bb9e8a90f"
+  ],
+  "name": "Aerodynamic Iron Exchangesound",
+  "keywords": null,
+  "description": "Est commodi facere qui doloremque eos fugiat reprehenderit tenetur. Est est at quo ut dolor harum. Voluptate nesciunt in tempora. Doloribus deserunt debitis animi praesentium.",
+  "metaDescription": null,
+  "metaTitle": null,
+  "packUnit": null,
+  "tax": {
+    "taxRate": 19,
+    "name": "19%",
+    "products": null,
+    "customFields": null,
+    "_uniqueIdentifier": "422551e3c12046799dd3640887c7d249",
+    "versionId": null,
+    "translated": [],
+    "createdAt": "2019-10-08T09:41:16+00:00",
+    "updatedAt": null,
+    "extensions": {
+      "internal_mapping_storage": {
+        "_uniqueIdentifier": null,
+        "versionId": null,
+        "translated": [],
+        "createdAt": null,
+        "updatedAt": null,
+        "extensions": []
+      }
+    },
+    "id": "422551e3c12046799dd3640887c7d249"
+  },
+  "manufacturer": {
+    "mediaId": null,
+    "name": "Blick-Kirlin",
+    "link": "http://hyatt.com/quod-quia-rem-rerum-aperiam-beatae-accusamus",
+    "description": null,
+    "media": null,
+    "translations": null,
+    "products": null,
+    "customFields": null,
+    "_uniqueIdentifier": "393883cc1e284e87a5eb4524e320868b",
+    "versionId": "0fa91ce3e96a4bc2be4bd9ce752c3425",
+    "translated": {
+      "name": "Blick-Kirlin",
+      "description": null,
+      "customFields": []
+    },
+    "createdAt": "2019-10-08T09:42:15+00:00",
+    "updatedAt": null,
+    "extensions": {
+      "internal_mapping_storage": {
+        "_uniqueIdentifier": null,
+        "versionId": null,
+        "translated": [],
+        "createdAt": null,
+        "updatedAt": null,
+        "extensions": []
+      }
+    },
+    "id": "393883cc1e284e87a5eb4524e320868b"
+  },
+  "unit": null,
+  "prices": [
+    {
+      "productId": "9cce06f9dc424844989a06cfe3dc98da",
+      "quantityStart": 1,
+      "quantityEnd": 10,
+      "product": null,
+      "rule": null,
+      "customFields": null,
+      "ruleId": "8da89707a60b4e35a858299009f90db2",
+      "price": [
+        {
+          "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
+          "net": 638.655462184874,
+          "gross": 760,
+          "linked": true,
+          "extensions": []
+        }
+      ],
+      "_uniqueIdentifier": "140a113171784820a78fb293c5079c09",
+      "versionId": "0fa91ce3e96a4bc2be4bd9ce752c3425",
+      "translated": [],
+      "createdAt": "2019-10-08T09:42:15+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "140a113171784820a78fb293c5079c09",
+      "productVersionId": "0fa91ce3e96a4bc2be4bd9ce752c3425"
+    },
+    {
+      "productId": "9cce06f9dc424844989a06cfe3dc98da",
+      "quantityStart": 11,
+      "quantityEnd": null,
+      "product": null,
+      "rule": null,
+      "customFields": null,
+      "ruleId": "3641e978b8b9478f8865d3feed03f4ca",
+      "price": [
+        {
+          "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
+          "net": 290.7563025210084,
+          "gross": 346,
+          "linked": true,
+          "extensions": []
+        }
+      ],
+      "_uniqueIdentifier": "29de2c3c7d1d482d82297b43894c7e07",
+      "versionId": "0fa91ce3e96a4bc2be4bd9ce752c3425",
+      "translated": [],
+      "createdAt": "2019-10-08T09:42:15+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "29de2c3c7d1d482d82297b43894c7e07",
+      "productVersionId": "0fa91ce3e96a4bc2be4bd9ce752c3425"
+    },
+    {
+      "productId": "9cce06f9dc424844989a06cfe3dc98da",
+      "quantityStart": 1,
+      "quantityEnd": 10,
+      "product": null,
+      "rule": null,
+      "customFields": null,
+      "ruleId": "51fba434c8004cc89bb70897167641a8",
+      "price": [
+        {
+          "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
+          "net": 572.2689075630252,
+          "gross": 681,
+          "linked": true,
+          "extensions": []
+        }
+      ],
+      "_uniqueIdentifier": "3787ba9d47d6452a8410aca562930411",
+      "versionId": "0fa91ce3e96a4bc2be4bd9ce752c3425",
+      "translated": [],
+      "createdAt": "2019-10-08T09:42:15+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "3787ba9d47d6452a8410aca562930411",
+      "productVersionId": "0fa91ce3e96a4bc2be4bd9ce752c3425"
+    },
+    {
+      "productId": "9cce06f9dc424844989a06cfe3dc98da",
+      "quantityStart": 11,
+      "quantityEnd": null,
+      "product": null,
+      "rule": null,
+      "customFields": null,
+      "ruleId": "51fba434c8004cc89bb70897167641a8",
+      "price": [
+        {
+          "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
+          "net": 194.95798319327733,
+          "gross": 232,
+          "linked": true,
+          "extensions": []
+        }
+      ],
+      "_uniqueIdentifier": "7fdc9c2c22df4d02bbab389287e11e34",
+      "versionId": "0fa91ce3e96a4bc2be4bd9ce752c3425",
+      "translated": [],
+      "createdAt": "2019-10-08T09:42:15+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "7fdc9c2c22df4d02bbab389287e11e34",
+      "productVersionId": "0fa91ce3e96a4bc2be4bd9ce752c3425"
+    },
+    {
+      "productId": "9cce06f9dc424844989a06cfe3dc98da",
+      "quantityStart": 11,
+      "quantityEnd": null,
+      "product": null,
+      "rule": null,
+      "customFields": null,
+      "ruleId": "8da89707a60b4e35a858299009f90db2",
+      "price": [
+        {
+          "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
+          "net": 366.38655462184875,
+          "gross": 436,
+          "linked": true,
+          "extensions": []
+        }
+      ],
+      "_uniqueIdentifier": "aacb603b28714eadbabd505f2c5c6350",
+      "versionId": "0fa91ce3e96a4bc2be4bd9ce752c3425",
+      "translated": [],
+      "createdAt": "2019-10-08T09:42:15+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "aacb603b28714eadbabd505f2c5c6350",
+      "productVersionId": "0fa91ce3e96a4bc2be4bd9ce752c3425"
+    },
+    {
+      "productId": "9cce06f9dc424844989a06cfe3dc98da",
+      "quantityStart": 1,
+      "quantityEnd": 10,
+      "product": null,
+      "rule": null,
+      "customFields": null,
+      "ruleId": "3641e978b8b9478f8865d3feed03f4ca",
+      "price": [
+        {
+          "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
+          "net": 698.3193277310925,
+          "gross": 831,
+          "linked": true,
+          "extensions": []
+        }
+      ],
+      "_uniqueIdentifier": "dd84da321f7d41d0949cfd803e16744b",
+      "versionId": "0fa91ce3e96a4bc2be4bd9ce752c3425",
+      "translated": [],
+      "createdAt": "2019-10-08T09:42:15+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "dd84da321f7d41d0949cfd803e16744b",
+      "productVersionId": "0fa91ce3e96a4bc2be4bd9ce752c3425"
+    }
+  ],
+  "listingPrices": [
+    {
+      "currencyId": "45f96f681f9d4834b29e9e15df3a7149",
+      "ruleId": "8da89707a60b4e35a858299009f90db2",
+      "from": {
+        "currencyId": "45f96f681f9d4834b29e9e15df3a7149",
+        "net": 428.98,
+        "gross": 510.49,
+        "linked": true,
+        "extensions": []
+      },
+      "to": {
+        "currencyId": "45f96f681f9d4834b29e9e15df3a7149",
+        "net": 747.77,
+        "gross": 889.85,
+        "linked": true,
+        "extensions": []
+      },
+      "extensions": []
+    },
+    {
+      "currencyId": "76559e57121c4ffa884d865cb83ded1b",
+      "ruleId": "8da89707a60b4e35a858299009f90db2",
+      "from": {
+        "currencyId": "76559e57121c4ffa884d865cb83ded1b",
+        "net": 326.66,
+        "gross": 388.72,
+        "linked": true,
+        "extensions": []
+      },
+      "to": {
+        "currencyId": "76559e57121c4ffa884d865cb83ded1b",
+        "net": 569.41,
+        "gross": 677.59,
+        "linked": true,
+        "extensions": []
+      },
+      "extensions": []
+    },
+    {
+      "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
+      "ruleId": "8da89707a60b4e35a858299009f90db2",
+      "from": {
+        "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
+        "net": 366.38655462184875,
+        "gross": 436,
+        "linked": true,
+        "extensions": []
+      },
+      "to": {
+        "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
+        "net": 638.655462184874,
+        "gross": 760,
+        "linked": true,
+        "extensions": []
+      },
+      "extensions": []
+    },
+    {
+      "currencyId": "45f96f681f9d4834b29e9e15df3a7149",
+      "ruleId": "3641e978b8b9478f8865d3feed03f4ca",
+      "from": {
+        "currencyId": "45f96f681f9d4834b29e9e15df3a7149",
+        "net": 340.43,
+        "gross": 405.11,
+        "linked": true,
+        "extensions": []
+      },
+      "to": {
+        "currencyId": "45f96f681f9d4834b29e9e15df3a7149",
+        "net": 817.63,
+        "gross": 972.98,
+        "linked": true,
+        "extensions": []
+      },
+      "extensions": []
+    },
+    {
+      "currencyId": "76559e57121c4ffa884d865cb83ded1b",
+      "ruleId": "3641e978b8b9478f8865d3feed03f4ca",
+      "from": {
+        "currencyId": "76559e57121c4ffa884d865cb83ded1b",
+        "net": 259.23,
+        "gross": 308.48,
+        "linked": true,
+        "extensions": []
+      },
+      "to": {
+        "currencyId": "76559e57121c4ffa884d865cb83ded1b",
+        "net": 622.6,
+        "gross": 740.89,
+        "linked": true,
+        "extensions": []
+      },
+      "extensions": []
+    },
+    {
+      "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
+      "ruleId": "3641e978b8b9478f8865d3feed03f4ca",
+      "from": {
+        "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
+        "net": 290.7563025210084,
+        "gross": 346,
+        "linked": true,
+        "extensions": []
+      },
+      "to": {
+        "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
+        "net": 698.3193277310925,
+        "gross": 831,
+        "linked": true,
+        "extensions": []
+      },
+      "extensions": []
+    },
+    {
+      "currencyId": "45f96f681f9d4834b29e9e15df3a7149",
+      "ruleId": "51fba434c8004cc89bb70897167641a8",
+      "from": {
+        "currencyId": "45f96f681f9d4834b29e9e15df3a7149",
+        "net": 228.27,
+        "gross": 271.64,
+        "linked": true,
+        "extensions": []
+      },
+      "to": {
+        "currencyId": "45f96f681f9d4834b29e9e15df3a7149",
+        "net": 670.04,
+        "gross": 797.35,
+        "linked": true,
+        "extensions": []
+      },
+      "extensions": []
+    },
+    {
+      "currencyId": "76559e57121c4ffa884d865cb83ded1b",
+      "ruleId": "51fba434c8004cc89bb70897167641a8",
+      "from": {
+        "currencyId": "76559e57121c4ffa884d865cb83ded1b",
+        "net": 173.82,
+        "gross": 206.84,
+        "linked": true,
+        "extensions": []
+      },
+      "to": {
+        "currencyId": "76559e57121c4ffa884d865cb83ded1b",
+        "net": 510.22,
+        "gross": 607.16,
+        "linked": true,
+        "extensions": []
+      },
+      "extensions": []
+    },
+    {
+      "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
+      "ruleId": "51fba434c8004cc89bb70897167641a8",
+      "from": {
+        "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
+        "net": 194.95798319327733,
+        "gross": 232,
+        "linked": true,
+        "extensions": []
+      },
+      "to": {
+        "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
+        "net": 572.2689075630252,
+        "gross": 681,
+        "linked": true,
+        "extensions": []
+      },
+      "extensions": []
+    }
+  ],
+  "cover": {
+    "productId": "9cce06f9dc424844989a06cfe3dc98da",
+    "mediaId": "580bb071151f40ad88b3aebd47ce4c4b",
+    "position": 0,
+    "media": {
+      "mimeType": "image/jpeg",
+      "fileExtension": "jpg",
+      "fileSize": 21870,
+      "title": null,
+      "metaData": {
+        "type": 2,
+        "width": 700,
+        "height": 700
+      },
+      "uploadedAt": "2019-10-29T12:10:35+00:00",
+      "alt": null,
+      "url": "https://shopware.test/media/8a/fd/cb/1572351035/msh06-gray_main_2.jpg",
+      "fileName": "msh06-gray_main_2",
+      "translations": null,
+      "thumbnails": [
+        {
+          "width": 1920,
+          "height": 1920,
+          "url": "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_1920x1920.jpg",
+          "mediaId": "580bb071151f40ad88b3aebd47ce4c4b",
+          "media": null,
+          "customFields": null,
+          "_uniqueIdentifier": "589906ad5f154dc896c14a541f76d056",
+          "versionId": null,
+          "translated": [],
+          "createdAt": "2019-10-29T12:10:35+00:00",
+          "updatedAt": null,
+          "extensions": [],
+          "id": "589906ad5f154dc896c14a541f76d056"
+        },
+        {
+          "width": 400,
+          "height": 400,
+          "url": "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_400x400.jpg",
+          "mediaId": "580bb071151f40ad88b3aebd47ce4c4b",
+          "media": null,
+          "customFields": null,
+          "_uniqueIdentifier": "ce14279b230e4c2ba7ffd05ca4490afa",
+          "versionId": null,
+          "translated": [],
+          "createdAt": "2019-10-29T12:10:35+00:00",
+          "updatedAt": null,
+          "extensions": [],
+          "id": "ce14279b230e4c2ba7ffd05ca4490afa"
+        },
+        {
+          "width": 800,
+          "height": 800,
+          "url": "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_800x800.jpg",
+          "mediaId": "580bb071151f40ad88b3aebd47ce4c4b",
+          "media": null,
+          "customFields": null,
+          "_uniqueIdentifier": "fd9bb6aa124f4e039a8e68a215aecc6a",
+          "versionId": null,
+          "translated": [],
+          "createdAt": "2019-10-29T12:10:35+00:00",
+          "updatedAt": null,
+          "extensions": [],
+          "id": "fd9bb6aa124f4e039a8e68a215aecc6a"
+        }
+      ],
+      "hasFile": true,
+      "private": false,
+      "customFields": null,
+      "tags": null,
+      "_uniqueIdentifier": "580bb071151f40ad88b3aebd47ce4c4b",
+      "versionId": null,
+      "translated": {
+        "alt": null,
+        "title": null,
+        "customFields": []
+      },
+      "createdAt": "2019-10-29T12:10:02+00:00",
+      "updatedAt": "2019-10-29T12:10:35+00:00",
+      "extensions": {
+        "internal_mapping_storage": {
+          "_uniqueIdentifier": null,
+          "versionId": null,
+          "translated": [],
+          "createdAt": null,
+          "updatedAt": null,
+          "extensions": []
+        }
+      },
+      "id": "580bb071151f40ad88b3aebd47ce4c4b"
+    },
+    "product": null,
+    "customFields": null,
+    "_uniqueIdentifier": "4251ae804660456dbcf5169511b609b3",
+    "versionId": "0fa91ce3e96a4bc2be4bd9ce752c3425",
+    "translated": [],
+    "createdAt": "2019-10-29T12:11:08+00:00",
+    "updatedAt": null,
+    "extensions": {
+      "internal_mapping_storage": {
+        "_uniqueIdentifier": null,
+        "versionId": null,
+        "translated": [],
+        "createdAt": null,
+        "updatedAt": null,
+        "extensions": []
+      }
+    },
+    "id": "4251ae804660456dbcf5169511b609b3",
+    "productVersionId": "0fa91ce3e96a4bc2be4bd9ce752c3425"
+  },
+  "parent": null,
+  "children": [],
+  "media": [
+    {
+      "productId": "9cce06f9dc424844989a06cfe3dc98da",
+      "mediaId": "580bb071151f40ad88b3aebd47ce4c4b",
+      "position": 0,
+      "media": {
+        "mimeType": "image/jpeg",
+        "fileExtension": "jpg",
+        "fileSize": 21870,
+        "title": null,
+        "metaData": {
+          "type": 2,
+          "width": 700,
+          "height": 700
+        },
+        "uploadedAt": "2019-10-29T12:10:35+00:00",
+        "alt": null,
+        "url": "https://shopware.test/media/8a/fd/cb/1572351035/msh06-gray_main_2.jpg",
+        "fileName": "msh06-gray_main_2",
+        "translations": null,
+        "thumbnails": [
+          {
+            "width": 1920,
+            "height": 1920,
+            "url": "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_1920x1920.jpg",
+            "mediaId": "580bb071151f40ad88b3aebd47ce4c4b",
+            "media": null,
+            "customFields": null,
+            "_uniqueIdentifier": "589906ad5f154dc896c14a541f76d056",
+            "versionId": null,
+            "translated": [],
+            "createdAt": "2019-10-29T12:10:35+00:00",
+            "updatedAt": null,
+            "extensions": [],
+            "id": "589906ad5f154dc896c14a541f76d056"
+          },
+          {
+            "width": 400,
+            "height": 400,
+            "url": "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_400x400.jpg",
+            "mediaId": "580bb071151f40ad88b3aebd47ce4c4b",
+            "media": null,
+            "customFields": null,
+            "_uniqueIdentifier": "ce14279b230e4c2ba7ffd05ca4490afa",
+            "versionId": null,
+            "translated": [],
+            "createdAt": "2019-10-29T12:10:35+00:00",
+            "updatedAt": null,
+            "extensions": [],
+            "id": "ce14279b230e4c2ba7ffd05ca4490afa"
+          },
+          {
+            "width": 800,
+            "height": 800,
+            "url": "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_800x800.jpg",
+            "mediaId": "580bb071151f40ad88b3aebd47ce4c4b",
+            "media": null,
+            "customFields": null,
+            "_uniqueIdentifier": "fd9bb6aa124f4e039a8e68a215aecc6a",
+            "versionId": null,
+            "translated": [],
+            "createdAt": "2019-10-29T12:10:35+00:00",
+            "updatedAt": null,
+            "extensions": [],
+            "id": "fd9bb6aa124f4e039a8e68a215aecc6a"
+          }
+        ],
+        "hasFile": true,
+        "private": false,
+        "customFields": null,
+        "tags": null,
+        "_uniqueIdentifier": "580bb071151f40ad88b3aebd47ce4c4b",
+        "versionId": null,
+        "translated": {
+          "alt": null,
+          "title": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-29T12:10:02+00:00",
+        "updatedAt": "2019-10-29T12:10:35+00:00",
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "580bb071151f40ad88b3aebd47ce4c4b"
+      },
+      "product": null,
+      "customFields": null,
+      "_uniqueIdentifier": "4251ae804660456dbcf5169511b609b3",
+      "versionId": "0fa91ce3e96a4bc2be4bd9ce752c3425",
+      "translated": [],
+      "createdAt": "2019-10-29T12:11:08+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "4251ae804660456dbcf5169511b609b3",
+      "productVersionId": "0fa91ce3e96a4bc2be4bd9ce752c3425"
+    }
+  ],
+  "translations": null,
+  "categories": null,
+  "tags": null,
+  "properties": [
+    {
+      "groupId": "abf8eb400e994faeb5a421785f02820f",
+      "name": "wool",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "textile",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "abf8eb400e994faeb5a421785f02820f",
+        "versionId": null,
+        "translated": {
+          "name": "textile",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:15+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "abf8eb400e994faeb5a421785f02820f"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "20beab74a1284d05b9661f973bbc6a4b",
+      "versionId": null,
+      "translated": {
+        "name": "wool",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:15+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "20beab74a1284d05b9661f973bbc6a4b"
+    },
+    {
+      "groupId": "bfeb468ae333484fbce5a28d4064c960",
+      "name": "42,5",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "size",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "bfeb468ae333484fbce5a28d4064c960",
+        "versionId": null,
+        "translated": {
+          "name": "size",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:15+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "bfeb468ae333484fbce5a28d4064c960"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "282369ca18f441168d34dfd853af01de",
+      "versionId": null,
+      "translated": {
+        "name": "42,5",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:15+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "282369ca18f441168d34dfd853af01de"
+    },
+    {
+      "groupId": "a73f47ebd9f541bd9fb9f037bc399cf8",
+      "name": "13 mm",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "width",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "a73f47ebd9f541bd9fb9f037bc399cf8",
+        "versionId": null,
+        "translated": {
+          "name": "width",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:14+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "a73f47ebd9f541bd9fb9f037bc399cf8"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "2e0fd2231732496caa810a16fc1b7f51",
+      "versionId": null,
+      "translated": {
+        "name": "13 mm",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:14+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "2e0fd2231732496caa810a16fc1b7f51"
+    },
+    {
+      "groupId": "a79e0b21158b4586bb8a5349d37cacf7",
+      "name": "13 mm",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "length",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "a79e0b21158b4586bb8a5349d37cacf7",
+        "versionId": null,
+        "translated": {
+          "name": "length",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:14+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "a79e0b21158b4586bb8a5349d37cacf7"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "2fab6eebc75e43899b833f183adc1939",
+      "versionId": null,
+      "translated": {
+        "name": "13 mm",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:14+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "2fab6eebc75e43899b833f183adc1939"
+    },
+    {
+      "groupId": "a3eb3fbc88bb4cfea87a57e16e52dedf",
+      "name": "lightpink",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "color",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "a3eb3fbc88bb4cfea87a57e16e52dedf",
+        "versionId": null,
+        "translated": {
+          "name": "color",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:14+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "a3eb3fbc88bb4cfea87a57e16e52dedf"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "3b445efcc4a34c47bea88b55fc215a07",
+      "versionId": null,
+      "translated": {
+        "name": "lightpink",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:14+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "3b445efcc4a34c47bea88b55fc215a07"
+    },
+    {
+      "groupId": "bfeb468ae333484fbce5a28d4064c960",
+      "name": "39",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "size",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "bfeb468ae333484fbce5a28d4064c960",
+        "versionId": null,
+        "translated": {
+          "name": "size",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:15+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "bfeb468ae333484fbce5a28d4064c960"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "44353d5f4b2f460fa9015ee523243bb6",
+      "versionId": null,
+      "translated": {
+        "name": "39",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:15+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "44353d5f4b2f460fa9015ee523243bb6"
+    },
+    {
+      "groupId": "3ca3a7682dff40c2ad44797438759006",
+      "name": "7 ml",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "content",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "3ca3a7682dff40c2ad44797438759006",
+        "versionId": null,
+        "translated": {
+          "name": "content",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:15+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "3ca3a7682dff40c2ad44797438759006"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "52593112fd4a4630a39299dd318f0fb7",
+      "versionId": null,
+      "translated": {
+        "name": "7 ml",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:15+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "52593112fd4a4630a39299dd318f0fb7"
+    },
+    {
+      "groupId": "bfeb468ae333484fbce5a28d4064c960",
+      "name": "34",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "size",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "bfeb468ae333484fbce5a28d4064c960",
+        "versionId": null,
+        "translated": {
+          "name": "size",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:15+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "bfeb468ae333484fbce5a28d4064c960"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "5ce324943a694a1d833dcc6b798f1a47",
+      "versionId": null,
+      "translated": {
+        "name": "34",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:15+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "5ce324943a694a1d833dcc6b798f1a47"
+    },
+    {
+      "groupId": "a73f47ebd9f541bd9fb9f037bc399cf8",
+      "name": "8 mm",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "width",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "a73f47ebd9f541bd9fb9f037bc399cf8",
+        "versionId": null,
+        "translated": {
+          "name": "width",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:14+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "a73f47ebd9f541bd9fb9f037bc399cf8"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "5ffb3e52edc244549efd1331fb1b60ac",
+      "versionId": null,
+      "translated": {
+        "name": "8 mm",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:14+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "5ffb3e52edc244549efd1331fb1b60ac"
+    },
+    {
+      "groupId": "3ca3a7682dff40c2ad44797438759006",
+      "name": "5 ml",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "content",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "3ca3a7682dff40c2ad44797438759006",
+        "versionId": null,
+        "translated": {
+          "name": "content",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:15+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "3ca3a7682dff40c2ad44797438759006"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "6a29887639614dc59380245a3baaf1b6",
+      "versionId": null,
+      "translated": {
+        "name": "5 ml",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:15+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "6a29887639614dc59380245a3baaf1b6"
+    },
+    {
+      "groupId": "a3eb3fbc88bb4cfea87a57e16e52dedf",
+      "name": "navyblue",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "color",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "a3eb3fbc88bb4cfea87a57e16e52dedf",
+        "versionId": null,
+        "translated": {
+          "name": "color",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:14+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "a3eb3fbc88bb4cfea87a57e16e52dedf"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "7f2802a334504e0b921295862da6087d",
+      "versionId": null,
+      "translated": {
+        "name": "navyblue",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:14+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "7f2802a334504e0b921295862da6087d"
+    },
+    {
+      "groupId": "a3eb3fbc88bb4cfea87a57e16e52dedf",
+      "name": "copper",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "color",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "a3eb3fbc88bb4cfea87a57e16e52dedf",
+        "versionId": null,
+        "translated": {
+          "name": "color",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:14+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "a3eb3fbc88bb4cfea87a57e16e52dedf"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "8414633917e64d16ada513a5f170ed41",
+      "versionId": null,
+      "translated": {
+        "name": "copper",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:14+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "8414633917e64d16ada513a5f170ed41"
+    },
+    {
+      "groupId": "abf8eb400e994faeb5a421785f02820f",
+      "name": "leather",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "textile",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "abf8eb400e994faeb5a421785f02820f",
+        "versionId": null,
+        "translated": {
+          "name": "textile",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:15+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "abf8eb400e994faeb5a421785f02820f"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "872a36ad229f4a2bb747e8f504bd8d67",
+      "versionId": null,
+      "translated": {
+        "name": "leather",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:15+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "872a36ad229f4a2bb747e8f504bd8d67"
+    },
+    {
+      "groupId": "abf8eb400e994faeb5a421785f02820f",
+      "name": "cotton",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "textile",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "abf8eb400e994faeb5a421785f02820f",
+        "versionId": null,
+        "translated": {
+          "name": "textile",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:15+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "abf8eb400e994faeb5a421785f02820f"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "a4896fec5a3e496f8f8d5f50e91cc09d",
+      "versionId": null,
+      "translated": {
+        "name": "cotton",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:15+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "a4896fec5a3e496f8f8d5f50e91cc09d"
+    },
+    {
+      "groupId": "a79e0b21158b4586bb8a5349d37cacf7",
+      "name": "21 mm",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "length",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "a79e0b21158b4586bb8a5349d37cacf7",
+        "versionId": null,
+        "translated": {
+          "name": "length",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:14+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "a79e0b21158b4586bb8a5349d37cacf7"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "b27071703d9c4bbe902bdf8d593035d3",
+      "versionId": null,
+      "translated": {
+        "name": "21 mm",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:14+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "b27071703d9c4bbe902bdf8d593035d3"
+    },
+    {
+      "groupId": "a79e0b21158b4586bb8a5349d37cacf7",
+      "name": "17 mm",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "length",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "a79e0b21158b4586bb8a5349d37cacf7",
+        "versionId": null,
+        "translated": {
+          "name": "length",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:14+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "a79e0b21158b4586bb8a5349d37cacf7"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "c86ec38d46674fb593c3f1ffc3b1a523",
+      "versionId": null,
+      "translated": {
+        "name": "17 mm",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:14+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "c86ec38d46674fb593c3f1ffc3b1a523"
+    },
+    {
+      "groupId": "a73f47ebd9f541bd9fb9f037bc399cf8",
+      "name": "7 mm",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "width",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "a73f47ebd9f541bd9fb9f037bc399cf8",
+        "versionId": null,
+        "translated": {
+          "name": "width",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:14+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "a73f47ebd9f541bd9fb9f037bc399cf8"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "e908d80a5e104c50b78cc1b170f331b2",
+      "versionId": null,
+      "translated": {
+        "name": "7 mm",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:14+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "e908d80a5e104c50b78cc1b170f331b2"
+    },
+    {
+      "groupId": "3ca3a7682dff40c2ad44797438759006",
+      "name": "10 ml",
+      "position": 1,
+      "colorHexCode": null,
+      "mediaId": null,
+      "group": {
+        "name": "content",
+        "displayType": "text",
+        "sortingType": "alphanumeric",
+        "description": null,
+        "options": null,
+        "translations": null,
+        "customFields": null,
+        "_uniqueIdentifier": "3ca3a7682dff40c2ad44797438759006",
+        "versionId": null,
+        "translated": {
+          "name": "content",
+          "description": null,
+          "customFields": []
+        },
+        "createdAt": "2019-10-08T09:42:15+00:00",
+        "updatedAt": null,
+        "extensions": {
+          "internal_mapping_storage": {
+            "_uniqueIdentifier": null,
+            "versionId": null,
+            "translated": [],
+            "createdAt": null,
+            "updatedAt": null,
+            "extensions": []
+          }
+        },
+        "id": "3ca3a7682dff40c2ad44797438759006"
+      },
+      "translations": null,
+      "productConfiguratorSettings": null,
+      "productProperties": null,
+      "productOptions": null,
+      "media": null,
+      "customFields": null,
+      "_uniqueIdentifier": "eea312ba945240289629e00bb9e8a90f",
+      "versionId": null,
+      "translated": {
+        "name": "10 ml",
+        "position": 1,
+        "customFields": []
+      },
+      "createdAt": "2019-10-08T09:42:15+00:00",
+      "updatedAt": null,
+      "extensions": [],
+      "id": "eea312ba945240289629e00bb9e8a90f"
+    }
+  ],
+  "options": [],
+  "categoriesRo": null,
+  "coverId": "4251ae804660456dbcf5169511b609b3",
+  "customFields": null,
+  "tagIds": null,
+  "productReviews": [],
+  "ratingAverage": null,
+  "mainCategories": null,
+  "seoUrls": null,
+  "_uniqueIdentifier": "9cce06f9dc424844989a06cfe3dc98da",
+  "versionId": "0fa91ce3e96a4bc2be4bd9ce752c3425",
+  "translated": {
+    "metaDescription": null,
+    "name": "Aerodynamic Iron Exchangesound",
+    "keywords": null,
+    "description": "Est commodi facere qui doloremque eos fugiat reprehenderit tenetur. Est est at quo ut dolor harum. Voluptate nesciunt in tempora. Doloribus deserunt debitis animi praesentium.",
+    "metaTitle": null,
+    "packUnit": null,
+    "customFields": []
+  },
+  "createdAt": "2019-10-08T09:42:15+00:00",
+  "updatedAt": "2019-10-29T12:11:08+00:00",
+  "extensions": [],
+  "id": "9cce06f9dc424844989a06cfe3dc98da",
+  "parentVersionId": "0fa91ce3e96a4bc2be4bd9ce752c3425",
+  "productManufacturerVersionId": "0fa91ce3e96a4bc2be4bd9ce752c3425",
+  "productMediaVersionId": null
+}

@@ -16,7 +16,7 @@ import { Tag } from "../../system/tag/Tag";
 import { CustomField } from "../../common/CustomField";
 
 export interface Product {
-  calculatedListingPrice: ListingPrice[];
+  calculatedListingPrice: ListingPrice;
   calculatedPrices: Price[];
   calculatedPrice: CalculatedPrice;
   sortedProperties: PropertyGroup[] | null;
@@ -54,9 +54,9 @@ export interface Product {
   length: number | null;
   releaseDate: Date;
   categoryTree: [] | null;
-  optionsIds: [] | null;
+  optionsIds?: [] | null;
   propertyIds: [] | null;
-  additionalText: string | null;
+  additionalText?: string | null;
   name: string | null;
   keywords: string | null;
   description: string | null;
@@ -86,5 +86,5 @@ export interface Product {
   id: string;
   parentVersionId: string;
   productManufacturerVersionId: string;
-  productMediaVersiond: null;
+  productMediaVersiond?: null;
 }

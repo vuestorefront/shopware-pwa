@@ -1,9 +1,9 @@
 import { ref, Ref } from "@vue/composition-api";
 import { getProduct } from "@shopware-pwa/shopware-6-client";
-import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
+//import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
 
 interface UseProduct<PRODUCT, SEARCH> {
-  product: PRODUCT;
+  product: Ref<any>;
   search: SEARCH,
   loading: Ref<boolean>;
   error: Ref<any>;
@@ -12,9 +12,9 @@ interface UseProduct<PRODUCT, SEARCH> {
 
 type Search = (path: string, associations: any) => any
 
-export const useProduct = (loadedProduct?: any): UseProduct<Product, Search> => {
+export const useProduct = (loadedProduct?: any): UseProduct<any, Search> => {
   const loading: Ref<boolean> = ref(false);
-  const product: Ref<Product> = ref(loadedProduct);
+  const product: Ref<any> = ref(loadedProduct);
   const error: Ref<any> = ref(null);
 
   const loadAssociations = async (associations: any) => {

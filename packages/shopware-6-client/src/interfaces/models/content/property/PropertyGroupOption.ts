@@ -5,6 +5,7 @@ import { ProductConfiguratorSetting } from "../product/ProductConfiguratorSettin
 import { Product } from "../product/Product";
 import { CustomField } from "../../common/CustomField";
 export interface PropertyGroupOption {
+  id: string;
   groupId: string;
   name: string | null;
   position: number;

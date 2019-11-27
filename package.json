@@ -14,6 +14,7 @@
     "dev": "node scripts/dev.js",
     "dev:client": "yarn dev shopware-6-client -format=esm",
     "dev:composables": "yarn dev composables -format=esm",
+    "dev:helpers": "yarn dev helpers -format=esm",
     "build": "node scripts/build.js",
     "postinstall": "node scripts/linkDependencies.js",
     "lint": "prettier --write --parser typescript 'packages/**/*.ts'",

@@ -1,0 +1,47 @@
+import { getProductProperties } from "@shopware-pwa/helpers";
+
+describe("Shopware helpers - getProductProperties", () => {
+
+  it("should return all properties", () => {
+    const productWithProperties: any = {
+      "properties": [
+        {
+          "name": "12 mm",
+          "group": {
+            "name": "length"
+          }
+      },
+      {
+          "name": "6 mm",
+      },
+      {
+        "name": "5 mm",
+        "group": {
+
+        }
+      },
+      {
+          "name": "wool",
+          "group": {
+            "name": "fabric"
+          }
+      }
+      ],
+    }
+
+    const properties = getProductProperties({product: productWithProperties })
+    expect(properties).toHaveLength(4)
+    expect(properties[0].name).toEqual("length")
+    expect(properties[0].value).toEqual("12 mm")
+    expect(properties[1].name).toEqual("")
+  });
+
+  it("should return no properties", () => {
+    const productWithoutProperties: any = {
+      properties: null
+    }
+
+    const properties = getProductProperties({product: productWithoutProperties })
+    expect(properties).toHaveLength(0)
+  });
+});
