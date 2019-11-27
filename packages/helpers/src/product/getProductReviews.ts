@@ -9,7 +9,13 @@ interface UiProductReview {
   rating: number | null
 }
 
-export default function getProductReviews(product: Product): UiProductReview[] {
+interface Parameters {
+  product: Product
+}
+
+export default function getProductReviews(params: Parameters): UiProductReview[] {
+  const { product } = params
+  
   if (!product.productReviews) {
     return []
   }

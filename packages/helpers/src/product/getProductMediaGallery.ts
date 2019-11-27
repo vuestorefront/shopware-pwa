@@ -10,7 +10,13 @@ interface UiMediaGalleryItem {
   big: UiMediaGalleryItemUrl
 }
 
-export default function getProductMediaGallery(product: Product): UiMediaGalleryItem[] {
+interface Parameters {
+  product: Product
+}
+
+export default function getProductMediaGallery(params: Parameters): UiMediaGalleryItem[] {
+  const { product } = params
+
   return product && product.media ? product.media.map(media => 
     {
         const smallThumb = media.media && media.media.thumbnails && media.media.thumbnails.find(thumb => thumb.width == "400")

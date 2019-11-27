@@ -261,13 +261,13 @@ export default {
       return this.product && this.product.childCount > 0
     },
     isSimple() {
-      return isProductSimple(this.product)
+      return isProductSimple({product: this.product})
     },
     mainImage() {
-      return getProductMainImageUrl(this.product)
+      return getProductMainImageUrl({product: this.product})
     },
     mediaGallery() {
-      return getProductMediaGallery(this.product)
+      return getProductMediaGallery({product: this.product})
     },
     properties() {
       return getProductProperties({product: this.product})
@@ -293,13 +293,19 @@ export default {
       })
     },
     colors() {
-      return getProductOptions(this.product, "color")
+      return getProductOptions({
+        product: this.product,
+        attribute: "color"
+      })
     },
     sizes() {
-      return getProductOptions(this.product, "size")
+      return getProductOptions({
+        product: this.product,
+        attribute: "size"
+      })
     },
     reviews() {
-      return getProductReviews(this.product)
+      return getProductReviews({product: this.product})
     },
     stock() {
       return this.product && this.product.stock

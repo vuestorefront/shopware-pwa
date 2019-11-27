@@ -4,13 +4,13 @@ import * as product from "./__mock__/product.json"
 describe("Shopware helpers - getProductMediaGallery", () => {
   
   it("should return array of UiMediaGalleryItem", () => {
-    const mediaGallery = getProductMediaGallery(product)
+    const mediaGallery = getProductMediaGallery({product})
     expect(mediaGallery).toHaveLength(product.media.length)
   });
 
   it("should return empty array of UiMediaGalleryItem on empty media", () => {
     const emptyProduct:any = {}
-    const mediaGallery = getProductMediaGallery(emptyProduct)
+    const mediaGallery = getProductMediaGallery({product: emptyProduct})
     expect(mediaGallery).toHaveLength(0)
   });
 
@@ -37,7 +37,7 @@ describe("Shopware helpers - getProductMediaGallery", () => {
         }
       ]
     }
-    const mediaGallery = getProductMediaGallery(unmappedMediaSizes)
+    const mediaGallery = getProductMediaGallery({product: unmappedMediaSizes})
     expect(mediaGallery).toHaveLength(1)
   });
 });
