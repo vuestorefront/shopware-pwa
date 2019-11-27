@@ -1,13 +1,5 @@
 import { Product } from "@shopware-pwa/shopware-6-client";
-
-// TODO move to UI/next interfaces
-interface UiProductReview {
-  id: string,
-  author: string,
-  date: Date
-  message: string | null,
-  rating: number | null
-}
+import { UiProductReview } from "packages/global";
 
 interface Parameters {
   product: Product

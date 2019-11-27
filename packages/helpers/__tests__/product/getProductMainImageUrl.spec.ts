@@ -1,9 +1,15 @@
 import { getProductMainImageUrl } from "@shopware-pwa/helpers";
-import * as product from "./__mock__/product.json"
 
 describe("Shopware helpers - getProductMainImageUrl", () => {
 
   it("should contain url in nested media object", () => {
+    const product:any = {
+      cover: {
+        media: {
+          url: "https://shopware.test/media/8a/fd/cb/1572351035/msh06-gray_main_2.jpg"
+        }
+      }
+    }
     const coverUrl = getProductMainImageUrl({product})
     expect(coverUrl).toEqual("https://shopware.test/media/8a/fd/cb/1572351035/msh06-gray_main_2.jpg");
   });

@@ -1,11 +1,5 @@
 import { Product } from "@shopware-pwa/shopware-6-client";
-
-// move to proper library
-interface UiProductOption {
-  label: string,
-  value: string,
-  [attribute: string]: string
-}
+import { UiProductOption } from "packages/global";
 
 interface Parameters {
   product: Product

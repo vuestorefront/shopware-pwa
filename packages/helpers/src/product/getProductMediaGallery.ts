@@ -1,14 +1,5 @@
-import { Product } from "packages/shopware-6-client/src/interfaces/models/content/product/Product";
-
-// TODO move to UI/next interfaces
-interface UiMediaGalleryItemUrl {
-  url: string
-}
-interface UiMediaGalleryItem {
-  small: UiMediaGalleryItemUrl
-  normal: UiMediaGalleryItemUrl
-  big: UiMediaGalleryItemUrl
-}
+import { Product } from "@shopware-pwa/shopware-6-client";
+import { UiMediaGalleryItem } from "packages/global";
 
 interface Parameters {
   product: Product

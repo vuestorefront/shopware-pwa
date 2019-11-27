@@ -1,9 +1,31 @@
 import { getProductMediaGallery } from "@shopware-pwa/helpers";
-import * as product from "./__mock__/product.json"
 
 describe("Shopware helpers - getProductMediaGallery", () => {
   
   it("should return array of UiMediaGalleryItem", () => {
+    const product:any = {
+      "media": [
+        {
+          "media": {
+            "thumbnails": [
+              {
+                "width": 800,
+                "url": "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_1920x1920.jpg",
+              },
+              {
+                "width": 400,
+                "url": "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_400x400.jpg",
+              },
+              {
+                "width": 1920,
+                "url": "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_800x800.jpg",
+              }
+            ]
+          }
+        }
+      ]
+    }
+    
     const mediaGallery = getProductMediaGallery({product})
     expect(mediaGallery).toHaveLength(product.media.length)
   });

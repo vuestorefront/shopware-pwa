@@ -13,3 +13,33 @@ declare var __FEATURE_SUSPENSE__: boolean;
 
 // Externals
 declare var axios: AxiosStatic;
+
+
+// Ui interfaces
+interface UiMediaGalleryItemUrl {
+  url: string
+}
+interface UiMediaGalleryItem {
+  small: UiMediaGalleryItemUrl
+  normal: UiMediaGalleryItemUrl
+  big: UiMediaGalleryItemUrl
+}
+
+interface UiProductOption {
+  label: string,
+  value: string,
+  [attribute: string]: string
+}
+
+interface UiProductProperty {
+  name: string
+  value: string | null
+}
+
+interface UiProductReview {
+  id: string,
+  author: string,
+  date: Date
+  message: string | null,
+  rating: number | null
+}

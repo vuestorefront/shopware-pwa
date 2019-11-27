@@ -1,9 +1,5 @@
 import { Product } from "@shopware-pwa/shopware-6-client";
-
-interface UiProductProperty {
-  name: string
-  value: string | null
-}
+import { UiProductProperty } from "packages/global";
 
 interface Parameters {
   product: Product
