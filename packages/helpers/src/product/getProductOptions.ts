@@ -1,13 +1,7 @@
 import { Product } from "@shopware-pwa/shopware-6-client";
 import { UiProductOption } from "packages/global";
 
-interface Parameters {
-  product: Product
-  attribute: string
-}
-
-export default function getProductOptions(params: Parameters): UiProductOption[]{
-  const { product, attribute } = params
+export function getProductOptions({ product, attribute }: { product: Product, attribute: string}): UiProductOption[]{
   if (!product || !product.children || !attribute) {
     return []
   }

@@ -1,12 +1,7 @@
 import { Product } from "@shopware-pwa/shopware-6-client";
 import { UiMediaGalleryItem } from "packages/global";
 
-interface Parameters {
-  product: Product
-}
-
-export default function getProductMediaGallery(params: Parameters): UiMediaGalleryItem[] {
-  const { product } = params
+export function getProductMediaGallery({product}: {product?: Product} = {}): UiMediaGalleryItem[] {
 
   return product && product.media ? product.media.map(media => 
     {

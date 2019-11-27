@@ -1,14 +1,9 @@
 import { Product } from "@shopware-pwa/shopware-6-client";
 import { UiProductReview } from "packages/global";
 
-interface Parameters {
-  product: Product
-}
-
-export default function getProductReviews(params: Parameters): UiProductReview[] {
-  const { product } = params
+export function getProductReviews({product}: {product?: Product} = {}): UiProductReview[] {
   
-  if (!product.productReviews) {
+  if (!product || !product.productReviews) {
     return []
   }
 

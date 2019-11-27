@@ -1,20 +1,8 @@
-import getProductMainImageUrl from "./getProductMainImageUrl"
-import getProductMediaGallery from "./getProductMediaGallery"
-import getProductOptions from "./getProductOptions"
-import getProductProperties from "./getProductProperties"
-import getProductReviews from "./getProductReviews"
-import getProductOption from "./getProductOption"
-import getProductRegularPrice from "./getProductRegularPrice"
-import isProductSimple from "./isProductSimple"
-
-
-export {
-  getProductMainImageUrl,
-  getProductMediaGallery,
-  getProductOptions,
-  getProductProperties,
-  getProductOption,
-  getProductReviews,
-  getProductRegularPrice,
-  isProductSimple
-}
+export * from "./getProductMainImageUrl"
+export * from "./getProductMediaGallery"
+export * from "./getProductOptions"
+export * from "./getProductProperties"
+export * from "./getProductReviews"
+export * from "./getProductOption"
+export * from "./getProductRegularPrice"
+export * from "./isProductSimple"

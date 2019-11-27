@@ -17,6 +17,6 @@ describe("Shopware helpers - getProductMainImageUrl", () => {
   it("should return null for product without cover media", () => {
     const emptyProduct:any = {}
     const coverUrl = getProductMainImageUrl({product: emptyProduct})
-    expect(coverUrl).toBeNull();
+    expect(coverUrl).toBeUndefined();
   });
 });
