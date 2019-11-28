@@ -1,6 +1,6 @@
 <template>
   <div class="sw-image">
-    <SfImage :src="imgUrl" :title="title" :alt="alt" :lazy="lazyLoad"/>
+    <SfImage :src="imgUrl" :title="title" :alt="alt" :lazy="lazyLoad" />
   </div>
 </template>
 
