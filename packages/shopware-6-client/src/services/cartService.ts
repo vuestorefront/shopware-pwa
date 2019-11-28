@@ -45,7 +45,7 @@ export async function addProductToCart(
     { quantity: quantity }
   );
 
-  return resp.data;
+  return resp.data.data;
 }
 
 /**
