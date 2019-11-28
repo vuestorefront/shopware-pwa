@@ -1,7 +1,10 @@
 <template>
-  <div>
+  <div id="layout">
     <TopNavigation/>
-    <SfBreadcrumbs :breadcrumbs="getBreadcrumbs" class="sw-breadcrumbs"/>
+    <SfBreadcrumbs
+       v-if="getBreadcrumbs.length > 0" 
+      :breadcrumbs="getBreadcrumbs"
+      class="sw-breadcrumbs"/>
     <nuxt />
   </div>
 </template>
@@ -33,15 +36,30 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~@storefront-ui/vue/styles.scss';
+@import '~@storefront-ui/vue/styles';
 @import '~@storefront-ui/shared/styles/helpers/visibility';
 @import '~@storefront-ui/vue/src/utilities/transitions/transitions';
+
+@mixin for-desktop {
+  @media screen and (min-width: $desktop-min) {
+    @content;
+  }
+}
+
 body {
   padding: 0;
   margin: 0;
 }
 
+#layout {
+  box-sizing: border-box;
+  @include for-desktop {
+    max-width: 1320px;
+    margin: auto;
+  }
+}
+
 .sw-breadcrumbs {
-  padding: 0 1rem;
+  padding: $spacer-big $spacer-extra-big $spacer-extra-big;
 }
 </style>

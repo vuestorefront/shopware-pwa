@@ -1,8 +1,8 @@
 <template>
   <div id="nav">
-      <nuxt-link to="/">Home</nuxt-link>
-      <nuxt-link v-for="element in navigationElements" :key="element.id" :to="convertToSlug(element.name)"> | {{ element.name }}</nuxt-link>
-</div>
+    <nuxt-link to="/">Home</nuxt-link>
+    <nuxt-link v-for="element in navigationElements" :key="element.id" :to="convertToSlug(element.name)"> | {{ element.name }}</nuxt-link>
+  </div>
 </template>
 <script>
 import { getNavigation, getPage } from "@shopware-pwa/shopware-6-client";
