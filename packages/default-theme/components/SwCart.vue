@@ -11,38 +11,11 @@
           <h3 class="my-cart__total-items">Total items: {{ count }}</h3>
           <div class="collected-product-list">
             <transition-group name="fade" tag="div">
-              <SfCollectedProduct
+              <SwCartProduct
                 v-for="product in cartItems"
                 :key="product.id"
-                image="/img/productB.png"
-                :title="product.label"
-                :regular-price="product.price.unitPrice | price"
-                :stock="product.deliveryInformation.stock"
-                v-model="product.quantity"
-                @click:remove="removeHandler(product)"
-                class="collected-product"
-              >
-                <template #configuration>
-                  <div class="collected-product__properties">
-                    <SfProperty
-                      v-for="(property, key) in product.configuration"
-                      :key="key"
-                      :name="property.name"
-                      :value="property.value"
-                    />
-                  </div>
-                </template>
-                <template #actions>
-                  <div class="collected-product__actions">
-                    <SfButton class="sf-button--text product__action">
-                      Save for later
-                    </SfButton>
-                    <SfButton class="sf-button--text product__action">
-                      Add to compare
-                    </SfButton>
-                  </div>
-                </template>
-              </SfCollectedProduct>
+                :product="product"
+              />
             </transition-group>
           </div>
           <SfProperty class="sf-property--full-width my-cart__total-price">
@@ -82,9 +55,9 @@ import {
   SfButton,
   SfProperty,
   SfPrice,
-  SfCollectedProduct
 } from "@storefront-ui/vue";
 import { useCart } from "@shopware-pwa/composables";
+import SwCartProduct from "./SwCartProduct"
 
 export default {
   name: "Cart",
@@ -93,7 +66,7 @@ export default {
     SfButton,
     SfProperty,
     SfPrice,
-    SfCollectedProduct
+    SwCartProduct
   },
   props: {
     isOpen: {
@@ -102,27 +75,12 @@ export default {
     }
   },
   setup () {
-    const { cartItems, count, totalPrice } = useCart()
+    const { cartItems, count, totalPrice, removeProduct } = useCart()
     return {
       cartItems,
       count,
-      totalPrice
-    }
-  },
-  filters: {
-    price: function(price) {
-      if (!price) return;
-      return `$${price}`;
-    }
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    removeHandler(product) {
-      console.error('REMOVE PRODUCT!')
-      // const products = [...this.products];
-      // this.products = products.filter(element => element.id !== product.id);
+      totalPrice,
+      removeProduct
     }
   }
 };
@@ -160,21 +118,6 @@ export default {
 .collected-product-list {
   flex: 1;
   margin: $spacer-big -#{$spacer-big};
-}
-.collected-product {
-  margin: $spacer-big 0;
-  &__properties {
-    margin-top: $spacer-big;
-  }
-  &__actions {
-    opacity: 0;
-    transition: opacity 300ms ease-in-out;
-    @at-root.collected-product:hover & {
-      @include for-desktop {
-        opacity: 1;
-      }
-    }
-  }
 }
 .empty-cart {
   flex: 1;
