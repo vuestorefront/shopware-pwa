@@ -1,4 +1,4 @@
-import { login, config } from "@shopware-pwa/shopware-6-client";
+import { login } from "@shopware-pwa/shopware-6-client";
 import { getCustomerLoginEndpoint } from "../../../src/endpoints";
 import { apiService } from "../../../src/apiService";
 import { internet } from "faker";
@@ -31,7 +31,6 @@ describe("CustomerService - login", () => {
     });
 
     expect(result.contextToken).toEqual("RmzTExFStSBW5GhPmQNicSK6bhUQhqXi");
-    expect(config.contextToken).toEqual("RmzTExFStSBW5GhPmQNicSK6bhUQhqXi");
   });
   it("should throws unhandled rejection - 401", async () => {
     mockedAxios.post.mockRejectedValue(new Error());

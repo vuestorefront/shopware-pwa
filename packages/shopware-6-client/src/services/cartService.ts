@@ -7,7 +7,6 @@ import {
 } from "../endpoints";
 import { apiService } from "../apiService";
 import { ContextTokenResponse } from "../interfaces/response/ContextTokenResponse";
-import { update } from "..";
 import { CartItemType } from "../interfaces/cart/CartItemType";
 
 /**
@@ -20,7 +19,6 @@ import { CartItemType } from "../interfaces/cart/CartItemType";
 export async function clearCart(): Promise<ContextTokenResponse> {
   const resp = await apiService.post(getCheckoutCartEndpoint());
   let contextToken = resp.data["sw-context-token"];
-  update({ contextToken });
   return { contextToken };
 }
 
@@ -30,7 +28,7 @@ export async function clearCart(): Promise<ContextTokenResponse> {
 export async function getCart(): Promise<Cart> {
   const resp = await apiService.get(getCheckoutCartEndpoint());
 
-  return resp.data;
+  return resp.data.data;
 }
 
 /**
