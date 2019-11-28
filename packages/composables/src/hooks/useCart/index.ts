@@ -1,5 +1,5 @@
 import { ref, Ref, computed } from "@vue/composition-api";
-import { getCart, addProductToCart } from "@shopware-pwa/shopware-6-client";
+import { getCart, addProductToCart, removeCartItem } from "@shopware-pwa/shopware-6-client";
 import { getStore } from "../..";
 
 export const useCart = (): any => {
@@ -22,6 +22,11 @@ export const useCart = (): any => {
 
   async function addProduct({ id, quantity }: any) {
     const result = await addProductToCart(id, quantity);
+    vuexStore.commit("SET_CART", result);
+  }
+
+  async function removeProduct({ id }: any) {
+    const result = await removeCartItem(id);
     vuexStore.commit("SET_CART", result);
   }
 
@@ -52,6 +57,7 @@ export const useCart = (): any => {
     totalPrice,
     cartItems,
     addProduct,
+    removeProduct,
     loading,
     refreshCart,
     error
