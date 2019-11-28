@@ -35,7 +35,10 @@ export const useCart = (): any => {
   });
 
   const count = computed(() => {
-    return cartItems.value.length;
+    return cartItems.value.reduce(
+      (accumulator: number, lineItem: any) => lineItem.quantity + accumulator,
+      0
+    );
   });
 
   return {
