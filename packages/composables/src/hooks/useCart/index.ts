@@ -30,8 +30,7 @@ export const useCart = (): any => {
   });
 
   const cartItems = computed(() => {
-    const val = cart.value ? cart.value.lineItems || [] : [];
-    return val.map(({ id, label, quantity }: any) => ({ id, label, quantity }));
+    return cart.value ? cart.value.lineItems || [] : [];
   });
 
   const count = computed(() => {
@@ -41,9 +40,16 @@ export const useCart = (): any => {
     );
   });
 
+  const totalPrice = computed(() => {
+    const cartPrice =
+      cart.value && cart.value.price && cart.value.price.totalPrice;
+    return cartPrice || 0;
+  });
+
   return {
     count,
     cart,
+    totalPrice,
     cartItems,
     addProduct,
     loading,
