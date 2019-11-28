@@ -82,6 +82,12 @@ export default {
       totalPrice,
       removeProduct
     }
+  },
+  filters: {
+    price: function(price) {
+      if (!price) return;
+      return `$${price}`;
+    }
   }
 };
 </script>
