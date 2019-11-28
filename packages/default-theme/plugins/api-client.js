@@ -1,6 +1,7 @@
 import { setup, onConfigChange } from '@shopware-pwa/shopware-6-client'
+import { setStore } from '@shopware-pwa/composables'
 
-export default ({ app }) => {
+export default ({ app, store }) => {
   if (!app.$cookies) {
     throw 'Error cookie-universal-nuxt module is not applied in nuxt.config.js'
   }
@@ -21,4 +22,7 @@ export default ({ app }) => {
       maxAge: 60 * 60 * 24 * 365
     })
   })
+
+  // Temporary fix for SSR and reactivity
+  setStore(store)
 }
