@@ -92,7 +92,7 @@ export async function changeCartItemQuantity(
 export async function removeCartItem(itemId: string): Promise<Cart> {
   const resp = await apiService.delete(getCheckoutCartLineItemEndpoint(itemId));
 
-  return resp.data;
+  return resp.data.data;
 }
 
 /**

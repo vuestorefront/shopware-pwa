@@ -13,9 +13,11 @@ describe("CartService - removeCartItem", () => {
   it("should call valid endpoint and return cart without deleted item", async () => {
     mockedAxios.delete.mockResolvedValueOnce({
       data: {
-        name: random.uuid(),
-        token: random.uuid(),
-        lineItems: []
+        data: {
+          name: random.uuid(),
+          token: random.uuid(),
+          lineItems: []
+        }
       }
     });
 
