@@ -2,7 +2,7 @@
   <div id="layout">
     <TopNavigation/>
     <SfBreadcrumbs
-       v-if="getBreadcrumbs.length > 0" 
+       v-show="getBreadcrumbs.length > 0" 
       :breadcrumbs="getBreadcrumbs"
       class="sw-breadcrumbs"/>
     <nuxt />
