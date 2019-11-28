@@ -1,8 +1,11 @@
 <template>
   <div id="layout">
     <TopNavigation/>
+    <div>
+      <h2> CART {{count }} </h2>
+      <pre> {{ cartItems }} </pre>
+    </div>
     <SfBreadcrumbs
-       v-if="getBreadcrumbs.length > 0" 
       :breadcrumbs="getBreadcrumbs"
       class="sw-breadcrumbs"/>
     <nuxt />
@@ -11,11 +14,21 @@
 <script>
 import TopNavigation from "../components/TopNavigation"
 import { SfBreadcrumbs } from "@storefront-ui/vue";
+import { useCart } from "@shopware-pwa/composables";
 
 export default {
   components: {
     TopNavigation,
     SfBreadcrumbs
+  },
+  setup() {
+    const {refreshCart, cartItems, count} = useCart()
+    refreshCart()
+    return {
+      refreshCart,
+      cartItems,
+      count
+    }
   },
   computed: {
     componentBreadcrumbs () { // TODO probably move to vuex now as it's not rendered on server side
