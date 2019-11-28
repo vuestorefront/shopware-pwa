@@ -2,32 +2,36 @@
   <div id="layout">
     <TopNavigation/>
     <div>
-      <h2> CART {{count }} </h2>
-      <pre> {{ cartItems }} </pre>
+      <h2 @click="isCartOpen = true"> CART {{ count }} </h2>
     </div>
     <SfBreadcrumbs
       :breadcrumbs="getBreadcrumbs"
       class="sw-breadcrumbs"/>
     <nuxt />
+    <SwCart :is-open="isCartOpen" @close="isCartOpen=false" />
   </div>
 </template>
 <script>
-import TopNavigation from "../components/TopNavigation"
+import TopNavigation from "../components/TopNavigation";
+import SwCart from "../components/SwCart";
 import { SfBreadcrumbs } from "@storefront-ui/vue";
 import { useCart } from "@shopware-pwa/composables";
+import { ref } from "@vue/composition-api";
 
 export default {
   components: {
     TopNavigation,
-    SfBreadcrumbs
+    SfBreadcrumbs,
+    SwCart
   },
   setup() {
-    const {refreshCart, cartItems, count} = useCart()
+    const {refreshCart, count} = useCart()
     refreshCart()
+    const isCartOpen = ref(false)
     return {
       refreshCart,
-      cartItems,
-      count
+      count,
+      isCartOpen
     }
   },
   computed: {
