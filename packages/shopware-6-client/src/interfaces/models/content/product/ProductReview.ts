@@ -20,5 +20,5 @@ export interface ProductReview {
   product: Product | null;
   content: string | null;
   title: string | null;
-  createdAt: Date
+  createdAt: Date;
 }
