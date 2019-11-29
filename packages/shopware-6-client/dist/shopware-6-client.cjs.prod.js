@@ -219,7 +219,6 @@ async function register(params) {
 async function login(params) {
     const resp = await apiService.post(getCustomerLoginEndpoint(), params);
     const contextToken = resp.data["sw-context-token"];
-    update({ contextToken });
     return { contextToken };
 }
 /**
@@ -227,7 +226,6 @@ async function login(params) {
  */
 async function logout() {
     await apiService.post(getCustomerLogoutEndpoint());
-    update({ contextToken: "" });
 }
 /**
  * End up the session
@@ -360,7 +358,6 @@ var CartItemType;
 async function clearCart() {
     const resp = await apiService.post(getCheckoutCartEndpoint());
     let contextToken = resp.data["sw-context-token"];
-    update({ contextToken });
     return { contextToken };
 }
 /**
@@ -368,7 +365,7 @@ async function clearCart() {
  */
 async function getCart() {
     const resp = await apiService.get(getCheckoutCartEndpoint());
-    return resp.data;
+    return resp.data.data;
 }
 /**
  * Adds specific quantity of the product to the cart by productId. It creates a new cart line item.
@@ -377,7 +374,7 @@ async function getCart() {
  */
 async function addProductToCart(productId, quantity) {
     const resp = await apiService.post(getCheckoutCartProductEndpoint(productId), { quantity: quantity });
-    return resp.data;
+    return resp.data.data;
 }
 /**
  * Increases the current quantity in specific cart line item by given quantity.
@@ -387,17 +384,17 @@ async function addProductToCart(productId, quantity) {
 async function addCartItemQuantity(itemId, quantity) {
     let params = { type: CartItemType.PRODUCT, quantity: quantity };
     const resp = await apiService.post(getCheckoutCartLineItemEndpoint(itemId), params);
-    return resp.data;
+    return resp.data.data;
 }
 /**
  * Changes the current quantity in specific cart line item to given quantity.
  *
  * Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 2.
  */
-async function changeCartItemQuantity(itemId, newQuantity) {
-    let params = { quantity: newQuantity };
+async function changeCartItemQuantity(itemId, newQuantity = 1) {
+    let params = { quantity: parseInt(newQuantity.toString()) };
     const resp = await apiService.patch(getCheckoutCartLineItemEndpoint(itemId), params);
-    return resp.data;
+    return resp.data.data;
 }
 /**
  * Deletes the cart line item by id.
@@ -406,7 +403,7 @@ async function changeCartItemQuantity(itemId, newQuantity) {
  */
 async function removeCartItem(itemId) {
     const resp = await apiService.delete(getCheckoutCartLineItemEndpoint(itemId));
-    return resp.data;
+    return resp.data.data;
 }
 /**
  * Adds new promotion code to the cart by its code.
@@ -416,7 +413,7 @@ async function removeCartItem(itemId) {
  */
 async function addPromotionCode(promotionCode) {
     const resp = await apiService.post(getCheckoutPromotionCodeEndpoint(promotionCode));
-    return resp.data;
+    return resp.data.data;
 }
 
 async function getNavigation(params) {
