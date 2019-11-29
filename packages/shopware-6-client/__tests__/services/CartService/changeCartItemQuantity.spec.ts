@@ -80,4 +80,21 @@ describe("CartService - changeCartItemQuantity", () => {
       }
     );
   });
+
+  it("should call api with default value of quantity", async () => {
+    mockedAxios.patch.mockResolvedValueOnce({
+      data: {}
+    });
+
+    let lineItemId = "geawq90a5dab4206843d0vc3sa8wefdf";
+
+    await changeCartItemQuantity(lineItemId);
+    expect(mockedAxios.patch).toBeCalledTimes(1);
+    expect(
+      mockedAxios.patch
+    ).toBeCalledWith(
+      "/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
+      { quantity: 1 }
+    );
+  });
 });

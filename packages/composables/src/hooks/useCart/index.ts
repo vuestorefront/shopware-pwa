@@ -62,15 +62,15 @@ export const useCart = (): any => {
   });
 
   return {
-    count,
-    cart,
-    totalPrice,
-    cartItems,
     addProduct,
-    removeProduct,
+    cart,
+    cartItems,
     changeProductQuantity,
+    count,
+    error,
     loading,
     refreshCart,
-    error
+    removeProduct,
+    totalPrice
   };
 };
