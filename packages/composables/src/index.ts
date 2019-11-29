@@ -1,4 +1,5 @@
 export * from "./hooks/useCms";
+export * from "./hooks/useProduct";
 export * from "./hooks/useCart";
 
 /**

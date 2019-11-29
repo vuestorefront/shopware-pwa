@@ -4,6 +4,7 @@ import { Product } from "./Product";
 import { Customer } from "../../checkout/customer/Customer";
 
 export interface ProductReview {
+  id: string;
   productId: string;
   customerId: string;
   salesChannelId: string;
@@ -19,4 +20,5 @@ export interface ProductReview {
   product: Product | null;
   content: string | null;
   title: string | null;
+  createdAt: Date;
 }

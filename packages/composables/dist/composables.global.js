@@ -48,10 +48,7 @@ var composables = (function (exports, compositionApi, axios) {
   apiService.interceptors.response.use(responseInterceptor, errorInterceptor);
 
   // category
-  // checkout
-  const getCheckoutCartEndpoint = () => `/checkout/cart`;
-  const getCheckoutCartProductEndpoint = (productId) => `/checkout/cart/product/${productId}`;
-  const getCheckoutCartLineItemEndpoint = (lineItemId) => `/checkout/cart/line-item/${lineItemId}`;
+  const getProductDetailsEndpoint = (productId) => `/product/${productId}`;
   const getPageResolverEndpoint = () => `/vsf/page`;
 
   var PaginationLimit;
@@ -66,6 +63,16 @@ var composables = (function (exports, compositionApi, axios) {
       PaginationLimit[PaginationLimit["FIVE_HUNDRED"] = 500] = "FIVE_HUNDRED";
   })(PaginationLimit || (PaginationLimit = {}));
 
+  /**
+   * Get the product with passed productId
+   */
+  async function getProduct(productId, params = null) {
+      const resp = await apiService.get(getProductDetailsEndpoint(productId), {
+          params
+      });
+      return resp.data.data;
+  }
+
   var CartItemType;
   (function (CartItemType) {
       CartItemType["PRODUCT"] = "product";
@@ -73,42 +80,6 @@ var composables = (function (exports, compositionApi, axios) {
       CartItemType["CUSTOM"] = "custom";
       CartItemType["PROMOTION"] = "promotion";
   })(CartItemType || (CartItemType = {}));
-
-  /**
-   * Gets the current cart for the sw-context-token.
-   */
-  async function getCart() {
-      const resp = await apiService.get(getCheckoutCartEndpoint());
-      return resp.data.data;
-  }
-  /**
-   * Adds specific quantity of the product to the cart by productId. It creates a new cart line item.
-   *
-   * Warning: This method does not change the state of the cart in any way if productId already exists in a cart. For changing the quantity use addQuantityToCartLineItem() or changeCartLineItemQuantity() methods.
-   */
-  async function addProductToCart(productId, quantity) {
-      const resp = await apiService.post(getCheckoutCartProductEndpoint(productId), { quantity: quantity });
-      return resp.data.data;
-  }
-  /**
-   * Changes the current quantity in specific cart line item to given quantity.
-   *
-   * Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 2.
-   */
-  async function changeCartItemQuantity(itemId, newQuantity = 1) {
-      let params = { quantity: parseInt(newQuantity.toString()) };
-      const resp = await apiService.patch(getCheckoutCartLineItemEndpoint(itemId), params);
-      return resp.data.data;
-  }
-  /**
-   * Deletes the cart line item by id.
-   *
-   * This method may be used for deleting "product" type item lines as well as "promotion" type item lines.
-   */
-  async function removeCartItem(itemId) {
-      const resp = await apiService.delete(getCheckoutCartLineItemEndpoint(itemId));
-      return resp.data.data;
-  }
 
   async function getPage(path, searchCriteria) {
       const resp = await apiService.post(getPageResolverEndpoint(), {
@@ -154,6 +125,48 @@ var composables = (function (exports, compositionApi, axios) {
           loading,
           search,
           error
+      };
+  };
+
+  const useProduct = (loadedProduct) => {
+      const loading = compositionApi.ref(false);
+      const product = compositionApi.ref(loadedProduct);
+      const error = compositionApi.ref(null);
+      const loadAssociations = async (associations) => {
+          loading.value = true;
+          try {
+              const result = await getProduct(product.value.id, associations);
+              product.value = result;
+          }
+          catch (e) {
+              error.value = e;
+              console.error("Problem with fetching data", e.message);
+          }
+          finally {
+              loading.value = false;
+          }
+      };
+      const search = async (path) => {
+          loading.value = true;
+          try {
+              const result = await getProduct(path);
+              product.value = result;
+              return result;
+          }
+          catch (e) {
+              error.value = e;
+              console.error("Problem with fetching data", e.message);
+          }
+          finally {
+              loading.value = false;
+          }
+      };
+      return {
+          product,
+          loading,
+          search,
+          error,
+          loadAssociations
       };
   };
 
@@ -230,6 +243,7 @@ var composables = (function (exports, compositionApi, axios) {
   exports.setStore = setStore;
   exports.useCart = useCart;
   exports.useCms = useCms;
+  exports.useProduct = useProduct;
 
   return exports;
 
