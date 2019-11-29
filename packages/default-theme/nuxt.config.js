@@ -104,14 +104,14 @@ export default {
     build: {
       async before(builder, options) {
         const projectRootDir = path.resolve(__dirname, '../../')
-        const nodeMOdulesDir = `${projectRootDir}node_modules`
+        // const nodeMOdulesDir = `${projectRootDir}node_modules`
         // const extraFilePath = path.join(builder.nuxt.options.buildDir, 'extra-file')
         // fs.writeFileSync(extraFilePath, 'Something extra')
         console.error('--> Start building from hook!')
-        await execa('ls', ['-l'], {
-          stdio: 'inherit',
-          cwd: nodeMOdulesDir
-        })
+        // await execa('ls', ['-l'], {
+        //   stdio: 'inherit',
+        //   cwd: nodeMOdulesDir
+        // })
         await execa('yarn', ['build'], {
           stdio: 'inherit',
           cwd: projectRootDir
