@@ -12,7 +12,6 @@ import { Customer } from "../interfaces/models/checkout/customer/Customer";
 import { apiService } from "../apiService";
 import { CustomerAddress } from "../interfaces/models/checkout/customer/CustomerAddress";
 import { CustomerRegistrationParams } from "../interfaces/request/CustomerRegistrationParams";
-import { update } from "..";
 import { ContextTokenResponse } from "../interfaces/response/ContextTokenResponse";
 
 interface CustomerRegisterResponse {
@@ -42,7 +41,6 @@ export async function login(
 ): Promise<ContextTokenResponse> {
   const resp = await apiService.post(getCustomerLoginEndpoint(), params);
   const contextToken = resp.data["sw-context-token"];
-  update({ contextToken });
   return { contextToken };
 }
 
@@ -51,7 +49,6 @@ export async function login(
  */
 export async function logout(): Promise<void> {
   await apiService.post(getCustomerLogoutEndpoint());
-  update({ contextToken: "" });
 }
 
 /**

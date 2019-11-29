@@ -13,15 +13,17 @@ describe("CartService - addPromotionCode", () => {
   it("should call valid endpoint and return a cart", async () => {
     mockedAxios.post.mockResolvedValueOnce({
       data: {
-        name: random.uuid(),
-        token: random.uuid(),
-        price: {
-          netPrice: 150
-        },
-        lineItems: {
-          type: "promotion",
-          payload: {
-            code: "3a64e872ca404522a2c5d43ebc751e6b"
+        data: {
+          name: random.uuid(),
+          token: random.uuid(),
+          price: {
+            netPrice: 150
+          },
+          lineItems: {
+            type: "promotion",
+            payload: {
+              code: "3a64e872ca404522a2c5d43ebc751e6b"
+            }
           }
         }
       }

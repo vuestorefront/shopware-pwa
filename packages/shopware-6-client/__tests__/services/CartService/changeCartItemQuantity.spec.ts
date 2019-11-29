@@ -13,18 +13,20 @@ describe("CartService - changeCartItemQuantity", () => {
   it("should call valid endpoint and return cart with no items", async () => {
     mockedAxios.patch.mockResolvedValueOnce({
       data: {
-        name: random.uuid(),
-        token: random.uuid(),
-        lineItems: [
-          {
-            id: "geawq90a5dab4206843d0vc3sa8wefdf",
-            label: commerce.productName(),
-            quantity: 3,
-            payload: {
-              productNumber: random.uuid
+        data: {
+          name: random.uuid(),
+          token: random.uuid(),
+          lineItems: [
+            {
+              id: "geawq90a5dab4206843d0vc3sa8wefdf",
+              label: commerce.productName(),
+              quantity: 3,
+              payload: {
+                productNumber: random.uuid
+              }
             }
-          }
-        ]
+          ]
+        }
       }
     });
 
@@ -76,6 +78,23 @@ describe("CartService - changeCartItemQuantity", () => {
       {
         quantity: -2
       }
+    );
+  });
+
+  it("should call api with default value of quantity", async () => {
+    mockedAxios.patch.mockResolvedValueOnce({
+      data: {}
+    });
+
+    let lineItemId = "geawq90a5dab4206843d0vc3sa8wefdf";
+
+    await changeCartItemQuantity(lineItemId);
+    expect(mockedAxios.patch).toBeCalledTimes(1);
+    expect(
+      mockedAxios.patch
+    ).toBeCalledWith(
+      "/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
+      { quantity: 1 }
     );
   });
 });

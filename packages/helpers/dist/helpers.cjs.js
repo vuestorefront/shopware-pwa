@@ -5,27 +5,32 @@ Object.defineProperty(exports, '__esModule', { value: true });
 /**
  * gets the cover image
  */
-function getProductMainImageUrl(params) {
-    const { product } = params;
-    return (product && product.cover && product.cover.media) ? product.cover.media.url : null;
+function getProductMainImageUrl({ product } = {}) {
+    return (product && product.cover && product.cover.media && product.cover.media.url);
 }
 
-function getProductMediaGallery(params) {
-    const { product } = params;
-    return product && product.media ? product.media.map(media => {
-        const smallThumb = media.media && media.media.thumbnails && media.media.thumbnails.find(thumb => thumb.width == "400");
-        const normalThumb = media.media && media.media.thumbnails && media.media.thumbnails.find(thumb => thumb.width == "800");
-        const bigThumb = media.media && media.media.thumbnails && media.media.thumbnails.find(thumb => thumb.width == "1920");
-        return {
-            small: { url: smallThumb ? smallThumb.url : "" },
-            normal: { url: normalThumb ? normalThumb.url : "" },
-            big: { url: bigThumb ? bigThumb.url : "" }
-        };
-    }) : [];
+function getProductMediaGallery({ product } = {}) {
+    return product && product.media
+        ? product.media.map(media => {
+            const smallThumb = media.media &&
+                media.media.thumbnails &&
+                media.media.thumbnails.find(thumb => thumb.width == "400");
+            const normalThumb = media.media &&
+                media.media.thumbnails &&
+                media.media.thumbnails.find(thumb => thumb.width == "800");
+            const bigThumb = media.media &&
+                media.media.thumbnails &&
+                media.media.thumbnails.find(thumb => thumb.width == "1920");
+            return {
+                small: { url: smallThumb ? smallThumb.url : "" },
+                normal: { url: normalThumb ? normalThumb.url : "" },
+                big: { url: bigThumb ? bigThumb.url : "" }
+            };
+        })
+        : [];
 }
 
-function getProductOptions(params) {
-    const { product, attribute } = params;
+function getProductOptions({ product, attribute } = {}) {
     if (!product || !product.children || !attribute) {
         return [];
     }
@@ -49,21 +54,19 @@ function getProductOptions(params) {
     return Array.from(typeOptions.values());
 }
 
-function getProductProperties(params) {
-    const { product } = params;
-    if (!product.properties) {
+function getProductProperties({ product } = {}) {
+    if (!product || !product.properties) {
         return [];
     }
     const propertyList = product.properties.map(property => ({
-        name: property.group ? (property.group.name || "") : "",
+        name: property.group ? property.group.name || "" : "",
         value: property.name
     }));
     return propertyList;
 }
 
-function getProductReviews(params) {
-    const { product } = params;
-    if (!product.productReviews) {
+function getProductReviews({ product } = {}) {
+    if (!product || !product.productReviews) {
         return [];
     }
     return product.productReviews.map(({ id, externalUser, customerId, createdAt, content, points }) => ({
@@ -75,19 +78,18 @@ function getProductReviews(params) {
     }));
 }
 
-function getProductOption(params) {
-    const { product, attribute } = params;
-    return product.options && product.options.find(option => option.group && option.group.name === attribute);
+function getProductOption({ product, attribute } = {}) {
+    return (product &&
+        product.options &&
+        product.options.find(option => option.group && option.group.name === attribute));
 }
 
-function getProductRegularPrice(params) {
-    const { product } = params;
-    return product.price ? product.price[0].gross : 0;
+function getProductRegularPrice({ product } = {}) {
+    return product && product.price ? product.price[0].gross : 0;
 }
 
-function isProductSimple(params) {
-    const { product } = params;
-    return !!product.parentId;
+function isProductSimple({ product } = {}) {
+    return product ? !!product.parentId : false;
 }
 
 exports.getProductMainImageUrl = getProductMainImageUrl;

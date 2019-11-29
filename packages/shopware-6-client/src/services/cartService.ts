@@ -7,7 +7,6 @@ import {
 } from "../endpoints";
 import { apiService } from "../apiService";
 import { ContextTokenResponse } from "../interfaces/response/ContextTokenResponse";
-import { update } from "..";
 import { CartItemType } from "../interfaces/cart/CartItemType";
 
 /**
@@ -20,7 +19,6 @@ import { CartItemType } from "../interfaces/cart/CartItemType";
 export async function clearCart(): Promise<ContextTokenResponse> {
   const resp = await apiService.post(getCheckoutCartEndpoint());
   let contextToken = resp.data["sw-context-token"];
-  update({ contextToken });
   return { contextToken };
 }
 
@@ -30,7 +28,7 @@ export async function clearCart(): Promise<ContextTokenResponse> {
 export async function getCart(): Promise<Cart> {
   const resp = await apiService.get(getCheckoutCartEndpoint());
 
-  return resp.data;
+  return resp.data.data;
 }
 
 /**
@@ -47,7 +45,7 @@ export async function addProductToCart(
     { quantity: quantity }
   );
 
-  return resp.data;
+  return resp.data.data;
 }
 
 /**
@@ -65,7 +63,7 @@ export async function addCartItemQuantity(
     params
   );
 
-  return resp.data;
+  return resp.data.data;
 }
 
 /**
@@ -75,15 +73,15 @@ export async function addCartItemQuantity(
  */
 export async function changeCartItemQuantity(
   itemId: string,
-  newQuantity: number
+  newQuantity: number = 1
 ): Promise<Cart> {
-  let params = { quantity: newQuantity };
+  let params = { quantity: parseInt(newQuantity.toString()) };
   const resp = await apiService.patch(
     getCheckoutCartLineItemEndpoint(itemId),
     params
   );
 
-  return resp.data;
+  return resp.data.data;
 }
 
 /**
@@ -94,7 +92,7 @@ export async function changeCartItemQuantity(
 export async function removeCartItem(itemId: string): Promise<Cart> {
   const resp = await apiService.delete(getCheckoutCartLineItemEndpoint(itemId));
 
-  return resp.data;
+  return resp.data.data;
 }
 
 /**
@@ -108,5 +106,5 @@ export async function addPromotionCode(promotionCode: string): Promise<Cart> {
     getCheckoutPromotionCodeEndpoint(promotionCode)
   );
 
-  return resp.data;
+  return resp.data.data;
 }

@@ -13,26 +13,28 @@ describe("CartService - addProductToCart", () => {
   it("should call valid endpoint and return a cart", async () => {
     mockedAxios.post.mockResolvedValueOnce({
       data: {
-        name: commerce.productName(),
-        token: random.uuid(),
-        lineItems: [
-          {
-            id: random.uuid(),
-            label: commerce.productName(),
-            quantity: 5,
-            payload: {
-              productNumber: random.uuid()
+        data: {
+          name: commerce.productName(),
+          token: random.uuid(),
+          lineItems: [
+            {
+              id: random.uuid(),
+              label: commerce.productName(),
+              quantity: 5,
+              payload: {
+                productNumber: random.uuid()
+              }
+            },
+            {
+              id: "044a190a54ab4f06803909c3ee8063ef",
+              label: commerce.productName(),
+              quantity: 5,
+              payload: {
+                productNumber: random.uuid()
+              }
             }
-          },
-          {
-            id: "044a190a54ab4f06803909c3ee8063ef",
-            label: commerce.productName(),
-            quantity: 5,
-            payload: {
-              productNumber: random.uuid()
-            }
-          }
-        ]
+          ]
+        }
       }
     });
 

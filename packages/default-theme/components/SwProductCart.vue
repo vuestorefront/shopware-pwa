@@ -1,22 +1,29 @@
 <template>
-  <router-link :to="getRouterLink">
-    <SfProductCard
-      :title="product.name || ''"
-      :image="getImageUrl"
-      :regular-price="getUnitPrice"
-      :isOnWishlist="false"
-      @click:wishlist="toggleWishlist"
-      class="products__product-card"
-    />
-  </router-link>
+  <!-- <router-link :to="getRouterLink"> -->
+  <SfProductCard
+    :title="product.name || ''"
+    :image="getImageUrl"
+    :regular-price="getUnitPrice"
+    :isOnWishlist="false"
+    @click:wishlist="toggleWishlist"
+    class="products__product-card"
+  />
+  <!-- </router-link> -->
 </template>
 
 <script>
 import { SfProductCard } from "@storefront-ui/vue";
+import { useCart } from "@shopware-pwa/composables"
 
 export default {
   components: {
     SfProductCard
+  },
+  setup () {
+    const {addProduct} = useCart()
+    return {
+      addProduct
+    }
   },
   data() {
     return {};
@@ -42,7 +49,9 @@ export default {
     }
   },
   methods: {
-    toggleWishlist() {}
+    async toggleWishlist() {
+      await this.addProduct({id: this.product.id, quantity: 1})
+    }
   }
 };
 </script>

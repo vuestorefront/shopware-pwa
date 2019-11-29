@@ -1,21 +1,37 @@
 <template>
   <div id="layout">
     <TopNavigation/>
+    <div>
+      <h2 @click="isCartOpen = true"> CART {{ count }} </h2>
+    </div>
     <SfBreadcrumbs
        v-show="getBreadcrumbs.length > 0" 
       :breadcrumbs="getBreadcrumbs"
       class="sw-breadcrumbs"/>
     <nuxt />
+    <SwCart :is-open="isCartOpen" @close="isCartOpen=false" />
   </div>
 </template>
 <script>
-import TopNavigation from "../components/TopNavigation"
+import TopNavigation from "../components/TopNavigation";
+import SwCart from "../components/SwCart";
 import { SfBreadcrumbs } from "@storefront-ui/vue";
+import { useCart } from "@shopware-pwa/composables";
+import { ref } from "@vue/composition-api";
 
 export default {
   components: {
     TopNavigation,
-    SfBreadcrumbs
+    SfBreadcrumbs,
+    SwCart
+  },
+  setup() {
+    const {count} = useCart()
+    const isCartOpen = ref(false)
+    return {
+      count,
+      isCartOpen
+    }
   },
   computed: {
     componentBreadcrumbs () { // TODO probably move to vuex now as it's not rendered on server side

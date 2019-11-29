@@ -9,26 +9,28 @@ describe("CartService - getCart", () => {
   it("should return existing cart object", async () => {
     mockedAxios.get.mockResolvedValueOnce({
       data: {
-        name: random.uuid(),
-        token: random.uuid(),
-        lineItems: [
-          {
-            id: random.uuid(),
-            label: commerce.productName(),
-            quantity: 5,
-            payload: {
-              productNumber: random.uuid()
+        data: {
+          name: random.uuid(),
+          token: random.uuid(),
+          lineItems: [
+            {
+              id: random.uuid(),
+              label: commerce.productName(),
+              quantity: 5,
+              payload: {
+                productNumber: random.uuid()
+              }
+            },
+            {
+              id: random.uuid(),
+              label: commerce.productName(),
+              quantity: 3,
+              payload: {
+                productNumber: random.uuid()
+              }
             }
-          },
-          {
-            id: random.uuid(),
-            label: commerce.productName(),
-            quantity: 3,
-            payload: {
-              productNumber: random.uuid()
-            }
-          }
-        ]
+          ]
+        }
       }
     });
 
