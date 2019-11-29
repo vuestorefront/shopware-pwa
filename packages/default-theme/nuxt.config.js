@@ -108,7 +108,7 @@ export default {
         // const extraFilePath = path.join(builder.nuxt.options.buildDir, 'extra-file')
         // fs.writeFileSync(extraFilePath, 'Something extra')
         console.error('--> Start building from hook!')
-        await execa('ls -l', [], {
+        await execa('ls', ['-l'], {
           stdio: 'inherit',
           cwd: nodeMOdulesDir
         })
