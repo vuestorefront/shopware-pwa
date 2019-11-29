@@ -1,18 +1,20 @@
 <template>
   <div class="sw-product-list">
-    <div class="sw-product-list__list">
-      <SwProductCart
-        v-for="product in products"
-        :key="product.id"
-        :product="product"
-      />
+    <div class="sw-product-list--wrapper">
+      <div class="sw-product-list__list">
+        <SwProductCart
+          v-for="product in products"
+          :key="product.id"
+          :product="product"
+          />
+      </div>
+      <SfPagination
+        class="sw-product-list__pagination desktop-only"
+        :current="1"
+        :total="5"
+        :visible="5"
+        />
     </div>
-    <SfPagination
-      class="sw-product-list__pagination desktop-only"
-      :current="1"
-      :total="5"
-      :visible="5"
-    />
   </div>
 </template>
 
@@ -47,22 +49,23 @@ export default {
   }
 }
 .sw-product-list {
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
-  flex: 1;
   margin: 0 -#{$spacer};
   @include for-desktop {
     margin: $spacer-big;
   }
+  
   &__list {
-    display: flex;
+    width: auto;
     flex-wrap: wrap;
-    margin-top: 1.875rem - 0.5rem;
+    display: flex;
   }
+
   &__product-card {
-    flex: 0 0 50%;
     padding: $spacer;
     @include for-desktop {
-      flex: 0 0 25%;
       padding: $spacer-big;
     }
   }
