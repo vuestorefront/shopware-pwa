@@ -30,7 +30,14 @@ const prodOnly = !devOnly && (args.prodOnly || args.p);
 const buildTypes = args.t || args.types;
 const buildAllMatching = args.all || args.a;
 const lean = args.lean || args.l;
-const commit = execa.sync("git", ["rev-parse", "HEAD"]).stdout.slice(0, 7);
+const commit = () => {
+  try {
+    return execa.sync("git", ["rev-parse", "HEAD"]).stdout.slice(0, 7);
+  } catch (e) {
+    console.error("Problem with getting commit message");
+    return "Created by CI";
+  }
+};
 
 run();
 
@@ -71,7 +78,7 @@ async function build(target) {
       "-c",
       "--environment",
       [
-        `COMMIT:${commit}`,
+        `COMMIT:${commit()}`,
         `NODE_ENV:${env}`,
         `TARGET:${target}`,
         formats ? `FORMATS:${formats}` : ``,
