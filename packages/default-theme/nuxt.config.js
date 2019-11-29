@@ -112,12 +112,16 @@ export default {
         //   stdio: 'inherit',
         //   cwd: nodeMOdulesDir
         // })
-        await execa('yarn', ['build'], {
+        await execa('node', ['-v'], {
+          stdio: 'inherit'
+        })
+        await execa('yarn', ['add', 'fs-extra'], {
           stdio: 'inherit',
           cwd: projectRootDir
         })
-        await execa('node', ['-v'], {
-          stdio: 'inherit'
+        await execa('yarn', ['build'], {
+          stdio: 'inherit',
+          cwd: projectRootDir
         })
       }
     }
