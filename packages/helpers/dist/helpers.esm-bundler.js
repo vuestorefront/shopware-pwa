@@ -1,24 +1,32 @@
 /**
  * gets the cover image
  */
-function getProductMainImageUrl({ product }) {
-    return product && product.cover && product.cover.media && product.cover.media.url;
+function getProductMainImageUrl({ product } = {}) {
+    return (product && product.cover && product.cover.media && product.cover.media.url);
 }
 
 function getProductMediaGallery({ product } = {}) {
-    return product && product.media ? product.media.map(media => {
-        const smallThumb = media.media && media.media.thumbnails && media.media.thumbnails.find(thumb => thumb.width == "400");
-        const normalThumb = media.media && media.media.thumbnails && media.media.thumbnails.find(thumb => thumb.width == "800");
-        const bigThumb = media.media && media.media.thumbnails && media.media.thumbnails.find(thumb => thumb.width == "1920");
-        return {
-            small: { url: smallThumb ? smallThumb.url : "" },
-            normal: { url: normalThumb ? normalThumb.url : "" },
-            big: { url: bigThumb ? bigThumb.url : "" }
-        };
-    }) : [];
+    return product && product.media
+        ? product.media.map(media => {
+            const smallThumb = media.media &&
+                media.media.thumbnails &&
+                media.media.thumbnails.find(thumb => thumb.width == "400");
+            const normalThumb = media.media &&
+                media.media.thumbnails &&
+                media.media.thumbnails.find(thumb => thumb.width == "800");
+            const bigThumb = media.media &&
+                media.media.thumbnails &&
+                media.media.thumbnails.find(thumb => thumb.width == "1920");
+            return {
+                small: { url: smallThumb ? smallThumb.url : "" },
+                normal: { url: normalThumb ? normalThumb.url : "" },
+                big: { url: bigThumb ? bigThumb.url : "" }
+            };
+        })
+        : [];
 }
 
-function getProductOptions({ product, attribute }) {
+function getProductOptions({ product, attribute } = {}) {
     if (!product || !product.children || !attribute) {
         return [];
     }
@@ -47,7 +55,7 @@ function getProductProperties({ product } = {}) {
         return [];
     }
     const propertyList = product.properties.map(property => ({
-        name: property.group ? (property.group.name || "") : "",
+        name: property.group ? property.group.name || "" : "",
         value: property.name
     }));
     return propertyList;
@@ -66,16 +74,18 @@ function getProductReviews({ product } = {}) {
     }));
 }
 
-function getProductOption({ product, attribute }) {
-    return product && product.options && product.options.find(option => option.group && option.group.name === attribute);
+function getProductOption({ product, attribute } = {}) {
+    return (product &&
+        product.options &&
+        product.options.find(option => option.group && option.group.name === attribute));
 }
 
 function getProductRegularPrice({ product } = {}) {
     return product && product.price ? product.price[0].gross : 0;
 }
 
-function isProductSimple({ product }) {
-    return product && !!product.parentId;
+function isProductSimple({ product } = {}) {
+    return product ? !!product.parentId : false;
 }
 
 export { getProductMainImageUrl, getProductMediaGallery, getProductOption, getProductOptions, getProductProperties, getProductRegularPrice, getProductReviews, isProductSimple };

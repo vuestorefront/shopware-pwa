@@ -32,23 +32,17 @@ const useCms = () => {
     };
 };
 
+const NO_PRODUCT_REFERENCE_ERROR = "Associations cannot be loaded for undefined product";
 const useProduct = (loadedProduct) => {
     const loading = compositionApi.ref(false);
     const product = compositionApi.ref(loadedProduct);
     const error = compositionApi.ref(null);
     const loadAssociations = async (associations) => {
-        loading.value = true;
-        try {
-            const result = await shopware6Client.getProduct(product.value.id, associations);
-            product.value = result;
+        if (!product || !product.value || !product.value.id) {
+            throw NO_PRODUCT_REFERENCE_ERROR;
         }
-        catch (e) {
-            error.value = e;
-            console.error("Problem with fetching data", e.message);
-        }
-        finally {
-            loading.value = false;
-        }
+        const result = await shopware6Client.getProduct(product.value.id, associations);
+        product.value = result;
     };
     const search = async (path) => {
         loading.value = true;
