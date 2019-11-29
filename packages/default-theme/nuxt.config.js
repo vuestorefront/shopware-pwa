@@ -107,10 +107,10 @@ export default {
         // const extraFilePath = path.join(builder.nuxt.options.buildDir, 'extra-file')
         // fs.writeFileSync(extraFilePath, 'Something extra')
         console.error('--> Start building from hook!')
-        await execa('yarn', [], {
-          stdio: 'inherit',
-          cwd: projectRootDir
-        })
+        // await execa('yarn', [], {
+        //   stdio: 'inherit',
+        //   cwd: projectRootDir
+        // })
         await execa('yarn', ['build'], {
           stdio: 'inherit',
           cwd: projectRootDir
