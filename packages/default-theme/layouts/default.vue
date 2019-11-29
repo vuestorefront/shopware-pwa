@@ -25,11 +25,9 @@ export default {
     SwCart
   },
   setup() {
-    const {refreshCart, count} = useCart()
-    refreshCart()
+    const {count} = useCart()
     const isCartOpen = ref(false)
     return {
-      refreshCart,
       count,
       isCartOpen
     }
