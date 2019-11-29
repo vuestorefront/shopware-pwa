@@ -16,7 +16,7 @@
     "dev:composables": "yarn dev composables -format=esm",
     "dev:helpers": "yarn dev helpers -format=esm",
     "build": "node scripts/build.js",
-    "postinstall": "node scripts/linkDependencies.js",
+    "postinstall": "node scripts/linkDependencies.js && node -v",
     "lint": "prettier --write --parser typescript 'packages/**/*.ts'",
     "test": "jest",
     "test:coverage": "yarn test --coverage",
