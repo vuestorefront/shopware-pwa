@@ -4,7 +4,7 @@
     :title="product.label"
     :regular-price="product.price.unitPrice | price"
     :stock="product.deliveryInformation.stock"
-    v-model="product.quantity"
+    v-model="quantity"
     @click:remove="removeProduct(product)"
     class="collected-product"
   >
@@ -39,6 +39,7 @@ import {
   SfCollectedProduct
 } from "@storefront-ui/vue";
 import { useCart } from "@shopware-pwa/composables";
+import {ref, watch} from "@vue/composition-api"
 
 export default {
   components: {
@@ -54,10 +55,21 @@ export default {
       defult: () => ({})
     }
   },
-  setup () {
-    const { removeProduct } = useCart()
+  setup (props) {
+    const { removeProduct, changeProductQuantity } = useCart()
+
+    const quantity = ref(props.product.quantity)
+
+    watch(quantity, async qty => { // in future we may want to have debounce here
+      if (qty == props.product.quantity) return
+      await changeProductQuantity({id: props.product.id, quantity: qty})
+    })
+    watch(() => props.product.quantity, qty => {
+      quantity.value = qty
+    })
     return {
-      removeProduct
+      removeProduct,
+      quantity
     }
   },
   filters: {
