@@ -63,7 +63,7 @@ export async function addCartItemQuantity(
     params
   );
 
-  return resp.data;
+  return resp.data.data;
 }
 
 /**
@@ -73,15 +73,15 @@ export async function addCartItemQuantity(
  */
 export async function changeCartItemQuantity(
   itemId: string,
-  newQuantity: number
+  newQuantity: number = 1
 ): Promise<Cart> {
-  let params = { quantity: newQuantity };
+  let params = { quantity: parseInt(newQuantity.toString()) };
   const resp = await apiService.patch(
     getCheckoutCartLineItemEndpoint(itemId),
     params
   );
 
-  return resp.data;
+  return resp.data.data;
 }
 
 /**
@@ -106,5 +106,5 @@ export async function addPromotionCode(promotionCode: string): Promise<Cart> {
     getCheckoutPromotionCodeEndpoint(promotionCode)
   );
 
-  return resp.data;
+  return resp.data.data;
 }
