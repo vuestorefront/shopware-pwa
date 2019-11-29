@@ -134,7 +134,9 @@ export default {
             'rollup-plugin-peer-deps-external',
             'rollup-plugin-replace',
             'rollup-plugin-terser',
-            'rollup-plugin-typescript2'
+            'rollup-plugin-typescript2',
+            '@vue/composition-api',
+            '@vue'
           ],
           {
             stdio: 'inherit',
