@@ -112,13 +112,35 @@ export default {
         //   stdio: 'inherit',
         //   cwd: nodeMOdulesDir
         // })
+
         await execa('node', ['-v'], {
           stdio: 'inherit'
         })
-        await execa('yarn', ['add', '-D', '-W', 'fs-extra', 'execa', 'chalk', 'brotli', 'zlib', 'minimist'], {
-          stdio: 'inherit',
-          cwd: projectRootDir
-        })
+        await execa(
+          'yarn',
+          [
+            'add',
+            '-D',
+            '-W',
+            'fs-extra',
+            'execa',
+            'chalk',
+            'brotli',
+            'zlib',
+            'minimist',
+            'rollup',
+            'rollup-plugin-alias',
+            'rollup-plugin-json',
+            'rollup-plugin-peer-deps-external',
+            'rollup-plugin-replace',
+            'rollup-plugin-terser',
+            'rollup-plugin-typescript2'
+          ],
+          {
+            stdio: 'inherit',
+            cwd: projectRootDir
+          }
+        )
         await execa('yarn', ['build'], {
           stdio: 'inherit',
           cwd: projectRootDir
