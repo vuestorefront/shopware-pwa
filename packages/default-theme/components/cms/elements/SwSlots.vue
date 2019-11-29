@@ -5,7 +5,7 @@
         :content="sidebarSlot"
         :key="sidebarSlot.id"
         :style="slotStyles"
-      />
+        />
     </div>
     <div class="elements">
       <SwGenericBlock
@@ -13,7 +13,7 @@
         v-for="cmsSlot in elementsSlots"
         :key="cmsSlot.id"
         :style="slotStyles"
-      />
+        />
     </div>
   </div>
 </template>
@@ -75,8 +75,21 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import "~@storefront-ui/vue/styles.scss"; 
+
+@mixin for-desktop {
+  @media screen and (min-width: $desktop-min) {
+    @content;
+  }
+}
+
 .sw-blocks {
+  &:nth-child(2) > div:nth-child(1) {
+      @include for-desktop() {
+      border-right: 1px solid $c-light;
+    }
+  }
 }
 
 .sw-slots {
@@ -87,6 +100,11 @@ export default {
 
 .has-sidebar {
   display: flex;
+  flex-direction: column;
+  @include for-desktop() {
+    flex-direction: row;
+  }
+  position: relative;
 }
 
 .elements {
