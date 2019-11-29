@@ -57,7 +57,6 @@ export default {
 };
 </script>
 
-</style>
 <style lang="scss" scoped>
 @import "~@storefront-ui/vue/styles.scss";
 

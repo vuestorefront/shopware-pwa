@@ -5,6 +5,7 @@
       <h2 @click="isCartOpen = true"> CART {{ count }} </h2>
     </div>
     <SfBreadcrumbs
+       v-show="getBreadcrumbs.length > 0" 
       :breadcrumbs="getBreadcrumbs"
       class="sw-breadcrumbs"/>
     <nuxt />
