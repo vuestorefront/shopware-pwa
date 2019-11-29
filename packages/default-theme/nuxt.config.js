@@ -1,3 +1,5 @@
+import execa from 'execa'
+import path from 'path'
 const coreDevelopment = true
 
 export default {
@@ -41,8 +43,18 @@ export default {
       {
         coreDevelopment,
         useRawSource: {
-          dev: coreDevelopment ? ['@shopware-pwa/shopware-6-client', '@shopware-pwa/composables', '@shopware-pwa/helpers'] : [],
-          prod: ['@shopware-pwa/shopware-6-client', '@shopware-pwa/composables', '@shopware-pwa/helpers']
+          dev: coreDevelopment
+            ? [
+                '@shopware-pwa/shopware-6-client',
+                '@shopware-pwa/composables',
+                '@shopware-pwa/helpers'
+              ]
+            : [],
+          prod: [
+            '@shopware-pwa/shopware-6-client',
+            '@shopware-pwa/composables',
+            '@shopware-pwa/helpers'
+          ]
         }
       }
     ]
@@ -85,6 +97,23 @@ export default {
     extend(config, { isDev, isClient }) {
       if (isClient && !isDev) {
         config.optimization.splitChunks.cacheGroups.commons.minChunks = 2
+      }
+    }
+  },
+  hooks: {
+    build: {
+      async before(builder, options) {
+        const projectRootDir = path.resolve(__dirname, '../../')
+        // const extraFilePath = path.join(builder.nuxt.options.buildDir, 'extra-file')
+        // fs.writeFileSync(extraFilePath, 'Something extra')
+        console.error('--> Start building from hook!')
+        await execa('yarn', ['build'], {
+          stdio: 'inherit',
+          cwd: projectRootDir
+        })
+        await execa('node', ['-v'], {
+          stdio: 'inherit'
+        })
       }
     }
   }
