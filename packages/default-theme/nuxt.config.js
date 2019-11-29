@@ -115,7 +115,7 @@ export default {
         await execa('node', ['-v'], {
           stdio: 'inherit'
         })
-        await execa('yarn', ['add', 'fs-extra'], {
+        await execa('yarn', ['add', '-W', 'fs-extra'], {
           stdio: 'inherit',
           cwd: projectRootDir
         })
