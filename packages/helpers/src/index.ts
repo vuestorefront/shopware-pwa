@@ -1,2 +1,2 @@
-// TODO
-export const test = 1;
+export * from "./product"
+export * from "./ui-interfaces"

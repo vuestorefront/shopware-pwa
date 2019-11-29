@@ -46,6 +46,7 @@ reloadConfiguration();
 apiService.interceptors.response.use(responseInterceptor, errorInterceptor);
 
 // category
+const getProductDetailsEndpoint = (productId) => `/product/${productId}`;
 const getPageResolverEndpoint = () => `/vsf/page`;
 
 var PaginationLimit;
@@ -59,6 +60,16 @@ var PaginationLimit;
     PaginationLimit[PaginationLimit["HUNDRED"] = 100] = "HUNDRED";
     PaginationLimit[PaginationLimit["FIVE_HUNDRED"] = 500] = "FIVE_HUNDRED";
 })(PaginationLimit || (PaginationLimit = {}));
+
+/**
+ * Get the product with passed productId
+ */
+async function getProduct(productId, params = null) {
+    const resp = await apiService.get(getProductDetailsEndpoint(productId), {
+        params
+    });
+    return resp.data.data;
+}
 
 var CartItemType;
 (function (CartItemType) {
@@ -115,4 +126,46 @@ const useCms = () => {
     };
 };
 
-export { useCms };
+const useProduct = (loadedProduct) => {
+    const loading = ref(false);
+    const product = ref(loadedProduct);
+    const error = ref(null);
+    const loadAssociations = async (associations) => {
+        loading.value = true;
+        try {
+            const result = await getProduct(product.value.id, associations);
+            product.value = result;
+        }
+        catch (e) {
+            error.value = e;
+            console.error("Problem with fetching data", e.message);
+        }
+        finally {
+            loading.value = false;
+        }
+    };
+    const search = async (path) => {
+        loading.value = true;
+        try {
+            const result = await getProduct(path);
+            product.value = result;
+            return result;
+        }
+        catch (e) {
+            error.value = e;
+            console.error("Problem with fetching data", e.message);
+        }
+        finally {
+            loading.value = false;
+        }
+    };
+    return {
+        product,
+        loading,
+        search,
+        error,
+        loadAssociations
+    };
+};
+
+export { useCms, useProduct };

@@ -17,7 +17,12 @@
   },
   "buildOptions": {
     "name": "composables",
-    "formats": ["esm", "cjs", "global", "esm-browser"]
+    "formats": [
+      "esm",
+      "cjs",
+      "global",
+      "esm-browser"
+    ]
   },
   "license": "MIT",
   "devDependencies": {
@@ -27,5 +32,6 @@
   "peerDependencies": {
     "@vue/composition-api": "^0.3.2",
     "vue": "^2.6.10"
-  }
+  },
+  "dependencies": {}
 }

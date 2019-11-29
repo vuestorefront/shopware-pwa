@@ -12,6 +12,7 @@ export * from "./services/cartService";
 export * from "./services/navigationService";
 export * from "./services/pageService";
 export * from "./interfaces/response/PageResolverResult";
+export * from "./interfaces/models/content/product/Product"
 
 /**
  * Setup configuration. Merge default values with provided in param.
