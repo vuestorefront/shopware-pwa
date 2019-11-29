@@ -136,7 +136,7 @@ export default {
             'rollup-plugin-terser',
             'rollup-plugin-typescript2',
             '@vue/composition-api',
-            '@vue'
+            'vue'
           ],
           {
             stdio: 'inherit',
