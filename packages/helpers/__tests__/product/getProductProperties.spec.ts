@@ -44,4 +44,16 @@ describe("Shopware helpers - getProductProperties", () => {
     const properties = getProductProperties({product: productWithoutProperties })
     expect(properties).toHaveLength(0)
   });
+
+  it("should return default empty array if argument wasn't provided", () => {
+    const properties = getProductProperties()
+    expect(properties).toHaveLength(0)
+  });
+
+  it("should return default value if product was null", () => {
+    const argument: any = { product: null }
+    const properties = getProductProperties(argument)
+    expect(properties).toHaveLength(0)
+  });
+  
 });

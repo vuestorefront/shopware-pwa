@@ -22,4 +22,15 @@ describe("Shopware helpers - getProductRegularPrice", () => {
     expect(price).toEqual(0);
   });
 
+  it("should return default negative value if argument wasn't provided", () => {
+    const price = getProductRegularPrice()
+    expect(price).toBe(0);
+  });
+
+  it("should return default value if product was null", () => {
+    const argument: any = { product: null }
+    const price = getProductRegularPrice(argument)
+    expect(price).toBe(0);
+  });
+
 });

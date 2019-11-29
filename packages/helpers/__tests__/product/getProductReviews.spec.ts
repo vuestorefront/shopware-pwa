@@ -34,11 +34,21 @@ describe("Shopware helpers - getProductReviews", () => {
     expect(firstReview.rating).toBe(4)
 
     expect(secondReview.author).toBe("3f06d7747f904336a78bf75e86a6450f")
-
   });
   it("should return no reviews if do not exist", () => {
     const productWithoutReviews: any = {}
     const reviews = getProductReviews({product: productWithoutReviews})
+    expect(reviews).toHaveLength(0);
+  });
+
+  it("should return default value if argument wasn't provided", () => {
+    const reviews = getProductReviews()
+    expect(reviews).toHaveLength(0);
+  });
+
+  it("should return default value if product was null", () => {
+    const argument: any = { product: null }
+    const reviews = getProductReviews(argument)
     expect(reviews).toHaveLength(0);
   });
 

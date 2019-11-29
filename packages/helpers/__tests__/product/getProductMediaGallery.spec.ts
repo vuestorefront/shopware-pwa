@@ -62,4 +62,15 @@ describe("Shopware helpers - getProductMediaGallery", () => {
     const mediaGallery = getProductMediaGallery({product: unmappedMediaSizes})
     expect(mediaGallery).toHaveLength(1)
   });
+
+  it("should return default empty array if argument wasn't provided", () => {
+    const mediaGallery = getProductMediaGallery()
+    expect(mediaGallery).toHaveLength(0)
+  });
+
+  it("should return default value if product was null", () => {
+    const argument: any = { product: null }
+    const mediaGallery = getProductMediaGallery(argument)
+    expect(mediaGallery).toHaveLength(0)
+  });
 });

@@ -63,4 +63,15 @@ describe("Shopware helpers - getProductOptions", () => {
     const productOptions = getProductOptions({product: productWithoutChildren, attribute: "test"})
     expect(productOptions).toHaveLength(0)
   });
+
+  it("should return default empty array if argument wasn't provided", () => {
+    const productOptions = getProductOptions()
+    expect(productOptions).toHaveLength(0)
+  });
+
+  it("should return default value if product was null", () => {
+    const argument: any = { product: null }
+    const productOptions = getProductOptions(argument)
+    expect(productOptions).toHaveLength(0)
+  });
 });

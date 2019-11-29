@@ -20,4 +20,15 @@ describe("Shopware helpers - isProductSimple", () => {
     expect(isSimple).toBe(false);
   });
 
+  it("should return default negative value if argument wasn't provided", () => {
+    const isSimple = isProductSimple()
+    expect(isSimple).toBe(false);
+  });
+
+  it("should return default value if product was null", () => {
+    const argument: any = { product: null }
+    const isSimple = isProductSimple(argument)
+    expect(isSimple).toBe(false);
+  });
+
 });

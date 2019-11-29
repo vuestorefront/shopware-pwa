@@ -1,7 +1,7 @@
 import { Product } from "@shopware-pwa/shopware-6-client";
-import { UiProductOption } from "packages/global";
+import { UiProductOption } from "@shopware-pwa/helpers"
 
-export function getProductOptions({ product, attribute }: { product: Product, attribute: string}): UiProductOption[]{
+export function getProductOptions({ product, attribute }: { product?: Product, attribute?: string} = {}): UiProductOption[]{
   if (!product || !product.children || !attribute) {
     return []
   }

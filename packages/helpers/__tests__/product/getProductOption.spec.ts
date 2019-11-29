@@ -38,4 +38,15 @@ describe("Shopware helpers - getProductOption", () => {
     const productOption = getProductOption({product: productWithoutOptions, attribute:"color"})
     expect(productOption).toBeFalsy()
   });
+
+  it("should return default negative value if argument wasn't provided", () => {
+    const productOption = getProductOption()
+    expect(productOption).toBeUndefined()
+  });
+
+  it("should return default value if product was null", () => {
+    const argument: any = { product: null }
+    const productOption = getProductOption(argument)
+    expect(productOption).toBeNull()
+  });
 });

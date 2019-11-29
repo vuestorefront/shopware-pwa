@@ -19,4 +19,16 @@ describe("Shopware helpers - getProductMainImageUrl", () => {
     const coverUrl = getProductMainImageUrl({product: emptyProduct})
     expect(coverUrl).toBeUndefined();
   });
+
+  it("should return default negative value if argument wasn't provided", () => {
+    const coverUrl = getProductMainImageUrl()
+    expect(coverUrl).toBeUndefined()
+  });
+
+  it("should return default value if product was null", () => {
+    const argument: any = { product: null }
+    const coverUrl = getProductMainImageUrl(argument)
+    expect(coverUrl).toBeNull()
+  });
+
 });

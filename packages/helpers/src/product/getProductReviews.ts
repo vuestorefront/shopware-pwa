@@ -1,5 +1,5 @@
 import { Product } from "@shopware-pwa/shopware-6-client";
-import { UiProductReview } from "packages/global";
+import { UiProductReview } from "@shopware-pwa/helpers"
 
 export function getProductReviews({product}: {product?: Product} = {}): UiProductReview[] {
   

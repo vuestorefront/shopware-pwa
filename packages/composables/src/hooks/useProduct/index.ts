@@ -1,6 +1,7 @@
 import { ref, Ref } from "@vue/composition-api";
 import { getProduct, Product } from "@shopware-pwa/shopware-6-client";
-//import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
+
+const NO_PRODUCT_REFERENCE_ERROR = "Associations cannot be loaded for undefined product"
 
 interface UseProduct<PRODUCT, SEARCH> {
   product: Ref<PRODUCT>;
@@ -18,16 +19,12 @@ export const useProduct = (loadedProduct?: any): UseProduct<Product, Search> => 
   const error: Ref<any> = ref(null);
 
   const loadAssociations = async (associations: any) => {
-    loading.value = true;
-    try {
-      const result = await getProduct(product.value.id, associations);
-      product.value = result;
-    } catch (e) {
-      error.value = e;
-      console.error("Problem with fetching data", e.message);
-    } finally {
-      loading.value = false;
+    if (!product || !product.value || !product.value.id) {
+      throw NO_PRODUCT_REFERENCE_ERROR
     }
+
+    const result = await getProduct(product.value.id, associations);
+    product.value = result;
   }
 
   const search = async (path: string) => {

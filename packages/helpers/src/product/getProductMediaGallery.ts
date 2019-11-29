@@ -1,5 +1,5 @@
 import { Product } from "@shopware-pwa/shopware-6-client";
-import { UiMediaGalleryItem } from "packages/global";
+import { UiMediaGalleryItem } from "@shopware-pwa/helpers";
 
 export function getProductMediaGallery({product}: {product?: Product} = {}): UiMediaGalleryItem[] {
 
