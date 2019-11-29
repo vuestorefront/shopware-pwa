@@ -1,5 +1,5 @@
 export interface MediaThumbnail {
-  width: string,
-  height: string,
-  [x:string]: any
+  width: string;
+  height: string;
+  [x: string]: any;
 }
