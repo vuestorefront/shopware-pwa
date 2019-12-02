@@ -8,8 +8,8 @@ jobs:
         uses: actions/checkout@v1
       - name: Build packages
         run: |
-          yarn
-          yarn build
+          yarn --ignore-engines
+          yarn build --ignore-engines
       - name: Deploy to zeit
         uses: amondnet/now-deployment@v1
         with:
