@@ -8,6 +8,7 @@ jobs:
         uses: actions/checkout@v1
       - name: Build packages
         run: |
+          nvm use lts/dubnium
           yarn
           yarn build
       - name: Deploy to zeit
