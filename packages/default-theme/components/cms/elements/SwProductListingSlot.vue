@@ -2,7 +2,7 @@
   <div class="sw-product-list">
     <div class="sw-product-list--wrapper">
       <div class="sw-product-list__list">
-        <SwProductCart
+        <SwProductCard
           v-for="product in products"
           :key="product.id"
           :product="product"
@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import SwProductCart from "../../SwProductCart";
+import SwProductCard from "../../SwProductCard";
 import { SfPagination } from "@storefront-ui/vue";
 export default {
   components: {
-    SwProductCart,
+    SwProductCard,
     SfPagination
   },
   props: {
