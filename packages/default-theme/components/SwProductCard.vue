@@ -2,22 +2,33 @@
   <!-- <router-link :to="getRouterLink"> -->
   <SfProductCard
     :title="product.name || ''"
-    :image="getImageUrl"
+    :image="require('~/assets/productB.jpg')"
     :regular-price="getUnitPrice"
     :isOnWishlist="false"
+    :scoreRating="1"
+    :link="getRouterLink"
     @click:wishlist="toggleWishlist"
     class="products__product-card"
-  />
+  >
+    <template #title={title}>
+      <div class="product-card-title">
+        <h3 class="product-card-title__title">
+          {{ title }}
+        </h3>
+      </div>
+    </template>
+  </SfProductCard>
   <!-- </router-link> -->
 </template>
 
 <script>
-import { SfProductCard } from "@storefront-ui/vue";
+import { SfProductCard, SfImage } from "@storefront-ui/vue";
 import { useCart } from "@shopware-pwa/composables"
 
 export default {
   components: {
-    SfProductCard
+    SfProductCard,
+    SfImage
   },
   setup () {
     const {addProduct} = useCart()
@@ -56,4 +67,31 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "~@storefront-ui/vue/styles.scss";
+@import "~@storefront-ui/shared/styles/components/SfProductCard.scss";
+
+.product-card-title {
+  height: 4em;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &__title {
+    font-family: $body-font-family-secondary;
+    font-size: $font-size-regular-mobile;
+    font-weight: 300;
+    line-height: 1.6;
+    margin: $spacer-small 0;
+    @media (min-width: $desktop-min) {
+      margin: $spacer 0 $spacer-small;
+      font-size: $font-size-regular-desktop;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: $c_gray;
+    }
+  }
+}
+</style>

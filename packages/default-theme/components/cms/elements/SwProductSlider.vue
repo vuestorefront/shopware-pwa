@@ -3,7 +3,7 @@
     <SfSection :title-heading="title" class="section">
       <SfCarousel class="product-carousel">
         <SfCarouselItem v-for="product in products" :key="product.id">
-          <SwProductCart :product="product" />
+          <SwProductCard :product="product" />
         </SfCarouselItem>
       </SfCarousel>
     </SfSection>
@@ -12,13 +12,13 @@
 
 <script>
 import { SfSection, SfCarousel } from "@storefront-ui/vue";
-import SwProductCart from "../../SwProductCart";
+import SwProductCard from "../../SwProductCard";
 
 export default {
   components: {
     SfSection,
     SfCarousel,
-    SwProductCart
+    SwProductCard
   },
   props: {
     content: {

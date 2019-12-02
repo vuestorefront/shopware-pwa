@@ -1,6 +1,5 @@
 <template>
   <SfCollectedProduct
-    image="/img/productB.png"
     :title="product.label"
     :regular-price="product.price.unitPrice | price"
     :stock="product.deliveryInformation.stock"
