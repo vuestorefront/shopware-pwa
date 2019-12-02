@@ -1,13 +1,13 @@
 <template>
-  <SwProductCart :product="content.data.product" />
+  <SwProductCard :product="content.data.product" />
 </template>
 
 <script>
-import SwProductCart from "../../SwProductCart";
+import SwProductCard from "../../SwProductCard";
 
 export default {
   components: {
-    SwProductCart
+    SwProductCard
   },
   props: {
     content: {
