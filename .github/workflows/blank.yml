@@ -15,7 +15,7 @@ jobs:
           yarn
           yarn build
       - name: Deploy to zeit
-        uses: amondnet/now-deployment@v1
+        uses: patzick/now-deployment@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           zeit-token: ${{ secrets.ZEIT_TOKEN }}
