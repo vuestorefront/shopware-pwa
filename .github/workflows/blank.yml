@@ -19,5 +19,5 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           zeit-token: ${{ secrets.ZEIT_TOKEN }}
-          zeit-team-id: team_shopware-pwa
+          zeit-team-id: shopware-pwa
           # now-args: '--prod'
