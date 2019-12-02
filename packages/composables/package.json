@@ -26,11 +26,11 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@vue/composition-api": "^0.3.2",
+    "@vue/composition-api": "^0.3.4",
     "vue": "^2.6.10"
   },
   "peerDependencies": {
-    "@vue/composition-api": "^0.3.2",
+    "@vue/composition-api": "^0.3.4",
     "vue": "^2.6.10"
   },
   "dependencies": {}
