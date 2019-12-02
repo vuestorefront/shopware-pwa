@@ -15,9 +15,9 @@ jobs:
           yarn
           yarn build
       - name: Deploy to zeit
-        uses: patzick/now-deployment@master
+        uses: amondnet/now-deployment@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           zeit-token: ${{ secrets.ZEIT_TOKEN }}
-          zeit-team-id: shopware-pwa
+          zeit-team-id: team_zpOFzrZjyURkFwGZsKEEHzcv
           # now-args: '--prod'
