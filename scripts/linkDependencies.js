@@ -8,6 +8,7 @@ const path = require("path");
 const apiClientDir = path.resolve(__dirname, "../packages/shopware-6-client");
 const composablesDir = path.resolve(__dirname, "../packages/composables");
 const defaultThemeDir = path.resolve(__dirname, "../packages/default-theme");
+const helpersDir = path.resolve(__dirname, "../packages/helpers");
 
 const nuxtPackageCoreDir = path.resolve(
   __dirname,
@@ -47,6 +48,18 @@ async function run() {
     cwd: nuxtPackageCoreDir
   });
   await execa("yarn", ["link", "@vue-storefront/nuxt"], {
+    stdio: "inherit",
+    cwd: defaultThemeDir
+  });
+
+  /**
+   * Link helpers
+   */
+  await execa("yarn", ["link"], {
+    stdio: "inherit",
+    cwd: helpersDir
+  });
+  await execa("yarn", ["link", "@shopware-pwa/helpers"], {
     stdio: "inherit",
     cwd: defaultThemeDir
   });

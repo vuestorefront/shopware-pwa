@@ -1,0 +1,27 @@
+name: Deploy Zeit
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "10.x"
+      - name: Build packages
+        run: |
+          yarn
+          yarn build
+      - name: Deploy to zeit
+        uses: patzick/now-deployment@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          zeit-token: ${{ secrets.ZEIT_TOKEN }}
+          zeit-team-id: team_zpOFzrZjyURkFwGZsKEEHzcv
