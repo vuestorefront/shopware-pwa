@@ -6,9 +6,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
       - name: Build packages
         run: |
-          nvm use lts/dubnium
           yarn
           yarn build
       - name: Deploy to zeit
