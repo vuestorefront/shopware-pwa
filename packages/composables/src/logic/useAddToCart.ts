@@ -1,5 +1,5 @@
 import { ref, Ref, computed } from "@vue/composition-api";
-import { Product } from "@shopware-pwa/shopware-6-client/src";
+import { Product } from "@shopware-pwa/shopware-6-client";
 import { useCart } from "@shopware-pwa/composables";
 
 interface UseAddToCart {
@@ -7,7 +7,7 @@ interface UseAddToCart {
   quantity: Ref<number>;
   loading: Ref<boolean>;
   error: Ref<any>;
-  getStock: Ref<number>;
+  getStock: Ref<number | null>;
 }
 
 export const useAddToCart = (product: Product): UseAddToCart => {
@@ -17,7 +17,13 @@ export const useAddToCart = (product: Product): UseAddToCart => {
   const error: Ref<any> = ref(null);
 
   const addToCart = async (): Promise<void> => {
+    if (!product || !product.id) {
+      error.value =
+        "Product has to be passed as a composable argument and needs to have an id property.";
+      return;
+    }
     loading.value = true;
+    error.value = null;
     if (!quantity.value) quantity.value = 1;
     try {
       await addProduct({ id: product.id, quantity: quantity.value });
