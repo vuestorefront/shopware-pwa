@@ -28,4 +28,13 @@ describe("Shopware helpers - isProductSimple", () => {
     const isSimple = isProductSimple(argument);
     expect(isSimple).toBe(false);
   });
+  it("should return false when parentId is same as id", () => {
+    const product: any = {
+      id: "qwe",
+      parentId: "qwe"
+    };
+
+    const isSimple = isProductSimple({ product: product });
+    expect(isSimple).toBe(false);
+  });
 });
