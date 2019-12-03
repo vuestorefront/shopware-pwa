@@ -91,8 +91,7 @@
             />
             <SfAddToCart
               :stock="stock"
-              v-model="qty"
-              :canAddToCart="stock > 0"
+              v-model="quantity"
               class="product-details__add-to-cart"
               @click="addToCart"
             />
@@ -175,8 +174,7 @@ import {
   SfSticky,
   SfReview
 } from "@storefront-ui/vue";
- import { getProduct, getPage } from "@shopware-pwa/shopware-6-client";
- import { useProduct } from "@shopware-pwa/composables";
+ import { useProduct, useAddToCart } from "@shopware-pwa/composables";
  import { 
   getProductMainImageUrl,
   getProductMediaGallery,
@@ -219,12 +217,20 @@ export default {
   },
   data() {
     return {
-      qty: "1",
       productWithAssociations: null,
       relatedProducts: [],
       selectedSize: null,
       selectedColor: null
     };
+  },
+  setup ({page}) {
+    const {addToCart, quantity, getStock} = useAddToCart(page && page.product)
+
+    return {
+      quantity,
+      addToCart,
+      getStock
+    }
   },
   async mounted() {
     // TODO remove when page resolver is fully done
@@ -313,10 +319,6 @@ export default {
   },
 
   methods: {
-
-    addToCart() {
-      console.info("add to cart: ",this.product.id)
-    },
     toggleWishlist(index) {
       this.products[index].isOnWishlist = !this.products[index].isOnWishlist;
     }

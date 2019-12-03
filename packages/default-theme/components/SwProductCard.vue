@@ -5,7 +5,6 @@
     :image="require('~/assets/productB.jpg')" 
     :regular-price="getUnitPrice"
     :isOnWishlist="false"
-    :scoreRating="5"
     :link="getRouterLink"
     @click:wishlist="toggleWishlist"
     class="products__product-card"
@@ -17,22 +16,33 @@
         </h3>
       </div>
     </template>
+    <template slot="reviews">
+      <SfAddToCart
+        :stock="getStock"
+        v-model="quantity"
+        @click="addToCart"
+      />
+    </template>
   </SfProductCard>
   <!-- </router-link> -->
 </template>
 
 <script>
-import { SfProductCard } from "@storefront-ui/vue";
-import { useCart } from "@shopware-pwa/composables"
+import { SfProductCard, SfAddToCart } from "@storefront-ui/vue";
+import { useAddToCart } from "@shopware-pwa/composables"
 
 export default {
   components: {
-    SfProductCard
+    SfProductCard,
+    SfAddToCart
   },
-  setup () {
-    const {addProduct} = useCart()
+  setup ({product}) {
+    const {addToCart, quantity, getStock} = useAddToCart(product)
+
     return {
-      addProduct
+      quantity,
+      addToCart,
+      getStock
     }
   },
   data() {
@@ -60,7 +70,6 @@ export default {
   },
   methods: {
     async toggleWishlist() {
-      await this.addProduct({id: this.product.id, quantity: 1})
     }
   }
 };
