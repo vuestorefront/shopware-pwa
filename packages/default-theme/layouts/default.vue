@@ -1,15 +1,12 @@
 <template>
   <div id="layout">
     <TopNavigation/>
-    <div>
-      <h2 @click="isCartOpen = true"> CART {{ count }} </h2>
-    </div>
     <SfBreadcrumbs
        v-show="getBreadcrumbs.length > 0" 
       :breadcrumbs="getBreadcrumbs"
       class="sw-breadcrumbs"/>
     <nuxt />
-    <SwCart :is-open="isCartOpen" @close="isCartOpen=false" />
+    <SwCart :is-open="isSidebarOpen" @close="toggleSidebar" />
   </div>
 </template>
 <script>
@@ -23,14 +20,13 @@ export default {
   components: {
     TopNavigation,
     SfBreadcrumbs,
-    SwCart
+    SwCart,
   },
   setup() {
-    const {count} = useCart()
-    const isCartOpen = ref(false)
-    return {
-      count,
-      isCartOpen
+    const { isSidebarOpen, toggleSidebar } = useCart()
+    return { 
+      isSidebarOpen,
+      toggleSidebar
     }
   },
   computed: {
@@ -73,6 +69,9 @@ body {
     max-width: 1320px;
     margin: auto;
   }
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .sw-breadcrumbs {

@@ -10,6 +10,7 @@ import { getStore } from "../..";
 export const useCart = (): any => {
   let vuexStore = getStore();
   const loading: Ref<boolean> = ref(false);
+  const isSidebarOpen: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
 
   async function refreshCart(): Promise<void> {
@@ -41,6 +42,10 @@ export const useCart = (): any => {
     vuexStore.commit("SET_CART", result);
   }
 
+  function toggleSidebar() {
+    isSidebarOpen.value = !isSidebarOpen.value
+  }
+
   const cart = computed(() => {
     return vuexStore.getters.getCart;
   });
@@ -69,9 +74,11 @@ export const useCart = (): any => {
     changeProductQuantity,
     count,
     error,
+    isSidebarOpen,
     loading,
     refreshCart,
     removeProduct,
+    toggleSidebar,
     totalPrice
   };
 };
