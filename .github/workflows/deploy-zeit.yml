@@ -21,6 +21,7 @@ jobs:
           cd ./storefront-ui/
           yarn
           cd ./packages/vue
+          yarn remove lerna
           yarn link
           cd ../../../packages/default-theme/
           yarn link @storefront-ui/vue
