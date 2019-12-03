@@ -37,6 +37,10 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           zeit-token: ${{ secrets.ZEIT_TOKEN }}
           zeit-team-id: team_zpOFzrZjyURkFwGZsKEEHzcv
+      - name: Show logs for fail
+        if: failure()
+        run: |
+          cat /home/runner/work/shopware-pwa/shopware-pwa/packages/default-theme/yarn-error.log
       - name: Deploy Production to zeit
         if: github.event_name != 'pull_request'
         uses: patzick/now-deployment@master
