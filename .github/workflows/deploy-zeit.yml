@@ -29,7 +29,6 @@ jobs:
         run: |
           yarn
           yarn build
-      - name: Link SFUI # temp step for development
       - name: Deploy PR to zeit
         if: github.event_name == 'pull_request'
         uses: patzick/now-deployment@master
