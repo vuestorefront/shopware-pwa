@@ -15,20 +15,21 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "10.x"
-      - name: Clone and link SFUI # temp step for development
+      - name: Clone SFUI # temp step for development
         run: |
           git clone --single-branch --branch develop https://github.com/DivanteLtd/storefront-ui
       - name: Build packages
         run: |
           yarn
           yarn build
-      - name: Link SFUI
+      - name: Link SFUI # temp step for development
         run: |
           cd ./storefront-ui/packages/vue
           yarn
           yarn link
           cd ../../../packages/default-theme/
           yarn link @storefront-ui/vue
+          yarn
       - name: Deploy PR to zeit
         if: github.event_name == 'pull_request'
         uses: patzick/now-deployment@master
