@@ -40,7 +40,7 @@ export async function addProductToCart(
   productId: string,
   quantity: number
 ): Promise<Cart> {
-  const qty = quantity || 1
+  const qty = quantity || 1;
   const resp = await apiService.post(
     getCheckoutCartProductEndpoint(productId),
     { quantity: qty }
