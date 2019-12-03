@@ -82,4 +82,19 @@ describe("CartService - addProductToCart", () => {
       quantity: 2
     });
   });
+
+  it("should send quantity 1 on 0 value", async () => {
+    mockedAxios.post.mockResolvedValueOnce({
+      data: {
+        data: {
+          name: commerce.productName()
+        }
+      }
+    });
+    await addProductToCart("qwe", 0);
+    expect(mockedAxios.post).toBeCalledTimes(1);
+    expect(mockedAxios.post).toBeCalledWith("/checkout/cart/product/qwe", {
+      quantity: 1
+    });
+  });
 });

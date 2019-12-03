@@ -1,6 +1,7 @@
 export * from "./hooks/useCms";
 export * from "./hooks/useProduct";
 export * from "./hooks/useCart";
+export * from "./logic/useAddToCart";
 
 /**
  * Workaround for current reactivity problems with SSR for Nuxt.
