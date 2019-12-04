@@ -5,9 +5,13 @@
     active-sidebar="activeSidebar"
   >
     <template #navigation>
-      <nuxt-link to="/"><SfHeaderNavigationItem>Home</SfHeaderNavigationItem></nuxt-link>
+      <!-- <nuxt-link to="/"><SfHeaderNavigationItem>Home</SfHeaderNavigationItem></nuxt-link>
       <nuxt-link v-for="element in navigationElements" :key="element.id" :to="convertToSlug(element.name)">
         <SfHeaderNavigationItem>{{ element.name }}</SfHeaderNavigationItem>
+      </nuxt-link> -->
+      <nuxt-link to="/"><span>Home</span></nuxt-link>
+      <nuxt-link v-for="element in navigationElements" :key="element.id" :to="convertToSlug(element.name)">
+        <span>{{ element.name }}</span>
       </nuxt-link>
     </template>
     
