@@ -46,8 +46,8 @@ export default {
     }
   },
   async mounted() {
-    const { elements } = await getNavigation({depth:2})
-    this.navigationElements = elements
+    const { children } = await getNavigation({depth:2})
+    this.navigationElements = children
   },
   computed: {
     navigation() {
