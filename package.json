@@ -4,8 +4,7 @@
   "workspaces": {
     "packages": [
       "packages/*",
-      "vsf-core-packages/*",
-      "storefront-ui/*"
+      "vsf-core-packages/*"
     ],
     "nohoist": [
       "**/**/**"

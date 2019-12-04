@@ -8,7 +8,7 @@ const fs = require("fs-extra");
 
 const tempDir = path.resolve(__dirname, "../temp");
 const repoDir = `${tempDir}/next`;
-const nuxtModuleDir = `${repoDir}/packages/nuxt-module`;
+const nuxtModuleDir = `${repoDir}/packages/core/nuxt-module`;
 const corePackagesDir = path.resolve(__dirname, "../vsf-core-packages");
 const nuxtModuleDestinationDir = `${corePackagesDir}/nuxt-module`;
 
@@ -22,7 +22,7 @@ async function run() {
   await execa("git", ["clone", "https://github.com/DivanteLtd/next", repoDir], {
     stdio: "inherit"
   });
-  if (!fs.existsSync(nuxtModuleDestinationDir)) {
+  if (!fs.existsSync(corePackagesDir)) {
     fs.mkdirSync(corePackagesDir);
   }
 
