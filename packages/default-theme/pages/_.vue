@@ -23,7 +23,7 @@ export default {
   components: {
   },
   asyncData: async ({ req, params }) => {
-    const {search, page} = useCms()
+    const {search, page, category} = useCms()
     const {refreshCart} = useCart()
     const searchResult = await search(params.pathMatch);
     await refreshCart();
@@ -40,6 +40,7 @@ export default {
       page: unwrappedPage,
       breadcrumbs,
       cmsPage,
+      category
     }
   },
   data() {
