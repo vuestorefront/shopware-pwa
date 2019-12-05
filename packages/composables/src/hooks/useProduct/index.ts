@@ -26,7 +26,7 @@ export const useProduct = (
       throw NO_PRODUCT_REFERENCE_ERROR;
     }
 
-    const result = await getProduct(product.value.id, associations);
+    const result = await getProduct(product.value.parentId || product.value.id, associations);
     product.value = result;
   };
 
