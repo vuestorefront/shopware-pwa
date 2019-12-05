@@ -8,6 +8,7 @@ const fs = require("fs-extra");
 
 const tempDir = path.resolve(__dirname, "../temp");
 const repoDir = `${tempDir}/storefront-ui`;
+const vuePackageDir = `${repoDir}/packages/vue`;
 const themeDir = path.resolve(__dirname, "../packages/default-theme");
 
 async function run() {
@@ -32,17 +33,17 @@ async function run() {
     }
   );
 
-  await execa("yarn", [], {
-    stdio: "inherit",
-    cwd: repoDir
-  });
+  // await execa("yarn", [], {
+  //   stdio: "inherit",
+  //   cwd: repoDir
+  // });
 
   await execa("npx", ["yalc", "publish"], {
     stdio: "inherit",
-    cwd: repoDir
+    cwd: vuePackageDir
   });
 
-  await execa("npx", ["yalc", "add", "@storeftont-ui/vue"], {
+  await execa("npx", ["yalc", "add", "@storefront-ui/vue"], {
     stdio: "inherit",
     cwd: themeDir
   });
