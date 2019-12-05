@@ -175,8 +175,6 @@ We also setup Prettier (https://prettier.io/) on git pre-commit hook to automati
 * Milestone / epic is assigned (the milestone / epic provides team members with background information and additional business value).
 * Acceptance criteria are listed.
 * Dependencies are identified and no external dependencies would block the item from being completed (e.g. missing decision / information / implementation from other departments / development teams or missing tools).
-* Technical requirements are listed.
-* User story is estimated in story points (1, 2, 3, 5, 8, 13, 21, ?).
 * User story is small enough to be completed in one sprint.
 * Team knows what to do, and do not see any blocking points.
 
