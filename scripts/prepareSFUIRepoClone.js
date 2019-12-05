@@ -12,6 +12,8 @@ const vuePackageDir = `${repoDir}/packages/vue`;
 const sharedPackageDir = `${repoDir}/packages/shared`;
 // const sharedPackageDir = `${repoDir}/packages/shared`;
 const themeDir = path.resolve(__dirname, "../packages/default-theme");
+const createIndexScriptPath = `${vuePackageDir}/scripts/create-index-files.js`;
+const setScssScriptPath = `${vuePackageDir}/scripts/set-styles-variables-root-path.js`;
 // const corePackagesDir = path.resolve(__dirname, "../vsf-core-packages");
 // const vueCorePackageDir = `${corePackagesDir}/vue`;
 // const sharedCorePackageDir = `${corePackagesDir}/shared`;
@@ -59,6 +61,22 @@ async function run() {
   // await execa("cp", ["-r", sharedPackageDir, sharedCorePackageDir], {
   //   stdio: "inherit"
   // });
+
+  // When script added
+  // await execa("yarn", ["prepublish"], {
+  //   stdio: "inherit",
+  //   cwd: vuePackageDir
+  // });
+  // else
+  const { createIndexFiles } = require(createIndexScriptPath);
+  const { setStylesVariablesRootPath } = require(setScssScriptPath);
+
+  function runPrePublish() {
+    createIndexFiles();
+    setStylesVariablesRootPath();
+  }
+
+  runPrePublish();
 
   await execa("npx", ["yalc", "publish"], {
     stdio: "inherit",
