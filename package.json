@@ -15,6 +15,7 @@
     "dev:client": "yarn dev shopware-6-client -format=esm",
     "dev:composables": "yarn dev composables -format=esm",
     "dev:helpers": "yarn dev helpers -format=esm",
+    "dev:debug": "node --inspect scripts/dev.js",
     "build": "node scripts/build.js",
     "postinstall": "lerna link",
     "lint": "prettier --write --parser typescript 'packages/**/*.ts'",
