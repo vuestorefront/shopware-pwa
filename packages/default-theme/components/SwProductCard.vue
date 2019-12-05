@@ -2,7 +2,7 @@
   <!-- <router-link :to="getRouterLink"> -->
   <SfProductCard
     :title="product.name || ''"
-    :image="require('~/assets/productB.jpg')" 
+    :image="getImageUrl" 
     :regular-price="getUnitPrice"
     :isOnWishlist="false"
     :link="getRouterLink"
@@ -65,7 +65,7 @@ export default {
       );
     },
     getImageUrl() {
-      return this.product.cover ? this.product.cover.media.url : "";
+      return this.product.cover ? this.product.cover.media.url : require('~/assets/productB.jpg');
     }
   },
   methods: {
