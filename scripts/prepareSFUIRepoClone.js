@@ -1,5 +1,5 @@
 /**
- * Setup core dependencies as they're not published yet
+ * Setup SFUI develop branch and locally publish dependencies
  */
 
 const execa = require("execa");
@@ -10,17 +10,12 @@ const tempDir = path.resolve(__dirname, "../temp");
 const repoDir = `${tempDir}/storefront-ui`;
 const vuePackageDir = `${repoDir}/packages/vue`;
 const sharedPackageDir = `${repoDir}/packages/shared`;
-// const sharedPackageDir = `${repoDir}/packages/shared`;
 const themeDir = path.resolve(__dirname, "../packages/default-theme");
 const createIndexScriptPath = `${vuePackageDir}/scripts/create-index-files.js`;
 const setScssScriptPath = `${vuePackageDir}/scripts/set-styles-variables-root-path.js`;
-// const corePackagesDir = path.resolve(__dirname, "../vsf-core-packages");
-// const vueCorePackageDir = `${corePackagesDir}/vue`;
-// const sharedCorePackageDir = `${corePackagesDir}/shared`;
-
 async function run() {
   /**
-   * Clone newest Next repo
+   * Clone develop SFUI
    */
   if (fs.existsSync(repoDir)) {
     fs.removeSync(repoDir);
@@ -40,27 +35,13 @@ async function run() {
     }
   );
 
+  /**
+   * Init repo
+   */
   await execa("yarn", [], {
     stdio: "inherit",
     cwd: repoDir
   });
-
-  /**
-   * Prepare nuxt-module package
-   */
-  // if (fs.existsSync(vueCorePackageDir)) {
-  //   fs.removeSync(vueCorePackageDir);
-  // }
-  // await execa("cp", ["-r", vuePackageDir, vueCorePackageDir], {
-  //   stdio: "inherit"
-  // });
-
-  // if (fs.existsSync(sharedCorePackageDir)) {
-  //   fs.removeSync(sharedCorePackageDir);
-  // }
-  // await execa("cp", ["-r", sharedPackageDir, sharedCorePackageDir], {
-  //   stdio: "inherit"
-  // });
 
   // When script added
   // await execa("yarn", ["prepublish"], {
@@ -70,37 +51,35 @@ async function run() {
   // else
   const { createIndexFiles } = require(createIndexScriptPath);
   const { setStylesVariablesRootPath } = require(setScssScriptPath);
-
   function runPrePublish() {
     createIndexFiles();
     setStylesVariablesRootPath();
   }
-
   runPrePublish();
 
+  // Publish shared pashage
   await execa("npx", ["yalc", "publish"], {
     stdio: "inherit",
     cwd: sharedPackageDir
   });
 
+  // Publish vue package
   await execa("npx", ["yalc", "publish"], {
     stdio: "inherit",
     cwd: vuePackageDir
   });
 
+  /**
+   * Add vue and shared package into theme
+   */
   await execa("npx", ["yalc", "add", "@storefront-ui/vue"], {
     stdio: "inherit",
     cwd: themeDir
   });
-
   await execa("npx", ["yalc", "add", "@storefront-ui/shared"], {
     stdio: "inherit",
     cwd: themeDir
   });
-
-  // if (fs.existsSync(repoDir)) {
-  //   fs.removeSync(repoDir);
-  // }
 }
 
 run();

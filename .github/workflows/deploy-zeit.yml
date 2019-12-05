@@ -19,13 +19,6 @@ jobs:
         run: |
           yarn
           node ./scripts/prepareSFUIRepoClone.js
-          # git clone --single-branch --branch develop https://github.com/DivanteLtd/storefront-ui
-          # yarn
-          # cd ./packages/vue
-          # yarn remove lerna
-          # cd ../../../packages/default-theme/
-          # yarn link @storefront-ui/vue
-          # cd ../../
       - name: Build packages
         run: |
           yarn

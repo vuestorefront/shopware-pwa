@@ -90,7 +90,3 @@ sw.*
 
 # Vim swap files
 *.swp
-
-# Local yalc files 
-# .yalc
-# yalc.lock
