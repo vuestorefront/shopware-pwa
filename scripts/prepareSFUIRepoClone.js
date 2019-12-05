@@ -9,7 +9,12 @@ const fs = require("fs-extra");
 const tempDir = path.resolve(__dirname, "../temp");
 const repoDir = `${tempDir}/storefront-ui`;
 const vuePackageDir = `${repoDir}/packages/vue`;
+const sharedPackageDir = `${repoDir}/packages/shared`;
+// const sharedPackageDir = `${repoDir}/packages/shared`;
 const themeDir = path.resolve(__dirname, "../packages/default-theme");
+// const corePackagesDir = path.resolve(__dirname, "../vsf-core-packages");
+// const vueCorePackageDir = `${corePackagesDir}/vue`;
+// const sharedCorePackageDir = `${corePackagesDir}/shared`;
 
 async function run() {
   /**
@@ -38,6 +43,28 @@ async function run() {
     cwd: repoDir
   });
 
+  /**
+   * Prepare nuxt-module package
+   */
+  // if (fs.existsSync(vueCorePackageDir)) {
+  //   fs.removeSync(vueCorePackageDir);
+  // }
+  // await execa("cp", ["-r", vuePackageDir, vueCorePackageDir], {
+  //   stdio: "inherit"
+  // });
+
+  // if (fs.existsSync(sharedCorePackageDir)) {
+  //   fs.removeSync(sharedCorePackageDir);
+  // }
+  // await execa("cp", ["-r", sharedPackageDir, sharedCorePackageDir], {
+  //   stdio: "inherit"
+  // });
+
+  await execa("npx", ["yalc", "publish"], {
+    stdio: "inherit",
+    cwd: sharedPackageDir
+  });
+
   await execa("npx", ["yalc", "publish"], {
     stdio: "inherit",
     cwd: vuePackageDir
@@ -47,6 +74,15 @@ async function run() {
     stdio: "inherit",
     cwd: themeDir
   });
+
+  await execa("npx", ["yalc", "add", "@storefront-ui/shared"], {
+    stdio: "inherit",
+    cwd: themeDir
+  });
+
+  // if (fs.existsSync(repoDir)) {
+  //   fs.removeSync(repoDir);
+  // }
 }
 
 run();

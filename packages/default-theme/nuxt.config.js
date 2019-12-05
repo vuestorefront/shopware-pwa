@@ -1,3 +1,5 @@
+import path from 'path'
+
 const coreDevelopment = true
 
 export default {
@@ -83,6 +85,12 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, { isDev, isClient }) {
+      config.resolve.alias['@storefront-ui/vue'] = path.resolve(
+        'node_modules/@storefront-ui/vue'
+      )
+      config.resolve.alias['@storefront-ui/shared'] = path.resolve(
+        'node_modules/@storefront-ui/shared'
+      )
       if (isClient && !isDev) {
         config.optimization.splitChunks.cacheGroups.commons.minChunks = 2
       }
