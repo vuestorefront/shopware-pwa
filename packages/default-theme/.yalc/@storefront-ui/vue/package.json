@@ -6,7 +6,7 @@
     "*.scss",
     "*.css"
   ],
-  "version": "0.3.4-303ccf95",
+  "version": "0.3.4-db68d87f",
   "scripts": {
     "serve": "yarpm create-index-files && vue-cli-service serve",
     "build": "yarpm create-index-files && vue-cli-service build --target lib --name storefront-ui ./src/index.js",

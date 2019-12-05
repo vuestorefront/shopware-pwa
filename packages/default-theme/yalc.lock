@@ -2,7 +2,7 @@
   "version": "v1",
   "packages": {
     "@storefront-ui/vue": {
-      "signature": "303ccf95c89bebb32e84af30cd5c0163",
+      "signature": "db68d87fdd4810e3b4d59601394aeff9",
       "file": true,
       "replaced": "^0.3.4"
     }
