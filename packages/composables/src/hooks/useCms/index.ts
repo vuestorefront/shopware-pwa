@@ -10,11 +10,9 @@ export const useCms = (): any => {
     loading.value = true;
     try {
       const result = await getPage(path);
-      
       page.value = result;
       return result;
     } catch (e) {
-      console.error(e)
       error.value = e;
       console.error("Problem with fetching data", e.message);
     } finally {
