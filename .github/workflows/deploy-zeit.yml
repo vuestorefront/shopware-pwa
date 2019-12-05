@@ -17,6 +17,7 @@ jobs:
           node-version: "10.x"
       - name: Clone SFUI # temp step for development
         run: |
+          yarn
           node ./scripts/prepareSFUIRepoClone.js
           # git clone --single-branch --branch develop https://github.com/DivanteLtd/storefront-ui
           # yarn

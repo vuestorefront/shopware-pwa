@@ -2177,8 +2177,10 @@
   resolved "https://registry.yarnpkg.com/@storefront-ui/shared/-/shared-0.3.4.tgz#72a7b80e6110935f56aa0c41154e8d7de20eeb9f"
   integrity sha512-giYs0PsjnPffj+Q5fuQwcoJzBXteTI8zdh8HNEnDlAMLBek2/wPFB3jp5+NdDDYsUtk/t3fBiZNHxSxDIF5Ddw==
 
-"@storefront-ui/vue@file:packages/default-theme/.yalc/@storefront-ui/vue":
-  version "0.3.4-303ccf95"
+"@storefront-ui/vue@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@storefront-ui/vue/-/vue-0.3.4.tgz#dad354ba60ab834613fc217a3c9042f32b1d77ae"
+  integrity sha512-GjaVKRQHlDKZEjspZZpMUdQOXgvVshYMcqlpyrqpy+/vTs9iV+y7RfcuKa8aVIHbrvsSMrBgJtSoGQiK3/zdmw==
   dependencies:
     "@glidejs/glide" "^3.3.0"
     "@storefront-ui/shared" "^0.3.4"
