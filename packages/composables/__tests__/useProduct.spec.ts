@@ -53,6 +53,19 @@ describe("Composables - useProduct", () => {
   });
 
   describe("loadAssociations", () => {
+    it("should load associations from parent if parentId is not null", async () => {
+      const loadedProduct: any = {
+        id: "3f637f17cd9f4891a2d7625d19fb37c9",
+        parentId: "1c3e927309014a67a07f3bb574f9e804"
+      };
+      mockedGetProduct.getProduct.mockResolvedValueOnce(
+        { } as any
+      );
+      const { loadAssociations } = useProduct(loadedProduct);
+      loadAssociations({} as any)
+      expect(mockedGetProduct.getProduct).toBeCalledWith("1c3e927309014a67a07f3bb574f9e804", {})
+    });
+
     it("should have associations if loadAssociations was triggered", async () => {
       const loadedProduct: any = {
         id: "3f637f17cd9f4891a2d7625d19fb37c9"
