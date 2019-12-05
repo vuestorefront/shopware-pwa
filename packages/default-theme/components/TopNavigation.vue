@@ -103,19 +103,19 @@ export default {
 @import '~@storefront-ui/vue/styles.scss';
 @import '~@storefront-ui/shared/styles/helpers/visibility';
 
-.sw-top-navigation {
-  .cart-icon {
-    position: relative;
-    display: flex;
-    &__badge {
-      position: absolute;
-      bottom: 2.7em;
-      left: 5.0em;
-      font-size: 0.6em;
-      padding: 0.3em 0;
-      border-radius: 100%;
-      width: 2.2em;
-    }
+.cart-icon {
+  position: relative;
+  display: flex;
+
+  &__badge {
+    position: absolute;
+    bottom: 2.2em;
+    left: 4.5em;
+    font-size: 0.6em;
+    padding: 0.3em 0;
+    border-radius: 100%;
+    width: 2.2em;
   }
+  
 }
 </style>
