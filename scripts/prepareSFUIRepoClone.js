@@ -33,10 +33,10 @@ async function run() {
     }
   );
 
-  // await execa("yarn", [], {
-  //   stdio: "inherit",
-  //   cwd: repoDir
-  // });
+  await execa("yarn", [], {
+    stdio: "inherit",
+    cwd: repoDir
+  });
 
   await execa("npx", ["yalc", "publish"], {
     stdio: "inherit",
