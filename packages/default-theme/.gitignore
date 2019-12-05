@@ -92,5 +92,5 @@ sw.*
 *.swp
 
 # Local yalc files 
-.yalc
-yalc.lock
+# .yalc
+# yalc.lock

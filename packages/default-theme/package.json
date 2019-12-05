@@ -26,7 +26,7 @@
     "@shopware-pwa/composables": "^0.1.0",
     "@shopware-pwa/helpers": "^0.1.0",
     "@shopware-pwa/shopware-6-client": "^0.1.0",
-    "@storefront-ui/vue": "^0.3.4",
+    "@storefront-ui/vue": "file:.yalc/@storefront-ui/vue",
     "cookie-universal-nuxt": "^2.0.19",
     "nuxt": "^2.10.2",
     "slugify": "^1.3.6"
