@@ -2,10 +2,16 @@
   <div class="sw-product-gallery gallery">
     <template v-if="mediaGallery.length > 0">
       <slot name="desktop-galery" v-bind="mediaGallery">
-        <div class="gallery__desktop" v-for="image in mediaGallery" :key="image.big.url">
+        <div class="gallery__desktop" v-for="(image, id) in mediaGallery" :key="id">
           <SfImage
+            v-if="image.big"
             :src="image.big.url"
-            class="cover-image desktop-only"
+            class="image__big desktop-only"
+          />
+          <SfImage
+            v-else-if="image.medium"
+            :src="image.medium.url"
+            class="image__medium dektop-only"
           />
         </div>
       </slot>
@@ -31,7 +37,6 @@ export default {
     product: {
       type: Object,
       default: () => ({}),
-      required: true
     }
   },
   computed: {
