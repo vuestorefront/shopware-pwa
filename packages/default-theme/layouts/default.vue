@@ -6,7 +6,7 @@
       :breadcrumbs="getBreadcrumbs"
       class="sw-breadcrumbs"/>
     <nuxt />
-    <SwCart :is-open="isSidebarOpen" @close="toggleSidebar" />
+    <SwCart />
   </div>
 </template>
 <script>
@@ -14,20 +14,12 @@ import TopNavigation from "../components/TopNavigation";
 import SwCart from "../components/SwCart";
 import { SfBreadcrumbs } from "@storefront-ui/vue";
 import { useCart } from "@shopware-pwa/composables";
-import { ref } from "@vue/composition-api";
 
 export default {
   components: {
     TopNavigation,
     SfBreadcrumbs,
     SwCart,
-  },
-  setup() {
-    const { isSidebarOpen, toggleSidebar } = useCart()
-    return { 
-      isSidebarOpen,
-      toggleSidebar
-    }
   },
   computed: {
     componentBreadcrumbs () { // TODO probably move to vuex now as it's not rendered on server side

@@ -165,21 +165,6 @@ describe("Composables - useCart", () => {
       });
     });
 
-    describe("toggleSidebar", () => {
-      it("should change sidebar state from false to true", () => {
-        const { toggleSidebar, isSidebarOpen } = useCart();
-        toggleSidebar();
-        expect(isSidebarOpen.value).toBeTruthy();
-      })
-
-      it("should change sidebar state from false to true", () => {
-        const { toggleSidebar, isSidebarOpen } = useCart();
-        isSidebarOpen.value = true;
-        toggleSidebar();
-        expect(isSidebarOpen.value).toBeFalsy();
-      })
-    });
-
     describe("changeProductQuantity", () => {
       it("should change product quantity in cart", async () => {
         const { count, changeProductQuantity } = useCart();
