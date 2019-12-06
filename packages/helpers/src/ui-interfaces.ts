@@ -25,3 +25,27 @@ export interface UiProductReview {
   message: string | null;
   rating: number | null;
 }
+
+export enum UiCategoryFilterType {
+  range = "range",
+  term = "term",
+  max = "max",
+  entity = "entity"
+}
+interface UiCategoryFilterOption {
+  color: boolean | string;
+  label: string;
+  value: string;
+  count?: number;
+}
+
+interface UiCategoryRangeFilterOption {
+  max: string;
+  min: string;
+}
+
+export interface UiCategoryFilter {
+  name: string;
+  type: UiCategoryFilterType;
+  options: UiCategoryFilterOption[] | UiCategoryRangeFilterOption | any; // TODO when the feature is fully implemented on SW side.
+}

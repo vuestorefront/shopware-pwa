@@ -1,17 +1,20 @@
-import { ref, Ref } from "@vue/composition-api";
+import { ref, Ref, computed } from "@vue/composition-api";
 import { getPage } from "@shopware-pwa/shopware-6-client";
+import { getStore } from "../..";
 
 export const useCms = (): any => {
-  const loading: Ref<boolean> = ref(false);
-  const page: Ref<any> = ref(null);
+  let vuexStore = getStore();
   const error: Ref<any> = ref(null);
+  const loading: Ref<boolean> = ref(false);
+  const page = computed(() => {
+    return vuexStore.getters.getPage;
+  });
 
   const search = async (path: string) => {
     loading.value = true;
     try {
       const result = await getPage(path);
-      page.value = result;
-      return result;
+      vuexStore.commit("SET_PAGE", result);
     } catch (e) {
       error.value = e;
       console.error("Problem with fetching data", e.message);
