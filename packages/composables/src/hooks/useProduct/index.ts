@@ -38,7 +38,8 @@ export const useProduct = (
       return result;
     } catch (e) {
       error.value = e;
-      console.error("Problem with fetching data", e.message);
+      console.error("Problem with fetching PRODUCT data", e.message);
+      console.error(e);
     } finally {
       loading.value = false;
     }

@@ -19,7 +19,8 @@ export const useCart = (): any => {
       vuexStore.commit("SET_CART", result);
     } catch (e) {
       error.value = e;
-      console.error("Problem with fetching data", e.message);
+      console.error("Problem with fetching CART data", e.message);
+      console.error(e);
     } finally {
       loading.value = false;
     }
