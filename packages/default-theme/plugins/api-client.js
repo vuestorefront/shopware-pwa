@@ -18,6 +18,7 @@ export default ({ app, store }) => {
    * Save current contextToken when its change
    */
   onConfigChange(({ config }) => {
+    console.error('CONFIG HAS CHANGED')
     app.$cookies.set('sw-context-token', config.contextToken, {
       maxAge: 60 * 60 * 24 * 365
     })
