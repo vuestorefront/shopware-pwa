@@ -19,9 +19,16 @@ export default ({ app, store }) => {
    */
   onConfigChange(({ config }) => {
     console.error('CONFIG HAS CHANGED')
-    app.$cookies.set('sw-context-token', config.contextToken, {
-      maxAge: 60 * 60 * 24 * 365
-    })
+    try {
+      app.$cookies.set('sw-context-token', config.contextToken, {
+        maxAge: 60 * 60 * 24 * 365
+      })
+    } catch (e) {
+      console.error(
+        'Problem with setting cookie with contextToken: ' + e.message
+      )
+      console.error(e)
+    }
   })
 
   // Temporary fix for SSR and reactivity
