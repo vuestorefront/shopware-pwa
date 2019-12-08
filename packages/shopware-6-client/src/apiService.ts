@@ -25,4 +25,4 @@ export function reloadConfiguration() {
 }
 reloadConfiguration();
 
-apiService.interceptors.response.use(responseInterceptor, errorInterceptor);
+// apiService.interceptors.response.use(responseInterceptor, errorInterceptor);
