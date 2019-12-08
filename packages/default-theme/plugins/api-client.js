@@ -18,16 +18,12 @@ export default ({ app, store }) => {
    * Save current contextToken when its change
    */
   onConfigChange(({ config }) => {
-    console.error('CONFIG HAS CHANGED')
     try {
       app.$cookies.set('sw-context-token', config.contextToken, {
         maxAge: 60 * 60 * 24 * 365
       })
     } catch (e) {
-      console.error(
-        'Problem with setting cookie with contextToken: ' + e.message
-      )
-      console.error(e)
+      // Sometimes cookie is set on server after request is send, it can fail silently
     }
   })
 
