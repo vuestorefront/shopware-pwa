@@ -17,7 +17,8 @@ export const useCms = (): any => {
       vuexStore.commit("SET_PAGE", result);
     } catch (e) {
       error.value = e;
-      console.error("Problem with fetching data", e.message);
+      console.error("Problem with fetching CMS data", e.message);
+      console.error(e);
     } finally {
       loading.value = false;
     }

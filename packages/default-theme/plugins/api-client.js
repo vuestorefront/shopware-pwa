@@ -18,9 +18,13 @@ export default ({ app, store }) => {
    * Save current contextToken when its change
    */
   onConfigChange(({ config }) => {
-    app.$cookies.set('sw-context-token', config.contextToken, {
-      maxAge: 60 * 60 * 24 * 365
-    })
+    try {
+      app.$cookies.set('sw-context-token', config.contextToken, {
+        maxAge: 60 * 60 * 24 * 365
+      })
+    } catch (e) {
+      // Sometimes cookie is set on server after request is send, it can fail silently
+    }
   })
 
   // Temporary fix for SSR and reactivity
