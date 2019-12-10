@@ -8,7 +8,13 @@ import { Customer } from "packages/shopware-6-client/src/interfaces/models/check
 import { getStore } from "@shopware-pwa/composables";
 
 interface UseUser {
-  login: () => Promise<boolean>;
+  login: ({
+    username,
+    password
+  }: {
+    username?: string;
+    password?: string;
+  }) => Promise<boolean>;
   user: Ref<Customer | null>;
   loading: Ref<boolean>;
   error: Ref<any>;
