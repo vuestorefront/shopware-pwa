@@ -82,9 +82,7 @@ describe("Composables - useUser", () => {
         const result = await login(undefined as any);
         expect(result).toEqual(false);
         expect(isLoggedIn.value).toBeFalsy();
-        expect(error.value).toEqual(
-          "Provide username and password for login"
-        );
+        expect(error.value).toEqual("Provide username and password for login");
       });
 
       it("should not login user with bad credentials", async () => {
