@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import { useCms, useCart } from "@shopware-pwa/composables";
+import { useCms, useCart, useUser } from "@shopware-pwa/composables";
 
 const pagesMap = {
   "frontend.navigation.page": "CategoryView",
@@ -25,8 +25,10 @@ export default {
   asyncData: async ({ req, params }) => {
     const {search, page, category} = useCms()
     const {refreshCart} = useCart()
+    const {refreshUser} = useUser()
     const searchResult = await search(params.pathMatch);
     await refreshCart();
+    await refreshUser();
 
     const unwrappedPage = page && page.value ? page.value : searchResult
 
