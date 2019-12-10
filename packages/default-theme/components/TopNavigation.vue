@@ -1,46 +1,47 @@
 <template>
-  <SfHeader
-    title="Storefront UI"
-    logo="/img/logo.svg"
-    active-sidebar="activeSidebar"
-  >
-    <template #navigation>
-      <nuxt-link to="/"
-        ><SfHeaderNavigationItem>Home</SfHeaderNavigationItem></nuxt-link
-      >
-      <nuxt-link
-        v-for="element in navigationElements"
-        :key="element.id"
-        :to="convertToSlug(element.name)"
-      >
-        <SfHeaderNavigationItem>{{ element.name }}</SfHeaderNavigationItem>
-      </nuxt-link>
-    </template>
+  <div>
+    <SfHeader
+      title="Storefront UI"
+      logo="/img/logo.svg"
+      active-sidebar="activeSidebar"
+    >
+      <template #navigation>
+        <nuxt-link to="/"
+          ><SfHeaderNavigationItem>Home</SfHeaderNavigationItem></nuxt-link
+        >
+        <nuxt-link
+          v-for="element in navigationElements"
+          :key="element.id"
+          :to="convertToSlug(element.name)"
+        >
+          <SfHeaderNavigationItem>{{ element.name }}</SfHeaderNavigationItem>
+        </nuxt-link>
+      </template>
 
-    <template #header-icons="{accountIcon, wishlistIcon, cartIcon}">
-      <SfCircleIcon
-        v-if="accountIcon"
-        :icon="accountIcon"
-        class="sf-header__icon"
-        :class="{ 'sf-header__icon--is-active': isLoggedIn }"
-        role="button"
-        aria-label="account"
-        @click="userIconClick"
-      />
-      <SfCircleIcon
-        v-if="wishlistIcon"
-        :icon="wishlistIcon"
-        class="sf-header__icon"
-        :class="{ 'sf-header__icon--is-active': activeIcon === 'wishlist' }"
-        role="button"
-        aria-label="wishlist"
-        :aria-pressed="activeIcon === 'wishlist' ? 'true' : 'false'"
-        @click="$emit('click:wishlist')"
-      />
-    </template>
-
+      <template #header-icons="{accountIcon, wishlistIcon, cartIcon}">
+        <SfCircleIcon
+          v-if="accountIcon"
+          :icon="accountIcon"
+          class="sf-header__icon"
+          :class="{ 'sf-header__icon--is-active': isLoggedIn }"
+          role="button"
+          aria-label="account"
+          @click="userIconClick"
+        />
+        <SfCircleIcon
+          v-if="wishlistIcon"
+          :icon="wishlistIcon"
+          class="sf-header__icon"
+          :class="{ 'sf-header__icon--is-active': activeIcon === 'wishlist' }"
+          role="button"
+          aria-label="wishlist"
+          :aria-pressed="activeIcon === 'wishlist' ? 'true' : 'false'"
+          @click="$emit('click:wishlist')"
+        />
+      </template>
+    </SfHeader>
     <SwLoginModal :is-open="isModalOpen" @close="isModalOpen = false" />
-  </SfHeader>
+  </div>
 </template>
 <script>
 import slugify from 'slugify' // TODO: remove after the navigation is fully implemented
