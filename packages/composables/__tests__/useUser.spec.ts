@@ -82,8 +82,7 @@ describe("Composables - useUser", () => {
         const result = await login(undefined as any);
         expect(result).toEqual(false);
         expect(isLoggedIn.value).toBeFalsy();
-        expect(error.value).toBeTruthy();
-        expect(error.value.message).toEqual(
+        expect(error.value).toEqual(
           "Provide username and password for login"
         );
       });
@@ -99,8 +98,7 @@ describe("Composables - useUser", () => {
         });
         expect(result).toEqual(false);
         expect(isLoggedIn.value).toBeFalsy();
-        expect(error.value).toBeTruthy();
-        expect(error.value.message).toEqual("Bad user credentials");
+        expect(error.value).toEqual("Bad user credentials");
       });
 
       it("should login user succesfully", async () => {
@@ -143,8 +141,7 @@ describe("Composables - useUser", () => {
         expect(isLoggedIn.value).toBeTruthy();
         await logout();
         expect(isLoggedIn.value).toBeTruthy();
-        expect(error.value).toBeTruthy();
-        expect(error.value.message).toEqual("Something wrong with logout");
+        expect(error.value).toEqual("Something wrong with logout");
       });
     });
   });

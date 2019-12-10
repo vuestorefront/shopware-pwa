@@ -42,7 +42,7 @@ export const useUser = (): UseUser => {
       await apiLogin({ username, password });
       return true;
     } catch (e) {
-      error.value = e;
+      error.value = e.message;
       return false;
     } finally {
       loading.value = false;
@@ -54,7 +54,7 @@ export const useUser = (): UseUser => {
     try {
       await apiLogout();
     } catch (e) {
-      error.value = e;
+      error.value = e.message;
     } finally {
       await refreshUser();
     }
