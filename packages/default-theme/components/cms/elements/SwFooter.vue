@@ -12,17 +12,16 @@
 import { SfFooter } from '@storefront-ui/vue'
 
 export default {
+  components: {
+    SfFooter
+  },
   name: 'SwFooter',
   props: {
     column: {
       type: Number,
-
+      default: 4
     }
-  },
-  components: {
-    SfFooter
   }
-
 }
 </script>
 
