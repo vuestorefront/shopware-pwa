@@ -52,7 +52,9 @@ describe("CustomerService - login", () => {
   it("should throw error on no arguments", async () => {
     mockedAxios.post.mockRejectedValue(new Error());
 
-    await expect(login()).rejects.toThrowError("Provide username and password for login");
+    await expect(login()).rejects.toThrowError(
+      "Provide username and password for login"
+    );
 
     expect(mockedAxios.post).not.toBeCalled();
   });
