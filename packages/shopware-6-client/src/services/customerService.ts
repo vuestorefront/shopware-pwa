@@ -28,18 +28,21 @@ export async function register(
   return resp.data;
 }
 
-interface CustomerLoginParam {
-  username: string;
-  password: string;
-}
-
 /**
  * Get the context token for current user
  */
-export async function login(
-  params: CustomerLoginParam
-): Promise<ContextTokenResponse> {
-  const resp = await apiService.post(getCustomerLoginEndpoint(), params);
+export async function login({
+  username,
+  password
+}: { username?: string; password?: string } = {}): Promise<
+  ContextTokenResponse
+> {
+  if (!username || !password)
+    throw new Error("Provide username and password for login");
+  const resp = await apiService.post(getCustomerLoginEndpoint(), {
+    username,
+    password
+  });
   const contextToken = resp.data["sw-context-token"];
   return { contextToken };
 }
@@ -54,9 +57,14 @@ export async function logout(): Promise<void> {
 /**
  * End up the session
  */
-export async function getCustomer(): Promise<Customer> {
-  const resp = await apiService.get(getCustomerEndpoint());
-  return resp.data.data;
+export async function getCustomer(): Promise<Customer | null> {
+  try {
+    const resp = await apiService.get(getCustomerEndpoint());
+    return resp.data.data;
+  } catch (e) {
+    if (e.response.status === 403) return null;
+    throw new Error("Unexpected status: " + e.response.status);
+  }
 }
 
 /**
