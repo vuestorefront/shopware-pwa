@@ -48,4 +48,14 @@ describe("CustomerService - login", () => {
       password: "wrong-password-123456"
     });
   });
+
+  it("should throw error on no arguments", async () => {
+    mockedAxios.post.mockRejectedValue(new Error());
+
+    await expect(login()).rejects.toThrowError(
+      "Provide username and password for login"
+    );
+
+    expect(mockedAxios.post).not.toBeCalled();
+  });
 });

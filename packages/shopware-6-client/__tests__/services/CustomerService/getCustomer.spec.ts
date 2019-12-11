@@ -18,19 +18,36 @@ describe("CustomerService - getCustomer", () => {
     });
   });
 
-  it("should an current customer's data - using correct token", async () => {
+  it("should return current customer's data - using correct token", async () => {
     mockedAxios.get.mockResolvedValueOnce({
       data: { data: { id: "c370eb5cd1df4d4dbcc78f055b693e79" } }
+    });
+    const result: any = await getCustomer();
+    expect(mockedAxios.get).toBeCalledTimes(1);
+    expect(mockedAxios.get).toBeCalledWith(getCustomerEndpoint());
+    expect(result).not.toBeNull();
+    expect(result.id).toEqual("c370eb5cd1df4d4dbcc78f055b693e79");
+  });
+
+  it("should return null when user not logged in", async () => {
+    mockedAxios.get.mockRejectedValueOnce({
+      response: {
+        status: 403
+      }
     });
     const result = await getCustomer();
     expect(mockedAxios.get).toBeCalledTimes(1);
     expect(mockedAxios.get).toBeCalledWith(getCustomerEndpoint());
-    expect(result.id).toEqual("c370eb5cd1df4d4dbcc78f055b693e79");
+    expect(result).toBeNull();
   });
 
-  it("should an current customer's data - using incorrect token", async () => {
-    mockedAxios.get.mockRejectedValue(new Error());
-    expect(getCustomer()).rejects.toThrow();
+  it("should throw an error on status code different than 403", async () => {
+    mockedAxios.get.mockRejectedValueOnce({
+      response: {
+        status: 401
+      }
+    });
+    await expect(getCustomer()).rejects.toThrowError("Unexpected status: 401");
     expect(mockedAxios.get).toBeCalledTimes(1);
     expect(mockedAxios.get).toBeCalledWith(getCustomerEndpoint());
   });
