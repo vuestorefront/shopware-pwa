@@ -1,6 +1,6 @@
 <template>
-  <div class="sw-top-navigation">
-    <slot name="content" v-bind="{navigationElements, activeSidebar, activeIcon}">
+  <div class="top-navigation">
+    <slot v-bind="{navigationElements, activeSidebar, activeIcon}">
       <SfHeader
         title="Shopware PWA"
         logo="/img/logo.svg"
@@ -38,7 +38,7 @@
               @click="$emit('click:wishlist')"
             />
 
-            <div class='sw-top-navigation__header-icon header-icons__cart cart-icon'>
+            <div class='top-navigation__header-icon header-icons__cart cart-icon'>
               <SfCircleIcon
                   v-if="cartIcon"
                   :icon="cartIcon"
@@ -56,7 +56,7 @@
         </template>
       </SfHeader>
       <SwLoginModal :is-open="isModalOpen" @close="isModalOpen = false" />
-  </slot>
+    </slot>
   </div>
 </template>
 
@@ -111,7 +111,7 @@ export default {
 @import '~@storefront-ui/vue/styles.scss';
 @import '~@storefront-ui/shared/styles/helpers/visibility';
 
-.sw-top-navigation {
+.top-navigation {
   .cart-icon {
     position: relative;
     display: flex;
