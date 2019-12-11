@@ -1,54 +1,63 @@
 <template>
+  <div class="sw-top-navigation">
+    <slot name="content" v-bind="{navigationElements, activeSidebar, activeIcon}">
+      <SfHeader
+        title="Shopware PWA"
+        logo="/img/logo.svg"
+        active-sidebar="activeSidebar"
+      >
+        <template #navigation>
+          <nuxt-link to="/"><SfHeaderNavigationItem>Home</SfHeaderNavigationItem></nuxt-link>
+          <nuxt-link v-for="element in navigationElements" :key="element.id" :to="convertToSlug(element.name)">
+            <SfHeaderNavigationItem>{{ element.name }}</SfHeaderNavigationItem>
+          </nuxt-link>
+        </template>
 
-  <SfHeader
-    title="Storefront UI"
-    logo="/img/logo.svg"
-    active-sidebar="activeSidebar"
-  >
-    <template #navigation>
-      <nuxt-link to="/"><SfHeaderNavigationItem>Home</SfHeaderNavigationItem></nuxt-link>
-      <nuxt-link v-for="element in navigationElements" :key="element.id" :to="convertToSlug(element.name)">
-        <SfHeaderNavigationItem>{{ element.name }}</SfHeaderNavigationItem>
-      </nuxt-link>
-    </template>
+        <template #header-icons="{accountIcon, wishlistIcon, cartIcon}">
+          <div class="sf-header__icons">
+            <SfCircleIcon
+              v-if="accountIcon"
+              :icon="accountIcon"
+              icon-size="20px"
+              class="sf-header__icon"
+              :class="{'sf-header__icon--is-active' : activeIcon === 'account'}"
+              role="button"
+              aria-label="account"
+              :aria-pressed="activeIcon === 'account' ? 'true' :'false'"
+              @click="userIconClick"
+            />
+            <SfCircleIcon
+              v-if="wishlistIcon"
+              :icon="wishlistIcon"
+              icon-size="20px"
+              class="sf-header__icon"
+              :class="{'sf-header__icon--is-active' : activeIcon === 'wishlist'}"
+              role="button"
+              aria-label="wishlist"
+              :aria-pressed="activeIcon === 'wishlist' ? 'true' :'false'"
+              @click="$emit('click:wishlist')"
+            />
 
-    <template #header-icons="{accountIcon, wishlistIcon, cartIcon}">
-      <SfCircleIcon
-        v-if="accountIcon"
-        :icon="accountIcon"
-        class="sf-header__icon"
-        :class="{'sf-header__icon--is-active' : activeIcon === 'account'}"
-        role="button"
-        aria-label="account"
-        :aria-pressed="activeIcon === 'account' ? 'true' :'false'"
-        @click="$emit('click:account')"
-      />
-      <SfCircleIcon
-        v-if="wishlistIcon"
-        :icon="wishlistIcon"
-        class="sf-header__icon"
-        :class="{'sf-header__icon--is-active' : activeIcon === 'wishlist'}"
-        role="button"
-        aria-label="wishlist"
-        :aria-pressed="activeIcon === 'wishlist' ? 'true' :'false'"
-        @click="$emit('click:wishlist')"
-      />
-      <div class='top-navigation__header-icon header-icons__cart cart-icon'>
-        <SfCircleIcon
-            v-if="cartIcon"
-            :icon="cartIcon"
-            class="sf-header__icon"
-            :class="{'sf-header__icon--is-active' : activeIcon === 'cart'}"
-            role="button"
-            aria-label="cart"
-            :aria-pressed="activeIcon === 'cart' ? 'true' :'false'"
-            @click="toggle"
-        />
-        <SfBadge class="cart-icon__badge" v-show="count > 0">{{ count }}</SfBadge>
-      </div>
-    </template>
-  </SfHeader>
-==== BASE ====
+            <div class='sw-top-navigation__header-icon header-icons__cart cart-icon'>
+              <SfCircleIcon
+                  v-if="cartIcon"
+                  :icon="cartIcon"
+                  icon-size="20px"
+                  class="sf-header__icon"
+                  :class="{'sf-header__icon--is-active' : activeIcon === 'cart'}"
+                  role="button"
+                  aria-label="cart"
+                  :aria-pressed="activeIcon === 'cart' ? 'true' :'false'"
+                  @click="toggle"
+              />
+              <SfBadge class="cart-icon__badge" v-show="count > 0">{{ count }}</SfBadge>
+            </div>
+          </div>
+        </template>
+      </SfHeader>
+      <SwLoginModal :is-open="isModalOpen" @close="isModalOpen = false" />
+  </slot>
+  </div>
 </template>
 
 <script>
@@ -60,14 +69,6 @@ import SwLoginModal from './modals/SwLoginModal'
 
 export default {
   components: { SfHeader, SfCircleIcon, SfBadge,SwLoginModal },
-  data () {
-    return {
-      navigationElements: [],
-      activeSidebar: 'account',
-      activeIcon: '',
-      isModalOpen: false
-    }
-  },
   setup() {
     const { count }  = useCart()
     const { toggle, isOpen } = useCartSidebar()
@@ -75,6 +76,14 @@ export default {
       isOpen,
       count,
       toggle
+    }
+  },
+  data () {
+    return {
+      navigationElements: [],
+      activeSidebar: 'account',
+      activeIcon: '',
+      isModalOpen: false
     }
   },
   methods: {

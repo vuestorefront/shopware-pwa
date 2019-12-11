@@ -3,10 +3,10 @@ import { getStore } from "../..";
 
 export const useCartSidebar = (): any => {
   let vuexStore = getStore();
-  const isOpen = computed(() => vuexStore.getters.getIsCartSidebarOpen)
+  const isOpen = computed(() => vuexStore.getters.getIsCartSidebarOpen);
 
   function toggle() {
-    vuexStore.commit("SET_CART_SIDEBAR_FLAG", !isOpen.value);
+    vuexStore.commit("SET_CART_SIDEBAR_IS_OPEN", !isOpen.value);
   }
 
   return {
