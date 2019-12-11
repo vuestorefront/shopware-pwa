@@ -20,7 +20,7 @@
               :icon="accountIcon"
               icon-size="20px"
               class="sf-header__icon"
-              :class="{'sf-header__icon--is-active' : activeIcon === 'account'}"
+              :class="{'sf-header__icon--is-active' : isLoggedIn}"
               role="button"
               aria-label="account"
               :aria-pressed="activeIcon === 'account' ? 'true' :'false'"
@@ -70,12 +70,15 @@ import SwLoginModal from './modals/SwLoginModal'
 export default {
   components: { SfHeader, SfCircleIcon, SfBadge,SwLoginModal },
   setup() {
+    const { isLoggedIn, logout } = useUser()
     const { count }  = useCart()
     const { toggle, isOpen } = useCartSidebar()
     return {
       isOpen,
       count,
-      toggle
+      toggle,
+      isLoggedIn,
+      logout
     }
   },
   data () {
