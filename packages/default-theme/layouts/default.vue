@@ -10,11 +10,14 @@
       class="sw-breadcrumbs"/>
     <nuxt />
     <SwCart :is-open="isCartOpen" @close="isCartOpen=false" />
+    <SwFooter />
   </div>
 </template>
+
 <script>
 import TopNavigation from "../components/TopNavigation";
 import SwCart from "../components/SwCart";
+import SwFooter from "../components/cms/elements/SwFooter";
 import { SfBreadcrumbs } from "@storefront-ui/vue";
 import { useCart } from "@shopware-pwa/composables";
 import { ref } from "@vue/composition-api";
@@ -23,7 +26,8 @@ export default {
   components: {
     TopNavigation,
     SfBreadcrumbs,
-    SwCart
+    SwCart,
+    SwFooter
   },
   setup() {
     const {count} = useCart()
