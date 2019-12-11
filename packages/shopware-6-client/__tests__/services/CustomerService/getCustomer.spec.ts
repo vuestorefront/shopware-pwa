@@ -47,7 +47,9 @@ describe("CustomerService - getCustomer", () => {
         status: 401
       }
     });
-    await expect(getCustomer()).rejects.toThrowError("Unexpected status: 401");
+    await expect(getCustomer()).rejects.toThrowError(
+      "Unexpected getCustomerResponse."
+    );
     expect(mockedAxios.get).toBeCalledTimes(1);
     expect(mockedAxios.get).toBeCalledWith(getCustomerEndpoint());
   });
