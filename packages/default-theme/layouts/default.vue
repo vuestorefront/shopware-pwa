@@ -7,11 +7,14 @@
       class="sw-breadcrumbs"/>
     <nuxt />
     <SwCart />
+    <SwFooter />
   </div>
 </template>
+
 <script>
 import TopNavigation from "../components/TopNavigation";
 import SwCart from "../components/SwCart";
+import SwFooter from "../components/cms/elements/SwFooter";
 import { SfBreadcrumbs } from "@storefront-ui/vue";
 import { useCart } from "@shopware-pwa/composables";
 
@@ -20,6 +23,7 @@ export default {
     TopNavigation,
     SfBreadcrumbs,
     SwCart,
+    SwFooter
   },
   computed: {
     componentBreadcrumbs () { // TODO probably move to vuex now as it's not rendered on server side
