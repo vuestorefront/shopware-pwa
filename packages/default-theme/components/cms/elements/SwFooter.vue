@@ -2,7 +2,7 @@
   <div class="sw-footer">
     <slot class="sw-footer__content" name="content" v-bind="column">
       <SfFooter :column="column" :multiple="true">
-        <div class="content sw-footer__signature">from VueStoreFront with ❤️ </div>
+        <div class="content sw-footer__signature">from Vue Storefront with ❤️ </div>
       </SfFooter>
     </slot>
   </div>
