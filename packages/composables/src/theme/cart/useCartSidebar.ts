@@ -12,5 +12,5 @@ export const useCartSidebar = (): any => {
   return {
     isOpen,
     toggle
-  }
-}
+  };
+};

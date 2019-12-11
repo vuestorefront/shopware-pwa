@@ -16,7 +16,7 @@ describe("Composables - useCartSidebar", () => {
     jest.resetAllMocks();
     stateCartSidebarOpen.value = false;
     setStore({
-      getters: reactive({ 
+      getters: reactive({
         getIsCartSidebarOpen: computed(() => stateCartSidebarOpen.value)
       }),
       commit: (name: string, value: any) => {
@@ -24,30 +24,42 @@ describe("Composables - useCartSidebar", () => {
       }
     });
   });
-  describe("cart sidebar", () => {
-    it("should be false on page loaded", () => {
-      const { isOpen } = useCartSidebar();
-      expect(isOpen.value).toBeFalsy();
-    });
+  describe("computed", () => {
+    describe("isOpen", () => {
+      it("should be false when not set", () => {
+        const { isOpen } = useCartSidebar();
+        expect(isOpen.value).toBeFalsy();
+      });
 
-    it("should status change to true after first toggle", () => {
-      const { isOpen, toggle } = useCartSidebar();
-      toggle();
-      expect(isOpen.value).toBeTruthy();
+      it("should be true if is in store", () => {
+        stateCartSidebarOpen.value = true;
+        const { isOpen } = useCartSidebar();
+        expect(isOpen.value).toBeTruthy();
+      });
     });
-    
-    it("should cart sidebar state toggle from false to true", () => {
-      stateCartSidebarOpen.value = false;
-      const { isOpen, toggle } = useCartSidebar();
-      toggle();
-      expect(isOpen.value).toBeTruthy();
-    });
+  });
 
-    it("should cart sidebar state toggle from true to false", () => {
-      stateCartSidebarOpen.value = true;
-      const { isOpen, toggle } = useCartSidebar();
-      toggle();
-      expect(isOpen.value).toBeFalsy();
+  describe("methods", () => {
+    describe("toggle", () => {
+      it("should status change to true after first toggle", () => {
+        const { isOpen, toggle } = useCartSidebar();
+        toggle();
+        expect(isOpen.value).toBeTruthy();
+      });
+
+      it("should cart sidebar state toggle from false to true", () => {
+        stateCartSidebarOpen.value = false;
+        const { isOpen, toggle } = useCartSidebar();
+        toggle();
+        expect(isOpen.value).toBeTruthy();
+      });
+
+      it("should cart sidebar state toggle from true to false", () => {
+        stateCartSidebarOpen.value = true;
+        const { isOpen, toggle } = useCartSidebar();
+        toggle();
+        expect(isOpen.value).toBeFalsy();
+      });
     });
   });
 });
