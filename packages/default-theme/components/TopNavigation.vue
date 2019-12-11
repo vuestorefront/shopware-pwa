@@ -22,6 +22,7 @@
         <SfCircleIcon
           v-if="accountIcon"
           :icon="accountIcon"
+          icon-size="20px"
           class="sf-header__icon"
           :class="{ 'sf-header__icon--is-active': isLoggedIn }"
           role="button"
@@ -31,6 +32,7 @@
         <SfCircleIcon
           v-if="wishlistIcon"
           :icon="wishlistIcon"
+          icon-size="20px"
           class="sf-header__icon"
           :class="{ 'sf-header__icon--is-active': activeIcon === 'wishlist' }"
           role="button"

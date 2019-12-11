@@ -9,7 +9,8 @@
 </template>
 
 <script>
-import SwSlots from "./cms/elements/SwSlots";
+import SwSlots from './cms/elements/SwSlots'
+import { getCmsSections } from '@shopware-pwa/helpers'
 
 export default {
   components: {
@@ -23,10 +24,10 @@ export default {
   },
   computed: {
     cmsSections() {
-      return this.content && this.content.sections ? this.content.sections : [];
+      return getCmsSections(this.content)
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped></style>
