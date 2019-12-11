@@ -18,6 +18,21 @@ describe("apiInterceptors", () => {
       });
       expect(config.contextToken).toEqual(contextToken);
     });
+
+    it("should get contextToken from response, not header, if there is one", () => {
+      const contextToken = random.uuid();
+      const resp = responseInterceptor({
+        data: { "sw-context-token": "044a190a54ab4f06803909c3ee8063ef" },
+        headers: { "sw-context-token": contextToken },
+        status: 200,
+        statusText: "OK",
+        config: {}
+      });
+      expect(resp.data).toEqual({
+        "sw-context-token": "044a190a54ab4f06803909c3ee8063ef"
+      });
+      expect(config.contextToken).toEqual("044a190a54ab4f06803909c3ee8063ef");
+    });
   });
 
   describe("errorInterceptor", () => {

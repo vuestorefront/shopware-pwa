@@ -20,8 +20,8 @@ export function getProductMediaGallery({
           media.media.thumbnails.find(thumb => thumb.width == "1920");
         return {
           small: { url: smallThumb ? smallThumb.url : media.media.url },
-          normal: { url: normalThumb ? normalThumb.url :  media.media.url },
-          big: { url: bigThumb ? bigThumb.url :  media.media.url }
+          normal: { url: normalThumb ? normalThumb.url : media.media.url },
+          big: { url: bigThumb ? bigThumb.url : media.media.url }
         };
       })
     : [];
