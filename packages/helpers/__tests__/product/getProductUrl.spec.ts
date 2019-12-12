@@ -3,7 +3,7 @@ import { getProductUrl } from "@shopware-pwa/helpers";
 describe("Shopware helpers - getProductUrl", () => {
   it("should return product url", () => {
     const result = getProductUrl({ id: "qwerty" } as any);
-    expect(result).toEqual("/details/qwerty");
+    expect(result).toEqual("/detail/qwerty");
   });
 
   it("should return default url for no product", () => {
