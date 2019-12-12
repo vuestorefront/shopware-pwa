@@ -1,68 +1,23 @@
 <template>
   <div class="sw-product-details">
     <div class="product-details__mobile-top">
-      <div>
-        <SfHeading
-          :title="name"
-          :level="1"
-          class="sf-heading--no-underline sf-heading--left product-details__heading"
-        />
-        <div class="product-details__sub">
-          <SfPrice
-            :regular="`$${price}`"
-            class="sf-price--big product-details__sub-price"
-          />
-          <div class="product-details__sub-rating" v-if="reviews.length">
-            <SfRating :score="ratingAverage" :max="5" />
-            <div class="product-details__sub-reviews desktop-only">
-              Read all {{ reviews.length }} review
-            </div>
-            <div class="product-details__sub-reviews mobile-only">
-              ({{ reviews.length }})
-            </div>
-          </div>
-        </div>
-      </div>
+      <SwProductHeading :name="name" :reviews="reviews" :price="price" />
     </div>
     <p class="product-details__description desktop-only">
       {{ description }}
     </p>
     <div class="product-details__action">
-      <button class="sf-action" v-if="sizes.length > 0">Size guide</button>
+      <button v-if="sizes.length > 0" class="sf-action">Size guide</button>
     </div>
-    <div class="product-details__section" v-if="isSimple">
+    <div v-if="isSimple" class="product-details__section">
       <SfProperty v-if="color" name="Color" :value="color.name" />
       <SfProperty v-if="size" name="Size" :value="size.name" />
     </div>
-    <div class="product-details__section" v-if="hasChildren">
-      <SfSelect
-        v-if="sizes.length"
-        v-model="selectedSize"
-        label="Size"
-        class="sf-select--bordered product-details__attribute"
-      >
-        <SfSelectOption
-          v-for="size in sizes"
-          :key="size.value"
-          :value="size.value"
-        >
-          <SfProductOption :label="size.label" />
-        </SfSelectOption>
-      </SfSelect>
-      <SfSelect
-        v-if="colors.length"
-        v-model="selectedColor"
-        label="Color"
-        class="sf-select--bordered product-details__attribute"
-      >
-        <SfSelectOption
-          v-for="color in colors"
-          :key="color.value"
-          :value="color.value"
-        >
-          <SfProductOption :label="color.label" :color="color.color" />
-        </SfSelectOption>
-      </SfSelect>
+    <div v-if="hasChildren" class="product-details__section">
+      <SwProductSelect :options="sizes" label="Sizes" />
+      <SwProductSelect #default="option" :options="colors" label="Colors">
+        <SfProductOption :label="option.label" color="option.color" />
+      </SwProductSelect>
     </div>
     <div class="product-details__section">
       <SfAlert
@@ -71,8 +26,8 @@
         class="product-details__alert mobile-only"
       />
       <SfAddToCart
-        :stock="stock"
         v-model="quantity"
+        :stock="stock"
         class="product-details__add-to-cart"
         @click="addToCart"
       />
@@ -83,7 +38,7 @@
         <button class="sf-action">Add to compare</button>
       </div>
     </div>
-    <SfTabs class="product-details__tabs" :openTab="1">
+    <SfTabs class="product-details__tabs" :open-tab="1">
       <SfTab title="Description">
         <div>
           <p>
@@ -102,11 +57,11 @@
           />
         </div>
       </SfTab>
-      <SfTab title="Read reviews" v-if="reviews.length">
+      <SfTab v-if="reviews.length" title="Read reviews">
         <SfReview
-          class="product-details__review"
           v-for="review in reviews"
           :key="review.id"
+          class="product-details__review"
           :author="review.author"
           :date="review.date"
           :message="review.message"
@@ -114,7 +69,7 @@
           :max-rating="5"
         />
       </SfTab>
-      <SfTab title="Manufacturer" v-if="product.manufacturer">
+      <SfTab v-if="product.manufacturer" title="Manufacturer">
         <SfHeading
           :title="product.manufacturer.name"
           :level="3"
@@ -142,7 +97,6 @@ import {
   SfProductCard,
   SfCarousel,
   SfSection,
-  SfImage,
   SfBanner,
   SfBottomNavigation,
   SfCircleIcon,
@@ -160,6 +114,9 @@ import {
   getProductRegularPrice,
   isProductSimple
 } from '@shopware-pwa/helpers'
+import SwProductHeading from './SwProductHeading'
+import SwProductSelect from './SwProductSelect'
+
 export default {
   name: 'SwProductDetails',
   components: {
@@ -181,7 +138,9 @@ export default {
     SfCircleIcon,
     SfIcon,
     SfSticky,
-    SfReview
+    SfReview,
+    SwProductHeading,
+    SwProductSelect
   },
   props: {
     product: {

@@ -1,25 +1,18 @@
 <template>
-  <div id="product" v-if="product">
-    <SwProductDetails :product="product" />
-    <!--<div class="product">-->
-    <!--<SwProductGallery :product="product" class="product__gallery" />-->
-    <!--<div class="product__description">-->
-    <!--<SfSticky class="product-details"> </SfSticky>-->
-    <!--</div>-->
-    <!--</div>-->
+  <div v-if="product" id="product">
+    <div class="product">
+      <SwProductGallery :product="product" class="product__gallery" />
+      <div class="product__description">
+        <SfSticky class="product-details">
+          <SwProductDetails :product="product" />
+        </SfSticky>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import { SfSticky } from '@storefront-ui/vue'
-import { useProduct, useAddToCart } from '@shopware-pwa/composables'
-import {
-  getProductOptions,
-  getProductProperties,
-  getProductOption,
-  getProductReviews,
-  getProductRegularPrice,
-  isProductSimple
-} from '@shopware-pwa/helpers'
+import { useProduct } from '@shopware-pwa/composables'
 import SwProductGallery from '../cms/elements/SwProductGallery'
 import SwProductDetails from '../cms/elements/SwProductDetails'
 
@@ -44,13 +37,12 @@ export default {
       selectedColor: null
     }
   },
-  setup({ page }) {
-    const { addToCart, quantity, getStock } = useAddToCart(page && page.product)
-
-    return {
-      quantity,
-      addToCart,
-      getStock
+  computed: {
+    product() {
+      return (
+        (this.productWithAssociations && this.productWithAssociations.value) ||
+        this.page.product
+      )
     }
   },
   async mounted() {
@@ -67,14 +59,6 @@ export default {
     const { loadAssociations, product } = useProduct(this.page.product)
     this.productWithAssociations = product
     loadAssociations(associations)
-  },
-  computed: {
-    product() {
-      return (
-        (this.productWithAssociations && this.productWithAssociations.value) ||
-        this.page.product
-      )
-    }
   }
 }
 </script>
