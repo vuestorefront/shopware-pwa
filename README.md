@@ -9,7 +9,7 @@
 
 ### Documentation
 
-See [the documentation](https://deploy-preview-132--goofy-meninsky-b11fca.netlify.com/#introduction-to-shopware-pwa) to get started.
+See [the documentation](https://shopware-pwa-docs.netlify.com/#introduction-to-shopware-pwa) to get started.
 
 ### Development
 
