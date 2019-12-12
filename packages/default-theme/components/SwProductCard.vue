@@ -3,6 +3,7 @@
   <SfProductCard
     :title="product.name || ''"
     :image="getImageUrl" 
+    :special-price="getSpecialPrice"
     :regular-price="getRegularPrice"
     :isOnWishlist="false"
     :link="getRouterLink"
@@ -30,7 +31,7 @@
 <script>
 import { SfProductCard, SfAddToCart } from "@storefront-ui/vue";
 import { useAddToCart } from "@shopware-pwa/composables"
-import { getProductMainImageUrl, getProductRegularPrice, getProductUrl } from '@shopware-pwa/helpers';
+import { getProductMainImageUrl, getProductRegularPrice, getProductUrl, getProductSpecialPrice } from '@shopware-pwa/helpers';
 
 export default {
   components: {
@@ -61,7 +62,11 @@ export default {
       return getProductUrl(this.product)
     },
     getRegularPrice() {
-      return getProductRegularPrice({product: this.product})
+      return "$" + getProductRegularPrice({product: this.product})
+    },
+    getSpecialPrice() {
+      const price = getProductSpecialPrice(this.product)
+      return price && ("$" + price)
     },
     getImageUrl() {
       return getProductMainImageUrl({product: this.product}) || require('~/assets/productB.jpg')

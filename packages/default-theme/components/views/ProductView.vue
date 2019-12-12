@@ -14,6 +14,7 @@
               <div class="product-details__sub">
                 <SfPrice
                   :regular="`$${price}`"
+                  :special="getSpecialPrice"
                   class="sf-price--big product-details__sub-price"
                 />
                 <div class="product-details__sub-rating" v-if="reviews.length">
@@ -170,7 +171,8 @@ import {
   getProductOption,
   getProductReviews,
   getProductRegularPrice,
-  isProductSimple } from "@shopware-pwa/helpers";
+  isProductSimple, 
+  getProductSpecialPrice} from "@shopware-pwa/helpers";
 import SwProductGallery from '../cms/elements/SwProductGallery'
 
 export default {
@@ -241,6 +243,10 @@ export default {
     },
     price() {
       return getProductRegularPrice({product: this.product})
+    },
+    getSpecialPrice() {
+      const price = getProductSpecialPrice(this.product)
+      return price && ("$" + price)
     },
     name(){
       return this.product && this.product.name
