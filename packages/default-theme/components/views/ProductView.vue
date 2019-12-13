@@ -4,7 +4,7 @@
       <SwProductGallery :product="product" class="product__gallery" />
       <div class="product__description">
         <SfSticky class="product-details">
-          <SwProductDetails :product="product" />
+          <SwProductDetails :product="product" :page="page" />
         </SfSticky>
       </div>
     </div>

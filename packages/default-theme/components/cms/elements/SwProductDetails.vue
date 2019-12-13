@@ -97,6 +97,7 @@ import {
   SfHeading,
   SfProductOption,
   SfAddToCart,
+  SfReview,
   SfTabs
 } from '@storefront-ui/vue'
 import { useProduct, useAddToCart } from '@shopware-pwa/composables'
@@ -120,12 +121,17 @@ export default {
     SfHeading,
     SfProductOption,
     SfAddToCart,
+    SfReview,
     SfTabs,
     SwProductHeading,
     SwProductSelect
   },
   props: {
     product: {
+      type: Object,
+      default: () => ({})
+    },
+    page: {
       type: Object,
       default: () => ({})
     }
