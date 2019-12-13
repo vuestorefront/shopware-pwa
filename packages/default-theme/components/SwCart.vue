@@ -3,7 +3,7 @@
     <SfSidebar
       :visible="isOpen"
       headingTitle="My Cart"
-      @close="$emit('close')"
+      @close="toggle"
       class="sf-sidebar--right"
     >
       <transition name="fade" mode="out-in">
@@ -56,7 +56,7 @@ import {
   SfProperty,
   SfPrice,
 } from "@storefront-ui/vue";
-import { useCart } from "@shopware-pwa/composables";
+import { useCart, useCartSidebar } from "@shopware-pwa/composables";
 import SwCartProduct from "./SwCartProduct"
 
 export default {
@@ -68,15 +68,12 @@ export default {
     SfPrice,
     SwCartProduct
   },
-  props: {
-    isOpen: {
-      type: Boolean,
-      defult: false
-    }
-  },
   setup () {
     const { cartItems, count, totalPrice, removeProduct } = useCart()
+    const { isOpen, toggle } = useCartSidebar()
     return {
+      isOpen,
+      toggle,
       cartItems,
       count,
       totalPrice,

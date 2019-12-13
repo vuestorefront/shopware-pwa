@@ -3,7 +3,8 @@
   <SfProductCard
     :title="product.name || ''"
     :image="getImageUrl" 
-    :regular-price="getUnitPrice"
+    :special-price="getSpecialPrice"
+    :regular-price="getRegularPrice"
     :isOnWishlist="false"
     :link="getRouterLink"
     @click:wishlist="toggleWishlist"
@@ -30,7 +31,8 @@
 <script>
 import { SfProductCard, SfAddToCart } from "@storefront-ui/vue";
 import { useAddToCart } from "@shopware-pwa/composables"
-import { getPrettyUrl } from "@shopware-pwa/helpers";
+import { getProductMainImageUrl, getProductRegularPrice, getProductUrl, getProductSpecialPrice } from '@shopware-pwa/helpers';
+
 export default {
   components: {
     SfProductCard,
@@ -57,15 +59,17 @@ export default {
   computed: {
     // should be replaced with prettyUrl attribute when pretty urls are included in product entity
     getRouterLink() {
-      return getPrettyUrl(this.product)
+      return getProductUrl(this.product)
     },
-    getUnitPrice() {
-      return (
-        this.product.calculatedPrice && this.product.calculatedPrice.unitPrice
-      );
+    getRegularPrice() {
+      return "$" + getProductRegularPrice({product: this.product})
+    },
+    getSpecialPrice() {
+      const price = getProductSpecialPrice(this.product)
+      return price && ("$" + price)
     },
     getImageUrl() {
-      return this.product.cover ? this.product.cover.media.url : require('~/assets/productB.jpg');
+      return getProductMainImageUrl({product: this.product}) || require('~/assets/productB.jpg')
     }
   },
   methods: {

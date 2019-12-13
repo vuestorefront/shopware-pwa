@@ -25,9 +25,8 @@ export const useProduct = (
     if (!product || !product.value || !product.value.id) {
       throw NO_PRODUCT_REFERENCE_ERROR;
     }
-    //const productData = await getProduct(product.value.parentId || product.value.id, associations);
+
     const {
-      id,
       name,
       description,
       media,
@@ -39,7 +38,6 @@ export const useProduct = (
       product.value.parentId || product.value.id,
       associations
     );
-    console.warn("ID ", id);
     product.value = Object.assign({}, product.value, {
       name,
       description,
@@ -59,7 +57,8 @@ export const useProduct = (
       return result;
     } catch (e) {
       error.value = e;
-      console.error("Problem with fetching data", e.message);
+      console.error("Problem with fetching PRODUCT data", e.message);
+      console.error(e);
     } finally {
       loading.value = false;
     }

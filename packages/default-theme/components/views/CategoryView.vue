@@ -16,17 +16,6 @@ export default {
       type: Object,
       default: () => ({})
     }
-  },
-  data() {
-    return {
-    }
-  },
-  computed: {
-    cmsPageDescription () {
-      return `"${this.cmsPage.name}" type: "${this.cmsPage.type}"`
-    }
-  },
-  methods: {
   }
 }
 </script>

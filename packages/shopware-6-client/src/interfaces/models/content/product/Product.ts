@@ -39,7 +39,7 @@ export interface SeoUrl {
 
 export interface Product {
   calculatedListingPrice: ListingPrice;
-  calculatedPrices: Price[];
+  calculatedPrices: CalculatedPrice[];
   calculatedPrice: CalculatedPrice;
   sortedProperties: PropertyGroup[] | null;
   isNew: boolean;

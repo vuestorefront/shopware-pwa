@@ -1,18 +1,7 @@
 <template>
   <div id="product" v-if="product">
     <div class="product">
-      <div class="product__gallery">
-        <SfImage v-if="mainImage"
-          :src="mainImage"
-          class="desktop-only"
-        />
-       
-        <SfGallery v-if="mediaGallery"
-          class="gallery-mobile mobile-only"
-          :images="mediaGallery"
-        />
-      </div>
-
+      <SwProductGallery :product="product" class="product__gallery"/>
     <div class="product__description">
         <SfSticky class="product-details">
           <div class="product-details__mobile-top">
@@ -25,6 +14,7 @@
               <div class="product-details__sub">
                 <SfPrice
                   :regular="`$${price}`"
+                  :special="getSpecialPrice"
                   class="sf-price--big product-details__sub-price"
                 />
                 <div class="product-details__sub-rating" v-if="reviews.length">
@@ -176,16 +166,18 @@ import {
   SfSticky,
   SfReview
 } from "@storefront-ui/vue";
- import { useProduct, useAddToCart } from "@shopware-pwa/composables";
- import { 
-  getProductMainImageUrl,
-  getProductMediaGallery,
+import { useProduct, useAddToCart } from "@shopware-pwa/composables";
+import { 
   getProductOptions,
   getProductProperties,
   getProductOption,
   getProductReviews,
   getProductRegularPrice,
-  isProductSimple, getProductOptionUrl } from "@shopware-pwa/helpers";
+  isProductSimple, 
+  getProductSpecialPrice,
+  getProductOptionUrl
+  } from "@shopware-pwa/helpers";
+import SwProductGallery from '../cms/elements/SwProductGallery'
 
 export default {
   name: "Product",
@@ -203,13 +195,13 @@ export default {
     SfProductCard,
     SfCarousel,
     SfSection,
-    SfImage,
     SfBanner,
     SfBottomNavigation,
     SfCircleIcon,
     SfIcon,
     SfSticky,
-    SfReview
+    SfReview,
+    SwProductGallery
   },
   props: {
     page: {
@@ -257,6 +249,10 @@ export default {
     price() {
       return getProductRegularPrice({product: this.product})
     },
+    getSpecialPrice() {
+      const price = getProductSpecialPrice(this.product)
+      return price && ("$" + price)
+    },
     name(){
       return this.product && this.product.name
     },
@@ -271,12 +267,6 @@ export default {
     },
     isSimple() {
       return isProductSimple({product: this.product})
-    },
-    mainImage() {
-      return getProductMainImageUrl({product: this.product})
-    },
-    mediaGallery() {
-      return getProductMediaGallery({product: this.product})
     },
     properties() {
       return getProductProperties({product: this.product})
@@ -523,37 +513,7 @@ export default {
 .product-property {
   padding: $spacer-small 0;
 }
-.gallery-mobile {
-  $height-other: 240px;
-  $height-iOS: 265px;
 
-  height: calc(100vh - #{$height-other});
-  @supports (-webkit-overflow-scrolling: touch) {
-    height: calc(100vh - #{$height-iOS});
-  }
-  ::v-deep .glide {
-    &,
-    * {
-      height: 100%;
-    }
-    &__slide {
-      position: relative;
-      overflow: hidden;
-    }
-    img {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      min-width: calc((375 / 490) * (100vh - #{$height-other}));
-      @supports (-webkit-overflow-scrolling: touch) {
-        min-width: calc((375 / 490) * (100vh - #{$height-iOS}));
-      }
-    }
-  }
-  ::v-deep .sf-gallery__stage {
-    width: 100%;
-  }
-}
 .section {
   @media (max-width: $desktop-min) {
     padding-left: $spacer-big;
@@ -572,27 +532,6 @@ export default {
     padding: 0 $spacer-big;
     @include for-desktop {
       margin-left: $spacer-big * 5;
-    }
-  }
-}
-/* we have PR to fix bullets position */
-.sf-gallery {
-  $this: &;
-  ::v-deep {
-    ul {
-      margin: 0;
-    }
-    #{$this}__thumbs {
-      left: 50%;
-      transform: translateX(-50%);
-      top: auto;
-      bottom: 10px;
-      display: flex;
-    }
-    #{$this}__item {
-      &:not(:first-child) {
-        margin: 0 0 0 $spacer;
-      }
     }
   }
 }

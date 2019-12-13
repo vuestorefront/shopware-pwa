@@ -1,14 +1,31 @@
 import Vue from "vue";
-import VueCompositionApi from "@vue/composition-api";
+import VueCompositionApi, {
+  reactive,
+  ref,
+  computed,
+  Ref
+} from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
-import { useCms } from "@shopware-pwa/composables";
+import { useCms, setStore } from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedGetPage = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 describe("Shopware composables", () => {
+  const statePage: Ref<Object | null> = ref(null);
+  beforeEach(() => {
+    // mock vuex store
+    jest.resetAllMocks();
+    statePage.value = null;
+    setStore({
+      getters: reactive({ getPage: computed(() => statePage.value) }),
+      commit: (name: string, value: any) => {
+        statePage.value = value;
+      }
+    });
+  });
   it("should have value", async () => {
     const { search, page } = useCms();
     const response: shopwareClient.PageResolverResult<any> = {
