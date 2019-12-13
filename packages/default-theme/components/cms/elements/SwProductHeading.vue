@@ -23,16 +23,20 @@
   </div>
 </template>
 <script>
-import { SfHeading, SfPrice } from '@storefront-ui/vue'
+import { SfHeading, SfPrice, SfRating } from '@storefront-ui/vue'
 export default {
   name: 'SwProductHeading',
-  components: { SfHeading, SfPrice },
+  components: { SfHeading, SfPrice, SfRating },
   props: {
     reviews: {
       type: Array,
       default: () => []
     },
     price: {
+      type: Number,
+      default: 0
+    },
+    ratingAverage: {
       type: Number,
       default: 0
     },

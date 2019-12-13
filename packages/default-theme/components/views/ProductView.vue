@@ -8,6 +8,15 @@
         </SfSticky>
       </div>
     </div>
+    <div class="products" />
+    <div class="products__recomendations">
+      <div class="products-recomendations__section">
+        <SwProductCarousel />
+      </div>
+      <div class="products-recomendations__section">
+        <SwProductCarousel titleHeading="You might also like" />
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -15,13 +24,15 @@ import { SfSticky } from '@storefront-ui/vue'
 import { useProduct } from '@shopware-pwa/composables'
 import SwProductGallery from '../cms/elements/SwProductGallery'
 import SwProductDetails from '../cms/elements/SwProductDetails'
+import SwProductCarousel from '../cms/elements/SwProductCarousel'
 
 export default {
   name: 'Product',
   components: {
     SfSticky,
     SwProductGallery,
-    SwProductDetails
+    SwProductDetails,
+    SwProductCarousel
   },
   props: {
     page: {

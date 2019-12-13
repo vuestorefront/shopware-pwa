@@ -1,7 +1,12 @@
 <template>
   <div class="sw-product-details">
     <div class="product-details__mobile-top">
-      <SwProductHeading :name="name" :reviews="reviews" :price="price" />
+      <SwProductHeading
+        :name="name"
+        :reviews="reviews"
+        :ratingAverage="ratingAverage"
+        :price="price"
+      />
     </div>
     <p class="product-details__description desktop-only">
       {{ description }}
@@ -16,7 +21,7 @@
     <div v-if="hasChildren" class="product-details__section">
       <SwProductSelect :options="sizes" label="Sizes" />
       <SwProductSelect #default="option" :options="colors" label="Colors">
-        <SfProductOption :label="option.label" color="option.color" />
+        <SfProductOption :label="option.label" :color="option.color" />
       </SwProductSelect>
     </div>
     <div class="product-details__section">
