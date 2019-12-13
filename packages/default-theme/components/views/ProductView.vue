@@ -17,22 +17,61 @@
         <SwProductCarousel title-heading="You might also like" />
       </div>
     </div>
+    <div class="">
+      <SfSection
+        title-heading="Share Your Look"
+        subtitle-heading="#YOURLOOK"
+        class="section"
+      >
+        <div class="images-grid">
+          <div class="images-grid__row">
+            <div class="images-grid__col">
+              <SfImage src="/img/imageA.png">katherina_trn</SfImage>
+            </div>
+            <div class="images-grid__col">
+              <SfImage src="/img/imageB.png">katherina_trn</SfImage>
+            </div>
+            <div class="images-grid__col">
+              <SfImage src="/img/imageC.png">katherina_trn</SfImage>
+            </div>
+          </div>
+          <div class="images-grid__row">
+            <div class="images-grid__col">
+              <SfImage src="/img/imageC.png">katherina_trn</SfImage>
+            </div>
+            <div class="images-grid__col">
+              <SfImage src="/img/imageD.png">katherina_trn</SfImage>
+            </div>
+            <div class="images-grid__col">
+              <SfImage src="/img/imageA.png">katherina_trn</SfImage>
+            </div>
+          </div>
+        </div>
+      </SfSection>
+    </div>
+    <div class="product__advertisement">
+      <SwProductAdvertisement />
+    </div>
   </div>
 </template>
 <script>
-import { SfSticky } from '@storefront-ui/vue'
+import { SfSticky, SfImage, SfSection } from '@storefront-ui/vue'
 import { useProduct } from '@shopware-pwa/composables'
 import SwProductGallery from '../cms/elements/SwProductGallery'
 import SwProductDetails from '../cms/elements/SwProductDetails'
 import SwProductCarousel from '../cms/elements/SwProductCarousel'
+import SwProductAdvertisement from '../cms/elements/SwProductAdvertisement'
 
 export default {
   name: 'Product',
   components: {
     SfSticky,
+    SfImage,
+    SfSection,
     SwProductGallery,
     SwProductDetails,
-    SwProductCarousel
+    SwProductCarousel,
+    SwProductAdvertisement
   },
   props: {
     page: {
@@ -98,6 +137,42 @@ export default {
   }
 }
 
+.product {
+  @include for-desktop {
+    display: flex;
+  }
+  &__gallery,
+  &__description {
+    flex: 1;
+  }
+  &__description {
+    padding: 0 $spacer-big;
+    @include for-desktop {
+      margin-left: $spacer-big * 5;
+    }
+  }
+}
+
+.images-grid {
+  &__row {
+    display: flex;
+    & + & {
+      margin-top: $spacer-big / 2;
+      @include for-desktop {
+        margin-top: $spacer-big;
+      }
+    }
+  }
+  &__col {
+    margin: 0;
+    & + & {
+      margin-left: $spacer-big / 2;
+      @include for-desktop {
+        margin-left: $spacer-big;
+      }
+    }
+  }
+}
 .product {
   @include for-desktop {
     display: flex;

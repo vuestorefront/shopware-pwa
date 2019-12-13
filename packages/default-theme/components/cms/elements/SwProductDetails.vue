@@ -45,7 +45,7 @@
         <button class="sf-action">Add to compare</button>
       </div>
     </div>
-    <SfTabs class="product-details__tabs" :open-tab="1">
+    <SwProductTabs>
       <SfTab title="Description">
         <div>
           <p>
@@ -86,7 +86,7 @@
           {{ product.manufacturer.description }}
         </p>
       </SfTab>
-    </SfTabs>
+    </SwProductTabs>
   </div>
 </template>
 
@@ -97,10 +97,8 @@ import {
   SfHeading,
   SfProductOption,
   SfAddToCart,
-  SfReview,
-  SfTabs
+  SfReview
 } from '@storefront-ui/vue'
-import { useProduct, useAddToCart } from '@shopware-pwa/composables'
 import {
   getProductOptions,
   getProductProperties,
@@ -110,8 +108,10 @@ import {
   getProductSpecialPrice,
   isProductSimple
 } from '@shopware-pwa/helpers'
+import { useProduct, useAddToCart } from '@shopware-pwa/composables'
 import SwProductHeading from './SwProductHeading'
 import SwProductSelect from './SwProductSelect'
+import SwProductTabs from './SwProductTabs'
 
 export default {
   name: 'SwProductDetails',
@@ -122,9 +122,9 @@ export default {
     SfProductOption,
     SfAddToCart,
     SfReview,
-    SfTabs,
     SwProductHeading,
-    SwProductSelect
+    SwProductSelect,
+    SwProductTabs
   },
   props: {
     product: {
