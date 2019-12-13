@@ -52,8 +52,12 @@
                   aria-label="cart"
                   :aria-pressed="activeIcon === 'cart' ? 'true' :'false'"
                   @click="toggle"
-              />
-              <SfBadge class="cart-icon__badge" v-show="count > 0">{{ count }}</SfBadge>
+                  :hasBadge="count > 0"
+              >
+                <template #badge>
+                  <SfBadge class="cart-icon__badge">{{ count }}</SfBadge>
+                </template>
+              </SfCircleIcon>
             </div>
           </div>
         </template>
@@ -125,7 +129,7 @@ export default {
     &__badge {
       position: absolute;
       bottom: 2.2em;
-      left: 4.5em;
+      left: 2.8em;
       font-size: 0.6em;
       padding: 0.3em 0;
       border-radius: 100%;

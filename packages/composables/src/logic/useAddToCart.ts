@@ -8,10 +8,11 @@ interface UseAddToCart {
   loading: Ref<boolean>;
   error: Ref<any>;
   getStock: Ref<number | null>;
+  isInCart: Ref<boolean>;
 }
 
 export const useAddToCart = (product: Product): UseAddToCart => {
-  const { addProduct } = useCart();
+  const { addProduct, cartItems } = useCart();
   const quantity: Ref<number> = ref(1);
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
@@ -37,11 +38,16 @@ export const useAddToCart = (product: Product): UseAddToCart => {
 
   const getStock = computed(() => product && product.stock);
 
+  const isInCart = computed((): boolean =>
+    cartItems.value.some((item: any) => item.id === product.id)
+  );
+
   return {
     addToCart,
     quantity,
     error,
     loading,
-    getStock
+    getStock,
+    isInCart
   };
 };

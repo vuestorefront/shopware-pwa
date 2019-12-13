@@ -1,13 +1,26 @@
 import Vue from "vue";
-import VueCompositionApi from "@vue/composition-api";
+import VueCompositionApi, {
+  Ref,
+  reactive,
+  computed,
+  ref
+} from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
 import * as composables from "@shopware-pwa/composables";
-const { useAddToCart } = composables;
+const { useAddToCart, setStore } = composables;
 
 describe("Composables - useAddToCart", () => {
+  const stateCart: Ref<Object | null> = ref(null);
   beforeEach(() => {
     jest.clearAllMocks();
+    stateCart.value = null;
+    setStore({
+      getters: reactive({ getCart: computed(() => stateCart.value) }),
+      commit: (name: string, value: any) => {
+        stateCart.value = value;
+      }
+    });
   });
 
   describe("computed", () => {
@@ -25,6 +38,24 @@ describe("Composables - useAddToCart", () => {
       it("should return a proper product stock", () => {
         const { getStock } = useAddToCart({ stock: 22 } as any);
         expect(getStock.value).toEqual(22);
+      });
+    });
+
+    describe("isInCart", () => {
+      it("should show that product is in cart", () => {
+        stateCart.value = {
+          lineItems: [{ id: "qwe" }]
+        };
+        const { isInCart } = useAddToCart({ id: "qwe" } as any);
+        expect(isInCart.value).toBeTruthy();
+      });
+
+      it("should show that product is not cart", () => {
+        stateCart.value = {
+          lineItems: [{ id: "qwert" }]
+        };
+        const { isInCart } = useAddToCart({ id: "qwe" } as any);
+        expect(isInCart.value).toBeFalsy();
       });
     });
   });
