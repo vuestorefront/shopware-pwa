@@ -1,4 +1,4 @@
-import { ref, Ref } from "@vue/composition-api";
+import { ref, Ref, watch } from "@vue/composition-api";
 import { getProduct, Product } from "@shopware-pwa/shopware-6-client";
 
 const NO_PRODUCT_REFERENCE_ERROR =
@@ -25,9 +25,30 @@ export const useProduct = (
     if (!product || !product.value || !product.value.id) {
       throw NO_PRODUCT_REFERENCE_ERROR;
     }
-
-    const result = await getProduct(product.value.parentId || product.value.id, associations);
-    product.value = result;
+    //const productData = await getProduct(product.value.parentId || product.value.id, associations);
+    const {
+      id,
+      name,
+      description,
+      media,
+      cover,
+      properties,
+      productReviews,
+      children
+    } = await getProduct(
+      product.value.parentId || product.value.id,
+      associations
+    );
+    console.warn("ID ", id);
+    product.value = Object.assign({}, product.value, {
+      name,
+      description,
+      media,
+      cover,
+      properties,
+      productReviews,
+      children
+    });
   };
 
   const search = async (path: string) => {

@@ -15,6 +15,28 @@ import { Category } from "../category/Category";
 import { Tag } from "../../system/tag/Tag";
 import { CustomField } from "../../common/CustomField";
 
+export interface SeoUrl {
+  reatedAt: Date;
+  customFields: null | any;
+  extensions: any[];
+  foreignKey: string;
+  id: string;
+  isCanonical: boolean;
+  isDeleted: boolean;
+  isModified: boolean;
+  isValid: boolean | null;
+  language: string | null;
+  languageId: string;
+  pathInfo: string;
+  routeName: string;
+  salesChannelId: string | null;
+  seoPathInfo: string;
+  translated: [];
+  updatedAt: Date | null;
+  url: string | null;
+  versionId: string | null;
+}
+
 export interface Product {
   calculatedListingPrice: ListingPrice;
   calculatedPrices: Price[];
@@ -86,5 +108,6 @@ export interface Product {
   id: string;
   parentVersionId: string;
   productManufacturerVersionId: string;
+  seoUrls: SeoUrl[] | null;
   productMediaVersiond?: null;
 }

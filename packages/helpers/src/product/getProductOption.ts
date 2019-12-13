@@ -8,6 +8,7 @@ export function getProductOption({
   | PropertyGroupOption
   | null
   | undefined {
+  console.warn("getProductOption", product && product.options);
   return (
     product &&
     product.options &&

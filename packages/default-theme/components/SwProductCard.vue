@@ -30,7 +30,7 @@
 <script>
 import { SfProductCard, SfAddToCart } from "@storefront-ui/vue";
 import { useAddToCart } from "@shopware-pwa/composables"
-
+import { getPrettyUrl } from "@shopware-pwa/helpers";
 export default {
   components: {
     SfProductCard,
@@ -57,7 +57,7 @@ export default {
   computed: {
     // should be replaced with prettyUrl attribute when pretty urls are included in product entity
     getRouterLink() {
-      return `/detail/${this.product.id}`
+      return getPrettyUrl(this.product)
     },
     getUnitPrice() {
       return (

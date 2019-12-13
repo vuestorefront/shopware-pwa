@@ -9,7 +9,20 @@ export const useCms = (): any => {
   const search = async (path: string) => {
     loading.value = true;
     try {
-      const result = await getPage(path);
+      const result = await getPage(path, {
+        configuration: {
+          associations: [
+            {
+              name: "options",
+              associations: [
+                {
+                  name: "group"
+                }
+              ]
+            }
+          ]
+        }
+      });
       page.value = result;
       return result;
     } catch (e) {
