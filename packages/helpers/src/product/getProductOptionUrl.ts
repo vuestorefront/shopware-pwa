@@ -1,15 +1,5 @@
 import { Product } from "@shopware-pwa/shopware-6-client";
-
-export function getPrettyUrl(
-  product?: Product | null
-): string | false | null | undefined {
-  return (
-    product &&
-    product.seoUrls &&
-    product.seoUrls.length > 0 &&
-    product.seoUrls[0].seoPathInfo
-  );
-}
+import { getProductUrl } from "./getProductUrl";
 
 export function getProductOptionVariant({
   selectedOptionId,
@@ -27,12 +17,40 @@ export function getProductOptionVariant({
       continue;
     }
     if (variant.id == selectedOptionId) {
-      console.warn("LINK: ", getPrettyUrl(variant));
+      console.warn("LINK: ", getProductUrl(variant));
       return variant;
     }
   }
 
   return null;
+}
+export function getProductOptionsUrl({
+  options,
+  product
+}: {
+  options?: string[];
+  product?: Product;
+} = {}): string {
+  if (!product) return "";
+  const variant =
+    options &&
+    product.children
+      .filter(
+        variant =>
+          variant.optionIds &&
+          variant.optionIds.every(optionId => options.includes(optionId))
+      )
+      .shift();
+  console.error('VARIANT FOUND', variant)
+  // const foundVariant = getProductOptionVariant({
+  //   selectedOptionId,
+  //   variants
+  // });
+  const result = variant || product;
+
+  console.warn("found variant:", variant);
+
+  return getProductUrl(result);
 }
 
 export function getProductOptionUrl({
@@ -49,5 +67,5 @@ export function getProductOptionUrl({
 
   console.warn("found variant:", foundVariant);
 
-  return getPrettyUrl(foundVariant);
+  return getProductUrl(foundVariant);
 }

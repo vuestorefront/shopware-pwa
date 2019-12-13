@@ -56,7 +56,7 @@
                 :key="size.id"
                 :value="size.id"
               >
-                <SfProductOption :label="size.active ? size.label : `${size.label} (unavailable)`" />
+                <SfProductOption :label="size.label" />
               </SfSelectOption>
             </SfSelect>
             <SfSelect
@@ -71,7 +71,7 @@
                 :key="color.id"
                 :value="color.id"
               >
-                <SfProductOption :label="color.active ? color.label : `${color.label} (unavailable)`" :color="color.color" />
+                <SfProductOption :label="color.label" :color="color.label" />
               </SfSelectOption>
             </SfSelect>
           </div>
@@ -175,7 +175,8 @@ import {
   getProductRegularPrice,
   isProductSimple, 
   getProductSpecialPrice,
-  getProductOptionUrl
+  getProductOptionUrl,
+  getProductOptionsUrl
   } from "@shopware-pwa/helpers";
 import SwProductGallery from '../cms/elements/SwProductGallery'
 
@@ -227,6 +228,7 @@ export default {
     }
   },
   async mounted() {
+    console.error('MOUNTED PRODUCT!!!!')
     // TODO remove when page resolver is fully done
     const associations = {
       "associations[media][]": true,
@@ -272,10 +274,7 @@ export default {
       return getProductProperties({product: this.product})
     },
     selectedOptions() {
-      return {
-        color: this.selectedColor,
-        size: this.selectedSize
-      }
+      return [this.selectedColor, this.selectedSize]
     },
     color() {
       if (!this.isSimple) {
@@ -300,16 +299,14 @@ export default {
     colors() {
       const colorOptions = getProductOptions({
         product: this.product,
-        attribute: "color",
-        selected: this.selectedOptions
+        attribute: "color"
       })
       return colorOptions
     },
     sizes() {
       const sizeOptions = getProductOptions({
         product: this.product,
-        attribute: "size",
-        selected: this.selectedOptions
+        attribute: "size"
       })
       return sizeOptions
     },
@@ -328,31 +325,36 @@ export default {
   },
   watch: {
     selectedOptions(selected) {
-        const distinctOptions = []
+        // const distinctOptions = []
 
-        for (const attributeKey in selected) {
-          if (!selected.hasOwnProperty(attributeKey)) {
-            continue;
-          }
+        // for (const attributeKey in selected) {
+        //   if (!selected.hasOwnProperty(attributeKey)) {
+        //     continue;
+        //   }
 
-          distinctOptions.push(selected[attributeKey])
-        }
+        //   distinctOptions.push(selected[attributeKey])
+        // }
 
-        console.warn('SELECTED OPTIONS SET: ',
-          [...new Set(distinctOptions)]
-        )
+        console.error('SELECTED CHANGED', selected)
+        const utl = getProductOptionsUrl({product: this.product, options: selected})
+        console.error("URL ---------> " + utl)
+        this.$router.push(utl);
 
-      if ([...new Set(distinctOptions)].length === 1) {
-        console.warn('push: ', {
-            selectedOptionId: distinctOptions.shift(),
-            variants: this.product.children
-          })
-        this.$router.push(getProductOptionUrl({
-            selectedOptionId: distinctOptions.shift(),
-            variants: this.product.children
-          }
-          ))
-      }
+        // console.warn('SELECTED OPTIONS SET: ',
+        //   [...new Set(distinctOptions)]
+        // )
+
+      // if ([...new Set(distinctOptions)].length === 1) {
+      //   console.warn('push: ', {
+      //       selectedOptionId: distinctOptions.shift(),
+      //       variants: this.product.children
+      //     })
+      //   this.$router.push(getProductOptionUrl({
+      //       selectedOptionId: distinctOptions.shift(),
+      //       variants: this.product.children
+      //     }
+      //     ))
+      // }
 
     }
   }

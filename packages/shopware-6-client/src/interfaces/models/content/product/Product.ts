@@ -76,7 +76,7 @@ export interface Product {
   length: number | null;
   releaseDate: Date;
   categoryTree: [] | null;
-  optionsIds?: [] | null;
+  optionIds?: [];
   propertyIds: [] | null;
   additionalText?: string | null;
   name: string | null;

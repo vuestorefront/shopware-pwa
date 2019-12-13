@@ -1,4 +1,4 @@
-import { ref, Ref, watch } from "@vue/composition-api";
+import { ref, Ref } from "@vue/composition-api";
 import { getProduct, Product } from "@shopware-pwa/shopware-6-client";
 
 const NO_PRODUCT_REFERENCE_ERROR =

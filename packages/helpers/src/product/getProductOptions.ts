@@ -57,9 +57,9 @@ export function getProductOptions({
         if (!typeOptions.has(option.id)) {
           typeOptions.set(option.id, {
             label: option.name,
-            id: variant.id,
-            code: option.group && option.group.name,
-            active: findOptionForOtherAttributes(selected, variant, attribute)
+            id: option.id
+            // code: option.group && option.group.name
+            // active: findOptionForOtherAttributes(selected, variant, attribute)
           });
         }
       }
