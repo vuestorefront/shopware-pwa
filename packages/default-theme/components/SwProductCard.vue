@@ -1,5 +1,4 @@
 <template>
-  <!-- <router-link :to="getRouterLink"> -->
   <SfProductCard
     :title="product.name || ''"
     :image="getImageUrl" 
@@ -9,6 +8,9 @@
     :link="getRouterLink"
     @click:wishlist="toggleWishlist"
     class="products__product-card"
+    :showAddToCartButton="true"
+    :isAddedToCart="isInCart"
+    @click:add-to-cart="addToCart"
     >
     <template #title={title}>
       <div class="product-card-title">
@@ -17,15 +19,7 @@
         </h3>
       </div>
     </template>
-    <template slot="reviews">
-      <SfAddToCart
-        :stock="getStock"
-        v-model="quantity"
-        @click="addToCart"
-      />
-    </template>
   </SfProductCard>
-  <!-- </router-link> -->
 </template>
 
 <script>
@@ -39,12 +33,13 @@ export default {
     SfAddToCart
   },
   setup ({product}) {
-    const {addToCart, quantity, getStock} = useAddToCart(product)
+    const {addToCart, quantity, getStock, isInCart} = useAddToCart(product)
 
     return {
       quantity,
       addToCart,
-      getStock
+      getStock,
+      isInCart
     }
   },
   data() {
