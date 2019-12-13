@@ -2,9 +2,11 @@
   <div class="sw-product-details">
     <div class="product-details__mobile-top">
       <SwProductHeading
+        class="product-details__heading"
         :name="name"
         :reviews="reviews"
-        :ratingAverage="ratingAverage"
+        :rating-average="ratingAverage"
+        :special="getSpecialPrice"
         :price="price"
       />
     </div>
@@ -90,25 +92,12 @@
 
 <script>
 import {
+  SfAlert,
   SfProperty,
   SfHeading,
-  SfPrice,
-  SfRating,
-  SfSelect,
   SfProductOption,
   SfAddToCart,
-  SfTabs,
-  SfGallery,
-  SfProductCard,
-  SfCarousel,
-  SfSection,
-  SfBanner,
-  SfBottomNavigation,
-  SfCircleIcon,
-  SfIcon,
-  SfAlert,
-  SfSticky,
-  SfReview
+  SfTabs
 } from '@storefront-ui/vue'
 import { useProduct, useAddToCart } from '@shopware-pwa/composables'
 import {
@@ -117,6 +106,7 @@ import {
   getProductOption,
   getProductReviews,
   getProductRegularPrice,
+  getProductSpecialPrice,
   isProductSimple
 } from '@shopware-pwa/helpers'
 import SwProductHeading from './SwProductHeading'
@@ -128,22 +118,9 @@ export default {
     SfAlert,
     SfProperty,
     SfHeading,
-    SfPrice,
-    SfRating,
-    SfSelect,
     SfProductOption,
     SfAddToCart,
     SfTabs,
-    SfGallery,
-    SfProductCard,
-    SfCarousel,
-    SfSection,
-    SfBanner,
-    SfBottomNavigation,
-    SfCircleIcon,
-    SfIcon,
-    SfSticky,
-    SfReview,
     SwProductHeading,
     SwProductSelect
   },
@@ -164,6 +141,10 @@ export default {
   computed: {
     price() {
       return getProductRegularPrice({ product: this.product })
+    },
+    getSpecialPrice() {
+      const price = getProductSpecialPrice(this.product)
+      return price && '$' + price
     },
     name() {
       return this.product && this.product.name

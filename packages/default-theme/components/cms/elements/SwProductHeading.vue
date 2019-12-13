@@ -3,11 +3,12 @@
     <SfHeading
       :title="name"
       :level="1"
-      class="sf-heading--no-underline sf-heading--left product-details__heading"
+      class="sf-heading--no-underline sf-heading--left"
     />
     <div class="product-details__sub">
       <SfPrice
         :regular="`$${price}`"
+        :special="special"
         class="sf-price--big product-details__sub-price"
       />
       <div v-if="reviews.length" class="product-details__sub-rating">
@@ -36,6 +37,10 @@ export default {
       type: Number,
       default: 0
     },
+    special: {
+      type: Number,
+      default: 0
+    },
     ratingAverage: {
       type: Number,
       default: 0
@@ -47,4 +52,3 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped></style>
