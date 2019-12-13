@@ -38,7 +38,9 @@ export const useAddToCart = (product: Product): UseAddToCart => {
 
   const getStock = computed(() => product && product.stock);
 
-  const isInCart = computed(():boolean => cartItems.value.some((item:any) => item.id === product.id));
+  const isInCart = computed((): boolean =>
+    cartItems.value.some((item: any) => item.id === product.id)
+  );
 
   return {
     addToCart,
