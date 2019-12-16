@@ -28,7 +28,6 @@ export const useCms = (): any => {
         }
       });
       vuexStore.commit("SET_PAGE", result);
-      return result;
     } catch (e) {
       error.value = e;
       console.error("Problem with fetching CMS data", e.message);

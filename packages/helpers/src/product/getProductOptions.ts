@@ -1,46 +1,12 @@
 import { Product } from "@shopware-pwa/shopware-6-client";
 import { UiProductOption } from "@shopware-pwa/helpers";
 
-const findOptionForOtherAttributes = (
-  selected: any,
-  variant: any,
-  attribute?: string
-): boolean => {
-  if (!attribute) {
-    return true;
-  }
-
-  const selectedAttributesCount = Object.keys(selected).length;
-  let nullableAttributesCount = 0;
-
-  for (const attributeKey in selected) {
-    if (!selected.hasOwnProperty(attributeKey)) {
-      continue;
-    }
-
-    if (selected[attributeKey] === null) {
-      nullableAttributesCount++;
-    }
-
-    if (attributeKey == attribute) {
-      continue;
-    }
-
-    if (variant.id === selected[attributeKey]) {
-      return true;
-    }
-  }
-
-  return selectedAttributesCount == nullableAttributesCount || false;
-};
 export function getProductOptions({
   product,
-  attribute,
-  selected
+  attribute
 }: {
   product?: Product;
   attribute?: string;
-  selected?: any;
 } = {}): UiProductOption[] {
   if (!product || !product.children) {
     return [];
@@ -58,8 +24,6 @@ export function getProductOptions({
           typeOptions.set(option.id, {
             label: option.name,
             id: option.id
-            // code: option.group && option.group.name
-            // active: findOptionForOtherAttributes(selected, variant, attribute)
           });
         }
       }

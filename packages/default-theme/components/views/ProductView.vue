@@ -35,7 +35,7 @@
           <div class="product-details__action">
             <button class="sf-action" v-if="sizes.length > 0">Size guide</button>
           </div>
-          <div class="product-details__section">
+          <div class="product-details__section" v-if="!hasChildren">
             <SfProperty v-if="color"
             name="Color"
             :value="color.name"/>
@@ -175,7 +175,6 @@ import {
   getProductRegularPrice,
   isProductSimple, 
   getProductSpecialPrice,
-  getProductOptionUrl,
   getProductOptionsUrl
   } from "@shopware-pwa/helpers";
 import SwProductGallery from '../cms/elements/SwProductGallery'
@@ -228,7 +227,6 @@ export default {
     }
   },
   async mounted() {
-    console.error('MOUNTED PRODUCT!!!!')
     // TODO remove when page resolver is fully done
     const associations = {
       "associations[media][]": true,
@@ -242,11 +240,15 @@ export default {
 
     const { loadAssociations, product } = useProduct(this.page.product);
     this.productWithAssociations = product
-    loadAssociations(associations)
+    await loadAssociations(associations)
+    const color = this.colors.find(color => this.product.optionIds.includes(color.id))
+    const size = this.sizes.find(size => this.product.optionIds.includes(size.id))
+    this.selectedColor = color && color.id
+    this.selectedSize = size && size.id
   },
   computed: {
     product() {
-      return this.productWithAssociations && this.productWithAssociations.value || this.page.product
+      return this.productWithAssociations ? this.productWithAssociations.value : this.page.product
     },
     price() {
       return getProductRegularPrice({product: this.product})
@@ -265,7 +267,7 @@ export default {
       return this.product && this.product.ratingAverage
     },
     hasChildren() {
-      return this.product && this.product.childCount > 0
+      return this.product && this.product.children && this.product.children.length
     },
     isSimple() {
       return isProductSimple({product: this.product})
@@ -325,37 +327,8 @@ export default {
   },
   watch: {
     selectedOptions(selected) {
-        // const distinctOptions = []
-
-        // for (const attributeKey in selected) {
-        //   if (!selected.hasOwnProperty(attributeKey)) {
-        //     continue;
-        //   }
-
-        //   distinctOptions.push(selected[attributeKey])
-        // }
-
-        console.error('SELECTED CHANGED', selected)
-        const utl = getProductOptionsUrl({product: this.product, options: selected})
-        console.error("URL ---------> " + utl)
-        this.$router.push(utl);
-
-        // console.warn('SELECTED OPTIONS SET: ',
-        //   [...new Set(distinctOptions)]
-        // )
-
-      // if ([...new Set(distinctOptions)].length === 1) {
-      //   console.warn('push: ', {
-      //       selectedOptionId: distinctOptions.shift(),
-      //       variants: this.product.children
-      //     })
-      //   this.$router.push(getProductOptionUrl({
-      //       selectedOptionId: distinctOptions.shift(),
-      //       variants: this.product.children
-      //     }
-      //     ))
-      // }
-
+      const url = getProductOptionsUrl({product: this.product, options: selected})
+      this.$router.push(url);
     }
   }
 
