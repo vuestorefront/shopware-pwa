@@ -7,4 +7,5 @@ export * from "./getProductOption";
 export * from "./getProductRegularPrice";
 export * from "./getProductSpecialPrice";
 export * from "./isProductSimple";
+export * from "./getProductOptionsUrl";
 export * from "./getProductUrl";

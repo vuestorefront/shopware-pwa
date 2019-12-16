@@ -4,8 +4,11 @@ import { UiProductOption } from "@shopware-pwa/helpers";
 export function getProductOptions({
   product,
   attribute
-}: { product?: Product; attribute?: string } = {}): UiProductOption[] {
-  if (!product || !product.children || !attribute) {
+}: {
+  product?: Product;
+  attribute?: string;
+} = {}): UiProductOption[] {
+  if (!product || !product.children) {
     return [];
   }
 
@@ -14,14 +17,15 @@ export function getProductOptions({
     if (!variant || !variant.options || !variant.options.length) {
       return;
     }
+
     for (let option of variant.options) {
-      if (option.group && option.group.name === attribute) {
+      if ((option.group && option.group.name === attribute) || !attribute) {
         if (!typeOptions.has(option.id)) {
           typeOptions.set(option.id, {
             label: option.name,
-            value: variant.id,
-            [attribute]: option.name
-          });
+            code: option.id,
+            value: option.name
+          } as UiProductOption);
         }
       }
     }

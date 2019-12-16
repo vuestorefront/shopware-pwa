@@ -35,7 +35,7 @@
           <div class="product-details__action">
             <button class="sf-action" v-if="sizes.length > 0">Size guide</button>
           </div>
-          <div class="product-details__section" v-if="isSimple">
+          <div class="product-details__section" v-if="!hasChildren">
             <SfProperty v-if="color"
             name="Color"
             :value="color.name"/>
@@ -52,8 +52,8 @@
             >
               <SfSelectOption
                 v-for="size in sizes"
-                :key="size.value"
-                :value="size.value"
+                :key="size.code"
+                :value="size.code"
               >
                 <SfProductOption :label="size.label" />
               </SfSelectOption>
@@ -66,10 +66,10 @@
             >
               <SfSelectOption
                 v-for="color in colors"
-                :key="color.value"
-                :value="color.value"
+                :key="color.code"
+                :value="color.code"
               >
-                <SfProductOption :label="color.label" :color="color.color" />
+                <SfProductOption :label="color.label" :color="color.label" />
               </SfSelectOption>
             </SfSelect>
           </div>
@@ -172,7 +172,9 @@ import {
   getProductReviews,
   getProductRegularPrice,
   isProductSimple, 
-  getProductSpecialPrice} from "@shopware-pwa/helpers";
+  getProductSpecialPrice,
+  getProductOptionsUrl
+  } from "@shopware-pwa/helpers";
 import SwProductGallery from '../cms/elements/SwProductGallery'
 
 export default {
@@ -209,12 +211,12 @@ export default {
     return {
       productWithAssociations: null,
       relatedProducts: [],
-      selectedSize: null,
-      selectedColor: null
+      selectedColor: null,
+      selectedSize: null
     };
   },
-  setup ({page}) {
-    const {addToCart, quantity, getStock} = useAddToCart(page && page.product)
+  setup ({ page }) {
+    const { addToCart, quantity, getStock } = useAddToCart(page && page.product)
 
     return {
       quantity,
@@ -226,20 +228,25 @@ export default {
     // TODO remove when page resolver is fully done
     const associations = {
       "associations[media][]": true,
-      "associations[options][associations][group][]": true,
+      //"associations[options][associations][group][]": true,
       "associations[properties][associations][group][]": true,
       "associations[productReviews][]": true, // can be fetched asynchronously
       "associations[manufacturer][]": true,
       "associations[children][associations][options][associations][group][]": true,
+      "associations[children][associations][seoUrls][]": true,
     }
 
     const { loadAssociations, product } = useProduct(this.page.product);
     this.productWithAssociations = product
-    loadAssociations(associations)
+    await loadAssociations(associations)
+    const color = this.colors.find(color => this.product.optionIds.includes(color.code))
+    const size = this.sizes.find(size => this.product.optionIds.includes(size.code))
+    this.selectedColor = color && color.code
+    this.selectedSize = size && size.code
   },
   computed: {
     product() {
-      return this.productWithAssociations && this.productWithAssociations.value || this.page.product
+      return this.productWithAssociations ? this.productWithAssociations.value : this.page.product
     },
     price() {
       return getProductRegularPrice({product: this.product})
@@ -258,13 +265,16 @@ export default {
       return this.product && this.product.ratingAverage
     },
     hasChildren() {
-      return this.product && this.product.childCount > 0
+      return this.product && this.product.children && this.product.children.length
     },
     isSimple() {
       return isProductSimple({product: this.product})
     },
     properties() {
       return getProductProperties({product: this.product})
+    },
+    selectedOptions() {
+      return [this.selectedColor, this.selectedSize]
     },
     color() {
       if (!this.isSimple) {
@@ -310,7 +320,14 @@ export default {
     toggleWishlist(index) {
       this.products[index].isOnWishlist = !this.products[index].isOnWishlist;
     }
+  },
+  watch: {
+    selectedOptions(selected) {
+      const url = getProductOptionsUrl({product: this.product, options: selected})
+      this.$router.push(url);
+    }
   }
+
 }
 </script>
 <style lang="scss" scoped>
