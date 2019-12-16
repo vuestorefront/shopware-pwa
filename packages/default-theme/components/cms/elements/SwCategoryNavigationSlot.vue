@@ -4,7 +4,7 @@
       <h1 class="sw-category-navigation__title">{{ navTitle }}</h1>
     </div>
     <div class="sw-category-navigation__menu">
-      <SfAccordion :firstOpen="true" :showChevron="true">
+      <SfAccordion :first-open="true" :show-chevron="true">
         <SfAccordionItem
           v-for="accordion in navigation"
           :key="accordion.id"
@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import { SfList, SfAccordion, SfMenuItem } from "@storefront-ui/vue";
-import { getNavigation } from "@shopware-pwa/shopware-6-client";
+import { SfList, SfAccordion, SfMenuItem } from '@storefront-ui/vue'
+import { getNavigation } from '@shopware-pwa/shopware-6-client'
 
 export default {
   components: {
@@ -33,32 +33,32 @@ export default {
     SfList,
     SfMenuItem
   },
-  data() {
-    return {
-      navTitle: 'Category',
-      navigationElements: []
-    };
-  },
   props: {
     content: {
       type: Object,
       default: () => ({})
     }
   },
-  async mounted() {
-    const { children } = await getNavigation({depth:2})
-    this.navigationElements = children
+  data() {
+    return {
+      navTitle: 'Category',
+      navigationElements: []
+    }
   },
   computed: {
     navigation() {
-      return this.navigationElements;
+      return this.navigationElements
     }
+  },
+  async mounted() {
+    const { children } = await getNavigation({ depth: 2 })
+    this.navigationElements = children
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import "~@storefront-ui/vue/styles.scss";
+@import '~@storefront-ui/vue/styles.scss';
 
 @mixin for-desktop {
   @media screen and (min-width: $desktop-min) {
@@ -86,9 +86,9 @@ export default {
   }
 
   &__menu {
-  margin-right: 20px;
-  flex: 0 0 15%;
-  padding: $spacer-extra-big;
+    margin-right: 20px;
+    flex: 0 0 15%;
+    padding: $spacer-extra-big;
 
     &__aside {
       display: flex;
