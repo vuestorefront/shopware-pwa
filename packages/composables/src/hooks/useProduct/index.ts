@@ -26,11 +26,29 @@ export const useProduct = (
       throw NO_PRODUCT_REFERENCE_ERROR;
     }
 
-    const result = await getProduct(
+    const {
+      name,
+      description,
+      options,
+      media,
+      cover,
+      properties,
+      productReviews,
+      children
+    } = await getProduct(
       product.value.parentId || product.value.id,
       associations
     );
-    product.value = result;
+    product.value = Object.assign({}, product.value, {
+      name,
+      description,
+      options,
+      media,
+      cover,
+      properties,
+      productReviews,
+      children
+    });
   };
 
   const search = async (path: string) => {

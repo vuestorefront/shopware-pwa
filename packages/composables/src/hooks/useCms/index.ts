@@ -13,7 +13,20 @@ export const useCms = (): any => {
   const search = async (path: string) => {
     loading.value = true;
     try {
-      const result = await getPage(path);
+      const result = await getPage(path, {
+        configuration: {
+          associations: [
+            {
+              name: "options",
+              associations: [
+                {
+                  name: "group"
+                }
+              ]
+            }
+          ]
+        }
+      });
       vuexStore.commit("SET_PAGE", result);
     } catch (e) {
       error.value = e;

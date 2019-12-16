@@ -10,6 +10,7 @@ export interface UiMediaGalleryItem {
 export interface UiProductOption {
   label: string;
   value: string;
+  code: string;
   [attribute: string]: string;
 }
 
