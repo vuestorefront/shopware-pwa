@@ -2,7 +2,11 @@
   <div class="sw-product-gallery gallery">
     <template v-if="mediaGallery.length > 0">
       <slot name="desktop-galery" v-bind="mediaGallery">
-        <div class="gallery__desktop" v-for="(image, id) in mediaGallery" :key="id">
+        <div
+          v-for="(image, id) in mediaGallery"
+          :key="id"
+          class="gallery__desktop"
+        >
           <SfImage
             v-if="image.big"
             :src="image.big.url"
@@ -16,39 +20,36 @@
         </div>
       </slot>
     </template>
-    <div class="gallery__mobile mobile-only" v-if="mediaGallery.length > 0">
+    <div v-if="mediaGallery.length > 0" class="gallery__mobile mobile-only">
       <slot name="mobile-galery" v-bind="mediaGallery">
-        <SfGallery
-          class="gallery-mobile mobile-only"
-          :images="mediaGallery"
-        />
-     </slot>
+        <SfGallery class="gallery-mobile mobile-only" :images="mediaGallery" />
+      </slot>
     </div>
   </div>
 </template>
 
 <script>
 import { SfImage, SfGallery } from '@storefront-ui/vue'
-import { getProductMainImageUrl, getProductMediaGallery } from '@shopware-pwa/helpers'
+import { getProductMediaGallery } from '@shopware-pwa/helpers'
 
 export default {
   components: { SfImage, SfGallery },
   props: {
     product: {
       type: Object,
-      default: () => ({}),
+      default: () => ({})
     }
   },
   computed: {
     mediaGallery() {
-      return getProductMediaGallery({product: this.product})
-    },
-  },
+      return getProductMediaGallery({ product: this.product })
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-@import "~@storefront-ui/shared/styles/variables";
+@import '~@storefront-ui/shared/styles/variables';
 
 .gallery-mobile {
   $height-other: 240px;
