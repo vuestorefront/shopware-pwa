@@ -11,6 +11,7 @@ export function getProductOptionsUrl({
   if (!product) return "";
   const variant =
     options &&
+    product.children &&
     product.children
       .filter(
         variant =>

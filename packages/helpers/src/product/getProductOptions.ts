@@ -23,8 +23,9 @@ export function getProductOptions({
         if (!typeOptions.has(option.id)) {
           typeOptions.set(option.id, {
             label: option.name,
-            id: option.id
-          });
+            code: option.id,
+            value: option.name
+          } as UiProductOption);
         }
       }
     }

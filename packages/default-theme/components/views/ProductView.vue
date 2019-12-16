@@ -51,10 +51,9 @@
               class="sf-select--bordered product-details__attribute"
             >
               <SfSelectOption
-                id="size_option"
                 v-for="size in sizes"
-                :key="size.id"
-                :value="size.id"
+                :key="size.code"
+                :value="size.code"
               >
                 <SfProductOption :label="size.label" />
               </SfSelectOption>
@@ -66,10 +65,9 @@
               class="sf-select--bordered product-details__attribute"
             >
               <SfSelectOption
-                id="color_option"
                 v-for="color in colors"
-                :key="color.id"
-                :value="color.id"
+                :key="color.code"
+                :value="color.code"
               >
                 <SfProductOption :label="color.label" :color="color.label" />
               </SfSelectOption>
@@ -241,10 +239,10 @@ export default {
     const { loadAssociations, product } = useProduct(this.page.product);
     this.productWithAssociations = product
     await loadAssociations(associations)
-    const color = this.colors.find(color => this.product.optionIds.includes(color.id))
-    const size = this.sizes.find(size => this.product.optionIds.includes(size.id))
-    this.selectedColor = color && color.id
-    this.selectedSize = size && size.id
+    const color = this.colors.find(color => this.product.optionIds.includes(color.code))
+    const size = this.sizes.find(size => this.product.optionIds.includes(size.code))
+    this.selectedColor = color && color.code
+    this.selectedSize = size && size.code
   },
   computed: {
     product() {
@@ -299,18 +297,16 @@ export default {
       })
     },
     colors() {
-      const colorOptions = getProductOptions({
+      return getProductOptions({
         product: this.product,
         attribute: "color"
       })
-      return colorOptions
     },
     sizes() {
-      const sizeOptions = getProductOptions({
+      return getProductOptions({
         product: this.product,
         attribute: "size"
       })
-      return sizeOptions
     },
     reviews() {
       return getProductReviews({product: this.product})

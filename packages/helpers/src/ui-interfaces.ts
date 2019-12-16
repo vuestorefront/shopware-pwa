@@ -12,7 +12,6 @@ export interface UiProductOption {
   value: string;
   code: string;
   [attribute: string]: string;
-  active?: boolean;
 }
 
 export interface UiProductProperty {

@@ -21,15 +21,12 @@ describe("Shopware helpers - getProductOption", () => {
       ]
     };
 
-    const productOption = getProductOption({
+    const productOption: any = getProductOption({
       product: productWithOptions,
       attribute: "color"
     });
     expect(productOption).toBeTruthy();
-    expect(productOption).toHaveProperty("id");
-    if (productOption && productOption.id) {
-      expect(productOption.id).toEqual("04095b39ef07472ebd7547800c40bfd4");
-    }
+    expect(productOption.id).toEqual("04095b39ef07472ebd7547800c40bfd4");
   });
 
   it("should returns null on no options available", () => {

@@ -39,9 +39,9 @@ describe("Shopware helpers - getProductOptions", () => {
       attribute: "color"
     });
     expect(productOptions).toHaveLength(1);
-    expect(productOptions[0]).toHaveProperty("color");
     expect(productOptions[0]).toHaveProperty("label");
     expect(productOptions[0]).toHaveProperty("value");
+    expect(productOptions[0]).toHaveProperty("code");
   });
 
   it("should returns return an empty array if no children", () => {
