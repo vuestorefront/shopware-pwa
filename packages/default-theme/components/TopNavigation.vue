@@ -1,16 +1,26 @@
 <template>
   <div class="top-navigation">
-    <slot v-bind="{navigationElements, activeSidebar, activeIcon}">
+    <slot v-bind="{ navigationElements, activeSidebar, activeIcon }">
       <SfHeader
         title="Shopware PWA"
         logo="/img/logo.svg"
         active-sidebar="activeSidebar"
       >
         <template #navigation>
-          <nuxt-link to="/"><SfHeaderNavigationItem>Home</SfHeaderNavigationItem></nuxt-link>
-          <nuxt-link v-for="element in navigationElements" :key="element.id" :to="convertToSlug(element.name)">
+          <nuxt-link to="/"
+            ><SfHeaderNavigationItem>Home</SfHeaderNavigationItem></nuxt-link
+          >
+          <nuxt-link
+            v-for="element in navigationElements"
+            :key="element.id"
+            :to="convertToSlug(element.name)"
+          >
             <SfHeaderNavigationItem>{{ element.name }}</SfHeaderNavigationItem>
           </nuxt-link>
+        </template>
+
+        <template #search>
+          <div class="search--blank"></div>
         </template>
 
         <template #header-icons="{accountIcon, wishlistIcon, cartIcon}">
@@ -21,10 +31,10 @@
               icon-size="20px"
               icon-color="black"
               class="sf-header__icon"
-              :class="{'sf-header__icon--is-active' : isLoggedIn}"
+              :class="{ 'sf-header__icon--is-active': isLoggedIn }"
               role="button"
               aria-label="account"
-              :aria-pressed="activeIcon === 'account' ? 'true' :'false'"
+              :aria-pressed="activeIcon === 'account' ? 'true' : 'false'"
               @click="userIconClick"
             />
             <SfCircleIcon
@@ -33,26 +43,30 @@
               icon-size="20px"
               icon-color="black"
               class="sf-header__icon"
-              :class="{'sf-header__icon--is-active' : activeIcon === 'wishlist'}"
+              :class="{
+                'sf-header__icon--is-active': activeIcon === 'wishlist'
+              }"
               role="button"
               aria-label="wishlist"
-              :aria-pressed="activeIcon === 'wishlist' ? 'true' :'false'"
+              :aria-pressed="activeIcon === 'wishlist' ? 'true' : 'false'"
               @click="$emit('click:wishlist')"
             />
 
-            <div class='top-navigation__header-icon header-icons__cart cart-icon'>
+            <div
+              class="top-navigation__header-icon header-icons__cart cart-icon"
+            >
               <SfCircleIcon
-                  v-if="cartIcon"
-                  :icon="cartIcon"
-                  icon-size="20px"
-                  icon-color="black"
-                  class="sf-header__icon"
-                  :class="{'sf-header__icon--is-active' : activeIcon === 'cart'}"
-                  role="button"
-                  aria-label="cart"
-                  :aria-pressed="activeIcon === 'cart' ? 'true' :'false'"
-                  @click="toggle"
-                  :hasBadge="count > 0"
+                v-if="cartIcon"
+                :icon="cartIcon"
+                icon-size="20px"
+                icon-color="black"
+                class="sf-header__icon"
+                :class="{ 'sf-header__icon--is-active': activeIcon === 'cart' }"
+                role="button"
+                aria-label="cart"
+                :aria-pressed="activeIcon === 'cart' ? 'true' : 'false'"
+                :has-badge="count > 0"
+                @click="toggle"
               >
                 <template #badge>
                   <SfBadge class="cart-icon__badge">{{ count }}</SfBadge>
@@ -69,16 +83,16 @@
 
 <script>
 import slugify from 'slugify' // TODO: remove after the navigation is fully implemented
-import { getNavigation, getPage  } from '@shopware-pwa/shopware-6-client'
+import { getNavigation, getPage } from '@shopware-pwa/shopware-6-client'
 import { SfHeader, SfCircleIcon, SfBadge } from '@storefront-ui/vue'
 import { useUser, useCart, useCartSidebar } from '@shopware-pwa/composables'
 import SwLoginModal from './modals/SwLoginModal'
 
 export default {
-  components: { SfHeader, SfCircleIcon, SfBadge,SwLoginModal },
+  components: { SfHeader, SfCircleIcon, SfBadge, SwLoginModal },
   setup() {
     const { isLoggedIn, logout } = useUser()
-    const { count }  = useCart()
+    const { count } = useCart()
     const { toggle, isOpen } = useCartSidebar()
     return {
       isOpen,
@@ -88,13 +102,17 @@ export default {
       logout
     }
   },
-  data () {
+  data() {
     return {
       navigationElements: [],
       activeSidebar: 'account',
       activeIcon: '',
       isModalOpen: false
     }
+  },
+  async mounted() {
+    const { children } = await getNavigation({ depth: 1 })
+    this.navigationElements = children
   },
   methods: {
     convertToSlug(name) {
@@ -105,21 +123,23 @@ export default {
         })
       )
     },
-    async userIconClick () {
+    async userIconClick() {
       if (this.isLoggedIn) this.logout()
       else this.isModalOpen = true
     }
-  },
-  async mounted() {
-    const { children } = await getNavigation({ depth: 1 })
-    this.navigationElements = children
   }
 }
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 @import '~@storefront-ui/vue/styles.scss';
 @import '~@storefront-ui/shared/styles/helpers/visibility';
+
+@mixin for-desktop {
+  @media screen and (min-width: $desktop-min) {
+    @content;
+  }
+}
 
 .top-navigation {
   .cart-icon {
@@ -136,6 +156,10 @@ export default {
       width: 2.2em;
     }
   }
+  .search--blank {
+    @include for-desktop {
+      width: 50%;
+    }
+  }
 }
-
 </style>
