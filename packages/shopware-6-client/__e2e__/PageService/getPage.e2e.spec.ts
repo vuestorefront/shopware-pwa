@@ -1,7 +1,7 @@
 import { getPage } from "@shopware-pwa/shopware-6-client";
 
 describe("shopware-6-client - E2E - PageService - getPage", () => {
-  it("test / page response", async () => {
+  it("should test / page response", async () => {
     const result = await getPage("");
     expect(result).toMatchSnapshot();
   });

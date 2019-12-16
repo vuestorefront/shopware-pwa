@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shopware-6-client - E2E - ContextService - setCurrentShippingMethod should get error response when not existing shipping method 1`] = `[Error: Request failed with status code 400]`;
+
+exports[`shopware-6-client - E2E - ContextService - setCurrentShippingMethod should set 'Express' shipping method 1`] = `
+Object {
+  "contextToken": "mockedContextToken",
+}
+`;

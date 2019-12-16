@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shopware-6-client - E2E - ContextService - setCurrentLanguage should get error response when not existing language 1`] = `[Error: Request failed with status code 400]`;
+
+exports[`shopware-6-client - E2E - ContextService - setCurrentLanguage should set English language 1`] = `
+Object {
+  "contextToken": "mockedContextToken",
+}
+`;
