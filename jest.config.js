@@ -1,7 +1,7 @@
 const lernaJson = require("./lerna.json");
 const e2e = require("minimist")(process.argv.slice(2))["e2e"];
 
-const isUnitTest = e2e === true;
+const isUnitTest = e2e !== true;
 
 console.log(`Starting ${isUnitTest ? "unit" : "e2e"} tests...`);
 
@@ -25,7 +25,8 @@ module.exports = {
   coverageReporters: ["html", "lcov", "text"],
   collectCoverageFrom: [
     "packages/*/src/**/*.ts",
-    "!packages/default-template/**"
+    "!packages/default-template/**",
+    "!**/interfaces/**"
   ],
   watchPathIgnorePatterns: ["/node_modules/"],
   moduleFileExtensions: ["ts", "tsx", "js", "json"],
