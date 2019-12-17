@@ -19,9 +19,7 @@ describe("Helpers - getProductMainImageUrl", () => {
   it("should contain url in cover object when media url is blank", () => {
     const product: any = {
       cover: {
-        media: {
-          url: mediaUrl
-        }
+        url: mediaUrl
       }
     };
     const coverUrl = getProductMainImageUrl({ product });
