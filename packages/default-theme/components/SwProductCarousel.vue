@@ -20,7 +20,7 @@
 
 <script>
 import { SfSection, SfCarousel, SfProductCard } from '@storefront-ui/vue'
-import SwProductSlider from './SwProductSlider'
+import SwProductSlider from './cms/elements/SwProductSlider'
 
 export default {
   name: 'SwProductCarousel',

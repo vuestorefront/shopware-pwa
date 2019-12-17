@@ -1,12 +1,11 @@
 <template>
   <div class="">
     <SfSelect
-      @change="emit('change', $event.target.value)"
       v-if="options.length"
       v-model="selectedOption"
-      :selected="value"
       :label="label"
       class="sf-select--bordered product-details__attribute"
+      @change="$emit('select', selectedOption)"
     >
       <SfSelectOption
         v-for="option in options"
@@ -26,10 +25,14 @@ import { SfSelect, SfProductOption } from '@storefront-ui/vue'
 export default {
   name: 'SwProductSelect',
   components: { SfSelect, SfProductOption },
+  model: {
+    prop: 'selected',
+    event: 'select'
+  },
   props: {
-    value: {
-      value: [null, String],
-      default: null
+    selected: {
+      type: String,
+      default: ''
     },
     options: {
       type: Array,
@@ -42,7 +45,7 @@ export default {
   },
   data() {
     return {
-      selectedOption: null
+      selectedOption: this.selected
     }
   }
 }
