@@ -1,12 +1,12 @@
 <template>
   <SfCollectedProduct
-    image="/img/productB.png"
+    v-model="quantity"
+    :image="productImage"
     :title="product.label"
     :regular-price="product.price.unitPrice | price"
     :stock="product.deliveryInformation.stock"
-    v-model="quantity"
-    @click:remove="removeProduct(product)"
     class="collected-product"
+    @click:remove="removeProduct(product)"
   >
     <template #configuration>
       <div class="collected-product__properties">
@@ -31,57 +31,58 @@
   </SfCollectedProduct>
 </template>
 <script>
-import {
-  SfSidebar,
-  SfButton,
-  SfProperty,
-  SfPrice,
-  SfCollectedProduct
-} from "@storefront-ui/vue";
-import { useCart } from "@shopware-pwa/composables";
-import {ref, watch} from "@vue/composition-api"
+import { SfButton, SfProperty, SfCollectedProduct } from '@storefront-ui/vue'
+import { getProductMainImageUrl } from '@shopware-pwa/helpers'
+import { useCart } from '@shopware-pwa/composables'
+import { ref, watch, computed } from '@vue/composition-api'
 
 export default {
   components: {
-    SfSidebar,
     SfButton,
     SfProperty,
-    SfPrice,
     SfCollectedProduct
+  },
+  filters: {
+    price(price) {
+      if (!price) return
+      return `$${price}`
+    }
   },
   props: {
     product: {
       type: Object,
-      defult: () => ({})
+      default: () => ({})
     }
   },
-  setup (props) {
+  setup(props) {
     const { removeProduct, changeProductQuantity } = useCart()
 
     const quantity = ref(props.product.quantity)
+    const productImage = computed(() =>
+      getProductMainImageUrl({ product: props.product })
+    )
 
-    watch(quantity, async qty => { // in future we may want to have debounce here
-      if (qty == props.product.quantity) return
-      await changeProductQuantity({id: props.product.id, quantity: qty})
+    watch(quantity, async (qty) => {
+      // in future we may want to have debounce here
+      if (qty === props.product.quantity) return
+      await changeProductQuantity({ id: props.product.id, quantity: qty })
     })
-    watch(() => props.product.quantity, qty => {
-      quantity.value = qty
-    })
+    watch(
+      () => props.product.quantity,
+      (qty) => {
+        quantity.value = qty
+      }
+    )
     return {
+      productImage,
       removeProduct,
       quantity
     }
-  },
-  filters: {
-    price: function(price) {
-      if (!price) return;
-      return `$${price}`;
-    }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
-@import "~@storefront-ui/vue/styles";
+@import '~@storefront-ui/vue/styles';
 @mixin for-desktop {
   @media screen and (min-width: $desktop-min) {
     @content;

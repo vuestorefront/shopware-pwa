@@ -8,4 +8,5 @@ export interface ProductMedia {
   media: Media;
   product: Product;
   customFields: CustomField[];
+  url: string;
 }
