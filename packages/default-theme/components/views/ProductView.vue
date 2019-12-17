@@ -57,10 +57,10 @@
 <script>
 import { SfSticky, SfImage, SfSection } from '@storefront-ui/vue'
 import { useProduct } from '@shopware-pwa/composables'
-import SwProductGallery from '../cms/elements/SwProductGallery'
-import SwProductDetails from '../cms/elements/SwProductDetails'
-import SwProductCarousel from '../cms/elements/SwProductCarousel'
-import SwProductAdvertisement from '../cms/elements/SwProductAdvertisement'
+import SwProductGallery from '../SwProductGallery'
+import SwProductDetails from '../SwProductDetails'
+import SwProductCarousel from '../SwProductCarousel'
+import SwProductAdvertisement from '../SwProductAdvertisement'
 
 export default {
   name: 'Product',
@@ -89,26 +89,25 @@ export default {
   },
   computed: {
     product() {
-      return (
-        (this.productWithAssociations && this.productWithAssociations.value) ||
-        this.page.product
-      )
+      return this.productWithAssociations ? this.productWithAssociations.value : this.page.product
     }
   },
   async mounted() {
     // TODO remove when page resolver is fully done
     const associations = {
       'associations[media][]': true,
-      'associations[options][associations][group][]': true,
+      // 'associations[options][associations][group][]': true,
       'associations[properties][associations][group][]': true,
       'associations[productReviews][]': true, // can be fetched asynchronously
       'associations[manufacturer][]': true,
-      'associations[children][associations][options][associations][group][]': true
+      'associations[children][associations][options][associations][group][]': true,
+      "associations[children][associations][seoUrls][]": true,
     }
 
     const { loadAssociations, product } = useProduct(this.page.product)
     this.productWithAssociations = product
     loadAssociations(associations)
+    
   }
 }
 </script>

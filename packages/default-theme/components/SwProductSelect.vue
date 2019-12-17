@@ -1,8 +1,10 @@
 <template>
   <div class="">
     <SfSelect
+      @change="emit('change', $event.target.value)"
       v-if="options.length"
       v-model="selectedOption"
+      :selected="value"
       :label="label"
       class="sf-select--bordered product-details__attribute"
     >
@@ -25,6 +27,10 @@ export default {
   name: 'SwProductSelect',
   components: { SfSelect, SfProductOption },
   props: {
+    value: {
+      value: [null, String],
+      default: null
+    },
     options: {
       type: Array,
       default: () => []

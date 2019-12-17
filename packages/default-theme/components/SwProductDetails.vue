@@ -16,14 +16,14 @@
     <div class="product-details__action">
       <button v-if="sizes.length > 0" class="sf-action">Size guide</button>
     </div>
-    <div v-if="isSimple" class="product-details__section">
-      <SfProperty v-if="color" name="Color" :value="color.name" />
-      <SfProperty v-if="size" name="Size" :value="size.name" />
+    <div v-if="!hasChildren" class="product-details__section">
+      <SfProperty v-if="size" name="Size" :value="size.code" />
+      <SfProperty v-if="color" name="Color" :value="color.code" />
     </div>
     <div v-if="hasChildren" class="product-details__section">
-      <SwProductSelect :options="sizes" label="Sizes" />
+      <SwProductSelect :options="sizes" v-model="selectedSize" label="Sizes" />
       <SwProductSelect #default="option" :options="colors" label="Colors">
-        <SfProductOption :label="option.label" :color="option.color" />
+        <SfProductOption :label="option.label" v-model="selectedColor" :color="option.label" />
       </SwProductSelect>
     </div>
     <div class="product-details__section">
@@ -106,7 +106,8 @@ import {
   getProductReviews,
   getProductRegularPrice,
   getProductSpecialPrice,
-  isProductSimple
+  isProductSimple,
+  getProductOptionsUrl
 } from '@shopware-pwa/helpers'
 import { useProduct, useAddToCart } from '@shopware-pwa/composables'
 import SwProductHeading from './SwProductHeading'
@@ -136,6 +137,12 @@ export default {
       default: () => ({})
     }
   },
+  data() {
+    return {
+      selectedColor: null,
+      selectedSize: null
+    }
+  },
   setup({ page }) {
     const { addToCart, quantity } = useAddToCart(page && page.product)
 
@@ -162,7 +169,8 @@ export default {
       return this.product && this.product.ratingAverage
     },
     hasChildren() {
-      return this.product && this.product.childCount > 0
+      return this.product && this.product.children && this.product.children.length
+
     },
     isSimple() {
       return isProductSimple({ product: this.product })
@@ -205,6 +213,16 @@ export default {
     },
     stock() {
       return this.product && this.product.stock
+    },
+    selectedOptions() {
+      return [this.selectedColor, this.selectedSize]
+    },
+  },
+
+  watch: {
+    selectedOptions(selected) {
+      const url = getProductOptionsUrl({product: this.product, options: selected})
+      this.$router.push(url);
     }
   },
 
@@ -212,6 +230,13 @@ export default {
     toggleWishlist(index) {
       this.products[index].isOnWishlist = !this.products[index].isOnWishlist
     }
+  },
+
+  mounted() {
+    const color = this.colors.find(color => this.product.optionIds.includes(color.code))
+    const size = this.sizes.find(size => this.product.optionIds.includes(size.code))
+    this.selectedColor = color && color.code
+    this.selectedSize = size && size.code   
   }
 }
 </script>
