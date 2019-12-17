@@ -1,7 +1,7 @@
 const lernaJson = require("./lerna.json");
 const e2e = require("minimist")(process.argv.slice(2))["e2e"];
 
-const isUnitTest = e2e !== true;
+const isUnitTest = e2e !== "true";
 
 console.log(`Starting ${isUnitTest ? "unit" : "e2e"} tests...`);
 
