@@ -16,7 +16,7 @@ describe("Helpers - getProductMainImageUrl", () => {
     expect(coverUrl).toEqual(mediaUrl);
   });
 
-  it("should contain url in cover object", () => {
+  it("should contain url in cover object when media url is blank", () => {
     const product: any = {
       cover: {
         media: {
@@ -42,7 +42,7 @@ describe("Helpers - getProductMainImageUrl", () => {
     expect(coverUrl).toEqual(mediaUrl);
   });
 
-  it("should return null for product without cover media", () => {
+  it("should return null for product without cover media and cover url", () => {
     const emptyProduct: any = {};
     const coverUrl = getProductMainImageUrl({ product: emptyProduct });
     expect(coverUrl).toBeUndefined();
