@@ -20,6 +20,7 @@
     "postinstall": "lerna link",
     "lint": "prettier --write --parser typescript 'packages/**/*.ts'",
     "test": "jest",
+    "test:e2e": "jest --e2e=true",
     "test:coverage": "yarn test --coverage",
     "docs:dev": "vuepress dev docs",
     "docs:build": "npx typedoc --options ./typedoc.js && vuepress build docs"

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shopware-6-client - E2E - ContextService - setCurrentCurrency should get error response when not existing currency 1`] = `[Error: Request failed with status code 400]`;
+
+exports[`shopware-6-client - E2E - ContextService - setCurrentCurrency should set GPB currency 1`] = `
+Object {
+  "contextToken": "mockedContextToken",
+}
+`;

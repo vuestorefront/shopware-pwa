@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shopware-6-client - E2E - ContextService - getAvailableLanguages should test languages response 1`] = `
+Object {
+  "aggregations": Array [],
+  "data": Array [
+    Object {
+      "_uniqueIdentifier": "2fbb5fe2e29a4d70aa5854ce7ce3e20b",
+      "children": null,
+      "createdAt": "2019-10-08T09:41:13+00:00",
+      "customFields": null,
+      "extensions": Array [],
+      "id": "2fbb5fe2e29a4d70aa5854ce7ce3e20b",
+      "locale": null,
+      "localeId": "447825a82429434599d6d8f98cb2e19b",
+      "name": "English",
+      "parent": null,
+      "parentId": null,
+      "translated": Array [],
+      "translationCode": null,
+      "translationCodeId": "447825a82429434599d6d8f98cb2e19b",
+      "updatedAt": null,
+      "versionId": null,
+    },
+    Object {
+      "_uniqueIdentifier": "508366cdf78c4aebb09eaad4a3fb4673",
+      "children": null,
+      "createdAt": "2019-10-08T09:41:13+00:00",
+      "customFields": null,
+      "extensions": Array [],
+      "id": "508366cdf78c4aebb09eaad4a3fb4673",
+      "locale": null,
+      "localeId": "ad759ca0e4a04c3e903204b9f9f3a302",
+      "name": "Deutsch",
+      "parent": null,
+      "parentId": null,
+      "translated": Array [],
+      "translationCode": null,
+      "translationCodeId": "ad759ca0e4a04c3e903204b9f9f3a302",
+      "updatedAt": null,
+      "versionId": null,
+    },
+  ],
+  "total": 2,
+}
+`;
