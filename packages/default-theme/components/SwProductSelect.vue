@@ -9,8 +9,8 @@
     >
       <SfSelectOption
         v-for="option in options"
-        :key="option.value"
-        :value="option.value"
+        :key="option.code"
+        :value="option.code"
       >
         <slot v-bind="option">
           <SfProductOption :label="option.label" />
