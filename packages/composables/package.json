@@ -33,5 +33,7 @@
     "@vue/composition-api": "^0.3.4",
     "vue": "^2.6.11"
   },
-  "dependencies": {}
+  "dependencies": {
+    "query-string": "^6.9.0"
+  }
 }

@@ -76,7 +76,7 @@
               :key="option.value"
               :label="option.label"
               :count="option.count"
-              :color="option.color"
+              :color="option.color || ''"
               class="filters__item"
             />
           </div>
@@ -107,7 +107,7 @@ import {
   SfFilter,
   SfSidebar
 } from '@storefront-ui/vue'
-import { useCategoryFilters } from '@shopware-pwa/composables'
+import { useCategoryFilters, useProductListing } from '@shopware-pwa/composables'
 const { availableFilters } = useCategoryFilters()
 
 export default {
@@ -123,6 +123,9 @@ export default {
       type: Object,
       default: () => ({})
     }
+  },
+  setup () {
+    useProductListing()
   },
   data() {
     return {
