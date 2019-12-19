@@ -38,11 +38,11 @@ export default {
   setup({ content }) {
     console.error('SETUP Product listing')
     const propProducts = content.data.listing || []
-    const { products, teest, search, pagination } = useProductListing(propProducts)
+    const { products, teest, changePagination, pagination } = useProductListing(propProducts)
 
-    const changedPage = async (value) => {
-      console.error('CHANGED PAGE: ' + value)
-      await search(value)
+    const changedPage = async (pageNumber) => {
+      console.error('CHANGED PAGE: ' + pageNumber)
+      await changePagination(pageNumber)
     }
 
     return {

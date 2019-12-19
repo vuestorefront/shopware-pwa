@@ -33,6 +33,11 @@ const sharedPagination = Vue.observable({
   total: 100
 } as any);
 
+const selectedCriteria = Vue.observable({
+  pagination: null,
+  filters: {}
+} as any);
+
 // const searchCriteria = Vue.observable({
 //   pagination: sharedPagination
 // } as SearchCriteria);
@@ -43,7 +48,6 @@ export const useProductListing = (
   const products: Ref<Product[]> = ref(initialProducts || []);
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
-  const selectedFilters: Ref<any> = ref({});
 
   // increase test on init:
   test.value = test.value + 1;
@@ -51,18 +55,25 @@ export const useProductListing = (
   const toggleFilter = (
     filter: EqualsFilter | RangeFilter | EqualsAnyFilter | ContainsFilter
   ): void => {
-    if (selectedFilters.value[filter.field]) {
-      selectedFilters.value[filter.field] = null;
+    console.warn('selected', ,selectedCriteria.filters[filter.field])
+    if (!!selectedCriteria.filters[filter.field]) {
+      // selectedCriteria.filters[filter.field] = null;
+      selectedCriteria.filters[filter.field].push(filter.value)
+      selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
+        [filter.field]: selectedCriteria.filters[filter.field].filter(option => option !== filter.value)
+      });
+    } else {
+      selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
+        [filter.field]: [filter.value]
+      });
     }
-    selectedFilters.value[filter.field] = filter;
+
+    console.warn('TOGGLE FILTER RESULT: ', selectedCriteria)
   };
 
-  const search = async (page: any): Promise<void> => {
+  const search = async (): Promise<void> => {
     const searchCriteria: SearchCriteria = {
-      pagination: {
-        limit: sharedPagination.perPage,
-        page
-      },
+      pagination: selectedCriteria.pagination,
       filters: [
         {
           field: "categoryTree",
@@ -77,9 +88,17 @@ export const useProductListing = (
     console.error("SQ: ", searchCriteria);
     const result = await getProducts(searchCriteria);
     sharedPagination.total = result.total;
-    sharedPagination.currentPage = page;
     products.value = result.data;
   };
+
+  const changePagination = async (page: number) => {
+    sharedPagination.currentPage = page;
+    selectedCriteria.pagination = {
+      limit: sharedPagination.perPage,
+      page
+    }
+    await search()
+  }
 
   const teest = computed(() => test.value);
   const pagination: any = computed(() => sharedPagination);
@@ -90,6 +109,8 @@ export const useProductListing = (
     pagination,
     products,
     loading,
-    error
+    error,
+    toggleFilter,
+    changePagination
   };
 };
