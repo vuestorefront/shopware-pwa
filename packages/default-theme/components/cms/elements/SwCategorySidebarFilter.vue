@@ -71,14 +71,12 @@
         <div class="filters">
           <div v-for="filter in filters" :key="filter.name">
             <h3 class="filters__title">{{ filter.name }}</h3>
-            <SfFilter
-              v-for="option in filter.options"
-              :key="option.value"
-              :label="option.label"
-              :count="option.count"
-              :color="option.color || ''"
-              class="filters__item"
-            />
+            <div :key="option.value"
+             v-for="option in filter.options">
+              <label>{{ option.label }}</label>
+                <input :value="option.value" type="checkbox" @change="toggleFilter({type: 'equals', value: option.value, field: filter.name})
+                " />
+            </div>
           </div>
 
           <div class="filters__buttons">
@@ -125,7 +123,9 @@ export default {
     }
   },
   setup () {
-    useProductListing()
+    const { toggleFilter } = useProductListing()
+
+    return { toggleFilter }
   },
   data() {
     return {
