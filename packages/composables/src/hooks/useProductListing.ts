@@ -53,15 +53,21 @@ export const useProductListing = (
   test.value = test.value + 1;
 
   const toggleFilter = (
-    filter: EqualsFilter | RangeFilter | EqualsAnyFilter | ContainsFilter
+    filter: EqualsFilter | EqualsAnyFilter | ContainsFilter // TODO: handle range filter case
   ): void => {
-    console.warn('selected', ,selectedCriteria.filters[filter.field])
+    console.warn('selected', selectedCriteria.filters[filter.field])
     if (!!selectedCriteria.filters[filter.field]) {
-      // selectedCriteria.filters[filter.field] = null;
-      selectedCriteria.filters[filter.field].push(filter.value)
+      if (!selectedCriteria.filters[filter.field].find(optionId => optionId === filter.value)) {
+        selectedCriteria.filters[filter.field].push(filter.value)
+      } else {
+        selectedCriteria.filters[filter.field] = selectedCriteria.filters[filter.field].filter( optionId => optionId !== filter.value)
+      }
+      
       selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
-        [filter.field]: selectedCriteria.filters[filter.field].filter(option => option !== filter.value)
+        [filter.field]: selectedCriteria.filters[filter.field]
       });
+      
+
     } else {
       selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
         [filter.field]: [filter.value]
