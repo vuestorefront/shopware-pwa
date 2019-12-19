@@ -9,7 +9,7 @@ export interface Sort {
   desc?: boolean;
 }
 export interface SearchCriteria {
-  filters?: EqualsFilter[] | RangeFilter[] | MultiFilter[];
+  filters?: Array<EqualsFilter[] | RangeFilter[] | MultiFilter[] | MultiFilter>;
   pagination?: Pagination;
   sort?: Sort;
   term?: string;

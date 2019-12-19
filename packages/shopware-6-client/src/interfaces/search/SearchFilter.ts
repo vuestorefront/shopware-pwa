@@ -28,7 +28,7 @@ export interface EqualsFilter extends SearchFilter {
 }
 
 export interface EqualsAnyFilter extends SearchFilter {
-  value: string;
+  value: string[];
   field: string;
 }
 
@@ -52,5 +52,5 @@ export interface RangeFilter extends SearchFilter {
 
 export interface MultiFilter extends SearchFilter {
   operator: string;
-  queries: SearchFilter[];
+  queries: Array<EqualsAnyFilter | RangeFilter | ContainsFilter | EqualsFilter>;
 }

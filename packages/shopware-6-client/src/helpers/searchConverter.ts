@@ -101,7 +101,7 @@ export const convertSearchCriteria = (
     params.sort = `${prefix}${sort.field}`;
   }
 
-  if (filters && filters.length) {
+  if (filters) {
     params.filter = filters;
   }
 
