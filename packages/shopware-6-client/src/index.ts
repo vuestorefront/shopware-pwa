@@ -15,6 +15,7 @@ export * from "./interfaces/response/PageResolverResult";
 export * from "./interfaces/models/content/product/Product";
 export * from "./interfaces/models/content/category/Category";
 export * from "./interfaces/models/content/cms/CmsPage";
+export * from "./helpers/searchConverter"
 /**
  * Setup configuration. Merge default values with provided in param.
  * This method will override existing config. For config update invoke **update** method.

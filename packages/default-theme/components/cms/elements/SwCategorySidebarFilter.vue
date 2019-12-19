@@ -69,16 +69,24 @@
         @close="isFilterSidebarOpen = false"
       >
         <div class="filters">
+                  selected FILTERS: {{ selectedQty }}
           <div v-for="filter in filters" :key="filter.name">
             <h3 class="filters__title">{{ filter.name }}</h3>
-            <SfFilter
+          
+            <div :key="option.value"
+             v-for="option in filter.options">
+            <label>{{ option.label }}</label>
+              <input :value="option.value" type="checkbox" @change="addOption(filter.name, option)" />
+            </div>
+            <!-- <SfFilter
               v-for="option in filter.options"
               :key="option.value"
               :label="option.label"
               :count="option.count"
               :color="option.color"
+              :selected="option.selected"
               class="filters__item"
-            />
+            /> -->
           </div>
 
           <div class="filters__buttons">
@@ -130,7 +138,17 @@ export default {
       isFilterSidebarOpen: false
     }
   },
+  setup (props) {
+    const { selectedFilters, selectFilter, availableFilters } = useCategoryFilters()
+  
+    return {
+      selectFilter,
+      selectedFilters    }
+  },
   computed: {
+    selectedQty(){
+      return this.selectedFilters.length
+    },
     filters() {
       return (availableFilters && availableFilters.value) || []
     },
@@ -167,7 +185,11 @@ export default {
     }
   },
   methods: {
-    clearAllFilters() {}
+    clearAllFilters() {},
+    addOption(name, option) {
+      console.warn(name, option)
+      this.selectFilter({name: name, "option": option})
+    }
   }
 }
 </script>
