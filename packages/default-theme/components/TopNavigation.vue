@@ -36,11 +36,7 @@
               :aria-pressed="activeIcon === 'account' ? 'true' : 'false'"
               :has-badge="isLoggedIn"
               @click="userIconClick"
-            >
-              <template #badge>
-                <SfBadge class="cart-icon__badge" />
-              </template>
-            </SfCircleIcon>
+            />
             <SfCircleIcon
               v-if="wishlistIcon"
               :icon="wishlistIcon"
