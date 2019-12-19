@@ -22,11 +22,11 @@ export default {
   name: 'DynamicRoute',
   components: {
   },
-  asyncData: async ({ req, params }) => {
+  asyncData: async ({ req, params, query }) => {
     const {search, page, category} = useCms()
     const {refreshCart} = useCart()
     const {refreshUser} = useUser()
-    const searchResult = await search(params.pathMatch);
+    const searchResult = await search(params.pathMatch, query);
     await refreshCart();
     await refreshUser();
 

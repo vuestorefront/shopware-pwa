@@ -10,23 +10,29 @@ export const useCms = (): any => {
     return vuexStore.getters.getPage;
   });
 
-  const search = async (path: string) => {
+  const search = async (path: string, query?: any) => {
     loading.value = true;
-    try {
-      const result = await getPage(path, {
-        configuration: {
-          associations: [
-            {
-              name: "options",
-              associations: [
-                {
-                  name: "group"
-                }
-              ]
-            }
-          ]
-        }
+    const searchCriteria: any = {};
+    if (query) {
+      Object.keys(query).forEach((key: string) => {
+        searchCriteria[key] = JSON.parse(query[key]);
       });
+    }
+    // const searchCriteria = queryString.parse(query)
+    // Temp Maciej solution for associations
+    if (!searchCriteria.configuration) searchCriteria.configuration = {};
+    if (!searchCriteria.configuration.associations) searchCriteria.configuration.associations = [];
+    searchCriteria.configuration.associations.push({
+      name: "options",
+      associations: [
+        {
+          name: "group"
+        }
+      ]
+    });
+    console.error("SEARCHING FOR PAGE", searchCriteria);
+    try {
+      const result = await getPage(path, searchCriteria);
       vuexStore.commit("SET_PAGE", result);
     } catch (e) {
       error.value = e;
