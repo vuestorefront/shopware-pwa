@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shopware-6-client - E2E - ProductService - getProductsIds should fetch product ids 1`] = `
+Object {
+  "data": Array [
+    "015ed3ac77294adcaf65592325467463",
+    "01a2101c6c824119a62d44089491f228",
+    "0323b285872b4bf3af9abccf1b2a13e0",
+    "034d50ec4a854ccd9d28e57007b9dea0",
+    "037644c62cee421faa4c2bb2baf02719",
+    "039d751614f949e3ada9029c0271e130",
+    "044a190a54ab4f06803909c3ee8063ef",
+    "0505e99eda464d66993119e8ab77169a",
+    "05b1a6a37ff646d29c0029e21b758369",
+    "0873451dbd3a4026bba5f1baa21c0289",
+  ],
+  "total": 192,
+}
+`;
