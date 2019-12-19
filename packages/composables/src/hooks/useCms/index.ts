@@ -1,6 +1,7 @@
 import { ref, Ref, computed } from "@vue/composition-api";
-import { getPage } from "@shopware-pwa/shopware-6-client";
+import { getPage, SearchCriteria } from "@shopware-pwa/shopware-6-client";
 import { getStore } from "../..";
+import { parseUrlQuery } from "@shopware-pwa/helpers";
 
 export const useCms = (): any => {
   let vuexStore = getStore();
@@ -12,16 +13,12 @@ export const useCms = (): any => {
 
   const search = async (path: string, query?: any) => {
     loading.value = true;
-    const searchCriteria: any = {};
-    if (query) {
-      Object.keys(query).forEach((key: string) => {
-        searchCriteria[key] = JSON.parse(query[key]);
-      });
-    }
+    const searchCriteria: SearchCriteria = parseUrlQuery(query);
     // const searchCriteria = queryString.parse(query)
     // Temp Maciej solution for associations
     if (!searchCriteria.configuration) searchCriteria.configuration = {};
-    if (!searchCriteria.configuration.associations) searchCriteria.configuration.associations = [];
+    if (!searchCriteria.configuration.associations)
+      searchCriteria.configuration.associations = [];
     searchCriteria.configuration.associations.push({
       name: "options",
       associations: [
