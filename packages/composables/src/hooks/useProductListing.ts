@@ -74,12 +74,13 @@ export const useProductListing = (
   }
 
   const toggleFilter = (
-    filter: EqualsFilter | EqualsAnyFilter | ContainsFilter // TODO: handle range filter case
+    filter: EqualsFilter | EqualsAnyFilter | ContainsFilter, // TODO: handle range filter case,
+    forceSave: boolean = false
   ): void => {
     console.warn('selected', selectedCriteria.filters[filter.field])
     if (!!selectedCriteria.filters[filter.field]) {
       let selected = selectedCriteria.filters[filter.field]
-      if (!selected.find((optionId: string) => optionId === filter.value)) {
+      if (!selected.find((optionId: string) => optionId === filter.value) || forceSave) {
         selected.push(filter.value)
       } else {
         selected = selected.filter((optionId:string) => optionId !== filter.value)
@@ -105,7 +106,7 @@ export const useProductListing = (
       field: "categoryTree",
       type: SearchFilterType.EQUALS_ANY,
       value: "3f637f17cd9f4891a2d7625d19fb37c9"
-    })
+    }, true)
 
     const searchCriteria: SearchCriteria = {
       pagination: selectedCriteria.pagination,
