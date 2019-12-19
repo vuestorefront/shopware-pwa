@@ -6,8 +6,14 @@ import {
 } from "@shopware-pwa/shopware-6-client";
 import Vue from "vue";
 // test of lib, uninstall it if not used
-import queryString from "query-string";
-import { EqualsFilter, SearchFilterType } from "packages/shopware-6-client/src/interfaces/search/SearchFilter";
+import {
+  EqualsFilter,
+  SearchFilterType,
+  RangeFilter,
+  EqualsAnyFilter,
+  ContainsFilter
+} from "packages/shopware-6-client/src/interfaces/search/SearchFilter";
+import { exportUrlQuery } from "@shopware-pwa/helpers";
 
 interface UseProductListing {
   products: Ref<Product[]>;
@@ -37,12 +43,21 @@ export const useProductListing = (
   const products: Ref<Product[]> = ref(initialProducts || []);
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
+  const selectedFilters: Ref<any> = ref({});
 
   // increase test on init:
   test.value = test.value + 1;
 
+  const toggleFilter = (
+    filter: EqualsFilter | RangeFilter | EqualsAnyFilter | ContainsFilter
+  ): void => {
+    if (selectedFilters.value[filter.field]) {
+      selectedFilters.value[filter.field] = null;
+    }
+    selectedFilters.value[filter.field] = filter;
+  };
 
-  const search = async (page: number): Promise<void> => {
+  const search = async (page: any): Promise<void> => {
     const searchCriteria: SearchCriteria = {
       pagination: {
         limit: sharedPagination.perPage,
@@ -50,19 +65,14 @@ export const useProductListing = (
       },
       filters: [
         {
-          field: 'categoryTree',
+          field: "categoryTree",
           type: SearchFilterType.EQUALS_ANY,
-          value: '3f637f17cd9f4891a2d7625d19fb37c9'
-        } as EqualsFilter
+          value: "3f637f17cd9f4891a2d7625d19fb37c9"
+        } as EqualsAnyFilter
       ]
     };
-    const query:any = {}
-    const sc:any = searchCriteria
-    Object.keys(searchCriteria).forEach((key:string) => {
-      query[key] = JSON.stringify(sc[key])
-    })
-    const search = queryString.stringify(query);
-    history.replaceState({}, null as any, location.pathname + '?' + search);
+    const search = exportUrlQuery(searchCriteria);
+    history.replaceState({}, null as any, location.pathname + "?" + search);
     console.error("REPLACING WITH SEARCH: " + search);
     console.error("SQ: ", searchCriteria);
     const result = await getProducts(searchCriteria);
@@ -75,11 +85,11 @@ export const useProductListing = (
   const pagination: any = computed(() => sharedPagination);
 
   return {
-    products,
-    error,
-    loading,
     teest,
     search,
-    pagination
+    pagination,
+    products,
+    loading,
+    error
   };
 };
