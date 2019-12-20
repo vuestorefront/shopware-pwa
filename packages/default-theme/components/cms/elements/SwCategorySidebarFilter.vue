@@ -82,7 +82,7 @@
           <div class="filters__buttons">
             <SfButton
               class="sf-button--full-width"
-              @click="isFilterSidebarOpen = false"
+              @click="submitFilters()"
               >Done</SfButton
             >
             <SfButton
@@ -123,9 +123,9 @@ export default {
     }
   },
   setup () {
-    const { toggleFilter } = useProductListing()
+    const { toggleFilter, search } = useProductListing()
 
-    return { toggleFilter }
+    return { toggleFilter, search }
   },
   data() {
     return {
@@ -170,7 +170,10 @@ export default {
     }
   },
   methods: {
-    clearAllFilters() {}
+    clearAllFilters() {},
+    async submitFilters() {
+      await this.search()
+    }
   }
 }
 </script>

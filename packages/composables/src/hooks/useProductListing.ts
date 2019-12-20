@@ -15,6 +15,7 @@ import {
   MultiFilter
 } from "packages/shopware-6-client/src/interfaces/search/SearchFilter";
 import { exportUrlQuery } from "@shopware-pwa/helpers";
+import { useCms } from "./useCms";
 
 interface UseProductListing {
   products: Ref<Product[]>;
@@ -45,10 +46,12 @@ const selectedCriteria = Vue.observable({
 
 export const useProductListing = (
   initialProducts: Product[] = []
-): UseProductListing => {
+  ): UseProductListing => {
+  const { page } = useCms();
   const products: Ref<Product[]> = ref(initialProducts || []);
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
+  const categoryId: Ref<string> = ref(page.value.resourceIdentifier)
 
   // increase test on init:
   test.value = test.value + 1;
@@ -61,14 +64,29 @@ export const useProductListing = (
       queries: []
     }
     const selectedFilters = selectedCriteria.filters
+    const chosenPropertyIds = []
     for(const filterName of Object.keys(selectedFilters)) {
 
-      multiFilter.queries.push({
-        type: SearchFilterType.EQUALS_ANY,
-        field: filterName,
-        value: selectedFilters[filterName]
-      })
+      if (!selectedFilters[filterName].length) {
+        continue;
+      }
+
+      if (filterName === "categoryTree") {
+        multiFilter.queries.push({
+          type: SearchFilterType.EQUALS_ANY,
+          field: filterName,
+          value: [...selectedFilters[filterName]]
+        })
+      } else {
+        chosenPropertyIds.push(...selectedFilters[filterName])
+      }
     }
+
+    multiFilter.queries.push({
+        type: SearchFilterType.EQUALS_ANY,
+        field: "propertyIds",
+        value: [...chosenPropertyIds]
+      })
 
     return [multiFilter]
   }
@@ -105,8 +123,8 @@ export const useProductListing = (
     toggleFilter({ // append selected filters with currentCategory; should be taken from usePage
       field: "categoryTree",
       type: SearchFilterType.EQUALS_ANY,
-      value: "3f637f17cd9f4891a2d7625d19fb37c9"
-    }, true)
+      value: categoryId.value
+    }, false)
 
     const searchCriteria: SearchCriteria = {
       pagination: selectedCriteria.pagination,
