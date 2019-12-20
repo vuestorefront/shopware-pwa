@@ -33,6 +33,7 @@ import { SfImage, SfGallery } from '@storefront-ui/vue'
 import { getProductMediaGallery } from '@shopware-pwa/helpers'
 
 export default {
+  name: 'SwProductGallery',
   components: { SfImage, SfGallery },
   props: {
     product: {
