@@ -1,5 +1,5 @@
 import { update, addPromotionCode } from "@shopware-pwa/shopware-6-client";
-describe("shopware-6-client - E2E - CartService - addCartItemQuantity", () => {
+describe("shopware-6-client - E2E - CartService - addPromotionCode", () => {
   beforeEach(() => {
     update({ contextToken: "" })
   });
@@ -9,19 +9,17 @@ describe("shopware-6-client - E2E - CartService - addCartItemQuantity", () => {
     result.token = "mockedToken";
     expect(result).toMatchSnapshot();
   });
-  
+
+  // Backend returns the same result as for existing promotion
   it("should returns error when adding non-existing promotion code", async () => {
-    try {
-      await addPromotionCode("que");
-      expect("didn't throw an error").toEqual("should throw an error");
-    } catch(e) {
-      expect(e).toMatchSnapshot();
-    }
+    const result = await addPromotionCode("notExistingCode");
+    result.token = "mockedToken";
+    expect(result).toMatchSnapshot();
   });
 
   it("should returns error when adding empty string as promotion code", async () => {
     try {
-      await addPromotionCode("que");
+      await addPromotionCode("");
       expect("didn't throw an error").toEqual("should throw an error");
     } catch(e) {
       expect(e).toMatchSnapshot();
