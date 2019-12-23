@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`shopware-6-client - E2E - CartService - getCart custom token - added product to cart should fetch cart with added products 1`] = `
+exports[`shopware-6-client - E2E - CartService - getCart should fetch cart for empty one 1`] = `
 Object {
   "deliveries": Array [],
   "errors": Array [],
@@ -36,7 +36,7 @@ Object {
 }
 `;
 
-exports[`shopware-6-client - E2E - CartService - getCart empty token - empty cart should fetch cart for empty one 1`] = `
+exports[`shopware-6-client - E2E - CartService - getCart should fetch cart with added product 1`] = `
 Object {
   "deliveries": Array [],
   "errors": Array [],

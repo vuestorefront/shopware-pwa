@@ -1,8 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`shopware-6-client - E2E - CartService - addCartItemQuantity should test remove product from cart error response 1`] = `[Error: Request failed with status code 400]`;
-
-exports[`shopware-6-client - E2E - CartService - addCartItemQuantity should test remove product from cart response 1`] = `
+exports[`shopware-6-client - E2E - CartService - addCartItemQuantity should remove product from cart 1`] = `
 Object {
   "deliveries": Array [],
   "errors": Array [],
@@ -37,3 +35,5 @@ Object {
   ],
 }
 `;
+
+exports[`shopware-6-client - E2E - CartService - addCartItemQuantity should return error when product doesn't exit in cart 1`] = `[Error: Request failed with status code 400]`;

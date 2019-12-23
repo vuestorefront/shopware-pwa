@@ -5,14 +5,14 @@ describe("shopware-6-client - E2E - CartService - changeCartItemQuantity", () =>
       update( {contextToken: "" });
   });
 
-  it("should test change item cart quantity response", async () => {
+  it("should change item cart quantity", async () => {
     await addProductToCart("9cce06f9dc424844989a06cfe3dc98da", 2);
     const result = await changeCartItemQuantity("9cce06f9dc424844989a06cfe3dc98da", 1);
     result.token = "mockedToken";
     expect(result).toMatchSnapshot();
   });
 
- it("should test change item cart quantity response error", async () => {
+ it("should returns error when changing quantity of item which is not in the cart", async () => {
     try {
       await changeCartItemQuantity("qwe");
       expect("didn't throw an error").toEqual("should throw an error");

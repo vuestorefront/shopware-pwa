@@ -5,7 +5,7 @@ describe("shopware-6-client - E2E - CartService - addProductToCart", () => {
     update({ contextToken: "" });
   });
 
-  it("should test add product to cart response", async () => {
+  it("should add normally product to cart", async () => {
     const result = await addProductToCart(
       "044a190a54ab4f06803909c3ee8063ef",
       2
@@ -14,7 +14,7 @@ describe("shopware-6-client - E2E - CartService - addProductToCart", () => {
     expect(result).toMatchSnapshot();
   });
 
-  it("should test add product with 0 quantity to cart response", async () => {
+  it("should test add product to cart with 0 quantity response", async () => {
     const result = await addProductToCart(
       "044a190a54ab4f06803909c3ee8063ef",
       0
@@ -23,9 +23,9 @@ describe("shopware-6-client - E2E - CartService - addProductToCart", () => {
     expect(result).toMatchSnapshot();
   });
 
-  it("should add product to cart response error", async () => {
+  it("should return error when adding non-existing product to cart", async () => {
     try {
-      addProductToCart("", 2);
+      await addProductToCart("", 2);
       expect("didn't throw an error").toEqual("should throw an error");
     } catch(e) {
       expect(e).toMatchSnapshot();

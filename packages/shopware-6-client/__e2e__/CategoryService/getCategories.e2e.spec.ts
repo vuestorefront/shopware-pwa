@@ -1,10 +1,10 @@
 import { getCategories } from "@shopware-pwa/shopware-6-client";
 
 describe("shopware-6-client - E2E - CategoryService - getCategories", () => {
-    it("should all all categories that match search criteria", async() => {
+    it("should fetch all categories that match search criteria", async() => {
         const result = await getCategories();
         expect(result).toMatchSnapshot();
-    })
+    });
 
     it("should returns error when cannot find categories with given criteria", async() => {
       try {

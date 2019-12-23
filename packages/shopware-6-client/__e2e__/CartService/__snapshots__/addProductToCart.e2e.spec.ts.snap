@@ -1,13 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`shopware-6-client - E2E - CartService - addProductToCart should add product to cart response error 1`] = `
-[Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
-
-Expected: [32m"[7mshould[27m throw an error"[39m
-Received: [31m"[7mdidn't[27m throw an error"[39m]
-`;
-
-exports[`shopware-6-client - E2E - CartService - addProductToCart should test add product to cart response 1`] = `
+exports[`shopware-6-client - E2E - CartService - addProductToCart should add normally product to cart 1`] = `
 Object {
   "deliveries": Array [],
   "errors": Array [],
@@ -43,7 +36,9 @@ Object {
 }
 `;
 
-exports[`shopware-6-client - E2E - CartService - addProductToCart should test add product with 0 quantity to cart response 1`] = `
+exports[`shopware-6-client - E2E - CartService - addProductToCart should return error when adding non-existing product to cart 1`] = `[Error: Request failed with status code 404]`;
+
+exports[`shopware-6-client - E2E - CartService - addProductToCart should test add product to cart with 0 quantity response 1`] = `
 Object {
   "deliveries": Array [],
   "errors": Array [],

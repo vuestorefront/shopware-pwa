@@ -5,7 +5,7 @@ describe("shopware-6-client - E2E - NavigationService - getNavigationService", (
     update({ contextToken: "" });
   });
 
-  it("should get navigation schema", async () => {
+  it("should get navigation schema for given root node", async () => {
     const result = await getNavigation({
         depth: 1,
         rootNode: "9429db6b2da348ea8308f1dbe6eee9f0"
@@ -13,7 +13,7 @@ describe("shopware-6-client - E2E - NavigationService - getNavigationService", (
     expect(result).toMatchSnapshot();
   });
 
-  it("should get error response when not navigation", async () => {
+  it("should get error response when navigation root node doesn't exist", async () => {
     try {
       await getNavigation({ depth: 22, rootNode: "qwe" });
       expect("didn't throw an error").toEqual("should throw an error");
