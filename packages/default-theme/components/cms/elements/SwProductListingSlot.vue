@@ -1,6 +1,6 @@
 <template>
   <div class="sw-product-list">
-    <div class="sw-product-list--wrapper">
+    <div class="sw-product-list--wrapper" v-if="products.length">
       <div class="sw-product-list__list">
         <SwProductCard
           v-for="product in products"
@@ -16,17 +16,19 @@
         @click="changedPage"
       />
     </div>
+    <SfHeading v-else title="No products found" subtitle="let us look for them"/>
   </div>
 </template>
 
 <script>
 import SwProductCard from '../../SwProductCard'
-import { SfPagination } from '@storefront-ui/vue'
+import { SfPagination, SfHeading } from '@storefront-ui/vue'
 import { useProductListing } from '@shopware-pwa/composables'
 export default {
   components: {
     SwProductCard,
-    SfPagination
+    SfPagination,
+    SfHeading
   },
   props: {
     content: {

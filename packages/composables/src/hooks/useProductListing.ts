@@ -1,4 +1,4 @@
-import { ref, Ref, computed } from "@vue/composition-api";
+import { ref, Ref, computed, reactive } from "@vue/composition-api";
 import {
   Product,
   getProducts,
@@ -54,6 +54,7 @@ export const useProductListing = (
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
   const categoryId: Ref<string> = ref(page.value.resourceIdentifier)
+  const localListing = reactive(sharedListing)
   sharedListing.products = initialProducts
   // increase test on init:
   test.value = test.value + 1;
@@ -143,8 +144,7 @@ export const useProductListing = (
     console.error("SQ: ", searchCriteria);
     const result = await getProducts(searchCriteria);
     sharedPagination.total = result.total;
-    sharedListing.products = [];
-    sharedListing.products = result.data;
+    sharedListing.products = [ ...result.data];
     console.error('PRODUCTS replacement: ', result.data)
   };
 
@@ -159,7 +159,7 @@ export const useProductListing = (
 
   const teest = computed(() => test.value);
   const pagination: any = computed(() => sharedPagination);
-  const products = computed(() => sharedListing.products);
+  const products = computed(() => localListing.products);
 
   return {
     teest,
