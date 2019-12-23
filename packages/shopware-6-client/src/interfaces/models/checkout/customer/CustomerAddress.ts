@@ -3,7 +3,7 @@ import { CustomField } from "../../common/CustomField";
 
 export interface CustomerAddress {
   customerId?: string;
-  countryId?: string;
+  countryId: string;
   countryStateId?: string | null;
   salutationId: string;
   firstName: string;
@@ -20,7 +20,7 @@ export interface CustomerAddress {
   additionalAddressLine2?: string;
   country?: Country;
   countryState?: string;
-  salutation: string;
+  salutation: string | null;
   customer?: string;
   customFields?: CustomField;
   id?: string;

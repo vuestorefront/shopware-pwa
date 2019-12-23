@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shopware-6-client - E2E - CustomerService - updateProfile should return error when updating user profile without logged user 1`] = `[Error: Request failed with status code 500]`;
+
+exports[`shopware-6-client - E2E - CustomerService - updateProfile should update user profile 1`] = `undefined`;

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shopware-6-client - E2E - CustomerService - createCustomerAddress should created new customer address for logged user 1`] = `
+Object {
+  "data": "mockedCustomerAddressId",
+}
+`;

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shopware-6-client - E2E - CustomerService - register should register new customer 1`] = `
+Object {
+  "data": "mockedCustomerId",
+}
+`;

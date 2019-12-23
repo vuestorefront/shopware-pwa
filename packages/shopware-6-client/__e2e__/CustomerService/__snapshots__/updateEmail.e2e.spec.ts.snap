@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shopware-6-client - E2E - CustomerService - updateEmail should returns error when email address is already in use 1`] = `[Error: Request failed with status code 400]`;
+
+exports[`shopware-6-client - E2E - CustomerService - updateEmail should returns error when email does not meet minimum requirements 1`] = `[Error: Request failed with status code 400]`;
+
+exports[`shopware-6-client - E2E - CustomerService - updateEmail should returns error when emailConfirmation does not match 1`] = `[Error: Request failed with status code 400]`;
+
+exports[`shopware-6-client - E2E - CustomerService - updateEmail should returns error when password does not match to current user password 1`] = `[Error: Request failed with status code 400]`;
+
+exports[`shopware-6-client - E2E - CustomerService - updateEmail should returns error when updating email without logged user 1`] = `[Error: Request failed with status code 400]`;
+
+exports[`shopware-6-client - E2E - CustomerService - updateEmail should update customer email 1`] = `undefined`;

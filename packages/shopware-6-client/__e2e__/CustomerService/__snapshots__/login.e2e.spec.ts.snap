@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shopware-6-client - E2E - CustomerService - login should log in user with provided credentials 1`] = `
+Object {
+  "contextToken": "mockedToken",
+}
+`;
+
+exports[`shopware-6-client - E2E - CustomerService - login should return error response when login is incorrect 1`] = `[Error: Request failed with status code 401]`;
+
+exports[`shopware-6-client - E2E - CustomerService - login should return error response when password is incorrect 1`] = `[Error: Request failed with status code 401]`;

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shopware-6-client - E2E - CustomerService - deleteCustomerAddress should delete customer address with given id 1`] = `undefined`;
+
+exports[`shopware-6-client - E2E - CustomerService - deleteCustomerAddress should return error deleting not existing customer address 1`] = `[Error: Request failed with status code 400]`;
