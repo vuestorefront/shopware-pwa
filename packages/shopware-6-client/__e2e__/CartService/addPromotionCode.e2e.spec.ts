@@ -2,11 +2,12 @@ import { update, addPromotionCode } from "@shopware-pwa/shopware-6-client";
 describe("shopware-6-client - E2E - CartService - addCartItemQuantity", () => {
   beforeEach(() => {
     update({ contextToken: "" })
-  })
+  });
 
-  // TODO: Find existig promotion code 
+  // TODO: Find existing promotion code
   it("should test add promotion code response", async() => {
-    const result = await addPromotionCode("");
+    const result = await addPromotionCode("divante");
+    result.token = "mockedToken";
     expect(result).toMatchSnapshot();
   });
   
