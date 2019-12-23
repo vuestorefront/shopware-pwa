@@ -10,7 +10,7 @@ describe("shopware-6-client - E2E - CartService - addPromotionCode", () => {
     expect(result).toMatchSnapshot();
   });
 
-  // Backend returns the same result as for existing promotion
+  // Backend returns the same result as for the existing promotion
   it("should returns error when adding non-existing promotion code", async () => {
     const result = await addPromotionCode("notExistingCode");
     result.token = "mockedToken";
