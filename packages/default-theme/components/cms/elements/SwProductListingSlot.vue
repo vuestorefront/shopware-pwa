@@ -1,7 +1,6 @@
 <template>
   <div class="sw-product-list">
     <div class="sw-product-list--wrapper">
-      <pre> Teest: {{ teest }} </pre>
       <div class="sw-product-list__list">
         <SwProductCard
           v-for="product in products"
