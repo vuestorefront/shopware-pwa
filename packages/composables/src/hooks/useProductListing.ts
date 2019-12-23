@@ -18,7 +18,6 @@ import { exportUrlQuery } from "@shopware-pwa/helpers";
 import { useCms } from "./useCms";
 
 interface UseProductListing {
-  products: Ref<Product[]>;
   loading: Ref<boolean>;
   error: Ref<any>;
   [x: string]: any;
@@ -35,6 +34,10 @@ const sharedPagination = Vue.observable({
   total: 100
 } as any);
 
+const sharedListing = Vue.observable({
+  products: []
+} as any)
+
 const selectedCriteria = Vue.observable({
   pagination: null,
   filters: {}
@@ -48,11 +51,10 @@ export const useProductListing = (
   initialProducts: Product[] = []
   ): UseProductListing => {
   const { page } = useCms();
-  const products: Ref<Product[]> = ref(initialProducts || []);
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
   const categoryId: Ref<string> = ref(page.value.resourceIdentifier)
-
+  sharedListing.products = initialProducts
   // increase test on init:
   test.value = test.value + 1;
 
@@ -82,11 +84,13 @@ export const useProductListing = (
       }
     }
 
-    multiFilter.queries.push({
+    if (chosenPropertyIds.length) {
+      multiFilter.queries.push({
         type: SearchFilterType.EQUALS_ANY,
         field: "propertyIds",
         value: [...chosenPropertyIds]
       })
+    }
 
     return [multiFilter]
   }
@@ -103,9 +107,11 @@ export const useProductListing = (
       } else {
         selected = selected.filter((optionId:string) => optionId !== filter.value)
       }
+
+
       
       selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
-        [filter.field]: selected
+        [filter.field]: [ ... new Set(selected)]
       });
       
 
@@ -124,7 +130,7 @@ export const useProductListing = (
       field: "categoryTree",
       type: SearchFilterType.EQUALS_ANY,
       value: categoryId.value
-    }, false)
+    }, true)
 
     const searchCriteria: SearchCriteria = {
       pagination: selectedCriteria.pagination,
@@ -137,7 +143,9 @@ export const useProductListing = (
     console.error("SQ: ", searchCriteria);
     const result = await getProducts(searchCriteria);
     sharedPagination.total = result.total;
-    products.value = result.data;
+    sharedListing.products = [];
+    sharedListing.products = result.data;
+    console.error('PRODUCTS replacement: ', result.data)
   };
 
   const changePagination = async (page: number) => {
@@ -151,6 +159,7 @@ export const useProductListing = (
 
   const teest = computed(() => test.value);
   const pagination: any = computed(() => sharedPagination);
+  const products = computed(() => sharedListing.products);
 
   return {
     teest,
