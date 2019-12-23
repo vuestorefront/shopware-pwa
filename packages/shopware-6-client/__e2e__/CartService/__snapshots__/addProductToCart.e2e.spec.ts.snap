@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`shopware-6-client - E2E - CartService - addProductToCart should add normally product to cart 1`] = `
+exports[`shopware-6-client - E2E - CartService - addProductToCart should add real product to cart 1`] = `
 Object {
   "deliveries": Array [],
   "errors": Array [],
@@ -36,7 +36,7 @@ Object {
 }
 `;
 
-exports[`shopware-6-client - E2E - CartService - addProductToCart should return error when adding non-existing product to cart 1`] = `[Error: Request failed with status code 404]`;
+exports[`shopware-6-client - E2E - CartService - addProductToCart should return error when adding non-existing product to cart 1`] = `[Error: Request failed with status code 400]`;
 
 exports[`shopware-6-client - E2E - CartService - addProductToCart should test add product to cart with 0 quantity response 1`] = `
 Object {
