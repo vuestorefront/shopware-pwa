@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shopware-6-client - E2E - NavigationService - getNavigationService should get error response when navigation root node doesn't exist 1`] = `[Error: Request failed with status code 400]`;
+
+exports[`shopware-6-client - E2E - NavigationService - getNavigationService should get navigation schema for given root node 1`] = `
+Object {
+  "children": Array [],
+  "count": 0,
+  "extensions": Array [],
+  "level": 0,
+  "name": "Computers",
+  "route": Object {
+    "path": "/navigation/9429db6b2da348ea8308f1dbe6eee9f0",
+    "resourceType": "frontend.navigation.page",
+  },
+}
+`;
