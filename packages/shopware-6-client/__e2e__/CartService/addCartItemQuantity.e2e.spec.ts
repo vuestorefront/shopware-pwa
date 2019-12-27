@@ -9,6 +9,16 @@ describe("shopware-6-client - E2E - CartService - addCartItemQuantity", () => {
     await addProductToCart("9cce06f9dc424844989a06cfe3dc98da", 2);
     const result = await addCartItemQuantity("9cce06f9dc424844989a06cfe3dc98da", 2);
     result.token = "mockedToken";
+    result.deliveries = result.deliveries.map((delivery:any) => {
+      delivery.deliveryDate.earliest = "mockedDate"
+      delivery.deliveryDate.latest = "mockedDate"
+      delivery.positions = delivery.positions.map((position:any) => {
+        position.deliveryDate.earliest = "mockedDate"
+        position.deliveryDate.latest = "mockedDate"
+        return position
+      })
+      return delivery
+    })
     expect(result).toMatchSnapshot();
   });
 
