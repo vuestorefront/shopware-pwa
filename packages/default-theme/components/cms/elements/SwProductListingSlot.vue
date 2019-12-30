@@ -1,34 +1,38 @@
 <template>
   <div class="sw-product-list">
-    <div class="sw-product-list--wrapper" v-if="products.length">
-      <div class="sw-product-list__list">
-        <SwProductCard
-          v-for="product in products"
-          :key="product.id"
-          :product="product"
+    <SfLoader
+      :loading="loading">
+      <div class="sw-product-list--wrapper" v-if="products.length && !loading">
+        <div class="sw-product-list__list">
+          <SwProductCard
+            v-for="product in products"
+            :key="product.id"
+            :product="product"
+          />
+        </div>
+        <SfPagination
+          class="sw-product-list__pagination desktop-only"
+          :current="pagination.currentPage"
+          :total="Math.ceil(pagination.total / pagination.perPage)"
+          :visible="5"
+          @click="changedPage"
         />
       </div>
-      <SfPagination
-        class="sw-product-list__pagination desktop-only"
-        :current="pagination.currentPage"
-        :total="Math.ceil(pagination.total / pagination.perPage)"
-        :visible="5"
-        @click="changedPage"
-      />
-    </div>
-    <SfHeading v-else title="No products found" subtitle="let us look for them"/>
+      <SfHeading v-else title="No products found" subtitle="let us look for them"/>
+    </SfLoader>
   </div>
 </template>
 
 <script>
 import SwProductCard from '../../SwProductCard'
-import { SfPagination, SfHeading } from '@storefront-ui/vue'
+import { SfPagination, SfHeading, SfLoader } from '@storefront-ui/vue'
 import { useProductListing } from '@shopware-pwa/composables'
 export default {
   components: {
     SwProductCard,
     SfPagination,
-    SfHeading
+    SfHeading,
+    SfLoader
   },
   props: {
     content: {
@@ -37,20 +41,18 @@ export default {
     }
   },
   setup({ content }) {
-    console.error('SETUP Product listing')
     const propProducts = content.data.listing || []
-    const { products, teest, changePagination, pagination } = useProductListing(propProducts)
-
+    const { products, changePagination, pagination, loading } = useProductListing(propProducts)
+    
     const changedPage = async (pageNumber) => {
-      console.error('CHANGED PAGE: ' + pageNumber)
       await changePagination(pageNumber)
     }
 
     return {
       products,
-      teest,
       changedPage,
-      pagination
+      pagination,
+      loading
     }
   },
   computed: {
