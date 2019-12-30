@@ -48,8 +48,8 @@
       </div>
       <div class="navbar__counter">
         <span class="navbar__label desktop-only">Products found: </span>
-        <strong class="desktop-only">280</strong>
-        <span class="navbar__label mobile-only">280 Items</span>
+        <strong class="desktop-only">{{productsTotal}}</strong>
+        <span class="navbar__label mobile-only">{{productsTotal}} Items</span>
       </div>
       <SfButton
         class="navbar__filters-button mobile-only"
@@ -74,8 +74,12 @@
             <div :key="option.value"
              v-for="option in filter.options">
               <label>{{ option.label }}</label>
-                <input :value="option.value" type="checkbox" @change="toggleFilter({type: 'equals', value: option.value, field: filter.name})
-                " />
+                <input
+                  :value="option.value"
+                  type="checkbox" 
+                  :checked="selectedFilters[filter.name] && !!selectedFilters[filter.name].find((propertyId) => propertyId === option.value)"
+                  @change="toggleFilter({type: 'equals', value: option.value, field: filter.name})"
+                />
             </div>
           </div>
 
@@ -123,9 +127,9 @@ export default {
     }
   },
   setup () {
-    const { toggleFilter, search } = useProductListing()
+    const { toggleFilter, search, selectedFilters, resetFilters, productsTotal } = useProductListing()
 
-    return { toggleFilter, search }
+    return { toggleFilter, search, selectedFilters, resetFilters, productsTotal }
   },
   data() {
     return {
@@ -170,9 +174,13 @@ export default {
     }
   },
   methods: {
-    clearAllFilters() {},
+    async clearAllFilters() {
+      await this.resetFilters()
+      this.isFilterSidebarOpen = false
+    },
     async submitFilters() {
       await this.search()
+      this.isFilterSidebarOpen = false
     }
   }
 }

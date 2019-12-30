@@ -9,12 +9,10 @@ import Vue from "vue";
 import {
   EqualsFilter,
   SearchFilterType,
-  RangeFilter,
   EqualsAnyFilter,
-  ContainsFilter,
-  MultiFilter
+  ContainsFilter
 } from "packages/shopware-6-client/src/interfaces/search/SearchFilter";
-import { exportUrlQuery } from "@shopware-pwa/helpers";
+import { exportUrlQuery, getFilterSearchCriteria } from "@shopware-pwa/helpers";
 import { useCms } from "./useCms";
 
 interface UseProductListing {
@@ -40,12 +38,10 @@ const sharedListing = Vue.observable({
 
 const selectedCriteria = Vue.observable({
   pagination: null,
+  propertyIds: [],
   filters: {}
 } as any);
 
-// const searchCriteria = Vue.observable({
-//   pagination: sharedPagination
-// } as SearchCriteria);
 
 export const useProductListing = (
   initialProducts: Product[] = []
@@ -55,49 +51,21 @@ export const useProductListing = (
   const error: Ref<any> = ref(null);
   const categoryId: Ref<string> = ref(page.value.resourceIdentifier)
   const localListing = reactive(sharedListing)
+  const localCriteria = reactive(selectedCriteria)
+  const localPagination = reactive(sharedPagination)
+
   sharedListing.products = initialProducts
+ 
   // increase test on init:
   test.value = test.value + 1;
 
-  // temporary helper
-  const getFilterSearchCriteria = () : MultiFilter[] => {
-    const multiFilter: MultiFilter = {
-      type: SearchFilterType.MULTI,
-      operator: "AND", // @patzik have a look on it ;)
-      queries: []
-    }
-    const selectedFilters = selectedCriteria.filters
-    const chosenPropertyIds = []
-    for(const filterName of Object.keys(selectedFilters)) {
-
-      if (!selectedFilters[filterName].length) {
-        continue;
-      }
-
-      if (filterName === "categoryTree") {
-        multiFilter.queries.push({
-          type: SearchFilterType.EQUALS_ANY,
-          field: filterName,
-          value: [...selectedFilters[filterName]]
-        })
-      } else {
-        chosenPropertyIds.push(...selectedFilters[filterName])
-      }
-    }
-
-    if (chosenPropertyIds.length) {
-      multiFilter.queries.push({
-        type: SearchFilterType.EQUALS_ANY,
-        field: "propertyIds",
-        value: [...chosenPropertyIds]
-      })
-    }
-
-    return [multiFilter]
+  const resetFilters = async () => {
+    selectedCriteria.filters = {}
+    await search();
   }
 
   const toggleFilter = (
-    filter: EqualsFilter | EqualsAnyFilter | ContainsFilter, // TODO: handle range filter case,
+    filter: EqualsFilter | EqualsAnyFilter | ContainsFilter, // TODO: handle range filter case as well
     forceSave: boolean = false
   ): void => {
     console.warn('selected', selectedCriteria.filters[filter.field])
@@ -109,24 +77,19 @@ export const useProductListing = (
         selected = selected.filter((optionId:string) => optionId !== filter.value)
       }
 
-
-      
       selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
         [filter.field]: [ ... new Set(selected)]
       });
-      
-
     } else {
       selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
         [filter.field]: [filter.value]
       });
     }
-
-    console.warn('TOGGLE FILTER RESULT: ', selectedCriteria)
   };
 
   const search = async (): Promise<void> => {
-
+    sharedListing.products = []
+    loading.value = true
     toggleFilter({ // append selected filters with currentCategory; should be taken from usePage
       field: "categoryTree",
       type: SearchFilterType.EQUALS_ANY,
@@ -135,17 +98,14 @@ export const useProductListing = (
 
     const searchCriteria: SearchCriteria = {
       pagination: selectedCriteria.pagination,
-      filters: getFilterSearchCriteria()
+      filters: getFilterSearchCriteria(selectedCriteria.filters)
     };
-    console.warn('SEARCH CRITERIA', getFilterSearchCriteria())
     const search = exportUrlQuery(searchCriteria);
     history.replaceState({}, null as any, location.pathname + "?" + search);
-    console.error("REPLACING WITH SEARCH: " + search);
-    console.error("SQ: ", searchCriteria);
     const result = await getProducts(searchCriteria);
     sharedPagination.total = result.total;
     sharedListing.products = [ ...result.data];
-    console.error('PRODUCTS replacement: ', result.data)
+    loading.value = false
   };
 
   const changePagination = async (page: number) => {
@@ -157,18 +117,25 @@ export const useProductListing = (
     await search()
   }
 
-  const teest = computed(() => test.value);
+  if (sharedListing.products.length) {
+    resetFilters()
+  }
+
   const pagination: any = computed(() => sharedPagination);
   const products = computed(() => localListing.products);
+  const productsTotal = computed(() => localPagination.total);
+  const selectedFilters = computed(() => localCriteria.filters);
 
   return {
-    teest,
     search,
     pagination,
     products,
+    productsTotal,
     loading,
     error,
     toggleFilter,
-    changePagination
+    changePagination,
+    selectedFilters,
+    resetFilters
   };
 };
