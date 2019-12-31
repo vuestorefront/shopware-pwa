@@ -1,5 +1,5 @@
 import { computed } from "@vue/composition-api";
-import { useCms } from "@shopware-pwa/composables";
+import { useCms } from "@shopware-pwa/composables/src";
 import {
   getCategoryAvailableFilters,
   UiCategoryFilter

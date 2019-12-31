@@ -7,7 +7,7 @@ import VueCompositionApi, {
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
-import { useCms, setStore } from "@shopware-pwa/composables";
+import { useCms, setStore } from "@shopware-pwa/composables/src";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 
 jest.mock("@shopware-pwa/shopware-6-client");
