@@ -8,6 +8,10 @@ export interface Sort {
   field: string;
   desc?: boolean;
 }
+
+/**
+ * @alpha
+ */
 export interface SearchCriteria {
   filters?: EqualsFilter[] | RangeFilter[] | MultiFilter[];
   pagination?: Pagination;

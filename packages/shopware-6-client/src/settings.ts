@@ -1,3 +1,6 @@
+/**
+ * @beta
+ */
 export interface ClientSettings {
   endpoint?: string;
   accessToken?: string;
@@ -23,6 +26,9 @@ const updateConfig = function(config: ClientSettings): void {
   clientConfig = Object.assign(clientConfig, config);
 };
 
+/**
+ * @beta
+ */
 const config: ClientSettings = clientConfig;
 
 export { config, setupConfig, updateConfig };

@@ -1,4 +1,4 @@
-import { Currency } from "../interfaces/models/system/currency/Currency";
+import { Currency } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/currency/Currency";
 import { apiService } from "../apiService";
 import {
   getContextCurrencyEndpoint,
@@ -8,13 +8,13 @@ import {
   getContextLanguageEndpoint,
   getContextEndpoint
 } from "../endpoints";
-import { Country } from "../interfaces/models/system/country/Country";
-import { ShippingMethod } from "../interfaces/models/checkout/shipping/ShippingMethod";
-import { PaymentMethod } from "../interfaces/models/checkout/payment/PaymentMethod";
-import { Language } from "../interfaces/models/framework/language/Language";
-import { SearchResult } from "../interfaces/response/SearchResult";
-import { UpdateContextParams } from "../interfaces/request/UpdateContextParams";
-import { ContextTokenResponse } from "../interfaces/response/ContextTokenResponse";
+import { Country } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/country/Country";
+import { ShippingMethod } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/shipping/ShippingMethod";
+import { PaymentMethod } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/payment/PaymentMethod";
+import { Language } from "@shopware-pwa/shopware-6-client/src/interfaces/models/framework/language/Language";
+import { SearchResult } from "@shopware-pwa/shopware-6-client/src/interfaces/response/SearchResult";
+import { UpdateContextParams } from "@shopware-pwa/shopware-6-client/src/interfaces/request/UpdateContextParams";
+import { ContextTokenResponse } from "@shopware-pwa/shopware-6-client/src/interfaces/response/ContextTokenResponse";
 
 async function updateContext(
   params: UpdateContextParams

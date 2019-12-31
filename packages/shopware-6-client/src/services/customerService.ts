@@ -8,11 +8,11 @@ import {
   getCustomerLogoutEndpoint,
   getCustomerLoginEndpoint
 } from "../endpoints";
-import { Customer } from "../interfaces/models/checkout/customer/Customer";
+import { Customer } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
 import { apiService } from "../apiService";
-import { CustomerAddress } from "../interfaces/models/checkout/customer/CustomerAddress";
-import { CustomerRegistrationParams } from "../interfaces/request/CustomerRegistrationParams";
-import { ContextTokenResponse } from "../interfaces/response/ContextTokenResponse";
+import { CustomerAddress } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress";
+import { CustomerRegistrationParams } from "@shopware-pwa/shopware-6-client/src/interfaces/request/CustomerRegistrationParams";
+import { ContextTokenResponse } from "@shopware-pwa/shopware-6-client/src/interfaces/response/ContextTokenResponse";
 
 interface CustomerRegisterResponse {
   data: string;
@@ -143,7 +143,7 @@ export async function updateEmail(
   await apiService.patch(getCustomerUpdateEmailEndpoint(), params);
 }
 
-interface CustomerUpdatePasswordParam {
+export interface CustomerUpdatePasswordParam {
   password: string;
   newPassword: string;
   newPasswordConfirm: string;
