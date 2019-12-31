@@ -110,7 +110,7 @@ import {
   SfSidebar
 } from '@storefront-ui/vue'
 import { useCategoryFilters, useProductListing } from '@shopware-pwa/composables'
-const { availableFilters } = useCategoryFilters()
+const { availableFilters, availableSorting } = useCategoryFilters()
 
 export default {
   components: {

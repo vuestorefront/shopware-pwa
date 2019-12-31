@@ -2,7 +2,7 @@ import {
   SearchFilterType,
   MultiFilter,
   EqualsAnyFilter
-} from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchFilter";  
+} from "@shopware-pwa/shopware-6-client";  
 
 export const getFilterSearchCriteria = (selectedFilters:any) : MultiFilter[] => {
     const multiFilter: MultiFilter = {

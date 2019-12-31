@@ -50,3 +50,9 @@ export interface UiCategoryFilter {
   type: UiCategoryFilterType;
   options: UiCategoryFilterOption[] | UiCategoryRangeFilterOption | any; // TODO when the feature is fully implemented on SW side.
 }
+
+export interface UiCategorySorting {
+  name: string;
+  field: string;
+  order: string;
+}
