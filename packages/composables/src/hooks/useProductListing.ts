@@ -11,7 +11,7 @@ import {
   SearchFilterType,
   EqualsAnyFilter,
   ContainsFilter
-} from "packages/shopware-6-client/src/interfaces/search/SearchFilter";
+} from "@shopware-pwa/shopware-6-client";
 import { exportUrlQuery, getFilterSearchCriteria } from "@shopware-pwa/helpers";
 import { useCms } from "./useCms";
 
