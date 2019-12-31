@@ -31,10 +31,10 @@
               icon-size="20px"
               icon-color="black"
               class="sf-header__icon"
-              :class="{ 'sf-header__icon--is-active': isLoggedIn }"
               role="button"
               aria-label="account"
               :aria-pressed="activeIcon === 'account' ? 'true' : 'false'"
+              :has-badge="isLoggedIn"
               @click="userIconClick"
             />
             <SfCircleIcon
@@ -154,6 +154,7 @@ export default {
       padding: 0.3em 0;
       border-radius: 100%;
       width: 2.2em;
+      min-height: 2.2em;
     }
   }
   .search--blank {

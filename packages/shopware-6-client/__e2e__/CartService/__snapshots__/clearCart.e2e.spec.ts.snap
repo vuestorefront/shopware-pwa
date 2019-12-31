@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shopware-6-client - E2E - CartService - clearCart should clear cart response with products 1`] = `
+Object {
+  "contextToken": "mockedContextToken",
+}
+`;
+
+exports[`shopware-6-client - E2E - CartService - clearCart should clear cart response without products 1`] = `
+Object {
+  "contextToken": "mockedContextToken",
+}
+`;
