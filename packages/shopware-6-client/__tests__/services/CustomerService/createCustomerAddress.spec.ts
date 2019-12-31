@@ -3,7 +3,7 @@ import {
   createCustomerAddress,
   update,
   config
-} from "@shopware-pwa/shopware-6-client";
+} from "@shopware-pwa/shopware-6-client/src";
 import { getCustomerAddressEndpoint } from "../../../src/endpoints";
 import { apiService } from "../../../src/apiService";
 

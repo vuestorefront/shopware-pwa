@@ -1,4 +1,4 @@
-import { clearCart } from "@shopware-pwa/shopware-6-client";
+import { clearCart } from "@shopware-pwa/shopware-6-client/src";
 import { apiService } from "../../../src/apiService";
 import { random } from "faker";
 

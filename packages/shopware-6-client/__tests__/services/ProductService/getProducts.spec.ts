@@ -1,4 +1,4 @@
-import { getProducts } from "@shopware-pwa/shopware-6-client";
+import { getProducts } from "@shopware-pwa/shopware-6-client/src";
 import { apiService } from "../../../src/apiService";
 import { Sort } from "../../../src/interfaces/search/SearchCriteria";
 import { PaginationLimit } from "../../../src/interfaces/search/Pagination";

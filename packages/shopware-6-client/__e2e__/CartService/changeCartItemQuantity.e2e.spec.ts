@@ -1,4 +1,4 @@
-import { addProductToCart, changeCartItemQuantity, update } from "@shopware-pwa/shopware-6-client";
+import { addProductToCart, changeCartItemQuantity, update } from "@shopware-pwa/shopware-6-client/src";
 
 describe("shopware-6-client - E2E - CartService - changeCartItemQuantity", () => {
   beforeEach(() => {

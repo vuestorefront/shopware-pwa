@@ -1,4 +1,4 @@
-import { getPage } from "@shopware-pwa/shopware-6-client";
+import { getPage } from "@shopware-pwa/shopware-6-client/src";
 
 describe("shopware-6-client - E2E - PageService - getPage", () => {
   it("should test / page response", async () => {

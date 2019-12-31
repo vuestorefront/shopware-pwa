@@ -1,6 +1,6 @@
 import { name, random } from "faker";
 import { apiService } from "../../../src/apiService";
-import { updateProfile, update, config } from "@shopware-pwa/shopware-6-client";
+import { updateProfile, update, config } from "@shopware-pwa/shopware-6-client/src";
 import { getCustomerEndpoint } from "../../../src/endpoints";
 
 const customerData = {

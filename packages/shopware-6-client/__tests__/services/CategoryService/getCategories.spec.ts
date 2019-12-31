@@ -1,4 +1,4 @@
-import { getCategories } from "@shopware-pwa/shopware-6-client";
+import { getCategories } from "@shopware-pwa/shopware-6-client/src";
 import { apiService } from "../../../src/apiService";
 
 jest.mock("../../../src/apiService");

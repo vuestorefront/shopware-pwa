@@ -31,7 +31,7 @@ module.exports = {
   watchPathIgnorePatterns: ["/node_modules/"],
   moduleFileExtensions: ["ts", "tsx", "js", "json"],
   moduleNameMapper: {
-    "^@shopware-pwa/(.*?)$": "<rootDir>/packages/$1/src"
+    "^@shopware-pwa/(.*?)/$": "<rootDir>/packages/$1/src"
   },
   rootDir: __dirname,
   testMatch: isUnitTest ? UNIT_TEST_PATTERNS : E2E_TEST_PATTERNS

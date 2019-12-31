@@ -1,4 +1,4 @@
-import { getCustomer, update, config } from "@shopware-pwa/shopware-6-client";
+import { getCustomer, update, config } from "@shopware-pwa/shopware-6-client/src";
 import { apiService } from "../../../src/apiService";
 import { getCustomerEndpoint } from "../../../src/endpoints";
 import { random } from "faker";

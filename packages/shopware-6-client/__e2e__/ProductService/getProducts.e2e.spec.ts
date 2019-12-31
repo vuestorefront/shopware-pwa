@@ -1,4 +1,4 @@
-import { getProducts } from "@shopware-pwa/shopware-6-client";
+import { getProducts } from "@shopware-pwa/shopware-6-client/src";
 import { PaginationLimit } from "../../src/interfaces/search/Pagination";
 
 describe("shopware-6-client - E2E - ProductService - getProducts", () => {

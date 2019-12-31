@@ -1,4 +1,4 @@
-import { logout } from "@shopware-pwa/shopware-6-client";
+import { logout } from "@shopware-pwa/shopware-6-client/src";
 import { getCustomerLogoutEndpoint } from "../../../src/endpoints";
 import { apiService } from "../../../src/apiService";
 
