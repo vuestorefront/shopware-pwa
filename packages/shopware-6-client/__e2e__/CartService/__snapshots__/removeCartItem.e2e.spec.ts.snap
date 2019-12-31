@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shopware-6-client - E2E - CartService - addCartItemQuantity should remove product from cart 1`] = `
+Object {
+  "deliveries": Array [],
+  "errors": Array [],
+  "extensions": Array [],
+  "lineItems": Array [],
+  "modified": false,
+  "name": "8a243080f92e4c719546314b577cf82b",
+  "price": Object {
+    "calculatedTaxes": Array [],
+    "extensions": Array [],
+    "netPrice": 0,
+    "positionPrice": 0,
+    "taxRules": Array [],
+    "taxStatus": "gross",
+    "totalPrice": 0,
+  },
+  "token": "mockedToken",
+  "transactions": Array [
+    Object {
+      "amount": Object {
+        "calculatedTaxes": Array [],
+        "extensions": Array [],
+        "quantity": 1,
+        "referencePrice": null,
+        "taxRules": Array [],
+        "totalPrice": 0,
+        "unitPrice": 0,
+      },
+      "extensions": Array [],
+      "paymentMethodId": "cad2356ee68c473ca7da517d0ad32de1",
+    },
+  ],
+}
+`;
+
+exports[`shopware-6-client - E2E - CartService - addCartItemQuantity should return error when product doesn't exit in cart 1`] = `[Error: Request failed with status code 400]`;

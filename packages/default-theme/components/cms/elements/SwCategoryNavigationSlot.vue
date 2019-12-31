@@ -13,7 +13,12 @@
           <template v-if="accordion.children.length > 0">
             <SfList>
               <SfListItem v-for="item in accordion.children" :key="item.id">
-                <SfMenuItem :label="item.name" />
+                <nuxt-link
+                  v-if="item.route && item.name"
+                  :to="getCategoryUrl(item.route)"
+                >
+                  <SfMenuItem :label="item.name" />
+                </nuxt-link>
               </SfListItem>
             </SfList>
           </template>
@@ -53,6 +58,11 @@ export default {
   async mounted() {
     const { children } = await getNavigation({ depth: 2 })
     this.navigationElements = children
+  },
+  methods: {
+    getCategoryUrl(route) {
+      return route.path || ''
+    }
   }
 }
 </script>
