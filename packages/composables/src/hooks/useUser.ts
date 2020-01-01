@@ -20,6 +20,7 @@ interface UseUser {
     username?: string;
     password?: string;
   }) => Promise<boolean>;
+  register: ({}: {}) => any;
   user: Ref<Customer | null>;
   orders: Ref<Order[] | null>;
   loading: Ref<boolean>;
@@ -60,6 +61,18 @@ export const useUser = (): UseUser => {
     }
   };
 
+  const register = async (): any => {
+   loading.value = true;
+   error.value = null;
+   try {
+     return true;
+   } catch (e) {
+     console.log(e)
+   } finally {
+     loading.value = false;
+   }
+  };
+
   const logout = async (): Promise<void> => {
     try {
       await apiLogout();
@@ -90,6 +103,7 @@ export const useUser = (): UseUser => {
 
   return {
     login,
+    register,
     user,
     error,
     loading,
