@@ -3,9 +3,9 @@ import VueCompositionApi from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
 import { useProduct } from "@shopware-pwa/composables/src";
-import * as shopwareClient from "@shopware-pwa/shopware-6-client";
+import * as shopwareClient from "@shopware-pwa/shopware-6-client/src";
 
-jest.mock("@shopware-pwa/shopware-6-client");
+jest.mock("@shopware-pwa/shopware-6-client/src");
 const mockedGetProduct = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 describe("Composables - useProduct", () => {

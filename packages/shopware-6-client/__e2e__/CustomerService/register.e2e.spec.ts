@@ -1,4 +1,4 @@
-import { register } from "@shopware-pwa/shopware-6-client";
+import { register } from "@shopware-pwa/shopware-6-client/src";
 import { name, address, internet } from 'faker';
 
 describe("shopware-6-client - E2E - CustomerService - register", () => {

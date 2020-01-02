@@ -8,9 +8,9 @@ import VueCompositionApi, {
 Vue.use(VueCompositionApi);
 
 import { useCart, setStore } from "@shopware-pwa/composables/src";
-import * as shopwareClient from "@shopware-pwa/shopware-6-client";
+import * as shopwareClient from "@shopware-pwa/shopware-6-client/src";
 
-jest.mock("@shopware-pwa/shopware-6-client");
+jest.mock("@shopware-pwa/shopware-6-client/src");
 const mockedShopwareClient = shopwareClient as jest.Mocked<
   typeof shopwareClient
 >;

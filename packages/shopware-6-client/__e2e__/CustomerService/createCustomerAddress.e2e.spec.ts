@@ -1,6 +1,6 @@
-import {deleteCustomerAddress, login, update} from "@shopware-pwa/shopware-6-client";
+import {deleteCustomerAddress, login, update} from "@shopware-pwa/shopware-6-client/src";
 import { address, name } from 'faker';
-import {createCustomerAddress} from "@shopware-pwa/shopware-6-client";
+import {createCustomerAddress} from "@shopware-pwa/shopware-6-client/src";
 
 describe("shopware-6-client - E2E - CustomerService - createCustomerAddress",() => {
   beforeEach(() => {

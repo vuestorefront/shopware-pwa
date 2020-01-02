@@ -1,5 +1,5 @@
 import { ref, Ref, computed } from "@vue/composition-api";
-import { getPage } from "@shopware-pwa/shopware-6-client";
+import { getPage } from "@shopware-pwa/shopware-6-client/src";
 import { getStore } from "../..";
 
 export const useCms = (): any => {

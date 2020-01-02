@@ -4,7 +4,7 @@ import {
   login,
   setDefaultCustomerShippingAddress,
   update
-} from "@shopware-pwa/shopware-6-client";
+} from "@shopware-pwa/shopware-6-client/src";
 import {address, name} from "faker";
 
 describe("shopware-6-client - E2E - CustomerService - setDefaultCustomerShippingAddress", () => {

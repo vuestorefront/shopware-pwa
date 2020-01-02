@@ -1,4 +1,5 @@
-import { update, login, updatePassword } from "@shopware-pwa/shopware-6-client";
+import { update, login, updatePassword } from "@shopware-pwa/shopware-6-client/src";
+import { internet }  from "faker";
 
 describe("shopware-6-client - E2E - CustomerService - updatePassword", () => {
   beforeEach(() => {
@@ -14,7 +15,7 @@ describe("shopware-6-client - E2E - CustomerService - updatePassword", () => {
   it("should return error when current password does not match", async () => {
     try {
       await login({ username: "test.e2e@test.pl", password: "password" });
-      await updatePassword({password: "shop1", newPassword: "shop", newPasswordConfirm: "shop"});
+      await updatePassword({password: "shop1", newPassword: internet.password(), newPasswordConfirm: internet.password()});
       expect("didn't throw an error").toEqual("should throw an error");
     } catch(e) {
       expect(e).toMatchSnapshot();
