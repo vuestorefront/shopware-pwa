@@ -1,4 +1,4 @@
-import { getProductMainImageUrl } from "@shopware-pwa/helpers";
+import { getProductMainImageUrl } from "@shopware-pwa/helpers/src";
 
 describe("Helpers - getProductMainImageUrl", () => {
   const mediaUrl =

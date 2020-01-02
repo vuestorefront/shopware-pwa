@@ -1,4 +1,4 @@
-import { getProductOption } from "@shopware-pwa/helpers";
+import { getProductOption } from "@shopware-pwa/helpers/src";
 
 describe("Shopware helpers - getProductOption", () => {
   it("should return current option for given attribute code", () => {

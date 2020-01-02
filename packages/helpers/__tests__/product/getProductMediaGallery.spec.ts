@@ -1,4 +1,4 @@
-import { getProductMediaGallery } from "@shopware-pwa/helpers";
+import { getProductMediaGallery } from "@shopware-pwa/helpers/src";
 
 describe("Shopware helpers - getProductMediaGallery", () => {
   it("should return array of UiMediaGalleryItem", () => {

@@ -1,4 +1,4 @@
-import { getCategoryAvailableFilters } from "@shopware-pwa/helpers";
+import { getCategoryAvailableFilters } from "@shopware-pwa/helpers/src";
 
 describe("Shopware helpers - getCategoryAvailableFilters", () => {
   it("should return empty array when the argument is undefined", () => {

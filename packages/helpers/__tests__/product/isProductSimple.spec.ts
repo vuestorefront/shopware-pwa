@@ -1,4 +1,4 @@
-import { isProductSimple } from "@shopware-pwa/helpers";
+import { isProductSimple } from "@shopware-pwa/helpers/src";
 
 describe("Shopware helpers - isProductSimple", () => {
   it("should return true if product has a parent", () => {

@@ -1,4 +1,4 @@
-import { getProductUrl } from "@shopware-pwa/helpers";
+import { getProductUrl } from "@shopware-pwa/helpers/src";
 
 describe("Shopware helpers - getProductUrl", () => {
   it("should return product url", () => {

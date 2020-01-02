@@ -1,5 +1,5 @@
 import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
-import { UiProductProperty } from "@shopware-pwa/helpers";
+import { UiProductProperty } from "@shopware-pwa/helpers/src";
 
 export function getProductProperties({
   product

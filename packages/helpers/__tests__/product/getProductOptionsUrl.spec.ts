@@ -1,4 +1,4 @@
-import { getProductOptionsUrl } from "@shopware-pwa/helpers";
+import { getProductOptionsUrl } from "@shopware-pwa/helpers/src";
 
 describe("Shopware helpers - getProductOptionsUrl", () => {
   it("should return an empty string when no product", () => {
