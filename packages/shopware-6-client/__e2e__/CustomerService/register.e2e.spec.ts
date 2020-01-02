@@ -23,5 +23,4 @@ describe("shopware-6-client - E2E - CustomerService - register", () => {
     result.data = "mockedCustomerId";
     expect(result).toMatchSnapshot();
   });
-
 });
