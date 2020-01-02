@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shopware-6-client - E2E - CustomerService - logout should logout customer 1`] = `undefined`;
+
+exports[`shopware-6-client - E2E - CustomerService - logout should return error when customer is not logged in 1`] = `[Error: Request failed with status code 500]`;

@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shopware-6-client - E2E - CustomerService - getCustomerAddress should fetch customer address for given address id 1`] = `
+Object {
+  "_uniqueIdentifier": "mockedUniqueIdentifier",
+  "additionalAddressLine1": null,
+  "additionalAddressLine2": null,
+  "city": "mockedCity",
+  "company": null,
+  "country": null,
+  "countryId": "38245a84c3d5425b8bac97fc845b5ddd",
+  "countryState": null,
+  "countryStateId": null,
+  "createdAt": "mockedCreatedAt",
+  "customFields": null,
+  "customer": null,
+  "customerId": "d5ba879ae22f4dcd8f881046dbcedc41",
+  "department": null,
+  "extensions": Array [],
+  "firstName": "mockedFirstName",
+  "id": "mockedId",
+  "lastName": "mockedLastName",
+  "phoneNumber": null,
+  "salutation": null,
+  "salutationId": "c370eb5cd1df4d4dbcc78f055b693e79",
+  "street": "mockedStreet",
+  "title": null,
+  "translated": Array [],
+  "updatedAt": null,
+  "vatId": null,
+  "versionId": null,
+  "zipcode": "mockedZipcode",
+}
+`;
+
+exports[`shopware-6-client - E2E - CustomerService - getCustomerAddress should not fetch address for unlogged user 1`] = `[Error: Request failed with status code 500]`;
+
+exports[`shopware-6-client - E2E - CustomerService - getCustomerAddress should return error for address id that not matches any address 1`] = `[Error: Request failed with status code 400]`;
