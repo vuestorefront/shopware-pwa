@@ -162,7 +162,7 @@ interface CustomerUpdateProfileParam {
   firstName: string;
   lastName: string;
   salutationId: string;
-  title: string;
+  title: string | null;
 }
 
 /**
