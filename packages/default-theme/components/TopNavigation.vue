@@ -75,7 +75,12 @@
            </div>
         </template>
       </SfHeader>
+<<<<<<< HEAD
       <SwLoginModal :is-open="isModalOpen" @close="isModalOpen = false" />
+=======
+      <SwLoginUserModal :is-open="isModalOpen" @close="isModalOpen = false" />
+    </slot>
+>>>>>>> feat(theme): create compontents for user login
   </div>
 </template>
 
@@ -84,10 +89,14 @@ import slugify from 'slugify' // TODO: remove after the navigation is fully impl
 import { getNavigation, getPage } from '@shopware-pwa/shopware-6-client'
 import { SfHeader, SfCircleIcon, SfBadge, SfImage } from '@storefront-ui/vue'
 import { useUser, useCart, useCartSidebar } from '@shopware-pwa/composables'
-import SwLoginModal from './modals/SwLoginModal'
+import SwLoginUserModal from './modals/SwLoginUserModal'
 
 export default {
+<<<<<<< HEAD
   components: { SfHeader, SfCircleIcon, SfBadge, SwLoginModal, SfImage },
+=======
+  components: { SfHeader, SfCircleIcon, SfBadge, SwLoginUserModal },
+>>>>>>> feat(theme): create compontents for user login
   setup() {
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()

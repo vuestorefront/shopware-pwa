@@ -2,10 +2,15 @@ import { ref, Ref, computed } from "@vue/composition-api";
 import {
   login as apiLogin,
   logout as apiLogout,
+<<<<<<< HEAD
   getCustomer,
   getCustomerOrders,
   getCustomerOrderDetails,
   getCustomerAddresses
+=======
+  register as apiRegister,
+  getCustomer
+>>>>>>> feat(theme): create compontents for user login
 } from "@shopware-pwa/shopware-6-client";
 import { Customer } from "packages/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
 import { getStore } from "@shopware-pwa/composables";
@@ -20,7 +25,7 @@ interface UseUser {
     username?: string;
     password?: string;
   }) => Promise<boolean>;
-  register: ({}: {}) => any;
+  register: ({}: {}) => Promise<boolean>;
   user: Ref<Customer | null>;
   orders: Ref<Order[] | null>;
   loading: Ref<boolean>;
@@ -31,6 +36,24 @@ interface UseUser {
   loadOrders: () => Promise<void>;
   getOrderDetails: (orderId: string) => Promise<Order>;
   getAddresses: () => Promise<CustomerAddress[]>;
+}
+
+interface RegisterCustomerParams {
+  firstName: string;
+  lastName: string;
+  password: string;
+  salutation: string;
+  street: string;
+  city: string;
+  zipcode: string;
+  country: string;
+  salutationId: string;
+  countryId: string;
+  email: string;
+  title?: string;
+  birthdayYear?: number;
+  birthdayMonth?: number;
+  birthdayDay?: number;
 }
 
 export const useUser = (): UseUser => {
@@ -61,16 +84,34 @@ export const useUser = (): UseUser => {
     }
   };
 
-  const register = async (): any => {
-   loading.value = true;
-   error.value = null;
-   try {
-     return true;
-   } catch (e) {
-     console.log(e)
-   } finally {
-     loading.value = false;
-   }
+  const register = async (params: RegisterCustomerParams): Promise<boolean> => {
+    loading.value = true;
+    error.value = null;
+    try {
+      await apiRegister({
+        firstName: params.firstName,
+        lastName: params.lastName,
+        email: params.email,
+        password: params.password,
+        salutationId: params.salutationId,
+        billingAddress: {
+          firstName: params.firstName,
+          salutationId: params.salutationId,
+          lastName: params.lastName,
+          city: params.city,
+          street: params.street,
+          zipcode: params.zipcode,
+          countryId: params.countryId
+        }
+      });
+      await login({ username: params.email, password: params.password });
+      return true;
+    } catch (e) {
+      error.value = e.message;
+      return false;
+    } finally {
+      loading.value = false;
+    }
   };
 
   const logout = async (): Promise<void> => {
