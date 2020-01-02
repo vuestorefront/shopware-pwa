@@ -1,7 +1,11 @@
 import { getCustomerUpdateEmailEndpoint } from "../../../src/endpoints";
 import { apiService } from "../../../src/apiService";
 import { internet, random } from "faker";
-import { updateEmail, update, config } from "@shopware-pwa/shopware-6-client/src";
+import {
+  updateEmail,
+  update,
+  config
+} from "@shopware-pwa/shopware-6-client/src";
 
 const credentials = {
   email: internet.email(),

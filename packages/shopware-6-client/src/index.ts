@@ -1,4 +1,9 @@
-import { config, ClientSettings, setupConfig, updateConfig } from "@shopware-pwa/shopware-6-client/src/settings";
+import {
+  config,
+  ClientSettings,
+  setupConfig,
+  updateConfig
+} from "@shopware-pwa/shopware-6-client/src/settings";
 import { reloadConfiguration } from "./apiService";
 
 export { config } from "@shopware-pwa/shopware-6-client/src/settings";

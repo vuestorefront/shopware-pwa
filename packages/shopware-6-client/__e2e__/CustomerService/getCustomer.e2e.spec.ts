@@ -1,8 +1,12 @@
-import { update, login, getCustomer } from "@shopware-pwa/shopware-6-client/src";
+import {
+  update,
+  login,
+  getCustomer
+} from "@shopware-pwa/shopware-6-client/src";
 
 describe("shopware-6-client - E2E - CustomerService - getCustomer", () => {
   beforeEach(() => {
-    update({ contextToken: "" })
+    update({ contextToken: "" });
   });
 
   it("should get current customer info", async () => {

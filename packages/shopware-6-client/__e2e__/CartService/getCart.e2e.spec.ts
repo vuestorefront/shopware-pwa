@@ -1,4 +1,8 @@
-import { getCart, addProductToCart, update } from "@shopware-pwa/shopware-6-client/src";
+import {
+  getCart,
+  addProductToCart,
+  update
+} from "@shopware-pwa/shopware-6-client/src";
 
 describe("shopware-6-client - E2E - CartService - getCart", () => {
   beforeEach(() => {
