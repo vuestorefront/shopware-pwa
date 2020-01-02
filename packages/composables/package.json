@@ -2,10 +2,9 @@
   "name": "@shopware-pwa/composables",
   "version": "0.1.0",
   "description": "@shopware-pwa/composables",
-  "main": "index.js",
+  "main": "dist/composables.cjs.js",
   "module": "dist/composables.esm-bundler.js",
   "files": [
-    "index.js",
     "dist"
   ],
   "types": "dist/composables.d.ts",
