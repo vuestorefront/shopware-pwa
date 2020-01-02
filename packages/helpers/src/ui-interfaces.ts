@@ -53,6 +53,7 @@ export interface UiCategoryFilter {
 
 export interface UiCategorySorting {
   name: string;
+  active: boolean;
   field: string;
   order: string;
 }

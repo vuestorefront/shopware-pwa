@@ -1,18 +1,15 @@
+import Vue from "vue";
 import { ref, Ref, computed, reactive } from "@vue/composition-api";
 import {
   Product,
   getProducts,
-  SearchCriteria
-} from "@shopware-pwa/shopware-6-client";
-import Vue from "vue";
-// test of lib, uninstall it if not used
-import {
+  SearchCriteria,
   EqualsFilter,
   SearchFilterType,
   EqualsAnyFilter,
   ContainsFilter
 } from "@shopware-pwa/shopware-6-client";
-import { exportUrlQuery, getFilterSearchCriteria } from "@shopware-pwa/helpers";
+import { getFilterSearchCriteria } from "@shopware-pwa/helpers";
 import { useCms } from "./useCms";
 
 interface UseProductListing {
@@ -49,7 +46,7 @@ export const useProductListing = (
   const { page } = useCms();
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
-  const categoryId: Ref<string> = ref(page.value.resourceIdentifier)
+  const categoryId: Ref<string> = ref(page && page.value && page.value.resourceIdentifier)
   const localListing = reactive(sharedListing)
   const localCriteria = reactive(selectedCriteria)
   const localPagination = reactive(sharedPagination)
@@ -100,8 +97,11 @@ export const useProductListing = (
       pagination: selectedCriteria.pagination,
       filters: getFilterSearchCriteria(selectedCriteria.filters)
     };
-    const search = exportUrlQuery(searchCriteria);
-    history.replaceState({}, null as any, location.pathname + "?" + search);
+
+    // history is sometimes undefined - make decision what to do
+    //const search = exportUrlQuery(searchCriteria);
+    //history.replaceState({}, null as any, location.pathname + "?" + search);
+    
     const result = await getProducts(searchCriteria);
     sharedPagination.total = result.total;
     sharedListing.products = [ ...result.data];
@@ -133,9 +133,9 @@ export const useProductListing = (
     productsTotal,
     loading,
     error,
-    toggleFilter,
     changePagination,
     selectedFilters,
+    toggleFilter,
     resetFilters
   };
 };

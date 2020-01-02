@@ -75,5 +75,8 @@
   },
   "engines": {
     "node": "10.x"
+  },
+  "dependencies": {
+    "query-string": "^6.9.0"
   }
 }

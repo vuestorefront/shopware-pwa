@@ -1,5 +1,5 @@
 import { SearchCriteria } from "../interfaces/search/SearchCriteria";
-import { SearchFilter } from "../interfaces/search/SearchFilter";
+import { MultiFilter, RangeFilter, EqualsFilter, EqualsAnyFilter } from "../interfaces/search/SearchFilter";
 import { PaginationLimit } from "../interfaces/search/Pagination";
 import { config } from "@shopware-pwa/shopware-6-client";
 import { Association } from "../interfaces/search/Association";
@@ -14,7 +14,7 @@ export interface ShopwareParams {
   page?: number;
   limit?: number;
   sort?: string;
-  filter?: SearchFilter[];
+  filter?: (MultiFilter | EqualsFilter | EqualsAnyFilter | RangeFilter)[];
   associations?: ShopwareAssociation;
 }
 
@@ -101,7 +101,7 @@ export const convertSearchCriteria = (
     params.sort = `${prefix}${sort.field}`;
   }
 
-  if (filters) {
+  if (filters && filters.length) {
     params.filter = filters;
   }
 
