@@ -5,7 +5,7 @@ import {
   getCustomer
 } from "@shopware-pwa/shopware-6-client/src";
 import { Customer } from "packages/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
-import { getStore } from "@shopware-pwa/composables/src";
+import { getStore } from "@shopware-pwa/composables";
 
 interface UseUser {
   login: ({

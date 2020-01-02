@@ -1,6 +1,6 @@
 import { ref, Ref, computed } from "@vue/composition-api";
 import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
-import { useCart } from "@shopware-pwa/composables/src";
+import { useCart } from "@shopware-pwa/composables";
 
 interface UseAddToCart {
   addToCart: () => Promise<void>;

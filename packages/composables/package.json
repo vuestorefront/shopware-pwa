@@ -17,10 +17,8 @@
   "buildOptions": {
     "name": "composables",
     "formats": [
-      "esm",
-      "cjs",
-      "global",
-      "esm-browser"
+      "esm-bundler",
+      "cjs"
     ]
   },
   "license": "MIT",

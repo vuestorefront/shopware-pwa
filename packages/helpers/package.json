@@ -16,7 +16,10 @@
   },
   "buildOptions": {
     "name": "helpers",
-    "formats": ["esm", "cjs", "global", "esm-browser"]
+    "formats": [
+      "esm-bundler",
+      "cjs"
+    ]
   },
   "license": "MIT"
 }

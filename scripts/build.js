@@ -27,7 +27,8 @@ const targets = args._;
 const formats = args.formats || args.f;
 const devOnly = args.devOnly || args.d;
 const prodOnly = !devOnly && (args.prodOnly || args.p);
-const buildTypes = args.t || args.types;
+const isRelease = args.release;
+const buildTypes = args.t || args.types || isRelease;
 const buildAllMatching = args.all || args.a;
 const lean = args.lean || args.l;
 const commit = execa.sync("git", ["rev-parse", "HEAD"]).stdout.slice(0, 7);
@@ -35,17 +36,12 @@ const commit = execa.sync("git", ["rev-parse", "HEAD"]).stdout.slice(0, 7);
 run();
 
 async function run() {
-  try {
-    if (!targets.length) {
-      await buildAll(allTargets);
-      checkAllSizes(allTargets);
-    } else {
-      await buildAll(fuzzyMatchTarget(targets, buildAllMatching));
-      checkAllSizes(fuzzyMatchTarget(targets, buildAllMatching));
-    }
-  } catch (e) {
-    console.error("ERROR during build script", e);
-    return -1;
+  if (!targets.length) {
+    await buildAll(allTargets);
+    checkAllSizes(allTargets);
+  } else {
+    await buildAll(fuzzyMatchTarget(targets, buildAllMatching));
+    checkAllSizes(fuzzyMatchTarget(targets, buildAllMatching));
   }
 }
 
@@ -59,15 +55,22 @@ async function build(target) {
   const pkgDir = path.resolve(`packages/${target}`);
   const pkg = require(`${pkgDir}/package.json`);
 
-  await fs.remove(`${pkgDir}/dist`);
+  // only build published packages for release
+  if (isRelease && pkg.private) {
+    return;
+  }
+
+  // if building a specific format, do not remove dist.
+  if (!formats) {
+    await fs.remove(`${pkgDir}/dist`);
+  }
 
   const env =
     (pkg.buildOptions && pkg.buildOptions.env) ||
     (devOnly ? "development" : "production");
   await execa(
-    "yarn",
+    "rollup",
     [
-      "rollup",
       "-c",
       "--environment",
       [
@@ -131,6 +134,9 @@ async function build(target) {
 }
 
 function checkAllSizes(targets) {
+  if (devOnly) {
+    return;
+  }
   console.log();
   for (const target of targets) {
     checkSize(target);
