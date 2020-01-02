@@ -28,7 +28,7 @@ export const getFilterSearchCriteria = (selectedFilters:any) : MultiFilter[] => 
       }
     }
 
-    if (chosenPropertyIds.length) {
+    if (chosenPropertyIds.length) { // TO CHANGE - distinct values by attribute, OR between values, AND between attributes
       multiFilter.queries.push({
         type: SearchFilterType.EQUALS_ANY,
         field: "propertyIds",

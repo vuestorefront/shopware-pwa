@@ -34,17 +34,16 @@
         </SfIcon>
         Filters
       </SfButton>
-      <div class="navbar__sort">
+      <div class="navbar__sort" >
         <span class="navbar__label">Sort by:</span>
-        <!-- <SfSelect class="sort-by" v-model="sortBy">
-          <SfSelectOption
-          v-for="option in sortByOptions"
-          :key="option.value"
-          :value="option.value"
-          class="sort-by__option"
-          >{{ option.label }}</SfSelectOption
-          >
-          </SfSelect> -->
+        <SfSelect :size="sorting.length" label="sorting">
+          <SfSelectOption v-for="(option, key) in sorting" :key="key" :value="option.name" class="sort-by__option">
+            <SfProductOption :label="option.name" :value="option.name"></SfProductOption>
+          </SfSelectOption>
+            <!-- <template #label>
+              Choose sorting
+            </template> -->
+        </SfSelect>
       </div>
       <div class="navbar__counter">
         <span class="navbar__label desktop-only">Products found: </span>
@@ -107,7 +106,8 @@ import {
   SfIcon,
   SfSelect,
   SfFilter,
-  SfSidebar
+  SfSidebar,
+  SfProductOption
 } from '@storefront-ui/vue'
 import { useCategoryFilters, useProductListing } from '@shopware-pwa/composables'
 const { availableFilters, availableSorting } = useCategoryFilters()
@@ -118,7 +118,8 @@ export default {
     SfIcon,
     SfSelect,
     SfFilter,
-    SfSidebar
+    SfSidebar,
+    SfProductOption
   },
   props: {
     content: {
@@ -140,6 +141,9 @@ export default {
   computed: {
     filters() {
       return (availableFilters && availableFilters.value) || []
+    },
+    sorting() {
+      return (availableSorting && availableSorting.value) || []
     },
     getMedia() {
       return this.content && this.content.data && this.content.data.media
@@ -300,4 +304,5 @@ export default {
     background-color: $c-light;
   }
 }
+
 </style>
