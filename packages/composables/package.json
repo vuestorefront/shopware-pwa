@@ -1,5 +1,6 @@
 {
   "name": "@shopware-pwa/composables",
+  "private": true,
   "version": "0.1.0",
   "description": "@shopware-pwa/composables",
   "main": "dist/composables.cjs.js",

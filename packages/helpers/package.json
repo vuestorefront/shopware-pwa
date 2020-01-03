@@ -1,5 +1,6 @@
 {
   "name": "@shopware-pwa/helpers",
+  "private": true,
   "version": "0.1.0",
   "description": "@shopware-pwa/helpers",
   "main": "dist/helpers.cjs.js",
