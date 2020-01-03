@@ -3,7 +3,7 @@ import {
   getProductDetailsEndpoint,
   getProductsIdsEndpoint
 } from "../endpoints";
-import { SearchResult } from "@shopware-pwa/shopware-6-client/src/interfaces//response/SearchResult";
+import { SearchResult } from "@shopware-pwa/shopware-6-client/src/interfaces/response/SearchResult";
 import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
 import { convertSearchCriteria } from "../helpers/searchConverter";
 import { apiService } from "../apiService";

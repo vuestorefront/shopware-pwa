@@ -2,10 +2,10 @@ import { Category } from "@shopware-pwa/shopware-6-client/src/interfaces/models/
 import {
   getCategoryEndpoint,
   getCategoryDetailsEndpoint
-} from "@shopware-pwa/shopware-6-client/src/endpoints";
-import { convertSearchCriteria } from "@shopware-pwa/shopware-6-client/src/helpers/searchConverter";
-import { SearchResult } from "@shopware-pwa/shopware-6-client/src/interfaces//response/SearchResult";
-import { apiService } from "@shopware-pwa/shopware-6-client/src/apiService";
+} from "../endpoints";
+import { convertSearchCriteria } from "../helpers/searchConverter";
+import { SearchResult } from "@shopware-pwa/shopware-6-client/src/interfaces/response/SearchResult";
+import { apiService } from "../apiService";
 import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
 
 export async function getCategories(

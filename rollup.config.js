@@ -17,7 +17,7 @@ const pkg = require(resolve(`package.json`));
 const packageOptions = pkg.buildOptions || {};
 
 const knownExternals = fs.readdirSync(packagesDir).filter(p => {
-  return p !== "@vue/shared";
+  return p !== "@shopware-pwa/shared";
 });
 
 // ensure TS checks only once for each build
