@@ -25,9 +25,12 @@
     "docs:dev": "vuepress dev docs",
     "docs:build": "npx typedoc --options ./typedoc.js && vuepress build docs"
   },
-  "gitHooks": {
-    "pre-commit": "lint-staged",
-    "commit-msg": "node scripts/verifyCommit.js"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "node scripts/verifyCommit.js",
+      "pre-push": "yarn test:unit"
+    }
   },
   "lint-staged": {
     "*.js": [
@@ -53,6 +56,7 @@
     "execa": "^4.0.0",
     "faker": "^4.1.0",
     "fs-extra": "^8.1.0",
+    "husky": "^3.1.0",
     "jest": "^24.9.0",
     "lerna": "^3.19.0",
     "lint-staged": "^9.5.0",
