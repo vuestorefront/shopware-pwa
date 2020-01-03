@@ -17,7 +17,16 @@ Array [
     "customer": null,
     "customerId": "d5ba879ae22f4dcd8f881046dbcedc41",
     "department": null,
-    "extensions": Array [],
+    "extensions": Object {
+      "foreignKeys": Object {
+        "_uniqueIdentifier": null,
+        "createdAt": null,
+        "extensions": Array [],
+        "translated": Array [],
+        "updatedAt": null,
+        "versionId": null,
+      },
+    },
     "firstName": "test",
     "id": "c03217761a5847c19ea3d9801dd2bb7d",
     "lastName": "e2e",
