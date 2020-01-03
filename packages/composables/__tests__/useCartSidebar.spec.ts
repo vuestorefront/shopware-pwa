@@ -7,7 +7,7 @@ import VueCompositionApi, {
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
-import { useCartSidebar, setStore } from "@shopware-pwa/composables/src";
+import { useCartSidebar, setStore } from "@shopware-pwa/composables";
 
 describe("Composables - useCartSidebar", () => {
   const stateCartSidebarOpen: Ref<boolean> = ref(false);

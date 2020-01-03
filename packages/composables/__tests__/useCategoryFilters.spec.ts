@@ -7,7 +7,7 @@ import VueCompositionApi, {
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
-import { useCategoryFilters, setStore } from "@shopware-pwa/composables/src";
+import { useCategoryFilters, setStore } from "@shopware-pwa/composables";
 
 describe("Composables - useCategoryFilters", () => {
   const statePage: Ref<Object | null> = ref(null);

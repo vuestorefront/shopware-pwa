@@ -7,7 +7,7 @@ import VueCompositionApi, {
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
-import * as composables from "@shopware-pwa/composables/src";
+import * as composables from "@shopware-pwa/composables";
 const { useAddToCart, setStore } = composables;
 
 describe("Composables - useAddToCart", () => {
