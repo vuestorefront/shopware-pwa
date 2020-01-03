@@ -5,7 +5,7 @@ import {
   updatePassword,
   update,
   config
-} from "@shopware-pwa/shopware-6-client/src";
+} from "@shopware-pwa/shopware-6-client";
 
 const newPassword = internet.password(8);
 const credentials = {

@@ -4,7 +4,7 @@ import {
   deleteCustomerAddress,
   update,
   config
-} from "@shopware-pwa/shopware-6-client/src";
+} from "@shopware-pwa/shopware-6-client";
 import { random } from "faker";
 
 jest.mock("../../../src/apiService");

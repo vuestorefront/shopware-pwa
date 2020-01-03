@@ -1,4 +1,4 @@
-import { login, update } from "@shopware-pwa/shopware-6-client/src";
+import { login, update } from "@shopware-pwa/shopware-6-client";
 
 describe("shopware-6-client - E2E - CustomerService - login", () => {
   beforeEach(() => {

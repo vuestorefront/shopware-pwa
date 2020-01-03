@@ -1,4 +1,4 @@
-import { getProductSpecialPrice } from "@shopware-pwa/helpers/src";
+import { getProductSpecialPrice } from "@shopware-pwa/helpers";
 
 describe("Shopware helpers - getProductSpecialPrice", () => {
   it("should return special price from product", () => {

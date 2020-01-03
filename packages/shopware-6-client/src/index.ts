@@ -3,10 +3,10 @@ import {
   ClientSettings,
   setupConfig,
   updateConfig
-} from "@shopware-pwa/shopware-6-client/src/settings";
+} from "./settings";
 import { reloadConfiguration } from "./apiService";
 
-export { config } from "@shopware-pwa/shopware-6-client/src/settings";
+export { config } from "./settings";
 
 export * from "./services/categoryService";
 export * from "./services/productService";

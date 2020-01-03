@@ -1,4 +1,4 @@
-import { getProductProperties } from "@shopware-pwa/helpers/src";
+import { getProductProperties } from "@shopware-pwa/helpers";
 
 describe("Shopware helpers - getProductProperties", () => {
   it("should return all properties", () => {

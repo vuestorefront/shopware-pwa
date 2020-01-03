@@ -1,7 +1,7 @@
 import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
 import { SearchFilter } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchFilter";
 import { PaginationLimit } from "@shopware-pwa/shopware-6-client/src/interfaces/search/Pagination";
-import { config } from "@shopware-pwa/shopware-6-client/src";
+import { config } from "@shopware-pwa/shopware-6-client";
 import { Association } from "@shopware-pwa/shopware-6-client/src/interfaces/search/Association";
 
 interface ShopwareAssociation {

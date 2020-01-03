@@ -3,7 +3,7 @@ import { useCms } from "@shopware-pwa/composables";
 import {
   getCategoryAvailableFilters,
   UiCategoryFilter
-} from "@shopware-pwa/helpers/src";
+} from "@shopware-pwa/helpers";
 
 export const useCategoryFilters = (): any => {
   const { page } = useCms();

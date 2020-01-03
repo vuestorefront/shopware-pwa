@@ -1,4 +1,4 @@
-import { config } from "@shopware-pwa/shopware-6-client/src";
+import { config } from "@shopware-pwa/shopware-6-client";
 import { responseInterceptor, errorInterceptor } from "../src/apiInterceptors";
 import { random } from "faker";
 

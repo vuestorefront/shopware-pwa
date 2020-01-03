@@ -3,7 +3,7 @@ import {
   setup,
   update,
   onConfigChange
-} from "@shopware-pwa/shopware-6-client/src";
+} from "@shopware-pwa/shopware-6-client";
 import { apiService } from "../src/apiService";
 import { ConfigChangedArgs } from "../src";
 import { random } from "faker";

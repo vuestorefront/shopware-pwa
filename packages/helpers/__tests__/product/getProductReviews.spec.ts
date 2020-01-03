@@ -1,4 +1,4 @@
-import { getProductReviews } from "@shopware-pwa/helpers/src";
+import { getProductReviews } from "@shopware-pwa/helpers";
 
 describe("Shopware helpers - getProductReviews", () => {
   it("should return an array of UiProductReview objects", () => {

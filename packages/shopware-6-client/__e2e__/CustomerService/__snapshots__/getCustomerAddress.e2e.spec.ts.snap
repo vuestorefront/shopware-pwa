@@ -44,4 +44,4 @@ Object {
 
 exports[`shopware-6-client - E2E - CustomerService - getCustomerAddress should not fetch address for unlogged user 1`] = `[Error: Request failed with status code 403]`;
 
-exports[`shopware-6-client - E2E - CustomerService - getCustomerAddress should return error for address id that not matches any address 1`] = `[Error: Request failed with status code 401]`;
+exports[`shopware-6-client - E2E - CustomerService - getCustomerAddress should return error for address id that not matches any address 1`] = `[Error: Request failed with status code 400]`;

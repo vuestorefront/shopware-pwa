@@ -1,4 +1,4 @@
-import { getCmsSections } from "@shopware-pwa/helpers/src";
+import { getCmsSections } from "@shopware-pwa/helpers";
 
 describe("Shopware helpers - getCmsSections", () => {
   it("should return an empty array for no content", () => {

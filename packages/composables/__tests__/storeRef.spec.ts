@@ -1,4 +1,4 @@
-import { getStore, setStore } from "@shopware-pwa/composables/src";
+import { getStore, setStore } from "@shopware-pwa/composables";
 
 describe("Shopware composables - storeRef", () => {
   it("should return empty store instance when not set", async () => {

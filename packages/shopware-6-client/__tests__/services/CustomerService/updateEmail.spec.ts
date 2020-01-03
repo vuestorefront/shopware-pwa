@@ -5,7 +5,7 @@ import {
   updateEmail,
   update,
   config
-} from "@shopware-pwa/shopware-6-client/src";
+} from "@shopware-pwa/shopware-6-client";
 
 const credentials = {
   email: internet.email(),

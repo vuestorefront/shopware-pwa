@@ -1,5 +1,5 @@
 import { apiService } from "../../../src/apiService";
-import { getAvailablePaymentMethods } from "@shopware-pwa/shopware-6-client/src";
+import { getAvailablePaymentMethods } from "@shopware-pwa/shopware-6-client";
 
 jest.mock("../../../src/apiService");
 const mockedAxios = apiService as jest.Mocked<typeof apiService>;

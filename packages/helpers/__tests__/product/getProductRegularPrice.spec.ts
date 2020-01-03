@@ -1,4 +1,4 @@
-import { getProductRegularPrice } from "@shopware-pwa/helpers/src";
+import { getProductRegularPrice } from "@shopware-pwa/helpers";
 
 describe("Shopware helpers - getProductRegularPrice", () => {
   it("should return first gross price from nested price object", () => {

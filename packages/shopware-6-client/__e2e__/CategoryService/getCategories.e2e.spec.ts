@@ -1,4 +1,4 @@
-import { getCategories } from "@shopware-pwa/shopware-6-client/src";
+import { getCategories } from "@shopware-pwa/shopware-6-client";
 
 describe("shopware-6-client - E2E - CategoryService - getCategories", () => {
   it("should fetch all categories that match search criteria", async () => {

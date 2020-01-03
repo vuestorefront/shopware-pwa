@@ -1,7 +1,7 @@
 import {
   setCurrentShippingMethod,
   update
-} from "@shopware-pwa/shopware-6-client/src";
+} from "@shopware-pwa/shopware-6-client";
 
 describe("shopware-6-client - E2E - ContextService - setCurrentShippingMethod", () => {
   beforeEach(() => {

@@ -2,7 +2,7 @@ import {
   addProductToCart,
   removeCartItem,
   update
-} from "@shopware-pwa/shopware-6-client/src";
+} from "@shopware-pwa/shopware-6-client";
 describe("shopware-6-client - E2E - CartService - addCartItemQuantity", () => {
   beforeEach(() => {
     update({});

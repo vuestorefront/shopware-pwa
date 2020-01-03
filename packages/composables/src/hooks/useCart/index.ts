@@ -4,7 +4,7 @@ import {
   addProductToCart,
   removeCartItem,
   changeCartItemQuantity
-} from "@shopware-pwa/shopware-6-client/src";
+} from "@shopware-pwa/shopware-6-client";
 import { getStore } from "../..";
 
 export const useCart = (): any => {
