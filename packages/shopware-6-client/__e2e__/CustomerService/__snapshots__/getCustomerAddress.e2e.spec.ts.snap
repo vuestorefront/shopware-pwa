@@ -16,7 +16,16 @@ Object {
   "customer": null,
   "customerId": "d5ba879ae22f4dcd8f881046dbcedc41",
   "department": null,
-  "extensions": Array [],
+  "extensions": Object {
+    "foreignKeys": Object {
+      "_uniqueIdentifier": null,
+      "createdAt": null,
+      "extensions": Array [],
+      "translated": Array [],
+      "updatedAt": null,
+      "versionId": null,
+    },
+  },
   "firstName": "mockedFirstName",
   "id": "mockedId",
   "lastName": "mockedLastName",
@@ -33,6 +42,6 @@ Object {
 }
 `;
 
-exports[`shopware-6-client - E2E - CustomerService - getCustomerAddress should not fetch address for unlogged user 1`] = `[Error: Request failed with status code 500]`;
+exports[`shopware-6-client - E2E - CustomerService - getCustomerAddress should not fetch address for unlogged user 1`] = `[Error: Request failed with status code 403]`;
 
 exports[`shopware-6-client - E2E - CustomerService - getCustomerAddress should return error for address id that not matches any address 1`] = `[Error: Request failed with status code 400]`;
