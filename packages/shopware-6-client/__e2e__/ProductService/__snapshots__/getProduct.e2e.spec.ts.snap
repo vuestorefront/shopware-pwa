@@ -138,6 +138,14 @@ Object {
     "createdAt": "2019-12-05T13:52:24+00:00",
     "customFields": null,
     "extensions": Object {
+      "foreignKeys": Object {
+        "_uniqueIdentifier": null,
+        "createdAt": null,
+        "extensions": Array [],
+        "translated": Array [],
+        "updatedAt": null,
+        "versionId": null,
+      },
       "internal_mapping_storage": Object {
         "_uniqueIdentifier": null,
         "createdAt": null,
@@ -154,6 +162,14 @@ Object {
       "createdAt": "2019-12-05T13:52:22+00:00",
       "customFields": null,
       "extensions": Object {
+        "foreignKeys": Object {
+          "_uniqueIdentifier": null,
+          "createdAt": null,
+          "extensions": Array [],
+          "translated": Array [],
+          "updatedAt": null,
+          "versionId": null,
+        },
         "internal_mapping_storage": Object {
           "_uniqueIdentifier": null,
           "createdAt": null,
@@ -207,129 +223,23 @@ Object {
   "description": "Et magnam et earum eos et velit repellendus. Saepe vitae possimus impedit. Ut eligendi neque enim ducimus accusantium vel quis. Ut cupiditate recusandae deserunt ut et unde.",
   "displayGroup": null,
   "ean": null,
-  "extensions": Array [],
+  "extensions": Object {
+    "foreignKeys": Object {
+      "_uniqueIdentifier": null,
+      "createdAt": null,
+      "extensions": Array [],
+      "translated": Array [],
+      "updatedAt": null,
+      "versionId": null,
+    },
+  },
   "height": null,
   "id": "044a190a54ab4f06803909c3ee8063ef",
   "isCloseout": false,
   "isNew": false,
   "keywords": null,
   "length": null,
-  "listingPrices": Array [
-    Object {
-      "currencyId": "45f96f681f9d4834b29e9e15df3a7149",
-      "extensions": Array [],
-      "from": Object {
-        "currencyId": "45f96f681f9d4834b29e9e15df3a7149",
-        "extensions": Array [],
-        "gross": 286.86,
-        "linked": true,
-        "net": 241.06,
-      },
-      "ruleId": "3641e978b8b9478f8865d3feed03f4ca",
-      "to": Object {
-        "currencyId": "45f96f681f9d4834b29e9e15df3a7149",
-        "extensions": Array [],
-        "gross": 963.61,
-        "linked": true,
-        "net": 809.76,
-      },
-    },
-    Object {
-      "currencyId": "76559e57121c4ffa884d865cb83ded1b",
-      "extensions": Array [],
-      "from": Object {
-        "currencyId": "76559e57121c4ffa884d865cb83ded1b",
-        "extensions": Array [],
-        "gross": 218.43,
-        "linked": true,
-        "net": 183.56,
-      },
-      "ruleId": "3641e978b8b9478f8865d3feed03f4ca",
-      "to": Object {
-        "currencyId": "76559e57121c4ffa884d865cb83ded1b",
-        "extensions": Array [],
-        "gross": 733.76,
-        "linked": true,
-        "net": 616.61,
-      },
-    },
-    Object {
-      "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
-      "extensions": Array [],
-      "from": Object {
-        "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
-        "extensions": Array [],
-        "gross": 245,
-        "linked": true,
-        "net": 205.8823529411765,
-      },
-      "ruleId": "3641e978b8b9478f8865d3feed03f4ca",
-      "to": Object {
-        "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
-        "extensions": Array [],
-        "gross": 823,
-        "linked": true,
-        "net": 691.5966386554622,
-      },
-    },
-    Object {
-      "currencyId": "45f96f681f9d4834b29e9e15df3a7149",
-      "extensions": Array [],
-      "from": Object {
-        "currencyId": "45f96f681f9d4834b29e9e15df3a7149",
-        "extensions": Array [],
-        "gross": 573.72,
-        "linked": true,
-        "net": 482.11,
-      },
-      "ruleId": "51fba434c8004cc89bb70897167641a8",
-      "to": Object {
-        "currencyId": "45f96f681f9d4834b29e9e15df3a7149",
-        "extensions": Array [],
-        "gross": 1037.37,
-        "linked": true,
-        "net": 871.74,
-      },
-    },
-    Object {
-      "currencyId": "76559e57121c4ffa884d865cb83ded1b",
-      "extensions": Array [],
-      "from": Object {
-        "currencyId": "76559e57121c4ffa884d865cb83ded1b",
-        "extensions": Array [],
-        "gross": 436.87,
-        "linked": true,
-        "net": 367.12,
-      },
-      "ruleId": "51fba434c8004cc89bb70897167641a8",
-      "to": Object {
-        "currencyId": "76559e57121c4ffa884d865cb83ded1b",
-        "extensions": Array [],
-        "gross": 789.93,
-        "linked": true,
-        "net": 663.81,
-      },
-    },
-    Object {
-      "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
-      "extensions": Array [],
-      "from": Object {
-        "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
-        "extensions": Array [],
-        "gross": 490,
-        "linked": true,
-        "net": 411.764705882353,
-      },
-      "ruleId": "51fba434c8004cc89bb70897167641a8",
-      "to": Object {
-        "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
-        "extensions": Array [],
-        "gross": 886,
-        "linked": true,
-        "net": 744.5378151260504,
-      },
-    },
-  ],
+  "listingPrices": Array [],
   "mainCategories": null,
   "manufacturer": null,
   "manufacturerId": "79eb793025ee4fa3b628f9814bd7b010",
@@ -361,7 +271,16 @@ Object {
       "_uniqueIdentifier": "07afda1ecf3244f18b167ab8529c9c1d",
       "createdAt": "2019-10-08T09:42:16+00:00",
       "customFields": null,
-      "extensions": Array [],
+      "extensions": Object {
+        "foreignKeys": Object {
+          "_uniqueIdentifier": null,
+          "createdAt": null,
+          "extensions": Array [],
+          "translated": Array [],
+          "updatedAt": null,
+          "versionId": null,
+        },
+      },
       "id": "07afda1ecf3244f18b167ab8529c9c1d",
       "price": Array [
         Object {
@@ -386,7 +305,16 @@ Object {
       "_uniqueIdentifier": "1c90794d216d4c3da641015737af1490",
       "createdAt": "2019-10-08T09:42:16+00:00",
       "customFields": null,
-      "extensions": Array [],
+      "extensions": Object {
+        "foreignKeys": Object {
+          "_uniqueIdentifier": null,
+          "createdAt": null,
+          "extensions": Array [],
+          "translated": Array [],
+          "updatedAt": null,
+          "versionId": null,
+        },
+      },
       "id": "1c90794d216d4c3da641015737af1490",
       "price": Array [
         Object {
@@ -411,7 +339,16 @@ Object {
       "_uniqueIdentifier": "673b0a7456a64af2b1e6a7961ac6b7ef",
       "createdAt": "2019-10-08T09:42:16+00:00",
       "customFields": null,
-      "extensions": Array [],
+      "extensions": Object {
+        "foreignKeys": Object {
+          "_uniqueIdentifier": null,
+          "createdAt": null,
+          "extensions": Array [],
+          "translated": Array [],
+          "updatedAt": null,
+          "versionId": null,
+        },
+      },
       "id": "673b0a7456a64af2b1e6a7961ac6b7ef",
       "price": Array [
         Object {
@@ -436,7 +373,16 @@ Object {
       "_uniqueIdentifier": "eed481dd9ed3456db0c550aa6731a7ec",
       "createdAt": "2019-10-08T09:42:16+00:00",
       "customFields": null,
-      "extensions": Array [],
+      "extensions": Object {
+        "foreignKeys": Object {
+          "_uniqueIdentifier": null,
+          "createdAt": null,
+          "extensions": Array [],
+          "translated": Array [],
+          "updatedAt": null,
+          "versionId": null,
+        },
+      },
       "id": "eed481dd9ed3456db0c550aa6731a7ec",
       "price": Array [
         Object {
@@ -501,6 +447,14 @@ Object {
     "createdAt": "2019-10-08T09:41:16+00:00",
     "customFields": null,
     "extensions": Object {
+      "foreignKeys": Object {
+        "_uniqueIdentifier": null,
+        "createdAt": null,
+        "extensions": Array [],
+        "translated": Array [],
+        "updatedAt": null,
+        "versionId": null,
+      },
       "internal_mapping_storage": Object {
         "_uniqueIdentifier": null,
         "createdAt": null,
