@@ -1,8 +1,5 @@
 import { apiService } from "../../../src/apiService";
-import {
-  setCurrentLanguage,
-  update
-} from "@shopware-pwa/shopware-6-client";
+import { setCurrentLanguage, update } from "@shopware-pwa/shopware-6-client";
 
 jest.mock("../../../src/apiService");
 const mockedAxios = apiService as jest.Mocked<typeof apiService>;

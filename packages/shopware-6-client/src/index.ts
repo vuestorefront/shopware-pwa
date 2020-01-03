@@ -1,9 +1,4 @@
-import {
-  config,
-  ClientSettings,
-  setupConfig,
-  updateConfig
-} from "./settings";
+import { config, ClientSettings, setupConfig, updateConfig } from "./settings";
 import { reloadConfiguration } from "./apiService";
 
 export { config } from "./settings";
