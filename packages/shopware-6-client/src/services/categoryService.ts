@@ -1,8 +1,5 @@
 import { Category } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/category/Category";
-import {
-  getCategoryEndpoint,
-  getCategoryDetailsEndpoint
-} from "../endpoints";
+import { getCategoryEndpoint, getCategoryDetailsEndpoint } from "../endpoints";
 import { convertSearchCriteria } from "../helpers/searchConverter";
 import { SearchResult } from "@shopware-pwa/shopware-6-client/src/interfaces/response/SearchResult";
 import { apiService } from "../apiService";
