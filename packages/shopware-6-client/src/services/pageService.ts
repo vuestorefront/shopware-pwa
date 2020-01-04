@@ -14,6 +14,9 @@ export interface PageResolverResult<T> {
   cmsPage: T;
 }
 
+/**
+ * @alpha
+ */
 export async function getPage(
   path: string,
   searchCriteria?: SearchCriteria
