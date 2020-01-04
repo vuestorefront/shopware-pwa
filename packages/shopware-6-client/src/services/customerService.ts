@@ -8,13 +8,13 @@ import {
   getCustomerLogoutEndpoint,
   getCustomerLoginEndpoint
 } from "../endpoints";
-import { Customer } from "../interfaces/models/checkout/customer/Customer";
+import { Customer } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
 import { apiService } from "../apiService";
-import { CustomerAddress } from "../interfaces/models/checkout/customer/CustomerAddress";
-import { CustomerRegistrationParams } from "../interfaces/request/CustomerRegistrationParams";
-import { ContextTokenResponse } from "../interfaces/response/ContextTokenResponse";
+import { CustomerAddress } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress";
+import { CustomerRegistrationParams } from "@shopware-pwa/shopware-6-client/src/interfaces/request/CustomerRegistrationParams";
+import { ContextTokenResponse } from "@shopware-pwa/shopware-6-client/src/interfaces/response/ContextTokenResponse";
 
-interface CustomerRegisterResponse {
+export interface CustomerRegisterResponse {
   data: string;
 }
 
@@ -85,7 +85,7 @@ export async function getCustomerAddress(
   return resp.data.data;
 }
 
-interface CustomerAddressParam extends Partial<CustomerAddress> {}
+export interface CustomerAddressParam extends Partial<CustomerAddress> {}
 
 /**
  * Create an address and respond the new address's id
@@ -128,7 +128,7 @@ export async function setDefaultCustomerShippingAddress(
   return response.data;
 }
 
-interface CustomerUpdateEmailParam {
+export interface CustomerUpdateEmailParam {
   email: string;
   emailConfirmation: string;
   password: string;
@@ -143,7 +143,7 @@ export async function updateEmail(
   await apiService.patch(getCustomerUpdateEmailEndpoint(), params);
 }
 
-interface CustomerUpdatePasswordParam {
+export interface CustomerUpdatePasswordParam {
   password: string;
   newPassword: string;
   newPasswordConfirm: string;
@@ -158,7 +158,10 @@ export async function updatePassword(
   await apiService.patch(getCustomerUpdatePasswordEndpoint(), params);
 }
 
-interface CustomerUpdateProfileParam {
+/**
+ * @alpha
+ */
+export interface CustomerUpdateProfileParam {
   firstName: string;
   lastName: string;
   salutationId: string;
@@ -167,6 +170,7 @@ interface CustomerUpdateProfileParam {
 
 /**
  * Update a customer's profile data
+ * @alpha
  */
 export async function updateProfile(
   params: CustomerUpdateProfileParam

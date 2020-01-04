@@ -5,15 +5,15 @@ import {
   createCustomerAddress,
   deleteCustomerAddress
 } from "@shopware-pwa/shopware-6-client";
-import {address, name} from "faker";
+import { address, name } from "faker";
 
 describe("shopware-6-client - E2E - CustomerService - getCustomerAddress", () => {
   beforeEach(() => {
-    update({ contextToken: "" })
+    update({ contextToken: "" });
   });
 
   it("should fetch customer address for given address id", async () => {
-    await login({username: "test.e2e@test.pl", password: "password"});
+    await login({ username: "test.e2e@test.pl", password: "password" });
     const customerAddress: any = await createCustomerAddress({
       firstName: name.firstName(),
       lastName: name.lastName(),
@@ -22,7 +22,7 @@ describe("shopware-6-client - E2E - CustomerService - getCustomerAddress", () =>
       city: address.city(),
       street: address.streetName(),
       salutation: "Mr",
-      countryId: "38245a84c3d5425b8bac97fc845b5ddd",
+      countryId: "38245a84c3d5425b8bac97fc845b5ddd"
     });
     const result: any = await getCustomerAddress(customerAddress.data);
     await deleteCustomerAddress(customerAddress.data);
@@ -40,18 +40,18 @@ describe("shopware-6-client - E2E - CustomerService - getCustomerAddress", () =>
   it("should return error for address id that not matches any address", async () => {
     try {
       await login({ username: "test.e2e@test.pl", password: "password" });
-      await getCustomerAddress('qwa');
+      await getCustomerAddress("qwa");
       expect("didn't throw an error").toEqual("should throw an error");
-    } catch(e) {
+    } catch (e) {
       expect(e).toMatchSnapshot();
     }
   });
 
   it("should not fetch address for unlogged user", async () => {
     try {
-      await getCustomerAddress('ed9e8daeae9a46cf84abf4141fc5d106');
+      await getCustomerAddress("ed9e8daeae9a46cf84abf4141fc5d106");
       expect("didn't throw an error").toEqual("should throw an error");
-    } catch(e) {
+    } catch (e) {
       expect(e).toMatchSnapshot();
     }
   });

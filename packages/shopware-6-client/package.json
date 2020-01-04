@@ -1,11 +1,10 @@
 {
   "name": "@shopware-pwa/shopware-6-client",
-  "version": "0.1.0",
+  "version": "0.1.0-prealpha.0",
   "description": "Rest API client for Shopware 6.",
-  "main": "index.js",
+  "main": "dist/shopware-6-client.cjs.js",
   "module": "dist/shopware-6-client.esm-bundler.js",
   "files": [
-    "index.js",
     "dist"
   ],
   "types": "dist/shopware-6-client.d.ts",
@@ -17,7 +16,13 @@
   },
   "buildOptions": {
     "name": "Shopware6Client",
-    "formats": ["esm", "cjs", "global", "esm-browser"]
+    "formats": [
+      "esm-bundler",
+      "cjs"
+    ]
+  },
+  "peerDependencies": {
+    "axios": "^0.19.0"
   },
   "license": "MIT"
 }

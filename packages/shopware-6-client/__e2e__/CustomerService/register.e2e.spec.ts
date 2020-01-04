@@ -1,8 +1,8 @@
 import { register } from "@shopware-pwa/shopware-6-client";
-import { name, address, internet } from 'faker';
+import { name, address, internet } from "faker";
 
 describe("shopware-6-client - E2E - CustomerService - register", () => {
-  it("should register new customer", async() => {
+  it("should register new customer", async () => {
     const result: any = await register({
       firstName: name.firstName(),
       lastName: name.lastName(),
@@ -17,7 +17,7 @@ describe("shopware-6-client - E2E - CustomerService - register", () => {
         zipcode: address.zipCode(),
         city: address.city(),
         street: address.streetName(),
-        salutation: "Mr",
+        salutation: "Mr"
       }
     });
     result.data = "mockedCustomerId";

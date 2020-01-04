@@ -3,17 +3,17 @@ import {
   login,
   setDefaultCustomerBillingAddress,
   createCustomerAddress,
-  deleteCustomerAddress,
+  deleteCustomerAddress
 } from "@shopware-pwa/shopware-6-client";
-import {address, name} from "faker";
+import { address, name } from "faker";
 
 describe("shopware-6-client - E2E - CustomerService - setDefaultCustomerBillingAddress", () => {
   beforeEach(() => {
-    update({ contextToken: "" })
+    update({ contextToken: "" });
   });
 
   it("should set provided address as default billing address", async () => {
-    await login({username: "test.e2e@test.pl", password: "password"});
+    await login({ username: "test.e2e@test.pl", password: "password" });
     const customerAddress: any = await createCustomerAddress({
       firstName: name.firstName(),
       lastName: name.lastName(),
@@ -24,7 +24,9 @@ describe("shopware-6-client - E2E - CustomerService - setDefaultCustomerBillingA
       salutation: "Mr",
       countryId: "38245a84c3d5425b8bac97fc845b5ddd"
     });
-    const result: any = await setDefaultCustomerBillingAddress(customerAddress.data);
+    const result: any = await setDefaultCustomerBillingAddress(
+      customerAddress.data
+    );
     await setDefaultCustomerBillingAddress("c03217761a5847c19ea3d9801dd2bb7d");
     await deleteCustomerAddress(customerAddress.data);
     result.data = "mockedCustomerAddressId";
@@ -36,7 +38,7 @@ describe("shopware-6-client - E2E - CustomerService - setDefaultCustomerBillingA
       await login({ username: "test.e2e@test.pl", password: "password" });
       await setDefaultCustomerBillingAddress("qwa");
       expect("didn't throw an error").toEqual("should throw an error");
-    } catch(e) {
+    } catch (e) {
       expect(e).toMatchSnapshot();
     }
   });

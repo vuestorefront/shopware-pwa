@@ -1,8 +1,8 @@
-import {login, update, updateProfile} from "@shopware-pwa/shopware-6-client";
+import { login, update, updateProfile } from "@shopware-pwa/shopware-6-client";
 
 describe("shopware-6-client - E2E - CustomerService - updateProfile", () => {
   beforeEach(() => {
-    update({ contextToken: "" })
+    update({ contextToken: "" });
   });
 
   it("should update user profile", async () => {
@@ -25,7 +25,7 @@ describe("shopware-6-client - E2E - CustomerService - updateProfile", () => {
         title: null
       });
       expect("didn't throw an error").toEqual("should throw an error");
-    } catch(e) {
+    } catch (e) {
       expect(e).toMatchSnapshot();
     }
   });

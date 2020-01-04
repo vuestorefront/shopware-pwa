@@ -1,6 +1,5 @@
-import { ClientSettings, setupConfig, updateConfig } from "./settings";
+import { config, ClientSettings, setupConfig, updateConfig } from "./settings";
 import { reloadConfiguration } from "./apiService";
-import { config } from "./settings";
 
 export { config } from "./settings";
 
@@ -11,10 +10,6 @@ export * from "./services/contextService";
 export * from "./services/cartService";
 export * from "./services/navigationService";
 export * from "./services/pageService";
-export * from "./interfaces/response/PageResolverResult";
-export * from "./interfaces/models/content/product/Product";
-export * from "./interfaces/models/content/category/Category";
-export * from "./interfaces/models/content/cms/CmsPage";
 /**
  * Setup configuration. Merge default values with provided in param.
  * This method will override existing config. For config update invoke **update** method.

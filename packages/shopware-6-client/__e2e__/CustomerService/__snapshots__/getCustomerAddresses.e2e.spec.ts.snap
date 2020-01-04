@@ -1,47 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`shopware-6-client - E2E - CustomerService - getCustomerAddresses should fetch customer addresses 1`] = `
-Array [
-  Object {
-    "_uniqueIdentifier": "c03217761a5847c19ea3d9801dd2bb7d",
-    "additionalAddressLine1": null,
-    "additionalAddressLine2": null,
-    "city": "TestTown",
-    "company": null,
-    "country": null,
-    "countryId": "38245a84c3d5425b8bac97fc845b5ddd",
-    "countryState": null,
-    "countryStateId": null,
-    "createdAt": "2020-01-01T20:14:14+00:00",
-    "customFields": null,
-    "customer": null,
-    "customerId": "d5ba879ae22f4dcd8f881046dbcedc41",
-    "department": null,
-    "extensions": Object {
-      "foreignKeys": Object {
-        "_uniqueIdentifier": null,
-        "createdAt": null,
-        "extensions": Array [],
-        "translated": Array [],
-        "updatedAt": null,
-        "versionId": null,
-      },
+exports[`shopware-6-client - E2E - CustomerService - getCustomerAddresses should fetch customer addresses but test only one from array 1`] = `
+Object {
+  "_uniqueIdentifier": "mockedUniqueIdentifier",
+  "additionalAddressLine1": null,
+  "additionalAddressLine2": null,
+  "city": "mockedCity",
+  "company": null,
+  "country": null,
+  "countryId": "38245a84c3d5425b8bac97fc845b5ddd",
+  "countryState": null,
+  "countryStateId": null,
+  "createdAt": "mockedCreatedAt",
+  "customFields": null,
+  "customer": null,
+  "customerId": "d5ba879ae22f4dcd8f881046dbcedc41",
+  "department": null,
+  "extensions": Object {
+    "foreignKeys": Object {
+      "_uniqueIdentifier": null,
+      "createdAt": null,
+      "extensions": Array [],
+      "translated": Array [],
+      "updatedAt": null,
+      "versionId": null,
     },
-    "firstName": "test",
-    "id": "c03217761a5847c19ea3d9801dd2bb7d",
-    "lastName": "e2e",
-    "phoneNumber": null,
-    "salutation": null,
-    "salutationId": "c370eb5cd1df4d4dbcc78f055b693e79",
-    "street": "teststreet",
-    "title": null,
-    "translated": Array [],
-    "updatedAt": null,
-    "vatId": null,
-    "versionId": null,
-    "zipcode": "10-900",
   },
-]
+  "firstName": "mockedFirstName",
+  "id": "mockedId",
+  "lastName": "mockedLastName",
+  "phoneNumber": null,
+  "salutation": null,
+  "salutationId": "c370eb5cd1df4d4dbcc78f055b693e79",
+  "street": "mockedStreet",
+  "title": null,
+  "translated": Array [],
+  "updatedAt": null,
+  "vatId": null,
+  "versionId": null,
+  "zipcode": "mockedZipcode",
+}
 `;
 
 exports[`shopware-6-client - E2E - CustomerService - getCustomerAddresses should return error when fetching customer addresses without logged user 1`] = `[Error: Request failed with status code 403]`;
