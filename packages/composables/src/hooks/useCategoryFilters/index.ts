@@ -4,7 +4,8 @@ import {
   getCategoryAvailableFilters,
   getCategoryAvailableSorting,
   UiCategoryFilter,
-  UiCategorySorting
+  UiCategorySorting,
+  SwSorting
 } from "@shopware-pwa/helpers";
 
 export const useCategoryFilters = (): any => {
@@ -39,9 +40,12 @@ export const useCategoryFilters = (): any => {
   });
 
 
+  const activeSorting = computed(():SwSorting => availableSorting.value.find((sorting:SwSorting) => sorting.active));
+
   return {
     availableFilters,
     activeFilters,
-    availableSorting
+    availableSorting,
+    activeSorting
   };
 };

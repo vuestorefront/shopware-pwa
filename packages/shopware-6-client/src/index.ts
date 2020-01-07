@@ -17,6 +17,8 @@ export * from "./interfaces/models/content/category/Category";
 export * from "./interfaces/models/content/cms/CmsPage";
 export * from "./interfaces/search/SearchCriteria";
 export * from "./interfaces/search/SearchFilter";
+export * from "./interfaces/response/SearchResult";
+
 /**
  * Setup configuration. Merge default values with provided in param.
  * This method will override existing config. For config update invoke **update** method.

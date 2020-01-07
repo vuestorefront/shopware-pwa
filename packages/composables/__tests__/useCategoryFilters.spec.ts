@@ -86,5 +86,38 @@ describe("Composables - useCategoryFilters", () => {
         expect(activeFilters.value).toHaveProperty("price");
       });
     });
+
+    describe("availableSorting", () => {
+      it("should return empty array if there is no page loaded", () => {
+        const { availableSorting } = useCategoryFilters();
+        expect(availableSorting.value).toBeTruthy();
+        expect(availableSorting.value).toHaveLength(0);
+      });
+
+      it("should return proper sorting if any loaded", () => {
+
+        const listingConfiguration = {
+          "listingConfiguration": {
+            "availableSortings": {
+                "name-asc": {
+                    "key": "name-asc",
+                    "active": true,
+                },
+                "name-desc": {
+                    "key": "name-desc",
+                    "active": false,
+                }
+              }
+            }
+        }
+
+        statePage.value = listingConfiguration;
+
+        const { availableSorting } = useCategoryFilters();
+        expect(availableSorting.value).toBeTruthy();
+        expect(availableSorting.value).toHaveLength(2);
+        expect(availableSorting.value).toStrictEqual([{"active": true, "field": "name", "name": "name-asc", "order": "asc"}, {"active": false, "field": "name", "name": "name-desc", "order": "desc"}])
+      });
+    });
   });
 });
