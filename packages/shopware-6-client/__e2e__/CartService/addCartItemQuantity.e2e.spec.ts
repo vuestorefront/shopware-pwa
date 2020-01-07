@@ -21,6 +21,17 @@ describe("shopware-6-client - E2E - CartService - addCartItemQuantity", () => {
     deepChangeProperty(result, "thumbnailsRo");
     deepChangeProperty(result, "latest");
     deepChangeProperty(result, "thumbnailsRo");
+    result.token = "mockedToken";
+    result.deliveries = result.deliveries.map((delivery: any) => {
+      delivery.deliveryDate.earliest = "mockedDate";
+      delivery.deliveryDate.latest = "mockedDate";
+      delivery.positions = delivery.positions.map((position: any) => {
+        position.deliveryDate.earliest = "mockedDate";
+        position.deliveryDate.latest = "mockedDate";
+        return position;
+      });
+      return delivery;
+    });
     expect(result).toMatchSnapshot();
   });
 

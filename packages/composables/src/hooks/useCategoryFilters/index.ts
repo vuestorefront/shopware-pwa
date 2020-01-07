@@ -39,8 +39,10 @@ export const useCategoryFilters = (): any => {
     });
   });
 
-
-  const activeSorting = computed(():SwSorting => availableSorting.value.find((sorting:SwSorting) => sorting.active));
+  const activeSorting = computed(
+    (): SwSorting =>
+      availableSorting.value.find((sorting: SwSorting) => sorting.active)
+  );
 
   return {
     availableFilters,

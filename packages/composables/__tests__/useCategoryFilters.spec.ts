@@ -95,28 +95,30 @@ describe("Composables - useCategoryFilters", () => {
       });
 
       it("should return proper sorting if any loaded", () => {
-
         const listingConfiguration = {
-          "listingConfiguration": {
-            "availableSortings": {
-                "name-asc": {
-                    "key": "name-asc",
-                    "active": true,
-                },
-                "name-desc": {
-                    "key": "name-desc",
-                    "active": false,
-                }
+          listingConfiguration: {
+            availableSortings: {
+              "name-asc": {
+                key: "name-asc",
+                active: true
+              },
+              "name-desc": {
+                key: "name-desc",
+                active: false
               }
             }
-        }
+          }
+        };
 
         statePage.value = listingConfiguration;
 
         const { availableSorting } = useCategoryFilters();
         expect(availableSorting.value).toBeTruthy();
         expect(availableSorting.value).toHaveLength(2);
-        expect(availableSorting.value).toStrictEqual([{"active": true, "field": "name", "name": "name-asc", "order": "asc"}, {"active": false, "field": "name", "name": "name-desc", "order": "desc"}])
+        expect(availableSorting.value).toStrictEqual([
+          { active: true, field: "name", name: "name-asc", order: "asc" },
+          { active: false, field: "name", name: "name-desc", order: "desc" }
+        ]);
       });
     });
   });

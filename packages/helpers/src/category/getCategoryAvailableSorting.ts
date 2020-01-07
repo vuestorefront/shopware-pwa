@@ -15,11 +15,11 @@ export function getCategoryAvailableSorting({
   }
 
   const sortingTransformed = Object.entries(sorting).map(
-    ([sortingCode, { active}]) => ({
+    ([sortingCode, { active }]) => ({
       name: sortingCode,
       active: active,
-      field: sortingCode.split('-')[0],
-      order: sortingCode.split('-')[1]
+      field: sortingCode.split("-")[0],
+      order: sortingCode.split("-")[1]
     })
   );
 
