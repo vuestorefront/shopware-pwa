@@ -35,15 +35,14 @@
         Filters
       </SfButton>
       <div class="navbar__sort" >
-        <span class="navbar__label">Sort by:</span>
-        <SfSelect :size="sorting.length" label="sorting">
-          <SfSelectOption v-for="(option, key) in sorting" :key="key" :value="option.name" class="sort-by__option">
-            <SfProductOption :label="option.name" :value="option.name"></SfProductOption>
+        <span class="navbar__label">Sort by: </span>
+        <SfSelect :size="sorting.length" v-model="sortBy">
+          <SfSelectOption v-for="(option, key) in sorting" :key="key" :value="option" class="sort-by__option">
+            <!-- SfProductOption as a name - makes no sense in this case, should be renamed in Ui -->
+            <SfProductOption :label="option.name" :value="option.name" :selected="option.name === selectedSorting.name"></SfProductOption>
           </SfSelectOption>
-            <!-- <template #label>
-              Choose sorting
-            </template> -->
         </SfSelect>
+        
       </div>
       <div class="navbar__counter">
         <span class="navbar__label desktop-only">Products found: </span>
@@ -128,14 +127,19 @@ export default {
     }
   },
   setup () {
-    const { toggleFilter, search, selectedFilters, resetFilters, productsTotal } = useProductListing()
+    const { toggleFilter, changeSorting, selectedSorting, search, selectedFilters, resetFilters, productsTotal } = useProductListing()
 
-    return { toggleFilter, search, selectedFilters, resetFilters, productsTotal }
+    return { toggleFilter, changeSorting, selectedSorting, search, selectedFilters, resetFilters, productsTotal }
   },
   data() {
     return {
-      sortBy: null,
-      isFilterSidebarOpen: false
+      isFilterSidebarOpen: false,
+      sortBy: this.selectedSorting
+    }
+  },
+  watch: {
+    sortBy(value){
+      this.changeSorting(value)
     }
   },
   computed: {
@@ -159,22 +163,6 @@ export default {
     },
     lazyLoad() {
       return true
-    },
-    sortByOptions() {
-      return [
-        {
-          value: 'latest',
-          label: 'Latest'
-        },
-        {
-          value: 'price-up',
-          label: 'Price from low to high'
-        },
-        {
-          value: 'price-down',
-          label: 'Price from high to low'
-        }
-      ]
     }
   },
   methods: {
@@ -261,6 +249,7 @@ export default {
   }
   &__label {
     color: $c-gray-variant;
+    padding-right: 5px;
   }
   &__sort {
     display: flex;
@@ -304,5 +293,7 @@ export default {
     background-color: $c-light;
   }
 }
-
+.sf-select {
+  width: 150px;
+}
 </style>
