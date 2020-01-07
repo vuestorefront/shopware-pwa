@@ -52,4 +52,8 @@ describe("Shopware composables", () => {
     expect(error.value).toBeTruthy();
     expect(error.value).toEqual("Something went wrong...");
   });
+
+  it("should performs search request with no or empty configuration for SearchCriteria", async () => {
+    // TODO cover 21,22th line composables/src/hooks/useCms
+  });
 });

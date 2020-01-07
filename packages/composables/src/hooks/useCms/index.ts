@@ -13,6 +13,8 @@ export const useCms = (): any => {
 
   const search = async (path: string, query?: any) => {
     loading.value = true;
+
+    console.warn("PASSED QUERY", query);
     const searchCriteria: SearchCriteria = parseUrlQuery(query);
     // const searchCriteria = queryString.parse(query)
     // Temp Maciej solution for associations
