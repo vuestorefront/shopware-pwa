@@ -10,7 +10,11 @@ import {
   ContainsFilter,
   Sort
 } from "@shopware-pwa/shopware-6-client";
-import { getFilterSearchCriteria, getSortingSearchCriteria, exportUrlQuery } from "@shopware-pwa/helpers";
+import {
+  getFilterSearchCriteria,
+  getSortingSearchCriteria,
+  exportUrlQuery
+} from "@shopware-pwa/helpers";
 import { useCms } from "./useCms";
 import { useCategoryFilters } from "./useCategoryFilters";
 
@@ -33,7 +37,7 @@ const sharedPagination = Vue.observable({
 
 const sharedListing = Vue.observable({
   products: []
-} as any)
+} as any);
 
 const selectedCriteria = Vue.observable({
   pagination: null,
@@ -42,53 +46,58 @@ const selectedCriteria = Vue.observable({
   sorting: ""
 } as any);
 
-
 export const useProductListing = (
   initialProducts: Product[] = []
-  ): UseProductListing => {
+): UseProductListing => {
   const { page } = useCms();
   const { activeSorting } = useCategoryFilters();
 
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
-  const categoryId: Ref<string> = ref(page && page.value && page.value.resourceIdentifier)
-  const localListing = reactive(sharedListing)
-  const localCriteria = reactive(selectedCriteria)
-  const localPagination = reactive(sharedPagination)
+  const categoryId: Ref<string> = ref(
+    page && page.value && page.value.resourceIdentifier
+  );
+  const localListing = reactive(sharedListing);
+  const localCriteria = reactive(selectedCriteria);
+  const localPagination = reactive(sharedPagination);
 
+  sharedListing.products = initialProducts;
+  selectedCriteria.sorting = activeSorting.value;
 
-  sharedListing.products = initialProducts
-  selectedCriteria.sorting = activeSorting.value
- 
   // increase test on init:
   test.value = test.value + 1;
 
   const resetFilters = async () => {
-    selectedCriteria.filters = {}
-  }
+    selectedCriteria.filters = {};
+  };
 
   const resetSorting = async () => {
-    selectedCriteria.sorting = activeSorting.value
-  }
+    selectedCriteria.sorting = activeSorting.value;
+  };
 
   const resetPagination = async () => {
-    selectedCriteria.pagination = {}
-  }
+    selectedCriteria.pagination = {};
+  };
 
   const toggleFilter = (
     filter: EqualsFilter | EqualsAnyFilter | ContainsFilter, // TODO: handle range filter case as well
     forceSave: boolean = false
   ): void => {
     if (!!selectedCriteria.filters[filter.field]) {
-      let selected = selectedCriteria.filters[filter.field]
-      if (!selected.find((optionId: string) => optionId === filter.value) || forceSave) {
-        selected.push(filter.value)
+      let selected = selectedCriteria.filters[filter.field];
+      if (
+        !selected.find((optionId: string) => optionId === filter.value) ||
+        forceSave
+      ) {
+        selected.push(filter.value);
       } else {
-        selected = selected.filter((optionId:string) => optionId !== filter.value)
+        selected = selected.filter(
+          (optionId: string) => optionId !== filter.value
+        );
       }
 
       selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
-        [filter.field]: [ ... new Set(selected)]
+        [filter.field]: [...new Set(selected)]
       });
     } else {
       selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
@@ -101,16 +110,20 @@ export const useProductListing = (
     if (!sorting) {
       return;
     }
-    selectedCriteria.sorting = sorting
+    selectedCriteria.sorting = sorting;
     await search();
-  }
+  };
   const search = async (): Promise<void> => {
-    loading.value = true
-    toggleFilter({ // append selected filters with currentCategory; should be taken from usePage
-      field: "categoryTree",
-      type: SearchFilterType.EQUALS_ANY,
-      value: categoryId.value
-    }, true)
+    loading.value = true;
+    toggleFilter(
+      {
+        // append selected filters with currentCategory; should be taken from usePage
+        field: "categoryTree",
+        type: SearchFilterType.EQUALS_ANY,
+        value: categoryId.value
+      },
+      true
+    );
 
     const searchCriteria: SearchCriteria = {
       pagination: selectedCriteria.pagination,
@@ -121,11 +134,11 @@ export const useProductListing = (
     // history is sometimes undefined - make decision what to do next
     const search = exportUrlQuery(searchCriteria);
     history.replaceState({}, null as any, location.pathname + "?" + search);
-    
+
     const result = await getProducts(searchCriteria);
-    sharedPagination.total = result && result.total || 0;
-    sharedListing.products = result && result.data && [ ...result.data] || [];
-    loading.value = false
+    sharedPagination.total = (result && result.total) || 0;
+    sharedListing.products = (result && result.data && [...result.data]) || [];
+    loading.value = false;
   };
 
   const changePagination = async (page: number) => {
@@ -136,9 +149,9 @@ export const useProductListing = (
     selectedCriteria.pagination = {
       limit: sharedPagination.perPage,
       page
-    }
-    await search()
-  }
+    };
+    await search();
+  };
 
   if (sharedListing.products.length) {
     resetFilters();

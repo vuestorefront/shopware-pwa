@@ -27,7 +27,7 @@ describe("shopware-6-client - E2E - CartService - addProductToCart", () => {
     try {
       await addProductToCart("qwa", 2);
       expect("didn't throw an error").toEqual("should throw an error");
-    } catch(e) {
+    } catch (e) {
       expect(e).toMatchSnapshot();
     }
   });

@@ -1,5 +1,10 @@
 import { SearchCriteria } from "../interfaces/search/SearchCriteria";
-import { MultiFilter, RangeFilter, EqualsFilter, EqualsAnyFilter } from "../interfaces/search/SearchFilter";
+import {
+  MultiFilter,
+  RangeFilter,
+  EqualsFilter,
+  EqualsAnyFilter
+} from "../interfaces/search/SearchFilter";
 import { PaginationLimit } from "../interfaces/search/Pagination";
 import { config } from "@shopware-pwa/shopware-6-client";
 import { Association } from "../interfaces/search/Association";

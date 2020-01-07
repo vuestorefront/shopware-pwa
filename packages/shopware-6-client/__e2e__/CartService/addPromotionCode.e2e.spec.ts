@@ -1,10 +1,10 @@
 import { update, addPromotionCode } from "@shopware-pwa/shopware-6-client";
 describe("shopware-6-client - E2E - CartService - addPromotionCode", () => {
   beforeEach(() => {
-    update({ contextToken: "" })
+    update({ contextToken: "" });
   });
 
-  it("should add promotion code for products in cart", async() => {
+  it("should add promotion code for products in cart", async () => {
     const result = await addPromotionCode("divante");
     result.token = "mockedToken";
     expect(result).toMatchSnapshot();
@@ -21,7 +21,7 @@ describe("shopware-6-client - E2E - CartService - addPromotionCode", () => {
     try {
       await addPromotionCode("");
       expect("didn't throw an error").toEqual("should throw an error");
-    } catch(e) {
+    } catch (e) {
       expect(e).toMatchSnapshot();
     }
   });

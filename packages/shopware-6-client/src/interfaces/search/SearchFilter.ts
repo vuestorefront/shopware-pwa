@@ -52,5 +52,7 @@ export interface RangeFilter extends SearchFilter {
 
 export interface MultiFilter extends SearchFilter {
   operator: string;
-  queries: Array<EqualsAnyFilter | RangeFilter | ContainsFilter | EqualsFilter | MultiFilter>;
+  queries: Array<
+    EqualsAnyFilter | RangeFilter | ContainsFilter | EqualsFilter | MultiFilter
+  >;
 }

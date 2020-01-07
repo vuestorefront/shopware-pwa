@@ -1,5 +1,10 @@
 import { Pagination } from "./Pagination";
-import { EqualsFilter, RangeFilter, MultiFilter, EqualsAnyFilter } from "./SearchFilter";
+import {
+  EqualsFilter,
+  RangeFilter,
+  MultiFilter,
+  EqualsAnyFilter
+} from "./SearchFilter";
 import { Association } from "./Association";
 import { Aggregation } from "./Aggregation";
 import { TotalCountMode } from "./TotalCountMode";
