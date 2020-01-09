@@ -1,4 +1,4 @@
-import { SearchCriteria } from "@shopware-pwa/shopware-6-client";
+import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
 import queryString from "query-string";
 import { isObject } from "util";
 

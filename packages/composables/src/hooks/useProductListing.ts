@@ -1,15 +1,17 @@
 import Vue from "vue";
 import { ref, Ref, computed, reactive } from "@vue/composition-api";
 import {
-  Product,
-  getProducts,
-  SearchCriteria,
   EqualsFilter,
   SearchFilterType,
   EqualsAnyFilter,
-  ContainsFilter,
-  Sort
-} from "@shopware-pwa/shopware-6-client";
+  ContainsFilter
+} from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchFilter";
+import { getProducts } from "@shopware-pwa/shopware-6-client";
+import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
+import {
+  Sort,
+  SearchCriteria
+} from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
 import {
   getFilterSearchCriteria,
   getSortingSearchCriteria,
