@@ -47,8 +47,8 @@ export default {
   components: { OrderHistory, SfContentPages, SfTabs, MyProfile, SfList, Address },
   middleware: "auth",
   setup() {
-    const { logout, user, getAddresses } = useUser()
-    return { logout, user, getAddresses }
+    const { logout, user, getAddresses, loadOrders, orders } = useUser()
+    return { logout, user, getAddresses, loadOrders, orders }
   },
   data() {
     return {

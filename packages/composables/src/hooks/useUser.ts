@@ -6,6 +6,7 @@ import {
   getCustomerOrders,
   getCustomerOrderDetails,
   getCustomerAddresses
+  
 } from "@shopware-pwa/shopware-6-client";
 import { Customer } from "packages/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
 import { getStore } from "@shopware-pwa/composables";
