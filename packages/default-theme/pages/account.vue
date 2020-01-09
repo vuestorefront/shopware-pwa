@@ -6,70 +6,68 @@
       >
         <SfContentCategory title="Personal Details">
           <SfContentPage title="My profile">
-            <SfTabs :open-tab="1">
-              <SfTab title="Personal data">
-                This website ("website") is operated by Luma Inc., which includes
-                Luma stores, and Luma Private Sales. This privacy policy only covers
-                information collected at this website, and does not cover any
-                information collected offline by Luma. All Luma websites are covered
-                by this privacy policy.
-              </SfTab>
-              <SfTab title="Password change">
-                This website ("website") is operated by Luma Inc., which includes
-                Luma stores, and Luma Private Sales. This privacy policy only covers
-                information collected at this website, and does not cover any
-                information collected offline by Luma. All Luma websites are covered
-                by this privacy policy.
-              </SfTab>
-            </SfTabs>
+            <MyProfile />
           </SfContentPage>
           <SfContentPage title="Shipping details">
             <SfTabs :open-tab="1">
-              <SfTab title="Shipping details">
-                This website ("website") is operated by Luma Inc., which includes
-                Luma stores, and Luma Private Sales. This privacy policy only covers
-                information collected at this website, and does not cover any
-                information collected offline by Luma. All Luma websites are covered
-                by this privacy policy.
+              <SfTab title="Shipping address">
+                <SfList>
+                  {{activeShippingAddress.id}}
+                  <hr/>
+                  <SfListItem>name: {{ activeShippingAddress.firstName }} {{ activeShippingAddress.lastName }} </SfListItem>
+                  <SfListItem>street: {{ activeShippingAddress.street }}</SfListItem>
+                  <SfListItem>city: {{ activeShippingAddress.city }}</SfListItem>
+                  <SfListItem>zipcode: {{ activeShippingAddress.zipcode }} </SfListItem>
+                  <SfListItem>country: {{ activeShippingAddress.country.name }} </SfListItem>
+                </SfList>
+              </SfTab>
+              <SfTab title="Billing address">
+                <SfList>
+                  {{activeBillingAddress.id}}
+                  <hr/>
+                  <SfListItem>name: {{ activeBillingAddress.firstName }} {{ activeShippingAddress.lastName }} </SfListItem>
+                  <SfListItem>street: {{ activeBillingAddress.street }}</SfListItem>
+                  <SfListItem>city: {{ activeBillingAddress.city }}</SfListItem>
+                  <SfListItem>zipcode: {{ activeBillingAddress.zipcode }} </SfListItem>
+                  <SfListItem>country: {{ activeBillingAddress.country ? activeBillingAddress.country.name : "" }} </SfListItem>
+                </SfList>
               </SfTab>
             </SfTabs>
           </SfContentPage>
           <SfContentPage title="My newsletter">
             <SfTabs :open-tab="1">
               <SfTab title="My newsletter">
-                This website ("website") is operated by Luma Inc., which includes
-                Luma stores, and Luma Private Sales. This privacy policy only covers
-                information collected at this website, and does not cover any
-                information collected offline by Luma. All Luma websites are covered
-                by this privacy policy.
               </SfTab>
             </SfTabs>
           </SfContentPage>
         </SfContentCategory>
         <SfContentCategory title="Order details">
-          <SfContentPage title="Order history">
-            This website ("website") is operated by Luma Inc., which includes
-            Luma stores, and Luma Private Sales. This privacy policy only covers
-            information collected at this website, and does not cover any
-            information collected offline by Luma. All Luma websites are covered
-            by this privacy policy.
+          <SfContentPage :title="`Order history (${user.orderCount})`">
+            <SfList v-for="order in orders" :key="order.id">
+              <SfListItem><strong>{{order.orderNumber}}</strong></SfListItem>
+              <SfListItem>total: {{ order.amountTotal }}</SfListItem>
+              <SfListItem>status: {{ order.stateMachineState.name }}</SfListItem>
+              <SfListItem>orderDateTime: {{ order.orderDateTime }}</SfListItem>
+              <SfListItem>shippingCosts: {{ order.shippingCosts.totalPrice }}</SfListItem>
+              <hr/>
+            </SfList>
           </SfContentPage>
         </SfContentCategory>
         <SfContentPage title="Logout"></SfContentPage>
       </SfContentPages>
 </template>
 <script>
-import { SfContentPages, SfTabs } from "@storefront-ui/vue"
+import { SfContentPages, SfTabs, SfList } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
-
+import MyProfile  from "../components/account/MyProfile"
 export default {
   name: 'Account',
-  components: { SfContentPages, SfTabs },
+  components: { SfContentPages, SfTabs, MyProfile, SfList },
   middleware: "auth",
   setup() {
-    const { logout } = useUser()
-
-    return { logout }
+    const { logout, user, orders, loadOrders } = useUser()
+    loadOrders();
+    return { logout, user, orders }
   },
   data() {
     return {
@@ -77,6 +75,12 @@ export default {
     }
   },
   computed: {
+    activeBillingAddress() {
+      return this.user && this.user && this.user.activeBillingAddress || {}
+    },
+    activeShippingAddress() {
+      return this.user && this.user && this.user.activeShippingAddress || {}
+    }
   },
   methods: {
     async updateActivePage(title) {

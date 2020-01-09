@@ -16,7 +16,7 @@ export default async function ({ route, redirect }) {
     await logout()
   }
   
-  if (PAGES_FOR_LOGGED_IN_ONLY.includes(route.name) && !isLoggedIn.value) {
+  if (PAGES_FOR_LOGGED_IN_ONLY.includes(route.name) && isLoggedIn && !isLoggedIn.value) {
     redirect(LOGIN_ROUTE_PATH)
   }
 }
