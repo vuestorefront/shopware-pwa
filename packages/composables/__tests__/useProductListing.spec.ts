@@ -14,7 +14,7 @@ import {
   SearchFilterType,
   EqualsFilter,
   EqualsAnyFilter
-} from "@shopware-pwa/shopware-6-client";
+} from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchFilter";
 
 const mockedGetPage = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
