@@ -14248,39 +14248,8 @@ Object {
         },
       },
       "rating": Object {
-        "type": "term",
-        "values": Array [
-          Object {
-            "count": 146,
-            "extensions": Array [],
-            "key": "",
-          },
-          Object {
-            "count": 2,
-            "extensions": Array [],
-            "key": "1",
-          },
-          Object {
-            "count": 1,
-            "extensions": Array [],
-            "key": "3.5",
-          },
-          Object {
-            "count": 2,
-            "extensions": Array [],
-            "key": "3",
-          },
-          Object {
-            "count": 3,
-            "extensions": Array [],
-            "key": "4",
-          },
-          Object {
-            "count": 1,
-            "extensions": Array [],
-            "key": "5",
-          },
-        ],
+        "type": "max",
+        "values": "5",
       },
       "shipping-free": Object {
         "type": "max",
@@ -22338,29 +22307,8 @@ Object {
         },
       },
       "rating": Object {
-        "type": "term",
-        "values": Array [
-          Object {
-            "count": 9,
-            "extensions": Array [],
-            "key": "",
-          },
-          Object {
-            "count": 1,
-            "extensions": Array [],
-            "key": "1",
-          },
-          Object {
-            "count": 1,
-            "extensions": Array [],
-            "key": "3",
-          },
-          Object {
-            "count": 1,
-            "extensions": Array [],
-            "key": "4",
-          },
-        ],
+        "type": "max",
+        "values": "4",
       },
       "shipping-free": Object {
         "type": "max",
