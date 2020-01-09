@@ -125,7 +125,7 @@ describe("Composables - useCategoryFilters", () => {
     describe("activeSorting", () => {
       it("should return no sorting when any is active", () => {
         const { activeSorting } = useCategoryFilters();
-        expect(activeSorting.value).toBeFalsy()
+        expect(activeSorting.value).toBeFalsy();
       });
 
       it("should return active sortings", () => {
