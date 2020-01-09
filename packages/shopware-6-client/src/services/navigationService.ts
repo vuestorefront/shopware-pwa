@@ -16,7 +16,7 @@ export interface NavigationElement {
   extensions: any[];
 }
 
-interface GetNavigationParams {
+export interface GetNavigationParams {
   depth: number;
   rootNode?: string;
 }

@@ -13,6 +13,10 @@ export interface Sort {
   field: string;
   desc?: boolean;
 }
+
+/**
+ * @alpha
+ */
 export interface SearchCriteria {
   filters?: Array<EqualsFilter | EqualsAnyFilter | RangeFilter | MultiFilter>;
   pagination?: Pagination;

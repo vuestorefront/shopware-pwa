@@ -1,11 +1,11 @@
 {
   "name": "@shopware-pwa/helpers",
+  "private": true,
   "version": "0.1.0",
   "description": "@shopware-pwa/helpers",
-  "main": "index.js",
+  "main": "dist/helpers.cjs.js",
   "module": "dist/helpers.esm-bundler.js",
   "files": [
-    "index.js",
     "dist"
   ],
   "types": "dist/helpers.d.ts",
@@ -17,7 +17,10 @@
   },
   "buildOptions": {
     "name": "helpers",
-    "formats": ["esm", "cjs", "global", "esm-browser"]
+    "formats": [
+      "esm-bundler",
+      "cjs"
+    ]
   },
   "license": "MIT"
 }

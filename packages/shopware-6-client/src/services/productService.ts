@@ -3,11 +3,11 @@ import {
   getProductDetailsEndpoint,
   getProductsIdsEndpoint
 } from "../endpoints";
-import { SearchResult } from "../interfaces/response/SearchResult";
-import { Product } from "../interfaces/models/content/product/Product";
+import { SearchResult } from "@shopware-pwa/shopware-6-client/src/interfaces/response/SearchResult";
+import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
 import { convertSearchCriteria } from "../helpers/searchConverter";
 import { apiService } from "../apiService";
-import { SearchCriteria } from "../interfaces/search/SearchCriteria";
+import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
 
 /**
  * Get default amount of products' ids

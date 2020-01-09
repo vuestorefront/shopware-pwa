@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shopware-6-client - E2E - CustomerService - setDefaultCustomerShippingAddress should return error when deleting not existing shipping address 1`] = `[Error: Request failed with status code 400]`;
+
+exports[`shopware-6-client - E2E - CustomerService - setDefaultCustomerShippingAddress should set provided address as default shipping address 1`] = `
+Object {
+  "data": "mockedCustomerAddressId",
+}
+`;

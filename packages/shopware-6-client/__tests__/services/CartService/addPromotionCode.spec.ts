@@ -1,4 +1,4 @@
-import { addPromotionCode } from "@shopware-pwa/shopware-6-client";
+import { addPromotionCode } from "../../../src";
 import { apiService } from "../../../src/apiService";
 import { random } from "faker";
 

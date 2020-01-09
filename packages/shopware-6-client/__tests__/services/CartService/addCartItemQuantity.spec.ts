@@ -1,4 +1,4 @@
-import { addCartItemQuantity } from "@shopware-pwa/shopware-6-client";
+import { addCartItemQuantity } from "../../../src";
 import { apiService } from "../../../src/apiService";
 import { random, commerce } from "faker";
 

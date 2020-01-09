@@ -19,7 +19,16 @@ Object {
   "customFields": null,
   "description": "Nihil officiis ut enim reiciendis et eos expedita. Illo distinctio fugiat sed qui expedita delectus dolores. Sunt sunt laborum officia officiis qui fuga.",
   "displayNestedProducts": true,
-  "extensions": Array [],
+  "extensions": Object {
+    "foreignKeys": Object {
+      "_uniqueIdentifier": null,
+      "createdAt": null,
+      "extensions": Array [],
+      "translated": Array [],
+      "updatedAt": null,
+      "versionId": null,
+    },
+  },
   "externalLink": null,
   "id": "3a64e872ca404522a2c5d43ebc751e6b",
   "keywords": null,

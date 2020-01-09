@@ -16,6 +16,14 @@ Object {
         "createdAt": "2019-10-08T09:41:16+00:00",
         "customFields": null,
         "extensions": Object {
+          "foreignKeys": Object {
+            "_uniqueIdentifier": null,
+            "createdAt": null,
+            "extensions": Array [],
+            "translated": Array [],
+            "updatedAt": null,
+            "versionId": null,
+          },
           "internal_mapping_storage": Object {
             "_uniqueIdentifier": null,
             "createdAt": null,
@@ -42,7 +50,16 @@ Object {
       },
       "deliveryTimeId": "7b109f96ff984fae912caca48bf07e9e",
       "description": null,
-      "extensions": Array [],
+      "extensions": Object {
+        "foreignKeys": Object {
+          "_uniqueIdentifier": null,
+          "createdAt": null,
+          "extensions": Array [],
+          "translated": Array [],
+          "updatedAt": null,
+          "versionId": null,
+        },
+      },
       "id": "45dd857987ba49b28c63c5892e8aa0f5",
       "media": null,
       "mediaId": null,
@@ -70,6 +87,14 @@ Object {
         "createdAt": "2019-10-08T09:41:16+00:00",
         "customFields": null,
         "extensions": Object {
+          "foreignKeys": Object {
+            "_uniqueIdentifier": null,
+            "createdAt": null,
+            "extensions": Array [],
+            "translated": Array [],
+            "updatedAt": null,
+            "versionId": null,
+          },
           "internal_mapping_storage": Object {
             "_uniqueIdentifier": null,
             "createdAt": null,
@@ -96,7 +121,16 @@ Object {
       },
       "deliveryTimeId": "7b109f96ff984fae912caca48bf07e9e",
       "description": null,
-      "extensions": Array [],
+      "extensions": Object {
+        "foreignKeys": Object {
+          "_uniqueIdentifier": null,
+          "createdAt": null,
+          "extensions": Array [],
+          "translated": Array [],
+          "updatedAt": null,
+          "versionId": null,
+        },
+      },
       "id": "abcb43aa3d8a48ba90c70f631ac442c1",
       "media": null,
       "mediaId": null,
