@@ -56,10 +56,13 @@ export default {
     onClose: {
       type: Function,
       default: undefined
+<<<<<<< 6697745fad4ddef0c9be7b600a9236063de41eb8
     },
     onSuccess: {
       type: Function,
       default: undefined
+=======
+>>>>>>> --wip-- handle login, logout and redirect to my account page
     }
   },
   setup() {
