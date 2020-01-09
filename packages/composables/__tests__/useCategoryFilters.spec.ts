@@ -121,5 +121,39 @@ describe("Composables - useCategoryFilters", () => {
         ]);
       });
     });
+
+    describe("activeSorting", () => {
+      it("should return no sorting when any is active", () => {
+        const { activeSorting } = useCategoryFilters();
+        expect(activeSorting.value).toBeFalsy()
+      });
+
+      it("should return active sortings", () => {
+        const listingConfiguration = {
+          listingConfiguration: {
+            availableSortings: {
+              "name-asc": {
+                key: "name-asc",
+                active: true
+              },
+              "name-desc": {
+                key: "name-desc",
+                active: false
+              }
+            }
+          }
+        };
+
+        statePage.value = listingConfiguration;
+
+        const { activeSorting } = useCategoryFilters();
+        expect(activeSorting.value).toEqual({
+          name: "name-asc",
+          field: "name",
+          order: "asc",
+          active: true
+        });
+      });
+    });
   });
 });

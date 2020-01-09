@@ -178,6 +178,7 @@ export const useProductListing = (
     toggleFilter,
     resetFilters,
     changeSorting,
-    selectedSorting
+    selectedSorting,
+    categoryId
   };
 };

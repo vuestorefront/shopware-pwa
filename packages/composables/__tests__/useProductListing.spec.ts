@@ -145,16 +145,14 @@ describe("Composables - useProductListing", () => {
       expect(products.value).toStrictEqual([{ id: "123456" }]);
     });
 
-    // it("should search with no categoryId passed by page resolver", async () => {
-    //   statePage.value =
-    //   {
-    //     "resourceIdentifier": "123456"
-    //   }
-    //   const { search, selectedFilters } = useProductListing()
+    it("should search with no categoryId passed by page resolver", async () => {
+      statePage.value = {
+        resourceIdentifier: "123456"
+      };
+      const { categoryId } = useProductListing();
 
-    //   await search();
-    //   expect(selectedFilters.value).toStrictEqual({"categoryTree": "123456"});
-    // });
+      expect(categoryId.value).toStrictEqual("123456");
+    });
   });
 
   describe("changeSorting", () => {
@@ -193,6 +191,15 @@ describe("Composables - useProductListing", () => {
         currentPage: 10,
         perPage: 10,
         total: 0
+      });
+    });
+  });
+
+  describe("computed", () => {
+    describe("productsTotal", () => {
+      it("should return 0 by default", () => {
+        const { productsTotal } = useProductListing();
+        expect(productsTotal.value).toBeFalsy();
       });
     });
   });
