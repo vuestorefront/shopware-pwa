@@ -2,17 +2,10 @@
   <SfTabs :open-tab="1">
     <SfTab title="Personal data">
       <SfList>
-<<<<<<< 447865c0b3e76e9b11fe6382b9abda2598bd1aac
         <SfProperty name="customerNumber" :value="customerNumber"/>
         <SfProperty name="email" :value="email"/>
         <SfProperty name="firstname" :value="firstName"/>
         <SfProperty name="lastname" :value="lastName"/>
-=======
-        <SfListItem>customerNumber: {{ user && user.customerNumber }}</SfListItem>
-        <SfListItem>email: {{ user && user.email }}</SfListItem>
-        <SfListItem>firstname: {{ user && user.firstName }} </SfListItem>
-        <SfListItem>lastname: {{ user && user.lastName }} </SfListItem>
->>>>>>> --wip-- improvements, redirect on success
       </SfList>
     </SfTab>
   </SfTabs>
