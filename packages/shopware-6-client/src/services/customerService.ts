@@ -7,7 +7,8 @@ import {
   getCustomerDefaultShippingAddressEndpoint,
   getCustomerLogoutEndpoint,
   getCustomerLoginEndpoint,
-  getCustomerOrderEndpoint
+  getCustomerOrderEndpoint,
+  getCustomerOrderDetailsEndpoint
 } from "../endpoints";
 import { Customer } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
 import { apiService } from "../apiService";
@@ -82,6 +83,14 @@ export async function getCustomerAddresses(): Promise<CustomerAddress[]> {
  */
 export async function getCustomerOrders(): Promise<Order[]> {
   const resp = await apiService.get(getCustomerOrderEndpoint());
+  return resp.data.data;
+}
+
+/**
+ * Get order details
+ */
+export async function getCustomerOrderDetails(orderId: string): Promise<Order> {
+  const resp = await apiService.get(getCustomerOrderDetailsEndpoint(orderId));
   return resp.data.data;
 }
 
