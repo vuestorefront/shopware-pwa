@@ -69,16 +69,16 @@
         <div class="filters">
           <div v-for="filter in filters" :key="filter.name">
             <h3 class="filters__title">{{ filter.name }}</h3>
-            <div :key="option.value"
-             v-for="option in filter.options">
-              <label>{{ option.label }}</label>
-                <input
-                  :value="option.value"
-                  type="checkbox" 
-                  :checked="selectedFilters[filter.name] && !!selectedFilters[filter.name].find((propertyId) => propertyId === option.value)"
-                  @change="toggleFilter({type: 'equals', value: option.value, field: filter.name})"
-                />
-            </div>
+            <SfFilter
+              v-for="option in filter.options"
+              :key="option.value"
+              :label="option.label"
+              :count="option.count"
+              :color="option.color ? option.color : null"
+              :selected="selectedFilters[filter.name] && !!selectedFilters[filter.name].find((propertyId) => propertyId === option.value)"
+              @click.native="toggleFilter({type: 'equals', value: option.value, field: filter.name})"
+              class="filters__item"
+            />
           </div>
 
           <div class="filters__buttons">

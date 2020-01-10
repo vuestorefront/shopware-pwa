@@ -42,7 +42,6 @@ const extractFilter = (
   filterData: any
 ): RangeFilter | EqualsFilter | EqualsAnyFilter | MultiFilter => {
   let extractedFilter = null;
-  console.error("FILTER CODE", filterCode);
   switch (filterCode) {
     case "price":
       extractedFilter = createRangeFilter(filterData, filterCode);
@@ -73,7 +72,6 @@ const extractFilter = (
 export const getFilterSearchCriteria = (selectedFilters: any): any[] => {
   const filters: any[] = [];
 
-  console.warn(selectedFilters);
   if (!selectedFilters) {
     return filters;
   }
@@ -100,7 +98,6 @@ export const getSortingSearchCriteria = (selectedSorting: SwSorting): Sort => {
     return {} as Sort;
   }
 
-  console.warn("selectedSorting: ", selectedSorting);
   return {
     field: selectedSorting.field,
     desc: selectedSorting.order === "desc"

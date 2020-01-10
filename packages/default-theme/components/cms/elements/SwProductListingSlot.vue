@@ -54,11 +54,6 @@ export default {
       pagination,
       loading
     }
-  },
-  computed: {
-    // products() {
-    //   return this.content.data.listing || []
-    // }
   }
 }
 </script>
