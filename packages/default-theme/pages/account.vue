@@ -41,12 +41,11 @@ import Address from "../components/account/Address"
 import OrderHistory from "../components/account/OrderHistory"
 export default {
   name: 'Account',
-  components: { SfContentPages, SfTabs, MyProfile, SfList },
+  components: { OrderHistory, SfContentPages, SfTabs, MyProfile, SfList, Address },
   middleware: "auth",
   setup() {
-    const { logout, user, orders, loadOrders } = useUser()
-    loadOrders();
-    return { logout, user, orders }
+    const { logout, user } = useUser()
+    return { logout, user }
   },
   data() {
     return {
