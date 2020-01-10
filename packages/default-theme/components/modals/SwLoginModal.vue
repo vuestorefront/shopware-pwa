@@ -56,6 +56,10 @@ export default {
     onClose: {
       type: Function,
       default: undefined
+    },
+    onSuccess: {
+      type: Function,
+      default: undefined
     }
   },
   setup() {
@@ -86,7 +90,9 @@ export default {
     },
     async invokeLogin() {
       const loggedIn = await this.clientLogin({username: this.login, password: this.password})
-      if (loggedIn) this.$emit('close')
+      if (loggedIn) { 
+        this.onSuccess !== "undefined" && this.onSuccess() || this.$emit('close')
+      }
     }
   }
 }

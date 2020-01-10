@@ -18,7 +18,7 @@
                   <SfListItem>street: {{ activeShippingAddress.street }}</SfListItem>
                   <SfListItem>city: {{ activeShippingAddress.city }}</SfListItem>
                   <SfListItem>zipcode: {{ activeShippingAddress.zipcode }} </SfListItem>
-                  <SfListItem>country: {{ activeShippingAddress.country.name }} </SfListItem>
+                  <SfListItem>country: {{ activeShippingAddress.country ? activeShippingAddress.country.name : "" }} </SfListItem>
                 </SfList>
               </SfTab>
               <SfTab title="Billing address">
@@ -42,11 +42,11 @@
           </SfContentPage>
         </SfContentCategory>
         <SfContentCategory title="Order details">
-          <SfContentPage :title="`Order history (${user.orderCount})`">
+          <SfContentPage :title="`Order history (${user && user.orderCount})`">
             <SfList v-for="order in orders" :key="order.id">
               <SfListItem><strong>{{order.orderNumber}}</strong></SfListItem>
               <SfListItem>total: {{ order.amountTotal }}</SfListItem>
-              <SfListItem>status: {{ order.stateMachineState.name }}</SfListItem>
+              <SfListItem>status: {{ order.stateMachineState ? order.stateMachineState.name : "" }}</SfListItem>
               <SfListItem>orderDateTime: {{ order.orderDateTime }}</SfListItem>
               <SfListItem>shippingCosts: {{ order.shippingCosts.totalPrice }}</SfListItem>
               <hr/>
