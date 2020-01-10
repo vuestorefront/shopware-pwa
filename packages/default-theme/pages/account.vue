@@ -11,26 +11,10 @@
           <SfContentPage title="Shipping details">
             <SfTabs :open-tab="1">
               <SfTab title="Shipping address">
-                <SfList>
-                  {{activeShippingAddress.id}}
-                  <hr/>
-                  <SfListItem>name: {{ activeShippingAddress.firstName }} {{ activeShippingAddress.lastName }} </SfListItem>
-                  <SfListItem>street: {{ activeShippingAddress.street }}</SfListItem>
-                  <SfListItem>city: {{ activeShippingAddress.city }}</SfListItem>
-                  <SfListItem>zipcode: {{ activeShippingAddress.zipcode }} </SfListItem>
-                  <SfListItem>country: {{ activeShippingAddress.country ? activeShippingAddress.country.name : "" }} </SfListItem>
-                </SfList>
+                <Address :address="activeShippingAddress"/>
               </SfTab>
               <SfTab title="Billing address">
-                <SfList>
-                  {{activeBillingAddress.id}}
-                  <hr/>
-                  <SfListItem>name: {{ activeBillingAddress.firstName }} {{ activeShippingAddress.lastName }} </SfListItem>
-                  <SfListItem>street: {{ activeBillingAddress.street }}</SfListItem>
-                  <SfListItem>city: {{ activeBillingAddress.city }}</SfListItem>
-                  <SfListItem>zipcode: {{ activeBillingAddress.zipcode }} </SfListItem>
-                  <SfListItem>country: {{ activeBillingAddress.country ? activeBillingAddress.country.name : "" }} </SfListItem>
-                </SfList>
+                <Address :address="activeBillingAddress"/>
               </SfTab>
             </SfTabs>
           </SfContentPage>
@@ -43,14 +27,7 @@
         </SfContentCategory>
         <SfContentCategory title="Order details">
           <SfContentPage :title="`Order history (${user && user.orderCount})`">
-            <SfList v-for="order in orders" :key="order.id">
-              <SfListItem><strong>{{order.orderNumber}}</strong></SfListItem>
-              <SfListItem>total: {{ order.amountTotal }}</SfListItem>
-              <SfListItem>status: {{ order.stateMachineState ? order.stateMachineState.name : "" }}</SfListItem>
-              <SfListItem>orderDateTime: {{ order.orderDateTime }}</SfListItem>
-              <SfListItem>shippingCosts: {{ order.shippingCosts.totalPrice }}</SfListItem>
-              <hr/>
-            </SfList>
+            <OrderHistory />
           </SfContentPage>
         </SfContentCategory>
         <SfContentPage title="Logout"></SfContentPage>
@@ -60,14 +37,15 @@
 import { SfContentPages, SfTabs, SfList } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
 import MyProfile  from "../components/account/MyProfile"
+import Address from "../components/account/Address"
+import OrderHistory from "../components/account/OrderHistory"
 export default {
   name: 'Account',
-  components: { SfContentPages, SfTabs, MyProfile, SfList },
+  components: { OrderHistory, SfContentPages, SfTabs, MyProfile, SfList, Address },
   middleware: "auth",
   setup() {
-    const { logout, user, orders, loadOrders } = useUser()
-    loadOrders();
-    return { logout, user, orders }
+    const { logout, user } = useUser()
+    return { logout, user }
   },
   data() {
     return {

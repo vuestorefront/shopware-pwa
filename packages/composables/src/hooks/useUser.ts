@@ -4,7 +4,7 @@ import {
   logout as apiLogout,
   getCustomer,
   getCustomerOrders,
-  
+  getCustomerOrderDetails
 } from "@shopware-pwa/shopware-6-client";
 import { Customer } from "packages/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
 import { getStore } from "@shopware-pwa/composables";
@@ -26,13 +26,14 @@ interface UseUser {
   refreshUser: () => Promise<void>;
   logout: () => Promise<void>;
   loadOrders: () => Promise<void>;
+  getOrderDetails: (orderId: string) => Promise<Order>;
 }
 
 export const useUser = (): UseUser => {
   let vuexStore = getStore();
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
-  const orders: Ref<Order[] | null> = ref(null)
+  const orders: Ref<Order[] | null> = ref(null);
 
   const user: any = computed(() => {
     return vuexStore.getters.getUser;
@@ -72,11 +73,13 @@ export const useUser = (): UseUser => {
   };
 
   const loadOrders = async (): Promise<void> => {
-    loading.value = true
     const fetchedOrders = await getCustomerOrders();
     orders.value = fetchedOrders;
-    loading.value = false
-  }
+  };
+
+  const getOrderDetails = async (orderId: string): Promise<Order> => {
+    return getCustomerOrderDetails(orderId);
+  };
 
   const isLoggedIn = computed(() => !!user.value);
 
@@ -89,6 +92,7 @@ export const useUser = (): UseUser => {
     refreshUser,
     logout,
     orders,
-    loadOrders
+    loadOrders,
+    getOrderDetails
   };
 };

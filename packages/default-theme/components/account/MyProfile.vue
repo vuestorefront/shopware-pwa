@@ -2,19 +2,17 @@
   <SfTabs :open-tab="1">
     <SfTab title="Personal data">
       <SfList>
-        <SfListItem>customerNumber: {{ user && user.customerNumber }}</SfListItem>
-        <SfListItem>email: {{ user && user.email }}</SfListItem>
-        <SfListItem>firstname: {{ user && user.firstName }} </SfListItem>
-        <SfListItem>lastname: {{ user && user.lastName }} </SfListItem>
+        <SfProperty name="customerNumber" :value="customerNumber"/>
+        <SfProperty name="email" :value="email"/>
+        <SfProperty name="firstname" :value="firstName"/>
+        <SfProperty name="lastname" :value="lastName"/>
       </SfList>
     </SfTab>
-
   </SfTabs>
-  
 </template>
 <script>
 
-import { SfIcon, SfModal, SfInput, SfButton, SfLoader, SfAlert, SfTabs, SfList } from '@storefront-ui/vue'
+import { SfProperty, SfTabs, SfList } from '@storefront-ui/vue'
 import { VuelidateMixin } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import { useUser } from '@shopware-pwa/composables'
@@ -22,7 +20,7 @@ import { useUser } from '@shopware-pwa/composables'
 export default {
   name: "MyProfile",
   mixins: [VuelidateMixin],
-  components: {SfTabs, SfList},
+  components: {SfProperty, SfTabs, SfList},
   props: {
   },
   setup() {
@@ -33,12 +31,23 @@ export default {
   },
   data() {
     return {
-      
     }
   },
-  
+  computed: {
+    customerNumber(){
+      return this.user && this.user.customerNumber
+    },
+    email() {
+      return this.user && this.user.email
+    },
+    firstName(){
+      return this.user && this.user.firstName
+    },
+    lastName(){
+      return this.user && this.user.lastName
+    }
+  },
   methods: {
-    
   }
 }
 </script>
