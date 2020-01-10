@@ -15,9 +15,7 @@ export const useCms = (): any => {
   const search = async (path: string, query?: any) => {
     loading.value = true;
 
-    console.warn("PASSED QUERY", query);
     const searchCriteria: SearchCriteria = parseUrlQuery(query);
-    // const searchCriteria = queryString.parse(query)
     // Temp Maciej solution for associations
     if (!searchCriteria.configuration) searchCriteria.configuration = {};
     if (!searchCriteria.configuration.associations)
@@ -30,7 +28,6 @@ export const useCms = (): any => {
         }
       ]
     });
-    console.error("SEARCHING FOR PAGE", searchCriteria);
     try {
       const result = await getPage(path, searchCriteria);
       vuexStore.commit("SET_PAGE", result);

@@ -26,11 +26,6 @@ interface UseProductListing {
   [x: string]: any;
 }
 
-// shows how many usage of this composable has been fired
-const test = Vue.observable({
-  value: 0
-} as any);
-
 const sharedPagination = Vue.observable({
   currentPage: 1,
   perPage: 10,
@@ -65,9 +60,6 @@ export const useProductListing = (
 
   sharedListing.products = initialProducts;
   selectedCriteria.sorting = activeSorting.value;
-
-  // increase test on init:
-  test.value = test.value + 1;
 
   const resetFilters = async () => {
     selectedCriteria.filters = {};
@@ -135,7 +127,8 @@ export const useProductListing = (
 
     // history is sometimes undefined - make decision what to do next
     const search = exportUrlQuery(searchCriteria);
-    history.replaceState({}, null as any, location.pathname + "?" + search);
+    if (history)
+      history.replaceState({}, null as any, location.pathname + "?" + search);
 
     const result = await getProducts(searchCriteria);
     sharedPagination.total = (result && result.total) || 0;

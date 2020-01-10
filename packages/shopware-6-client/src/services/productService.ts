@@ -30,10 +30,6 @@ export const getProducts = async function(
     `${getProductEndpoint()}`,
     convertSearchCriteria(searchCriteria)
   );
-  console.warn(
-    "covertedSearchCriteria: ",
-    convertSearchCriteria(searchCriteria)
-  );
   return resp.data;
 };
 
