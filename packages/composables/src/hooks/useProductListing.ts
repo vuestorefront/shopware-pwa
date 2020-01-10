@@ -125,8 +125,8 @@ export const useProductListing = (
       sort: getSortingSearchCriteria(selectedCriteria.sorting)
     };
 
-    // history is sometimes undefined - make decision what to do next
     const search = exportUrlQuery(searchCriteria);
+    /* istanbul ignore next */
     if (history)
       history.replaceState({}, null as any, location.pathname + "?" + search);
 
