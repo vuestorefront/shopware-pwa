@@ -2,10 +2,10 @@
   <SfTabs :open-tab="1">
     <SfTab title="Personal data">
       <SfList>
-        <SfListItem>customerNumber: {{ user.customerNumber }}</SfListItem>
-        <SfListItem>email: {{ user.email }}</SfListItem>
-        <SfListItem>firstname: {{ user.firstName }} </SfListItem>
-        <SfListItem>lastname: {{ user.lastName }} </SfListItem>
+        <SfListItem>customerNumber: {{ user && user.customerNumber }}</SfListItem>
+        <SfListItem>email: {{ user && user.email }}</SfListItem>
+        <SfListItem>firstname: {{ user && user.firstName }} </SfListItem>
+        <SfListItem>lastname: {{ user && user.lastName }} </SfListItem>
       </SfList>
     </SfTab>
 

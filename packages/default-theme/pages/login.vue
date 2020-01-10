@@ -1,5 +1,5 @@
 <template>
-  <SwLoginModal :is-open="true" :onClose="redirectToHome"/>
+  <SwLoginModal :is-open="true" :onClose="redirectToHome" :onSuccess="redirectToMyAccount"/>
 </template>
 <script>
 import SwLoginModal from "../components/modals/SwLoginModal"
@@ -19,6 +19,9 @@ export default {
   methods: {
     redirectToHome() {
       this.$router.push("/")  
+    },
+    redirectToMyAccount() {
+      this.$router.push("/account")
     }
   }
 }
