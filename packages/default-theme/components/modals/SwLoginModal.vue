@@ -91,7 +91,7 @@ export default {
     async invokeLogin() {
       const loggedIn = await this.clientLogin({username: this.login, password: this.password})
       if (loggedIn) { 
-        this.onSuccess !== "undefined" && this.onSuccess() || this.$emit('close')
+       typeof this.onSuccess !== "undefined" && this.onSuccess() || this.$emit('close')
       }
     }
   }
