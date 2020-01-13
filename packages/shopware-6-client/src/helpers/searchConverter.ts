@@ -1,11 +1,11 @@
-import { SearchCriteria } from "../interfaces/search/SearchCriteria";
+import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
 import {
   MultiFilter,
   RangeFilter,
   EqualsFilter,
   EqualsAnyFilter
-} from "../interfaces/search/SearchFilter";
-import { PaginationLimit } from "../interfaces/search/Pagination";
+} from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchFilter";
+import { PaginationLimit } from "@shopware-pwa/shopware-6-client/src/interfaces/search/Pagination";
 import { config } from "@shopware-pwa/shopware-6-client";
 import { Association } from "@shopware-pwa/shopware-6-client/src/interfaces/search/Association";
 
