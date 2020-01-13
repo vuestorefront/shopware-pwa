@@ -7,7 +7,7 @@ const command: GluegunCommand = {
   run: async toolbox => {
     const { print } = toolbox
 
-    print.info('Welcome to your CLI')
+    print.info('Welcome to Shopware PWA CLI')
   },
 }
 

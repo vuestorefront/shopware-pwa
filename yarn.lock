@@ -7637,7 +7637,7 @@ globule@^1.0.0:
     lodash "~4.17.10"
     minimatch "~3.0.2"
 
-gluegun@latest:
+gluegun@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/gluegun/-/gluegun-4.1.2.tgz#75b887450de2ebdc6656b598e5942b9a33157d06"
   integrity sha512-QCAEzfHEo/iD2kbJW9LungsP5CkY91AuJTq6PdxLa79OwfrlP5CQ3dUqdG7IfYLykOSS8X7ZkBsnXYXAbwSowA==
