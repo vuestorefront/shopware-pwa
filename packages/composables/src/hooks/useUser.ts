@@ -6,7 +6,10 @@ import {
   getCustomerOrders,
   getCustomerOrderDetails,
   getCustomerAddresses
+<<<<<<< 07cfa7ed2c1075fe8c23e7b21b1505a1b87afd1b
   
+=======
+>>>>>>> feat: show list of all saved addresses.
 } from "@shopware-pwa/shopware-6-client";
 import { Customer } from "packages/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
 import { getStore } from "@shopware-pwa/composables";
