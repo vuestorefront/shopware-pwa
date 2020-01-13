@@ -386,7 +386,7 @@ Object {
                       "active": true,
                       "autoIncrement": 21,
                       "available": true,
-                      "availableStock": 18,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -1043,7 +1043,7 @@ Object {
                       "active": true,
                       "autoIncrement": 9,
                       "available": true,
-                      "availableStock": 36,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -1470,7 +1470,7 @@ Object {
                       "active": true,
                       "autoIncrement": 68,
                       "available": true,
-                      "availableStock": 0,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -1893,7 +1893,7 @@ Object {
                       "active": true,
                       "autoIncrement": 77,
                       "available": true,
-                      "availableStock": 0,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -2319,7 +2319,7 @@ Object {
                       "active": true,
                       "autoIncrement": 96,
                       "available": true,
-                      "availableStock": 0,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -2812,7 +2812,7 @@ Object {
                       "active": true,
                       "autoIncrement": 23,
                       "available": true,
-                      "availableStock": 38,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -3469,7 +3469,7 @@ Object {
                       "active": true,
                       "autoIncrement": 90,
                       "available": true,
-                      "availableStock": 0,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -4104,7 +4104,7 @@ Object {
                       "active": true,
                       "autoIncrement": 52,
                       "available": true,
-                      "availableStock": 28,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -4831,7 +4831,7 @@ Object {
                       "active": true,
                       "autoIncrement": 20,
                       "available": true,
-                      "availableStock": 23,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -5352,7 +5352,7 @@ Object {
                       "active": true,
                       "autoIncrement": 27,
                       "available": true,
-                      "availableStock": 43,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -6013,7 +6013,7 @@ Object {
                       "active": true,
                       "autoIncrement": 195,
                       "available": true,
-                      "availableStock": 0,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -6677,7 +6677,7 @@ Object {
                       "active": true,
                       "autoIncrement": 146,
                       "available": true,
-                      "availableStock": 10,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -6894,7 +6894,7 @@ Object {
                       "active": true,
                       "autoIncrement": 104,
                       "available": true,
-                      "availableStock": 10,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -7111,7 +7111,7 @@ Object {
                       "active": true,
                       "autoIncrement": 24,
                       "available": true,
-                      "availableStock": 40,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -7700,7 +7700,7 @@ Object {
                       "active": true,
                       "autoIncrement": 29,
                       "available": true,
-                      "availableStock": 35,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -8104,7 +8104,7 @@ Object {
                       "active": true,
                       "autoIncrement": 8,
                       "available": true,
-                      "availableStock": 45,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -8508,7 +8508,7 @@ Object {
                       "active": true,
                       "autoIncrement": 48,
                       "available": true,
-                      "availableStock": 44,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -9169,7 +9169,7 @@ Object {
                       "active": true,
                       "autoIncrement": 50,
                       "available": true,
-                      "availableStock": 35,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -9575,7 +9575,7 @@ Object {
                       "active": true,
                       "autoIncrement": 56,
                       "available": true,
-                      "availableStock": 42,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -10234,7 +10234,7 @@ Object {
                       "active": true,
                       "autoIncrement": 38,
                       "available": true,
-                      "availableStock": 36,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -10823,7 +10823,7 @@ Object {
                       "active": true,
                       "autoIncrement": 30,
                       "available": true,
-                      "availableStock": 33,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -11482,7 +11482,7 @@ Object {
                       "active": true,
                       "autoIncrement": 85,
                       "available": true,
-                      "availableStock": 0,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -12047,7 +12047,7 @@ Object {
                       "active": true,
                       "autoIncrement": 4,
                       "available": true,
-                      "availableStock": 25,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -12448,7 +12448,7 @@ Object {
                       "active": true,
                       "autoIncrement": 58,
                       "available": true,
-                      "availableStock": 31,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -14248,39 +14248,8 @@ Object {
         },
       },
       "rating": Object {
-        "type": "term",
-        "values": Array [
-          Object {
-            "count": 146,
-            "extensions": Array [],
-            "key": "",
-          },
-          Object {
-            "count": 2,
-            "extensions": Array [],
-            "key": "1",
-          },
-          Object {
-            "count": 1,
-            "extensions": Array [],
-            "key": "3.5",
-          },
-          Object {
-            "count": 2,
-            "extensions": Array [],
-            "key": "3",
-          },
-          Object {
-            "count": 3,
-            "extensions": Array [],
-            "key": "4",
-          },
-          Object {
-            "count": 1,
-            "extensions": Array [],
-            "key": "5",
-          },
-        ],
+        "type": "max",
+        "values": "5",
       },
       "shipping-free": Object {
         "type": "max",
@@ -15110,7 +15079,7 @@ Object {
                       "active": true,
                       "autoIncrement": 21,
                       "available": true,
-                      "availableStock": 18,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -15767,7 +15736,7 @@ Object {
                       "active": true,
                       "autoIncrement": 52,
                       "available": true,
-                      "availableStock": 28,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -16494,7 +16463,7 @@ Object {
                       "active": true,
                       "autoIncrement": 29,
                       "available": true,
-                      "availableStock": 35,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -16898,7 +16867,7 @@ Object {
                       "active": true,
                       "autoIncrement": 35,
                       "available": true,
-                      "availableStock": 12,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -17419,7 +17388,7 @@ Object {
                       "active": true,
                       "autoIncrement": 28,
                       "available": true,
-                      "availableStock": 4,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -17935,7 +17904,7 @@ Object {
                       "active": true,
                       "autoIncrement": 25,
                       "available": true,
-                      "availableStock": 13,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -18664,7 +18633,7 @@ Object {
                       "active": true,
                       "autoIncrement": 32,
                       "available": true,
-                      "availableStock": 50,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -19068,7 +19037,7 @@ Object {
                       "active": true,
                       "autoIncrement": 57,
                       "available": true,
-                      "availableStock": 27,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -19798,7 +19767,7 @@ Object {
                       "active": true,
                       "autoIncrement": 14,
                       "available": true,
-                      "availableStock": 12,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -20525,7 +20494,7 @@ Object {
                       "active": true,
                       "autoIncrement": 207,
                       "available": true,
-                      "availableStock": 0,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -21186,7 +21155,7 @@ Object {
                       "active": true,
                       "autoIncrement": 6,
                       "available": true,
-                      "availableStock": 5,
+                      "availableStock": "mockedValue",
                       "blacklistIds": null,
                       "calculatedListingPrice": Object {
                         "extensions": Array [],
@@ -22338,29 +22307,8 @@ Object {
         },
       },
       "rating": Object {
-        "type": "term",
-        "values": Array [
-          Object {
-            "count": 9,
-            "extensions": Array [],
-            "key": "",
-          },
-          Object {
-            "count": 1,
-            "extensions": Array [],
-            "key": "1",
-          },
-          Object {
-            "count": 1,
-            "extensions": Array [],
-            "key": "3",
-          },
-          Object {
-            "count": 1,
-            "extensions": Array [],
-            "key": "4",
-          },
-        ],
+        "type": "max",
+        "values": "4",
       },
       "shipping-free": Object {
         "type": "max",
@@ -22645,7 +22593,7 @@ Object {
     "active": true,
     "autoIncrement": 9,
     "available": true,
-    "availableStock": 36,
+    "availableStock": "mockedValue",
     "blacklistIds": null,
     "calculatedListingPrice": Object {
       "extensions": Array [],
