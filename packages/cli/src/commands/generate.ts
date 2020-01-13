@@ -1,6 +1,6 @@
 
   import { GluegunToolbox } from 'gluegun'
-    
+  
 
 module.exports = {
   name: 'generate',

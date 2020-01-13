@@ -1,4 +1,4 @@
-# Shopware PWAvCLI
+# Shopware PWA CLI
 
 A CLI for Shopware PWA.
 
