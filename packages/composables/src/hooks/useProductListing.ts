@@ -127,7 +127,7 @@ export const useProductListing = (
 
     const search = exportUrlQuery(searchCriteria);
     /* istanbul ignore next */
-    if (history)
+    if (typeof history !== "undefined")
       history.replaceState({}, null as any, location.pathname + "?" + search);
 
     const result = await getProducts(searchCriteria);
