@@ -10,6 +10,10 @@ export * from "./services/contextService";
 export * from "./services/cartService";
 export * from "./services/navigationService";
 export * from "./services/pageService";
+
+export * from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress";
+export * from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order";
+
 /**
  * Setup configuration. Merge default values with provided in param.
  * This method will override existing config. For config update invoke **update** method.
