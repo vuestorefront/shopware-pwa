@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`shopware-6-client - E2E - CategoryService - getCategories should fetch category with given category id 1`] = `
+exports[`shopware-6-client - E2E - CategoryService - getCategory should fetch category with given category id 1`] = `
 Object {
   "_uniqueIdentifier": "3a64e872ca404522a2c5d43ebc751e6b",
   "active": true,
@@ -70,4 +70,4 @@ Object {
 }
 `;
 
-exports[`shopware-6-client - E2E - CategoryService - getCategories should returns error when cannot find category with given category id 1`] = `[Error: Request failed with status code 400]`;
+exports[`shopware-6-client - E2E - CategoryService - getCategory should returns error when cannot find category with given category id 1`] = `[Error: Request failed with status code 400]`;
