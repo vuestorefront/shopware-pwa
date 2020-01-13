@@ -1,7 +1,6 @@
 <template>
   <SfList>
-    {{address.id}}
-    <hr/>
+    <SfBadge class="sf-badge--full-width"><strong>#{{address.id}}</strong></SfBadge>
     <SfProperty
         name="name"
         :value="name" />
@@ -17,20 +16,21 @@
     <SfProperty
         name="country"
         :value="country" />    
+    <SfDivider/>
   </SfList>
 </template>
 <script>
 
-import { SfList, SfProperty } from '@storefront-ui/vue'
+import { SfList, SfProperty, SfBadge, SfDivider } from '@storefront-ui/vue'
 import { VuelidateMixin } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import { useUser } from '@shopware-pwa/composables'
 import { CustomerAddress } from '@shopware-pwa/shopware-6-client'
 
 export default {
-  name: "MyProfile",
+  name: "Address",
   mixins: [VuelidateMixin],
-  components: {SfList, SfProperty},
+  components: {SfList, SfProperty, SfBadge, SfDivider},
   props: {
     address: {
       type: CustomerAddress,

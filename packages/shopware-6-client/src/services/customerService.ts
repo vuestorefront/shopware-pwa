@@ -15,7 +15,7 @@ import { apiService } from "../apiService";
 import { CustomerAddress } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress";
 import { CustomerRegistrationParams } from "@shopware-pwa/shopware-6-client/src/interfaces/request/CustomerRegistrationParams";
 import { ContextTokenResponse } from "@shopware-pwa/shopware-6-client/src/interfaces/response/ContextTokenResponse";
-import { Order } from "../interfaces/models/checkout/order/Order";
+import { Order } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order";
 
 export interface CustomerRegisterResponse {
   data: string;

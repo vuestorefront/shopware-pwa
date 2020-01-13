@@ -1,10 +1,10 @@
 <template>
  <div class="order-details__item">
     <SfBadge class="sf-badge--full-width"><strong>#{{orderNumber}}</strong></SfBadge>
-    <SfProperty name="amountTotal" :value="totalAmount"/>
+    <SfProperty name="amountTotal" :value="totalAmount.toString()"/>
     <SfProperty name="status" :value="status"/>
     <SfProperty name="orderDateTime" :value="orderDateTime"/>
-    <SfProperty name="shippingCost" :value="shippingCost"/>
+    <SfProperty name="shippingCost" :value="shippingCost.toString()"/>
 
     <SfButton v-if="!isLoaded" class="order-details__item__btn sf-button--outline" v-on:click="loadOrderDetails(order.id)">
       See more
@@ -24,7 +24,7 @@ import { Order } from '@shopware-pwa/shopware-6-client'
 export default {
   name: "OrderDetail",
   mixins: [VuelidateMixin],
-  components: {SfButton, SfProperty},
+  components: {SfButton, SfProperty, SfBadge},
   props: {
     order: {
       type: Order,
