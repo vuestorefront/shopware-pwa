@@ -7,15 +7,19 @@
     "shopware-pwa": "bin/shopware-pwa"
   },
   "scripts": {
-    "format": "prettier --write **/*.{js,json} && standard --fix",
-    "lint": "standard",
+    "format": "prettier --write **/*.{js,ts,tsx,json}",
+    "lint": "tslint -p .",
+    "compile": "tsc -p .",
+    "build": "yarn format && yarn lint && yarn compile",
     "test": "jest",
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",
     "coverage": "jest --coverage"
   },
   "files": [
-    "src",
+    "tsconfig.json",
+    "tslint.json",
+    "build",
     "LICENSE",
     "readme.md",
     "docs",
@@ -23,19 +27,22 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "typescript": "3.2.2",
+    "ts-node": "^7.0.1",
     "gluegun": "next"
   },
   "devDependencies": {
-    "standard": "^12.0.1",
+    "@types/node": "^10.12.12",
+    "@types/jest": "^23.3.10",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.12.0",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-config-standard": "^8.0.1",
     "prettier": "^1.12.1",
     "jest": "^23.6.0"
   },
   "jest": {
+    "preset": "ts-jest",
     "testEnvironment": "node"
-  },
-  "standard": {
-    "env": [
-      "jest"
-    ]
   }
 }
