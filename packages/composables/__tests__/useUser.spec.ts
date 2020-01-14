@@ -115,6 +115,33 @@ describe("Composables - useUser", () => {
       });
     });
 
+    describe("register", () => {
+      it("should not login user without credentials", async () => {
+        mockedApiClient.register.mockRejectedValueOnce(
+            new Error("Provide username and password for login")
+        );
+        const { error, register } = useUser();
+        const result = await register(undefined as any);
+        expect(result).toEqual(false);
+        expect(error.value).toEqual("Provide username and password for login");
+      });
+
+      it("should register user succesfully", async () => {
+        mockedApiClient.login.mockResolvedValueOnce({
+          "sw-context-token": "qweqwe"
+        } as any);
+        mockedApiClient.getCustomer.mockResolvedValueOnce({ id: "123" } as any);
+        const { isLoggedIn, error, login } = useUser();
+        const result = await login({
+          username: "qwe@qwe.com",
+          password: "correctPassword"
+        });
+        expect(result).toEqual(true);
+        expect(isLoggedIn.value).toBeTruthy();
+        expect(error.value).toBeFalsy();
+      });
+    });
+
     describe("logout", () => {
       it("should correctly logout user", async () => {
         stateUser.value = { id: "111" };

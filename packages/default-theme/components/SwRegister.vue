@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <h1>Register</h1>
-    <SfAlert v-if="error" type="danger" :message="error" />
-    <div class="form">
+  <div class="sw-register">
+    <div class="form sw-register">
+      <h2 class="sw-register__header">Log in</h2>
+      <SfAlert class="sw-register__alert" v-if="error" type="danger" :message="error"/>
       <SfSelect
         v-model="salutation"
         label="Salutation"
-        :valid="!$v.salutation.$invalid"
+        :valid="!$v.salutation.$error"
         error-message="Salutation must be selected"
         class="sf-select--underlined form__input"
       >
@@ -20,70 +20,70 @@
       </SfSelect>
       <div class="input-group">
         <SfInput
-          v-model="firstName"
+          v-model="$v.firstName.$model"
           name="first-name"
           label="First Name"
           class="form__input"
-          :valid="!$v.firstName.$invalid"
+          :valid="!$v.firstName.$error"
           error-message="First name is required"
         />
         <SfInput
-          v-model="lastName"
+          v-model="$v.lastName.$model"
           name="last-name"
           label="Last Name"
           class="form__input"
-          :valid="!$v.lastName.$invalid"
+          :valid="!$v.lastName.$error"
           error-message="Last name is required"
+        />
+        <SfInput
+          v-model="$v.email.$model"
+          name="email"
+          label="Your email"
+          class="form__input"
+          :valid="!$v.email.$error"
+          error-message="Proper email is required"
         />
       </div>
       <SfInput
-        v-model="email"
-        name="email"
-        label="Your email"
-        class="form__input"
-        :valid="!$v.email.$invalid"
-        error-message="Proper email is required"
-      />
-      <SfInput
-        v-model="password"
+        v-model="$v.password.$model"
         name="password"
         label="Password"
         type="password"
         class="form__input"
-        :valid="!$v.password.$invalid"
-        error-message="Password is required"
-      />
-      <SfInput
-        v-model="street"
-        name="street"
-        label="Street"
-        class="form__input"
-        :valid="!$v.street.$invalid"
-        error-message="Street is required"
+        :valid="!$v.password.$error"
+        error-message="Minimum password length is 4 characters"
       />
       <div class="input-group">
         <SfInput
-          v-model="city"
+          v-model="$v.street.$model"
+          name="street"
+          label="Street"
+          class="form__input"
+          :valid="!$v.street.$error"
+          error-message="Street is required"
+        />
+        <SfInput
+          v-model="$v.city.$model"
           name="city"
           label="City"
           class="form__input"
-          :valid="!$v.city.$invalid"
+          :valid="!$v.city.$error"
           error-message="City is required"
         />
         <SfInput
-          v-model="zipcode"
+          v-model="$v.zipcode.$model"
           name="zipcode"
           label="Zip Code"
           class="form__input"
-          :valid="!$v.zipcode.$invalid"
+          :valid="!$v.zipcode.$error"
           error-message="Zipcode is required."
         />
       </div>
       <SfSelect
-        v-model="country"
+        v-model="$v.country.$model"
         label="Country"
         class="sf-select--underlined form__input"
-        :valid="!$v.country.$invalid"
+        :valid="!$v.country.$error"
         error-message="Country must be selected"
       >
         <SfSelectOption
@@ -96,186 +96,158 @@
       </SfSelect>
       <SfButton
         class="sf-button--full-width form__button"
-        :disabled="isLoading || $v.$invalid"
+        :disabled="isLoading"
         @click="invokeRegister"
-      >Create an account</SfButton
       >
-    </div>
-    <div class="action">
-      or
-      <SfButton class="sf-button--text" @click="modalState = 'login'">
-        login in to your account
+        Create an account
       </SfButton>
     </div>
   </div>
 </template>
 
 <script>
-import {
-  SfIcon,
-  SfModal,
-  SfInput,
-  SfButton,
-  SfLoader,
-  SfAlert,
-  SfSelect
-} from '@storefront-ui/vue'
-import { VuelidateMixin } from 'vuelidate'
-import { required, email, between } from 'vuelidate/lib/validators'
-// eslint-disable-next-line import/named
-import { useUser } from '@shopware-pwa/composables'
+  import {SfAlert, SfInput, SfButton, SfSelect} from '@storefront-ui/vue'
+  import {validationMixin} from 'vuelidate'
+  import {required, email, minLength} from 'vuelidate/lib/validators'
+  import {useUser} from '@shopware-pwa/composables'
 
-export default {
-  components: {
-    SfIcon,
-    SfModal,
-    SfInput,
-    SfButton,
-    SfLoader,
-    SfAlert,
-    SfSelect
-  },
-  mixins: [VuelidateMixin],
-  setup() {
-    const { register, error } = useUser()
-    return {
-      clientRegister: register,
-      error
-    }
-  },
-  data() {
-    return {
-      password: '',
-      salutation: null,
-      salutations: [{ label: 'Mr.', id: 'c370eb5cd1df4d4dbcc78f055b693e79' }],
-      countries: [{ label: 'Poland', id: '38245a84c3d5425b8bac97fc845b5ddd' }],
-      country: null,
-      street: '',
-      city: '',
-      zipcode: ''
-    }
-  },
-  validations: {
-    salutation: {
-      required
+  export default {
+    name: 'SwResetPassword',
+    components: { SfButton, SfInput, SfAlert, SfSelect},
+    mixins: [validationMixin],
+    data() {
+      return {
+        email: '',
+        password: '',
+        salutation: null,
+        salutations: [{label: 'Mr.', id: 'c370eb5cd1df4d4dbcc78f055b693e79'}],
+        countries: [{label: 'Poland', id: '38245a84c3d5425b8bac97fc845b5ddd'}],
+        country: null,
+        street: '',
+        city: '',
+        zipcode: ''
+      }
     },
-    password: {
-      required,
-      between: between(4, 30)
+    setup() {
+      const { login, register, loading, error} = useUser()
+      return {
+        clientLogin: login,
+        clientRegister: register,
+        isLoading: loading,
+        error
+      }
     },
-    email: {
-      required,
-      email
+    validations: {
+      email: {
+        required,
+        email
+      },
+      salutation: {
+        required
+      },
+      password: {
+        required,
+        minLength: minLength(4)
+      },
+      firstName: {
+        required
+      },
+      lastName: {
+        required
+      },
+      country: {
+        required
+      },
+      street: {
+        required
+      },
+      zipcode: {
+        required
+      },
+      city: {
+        required
+      }
     },
-    firstName: {
-      required
-    },
-    lastName: {
-      required
-    },
-    country: {
-      required
-    },
-    street: {
-      required
-    },
-    zipcode: {
-      required
-    },
-    city: {
-      required
-    }
-  },
-  watch: {
-    modalState() {
-      this.password = ''
-      this.email = ''
-      this.firstName = ''
-      this.lastName = ''
-      this.salutation = null
-      this.country = null
-      this.street = ''
-      this.city = ''
-      this.zipcode = ''
-    },
-  },
-  methods: {
-    async invokeRegister() {
-      const registeredIn = await this.clientRegister({
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-        password: this.password,
-        salutationId: this.salutation.id,
-        street: this.street,
-        zipcode: this.zipcode,
-        city: this.city,
-        countryId: this.country.id
-      })
-      if (registeredIn) this.$emit('close')
+    methods: {
+      async invokeRegister() {
+        this.$v.$touch()
+        if (this.$v.$anyError) {
+          this.error = 'Form is not valid'
+          return
+        }
+        const registeredIn = await this.clientRegister({
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          password: this.password,
+          salutationId: this.salutation.id,
+          street: this.street,
+          zipcode: this.zipcode,
+          city: this.city,
+          countryId: this.country.id
+        })
+        if (registeredIn) {
+          await this.clientLogin({username: this.email, password: this.password})
+          this.$emit('success')
+        }
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
-  @import '../node_modules/@storefront-ui/vue/styles';
-  @import '../node_modules/@storefront-ui/shared/styles/helpers/visibility';
+  @import "~@storefront-ui/vue/styles";
 
   @mixin for-desktop {
-    @media screen and (min-width: $desktop-min) {
+    @media screen and (min-width: 900px) {
       @content;
     }
   }
 
-  #sw-login-modal {
-    box-sizing: border-box;
+  .input-group {
     @include for-desktop {
-      max-width: 80vw;
-      margin: auto;
+      display: flex;
+      width: 40vw;
+      justify-content: space-between;
     }
   }
-  .input-group {
-    display: flex;
-    width: 30vw;
-    justify-content: space-between;
+
+  .sw-login {
+    &__alert {
+      margin-bottom: $spacer-small;
+    }
+
+    &__header {
+      margin-bottom: $spacer-big;
+    }
   }
 
   .form {
     &__input {
-      margin-bottom: $spacer-medium;
-      &--email {
-        margin-bottom: $spacer-medium;
-      }
+      margin-bottom: $spacer-big;
     }
+
     &__checkbox {
       margin-bottom: $spacer-big;
     }
+
     &__button {
       margin-top: $spacer-big;
     }
   }
-  .action {
-    margin-top: $spacer-big;
-    text-align: center;
-  }
-  .bottom {
-    padding-top: $spacer-extra-big;
-    margin-top: $spacer-extra-big;
-    border-top: 1px solid $c-light;
-    line-height: 1.6;
-    text-align: center;
-  }
-  .sf-button--muted {
-    color: $c-text-muted;
-  }
-  .salutation {
-    width: 8vw;
-  }
+
+.sf-button--muted {
+  color: $c-text-muted;
+}
 </style>
 
-<style>
-  .sf-modal__container {
+<style lang="scss">
+.sf-modal__container {
+  width: 100% !important;
+  height: 100% !important;
+  @media screen and (min-width: 900px) {
     width: auto !important;
+    height: auto !important;
   }
+}
 </style>

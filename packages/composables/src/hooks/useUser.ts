@@ -104,7 +104,6 @@ export const useUser = (): UseUser => {
           countryId: params.countryId
         }
       });
-      await login({ username: params.email, password: params.password });
       return true;
     } catch (e) {
       error.value = e.message;
