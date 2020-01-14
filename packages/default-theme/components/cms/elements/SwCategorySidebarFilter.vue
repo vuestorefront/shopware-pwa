@@ -34,22 +34,20 @@
         </SfIcon>
         Filters
       </SfButton>
-      <div class="navbar__sort">
-        <span class="navbar__label">Sort by:</span>
-        <!-- <SfSelect class="sort-by" v-model="sortBy">
-          <SfSelectOption
-          v-for="option in sortByOptions"
-          :key="option.value"
-          :value="option.value"
-          class="sort-by__option"
-          >{{ option.label }}</SfSelectOption
-          >
-          </SfSelect> -->
+      <div class="navbar__sort" >
+        <span class="navbar__label">Sort by: </span>
+        <SfSelect :size="sorting.length" v-model="sortBy">
+          <SfSelectOption v-for="(option, key) in sorting" :key="key" :value="option" class="sort-by__option">
+            <!-- SfProductOption as a name - makes no sense in this case, should be renamed in Ui -->
+            <SfProductOption :label="option.name" :value="option.name" :selected="option.name === selectedSorting.name"></SfProductOption>
+          </SfSelectOption>
+        </SfSelect>
+        
       </div>
       <div class="navbar__counter">
         <span class="navbar__label desktop-only">Products found: </span>
-        <strong class="desktop-only">280</strong>
-        <span class="navbar__label mobile-only">280 Items</span>
+        <strong class="desktop-only">{{productsTotal}}</strong>
+        <span class="navbar__label mobile-only">{{productsTotal}} Items</span>
       </div>
       <SfButton
         class="navbar__filters-button mobile-only"
@@ -76,7 +74,9 @@
               :key="option.value"
               :label="option.label"
               :count="option.count"
-              :color="option.color"
+              :color="option.color ? option.color : null"
+              :selected="selectedFilters[filter.name] && !!selectedFilters[filter.name].find((propertyId) => propertyId === option.value)"
+              @click.native="toggleFilter({type: 'equals', value: option.value, field: filter.name})"
               class="filters__item"
             />
           </div>
@@ -84,7 +84,7 @@
           <div class="filters__buttons">
             <SfButton
               class="sf-button--full-width"
-              @click="isFilterSidebarOpen = false"
+              @click="submitFilters()"
               >Done</SfButton
             >
             <SfButton
@@ -105,10 +105,11 @@ import {
   SfIcon,
   SfSelect,
   SfFilter,
-  SfSidebar
+  SfSidebar,
+  SfProductOption
 } from '@storefront-ui/vue'
-import { useCategoryFilters } from '@shopware-pwa/composables'
-const { availableFilters } = useCategoryFilters()
+import { useCategoryFilters, useProductListing } from '@shopware-pwa/composables'
+const { availableFilters, availableSorting } = useCategoryFilters()
 
 export default {
   components: {
@@ -116,7 +117,8 @@ export default {
     SfIcon,
     SfSelect,
     SfFilter,
-    SfSidebar
+    SfSidebar,
+    SfProductOption
   },
   props: {
     content: {
@@ -124,15 +126,28 @@ export default {
       default: () => ({})
     }
   },
+  setup () {
+    const { toggleFilter, changeSorting, selectedSorting, search, selectedFilters, resetFilters, productsTotal } = useProductListing()
+
+    return { toggleFilter, changeSorting, selectedSorting, search, selectedFilters, resetFilters, productsTotal }
+  },
   data() {
     return {
-      sortBy: null,
-      isFilterSidebarOpen: false
+      isFilterSidebarOpen: false,
+      sortBy: this.selectedSorting
+    }
+  },
+  watch: {
+    sortBy(value){
+      this.changeSorting(value)
     }
   },
   computed: {
     filters() {
       return (availableFilters && availableFilters.value) || []
+    },
+    sorting() {
+      return (availableSorting && availableSorting.value) || []
     },
     getMedia() {
       return this.content && this.content.data && this.content.data.media
@@ -148,26 +163,17 @@ export default {
     },
     lazyLoad() {
       return true
-    },
-    sortByOptions() {
-      return [
-        {
-          value: 'latest',
-          label: 'Latest'
-        },
-        {
-          value: 'price-up',
-          label: 'Price from low to high'
-        },
-        {
-          value: 'price-down',
-          label: 'Price from high to low'
-        }
-      ]
     }
   },
   methods: {
-    clearAllFilters() {}
+    async clearAllFilters() {
+      await this.resetFilters()
+      this.isFilterSidebarOpen = false
+    },
+    async submitFilters() {
+      await this.search()
+      this.isFilterSidebarOpen = false
+    }
   }
 }
 </script>
@@ -243,6 +249,7 @@ export default {
   }
   &__label {
     color: $c-gray-variant;
+    padding-right: 5px;
   }
   &__sort {
     display: flex;
@@ -285,5 +292,8 @@ export default {
     margin-top: 10px;
     background-color: $c-light;
   }
+}
+.sf-select {
+  width: 150px;
 }
 </style>
