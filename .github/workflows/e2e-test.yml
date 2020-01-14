@@ -3,9 +3,10 @@ name: E2E API tests
 on:
   push:
     branches:
-      - master
-  pull_request:
-    types: [opened, synchronize]
+      - e2e
+#       - master
+#   pull_request:
+#     types: [opened, synchronize]
 
 jobs:
   test:
