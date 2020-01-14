@@ -17,7 +17,7 @@
     "dev:helpers": "yarn dev helpers -format=esm-bundler",
     "dev:debug": "node --inspect scripts/dev.js",
     "build": "node scripts/build.js --types",
-    "postinstall": "lerna link",
+    "postinstall": "node scripts/linkDependencies.js && lerna link",
     "lint": "prettier --write --parser typescript 'packages/**/*.ts'",
     "test": "jest",
     "test:e2e": "jest --e2e=true --runInBand",

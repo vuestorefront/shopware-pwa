@@ -94,14 +94,14 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, { isDev, isClient }) {
+    extend(config, ctx) {
       config.resolve.alias['@storefront-ui/vue'] = path.resolve(
         'node_modules/@storefront-ui/vue'
       )
       config.resolve.alias['@storefront-ui/shared'] = path.resolve(
         'node_modules/@storefront-ui/shared'
       )
-      if (isClient && !isDev) {
+      if (ctx.isClient && !ctx.isDev) {
         config.optimization.splitChunks.cacheGroups.commons.minChunks = 2
       }
     }

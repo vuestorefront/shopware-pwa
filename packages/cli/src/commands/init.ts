@@ -5,22 +5,35 @@ module.exports = {
   alias: ["i"],
   run: async (toolbox: GluegunToolbox) => {
     const {
-      // parameters,
-      // template: { generate },
       system: { run },
-      print: { info, spin },
-      filesystem: { exists },
-      generateNuxtProject
+      print: { info, success, spin }
     } = toolbox;
 
-    await generateNuxtProject();
-    // const name = parameters.first; // await generate({
-    //   template: 'model.ts.ejs',
-    //   target: `models/${name}-model.ts`,
-    //   props: { name },
-    // })
+    await toolbox.generateNuxtProject();
 
-    // info(`Generated file at models/${name}-model.ts`);
-    info(`Generated Shopware PWA`);
+    await toolbox.removeDefaultNuxtFiles();
+
+    await toolbox.updateNuxtPackageJson();
+
+    await toolbox.updateNuxtConfigFile();
+
+    await toolbox.generateTemplateFiles();
+
+    const copyPromisses = toolbox.themeFolders.map(themeFolder =>
+      toolbox.copyThemeFolder(themeFolder)
+    );
+    await Promise.all(copyPromisses);
+
+    // Linking local packages
+    await run(`yarn link @shopware-pwa/composables`);
+    await run(`yarn link @shopware-pwa/helpers`);
+    await run(`yarn link @shopware-pwa/shopware-6-client`);
+    await run(`yarn link @vue-storefront/nuxt`);
+
+    // Loading additional packages
+    await run(`yarn`);
+
+    success(`Generated Shopware PWA project!`);
+    info(`Type 'shopware-pwa dev' and start exploring`);
   }
 };

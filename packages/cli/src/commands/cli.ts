@@ -1,14 +1,13 @@
-
-import { GluegunCommand } from 'gluegun'
-
+import { GluegunCommand } from "gluegun";
 
 const command: GluegunCommand = {
-  name: 'cli',
+  name: "cli",
   run: async toolbox => {
-    const { print } = toolbox
+    const { print } = toolbox;
 
-    print.info('Welcome to Shopware PWA CLI')
-  },
-}
+    print.info("Welcome to Shopware PWA CLI");
+    print.info("Explore your options typing: shopware-pwa --help");
+  }
+};
 
-module.exports = command
+module.exports = command;
