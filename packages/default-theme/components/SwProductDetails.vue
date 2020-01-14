@@ -6,8 +6,8 @@
         :name="name"
         :reviews="reviews"
         :rating-average="ratingAverage"
-        :special="getSpecialPrice"
-        :price="price"
+        :special="price > getSpecialPrice ? getSpecialPrice : price"
+        :price="price > getSpecialPrice ? price : getSpecialPrice"
       />
     </div>
     <p class="product-details__description desktop-only">

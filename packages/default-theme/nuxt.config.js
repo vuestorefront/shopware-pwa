@@ -43,8 +43,18 @@ export default {
       {
         coreDevelopment,
         useRawSource: {
-          dev: coreDevelopment ? ['@shopware-pwa/shopware-6-client', '@shopware-pwa/composables', '@shopware-pwa/helpers'] : [],
-          prod: ['@shopware-pwa/shopware-6-client', '@shopware-pwa/composables', '@shopware-pwa/helpers']
+          dev: coreDevelopment
+            ? [
+                '@shopware-pwa/shopware-6-client',
+                '@shopware-pwa/composables',
+                '@shopware-pwa/helpers'
+              ]
+            : [],
+          prod: [
+            '@shopware-pwa/shopware-6-client',
+            '@shopware-pwa/composables',
+            '@shopware-pwa/helpers'
+          ]
         }
       }
     ]
