@@ -159,6 +159,10 @@ export default {
     height: 100%;
   }
 
+  .sf-image img {
+    height: 100%;
+  }
+
   .sf-search-bar {
     visibility: hidden;
   }
