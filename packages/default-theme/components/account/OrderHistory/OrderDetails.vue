@@ -1,10 +1,10 @@
 <template>
  <div class="order-details__item">
     <SfBadge class="sf-badge--full-width"><strong>#{{orderNumber}}</strong></SfBadge>
-    <SfProperty name="amountTotal" :value="totalAmount.toString()"/>
+    <SfProperty name="amountTotal" :value="totalAmount"/>
     <SfProperty name="status" :value="status"/>
     <SfProperty name="orderDateTime" :value="orderDateTime"/>
-    <SfProperty name="shippingCost" :value="shippingCost.toString()"/>
+    <SfProperty name="shippingCost" :value="shippingCost"/>
 
     <SfButton v-if="!isLoaded" class="order-details__item__btn sf-button--outline" v-on:click="loadOrderDetails(order.id)">
       See more
