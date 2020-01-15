@@ -1,5 +1,6 @@
 <template>
-  <SfContentPages 
+  <div class="my-account">
+    <SfContentPages 
         title="My account"
         :active="activePage"
         @click:change="updateActivePage"
@@ -35,6 +36,7 @@
         </SfContentCategory>
         <SfContentPage title="Logout"></SfContentPage>
       </SfContentPages>
+  </div>
 </template>
 <script>
 import { SfContentPages, SfTabs, SfList } from "@storefront-ui/vue"
