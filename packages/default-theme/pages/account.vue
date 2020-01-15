@@ -10,11 +10,14 @@
           </SfContentPage>
           <SfContentPage title="Shipping details">
             <SfTabs :open-tab="1">
-              <SfTab title="Shipping address">
-                <Address :address="activeShippingAddress"/>
+              <SfTab title="Active shipping address">
+                <Address :key="activeShippingAddress.id" :address="activeShippingAddress"/>
               </SfTab>
-              <SfTab title="Billing address">
-                <Address :address="activeBillingAddress"/>
+              <SfTab title="Active billing address">
+                <Address :key="activeBillingAddress.id" :address="activeBillingAddress"/>
+              </SfTab>
+              <SfTab title="All addresses">
+                <Address v-for="address in allAddresses" :key="address.id" :address="address"/>
               </SfTab>
             </SfTabs>
           </SfContentPage>
@@ -44,12 +47,13 @@ export default {
   components: { OrderHistory, SfContentPages, SfTabs, MyProfile, SfList, Address },
   middleware: "auth",
   setup() {
-    const { logout, user } = useUser()
-    return { logout, user }
+    const { logout, user, getAddresses, loadOrders, orders } = useUser()
+    return { logout, user, getAddresses, loadOrders, orders }
   },
   data() {
     return {
-      activePage: "My profile"
+      activePage: "My profile",
+      allAddresses: []
     }
   },
   computed: {
@@ -58,7 +62,10 @@ export default {
     },
     activeShippingAddress() {
       return this.user && this.user && this.user.activeShippingAddress || {}
-    }
+    },
+  },
+  async mounted() {
+    this.allAddresses = await this.getAddresses()
   },
   methods: {
     async updateActivePage(title) {

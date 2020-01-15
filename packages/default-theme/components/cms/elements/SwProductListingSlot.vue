@@ -1,10 +1,10 @@
 <template>
   <div class="sw-product-list">
-    <SfLoader
-      :loading="loading">
+    <SfLoader :loading="loading">
       <div class="sw-product-list--wrapper" v-if="products.length && !loading">
         <div class="sw-product-list__list">
           <SwProductCard
+            class="sw-product-list__card"
             v-for="product in products"
             :key="product.id"
             :product="product"
@@ -18,7 +18,11 @@
           @click="changedPage"
         />
       </div>
-      <SfHeading v-else title="No products found" subtitle="let us look for them"/>
+      <SfHeading
+        v-else
+        title="No products found"
+        subtitle="let us look for them"
+      />
     </SfLoader>
   </div>
 </template>
@@ -42,8 +46,13 @@ export default {
   },
   setup({ content }) {
     const propProducts = content.data.listing || []
-    const { products, changePagination, pagination, loading } = useProductListing(propProducts)
-    
+    const {
+      products,
+      changePagination,
+      pagination,
+      loading
+    } = useProductListing(propProducts)
+
     const changedPage = async (pageNumber) => {
       await changePagination(pageNumber)
     }
@@ -66,9 +75,8 @@ export default {
     @content;
   }
 }
+
 .sw-product-list {
-  display: flex;
-  flex-direction: column;
   box-sizing: border-box;
   margin: 0 -#{$spacer};
   @include for-desktop {
@@ -76,9 +84,14 @@ export default {
   }
 
   &__list {
+    display: flex;
     width: auto;
     flex-wrap: wrap;
-    display: flex;
+    flex-grow: 0;
+  }
+
+  &__card {
+    flex: 0 0 205px;
   }
 
   &__product-card {
@@ -100,5 +113,12 @@ export default {
     padding-left: $spacer-big;
     padding-right: $spacer-big;
   }
+}
+</style>
+
+<style>
+.sw-product-list--wrapper {
+  display: flex;
+  flex-direction: column;
 }
 </style>

@@ -58,6 +58,13 @@ describe("Shopware helpers - getCategoryAvailableFilters", () => {
     expect(secondFilter.name).toBe("rating");
     expect(secondFilter.type).toBe("term");
     expect(secondFilter.options).toHaveLength(1);
+    expect(secondFilter.options[0]).not.toHaveProperty("color");
+
+    const thirdFilter: any = filters.shift() || {};
+    expect(thirdFilter.name).toBe("color");
+    expect(thirdFilter.type).toBe("entity");
+    expect(thirdFilter.options).toHaveLength(1);
+    expect(thirdFilter.options[0]).toHaveProperty("color");
   });
 
   it("should return array of untransformed options when the type is unknown ", () => {
