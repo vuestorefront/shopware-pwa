@@ -2,7 +2,7 @@
   <div id="layout">
     <TopNavigation/>
     <SfBreadcrumbs
-       v-show="getBreadcrumbs.length > 0" 
+       v-show="getBreadcrumbs.length > 0"
       :breadcrumbs="getBreadcrumbs"
       class="sw-breadcrumbs"/>
     <nuxt />
@@ -73,4 +73,8 @@ body {
 .sw-breadcrumbs {
   padding: $spacer-big $spacer-extra-big $spacer-extra-big;
 }
+
+/* Delete firefox outline */
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
 </style>

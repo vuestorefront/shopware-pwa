@@ -44,11 +44,18 @@ const convertEntityFilterValues = (
 ) => {
   return !values
     ? []
-    : Object.entries(values).map(([valueId, { name }]) => ({
-        value: valueId,
-        label: name,
-        color: isColor && name
-      }));
+    : Object.entries(values).map(([valueId, { name }]) => {
+        let filterValue = {
+          value: valueId,
+          label: name
+        };
+
+        if (isColor) {
+          filterValue = Object.assign({}, filterValue, { color: name });
+        }
+
+        return filterValue;
+      });
 };
 
 const convertOptionsByType = ({

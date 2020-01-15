@@ -29,11 +29,11 @@
   },
   "peerDependencies": {
     "@vue/composition-api": "^0.3.4",
-    "axios": "^0.19.0",
+    "axios": "^0.19.1",
     "vue": "^2.6.11"
   },
   "dependencies": {
     "query-string": "^6.9.0",
-    "@shopware-pwa/shopware-6-client": "^0.1.0-prealpha.0"
+    "@shopware-pwa/shopware-6-client": "^0.1.0-prealpha.662"
   }
 }

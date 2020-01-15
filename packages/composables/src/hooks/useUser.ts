@@ -2,10 +2,15 @@ import { ref, Ref, computed } from "@vue/composition-api";
 import {
   login as apiLogin,
   logout as apiLogout,
-  getCustomer
+  getCustomer,
+  getCustomerOrders,
+  getCustomerOrderDetails,
+  getCustomerAddresses
 } from "@shopware-pwa/shopware-6-client";
 import { Customer } from "packages/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
 import { getStore } from "@shopware-pwa/composables";
+import { Order } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order";
+import { CustomerAddress } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress";
 
 interface UseUser {
   login: ({
@@ -16,17 +21,22 @@ interface UseUser {
     password?: string;
   }) => Promise<boolean>;
   user: Ref<Customer | null>;
+  orders: Ref<Order[] | null>;
   loading: Ref<boolean>;
   error: Ref<any>;
   isLoggedIn: Ref<boolean>;
   refreshUser: () => Promise<void>;
   logout: () => Promise<void>;
+  loadOrders: () => Promise<void>;
+  getOrderDetails: (orderId: string) => Promise<Order>;
+  getAddresses: () => Promise<CustomerAddress[]>;
 }
 
 export const useUser = (): UseUser => {
   let vuexStore = getStore();
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
+  const orders: Ref<Order[] | null> = ref(null);
 
   const user: any = computed(() => {
     return vuexStore.getters.getUser;
@@ -65,6 +75,17 @@ export const useUser = (): UseUser => {
     vuexStore.commit("SET_USER", user);
   };
 
+  const loadOrders = async (): Promise<void> => {
+    const fetchedOrders = await getCustomerOrders();
+    orders.value = fetchedOrders;
+  };
+
+  const getOrderDetails = async (orderId: string): Promise<Order> => {
+    return getCustomerOrderDetails(orderId);
+  };
+
+  const getAddresses = (): Promise<CustomerAddress[]> => getCustomerAddresses();
+
   const isLoggedIn = computed(() => !!user.value);
 
   return {
@@ -74,6 +95,10 @@ export const useUser = (): UseUser => {
     loading,
     isLoggedIn,
     refreshUser,
-    logout
+    logout,
+    orders,
+    loadOrders,
+    getOrderDetails,
+    getAddresses
   };
 };

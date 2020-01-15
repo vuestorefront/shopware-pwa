@@ -235,7 +235,9 @@ Object {
   "isNew": false,
   "keywords": null,
   "length": null,
-  "listingPrices": Array [],
+  "listingPrices": Array [
+    "mockedValue",
+  ],
   "mainCategories": null,
   "manufacturer": null,
   "manufacturerId": "79eb793025ee4fa3b628f9814bd7b010",
