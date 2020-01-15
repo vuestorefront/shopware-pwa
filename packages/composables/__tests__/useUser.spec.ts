@@ -142,5 +142,38 @@ describe("Composables - useUser", () => {
         expect(error.value).toEqual("Something wrong with logout");
       });
     });
+
+    describe("loadOrders", () => {
+      it("should load customer's orders from different endpoint", async () => {
+        const ordersResponse = [
+          {
+            id: "12345",
+            orderNumber: "100123"
+          }
+        ];
+        mockedApiClient.getCustomerOrders.mockResolvedValueOnce(
+          ordersResponse as any
+        );
+        const { orders, loadOrders } = useUser();
+        expect(orders.value).toBeNull();
+        await loadOrders();
+        expect(orders.value).toHaveLength(1);
+      });
+    });
+
+    describe("getOrderDetails", () => {
+      it("should return order details for given orderId", async () => {
+        const orderResponse = {
+          id: "12345",
+          orderNumber: "100123"
+        };
+        mockedApiClient.getCustomerOrderDetails.mockResolvedValueOnce(
+          orderResponse as any
+        );
+        const { getOrderDetails } = useUser();
+        const orderDetails = await getOrderDetails("12345");
+        expect(orderDetails).toBe(orderResponse);
+      });
+    });
   });
 });
