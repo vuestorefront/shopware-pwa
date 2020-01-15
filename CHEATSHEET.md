@@ -15,7 +15,7 @@ There will be a more strealined, interactive development setup, but for now we'r
 ### Prerequisites
 
  * `shopware/platform` running within either `showpare/development` or `shopware/production`
- * `node@^10` and `npm@^6` installed
+ * `node@^10` installed
  * `yarn` package manager installed
 
  
