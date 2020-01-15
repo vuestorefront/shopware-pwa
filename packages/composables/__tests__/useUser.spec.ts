@@ -116,30 +116,34 @@ describe("Composables - useUser", () => {
     });
 
     describe("register", () => {
-      it("should not login user without credentials", async () => {
-        mockedApiClient.register.mockRejectedValueOnce(
-            new Error("Provide username and password for login")
-        );
+      it("should not invoke user register without any data", async () => {
+        mockedApiClient.register.mockResolvedValueOnce({ data: 'mockedData'});
         const { error, register } = useUser();
         const result = await register(undefined as any);
-        expect(result).toEqual(false);
-        expect(error.value).toEqual("Provide username and password for login");
+        expect(result).toBeFalsy()
+        expect(error.value).toEqual("Cannot read property 'firstName' of undefined");
       });
 
       it("should register user succesfully", async () => {
-        mockedApiClient.login.mockResolvedValueOnce({
-          "sw-context-token": "qweqwe"
-        } as any);
-        mockedApiClient.getCustomer.mockResolvedValueOnce({ id: "123" } as any);
-        const { isLoggedIn, error, login } = useUser();
-        const result = await login({
-          username: "qwe@qwe.com",
-          password: "correctPassword"
-        });
-        expect(result).toEqual(true);
-        expect(isLoggedIn.value).toBeTruthy();
-        expect(error.value).toBeFalsy();
-      });
+        mockedApiClient.register.mockResolvedValueOnce({ data: 'mockedData'});
+        const { error, register } = useUser();
+        const result = await register({
+            firstName: "qwe",
+            lastName: "lastName",
+            password: "correctPassword",
+            salutation: "Mr.",
+            street: "anyStreet",
+            city: "anyCity",
+            zipcode: "zip-code",
+            country: "anyCountry",
+            countryId: "countryId",
+            salutationId: "salutationId",
+            email: "qwe@qwe.com",
+          }
+        );
+        expect(result).toBeTruthy();
+        expect(error.value).toBeNull();
+      })
     });
 
     describe("logout", () => {
