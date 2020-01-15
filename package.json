@@ -78,8 +78,5 @@
   },
   "engines": {
     "node": "10.x"
-  },
-  "dependencies": {
-    "vuelidate": "^0.7.5"
   }
 }

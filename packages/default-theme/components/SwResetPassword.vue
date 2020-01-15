@@ -2,17 +2,23 @@
   <div class="sw-reset-password">
     <div class="form sw-reset-password__form">
       <h2 class="sw-reset-password__header">Reset password</h2>
-      <SfAlert class="sw-reset-password__alert" v-if="error" type="danger" :message="error" />
+      <SfAlert
+        v-if="error"
+        class="sw-reset-password__alert"
+        type="danger"
+        :message="error"
+      />
       <SfInput
         v-model="$v.email.$model"
         name="email"
         label="Your email"
         class="form__input"
         :valid="!$v.email.$error"
-        errorMessage="Valid email is required"
+        error-message="Valid email is required"
       />
-      <SfButton class="sf-button--full-width form__button"
-                @click="invokeResetPassword"
+      <SfButton
+        class="sf-button--full-width form__button"
+        @click="invokeResetPassword"
       >
         Resend password
       </SfButton>
@@ -28,7 +34,7 @@ import { required, email } from 'vuelidate/lib/validators'
 export default {
   name: 'SwResetPassword',
   components: { SfButton, SfInput, SfAlert },
-  mixins: [ validationMixin ],
+  mixins: [validationMixin],
   data() {
     return {
       email: '',
@@ -51,7 +57,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@storefront-ui/vue/styles";
+@import '~@storefront-ui/vue/styles';
 
 .sw-reset-password {
   &__alert {

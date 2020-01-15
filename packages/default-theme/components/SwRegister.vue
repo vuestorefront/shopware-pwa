@@ -1,8 +1,13 @@
 <template>
   <div class="sw-register">
     <div class="form sw-register">
-      <h2 class="sw-register__header">Log in</h2>
-      <SfAlert class="sw-register__alert" v-if="error" type="danger" :message="error"/>
+      <h2 class="sw-register__header">Register</h2>
+      <SfAlert
+        class="sw-register__alert"
+        v-if="error"
+        type="danger"
+        :message="error"
+      />
       <SfSelect
         v-model="salutation"
         label="Salutation"
@@ -106,135 +111,138 @@
 </template>
 
 <script>
-  import {SfAlert, SfInput, SfButton, SfSelect} from '@storefront-ui/vue'
-  import {validationMixin} from 'vuelidate'
-  import {required, email, minLength} from 'vuelidate/lib/validators'
-  import {useUser} from '@shopware-pwa/composables'
+import { SfAlert, SfInput, SfButton, SfSelect } from '@storefront-ui/vue'
+import { validationMixin } from 'vuelidate'
+import { required, email, minLength } from 'vuelidate/lib/validators'
+import { useUser } from '@shopware-pwa/composables'
 
-  export default {
-    name: 'SwResetPassword',
-    components: { SfButton, SfInput, SfAlert, SfSelect},
-    mixins: [validationMixin],
-    data() {
-      return {
-        email: '',
-        password: '',
-        salutation: null,
-        salutations: [{label: 'Mr.', id: 'c370eb5cd1df4d4dbcc78f055b693e79'}],
-        countries: [{label: 'Poland', id: '38245a84c3d5425b8bac97fc845b5ddd'}],
-        country: null,
-        street: '',
-        city: '',
-        zipcode: ''
-      }
+export default {
+  name: 'SwResetPassword',
+  components: { SfButton, SfInput, SfAlert, SfSelect },
+  mixins: [validationMixin],
+  data() {
+    return {
+      email: '',
+      password: '',
+      salutation: null,
+      salutations: [{ label: 'Mr.', id: 'c370eb5cd1df4d4dbcc78f055b693e79' }],
+      countries: [{ label: 'Poland', id: '38245a84c3d5425b8bac97fc845b5ddd' }],
+      country: null,
+      street: '',
+      city: '',
+      zipcode: ''
+    }
+  },
+  setup() {
+    const { login, register, loading, error } = useUser()
+    return {
+      clientLogin: login,
+      clientRegister: register,
+      isLoading: loading,
+      error
+    }
+  },
+  validations: {
+    email: {
+      required,
+      email
     },
-    setup() {
-      const { login, register, loading, error} = useUser()
-      return {
-        clientLogin: login,
-        clientRegister: register,
-        isLoading: loading,
-        error
-      }
+    salutation: {
+      required
     },
-    validations: {
-      email: {
-        required,
-        email
-      },
-      salutation: {
-        required
-      },
-      password: {
-        required,
-        minLength: minLength(4)
-      },
-      firstName: {
-        required
-      },
-      lastName: {
-        required
-      },
-      country: {
-        required
-      },
-      street: {
-        required
-      },
-      zipcode: {
-        required
-      },
-      city: {
-        required
-      }
+    password: {
+      required,
+      minLength: minLength(4)
     },
-    methods: {
-      async invokeRegister() {
-        this.$v.$touch()
-        if (this.$v.$anyError) {
-          this.error = 'Form is not valid'
-          return
-        }
-        const registeredIn = await this.clientRegister({
-          firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          password: this.password,
-          salutationId: this.salutation.id,
-          street: this.street,
-          zipcode: this.zipcode,
-          city: this.city,
-          countryId: this.country.id
+    firstName: {
+      required
+    },
+    lastName: {
+      required
+    },
+    country: {
+      required
+    },
+    street: {
+      required
+    },
+    zipcode: {
+      required
+    },
+    city: {
+      required
+    }
+  },
+  methods: {
+    async invokeRegister() {
+      this.$v.$touch()
+      if (this.$v.$anyError) {
+        this.error = 'Form is not valid'
+        return
+      }
+      const registeredIn = await this.clientRegister({
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        password: this.password,
+        salutationId: this.salutation.id,
+        street: this.street,
+        zipcode: this.zipcode,
+        city: this.city,
+        countryId: this.country.id
+      })
+      if (registeredIn) {
+        await this.clientLogin({
+          username: this.email,
+          password: this.password
         })
-        if (registeredIn) {
-          await this.clientLogin({username: this.email, password: this.password})
-          this.$emit('success')
-        }
+        this.$emit('success')
       }
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
-  @import "~@storefront-ui/vue/styles";
+@import '~@storefront-ui/vue/styles';
 
-  @mixin for-desktop {
-    @media screen and (min-width: 900px) {
-      @content;
-    }
+@mixin for-desktop {
+  @media screen and (min-width: 900px) {
+    @content;
+  }
+}
+
+.input-group {
+  @include for-desktop {
+    display: flex;
+    width: 40vw;
+    justify-content: space-between;
+  }
+}
+
+.sw-login {
+  &__alert {
+    margin-bottom: $spacer-small;
   }
 
-  .input-group {
-    @include for-desktop {
-      display: flex;
-      width: 40vw;
-      justify-content: space-between;
-    }
+  &__header {
+    margin-bottom: $spacer-big;
+  }
+}
+
+.form {
+  &__input {
+    margin-bottom: $spacer-big;
   }
 
-  .sw-login {
-    &__alert {
-      margin-bottom: $spacer-small;
-    }
-
-    &__header {
-      margin-bottom: $spacer-big;
-    }
+  &__checkbox {
+    margin-bottom: $spacer-big;
   }
 
-  .form {
-    &__input {
-      margin-bottom: $spacer-big;
-    }
-
-    &__checkbox {
-      margin-bottom: $spacer-big;
-    }
-
-    &__button {
-      margin-top: $spacer-big;
-    }
+  &__button {
+    margin-top: $spacer-big;
   }
+}
 
 .sf-button--muted {
   color: $c-text-muted;

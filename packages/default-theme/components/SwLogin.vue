@@ -2,7 +2,12 @@
   <div class="sw-login">
     <div class="form sw-login__form">
       <h2 class="sw-login__header">Log in</h2>
-      <SfAlert class="sw-login__alert" v-if="error" type="danger" :message="error" />
+      <SfAlert
+        v-if="error"
+        class="sw-login__alert"
+        type="danger"
+        :message="error"
+      />
       <SfInput
         v-model="$v.login.$model"
         name="login"
@@ -10,7 +15,7 @@
         class="form__input"
         :valid="!$v.login.$error"
         :disabled="isLoading"
-        errorMessage="Login is required"
+        error-message="Login is required"
       />
       <SfInput
         v-model="$v.password.$model"
@@ -20,11 +25,13 @@
         class="form__input"
         :valid="!$v.password.$error"
         :disabled="isLoading"
-        errorMessage="Password is required"
+        error-message="Password is required"
       />
-      <SfButton class="sf-button--full-width form__button"
-                @click="invokeLogin"
-                :disabled="isLoading">
+      <SfButton
+        class="sf-button--full-width form__button"
+        :disabled="isLoading"
+        @click="invokeLogin"
+      >
         Login
       </SfButton>
     </div>
@@ -40,15 +47,15 @@ import { useUser } from '@shopware-pwa/composables'
 export default {
   name: 'SwResetPassword',
   components: { SfButton, SfInput, SfAlert },
-  mixins: [ validationMixin ],
+  mixins: [validationMixin],
   data() {
     return {
       login: '',
-      password: '',
+      password: ''
     }
   },
   setup() {
-    const {login, loading, error} = useUser()
+    const { login, loading, error } = useUser()
     return {
       clientLogin: login,
       isLoading: loading,
@@ -57,47 +64,50 @@ export default {
   },
   validations: {
     login: {
-      required,
+      required
     },
     password: {
-      required,
+      required
     }
   },
   methods: {
     async invokeLogin() {
       this.$v.$touch()
-      if(this.$v.$anyError) {
+      if (this.$v.$anyError) {
         this.error = 'Form is not valid'
         return
       }
-      const loggedIn = await this.clientLogin({username: this.login, password: this.password})
+      const loggedIn = await this.clientLogin({
+        username: this.login,
+        password: this.password
+      })
       if (loggedIn) this.$emit('success')
-    },
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  @import "~@storefront-ui/vue/styles";
+@import '~@storefront-ui/vue/styles';
 
-  .sw-login {
-    &__alert {
-      margin-bottom: $spacer-small;
-    }
-    &__header {
-      margin-bottom: $spacer-big;
-    }
+.sw-login {
+  &__alert {
+    margin-bottom: $spacer-small;
   }
+  &__header {
+    margin-bottom: $spacer-big;
+  }
+}
 
-  .form {
-    &__input {
-      margin-bottom: $spacer-extra-big;
-    }
-    &__checkbox {
-      margin-bottom: $spacer-big;
-    }
-    &__button {
-      margin-top: $spacer-big;
-    }
+.form {
+  &__input {
+    margin-bottom: $spacer-extra-big;
   }
+  &__checkbox {
+    margin-bottom: $spacer-big;
+  }
+  &__button {
+    margin-top: $spacer-big;
+  }
+}
 </style>
