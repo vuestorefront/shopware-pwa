@@ -159,13 +159,11 @@ export default {
     height: 100%;
   }
 
-  .sf-image img {
-    height: 100%;
-  }
-
   .sf-search-bar {
     visibility: hidden;
   }
 }
-
+.sf-image--no-size img {
+  height: 100%;
+}
 </style>
