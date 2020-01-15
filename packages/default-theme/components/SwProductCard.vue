@@ -1,8 +1,10 @@
 <template>
   <SfProductCard
     :title="product.name || ''"
-    :image="getImageUrl" 
+    :image="getImageUrl"
     :special-price="getSpecialPrice"
+    :image-width="216"
+    :image-height="326"
     :regular-price="getRegularPrice"
     :isOnWishlist="false"
     :link="getRouterLink"
@@ -11,8 +13,8 @@
     :showAddToCartButton="true"
     :isAddedToCart="isInCart"
     @click:add-to-cart="addToCart"
-    >
-    <template #title={title}>
+  >
+    <template #title="{title}">
       <div class="product-card-title">
         <h3 class="product-card-title__title">
           {{ title }}
@@ -23,17 +25,22 @@
 </template>
 
 <script>
-import { SfProductCard, SfAddToCart } from "@storefront-ui/vue";
-import { useAddToCart } from "@shopware-pwa/composables"
-import { getProductMainImageUrl, getProductRegularPrice, getProductUrl, getProductSpecialPrice } from '@shopware-pwa/helpers';
+import { SfProductCard, SfAddToCart } from '@storefront-ui/vue'
+import { useAddToCart } from '@shopware-pwa/composables'
+import {
+  getProductMainImageUrl,
+  getProductRegularPrice,
+  getProductUrl,
+  getProductSpecialPrice
+} from '@shopware-pwa/helpers'
 
 export default {
   components: {
     SfProductCard,
     SfAddToCart
   },
-  setup ({product}) {
-    const {addToCart, quantity, getStock, isInCart} = useAddToCart(product)
+  setup({ product }) {
+    const { addToCart, quantity, getStock, isInCart } = useAddToCart(product)
 
     return {
       quantity,
@@ -43,7 +50,7 @@ export default {
     }
   },
   data() {
-    return {};
+    return {}
   },
   props: {
     product: {
@@ -57,30 +64,32 @@ export default {
       return getProductUrl(this.product)
     },
     getRegularPrice() {
-      const regular = getProductRegularPrice({product: this.product})
-      const special = getProductSpecialPrice(this.product);
+      const regular = getProductRegularPrice({ product: this.product })
+      const special = getProductSpecialPrice(this.product)
       // temporary fix to show proper regular price
-      return "$" + (regular > special ? regular : special);
+      return '$' + (regular > special ? regular : special)
     },
     getSpecialPrice() {
       const special = getProductSpecialPrice(this.product)
-      const regular = getProductRegularPrice({product: this.product})
+      const regular = getProductRegularPrice({ product: this.product })
       // temporary fix to show proper special price
-      return special && ("$" + (special < regular ? special : regular))
+      return special && '$' + (special < regular ? special : regular)
     },
     getImageUrl() {
-      return getProductMainImageUrl({product: this.product}) || require('~/assets/productB.jpg')
+      return (
+        getProductMainImageUrl({ product: this.product }) ||
+        require('~/assets/productB.jpg')
+      )
     }
   },
   methods: {
-    async toggleWishlist() {
-    }
+    async toggleWishlist() {}
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import "~@storefront-ui/vue/styles.scss";
+@import '~@storefront-ui/vue/styles.scss';
 
 .product-card-title {
   height: 4em;
