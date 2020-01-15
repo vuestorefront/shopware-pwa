@@ -2,7 +2,10 @@ import { computed } from "@vue/composition-api";
 import { useCms } from "@shopware-pwa/composables";
 import {
   getCategoryAvailableFilters,
-  UiCategoryFilter
+  getCategoryAvailableSorting,
+  UiCategoryFilter,
+  UiCategorySorting,
+  SwSorting
 } from "@shopware-pwa/helpers";
 
 export const useCategoryFilters = (): any => {
@@ -26,8 +29,25 @@ export const useCategoryFilters = (): any => {
     });
   });
 
+  const availableSorting = computed((): UiCategorySorting[] | any => {
+    if (!page || !page.value || !page.value.listingConfiguration) {
+      return [];
+    }
+
+    return getCategoryAvailableSorting({
+      sorting: page.value.listingConfiguration.availableSortings
+    });
+  });
+
+  const activeSorting = computed(
+    (): SwSorting =>
+      availableSorting.value.find((sorting: SwSorting) => sorting.active)
+  );
+
   return {
     availableFilters,
-    activeFilters
+    activeFilters,
+    availableSorting,
+    activeSorting
   };
 };

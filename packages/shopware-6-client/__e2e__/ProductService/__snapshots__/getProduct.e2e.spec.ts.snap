@@ -125,11 +125,7 @@ Object {
   "categories": null,
   "categoriesRo": null,
   "categoryTree": Array [
-    "3f637f17cd9f4891a2d7625d19fb37c9",
-    "34b081d3d1044ab594cd522f672a929d",
-    "83e555dee2d2425eba42b7c628b65c67",
-    "b218f861361042f3a58a2a9d1b3575b5",
-    "e6d6da3c60c144a180b8cf8b66c434b6",
+    "mockedValue",
   ],
   "childCount": 6,
   "children": null,

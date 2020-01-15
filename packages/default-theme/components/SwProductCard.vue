@@ -57,11 +57,16 @@ export default {
       return getProductUrl(this.product)
     },
     getRegularPrice() {
-      return "$" + getProductRegularPrice({product: this.product})
+      const regular = getProductRegularPrice({product: this.product})
+      const special = getProductSpecialPrice(this.product);
+      // temporary fix to show proper regular price
+      return "$" + (regular > special ? regular : special);
     },
     getSpecialPrice() {
-      const price = getProductSpecialPrice(this.product)
-      return price && ("$" + price)
+      const special = getProductSpecialPrice(this.product)
+      const regular = getProductRegularPrice({product: this.product})
+      // temporary fix to show proper special price
+      return special && ("$" + (special < regular ? special : regular))
     },
     getImageUrl() {
       return getProductMainImageUrl({product: this.product}) || require('~/assets/productB.jpg')

@@ -1,7 +1,7 @@
 <template>
   <SfModal
     :visible="isOpen"
-    @close="$emit('close')"
+    @close="closeHandler()"
     transitionOverlay="fade"
     transitionModal="fade"
     >
@@ -52,6 +52,14 @@ export default {
     isOpen: {
       type: Boolean,
       default: false
+    },
+    onClose: {
+      type: Function,
+      default: undefined
+    },
+    onSuccess: {
+      type: Function,
+      default: undefined
     }
   },
   setup() {
@@ -77,9 +85,14 @@ export default {
     }
   },
   methods: {
+    closeHandler() {
+      typeof this.onClose !== "undefined" && this.onClose() || this.$emit('close');
+    },
     async invokeLogin() {
       const loggedIn = await this.clientLogin({username: this.login, password: this.password})
-      if (loggedIn) this.$emit('close')
+      if (loggedIn) { 
+       typeof this.onSuccess !== "undefined" && this.onSuccess() || this.$emit('close')
+      }
     }
   }
 }

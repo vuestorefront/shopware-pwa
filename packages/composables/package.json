@@ -33,6 +33,7 @@
     "vue": "^2.6.11"
   },
   "dependencies": {
+    "query-string": "^6.9.0",
     "@shopware-pwa/shopware-6-client": "^0.1.0-prealpha.0"
   }
 }

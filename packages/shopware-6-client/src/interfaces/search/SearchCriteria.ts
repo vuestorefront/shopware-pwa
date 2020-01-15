@@ -1,5 +1,10 @@
 import { Pagination } from "./Pagination";
-import { EqualsFilter, RangeFilter, MultiFilter } from "./SearchFilter";
+import {
+  EqualsFilter,
+  RangeFilter,
+  MultiFilter,
+  EqualsAnyFilter
+} from "./SearchFilter";
 import { Association } from "./Association";
 import { Aggregation } from "./Aggregation";
 import { TotalCountMode } from "./TotalCountMode";
@@ -13,7 +18,7 @@ export interface Sort {
  * @alpha
  */
 export interface SearchCriteria {
-  filters?: EqualsFilter[] | RangeFilter[] | MultiFilter[];
+  filters?: Array<EqualsFilter | EqualsAnyFilter | RangeFilter | MultiFilter>;
   pagination?: Pagination;
   sort?: Sort;
   term?: string;

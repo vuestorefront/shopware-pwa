@@ -28,8 +28,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-push": "yarn test:unit"
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "lint-staged": {
@@ -59,7 +58,7 @@
     "execa": "^4.0.0",
     "faker": "^4.1.0",
     "fs-extra": "^8.1.0",
-    "husky": "^3.1.0",
+    "husky": "^4.0.6",
     "jest": "^24.9.0",
     "lerna": "^3.19.0",
     "lint-staged": "^9.5.0",
