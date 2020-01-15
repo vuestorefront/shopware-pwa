@@ -3,13 +3,24 @@ import { deepChangeProperties } from "../helpers";
 describe("shopware-6-client - E2E - PageService - getPage", () => {
   it("should test / page response", async () => {
     const result = await getPage("");
-    deepChangeProperties(result, ["availableStock", "categoryTree"]);
+    deepChangeProperties(result, [
+      "availableStock",
+      "categoryTree",
+      "listingPrices",
+      "min",
+      "cover"
+    ]);
     expect(result).toMatchSnapshot();
   });
 
   it("should test product page response", async () => {
     const result = await getPage("/detail/9cce06f9dc424844989a06cfe3dc98da");
-    deepChangeProperties(result, ["availableStock", "categoryTree"]);
+    deepChangeProperties(result, [
+      "availableStock",
+      "categoryTree",
+      "listingPrices",
+      "min"
+    ]);
     expect(result).toMatchSnapshot();
   });
 
@@ -19,7 +30,9 @@ describe("shopware-6-client - E2E - PageService - getPage", () => {
       "availableStock",
       "thumbnailsRo",
       "updatedAt",
-      "categoryTree"
+      "categoryTree",
+      "listingPrices",
+      "min"
     ]);
     expect(result).toMatchSnapshot();
   });
