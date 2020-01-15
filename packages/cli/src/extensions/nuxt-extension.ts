@@ -59,23 +59,37 @@ module.exports = (toolbox: GluegunToolbox) => {
    * - dynamically get new versions from template
    */
   toolbox.updateNuxtPackageJson = async () => {
+    const nuxtThemePackage = toolbox.filesystem.read(
+      `${toolbox.defaultThemeLocation}/package.json`,
+      "json"
+    );
+
+    const packageDependenciesToUpdate = [
+      // "@shopware-pwa/composables",
+      // "@shopware-pwa/helpers",
+      "@shopware-pwa/shopware-6-client",
+      "@storefront-ui/vue",
+      "@vuelidate/core",
+      "@vuelidate/validators",
+      "cookie-universal-nuxt",
+      "slugify",
+      "nuxt",
+      "@nuxtjs/pwa",
+      "@nuxtjs/axios"
+    ];
+    const devPackageDependenciesToUpdate = [
+      // "@vue-storefront/nuxt"
+    ];
     await toolbox.patching.update("package.json", config => {
-      // dependencies
-      // config.dependencies["@shopware-pwa/composables"] = "^0.1.0";
-      // config.dependencies["@shopware-pwa/helpers"] = "^0.1.0";
-      config.dependencies["@shopware-pwa/shopware-6-client"] =
-        "^0.1.0-prealpha.0";
-      config.dependencies["@storefront-ui/vue"] = "^0.4.0";
-      config.dependencies["@vuelidate/core"] = "^2.0.0-alpha.0";
-      config.dependencies["@vuelidate/validators"] = "^2.0.0-alpha.0";
-      config.dependencies["cookie-universal-nuxt"] = "^2.1.0";
-      config.dependencies["slugify"] = "^1.3.6";
-      config.dependencies["@vue/composition-api"] = "^0.3.4";
-      config.dependencies["nuxt"] = "^2.11.0";
-      config.dependencies["@nuxtjs/pwa"] = "^3.0.0-beta.19";
-      config.dependencies["@nuxtjs/axios"] = "^5.9.0";
-      // dev dependencies
-      // config.devDependencies["@vue-storefront/nuxt"] = "^0.0.1";
+      packageDependenciesToUpdate.forEach(packageName => {
+        config.dependencies[packageName] =
+          nuxtThemePackage.dependencies[packageName];
+      });
+
+      devPackageDependenciesToUpdate.forEach(packageName => {
+        config.devDependencies[packageName] =
+          nuxtThemePackage.devDependencies[packageName];
+      });
 
       config.engines = { node: "10.x" };
       return config;
