@@ -115,12 +115,12 @@ export default {
     this.navigationElements = children
   },
   methods: {
-    convertToSlug(name) {
+    convertToSlug(name) { // temporary workaround; won't be useful once the pretty urls are received within navigation endpoint
       return (
         '/' +
         slugify(name, {
           remove: /and|[*+~.,()'"!:@]/g
-        })
+        }).toLowerCase() + '/'
       )
     },
     async userIconClick() {
