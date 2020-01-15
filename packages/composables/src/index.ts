@@ -4,6 +4,7 @@ export * from "./hooks/useCart";
 export * from "./logic/useAddToCart";
 export * from "./hooks/useCategoryFilters";
 export * from "./hooks/useUser";
+export * from "./hooks/useProductListing";
 export * from "./theme/cart/useCartSidebar";
 
 /**

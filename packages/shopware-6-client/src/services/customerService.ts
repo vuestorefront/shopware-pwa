@@ -6,13 +6,16 @@ import {
   getCustomerDefaultBillingAddressEndpoint,
   getCustomerDefaultShippingAddressEndpoint,
   getCustomerLogoutEndpoint,
-  getCustomerLoginEndpoint
+  getCustomerLoginEndpoint,
+  getCustomerOrderEndpoint,
+  getCustomerOrderDetailsEndpoint
 } from "../endpoints";
 import { Customer } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
 import { apiService } from "../apiService";
 import { CustomerAddress } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress";
 import { CustomerRegistrationParams } from "@shopware-pwa/shopware-6-client/src/interfaces/request/CustomerRegistrationParams";
 import { ContextTokenResponse } from "@shopware-pwa/shopware-6-client/src/interfaces/response/ContextTokenResponse";
+import { Order } from "../interfaces/models/checkout/order/Order";
 
 export interface CustomerRegisterResponse {
   data: string;
@@ -72,6 +75,22 @@ export async function getCustomer(): Promise<Customer | null> {
  */
 export async function getCustomerAddresses(): Promise<CustomerAddress[]> {
   const resp = await apiService.get(getCustomerAddressEndpoint());
+  return resp.data.data;
+}
+
+/**
+ * Get all customer's orders
+ */
+export async function getCustomerOrders(): Promise<Order[]> {
+  const resp = await apiService.get(getCustomerOrderEndpoint());
+  return resp.data.data;
+}
+
+/**
+ * Get order details
+ */
+export async function getCustomerOrderDetails(orderId: string): Promise<Order> {
+  const resp = await apiService.get(getCustomerOrderDetailsEndpoint(orderId));
   return resp.data.data;
 }
 

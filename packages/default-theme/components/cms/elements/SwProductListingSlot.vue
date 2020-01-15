@@ -1,30 +1,42 @@
 <template>
   <div class="sw-product-list">
-    <div class="sw-product-list--wrapper">
-      <div class="sw-product-list__list">
-        <SwProductCard
-          v-for="product in products"
-          :key="product.id"
-          :product="product"
+    <SfLoader :loading="loading">
+      <div class="sw-product-list--wrapper" v-if="products.length && !loading">
+        <div class="sw-product-list__list">
+          <SwProductCard
+            class="sw-product-list__card"
+            v-for="product in products"
+            :key="product.id"
+            :product="product"
           />
-      </div>
-      <SfPagination
-        class="sw-product-list__pagination desktop-only"
-        :current="1"
-        :total="5"
-        :visible="5"
+        </div>
+        <SfPagination
+          class="sw-product-list__pagination desktop-only"
+          :current="pagination.currentPage"
+          :total="Math.ceil(pagination.total / pagination.perPage)"
+          :visible="5"
+          @click="changedPage"
         />
-    </div>
+      </div>
+      <SfHeading
+        v-else
+        title="No products found"
+        subtitle="let us look for them"
+      />
+    </SfLoader>
   </div>
 </template>
 
 <script>
-import SwProductCard from "../../SwProductCard";
-import { SfPagination } from "@storefront-ui/vue";
+import SwProductCard from '../../SwProductCard'
+import { SfPagination, SfHeading, SfLoader } from '@storefront-ui/vue'
+import { useProductListing } from '@shopware-pwa/composables'
 export default {
   components: {
     SwProductCard,
-    SfPagination
+    SfPagination,
+    SfHeading,
+    SfLoader
   },
   props: {
     content: {
@@ -32,35 +44,54 @@ export default {
       default: () => ({})
     }
   },
-  computed: {
-    products() {
-      return this.content.data.listing || [];
+  setup({ content }) {
+    const propProducts = content.data.listing || []
+    const {
+      products,
+      changePagination,
+      pagination,
+      loading
+    } = useProductListing(propProducts)
+
+    const changedPage = async (pageNumber) => {
+      await changePagination(pageNumber)
+    }
+
+    return {
+      products,
+      changedPage,
+      pagination,
+      loading
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import "~@storefront-ui/vue/styles.scss";
-@import "~@storefront-ui/shared/styles/helpers/visibility";
+@import '~@storefront-ui/vue/styles.scss';
+@import '~@storefront-ui/shared/styles/helpers/visibility';
 @mixin for-desktop {
   @media screen and (min-width: $desktop-min) {
     @content;
   }
 }
+
 .sw-product-list {
-  display: flex;
-  flex-direction: column;
   box-sizing: border-box;
   margin: 0 -#{$spacer};
   @include for-desktop {
     margin: $spacer-big;
   }
-  
+
   &__list {
+    display: flex;
     width: auto;
     flex-wrap: wrap;
-    display: flex;
+    flex-grow: 0;
+  }
+
+  &__card {
+    flex: 0 0 205px;
   }
 
   &__product-card {
@@ -82,5 +113,12 @@ export default {
     padding-left: $spacer-big;
     padding-right: $spacer-big;
   }
+}
+</style>
+
+<style>
+.sw-product-list--wrapper {
+  display: flex;
+  flex-direction: column;
 }
 </style>

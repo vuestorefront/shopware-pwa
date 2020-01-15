@@ -50,6 +50,9 @@ export const getCustomerLogoutEndpoint = () => `/customer/logout`;
 
 export const getCustomerOrderEndpoint = () => `/customer/order`;
 
+export const getCustomerOrderDetailsEndpoint = (orderId: string) =>
+  `/checkout/guest-order/${orderId}`;
+
 export const getCustomerUpdateEmailEndpoint = () => `/customer/email`;
 
 export const getCustomerUpdatePasswordEndpoint = () => `/customer/password`;

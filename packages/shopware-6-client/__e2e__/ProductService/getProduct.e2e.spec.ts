@@ -1,8 +1,10 @@
 import { getProduct } from "@shopware-pwa/shopware-6-client";
+import { deepChangeProperty } from "../helpers";
 
 describe("shopware-6-client - E2E - ProductService - getProduct", () => {
   it("should fetch real product", async () => {
     const result = await getProduct("044a190a54ab4f06803909c3ee8063ef");
+    deepChangeProperty(result, "categoryTree");
     expect(result).toMatchSnapshot();
   });
 

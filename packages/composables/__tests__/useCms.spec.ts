@@ -52,4 +52,14 @@ describe("Shopware composables", () => {
     expect(error.value).toBeTruthy();
     expect(error.value).toEqual("Something went wrong...");
   });
+
+  it("should performs search request with no or empty configuration for SearchCriteria", async () => {
+    const { search, page, error } = useCms();
+    mockedGetPage.getPage.mockRejectedValueOnce("Something went wrong...");
+    expect(page.value).toEqual(null);
+    await search("", { configuration: { associations: [] } });
+    expect(page.value).toEqual(null);
+    expect(error.value).toBeTruthy();
+    expect(error.value).toEqual("Something went wrong...");
+  });
 });
