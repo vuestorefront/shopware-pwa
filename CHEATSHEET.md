@@ -4,7 +4,7 @@ This cheatsheet will give you an overview of the Shopware PWA project and how to
 
 ## General
 
-`showpare-pwa` is a collaborative project between Vue Storefront and Shopware with the goal of providing an alternative Storefront based on the Vue Storefront Next architecture. It uses the Shopware Sales-Channel API for communication to the Shopware backend.
+`Shopware PWA` is a collaborative project between Vue Storefront and Shopware with the goal of providing an alternative Storefront based on the Vue Storefront Next architecture. It uses the Shopware Sales-Channel API for communication to the Shopware backend.
 
 As both projects are still undergoing development, we decided to mitigate potential delays through an additional Shopware plugin `SwagVueStorefront` which extends the Sales-Channel API. Eventually, once the core will provide those functionalities, the plugin will be dumped and not required anymore.
 
