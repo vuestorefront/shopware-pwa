@@ -4,11 +4,13 @@ import {
   logout as apiLogout,
   getCustomer,
   getCustomerOrders,
-  getCustomerOrderDetails
+  getCustomerOrderDetails,
+  getCustomerAddresses
 } from "@shopware-pwa/shopware-6-client";
 import { Customer } from "packages/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
 import { getStore } from "@shopware-pwa/composables";
 import { Order } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order";
+import { CustomerAddress } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress";
 
 interface UseUser {
   login: ({
@@ -27,6 +29,7 @@ interface UseUser {
   logout: () => Promise<void>;
   loadOrders: () => Promise<void>;
   getOrderDetails: (orderId: string) => Promise<Order>;
+  getAddresses: () => Promise<CustomerAddress[]>;
 }
 
 export const useUser = (): UseUser => {
@@ -81,6 +84,8 @@ export const useUser = (): UseUser => {
     return getCustomerOrderDetails(orderId);
   };
 
+  const getAddresses = (): Promise<CustomerAddress[]> => getCustomerAddresses();
+
   const isLoggedIn = computed(() => !!user.value);
 
   return {
@@ -93,6 +98,7 @@ export const useUser = (): UseUser => {
     logout,
     orders,
     loadOrders,
-    getOrderDetails
+    getOrderDetails,
+    getAddresses
   };
 };

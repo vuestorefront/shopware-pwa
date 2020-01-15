@@ -17,6 +17,8 @@ export * from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/cms
 export * from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
 export * from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchFilter";
 export * from "@shopware-pwa/shopware-6-client/src/interfaces/response/SearchResult";
+export * from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress";
+export * from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order";
 
 /**
  * Setup configuration. Merge default values with provided in param.
