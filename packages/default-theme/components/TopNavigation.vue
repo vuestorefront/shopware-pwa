@@ -1,11 +1,14 @@
 <template>
   <div class="top-navigation">
-    <slot v-bind="{ navigationElements, activeSidebar, activeIcon }">
       <SfHeader
         title="Shopware PWA"
-        logo="/img/logo.svg"
         active-sidebar="activeSidebar"
       >
+        <template #logo>
+          <nuxt-link to="/" class="sf-header__logo">
+            <SfImage src="/img/logo.svg" alt="Shopware PWA" class="sf-header__logo-image"/>
+          </nuxt-link>
+        </template>
         <template #navigation>
           <nuxt-link to="/"
             ><SfHeaderNavigationItem>Home</SfHeaderNavigationItem></nuxt-link
@@ -17,10 +20,6 @@
           >
             <SfHeaderNavigationItem>{{ element.name }}</SfHeaderNavigationItem>
           </nuxt-link>
-        </template>
-
-        <template #search>
-          <div class="search--blank"></div>
         </template>
 
         <template #header-icons="{accountIcon, wishlistIcon, cartIcon}">
@@ -66,30 +65,29 @@
                 aria-label="cart"
                 :aria-pressed="activeIcon === 'cart' ? 'true' : 'false'"
                 :has-badge="count > 0"
-                @click="toggle"
+                @click="toggleCart"
               >
                 <template #badge>
                   <SfBadge class="cart-icon__badge">{{ count }}</SfBadge>
                 </template>
               </SfCircleIcon>
             </div>
-          </div>
+           </div>
         </template>
       </SfHeader>
       <SwLoginModal :is-open="isModalOpen" @close="isModalOpen = false" />
-    </slot>
   </div>
 </template>
 
 <script>
 import slugify from 'slugify' // TODO: remove after the navigation is fully implemented
 import { getNavigation, getPage } from '@shopware-pwa/shopware-6-client'
-import { SfHeader, SfCircleIcon, SfBadge } from '@storefront-ui/vue'
+import { SfHeader, SfCircleIcon, SfBadge, SfImage } from '@storefront-ui/vue'
 import { useUser, useCart, useCartSidebar } from '@shopware-pwa/composables'
 import SwLoginModal from './modals/SwLoginModal'
 
 export default {
-  components: { SfHeader, SfCircleIcon, SfBadge, SwLoginModal },
+  components: { SfHeader, SfCircleIcon, SfBadge, SwLoginModal, SfImage },
   setup() {
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
@@ -97,7 +95,7 @@ export default {
     return {
       isOpen,
       count,
-      toggle,
+      toggleCart: toggle,
       isLoggedIn,
       logout
     }
@@ -157,10 +155,17 @@ export default {
       min-height: 2.2em;
     }
   }
-  .search--blank {
-    @include for-desktop {
-      width: 50%;
-    }
+  .sf-header__logo-image {
+    height: 100%;
+  }
+
+  .sf-image img {
+    height: 100%;
+  }
+
+  .sf-search-bar {
+    visibility: hidden;
   }
 }
+
 </style>
