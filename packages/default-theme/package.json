@@ -21,7 +21,6 @@
     }
   },
   "dependencies": {
-    "@babel/preset-env": "^7.8.2",
     "@nuxtjs/axios": "^5.9.0",
     "@nuxtjs/pwa": "^3.0.0-beta.19",
     "@shopware-pwa/composables": "^0.1.0",
