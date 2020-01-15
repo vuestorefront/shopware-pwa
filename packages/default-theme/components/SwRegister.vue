@@ -3,8 +3,8 @@
     <div class="form sw-register">
       <h2 class="sw-register__header">Register</h2>
       <SfAlert
-        class="sw-register__alert"
         v-if="error"
+        class="sw-register__alert"
         type="danger"
         :message="error"
       />
@@ -25,71 +25,79 @@
       </SfSelect>
       <div class="input-group">
         <SfInput
-          v-model="$v.firstName.$model"
+          v-model="firstName"
           name="first-name"
           label="First Name"
           class="form__input"
           :valid="!$v.firstName.$error"
           error-message="First name is required"
+          @blur="$v.firstName.touch()"
         />
         <SfInput
-          v-model="$v.lastName.$model"
+          v-model="lastName"
           name="last-name"
           label="Last Name"
           class="form__input"
           :valid="!$v.lastName.$error"
           error-message="Last name is required"
+          @blur="$v.lastName.touch()"
         />
         <SfInput
-          v-model="$v.email.$model"
+          v-model="email"
           name="email"
           label="Your email"
           class="form__input"
           :valid="!$v.email.$error"
           error-message="Proper email is required"
+          @blur="$v.email.touch()"
         />
       </div>
       <SfInput
-        v-model="$v.password.$model"
+        v-model="password"
         name="password"
         label="Password"
         type="password"
         class="form__input"
         :valid="!$v.password.$error"
         error-message="Minimum password length is 4 characters"
+        @blur="$v.password.touch()"
       />
       <div class="input-group">
         <SfInput
-          v-model="$v.street.$model"
+          v-model="street"
           name="street"
           label="Street"
           class="form__input"
           :valid="!$v.street.$error"
           error-message="Street is required"
+          @blur="$v.street.touch()"
         />
         <SfInput
-          v-model="$v.city.$model"
+          v-model="city"
           name="city"
           label="City"
           class="form__input"
           :valid="!$v.city.$error"
           error-message="City is required"
+          @blur="$v.city.touch()"
         />
         <SfInput
-          v-model="$v.zipcode.$model"
+          v-model="zipcode"
           name="zipcode"
           label="Zip Code"
           class="form__input"
           :valid="!$v.zipcode.$error"
           error-message="Zipcode is required."
+          @blur="$v.zipcode.touch()"
         />
       </div>
       <SfSelect
-        v-model="$v.country.$model"
+        v-model="country"
         label="Country"
         class="sf-select--underlined form__input"
         :valid="!$v.country.$error"
         error-message="Country must be selected"
+        @blur="$v.country.touch()"
       >
         <SfSelectOption
           v-for="option in countries"
@@ -176,7 +184,7 @@ export default {
   methods: {
     async invokeRegister() {
       this.$v.$touch()
-      if (this.$v.$anyError) {
+      if (this.$v.$invalid) {
         this.error = 'Form is not valid'
         return
       }

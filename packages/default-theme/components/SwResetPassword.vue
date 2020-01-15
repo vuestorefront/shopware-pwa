@@ -9,12 +9,13 @@
         :message="error"
       />
       <SfInput
-        v-model="$v.email.$model"
+        v-model="email"
         name="email"
         label="Your email"
         class="form__input"
         :valid="!$v.email.$error"
         error-message="Valid email is required"
+        @blur="$v.email.$touch()"
       />
       <SfButton
         class="sf-button--full-width form__button"

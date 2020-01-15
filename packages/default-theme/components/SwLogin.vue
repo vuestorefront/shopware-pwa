@@ -9,16 +9,17 @@
         :message="error"
       />
       <SfInput
-        v-model="$v.login.$model"
+        v-model="login"
         name="login"
         label="Your login"
         class="form__input"
         :valid="!$v.login.$error"
         :disabled="isLoading"
         error-message="Login is required"
+        @blur="$v.login.$touch()"
       />
       <SfInput
-        v-model="$v.password.$model"
+        v-model="password"
         name="password"
         label="Password"
         type="password"
@@ -26,6 +27,7 @@
         :valid="!$v.password.$error"
         :disabled="isLoading"
         error-message="Password is required"
+        @blur="$v.password.$touch()"
       />
       <SfButton
         class="sf-button--full-width form__button"
@@ -73,7 +75,7 @@ export default {
   methods: {
     async invokeLogin() {
       this.$v.$touch()
-      if (this.$v.$anyError) {
+      if (this.$v.$invalid) {
         this.error = 'Form is not valid'
         return
       }
