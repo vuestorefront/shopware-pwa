@@ -124,7 +124,7 @@ export default {
       )
     },
     async userIconClick() {
-      if (this.isLoggedIn) this.logout()
+      if (this.isLoggedIn) this.$router.push("account")
       else this.isModalOpen = true
     }
   }

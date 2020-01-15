@@ -28,7 +28,8 @@ import {
   getNewsletterSubscribeEndpoint,
   getNewsletterUnsubscribeEndpoint,
   getProductsIdsEndpoint,
-  getNavigationEndpoint
+  getNavigationEndpoint,
+  getCustomerOrderDetailsEndpoint
 } from "../src/endpoints";
 
 const sampleProductId = "eea0f69ec02d44f7a4224272b3d99478";
@@ -142,6 +143,13 @@ describe("endpoints", () => {
     it("should return Shopware customer order endpoint", async () => {
       const result = getCustomerOrderEndpoint();
       expect(result).toEqual("/customer/order");
+    });
+  });
+
+  describe("getCustomerOrderDetailsEndpoint", () => {
+    it("should return Shopware customer order details endpoint", async () => {
+      const result = getCustomerOrderDetailsEndpoint("12345-ab");
+      expect(result).toEqual("/checkout/guest-order/12345-ab");
     });
   });
 
