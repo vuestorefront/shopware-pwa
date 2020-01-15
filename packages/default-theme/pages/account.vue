@@ -47,13 +47,8 @@ export default {
   components: { OrderHistory, SfContentPages, SfTabs, MyProfile, SfList, Address },
   middleware: "auth",
   setup() {
-<<<<<<< HEAD
     const { logout, user, getAddresses, loadOrders, orders } = useUser()
     return { logout, user, getAddresses, loadOrders, orders }
-=======
-    const { logout, user, getAddresses } = useUser()
-    return { logout, user, getAddresses }
->>>>>>> 1016c93ec46e99368da213c75ed0675c6cd4acb7
   },
   data() {
     return {
@@ -83,10 +78,6 @@ export default {
   }
 }
 </script>
-<<<<<<< HEAD
-
-=======
->>>>>>> 1016c93ec46e99368da213c75ed0675c6cd4acb7
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
 @import '~@storefront-ui/shared/styles/helpers/visibility';
