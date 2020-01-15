@@ -36,10 +36,11 @@
 </template>
 
 <script>
-import { SfButton, SfModal, SfAlert } from "@storefront-ui/vue";
-import SwLogin from "~/components/SwLogin";
-import SwRegister from "../SwRegister";
-import SwResetPassword from "../SwResetPassword";
+import { SfButton, SfModal, SfAlert } from "@storefront-ui/vue"
+import SwLogin from "~/components/SwLogin"
+import SwRegister from "../SwRegister"
+import SwResetPassword from "../SwResetPassword"
+import { useUser } from '@shopware-pwa/composables'
 
 export default {
   components: { SfAlert, SfButton, SfModal,  SwLogin, SwRegister, SwResetPassword },
@@ -72,12 +73,18 @@ export default {
     }
   },
   watch: {
-    component: {
-      immediate: true,
-      handler() {
-        console.log('hello')
+    isOpen: {
+      handler(oldVal, newVal) {
+        if (oldVal === true) {
+          this.component = 'SwLogin'
+        } 
       }
     }
+  },
+  methods: {
+    closeHandler() {
+      typeof this.onClose !== "undefined" && this.onClose() || this.$emit('close');
+    },
   }
 }
 </script>

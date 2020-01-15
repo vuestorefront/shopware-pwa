@@ -2,15 +2,11 @@ import { ref, Ref, computed } from "@vue/composition-api";
 import {
   login as apiLogin,
   logout as apiLogout,
-<<<<<<< HEAD
+  register as apiRegister,
   getCustomer,
   getCustomerOrders,
   getCustomerOrderDetails,
-  getCustomerAddresses
-=======
-  register as apiRegister,
-  getCustomer
->>>>>>> feat(theme): create compontents for user login
+  getCustomerAddresses,
 } from "@shopware-pwa/shopware-6-client";
 import { Customer } from "packages/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
 import { getStore } from "@shopware-pwa/composables";

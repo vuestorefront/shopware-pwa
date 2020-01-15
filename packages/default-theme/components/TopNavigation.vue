@@ -1,5 +1,6 @@
 <template>
   <div class="top-navigation">
+    <slot v-bind="{ navigationElements, activeSidebar, activeIcon }">
       <SfHeader
         title="Shopware PWA"
         active-sidebar="activeSidebar"
@@ -75,16 +76,8 @@
            </div>
         </template>
       </SfHeader>
-<<<<<<< HEAD
-<<<<<<< HEAD
       <SwLoginModal :is-open="isModalOpen" @close="isModalOpen = false" />
-=======
-      <SwLoginUserModal :is-open="isModalOpen" @close="isModalOpen = false" />
-=======
-      <SwLoginModal :is-open="isModalOpen" @close="isModalOpen = false" />
->>>>>>> refactor(theme): refactor login modal
     </slot>
->>>>>>> feat(theme): create compontents for user login
   </div>
 </template>
 
@@ -96,15 +89,7 @@ import { useUser, useCart, useCartSidebar } from '@shopware-pwa/composables'
 import SwLoginModal from './modals/SwLoginModal'
 
 export default {
-<<<<<<< HEAD
-<<<<<<< HEAD
   components: { SfHeader, SfCircleIcon, SfBadge, SwLoginModal, SfImage },
-=======
-  components: { SfHeader, SfCircleIcon, SfBadge, SwLoginUserModal },
->>>>>>> feat(theme): create compontents for user login
-=======
-  components: { SfHeader, SfCircleIcon, SfBadge, SwLoginModal },
->>>>>>> refactor(theme): refactor login modal
   setup() {
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
