@@ -71,6 +71,14 @@ export default {
       component: 'SwLogin'
     }
   },
+  watch: {
+    component: {
+      immediate: true,
+      handler() {
+        console.log('hello')
+      }
+    }
+  }
 }
 </script>
 
