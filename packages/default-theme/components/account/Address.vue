@@ -25,7 +25,6 @@ import { SfList, SfProperty, SfBadge, SfDivider } from '@storefront-ui/vue'
 import { VuelidateMixin } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import { useUser } from '@shopware-pwa/composables'
-import { CustomerAddress } from '@shopware-pwa/shopware-6-client'
 
 export default {
   name: "Address",
@@ -33,7 +32,7 @@ export default {
   components: {SfList, SfProperty, SfBadge, SfDivider},
   props: {
     address: {
-      type: CustomerAddress,
+      type: Object,
       default: {}
     }
   },
