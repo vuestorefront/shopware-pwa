@@ -22,7 +22,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     {
       "name": "shopware-pwa-project",
       "description": "shopware-pwa-project description",
-      "author": "VueStorefront",
+      "author": "Vue Storefront",
       "pm": "yarn",
       "ui": "none",
       "server": "none",

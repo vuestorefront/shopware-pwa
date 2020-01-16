@@ -6,7 +6,7 @@ const { build } = require("gluegun");
 async function run(argv) {
   // create a CLI runtime
   const cli = build()
-    .brand("cli")
+    .brand("shopware-pwa")
     .src(__dirname)
     .plugins("./node_modules", { matching: "shopware-pwa-*", hidden: true })
     .help() // provides default for help, h, --help, -h
