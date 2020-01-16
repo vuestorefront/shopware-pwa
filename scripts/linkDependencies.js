@@ -9,6 +9,7 @@ const apiClientDir = path.resolve(__dirname, "../packages/shopware-6-client");
 const composablesDir = path.resolve(__dirname, "../packages/composables");
 // const defaultThemeDir = path.resolve(__dirname, "../packages/default-theme");
 const helpersDir = path.resolve(__dirname, "../packages/helpers");
+const cliDir = path.resolve(__dirname, "../packages/cli");
 
 const nuxtPackageCoreDir = path.resolve(
   __dirname,
@@ -63,6 +64,14 @@ async function run() {
   //   stdio: "inherit",
   //   cwd: defaultThemeDir
   // });
+
+  /**
+   * Link CLI dir
+   */
+  await execa("yarn", ["link"], {
+    stdio: "inherit",
+    cwd: cliDir
+  });
 
   /**
    * link local storefront-ui
