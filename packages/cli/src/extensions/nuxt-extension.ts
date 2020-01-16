@@ -15,9 +15,9 @@ module.exports = (toolbox: GluegunToolbox) => {
    * - provide params, which can be used in answers JSON
    */
   toolbox.generateNuxtProject = async () => {
+    const spinner = spin("Preparing Nuxt project");
     const isNuxtGenerated = exists("nuxt.config.js");
     if (!isNuxtGenerated) {
-      const spinner = spin("Preparing Nuxt project");
       const nuxtGenerate = `npx create-nuxt-app --answers '
     {
       "name": "shopware-pwa-project",
@@ -40,7 +40,11 @@ module.exports = (toolbox: GluegunToolbox) => {
     }
     '`;
       await run(nuxtGenerate);
-      spinner.succeed("Nuxt project prepared");
+      spinner.succeed();
+    } else {
+      spinner.succeed(
+        "Preparing Nuxt project: project is already created. Remove `nuxt.config.js` to regenerate whole project."
+      );
     }
   };
 
