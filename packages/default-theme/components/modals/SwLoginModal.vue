@@ -1,24 +1,27 @@
 <template>
   <SfModal
-    :visible="isOpen"
+    :visible="isModalOpen"
+    transition-overlay="fade"
+    transition-modal="fade"
     @close="closeHandler()"
-    transitionOverlay="fade"
-    transitionModal="fade"
-    >
-    <div> Login into your account </div>
-    <SfAlert
-      v-if="error"
-      type="danger"
-      :message="error"
-    />
+  >
+    <div>Login into your account</div>
+    <SfAlert v-if="error" type="danger" :message="error" />
     <SfInput
       v-model="login"
       label="Login"
       :valid="!$v.login.$invalid"
       error-message="Login is required."
-      :disabled="isLoading">
+      :disabled="isLoading"
+    >
       <template #errorMessage="{ errorMessage }">
-        <SfIcon icon="info_shield" size="10px" color="#E22326" style="margin-right: 4px; display: inline-block"/> {{errorMessage}}
+        <SfIcon
+          icon="info_shield"
+          size="10px"
+          color="#E22326"
+          style="margin-right: 4px; display: inline-block"
+        />
+        {{ errorMessage }}
       </template>
     </SfInput>
     <SfInput
@@ -27,32 +30,41 @@
       :valid="!$v.password.$invalid"
       error-message="Password is required."
       :disabled="isLoading"
-      type="password">
+      type="password"
+    >
       <template #errorMessage="{ errorMessage }">
-        <SfIcon icon="info_shield" size="10px" color="#E22326" style="margin-right: 4px; display: inline-block"/> {{errorMessage}}
+        <SfIcon
+          icon="info_shield"
+          size="10px"
+          color="#E22326"
+          style="margin-right: 4px; display: inline-block"
+        />
+        {{ errorMessage }}
       </template>
     </SfInput>
-    <SfButton :disabled="isLoading || $v.$invalid" @click="invokeLogin"> 
-      Login 
+    <SfButton :disabled="isLoading || $v.$invalid" @click="invokeLogin">
+      Login
     </SfButton>
     <SfLoader :loading="isLoading" />
   </SfModal>
 </template>
 <script>
-
-import { SfIcon, SfModal, SfInput, SfButton, SfLoader, SfAlert } from '@storefront-ui/vue'
+import {
+  SfIcon,
+  SfModal,
+  SfInput,
+  SfButton,
+  SfLoader,
+  SfAlert
+} from '@storefront-ui/vue'
 import { VuelidateMixin } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
-import { useUser } from '@shopware-pwa/composables'
+import { useUser, useUserLoginModal } from '@shopware-pwa/composables'
 
 export default {
-  mixins: [VuelidateMixin],
   components: { SfIcon, SfModal, SfInput, SfButton, SfLoader, SfAlert },
+  mixins: [VuelidateMixin],
   props: {
-    isOpen: {
-      type: Boolean,
-      default: false
-    },
     onClose: {
       type: Function,
       default: undefined
@@ -63,17 +75,21 @@ export default {
     }
   },
   setup() {
-    const {login, loading, error} = useUser()
+    const { login, loading, error } = useUser()
+    const { isModalOpen, toggleModal } = useUserLoginModal()
+
     return {
       clientLogin: login,
       isLoading: loading,
+      toggleModal,
+      isModalOpen,
       error
     }
   },
   data() {
     return {
       login: '',
-      password: '',
+      password: ''
     }
   },
   validations: {
@@ -86,12 +102,17 @@ export default {
   },
   methods: {
     closeHandler() {
-      typeof this.onClose !== "undefined" && this.onClose() || this.$emit('close');
+      ;(typeof this.onClose !== 'undefined' && this.onClose()) ||
+        this.toggleModal()
     },
     async invokeLogin() {
-      const loggedIn = await this.clientLogin({username: this.login, password: this.password})
-      if (loggedIn) { 
-       typeof this.onSuccess !== "undefined" && this.onSuccess() || this.$emit('close')
+      const loggedIn = await this.clientLogin({
+        username: this.login,
+        password: this.password
+      })
+      if (loggedIn) {
+        ;(typeof this.onSuccess !== 'undefined' && this.onSuccess()) ||
+          this.toggleModal()
       }
     }
   }

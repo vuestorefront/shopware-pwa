@@ -1,12 +1,14 @@
 <template>
   <div class="top-navigation">
-      <SfHeader
-        title="Shopware PWA"
-        active-sidebar="activeSidebar"
-      >
+    <slot v-bind="{ navigationElements, activeSidebar, activeIcon }">
+      <SfHeader title="Shopware PWA" active-sidebar="activeSidebar">
         <template #logo>
           <nuxt-link to="/" class="sf-header__logo">
-            <SfImage src="/img/logo.svg" alt="Shopware PWA" class="sf-header__logo-image"/>
+            <SfImage
+              src="/img/logo.svg"
+              alt="Shopware PWA"
+              class="sf-header__logo-image"
+            />
           </nuxt-link>
         </template>
         <template #navigation>
@@ -36,21 +38,6 @@
               :has-badge="isLoggedIn"
               @click="userIconClick"
             />
-            <SfCircleIcon
-              v-if="wishlistIcon"
-              :icon="wishlistIcon"
-              icon-size="20px"
-              icon-color="black"
-              class="sf-header__icon"
-              :class="{
-                'sf-header__icon--is-active': activeIcon === 'wishlist'
-              }"
-              role="button"
-              aria-label="wishlist"
-              :aria-pressed="activeIcon === 'wishlist' ? 'true' : 'false'"
-              @click="$emit('click:wishlist')"
-            />
-
             <div
               class="top-navigation__header-icon header-icons__cart cart-icon"
             >
@@ -65,25 +52,31 @@
                 aria-label="cart"
                 :aria-pressed="activeIcon === 'cart' ? 'true' : 'false'"
                 :has-badge="count > 0"
-                @click="toggleCart"
+                @click="toggleSidebar"
               >
                 <template #badge>
                   <SfBadge class="cart-icon__badge">{{ count }}</SfBadge>
                 </template>
               </SfCircleIcon>
             </div>
-           </div>
+          </div>
         </template>
       </SfHeader>
       <SwLoginModal :is-open="isModalOpen" @close="isModalOpen = false" />
+    </slot>
   </div>
 </template>
 
 <script>
 import slugify from 'slugify' // TODO: remove after the navigation is fully implemented
-import { getNavigation, getPage } from '@shopware-pwa/shopware-6-client'
+import { getNavigation } from '@shopware-pwa/shopware-6-client'
 import { SfHeader, SfCircleIcon, SfBadge, SfImage } from '@storefront-ui/vue'
-import { useUser, useCart, useCartSidebar } from '@shopware-pwa/composables'
+import {
+  useUser,
+  useCart,
+  useCartSidebar,
+  useUserLoginModal
+} from '@shopware-pwa/composables'
 import SwLoginModal from './modals/SwLoginModal'
 
 export default {
@@ -91,11 +84,13 @@ export default {
   setup() {
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
-    const { toggle, isOpen } = useCartSidebar()
+    const { toggleSidebar } = useCartSidebar()
+    const { toggleModal } = useUserLoginModal()
+
     return {
-      isOpen,
       count,
-      toggleCart: toggle,
+      toggleModal,
+      toggleSidebar,
       isLoggedIn,
       logout
     }
@@ -113,17 +108,19 @@ export default {
     this.navigationElements = children
   },
   methods: {
-    convertToSlug(name) { // temporary workaround; won't be useful once the pretty urls are received within navigation endpoint
+    convertToSlug(name) {
+      // temporary workaround; won't be useful once the pretty urls are received within navigation endpoint
       return (
         '/' +
         slugify(name, {
           remove: /and|[*+~.,()'"!:@]/g
-        }).toLowerCase() + '/'
+        }).toLowerCase() +
+        '/'
       )
     },
     async userIconClick() {
-      if (this.isLoggedIn) this.$router.push("/account")
-      else this.isModalOpen = true
+      if (this.isLoggedIn) this.$router.push('account')
+      else this.toggleModal()
     }
   }
 }
@@ -167,5 +164,4 @@ export default {
     visibility: hidden;
   }
 }
-
 </style>

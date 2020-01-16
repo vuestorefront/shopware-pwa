@@ -1,45 +1,53 @@
 <template>
   <div id="layout">
-    <TopNavigation/>
+    <TopNavigation />
     <SfBreadcrumbs
-       v-show="getBreadcrumbs.length > 0"
+      v-show="getBreadcrumbs.length > 0"
       :breadcrumbs="getBreadcrumbs"
-      class="sw-breadcrumbs"/>
+      class="sw-breadcrumbs"
+    />
     <nuxt />
     <SwCart />
     <SwFooter />
+    <SwBottomNavigation />
   </div>
 </template>
 
 <script>
-import TopNavigation from "../components/TopNavigation";
-import SwCart from "../components/SwCart";
-import SwFooter from "../components/cms/elements/SwFooter";
-import { SfBreadcrumbs } from "@storefront-ui/vue";
-import { useCart } from "@shopware-pwa/composables";
+import { SfBreadcrumbs } from '@storefront-ui/vue'
+import TopNavigation from '../components/TopNavigation'
+import SwBottomNavigation from '../components/SwBottomNavigation'
+import SwCart from '../components/SwCart'
+import SwFooter from '../components/cms/elements/SwFooter'
 
 export default {
   components: {
-    TopNavigation,
     SfBreadcrumbs,
+    TopNavigation,
     SwCart,
-    SwFooter
+    SwFooter,
+    SwBottomNavigation
   },
   computed: {
-    componentBreadcrumbs () { // TODO probably move to vuex now as it's not rendered on server side
-      return this.$route.matched.map((r) => {
-        return r.components.default.options.data().breadcrumbs
-      })[0] || {}
+    componentBreadcrumbs() {
+      // TODO probably move to vuex now as it's not rendered on server side
+      return (
+        this.$route.matched.map((r) => {
+          return r.components.default.options.data().breadcrumbs
+        })[0] || {}
+      )
     },
-    getBreadcrumbs () {
-      return Object.keys(this.componentBreadcrumbs).map(key => this.componentBreadcrumbs[key]).map(breadcrumb => ({
-        text: breadcrumb.name,
-        route: {
-          link: breadcrumb.path
-        }
-      }))
+    getBreadcrumbs() {
+      return Object.keys(this.componentBreadcrumbs)
+        .map((key) => this.componentBreadcrumbs[key])
+        .map((breadcrumb) => ({
+          text: breadcrumb.name,
+          route: {
+            link: breadcrumb.path
+          }
+        }))
     }
-  },
+  }
 }
 </script>
 
@@ -75,6 +83,10 @@ body {
 }
 
 /* Delete firefox outline */
-:focus {outline:none;}
-::-moz-focus-inner {border:0;}
+:focus {
+  outline: none;
+}
+::-moz-focus-inner {
+  border: 0;
+}
 </style>

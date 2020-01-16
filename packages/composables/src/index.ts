@@ -6,6 +6,7 @@ export * from "./hooks/useCategoryFilters";
 export * from "./hooks/useUser";
 export * from "./hooks/useProductListing";
 export * from "./theme/cart/useCartSidebar";
+export * from "./theme/user/useUserLoginModal";
 
 /**
  * Workaround for current reactivity problems with SSR for Nuxt.

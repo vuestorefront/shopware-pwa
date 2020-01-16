@@ -1,13 +1,8 @@
 import Vue from "vue";
-import VueCompositionApi, {
-  computed,
-  ref,
-  Ref,
-  reactive
-} from "@vue/composition-api";
+import VueCompositionApi, { ref, Ref } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
-import { useCartSidebar, setStore } from "@shopware-pwa/composables";
+import { useCartSidebar } from "@shopware-pwa/composables";
 
 describe("Composables - useCartSidebar", () => {
   const stateCartSidebarOpen: Ref<boolean> = ref(false);
@@ -15,15 +10,8 @@ describe("Composables - useCartSidebar", () => {
     // mock vuex store
     jest.resetAllMocks();
     stateCartSidebarOpen.value = false;
-    setStore({
-      getters: reactive({
-        getIsCartSidebarOpen: computed(() => stateCartSidebarOpen.value)
-      }),
-      commit: (name: string, value: any) => {
-        stateCartSidebarOpen.value = value;
-      }
-    });
   });
+
   describe("computed", () => {
     describe("isOpen", () => {
       it("should be false when not set", () => {
