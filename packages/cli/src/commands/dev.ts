@@ -4,7 +4,7 @@ const command: GluegunCommand = {
   name: "dev",
   run: async toolbox => {
     const {
-      system: { run },
+      system: { spawn },
       print: { info }
     } = toolbox;
 
@@ -14,7 +14,9 @@ const command: GluegunCommand = {
       toolbox.watchThemeFolder(themeFolder)
     );
 
-    await run("yarn dev");
+    spawn("yarn dev", {
+      stdio: "inherit"
+    });
   }
 };
 
