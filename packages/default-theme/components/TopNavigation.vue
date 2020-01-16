@@ -122,7 +122,7 @@ export default {
       )
     },
     async userIconClick() {
-      if (this.isLoggedIn) this.$router.push("account")
+      if (this.isLoggedIn) this.$router.push("/account")
       else this.isModalOpen = true
     }
   }
