@@ -72,6 +72,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       // "@shopware-pwa/composables",
       // "@shopware-pwa/helpers",
       "@shopware-pwa/shopware-6-client",
+      "@vue/composition-api",
       "@storefront-ui/vue",
       "@vuelidate/core",
       "@vuelidate/validators",
