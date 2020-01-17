@@ -1,5 +1,5 @@
 import { getPage } from "@shopware-pwa/shopware-6-client";
-import { deepChangeProperties } from "../helpers";
+import { deepChangeProperties, deepEscapeProperties } from "../helpers";
 describe("shopware-6-client - E2E - PageService - getPage", () => {
   it("should test / page response", async () => {
     const result = await getPage("");
@@ -8,9 +8,23 @@ describe("shopware-6-client - E2E - PageService - getPage", () => {
       "categoryTree",
       "listingPrices",
       "min",
-      "cover"
+      "cover",
+      "thumbnailsRo",
+      "value"
     ]);
-    expect(result).toMatchSnapshot();
+    deepEscapeProperties(result, ["content"]);
+
+    expect(result).toMatchSnapshot({
+      cmsPage: {
+        _uniqueIdentifier: expect.any(String),
+        name: expect.any(String),
+        id: expect.any(String),
+        updatedAt: expect.any(String),
+        translated: {
+          name: expect.any(String)
+        }
+      }
+    });
   });
 
   it("should test product page response", async () => {
@@ -19,7 +33,8 @@ describe("shopware-6-client - E2E - PageService - getPage", () => {
       "availableStock",
       "categoryTree",
       "listingPrices",
-      "min"
+      "min",
+      "thumbnailsRo"
     ]);
     expect(result).toMatchSnapshot();
   });

@@ -9,6 +9,22 @@ export function deepChangeProperty(
   deepChangeProperties(obj, [property, value]);
 }
 
+export function escapeQuotes(value: string) {
+  return value.split('"').join("'");
+}
+
+export function deepEscapeProperties(obj: any, properties: string[]) {
+  for (var prop in obj) {
+    if (properties.includes(prop)) {
+      if (typeof obj[prop] == "string") {
+        obj[prop] = escapeQuotes(obj[prop]);
+      }
+    } else if (obj[prop] && obj[prop] === Object(obj[prop])) {
+      deepEscapeProperties(obj[prop], properties);
+    }
+  }
+}
+
 export function deepChangeProperties(
   obj: any,
   properties: string[],
