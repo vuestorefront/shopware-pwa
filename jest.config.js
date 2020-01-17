@@ -26,6 +26,7 @@ module.exports = {
   collectCoverageFrom: [
     "packages/*/src/**/*.ts",
     "!packages/default-template/**",
+    "!packages/cli/**",
     "!**/interfaces/**"
   ],
   watchPathIgnorePatterns: ["/node_modules/"],

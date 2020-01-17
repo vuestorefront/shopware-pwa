@@ -19,7 +19,6 @@ import { SfProperty, SfButton, SfBadge } from '@storefront-ui/vue'
 import { VuelidateMixin } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import { useUser } from '@shopware-pwa/composables'
-import { Order } from '@shopware-pwa/shopware-6-client'
 
 export default {
   name: "OrderDetail",
@@ -27,7 +26,7 @@ export default {
   components: {SfButton, SfProperty, SfBadge},
   props: {
     order: {
-      type: Order,
+      type: Object,
       default: null
     }
   },

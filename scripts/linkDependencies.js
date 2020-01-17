@@ -7,8 +7,9 @@ const path = require("path");
 
 const apiClientDir = path.resolve(__dirname, "../packages/shopware-6-client");
 const composablesDir = path.resolve(__dirname, "../packages/composables");
-const defaultThemeDir = path.resolve(__dirname, "../packages/default-theme");
+// const defaultThemeDir = path.resolve(__dirname, "../packages/default-theme");
 const helpersDir = path.resolve(__dirname, "../packages/helpers");
+const cliDir = path.resolve(__dirname, "../packages/cli");
 
 const nuxtPackageCoreDir = path.resolve(
   __dirname,
@@ -23,10 +24,10 @@ async function run() {
     stdio: "inherit",
     cwd: apiClientDir
   });
-  await execa("yarn", ["link", "@shopware-pwa/shopware-6-client"], {
-    stdio: "inherit",
-    cwd: defaultThemeDir
-  });
+  // await execa("yarn", ["link", "@shopware-pwa/shopware-6-client"], {
+  //   stdio: "inherit",
+  //   cwd: defaultThemeDir
+  // });
 
   /**
    * Link composables
@@ -35,10 +36,10 @@ async function run() {
     stdio: "inherit",
     cwd: composablesDir
   });
-  await execa("yarn", ["link", "@shopware-pwa/composables"], {
-    stdio: "inherit",
-    cwd: defaultThemeDir
-  });
+  // await execa("yarn", ["link", "@shopware-pwa/composables"], {
+  //   stdio: "inherit",
+  //   cwd: defaultThemeDir
+  // });
 
   /**
    * link core nuxt-module package
@@ -47,10 +48,10 @@ async function run() {
     stdio: "inherit",
     cwd: nuxtPackageCoreDir
   });
-  await execa("yarn", ["link", "@vue-storefront/nuxt"], {
-    stdio: "inherit",
-    cwd: defaultThemeDir
-  });
+  // await execa("yarn", ["link", "@vue-storefront/nuxt"], {
+  //   stdio: "inherit",
+  //   cwd: defaultThemeDir
+  // });
 
   /**
    * Link helpers
@@ -59,9 +60,17 @@ async function run() {
     stdio: "inherit",
     cwd: helpersDir
   });
-  await execa("yarn", ["link", "@shopware-pwa/helpers"], {
+  // await execa("yarn", ["link", "@shopware-pwa/helpers"], {
+  //   stdio: "inherit",
+  //   cwd: defaultThemeDir
+  // });
+
+  /**
+   * Link CLI dir
+   */
+  await execa("yarn", ["link"], {
     stdio: "inherit",
-    cwd: defaultThemeDir
+    cwd: cliDir
   });
 
   /**

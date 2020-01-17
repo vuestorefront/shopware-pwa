@@ -11,6 +11,9 @@
 
 See [the documentation](https://shopware-pwa-docs.netlify.com/#introduction-to-shopware-pwa) to get started.
 
+### Quick start
+Read instruction in `CHEATSHEET.md` file
+
 ### Development
 
 Just type `yarn` to install node dependencies and run the post-install script that links unpublished packages. Now, you're ready to develop. You can watch the compilation process by running `yarn dev` or `yarn dev:<package-name> `to specify the package that you will be working on.  

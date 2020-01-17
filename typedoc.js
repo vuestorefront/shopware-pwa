@@ -3,7 +3,7 @@ module.exports = {
 
   readme: "./README.md",
   includes: "./",
-  exclude: "**/__tests__/**",
+  exclude: "**/+(__tests__|cli)/**",
   mode: "file",
   excludePrivate: true,
   theme: "vuepress",
