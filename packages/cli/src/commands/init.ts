@@ -30,6 +30,7 @@ module.exports = {
     await run(`yarn link @shopware-pwa/composables`);
     await run(`yarn link @shopware-pwa/helpers`);
     await run(`yarn link @shopware-pwa/shopware-6-client`);
+    await run(`yarn link @shopware-pwa/default-theme`);
     await run(`yarn link @vue-storefront/nuxt`);
 
     // Loading additional packages

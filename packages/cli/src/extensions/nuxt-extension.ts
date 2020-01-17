@@ -71,6 +71,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     const packageDependenciesToUpdate = [
       // "@shopware-pwa/composables",
       // "@shopware-pwa/helpers",
+      // "@shopware-pwa/default-theme",
       "@shopware-pwa/shopware-6-client",
       "@vue/composition-api",
       "@storefront-ui/vue",
