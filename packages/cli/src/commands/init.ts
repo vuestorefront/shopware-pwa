@@ -12,6 +12,13 @@ module.exports = {
     await toolbox.generateNuxtProject();
 
     const updateConfigSpinner = spin("Updating Nuxt configuration");
+    // Adding Shopware PWA core dependencies
+    // TODO: run in production, link on local development
+    // await run(`yarn add ${toolbox.coreDependencyPackageNames.join(' ')}`);
+    // await run(`yarn add -D ${toolbox.coreDevDependencyPackageNames.join(' ')}`);
+    await run(`yarn link ${toolbox.coreDependencyPackageNames.join(" ")}`);
+    await run(`yarn link ${toolbox.coreDevDependencyPackageNames.join(" ")}`);
+
     await toolbox.removeDefaultNuxtFiles();
     await toolbox.updateNuxtPackageJson();
     await toolbox.updateNuxtConfigFile();
@@ -26,13 +33,6 @@ module.exports = {
     generateFilesSpinner.succeed();
 
     const updateDependenciesSpinner = spin("Updating dependencies");
-    // Linking local packages
-    await run(`yarn link @shopware-pwa/composables`);
-    await run(`yarn link @shopware-pwa/helpers`);
-    await run(`yarn link @shopware-pwa/shopware-6-client`);
-    await run(`yarn link @shopware-pwa/default-theme`);
-    await run(`yarn link @vue-storefront/nuxt`);
-
     // Loading additional packages
     await run(`yarn`);
     updateDependenciesSpinner.succeed();

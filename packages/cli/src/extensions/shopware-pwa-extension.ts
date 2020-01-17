@@ -7,9 +7,17 @@ module.exports = (toolbox: GluegunToolbox) => {
     toolbox.print.info("called foo extension");
   };
 
+  toolbox.coreDependencyPackageNames = [
+    "@shopware-pwa/composables",
+    "@shopware-pwa/helpers",
+    "@shopware-pwa/shopware-6-client",
+    "@shopware-pwa/default-theme"
+  ];
+  toolbox.coreDevDependencyPackageNames = ["@vue-storefront/nuxt"];
+
   toolbox.themeFolders = ["components", "layouts", "pages", "store", "assets"];
 
-  toolbox.defaultThemeLocation = `${toolbox.meta.src}/../../default-theme`;
+  toolbox.defaultThemeLocation = `node_modules/@shopware-pwa/default-theme`;
   // enable this if you want to read configuration in from
   // the current folder's package.json (in a "shopware-pwa" property),
   // shopware-pwa.config.json, etc.
