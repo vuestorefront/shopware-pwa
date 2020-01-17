@@ -26,13 +26,9 @@ export interface CustomerRegisterResponse {
  */
 export async function register(
   params: CustomerRegistrationParams
-): Promise<CustomerRegisterResponse | Error> {
-  try {
+): Promise<CustomerRegisterResponse> {
   const resp = await apiService.post(getCustomerEndpoint(), params);
   return resp.data;
-  } catch(e) {
-    throw new Error('Could not created new accout for provieded informations')
-  }
 }
 
 /**
