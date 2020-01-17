@@ -31,7 +31,7 @@
           class="form__input"
           :valid="!$v.firstName.$error"
           error-message="First name is required"
-          @blur="$v.firstName.touch()"
+          @blur="$v.firstName.$touch()"
         />
         <SfInput
           v-model="lastName"
@@ -40,7 +40,7 @@
           class="form__input"
           :valid="!$v.lastName.$error"
           error-message="Last name is required"
-          @blur="$v.lastName.touch()"
+          @blur="$v.lastName.$touch()"
         />
         <SfInput
           v-model="email"
@@ -49,7 +49,7 @@
           class="form__input"
           :valid="!$v.email.$error"
           error-message="Proper email is required"
-          @blur="$v.email.touch()"
+          @blur="$v.email.$touch()"
         />
       </div>
       <SfInput
@@ -60,7 +60,7 @@
         class="form__input"
         :valid="!$v.password.$error"
         error-message="Minimum password length is 4 characters"
-        @blur="$v.password.touch()"
+        @blur="$v.password.$touch()"
       />
       <div class="input-group">
         <SfInput
@@ -70,7 +70,7 @@
           class="form__input"
           :valid="!$v.street.$error"
           error-message="Street is required"
-          @blur="$v.street.touch()"
+          @blur="$v.street.$touch()"
         />
         <SfInput
           v-model="city"
@@ -79,7 +79,7 @@
           class="form__input"
           :valid="!$v.city.$error"
           error-message="City is required"
-          @blur="$v.city.touch()"
+          @blur="$v.city.$touch()"
         />
         <SfInput
           v-model="zipcode"
@@ -88,7 +88,7 @@
           class="form__input"
           :valid="!$v.zipcode.$error"
           error-message="Zipcode is required."
-          @blur="$v.zipcode.touch()"
+          @blur="$v.zipcode.$touch()"
         />
       </div>
       <SfSelect
@@ -97,7 +97,7 @@
         class="sf-select--underlined form__input"
         :valid="!$v.country.$error"
         error-message="Country must be selected"
-        @blur="$v.country.touch()"
+        @blur="$v.country.$touch()"
       >
         <SfSelectOption
           v-for="option in countries"
@@ -130,6 +130,8 @@ export default {
   mixins: [validationMixin],
   data() {
     return {
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
       salutation: null,
@@ -148,6 +150,26 @@ export default {
       clientRegister: register,
       isLoading: loading,
       error
+    }
+  },
+  computed: {
+    mapCustomerInforations() {
+      return {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        password: this.password,
+        salutationId: this.salutation.id,
+        billingAddress: {
+          firstName: this.firstName,
+          salutationId: this.salutation.id,
+          lastName: this.lastName,
+          city: this.city,
+          street: this.street,
+          zipcode: this.zipcode,
+          countryId: this.country.id
+        }
+      }
     }
   },
   validations: {
@@ -185,20 +207,9 @@ export default {
     async invokeRegister() {
       this.$v.$touch()
       if (this.$v.$invalid) {
-        this.error = 'Form is not valid'
         return
       }
-      const registeredIn = await this.clientRegister({
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-        password: this.password,
-        salutationId: this.salutation.id,
-        street: this.street,
-        zipcode: this.zipcode,
-        city: this.city,
-        countryId: this.country.id
-      })
+      const registeredIn = await this.clientRegister(this.mapCustomerInforations)
       if (registeredIn) {
         await this.clientLogin({
           username: this.email,

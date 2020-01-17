@@ -6,12 +6,13 @@ import {
   getCustomer,
   getCustomerOrders,
   getCustomerOrderDetails,
-  getCustomerAddresses,
+  getCustomerAddresses
 } from "@shopware-pwa/shopware-6-client";
-import { Customer } from "packages/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
+import { Customer } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
 import { getStore } from "@shopware-pwa/composables";
 import { Order } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order";
 import { CustomerAddress } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress";
+import { CustomerRegistrationParams } from "@shopware-pwa/shopware-6-client/src/interfaces/request/CustomerRegistrationParams";
 
 interface UseUser {
   login: ({
@@ -21,7 +22,7 @@ interface UseUser {
     username?: string;
     password?: string;
   }) => Promise<boolean>;
-  register: ({}: {}) => Promise<boolean>;
+  register: ({}: CustomerRegistrationParams) => Promise<boolean>;
   user: Ref<Customer | null>;
   orders: Ref<Order[] | null>;
   loading: Ref<boolean>;
@@ -32,24 +33,6 @@ interface UseUser {
   loadOrders: () => Promise<void>;
   getOrderDetails: (orderId: string) => Promise<Order>;
   getAddresses: () => Promise<CustomerAddress[]>;
-}
-
-interface RegisterCustomerParams {
-  firstName: string;
-  lastName: string;
-  password: string;
-  salutation: string;
-  street: string;
-  city: string;
-  zipcode: string;
-  country: string;
-  salutationId: string;
-  countryId: string;
-  email: string;
-  title?: string;
-  birthdayYear?: number;
-  birthdayMonth?: number;
-  birthdayDay?: number;
 }
 
 export const useUser = (): UseUser => {
@@ -80,26 +63,13 @@ export const useUser = (): UseUser => {
     }
   };
 
-  const register = async (params: RegisterCustomerParams): Promise<boolean> => {
+  const register = async (
+    params: CustomerRegistrationParams
+  ): Promise<boolean> => {
     loading.value = true;
     error.value = null;
     try {
-      await apiRegister({
-        firstName: params.firstName,
-        lastName: params.lastName,
-        email: params.email,
-        password: params.password,
-        salutationId: params.salutationId,
-        billingAddress: {
-          firstName: params.firstName,
-          salutationId: params.salutationId,
-          lastName: params.lastName,
-          city: params.city,
-          street: params.street,
-          zipcode: params.zipcode,
-          countryId: params.countryId
-        }
-      });
+      await apiRegister(params);
       return true;
     } catch (e) {
       error.value = e.message;

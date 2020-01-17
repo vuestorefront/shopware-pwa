@@ -76,7 +76,6 @@ export default {
     async invokeLogin() {
       this.$v.$touch()
       if (this.$v.$invalid) {
-        this.error = 'Form is not valid'
         return
       }
       const loggedIn = await this.clientLogin({
