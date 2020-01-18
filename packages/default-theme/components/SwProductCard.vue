@@ -1,11 +1,13 @@
 <template>
   <SfProductCard
-    :title="product.name || ''"
+    :title="getName"
     :image="getImageUrl"
     :special-price="getSpecialPrice"
+    :regular-price="getRegularPrice"
+    :max-rating="5"
+    :score-rating="getProductRating"
     :image-width="216"
     :image-height="326"
-    :regular-price="getRegularPrice"
     :isOnWishlist="false"
     :link="getRouterLink"
     @click:wishlist="toggleWishlist"
@@ -31,7 +33,8 @@ import {
   getProductMainImageUrl,
   getProductRegularPrice,
   getProductUrl,
-  getProductSpecialPrice
+  getProductSpecialPrice,
+  getProductName
 } from '@shopware-pwa/helpers'
 
 export default {
@@ -41,7 +44,6 @@ export default {
   },
   setup({ product }) {
     const { addToCart, quantity, getStock, isInCart } = useAddToCart(product)
-
     return {
       quantity,
       addToCart,
@@ -59,6 +61,12 @@ export default {
     }
   },
   computed: {
+    getName() {
+      return getProductName({product: this.product});
+    },
+    getProductRating() {
+      return this.product && this.product.ratingAverage
+    },
     // should be replaced with prettyUrl attribute when pretty urls are included in product entity
     getRouterLink() {
       return getProductUrl(this.product)

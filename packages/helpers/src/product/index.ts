@@ -9,3 +9,5 @@ export * from "./getProductSpecialPrice";
 export * from "./isProductSimple";
 export * from "./getProductOptionsUrl";
 export * from "./getProductUrl";
+export * from "./getVariantOptionsLabel";
+export * from "./getProductName";
