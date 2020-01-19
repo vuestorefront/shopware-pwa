@@ -1,5 +1,5 @@
 <template>
-  <div id="layout">
+  <div class="layout">
     <TopNavigation />
     <SfBreadcrumbs
       v-show="getBreadcrumbs.length > 0"
@@ -9,7 +9,7 @@
     <nuxt />
     <SwCart />
     <SwFooter />
-    <SwBottomNavigation />
+    <SwBottomNavigation class="layout__bottom-navigation"/>
   </div>
 </template>
 
@@ -67,7 +67,7 @@ body {
   margin: 0;
 }
 
-#layout {
+.layout {
   box-sizing: border-box;
   @include for-desktop {
     max-width: 1320px;
@@ -76,6 +76,12 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
+  
+  &__bottom-navigation {
+    @include for-desktop() {
+      display: none;
+    }
+  }
 }
 
 .sw-breadcrumbs {
