@@ -3,6 +3,10 @@ import { SalesChannel } from "../../system/sales-channel/SalesChannel";
 import { Tag } from "../../system/tag/Tag";
 import { Salutation } from "../../system/salutation/Salutation";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface NewsletterRecipient {
   email: string;
   title: string | null;

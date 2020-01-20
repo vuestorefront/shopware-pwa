@@ -1,6 +1,10 @@
 import { Product } from "./Product";
 import { Rule } from "../rule/Rule";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface ProductPrice {
   productId: number;
   quantityStart: number;

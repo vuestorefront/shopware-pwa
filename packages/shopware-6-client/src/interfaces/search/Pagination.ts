@@ -9,6 +9,9 @@ export enum PaginationLimit {
   FIVE_HUNDRED = 500
 }
 
+/**
+ * @alpha
+ */
 export interface Pagination {
   limit?: PaginationLimit;
   page?: number;

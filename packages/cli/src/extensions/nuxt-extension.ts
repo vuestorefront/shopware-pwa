@@ -18,7 +18,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     const spinner = spin("Preparing Nuxt project");
     const isNuxtGenerated = exists("nuxt.config.js");
     if (!isNuxtGenerated) {
-      const nuxtGenerate = `npx create-nuxt-app --answers '
+      const nuxtGenerate = `npx --ignore-existing create-nuxt-app --answers '
     {
       "name": "shopware-pwa-project",
       "description": "shopware-pwa-project description",
@@ -71,6 +71,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     const packageDependenciesToUpdate = [
       // "@shopware-pwa/composables",
       // "@shopware-pwa/helpers",
+      // "@shopware-pwa/default-theme",
       "@shopware-pwa/shopware-6-client",
       "@vue/composition-api",
       "@storefront-ui/vue",
@@ -84,8 +85,33 @@ module.exports = (toolbox: GluegunToolbox) => {
     ];
     const devPackageDependenciesToUpdate = [
       // "@vue-storefront/nuxt"
+      "lint-staged",
+      "husky",
+      "@babel/runtime-corejs3",
+      "@vue/test-utils",
+      "@nuxtjs/eslint-config",
+      "@nuxtjs/eslint-module",
+      "babel-jest",
+      "babel-eslint",
+      "eslint",
+      "eslint-plugin-nuxt",
+      "eslint-config-prettier",
+      "eslint-plugin-prettier",
+      "jest",
+      "prettier",
+      "vue-jest"
     ];
     await toolbox.patching.update("package.json", config => {
+      config.scripts.lint = "prettier --write '*.{js,vue}'";
+
+      config["lint-staged"] = {
+        "*.{js,vue}": "prettier"
+      };
+      config["husky"] = {
+        hooks: {
+          "pre-commit": "lint-staged"
+        }
+      };
       packageDependenciesToUpdate.forEach(packageName => {
         config.dependencies[packageName] =
           nuxtThemePackage.dependencies[packageName];
@@ -164,6 +190,31 @@ module.exports = (toolbox: GluegunToolbox) => {
         after: "buildModules: ["
       });
     }
+    // Add coreJS
+    // const coreJSBuildExist = await toolbox.patching.exists(
+    //   "nuxt.config.js",
+    //   `require.resolve('@nuxt/babel-preset-app')`
+    // );
+    // if (!coreJSBuildExist) {
+    //   await toolbox.patching.patch("nuxt.config.js", {
+    //     insert: `
+    // babel: {
+    //   presets({ isServer }) {
+    //     return [
+    //       [
+    //         require.resolve('@nuxt/babel-preset-app'),
+    //         // require.resolve('@nuxt/babel-preset-app-edge'), // For nuxt-edge users
+    //         {
+    //           buildTarget: isServer ? 'server' : 'client',
+    //           corejs: { version: 3 }
+    //         }
+    //       ]
+    //     ]
+    //   }
+    // },`,
+    //     after: "build: {"
+    //   });
+    // }
     // Add cookie-universal-nuxt module
     const cookiePluginExist = await toolbox.patching.exists(
       "nuxt.config.js",
@@ -193,7 +244,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       if (ctx.isClient && !ctx.isDev) {
         config.optimization.splitChunks.cacheGroups.commons.minChunks = 2
       }`,
-        after: "extend (config, ctx) {"
+        after: /extend[ ]?\(config, ctx\)[ ]?{/
       });
     }
   };

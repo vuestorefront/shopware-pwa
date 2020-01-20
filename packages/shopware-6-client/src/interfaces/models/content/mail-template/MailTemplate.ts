@@ -2,6 +2,10 @@ import { MailTemplateMedia } from "./MailTemplateMedia";
 import { MailTemplateSalesChannel } from "./MailTemplateSalesChannel";
 import { MailTemplateType } from "./MailTemplateType";
 import { MailTemplateTranslation } from "./MailTemplateTranslation";
+
+/**
+ * @alpha
+ */
 export interface MailTemplate {
   mailTemplateTypeId: string | null;
   mailTemplateType: MailTemplateType | null;

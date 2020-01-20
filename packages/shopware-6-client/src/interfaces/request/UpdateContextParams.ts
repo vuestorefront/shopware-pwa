@@ -1,3 +1,6 @@
+/**
+ * @alpha
+ */
 export interface UpdateContextParams {
   currencyId?: string;
   languageId?: string;

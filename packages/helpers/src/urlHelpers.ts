@@ -1,6 +1,9 @@
 import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
 import queryString from "query-string";
 
+/**
+ * @alpha
+ */
 export function parseUrlQuery(query: any): SearchCriteria {
   const searchCriteria: any = {};
   if (!query || typeof query !== "object") {
@@ -14,6 +17,9 @@ export function parseUrlQuery(query: any): SearchCriteria {
   return searchCriteria;
 }
 
+/**
+ * @alpha
+ */
 export function exportUrlQuery(
   searchCriteria: SearchCriteria
 ): string | undefined {

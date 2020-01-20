@@ -1,6 +1,9 @@
 import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
 import { UiProductReview } from "@shopware-pwa/helpers";
 
+/**
+ * @alpha
+ */
 export function getProductReviews({
   product
 }: { product?: Product } = {}): UiProductReview[] {

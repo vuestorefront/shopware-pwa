@@ -4,6 +4,10 @@ import { Rule } from "../../../framework/rule/Rule";
 import { DeliveryInformation } from "../../delivery/DeliveryInformation";
 import { PriceDefinitionInterface } from "../price/PriceDefinitionInterface";
 import { QuantityInformation } from "./QuantityInformation";
+
+/**
+ * @alpha
+ */
 export interface LineItem {
   id: string;
   referencedId: string | null;

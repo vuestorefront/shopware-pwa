@@ -15,6 +15,9 @@ import { Category } from "../category/Category";
 import { Tag } from "../../system/tag/Tag";
 import { CustomField } from "../../common/CustomField";
 
+/**
+ * @alpha
+ */
 export interface SeoUrl {
   reatedAt: Date;
   customFields: null | any;
@@ -31,12 +34,14 @@ export interface SeoUrl {
   routeName: string;
   salesChannelId: string | null;
   seoPathInfo: string;
-  translated: [];
   updatedAt: Date | null;
   url: string | null;
   versionId: string | null;
 }
 
+/**
+ * @alpha
+ */
 export interface Product {
   calculatedListingPrice: ListingPrice;
   calculatedPrices: CalculatedPrice[];
@@ -109,5 +114,8 @@ export interface Product {
   parentVersionId: string;
   productManufacturerVersionId: string;
   seoUrls: SeoUrl[] | null;
+  translated: {
+    name: string | null;
+  };
   productMediaVersiond?: null;
 }

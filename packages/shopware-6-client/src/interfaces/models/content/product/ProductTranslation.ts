@@ -1,5 +1,9 @@
 import { Product } from "./Product";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface ProductTranslation {
   productId: string;
   additionalText: string | null;

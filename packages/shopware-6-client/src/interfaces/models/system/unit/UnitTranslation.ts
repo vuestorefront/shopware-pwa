@@ -1,5 +1,9 @@
 import { Unit } from "./Unit";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface UnitTranslation {
   unitId: string;
   shortCode: string | null;

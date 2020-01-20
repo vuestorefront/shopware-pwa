@@ -1,4 +1,8 @@
 import { Language } from "../../framework/language/Language";
+
+/**
+ * @alpha
+ */
 export interface ProductKeywordDictionary {
   id: string;
   languageId: string;

@@ -1,11 +1,17 @@
 import { getNavigationEndpoint } from "../endpoints";
 import { apiService } from "../apiService";
 
+/**
+ * @alpha
+ */
 export interface NavigationResponse {
   count: number;
   elements: NavigationElement[];
 }
 
+/**
+ * @alpha
+ */
 export interface NavigationElement {
   id: string;
   path: string;
@@ -16,11 +22,16 @@ export interface NavigationElement {
   extensions: any[];
 }
 
+/**
+ * @alpha
+ */
 export interface GetNavigationParams {
   depth: number;
   rootNode?: string;
 }
-
+/**
+ * @alpha
+ */
 export async function getNavigation(
   params: GetNavigationParams
 ): Promise<NavigationResponse> {

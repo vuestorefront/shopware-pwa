@@ -14,7 +14,7 @@ const command: GluegunCommand = {
       toolbox.watchThemeFolder(themeFolder)
     );
 
-    spawn("yarn dev", {
+    await spawn("yarn dev", {
       stdio: "inherit"
     });
   }

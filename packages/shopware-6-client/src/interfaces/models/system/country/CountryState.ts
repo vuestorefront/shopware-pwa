@@ -4,6 +4,9 @@ import { CustomerAddress } from "../../checkout/customer/CustomerAddress";
 import { OrderAddress } from "../../checkout/order/OrderAddress";
 import { CustomField } from "../../common/CustomField";
 
+/**
+ * @alpha
+ */
 export interface CountryState {
   countryId: string;
   shortCode: string;

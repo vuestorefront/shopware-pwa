@@ -2,6 +2,10 @@ import { Media } from "../media/Media";
 import { PropertyGroupOption } from "../property/PropertyGroupOption";
 import { Product } from "./Product";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface ProductConfiguratorSetting {
   productId: number;
   optionId: number;

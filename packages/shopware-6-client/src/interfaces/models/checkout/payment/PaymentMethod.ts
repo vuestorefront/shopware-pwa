@@ -6,6 +6,10 @@ import { Rule } from "../../content/rule/Rule";
 import { PaymentMethodTranslation } from "./PaymentMethodTranslation";
 import { OrderTransaction } from "../order/OrderTransaction";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface PaymentMethod {
   pluginId: string | null;
   handlerIdentifier: string;

@@ -6,6 +6,9 @@ export enum CmsPageType {
   PRODUCT_LISTING = "product_list",
   LANDING_PAGE = "landingpage"
 }
+/**
+ * @alpha
+ */
 export interface CmsPage {
   type: CmsPageType;
   name: string;
@@ -36,12 +39,18 @@ export enum CmsSlotType {
   TEXT = "text"
 }
 
+/**
+ * @alpha
+ */
 export interface CmsFieldConfig {
   name: string;
   source: string;
   value: string;
 }
 
+/**
+ * @alpha
+ */
 export interface CmsSlot {
   type: CmsSlotType;
   customFields: CustomField[] | null;
@@ -62,6 +71,9 @@ export interface CmsSlot {
   data?: any;
 }
 
+/**
+ * @alpha
+ */
 export interface CmsBlock {
   name: string;
   sectionPosition: string;
@@ -93,6 +105,9 @@ export enum BackgroundMediaMode {
   COVER = "cover"
 }
 
+/**
+ * @alpha
+ */
 export interface CmsSection {
   type: SectionType;
   pageId: string;
