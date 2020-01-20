@@ -1,5 +1,9 @@
 import { GluegunToolbox } from "gluegun";
 
+const defaultConfig = {
+  shopwareEndpoint: "https://shopware-2.vuestorefront.io/sales-channel-api/v1",
+  shopwareAccessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG"
+};
 // add your CLI-specific functionality here, which will then be accessible
 // to your commands
 module.exports = (toolbox: GluegunToolbox) => {
@@ -32,9 +36,16 @@ module.exports = (toolbox: GluegunToolbox) => {
   // shopware-pwa.config.json, etc.
   toolbox.config = {
     ...toolbox.config,
-    // load default config from cli
-    ...toolbox.config.loadConfig("cli", toolbox.meta.src),
+    // load default config
+    ...defaultConfig,
     // load config file from generated project
     ...toolbox.config.loadConfig("shopware-pwa", process.cwd())
   };
+
+  /**
+   * isProduction returns information if process is running from npm package.
+   * Locally can be forced with flag `--compiled-build`
+   */
+  const devMode = require("fs").existsSync(`${__dirname}/../../src`);
+  toolbox.isProduction = !devMode || process.argv.includes("--compiled-build");
 };
