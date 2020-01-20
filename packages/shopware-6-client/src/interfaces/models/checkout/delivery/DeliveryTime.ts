@@ -1,6 +1,10 @@
 import { ShippingMethod } from "../shipping/ShippingMethod";
 import { Entity } from "../../common/Entity";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface DeliveryTime {
   name: string | null;
   min: number;

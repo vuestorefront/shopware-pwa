@@ -5,6 +5,9 @@ import { Order } from "../../checkout/order/Order";
 import { NewsletterRecipient } from "../../content/newsletter/NewsletterRecipient";
 import { ShippingMethod } from "../../checkout/shipping/ShippingMethod";
 
+/**
+ * @alpha
+ */
 export interface Tag {
   name: string;
   products: Product[] | null;

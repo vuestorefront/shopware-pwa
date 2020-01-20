@@ -1,6 +1,10 @@
 import { Customer } from "../customer/Customer";
 import { Order } from "./Order";
 import { Salutation } from "../../system/salutation/Salutation";
+
+/**
+ * @alpha
+ */
 export interface OrderCustomer {
   email: string;
   orderId: string;

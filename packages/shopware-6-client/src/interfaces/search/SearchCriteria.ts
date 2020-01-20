@@ -9,11 +9,17 @@ import { Association } from "./Association";
 import { Aggregation } from "./Aggregation";
 import { TotalCountMode } from "./TotalCountMode";
 
+/**
+ * @alpha
+ */
 export interface Sort {
   field: string;
   desc?: boolean;
 }
 
+/**
+ * @alpha
+ */
 /**
  * @alpha
  */

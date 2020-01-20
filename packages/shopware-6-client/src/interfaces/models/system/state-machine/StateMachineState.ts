@@ -7,6 +7,9 @@ import { StateMachineHistory } from "./StateMachineHistory";
 import { StateMachineStateTranslation } from "./StateMachineStateTranslation";
 import { CustomField } from "../../common/CustomField";
 
+/**
+ * @alpha
+ */
 export interface StateMachineState {
   name: string;
   technicalName: string;

@@ -1,6 +1,10 @@
 import { PropertyGroupOption } from "./PropertyGroupOption";
 import { CustomField } from "../../common/CustomField";
 import { PropertyGroupOptionTranslation } from "./PropertyGroupOptionTranslation";
+
+/**
+ * @alpha
+ */
 export interface PropertyGroup {
   name: string | null;
   displayType: string;

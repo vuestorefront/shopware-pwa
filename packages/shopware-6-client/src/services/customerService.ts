@@ -17,12 +17,17 @@ import { CustomerRegistrationParams } from "@shopware-pwa/shopware-6-client/src/
 import { ContextTokenResponse } from "@shopware-pwa/shopware-6-client/src/interfaces/response/ContextTokenResponse";
 import { Order } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order";
 
+/**
+ * @alpha
+ */
 export interface CustomerRegisterResponse {
   data: string;
 }
 
 /**
  * Register a customer
+ *
+ * @alpha
  */
 export async function register(
   params: CustomerRegistrationParams
@@ -33,6 +38,8 @@ export async function register(
 
 /**
  * Get the context token for current user
+ *
+ * @alpha
  */
 export async function login({
   username,
@@ -52,13 +59,17 @@ export async function login({
 
 /**
  * End up the session
+ *
+ * @alpha
  */
 export async function logout(): Promise<void> {
   await apiService.post(getCustomerLogoutEndpoint());
 }
 
 /**
- * End up the session
+ * Get customer's object
+ *
+ * @alpha
  */
 export async function getCustomer(): Promise<Customer | null> {
   try {
@@ -72,6 +83,8 @@ export async function getCustomer(): Promise<Customer | null> {
 
 /**
  * Get all customer's addresses
+ *
+ * @alpha
  */
 export async function getCustomerAddresses(): Promise<CustomerAddress[]> {
   const resp = await apiService.get(getCustomerAddressEndpoint());
@@ -80,6 +93,8 @@ export async function getCustomerAddresses(): Promise<CustomerAddress[]> {
 
 /**
  * Get all customer's orders
+ *
+ * @alpha
  */
 export async function getCustomerOrders(): Promise<Order[]> {
   const resp = await apiService.get(getCustomerOrderEndpoint());
@@ -88,6 +103,8 @@ export async function getCustomerOrders(): Promise<Order[]> {
 
 /**
  * Get order details
+ *
+ * @alpha
  */
 export async function getCustomerOrderDetails(orderId: string): Promise<Order> {
   const resp = await apiService.get(getCustomerOrderDetailsEndpoint(orderId));
@@ -96,6 +113,8 @@ export async function getCustomerOrderDetails(orderId: string): Promise<Order> {
 
 /**
  * Get the customer's address by id
+ *
+ * @alpha
  */
 export async function getCustomerAddress(
   addressId: string
@@ -104,10 +123,15 @@ export async function getCustomerAddress(
   return resp.data.data;
 }
 
+/**
+ * @alpha
+ */
 export interface CustomerAddressParam extends Partial<CustomerAddress> {}
 
 /**
  * Create an address and respond the new address's id
+ *
+ * @alpha
  */
 export async function createCustomerAddress(
   params: CustomerAddressParam
@@ -118,6 +142,8 @@ export async function createCustomerAddress(
 
 /**
  * Delete's the customer's address by id
+ *
+ * @alpha
  */
 export async function deleteCustomerAddress(addressId: string): Promise<void> {
   await apiService.delete(getCustomerAddressEndpoint(addressId));
@@ -125,6 +151,8 @@ export async function deleteCustomerAddress(addressId: string): Promise<void> {
 
 /**
  * Set address as default
+ *
+ * @alpha
  */
 export async function setDefaultCustomerBillingAddress(
   addressId: string
@@ -137,6 +165,8 @@ export async function setDefaultCustomerBillingAddress(
 
 /**
  * Set address as default
+ *
+ * @alpha
  */
 export async function setDefaultCustomerShippingAddress(
   addressId: string
@@ -147,6 +177,9 @@ export async function setDefaultCustomerShippingAddress(
   return response.data;
 }
 
+/**
+ * @alpha
+ */
 export interface CustomerUpdateEmailParam {
   email: string;
   emailConfirmation: string;
@@ -155,6 +188,8 @@ export interface CustomerUpdateEmailParam {
 
 /**
  * Update a customer's email
+ *
+ * @alpha
  */
 export async function updateEmail(
   params: CustomerUpdateEmailParam
@@ -162,6 +197,9 @@ export async function updateEmail(
   await apiService.patch(getCustomerUpdateEmailEndpoint(), params);
 }
 
+/**
+ * @alpha
+ */
 export interface CustomerUpdatePasswordParam {
   password: string;
   newPassword: string;
@@ -170,6 +208,8 @@ export interface CustomerUpdatePasswordParam {
 
 /**
  * Update a customer's password
+ *
+ * @alpha
  */
 export async function updatePassword(
   params: CustomerUpdatePasswordParam
@@ -189,6 +229,7 @@ export interface CustomerUpdateProfileParam {
 
 /**
  * Update a customer's profile data
+ *
  * @alpha
  */
 export async function updateProfile(

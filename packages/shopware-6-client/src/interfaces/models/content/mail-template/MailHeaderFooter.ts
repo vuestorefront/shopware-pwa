@@ -1,5 +1,9 @@
 import { MailHeaderFooterTranslation } from "./MailHeaderFooterTranslation";
 import { SalesChannel } from "../../system/sales-channel/SalesChannel";
+
+/**
+ * @alpha
+ */
 export interface MailHeaderFooter {
   name: string | null;
   systemDefault: boolean;

@@ -1,6 +1,9 @@
 import { ProductManufacturer } from "./ProductManufacturer";
 import { CustomField } from "../../common/CustomField";
 
+/**
+ * @alpha
+ */
 export interface ProductManufacturerTranslation {
   productManufacturerId: number;
   name: string | null;

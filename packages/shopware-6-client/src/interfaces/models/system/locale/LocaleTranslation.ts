@@ -1,5 +1,9 @@
 import { Locale } from "./Locale";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface LocaleTranslation {
   localeId: string;
   name: string | null;

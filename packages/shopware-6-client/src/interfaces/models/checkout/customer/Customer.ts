@@ -9,6 +9,9 @@ import { Promotion } from "../promotion/Promotion";
 import { Tag } from "../../system/tag/Tag";
 import { CustomField } from "../../common/CustomField";
 
+/**
+ * @alpha
+ */
 export interface Customer {
   id: string;
   groupId: string;

@@ -17,9 +17,8 @@ export default {
     rawHtml() {
       return (
         this.content &&
-        this.content.config &&
-        this.content.config.content &&
-        this.content.config.content.value
+        this.content.data &&
+        this.content.data.content
       );
     },
     verticalAlign() {
