@@ -3,6 +3,9 @@ import { User } from "../user/User";
 import { Language } from "../../framework/language/Language";
 import { CustomField } from "../../common/CustomField";
 
+/**
+ * @alpha
+ */
 export interface Locale {
   code: string;
   name: string | null;

@@ -7,6 +7,10 @@ import { Media } from "../../content/media/Media";
 import { Tag } from "../../system/tag/Tag";
 import { ShippingMethodTranslation } from "./ShippingMethodTranslation";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface ShippingMethod {
   name: string | null;
   active: boolean;

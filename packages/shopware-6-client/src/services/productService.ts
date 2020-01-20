@@ -11,6 +11,8 @@ import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/s
 
 /**
  * Get default amount of products' ids
+ *
+ * @alpha
  */
 export const getProductsIds = async function(): Promise<SearchResult<
   string[]
@@ -21,8 +23,9 @@ export const getProductsIds = async function(): Promise<SearchResult<
 
 /**
  * Get default amount of products
+ *
+ * @alpha
  */
-
 export const getProducts = async function(
   searchCriteria?: SearchCriteria
 ): Promise<SearchResult<Product[]>> {
@@ -35,6 +38,8 @@ export const getProducts = async function(
 
 /**
  * Get the product with passed productId
+ *
+ * @alpha
  */
 export async function getProduct(
   productId: string,

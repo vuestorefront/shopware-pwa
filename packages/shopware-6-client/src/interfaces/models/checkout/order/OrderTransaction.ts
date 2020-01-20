@@ -3,6 +3,10 @@ import { PaymentMethod } from "../payment/PaymentMethod";
 import { StateMachineState } from "../../system/state-machine/StateMachineState";
 import { CalculatedPrice } from "../cart/price/CalculatedPrice";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface OrderTransaction {
   orderId: string;
   paymentMethodId: string;

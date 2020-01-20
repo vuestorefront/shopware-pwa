@@ -4,6 +4,10 @@ import { StateMachineState } from "../../system/state-machine/StateMachineState"
 import { CalculatedPrice } from "../cart/price/CalculatedPrice";
 import { OrderAddress } from "./OrderAddress";
 import { OrderDeliveryPosition } from "./OrderDeliveryPosition";
+
+/**
+ * @alpha
+ */
 export interface OrderDelivery {
   orderId: string;
   shippingOrderAddressId: string;

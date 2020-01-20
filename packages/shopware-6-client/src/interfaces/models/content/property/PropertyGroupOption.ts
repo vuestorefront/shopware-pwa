@@ -4,6 +4,10 @@ import { PropertyGroupOptionTranslation } from "./PropertyGroupOptionTranslation
 import { ProductConfiguratorSetting } from "../product/ProductConfiguratorSetting";
 import { Product } from "../product/Product";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface PropertyGroupOption {
   id: string;
   groupId: string;

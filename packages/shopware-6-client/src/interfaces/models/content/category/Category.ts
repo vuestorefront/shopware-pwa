@@ -6,6 +6,9 @@ import { Tag } from "../../system/tag/Tag";
 import { CategoryTranslation } from "./CategoryTranslation";
 import { CustomField } from "../../common/CustomField";
 
+/**
+ * @alpha
+ */
 export interface Category extends Entity {
   parentId: string | null;
   autoIncrement: number;

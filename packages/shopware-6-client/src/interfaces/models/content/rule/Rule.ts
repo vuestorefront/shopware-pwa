@@ -7,6 +7,10 @@ import { Promotion } from "../../checkout/promotion/Promotion";
 import { RuleCondition } from "./RuleCondition";
 import { PaymentMethod } from "../../checkout/payment/PaymentMethod";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface Rule {
   name: string;
   description: string | null;

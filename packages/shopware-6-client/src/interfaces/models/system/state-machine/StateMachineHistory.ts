@@ -2,6 +2,9 @@ import { StateMachineState } from "./StateMachineState";
 import { StateMachine } from "./StateMachine";
 import { User } from "../user/User";
 
+/**
+ * @alpha
+ */
 export interface StateMachineHistory {
   stateMachineId: string;
   stateMachine: StateMachine | null;

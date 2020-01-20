@@ -15,6 +15,9 @@ import { Category } from "../category/Category";
 import { Tag } from "../../system/tag/Tag";
 import { CustomField } from "../../common/CustomField";
 
+/**
+ * @alpha
+ */
 export interface SeoUrl {
   reatedAt: Date;
   customFields: null | any;
@@ -36,6 +39,9 @@ export interface SeoUrl {
   versionId: string | null;
 }
 
+/**
+ * @alpha
+ */
 export interface Product {
   calculatedListingPrice: ListingPrice;
   calculatedPrices: CalculatedPrice[];

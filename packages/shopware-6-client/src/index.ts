@@ -28,11 +28,17 @@ export function update(config: ClientSettings = {}): void {
   configChanged();
 }
 
+/**
+ * @alpha
+ */
 export interface ConfigChangedArgs {
   config: ClientSettings;
 }
 const callbackMethods: ((context: ConfigChangedArgs) => void)[] = [];
 
+/**
+ * @alpha
+ */
 export function onConfigChange(fn: (context: ConfigChangedArgs) => void) {
   callbackMethods.push(fn);
 }

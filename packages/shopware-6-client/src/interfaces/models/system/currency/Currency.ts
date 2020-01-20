@@ -6,6 +6,9 @@ import { SalesChannel } from "../sales-channel/SalesChannel";
 import { SalesChannelDomain } from "../sales-channel/SalesChannelDomain";
 import { CustomField } from "../../common/CustomField";
 
+/**
+ * @alpha
+ */
 export interface Currency {
   isoCode: string;
   factor: number;

@@ -15,6 +15,9 @@ interface ShopwareAssociation {
   };
 }
 
+/**
+ * @alpha
+ */
 export interface ShopwareParams {
   page?: number;
   limit?: number;

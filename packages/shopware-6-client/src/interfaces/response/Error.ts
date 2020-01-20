@@ -16,6 +16,9 @@ interface Error {
   trace?: ErrorTrace[];
 }
 
+/**
+ * @alpha
+ */
 export interface ErrorResponse {
   errors: Error[];
 }

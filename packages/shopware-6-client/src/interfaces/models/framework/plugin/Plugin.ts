@@ -1,6 +1,10 @@
 import { PluginTranslation } from "./PluginTranslation";
 import { PaymentMethod } from "../../checkout/payment/PaymentMethod";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface Plugin {
   baseClass: string;
   name: string;

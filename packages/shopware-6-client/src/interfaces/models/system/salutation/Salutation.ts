@@ -5,6 +5,9 @@ import { OrderCustomer } from "../../checkout/order/OrderCustomer";
 import { OrderAddress } from "../../checkout/order/OrderAddress";
 import { NewsletterRecipient } from "../../content/newsletter/NewsletterRecipient";
 
+/**
+ * @alpha
+ */
 export interface Salutation {
   salutationKey: string;
   displayName: string | null;

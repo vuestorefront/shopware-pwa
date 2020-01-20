@@ -17,6 +17,9 @@ import { OrderLineItem } from "../../checkout/order/OrderLineItem";
 import { CustomField } from "../../common/CustomField";
 import { User } from "../../system/user/User";
 
+/**
+ * @alpha
+ */
 export interface Media {
   userId: string | null;
   mimeType: string | null;

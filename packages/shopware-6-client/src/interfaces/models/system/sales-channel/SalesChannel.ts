@@ -23,6 +23,9 @@ import { SystemConfig } from "../system-config/SystemConfig";
 import { ProductReview } from "../../content/product/ProductReview";
 import { CustomField } from "../../common/CustomField";
 
+/**
+ * @alpha
+ */
 export interface SalesChannel {
   typeId: string;
   languageId: string;

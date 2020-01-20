@@ -4,6 +4,9 @@ import { CalculatedPrice } from "../cart/price/CalculatedPrice";
 import { ShippingLocation } from "./ShippingLocation";
 import { DeliveryDate } from "./DeliveryDate";
 
+/**
+ * @alpha
+ */
 export interface Delivery {
   positions: OrderDeliveryPosition[];
   location: ShippingLocation;

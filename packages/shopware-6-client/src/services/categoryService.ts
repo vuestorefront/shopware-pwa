@@ -5,6 +5,9 @@ import { SearchResult } from "@shopware-pwa/shopware-6-client/src/interfaces/res
 import { apiService } from "../apiService";
 import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
 
+/**
+ * @alpha
+ */
 export async function getCategories(
   searchCriteria?: SearchCriteria
 ): Promise<SearchResult<Category[]>> {
@@ -16,6 +19,9 @@ export async function getCategories(
   return resp.data;
 }
 
+/**
+ * @alpha
+ */
 export async function getCategory(categoryId: string): Promise<Category> {
   const resp = await apiService.get(getCategoryDetailsEndpoint(categoryId));
 

@@ -18,25 +18,40 @@ export enum SearchFilterType {
   RANGE = "range"
 }
 
+/**
+ * @alpha
+ */
 export interface SearchFilter {
   type: SearchFilterType;
 }
 
+/**
+ * @alpha
+ */
 export interface EqualsFilter extends SearchFilter {
   value: string;
   field: string;
 }
 
+/**
+ * @alpha
+ */
 export interface EqualsAnyFilter extends SearchFilter {
   value: string[];
   field: string;
 }
 
+/**
+ * @alpha
+ */
 export interface ContainsFilter extends SearchFilter {
   value: string[];
   field: string;
 }
 
+/**
+ * @alpha
+ */
 export interface RangeFilter extends SearchFilter {
   field: string;
   parameters:
@@ -50,6 +65,9 @@ export interface RangeFilter extends SearchFilter {
     | LteGteRangeFilter;
 }
 
+/**
+ * @alpha
+ */
 export interface MultiFilter extends SearchFilter {
   operator: string;
   queries: Array<
