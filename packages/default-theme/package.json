@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/default-theme",
-  "version": "0.1.0",
+  "version": "0.1.0-prealpha.0",
   "private": true,
   "description": "Shopware PWA theme",
   "author": "patzick",
