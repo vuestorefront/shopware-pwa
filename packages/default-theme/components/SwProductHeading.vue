@@ -10,7 +10,7 @@
     <div class="product-details__sub">
       <slot name="price" v-bind="{ price, special }">
         <SfPrice
-          :regular="`$${price}`"
+          :regular="`${price}`"
           :special="special"
           class="sf-price--big product-details__sub-price"
         />
@@ -41,7 +41,7 @@ export default {
       default: () => []
     },
     price: {
-      type: Number,
+      type: [Number, String],
       default: 0
     },
     special: {
