@@ -1,12 +1,22 @@
+/**
+ * @alpha
+ */
 export interface UiMediaGalleryItemUrl {
   url: string;
 }
+
+/**
+ * @alpha
+ */
 export interface UiMediaGalleryItem {
   small: UiMediaGalleryItemUrl;
   normal: UiMediaGalleryItemUrl;
   big: UiMediaGalleryItemUrl;
 }
 
+/**
+ * @alpha
+ */
 export interface UiProductOption {
   label: string;
   value: string;
@@ -14,11 +24,17 @@ export interface UiProductOption {
   [attribute: string]: string;
 }
 
+/**
+ * @alpha
+ */
 export interface UiProductProperty {
   name: string;
   value: string | null;
 }
 
+/**
+ * @alpha
+ */
 export interface UiProductReview {
   id: string;
   author: string;
@@ -45,12 +61,18 @@ interface UiCategoryRangeFilterOption {
   min: string;
 }
 
+/**
+ * @alpha
+ */
 export interface UiCategoryFilter {
   name: string;
   type: UiCategoryFilterType;
   options: UiCategoryFilterOption[] | UiCategoryRangeFilterOption | any; // TODO when the feature is fully implemented on SW side.
 }
 
+/**
+ * @alpha
+ */
 export interface UiCategorySorting {
   name: string;
   active: boolean;

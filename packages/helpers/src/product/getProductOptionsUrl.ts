@@ -1,6 +1,9 @@
 import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
 import { getProductUrl } from "./getProductUrl";
 
+/**
+ * @alpha
+ */
 export function getProductOptionsUrl({
   product,
   options
