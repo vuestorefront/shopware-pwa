@@ -8,6 +8,9 @@ import { ShippingMethod } from "../../checkout/shipping/ShippingMethod";
 import { RuleCondition } from "../../content/rule/RuleCondition";
 import { CustomField } from "../../common/CustomField";
 
+/**
+ * @alpha
+ */
 export interface Rule {
   name: string;
   description: string | null;

@@ -1,5 +1,8 @@
 import { SearchFilter } from "./SearchFilter";
 
+/**
+ * @alpha
+ */
 export interface Association {
   /**
    * for instance `product.media.url` or something nested

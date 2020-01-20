@@ -1,4 +1,8 @@
 import { ShippingMethod } from "../../checkout/shipping/ShippingMethod";
+
+/**
+ * @alpha
+ */
 export interface SalutationTranslation {
   shippingMethodId: string;
   name: string | null;

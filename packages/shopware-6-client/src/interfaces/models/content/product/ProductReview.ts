@@ -3,6 +3,9 @@ import { Language } from "../../framework/language/Language";
 import { Product } from "./Product";
 import { Customer } from "../../checkout/customer/Customer";
 
+/**
+ * @alpha
+ */
 export interface ProductReview {
   id: string;
   productId: string;

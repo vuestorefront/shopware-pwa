@@ -36,6 +36,9 @@ import { NumberRangeTypeTranslation } from "../../system/number-range/NumberRang
 import { CustomField } from "../../common/CustomField";
 import { Collection } from "../../common/Collection";
 
+/**
+ * @alpha
+ */
 export interface Language {
   parentId: string | null;
   localeId: string;

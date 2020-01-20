@@ -1,5 +1,5 @@
 /**
- * @beta
+ * @alpha
  */
 export interface ClientSettings {
   endpoint?: string;

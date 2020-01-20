@@ -5,6 +5,9 @@ import { OrderDeliveryPosition } from "./OrderDeliveryPosition";
 import { Media } from "../../content/media/Media";
 import { CustomField } from "../../common/CustomField";
 
+/**
+ * @alpha
+ */
 export interface OrderLineItem {
   orderId: string;
   identifier: string;

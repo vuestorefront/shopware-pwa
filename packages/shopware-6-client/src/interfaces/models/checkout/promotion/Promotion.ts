@@ -6,6 +6,10 @@ import { PromotionDiscount } from "./PromotionDiscount";
 import { Rule } from "../../content/rule/Rule";
 import { PromotionTranslation } from "./PromotionTranslation";
 import { Customer } from "../customer/Customer";
+
+/**
+ * @alpha
+ */
 export interface Promotion {
   name: string | null;
   active: boolean;

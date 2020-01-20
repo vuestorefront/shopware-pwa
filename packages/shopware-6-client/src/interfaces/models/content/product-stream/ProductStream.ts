@@ -1,6 +1,10 @@
 import { ProductStreamTranslation } from "./ProductStreamTranslation";
 import { ProductStreamFilter } from "./ProductStreamFilter";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface ProductStream {
   name: string;
   description: string | null;

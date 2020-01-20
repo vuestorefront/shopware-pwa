@@ -3,6 +3,10 @@ import { SalesChannel } from "./SalesChannel";
 import { SnippetSet } from "../../framework/snippet/SnippetSet";
 import { Currency } from "../currency/Currency";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface SalesChannelDomain {
   url: string;
   currencyId: string | null;
