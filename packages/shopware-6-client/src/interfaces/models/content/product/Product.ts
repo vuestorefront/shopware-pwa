@@ -31,7 +31,6 @@ export interface SeoUrl {
   routeName: string;
   salesChannelId: string | null;
   seoPathInfo: string;
-  translated: [];
   updatedAt: Date | null;
   url: string | null;
   versionId: string | null;
@@ -109,5 +108,8 @@ export interface Product {
   parentVersionId: string;
   productManufacturerVersionId: string;
   seoUrls: SeoUrl[] | null;
+  translated: {
+    name: string | null;
+  };
   productMediaVersiond?: null;
 }

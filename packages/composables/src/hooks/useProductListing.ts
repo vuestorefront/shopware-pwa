@@ -122,7 +122,18 @@ export const useProductListing = (
     const searchCriteria: SearchCriteria = {
       pagination: selectedCriteria.pagination,
       filters: getFilterSearchCriteria(selectedCriteria.filters),
-      sort: getSortingSearchCriteria(selectedCriteria.sorting)
+      sort: getSortingSearchCriteria(selectedCriteria.sorting),
+      configuration: {
+        // get product variant options
+        associations: [
+          {
+            name: "options"
+          },
+          {
+            name: "productReviews"
+          }
+        ]
+      }
     };
 
     const search = exportUrlQuery(searchCriteria);
