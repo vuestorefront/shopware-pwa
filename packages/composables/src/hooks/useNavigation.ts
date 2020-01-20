@@ -11,12 +11,16 @@ export const useNavigation = (): any => {
 
   const fetchRouteNames = async (params?: any): Promise<void> => {
     const navigation = await getNavigation(params);
+    if (typeof navigation.children === "undefined") return;
     sharedNavigation.routeNames = navigation.children.map(
       (element: { name: string }) => element.name
     );
   };
 
   const convertToSlug = (name: string): string => {
+    if (typeof name !== "string") {
+      return "";
+    }
     const slug = name.replace(" ", "-");
     return `\/${slug.toLowerCase()}\/`;
   };
