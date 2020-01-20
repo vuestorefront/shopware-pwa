@@ -139,6 +139,7 @@ export default {
   },
   watch: {
     sortBy(newSorting, oldOne){
+      // prevent reloading on default sorting
       if (oldOne.name !== newSorting.name) {
         this.changeSorting(newSorting)
       }
