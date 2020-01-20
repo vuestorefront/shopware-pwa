@@ -4,6 +4,9 @@ import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/s
 import { getStore } from "../..";
 import { parseUrlQuery } from "@shopware-pwa/helpers";
 
+/**
+ * @alpha
+ */
 export const useCms = (): any => {
   let vuexStore = getStore();
   const error: Ref<any> = ref(null);

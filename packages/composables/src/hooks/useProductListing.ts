@@ -20,7 +20,10 @@ import {
 import { useCms } from "./useCms";
 import { useCategoryFilters } from "./useCategoryFilters";
 
-interface UseProductListing {
+/**
+ * @alpha
+ */
+export interface UseProductListing {
   loading: Ref<boolean>;
   error: Ref<any>;
   [x: string]: any;
@@ -43,6 +46,9 @@ const selectedCriteria = Vue.observable({
   sorting: ""
 } as any);
 
+/**
+ * @alpha
+ */
 export const useProductListing = (
   initialProducts: Product[] = []
 ): UseProductListing => {
