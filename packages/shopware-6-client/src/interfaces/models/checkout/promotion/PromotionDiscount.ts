@@ -1,5 +1,9 @@
 import { Rule } from "../../content/rule/Rule";
 import { Promotion } from "./Promotion";
+
+/**
+ * @alpha
+ */
 export interface PromotionDiscount {
   promotionId: string;
   scope: string;

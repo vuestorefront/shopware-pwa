@@ -2,6 +2,9 @@ import { CustomField } from "../../common/CustomField";
 import { SalesChannelDomain } from "../../system/sales-channel/SalesChannelDomain";
 import { Snippet } from "./Snippet";
 
+/**
+ * @alpha
+ */
 export interface SnippetSet {
   name: string;
   baseFile: string;

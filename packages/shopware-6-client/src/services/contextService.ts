@@ -16,6 +16,9 @@ import { SearchResult } from "@shopware-pwa/shopware-6-client/src/interfaces/res
 import { UpdateContextParams } from "@shopware-pwa/shopware-6-client/src/interfaces/request/UpdateContextParams";
 import { ContextTokenResponse } from "@shopware-pwa/shopware-6-client/src/interfaces/response/ContextTokenResponse";
 
+/**
+ * @alpha
+ */
 async function updateContext(
   params: UpdateContextParams
 ): Promise<ContextTokenResponse> {
@@ -24,6 +27,9 @@ async function updateContext(
   return { contextToken };
 }
 
+/**
+ * @alpha
+ */
 export async function getAvailableCurrencies(): Promise<
   SearchResult<Currency[]>
 > {
@@ -32,6 +38,9 @@ export async function getAvailableCurrencies(): Promise<
   return resp.data;
 }
 
+/**
+ * @alpha
+ */
 export async function setCurrentCurrency(
   newCurrencyID: string
 ): Promise<ContextTokenResponse> {
@@ -41,6 +50,9 @@ export async function setCurrentCurrency(
   return resp;
 }
 
+/**
+ * @alpha
+ */
 export async function getAvailableLanguages(): Promise<
   SearchResult<Language[]>
 > {
@@ -49,6 +61,9 @@ export async function getAvailableLanguages(): Promise<
   return resp.data;
 }
 
+/**
+ * @alpha
+ */
 export async function setCurrentLanguage(
   newLanguageId: string
 ): Promise<ContextTokenResponse> {
@@ -58,6 +73,9 @@ export async function setCurrentLanguage(
   return resp;
 }
 
+/**
+ * @alpha
+ */
 export async function getAvailableCountries(): Promise<
   SearchResult<Country[]>
 > {
@@ -66,6 +84,9 @@ export async function getAvailableCountries(): Promise<
   return resp.data;
 }
 
+/**
+ * @alpha
+ */
 export async function getAvailablePaymentMethods(): Promise<
   SearchResult<PaymentMethod[]>
 > {
@@ -74,6 +95,9 @@ export async function getAvailablePaymentMethods(): Promise<
   return resp.data;
 }
 
+/**
+ * @alpha
+ */
 export async function setCurrentPaymentMethod(
   newPaymentMethodId: string
 ): Promise<ContextTokenResponse> {
@@ -83,6 +107,9 @@ export async function setCurrentPaymentMethod(
   return resp;
 }
 
+/**
+ * @alpha
+ */
 export async function getAvailableShippingMethods(): Promise<
   SearchResult<ShippingMethod[]>
 > {
@@ -91,6 +118,9 @@ export async function getAvailableShippingMethods(): Promise<
   return resp.data;
 }
 
+/**
+ * @alpha
+ */
 export async function setCurrentShippingMethod(
   newShippingMethodId: string
 ): Promise<ContextTokenResponse> {

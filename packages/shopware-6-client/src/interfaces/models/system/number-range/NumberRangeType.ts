@@ -3,6 +3,9 @@ import { NumberRangeSalesChannel } from "./NumberRangeSalesChannel";
 import { CustomField } from "../../common/CustomField";
 import { NumberRangeTypeTranslation } from "./NumberRangeTypeTranslation";
 
+/**
+ * @alpha
+ */
 export interface NumberRangeType {
   typeName: string;
   technicalName: string;

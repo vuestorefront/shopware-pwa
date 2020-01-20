@@ -7,7 +7,7 @@ const path = require("path");
 
 const apiClientDir = path.resolve(__dirname, "../packages/shopware-6-client");
 const composablesDir = path.resolve(__dirname, "../packages/composables");
-// const defaultThemeDir = path.resolve(__dirname, "../packages/default-theme");
+const defaultThemeDir = path.resolve(__dirname, "../packages/default-theme");
 const helpersDir = path.resolve(__dirname, "../packages/helpers");
 const cliDir = path.resolve(__dirname, "../packages/cli");
 
@@ -71,6 +71,14 @@ async function run() {
   await execa("yarn", ["link"], {
     stdio: "inherit",
     cwd: cliDir
+  });
+
+  /**
+   * Link default-theme dir
+   */
+  await execa("yarn", ["link"], {
+    stdio: "inherit",
+    cwd: defaultThemeDir
   });
 
   /**

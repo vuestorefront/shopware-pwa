@@ -1,6 +1,10 @@
 import { MailTemplateSalesChannel } from "./MailTemplateSalesChannel";
 import { MailTemplateTypeTranslation } from "./MailTemplateTypeTranslation";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface MailTemplateType {
   name: string;
   technicalName: string;

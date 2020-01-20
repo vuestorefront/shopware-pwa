@@ -1,5 +1,9 @@
 import { Plugin } from "./Plugin";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface PluginTranslation {
   pluginId: string;
   label: string | null;

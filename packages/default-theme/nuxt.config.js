@@ -1,7 +1,6 @@
 import path from 'path'
 
 const coreDevelopment = true
-
 export default {
   mode: 'universal',
   /*
@@ -36,8 +35,6 @@ export default {
    ** Nuxt.js dev-modules
    */
   buildModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
-    // '@nuxtjs/eslint-module'
     [
       '@vue-storefront/nuxt',
       {
@@ -63,10 +60,10 @@ export default {
    ** Nuxt.js modules
    */
   modules: [
+    'cookie-universal-nuxt',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
-    'cookie-universal-nuxt'
+    '@nuxtjs/pwa'
   ],
   /*
    ** Axios module configuration

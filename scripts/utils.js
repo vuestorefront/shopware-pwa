@@ -1,8 +1,13 @@
 const fs = require("fs");
 const chalk = require("chalk");
 
+const ownBuildProcessPackages = ["cli", "default-theme"];
+
 const targets = (exports.targets = fs.readdirSync("packages").filter(f => {
-  if (!fs.statSync(`packages/${f}`).isDirectory()) {
+  if (
+    !fs.statSync(`packages/${f}`).isDirectory() ||
+    ownBuildProcessPackages.includes(f)
+  ) {
     return false;
   }
   const pkg = require(`../packages/${f}/package.json`);

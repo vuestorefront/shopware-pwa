@@ -1,5 +1,9 @@
 import { SalesChannel } from "../../system/sales-channel/SalesChannel";
 import { Promotion } from "./Promotion";
+
+/**
+ * @alpha
+ */
 export interface PromotionSalesChannel {
   promotionId: string;
   salesChannelId: string;

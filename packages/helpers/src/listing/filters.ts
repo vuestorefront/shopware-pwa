@@ -86,6 +86,9 @@ export const getFilterSearchCriteria = (selectedFilters: any): any[] => {
   return filters;
 };
 
+/**
+ * @alpha
+ */
 export interface SwSorting {
   name: string;
   active: boolean;

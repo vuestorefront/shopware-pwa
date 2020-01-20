@@ -4,6 +4,9 @@ import { StateMachineState } from "./StateMachineState";
 import { StateMachineStateTranslation } from "./StateMachineStateTranslation";
 import { StateMachineHistory } from "./StateMachineHistory";
 
+/**
+ * @alpha
+ */
 export interface StateMachine {
   technicalName: string;
   name: string;

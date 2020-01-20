@@ -7,6 +7,9 @@ interface Sorting {
   };
 }
 
+/**
+ * @alpha
+ */
 export function getCategoryAvailableSorting({
   sorting
 }: { sorting?: Sorting } = {}): UiCategorySorting[] {

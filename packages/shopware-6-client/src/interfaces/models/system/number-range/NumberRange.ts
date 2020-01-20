@@ -4,6 +4,9 @@ import { NumberRangeSalesChannel } from "./NumberRangeSalesChannel";
 import { NumberRangeState } from "./NumberRangeState";
 import { NumberRangeTranslation } from "./NumberRangeTranslation";
 
+/**
+ * @alpha
+ */
 export interface NumberRange {
   typeId: string | null;
   global: boolean;

@@ -1,6 +1,9 @@
 import { ShippingAddress } from "../models/checkout/customer/ShippingAddress";
 import { BillingAddress } from "../models/checkout/customer/BillingAddress";
 
+/**
+ * @alpha
+ */
 export interface CustomerRegistrationParams {
   salutationId: string;
   firstName: string;

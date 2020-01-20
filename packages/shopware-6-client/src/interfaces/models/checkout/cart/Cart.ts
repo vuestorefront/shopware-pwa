@@ -4,6 +4,9 @@ import { Error } from "./error/Error";
 import { Delivery } from "../delivery/Delivery";
 import { Transaction } from "./transaction/Transaction";
 
+/**
+ * @alpha
+ */
 export interface Cart {
   name: string;
   token: string;

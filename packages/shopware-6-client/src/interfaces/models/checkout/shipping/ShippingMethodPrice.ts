@@ -1,6 +1,10 @@
 import { Rule } from "../../content/rule/Rule";
 import { Currency } from "../../system/currency/Currency";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface ShippingMethodPrice {
   shippingMethodId: string;
   currencyId: string;

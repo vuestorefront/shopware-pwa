@@ -1,5 +1,9 @@
 import { Rule } from "./Rule";
 import { CustomField } from "../../common/CustomField";
+
+/**
+ * @alpha
+ */
 export interface RuleCondition {
   type: string;
   ruleId: string;

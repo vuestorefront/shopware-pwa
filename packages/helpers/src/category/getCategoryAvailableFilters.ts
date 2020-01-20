@@ -1,18 +1,32 @@
 import { UiCategoryFilter, UiCategoryFilterType } from "../ui-interfaces";
 
+/**
+ * @alpha
+ */
 export interface CategoryFilterRangeValues {
   max: string;
   min: string;
 }
+
+/**
+ * @alpha
+ */
 export interface CategoryFilterEntityValues {
   [valueId: string]: CategoryFilterEntityValue;
 }
+
+/**
+ * @alpha
+ */
 export interface CategoryFilterEntityValue {
   name: string;
   description: string | null;
   customFields: any;
 }
 
+/**
+ * @alpha
+ */
 export interface CategoryFilterTermValue {
   key: string;
   count: number;
@@ -77,6 +91,9 @@ const convertOptionsByType = ({
   }
 };
 
+/**
+ * @alpha
+ */
 export function getCategoryAvailableFilters({
   filters
 }: { filters?: Filter } = {}): UiCategoryFilter[] {
