@@ -191,30 +191,30 @@ module.exports = (toolbox: GluegunToolbox) => {
       });
     }
     // Add coreJS
-    const coreJSBuildExist = await toolbox.patching.exists(
-      "nuxt.config.js",
-      `require.resolve('@nuxt/babel-preset-app')`
-    );
-    if (!coreJSBuildExist) {
-      await toolbox.patching.patch("nuxt.config.js", {
-        insert: `
-    babel: {
-      presets({ isServer }) {
-        return [
-          [
-            require.resolve('@nuxt/babel-preset-app'),
-            // require.resolve('@nuxt/babel-preset-app-edge'), // For nuxt-edge users
-            {
-              buildTarget: isServer ? 'server' : 'client',
-              corejs: { version: 3 }
-            }
-          ]
-        ]
-      }
-    },`,
-        after: "build: {"
-      });
-    }
+    // const coreJSBuildExist = await toolbox.patching.exists(
+    //   "nuxt.config.js",
+    //   `require.resolve('@nuxt/babel-preset-app')`
+    // );
+    // if (!coreJSBuildExist) {
+    //   await toolbox.patching.patch("nuxt.config.js", {
+    //     insert: `
+    // babel: {
+    //   presets({ isServer }) {
+    //     return [
+    //       [
+    //         require.resolve('@nuxt/babel-preset-app'),
+    //         // require.resolve('@nuxt/babel-preset-app-edge'), // For nuxt-edge users
+    //         {
+    //           buildTarget: isServer ? 'server' : 'client',
+    //           corejs: { version: 3 }
+    //         }
+    //       ]
+    //     ]
+    //   }
+    // },`,
+    //     after: "build: {"
+    //   });
+    // }
     // Add cookie-universal-nuxt module
     const cookiePluginExist = await toolbox.patching.exists(
       "nuxt.config.js",
@@ -244,7 +244,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       if (ctx.isClient && !ctx.isDev) {
         config.optimization.splitChunks.cacheGroups.commons.minChunks = 2
       }`,
-        after: "extend(config, ctx) {"
+        after: /extend[ ]?\(config, ctx\)[ ]?{/
       });
     }
   };
