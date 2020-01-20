@@ -9,8 +9,8 @@
       <SfBottomNavigationItem class="menu-button">
         <SfIcon icon="menu" size="20px" style="width: 25px" />
         <SfSelect class="menu-button__select">
-          <SfSelectOption v-for="element in navigationElements" :key="element.id">
-              <SfProductOption @click="changeRoute(convertToSlug(element.name))">{{element.name}}</SfProductOption>
+          <SfSelectOption v-for="routeName in routeNames" :key="routeName">
+              <SfProductOption @click="changeRoute(convertToSlug(routeName))">{{routeName}}</SfProductOption>
           </SfSelectOption>
         </SfSelect>
       </SfBottomNavigationItem>
@@ -31,11 +31,10 @@
 </template>
 
 <script>
-import slugify from 'slugify' // TODO: remove after the navigation is fully implemented
 import { SfBottomNavigation, SfCircleIcon, SfIcon, SfSelect } from '@storefront-ui/vue'
 import { useCartSidebar, useUserLoginModal } from '@shopware-pwa/composables'
-// TODO: Move the navigation logic to composable
-import { getNavigation } from '@shopware-pwa/shopware-6-client'
+import { useNavigation } from '@shopware-pwa/composables'
+
 
 export default {
   name: 'SwBottomNavigation',
@@ -47,28 +46,18 @@ export default {
   },
   setup() {
     const { toggleSidebar } = useCartSidebar()
+    const { routeNames, convertToSlug } = useNavigation()
     const { toggleModal } = useUserLoginModal()
     return {
+      routeNames,
+      convertToSlug,
       toggleSidebar,
       toggleModal
     }
   },
-  async mounted() {
-    const { children } = await getNavigation({ depth: 1 })
-    this.navigationElements = children
-  },
   methods: {
     changeRoute(name) {
       this.$router.push(name)
-    },
-    convertToSlug(name) {
-      return (
-        '/' +
-        slugify(name, {
-          remove: /and|[*+~.,()'"!:@]/g
-        }).toLowerCase() +
-        '/'
-      )
     },
   }
 }

@@ -12,15 +12,15 @@
           </nuxt-link>
         </template>
         <template #navigation>
-          <nuxt-link to="/"
-            ><SfHeaderNavigationItem>Home</SfHeaderNavigationItem></nuxt-link
-          >
+          <nuxt-link to="/">
+            <SfHeaderNavigationItem>Home</SfHeaderNavigationItem>
+          </nuxt-link>
           <nuxt-link
-            v-for="element in navigationElements"
-            :key="element.id"
-            :to="convertToSlug(element.name)"
+            v-for="routeName in routeNames"
+            :key="routeName"
+            :to="convertToSlug(routeName)"
           >
-            <SfHeaderNavigationItem>{{ element.name }}</SfHeaderNavigationItem>
+            <SfHeaderNavigationItem>{{ routeName }}</SfHeaderNavigationItem>
           </nuxt-link>
         </template>
 
@@ -69,25 +69,29 @@
 
 <script>
 import slugify from 'slugify' // TODO: remove after the navigation is fully implemented
-import { getNavigation } from '@shopware-pwa/shopware-6-client'
 import { SfHeader, SfCircleIcon, SfBadge, SfImage } from '@storefront-ui/vue'
 import {
   useUser,
   useCart,
   useCartSidebar,
-  useUserLoginModal
+  useUserLoginModal,
+  useNavigation
 } from '@shopware-pwa/composables'
 import SwLoginModal from './modals/SwLoginModal'
 
 export default {
   components: { SfHeader, SfCircleIcon, SfBadge, SwLoginModal, SfImage },
   setup() {
+    const { convertToSlug, routeNames, fetchRouteNames } = useNavigation()
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
     const { toggleSidebar } = useCartSidebar()
     const { toggleModal } = useUserLoginModal()
 
     return {
+      routeNames,
+      fetchRouteNames,
+      convertToSlug,
       count,
       toggleModal,
       toggleSidebar,
@@ -97,27 +101,16 @@ export default {
   },
   data() {
     return {
-      navigationElements: [],
+      navigationElements: [{name: ''}],
       activeSidebar: 'account',
       activeIcon: '',
       isModalOpen: false
     }
   },
   async mounted() {
-    const { children } = await getNavigation({ depth: 1 })
-    this.navigationElements = children
+    await this.fetchRouteNames({depth: 1})
   },
   methods: {
-    convertToSlug(name) {
-      // temporary workaround; won't be useful once the pretty urls are received within navigation endpoint
-      return (
-        '/' +
-        slugify(name, {
-          remove: /and|[*+~.,()'"!:@]/g
-        }).toLowerCase() +
-        '/'
-      )
-    },
     async userIconClick() {
       if (this.isLoggedIn) this.$router.push('account')
       else this.toggleModal()
