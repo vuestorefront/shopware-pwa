@@ -4,6 +4,9 @@ import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/s
 import { getStore } from "../..";
 import { parseUrlQuery } from "@shopware-pwa/helpers";
 
+/**
+ * @alpha
+ */
 export const useCms = (): any => {
   let vuexStore = getStore();
   const error: Ref<any> = ref(null);
@@ -11,7 +14,14 @@ export const useCms = (): any => {
   const page = computed(() => {
     return vuexStore.getters.getPage;
   });
+  const categoryId = computed(() => {
+    // each cms page is in relation one-to-one with categoryId (resourceIdentifier)
+    return page.value && page.value.resourceIdentifier;
+  });
 
+  /**
+   * @alpha
+   */
   const search = async (path: string, query?: any) => {
     loading.value = true;
 
@@ -42,6 +52,7 @@ export const useCms = (): any => {
 
   return {
     page,
+    categoryId,
     loading,
     search,
     error
