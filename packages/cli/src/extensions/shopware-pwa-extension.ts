@@ -15,7 +15,16 @@ module.exports = (toolbox: GluegunToolbox) => {
   ];
   toolbox.coreDevDependencyPackageNames = ["@vue-storefront/nuxt"];
 
-  toolbox.themeFolders = ["components", "layouts", "pages", "store", "assets"];
+  toolbox.themeFolders = [
+    "components",
+    "layouts",
+    "pages",
+    "store",
+    "assets",
+    "middleware",
+    "static",
+    ".eslintrc.js"
+  ];
 
   toolbox.defaultThemeLocation = `node_modules/@shopware-pwa/default-theme`;
   // enable this if you want to read configuration in from
