@@ -81,9 +81,6 @@ export default {
   methods: {
     getCategoryUrl(route) {
       return route.path || ''
-    },
-    onToggle(test) {
-      console.warn(test);
     }
   }
 }
