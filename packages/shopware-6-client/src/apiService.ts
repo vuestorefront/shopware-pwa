@@ -1,8 +1,14 @@
 import axios from "axios";
+import https from "https";
 import { config } from "./settings";
 import { responseInterceptor, errorInterceptor } from "./apiInterceptors";
 
-export const apiService = axios.create({});
+export const apiService = axios.create({
+  // temporary fix to prevent TLS issues
+  httpsAgent: new https.Agent({
+    rejectUnauthorized: false
+  })
+});
 
 export function reloadConfiguration() {
   apiService.defaults.baseURL = config.endpoint;
