@@ -22,13 +22,10 @@
 <script>
 
 import { SfList, SfProperty, SfBadge, SfDivider } from '@storefront-ui/vue'
-import { VuelidateMixin } from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
 import { useUser } from '@shopware-pwa/composables'
 
 export default {
   name: "Address",
-  mixins: [VuelidateMixin],
   components: {SfList, SfProperty, SfBadge, SfDivider},
   props: {
     address: {
@@ -52,8 +49,6 @@ export default {
     country() {
       return this.address && this.address.country && this.address.country.name || ""
     }
-
-
   },
   data() {
     return {

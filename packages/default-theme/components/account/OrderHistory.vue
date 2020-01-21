@@ -10,34 +10,21 @@
 <script>
 
 import {  SfList, SfDivider } from '@storefront-ui/vue'
-import { VuelidateMixin } from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
 import { useUser } from '@shopware-pwa/composables'
 import OrderDetails from "./OrderHistory/OrderDetails"
 
 export default {
   name: "MyProfile",
-  mixins: [VuelidateMixin],
   components: {SfList, OrderDetails, SfDivider},
   props: {
   },
   setup() {
     const { orders, loadOrders } = useUser()
     loadOrders()
-
     return {
-       orders
+      orders
     }
   },
-  data() {
-    return {
-      
-    }
-  },
-  
-  methods: {
-    
-  }
 }
 </script>
 

@@ -1,5 +1,6 @@
 <template>
   <div class="top-navigation">
+    <slot v-bind="{ navigationElements, activeSidebar, activeIcon }">
       <SfHeader
         title="Shopware PWA"
         active-sidebar="activeSidebar"
@@ -76,6 +77,7 @@
         </template>
       </SfHeader>
       <SwLoginModal :is-open="isModalOpen" @close="isModalOpen = false" />
+    </slot>
   </div>
 </template>
 
