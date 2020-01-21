@@ -5,14 +5,31 @@ the project structure.
 */
 const fs = require("fs-extra");
 const path = require("path");
-const chalk = require("chalk");
 const execa = require("execa");
 
 run();
 
+async function run() {
+  await buildDocs();
+  createStaticStructure();
+  await buildStatics();
+}
+
 async function buildDocs() {
   try {
-    execa("yarn", ["docs:build"]).stdout.pipe(process.stdout);
+    execa("npx", ["typedoc", "--options", "typedoc.js"]).stdout.pipe(
+      process.stdout
+    );
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function buildStatics() {
+  try {
+    execa("./node_modules/.bin/vuepress", ["build", "docs"]).stdout.pipe(
+      process.stdout
+    );
   } catch (e) {
     console.error(e);
   }
@@ -24,8 +41,7 @@ function createDocsStructure(filepath) {
   fs.mkdirSync(absDirPath, { recursive: true });
 }
 
-async function run() {
-  await buildDocs();
+function createStaticStructure() {
   getFilesPath(`${__dirname}/../packages`, /\.md$/, filepath => {
     let relFilePath = getRelativePath(filepath, "packages/");
     let copyDest = `${__dirname}/../docs/${relFilePath}`;
@@ -35,6 +51,7 @@ async function run() {
     });
   });
 }
+
 function getRelativePath(filepath, separator) {
   let [_, rel] = filepath.split(separator);
   return `${rel}`;

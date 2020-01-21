@@ -23,7 +23,7 @@
     "test:e2e": "jest --e2e=true --runInBand",
     "test:coverage": "yarn test --coverage",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "npx typedoc --options ./typedoc.js && vuepress build docs"
+    "docs:build": "node scripts/generateDocs.js"
   },
   "husky": {
     "hooks": {
