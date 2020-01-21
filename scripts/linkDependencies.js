@@ -11,11 +11,6 @@ const defaultThemeDir = path.resolve(__dirname, "../packages/default-theme");
 const helpersDir = path.resolve(__dirname, "../packages/helpers");
 const cliDir = path.resolve(__dirname, "../packages/cli");
 
-const nuxtPackageCoreDir = path.resolve(
-  __dirname,
-  "../vsf-core-packages/nuxt-module"
-);
-
 async function run() {
   /**
    * Link shopware-6-client
@@ -37,18 +32,6 @@ async function run() {
     cwd: composablesDir
   });
   // await execa("yarn", ["link", "@shopware-pwa/composables"], {
-  //   stdio: "inherit",
-  //   cwd: defaultThemeDir
-  // });
-
-  /**
-   * link core nuxt-module package
-   */
-  await execa("yarn", ["link"], {
-    stdio: "inherit",
-    cwd: nuxtPackageCoreDir
-  });
-  // await execa("yarn", ["link", "@vue-storefront/nuxt"], {
   //   stdio: "inherit",
   //   cwd: defaultThemeDir
   // });
