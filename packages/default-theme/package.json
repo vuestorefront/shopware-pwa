@@ -22,7 +22,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.9.3",
     "@nuxtjs/pwa": "^3.0.0-beta.19",
-    "@shopware-pwa/shopware-6-client": "^0.1.0-prealpha.662",
+    "@shopware-pwa/shopware-6-client": "latest",
     "@storefront-ui/vue": "^0.4.0",
     "@vue/composition-api": "^0.3.4",
     "@vuelidate/core": "^2.0.0-alpha.0",
