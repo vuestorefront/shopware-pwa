@@ -15,9 +15,15 @@ module.exports = {
 
     const updateConfigSpinner = spin("Updating configuration");
     // Adding Shopware PWA core dependencies
-    // - unlink potential linked locally packages
-    await run(`yarn unlink ${toolbox.coreDependencyPackageNames.join(" ")}`);
-    await run(`yarn unlink ${toolbox.coreDevDependencyPackageNames.join(" ")}`);
+    try {
+      // - unlink potential linked locally packages
+      await run(`yarn unlink ${toolbox.coreDependencyPackageNames.join(" ")}`);
+      await run(
+        `yarn unlink ${toolbox.coreDevDependencyPackageNames.join(" ")}`
+      );
+    } catch (e) {
+      // It's just for safety, unlink on fresh project will throw an error so we can catch it here
+    }
     // - add dependencies from npm
     await run(`yarn add ${toolbox.coreDependencyPackageNames.join(" ")}`);
     await run(`yarn add -D ${toolbox.coreDevDependencyPackageNames.join(" ")}`);
