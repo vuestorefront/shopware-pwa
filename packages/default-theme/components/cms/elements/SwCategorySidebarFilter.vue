@@ -138,8 +138,11 @@ export default {
     }
   },
   watch: {
-    sortBy(value){
-      this.changeSorting(value)
+    sortBy(newSorting, oldOne){
+      // prevent reloading on default sorting
+      if (oldOne.name !== newSorting.name) {
+        this.changeSorting(newSorting)
+      }
     }
   },
   computed: {
