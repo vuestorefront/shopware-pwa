@@ -7,6 +7,9 @@ import {
 } from "@shopware-pwa/shopware-6-client";
 import { getStore } from "../..";
 
+/**
+ * @alpha
+ */
 export const useCart = (): any => {
   let vuexStore = getStore();
   const loading: Ref<boolean> = ref(false);

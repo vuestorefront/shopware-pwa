@@ -1,6 +1,9 @@
 import { computed } from "@vue/composition-api";
 import { getStore } from "../..";
 
+/**
+ * @alpha
+ */
 export const useCartSidebar = (): any => {
   let vuexStore = getStore();
   const isOpen = computed(() => vuexStore.getters.getIsCartSidebarOpen);

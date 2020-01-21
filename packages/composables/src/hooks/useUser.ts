@@ -14,7 +14,10 @@ import { Order } from "@shopware-pwa/shopware-6-client/src/interfaces/models/che
 import { CustomerAddress } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress";
 import { CustomerRegistrationParams } from "@shopware-pwa/shopware-6-client/src/interfaces/request/CustomerRegistrationParams";
 
-interface UseUser {
+/**
+ * @alpha
+ */
+export interface UseUser {
   login: ({
     username,
     password
@@ -35,6 +38,9 @@ interface UseUser {
   getAddresses: () => Promise<CustomerAddress[]>;
 }
 
+/**
+ * @alpha
+ */
 export const useUser = (): UseUser => {
   let vuexStore = getStore();
   const loading: Ref<boolean> = ref(false);

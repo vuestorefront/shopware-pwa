@@ -62,4 +62,18 @@ describe("Shopware composables", () => {
     expect(error.value).toBeTruthy();
     expect(error.value).toEqual("Something went wrong...");
   });
+
+  it("should return activeCategoryId if it's included within the page object", async () => {
+    const { categoryId, search } = useCms();
+    const response: shopwareClient.PageResolverResult<any> = {
+      breadcrumb: [],
+      cmsPage: { name: "super category", type: "product_list" },
+      resourceIdentifier: "3f637f17cd9f4891a2d7625d19fb37c9",
+      resourceType: "frontend.navigation.page"
+    };
+    mockedGetPage.getPage.mockResolvedValueOnce(response);
+    expect(categoryId.value).toBeNull();
+    await search();
+    expect(categoryId.value).toEqual("3f637f17cd9f4891a2d7625d19fb37c9");
+  });
 });

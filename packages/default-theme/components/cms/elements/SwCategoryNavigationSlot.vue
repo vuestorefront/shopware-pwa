@@ -4,6 +4,7 @@
       <h1 class="sw-category-navigation__title">{{ navTitle }}</h1>
     </div>
     <div class="sw-category-navigation__menu">
+      <SfHeading subtitle="No subcategories" v-if="!navigation.length"/>
       <SfAccordion :first-open="true" :show-chevron="true">
         <SfAccordionItem
           v-for="accordion in navigation"
@@ -22,6 +23,14 @@
               </SfListItem>
             </SfList>
           </template>
+          <template v-else>
+            <nuxt-link
+              v-if="accordion.route && accordion.name"
+              :to="getCategoryUrl(accordion.route)"
+            >
+            See {{ accordion.name }}
+            </nuxt-link>
+          </template>
         </SfAccordionItem>
       </SfAccordion>
     </div>
@@ -29,14 +38,16 @@
 </template>
 
 <script>
-import { SfList, SfAccordion, SfMenuItem } from '@storefront-ui/vue'
+import { SfList, SfAccordion, SfMenuItem, SfHeading } from '@storefront-ui/vue'
 import { getNavigation } from '@shopware-pwa/shopware-6-client'
+import { useCms } from '@shopware-pwa/composables'
 
 export default {
   components: {
     SfAccordion,
     SfList,
-    SfMenuItem
+    SfMenuItem,
+    SfHeading
   },
   props: {
     content: {
@@ -44,9 +55,14 @@ export default {
       default: () => ({})
     }
   },
+  setup() {
+    const { categoryId } = useCms()
+
+    return { categoryId: categoryId.value }
+  },
   data() {
     return {
-      navTitle: 'Category',
+      navTitle: 'Subcategories',
       navigationElements: []
     }
   },
@@ -56,7 +72,10 @@ export default {
     }
   },
   async mounted() {
-    const { children } = await getNavigation({ depth: 2 })
+    const { children } = await getNavigation({
+      depth: 2,
+      rootNode: this.categoryId
+    })
     this.navigationElements = children
   },
   methods: {

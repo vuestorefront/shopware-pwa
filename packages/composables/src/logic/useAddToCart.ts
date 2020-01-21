@@ -2,7 +2,10 @@ import { ref, Ref, computed } from "@vue/composition-api";
 import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
 import { useCart } from "@shopware-pwa/composables";
 
-interface UseAddToCart {
+/**
+ * @alpha
+ */
+export interface UseAddToCart {
   addToCart: () => Promise<void>;
   quantity: Ref<number>;
   loading: Ref<boolean>;
@@ -11,6 +14,9 @@ interface UseAddToCart {
   isInCart: Ref<boolean>;
 }
 
+/**
+ * @alpha
+ */
 export const useAddToCart = (product: Product): UseAddToCart => {
   const { addProduct, cartItems } = useCart();
   const quantity: Ref<number> = ref(1);

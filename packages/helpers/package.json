@@ -1,7 +1,6 @@
 {
   "name": "@shopware-pwa/helpers",
-  "private": true,
-  "version": "0.1.0",
+  "version": "0.1.0-prealpha.0",
   "description": "@shopware-pwa/helpers",
   "main": "dist/helpers.cjs.js",
   "module": "dist/helpers.esm-bundler.js",
@@ -25,5 +24,8 @@
   "license": "MIT",
   "dependencies": {
     "query-string": "^6.9.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

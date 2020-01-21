@@ -20,7 +20,10 @@ import {
 import { useCms } from "./useCms";
 import { useCategoryFilters } from "./useCategoryFilters";
 
-interface UseProductListing {
+/**
+ * @alpha
+ */
+export interface UseProductListing {
   loading: Ref<boolean>;
   error: Ref<any>;
   [x: string]: any;
@@ -43,6 +46,9 @@ const selectedCriteria = Vue.observable({
   sorting: ""
 } as any);
 
+/**
+ * @alpha
+ */
 export const useProductListing = (
   initialProducts: Product[] = []
 ): UseProductListing => {
@@ -61,16 +67,12 @@ export const useProductListing = (
   sharedListing.products = initialProducts;
   selectedCriteria.sorting = activeSorting.value;
 
-  const resetFilters = async () => {
+  const resetFilters = () => {
     selectedCriteria.filters = {};
   };
 
-  const resetSorting = async () => {
+  const resetSorting = () => {
     selectedCriteria.sorting = activeSorting.value;
-  };
-
-  const resetPagination = async () => {
-    selectedCriteria.pagination = {};
   };
 
   const toggleFilter = (
@@ -159,14 +161,14 @@ export const useProductListing = (
     await search();
   };
 
-  if (sharedListing.products.length) {
+  // if reloaded on route change
+  if (initialProducts.length) {
     resetFilters();
     resetSorting();
-    resetPagination();
-    search();
+    changePagination(1);
   }
 
-  const pagination: any = computed(() => sharedPagination);
+  const pagination: any = computed(() => localPagination);
   const products = computed(() => localListing.products);
   const productsTotal = computed(() => localPagination.total);
   const selectedFilters = computed(() => localCriteria.filters);
