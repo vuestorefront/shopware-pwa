@@ -23,27 +23,32 @@ export default {
   components: {
   },
   asyncData: async ({ req, params, query }) => {
-    const {search, page, category} = useCms()
-    const {refreshCart} = useCart()
-    const {refreshUser} = useUser()
-    const searchResult = await search(params.pathMatch, query);
-    await refreshCart();
-    await refreshUser();
+    try {
+      const {search, page, category} = useCms()
+      const {refreshCart} = useCart()
+      const {refreshUser} = useUser()
+      const searchResult = await search(params.pathMatch, query);
+      await refreshCart();
+      await refreshUser();
 
-    const unwrappedPage = page && page.value ? page.value : searchResult
-
-
-    const name = unwrappedPage && unwrappedPage.cmsPage && unwrappedPage.cmsPage.name
-    const breadcrumbs = unwrappedPage && unwrappedPage.breadcrumb
-    const cmsPage = unwrappedPage && unwrappedPage.cmsPage
-    
-    return {
-      cmsPageName: name,
-      page: unwrappedPage,
-      breadcrumbs,
-      cmsPage,
-      category
+      const unwrappedPage = page && page.value ? page.value : searchResult
+      const name = unwrappedPage && unwrappedPage.cmsPage && unwrappedPage.cmsPage.name
+      const breadcrumbs = unwrappedPage && unwrappedPage.breadcrumb
+      const cmsPage = unwrappedPage && unwrappedPage.cmsPage
+      
+      return {
+        cmsPageName: name,
+        page: unwrappedPage,
+        breadcrumbs,
+        cmsPage,
+        category
+      }
+    } catch (error) {
+      console.error("_.vue:asyncData", error)
+      
+      return {}
     }
+    
   },
   data() {
     return {
