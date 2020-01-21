@@ -4,6 +4,7 @@
     <SfBreadcrumbs
        v-show="getBreadcrumbs.length > 0"
       :breadcrumbs="getBreadcrumbs"
+      v-on:click="redirectTo"
       class="sw-breadcrumbs"/>
     <nuxt />
     <SwCart />
@@ -38,6 +39,12 @@ export default {
           link: breadcrumb.path
         }
       }))
+    },
+    
+  },
+  methods: {
+    redirectTo(route) {
+      return this.$router.push(route.link);
     }
   },
 }

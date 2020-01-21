@@ -14,7 +14,14 @@ export const useCms = (): any => {
   const page = computed(() => {
     return vuexStore.getters.getPage;
   });
+  const categoryId = computed(() => {
+    // each cms page is in relation one-to-one with categoryId (resourceIdentifier)
+    return page.value && page.value.resourceIdentifier;
+  });
 
+  /**
+   * @alpha
+   */
   const search = async (path: string, query?: any) => {
     loading.value = true;
 
@@ -45,6 +52,7 @@ export const useCms = (): any => {
 
   return {
     page,
+    categoryId,
     loading,
     search,
     error

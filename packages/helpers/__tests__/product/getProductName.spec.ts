@@ -28,6 +28,9 @@ describe("Shopware helpers - getProductName", () => {
     const argument: any = {
       product: {
         name: "T-Shirt",
+        translated: {
+          name: "Pullover"
+        },
         options: [
           {
             name: "XL"
@@ -39,6 +42,6 @@ describe("Shopware helpers - getProductName", () => {
       }
     };
     const productName = getProductName(argument);
-    expect(productName).toBe("T-Shirt - XL yellow");
+    expect(productName).toBe("Pullover - XL yellow");
   });
 });

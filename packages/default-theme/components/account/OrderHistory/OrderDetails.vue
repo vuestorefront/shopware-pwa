@@ -16,13 +16,10 @@
 <script>
 
 import { SfProperty, SfButton, SfBadge } from '@storefront-ui/vue'
-import { VuelidateMixin } from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
 import { useUser } from '@shopware-pwa/composables'
 
 export default {
   name: "OrderDetail",
-  mixins: [VuelidateMixin],
   components: {SfButton, SfProperty, SfBadge},
   props: {
     order: {

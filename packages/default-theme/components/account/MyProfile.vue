@@ -13,13 +13,10 @@
 <script>
 
 import { SfProperty, SfTabs, SfList } from '@storefront-ui/vue'
-import { VuelidateMixin } from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
 import { useUser } from '@shopware-pwa/composables'
 
 export default {
   name: "MyProfile",
-  mixins: [VuelidateMixin],
   components: {SfProperty, SfTabs, SfList},
   props: {
   },
