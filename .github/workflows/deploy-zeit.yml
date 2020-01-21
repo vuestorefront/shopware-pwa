@@ -15,14 +15,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "10.x"
-      - name: Clone SFUI # temp step for development
-        run: |
-          yarn
-          node ./scripts/prepareSFUIRepoClone.js
+      # - name: Clone SFUI # temp step for development
+      #   run: |
+      #     yarn
+      #     node ./scripts/prepareSFUIRepoClone.js
       - name: Build packages
         run: |
           yarn
-          yarn build
+          yarn build --release
       - name: Deploy PR to zeit
         if: github.event_name == 'pull_request'
         uses: patzick/now-deployment@master
