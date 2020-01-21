@@ -1,4 +1,4 @@
-# default-theme
+# @shopware-pwa/default-theme
 
 > Shopware PWA theme
 

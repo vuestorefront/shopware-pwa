@@ -5,7 +5,10 @@ import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/c
 const NO_PRODUCT_REFERENCE_ERROR =
   "Associations cannot be loaded for undefined product";
 
-interface UseProduct<PRODUCT, SEARCH> {
+/**
+ * @alpha
+ */
+export interface UseProduct<PRODUCT, SEARCH> {
   product: Ref<PRODUCT>;
   search: SEARCH;
   loading: Ref<boolean>;
@@ -13,8 +16,14 @@ interface UseProduct<PRODUCT, SEARCH> {
   [x: string]: any;
 }
 
-type Search = (path: string, associations?: any) => any;
+/**
+ * @alpha
+ */
+export type Search = (path: string, associations?: any) => any;
 
+/**
+ * @alpha
+ */
 export const useProduct = (
   loadedProduct?: any
 ): UseProduct<Product, Search> => {

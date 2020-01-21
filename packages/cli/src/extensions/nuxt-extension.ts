@@ -68,6 +68,8 @@ module.exports = (toolbox: GluegunToolbox) => {
       "json"
     );
 
+    if (!nuxtThemePackage) throw new Error("Theme package not found!");
+
     const packageDependenciesToUpdate = [
       // "@shopware-pwa/composables",
       // "@shopware-pwa/helpers",

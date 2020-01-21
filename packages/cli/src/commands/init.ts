@@ -3,6 +3,8 @@ import { GluegunToolbox } from "gluegun";
 module.exports = {
   name: "init",
   alias: ["i"],
+  description:
+    "Create new Shopware PWA project inside the current directory. Can be invoked multiple times for actualisations.",
   run: async (toolbox: GluegunToolbox) => {
     const {
       system: { run },
@@ -11,13 +13,25 @@ module.exports = {
 
     await toolbox.generateNuxtProject();
 
-    const updateConfigSpinner = spin("Updating Nuxt configuration");
+    const updateConfigSpinner = spin("Updating configuration");
     // Adding Shopware PWA core dependencies
-    // TODO: run in production, link on local development
-    // await run(`yarn add ${toolbox.coreDependencyPackageNames.join(' ')}`);
-    // await run(`yarn add -D ${toolbox.coreDevDependencyPackageNames.join(' ')}`);
-    await run(`yarn link ${toolbox.coreDependencyPackageNames.join(" ")}`);
-    await run(`yarn link ${toolbox.coreDevDependencyPackageNames.join(" ")}`);
+    try {
+      // - unlink potential linked locally packages
+      await run(`yarn unlink ${toolbox.coreDependencyPackageNames.join(" ")}`);
+      await run(
+        `yarn unlink ${toolbox.coreDevDependencyPackageNames.join(" ")}`
+      );
+    } catch (e) {
+      // It's just for safety, unlink on fresh project will throw an error so we can catch it here
+    }
+    // - add dependencies from npm
+    await run(`yarn add ${toolbox.coreDependencyPackageNames.join(" ")}`);
+    await run(`yarn add -D ${toolbox.coreDevDependencyPackageNames.join(" ")}`);
+    // for development run - link local packages
+    if (!toolbox.isProduction) {
+      await run(`yarn link ${toolbox.coreDependencyPackageNames.join(" ")}`);
+      await run(`yarn link ${toolbox.coreDevDependencyPackageNames.join(" ")}`);
+    }
 
     await toolbox.removeDefaultNuxtFiles();
     await toolbox.updateNuxtPackageJson();

@@ -2,6 +2,7 @@ import { GluegunCommand } from "gluegun";
 
 const command: GluegunCommand = {
   name: "dev",
+  description: "Run the initialised project for development.",
   run: async toolbox => {
     const {
       system: { spawn },
