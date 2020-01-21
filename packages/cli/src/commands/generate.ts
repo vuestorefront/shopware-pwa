@@ -3,6 +3,7 @@ import { GluegunToolbox } from "gluegun";
 module.exports = {
   name: "generate",
   alias: ["g"],
+  hidden: true,
   run: async (toolbox: GluegunToolbox) => {
     const {
       parameters,

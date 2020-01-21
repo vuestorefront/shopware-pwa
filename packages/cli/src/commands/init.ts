@@ -3,6 +3,8 @@ import { GluegunToolbox } from "gluegun";
 module.exports = {
   name: "init",
   alias: ["i"],
+  description:
+    "Create new Shopware PWA project inside the current directory. Can be invoked multiple times for actualisations.",
   run: async (toolbox: GluegunToolbox) => {
     const {
       system: { run },
@@ -11,9 +13,7 @@ module.exports = {
 
     await toolbox.generateNuxtProject();
 
-    const updateConfigSpinner = spin(
-      "Updating configuration: " + toolbox.isProduction
-    );
+    const updateConfigSpinner = spin("Updating configuration");
     // Adding Shopware PWA core dependencies
     // - unlink potential linked locally packages
     await run(`yarn unlink ${toolbox.coreDependencyPackageNames.join(" ")}`);
