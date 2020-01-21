@@ -1,7 +1,10 @@
 <template>
   <div class="top-navigation">
     <slot v-bind="{ navigationElements, activeSidebar, activeIcon }">
-      <SfHeader title="Shopware PWA" active-sidebar="activeSidebar">
+      <SfHeader
+        title="Shopware PWA"
+        active-sidebar="activeSidebar"
+      >
         <template #logo>
           <nuxt-link to="/" class="sf-header__logo">
             <SfImage

@@ -1,13 +1,15 @@
 <template>
-  <SwLoginModal :is-open="true" :onClose="redirectToHome" :onSuccess="redirectToMyAccount"/>
+  <div id="login">
+    <SwLogin class="login__component" />
+  </div>
 </template>
 <script>
-import SwLoginModal from "../components/modals/SwLoginModal"
+import SwLogin from "../components/SwLogin"
 
 export default {
   name: 'Login',
   components: {
-    SwLoginModal
+    SwLogin
   },
   middleware: "auth",
   data() {
@@ -17,17 +19,21 @@ export default {
   computed: {
   },
   methods: {
-    redirectToHome() {
-      this.$router.push("/")  
-    },
-    redirectToMyAccount() {
-      this.$router.push("/account")
-    }
   }
 }
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
 @import '~@storefront-ui/shared/styles/helpers/visibility';
-
+#login {
+  width: 100%;
+  height: 65vh;
+  margin-bottom: 10vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  .login__component {
+    width: 50%;
+  }
+}
 </style>

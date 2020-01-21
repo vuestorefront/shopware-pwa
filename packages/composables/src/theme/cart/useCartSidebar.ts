@@ -5,6 +5,9 @@ const sharedCartSidebarState = Vue.observable({
   open: false
 } as any);
 
+/**
+ * @alpha
+ */
 export const useCartSidebar = (): any => {
   const localCartSidebarState = reactive(sharedCartSidebarState);
   const isSidebarOpen = computed(() => localCartSidebarState.open);

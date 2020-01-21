@@ -1,69 +1,60 @@
 <template>
-  <SfModal
-    :visible="isModalOpen"
-    transition-overlay="fade"
-    transition-modal="fade"
-    @close="closeHandler()"
-  >
-    <div>Login into your account</div>
-    <SfAlert v-if="error" type="danger" :message="error" />
-    <SfInput
-      v-model="login"
-      label="Login"
-      :valid="!$v.login.$invalid"
-      error-message="Login is required."
-      :disabled="isLoading"
-    >
-      <template #errorMessage="{ errorMessage }">
-        <SfIcon
-          icon="info_shield"
-          size="10px"
-          color="#E22326"
-          style="margin-right: 4px; display: inline-block"
-        />
-        {{ errorMessage }}
-      </template>
-    </SfInput>
-    <SfInput
-      v-model="password"
-      label="Password"
-      :valid="!$v.password.$invalid"
-      error-message="Password is required."
-      :disabled="isLoading"
-      type="password"
-    >
-      <template #errorMessage="{ errorMessage }">
-        <SfIcon
-          icon="info_shield"
-          size="10px"
-          color="#E22326"
-          style="margin-right: 4px; display: inline-block"
-        />
-        {{ errorMessage }}
-      </template>
-    </SfInput>
-    <SfButton :disabled="isLoading || $v.$invalid" @click="invokeLogin">
-      Login
-    </SfButton>
-    <SfLoader :loading="isLoading" />
-  </SfModal>
+  <div id="sw-login-modal">
+    <SfModal :visible="isModalOpen" @close="toggleModal">
+      <transition name="fade" mode="out-in">
+        <div class="sw-login-modal__wrapper">
+          <component :is="component" :key="key" @success="toggleModal" />
+          <div v-if="component !== 'SwResetPassword'" class="action">
+            <SfButton
+              class="sf-button--text button--muted"
+              @click="component = 'SwResetPassword'"
+            >
+              Forgotten password?
+            </SfButton>
+          </div>
+
+          <div class="bottom">
+            <template v-if="component !== 'SwRegister'">
+              Don't have and account yet?
+              <SfButton
+                class="sf-button--text"
+                @click="component = 'SwRegister'"
+              >
+                Register today?
+              </SfButton>
+            </template>
+          </div>
+          <div v-if="component !== 'SwLogin'" class="action">
+            <SfButton
+              class="sf-button--text button--muted"
+              @click="component = 'SwLogin'"
+            >
+              or try to log in again.
+            </SfButton>
+          </div>
+        </div>
+      </transition>
+    </SfModal>
+  </div>
 </template>
+
 <script>
-import {
-  SfIcon,
-  SfModal,
-  SfInput,
-  SfButton,
-  SfLoader,
-  SfAlert
-} from '@storefront-ui/vue'
-import { VuelidateMixin } from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
+import { SfButton, SfModal, SfAlert } from '@storefront-ui/vue'
 import { useUser, useUserLoginModal } from '@shopware-pwa/composables'
+import SwLogin from '~/components/SwLogin'
+const SwRegister = () => import('../SwRegister')
+const SwResetPassword = () => import('../SwRegister')
 
 export default {
-  components: { SfIcon, SfModal, SfInput, SfButton, SfLoader, SfAlert },
-  mixins: [VuelidateMixin],
+  name: 'SwLoginModal',
+  components: {
+    SfAlert,
+    SfButton,
+    SfModal,
+    SwLogin,
+    SwRegister,
+    SwResetPassword
+  },
   props: {
     onClose: {
       type: Function,
@@ -88,32 +79,27 @@ export default {
   },
   data() {
     return {
-      login: '',
-      password: ''
+      key: 'modal-opened',
+      component: 'SwLogin'
     }
   },
-  validations: {
-    login: {
-      required
-    },
-    password: {
-      required
+  watch: {
+    isModalOpen: {
+      handler(oldVal, newVal) {
+        if (oldVal === true) {
+          // enforce rerender dynamic component
+          this.key = 'modal-closed'
+          this.component = 'SwLogin'
+          return
+        }
+        this.key = 'modal-opened'
+      }
     }
   },
   methods: {
     closeHandler() {
       ;(typeof this.onClose !== 'undefined' && this.onClose()) ||
-        this.toggleModal()
-    },
-    async invokeLogin() {
-      const loggedIn = await this.clientLogin({
-        username: this.login,
-        password: this.password
-      })
-      if (loggedIn) {
-        ;(typeof this.onSuccess !== 'undefined' && this.onSuccess()) ||
-          this.toggleModal()
-      }
+        this.isModalOpen()
     }
   }
 }
@@ -122,4 +108,55 @@ export default {
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
 @import '~@storefront-ui/shared/styles/helpers/visibility';
+
+@mixin for-desktop {
+  @media screen and (min-width: $desktop-min) {
+    @content;
+  }
+}
+
+#sw-login-modal {
+  box-sizing: border-box;
+  @include for-desktop {
+    max-width: 80vw;
+    margin: auto;
+  }
+}
+.input-group {
+  display: flex;
+  width: 30vw;
+  justify-content: space-between;
+}
+
+.form {
+  &__input {
+    margin-bottom: $spacer-medium;
+    &--email {
+      margin-bottom: $spacer-medium;
+    }
+  }
+  &__checkbox {
+    margin-bottom: $spacer-big;
+  }
+  &__button {
+    margin-top: $spacer-big;
+  }
+}
+.action {
+  margin-top: $spacer-big;
+  text-align: center;
+}
+.bottom {
+  padding-top: $spacer-extra-big;
+  margin-top: $spacer-extra-big;
+  border-top: 1px solid $c-light;
+  line-height: 1.6;
+  text-align: center;
+}
+.sf-button--muted {
+  color: $c-text-muted;
+}
+.salutation {
+  width: 8vw;
+}
 </style>

@@ -8,6 +8,9 @@ import {
   SwSorting
 } from "@shopware-pwa/helpers";
 
+/**
+ * @alpha
+ */
 export const useCategoryFilters = (): any => {
   const { page } = useCms();
 

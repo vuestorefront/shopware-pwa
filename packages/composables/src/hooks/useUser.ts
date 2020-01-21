@@ -2,17 +2,22 @@ import { ref, Ref, computed } from "@vue/composition-api";
 import {
   login as apiLogin,
   logout as apiLogout,
+  register as apiRegister,
   getCustomer,
   getCustomerOrders,
   getCustomerOrderDetails,
   getCustomerAddresses
 } from "@shopware-pwa/shopware-6-client";
-import { Customer } from "packages/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
+import { Customer } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
 import { getStore } from "@shopware-pwa/composables";
 import { Order } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order";
 import { CustomerAddress } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress";
+import { CustomerRegistrationParams } from "@shopware-pwa/shopware-6-client/src/interfaces/request/CustomerRegistrationParams";
 
-interface UseUser {
+/**
+ * @alpha
+ */
+export interface UseUser {
   login: ({
     username,
     password
@@ -20,6 +25,7 @@ interface UseUser {
     username?: string;
     password?: string;
   }) => Promise<boolean>;
+  register: ({}: CustomerRegistrationParams) => Promise<boolean>;
   user: Ref<Customer | null>;
   orders: Ref<Order[] | null>;
   loading: Ref<boolean>;
@@ -32,6 +38,9 @@ interface UseUser {
   getAddresses: () => Promise<CustomerAddress[]>;
 }
 
+/**
+ * @alpha
+ */
 export const useUser = (): UseUser => {
   let vuexStore = getStore();
   const loading: Ref<boolean> = ref(false);
@@ -57,6 +66,22 @@ export const useUser = (): UseUser => {
     } finally {
       loading.value = false;
       await refreshUser();
+    }
+  };
+
+  const register = async (
+    params: CustomerRegistrationParams
+  ): Promise<boolean> => {
+    loading.value = true;
+    error.value = null;
+    try {
+      await apiRegister(params);
+      return true;
+    } catch (e) {
+      error.value = e.message;
+      return false;
+    } finally {
+      loading.value = false;
     }
   };
 
@@ -90,6 +115,7 @@ export const useUser = (): UseUser => {
 
   return {
     login,
+    register,
     user,
     error,
     loading,

@@ -4,8 +4,8 @@
     <SfBreadcrumbs
       v-show="getBreadcrumbs.length > 0"
       :breadcrumbs="getBreadcrumbs"
-      class="sw-breadcrumbs"
-    />
+      v-on:click="redirectTo"
+      class="sw-breadcrumbs"/>
     <nuxt />
     <SwCart />
     <SwFooter />
@@ -37,15 +37,19 @@ export default {
         })[0] || {}
       )
     },
-    getBreadcrumbs() {
-      return Object.keys(this.componentBreadcrumbs)
-        .map((key) => this.componentBreadcrumbs[key])
-        .map((breadcrumb) => ({
-          text: breadcrumb.name,
-          route: {
-            link: breadcrumb.path
-          }
-        }))
+    getBreadcrumbs () {
+      return Object.keys(this.componentBreadcrumbs).map(key => this.componentBreadcrumbs[key]).map(breadcrumb => ({
+        text: breadcrumb.name,
+        route: {
+          link: breadcrumb.path
+        }
+      }))
+    },
+    
+  },
+  methods: {
+    redirectTo(route) {
+      return this.$router.push(route.link);
     }
   }
 }

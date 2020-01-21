@@ -115,6 +115,40 @@ describe("Composables - useUser", () => {
       });
     });
 
+    describe("register", () => {
+      it("should not invoke user register without any data", async () => {
+        mockedApiClient.register.mockRejectedValueOnce(
+          new Error("Provide requested informations to create user account")
+        );
+        const { isLoggedIn, error, register } = useUser();
+        const result = await register(undefined as any);
+        expect(result).toEqual(false);
+        expect(isLoggedIn.value).toBeFalsy();
+        expect(error.value).toEqual(
+          "Provide requested informations to create user account"
+        );
+      });
+      it("should register user succesfully", async () => {
+        mockedApiClient.register.mockResolvedValueOnce({ data: "mockedData" });
+        const { error, register } = useUser();
+        const result = await register({
+          firstName: "qwe",
+          lastName: "lastName",
+          email: "qwe@qwe.com",
+          password: "correctPassword",
+          salutationId: "salutationId",
+          billingAddress: {
+            city: "anyCity",
+            zipcode: "zip-code",
+            countryId: "countryId",
+            salutationId: "salutationId"
+          }
+        });
+        expect(result).toBeTruthy();
+        expect(error.value).toBeNull();
+      });
+    });
+
     describe("logout", () => {
       it("should correctly logout user", async () => {
         stateUser.value = { id: "111" };
