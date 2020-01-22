@@ -4,6 +4,43 @@
 
 >:warning:**This repository is not ready for external contributions**   
 
+The only Official Progressive Web App for <a href="https://github.com/shopware/platform">Shopware 6</a>. 
+
+About Shopware: 
+
+<a href="https://github.com/shopware/platform">Shopware 6</a> is the next generation of open source eCommerce software based on bleeding-edge technologies powered by Symfony and Vue.js. Focused on an API-first approach Shopware provides more flexibility and less complexity
+
+
+PS: Check [StorefrontUI](https://github.com/DivanteLtd/storefront-ui/) - our UI library for eCommerce.
+
+
+## See it in action
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="middle">
+        <a href="http://shopware-pwa-faint-money.now.sh/">
+          <img
+            src="https://divante.co/open-graph/vuestorefront/GitHub-Readme-Try-Demo.png"
+            alt="B2C Theme demo"
+            style="width: 100px;">
+        </a>
+      </td>
+      <td align="left" valign="top">
+        Try out our open demo and if you like it <strong> first give us some star on Github ★</strong> and then contact us on <a href="https://slack.vuestorefront.io">Slack</a> or via contributors@vuestorefront.io. <br /><br /> This demo site is connected to <a href="https://github.com/shopware/platform">Shopware 6</a>. <br />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Video demo
+
+[![See video demo!](https://divante.com/github/shopware-pwa/shopware-pwa-miniature.png)](https://youtu.be/t2JJgvvxMG8)
+
+## Join the community on Slack
+
+If you have any questions or ideas feel free to join our slack: https://vuestorefront.slack.com via [invitation link](https://join.slack.com/t/vuestorefront/shared_invite/enQtNTAwODYzNzI3MjAzLWFkZjc0YjVjODA1Y2I2MTdlNmM0NThjY2M5MzgzN2U2NzE4YmE2YzA4YTM0MTY3OWQzZjBhMjBlZDhmYjAyNGI)
 
 ## Getting started
 
