@@ -16,12 +16,11 @@
     <div class="product-details__action">
       <button v-if="sizes.length > 0" class="sf-action">Size guide</button>
     </div>
-    <div v-if="!hasChildren" class="product-details__section">
-      <SfProperty v-if="size" name="Size" :value="size.code" />
-      <SfProperty v-if="color" name="Color" :value="color.code" />
-    </div>
     <div v-if="hasChildren" class="product-details__section">
-      <SwProductSelect v-model="selectedSize" :options="sizes" label="Sizes" />
+      <SwProductSelect
+        :options="sizes"
+        v-model="selectedSize" 
+        label="Sizes" />
       <SwProductSelect
         #default="option"
         v-model="selectedColor"
@@ -54,7 +53,7 @@
       <SfTab title="Description">
         <div>
           <p>
-            {{ product.description }}
+            {{ description }}
           </p>
         </div>
       </SfTab>
@@ -102,7 +101,8 @@ import {
   SfHeading,
   SfProductOption,
   SfAddToCart,
-  SfReview
+  SfReview,
+  SfDivider
 } from '@storefront-ui/vue'
 import {
   getProductOptions,
@@ -130,7 +130,8 @@ export default {
     SfReview,
     SwProductHeading,
     SwProductSelect,
-    SwProductTabs
+    SwProductTabs,
+    SfDivider
   },
   props: {
     product: {
@@ -165,10 +166,10 @@ export default {
       return price && '$' + price
     },
     name() {
-      return this.product && this.product.name
+      return this.product && (this.product.name || this.product.translated && this.product.translated.name)
     },
     description() {
-      return this.product && this.product.description
+      return this.product && (this.product.description || this.product.translated && this.product.translated.description)
     },
     ratingAverage() {
       return this.product && this.product.ratingAverage
@@ -178,29 +179,40 @@ export default {
         this.product && this.product.children && this.product.children.length
       )
     },
-    isSimple() {
-      return isProductSimple({ product: this.product })
-    },
     properties() {
       return getProductProperties({ product: this.product })
     },
     color() {
-      if (!this.isSimple) {
-        return ''
-      }
-      return getProductOption({
+      const color = getProductOption({
         product: this.product,
         attribute: 'color'
       })
+
+      if (!color) {
+        return null
+      }
+
+      return {
+        label: color.name,
+        code: color.id,
+        value: color.id
+      }
     },
     size() {
-      if (!this.isSimple) {
-        return ''
-      }
-      return getProductOption({
+      const size = getProductOption({
         product: this.product,
         attribute: 'size'
       })
+
+      if (!size) {
+        return null
+      }
+
+      return {
+        label: size.name,
+        code: size.id,
+        value: size.id
+      }
     },
     colors() {
       return getProductOptions({
@@ -212,6 +224,11 @@ export default {
       return getProductOptions({
         product: this.product,
         attribute: 'size'
+      })
+    },
+    getAllProductOption(){
+      return getProductOptions({
+        product: this.product
       })
     },
     reviews() {
@@ -229,21 +246,15 @@ export default {
     selectedOptions(selected) {
       const url = getProductOptionsUrl({
         product: this.product,
-        options: selected
+        options: selected.filter(String)
       })
       this.$router.push(url)
     }
   },
 
   mounted() {
-    const color = this.colors.find((color) =>
-      this.product.optionIds.includes(color.code)
-    )
-    const size = this.sizes.find((size) =>
-      this.product.optionIds.includes(size.code)
-    )
-    this.selectedColor = color && color.code
-    this.selectedSize = size && size.code
+    this.selectedColor = this.color && this.color.code || null
+    this.selectedSize =  this.size && this.size.code || null
   },
 
   methods: {
@@ -367,6 +378,7 @@ export default {
   &__section {
     border-bottom: 1px solid #f1f2f3;
     padding-bottom: 10px;
+    padding-top: 20px;
     @include for-desktop {
       border: 0;
       padding-bottom: 0;

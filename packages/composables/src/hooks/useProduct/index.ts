@@ -37,9 +37,6 @@ export const useProduct = (
     }
 
     const {
-      name,
-      description,
-      options,
       media,
       cover,
       properties,
@@ -50,9 +47,6 @@ export const useProduct = (
       associations
     );
     product.value = Object.assign({}, product.value, {
-      name,
-      description,
-      options,
       media,
       cover,
       properties,

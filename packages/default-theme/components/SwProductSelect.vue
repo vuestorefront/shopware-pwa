@@ -3,6 +3,7 @@
     <SfSelect
       v-if="options.length"
       v-model="selectedOption"
+      :selected="selected"
       :label="label"
       class="sf-select--bordered product-details__attribute"
       @change="$emit('select', selectedOption)"
@@ -11,6 +12,7 @@
         v-for="option in options"
         :key="option.code"
         :value="option.code"
+       
       >
         <slot v-bind="option">
           <SfProductOption :label="option.label" />
