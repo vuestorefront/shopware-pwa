@@ -62,7 +62,7 @@ export default {
   },
   computed: {
     getName() {
-      return getProductName({product: this.product});
+      return getProductName({ product: this.product })
     },
     getProductRating() {
       return this.product && this.product.ratingAverage
