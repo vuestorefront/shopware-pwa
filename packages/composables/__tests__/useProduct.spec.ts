@@ -89,7 +89,6 @@ describe("Composables - useProduct", () => {
       await loadAssociations("3f637f17cd9f4891a2d7625d19fb37c9", associations);
       expect(product.value).toHaveProperty("productReviews");
       expect(product.value).toHaveProperty("media");
-      expect(product.value).toHaveProperty("options");
     });
     it("should have failed on empty product during loading associations", async () => {
       const { loadAssociations, error } = useProduct();
