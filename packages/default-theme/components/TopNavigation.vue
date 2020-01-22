@@ -159,10 +159,12 @@ export default {
   }
   .sf-header__logo-image {
     height: 100%;
+    width: 100%;
   }
 
   .sf-image img {
-    height: 100%;
+    height: 2rem;
+    width: 2.1rem;
   }
 
   .sf-search-bar {
