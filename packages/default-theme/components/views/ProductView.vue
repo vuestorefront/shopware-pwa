@@ -152,6 +152,10 @@ export default {
   }
 }
 
+.product-details {
+  z-index: 0;
+}
+
 .images-grid {
   &__row {
     display: flex;

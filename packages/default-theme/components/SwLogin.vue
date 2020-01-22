@@ -6,17 +6,17 @@
         v-if="error"
         class="sw-login__alert"
         type="danger"
-        :message="error"
+        message="Cannot login with provided credentials"
       />
       <SfInput
-        v-model="login"
-        name="login"
-        label="Your login"
+        v-model="email"
+        name="email"
+        label="Your email"
         class="form__input"
-        :valid="!$v.login.$error"
+        :valid="!$v.email.$error"
         :disabled="isLoading"
-        error-message="Login is required"
-        @blur="$v.login.$touch()"
+        error-message="Email is required"
+        @blur="$v.email.$touch()"
       />
       <SfInput
         v-model="password"
@@ -43,7 +43,7 @@
 <script>
 import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
-import { required } from 'vuelidate/lib/validators'
+import { required, email } from 'vuelidate/lib/validators'
 import { useUser } from '@shopware-pwa/composables'
 
 export default {
@@ -52,7 +52,7 @@ export default {
   mixins: [validationMixin],
   data() {
     return {
-      login: '',
+      email: '',
       password: ''
     }
   },
@@ -65,8 +65,9 @@ export default {
     }
   },
   validations: {
-    login: {
-      required
+    email: {
+      required,
+      email
     },
     password: {
       required
