@@ -142,6 +142,17 @@ export default {
 }
 
 .top-navigation {
+  @include for-desktop {
+    .sf-header {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .sf-search-bar {
+    display: none;
+  }
+
   .cart-icon {
     position: relative;
     display: flex;
