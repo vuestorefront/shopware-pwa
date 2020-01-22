@@ -12,6 +12,7 @@
         v-for="option in options"
         :key="option.code"
         :value="option.code"
+       
       >
       <slot v-bind="option">
         <SfProductOption :label="option.label" :color="label=='color' ? option.label : null" />

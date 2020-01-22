@@ -6,7 +6,7 @@
         v-if="error"
         class="sw-register__alert"
         type="danger"
-        :message="error"
+        message="Cannot create a new account, the user may already exist"
       />
       <SfSelect
         v-model="salutation"

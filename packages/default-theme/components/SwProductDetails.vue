@@ -183,6 +183,11 @@ export default {
 
       return options;
     },
+    getAllProductOption(){
+      return getProductOptions({
+        product: this.product
+      })
+    },
     reviews() {
       return getProductReviews({ product: this.product })
     },
