@@ -11,23 +11,12 @@ run();
 
 async function run() {
   await buildDocs();
-  createStaticStructure();
-  await buildStatics();
+  copyStaticFiles();
 }
 
 async function buildDocs() {
   try {
     execa("npx", ["typedoc", "--options", "typedoc.js"]).stdout.pipe(
-      process.stdout
-    );
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-async function buildStatics() {
-  try {
-    execa("./node_modules/.bin/vuepress", ["build", "docs"]).stdout.pipe(
       process.stdout
     );
   } catch (e) {
@@ -41,7 +30,7 @@ function createDocsStructure(filepath) {
   fs.mkdirSync(absDirPath, { recursive: true });
 }
 
-function createStaticStructure() {
+function copyStaticFiles() {
   getFilesPath(`${__dirname}/../packages`, /\.md$/, filepath => {
     let relFilePath = getRelativePath(filepath, "packages/");
     let copyDest = `${__dirname}/../docs/${relFilePath}`;
