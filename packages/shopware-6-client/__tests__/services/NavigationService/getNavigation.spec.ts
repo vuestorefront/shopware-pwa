@@ -12,7 +12,7 @@ describe("NavigationService - getNavigation", () => {
     mockedAxios.post.mockResolvedValueOnce({
       data: {
         count: 1,
-        elements: [
+        children: [
           {
             id: "83e555dee2d2425eba42b7c628b65c67",
             path: "/navigation/83e555dee2d2425eba42b7c628b65c67",
@@ -35,6 +35,6 @@ describe("NavigationService - getNavigation", () => {
       rootNode: "5e0bf3a85da746e1ba2f9672910ea361"
     });
     expect(result).toHaveProperty("count");
-    expect(result.elements[0].id).toEqual("83e555dee2d2425eba42b7c628b65c67");
+    expect(result.children[0].id).toEqual("83e555dee2d2425eba42b7c628b65c67");
   });
 });

@@ -1,36 +1,41 @@
 <template>
-  <div id="layout">
-    <TopNavigation/>
+  <div class="layout">
+    <TopNavigation />
     <SfBreadcrumbs
-       v-show="getBreadcrumbs.length > 0"
+      v-show="getBreadcrumbs.length > 0"
       :breadcrumbs="getBreadcrumbs"
       v-on:click="redirectTo"
       class="sw-breadcrumbs"/>
     <nuxt />
     <SwCart />
     <SwFooter />
+    <SwBottomNavigation class="layout__bottom-navigation"/>
   </div>
 </template>
 
 <script>
-import TopNavigation from "../components/TopNavigation";
-import SwCart from "../components/SwCart";
-import SwFooter from "../components/cms/elements/SwFooter";
-import { SfBreadcrumbs } from "@storefront-ui/vue";
-import { useCart } from "@shopware-pwa/composables";
+import { SfBreadcrumbs } from '@storefront-ui/vue'
+import TopNavigation from '../components/TopNavigation'
+import SwBottomNavigation from '../components/SwBottomNavigation'
+import SwCart from '../components/SwCart'
+import SwFooter from '../components/cms/elements/SwFooter'
 
 export default {
   components: {
-    TopNavigation,
     SfBreadcrumbs,
+    TopNavigation,
     SwCart,
-    SwFooter
+    SwFooter,
+    SwBottomNavigation
   },
   computed: {
-    componentBreadcrumbs () { // TODO probably move to vuex now as it's not rendered on server side
-      return this.$route.matched.map((r) => {
-        return r.components.default.options.data().breadcrumbs
-      })[0] || {}
+    componentBreadcrumbs() {
+      // TODO probably move to vuex now as it's not rendered on server side
+      return (
+        this.$route.matched.map((r) => {
+          return r.components.default.options.data().breadcrumbs
+        })[0] || {}
+      )
     },
     getBreadcrumbs () {
       return Object.keys(this.componentBreadcrumbs).map(key => this.componentBreadcrumbs[key]).map(breadcrumb => ({
@@ -46,7 +51,7 @@ export default {
     redirectTo(route) {
       return this.$router.push(route.link);
     }
-  },
+  }
 }
 </script>
 
@@ -66,7 +71,7 @@ body {
   margin: 0;
 }
 
-#layout {
+.layout {
   box-sizing: border-box;
   @include for-desktop {
     max-width: 1320px;
@@ -75,6 +80,12 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
+  
+  &__bottom-navigation {
+    @include for-desktop() {
+      display: none;
+    }
+  }
 }
 
 .sw-breadcrumbs {
@@ -82,6 +93,10 @@ body {
 }
 
 /* Delete firefox outline */
-:focus {outline:none;}
-::-moz-focus-inner {border:0;}
+:focus {
+  outline: none;
+}
+::-moz-focus-inner {
+  border: 0;
+}
 </style>

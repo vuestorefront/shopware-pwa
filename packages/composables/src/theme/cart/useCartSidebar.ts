@@ -1,19 +1,23 @@
-import { computed } from "@vue/composition-api";
-import { getStore } from "../..";
+import Vue from "vue";
+import { computed, reactive } from "@vue/composition-api";
+
+const sharedCartSidebarState = Vue.observable({
+  open: false
+} as any);
 
 /**
  * @alpha
  */
 export const useCartSidebar = (): any => {
-  let vuexStore = getStore();
-  const isOpen = computed(() => vuexStore.getters.getIsCartSidebarOpen);
+  const localCartSidebarState = reactive(sharedCartSidebarState);
+  const isSidebarOpen = computed(() => localCartSidebarState.open);
 
-  function toggle() {
-    vuexStore.commit("SET_CART_SIDEBAR_IS_OPEN", !isOpen.value);
+  function toggleSidebar() {
+    sharedCartSidebarState.open = !sharedCartSidebarState.open;
   }
 
   return {
-    isOpen,
-    toggle
+    isSidebarOpen,
+    toggleSidebar
   };
 };

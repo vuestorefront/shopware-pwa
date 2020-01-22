@@ -1,9 +1,9 @@
 <template>
   <div id="sw-login-modal">
-    <SfModal :visible="isOpen" @close="closeHandler">
+    <SfModal :visible="isModalOpen" @close="toggleModal">
       <transition name="fade" mode="out-in">
         <div class="sw-login-modal__wrapper">
-          <component :is="component" :key="key" @success="$emit('close')" />
+          <component :is="component" :key="key" @success="toggleModal" />
           <div v-if="component !== 'SwResetPassword'" class="action">
             <SfButton
               class="sf-button--text button--muted"
@@ -40,7 +40,7 @@
 
 <script>
 import { SfButton, SfModal, SfAlert } from '@storefront-ui/vue'
-import { useUser } from '@shopware-pwa/composables'
+import { useUser, useUserLoginModal } from '@shopware-pwa/composables'
 import SwLogin from '~/components/SwLogin'
 const SwRegister = () => import('../SwRegister')
 const SwResetPassword = () => import('../SwResetPassword')
@@ -56,10 +56,6 @@ export default {
     SwResetPassword
   },
   props: {
-    isOpen: {
-      type: Boolean,
-      default: false
-    },
     onClose: {
       type: Function,
       default: undefined
@@ -71,9 +67,13 @@ export default {
   },
   setup() {
     const { login, loading, error } = useUser()
+    const { isModalOpen, toggleModal } = useUserLoginModal()
+
     return {
       clientLogin: login,
       isLoading: loading,
+      toggleModal,
+      isModalOpen,
       error
     }
   },
@@ -84,7 +84,7 @@ export default {
     }
   },
   watch: {
-    isOpen: {
+    isModalOpen: {
       handler(oldVal, newVal) {
         if (oldVal === true) {
           // enforce rerender dynamic component
@@ -99,7 +99,7 @@ export default {
   methods: {
     closeHandler() {
       ;(typeof this.onClose !== 'undefined' && this.onClose()) ||
-        this.$emit('close')
+        this.isModalOpen()
     }
   }
 }

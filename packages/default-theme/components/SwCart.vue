@@ -1,13 +1,13 @@
 <template>
   <div id="cart">
     <SfSidebar
-      :visible="isOpen"
-      headingTitle="My Cart"
-      @close="toggle"
+      :visible="isSidebarOpen"
+      heading-title="My Cart"
       class="sf-sidebar--right"
+      @close="toggleSidebar"
     >
       <transition name="fade" mode="out-in">
-        <div v-if="count" class="my-cart" key="my-cart">
+        <div v-if="count" key="my-cart" class="my-cart">
           <h3 class="my-cart__total-items">Total items: {{ count }}</h3>
           <div class="collected-product-list">
             <transition-group name="fade" tag="div">
@@ -28,39 +28,30 @@
           </SfProperty>
           <SfButton class="sf-button--full-width">Go to checkout</SfButton>
         </div>
-        <div v-else class="empty-cart" key="empty-cart">
+        <div v-else key="empty-cart" class="empty-cart">
           <div class="empty-cart__banner">
-            <img
-              src="/icons/empty_cart.svg"
-              alt=""
-              class="empty-cart__icon"
-            />
+            <img src="/icons/empty_cart.svg" alt="" class="empty-cart__icon" />
             <h3 class="empty-cart__label">Your bag is empty</h3>
             <p class="empty-cart__description">
               Looks like you haven’t added any items to the bag yet. Start
               shopping to fill it in.
             </p>
           </div>
-          <SfButton class="sf-button--full-width color-secondary"
-            >Start shopping</SfButton
-          >
+          <SfButton class="sf-button--full-width color-secondary">
+            Start shopping
+          </SfButton>
         </div>
       </transition>
     </SfSidebar>
   </div>
 </template>
 <script>
-import {
-  SfSidebar,
-  SfButton,
-  SfProperty,
-  SfPrice,
-} from "@storefront-ui/vue";
-import { useCart, useCartSidebar } from "@shopware-pwa/composables";
-import SwCartProduct from "./SwCartProduct"
+import { SfSidebar, SfButton, SfProperty, SfPrice } from '@storefront-ui/vue'
+import { useCart, useCartSidebar } from '@shopware-pwa/composables'
+import SwCartProduct from './SwCartProduct'
 
 export default {
-  name: "Cart",
+  name: 'Cart',
   components: {
     SfSidebar,
     SfButton,
@@ -68,12 +59,12 @@ export default {
     SfPrice,
     SwCartProduct
   },
-  setup () {
+  setup() {
     const { cartItems, count, totalPrice, removeProduct } = useCart()
-    const { isOpen, toggle } = useCartSidebar()
+    const { isSidebarOpen, toggleSidebar } = useCartSidebar()
     return {
-      isOpen,
-      toggle,
+      isSidebarOpen,
+      toggleSidebar,
       cartItems,
       count,
       totalPrice,
@@ -81,15 +72,15 @@ export default {
     }
   },
   filters: {
-    price: function(price) {
-      if (!price) return;
-      return `$${price}`;
+    price(price) {
+      if (!price) return
+      return `$${price}`
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
-@import "~@storefront-ui/vue/styles";
+@import '~@storefront-ui/vue/styles';
 @mixin for-desktop {
   @media screen and (min-width: $desktop-min) {
     @content;
