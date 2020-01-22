@@ -142,6 +142,17 @@ export default {
 }
 
 .top-navigation {
+  @include for-desktop {
+    .sf-header {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .sf-search-bar {
+    display: none;
+  }
+
   .cart-icon {
     position: relative;
     display: flex;
@@ -157,12 +168,19 @@ export default {
       min-height: 2.2em;
     }
   }
+
+  .sf-header__navigation {
+    flex: 1;
+  }
+
   .sf-header__logo-image {
     height: 100%;
+    width: 100%;
   }
 
   .sf-image img {
-    height: 100%;
+    height: 2rem;
+    width: 2.1rem;
   }
 
   .sf-search-bar {

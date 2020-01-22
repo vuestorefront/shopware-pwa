@@ -19,6 +19,7 @@
   "lint-staged": {
     "*.{js,vue}": "prettier"
   },
+  "license": "MIT",
   "dependencies": {
     "@nuxtjs/axios": "^5.9.3",
     "@nuxtjs/pwa": "^3.0.0-beta.19",
