@@ -39,7 +39,7 @@
         <SfSelect :size="sorting.length" v-model="sortBy">
           <SfSelectOption v-for="(option, key) in sorting" :key="key" :value="option" class="sort-by__option">
             <!-- SfProductOption as a name - makes no sense in this case, should be renamed in Ui -->
-            <SfProductOption :label="option.name" :value="option.name" :selected="option.name === selectedSorting.name"></SfProductOption>
+            <SfProductOption :label="getSortLabel(option)" :value="option.name" :selected="option.name === selectedSorting.name"></SfProductOption>
           </SfSelectOption>
         </SfSelect>
         
@@ -112,6 +112,8 @@ import {
 } from '@storefront-ui/vue'
 import { useCategoryFilters, useProductListing } from '@shopware-pwa/composables'
 const { availableFilters, availableSorting } = useCategoryFilters()
+import { getSortingLabel } from '@shopware-pwa/helpers'
+
 
 export default {
   components: {
@@ -178,6 +180,9 @@ export default {
     async submitFilters() {
       await this.search()
       this.isFilterSidebarOpen = false
+    },
+    getSortLabel(sorting) {
+      return getSortingLabel(sorting)
     }
   }
 }
@@ -300,5 +305,7 @@ export default {
 }
 .sf-select {
   width: 150px;
+  margin-top: 0px;
+  font-size:14px;
 }
 </style>

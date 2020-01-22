@@ -96,7 +96,7 @@ export default {
     // TODO remove when page resolver is fully done
     const associations = {
       'associations[media][]': true,
-      // 'associations[options][associations][group][]': true,
+      'associations[options][associations][group][]': true,
       'associations[properties][associations][group][]': true,
       'associations[productReviews][]': true, // can be fetched asynchronously
       'associations[manufacturer][]': true,
