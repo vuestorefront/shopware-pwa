@@ -5,7 +5,7 @@
     </div>
     <div class="sw-category-navigation__menu">
       <SfHeading subtitle="No subcategories" v-if="!navigation.length"/>
-      <SfAccordion :first-open="true" :show-chevron="true">
+      <SfAccordion :show-chevron="true">
         <SfAccordionItem
           v-for="accordion in navigation"
           :key="accordion.id"
