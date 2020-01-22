@@ -61,10 +61,10 @@ export const useProduct = (
     });
   };
 
-  const search = async (path: string) => {
+  const search = async (productId: string) => {
     loading.value = true;
     try {
-      const result = await getProduct(path);
+      const result = await getProduct(productId);
       product.value = result;
       return result;
     } catch (e) {
