@@ -220,7 +220,7 @@ export default {
   }
 
   &__main {
-    margin-left: 20px;
+    margin: 0 20px 0 20px;
     flex: 1;
     display: flex;
     align-items: center;
@@ -269,6 +269,7 @@ export default {
   }
   &__counter {
     margin: auto;
+    padding-right: 20px;
     @include for-desktop {
       margin-right: 0;
     }

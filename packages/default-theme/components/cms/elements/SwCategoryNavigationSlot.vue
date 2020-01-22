@@ -5,7 +5,7 @@
     </div>
     <div class="sw-category-navigation__menu">
       <SfHeading subtitle="No subcategories" v-if="!navigation.length"/>
-      <SfAccordion :first-open="true" :show-chevron="true">
+      <SfAccordion :show-chevron="true">
         <SfAccordionItem
           v-for="accordion in navigation"
           :key="accordion.id"
@@ -98,11 +98,12 @@ export default {
 .sw-category-navigation {
   margin-right: 0 !important;
   &__header {
-    margin-left: 2.5rem;
+    // margin-left: 2.5rem;
     flex: 0 0 15%;
     align-items: center;
     display: flex;
-    height: 3.9rem;
+    padding: 20px;
+    height: 3.57rem;
     @include for-desktop {
       border-top: 1px solid $c-light;
       border-bottom: 1px solid $c-light;
@@ -117,7 +118,11 @@ export default {
   &__menu {
     margin-right: 20px;
     flex: 0 0 15%;
-    padding: $spacer-extra-big;
+    padding: 20px 0 20px 0;
+
+    @include for-desktop {
+      width: 12rem;
+    }
 
     &__aside {
       display: flex;
