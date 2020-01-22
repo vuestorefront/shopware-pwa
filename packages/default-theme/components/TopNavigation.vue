@@ -168,6 +168,11 @@ export default {
       min-height: 2.2em;
     }
   }
+
+  .sf-header__navigation {
+    flex: 1;
+  }
+
   .sf-header__logo-image {
     height: 100%;
     width: 100%;
