@@ -77,7 +77,7 @@
                 :count="option.count"
                 :color="option.color ? option.color : null"
                 :selected="selectedFilters[filter.name] && !!selectedFilters[filter.name].find((propertyId) => propertyId === option.value)"
-                @click.native="toggleFilter({type: 'equals', value: option.value, field: filter.name})"
+                @change.native="toggleFilter({type: 'equals', value: option.value, field: filter.name})"
                 class="filters__item"
               />
             </div>
