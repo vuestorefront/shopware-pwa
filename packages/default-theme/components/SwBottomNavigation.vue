@@ -1,6 +1,6 @@
 <template>
   <div class="sw-bottom-navigation">
-    <SfBottomNavigation>
+    <SfBottomNavigation :style="{'z-index': isSidebarOpen ? 0: 1}">
       <nuxt-link to="/">
         <SfBottomNavigationItem>
           <SfIcon icon="home" size="20px" />
@@ -45,11 +45,12 @@ export default {
     }
   },
   setup() {
-    const { toggleSidebar } = useCartSidebar()
+    const { toggleSidebar, isSidebarOpen } = useCartSidebar()
     const { routeNames, convertToSlug } = useNavigation()
     const { toggleModal } = useUserLoginModal()
     return {
       routeNames,
+      isSidebarOpen,
       convertToSlug,
       toggleSidebar,
       toggleModal
@@ -72,11 +73,5 @@ export default {
     width: 100%;
     height: 100%;
   }
-}
-</style>
-
-<style>
-.sf-bottom-navigation {
-  z-index: 1;
 }
 </style>
