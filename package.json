@@ -23,7 +23,7 @@
     "test:e2e": "jest --e2e=true --runInBand",
     "test:coverage": "yarn test --coverage",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "npx typedoc --options ./typedoc.js && vuepress build docs"
+    "docs:build": "node scripts/generateDocs.js && vuepress build docs"
   },
   "husky": {
     "hooks": {
@@ -75,6 +75,7 @@
     "typedoc-plugin-markdown": "^2.2.16",
     "typescript": "^3.7.4",
     "vuepress": "^1.2.0",
+    "vuepress-bar": "^0.2.3",
     "yorkie": "^2.0.0"
   },
   "engines": {
