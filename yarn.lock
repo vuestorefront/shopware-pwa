@@ -2472,10 +2472,10 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@shopware-pwa/shopware-6-client@^0.1.0-prealpha.662":
-  version "0.1.0-prealpha.662"
-  resolved "https://registry.yarnpkg.com/@shopware-pwa/shopware-6-client/-/shopware-6-client-0.1.0-prealpha.662.tgz#4cddf73345355316d05a0e8834ac0867b2a9136f"
-  integrity sha512-KG90/ksUKoNM3G2091UzA4CI8mKS7tLaO5H0nJbZEOZwmsNGAHRzJ/i+sesKS1n0P1MZvORZhwmfcVpgssLDog==
+"@shopware-pwa/shopware-6-client@latest":
+  version "0.1.0-prealpha.694"
+  resolved "https://registry.yarnpkg.com/@shopware-pwa/shopware-6-client/-/shopware-6-client-0.1.0-prealpha.694.tgz#438a572cbdd391096a169a83e5c75c73d322899b"
+  integrity sha512-WxUifzxT/eynh+jJtn00GwqaPHseU8VrOlwgFNKXeGXeAioELeiP/fPWyH/7EpOAVTvPCw6oWndWhPrJQt7wZw==
 
 "@storefront-ui/shared@^0.4.0":
   version "0.4.0"
