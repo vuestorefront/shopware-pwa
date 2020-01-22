@@ -35,21 +35,16 @@ describe("Shopware helpers - getProductOptions", () => {
     };
 
     const productOptions = getProductOptions({
-      product: productWithChildren,
-      attribute: "color"
+      product: productWithChildren
     });
-    expect(productOptions).toHaveLength(1);
-    expect(productOptions[0]).toHaveProperty("label");
-    expect(productOptions[0]).toHaveProperty("value");
-    expect(productOptions[0]).toHaveProperty("code");
+    expect(productOptions).toHaveProperty("color");
   });
 
   it("should returns return an empty array if no children", () => {
     const productWithoutChildren: any = {};
 
     const productOptions = getProductOptions({
-      product: productWithoutChildren,
-      attribute: "test"
+      product: productWithoutChildren
     });
     expect(productOptions).toHaveLength(0);
   });
@@ -64,10 +59,9 @@ describe("Shopware helpers - getProductOptions", () => {
     };
 
     const productOptions = getProductOptions({
-      product: productWithoutChildren,
-      attribute: "test"
+      product: productWithoutChildren
     });
-    expect(productOptions).toHaveLength(0);
+    expect(productOptions).toStrictEqual({});
   });
 
   it("should return default empty array if argument wasn't provided", () => {

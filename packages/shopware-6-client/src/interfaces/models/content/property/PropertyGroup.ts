@@ -6,7 +6,7 @@ import { PropertyGroupOptionTranslation } from "./PropertyGroupOptionTranslation
  * @alpha
  */
 export interface PropertyGroup {
-  name: string | null;
+  name: string;
   displayType: string;
   sortingType: string;
   description: string | null;

@@ -1,30 +1,37 @@
 import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
 import { UiProductOption } from "@shopware-pwa/helpers";
 
-/**
- * @alpha
- */
+interface ProductOptions {
+  [attribute: string]: UiProductOption[];
+}
+
 export function getProductOptions({
-  product,
-  attribute
+  product
 }: {
   product?: Product;
-  attribute?: string;
-} = {}): UiProductOption[] {
+} = {}): ProductOptions | [] {
   if (!product || !product.children) {
     return [];
   }
 
-  const typeOptions = new Map();
+  let typeOptions = {} as any;
   product.children.forEach(variant => {
     if (!variant || !variant.options || !variant.options.length) {
       return;
     }
 
     for (let option of variant.options) {
-      if ((option.group && option.group.name === attribute) || !attribute) {
-        if (!typeOptions.has(option.id)) {
-          typeOptions.set(option.id, {
+      if (option.group && option.group.name) {
+        if (!typeOptions.hasOwnProperty(option.group.name)) {
+          typeOptions[option.group.name] = [];
+        }
+
+        if (
+          !typeOptions[option.group.name].find(
+            (valueOption: any) => option.id == valueOption.code
+          )
+        ) {
+          typeOptions[option.group.name].push({
             label: option.name,
             code: option.id,
             value: option.name
@@ -33,5 +40,6 @@ export function getProductOptions({
       }
     }
   });
-  return Array.from(typeOptions.values());
+
+  return typeOptions;
 }

@@ -13,22 +13,17 @@
     <p class="product-details__description desktop-only">
       {{ description }}
     </p>
-    <div class="product-details__action">
+    <!-- <div class="product-details__action">
       <button v-if="sizes.length > 0" class="sf-action">Size guide</button>
-    </div>
+    </div> -->
     <div v-if="hasChildren" class="product-details__section">
       <SwProductSelect
-        :options="sizes"
-        v-model="selectedSize" 
-        label="Sizes" />
-      <SwProductSelect
-        #default="option"
-        v-model="selectedColor"
-        :options="colors"
-        label="Colors"
-      >
-        <SfProductOption :label="option.label" :color="option.label" />
-      </SwProductSelect>
+        v-for="(options, code) in getAllProductOptions"
+        v-bind:key="code"
+        :options="options"
+        v-model="selected[code]"
+        :changeHandler="handleChange"
+        :label="code" />
     </div>
     <div class="product-details__section">
       <SfAlert
@@ -105,14 +100,14 @@ import {
   SfDivider
 } from '@storefront-ui/vue'
 import {
-  getProductOptions,
   getProductProperties,
   getProductOption,
   getProductReviews,
   getProductRegularPrice,
   getProductSpecialPrice,
   isProductSimple,
-  getProductOptionsUrl
+  getProductOptionsUrl,
+  getProductOptions
 } from '@shopware-pwa/helpers'
 import { useProduct, useAddToCart } from '@shopware-pwa/composables'
 import SwProductHeading from './SwProductHeading'
@@ -145,8 +140,7 @@ export default {
   },
   data() {
     return {
-      selectedColor: null,
-      selectedSize: null
+      selected: {}
     }
   },
   setup({ page }) {
@@ -182,49 +176,12 @@ export default {
     properties() {
       return getProductProperties({ product: this.product })
     },
-    color() {
-      const color = getProductOption({
-        product: this.product,
-        attribute: 'color'
+    getAllProductOptions(){
+      const options = getProductOptions({
+        product: this.product
       })
 
-      if (!color) {
-        return null
-      }
-
-      return {
-        label: color.name,
-        code: color.id,
-        value: color.id
-      }
-    },
-    size() {
-      const size = getProductOption({
-        product: this.product,
-        attribute: 'size'
-      })
-
-      if (!size) {
-        return null
-      }
-
-      return {
-        label: size.name,
-        code: size.id,
-        value: size.id
-      }
-    },
-    colors() {
-      return getProductOptions({
-        product: this.product,
-        attribute: 'color'
-      })
-    },
-    sizes() {
-      return getProductOptions({
-        product: this.product,
-        attribute: 'size'
-      })
+      return options;
     },
     getAllProductOption(){
       return getProductOptions({
@@ -238,28 +195,40 @@ export default {
       return this.product && this.product.stock
     },
     selectedOptions() {
-      return [this.selectedColor, this.selectedSize]
+      return this.selected
     }
   },
-
   watch: {
-    selectedOptions(selected) {
+    selectedOptions(selected, selectedOld) {
+      if (Object.keys(this.getAllProductOptions).length !== Object.keys(selected).length) {
+        return;
+      }
+
+      const options = [];
+      for(let attribute of Object.keys(selected)) {
+        options.push(selected[attribute])
+      }
       const url = getProductOptionsUrl({
         product: this.product,
-        options: selected.filter(String)
+        options
       })
+
       this.$router.push(url)
     }
   },
 
   mounted() {
-    this.selectedColor = this.color && this.color.code || null
-    this.selectedSize =  this.size && this.size.code || null
+    this.product.options.forEach(option => {
+      this.selected = Object.assign({}, this.selected, { [option.group.name]: option.id })
+    });
   },
 
   methods: {
     toggleWishlist(index) {
       this.products[index].isOnWishlist = !this.products[index].isOnWishlist
+    },
+    handleChange(attribute, option) {
+      this.selected = Object.assign({}, this.selected, { [attribute]: option })
     }
   }
 }

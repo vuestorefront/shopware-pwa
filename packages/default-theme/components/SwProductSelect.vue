@@ -6,7 +6,7 @@
       :selected="selected"
       :label="label"
       class="sf-select--bordered product-details__attribute"
-      @change="$emit('select', selectedOption)"
+      @change="changeHandler(label, selectedOption)"
     >
       <SfSelectOption
         v-for="option in options"
@@ -14,9 +14,9 @@
         :value="option.code"
        
       >
-        <slot v-bind="option">
-          <SfProductOption :label="option.label" />
-        </slot>
+      <slot v-bind="option">
+        <SfProductOption :label="option.label" :color="label=='color' ? option.label : null" />
+      </slot>
       </SfSelectOption>
     </SfSelect>
   </div>
@@ -32,6 +32,10 @@ export default {
     event: 'select'
   },
   props: {
+    changeHandler: {
+      type: Function,
+      default: () => {}
+    },
     selected: {
       type: String,
       default: ''
