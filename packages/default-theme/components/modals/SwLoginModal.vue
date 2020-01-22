@@ -43,7 +43,7 @@ import { SfButton, SfModal, SfAlert } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 import SwLogin from '~/components/SwLogin'
 const SwRegister = () => import('../SwRegister')
-const SwResetPassword = () => import('../SwRegister')
+const SwResetPassword = () => import('../SwResetPassword')
 
 export default {
   name: 'SwLoginModal',
@@ -116,6 +116,7 @@ export default {
 }
 
 #sw-login-modal {
+  z-index: 2;
   box-sizing: border-box;
   @include for-desktop {
     max-width: 80vw;
