@@ -13,9 +13,6 @@
       <div class="products-recomendations__section">
         <SwProductCarousel />
       </div>
-      <div class="products-recomendations__section">
-        <SwProductCarousel title-heading="You might also like" />
-      </div>
     </div>
     <div class="">
       <SfSection
