@@ -178,6 +178,11 @@ export default {
     width: 100%;
   }
 
+  .sf-image img {
+    height: 2rem;
+    width: 2.1rem;
+  }
+
   .sf-search-bar {
     visibility: hidden;
   }
