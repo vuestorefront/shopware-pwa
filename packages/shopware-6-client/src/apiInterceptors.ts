@@ -10,14 +10,8 @@ export function responseInterceptor(response: AxiosResponse) {
   update({ contextToken });
   return response;
 }
-export async function errorInterceptor(error: any) {
+export function errorInterceptor(error: any) {
   // Any status codes that falls outside the range of 2xx cause this function to trigger
   // Do something with response error
-  console.error("axios interceptor [error][request]: ", error.request);
-  console.error("axios interceptor [error][response]: ", error.response);
-  if (!error.response) {
-    error.response = {};
-  }
-
-  throw error;
+  return Promise.reject(error);
 }
