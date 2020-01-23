@@ -143,9 +143,15 @@ export const useProductListing = (
     if (typeof history !== "undefined")
       history.replaceState({}, null as any, location.pathname + "?" + search);
 
-    const result = await getProducts(searchCriteria);
-    sharedPagination.total = (result && result.total) || 0;
-    sharedListing.products = (result && result.data && [...result.data]) || [];
+    try {
+      const result = await getProducts(searchCriteria);
+      sharedPagination.total = (result && result.total) || 0;
+      sharedListing.products =
+        (result && result.data && [...result.data]) || [];
+    } catch (e) {
+      console.error("useProductListing:search", e);
+    }
+
     loading.value = false;
   };
 

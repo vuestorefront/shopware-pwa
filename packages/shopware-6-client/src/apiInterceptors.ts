@@ -15,5 +15,9 @@ export async function errorInterceptor(error: any) {
   // Do something with response error
   console.error("axios interceptor [error][request]: ", error.request);
   console.error("axios interceptor [error][response]: ", error.response);
+  if (!error.response) {
+    error.response = {};
+  }
+
   throw error;
 }
