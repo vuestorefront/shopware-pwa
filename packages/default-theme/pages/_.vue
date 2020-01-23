@@ -30,7 +30,7 @@ export default {
     try {
       const searchResult = await search(params.pathMatch, query);
       await refreshCart();
-      //await refreshUser();
+      await refreshUser();
     } catch (e) {
       console.error('_.vue:asyncData', e);
     }
