@@ -36,23 +36,27 @@ export const useProduct = (
       throw NO_PRODUCT_REFERENCE_ERROR;
     }
 
-    const {
-      media,
-      cover,
-      properties,
-      productReviews,
-      children
-    } = await getProduct(
-      product.value.parentId || product.value.id,
-      associations
-    );
-    product.value = Object.assign({}, product.value, {
-      media,
-      cover,
-      properties,
-      productReviews,
-      children
-    });
+    try {
+      const {
+        media,
+        cover,
+        properties,
+        productReviews,
+        children
+      } = await getProduct(
+        product.value.parentId || product.value.id,
+        associations
+      );
+      product.value = Object.assign({}, product.value, {
+        media,
+        cover,
+        properties,
+        productReviews,
+        children
+      });
+    } catch (e) {
+      console.error("useProduct:loadAssociations", e);
+    }
   };
 
   const search = async (productId: string) => {

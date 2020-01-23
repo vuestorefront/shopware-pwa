@@ -10,11 +10,16 @@ export const useNavigation = (): any => {
   const routeNames = computed(() => localNavigation.routeNames);
 
   const fetchRouteNames = async (params?: any): Promise<void> => {
-    const navigation = await getNavigation(params);
-    if (typeof navigation.children === "undefined") return;
-    sharedNavigation.routeNames = navigation.children.map(
-      (element: { name: string }) => element.name
-    );
+    try {
+      const navigation = await getNavigation(params);
+      if (!navigation || typeof navigation.children === "undefined") return;
+
+      sharedNavigation.routeNames = navigation.children.map(
+        (element: { name: string }) => element.name
+      );
+    } catch (e) {
+      console.error("useNavigation:fetchRouteNames", e);
+    }
   };
 
   const convertToSlug = (name: string): string => {

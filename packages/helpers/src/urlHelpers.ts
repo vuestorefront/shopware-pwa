@@ -28,8 +28,14 @@ export function exportUrlQuery(
   }
   const sC: any = searchCriteria;
   const query: any = {};
-  Object.keys(searchCriteria).forEach((key: string) => {
-    query[key] = JSON.stringify(sC[key]);
-  });
-  return queryString.stringify(query);
+  try {
+    Object.keys(searchCriteria).forEach((key: string) => {
+      query[key] = JSON.stringify(sC[key]);
+    });
+    return queryString.stringify(query);
+  } catch (e) {
+    console.error("exportUrlQuery", e);
+  }
+
+  return;
 }

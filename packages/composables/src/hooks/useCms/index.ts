@@ -42,7 +42,7 @@ export const useCms = (): any => {
       const result = await getPage(path, searchCriteria);
       vuexStore.commit("SET_PAGE", result);
     } catch (e) {
-      error.value = e.message;
+      error.value = e.message || e;
       console.error("Problem with fetching CMS data", e.message);
     } finally {
       loading.value = false;
