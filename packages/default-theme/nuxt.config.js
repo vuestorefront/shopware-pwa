@@ -2,6 +2,7 @@ import path from 'path'
 
 const coreDevelopment = true
 export default {
+  debug: true,
   mode: 'universal',
   /*
    ** Headers of the page

@@ -26,10 +26,11 @@ export default {
     const {search, page, category} = useCms()
     const {refreshCart} = useCart()
     const {refreshUser} = useUser()
+    let searchResult = null
     try {
       const searchResult = await search(params.pathMatch, query);
       await refreshCart();
-      await refreshUser();
+      //await refreshUser();
     } catch (e) {
       console.error('_.vue:asyncData', e);
     }

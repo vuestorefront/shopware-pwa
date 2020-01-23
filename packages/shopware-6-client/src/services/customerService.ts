@@ -76,6 +76,7 @@ export async function getCustomer(): Promise<Customer | null> {
     const resp = await apiService.get(getCustomerEndpoint());
     return resp.data.data;
   } catch (e) {
+    console.warn(e.response.status);
     if (e.response && e.response.status === 403) return null;
     throw new Error("Unexpected getCustomerResponse.");
   }

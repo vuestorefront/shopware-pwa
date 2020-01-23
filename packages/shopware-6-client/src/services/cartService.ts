@@ -32,7 +32,7 @@ export async function clearCart(): Promise<ContextTokenResponse> {
 export async function getCart(): Promise<Cart> {
   const resp = await apiService.get(getCheckoutCartEndpoint());
 
-  return resp.data.data;
+  return resp.data && resp.data.data;
 }
 
 /**
