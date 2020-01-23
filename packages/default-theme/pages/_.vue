@@ -26,12 +26,15 @@ export default {
     const {search, page, category} = useCms()
     const {refreshCart} = useCart()
     const {refreshUser} = useUser()
-    const searchResult = await search(params.pathMatch, query);
-    await refreshCart();
-    await refreshUser();
-
+    try {
+      const searchResult = await search(params.pathMatch, query);
+      await refreshCart();
+      await refreshUser();
+    } catch (e) {
+      console.error('_.vue:asyncData', e);
+    }
+    
     const unwrappedPage = page && page.value ? page.value : searchResult
-
 
     const name = unwrappedPage && unwrappedPage.cmsPage && unwrappedPage.cmsPage.name
     const breadcrumbs = unwrappedPage && unwrappedPage.breadcrumb
