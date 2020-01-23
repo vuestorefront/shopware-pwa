@@ -4,7 +4,7 @@ import { AxiosResponse } from "axios";
 export function responseInterceptor(response: AxiosResponse) {
   // Any status code that lie within the range of 2xx cause this function to trigger
   // Do something with response data
-  console.info("axios interceptor [response]: ", response);
+  console.info("axios interceptor [response][data]: ", response.data);
   const contextToken =
     response.data["sw-context-token"] || response.headers["sw-context-token"];
   update({ contextToken });
@@ -13,6 +13,7 @@ export function responseInterceptor(response: AxiosResponse) {
 export async function errorInterceptor(error: any) {
   // Any status codes that falls outside the range of 2xx cause this function to trigger
   // Do something with response error
-  console.error("axios interceptor [error]: ", error);
+  console.error("axios interceptor [error][request]: ", error.request);
+  console.error("axios interceptor [error][response]: ", error.response);
   throw error;
 }
