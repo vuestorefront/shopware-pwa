@@ -44,7 +44,6 @@ export const useCms = (): any => {
     } catch (e) {
       error.value = e;
       console.error("Problem with fetching CMS data", e.message);
-      console.error(e);
     } finally {
       loading.value = false;
     }
