@@ -91,7 +91,7 @@
             >
             <SfButton
               class="sf-button--full-width filters__button-clear"
-              @click="clearAllFilters"
+              @click="clearAllFilters()"
               >Clear all</SfButton
             >
           </div>
@@ -174,7 +174,8 @@ export default {
   },
   methods: {
     async clearAllFilters() {
-      await this.resetFilters()
+      this.resetFilters()
+      await this.search()
       this.isFilterSidebarOpen = false
     },
     async submitFilters() {
