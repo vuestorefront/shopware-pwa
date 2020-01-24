@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import currency from 'currency.js'
-
+// TODO: move it to useContext composable or somewhere else to get always current currency symbol and separator
 const formatPrice = (
   price,
   options = {
