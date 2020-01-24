@@ -14,6 +14,8 @@ import { Order } from "@shopware-pwa/shopware-6-client/src/interfaces/models/che
 import { CustomerAddress } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress";
 import { CustomerRegistrationParams } from "@shopware-pwa/shopware-6-client/src/interfaces/request/CustomerRegistrationParams";
 
+const MESSAGE_ON_LOGIN_401 = "Invalid credentials";
+
 /**
  * @alpha
  */
@@ -61,7 +63,9 @@ export const useUser = (): UseUser => {
       await apiLogin({ username, password });
       return true;
     } catch (e) {
-      error.value = e.message;
+      error.value =
+        (e.response && e.response.status === 401 && MESSAGE_ON_LOGIN_401) ||
+        e.message;
       return false;
     } finally {
       loading.value = false;
