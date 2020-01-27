@@ -6,7 +6,7 @@
         v-if="error"
         class="sw-login__alert"
         type="danger"
-        message="Cannot login with provided credentials"
+        message="Invalid credentials"
       />
       <SfInput
         v-model="email"
@@ -80,7 +80,7 @@ export default {
         return
       }
       const loggedIn = await this.clientLogin({
-        username: this.login,
+        username: this.email,
         password: this.password
       })
       if (loggedIn) this.$emit('success')

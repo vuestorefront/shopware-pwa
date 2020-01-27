@@ -1,6 +1,6 @@
 <template>
   <div id="login">
-    <SwLogin class="login__component" />
+    <SwLogin class="login__component" @success="redirectToMyAccount"/>
   </div>
 </template>
 <script>
@@ -19,6 +19,9 @@ export default {
   computed: {
   },
   methods: {
+    redirectToMyAccount() {
+      this.$router.push("/account")
+    }
   }
 }
 </script>
