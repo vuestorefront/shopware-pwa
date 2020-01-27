@@ -111,7 +111,7 @@ describe("Composables - useUser", () => {
           password: "fakePassword"
         });
         expect(result).toEqual(false);
-        expect(error.value).toEqual("Invalid credentials");
+        expect(error.value).toEqual(undefined);
       });
 
       it("should login user succesfully", async () => {

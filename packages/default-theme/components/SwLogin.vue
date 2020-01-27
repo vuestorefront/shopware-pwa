@@ -6,7 +6,7 @@
         v-if="error"
         class="sw-login__alert"
         type="danger"
-        :message="typeof error === 'string' && error"
+        message="Invalid credentials"
       />
       <SfInput
         v-model="email"
