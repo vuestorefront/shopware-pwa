@@ -28,12 +28,12 @@
   },
   "peerDependencies": {
     "@vue/composition-api": "^0.3.4",
-    "axios": "^0.19.1",
+    "axios": "^0.19.2",
     "vue": "^2.6.11"
   },
   "dependencies": {
     "@shopware-pwa/shopware-6-client": "latest",
-    "query-string": "^6.9.0"
+    "query-string": "^6.10.1"
   },
   "publishConfig": {
     "access": "public"
