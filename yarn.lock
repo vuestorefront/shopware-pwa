@@ -2472,21 +2472,6 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@shopware-pwa/composables@latest":
-  version "0.1.0-prealpha.694"
-  resolved "https://registry.yarnpkg.com/@shopware-pwa/composables/-/composables-0.1.0-prealpha.694.tgz#791c61c01cec3facc97853f40fdd5a9fbfc863e6"
-  integrity sha512-zula0UnJEPAgYpqKBo1uKTlu06QFsHwJPvPbenNtwvG58A/G3YTr6JJLJMDCictYdDwIfqV82Bigc+IJKrQB5g==
-  dependencies:
-    "@shopware-pwa/shopware-6-client" latest
-    query-string "^6.9.0"
-
-"@shopware-pwa/helpers@latest":
-  version "0.1.0-prealpha.694"
-  resolved "https://registry.yarnpkg.com/@shopware-pwa/helpers/-/helpers-0.1.0-prealpha.694.tgz#713fcbd7adc0fd9ef23c69329b48e78c43c409a6"
-  integrity sha512-8n7+ZiqhgcV7Jb0RUxGJE7XZ4YLj8YtIJ8UIG3VdZs08EceHJq5RM/Q206pfat9KwQv/YJoJeLJc5cIZBBAMAw==
-  dependencies:
-    query-string "^6.9.0"
-
 "@shopware-pwa/shopware-6-client@latest":
   version "0.1.0-prealpha.694"
   resolved "https://registry.yarnpkg.com/@shopware-pwa/shopware-6-client/-/shopware-6-client-0.1.0-prealpha.694.tgz#438a572cbdd391096a169a83e5c75c73d322899b"
