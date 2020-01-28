@@ -7,7 +7,7 @@
       :isDefaultBilling="address.id === selectedBilling"
       v-on:selectDefaultAddress="selectDefaultAddress"
       v-on:deleteAddress="deleteAddress"
-      class="shipping"/>
+      class="shipping-list__address" />
   </div>
 </template>
 <script>
