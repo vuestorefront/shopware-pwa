@@ -45,7 +45,9 @@ describe("Shopware composables", () => {
 
   it("should have failed on bad url settings", async () => {
     const { search, page, error } = useCms();
-    mockedGetPage.getPage.mockRejectedValueOnce("Something went wrong...");
+    mockedGetPage.getPage.mockRejectedValueOnce({
+      response: { statusText: "Something went wrong..." }
+    });
     expect(page.value).toEqual(null);
     await search();
     expect(page.value).toEqual(null);
