@@ -49,7 +49,6 @@ export default {
   },
   methods: {
     async selectDefaultAddress(addressId, type) {
-      console.warn('selectDefaultAddress', addressId, type);
       await this.markAddressAsDefault({addressId, type})
       switch(type) {
         case 'shipping':
