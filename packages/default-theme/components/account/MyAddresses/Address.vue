@@ -64,7 +64,6 @@ export default {
     },
     isDefaultBilling: {
       type: Boolean,
-      required: false
     },
     isDefaultShipping: {
       type: Boolean,
