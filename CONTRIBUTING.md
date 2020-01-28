@@ -26,8 +26,12 @@ For any new feature should be created a new branch, which name should fit this t
 
 All commits after resolving the PR are squashed to one, so any commit messages that not fit to [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) convention would be not included in the commit messages list. We also recommend you to not squash commits after opening the PR, to update your branch with current master you should use `git merge`.
 
+## Tests
+
+We are trying to keep 100% test coverage for our packages (except default-theme), so before creating new PR make sure that all tests are passed and coverage does not decrease. For further information please, read the documentation.
+
 ## Pull requests
 
-There is a Pull Request template, that any contributor should follow. To merge a branch into master there must be two accepted code reviews. Note that only the core team member can accept the PR
+There is a Pull Request template, that any contributor should follow. To merge a branch into master there must be two accepted code reviews and all checks have to be passed. Note that only the core team member can accept the PR
 
 If you can't handle some parts of the issue feel free to ask in the comment. It's absolutely OK if you can only handle styling/tests/whatever. 
