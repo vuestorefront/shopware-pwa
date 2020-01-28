@@ -75,6 +75,14 @@ export default {
 .shipping-list {
   margin-bottom: $spacer-extra-big;
   width: 100%;
+  &__address {
+    display: flex;
+    padding: $spacer-big 0;
+    border-top: 1px solid $c-light;
+  }
+}
+  margin-bottom: $spacer-extra-big;
+  width: 100%;
 }
 .shipping {
   display: flex;
