@@ -5,8 +5,8 @@
       :key="address.id"
       :isDefaultShipping="address.id === selectedShipping"
       :isDefaultBilling="address.id === selectedBilling"
-      v-on:selectDefaultAddress="selectDefaultAddress"
-      v-on:deleteAddress="deleteAddress"
+      @selectDefaultAddress="selectDefaultAddress"
+      @deleteAddress="deleteAddress"
       class="shipping-list__address" />
   </div>
 </template>
@@ -81,9 +81,7 @@ export default {
     border-top: 1px solid $c-light;
   }
 }
-  margin-bottom: $spacer-extra-big;
-  width: 100%;
-}
+
 .shipping {
   display: flex;
   padding: $spacer-big 0;

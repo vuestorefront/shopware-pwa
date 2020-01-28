@@ -44,7 +44,7 @@
       role="button"
       title="Delete"
       v-on:click="(isDefaultBilling || isDefaultShipping) || $emit('deleteAddress', address.id)"
-      :class="(isDefaultBilling || isDefaultShipping) && 'info'"
+      :class="{ info: isDefaultBilling || isDefaultShipping }"
     />
   </div>
 </div>
@@ -67,12 +67,6 @@ export default {
     },
     isDefaultShipping: {
       type: Boolean,
-      required: false
-    }
-  },
-  data() {
-    return {
-
     }
   },
   computed: {
@@ -97,8 +91,6 @@ export default {
     country() {
       return this.address.country && address.country.name
     }
-  },
-  methods: {
   }
 }
 </script>

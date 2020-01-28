@@ -147,19 +147,20 @@ export const useUser = (): UseUser => {
       switch (type) {
         case AddressType.billing:
           await setDefaultCustomerBillingAddress(addressId);
-          await refreshUser();
-          return true;
-
+          break;
         case AddressType.shipping:
           await setDefaultCustomerShippingAddress(addressId);
-          await refreshUser();
-          return true;
+          break;
+        default:
+          return false;
       }
+      await refreshUser();
     } catch (e) {
       error.value = e.message;
+      return false;
     }
 
-    return false;
+    return true;
   };
 
   const deleteAddress = async (addressId: string): Promise<boolean> => {
