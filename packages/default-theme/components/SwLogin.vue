@@ -6,7 +6,7 @@
         v-if="error"
         class="sw-login__alert"
         type="danger"
-        message="Cannot login with provided credentials"
+        message="Invalid credentials"
       />
       <SfInput
         v-model="email"

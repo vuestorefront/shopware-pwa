@@ -121,7 +121,6 @@ It is a native integration dedicated for Shopware 6, which means all the Shopwar
 * Shopware-6-Client based on Axios
 * [StorefrontUI](https://www.storefrontui.io/)
 * [VueJS](https://vuejs.org/)
-* [Vuex](https://vuex.vuejs.org/)
 * [TypeScript](https://www.typescriptlang.org/)
 * [Jest](https://jestjs.io/)
 * [TypeDoc](https://typedoc.org/)
@@ -257,22 +256,6 @@ In the next phases of development we will make the next decisions associated wit
 
 Right now for testing we use Jest framework - https://jestjs.io/.
 
-### Greenkeeper - How do we keep dependencies up to date?
-
-In Shopware-PWA project, we setup Greenkeeper for keeping all the dependencies up to date. In 2019, all the software development projects rely on many other tools and packages. It is close to impossible to keep all the dependencies up to date for a human being because that would take way too much time and it is very tiring and boring process. Because of that most projects suffered from using older version of dependent libraries. In fact, if you do not keep your dependencies up to that on a daily basis and you try to update these after longer period of time you usually end up with some crashes and you need to spend a few hours on getting the project up. 
-
-Greenkeeper solves that problem by updating your dependencies automatically. After update it tests the application after all the automated tests in your application and if it is successful or not, you get full information about the result of an update. If it is successful then Greenkeeper creates ready-to-merge pull requests, that updates the dependency.
-
-Read more: https://greenkeeper.io/
-
-### Auto-generated technical documentation
-
-Shopware-PWA automatically generates documentation and deploys it to https://shopware-pwa-docs.netlify.com/. Documentation is based on TypeDoc.
-
-After the first months of development we will tidy all the information in the technical documentation. 
-
-Read more: https://typedoc.org/
-
 ### Versioning
 
 Versioning of Shopware-PWA is not dependent on Shopware 6 versioning. We will stick to semantic versioning. As we build the package - all the packages for Shopware 7 (and so on) will have separate versioning.
@@ -290,60 +273,3 @@ ___
 * Bundle size verified with `webpack-bundle-analyzer`.
 * Size lower than 300 kB for JS loaded immediately.
 * Everything, that may exceed 300 KB must be lazy loaded.
-___
-
-## Instructions for 3-party tools
-
-### Faker
-faker.js - generate massive amounts of fake data in the browser and node.js
-
-#### Sources
-* [GitHub](https://github.com/marak/faker.js)
-* [Playground](https://cdn.rawgit.com/Marak/faker.js/master/examples/browser/index.html)
-
-#### Installation
-
-```
-yarn add faker
-```
-
-#### How to use
-faker can be used by importing it with  `import faker from "faker"`  or import only the selected methods which are grouped by functionalities, here is a list of them:
-
--   address
--   commerce
--   company
--   database
--   date
--   finance
--   git
--   hacker
--   helpers
--   image
--   internet
--   lorem
--   name
--   phone
--   random
--   system
--   vehicle
-
-##### Real world example:
-```js
-import { name, address, random, phone, internet } from "faker";
-
-const customerData = {
-  salutationId: random.uuid(),
-  firstName: name.firstName(),
-  lastName: name.lastName(),
-  password: internet.password(8),
-  email: internet.email(),
-  billingAddress: {
-    countryId: random.uuid(),
-    street: address.streetName(),
-    zipcode: address.zipCode(),
-    city: address.city(),
-    phoneNumber: phone.phoneNumber()
-  }
-}
-```

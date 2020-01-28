@@ -99,6 +99,21 @@ describe("Composables - useUser", () => {
         expect(error.value).toEqual("Bad user credentials");
       });
 
+      it("error message should be appriopriate to the 401 HTTP status code", async () => {
+        mockedApiClient.login.mockRejectedValueOnce({
+          response: {
+            status: 401
+          }
+        });
+        const { error, login } = useUser();
+        const result = await login({
+          username: "qwe@qwe.com",
+          password: "fakePassword"
+        });
+        expect(result).toEqual(false);
+        expect(error.value).toEqual(undefined);
+      });
+
       it("should login user succesfully", async () => {
         mockedApiClient.login.mockResolvedValueOnce({
           "sw-context-token": "qweqwe"
