@@ -128,7 +128,6 @@ export const useUser = (): UseUser => {
     try {
       addresses.value = await getCustomerAddresses();
     } catch (e) {
-      console.error("useUser:loadAddresses", e);
       error.value = e.message;
     }
   };
@@ -148,14 +147,15 @@ export const useUser = (): UseUser => {
       switch (type) {
         case AddressType.billing:
           await setDefaultCustomerBillingAddress(addressId);
-          break;
+          await refreshUser();
+          return true;
+
         case AddressType.shipping:
           await setDefaultCustomerShippingAddress(addressId);
-          break;
+          await refreshUser();
+          return true;
       }
-      await refreshUser();
     } catch (e) {
-      console.error("useUser:markAddressAsDefault", e);
       error.value = e.message;
     }
 
