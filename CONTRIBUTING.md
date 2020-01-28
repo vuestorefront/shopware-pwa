@@ -16,11 +16,11 @@ You may also want to read:
 
 ## Branches
 
-For any new feature should be created a new branch, which name should fit this template: `<task type eg. feat, fix, chore>/<package eg. cli, client, theme, if there is a global task this part can be ommited>/<short task description written in kebab-case>` `, here are some examples:
+For any new feature should be created a new branch, which name should fit this template: `<task type eg. feat, fix, chore>/<package eg. cli, client, theme, if there is a global task this part can be ommited>/<short task description written in kebab-case>-<issue number (also optional)>` `, here are some examples:
 
 - `feat/theme/add-carousel-to-product-details`
 - `chore/update-project-dependancies`
-- `fix/cli/missing-dependancies`
+- `fix/cli/missing-dependancies-#233`
 
 ## Commits
 
