@@ -210,14 +210,14 @@ describe("Composables - useUser", () => {
       });
     });
 
-    describe("getAddresses", () => {
-      it("should invoke client getCustomerAddresses method", async () => {
-        mockedApiClient.getCustomerAddresses.mockResolvedValueOnce([]);
-        const { getAddresses } = useUser();
-        const orderDetails = await getAddresses();
-        expect(mockedApiClient.getCustomerAddresses).toBeCalledTimes(1);
-        expect(orderDetails).toEqual([]);
-      });
-    });
+    // describe("getAddresses", () => {
+    //   it("should invoke client getCustomerAddresses method", async () => {
+    //     mockedApiClient.getCustomerAddresses.mockResolvedValueOnce([]);
+    //     const { getAddresses } = useUser();
+    //     const orderDetails = await getAddresses();
+    //     expect(mockedApiClient.getCustomerAddresses).toBeCalledTimes(1);
+    //     expect(orderDetails).toEqual([]);
+    //   });
+    // });
   });
 });

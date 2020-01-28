@@ -80,7 +80,7 @@ export default {
         return
       }
       const loggedIn = await this.clientLogin({
-        username: this.login,
+        username: this.email,
         password: this.password
       })
       if (loggedIn) this.$emit('success')
