@@ -60,7 +60,7 @@ export default {
   props: {
     address: {
       type: Object,
-      required: true
+      default: () => {}
     },
     isDefaultBilling: {
       type: Boolean,
