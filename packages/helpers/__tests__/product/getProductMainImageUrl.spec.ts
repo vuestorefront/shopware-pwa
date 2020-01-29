@@ -43,17 +43,17 @@ describe("Helpers - getProductMainImageUrl", () => {
   it("should return null for product without cover media and cover url", () => {
     const emptyProduct: any = {};
     const coverUrl = getProductMainImageUrl({ product: emptyProduct });
-    expect(coverUrl).toBeUndefined();
+    expect(coverUrl).toEqual("");
   });
 
   it("should return default negative value if argument wasn't provided", () => {
     const coverUrl = getProductMainImageUrl();
-    expect(coverUrl).toBeUndefined();
+    expect(coverUrl).toEqual("");
   });
 
   it("should return default value if product was null", () => {
     const argument: any = { product: null };
     const coverUrl = getProductMainImageUrl(argument);
-    expect(coverUrl).toBeNull();
+    expect(coverUrl).toEqual("");
   });
 });

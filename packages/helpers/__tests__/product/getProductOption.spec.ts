@@ -49,6 +49,6 @@ describe("Shopware helpers - getProductOption", () => {
   it("should return default value if product was null", () => {
     const argument: any = { product: null };
     const productOption = getProductOption(argument);
-    expect(productOption).toBeNull();
+    expect(productOption).toBeUndefined();
   });
 });
