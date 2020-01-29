@@ -30,6 +30,10 @@ describe("Shopware helpers - getProductOptions", () => {
         {
           id: "06a7ed91305d47e1b7f3d6f7660c8316",
           options: []
+        },
+        {
+          id: "qwerty",
+          options: []
         }
       ]
     };
@@ -40,20 +44,24 @@ describe("Shopware helpers - getProductOptions", () => {
     expect(productOptions).toHaveProperty("color");
   });
 
-  it("should returns return an empty array if no children", () => {
+  it("should returns return an empty object if no children", () => {
     const productWithoutChildren: any = {};
 
     const productOptions = getProductOptions({
       product: productWithoutChildren
     });
-    expect(productOptions).toHaveLength(0);
+    expect(productOptions).toEqual({});
   });
-  it("should returns return an empty array if no child options", () => {
+  it("should returns return an empty object if no child options", () => {
     const productWithoutChildren: any = {
       children: [
         {
           id: "06a7ed91305d47e1b7f3d6f7660c8316",
           options: []
+        },
+        null,
+        {
+          id: "qwerty"
         }
       ]
     };
@@ -64,14 +72,14 @@ describe("Shopware helpers - getProductOptions", () => {
     expect(productOptions).toStrictEqual({});
   });
 
-  it("should return default empty array if argument wasn't provided", () => {
+  it("should return default empty object if argument wasn't provided", () => {
     const productOptions = getProductOptions();
-    expect(productOptions).toHaveLength(0);
+    expect(productOptions).toEqual({});
   });
 
   it("should return default value if product was null", () => {
     const argument: any = { product: null };
     const productOptions = getProductOptions(argument);
-    expect(productOptions).toHaveLength(0);
+    expect(productOptions).toEqual({});
   });
 });

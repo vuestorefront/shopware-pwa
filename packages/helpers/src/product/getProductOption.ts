@@ -9,13 +9,8 @@ export function getProductOption({
   attribute
 }: { product?: Product; attribute?: string } = {}):
   | PropertyGroupOption
-  | null
   | undefined {
-  return (
-    product &&
-    product.options &&
-    product.options.find(
-      option => option.group && option.group.name === attribute
-    )
+  return product?.options?.find(
+    option => option.group && option.group.name === attribute
   );
 }
