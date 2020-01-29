@@ -11,10 +11,6 @@ import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/c
  */
 export function getProductMainImageUrl({
   product
-}: { product?: Product } = {}): string | undefined {
-  return (
-    product &&
-    product.cover &&
-    ((product.cover.media && product.cover.media.url) || product.cover.url)
-  );
+}: { product?: Product } = {}): string {
+  return product?.cover?.media?.url || product?.cover?.url || "";
 }

@@ -70,6 +70,7 @@
     "rollup-plugin-terser": "^5.2.0",
     "rollup-plugin-typescript2": "^0.25.3",
     "ts-jest": "^25.0.0",
+    "tslib": "^1.10.0",
     "typedoc": "^0.16.9",
     "typedoc-plugin-markdown": "^2.2.16",
     "typescript": "^3.7.5",
