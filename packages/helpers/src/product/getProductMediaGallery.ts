@@ -22,9 +22,9 @@ export function getProductMediaGallery({
           media.media.thumbnails &&
           media.media.thumbnails.find(thumb => thumb.width == "1920");
         return {
-          small: { url: smallThumb ? smallThumb.url : media.media.url },
-          normal: { url: normalThumb ? normalThumb.url : media.media.url },
-          big: { url: bigThumb ? bigThumb.url : media.media.url }
+          icon: { url: smallThumb ? smallThumb.url : media.media.url },
+          mobile: { url: normalThumb ? normalThumb.url : media.media.url },
+          desktop: { url: bigThumb ? bigThumb.url : media.media.url }
         };
       })
     : [];

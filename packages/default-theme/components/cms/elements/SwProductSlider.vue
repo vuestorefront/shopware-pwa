@@ -32,7 +32,6 @@ export default {
       return this.content && this.content.data ? this.content.data.products : []
     },
     title() {
-      console.log(this.content);
       return this.content &&
         this.content.config &&
         this.content.config.title.value

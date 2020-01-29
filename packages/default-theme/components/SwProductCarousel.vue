@@ -27,20 +27,21 @@ export default {
   data() {
     return {
       products: {},
-      searchCriteria: {
-        sort: {
-          field: 'price',
-          desc: false
-        },
-        pagination: {
-          page: 1,
-          limit: 10
-        }
-      }
+      
     }
   },
   async mounted() {
-    this.products = await getProducts(this.searchCriteria)
+    this.products = await getProducts(
+    {
+      sort: {
+        field: 'price',
+        desc: false
+      },
+      pagination: {
+        page: 1,
+        limit: 10
+      }
+    })
   }
 }
 </script>
