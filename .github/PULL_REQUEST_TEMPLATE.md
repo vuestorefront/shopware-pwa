@@ -1,5 +1,7 @@
-<!-- write which issue this pull request closes
-     example: closes #230 -->
+<!-- 
+write which issue this pull request closes
+  example: closes #230
+-->
 
 ## Changes
 <!-- List all the changes that you did -->
