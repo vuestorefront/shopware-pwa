@@ -25,7 +25,7 @@ export interface ShopwareParams {
   sort?: string;
   filter?: (MultiFilter | EqualsFilter | EqualsAnyFilter | RangeFilter)[];
   associations?: ShopwareAssociation;
-  grouping?: Grouping
+  grouping?: Grouping;
 }
 
 // simple

@@ -20,7 +20,7 @@ export interface Sort {
  * @alpha
  */
 export interface Grouping {
-  field: string
+  field: string;
 }
 
 /**
