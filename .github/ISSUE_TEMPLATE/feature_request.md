@@ -11,7 +11,7 @@ assignees: ''
 Describe why do you think this feature is needed. 
 
 **Is your proposal related to a problem?**
-Describe the issue or type its number
+Describe the issue or type its number (eg. #223)
 
 **Describe the solution you'd considered**
 A concise description of your preferred solution. Things to address include:

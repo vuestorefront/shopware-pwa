@@ -4,7 +4,9 @@
 
 Before you start contributing, you should fork this repository and pick up the issue marked as `community`. After that, you can solve the problem and create a pull request (PR). Any features request should be discussed on our slack channel (link is in general project README.md) and then should be created an issue for them.
 
-**Github Project Broad is intended only for core developers**
+**Github Project Broad is intended only for core developers.**
+
+**Please note we have a code of conduct, please follow it in all your interactions with the project.** 
 
 Thank you for your interest in, and engagement!
 
