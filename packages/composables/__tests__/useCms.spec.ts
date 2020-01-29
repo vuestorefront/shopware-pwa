@@ -45,7 +45,9 @@ describe("Shopware composables", () => {
 
   it("should have failed on bad url settings", async () => {
     const { search, page, error } = useCms();
-    mockedGetPage.getPage.mockRejectedValueOnce("Something went wrong...");
+    mockedGetPage.getPage.mockRejectedValueOnce({
+      message: "Something went wrong..."
+    });
     expect(page.value).toEqual(null);
     await search();
     expect(page.value).toEqual(null);
@@ -55,7 +57,9 @@ describe("Shopware composables", () => {
 
   it("should performs search request with no or empty configuration for SearchCriteria", async () => {
     const { search, page, error } = useCms();
-    mockedGetPage.getPage.mockRejectedValueOnce("Something went wrong...");
+    mockedGetPage.getPage.mockRejectedValueOnce({
+      message: "Something went wrong..."
+    });
     expect(page.value).toEqual(null);
     await search("", { configuration: { associations: [] } });
     expect(page.value).toEqual(null);
