@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 **Describe the bug**
-A clear and concise description of what the bug is.
+A clear and concise description of what the bug is
 
 **How to reproduce**
 Steps to reproduce the behavior:
@@ -24,7 +24,7 @@ A clear and concise description of what you expected to happen.
 What actual happened.
 
 **Code examples**
-Sample code (or your configuration) to help us reproduce the bug faster or to understand your use case.
+Sample code (or your configuration, error stacktrace, logs) to help us reproduce the bug faster or to understand your use case.
 ```
 //Write code here
 ```
@@ -39,4 +39,4 @@ If applicable, add screenshots to help explain your problem.
  - Browser: [e.g chrome, safari][version]
 
 **Additional context**
-Anything you would like to add but was not sure which section it fits. For example: tech stack used (Nuxt, Vue, Gridsome, React, etc)
+Anything you would like to add but was not sure which section it fits.
