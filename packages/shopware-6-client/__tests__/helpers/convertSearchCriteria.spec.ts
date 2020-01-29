@@ -205,6 +205,18 @@ describe("SearchConverter - convertSearchCriteria", () => {
     });
   });
   describe("configuration", () => {
+    describe("grouping", () => {
+      it("should return grouped field", () => {
+        const result = convertSearchCriteria({
+          configuration: {
+            grouping: {
+              field: "displayGroup"
+            }
+          }
+        });
+        expect(result).toEqual({ grouping: { field: "displayGroup" } });
+      });
+    });
     describe("associations", () => {
       it("should return association", () => {
         const result = convertSearchCriteria({
