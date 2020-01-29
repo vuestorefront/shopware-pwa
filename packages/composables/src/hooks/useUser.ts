@@ -6,12 +6,18 @@ import {
   getCustomer,
   getCustomerOrders,
   getCustomerOrderDetails,
-  getCustomerAddresses
+  getCustomerAddresses,
+  setDefaultCustomerBillingAddress,
+  setDefaultCustomerShippingAddress,
+  deleteCustomerAddress
 } from "@shopware-pwa/shopware-6-client";
 import { Customer } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
 import { getStore } from "@shopware-pwa/composables";
 import { Order } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order";
-import { CustomerAddress } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress";
+import {
+  CustomerAddress,
+  AddressType
+} from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress";
 import { CustomerRegistrationParams } from "@shopware-pwa/shopware-6-client/src/interfaces/request/CustomerRegistrationParams";
 
 /**
@@ -28,6 +34,7 @@ export interface UseUser {
   register: ({}: CustomerRegistrationParams) => Promise<boolean>;
   user: Ref<Customer | null>;
   orders: Ref<Order[] | null>;
+  addresses: Ref<CustomerAddress[] | null>;
   loading: Ref<boolean>;
   error: Ref<any>;
   isLoggedIn: Ref<boolean>;
@@ -35,7 +42,15 @@ export interface UseUser {
   logout: () => Promise<void>;
   loadOrders: () => Promise<void>;
   getOrderDetails: (orderId: string) => Promise<Order>;
-  getAddresses: () => Promise<CustomerAddress[]>;
+  loadAddresses: () => Promise<void>;
+  deleteAddress: (addressId: string) => Promise<boolean>;
+  markAddressAsDefault: ({
+    addressId,
+    type
+  }: {
+    addressId?: string;
+    type?: AddressType;
+  }) => Promise<string | boolean>;
 }
 
 /**
@@ -46,7 +61,7 @@ export const useUser = (): UseUser => {
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
   const orders: Ref<Order[] | null> = ref(null);
-
+  const addresses: Ref<CustomerAddress[] | null> = ref(null);
   const user: any = computed(() => {
     return vuexStore.getters.getUser;
   });
@@ -109,7 +124,56 @@ export const useUser = (): UseUser => {
     return getCustomerOrderDetails(orderId);
   };
 
-  const getAddresses = (): Promise<CustomerAddress[]> => getCustomerAddresses();
+  const loadAddresses = async (): Promise<void> => {
+    try {
+      addresses.value = await getCustomerAddresses();
+    } catch (e) {
+      error.value = e.message;
+    }
+  };
+
+  const markAddressAsDefault = async ({
+    addressId,
+    type
+  }: {
+    addressId?: string;
+    type?: AddressType;
+  }): Promise<boolean> => {
+    if (!addressId || !type) {
+      return false;
+    }
+
+    try {
+      switch (type) {
+        case AddressType.billing:
+          await setDefaultCustomerBillingAddress(addressId);
+          break;
+        case AddressType.shipping:
+          await setDefaultCustomerShippingAddress(addressId);
+          break;
+        default:
+          return false;
+      }
+      await refreshUser();
+    } catch (e) {
+      error.value = e.message;
+      return false;
+    }
+
+    return true;
+  };
+
+  const deleteAddress = async (addressId: string): Promise<boolean> => {
+    try {
+      await deleteCustomerAddress(addressId);
+      return true;
+    } catch (e) {
+      console.error("useUser:deleteAddress", e);
+      error.value = e.message;
+    }
+
+    return false;
+  };
 
   const isLoggedIn = computed(() => !!user.value);
 
@@ -125,6 +189,9 @@ export const useUser = (): UseUser => {
     orders,
     loadOrders,
     getOrderDetails,
-    getAddresses
+    loadAddresses,
+    addresses,
+    markAddressAsDefault,
+    deleteAddress
   };
 };

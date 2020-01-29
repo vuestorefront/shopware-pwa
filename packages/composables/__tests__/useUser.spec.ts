@@ -225,13 +225,117 @@ describe("Composables - useUser", () => {
       });
     });
 
-    describe("getAddresses", () => {
-      it("should invoke client getCustomerAddresses method", async () => {
-        mockedApiClient.getCustomerAddresses.mockResolvedValueOnce([]);
-        const { getAddresses } = useUser();
-        const orderDetails = await getAddresses();
+    describe("deleteAddress", () => {
+      it("should invoke client deleteCustomerAddress method and return true on success", async () => {
+        mockedApiClient.deleteCustomerAddress.mockResolvedValueOnce();
+        const { deleteAddress } = useUser();
+        const response = await deleteAddress("address-1234");
+        expect(mockedApiClient.deleteCustomerAddress).toBeCalledTimes(1);
+        expect(response).toBe(true);
+      });
+      it("should invoke client deleteCustomerAddress method and return false on failure", async () => {
+        mockedApiClient.deleteCustomerAddress.mockRejectedValueOnce(
+          "Cannot delete the provided address"
+        );
+        const { deleteAddress } = useUser();
+        const response = await deleteAddress("address-unknown");
+        expect(mockedApiClient.deleteCustomerAddress).toBeCalledTimes(1);
+        expect(response).toBe(false);
+      });
+    });
+
+    describe("loadAddresses", () => {
+      it("should invoke client getCustomerAddresses method and assign given array to addresses ref", async () => {
+        mockedApiClient.getCustomerAddresses.mockResolvedValue([
+          {
+            id: "addressId-12345"
+          }
+        ] as any);
+        const { addresses, loadAddresses, error } = useUser();
+        await loadAddresses();
         expect(mockedApiClient.getCustomerAddresses).toBeCalledTimes(1);
-        expect(orderDetails).toEqual([]);
+        expect(error.value).toBeFalsy();
+        expect(addresses.value).toStrictEqual([
+          {
+            id: "addressId-12345"
+          }
+        ]);
+      });
+
+      it("should invoke client getCustomerAddresses method and assign error message if client request is rejected", async () => {
+        mockedApiClient.getCustomerAddresses.mockRejectedValueOnce({
+          message: "Something went wrong..."
+        });
+        const { loadAddresses, error } = useUser();
+        await loadAddresses();
+        expect(mockedApiClient.getCustomerAddresses).toBeCalledTimes(1);
+        expect(error.value).toBe("Something went wrong...");
+      });
+    });
+
+    describe("markAddressAsDefault", () => {
+      it("should invoke client setDefaultCustomerBillingAddress method and return true on success", async () => {
+        mockedApiClient.setDefaultCustomerBillingAddress.mockResolvedValue(
+          "address-1234"
+        );
+        const { markAddressAsDefault } = useUser();
+        const response = await markAddressAsDefault({
+          addressId: "address-1234",
+          type: "billing"
+        } as any);
+        expect(
+          mockedApiClient.setDefaultCustomerBillingAddress
+        ).toBeCalledTimes(1);
+        expect(response).toBe(true);
+      });
+
+      it("should invoke client setDefaultCustomerShippingAddress method and return true on success", async () => {
+        mockedApiClient.setDefaultCustomerShippingAddress.mockResolvedValue(
+          "address-1234"
+        );
+        const { markAddressAsDefault } = useUser();
+        const response = await markAddressAsDefault({
+          addressId: "address-1234",
+          type: "shipping"
+        } as any);
+        expect(
+          mockedApiClient.setDefaultCustomerShippingAddress
+        ).toBeCalledTimes(1);
+        expect(response).toBe(true);
+      });
+
+      it("should return false when no argument is provided", async () => {
+        const { markAddressAsDefault } = useUser();
+        const response = await markAddressAsDefault({} as any);
+        expect(response).toBe(false);
+      });
+
+      it("should return false when address type is unknown", async () => {
+        const { markAddressAsDefault } = useUser();
+        const response = await markAddressAsDefault({
+          type: "uknown",
+          addressId: "someId"
+        } as any);
+        expect(response).toBe(false);
+      });
+
+      it("should return false and set the error.value on api-client rejection", async () => {
+        mockedApiClient.setDefaultCustomerShippingAddress.mockRejectedValueOnce(
+          {
+            message: "Error occured"
+          }
+        );
+        const { markAddressAsDefault, error } = useUser();
+        const response = await markAddressAsDefault({
+          type: "shipping",
+          addressId: "someId"
+        } as any);
+        expect(
+          mockedApiClient.setDefaultCustomerShippingAddress
+        ).toBeCalledTimes(1);
+
+        expect(response).toBe(false);
+        expect(error.value).toBe("Error occured");
       });
     });
   });
