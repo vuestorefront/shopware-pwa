@@ -7,14 +7,10 @@ import { UiProductProperty } from "@shopware-pwa/helpers";
 export function getProductProperties({
   product
 }: { product?: Product } = {}): UiProductProperty[] {
-  if (!product || !product.properties) {
-    return [];
-  }
-
-  const propertyList = product.properties.map(property => ({
-    name: property.group ? property.group.name || "" : "",
+  const propertyList = product?.properties?.map(property => ({
+    name: property.group?.name || "",
     value: property.name
   }));
 
-  return propertyList;
+  return propertyList || [];
 }
