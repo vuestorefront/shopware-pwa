@@ -8,6 +8,7 @@ import {
 import { PaginationLimit } from "@shopware-pwa/shopware-6-client/src/interfaces/search/Pagination";
 import { config } from "@shopware-pwa/shopware-6-client";
 import { Association } from "@shopware-pwa/shopware-6-client/src/interfaces/search/Association";
+import { Grouping } from "@shopware-pwa/shopware-6-client/src/interfaces/search/Grouping";
 
 interface ShopwareAssociation {
   [name: string]: {
@@ -24,6 +25,7 @@ export interface ShopwareParams {
   sort?: string;
   filter?: (MultiFilter | EqualsFilter | EqualsAnyFilter | RangeFilter)[];
   associations?: ShopwareAssociation;
+  grouping?: Grouping
 }
 
 // simple
@@ -113,8 +115,12 @@ export const convertSearchCriteria = (
     params.filter = filters;
   }
 
-  if (configuration) {
+  if (configuration?.associations) {
     params.associations = convertAssociations(configuration.associations);
+  }
+
+  if (configuration?.grouping) {
+    params.grouping = configuration.grouping;
   }
 
   return params;

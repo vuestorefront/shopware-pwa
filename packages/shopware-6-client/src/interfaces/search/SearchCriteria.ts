@@ -16,10 +16,13 @@ export interface Sort {
   field: string;
   desc?: boolean;
 }
-
 /**
  * @alpha
  */
+export interface Grouping {
+  field: string
+}
+
 /**
  * @alpha
  */
@@ -29,6 +32,7 @@ export interface SearchCriteria {
   sort?: Sort;
   term?: string;
   configuration?: {
+    grouping?: Grouping;
     associations?: Association[];
     aggregations?: Aggregation[];
     totalCountMode?: TotalCountMode;

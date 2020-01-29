@@ -121,9 +121,21 @@ export const useProductListing = (
       true
     );
 
+    const filters = getFilterSearchCriteria(selectedCriteria.filters);
+    // prevent showing parent products, add extra filter using displayGroup
+    // it's useless for Sidebar filters functionality, so it's pushed this way (consider using a toggleFilter instead)
+    filters.push({
+			"type": "not",
+			"queries": [{
+					"type": "equals",
+					"field": "displayGroup",
+					"value": null
+			}]
+    })
+
     const searchCriteria: SearchCriteria = {
       pagination: selectedCriteria.pagination,
-      filters: getFilterSearchCriteria(selectedCriteria.filters),
+      filters,
       sort: getSortingSearchCriteria(selectedCriteria.sorting),
       configuration: {
         // get product variant options
@@ -134,8 +146,11 @@ export const useProductListing = (
           {
             name: "productReviews"
           }
-        ]
-      }
+        ],
+        grouping: { // prevent displaying parent instances of the product
+          field: "displayGroup"
+        },
+      },
     };
 
     const search = exportUrlQuery(searchCriteria);
