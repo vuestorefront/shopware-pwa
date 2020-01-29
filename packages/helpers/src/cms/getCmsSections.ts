@@ -7,5 +7,5 @@ import {
  * @alpha
  */
 export function getCmsSections(content: CmsPage): CmsSection[] {
-  return content && content.sections ? content.sections : [];
+  return content?.sections || [];
 }

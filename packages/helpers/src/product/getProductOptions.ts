@@ -10,18 +10,18 @@ export function getProductOptions({
 }: {
   product?: Product;
 } = {}): ProductOptions | [] {
-  if (!product || !product.children) {
+  if (!product?.children) {
     return [];
   }
 
   let typeOptions = {} as any;
   product.children.forEach(variant => {
-    if (!variant || !variant.options || !variant.options.length) {
+    if (!variant?.options?.length) {
       return;
     }
 
     for (let option of variant.options) {
-      if (option.group && option.group.name) {
+      if (option.group?.name) {
         if (!typeOptions.hasOwnProperty(option.group.name)) {
           typeOptions[option.group.name] = [];
         }
