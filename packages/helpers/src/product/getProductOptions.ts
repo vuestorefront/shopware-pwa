@@ -9,13 +9,9 @@ export function getProductOptions({
   product
 }: {
   product?: Product;
-} = {}): ProductOptions | [] {
-  if (!product?.children) {
-    return [];
-  }
-
+} = {}): ProductOptions {
   let typeOptions = {} as any;
-  product.children.forEach(variant => {
+  product?.children?.forEach(variant => {
     if (!variant?.options?.length) {
       return;
     }
