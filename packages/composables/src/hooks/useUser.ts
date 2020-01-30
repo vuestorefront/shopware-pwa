@@ -44,6 +44,17 @@ export interface UseUser {
   getOrderDetails: (orderId: string) => Promise<Order>;
   loadAddresses: () => Promise<void>;
   deleteAddress: (addressId: string) => Promise<boolean>;
+  updatePersonalInfo: (personalData: object) => Promise<boolean>;
+  updateEmail: (email: string) => Promise<boolean>;
+  updatePassword: ({
+    password,
+    newPassword,
+    confirmPassword
+  }: {
+    password: string;
+    newPassword: string;
+    confirmPassword: string;
+  }) => Promise<boolean>;
   markAddressAsDefault: ({
     addressId,
     type
@@ -175,6 +186,26 @@ export const useUser = (): UseUser => {
     return false;
   };
 
+  const updatePersonalInfo = async (personals: any): Promise<boolean> => {
+    return Promise.resolve(true);
+  };
+
+  const updatePassword = async ({
+    password,
+    newPassword,
+    confirmPassword
+  }: {
+    password: string;
+    newPassword: string;
+    confirmPassword: string;
+  }): Promise<boolean> => {
+    return Promise.resolve(true);
+  };
+
+  const updateEmail = async (email: string): Promise<boolean> => {
+    return Promise.resolve(true);
+  };
+
   const isLoggedIn = computed(() => !!user.value);
 
   return {
@@ -192,6 +223,9 @@ export const useUser = (): UseUser => {
     loadAddresses,
     addresses,
     markAddressAsDefault,
+    updateEmail,
+    updatePersonalInfo,
+    updatePassword,
     deleteAddress
   };
 };
