@@ -4,8 +4,10 @@ import { convertSearchCriteria } from "../helpers/searchConverter";
 import { SearchResult } from "@shopware-pwa/shopware-6-client/src/interfaces/response/SearchResult";
 import { apiService } from "../apiService";
 import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
+import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 /**
+ * @throws {ClientApiError}
  * @alpha
  */
 export async function getCategories(
@@ -20,6 +22,7 @@ export async function getCategories(
 }
 
 /**
+ * @throws {ClientApiError}
  * @alpha
  */
 export async function getCategory(categoryId: string): Promise<Category> {

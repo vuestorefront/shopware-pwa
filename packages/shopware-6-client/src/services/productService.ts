@@ -8,10 +8,12 @@ import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/c
 import { convertSearchCriteria } from "../helpers/searchConverter";
 import { apiService } from "../apiService";
 import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
+import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 /**
  * Get default amount of products' ids
  *
+ * @throws {ClientApiError}
  * @alpha
  */
 export const getProductsIds = async function(): Promise<SearchResult<
@@ -24,6 +26,7 @@ export const getProductsIds = async function(): Promise<SearchResult<
 /**
  * Get default amount of products
  *
+ * @throws {ClientApiError}
  * @alpha
  */
 export const getProducts = async function(
@@ -39,6 +42,7 @@ export const getProducts = async function(
 /**
  * Get the product with passed productId
  *
+ * @throws {ClientApiError}
  * @alpha
  */
 export async function getProduct(

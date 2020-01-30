@@ -1,5 +1,6 @@
 import { getNavigationEndpoint } from "../endpoints";
 import { apiService } from "../apiService";
+import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 /**
  * @alpha
@@ -30,6 +31,7 @@ export interface GetNavigationParams {
   rootNode?: string;
 }
 /**
+ * @throws {ClientApiError}
  * @alpha
  */
 export async function getNavigation(

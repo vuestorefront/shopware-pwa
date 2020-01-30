@@ -3,6 +3,7 @@ import { apiService } from "../apiService";
 import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
 import { CmsPage } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/cms/CmsPage";
 import { convertSearchCriteria } from "../helpers/searchConverter";
+import { ClientApiError } from "../interfaces/errors/ApiError";
 
 /**
  * @alpha
@@ -15,6 +16,7 @@ export interface PageResolverResult<T> {
 }
 
 /**
+ * @throws {ClientApiError}
  * @alpha
  */
 export async function getPage(

@@ -1,7 +1,7 @@
 import axios from "axios";
 import https from "https";
 import { config } from "./settings";
-import { responseInterceptor, errorInterceptor } from "./apiInterceptors";
+import { responseInterceptor, errorInterceptor } from "./interceptors";
 
 export const apiService = axios.create({
   // temporary fix to prevent TLS issues

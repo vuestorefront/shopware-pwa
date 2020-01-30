@@ -8,6 +8,7 @@ import {
 import { apiService } from "../apiService";
 import { ContextTokenResponse } from "@shopware-pwa/shopware-6-client/src/interfaces/response/ContextTokenResponse";
 import { CartItemType } from "@shopware-pwa/shopware-6-client/src/interfaces/cart/CartItemType";
+import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 /**
  * When no sw-context-token given then this method return an empty cart with the new sw-context-token.
@@ -26,7 +27,7 @@ export async function clearCart(): Promise<ContextTokenResponse> {
 
 /**
  * Gets the current cart for the sw-context-token.
- *
+ * @throws {ClientApiError}
  * @alpha
  */
 export async function getCart(): Promise<Cart> {
@@ -40,6 +41,7 @@ export async function getCart(): Promise<Cart> {
  *
  * Warning: This method does not change the state of the cart in any way if productId already exists in a cart. For changing the quantity use addQuantityToCartLineItem() or changeCartLineItemQuantity() methods.
  *
+ * @throws {ClientApiError}
  * @alpha
  */
 export async function addProductToCart(
@@ -60,6 +62,7 @@ export async function addProductToCart(
  *
  * Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 5.
  *
+ * @throws {ClientApiError}
  * @alpha
  */
 export async function addCartItemQuantity(
@@ -80,6 +83,7 @@ export async function addCartItemQuantity(
  *
  * Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 2.
  *
+ * @throws {ClientApiError}
  * @alpha
  */
 export async function changeCartItemQuantity(
@@ -100,6 +104,7 @@ export async function changeCartItemQuantity(
  *
  * This method may be used for deleting "product" type item lines as well as "promotion" type item lines.
  *
+ * @throws {ClientApiError}
  * @alpha
  */
 export async function removeCartItem(itemId: string): Promise<Cart> {
@@ -113,6 +118,7 @@ export async function removeCartItem(itemId: string): Promise<Cart> {
  *
  * Promotion code is being added as separate cart item line.
  *
+ * @throws {ClientApiError}
  * @alpha
  */
 export async function addPromotionCode(promotionCode: string): Promise<Cart> {
