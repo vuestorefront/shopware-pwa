@@ -2,7 +2,13 @@
 
 ## How to start
 
-Before you start contributing, you should fork this repository and pick up the issue marked as `community`. After that, you can solve the problem and create a pull request (PR). Any features request should be discussed on our slack channel (link is in general project README.md) and then should be created an issue for them.
+Before you start contributing, you should fork this repository and pick up the issue. **Issues, that label is `core-team`, `shopware-task` are only reserved for core team members or Shopware team.**, for available task you can serach using this query:
+
+``` 
+is:open is:issue -label:"Shopware Task" -label:"Core Team" 
+```
+
+After that, you can solve the problem and create a pull request (PR). Any features request should be discussed on our slack channel (link is in general project README.md) and then should be created an issue for them.
 
 **Github Project Broad is intended only for core developers.**
 
