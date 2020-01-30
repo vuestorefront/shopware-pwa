@@ -31,6 +31,7 @@ const isRelease = args.release;
 const buildTypes = args.t || args.types || isRelease;
 const buildAllMatching = args.all || args.a;
 const lean = args.lean || args.l;
+const isCIRun = !!args.ci;
 const commit = execa.sync("git", ["rev-parse", "HEAD"]).stdout.slice(0, 7);
 
 run();
@@ -47,7 +48,8 @@ async function run() {
 
 async function buildAll(targets) {
   for (const target of targets) {
-    await build(target);
+    const result = await build(target);
+    if (result === false) return;
   }
 }
 
@@ -101,12 +103,12 @@ async function build(target) {
     const extractorConfig = ExtractorConfig.loadFileAndPrepare(
       extractorConfigPath
     );
-    const result = Extractor.invoke(extractorConfig, {
-      localBuild: true,
+    const extractorResult = Extractor.invoke(extractorConfig, {
+      localBuild: !isCIRun,
       showVerboseMessages: true
     });
 
-    if (result.succeeded) {
+    if (extractorResult.succeeded) {
       // concat additional d.ts to rolled-up dts (mostly for JSX)
       if (pkg.buildOptions && pkg.buildOptions.dts) {
         const dtsPath = path.resolve(pkgDir, pkg.types);
@@ -126,7 +128,15 @@ async function build(target) {
         `API Extractor completed with ${extractorResult.errorCount} errors` +
           ` and ${extractorResult.warningCount} warnings`
       );
+      console.log(
+        chalk.bold(
+          chalk.red(
+            `Probably public API has changed. You need to run 'yarn build' locally and commit generated public API documentation.`
+          )
+        )
+      );
       process.exitCode = 1;
+      return false;
     }
 
     await fs.remove(`${pkgDir}/dist/packages`);
