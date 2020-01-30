@@ -2,7 +2,7 @@
 
 ## How to start
 
-Before you start contributing, you should fork this repository and pick up the issue. **Issues, that label is `core-team`, `shopware-task` are only reserved for core team members or Shopware team.**, for available task you can search using this query:
+Before you start contributing, you should fork this repository and pick up the issue. **Issues, that label is `core-team`, `shopware-task` are only reserved for core team members or Shopware team**, for available task you can search using this query:
 
 ``` 
 is:open is:issue -label:"Shopware Task" -label:"Core Team" 
