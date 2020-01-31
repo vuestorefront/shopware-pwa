@@ -1,9 +1,11 @@
 import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
 import {
+  NotFilter,
   MultiFilter,
   RangeFilter,
   EqualsFilter,
-  EqualsAnyFilter
+  EqualsAnyFilter,
+  SearchFilterType
 } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchFilter";
 import { PaginationLimit } from "@shopware-pwa/shopware-6-client/src/interfaces/search/Pagination";
 import { config } from "@shopware-pwa/shopware-6-client";
@@ -23,57 +25,16 @@ export interface ShopwareParams {
   page?: number;
   limit?: number;
   sort?: string;
-  filter?: (MultiFilter | EqualsFilter | EqualsAnyFilter | RangeFilter)[];
+  filter?: (
+    | NotFilter
+    | MultiFilter
+    | EqualsFilter
+    | EqualsAnyFilter
+    | RangeFilter
+  )[];
   associations?: ShopwareAssociation;
   grouping?: Grouping;
 }
-
-// simple
-// const equals = {
-//   type: "equals",
-//   field: string,
-//   value: string | number
-// }
-
-// const contains = {
-//   type: "contains",
-//   field: string,
-//   value: string | number
-// }
-
-// const equalsAny = {
-//   type: "equalsAny",
-//   field: string,
-//   value: string // "wartosc|wartosc2|wartosc3"
-// }
-
-// interface range {
-//   type: string // "range",
-//   field: string,
-//   parameters: {
-//     lt?: string|number
-//     gt?: string|number
-//     lte?:  string|number
-//     gte?: string|number
-//   }
-// }
-
-// advanced
-// const not = {
-//   type: "not",
-//   operator: "AND" | "OR" | "XOR"
-//   queries: Array[ShopwareFilter]
-// }
-
-// const multi = {
-//   type: "multi",
-//   operator: "AND" | "OR" | "XOR"
-//   queries: Array[ShopwareFilter]
-// }
-
-// interface ShopwareSort { //?sort=-field
-
-// }
 
 function convertAssociations(
   associations: Association[] = []
@@ -81,9 +42,11 @@ function convertAssociations(
   if (!associations || !associations.length) return;
   let shopwareAssociations: ShopwareAssociation = {};
   associations.forEach(association => {
-    shopwareAssociations[association.name] = {
-      associations: convertAssociations(association.associations)
-    };
+    shopwareAssociations[association.name] = association.associations
+      ? {
+          associations: convertAssociations(association.associations)
+        }
+      : {};
   });
   return shopwareAssociations;
 }
@@ -115,12 +78,33 @@ export const convertSearchCriteria = (
     params.filter = filters;
   }
 
-  if (configuration?.associations) {
+  if (configuration && configuration.associations) {
     params.associations = convertAssociations(configuration.associations);
   }
 
   if (configuration?.grouping) {
     params.grouping = configuration.grouping;
+  }
+
+  // add extra grouping option and additional filter to prevent displaying redundand products.
+  if (!configuration || (configuration && !configuration.displayParents)) {
+    if (!Array.isArray(params?.filter)) {
+      params.filter = [];
+    }
+    params.grouping = {
+      // prevent displaying parent instances of the product
+      field: "displayGroup"
+    };
+    params.filter.push({
+      type: SearchFilterType.NOT,
+      queries: [
+        {
+          type: SearchFilterType.EQUALS,
+          field: "displayGroup",
+          value: null
+        }
+      ]
+    });
   }
 
   return params;

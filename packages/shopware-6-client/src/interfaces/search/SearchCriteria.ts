@@ -24,6 +24,8 @@ export interface Grouping {
 }
 
 /**
+ * configutarion.displayParents: true - if you want to show all the products
+ *
  * @alpha
  */
 export interface SearchCriteria {
@@ -32,6 +34,7 @@ export interface SearchCriteria {
   sort?: Sort;
   term?: string;
   configuration?: {
+    displayParents?: boolean;
     grouping?: Grouping;
     associations?: Association[];
     aggregations?: Aggregation[];
