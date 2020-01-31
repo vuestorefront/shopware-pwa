@@ -31,14 +31,14 @@
 </template>
 
 <script>
-import { SfBottomNavigation, SfCircleIcon, SfIcon, SfSelect } from '@storefront-ui/vue'
+import { SfBottomNavigation, SfCircleIcon, SfIcon, SfSelect, SfProductOption } from '@storefront-ui/vue'
 import { useCartSidebar, useUserLoginModal } from '@shopware-pwa/composables'
 import { useNavigation } from '@shopware-pwa/composables'
 
 
 export default {
   name: 'SwBottomNavigation',
-  components: { SfBottomNavigation, SfIcon, SfCircleIcon, SfSelect },
+  components: { SfBottomNavigation, SfIcon, SfCircleIcon, SfSelect, SfProductOption },
   data() {
     return {
       navigationElements: []

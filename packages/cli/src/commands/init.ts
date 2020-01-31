@@ -8,8 +8,12 @@ module.exports = {
   run: async (toolbox: GluegunToolbox) => {
     const {
       system: { run },
-      print: { info, success, spin }
+      print: { info, warning, success, spin }
     } = toolbox;
+
+    if (!toolbox.isProduction) {
+      warning(`You're running CLI in development mode!`);
+    }
 
     await toolbox.generateNuxtProject();
 
@@ -18,19 +22,14 @@ module.exports = {
     try {
       // - unlink potential linked locally packages
       await run(`yarn unlink ${toolbox.coreDependencyPackageNames.join(" ")}`);
-      await run(
-        `yarn unlink ${toolbox.coreDevDependencyPackageNames.join(" ")}`
-      );
     } catch (e) {
       // It's just for safety, unlink on fresh project will throw an error so we can catch it here
     }
     // - add dependencies from npm
     await run(`yarn add ${toolbox.coreDependencyPackageNames.join(" ")}`);
-    await run(`yarn add -D ${toolbox.coreDevDependencyPackageNames.join(" ")}`);
     // for development run - link local packages
     if (!toolbox.isProduction) {
       await run(`yarn link ${toolbox.coreDependencyPackageNames.join(" ")}`);
-      await run(`yarn link ${toolbox.coreDevDependencyPackageNames.join(" ")}`);
     }
 
     await toolbox.removeDefaultNuxtFiles();

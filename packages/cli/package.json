@@ -8,7 +8,7 @@
   },
   "scripts": {
     "format": "prettier --write **/*.{js,ts,tsx,json}",
-    "lint": "tslint -p .",
+    "lint": "tslint -p . --fix",
     "clean-build": "rm -rf ./build",
     "compile": "tsc -p .",
     "copy-templates": "if [ -e ./src/templates ]; then cp -a ./src/templates ./build/; fi",
