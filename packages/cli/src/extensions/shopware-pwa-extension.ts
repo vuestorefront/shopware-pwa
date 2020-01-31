@@ -17,7 +17,6 @@ module.exports = (toolbox: GluegunToolbox) => {
     "@shopware-pwa/shopware-6-client",
     "@shopware-pwa/default-theme"
   ];
-  toolbox.coreDevDependencyPackageNames = ["@vue-storefront/nuxt"];
 
   toolbox.themeFolders = [
     "components",
@@ -27,7 +26,8 @@ module.exports = (toolbox: GluegunToolbox) => {
     "assets",
     "middleware",
     "static",
-    ".eslintrc.js"
+    ".eslintrc.js",
+    "helpers"
   ];
 
   toolbox.defaultThemeLocation = `node_modules/@shopware-pwa/default-theme`;

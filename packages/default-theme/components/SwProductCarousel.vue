@@ -1,30 +1,23 @@
 <template>
-  <SfSection :title-heading="titleHeading" class="section">
-    <!-- SwProductSlider should be placed here instead of SfCarousel-->
-    <SfCarousel class="product-carousel">
-      <SfCarouselItem v-for="(product, i) in products" :key="i">
-        <SfProductCard
-          :title="product.title"
-          :image="product.image"
-          :regular-price="product.price.regular"
-          :max-rating="product.rating.max"
-          :score-rating="product.rating.score"
-          :is-on-wishlist="product.isOnWishlist"
-          @click:wishlist="toggleWishlist(i)"
-          class="product-card"
-        />
-      </SfCarouselItem>
-    </SfCarousel>
-  </SfSection>
+  <div class="Sw-products-gallery">
+    <SfSection title-heading="You may also like" v-if="products && products.length > 0">
+      <SfCarousel class="product-carousel">
+        <SfCarouselItem v-for="product in products" :key="product.id">
+          <SwProductCard :product="product" />
+        </SfCarouselItem>
+      </SfCarousel>
+    </SfSection>
+  </div>
 </template>
 
 <script>
-import { SfSection, SfCarousel, SfProductCard } from '@storefront-ui/vue'
-import SwProductSlider from './cms/elements/SwProductSlider'
+import { SfSection, SfCarousel } from '@storefront-ui/vue'
+import { getProducts } from '@shopware-pwa/shopware-6-client'
+import SwProductCard from './SwProductCard'
 
 export default {
   name: 'SwProductCarousel',
-  components: { SfSection, SfCarousel, SfProductCard },
+  components: { SfSection, SfCarousel, SwProductCard },
   props: {
     titleHeading: {
       type: String,
@@ -33,65 +26,23 @@ export default {
   },
   data() {
     return {
-      products: [
-        {
-          title: 'Cream Beach Bag',
-          image: '/img/productA.png',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: true
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/img/productB.png',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/img/productC.png',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/img/productA.png',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/img/productB.png',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/img/productC.png',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/img/productA.png',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/img/productB.png',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        }
-      ]
+      products: {},
+      
     }
+  },
+  async mounted() {
+    const result = await getProducts(
+    {
+      sort: {
+        field: 'price',
+        desc: false
+      },
+      pagination: {
+        page: 1,
+        limit: 10
+      }
+    })
+    this.products = result.data
   }
 }
 </script>
