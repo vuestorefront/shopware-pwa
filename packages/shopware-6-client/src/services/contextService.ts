@@ -15,7 +15,6 @@ import { Language } from "@shopware-pwa/shopware-6-client/src/interfaces/models/
 import { SearchResult } from "@shopware-pwa/shopware-6-client/src/interfaces/response/SearchResult";
 import { UpdateContextParams } from "@shopware-pwa/shopware-6-client/src/interfaces/request/UpdateContextParams";
 import { ContextTokenResponse } from "@shopware-pwa/shopware-6-client/src/interfaces/response/ContextTokenResponse";
-import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 /**
  * @throws {ClientApiError}

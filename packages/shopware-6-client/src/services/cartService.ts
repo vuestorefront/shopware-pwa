@@ -8,7 +8,6 @@ import {
 import { apiService } from "../apiService";
 import { ContextTokenResponse } from "@shopware-pwa/shopware-6-client/src/interfaces/response/ContextTokenResponse";
 import { CartItemType } from "@shopware-pwa/shopware-6-client/src/interfaces/cart/CartItemType";
-import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 /**
  * When no sw-context-token given then this method return an empty cart with the new sw-context-token.

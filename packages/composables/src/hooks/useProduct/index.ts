@@ -1,7 +1,7 @@
 import { ref, Ref } from "@vue/composition-api";
 import { getProduct } from "@shopware-pwa/shopware-6-client";
 import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
-import { ClientApiError } from "packages/shopware-6-client/src/interfaces/errors/ApiError";
+import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 const NO_PRODUCT_REFERENCE_ERROR =
   "Associations cannot be loaded for undefined product";
@@ -63,7 +63,7 @@ export const useProduct = (
       product.value = result;
       return result;
     } catch (e) {
-      const err: ClientApiError = e
+      const err: ClientApiError = e;
       error.value = err;
       console.error("Problem with fetching PRODUCT data", err.message);
     } finally {

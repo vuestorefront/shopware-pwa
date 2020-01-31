@@ -1,5 +1,5 @@
 import { config } from "@shopware-pwa/shopware-6-client";
-import { responseInterceptor, errorInterceptor } from "../src/apiInterceptors";
+import { responseInterceptor, errorInterceptor } from "../src/interceptors";
 import { random } from "faker";
 
 describe("apiInterceptors", () => {
@@ -38,11 +38,11 @@ describe("apiInterceptors", () => {
   describe("errorInterceptor", () => {
     it("should throw an error from parameters", async () => {
       try {
-        await errorInterceptor({ status: 404 });
+        await errorInterceptor({ response: { status: 404 } } as any);
         // Fail test if above expression doesn't throw anything.
         expect("didn't throw an error").toEqual("should throw an error");
       } catch (e) {
-        expect(e.status).toEqual(404);
+        expect(e.statusCode).toEqual(404);
       }
     });
   });

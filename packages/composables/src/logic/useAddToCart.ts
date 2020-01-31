@@ -1,7 +1,7 @@
 import { ref, Ref, computed } from "@vue/composition-api";
 import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
 import { useCart } from "@shopware-pwa/composables";
-import { ClientApiError } from "packages/shopware-6-client/src/interfaces/errors/ApiError";
+import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 /**
  * @alpha
@@ -37,7 +37,7 @@ export const useAddToCart = (product: Product): UseAddToCart => {
       await addProduct({ id: product.id, quantity: quantity.value });
       quantity.value = 1;
     } catch (e) {
-      const err: ClientApiError = e
+      const err: ClientApiError = e;
       error.value = err;
     } finally {
       loading.value = false;

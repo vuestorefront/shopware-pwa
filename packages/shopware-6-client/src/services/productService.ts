@@ -8,7 +8,6 @@ import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/c
 import { convertSearchCriteria } from "../helpers/searchConverter";
 import { apiService } from "../apiService";
 import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
-import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 /**
  * Get default amount of products' ids

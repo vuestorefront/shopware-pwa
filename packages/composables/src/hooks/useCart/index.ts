@@ -6,7 +6,7 @@ import {
   changeCartItemQuantity
 } from "@shopware-pwa/shopware-6-client";
 import { getStore } from "../..";
-import { ClientApiError } from "packages/shopware-6-client/src/interfaces/errors/ApiError";
+import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 /**
  * @alpha
@@ -22,7 +22,7 @@ export const useCart = (): any => {
       const result = await getCart();
       vuexStore.commit("SET_CART", result);
     } catch (e) {
-      const err: ClientApiError = e
+      const err: ClientApiError = e;
       error.value = err;
       console.error("Problem with fetching CART data", err.message);
     } finally {

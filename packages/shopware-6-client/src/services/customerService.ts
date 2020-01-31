@@ -16,7 +16,6 @@ import { CustomerAddress } from "@shopware-pwa/shopware-6-client/src/interfaces/
 import { CustomerRegistrationParams } from "@shopware-pwa/shopware-6-client/src/interfaces/request/CustomerRegistrationParams";
 import { ContextTokenResponse } from "@shopware-pwa/shopware-6-client/src/interfaces/response/ContextTokenResponse";
 import { Order } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order";
-import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 /**
  * @alpha
@@ -72,7 +71,7 @@ export async function logout(): Promise<void> {
 
 /**
  * Get customer's object
- * 
+ *
  * @throws {ApiClientError}
  * @alpha
  */
