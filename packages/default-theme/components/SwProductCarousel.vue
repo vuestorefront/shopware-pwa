@@ -1,8 +1,8 @@
 <template>
   <div class="Sw-products-gallery">
-    <SfSection title-heading="You may also like" v-if="products.data && products.data.length > 0">
+    <SfSection title-heading="You may also like" v-if="products && products.length > 0">
       <SfCarousel class="product-carousel">
-        <SfCarouselItem v-for="product in products.data" :key="product.id">
+        <SfCarouselItem v-for="product in products" :key="product.id">
           <SwProductCard :product="product" />
         </SfCarouselItem>
       </SfCarousel>
@@ -31,7 +31,7 @@ export default {
     }
   },
   async mounted() {
-    this.products = await getProducts(
+    const result = await getProducts(
     {
       sort: {
         field: 'price',
@@ -42,6 +42,7 @@ export default {
         limit: 10
       }
     })
+    this.products = result.data
   }
 }
 </script>
