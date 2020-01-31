@@ -1,51 +1,7 @@
 <template>
   <SfTabs :open-tab="1">
     <SfTab title="Personal data">
-      <p class="message">
-        Feel free to edit any of your details below so your account is always up
-        to date
-      </p>
-      <div class="form">
-        <SfInput
-          v-model="salutations[0].salutation"
-          name="salutation"
-          label="Salutation"
-          required
-          class="form__element form__element--half"
-        />
-        <SfInput
-          v-model="title"
-          name="title"
-          label="Title"
-          required
-          class="form__element form__element--half form__element--half-even"
-        />
-        <SfInput
-          v-model="firstName"
-          name="firstName"
-          label="First Name"
-          required
-          class="form__element form__element--half"
-        />
-        <SfInput
-          v-model="lastName"
-          name="lastName"
-          label="Last Name"
-          required
-          class="form__element form__element--half form__element--half-even"
-        />
-        <SfInput
-          v-model="email"
-          type="email"
-          name="email"
-          label="Your e-mail"
-          required
-          class="form__element"
-        />
-        <SfButton class="form__button" @click="updatePersonal"
-          >Update personal data</SfButton
-        >
-      </div>
+      <SwPersonalInfo/>
       <p class="notice">
         At Brand name, we attach great importance to privacy issues and are
         committed to protecting the personal data of our users. Learn more about
@@ -53,41 +9,19 @@
         <a href="">Privacy Policy.</a>
       </p>
     </SfTab>
+    <SfTab title="Email change">
+      <SwEmail/>
+    </SfTab>
     <SfTab title="Password change">
-      <p class="message">
-        If you want to change the password to access your account, enter the
-        following information:<br />Your current email address is
-        <span class="message__label">{{ email }}</span>
-      </p>
-      <div class="form">
-        <SfInput
-          v-model="passwords.currentPassword"
-          type="password"
-          name="currentPassword"
-          label="Current Password"
-          required
-          class="form__element"
-        />
-        <SfInput
-          v-model="passwords.newPassword"
-          type="password"
-          name="newPassword"
-          label="New Password"
-          required
-          class="form__element form__element--half"
-        />
-        <SfInput
-          v-model="passwords.repeatPassword"
-          type="password"
-          name="repeatPassword"
-          label="Repeat Password"
-          required
-          class="form__element form__element--half form__element--half-even"
-        />
-        <SfButton class="form__button" @click="updatePassword"
-          >Update password</SfButton
-        >
-      </div>
+      <SwPassword>
+        <template #message="{user}">
+          <p class="message">
+            If you want to change the password to access your account, enter the
+            following information:<br />Your current email address is
+            <span class="message__label">{{ user && user.email }}</span>
+          </p>
+        </template>
+      </SwPassword>
     </SfTab>
   </SfTabs>
 </template>
@@ -95,50 +29,13 @@
 <script>
 import { SfTabs, SfInput, SfButton } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
+import SwPassword from '../forms/SwPassword'
+import SwEmail from '../forms/SwEmail'
+import SwPersonalInfo from '../forms/SwPersonalInfo'
 
 export default {
   name: 'MyProfile',
-  components: { SfTabs, SfInput, SfButton },
-  props: {},
-  setup() {
-    const { user } = useUser()
-    return {
-      user
-    }
-  },
-  data() {
-    return {
-      salutations: [
-        { salutation: 'Mr.', salutationId: '' },
-        { salutation: 'Mrs.', salutationId: '' }
-      ],
-      passwords: {
-        currentPassword: '',
-        newPassword: '',
-        repeatPassword: ''
-      },
-      email: this.user && this.user.email,
-      firstName: this.user && this.user.firstName,
-      lastName: this.user && this.user.lastName,
-      title: this.user && this.user.title
-    }
-  },
-  computed: {
-    customerNumber() {
-      return this.user && this.user.customerNumber
-    }
-  },
-  methods: {
-    updatePersonal() {
-      // ...
-    },
-    updateEmail() {
-      // ...
-    },
-    updatePassword() {
-      // ...
-    }
-  }
+  components: { SfTabs, SfInput, SfButton, SwEmail, SwPassword, SwPersonalInfo },
 }
 </script>
 
@@ -150,54 +47,14 @@ export default {
     @content;
   }
 }
-.form {
-  @include for-desktop {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  &__element {
-    margin-bottom: $spacer-extra-big;
-    @include for-desktop {
-      flex: 0 0 100%;
-    }
-    &--half {
-      @include for-desktop {
-        flex: 1 1 50%;
-      }
-      &-even {
-        @include for-desktop {
-          padding-left: $spacer-extra-big;
-        }
-      }
-    }
-  }
-  &__button {
-    width: 100%;
-    @include for-desktop {
-      width: auto;
-    }
-  }
-}
-.message,
+
 .notice {
   font-family: $body-font-family-primary;
   font-weight: $body-font-weight-primary;
   line-height: 1.6;
-}
-.message {
-  margin: 0 0 $spacer-extra-big 0;
-  font-size: $font-size-regular-mobile;
-  @include for-desktop {
-    font-size: $font-size-regular-desktop;
-  }
-  &__label {
-    font-weight: 400;
-  }
-}
-.notice {
   margin: $spacer-big 0 0 0;
   font-size: $font-size-extra-small-mobile;
+
   @include for-desktop {
     max-width: 70%;
     margin: $spacer 0 0 0;
