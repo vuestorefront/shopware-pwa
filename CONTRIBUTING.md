@@ -2,44 +2,49 @@
 
 ## How to start
 
-Before you start contributing, you should fork this repository and pick up the issue. **Issues, that label is `core-team`, `shopware-task` are only reserved for core team members or Shopware team**, for available task you can search using this query:
+Before you start contributing, you should fork this repository and pick up the issue. 
+
+**Issues, labeled with `core-team`, `shopware-task` are reserved for Shopware-PWA Core Team Members and Shopware Core Team**. 
+
+To find community tasks [click here](https://github.com/DivanteLtd/shopware-pwa/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+-label%3A%22Shopware+Task%22+-label%3A%22Core+Team%22+) or use following filter in the issues:
 
 ``` 
 is:open is:issue -label:"Shopware Task" -label:"Core Team" 
 ```
 
-After choosing the task, you can solve the problem and create a pull request (PR). Any features request should be discussed on our slack channel (link is in general project README.md) and then should be created an issue for them.
+After choosing the task, you can solve the problem and create a pull request (PR). Feature requests should be discussed on our Slack channel (please see the link in [README.md](https://github.com/DivanteLtd/shopware-pwa)). After the discussion, please create the issue describing your request.
 
 **Github Project Broad is intended only for core developers.**
 
-**Please note we have a code of conduct, please follow it in all your interactions with the project.** 
+**Please read the code of conduct and follow it in all your interactions with the project.** 
 
-Thank you for your interest in, and engagement!
+Thank you for your interest in, and engagement! :)
 
-You may also want to read:
+You may want to read:
 
-- General project README.md
-- Project documentation
--  [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+- [Project documentation / General README.md](https://github.com/DivanteLtd/shopware-pwa)
+- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ## Branches
 
-For any new feature should be created a new branch, which name should fit this template: `<task type eg. feat, fix, chore>/<package eg. cli, client, theme, if there is a global task this part can be ommited>/<short task description written in kebab-case>-<issue number (also optional)>` `, here are some examples:
+For all of the codebase changes please create a new branch. Its name should fit into this template: `<task type eg. feat, fix, chore>/<package eg. cli, client, theme, if there is a global task this part can be ommited>/<short task description is written in kebab-case>-<issue number (also optional)>` `, here are some examples:
 
 - `feat/theme/add-carousel-to-product-details`
-- `chore/update-project-dependancies`
-- `fix/cli/missing-dependancies-#233`
+- `chore/update-project-dependencies`
+- `fix/cli/missing-dependencies-#233`
 
 ## Commits
 
-All commits after resolving the PR are squashed to one, so any commit messages that not fit to [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) convention would be not included in the commit messages list. We also recommend you to not squash commits after opening the PR, to update your branch with current master you should use `git merge`.
+After resolving the pull request, all the commits will be automatically squashed into one. Any commit messages, which do not fit [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) convention would be not included in the list of commit messages. We do not recommend to squash the commits after opening the PR manually. To update your branch to the current master please use `git merge`.
 
 ## Tests
 
-We are trying to keep 100% test coverage for our packages (except default-theme), so before creating new PR make sure that all tests are passed and coverage does not decrease. For further information please, read the documentation.
+We keep 100% test coverage for our packages (except `default-theme`). Before opening a pull request, make sure all tests pass and coverage does not decrease. For further information please read the documentation.
 
 ## Pull requests
 
-There is a Pull Request template, that any contributor should follow. To merge a branch into master there must be two accepted code reviews and all checks have to be passed. Note that only the core team member can accept the PR
+There is a Pull Request template, that contributors should follow. To merge a branch into master two reviewers must accept the changes. All continuous integration checks must pass. Note that, only Shopware-PWA Core Team Members are allowed to accept pull requests.
 
-If you can't handle some parts of the issue feel free to ask in the comment. It's absolutely OK if you can only handle styling/tests/whatever. 
+If you face any problems during the implementation of the complex issue, feel free to implement just a part of it and ask for help in the comment. It's OK if you can only handle styling/tests/whatever. 
+
+In case of any problems feel free to contact us in comments or our Slack channel. :)
