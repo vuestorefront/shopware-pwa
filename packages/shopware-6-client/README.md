@@ -1,7 +1,7 @@
 # API client for Shopware 6
 
 Compatibility with Shopware 6:  
-[![shopware-ver](https://img.shields.io/badge/version-6.1.0rc4-orange)](https://github.com/shopware/platform/releases/tag/v6.1.0-rc4)
+[![shopware-ver](https://img.shields.io/badge/version-6.1.0-orange)](https://github.com/shopware/platform/releases/tag/v6.1.0)
 
 ## Installing
 
