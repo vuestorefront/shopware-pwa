@@ -11,10 +11,11 @@
 </template>
 
 <script>
-import { SfSection, SfCarousel } from "@storefront-ui/vue";
-import SwProductCard from "../../SwProductCard";
+import { SfSection, SfCarousel } from '@storefront-ui/vue'
+import SwProductCard from '../../SwProductCard'
 
 export default {
+  name: 'SwProductSlider',
   components: {
     SfSection,
     SfCarousel,
@@ -28,14 +29,14 @@ export default {
   },
   computed: {
     products() {
-      return this.content && this.content.data
-        ? this.content.data.products
-        : [];
+      return this.content && this.content.data ? this.content.data.products : []
     },
     title() {
-      return this.content && this.content.config.title.value
+      return this.content &&
+        this.content.config &&
+        this.content.config.title.value
         ? this.content.config.title.value
-        : "";
+        : ''
     }
   }
 };

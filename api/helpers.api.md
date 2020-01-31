@@ -194,11 +194,11 @@ export interface UiCategorySorting {
 // @alpha (undocumented)
 export interface UiMediaGalleryItem {
     // (undocumented)
-    big: UiMediaGalleryItemUrl;
+    desktop: UiMediaGalleryItemUrl;
     // (undocumented)
-    normal: UiMediaGalleryItemUrl;
+    icon: UiMediaGalleryItemUrl;
     // (undocumented)
-    small: UiMediaGalleryItemUrl;
+    mobile: UiMediaGalleryItemUrl;
 }
 
 // @alpha (undocumented)

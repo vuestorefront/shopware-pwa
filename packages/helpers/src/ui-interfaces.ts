@@ -9,9 +9,9 @@ export interface UiMediaGalleryItemUrl {
  * @alpha
  */
 export interface UiMediaGalleryItem {
-  small: UiMediaGalleryItemUrl;
-  normal: UiMediaGalleryItemUrl;
-  big: UiMediaGalleryItemUrl;
+  icon: UiMediaGalleryItemUrl;
+  mobile: UiMediaGalleryItemUrl;
+  desktop: UiMediaGalleryItemUrl;
 }
 
 /**
