@@ -7,16 +7,11 @@ import {
   EqualsAnyFilter,
   SearchFilterType
 } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchFilter";
+import { convertAssociations } from "@shopware-pwa/shopware-6-client/src/helpers/convertAssociations";
 import { PaginationLimit } from "@shopware-pwa/shopware-6-client/src/interfaces/search/Pagination";
 import { config } from "@shopware-pwa/shopware-6-client";
-import { Association } from "@shopware-pwa/shopware-6-client/src/interfaces/search/Association";
+import { ShopwareAssociation } from "@shopware-pwa/shopware-6-client/src/interfaces/search/Association";
 import { Grouping } from "@shopware-pwa/shopware-6-client/src/interfaces/search/Grouping";
-
-interface ShopwareAssociation {
-  [name: string]: {
-    associations?: ShopwareAssociation;
-  };
-}
 
 /**
  * @alpha
@@ -34,21 +29,6 @@ export interface ShopwareParams {
   )[];
   associations?: ShopwareAssociation;
   grouping?: Grouping;
-}
-
-function convertAssociations(
-  associations: Association[] = []
-): ShopwareAssociation | undefined {
-  if (!associations || !associations.length) return;
-  let shopwareAssociations: ShopwareAssociation = {};
-  associations.forEach(association => {
-    shopwareAssociations[association.name] = association.associations
-      ? {
-          associations: convertAssociations(association.associations)
-        }
-      : {};
-  });
-  return shopwareAssociations;
 }
 
 export const convertSearchCriteria = (
@@ -88,7 +68,7 @@ export const convertSearchCriteria = (
 
   // add extra grouping option and additional filter to prevent displaying redundand products.
   if (!configuration || (configuration && !configuration.displayParents)) {
-    if (!Array.isArray(params?.filter)) {
+    if (!Array.isArray(params.filter)) {
       params.filter = [];
     }
     params.grouping = {
