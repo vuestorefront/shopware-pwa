@@ -2,8 +2,6 @@
 
 [![Build Status](https://travis-ci.org/DivanteLtd/shopware-pwa.svg?branch=master)](https://travis-ci.org/DivanteLtd/shopware-pwa) [![Coverage Status](https://coveralls.io/repos/github/DivanteLtd/shopware-pwa/badge.svg?branch=master)](https://coveralls.io/github/DivanteLtd/shopware-pwa) [![Greenkeeper badge](https://badges.greenkeeper.io/DivanteLtd/shopware-pwa.svg)](https://greenkeeper.io/)
 
->:warning:**This repository is not ready for external contributions**   
-
 The only Official Progressive Web App for <a href="https://github.com/shopware/platform">Shopware 6</a>. 
 
 About Shopware: 
@@ -49,7 +47,59 @@ If you have any questions or ideas feel free to join our slack: https://vuestore
 See [the documentation](https://shopware-pwa-docs.netlify.com/#introduction-to-shopware-pwa) to get started.
 
 ### Quick start
-Read instruction in `CHEATSHEET.md` file
+
+#### Installation
+
+```bash
+yarn global add @shopware-pwa/cli
+```
+
+or
+
+```bash
+npm install -g @shopware-pwa/cli
+```
+
+#### Usage
+
+Create a directory for your project and enter it
+
+```bash
+mkdir my-shopware-pwa
+cd ./my-shopware-pwa
+```
+
+initialize project inside directory
+
+```bash
+shopware-pwa init
+```
+
+after this you're connected to our test shopware instance and ready to run project locally
+
+```bash
+yarn dev
+```
+
+Your application will be available on [http://localhost:3000](http://localhost:3000).  
+Now you have complete ShopwarePWA project running locally.
+
+##### Running Shopware PWA on custom Shopware instance
+
+1. add new file `shopware-pwa.config.js` inside root of the newly created project
+2. fill it with your needs, example:
+
+```js
+module.exports = {
+  shopwareEndpoint: "https://shopware-2.vuestorefront.io/sales-channel-api/v1",
+  shopwareAccessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG"
+};
+```
+
+3. run again `shopware-pwa init` and then `yarn dev`
+
+
+Read full instruction in `CHEATSHEET.md` file.
 
 ### Development
 
@@ -59,52 +109,6 @@ Please, remember to always during development have opened terminal with `yarn te
 
 To start working on the default-theme go to `./packages/default-theme` and run `yarn`. After installation type `yarn dev`. The project will be available in your browser at http://localhost:3000.
 
-### Installation for using the package in some other project
-
-1. Run `yarn`
-2. Build package with types definition `yarn build --types`
-3. Create symlink for local usage `yarn link`
-4. In another project (can be generated from vue-cli) link client package and install axios (nothing will happen if you already have axios there)
-
-```bash
-yarn link @shopware-pwa/shopware-6-client
-yarn add axios
-```
-5. In main project file (`main.js`) setup shopware config
-
-```js
-import {setup} from "@shopware-pwa/shopware-6-client"
-
-setup({
-  endpoint: 'https://address-to-my-shopware-instance.com',
-  accessToken: 'myaccesstoken'
-})
-```
-6. Use ShopwareClient services around your project. Example:
-
-```js
-import { getCategories } from "@shopware-pwa/shopware-6-client"
-
-// later in component
-
-async mounted() {
-  this.categories = await getCategories();
-}
-```
-
-### Installation problems
-
-**Q:** Problem with `yarn serve` on external project  
-**A:** By default webpack resolves symlinks to their real location. 
-Add `config.resolve.symlinks(false)` to your `vue.config.js` file ([read more here](https://cli.vuejs.org/guide/troubleshooting.html#symbolic-links-in-node-modules))
-
-```js
-module.exports = {
-  chainWebpack: (config) => {
-    config.resolve.symlinks(false)
-  }
-}
-```
 ___
 
 ## Introduction to Shopware-PWA

@@ -22,7 +22,7 @@ jobs:
       - name: Build packages
         run: |
           yarn
-          yarn build
+          yarn build --ci
       - name: Deploy PR to zeit
         if: github.event_name == 'pull_request'
         uses: patzick/now-deployment@master
