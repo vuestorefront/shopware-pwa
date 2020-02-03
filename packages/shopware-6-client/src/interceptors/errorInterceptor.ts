@@ -28,18 +28,18 @@ const extractApiErrorMessage = (
   error: ShopwareApiError
 ): string | ShopwareError[] => {
   const statusCode = extractApiErrorStatusCode(error);
-
   if (statusCode !== 400) {
     // Only Bad Request response has possibly more than one error object included.
     // Hide callstack in case of 500
+
     const apiError =
       statusCode === 500
         ? "Internal server error"
-        : error.response?.data?.errors?.[0].detail;
+        : error.response.data?.errors?.[0].detail;
     return apiError;
   }
 
-  return error.response?.data?.errors;
+  return error.response.data?.errors;
 };
 
 /**

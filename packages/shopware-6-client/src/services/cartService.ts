@@ -16,6 +16,8 @@ import { CartItemType } from "@shopware-pwa/shopware-6-client/src/interfaces/car
  *
  * As the purpose of this method is not clear we recommend to use getCart() method because its behaviour seems to be the same.
  *
+ * @throws {ClientApiError}
+ * 
  * @alpha
  */
 export async function clearCart(): Promise<ContextTokenResponse> {
