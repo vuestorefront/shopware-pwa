@@ -9,38 +9,60 @@
       </p>
     </slot>
 
+    <SfAlert
+      v-if="error"
+      class="sw-personal-info__alert"
+      type="danger"
+      message="Errors in the form"
+    />
+
     <div class="sw-personal-info__form form">
       <slot name="form">
-        <SfInput
-          v-model="salutations[0].salutation"
-          name="salutation"
+        <SfSelect
+          v-model="salutation"
+          :valid="!$v.salutation.$error"
+          :selected="salutation"
+          error-message="Salutation must be selected"
           label="Salutation"
-          :valid="!$v.password.$error"
-          required
           class="form__element form__element--half"
-        />
+          @blur="$v.salutation.$touch()"
+        >
+          <SfSelectOption v-for="salutationOption in salutations" :key="salutationOption.id" :value="salutationOption">
+            <SfProductOption :label="salutationOption.displayName"></SfProductOption>
+          </SfSelectOption>
+        </SfSelect>
         <SfInput
           v-model="title"
           name="title"
+          :valid="!$v.title.$error"
+          :selected="salutation"
+          error-message="Title must be selected"
           label="Title"
-          required
           class="form__element form__element--half form__element--half-even"
+          @blur="$v.title.$touch()"
         />
         <SfInput
           v-model="firstName"
+          :valid="!$v.firstName.$error"
+          error-message="First name is required"
           name="firstName"
           label="First Name"
-          required
           class="form__element form__element--half"
+          @blur="$v.firstName.$touch()"
         />
         <SfInput
           v-model="lastName"
+          :valid="!$v.lastName.$error"
+          error-message="Last name is required"
           name="lastName"
           label="Last Name"
-          required
           class="form__element form__element--half form__element--half-even"
+          @blur="$v.lastName.$touch()"
         />
-        <SfButton class="form__button" @click="updatePersonal">
+        <SfButton 
+          class="form__button"
+          :disabled="$v.$invalid"
+          @click="invokeUpdate">
           Update personal data
         </SfButton>
       </slot>
@@ -53,27 +75,30 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, email } from 'vuelidate/lib/validators'
-import { SfInput, SfButton } from '@storefront-ui/vue'
+import { required } from 'vuelidate/lib/validators'
+import { SfInput, SfButton, SfSelect, SfProductOption, SfAlert } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 
 export default {
   name: 'MyProfile',
-  components: { SfInput, SfButton },
+  components: { SfInput, SfButton, SfSelect, SfProductOption, SfAlert },
   mixins: [validationMixin],
   props: {},
   setup() {
-    const { user } = useUser()
+    const { user, error, updatePersonalInfo } = useUser()
     return {
-      user
+      updatePersonalInfo,
+      user,
+      error
     }
   },
   data() {
     return {
       salutations: [
-        { salutation: 'Mr.', salutationId: '' },
-        { salutation: 'Mrs.', salutationId: '' }
+        { displayName: 'Mr.', id: 'c370eb5cd1df4d4dbcc78f055b693e79' },
       ],
+      salutation: this.user && this.user.salutation ?
+       { displayName: this.user.salutation.displayName, id: this.user.salutation.id } :{},
       firstName: this.user && this.user.firstName,
       lastName: this.user && this.user.lastName,
       title: this.user && this.user.title
@@ -90,12 +115,17 @@ export default {
       required
     },
     title: {
-
+      required
     }
   },
   methods: {
-    updatePersonal() {
-        // ...
+    async invokeUpdate() {
+      const profileChanged = await this.updatePersonalInfo({
+        firstName: this.firstName,
+        lastName: this.lastName,
+        title: this.title,
+        salutationId: this.salutation.id
+      })
     }
   }
 }

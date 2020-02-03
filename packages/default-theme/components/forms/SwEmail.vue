@@ -8,33 +8,49 @@
       </p>
     </slot>
 
+    <SfAlert
+      v-if="error"
+      class="sw-personal-info__alert"
+      type="danger"
+      message="Errors in the form"
+    />
+
     <div class="sw-email__form form">
       <slot name="form">
         <SfInput
           v-model="email"
+          :valid="!$v.email.$error"
+          error-message="Email cannnot be empty"
           type="email"
           name="email"
           label="Your e-mail"
-          required
           class="form__element "
+          @blur="$v.email.$touch()"
         />
         <SfInput
           v-model="confirmEmail"
+          :valid="!$v.confirmEmail.$error"
+          error-message="Must match first one"
           type="email"
           name="confirmEmail"
           label="Confirm e-mail"
-          required
           class="form__element"
+          @blur="$v.confirmEmail.$touch()"
         />
         <SfInput
           v-model="password"
+          :valid="!$v.password.$error"
+          error-message="Password cannot be empty"
           type="password"
           name="password"
           label="Your password"
-          required
           class="form__element"
+          @blur="$v.password.$touch()"
         />
-        <SfButton class="form__button" @click="updateEmail">
+        <SfButton 
+          class="form__button"
+          @click="invokeUpdate"
+          :disabled="$v.$invalid">
           Update email
         </SfButton>
       </slot>
@@ -47,19 +63,22 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, email } from 'vuelidate/lib/validators'
-import { SfInput, SfButton } from '@storefront-ui/vue'
+import { required, email, sameAs } from 'vuelidate/lib/validators'
+import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
+
 
 export default {
   name: 'MyProfile',
-  components: { SfInput, SfButton },
+  components: { SfInput, SfButton, SfAlert },
   mixins: [validationMixin],
   props: {},
   setup() {
-    const { user } = useUser()
+    const { user, error, updateEmail } = useUser()
     return {
-      user
+      updateEmail,
+      user,
+      error
     }
   },
   data() {
@@ -70,8 +89,26 @@ export default {
     }
   },
   methods: {
-    updateEmail() {
-        // ...
+    async invokeUpdate() {
+      const emailChanged = await this.updateEmail({
+        email: this.email,
+        confirmEmail: this.confirmEmail,
+        password: this.password
+      })
+    }
+  },
+  validations: {
+    email: {
+      required,
+      email
+    },
+    confirmEmail: {
+      required,
+      sameAsEmail: sameAs('email'),
+      email
+    },
+    password: {
+      required
     }
   }
 }

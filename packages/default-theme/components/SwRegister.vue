@@ -182,7 +182,7 @@ export default {
     },
     password: {
       required,
-      minLength: minLength(4)
+      minLength: minLength(8)
     },
     firstName: {
       required
