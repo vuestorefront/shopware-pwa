@@ -6,7 +6,7 @@ import { apiService } from "../apiService";
 import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
 
 /**
- * @throws {ClientApiError}
+ * @throws ClientApiError
  * @alpha
  */
 export async function getCategories(
@@ -21,7 +21,7 @@ export async function getCategories(
 }
 
 /**
- * @throws {ClientApiError}
+ * @throws ClientApiError
  * @alpha
  */
 export async function getCategory(categoryId: string): Promise<Category> {
