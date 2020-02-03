@@ -201,7 +201,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
   });
   describe("configuration", () => {
     describe("displayParents", () => {
-      it("should return displayGroup grouped parameter and appropriate filter by default", () => {
+      it("should not return displayGroup grouped parameter and appropriate filter when displayParents switch is on", () => {
         const result = convertSearchCriteria({
           filters: {},
           configuration: {
