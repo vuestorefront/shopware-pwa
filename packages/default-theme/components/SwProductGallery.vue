@@ -3,18 +3,18 @@
     <template v-if="mediaGallery.length > 0">
       <slot name="desktop-galery" v-bind="mediaGallery">
         <div
-          v-for="(image, id) in mediaGallery"
+          v-for="(picture, id) in mediaGallery"
           :key="id"
           class="gallery__desktop"
         >
           <SfImage
-            v-if="image.big"
-            :src="image.big.url"
+            v-if="picture.mobile"
+            :src="picture.mobile.url"
             class="image__big desktop-only"
           />
           <SfImage
-            v-else-if="image.medium"
-            :src="image.medium.url"
+            v-else-if="picture.desktop"
+            :src="picture.desktop.url"
             class="image__medium dektop-only"
           />
         </div>
