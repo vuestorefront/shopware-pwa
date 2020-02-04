@@ -6,7 +6,7 @@ import {
 export function convertAssociations(
   associations: Association[] = []
 ): ShopwareAssociation | undefined {
-  if (!associations || !associations.length) return;
+  if (!Array.isArray(associations) || !associations.length) return;
   let shopwareAssociations: ShopwareAssociation = {};
   associations.forEach(association => {
     shopwareAssociations[association.name] = association.associations
