@@ -76,8 +76,9 @@ export default {
   mixins: [validationMixin],
   props: {},
   setup() {
-    const { user, error, updatePassword } = useUser()
+    const { user, error, updatePassword, refreshUser } = useUser()
     return {
+      refreshUser,
       updatePassword,
       user,
       error
@@ -98,6 +99,7 @@ export default {
         newPassword: this.newPassword,
         newPasswordConfirm: this.newPasswordConfirm
       })
+      await refreshUser()
     }
   },
   validations: {

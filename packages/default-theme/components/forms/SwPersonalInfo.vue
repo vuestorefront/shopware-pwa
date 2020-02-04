@@ -85,8 +85,9 @@ export default {
   mixins: [validationMixin],
   props: {},
   setup() {
-    const { user, error, updatePersonalInfo } = useUser()
+    const { user, error, updatePersonalInfo, refreshUser } = useUser()
     return {
+      refreshUser,
       updatePersonalInfo,
       user,
       error
@@ -126,6 +127,7 @@ export default {
         title: this.title,
         salutationId: this.salutation.id
       })
+      await this.refreshUser()
     }
   }
 }
