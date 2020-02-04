@@ -3,15 +3,20 @@ import {
   getCart,
   addProductToCart,
   removeCartItem,
-  changeCartItemQuantity
+  changeCartItemQuantity,
+  createOrder,
+  createGuestOrder
 } from "@shopware-pwa/shopware-6-client";
 import { getStore } from "../..";
+import { useUser } from "../useUser";
+import { Order } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order";
 
 /**
  * @alpha
  */
 export const useCart = (): any => {
   let vuexStore = getStore();
+  const { isLoggedIn, user } = useUser();
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
 
@@ -42,6 +47,21 @@ export const useCart = (): any => {
   async function changeProductQuantity({ id, quantity }: any) {
     const result = await changeCartItemQuantity(id, quantity);
     vuexStore.commit("SET_CART", result);
+  }
+
+  /**
+   * todo: move this method to the separated composable after the implementation of dummy checkout.
+   */
+  async function placeOrder(): Promise<Order> {
+    if (isLoggedIn.value) {
+      return createOrder();
+    }
+
+    if (user.value?.email) { // use hardcoded email until personal data form is handled
+      return createGuestOrder(user.value?.email);
+    }
+
+    throw new Error("Order cannot be placed")
   }
 
   const cart = computed(() => {
@@ -81,6 +101,7 @@ export const useCart = (): any => {
     refreshCart,
     removeProduct,
     totalPrice,
-    subtotal
+    subtotal,
+    placeOrder
   };
 };

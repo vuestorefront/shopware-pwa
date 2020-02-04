@@ -90,12 +90,12 @@
         <SfTableHeader class="table__action"></SfTableHeader>
       </SfTableHeading>
       <SfTableRow
-        v-for="(product, index) in products"
+        v-for="(product, index) in cartItems"
         :key="index"
         class="table__row"
       >
         <SfTableData class="table__image">
-          <SfImage :src="product.image" />
+          <SfImage :src="product.cover.url" />
         </SfTableData>
         <SfTableData class="table__data table__data--left">
           <div class="product-title">{{ product.label }}</div>
@@ -107,11 +107,10 @@
         <SfTableData class="table__data">{{
           product.configuration[0].value
         }}</SfTableData> -->
-        <SfTableData class="table__data">{{ product.qty }}</SfTableData>
+        <SfTableData class="table__data">{{ product.quantity }}</SfTableData>
         <SfTableData class="table__data">
           <SfPrice
-            :regular="product.price.regular"
-            :special="product.price.special"
+            :regular="product.price.totalPrice"
             class="product-price"
           />
         </SfTableData>
@@ -162,8 +161,11 @@
           </template>
         </SfCheckbox>
       </div>
-      <div class="summary__group">
-        <SfButton class="sf-button--full-width summary__action-button"
+      <div class="notification" v-if="!isUserLoggedIn">
+        <SfNotification :visible="true" type="info" title="You can't place the order" message="Dummy checkout is enabled only for logged in users" />
+      </div>
+      <div class="summary__group">      
+        <SfButton :disabled="!isUserLoggedIn" class="sf-button--full-width summary__action-button" @click="placeOrder()"
           >Place my order</SfButton>
         <SfButton
           class="sf-button--full-width sf-button--text summary__action-button summary__action-button--secondary"
@@ -176,7 +178,8 @@
 </template>
 
 <script>
-import { useCart } from '@shopware-pwa/composables'
+import { useCart, useUser } from '@shopware-pwa/composables'
+import { getPagePath } from '../../helpers/pages'
 
 import {
   SfHeading,
@@ -187,7 +190,8 @@ import {
   SfIcon,
   SfPrice,
   SfProperty,
-  SfAccordion
+  SfAccordion,
+  SfNotification
 } from '@storefront-ui/vue'
 
 export default {
@@ -201,7 +205,8 @@ export default {
     SfIcon,
     SfPrice,
     SfProperty,
-    SfAccordion
+    SfAccordion,
+    SfNotification
   },
   props: {
     order: {
@@ -224,15 +229,18 @@ export default {
     }
   },
   setup() {
-    const { cartItems } = useCart()
+    const { cartItems, subtotal, totalPrice, placeOrder: placeApiOrder, refreshCart } = useCart()
+    const { isLoggedIn } = useUser()
     return {
-      cartItems
+      refreshCart,
+      cartItems,
+      subtotal,
+      total: totalPrice,
+      placeApiOrder,
+      isUserLoggedIn: isLoggedIn
     }
   },
   computed: {
-    products() {
-      return this.cartItems.value || []
-    },
     shipping() {
       return this.order.shipping
     },
@@ -252,33 +260,26 @@ export default {
         method => method.value === paymentMethod
       )
       return method ? method : { label: '' }
-    },
-    subtotal() {
-      const products = this.products
-      const subtotal = products.reduce((previous, current) => {
-        const qty = current.qty
-        const price = current.price.special
-          ? current.price.special
-          : current.price.regular
-        const total = qty * parseFloat(price.replace('$', ''))
-        return previous + total
-      }, 0)
-      return '$' + subtotal.toFixed(2)
-    },
-    total() {
-      const subtotal = parseFloat(this.subtotal.replace('$', ''))
-      const shipping = parseFloat(this.shippingMethod.price.replace('$', ''))
-      const total = subtotal + (isNaN(shipping) ? 0 : shipping)
-      return '$' + total.toFixed(2)
     }
   },
   methods: {
     removeProduct(index) {
-      const order = { ...this.order }
-      const products = [...order.products]
-      products.splice(index, 1)
-      order.products = products
-      this.$emit('update:order', order)
+      // const order = { ...this.order }
+      // const products = [...order.products]
+      // products.splice(index, 1)
+      // order.products = products
+      // this.$emit('update:order', order)
+    },
+    async placeOrder() {
+      try {
+        const order = await this.placeApiOrder();
+        console.warn(order);
+        this.refreshCart();
+        this.$router.push(getPagePath('success-page'))
+      } catch (e) {
+        console.warn(e);
+      }
+      
     }
   }
 }
@@ -343,7 +344,10 @@ export default {
   &__group {
     @include for-desktop {
       display: flex;
-      margin: 0 0 $spacer-extra-big 0;
+      margin: 20px 0 $spacer-extra-big 0;
+    }
+    .notification {
+      margin: auto;
     }
   }
   &__terms {

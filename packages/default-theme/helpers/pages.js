@@ -4,7 +4,8 @@
 const pagesMap = {
   'checkout': 'checkout',
   'account': 'account',
-  'login': 'login'
+  'login': 'login',
+  'success-page': 'success-page'
 }
 
 /**
