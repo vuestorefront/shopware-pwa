@@ -7,7 +7,7 @@
     "build": "nuxt build",
     "dev": "nuxt",
     "generate": "nuxt generate",
-    "lint": "prettier --write '*.{js,vue}'",
+    "lint": "prettier --write './**/*.{js,vue}'",
     "start": "nuxt start",
     "test": "jest"
   },

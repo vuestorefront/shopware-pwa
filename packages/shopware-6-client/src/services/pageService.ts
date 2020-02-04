@@ -15,6 +15,7 @@ export interface PageResolverResult<T> {
 }
 
 /**
+ * @throws ClientApiError
  * @alpha
  */
 export async function getPage(

@@ -30,6 +30,7 @@ export interface GetNavigationParams {
   rootNode?: string;
 }
 /**
+ * @throws ClientApiError
  * @alpha
  */
 export async function getNavigation(
