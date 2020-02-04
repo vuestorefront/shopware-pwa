@@ -101,6 +101,28 @@ describe("Composables - useCart", () => {
         expect(totalPrice.value).toEqual(123);
       });
     });
+    describe("subtotal", () => {
+      it("should show items totalPrice as 0", () => {
+        const { subtotal } = useCart();
+        expect(subtotal.value).toEqual(0);
+      });
+
+      it("should show 0 on empty price object", () => {
+        stateCart.value = {
+          price: {}
+        };
+        const { subtotal } = useCart();
+        expect(subtotal.value).toEqual(0);
+      });
+
+      it("should show correct subtotal price", () => {
+        stateCart.value = {
+          price: { positionPrice: 123 }
+        };
+        const { subtotal } = useCart();
+        expect(subtotal.value).toEqual(123);
+      });
+    });
   });
 
   describe("methods", () => {

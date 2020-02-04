@@ -5,6 +5,7 @@
 </template>
 <script>
 import SwLogin from "../components/SwLogin"
+import { getPagePath } from '../helpers/pages'
 
 export default {
   name: 'Login',
@@ -20,7 +21,7 @@ export default {
   },
   methods: {
     redirectToMyAccount() {
-      this.$router.push("/account")
+      this.$router.push(getPagePath("account"))
     }
   }
 }

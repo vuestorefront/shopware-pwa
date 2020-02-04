@@ -65,6 +65,11 @@ export const useCart = (): any => {
     return cartPrice || 0;
   });
 
+  const subtotal = computed(() => {
+    const cartPrice = cart.value?.price?.positionPrice;
+    return cartPrice || 0;
+  });
+
   return {
     addProduct,
     cart,
@@ -75,6 +80,7 @@ export const useCart = (): any => {
     loading,
     refreshCart,
     removeProduct,
-    totalPrice
+    totalPrice,
+    subtotal
   };
 };

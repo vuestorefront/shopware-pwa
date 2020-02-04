@@ -78,7 +78,37 @@ export default {
       removeProduct,
       quantity
     }
-  }
+  },
+  computed: {
+    getName() {
+      return getProductName({ product: this.product })
+    },
+    getProductRating() {
+      return this.product && this.product.ratingAverage
+    },
+    // should be replaced with prettyUrl attribute when pretty urls are included in product entity
+    getRouterLink() {
+      return getProductUrl(this.product)
+    },
+    getRegularPrice() {
+      const regular = getProductRegularPrice({ product: this.product })
+      const special = getProductSpecialPrice(this.product)
+      // temporary fix to show proper regular price
+      return '$' + (regular > special ? regular : special)
+    },
+    getSpecialPrice() {
+      const special = getProductSpecialPrice(this.product)
+      const regular = getProductRegularPrice({ product: this.product })
+      // temporary fix to show proper special price
+      return special && '$' + (special < regular ? special : regular)
+    },
+    getImageUrl() {
+      return (
+        getProductMainImageUrl({ product: this.product }) ||
+        require('~/assets/productB.jpg')
+      )
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>
