@@ -23,7 +23,7 @@
           error-message="Email cannnot be empty"
           type="email"
           name="email"
-          label="Your e-mail"
+          label="Your new e-mail"
           class="form__element "
           @blur="$v.email.$touch()"
         />
@@ -84,7 +84,7 @@ export default {
   },
   data() {
     return {
-      email: this.user && this.user.email,
+      email: '',
       confirmEmail: '',
       password: ''
     }
