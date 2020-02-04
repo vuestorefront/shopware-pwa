@@ -3,6 +3,7 @@ import { getPage } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
 import { getStore } from "../..";
 import { parseUrlQuery } from "@shopware-pwa/helpers";
+import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 /**
  * @alpha
@@ -38,12 +39,14 @@ export const useCms = (): any => {
         }
       ]
     });
+
     try {
       const result = await getPage(path, searchCriteria);
       vuexStore.commit("SET_PAGE", result);
     } catch (e) {
-      error.value = e.message;
-      console.error("Problem with fetching CMS data", e.message);
+      const err: ClientApiError = e;
+      error.value = err.message;
+      console.error("Problem with fetching CMS data: ", err.message);
     } finally {
       loading.value = false;
     }

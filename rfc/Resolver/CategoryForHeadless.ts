@@ -1,22 +1,22 @@
-import { CmsPage } from "../../packages/shopware-6-client/src/interfaces/models/content/cms/CmsPage";
+import { CmsPage } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/cms/CmsPage";
 
 export interface CategoryForHeadless {
-  availableSorting: Sort // sample below within avaiableSortingResponseExample
-  availableFiltering: Array<OptionFilter | RangeFilter | BooleanFilter> // sample below within avaiableFiltersResponseExample
-  cmsPage: CmsPage | null
+  availableSorting: Sort; // sample below within avaiableSortingResponseExample
+  availableFiltering: Array<OptionFilter | RangeFilter | BooleanFilter>; // sample below within avaiableFiltersResponseExample
+  cmsPage: CmsPage | null;
 }
 
 // <SORTING>
 interface Sort {
-  value: string // field name to sort by
-  label: string // translated label
-  default: string
-  properties: SortProperty[]
+  value: string; // field name to sort by
+  label: string; // translated label
+  default: string;
+  properties: SortProperty[];
 }
 
 interface SortProperty {
-  label: string
-  value: string
+  label: string;
+  value: string;
 }
 
 // Example of sorting response
@@ -26,27 +26,26 @@ interface SortProperty {
 const avaiableSortingResponseExample = {
   label: "Sort by",
   default: "-price",
-  properties: [ 
-    { 
-      label: "Price asc", 
+  properties: [
+    {
+      label: "Price asc",
       value: "price"
     },
-    { 
-      label: "Price desc", 
+    {
+      label: "Price desc",
       value: "-price"
-    },        
-    { 
-      label: "Name asc", 
+    },
+    {
+      label: "Name asc",
       value: "name"
     },
-    { 
-      label: "Name desc", 
+    {
+      label: "Name desc",
       value: "-name"
-    },        
+    }
   ]
-}
+};
 // </SORTING>
-
 
 // <FILTERING>
 
@@ -64,7 +63,6 @@ interface BaseFilter {
   type: FilterType;
 }
 
-
 // SPECIFIC TYPES
 
 // 1. Type == option
@@ -80,14 +78,12 @@ interface OptionFilterProperty {
 }
 
 // 2. Type == range
-interface RangeFilter extends BaseFilter {
-}
+interface RangeFilter extends BaseFilter {}
 
 // 2. Type == boolean
 interface BooleanFilter extends BaseFilter {
   foundInCollection: number;
 }
-
 
 // Example of all types of filter in one response
 const avaiableFiltersResponseExample = [
@@ -95,8 +91,10 @@ const avaiableFiltersResponseExample = [
     code: "color",
     label: "Color",
     type: "option", // single-select, multi-select?
-    properties: [ // only if type == option
-      { // specific ids/labels should be sorted in a way, that storefront should display them
+    properties: [
+      // only if type == option
+      {
+        // specific ids/labels should be sorted in a way, that storefront should display them
         id: "43231c2e5de1434a8bda2ddd0cd3239c",
         label: "Dark", // is it possible to get counts of products for each filter?
         value: "#ccc",
@@ -116,17 +114,19 @@ const avaiableFiltersResponseExample = [
       }
     ]
   },
-  { // /category/Sports?sort=-name&min-price=200&max-price=250
+  {
+    // /category/Sports?sort=-name&min-price=200&max-price=250
     code: "price",
     label: "Price",
     type: "range"
   },
-  { // /category/Sports?sort=-name&filters[isNew]=1
+  {
+    // /category/Sports?sort=-name&filters[isNew]=1
     code: "isNew",
     label: "New",
     type: "boolean",
     foundInCollection: 22
   }
-]
+];
 
 // </FILTERING>
