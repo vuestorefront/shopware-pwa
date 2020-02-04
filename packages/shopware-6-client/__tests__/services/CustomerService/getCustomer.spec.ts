@@ -31,9 +31,7 @@ describe("CustomerService - getCustomer", () => {
 
   it("should return null when user not logged in", async () => {
     mockedAxios.get.mockRejectedValueOnce({
-      response: {
-        status: 403
-      }
+      statusCode: 403
     });
     const result = await getCustomer();
     expect(mockedAxios.get).toBeCalledTimes(1);

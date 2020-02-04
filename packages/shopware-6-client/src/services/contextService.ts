@@ -17,6 +17,7 @@ import { UpdateContextParams } from "@shopware-pwa/shopware-6-client/src/interfa
 import { ContextTokenResponse } from "@shopware-pwa/shopware-6-client/src/interfaces/response/ContextTokenResponse";
 
 /**
+ * @throws ClientApiError
  * @alpha
  */
 async function updateContext(
@@ -28,6 +29,7 @@ async function updateContext(
 }
 
 /**
+ * @throws ClientApiError
  * @alpha
  */
 export async function getAvailableCurrencies(): Promise<
@@ -39,6 +41,7 @@ export async function getAvailableCurrencies(): Promise<
 }
 
 /**
+ * @throws ClientApiError
  * @alpha
  */
 export async function setCurrentCurrency(
@@ -51,6 +54,7 @@ export async function setCurrentCurrency(
 }
 
 /**
+ * @throws ClientApiError
  * @alpha
  */
 export async function getAvailableLanguages(): Promise<
@@ -62,6 +66,7 @@ export async function getAvailableLanguages(): Promise<
 }
 
 /**
+ * @throws ClientApiError
  * @alpha
  */
 export async function setCurrentLanguage(
@@ -74,6 +79,7 @@ export async function setCurrentLanguage(
 }
 
 /**
+ * @throws ClientApiError
  * @alpha
  */
 export async function getAvailableCountries(): Promise<
@@ -85,6 +91,7 @@ export async function getAvailableCountries(): Promise<
 }
 
 /**
+ * @throws ClientApiError
  * @alpha
  */
 export async function getAvailablePaymentMethods(): Promise<
@@ -96,6 +103,7 @@ export async function getAvailablePaymentMethods(): Promise<
 }
 
 /**
+ * @throws ClientApiError
  * @alpha
  */
 export async function setCurrentPaymentMethod(
@@ -108,6 +116,7 @@ export async function setCurrentPaymentMethod(
 }
 
 /**
+ * @throws ClientApiError
  * @alpha
  */
 export async function getAvailableShippingMethods(): Promise<
@@ -119,6 +128,7 @@ export async function getAvailableShippingMethods(): Promise<
 }
 
 /**
+ * @throws ClientApiError
  * @alpha
  */
 export async function setCurrentShippingMethod(

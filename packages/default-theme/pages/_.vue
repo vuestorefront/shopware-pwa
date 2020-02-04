@@ -12,7 +12,7 @@ const pagesMap = {
 };
 
 export function getComponentBy(resourceType) {
-  if (!resourceType) return;
+  if (!resourceType || !pagesMap[resourceType]) return;
   let componentName = pagesMap[resourceType];
   if (!componentName) componentName = "SwNoComponent";
   return () => import(`@/components/views/${componentName}`);
@@ -22,11 +22,17 @@ export default {
   name: 'DynamicRoute',
   components: {
   },
-  asyncData: async ({ req, params, query }) => {
-    const {search, page, category} = useCms()
+  asyncData: async ({ req, params, query, error: errorView }) => {
+    const {search, page, category, error} = useCms()
     const {refreshCart} = useCart()
     const {refreshUser} = useUser()
     const searchResult = await search(params.pathMatch, query);
+    
+    // direct user to the error page (keep http status code - so do not redirect)
+    if (error.value) {
+      errorView(error.value)
+    }
+    
     await refreshCart();
     await refreshUser();
 

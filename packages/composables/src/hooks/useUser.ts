@@ -19,6 +19,7 @@ import {
   AddressType
 } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress";
 import { CustomerRegistrationParams } from "@shopware-pwa/shopware-6-client/src/interfaces/request/CustomerRegistrationParams";
+import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 /**
  * @alpha
@@ -76,7 +77,8 @@ export const useUser = (): UseUser => {
       await apiLogin({ username, password });
       return true;
     } catch (e) {
-      error.value = e.message;
+      const err: ClientApiError = e;
+      error.value = err.message;
       return false;
     } finally {
       loading.value = false;
@@ -93,7 +95,8 @@ export const useUser = (): UseUser => {
       await apiRegister(params);
       return true;
     } catch (e) {
-      error.value = e.message;
+      const err: ClientApiError = e;
+      error.value = err.message;
       return false;
     } finally {
       loading.value = false;
@@ -104,7 +107,8 @@ export const useUser = (): UseUser => {
     try {
       await apiLogout();
     } catch (e) {
-      error.value = e.message;
+      const err: ClientApiError = e;
+      error.value = err.message;
     } finally {
       await refreshUser();
     }
@@ -128,7 +132,8 @@ export const useUser = (): UseUser => {
     try {
       addresses.value = await getCustomerAddresses();
     } catch (e) {
-      error.value = e.message;
+      const err: ClientApiError = e;
+      error.value = err.message;
     }
   };
 
@@ -156,7 +161,8 @@ export const useUser = (): UseUser => {
       }
       await refreshUser();
     } catch (e) {
-      error.value = e.message;
+      const err: ClientApiError = e;
+      error.value = err.message;
       return false;
     }
 
@@ -169,7 +175,8 @@ export const useUser = (): UseUser => {
       return true;
     } catch (e) {
       console.error("useUser:deleteAddress", e);
-      error.value = e.message;
+      const err: ClientApiError = e;
+      error.value = err;
     }
 
     return false;

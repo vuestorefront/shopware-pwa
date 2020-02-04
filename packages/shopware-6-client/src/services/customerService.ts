@@ -27,6 +27,7 @@ export interface CustomerRegisterResponse {
 /**
  * Register a customer
  *
+ * @throws ClientApiError
  * @alpha
  */
 export async function register(
@@ -39,6 +40,7 @@ export async function register(
 /**
  * Get the context token for current user
  *
+ * @throws ClientApiError
  * @alpha
  */
 export async function login({
@@ -60,6 +62,7 @@ export async function login({
 /**
  * End up the session
  *
+ * @throws ClientApiError
  * @alpha
  */
 export async function logout(): Promise<void> {
@@ -69,6 +72,7 @@ export async function logout(): Promise<void> {
 /**
  * Get customer's object
  *
+ * @throws ClientApiError
  * @alpha
  */
 export async function getCustomer(): Promise<Customer | null> {
@@ -76,7 +80,7 @@ export async function getCustomer(): Promise<Customer | null> {
     const resp = await apiService.get(getCustomerEndpoint());
     return resp.data.data;
   } catch (e) {
-    if (e.response && e.response.status === 403) return null;
+    if (e.statusCode === 403) return null;
     throw new Error("Unexpected getCustomerResponse.");
   }
 }
@@ -84,6 +88,7 @@ export async function getCustomer(): Promise<Customer | null> {
 /**
  * Get all customer's addresses
  *
+ * @throws ClientApiError
  * @alpha
  */
 export async function getCustomerAddresses(): Promise<CustomerAddress[]> {
@@ -94,6 +99,7 @@ export async function getCustomerAddresses(): Promise<CustomerAddress[]> {
 /**
  * Get all customer's orders
  *
+ * @throws ClientApiError
  * @alpha
  */
 export async function getCustomerOrders(): Promise<Order[]> {
@@ -104,6 +110,7 @@ export async function getCustomerOrders(): Promise<Order[]> {
 /**
  * Get order details
  *
+ * @throws ClientApiError
  * @alpha
  */
 export async function getCustomerOrderDetails(orderId: string): Promise<Order> {
@@ -114,6 +121,7 @@ export async function getCustomerOrderDetails(orderId: string): Promise<Order> {
 /**
  * Get the customer's address by id
  *
+ * @throws ClientApiError
  * @alpha
  */
 export async function getCustomerAddress(
@@ -131,6 +139,7 @@ export interface CustomerAddressParam extends Partial<CustomerAddress> {}
 /**
  * Create an address and respond the new address's id
  *
+ * @throws ClientApiError
  * @alpha
  */
 export async function createCustomerAddress(
@@ -143,6 +152,7 @@ export async function createCustomerAddress(
 /**
  * Delete's the customer's address by id
  *
+ * @throws ClientApiError
  * @alpha
  */
 export async function deleteCustomerAddress(addressId: string): Promise<void> {
@@ -152,6 +162,7 @@ export async function deleteCustomerAddress(addressId: string): Promise<void> {
 /**
  * Set address as default
  *
+ * @throws ClientApiError
  * @alpha
  */
 export async function setDefaultCustomerBillingAddress(
@@ -166,6 +177,7 @@ export async function setDefaultCustomerBillingAddress(
 /**
  * Set address as default
  *
+ * @throws ClientApiError
  * @alpha
  */
 export async function setDefaultCustomerShippingAddress(
@@ -189,6 +201,7 @@ export interface CustomerUpdateEmailParam {
 /**
  * Update a customer's email
  *
+ * @throws ClientApiError
  * @alpha
  */
 export async function updateEmail(
@@ -209,6 +222,7 @@ export interface CustomerUpdatePasswordParam {
 /**
  * Update a customer's password
  *
+ * @throws ClientApiError
  * @alpha
  */
 export async function updatePassword(
@@ -230,6 +244,7 @@ export interface CustomerUpdateProfileParam {
 /**
  * Update a customer's profile data
  *
+ * @throws ClientApiError
  * @alpha
  */
 export async function updateProfile(
