@@ -338,5 +338,98 @@ describe("Composables - useUser", () => {
         expect(error.value).toBe("Error occured");
       });
     });
+    describe("updatePersonalInfo", () => {
+      it("should invoke updateProfile api-client method and return true on success", async () => {
+        mockedApiClient.updateProfile.mockImplementationOnce(async () =>
+          Promise.resolve(undefined)
+        );
+        const { updatePersonalInfo } = useUser();
+        const response = await updatePersonalInfo({
+          title: "some title",
+          salutationId: "qweqwe",
+          firstName: "qwe",
+          lastName: "qew"
+        });
+        expect(mockedApiClient.updateProfile).toBeCalledTimes(1);
+        expect(response).toBeTruthy();
+      });
+    });
+    it("should return false and set the error.value on api-client on updateProfile rejection", async () => {
+      mockedApiClient.updateProfile.mockImplementationOnce(async () =>
+        Promise.reject("Incorrect user data")
+      );
+      const { updatePersonalInfo, error } = useUser();
+      const response = await updatePersonalInfo({
+        title: "some title",
+        salutationId: "",
+        firstName: "qwe",
+        lastName: "qew"
+      });
+      expect(mockedApiClient.updateProfile).toBeCalledTimes(1);
+      expect(response).toBeFalsy();
+      expect(error.value).toEqual("Incorrect user data");
+    });
+  });
+  describe("updatePassword", () => {
+    it("should invoke updatePassword api-client method and return true on success", async () => {
+      mockedApiClient.updatePassword.mockImplementationOnce(async () =>
+        Promise.resolve(undefined)
+      );
+      const { updatePassword } = useUser();
+      const response = await updatePassword({
+        password: "qweqweqwe",
+        newPassword: "qweqweqwe1",
+        newPasswordConfirm: "qweqweqwe1"
+      });
+      expect(mockedApiClient.updatePassword).toBeCalledTimes(1);
+      expect(response).toBeTruthy();
+    });
+    it("should return false and set the error.value on api-client on updatePassword rejection", async () => {
+      mockedApiClient.updatePassword.mockImplementationOnce(async () =>
+        Promise.reject("Password must be at least 8 characters long")
+      );
+      const { updatePassword, error } = useUser();
+      const response = await updatePassword({
+        password: "qweqweqwe",
+        newPassword: "qwe",
+        newPasswordConfirm: "qwe"
+      });
+      expect(mockedApiClient.updatePassword).toBeCalledTimes(1);
+      expect(response).toBeFalsy();
+      expect(error.value).toEqual(
+        "Password must be at least 8 characters long"
+      );
+    });
+  });
+  describe("updateEmail", () => {
+    it("should invoke updateEmail api-client method and return true on success", async () => {
+      mockedApiClient.updateEmail.mockImplementationOnce(async () =>
+        Promise.resolve(undefined)
+      );
+      const { updateEmail } = useUser();
+      const response = await updateEmail({
+        password: "qweqweqwe",
+        email: "qweqwe@qwe.com",
+        emailConfirmation: "qweqwe@qwe.com"
+      });
+      expect(mockedApiClient.updateEmail).toBeCalledTimes(1);
+      expect(response).toBeTruthy();
+    });
+    it("should return false and set the error.value on api-client on updatePassword rejection", async () => {
+      mockedApiClient.updateEmail.mockImplementationOnce(async () =>
+        Promise.reject("Email confirmation does not match to the first one")
+      );
+      const { updateEmail, error } = useUser();
+      const response = await updateEmail({
+        password: "qweqweqwe",
+        email: "qweqwe@qwe.com",
+        emailConfirmation: "qweqwe1@qwe.com"
+      });
+      expect(mockedApiClient.updateEmail).toBeCalledTimes(1);
+      expect(response).toBeFalsy();
+      expect(error.value).toEqual(
+        "Email confirmation does not match to the first one"
+      );
+    });
   });
 });
