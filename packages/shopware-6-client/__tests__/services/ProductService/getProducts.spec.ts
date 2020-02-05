@@ -26,11 +26,44 @@ describe("ProductService - getProducts", () => {
     });
     const pagination = {
       page: 1,
-      limit: 5
+      limit: 5,
+      grouping: {
+        field: "displayGroup"
+      },
+      filter: [
+        {
+          type: "not",
+          queries: [
+            {
+              type: "equals",
+              field: "displayGroup",
+              value: null
+            }
+          ]
+        }
+      ]
     };
     await getProducts({ pagination });
     expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith("/product", { limit: 5, page: 1 });
+    expect(mockedAxios.post).toBeCalledWith("/product", {
+      limit: 5,
+      page: 1,
+      grouping: {
+        field: "displayGroup"
+      },
+      filter: [
+        {
+          type: "not",
+          queries: [
+            {
+              type: "equals",
+              field: "displayGroup",
+              value: null
+            }
+          ]
+        }
+      ]
+    });
   });
   it("should invoke api with limit and sort", async () => {
     mockedAxios.post.mockResolvedValueOnce({
@@ -49,7 +82,22 @@ describe("ProductService - getProducts", () => {
     expect(mockedAxios.post).toBeCalledWith("/product", {
       limit: 75,
       page: 1,
-      sort: "-name"
+      sort: "-name",
+      grouping: {
+        field: "displayGroup"
+      },
+      filter: [
+        {
+          type: "not",
+          queries: [
+            {
+              type: "equals",
+              field: "displayGroup",
+              value: null
+            }
+          ]
+        }
+      ]
     });
   });
 });

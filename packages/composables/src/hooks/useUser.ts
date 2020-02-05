@@ -3,13 +3,19 @@ import {
   login as apiLogin,
   logout as apiLogout,
   register as apiRegister,
+  updatePassword as  apiUpdatePassword,
+  updateEmail as apiUpdateEmail,
   getCustomer,
   getCustomerOrders,
   getCustomerOrderDetails,
   getCustomerAddresses,
   setDefaultCustomerBillingAddress,
   setDefaultCustomerShippingAddress,
-  deleteCustomerAddress
+  deleteCustomerAddress,
+  updateProfile,
+  CustomerUpdateProfileParam,
+  CustomerUpdatePasswordParam,
+  CustomerUpdateEmailParam,
 } from "@shopware-pwa/shopware-6-client";
 import { Customer } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
 import { getStore } from "@shopware-pwa/composables";
@@ -45,6 +51,9 @@ export interface UseUser {
   getOrderDetails: (orderId: string) => Promise<Order>;
   loadAddresses: () => Promise<void>;
   deleteAddress: (addressId: string) => Promise<boolean>;
+  updatePersonalInfo: (personals: CustomerUpdateProfileParam) => Promise<boolean>;
+  updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
+  updatePassword: (updatePasswordData: CustomerUpdatePasswordParam) => Promise<boolean>;
   markAddressAsDefault: ({
     addressId,
     type
@@ -182,6 +191,36 @@ export const useUser = (): UseUser => {
     return false;
   };
 
+  const updatePersonalInfo = async (personals: CustomerUpdateProfileParam): Promise<boolean> => {
+    try {
+      await updateProfile(personals);
+    } catch (e) {
+      error.value = e;
+      return false;
+    } 
+    return true;
+  };
+
+  const updatePassword = async (updatePasswordData: CustomerUpdatePasswordParam): Promise<boolean> => {
+    try {
+      await apiUpdatePassword(updatePasswordData);
+    } catch(e) {
+      error.value = e;
+      return false;
+    }
+    return true;
+  };
+
+  const updateEmail = async (updateEmailData: CustomerUpdateEmailParam): Promise<boolean> => {
+    try {
+      await apiUpdateEmail(updateEmailData);
+    } catch(e) {
+      error.value = e;
+      return false
+    }
+    return true;
+  };
+
   const isLoggedIn = computed(() => !!user.value);
 
   return {
@@ -199,6 +238,9 @@ export const useUser = (): UseUser => {
     loadAddresses,
     addresses,
     markAddressAsDefault,
+    updateEmail,
+    updatePersonalInfo,
+    updatePassword,
     deleteAddress
   };
 };
