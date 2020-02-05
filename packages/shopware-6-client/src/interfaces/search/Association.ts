@@ -14,3 +14,12 @@ export interface Association {
   filters?: SearchFilter[];
   associations?: Association[];
 }
+
+/**
+ * @alpha
+ */
+export interface ShopwareAssociation {
+  [name: string]: {
+    associations?: ShopwareAssociation;
+  };
+}

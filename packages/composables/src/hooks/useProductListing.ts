@@ -126,11 +126,12 @@ export const useProductListing = (
       filters: getFilterSearchCriteria(selectedCriteria.filters),
       sort: getSortingSearchCriteria(selectedCriteria.sorting),
       configuration: {
-        // get product variant options
+        // fetch variant options
         associations: [
           {
             name: "options"
           },
+          // fetch productReviews
           {
             name: "productReviews"
           }

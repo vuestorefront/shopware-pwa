@@ -21,19 +21,20 @@ describe("SearchConverter - convertSearchCriteria", () => {
       const result = convertSearchCriteria({
         pagination: { page: PaginationLimit.ONE }
       });
-      expect(result).toEqual({ page: 1, limit: config.defaultPaginationLimit });
+      expect(result?.page).toEqual(1);
+      expect(result?.limit).toEqual(config.defaultPaginationLimit);
     });
     it("should have page number", () => {
       const result = convertSearchCriteria({ pagination: { limit: 5 } });
-      expect(result).toEqual({ limit: 5 });
+      expect(result?.limit).toEqual(5);
     });
     it("should not have not existing limit", () => {
       const result = convertSearchCriteria({ pagination: { limit: 7 } });
-      expect(result).toEqual({});
+      expect(result).not.toHaveProperty("limit");
     });
     it("should not add pagination for an empty object", () => {
       const result = convertSearchCriteria({ pagination: {} });
-      expect(result).toEqual({});
+      expect(result).not.toHaveProperty("page");
     });
     it("should have full pagination info", () => {
       const result = convertSearchCriteria({
@@ -42,14 +43,16 @@ describe("SearchConverter - convertSearchCriteria", () => {
           limit: 5
         }
       });
-      expect(result).toEqual({ page: 3, limit: 5 });
+      expect(result?.page).toEqual(3);
+      expect(result?.limit).toEqual(5);
     });
     it("should change default pagination limit", () => {
       update({ defaultPaginationLimit: 50 });
       const result = convertSearchCriteria({
         pagination: { page: PaginationLimit.ONE }
       });
-      expect(result).toEqual({ page: 1, limit: 50 });
+      expect(result?.page).toEqual(1);
+      expect(result?.limit).toEqual(50);
     });
   });
   describe("sorting", () => {
@@ -61,11 +64,9 @@ describe("SearchConverter - convertSearchCriteria", () => {
         },
         filters: []
       });
-      expect(paramsObject).toEqual({
-        page: 1,
-        limit: config.defaultPaginationLimit,
-        sort: "name"
-      });
+      expect(paramsObject?.page).toEqual(1);
+      expect(paramsObject?.limit).toEqual(config.defaultPaginationLimit);
+      expect(paramsObject?.sort).toEqual("name");
     });
     it("should add prefix when desc sort", () => {
       const result = convertSearchCriteria({
@@ -74,16 +75,10 @@ describe("SearchConverter - convertSearchCriteria", () => {
           desc: true
         }
       });
-      expect(result).toEqual({ sort: "-name" });
+      expect(result?.sort).toEqual("-name");
     });
   });
   describe("filters", () => {
-    it("should not have filter property if empty array provided", () => {
-      const paramsObject = convertSearchCriteria({
-        filters: []
-      });
-      expect(paramsObject).toEqual({});
-    });
     describe("EQUALS filters", () => {
       it("should filter by name", () => {
         const nameFilter: EqualsFilter = {
@@ -94,14 +89,10 @@ describe("SearchConverter - convertSearchCriteria", () => {
         const result = convertSearchCriteria({
           filters: [nameFilter]
         });
-        expect(result).toEqual({
-          filter: [
-            {
-              type: "equals",
-              value: "Aerodynamic Iron Jetsilk",
-              field: "name"
-            }
-          ]
+        expect(result?.filter?.[0]).toEqual({
+          type: "equals",
+          value: "Aerodynamic Iron Jetsilk",
+          field: "name"
         });
       });
     });
@@ -118,17 +109,13 @@ describe("SearchConverter - convertSearchCriteria", () => {
         const result = convertSearchCriteria({
           filters: [nameFilter]
         });
-        expect(result).toEqual({
-          filter: [
-            {
-              type: "range",
-              field: "price",
-              parameters: {
-                lt: 120,
-                gte: 5
-              }
-            }
-          ]
+        expect(result?.filter?.[0]).toEqual({
+          type: "range",
+          field: "price",
+          parameters: {
+            lt: 120,
+            gte: 5
+          }
         });
       });
     });
@@ -165,46 +152,115 @@ describe("SearchConverter - convertSearchCriteria", () => {
         const result = convertSearchCriteria({
           filters: [priceAndNamesFilter]
         });
-        expect(result).toEqual({
-          filter: [
-            {
-              type: "multi",
-              operator: "AND",
-              queries: [
-                {
-                  type: "range",
-                  field: "price",
-                  parameters: {
-                    gte: 0,
-                    lte: 200
-                  }
-                },
-
-                {
-                  type: "multi",
-                  operator: "OR",
-                  queries: [
-                    {
-                      type: "equals",
-                      value: "Aerodynamic Iron Jetsilk",
-                      field: "name"
-                    },
-
-                    {
-                      type: "equals",
-                      value: "Rustic Copper Jimbies",
-                      field: "name"
-                    }
-                  ]
+        expect(result?.filter).toEqual([
+          {
+            type: "multi",
+            operator: "AND",
+            queries: [
+              {
+                type: "range",
+                field: "price",
+                parameters: {
+                  gte: 0,
+                  lte: 200
                 }
-              ]
-            }
-          ]
-        });
+              },
+
+              {
+                type: "multi",
+                operator: "OR",
+                queries: [
+                  {
+                    type: "equals",
+                    value: "Aerodynamic Iron Jetsilk",
+                    field: "name"
+                  },
+
+                  {
+                    type: "equals",
+                    value: "Rustic Copper Jimbies",
+                    field: "name"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            type: "not",
+            queries: [
+              {
+                type: "equals",
+                field: "displayGroup",
+                value: null
+              }
+            ]
+          }
+        ]);
       });
     });
   });
   describe("configuration", () => {
+    describe("displayParents", () => {
+      it("should not return displayGroup grouped parameter and appropriate filter when displayParents switch is on", () => {
+        const result = convertSearchCriteria({
+          filters: {},
+          configuration: {
+            displayParents: true
+          }
+        } as any);
+        expect(result).toEqual({});
+      });
+      it("should return displayGroup grouped parameter and appropriate filter by default", () => {
+        const result = convertSearchCriteria({
+          filters: [
+            {
+              type: "equals",
+              field: "name",
+              value: "test"
+            } as any
+          ],
+          sort: {
+            field: "name",
+            desc: true
+          }
+        });
+        expect(result).toEqual({
+          grouping: {
+            field: "displayGroup"
+          },
+          filter: [
+            {
+              field: "name",
+              type: "equals",
+              value: "test"
+            },
+            {
+              type: "not",
+              queries: [
+                {
+                  type: "equals",
+                  field: "displayGroup",
+                  value: null
+                }
+              ]
+            }
+          ],
+          sort: "-name"
+        });
+      });
+    });
+    describe("grouping", () => {
+      it("should return grouped field", () => {
+        const result = convertSearchCriteria({
+          configuration: {
+            grouping: {
+              field: "displayGroup"
+            }
+          }
+        });
+        expect(result?.grouping).toEqual({ field: "displayGroup" });
+      });
+    });
     describe("associations", () => {
       it("should return association", () => {
         const result = convertSearchCriteria({
@@ -216,7 +272,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
             ]
           }
         });
-        expect(result).toEqual({ associations: { media: {} } });
+        expect(result?.associations).toEqual({ media: {} });
       });
 
       it("should not add associations on empty array", () => {
@@ -225,7 +281,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
             associations: []
           }
         });
-        expect(result).toEqual({});
+        expect(result).toHaveProperty("associations");
       });
 
       it("should return multiple associations", () => {
@@ -233,7 +289,12 @@ describe("SearchConverter - convertSearchCriteria", () => {
           configuration: {
             associations: [
               {
-                name: "media"
+                name: "media",
+                associations: [
+                  {
+                    name: "cover"
+                  }
+                ]
               },
               {
                 name: "stock"
@@ -241,7 +302,10 @@ describe("SearchConverter - convertSearchCriteria", () => {
             ]
           }
         });
-        expect(result).toEqual({ associations: { media: {}, stock: {} } });
+        expect(result?.associations).toEqual({
+          media: { associations: { cover: {} } },
+          stock: {}
+        });
       });
 
       it("should return deep association", () => {
@@ -262,16 +326,14 @@ describe("SearchConverter - convertSearchCriteria", () => {
             ]
           }
         });
-        expect(result).toEqual({
-          associations: {
-            cmsPage: {
-              associations: {
-                sections: {
-                  associations: {
-                    blocks: {
-                      associations: {
-                        slots: {}
-                      }
+        expect(result?.associations).toEqual({
+          cmsPage: {
+            associations: {
+              sections: {
+                associations: {
+                  blocks: {
+                    associations: {
+                      slots: {}
                     }
                   }
                 }

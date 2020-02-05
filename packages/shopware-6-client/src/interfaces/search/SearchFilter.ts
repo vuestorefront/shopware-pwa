@@ -29,7 +29,7 @@ export interface SearchFilter {
  * @alpha
  */
 export interface EqualsFilter extends SearchFilter {
-  value: string;
+  value: string | null;
   field: string;
 }
 
@@ -70,6 +70,16 @@ export interface RangeFilter extends SearchFilter {
  */
 export interface MultiFilter extends SearchFilter {
   operator: string;
+  queries: Array<
+    EqualsAnyFilter | RangeFilter | ContainsFilter | EqualsFilter | MultiFilter
+  >;
+}
+
+/**
+ * @alpha
+ */
+export interface NotFilter {
+  type: SearchFilterType.NOT;
   queries: Array<
     EqualsAnyFilter | RangeFilter | ContainsFilter | EqualsFilter | MultiFilter
   >;
