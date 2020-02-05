@@ -1,10 +1,7 @@
 <template>
   <div class="top-navigation">
     <slot v-bind="{ navigationElements, activeSidebar, activeIcon }">
-      <SfHeader
-        title="Shopware PWA"
-        active-sidebar="activeSidebar"
-      >
+      <SfHeader title="Shopware PWA" active-sidebar="activeSidebar">
         <template #logo>
           <nuxt-link to="/" class="sf-header__logo">
             <SfImage
@@ -104,18 +101,18 @@ export default {
   },
   data() {
     return {
-      navigationElements: [{name: ''}],
+      navigationElements: [{ name: '' }],
       activeSidebar: 'account',
       activeIcon: '',
       isModalOpen: false
     }
   },
   async mounted() {
-    await this.fetchRouteNames({depth: 1})
+    await this.fetchRouteNames({ depth: 1 })
   },
   methods: {
     async userIconClick() {
-      if (this.isLoggedIn) this.$router.push('account')
+      if (this.isLoggedIn) this.$router.push('/account')
       else this.toggleModal()
     }
   }
