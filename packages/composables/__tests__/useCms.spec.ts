@@ -52,7 +52,7 @@ describe("Shopware composables", () => {
     await search();
     expect(page.value).toEqual(null);
     expect(error.value).toBeTruthy();
-    expect(error.value).toEqual("Something went wrong...");
+    expect(error.value).toStrictEqual({ message: "Something went wrong..." });
   });
 
   it("should performs search request with no or empty configuration for SearchCriteria", async () => {
@@ -64,7 +64,7 @@ describe("Shopware composables", () => {
     await search("", { configuration: { associations: [] } });
     expect(page.value).toEqual(null);
     expect(error.value).toBeTruthy();
-    expect(error.value).toEqual("Something went wrong...");
+    expect(error.value).toStrictEqual({ message: "Something went wrong..." });
   });
 
   it("should return activeCategoryId if it's included within the page object", async () => {
