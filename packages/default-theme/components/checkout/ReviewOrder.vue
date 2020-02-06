@@ -6,120 +6,19 @@
     />
     <SfAccordion first-open class="accordion mobile-only">
       <SfAccordionItem header="Personal Details">
-        <div class="accordion__item">
-          <div class="accordion__content">
-            <p class="content">
-              {{ order.firstName }} {{ order.lastName }}<br />
-            </p>
-            <p class="content">
-              {{ order.email }}
-            </p>
-          </div>
-          <SfButton
-            class="sf-button--text accordion__edit"
-            @click="$emit('click:edit', 0)"
-            >Edit</SfButton
-          >
-        </div>
+        <PersonalDetails :order="order" @click:edit="$emit('click:edit', 0)"/>
       </SfAccordionItem>
       <SfAccordionItem header="Shipping address">
-        <div class="accordion__item">
-          <div class="accordion__content">
-            <p class="content">
-              <span class="content__label">{{ shippingMethod.label }}</span
-              ><br />
-              {{ shipping.streetName }} {{ shipping.apartment }},
-              {{ shipping.zipCode }}<br />
-              {{ shipping.city }}, {{ shipping.country }}
-            </p>
-            <p class="content">{{ shipping.phoneNumber }}</p>
-          </div>
-          <SfButton
-            class="sf-button--text accordion__edit"
-            @click="$emit('click:edit', 1)"
-            >Edit</SfButton
-          >
-        </div>
+        <ShippingAddress :shipping="shipping" :shippingMethodLabel="shippingMethod.label" @click:edit="$emit('click:edit', 1)"/>
       </SfAccordionItem>
       <SfAccordionItem header="Billing address">
-        <div class="accordion__item">
-          <div class="accordion__content">
-            <p v-if="payment.sameAsShipping" class="content">
-              Same as shipping address
-            </p>
-            <template v-else>
-              <p class="content">
-                <span class="content__label">{{ payment.shippingMethod }}</span
-                ><br />
-                {{ payment.streetName }} {{ payment.apartment }},
-                {{ payment.zipCode }}<br />
-                {{ payment.city }}, {{ payment.country }}
-              </p>
-              <p class="content">{{ payment.phoneNumber }}</p>
-            </template>
-          </div>
-          <SfButton
-            class="sf-button--text accordion__edit"
-            @click="$emit('click:edit', 2)"
-            >Edit</SfButton
-          >
-        </div>
+          <BillingAddress :payment="payment" @click:edit="$emit('click:edit', 2)"/>
       </SfAccordionItem>
       <SfAccordionItem header="Payment method">
-        <div class="accordion__item">
-          <div class="accordion__content">
-            <p class="content">{{ paymentMethod.label }}</p>
-          </div>
-          <SfButton
-            class="sf-button--text accordion__edit"
-            @click="$emit('click:edit', 2)"
-            >Edit</SfButton
-          >
-        </div>
+        <PaymentMethod :paymentMethod="paymentMethod" @click:edit="$emit('click:edit', 2)"/>
       </SfAccordionItem>
     </SfAccordion>
-    <SfTable class="sf-table--bordered table desktop-only">
-      <SfTableHeading class="table__row">
-        <SfTableHeader class="table__header table__image">Item</SfTableHeader>
-        <SfTableHeader
-          v-for="tableHeader in tableHeaders"
-          :key="tableHeader"
-          class="table__header"
-          >{{ tableHeader }}</SfTableHeader
-        >
-        <SfTableHeader class="table__action"></SfTableHeader>
-      </SfTableHeading>
-      <SfTableRow
-        v-for="(product, index) in cartItems"
-        :key="index"
-        class="table__row"
-      >
-        <SfTableData class="table__image">
-          <SfImage :src="product.cover.url" />
-        </SfTableData>
-        <SfTableData class="table__data table__data--left">
-          <div class="product-title">{{ product.label }}</div>
-          <div class="product-sku">{{ product.productNumber }}</div>
-        </SfTableData>
-        <SfTableData class="table__data">{{ product.quantity }}</SfTableData>
-        <SfTableData class="table__data">
-          <SfPrice
-            :regular="formatFrontPrice(product.price.totalPrice)"
-            class="product-price"
-          />
-        </SfTableData>
-        <SfTableData class="table__action">
-          <SfIcon
-            icon="cross"
-            size="xxs"
-            color="#BEBFC4"
-            role="button"
-            class="button"
-            @click="removeProduct(product)"
-          />
-        </SfTableData>
-      </SfTableRow>
-    </SfTable>
+    <OrderItemsTable />
     <SfHeading
       title="Order details"
       class="sf-heading--left sf-heading--no-underline title"
@@ -178,6 +77,12 @@
 import { useCart, useUser } from '@shopware-pwa/composables'
 import { getPagePath } from '../../helpers/pages'
 import helpers from '../../helpers'
+import PersonalDetails from './ReviewOrder/PersonalDetails'
+import ShippingAddress from './ReviewOrder/ShippingAddress'
+import BillingAddress from './ReviewOrder/BillingAddress'
+import PaymentMethod from './ReviewOrder/PaymentMethod'
+import OrderItemsTable from './ReviewOrder/OrderItemsTable'
+
 
 import {
   SfHeading,
@@ -204,7 +109,12 @@ export default {
     SfPrice,
     SfProperty,
     SfAccordion,
-    SfNotification
+    SfNotification,
+    PersonalDetails,
+    ShippingAddress,
+    BillingAddress,
+    PaymentMethod,
+    OrderItemsTable
   },
   props: {
     order: {
