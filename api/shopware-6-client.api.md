@@ -17,6 +17,7 @@ import { Language } from '@shopware-pwa/shopware-6-client/src/interfaces/models/
 import { Order } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order';
 import { PaymentMethod } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product';
+import { Salutation } from '@shopware-pwa/shopware-6-client/src/interfaces/models/system/salutation/Salutation';
 import { SearchCriteria } from '@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria';
 import { SearchResult } from '@shopware-pwa/shopware-6-client/src/interfaces/response/SearchResult';
 import { ShippingMethod } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/shipping/ShippingMethod';
@@ -106,6 +107,9 @@ export function getAvailableLanguages(): Promise<SearchResult<Language[]>>;
 
 // @alpha (undocumented)
 export function getAvailablePaymentMethods(): Promise<SearchResult<PaymentMethod[]>>;
+
+// @alpha (undocumented)
+export function getAvailableSalutations(): Promise<Salutation[]>;
 
 // @alpha (undocumented)
 export function getAvailableShippingMethods(): Promise<SearchResult<ShippingMethod[]>>;

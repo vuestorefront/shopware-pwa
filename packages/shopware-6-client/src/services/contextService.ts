@@ -6,12 +6,14 @@ import {
   getContextPaymentMethodEndpoint,
   getContextShippingMethodEndpoint,
   getContextLanguageEndpoint,
+  getContextSalutationEndpoint,
   getContextEndpoint
 } from "../endpoints";
 import { Country } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/country/Country";
 import { ShippingMethod } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/payment/PaymentMethod";
 import { Language } from "@shopware-pwa/shopware-6-client/src/interfaces/models/framework/language/Language";
+import { Salutation } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/salutation/Salutation";
 import { SearchResult } from "@shopware-pwa/shopware-6-client/src/interfaces/response/SearchResult";
 import { UpdateContextParams } from "@shopware-pwa/shopware-6-client/src/interfaces/request/UpdateContextParams";
 import { ContextTokenResponse } from "@shopware-pwa/shopware-6-client/src/interfaces/response/ContextTokenResponse";
@@ -86,8 +88,17 @@ export async function getAvailableCountries(): Promise<
   SearchResult<Country[]>
 > {
   const resp = await apiService.get(getContextCountryEndpoint());
-
+  console.log(resp);
   return resp.data;
+}
+
+/**
+ * @throws ClientApiError
+ * @alpha
+ */
+export async function getAvailableSalutations(): Promise<Salutation[]> {
+  const resp = await apiService.get(getContextSalutationEndpoint());
+  return resp.data?.data;
 }
 
 /**

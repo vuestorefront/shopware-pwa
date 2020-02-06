@@ -5,6 +5,7 @@
 ```ts
 
 import { AddressType } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress';
+import { Country } from '@shopware-pwa/shopware-6-client/src/interfaces/models/system/country/Country';
 import { Customer } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress';
 import { CustomerRegistrationParams } from '@shopware-pwa/shopware-6-client/src/interfaces/request/CustomerRegistrationParams';
@@ -14,6 +15,7 @@ import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
 import { Order } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order';
 import { Product } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product';
 import { Ref } from '@vue/composition-api';
+import { Salutation } from '@shopware-pwa/shopware-6-client/src/interfaces/models/system/salutation/Salutation';
 
 // @alpha (undocumented)
 export function getStore(): any;
@@ -54,6 +56,31 @@ export const useCategoryFilters: () => any;
 
 // @alpha (undocumented)
 export const useCms: () => any;
+
+// @public (undocumented)
+export interface UseContext {
+    // (undocumented)
+    countries: Ref<Country[] | null>;
+    // (undocumented)
+    fetchCountries: () => Promise<void>;
+    // (undocumented)
+    fetchSalutations: () => Promise<void>;
+    // (undocumented)
+    mappedCountries: Ref<{
+        name: string;
+        id: string;
+    }[] | null>;
+    // (undocumented)
+    mappedSalutations: Ref<{
+        displayName: string;
+        id: string;
+    }[] | null>;
+    // (undocumented)
+    salutations: Ref<Salutation[] | null>;
+}
+
+// @public (undocumented)
+export const useContext: () => UseContext;
 
 // @public (undocumented)
 export const useNavigation: () => any;

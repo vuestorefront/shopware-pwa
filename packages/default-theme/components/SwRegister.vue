@@ -9,6 +9,7 @@
         message="Cannot create a new account, the user may already exist"
       />
       <SfSelect
+        v-if="mappedSalutations && mappedSalutations.length > 0"
         v-model="salutation"
         label="Salutation"
         :valid="!$v.salutation.$error"
@@ -16,11 +17,11 @@
         class="sf-select--underlined form__input"
       >
         <SfSelectOption
-          v-for="option in salutations"
-          :key="option.id"
-          :value="option"
+          v-for="salutationOption in mappedSalutations"
+          :key="salutationOption.id"
+          :value="salutationOption"
         >
-          {{ option.label }}
+          {{ salutationOption.displayName }}
         </SfSelectOption>
       </SfSelect>
       <div class="input-group">
@@ -59,7 +60,7 @@
         type="password"
         class="form__input"
         :valid="!$v.password.$error"
-        error-message="Minimum password length is 4 characters"
+        error-message="Minimum password length is 8 characters"
         @blur="$v.password.$touch()"
       />
       <div class="input-group">
@@ -93,6 +94,7 @@
       </div>
       <SfSelect
         v-model="country"
+        v-if="mappedCountries && mappedCountries.length > 0"
         label="Country"
         class="sf-select--underlined form__input"
         :valid="!$v.country.$error"
@@ -100,11 +102,11 @@
         @blur="$v.country.$touch()"
       >
         <SfSelectOption
-          v-for="option in countries"
-          :key="option.id"
-          :value="option"
+          v-for="countryOption in mappedCountries"
+          :key="countryOption.id"
+          :value="countryOption"
         >
-          {{ option.label }}
+          {{ countryOption.name }}
         </SfSelectOption>
       </SfSelect>
       <SfButton
@@ -122,7 +124,7 @@
 import { SfAlert, SfInput, SfButton, SfSelect } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength } from 'vuelidate/lib/validators'
-import { useUser } from '@shopware-pwa/composables'
+import { useUser, useContext } from '@shopware-pwa/composables'
 
 export default {
   name: 'SwResetPassword',
@@ -135,8 +137,6 @@ export default {
       email: '',
       password: '',
       salutation: null,
-      salutations: [{ label: 'Mr.', id: 'c370eb5cd1df4d4dbcc78f055b693e79' }],
-      countries: [{ label: 'Poland', id: '38245a84c3d5425b8bac97fc845b5ddd' }],
       country: null,
       street: '',
       city: '',
@@ -145,11 +145,21 @@ export default {
   },
   setup() {
     const { login, register, loading, error } = useUser()
+    const {
+      fetchSalutations,
+      fetchCountries,
+      mappedSalutations,
+      mappedCountries
+    } = useContext()
     return {
       clientLogin: login,
       clientRegister: register,
       isLoading: loading,
-      error
+      error,
+      fetchSalutations,
+      fetchCountries,
+      mappedSalutations,
+      mappedCountries
     }
   },
   computed: {
@@ -209,7 +219,9 @@ export default {
       if (this.$v.$invalid) {
         return
       }
-      const registeredIn = await this.clientRegister(this.mapCustomerInforations)
+      const registeredIn = await this.clientRegister(
+        this.mapCustomerInforations
+      )
       if (registeredIn) {
         await this.clientLogin({
           username: this.email,
@@ -218,6 +230,10 @@ export default {
         this.$emit('success')
       }
     }
+  },
+  async mounted() {
+    await this.fetchSalutations()
+    await this.fetchCountries()
   }
 }
 </script>
