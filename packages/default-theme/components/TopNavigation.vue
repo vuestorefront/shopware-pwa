@@ -71,7 +71,6 @@
 </template>
 
 <script>
-import slugify from 'slugify' // TODO: remove after the navigation is fully implemented
 import { SfHeader, SfCircleIcon, SfBadge, SfImage } from '@storefront-ui/vue'
 import {
   useUser,
