@@ -1,26 +1,6 @@
 import { getNavigationEndpoint } from "../endpoints";
 import { apiService } from "../apiService";
-
-/**
- * @alpha
- */
-export interface NavigationResponse {
-  count: number;
-  children: NavigationElement[];
-}
-
-/**
- * @alpha
- */
-export interface NavigationElement {
-  id: string;
-  path: string;
-  name: string;
-  children: NavigationElement[] | null;
-  count: number;
-  level: number;
-  extensions: any[];
-}
+import { NavigationResponse } from "../interfaces/models/content/navigation/Navigation";
 
 /**
  * @alpha
