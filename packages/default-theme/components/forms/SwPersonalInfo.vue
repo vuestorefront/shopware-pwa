@@ -1,82 +1,96 @@
 <template>
-<div class="sw-personal-info">
-  <slot :user="user">
-
-    <slot name="message">
-      <p class="message">
-        Feel free to edit any of your details below so your account is always up
-        to date
-      </p>
-    </slot>
-
-    <SfAlert
-      v-if="error"
-      class="sw-personal-info__alert"
-      type="danger"
-      message="Errors in the form"
-    />
-
-    <div class="sw-personal-info__form form">
-      <slot name="form">
-        <SfSelect
-          v-model="salutation"
-          :valid="!$v.salutation.$error"
-          :selected="salutation"
-          error-message="Salutation must be selected"
-          label="Salutation"
-          class="form__element form__element--half"
-          @blur="$v.salutation.$touch()"
-        >
-          <SfSelectOption v-for="salutationOption in salutations" :key="salutationOption.id" :value="salutationOption">
-            <SfProductOption :label="salutationOption.displayName"></SfProductOption>
-          </SfSelectOption>
-        </SfSelect>
-        <SfInput
-          v-model="title"
-          name="title"
-          :valid="!$v.title.$error"
-          :selected="salutation"
-          error-message="Title must be selected"
-          label="Title"
-          class="form__element form__element--half form__element--half-even"
-          @blur="$v.title.$touch()"
-        />
-        <SfInput
-          v-model="firstName"
-          :valid="!$v.firstName.$error"
-          error-message="First name is required"
-          name="firstName"
-          label="First Name"
-          class="form__element form__element--half"
-          @blur="$v.firstName.$touch()"
-        />
-        <SfInput
-          v-model="lastName"
-          :valid="!$v.lastName.$error"
-          error-message="Last name is required"
-          name="lastName"
-          label="Last Name"
-          class="form__element form__element--half form__element--half-even"
-          @blur="$v.lastName.$touch()"
-        />
-        <SfButton 
-          class="form__button"
-          :disabled="$v.$invalid"
-          @click="invokeUpdate">
-          Update personal data
-        </SfButton>
+  <div class="sw-personal-info">
+    <slot :user="user">
+      <slot name="message">
+        <p class="message">
+          Feel free to edit any of your details below so your account is always
+          up to date
+        </p>
       </slot>
-    </div>  
 
-  </slot>
-</div>  
-  
+      <SfAlert
+        v-if="error"
+        class="sw-personal-info__alert"
+        type="danger"
+        message="Errors in the form"
+      />
+
+      <div class="sw-personal-info__form form">
+        <slot name="form">
+          <SfSelect
+            v-model="salutation"
+            :valid="!$v.salutation.$error"
+            :selected="salutation"
+            error-message="Salutation must be selected"
+            required
+            label="Salutation"
+            class="form__element form__element--half"
+            @blur="$v.salutation.$touch()"
+          >
+            <SfSelectOption
+              v-for="salutationOption in salutations"
+              :key="salutationOption.id"
+              :value="salutationOption"
+            >
+              <SfProductOption
+                :label="salutationOption.displayName"
+              ></SfProductOption>
+            </SfSelectOption>
+          </SfSelect>
+          <SfInput
+            v-model="title"
+            required
+            name="title"
+            :valid="!$v.title.$error"
+            :selected="salutation"
+            error-message="Title must be selected"
+            label="Title"
+            class="form__element form__element--half form__element--half-even"
+            @blur="$v.title.$touch()"
+          />
+          <SfInput
+            v-model="firstName"
+            required
+            :valid="!$v.firstName.$error"
+            error-message="First name is required"
+            name="firstName"
+            label="First Name"
+            class="form__element form__element--half"
+            @blur="$v.firstName.$touch()"
+          />
+          <SfInput
+            v-model="lastName"
+            required
+            :valid="!$v.lastName.$error"
+            error-message="Last name is required"
+            name="lastName"
+            label="Last Name"
+            class="form__element form__element--half form__element--half-even"
+            @blur="$v.lastName.$touch()"
+          />
+          <SfButton
+            class="form__button"
+            :disabled="$v.$invalid"
+            @click="invokeUpdate"
+          >
+            Update personal data
+          </SfButton>
+        </slot>
+      </div>
+    </slot>
+  </div>
 </template>
 
 <script>
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
-import { SfInput, SfButton, SfSelect, SfProductOption, SfAlert } from '@storefront-ui/vue'
+import {
+  SfInput,
+  SfButton,
+  SfSelect,
+  SfProductOption,
+  SfAlert
+} from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 
 export default {
@@ -96,10 +110,15 @@ export default {
   data() {
     return {
       salutations: [
-        { displayName: 'Mr.', id: 'c370eb5cd1df4d4dbcc78f055b693e79' },
+        { displayName: 'Mr.', id: 'c370eb5cd1df4d4dbcc78f055b693e79' }
       ],
-      salutation: this.user && this.user.salutation ?
-       { displayName: this.user.salutation.displayName, id: this.user.salutation.id } :{},
+      salutation:
+        this.user && this.user.salutation
+          ? {
+              displayName: this.user.salutation.displayName,
+              id: this.user.salutation.id
+            }
+          : {},
       firstName: this.user && this.user.firstName,
       lastName: this.user && this.user.lastName,
       title: this.user && this.user.title
@@ -132,7 +151,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
@@ -184,5 +202,4 @@ export default {
     font-weight: 400;
   }
 }
-
 </style>
