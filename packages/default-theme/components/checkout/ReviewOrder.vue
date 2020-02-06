@@ -101,16 +101,10 @@
           <div class="product-title">{{ product.label }}</div>
           <div class="product-sku">{{ product.productNumber }}</div>
         </SfTableData>
-        <!-- <SfTableData class="table__data">{{
-          product.configuration[1].value
-        }}</SfTableData>
-        <SfTableData class="table__data">{{
-          product.configuration[0].value
-        }}</SfTableData> -->
         <SfTableData class="table__data">{{ product.quantity }}</SfTableData>
         <SfTableData class="table__data">
           <SfPrice
-            :regular="product.price.totalPrice"
+            :regular="formatFrontPrice(product.price.totalPrice)"
             class="product-price"
           />
         </SfTableData>
@@ -121,7 +115,7 @@
             color="#BEBFC4"
             role="button"
             class="button"
-            @click="removeProduct(index)"
+            @click="removeProduct(product)"
           />
         </SfTableData>
       </SfTableRow>
@@ -135,7 +129,7 @@
         <div class="summary__total">
           <SfProperty
             name="Subtotal"
-            :value="subtotal"
+            :value="formatFrontPrice(subtotal)"
             class="sf-property--full-width property">
             <template #name><span class="property__name">Subtotal</span></template>
           </SfProperty>
@@ -147,7 +141,7 @@
           </SfProperty>
           <SfProperty
             name="Total"
-            :value="total"
+            :value="formatFrontPrice(total)"
             class="sf-property--full-width property--huge summary__property-total"
           >
             <template #name>TOTAL</template>
@@ -164,8 +158,11 @@
       <div class="notification" v-if="!isUserLoggedIn">
         <SfNotification :visible="true" type="info" title="You can't place the order" message="Dummy checkout is enabled only for logged in users" />
       </div>
+      <div class="notification" v-if="!cartItems.length">
+        <SfNotification :visible="true" type="info" title="You can't place the order" message="Your cart is empty." />
+      </div>
       <div class="summary__group">      
-        <SfButton :disabled="!isUserLoggedIn" class="sf-button--full-width summary__action-button" @click="placeOrder()"
+        <SfButton :disabled="!isUserLoggedIn || !cartItems.length" class="sf-button--full-width summary__action-button" @click="placeOrder()"
           >Place my order</SfButton>
         <SfButton
           class="sf-button--full-width sf-button--text summary__action-button summary__action-button--secondary"
@@ -180,6 +177,7 @@
 <script>
 import { useCart, useUser } from '@shopware-pwa/composables'
 import { getPagePath } from '../../helpers/pages'
+import helpers from '../../helpers'
 
 import {
   SfHeading,
@@ -225,11 +223,11 @@ export default {
   data() {
     return {
       terms: false,
-      tableHeaders: ['Description', 'Colour', 'Size', 'Quantity', 'Amount']
+      tableHeaders: ['Description', 'Quantity', 'Amount']
     }
   },
   setup() {
-    const { cartItems, subtotal, totalPrice, placeOrder: placeApiOrder, refreshCart } = useCart()
+    const { cartItems, subtotal, totalPrice, placeOrder: placeApiOrder, refreshCart, removeProduct } = useCart()
     const { isLoggedIn } = useUser()
     return {
       refreshCart,
@@ -237,7 +235,8 @@ export default {
       subtotal,
       total: totalPrice,
       placeApiOrder,
-      isUserLoggedIn: isLoggedIn
+      isUserLoggedIn: isLoggedIn,
+      removeProduct
     }
   },
   computed: {
@@ -249,7 +248,7 @@ export default {
       const method = this.shippingMethods.find(
         method => method.value === shippingMethod
       )
-      return method ? method : { price: '$0.00' }
+      return method ? method : { price: helpers.formatPrice(0) }
     },
     payment() {
       return this.order.payment
@@ -263,12 +262,8 @@ export default {
     }
   },
   methods: {
-    removeProduct(index) {
-      // const order = { ...this.order }
-      // const products = [...order.products]
-      // products.splice(index, 1)
-      // order.products = products
-      // this.$emit('update:order', order)
+    formatFrontPrice(price) {
+      return helpers.formatPrice(price);
     },
     async placeOrder() {
       try {
