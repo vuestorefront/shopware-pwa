@@ -14,6 +14,7 @@ import { Customer } from '@shopware-pwa/shopware-6-client/src/interfaces/models/
 import { CustomerAddress } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress';
 import { CustomerRegistrationParams } from '@shopware-pwa/shopware-6-client/src/interfaces/request/CustomerRegistrationParams';
 import { Language } from '@shopware-pwa/shopware-6-client/src/interfaces/models/framework/language/Language';
+import { NavigationResponse } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order';
 import { PaymentMethod } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product';
@@ -165,32 +166,6 @@ export function login({ username, password }?: {
 
 // @alpha
 export function logout(): Promise<void>;
-
-// @alpha (undocumented)
-export interface NavigationElement {
-    // (undocumented)
-    children: NavigationElement[] | null;
-    // (undocumented)
-    count: number;
-    // (undocumented)
-    extensions: any[];
-    // (undocumented)
-    id: string;
-    // (undocumented)
-    level: number;
-    // (undocumented)
-    name: string;
-    // (undocumented)
-    path: string;
-}
-
-// @alpha (undocumented)
-export interface NavigationResponse {
-    // (undocumented)
-    children: NavigationElement[];
-    // (undocumented)
-    count: number;
-}
 
 // @alpha (undocumented)
 export function onConfigChange(fn: (context: ConfigChangedArgs) => void): void;
