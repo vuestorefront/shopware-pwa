@@ -53,16 +53,18 @@ export const useCart = (): any => {
   /**
    * todo: move this method to the separated composable after the implementation of dummy checkout.
    */
-  async function placeOrder(): Promise<Order> {
+  async function placeOrder(): Promise<Order | undefined> {
     if (isLoggedIn.value) {
       return createOrder();
     }
 
-    if (user.value?.email) { // use hardcoded email until personal data form is handled
-      return createGuestOrder(user.value?.email);
+    if (user.value?.email) {
+      return createGuestOrder(user.value.email);
     }
 
-    throw new Error("Order cannot be placed")
+    error.value = {
+      message: "Order cannot be placed"
+    };
   }
 
   const cart = computed(() => {
