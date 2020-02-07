@@ -4,8 +4,8 @@
       <p class="content">
         <span class="content__label">{{ shippingMethodLabel }}</span
         ><br />
-        {{ shipping.streetName }} {{ shipping.apartment }},
-        {{ shipping.zipCode }}<br />
+        {{ shipping.streetName }} {{ shipping.apartment }}, {{ shipping.zipCode
+        }}<br />
         {{ shipping.city }}, {{ shipping.country }}
       </p>
       <p class="content">{{ shipping.phoneNumber }}</p>
@@ -19,27 +19,17 @@
 </template>
 <script>
 import {
-  SfInput,
-  SfCheckbox,
   SfButton,
-  SfHeading,
-  SfModal,
-  SfCharacteristic
 } from '@storefront-ui/vue'
 export default {
   name: 'ShippingAddress',
   components: {
-    SfInput,
-    SfCheckbox,
     SfButton,
-    SfHeading,
-    SfModal,
-    SfCharacteristic
   },
   props: {
     shippingMethodLabel: {
       type: String,
-      default: ""
+      default: ''
     },
     shipping: {
       type: Object,
@@ -50,5 +40,4 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-
 </style>

@@ -12,22 +12,12 @@
 </template>
 <script>
 import {
-  SfInput,
-  SfCheckbox,
   SfButton,
-  SfHeading,
-  SfModal,
-  SfCharacteristic
 } from '@storefront-ui/vue'
 export default {
   name: 'PaymentMethod',
   components: {
-    SfInput,
-    SfCheckbox,
     SfButton,
-    SfHeading,
-    SfModal,
-    SfCharacteristic
   },
   props: {
     paymentMethod: {
@@ -39,5 +29,4 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-
 </style>

@@ -13,10 +13,12 @@
       </div>
       <transition name="fade">
         <div v-if="!listIsHidden" class="collected-product-list">
-          <SwCartProduct v-for="(product, index) in cartItems"
+          <SwCartProduct
+            v-for="(product, index) in cartItems"
             :key="index"
             :product="product"
-            v-model="product.qty" />
+            v-model="product.qty"
+          />
         </div>
       </transition>
     </div>
@@ -92,7 +94,7 @@ export default {
     SwCartProduct,
     SfProperty,
     SfCharacteristic,
-    SfInput,
+    SfInput
   },
   props: {
     order: {
@@ -162,7 +164,7 @@ export default {
         method => method.value === paymentMethod
       )
       return method ? method : { label: '' }
-    },
+    }
   }
 }
 </script>

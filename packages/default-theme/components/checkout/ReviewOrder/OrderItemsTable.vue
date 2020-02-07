@@ -43,34 +43,24 @@
   </SfTable>
 </template>
 <script>
-import { useCart, useUser } from '@shopware-pwa/composables'
+import { useCart } from '@shopware-pwa/composables'
 import helpers from '../../../helpers'
 
 import {
-  SfHeading,
   SfTable,
-  SfInput,
   SfCheckbox,
-  SfButton,
-  SfModal,
-  SfCharacteristic,
   SfImage,
   SfIcon,
-  SfPrice,
+  SfPrice
 } from '@storefront-ui/vue'
 export default {
   name: 'BillingAddress',
   components: {
-    SfHeading,
     SfTable,
-    SfInput,
     SfCheckbox,
-    SfButton,
-    SfModal,
-    SfCharacteristic,
     SfImage,
     SfIcon,
-    SfPrice,
+    SfPrice
   },
   data() {
     return {
@@ -78,26 +68,54 @@ export default {
     }
   },
   setup() {
-    const { cartItems, subtotal, totalPrice, placeOrder: placeApiOrder, refreshCart, removeProduct } = useCart()
-    const { isLoggedIn } = useUser()
-    return {
-      refreshCart,
+    const {
       cartItems,
-      subtotal,
-      total: totalPrice,
-      placeApiOrder,
-      isUserLoggedIn: isLoggedIn,
+      removeProduct
+    } = useCart()
+    return {
+      cartItems,
       removeProduct
     }
   },
   methods: {
     formatFrontPrice(price) {
-      return helpers.formatPrice(price);
-    },
-  },
+      return helpers.formatPrice(price)
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-
+@mixin for-desktop {
+  @media screen and (min-width: $desktop-min) {
+    @content;
+  }
+}
+.table {
+  margin-bottom: $spacer-big;
+  &__header {
+    font-size: $font-size-regular-desktop;
+    font-weight: $body-font-weight-primary;
+    @include for-desktop {
+      text-align: center;
+    }
+  }
+  &__data {
+    font-size: $font-size-small-desktop;
+    text-align: center;
+  }
+  &__image {
+    @include for-desktop {
+      flex: 0 0 5.125rem;
+    }
+  }
+  &__action {
+    @include for-desktop {
+      flex: 0 0 2.5rem;
+    }
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
 </style>

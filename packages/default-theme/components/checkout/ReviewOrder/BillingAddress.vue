@@ -8,8 +8,8 @@
         <p class="content">
           <span class="content__label">{{ payment.shippingMethod }}</span
           ><br />
-          {{ payment.streetName }} {{ payment.apartment }},
-          {{ payment.zipCode }}<br />
+          {{ payment.streetName }} {{ payment.apartment }}, {{ payment.zipCode
+          }}<br />
           {{ payment.city }}, {{ payment.country }}
         </p>
         <p class="content">{{ payment.phoneNumber }}</p>
@@ -24,22 +24,12 @@
 </template>
 <script>
 import {
-  SfInput,
-  SfCheckbox,
-  SfButton,
-  SfHeading,
-  SfModal,
-  SfCharacteristic
+  SfButton
 } from '@storefront-ui/vue'
 export default {
   name: 'BillingAddress',
   components: {
-    SfInput,
-    SfCheckbox,
     SfButton,
-    SfHeading,
-    SfModal,
-    SfCharacteristic
   },
   props: {
     payment: {
@@ -51,5 +41,4 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-
 </style>
