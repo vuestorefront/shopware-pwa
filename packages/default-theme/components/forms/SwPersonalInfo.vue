@@ -9,10 +9,10 @@
       </slot>
 
       <SfAlert
-        v-if="error"
+        v-if="error || contextError"
         class="sw-personal-info__alert"
         type="danger"
-        message="Errors in the form"
+        :message="getErrorMessage"
       />
 
       <div class="sw-personal-info__form form">
@@ -99,10 +99,11 @@ export default {
   props: {},
   setup() {
     const { user, error, updatePersonalInfo, refreshUser } = useUser()
-    const { fetchSalutations, getMappedSalutations } = useContext()
+    const context = useContext()
     return {
-      fetchSalutations,
-      getMappedSalutations,
+      fetchSalutations: context.fetchSalutations,
+      getMappedSalutations: context.getMappedCountries,
+      contextError: context.error,
       refreshUser,
       updatePersonalInfo,
       user,
@@ -122,6 +123,13 @@ export default {
       lastName: this.user && this.user.lastName,
       title: this.user && this.user.title,
       isLoading: true
+    }
+  },
+  computed: {
+    getErrorMessage() {
+      return error && !errorContext 
+        ? "Cannot create a new account, the user may already exist" :
+         "Coudn't fetch available salutations or countries, please contact the administration."
     }
   },
   validations: {

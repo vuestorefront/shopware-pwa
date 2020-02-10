@@ -3,10 +3,10 @@
     <div class="form sw-register">
       <h2 class="sw-register__header">Register</h2>
       <SfAlert
-        v-if="error"
+        v-if="error || contextError"
         class="sw-register__alert"
         type="danger"
-        message="Cannot create a new account, the user may already exist"
+        :message="getErrorMessage"
       />
       <SfSelect
         v-if="getMappedSalutations && getMappedSalutations.length > 0"
@@ -145,21 +145,17 @@ export default {
   },
   setup() {
     const { login, register, loading, error } = useUser()
-    const {
-      fetchSalutations,
-      fetchCountries,
-      getMappedSalutations,
-      getMappedCountries
-    } = useContext()
+    const context = useContext()
     return {
       clientLogin: login,
       clientRegister: register,
       isLoading: loading,
       error,
-      fetchSalutations,
-      fetchCountries,
-      getMappedSalutations,
-      getMappedCountries
+      contextError: context.error,
+      fetchSalutations: context.fetchSalutations,
+      fetchCountries: context.fetchCountries,
+      getMappedSalutations: context.getMappedSalutations,
+      getMappedCountries: context.getMappedCountries
     }
   },
   computed: {
@@ -180,6 +176,11 @@ export default {
           countryId: this.country.id
         }
       }
+    },
+    getErrorMessage() {
+      return error && !errorContext 
+        ? "Cannot create a new account, the user may already exist" :
+         "Coudn't fetch available salutations or countries, please contact the administration."
     }
   },
   validations: {
