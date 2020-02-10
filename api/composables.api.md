@@ -66,15 +66,15 @@ export interface UseContext {
     // (undocumented)
     fetchSalutations: () => Promise<void>;
     // (undocumented)
-    mappedCountries: Ref<{
-        name: string;
+    getMappedCountries: Ref<Readonly<{
+        name: string | null;
         id: string;
-    }[] | null>;
+    }[]>>;
     // (undocumented)
-    mappedSalutations: Ref<{
-        displayName: string;
+    getMappedSalutations: Ref<Readonly<{
+        name: string | null;
         id: string;
-    }[] | null>;
+    }[]>>;
     // (undocumented)
     salutations: Ref<Salutation[] | null>;
 }

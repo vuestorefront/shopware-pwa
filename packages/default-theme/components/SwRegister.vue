@@ -9,7 +9,7 @@
         message="Cannot create a new account, the user may already exist"
       />
       <SfSelect
-        v-if="getSalutations && getSalutations.length > 0"
+        v-if="getMappedSalutations && getMappedSalutations.length > 0"
         v-model="salutation"
         label="Salutation"
         :valid="!$v.salutation.$error"
@@ -17,11 +17,11 @@
         class="sf-select--underlined form__input"
       >
         <SfSelectOption
-          v-for="salutationOption in getSalutations"
+          v-for="salutationOption in getMappedSalutations"
           :key="salutationOption.id"
           :value="salutationOption"
         >
-          {{ salutationOption.displayName }}
+          {{ salutationOption.name }}
         </SfSelectOption>
       </SfSelect>
       <div class="input-group">
@@ -102,7 +102,7 @@
         @blur="$v.country.$touch()"
       >
         <SfSelectOption
-          v-for="countryOption in getCountries"
+          v-for="countryOption in getMappedCountries"
           :key="countryOption.id"
           :value="countryOption"
         >
@@ -148,8 +148,8 @@ export default {
     const {
       fetchSalutations,
       fetchCountries,
-      getSalutations,
-      getCountries
+      getMappedSalutations,
+      getMappedCountries
     } = useContext()
     return {
       clientLogin: login,
@@ -158,13 +158,12 @@ export default {
       error,
       fetchSalutations,
       fetchCountries,
-      getSalutations,
-      getCountries
+      getMappedSalutations,
+      getMappedCountries
     }
   },
   computed: {
     mapCustomerInforations() {
-      debugger
       return {
         firstName: this.firstName,
         lastName: this.lastName,

@@ -109,7 +109,7 @@ export function getAvailableLanguages(): Promise<SearchResult<Language[]>>;
 export function getAvailablePaymentMethods(): Promise<SearchResult<PaymentMethod[]>>;
 
 // @alpha (undocumented)
-export function getAvailableSalutations(): Promise<Salutation[]>;
+export function getAvailableSalutations(): Promise<SearchResult<Salutation[]>>;
 
 // @alpha (undocumented)
 export function getAvailableShippingMethods(): Promise<SearchResult<ShippingMethod[]>>;

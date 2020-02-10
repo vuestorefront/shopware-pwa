@@ -95,9 +95,11 @@ export async function getAvailableCountries(): Promise<
  * @throws ClientApiError
  * @alpha
  */
-export async function getAvailableSalutations(): Promise<Salutation[]> {
+export async function getAvailableSalutations(): Promise<
+  SearchResult<Salutation[]>
+> {
   const resp = await apiService.get(getContextSalutationEndpoint());
-  return resp.data?.data;
+  return resp.data;
 }
 
 /**

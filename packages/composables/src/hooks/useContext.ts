@@ -9,8 +9,8 @@ import { Country } from "@shopware-pwa/shopware-6-client/src/interfaces/models/s
 export interface UseContext {
   countries: Ref<Country[] | null>;
   salutations: Ref<Salutation[] | null>;
-  getCountries: Ref<any>;
-  getSalutations: Ref<any>;
+  getMappedCountries: Ref<Readonly<{ name: string | null; id: string }[]>>;
+  getMappedSalutations: Ref<Readonly<{ name: string | null; id: string }[]>>;
   fetchSalutations: () => Promise<void>;
   fetchCountries: () => Promise<void>;
 }
@@ -22,7 +22,7 @@ export const useContext = (): UseContext => {
   const fetchSalutations = async (): Promise<void> => {
     try {
       const fetchSalutations = await getAvailableSalutations();
-      salutations.value = fetchSalutations;
+      salutations.value = fetchSalutations.data;
     } catch (e) {
       console.error(e);
     }
@@ -37,7 +37,7 @@ export const useContext = (): UseContext => {
     }
   };
 
-  const getCountries = computed(() => {
+  const getMappedCountries = computed(() => {
     const countryList = countries.value ?? [];
     return countryList.map((country: Country) => ({
       name: country.name,
@@ -45,10 +45,10 @@ export const useContext = (): UseContext => {
     }));
   });
 
-  const getSalutations = computed(() => {
+  const getMappedSalutations = computed(() => {
     const salutationList = salutations.value ?? [];
     return salutationList.map((salutation: Salutation) => ({
-      displayName: salutation.displayName,
+      name: salutation.displayName,
       id: salutation.id
     }));
   });
@@ -58,7 +58,7 @@ export const useContext = (): UseContext => {
     salutations,
     fetchSalutations,
     fetchCountries,
-    getSalutations,
-    getCountries
+    getMappedSalutations,
+    getMappedCountries
   };
 };

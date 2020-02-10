@@ -18,7 +18,7 @@
       <div class="sw-personal-info__form form">
         <slot name="form">
           <SfSelect
-            v-if="getSalutations && getSalutations.length > 0"
+            v-if="getMappedSalutations && getMappedSalutations.length > 0"
             v-model="salutation"
             label="Salutation"
             :valid="!$v.salutation.$error"
@@ -26,11 +26,11 @@
             class="sf-select--underlined form__element form__element--half form__select"
           >
             <SfSelectOption
-              v-for="salutationOption in getSalutations"
+              v-for="salutationOption in getMappedSalutations"
               :key="salutationOption.id"
               :value="salutationOption"
             >
-              {{ salutationOption.displayName }}
+              {{ salutationOption.name }}
             </SfSelectOption>
           </SfSelect>
           <SfInput
@@ -99,10 +99,10 @@ export default {
   props: {},
   setup() {
     const { user, error, updatePersonalInfo, refreshUser } = useUser()
-    const { fetchSalutations, getSalutations } = useContext()
+    const { fetchSalutations, getMappedSalutations } = useContext()
     return {
       fetchSalutations,
-      getSalutations,
+      getMappedSalutations,
       refreshUser,
       updatePersonalInfo,
       user,
@@ -114,7 +114,7 @@ export default {
       salutation:
         this.user && this.user.salutation
           ? {
-              displayName: this.user.salutation.displayName,
+              name: this.user.salutation.displayName,
               id: this.user.salutation.id
             }
           : {},
