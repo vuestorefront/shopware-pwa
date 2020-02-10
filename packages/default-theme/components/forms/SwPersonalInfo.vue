@@ -17,7 +17,6 @@
 
       <div class="sw-personal-info__form form">
         <slot name="form">
-          {{getMappedSalutations}}
           <SfSelect
             v-if="getMappedSalutations && getMappedSalutations.length > 0"
             v-model="salutation"
