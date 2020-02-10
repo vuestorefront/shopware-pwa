@@ -17,6 +17,7 @@
 
       <div class="sw-personal-info__form form">
         <slot name="form">
+          {{getMappedSalutations}}
           <SfSelect
             v-if="getMappedSalutations && getMappedSalutations.length > 0"
             v-model="salutation"
@@ -102,7 +103,7 @@ export default {
     const context = useContext()
     return {
       fetchSalutations: context.fetchSalutations,
-      getMappedSalutations: context.getMappedCountries,
+      getMappedSalutations: context.getMappedSalutations,
       contextError: context.error,
       refreshUser,
       updatePersonalInfo,
