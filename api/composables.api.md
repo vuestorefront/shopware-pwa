@@ -62,6 +62,8 @@ export interface UseContext {
     // (undocumented)
     countries: Ref<Country[] | null>;
     // (undocumented)
+    error: Ref<any>;
+    // (undocumented)
     fetchCountries: () => Promise<void>;
     // (undocumented)
     fetchSalutations: () => Promise<void>;
