@@ -16,8 +16,26 @@ describe("Composables - useContext", () => {
         const { salutations } = useContext();
         expect(salutations.value).toBe(null);
       });
-      it("should return salutations array", () => {
-        mockedApiClient.getAvailableSalutations.mockReturnValueOnce([
+      it("should return salutations array", async () => {
+        mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
+          data: [
+            {
+              displayName: "Mr.",
+              id: "id",
+              salutationKey: "salutatonKey",
+              letterName: "Dear Mr."
+            },
+            {
+              displayName: "Mrs.",
+              id: "id",
+              salutationKey: "salutatonKey",
+              letterName: "Dear Mrs."
+            }
+          ]
+        } as any);
+        const { salutations, fetchSalutations } = useContext();
+        await fetchSalutations();
+        expect(salutations.value).toEqual([
           {
             displayName: "Mr.",
             id: "id",
@@ -30,11 +48,45 @@ describe("Composables - useContext", () => {
             salutationKey: "salutatonKey",
             letterName: "Dear Mrs."
           }
-        ] as any);
-        const { salutations, fetchSalutations } = useContext();
+        ]);
       });
     });
-    //describe("countries", () => {});
+    describe("countries", () => {
+      it("should return salutations array", async () => {
+        mockedApiClient.getAvailableCountries.mockReturnValueOnce({
+          data: [
+            {
+              displayName: "Mr.",
+              id: "id",
+              salutationKey: "salutatonKey",
+              letterName: "Dear Mr."
+            },
+            {
+              displayName: "Mrs.",
+              id: "id",
+              salutationKey: "salutatonKey",
+              letterName: "Dear Mrs."
+            }
+          ]
+        } as any);
+        const { countries, fetchCountries } = useContext();
+        await fetchCountries();
+        expect(countries.value).toEqual([
+          {
+            displayName: "Mr.",
+            id: "id",
+            salutationKey: "salutatonKey",
+            letterName: "Dear Mr."
+          },
+          {
+            displayName: "Mrs.",
+            id: "id",
+            salutationKey: "salutatonKey",
+            letterName: "Dear Mrs."
+          }
+        ]);
+      });
+    });
   });
   describe("computed", () => {
     describe("getMappedSalutations", () => {
@@ -94,8 +146,105 @@ describe("Composables - useContext", () => {
       });
     });
   });
-  //describe("methods", () => {
-  //describe("fetchSalutations", () => {});
-  //describe("fetchCoutries", () => {});
-  //});
+  describe("methods", () => {
+    describe("fetchSalutations", () => {
+      it("should fetch vailable salutations and assign it to salutaitons array", async () => {
+        mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
+          data: [
+            {
+              displayName: "Mr.",
+              id: "id",
+              salutationKey: "salutatonKey",
+              letterName: "Dear Mr."
+            },
+            {
+              displayName: "Mrs.",
+              id: "id",
+              salutationKey: "salutatonKey",
+              letterName: "Dear Mrs."
+            }
+          ]
+        } as any);
+
+        const { fetchSalutations, salutations } = useContext();
+        await fetchSalutations();
+        expect(salutations.value).toEqual([
+          {
+            displayName: "Mr.",
+            id: "id",
+            salutationKey: "salutatonKey",
+            letterName: "Dear Mr."
+          },
+          {
+            displayName: "Mrs.",
+            id: "id",
+            salutationKey: "salutatonKey",
+            letterName: "Dear Mrs."
+          }
+        ]);
+        expect(shopwareClient.getAvailableCountries).toHaveBeenCalledTimes(1);
+      });
+      it("should assing error to error message if getAvailableSalutations throws one", async () => {
+        mockedApiClient.getAvailableSalutations.mockImplementationOnce(() => {
+          throw new Error("Couldn't fetch available salutations.");
+        });
+        const { fetchSalutations, error } = useContext();
+        await fetchSalutations();
+        expect(error.value.toString()).toBe(
+          "Error: Couldn't fetch available salutations."
+        );
+      });
+    });
+  });
+  describe("fetchCoutries", () => {
+    it("should fetch available countries and assign it to countries array", async () => {
+      mockedApiClient.getAvailableCountries.mockReturnValueOnce({
+        data: [
+          {
+            name: "Norway",
+            active: true,
+            id: "id",
+            iso: "iso",
+            createdAt: "date"
+          },
+          {
+            name: "Romania",
+            active: true,
+            id: "id",
+            iso: "iso",
+            createdAt: "date"
+          }
+        ]
+      } as any);
+      const { fetchCountries, countries } = useContext();
+      await fetchCountries();
+      expect(countries.value).toEqual([
+        {
+          name: "Norway",
+          active: true,
+          id: "id",
+          iso: "iso",
+          createdAt: "date"
+        },
+        {
+          name: "Romania",
+          active: true,
+          id: "id",
+          iso: "iso",
+          createdAt: "date"
+        }
+      ]);
+      expect(mockedApiClient.getAvailableCountries).toBeCalledTimes(2);
+    });
+    it("should assing error to error message if getAvailableSalutations throws one", async () => {
+      mockedApiClient.getAvailableCountries.mockImplementationOnce(() => {
+        throw new Error("Couldn't fetch available countries.");
+      });
+      const { fetchCountries, error } = useContext();
+      await fetchCountries();
+      expect(error.value.toString()).toBe(
+        "Error: Couldn't fetch available countries."
+      );
+    });
+  });
 });

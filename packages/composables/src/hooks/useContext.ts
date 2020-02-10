@@ -5,6 +5,7 @@ import {
 } from "@shopware-pwa/shopware-6-client";
 import { Salutation } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/salutation/Salutation";
 import { Country } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/country/Country";
+import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 export interface UseContext {
   countries: Ref<Country[] | null>;
@@ -13,18 +14,22 @@ export interface UseContext {
   getMappedSalutations: Ref<Readonly<{ name: string | null; id: string }[]>>;
   fetchSalutations: () => Promise<void>;
   fetchCountries: () => Promise<void>;
+  error: Ref<any>;
 }
 
 export const useContext = (): UseContext => {
   const salutations: Ref<Salutation[] | null> = ref(null);
   const countries: Ref<Country[] | null> = ref(null);
+  const error: Ref<any> = ref(null);
 
   const fetchSalutations = async (): Promise<void> => {
     try {
       const fetchSalutations = await getAvailableSalutations();
       salutations.value = fetchSalutations.data;
     } catch (e) {
-      console.error(e);
+      const err: ClientApiError = e;
+      error.value = err;
+      console.error("Problem with fetching available saluations", err.message);
     }
   };
 
@@ -33,7 +38,9 @@ export const useContext = (): UseContext => {
       const fetchCountries = await getAvailableCountries();
       countries.value = fetchCountries.data;
     } catch (e) {
-      console.error(e);
+      const err: ClientApiError = e;
+      error.value = err;
+      console.error("Problem with fetching available countries", err.message);
     }
   };
 
@@ -59,6 +66,7 @@ export const useContext = (): UseContext => {
     fetchSalutations,
     fetchCountries,
     getMappedSalutations,
-    getMappedCountries
+    getMappedCountries,
+    error
   };
 };
