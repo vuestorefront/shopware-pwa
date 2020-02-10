@@ -88,7 +88,6 @@ export async function getAvailableCountries(): Promise<
   SearchResult<Country[]>
 > {
   const resp = await apiService.get(getContextCountryEndpoint());
-  console.log(resp);
   return resp.data;
 }
 
