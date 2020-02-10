@@ -9,8 +9,8 @@
       <SfBottomNavigationItem class="menu-button">
         <SfIcon icon="menu" size="20px" style="width: 25px" />
         <SfSelect class="menu-button__select">
-          <SfSelectOption v-for="routeName in routeNames" :key="routeName">
-              <SfProductOption @click="changeRoute(convertToSlug(routeName))">{{routeName}}</SfProductOption>
+          <SfSelectOption v-for="{routeLabel, routePath } in routes" :key="routeLabel">
+              <SfProductOption @click="changeRoute(routePath)">{{routeLabel}}</SfProductOption>
           </SfSelectOption>
         </SfSelect>
       </SfBottomNavigationItem>
@@ -46,19 +46,18 @@ export default {
   },
   setup() {
     const { toggleSidebar, isSidebarOpen } = useCartSidebar()
-    const { routeNames, convertToSlug } = useNavigation()
+    const { routes } = useNavigation()
     const { toggleModal } = useUserLoginModal()
     return {
-      routeNames,
+      routes,
       isSidebarOpen,
-      convertToSlug,
       toggleSidebar,
       toggleModal
     }
   },
   methods: {
-    changeRoute(name) {
-      this.$router.push(name)
+    changeRoute(path) {
+      this.$router.push(`/${path}`)
     },
   }
 }

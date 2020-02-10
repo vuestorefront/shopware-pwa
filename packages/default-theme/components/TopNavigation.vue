@@ -19,11 +19,11 @@
             <SfHeaderNavigationItem>Home</SfHeaderNavigationItem>
           </nuxt-link>
           <nuxt-link
-            v-for="routeName in routeNames"
-            :key="routeName"
-            :to="convertToSlug(routeName)"
+            v-for="{routeLabel, routePath } in routes"
+            :key="routePath"
+            :to="routePath"
           >
-            <SfHeaderNavigationItem>{{ routeName }}</SfHeaderNavigationItem>
+            <SfHeaderNavigationItem>{{ routeLabel }}</SfHeaderNavigationItem>
           </nuxt-link>
         </template>
 
@@ -71,7 +71,6 @@
 </template>
 
 <script>
-import slugify from 'slugify' // TODO: remove after the navigation is fully implemented
 import { SfHeader, SfCircleIcon, SfBadge, SfImage } from '@storefront-ui/vue'
 import {
   useUser,
@@ -85,16 +84,15 @@ import SwLoginModal from './modals/SwLoginModal'
 export default {
   components: { SfHeader, SfCircleIcon, SfBadge, SwLoginModal, SfImage },
   setup() {
-    const { convertToSlug, routeNames, fetchRouteNames } = useNavigation()
+    const { routes, fetchRoutes } = useNavigation()
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
     const { toggleSidebar } = useCartSidebar()
     const { toggleModal } = useUserLoginModal()
 
     return {
-      routeNames,
-      fetchRouteNames,
-      convertToSlug,
+      routes,
+      fetchRoutes,
       count,
       toggleModal,
       toggleSidebar,
@@ -111,7 +109,7 @@ export default {
     }
   },
   async mounted() {
-    await this.fetchRouteNames({depth: 1})
+    await this.fetchRoutes({depth: 1})
   },
   methods: {
     async userIconClick() {
