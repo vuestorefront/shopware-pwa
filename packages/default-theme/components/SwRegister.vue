@@ -3,7 +3,7 @@
     <div class="form sw-register">
       <h2 class="sw-register__header">Register</h2>
       <SfAlert
-        v-if="error || contextError"
+        v-if="error || salutationsError || countriesError"
         class="sw-register__alert"
         type="danger"
         :message="getErrorMessage"
@@ -94,7 +94,7 @@
       </div>
       <SfSelect
         v-model="country"
-        v-if="getCountries && getCountries.length > 0"
+        v-if="getMappedCountries && getMappedCountries.length > 0"
         label="Country"
         class="sf-select--underlined form__input"
         :valid="!$v.country.$error"
@@ -124,7 +124,7 @@
 import { SfAlert, SfInput, SfButton, SfSelect } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength } from 'vuelidate/lib/validators'
-import { useUser, useContext } from '@shopware-pwa/composables'
+import { useUser, useCountries, useSalutations } from '@shopware-pwa/composables'
 
 export default {
   name: 'SwResetPassword',
@@ -145,17 +145,19 @@ export default {
   },
   setup() {
     const { login, register, loading, error } = useUser()
-    const context = useContext()
+    const countries = useCountries()
+    const salutations = useSalutations()
     return {
       clientLogin: login,
       clientRegister: register,
       isLoading: loading,
       error,
-      contextError: context.error,
-      fetchSalutations: context.fetchSalutations,
-      fetchCountries: context.fetchCountries,
-      getMappedSalutations: context.getMappedSalutations,
-      getMappedCountries: context.getMappedCountries
+      salutationsError: salutations.error,
+      fetchSalutations: salutations.fetchSalutations,
+      getMappedSalutations: salutations.getMappedSalutations,
+      countriesError: countries.error,
+      fetchCountries: countries.fetchCountries,
+      getMappedCountries: countries.getMappedCountries
     }
   },
   computed: {
@@ -178,9 +180,9 @@ export default {
       }
     },
     getErrorMessage() {
-      return error && !errorContext 
-        ? "Cannot create a new account, the user may already exist" :
-         "Coudn't fetch available salutations or countries, please contact the administration."
+      if (error) return "Cannot create a new account, the user may already exist"
+      else if(salutationsError) return "Coudn't fetch available salutations, please contact the administration."
+      else if (countriesError)  return "Coudn't fetch available countries, please contact the administration."
     }
   },
   validations: {

@@ -84,7 +84,7 @@ import {
   SfProductOption,
   SfAlert
 } from '@storefront-ui/vue'
-import { useUser, useContext } from '@shopware-pwa/composables'
+import { useUser, useContext, useSalutations } from '@shopware-pwa/composables'
 
 export default {
   name: 'MyProfile',
@@ -99,11 +99,11 @@ export default {
   props: {},
   setup() {
     const { user, error, updatePersonalInfo, refreshUser } = useUser()
-    const context = useContext()
+    const salutations = useSalutations()
     return {
-      fetchSalutations: context.fetchSalutations,
-      getMappedSalutations: context.getMappedSalutations,
-      contextError: context.error,
+      fetchSalutations: salutations.fetchSalutations,
+      getMappedSalutations: salutations.getMappedSalutations,
+      contextError: salutations.error,
       refreshUser,
       updatePersonalInfo,
       user,
