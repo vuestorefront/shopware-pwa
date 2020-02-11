@@ -9,6 +9,14 @@ describe("CheckoutService createOrder", () => {
     jest.resetAllMocks();
   });
   describe("createOrder", () => {
+    it("should return undefined when there is no data property in the response", async () => {
+      mockedAxios.post.mockResolvedValueOnce({});
+
+      const result = await createOrder();
+      expect(mockedAxios.post).toBeCalledTimes(1);
+      expect(mockedAxios.post).toBeCalledWith("/checkout/order");
+      expect(result).toBeUndefined();
+    });
     it("should return newly added order object", async () => {
       mockedAxios.post.mockResolvedValueOnce({
         data: {
@@ -25,6 +33,16 @@ describe("CheckoutService createOrder", () => {
     });
   });
   describe("createGuestOrder", () => {
+    it("should return undefined when there is no data property in the response", async () => {
+      mockedAxios.post.mockResolvedValueOnce({});
+
+      const result = await createGuestOrder("some@email.com");
+      expect(mockedAxios.post).toBeCalledTimes(1);
+      expect(mockedAxios.post).toBeCalledWith("/checkout/guest-order", {
+        email: "some@email.com"
+      });
+      expect(result).toBeUndefined();
+    });
     it("should return newly added order object", async () => {
       mockedAxios.post.mockResolvedValueOnce({
         data: {

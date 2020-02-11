@@ -9,9 +9,7 @@
     "generate": "nuxt generate",
     "lint": "prettier --write './**/*.{js,vue}'",
     "start": "nuxt start",
-    "test": "jest",
-    "e2e": "cypress run",
-    "e2e:open": "cypress open"
+    "test": "jest"
   },
   "husky": {
     "hooks": {

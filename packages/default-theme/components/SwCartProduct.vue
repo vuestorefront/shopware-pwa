@@ -104,8 +104,7 @@ export default {
     },
     getImageUrl() {
       return (
-        getProductMainImageUrl({ product: this.product }) ||
-        require('~/assets/productB.jpg')
+        getProductMainImageUrl({ product: this.product })
       )
     }
   },

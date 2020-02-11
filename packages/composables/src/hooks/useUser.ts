@@ -231,7 +231,7 @@ export const useUser = (): UseUser => {
     return true;
   };
 
-  const isLoggedIn = computed(() => !!user.value && !!user.value.id);
+  const isLoggedIn = computed(() => !!user.value?.id);
 
   return {
     login,

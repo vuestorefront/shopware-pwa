@@ -4,8 +4,7 @@ import {
   addProductToCart,
   removeCartItem,
   changeCartItemQuantity,
-  createOrder,
-  createGuestOrder
+  createOrder
 } from "@shopware-pwa/shopware-6-client";
 import { getStore } from "../..";
 import { useUser } from "../useUser";
@@ -17,7 +16,7 @@ import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/e
  */
 export const useCart = (): any => {
   let vuexStore = getStore();
-  const { isLoggedIn, user } = useUser();
+  const { isLoggedIn } = useUser();
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
 
@@ -58,9 +57,8 @@ export const useCart = (): any => {
       return createOrder();
     }
 
-    if (user.value?.email) {
-      return createGuestOrder(user.value.email);
-    }
+    // TODO: related https://github.com/DivanteLtd/shopware-pwa/issues/375
+    // return createGuestOrder(guestUserEmail);
 
     error.value = {
       message: "Order cannot be placed"

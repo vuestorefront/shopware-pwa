@@ -160,23 +160,6 @@ describe("Composables - useCart", () => {
         expect(error.value).toBeFalsy();
         expect(result).toHaveProperty("id");
       });
-      it("should try to place the order if guest users's email exist in current session", async () => {
-        mockedShopwareClient.createGuestOrder.mockResolvedValueOnce({
-          id: "some-order-id-123456"
-        } as any);
-        stateUser.value = {
-          email: "guest-user@email.com"
-        } as any;
-
-        const { error, placeOrder } = useCart();
-        const result = await placeOrder();
-        expect(mockedShopwareClient.createGuestOrder).toBeCalledTimes(1);
-        expect(mockedShopwareClient.createGuestOrder).toBeCalledWith(
-          "guest-user@email.com"
-        );
-        expect(error.value).toBeFalsy();
-        expect(result).toHaveProperty("id");
-      });
     });
     describe("refreshCart", () => {
       it("should correctly refresh the cart", async () => {
