@@ -58,7 +58,7 @@ export const useCategoryFilters: () => any;
 export const useCms: () => any;
 
 // @public (undocumented)
-export interface UseContext {
+export interface UseCountries {
     // (undocumented)
     countries: Ref<Country[] | null>;
     // (undocumented)
@@ -66,23 +66,14 @@ export interface UseContext {
     // (undocumented)
     fetchCountries: () => Promise<void>;
     // (undocumented)
-    fetchSalutations: () => Promise<void>;
-    // (undocumented)
     getMappedCountries: Ref<Readonly<{
         name: string | null;
         id: string;
     }[]>>;
-    // (undocumented)
-    getMappedSalutations: Ref<Readonly<{
-        name: string | null;
-        id: string;
-    }[]>>;
-    // (undocumented)
-    salutations: Ref<Salutation[] | null>;
 }
 
 // @public (undocumented)
-export const useContext: () => UseContext;
+export const useCountries: () => UseCountries;
 
 // @public (undocumented)
 export const useNavigation: () => any;
@@ -116,6 +107,24 @@ export interface UseProductListing {
 
 // @alpha (undocumented)
 export const useProductListing: (initialProducts?: Product[]) => UseProductListing;
+
+// @public (undocumented)
+export interface UseSalutations {
+    // (undocumented)
+    error: Ref<any>;
+    // (undocumented)
+    fetchSalutations: () => Promise<void>;
+    // (undocumented)
+    getMappedSalutations: Ref<Readonly<{
+        name: string | null;
+        id: string;
+    }[]>>;
+    // (undocumented)
+    salutations: Ref<Salutation[] | null>;
+}
+
+// @public (undocumented)
+export const useSalutations: () => UseSalutations;
 
 // @alpha (undocumented)
 export interface UseUser {
