@@ -74,10 +74,8 @@ export const getFilterSearchCriteria: (selectedFilters: any) => any[];
 // @alpha (undocumented)
 export function getNavigationRoutes(navigationElements: NavigationElement[]): NavigationRoute[];
 
-// @alpha (undocumented)
-export function getProductMainImageUrl({ product }?: {
-    product?: Product;
-}): string;
+// @alpha
+export function getProductMainImageUrl(product: Product): string;
 
 // @alpha (undocumented)
 export function getProductMediaGallery({ product }?: {

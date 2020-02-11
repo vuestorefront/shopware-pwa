@@ -51,10 +51,10 @@ export interface ConfigChangedArgs {
 // @alpha
 export function createCustomerAddress(params: CustomerAddressParam): Promise<string>;
 
-// @alpha (undocumented)
+// @alpha
 export function createGuestOrder(email: string): Promise<Order>;
 
-// @alpha (undocumented)
+// @alpha
 export function createOrder(): Promise<Order>;
 
 // @alpha (undocumented)
