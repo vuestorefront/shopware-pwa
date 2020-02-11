@@ -4,6 +4,7 @@ import {
 } from "@shopware-pwa/shopware-6-client";
 import { Country } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/country/Country";
 import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
+import { mapCountries } from "@shopware-pwa/helpers";
 
 export interface UseCountries {
   countries: Ref<Country[] | null>;
@@ -28,11 +29,7 @@ export const useCountries = (): UseCountries => {
   };
 
   const getMappedCountries = computed(() => {
-    const countryList = countries.value ?? [];
-    return countryList.map((country: Country) => ({
-      name: country.name,
-      id: country.id
-    }));
+    return mapCountries(countries.value);
   });
 
   return {

@@ -7,13 +7,13 @@ import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
-import { useContext } from "@shopware-pwa/composables";
+import { useSalutations } from "@shopware-pwa/composables";
 
 describe("Composables - useSalutations", () => {
   describe("refs", () => {
     describe("salutations", () => {
       it("should return null value when fetchSalutations is not called", async () => {
-        const { salutations } = useContext();
+        const { salutations } = useSalutations();
         expect(salutations.value).toBe(null);
       });
       it("should return salutations array", async () => {
@@ -33,7 +33,7 @@ describe("Composables - useSalutations", () => {
             }
           ]
         } as any);
-        const { salutations, fetchSalutations } = useContext();
+        const { salutations, fetchSalutations } = useSalutations();
         await fetchSalutations();
         expect(salutations.value).toEqual([
           {
@@ -55,11 +55,11 @@ describe("Composables - useSalutations", () => {
   describe("computed", () => {
     describe("getMappedSalutations", () => {
       it("should contain empty array when there aren't any available salutations", () => {
-        const { getMappedSalutations } = useContext();
+        const { getMappedSalutations } = useSalutations();
         expect(getMappedSalutations.value).toEqual([]);
       });
       it("should contain properly mapped salutations", () => {
-        const { salutations, getMappedSalutations } = useContext();
+        const { salutations, getMappedSalutations } = useSalutations();
         salutations.value = [
           {
             displayName: "Mr.",
@@ -101,7 +101,7 @@ describe("Composables - useSalutations", () => {
           ]
         } as any);
 
-        const { fetchSalutations, salutations } = useContext();
+        const { fetchSalutations, salutations } = useSalutations();
         await fetchSalutations();
         expect(salutations.value).toEqual([
           {
@@ -122,7 +122,7 @@ describe("Composables - useSalutations", () => {
         mockedApiClient.getAvailableSalutations.mockImplementationOnce(() => {
           throw new Error("Couldn't fetch available salutations.");
         });
-        const { fetchSalutations, error } = useContext();
+        const { fetchSalutations, error } = useSalutations();
         await fetchSalutations();
         expect(error.value.toString()).toBe(
           "Error: Couldn't fetch available salutations."

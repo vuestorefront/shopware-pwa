@@ -4,6 +4,7 @@ import {
 } from "@shopware-pwa/shopware-6-client";
 import { Salutation } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/salutation/Salutation";
 import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
+import { mapSalutations } from "@shopware-pwa/helpers";
 
 export interface UseSalutations {
   salutations: Ref<Salutation[] | null>;
@@ -28,11 +29,7 @@ export const useSalutations = (): UseSalutations => {
   };
   
   const getMappedSalutations = computed(() => {
-    const salutationList = salutations.value ?? [];
-    return salutationList.map((salutation: Salutation) => ({
-      name: salutation.displayName,
-      id: salutation.id
-    }));
+    return mapSalutations(salutations.value);
   });
 
   return {
