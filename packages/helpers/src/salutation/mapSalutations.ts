@@ -1,7 +1,7 @@
 import { Salutation } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/salutation/Salutation";
 
 interface MappedSalutation {
-  name: string;
+  name: string | null;
   id: string;
 }
 

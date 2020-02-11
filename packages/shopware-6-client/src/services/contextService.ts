@@ -83,7 +83,6 @@ export async function setCurrentLanguage(
 /**
  * Get all available countries
  * 
- * @return Promise<SearchResult<Country[]>>
  * @throws ClientApiError
  * @alpha
  */
@@ -97,7 +96,6 @@ export async function getAvailableCountries(): Promise<
 /**
  * Get all available salutations 
  * 
- * @return Promise<SearchResult<Salutation[]>>
  * @throws ClientApiError
  * @alpha
  */

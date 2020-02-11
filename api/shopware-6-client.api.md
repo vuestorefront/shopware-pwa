@@ -97,7 +97,7 @@ export interface CustomerUpdateProfileParam {
 // @alpha
 export function deleteCustomerAddress(addressId: string): Promise<void>;
 
-// @alpha (undocumented)
+// @alpha
 export function getAvailableCountries(): Promise<SearchResult<Country[]>>;
 
 // @alpha (undocumented)
@@ -109,7 +109,7 @@ export function getAvailableLanguages(): Promise<SearchResult<Language[]>>;
 // @alpha (undocumented)
 export function getAvailablePaymentMethods(): Promise<SearchResult<PaymentMethod[]>>;
 
-// @alpha (undocumented)
+// @alpha
 export function getAvailableSalutations(): Promise<SearchResult<Salutation[]>>;
 
 // @alpha (undocumented)

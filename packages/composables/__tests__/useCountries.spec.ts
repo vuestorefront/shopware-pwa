@@ -12,20 +12,22 @@ import { useCountries } from "@shopware-pwa/composables";
 describe("Composables - useCountries", () => {
   describe("refs", () => {
     describe("countries", () => {
-      it("should return salutations array", async () => {
+      it("should return countries array", async () => {
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
           data: [
             {
-              displayName: "Mr.",
+              name: "Norway",
+              active: true,
               id: "id",
-              salutationKey: "salutatonKey",
-              letterName: "Dear Mr."
+              iso: "iso",
+              createdAt: "date"
             },
             {
-              displayName: "Mrs.",
+              name: "Romania",
+              active: true,
               id: "id",
-              salutationKey: "salutatonKey",
-              letterName: "Dear Mrs."
+              iso: "iso",
+              createdAt: "date"
             }
           ]
         } as any);
@@ -33,16 +35,18 @@ describe("Composables - useCountries", () => {
         await fetchCountries();
         expect(countries.value).toEqual([
           {
-            displayName: "Mr.",
+            name: "Norway",
+            active: true,
             id: "id",
-            salutationKey: "salutatonKey",
-            letterName: "Dear Mr."
+            iso: "iso",
+            createdAt: "date"
           },
           {
-            displayName: "Mrs.",
+            name: "Romania",
+            active: true,
             id: "id",
-            salutationKey: "salutatonKey",
-            letterName: "Dear Mrs."
+            iso: "iso",
+            createdAt: "date"
           }
         ]);
       });
@@ -119,7 +123,7 @@ describe("Composables - useCountries", () => {
           }
         ]);
       });
-      it("should assing error to error message if getAvailableSalutations throws one", async () => {
+      it("should assing error to error message if getAvailableCountries throws one", async () => {
         mockedApiClient.getAvailableCountries.mockImplementationOnce(() => {
           throw new Error("Couldn't fetch available countries.");
         });
