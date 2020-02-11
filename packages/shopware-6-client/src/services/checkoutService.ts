@@ -18,7 +18,7 @@ export async function createOrder(): Promise<Order> {
 /**
  * Creates an order for not logged in users
  * Should be used when the user is logged out, but has items in the cart
- * @param email string
+ * @param email - customers's email
  * @alpha
  */
 export async function createGuestOrder(email: string): Promise<Order> {
