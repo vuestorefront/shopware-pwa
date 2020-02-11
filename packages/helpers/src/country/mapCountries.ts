@@ -1,9 +1,21 @@
 import { Country } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/country/Country";
 
-export function mapCountries(countries: Country[] | null): {name: string | null, id: string}[] {
+interface MappedCountry {
+  name: string | null,
+  id: string
+}
+
+/**
+ * Map available countries to (`name`: string | null, id: `string`) format
+ * 
+ * @returns MappedCountries
+ * @alpha
+**/
+export function mapCountries(countries: Country[] | null): MappedCountry[] {
   const countryList = countries ?? [];
-  return countryList.map((country: Country) => ({
+  const mappedCountries = countryList.map((country: Country) => ({
     name: country.name,
     id: country.id
   }));
+  return mappedCountries.filter((country: Country) => country.name !== null);
 } 

@@ -1,9 +1,21 @@
 import { Salutation } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/salutation/Salutation";
 
-export function mapSalutations(salutations: Salutation[] | null): { name: string, id: string }[] {
+interface MappedSalutation {
+  name: string;
+  id: string;
+}
+
+/**
+ * Map available salutations to (`name`: string, `id`: string) format 
+ * 
+ * @returns MappedSalutations
+ * @alpha
+**/
+export function mapSalutations(salutations: Salutation[] | null): MappedSalutation[] {
   const salutationList = salutations ?? [];
-  return salutationList.map((salutation: Salutation) => ({ 
+  const mappedSalutations: MappedSalutation[] = salutationList.map((salutation: Salutation) => ({ 
     name: salutation.displayName ?? salutation.salutationKey,
     id: salutation.id
   }));
+  return mappedSalutations.filter((mappedSalutation: MappedSalutation) => mappedSalutation.name !== null)
 }
