@@ -4,7 +4,7 @@ describe("Shopware helpers - mapCountries", () => {
   it("should return empty array when countries are null", () => {
     const salutaions: any = null;
     expect(mapCountries(salutaions)).toStrictEqual([]);
-  })
+  });
 
   it("should return mapped countries", () => {
     const countries: any = [
@@ -55,7 +55,7 @@ describe("Shopware helpers - mapCountries", () => {
       {
         name: "Romania",
         id: "id"
-      },
+      }
     ]);
   });
-})
+});

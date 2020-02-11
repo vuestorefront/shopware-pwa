@@ -1,7 +1,5 @@
 import { Ref, ref, computed } from "@vue/composition-api";
-import {
-  getAvailableCountries
-} from "@shopware-pwa/shopware-6-client";
+import { getAvailableCountries } from "@shopware-pwa/shopware-6-client";
 import { Country } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/country/Country";
 import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 import { mapCountries } from "@shopware-pwa/helpers";

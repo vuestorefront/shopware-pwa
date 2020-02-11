@@ -4,7 +4,7 @@ describe("Shopware helpers - mapSalutations", () => {
   it("should return empty array when salutations are null", () => {
     const salutaions: any = null;
     expect(mapSalutations(salutaions)).toStrictEqual([]);
-  })
+  });
 
   it("should return MappedSalutations with displayName mapped to name", () => {
     const salutations: any = [
@@ -19,7 +19,7 @@ describe("Shopware helpers - mapSalutations", () => {
         id: "id",
         letterName: "Dear Mrs.",
         salutationKey: "salutation key"
-      },
+      }
     ];
     expect(mapSalutations(salutations)).toEqual([
       {
@@ -44,7 +44,7 @@ describe("Shopware helpers - mapSalutations", () => {
         id: "id",
         letterName: "Dear Mrs.",
         salutationKey: "salutation key"
-      },
+      }
     ];
     expect(mapSalutations(salutations)).toEqual([
       {
@@ -58,7 +58,7 @@ describe("Shopware helpers - mapSalutations", () => {
     ]);
   });
   it("should mapped salutations contain objects without null name", () => {
-     const salutations: any = [
+    const salutations: any = [
       {
         id: "id",
         letterName: "Dear Mr.",
@@ -68,13 +68,13 @@ describe("Shopware helpers - mapSalutations", () => {
         id: "id",
         letterName: "Dear Mrs.",
         salutationKey: null
-      },
+      }
     ];
     expect(mapSalutations(salutations)).toEqual([
       {
         name: "salutation key",
         id: "id"
-      },
+      }
     ]);
   });
-})
+});

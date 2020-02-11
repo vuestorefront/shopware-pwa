@@ -6,4 +6,4 @@ export * from "./cms";
 export * from "./urlHelpers";
 export * from "./listing";
 export * from "./navigation";
-export * from "./salutation"
+export * from "./salutation";

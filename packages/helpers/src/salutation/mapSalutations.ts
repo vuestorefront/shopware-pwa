@@ -6,16 +6,22 @@ interface MappedSalutation {
 }
 
 /**
- * Map available salutations to (`name`: string, `id`: string) format 
- * 
+ * Map available salutations to (`name`: string, `id`: string) format
+ *
  * @returns MappedSalutations
  * @alpha
-**/
-export function mapSalutations(salutations: Salutation[] | null): MappedSalutation[] {
+ **/
+export function mapSalutations(
+  salutations: Salutation[] | null
+): MappedSalutation[] {
   const salutationList = salutations ?? [];
-  const mappedSalutations: MappedSalutation[] = salutationList.map((salutation: Salutation) => ({ 
-    name: salutation.displayName ?? salutation.salutationKey,
-    id: salutation.id
-  }));
-  return mappedSalutations.filter((mappedSalutation: MappedSalutation) => mappedSalutation.name !== null)
+  const mappedSalutations: MappedSalutation[] = salutationList.map(
+    (salutation: Salutation) => ({
+      name: salutation.displayName ?? salutation.salutationKey,
+      id: salutation.id
+    })
+  );
+  return mappedSalutations.filter(
+    (mappedSalutation: MappedSalutation) => mappedSalutation.name !== null
+  );
 }

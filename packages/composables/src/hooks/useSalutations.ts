@@ -1,7 +1,5 @@
 import { Ref, ref, computed } from "@vue/composition-api";
-import {
-  getAvailableSalutations,
-} from "@shopware-pwa/shopware-6-client";
+import { getAvailableSalutations } from "@shopware-pwa/shopware-6-client";
 import { Salutation } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/salutation/Salutation";
 import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 import { mapSalutations } from "@shopware-pwa/helpers";
@@ -27,7 +25,7 @@ export const useSalutations = (): UseSalutations => {
       console.error("Problem with fetching available saluations", err.message);
     }
   };
-  
+
   const getMappedSalutations = computed(() => {
     return mapSalutations(salutations.value);
   });
