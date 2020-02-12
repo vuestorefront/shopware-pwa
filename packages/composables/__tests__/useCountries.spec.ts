@@ -8,6 +8,7 @@ jest.mock("@shopware-pwa/shopware-6-client");
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 import { useCountries } from "@shopware-pwa/composables";
+(useCountries as any).onMounted = jest.fn()
 
 describe("Composables - useCountries", () => {
   describe("refs", () => {
