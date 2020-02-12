@@ -80,7 +80,7 @@ import {
   useNavigation
 } from '@shopware-pwa/composables'
 import SwLoginModal from './modals/SwLoginModal'
-import { getPagePath } from '../helpers/pages'
+import { PAGE_ACCOUNT } from '../helpers/pages'
 
 export default {
   components: { SfHeader, SfCircleIcon, SfBadge, SwLoginModal, SfImage },
@@ -114,7 +114,7 @@ export default {
   },
   methods: {
     async userIconClick() {
-      if (this.isLoggedIn) this.$router.push(getPagePath('account'))
+      if (this.isLoggedIn) this.$router.push(PAGE_ACCOUNT)
       else this.toggleModal()
     }
   }

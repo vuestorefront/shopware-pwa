@@ -59,7 +59,7 @@ export default {
 
     const quantity = ref(props.product.quantity)
     const productImage = computed(() =>
-      getProductMainImageUrl({ product: props.product })
+      getProductMainImageUrl(props.product)
     )
 
     watch(quantity, async (qty) => {
@@ -104,7 +104,7 @@ export default {
     },
     getImageUrl() {
       return (
-        getProductMainImageUrl({ product: this.product })
+        getProductMainImageUrl(this.product)
       )
     }
   },

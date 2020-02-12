@@ -33,7 +33,7 @@
 <script>
 import { SfContentPages, SfTabs, SfList } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
-import { getPagePath } from '../helpers/pages'
+import { PAGE_LOGIN } from '../helpers/pages'
 
 import MyProfile  from "../components/account/MyProfile"
 import MyAddresses from "../components/account/MyAddresses"
@@ -68,7 +68,7 @@ export default {
     async updateActivePage(title) {
         if (title === "Logout") {
           await this.logout();
-          this.$router.push(getPagePath("login"))
+          this.$router.push(PAGE_LOGIN)
         }
         this.activePage = title;
       }

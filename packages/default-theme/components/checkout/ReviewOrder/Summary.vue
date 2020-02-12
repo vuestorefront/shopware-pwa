@@ -66,7 +66,7 @@
 <script>
 import { useCart, useUser } from '@shopware-pwa/composables'
 import helpers from '../../../helpers'
-import { getPagePath } from '../../../helpers/pages'
+import { PAGE_SUCCESS_PAGE } from '../../../helpers/pages'
 
 import {
   SfProperty,
@@ -115,7 +115,7 @@ export default {
       try {
         const order = await this.placeApiOrder()
         this.refreshCart()
-        this.$router.push(getPagePath('success-page'))
+        this.$router.push(PAGE_SUCCESS_PAGE)
       } catch (e) {
         console.warn(e)
       }

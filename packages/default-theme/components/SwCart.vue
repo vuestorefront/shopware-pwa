@@ -49,7 +49,7 @@
 import { SfSidebar, SfButton, SfProperty, SfPrice } from '@storefront-ui/vue'
 import { useCart, useCartSidebar } from '@shopware-pwa/composables'
 import SwCartProduct from './SwCartProduct'
-import { getPagePath } from '../helpers/pages'
+import { PAGE_CHECKOUT } from '../helpers/pages'
 
 export default {
   name: 'Cart',

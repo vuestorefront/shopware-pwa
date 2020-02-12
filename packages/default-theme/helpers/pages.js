@@ -1,18 +1,11 @@
-/**
- * Global routes' map
- */
-const pagesMap = {
-  'checkout': 'checkout',
-  'account': 'account',
-  'login': 'login',
-  'success-page': 'success-page'
-}
+const PAGE_CHECKOUT = '/checkout'
+const PAGE_ACCOUNT = '/account'
+const PAGE_LOGIN = '/login'
+const PAGE_SUCCESS_PAGE = '/success-page'
 
-/**
- * Get the route's path for given page name
- * @param {string} pageName
- * @returns {string|null}
- */
-export function getPagePath(pageName) {
-  return pagesMap[pageName] ? `/${pagesMap[pageName]}` : null;
+export {
+  PAGE_CHECKOUT,
+  PAGE_ACCOUNT,
+  PAGE_LOGIN,
+  PAGE_SUCCESS_PAGE
 }
