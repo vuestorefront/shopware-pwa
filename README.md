@@ -26,7 +26,9 @@ PS: Check [StorefrontUI](https://github.com/DivanteLtd/storefront-ui/) - our UI 
         </a>
       </td>
       <td align="left" valign="top">
-        Try out our open demo and if you like it <strong> first give us some star on Github ★</strong> and then contact us on <a href="https://slack.vuestorefront.io">Slack</a> or via contributors@vuestorefront.io. <br /><br /> This demo site is connected to <a href="https://github.com/shopware/platform">Shopware 6</a>. <br />
+        Try out our open demo and if you like it <strong> first give us some star on Github ★</strong> and then contact us on <a href="https://slack.vuestorefront.io">#shopware-pwa channel @ Vue Storefront Official Slack</a> or via contributors@vuestorefront.io. 
+        
+        <br /><br /> This demo site is connected to <a href="https://github.com/shopware/platform">Shopware 6</a>. <br />
       </td>
     </tr>
   </tbody>
@@ -214,8 +216,8 @@ We also setup Prettier (https://prettier.io/) on git pre-commit hook to automati
 
 #### User Stories
 
-* Simplified User Story format to create Github issues is used - I want to `<goal>` So that `<reason>`.
-* Milestone / epic is assigned (the milestone / epic provides team members with background information and additional business value).
+* Simplified User Story format to describe the issue is used - e.g. - I want to `<goal>` So that `<reason>`.
+* Epic (label) is assigned (the epic provides team members with background information and additional business value).
 * Acceptance criteria are listed.
 * Dependencies are identified and no external dependencies would block the item from being completed (e.g. missing decision / information / implementation from other departments / development teams or missing tools).
 * User story is small enough to be completed in one sprint.
