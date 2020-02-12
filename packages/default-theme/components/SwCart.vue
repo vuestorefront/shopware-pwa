@@ -81,7 +81,7 @@ export default {
   methods: {
     goToCheckout() {
       this.toggleSidebar();
-      return this.$router.push(getPagePath('checkout'));
+      return this.$router.push(PAGE_CHECKOUT);
     }
   },
 }
