@@ -52,6 +52,12 @@ export interface ConfigChangedArgs {
 // @alpha
 export function createCustomerAddress(params: CustomerAddressParam): Promise<string>;
 
+// @alpha
+export function createGuestOrder(email: string): Promise<Order>;
+
+// @alpha
+export function createOrder(): Promise<Order>;
+
 // @alpha (undocumented)
 export interface CustomerAddressParam extends Partial<CustomerAddress> {
 }

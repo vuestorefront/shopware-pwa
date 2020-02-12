@@ -30,11 +30,14 @@
   </div>
 </template>
 <script>
-import { SfContentPages, SfTabs, SfList } from '@storefront-ui/vue'
-import { useUser } from '@shopware-pwa/composables'
-import MyProfile from '../components/account/MyProfile'
-import MyAddresses from '../components/account/MyAddresses'
-import OrderHistory from '../components/account/OrderHistory'
+import { SfContentPages, SfTabs, SfList } from "@storefront-ui/vue"
+import { useUser } from "@shopware-pwa/composables"
+import { PAGE_LOGIN } from '../helpers/pages'
+
+import MyProfile  from "../components/account/MyProfile"
+import MyAddresses from "../components/account/MyAddresses"
+import OrderHistory from "../components/account/OrderHistory"
+
 export default {
   name: 'Account',
   components: {
@@ -69,11 +72,11 @@ export default {
   // },
   methods: {
     async updateActivePage(title) {
-      if (title === 'Logout') {
-        await this.logout()
-        this.$router.push('/login')
+      if (title === "Logout") {
+        await this.logout();
+        this.$router.push(PAGE_LOGIN)
       }
-      this.activePage = title
+      this.activePage = title;
     }
   }
 }
