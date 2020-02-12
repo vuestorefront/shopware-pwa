@@ -121,10 +121,12 @@
 </template>
 
 <script>
+import { computed } from '@vue/composition-api'
 import { SfAlert, SfInput, SfButton, SfSelect } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength } from 'vuelidate/lib/validators'
 import { useUser, useCountries, useSalutations } from '@shopware-pwa/composables'
+import { mapCountries, mapSalutations } from "@shopware-pwa/helpers"
 
 export default {
   name: 'SwResetPassword',
@@ -147,17 +149,24 @@ export default {
     const { login, register, loading, error } = useUser()
     const countries = useCountries()
     const salutations = useSalutations()
+
+    const getMappedCountries = computed(() => {
+      return mapCountries(countries.getCountries.value)
+    })
+
+    const getMappedSalutations = computed(() => {
+      return mapSalutations(salutations.getSalutations.value)
+    })
+
     return {
       clientLogin: login,
       clientRegister: register,
       isLoading: loading,
-      error,
       salutationsError: salutations.error,
-      fetchSalutations: salutations.fetchSalutations,
-      getMappedSalutations: salutations.getMappedSalutations,
       countriesError: countries.error,
-      fetchCountries: countries.fetchCountries,
-      getMappedCountries: countries.getMappedCountries
+      getMappedCountries,
+      getMappedSalutations,
+      error
     }
   },
   computed: {
@@ -234,10 +243,6 @@ export default {
       }
     }
   },
-  async mounted() {
-    await this.fetchSalutations()
-    await this.fetchCountries()
-  }
 }
 </script>
 

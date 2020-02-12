@@ -5,7 +5,6 @@
 ```ts
 
 import { AddressType } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress';
-import { Country } from '@shopware-pwa/shopware-6-client/src/interfaces/models/system/country/Country';
 import { Customer } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress';
 import { CustomerRegistrationParams } from '@shopware-pwa/shopware-6-client/src/interfaces/request/CustomerRegistrationParams';
@@ -60,16 +59,11 @@ export const useCms: () => any;
 // @public (undocumented)
 export interface UseCountries {
     // (undocumented)
-    countries: Ref<Country[] | null>;
-    // (undocumented)
     error: Ref<any>;
     // (undocumented)
     fetchCountries: () => Promise<void>;
     // (undocumented)
-    getMappedCountries: Ref<Readonly<{
-        name: string | null;
-        id: string;
-    }[]>>;
+    getCountries: Ref<Readonly<any>>;
 }
 
 // @public (undocumented)
@@ -115,10 +109,7 @@ export interface UseSalutations {
     // (undocumented)
     fetchSalutations: () => Promise<void>;
     // (undocumented)
-    getMappedSalutations: Ref<Readonly<{
-        name: string | null;
-        id: string;
-    }[]>>;
+    getSalutations: Ref<Readonly<Salutation[]>>;
     // (undocumented)
     salutations: Ref<Salutation[] | null>;
 }

@@ -1,23 +1,26 @@
-import { Ref, ref, computed } from "@vue/composition-api";
+import Vue from "vue";
+import { computed, Ref, ref, reactive, onMounted } from "@vue/composition-api";
 import { getAvailableCountries } from "@shopware-pwa/shopware-6-client";
-import { Country } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/country/Country";
 import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 export interface UseCountries {
-  countries: Ref<Country[] | null>;
-  getCountries: Ref<Readonly<Country[]>>;
+  getCountries: Ref<Readonly<any>>;
   fetchCountries: () => Promise<void>;
   error: Ref<any>;
 }
 
+const sharedCountries = Vue.observable({
+  countries: null
+} as any)
+
 export const useCountries = (): UseCountries => {
-  const countries: Ref<Country[] | null> = ref(null);
+  const localCountries = reactive(sharedCountries)
   const error: Ref<any> = ref(null);
 
   const fetchCountries = async (): Promise<void> => {
     try {
       const fetchCountries = await getAvailableCountries();
-      countries.value = fetchCountries.data;
+      sharedCountries.countries = fetchCountries.data;
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err;
@@ -26,12 +29,16 @@ export const useCountries = (): UseCountries => {
   };
 
   const getCountries = computed(() => {
-    const countryList: Country[] =  countries.value ?? [];
-    return countryList
+    return localCountries.countries ?? []
   });
 
+  onMounted(async () => {
+    if (!sharedCountries.countries) {
+      await fetchCountries();
+    }
+  }) 
+
   return {
-    countries,
     fetchCountries,
     getCountries,
     error

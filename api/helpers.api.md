@@ -145,15 +145,27 @@ export function isProductSimple({ product }?: {
     product?: Product;
 }): boolean;
 
-// Warning: (ae-forgotten-export) The symbol "MappedCountry" needs to be exported by the entry point index.d.ts
-//
 // @alpha
-export function mapCountries(countries: Country[] | null): MappedCountry[];
+export function mapCountries(countries: Country[]): MappedCountry[];
 
-// Warning: (ae-forgotten-export) The symbol "MappedSalutation" needs to be exported by the entry point index.d.ts
-//
+// @public (undocumented)
+export interface MappedCountry {
+    // (undocumented)
+    id: string;
+    // (undocumented)
+    name: string | null;
+}
+
+// @public (undocumented)
+export interface MappedSalutation {
+    // (undocumented)
+    id: string;
+    // (undocumented)
+    name: string | null;
+}
+
 // @alpha
-export function mapSalutations(salutations: Salutation[] | null): MappedSalutation[];
+export function mapSalutations(salutations: Salutation[]): MappedSalutation[];
 
 // @alpha (undocumented)
 export function parseUrlQuery(query: any): SearchCriteria;

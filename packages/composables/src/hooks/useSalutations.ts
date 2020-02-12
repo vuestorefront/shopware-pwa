@@ -1,23 +1,26 @@
-import { Ref, ref, computed } from "@vue/composition-api";
+import Vue from "vue";
+import { Ref, ref, computed, reactive, onMounted } from "@vue/composition-api";
 import { getAvailableSalutations } from "@shopware-pwa/shopware-6-client";
-import { Salutation } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/salutation/Salutation";
 import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 export interface UseSalutations {
-  salutations: Ref<Salutation[] | null>;
-  getSalutations: Ref<Readonly<Salutation[]>>;
+  getSalutations: Ref<Readonly<any>>;
   fetchSalutations: () => Promise<void>;
   error: Ref<any>;
 }
 
+const sharedSalutations = Vue.observable({
+  salutations: null
+} as any);
+
 export const useSalutations = (): UseSalutations => {
-  const salutations: Ref<Salutation[] | null> = ref(null);
+  const localSalutations = reactive(sharedSalutations);
   const error: Ref<any> = ref(null);
 
   const fetchSalutations = async (): Promise<void> => {
     try {
       const fetchSalutations = await getAvailableSalutations();
-      salutations.value = fetchSalutations.data;
+      sharedSalutations.salutations = fetchSalutations.data;
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err;
@@ -26,11 +29,16 @@ export const useSalutations = (): UseSalutations => {
   };
 
   const getSalutations = computed(() => {
-    return salutations.value ?? [];
+    return localSalutations.salutations ?? [];
+  });
+
+  onMounted(async () => {
+    if (!sharedSalutations.salutations) {
+      await fetchSalutations()
+    }
   });
 
   return {
-    salutations,
     fetchSalutations,
     getSalutations,
     error
