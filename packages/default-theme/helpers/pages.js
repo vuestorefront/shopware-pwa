@@ -1,11 +1,4 @@
-const PAGE_CHECKOUT = '/checkout'
-const PAGE_ACCOUNT = '/account'
-const PAGE_LOGIN = '/login'
-const PAGE_SUCCESS_PAGE = '/success-page'
-
-export {
-  PAGE_CHECKOUT,
-  PAGE_ACCOUNT,
-  PAGE_LOGIN,
-  PAGE_SUCCESS_PAGE
-}
+export const PAGE_CHECKOUT = '/checkout';
+export const PAGE_ACCOUNT = '/account';
+export const PAGE_LOGIN = '/login';
+export const PAGE_SUCCESS_PAGE = '/success-page';

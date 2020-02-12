@@ -1,6 +1,6 @@
 import { useUser } from '@shopware-pwa/composables'
+import { PAGE_LOGIN } from '../helpers/pages'
 const LOGIN_ROUTE_NAME = 'login'
-const LOGIN_ROUTE = '/login'
 
 const PAGES_FOR_LOGGED_IN_ONLY = [
   'account' // user's account page
@@ -22,6 +22,6 @@ export default async function({ route, redirect }) {
     isLoggedIn &&
     !isLoggedIn.value
   ) {
-    redirect(LOGIN_ROUTE)
+    redirect(PAGE_LOGIN)
   }
 }
