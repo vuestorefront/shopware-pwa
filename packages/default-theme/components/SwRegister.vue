@@ -182,7 +182,7 @@ export default {
     getErrorMessage() {
       if (error) return "Cannot create a new account, the user may already exist"
       else if(salutationsError) return "Coudn't fetch available salutations, please contact the administration."
-      else if (countriesError)  return "Coudn't fetch available countries, please contact the administration."
+      if (countriesError)  return "Couldn't fetch available countries, please contact the administration."
     }
   },
   validations: {
