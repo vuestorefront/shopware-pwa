@@ -68,7 +68,7 @@
     "rollup-plugin-alias": "^2.2.0",
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-terser": "^5.2.0",
-    "rollup-plugin-typescript2": "^0.25.3",
+    "rollup-plugin-typescript2": "^0.26.0",
     "ts-jest": "^25.0.0",
     "tslib": "^1.10.0",
     "typedoc": "^0.16.9",
