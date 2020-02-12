@@ -2,11 +2,10 @@ import { Ref, ref, computed } from "@vue/composition-api";
 import { getAvailableSalutations } from "@shopware-pwa/shopware-6-client";
 import { Salutation } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/salutation/Salutation";
 import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
-import { mapSalutations } from "@shopware-pwa/helpers";
 
 export interface UseSalutations {
   salutations: Ref<Salutation[] | null>;
-  getMappedSalutations: Ref<Readonly<{ name: string | null; id: string }[]>>;
+  getSalutations: Ref<Readonly<Salutation[]>>;
   fetchSalutations: () => Promise<void>;
   error: Ref<any>;
 }
@@ -26,14 +25,14 @@ export const useSalutations = (): UseSalutations => {
     }
   };
 
-  const getMappedSalutations = computed(() => {
-    return mapSalutations(salutations.value);
+  const getSalutations = computed(() => {
+    return salutations.value ?? [];
   });
 
   return {
     salutations,
     fetchSalutations,
-    getMappedSalutations,
+    getSalutations,
     error
   };
 };

@@ -1,6 +1,6 @@
 import { Country } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/country/Country";
 
-interface MappedCountry {
+export interface MappedCountry {
   name: string | null;
   id: string;
 }
@@ -11,9 +11,8 @@ interface MappedCountry {
  * @returns MappedCountries
  * @alpha
  **/
-export function mapCountries(countries: Country[] | null): MappedCountry[] {
-  const countryList = countries ?? [];
-  const mappedCountries = countryList.map((country: Country) => ({
+export function mapCountries(countries: Country[]): MappedCountry[] {
+  const mappedCountries = countries.map((country: Country) => ({
     name: country.name,
     id: country.id
   }));

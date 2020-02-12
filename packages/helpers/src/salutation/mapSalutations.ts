@@ -1,6 +1,6 @@
 import { Salutation } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/salutation/Salutation";
 
-interface MappedSalutation {
+export interface MappedSalutation {
   name: string | null;
   id: string;
 }
@@ -11,11 +11,8 @@ interface MappedSalutation {
  * @returns MappedSalutations
  * @alpha
  **/
-export function mapSalutations(
-  salutations: Salutation[] | null
-): MappedSalutation[] {
-  const salutationList = salutations ?? [];
-  const mappedSalutations: MappedSalutation[] = salutationList.map(
+export function mapSalutations(salutations: Salutation[]): MappedSalutation[] {
+  const mappedSalutations: MappedSalutation[] = salutations.map(
     (salutation: Salutation) => ({
       name: salutation.displayName ?? salutation.salutationKey,
       id: salutation.id

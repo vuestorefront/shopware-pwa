@@ -2,11 +2,10 @@ import { Ref, ref, computed } from "@vue/composition-api";
 import { getAvailableCountries } from "@shopware-pwa/shopware-6-client";
 import { Country } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/country/Country";
 import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
-import { mapCountries } from "@shopware-pwa/helpers";
 
 export interface UseCountries {
   countries: Ref<Country[] | null>;
-  getMappedCountries: Ref<Readonly<{ name: string | null; id: string }[]>>;
+  getCountries: Ref<Readonly<Country[]>>;
   fetchCountries: () => Promise<void>;
   error: Ref<any>;
 }
@@ -26,14 +25,15 @@ export const useCountries = (): UseCountries => {
     }
   };
 
-  const getMappedCountries = computed(() => {
-    return mapCountries(countries.value);
+  const getCountries = computed(() => {
+    const countryList: Country[] =  countries.value ?? [];
+    return countryList
   });
 
   return {
     countries,
     fetchCountries,
-    getMappedCountries,
+    getCountries,
     error
   };
 };
