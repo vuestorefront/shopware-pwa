@@ -1,11 +1,9 @@
-jest.mock("vue")
-import observable from "vue";
-const Vue = jest.requireActual("vue");
+import Vue from "vue";
 
 import VueCompostionApi, * as vueComp from "@vue/composition-api";
 
 Vue.use(VueCompostionApi);
-(vueComp.onMounted as any) = jest.fn(callback => {})
+(vueComp.onMounted as any) = jest.fn()
 
 // Mock API client
 // import * as shopwareClient from "@shopware-pwa/shopware-6-client";
@@ -13,18 +11,22 @@ Vue.use(VueCompostionApi);
 // const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 import { useSalutations } from "@shopware-pwa/composables";
+const sharedSalutations = Vue.observable({
+  salutations: jest.fn()
+})
+
 
 describe("Composables - useSalutations", () => {
   describe("computed", () => {
     describe("getMappedSalutations", () => {
       it("should contain empty array when there aren't any available salutations", () => {
-        (observable as any).mockResolvedValueOnce({ salutations: null });
+        sharedSalutations.salutations.mockRejectedValueOnce(null);
         const { getSalutations } = useSalutations();
         expect(getSalutations.value).toEqual([]);
       });
       it("should contain properly mapped salutations", () => {
         const { getSalutations } = useSalutations();
-        (observable as any).mockReturnValueOnce([
+        sharedSalutations.salutations.mockReturnValueOnce([
           {
             displayName: "Mr.",
             id: "id",
