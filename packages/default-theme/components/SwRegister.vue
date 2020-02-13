@@ -125,8 +125,12 @@ import { computed } from '@vue/composition-api'
 import { SfAlert, SfInput, SfButton, SfSelect } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength } from 'vuelidate/lib/validators'
-import { useUser, useCountries, useSalutations } from '@shopware-pwa/composables'
-import { mapCountries, mapSalutations } from "@shopware-pwa/helpers"
+import {
+  useUser,
+  useCountries,
+  useSalutations
+} from '@shopware-pwa/composables'
+import { mapCountries, mapSalutations } from '@shopware-pwa/helpers'
 
 export default {
   name: 'SwResetPassword',
@@ -170,7 +174,7 @@ export default {
     }
   },
   computed: {
-    mapCustomerInforations() {
+    mapCustomerInformations() {
       return {
         firstName: this.firstName,
         lastName: this.lastName,
@@ -189,9 +193,12 @@ export default {
       }
     },
     getErrorMessage() {
-      if (error) return "Cannot create a new account, the user may already exist"
-      if(salutationsError) return "Couldn't fetch available salutations, please contact the administration."
-      if (countriesError)  return "Couldn't fetch available countries, please contact the administration."
+      if (error)
+        return 'Cannot create a new account, the user may already exist'
+      if (salutationsError)
+        return "Couldn't fetch available salutations, please contact the administration."
+      if (countriesError)
+        return "Couldn't fetch available countries, please contact the administration."
     }
   },
   validations: {
@@ -232,7 +239,7 @@ export default {
         return
       }
       const registeredIn = await this.clientRegister(
-        this.mapCustomerInforations
+        this.mapCustomerInformations
       )
       if (registeredIn) {
         await this.clientLogin({
@@ -242,7 +249,7 @@ export default {
         this.$emit('success')
       }
     }
-  },
+  }
 }
 </script>
 
