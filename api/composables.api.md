@@ -14,7 +14,6 @@ import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
 import { Order } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order';
 import { Product } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product';
 import { Ref } from '@vue/composition-api';
-import { Salutation } from '@shopware-pwa/shopware-6-client/src/interfaces/models/system/salutation/Salutation';
 
 // @alpha (undocumented)
 export function getStore(): any;
@@ -109,9 +108,7 @@ export interface UseSalutations {
     // (undocumented)
     fetchSalutations: () => Promise<void>;
     // (undocumented)
-    getSalutations: Ref<Readonly<Salutation[]>>;
-    // (undocumented)
-    salutations: Ref<Salutation[] | null>;
+    getSalutations: Ref<Readonly<any>>;
 }
 
 // @public (undocumented)
