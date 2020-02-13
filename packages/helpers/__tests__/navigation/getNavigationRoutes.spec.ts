@@ -15,7 +15,7 @@ describe("Shopware helpers - navigation", () => {
       const result = getNavigationRoutes(SWNavigationResponse as any);
 
       expect(result).toStrictEqual([
-        { routeLabel: "Cloting", routePath: "clothing/", children: null }
+        { routeLabel: "Cloting", routePath: "/clothing/", children: null }
       ]);
     });
 
@@ -42,12 +42,12 @@ describe("Shopware helpers - navigation", () => {
       expect(result).toStrictEqual([
         {
           routeLabel: "Cloting",
-          routePath: "clothing/",
+          routePath: "/clothing/",
           children: [
             {
               children: undefined,
               routeLabel: "Outdoor",
-              routePath: "clothing/outdoor/"
+              routePath: "/clothing/outdoor/"
             }
           ]
         }
