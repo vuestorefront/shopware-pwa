@@ -6,27 +6,24 @@ Vue.use(VueCompostionApi);
 (vueComp.onMounted as any) = jest.fn()
 
 // Mock API client
-// import * as shopwareClient from "@shopware-pwa/shopware-6-client";
-// jest.mock("@shopware-pwa/shopware-6-client");
-// const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
+import * as shopwareClient from "@shopware-pwa/shopware-6-client";
+jest.mock("@shopware-pwa/shopware-6-client");
+const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 import { useSalutations } from "@shopware-pwa/composables";
-const sharedSalutations = Vue.observable({
-  salutations: jest.fn()
-})
-
 
 describe("Composables - useSalutations", () => {
   describe("computed", () => {
     describe("getMappedSalutations", () => {
-      it("should contain empty array when there aren't any available salutations", () => {
-        sharedSalutations.salutations.mockRejectedValueOnce(null);
-        const { getSalutations } = useSalutations();
+      it("should contain empty array when there aren't any available salutations", async () => {
+        mockedApiClient.getAvailableSalutations.mockReturnValueOnce(null as any);
+        const { getSalutations, fetchSalutations } = useSalutations();
+        await fetchSalutations();
         expect(getSalutations.value).toEqual([]);
       });
-      it("should contain properly mapped salutations", () => {
-        const { getSalutations } = useSalutations();
-        sharedSalutations.salutations.mockReturnValueOnce([
+      it("should contain properly fetched salutations", async () => {
+        const { getSalutations, fetchSalutations } = useSalutations();
+        mockedApiClient.getAvailableSalutations.mockReturnValueOnce({ data: [
           {
             displayName: "Mr.",
             id: "id",
@@ -39,60 +36,37 @@ describe("Composables - useSalutations", () => {
             salutationKey: "salutatonKey",
             letterName: "Dear Mrs."
           }
-        ])
+        ]} as any)
+        await fetchSalutations();
         expect(getSalutations.value).toEqual([
-          { name: "Mr.", id: "id" },
-          { name: "Mrs.", id: "id" }
+          {
+            displayName: "Mr.",
+            id: "id",
+            salutationKey: "salutatonKey",
+            letterName: "Dear Mr."
+          },
+          {
+            displayName: "Mrs.",
+            id: "id",
+            salutationKey: "salutatonKey",
+            letterName: "Dear Mrs."
+          }
         ]);
       });
     });
   });
-  // describe("methods", () => {
-  //   describe("fetchSalutations", () => {
-  //     it("should fetch vailable salutations and assign it to salutaitons array", async () => {
-  //       mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
-  //         data: [
-  //           {
-  //             displayName: "Mr.",
-  //             id: "id",
-  //             salutationKey: "salutatonKey",
-  //             letterName: "Dear Mr."
-  //           },
-  //           {
-  //             displayName: "Mrs.",
-  //             id: "id",
-  //             salutationKey: "salutatonKey",
-  //             letterName: "Dear Mrs."
-  //           }
-  //         ]
-  //       } as any);
-
-  //       const { fetchSalutations, salutations } = useSalutations();
-  //       await fetchSalutations();
-  //       expect(salutations.value).toEqual([
-  //         {
-  //           displayName: "Mr.",
-  //           id: "id",
-  //           salutationKey: "salutatonKey",
-  //           letterName: "Dear Mr."
-  //         },
-  //         {
-  //           displayName: "Mrs.",
-  //           id: "id",
-  //           salutationKey: "salutatonKey",
-  //           letterName: "Dear Mrs."
-  //         }
-  //       ]);
-  //     });
-  //     it("should assing error to error message if getAvailableSalutations throws one", async () => {
-  //       mockedApiClient.getAvailableSalutations.mockImplementationOnce(() => {
-  //         throw new Error("Couldn't fetch available salutations.");
-  //       });
-  //       const { fetchSalutations, error } = useSalutations();
-  //       await fetchSalutations();
-  //       expect(error.value.toString()).toBe(
-  //         "Error: Couldn't fetch available salutations."
-  //       );
-  //     });
-  //   });
+  describe("methods", () => {
+    describe("fetchSalutations", () => {
+      it("should assing error to error message if getAvailableSalutations throws one", async () => {
+        mockedApiClient.getAvailableSalutations.mockImplementationOnce(() => {
+          throw new Error("Couldn't fetch available salutations.");
+        });
+        const { fetchSalutations, error } = useSalutations();
+        await fetchSalutations();
+        expect(error.value.toString()).toBe(
+          "Error: Couldn't fetch available salutations."
+        );
+      });
+    });
+  });
 });

@@ -1,6 +1,8 @@
 import Vue from "vue";
-import VueCompositionApi from "@vue/composition-api";
-Vue.use(VueCompositionApi);
+import VueCompostionApi, * as vueComp from "@vue/composition-api";
+
+Vue.use(VueCompostionApi);
+(vueComp.onMounted as any) = jest.fn();
 
 // Mock API client
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
@@ -12,8 +14,17 @@ import { useCountries } from "@shopware-pwa/composables";
 
 describe("Composables - useCountries", () => {
   describe("refs", () => {
-    describe("countries", () => {
-      it("should return countries array", async () => {
+    
+  });
+  describe("computed", () => {
+    describe("getMappedCoutries", () => {
+      it("should contain empty array when there aren't any available countries", async () => {
+        mockedApiClient.getAvailableCountries.mockReturnValueOnce(null as any)
+        const { getCountries, fetchCountries } = useCountries();
+        await fetchCountries();
+        expect(getCountries.value).toEqual([]);
+      });
+      it("should contain properly fetched countries", async () => {
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
           data: [
             {
@@ -32,9 +43,9 @@ describe("Composables - useCountries", () => {
             }
           ]
         } as any);
-        const { countries, fetchCountries } = useCountries();
+        const { fetchCountries, getCountries } = useCountries();
         await fetchCountries();
-        expect(countries.value).toEqual([
+        expect(getCountries.value).toEqual([
           {
             name: "Norway",
             active: true,
@@ -49,81 +60,12 @@ describe("Composables - useCountries", () => {
             iso: "iso",
             createdAt: "date"
           }
-        ]);
-      });
-    });
-  });
-  describe("computed", () => {
-    describe("getMappedCoutries", () => {
-      it("should contain empty array when there aren't any available countries", () => {
-        const { getMappedCountries } = useCountries();
-        expect(getMappedCountries.value).toEqual([]);
-      });
-      it("should contain properly mapped countries", () => {
-        const { countries, getMappedCountries } = useCountries();
-        countries.value = [
-          {
-            name: "Norway",
-            active: true,
-            id: "id",
-            iso: "iso",
-            createdAt: "date"
-          },
-          {
-            name: "Romania",
-            active: true,
-            id: "id",
-            iso: "iso",
-            createdAt: "date"
-          }
-        ] as any;
-        expect(getMappedCountries.value).toEqual([
-          { name: "Norway", id: "id" },
-          { name: "Romania", id: "id" }
         ]);
       });
     });
   });
   describe("methods", () => {
     describe("fetchCoutries", () => {
-      it("should fetch available countries and assign it to countries array", async () => {
-        mockedApiClient.getAvailableCountries.mockReturnValueOnce({
-          data: [
-            {
-              name: "Norway",
-              active: true,
-              id: "id",
-              iso: "iso",
-              createdAt: "date"
-            },
-            {
-              name: "Romania",
-              active: true,
-              id: "id",
-              iso: "iso",
-              createdAt: "date"
-            }
-          ]
-        } as any);
-        const { fetchCountries, countries } = useCountries();
-        await fetchCountries();
-        expect(countries.value).toEqual([
-          {
-            name: "Norway",
-            active: true,
-            id: "id",
-            iso: "iso",
-            createdAt: "date"
-          },
-          {
-            name: "Romania",
-            active: true,
-            id: "id",
-            iso: "iso",
-            createdAt: "date"
-          }
-        ]);
-      });
       it("should assing error to error message if getAvailableCountries throws one", async () => {
         mockedApiClient.getAvailableCountries.mockImplementationOnce(() => {
           throw new Error("Couldn't fetch available countries.");
