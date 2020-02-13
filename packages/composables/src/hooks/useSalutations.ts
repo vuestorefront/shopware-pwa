@@ -4,12 +4,13 @@ import { getAvailableSalutations } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 export interface UseSalutations {
+  mountedCallback: () => Promise<void>;
   getSalutations: Ref<Readonly<any>>;
   fetchSalutations: () => Promise<void>;
   error: Ref<any>;
 }
 
-const sharedSalutations = Vue.observable({
+export const sharedSalutations = Vue.observable({
   salutations: null
 } as any);
 
@@ -28,17 +29,21 @@ export const useSalutations = (): UseSalutations => {
     }
   };
 
+  // created separate function for testing proposes
+  const mountedCallback = async () => {
+    if (!sharedSalutations.salutations) {
+      await fetchSalutations()
+    }
+  }
+
   const getSalutations = computed(() => {
     return localSalutations.salutations ?? [];
   });
 
-  onMounted(async () => {
-    if (!sharedSalutations.salutations) {
-      await fetchSalutations()
-    }
-  });
+  onMounted(mountedCallback);
 
   return {
+    mountedCallback,
     fetchSalutations,
     getSalutations,
     error

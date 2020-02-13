@@ -4,12 +4,13 @@ import { getAvailableCountries } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
 
 export interface UseCountries {
+  mountedCallback: () => Promise<void>
   getCountries: Ref<Readonly<any>>;
   fetchCountries: () => Promise<void>;
   error: Ref<any>;
 }
 
-const sharedCountries = Vue.observable({
+export const sharedCountries = Vue.observable({
   countries: null
 } as any)
 
@@ -32,13 +33,16 @@ export const useCountries = (): UseCountries => {
     return localCountries.countries ?? []
   });
 
-  onMounted(async () => {
+  const mountedCallback = async () => {
     if (!sharedCountries.countries) {
       await fetchCountries();
     }
-  }) 
+  };
+
+  onMounted(mountedCallback);
 
   return {
+    mountedCallback,
     fetchCountries,
     getCountries,
     error

@@ -63,6 +63,8 @@ export interface UseCountries {
     fetchCountries: () => Promise<void>;
     // (undocumented)
     getCountries: Ref<Readonly<any>>;
+    // (undocumented)
+    mountedCallback: () => Promise<void>;
 }
 
 // @public (undocumented)
@@ -109,6 +111,8 @@ export interface UseSalutations {
     fetchSalutations: () => Promise<void>;
     // (undocumented)
     getSalutations: Ref<Readonly<any>>;
+    // (undocumented)
+    mountedCallback: () => Promise<void>;
 }
 
 // @public (undocumented)

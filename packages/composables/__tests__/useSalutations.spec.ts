@@ -3,14 +3,14 @@ import Vue from "vue";
 import VueCompostionApi, * as vueComp from "@vue/composition-api";
 
 Vue.use(VueCompostionApi);
-(vueComp.onMounted as any) = jest.fn()
+(vueComp.onMounted as any) = jest.fn();
 
 // Mock API client
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
-import { useSalutations } from "@shopware-pwa/composables";
+import { useSalutations, sharedSalutations } from "@shopware-pwa/composables";
 
 describe("Composables - useSalutations", () => {
   describe("computed", () => {
@@ -66,6 +66,97 @@ describe("Composables - useSalutations", () => {
         expect(error.value.toString()).toBe(
           "Error: Couldn't fetch available salutations."
         );
+      });
+    });
+    describe("onMounted", () => {
+      it("should call onMounted at composable call", () => {
+        useSalutations()
+        expect(vueComp.onMounted).toBeCalled();
+      });
+    });
+    describe("onMountedCallback", () => {
+      it("should call fetch countries when getSalutations is an empty list", async () => {
+        sharedSalutations.salutations = null;
+        mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
+          data: [
+          {
+            displayName: "Mr.",
+            id: "id",
+            salutationKey: "salutatonKey",
+            letterName: "Dear Mr."
+          },
+          {
+            displayName: "Mrs.",
+            id: "id",
+            salutationKey: "salutatonKey",
+            letterName: "Dear Mrs."
+          }
+          ]
+        } as any);
+        const { mountedCallback, getSalutations } = useSalutations();
+        await mountedCallback();
+        expect(getSalutations.value).toEqual([
+          {
+            displayName: "Mr.",
+            id: "id",
+            salutationKey: "salutatonKey",
+            letterName: "Dear Mr."
+          },
+          {
+            displayName: "Mrs.",
+            id: "id",
+            salutationKey: "salutatonKey",
+            letterName: "Dear Mrs."
+          }
+          ]);
+      });
+      it("should not call fetch countries when getSalutations is not an empty list", async () => {
+        sharedSalutations.salutations = [
+          {
+            displayName: "Not specified",
+            id: "id",
+            salutationKey: "salutatonKey",
+            letterName: "Dear Mr./Mrs."
+          },
+          {
+            displayName: "Mrs.",
+            id: "id",
+            salutationKey: "salutatonKey",
+            letterName: "Dear Mrs."
+          }
+          ];
+        mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
+          data: [
+          {
+            displayName: "Mr.",
+            id: "id",
+            salutationKey: "salutatonKey",
+            letterName: "Dear Mr."
+          },
+          {
+            displayName: "Mrs.",
+            id: "id",
+            salutationKey: "salutatonKey",
+            letterName: "Dear Mrs."
+          }
+          ]
+        } as any);
+        const { mountedCallback, getSalutations } = useSalutations();
+        await mountedCallback();
+        expect(getSalutations.value).toEqual([
+          {
+            displayName: "Not specified",
+            id: "id",
+            salutationKey: "salutatonKey",
+            letterName: "Dear Mr./Mrs."
+          },
+          {
+            displayName: "Mrs.",
+            id: "id",
+            salutationKey: "salutatonKey",
+            letterName: "Dear Mrs."
+          }
+          ]);
       });
     });
   });
