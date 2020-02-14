@@ -13,15 +13,6 @@ const cliDir = path.resolve(__dirname, "../packages/cli");
 const commonsDir = path.resolve(__dirname, "../packages/commons");
 
 async function run() {
-
-  /**
-   * Link commons dir
-   */
-  await execa("yarn", ["link"], {
-    stdio: "inherit",
-    cwd: commonsDir
-  });
-
   /**
    * Link shopware-6-client
    */
@@ -49,13 +40,29 @@ async function run() {
   /**
    * Link helpers
    */
+  await execa("yarn", ["link", "@shopware-pwa/helpers"], {
+    stdio: "inherit",
+    cwd: defaultThemeDir
+  });
+  
+  /**
+   * Link commons
+   */
+  await execa("yarn", ["link"], {
+    stdio: "inherit",
+    cwd: commonsDir
+  });
+  await execa("yarn", ["link", "@shopware-pwa/commons"], {
+    stdio: "inherit",
+    cwd: apiClientDir
+  });
   await execa("yarn", ["link", "@shopware-pwa/commons"], {
     stdio: "inherit",
     cwd: helpersDir
   });
-  await execa("yarn", ["link", "@shopware-pwa/helpers"], {
+  await execa("yarn", ["link", "@shopware-pwa/commons"], {
     stdio: "inherit",
-    cwd: defaultThemeDir
+    cwd: composablesDir
   });
 
   /**
