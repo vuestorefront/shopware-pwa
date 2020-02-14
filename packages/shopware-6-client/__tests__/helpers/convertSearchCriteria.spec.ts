@@ -4,8 +4,8 @@ import {
   EqualsFilter,
   RangeFilter,
   MultiFilter
-} from "../../src/interfaces/search/SearchFilter";
-import { PaginationLimit } from "../../src/interfaces/search/Pagination";
+} from "@shopware-pwa/commons/interfaces/search/SearchFilter";
+import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
 import { config, setup, update } from "@shopware-pwa/shopware-6-client";
 
 describe("SearchConverter - convertSearchCriteria", () => {
