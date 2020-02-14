@@ -2,27 +2,10 @@
   "name": "@shopware-pwa/commons",
   "version": "0.1.0-prealpha.0",
   "description": "@shopware-pwa/commons",
-  "main": "index.ts",
   "license": "MIT",
   "files": [
     "dist"
   ],
   "private": true,
-  "types": "dist/commons.d.ts",
-  "unpkg": "dist/commons.global.js",
-  "sideEffects": false,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DivanteLtd/shopware-pwa"
-  },
-  "buildOptions": {
-    "name": "commons",
-    "formats": [
-      "esm-bundler",
-      "cjs"
-    ]
-  },
-  "publishConfig": {
-    "access": "private"
-  }
+  "sideEffects": false
 }
