@@ -40,6 +40,10 @@ async function run() {
   /**
    * Link helpers
    */
+  await execa("yarn", ["link"], {
+    stdio: "inherit",
+    cwd: helpersDir
+  });
   await execa("yarn", ["link", "@shopware-pwa/helpers"], {
     stdio: "inherit",
     cwd: defaultThemeDir
