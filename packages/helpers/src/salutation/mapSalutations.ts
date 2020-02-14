@@ -12,7 +12,7 @@ export interface MappedSalutation {
  * @alpha
  **/
 export function mapSalutations(salutations: Salutation[]): MappedSalutation[] {
-  if( !salutations?.length) return []
+  if (!salutations?.length) return [];
   const mappedSalutations: MappedSalutation[] = salutations.map(
     (salutation: Salutation) => ({
       name: salutation.displayName ?? salutation.salutationKey,

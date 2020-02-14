@@ -3,7 +3,7 @@
     <div class="form sw-register">
       <h2 class="sw-register__header">Register</h2>
       <SfAlert
-        v-if="error || salutationsError || countriesError"
+        v-if="userError || salutationsError || countriesError"
         class="sw-register__alert"
         type="danger"
         :message="getErrorMessage"
@@ -150,9 +150,9 @@ export default {
     }
   },
   setup() {
-    const { login, register, loading, error } = useUser()
-    const countries = useCountries()
-    const salutations = useSalutations()
+    const { login, register, loading, userError: error } = useUser()
+    const { fetchCountries, countriesError: error } = useCountries()
+    const { fetchSalutations, salutaitonError: error } = useSalutations()
 
     const getMappedCountries = computed(() => {
       return mapCountries(countries.getCountries.value)
@@ -166,11 +166,11 @@ export default {
       clientLogin: login,
       clientRegister: register,
       isLoading: loading,
-      salutationsError: salutations.error,
-      countriesError: countries.error,
+      userError,
+      countriesError,
       getMappedCountries,
+      salutationsError,
       getMappedSalutations,
-      error
     }
   },
   computed: {
@@ -193,7 +193,7 @@ export default {
       }
     },
     getErrorMessage() {
-      if (error)
+      if (userError)
         return 'Cannot create a new account, the user may already exist'
       if (salutationsError)
         return "Couldn't fetch available salutations, please contact the administration."

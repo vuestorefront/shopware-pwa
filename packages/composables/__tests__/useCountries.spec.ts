@@ -1,6 +1,7 @@
 import Vue from "vue";
-import VueCompostionApi, * as vueComp from "@vue/composition-api";
 
+// Mock Vue Composition API onMounted method
+import VueCompostionApi, * as vueComp from "@vue/composition-api";
 Vue.use(VueCompostionApi);
 (vueComp.onMounted as any) = jest.fn();
 
@@ -9,17 +10,17 @@ import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
-import { useCountries, sharedCountries } from "@shopware-pwa/composables";
-(useCountries as any).onMounted = jest.fn()
+import { useCountries } from "@shopware-pwa/composables";
+(useCountries as any).onMounted = jest.fn();
 
 describe("Composables - useCountries", () => {
-  describe("refs", () => {
-    
-  });
+  describe("refs", () => {});
   describe("computed", () => {
     describe("getMappedCoutries", () => {
       it("should contain empty array when there aren't any available countries", async () => {
-        mockedApiClient.getAvailableCountries.mockReturnValueOnce(null as any)
+        mockedApiClient.getAvailableCountries.mockReturnValueOnce({
+          data: null
+        } as any);
         const { getCountries, fetchCountries } = useCountries();
         await fetchCountries();
         expect(getCountries.value).toEqual([]);
@@ -79,13 +80,21 @@ describe("Composables - useCountries", () => {
     });
     describe("onMounted", () => {
       it("should(call onMounted on useCountries mount", () => {
-        useCountries()
+        useCountries();
         expect(vueComp.onMounted).toBeCalled();
       });
     });
     describe("onMountedCallback", () => {
       it("should call fetch countries on mounted when getCountries is any empty list", async () => {
-        sharedCountries.countries = null;
+        mockedApiClient.getAvailableCountries.mockReturnValueOnce({
+          data: null
+        } as any);
+        const {
+          fetchCountries,
+          mountedCallback,
+          getCountries
+        } = useCountries();
+        await fetchCountries();
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
           data: [
             {
@@ -104,29 +113,29 @@ describe("Composables - useCountries", () => {
             }
           ]
         } as any);
-        const { mountedCallback, getCountries } = useCountries();
         await mountedCallback();
         expect(getCountries.value).toEqual([
-            {
-              name: "Norway",
-              active: true,
-              id: "id",
-              iso: "iso",
-              createdAt: "date"
-            },
-            {
-              name: "Romania",
-              active: true,
-              id: "id",
-              iso: "iso",
-              createdAt: "date"
-            }
-          ]);
+          {
+            name: "Norway",
+            active: true,
+            id: "id",
+            iso: "iso",
+            createdAt: "date"
+          },
+          {
+            name: "Romania",
+            active: true,
+            id: "id",
+            iso: "iso",
+            createdAt: "date"
+          }
+        ]);
       });
     });
     describe("onMountedCallback", () => {
       it("should call fetch countries when getCountries is any empty list", async () => {
-        sharedCountries.countries = [
+        mockedApiClient.getAvailableCountries.mockReturnValueOnce({
+          data: [
             {
               name: "England",
               active: true,
@@ -141,7 +150,14 @@ describe("Composables - useCountries", () => {
               iso: "iso",
               createdAt: "date"
             }
-          ];
+          ]
+        } as any);
+        const {
+          fetchCountries,
+          mountedCallback,
+          getCountries
+        } = useCountries();
+        await fetchCountries();
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
           data: [
             {
@@ -160,24 +176,23 @@ describe("Composables - useCountries", () => {
             }
           ]
         } as any);
-        const { mountedCallback, getCountries } = useCountries();
         await mountedCallback();
         expect(getCountries.value).toEqual([
-            {
-              name: "England",
-              active: true,
-              id: "id",
-              iso: "iso",
-              createdAt: "date"
-            },
-            {
-              name: "Turkey",
-              active: true,
-              id: "id",
-              iso: "iso",
-              createdAt: "date"
-            }
-          ]);
+          {
+            name: "England",
+            active: true,
+            id: "id",
+            iso: "iso",
+            createdAt: "date"
+          },
+          {
+            name: "Turkey",
+            active: true,
+            id: "id",
+            iso: "iso",
+            createdAt: "date"
+          }
+        ]);
       });
     });
   });

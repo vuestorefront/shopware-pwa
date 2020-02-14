@@ -12,7 +12,7 @@ export interface MappedCountry {
  * @alpha
  **/
 export function mapCountries(countries: Country[]): MappedCountry[] {
-  if( !countries?.length) return []
+  if (!countries?.length) return [];
   const mappedCountries = countries.map((country: Country) => ({
     name: country.name,
     id: country.id

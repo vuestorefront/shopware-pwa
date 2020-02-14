@@ -10,7 +10,7 @@ export interface UseSalutations {
   error: Ref<any>;
 }
 
-export const sharedSalutations = Vue.observable({
+const sharedSalutations = Vue.observable({
   salutations: null
 } as any);
 
@@ -32,9 +32,9 @@ export const useSalutations = (): UseSalutations => {
   // created separate function for testing proposes
   const mountedCallback = async () => {
     if (!sharedSalutations.salutations) {
-      await fetchSalutations()
+      await fetchSalutations();
     }
-  }
+  };
 
   const getSalutations = computed(() => {
     return localSalutations.salutations ?? [];
