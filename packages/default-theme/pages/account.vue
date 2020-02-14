@@ -33,9 +33,9 @@
 <script>
 import { SfContentPages, SfTabs, SfList } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
-import MyProfile  from "../components/account/MyProfile"
-import MyAddresses from "../components/account/MyAddresses"
-import OrderHistory from "../components/account/OrderHistory"
+import MyProfile  from "@shopware-pwa/default-theme/components/account/MyProfile"
+import MyAddresses from "@shopware-pwa/default-theme/components/account/MyAddresses"
+import OrderHistory from "@shopware-pwa/default-theme/components/account/OrderHistory"
 export default {
   name: 'Account',
   components: { OrderHistory, SfContentPages, SfTabs, MyProfile, SfList, MyAddresses },

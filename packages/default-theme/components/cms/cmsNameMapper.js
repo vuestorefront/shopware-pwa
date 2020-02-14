@@ -15,5 +15,5 @@ export function getComponentBy(content) {
   const isSlot = !!content.slot;
   let componentName = isSlot ? slotsMap[content.type] : "SwSlots";
   if (!componentName) componentName = "SwNoComponent";
-  return () => import(`./elements/${componentName}`);
+  return () => import(`@shopware-pwa/default-theme/components/cms/elements/${componentName}`);
 }

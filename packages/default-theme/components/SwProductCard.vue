@@ -86,7 +86,7 @@ export default {
     getImageUrl() {
       return (
         getProductMainImageUrl({ product: this.product }) ||
-        require('~/assets/productB.jpg')
+        require('@shopware-pwa/default-theme/assets/productB.jpg')
       )
     }
   },

@@ -49,7 +49,7 @@
 
 import {  SfList, SfDivider, SfTable, SfButton } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
-import helpers from '../../helpers'
+import helpers from '@shopware-pwa/default-theme/helpers'
 
 export default {
   name: "OrderHistory",

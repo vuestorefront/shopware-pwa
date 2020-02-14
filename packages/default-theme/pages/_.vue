@@ -15,7 +15,7 @@ export function getComponentBy(resourceType) {
   if (!resourceType || !pagesMap[resourceType]) return;
   let componentName = pagesMap[resourceType];
   if (!componentName) componentName = "SwNoComponent";
-  return () => import(`@/components/views/${componentName}`);
+  return () => import(`@shopware-pwa/default-theme/components/views/${componentName}`);
 }
 
 export default {

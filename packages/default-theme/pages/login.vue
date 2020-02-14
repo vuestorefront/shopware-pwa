@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import SwLogin from "../components/SwLogin"
+import SwLogin from "@shopware-pwa/default-theme/components/SwLogin"
 
 export default {
   name: 'Login',

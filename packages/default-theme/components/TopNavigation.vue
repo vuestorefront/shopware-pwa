@@ -79,7 +79,7 @@ import {
   useUserLoginModal,
   useNavigation
 } from '@shopware-pwa/composables'
-import SwLoginModal from './modals/SwLoginModal'
+import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 
 export default {
   components: { SfHeader, SfCircleIcon, SfBadge, SwLoginModal, SfImage },
