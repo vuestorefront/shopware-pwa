@@ -17,15 +17,15 @@ import {
   CustomerUpdatePasswordParam,
   CustomerUpdateEmailParam
 } from "@shopware-pwa/shopware-6-client";
-import { Customer } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
+import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { getStore } from "@shopware-pwa/composables";
-import { Order } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order";
+import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import {
   CustomerAddress,
   AddressType
-} from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress";
-import { CustomerRegistrationParams } from "@shopware-pwa/shopware-6-client/src/interfaces/request/CustomerRegistrationParams";
-import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
+} from "@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress";
+import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams";
+import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
 /**
  * @alpha

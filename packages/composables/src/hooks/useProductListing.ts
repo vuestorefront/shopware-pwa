@@ -5,13 +5,13 @@ import {
   SearchFilterType,
   EqualsAnyFilter,
   ContainsFilter
-} from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchFilter";
+} from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { getProducts } from "@shopware-pwa/shopware-6-client";
-import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
+import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import {
   Sort,
   SearchCriteria
-} from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
+} from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import {
   getFilterSearchCriteria,
   getSortingSearchCriteria,

@@ -15,7 +15,11 @@ describe("Shopware helpers - navigation", () => {
       const result = getNavigationRoutes(SWNavigationResponse as any);
 
       expect(result).toStrictEqual([
-        { routeLabel: "Cloting", routePath: "/navigation/7d4c679c61d5aa387c80a6a45d75c117", children: null }
+        {
+          routeLabel: "Cloting",
+          routePath: "/navigation/7d4c679c61d5aa387c80a6a45d75c117",
+          children: null
+        }
       ]);
     });
     it("should return an array with one object with no children included", () => {

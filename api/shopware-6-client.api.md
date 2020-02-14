@@ -4,23 +4,23 @@
 
 ```ts
 
-import { Cart } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/cart/Cart';
-import { Category } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/category/Category';
-import { CmsPage } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/cms/CmsPage';
-import { ContextTokenResponse } from '@shopware-pwa/shopware-6-client/src/interfaces/response/ContextTokenResponse';
-import { Country } from '@shopware-pwa/shopware-6-client/src/interfaces/models/system/country/Country';
-import { Currency } from '@shopware-pwa/shopware-6-client/src/interfaces/models/system/currency/Currency';
-import { Customer } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/Customer';
-import { CustomerAddress } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress';
-import { CustomerRegistrationParams } from '@shopware-pwa/shopware-6-client/src/interfaces/request/CustomerRegistrationParams';
-import { Language } from '@shopware-pwa/shopware-6-client/src/interfaces/models/framework/language/Language';
-import { NavigationResponse } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/navigation/Navigation';
-import { Order } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order';
-import { PaymentMethod } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/payment/PaymentMethod';
-import { Product } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product';
-import { SearchCriteria } from '@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria';
-import { SearchResult } from '@shopware-pwa/shopware-6-client/src/interfaces/response/SearchResult';
-import { ShippingMethod } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/shipping/ShippingMethod';
+import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
+import { Category } from '@shopware-pwa/commons/interfaces/models/content/category/Category';
+import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { ContextTokenResponse } from '@shopware-pwa/commons/interfaces/response/ContextTokenResponse';
+import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
+import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
+import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
+import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
+import { CustomerRegistrationParams } from '@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams';
+import { Language } from '@shopware-pwa/commons/interfaces/models/framework/language/Language';
+import { NavigationResponse } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
+import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
+import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
+import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
+import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
+import { SearchResult } from '@shopware-pwa/commons/interfaces/response/SearchResult';
+import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 
 // @alpha
 export function addCartItemQuantity(itemId: string, quantity: number): Promise<Cart>;
