@@ -54,12 +54,33 @@ const extendddd = function(moduleObject) {
   });
 };
 
+const addThemeLayouts = function(moduleObject) {
+  const layouts = getAllFiles(
+    path.join(
+      moduleObject.options.rootDir,
+      "node_modules/@shopware-pwa/default-theme/layouts"
+    )
+  );
+  layouts.forEach(layout => {
+    const layoutMatch = layout.match(
+      /@shopware-pwa\/default-theme\/layouts\/(.+)?.vue$/
+    );
+    const templateName = layoutMatch[1];
+    const overrideExists = !!jetpack.exists(
+      path.join(moduleObject.options.rootDir, "layouts", templateName + ".vue")
+    );
+    if (!overrideExists) moduleObject.addLayout({ src: layout }, templateName);
+  });
+  // console.error("LAYOUTS", layouts);
+};
+
 module.exports = async function ShopwarePWAModule(moduleOptions) {
   // log.info(chalk.green("Starting Theme Module"));
   console.error(this.options.rootDir);
   const componentsPath = path.join(this.options.rootDir, "components");
 
   extendddd(this);
+  addThemeLayouts(this);
 
   fs.watch(componentsPath, { recursive: true }, async () => {
     console.error("!!! RELOADING");
