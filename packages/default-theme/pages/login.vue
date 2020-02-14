@@ -5,6 +5,7 @@
 </template>
 <script>
 import SwLogin from "@shopware-pwa/default-theme/components/SwLogin"
+import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
 
 export default {
   name: 'Login',
@@ -20,7 +21,7 @@ export default {
   },
   methods: {
     redirectToMyAccount() {
-      this.$router.push("/account")
+      this.$router.push(PAGE_ACCOUNT)
     }
   }
 }

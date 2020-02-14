@@ -18,7 +18,7 @@ export function getNavigationRoutes(
       route: { path: string; resourceType: string };
     }) => ({
       routeLabel: element.name,
-      routePath: element.route.path,
+      routePath: element.route.path.charAt(0) !== '/' ? `/${element.route.path}` : element.route.path,
       children: element.children && getNavigationRoutes(element.children)
     })
   );
