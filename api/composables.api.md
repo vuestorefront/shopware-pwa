@@ -24,12 +24,6 @@ export type Search = (path: string, associations?: any) => any;
 // @alpha (undocumented)
 export function setStore(ref: any): void;
 
-// @public (undocumented)
-export const sharedCountries: any;
-
-// @public (undocumented)
-export const sharedSalutations: any;
-
 // @alpha (undocumented)
 export interface UseAddToCart {
     // (undocumented)
