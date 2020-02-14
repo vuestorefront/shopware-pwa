@@ -27,7 +27,7 @@ Note: You can skip this section if you just want to try the PWA. It will be prec
 1.  Make sure you have a running Shopware 6 instance (preferably stable 6.0 once available)
 2.  Clone [SwagVueStorefront](https://github.com/elkmod/SwagVueStorefront) into your `custom/plugins` directory.
 3.  Install the plugin by running `bin/console plugin:install --activate SwagVueStorefront`
-4.  Refresh the indices using `bin/console dal:index:refresh`
+4.  Refresh the indices using `bin/console dal:refresh:index`
 5.  Go to the admin panel and copy the API access key from your sales channel settings
 
 #### PWA setup
@@ -61,3 +61,4 @@ module.exports = {
 If you'd like to develop Shopware PWA, then run inside your created project `shopware-pwa dev` instead of `yarn dev`. It will watch files and components in `shopware-pwa/packages/default-theme` and instantly copy changes to your project.
 
 ### Common errors
+

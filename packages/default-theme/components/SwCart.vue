@@ -26,7 +26,7 @@
               <SfPrice :regular="totalPrice | price" class="sf-price--big" />
             </template>
           </SfProperty>
-          <SfButton class="sf-button--full-width">Go to checkout</SfButton>
+          <SfButton class="sf-button--full-width" aria-label="go-to-checkout" @click="goToCheckout()">Go to checkout</SfButton>
         </div>
         <div v-else key="empty-cart" class="empty-cart">
           <div class="empty-cart__banner">
@@ -49,6 +49,7 @@
 import { SfSidebar, SfButton, SfProperty, SfPrice } from '@storefront-ui/vue'
 import { useCart, useCartSidebar } from '@shopware-pwa/composables'
 import SwCartProduct from './SwCartProduct'
+import { PAGE_CHECKOUT } from '../helpers/pages'
 
 export default {
   name: 'Cart',
@@ -76,7 +77,13 @@ export default {
       if (!price) return
       return `$${price}`
     }
-  }
+  },
+  methods: {
+    goToCheckout() {
+      this.toggleSidebar();
+      return this.$router.push(PAGE_CHECKOUT);
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>

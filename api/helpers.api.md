@@ -6,6 +6,7 @@
 
 import { CmsPage } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/cms/CmsPage';
 import { CmsSection } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/cms/CmsPage';
+import { NavigationElement } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/navigation/Navigation';
 import { Product } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product';
 import { PropertyGroupOption } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/property/PropertyGroupOption';
 import { SearchCriteria } from '@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria';
@@ -68,10 +69,13 @@ export function getCmsSections(content: CmsPage): CmsSection[];
 // @alpha (undocumented)
 export const getFilterSearchCriteria: (selectedFilters: any) => any[];
 
+// Warning: (ae-forgotten-export) The symbol "NavigationRoute" needs to be exported by the entry point index.d.ts
+//
 // @alpha (undocumented)
-export function getProductMainImageUrl({ product }?: {
-    product?: Product;
-}): string;
+export function getNavigationRoutes(navigationElements: NavigationElement[]): NavigationRoute[];
+
+// @alpha
+export function getProductMainImageUrl(product: Product): string;
 
 // @alpha (undocumented)
 export function getProductMediaGallery({ product }?: {
