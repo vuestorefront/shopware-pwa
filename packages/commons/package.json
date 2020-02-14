@@ -3,9 +3,5 @@
   "version": "0.1.0-prealpha.0",
   "description": "@shopware-pwa/commons",
   "license": "MIT",
-  "files": [
-    "dist"
-  ],
-  "private": true,
-  "sideEffects": false
+  "private": true
 }
