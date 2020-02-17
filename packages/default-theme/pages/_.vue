@@ -26,7 +26,9 @@ export default {
     const {search, page, category, error} = useCms()
     const {refreshCart} = useCart()
     const {refreshUser} = useUser()
-    const searchResult = await search(params.pathMatch, query);
+    // TODO fix this after meeting
+    const path = params.pathMatch[0] === "/" ? params.pathMatch.substring(1) : params.pathMatch
+    const searchResult = await search(path, query);
     
     // direct user to the error page (keep http status code - so do not redirect)
     if (error.value) {

@@ -26,7 +26,6 @@
     "@shopware-pwa/shopware-6-client": "latest",
     "@storefront-ui/vue": "latest",
     "@vue/composition-api": "^0.3.4",
-    "cookie-universal-nuxt": "^2.1.0",
     "currency.js": "^1.2.2",
     "dayjs": "^1.8.19",
     "nuxt": "^2.11.0",

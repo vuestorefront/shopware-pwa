@@ -38,11 +38,12 @@ import { PAGE_LOGIN } from '@shopware-pwa/default-theme/helpers/pages'
 import MyProfile  from "@shopware-pwa/default-theme/components/account/MyProfile"
 import MyAddresses from "@shopware-pwa/default-theme/components/account/MyAddresses"
 import OrderHistory from "@shopware-pwa/default-theme/components/account/OrderHistory"
+import authMiddleware from "@shopware-pwa/default-theme/middleware/auth"
 
 export default {
   name: 'Account',
   components: { OrderHistory, SfContentPages, SfTabs, MyProfile, SfList, MyAddresses },
-  middleware: "auth",
+  middleware: authMiddleware,
   setup() {
     const { logout, user, loadOrders, orders } = useUser()
     return { logout, user, loadOrders, orders }
