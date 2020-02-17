@@ -6,9 +6,11 @@
 
 import { CmsPage } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/cms/CmsPage';
 import { CmsSection } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/cms/CmsPage';
+import { Country } from '@shopware-pwa/shopware-6-client/src/interfaces/models/system/country/Country';
 import { NavigationElement } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/navigation/Navigation';
 import { Product } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product';
 import { PropertyGroupOption } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/property/PropertyGroupOption';
+import { Salutation } from '@shopware-pwa/shopware-6-client/src/interfaces/models/system/salutation/Salutation';
 import { SearchCriteria } from '@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria';
 import { Sort } from '@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria';
 import { UiMediaGalleryItem as UiMediaGalleryItem_2 } from '@shopware-pwa/helpers';
@@ -142,6 +144,28 @@ export function getVariantOptionsLabel({ product }?: {
 export function isProductSimple({ product }?: {
     product?: Product;
 }): boolean;
+
+// @alpha
+export function mapCountries(countries: Country[]): MappedCountry[];
+
+// @public (undocumented)
+export interface MappedCountry {
+    // (undocumented)
+    id: string;
+    // (undocumented)
+    name: string | null;
+}
+
+// @public (undocumented)
+export interface MappedSalutation {
+    // (undocumented)
+    id: string;
+    // (undocumented)
+    name: string | null;
+}
+
+// @alpha
+export function mapSalutations(salutations: Salutation[]): MappedSalutation[];
 
 // @alpha (undocumented)
 export function parseUrlQuery(query: any): SearchCriteria;
