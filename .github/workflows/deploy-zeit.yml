@@ -23,6 +23,18 @@ jobs:
         run: |
           yarn
           yarn build --ci
+      - name: Link local CLI
+        run: |
+          cd ./packages/cli
+          yarn link
+          cd ../../
+      - name: Create theme project
+        run: |
+          cd ./temp
+          mkdir test-project
+          cd ./test-project
+          shopware-pwa init
+          cd ../../
       - name: Deploy PR to zeit
         if: github.event_name == 'pull_request'
         uses: patzick/now-deployment@master
