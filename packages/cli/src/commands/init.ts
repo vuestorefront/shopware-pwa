@@ -25,20 +25,20 @@ module.exports = {
     } catch (e) {
       // It's just for safety, unlink on fresh project will throw an error so we can catch it here
     }
-    // - add dependencies from npm
-    await run(`yarn add ${toolbox.coreDependencyPackageNames.join(" ")}`);
     // for development run - link local packages
     if (!toolbox.isProduction) {
       await run(`yarn link ${toolbox.coreDependencyPackageNames.join(" ")}`);
+    } else {
+      // - add dependencies from npm
+      await run(`yarn add ${toolbox.coreDependencyPackageNames.join(" ")}`);
     }
 
-    await toolbox.removeDefaultNuxtFiles();
     await toolbox.updateNuxtPackageJson();
     await toolbox.updateNuxtConfigFile();
     updateConfigSpinner.succeed();
 
     const generateFilesSpinner = spin("Generating project files");
-    await toolbox.generateTemplateFiles();
+    // await toolbox.generateTemplateFiles();
     const copyPromisses = toolbox.themeFolders.map(themeFolder =>
       toolbox.copyThemeFolder(themeFolder)
     );

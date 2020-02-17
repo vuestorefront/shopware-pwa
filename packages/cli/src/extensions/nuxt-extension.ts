@@ -40,6 +40,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     }
     '`;
       await run(nuxtGenerate);
+      await toolbox.removeDefaultNuxtFiles();
       spinner.succeed();
     } else {
       spinner.succeed(
@@ -54,6 +55,8 @@ module.exports = (toolbox: GluegunToolbox) => {
    */
   toolbox.removeDefaultNuxtFiles = async () => {
     toolbox.filesystem.remove("pages/index.vue");
+    toolbox.filesystem.remove("components/Logo.vue");
+    toolbox.filesystem.remove("layouts/default.vue");
   };
 
   /**
@@ -116,18 +119,6 @@ module.exports = (toolbox: GluegunToolbox) => {
       insert: "const coreDevelopment = true\n",
       before: "export default {"
     });
-    // Add api-client plugin info
-    const apiClientPluginExist = await toolbox.patching.exists(
-      "nuxt.config.js",
-      `'~/plugins/api-client'`
-    );
-    if (!apiClientPluginExist) {
-      await toolbox.patching.patch("nuxt.config.js", {
-        insert: `
-    '~/plugins/api-client'`,
-        after: "plugins: ["
-      });
-    }
     // Add buildModules
     const VSFbuildModuleExist = await toolbox.patching.exists(
       "nuxt.config.js",
@@ -145,17 +136,21 @@ module.exports = (toolbox: GluegunToolbox) => {
             ? [
                 '@shopware-pwa/shopware-6-client',
                 '@shopware-pwa/composables',
-                '@shopware-pwa/helpers'
+                '@shopware-pwa/helpers',
+                '@shopware-pwa/default-theme'
               ]
             : [],
           prod: [
             '@shopware-pwa/shopware-6-client',
             '@shopware-pwa/composables',
-            '@shopware-pwa/helpers'
+            '@shopware-pwa/helpers',
+            '@shopware-pwa/default-theme'
           ]
         }
       }
-    ],`,
+    ],
+    '@shopware-pwa/nuxt-module',
+    `,
         after: "buildModules: ["
       });
     }
@@ -182,18 +177,6 @@ module.exports = (toolbox: GluegunToolbox) => {
       }
     },`,
         after: "build: {"
-      });
-    }
-    // Add cookie-universal-nuxt module
-    const cookiePluginExist = await toolbox.patching.exists(
-      "nuxt.config.js",
-      `'cookie-universal-nuxt'`
-    );
-    if (!cookiePluginExist) {
-      await toolbox.patching.patch("nuxt.config.js", {
-        insert: `
-    'cookie-universal-nuxt',`,
-        after: "modules: ["
       });
     }
     // extend webpack
