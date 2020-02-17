@@ -14,7 +14,7 @@
 
 import { SfProperty, SfTabs, SfList, SfButton, SfIcon, SfBadge, SfCheckbox } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
-import Address from './MyAddresses/Address'
+import Address from '@shopware-pwa/default-theme/components/account/MyAddresses/Address'
 
 export default {
   name: "MyAddresses",

@@ -41,13 +41,13 @@
 
 <script>
 import { useCart, useUser } from '@shopware-pwa/composables'
-import helpers from '../../helpers'
-import PersonalDetails from './ReviewOrder/PersonalDetails'
-import ShippingAddress from './ReviewOrder/ShippingAddress'
-import BillingAddress from './ReviewOrder/BillingAddress'
-import PaymentMethod from './ReviewOrder/PaymentMethod'
-import OrderItemsTable from './ReviewOrder/OrderItemsTable'
-import Summary from './ReviewOrder/Summary'
+import helpers from '@shopware-pwa/default-theme/helpers'
+import PersonalDetails from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/PersonalDetails'
+import ShippingAddress from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/ShippingAddress'
+import BillingAddress from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/BillingAddress'
+import PaymentMethod from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/PaymentMethod'
+import OrderItemsTable from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/OrderItemsTable'
+import Summary from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/Summary'
 
 import {
   SfHeading,
