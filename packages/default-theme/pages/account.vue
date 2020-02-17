@@ -6,22 +6,12 @@
       @click:change="updateActivePage"
     >
       <SfContentCategory title="Personal Details">
-        <SfContentPage title="My profile">
-          <MyProfile />
+        <SfContentPage title="profile">
+          <nuxt-child/>
         </SfContentPage>
-        <SfContentPage title="Shipping informations">
+        <SfContentPage title="address">
           <SfTabs :open-tab="1">
-            <MyAddresses />
-          </SfTabs>
-        </SfContentPage>
-        <SfContentPage title="Loyalty Card">
-          <SfTabs :open-tab="1">
-            <SfTab title="Loyalty Card"> </SfTab>
-          </SfTabs>
-        </SfContentPage>
-        <SfContentPage title="My Newsletter">
-          <SfTabs :open-tab="1">
-            <SfTab title="My Newsletter"> </SfTab>
+            <nuxt-child/>
           </SfTabs>
         </SfContentPage>
       </SfContentCategory>
@@ -79,6 +69,7 @@ export default {
   },
   methods: {
     async updateActivePage(title) {
+      this.$router.push(`/account/${title}`)
       if (title === "Logout") {
         await this.logout();
         this.$router.push(PAGE_LOGIN)

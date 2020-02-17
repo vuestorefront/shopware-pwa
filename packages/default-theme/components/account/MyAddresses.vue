@@ -25,12 +25,6 @@
     <SfTabs v-else class="change-address">
       <SfTab title="Add new address">
         <SwAddress />
-        <SfButton
-          class="change-address__button change-address__button--return sf-button--outline"
-          @click="listAddresses = true"
-        >
-          Back
-        </SfButton>
       </SfTab>
     </SfTabs>
   </div>

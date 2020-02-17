@@ -23,14 +23,14 @@
         name="streetName"
         label="Street Name"
         required
-        class="form__element"
+        class="form__element form__element--half"
       />
       <SfInput
         v-model="apartment"
         name="apartment"
         label="House/Apartment number"
         required
-        class="form__element"
+        class="form__element form__element--half form__element--half-even"
       />
       <SfInput
         v-model="city"
@@ -55,17 +55,17 @@
       />
       <SfSelect
         v-model="country"
-        name="country"
+        v-if="getMappedCountries && getMappedCountries.length > 0"
         label="Country"
-        required
-        class="sf-select--underlined form__select form__element form__element--half form__element--half-even"
+        class="sf-select--underlined form__element form__element--half form__element--half-even form__select"
+        error-message="Country must be selected"
       >
         <SfSelectOption
-          v-for="countryOption in countries"
-          :key="countryOption"
+          v-for="countryOption in getMappedCountries"
+          :key="countryOption.id"
           :value="countryOption"
         >
-          {{ countryOption }}
+          {{ countryOption.name }}
         </SfSelectOption>
       </SfSelect>
       <SfInput
@@ -78,12 +78,21 @@
       <SfButton class="form__button" @click="updateAddress">
         Update the address
       </SfButton>
-    </div>
+        <SfButton
+          class="sf-button--outline form__button form__button--back"
+          @click="listAddresses = true"
+        >
+          Back
+        </SfButton>
+      </div>
   </div>
 </template>
 
 <script>
+import { computed } from '@vue/composition-api'
 import { SfTabs, SfInput, SfButton, SfSelect, SfIcon } from '@storefront-ui/vue'
+import { useCountries } from '@shopware-pwa/composables'
+import { mapCountries } from '@shopware-pwa/helpers'
 
 export default {
   name: 'SwAddress',
@@ -101,55 +110,15 @@ export default {
       zipCode: '',
       country: '',
       phoneNumber: '',
-      countries: [
-        'Austria',
-        'Azerbaijan',
-        'Belarus',
-        'Belgium',
-        'Bosnia and Herzegovina',
-        'Bulgaria',
-        'Croatia',
-        'Cyprus',
-        'Czech Republic',
-        'Denmark',
-        'Estonia',
-        'Finland',
-        'France',
-        'Georgia',
-        'Germany',
-        'Greece',
-        'Hungary',
-        'Iceland',
-        'Ireland',
-        'Italy',
-        'Kosovo',
-        'Latvia',
-        'Liechtenstein',
-        'Lithuania',
-        'Luxembourg',
-        'Macedonia',
-        'Malta',
-        'Moldova',
-        'Monaco',
-        'Montenegro',
-        'The Netherlands',
-        'Norway',
-        'Poland',
-        'Portugal',
-        'Romania',
-        'Russia',
-        'San Marino',
-        'Serbia',
-        'Slovakia',
-        'Slovenia',
-        'Spain',
-        'Sweden',
-        'Switzerland',
-        'Turkey',
-        'Ukraine',
-        'United Kingdom',
-        'Vatican City'
-      ]
+    }
+  },
+  setup() {
+    const { getCountries, error: countriesError } = useCountries()
+    const getMappedCountries = computed(() => mapCountries(getCountries.value))
+
+    return {
+      countriesError,
+      getMappedCountries,
     }
   },
   methods: {
@@ -203,6 +172,9 @@ export default {
     width: 100%;
     @include for-desktop {
       width: auto;
+    }
+    &--back {
+      margin-left: $spacer-big;
     }
   }
 }
