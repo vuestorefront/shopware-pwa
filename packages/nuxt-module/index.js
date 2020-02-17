@@ -3,6 +3,7 @@ const fs = require("fs");
 const jetpack = require("fs-jetpack");
 
 const getAllFiles = function(dirPath, arrayOfFiles) {
+  if (!jetpack.exists(dirPath)) return [];
   const files = fs.readdirSync(dirPath);
 
   arrayOfFiles = arrayOfFiles || [];
@@ -29,7 +30,7 @@ const invokeRebuild = function(moduleObject) {
 };
 
 let lastThemeFiles = [];
-const extendddd = function(moduleObject) {
+const extendComponents = function(moduleObject) {
   const componentsPath = path.join(moduleObject.options.rootDir, "components");
   const themeFiles = getAllFiles(componentsPath);
 
@@ -71,20 +72,83 @@ const addThemeLayouts = function(moduleObject) {
     );
     if (!overrideExists) moduleObject.addLayout({ src: layout }, templateName);
   });
-  // console.error("LAYOUTS", layouts);
+};
+
+const addThemePages = function(moduleObject) {
+  const pages = getAllFiles(
+    path.join(
+      moduleObject.options.rootDir,
+      "node_modules/@shopware-pwa/default-theme/pages"
+    )
+  );
+  pages.forEach(page => {
+    const pagesMatch = page.match(
+      /@shopware-pwa\/default-theme\/pages\/(.+)?.vue$/
+    );
+    const templateName = pagesMatch[1];
+    const overrideExists = !!jetpack.exists(
+      path.join(moduleObject.options.rootDir, "pages", templateName + ".vue")
+    );
+    if (!overrideExists) {
+      const name = templateName === "_" ? "DynamicRoute" : templateName;
+      const routePath =
+        templateName === "_" ? "*" : path.join("/", templateName);
+      moduleObject.extendRoutes((routes, resolve) => {
+        routes.push({
+          name,
+          path: routePath,
+          component: resolve(page)
+        });
+      });
+    }
+  });
+};
+
+const addThemeMiddlewares = function(moduleObject) {
+  // TODO: override middlewares from theme folder like with components
 };
 
 module.exports = async function ShopwarePWAModule(moduleOptions) {
-  // log.info(chalk.green("Starting Theme Module"));
-  console.error(this.options.rootDir);
   const componentsPath = path.join(this.options.rootDir, "components");
 
-  extendddd(this);
+  const config = require(path.join(
+    this.options.rootDir,
+    "shopware-pwa.config.js"
+  ));
+
+  extendComponents(this);
   addThemeLayouts(this);
+  addThemePages(this);
+  addThemeMiddlewares(this);
 
-  fs.watch(componentsPath, { recursive: true }, async () => {
-    console.error("!!! RELOADING");
+  if (!config.shopwareAccessToken)
+    console.error("shopwareAccessToken in shopware-pwa.config.js is missing");
+  if (!config.shopwareEndpoint)
+    console.error("shopwareEndpoint in shopware-pwa.config.js is missing");
 
-    extendddd(this, true);
+  this.addPlugin({
+    fileName: "api-client.js",
+    src: path.join(__dirname, "plugins", "api-client.js"),
+    options: {
+      shopwareEndpoint: config.shopwareEndpoint,
+      shopwareAccessToken: config.shopwareAccessToken
+    }
   });
+
+  const defaults = {
+    alias: "cookies",
+    parseJSON: true
+  };
+  const options = Object.assign({}, defaults, moduleOptions);
+  this.addPlugin({
+    src: path.join(__dirname, "plugins", "cookie-universal-nuxt.js"),
+    fileName: "cookie-universal-nuxt.js",
+    options
+  });
+
+  if (jetpack.exists(componentsPath)) {
+    fs.watch(componentsPath, { recursive: true }, async () => {
+      extendComponents(this, true);
+    });
+  }
 };
