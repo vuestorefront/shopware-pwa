@@ -12,7 +12,7 @@ describe("Helpers - getProductMainImageUrl", () => {
         }
       }
     };
-    const coverUrl = getProductMainImageUrl({ product });
+    const coverUrl = getProductMainImageUrl(product);
     expect(coverUrl).toEqual(mediaUrl);
   });
 
@@ -22,7 +22,7 @@ describe("Helpers - getProductMainImageUrl", () => {
         url: mediaUrl
       }
     };
-    const coverUrl = getProductMainImageUrl({ product });
+    const coverUrl = getProductMainImageUrl(product);
     expect(coverUrl).toEqual(mediaUrl);
   });
 
@@ -36,23 +36,23 @@ describe("Helpers - getProductMainImageUrl", () => {
         }
       }
     };
-    const coverUrl = getProductMainImageUrl({ product });
+    const coverUrl = getProductMainImageUrl(product);
     expect(coverUrl).toEqual(mediaUrl);
   });
 
   it("should return null for product without cover media and cover url", () => {
     const emptyProduct: any = {};
-    const coverUrl = getProductMainImageUrl({ product: emptyProduct });
+    const coverUrl = getProductMainImageUrl(emptyProduct);
     expect(coverUrl).toEqual("");
   });
 
   it("should return default negative value if argument wasn't provided", () => {
-    const coverUrl = getProductMainImageUrl();
+    const coverUrl = getProductMainImageUrl(undefined as any);
     expect(coverUrl).toEqual("");
   });
 
   it("should return default value if product was null", () => {
-    const argument: any = { product: null };
+    const argument: any = null;
     const coverUrl = getProductMainImageUrl(argument);
     expect(coverUrl).toEqual("");
   });

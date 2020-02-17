@@ -10,6 +10,8 @@ export * from "./services/contextService";
 export * from "./services/cartService";
 export * from "./services/navigationService";
 export * from "./services/pageService";
+export * from "./services/checkoutService";
+
 /**
  * Setup configuration. Merge default values with provided in param.
  * This method will override existing config. For config update invoke **update** method.
