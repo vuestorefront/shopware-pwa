@@ -1,33 +1,32 @@
 <template>
   <div class="my-account">
-    <SfContentPages 
-        title="My account"
-        :active="activePage"
-        @click:change="updateActivePage"
-      >
-        <SfContentCategory title="Personal Details">
-          <SfContentPage title="My profile">
-            <MyProfile />
-          </SfContentPage>
-          <SfContentPage title="My addresses">
-            <SfTabs :open-tab="1">
-              <MyAddresses />
-            </SfTabs>
-          </SfContentPage>
-          <SfContentPage title="My newsletter">
-            <SfTabs :open-tab="1">
-              <SfTab title="My newsletter">
-              </SfTab>
-            </SfTabs>
-          </SfContentPage>
-        </SfContentCategory>
-        <SfContentCategory title="Order details">
-          <SfContentPage :title="`Order history (${user && user.orderCount})`">
-            <OrderHistory />
-          </SfContentPage>
-        </SfContentCategory>
-        <SfContentPage title="Logout"></SfContentPage>
-      </SfContentPages>
+    <SfContentPages
+      title="My account"
+      :active="activePage"
+      @click:change="updateActivePage"
+    >
+      <SfContentCategory title="Personal Details">
+        <SfContentPage title="My profile">
+          <MyProfile />
+        </SfContentPage>
+        <SfContentPage title="My addresses">
+          <SfTabs :open-tab="1">
+            <MyAddresses />
+          </SfTabs>
+        </SfContentPage>
+        <SfContentPage title="My newsletter">
+          <SfTabs :open-tab="1">
+            <SfTab title="My newsletter"> </SfTab>
+          </SfTabs>
+        </SfContentPage>
+      </SfContentCategory>
+      <SfContentCategory title="Order details">
+        <SfContentPage :title="`Order history (${user && user.orderCount})`">
+          <OrderHistory />
+        </SfContentPage>
+      </SfContentCategory>
+      <SfContentPage title="Logout"></SfContentPage>
+    </SfContentPages>
   </div>
 </template>
 <script>
@@ -41,42 +40,48 @@ import OrderHistory from "../components/account/OrderHistory"
 
 export default {
   name: 'Account',
-  components: { OrderHistory, SfContentPages, SfTabs, MyProfile, SfList, MyAddresses },
-  middleware: "auth",
+  components: {
+    OrderHistory,
+    SfContentPages,
+    SfTabs,
+    MyProfile,
+    SfList,
+    MyAddresses
+  },
+  middleware: 'auth',
   setup() {
     const { logout, user, loadOrders, orders } = useUser()
     return { logout, user, loadOrders, orders }
   },
   data() {
     return {
-      activePage: "My profile",
+      activePage: 'My profile',
       allAddresses: []
     }
   },
   computed: {
     activeBillingAddress() {
-      return this.user && this.user && this.user.activeBillingAddress || {}
+      return (this.user && this.user && this.user.activeBillingAddress) || {}
     },
     activeShippingAddress() {
-      return this.user && this.user && this.user.activeShippingAddress || {}
-    },
+      return (this.user && this.user && this.user.activeShippingAddress) || {}
+    }
   },
   // async mounted() {
   //   this.allAddresses = await this.getAddresses()
   // },
   methods: {
     async updateActivePage(title) {
-        if (title === "Logout") {
-          await this.logout();
-          this.$router.push(PAGE_LOGIN)
-        }
-        this.activePage = title;
+      if (title === "Logout") {
+        await this.logout();
+        this.$router.push(PAGE_LOGIN)
       }
+      this.activePage = title;
+    }
   }
 }
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
 @import '~@storefront-ui/shared/styles/helpers/visibility';
-
 </style>

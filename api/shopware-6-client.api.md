@@ -18,6 +18,7 @@ import { NavigationResponse } from '@shopware-pwa/shopware-6-client/src/interfac
 import { Order } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order';
 import { PaymentMethod } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product';
+import { Salutation } from '@shopware-pwa/shopware-6-client/src/interfaces/models/system/salutation/Salutation';
 import { SearchCriteria } from '@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria';
 import { SearchResult } from '@shopware-pwa/shopware-6-client/src/interfaces/response/SearchResult';
 import { ShippingMethod } from '@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/shipping/ShippingMethod';
@@ -102,7 +103,7 @@ export interface CustomerUpdateProfileParam {
 // @alpha
 export function deleteCustomerAddress(addressId: string): Promise<void>;
 
-// @alpha (undocumented)
+// @alpha
 export function getAvailableCountries(): Promise<SearchResult<Country[]>>;
 
 // @alpha (undocumented)
@@ -113,6 +114,9 @@ export function getAvailableLanguages(): Promise<SearchResult<Language[]>>;
 
 // @alpha (undocumented)
 export function getAvailablePaymentMethods(): Promise<SearchResult<PaymentMethod[]>>;
+
+// @alpha
+export function getAvailableSalutations(): Promise<SearchResult<Salutation[]>>;
 
 // @alpha (undocumented)
 export function getAvailableShippingMethods(): Promise<SearchResult<ShippingMethod[]>>;

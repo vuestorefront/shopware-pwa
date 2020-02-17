@@ -56,6 +56,21 @@ export const useCategoryFilters: () => any;
 export const useCms: () => any;
 
 // @public (undocumented)
+export interface UseCountries {
+    // (undocumented)
+    error: Ref<any>;
+    // (undocumented)
+    fetchCountries: () => Promise<void>;
+    // (undocumented)
+    getCountries: Ref<Readonly<any>>;
+    // (undocumented)
+    mountedCallback: () => Promise<void>;
+}
+
+// @public (undocumented)
+export const useCountries: () => UseCountries;
+
+// @public (undocumented)
 export const useNavigation: () => any;
 
 // @alpha (undocumented)
@@ -87,6 +102,21 @@ export interface UseProductListing {
 
 // @alpha (undocumented)
 export const useProductListing: (initialProducts?: Product[]) => UseProductListing;
+
+// @public (undocumented)
+export interface UseSalutations {
+    // (undocumented)
+    error: Ref<any>;
+    // (undocumented)
+    fetchSalutations: () => Promise<void>;
+    // (undocumented)
+    getSalutations: Ref<Readonly<any>>;
+    // (undocumented)
+    mountedCallback: () => Promise<void>;
+}
+
+// @public (undocumented)
+export const useSalutations: () => UseSalutations;
 
 // @alpha (undocumented)
 export interface UseUser {
