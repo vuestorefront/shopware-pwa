@@ -9,7 +9,7 @@
       </slot>
 
       <SfAlert
-        v-if="error || contextError"
+        v-if="userError || salutationsError"
         class="sw-personal-info__alert"
         type="danger"
         :message="getErrorMessage"
@@ -17,22 +17,22 @@
 
       <div class="sw-personal-info__form form">
         <slot name="form">
-          <SfSelect
-            v-if="getMappedSalutations && getMappedSalutations.length > 0"
-            v-model="salutation"
-            label="Salutation"
-            :valid="!$v.salutation.$error"
-            error-message="Salutation must be selected"
-            class="sf-select--underlined form__element form__element--half form__select"
+        <SfSelect
+          v-if="getMappedSalutations && getMappedSalutations.length > 0"
+          v-model="salutation"
+          label="Salutation"
+          :valid="!$v.salutation.$error"
+          error-message="Salutation must be selected"
+          class="sf-select--underlined form__element form__element--half form__select"
+        >
+          <SfSelectOption
+            v-for="salutationOption in getMappedSalutations"
+            :key="salutationOption.id"
+            :value="salutationOption"
           >
-            <SfSelectOption
-              v-for="salutationOption in getMappedSalutations"
-              :key="salutationOption.id"
-              :value="salutationOption"
-            >
-              {{ salutationOption.name }}
-            </SfSelectOption>
-          </SfSelect>
+            {{ salutationOption.name }}
+          </SfSelectOption>
+        </SfSelect>
           <SfInput
             v-model="title"
             name="title"
@@ -75,6 +75,7 @@
 </template>
 
 <script>
+import { computed } from '@vue/composition-api'
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
 import {
@@ -85,6 +86,7 @@ import {
   SfAlert
 } from '@storefront-ui/vue'
 import { useUser, useContext, useSalutations } from '@shopware-pwa/composables'
+import { mapSalutations } from '@shopware-pwa/helpers'
 
 export default {
   name: 'MyProfile',
@@ -98,16 +100,28 @@ export default {
   mixins: [validationMixin],
   props: {},
   setup() {
-    const { user, error, updatePersonalInfo, refreshUser } = useUser()
-    const salutations = useSalutations()
+    const {
+      user,
+      error: userError,
+      updatePersonalInfo,
+      refreshUser
+    } = useUser()
+    const {
+      getSalutations,
+      fetchSalutations,
+      error: salutationsError
+    } = useSalutations()
+
+    const getMappedSalutations = computed(() => mapSalutations(getSalutations.value))
+
     return {
-      fetchSalutations: salutations.fetchSalutations,
-      getMappedSalutations: salutations.getMappedSalutations,
-      contextError: salutations.error,
+      fetchSalutations,
+      getMappedSalutations,
+      salutationsError,
       refreshUser,
       updatePersonalInfo,
       user,
-      error
+      userError
     }
   },
   data() {
@@ -127,9 +141,9 @@ export default {
   },
   computed: {
     getErrorMessage() {
-      return error && !errorContext 
-        ? "Cannot create a new account, the user may already exist" :
-         "Coudn't fetch available salutations or countries, please contact the administration."
+      return userError && !salutationsError
+        ? 'Cannot create a new account, the user may already exist'
+        : "Coudn't fetch available salutations or countries, please contact the administration."
     }
   },
   validations: {

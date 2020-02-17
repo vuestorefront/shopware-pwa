@@ -150,17 +150,20 @@ export default {
     }
   },
   setup() {
-    const { login, register, loading, userError: error } = useUser()
-    const { fetchCountries, countriesError: error } = useCountries()
-    const { fetchSalutations, salutaitonError: error } = useSalutations()
+    const { login, register, loading, error: userError } = useUser()
+    const {
+      fetchCountries,
+      getCountries,
+      error: countriesError
+    } = useCountries()
+    const {
+      fetchSalutations,
+      getSalutations,
+      error: salutationsError
+    } = useSalutations()
 
-    const getMappedCountries = computed(() => {
-      return mapCountries(countries.getCountries.value)
-    })
-
-    const getMappedSalutations = computed(() => {
-      return mapSalutations(salutations.getSalutations.value)
-    })
+    const getMappedCountries = computed(() => mapCountries(getCountries.value))
+    const getMappedSalutations = computed(() => mapSalutations(getSalutations.value))
 
     return {
       clientLogin: login,
@@ -170,7 +173,7 @@ export default {
       countriesError,
       getMappedCountries,
       salutationsError,
-      getMappedSalutations,
+      getMappedSalutations
     }
   },
   computed: {
