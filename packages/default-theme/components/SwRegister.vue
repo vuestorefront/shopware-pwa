@@ -3,12 +3,13 @@
     <div class="form sw-register">
       <h2 class="sw-register__header">Register</h2>
       <SfAlert
-        v-if="error"
+        v-if="userError || salutationsError || countriesError"
         class="sw-register__alert"
         type="danger"
-        message="Cannot create a new account, the user may already exist"
+        :message="getErrorMessage"
       />
       <SfSelect
+        v-if="getMappedSalutations && getMappedSalutations.length > 0"
         v-model="salutation"
         label="Salutation"
         :valid="!$v.salutation.$error"
@@ -16,11 +17,11 @@
         class="sf-select--underlined form__input"
       >
         <SfSelectOption
-          v-for="option in salutations"
-          :key="option.id"
-          :value="option"
+          v-for="salutationOption in getMappedSalutations"
+          :key="salutationOption.id"
+          :value="salutationOption"
         >
-          {{ option.label }}
+          {{ salutationOption.name }}
         </SfSelectOption>
       </SfSelect>
       <div class="input-group">
@@ -59,7 +60,7 @@
         type="password"
         class="form__input"
         :valid="!$v.password.$error"
-        error-message="Minimum password length is 4 characters"
+        error-message="Minimum password length is 8 characters"
         @blur="$v.password.$touch()"
       />
       <div class="input-group">
@@ -93,6 +94,7 @@
       </div>
       <SfSelect
         v-model="country"
+        v-if="getMappedCountries && getMappedCountries.length > 0"
         label="Country"
         class="sf-select--underlined form__input"
         :valid="!$v.country.$error"
@@ -100,11 +102,11 @@
         @blur="$v.country.$touch()"
       >
         <SfSelectOption
-          v-for="option in countries"
-          :key="option.id"
-          :value="option"
+          v-for="countryOption in getMappedCountries"
+          :key="countryOption.id"
+          :value="countryOption"
         >
-          {{ option.label }}
+          {{ countryOption.name }}
         </SfSelectOption>
       </SfSelect>
       <SfButton
@@ -119,10 +121,16 @@
 </template>
 
 <script>
+import { computed } from '@vue/composition-api'
 import { SfAlert, SfInput, SfButton, SfSelect } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength } from 'vuelidate/lib/validators'
-import { useUser } from '@shopware-pwa/composables'
+import {
+  useUser,
+  useCountries,
+  useSalutations
+} from '@shopware-pwa/composables'
+import { mapCountries, mapSalutations } from '@shopware-pwa/helpers'
 
 export default {
   name: 'SwResetPassword',
@@ -135,8 +143,6 @@ export default {
       email: '',
       password: '',
       salutation: null,
-      salutations: [{ label: 'Mr.', id: 'c370eb5cd1df4d4dbcc78f055b693e79' }],
-      countries: [{ label: 'Poland', id: '38245a84c3d5425b8bac97fc845b5ddd' }],
       country: null,
       street: '',
       city: '',
@@ -144,16 +150,34 @@ export default {
     }
   },
   setup() {
-    const { login, register, loading, error } = useUser()
+    const { login, register, loading, error: userError } = useUser()
+    const {
+      fetchCountries,
+      getCountries,
+      error: countriesError
+    } = useCountries()
+    const {
+      fetchSalutations,
+      getSalutations,
+      error: salutationsError
+    } = useSalutations()
+
+    const getMappedCountries = computed(() => mapCountries(getCountries.value))
+    const getMappedSalutations = computed(() => mapSalutations(getSalutations.value))
+
     return {
       clientLogin: login,
       clientRegister: register,
       isLoading: loading,
-      error
+      userError,
+      countriesError,
+      getMappedCountries,
+      salutationsError,
+      getMappedSalutations
     }
   },
   computed: {
-    mapCustomerInforations() {
+    mapCustomerInformations() {
       return {
         firstName: this.firstName,
         lastName: this.lastName,
@@ -170,6 +194,14 @@ export default {
           countryId: this.country.id
         }
       }
+    },
+    getErrorMessage() {
+      if (userError)
+        return 'Cannot create a new account, the user may already exist'
+      if (salutationsError)
+        return "Couldn't fetch available salutations, please contact the administration."
+      if (countriesError)
+        return "Couldn't fetch available countries, please contact the administration."
     }
   },
   validations: {
@@ -209,7 +241,9 @@ export default {
       if (this.$v.$invalid) {
         return
       }
-      const registeredIn = await this.clientRegister(this.mapCustomerInforations)
+      const registeredIn = await this.clientRegister(
+        this.mapCustomerInformations
+      )
       if (registeredIn) {
         await this.clientLogin({
           username: this.email,

@@ -9,37 +9,32 @@
       </slot>
 
       <SfAlert
-        v-if="error"
+        v-if="userError || salutationsError"
         class="sw-personal-info__alert"
         type="danger"
-        message="Errors in the form"
+        :message="getErrorMessage"
       />
 
       <div class="sw-personal-info__form form">
         <slot name="form">
-          <SfSelect
-            v-model="salutation"
-            :valid="!$v.salutation.$error"
-            :selected="salutation"
-            error-message="Salutation must be selected"
-            required
-            label="Salutation"
-            class="form__element form__element--half"
-            @blur="$v.salutation.$touch()"
+        <SfSelect
+          v-if="getMappedSalutations && getMappedSalutations.length > 0"
+          v-model="salutation"
+          label="Salutation"
+          :valid="!$v.salutation.$error"
+          error-message="Salutation must be selected"
+          class="sf-select--underlined form__element form__element--half form__select"
+        >
+          <SfSelectOption
+            v-for="salutationOption in getMappedSalutations"
+            :key="salutationOption.id"
+            :value="salutationOption"
           >
-            <SfSelectOption
-              v-for="salutationOption in salutations"
-              :key="salutationOption.id"
-              :value="salutationOption"
-            >
-              <SfProductOption
-                :label="salutationOption.displayName"
-              ></SfProductOption>
-            </SfSelectOption>
-          </SfSelect>
+            {{ salutationOption.name }}
+          </SfSelectOption>
+        </SfSelect>
           <SfInput
             v-model="title"
-            required
             name="title"
             :valid="!$v.title.$error"
             :selected="salutation"
@@ -50,7 +45,6 @@
           />
           <SfInput
             v-model="firstName"
-            required
             :valid="!$v.firstName.$error"
             error-message="First name is required"
             name="firstName"
@@ -60,7 +54,6 @@
           />
           <SfInput
             v-model="lastName"
-            required
             :valid="!$v.lastName.$error"
             error-message="Last name is required"
             name="lastName"
@@ -82,6 +75,7 @@
 </template>
 
 <script>
+import { computed } from '@vue/composition-api'
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
 import {
@@ -91,37 +85,65 @@ import {
   SfProductOption,
   SfAlert
 } from '@storefront-ui/vue'
-import { useUser } from '@shopware-pwa/composables'
+import { useUser, useContext, useSalutations } from '@shopware-pwa/composables'
+import { mapSalutations } from '@shopware-pwa/helpers'
 
 export default {
   name: 'MyProfile',
-  components: { SfInput, SfButton, SfSelect, SfProductOption, SfAlert },
+  components: {
+    SfInput,
+    SfButton,
+    SfSelect,
+    SfProductOption,
+    SfAlert
+  },
   mixins: [validationMixin],
   props: {},
   setup() {
-    const { user, error, updatePersonalInfo, refreshUser } = useUser()
+    const {
+      user,
+      error: userError,
+      updatePersonalInfo,
+      refreshUser
+    } = useUser()
+    const {
+      getSalutations,
+      fetchSalutations,
+      error: salutationsError
+    } = useSalutations()
+
+    const getMappedSalutations = computed(() => mapSalutations(getSalutations.value))
+
     return {
+      fetchSalutations,
+      getMappedSalutations,
+      salutationsError,
       refreshUser,
       updatePersonalInfo,
       user,
-      error
+      userError
     }
   },
   data() {
     return {
-      salutations: [
-        { displayName: 'Mr.', id: 'c370eb5cd1df4d4dbcc78f055b693e79' }
-      ],
       salutation:
         this.user && this.user.salutation
           ? {
-              displayName: this.user.salutation.displayName,
+              name: this.user.salutation.displayName,
               id: this.user.salutation.id
             }
           : {},
       firstName: this.user && this.user.firstName,
       lastName: this.user && this.user.lastName,
-      title: this.user && this.user.title
+      title: this.user && this.user.title,
+      isLoading: true
+    }
+  },
+  computed: {
+    getErrorMessage() {
+      return userError && !salutationsError
+        ? 'Cannot create a new account, the user may already exist'
+        : "Coudn't fetch available salutations or countries, please contact the administration."
     }
   },
   validations: {
@@ -148,6 +170,10 @@ export default {
       })
       await this.refreshUser()
     }
+  },
+  async mounted() {
+    await this.fetchSalutations()
+    this.isLoading = false
   }
 }
 </script>
@@ -186,6 +212,11 @@ export default {
     width: 100%;
     @include for-desktop {
       width: auto;
+    }
+  }
+  &__select {
+    ::v-deep .sf-select__selected {
+      padding: 5px 0;
     }
   }
 }

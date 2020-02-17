@@ -35,7 +35,6 @@
           </SfTabs>
         </SfContentPage>
       </SfContentCategory>
-      </SfContentCategory>
       <SfContentPage title="Logout"></SfContentPage>
     </SfContentPages>
   </div>
