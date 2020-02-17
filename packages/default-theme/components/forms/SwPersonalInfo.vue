@@ -58,7 +58,7 @@
             error-message="Last name is required"
             name="lastName"
             label="Last Name"
-            class="sf-select--underlined form__element form__element--half form__select"
+            class="form__element form__element--half form__element--half-even"
             @blur="$v.lastName.$touch()"
           />
           <SfButton

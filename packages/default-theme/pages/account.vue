@@ -6,23 +6,18 @@
       @click:change="updateActivePage"
     >
       <SfContentCategory title="Personal Details">
-        <SfContentPage title="profile">
-          <nuxt-child/>
+        <SfContentPage title="My profile">
+          <MyProfile />
         </SfContentPage>
-        <SfContentPage title="address">
+        <SfContentPage title="My addresses">
           <SfTabs :open-tab="1">
-            <nuxt-child/>
+            <MyAddresses />
           </SfTabs>
         </SfContentPage>
       </SfContentCategory>
       <SfContentCategory title="Order details">
         <SfContentPage :title="`Order history (${user && user.orderCount})`">
           <OrderHistory />
-        </SfContentPage>
-        <SfContentPage title="My Reviews">
-          <SfTabs :open-tab="1">
-            <SfTab title="My Reviews"> </SfTab>
-          </SfTabs>
         </SfContentPage>
       </SfContentCategory>
       <SfContentPage title="Logout"></SfContentPage>
@@ -33,11 +28,9 @@
 import { SfContentPages, SfTabs, SfList } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
 import { PAGE_LOGIN } from '../helpers/pages'
-
 import MyProfile  from "../components/account/MyProfile"
 import MyAddresses from "../components/account/MyAddresses"
 import OrderHistory from "../components/account/OrderHistory"
-
 export default {
   name: 'Account',
   components: {
@@ -67,9 +60,11 @@ export default {
       return (this.user && this.user && this.user.activeShippingAddress) || {}
     }
   },
+  // async mounted() {
+  //   this.allAddresses = await this.getAddresses()
+  // },
   methods: {
     async updateActivePage(title) {
-      this.$router.push(`/account/${title}`)
       if (title === "Logout") {
         await this.logout();
         this.$router.push(PAGE_LOGIN)
