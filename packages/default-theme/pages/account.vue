@@ -7,17 +7,17 @@
     >
       <SfContentCategory title="Personal Details">
         <SfContentPage title="My profile">
-          <MyProfile />
+          <nuxt-child/>
         </SfContentPage>
         <SfContentPage title="My addresses">
           <SfTabs :open-tab="1">
-            <MyAddresses />
+            <nuxt-child/>
           </SfTabs>
         </SfContentPage>
       </SfContentCategory>
       <SfContentCategory title="Order details">
         <SfContentPage :title="`Order history (${user && user.orderCount})`">
-          <OrderHistory />
+          <nuxt-child/>
         </SfContentPage>
       </SfContentCategory>
       <SfContentPage title="Logout"></SfContentPage>
@@ -60,14 +60,33 @@ export default {
       return (this.user && this.user && this.user.activeShippingAddress) || {}
     }
   },
-  // async mounted() {
-  //   this.allAddresses = await this.getAddresses()
-  // },
+  mounted() {
+    this.updateActivePage(this.activePage)
+  },
+  watch: {
+    $route(to, from) {
+      console.log(to);
+      if (to.name === 'account-profile') {
+        this.activePage = 'My profile'
+      }
+    }
+  },
   methods: {
     async updateActivePage(title) {
-      if (title === "Logout") {
-        await this.logout();
-        this.$router.push(PAGE_LOGIN)
+      switch(title) {
+        case 'My profile':
+          this.$router.push('/account/profile')
+          break;
+        case 'My addresses':
+          this.$router.push('/account/addresses')
+          break;
+        case `Order history (${this.user && this.user.orderCount})`:
+          this.$router.push('/account/orders')
+          break;
+        case 'Logout':
+          await this.logout();
+          this.$router.push(PAGE_LOGIN)
+          break;
       }
       this.activePage = title;
     }

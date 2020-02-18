@@ -1,5 +1,6 @@
 <template>
   <div class="sw-addresses">
+    {{ form }}
     <p class="message">
       Keep your addresses and contact details updated.
     </p>
@@ -249,7 +250,8 @@ export default {
         street,
         apartment,
         city,
-        country
+        country,
+        phoneNumber
       } = this.form
       return {
         firstName,

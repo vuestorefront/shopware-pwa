@@ -7,17 +7,20 @@
           ...) This way you won't have to enter the shipping address manually
           with each order.
         </p>
-        <Address
-          v-for="address in addresses"
-          :address="address"
-          :key="address.id"
-          :isDefaultShipping="address.id === selectedShipping"
-          :isDefaultBilling="address.id === selectedBilling"
-          @selectDefaultAddress="selectDefaultAddress"
-          @deleteAddress="deleteAddress"
-          class="shipping-list__address"
-        />
-        <SfButton @click="listAddresses = false">
+        <transition-group tag="div" name="fade" class="shipping-list">
+          <Address
+            v-for="address in addresses"
+            :address="address"
+            :key="address.id"
+            :isDefaultShipping="address.id === selectedShipping"
+            :isDefaultBilling="address.id === selectedBilling"
+            @selectDefaultAddress="selectDefaultAddress"
+            @deleteAddress="deleteAddress"
+            @editAddress="editAddress"
+            class="shipping-list__address"
+          />
+        </transition-group>
+        <SfButton class="shipping-list__button" @click="listAddresses = false">
           Add new address
         </SfButton>
       </SfTab>
@@ -126,6 +129,12 @@ export default {
     display: flex;
     padding: $spacer-big 0;
     border-top: 1px solid $c-light;
+  }
+  &__button {
+    width: 100%;
+    @include for-desktop {
+      width: auto
+    }
   }
 }
 .change-address {
