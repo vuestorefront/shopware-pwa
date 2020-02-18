@@ -1,13 +1,14 @@
 <template>
   <div class="sw-addresses">
+    {{ form }}
     <p class="message">
       Keep your addresses and contact details updated.
     </p>
     <SfAlert
-      v-if="countriesError"
+      v-if="countriesError || userError"
       class="sw-personal-info__alert"
       type="danger"
-      message="Error with fetching countries"
+      :message="countriesError || JSON.stringify(userError)"
     />
     <div class="form">
       <SfInput
@@ -30,13 +31,30 @@
         required
         class="form__element form__element--half form__element--half-even"
       />
+      <SfSelect
+        v-model="form.salutation"
+        label="Salutation"
+        error-message="Salutation must be selected"
+        required
+        :valid="!$v.form.salutation.$error"
+        @blur="$v.form.salutaiton.$touch()"
+        class="sf-select--underlined form__element form__element--half form__element--half form__select"
+      >
+        <SfSelectOption
+          v-for="salutationOption in getMappedSalutations"
+          :key="salutationOption.id"
+          :value="salutationOption"
+        >
+          {{ salutationOption.name }}
+        </SfSelectOption>
+      </SfSelect>
       <SfInput
-        v-model="form.streetName"
-        name="streetName"
+        v-model="form.street"
+        name="street"
         label="Street Name"
         error-message="Street name is required"
-        :valid="!$v.form.streetName.$error"
-        @blur="$v.form.streetName.$touch()"
+        :valid="!$v.form.street.$error"
+        @blur="$v.form.street.$touch()"
         required
         class="form__element form__element--half"
       />
@@ -71,22 +89,22 @@
         class="form__element form__element--half form__element--half-even"
       />
       <SfInput
-        v-model="form.zipCode"
-        name="zipCode"
+        v-model="form.zipcode"
+        name="zipcode"
         label="Zip-code"
         error-message="Zip code is required"
-        :valid="!$v.form.zipCode.$error"
-        @blur="$v.form.zipCode.$touch()"
+        :valid="!$v.form.zipcode.$error"
+        @blur="$v.form.zipcode.$touch()"
         required
         class="form__element form__element--half"
       />
       <SfSelect
         v-model="form.country"
-        v-if="getMappedCountries && getMappedCountries.length > 0"
         label="Country"
         error-message="Country must be selected"
         :valid="!$v.form.country.$error"
         @blur="$v.form.country.$touch()"
+        required
         class="sf-select--underlined form__element form__element--half form__element--half-even form__select"
       >
         <SfSelectOption
@@ -99,9 +117,9 @@
       </SfSelect>
       <SfInput
         v-model="form.phoneNumber"
-        name="phone"
+        name="phoneNumber"
         label="Phone number"
-        error-message="Phone number is required"
+        error-message="Wrong phone number"
         :valid="!$v.form.phoneNumber.$error"
         @blur="$v.form.phoneNumber.$touch()"
         required
@@ -110,14 +128,14 @@
       <SfButton class="form__button" @click="updateAddress">
         Update the address
       </SfButton>
-        <SfButton
-          :disabled="$v.$invalid"
-          class="sf-button--outline form__button form__button--back"
-          @click="listAddresses = true"
-        >
-          Back
-        </SfButton>
-      </div>
+      <SfButton
+        :disabled="$v.$invalid"
+        class="sf-button--outline form__button form__button--back"
+        @click="listAddresses = true"
+      >
+        Back
+      </SfButton>
+    </div>
   </div>
 </template>
 
@@ -125,81 +143,131 @@
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
 import { computed } from '@vue/composition-api'
-import { SfTabs, SfInput, SfButton, SfSelect, SfIcon } from '@storefront-ui/vue'
-import { useCountries } from '@shopware-pwa/composables'
-import { mapCountries } from '@shopware-pwa/helpers'
+import {
+  SfAlert,
+  SfTabs,
+  SfInput,
+  SfButton,
+  SfSelect,
+  SfIcon
+} from '@storefront-ui/vue'
+import {
+  useCountries,
+  useUser,
+  useSalutations
+} from '@shopware-pwa/composables'
+import { mapCountries, mapSalutations } from '@shopware-pwa/helpers'
 
 export default {
   name: 'SwAddress',
-  components: { SfTabs, SfInput, SfButton, SfSelect, SfIcon },
-  mixins: [ validationMixin ],
+  components: { SfAlert, SfTabs, SfInput, SfButton, SfSelect, SfIcon },
+  mixins: [validationMixin],
   props: {
     firstName: {
       type: String,
-      default: ''      
+      default: ''
     },
     lastName: {
       type: String,
-      default: '',
+      default: ''
     },
-    streetName: {
+    street: {
       type: String,
-      default: '',
+      default: ''
     },
     apartment: {
       type: String,
-      default: '',
+      default: ''
     },
     city: {
       type: String,
-      default: '',
+      default: ''
     },
     state: {
       type: String,
-      default: '',
+      default: ''
     },
-    zipCode: {
+    zipcode: {
       type: String,
       default: ''
     },
     country: {
-      type: String,
-      default: '',
+      type: Object,
+      default: () => ({ name: null, id: '' })
     },
     phoneNumber: {
       type: String,
       default: ''
+    },
+    salutation: {
+      type: Object,
+      default: () => ({ name: null, id: '' })
     }
   },
   data() {
     return {
       editAddress: false,
       editedAddress: -1,
-      form : {
+      form: {
         firstName: this.firstName,
         lastName: this.lastName,
-        streetName: this.streetName,
+        salutation: this.salutation,
+        street: this.street,
         apartment: this.apartment,
         city: this.city,
         state: this.state,
-        zipCode: this.zipCode,
+        zipcode: this.zipcode,
         country: this.country,
-        phoneNumber: this.phoneNumber,
+        phoneNumber: this.phoneNumber
       }
     }
   },
   setup() {
+    const { getSalutations, error: salutationsError } = useSalutations()
+    const { addAddress, error: userError } = useUser()
     const { getCountries, error: countriesError } = useCountries()
+
     const getMappedCountries = computed(() => mapCountries(getCountries.value))
+    const getMappedSalutations = computed(() =>
+      mapSalutations(getSalutations.value)
+    )
 
     return {
+      addAddress,
+      userError,
       countriesError,
       getMappedCountries,
+      getMappedSalutations
+    }
+  },
+  computed: {
+    getAddressParam() {
+      const {
+        firstName,
+        lastName,
+        salutation,
+        zipcode,
+        street,
+        apartment,
+        city,
+        country
+      } = this.form
+      return {
+        firstName,
+        lastName,
+        salutationId: salutation.id,
+        zipcode,
+        street,
+        apartment,
+        city,
+        countryId: country.id,
+        phoneNumber
+      }
     }
   },
   methods: {
-    updateAddress() {
-      // ...
+    async updateAddress() {
+      await this.addAddress(this.getAddressParam)
     }
   },
   validations: {
@@ -210,7 +278,10 @@ export default {
       firstName: {
         required
       },
-      streetName: {
+      salutation: {
+        required
+      },
+      street: {
         required
       },
       apartment: {
@@ -222,15 +293,13 @@ export default {
       state: {
         required
       },
-      zipCode: {
+      zipcode: {
         required
       },
       country: {
         required
       },
-      phoneNumber: {
-        required
-      }
+      phoneNumber: {}
     }
   }
 }
