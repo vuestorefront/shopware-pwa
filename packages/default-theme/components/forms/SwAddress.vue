@@ -1,6 +1,5 @@
 <template>
   <div class="sw-addresses">
-    {{ form }}
     <p class="message">
       Keep your addresses and contact details updated.
     </p>
@@ -56,7 +55,7 @@
         :valid="!$v.form.street.$error"
         @blur="$v.form.street.$touch()"
         required
-        class="form__element form__element--half"
+        class="form__element form__element--half form__element--half-even"
       />
       <SfInput
         v-model="form.apartment"
