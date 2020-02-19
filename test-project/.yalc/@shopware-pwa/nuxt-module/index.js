@@ -153,6 +153,14 @@ module.exports = async function ShopwarePWAModule(moduleOptions) {
   });
   this.options.build.transpile.push("@shopware-pwa/composables");
 
+  const pathExtst = !!jetpack.exists(
+    path.join(this.options.rootDir, "node_modules/@shopware-pwa/composables")
+  );
+  const pathExtst2 = !!jetpack.exists("node_modules/@shopware-pwa/composables");
+
+  console.error("EXIST1: " + pathExtst);
+  console.error("EXIST2: " + pathExtst2);
+
   // TODO add watching files only in development mode
   // if (jetpack.exists(componentsPath)) {
   //   fs.watch(componentsPath, { recursive: true }, async () => {
