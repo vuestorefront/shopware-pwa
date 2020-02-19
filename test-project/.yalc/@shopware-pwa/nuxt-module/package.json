@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/nuxt-module",
-  "version": "0.1.0-alpha.0-7149ab87",
+  "version": "0.1.0-alpha.0-f377e6d2",
   "description": "@shopware-pwa/nuxt-module",
   "files": [
     "index.js",
