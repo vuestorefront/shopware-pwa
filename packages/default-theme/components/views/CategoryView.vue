@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import CmsPage from "@shopware-pwa/default-theme/components/CmsPage";
+import CmsPage from '@shopware-pwa/default-theme/components/CmsPage.vue'
 
 export default {
   name: 'CategoryView',
@@ -19,5 +19,4 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -46,7 +46,7 @@ async function run() {
     if (isCIRun) {
       for (let index = 0; index < allTargets.length; index++) {
         const pkgDir = path.resolve(`packages/${allTargets[index]}`);
-        await execa("npx", ["yalc", "publish"], {
+        await execa("npx", ["yalc", "push"], {
           stdio: "inherit",
           cwd: pkgDir
         });

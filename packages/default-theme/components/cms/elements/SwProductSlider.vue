@@ -12,7 +12,7 @@
 
 <script>
 import { SfSection, SfCarousel } from '@storefront-ui/vue'
-import SwProductCard from '../../SwProductCard'
+import SwProductCard from '../../SwProductCard.vue'
 
 export default {
   name: 'SwProductSlider',
@@ -39,7 +39,7 @@ export default {
         : ''
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

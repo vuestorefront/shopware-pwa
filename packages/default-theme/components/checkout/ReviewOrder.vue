@@ -42,17 +42,14 @@
 <script>
 import { useCart, useUser } from '@shopware-pwa/composables'
 import helpers from '@shopware-pwa/default-theme/helpers'
-import PersonalDetails from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/PersonalDetails'
-import ShippingAddress from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/ShippingAddress'
-import BillingAddress from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/BillingAddress'
-import PaymentMethod from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/PaymentMethod'
-import OrderItemsTable from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/OrderItemsTable'
-import Summary from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/Summary'
+import PersonalDetails from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/PersonalDetails.vue'
+import ShippingAddress from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/ShippingAddress.vue'
+import BillingAddress from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/BillingAddress.vue'
+import PaymentMethod from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/PaymentMethod.vue'
+import OrderItemsTable from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/OrderItemsTable.vue'
+import Summary from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/Summary.vue'
 
-import {
-  SfHeading,
-  SfAccordion,
-} from '@storefront-ui/vue'
+import { SfHeading, SfAccordion } from '@storefront-ui/vue'
 
 export default {
   name: 'ReviewOrder',
@@ -127,7 +124,7 @@ export default {
       )
       return method ? method : { label: '' }
     }
-  },
+  }
 }
 </script>
 <style lang="scss" scoped>

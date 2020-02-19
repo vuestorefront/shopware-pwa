@@ -23,7 +23,8 @@
         :options="options"
         v-model="selected[code]"
         :changeHandler="handleChange"
-        :label="code" />
+        :label="code"
+      />
     </div>
     <div class="product-details__section">
       <SfAlert
@@ -110,9 +111,9 @@ import {
   getProductOptions
 } from '@shopware-pwa/helpers'
 import { useProduct, useAddToCart } from '@shopware-pwa/composables'
-import SwProductHeading from '@shopware-pwa/default-theme/components/SwProductHeading'
-import SwProductSelect from '@shopware-pwa/default-theme/components/SwProductSelect'
-import SwProductTabs from '@shopware-pwa/default-theme/components/SwProductTabs'
+import SwProductHeading from '@shopware-pwa/default-theme/components/SwProductHeading.vue'
+import SwProductSelect from '@shopware-pwa/default-theme/components/SwProductSelect.vue'
+import SwProductTabs from '@shopware-pwa/default-theme/components/SwProductTabs.vue'
 
 export default {
   name: 'SwProductDetails',
@@ -160,10 +161,18 @@ export default {
       return price && '$' + price
     },
     name() {
-      return this.product && (this.product.name || this.product.translated && this.product.translated.name)
+      return (
+        this.product &&
+        (this.product.name ||
+          (this.product.translated && this.product.translated.name))
+      )
     },
     description() {
-      return this.product && (this.product.description || this.product.translated && this.product.translated.description)
+      return (
+        this.product &&
+        (this.product.description ||
+          (this.product.translated && this.product.translated.description))
+      )
     },
     ratingAverage() {
       return this.product && this.product.ratingAverage
@@ -176,14 +185,14 @@ export default {
     properties() {
       return getProductProperties({ product: this.product })
     },
-    getAllProductOptions(){
+    getAllProductOptions() {
       const options = getProductOptions({
         product: this.product
       })
 
-      return options;
+      return options
     },
-    getAllProductOption(){
+    getAllProductOption() {
       return getProductOptions({
         product: this.product
       })
@@ -200,12 +209,15 @@ export default {
   },
   watch: {
     selectedOptions(selected, selectedOld) {
-      if (Object.keys(this.getAllProductOptions).length !== Object.keys(selected).length) {
-        return;
+      if (
+        Object.keys(this.getAllProductOptions).length !==
+        Object.keys(selected).length
+      ) {
+        return
       }
 
-      const options = [];
-      for(let attribute of Object.keys(selected)) {
+      const options = []
+      for (let attribute of Object.keys(selected)) {
         options.push(selected[attribute])
       }
       const url = getProductOptionsUrl({
@@ -219,8 +231,10 @@ export default {
 
   mounted() {
     this.product.options.forEach(option => {
-      this.selected = Object.assign({}, this.selected, { [option.group.name]: option.id })
-    });
+      this.selected = Object.assign({}, this.selected, {
+        [option.group.name]: option.id
+      })
+    })
   },
 
   methods: {

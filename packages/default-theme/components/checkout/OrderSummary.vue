@@ -84,7 +84,7 @@ import {
 } from '@storefront-ui/vue'
 
 import { useCart, useCartSidebar } from '@shopware-pwa/composables'
-import SwCartProduct from '@shopware-pwa/default-theme/components/SwCartProduct'
+import SwCartProduct from '@shopware-pwa/default-theme/components/SwCartProduct.vue'
 
 export default {
   name: 'OrderSummary',

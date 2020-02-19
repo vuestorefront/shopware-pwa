@@ -11,6 +11,10 @@
     "start": "nuxt start",
     "test": "jest"
   },
+  "files": [
+    "**/*",
+    "*"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -23,7 +27,6 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.9.3",
     "@nuxtjs/pwa": "^3.0.0-beta.19",
-    "@shopware-pwa/shopware-6-client": "latest",
     "@storefront-ui/vue": "latest",
     "@vue/composition-api": "^0.3.4",
     "currency.js": "^1.2.2",

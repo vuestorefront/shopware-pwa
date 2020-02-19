@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import SwProductCard from '../../SwProductCard'
+import SwProductCard from '../../SwProductCard.vue'
 import { SfPagination, SfHeading, SfLoader } from '@storefront-ui/vue'
 import { useProductListing } from '@shopware-pwa/composables'
 export default {
@@ -53,7 +53,7 @@ export default {
       loading
     } = useProductListing(propProducts)
 
-    const changedPage = async (pageNumber) => {
+    const changedPage = async pageNumber => {
       await changePagination(pageNumber)
     }
 

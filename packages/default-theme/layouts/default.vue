@@ -5,20 +5,21 @@
       v-show="getBreadcrumbs.length > 0"
       :breadcrumbs="getBreadcrumbs"
       v-on:click="redirectTo"
-      class="sw-breadcrumbs"/>
+      class="sw-breadcrumbs"
+    />
     <nuxt />
     <SwCart />
     <SwFooter />
-    <SwBottomNavigation class="layout__bottom-navigation"/>
+    <SwBottomNavigation class="layout__bottom-navigation" />
   </div>
 </template>
 
 <script>
 import { SfBreadcrumbs } from '@storefront-ui/vue'
-import TopNavigation from '@shopware-pwa/default-theme/components/TopNavigation'
-import SwBottomNavigation from '@shopware-pwa/default-theme/components/SwBottomNavigation'
-import SwCart from '@shopware-pwa/default-theme/components/SwCart'
-import SwFooter from '@shopware-pwa/default-theme/components/cms/elements/SwFooter'
+import TopNavigation from '@shopware-pwa/default-theme/components/TopNavigation.vue'
+import SwBottomNavigation from '@shopware-pwa/default-theme/components/SwBottomNavigation.vue'
+import SwCart from '@shopware-pwa/default-theme/components/SwCart.vue'
+import SwFooter from '@shopware-pwa/default-theme/components/cms/elements/SwFooter.vue'
 
 export default {
   components: {
@@ -32,24 +33,25 @@ export default {
     componentBreadcrumbs() {
       // TODO probably move to vuex now as it's not rendered on server side
       return (
-        this.$route.matched.map((r) => {
+        this.$route.matched.map(r => {
           return r.components.default.options.data().breadcrumbs
         })[0] || {}
       )
     },
-    getBreadcrumbs () {
-      return Object.keys(this.componentBreadcrumbs).map(key => this.componentBreadcrumbs[key]).map(breadcrumb => ({
-        text: breadcrumb.name,
-        route: {
-          link: breadcrumb.path
-        }
-      }))
-    },
-    
+    getBreadcrumbs() {
+      return Object.keys(this.componentBreadcrumbs)
+        .map(key => this.componentBreadcrumbs[key])
+        .map(breadcrumb => ({
+          text: breadcrumb.name,
+          route: {
+            link: breadcrumb.path
+          }
+        }))
+    }
   },
   methods: {
     redirectTo(route) {
-      return this.$router.push(route.link);
+      return this.$router.push(route.link)
     }
   }
 }
@@ -80,7 +82,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  
+
   &__bottom-navigation {
     @include for-desktop() {
       display: none;

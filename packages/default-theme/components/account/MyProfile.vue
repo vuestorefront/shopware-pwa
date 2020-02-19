@@ -1,7 +1,7 @@
 <template>
   <SfTabs :open-tab="1">
     <SfTab title="Personal data">
-      <SwPersonalInfo/>
+      <SwPersonalInfo />
       <p class="notice">
         At Brand name, we attach great importance to privacy issues and are
         committed to protecting the personal data of our users. Learn more about
@@ -10,7 +10,7 @@
       </p>
     </SfTab>
     <SfTab title="Email change">
-      <SwEmail/>
+      <SwEmail />
     </SfTab>
     <SfTab title="Password change">
       <SwPassword>
@@ -29,13 +29,13 @@
 <script>
 import { SfTabs, SfInput, SfButton } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
-import SwPassword from '@shopware-pwa/default-theme/components/forms/SwPassword'
-import SwEmail from '@shopware-pwa/default-theme/components/forms/SwEmail'
-import SwPersonalInfo from '@shopware-pwa/default-theme/components/forms/SwPersonalInfo'
+import SwPassword from '@shopware-pwa/default-theme/components/forms/SwPassword.vue'
+import SwEmail from '@shopware-pwa/default-theme/components/forms/SwEmail.vue'
+import SwPersonalInfo from '@shopware-pwa/default-theme/components/forms/SwPersonalInfo.vue'
 
 export default {
   name: 'MyProfile',
-  components: { SfTabs, SfInput, SfButton, SwEmail, SwPassword, SwPersonalInfo },
+  components: { SfTabs, SfInput, SfButton, SwEmail, SwPassword, SwPersonalInfo }
 }
 </script>
 

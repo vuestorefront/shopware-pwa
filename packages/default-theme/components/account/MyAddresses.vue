@@ -1,36 +1,60 @@
 <template>
   <div class="shipping-list">
-      <Address v-for="address in addresses"
+    <Address
+      v-for="address in addresses"
       :address="address"
       :key="address.id"
       :isDefaultShipping="address.id === selectedShipping"
       :isDefaultBilling="address.id === selectedBilling"
       @selectDefaultAddress="selectDefaultAddress"
       @deleteAddress="deleteAddress"
-      class="shipping-list__address" />
+      class="shipping-list__address"
+    />
   </div>
 </template>
 <script>
-
-import { SfProperty, SfTabs, SfList, SfButton, SfIcon, SfBadge, SfCheckbox } from '@storefront-ui/vue'
+import {
+  SfProperty,
+  SfTabs,
+  SfList,
+  SfButton,
+  SfIcon,
+  SfBadge,
+  SfCheckbox
+} from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
-import Address from '@shopware-pwa/default-theme/components/account/MyAddresses/Address'
+import Address from '@shopware-pwa/default-theme/components/account/MyAddresses/Address.vue'
 
 export default {
-  name: "MyAddresses",
-  components: {SfProperty, SfTabs, SfList, SfButton, SfIcon, SfBadge, SfCheckbox, Address},
-  props: {
+  name: 'MyAddresses',
+  components: {
+    SfProperty,
+    SfTabs,
+    SfList,
+    SfButton,
+    SfIcon,
+    SfBadge,
+    SfCheckbox,
+    Address
   },
+  props: {},
   data() {
     return {
       selectedBilling: this.defaultBillingAddressId,
       selectedShipping: this.defaultShippingAddressId
     }
   },
-    setup() {
-    const { user, addresses, loadAddresses, markAddressAsDefault, refreshUser, deleteAddress } = useUser()
+  setup() {
+    const {
+      user,
+      addresses,
+      loadAddresses,
+      markAddressAsDefault,
+      refreshUser,
+      deleteAddress
+    } = useUser()
 
-    loadAddresses();
+    loadAddresses()
 
     return {
       defaultBillingAddressId: user.value.defaultBillingAddressId,
@@ -43,26 +67,24 @@ export default {
     }
   },
   async mounted() {
-     await this.loadAddresses();
+    await this.loadAddresses()
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     async selectDefaultAddress(addressId, type) {
-      await this.markAddressAsDefault({addressId, type})
-      switch(type) {
+      await this.markAddressAsDefault({ addressId, type })
+      switch (type) {
         case 'shipping':
           this.selectedShipping = addressId
-          break;
+          break
         case 'billing':
           this.selectedBilling = addressId
       }
-      await this.loadAddresses();
-     
+      await this.loadAddresses()
     },
     async deleteAddress(addressId) {
-      await this.deleteCustomerAddress(addressId);
-      await this.loadAddresses();
+      await this.deleteCustomerAddress(addressId)
+      await this.loadAddresses()
     }
   }
 }
@@ -86,6 +108,5 @@ export default {
   display: flex;
   padding: $spacer-big 0;
   border-top: 1px solid $c-light;
-  
 }
 </style>

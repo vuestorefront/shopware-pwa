@@ -1,6 +1,9 @@
 <template>
   <div class="Sw-products-gallery">
-    <SfSection title-heading="You may also like" v-if="products && products.length > 0">
+    <SfSection
+      title-heading="You may also like"
+      v-if="products && products.length > 0"
+    >
       <SfCarousel class="product-carousel">
         <SfCarouselItem v-for="product in products" :key="product.id">
           <SwProductCard :product="product" />
@@ -13,7 +16,7 @@
 <script>
 import { SfSection, SfCarousel } from '@storefront-ui/vue'
 import { getProducts } from '@shopware-pwa/shopware-6-client'
-import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
+import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard.vue'
 
 export default {
   name: 'SwProductCarousel',
@@ -26,13 +29,11 @@ export default {
   },
   data() {
     return {
-      products: {},
-      
+      products: {}
     }
   },
   async mounted() {
-    const result = await getProducts(
-    {
+    const result = await getProducts({
       sort: {
         field: 'price',
         desc: false

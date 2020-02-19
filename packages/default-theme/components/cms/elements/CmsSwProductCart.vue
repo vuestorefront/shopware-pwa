@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import SwProductCard from "../../SwProductCard";
+import SwProductCard from '../../SwProductCard.vue'
 
 export default {
   components: {
@@ -15,7 +15,7 @@ export default {
       default: null
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped></style>

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import SwGenericBlock from './SwGenericBlock'
+import SwGenericBlock from './SwGenericBlock.vue'
 
 export default {
   components: {

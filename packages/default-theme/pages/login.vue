@@ -1,12 +1,12 @@
 <template>
   <div id="login">
-    <SwLogin class="login__component" @success="redirectToMyAccount"/>
+    <SwLogin class="login__component" @success="redirectToMyAccount" />
   </div>
 </template>
 <script>
-import SwLogin from "@shopware-pwa/default-theme/components/SwLogin"
+import SwLogin from '@shopware-pwa/default-theme/components/SwLogin'
 import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
-import authMiddleware from "@shopware-pwa/default-theme/middleware/auth"
+import authMiddleware from '@shopware-pwa/default-theme/middleware/auth'
 
 export default {
   name: 'Login',
@@ -15,11 +15,9 @@ export default {
   },
   middleware: authMiddleware,
   data() {
-    return {
-    }
+    return {}
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     redirectToMyAccount() {
       this.$router.push(PAGE_ACCOUNT)

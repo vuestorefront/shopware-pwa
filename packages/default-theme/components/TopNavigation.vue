@@ -1,10 +1,7 @@
 <template>
   <div class="top-navigation">
     <slot v-bind="{ navigationElements, activeSidebar, activeIcon }">
-      <SfHeader
-        title="Shopware PWA"
-        active-sidebar="activeSidebar"
-      >
+      <SfHeader title="Shopware PWA" active-sidebar="activeSidebar">
         <template #logo>
           <nuxt-link to="/" class="sf-header__logo">
             <SfImage
@@ -19,7 +16,7 @@
             <SfHeaderNavigationItem>Home</SfHeaderNavigationItem>
           </nuxt-link>
           <nuxt-link
-            v-for="{routeLabel, routePath } in routes"
+            v-for="{ routeLabel, routePath } in routes"
             :key="routePath"
             :to="routePath"
           >
@@ -79,8 +76,8 @@ import {
   useUserLoginModal,
   useNavigation
 } from '@shopware-pwa/composables'
-import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
-import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
+import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal.vue'
+import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages.js'
 
 export default {
   components: { SfHeader, SfCircleIcon, SfBadge, SwLoginModal, SfImage },
@@ -103,14 +100,14 @@ export default {
   },
   data() {
     return {
-      navigationElements: [{name: ''}],
+      navigationElements: [{ name: '' }],
       activeSidebar: 'account',
       activeIcon: '',
       isModalOpen: false
     }
   },
   async mounted() {
-    await this.fetchRoutes({depth: 1})
+    await this.fetchRoutes({ depth: 1 })
   },
   methods: {
     async userIconClick() {

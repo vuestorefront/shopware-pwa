@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import SwSlots from '@shopware-pwa/default-theme/components/cms/elements/SwSlots'
+import SwSlots from '@shopware-pwa/default-theme/components/cms/elements/SwSlots.vue'
 import { getCmsSections } from '@shopware-pwa/helpers'
 
 export default {

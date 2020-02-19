@@ -146,9 +146,10 @@ module.exports = async function ShopwarePWAModule(moduleOptions) {
     options
   });
 
-  if (jetpack.exists(componentsPath)) {
-    fs.watch(componentsPath, { recursive: true }, async () => {
-      extendComponents(this, true);
-    });
-  }
+  // TODO add watching files only in development mode
+  // if (jetpack.exists(componentsPath)) {
+  //   fs.watch(componentsPath, { recursive: true }, async () => {
+  //     extendComponents(this, true);
+  //   });
+  // }
 };
