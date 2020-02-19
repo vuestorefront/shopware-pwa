@@ -138,16 +138,10 @@ module.exports = (toolbox: GluegunToolbox) => {
         useRawSource: {
           dev: coreDevelopment
             ? [
-                '@shopware-pwa/shopware-6-client',
-                '@shopware-pwa/composables',
-                '@shopware-pwa/helpers',
                 '@shopware-pwa/default-theme'
               ]
             : [],
           prod: [
-            '@shopware-pwa/shopware-6-client',
-            '@shopware-pwa/composables',
-            '@shopware-pwa/helpers',
             '@shopware-pwa/default-theme'
           ]
         }
