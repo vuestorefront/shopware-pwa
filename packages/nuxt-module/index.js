@@ -146,7 +146,7 @@ module.exports = async function ShopwarePWAModule(moduleOptions) {
     options
   });
 
-  moduleObject.extendBuild((config, { isClient }) => {
+  this.extendBuild((config, { isClient }) => {
     config.resolve.alias["@shopware-pwa/composables"] = path.resolve(
       ".yalc/@shopware-pwa/composables"
     );
