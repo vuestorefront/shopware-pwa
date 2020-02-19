@@ -1,4 +1,4 @@
-import cookieUniversal from '@shopware-pwa/nuxt-module/node_modules/cookie-universal'
+import cookieUniversal from 'cookie-universal'
 
 export default ({ req, res }, inject) => {
   const options = <%= JSON.stringify(options, null, 2) %>
