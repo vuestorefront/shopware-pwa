@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "temp/test-project/nuxt.config.js",
+      "src": "packages/test-project/nuxt.config.js",
       "use": "@nuxtjs/now-builder",
       "config": {}
     }
