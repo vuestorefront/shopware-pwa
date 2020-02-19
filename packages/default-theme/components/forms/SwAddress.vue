@@ -128,9 +128,8 @@
         Update the address
       </SfButton>
       <SfButton
-        :disabled="$v.$invalid"
         class="sf-button--outline form__button form__button--back"
-        @click="$router.back"
+        @click="returnToAddresses"
       >
         Back
       </SfButton>
@@ -162,63 +161,27 @@ export default {
   components: { SfAlert, SfTabs, SfInput, SfButton, SfSelect, SfIcon },
   mixins: [validationMixin],
   props: {
-    firstName: {
-      type: String,
-      default: ''
-    },
-    lastName: {
-      type: String,
-      default: ''
-    },
-    street: {
-      type: String,
-      default: ''
-    },
-    apartment: {
-      type: String,
-      default: ''
-    },
-    city: {
-      type: String,
-      default: ''
-    },
-    state: {
-      type: String,
-      default: ''
-    },
-    zipcode: {
-      type: String,
-      default: ''
-    },
-    country: {
+    address: {
       type: Object,
-      default: () => ({ name: null, id: '' })
+      default: () => ({
+        firstName: '',
+        lastName: '',
+        salutation: { name: '', id: ''},
+        country: { name: '', id: '' },
+        zipcode: '',
+        street: '',
+        apartment: '',
+        city: '',
+        phoneNumber: ''
+      })
     },
-    phoneNumber: {
-      type: String,
-      default: ''
-    },
-    salutation: {
-      type: Object,
-      default: () => ({ name: null, id: '' })
-    }
+    
   },
   data() {
     return {
       editAddress: false,
       editedAddress: -1,
-      form: {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        salutation: this.salutation,
-        street: this.street,
-        apartment: this.apartment,
-        city: this.city,
-        state: this.state,
-        zipcode: this.zipcode,
-        country: this.country,
-        phoneNumber: this.phoneNumber
-      }
+      form: this.address
     }
   },
   setup() {
@@ -268,6 +231,9 @@ export default {
   methods: {
     async updateAddress() {
       await this.addAddress(this.getAddressParam)
+    },
+    returnToAddresses() {
+      this.$router.push('/account/addresses')
     }
   },
   validations: {

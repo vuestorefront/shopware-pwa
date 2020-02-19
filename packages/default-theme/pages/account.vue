@@ -60,7 +60,6 @@ export default {
   },
   watch: {
     $route(to, from) {
-      console.log(to)
       if (to.name === 'account-profile') {
         this.activePage = 'My profile'
       }

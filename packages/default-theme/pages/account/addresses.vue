@@ -1,38 +1,62 @@
 <template>
   <div class="shipping-list">
-    <SfTabs :open-tab="1">
-    <SfTab title="Shipping list">
-    </SfTab>
-    <SfTab title="Add address">
-      <nuxt-child/>
-    </SfTab>
-    </SfTabs>
+      eee {{ listAddresses }}
+      <SfTabs
+        key="address-list"
+        v-if="listAddresses"
+      >
+        <SfTab title="Shipping details">
+          <p class="message">
+            Manage all the shipping addresses you want (work place, home address
+            ...) This way you won't have to enter the shipping address manually
+            with each order.
+          </p>
+          <sw-address-list @editAddress="editAddress" />
+          <SfButton class="action-button" @click="changeAddress">
+            Add new address
+          </SfButton>
+        </SfTab>
+      </SfTabs>
+      <SfTabs v-else>
+        <SfTab title="Add address">
+          <nuxt-child />
+        </SfTab>
+      </SfTabs>
   </div>
 </template>
 <script>
-import {
-  SfProperty,
-  SfTabs,
-  SfList,
-  SfButton,
-  SfIcon,
-  SfBadge,
-  SfCheckbox
-} from '@storefront-ui/vue'
+import { SfTabs, SfButton } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
-import Address from '@/components/account/MyAddresses/Address'
+import SwAddressList from '@/components/SwAddressList'
 
 export default {
   name: 'MyAddresses',
   components: {
-    SfProperty,
+    SfButton,
     SfTabs,
+    SwAddressList
   },
   data() {
     return {
-      listAddresses: true,
+      listAddresses: true
     }
   },
+  methods: {
+    changeAddress() {
+      this.$router.push('addresses/add')
+    },
+    editAddress(addressId) {
+      this.$router.push(`addresses/add/${addressId}`)
+    },
+  },
+  watch: {
+    $route: {
+      deep: true,
+      handler(from, to) { 
+        this.listAddresses = !this.listAddresses
+      }
+    }
+  }
 }
 </script>
 
