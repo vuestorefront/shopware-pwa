@@ -1,6 +1,5 @@
 <template>
-  <div class="sw-addresses">
-    {{ form }}
+  <div class="sw-address">
     <p class="message">
       Keep your addresses and contact details updated.
     </p>
@@ -131,7 +130,7 @@
       <SfButton
         :disabled="$v.$invalid"
         class="sf-button--outline form__button form__button--back"
-        @click="listAddresses = true"
+        @click="$router.back"
       >
         Back
       </SfButton>
