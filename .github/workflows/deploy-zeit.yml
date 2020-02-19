@@ -15,10 +15,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "10.x"
-      # - name: Clone SFUI # temp step for development
-      #   run: |
-      #     yarn
-      #     node ./scripts/prepareSFUIRepoClone.js
+      - name: Yarn # temp step for development
+        run: |
+          cd ./test-project
+          yarn
+          cd ..
       # - name: Build packages
       #   run: |
       #     yarn
