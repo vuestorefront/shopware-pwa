@@ -7,17 +7,17 @@
     >
       <SfContentCategory title="Personal Details">
         <SfContentPage title="My profile">
-          <nuxt-child/>
+          <nuxt-child />
         </SfContentPage>
         <SfContentPage title="My addresses">
           <SfTabs :open-tab="1">
-            <nuxt-child/>
+            <nuxt-child />
           </SfTabs>
         </SfContentPage>
       </SfContentCategory>
       <SfContentCategory title="Order details">
         <SfContentPage :title="`Order history (${user && user.orderCount})`">
-          <nuxt-child/>
+          <nuxt-child />
         </SfContentPage>
       </SfContentCategory>
       <SfContentPage title="Logout"></SfContentPage>
@@ -25,21 +25,16 @@
   </div>
 </template>
 <script>
-import { SfContentPages, SfTabs, SfList } from "@storefront-ui/vue"
-import { useUser } from "@shopware-pwa/composables"
+import { SfContentPages, SfTabs, SfList } from '@storefront-ui/vue'
+import { useUser } from '@shopware-pwa/composables'
 import { PAGE_LOGIN } from '../helpers/pages'
-import MyProfile  from "../components/account/MyProfile"
-import MyAddresses from "../components/account/MyAddresses"
-import OrderHistory from "../components/account/OrderHistory"
+
 export default {
   name: 'Account',
   components: {
-    OrderHistory,
     SfContentPages,
     SfTabs,
-    MyProfile,
-    SfList,
-    MyAddresses
+    SfList
   },
   middleware: 'auth',
   setup() {
@@ -65,7 +60,7 @@ export default {
   },
   watch: {
     $route(to, from) {
-      console.log(to);
+      console.log(to)
       if (to.name === 'account-profile') {
         this.activePage = 'My profile'
       }
@@ -73,22 +68,22 @@ export default {
   },
   methods: {
     async updateActivePage(title) {
-      switch(title) {
+      switch (title) {
         case 'My profile':
           this.$router.push('/account/profile')
-          break;
+          break
         case 'My addresses':
           this.$router.push('/account/addresses')
-          break;
+          break
         case `Order history (${this.user && this.user.orderCount})`:
           this.$router.push('/account/orders')
-          break;
+          break
         case 'Logout':
-          await this.logout();
+          await this.logout()
           this.$router.push(PAGE_LOGIN)
-          break;
+          break
       }
-      this.activePage = title;
+      this.activePage = title
     }
   }
 }
