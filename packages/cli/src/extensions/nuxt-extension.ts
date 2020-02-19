@@ -84,15 +84,19 @@ module.exports = (toolbox: GluegunToolbox) => {
           "pre-commit": "lint-staged"
         }
       };
-      Object.keys(nuxtThemePackage.dependencies).forEach(packageName => {
-        config.dependencies[packageName] =
-          nuxtThemePackage.dependencies[packageName];
-      });
+      if (nuxtThemePackage.dependencies) {
+        Object.keys(nuxtThemePackage.dependencies).forEach(packageName => {
+          config.dependencies[packageName] =
+            nuxtThemePackage.dependencies[packageName];
+        });
+      }
 
-      Object.keys(nuxtThemePackage.devDependencies).forEach(packageName => {
-        config.devDependencies[packageName] =
-          nuxtThemePackage.devDependencies[packageName];
-      });
+      if (nuxtThemePackage.devDependencies) {
+        Object.keys(nuxtThemePackage.devDependencies).forEach(packageName => {
+          config.devDependencies[packageName] =
+            nuxtThemePackage.devDependencies[packageName];
+        });
+      }
 
       config.engines = { node: "10.x" };
       return config;
@@ -198,6 +202,15 @@ module.exports = (toolbox: GluegunToolbox) => {
       }`,
         after: /extend[ ]?\(config, ctx\)[ ]?{/
       });
+    }
+
+    // ignore .yalc
+    const yalcIgnoreExist = await toolbox.patching.exists(
+      ".gitignore",
+      `.yalc`
+    );
+    if (!yalcIgnoreExist) {
+      await toolbox.patching.append(".gitignore", ".yalc\n");
     }
   };
 
