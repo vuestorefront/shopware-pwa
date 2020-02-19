@@ -3084,11 +3084,6 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@shopware-pwa/shopware-6-client@latest":
-  version "0.1.0-alpha.740"
-  resolved "https://registry.yarnpkg.com/@shopware-pwa/shopware-6-client/-/shopware-6-client-0.1.0-alpha.740.tgz#01951d8d08afd47732a7e5073557b1634e7a386f"
-  integrity sha512-GdloMxNZ1Dk4GMvkiDHxfdHTlgU7216/Gu/m8bNvqj69KkovEfxsw+RqZ4e6ST6CfzEXtWOY6EXN8Yli7E1gUw==
-
 "@sinonjs/commons@^1.7.0":
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.7.0.tgz#f90ffc52a2e519f018b13b6c4da03cbff36ebed6"

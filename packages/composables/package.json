@@ -23,12 +23,10 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@shopware-pwa/shopware-6-client": "latest",
     "@vue/composition-api": "^0.3.4",
     "vue": "^2.6.11"
   },
   "peerDependencies": {
-    "@shopware-pwa/shopware-6-client": "latest",
     "@vue/composition-api": "^0.3.4",
     "axios": "^0.19.2",
     "vue": "^2.6.11"
