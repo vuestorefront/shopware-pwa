@@ -19,17 +19,16 @@ jobs:
       #   run: |
       #     yarn
       #     node ./scripts/prepareSFUIRepoClone.js
-      - name: Build packages
-        run: |
-          yarn
-          yarn build --ci
-      - name: Create theme project
-        run: |
-          cd ./packages
-          mkdir test-project
-          cd ./test-project
-          ../cli/bin/shopware-pwa init
-          cd ../../
+      # - name: Build packages
+      #   run: |
+      #     yarn
+      #     yarn build --ci
+      # - name: Create theme project
+      #   run: |
+      #     mkdir test-project
+      #     cd ./test-project
+      #     ../packages/cli/bin/shopware-pwa init
+      #     cd ../
       - name: Deploy PR to zeit
         if: github.event_name == 'pull_request'
         uses: patzick/now-deployment@master

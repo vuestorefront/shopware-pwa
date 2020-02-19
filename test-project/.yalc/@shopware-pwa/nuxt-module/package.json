@@ -1,0 +1,19 @@
+{
+  "name": "@shopware-pwa/nuxt-module",
+  "version": "0.1.0-alpha.0-2ebe15b7",
+  "description": "@shopware-pwa/nuxt-module",
+  "files": [
+    "index.js",
+    "plugins/*"
+  ],
+  "sideEffects": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DivanteLtd/shopware-pwa"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "cookie-universal": "^2.1.1",
+    "fs-jetpack": "^2.2.3"
+  }
+}
