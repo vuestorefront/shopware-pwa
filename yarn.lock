@@ -3084,6 +3084,14 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@shopware-pwa/composables@latest":
+  version "0.1.0-alpha.740"
+  resolved "https://registry.yarnpkg.com/@shopware-pwa/composables/-/composables-0.1.0-alpha.740.tgz#37381ed72dffeeb5948036f1321391a4164bcfea"
+  integrity sha512-Sc1hvCmKrXecVcndVKXahxzJae9trDOHjeU03XkKDcgzH8hxrkuy+SHO/nb51/+IxHWfkdJXNN82akV3VagGRQ==
+  dependencies:
+    "@shopware-pwa/shopware-6-client" latest
+    query-string "^6.10.1"
+
 "@shopware-pwa/shopware-6-client@latest":
   version "0.1.0-alpha.740"
   resolved "https://registry.yarnpkg.com/@shopware-pwa/shopware-6-client/-/shopware-6-client-0.1.0-alpha.740.tgz#01951d8d08afd47732a7e5073557b1634e7a386f"

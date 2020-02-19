@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/nuxt-module",
-  "version": "0.1.0-alpha.0-2ebe15b7",
+  "version": "0.1.0-alpha.0-7149ab87",
   "description": "@shopware-pwa/nuxt-module",
   "files": [
     "index.js",
@@ -13,6 +13,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@shopware-pwa/composables": "latest",
     "cookie-universal": "^2.1.1",
     "fs-jetpack": "^2.2.3"
   }

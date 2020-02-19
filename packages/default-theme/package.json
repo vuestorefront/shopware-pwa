@@ -29,6 +29,7 @@
     "@nuxtjs/pwa": "^3.0.0-beta.19",
     "@storefront-ui/vue": "latest",
     "@vue/composition-api": "^0.3.4",
+    "@shopware-pwa/composables": "latest",
     "currency.js": "^1.2.2",
     "dayjs": "^1.8.19",
     "nuxt": "^2.11.0",
