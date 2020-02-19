@@ -148,9 +148,10 @@ module.exports = async function ShopwarePWAModule(moduleOptions) {
 
   this.extendBuild((config, { isClient }) => {
     config.resolve.alias["@shopware-pwa/composables"] = path.resolve(
-      ".yalc/@shopware-pwa/composables"
+      "node_modules/@shopware-pwa/composables"
     );
   });
+  this.options.build.transpile.push("@shopware-pwa/composables");
 
   // TODO add watching files only in development mode
   // if (jetpack.exists(componentsPath)) {
