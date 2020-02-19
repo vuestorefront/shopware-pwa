@@ -20,6 +20,7 @@ module.exports = {
     const updateConfigSpinner = spin("Updating configuration");
     // Adding Shopware PWA core dependencies
     await run(`yarn add -D fs-jetpack universal-cookie`);
+    await run(`yarn add @vue-storefront/nuxt`);
     try {
       // - unlink potential linked locally packages
       await run(`yarn unlink ${toolbox.coreDependencyPackageNames.join(" ")}`);
