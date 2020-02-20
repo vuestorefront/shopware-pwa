@@ -2,9 +2,9 @@ name: Deploy Zeit
 on:
   push:
     branches:
-      - master
-  pull_request:
-    types: [opened, synchronize]
+      - zeit
+  # pull_request:
+  #   types: [opened, synchronize]
 jobs:
   deploy:
     runs-on: ubuntu-latest
