@@ -25,11 +25,10 @@ jobs:
           yarn build --ci
       - name: Create theme project
         run: |
-          cd ./temp
           mkdir test-project
           cd ./test-project
-          ../../packages/cli/bin/shopware-pwa init
-          cd ../../
+          ../packages/cli/bin/shopware-pwa init
+          cd ../
       - name: Deploy PR to zeit
         if: github.event_name == 'pull_request'
         uses: patzick/now-deployment@master
@@ -44,4 +43,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           zeit-token: ${{ secrets.ZEIT_TOKEN }}
           zeit-team-id: team_zpOFzrZjyURkFwGZsKEEHzcv
-          now-args: '--prod'
+          now-args: "--prod"
