@@ -158,8 +158,8 @@ module.exports = async function ShopwarePWAModule(moduleOptions) {
   // );
   // const pathExtst2 = !!jetpack.exists("node_modules/@shopware-pwa/composables");
 
-  console.error('EXIST1: ' + pathExtst)
-  console.error('EXIST2: ' + pathExtst2)
+  // console.error('EXIST1: ' + pathExtst)
+  // console.error('EXIST2: ' + pathExtst2)
 
   // TODO add watching files only in development mode
   // if (jetpack.exists(componentsPath)) {

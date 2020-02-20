@@ -102,7 +102,7 @@ export default {
       config.resolve.alias['@storefront-ui/shared'] = path.resolve(
         'node_modules/@storefront-ui/shared'
       )
-      if (ictx.sServer) {
+      if (ctx.sServer) {
         config.externals = {
           '@@shopware-pwa/composables': 'commonjs @@shopware-pwa/composables',
           '@shopware-pwa/shopware-6-client':
