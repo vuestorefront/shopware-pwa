@@ -30,9 +30,7 @@ module.exports = {
     // for development run - link local packages
     if (!toolbox.isProduction) {
       // await run(`yarn link ${toolbox.coreDependencyPackageNames.join(" ")}`);
-      await run(
-        `npx yalc link ${toolbox.coreDependencyPackageNames.join(" ")}`
-      );
+      await run(`npx yalc add ${toolbox.coreDependencyPackageNames.join(" ")}`);
     } else {
       // - add dependencies from npm
       await run(`yarn add ${toolbox.coreDependencyPackageNames.join(" ")}`);
