@@ -48,9 +48,6 @@
     "prettier": "^1.19.1",
     "vue-jest": "^4.0.0-0"
   },
-  "engines": {
-    "node": "10.x"
-  },
   "publishConfig": {
     "access": "public"
   }
