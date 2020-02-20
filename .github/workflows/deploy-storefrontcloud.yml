@@ -1,0 +1,20 @@
+name: Deploy Storefrontcloud
+on:
+  push:
+    branches:
+      - feat/hide-theme-and-cloud-deploy
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Publish to Registry
+      uses: HurricanKai/Publish-Docker-Github-Action@master
+      with:
+        name: registry.storefrontcloud.io/shopware-pwa-storefrontcloud-io/vue-storefront:master
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        registry: registry.storefrontcloud.io
+    - name: Deploy on cloud
+      run: |
+          curl -u ${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }} -H 'Content-Type: application/json' -X POST -d '{"code":"shopware-pwa","frontContainerVersion":"master"}' https://farmer.storefrontcloud.io/instances
