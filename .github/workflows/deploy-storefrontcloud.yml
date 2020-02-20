@@ -37,6 +37,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - uses: chrnorm/deployment-action@releases/v1
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: "${{ github.token }}"
+          target-url: https://shopware-pwa.storefrontcloud.io
+          environment: production
       - name: Deploy on Storefrontcloud.io
         run: |
           curl -u ${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }} -H 'Content-Type: application/json' -X POST -d '{"code":"shopware-pwa","frontContainerVersion":"${{ github.sha }}"}' https://farmer.storefrontcloud.io/instances
