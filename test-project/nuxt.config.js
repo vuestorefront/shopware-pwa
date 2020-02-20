@@ -42,16 +42,12 @@ export default {
         useRawSource: {
           dev: coreDevelopment
             ? [
-                '@shopware-pwa/composables',
-                '@shopware-pwa/shopware-6-client',
                 '@shopware-pwa/helpers',
                 '@shopware-pwa/default-theme',
                 '@shopware-pwa/nuxt-module'
               ]
             : [],
           prod: [
-            '@shopware-pwa/composables',
-            '@shopware-pwa/shopware-6-client',
             '@shopware-pwa/helpers',
             '@shopware-pwa/default-theme',
             '@shopware-pwa/nuxt-module'
