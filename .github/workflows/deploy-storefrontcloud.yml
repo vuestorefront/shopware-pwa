@@ -27,25 +27,12 @@ jobs:
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: shopware-pwa-storefrontcloud-io/vue-storefront:master
+          name: shopware-pwa-storefrontcloud-io/vue-storefront:${{ github.sha }}
           registry: registry.storefrontcloud.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           workdir: ./test-project
-
-      # - name: Build docker image
-      #   run: |
-      #     cd ./test-project
-      #     docker login registry.storefrontcloud.io
-      #     yarn build
-      #     cd ../
-      # - name: Publish to Registry
-      #   uses: HurricanKai/Publish-Docker-Github-Action@master
-      #   with:
-      #     name: registry.storefrontcloud.io/shopware-pwa-storefrontcloud-io/vue-storefront:master
-      #     username: ${{ secrets.DOCKER_USERNAME }}
-      #     password: ${{ secrets.DOCKER_PASSWORD }}
-      #     registry: registry.storefrontcloud.io
+          buildoptions: "--compress"
       - name: Deploy on cloud
         run: |
-          curl -u ${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }} -H 'Content-Type: application/json' -X POST -d '{"code":"shopware-pwa","frontContainerVersion":"master"}' https://farmer.storefrontcloud.io/instances
+          curl -u ${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }} -H 'Content-Type: application/json' -X POST -d '{"code":"shopware-pwa","frontContainerVersion":"${{ github.sha }}"}' https://farmer.storefrontcloud.io/instances
