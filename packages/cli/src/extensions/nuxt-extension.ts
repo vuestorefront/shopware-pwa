@@ -235,6 +235,15 @@ module.exports = (toolbox: GluegunToolbox) => {
         }
       });
     }
+
+    const isDockerfileGenerated = exists("Dockerfile");
+    if (!isDockerfileGenerated) {
+      await toolbox.template.generate({
+        template: "Dockerfile",
+        target: `Dockerfile`,
+        props: {}
+      });
+    }
   };
 
   toolbox.copyThemeFolder = async folderName => {
