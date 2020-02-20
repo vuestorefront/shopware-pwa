@@ -102,6 +102,13 @@ export default {
       config.resolve.alias['@storefront-ui/shared'] = path.resolve(
         'node_modules/@storefront-ui/shared'
       )
+      if (ictx.sServer) {
+        config.externals = {
+          '@@shopware-pwa/composables': 'commonjs @@shopware-pwa/composables',
+          '@shopware-pwa/shopware-6-client':
+            'commonjs @shopware-pwa/shopware-6-client'
+        }
+      }
       if (ctx.isClient && !ctx.isDev) {
         config.optimization.splitChunks.cacheGroups.commons.minChunks = 2
       }
