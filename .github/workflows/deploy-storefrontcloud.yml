@@ -13,22 +13,17 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      # - name: Build packages
-      #   run: |
-      #     yarn
-      #     yarn build --ci
-      # - name: Create theme project
-      #   run: |
-      #     mkdir test-project
-      #     cd ./test-project
-      #     ../packages/cli/bin/shopware-pwa init
-      #     yarn build
-      #     cd ../
-      - name: Build Nuxt
+      - name: Build packages
         run: |
+          yarn
+          yarn build --ci
+      - name: Create theme project
+        run: |
+          mkdir test-project
           cd ./test-project
           ../packages/cli/bin/shopware-pwa init
           yarn build
+          cd ../
       - name: Build and publish docker image
         uses: mr-smithers-excellent/docker-build-push@v2
         with:
