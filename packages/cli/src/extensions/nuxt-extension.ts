@@ -98,7 +98,7 @@ module.exports = (toolbox: GluegunToolbox) => {
         });
       }
 
-      config.engines = { node: "10.x" };
+      delete config.engines;
       return config;
     });
   };
@@ -204,6 +204,22 @@ module.exports = (toolbox: GluegunToolbox) => {
       });
     }
 
+    // Add server to 0.0.0.0
+    const serverSectionExist = await toolbox.patching.exists(
+      "nuxt.config.js",
+      `server: {`
+    );
+    if (!serverSectionExist) {
+      await toolbox.patching.patch("nuxt.config.js", {
+        insert: `
+  server: {
+    port: 3000,
+    host: '0.0.0.0'
+  },`,
+        after: "mode: 'universal',"
+      });
+    }
+
     // ignore .yalc
     const yalcIgnoreExist = await toolbox.patching.exists(
       ".gitignore",
@@ -223,10 +239,27 @@ module.exports = (toolbox: GluegunToolbox) => {
    * - add params based on config file
    */
   toolbox.generateTemplateFiles = async () => {
-    await toolbox.template.generate({
-      template: "api-client.js.ejs",
-      target: `plugins/api-client.js`
-    });
+    const isConfigGenerated = exists("shopware-pwa.config.js");
+    if (!isConfigGenerated) {
+      await toolbox.template.generate({
+        template: "shopware-pwa.config.js",
+        target: `shopware-pwa.config.js`,
+        props: {
+          shopwareEndpoint:
+            "https://shopware-2.vuestorefront.io/sales-channel-api/v1",
+          shopwareAccessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG"
+        }
+      });
+    }
+
+    const isDockerfileGenerated = exists("Dockerfile");
+    if (!isDockerfileGenerated) {
+      await toolbox.template.generate({
+        template: "Dockerfile",
+        target: `Dockerfile`,
+        props: {}
+      });
+    }
   };
 
   toolbox.copyThemeFolder = async folderName => {

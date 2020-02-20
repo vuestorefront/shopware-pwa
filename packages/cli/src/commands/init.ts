@@ -41,7 +41,7 @@ module.exports = {
     updateConfigSpinner.succeed();
 
     const generateFilesSpinner = spin("Generating project files");
-    // await toolbox.generateTemplateFiles();
+    await toolbox.generateTemplateFiles();
     const copyPromisses = toolbox.themeFolders.map(themeFolder =>
       toolbox.copyThemeFolder(themeFolder)
     );
