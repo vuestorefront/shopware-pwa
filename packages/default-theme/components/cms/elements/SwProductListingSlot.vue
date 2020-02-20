@@ -9,6 +9,7 @@
             :key="product.id"
             :product="product"
           />
+          <div class="sw-product-list__place-holder"/>
         </div>
         <SfPagination
           class="sw-product-list__pagination desktop-only"
@@ -70,23 +71,34 @@ export default {
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
 @import '~@storefront-ui/shared/styles/helpers/visibility';
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
-@mixin for-tablet {
-  @media screen and (min-width: 600px) {
+@mixin for-desktop-big {
+  @media screen and (min-width: 1325px) {
     @content;
   }
 }
 
-::v-deep .sf-loader {
-  width: 80%;
-  @include for-desktop {
-    width: 100%;
+@mixin for-desktop {
+  @media screen and (min-width: 1023px) {
+    @content;
   }
-  display: flex;
+}
+
+@mixin for-desktop-small {
+  @media screen and (min-width: 980px) {
+    @content
+  }
+}
+
+@mixin for-tablet {
+  @media screen and (min-width: 754px) {
+    @content
+  }
+}
+
+@mixin for-phone {
+  @media screen and (min-width: 374px) {
+    @content
+  }
 }
 
 .sw-product-list {
@@ -104,14 +116,34 @@ export default {
     flex-flow: row wrap;
   }
 
+  &__place-holder {
+    flex: 1 0 75%;
+  }
+
   ::v-deep &__product-card {
     flex: 1 0 75%;
+
     padding: $spacer;
-    @include for-tablet {
+    @include for-phone {
       flex: 1 0 50%;
+      padding: $spacer
+    }
+
+    @include for-tablet {
+      flex: 1 0 33%;
+      padding: $spacer
+    }
+
+    @include for-desktop-small {
+      flex: 1 0 25%;
       padding: $spacer;
     }
+
     @include for-desktop {
+      flex: 1 0 25%;
+      padding: $spacer;
+    }
+    @include for-desktop-big {
       flex: 1 0 25%;
       padding: $spacer-big;
     }
@@ -125,26 +157,32 @@ export default {
     }
   }
 }
+
 .section {
   @media (max-width: $desktop-min) {
     padding-left: $spacer-big;
     padding-right: $spacer-big;
   }
 }
-</style>
 
-<style lang="scss">
-@import '~@storefront-ui/vue/styles.scss';
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
+::v-deep .sf-product-card {
+  max-width: none !important;
+  @include for-tablet {
+    max-width: 264px !important;
+  }
+  @include for-desktop-small {
+    max-width: 240px !important;
+  }
+  @include for-desktop {
+    max-width: 190px !important;
+  }
+  @include for-desktop-big {
+    max-width: 264px !important;
   }
 }
 
-.sf-product-card {
-  max-width: none !important;
-  @include for-desktop {
-    max-width: 224px !important;
-  }
+::v-deep .sf-loader {
+  width: 100%;
+  display: flex;
 }
 </style>
