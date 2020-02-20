@@ -33,6 +33,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           workdir: ./test-project
           buildoptions: "--compress"
-      - name: Deploy on cloud
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy on Storefrontcloud.io
         run: |
           curl -u ${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }} -H 'Content-Type: application/json' -X POST -d '{"code":"shopware-pwa","frontContainerVersion":"${{ github.sha }}"}' https://farmer.storefrontcloud.io/instances
