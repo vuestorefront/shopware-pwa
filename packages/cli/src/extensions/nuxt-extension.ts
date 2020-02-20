@@ -98,7 +98,7 @@ module.exports = (toolbox: GluegunToolbox) => {
         });
       }
 
-      config.engines = { node: "10.x" };
+      delete config.engines;
       return config;
     });
   };
