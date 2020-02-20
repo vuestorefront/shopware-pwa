@@ -204,6 +204,22 @@ module.exports = (toolbox: GluegunToolbox) => {
       });
     }
 
+    // Add server to 0.0.0.0
+    const serverSectionExist = await toolbox.patching.exists(
+      "nuxt.config.js",
+      `server: {`
+    );
+    if (!serverSectionExist) {
+      await toolbox.patching.patch("nuxt.config.js", {
+        insert: `
+  server: {
+    port: 3000,
+    host: '0.0.0.0'
+  },`,
+        after: "mode: 'universal',"
+      });
+    }
+
     // ignore .yalc
     const yalcIgnoreExist = await toolbox.patching.exists(
       ".gitignore",
