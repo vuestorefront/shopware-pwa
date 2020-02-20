@@ -83,29 +83,25 @@ export default {
 
 ::v-deep .sf-loader {
   width: 80%;
+  @include for-desktop {
+    width: 100%;
+  }
   display: flex;
-  flex-basis: 200px;
-  flex-grow: 1;
 }
 
 .sw-product-list {
   display: flex;
   justify-content: center;
-  flex-basis: 200px;
-  flex-grow: 1;
 
   ::v-deep &__wrapper {
     display: flex;
     flex-direction: column;
-    flex-basis: 200px;
-    flex-grow: 1;
   }
 
   &__list {
     display: flex;
     width: 100%;
     flex-flow: row wrap;
-    flex-basis: 200px;
   }
 
   ::v-deep &__product-card {
@@ -148,7 +144,7 @@ export default {
 .sf-product-card {
   max-width: none !important;
   @include for-desktop {
-    max-width: 300px !important;
+    max-width: 224px !important;
   }
 }
 </style>
