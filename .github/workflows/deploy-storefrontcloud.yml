@@ -25,14 +25,14 @@ jobs:
           yarn build
           cd ../
       - name: Build and publish docker image
-        uses: mr-smithers-excellent/docker-build-push@v2
+        uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          image: shopware-pwa-storefrontcloud-io/vue-storefront
-          tag: master
+          name: shopware-pwa-storefrontcloud-io/vue-storefront:master
           registry: registry.storefrontcloud.io
-          dockerfile: ./test-project/Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+          workdir: ./test-project
+
       # - name: Build docker image
       #   run: |
       #     cd ./test-project
