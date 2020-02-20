@@ -1,10 +1,10 @@
 <template>
   <div class="sw-product-list">
     <SfLoader :loading="loading">
-      <div class="sw-product-list--wrapper" v-if="products.length && !loading">
+      <div class="sw-product-list__wrapper" v-if="products.length && !loading">
         <div class="sw-product-list__list">
           <SwProductCard
-            class="sw-product-list__card"
+            class="sw-product-list__product-card"
             v-for="product in products"
             :key="product.id"
             :product="product"
@@ -75,31 +75,52 @@ export default {
     @content;
   }
 }
+@mixin for-tablet {
+  @media screen and (min-width: 600px) {
+    @content;
+  }
+}
+
+::v-deep .sf-loader {
+  width: 80%;
+  display: flex;
+  flex-basis: 200px;
+  flex-grow: 1;
+}
 
 .sw-product-list {
-  box-sizing: border-box;
-  margin: 0 -#{$spacer};
-  @include for-desktop {
-    margin: $spacer-big;
+  display: flex;
+  justify-content: center;
+  flex-basis: 200px;
+  flex-grow: 1;
+
+  ::v-deep &__wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 200px;
+    flex-grow: 1;
   }
 
   &__list {
     display: flex;
-    width: auto;
-    flex-wrap: wrap;
-    flex-grow: 0;
+    width: 100%;
+    flex-flow: row wrap;
+    flex-basis: 200px;
   }
 
-  &__card {
-    flex: 0 0 205px;
-  }
-
-  &__product-card {
+  ::v-deep &__product-card {
+    flex: 1 0 75%;
     padding: $spacer;
+    @include for-tablet {
+      flex: 1 0 50%;
+      padding: $spacer;
+    }
     @include for-desktop {
+      flex: 1 0 25%;
       padding: $spacer-big;
     }
   }
+ 
   &__pagination {
     @include for-desktop {
       display: flex;
@@ -116,9 +137,18 @@ export default {
 }
 </style>
 
-<style>
-.sw-product-list--wrapper {
-  display: flex;
-  flex-direction: column;
+<style lang="scss">
+@import '~@storefront-ui/vue/styles.scss';
+@mixin for-desktop {
+  @media screen and (min-width: $desktop-min) {
+    @content;
+  }
+}
+
+.sf-product-card {
+  max-width: none !important;
+  @include for-desktop {
+    max-width: 300px !important;
+  }
 }
 </style>
