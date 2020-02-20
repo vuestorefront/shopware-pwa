@@ -27,7 +27,7 @@ jobs:
       - name: Build and publish docker image
         uses: mr-smithers-excellent/docker-build-push@v2
         with:
-          image: registry.storefrontcloud.io/shopware-pwa-storefrontcloud-io/vue-storefront
+          image: shopware-pwa-storefrontcloud-io/vue-storefront
           tag: master
           registry: registry.storefrontcloud.io
           dockerfile: ./test-project/Dockerfile
