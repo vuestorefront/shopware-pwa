@@ -36,8 +36,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    env:
-      FARMER_RESPONSE: null
     steps:
       - uses: chrnorm/deployment-action@releases/v1
         name: Create GitHub deployment
@@ -52,7 +50,7 @@ jobs:
         run: |
           echo ::set-env name=FARMER_RESPONSE::curl -u ${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }} -H 'Content-Type: application/json' -X POST -d '{"code":"shopware-pwa","frontContainerVersion":"${{ github.sha }}"}' https://farmer.storefrontcloud.io/instances
       - name: Update deployment status (success)
-        if: success() && contains(${{ FARMER_RESPONSE }}, 'Instance updated!')
+        if: success() && contains(${{ env.FARMER_RESPONSE }}, 'Instance updated!')
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
