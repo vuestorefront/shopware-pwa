@@ -71,32 +71,61 @@ export default {
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
 @import '~@storefront-ui/shared/styles/helpers/visibility';
+
+// additional screen variables
+$desktop-big: 1200px;
+$desktop: 1024px;
+$desktop-small: 900px;
+$tablet: 768px;
+$tablet-small: 600px;
+$phone: 480px;
+// max photo width
+$mx-photo-wth-5: 20%;
+$mx-photo-wth-4: 25%;
+$mx-photo-wth-3: 33%;
+$mx-photo-wth-2: 50%;
+$mx-photo-wth-1: 75%;
+// product cards - limit in column
+$col-prod-5: 1 0 $mx-photo-wth-5;
+$col-prod-4: 1 0 $mx-photo-wth-4;
+$col-prod-3: 1 0 $mx-photo-wth-3;
+$col-prod-2: 1 0 $mx-photo-wth-2;
+$col-prod-1: 1 0 $mx-photo-wth-1;
+
+
+
 @mixin for-desktop-big {
-  @media screen and (min-width: 1325px) {
+  @media screen and (min-width: $desktop-big) {
     @content;
   }
 }
 
 @mixin for-desktop {
-  @media screen and (min-width: 1023px) {
+  @media screen and (min-width: $desktop) {
     @content;
   }
 }
 
 @mixin for-desktop-small {
-  @media screen and (min-width: 980px) {
+  @media screen and (min-width: $desktop-small) {
     @content
   }
 }
 
 @mixin for-tablet {
-  @media screen and (min-width: 754px) {
+  @media screen and (min-width: $tablet) {
+    @content
+  }
+}
+
+@mixin for-tablet-small {
+  @media screen and (min-width: $tablet-small) {
     @content
   }
 }
 
 @mixin for-phone {
-  @media screen and (min-width: 374px) {
+  @media screen and (min-width: $phone) {
     @content
   }
 }
@@ -116,44 +145,47 @@ export default {
     flex-flow: row wrap;
   }
 
-  &__place-holder {
-    flex: 1 0 75%;
-  }
-
   ::v-deep &__product-card {
-    flex: 1 0 75%;
-
+    flex: 1 0 50%;
     padding: $spacer;
+
     @include for-phone {
-      flex: 1 0 50%;
-      padding: $spacer
+      flex: $col-prod-3;
+      padding: $spacer;
+    }
+
+    @include for-tablet-small {
+      flex: $col-prod-3;
+      padding: $spacer;
     }
 
     @include for-tablet {
-      flex: 1 0 33%;
-      padding: $spacer
+      flex: $col-prod-4;
+      padding: $spacer;
     }
 
     @include for-desktop-small {
-      flex: 1 0 25%;
+      flex: $col-prod-4;
       padding: $spacer;
     }
 
+
     @include for-desktop {
-      flex: 1 0 25%;
+      flex: $col-prod-4;
       padding: $spacer;
     }
+
     @include for-desktop-big {
-      flex: 1 0 25%;
+      flex: $col-prod-5;
       padding: $spacer-big;
     }
   }
  
   &__pagination {
-    @include for-desktop {
+    @include for-desktop-small {
       display: flex;
       justify-content: center;
-      margin-top: $spacer-extra-big;
+      margin-top: $spacer-big;
     }
   }
 }
@@ -166,18 +198,30 @@ export default {
 }
 
 ::v-deep .sf-product-card {
-  max-width: none !important;
+  max-width: $mx-photo-wth-2 !important;
+
+  @include for-phone {
+    max-width: $mx-photo-wth-3 !important;
+  }
+
+  @include for-tablet-small {
+    max-width: $mx-photo-wth-3 !important;
+  }
+
   @include for-tablet {
-    max-width: 264px !important;
+    max-width: $mx-photo-wth-4 !important;
   }
+
   @include for-desktop-small {
-    max-width: 240px !important;
+    max-width: $mx-photo-wth-4 !important;
   }
+
   @include for-desktop {
-    max-width: 190px !important;
+    max-width: $mx-photo-wth-4 !important;
   }
+
   @include for-desktop-big {
-    max-width: 264px !important;
+    max-width: $mx-photo-wth-5 !important;
   }
 }
 
