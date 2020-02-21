@@ -226,7 +226,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       `.yalc`
     );
     if (!yalcIgnoreExist) {
-      await toolbox.patching.append(".gitignore", ".yalc\n");
+      await toolbox.patching.append(".gitignore", ".yalc\nyalc.lock\n");
     }
   };
 
