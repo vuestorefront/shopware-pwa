@@ -48,9 +48,10 @@ jobs:
       - name: Deploy on Storefrontcloud.io
         id: farmerApiCall
         run: |
-          echo ::set-env name=FARMER_RESPONSE::curl -u ${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }} -H 'Content-Type: application/json' -X POST -d '{\"code\":\"shopware-pwa\",\"frontContainerVersion\":\"${{ github.sha }}\"}' https://farmer.storefrontcloud.io/instances
-          echo ::set-output name=FARMER_RESPONSE::curl -u ${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }} -H 'Content-Type: application/json' -X POST -d '{\"code\":\"shopware-pwa\",\"frontContainerVersion\":\"${{ github.sha }}\"}' https://farmer.storefrontcloud.io/instances
-          echo ${{ FARMER_RESPONSE }}
+          echo "::set-output name=FARMER_RESPONSE::curl -u ${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }} -H 'Content-Type: application/json' -X POST -d '{\"code\":\"shopware-pwa\",\"frontContainerVersion\":\"${{ github.sha }}\"}' https://farmer.storefrontcloud.io/instances"
+      - name: Debug
+        run: |
+          echo ${{ steps.farmerApiCall.outputs.FARMER_RESPONSE }}
       - name: Update deployment status (success)
         if: success() && contains(steps.farmerApiCall.outputs.FARMER_RESPONSE, 'Instance updated!')
         uses: chrnorm/deployment-status@releases/v1
