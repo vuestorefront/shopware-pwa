@@ -1,11 +1,13 @@
 <template>
   <div class="layout">
     <TopNavigation />
+    <SwPluginTopNavigation />
     <SfBreadcrumbs
       v-show="getBreadcrumbs.length > 0"
       :breadcrumbs="getBreadcrumbs"
       v-on:click="redirectTo"
-      class="sw-breadcrumbs"/>
+      class="sw-breadcrumbs"
+    />
     <nuxt />
     <SwCart />
     <SwFooter />
@@ -19,6 +21,7 @@ import TopNavigation from '@shopware-pwa/default-theme/components/TopNavigation'
 import SwBottomNavigation from '@shopware-pwa/default-theme/components/SwBottomNavigation'
 import SwCart from '@shopware-pwa/default-theme/components/SwCart'
 import SwFooter from '@shopware-pwa/default-theme/components/cms/elements/SwFooter'
+import SwPluginTopNavigation from 'sw-plugins/SwPluginTopNavigation'
 
 export default {
   components: {
@@ -26,7 +29,8 @@ export default {
     TopNavigation,
     SwCart,
     SwFooter,
-    SwBottomNavigation
+    SwBottomNavigation,
+    SwPluginTopNavigation
   },
   computed: {
     componentBreadcrumbs() {
@@ -80,7 +84,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  
+
   &__bottom-navigation {
     @include for-desktop() {
       display: none;

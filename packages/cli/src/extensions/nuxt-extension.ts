@@ -228,6 +228,13 @@ module.exports = (toolbox: GluegunToolbox) => {
     if (!yalcIgnoreExist) {
       await toolbox.patching.append(".gitignore", ".yalc\nyalc.lock\n");
     }
+    const swPluginsIgnoreExist = await toolbox.patching.exists(
+      ".gitignore",
+      `.shopware-pwa`
+    );
+    if (!swPluginsIgnoreExist) {
+      await toolbox.patching.append(".gitignore", ".shopware-pwa\n");
+    }
   };
 
   /**
@@ -262,10 +269,11 @@ module.exports = (toolbox: GluegunToolbox) => {
     }
   };
 
-  toolbox.copyThemeFolder = async folderName => {
+  toolbox.copyThemeFolder = async (folderName, destination) => {
+    const dest = destination ? destination : folderName;
     await toolbox.filesystem.copyAsync(
       `${toolbox.defaultThemeLocation}/${folderName}`,
-      folderName,
+      dest,
       { overwrite: true }
     );
   };

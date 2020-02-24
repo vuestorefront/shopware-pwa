@@ -29,8 +29,8 @@ module.exports = {
     }
     // for development run - link local packages
     if (!toolbox.isProduction) {
-      // await run(`yarn link ${toolbox.coreDependencyPackageNames.join(" ")}`);
       await run(`npx yalc add ${toolbox.coreDependencyPackageNames.join(" ")}`);
+      await run(`yarn link ${toolbox.coreDependencyPackageNames.join(" ")}`);
     } else {
       // - add dependencies from npm
       await run(`yarn add ${toolbox.coreDependencyPackageNames.join(" ")}`);
@@ -47,6 +47,9 @@ module.exports = {
     );
     await Promise.all(copyPromisses);
     generateFilesSpinner.succeed();
+
+    // generate plugin files
+    await toolbox.runtime.run("generate");
 
     const updateDependenciesSpinner = spin("Updating dependencies");
     // Loading additional packages
