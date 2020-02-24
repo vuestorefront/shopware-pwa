@@ -64,8 +64,7 @@ export const useProduct = (
       return result;
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err;
-      console.error("Problem with fetching PRODUCT data", err.message);
+      error.value = err.message;
     } finally {
       loading.value = false;
     }

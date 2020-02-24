@@ -30,8 +30,7 @@ export const useSalutations = (): UseSalutations => {
       sharedSalutations.salutations = fetchSalutations.data;
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err;
-      console.error("Problem with fetching available saluations", err.message);
+      error.value = err.message;
     }
   };
 

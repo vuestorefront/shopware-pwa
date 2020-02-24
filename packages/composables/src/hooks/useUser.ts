@@ -12,7 +12,9 @@ import {
   setDefaultCustomerBillingAddress,
   setDefaultCustomerShippingAddress,
   deleteCustomerAddress,
+  createCustomerAddress,
   updateProfile,
+  CustomerAddressParam,
   CustomerUpdateProfileParam,
   CustomerUpdatePasswordParam,
   CustomerUpdateEmailParam
@@ -50,6 +52,7 @@ export interface UseUser {
   loadOrders: () => Promise<void>;
   getOrderDetails: (orderId: string) => Promise<Order>;
   loadAddresses: () => Promise<void>;
+  addAddress: (params: CustomerAddressParam) => Promise<boolean>;
   deleteAddress: (addressId: string) => Promise<boolean>;
   updatePersonalInfo: (
     personals: CustomerUpdateProfileParam
@@ -182,14 +185,24 @@ export const useUser = (): UseUser => {
     return true;
   };
 
+  const addAddress = async (params: CustomerAddressParam): Promise<boolean> => {
+    try {
+      await createCustomerAddress(params);
+      return true;
+    } catch (e) {
+      const err: ClientApiError = e;
+      error.value = err.message;
+      return false;
+    }
+  };
+
   const deleteAddress = async (addressId: string): Promise<boolean> => {
     try {
       await deleteCustomerAddress(addressId);
       return true;
     } catch (e) {
-      console.error("useUser:deleteAddress", e);
       const err: ClientApiError = e;
-      error.value = err;
+      error.value = err.message;
     }
 
     return false;
@@ -251,6 +264,7 @@ export const useUser = (): UseUser => {
     updateEmail,
     updatePersonalInfo,
     updatePassword,
+    addAddress,
     deleteAddress
   };
 };

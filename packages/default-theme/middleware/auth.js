@@ -3,7 +3,10 @@ import { PAGE_LOGIN } from '../helpers/pages'
 const LOGIN_ROUTE_NAME = 'login'
 
 const PAGES_FOR_LOGGED_IN_ONLY = [
-  'account' // user's account page
+  'account', // user's account page
+  'account-profile',
+  'account-orders',
+  'account-addresses'
 ]
 
 /**

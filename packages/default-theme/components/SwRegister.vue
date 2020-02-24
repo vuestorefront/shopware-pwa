@@ -152,12 +152,10 @@ export default {
   setup() {
     const { login, register, loading, error: userError } = useUser()
     const {
-      fetchCountries,
       getCountries,
       error: countriesError
     } = useCountries()
     const {
-      fetchSalutations,
       getSalutations,
       error: salutationsError
     } = useSalutations()

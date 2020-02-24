@@ -6,10 +6,12 @@ import VueCompositionApi, {
   computed
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
+import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
 // Mock API client
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 jest.mock("@shopware-pwa/shopware-6-client");
+
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 import { useUser, setStore } from "@shopware-pwa/composables";
@@ -222,6 +224,26 @@ describe("Composables - useUser", () => {
         const { getOrderDetails } = useUser();
         const orderDetails = await getOrderDetails("12345");
         expect(orderDetails).toBe(orderResponse);
+      });
+    });
+
+    describe("addAddress", () => {
+      it("should add address", async () => {
+        mockedApiClient.createCustomerAddress.mockResolvedValueOnce("ok");
+        const { addAddress } = useUser();
+        const response = await addAddress({ city: "Wrocław" });
+        expect(mockedApiClient.createCustomerAddress).toBeCalledTimes(1);
+        expect(response).toBe(true);
+      });
+      it("should not add empty address", async () => {
+        mockedApiClient.createCustomerAddress.mockRejectedValueOnce({
+          message: "There is no address provided"
+        } as ClientApiError);
+        const { addAddress, error } = useUser();
+        const response = await addAddress(null as any);
+        expect(mockedApiClient.createCustomerAddress).toBeCalledTimes(1);
+        expect(response).toBe(false);
+        expect(error.value).toEqual("There is no address provided");
       });
     });
 

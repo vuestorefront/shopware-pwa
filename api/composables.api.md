@@ -7,6 +7,7 @@
 import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
+import { CustomerAddressParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerRegistrationParams } from '@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams';
 import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
@@ -120,6 +121,8 @@ export const useSalutations: () => UseSalutations;
 
 // @alpha (undocumented)
 export interface UseUser {
+    // (undocumented)
+    addAddress: (params: CustomerAddressParam) => Promise<boolean>;
     // (undocumented)
     addresses: Ref<CustomerAddress[] | null>;
     // (undocumented)
