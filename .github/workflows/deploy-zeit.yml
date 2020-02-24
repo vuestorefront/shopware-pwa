@@ -30,7 +30,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           zeit-token: ${{ secrets.ZEIT_TOKEN }}
           zeit-team-id: team_zpOFzrZjyURkFwGZsKEEHzcv
-          now-args: '--confirm'
       - name: Deploy Production to zeit
         if: github.event_name != 'pull_request'
         uses: patzick/now-deployment@master
@@ -38,4 +37,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           zeit-token: ${{ secrets.ZEIT_TOKEN }}
           zeit-team-id: team_zpOFzrZjyURkFwGZsKEEHzcv
-          now-args: '--prod'
+          now-args: "--prod"
