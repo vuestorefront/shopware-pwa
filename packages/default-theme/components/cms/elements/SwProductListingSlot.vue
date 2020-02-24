@@ -1,14 +1,15 @@
 <template>
   <div class="sw-product-list">
     <SfLoader :loading="loading">
-      <div class="sw-product-list--wrapper" v-if="products.length && !loading">
+      <div class="sw-product-list__wrapper" v-if="products.length && !loading">
         <div class="sw-product-list__list">
           <SwProductCard
-            class="sw-product-list__card"
+            class="sw-product-list__product-card"
             v-for="product in products"
             :key="product.id"
             :product="product"
           />
+          <div class="sw-product-list__place-holder"/>
         </div>
         <SfPagination
           class="sw-product-list__pagination desktop-only"
@@ -70,55 +71,162 @@ export default {
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
 @import '~@storefront-ui/shared/styles/helpers/visibility';
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
+
+// additional screen variables
+$desktop-big: 1200px;
+$desktop: 1024px;
+$desktop-small: 900px;
+$tablet: 768px;
+$tablet-small: 600px;
+$phone: 480px;
+// max photo width
+$mx-photo-wth-5: 20%;
+$mx-photo-wth-4: 25%;
+$mx-photo-wth-3: 33%;
+$mx-photo-wth-2: 50%;
+$mx-photo-wth-1: 75%;
+// product cards - limit in column
+$col-prod-5: 1 0 $mx-photo-wth-5;
+$col-prod-4: 1 0 $mx-photo-wth-4;
+$col-prod-3: 1 0 $mx-photo-wth-3;
+$col-prod-2: 1 0 $mx-photo-wth-2;
+$col-prod-1: 1 0 $mx-photo-wth-1;
+
+
+
+@mixin for-desktop-big {
+  @media screen and (min-width: $desktop-big) {
     @content;
   }
 }
 
+@mixin for-desktop {
+  @media screen and (min-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin for-desktop-small {
+  @media screen and (min-width: $desktop-small) {
+    @content
+  }
+}
+
+@mixin for-tablet {
+  @media screen and (min-width: $tablet) {
+    @content
+  }
+}
+
+@mixin for-tablet-small {
+  @media screen and (min-width: $tablet-small) {
+    @content
+  }
+}
+
+@mixin for-phone {
+  @media screen and (min-width: $phone) {
+    @content
+  }
+}
+
 .sw-product-list {
-  box-sizing: border-box;
-  margin: 0 -#{$spacer};
-  @include for-desktop {
-    margin: $spacer-big;
+  display: flex;
+  justify-content: center;
+
+  ::v-deep &__wrapper {
+    display: flex;
+    flex-direction: column;
   }
 
   &__list {
     display: flex;
-    width: auto;
-    flex-wrap: wrap;
-    flex-grow: 0;
+    width: 100%;
+    flex-flow: row wrap;
   }
 
-  &__card {
-    flex: 0 0 205px;
-  }
-
-  &__product-card {
+  ::v-deep &__product-card {
+    flex: 1 0 50%;
     padding: $spacer;
+
+    @include for-phone {
+      flex: $col-prod-3;
+      padding: $spacer;
+    }
+
+    @include for-tablet-small {
+      flex: $col-prod-3;
+      padding: $spacer;
+    }
+
+    @include for-tablet {
+      flex: $col-prod-4;
+      padding: $spacer;
+    }
+
+    @include for-desktop-small {
+      flex: $col-prod-4;
+      padding: $spacer;
+    }
+
+
     @include for-desktop {
+      flex: $col-prod-4;
+      padding: $spacer;
+    }
+
+    @include for-desktop-big {
+      flex: $col-prod-5;
       padding: $spacer-big;
     }
   }
+ 
   &__pagination {
-    @include for-desktop {
+    @include for-desktop-small {
       display: flex;
       justify-content: center;
-      margin-top: $spacer-extra-big;
+      margin-top: $spacer-big;
     }
   }
 }
+
 .section {
   @media (max-width: $desktop-min) {
     padding-left: $spacer-big;
     padding-right: $spacer-big;
   }
 }
-</style>
 
-<style>
-.sw-product-list--wrapper {
+::v-deep .sf-product-card {
+  max-width: $mx-photo-wth-2 !important;
+
+  @include for-phone {
+    max-width: $mx-photo-wth-3 !important;
+  }
+
+  @include for-tablet-small {
+    max-width: $mx-photo-wth-3 !important;
+  }
+
+  @include for-tablet {
+    max-width: $mx-photo-wth-4 !important;
+  }
+
+  @include for-desktop-small {
+    max-width: $mx-photo-wth-4 !important;
+  }
+
+  @include for-desktop {
+    max-width: $mx-photo-wth-4 !important;
+  }
+
+  @include for-desktop-big {
+    max-width: $mx-photo-wth-5 !important;
+  }
+}
+
+::v-deep .sf-loader {
+  width: 100%;
   display: flex;
-  flex-direction: column;
 }
 </style>

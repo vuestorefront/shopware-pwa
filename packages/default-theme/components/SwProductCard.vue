@@ -6,8 +6,8 @@
     :regular-price="getRegularPrice"
     :max-rating="5"
     :score-rating="getProductRating"
-    :image-width="216"
-    :image-height="326"
+    :image-width="700"
+    :image-height="1000"
     :isOnWishlist="false"
     :link="getRouterLink"
     @click:wishlist="toggleWishlist"
@@ -100,10 +100,13 @@ export default {
 @import '~@storefront-ui/vue/styles.scss';
 
 .product-card-title {
-  height: 4em;
+  height: auto;
+  width: 100%;
+
   white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
+
   &__title {
     font-family: $body-font-family-secondary;
     font-size: $font-size-regular-mobile;
