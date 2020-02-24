@@ -1,7 +1,7 @@
 import Vue from "vue";
 import { Ref, ref, computed, reactive, onMounted } from "@vue/composition-api";
 import { getAvailableSalutations } from "@shopware-pwa/shopware-6-client";
-import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
+import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
 export interface UseSalutations {
   mountedCallback: () => Promise<void>;

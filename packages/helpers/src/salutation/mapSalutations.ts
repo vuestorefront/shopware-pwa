@@ -1,4 +1,4 @@
-import { Salutation } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/salutation/Salutation";
+import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
 
 export interface MappedSalutation {
   name: string | null;

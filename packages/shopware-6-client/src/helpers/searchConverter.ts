@@ -7,7 +7,7 @@ import {
   EqualsAnyFilter,
   SearchFilterType
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
-import { convertAssociations } from "@shopware-pwa/shopware-6-client/src/helpers/convertAssociations";
+import { convertAssociations } from "./convertAssociations";
 import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
 import { config } from "@shopware-pwa/shopware-6-client";
 import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Association";

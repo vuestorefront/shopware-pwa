@@ -11,6 +11,7 @@ export * from "./services/cartService";
 export * from "./services/navigationService";
 export * from "./services/pageService";
 export * from "./services/checkoutService";
+export { ShopwareParams } from "./helpers/searchConverter";
 
 /**
  * Setup configuration. Merge default values with provided in param.
