@@ -6,6 +6,10 @@ import { getNavigationRoutes } from "@shopware-pwa/helpers";
 const sharedNavigation = Vue.observable({
   routes: null
 } as any);
+
+/**
+ * @alpha
+ */
 export const useNavigation = (): any => {
   const localNavigation = reactive(sharedNavigation);
   const routes = computed(() => localNavigation.routes);

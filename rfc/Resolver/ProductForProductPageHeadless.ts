@@ -1,9 +1,9 @@
-import { ProductManufacturer } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/ProductManufacturer";
-import { Unit } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/unit/Unit";
-import { Price } from "@shopware-pwa/shopware-6-client/src/interfaces/models/framework/pricing/Price";
-import { CalculatedPrice } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/cart/price/CalculatedPrice";
-import { Tax } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/tax/Tax";
-import { ProductPrice } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/ProductPrice";
+import { ProductManufacturer } from "@shopware-pwa/commons/interfaces/models/content/product/ProductManufacturer";
+import { Unit } from "@shopware-pwa/commons/interfaces/models/system/unit/Unit";
+import { Price } from "@shopware-pwa/commons/interfaces/models/framework/pricing/Price";
+import { CalculatedPrice } from "@shopware-pwa/commons/interfaces/models/checkout/cart/price/CalculatedPrice";
+import { Tax } from "@shopware-pwa/commons/interfaces/models/system/tax/Tax";
+import { ProductPrice } from "@shopware-pwa/commons/interfaces/models/content/product/ProductPrice";
 
 export interface ProductForProductPageHeadless {
   // basic product data

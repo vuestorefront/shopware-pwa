@@ -5,6 +5,9 @@ const sharedUserLoginModalState = Vue.observable({
   open: false
 } as any);
 
+/**
+ * @alpha
+ */
 export const useUserLoginModal = (): any => {
   const localUserLoginModal = reactive(sharedUserLoginModalState);
   const isModalOpen = computed(() => localUserLoginModal.open);
