@@ -190,7 +190,6 @@ export const useUser = (): UseUser => {
       await createCustomerAddress(params);
       return true;
     } catch (e) {
-      console.error("useUser:addAddress", e);
       const err: ClientApiError = e;
       error.value = err.message;
       return false;
@@ -202,9 +201,8 @@ export const useUser = (): UseUser => {
       await deleteCustomerAddress(addressId);
       return true;
     } catch (e) {
-      console.error("useUser:deleteAddress", e);
       const err: ClientApiError = e;
-      error.value = err;
+      error.value = err.message;
     }
 
     return false;

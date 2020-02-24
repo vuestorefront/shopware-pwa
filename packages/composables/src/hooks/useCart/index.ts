@@ -27,8 +27,7 @@ export const useCart = (): any => {
       vuexStore.commit("SET_CART", result);
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err;
-      console.error("Problem with fetching CART data", err.message);
+      error.value = err.message;
     } finally {
       loading.value = false;
     }
