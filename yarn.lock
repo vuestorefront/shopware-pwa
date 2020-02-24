@@ -3096,18 +3096,18 @@
   dependencies:
     type-detect "4.0.8"
 
-"@storefront-ui/shared@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@storefront-ui/shared/-/shared-0.6.0.tgz#f7df94d7f546a73897f1c4d4889f61f30c29e5e6"
-  integrity sha512-I0p831trbnlfVob4vjUV6TatsIS8g47eCYetMjqbGs+8mxZezXAYjWcAPwKCstmab3nrAz1DmN12QXWH+8wRsw==
+"@storefront-ui/shared@^0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@storefront-ui/shared/-/shared-0.5.1.tgz#313cf978470e43cf7a1af401d65617eb496f6ba4"
+  integrity sha512-WhyhVug+RDyxlVq4Beb46OD6jePnHBz3luSj2NbTUAhDGWWcnr6GcaGJALdtxSIcl58lyr11wnHSD+aE+a7c1A==
 
-"@storefront-ui/vue@latest":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@storefront-ui/vue/-/vue-0.6.0.tgz#b5c66ee75231a326e6a222f757aafcb611fdca93"
-  integrity sha512-kr4zq9dH8+NzVv0eCBrCYB271HxohXLgwvxnuRvAIxRlaljIxH5CKqVRnKsLQ2GIrfmVvgY9DwhwCKszWBxipw==
+"@storefront-ui/vue@^0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@storefront-ui/vue/-/vue-0.5.1.tgz#62c69d204232bd4050beb01963829fc4a4fbf751"
+  integrity sha512-ocuZNggS9oEyuXhYHjshJSfHQQ0iSUrFPWPz5ijG3Q1Af9c/GXZ0NPG/agPehRynpgiCOkMsZzPtbU8FK4+u4g==
   dependencies:
     "@glidejs/glide" "^3.3.0"
-    "@storefront-ui/shared" "^0.6.0"
+    "@storefront-ui/shared" "^0.5.1"
     "@vue/babel-preset-app" "^4.0.0-alpha.1"
     body-scroll-lock "^2.6.4"
     core-js "^3.1.3"
