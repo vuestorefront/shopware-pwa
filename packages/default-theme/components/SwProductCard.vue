@@ -100,15 +100,18 @@ export default {
 @import '~@storefront-ui/vue/styles.scss';
 
 .product-card-title {
-  height: 4em;
+  height: auto;
+  width: 100%;
+
   white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
+
   &__title {
     font-family: $body-font-family-secondary;
     font-size: $font-size-regular-mobile;
     font-weight: 300;
-    line-height: 1.6;
+    line-height: 1.6em;
     margin: $spacer-small 0;
     @media (min-width: $desktop-min) {
       margin: $spacer 0 $spacer-small;

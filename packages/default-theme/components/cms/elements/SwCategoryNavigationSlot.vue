@@ -96,14 +96,15 @@ export default {
 }
 
 .sw-category-navigation {
-  margin-right: 0 !important;
+  margin: 0 0 20px 20px !important;
   &__header {
     flex: 0 0 15%;
     align-items: center;
     display: flex;
-    padding: 20px;
-    height: 3.25rem;
+    height: 3.56rem;
+    padding-top: 20px;
     @include for-desktop {
+      padding: 20px;
       border-top: 1px solid $c-light;
       border-bottom: 1px solid $c-light;
     }
