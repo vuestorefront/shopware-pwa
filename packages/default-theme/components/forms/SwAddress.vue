@@ -166,16 +166,15 @@ export default {
       default: () => ({
         firstName: '',
         lastName: '',
-        salutation: { name: '', id: ''},
-        country: { name: '', id: '' },
+        salutation: null,
+        country: null,
         zipcode: '',
         street: '',
         apartment: '',
         city: '',
         phoneNumber: ''
       })
-    },
-    
+    }
   },
   data() {
     return {
@@ -230,7 +229,12 @@ export default {
   },
   methods: {
     async updateAddress() {
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        return
+      }
       await this.addAddress(this.getAddressParam)
+      this.returnToAddresses()
     },
     returnToAddresses() {
       this.$router.push('/account/addresses')
@@ -265,7 +269,9 @@ export default {
       country: {
         required
       },
-      phoneNumber: {}
+      phoneNumber: {
+        required
+      }
     }
   }
 }
