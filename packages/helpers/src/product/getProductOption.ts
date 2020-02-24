@@ -1,5 +1,5 @@
-import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
-import { PropertyGroupOption } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/property/PropertyGroupOption";
+import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import { PropertyGroupOption } from "@shopware-pwa/commons/interfaces/models/content/property/PropertyGroupOption";
 
 /**
  * @alpha

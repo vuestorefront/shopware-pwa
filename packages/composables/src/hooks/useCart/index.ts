@@ -8,8 +8,8 @@ import {
 } from "@shopware-pwa/shopware-6-client";
 import { getStore } from "../..";
 import { useUser } from "../useUser";
-import { Order } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order";
-import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
+import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
+import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
 /**
  * @alpha

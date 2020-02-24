@@ -1,5 +1,8 @@
-import { Country } from "@shopware-pwa/shopware-6-client/src/interfaces/models/system/country/Country";
+import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 
+/**
+ * @alpha
+ */
 export interface MappedCountry {
   name: string | null;
   id: string;

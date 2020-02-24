@@ -1,7 +1,7 @@
 import { getProducts } from "@shopware-pwa/shopware-6-client";
 import { apiService } from "../../../src/apiService";
-import { Sort } from "../../../src/interfaces/search/SearchCriteria";
-import { PaginationLimit } from "../../../src/interfaces/search/Pagination";
+import { Sort } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
 
 jest.mock("../../../src/apiService");
 const mockedAxios = apiService as jest.Mocked<typeof apiService>;

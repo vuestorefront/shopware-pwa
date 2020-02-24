@@ -1,7 +1,7 @@
 import { getPageResolverEndpoint } from "../endpoints";
 import { apiService } from "../apiService";
-import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
-import { CmsPage } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/cms/CmsPage";
+import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { CmsPage } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 import { convertSearchCriteria } from "../helpers/searchConverter";
 
 /**

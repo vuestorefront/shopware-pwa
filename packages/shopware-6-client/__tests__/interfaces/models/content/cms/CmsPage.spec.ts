@@ -5,7 +5,7 @@ import {
   SizingMode,
   MobileBehavior,
   BackgroundMediaMode
-} from "../../../../../src/interfaces/models/content/cms/CmsPage";
+} from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
 describe("Interfaces - CmsPage", () => {
   it("should contain valid values for CmsPageType", async () => {
