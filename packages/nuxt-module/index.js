@@ -146,6 +146,14 @@ module.exports = async function ShopwarePWAModule(moduleOptions) {
     options
   });
 
+  this.extendBuild((config, { isClient }) => {
+    const swPluginsDirectory = path.join(
+      this.options.rootDir,
+      ".shopware-pwa/sw-plugins"
+    );
+    config.resolve.alias["sw-plugins"] = swPluginsDirectory;
+  });
+
   // TODO watch files in development mode
   // if (jetpack.exists(componentsPath)) {
   //   fs.watch(componentsPath, { recursive: true }, async () => {
