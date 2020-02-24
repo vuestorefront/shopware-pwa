@@ -3,7 +3,7 @@ import {
   getCheckoutOrderEndpoint,
   getCheckoutGuestOrderEndpoint
 } from "../endpoints";
-import { Order } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order";
+import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 
 /**
  * Creates an order for logged in users

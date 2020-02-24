@@ -1,6 +1,6 @@
 import { getNavigationEndpoint } from "../endpoints";
 import { apiService } from "../apiService";
-import { NavigationResponse } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/navigation/Navigation";
+import { NavigationResponse } from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
 
 /**
  * @alpha

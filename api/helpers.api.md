@@ -4,15 +4,15 @@
 
 ```ts
 
-import { CmsPage } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/cms/CmsPage';
-import { CmsSection } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/cms/CmsPage';
-import { Country } from '@shopware-pwa/shopware-6-client/src/interfaces/models/system/country/Country';
-import { NavigationElement } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/navigation/Navigation';
-import { Product } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product';
-import { PropertyGroupOption } from '@shopware-pwa/shopware-6-client/src/interfaces/models/content/property/PropertyGroupOption';
-import { Salutation } from '@shopware-pwa/shopware-6-client/src/interfaces/models/system/salutation/Salutation';
-import { SearchCriteria } from '@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria';
-import { Sort } from '@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria';
+import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { CmsSection } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
+import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
+import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
+import { PropertyGroupOption } from '@shopware-pwa/commons/interfaces/models/content/property/PropertyGroupOption';
+import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
+import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
+import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { UiMediaGalleryItem as UiMediaGalleryItem_2 } from '@shopware-pwa/helpers';
 import { UiProductOption as UiProductOption_2 } from '@shopware-pwa/helpers';
 import { UiProductProperty as UiProductProperty_2 } from '@shopware-pwa/helpers';
@@ -97,7 +97,7 @@ export function getProductOption({ product, attribute }?: {
 
 // Warning: (ae-forgotten-export) The symbol "ProductOptions" needs to be exported by the entry point index.d.ts
 //
-// @public (undocumented)
+// @alpha (undocumented)
 export function getProductOptions({ product }?: {
     product?: Product;
 }): ProductOptions;
@@ -148,7 +148,7 @@ export function isProductSimple({ product }?: {
 // @alpha
 export function mapCountries(countries: Country[]): MappedCountry[];
 
-// @public (undocumented)
+// @alpha (undocumented)
 export interface MappedCountry {
     // (undocumented)
     id: string;
@@ -156,7 +156,7 @@ export interface MappedCountry {
     name: string | null;
 }
 
-// @public (undocumented)
+// @alpha (undocumented)
 export interface MappedSalutation {
     // (undocumented)
     id: string;
@@ -186,16 +186,25 @@ export interface SwSorting {
 export interface UiCategoryFilter {
     // (undocumented)
     name: string;
-    // Warning: (ae-forgotten-export) The symbol "UiCategoryFilterOption" needs to be exported by the entry point index.d.ts
-    // Warning: (ae-forgotten-export) The symbol "UiCategoryRangeFilterOption" needs to be exported by the entry point index.d.ts
-    //
     // (undocumented)
     options: UiCategoryFilterOption[] | UiCategoryRangeFilterOption | any;
     // (undocumented)
     type: UiCategoryFilterType;
 }
 
-// @public (undocumented)
+// @alpha (undocumented)
+export interface UiCategoryFilterOption {
+    // (undocumented)
+    color: boolean | string;
+    // (undocumented)
+    count?: number;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    value: string;
+}
+
+// @alpha (undocumented)
 export enum UiCategoryFilterType {
     // (undocumented)
     entity = "entity",
@@ -205,6 +214,14 @@ export enum UiCategoryFilterType {
     range = "range",
     // (undocumented)
     term = "term"
+}
+
+// @alpha (undocumented)
+export interface UiCategoryRangeFilterOption {
+    // (undocumented)
+    max: string;
+    // (undocumented)
+    min: string;
 }
 
 // @alpha (undocumented)

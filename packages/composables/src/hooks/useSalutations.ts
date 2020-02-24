@@ -1,8 +1,11 @@
 import Vue from "vue";
 import { Ref, ref, computed, reactive, onMounted } from "@vue/composition-api";
 import { getAvailableSalutations } from "@shopware-pwa/shopware-6-client";
-import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
+import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
+/**
+ * @alpha
+ */
 export interface UseSalutations {
   mountedCallback: () => Promise<void>;
   getSalutations: Ref<Readonly<any>>;
@@ -14,6 +17,9 @@ const sharedSalutations = Vue.observable({
   salutations: null
 } as any);
 
+/**
+ * @alpha
+ */
 export const useSalutations = (): UseSalutations => {
   const localSalutations = reactive(sharedSalutations);
   const error: Ref<any> = ref(null);

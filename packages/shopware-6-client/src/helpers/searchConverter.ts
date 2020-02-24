@@ -1,4 +1,4 @@
-import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
+import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import {
   NotFilter,
   MultiFilter,
@@ -6,12 +6,12 @@ import {
   EqualsFilter,
   EqualsAnyFilter,
   SearchFilterType
-} from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchFilter";
-import { convertAssociations } from "@shopware-pwa/shopware-6-client/src/helpers/convertAssociations";
-import { PaginationLimit } from "@shopware-pwa/shopware-6-client/src/interfaces/search/Pagination";
+} from "@shopware-pwa/commons/interfaces/search/SearchFilter";
+import { convertAssociations } from "./convertAssociations";
+import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
 import { config } from "@shopware-pwa/shopware-6-client";
-import { ShopwareAssociation } from "@shopware-pwa/shopware-6-client/src/interfaces/search/Association";
-import { Grouping } from "@shopware-pwa/shopware-6-client/src/interfaces/search/Grouping";
+import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Association";
+import { Grouping } from "@shopware-pwa/commons/interfaces/search/Grouping";
 
 /**
  * @alpha
