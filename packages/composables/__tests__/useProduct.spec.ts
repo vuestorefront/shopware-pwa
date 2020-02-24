@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueCompositionApi from "@vue/composition-api";
 Vue.use(VueCompositionApi);
+import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
 import { useProduct } from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
@@ -106,13 +107,12 @@ describe("Composables - useProduct", () => {
   describe("problems", () => {
     it("should have failed on bad url settings", async () => {
       const { search, product, error } = useProduct();
-      mockedGetProduct.getProduct.mockRejectedValueOnce(
-        "Something went wrong..."
-      );
+      mockedGetProduct.getProduct.mockRejectedValueOnce({
+        message: "Something went wrong..."
+      } as ClientApiError);
       expect(product.value).toBeUndefined();
       await search("");
       expect(product.value).toBeUndefined();
-      expect(error.value).toBeTruthy();
       expect(error.value).toEqual("Something went wrong...");
     });
   });

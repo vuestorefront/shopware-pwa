@@ -30,8 +30,7 @@ export const useCountries = (): UseCountries => {
       sharedCountries.countries = fetchCountries.data;
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err;
-      console.error("Problem with fetching available countries", err.message);
+      error.value = err.message;
     }
   };
 

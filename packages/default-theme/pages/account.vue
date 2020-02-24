@@ -7,22 +7,17 @@
     >
       <SfContentCategory title="Personal Details">
         <SfContentPage title="My profile">
-          <MyProfile />
+          <nuxt-child />
         </SfContentPage>
         <SfContentPage title="My addresses">
           <SfTabs :open-tab="1">
-            <MyAddresses />
-          </SfTabs>
-        </SfContentPage>
-        <SfContentPage title="My newsletter">
-          <SfTabs :open-tab="1">
-            <SfTab title="My newsletter"> </SfTab>
+            <nuxt-child />
           </SfTabs>
         </SfContentPage>
       </SfContentCategory>
       <SfContentCategory title="Order details">
         <SfContentPage :title="`Order history (${user && user.orderCount})`">
-          <OrderHistory />
+          <nuxt-child />
         </SfContentPage>
       </SfContentCategory>
       <SfContentPage title="Logout"></SfContentPage>
@@ -30,23 +25,16 @@
   </div>
 </template>
 <script>
-import { SfContentPages, SfTabs, SfList } from "@storefront-ui/vue"
-import { useUser } from "@shopware-pwa/composables"
+import { SfContentPages, SfTabs, SfList } from '@storefront-ui/vue'
+import { useUser } from '@shopware-pwa/composables'
 import { PAGE_LOGIN } from '../helpers/pages'
-
-import MyProfile  from "../components/account/MyProfile"
-import MyAddresses from "../components/account/MyAddresses"
-import OrderHistory from "../components/account/OrderHistory"
 
 export default {
   name: 'Account',
   components: {
-    OrderHistory,
     SfContentPages,
     SfTabs,
-    MyProfile,
-    SfList,
-    MyAddresses
+    SfList
   },
   middleware: 'auth',
   setup() {
@@ -67,16 +55,34 @@ export default {
       return (this.user && this.user && this.user.activeShippingAddress) || {}
     }
   },
-  // async mounted() {
-  //   this.allAddresses = await this.getAddresses()
-  // },
+  mounted() {
+    this.updateActivePage(this.activePage)
+  },
+  watch: {
+    $route(to, from) {
+      if (to.name === 'account-profile') {
+        this.activePage = 'My profile'
+      }
+    }
+  },
   methods: {
     async updateActivePage(title) {
-      if (title === "Logout") {
-        await this.logout();
-        this.$router.push(PAGE_LOGIN)
+      switch (title) {
+        case 'My profile':
+          this.$router.push('/account/profile')
+          break
+        case 'My addresses':
+          this.$router.push('/account/addresses')
+          break
+        case `Order history (${this.user && this.user.orderCount})`:
+          this.$router.push('/account/orders')
+          break
+        case 'Logout':
+          await this.logout()
+          this.$router.push(PAGE_LOGIN)
+          break
       }
-      this.activePage = title;
+      this.activePage = title
     }
   }
 }
