@@ -141,8 +141,7 @@ export default {
   data() {
     return {
       isFilterSidebarOpen: false,
-      sortBy: this.selectedSorting,
-      sth: '',
+      sortBy: this.selectedSorting
     }
   },
   watch: {

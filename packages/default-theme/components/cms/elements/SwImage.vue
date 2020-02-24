@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-image" style="margin: 0">
+  <div class="sw-image">
     <SfImage :src="imgUrl" :title="title" :alt="alt" :lazy="lazyLoad" />
   </div>
 </template>

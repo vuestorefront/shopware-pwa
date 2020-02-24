@@ -111,7 +111,7 @@ export default {
     font-family: $body-font-family-secondary;
     font-size: $font-size-regular-mobile;
     font-weight: 300;
-    line-height: 1.6em;
+    line-height: 1.6;
     margin: $spacer-small 0;
     @media (min-width: $desktop-min) {
       margin: $spacer 0 $spacer-small;
