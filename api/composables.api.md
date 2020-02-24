@@ -55,7 +55,7 @@ export const useCategoryFilters: () => any;
 // @alpha (undocumented)
 export const useCms: () => any;
 
-// @public (undocumented)
+// @alpha (undocumented)
 export interface UseCountries {
     // (undocumented)
     error: Ref<any>;
@@ -67,10 +67,10 @@ export interface UseCountries {
     mountedCallback: () => Promise<void>;
 }
 
-// @public (undocumented)
+// @alpha (undocumented)
 export const useCountries: () => UseCountries;
 
-// @public (undocumented)
+// @alpha (undocumented)
 export const useNavigation: () => any;
 
 // @alpha (undocumented)
@@ -103,7 +103,7 @@ export interface UseProductListing {
 // @alpha (undocumented)
 export const useProductListing: (initialProducts?: Product[]) => UseProductListing;
 
-// @public (undocumented)
+// @alpha (undocumented)
 export interface UseSalutations {
     // (undocumented)
     error: Ref<any>;
@@ -115,7 +115,7 @@ export interface UseSalutations {
     mountedCallback: () => Promise<void>;
 }
 
-// @public (undocumented)
+// @alpha (undocumented)
 export const useSalutations: () => UseSalutations;
 
 // @alpha (undocumented)
@@ -167,7 +167,7 @@ export interface UseUser {
 // @alpha (undocumented)
 export const useUser: () => UseUser;
 
-// @public (undocumented)
+// @alpha (undocumented)
 export const useUserLoginModal: () => any;
 
 

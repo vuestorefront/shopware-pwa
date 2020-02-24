@@ -1,5 +1,8 @@
 import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
 
+/**
+ * @alpha
+ */
 export interface MappedSalutation {
   name: string | null;
   id: string;

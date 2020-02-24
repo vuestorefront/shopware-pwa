@@ -5,6 +5,9 @@ interface ProductOptions {
   [attribute: string]: UiProductOption[];
 }
 
+/**
+ * @alpha
+ */
 export function getProductOptions({
   product
 }: {

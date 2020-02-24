@@ -16,6 +16,7 @@ export { ShopwareParams } from "./helpers/searchConverter";
 /**
  * Setup configuration. Merge default values with provided in param.
  * This method will override existing config. For config update invoke **update** method.
+ * @alpha
  */
 export function setup(config: ClientSettings = {}): void {
   setupConfig(config);
@@ -24,6 +25,7 @@ export function setup(config: ClientSettings = {}): void {
 
 /**
  * Update current configuration. This will change only provided values.
+ * @alpha
  */
 export function update(config: ClientSettings = {}): void {
   updateConfig(config);
