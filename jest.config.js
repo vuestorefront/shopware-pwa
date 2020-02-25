@@ -30,6 +30,7 @@ module.exports = {
     "!**/interfaces/**"
   ],
   watchPathIgnorePatterns: ["/node_modules/"],
+  modulePathIgnorePatterns: [".yalc"],
   moduleFileExtensions: ["ts", "tsx", "js", "json"],
   moduleNameMapper: {
     "^@shopware-pwa/commons/(.*?)$": "<rootDir>/packages/commons/$1",
