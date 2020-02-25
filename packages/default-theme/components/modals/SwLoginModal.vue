@@ -116,13 +116,13 @@ export default {
 }
 
 #sw-login-modal {
-  z-index: 2;
   box-sizing: border-box;
   @include for-desktop {
     max-width: 80vw;
     margin: auto;
   }
 }
+
 .input-group {
   display: flex;
   width: 30vw;
@@ -143,10 +143,12 @@ export default {
     margin-top: $spacer-big;
   }
 }
+
 .action {
   margin-top: $spacer-big;
   text-align: center;
 }
+
 .bottom {
   padding-top: $spacer-extra-big;
   margin-top: $spacer-extra-big;
@@ -154,10 +156,16 @@ export default {
   line-height: 1.6;
   text-align: center;
 }
+
 .sf-button--muted {
   color: $c-text-muted;
 }
+
 .salutation {
   width: 8vw;
+}
+
+::v-deep .sf-modal__container {
+  z-index: 3;
 }
 </style>
