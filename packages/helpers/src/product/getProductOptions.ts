@@ -1,10 +1,13 @@
-import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
+import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { UiProductOption } from "@shopware-pwa/helpers";
 
 interface ProductOptions {
   [attribute: string]: UiProductOption[];
 }
 
+/**
+ * @alpha
+ */
 export function getProductOptions({
   product
 }: {

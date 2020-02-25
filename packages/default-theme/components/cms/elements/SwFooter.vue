@@ -1,11 +1,9 @@
 <template>
   <div class="sw-footer">
     <slot class="sw-footer__content" name="content" v-bind="column">
-      <SfFooter :column="column" :multiple="true">
         <div class="content sw-footer__signature">
           Made with ❤️ by shopware AG & Vue Storefront
         </div>
-      </SfFooter>
     </slot>
   </div>
 </template>
@@ -28,12 +26,33 @@ export default {
 </script>
 
 <style lang="scss">
- @import "~@storefront-ui/vue/styles.scss";
+@import "~@storefront-ui/vue/styles.scss";
+@mixin for-desktop {
+  @media screen and (min-width: $desktop-min) {
+    @content;
+  }
+}
 
 .sw-footer{
+  width: 100%;
+  height: auto;
+  display: flex;
+  margin-top: 1em;
+  
+  @include for-desktop {
+    margin-top: 2em;
+    margin-bottom: 0;
+  }
+  justify-content: center;
+  align-items: flex-end;
   &__signature {
+    padding: 2em;
     width: 100%;
     text-align: center;
+    margin-bottom: 6em; 
+    @include for-desktop {
+      margin-bottom: 0;
+    }
   }
 }
 </style>

@@ -54,11 +54,13 @@ export default {
 @import '~@storefront-ui/vue/styles.scss';
 @import '~@storefront-ui/shared/styles/helpers/visibility';
 .error-page {
-  height: 100%;
   text-align: center;
+  margin: auto;
+  min-height: 55vh;
 
   &__heading {
-    height: 100%;
+    text-align: center;
+    height: 32vh;
     margin-bottom: 30px;
     h2 {
       font-size: 5rem;

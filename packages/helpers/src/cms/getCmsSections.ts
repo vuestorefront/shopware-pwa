@@ -1,7 +1,7 @@
 import {
   CmsPage,
   CmsSection
-} from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/cms/CmsPage";
+} from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
 /**
  * @alpha

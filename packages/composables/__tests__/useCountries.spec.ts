@@ -68,14 +68,12 @@ describe("Composables - useCountries", () => {
   describe("methods", () => {
     describe("fetchCoutries", () => {
       it("should assing error to error message if getAvailableCountries throws one", async () => {
-        mockedApiClient.getAvailableCountries.mockImplementationOnce(() => {
-          throw new Error("Couldn't fetch available countries.");
+        mockedApiClient.getAvailableCountries.mockRejectedValueOnce({
+          message: "Couldn't fetch available countries."
         });
         const { fetchCountries, error } = useCountries();
         await fetchCountries();
-        expect(error.value.toString()).toBe(
-          "Error: Couldn't fetch available countries."
-        );
+        expect(error.value).toEqual("Couldn't fetch available countries.");
       });
     });
     describe("onMounted", () => {

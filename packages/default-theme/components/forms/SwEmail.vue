@@ -1,64 +1,65 @@
 <template>
-<div class="sw-email">
-  <slot :user="user">
-
-    <slot name="message">
-      <p class="message">
-        Remember to keep your email up to date in case of loosing password.
-      </p>
-    </slot>
-
-    <SfAlert
-      v-if="error"
-      class="sw-personal-info__alert"
-      type="danger"
-      message="Errors in the form"
-    />
-
-    <div class="sw-email__form form">
-      <slot name="form">
-        <SfInput
-          v-model="email"
-          :valid="!$v.email.$error"
-          error-message="Email cannnot be empty"
-          type="email"
-          name="email"
-          label="Your new e-mail"
-          class="form__element "
-          @blur="$v.email.$touch()"
-        />
-        <SfInput
-          v-model="confirmEmail"
-          :valid="!$v.confirmEmail.$error"
-          error-message="Must match first one"
-          type="email"
-          name="confirmEmail"
-          label="Confirm e-mail"
-          class="form__element"
-          @blur="$v.confirmEmail.$touch()"
-        />
-        <SfInput
-          v-model="password"
-          :valid="!$v.password.$error"
-          error-message="Password cannot be empty"
-          type="password"
-          name="password"
-          label="Your password"
-          class="form__element"
-          @blur="$v.password.$touch()"
-        />
-        <SfButton 
-          class="form__button"
-          @click="invokeUpdate"
-          :disabled="$v.$invalid">
-          Update email
-        </SfButton>
+  <div class="sw-email">
+    <slot :user="user">
+      <slot name="message">
+        <p class="message">
+          Remember to keep your email up to date in case of loosing password.
+        </p>
       </slot>
-    </div>  
 
-  </slot>
-</div>  
-  
+      <SfAlert
+        v-if="error"
+        class="sw-personal-info__alert"
+        type="danger"
+        message="Errors in the form"
+      />
+
+      <div class="sw-email__form form">
+        <slot name="form">
+          <SfInput
+            v-model="email"
+            :valid="!$v.email.$error"
+            error-message="Email cannnot be empty"
+            type="email"
+            name="email"
+            label="Your new e-mail"
+            class="form__element "
+            required
+            @blur="$v.email.$touch()"
+          />
+          <SfInput
+            v-model="confirmEmail"
+            :valid="!$v.confirmEmail.$error"
+            error-message="Must match first one"
+            type="email"
+            name="confirmEmail"
+            label="Confirm e-mail"
+            class="form__element"
+            required
+            @blur="$v.confirmEmail.$touch()"
+          />
+          <SfInput
+            v-model="password"
+            :valid="!$v.password.$error"
+            error-message="Password cannot be empty"
+            type="password"
+            name="password"
+            label="Your password"
+            class="form__element"
+            required
+            @blur="$v.password.$touch()"
+          />
+          <SfButton
+            class="form__button"
+            @click="invokeUpdate"
+            :disabled="$v.$invalid"
+          >
+            Update email
+          </SfButton>
+        </slot>
+      </div>
+    </slot>
+  </div>
 </template>
 
 <script>
@@ -66,7 +67,6 @@ import { validationMixin } from 'vuelidate'
 import { required, email, sameAs } from 'vuelidate/lib/validators'
 import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
-
 
 export default {
   name: 'MyProfile',
@@ -115,7 +115,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';

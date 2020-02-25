@@ -40,26 +40,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@storefront-ui/vue/styles";
-
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
-
 .sw-image {
   position: relative;
   display: flex;
   justify-content: center;
-
-  .sf-image {
-    width: 100%;
-  }
 }
-</style>
-<style lang="scss">
-.sf-image__img {
+
+::v-deep .sf-image__img {
   width: 100%;
 }
 </style>

@@ -62,13 +62,13 @@ describe("Composables - useSalutations", () => {
   describe("methods", () => {
     describe("fetchSalutations", () => {
       it("should assing error to error message if getAvailableSalutations throws one", async () => {
-        mockedApiClient.getAvailableSalutations.mockImplementationOnce(() => {
-          throw new Error("Couldn't fetch available salutations.");
+        mockedApiClient.getAvailableSalutations.mockRejectedValueOnce({
+          message: "Couldn't fetch available salutations."
         });
         const { fetchSalutations, error } = useSalutations();
         await fetchSalutations();
         expect(error.value.toString()).toBe(
-          "Error: Couldn't fetch available salutations."
+          "Couldn't fetch available salutations."
         );
       });
     });

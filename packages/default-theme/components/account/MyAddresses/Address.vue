@@ -26,7 +26,6 @@
       :title="isDefaultShipping ? 'Default shipping address' : 'set as default'"
       :class="isDefaultShipping ? 'info' : null"
       />
-    <span v-if="isDefaultShipping" class="mobile-only">default shipping address</span>
     <SfIcon
       icon="credits"
       :color="isDefaultBilling ? 'primary' : 'grey'"
@@ -36,7 +35,6 @@
       :title="isDefaultBilling ? 'Default billing address' : 'set as default'"
       :class="isDefaultBilling ? 'info' : null"
       />
-      <span v-if="isDefaultBilling" class="mobile-only">default billing address</span>
     <SfIcon
       icon="cross"
       :color="isDefaultBilling || isDefaultShipping ? 'grey' : 'pink-primary'"
@@ -46,6 +44,15 @@
       v-on:click="(isDefaultBilling || isDefaultShipping) || $emit('deleteAddress', address.id)"
       :class="{ info: isDefaultBilling || isDefaultShipping }"
     />
+    <SfIcon
+      icon="chevron_right"
+      color="grey"
+      size="xs"
+      role="button"
+      title="Edit"
+      v-on:click="$emit('editAddress', address.id)"
+    />
+
   </div>
 </div>
 </template>
@@ -124,11 +131,10 @@ export default {
     }
   }
   &__actions {
-    flex: 2;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
     @include for-desktop {
       flex-direction: row;
       align-items: center;
@@ -137,6 +143,7 @@ export default {
 
     .sf-icon {
       margin-left: 10px;
+      cursor: pointer;
     } 
 
     .sf-icon:not(.info) {

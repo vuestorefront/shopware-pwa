@@ -11,6 +11,7 @@ const defaultThemeDir = path.resolve(__dirname, "../packages/default-theme");
 const nuxtModuleDir = path.resolve(__dirname, "../packages/nuxt-module");
 const helpersDir = path.resolve(__dirname, "../packages/helpers");
 const cliDir = path.resolve(__dirname, "../packages/cli");
+const commonsDir = path.resolve(__dirname, "../packages/commons");
 
 async function run() {
   /**
@@ -47,6 +48,26 @@ async function run() {
   await execa("yarn", ["link", "@shopware-pwa/helpers"], {
     stdio: "inherit",
     cwd: defaultThemeDir
+  });
+  
+  /**
+   * Link commons
+   */
+  await execa("yarn", ["link"], {
+    stdio: "inherit",
+    cwd: commonsDir
+  });
+  await execa("yarn", ["link", "@shopware-pwa/commons"], {
+    stdio: "inherit",
+    cwd: apiClientDir
+  });
+  await execa("yarn", ["link", "@shopware-pwa/commons"], {
+    stdio: "inherit",
+    cwd: helpersDir
+  });
+  await execa("yarn", ["link", "@shopware-pwa/commons"], {
+    stdio: "inherit",
+    cwd: composablesDir
   });
 
   /**

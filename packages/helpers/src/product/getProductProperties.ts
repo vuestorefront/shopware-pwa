@@ -1,4 +1,4 @@
-import { Product } from "@shopware-pwa/shopware-6-client/src/interfaces/models/content/product/Product";
+import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { UiProductProperty } from "@shopware-pwa/helpers";
 
 /**
