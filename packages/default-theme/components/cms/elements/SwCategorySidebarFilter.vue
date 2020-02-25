@@ -1,8 +1,8 @@
 <template>
-  <div class="navbar">
-    <div class="navbar__main">
+  <div class="sw-navbar navbar section">
+    <div class="sw-navbar navbar__main">
       <SfButton
-        class="navbar__filters-button"
+        class="sf-button--text navbar__filters-button "
         @click="isFilterSidebarOpen = true"
       >
         <SfIcon size="15px" style="margin-right: 10px;">
@@ -34,34 +34,37 @@
         </SfIcon>
         Filters
       </SfButton>
-      <div class="navbar__sort" >
-        <span class="navbar__label">Sort by: </span>
-        <SfSelect :size="sorting.length" v-model="sortBy">
-          <SfSelectOption v-for="(option, key) in sorting" :key="key" :value="option" class="sort-by__option">
-            <!-- SfProductOption as a name - makes no sense in this case, should be renamed in Ui -->
-            <SfProductOption :label="getSortLabel(option)" :value="option.name" :selected="option.name === selectedSorting.name"></SfProductOption>
+      <div class="navbar__sort desktop-only">
+        <span class="navbar__label">Sort by:</span>
+        <SfSelect :size="sorting.length" v-model="sortBy" class="sort-by">
+          <SfSelectOption 
+            v-for="(option, key) in sorting"
+            :key="key"
+            :value="option"
+            class="sort-by__option"
+          >
+            {{getSortLabel(option)}}
           </SfSelectOption>
         </SfSelect>
-        
       </div>
+
       <div class="navbar__counter">
         <span class="navbar__label desktop-only">Products found: </span>
-        <strong class="desktop-only">{{productsTotal}}</strong>
-        <span class="navbar__label mobile-only">{{productsTotal}} Items</span>
+        <strong class="desktop-only">{{ productsTotal }}</strong>
+        <span class="navbar__label mobile-only">{{ productsTotal }} Items</span>
       </div>
-      <SfButton
-        class="navbar__filters-button mobile-only"
-        @click="isFilterSidebarOpen = true"
-      >
-        Sort by
-        <SfIcon size="15px" style="margin-left: 10px;">
-          <svg viewBox="0 0 12 16" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M8.32809 15.2897L12 11.7644V12.2892L8.13547 16L4.27094 12.2892V11.7644L7.94285 15.2897V6.83165H8.32809L8.32809 15.2897ZM3.67191 0.710288L0 4.23556V3.71082L3.86453 0L7.72906 3.71082V4.23556L4.05715 0.710288V9.16835H3.67191L3.67191 0.710288Z"
-            />
-          </svg>
-        </SfIcon>
-      </SfButton>
+
+      <SfSelect v-model="sortBy" class="sort-by sort-by--mobile mobile-only">
+        <SfSelectOption 
+          v-for="(option, key) in sorting"
+          :key="key"
+          :value="option"
+          class="sort-by__option"
+        >
+          {{getSortLabel(option)}}
+        </SfSelectOption>
+      </SfSelect>
+
       <SfSidebar
         :visible="isFilterSidebarOpen"
         @close="isFilterSidebarOpen = false"
@@ -190,20 +193,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
-@import '~@storefront-ui/shared/styles/helpers/visibility';
-@import '~@storefront-ui/shared/styles/variables';
-
+@import "~@storefront-ui/vue/styles";
 @mixin for-desktop {
   @media screen and (min-width: $desktop-min) {
     @content;
   }
 }
-
 .navbar {
-  margin-left: 0 !important;
+  position: relative;
   display: flex;
   @include for-desktop {
+    margin: 20px 20px 20px 0px !important;
     border-top: 1px solid $c-light;
     border-bottom: 1px solid $c-light;
   }
@@ -214,14 +214,19 @@ export default {
     width: calc(100% - (#{$spacer-big} * 2));
     height: 1px;
     background-color: $c-light;
-    content: '';
+    content: "";
     @include for-desktop {
       content: none;
     }
   }
-
+  &__aside {
+    display: flex;
+    align-items: center;
+    flex: 0 0 15%;
+    padding: $spacer-big $spacer-extra-big;
+    border-right: 1px solid $c-light;
+  }
   &__main {
-    margin: 0 20px 0 20px;
     flex: 1;
     display: flex;
     align-items: center;
@@ -230,6 +235,11 @@ export default {
     @include for-desktop {
       padding: $spacer-big 0;
     }
+  }
+  &__title {
+    padding: 0;
+    font-size: $font-size-big-desktop;
+    line-height: 2.23;
   }
   &__filters-button {
     display: flex;
@@ -260,7 +270,6 @@ export default {
   }
   &__label {
     color: $c-gray-variant;
-    padding-right: 5px;
   }
   &__sort {
     display: flex;
@@ -270,34 +279,63 @@ export default {
   }
   &__counter {
     margin: auto;
-    padding-right: 20px;
     @include for-desktop {
-      margin-right: 0;
+      margin-right: 20px;
+    }
+  }
+  &__view {
+    display: flex;
+    align-items: center;
+    margin: 0 $spacer-extra-big;
+    &-icon {
+      margin-left: 10px;
     }
   }
 }
-.filters {
-  box-sizing: border-box;
-  width: 20rem;
-  padding: 0 $spacer-big * 3;
-  height: 100%;
-  overflow-y: auto;
+
+.section {
+  padding-left: $spacer-big;
+  padding-right: $spacer-big;
   @include for-desktop {
-    width: 22.875rem;
+    padding-left: 0;
+    padding-right: 0;
   }
-  &::-webkit-scrollbar {
-    width: 0;
+}
+.sort-by {
+  flex: unset;
+  z-index: 2;
+  width: 190px;
+  padding: 0 10px;
+  font-size: inherit;
+  &__option {
+    padding: 10px;
+    font-size: inherit;
   }
+
+  &--mobile {
+    width: auto;
+    padding-right: 0px;
+  }
+}
+
+.filters {
+  padding: $spacer-big;
   &__title {
     margin: $spacer-big * 3 0 $spacer-big;
     font-size: $font-size-big-desktop;
     line-height: 1.6;
+    &:first-child {
+      margin: 0 0 $spacer-big 0;
+    }
   }
   &__item {
     padding: $spacer-small 0;
+    &--color {
+      margin: 0 $spacer;
+    }
   }
   &__buttons {
-    margin: $spacer-big * 3 0;
+    margin: $spacer-big * 3 0 0 0;
   }
   &__button-clear {
     color: #a3a5ad;
@@ -305,9 +343,8 @@ export default {
     background-color: $c-light;
   }
 }
-.sf-select {
-  width: 150px;
-  margin-top: 0px;
-  font-size:14px;
+
+::v-deep .sf-sidebar {
+  z-index: 2;
 }
 </style>

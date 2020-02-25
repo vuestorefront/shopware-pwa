@@ -44,20 +44,30 @@ export interface UiProductReview {
   rating: number | null;
 }
 
+/**
+ * @alpha
+ */
 export enum UiCategoryFilterType {
   range = "range",
   term = "term",
   max = "max",
   entity = "entity"
 }
-interface UiCategoryFilterOption {
+
+/**
+ * @alpha
+ */
+export interface UiCategoryFilterOption {
   color: boolean | string;
   label: string;
   value: string;
   count?: number;
 }
 
-interface UiCategoryRangeFilterOption {
+/**
+ * @alpha
+ */
+export interface UiCategoryRangeFilterOption {
   max: string;
   min: string;
 }

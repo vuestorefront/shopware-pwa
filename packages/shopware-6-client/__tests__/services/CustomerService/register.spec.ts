@@ -2,7 +2,7 @@ import { name, address, random, phone, internet } from "faker";
 import { register } from "@shopware-pwa/shopware-6-client";
 import { getCustomerEndpoint } from "../../../src/endpoints";
 import { apiService } from "../../../src/apiService";
-import { CustomerRegistrationParams } from "../../../src/interfaces/request/CustomerRegistrationParams";
+import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams";
 
 jest.mock("../../../src/apiService");
 const mockedAxios = apiService as jest.Mocked<typeof apiService>;

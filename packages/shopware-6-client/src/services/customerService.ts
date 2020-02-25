@@ -10,12 +10,12 @@ import {
   getCustomerOrderEndpoint,
   getCustomerOrderDetailsEndpoint
 } from "../endpoints";
-import { Customer } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/Customer";
+import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { apiService } from "../apiService";
-import { CustomerAddress } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/customer/CustomerAddress";
-import { CustomerRegistrationParams } from "@shopware-pwa/shopware-6-client/src/interfaces/request/CustomerRegistrationParams";
-import { ContextTokenResponse } from "@shopware-pwa/shopware-6-client/src/interfaces/response/ContextTokenResponse";
-import { Order } from "@shopware-pwa/shopware-6-client/src/interfaces/models/checkout/order/Order";
+import { CustomerAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress";
+import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams";
+import { ContextTokenResponse } from "@shopware-pwa/commons/interfaces/response/ContextTokenResponse";
+import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 
 /**
  * @alpha

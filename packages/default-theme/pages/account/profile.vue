@@ -1,7 +1,7 @@
 <template>
   <SfTabs :open-tab="1">
     <SfTab title="Personal data">
-      <SwPersonalInfo/>
+      <SwPersonalInfo />
       <p class="notice">
         At Brand name, we attach great importance to privacy issues and are
         committed to protecting the personal data of our users. Learn more about
@@ -10,7 +10,7 @@
       </p>
     </SfTab>
     <SfTab title="Email change">
-      <SwEmail/>
+      <SwEmail />
     </SfTab>
     <SfTab title="Password change">
       <SwPassword>
@@ -35,7 +35,17 @@ import SwPersonalInfo from '@shopware-pwa/default-theme/components/forms/SwPerso
 
 export default {
   name: 'MyProfile',
-  components: { SfTabs, SfInput, SfButton, SwEmail, SwPassword, SwPersonalInfo },
+  components: {
+    SfTabs,
+    SfInput,
+    SfButton,
+    SwEmail,
+    SwPassword,
+    SwPersonalInfo
+  },
+  data() {
+    return {}
+  }
 }
 </script>
 

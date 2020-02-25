@@ -1,7 +1,7 @@
 import {
   Association,
   ShopwareAssociation
-} from "@shopware-pwa/shopware-6-client/src/interfaces/search/Association";
+} from "@shopware-pwa/commons/interfaces/search/Association";
 
 export function convertAssociations(
   associations: Association[] = []

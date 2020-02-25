@@ -87,6 +87,8 @@ export default {
 .sw-blocks {
   &:nth-child(2) > div:nth-child(1) {
     @include for-desktop() {
+      min-height: 50vh;
+      margin-top: 20px;
       border-right: 1px solid $c-light;
     }
   }

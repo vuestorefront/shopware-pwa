@@ -4,8 +4,8 @@ import {
   EqualsAnyFilter,
   EqualsFilter,
   RangeFilter
-} from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchFilter";
-import { Sort } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
+} from "@shopware-pwa/commons/interfaces/search/SearchFilter";
+import { Sort } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 const createMultiFilter = (operator: string, queries: any[]): MultiFilter => ({
   type: SearchFilterType.MULTI,

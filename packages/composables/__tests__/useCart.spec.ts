@@ -174,7 +174,9 @@ describe("Composables - useCart", () => {
 
       it("should show an error when cart is not refreshed", async () => {
         const { count, refreshCart, error } = useCart();
-        mockedShopwareClient.getCart.mockRejectedValueOnce("Some problem");
+        mockedShopwareClient.getCart.mockRejectedValueOnce({
+          message: "Some problem"
+        });
         await refreshCart();
         expect(count.value).toEqual(0);
         expect(error.value).toEqual("Some problem");

@@ -102,5 +102,5 @@ export default {
         config.optimization.splitChunks.cacheGroups.commons.minChunks = 2
       }
     }
-  }
+  },
 }

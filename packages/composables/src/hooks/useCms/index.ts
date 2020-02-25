@@ -1,9 +1,9 @@
 import { ref, Ref, computed } from "@vue/composition-api";
 import { getPage } from "@shopware-pwa/shopware-6-client";
-import { SearchCriteria } from "@shopware-pwa/shopware-6-client/src/interfaces/search/SearchCriteria";
+import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { getStore } from "../..";
 import { parseUrlQuery } from "@shopware-pwa/helpers";
-import { ClientApiError } from "@shopware-pwa/shopware-6-client/src/interfaces/errors/ApiError";
+import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
 /**
  * @alpha
@@ -45,8 +45,7 @@ export const useCms = (): any => {
       vuexStore.commit("SET_PAGE", result);
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err;
-      console.error("Problem with fetching CMS data: ", err.message);
+      error.value = err.message;
     } finally {
       loading.value = false;
     }

@@ -1,4 +1,4 @@
-import { ShopwareParams } from "@shopware-pwa/shopware-6-client/src/helpers/searchConverter";
+import { ShopwareParams } from "@shopware-pwa/shopware-6-client";
 import { CmsPageForHeadless } from "./Resolver/CmsPageForHeadless";
 import { ProductForCategoryPageHeadless } from "./Resolver/ProductForCategoryPageHeadless";
 import { ProductForProductPageHeadless } from "./Resolver/ProductForProductPageHeadless";

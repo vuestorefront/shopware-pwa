@@ -1,5 +1,5 @@
 import { getProducts } from "@shopware-pwa/shopware-6-client";
-import { PaginationLimit } from "../../src/interfaces/search/Pagination";
+import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
 import { deepChangeProperties } from "../helpers";
 
 describe("shopware-6-client - E2E - ProductService - getProducts", () => {

@@ -10,8 +10,8 @@
     />
     <nuxt />
     <SwCart />
-    <SwFooter />
     <SwBottomNavigation class="layout__bottom-navigation"/>
+    <SwFooter />
   </div>
 </template>
 
@@ -69,10 +69,23 @@ export default {
     @content;
   }
 }
+html {
+  height: 100vh;
+
+}
 
 body {
   padding: 0;
   margin: 0;
+  min-height: 100vh;
+}
+
+#__nuxt {
+  height: 100vh;
+}
+
+#__layout {
+  height: 100%;
 }
 
 .layout {

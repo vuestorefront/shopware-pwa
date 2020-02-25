@@ -8,10 +8,10 @@ const NO_ITEMS_ROUTE_PATH = '/'
  */
 export default async function({ route, redirect }) {
   if (route.name !== CHECKOUT_ROUTE_NAME) {
-    return;
+    return
   }
 
-  const { cartItems } = useCart();
+  const { cartItems } = useCart()
 
   if (cartItems.value < 1) {
     redirect(NO_ITEMS_ROUTE_PATH)
