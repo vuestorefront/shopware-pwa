@@ -1,7 +1,12 @@
 const fs = require("fs");
 const chalk = require("chalk");
 
-const ownBuildProcessPackages = ["cli", "default-theme", "nuxt-module"];
+const ownBuildProcessPackages = [
+  "cli",
+  "default-theme",
+  "nuxt-module",
+  "commons"
+];
 
 const allTargets = (exports.allTargets = fs
   .readdirSync("packages")

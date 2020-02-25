@@ -10,6 +10,7 @@
     ]
   },
   "scripts": {
+    "start": "node scripts/init.js",
     "dev": "node scripts/dev.js",
     "dev:client": "yarn dev shopware-6-client -format=esm-bundler",
     "dev:composables": "yarn dev composables -format=esm-bundler",
@@ -58,6 +59,7 @@
     "execa": "^4.0.0",
     "faker": "^4.1.0",
     "fs-extra": "^8.1.0",
+    "fs-jetpack": "^2.2.3",
     "husky": "^4.2.1",
     "jest": "^25.1.0",
     "lerna": "^3.20.2",

@@ -4,11 +4,7 @@
   "description": "Shopware PWA theme",
   "author": "patzick",
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt",
-    "generate": "nuxt generate",
     "lint": "prettier --write './**/*.{js,vue}'",
-    "start": "nuxt start",
     "test": "jest"
   },
   "husky": {

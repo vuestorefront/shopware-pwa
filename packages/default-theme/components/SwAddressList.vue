@@ -24,7 +24,7 @@ import {
   SfCheckbox
 } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
-import Address from '@shopware-pwa/default-theme/components/account/MyAddresses/Address'
+import Address from '@shopware-pwa/default-theme/components/account/MyAddresses/Address.vue'
 
 export default {
   name: 'MyAddresses',

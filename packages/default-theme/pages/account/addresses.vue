@@ -27,7 +27,7 @@
 <script>
 import { SfTabs, SfButton } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
-import SwAddressList from '@/components/SwAddressList'
+import SwAddressList from '@shopware-pwa/default-theme/components/SwAddressList.vue'
 
 export default {
   name: 'MyAddresses',

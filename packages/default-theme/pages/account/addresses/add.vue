@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import SwAddress from '@/components/forms/SwAddress'
+import SwAddress from '@shopware-pwa/default-theme/components/forms/SwAddress.vue'
 import { useUser } from '@shopware-pwa/composables'
 
 export default {
