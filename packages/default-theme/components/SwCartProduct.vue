@@ -112,15 +112,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
+
 .collected-product {
-  margin: $spacer-big 0;
+  margin: var(--spacer-big)0;
   &__properties {
-    margin-top: $spacer-big;
+    margin-top: var(--spacer-big);
   }
   &__actions {
     opacity: 0;

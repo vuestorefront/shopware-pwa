@@ -24,7 +24,7 @@
     "@nuxtjs/axios": "^5.9.3",
     "@nuxtjs/pwa": "^3.0.0-beta.19",
     "@shopware-pwa/shopware-6-client": "latest",
-    "@storefront-ui/vue": "^0.5.1",
+    "@storefront-ui/vue": "^0.6.0",
     "@vue/composition-api": "^0.3.4",
     "cookie-universal-nuxt": "^2.1.0",
     "currency.js": "^1.2.2",

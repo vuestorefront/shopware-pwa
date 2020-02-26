@@ -70,7 +70,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
-@import '~@storefront-ui/shared/styles/helpers/visibility';
 
 // additional screen variables
 $desktop-big: 1200px;
@@ -147,37 +146,37 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
 
   ::v-deep &__product-card {
     flex: 1 0 50%;
-    padding: $spacer;
+    padding: var(--spacer);
 
     @include for-phone {
       flex: $col-prod-3;
-      padding: $spacer;
+      padding: var(--spacer);
     }
 
     @include for-tablet-small {
       flex: $col-prod-3;
-      padding: $spacer;
+      padding: var(--spacer);
     }
 
     @include for-tablet {
       flex: $col-prod-4;
-      padding: $spacer;
+      padding: var(--spacer);
     }
 
     @include for-desktop-small {
       flex: $col-prod-4;
-      padding: $spacer;
+      padding: var(--spacer);
     }
 
 
     @include for-desktop {
       flex: $col-prod-4;
-      padding: $spacer;
+      padding: var(--spacer);
     }
 
     @include for-desktop-big {
       flex: $col-prod-5;
-      padding: $spacer-big;
+      padding: var(--spacer-big);
     }
   }
  
@@ -185,15 +184,15 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
     @include for-desktop-small {
       display: flex;
       justify-content: center;
-      margin-top: $spacer-big;
+      margin-top: var(--spacer-big);
     }
   }
 }
 
 .section {
   @media (max-width: $desktop-min) {
-    padding-left: $spacer-big;
-    padding-right: $spacer-big;
+    padding-left: var(--spacer-big);
+    padding-right: var(--spacer-big);
   }
 }
 

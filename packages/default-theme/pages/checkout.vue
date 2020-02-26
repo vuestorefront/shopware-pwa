@@ -242,17 +242,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
+
 #checkout {
   box-sizing: border-box;
-  padding: 0 $spacer-big;
+  padding: 0 var(--spacer-big);
   @include for-desktop {
     max-width: 1240px;
-    padding: $spacer-extra-big;
+    padding: var(--spacer-extra-big);
   }
 }
 .checkout {

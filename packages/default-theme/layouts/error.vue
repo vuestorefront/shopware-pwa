@@ -52,7 +52,6 @@ export default {
 </script>
 <style lang="scss">
 @import '~@storefront-ui/vue/styles.scss';
-@import '~@storefront-ui/shared/styles/helpers/visibility';
 .error-page {
   text-align: center;
   margin: auto;
@@ -64,7 +63,7 @@ export default {
     margin-bottom: 30px;
     h2 {
       font-size: 5rem;
-      color: $c-primary;
+      color: var(--c-primary);
     }
   }
 

@@ -57,14 +57,8 @@ export default {
 
 <style lang="scss">
 @import '~@storefront-ui/vue/styles';
-@import '~@storefront-ui/shared/styles/helpers/visibility';
-@import '~@storefront-ui/vue/src/utilities/transitions/transitions';
 
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
+
 html {
   height: 100vh;
 
@@ -102,7 +96,7 @@ body {
 }
 
 .sw-breadcrumbs {
-  padding: $spacer-big $spacer-extra-big $spacer-extra-big;
+  padding: var(--spacer-big) var(--spacer-extra-big) var(--spacer-extra-big);
 }
 
 /* Delete firefox outline */

@@ -50,15 +50,11 @@ export default {
 <style lang="scss" scoped>
 @import '~@storefront-ui/shared/styles/variables';
 
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
+
 
 .section {
-  padding-left: $spacer-big;
-  padding-right: $spacer-big;
+  padding-left: var(--spacer-big);
+  padding-right: var(--spacer-big);
   @include for-desktop {
     padding-left: 0;
     padding-right: 0;
@@ -66,7 +62,7 @@ export default {
 }
 
 .product-carousel {
-  margin: -20px -#{$spacer-big} -20px 0;
+  margin: -20px -#{var(--spacer-big)} -20px 0;
   @include for-desktop {
     margin: -20px 0;
   }

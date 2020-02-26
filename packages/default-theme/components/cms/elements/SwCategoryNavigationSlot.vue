@@ -89,12 +89,6 @@ export default {
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
 
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
-
 .sw-category-navigation {
   margin: 0 0 20px 20px !important;
   &__header {
@@ -105,14 +99,14 @@ export default {
     padding-top: 20px;
     @include for-desktop {
       padding: 20px;
-      border-top: 1px solid $c-light;
-      border-bottom: 1px solid $c-light;
+      border-top: 1px solid var(--c-light);
+      border-bottom: 1px solid var(--c-light);
     }
   }
 
   &__title {
     padding: 0;
-    font-size: $font-size-big-desktop;
+    font-size: var(--font-size-big-desktop);
   }
 
   &__menu {
@@ -128,8 +122,8 @@ export default {
       display: flex;
       align-items: center;
       flex: 0 0 15%;
-      padding: $spacer-big $spacer-extra-big;
-      border-right: 1px solid $c-light;
+      padding: var(--spacer-big) var(--spacer-extra-big);
+      border-right: 1px solid var(--c-light);
     }
   }
 }

@@ -110,14 +110,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/shared/styles/variables';
-@import '~@storefront-ui/shared/styles/helpers/visibility';
-@import '~@storefront-ui/vue/src/utilities/transitions/transitions.scss';
 
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
+
 @mixin for-iOS {
   @supports (-webkit-overflow-scrolling: touch) {
     @content;
@@ -142,9 +136,9 @@ export default {
     flex: 1;
   }
   &__description {
-    padding: 0 $spacer-big;
+    padding: 0 var(--spacer-big);
     @include for-desktop {
-      margin-left: $spacer-big * 5;
+      margin-left: calc(var(--spacer-big) * 5);
     }
   }
 }
@@ -157,18 +151,18 @@ export default {
   &__row {
     display: flex;
     & + & {
-      margin-top: $spacer-big / 2;
+      margin-top: calc(var(--spacer-big) / 2);
       @include for-desktop {
-        margin-top: $spacer-big;
+        margin-top: var(--spacer-big);
       }
     }
   }
   &__col {
     margin: 0;
     & + & {
-      margin-left: $spacer-big / 2;
+      margin-left: calc(var(--spacer-big) :wq/ 2);
       @include for-desktop {
-        margin-left: $spacer-big;
+        margin-left: var(--spacer-big);
       }
     }
   }
@@ -182,9 +176,9 @@ export default {
     flex: 1;
   }
   &__description {
-    padding: 0 $spacer-big;
+    padding: 0 var(--spacer-big);
     @include for-desktop {
-      margin-left: $spacer-big * 5;
+      margin-left: calc(var(--spacer-big) * 5);
     }
   }
 }

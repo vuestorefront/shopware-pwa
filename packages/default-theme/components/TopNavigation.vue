@@ -120,13 +120,6 @@ export default {
 
 <style lang="scss">
 @import '~@storefront-ui/vue/styles.scss';
-@import '~@storefront-ui/shared/styles/helpers/visibility';
-
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
 
 .top-navigation {
   @include for-desktop {

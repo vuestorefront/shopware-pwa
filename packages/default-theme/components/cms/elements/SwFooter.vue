@@ -27,11 +27,7 @@ export default {
 
 <style lang="scss">
 @import "~@storefront-ui/vue/styles.scss";
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
+
 
 .sw-footer{
   width: 100%;
