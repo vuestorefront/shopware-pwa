@@ -228,7 +228,7 @@ export default {
     font-size: var(--font-size-big-desktop);
   }
   &__input {
-    margin: var(--spacer-big)0;
+    margin: var(--spacer-big) 0;
     ::v-deep input {
       border-color: var(--c-gray-variant);
     }

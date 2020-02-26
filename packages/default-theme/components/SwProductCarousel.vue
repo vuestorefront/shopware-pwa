@@ -62,7 +62,7 @@ export default {
 }
 
 .product-carousel {
-  margin: -20px -#{var(--spacer-big)} -20px 0;
+  margin: -20px calc(var(--spacer-big) * -1) -20px 0;
   @include for-desktop {
     margin: -20px 0;
   }

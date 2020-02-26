@@ -75,13 +75,13 @@ export default {
   width: 100%;
   &__address {
     display: flex;
-    padding: var(--spacer-big)0;
+    padding: var(--spacer-big) 0;
     border-top: 1px solid var(--c-light);
   }
 }
 .shipping {
   display: flex;
-  padding: var(--spacer-big)0;
+  padding: var(--spacer-big) 0;
   border-top: 1px solid var(--c-light);
   
 }

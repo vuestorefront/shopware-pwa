@@ -258,7 +258,7 @@ export default {
   box-sizing: border-box;
 }
 .call-to-action-newsletter {
-  margin: var(--spacer-big)0;
+  margin: var(--spacer-big) 0;
   box-sizing: border-box;
   @include for-desktop {
     margin: calc(var(--spacer-extra-big) * 2) 0;
