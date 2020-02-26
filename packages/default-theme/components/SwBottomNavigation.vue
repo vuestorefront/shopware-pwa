@@ -1,6 +1,6 @@
 <template>
   <div class="sw-bottom-navigation">
-    <SfBottomNavigation :style="{'z-index': isSidebarOpen ? 0: 3}">
+    <SfBottomNavigation>
       <nuxt-link to="/">
         <SfBottomNavigationItem>
           <SfIcon icon="home" size="20px" />
@@ -84,6 +84,9 @@ export default {
     height: 100%;
   }
 }
+ .sf-bottom-navigation {
+   z-index: 3;
+ }
 
 ::v-deep .sf-select__selected > div:nth-child(1) > div:nth-child(1) {
   display: none;

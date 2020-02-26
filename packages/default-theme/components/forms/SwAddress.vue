@@ -167,7 +167,7 @@ export default {
         firstName: '',
         lastName: '',
         salutation: null,
-        country: null, 
+        country: null,
         zipcode: '',
         street: '',
         apartment: '',
