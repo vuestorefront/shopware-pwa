@@ -30,7 +30,7 @@
         </div>
         <div v-else key="empty-cart" class="empty-cart">
           <div class="empty-cart__banner">
-            <img src="/icons/empty_cart.svg" alt="" class="empty-cart__icon" />
+            <!-- <img src="/icons/empty_cart.svg" alt="" class="empty-cart__icon" /> -->
             <h3 class="empty-cart__label">Your bag is empty</h3>
             <p class="empty-cart__description">
               Looks like you haven’t added any items to the bag yet. Start
@@ -151,5 +151,11 @@ export default {
   &__description {
     margin-top: $spacer-big;
   }
+}
+::v-deep .sf-overlay {
+  z-index: 4;
+}
+::v-deep .sf-sidebar__aside {
+  z-index: 4;
 }
 </style>

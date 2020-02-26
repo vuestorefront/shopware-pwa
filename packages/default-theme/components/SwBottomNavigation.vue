@@ -1,6 +1,6 @@
 <template>
   <div class="sw-bottom-navigation">
-    <SfBottomNavigation :style="{'z-index': isSidebarOpen ? 0: 1}">
+    <SfBottomNavigation>
       <nuxt-link to="/">
         <SfBottomNavigationItem>
           <SfIcon icon="home" size="20px" />
@@ -8,14 +8,14 @@
       </nuxt-link>
       <SfBottomNavigationItem class="menu-button">
         <SfIcon icon="menu" size="20px" style="width: 25px" />
-        <SfSelect class="menu-button__select">
-          <SfSelectOption v-for="{routeLabel, routePath } in routes" :key="routeLabel">
-              <SfProductOption @click="changeRoute(routePath)">{{routeLabel}}</SfProductOption>
+        <SfSelect v-model="currentRoute" class="menu-button__select">
+          <SfSelectOption v-for="route in routes" :key="route.routeLabel" :value="route">
+              <SfProductOption :value="route" :label="route.routeLabel"></SfProductOption>
           </SfSelectOption>
         </SfSelect>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem>
-        <SfIcon icon="profile" @click="toggleModal" size="20px" />
+        <SfIcon icon="profile" @click="userIconClick" size="20px" />
       </SfBottomNavigationItem>
       <SfBottomNavigationItem>
         <SfCircleIcon
@@ -26,29 +26,31 @@
         </SfCircleIcon>
       </SfBottomNavigationItem>
     </SfBottomNavigation>
-    
   </div>
 </template>
 
 <script>
-import { SfBottomNavigation, SfCircleIcon, SfIcon, SfSelect, SfProductOption } from '@storefront-ui/vue'
-import { useCartSidebar, useUserLoginModal } from '@shopware-pwa/composables'
-import { useNavigation } from '@shopware-pwa/composables'
+import { SfButton, SfBottomNavigation, SfCircleIcon, SfIcon, SfSelect, SfProductOption } from '@storefront-ui/vue'
+import { useCartSidebar, useNavigation, useUser, useUserLoginModal } from '@shopware-pwa/composables'
+import { PAGE_ACCOUNT } from '../helpers/pages'
 
 
 export default {
   name: 'SwBottomNavigation',
-  components: { SfBottomNavigation, SfIcon, SfCircleIcon, SfSelect, SfProductOption },
+  components: { SfButton, SfBottomNavigation, SfIcon, SfCircleIcon, SfSelect, SfProductOption },
   data() {
     return {
-      navigationElements: []
+      navigationElements: [],
+      currentRoute: { routeLabel: '', routePath: '/' },
     }
   },
   setup() {
     const { toggleSidebar, isSidebarOpen } = useCartSidebar()
     const { routes } = useNavigation()
     const { toggleModal } = useUserLoginModal()
+    const { isLoggedIn } = useUser()
     return {
+      isLoggedIn,
       routes,
       isSidebarOpen,
       toggleSidebar,
@@ -56,9 +58,18 @@ export default {
     }
   },
   methods: {
-    changeRoute(path) {
-      this.$router.push(`/${path}`)
-    },
+    userIconClick() {
+      if (this.isLoggedIn) {
+        this.$router.push(PAGE_ACCOUNT)
+        return;
+      }
+      this.toggleModal()
+    }
+  },
+  watch: {
+    currentRoute(nextRoute) {
+      this.$router.push(nextRoute.routeLabel)
+    }
   }
 }
 </script>
@@ -72,5 +83,12 @@ export default {
     width: 100%;
     height: 100%;
   }
+}
+ .sf-bottom-navigation {
+   z-index: 3;
+ }
+
+::v-deep .sf-select__selected > div:nth-child(1) > div:nth-child(1) {
+  display: none;
 }
 </style>

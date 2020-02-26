@@ -71,9 +71,11 @@ export default {
     },
     isDefaultBilling: {
       type: Boolean,
+      default: false
     },
     isDefaultShipping: {
       type: Boolean,
+      default: false
     }
   },
   computed: {

@@ -345,6 +345,6 @@ export default {
 }
 
 ::v-deep .sf-sidebar {
-  z-index: 2;
+  z-index: 4;
 }
 </style>

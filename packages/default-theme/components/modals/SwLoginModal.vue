@@ -165,7 +165,11 @@ export default {
   width: 8vw;
 }
 
+::v-deep .sf-overlay {
+  z-index: 4;
+}
+
 ::v-deep .sf-modal__container {
-  z-index: 3;
+  z-index: 4;
 }
 </style>
