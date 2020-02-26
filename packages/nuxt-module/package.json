@@ -13,6 +13,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@nuxt/utils": "^2.11.0",
     "cookie-universal": "^2.1.1",
     "fs-jetpack": "^2.2.3"
   }

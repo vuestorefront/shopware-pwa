@@ -1,6 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const jetpack = require("fs-jetpack");
+import { sortRoutes, createRoutes } from "@nuxt/utils";
 
 const getAllFiles = function(dirPath, arrayOfFiles) {
   if (!jetpack.exists(dirPath)) return [];
@@ -21,7 +22,6 @@ const getAllFiles = function(dirPath, arrayOfFiles) {
 
 // TODO: find a nuxt trigger which do the same
 const invokeRebuild = function(moduleObject) {
-  console.error("==== REBUILD INVOKED!");
   jetpack.copy(
     `${moduleObject.options.rootDir}/nuxt.config.js`,
     `${moduleObject.options.rootDir}/nuxt.config.js`,
@@ -74,33 +74,61 @@ const addThemeLayouts = function(moduleObject) {
   });
 };
 
-const addThemePages = function(moduleObject) {
-  const pages = getAllFiles(
-    path.join(
-      moduleObject.options.rootDir,
-      "node_modules/@shopware-pwa/default-theme/pages"
-    )
+const overrideRoutes = function(moduleObject, routes, overrides) {
+  const pagesDir = path.join(
+    moduleObject.options.rootDir,
+    "node_modules/@shopware-pwa/default-theme"
   );
-  pages.forEach(page => {
-    const pagesMatch = page.match(
-      /@shopware-pwa\/default-theme\/pages\/(.+)?.vue$/
-    );
-    const templateName = pagesMatch[1];
-    const overrideExists = !!jetpack.exists(
-      path.join(moduleObject.options.rootDir, "pages", templateName + ".vue")
-    );
-    if (!overrideExists) {
-      const name = templateName === "_" ? "DynamicRoute" : templateName;
-      const routePath =
-        templateName === "_" ? "*" : path.join("/", templateName);
-      moduleObject.extendRoutes((routes, resolve) => {
-        routes.push({
-          name,
-          path: routePath,
-          component: resolve(page)
-        });
-      });
+  routes.forEach(route => {
+    const xxx = route.component.replace(pagesDir + "/", "");
+    if (overrides.includes(xxx)) {
+      route.component = route.component.replace(
+        pagesDir,
+        moduleObject.options.rootDir
+      );
     }
+    if (route.children) {
+      overrideRoutes(moduleObject, route.children, overrides);
+    }
+  });
+};
+
+const addThemePages = function(moduleObject) {
+  const pagesDir = path.join(
+    moduleObject.options.rootDir,
+    "node_modules/@shopware-pwa/default-theme"
+  );
+
+  const allPages = getAllFiles(pagesDir + "/pages")
+    .map(page => page.replace(pagesDir + "/", ""))
+    .filter(page => /.+.(vue|js)$/.test(page))
+    .sort();
+  const allOverridedPages = getAllFiles(moduleObject.options.rootDir + "/pages")
+    .map(page => page.replace(moduleObject.options.rootDir + "/", ""))
+    .filter(page => /.+.(vue|js)$/.test(page))
+    .sort();
+
+  // TODO uncomment after unit tests
+  // console.error("ALL PAGES", allPages);
+  // console.error("route Pages", allOverridedPages);
+  // allOverridedPages.forEach(page => {
+  //   if (!allPages.includes(page)) {
+  //     allPages.push(page);
+  //   }
+  // });
+  // allPages.sort();
+  // console.error("ALL PAGES MERGED", allPages);
+
+  const createdRoutes = createRoutes({
+    files: allPages,
+    srcDir: pagesDir,
+    pagesDir: "pages"
+  });
+  overrideRoutes(moduleObject, createdRoutes, allOverridedPages);
+
+  moduleObject.extendRoutes((rootRoutes, resolve) => {
+    rootRoutes.splice(0, rootRoutes.length, ...createdRoutes);
+    sortRoutes(rootRoutes);
   });
 };
 
