@@ -4,11 +4,12 @@
     <SfBreadcrumbs
       v-show="getBreadcrumbs.length > 0"
       :breadcrumbs="getBreadcrumbs"
-      v-on:click="redirectTo"
-      class="sw-breadcrumbs"/>
+      class="sw-breadcrumbs"
+      @click="redirectTo"
+    />
     <nuxt />
     <SwCart />
-    <SwBottomNavigation class="layout__bottom-navigation"/>
+    <SwBottomNavigation class="layout__bottom-navigation" />
     <SwFooter />
   </div>
 </template>
@@ -32,24 +33,25 @@ export default {
     componentBreadcrumbs() {
       // TODO probably move to vuex now as it's not rendered on server side
       return (
-        this.$route.matched.map((r) => {
+        this.$route.matched.map(r => {
           return r.components.default.options.data().breadcrumbs
         })[0] || {}
       )
     },
-    getBreadcrumbs () {
-      return Object.keys(this.componentBreadcrumbs).map(key => this.componentBreadcrumbs[key]).map(breadcrumb => ({
-        text: breadcrumb.name,
-        route: {
-          link: breadcrumb.path
-        }
-      }))
-    },
-    
+    getBreadcrumbs() {
+      return Object.keys(this.componentBreadcrumbs)
+        .map(key => this.componentBreadcrumbs[key])
+        .map(breadcrumb => ({
+          text: breadcrumb.name,
+          route: {
+            link: breadcrumb.path
+          }
+        }))
+    }
   },
   methods: {
     redirectTo(route) {
-      return this.$router.push(route.link);
+      return this.$router.push(route.link)
     }
   }
 }
@@ -58,10 +60,20 @@ export default {
 <style lang="scss">
 @import '~@storefront-ui/vue/styles';
 
-
 html {
   height: 100vh;
+  font-family: var(--body-font-family-primary);
+  font-weight: var(--body-font-weight-primary);
+  line-height: 1.6;
+  font-size: var(--font-size-regular);
+}
 
+a {
+  text-decoration: none;
+  color: var(--c-link);
+  &:hover {
+    color: var(--c-link-hover);
+  }
 }
 
 body {
@@ -87,7 +99,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  
+
   &__bottom-navigation {
     @include for-desktop() {
       display: none;
