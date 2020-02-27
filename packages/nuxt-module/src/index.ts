@@ -20,6 +20,10 @@ const getAllFiles = function(dirPath, arrayOfFiles) {
   return arrayOfFiles;
 };
 
+interface NuxtModuleOptions {
+  name: string;
+}
+
 // TODO: find a nuxt trigger which do the same
 const invokeRebuild = function(moduleObject) {
   jetpack.copy(
@@ -136,7 +140,9 @@ const addThemeMiddlewares = function(moduleObject) {
   // TODO: override middlewares from theme folder like with components
 };
 
-module.exports = async function ShopwarePWAModule(moduleOptions) {
+export default async function ShopwarePWAModule(
+  moduleOptions: NuxtModuleOptions
+) {
   const componentsPath = path.join(this.options.rootDir, "components");
 
   const config = require(path.join(
@@ -156,7 +162,7 @@ module.exports = async function ShopwarePWAModule(moduleOptions) {
 
   this.addPlugin({
     fileName: "api-client.js",
-    src: path.join(__dirname, "plugins", "api-client.js"),
+    src: path.join(__dirname, "..", "plugins", "api-client.js"),
     options: {
       shopwareEndpoint: config.shopwareEndpoint,
       shopwareAccessToken: config.shopwareAccessToken
@@ -169,7 +175,7 @@ module.exports = async function ShopwarePWAModule(moduleOptions) {
   };
   const options = Object.assign({}, defaults, moduleOptions);
   this.addPlugin({
-    src: path.join(__dirname, "plugins", "cookie-universal-nuxt.js"),
+    src: path.join(__dirname, "..", "plugins", "cookie-universal-nuxt.js"),
     fileName: "cookie-universal-nuxt.js",
     options
   });
@@ -188,4 +194,4 @@ module.exports = async function ShopwarePWAModule(moduleOptions) {
   //     extendComponents(this, true);
   //   });
   // }
-};
+}
