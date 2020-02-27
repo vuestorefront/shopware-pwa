@@ -36,14 +36,14 @@
       </SfButton>
       <div class="navbar__sort desktop-only">
         <span class="navbar__label">Sort by:</span>
-        <SfSelect :size="sorting.length" v-model="sortBy" class="sort-by">
-          <SfSelectOption 
+        <SfSelect v-model="sortBy" :size="sorting.length" class="sort-by">
+          <SfSelectOption
             v-for="(option, key) in sorting"
             :key="key"
             :value="option"
             class="sort-by__option"
           >
-            {{getSortLabel(option)}}
+            {{ getSortLabel(option) }}
           </SfSelectOption>
         </SfSelect>
       </div>
@@ -55,17 +55,18 @@
       </div>
 
       <SfSelect v-model="sortBy" class="sort-by sort-by--mobile mobile-only">
-        <SfSelectOption 
+        <SfSelectOption
           v-for="(option, key) in sorting"
           :key="key"
           :value="option"
           class="sort-by__option"
         >
-          {{getSortLabel(option)}}
+          {{ getSortLabel(option) }}
         </SfSelectOption>
       </SfSelect>
 
       <SfSidebar
+        title="Filters"
         :visible="isFilterSidebarOpen"
         @close="isFilterSidebarOpen = false"
       >
@@ -79,17 +80,26 @@
                 :label="option.label"
                 :count="option.count"
                 :color="option.color ? option.color : null"
-                :selected="selectedFilters[filter.name] && !!selectedFilters[filter.name].find((propertyId) => propertyId === option.value)"
-                @change.native="toggleFilter({type: 'equals', value: option.value, field: filter.name})"
+                :selected="
+                  selectedFilters[filter.name] &&
+                    !!selectedFilters[filter.name].find(
+                      propertyId => propertyId === option.value
+                    )
+                "
                 class="filters__item"
+                @change.native="
+                  toggleFilter({
+                    type: 'equals',
+                    value: option.value,
+                    field: filter.name
+                  })
+                "
               />
             </div>
           </div>
 
           <div class="filters__buttons">
-            <SfButton
-              class="sf-button--full-width"
-              @click="submitFilters()"
+            <SfButton class="sf-button--full-width" @click="submitFilters()"
               >Done</SfButton
             >
             <SfButton
@@ -113,10 +123,12 @@ import {
   SfSidebar,
   SfProductOption
 } from '@storefront-ui/vue'
-import { useCategoryFilters, useProductListing } from '@shopware-pwa/composables'
-const { availableFilters, availableSorting } = useCategoryFilters()
+import {
+  useCategoryFilters,
+  useProductListing
+} from '@shopware-pwa/composables'
 import { getSortingLabel } from '@shopware-pwa/helpers'
-
+const { availableFilters, availableSorting } = useCategoryFilters()
 
 export default {
   components: {
@@ -133,23 +145,31 @@ export default {
       default: () => ({})
     }
   },
-  setup () {
-    const { toggleFilter, changeSorting, selectedSorting, search, selectedFilters, resetFilters, productsTotal } = useProductListing()
+  setup() {
+    const {
+      toggleFilter,
+      changeSorting,
+      selectedSorting,
+      search,
+      selectedFilters,
+      resetFilters,
+      productsTotal
+    } = useProductListing()
 
-    return { toggleFilter, changeSorting, selectedSorting, search, selectedFilters, resetFilters, productsTotal }
+    return {
+      toggleFilter,
+      changeSorting,
+      selectedSorting,
+      search,
+      selectedFilters,
+      resetFilters,
+      productsTotal
+    }
   },
   data() {
     return {
       isFilterSidebarOpen: false,
       sortBy: this.selectedSorting
-    }
-  },
-  watch: {
-    sortBy(newSorting, oldOne){
-      // prevent reloading on default sorting
-      if (oldOne.name !== newSorting.name) {
-        this.changeSorting(newSorting)
-      }
     }
   },
   computed: {
@@ -175,6 +195,14 @@ export default {
       return true
     }
   },
+  watch: {
+    sortBy(newSorting, oldOne) {
+      // prevent reloading on default sorting
+      if (oldOne.name !== newSorting.name) {
+        this.changeSorting(newSorting)
+      }
+    }
+  },
   methods: {
     async clearAllFilters() {
       this.resetFilters()
@@ -193,7 +221,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@storefront-ui/vue/styles";
+@import '~@storefront-ui/vue/styles';
 
 .navbar {
   position: relative;
@@ -210,7 +238,7 @@ export default {
     width: calc(100% - (var(--spacer-big) * -2));
     height: 1px;
     background-color: var(--c-light);
-    content: "";
+    content: '';
     @include for-desktop {
       content: none;
     }
@@ -252,7 +280,7 @@ export default {
       text-transform: none;
     }
     svg {
-      fill:var(--c-dark);
+      fill: var(--c-dark);
       @include for-desktop {
         fill: var(--c-gray-variant);
       }
@@ -325,13 +353,13 @@ export default {
     }
   }
   &__item {
-    padding: var(--spacer-small)0;
+    padding: var(--spacer-small) 0;
     &--color {
       margin: 0 var(--spacer);
     }
   }
   &__buttons {
-    margin: calc(var(--spacer-big)* 3) 0 0 0;
+    margin: calc(var(--spacer-big) * 3) 0 0 0;
   }
   &__button-clear {
     color: #a3a5ad;
