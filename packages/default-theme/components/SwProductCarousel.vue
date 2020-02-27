@@ -2,6 +2,7 @@
   <div class="Sw-products-gallery">
     <SfSection
       v-if="products && products.length > 0"
+      class="section"
       title-heading="You may also like"
     >
       <SfCarousel class="product-carousel">
