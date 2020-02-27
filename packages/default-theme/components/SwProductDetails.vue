@@ -19,11 +19,12 @@
     <div v-if="hasChildren" class="product-details__section">
       <SwProductSelect
         v-for="(options, code) in getAllProductOptions"
-        v-bind:key="code"
-        :options="options"
+        :key="code"
         v-model="selected[code]"
-        :changeHandler="handleChange"
-        :label="code" />
+        :options="options"
+        :change-handler="handleChange"
+        :label="code"
+      />
     </div>
     <div class="product-details__section">
       <SfAlert
@@ -160,10 +161,18 @@ export default {
       return price && '$' + price
     },
     name() {
-      return this.product && (this.product.name || this.product.translated && this.product.translated.name)
+      return (
+        this.product &&
+        (this.product.name ||
+          (this.product.translated && this.product.translated.name))
+      )
     },
     description() {
-      return this.product && (this.product.description || this.product.translated && this.product.translated.description)
+      return (
+        this.product &&
+        (this.product.description ||
+          (this.product.translated && this.product.translated.description))
+      )
     },
     ratingAverage() {
       return this.product && this.product.ratingAverage
@@ -176,14 +185,14 @@ export default {
     properties() {
       return getProductProperties({ product: this.product })
     },
-    getAllProductOptions(){
+    getAllProductOptions() {
       const options = getProductOptions({
         product: this.product
       })
 
-      return options;
+      return options
     },
-    getAllProductOption(){
+    getAllProductOption() {
       return getProductOptions({
         product: this.product
       })
@@ -200,12 +209,15 @@ export default {
   },
   watch: {
     selectedOptions(selected, selectedOld) {
-      if (Object.keys(this.getAllProductOptions).length !== Object.keys(selected).length) {
-        return;
+      if (
+        Object.keys(this.getAllProductOptions).length !==
+        Object.keys(selected).length
+      ) {
+        return
       }
 
-      const options = [];
-      for(let attribute of Object.keys(selected)) {
+      const options = []
+      for (const attribute of Object.keys(selected)) {
         options.push(selected[attribute])
       }
       const url = getProductOptionsUrl({
@@ -219,8 +231,10 @@ export default {
 
   mounted() {
     this.product.options.forEach(option => {
-      this.selected = Object.assign({}, this.selected, { [option.group.name]: option.id })
-    });
+      this.selected = Object.assign({}, this.selected, {
+        [option.group.name]: option.id
+      })
+    })
   },
 
   methods: {
@@ -236,7 +250,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@storefront-ui/shared/styles/variables';
-
 
 @mixin for-iOS {
   @supports (-webkit-overflow-scrolling: touch) {
@@ -277,17 +290,13 @@ export default {
     margin-top: 30px;
   }
   &__heading {
-    margin-top: var(--spacer-big);
-    ::v-deep .sf-heading__title {
-      font-size: var(--font-size-big-mobile);
-      font-weight: var(--body-font-weight-primary);
-      @include for-desktop {
-        font-size: var(--h1-font-size-desktop);
-        font-weight: var(--body-font-weight-secondary);
-      }
-    }
+    --heading-title-font-size: var(--font-size-big);
+    --heading-title-font-weight: var(--body-font-weight-primary);
+    margin: var(--spacer-big) 0 0 0;
     @include for-desktop {
-      margin-top: 0;
+      --heading-title-font-size: var(--h1-font-size);
+      --heading-title-font-weight: var(--body-font-weight-secondary);
+      margin: 0;
     }
   }
   &__mobile-bar {
@@ -313,30 +322,6 @@ export default {
   }
   &__properties {
     margin-top: var(--spacer-big);
-  }
-  &__sub {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  &__sub-price {
-    flex-basis: 100%;
-    margin-top: calc(var(--spacer-big) / 4);
-    @include for-desktop {
-      flex-basis: auto;
-      margin-top: calc(var(--spacer-big)/ 2);
-    }
-  }
-  &__sub-rating {
-    display: flex;
-    margin-top: calc(var(--spacer-big) / 2);
-    @include for-desktop {
-      margin-left: auto;
-    }
-  }
-  &__sub-reviews {
-    margin-left: 10px;
-    font-size: 0.75rem;
   }
   &__section {
     border-bottom: 1px solid #f1f2f3;

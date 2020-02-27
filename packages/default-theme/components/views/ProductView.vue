@@ -86,7 +86,9 @@ export default {
   },
   computed: {
     product() {
-      return this.productWithAssociations ? this.productWithAssociations.value : this.page.product
+      return this.productWithAssociations
+        ? this.productWithAssociations.value
+        : this.page.product
     }
   },
   async mounted() {
@@ -98,19 +100,17 @@ export default {
       'associations[productReviews][]': true, // can be fetched asynchronously
       'associations[manufacturer][]': true,
       'associations[children][associations][options][associations][group][]': true,
-      "associations[children][associations][seoUrls][]": true,
+      'associations[children][associations][seoUrls][]': true
     }
 
     const { loadAssociations, product } = useProduct(this.page.product)
     this.productWithAssociations = product
     loadAssociations(associations)
-    
   }
 }
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/shared/styles/variables';
-
 
 @mixin for-iOS {
   @supports (-webkit-overflow-scrolling: touch) {
@@ -160,7 +160,7 @@ export default {
   &__col {
     margin: 0;
     & + & {
-      margin-left: calc(var(--spacer-big) :wq/ 2);
+      margin-left: calc(var(--spacer-big) / 2);
       @include for-desktop {
         margin-left: var(--spacer-big);
       }
