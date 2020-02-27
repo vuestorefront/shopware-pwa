@@ -2,8 +2,10 @@
   "name": "@shopware-pwa/nuxt-module",
   "version": "0.1.0-alpha.0",
   "description": "@shopware-pwa/nuxt-module",
+  "main": "dist/nuxt-module.cjs.js",
+  "module": "dist/nuxt-module.esm-bundler.js",
   "files": [
-    "index.js",
+    "dist",
     "plugins/*"
   ],
   "sideEffects": true,
