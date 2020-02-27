@@ -1,6 +1,9 @@
 <template>
   <div class="Sw-products-gallery">
-    <SfSection title-heading="You may also like" v-if="products && products.length > 0">
+    <SfSection
+      v-if="products && products.length > 0"
+      title-heading="You may also like"
+    >
       <SfCarousel class="product-carousel">
         <SfCarouselItem v-for="product in products" :key="product.id">
           <SwProductCard :product="product" />
@@ -26,13 +29,11 @@ export default {
   },
   data() {
     return {
-      products: {},
-      
+      products: {}
     }
   },
   async mounted() {
-    const result = await getProducts(
-    {
+    const result = await getProducts({
       sort: {
         field: 'price',
         desc: false
@@ -48,30 +49,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/shared/styles/variables';
-
-
+@import '~@storefront-ui/vue/styles';
 
 .section {
-  padding-left: var(--spacer-big);
-  padding-right: var(--spacer-big);
+  padding: 0 var(--spacer-big);
   @include for-desktop {
-    padding-left: 0;
-    padding-right: 0;
+    padding: 0;
   }
 }
 
 .product-carousel {
-  margin: -20px calc(var(--spacer-big) * -1) -20px 0;
+  margin: 0 calc(var(--spacer-big) * -1) 0 0;
   @include for-desktop {
-    margin: -20px 0;
-  }
-  ::v-deep .sf-carousel__wrapper {
-    padding: 20px 0;
-    @include for-desktop {
-      padding: 20px;
-      max-width: calc(100% - 216px);
-    }
+    margin: var(--spacer-big) 0;
+    --carousel-padding: var(--spacer-big);
+    --carousel-max-width: calc(100% - 13.5rem);
   }
 }
 </style>

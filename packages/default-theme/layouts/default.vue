@@ -62,10 +62,6 @@ export default {
 
 html {
   height: 100vh;
-  font-family: var(--body-font-family-primary);
-  font-weight: var(--body-font-weight-primary);
-  font-size: var(--font-size-regular);
-  line-height: 1.6;
 }
 
 a {
@@ -122,6 +118,10 @@ body {
   padding: 0;
   margin: 0;
   min-height: 100vh;
+  font-family: var(--body-font-family-primary);
+  font-weight: var(--body-font-weight-primary);
+  font-size: var(--font-size-regular);
+  line-height: 1.6;
 }
 
 #__nuxt {

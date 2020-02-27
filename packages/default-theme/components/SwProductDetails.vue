@@ -39,10 +39,10 @@
         @click="addToCart"
       />
       <div class="product-details__action">
-        <button class="sf-action">Save for later</button>
+        <SfButton class="sf-action sf-button--text">Save for later</SfButton>
       </div>
       <div class="product-details__action">
-        <button class="sf-action">Add to compare</button>
+        <SfButton class="sf-action sf-button--text">Add to compare</SfButton>
       </div>
     </div>
     <SwProductTabs>
@@ -93,6 +93,7 @@
 <script>
 import {
   SfAlert,
+  SfButton,
   SfProperty,
   SfHeading,
   SfProductOption,
@@ -119,6 +120,7 @@ export default {
   name: 'SwProductDetails',
   components: {
     SfAlert,
+    SfButton,
     SfProperty,
     SfHeading,
     SfProductOption,
@@ -249,7 +251,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/shared/styles/variables';
+@import '~@storefront-ui/vue/styles';
 
 @mixin for-iOS {
   @supports (-webkit-overflow-scrolling: touch) {
@@ -282,19 +284,14 @@ export default {
     font-family: var(--body-font-family-secondary);
     font-size: var(--font-size-regular-mobile);
     line-height: 1.6;
-    @include for-desktop {
-      font-size: var(--font-size-regular-desktop);
-    }
   }
   &__divider {
     margin-top: 30px;
   }
   &__heading {
-    --heading-title-font-size: var(--font-size-big);
     --heading-title-font-weight: var(--body-font-weight-primary);
     margin: var(--spacer-big) 0 0 0;
     @include for-desktop {
-      --heading-title-font-size: var(--h1-font-size);
       --heading-title-font-weight: var(--body-font-weight-secondary);
       margin: 0;
     }
@@ -331,10 +328,6 @@ export default {
       border: 0;
       padding-bottom: 0;
     }
-    @media (max-width: $desktop-min) {
-      padding-left: var(--spacer-big);
-      padding-right: var(--spacer-big);
-    }
   }
   &__tabs {
     margin-top: var(--spacer-big);
@@ -366,6 +359,7 @@ export default {
 }
 
 .sf-action {
+  --button-font-size: var(--font-size-small);
   padding: 0;
   border: 0;
   outline: none;
@@ -378,7 +372,7 @@ export default {
   text-decoration: underline;
   cursor: pointer;
   @include for-desktop {
-    font-size: var(--font-size-regular-desktop);
+    --button-font-size: var(--font-size-regular-desktop);
   }
 }
 </style>

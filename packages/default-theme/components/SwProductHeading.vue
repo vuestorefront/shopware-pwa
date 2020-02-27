@@ -66,9 +66,11 @@ export default {
 .product-heading {
   &__sub {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
   }
   &__sub-price {
+    --price-font-size: 1.5rem;
     flex-basis: 100%;
     margin-top: calc(var(--spacer-big) / 4);
     @include for-desktop {

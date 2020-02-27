@@ -8,12 +8,12 @@
     :score-rating="getProductRating"
     :image-width="700"
     :image-height="1000"
-    :isOnWishlist="false"
+    :is-on-wishlist="false"
     :link="getRouterLink"
-    @click:wishlist="toggleWishlist"
     class="products__product-card"
-    :showAddToCartButton="true"
-    :isAddedToCart="isInCart"
+    :show-add-to-cart-button="true"
+    :is-added-to-cart="isInCart"
+    @click:wishlist="toggleWishlist"
     @click:add-to-cart="addToCart"
   >
     <template #title="{title}">
@@ -51,14 +51,14 @@ export default {
       isInCart
     }
   },
-  data() {
-    return {}
-  },
   props: {
     product: {
       type: Object,
       default: () => ({})
     }
+  },
+  data() {
+    return {}
   },
   computed: {
     getName() {
@@ -85,8 +85,7 @@ export default {
     },
     getImageUrl() {
       return (
-        getProductMainImageUrl(this.product) ||
-        require('~/assets/productB.jpg')
+        getProductMainImageUrl(this.product) || require('~/assets/productB.jpg')
       )
     }
   },
@@ -113,7 +112,7 @@ export default {
     font-weight: 300;
     line-height: 1.6;
     margin: var(--spacer-small) 0;
-    @media (min-width: $desktop-min) {
+    @include for-desktop {
       margin: var(--spacer) 0 var(--spacer-small);
       font-size: var(--font-size-regular-desktop);
     }
