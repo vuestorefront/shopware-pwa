@@ -64,8 +64,8 @@ html {
   height: 100vh;
   font-family: var(--body-font-family-primary);
   font-weight: var(--body-font-weight-primary);
-  line-height: 1.6;
   font-size: var(--font-size-regular);
+  line-height: 1.6;
 }
 
 a {
@@ -74,6 +74,48 @@ a {
   &:hover {
     color: var(--c-link-hover);
   }
+}
+
+/*Header styles*/
+
+h1 {
+  font-family: var(--body-font-family-secondary);
+  font-size: var(--h1-font-size);
+  font-weight: var(--h1-font-weight);
+  line-height: 1.6;
+  margin: 0;
+}
+
+h2 {
+  font-family: var(--body-font-family-secondary);
+  font-size: var(--h2-font-size);
+  font-weight: var(--h2-font-weight);
+  line-height: 1.6;
+  margin: 0;
+}
+
+h3 {
+  font-family: var(--body-font-family-secondary);
+  font-size: var(--h3-font-size);
+  font-weight: var(--h3-font-weight);
+  line-height: 1.6;
+  margin: 0;
+}
+
+h4 {
+  font-family: var(--body-font-family-secondary);
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight);
+  line-height: 1.6;
+  margin: 0;
+}
+
+h5 {
+  font-family: var(--body-font-family-secondary);
+  font-size: var(--h5-font-size);
+  font-weight: var(--h5-font-weight);
+  line-height: 1.6;
+  margin: 0;
 }
 
 body {
