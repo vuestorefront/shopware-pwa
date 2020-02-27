@@ -13,12 +13,17 @@
           </nuxt-link>
         </template>
 
+        <template #search>
+          <div class="sf-search-bar"></div>
+        </template>
+
         <template #navigation>
           <SfHeaderNavigationItem
             v-for="{ routeLabel, routePath } in routes"
             :key="routeLabel"
+            class="sf-header__link"
           >
-            <nuxt-link :to="routePath">
+            <nuxt-link class="sf-header__link" :to="routePath">
               <a
                 :style="{
                   display: 'flex',
@@ -40,7 +45,8 @@
                 icon-size="1.25rem"
                 class="sf-header__circle-icon"
                 :class="{
-                  'sf-header__circle-icon--is-active': activeIcon === 'account-icon'
+                  'sf-header__circle-icon--is-active':
+                    activeIcon === 'account-icon'
                 }"
                 role="button"
                 aria-label="account-icon"
@@ -129,6 +135,8 @@ export default {
 
 .top-navigation {
   @include for-desktop {
+    margin-bottom: var(--spacer-medium);
+
     .sf-header {
       display: flex;
       justify-content: space-between;
@@ -145,6 +153,12 @@ export default {
 
       &__navigation {
         flex: 1;
+      }
+
+      &__link {
+        display: flex;
+        align-items: center;
+        height: 100;
       }
     }
   }
@@ -165,12 +179,5 @@ export default {
 
 .sf-header__logo {
   height: 2rem;
-}
-.sf-circle-icon__badge {
-  font-size: 0.6em;
-  padding: 0.3em 0;
-  border-radius: 100%;
-  width: 2.1em;
-  min-height: 2.1em;
 }
 </style>
