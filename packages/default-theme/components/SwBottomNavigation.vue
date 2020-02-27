@@ -39,7 +39,6 @@
 
 <script>
 import {
-  SfButton,
   SfBottomNavigation,
   SfCircleIcon,
   SfIcon,
@@ -57,7 +56,6 @@ import { PAGE_ACCOUNT } from '../helpers/pages'
 export default {
   name: 'SwBottomNavigation',
   components: {
-    SfButton,
     SfBottomNavigation,
     SfIcon,
     SfCircleIcon,
