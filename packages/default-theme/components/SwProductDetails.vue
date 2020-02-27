@@ -1,5 +1,6 @@
 <template>
   <div class="sw-product-details">
+    {{reviews}}
     <div class="product-details__mobile-top">
       <SwProductHeading
         class="product-details__heading"
@@ -17,6 +18,7 @@
       <button v-if="sizes.length > 0" class="sf-action">Size guide</button>
     </div> -->
     <div v-if="hasChildren" class="product-details__section">
+
       <SwProductSelect
         v-for="(options, code) in getAllProductOptions"
         :key="code"
