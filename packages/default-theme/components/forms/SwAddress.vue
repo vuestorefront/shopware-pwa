@@ -105,6 +105,7 @@
         @blur="$v.form.country.$touch()"
         required
         class="sf-select--underlined form__element form__element--half form__element--half-even form__select"
+
       >
         <SfSelectOption
           v-for="countryOption in getMappedCountries"

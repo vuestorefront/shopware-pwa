@@ -1,6 +1,5 @@
 <template>
   <div class="shipping-list">
-      eee {{ listAddresses }}
       <SfTabs
         key="address-list"
         v-if="listAddresses"

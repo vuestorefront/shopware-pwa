@@ -1,12 +1,7 @@
 <template>
   <div class="addresses-add">
-    <div v-if="address.length > 0">
-      <SwAddress 
-        :address="address[0]"
-      />
-    </div>
-    <div v-else>
-      <SwAddress/>
+    <div v-if="address !== ''"> 
+      <SwAddress :address="address"/>
     </div>
   </div>
 </template>
@@ -29,11 +24,15 @@ export default {
       addresses
     }
   },
+  computed: {
+    
+
+  },
   async mounted() {
     await this.loadAddresses();
     const paramsId = this.$route.params && this.$route.params.id
     if (paramsId) {
-      this.address = this.addresses.filter(addr => addr.id=== paramsId)
+      this.address = this.addresses.find(addr => addr.id=== paramsId)
     }
   }
 }
