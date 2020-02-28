@@ -1,6 +1,7 @@
 <template>
   <div id="cart">
     <SfSidebar
+      title="My cart"
       :visible="isSidebarOpen"
       heading-title="My Cart"
       class="sf-sidebar--right"
@@ -26,7 +27,12 @@
               <SfPrice :regular="totalPrice | price" class="sf-price--big" />
             </template>
           </SfProperty>
-          <SfButton class="sf-button--full-width" aria-label="go-to-checkout" @click="goToCheckout()">Go to checkout</SfButton>
+          <SfButton
+            class="sf-button--full-width"
+            aria-label="go-to-checkout"
+            @click="goToCheckout()"
+            >Go to checkout</SfButton
+          >
         </div>
         <div v-else key="empty-cart" class="empty-cart">
           <div class="empty-cart__banner">
@@ -48,8 +54,8 @@
 <script>
 import { SfSidebar, SfButton, SfProperty, SfPrice } from '@storefront-ui/vue'
 import { useCart, useCartSidebar } from '@shopware-pwa/composables'
-import SwCartProduct from './SwCartProduct'
 import { PAGE_CHECKOUT } from '../helpers/pages'
+import SwCartProduct from './SwCartProduct'
 
 export default {
   name: 'Cart',
@@ -80,10 +86,10 @@ export default {
   },
   methods: {
     goToCheckout() {
-      this.toggleSidebar();
-      return this.$router.push(PAGE_CHECKOUT);
+      this.toggleSidebar()
+      return this.$router.push(PAGE_CHECKOUT)
     }
-  },
+  }
 }
 </script>
 <style lang="scss" scoped>
