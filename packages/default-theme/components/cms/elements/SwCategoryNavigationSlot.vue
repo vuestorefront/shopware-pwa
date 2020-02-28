@@ -4,7 +4,7 @@
       <h1 class="sw-category-navigation__title">{{ navTitle }}</h1>
     </div>
     <div class="sw-category-navigation__menu">
-      <SfHeading subtitle="No subcategories" v-if="!navigation.length"/>
+      <SfHeading subtitle="No subcategories" v-if="!navigation.length" />
       <SfAccordion :show-chevron="true">
         <SfAccordionItem
           v-for="accordion in navigation"
@@ -28,7 +28,7 @@
               v-if="accordion.route && accordion.name"
               :to="getCategoryUrl(accordion.route)"
             >
-            See {{ accordion.name }}
+              See {{ accordion.name }}
             </nuxt-link>
           </template>
         </SfAccordionItem>
@@ -95,7 +95,7 @@ export default {
     flex: 0 0 15%;
     align-items: center;
     display: flex;
-    height: 3.56rem;
+    height: 3.22rem;
     padding-top: 20px;
     @include for-desktop {
       padding: 20px;
