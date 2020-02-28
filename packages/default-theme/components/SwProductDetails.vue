@@ -1,6 +1,5 @@
 <template>
   <div class="sw-product-details">
-    {{reviews}}
     <div class="product-details__mobile-top">
       <SwProductHeading
         class="product-details__heading"
