@@ -46,14 +46,16 @@ jobs:
           environment: production
           initial_status: in_progress
       - name: Deploy on Storefrontcloud.io
-        id: farmerApiCall
         run: |
-          echo "::set-output name=FARMER_RESPONSE::curl -u ${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }} -H 'Content-Type: application/json' -X POST -d '{\"code\":\"shopware-pwa\",\"frontContainerVersion\":\"${{ github.sha }}\"}' https://farmer.storefrontcloud.io/instances"
-      - name: Debug
-        run: |
-          echo ${{ steps.farmerApiCall.outputs.FARMER_RESPONSE }}
+          if -u ${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }} -H 'Content-Type: application/json' -X POST -d '{\"code\":\"shopware-pwa\",\"frontContainerVersion\":\"${{ github.sha }}\"}' https://farmer.storefrontcloud.io/instances | grep -q '{"code":200,"result":"Instance updated!"}'; then
+            echo "Instance updated"
+            exit 0
+          else
+            echo "Something went wrong during the update process..."
+            exit 1
+          fi
       - name: Update deployment status (success)
-        if: success() && contains(steps.farmerApiCall.outputs.FARMER_RESPONSE, 'Instance updated!')
+        if: success()
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
