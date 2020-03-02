@@ -2,26 +2,13 @@ const path = require("path");
 const fs = require("fs");
 const jetpack = require("fs-jetpack");
 import { sortRoutes, createRoutes } from "@nuxt/utils";
-
-const getAllFiles = function(dirPath, arrayOfFiles) {
-  if (!jetpack.exists(dirPath)) return [];
-  const files = fs.readdirSync(dirPath);
-
-  arrayOfFiles = arrayOfFiles || [];
-
-  files.forEach(file => {
-    if (fs.statSync(dirPath + "/" + file).isDirectory()) {
-      arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
-    } else {
-      arrayOfFiles.push((dirPath + "/" + file).split(__dirname + "/").pop());
-    }
-  });
-
-  return arrayOfFiles;
-};
+import { overrideRoutes } from "./pages";
+import { getAllFiles } from "./files";
 
 interface NuxtModuleOptions {
-  name: string;
+  options: {
+    rootDir: string;
+  };
 }
 
 // TODO: find a nuxt trigger which do the same
@@ -75,25 +62,6 @@ const addThemeLayouts = function(moduleObject) {
       path.join(moduleObject.options.rootDir, "layouts", templateName + ".vue")
     );
     if (!overrideExists) moduleObject.addLayout({ src: layout }, templateName);
-  });
-};
-
-const overrideRoutes = function(moduleObject, routes, overrides) {
-  const pagesDir = path.join(
-    moduleObject.options.rootDir,
-    "node_modules/@shopware-pwa/default-theme"
-  );
-  routes.forEach(route => {
-    const xxx = route.component.replace(pagesDir + "/", "");
-    if (overrides.includes(xxx)) {
-      route.component = route.component.replace(
-        pagesDir,
-        moduleObject.options.rootDir
-      );
-    }
-    if (route.children) {
-      overrideRoutes(moduleObject, route.children, overrides);
-    }
   });
 };
 
