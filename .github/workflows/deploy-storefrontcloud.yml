@@ -1,6 +1,12 @@
 name: Deploy to Storefrontcloud
-on:
-  push:
+on: 
+  pull_request:
+    types:
+      - assigned
+      - opened
+      - synchronize
+      - reopened
+      - edited
     branches:
       - feat/hide-theme-and-cloud-deploy
 jobs:
