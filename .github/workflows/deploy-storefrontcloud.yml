@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - feat/hide-theme-and-cloud-deploy
+      - feat/plugins-installation
 jobs:
   build:
     runs-on: ubuntu-latest
