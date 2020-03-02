@@ -1,5 +1,4 @@
 const path = require("path");
-const fs = require("fs");
 const jetpack = require("fs-jetpack");
 import { sortRoutes, createRoutes } from "@nuxt/utils";
 import { overrideRoutes } from "./pages";

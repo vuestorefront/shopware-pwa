@@ -33,7 +33,7 @@ execa(
     [
       `COMMIT:${commit}`,
       `TARGET:${target}`,
-      `FORMATS:${formats || "global"}`
+      `FORMATS:${formats || "cjs"}`
     ].join(",")
   ],
   {
