@@ -42,7 +42,7 @@ jobs:
         id: deployment
         with:
           token: "${{ github.token }}"
-          target-url: https://shopware-pwa.storefrontcloud.io
+          target_url: https://shopware-pwa.storefrontcloud.io
           environment: production
           initial_status: in_progress
       - name: Deploy on Storefrontcloud.io
@@ -58,7 +58,7 @@ jobs:
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
-          target-url: https://shopware-pwa.storefrontcloud.io
+          target_url: https://shopware-pwa.storefrontcloud.io
           state: "success"
           description: Congratulations! The deploy is done.
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
@@ -67,7 +67,7 @@ jobs:
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
-          target-url: https://shopware-pwa.storefrontcloud.io
+          target_url: https://shopware-pwa.storefrontcloud.io
           description: Unfortunately, the instance hasn't been updated.
           state: "failure"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
