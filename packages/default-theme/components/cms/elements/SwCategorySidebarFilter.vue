@@ -327,7 +327,6 @@ export default {
 }
 .sort-by {
   flex: unset;
-  z-index: 2;
   width: 190px;
   padding: 0 10px;
   font-size: inherit;
@@ -368,7 +367,4 @@ export default {
   }
 }
 
-::v-deep .sf-sidebar {
-  z-index: 4;
-}
 </style>

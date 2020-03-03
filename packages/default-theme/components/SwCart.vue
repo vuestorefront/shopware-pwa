@@ -154,10 +154,5 @@ export default {
     margin-top: var(--spacer-big);
   }
 }
-::v-deep .sf-overlay {
-  z-index: 4;
-}
-::v-deep .sf-sidebar__aside {
-  z-index: 4;
-}
+
 </style>

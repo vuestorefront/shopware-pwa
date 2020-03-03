@@ -1,81 +1,79 @@
 <template>
   <div class="top-navigation">
-    <slot v-bind="{ navigationElements, activeSidebar, activeIcon }">
-      <SfHeader
-        title="Shopware-PWA"
-        :has-mobile-search="false"
-        :is-sticky="false"
-        :cart-items-qty="count.toString()"
-      >
-        <template #logo>
-          <nuxt-link to="/" class="sf-header__logo">
-            <SfImage src="/img/logo.svg" alt="Shopware PWA" />
+    <SfHeader
+      title="Shopware-PWA"
+      :has-mobile-search="false"
+      :is-sticky="false"
+      :cart-items-qty="count.toString()"
+    >
+      <template #logo>
+        <nuxt-link to="/" class="sf-header__logo">
+          <SfImage src="/img/logo.svg" alt="Shopware PWA" />
+        </nuxt-link>
+      </template>
+
+      <template #search>
+        <div class="sf-search-bar"></div>
+      </template>
+
+      <template #navigation>
+        <SfHeaderNavigationItem
+          v-for="{ routeLabel, routePath } in routes"
+          :key="routeLabel"
+          class="sf-header__link"
+        >
+          <nuxt-link class="sf-header__link" :to="routePath">
+            <a
+              :style="{
+                display: 'flex',
+                alignItems: 'center',
+                height: '100%'
+              }"
+            >
+              {{ routeLabel }}
+            </a>
           </nuxt-link>
-        </template>
-
-        <template #search>
-          <div class="sf-search-bar"></div>
-        </template>
-
-        <template #navigation>
-          <SfHeaderNavigationItem
-            v-for="{ routeLabel, routePath } in routes"
-            :key="routeLabel"
-            class="sf-header__link"
-          >
-            <nuxt-link class="sf-header__link" :to="routePath">
-              <a
-                :style="{
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: '100%'
-                }"
-              >
-                {{ routeLabel }}
-              </a>
-            </nuxt-link>
-          </SfHeaderNavigationItem>
-        </template>
-        <template #header-icons="{accountIcon, cartIcon}">
-          <div class="sf-header__icons desktop-only">
-            <div class="sf-header__icons">
-              <SfCircleIcon
-                v-if="accountIcon"
-                :icon="accountIcon"
-                icon-size="1.25rem"
-                class="sf-header__circle-icon"
-                :class="{
-                  'sf-header__circle-icon--is-active':
-                    activeIcon === 'account-icon'
-                }"
-                role="button"
-                aria-label="account-icon"
-                :aria-pressed="activeIcon === 'account-icon' ? 'true' : 'false'"
-                :has-badge="isLoggedIn"
-                @click="userIconClick"
-              />
-              <SfCircleIcon
-                v-if="cartIcon"
-                :icon="cartIcon"
-                :has-badge="count > 0"
-                :badge-label="count.toString()"
-                icon-size="1.25rem"
-                class="sf-header__circle-icon"
-                :class="{
-                  'sf-header__circle-icon--is-active':
-                    activeIcon === 'cart-icon'
-                }"
-                role="button"
-                aria-label="cart-icon"
-                :aria-pressed="activeIcon === 'cart-icon' ? 'true' : 'false'"
-                @click="toggleSidebar"
-              />
-            </div>
+        </SfHeaderNavigationItem>
+      </template>
+      <template #header-icons="{accountIcon, cartIcon}">
+        <div class="sf-header__icons desktop-only">
+          <div class="sf-header__icons">
+            <SfCircleIcon
+              v-if="accountIcon"
+              :icon="accountIcon"
+              icon-size="1.25rem"
+              class="sf-header__circle-icon"
+              :class="{
+                'sf-header__circle-icon--is-active':
+                  activeIcon === 'account-icon'
+              }"
+              role="button"
+              aria-label="account-icon"
+              :aria-pressed="activeIcon === 'account-icon' ? 'true' : 'false'"
+              :has-badge="isLoggedIn"
+              @click="userIconClick"
+            />
+            <SfCircleIcon
+              v-if="cartIcon"
+              :icon="cartIcon"
+              :has-badge="count > 0"
+              :badge-label="count.toString()"
+              icon-size="1.25rem"
+              class="sf-header__circle-icon"
+              :class="{
+                'sf-header__circle-icon--is-active':
+                  activeIcon === 'cart-icon'
+              }"
+              role="button"
+              aria-label="cart-icon"
+              :aria-pressed="activeIcon === 'cart-icon' ? 'true' : 'false'"
+              @click="toggleSidebar"
+            />
           </div>
-        </template>
-      </SfHeader>
-      <SwLoginModal :is-open="isModalOpen" @close="isModalOpen = false" />
-    </slot>
+        </div>
+      </template>
+    </SfHeader>
+    <SwLoginModal :is-open="isModalOpen" @close="isModalOpen = false" />
   </div>
 </template>
 

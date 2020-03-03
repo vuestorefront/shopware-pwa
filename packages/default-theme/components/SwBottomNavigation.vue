@@ -108,9 +108,6 @@ export default {
     height: 100%;
   }
 }
-.sf-bottom-navigation {
-  z-index: 10;
-}
 
 ::v-deep .sf-select__selected > div:nth-child(1) > div:nth-child(1) {
   display: none;
