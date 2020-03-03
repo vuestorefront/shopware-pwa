@@ -96,6 +96,7 @@ export default {
 @import '~@storefront-ui/vue/styles';
 
 #cart {
+  --overlay-z-index: 4;
   box-sizing: border-box;
   @include for-desktop {
     max-width: 1240px;
@@ -155,4 +156,7 @@ export default {
   }
 }
 
+::v-deep .sf-sidebar__aside {
+  z-index: 4;
+}
 </style>
