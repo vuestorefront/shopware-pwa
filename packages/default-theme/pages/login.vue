@@ -28,7 +28,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
-@import '~@storefront-ui/shared/styles/helpers/visibility';
 #login {
   width: 100%;
   height: 65vh;

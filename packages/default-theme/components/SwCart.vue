@@ -1,6 +1,7 @@
 <template>
   <div id="cart">
     <SfSidebar
+      title="My cart"
       :visible="isSidebarOpen"
       heading-title="My Cart"
       class="sf-sidebar--right"
@@ -26,7 +27,12 @@
               <SfPrice :regular="totalPrice | price" class="sf-price--big" />
             </template>
           </SfProperty>
-          <SfButton class="sf-button--full-width" aria-label="go-to-checkout" @click="goToCheckout()">Go to checkout</SfButton>
+          <SfButton
+            class="sf-button--full-width"
+            aria-label="go-to-checkout"
+            @click="goToCheckout()"
+            >Go to checkout</SfButton
+          >
         </div>
         <div v-else key="empty-cart" class="empty-cart">
           <div class="empty-cart__banner">
@@ -48,8 +54,8 @@
 <script>
 import { SfSidebar, SfButton, SfProperty, SfPrice } from '@storefront-ui/vue'
 import { useCart, useCartSidebar } from '@shopware-pwa/composables'
-import SwCartProduct from './SwCartProduct'
 import { PAGE_CHECKOUT } from '../helpers/pages'
+import SwCartProduct from './SwCartProduct'
 
 export default {
   name: 'Cart',
@@ -80,20 +86,17 @@ export default {
   },
   methods: {
     goToCheckout() {
-      this.toggleSidebar();
-      return this.$router.push(PAGE_CHECKOUT);
+      this.toggleSidebar()
+      return this.$router.push(PAGE_CHECKOUT)
     }
-  },
+  }
 }
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
+
 #cart {
+  --overlay-z-index: 4;
   box-sizing: border-box;
   @include for-desktop {
     max-width: 1240px;
@@ -105,20 +108,20 @@ export default {
   display: flex;
   flex-direction: column;
   &__total-items {
-    font-family: $body-font-family-secondary;
-    font-size: $font-size-big-mobile;
-    font-weight: $body-font-weight-secondary;
+    font-family: var(--body-font-family-secondary);
+    font-size: var(--font-size-big-mobile);
+    font-weight: var(--body-font-weight-secondary);
     @include for-desktop {
-      font-size: $font-size-big-desktop;
+      font-size: var(--font-size-big-desktop);
     }
   }
   &__total-price {
-    margin-bottom: $spacer-big;
+    margin-bottom: var(--spacer-big);
   }
 }
 .collected-product-list {
   flex: 1;
-  margin: $spacer-big -#{$spacer-big};
+  margin: var(--spacer-big) calc(var(--spacer-big) * -1);
 }
 .empty-cart {
   flex: 1;
@@ -145,16 +148,14 @@ export default {
     text-align: center;
   }
   &__label {
-    margin-top: $spacer-extra-big;
-    font-size: $font-size-big-desktop;
+    margin-top: var(--spacer-extra-big);
+    font-size: var(--font-size-big-desktop);
   }
   &__description {
-    margin-top: $spacer-big;
+    margin-top: var(--spacer-big);
   }
 }
-::v-deep .sf-overlay {
-  z-index: 4;
-}
+
 ::v-deep .sf-sidebar__aside {
   z-index: 4;
 }

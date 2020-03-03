@@ -107,13 +107,8 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
-@import '~@storefront-ui/shared/styles/helpers/visibility';
 
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
+
 
 #sw-login-modal {
   box-sizing: border-box;
@@ -131,45 +126,37 @@ export default {
 
 .form {
   &__input {
-    margin-bottom: $spacer-medium;
+    margin-bottom: var(--spacer-medium);
     &--email {
-      margin-bottom: $spacer-medium;
+      margin-bottom: var(--spacer-medium);
     }
   }
   &__checkbox {
-    margin-bottom: $spacer-big;
+    margin-bottom: var(--spacer-big);
   }
   &__button {
-    margin-top: $spacer-big;
+    margin-top: var(--spacer-big);
   }
 }
 
 .action {
-  margin-top: $spacer-big;
+  margin-top: var(--spacer-big);
   text-align: center;
 }
 
 .bottom {
-  padding-top: $spacer-extra-big;
-  margin-top: $spacer-extra-big;
-  border-top: 1px solid $c-light;
+  padding-top: var(--spacer-extra-big);
+  margin-top: var(--spacer-extra-big);
+  border-top: 1px solid var(--c-light);
   line-height: 1.6;
   text-align: center;
 }
 
 .sf-button--muted {
-  color: $c-text-muted;
+  color: var(--c-text-muted);
 }
 
 .salutation {
   width: 8vw;
-}
-
-::v-deep .sf-overlay {
-  z-index: 4;
-}
-
-::v-deep .sf-modal__container {
-  z-index: 4;
 }
 </style>

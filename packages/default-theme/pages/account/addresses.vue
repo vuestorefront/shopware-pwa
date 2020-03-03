@@ -61,16 +61,11 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
-@import '~@storefront-ui/shared/styles/helpers/visibility';
 
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
+
 
 .shipping-list {
-  margin-bottom: $spacer-extra-big;
+  margin-bottom: var(--spacer-extra-big);
   width: 100%;
 }
 </style>

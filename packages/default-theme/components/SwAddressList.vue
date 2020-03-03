@@ -70,20 +70,19 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
-@import '~@storefront-ui/shared/styles/helpers/visibility';
 .shipping-list {
-  margin-bottom: $spacer-extra-big;
+  margin-bottom: var(--spacer-extra-big);
   width: 100%;
   &__address {
     display: flex;
-    padding: $spacer-big 0;
-    border-top: 1px solid $c-light;
+    padding: var(--spacer-big) 0;
+    border-top: 1px solid var(--c-light);
   }
 }
 .shipping {
   display: flex;
-  padding: $spacer-big 0;
-  border-top: 1px solid $c-light;
+  padding: var(--spacer-big) 0;
+  border-top: 1px solid var(--c-light);
   
 }
 </style>

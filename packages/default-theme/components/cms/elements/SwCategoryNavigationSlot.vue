@@ -4,7 +4,7 @@
       <h1 class="sw-category-navigation__title">{{ navTitle }}</h1>
     </div>
     <div class="sw-category-navigation__menu">
-      <SfHeading subtitle="No subcategories" v-if="!navigation.length"/>
+      <SfHeading subtitle="No subcategories" v-if="!navigation.length" />
       <SfAccordion :show-chevron="true">
         <SfAccordionItem
           v-for="accordion in navigation"
@@ -28,7 +28,7 @@
               v-if="accordion.route && accordion.name"
               :to="getCategoryUrl(accordion.route)"
             >
-            See {{ accordion.name }}
+              See {{ accordion.name }}
             </nuxt-link>
           </template>
         </SfAccordionItem>
@@ -89,30 +89,24 @@ export default {
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
 
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
-
 .sw-category-navigation {
   margin: 0 0 20px 20px !important;
   &__header {
     flex: 0 0 15%;
     align-items: center;
     display: flex;
-    height: 3.56rem;
+    height: 3.22rem;
     padding-top: 20px;
     @include for-desktop {
       padding: 20px;
-      border-top: 1px solid $c-light;
-      border-bottom: 1px solid $c-light;
+      border-top: 1px solid var(--c-light);
+      border-bottom: 1px solid var(--c-light);
     }
   }
 
   &__title {
     padding: 0;
-    font-size: $font-size-big-desktop;
+    font-size: var(--font-size-big-desktop);
   }
 
   &__menu {
@@ -128,8 +122,8 @@ export default {
       display: flex;
       align-items: center;
       flex: 0 0 15%;
-      padding: $spacer-big $spacer-extra-big;
-      border-right: 1px solid $c-light;
+      padding: var(--spacer-big) var(--spacer-extra-big);
+      border-right: 1px solid var(--c-light);
     }
   }
 }

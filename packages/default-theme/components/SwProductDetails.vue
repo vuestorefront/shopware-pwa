@@ -17,13 +17,15 @@
       <button v-if="sizes.length > 0" class="sf-action">Size guide</button>
     </div> -->
     <div v-if="hasChildren" class="product-details__section">
+
       <SwProductSelect
         v-for="(options, code) in getAllProductOptions"
-        v-bind:key="code"
-        :options="options"
+        :key="code"
         v-model="selected[code]"
-        :changeHandler="handleChange"
-        :label="code" />
+        :options="options"
+        :change-handler="handleChange"
+        :label="code"
+      />
     </div>
     <div class="product-details__section">
       <SfAlert
@@ -38,10 +40,10 @@
         @click="addToCart"
       />
       <div class="product-details__action">
-        <button class="sf-action">Save for later</button>
+        <SfButton class="sf-action sf-button--text">Save for later</SfButton>
       </div>
       <div class="product-details__action">
-        <button class="sf-action">Add to compare</button>
+        <SfButton class="sf-action sf-button--text">Add to compare</SfButton>
       </div>
     </div>
     <SwProductTabs>
@@ -92,6 +94,7 @@
 <script>
 import {
   SfAlert,
+  SfButton,
   SfProperty,
   SfHeading,
   SfProductOption,
@@ -118,6 +121,7 @@ export default {
   name: 'SwProductDetails',
   components: {
     SfAlert,
+    SfButton,
     SfProperty,
     SfHeading,
     SfProductOption,
@@ -160,10 +164,18 @@ export default {
       return price && '$' + price
     },
     name() {
-      return this.product && (this.product.name || this.product.translated && this.product.translated.name)
+      return (
+        this.product &&
+        (this.product.name ||
+          (this.product.translated && this.product.translated.name))
+      )
     },
     description() {
-      return this.product && (this.product.description || this.product.translated && this.product.translated.description)
+      return (
+        this.product &&
+        (this.product.description ||
+          (this.product.translated && this.product.translated.description))
+      )
     },
     ratingAverage() {
       return this.product && this.product.ratingAverage
@@ -176,14 +188,14 @@ export default {
     properties() {
       return getProductProperties({ product: this.product })
     },
-    getAllProductOptions(){
+    getAllProductOptions() {
       const options = getProductOptions({
         product: this.product
       })
 
-      return options;
+      return options
     },
-    getAllProductOption(){
+    getAllProductOption() {
       return getProductOptions({
         product: this.product
       })
@@ -200,12 +212,15 @@ export default {
   },
   watch: {
     selectedOptions(selected, selectedOld) {
-      if (Object.keys(this.getAllProductOptions).length !== Object.keys(selected).length) {
-        return;
+      if (
+        Object.keys(this.getAllProductOptions).length !==
+        Object.keys(selected).length
+      ) {
+        return
       }
 
-      const options = [];
-      for(let attribute of Object.keys(selected)) {
+      const options = []
+      for (const attribute of Object.keys(selected)) {
         options.push(selected[attribute])
       }
       const url = getProductOptionsUrl({
@@ -219,8 +234,10 @@ export default {
 
   mounted() {
     this.product.options.forEach(option => {
-      this.selected = Object.assign({}, this.selected, { [option.group.name]: option.id })
-    });
+      this.selected = Object.assign({}, this.selected, {
+        [option.group.name]: option.id
+      })
+    })
   },
 
   methods: {
@@ -235,15 +252,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/shared/styles/variables';
-@import '~@storefront-ui/shared/styles/helpers/visibility';
-@import '~@storefront-ui/vue/src/utilities/transitions/transitions.scss';
+@import '~@storefront-ui/vue/styles';
 
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
 @mixin for-iOS {
   @supports (-webkit-overflow-scrolling: touch) {
     @content;
@@ -253,7 +263,7 @@ export default {
 .product-details {
   &__action {
     display: flex;
-    margin: $spacer-big 0 ($spacer-big / 2);
+    margin: var(--spacer-big) 0 calc(var(--spacer-big) / 2);
     @include for-desktop {
       justify-content: flex-end;
     }
@@ -261,44 +271,35 @@ export default {
   &__add-to-cart {
     margin-top: 1.5rem;
     @include for-desktop {
-      margin-top: $spacer-extra-big;
+      margin-top: var(--spacer-extra-big);
     }
   }
   &__alert {
     margin-top: 1.5rem;
   }
   &__attribute {
-    margin-bottom: $spacer-big;
+    margin-bottom: var(--spacer-big);
   }
   &__description {
-    margin: $spacer-extra-big 0 ($spacer-big * 3) 0;
-    font-family: $body-font-family-secondary;
-    font-size: $font-size-regular-mobile;
+    margin: var(--spacer-extra-big) 0 calc(var(--spacer-big) * 3) 0;
+    font-family: var(--body-font-family-secondary);
+    font-size: var(--font-size-regular-mobile);
     line-height: 1.6;
-    @include for-desktop {
-      font-size: $font-size-regular-desktop;
-    }
   }
   &__divider {
     margin-top: 30px;
   }
   &__heading {
-    margin-top: $spacer-big;
-    ::v-deep .sf-heading__title {
-      font-size: $font-size-big-mobile;
-      font-weight: $body-font-weight-primary;
-      @include for-desktop {
-        font-size: $h1-font-size-desktop;
-        font-weight: $body-font-weight-secondary;
-      }
-    }
+    --heading-title-font-weight: var(--body-font-weight-primary);
+    margin: var(--spacer-big) 0 0 0;
     @include for-desktop {
-      margin-top: 0;
+      --heading-title-font-weight: var(--body-font-weight-secondary);
+      margin: 0;
     }
   }
   &__mobile-bar {
     display: none;
-    padding: $spacer-medium 0;
+    padding: var(--spacer-medium) 0;
     box-sizing: border-box;
     .product--is-active & {
       display: block;
@@ -318,31 +319,7 @@ export default {
     }
   }
   &__properties {
-    margin-top: $spacer-big;
-  }
-  &__sub {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  &__sub-price {
-    flex-basis: 100%;
-    margin-top: $spacer-big / 4;
-    @include for-desktop {
-      flex-basis: auto;
-      margin-top: $spacer-big / 2;
-    }
-  }
-  &__sub-rating {
-    display: flex;
-    margin-top: $spacer-big / 2;
-    @include for-desktop {
-      margin-left: auto;
-    }
-  }
-  &__sub-reviews {
-    margin-left: 10px;
-    font-size: 0.75rem;
+    margin-top: var(--spacer-big);
   }
   &__section {
     border-bottom: 1px solid #f1f2f3;
@@ -352,54 +329,51 @@ export default {
       border: 0;
       padding-bottom: 0;
     }
-    @media (max-width: $desktop-min) {
-      padding-left: $spacer-big;
-      padding-right: $spacer-big;
-    }
   }
   &__tabs {
-    margin-top: $spacer-big;
+    margin-top: var(--spacer-big);
     @include for-desktop {
-      margin-top: 5 * $spacer-big;
+      margin-top: calc(5 * var(--spacer-big));
     }
     p {
       margin: 0;
     }
   }
   &__review {
-    padding-bottom: $spacer-big;
+    padding-bottom: var(--spacer-big);
     @include for-desktop {
-      padding-bottom: $spacer-extra-big;
-      border-bottom: 1px solid $c-primary;
+      padding-bottom: var(--spacer-extra-big);
+      border-bottom: 1px solid var(--c-primary);
     }
     & + & {
-      padding-top: $spacer-extra-big;
-      border-top: 1px solid $c-primary;
+      padding-top: var(--spacer-extra-big);
+      border-top: 1px solid var(--c-primary);
       @include for-desktop {
         border-top: 0;
-        padding-top: $spacer-extra-big;
+        padding-top: var(--spacer-extra-big);
       }
     }
   }
   &__product-property {
-    padding: $spacer-small 0;
+    padding: var(--spacer-small) 0;
   }
 }
 
 .sf-action {
+  --button-font-size: var(--font-size-small);
   padding: 0;
   border: 0;
   outline: none;
   background-color: transparent;
-  color: $c-text;
-  font-family: $body-font-family-secondary;
-  font-size: $font-size-regular-mobile;
-  font-weight: $body-font-weight-secondary;
+  color: var(--c-text);
+  font-family: var(--body-font-family-secondary);
+  font-size: var(--font-size-regular-mobile);
+  font-weight: var(--body-font-weight-secondary);
   line-height: 1.6;
   text-decoration: underline;
   cursor: pointer;
   @include for-desktop {
-    font-size: $font-size-regular-desktop;
+    --button-font-size: var(--font-size-regular-desktop);
   }
 }
 </style>

@@ -280,16 +280,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-@mixin for-mobile {
-  @media screen and (max-width: $desktop-min) {
-    @content;
-  }
-}
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
+
 .form {
   @include for-desktop {
     display: flex;
@@ -297,7 +288,7 @@ export default {
     align-items: center;
   }
   &__element {
-    margin-bottom: $spacer-extra-big;
+    margin-bottom: var(--spacer-extra-big);
     @include for-desktop {
       flex: 0 0 100%;
     }
@@ -307,7 +298,7 @@ export default {
       }
       &-even {
         @include for-desktop {
-          padding-left: $spacer-extra-big;
+          padding-left: var(--spacer-extra-big);
         }
       }
     }
@@ -323,7 +314,7 @@ export default {
       width: auto;
     }
     &--back {
-      margin-left: $spacer-big;
+      margin-left: var(--spacer-big);
     }
   }
 }
