@@ -55,12 +55,12 @@ export function addThemePages(moduleObject: any) {
     files: allPages,
     srcDir: pagesDir,
     pagesDir: "pages",
-    trailingSlash: '/'
+    trailingSlash: "/"
   });
   overrideRoutes(moduleObject, createdRoutes, allOverridedPages);
 
-  moduleObject.extendRoutes((rootRoutes: any[], resolve:any) => {
+  moduleObject.extendRoutes((rootRoutes: any[], resolve: any) => {
     rootRoutes.splice(0, rootRoutes.length, ...createdRoutes);
     sortRoutes(rootRoutes);
   });
-};
+}

@@ -12,7 +12,7 @@ export function getAllFiles(
       arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
     } else {
       const fileName = (dirPath + "/" + file).replace(__dirname + "/", "");
-      if (!(excludeHidden && file.startsWith('.'))) {
+      if (!(excludeHidden && file.startsWith("."))) {
         arrayOfFiles.push(fileName);
       }
     }

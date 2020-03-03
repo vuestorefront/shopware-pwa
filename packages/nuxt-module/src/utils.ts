@@ -1,7 +1,7 @@
 const path = require("path");
 const jetpack = require("fs-jetpack");
 
-import { getAllFiles } from './files'
+import { getAllFiles } from "./files";
 
 export function addThemeLayouts(moduleObject: any) {
   const layouts = getAllFiles(
@@ -20,7 +20,7 @@ export function addThemeLayouts(moduleObject: any) {
     );
     if (!overrideExists) moduleObject.addLayout({ src: layout }, templateName);
   });
-};
+}
 
 // TODO: find a nuxt trigger which do the same
 const invokeRebuild = function(moduleObject: any) {
@@ -30,7 +30,6 @@ const invokeRebuild = function(moduleObject: any) {
     { overwrite: true }
   );
 };
-
 
 let lastThemeFiles: any = [];
 export function extendComponents(moduleObject: any) {
@@ -56,4 +55,4 @@ export function extendComponents(moduleObject: any) {
     });
     lastThemeFiles = themeFiles;
   });
-};
+}

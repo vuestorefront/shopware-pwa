@@ -1,8 +1,7 @@
 const path = require("path");
 import { addThemePages } from "./pages";
-import { addThemeLayouts, extendComponents } from "./utils"
-import { Module } from '@nuxt/types'
-
+import { addThemeLayouts, extendComponents } from "./utils";
+import { Module } from "@nuxt/types";
 
 export interface NuxtModuleOptions {
   options: {
@@ -10,7 +9,9 @@ export interface NuxtModuleOptions {
   };
 }
 
-const ShopwarePWAModule: Module<NuxtModuleOptions> = function (moduleOptions: NuxtModuleOptions) {
+const ShopwarePWAModule: Module<NuxtModuleOptions> = function(
+  moduleOptions: NuxtModuleOptions
+) {
   const config = require(path.join(
     this.options.rootDir,
     "shopware-pwa.config.js"
@@ -45,12 +46,12 @@ const ShopwarePWAModule: Module<NuxtModuleOptions> = function (moduleOptions: Nu
     options
   });
 
-  this.extendBuild((config) => {
+  this.extendBuild(config => {
     const swPluginsDirectory = path.join(
       this.options.rootDir,
       ".shopware-pwa/sw-plugins"
     );
-    if (config && config.resolve && config.resolve.alias && config.resolve.alias["sw-plugins"]) {
+    if (config && config.resolve && config.resolve.alias) {
       config.resolve.alias["sw-plugins"] = swPluginsDirectory;
     }
   });
@@ -61,6 +62,6 @@ const ShopwarePWAModule: Module<NuxtModuleOptions> = function (moduleOptions: Nu
   //     extendComponents(this, true);
   //   });
   // }
-}
+};
 
-export default ShopwarePWAModule
+export default ShopwarePWAModule;
