@@ -61,6 +61,7 @@ export default {
 @import '~@storefront-ui/vue/styles';
 
 html {
+  overflow-x: hidden;
   height: 100vh;
 }
 
@@ -115,6 +116,7 @@ h5 {
 }
 
 body {
+  overflow-x: hidden;
   padding: 0;
   margin: 0;
   min-height: 100vh;
