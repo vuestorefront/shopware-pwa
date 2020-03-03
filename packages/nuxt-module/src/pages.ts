@@ -1,4 +1,6 @@
 import path from "path";
+import { getAllFiles } from "./files";
+import { sortRoutes, createRoutes } from "@nuxt/utils";
 
 export function overrideRoutes(
   moduleObject: any,
@@ -22,3 +24,43 @@ export function overrideRoutes(
     }
   });
 }
+
+export function addThemePages(moduleObject: any) {
+  const pagesDir = path.join(
+    moduleObject.options.rootDir,
+    "node_modules/@shopware-pwa/default-theme"
+  );
+
+  const allPages = getAllFiles(pagesDir + "/pages")
+    .map(page => page.replace(pagesDir + "/", ""))
+    .filter(page => /.+.(vue|js)$/.test(page))
+    .sort();
+  const allOverridedPages = getAllFiles(moduleObject.options.rootDir + "/pages")
+    .map(page => page.replace(moduleObject.options.rootDir + "/", ""))
+    .filter(page => /.+.(vue|js)$/.test(page))
+    .sort();
+
+  // TODO uncomment after unit tests
+  // console.error("ALL PAGES", allPages);
+  // console.error("route Pages", allOverridedPages);
+  // allOverridedPages.forEach(page => {
+  //   if (!allPages.includes(page)) {
+  //     allPages.push(page);
+  //   }
+  // });
+  // allPages.sort();
+  // console.error("ALL PAGES MERGED", allPages);
+
+  const createdRoutes = createRoutes({
+    files: allPages,
+    srcDir: pagesDir,
+    pagesDir: "pages",
+    trailingSlash: '/'
+  });
+  overrideRoutes(moduleObject, createdRoutes, allOverridedPages);
+
+  moduleObject.extendRoutes((rootRoutes: any[], resolve:any) => {
+    rootRoutes.splice(0, rootRoutes.length, ...createdRoutes);
+    sortRoutes(rootRoutes);
+  });
+};
