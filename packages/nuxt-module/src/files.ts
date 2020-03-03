@@ -2,7 +2,8 @@ import jetpack from "fs-jetpack";
 
 export function getAllFiles(
   dirPath: string,
-  arrayOfFiles: string[] = []
+  arrayOfFiles: string[] = [],
+  excludeHidden: boolean = true
 ): string[] {
   if (!dirPath || !jetpack.exists(dirPath)) return [];
   const files: string[] = jetpack.list(dirPath) as string[];
@@ -11,7 +12,9 @@ export function getAllFiles(
       arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
     } else {
       const fileName = (dirPath + "/" + file).replace(__dirname + "/", "");
-      arrayOfFiles.push(fileName);
+      if (!(excludeHidden && file.startsWith('.'))) {
+        arrayOfFiles.push(fileName);
+      }
     }
   });
 
