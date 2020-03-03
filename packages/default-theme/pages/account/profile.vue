@@ -51,24 +51,19 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
-@import '~@storefront-ui/shared/styles/helpers/visibility';
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
+
 
 .notice {
-  font-family: $body-font-family-primary;
-  font-weight: $body-font-weight-primary;
+  font-family: var(--body-font-family-primary);
+  font-weight: var(--body-font-weight-primary);
   line-height: 1.6;
-  margin: $spacer-big 0 0 0;
-  font-size: $font-size-extra-small-mobile;
+  margin: var(--spacer-big) 0 0 0;
+  font-size: var(--font-size-extra-small-mobile);
 
   @include for-desktop {
     max-width: 70%;
-    margin: $spacer 0 0 0;
-    font-size: $font-size-extra-small-desktop;
+    margin: var(--spacer) 0 0 0;
+    font-size: var(--font-size-extra-small-desktop);
   }
 }
 </style>

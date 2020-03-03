@@ -106,30 +106,19 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
-@import '~@storefront-ui/shared/styles/helpers/visibility';
-@mixin for-mobile {
-  @media screen and (max-width: $desktop-min) {
-    @content;
-  }
-}
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
-.shipping {
 
+.shipping {
   &:last-child {
-    border-bottom: 1px solid $c-light;
+    border-bottom: 1px solid var(--c-light);
   }
   &__content {
     flex: 1;
-    color: $c-text;
-    font-size: $font-size-small-mobile;
+    color: var(--c-text);
+    font-size: var(--font-size-small-mobile);
     font-weight: 300;
     line-height: 1.6;
     @include for-desktop {
-      font-size: $font-size-small-desktop;
+      font-size: var(--font-size-small-desktop);
     }
   }
   &__actions {
@@ -158,20 +147,20 @@ export default {
     }
   }
   &__button-mark {
-    background-color: $c-light;
-    color: $c-text-muted;
+    background-color: var(--c-light);
+    color: var(--c-text-muted);
     @include for-desktop {
-      margin-left: $spacer-big;
+      margin-left: var(--spacer-big);
     }
   }
   &__address {
-    margin: 0 0 $spacer-big 0;
+    margin: 0 0 var(--spacer-big) 0;
     &:last-child {
       margin: 0;
     }
   }
   &__client-name {
-    font-size: $font-size-regular-desktop;
+    font-size: var(--font-size-regular-desktop);
     font-weight: 500;
   }
 }

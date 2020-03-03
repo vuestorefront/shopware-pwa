@@ -1,74 +1,84 @@
 <template>
   <div class="top-navigation">
-    <slot v-bind="{ navigationElements, activeSidebar, activeIcon }">
-      <SfHeader title="Shopware PWA" active-sidebar="activeSidebar">
-        <template #logo>
-          <nuxt-link to="/" class="sf-header__logo">
-            <SfImage
-              src="/img/logo.svg"
-              alt="Shopware PWA"
-              class="sf-header__logo-image"
-            />
-          </nuxt-link>
-        </template>
-        <template #navigation>
-          <nuxt-link to="/">
-            <SfHeaderNavigationItem>Home</SfHeaderNavigationItem>
-          </nuxt-link>
-          <nuxt-link
-            v-for="{routeLabel, routePath } in routes"
-            :key="routePath"
-            :to="routePath"
-          >
-            <SfHeaderNavigationItem>{{ routeLabel }}</SfHeaderNavigationItem>
-          </nuxt-link>
-        </template>
+    <SfHeader
+      title="Shopware-PWA"
+      :has-mobile-search="false"
+      :is-sticky="false"
+      :cart-items-qty="count.toString()"
+    >
+      <template #logo>
+        <nuxt-link to="/" class="sf-header__logo">
+          <SfImage src="/img/logo.svg" alt="Shopware PWA" />
+        </nuxt-link>
+      </template>
 
-        <template #header-icons="{accountIcon, wishlistIcon, cartIcon}">
+      <template #search>
+        <div class="sf-search-bar"></div>
+      </template>
+
+      <template #navigation>
+        <SfHeaderNavigationItem
+          v-for="{ routeLabel, routePath } in routes"
+          :key="routeLabel"
+          class="sf-header__link"
+        >
+          <nuxt-link class="sf-header__link" :to="routePath">
+            <a
+              :style="{
+                display: 'flex',
+                alignItems: 'center',
+                height: '100%'
+              }"
+            >
+              {{ routeLabel }}
+            </a>
+          </nuxt-link>
+        </SfHeaderNavigationItem>
+      </template>
+      <template #header-icons="{accountIcon, cartIcon}">
+        <div class="sf-header__icons desktop-only">
           <div class="sf-header__icons">
             <SfCircleIcon
               v-if="accountIcon"
               :icon="accountIcon"
-              icon-size="20px"
-              icon-color="black"
-              class="sf-header__icon"
+              icon-size="1.25rem"
+              class="sf-header__circle-icon"
+              :class="{
+                'sf-header__circle-icon--is-active':
+                  activeIcon === 'account-icon'
+              }"
               role="button"
-              aria-label="account"
-              :aria-pressed="activeIcon === 'account' ? 'true' : 'false'"
+              aria-label="account-icon"
+              :aria-pressed="activeIcon === 'account-icon' ? 'true' : 'false'"
               :has-badge="isLoggedIn"
               @click="userIconClick"
             />
-            <div
-              class="top-navigation__header-icon header-icons__cart cart-icon"
-            >
-              <SfCircleIcon
-                v-if="cartIcon"
-                :icon="cartIcon"
-                icon-size="20px"
-                icon-color="black"
-                class="sf-header__icon"
-                :class="{ 'sf-header__icon--is-active': activeIcon === 'cart' }"
-                role="button"
-                aria-label="cart"
-                :aria-pressed="activeIcon === 'cart' ? 'true' : 'false'"
-                :has-badge="count > 0"
-                @click="toggleSidebar"
-              >
-                <template #badge>
-                  <SfBadge class="cart-icon__badge">{{ count }}</SfBadge>
-                </template>
-              </SfCircleIcon>
-            </div>
+            <SfCircleIcon
+              v-if="cartIcon"
+              :icon="cartIcon"
+              :has-badge="count > 0"
+              :badge-label="count.toString()"
+              icon-size="1.25rem"
+              class="sf-header__circle-icon"
+              :class="{
+                'sf-header__circle-icon--is-active':
+                  activeIcon === 'cart-icon'
+              }"
+              role="button"
+              aria-label="cart-icon"
+              :aria-pressed="activeIcon === 'cart-icon' ? 'true' : 'false'"
+              @click="toggleSidebar"
+            />
           </div>
-        </template>
-      </SfHeader>
-      <SwLoginModal :is-open="isModalOpen" @close="isModalOpen = false" />
-    </slot>
+        </div>
+      </template>
+    </SfHeader>
+    <SwLoginModal :is-open="isModalOpen" @close="isModalOpen = false" />
   </div>
 </template>
 
 <script>
-import { SfHeader, SfCircleIcon, SfBadge, SfImage } from '@storefront-ui/vue'
+import { SfHeader, SfCircleIcon, SfImage } from '@storefront-ui/vue'
 import {
   useUser,
   useCart,
@@ -76,11 +86,11 @@ import {
   useUserLoginModal,
   useNavigation
 } from '@shopware-pwa/composables'
-import SwLoginModal from './modals/SwLoginModal'
 import { PAGE_ACCOUNT } from '../helpers/pages'
+import SwLoginModal from './modals/SwLoginModal'
 
 export default {
-  components: { SfHeader, SfCircleIcon, SfBadge, SwLoginModal, SfImage },
+  components: { SfHeader, SfCircleIcon, SwLoginModal, SfImage },
   setup() {
     const { routes, fetchRoutes } = useNavigation()
     const { isLoggedIn, logout } = useUser()
@@ -107,10 +117,10 @@ export default {
     }
   },
   async mounted() {
-    await this.fetchRoutes({depth: 1})
+    await this.fetchRoutes({ depth: 1 })
   },
   methods: {
-    async userIconClick() {
+    userIconClick() {
       if (this.isLoggedIn) this.$router.push(PAGE_ACCOUNT)
       else this.toggleModal()
     }
@@ -120,49 +130,39 @@ export default {
 
 <style lang="scss">
 @import '~@storefront-ui/vue/styles.scss';
-@import '~@storefront-ui/shared/styles/helpers/visibility';
-
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
 
 .top-navigation {
   @include for-desktop {
+    margin-bottom: var(--spacer-medium);
+
     .sf-header {
       display: flex;
       justify-content: space-between;
+
+      &__sticky-container {
+        width: 100%;
+      }
+
+      &__container {
+        @include for-desktop {
+          padding: 0px;
+        }
+      }
+
+      &__navigation {
+        flex: 1;
+      }
+
+      &__link {
+        display: flex;
+        align-items: center;
+        height: 100;
+      }
     }
   }
 
   .sf-search-bar {
     display: none;
-  }
-
-  .cart-icon {
-    position: relative;
-    display: flex;
-
-    &__badge {
-      position: absolute;
-      bottom: 2.2em;
-      left: 2.8em;
-      font-size: 0.6em;
-      padding: 0.3em 0;
-      border-radius: 100%;
-      width: 2.2em;
-      min-height: 2.2em;
-    }
-  }
-
-  .sf-header__navigation {
-    flex: 1;
-  }
-
-  .sf-header__logo-image {
-    height: 100%;
-    width: 100%;
   }
 
   .sf-image img {
@@ -173,5 +173,9 @@ export default {
   .sf-search-bar {
     visibility: hidden;
   }
+}
+
+.sf-header__logo {
+  height: 2rem;
 }
 </style>
