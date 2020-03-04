@@ -48,8 +48,12 @@ module.exports = {
     await Promise.all(copyPromisses);
     generateFilesSpinner.succeed();
 
+    let params = "";
+    if (toolbox.parameters.options.u && toolbox.parameters.options.p) {
+      params = `-u ${toolbox.parameters.options.u} -p ${toolbox.parameters.options.p}`;
+    }
     // generate plugin files
-    await toolbox.runtime.run("generate");
+    await toolbox.runtime.run(`generate ${params}`);
 
     const updateDependenciesSpinner = spin("Updating dependencies");
     // Loading additional packages
