@@ -70,10 +70,24 @@ async function run() {
     cwd: composablesDir
   });
 
+
+  /**
+   * Link nuxt-module
+   */
+  await execa("yarn", ["link"], {
+    stdio: "inherit",
+    cwd: nuxtModuleDir
+  });
+
   /**
    * Link CLI dir
    */
   await execa("yarn", ["link"], {
+    stdio: "inherit",
+    cwd: cliDir
+  });
+
+  await execa("yarn", ["link", "@shopware-pwa/nuxt-module"], {
     stdio: "inherit",
     cwd: cliDir
   });
@@ -86,13 +100,6 @@ async function run() {
     cwd: defaultThemeDir
   });
 
-  /**
-   * Link nuxt-module
-   */
-  await execa("yarn", ["link"], {
-    stdio: "inherit",
-    cwd: nuxtModuleDir
-  });
 
   /**
    * link local storefront-ui

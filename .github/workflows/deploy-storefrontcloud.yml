@@ -1,8 +1,9 @@
 name: Deploy to Storefrontcloud
-on: 
+on:
   push:
     branches:
       - feat/hide-theme-and-cloud-deploy
+      - feat/plugins-installation
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,9 +22,8 @@ jobs:
         run: |
           mkdir test-project
           cd ./test-project
-          ../packages/cli/bin/shopware-pwa init
+          ../packages/cli/bin/shopware-pwa init -u ${{ secrets.SHOPWARE_ADMIN_USER }} -p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }}
           yarn build
-          cd ../
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
