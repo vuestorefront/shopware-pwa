@@ -45,7 +45,7 @@ jobs:
           initial_status: in_progress
       - name: Deploy on Storefrontcloud.io
         run: |
-          if curl -s -k https://${{ github.sha }}.shopware-pwa.storefrontcloud.io | grep '<html data-n-head-ssr'; then
+          if curl -s -k https://${{ github.sha }}.shopware-pwa.storefrontcloud.io | grep -q '<html data-n-head-ssr'; then
             echo "Instance updated"
           else
             echo "Something went wrong during the update process..."
