@@ -54,8 +54,7 @@ export function addThemePages(moduleObject: any) {
   const createdRoutes = createRoutes({
     files: allPages,
     srcDir: pagesDir,
-    pagesDir: "pages",
-    trailingSlash: "/"
+    pagesDir: "pages"
   });
   overrideRoutes(moduleObject, createdRoutes, allOverridedPages);
 
