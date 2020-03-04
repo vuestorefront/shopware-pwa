@@ -4,10 +4,6 @@ import {
 } from "@shopware-pwa/nuxt-module/src/utils";
 
 describe("nuxt-module - utils", () => {
-  beforeEach(() => {
-    // mock vuex store
-    jest.resetAllMocks();
-  });
 
   describe("addThemeLayouts", () => {
     it("adds available local layouts", () => {
