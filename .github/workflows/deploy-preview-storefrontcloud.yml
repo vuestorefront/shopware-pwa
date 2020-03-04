@@ -1,4 +1,4 @@
-name: Deploy to Storefrontcloud
+name: Deploy PR Preview on Storefrontcloud
 on: 
   pull_request:
     types: [opened, synchronize]
