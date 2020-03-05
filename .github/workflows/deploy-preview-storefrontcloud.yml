@@ -62,7 +62,7 @@ jobs:
             while read p; do
             commentId=$(echo $p|grep -o '[0-9]\+')
             curl -s -X DELETE \
-              https://api.github.com/repos/DivanteLtd/shopware-pwa/issues/comments/$commentId
+              https://api.github.com/repos/DivanteLtd/shopware-pwa/issues/comments/$commentId \
               -H "Authorization: token ${{ github.token }}"
             done <ids.json
           else
