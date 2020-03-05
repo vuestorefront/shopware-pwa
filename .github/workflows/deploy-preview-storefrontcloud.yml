@@ -55,7 +55,7 @@ jobs:
             echo "Instance updated"
 
             curl -s -X GET \
-              https://api.github.com/repos/DivanteLtd/shopware-pwa/issues/${{ PULL_NUMBER }}/comments \
+              https://api.github.com/repos/DivanteLtd/shopware-pwa/issues/${{env.PULL_NUMBER}}/comments \
               -H 'Accept: application/vnd.github.shadow-cat-preview+json' | grep -A1 '"issue_url":' > comments.json
 
             grep -Po '"id": ([0-9]+)' comments.json > ids.json
