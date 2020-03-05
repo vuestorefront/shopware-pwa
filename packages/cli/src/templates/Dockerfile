@@ -1,11 +1,11 @@
 FROM node:12.16.1-alpine
 
-RUN mkdir /app \
-  && chown -R node:node /app
-
-USER node
-WORKDIR /app
+RUN mkdir /app
 COPY . /app
+RUN chown -R node:node /app
+
+WORKDIR /app
+USER node
 
 EXPOSE 3000
 
