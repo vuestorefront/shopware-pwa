@@ -14,38 +14,36 @@
         <SwProductCarousel />
       </div>
     </div>
-    <div class="">
-      <SfSection
-        title-heading="Share Your Look"
-        subtitle-heading="#YOURLOOK"
-        class="section"
-      >
-        <div class="images-grid">
-          <div class="images-grid__row">
-            <div class="images-grid__col">
-              <SfImage src="/img/imageA.png">katherina_trn</SfImage>
-            </div>
-            <div class="images-grid__col">
-              <SfImage src="/img/imageB.png">katherina_trn</SfImage>
-            </div>
-            <div class="images-grid__col">
-              <SfImage src="/img/imageC.png">katherina_trn</SfImage>
-            </div>
+    <SfSection
+      title-heading="Share Your Look"
+      subtitle-heading="#YOURLOOK"
+      class="section"
+    >
+      <div class="images-grid">
+        <div class="images-grid__row">
+          <div class="images-grid__col">
+            <SfImage src="/img/imageA.png">katherina_trn</SfImage>
           </div>
-          <div class="images-grid__row">
-            <div class="images-grid__col">
-              <SfImage src="/img/imageC.png">katherina_trn</SfImage>
-            </div>
-            <div class="images-grid__col">
-              <SfImage src="/img/imageD.png">katherina_trn</SfImage>
-            </div>
-            <div class="images-grid__col">
-              <SfImage src="/img/imageA.png">katherina_trn</SfImage>
-            </div>
+          <div class="images-grid__col">
+            <SfImage src="/img/imageB.png">katherina_trn</SfImage>
+          </div>
+          <div class="images-grid__col">
+            <SfImage src="/img/imageC.png">katherina_trn</SfImage>
           </div>
         </div>
-      </SfSection>
-    </div>
+        <div class="images-grid__row">
+          <div class="images-grid__col">
+            <SfImage src="/img/imageC.png">katherina_trn</SfImage>
+          </div>
+          <div class="images-grid__col">
+            <SfImage src="/img/imageD.png">katherina_trn</SfImage>
+          </div>
+          <div class="images-grid__col">
+            <SfImage src="/img/imageA.png">katherina_trn</SfImage>
+          </div>
+        </div>
+      </div>
+    </SfSection>
     <div class="product__advertisement">
       <SwProductAdvertisement />
     </div>
@@ -86,7 +84,9 @@ export default {
   },
   computed: {
     product() {
-      return this.productWithAssociations ? this.productWithAssociations.value : this.page.product
+      return this.productWithAssociations
+        ? this.productWithAssociations.value
+        : this.page.product
     }
   },
   async mounted() {
@@ -98,26 +98,18 @@ export default {
       'associations[productReviews][]': true, // can be fetched asynchronously
       'associations[manufacturer][]': true,
       'associations[children][associations][options][associations][group][]': true,
-      "associations[children][associations][seoUrls][]": true,
+      'associations[children][associations][seoUrls][]': true
     }
 
     const { loadAssociations, product } = useProduct(this.page.product)
     this.productWithAssociations = product
     loadAssociations(associations)
-    
   }
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/shared/styles/variables';
-@import '~@storefront-ui/shared/styles/helpers/visibility';
-@import '~@storefront-ui/vue/src/utilities/transitions/transitions.scss';
+@import '~@storefront-ui/vue/styles';
 
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
 @mixin for-iOS {
   @supports (-webkit-overflow-scrolling: touch) {
     @content;
@@ -126,13 +118,19 @@ export default {
 
 #product {
   box-sizing: border-box;
-  margin: 0 0 60px 0;
   @include for-desktop {
     max-width: 1240px;
     margin: auto;
   }
 }
 
+.section {
+  padding: 0 var(--spacer-big);
+  @include for-desktop {
+    padding: 0;
+  }
+}
+
 .product {
   @include for-desktop {
     display: flex;
@@ -142,33 +140,29 @@ export default {
     flex: 1;
   }
   &__description {
-    padding: 0 $spacer-big;
+    padding: 0 var(--spacer-big);
     @include for-desktop {
-      margin-left: $spacer-big * 5;
+      margin-left: calc(var(--spacer-big) * 5);
     }
   }
-}
-
-.product-details {
-  z-index: 0;
 }
 
 .images-grid {
   &__row {
     display: flex;
     & + & {
-      margin-top: $spacer-big / 2;
+      margin-top: calc(var(--spacer-big) / 2);
       @include for-desktop {
-        margin-top: $spacer-big;
+        margin-top: var(--spacer-big);
       }
     }
   }
   &__col {
     margin: 0;
     & + & {
-      margin-left: $spacer-big / 2;
+      margin-left: calc(var(--spacer-big) / 2);
       @include for-desktop {
-        margin-left: $spacer-big;
+        margin-left: var(--spacer-big);
       }
     }
   }
@@ -182,9 +176,9 @@ export default {
     flex: 1;
   }
   &__description {
-    padding: 0 $spacer-big;
+    padding: 0 var(--spacer-big);
     @include for-desktop {
-      margin-left: $spacer-big * 5;
+      margin-left: calc(var(--spacer-big) * 5);
     }
   }
 }
