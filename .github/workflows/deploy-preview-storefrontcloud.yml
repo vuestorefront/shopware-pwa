@@ -43,8 +43,14 @@ jobs:
           token: "${{ github.token }}"
           environment: preview
           initial_status: in_progress
+      - run:   echo ::set-env name=PULL_NUMBER::$(echo "$GITHUB_REF" | awk -F / '{print $3}')
       - name: Deploy on Storefrontcloud.io
         run: |
+          # remove when fix on cloud is done
+          curl -s -k https://${{ github.sha }}.shopware-pwa.storefrontcloud.io
+          sleep 3 
+          # /remove when fix on cloud is done
+          
           if curl -s -k https://${{ github.sha }}.shopware-pwa.storefrontcloud.io | grep -q '<html data-n-head-ssr'; then
             echo "Instance updated"
           else
