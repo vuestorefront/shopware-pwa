@@ -56,7 +56,7 @@ jobs:
 
             curl -s -X GET \
               https://api.github.com/repos/DivanteLtd/shopware-pwa/issues/${{env.PULL_NUMBER}}/comments \
-              -H 'Accept: application/vnd.github.shadow-cat-preview+json' | grep -A1 '"issue_url":' > comments.json
+              -H 'Accept: application/vnd.github.shadow-cat-preview+json' | grep -B4 '\"login\": \"github-actions\[bot\]"' | grep -A1 '"issue_url":' > comments.json
 
             grep -Po '"id": ([0-9]+)' comments.json > ids.json
             while read p; do
