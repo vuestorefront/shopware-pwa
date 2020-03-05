@@ -1,6 +1,7 @@
 import path from "path";
 import { getAllFiles } from "./files";
 import { sortRoutes, createRoutes } from "@nuxt/utils";
+import { NuxtModuleOptions } from "./interfaces";
 
 export function overrideRoutes(
   moduleObject: any,
@@ -25,7 +26,7 @@ export function overrideRoutes(
   });
 }
 
-export function addThemePages(moduleObject: any) {
+export function addThemePages(moduleObject: NuxtModuleOptions) {
   const pagesDir = path.join(
     moduleObject.options.rootDir,
     "node_modules/@shopware-pwa/default-theme"
@@ -39,17 +40,12 @@ export function addThemePages(moduleObject: any) {
     .map(page => page.replace(moduleObject.options.rootDir + "/", ""))
     .filter(page => /.+.(vue|js)$/.test(page))
     .sort();
-
-  // TODO uncomment after unit tests
-  // console.error("ALL PAGES", allPages);
-  // console.error("route Pages", allOverridedPages);
-  // allOverridedPages.forEach(page => {
-  //   if (!allPages.includes(page)) {
-  //     allPages.push(page);
-  //   }
-  // });
-  // allPages.sort();
-  // console.error("ALL PAGES MERGED", allPages);
+  allOverridedPages.forEach(page => {
+    if (!allPages.includes(page)) {
+      allPages.push(page);
+    }
+  });
+  allPages.sort();
 
   const createdRoutes = createRoutes({
     files: allPages,
