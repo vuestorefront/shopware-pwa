@@ -4,15 +4,16 @@
   </div>
 </template>
 <script>
-import SwLogin from "../components/SwLogin"
-import { PAGE_ACCOUNT } from '../helpers/pages'
+import SwLogin from "@shopware-pwa/default-theme/components/SwLogin"
+import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
+import authMiddleware from "@shopware-pwa/default-theme/middleware/auth"
 
 export default {
   name: 'Login',
   components: {
     SwLogin
   },
-  middleware: "auth",
+  middleware: authMiddleware,
   data() {
     return {
     }

@@ -25,11 +25,13 @@ module.exports = {
   coverageReporters: ["html", "lcov", "text"],
   collectCoverageFrom: [
     "packages/*/src/**/*.ts",
+    "!packages/*/src/**/*.d.ts",
     "!packages/default-template/**",
     "!packages/cli/**",
     "!**/interfaces/**"
   ],
   watchPathIgnorePatterns: ["/node_modules/"],
+  modulePathIgnorePatterns: [".yalc"],
   moduleFileExtensions: ["ts", "tsx", "js", "json"],
   moduleNameMapper: {
     "^@shopware-pwa/commons/(.*?)$": "<rootDir>/packages/commons/$1",

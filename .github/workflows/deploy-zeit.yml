@@ -2,9 +2,9 @@ name: Deploy Zeit
 on:
   push:
     branches:
-      - master
-  pull_request:
-    types: [opened, synchronize]
+      - zeit
+  # pull_request:
+  #   types: [opened, synchronize]
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -23,6 +23,12 @@ jobs:
         run: |
           yarn
           yarn build --ci
+      - name: Create theme project
+        run: |
+          mkdir test-project
+          cd ./test-project
+          ../packages/cli/bin/shopware-pwa init
+          cd ../
       - name: Deploy PR to zeit
         if: github.event_name == 'pull_request'
         uses: patzick/now-deployment@master

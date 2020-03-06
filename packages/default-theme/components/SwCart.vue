@@ -54,8 +54,8 @@
 <script>
 import { SfSidebar, SfButton, SfProperty, SfPrice } from '@storefront-ui/vue'
 import { useCart, useCartSidebar } from '@shopware-pwa/composables'
-import { PAGE_CHECKOUT } from '../helpers/pages'
-import SwCartProduct from './SwCartProduct'
+import SwCartProduct from '@shopware-pwa/default-theme/components/SwCartProduct'
+import { PAGE_CHECKOUT } from '@shopware-pwa/default-theme/helpers/pages'
 
 export default {
   name: 'Cart',

@@ -24,6 +24,7 @@
       "@shopware-pwa/composables": ["packages/composables/src"],
       "@shopware-pwa/helpers": ["packages/helpers/src"],
       "@shopware-pwa/commons": ["packages/commons"],
+      "@shopware-pwa/nuxt-module": ["packages/nuxt-module/src"],
     },
     "preserveSymlinks": true
   },
@@ -31,6 +32,6 @@
     "packages/global.d.ts",
     "packages/*/src",
     "packages/*/__tests__",
-    "node_modules/@shopware-pwa",
-  ],
+    "node_modules/@shopware-pwa"
+  ]
 }

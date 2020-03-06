@@ -40,6 +40,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     }
     '`;
       await run(nuxtGenerate);
+      await toolbox.removeDefaultNuxtFiles();
       spinner.succeed();
     } else {
       spinner.succeed(
@@ -54,6 +55,8 @@ module.exports = (toolbox: GluegunToolbox) => {
    */
   toolbox.removeDefaultNuxtFiles = async () => {
     toolbox.filesystem.remove("pages/index.vue");
+    toolbox.filesystem.remove("components/Logo.vue");
+    toolbox.filesystem.remove("layouts/default.vue");
   };
 
   /**
@@ -81,17 +84,21 @@ module.exports = (toolbox: GluegunToolbox) => {
           "pre-commit": "lint-staged"
         }
       };
-      Object.keys(nuxtThemePackage.dependencies).forEach(packageName => {
-        config.dependencies[packageName] =
-          nuxtThemePackage.dependencies[packageName];
-      });
+      if (nuxtThemePackage.dependencies) {
+        Object.keys(nuxtThemePackage.dependencies).forEach(packageName => {
+          config.dependencies[packageName] =
+            nuxtThemePackage.dependencies[packageName];
+        });
+      }
 
-      Object.keys(nuxtThemePackage.devDependencies).forEach(packageName => {
-        config.devDependencies[packageName] =
-          nuxtThemePackage.devDependencies[packageName];
-      });
+      if (nuxtThemePackage.devDependencies) {
+        Object.keys(nuxtThemePackage.devDependencies).forEach(packageName => {
+          config.devDependencies[packageName] =
+            nuxtThemePackage.devDependencies[packageName];
+        });
+      }
 
-      config.engines = { node: "10.x" };
+      delete config.engines;
       return config;
     });
   };
@@ -116,18 +123,6 @@ module.exports = (toolbox: GluegunToolbox) => {
       insert: "const coreDevelopment = true\n",
       before: "export default {"
     });
-    // Add api-client plugin info
-    const apiClientPluginExist = await toolbox.patching.exists(
-      "nuxt.config.js",
-      `'~/plugins/api-client'`
-    );
-    if (!apiClientPluginExist) {
-      await toolbox.patching.patch("nuxt.config.js", {
-        insert: `
-    '~/plugins/api-client'`,
-        after: "plugins: ["
-      });
-    }
     // Add buildModules
     const VSFbuildModuleExist = await toolbox.patching.exists(
       "nuxt.config.js",
@@ -145,17 +140,21 @@ module.exports = (toolbox: GluegunToolbox) => {
             ? [
                 '@shopware-pwa/shopware-6-client',
                 '@shopware-pwa/composables',
-                '@shopware-pwa/helpers'
+                '@shopware-pwa/helpers',
+                '@shopware-pwa/default-theme'
               ]
             : [],
           prod: [
             '@shopware-pwa/shopware-6-client',
             '@shopware-pwa/composables',
-            '@shopware-pwa/helpers'
+            '@shopware-pwa/helpers',
+            '@shopware-pwa/default-theme'
           ]
         }
       }
-    ],`,
+    ],
+    '@shopware-pwa/nuxt-module',
+    `,
         after: "buildModules: ["
       });
     }
@@ -184,18 +183,6 @@ module.exports = (toolbox: GluegunToolbox) => {
         after: "build: {"
       });
     }
-    // Add cookie-universal-nuxt module
-    const cookiePluginExist = await toolbox.patching.exists(
-      "nuxt.config.js",
-      `'cookie-universal-nuxt'`
-    );
-    if (!cookiePluginExist) {
-      await toolbox.patching.patch("nuxt.config.js", {
-        insert: `
-    'cookie-universal-nuxt',`,
-        after: "modules: ["
-      });
-    }
     // extend webpack
     const webpackConfigExtended = await toolbox.patching.exists(
       "nuxt.config.js",
@@ -216,6 +203,38 @@ module.exports = (toolbox: GluegunToolbox) => {
         after: /extend[ ]?\(config, ctx\)[ ]?{/
       });
     }
+
+    // Add server to 0.0.0.0
+    const serverSectionExist = await toolbox.patching.exists(
+      "nuxt.config.js",
+      `server: {`
+    );
+    if (!serverSectionExist) {
+      await toolbox.patching.patch("nuxt.config.js", {
+        insert: `
+  server: {
+    port: 3000,
+    host: '0.0.0.0'
+  },`,
+        after: "mode: 'universal',"
+      });
+    }
+
+    // ignore .yalc
+    const yalcIgnoreExist = await toolbox.patching.exists(
+      ".gitignore",
+      `.yalc`
+    );
+    if (!yalcIgnoreExist) {
+      await toolbox.patching.append(".gitignore", ".yalc\nyalc.lock\n");
+    }
+    const swPluginsIgnoreExist = await toolbox.patching.exists(
+      ".gitignore",
+      `.shopware-pwa`
+    );
+    if (!swPluginsIgnoreExist) {
+      await toolbox.patching.append(".gitignore", ".shopware-pwa\n");
+    }
   };
 
   /**
@@ -227,16 +246,34 @@ module.exports = (toolbox: GluegunToolbox) => {
    * - add params based on config file
    */
   toolbox.generateTemplateFiles = async () => {
-    await toolbox.template.generate({
-      template: "api-client.js.ejs",
-      target: `plugins/api-client.js`
-    });
+    const isConfigGenerated = exists("shopware-pwa.config.js");
+    if (!isConfigGenerated) {
+      await toolbox.template.generate({
+        template: "shopware-pwa.config.js",
+        target: `shopware-pwa.config.js`,
+        props: {
+          shopwareEndpoint:
+            "https://shopware-2.vuestorefront.io/sales-channel-api/v1",
+          shopwareAccessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG"
+        }
+      });
+    }
+
+    const isDockerfileGenerated = exists("Dockerfile");
+    if (!isDockerfileGenerated) {
+      await toolbox.template.generate({
+        template: "Dockerfile",
+        target: `Dockerfile`,
+        props: {}
+      });
+    }
   };
 
-  toolbox.copyThemeFolder = async folderName => {
+  toolbox.copyThemeFolder = async (folderName, destination) => {
+    const dest = destination ? destination : folderName;
     await toolbox.filesystem.copyAsync(
       `${toolbox.defaultThemeLocation}/${folderName}`,
-      folderName,
+      dest,
       { overwrite: true }
     );
   };
