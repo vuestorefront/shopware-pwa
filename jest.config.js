@@ -25,6 +25,7 @@ module.exports = {
   coverageReporters: ["html", "lcov", "text"],
   collectCoverageFrom: [
     "packages/*/src/**/*.ts",
+    "!packages/*/src/**/*.d.ts",
     "!packages/default-template/**",
     "!packages/cli/**",
     "!**/interfaces/**"

@@ -36,7 +36,7 @@ export default {
     text-align: center;
     h2 {
       font-size: 5rem;
-      color: $c-primary;
+      color: var(--c-primary);
     }
   }
 

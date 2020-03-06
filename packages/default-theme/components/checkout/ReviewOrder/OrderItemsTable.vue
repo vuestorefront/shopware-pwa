@@ -86,22 +86,18 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
+
 .table {
-  margin-bottom: $spacer-big;
+  margin-bottom: var(--spacer-big);
   &__header {
-    font-size: $font-size-regular-desktop;
-    font-weight: $body-font-weight-primary;
+    font-size: var(--font-size-regular-desktop);
+    font-weight: var(--body-font-weight-primary);
     @include for-desktop {
       text-align: center;
     }
   }
   &__data {
-    font-size: $font-size-small-desktop;
+    font-size: var(--font-size-small-desktop);
     text-align: center;
   }
   &__image {

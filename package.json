@@ -10,7 +10,7 @@
     ]
   },
   "scripts": {
-    "start": "node scripts/init.js",
+    "start": "yarn && yarn build --types && node scripts/init.js",
     "dev": "node scripts/dev.js",
     "dev:client": "yarn dev shopware-6-client -format=esm-bundler",
     "dev:composables": "yarn dev composables -format=esm-bundler",

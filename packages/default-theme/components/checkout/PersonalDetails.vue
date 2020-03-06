@@ -153,13 +153,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
+
 .title {
-  margin-bottom: $spacer-extra-big;
+  margin-bottom: var(--spacer-extra-big);
 }
 .form {
   @include for-desktop {
@@ -168,7 +164,7 @@ export default {
     align-items: center;
   }
   &__element {
-    margin-bottom: $spacer-extra-big;
+    margin-bottom: var(--spacer-extra-big);
     @include for-desktop {
       flex: 0 0 100%;
     }
@@ -178,7 +174,7 @@ export default {
       }
       &-even {
         @include for-desktop {
-          padding-left: $spacer-extra-big;
+          padding-left: var(--spacer-extra-big);
         }
       }
     }
@@ -196,7 +192,7 @@ export default {
   &__action-button {
     flex: 1;
     &--secondary {
-      margin: $spacer-big 0;
+      margin: var(--spacer-big) 0;
       @include for-desktop {
         margin: 0;
         text-align: right;
@@ -205,22 +201,22 @@ export default {
   }
 }
 .info {
-  margin-left: $spacer-big;
-  color: $c-text-muted;
+  margin-left: var(--spacer-big);
+  color: var(--c-text-muted);
   text-decoration: none;
 }
 .characteristic {
-  margin-bottom: $spacer-big;
+  margin-bottom: var(--spacer-big);
 }
 .modal {
   .modal {
     &__heading {
-      margin-bottom: $spacer-extra-big;
+      margin-bottom: var(--spacer-extra-big);
     }
   }
   &__button {
     display: block;
-    margin-top: $spacer-extra-big;
+    margin-top: var(--spacer-extra-big);
   }
 }
 </style>
