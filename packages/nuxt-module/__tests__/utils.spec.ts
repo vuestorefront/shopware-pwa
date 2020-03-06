@@ -1,32 +1,47 @@
-import {
-  addThemeLayouts,
-  extendComponents
-} from "@shopware-pwa/nuxt-module/src/utils";
+import jetpack from "fs-jetpack";
+import { invokeRebuild, loadConfig } from "../src/utils";
+import { NuxtModuleOptions } from "../src/interfaces";
+jest.mock("fs-jetpack");
+const mockedJetpack = jetpack as jest.Mocked<typeof jetpack>;
 
 describe("nuxt-module - utils", () => {
+  const moduleObject: NuxtModuleOptions = {
+    options: {
+      rootDir: __dirname
+    },
+    addLayout: jest.fn(),
+    extendRoutes: jest.fn(),
+    addPlugin: jest.fn(),
+    extendBuild: jest.fn(),
+    nuxt: jest.fn()
+  };
 
-  describe("addThemeLayouts", () => {
-    it("adds available local layouts", () => {
-      jest.mock("./testModule");
-      const mockedModuleObject = require("./testModule");
-      addThemeLayouts(mockedModuleObject);
-      expect(mockedModuleObject.addLayout).toBeCalledWith(
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
+  describe("invokeRebuild", () => {
+    it("should touch nuxt config file to invoke rebuild", () => {
+      mockedJetpack.copy.mockReturnValueOnce();
+      invokeRebuild(moduleObject);
+      expect(mockedJetpack.copy).toBeCalledWith(
+        `${__dirname}/nuxt.config.js`,
+        `${__dirname}/nuxt.config.js`,
         {
-          src:
-            __dirname +
-            "/node_modules/@shopware-pwa/default-theme/layouts/test.vue"
-        },
-        "test"
+          overwrite: true
+        }
       );
     });
   });
 
-  describe("extendComponents", () => {
-    it("replace files for given aliases", () => {
-      jest.mock("./testModule");
-      const mockedModuleObject = require("./testModule");
-      extendComponents(mockedModuleObject);
-      expect(mockedModuleObject.extendBuild).toBeCalledTimes(1);
+  describe("loadConfig", () => {
+    it("should load config from module root directory", () => {
+      moduleObject.options.rootDir = `${__dirname}/files_tests`;
+      const result = loadConfig(moduleObject);
+      expect(result).toEqual({
+        shopwareAccessToken: "qweqwe",
+        shopwareEndpoint: "https://instance.com"
+      });
     });
   });
 });

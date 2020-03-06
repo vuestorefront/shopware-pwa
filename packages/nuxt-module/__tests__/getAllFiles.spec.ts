@@ -20,7 +20,19 @@ describe("nuxt-module - getAllFiles", () => {
     expect(files).toEqual([
       `${__dirname}/files_tests/file1.txt`,
       `${__dirname}/files_tests/file2.txt`,
-      `${__dirname}/files_tests/nested/file1.txt`
+      `${__dirname}/files_tests/nested/file1.txt`,
+      `${__dirname}/files_tests/shopware-pwa.config.js`
+    ]);
+  });
+
+  it("should list also hidden files", () => {
+    const files = getAllFiles(join(__dirname, "files_tests"), [], false);
+    expect(files).toEqual([
+      `${__dirname}/files_tests/.test-hidden-file.txt`,
+      `${__dirname}/files_tests/file1.txt`,
+      `${__dirname}/files_tests/file2.txt`,
+      `${__dirname}/files_tests/nested/file1.txt`,
+      `${__dirname}/files_tests/shopware-pwa.config.js`
     ]);
   });
 });

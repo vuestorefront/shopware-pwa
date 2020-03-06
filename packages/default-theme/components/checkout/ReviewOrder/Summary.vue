@@ -125,22 +125,18 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
+
 .summary {
-  background-color: $c-light;
-  margin: 0 -#{$spacer-big};
-  padding: $spacer-big;
+  background-color: var(--c-light);
+  margin: 0 calc(var(--spacer-big) * -1);
+  padding: var(--spacer-big);
   @include for-desktop {
     background-color: transparent;
   }
   &__group {
     @include for-desktop {
       display: flex;
-      margin: 20px 0 $spacer-extra-big 0;
+      margin: 20px 0 var(--spacer-extra-big) 0;
     }
     .notification {
       margin: auto;
@@ -149,11 +145,11 @@ export default {
   &__terms {
     flex: 1;
     order: -1;
-    margin-bottom: $spacer-big;
+    margin-bottom: var(--spacer-big);
   }
   &__total {
-    margin: 0 0 $spacer-extra-big 0;
-    padding: 0 $spacer-big;
+    margin: 0 0 var(--spacer-extra-big) 0;
+    padding: 0 var(--spacer-big);
     flex: 0 0 16.875rem;
     @include for-desktop {
       padding: 0;
@@ -162,7 +158,7 @@ export default {
   &__action-button {
     flex: 1;
     &--secondary {
-      margin: $spacer-big 0;
+      margin: var(--spacer-big) 0;
       @include for-desktop {
         order: -1;
         margin: 0;
@@ -171,9 +167,9 @@ export default {
     }
   }
   &__property-total {
-    margin: $spacer-big 0 0 0;
+    margin: var(--spacer-big) 0 0 0;
     text-transform: uppercase;
-    font-size: $font-size-regular-desktop;
+    font-size: var(--font-size-regular-desktop);
     line-height: 1.6;
     font-weight: 500;
   }

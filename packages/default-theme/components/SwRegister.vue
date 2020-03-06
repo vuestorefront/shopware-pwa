@@ -273,30 +273,30 @@ export default {
 
 .sw-login {
   &__alert {
-    margin-bottom: $spacer-small;
+    margin-bottom: var(--spacer-small);
   }
 
   &__header {
-    margin-bottom: $spacer-big;
+    margin-bottom: var(--spacer-big);
   }
 }
 
 .form {
   &__input {
-    margin-bottom: $spacer-big;
+    margin-bottom: var(--spacer-big);
   }
 
   &__checkbox {
-    margin-bottom: $spacer-big;
+    margin-bottom: var(--spacer-big);
   }
 
   &__button {
-    margin-top: $spacer-big;
+    margin-top: var(--spacer-big);
   }
 }
 
 .sf-button--muted {
-  color: $c-text-muted;
+  color: var(--c-text-muted);
 }
 </style>
 
