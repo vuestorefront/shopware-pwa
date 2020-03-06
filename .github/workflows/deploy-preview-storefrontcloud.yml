@@ -45,7 +45,7 @@ jobs:
           initial_status: in_progress
       - name: Deploy on Storefrontcloud.io
         id: deploy
-        uses: mkucmus/storefrontcloud-preview-deploy
+        uses: mkucmus/storefrontcloud-preview-deploy@master
         with:
           token: "${{ github.token }}"
           namespace: "shopware-pwa"
