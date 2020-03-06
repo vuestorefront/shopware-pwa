@@ -12,13 +12,13 @@
 
 
 ### Issue: [ERROR] Problem with fetch <ENTITY_NAME> data: No Matching sales channel found.
-  * There is no Sales Channel related to the `shopwareAccessToken` you have set in your _shopware-pwa.config.js_ file
+  * There is no Sales Channel related to the `shopwareAccessToken` you have set in your _shopware-pwa.config.js_ file.
   * Either `shopwareEndpoint` or `shopwareAccessToken` does not match.
-  * Use the appriopriate endpoint and access token (from Shopware admin panel) and follow steps described [here](./CHEATSHEET.md#running-shopware-pwa-on-custom-shopware-instance)
+  * Use the appriopriate endpoint and access token (from Shopware admin panel) and follow steps described [here](./CHEATSHEET.md#running-shopware-pwa-on-custom-shopware-instance) ("Running Shopware PWA on custom Shopware instance" chapter).
 
 
 ### Issue: There are no products in product listing. *
-  * In your Shopware platform: Assign the categories and the products to the right Sales Channel, related to the `shopwareAccessToken` you have set in _shopware-pwa.config.js_
+  * In your Shopware platform: Assign the categories and the products to the right Sales Channel, related to the `shopwareAccessToken` you have set in _shopware-pwa.config.js_.
 
 ---
 `*` - if you are using your own self-hosted Shopware instance
