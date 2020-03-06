@@ -54,17 +54,17 @@ jobs:
           if curl -s -k https://${{ github.sha }}.shopware-pwa.storefrontcloud.io | grep -q '<html data-n-head-ssr'; then
             echo "Instance updated"
 
-            curl -s -X GET \
-              https://api.github.com/repos/DivanteLtd/shopware-pwa/issues/${{env.PULL_NUMBER}}/comments \
-              -H 'Accept: application/vnd.github.shadow-cat-preview+json' | grep -B4 '\"login\": \"github-actions\[bot\]"' | grep -A1 '"issue_url":' > comments.json
+            # curl -s -X GET \
+            #   https://api.github.com/repos/DivanteLtd/shopware-pwa/issues/${{env.PULL_NUMBER}}/comments \
+            #   -H 'Accept: application/vnd.github.shadow-cat-preview+json' | grep -B4 '\"login\": \"github-actions\[bot\]"' | grep -A1 '"issue_url":' > comments.json
 
-            grep -Po '"id": ([0-9]+)' comments.json > ids.json
-            while read p; do
-            commentId=$(echo $p|grep -o '[0-9]\+')
-            curl -s -X DELETE \
-              https://api.github.com/repos/DivanteLtd/shopware-pwa/issues/comments/$commentId \
-              -H "Authorization: token ${{ github.token }}"
-            done <ids.json
+            # grep -Po '"id": ([0-9]+)' comments.json > ids.json
+            # while read p; do
+            # commentId=$(echo $p|grep -o '[0-9]\+')
+            # curl -s -X DELETE \
+            #   https://api.github.com/repos/DivanteLtd/shopware-pwa/issues/comments/$commentId \
+            #   -H "Authorization: token ${{ github.token }}"
+            # done <ids.json
           else
             echo "Something went wrong during the update process..."
             exit 1
