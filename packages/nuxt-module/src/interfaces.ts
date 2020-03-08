@@ -23,3 +23,5 @@ export interface ShopwarePwaConfigFile {
   shopwareEndpoint: string;
   shopwareAccessToken: string;
 }
+
+export default {};
