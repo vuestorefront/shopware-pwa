@@ -1,4 +1,7 @@
-import { NuxtModuleOptions, WebpackConfig } from "../src/interfaces";
+import InterfacesDefault, {
+  NuxtModuleOptions,
+  WebpackConfig
+} from "../src/interfaces";
 import { runModule } from "../src/module";
 import path from "path";
 import * as utils from "../src/utils";
@@ -120,5 +123,9 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     expect(webpackConfig.resolve.alias["sw-plugins"]).toEqual(
       `${__dirname}/.shopware-pwa/sw-plugins`
     );
+  });
+
+  it("interfaces should return default empty object", () => {
+    expect(InterfacesDefault).toEqual({});
   });
 });

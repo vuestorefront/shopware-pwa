@@ -20,6 +20,7 @@
     "@nuxt/typescript-runtime": "^0.4.0",
     "@nuxt/utils": "^2.11.0",
     "cookie-universal": "^2.1.1",
-    "fs-jetpack": "^2.2.3"
+    "fs-jetpack": "^2.2.3",
+    "path": "^0.12.7"
   }
 }

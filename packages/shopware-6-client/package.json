@@ -22,7 +22,8 @@
     ]
   },
   "peerDependencies": {
-    "axios": "^0.19.2"
+    "axios": "^0.19.2",
+    "https": "^1.0.0"
   },
   "license": "MIT",
   "publishConfig": {
