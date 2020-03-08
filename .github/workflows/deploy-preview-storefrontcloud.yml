@@ -58,12 +58,12 @@ jobs:
           state: "success"
           description: Congratulations! The deploy is done.
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-      - name: Comment PR
-        if: success()
-        uses: thollander/actions-comment-pull-request@master
-        with:
-          message: ':blue_heart: Shopware-PWA successfully deployed on ${{ steps.deploy.outputs.preview_url }}'
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Comment PR
+      #   if: success()
+      #   uses: thollander/actions-comment-pull-request@master
+      #   with:
+      #     message: ':blue_heart: Shopware-PWA successfully deployed on ${{ steps.deploy.outputs.preview_url }}'
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Update deployment status (failure)
         if: failure()
         uses: chrnorm/deployment-status@releases/v1
