@@ -1,5 +1,5 @@
 FROM node:12.16.1-alpine
-ENV DEBUG=nuxt:*
+
 RUN mkdir /app
 COPY . /app
 RUN chown -R node:node /app
