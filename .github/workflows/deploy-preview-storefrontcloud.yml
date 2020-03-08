@@ -43,8 +43,7 @@ jobs:
           token: "${{ github.token }}"
           environment: preview
           initial_status: in_progress
-      - run: echo ::set-env name=PULL_NUMBER::$(echo "$GITHUB_REF" | awk -F / '{print $3}')
-      - name: Deploy on Storefrontcloud.io
+      - name: Deploy PR preview on Storefrontcloud.io
         id: deploy
         uses: mkucmus/storefrontcloud-preview-deploy@master
         with:
