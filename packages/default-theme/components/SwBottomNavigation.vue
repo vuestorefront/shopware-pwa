@@ -24,7 +24,7 @@
       <SfBottomNavigationItem
         icon="profile"
         size="20px"
-        @click="userIconClick"
+        @click.native="userIconClick"
       />
       <SfBottomNavigationItem :is-floating="true">
         <template #icon>
