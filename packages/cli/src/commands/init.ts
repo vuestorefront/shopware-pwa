@@ -59,7 +59,7 @@ module.exports = {
     // Loading additional packages
     await run(`npx sort-package-json`);
     await run(`yarn`);
-    await run(`yarn lint`);
+    // await run(`yarn lint`);
     updateDependenciesSpinner.succeed();
 
     success(`Generated Shopware PWA project!`);

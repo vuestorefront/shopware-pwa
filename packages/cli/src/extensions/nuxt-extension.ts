@@ -31,9 +31,9 @@ module.exports = (toolbox: GluegunToolbox) => {
       devTools: []
     };
     if (!isNuxtGenerated) {
-      const nuxtGenerate = `npx --ignore-existing create-nuxt-app --answers '${JSON.stringify(
+      const nuxtGenerate = `npx --ignore-existing create-nuxt-app --answers "${JSON.stringify(
         nuxtAnswers
-      )}'`;
+      ).replace(/"/g, '\\"')}"`;
       await run(nuxtGenerate);
       await toolbox.removeDefaultNuxtFiles();
       spinner.succeed();
