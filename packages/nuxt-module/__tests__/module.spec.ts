@@ -121,7 +121,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     runModule(moduleObject, {});
     resolveBuilds();
     expect(webpackConfig.resolve.alias["sw-plugins"]).toEqual(
-      `${__dirname}/.shopware-pwa/sw-plugins`
+      path.join(__dirname, ".shopware-pwa", "sw-plugins")
     );
   });
 

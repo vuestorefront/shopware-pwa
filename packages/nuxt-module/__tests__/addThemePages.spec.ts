@@ -1,6 +1,7 @@
 import { addThemePages } from "../src/pages";
 import * as files from "../src/files";
 import { NuxtModuleOptions } from "../src/interfaces";
+import path from "path";
 
 jest.mock("../src/files");
 const mockedFiles = files as jest.Mocked<typeof files>;
@@ -37,25 +38,30 @@ describe("nuxt-module - addThemePages", () => {
     rootRoutes = [
       {
         chunkName: "pages/FakeCreatedRoute",
-        component: `${__dirname}/pages/FakeCreatedRoute.vue`,
+        component: path.join(__dirname, `pages/FakeCreatedRoute.vue`),
         name: "FakeCreatedRoute",
         path: "/FakeCreatedRoute"
       }
     ];
     getAllFiles
       .mockImplementationOnce(() => [])
-      .mockImplementationOnce(() => [`${__dirname}/pages/Test.vue`]);
+      .mockImplementationOnce(() => [path.join(__dirname, `pages/Test.vue`)]);
     addThemePages(moduleObject);
     resolveRoutes();
     expect(getAllFiles).toBeCalledTimes(2);
     expect(getAllFiles).toBeCalledWith(
-      `${moduleObject.options.rootDir}/node_modules/@shopware-pwa/default-theme/pages`
+      path.join(
+        moduleObject.options.rootDir,
+        `node_modules/@shopware-pwa/default-theme/pages`
+      )
     );
-    expect(getAllFiles).toBeCalledWith(`${moduleObject.options.rootDir}/pages`);
+    expect(getAllFiles).toBeCalledWith(
+      path.join(moduleObject.options.rootDir, `pages`)
+    );
     expect(rootRoutes).toEqual([
       {
         chunkName: "pages/Test",
-        component: `${__dirname}/pages/Test.vue`,
+        component: path.join(__dirname, `pages/Test.vue`),
         name: "Test",
         path: "/Test"
       }
@@ -69,22 +75,29 @@ describe("nuxt-module - addThemePages", () => {
     addThemePages(moduleObject);
     expect(getAllFiles).toBeCalledTimes(2);
     expect(getAllFiles).toBeCalledWith(
-      `${moduleObject.options.rootDir}/node_modules/@shopware-pwa/default-theme/pages`
+      path.join(
+        moduleObject.options.rootDir,
+        `node_modules/@shopware-pwa/default-theme/pages`
+      )
     );
-    expect(getAllFiles).toBeCalledWith(`${moduleObject.options.rootDir}/pages`);
+    expect(getAllFiles).toBeCalledWith(
+      path.join(moduleObject.options.rootDir, `pages`)
+    );
   });
   it("should not change user project routes", () => {
     getAllFiles
       .mockImplementationOnce(() => [])
-      .mockImplementationOnce(() => [`${__dirname}/pages/Test.vue`]);
+      .mockImplementationOnce(() => [path.join(__dirname, `pages/Test.vue`)]);
     addThemePages(moduleObject);
     resolveRoutes();
 
-    expect(getAllFiles).toBeCalledWith(`${moduleObject.options.rootDir}/pages`);
+    expect(getAllFiles).toBeCalledWith(
+      path.join(moduleObject.options.rootDir, `pages`)
+    );
     expect(rootRoutes).toEqual([
       {
         chunkName: "pages/Test",
-        component: `${__dirname}/pages/Test.vue`,
+        component: path.join(__dirname, `pages/Test.vue`),
         name: "Test",
         path: "/Test"
       }
@@ -94,23 +107,31 @@ describe("nuxt-module - addThemePages", () => {
   it("should merge routes from theme and project", () => {
     getAllFiles
       .mockImplementationOnce(() => [
-        `${__dirname}/node_modules/@shopware-pwa/default-theme/pages/SomeTest.vue`
+        path.join(
+          __dirname,
+          `node_modules/@shopware-pwa/default-theme/pages/SomeTest.vue`
+        )
       ])
-      .mockImplementationOnce(() => [`${__dirname}/pages/Test.vue`]);
+      .mockImplementationOnce(() => [path.join(__dirname, `pages/Test.vue`)]);
     addThemePages(moduleObject);
     resolveRoutes();
 
-    expect(getAllFiles).toBeCalledWith(`${moduleObject.options.rootDir}/pages`);
+    expect(getAllFiles).toBeCalledWith(
+      path.join(moduleObject.options.rootDir, `pages`)
+    );
     expect(rootRoutes).toEqual([
       {
         chunkName: "pages/SomeTest",
-        component: `${__dirname}/node_modules/@shopware-pwa/default-theme/pages/SomeTest.vue`,
+        component: path.join(
+          __dirname,
+          `node_modules/@shopware-pwa/default-theme/pages/SomeTest.vue`
+        ),
         name: "SomeTest",
         path: "/SomeTest"
       },
       {
         chunkName: "pages/Test",
-        component: `${__dirname}/pages/Test.vue`,
+        component: path.join(__dirname, `pages/Test.vue`),
         name: "Test",
         path: "/Test"
       }
@@ -120,17 +141,22 @@ describe("nuxt-module - addThemePages", () => {
   it("should override routes from theme by routes from project directory", () => {
     getAllFiles
       .mockImplementationOnce(() => [
-        `${__dirname}/node_modules/@shopware-pwa/default-theme/pages/Test.vue`
+        path.join(
+          __dirname,
+          `node_modules/@shopware-pwa/default-theme/pages/Test.vue`
+        )
       ])
-      .mockImplementationOnce(() => [`${__dirname}/pages/Test.vue`]);
+      .mockImplementationOnce(() => [path.join(__dirname, `pages/Test.vue`)]);
     addThemePages(moduleObject);
     resolveRoutes();
 
-    expect(getAllFiles).toBeCalledWith(`${moduleObject.options.rootDir}/pages`);
+    expect(getAllFiles).toBeCalledWith(
+      path.join(moduleObject.options.rootDir, `pages`)
+    );
     expect(rootRoutes).toEqual([
       {
         chunkName: "pages/Test",
-        component: `${__dirname}/pages/Test.vue`,
+        component: path.join(__dirname, `pages/Test.vue`),
         name: "Test",
         path: "/Test"
       }
