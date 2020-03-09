@@ -23,5 +23,8 @@
     "fs-jetpack": "^2.2.3",
     "path": "^0.12.7"
   },
-  "gitHead": "dd956f7b6a9067db9327863108e7f7c8635c59c9"
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "e930f9945653eb78b7a78700b6f4d145ee8cb542"
 }
