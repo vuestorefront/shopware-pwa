@@ -22,5 +22,6 @@
     "cookie-universal": "^2.1.1",
     "fs-jetpack": "^2.2.3",
     "path": "^0.12.7"
-  }
+  },
+  "gitHead": "7c63b915332b6d81a7d264e98f105a6b2e5f65dc"
 }

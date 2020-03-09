@@ -5,5 +5,9 @@
   "license": "MIT",
   "files": [
     "interfaces/*"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "7c63b915332b6d81a7d264e98f105a6b2e5f65dc"
 }
