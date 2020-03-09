@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/composables",
-  "version": "0.1.0-prealpha.0",
+  "version": "0.1.0-alpha.1",
   "description": "@shopware-pwa/composables",
   "main": "dist/composables.cjs.js",
   "module": "dist/composables.esm-bundler.js",
