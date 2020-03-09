@@ -12,27 +12,27 @@ describe("nuxt-module - getAllFiles", () => {
   });
   it("should find files with no nested route", () => {
     const files = getAllFiles(join(__dirname, "files_tests", "nested"));
-    expect(files).toEqual([`${__dirname}/files_tests/nested/file1.txt`]);
+    expect(files).toEqual([join(__dirname, `/files_tests/nested/file1.txt`)]);
   });
 
   it("should find files with nested routes", () => {
     const files = getAllFiles(join(__dirname, "files_tests"));
     expect(files).toEqual([
-      `${__dirname}/files_tests/file1.txt`,
-      `${__dirname}/files_tests/file2.txt`,
-      `${__dirname}/files_tests/nested/file1.txt`,
-      `${__dirname}/files_tests/shopware-pwa.config.js`
+      join(__dirname, `/files_tests/file1.txt`),
+      join(__dirname, `/files_tests/file2.txt`),
+      join(__dirname, `/files_tests/nested/file1.txt`),
+      join(__dirname, `/files_tests/shopware-pwa.config.js`)
     ]);
   });
 
   it("should list also hidden files", () => {
     const files = getAllFiles(join(__dirname, "files_tests"), [], false);
     expect(files).toEqual([
-      `${__dirname}/files_tests/.test-hidden-file.txt`,
-      `${__dirname}/files_tests/file1.txt`,
-      `${__dirname}/files_tests/file2.txt`,
-      `${__dirname}/files_tests/nested/file1.txt`,
-      `${__dirname}/files_tests/shopware-pwa.config.js`
+      join(__dirname, `/files_tests/.test-hidden-file.txt`),
+      join(__dirname, `/files_tests/file1.txt`),
+      join(__dirname, `/files_tests/file2.txt`),
+      join(__dirname, `/files_tests/nested/file1.txt`),
+      join(__dirname, `/files_tests/shopware-pwa.config.js`)
     ]);
   });
 });

@@ -49,12 +49,6 @@ See [the documentation](https://shopware-pwa-docs.netlify.com/#introduction-to-s
 ### Installation
 
 ```bash
-yarn global add @shopware-pwa/cli
-```
-
-or
-
-```bash
 npm install -g @shopware-pwa/cli
 ```
 

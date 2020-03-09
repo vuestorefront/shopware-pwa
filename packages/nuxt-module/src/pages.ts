@@ -13,13 +13,15 @@ export function overrideRoutes(
     "node_modules/@shopware-pwa/default-theme"
   );
   routes.forEach((route: any) => {
-    const pageComponentPath = route.component.replace(pagesDir + "/", "");
+    const pageComponentPath = path
+      .normalize(route.component)
+      .replace(pagesDir + path.sep, "");
     if (overrides.includes(pageComponentPath)) {
-      route.component = route.component.replace(
-        pagesDir,
-        moduleObject.options.rootDir
-      );
+      route.component = path
+        .normalize(route.component)
+        .replace(pagesDir, moduleObject.options.rootDir);
     }
+    route.component = path.normalize(route.component);
     if (route.children) {
       overrideRoutes(moduleObject, route.children, overrides);
     }
@@ -32,17 +34,26 @@ export function addThemePages(moduleObject: NuxtModuleOptions) {
     "node_modules/@shopware-pwa/default-theme"
   );
 
-  const allPages = getAllFiles(pagesDir + "/pages")
-    .map(page => page.replace(pagesDir + "/", ""))
+  const themePages = getAllFiles(path.join(pagesDir, "pages"));
+  const projectPages = getAllFiles(
+    path.join(moduleObject.options.rootDir, "pages")
+  );
+
+  const allPages = themePages
+    .map(page => page.replace(path.normalize(pagesDir + path.sep), ""))
+    .map(page => page.replace(/\\/g, "/"))
     .filter(page => /.+.(vue|js)$/.test(page))
     .sort();
-  const allOverridedPages = getAllFiles(moduleObject.options.rootDir + "/pages")
-    .map(page => page.replace(moduleObject.options.rootDir + "/", ""))
+  const allOverridedPages = projectPages
+    .map(page =>
+      page.replace(path.normalize(moduleObject.options.rootDir + path.sep), "")
+    )
     .filter(page => /.+.(vue|js)$/.test(page))
     .sort();
   allOverridedPages.forEach(page => {
-    if (!allPages.includes(page)) {
-      allPages.push(page);
+    const p = page.replace(/\\/g, "/");
+    if (!allPages.includes(p)) {
+      allPages.push(p);
     }
   });
   allPages.sort();
