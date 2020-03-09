@@ -58,8 +58,7 @@ module.exports = {
         respo3.data
       );
 
-      var fileUrl = "https://shopware-2.vuestorefront.io/" + assetFileAddress;
-      var output = ".shopware-pwa/pwa-bundles-assets.zip";
+      const fileUrl = "https://shopware-2.vuestorefront.io/" + assetFileAddress;
 
       const request = require("request");
 
