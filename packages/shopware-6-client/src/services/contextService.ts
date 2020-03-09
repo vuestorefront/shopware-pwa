@@ -7,7 +7,9 @@ import {
   getContextShippingMethodEndpoint,
   getContextLanguageEndpoint,
   getContextSalutationEndpoint,
-  getContextEndpoint
+  getContextEndpoint,
+  getContextCountryItemEndpoint,
+  getContextSalutationItemEndpoint
 } from "../endpoints";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
@@ -154,4 +156,28 @@ export async function setCurrentShippingMethod(
   const resp = await updateContext(params);
 
   return resp;
+}
+/**
+ * @throws ClientApiError
+ * @alpha
+ */
+export async function getUserCountry(countryId: string): Promise<Country> {
+  const { data } = await apiService.get(
+    getContextCountryItemEndpoint(countryId)
+  );
+
+  return data;
+}
+/**
+ * @throws ClientApiError
+ * @alpha
+ */
+export async function getUserSalutation(
+  salutationId: string
+): Promise<Salutation> {
+  const { data } = await apiService.get(
+    getContextSalutationItemEndpoint(salutationId)
+  );
+
+  return data;
 }

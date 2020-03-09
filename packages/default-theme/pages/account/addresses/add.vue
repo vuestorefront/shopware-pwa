@@ -18,21 +18,25 @@ export default {
     }
   },
   setup() {
-    const { addresses, loadAddresses } = useUser()
+    const { addresses, loadAddresses, country, loadCountry, salutation, loadSalutation } = useUser()
     return {
       loadAddresses,
-      addresses
+      addresses,
+      loadCountry,
+      country,
+      loadSalutation,
+      salutation
     }
-  },
-  computed: {
-    
-
   },
   async mounted() {
     await this.loadAddresses();
     const paramsId = this.$route.params && this.$route.params.id
     if (paramsId) {
-      this.address = this.addresses.find(addr => addr.id=== paramsId)
+      const address = this.addresses.find(addr => addr.id === paramsId)
+      await this.loadCountry(address.countryId);
+      await this.loadSalutation(address.salutationId);
+
+      this.address = {...address, country: this.country.data, salutation: this.salutation.data}
     }
   }
 }

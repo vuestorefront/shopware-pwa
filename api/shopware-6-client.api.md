@@ -175,6 +175,12 @@ export const getProducts: (searchCriteria?: SearchCriteria | undefined) => Promi
 // @alpha
 export const getProductsIds: () => Promise<SearchResult<string[]>>;
 
+// @alpha (undocumented)
+export function getUserCountry(countryId: string): Promise<Country>;
+
+// @alpha (undocumented)
+export function getUserSalutation(salutationId: string): Promise<Salutation>;
+
 // @alpha
 export function login({ username, password }?: {
     username?: string;
