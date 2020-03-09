@@ -47,21 +47,6 @@ describe("nuxt-module - overrideRoutes", () => {
     expect(routes[0].component).toEqual(path.join(__dirname, "pages/qwe.vue"));
   });
 
-  it("should change override path if there is more slashes", () => {
-    moduleObject.options.rootDir = "C:\\__tests__";
-    const routes = [
-      {
-        name: "test",
-        component: path.join(
-          "C:\\\\__tests__\\\\node_modules\\\\@shopware-pwa\\\\default-theme\\\\pages\\\\qwe.vue"
-        )
-      }
-    ];
-    const overrides = ["pages\\qwe.vue"];
-    overrideRoutes(moduleObject, routes, overrides);
-    expect(routes[0].component).toEqual("C:\\__tests__\\pages\\qwe.vue");
-  });
-
   it("should change nested route", () => {
     const routes = [
       {

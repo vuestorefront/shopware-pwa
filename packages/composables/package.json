@@ -32,7 +32,7 @@
     "vue": "^2.6.11"
   },
   "dependencies": {
-    "@shopware-pwa/shopware-6-client": "latest",
+    "@shopware-pwa/shopware-6-client": "^0.1.0-alpha.1",
     "query-string": "^6.10.1"
   },
   "publishConfig": {
