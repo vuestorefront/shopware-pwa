@@ -277,3 +277,8 @@ ___
 * Bundle size verified with `webpack-bundle-analyzer`.
 * Size lower than 300 kB for JS loaded immediately.
 * Everything, that may exceed 300 KB must be lazy loaded.
+
+---
+
+## Troubleshooting
+Common issues with solutions are kept in [troubleshooting](./TROUBLESHOOTING.md) page.
