@@ -113,9 +113,9 @@ import {
   getProductOptions
 } from '@shopware-pwa/helpers'
 import { useProduct, useAddToCart } from '@shopware-pwa/composables'
-import SwProductHeading from './SwProductHeading'
-import SwProductSelect from './SwProductSelect'
-import SwProductTabs from './SwProductTabs'
+import SwProductHeading from '@shopware-pwa/default-theme/components/SwProductHeading'
+import SwProductSelect from '@shopware-pwa/default-theme/components/SwProductSelect'
+import SwProductTabs from '@shopware-pwa/default-theme/components/SwProductTabs'
 
 export default {
   name: 'SwProductDetails',

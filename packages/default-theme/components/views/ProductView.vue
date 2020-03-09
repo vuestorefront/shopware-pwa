@@ -52,10 +52,10 @@
 <script>
 import { SfSticky, SfImage, SfSection } from '@storefront-ui/vue'
 import { useProduct } from '@shopware-pwa/composables'
-import SwProductGallery from '../SwProductGallery'
-import SwProductDetails from '../SwProductDetails'
-import SwProductCarousel from '../SwProductCarousel'
-import SwProductAdvertisement from '../SwProductAdvertisement'
+import SwProductGallery from '@shopware-pwa/default-theme/components/SwProductGallery'
+import SwProductDetails from '@shopware-pwa/default-theme/components/SwProductDetails'
+import SwProductCarousel from '@shopware-pwa/default-theme/components/SwProductCarousel'
+import SwProductAdvertisement from '@shopware-pwa/default-theme/components/SwProductAdvertisement'
 
 export default {
   name: 'Product',

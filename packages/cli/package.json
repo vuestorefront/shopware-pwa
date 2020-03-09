@@ -30,7 +30,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "gluegun": "^4.1.2"
+    "gluegun": "^4.1.2",
+    "unzipper": "^0.10.9"
   },
   "devDependencies": {
     "@types/jest": "^25.1.0",

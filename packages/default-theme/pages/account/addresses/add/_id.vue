@@ -1,11 +1,11 @@
 <template>
   <div class="addresses-add">
-    <SwAddress/>
+    <SwAddress />
   </div>
 </template>
 
 <script>
-import SwAddress from '@/components/forms/SwAddress'
+import SwAddress from '@shopware-pwa/default-theme/components/forms/SwAddress.vue'
 
 export default {
   components: { SwAddress },

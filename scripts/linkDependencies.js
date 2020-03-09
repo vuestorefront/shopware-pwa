@@ -8,6 +8,7 @@ const path = require("path");
 const apiClientDir = path.resolve(__dirname, "../packages/shopware-6-client");
 const composablesDir = path.resolve(__dirname, "../packages/composables");
 const defaultThemeDir = path.resolve(__dirname, "../packages/default-theme");
+const nuxtModuleDir = path.resolve(__dirname, "../packages/nuxt-module");
 const helpersDir = path.resolve(__dirname, "../packages/helpers");
 const cliDir = path.resolve(__dirname, "../packages/cli");
 const commonsDir = path.resolve(__dirname, "../packages/commons");
@@ -69,10 +70,24 @@ async function run() {
     cwd: composablesDir
   });
 
+
+  /**
+   * Link nuxt-module
+   */
+  await execa("yarn", ["link"], {
+    stdio: "inherit",
+    cwd: nuxtModuleDir
+  });
+
   /**
    * Link CLI dir
    */
   await execa("yarn", ["link"], {
+    stdio: "inherit",
+    cwd: cliDir
+  });
+
+  await execa("yarn", ["link", "@shopware-pwa/nuxt-module"], {
     stdio: "inherit",
     cwd: cliDir
   });
@@ -84,6 +99,7 @@ async function run() {
     stdio: "inherit",
     cwd: defaultThemeDir
   });
+
 
   /**
    * link local storefront-ui

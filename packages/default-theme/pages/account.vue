@@ -27,7 +27,9 @@
 <script>
 import { SfContentPages, SfTabs, SfList } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
-import { PAGE_LOGIN } from '../helpers/pages'
+import { PAGE_LOGIN } from '@shopware-pwa/default-theme/helpers/pages'
+
+import authMiddleware from '@shopware-pwa/default-theme/middleware/auth'
 
 export default {
   name: 'Account',
@@ -36,7 +38,7 @@ export default {
     SfTabs,
     SfList
   },
-  middleware: 'auth',
+  middleware: authMiddleware,
   setup() {
     const { logout, user, loadOrders, orders } = useUser()
     return { logout, user, loadOrders, orders }

@@ -20,7 +20,11 @@ const chalk = require("chalk");
 const execa = require("execa");
 const { gzipSync } = require("zlib");
 const { compress } = require("brotli");
-const { targets: allTargets, fuzzyMatchTarget } = require("./utils");
+const {
+  targets: buildTargets,
+  allTargets,
+  fuzzyMatchTarget
+} = require("./utils");
 
 const args = require("minimist")(process.argv.slice(2));
 const targets = args._;
@@ -38,8 +42,17 @@ run();
 
 async function run() {
   if (!targets.length) {
-    await buildAll(allTargets);
-    checkAllSizes(allTargets);
+    await buildAll(buildTargets);
+    if (isCIRun) {
+      for (let index = 0; index < allTargets.length; index++) {
+        const pkgDir = path.resolve(`packages/${allTargets[index]}`);
+        await execa("npx", ["yalc", "push"], {
+          stdio: "inherit",
+          cwd: pkgDir
+        });
+      }
+    }
+    checkAllSizes(buildTargets);
   } else {
     await buildAll(fuzzyMatchTarget(targets, buildAllMatching));
     checkAllSizes(fuzzyMatchTarget(targets, buildAllMatching));
@@ -59,6 +72,12 @@ async function build(target) {
 
   // only build published packages for release
   if (isRelease && pkg.private) {
+    if (isCIRun) {
+      await execa("npx", ["yalc", "push"], {
+        stdio: "inherit",
+        cwd: pkgDir
+      });
+    }
     return;
   }
 
