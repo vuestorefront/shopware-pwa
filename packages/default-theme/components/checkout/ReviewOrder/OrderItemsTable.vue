@@ -44,7 +44,7 @@
 </template>
 <script>
 import { useCart } from '@shopware-pwa/composables'
-import helpers from '../../../helpers'
+import helpers from '@shopware-pwa/default-theme/helpers'
 
 import {
   SfTable,

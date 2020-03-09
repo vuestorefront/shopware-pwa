@@ -17,7 +17,7 @@
 <script>
 import { SfSection, SfCarousel } from '@storefront-ui/vue'
 import { getProducts } from '@shopware-pwa/shopware-6-client'
-import SwProductCard from './SwProductCard'
+import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
 
 export default {
   name: 'SwProductCarousel',

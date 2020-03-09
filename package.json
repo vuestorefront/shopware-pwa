@@ -10,12 +10,14 @@
     ]
   },
   "scripts": {
+    "start": "yarn && yarn build --types && node scripts/init.js",
     "dev": "node scripts/dev.js",
     "dev:client": "yarn dev shopware-6-client -format=esm-bundler",
     "dev:composables": "yarn dev composables -format=esm-bundler",
     "dev:helpers": "yarn dev helpers -format=esm-bundler",
+    "dev:nuxt-module": "yarn dev nuxt-module -format=cjs",
     "dev:debug": "node --inspect scripts/dev.js",
-    "build": "node scripts/build.js --types",
+    "build": "node scripts/build.js",
     "postinstall": "node scripts/linkDependencies.js && lerna link",
     "lint": "prettier --write --parser typescript 'packages/**/*.ts'",
     "test": "jest",
@@ -58,6 +60,7 @@
     "execa": "^4.0.0",
     "faker": "^4.1.0",
     "fs-extra": "^8.1.0",
+    "fs-jetpack": "^2.2.3",
     "husky": "^4.2.1",
     "jest": "^25.1.0",
     "lerna": "^3.20.2",
@@ -79,6 +82,6 @@
     "yorkie": "^2.0.0"
   },
   "engines": {
-    "node": "10.x"
+    "node": ">=10.x"
   }
 }

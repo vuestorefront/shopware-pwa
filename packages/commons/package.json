@@ -1,7 +1,13 @@
 {
   "name": "@shopware-pwa/commons",
-  "version": "0.1.0-prealpha.0",
+  "version": "0.1.0-alpha.1",
   "description": "@shopware-pwa/commons",
   "license": "MIT",
-  "private": true
+  "files": [
+    "interfaces/*"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "dd956f7b6a9067db9327863108e7f7c8635c59c9"
 }

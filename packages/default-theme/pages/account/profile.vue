@@ -29,9 +29,9 @@
 <script>
 import { SfTabs, SfInput, SfButton } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
-import SwPassword from '@/components/forms/SwPassword'
-import SwEmail from '@/components/forms/SwEmail'
-import SwPersonalInfo from '@/components/forms/SwPersonalInfo'
+import SwPassword from '@shopware-pwa/default-theme/components/forms/SwPassword'
+import SwEmail from '@shopware-pwa/default-theme/components/forms/SwEmail'
+import SwPersonalInfo from '@shopware-pwa/default-theme/components/forms/SwPersonalInfo'
 
 export default {
   name: 'MyProfile',

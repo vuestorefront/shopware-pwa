@@ -62,16 +62,17 @@
 </template>
 <script>
 import { SfSteps } from '@storefront-ui/vue'
-import OrderReview from '../components/checkout/OrderReview'
-import OrderSummary from '../components/checkout/OrderSummary'
-import Payment from '../components/checkout/Payment'
-import PersonalDetails from '../components/checkout/PersonalDetails'
-import ReviewOrder from '../components/checkout/ReviewOrder'
-import Shipping from '../components/checkout/Shipping'
+import OrderReview from '@shopware-pwa/default-theme/components/checkout/OrderReview'
+import OrderSummary from '@shopware-pwa/default-theme/components/checkout/OrderSummary'
+import Payment from '@shopware-pwa/default-theme/components/checkout/Payment'
+import PersonalDetails from '@shopware-pwa/default-theme/components/checkout/PersonalDetails'
+import ReviewOrder from '@shopware-pwa/default-theme/components/checkout/ReviewOrder'
+import Shipping from '@shopware-pwa/default-theme/components/checkout/Shipping'
+import checkoutMiddleware from "@shopware-pwa/default-theme/middleware/checkout"
 
 export default {
   name: 'Checkout',
-  middleware: 'checkout',
+  middleware: checkoutMiddleware,
   components: {
     SfSteps,
     PersonalDetails,

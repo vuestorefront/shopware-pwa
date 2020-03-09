@@ -61,8 +61,7 @@
               icon-size="1.25rem"
               class="sf-header__circle-icon"
               :class="{
-                'sf-header__circle-icon--is-active':
-                  activeIcon === 'cart-icon'
+                'sf-header__circle-icon--is-active': activeIcon === 'cart-icon'
               }"
               role="button"
               aria-label="cart-icon"
@@ -86,8 +85,8 @@ import {
   useUserLoginModal,
   useNavigation
 } from '@shopware-pwa/composables'
-import { PAGE_ACCOUNT } from '../helpers/pages'
-import SwLoginModal from './modals/SwLoginModal'
+import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
+import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
 
 export default {
   components: { SfHeader, SfCircleIcon, SwLoginModal, SfImage },

@@ -16,3 +16,5 @@ docs/
 yalc.lock
 vsf-core-packages/vue
 vsf-core-packages/shared
+yarn-error.log
+test-project/

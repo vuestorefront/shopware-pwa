@@ -19,20 +19,23 @@ module.exports = {
 
     const updateConfigSpinner = spin("Updating configuration");
     // Adding Shopware PWA core dependencies
+    await run(`yarn add -D fs-jetpack universal-cookie husky`);
+    await run(`yarn add @vue-storefront/nuxt`);
     try {
       // - unlink potential linked locally packages
       await run(`yarn unlink ${toolbox.coreDependencyPackageNames.join(" ")}`);
     } catch (e) {
       // It's just for safety, unlink on fresh project will throw an error so we can catch it here
     }
-    // - add dependencies from npm
-    await run(`yarn add ${toolbox.coreDependencyPackageNames.join(" ")}`);
     // for development run - link local packages
     if (!toolbox.isProduction) {
+      await run(`npx yalc add ${toolbox.coreDependencyPackageNames.join(" ")}`);
       await run(`yarn link ${toolbox.coreDependencyPackageNames.join(" ")}`);
+    } else {
+      // - add dependencies from npm
+      await run(`yarn add ${toolbox.coreDependencyPackageNames.join(" ")}`);
     }
 
-    await toolbox.removeDefaultNuxtFiles();
     await toolbox.updateNuxtPackageJson();
     await toolbox.updateNuxtConfigFile();
     updateConfigSpinner.succeed();
@@ -44,6 +47,13 @@ module.exports = {
     );
     await Promise.all(copyPromisses);
     generateFilesSpinner.succeed();
+
+    let params = "";
+    if (toolbox.parameters.options.u && toolbox.parameters.options.p) {
+      params = `-u ${toolbox.parameters.options.u} -p ${toolbox.parameters.options.p}`;
+    }
+    // generate plugin files
+    await toolbox.runtime.run(`generate ${params}`);
 
     const updateDependenciesSpinner = spin("Updating dependencies");
     // Loading additional packages

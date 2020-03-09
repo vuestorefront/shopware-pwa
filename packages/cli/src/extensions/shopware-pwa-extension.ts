@@ -15,20 +15,11 @@ module.exports = (toolbox: GluegunToolbox) => {
     "@shopware-pwa/composables",
     "@shopware-pwa/helpers",
     "@shopware-pwa/shopware-6-client",
-    "@shopware-pwa/default-theme"
+    "@shopware-pwa/default-theme",
+    "@shopware-pwa/nuxt-module"
   ];
 
-  toolbox.themeFolders = [
-    "components",
-    "layouts",
-    "pages",
-    "store",
-    "assets",
-    "middleware",
-    "static",
-    ".eslintrc.js",
-    "helpers"
-  ];
+  toolbox.themeFolders = ["store", "static", ".eslintrc.js"];
 
   toolbox.defaultThemeLocation = `node_modules/@shopware-pwa/default-theme`;
   // enable this if you want to read configuration in from
