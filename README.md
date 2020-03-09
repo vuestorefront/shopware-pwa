@@ -2,15 +2,13 @@
 
 [![Build Status](https://travis-ci.org/DivanteLtd/shopware-pwa.svg?branch=master)](https://travis-ci.org/DivanteLtd/shopware-pwa) [![Coverage Status](https://coveralls.io/repos/github/DivanteLtd/shopware-pwa/badge.svg?branch=master)](https://coveralls.io/github/DivanteLtd/shopware-pwa) [![Greenkeeper badge](https://badges.greenkeeper.io/DivanteLtd/shopware-pwa.svg)](https://greenkeeper.io/)
 
-The only Official Progressive Web App for <a href="https://github.com/shopware/platform">Shopware 6</a>. 
+The only Official Progressive Web App for <a href="https://github.com/shopware/platform">Shopware 6</a>.
 
-About Shopware: 
+About Shopware:
 
 <a href="https://github.com/shopware/platform">Shopware 6</a> is the next generation of open source eCommerce software based on bleeding-edge technologies powered by Symfony and Vue.js. Focused on an API-first approach Shopware provides more flexibility and less complexity
 
-
 PS: Check [StorefrontUI](https://github.com/DivanteLtd/storefront-ui/) - our UI library for eCommerce.
-
 
 ## See it in action
 
@@ -18,7 +16,7 @@ PS: Check [StorefrontUI](https://github.com/DivanteLtd/storefront-ui/) - our UI 
   <tbody>
     <tr>
       <td align="center" valign="middle">
-        <a href="http://shopware-pwa-faint-money.now.sh/">
+        <a href="https://shopware-pwa.storefrontcloud.io" target="_blank" rel=”noopener noreferrer”>
           <img
             src="https://divante.co/open-graph/vuestorefront/GitHub-Readme-Try-Demo.png"
             alt="B2C Theme demo"
@@ -46,9 +44,9 @@ If you have any questions or ideas feel free to join our slack: https://vuestore
 
 See [the documentation](https://shopware-pwa-docs.netlify.com/#introduction-to-shopware-pwa) to get started.
 
-### Quick start
+## Quick start
 
-#### Installation
+### Installation
 
 ```bash
 yarn global add @shopware-pwa/cli
@@ -60,7 +58,7 @@ or
 npm install -g @shopware-pwa/cli
 ```
 
-#### Usage
+### Usage
 
 Create a directory for your project and enter it
 
@@ -69,13 +67,13 @@ mkdir my-shopware-pwa
 cd ./my-shopware-pwa
 ```
 
-initialize project inside directory
+initialize project inside the directory
 
 ```bash
 shopware-pwa init
 ```
 
-after this you're connected to our test shopware instance and ready to run project locally
+after this you're connected to our test shopware instance and ready to run the project locally
 
 ```bash
 yarn dev
@@ -84,10 +82,10 @@ yarn dev
 Your application will be available on [http://localhost:3000](http://localhost:3000).  
 Now you have complete ShopwarePWA project running locally.
 
-##### Running Shopware PWA on custom Shopware instance
+#### Running Shopware PWA on custom Shopware instance
 
-1. add new file `shopware-pwa.config.js` inside root of the newly created project
-2. fill it with your needs, example:
+1. edit file `shopware-pwa.config.js` inside root of the newly created project
+2. fill it with your data, current example:
 
 ```js
 module.exports = {
@@ -98,57 +96,73 @@ module.exports = {
 
 3. run again `shopware-pwa init` and then `yarn dev`
 
-
 Read full instruction in `CHEATSHEET.md` file.
 
-### Development
+#### Running with plugins
 
-Just type `yarn` to install node dependencies and run the post-install script that links unpublished packages. Now, you're ready to develop. You can watch the compilation process by running `yarn dev` or `yarn dev:<package-name> `to specify the package that you will be working on.  
+If you already have some Shopware PWA plugins installed (like [HelloCody](https://github.com/elkmod/SwagHelloCody) plugin example), then you can generate plugin files
 
-Please, remember to always during development have opened terminal with `yarn test --watch` command fired.  
+```bash
+shopware-pwa init -u YOUR_SHOPWARE_INSTANCE_ADMIN_USERNAME -p YOUR_SHOPWARE_INSTANCE_PASSWORD
+```
 
-To start working on the default-theme go to `./packages/default-theme` and run `yarn`. After installation type `yarn dev`. The project will be available in your browser at http://localhost:3000.
+## Development and contribution
 
-___
+When you create fork and clone repo, just type `yarn start` to install node dependencies and run the post-install script that build and links packages, it also creates a test-project inside root catalog, which is ignored by git. Now, you're ready to develop. You can watch the compilation process by running `yarn dev` or `yarn dev:<package-name>`to specify the package that you will be working on. It also build all nescesarry packages and
+
+Please, remember to always during development have opened terminal with `yarn test --watch` command fired.
+
+To see the project go to `./test-project` and run `yarn dev`. The project will be available in your browser at http://localhost:3000.
+You can test changes directly in ignored test-project directory or make changes inside packages (for example default-theme).
+
+A more advanced development guide will be available soon.
+
+---
+
+## Troubleshooting
+
+Common issues with solutions are kept in [troubleshooting](./TROUBLESHOOTING.md) page.
+
+---
 
 ## Introduction to Shopware-PWA
 
 ### What is Shopware-PWA?
 
-It is a product, that will allow Shopware users to easily setup headless storefront for Shopware 6 eCommerce systems. It will provide all the PWA benefits like app-like experience, on-mobile-installation, service worker caching and more. Shopware-PWA by default will be provided with ready-to-go theme built on StorefrontUI. 
+It is a product, that will allow Shopware users to easily setup headless storefront for Shopware 6 eCommerce systems. It will provide all the PWA benefits like app-like experience, on-mobile-installation, service worker caching and more. Shopware-PWA by default will be provided with ready-to-go theme built on StorefrontUI.
 
 It is a native integration dedicated for Shopware 6, which means all the Shopware developers will not have to learn totally new approaches and naming conventions. Goal of the product is to keep the entry threshold as low as possible to make the further implementations fast and simple. Product will be compatible with Shopware 6 Plugins Ecosystem.
 
 ### Tech stack
 
-* [Vue Storefront](https://www.vuestorefront.io/)
-* Shopware-6-Client based on Axios
-* [StorefrontUI](https://www.storefrontui.io/)
-* [VueJS](https://vuejs.org/)
-* [TypeScript](https://www.typescriptlang.org/)
-* [Jest](https://jestjs.io/)
-* [TypeDoc](https://typedoc.org/)
-* [VuePress](https://vuepress.vuejs.org/)
+- [Vue Storefront](https://www.vuestorefront.io/)
+- Shopware-6-Client based on Axios
+- [StorefrontUI](https://www.storefrontui.io/)
+- [VueJS](https://vuejs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Jest](https://jestjs.io/)
+- [TypeDoc](https://typedoc.org/)
+- [VuePress](https://vuepress.vuejs.org/)
 
 ### What is Shopware-6-Client Library?
 
 One of the key components in Shopware-PWA architecture. It is a separate package built for TypeScript community to allow them to work with Shopware 6 API. It provides all the methods to work with SalesChannel-API of Shopware 6. Shopware-PWA uses that package for communication with Shopware backend.
 
-
 ### What is StorefrontUI?
 
-It is a powerful design systems for UI layer of your eCommerce systems. Storefront UI is an independent, Vue.js-based, library of UI components for developers, designers, and agencies striving to build fabulous storefronts.  
+It is a powerful design systems for UI layer of your eCommerce systems. Storefront UI is an independent, Vue.js-based, library of UI components for developers, designers, and agencies striving to build fabulous storefronts.
 
 Read more: https://www.storefrontui.io/
 
 ### Caching approach
 
-In Vue Storefront 1 we provided full offline support. 
+In Vue Storefront 1 we provided full offline support.
 
-In Shopware-PWA we will go for service worker caching. That means the product will use Shopware 6 logic through API instead of recreating all of the business logic in the frontend layer. 
+In Shopware-PWA we will go for service worker caching. That means the product will use Shopware 6 logic through API instead of recreating all of the business logic in the frontend layer.
 
 However, service workers will allow you to browse the catalog offline.
-___
+
+---
 
 ## Software engineering standards
 
@@ -156,7 +170,7 @@ Before starting the implementation of Shopware-PWA we’ve made a deep analysis 
 
 ### Style Guide
 
-We follow official VueJS coding standards - https://vuejs.org/v2/style-guide/. 
+We follow official VueJS coding standards - https://vuejs.org/v2/style-guide/.
 
 We also setup Prettier (https://prettier.io/) on git pre-commit hook to automatically format all the code before pushing it to the remote repository. This way we make sure, that all the code’s been written using the same standards. It makes the process of learning the codebase of the product much easier and smoother for all the new developers.
 
@@ -166,83 +180,83 @@ We also setup Prettier (https://prettier.io/) on git pre-commit hook to automati
 
 ##### Designing
 
-* Always start working on a task by designing a view (define goals → state → actions).
-* Every team member must accept "API interface".
+- Always start working on a task by designing a view (define goals → state → actions).
+- Every team member must accept "API interface".
 
 ##### Coding
 
-* Follow official Vue.js style guide https://vuejs.org/v2/style-guide/
-* Use Prettier locally.
-* Run Linter before commit.
-* Always change data by mutations.
-* Log interactions with cache as this is hard to debug.
-* Use Chrome debugger. Do not leave thousands of console.log().
-* Use async awaits instead of promises.
+- Follow official Vue.js style guide https://vuejs.org/v2/style-guide/
+- Use Prettier locally.
+- Run Linter before commit.
+- Always change data by mutations.
+- Log interactions with cache as this is hard to debug.
+- Use Chrome debugger. Do not leave thousands of console.log().
+- Use async awaits instead of promises.
 
 ##### Testing
 
-* Write tests in Jest.
-* Create one test file per method.
+- Write tests in Jest.
+- Create one test file per method.
 
 ##### Tools
 
-* Use axios for handling http requests.
-* Experiment with Live Share for pair programming.
+- Use axios for handling http requests.
+- Experiment with Live Share for pair programming.
 
 ##### Code review
 
-* Two people code review.
+- Two people code review.
 
 ##### Environment
 
-* Always fix failing builds in CI as the top priority.
+- Always fix failing builds in CI as the top priority.
 
 ##### Committing
 
-* Self-CR before commit. Do not assume others will check your dirty work.
-* Delete pointless console.log() before commit.
-* Meet commit message criteria to auto-generate change log. 
+- Self-CR before commit. Do not assume others will check your dirty work.
+- Delete pointless console.log() before commit.
+- Meet commit message criteria to auto-generate change log.
 
 #### DO NOT
 
-* Do not keep tokens in Vuex.
-* Do not use EventBus.
-* Do not make direct calls to UI from Vuex.
-* Do not create callbacks hell. Do not overuse promises. 
+- Do not keep tokens in Vuex.
+- Do not use EventBus.
+- Do not make direct calls to UI from Vuex.
+- Do not create callbacks hell. Do not overuse promises.
 
 ### Definition of Ready
 
 #### User Stories
 
-* Simplified User Story format to describe the issue is used - e.g. - I want to `<goal>` So that `<reason>`.
-* Epic (label) is assigned (the epic provides team members with background information and additional business value).
-* Acceptance criteria are listed.
-* Dependencies are identified and no external dependencies would block the item from being completed (e.g. missing decision / information / implementation from other departments / development teams or missing tools).
-* User story is small enough to be completed in one sprint.
-* Team knows what to do, and do not see any blocking points.
+- Simplified User Story format to describe the issue is used - e.g. - I want to `<goal>` So that `<reason>`.
+- Epic (label) is assigned (the epic provides team members with background information and additional business value).
+- Acceptance criteria are listed.
+- Dependencies are identified and no external dependencies would block the item from being completed (e.g. missing decision / information / implementation from other departments / development teams or missing tools).
+- User story is small enough to be completed in one sprint.
+- Team knows what to do, and do not see any blocking points.
 
 #### Bugs
 
-* Current behavior is explained.
-* Steps to reproduce are explained.
-* Expected behavior is explained.
-* If possible, screenshot or gif is provided.
+- Current behavior is explained.
+- Steps to reproduce are explained.
+- Expected behavior is explained.
+- If possible, screenshot or gif is provided.
 
 ### Definition of Done
 
 ##### User Story
 
-* All acceptance criteria are fulfilled.
-* Code does not destroy build.
-* All unit tests pass.
-* Code meets our Coding standards.
-* User story is verified by QA.
-* User story is tested on the newest browsers and newest-1 versions.
-* At least minimal documentation is created.
+- All acceptance criteria are fulfilled.
+- Code does not destroy build.
+- All unit tests pass.
+- Code meets our Coding standards.
+- User story is verified by QA.
+- User story is tested on the newest browsers and newest-1 versions.
+- At least minimal documentation is created.
 
 ##### Bugs
 
-* Regression unit test is created.
+- Regression unit test is created.
 
 ### Pipeline & Continuous integration / delivery / deployment
 
@@ -268,17 +282,12 @@ Versioning of Shopware-PWA is not dependent on Shopware 6 versioning. We will st
 
 We experimentally use conventional commit messages to automatically generate the change log. https://www.conventionalcommits.org
 
-___
+---
 
 ## Checklists
 
 ### Performance QA Checklist
 
-* Bundle size verified with `webpack-bundle-analyzer`.
-* Size lower than 300 kB for JS loaded immediately.
-* Everything, that may exceed 300 KB must be lazy loaded.
-
----
-
-## Troubleshooting
-Common issues with solutions are kept in [troubleshooting](./TROUBLESHOOTING.md) page.
+- Bundle size verified with `webpack-bundle-analyzer`.
+- Size lower than 300 kB for JS loaded immediately.
+- Everything, that may exceed 300 KB must be lazy loaded.
