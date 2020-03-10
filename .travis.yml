@@ -25,6 +25,8 @@ install:
   - yarn
 
 jobs:
+  allow_failures:
+    - os: windows
   include:
     - stage: Test
       script:
