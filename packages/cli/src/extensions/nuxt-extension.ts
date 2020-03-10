@@ -17,28 +17,23 @@ module.exports = (toolbox: GluegunToolbox) => {
   toolbox.generateNuxtProject = async () => {
     const spinner = spin("Preparing Nuxt project");
     const isNuxtGenerated = exists("nuxt.config.js");
+    const nuxtAnswers = {
+      name: "shopware-pwa-project",
+      description: "shopware-pwa-project description",
+      author: "Vue Storefront",
+      pm: "yarn",
+      ui: "none",
+      server: "none",
+      features: ["axios", "pwa"],
+      linter: ["prettier", "lintStaged"],
+      test: "jest",
+      mode: "universal",
+      devTools: []
+    };
     if (!isNuxtGenerated) {
-      const nuxtGenerate = `npx --ignore-existing create-nuxt-app --answers '
-    {
-      "name": "shopware-pwa-project",
-      "description": "shopware-pwa-project description",
-      "author": "Vue Storefront",
-      "pm": "yarn",
-      "ui": "none",
-      "server": "none",
-      "features": [
-        "axios",
-        "pwa"
-      ],
-      "linter": [
-        "prettier",
-        "lintStaged"
-      ],
-      "test": "jest",
-      "mode": "universal",
-      "devTools": []
-    }
-    '`;
+      const nuxtGenerate = `npx --ignore-existing create-nuxt-app --answers "${JSON.stringify(
+        nuxtAnswers
+      ).replace(/"/g, '\\"')}"`;
       await run(nuxtGenerate);
       await toolbox.removeDefaultNuxtFiles();
       spinner.succeed();
