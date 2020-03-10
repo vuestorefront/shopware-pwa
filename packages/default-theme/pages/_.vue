@@ -49,8 +49,7 @@ export default {
       cmsPageName: name,
       page: unwrappedPage,
       breadcrumbs,
-      cmsPage,
-      category
+      cmsPage
     }
   },
   data() {
