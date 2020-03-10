@@ -13,6 +13,9 @@ os:
   - osx
   - windows
 
+allow_failures:
+  - os: windows
+
 cache:
   yarn: true
   directories:
