@@ -19,7 +19,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.9.3",
     "@nuxtjs/pwa": "^3.0.0-beta.19",
-    "@storefront-ui/vue": "^0.6.0",
+    "@storefront-ui/vue": "^0.6.2",
     "@vue/composition-api": "^0.3.4",
     "currency.js": "^1.2.2",
     "dayjs": "^1.8.19",
