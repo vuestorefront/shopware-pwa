@@ -215,6 +215,20 @@ module.exports = (toolbox: GluegunToolbox) => {
       });
     }
 
+    // Add debug
+    const debugOPtionExist = await toolbox.patching.exists(
+      "nuxt.config.js",
+      `debug: true,`
+    );
+    if (!debugOPtionExist) {
+      await toolbox.patching.patch("nuxt.config.js", {
+        insert: `
+  debug: true,
+  `,
+        after: "mode: 'universal',"
+      });
+    }
+
     // ignore .yalc
     const yalcIgnoreExist = await toolbox.patching.exists(
       ".gitignore",
