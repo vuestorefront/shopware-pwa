@@ -8,6 +8,11 @@ branches:
     - master
     - /^greenkeeper.*$/
 
+os:
+  - linux
+  - osx
+  - windows
+
 cache:
   yarn: true
   directories:
@@ -22,7 +27,7 @@ install:
 jobs:
   include:
     - stage: Test
-      script: 
+      script:
         - yarn test:coverage
       after_script:
         - cat ./coverage/lcov.info | coveralls

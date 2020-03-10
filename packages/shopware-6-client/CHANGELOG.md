@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.2](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/shopware-6-client@0.1.0-alpha.1...@shopware-pwa/shopware-6-client@0.1.0-alpha.2) (2020-03-09)
+
+**Note:** Version bump only for package @shopware-pwa/shopware-6-client
+
+
+
+
+
 # 0.1.0-alpha.1 (2020-03-09)
 
 

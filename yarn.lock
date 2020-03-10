@@ -3128,11 +3128,6 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@shopware-pwa/shopware-6-client@latest":
-  version "0.1.0-alpha.740"
-  resolved "https://registry.yarnpkg.com/@shopware-pwa/shopware-6-client/-/shopware-6-client-0.1.0-alpha.740.tgz#01951d8d08afd47732a7e5073557b1634e7a386f"
-  integrity sha512-GdloMxNZ1Dk4GMvkiDHxfdHTlgU7216/Gu/m8bNvqj69KkovEfxsw+RqZ4e6ST6CfzEXtWOY6EXN8Yli7E1gUw==
-
 "@sinonjs/commons@^1.7.0":
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.7.0.tgz#f90ffc52a2e519f018b13b6c4da03cbff36ebed6"
@@ -3610,7 +3605,7 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vue-storefront/nuxt@latest":
+"@vue-storefront/nuxt@^0.0.3":
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@vue-storefront/nuxt/-/nuxt-0.0.3.tgz#88dbb9be175464500f7934315532fcb4618272b6"
   integrity sha512-FXEW0N8AtyejLDNFF8OgGYBKsLo9qZldr+bdHNmmDe1NXTR/DhN9lZ0697v3xjUANem/KJsPoBSkY1y4Ifx/rA==

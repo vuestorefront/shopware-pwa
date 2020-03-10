@@ -15,6 +15,19 @@ module.exports = {
     // TODO move it somewhere for having single source
     const PLUGIN_SLOTS = ["SwPluginTopNavigation"];
 
+    // Generate clean plugin files to override later
+    PLUGIN_SLOTS.forEach(async pluginSlotName => {
+      const pluginPath = `.shopware-pwa/sw-plugins/${pluginSlotName}.vue`;
+      const pluginOverrided = !!toolbox.filesystem.exists(pluginPath);
+      if (!pluginOverrided) {
+        await generate({
+          template: `/plugins/GenericPlugin.vue`,
+          target: pluginPath,
+          props: {}
+        });
+      }
+    });
+
     if (!toolbox.parameters.options.u || !toolbox.parameters.options.p) {
       error("Please provide -u and -p params for plugins authentication");
       return;
@@ -64,14 +77,20 @@ module.exports = {
 
       const testPromise = function() {
         return new Promise((resolve, reject) => {
-          request({ url: fileUrl, encoding: null }, function(err, resp, body) {
-            if (err) reject(err);
-            toolbox.filesystem.write(
-              ".shopware-pwa/pwa-bundles-assets.zip",
-              body
-            );
-            resolve();
-          });
+          request(
+            {
+              url: fileUrl,
+              encoding: null
+            },
+            function(err, resp, body) {
+              if (err) reject(err);
+              toolbox.filesystem.write(
+                ".shopware-pwa/pwa-bundles-assets.zip",
+                body
+              );
+              resolve();
+            }
+          );
         });
       };
 
@@ -123,7 +142,11 @@ module.exports = {
                 await generate({
                   template: `/plugins/GenericPlugin.vue`,
                   target: `.shopware-pwa/sw-plugins/${slot.name}.vue`,
-                  props: { body, componentImports, components }
+                  props: {
+                    body,
+                    componentImports,
+                    components
+                  }
                 });
               });
             } else {
@@ -140,19 +163,6 @@ module.exports = {
         "There is no plugin data files loaded from Shopware instance"
       );
     }
-
-    // Generate not overrided plugin files
-    PLUGIN_SLOTS.forEach(async pluginSlotName => {
-      const pluginPath = `.shopware-pwa/sw-plugins/${pluginSlotName}.vue`;
-      const pluginOverrided = !!toolbox.filesystem.exists(pluginPath);
-      if (!pluginOverrided) {
-        await generate({
-          template: `/plugins/GenericPlugin.vue`,
-          target: pluginPath,
-          props: {}
-        });
-      }
-    });
 
     success(`Plugins generated`);
   }

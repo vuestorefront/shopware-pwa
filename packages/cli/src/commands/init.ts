@@ -19,7 +19,7 @@ module.exports = {
 
     const updateConfigSpinner = spin("Updating configuration");
     // Adding Shopware PWA core dependencies
-    await run(`yarn add -D fs-jetpack universal-cookie husky`);
+    await run(`yarn add -D fs-jetpack cookie-universal husky`);
     await run(`yarn add @vue-storefront/nuxt`);
     try {
       // - unlink potential linked locally packages
@@ -59,7 +59,7 @@ module.exports = {
     // Loading additional packages
     await run(`npx sort-package-json`);
     await run(`yarn`);
-    await run(`yarn lint`);
+    // await run(`yarn lint`);
     updateDependenciesSpinner.succeed();
 
     success(`Generated Shopware PWA project!`);
