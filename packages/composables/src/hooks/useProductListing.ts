@@ -52,14 +52,11 @@ const selectedCriteria = Vue.observable({
 export const useProductListing = (
   initialProducts: Product[] = []
 ): UseProductListing => {
-  const { page } = useCms();
+  const { categoryId } = useCms();
   const { activeSorting } = useCategoryFilters();
 
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
-  const categoryId: Ref<string> = ref(
-    page && page.value && page.value.resourceIdentifier
-  );
   const localListing = reactive(sharedListing);
   const localCriteria = reactive(selectedCriteria);
   const localPagination = reactive(sharedPagination);
