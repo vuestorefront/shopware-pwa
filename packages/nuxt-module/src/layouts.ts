@@ -12,7 +12,7 @@ export function addThemeLayouts(moduleObject: NuxtModuleOptions) {
   );
   layouts.forEach(layout => {
     const layoutMatch = layout.match(
-      /@shopware-pwa\/default-theme\/layouts\/(.+)?.vue$/
+      /@shopware-pwa[\/\\\\]+default-theme[\/\\\\]+layouts[\/\\\\]+(.+)?.vue$/
     );
     const templateName = layoutMatch?.[1];
     const overrideExists = !!jetpack.exists(

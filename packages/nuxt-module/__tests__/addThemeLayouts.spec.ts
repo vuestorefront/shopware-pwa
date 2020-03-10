@@ -2,6 +2,7 @@ import { addThemeLayouts } from "../src/layouts";
 import * as files from "../src/files";
 import { NuxtModuleOptions } from "../src/interfaces";
 import jetpack from "fs-jetpack";
+import path from "path";
 
 jest.mock("../src/files");
 const mockedFiles = files as jest.Mocked<typeof files>;
@@ -34,12 +35,18 @@ describe("nuxt-module - addThemeLayouts", () => {
 
   it("should add layout if override does not exist", () => {
     getAllFiles.mockImplementationOnce(() => [
-      `${__dirname}/node_modules/@shopware-pwa/default-theme/layouts/SomeTest.vue`
+      path.join(
+        __dirname,
+        `node_modules/@shopware-pwa/default-theme/layouts/SomeTest.vue`
+      )
     ]);
     addThemeLayouts(moduleObject);
     expect(moduleObject.addLayout).toBeCalledWith(
       {
-        src: `${__dirname}/node_modules/@shopware-pwa/default-theme/layouts/SomeTest.vue`
+        src: path.join(
+          __dirname,
+          `node_modules/@shopware-pwa/default-theme/layouts/SomeTest.vue`
+        )
       },
       "SomeTest"
     );
@@ -47,19 +54,25 @@ describe("nuxt-module - addThemeLayouts", () => {
 
   it("should not override layout if override exist", () => {
     getAllFiles.mockImplementationOnce(() => [
-      `${__dirname}/node_modules/@shopware-pwa/default-theme/layouts/SomeTest.vue`
+      path.join(
+        __dirname,
+        `node_modules/@shopware-pwa/default-theme/layouts/SomeTest.vue`
+      )
     ]);
     mockedJetpack.exists.mockReturnValueOnce("file");
     addThemeLayouts(moduleObject);
     expect(mockedJetpack.exists).toBeCalledWith(
-      `${__dirname}/layouts/SomeTest.vue`
+      path.join(__dirname, `layouts/SomeTest.vue`)
     );
     expect(moduleObject.addLayout).not.toBeCalled();
   });
 
   it("should not add layout if templateName could not be resolved", () => {
     getAllFiles.mockImplementationOnce(() => [
-      `${__dirname}/node_modules/@shopware-pwa/default-theme/FAKEEEEE/SomeTest.vue`
+      path.join(
+        __dirname,
+        `node_modules/@shopware-pwa/default-theme/FAKEEEEE/SomeTest.vue`
+      )
     ]);
     mockedJetpack.exists.mockReturnValueOnce("file");
     addThemeLayouts(moduleObject);
