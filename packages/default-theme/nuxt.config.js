@@ -103,4 +103,10 @@ export default {
       }
     }
   },
+  serverMiddleware: [
+    {
+      path: '/_healthcheck',
+      handler: '~/_healthcheck/index.js'
+    }
+  ],
 }
