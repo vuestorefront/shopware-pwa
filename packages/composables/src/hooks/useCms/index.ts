@@ -45,7 +45,7 @@ export const useCms = (): any => {
       vuexStore.commit("SET_PAGE", result);
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err.message;
+      error.value = err;
     } finally {
       loading.value = false;
     }
