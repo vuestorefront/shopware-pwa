@@ -23,7 +23,7 @@ export default {
   components: {
   },
   asyncData: async ({ req, params, query, error: errorView }) => {
-    const {search, page, category, error} = useCms()
+    const {search, page, error} = useCms()
     const {refreshCart} = useCart()
     const {refreshUser} = useUser()
     // TODO fix this after meeting
@@ -49,8 +49,7 @@ export default {
       cmsPageName: name,
       page: unwrappedPage,
       breadcrumbs,
-      cmsPage,
-      category
+      cmsPage
     }
   },
   data() {
