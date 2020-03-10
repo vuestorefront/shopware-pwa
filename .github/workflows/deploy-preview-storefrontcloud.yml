@@ -47,11 +47,11 @@ jobs:
       - name: Deploy on Storefrontcloud.io
         run: |
           # remove when fix on cloud is done
-          curl -s -k https://${{ github.sha }}.shopware-pwa.storefrontcloud.io > /dev/null
+          curl -s -k https://${{ github.sha }}.shopware-pwa.preview.storefrontcloud.io > /dev/null
           sleep 3 
           # /remove when fix on cloud is done
           
-          if curl -s -k https://${{ github.sha }}.shopware-pwa.storefrontcloud.io | grep -q '<html data-n-head-ssr'; then
+          if curl -s -k https://${{ github.sha }}.shopware-pwa.preview.storefrontcloud.io | grep -q '<html data-n-head-ssr'; then
             echo "Instance updated"
 
             # curl -s -X GET \
@@ -74,7 +74,7 @@ jobs:
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
-          target_url: https://${{ github.sha }}.shopware-pwa.storefrontcloud.io
+          target_url: https://${{ github.sha }}.shopware-pwa.preview.storefrontcloud.io
           state: "success"
           description: Congratulations! The deploy is done.
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
@@ -82,7 +82,7 @@ jobs:
         if: success()
         uses: thollander/actions-comment-pull-request@master
         with:
-          message: ':blue_heart: Shopware-PWA successfully deployed on https://${{ github.sha }}.shopware-pwa.storefrontcloud.io :ok_hand:'
+          message: ':blue_heart: Shopware-PWA successfully deployed on https://${{ github.sha }}.shopware-pwa.preview.storefrontcloud.io :ok_hand:'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Update deployment status (failure)
         if: failure()
