@@ -48,7 +48,7 @@ jobs:
         run: |
           # remove when fix on cloud is done
           curl -s https://${{ github.sha }}.shopware-pwa.preview.storefrontcloud.io > /dev/null
-          sleep 3 
+          sleep 8 
           # /remove when fix on cloud is done
           
           if curl -s https://${{ github.sha }}.shopware-pwa.preview.storefrontcloud.io | grep -q '<html data-n-head-ssr'; then
