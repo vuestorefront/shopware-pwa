@@ -45,36 +45,17 @@ jobs:
           initial_status: in_progress
       - run: echo ::set-env name=PULL_NUMBER::$(echo "$GITHUB_REF" | awk -F / '{print $3}')
       - name: Deploy on Storefrontcloud.io
-        run: |
-          # remove when fix on cloud is done
-          curl -s -k https://${{ github.sha }}.shopware-pwa.preview.storefrontcloud.io > /dev/null
-          sleep 3 
-          # /remove when fix on cloud is done
-          
-          if curl -s -k https://${{ github.sha }}.shopware-pwa.preview.storefrontcloud.io | grep -q '<html data-n-head-ssr'; then
-            echo "Instance updated"
-
-            # curl -s -X GET \
-            #   https://api.github.com/repos/DivanteLtd/shopware-pwa/issues/${{env.PULL_NUMBER}}/comments \
-            #   -H 'Accept: application/vnd.github.shadow-cat-preview+json' | grep -B4 '\"login\": \"github-actions\[bot\]"' | grep -A1 '"issue_url":' > comments.json
-
-            # grep -Po '"id": ([0-9]+)' comments.json > ids.json
-            # while read p; do
-            # commentId=$(echo $p|grep -o '[0-9]\+')
-            # curl -s -X DELETE \
-            #   https://api.github.com/repos/DivanteLtd/shopware-pwa/issues/comments/$commentId \
-            #   -H "Authorization: token ${{ github.token }}"
-            # done <ids.json
-          else
-            echo "Something went wrong during the update process..."
-            exit 1
-          fi
+        id: deploy
+        uses: mkucmus/storefrontcloud-preview-deploy@master
+        with:
+          token: "${{ github.token }}"
+          namespace: "shopware-pwa"
       - name: Update deployment status (success)
         if: success()
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
-          target_url: https://${{ github.sha }}.shopware-pwa.preview.storefrontcloud.io
+          target_url: ${{ steps.deploy.outputs.preview_url }}
           state: "success"
           description: Congratulations! The deploy is done.
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
@@ -82,7 +63,7 @@ jobs:
         if: success()
         uses: thollander/actions-comment-pull-request@master
         with:
-          message: ':blue_heart: Shopware-PWA successfully deployed on https://${{ github.sha }}.shopware-pwa.preview.storefrontcloud.io :ok_hand:'
+          message: ':blue_heart: Shopware-PWA successfully deployed on ${{ steps.deploy.outputs.preview_url }} :ok_hand:'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Update deployment status (failure)
         if: failure()
