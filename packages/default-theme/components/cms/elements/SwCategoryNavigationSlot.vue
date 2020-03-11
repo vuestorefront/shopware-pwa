@@ -58,7 +58,7 @@ export default {
   setup() {
     const { categoryId } = useCms()
 
-    return { categoryId: categoryId.value }
+    return { categoryId }
   },
   data() {
     return {
