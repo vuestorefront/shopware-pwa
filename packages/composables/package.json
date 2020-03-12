@@ -23,17 +23,17 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@vue/composition-api": "^0.3.4",
+    "@vue/composition-api": "^0.4.0",
     "vue": "^2.6.11"
   },
   "peerDependencies": {
-    "@vue/composition-api": "^0.3.4",
+    "@vue/composition-api": "^0.4.0",
     "axios": "^0.19.2",
     "vue": "^2.6.11"
   },
   "dependencies": {
     "@shopware-pwa/shopware-6-client": "^0.1.0-alpha.2",
-    "query-string": "^6.10.1"
+    "query-string": "^6.11.1"
   },
   "publishConfig": {
     "access": "public"
