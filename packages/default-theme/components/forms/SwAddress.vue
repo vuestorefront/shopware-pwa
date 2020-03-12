@@ -219,9 +219,11 @@ export default {
         apartment,
         city,
         country,
-        phoneNumber
+        phoneNumber,
+        _uniqueIdentifier
       } = this.form
       return {
+        id: _uniqueIdentifier,
         firstName,
         lastName,
         salutationId: salutation.id,
