@@ -14,7 +14,7 @@ const defaultConfig: ClientSettings = {
   accessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG",
   contextToken: "",
   defaultPaginationLimit: 10,
-  timeout: 1000 //ms
+  timeout: 3000 // ms
 };
 
 let clientConfig: ClientSettings = {};
