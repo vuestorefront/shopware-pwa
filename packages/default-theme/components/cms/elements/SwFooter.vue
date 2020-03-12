@@ -41,6 +41,7 @@ export default {
   }
   justify-content: center;
   align-items: flex-end;
+  flex-shrink: 0;
   &__signature {
     padding: 2em;
     width: 100%;
