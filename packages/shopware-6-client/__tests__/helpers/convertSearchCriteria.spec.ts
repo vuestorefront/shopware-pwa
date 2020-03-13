@@ -199,6 +199,20 @@ describe("SearchConverter - convertSearchCriteria", () => {
       });
     });
   });
+  describe("term", () => {
+    it("should add a term key and proper value", () => {
+      const result = convertSearchCriteria({
+        term: "fulltext"
+      } as any);
+      expect(result.term).toEqual("fulltext");
+    });
+    it("should not add a term key if provided term is null", () => {
+      const result = convertSearchCriteria({
+        term: null
+      } as any);
+      expect(result).not.toHaveProperty("term");
+    });
+  });
   describe("configuration", () => {
     describe("displayParents", () => {
       it("should not return displayGroup grouped parameter and appropriate filter when displayParents switch is on", () => {

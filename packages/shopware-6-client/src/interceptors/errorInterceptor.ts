@@ -13,8 +13,21 @@ const API_ERROR_CODES = [400, 401, 403, 404, 409, 410, 412, 424, 500];
 /**
  * @param {ShopwareApiError} error
  */
-const extractApiErrorStatusCode = (error: ShopwareApiError): number =>
-  error.response.status;
+const extractApiErrorStatusCode = (error: ShopwareApiError): number => {
+  return (
+    (error.response && error.response.status) ||
+    guessTheStatusCodeFromTheMessage(error.message)
+  );
+};
+
+const guessTheStatusCodeFromTheMessage = (message: string): number => {
+  // catch the specific timeout rejection from axios
+  if (typeof message == "string" && message.startsWith("timeout of")) {
+    return 408;
+  }
+
+  return 500;
+};
 
 /**
  * Extract error message
@@ -63,9 +76,7 @@ export async function errorInterceptor(
 ): Promise<ClientApiError> {
   // Any status codes that falls outside the range of 2xx cause this function to trigger
   // Do something with response error
-
   const statusCode = extractApiErrorStatusCode(error);
-
   const clientApiError: ClientApiError = {
     message: API_ERROR_CODES.includes(statusCode)
       ? extractApiErrorMessage(error)
