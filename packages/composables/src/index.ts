@@ -8,6 +8,7 @@ export * from "./hooks/useSalutations";
 export * from "./hooks/useCountries";
 export * from "./hooks/useUser";
 export * from "./hooks/useProductListing";
+export * from "./hooks/useProductSearch";
 export * from "./theme/cart/useCartSidebar";
 export * from "./theme/user/useUserLoginModal";
 export * from "./store";
