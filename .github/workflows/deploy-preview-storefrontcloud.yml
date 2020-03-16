@@ -50,6 +50,13 @@ jobs:
         with:
           token: "${{ github.token }}"
           namespace: "shopware-pwa"
+      - name: Comment PR
+        if: success()
+        uses: mkucmus/storefrontcloud-comment-pr-preview-deploy@master
+        with:
+          preview_url: ':blue_heart: Shopware-PWA successfully deployed on ${{ steps.deploy.outputs.preview_url }} :ok_hand:'
+          token: "${{ github.token }}"
+          namespace: 'shopware-pwa'
       - name: Update deployment status (success)
         if: success()
         uses: chrnorm/deployment-status@releases/v1
@@ -59,12 +66,12 @@ jobs:
           state: "success"
           description: Congratulations! The deploy is done.
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-      - name: Comment PR
-        if: success()
-        uses: thollander/actions-comment-pull-request@master
-        with:
-          message: ':blue_heart: Shopware-PWA successfully deployed on ${{ steps.deploy.outputs.preview_url }} :ok_hand:'
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Comment PR
+      #   if: success()
+      #   uses: thollander/actions-comment-pull-request@master
+      #   with:
+      #     message: ':blue_heart: Shopware-PWA successfully deployed on ${{ steps.deploy.outputs.preview_url }} :ok_hand:'
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Update deployment status (failure)
         if: failure()
         uses: chrnorm/deployment-status@releases/v1
