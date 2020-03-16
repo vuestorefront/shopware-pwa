@@ -1,12 +1,11 @@
 import { Module } from "@nuxt/types";
-import "./interfaces";
-import { NuxtModuleOptions } from "./interfaces";
+import * as Interfaces from "./interfaces";
 /* istanbul ignore next */
 import { runModule } from "./module";
 
 /* istanbul ignore next */
 const ShopwarePWAModule: Module<{}> = function(moduleOptions: {}) {
-  const moduleObject: NuxtModuleOptions = this as any;
+  const moduleObject: Interfaces.NuxtModuleOptions = this as any;
   runModule(moduleObject, moduleOptions);
 };
 
