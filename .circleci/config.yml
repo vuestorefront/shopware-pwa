@@ -37,10 +37,10 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
-        name: test
-        command: yarn test:coverage --w 2
+          name: test
+          command: yarn test:coverage --w 2
       # - run:
       #     name: code-coverage
       #     # command: "./node_modules/.bin/nyc report --reporter=text-lcov"
