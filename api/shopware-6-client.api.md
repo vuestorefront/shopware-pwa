@@ -240,6 +240,8 @@ export interface ShopwareParams {
     page?: number;
     // (undocumented)
     sort?: string;
+    // (undocumented)
+    term?: string;
 }
 
 // @alpha
