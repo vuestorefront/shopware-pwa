@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
   coveralls: coveralls/coveralls@1.0.4
-  win: circleci/windows@1.0.0
+  win: circleci/windows@2.2.0
 
 jobs:
   test-linux:
@@ -31,9 +31,7 @@ jobs:
           command: yarn test:coverage --w 2
       - coveralls/upload
   test-windows:
-    executor:
-      name: win/vs2019
-      shell: bash.exe
+    executor: win/default
     steps:
       - checkout
       - restore_cache:
