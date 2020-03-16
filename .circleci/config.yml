@@ -24,7 +24,7 @@ jobs:
             - ./node_modules
       - run:
           name: test
-          command: yarn test:coverage
+          command: yarn test:coverage --w 1
       - run:
           name: code-coverage
           # command: "./node_modules/.bin/nyc report --reporter=text-lcov"
