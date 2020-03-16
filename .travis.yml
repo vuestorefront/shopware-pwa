@@ -10,7 +10,6 @@ branches:
 
 os:
   - linux
-  - osx
   - windows
 
 cache:
