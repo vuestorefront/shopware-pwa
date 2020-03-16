@@ -1,0 +1,39 @@
+version: 2.1
+jobs:
+  build:
+    working_directory: ~/shopware-pwa
+    branches:
+      only:
+        - master
+        - /^greenkeeper.*$/
+    docker:
+      - image: circleci/node:12.16.1
+    steps:
+      - checkout
+      # - run:
+      #     name: update-npm
+      #     command: "sudo npm install -g npm@5"
+      - restore_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+      - run:
+          name: install dependencies
+          command: yarn
+      - save_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: test
+          command: yarn test:coverage
+      - run:
+          name: code-coverage
+          # command: "./node_modules/.bin/nyc report --reporter=text-lcov"
+          command: "cat ./coverage/lcov.info | coveralls"
+      # - store_artifacts:
+      #     path: test-results.xml
+      #     prefix: tests
+      # - store_artifacts:
+      #     path: coverage
+      #     prefix: coverage
+      # - store_test_results:
+      #     path: test-results.xml
