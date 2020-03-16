@@ -1,9 +1,10 @@
 version: 2.1
 orbs:
   coveralls: coveralls/coveralls@1.0.4
+  win: circleci/windows@1.0.0
 
 jobs:
-  build:
+  test-linux:
     working_directory: ~/shopware-pwa
     # branches:
     #   only:
@@ -27,8 +28,19 @@ jobs:
             - ./node_modules
       - run:
           name: test
-          command: yarn test:coverage --w 1
+          command: yarn test:coverage --w 2
       - coveralls/upload
+  test-windows:
+    executor:
+      name: win/vs2019
+      shell: bash.exe
+    steps:
+      - checkout
+      - restore_cache:
+        key: dependency-cache-{{ checksum "yarn.lock" }}
+      - run:
+        name: test
+        command: yarn test:coverage --w 2
       # - run:
       #     name: code-coverage
       #     # command: "./node_modules/.bin/nyc report --reporter=text-lcov"
