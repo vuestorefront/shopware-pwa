@@ -2,10 +2,10 @@ version: 2.1
 jobs:
   build:
     working_directory: ~/shopware-pwa
-    branches:
-      only:
-        - master
-        - /^greenkeeper.*$/
+    # branches:
+    #   only:
+    #     - master
+    #     - /^greenkeeper.*$/
     docker:
       - image: circleci/node:12.16.1
     steps:
