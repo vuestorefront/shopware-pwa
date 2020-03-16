@@ -1,4 +1,7 @@
 version: 2.1
+orbs:
+  coveralls: coveralls/coveralls@1.0.4
+
 jobs:
   build:
     working_directory: ~/shopware-pwa
@@ -17,7 +20,7 @@ jobs:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: install dependencies
-          command: yarn
+          command: yarn --frozen-lockfile
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
@@ -25,10 +28,11 @@ jobs:
       - run:
           name: test
           command: yarn test:coverage --w 1
-      - run:
-          name: code-coverage
-          # command: "./node_modules/.bin/nyc report --reporter=text-lcov"
-          command: "cat ./coverage/lcov.info | coveralls"
+      - coveralls/upload
+      # - run:
+      #     name: code-coverage
+      #     # command: "./node_modules/.bin/nyc report --reporter=text-lcov"
+      #     command: "cat ./coverage/lcov.info | coveralls"
       # - store_artifacts:
       #     path: test-results.xml
       #     prefix: tests
