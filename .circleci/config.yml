@@ -23,18 +23,15 @@ jobs:
           name: test
           command: yarn test:coverage --w 2
       - coveralls/upload
-      - persist_to_workspace:
-          root: ~/shopware-pwa
-          paths:
-            - ./*
   test:
     executor: win/default
     working_directory: ~/shopware-pwa
     steps:
-      - attach_workspace:
-          at: ~/shopware-pwa
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
+      - run:
+          name: install packages
+          command: yarn
       - run:
           name: coverage
           command: yarn test:coverage --w 2
