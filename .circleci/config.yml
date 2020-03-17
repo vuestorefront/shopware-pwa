@@ -31,18 +31,15 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
-          name: install packages
-          command: yarn
+          name: install dependencies
+          command: yarn --frozen-lockfile
       - run:
-          name: coverage
-          command: yarn test:coverage --w 2
-
+          name: test
+          command: yarn test --w 2
 
 workflows:
   version: 2
   build-test:
     jobs:
-    - build
-    - test:
-        requires:
-        - build
+      - build
+      - test
