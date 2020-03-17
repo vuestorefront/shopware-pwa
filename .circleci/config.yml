@@ -2,47 +2,40 @@ version: 2.1
 orbs:
   coveralls: coveralls/coveralls@1.0.4
   win: circleci/windows@2.2.0
-
-jobs:
-  build:
-    working_directory: ~/shopware-pwa
-    # branches:
-    #   only:
-    #     - master
-    #     - /^greenkeeper.*$/
-    docker:
-      - image: circleci/node:12.16.1
-    steps:
-      - checkout
-      # - run:
-      #     name: update-npm
-      #     command: "sudo npm install -g npm@5"
-      - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-      - run:
-          name: install dependencies
-          command: yarn --frozen-lockfile
-      - save_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-          paths:
-            - ./node_modules
-      - run:
-          name: test
-          command: yarn test:coverage --w 2
-      - coveralls/upload
-  test:
-    executor: win/default
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-      - run:
-          name: test
-          command: yarn test:coverage --w 2
-
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
-      - test
+      - build:
+          working_directory: ~/shopware-pwa
+          context: shopware-pwa
+          docker:
+            - image: circleci/node:12.16.1
+          steps:
+            - checkout
+            - restore_cache:
+                key: dependency-cache-{{ checksum "yarn.lock" }}
+            - run:
+                name: install dependencies
+                command: yarn --frozen-lockfile
+            - save_cache:
+                key: dependency-cache-{{ checksum "yarn.lock" }}
+                paths:
+                  - ./node_modules
+            - run:
+                name: test
+                command: yarn test:coverage --w 2
+            - coveralls/upload
+      - test:
+          requires:
+            - build
+          executor: win/default
+          working_directory: ~/shopware-pwa
+          context: shopware-pwa
+          steps:
+            - checkout
+            - restore_cache:
+                key: dependency-cache-{{ checksum "yarn.lock" }}
+            - run:
+                name: test
+                command: yarn test:coverage --w 2
