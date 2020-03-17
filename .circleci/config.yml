@@ -30,7 +30,7 @@ jobs:
           name: test
           command: yarn test:coverage --w 2
       - coveralls/upload
-  test-windows:
+  test:
     executor: win/default
     steps:
       - checkout
