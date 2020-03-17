@@ -10,34 +10,23 @@ jobs:
       - image: circleci/node:12.16.1
     steps:
       - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: install dependencies
           command: yarn --frozen-lockfile
-      - save_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-          paths:
-            - ./node_modules
-      - persist_to_workspace:
-          root: ~/shopware-pwa
-          paths:
-            - ./*
       - run:
           name: test
           command: yarn test:coverage --w 2
       - coveralls/upload
+      - persist_to_workspace:
+          root: ~/shopware-pwa
+          paths:
+            - ./*
   test:
     executor: win/default
     working_directory: ~/shopware-pwa
     steps:
       - attach_workspace:
           at: ~/shopware-pwa
-      - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-      - run:
-          name: install
-          command: yarn
       - run:
           name: coverage
           command: yarn test:coverage --w 2
