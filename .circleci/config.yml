@@ -24,23 +24,20 @@ jobs:
           command: yarn test:coverage --w 2
       - coveralls/upload
   test:
-    requires:
-      - build
     executor: win/default
     working_directory: ~/shopware-pwa
     steps:
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
-          name: install dependencies
-          command: yarn --frozen-lockfile
-      - run:
           name: test
           command: yarn test:coverage --w 2
 
 workflows:
   version: 2
-  build_and_test:
+  build-test:
     jobs:
-      - build
-      - test
+    - build
+    - test:
+        requires:
+        - build
