@@ -32,7 +32,7 @@ jobs:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: test
-          command: yarn test:coverage --w 2
+          command: yarn && yarn test:coverage --w 2
 
 workflows:
   version: 2
