@@ -20,6 +20,7 @@ export interface ShopwareParams {
   page?: number;
   limit?: number;
   sort?: string;
+  term?: string;
   filter?: (
     | NotFilter
     | MultiFilter
@@ -37,7 +38,7 @@ export const convertSearchCriteria = (
   let params: ShopwareParams = {};
 
   if (!searchCriteria) return params;
-  const { filters, sort, pagination, configuration } = searchCriteria;
+  const { filters, sort, pagination, configuration, term } = searchCriteria;
 
   if (pagination) {
     const { limit, page } = pagination;
@@ -64,6 +65,11 @@ export const convertSearchCriteria = (
 
   if (configuration?.grouping) {
     params.grouping = configuration.grouping;
+  }
+
+  // fulltext query (works for every entity so can be global)
+  if (term) {
+    params.term = term;
   }
 
   // add extra grouping option and additional filter to prevent displaying redundand products.

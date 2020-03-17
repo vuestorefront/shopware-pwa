@@ -11,11 +11,6 @@
           <SfImage src="/img/logo.svg" alt="Shopware PWA" />
         </nuxt-link>
       </template>
-
-      <template #search>
-        <div class="sf-search-bar"></div>
-      </template>
-
       <template #navigation>
         <SfHeaderNavigationItem
           v-for="{ routeLabel, routePath } in routes"
@@ -34,6 +29,13 @@
             </a>
           </nuxt-link>
         </SfHeaderNavigationItem>
+      </template>
+      <template #search>
+        <SfSearchBar
+          placeholder="Search for products"
+          class="sf-header__search"
+          @enter="fulltextSearch"
+        />
       </template>
       <template #header-icons="{accountIcon, cartIcon}">
         <div class="sf-header__icons desktop-only">
@@ -77,25 +79,27 @@
 </template>
 
 <script>
-import { SfHeader, SfCircleIcon, SfImage } from '@storefront-ui/vue'
+import { SfHeader, SfCircleIcon, SfImage, SfSearchBar } from '@storefront-ui/vue'
 import {
   useUser,
   useCart,
   useCartSidebar,
   useUserLoginModal,
-  useNavigation
+  useNavigation,
+  useProductSearch
 } from '@shopware-pwa/composables'
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
 
 export default {
-  components: { SfHeader, SfCircleIcon, SwLoginModal, SfImage },
+  components: { SfHeader, SfCircleIcon, SwLoginModal, SfImage, SfSearchBar },
   setup() {
     const { routes, fetchRoutes } = useNavigation()
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
     const { toggleSidebar } = useCartSidebar()
     const { toggleModal } = useUserLoginModal()
+    const { search: fulltextSearch } = useProductSearch()
 
     return {
       routes,
@@ -104,7 +108,8 @@ export default {
       toggleModal,
       toggleSidebar,
       isLoggedIn,
-      logout
+      logout,
+      fulltextSearch
     }
   },
   data() {
@@ -160,17 +165,9 @@ export default {
     }
   }
 
-  .sf-search-bar {
-    display: none;
-  }
-
   .sf-image img {
     height: 2rem;
     width: 2.1rem;
-  }
-
-  .sf-search-bar {
-    visibility: hidden;
   }
 }
 

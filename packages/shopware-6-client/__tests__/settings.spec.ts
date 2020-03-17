@@ -10,6 +10,7 @@ import { random } from "faker";
 
 const DEFAULT_ENDPOINT =
   "https://shopware-2.vuestorefront.io/sales-channel-api/v1";
+const DEFAULT_TIMEOUT = 3000;
 
 describe("Settings", () => {
   beforeEach(() => {
@@ -17,6 +18,10 @@ describe("Settings", () => {
   });
 
   describe("setup", () => {
+    it("should have default timeout config", () => {
+      expect(config.timeout).toEqual(DEFAULT_TIMEOUT);
+    });
+
     it("should have default endpoint config", () => {
       expect(config.endpoint).toEqual(DEFAULT_ENDPOINT);
     });
@@ -74,6 +79,12 @@ describe("Settings", () => {
       update({ defaultPaginationLimit: 50 });
       expect(config.accessToken).toEqual("SWSCMUDKAKHSRXPJEHNOSNHYAG");
       expect(config.defaultPaginationLimit).toEqual(50);
+    });
+
+    it("should change default timeout", () => {
+      update({ timeout: 50 });
+      expect(config.accessToken).toEqual("SWSCMUDKAKHSRXPJEHNOSNHYAG");
+      expect(config.timeout).toEqual(50);
     });
   });
 
