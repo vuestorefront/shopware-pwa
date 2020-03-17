@@ -16,7 +16,7 @@ PS: Check [StorefrontUI](https://github.com/DivanteLtd/storefront-ui/) - our UI 
   <tbody>
     <tr>
       <td align="center" valign="middle">
-        <a href="https://shopware-pwa.storefrontcloud.io" target="_blank" rel=”noopener noreferrer”>
+        <a href="https://shopware-pwa.storefrontcloud.io" target="_blank" rel=”noopener”>
           <img
             src="https://divante.co/open-graph/vuestorefront/GitHub-Readme-Try-Demo.png"
             alt="B2C Theme demo"
