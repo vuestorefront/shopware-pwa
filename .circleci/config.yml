@@ -19,6 +19,10 @@ jobs:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
+      - persist_to_workspace:
+          root: ~/shopware-pwa
+          paths:
+            - ./*
       - run:
           name: test
           command: yarn test:coverage --w 2
@@ -27,7 +31,8 @@ jobs:
     executor: win/default
     working_directory: ~/shopware-pwa
     steps:
-      - checkout
+      - attach_workspace:
+          at: ~/shopware-pwa
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
@@ -36,6 +41,7 @@ jobs:
       - run:
           name: coverage
           command: yarn test:coverage --w 2
+
 
 workflows:
   version: 2
