@@ -29,7 +29,9 @@ import {
   getNewsletterUnsubscribeEndpoint,
   getProductsIdsEndpoint,
   getNavigationEndpoint,
-  getCustomerOrderDetailsEndpoint
+  getCustomerOrderDetailsEndpoint,
+  getContextCountryItemEndpoint,
+  getContextSalutationItemEndpoint
 } from "../src/endpoints";
 
 const sampleProductId = "eea0f69ec02d44f7a4224272b3d99478";
@@ -38,6 +40,8 @@ const sampleAddressId = "324af469318f46b68e0fe69d77ef15fb";
 const sampleCustomerId = "8b67c1fbb718487db750651430023298";
 const sampleLineItemId = "042df8812942487bb52c9fc1e5b26e20";
 const sampleOrderId = "27356105cf9b4484b96143881c37bbcb";
+const sampleCountryId = "27356105cf9b4484b96143881c37bbcb";
+const sampleSalutationId = "27356105cf9b4484b96143881c37bbcb";
 
 describe("endpoints", () => {
   describe("getProductEndpoint", () => {
@@ -261,6 +265,20 @@ describe("endpoints", () => {
     it("should return navigation endpoint", async () => {
       const result = getNavigationEndpoint();
       expect(result).toEqual("/vsf/navigation");
+    });
+  });
+
+  describe("getContextCountryItemEndpoint", () => {
+    it("should return country item endpoint", async () => {
+      const result = getContextCountryItemEndpoint(sampleCountryId);
+      expect(result).toEqual(`/country/${sampleCountryId}`);
+    });
+  });
+
+  describe("getContextSalutationItemEndpoint", () => {
+    it("should return salutation item endpoint", async () => {
+      const result = getContextSalutationItemEndpoint(sampleSalutationId);
+      expect(result).toEqual(`/salutation/${sampleSalutationId}`);
     });
   });
 });
