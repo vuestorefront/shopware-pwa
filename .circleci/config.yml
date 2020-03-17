@@ -27,6 +27,7 @@ jobs:
     executor: win/default
     working_directory: ~/shopware-pwa
     steps:
+      - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
