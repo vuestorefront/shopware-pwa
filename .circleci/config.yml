@@ -24,6 +24,8 @@ jobs:
           command: yarn test:coverage --w 2
       - coveralls/upload
   test:
+    requires:
+      - build
     executor: win/default
     working_directory: ~/shopware-pwa
     steps:
@@ -41,6 +43,4 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - test:
-        requires:
-          - build
+      - test
