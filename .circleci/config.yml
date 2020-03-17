@@ -31,8 +31,11 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
-          name: test
-          command: yarn && yarn test:coverage --w 2
+          name: install
+          command: yarn
+      - run:
+          name: coverage
+          command: yarn test:coverage --w 2
 
 workflows:
   version: 2
