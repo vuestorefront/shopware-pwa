@@ -1,13 +1,15 @@
 <template>
   <div class="layout">
     <TopNavigation />
-    <SwPluginTopNavigation />
-    <SfBreadcrumbs
-      v-show="getBreadcrumbs.length > 0"
-      :breadcrumbs="getBreadcrumbs"
-      class="sw-breadcrumbs"
-      @click="redirectTo"
-    />
+    <div class="layout__top-navigation">
+      <SfBreadcrumbs
+        v-show="getBreadcrumbs.length > 0"
+        :breadcrumbs="getBreadcrumbs"
+        class="sw-breadcrumbs"
+        @click="redirectTo"
+      />
+      <SwPluginTopNavigation />
+    </div>
     <nuxt />
     <SwCart />
     <SwBottomNavigation class="layout__bottom-navigation" />
@@ -146,6 +148,15 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
+
+  &__top-navigation {
+    display: flex;
+    flex-direction: column;
+    @include for-desktop {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
 
   &__bottom-navigation {
     @include for-desktop() {
