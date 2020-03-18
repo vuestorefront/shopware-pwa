@@ -105,6 +105,19 @@ export interface UseProductListing {
 export const useProductListing: (initialProducts?: Product[]) => UseProductListing;
 
 // @alpha (undocumented)
+export interface UseProductSearch {
+    // (undocumented)
+    [x: string]: any;
+    // (undocumented)
+    error: Ref<any>;
+    // (undocumented)
+    loading: Ref<boolean>;
+}
+
+// @alpha (undocumented)
+export const useProductSearch: () => UseProductSearch;
+
+// @alpha (undocumented)
 export interface UseSalutations {
     // (undocumented)
     error: Ref<any>;

@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
   coveralls: coveralls/coveralls@1.0.4
-  win: circleci/windows@2.2.0
+  # win: circleci/windows@2.2.0
 
 jobs:
   build:
@@ -23,23 +23,23 @@ jobs:
           name: test
           command: yarn test:coverage --w 2
       - coveralls/upload
-  test:
-    executor: win/default
-    working_directory: ~/shopware-pwa
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-      - run:
-          name: install dependencies
-          command: yarn --frozen-lockfile
-      - run:
-          name: test
-          command: yarn test --w 2
+  # test:
+  #   executor: win/default
+  #   working_directory: ~/shopware-pwa
+  #   steps:
+  #     - checkout
+  #     - restore_cache:
+  #         key: dependency-cache-{{ checksum "yarn.lock" }}
+  #     - run:
+  #         name: install dependencies
+  #         command: yarn --frozen-lockfile
+  #     - run:
+  #         name: test
+  #         command: yarn test --w 2
 
 workflows:
   version: 2
   build-test:
     jobs:
       - build
-      - test
+      # - test

@@ -23,6 +23,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       author: "Vue Storefront",
       pm: "yarn",
       ui: "none",
+      language: "js",
       server: "none",
       features: ["axios", "pwa"],
       linter: ["prettier", "lintStaged"],
