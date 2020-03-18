@@ -52,10 +52,6 @@ export default {
       cmsPage
     }
   },
-  data() {
-    return {
-    }
-  },
   computed: {
     getComponent() {
       return this.page && getComponentBy(this.page.resourceType);
