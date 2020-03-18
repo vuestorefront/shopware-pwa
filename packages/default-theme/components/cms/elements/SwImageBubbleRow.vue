@@ -6,7 +6,7 @@
 
 <script>
 import SwImage from "./SwImage";
-import helpers from '@shopware-pwa/default-theme/helpers'
+import { setContentOrder } from "../cmsNameMapper";
 import { reactive } from "@vue/composition-api";
 
 export default {
@@ -21,7 +21,7 @@ export default {
     }
   },
   setup(props) {
-    const slots = reactive(helpers.setContentOrder(props.content))
+    const slots = reactive(setContentOrder(props.content))
     return {slots}
   }
 };

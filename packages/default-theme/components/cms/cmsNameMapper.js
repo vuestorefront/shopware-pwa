@@ -24,3 +24,22 @@ export function getComponentBy(content) {
       `@shopware-pwa/default-theme/components/cms/elements/${componentName}`
     )
 }
+
+export const setContentOrder = content => {
+  const newContent = JSON.parse(JSON.stringify(content))
+  const slotsArr = []
+  newContent.slots.forEach(slot => {
+    switch (slot.slot) {
+      case 'left':
+        slotsArr[0] = slot
+        break
+      case 'right':
+        slotsArr[2] = slot
+        break
+      default:
+        slotsArr[1] = slot
+    }
+  })
+  newContent.slots = slotsArr
+  return newContent
+}

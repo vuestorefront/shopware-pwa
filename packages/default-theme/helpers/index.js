@@ -14,27 +14,7 @@ const formatPrice = (
 const formatDate = (date, format = `DD-MM-YYYY H:m:s`) =>
   dayjs(date).format(format)
 
-const setContentOrder = content => {
-  const newContent = JSON.parse(JSON.stringify(content))
-  const slotsArr = []
-  newContent.slots.forEach(slot => {
-    switch (slot.slot) {
-      case 'left':
-        slotsArr[0] = slot
-        break
-      case 'right':
-        slotsArr[2] = slot
-        break
-      default:
-        slotsArr[1] = slot
-    }
-  })
-  newContent.slots = slotsArr
-  return newContent
-}
-
 export default {
   formatPrice,
-  formatDate,
-  setContentOrder
+  formatDate
 }
