@@ -12,6 +12,7 @@ export const apiService = axios.create({
 
 export function reloadConfiguration() {
   apiService.defaults.baseURL = config.endpoint;
+  apiService.defaults.timeout = config.timeout;
   apiService.defaults.headers.common["sw-access-key"] = config.accessToken;
   if (config.contextToken) {
     apiService.defaults.headers.common["sw-context-token"] =

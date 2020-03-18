@@ -32,10 +32,10 @@ const formats = args.formats || args.f;
 const devOnly = args.devOnly || args.d;
 const prodOnly = !devOnly && (args.prodOnly || args.p);
 const isRelease = args.release;
-const buildTypes = args.t || args.types || isRelease;
+const isCIRun = !!args.ci;
+const buildTypes = true; // args.t || args.types || isRelease || isCIRun; -> for now build always with types
 const buildAllMatching = args.all || args.a;
 const lean = args.lean || args.l;
-const isCIRun = !!args.ci;
 const commit = execa.sync("git", ["rev-parse", "HEAD"]).stdout.slice(0, 7);
 
 run();

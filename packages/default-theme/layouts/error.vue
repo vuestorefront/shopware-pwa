@@ -16,9 +16,10 @@ import { SfHeading, SfButton, SfDivider, SfIcon } from '@storefront-ui/vue'
 
 const customMessageDictionary = {
   404: "We can't find what you are looking for. Are you lost?",
-  500: 'Oops, something went terribly wrong :(',
+  408: "The API is taking to long to respond",
+  500: "Oops, something went terribly wrong :(",
   502: "Server couldn't complete your request. Please try again in few seconds.",
-  503: 'Server is really busy right now'
+  503: "Server is really busy right now"
 }
 
 const getMessageForCode = code => customMessageDictionary[code]

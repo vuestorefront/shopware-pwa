@@ -1,4 +1,6 @@
 import { Module } from "@nuxt/types";
+/* istanbul ignore next */
+import "./interfaces";
 import { NuxtModuleOptions } from "./interfaces";
 /* istanbul ignore next */
 import { runModule } from "./module";

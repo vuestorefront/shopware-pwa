@@ -136,6 +136,7 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
   ::v-deep &__wrapper {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   &__list {
@@ -227,5 +228,6 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
 ::v-deep .sf-loader {
   width: 100%;
   display: flex;
+  justify-content: center;
 }
 </style>

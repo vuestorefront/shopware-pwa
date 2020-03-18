@@ -42,8 +42,8 @@ describe("apiInterceptors", () => {
         // Fail test if above expression doesn't throw anything.
         expect("didn't throw an error").toEqual("should throw an error");
       } catch (e) {
-        expect(e.statusCode).toEqual(undefined);
-        expect(e.message).toEqual(undefined);
+        expect(e.statusCode).toEqual(500);
+        expect(e.message).toEqual("Internal server error");
       }
     });
     it("should throw an error with no message if errors array is null", async () => {
@@ -169,6 +169,16 @@ describe("apiInterceptors", () => {
       } catch (e) {
         expect(e.statusCode).toEqual(500);
         expect(e.message).toBe("Internal server error");
+      }
+    });
+    it("should recognize the timeout rejection in axios specific case (timeout in config reached)", async () => {
+      try {
+        await errorInterceptor({ message: "timeout of 5ms" } as any);
+        // Fail test if above expression doesn't throw anything.
+        expect("didn't throw an error").toEqual("should throw an error");
+      } catch (e) {
+        expect(e.statusCode).toEqual(408);
+        expect(e.message).toBe("timeout of 5ms");
       }
     });
   });
