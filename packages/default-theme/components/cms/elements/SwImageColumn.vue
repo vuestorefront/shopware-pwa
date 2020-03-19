@@ -1,6 +1,6 @@
 <template>
   <div class="sw-image-column">
-    <SwImage v-for="image in slots.slots" :key="image.id" :content="image"/>
+    <SwImage v-for="image in slots.slots" :key="image.id" :content="image" class="sw-image--boxed" :rounded="true"/>
   </div>
 </template>
 
@@ -40,12 +40,8 @@ export default {
     justify-content: space-around;
   }
 }
-::v-deep .sf-image {
-  margin: var(--spacer-medium);
-  flex: 1;
-  & img {
-    object-fit: cover;
-  }
 
+.sw-image--boxed {
+  margin: var(--spacer-medium);
 }
 </style>

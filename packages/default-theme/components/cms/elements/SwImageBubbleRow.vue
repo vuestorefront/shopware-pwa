@@ -1,6 +1,6 @@
 <template>
   <div class="sw-image-bubble-row">
-    <SwImage v-for="image in slots.slots" :key="image.id" :content="image"/>
+    <SwImage v-for="image in slots.slots" :key="image.id" :content="image" :rounded="true" width="300" height="300"/>
   </div>
 </template>
 
@@ -39,15 +39,5 @@ export default {
     flex-direction: row;
     justify-content: space-around;
   }
-}
-::v-deep .sf-image {
-  border-radius: 50%;
-  margin: var(--spacer-small);
-  & img {
-    height: 300px;
-    width: 300px;
-    object-fit: cover;
-  }
-
 }
 </style>

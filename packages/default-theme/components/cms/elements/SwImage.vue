@@ -1,6 +1,6 @@
 <template>
   <div class="sw-image">
-    <SfImage :src="imgUrl" :title="title" :alt="alt" :lazy="lazyLoad" />
+    <SfImage :src="imgUrl" :title="title" :alt="alt" :lazy="lazyLoad" :class="{'sw-image--rounded': rounded}" :height="height" :width="height"/>
   </div>
 </template>
 
@@ -17,6 +17,18 @@ export default {
     content: {
       type: Object,
       default: () => ({})
+    },
+    rounded: {
+      type: Boolean,
+      default: false
+    },
+    width: {
+      type: [String, Number],
+      default: undefined
+    },
+    height: {
+      type: [String, Number],
+      default: undefined
     }
   },
   computed: {
@@ -44,5 +56,8 @@ export default {
   position: relative;
   display: flex;
   justify-content: center;
+  &--rounded {
+    border-radius: 100%;
+  }
 }
 </style>
