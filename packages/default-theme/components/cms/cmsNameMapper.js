@@ -8,10 +8,11 @@ const slotsMap = {
   'product-listing': 'SwProductListingSlot',
   'category-navigation': 'SwCategoryNavigationSlot', // waiting for navigation hydration, and domething wrong with accordion
   'sidebar-filter': 'SwCategorySidebarFilter',
-  'image-bubble-row': 'SwImageBubbleRow'
+  'image-bubble-row': 'SwImageBubbleRow',
+  'image-two-column': 'SwImageColumn'
 }
 
-const excludedSlots = ['image-bubble-row']
+const excludedSlots = ['image-bubble-row', 'image-two-column']
 
 export function getComponentBy(content) {
   if (!content) return
@@ -28,16 +29,17 @@ export function getComponentBy(content) {
 export const setContentOrder = content => {
   const newContent = JSON.parse(JSON.stringify(content))
   const slotsArr = []
+  const slotsArrLength = newContent.slots.length
   newContent.slots.forEach(slot => {
     switch (slot.slot) {
       case 'left':
         slotsArr[0] = slot
         break
       case 'right':
-        slotsArr[2] = slot
+        slotsArr[slotsArrLength - 1] = slot
         break
       default:
-        slotsArr[1] = slot
+        slotsArr[slotsArrLength - 2] = slot
     }
   })
   newContent.slots = slotsArr
