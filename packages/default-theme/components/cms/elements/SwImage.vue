@@ -45,8 +45,4 @@ export default {
   display: flex;
   justify-content: center;
 }
-
-::v-deep .sf-image__img {
-  width: 100%;
-}
 </style>
