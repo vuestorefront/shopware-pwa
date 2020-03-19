@@ -69,6 +69,7 @@ import PersonalDetails from '@shopware-pwa/default-theme/components/checkout/Per
 import ReviewOrder from '@shopware-pwa/default-theme/components/checkout/ReviewOrder'
 import Shipping from '@shopware-pwa/default-theme/components/checkout/Shipping'
 import checkoutMiddleware from "@shopware-pwa/default-theme/middleware/checkout"
+import { useUser } from '@shopware-pwa/composables'
 
 export default {
   name: 'Checkout',
@@ -224,6 +225,12 @@ export default {
         }
       ]
     }
+  },
+  asyncData: async (context) => {
+    const { isLoggedIn } = useUser();
+    // set current step to 3 (checkout's review) for logged in users, leave the first step otherwise
+    // TODO: create the global checkout's step map in format: 'review => 3, personalDetails => 0, etc'.
+    return { currentStep: isLoggedIn && isLoggedIn.value && 3 || 0 }
   },
   methods: {
     updateStep(next) {
