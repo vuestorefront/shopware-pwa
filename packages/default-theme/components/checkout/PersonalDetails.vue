@@ -54,6 +54,7 @@
           >Continue to shipping</SfButton
         >
         <SfButton
+          @click="toggleLoginModal()"
           class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary"
           >or log in to your account</SfButton
         >
@@ -82,6 +83,10 @@
         >Ok</SfButton
       >
     </SfModal>
+    <SwLoginModal
+      :is-open="isLoginModalOpen"
+      @close="isLoginModalOpen = false"
+    />
   </div>
 </template>
 <script>
@@ -93,6 +98,11 @@ import {
   SfModal,
   SfCharacteristic
 } from '@storefront-ui/vue'
+
+import { useUserLoginModal } from '@shopware-pwa/composables'
+
+import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
+
 export default {
   name: 'PersonalDetails',
   components: {
@@ -101,7 +111,8 @@ export default {
     SfButton,
     SfHeading,
     SfModal,
-    SfCharacteristic
+    SfCharacteristic,
+    SwLoginModal
   },
   props: {
     order: {
@@ -117,12 +128,19 @@ export default {
       password: '',
       createAccount: false,
       accountBenefits: false,
+      isLoginModalOpen: false,
       characteristics: [
         { description: 'Faster checkout', icon: 'clock' },
         { description: 'Full rewards program benefits', icon: 'rewards' },
         { description: 'Earn credits with every purchase', icon: 'credits' },
         { description: 'Manage your wishliste', icon: 'heart' }
       ]
+    }
+  },
+  setup() {
+    const { toggleModal: toggleLoginModal } = useUserLoginModal()
+    return {
+      toggleLoginModal
     }
   },
   watch: {
