@@ -1,15 +1,13 @@
 <template>
   <div class="layout">
     <TopNavigation />
-    <div class="layout__top-navigation">
-      <SfBreadcrumbs
-        v-show="getBreadcrumbs.length > 0"
-        :breadcrumbs="getBreadcrumbs"
-        class="sw-breadcrumbs"
-        @click="redirectTo"
-      />
-      <SwPluginTopNavigation />
-    </div>
+    <SwPluginTopNavigation />
+    <SfBreadcrumbs
+      v-show="getBreadcrumbs.length > 0"
+      :breadcrumbs="getBreadcrumbs"
+      class="sw-breadcrumbs"
+      @click="redirectTo"
+    />
     <nuxt />
     <SwCart />
     <SwBottomNavigation class="layout__bottom-navigation" />
@@ -149,15 +147,6 @@ body {
   display: flex;
   flex-direction: column;
 
-  &__top-navigation {
-    display: flex;
-    flex-direction: column;
-    @include for-desktop {
-      flex-direction: row;
-      justify-content: space-between;
-    }
-  }
-
   &__bottom-navigation {
     @include for-desktop() {
       display: none;
@@ -166,7 +155,7 @@ body {
 }
 
 .sw-breadcrumbs {
-  padding: var(--spacer-big) var(--spacer-extra-big) var(--spacer-extra-big);
+  padding: 0 var(--spacer-extra-big) var(--spacer-extra-big) var(--spacer-extra-big);
 }
 
 /* Delete firefox outline */
