@@ -137,8 +137,7 @@ import {
   SfAlert
 } from '@storefront-ui/vue'
 
-import Vue from 'vue'
-import vuelidate, { validationMixin } from 'vuelidate'
+import { validationMixin } from 'vuelidate'
 import {
   required,
   requiredIf,
@@ -156,8 +155,6 @@ import {
   useCountries,
   useUserLoginModal
 } from '@shopware-pwa/composables'
-
-Vue.use(vuelidate)
 
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 
