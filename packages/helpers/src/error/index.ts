@@ -5,9 +5,9 @@ import { ShopwareError } from "@shopware-pwa/commons/interfaces/errors/ApiError"
  */
 export function getMessagesFromErrorsArray(
   errors: ShopwareError[]
-): String[] | undefined {
-  if (!errors || !Array.isArray(errors) || !errors.length) {
-    return;
+): string[] {
+  if (!errors?.length || !Array.isArray(errors)) {
+    return [];
   }
   // return a message only if detail and pointer propery is provided in upcoming ShopwareError
   return errors

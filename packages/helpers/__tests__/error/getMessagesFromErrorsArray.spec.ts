@@ -3,11 +3,11 @@ import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers";
 describe("Shopware helpers - getMessagesFromErrorsArray", () => {
   it("should return an undefined (falsy) if no errors provided", () => {
     const result = getMessagesFromErrorsArray(undefined as any);
-    expect(result).toEqual(undefined);
+    expect(result).toEqual([]);
   });
   it("should return an undefined (falsy) if no errors provided - empty array", () => {
     const result = getMessagesFromErrorsArray([] as any);
-    expect(result).toEqual(undefined);
+    expect(result).toEqual([]);
   });
   it("should return the array of strings based on ShopawreError detail property.", () => {
     const result = getMessagesFromErrorsArray([
