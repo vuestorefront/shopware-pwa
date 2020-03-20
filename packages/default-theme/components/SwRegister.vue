@@ -194,11 +194,11 @@ export default {
       }
     },
     getErrorMessage() {
-      if (userError)
+      if (this.userError)
         return 'Cannot create a new account, the user may already exist'
-      if (salutationsError)
+      if (this.salutationsError)
         return "Couldn't fetch available salutations, please contact the administration."
-      if (countriesError)
+      if (this.countriesError)
         return "Couldn't fetch available countries, please contact the administration."
     }
   },
