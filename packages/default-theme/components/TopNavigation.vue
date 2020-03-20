@@ -136,8 +136,8 @@ export default {
 @import '~@storefront-ui/vue/styles.scss';
 
 .top-navigation {
+  margin-bottom: var(--spacer-medium);
   @include for-desktop {
-    margin-bottom: var(--spacer-medium);
 
     .sf-header {
       display: flex;
