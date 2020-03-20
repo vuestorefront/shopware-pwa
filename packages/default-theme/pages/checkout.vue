@@ -4,10 +4,7 @@
       <div class="checkout__main">
         <SfSteps :active="currentStep" @change="updateStep($event)">
           <SfStep name="Personal Details">
-            <PersonalDetails
-              :order="order"
-              @update:order="updateOrder($event)"
-            />
+            <PersonalDetails :order="order" @proceed:shipping="proceed()" />
           </SfStep>
           <SfStep name="Shipping">
             <Shipping
@@ -68,7 +65,8 @@ import Payment from '@shopware-pwa/default-theme/components/checkout/Payment'
 import PersonalDetails from '@shopware-pwa/default-theme/components/checkout/PersonalDetails'
 import ReviewOrder from '@shopware-pwa/default-theme/components/checkout/ReviewOrder'
 import Shipping from '@shopware-pwa/default-theme/components/checkout/Shipping'
-import checkoutMiddleware from "@shopware-pwa/default-theme/middleware/checkout"
+import checkoutMiddleware from '@shopware-pwa/default-theme/middleware/checkout'
+import { useUser } from '@shopware-pwa/composables'
 
 export default {
   name: 'Checkout',
@@ -225,12 +223,21 @@ export default {
       ]
     }
   },
+  asyncData: async (context) => {
+    const { isLoggedIn } = useUser();
+    // set current step to 3 (checkout's review) for logged in users, leave the first step otherwise
+    // TODO: create the global checkout's step map in format: 'review => 3, personalDetails => 0, etc'.
+    return { currentStep: isLoggedIn && isLoggedIn.value && 3 || 0 }
+  },
   methods: {
     updateStep(next) {
       // prevent to move next by SfStep header
       if (next < this.currentStep) {
         this.currentStep = next
       }
+    },
+    proceed() {
+      this.currentStep++
     },
     updateOrder(order, next = true) {
       this.order = { ...this.order, ...order }
