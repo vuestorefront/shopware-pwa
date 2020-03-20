@@ -1,66 +1,38 @@
 <template>
-  <SfTable class="sf-table--bordered table desktop-only">
+  <SfTable class="sf-table--bordered table">
+    <h4 class="table__heading mobile-only">Order items</h4>
     <SfTableHeading class="table__row">
       <SfTableHeader class="table__header table__image">Item</SfTableHeader>
       <SfTableHeader
         v-for="tableHeader in tableHeaders"
         :key="tableHeader"
         class="table__header"
-        >{{ tableHeader }}</SfTableHeader
       >
+        {{ tableHeader }}
+      </SfTableHeader>
       <SfTableHeader class="table__action"></SfTableHeader>
     </SfTableHeading>
-    <SfTableRow
-      v-for="(product, index) in cartItems"
-      :key="index"
-      class="table__row"
-    >
-      <SfTableData class="table__image">
-        <SfImage :src="product.cover.url" />
-      </SfTableData>
-      <SfTableData class="table__data table__data--left">
-        <div class="product-title">{{ product.label }}</div>
-        <div class="product-sku">{{ product.productNumber }}</div>
-      </SfTableData>
-      <SfTableData class="table__data">{{ product.quantity }}</SfTableData>
-      <SfTableData class="table__data">
-        <SfPrice
-          :regular="formatFrontPrice(product.price.totalPrice)"
-          class="product-price"
-        />
-      </SfTableData>
-      <SfTableData class="table__action">
-        <SfIcon
-          icon="cross"
-          size="xxs"
-          color="#BEBFC4"
-          role="button"
-          class="button"
-          @click="removeProduct(product)"
-        />
-      </SfTableData>
-    </SfTableRow>
+    <OrderItem v-for="item in cartItems" :product="item" :key="item.id" />
   </SfTable>
 </template>
 <script>
 import { useCart } from '@shopware-pwa/composables'
-import helpers from '@shopware-pwa/default-theme/helpers'
+import OrderItem from './OrderItem'
 
 import {
   SfTable,
   SfCheckbox,
   SfImage,
   SfIcon,
-  SfPrice
+  SfPrice,
+  SfQuantitySelector
 } from '@storefront-ui/vue'
 export default {
   name: 'BillingAddress',
   components: {
     SfTable,
     SfCheckbox,
-    SfImage,
-    SfIcon,
-    SfPrice
+    OrderItem
   },
   data() {
     return {
@@ -68,50 +40,84 @@ export default {
     }
   },
   setup() {
-    const {
-      cartItems,
-      removeProduct
-    } = useCart()
+    const { cartItems, removeProduct } = useCart()
     return {
       cartItems,
       removeProduct
     }
-  },
-  methods: {
-    formatFrontPrice(price) {
-      return helpers.formatPrice(price)
-    }
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~@storefront-ui/vue/styles';
 
 .table {
   margin-bottom: var(--spacer-big);
+  &__row {
+    @include for-mobile {
+      flex: 1;
+      margin: unset;
+    }
+  }
+
+  &__heading {
+    margin-bottom: 20px;
+  }
+
+  &__header:nth-child(even) {
+    order: unset;
+  }
+
   &__header {
     font-size: var(--font-size-regular-desktop);
     font-weight: var(--body-font-weight-primary);
     @include for-desktop {
       text-align: center;
     }
+    @include for-mobile {
+      flex: 1;
+      margin: unset;
+    }
   }
+
+  &__data:nth-child(even) {
+    order: unset;
+  }
+
   &__data {
     font-size: var(--font-size-small-desktop);
     text-align: center;
+
+    @include for-mobile {
+      flex: 1;
+      align-items: center;
+      text-align: unset;
+    }
+  }
+  &__quantity {
+    .sf-input {
+      margin: auto;
+      @include for-mobile {
+        margin: unset;
+        text-align: unset;
+      }
+    }
   }
   &__image {
-    @include for-desktop {
-      flex: 0 0 5.125rem;
-    }
+    flex: 0 0 5.125rem;
   }
   &__action {
-    @include for-desktop {
-      flex: 0 0 2.5rem;
-    }
     display: flex;
     align-items: center;
     justify-content: flex-end;
+
+    @include for-mobile {
+      flex: 0 0 0.5rem;
+    }
+
+    @include for-desktop {
+      flex: 0 0 2.5rem;
+    }
   }
 }
 </style>
