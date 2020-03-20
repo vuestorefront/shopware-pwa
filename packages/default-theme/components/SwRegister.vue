@@ -281,6 +281,12 @@ export default {
   }
 }
 
+.sw-register {
+  &__alert {
+    margin: var(--spacer-medium) 0;
+  }
+}
+
 .form {
   &__input {
     margin-bottom: var(--spacer-big);
