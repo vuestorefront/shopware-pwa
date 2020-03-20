@@ -137,7 +137,6 @@ import {
   SfAlert
 } from '@storefront-ui/vue'
 
-import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 import Vue from 'vue'
 import vuelidate, { validationMixin } from 'vuelidate'
 import {
@@ -159,6 +158,8 @@ import {
 } from '@shopware-pwa/composables'
 
 Vue.use(vuelidate)
+
+import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 
 export default {
   name: 'PersonalDetails',

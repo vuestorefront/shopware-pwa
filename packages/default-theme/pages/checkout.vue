@@ -65,7 +65,7 @@ import Payment from '@shopware-pwa/default-theme/components/checkout/Payment'
 import PersonalDetails from '@shopware-pwa/default-theme/components/checkout/PersonalDetails'
 import ReviewOrder from '@shopware-pwa/default-theme/components/checkout/ReviewOrder'
 import Shipping from '@shopware-pwa/default-theme/components/checkout/Shipping'
-import checkoutMiddleware from '@shopware-pwa/default-theme/middleware/checkout'
+import checkoutMiddleware from "@shopware-pwa/default-theme/middleware/checkout"
 import { useUser } from '@shopware-pwa/composables'
 
 export default {

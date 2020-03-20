@@ -12,6 +12,7 @@ import { Product } from '@shopware-pwa/commons/interfaces/models/content/product
 import { PropertyGroupOption } from '@shopware-pwa/commons/interfaces/models/content/property/PropertyGroupOption';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
+import { ShopwareError } from '@shopware-pwa/commons/interfaces/errors/ApiError';
 import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { UiMediaGalleryItem as UiMediaGalleryItem_2 } from '@shopware-pwa/helpers';
 import { UiProductOption as UiProductOption_2 } from '@shopware-pwa/helpers';
@@ -70,6 +71,9 @@ export function getCmsSections(content: CmsPage): CmsSection[];
 
 // @alpha (undocumented)
 export const getFilterSearchCriteria: (selectedFilters: any) => any[];
+
+// @public
+export function getMessagesFromErrorsArray(errors: ShopwareError[]): string[];
 
 // Warning: (ae-forgotten-export) The symbol "NavigationRoute" needs to be exported by the entry point index.d.ts
 //
