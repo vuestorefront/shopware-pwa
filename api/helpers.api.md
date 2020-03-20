@@ -73,7 +73,7 @@ export function getCmsSections(content: CmsPage): CmsSection[];
 export const getFilterSearchCriteria: (selectedFilters: any) => any[];
 
 // @public
-export function getMessagesFromErrorsArray(errors: ShopwareError[]): String[] | undefined;
+export function getMessagesFromErrorsArray(errors: ShopwareError[]): string[];
 
 // Warning: (ae-forgotten-export) The symbol "NavigationRoute" needs to be exported by the entry point index.d.ts
 //
