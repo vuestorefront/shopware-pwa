@@ -254,6 +254,7 @@ export default {
         this.customer.billingAddress.salutationId = value
       }
     }
+
   },
   methods: {
     async toShipping() {
@@ -298,6 +299,11 @@ export default {
       ({ name }) => name === 'Poland'
     )
     this.customer.billingAddress.countryId = pickedCountry && pickedCountry.id
+
+    // select "not specified" salutation (works for EN) as default salutation
+    await this.fetchSalutations();
+    const defaultSalutation = this.getMappedSalutations.find(({id, name}) => name == 'Not specified')
+    this.customer.salutationId = defaultSalutation && defaultSalutation.id
   },
   // TODO: move all the rules globally
   validations: {
