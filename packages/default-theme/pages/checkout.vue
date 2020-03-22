@@ -4,10 +4,7 @@
       <div class="checkout__main">
         <SfSteps :active="currentStep" @change="updateStep($event)">
           <SfStep name="Personal Details">
-            <PersonalDetails
-              :order="order"
-              @update:order="updateOrder($event)"
-            />
+            <PersonalDetails :order="order" @proceed:shipping="proceed()" />
           </SfStep>
           <SfStep name="Shipping">
             <Shipping
@@ -238,6 +235,9 @@ export default {
       if (next < this.currentStep) {
         this.currentStep = next
       }
+    },
+    proceed() {
+      this.currentStep++
     },
     updateOrder(order, next = true) {
       this.order = { ...this.order, ...order }
