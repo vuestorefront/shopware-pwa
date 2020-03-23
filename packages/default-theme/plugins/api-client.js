@@ -10,7 +10,7 @@ export default ({ app, store }) => {
    * Setup Shopware API client
    */
   setup({
-    endpoint: 'https://shopware-2.vuestorefront.io/sales-channel-api/v1',
+    endpoint: 'https://shopware-2.vuestorefront.io/store-api/v1',
     accessToken: 'SWSCMUDKAKHSRXPJEHNOSNHYAG',
     contextToken
   })
