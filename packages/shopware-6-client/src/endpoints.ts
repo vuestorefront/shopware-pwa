@@ -102,5 +102,5 @@ export const getNewsletterSubscribeEndpoint = () => `/newsletter/subscribe`;
 
 export const getNewsletterUnsubscribeEndpoint = () => `/newsletter/unsubscribe`;
 
-export const getPageResolverEndpoint = () => `/vsf/page`;
-export const getNavigationEndpoint = () => `/vsf/navigation`;
+export const getPageResolverEndpoint = () => `/pwa/page`;
+export const getNavigationEndpoint = () => `/pwa/navigation`;

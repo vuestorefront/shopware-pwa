@@ -260,7 +260,7 @@ describe("endpoints", () => {
   describe("getNavigationEndpoint", () => {
     it("should return navigation endpoint", async () => {
       const result = getNavigationEndpoint();
-      expect(result).toEqual("/vsf/navigation");
+      expect(result).toEqual("/pwa/navigation");
     });
   });
 });
