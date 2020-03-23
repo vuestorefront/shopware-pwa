@@ -1,18 +1,18 @@
 <template>
   <div class="sw-image-bubble-row">
-    <SwImage v-for="image in slots.slots" :key="image.id" :content="image" :rounded="true" width="300" height="300"/>
+    <SwImageRounded v-for="image in slots.slots" :key="image.id" :content="image" :rounded="true"/>
   </div>
 </template>
 
 <script>
-import SwImage from "./SwImage";
+import SwImageRounded from "./SwImageRounded";
 import { setContentOrder } from "../cmsNameMapper";
 import { reactive } from "@vue/composition-api";
 
 export default {
   name: 'SwImageBubbleRow',
   components: {
-    SwImage,
+    SwImageRounded,
   },
   props: {
     content: {

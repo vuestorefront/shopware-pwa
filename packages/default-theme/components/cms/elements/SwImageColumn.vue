@@ -1,13 +1,13 @@
 <template>
   <div class="sw-image-column">
-    <SwImage v-for="image in slots.slots" :key="image.id" :content="image" class="sw-image--boxed" :rounded="true"/>
+    <SwImage v-for="image in slots.slots" :key="image.id" :content="image" :class="{'sw-image--boxed': !isCover}"/>
   </div>
 </template>
 
 <script>
 import SwImage from "./SwImage";
 import { setContentOrder } from "../cmsNameMapper";
-import { reactive } from "@vue/composition-api";
+import { reactive, computed } from "@vue/composition-api";
 
 export default {
   name: 'SwImageColumn',
@@ -22,7 +22,8 @@ export default {
   },
   setup(props) {
     const slots = reactive(setContentOrder(props.content))
-    return {slots}
+    const isCover = computed(() => props?.content?.type.includes('cover'))
+    return {slots, isCover}
   }
 };
 </script>
@@ -38,6 +39,7 @@ export default {
   @include for-desktop {
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
   }
 }
 

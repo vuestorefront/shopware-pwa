@@ -5,6 +5,7 @@
 ```ts
 
 import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
+import { CmsSlot } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { CustomerAddressParam } from '@shopware-pwa/shopware-6-client';
@@ -70,6 +71,19 @@ export interface UseCountries {
 
 // @alpha (undocumented)
 export const useCountries: () => UseCountries;
+
+// @public (undocumented)
+export interface UseImageProps {
+    // (undocumented)
+    getAlt: Ref<Readonly<any>>;
+    // (undocumented)
+    getImgUrl: Ref<Readonly<any>>;
+    // (undocumented)
+    getTitle: Ref<Readonly<any>>;
+}
+
+// @public (undocumented)
+export const useImageProps: (content: CmsSlot) => UseImageProps;
 
 // @alpha (undocumented)
 export const useNavigation: () => any;
