@@ -248,8 +248,7 @@ module.exports = (toolbox: GluegunToolbox) => {
         template: "shopware-pwa.config.js",
         target: `shopware-pwa.config.js`,
         props: {
-          shopwareEndpoint:
-            "https://shopware-2.vuestorefront.io/sales-channel-api/v1",
+          shopwareEndpoint: "https://shopware-2.vuestorefront.io/store-api/v1",
           shopwareAccessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG"
         }
       });
