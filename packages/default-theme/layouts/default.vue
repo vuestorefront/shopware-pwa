@@ -155,7 +155,7 @@ body {
 }
 
 .sw-breadcrumbs {
-  padding: var(--spacer-big) var(--spacer-extra-big) var(--spacer-extra-big);
+  padding: 0 var(--spacer-extra-big) var(--spacer-extra-big) var(--spacer-extra-big);
 }
 
 /* Delete firefox outline */
