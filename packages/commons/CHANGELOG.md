@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.3](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/commons@0.1.0-alpha.2...@shopware-pwa/commons@0.1.0-alpha.3) (2020-03-24)
+
+
+### Features
+
+* **commons:** describe Order interface ([#533](https://github.com/DivanteLtd/shopware-pwa/issues/533)) ([eef6062](https://github.com/DivanteLtd/shopware-pwa/commit/eef6062917c396564e90456371ad64dbf162014b))
+
+
+
+
+
 # [0.1.0-alpha.2](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/commons@0.1.0-alpha.1...@shopware-pwa/commons@0.1.0-alpha.2) (2020-03-09)
 
 **Note:** Version bump only for package @shopware-pwa/commons

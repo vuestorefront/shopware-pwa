@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.3](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/helpers@0.1.0-alpha.2...@shopware-pwa/helpers@0.1.0-alpha.3) (2020-03-24)
+
+
+### Features
+
+* **helpers:** extract messages from API error in case of 400 ([#518](https://github.com/DivanteLtd/shopware-pwa/issues/518)) ([38b431e](https://github.com/DivanteLtd/shopware-pwa/commit/38b431e8b1c7e6ee69b463e7c5c05d6f371d7a4b))
+
+
+
+
+
 # [0.1.0-alpha.2](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/helpers@0.1.0-alpha.1...@shopware-pwa/helpers@0.1.0-alpha.2) (2020-03-09)
 
 **Note:** Version bump only for package @shopware-pwa/helpers

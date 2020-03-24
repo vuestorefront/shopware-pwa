@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.3](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/default-theme@0.1.0-alpha.2...@shopware-pwa/default-theme@0.1.0-alpha.3) (2020-03-24)
+
+
+### Bug Fixes
+
+* ios footer fix ([#473](https://github.com/DivanteLtd/shopware-pwa/issues/473)) ([136e875](https://github.com/DivanteLtd/shopware-pwa/commit/136e875555ef85cd815cf816d60c1bfc019d6656))
+* **default-theme:** change way of displaying breadcrumbs and plugin top navigation ([#511](https://github.com/DivanteLtd/shopware-pwa/issues/511)) ([8e1885f](https://github.com/DivanteLtd/shopware-pwa/commit/8e1885ff10af0c456cbd7192c37c6d4d5e6077ad))
+* **default-theme:** registration notifications ([#532](https://github.com/DivanteLtd/shopware-pwa/issues/532)) ([5cbbab8](https://github.com/DivanteLtd/shopware-pwa/commit/5cbbab83a0b860725fcbaa9971ed8bd92d3d2369))
+* **theme:** 502 on composition-api error ([#478](https://github.com/DivanteLtd/shopware-pwa/issues/478)) ([2e99da6](https://github.com/DivanteLtd/shopware-pwa/commit/2e99da6910f268466d642b11dacab0921b277375))
+* **theme:** fix positioning of result text ([#477](https://github.com/DivanteLtd/shopware-pwa/issues/477)) ([33134df](https://github.com/DivanteLtd/shopware-pwa/commit/33134df0870ba9aae8eb879d26e513ade5c8da98))
+* **theme:** fox wrong product tile size ([#474](https://github.com/DivanteLtd/shopware-pwa/issues/474)) ([3c0547f](https://github.com/DivanteLtd/shopware-pwa/commit/3c0547f6447c7d5601f3c18ee09387e304ee060c))
+
+
+### Features
+
+* **client:** set default timout for the requests ([#486](https://github.com/DivanteLtd/shopware-pwa/issues/486)) ([4fff87a](https://github.com/DivanteLtd/shopware-pwa/commit/4fff87ad5ab2a4047dac6de55c6357689938e5c0))
+* **cms:** cms three columns element ([#500](https://github.com/DivanteLtd/shopware-pwa/issues/500)) ([003d2cb](https://github.com/DivanteLtd/shopware-pwa/commit/003d2cbb9525ae6b9b291c97903dae7e1c4f4666))
+* **composables:** basic search [#466](https://github.com/DivanteLtd/shopware-pwa/issues/466) ([#488](https://github.com/DivanteLtd/shopware-pwa/issues/488)) ([0142899](https://github.com/DivanteLtd/shopware-pwa/commit/0142899bf980474e66875f9d3606b89768ed6aad))
+* **default-theme:** allow to log in being on first checkout step. ([#521](https://github.com/DivanteLtd/shopware-pwa/issues/521)) ([9e9cfd7](https://github.com/DivanteLtd/shopware-pwa/commit/9e9cfd7015388ffdcef22ec12ebf7a5adc34e7c7))
+* **default-theme:** change items quantity on checkout's review. ([#510](https://github.com/DivanteLtd/shopware-pwa/issues/510)) ([7dbe183](https://github.com/DivanteLtd/shopware-pwa/commit/7dbe1831767dc42ffaacd3052907230fd828d412))
+* **default-theme:** force review step for logged in users on checkout ([#523](https://github.com/DivanteLtd/shopware-pwa/issues/523)) ([9717973](https://github.com/DivanteLtd/shopware-pwa/commit/97179739272a1a3a742fda164cf73269e044b8df))
+* **default-theme:** register a customer on first checkout's step ([#519](https://github.com/DivanteLtd/shopware-pwa/issues/519)) ([0297504](https://github.com/DivanteLtd/shopware-pwa/commit/029750440161e8c9c2141692ecbfaa8661629942))
+
+
+
+
+
 # [0.1.0-alpha.2](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/default-theme@0.1.0-alpha.1...@shopware-pwa/default-theme@0.1.0-alpha.2) (2020-03-09)
 
 
