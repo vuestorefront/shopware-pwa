@@ -3,7 +3,7 @@
     <div class="checkout">
       <div class="checkout__main">
         <SfSteps :active="currentStep" @change="updateStep($event)">
-          <SfStep name="Personal Details">
+          <SfStep name="Personal Details" v-if="isGuestOrder">
             <PersonalDetails :order="order" @proceed:shipping="proceed()" />
           </SfStep>
           <SfStep name="Shipping">
@@ -65,12 +65,13 @@ import Payment from '@shopware-pwa/default-theme/components/checkout/Payment'
 import PersonalDetails from '@shopware-pwa/default-theme/components/checkout/PersonalDetails'
 import ReviewOrder from '@shopware-pwa/default-theme/components/checkout/ReviewOrder'
 import Shipping from '@shopware-pwa/default-theme/components/checkout/Shipping'
-import checkoutMiddleware from "@shopware-pwa/default-theme/middleware/checkout"
+// import checkoutMiddleware from "@shopware-pwa/default-theme/middleware/checkout"
 import { useUser } from '@shopware-pwa/composables'
+import { ref, computed } from '@vue/composition-api'
 
 export default {
   name: 'Checkout',
-  middleware: checkoutMiddleware,
+  // middleware: checkoutMiddleware,
   components: {
     SfSteps,
     PersonalDetails,
@@ -79,6 +80,16 @@ export default {
     ReviewOrder,
     OrderSummary,
     OrderReview
+  },
+  setup () {
+    // console.error('SETUP', x)
+    // console.error('SETUPy', y)
+    // console.error('SETUP CS', c)
+    // currentStep = ref(0)
+
+    return {
+      // currentStep
+    }
   },
   data() {
     return {
@@ -225,16 +236,18 @@ export default {
   },
   asyncData: async (context) => {
     const { isLoggedIn } = useUser();
+    // const currentStep = ref(0)
+    const isGuestOrder = computed(() => !!isLoggedIn)
     // set current step to 3 (checkout's review) for logged in users, leave the first step otherwise
     // TODO: create the global checkout's step map in format: 'review => 3, personalDetails => 0, etc'.
-    return { currentStep: isLoggedIn && isLoggedIn.value && 3 || 0 }
+    return { currentStep: isLoggedIn && isLoggedIn.value && 3 || 0, isGuestOrder }
   },
   methods: {
     updateStep(next) {
       // prevent to move next by SfStep header
-      if (next < this.currentStep) {
+      // if (next < this.currentStep) {
         this.currentStep = next
-      }
+      // }
     },
     proceed() {
       this.currentStep++

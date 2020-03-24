@@ -15,6 +15,8 @@ interface ShippingAddress extends BillingAddress {
   lastName: string;
 }
 
+// TODO change name
+// TODO cleanup addresses
 export interface CreateGuestOrderParams {
   email: string;
   salutationId: string;

@@ -8,6 +8,7 @@ interface ProductOptions {
 /**
  * @alpha
  */
+// -> getAttributes
 export function getProductOptions({
   product
 }: {
