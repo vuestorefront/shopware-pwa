@@ -5,15 +5,15 @@
 </template>
 
 <script>
- import {
-   SfImage
- } from "@storefront-ui/vue";
+import {
+  SfImage
+} from "@storefront-ui/vue";
 
 import {useImageProps} from '@shopware-pwa/composables'
 
 export default {
   components: {
-     SfImage
+    SfImage
   },
   props: {
     content: {

@@ -8,9 +8,18 @@ export interface UseImageProps {
 }
 
 export const useImageProps = (content: CmsSlot): UseImageProps => {
-  const getImgUrl = computed(() => content?.data?.media?.url);
-  const getAlt = computed(() => content?.data?.media?.alt);
-  const getTitle = computed(() => content?.data?.media?.title);
+  const getImgUrl = computed(() => {
+    const imgUrl = content.data?.media?.url;
+    return imgUrl || "";
+  });
+  const getAlt = computed(() => {
+    const alt = content.data?.media?.alt;
+    return alt || "";
+  });
+  const getTitle = computed(() => {
+    const title = content.data?.media?.title;
+    return title || "";
+  });
 
   return {
     getImgUrl,
