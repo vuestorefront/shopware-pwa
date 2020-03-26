@@ -59,7 +59,7 @@
     "coveralls": "^3.0.9",
     "execa": "^4.0.0",
     "faker": "^4.1.0",
-    "fs-extra": "^8.1.0",
+    "fs-extra": "^9.0.0",
     "fs-jetpack": "^2.2.3",
     "husky": "^4.2.3",
     "jest": "^25.1.0",

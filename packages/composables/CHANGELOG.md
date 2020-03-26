@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.3](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/composables@0.1.0-alpha.2...@shopware-pwa/composables@0.1.0-alpha.3) (2020-03-24)
+
+
+### Bug Fixes
+
+* **theme:** 502 on composition-api error ([#478](https://github.com/DivanteLtd/shopware-pwa/issues/478)) ([2e99da6](https://github.com/DivanteLtd/shopware-pwa/commit/2e99da6910f268466d642b11dacab0921b277375))
+* proper error object passing ([#479](https://github.com/DivanteLtd/shopware-pwa/issues/479)) ([8353492](https://github.com/DivanteLtd/shopware-pwa/commit/83534921cff96c2fac4b9aafafbbee0e9521bdb4))
+
+
+### Features
+
+* **client:** basic search of products [#465](https://github.com/DivanteLtd/shopware-pwa/issues/465) ([#484](https://github.com/DivanteLtd/shopware-pwa/issues/484)) ([29cee73](https://github.com/DivanteLtd/shopware-pwa/commit/29cee73154741446212036e62e29d5731822753f))
+* **composables:** basic search [#466](https://github.com/DivanteLtd/shopware-pwa/issues/466) ([#488](https://github.com/DivanteLtd/shopware-pwa/issues/488)) ([0142899](https://github.com/DivanteLtd/shopware-pwa/commit/0142899bf980474e66875f9d3606b89768ed6aad))
+
+
+
+
+
 # [0.1.0-alpha.2](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/composables@0.1.0-alpha.1...@shopware-pwa/composables@0.1.0-alpha.2) (2020-03-09)
 
 
