@@ -16,11 +16,22 @@ export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
   if (!shopwarePwaConfig?.shopwareEndpoint)
     console.error("shopwareEndpoint in shopware-pwa.config.js is missing");
 
+  // Warning about wrong API address
+  if (
+    shopwarePwaConfig?.shopwareEndpoint &&
+    shopwarePwaConfig.shopwareEndpoint.includes("/sales-channel-api/v1")
+  ) {
+    console.error(
+      "Please change your shopwareEndpoint in shopware-pwa.config.js to contain just domain, example: https://github.com/DivanteLtd/shopware-pwa#running-shopware-pwa-on-custom-shopware-instance"
+    );
+  }
+
   moduleObject.addPlugin({
     fileName: "api-client.js",
     src: path.join(__dirname, "..", "plugins", "api-client.js"),
     options: {
-      shopwareEndpoint: shopwarePwaConfig?.shopwareEndpoint,
+      shopwareEndpoint:
+        shopwarePwaConfig?.shopwareEndpoint + "/sales-channel-api/v1",
       shopwareAccessToken: shopwarePwaConfig?.shopwareAccessToken
     }
   });
