@@ -73,8 +73,16 @@ describe("Composables - useUser", () => {
         await refreshUser();
         expect(user.value).toEqual({ id: "123" });
       });
+      it("should not set user on getCustomer request's rejection", async () => {
+        mockedApiClient.getCustomer.mockRejectedValueOnce({
+          message: "Some error"
+        } as any);
+        const { user, refreshUser } = useUser();
+        await refreshUser();
+        expect(user.value).toBeNull();
+        expect(stateUser.value).toBeNull();
+      });
     });
-
     describe("login", () => {
       it("should not login user without credentials", async () => {
         mockedApiClient.login.mockRejectedValueOnce(
