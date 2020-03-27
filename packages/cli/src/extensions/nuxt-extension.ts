@@ -236,21 +236,18 @@ module.exports = (toolbox: GluegunToolbox) => {
   /**
    * Generates template files using ejs.
    * - api-client.js
-   *
-   * TODO:
-   * - update template file to use params
-   * - add params based on config file
    */
-  toolbox.generateTemplateFiles = async () => {
+  toolbox.generateTemplateFiles = async (
+    { shopwareEndpoint, shopwareAccessToken } = toolbox.inputParameters
+  ) => {
     const isConfigGenerated = exists("shopware-pwa.config.js");
     if (!isConfigGenerated) {
       await toolbox.template.generate({
         template: "shopware-pwa.config.js",
         target: `shopware-pwa.config.js`,
         props: {
-          shopwareEndpoint:
-            "https://shopware-2.vuestorefront.io/sales-channel-api/v1",
-          shopwareAccessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG"
+          shopwareEndpoint,
+          shopwareAccessToken
         }
       });
     }
