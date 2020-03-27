@@ -11,8 +11,46 @@ module.exports = {
       print: { info, warning, success, spin }
     } = toolbox;
 
+    // when --ci parameter is provided, then we skip questions for default values
+    const isCIrun = toolbox.parameters.options.ci;
+
     if (!toolbox.isProduction) {
       warning(`You're running CLI in development mode!`);
+    }
+
+    const inputParameters = toolbox.inputParameters;
+
+    if (!isCIrun) {
+      const shopwareEndpointQuestion = {
+        type: "input",
+        name: "shopwareEndpoint",
+        message: "Shopware instance address:",
+        initial: inputParameters.shopwareEndpoint
+      };
+      const shopwareAccessTokenQuestion = {
+        type: "input",
+        name: "shopwareAccessToken",
+        message: "Shopware instance access token:",
+        initial: inputParameters.shopwareAccessToken
+      };
+      const shopwareUsernameQuestion = !inputParameters.username && {
+        type: "input",
+        name: "username",
+        message: "Shopware admin username:"
+      };
+      const shopwarePasswordQuestion = !inputParameters.password && {
+        type: "password",
+        name: "password",
+        message: "Shopware admin password:"
+      };
+
+      const answers = await toolbox.prompt.ask([
+        shopwareEndpointQuestion,
+        shopwareAccessTokenQuestion,
+        shopwareUsernameQuestion,
+        shopwarePasswordQuestion
+      ]);
+      Object.assign(inputParameters, answers);
     }
 
     await toolbox.generateNuxtProject();
@@ -48,12 +86,8 @@ module.exports = {
     await Promise.all(copyPromisses);
     generateFilesSpinner.succeed();
 
-    let params = "";
-    if (toolbox.parameters.options.u && toolbox.parameters.options.p) {
-      params = `-u ${toolbox.parameters.options.u} -p ${toolbox.parameters.options.p}`;
-    }
     // generate plugin files
-    await toolbox.runtime.run(`generate ${params}`);
+    await toolbox.runtime.run(`generate`, inputParameters);
 
     const updateDependenciesSpinner = spin("Updating dependencies");
     // Loading additional packages

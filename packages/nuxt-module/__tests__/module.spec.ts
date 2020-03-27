@@ -13,6 +13,7 @@ jest.mock("../src/layouts");
 jest.mock("../src/components");
 jest.mock("../src/pages");
 const mockedUtils = utils as jest.Mocked<typeof utils>;
+const consoleErrorSpy = jest.spyOn(console, "error");
 
 describe("nuxt-module - ShopwarePWAModule runModule", () => {
   let webpackConfig: WebpackConfig = {
@@ -50,6 +51,8 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
       }
     };
     methods = [];
+
+    consoleErrorSpy.mockImplementationOnce(() => {});
   });
 
   it("should invoke config load", () => {
@@ -92,10 +95,23 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
       fileName: "api-client.js",
       options: {
         shopwareAccessToken: "mockedToken",
-        shopwareEndpoint: "mockedEndpoint"
+        shopwareEndpoint: "mockedEndpoint/sales-channel-api/v1"
       },
       src: pathForApiClientPlugin
     });
+  });
+
+  it("should show console error when shopwareEndpoint contains api endpoint instead of just domain", () => {
+    jest.resetAllMocks();
+
+    mockedUtils.loadConfig.mockReturnValueOnce({
+      shopwareEndpoint: "mockedEndpoint/sales-channel-api/v1",
+      shopwareAccessToken: "mockedToken"
+    });
+    runModule(moduleObject, {});
+    expect(consoleErrorSpy).toBeCalledWith(
+      "Please change your shopwareEndpoint in shopware-pwa.config.js to contain just domain, example: https://github.com/DivanteLtd/shopware-pwa#running-shopware-pwa-on-custom-shopware-instance"
+    );
   });
 
   it("should add cookies plugin", () => {
