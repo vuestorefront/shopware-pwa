@@ -131,8 +131,12 @@ export const useUser = (): UseUser => {
   };
 
   const refreshUser = async (): Promise<void> => {
-    const user = await getCustomer();
-    vuexStore.commit("SET_USER", user);
+    try {
+      const user = await getCustomer();
+      vuexStore.commit("SET_USER", user);
+    } catch (e) {
+      console.error("useUser:refreshUser:getCustomer", e);
+    }
   };
 
   const loadOrders = async (): Promise<void> => {

@@ -100,10 +100,13 @@ export default {
       'associations[children][associations][options][associations][group][]': true,
       'associations[children][associations][seoUrls][]': true
     }
-
-    const { loadAssociations, product } = useProduct(this.page.product)
-    this.productWithAssociations = product
-    loadAssociations(associations)
+    try {
+      const { loadAssociations, product } = useProduct(this.page.product)
+      this.productWithAssociations = product
+      await loadAssociations(associations)
+    } catch (e) {
+      console.error('ProductView:mounted:loadAssociations', e)
+    }
   }
 }
 </script>
