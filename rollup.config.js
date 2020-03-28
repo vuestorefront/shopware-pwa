@@ -1,14 +1,13 @@
-import fs from "fs";
 import path from "path";
 import ts from "rollup-plugin-typescript2";
 import replace from "@rollup/plugin-replace";
 import json from "@rollup/plugin-json";
-import lernaJson from "./lerna.json";
 
 if (!process.env.TARGET) {
   throw new Error("TARGET package must be specified via --environment flag.");
 }
 
+const masterVersion = require("./packages/nuxt-module/package.json").version;
 const packagesDir = path.resolve(__dirname, "packages");
 const packageDir = path.resolve(packagesDir, process.env.TARGET);
 const name = path.basename(packageDir);
@@ -16,21 +15,12 @@ const resolve = p => path.resolve(packageDir, p);
 const pkg = require(resolve(`package.json`));
 const packageOptions = pkg.buildOptions || {};
 
-const knownExternals = fs.readdirSync(packagesDir).filter(p => {
-  return p !== "@shopware-pwa/shared";
-});
-
 // ensure TS checks only once for each build
 let hasTSChecked = false;
 
 const outputConfigs = {
   "esm-bundler": {
     file: resolve(`dist/${name}.esm-bundler.js`),
-    format: `es`
-  },
-  // main "vue" package only
-  "esm-bundler-runtime": {
-    file: resolve(`dist/${name}.runtime.esm-bundler.js`),
     format: `es`
   },
   cjs: {
@@ -60,7 +50,7 @@ if (process.env.NODE_ENV === "production") {
     if (format === "cjs" && packageOptions.prod !== false) {
       packageConfigs.push(createProductionConfig(format));
     }
-    if (format === "global" || format === "esm") {
+    if (/global/.test(format) || format === "esm") {
       packageConfigs.push(createMinifiedConfig(format));
     }
   });
@@ -74,27 +64,21 @@ function createConfig(format, output, plugins = []) {
     process.exit(1);
   }
 
+  output.sourcemap = !!process.env.SOURCE_MAP;
   output.externalLiveBindings = false;
 
   const isProductionBuild =
     process.env.__DEV__ === "false" || /\.prod\.js$/.test(output.file);
-  const isGlobalBuild = format === "global";
+  const isGlobalBuild = /global/.test(format);
   const isRawESMBuild = format === "esm";
+  const isNodeBuild = format === "cjs";
   const isBundlerESMBuild = /esm-bundler/.test(format);
-  const isRuntimeCompileBuild = /vue\./.test(output.file);
 
   if (isGlobalBuild) {
     output.name = packageOptions.name;
   }
 
-  output.globals = {
-    axios: "axios"
-  };
-
-  const shouldEmitDeclarations =
-    process.env.TYPES != null &&
-    process.env.NODE_ENV === "production" &&
-    !hasTSChecked;
+  const shouldEmitDeclarations = process.env.TYPES != null && !hasTSChecked;
 
   const tsPlugin = ts({
     check: process.env.NODE_ENV === "production" && !hasTSChecked,
@@ -102,6 +86,7 @@ function createConfig(format, output, plugins = []) {
     cacheRoot: path.resolve(__dirname, "node_modules/.rts2_cache"),
     tsconfigOverride: {
       compilerOptions: {
+        sourceMap: output.sourcemap,
         declaration: shouldEmitDeclarations,
         declarationMap: shouldEmitDeclarations
       },
@@ -113,20 +98,28 @@ function createConfig(format, output, plugins = []) {
   // during a single build.
   hasTSChecked = true;
 
-  const entryFile =
-    format === "esm-bundler-runtime" ? `src/runtime.ts` : `src/index.ts`;
+  const entryFile = /runtime$/.test(format) ? `src/runtime.ts` : `src/index.ts`;
+
+  const external =
+    isGlobalBuild || isRawESMBuild
+      ? []
+      : [
+          ...Object.keys(pkg.dependencies || {}),
+          ...Object.keys(pkg.peerDependencies || {})
+        ];
+
+  const nodePlugins = packageOptions.enableNonBrowserBranches
+    ? [
+        require("@rollup/plugin-node-resolve")(),
+        require("@rollup/plugin-commonjs")()
+      ]
+    : [];
 
   return {
     input: resolve(entryFile),
     // Global and Browser ESM builds inlines everything so that they can be
     // used alone.
-    external:
-      isGlobalBuild || isRawESMBuild
-        ? []
-        : knownExternals.concat(
-            Object.keys(pkg.dependencies || []),
-            Object.keys(pkg.peerDependencies || [])
-          ),
+    external,
     plugins: [
       json({
         namedExports: false
@@ -135,10 +128,13 @@ function createConfig(format, output, plugins = []) {
       createReplacePlugin(
         isProductionBuild,
         isBundlerESMBuild,
+        // isBrowserBuild?
         (isGlobalBuild || isRawESMBuild || isBundlerESMBuild) &&
           !packageOptions.enableNonBrowserBranches,
-        isRuntimeCompileBuild
+        isGlobalBuild,
+        isNodeBuild
       ),
+      ...nodePlugins,
       ...plugins
     ],
     output,
@@ -154,28 +150,26 @@ function createReplacePlugin(
   isProduction,
   isBundlerESMBuild,
   isBrowserBuild,
-  isRuntimeCompileBuild
+  isGlobalBuild,
+  isNodeBuild
 ) {
   const replacements = {
     __COMMIT__: `"${process.env.COMMIT}"`,
-    __VERSION__: `"${lernaJson.version}"`,
+    __VERSION__: `"${masterVersion}"`,
     __DEV__: isBundlerESMBuild
       ? // preserve to be handled by bundlers
         `(process.env.NODE_ENV !== 'production')`
       : // hard coded dev/prod builds
         !isProduction,
-    // this is only used during tests
-    __TEST__: isBundlerESMBuild ? `(process.env.NODE_ENV === 'test')` : false,
+    // this is only used during Vue's internal tests
+    __TEST__: false,
     // If the build is expected to run directly in the browser (global / esm builds)
     __BROWSER__: isBrowserBuild,
     // is targeting bundlers?
     __BUNDLER__: isBundlerESMBuild,
-    // support compile in browser?
-    __RUNTIME_COMPILE__: isRuntimeCompileBuild,
-    // support options?
-    // the lean build drops options related code with buildOptions.lean: true
-    __FEATURE_OPTIONS__: !packageOptions.lean && !process.env.LEAN,
-    __FEATURE_SUSPENSE__: true
+    __GLOBAL__: isGlobalBuild,
+    // is targeting Node (SSR)?
+    __NODE_JS__: isNodeBuild
   };
   // allow inline overrides like
   //__RUNTIME_COMPILE__=true yarn build runtime-core
@@ -199,12 +193,16 @@ function createMinifiedConfig(format) {
   return createConfig(
     format,
     {
-      file: resolve(`dist/${name}.${format}.prod.js`),
+      file: outputConfigs[format].file.replace(/\.js$/, ".prod.js"),
       format: outputConfigs[format].format
     },
     [
       terser({
-        module: /^esm/.test(format)
+        module: /^esm/.test(format),
+        compress: {
+          ecma: 2015,
+          pure_getters: true
+        }
       })
     ]
   );
