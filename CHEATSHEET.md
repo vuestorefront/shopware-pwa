@@ -1,4 +1,4 @@
-# Shopware PWA Setup Cheatsheet
+# Setup Cheatsheet
 
 This cheatsheet will give you an overview of the Shopware PWA project and how to set it up for development.
 
