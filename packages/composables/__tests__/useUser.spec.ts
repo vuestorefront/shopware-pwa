@@ -303,6 +303,72 @@ describe("Composables - useUser", () => {
       });
     });
 
+    describe("loadCountry", () => {
+      it("should invoke client getUserCountry method which return country object", async () => {
+        mockedApiClient.getUserCountry.mockResolvedValue([
+          {
+            name: "Poland",
+            id: "12345"
+          }
+        ] as any);
+        const { country, loadCountry, error } = useUser();
+        const userId = "123qwe";
+        await loadCountry(userId);
+        expect(mockedApiClient.getUserCountry).toBeCalledTimes(1);
+        expect(error.value).toBeFalsy();
+        expect(country.value).toStrictEqual([
+          {
+            name: "Poland",
+            id: "12345"
+          }
+        ]);
+      });
+
+      it("should invoke client getUserCountry method and assign error message if client request is rejected", async () => {
+        mockedApiClient.getUserCountry.mockRejectedValueOnce({
+          message: "Something went wrong..."
+        });
+        const { loadCountry, error } = useUser();
+        const salutationId = "123qwe";
+        await loadCountry(salutationId);
+        expect(mockedApiClient.getUserCountry).toBeCalledTimes(1);
+        expect(error.value).toBe("Something went wrong...");
+      });
+    });
+
+    describe("loadSalutation", () => {
+      it("should invoke client getUserSalutation method which return country object", async () => {
+        mockedApiClient.getUserSalutation.mockResolvedValue([
+          {
+            name: "Mrs.",
+            id: "12345"
+          }
+        ] as any);
+        const { salutation, loadSalutation, error } = useUser();
+        const salutationId = "123qwe";
+        await loadSalutation(salutationId);
+        expect(mockedApiClient.getUserSalutation).toBeCalledTimes(1);
+        expect(error.value).toBeFalsy();
+        expect(salutation.value).toStrictEqual([
+          {
+            name: "Mrs.",
+            id: "12345"
+          }
+        ]);
+      });
+
+      it("should invoke client getUserSalutation method and assign error message if client request is rejected", async () => {
+        mockedApiClient.getUserSalutation.mockRejectedValueOnce({
+          message: "Something went wrong..."
+        });
+        const { loadSalutation, error } = useUser();
+        const userId = "123qwe";
+        await loadSalutation(userId);
+        expect(mockedApiClient.getUserSalutation).toBeCalledTimes(1);
+        expect(error.value).toBe("Something went wrong...");
+      });
+    });
+
     describe("markAddressAsDefault", () => {
       it("should invoke client setDefaultCustomerBillingAddress method and return true on success", async () => {
         mockedApiClient.setDefaultCustomerBillingAddress.mockResolvedValue(

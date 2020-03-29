@@ -9,6 +9,8 @@ import {
   getCustomerOrders,
   getCustomerOrderDetails,
   getCustomerAddresses,
+  getUserCountry,
+  getUserSalutation,
   setDefaultCustomerBillingAddress,
   setDefaultCustomerShippingAddress,
   deleteCustomerAddress,
@@ -28,6 +30,8 @@ import {
 } from "@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress";
 import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
+import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
+import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
 
 /**
  * @alpha
@@ -47,11 +51,15 @@ export interface UseUser {
   loading: Ref<boolean>;
   error: Ref<any>;
   isLoggedIn: Ref<boolean>;
+  country: Ref<Country | null>;
+  salutation: Ref<Salutation | null>;
   refreshUser: () => Promise<void>;
   logout: () => Promise<void>;
   loadOrders: () => Promise<void>;
   getOrderDetails: (orderId: string) => Promise<Order>;
   loadAddresses: () => Promise<void>;
+  loadCountry: (countryId: string) => Promise<void>;
+  loadSalutation: (salutationId: string) => Promise<void>;
   addAddress: (params: CustomerAddressParam) => Promise<boolean>;
   deleteAddress: (addressId: string) => Promise<boolean>;
   updatePersonalInfo: (
@@ -79,6 +87,8 @@ export const useUser = (): UseUser => {
   const error: Ref<any> = ref(null);
   const orders: Ref<Order[] | null> = ref(null);
   const addresses: Ref<CustomerAddress[] | null> = ref(null);
+  const country: Ref<Country | null> = ref(null);
+  const salutation: Ref<Salutation | null> = ref(null);
   const user: any = computed(() => {
     return vuexStore.getters.getUser;
   });
@@ -151,6 +161,24 @@ export const useUser = (): UseUser => {
   const loadAddresses = async (): Promise<void> => {
     try {
       addresses.value = await getCustomerAddresses();
+    } catch (e) {
+      const err: ClientApiError = e;
+      error.value = err.message;
+    }
+  };
+
+  const loadCountry = async (userId: string): Promise<void> => {
+    try {
+      country.value = await getUserCountry(userId);
+    } catch (e) {
+      const err: ClientApiError = e;
+      error.value = err.message;
+    }
+  };
+
+  const loadSalutation = async (salutationId: string): Promise<void> => {
+    try {
+      salutation.value = await getUserSalutation(salutationId);
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
@@ -269,6 +297,10 @@ export const useUser = (): UseUser => {
     updatePersonalInfo,
     updatePassword,
     addAddress,
-    deleteAddress
+    deleteAddress,
+    loadSalutation,
+    salutation,
+    loadCountry,
+    country
   };
 };
