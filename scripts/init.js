@@ -13,7 +13,7 @@ const testProjectDir = path.join(rootDir, "test-project");
 async function run() {
   await jetpack.dir(testProjectDir);
 
-  await execa("../packages/cli/bin/shopware-pwa", ["init"], {
+  await execa("../packages/cli/bin/shopware-pwa", ["init", "--ci"], {
     stdio: "inherit",
     cwd: testProjectDir
   });

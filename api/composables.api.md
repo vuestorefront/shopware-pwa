@@ -5,6 +5,7 @@
 ```ts
 
 import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
+import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { CustomerAddressParam } from '@shopware-pwa/shopware-6-client';
@@ -15,6 +16,7 @@ import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { Ref } from '@vue/composition-api';
+import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 
 // @alpha (undocumented)
 export function getStore(): any;
@@ -139,6 +141,8 @@ export interface UseUser {
     // (undocumented)
     addresses: Ref<CustomerAddress[] | null>;
     // (undocumented)
+    country: Ref<Country | null>;
+    // (undocumented)
     deleteAddress: (addressId: string) => Promise<boolean>;
     // (undocumented)
     error: Ref<any>;
@@ -149,9 +153,13 @@ export interface UseUser {
     // (undocumented)
     loadAddresses: () => Promise<void>;
     // (undocumented)
+    loadCountry: (countryId: string) => Promise<void>;
+    // (undocumented)
     loading: Ref<boolean>;
     // (undocumented)
     loadOrders: () => Promise<void>;
+    // (undocumented)
+    loadSalutation: (salutationId: string) => Promise<void>;
     // (undocumented)
     login: ({ username, password }: {
         username?: string;
@@ -170,6 +178,8 @@ export interface UseUser {
     refreshUser: () => Promise<void>;
     // (undocumented)
     register: ({}: CustomerRegistrationParams) => Promise<boolean>;
+    // (undocumented)
+    salutation: Ref<Salutation | null>;
     // (undocumented)
     updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
     // (undocumented)

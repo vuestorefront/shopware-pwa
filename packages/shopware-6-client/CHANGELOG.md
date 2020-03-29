@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.3](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/shopware-6-client@0.1.0-alpha.2...@shopware-pwa/shopware-6-client@0.1.0-alpha.3) (2020-03-24)
+
+
+### Features
+
+* **client:** basic search of products [#465](https://github.com/DivanteLtd/shopware-pwa/issues/465) ([#484](https://github.com/DivanteLtd/shopware-pwa/issues/484)) ([29cee73](https://github.com/DivanteLtd/shopware-pwa/commit/29cee73154741446212036e62e29d5731822753f))
+* **client:** set default timout for the requests ([#486](https://github.com/DivanteLtd/shopware-pwa/issues/486)) ([4fff87a](https://github.com/DivanteLtd/shopware-pwa/commit/4fff87ad5ab2a4047dac6de55c6357689938e5c0))
+
+
+
+
+
 # [0.1.0-alpha.2](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/shopware-6-client@0.1.0-alpha.1...@shopware-pwa/shopware-6-client@0.1.0-alpha.2) (2020-03-09)
 
 **Note:** Version bump only for package @shopware-pwa/shopware-6-client

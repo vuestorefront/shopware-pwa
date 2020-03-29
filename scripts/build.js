@@ -27,15 +27,15 @@ const {
 } = require("./utils");
 
 const args = require("minimist")(process.argv.slice(2));
+const isCIRun = !!args.ci;
 const targets = args._;
 const formats = args.formats || args.f;
 const devOnly = args.devOnly || args.d;
 const prodOnly = !devOnly && (args.prodOnly || args.p);
+const sourceMap = args.sourcemap || args.s;
 const isRelease = args.release;
-const isCIRun = !!args.ci;
 const buildTypes = true; // args.t || args.types || isRelease || isCIRun; -> for now build always with types
 const buildAllMatching = args.all || args.a;
-const lean = args.lean || args.l;
 const commit = execa.sync("git", ["rev-parse", "HEAD"]).stdout.slice(0, 7);
 
 run();
@@ -101,7 +101,7 @@ async function build(target) {
         formats ? `FORMATS:${formats}` : ``,
         buildTypes ? `TYPES:true` : ``,
         prodOnly ? `PROD_ONLY:true` : ``,
-        lean ? `LEAN:true` : ``
+        sourceMap ? `SOURCE_MAP:true` : ``
       ]
         .filter(Boolean)
         .join(",")
@@ -122,12 +122,12 @@ async function build(target) {
     const extractorConfig = ExtractorConfig.loadFileAndPrepare(
       extractorConfigPath
     );
-    const extractorResult = Extractor.invoke(extractorConfig, {
+    const result = Extractor.invoke(extractorConfig, {
       localBuild: !isCIRun,
       showVerboseMessages: true
     });
 
-    if (extractorResult.succeeded) {
+    if (result.succeeded) {
       // concat additional d.ts to rolled-up dts (mostly for JSX)
       if (pkg.buildOptions && pkg.buildOptions.dts) {
         const dtsPath = path.resolve(pkgDir, pkg.types);
@@ -175,18 +175,23 @@ function checkAllSizes(targets) {
 
 function checkSize(target) {
   const pkgDir = path.resolve(`packages/${target}`);
-  const esmProdBuild = `${pkgDir}/dist/${target}.global.prod.js`;
-  if (fs.existsSync(esmProdBuild)) {
-    const file = fs.readFileSync(esmProdBuild);
-    const minSize = (file.length / 1024).toFixed(2) + "kb";
-    const gzipped = gzipSync(file);
-    const gzippedSize = (gzipped.length / 1024).toFixed(2) + "kb";
-    const compressed = compress(file);
-    const compressedSize = (compressed.length / 1024).toFixed(2) + "kb";
-    console.log(
-      `${chalk.gray(
-        chalk.bold(target)
-      )} min:${minSize} / gzip:${gzippedSize} / brotli:${compressedSize}`
-    );
+  checkFileSize(`${pkgDir}/dist/${target}.global.prod.js`);
+  checkFileSize(`${pkgDir}/dist/${target}.runtime.global.prod.js`);
+}
+
+function checkFileSize(filePath) {
+  if (!fs.existsSync(filePath)) {
+    return;
   }
+  const file = fs.readFileSync(filePath);
+  const minSize = (file.length / 1024).toFixed(2) + "kb";
+  const gzipped = gzipSync(file);
+  const gzippedSize = (gzipped.length / 1024).toFixed(2) + "kb";
+  const compressed = compress(file);
+  const compressedSize = (compressed.length / 1024).toFixed(2) + "kb";
+  console.log(
+    `${chalk.gray(
+      chalk.bold(path.basename(filePath))
+    )} min:${minSize} / gzip:${gzippedSize} / brotli:${compressedSize}`
+  );
 }
