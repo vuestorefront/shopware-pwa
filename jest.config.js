@@ -9,14 +9,17 @@ const UNIT_TEST_PATTERNS = [
   "<rootDir>/packages/**/__tests__/**/*spec.[jt]s?(x)"
 ];
 const E2E_TEST_PATTERNS = ["<rootDir>/packages/**/__e2e__/**/*spec.[jt]s?(x)"];
-
 module.exports = {
   preset: "ts-jest",
   globals: {
     __DEV__: true,
-    __VERSION__: lernaJson.version,
+    __TEST__: true,
+    __VERSION__: require("./packages/nuxt-module/package.json").version,
     __BROWSER__: false,
-    __JSDOM__: true,
+    __BUNDLER__: true,
+    __RUNTIME_COMPILE__: true,
+    __GLOBAL__: false,
+    __NODE_JS__: true,
     __FEATURE_OPTIONS__: true,
     __FEATURE_SUSPENSE__: true
   },
@@ -30,7 +33,7 @@ module.exports = {
     "!packages/cli/**",
     "!**/interfaces/**"
   ],
-  watchPathIgnorePatterns: ["/node_modules/"],
+  watchPathIgnorePatterns: ["/node_modules/", "/dist/", "/.git/"],
   modulePathIgnorePatterns: [".yalc"],
   moduleFileExtensions: ["ts", "tsx", "js", "json"],
   moduleNameMapper: {

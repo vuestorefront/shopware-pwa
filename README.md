@@ -83,7 +83,7 @@ Now you have complete ShopwarePWA project running locally.
 
 ```js
 module.exports = {
-  shopwareEndpoint: "https://shopware-2.vuestorefront.io/sales-channel-api/v1",
+  shopwareEndpoint: "https://shopware-2.vuestorefront.io",
   shopwareAccessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG"
 };
 ```
@@ -97,8 +97,10 @@ Read full instruction in `CHEATSHEET.md` file.
 If you already have some Shopware PWA plugins installed (like [HelloCody](https://github.com/elkmod/SwagHelloCody) plugin example), then you can generate plugin files
 
 ```bash
-shopware-pwa init -u YOUR_SHOPWARE_INSTANCE_ADMIN_USERNAME -p YOUR_SHOPWARE_INSTANCE_PASSWORD
+shopware-pwa init
 ```
+
+will ask you for username and password for shopware instance, to load installed plugins.
 
 ## Development and contribution
 

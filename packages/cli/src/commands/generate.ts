@@ -9,7 +9,8 @@ module.exports = {
     const {
       // parameters,
       template: { generate },
-      print: { success, spin, error }
+      print: { success, spin, error, warning },
+      inputParameters
     } = toolbox;
 
     // TODO move it somewhere for having single source
@@ -28,26 +29,28 @@ module.exports = {
       }
     });
 
-    if (!toolbox.parameters.options.u || !toolbox.parameters.options.p) {
-      error("Please provide -u and -p params for plugins authentication");
+    if (!inputParameters.username || !inputParameters.password) {
+      warning(
+        "Please provide --username and --password params for plugins authentication. You can safely ignore this warning if connecting to demo instance and if you don't need plugins :)"
+      );
       return;
     }
     try {
       const respo = await axios.post(
-        "https://shopware-2.vuestorefront.io/api/oauth/token",
+        `${inputParameters.shopwareEndpoint}/api/oauth/token`,
         {
           client_id: "administration",
           grant_type: "password",
           scopes: "write",
-          username: toolbox.parameters.options.u,
-          password: toolbox.parameters.options.p
+          username: inputParameters.username,
+          password: inputParameters.password
         }
       );
       // console.error("RESPO", respo);
       const token = respo.data.access_token;
       // console.error("token", token);
       const respo2 = await axios.post(
-        "https://shopware-2.vuestorefront.io/api/v1/_action/pwa/dump-bundles",
+        `${inputParameters.shopwareEndpoint}/api/v1/_action/pwa/dump-bundles`,
         null,
         {
           headers: {
@@ -58,7 +61,7 @@ module.exports = {
       const jsonConfigAddress = respo2.data.buildArtifact.config;
       const assetFileAddress = respo2.data.buildArtifact.asset;
       const respo3 = await axios.get(
-        "https://shopware-2.vuestorefront.io/" + jsonConfigAddress
+        `${inputParameters.shopwareEndpoint}/${jsonConfigAddress}`
       );
 
       await toolbox.filesystem.removeAsync(`.shopware-pwa/pwa-bundles.json`);
@@ -71,7 +74,7 @@ module.exports = {
         respo3.data
       );
 
-      const fileUrl = "https://shopware-2.vuestorefront.io/" + assetFileAddress;
+      const fileUrl = `${inputParameters.shopwareEndpoint}/${assetFileAddress}`;
 
       const request = require("request");
 
@@ -97,7 +100,13 @@ module.exports = {
       await testPromise();
       // console.error("respo4", respo4.data);
     } catch (e) {
-      console.error("ERROR", e.response);
+      if (e.response.status === 401) {
+        error(
+          `You provided bad cridentials for your shopware instance: ${inputParameters.shopwareEndpoint} - plugins will not be added`
+        );
+      } else {
+        console.error("ERROR", e.response);
+      }
       return;
     }
 

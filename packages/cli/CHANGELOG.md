@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.4](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/cli@0.1.0-alpha.3...@shopware-pwa/cli@0.1.0-alpha.4) (2020-03-27)
+
+
+### Bug Fixes
+
+* **cli:** load plugins from custom sw instance ([#544](https://github.com/DivanteLtd/shopware-pwa/issues/544)) ([64d20c2](https://github.com/DivanteLtd/shopware-pwa/commit/64d20c249dce5f1815e8127b1e5915ce6c0575f3))
+
+
+
+
+
+# [0.1.0-alpha.3](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/cli@0.1.0-alpha.2...@shopware-pwa/cli@0.1.0-alpha.3) (2020-03-24)
+
+
+### Bug Fixes
+
+* **workflow:** check for changes in public api on CI ([#496](https://github.com/DivanteLtd/shopware-pwa/issues/496)) ([8b91b59](https://github.com/DivanteLtd/shopware-pwa/commit/8b91b593a404a1dc8a694bb596c0134a5f7e2204))
+
+
+
+
+
 # [0.1.0-alpha.2](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/cli@0.1.0-alpha.1...@shopware-pwa/cli@0.1.0-alpha.2) (2020-03-09)
 
 
