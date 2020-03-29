@@ -33,6 +33,28 @@ async function updateContext(
 }
 
 /**
+ * Set the current session's shipping address to correspoding to id
+ * @throws ClientApiError
+ * @alpha
+ */
+export function setCurrentShippingAddress(
+  shippingAddressId: string
+): Promise<ContextTokenResponse> {
+  return updateContext({ shippingAddressId });
+}
+
+/**
+ * Set the current session's billing address to correspoding to id
+ * @throws ClientApiError
+ * @alpha
+ */
+export function setCurrentBillingAddress(
+  billingAddressId: string
+): Promise<ContextTokenResponse> {
+  return updateContext({ billingAddressId });
+}
+
+/**
  * @throws ClientApiError
  * @alpha
  */
