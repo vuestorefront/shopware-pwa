@@ -6,11 +6,11 @@ import { PropertyGroupOption } from "@shopware-pwa/commons/interfaces/models/con
  */
 export function getProductOption({
   product,
-  attribute
+  attribute,
 }: { product?: Product; attribute?: string } = {}):
   | PropertyGroupOption
   | undefined {
   return product?.options?.find(
-    option => option.group && option.group.name === attribute
+    (option) => option.group && option.group.name === attribute
   );
 }

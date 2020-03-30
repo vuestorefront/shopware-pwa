@@ -2,7 +2,7 @@ import { address, name, random } from "faker";
 import {
   createCustomerAddress,
   update,
-  config
+  config,
 } from "@shopware-pwa/shopware-6-client";
 import { getCustomerAddressEndpoint } from "../../../src/endpoints";
 import { apiService } from "../../../src/apiService";
@@ -18,7 +18,7 @@ describe("CustomerService - createCustomerAddress", () => {
     lastName: name.lastName(),
     zipcode: address.zipCode(),
     city: address.city(),
-    street: address.streetName()
+    street: address.streetName(),
   };
   let contextToken: string;
 
@@ -32,7 +32,7 @@ describe("CustomerService - createCustomerAddress", () => {
   });
   it("should return created address id", async () => {
     mockedAxios.post.mockResolvedValueOnce({
-      data: "2bbb89dfa4664bc581e80b37eaa80fb7"
+      data: "2bbb89dfa4664bc581e80b37eaa80fb7",
     });
     const result = await createCustomerAddress(newAddressData);
     expect(result).toEqual("2bbb89dfa4664bc581e80b37eaa80fb7");

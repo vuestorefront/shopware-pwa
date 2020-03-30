@@ -16,9 +16,9 @@ describe("CartService - removeCartItem", () => {
         data: {
           name: random.uuid(),
           token: random.uuid(),
-          lineItems: []
-        }
-      }
+          lineItems: [],
+        },
+      },
     });
 
     let lineItemId = "geawq90a5dab4206843d0vc3sa8wefdf";

@@ -13,9 +13,9 @@ describe("CategoryService - getCategory", () => {
       data: {
         data: {
           id: "3a64e872ca404522a2c5d43ebc751e6b",
-          products: null
-        }
-      }
+          products: null,
+        },
+      },
     });
     const categoryId = "3a64e872ca404522a2c5d43ebc751e6b";
     const result = await getCategory(categoryId);

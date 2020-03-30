@@ -16,5 +16,5 @@ export function getMessagesFromErrorsArray(errors: ShopwareError[]): string[] {
         source.pointer &&
         `${source.pointer.substring(1)}: ${detail}`
     )
-    .filter(message => message);
+    .filter((message) => message);
 }

@@ -21,7 +21,7 @@ describe("nuxt-module - getAllFiles", () => {
       join(__dirname, `/files_tests/file1.txt`),
       join(__dirname, `/files_tests/file2.txt`),
       join(__dirname, `/files_tests/nested/file1.txt`),
-      join(__dirname, `/files_tests/shopware-pwa.config.js`)
+      join(__dirname, `/files_tests/shopware-pwa.config.js`),
     ]);
   });
 
@@ -32,7 +32,7 @@ describe("nuxt-module - getAllFiles", () => {
       join(__dirname, `/files_tests/file1.txt`),
       join(__dirname, `/files_tests/file2.txt`),
       join(__dirname, `/files_tests/nested/file1.txt`),
-      join(__dirname, `/files_tests/shopware-pwa.config.js`)
+      join(__dirname, `/files_tests/shopware-pwa.config.js`),
     ]);
   });
 });

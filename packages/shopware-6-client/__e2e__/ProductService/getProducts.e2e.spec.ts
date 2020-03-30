@@ -9,7 +9,7 @@ describe("shopware-6-client - E2E - ProductService - getProducts", () => {
       "listingPrices",
       "categoryTree",
       "cover",
-      "childCount"
+      "childCount",
     ]);
     expect(result).toMatchSnapshot();
   });
@@ -17,14 +17,14 @@ describe("shopware-6-client - E2E - ProductService - getProducts", () => {
   it("should fetch products with limit", async () => {
     const pagination = {
       page: 1,
-      limit: PaginationLimit.FIVE
+      limit: PaginationLimit.FIVE,
     };
     const result = await getProducts({ pagination });
     deepChangeProperties(result, [
       "listingPrices",
       "categoryTree",
       "cover",
-      "childCount"
+      "childCount",
     ]);
     expect(result).toMatchSnapshot();
   });
@@ -32,18 +32,18 @@ describe("shopware-6-client - E2E - ProductService - getProducts", () => {
   it("should fetch products with limit and sorting", async () => {
     const pagination = {
       page: 1,
-      limit: PaginationLimit.FIVE
+      limit: PaginationLimit.FIVE,
     };
     const sort = {
       field: `name`,
-      desc: true
+      desc: true,
     };
     const result = await getProducts({ pagination, sort });
     deepChangeProperties(result, [
       "listingPrices",
       "categoryTree",
       "cover",
-      "childCount"
+      "childCount",
     ]);
     expect(result).toMatchSnapshot();
   });

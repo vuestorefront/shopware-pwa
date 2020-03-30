@@ -48,5 +48,5 @@ export function onConfigChange(fn: (context: ConfigChangedArgs) => void) {
   callbackMethods.push(fn);
 }
 function configChanged(): void {
-  callbackMethods.forEach(fn => fn({ config }));
+  callbackMethods.forEach((fn) => fn({ config }));
 }

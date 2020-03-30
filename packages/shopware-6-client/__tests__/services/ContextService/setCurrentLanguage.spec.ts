@@ -12,7 +12,7 @@ describe("ContextService - setCurrentLanguage with contextToken given", () => {
 
   it("should return context token", async () => {
     mockedAxios.patch.mockResolvedValueOnce({
-      data: { "sw-context-token": "NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6" }
+      data: { "sw-context-token": "NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6" },
     });
 
     let newLanguageId = "45f96f681f9d4834b29e9e15df3a7149";
@@ -21,7 +21,7 @@ describe("ContextService - setCurrentLanguage with contextToken given", () => {
 
     expect(mockedAxios.patch).toBeCalledTimes(1);
     expect(mockedAxios.patch).toBeCalledWith("/context", {
-      languageId: "45f96f681f9d4834b29e9e15df3a7149"
+      languageId: "45f96f681f9d4834b29e9e15df3a7149",
     });
 
     expect(result.contextToken).toEqual("NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6");
@@ -36,7 +36,7 @@ describe("ContextService - setCurrentLanguage without contextToken given", () =>
 
   it("should return context token", async () => {
     mockedAxios.patch.mockResolvedValueOnce({
-      data: { "sw-context-token": "NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6" }
+      data: { "sw-context-token": "NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6" },
     });
 
     let newLanguageId = "45f96f681f9d4834b29e9e15df3a7149";
@@ -45,7 +45,7 @@ describe("ContextService - setCurrentLanguage without contextToken given", () =>
 
     expect(mockedAxios.patch).toBeCalledTimes(1);
     expect(mockedAxios.patch).toBeCalledWith("/context", {
-      languageId: "45f96f681f9d4834b29e9e15df3a7149"
+      languageId: "45f96f681f9d4834b29e9e15df3a7149",
     });
 
     expect(result.contextToken).toEqual("NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6");

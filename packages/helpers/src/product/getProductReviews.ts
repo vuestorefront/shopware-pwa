@@ -5,7 +5,7 @@ import { UiProductReview } from "@shopware-pwa/helpers";
  * @alpha
  */
 export function getProductReviews({
-  product
+  product,
 }: { product?: Product } = {}): UiProductReview[] {
   if (!product || !product.productReviews) {
     return [];
@@ -17,7 +17,7 @@ export function getProductReviews({
       author: externalUser ? externalUser : customerId,
       date: createdAt,
       message: content,
-      rating: points
+      rating: points,
     })
   );
 }

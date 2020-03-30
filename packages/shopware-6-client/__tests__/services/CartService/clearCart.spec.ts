@@ -14,7 +14,7 @@ describe("CartService - clearCart", () => {
 
   it("should return a context token", async () => {
     mockedAxios.post.mockResolvedValueOnce({
-      data: { "sw-context-token": contextToken }
+      data: { "sw-context-token": contextToken },
     });
 
     const result = await clearCart();

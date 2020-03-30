@@ -32,9 +32,9 @@ describe("Composables - useNavigation", () => {
             { name: "Sports", route: { path: "sports/" } },
             {
               name: "Accessories & Others",
-              route: { path: "accessories-others/" }
-            }
-          ]
+              route: { path: "accessories-others/" },
+            },
+          ],
         } as any);
         const { routes, fetchRoutes } = useNavigation();
         await fetchRoutes();

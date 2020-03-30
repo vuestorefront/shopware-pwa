@@ -4,14 +4,14 @@ import { internet, random } from "faker";
 import {
   updatePassword,
   update,
-  config
+  config,
 } from "@shopware-pwa/shopware-6-client";
 
 const newPassword = internet.password(8);
 const credentials = {
   password: internet.password(8),
   newPassword: newPassword,
-  newPasswordConfirm: newPassword
+  newPasswordConfirm: newPassword,
 };
 
 jest.mock("../../../src/apiService");
@@ -36,7 +36,7 @@ describe("CustomerService - updatePassword", () => {
       updatePassword({
         password: credentials.password,
         newPassword: "!23",
-        newPasswordConfirm: "!23"
+        newPasswordConfirm: "!23",
       })
     ).rejects.toThrow("400 - password too short");
     expect(mockedAxios.patch).toBeCalledTimes(1);
@@ -45,7 +45,7 @@ describe("CustomerService - updatePassword", () => {
       {
         password: credentials.password,
         newPassword: "!23",
-        newPasswordConfirm: "!23"
+        newPasswordConfirm: "!23",
       }
     );
   });
@@ -58,7 +58,7 @@ describe("CustomerService - updatePassword", () => {
       updatePassword({
         password: credentials.password,
         newPassword: credentials.newPassword,
-        newPasswordConfirm: `${credentials.newPassword}_123`
+        newPasswordConfirm: `${credentials.newPassword}_123`,
       })
     ).rejects.toThrow("400 - new password confirmation does not match");
     expect(mockedAxios.patch).toBeCalledTimes(1);
@@ -67,7 +67,7 @@ describe("CustomerService - updatePassword", () => {
       {
         password: credentials.password,
         newPassword: credentials.newPassword,
-        newPasswordConfirm: `${credentials.newPassword}_123`
+        newPasswordConfirm: `${credentials.newPassword}_123`,
       }
     );
   });
@@ -77,7 +77,7 @@ describe("CustomerService - updatePassword", () => {
     const result = await updatePassword({
       password: credentials.password,
       newPassword: credentials.newPassword,
-      newPasswordConfirm: credentials.newPassword
+      newPasswordConfirm: credentials.newPassword,
     });
     expect(result).toBeFalsy();
     expect(mockedAxios.patch).toBeCalledTimes(1);
@@ -86,7 +86,7 @@ describe("CustomerService - updatePassword", () => {
       {
         password: credentials.password,
         newPassword: credentials.newPassword,
-        newPasswordConfirm: credentials.newPassword
+        newPasswordConfirm: credentials.newPassword,
       }
     );
   });

@@ -22,7 +22,7 @@ export function getNavigationRoutes(
         element.route.path.charAt(0) !== "/"
           ? `/${element.route.path}`
           : element.route.path,
-      children: element.children && getNavigationRoutes(element.children)
+      children: element.children && getNavigationRoutes(element.children),
     })
   );
 }

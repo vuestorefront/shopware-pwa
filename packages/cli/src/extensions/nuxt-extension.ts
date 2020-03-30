@@ -4,7 +4,7 @@ module.exports = (toolbox: GluegunToolbox) => {
   const {
     system: { run },
     print: { spin },
-    filesystem: { exists }
+    filesystem: { exists },
   } = toolbox;
 
   /**
@@ -29,7 +29,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       linter: ["prettier", "lintStaged"],
       test: "jest",
       mode: "universal",
-      devTools: []
+      devTools: [],
     };
     if (!isNuxtGenerated) {
       const nuxtGenerate = `npx --ignore-existing create-nuxt-app --answers "${JSON.stringify(
@@ -69,26 +69,26 @@ module.exports = (toolbox: GluegunToolbox) => {
 
     if (!nuxtThemePackage) throw new Error("Theme package not found!");
 
-    await toolbox.patching.update("package.json", config => {
+    await toolbox.patching.update("package.json", (config) => {
       config.scripts.lint = "prettier --write '*.{js,vue}'";
 
       config["lint-staged"] = {
-        "*.{js,vue}": "prettier"
+        "*.{js,vue}": "prettier",
       };
       config["husky"] = {
         hooks: {
-          "pre-commit": "lint-staged"
-        }
+          "pre-commit": "lint-staged",
+        },
       };
       if (nuxtThemePackage.dependencies) {
-        Object.keys(nuxtThemePackage.dependencies).forEach(packageName => {
+        Object.keys(nuxtThemePackage.dependencies).forEach((packageName) => {
           config.dependencies[packageName] =
             nuxtThemePackage.dependencies[packageName];
         });
       }
 
       if (nuxtThemePackage.devDependencies) {
-        Object.keys(nuxtThemePackage.devDependencies).forEach(packageName => {
+        Object.keys(nuxtThemePackage.devDependencies).forEach((packageName) => {
           config.devDependencies[packageName] =
             nuxtThemePackage.devDependencies[packageName];
         });
@@ -117,7 +117,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     // Add coreDevelopment flag
     await toolbox.patching.patch("nuxt.config.js", {
       insert: "const coreDevelopment = true\n",
-      before: "export default {"
+      before: "export default {",
     });
     // Add buildModules
     const VSFbuildModuleExist = await toolbox.patching.exists(
@@ -151,7 +151,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     ],
     '@shopware-pwa/nuxt-module',
     `,
-        after: "buildModules: ["
+        after: "buildModules: [",
       });
     }
     // Add coreJS
@@ -176,7 +176,7 @@ module.exports = (toolbox: GluegunToolbox) => {
         ]
       }
     },`,
-        after: "build: {"
+        after: "build: {",
       });
     }
     // extend webpack
@@ -196,7 +196,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       if (ctx.isClient && !ctx.isDev) {
         config.optimization.splitChunks.cacheGroups.commons.minChunks = 2
       }`,
-        after: /extend[ ]?\(config, ctx\)[ ]?{/
+        after: /extend[ ]?\(config, ctx\)[ ]?{/,
       });
     }
 
@@ -212,7 +212,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     port: 3000,
     host: '0.0.0.0'
   },`,
-        after: "mode: 'universal',"
+        after: "mode: 'universal',",
       });
     }
 
@@ -247,8 +247,8 @@ module.exports = (toolbox: GluegunToolbox) => {
         target: `shopware-pwa.config.js`,
         props: {
           shopwareEndpoint,
-          shopwareAccessToken
-        }
+          shopwareAccessToken,
+        },
       });
     }
 
@@ -257,7 +257,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       await toolbox.template.generate({
         template: "Dockerfile",
         target: `Dockerfile`,
-        props: {}
+        props: {},
       });
     }
   };
@@ -271,7 +271,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     );
   };
 
-  toolbox.watchThemeFolder = folderName => {
+  toolbox.watchThemeFolder = (folderName) => {
     const fs = require("fs");
     fs.watch(
       `${toolbox.defaultThemeLocation}/${folderName}`,

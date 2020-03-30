@@ -19,7 +19,7 @@ export function mapSalutations(salutations: Salutation[]): MappedSalutation[] {
   const mappedSalutations: MappedSalutation[] = salutations.map(
     (salutation: Salutation) => ({
       name: salutation.displayName ?? salutation.salutationKey,
-      id: salutation.id
+      id: salutation.id,
     })
   );
   return mappedSalutations.filter(

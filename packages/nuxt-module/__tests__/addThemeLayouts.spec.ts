@@ -14,13 +14,13 @@ const mockedJetpack = jetpack as jest.Mocked<typeof jetpack>;
 describe("nuxt-module - addThemeLayouts", () => {
   const moduleObject: NuxtModuleOptions = {
     options: {
-      rootDir: __dirname
+      rootDir: __dirname,
     },
     addLayout: jest.fn(),
     addPlugin: jest.fn(),
     extendBuild: jest.fn(),
     extendRoutes: jest.fn(),
-    nuxt: jest.fn()
+    nuxt: jest.fn(),
   };
 
   beforeEach(() => {
@@ -38,7 +38,7 @@ describe("nuxt-module - addThemeLayouts", () => {
       path.join(
         __dirname,
         `node_modules/@shopware-pwa/default-theme/layouts/SomeTest.vue`
-      )
+      ),
     ]);
     addThemeLayouts(moduleObject);
     expect(moduleObject.addLayout).toBeCalledWith(
@@ -46,7 +46,7 @@ describe("nuxt-module - addThemeLayouts", () => {
         src: path.join(
           __dirname,
           `node_modules/@shopware-pwa/default-theme/layouts/SomeTest.vue`
-        )
+        ),
       },
       "SomeTest"
     );
@@ -57,7 +57,7 @@ describe("nuxt-module - addThemeLayouts", () => {
       path.join(
         __dirname,
         `node_modules/@shopware-pwa/default-theme/layouts/SomeTest.vue`
-      )
+      ),
     ]);
     mockedJetpack.exists.mockReturnValueOnce("file");
     addThemeLayouts(moduleObject);
@@ -72,7 +72,7 @@ describe("nuxt-module - addThemeLayouts", () => {
       path.join(
         __dirname,
         `node_modules/@shopware-pwa/default-theme/FAKEEEEE/SomeTest.vue`
-      )
+      ),
     ]);
     mockedJetpack.exists.mockReturnValueOnce("file");
     addThemeLayouts(moduleObject);

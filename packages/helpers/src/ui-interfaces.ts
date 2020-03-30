@@ -51,7 +51,7 @@ export enum UiCategoryFilterType {
   range = "range",
   term = "term",
   max = "max",
-  entity = "entity"
+  entity = "entity",
 }
 
 /**

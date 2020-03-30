@@ -5,7 +5,7 @@ import { updateEmail, update, config } from "@shopware-pwa/shopware-6-client";
 
 const credentials = {
   email: internet.email(),
-  password: internet.password(8)
+  password: internet.password(8),
 };
 
 jest.mock("../../../src/apiService");
@@ -31,14 +31,14 @@ describe("CustomerService - updateEmail", () => {
       updateEmail({
         email: credentials.email,
         emailConfirmation: differentEmail,
-        password: credentials.password
+        password: credentials.password,
       })
     ).rejects.toThrow("400 - email confirmation is wrong");
     expect(mockedAxios.patch).toBeCalledTimes(1);
     expect(mockedAxios.patch).toBeCalledWith(getCustomerUpdateEmailEndpoint(), {
       email: credentials.email,
       emailConfirmation: differentEmail,
-      password: credentials.password
+      password: credentials.password,
     });
   });
 
@@ -47,13 +47,13 @@ describe("CustomerService - updateEmail", () => {
     await updateEmail({
       email: credentials.email,
       emailConfirmation: credentials.email,
-      password: credentials.password
+      password: credentials.password,
     });
     expect(mockedAxios.patch).toBeCalledTimes(1);
     expect(mockedAxios.patch).toBeCalledWith(getCustomerUpdateEmailEndpoint(), {
       email: credentials.email,
       emailConfirmation: credentials.email,
-      password: credentials.password
+      password: credentials.password,
     });
   });
 });

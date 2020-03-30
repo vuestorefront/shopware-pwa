@@ -8,7 +8,7 @@ describe("shopware-6-client - E2E - CategoryService - getCategories", () => {
       "childCount",
       "afterCategoryId",
       "updatedAt",
-      "total"
+      "total",
     ]);
     expect(result).toMatchSnapshot();
   });

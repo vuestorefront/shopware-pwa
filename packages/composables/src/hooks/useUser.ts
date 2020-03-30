@@ -19,14 +19,14 @@ import {
   CustomerAddressParam,
   CustomerUpdateProfileParam,
   CustomerUpdatePasswordParam,
-  CustomerUpdateEmailParam
+  CustomerUpdateEmailParam,
 } from "@shopware-pwa/shopware-6-client";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { getStore } from "@shopware-pwa/composables";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import {
   CustomerAddress,
-  AddressType
+  AddressType,
 } from "@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress";
 import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
@@ -39,7 +39,7 @@ import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salut
 export interface UseUser {
   login: ({
     username,
-    password
+    password,
   }: {
     username?: string;
     password?: string;
@@ -71,7 +71,7 @@ export interface UseUser {
   ) => Promise<boolean>;
   markAddressAsDefault: ({
     addressId,
-    type
+    type,
   }: {
     addressId?: string;
     type?: AddressType;
@@ -95,7 +95,7 @@ export const useUser = (): UseUser => {
 
   const login = async ({
     username,
-    password
+    password,
   }: { username?: string; password?: string } = {}): Promise<boolean> => {
     loading.value = true;
     error.value = null;
@@ -187,7 +187,7 @@ export const useUser = (): UseUser => {
 
   const markAddressAsDefault = async ({
     addressId,
-    type
+    type,
   }: {
     addressId?: string;
     type?: AddressType;
@@ -301,6 +301,6 @@ export const useUser = (): UseUser => {
     loadSalutation,
     salutation,
     loadCountry,
-    country
+    country,
   };
 };

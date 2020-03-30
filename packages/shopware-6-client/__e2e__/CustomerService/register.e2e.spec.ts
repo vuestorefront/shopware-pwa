@@ -17,8 +17,8 @@ describe("shopware-6-client - E2E - CustomerService - register", () => {
         zipcode: address.zipCode(),
         city: address.city(),
         street: address.streetName(),
-        salutation: "Mr"
-      }
+        salutation: "Mr",
+      },
     });
     result.data = "mockedCustomerId";
     expect(result).toMatchSnapshot();

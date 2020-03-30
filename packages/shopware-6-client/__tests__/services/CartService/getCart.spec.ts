@@ -18,20 +18,20 @@ describe("CartService - getCart", () => {
               label: commerce.productName(),
               quantity: 5,
               payload: {
-                productNumber: random.uuid()
-              }
+                productNumber: random.uuid(),
+              },
             },
             {
               id: random.uuid(),
               label: commerce.productName(),
               quantity: 3,
               payload: {
-                productNumber: random.uuid()
-              }
-            }
-          ]
-        }
-      }
+                productNumber: random.uuid(),
+              },
+            },
+          ],
+        },
+      },
     });
 
     const result = await getCart();

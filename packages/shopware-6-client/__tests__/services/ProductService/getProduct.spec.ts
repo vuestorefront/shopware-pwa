@@ -10,7 +10,7 @@ describe("ProductService - getProduct", () => {
   });
   it("should return chosen product", async () => {
     mockedAxios.get.mockResolvedValueOnce({
-      data: { data: { id: "044a190a54ab4f06803909c3ee8063ef" } }
+      data: { data: { id: "044a190a54ab4f06803909c3ee8063ef" } },
     });
     const productId = "044a190a54ab4f06803909c3ee8063ef";
     const result = await getProduct(productId);
@@ -18,7 +18,7 @@ describe("ProductService - getProduct", () => {
     expect(mockedAxios.get).toBeCalledWith(
       "/product/044a190a54ab4f06803909c3ee8063ef",
       {
-        params: null
+        params: null,
       }
     );
     expect(result).toHaveProperty("id");

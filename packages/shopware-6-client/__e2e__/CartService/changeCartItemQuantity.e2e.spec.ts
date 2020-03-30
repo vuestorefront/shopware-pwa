@@ -1,7 +1,7 @@
 import {
   addProductToCart,
   changeCartItemQuantity,
-  update
+  update,
 } from "@shopware-pwa/shopware-6-client";
 import { deepChangeProperty } from "../helpers";
 

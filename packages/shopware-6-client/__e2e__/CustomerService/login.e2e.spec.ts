@@ -8,7 +8,7 @@ describe("shopware-6-client - E2E - CustomerService - login", () => {
   it("should log in user with provided credentials", async () => {
     const result = await login({
       username: "test.e2e@test.pl",
-      password: "password"
+      password: "password",
     });
     result.contextToken = "mockedToken";
     expect(result).toMatchSnapshot();

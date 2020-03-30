@@ -1,7 +1,7 @@
 import {
   getFilterSearchCriteria,
   getSortingSearchCriteria,
-  getSortingLabel
+  getSortingLabel,
 } from "@shopware-pwa/helpers";
 
 describe("Shopware helpers - getFilterSearchCriteria", () => {
@@ -12,27 +12,27 @@ describe("Shopware helpers - getFilterSearchCriteria", () => {
 
   it("should return category filter if any provided", () => {
     const result = getFilterSearchCriteria({
-      categoryTree: ["12345", "2345"]
+      categoryTree: ["12345", "2345"],
     } as any);
     expect(result).toEqual([
       {
         field: "product.categoriesRo.id",
         type: "equals",
-        value: "12345"
-      }
+        value: "12345",
+      },
     ]);
   });
 
   it("should return manufacturerId filter if any provided", () => {
     const result = getFilterSearchCriteria({
-      manufacturer: ["divante-ltd"]
+      manufacturer: ["divante-ltd"],
     } as any);
     expect(result).toEqual([
       {
         field: "manufacturerId",
         type: "equalsAny",
-        value: ["divante-ltd"]
-      }
+        value: ["divante-ltd"],
+      },
     ]);
   });
 
@@ -42,8 +42,8 @@ describe("Shopware helpers - getFilterSearchCriteria", () => {
       {
         field: "shipping-free",
         type: "equals",
-        value: true
-      }
+        value: true,
+      },
     ]);
   });
 
@@ -53,8 +53,8 @@ describe("Shopware helpers - getFilterSearchCriteria", () => {
       {
         field: "shipping-free",
         type: "equals",
-        value: true
-      }
+        value: true,
+      },
     ]);
   });
 
@@ -62,8 +62,8 @@ describe("Shopware helpers - getFilterSearchCriteria", () => {
     const result = getFilterSearchCriteria({
       price: {
         gte: 5,
-        lte: 10
-      }
+        lte: 10,
+      },
     });
     expect(result).toEqual([
       {
@@ -71,9 +71,9 @@ describe("Shopware helpers - getFilterSearchCriteria", () => {
         type: "range",
         parameters: {
           gte: 5,
-          lte: 10
-        }
-      }
+          lte: 10,
+        },
+      },
     ]);
   });
 
@@ -87,15 +87,15 @@ describe("Shopware helpers - getFilterSearchCriteria", () => {
           {
             field: "propertyIds",
             type: "equalsAny",
-            value: ["black", "blue"]
+            value: ["black", "blue"],
           },
           {
             field: "optionIds",
             type: "equalsAny",
-            value: ["black", "blue"]
-          }
-        ]
-      }
+            value: ["black", "blue"],
+          },
+        ],
+      },
     ]);
   });
 });
@@ -109,11 +109,11 @@ describe("Shopware helpers - getSortingSearchCriteria", () => {
   it("should return proper sorting object in descending order", () => {
     const result = getSortingSearchCriteria({
       field: "price",
-      order: "desc"
+      order: "desc",
     } as any);
     expect(result).toEqual({
       field: "price",
-      desc: true
+      desc: true,
     });
   });
 });
@@ -130,14 +130,14 @@ describe("Shopware helpers - getSortingLabel", () => {
   it("should return descending label", () => {
     const result = getSortingLabel({
       field: "price",
-      order: "desc"
+      order: "desc",
     } as any);
     expect(result).toEqual("price ▼");
   });
   it("should return ascending label", () => {
     const result = getSortingLabel({
       field: "price",
-      order: "asc"
+      order: "asc",
     } as any);
     expect(result).toEqual("price ▲");
   });

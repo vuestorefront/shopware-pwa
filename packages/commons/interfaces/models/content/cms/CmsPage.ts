@@ -4,7 +4,7 @@ import { Category } from "../category/Category";
 export enum CmsPageType {
   DEFAULT = "default",
   PRODUCT_LISTING = "product_list",
-  LANDING_PAGE = "landingpage"
+  LANDING_PAGE = "landingpage",
 }
 /**
  * @alpha
@@ -36,7 +36,7 @@ export enum CmsSlotType {
   PRODUCT_LISTING = "product-listing",
   PRODUCT_BOX = "product-box",
   SLOT = "slot",
-  TEXT = "text"
+  TEXT = "text",
 }
 
 /**
@@ -89,20 +89,20 @@ export interface CmsBlock {
 }
 
 export enum SectionType {
-  DEFAULT = "default"
+  DEFAULT = "default",
 }
 
 export enum SizingMode {
-  BOXED = "boxed"
+  BOXED = "boxed",
 }
 
 export enum MobileBehavior {
   BOXED = "boxed",
-  WRAP = "wrap"
+  WRAP = "wrap",
 }
 
 export enum BackgroundMediaMode {
-  COVER = "cover"
+  COVER = "cover",
 }
 
 /**

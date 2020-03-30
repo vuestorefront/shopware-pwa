@@ -24,7 +24,7 @@ export async function getPage(
 ): Promise<PageResolverResult<CmsPage>> {
   const resp = await apiService.post(getPageResolverEndpoint(), {
     path: path,
-    ...convertSearchCriteria(searchCriteria)
+    ...convertSearchCriteria(searchCriteria),
   });
 
   return resp.data;

@@ -6,7 +6,7 @@ export enum PaginationLimit {
   FIFTY = 50,
   SEVENTY_FIVE = 75,
   HUNDRED = 100,
-  FIVE_HUNDRED = 500
+  FIVE_HUNDRED = 500,
 }
 
 /**

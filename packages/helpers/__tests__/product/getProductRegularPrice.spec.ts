@@ -5,9 +5,9 @@ describe("Shopware helpers - getProductRegularPrice", () => {
     const productWithPrice: any = {
       price: [
         {
-          gross: 125.95
-        }
-      ]
+          gross: 125.95,
+        },
+      ],
     };
 
     const price = getProductRegularPrice({ product: productWithPrice });

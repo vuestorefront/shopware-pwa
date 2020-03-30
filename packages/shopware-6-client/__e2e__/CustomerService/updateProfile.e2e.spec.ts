@@ -11,7 +11,7 @@ describe("shopware-6-client - E2E - CustomerService - updateProfile", () => {
       firstName: "test",
       lastName: "e2e",
       salutationId: "c370eb5cd1df4d4dbcc78f055b693e79",
-      title: null
+      title: null,
     });
     expect(result).toMatchSnapshot();
   });
@@ -22,7 +22,7 @@ describe("shopware-6-client - E2E - CustomerService - updateProfile", () => {
         firstName: "test",
         lastName: "e2e",
         salutationId: "c370eb5cd1df4d4dbcc78f055b693e79",
-        title: null
+        title: null,
       });
       expect("didn't throw an error").toEqual("should throw an error");
     } catch (e) {

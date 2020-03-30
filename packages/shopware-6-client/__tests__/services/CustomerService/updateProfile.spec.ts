@@ -7,7 +7,7 @@ const customerData = {
   salutationId: random.uuid(),
   firstName: name.firstName(),
   lastName: name.lastName(),
-  title: "d"
+  title: "d",
 };
 
 jest.mock("../../../src/apiService");

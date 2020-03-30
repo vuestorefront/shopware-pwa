@@ -3,22 +3,22 @@ import { GluegunCommand } from "gluegun";
 const command: GluegunCommand = {
   name: "dev",
   description: "Run the initialised project for development.",
-  run: async toolbox => {
+  run: async (toolbox) => {
     const {
       system: { spawn },
-      print: { info }
+      print: { info },
     } = toolbox;
 
     info(`Starting Shopware PWA development project...`);
 
-    toolbox.themeFolders.forEach(themeFolder =>
+    toolbox.themeFolders.forEach((themeFolder) =>
       toolbox.watchThemeFolder(themeFolder)
     );
 
     await spawn("yarn dev", {
-      stdio: "inherit"
+      stdio: "inherit",
     });
-  }
+  },
 };
 
 module.exports = command;
