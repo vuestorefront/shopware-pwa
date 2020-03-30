@@ -14,6 +14,7 @@ const blocksMap = {
   'image-bubble-row': 'SwImageBubbleRow',
   'image-two-column': 'SwImageTwoColumn',
   'image-three-column': 'SwImageThreeColumn',
+  'image-four-column': 'SwImageFourColumn',
   'image-three-cover': 'SwImageThreeCover'
 }
 

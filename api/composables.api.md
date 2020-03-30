@@ -25,6 +25,10 @@ export enum PositionType {
     // (undocumented)
     CENTER = "center",
     // (undocumented)
+    CENTER_LEFT = "center-left",
+    // (undocumented)
+    CENTER_RIGHT = "center-right",
+    // (undocumented)
     LEFT = "left",
     // (undocumented)
     RIGHT = "right"
@@ -158,6 +162,10 @@ export const useSalutations: () => UseSalutations;
 
 // @public (undocumented)
 export interface UseSlotsPositions {
+    // (undocumented)
+    centerLeftSlot: Ref<Readonly<CmsSlot | undefined>>;
+    // (undocumented)
+    centerRightSlot: Ref<Readonly<CmsSlot | undefined>>;
     // (undocumented)
     centerSlot: Ref<Readonly<CmsSlot | undefined>>;
     // (undocumented)
