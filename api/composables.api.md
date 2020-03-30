@@ -20,6 +20,16 @@ import { Ref } from '@vue/composition-api';
 // @alpha (undocumented)
 export function getStore(): any;
 
+// @public (undocumented)
+export enum PositionType {
+    // (undocumented)
+    CENTER = "center",
+    // (undocumented)
+    LEFT = "left",
+    // (undocumented)
+    RIGHT = "right"
+}
+
 // @alpha (undocumented)
 export type Search = (path: string, associations?: any) => any;
 
@@ -148,6 +158,8 @@ export const useSalutations: () => UseSalutations;
 
 // @public (undocumented)
 export interface UseSlotsPositions {
+    // (undocumented)
+    centerSlot: Ref<Readonly<CmsSlot | undefined>>;
     // (undocumented)
     leftSlot: Ref<Readonly<CmsSlot | undefined>>;
     // (undocumented)

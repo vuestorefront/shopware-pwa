@@ -1,7 +1,8 @@
 <template>
-  <div class="sw-image-two-column">
-    <SwImage :content="leftSlot" class="sw-image-two-column__image"/>
-    <SwImage :content="rightSlot" class="sw-image-two-column__image"/>
+  <div class="sw-image-three-column">
+    <SwImage :content="leftSlot" class="sw-image-three-column__image"/>
+    <SwImage :content="centerSlot" class="sw-image-three-column__image"/>
+    <SwImage :content="rightSlot" class="sw-image-three-column__image"/>
   </div>
 </template>
 
@@ -11,7 +12,7 @@ import { useSlotsPositions } from '@shopware-pwa/composables';
 
 
 export default {
-  name: 'SwImageTwoColumn',
+  name: 'SwImageThreeColumn',
   components: {
     SwImage,
   },
@@ -22,9 +23,9 @@ export default {
     }
   },
   setup(props) {
-    const {leftSlot, rightSlot} = useSlotsPositions(props.content.slots)
+    const {leftSlot, centerSlot, rightSlot} = useSlotsPositions(props.content.slots)
 
-    return {leftSlot, rightSlot}
+    return {leftSlot, centerSlot, rightSlot}
   }
 };
 </script>
@@ -32,7 +33,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
 
-.sw-image-two-column {
+.sw-image-three-column {
   display: flex;
   flex-direction: column;
 
