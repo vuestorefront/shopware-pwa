@@ -7,7 +7,7 @@
     "shopware-pwa": "bin/shopware-pwa"
   },
   "scripts": {
-    "format": "prettier --write **/*.{js,ts,tsx,json}",
+    "format": "prettier --write **/*.{js,ts,json}",
     "lint": "tslint -p . --fix",
     "clean-build": "rm -rf ./build",
     "compile": "tsc -p .",
