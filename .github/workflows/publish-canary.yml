@@ -17,7 +17,7 @@ jobs:
       - name: Build packages
         run: |
           yarn
-          yarn build --release
+          yarn build --ci --release
           cd ./packages/cli && yarn build && cd ../../
       - name: Publish canary version
         run: |
