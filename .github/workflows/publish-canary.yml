@@ -20,6 +20,6 @@ jobs:
           yarn build --release
       - name: Publish canary version
         run: |
-          yarn lerna publish --canary --preid prealpha
+          yarn lerna publish --canary --preid prealpha --yes
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
