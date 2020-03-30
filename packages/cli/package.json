@@ -31,6 +31,7 @@
   "license": "MIT",
   "dependencies": {
     "gluegun": "^4.2.0",
+    "request": "^2.88.2",
     "unzipper": "^0.10.10"
   },
   "devDependencies": {
@@ -51,6 +52,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "e930f9945653eb78b7a78700b6f4d145ee8cb542"
+  }
 }
