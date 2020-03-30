@@ -18,6 +18,7 @@ jobs:
         run: |
           yarn
           yarn build --release
+          cd ./packages/cli && yarn build && cd ../../
       - name: Publish canary version
         run: |
           yarn lerna publish --canary --preid prealpha --yes
