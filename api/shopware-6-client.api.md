@@ -182,7 +182,7 @@ export function getUserCountry(countryId: string): Promise<Country>;
 export function getUserSalutation(salutationId: string): Promise<Salutation>;
 
 // @alpha
-export function login({ username, password }?: {
+export function login({ username, password, }?: {
     username?: string;
     password?: string;
 }): Promise<ContextTokenResponse>;

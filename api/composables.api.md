@@ -161,14 +161,14 @@ export interface UseUser {
     // (undocumented)
     loadSalutation: (salutationId: string) => Promise<void>;
     // (undocumented)
-    login: ({ username, password }: {
+    login: ({ username, password, }: {
         username?: string;
         password?: string;
     }) => Promise<boolean>;
     // (undocumented)
     logout: () => Promise<void>;
     // (undocumented)
-    markAddressAsDefault: ({ addressId, type }: {
+    markAddressAsDefault: ({ addressId, type, }: {
         addressId?: string;
         type?: AddressType;
     }) => Promise<string | boolean>;
