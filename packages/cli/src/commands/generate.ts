@@ -105,7 +105,7 @@ module.exports = {
           `You provided bad cridentials for your shopware instance: ${inputParameters.shopwareEndpoint} - plugins will not be added`
         );
       } else {
-        console.error("ERROR", e?.response || e);
+        console.error("UNEXPECTED ERROR", e?.response || e);
       }
       return;
     }
