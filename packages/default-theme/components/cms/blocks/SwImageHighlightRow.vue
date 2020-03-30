@@ -1,8 +1,8 @@
 <template>
-  <div class="sw-image-three-cover">
-    <SwImage :content="leftSlot" class="sw-image-three-cover__image"/>
-    <SwImage :content="centerSlot" class="sw-image-three-cover__image"/>
-    <SwImage :content="rightSlot" class="sw-image-three-cover__image"/>
+  <div class="sw-image-highlight-row">
+    <SwImage :content="leftSlot" class="sw-image-highlight-row__image"/>
+    <SwImage :content="centerSlot" class="sw-image-highlight-row__image"/>
+    <SwImage :content="rightSlot" class="sw-image-highlight-row__image"/>
   </div>
 </template>
 
@@ -10,8 +10,9 @@
 import SwImage from "../elements/SwImage";
 import { useSlotsPositions } from '@shopware-pwa/composables';
 
+
 export default {
-  name: 'SwImageThreeCover',
+  name: 'SwImageHighlightRow',
   components: {
     SwImage,
   },
@@ -32,11 +33,12 @@ export default {
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
 
-.sw-image-three-cover {
+.sw-image-highlight-row {
   display: flex;
   flex-direction: column;
 
   &__image {
+    margin: var(--spacer-medium);
     flex: 1;
   }
 

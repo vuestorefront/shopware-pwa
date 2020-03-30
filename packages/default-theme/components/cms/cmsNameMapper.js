@@ -15,7 +15,8 @@ const blocksMap = {
   'image-two-column': 'SwImageTwoColumn',
   'image-three-column': 'SwImageThreeColumn',
   'image-four-column': 'SwImageFourColumn',
-  'image-three-cover': 'SwImageThreeCover'
+  'image-three-cover': 'SwImageThreeCover',
+  'image-highlight-row': 'SwImageHighlightRow'
 }
 
 export function getComponentBy(content) {

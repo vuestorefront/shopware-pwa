@@ -9,7 +9,6 @@
 import SwImage from "../elements/SwImage";
 import { useSlotsPositions } from '@shopware-pwa/composables';
 
-
 export default {
   name: 'SwImageTwoColumn',
   components: {
