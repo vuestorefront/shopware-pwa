@@ -13,7 +13,8 @@ const slotsMap = {
 const blocksMap = {
   'image-bubble-row': 'SwImageBubbleRow',
   'image-two-column': 'SwImageTwoColumn',
-  'image-three-column': 'SwImageThreeColumn'
+  'image-three-column': 'SwImageThreeColumn',
+  'image-three-cover': 'SwImageThreeCover'
 }
 
 export function getComponentBy(content) {
@@ -22,7 +23,7 @@ export function getComponentBy(content) {
   const isBlock = !!content.sectionId
 
   let componentName
-  // console.log('content', content.type ,content);
+  console.log('content', content.type, content)
   if (isBlock) {
     componentName = blocksMap[content.type]
   }
