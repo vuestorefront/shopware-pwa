@@ -10,21 +10,21 @@ module.exports = {
       // parameters,
       template: { generate },
       print: { success, spin, error, warning },
-      inputParameters
+      inputParameters,
     } = toolbox;
 
     // TODO move it somewhere for having single source
     const PLUGIN_SLOTS = ["SwPluginTopNavigation"];
 
     // Generate clean plugin files to override later
-    PLUGIN_SLOTS.forEach(async pluginSlotName => {
+    PLUGIN_SLOTS.forEach(async (pluginSlotName) => {
       const pluginPath = `.shopware-pwa/sw-plugins/${pluginSlotName}.vue`;
       const pluginOverrided = !!toolbox.filesystem.exists(pluginPath);
       if (!pluginOverrided) {
         await generate({
           template: `/plugins/GenericPlugin.vue`,
           target: pluginPath,
-          props: {}
+          props: {},
         });
       }
     });
@@ -43,7 +43,7 @@ module.exports = {
           grant_type: "password",
           scopes: "write",
           username: inputParameters.username,
-          password: inputParameters.password
+          password: inputParameters.password,
         }
       );
       // console.error("RESPO", respo);
@@ -54,8 +54,8 @@ module.exports = {
         null,
         {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       const jsonConfigAddress = respo2.data.buildArtifact.config;
@@ -78,14 +78,14 @@ module.exports = {
 
       const request = require("request");
 
-      const testPromise = function() {
+      const testPromise = function () {
         return new Promise((resolve, reject) => {
           request(
             {
               url: fileUrl,
-              encoding: null
+              encoding: null,
             },
-            function(err, resp, body) {
+            function (err, resp, body) {
               if (err) reject(err);
               toolbox.filesystem.write(
                 ".shopware-pwa/pwa-bundles-assets.zip",
@@ -100,12 +100,12 @@ module.exports = {
       await testPromise();
       // console.error("respo4", respo4.data);
     } catch (e) {
-      if (e.response.status === 401) {
+      if (e?.response?.status === 401) {
         error(
           `You provided bad cridentials for your shopware instance: ${inputParameters.shopwareEndpoint} - plugins will not be added`
         );
       } else {
-        console.error("ERROR", e.response);
+        console.error("UNEXPECTED ERROR", e?.response || e);
       }
       return;
     }
@@ -125,7 +125,7 @@ module.exports = {
         ".shopware-pwa/pwa-bundles-assets.zip"
       );
       await d.extract({
-        path: ".shopware-pwa/pwa-bundles-assets"
+        path: ".shopware-pwa/pwa-bundles-assets",
       });
 
       // generate all files from config
@@ -135,7 +135,7 @@ module.exports = {
       );
       if (pluginsConfigFile) {
         const pluginNames = Object.keys(pluginsConfigFile);
-        pluginNames.forEach(pluginName => {
+        pluginNames.forEach((pluginName) => {
           const pluginDirectory = `.shopware-pwa/pwa-bundles-assets/${pluginName}`;
           const pluginDirExist = toolbox.filesystem.exists(pluginDirectory);
           if (pluginDirExist) {
@@ -144,7 +144,7 @@ module.exports = {
               "json"
             );
             if (pluginConfig) {
-              pluginConfig.slots.forEach(async slot => {
+              pluginConfig.slots.forEach(async (slot) => {
                 const body = `--> <${slot.name} /> <!--`;
                 const componentImports = `\nimport ${slot.name} from '~/${pluginDirectory}/${slot.file}'`;
                 const components = `\n ${slot.name}`;
@@ -154,8 +154,8 @@ module.exports = {
                   props: {
                     body,
                     componentImports,
-                    components
-                  }
+                    components,
+                  },
                 });
               });
             } else {
@@ -174,5 +174,5 @@ module.exports = {
     }
 
     success(`Plugins generated`);
-  }
+  },
 };
