@@ -12,4 +12,5 @@ export * from "./hooks/useProductSearch";
 export * from "./theme/cart/useCartSidebar";
 export * from "./theme/user/useUserLoginModal";
 export * from "./cms/useImageProps";
+export * from "./cms/useSlotsPositions";
 export * from "./store";

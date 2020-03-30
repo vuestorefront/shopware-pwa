@@ -5,9 +5,8 @@
 </template>
 
 <script>
-import SwImageRounded from "./SwImageRounded";
-import { setContentOrder } from "../cmsNameMapper";
-import { reactive } from "@vue/composition-api";
+import SwImageRounded from "../elements/SwImageRounded";
+import { reactive, toRefs } from "@vue/composition-api";
 
 export default {
   name: 'SwImageBubbleRow',
@@ -21,8 +20,8 @@ export default {
     }
   },
   setup(props) {
-    const slots = reactive(setContentOrder(props.content))
-    return {slots}
+    const slots = reactive(props.content)
+    return toRefs(slots)
   }
 };
 </script>

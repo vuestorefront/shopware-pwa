@@ -146,6 +146,17 @@ export interface UseSalutations {
 // @alpha (undocumented)
 export const useSalutations: () => UseSalutations;
 
+// @public (undocumented)
+export interface UseSlotsPositions {
+    // (undocumented)
+    leftSlot: Ref<Readonly<CmsSlot | undefined>>;
+    // (undocumented)
+    rightSlot: Ref<Readonly<CmsSlot | undefined>>;
+}
+
+// @public (undocumented)
+export const useSlotsPositions: (slots: CmsSlot[]) => UseSlotsPositions;
+
 // @alpha (undocumented)
 export interface UseUser {
     // (undocumented)
