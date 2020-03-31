@@ -2,7 +2,7 @@ import { random } from "faker";
 import {
   getCustomerAddresses,
   update,
-  config
+  config,
 } from "@shopware-pwa/shopware-6-client";
 import { apiService } from "../../../src/apiService";
 

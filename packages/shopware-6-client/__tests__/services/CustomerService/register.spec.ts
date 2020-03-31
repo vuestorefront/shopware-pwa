@@ -23,8 +23,8 @@ describe("CustomerService - register", () => {
         street: address.streetName(),
         zipcode: address.zipCode(),
         city: address.city(),
-        phoneNumber: phone.phoneNumber()
-      }
+        phoneNumber: phone.phoneNumber(),
+      },
     };
   });
 

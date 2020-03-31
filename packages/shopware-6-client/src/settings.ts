@@ -14,17 +14,17 @@ const defaultConfig: ClientSettings = {
   accessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG",
   contextToken: "",
   defaultPaginationLimit: 10,
-  timeout: 3000 // ms
+  timeout: 3000, // ms
 };
 
 let clientConfig: ClientSettings = {};
 
-const setupConfig = function(config: ClientSettings = {}): void {
+const setupConfig = function (config: ClientSettings = {}): void {
   clientConfig = Object.assign(clientConfig, defaultConfig, config);
 };
 setupConfig();
 
-const updateConfig = function(config: ClientSettings): void {
+const updateConfig = function (config: ClientSettings): void {
   clientConfig = Object.assign(clientConfig, config);
 };
 

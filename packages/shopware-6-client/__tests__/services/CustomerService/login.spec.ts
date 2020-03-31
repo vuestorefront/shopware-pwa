@@ -5,7 +5,7 @@ import { internet } from "faker";
 
 const credentials = {
   username: internet.email(),
-  password: internet.password(8)
+  password: internet.password(8),
 };
 
 jest.mock("../../../src/apiService");
@@ -17,34 +17,34 @@ describe("CustomerService - login", () => {
   });
   it("should return context token in new format if old does not exist", async () => {
     mockedAxios.post.mockResolvedValueOnce({
-      data: { contextToken: "RmzTExFStSBW5GhPmQNicSK6bhUQhqXi" }
+      data: { contextToken: "RmzTExFStSBW5GhPmQNicSK6bhUQhqXi" },
     });
 
     const result = await login({
       username: credentials.username,
-      password: credentials.password
+      password: credentials.password,
     });
     expect(mockedAxios.post).toBeCalledTimes(1);
     expect(mockedAxios.post).toBeCalledWith(getCustomerLoginEndpoint(), {
       username: credentials.username,
-      password: credentials.password
+      password: credentials.password,
     });
 
     expect(result.contextToken).toEqual("RmzTExFStSBW5GhPmQNicSK6bhUQhqXi");
   });
   it("should return context token", async () => {
     mockedAxios.post.mockResolvedValueOnce({
-      data: { "sw-context-token": "RmzTExFStSBW5GhPmQNicSK6bhUQhqXi" }
+      data: { "sw-context-token": "RmzTExFStSBW5GhPmQNicSK6bhUQhqXi" },
     });
 
     const result = await login({
       username: credentials.username,
-      password: credentials.password
+      password: credentials.password,
     });
     expect(mockedAxios.post).toBeCalledTimes(1);
     expect(mockedAxios.post).toBeCalledWith(getCustomerLoginEndpoint(), {
       username: credentials.username,
-      password: credentials.password
+      password: credentials.password,
     });
 
     expect(result.contextToken).toEqual("RmzTExFStSBW5GhPmQNicSK6bhUQhqXi");
@@ -55,14 +55,14 @@ describe("CustomerService - login", () => {
     expect(
       login({
         username: credentials.username,
-        password: "wrong-password-123456"
+        password: "wrong-password-123456",
       })
     ).rejects.toThrow();
 
     expect(mockedAxios.post).toBeCalledTimes(1);
     expect(mockedAxios.post).toBeCalledWith(getCustomerLoginEndpoint(), {
       username: credentials.username,
-      password: "wrong-password-123456"
+      password: "wrong-password-123456",
     });
   });
 

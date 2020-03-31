@@ -31,7 +31,7 @@ import {
   getNavigationEndpoint,
   getCustomerOrderDetailsEndpoint,
   getContextCountryItemEndpoint,
-  getContextSalutationItemEndpoint
+  getContextSalutationItemEndpoint,
 } from "../src/endpoints";
 
 const sampleProductId = "eea0f69ec02d44f7a4224272b3d99478";

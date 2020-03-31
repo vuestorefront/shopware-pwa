@@ -3,7 +3,7 @@ import VueCompositionApi, {
   Ref,
   ref,
   reactive,
-  computed
+  computed,
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
@@ -26,7 +26,7 @@ describe("Composables - useUser", () => {
       getters: reactive({ getUser: computed(() => stateUser.value) }),
       commit: (name: string, value: any) => {
         stateUser.value = value;
-      }
+      },
     });
   });
 
@@ -75,7 +75,7 @@ describe("Composables - useUser", () => {
       });
       it("should not set user on getCustomer request's rejection", async () => {
         mockedApiClient.getCustomer.mockRejectedValueOnce({
-          message: "Some error"
+          message: "Some error",
         } as any);
         const { user, refreshUser } = useUser();
         await refreshUser();
@@ -102,7 +102,7 @@ describe("Composables - useUser", () => {
         const { isLoggedIn, error, login } = useUser();
         const result = await login({
           username: "qwe@qwe.com",
-          password: "fakePassword"
+          password: "fakePassword",
         });
         expect(result).toEqual(false);
         expect(isLoggedIn.value).toBeFalsy();
@@ -112,13 +112,13 @@ describe("Composables - useUser", () => {
       it("error message should be appriopriate to the 401 HTTP status code", async () => {
         mockedApiClient.login.mockRejectedValueOnce({
           response: {
-            status: 401
-          }
+            status: 401,
+          },
         });
         const { error, login } = useUser();
         const result = await login({
           username: "qwe@qwe.com",
-          password: "fakePassword"
+          password: "fakePassword",
         });
         expect(result).toEqual(false);
         expect(error.value).toEqual(undefined);
@@ -126,13 +126,13 @@ describe("Composables - useUser", () => {
 
       it("should login user succesfully", async () => {
         mockedApiClient.login.mockResolvedValueOnce({
-          "sw-context-token": "qweqwe"
+          "sw-context-token": "qweqwe",
         } as any);
         mockedApiClient.getCustomer.mockResolvedValueOnce({ id: "123" } as any);
         const { isLoggedIn, error, login } = useUser();
         const result = await login({
           username: "qwe@qwe.com",
-          password: "correctPassword"
+          password: "correctPassword",
         });
         expect(result).toEqual(true);
         expect(isLoggedIn.value).toBeTruthy();
@@ -166,8 +166,8 @@ describe("Composables - useUser", () => {
             city: "anyCity",
             zipcode: "zip-code",
             countryId: "countryId",
-            salutationId: "salutationId"
-          }
+            salutationId: "salutationId",
+          },
         });
         expect(result).toBeTruthy();
         expect(error.value).toBeNull();
@@ -178,7 +178,7 @@ describe("Composables - useUser", () => {
       it("should correctly logout user", async () => {
         stateUser.value = { id: "111" };
         mockedApiClient.logout.mockResolvedValueOnce({
-          "sw-context-token": "qweqwe"
+          "sw-context-token": "qweqwe",
         } as any);
         mockedApiClient.getCustomer.mockResolvedValueOnce(null as any);
         const { isLoggedIn, error, logout } = useUser();
@@ -207,8 +207,8 @@ describe("Composables - useUser", () => {
         const ordersResponse = [
           {
             id: "12345",
-            orderNumber: "100123"
-          }
+            orderNumber: "100123",
+          },
         ];
         mockedApiClient.getCustomerOrders.mockResolvedValueOnce(
           ordersResponse as any
@@ -224,7 +224,7 @@ describe("Composables - useUser", () => {
       it("should return order details for given orderId", async () => {
         const orderResponse = {
           id: "12345",
-          orderNumber: "100123"
+          orderNumber: "100123",
         };
         mockedApiClient.getCustomerOrderDetails.mockResolvedValueOnce(
           orderResponse as any
@@ -245,7 +245,7 @@ describe("Composables - useUser", () => {
       });
       it("should not add empty address", async () => {
         mockedApiClient.createCustomerAddress.mockRejectedValueOnce({
-          message: "There is no address provided"
+          message: "There is no address provided",
         } as ClientApiError);
         const { addAddress, error } = useUser();
         const response = await addAddress(null as any);
@@ -278,8 +278,8 @@ describe("Composables - useUser", () => {
       it("should invoke client getCustomerAddresses method and assign given array to addresses ref", async () => {
         mockedApiClient.getCustomerAddresses.mockResolvedValue([
           {
-            id: "addressId-12345"
-          }
+            id: "addressId-12345",
+          },
         ] as any);
         const { addresses, loadAddresses, error } = useUser();
         await loadAddresses();
@@ -287,14 +287,14 @@ describe("Composables - useUser", () => {
         expect(error.value).toBeFalsy();
         expect(addresses.value).toStrictEqual([
           {
-            id: "addressId-12345"
-          }
+            id: "addressId-12345",
+          },
         ]);
       });
 
       it("should invoke client getCustomerAddresses method and assign error message if client request is rejected", async () => {
         mockedApiClient.getCustomerAddresses.mockRejectedValueOnce({
-          message: "Something went wrong..."
+          message: "Something went wrong...",
         });
         const { loadAddresses, error } = useUser();
         await loadAddresses();
@@ -308,8 +308,8 @@ describe("Composables - useUser", () => {
         mockedApiClient.getUserCountry.mockResolvedValue([
           {
             name: "Poland",
-            id: "12345"
-          }
+            id: "12345",
+          },
         ] as any);
         const { country, loadCountry, error } = useUser();
         const userId = "123qwe";
@@ -319,14 +319,14 @@ describe("Composables - useUser", () => {
         expect(country.value).toStrictEqual([
           {
             name: "Poland",
-            id: "12345"
-          }
+            id: "12345",
+          },
         ]);
       });
 
       it("should invoke client getUserCountry method and assign error message if client request is rejected", async () => {
         mockedApiClient.getUserCountry.mockRejectedValueOnce({
-          message: "Something went wrong..."
+          message: "Something went wrong...",
         });
         const { loadCountry, error } = useUser();
         const salutationId = "123qwe";
@@ -341,8 +341,8 @@ describe("Composables - useUser", () => {
         mockedApiClient.getUserSalutation.mockResolvedValue([
           {
             name: "Mrs.",
-            id: "12345"
-          }
+            id: "12345",
+          },
         ] as any);
         const { salutation, loadSalutation, error } = useUser();
         const salutationId = "123qwe";
@@ -352,14 +352,14 @@ describe("Composables - useUser", () => {
         expect(salutation.value).toStrictEqual([
           {
             name: "Mrs.",
-            id: "12345"
-          }
+            id: "12345",
+          },
         ]);
       });
 
       it("should invoke client getUserSalutation method and assign error message if client request is rejected", async () => {
         mockedApiClient.getUserSalutation.mockRejectedValueOnce({
-          message: "Something went wrong..."
+          message: "Something went wrong...",
         });
         const { loadSalutation, error } = useUser();
         const userId = "123qwe";
@@ -377,7 +377,7 @@ describe("Composables - useUser", () => {
         const { markAddressAsDefault } = useUser();
         const response = await markAddressAsDefault({
           addressId: "address-1234",
-          type: "billing"
+          type: "billing",
         } as any);
         expect(
           mockedApiClient.setDefaultCustomerBillingAddress
@@ -392,7 +392,7 @@ describe("Composables - useUser", () => {
         const { markAddressAsDefault } = useUser();
         const response = await markAddressAsDefault({
           addressId: "address-1234",
-          type: "shipping"
+          type: "shipping",
         } as any);
         expect(
           mockedApiClient.setDefaultCustomerShippingAddress
@@ -410,7 +410,7 @@ describe("Composables - useUser", () => {
         const { markAddressAsDefault } = useUser();
         const response = await markAddressAsDefault({
           type: "uknown",
-          addressId: "someId"
+          addressId: "someId",
         } as any);
         expect(response).toBe(false);
       });
@@ -418,13 +418,13 @@ describe("Composables - useUser", () => {
       it("should return false and set the error.value on api-client rejection", async () => {
         mockedApiClient.setDefaultCustomerShippingAddress.mockRejectedValueOnce(
           {
-            message: "Error occured"
+            message: "Error occured",
           }
         );
         const { markAddressAsDefault, error } = useUser();
         const response = await markAddressAsDefault({
           type: "shipping",
-          addressId: "someId"
+          addressId: "someId",
         } as any);
         expect(
           mockedApiClient.setDefaultCustomerShippingAddress
@@ -444,7 +444,7 @@ describe("Composables - useUser", () => {
           title: "some title",
           salutationId: "qweqwe",
           firstName: "qwe",
-          lastName: "qew"
+          lastName: "qew",
         });
         expect(mockedApiClient.updateProfile).toBeCalledTimes(1);
         expect(response).toBeTruthy();
@@ -459,7 +459,7 @@ describe("Composables - useUser", () => {
         title: "some title",
         salutationId: "",
         firstName: "qwe",
-        lastName: "qew"
+        lastName: "qew",
       });
       expect(mockedApiClient.updateProfile).toBeCalledTimes(1);
       expect(response).toBeFalsy();
@@ -475,7 +475,7 @@ describe("Composables - useUser", () => {
       const response = await updatePassword({
         password: "qweqweqwe",
         newPassword: "qweqweqwe1",
-        newPasswordConfirm: "qweqweqwe1"
+        newPasswordConfirm: "qweqweqwe1",
       });
       expect(mockedApiClient.updatePassword).toBeCalledTimes(1);
       expect(response).toBeTruthy();
@@ -488,7 +488,7 @@ describe("Composables - useUser", () => {
       const response = await updatePassword({
         password: "qweqweqwe",
         newPassword: "qwe",
-        newPasswordConfirm: "qwe"
+        newPasswordConfirm: "qwe",
       });
       expect(mockedApiClient.updatePassword).toBeCalledTimes(1);
       expect(response).toBeFalsy();
@@ -506,7 +506,7 @@ describe("Composables - useUser", () => {
       const response = await updateEmail({
         password: "qweqweqwe",
         email: "qweqwe@qwe.com",
-        emailConfirmation: "qweqwe@qwe.com"
+        emailConfirmation: "qweqwe@qwe.com",
       });
       expect(mockedApiClient.updateEmail).toBeCalledTimes(1);
       expect(response).toBeTruthy();
@@ -519,7 +519,7 @@ describe("Composables - useUser", () => {
       const response = await updateEmail({
         password: "qweqweqwe",
         email: "qweqwe@qwe.com",
-        emailConfirmation: "qweqwe1@qwe.com"
+        emailConfirmation: "qweqwe1@qwe.com",
       });
       expect(mockedApiClient.updateEmail).toBeCalledTimes(1);
       expect(response).toBeFalsy();
