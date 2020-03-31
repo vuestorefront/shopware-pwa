@@ -9,10 +9,11 @@
       </slot>
 
       <SfAlert
-        v-if="error"
-        class="sw-personal-info__alert"
+        v-for="(message, index) in useUserErrorMessages"
+        :key="index"
+        class="sw-password__alert"
         type="danger"
-        message="Errors in the form"
+        :message="message"
       />
 
       <div class="sw-password__form form">
@@ -70,6 +71,7 @@ import { validationMixin } from 'vuelidate'
 import { required, minLength, sameAs } from 'vuelidate/lib/validators'
 import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
+import { getMessagesFromErrorsArray } from '@shopware-pwa/helpers'
 
 export default {
   name: 'SwPassword',
@@ -77,12 +79,13 @@ export default {
   mixins: [validationMixin],
   props: {},
   setup() {
-    const { user, error, updatePassword, refreshUser } = useUser()
+    const { user, error: userError, updatePassword, refreshUser } = useUser()
     return {
       refreshUser,
       updatePassword,
       user,
-      error
+      userError,
+      getMessagesFromErrorsArray
     }
   },
   data() {
@@ -93,6 +96,15 @@ export default {
       email: this.user && this.user.email
     }
   },
+  computed: {
+    useUserErrorMessages() {
+      // all the 400 errors are in a raw format stright from the API - to be extracted easily depeding on needs.
+      return (
+        this.userError &&
+        this.getMessagesFromErrorsArray(this.userError.message)
+      )
+    }
+  },
   methods: {
     async invokeUpdate() {
       const passwordChanged = await this.updatePassword({
@@ -100,7 +112,7 @@ export default {
         newPassword: this.newPassword,
         newPasswordConfirm: this.newPasswordConfirm
       })
-      await refreshUser()
+      await this.refreshUser()
     }
   },
   validations: {
@@ -122,6 +134,12 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
+
+.sw-password {
+  &__alert {
+    margin-bottom: var(--spacer-big);
+  }
+}
 
 .form {
   @include for-desktop {
