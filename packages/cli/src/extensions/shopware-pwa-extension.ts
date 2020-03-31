@@ -1,7 +1,7 @@
 import { GluegunToolbox } from "gluegun";
 
 const defaultConfig = {
-  shopwareEndpoint: "https://shopware-2.vuestorefront.io/sales-channel-api/v1",
+  shopwareEndpoint: "https://shopware-2.vuestorefront.io",
   shopwareAccessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG"
 };
 // add your CLI-specific functionality here, which will then be accessible
@@ -39,4 +39,23 @@ module.exports = (toolbox: GluegunToolbox) => {
    */
   const devMode = require("fs").existsSync(`${__dirname}/../../src`);
   toolbox.isProduction = !devMode || process.argv.includes("--compiled-build");
+
+  /**
+   * inputs for commands
+   * - most important are params passed to CLI
+   * - fallback is shopware-pwa.config.js filr
+   * - next fallback are default values
+   */
+  toolbox.inputParameters = {
+    shopwareEndpoint:
+      toolbox.parameters.options.shopwareEndpoint ||
+      toolbox.config.shopwareEndpoint,
+    shopwareAccessToken:
+      toolbox.parameters.options.shopwareAccessToken ||
+      toolbox.config.shopwareAccessToken,
+    username:
+      toolbox.parameters.options.username || toolbox.parameters.options.u,
+    password:
+      toolbox.parameters.options.password || toolbox.parameters.options.p
+  };
 };

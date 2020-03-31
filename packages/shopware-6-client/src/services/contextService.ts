@@ -7,7 +7,9 @@ import {
   getContextShippingMethodEndpoint,
   getContextLanguageEndpoint,
   getContextSalutationEndpoint,
-  getContextEndpoint
+  getContextEndpoint,
+  getContextCountryItemEndpoint,
+  getContextSalutationItemEndpoint
 } from "../endpoints";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
@@ -28,6 +30,28 @@ async function updateContext(
   const resp = await apiService.patch(getContextEndpoint(), params);
   const contextToken = resp.data["sw-context-token"];
   return { contextToken };
+}
+
+/**
+ * Set the current session's shipping address to correspoding to id
+ * @throws ClientApiError
+ * @alpha
+ */
+export function setCurrentShippingAddress(
+  shippingAddressId: string
+): Promise<ContextTokenResponse> {
+  return updateContext({ shippingAddressId });
+}
+
+/**
+ * Set the current session's billing address to correspoding to id
+ * @throws ClientApiError
+ * @alpha
+ */
+export function setCurrentBillingAddress(
+  billingAddressId: string
+): Promise<ContextTokenResponse> {
+  return updateContext({ billingAddressId });
 }
 
 /**
@@ -154,4 +178,28 @@ export async function setCurrentShippingMethod(
   const resp = await updateContext(params);
 
   return resp;
+}
+/**
+ * @throws ClientApiError
+ * @alpha
+ */
+export async function getUserCountry(countryId: string): Promise<Country> {
+  const { data } = await apiService.get(
+    getContextCountryItemEndpoint(countryId)
+  );
+
+  return data;
+}
+/**
+ * @throws ClientApiError
+ * @alpha
+ */
+export async function getUserSalutation(
+  salutationId: string
+): Promise<Salutation> {
+  const { data } = await apiService.get(
+    getContextSalutationItemEndpoint(salutationId)
+  );
+
+  return data;
 }

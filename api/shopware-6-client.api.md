@@ -175,8 +175,14 @@ export const getProducts: (searchCriteria?: SearchCriteria | undefined) => Promi
 // @alpha
 export const getProductsIds: () => Promise<SearchResult<string[]>>;
 
+// @alpha (undocumented)
+export function getUserCountry(countryId: string): Promise<Country>;
+
+// @alpha (undocumented)
+export function getUserSalutation(salutationId: string): Promise<Salutation>;
+
 // @alpha
-export function login({ username, password }?: {
+export function login({ username, password, }?: {
     username?: string;
     password?: string;
 }): Promise<ContextTokenResponse>;
@@ -205,6 +211,9 @@ export function register(params: CustomerRegistrationParams): Promise<CustomerRe
 // @alpha
 export function removeCartItem(itemId: string): Promise<Cart>;
 
+// @alpha
+export function setCurrentBillingAddress(billingAddressId: string): Promise<ContextTokenResponse>;
+
 // @alpha (undocumented)
 export function setCurrentCurrency(newCurrencyID: string): Promise<ContextTokenResponse>;
 
@@ -213,6 +222,9 @@ export function setCurrentLanguage(newLanguageId: string): Promise<ContextTokenR
 
 // @alpha (undocumented)
 export function setCurrentPaymentMethod(newPaymentMethodId: string): Promise<ContextTokenResponse>;
+
+// @alpha
+export function setCurrentShippingAddress(shippingAddressId: string): Promise<ContextTokenResponse>;
 
 // @alpha (undocumented)
 export function setCurrentShippingMethod(newShippingMethodId: string): Promise<ContextTokenResponse>;

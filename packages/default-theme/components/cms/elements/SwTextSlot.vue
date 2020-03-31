@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-text">
+  <div v-show="rawHtml" class="sw-text">
     <div class="sw-text-content" v-html="rawHtml"></div>
   </div>
 </template>
@@ -16,17 +16,12 @@ export default {
   computed: {
     rawHtml() {
       return (
-        this.content &&
-        this.content.data &&
-        this.content.data.content
+        this.content?.data?.content
       );
     },
     verticalAlign() {
       return (
-        this.content &&
-        this.content.config &&
-        this.content.config.verticalAlign &&
-        this.content.config.verticalAlign.value
+        this.content?.config?.verticalAlign?.value
       );
     }
   }
@@ -36,6 +31,6 @@ export default {
 <style lang="scss" scoped>
 @import "~@storefront-ui/vue/styles.scss";
 .sw-text {
-  padding: var(--spacer-big) var(--spacer-extra-big) var(--spacer-extra-big);
+  padding: 0 var(--spacer-extra-big);
 }
 </style>

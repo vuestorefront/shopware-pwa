@@ -90,11 +90,18 @@ export const getContextLanguageEndpoint = () => `/language`;
 
 export const getContextCountryEndpoint = () => `/country`;
 
+export const getContextCountryItemEndpoint = (countryId: string): string =>
+  `/country/${countryId}`;
+
 export const getContextPaymentMethodEndpoint = () => `/payment-method`;
 
 export const getContextShippingMethodEndpoint = () => `/shipping-method`;
 
 export const getContextSalutationEndpoint = () => `/salutation`;
+
+export const getContextSalutationItemEndpoint = (
+  salutationId: string
+): string => `/salutation/${salutationId}`;
 
 // newsletter
 

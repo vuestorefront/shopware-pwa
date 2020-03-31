@@ -34,17 +34,21 @@ export default {
     }
   },
   async mounted() {
-    const result = await getProducts({
-      sort: {
-        field: 'price',
-        desc: false
-      },
-      pagination: {
-        page: 1,
-        limit: 10
-      }
-    })
-    this.products = result.data
+    try {
+      const result = await getProducts({
+        sort: {
+          field: 'price',
+          desc: false
+        },
+        pagination: {
+          page: 1,
+          limit: 10
+        }
+      })
+      this.products = result.data
+    } catch (e) {
+      console.error('SwProductCarousel:mounted:getProducts', e)
+    }
   }
 }
 </script>

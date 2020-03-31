@@ -3,9 +3,7 @@ import { ShopwareError } from "@shopware-pwa/commons/interfaces/errors/ApiError"
 /**
  * Get the messages from the API response (array of ShopwareErrors)
  */
-export function getMessagesFromErrorsArray(
-  errors: ShopwareError[]
-): string[] {
+export function getMessagesFromErrorsArray(errors: ShopwareError[]): string[] {
   if (!errors?.length || !Array.isArray(errors)) {
     return [];
   }

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.4](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/composables@0.1.0-alpha.3...@shopware-pwa/composables@0.1.0-alpha.4) (2020-03-27)
+
+
+### Features
+
+* prevent redirecting on api client rejection ([#541](https://github.com/DivanteLtd/shopware-pwa/issues/541)) ([af2ce8a](https://github.com/DivanteLtd/shopware-pwa/commit/af2ce8a6961f75a7e79f285e46e86e0e61e0e60f))
+
+
+
+
+
 # [0.1.0-alpha.3](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/composables@0.1.0-alpha.2...@shopware-pwa/composables@0.1.0-alpha.3) (2020-03-24)
 
 

@@ -45,7 +45,7 @@ Now you have complete ShopwarePWA project running locally.
 
 ```js
 module.exports = {
-  shopwareEndpoint: "https://shopware-2.vuestorefront.io/sales-channel-api/v1",
+  shopwareEndpoint: "https://shopware-2.vuestorefront.io",
   shopwareAccessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG"
 };
 ```

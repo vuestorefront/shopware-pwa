@@ -57,12 +57,12 @@ export interface CategoryFilterTermValue {
 export function exportUrlQuery(searchCriteria: SearchCriteria): string | undefined;
 
 // @alpha (undocumented)
-export function getCategoryAvailableFilters({ filters }?: {
+export function getCategoryAvailableFilters({ filters, }?: {
     filters?: Filter;
 }): UiCategoryFilter[];
 
 // @alpha (undocumented)
-export function getCategoryAvailableSorting({ sorting }?: {
+export function getCategoryAvailableSorting({ sorting, }?: {
     sorting?: Sorting;
 }): UiCategorySorting[];
 
@@ -84,7 +84,7 @@ export function getNavigationRoutes(navigationElements: NavigationElement[]): Na
 export function getProductMainImageUrl(product: Product): string;
 
 // @alpha (undocumented)
-export function getProductMediaGallery({ product }?: {
+export function getProductMediaGallery({ product, }?: {
     product?: Product;
 }): UiMediaGalleryItem_2[];
 
@@ -94,7 +94,7 @@ export function getProductName({ product }?: {
 }): string | null;
 
 // @alpha (undocumented)
-export function getProductOption({ product, attribute }?: {
+export function getProductOption({ product, attribute, }?: {
     product?: Product;
     attribute?: string;
 }): PropertyGroupOption | undefined;
@@ -102,28 +102,28 @@ export function getProductOption({ product, attribute }?: {
 // Warning: (ae-forgotten-export) The symbol "ProductOptions" needs to be exported by the entry point index.d.ts
 //
 // @alpha (undocumented)
-export function getProductOptions({ product }?: {
+export function getProductOptions({ product, }?: {
     product?: Product;
 }): ProductOptions;
 
 // @alpha (undocumented)
-export function getProductOptionsUrl({ product, options }?: {
+export function getProductOptionsUrl({ product, options, }?: {
     product?: Product;
     options?: string[];
 }): string;
 
 // @alpha (undocumented)
-export function getProductProperties({ product }?: {
+export function getProductProperties({ product, }?: {
     product?: Product;
 }): UiProductProperty_2[];
 
 // @alpha (undocumented)
-export function getProductRegularPrice({ product }?: {
+export function getProductRegularPrice({ product, }?: {
     product?: Product;
 }): number;
 
 // @alpha (undocumented)
-export function getProductReviews({ product }?: {
+export function getProductReviews({ product, }?: {
     product?: Product;
 }): UiProductReview_2[];
 
@@ -140,12 +140,12 @@ export const getSortingLabel: (sorting: SwSorting) => string;
 export const getSortingSearchCriteria: (selectedSorting: SwSorting) => Sort;
 
 // @alpha (undocumented)
-export function getVariantOptionsLabel({ product }?: {
+export function getVariantOptionsLabel({ product, }?: {
     product?: Product;
 }): string | null;
 
 // @alpha (undocumented)
-export function isProductSimple({ product }?: {
+export function isProductSimple({ product, }?: {
     product?: Product;
 }): boolean;
 
