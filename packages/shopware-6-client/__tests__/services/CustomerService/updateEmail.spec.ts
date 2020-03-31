@@ -5,7 +5,7 @@ import { updateEmail, update, config } from "@shopware-pwa/shopware-6-client";
 
 const credentials = {
   email: internet.email(),
-  password: internet.password(8),
+  password: internet.password(8)
 };
 
 jest.mock("../../../src/apiService");
@@ -23,7 +23,7 @@ describe("CustomerService - updateEmail", () => {
   });
 
   it("rejects the promise if the email confirmation is wrong", async () => {
-    mockedAxios.patch.mockRejectedValueOnce(
+    mockedAxios.post.mockRejectedValueOnce(
       new Error("400 - email confirmation is wrong")
     );
     const differentEmail = internet.email();
@@ -31,29 +31,29 @@ describe("CustomerService - updateEmail", () => {
       updateEmail({
         email: credentials.email,
         emailConfirmation: differentEmail,
-        password: credentials.password,
+        password: credentials.password
       })
     ).rejects.toThrow("400 - email confirmation is wrong");
-    expect(mockedAxios.patch).toBeCalledTimes(1);
-    expect(mockedAxios.patch).toBeCalledWith(getCustomerUpdateEmailEndpoint(), {
+    expect(mockedAxios.post).toBeCalledTimes(1);
+    expect(mockedAxios.post).toBeCalledWith(getCustomerUpdateEmailEndpoint(), {
       email: credentials.email,
       emailConfirmation: differentEmail,
-      password: credentials.password,
+      password: credentials.password
     });
   });
 
   it("returns no data if successfully updated", async () => {
-    mockedAxios.patch.mockResolvedValueOnce(null);
+    mockedAxios.post.mockResolvedValueOnce(null);
     await updateEmail({
       email: credentials.email,
       emailConfirmation: credentials.email,
-      password: credentials.password,
+      password: credentials.password
     });
-    expect(mockedAxios.patch).toBeCalledTimes(1);
-    expect(mockedAxios.patch).toBeCalledWith(getCustomerUpdateEmailEndpoint(), {
+    expect(mockedAxios.post).toBeCalledTimes(1);
+    expect(mockedAxios.post).toBeCalledWith(getCustomerUpdateEmailEndpoint(), {
       email: credentials.email,
       emailConfirmation: credentials.email,
-      password: credentials.password,
+      password: credentials.password
     });
   });
 });

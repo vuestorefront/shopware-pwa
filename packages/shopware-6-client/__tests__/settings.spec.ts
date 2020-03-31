@@ -9,7 +9,7 @@ import { ConfigChangedArgs } from "../src";
 import { random } from "faker";
 
 const DEFAULT_ENDPOINT =
-  "https://shopware-2.vuestorefront.io/sales-channel-api/v1";
+  "https://shopware-2.vuestorefront.io";
 const DEFAULT_TIMEOUT = 3000;
 
 describe("Settings", () => {
