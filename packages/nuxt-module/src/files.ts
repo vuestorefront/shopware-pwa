@@ -8,7 +8,7 @@ export function getAllFiles(
 ): string[] {
   if (!dirPath || !jetpack.exists(dirPath)) return [];
   const files: string[] = jetpack.list(dirPath) as string[];
-  files.forEach(file => {
+  files.forEach((file) => {
     if (jetpack.exists(path.join(dirPath, file)) === "dir") {
       arrayOfFiles = getAllFiles(path.join(dirPath, file), arrayOfFiles);
     } else {

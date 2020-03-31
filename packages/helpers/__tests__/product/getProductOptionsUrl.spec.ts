@@ -9,8 +9,8 @@ describe("Shopware helpers - getProductOptionsUrl", () => {
   it("should return product url when no options", () => {
     const result = getProductOptionsUrl({
       product: {
-        id: "123321"
-      }
+        id: "123321",
+      },
     } as any);
     expect(result).toEqual("/detail/123321");
   });
@@ -18,9 +18,9 @@ describe("Shopware helpers - getProductOptionsUrl", () => {
   it("should return product url when has no children", () => {
     const result = getProductOptionsUrl({
       product: {
-        id: "123321"
+        id: "123321",
       },
-      options: ["qwe", "ewq"]
+      options: ["qwe", "ewq"],
     } as any);
     expect(result).toEqual("/detail/123321");
   });
@@ -32,15 +32,15 @@ describe("Shopware helpers - getProductOptionsUrl", () => {
         children: [
           {
             id: "qqq",
-            optionIds: ["foo", "bar"]
+            optionIds: ["foo", "bar"],
           },
           {
             id: "eee",
-            optionIds: ["qwe", "ewq"]
-          }
-        ]
+            optionIds: ["qwe", "ewq"],
+          },
+        ],
       },
-      options: ["some", "other"]
+      options: ["some", "other"],
     } as any);
     expect(result).toEqual("/detail/123321");
   });
@@ -52,15 +52,15 @@ describe("Shopware helpers - getProductOptionsUrl", () => {
         children: [
           {
             id: "qqq",
-            optionIds: ["foo", "bar"]
+            optionIds: ["foo", "bar"],
           },
           {
             id: "eee",
-            optionIds: ["qwe", "ewq"]
-          }
-        ]
+            optionIds: ["qwe", "ewq"],
+          },
+        ],
       },
-      options: ["qwe", "ewq"]
+      options: ["qwe", "ewq"],
     } as any);
     expect(result).toEqual("/detail/eee");
   });

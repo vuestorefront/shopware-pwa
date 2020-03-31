@@ -10,7 +10,7 @@ describe("shopware-6-client - E2E - PageService - getPage", () => {
       "min",
       "cover",
       "thumbnailsRo",
-      "value"
+      "value",
     ]);
     deepEscapeProperties(result, ["content"]);
 
@@ -21,9 +21,9 @@ describe("shopware-6-client - E2E - PageService - getPage", () => {
         id: expect.any(String),
         updatedAt: expect.any(String),
         translated: {
-          name: expect.any(String)
-        }
-      }
+          name: expect.any(String),
+        },
+      },
     });
   });
 
@@ -34,7 +34,7 @@ describe("shopware-6-client - E2E - PageService - getPage", () => {
       "categoryTree",
       "listingPrices",
       "min",
-      "thumbnailsRo"
+      "thumbnailsRo",
     ]);
     expect(result).toMatchSnapshot();
   });
@@ -47,7 +47,7 @@ describe("shopware-6-client - E2E - PageService - getPage", () => {
       "updatedAt",
       "categoryTree",
       "listingPrices",
-      "min"
+      "min",
     ]);
     expect(result).toMatchSnapshot();
   });

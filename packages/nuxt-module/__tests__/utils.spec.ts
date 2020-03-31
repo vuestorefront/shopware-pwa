@@ -7,13 +7,13 @@ const mockedJetpack = jetpack as jest.Mocked<typeof jetpack>;
 describe("nuxt-module - utils", () => {
   const moduleObject: NuxtModuleOptions = {
     options: {
-      rootDir: __dirname
+      rootDir: __dirname,
     },
     addLayout: jest.fn(),
     extendRoutes: jest.fn(),
     addPlugin: jest.fn(),
     extendBuild: jest.fn(),
-    nuxt: jest.fn()
+    nuxt: jest.fn(),
   };
 
   beforeEach(() => {
@@ -28,7 +28,7 @@ describe("nuxt-module - utils", () => {
         `${__dirname}/nuxt.config.js`,
         `${__dirname}/nuxt.config.js`,
         {
-          overwrite: true
+          overwrite: true,
         }
       );
     });
@@ -40,7 +40,7 @@ describe("nuxt-module - utils", () => {
       const result = loadConfig(moduleObject);
       expect(result).toEqual({
         shopwareAccessToken: "qweqwe",
-        shopwareEndpoint: "https://instance.com"
+        shopwareEndpoint: "https://instance.com",
       });
     });
   });

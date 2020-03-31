@@ -8,11 +8,11 @@ describe("Shopware helpers - urlHelpers", () => {
     });
     it("should return proper searchCriteria for provided params", () => {
       const queryJson = {
-        size: JSON.stringify(["xl", "xxl"])
+        size: JSON.stringify(["xl", "xxl"]),
       };
       const result = parseUrlQuery(queryJson);
       expect(result).toEqual({
-        size: ["xl", "xxl"]
+        size: ["xl", "xxl"],
       });
     });
   });
@@ -29,9 +29,9 @@ describe("Shopware helpers - urlHelpers", () => {
           {
             field: "size",
             type: "equals",
-            value: "xl"
-          }
-        ]
+            value: "xl",
+          },
+        ],
       };
       const result = exportUrlQuery(searchCriteria);
 

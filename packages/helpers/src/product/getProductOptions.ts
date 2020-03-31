@@ -10,12 +10,12 @@ interface ProductOptions {
  */
 // -> getAttributes
 export function getProductOptions({
-  product
+  product,
 }: {
   product?: Product;
 } = {}): ProductOptions {
   let typeOptions = {} as any;
-  product?.children?.forEach(variant => {
+  product?.children?.forEach((variant) => {
     if (!variant?.options?.length) {
       return;
     }
@@ -34,7 +34,7 @@ export function getProductOptions({
           typeOptions[option.group.name].push({
             label: option.name,
             code: option.id,
-            value: option.name
+            value: option.name,
           } as UiProductOption);
         }
       }

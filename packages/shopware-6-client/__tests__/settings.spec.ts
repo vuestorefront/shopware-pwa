@@ -2,7 +2,7 @@ import {
   config,
   setup,
   update,
-  onConfigChange
+  onConfigChange,
 } from "@shopware-pwa/shopware-6-client";
 import { apiService } from "../src/apiService";
 import { ConfigChangedArgs } from "../src";
@@ -28,7 +28,7 @@ describe("Settings", () => {
 
     it("should change default endpoint after setup invocation", () => {
       setup({
-        endpoint: "https://my-new-endpoint.com"
+        endpoint: "https://my-new-endpoint.com",
       });
       expect(config.endpoint).toEqual("https://my-new-endpoint.com");
     });

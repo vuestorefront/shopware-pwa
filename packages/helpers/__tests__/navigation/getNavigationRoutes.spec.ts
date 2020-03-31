@@ -6,10 +6,10 @@ describe("Shopware helpers - navigation", () => {
         {
           name: "Cloting",
           route: {
-            path: "/navigation/7d4c679c61d5aa387c80a6a45d75c117"
+            path: "/navigation/7d4c679c61d5aa387c80a6a45d75c117",
           },
-          children: null
-        }
+          children: null,
+        },
       ];
 
       const result = getNavigationRoutes(SWNavigationResponse as any);
@@ -18,8 +18,8 @@ describe("Shopware helpers - navigation", () => {
         {
           routeLabel: "Cloting",
           routePath: "/navigation/7d4c679c61d5aa387c80a6a45d75c117",
-          children: null
-        }
+          children: null,
+        },
       ]);
     });
     it("should return an array with one object with no children included", () => {
@@ -27,16 +27,16 @@ describe("Shopware helpers - navigation", () => {
         {
           name: "Cloting",
           route: {
-            path: "clothing/"
+            path: "clothing/",
           },
-          children: null
-        }
+          children: null,
+        },
       ];
 
       const result = getNavigationRoutes(SWNavigationResponse as any);
 
       expect(result).toStrictEqual([
-        { routeLabel: "Cloting", routePath: "/clothing/", children: null }
+        { routeLabel: "Cloting", routePath: "/clothing/", children: null },
       ]);
     });
 
@@ -45,17 +45,17 @@ describe("Shopware helpers - navigation", () => {
         {
           name: "Cloting",
           route: {
-            path: "clothing/"
+            path: "clothing/",
           },
           children: [
             {
               name: "Outdoor",
               route: {
-                path: "clothing/outdoor/"
-              }
-            }
-          ]
-        }
+                path: "clothing/outdoor/",
+              },
+            },
+          ],
+        },
       ];
 
       const result = getNavigationRoutes(SWNavigationResponse as any);
@@ -68,10 +68,10 @@ describe("Shopware helpers - navigation", () => {
             {
               children: undefined,
               routeLabel: "Outdoor",
-              routePath: "/clothing/outdoor/"
-            }
-          ]
-        }
+              routePath: "/clothing/outdoor/",
+            },
+          ],
+        },
       ]);
     });
   });

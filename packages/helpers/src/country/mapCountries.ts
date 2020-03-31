@@ -18,7 +18,7 @@ export function mapCountries(countries: Country[]): MappedCountry[] {
   if (!countries?.length) return [];
   const mappedCountries = countries.map((country: Country) => ({
     name: country.name,
-    id: country.id
+    id: country.id,
   }));
   return mappedCountries.filter((country: Country) => country.name !== null);
 }

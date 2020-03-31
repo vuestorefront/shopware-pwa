@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/shopware-6-client",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "description": "Rest API client for Shopware 6.",
   "main": "dist/shopware-6-client.cjs.js",
   "module": "dist/shopware-6-client.esm-bundler.js",
@@ -28,6 +28,5 @@
   "license": "MIT",
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "e930f9945653eb78b7a78700b6f4d145ee8cb542"
+  }
 }

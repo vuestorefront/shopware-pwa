@@ -17,9 +17,9 @@ describe("Shopware helpers - getProductName", () => {
       product: {
         name: null,
         translated: {
-          name: "Existing"
-        }
-      }
+          name: "Existing",
+        },
+      },
     };
     const productName = getProductName(argument);
     expect(productName).toBe("Existing");
@@ -29,17 +29,17 @@ describe("Shopware helpers - getProductName", () => {
       product: {
         name: "T-Shirt",
         translated: {
-          name: "Pullover"
+          name: "Pullover",
         },
         options: [
           {
-            name: "XL"
+            name: "XL",
           },
           {
-            name: "yellow"
-          }
-        ]
-      }
+            name: "yellow",
+          },
+        ],
+      },
     };
     const productName = getProductName(argument);
     expect(productName).toBe("Pullover - XL yellow");

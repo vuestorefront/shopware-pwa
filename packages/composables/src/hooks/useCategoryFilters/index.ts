@@ -5,7 +5,7 @@ import {
   getCategoryAvailableSorting,
   UiCategoryFilter,
   UiCategorySorting,
-  SwSorting
+  SwSorting,
 } from "@shopware-pwa/helpers";
 
 /**
@@ -28,7 +28,7 @@ export const useCategoryFilters = (): any => {
     }
 
     return getCategoryAvailableFilters({
-      filters: page.value.listingConfiguration.availableFilters
+      filters: page.value.listingConfiguration.availableFilters,
     });
   });
 
@@ -38,7 +38,7 @@ export const useCategoryFilters = (): any => {
     }
 
     return getCategoryAvailableSorting({
-      sorting: page.value.listingConfiguration.availableSortings
+      sorting: page.value.listingConfiguration.availableSortings,
     });
   });
 
@@ -51,6 +51,6 @@ export const useCategoryFilters = (): any => {
     availableFilters,
     activeFilters,
     availableSorting,
-    activeSorting
+    activeSorting,
   };
 };

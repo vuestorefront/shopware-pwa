@@ -3,7 +3,7 @@ import VueCompositionApi, {
   reactive,
   ref,
   computed,
-  Ref
+  Ref,
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
@@ -23,7 +23,7 @@ describe("Shopware composables", () => {
       getters: reactive({ getPage: computed(() => statePage.value) }),
       commit: (name: string, value: any) => {
         statePage.value = value;
-      }
+      },
     });
   });
   it("should have value", async () => {
@@ -32,7 +32,7 @@ describe("Shopware composables", () => {
       breadcrumb: [],
       cmsPage: { name: "super category", type: "product_list" },
       resourceIdentifier: "3f637f17cd9f4891a2d7625d19fb37c9",
-      resourceType: "frontend.navigation.page"
+      resourceType: "frontend.navigation.page",
     };
     mockedGetPage.getPage.mockResolvedValueOnce(response);
     expect(page.value).toEqual(null);
@@ -46,7 +46,7 @@ describe("Shopware composables", () => {
   it("should have failed on bad url settings", async () => {
     const { search, page, error } = useCms();
     mockedGetPage.getPage.mockRejectedValueOnce({
-      message: "Something went wrong..."
+      message: "Something went wrong...",
     });
     expect(page.value).toEqual(null);
     await search();
@@ -58,7 +58,7 @@ describe("Shopware composables", () => {
   it("should performs search request with no or empty configuration for SearchCriteria", async () => {
     const { search, page, error } = useCms();
     mockedGetPage.getPage.mockRejectedValueOnce({
-      message: "Something went wrong..."
+      message: "Something went wrong...",
     });
     expect(page.value).toEqual(null);
     await search("", { configuration: { associations: [] } });
@@ -73,7 +73,7 @@ describe("Shopware composables", () => {
       breadcrumb: [],
       cmsPage: { name: "super category", type: "product_list" },
       resourceIdentifier: "3f637f17cd9f4891a2d7625d19fb37c9",
-      resourceType: "frontend.navigation.page"
+      resourceType: "frontend.navigation.page",
     };
     mockedGetPage.getPage.mockResolvedValueOnce(response);
     expect(categoryId.value).toBeNull();

@@ -4,7 +4,7 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
  * @alpha
  */
 export function isProductSimple({
-  product
+  product,
 }: { product?: Product } = {}): boolean {
   return !!product?.parentId && product.id !== product.parentId;
 }

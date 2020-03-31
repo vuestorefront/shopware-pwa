@@ -22,12 +22,12 @@ describe("CartService - changeCartItemQuantity", () => {
               label: commerce.productName(),
               quantity: 3,
               payload: {
-                productNumber: random.uuid
-              }
-            }
-          ]
-        }
-      }
+                productNumber: random.uuid,
+              },
+            },
+          ],
+        },
+      },
     });
 
     let lineItemId = "geawq90a5dab4206843d0vc3sa8wefdf";
@@ -57,7 +57,7 @@ describe("CartService - changeCartItemQuantity", () => {
     expect(mockedAxios.patch).toBeCalledWith(
       "/checkout/cart/line-item/someNonExistingLineItemId",
       {
-        quantity: 1
+        quantity: 1,
       }
     );
   });
@@ -76,14 +76,14 @@ describe("CartService - changeCartItemQuantity", () => {
     expect(mockedAxios.patch).toBeCalledWith(
       "/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
       {
-        quantity: -2
+        quantity: -2,
       }
     );
   });
 
   it("should call api with default value of quantity", async () => {
     mockedAxios.patch.mockResolvedValueOnce({
-      data: {}
+      data: {},
     });
 
     let lineItemId = "geawq90a5dab4206843d0vc3sa8wefdf";

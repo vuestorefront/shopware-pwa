@@ -1,7 +1,7 @@
 import {
   getProductEndpoint,
   getProductDetailsEndpoint,
-  getProductsIdsEndpoint
+  getProductsIdsEndpoint,
 } from "../endpoints";
 import { SearchResult } from "@shopware-pwa/commons/interfaces/response/SearchResult";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
@@ -15,7 +15,7 @@ import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCr
  * @throws ClientApiError
  * @alpha
  */
-export const getProductsIds = async function(): Promise<SearchResult<
+export const getProductsIds = async function (): Promise<SearchResult<
   string[]
 >> {
   const resp = await apiService.post(getProductsIdsEndpoint());
@@ -28,7 +28,7 @@ export const getProductsIds = async function(): Promise<SearchResult<
  * @throws ClientApiError
  * @alpha
  */
-export const getProducts = async function(
+export const getProducts = async function (
   searchCriteria?: SearchCriteria
 ): Promise<SearchResult<Product[]>> {
   const resp = await apiService.post(
@@ -49,7 +49,7 @@ export async function getProduct(
   params: any = null
 ): Promise<Product> {
   const resp = await apiService.get(getProductDetailsEndpoint(productId), {
-    params
+    params,
   });
   return resp.data.data;
 }

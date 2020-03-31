@@ -48,7 +48,7 @@ const convertTermFilterValues = (values: CategoryFilterTermValue[]) => {
   return values.map(({ key, count }: { key: string; count: number }) => ({
     value: key,
     label: key,
-    count: count
+    count: count,
   }));
 };
 
@@ -61,7 +61,7 @@ const convertEntityFilterValues = (
     : Object.entries(values).map(([valueId, { name }]) => {
         let filterValue = {
           value: valueId,
-          label: name
+          label: name,
         };
 
         if (isColor) {
@@ -75,7 +75,7 @@ const convertEntityFilterValues = (
 const convertOptionsByType = ({
   type,
   values,
-  isColor
+  isColor,
 }: {
   type: string;
   values: any;
@@ -95,7 +95,7 @@ const convertOptionsByType = ({
  * @alpha
  */
 export function getCategoryAvailableFilters({
-  filters
+  filters,
 }: { filters?: Filter } = {}): UiCategoryFilter[] {
   if (!filters) {
     return [];
@@ -108,8 +108,8 @@ export function getCategoryAvailableFilters({
       options: convertOptionsByType({
         type,
         values,
-        isColor: filterCode === "color"
-      })
+        isColor: filterCode === "color",
+      }),
     })
   );
 

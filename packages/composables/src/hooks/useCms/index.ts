@@ -35,9 +35,9 @@ export const useCms = (): any => {
       name: "options",
       associations: [
         {
-          name: "group"
-        }
-      ]
+          name: "group",
+        },
+      ],
     });
 
     try {
@@ -56,6 +56,6 @@ export const useCms = (): any => {
     categoryId,
     loading,
     search,
-    error
+    error,
   };
 };

@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/helpers",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.4",
   "description": "@shopware-pwa/helpers",
   "main": "dist/helpers.cjs.js",
   "module": "dist/helpers.esm-bundler.js",
@@ -27,6 +27,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "e930f9945653eb78b7a78700b6f4d145ee8cb542"
+  }
 }

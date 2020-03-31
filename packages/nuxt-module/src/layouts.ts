@@ -10,7 +10,7 @@ export function addThemeLayouts(moduleObject: NuxtModuleOptions) {
       "node_modules/@shopware-pwa/default-theme/layouts"
     )
   );
-  layouts.forEach(layout => {
+  layouts.forEach((layout) => {
     const layoutMatch = layout.match(
       /@shopware-pwa[\/\\\\]+default-theme[\/\\\\]+layouts[\/\\\\]+(.+)?.vue$/
     );

@@ -3,7 +3,7 @@ import VueCompositionApi, {
   reactive,
   ref,
   computed,
-  Ref
+  Ref,
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
@@ -26,7 +26,7 @@ describe("Composables - useCart", () => {
     setStore({
       getters: reactive({
         getCart: computed(() => stateCart.value),
-        getUser: computed(() => stateUser.value)
+        getUser: computed(() => stateUser.value),
       }),
       commit: (name: string, value: any) => {
         if (name === "SET_CART") {
@@ -35,7 +35,7 @@ describe("Composables - useCart", () => {
         if (name === "SET_USER") {
           stateUser.value = value;
         }
-      }
+      },
     });
   });
   describe("computed", () => {
@@ -67,7 +67,7 @@ describe("Composables - useCart", () => {
 
       it("should return cartItems", () => {
         stateCart.value = {
-          lineItems: [{ id: 1 }]
+          lineItems: [{ id: 1 }],
         };
         const { cartItems } = useCart();
         expect(cartItems.value).toEqual([{ id: 1 }]);
@@ -82,7 +82,7 @@ describe("Composables - useCart", () => {
 
       it("should show correct items quantity", () => {
         stateCart.value = {
-          lineItems: [{ quantity: 2 }, { quantity: 3 }]
+          lineItems: [{ quantity: 2 }, { quantity: 3 }],
         };
         const { count } = useCart();
         expect(count.value).toEqual(5);
@@ -97,7 +97,7 @@ describe("Composables - useCart", () => {
 
       it("should show 0 on empty price object", () => {
         stateCart.value = {
-          price: {}
+          price: {},
         };
         const { totalPrice } = useCart();
         expect(totalPrice.value).toEqual(0);
@@ -105,7 +105,7 @@ describe("Composables - useCart", () => {
 
       it("should show correct total price", () => {
         stateCart.value = {
-          price: { totalPrice: 123 }
+          price: { totalPrice: 123 },
         };
         const { totalPrice } = useCart();
         expect(totalPrice.value).toEqual(123);
@@ -119,7 +119,7 @@ describe("Composables - useCart", () => {
 
       it("should show 0 on empty price object", () => {
         stateCart.value = {
-          price: {}
+          price: {},
         };
         const { subtotal } = useCart();
         expect(subtotal.value).toEqual(0);
@@ -127,7 +127,7 @@ describe("Composables - useCart", () => {
 
       it("should show correct subtotal price", () => {
         stateCart.value = {
-          price: { positionPrice: 123 }
+          price: { positionPrice: 123 },
         };
         const { subtotal } = useCart();
         expect(subtotal.value).toEqual(123);
@@ -141,16 +141,16 @@ describe("Composables - useCart", () => {
         const { error, placeOrder } = useCart();
         await placeOrder();
         expect(error.value).toStrictEqual({
-          message: "Order cannot be placed"
+          message: "Order cannot be placed",
         });
       });
       it("should try to place an order if user is logged in and return the order object", async () => {
         mockedShopwareClient.createOrder.mockResolvedValueOnce({
-          id: "some-order-id-123456"
+          id: "some-order-id-123456",
         } as any);
         stateUser.value = {
           id: "user-id-8754321",
-          email: "test@email.com"
+          email: "test@email.com",
         } as any;
 
         const { error, placeOrder } = useCart();
@@ -166,7 +166,7 @@ describe("Composables - useCart", () => {
         const { count, refreshCart } = useCart();
         expect(count.value).toEqual(0);
         mockedShopwareClient.getCart.mockResolvedValueOnce({
-          lineItems: [{ quantity: 1 }]
+          lineItems: [{ quantity: 1 }],
         } as any);
         await refreshCart();
         expect(count.value).toEqual(1);
@@ -175,7 +175,7 @@ describe("Composables - useCart", () => {
       it("should show an error when cart is not refreshed", async () => {
         const { count, refreshCart, error } = useCart();
         mockedShopwareClient.getCart.mockRejectedValueOnce({
-          message: "Some problem"
+          message: "Some problem",
         });
         await refreshCart();
         expect(count.value).toEqual(0);
@@ -188,7 +188,7 @@ describe("Composables - useCart", () => {
         const { count, addProduct } = useCart();
         expect(count.value).toEqual(0);
         mockedShopwareClient.addProductToCart.mockResolvedValueOnce({
-          lineItems: [{ quantity: 1 }]
+          lineItems: [{ quantity: 1 }],
         } as any);
         await addProduct({ id: "qwe" });
         expect(count.value).toEqual(1);
@@ -206,11 +206,11 @@ describe("Composables - useCart", () => {
       it("should add product to cart", async () => {
         const { count, removeProduct } = useCart();
         stateCart.value = {
-          lineItems: [{ quantity: 3 }]
+          lineItems: [{ quantity: 3 }],
         };
         expect(count.value).toEqual(3);
         mockedShopwareClient.removeCartItem.mockResolvedValueOnce({
-          lineItems: []
+          lineItems: [],
         } as any);
         await removeProduct({ id: "qwe" });
         expect(count.value).toEqual(0);
@@ -228,11 +228,11 @@ describe("Composables - useCart", () => {
       it("should change product quantity in cart", async () => {
         const { count, changeProductQuantity } = useCart();
         stateCart.value = {
-          lineItems: [{ quantity: 3 }]
+          lineItems: [{ quantity: 3 }],
         };
         expect(count.value).toEqual(3);
         mockedShopwareClient.changeCartItemQuantity.mockResolvedValueOnce({
-          lineItems: [{ quantity: 7 }]
+          lineItems: [{ quantity: 7 }],
         } as any);
         await changeProductQuantity({ id: "qwer", quantity: 7 });
         expect(count.value).toEqual(7);

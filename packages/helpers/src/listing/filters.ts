@@ -3,26 +3,26 @@ import {
   MultiFilter,
   EqualsAnyFilter,
   EqualsFilter,
-  RangeFilter
+  RangeFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { Sort } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 const createMultiFilter = (operator: string, queries: any[]): MultiFilter => ({
   type: SearchFilterType.MULTI,
   operator: operator,
-  queries: queries
+  queries: queries,
 });
 
 const createRangeFilter = (filterData: any, field: string): RangeFilter => ({
   type: SearchFilterType.RANGE,
   field: field,
-  parameters: filterData
+  parameters: filterData,
 });
 
 const createEqualsFilter = (value: string, field: string): EqualsFilter => ({
   type: SearchFilterType.EQUALS,
   field,
-  value
+  value,
 });
 
 const createEqualsAnyFilter = (
@@ -31,7 +31,7 @@ const createEqualsAnyFilter = (
 ): EqualsAnyFilter => ({
   type: SearchFilterType.EQUALS_ANY,
   field,
-  value
+  value,
 });
 
 /**
@@ -109,7 +109,7 @@ export const getSortingSearchCriteria = (selectedSorting: SwSorting): Sort => {
 
   return {
     field: selectedSorting.field,
-    desc: selectedSorting.order === "desc"
+    desc: selectedSorting.order === "desc",
   };
 };
 

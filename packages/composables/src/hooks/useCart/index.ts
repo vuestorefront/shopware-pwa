@@ -4,7 +4,7 @@ import {
   addProductToCart,
   removeCartItem,
   changeCartItemQuantity,
-  createOrder
+  createOrder,
 } from "@shopware-pwa/shopware-6-client";
 import { getStore } from "../..";
 import { useUser } from "../useUser";
@@ -60,7 +60,7 @@ export const useCart = (): any => {
     // return createGuestOrder(guestUserEmail);
 
     error.value = {
-      message: "Order cannot be placed"
+      message: "Order cannot be placed",
     };
   }
 
@@ -102,6 +102,6 @@ export const useCart = (): any => {
     removeProduct,
     totalPrice,
     subtotal,
-    placeOrder
+    placeOrder,
   };
 };

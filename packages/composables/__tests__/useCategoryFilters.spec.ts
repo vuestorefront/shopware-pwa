@@ -3,7 +3,7 @@ import VueCompositionApi, {
   reactive,
   ref,
   computed,
-  Ref
+  Ref,
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
@@ -18,7 +18,7 @@ describe("Composables - useCategoryFilters", () => {
       getters: reactive({ getPage: computed(() => statePage.value) }),
       commit: (name: string, value: any) => {
         statePage.value = value;
-      }
+      },
     });
   });
 
@@ -41,12 +41,12 @@ describe("Composables - useCategoryFilters", () => {
                 name: "manufacturer",
                 values: {
                   "4a65e4a0c3f349c789c8a700d5fedba5": {
-                    name: "Hill Group"
-                  }
-                }
-              }
-            }
-          }
+                    name: "Hill Group",
+                  },
+                },
+              },
+            },
+          },
         };
 
         expect(availableFilters.value).toHaveLength(1);
@@ -73,10 +73,10 @@ describe("Composables - useCategoryFilters", () => {
               rating: null,
               price: {
                 min: null,
-                max: null
-              }
-            }
-          }
+                max: null,
+              },
+            },
+          },
         };
 
         expect(activeFilters.value).toHaveProperty("manufacturer");
@@ -100,14 +100,14 @@ describe("Composables - useCategoryFilters", () => {
             availableSortings: {
               "name-asc": {
                 key: "name-asc",
-                active: true
+                active: true,
               },
               "name-desc": {
                 key: "name-desc",
-                active: false
-              }
-            }
-          }
+                active: false,
+              },
+            },
+          },
         };
 
         statePage.value = listingConfiguration;
@@ -117,7 +117,7 @@ describe("Composables - useCategoryFilters", () => {
         expect(availableSorting.value).toHaveLength(2);
         expect(availableSorting.value).toStrictEqual([
           { active: true, field: "name", name: "name-asc", order: "asc" },
-          { active: false, field: "name", name: "name-desc", order: "desc" }
+          { active: false, field: "name", name: "name-desc", order: "desc" },
         ]);
       });
     });
@@ -134,14 +134,14 @@ describe("Composables - useCategoryFilters", () => {
             availableSortings: {
               "name-asc": {
                 key: "name-asc",
-                active: true
+                active: true,
               },
               "name-desc": {
                 key: "name-desc",
-                active: false
-              }
-            }
-          }
+                active: false,
+              },
+            },
+          },
         };
 
         statePage.value = listingConfiguration;
@@ -151,7 +151,7 @@ describe("Composables - useCategoryFilters", () => {
           name: "name-asc",
           field: "name",
           order: "asc",
-          active: true
+          active: true,
         });
       });
     });

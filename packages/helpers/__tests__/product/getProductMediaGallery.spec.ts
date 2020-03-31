@@ -10,22 +10,22 @@ describe("Shopware helpers - getProductMediaGallery", () => {
               {
                 width: 800,
                 url:
-                  "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_1920x1920.jpg"
+                  "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_1920x1920.jpg",
               },
               {
                 width: 400,
                 url:
-                  "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_400x400.jpg"
+                  "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_400x400.jpg",
               },
               {
                 width: 1920,
                 url:
-                  "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_800x800.jpg"
-              }
-            ]
-          }
-        }
-      ]
+                  "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_800x800.jpg",
+              },
+            ],
+          },
+        },
+      ],
     };
 
     const mediaGallery = getProductMediaGallery({ product });
@@ -47,25 +47,25 @@ describe("Shopware helpers - getProductMediaGallery", () => {
               {
                 width: 960,
                 url:
-                  "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_1920x1920.jpg"
+                  "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_1920x1920.jpg",
               },
               {
                 width: 450,
                 url:
-                  "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_400x400.jpg"
+                  "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_400x400.jpg",
               },
               {
                 width: 900,
                 url:
-                  "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_800x800.jpg"
-              }
-            ]
-          }
-        }
-      ]
+                  "https://shopware.test/thumbnail/8a/fd/cb/1572351035/msh06-gray_main_2_800x800.jpg",
+              },
+            ],
+          },
+        },
+      ],
     };
     const mediaGallery = getProductMediaGallery({
-      product: unmappedMediaSizes
+      product: unmappedMediaSizes,
     });
     expect(mediaGallery).toHaveLength(1);
   });

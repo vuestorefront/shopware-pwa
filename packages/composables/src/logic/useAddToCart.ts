@@ -56,6 +56,6 @@ export const useAddToCart = (product: Product): UseAddToCart => {
     error,
     loading,
     getStock,
-    isInCart
+    isInCart,
   };
 };

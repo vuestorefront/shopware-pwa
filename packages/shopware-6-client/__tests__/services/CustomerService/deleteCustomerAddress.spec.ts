@@ -3,7 +3,7 @@ import { apiService } from "../../../src/apiService";
 import {
   deleteCustomerAddress,
   update,
-  config
+  config,
 } from "@shopware-pwa/shopware-6-client";
 import { random } from "faker";
 

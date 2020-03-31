@@ -1,13 +1,13 @@
 {
   "name": "@shopware-pwa/cli",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.4",
   "description": "Shopware PWA CLI",
   "types": "build/types/types.d.ts",
   "bin": {
     "shopware-pwa": "bin/shopware-pwa"
   },
   "scripts": {
-    "format": "prettier --write **/*.{js,ts,tsx,json}",
+    "format": "prettier --write **/*.{js,ts,json}",
     "lint": "tslint -p . --fix",
     "clean-build": "rm -rf ./build",
     "compile": "tsc -p .",
@@ -31,15 +31,16 @@
   "license": "MIT",
   "dependencies": {
     "gluegun": "^4.2.0",
+    "request": "^2.88.2",
     "unzipper": "^0.10.10"
   },
   "devDependencies": {
     "@types/jest": "^25.1.4",
-    "@types/node": "^13.9.0",
-    "jest": "^25.1.0",
-    "prettier": "^1.19.1",
+    "@types/node": "^12.12.31",
+    "jest": "^25.2.3",
+    "prettier": "^2.0.2",
     "ts-jest": "^25.2.1",
-    "ts-node": "^8.6.2",
+    "ts-node": "^8.8.1",
     "tslint": "^6.1.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-config-standard": "^9.0.0",
@@ -51,6 +52,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "e930f9945653eb78b7a78700b6f4d145ee8cb542"
+  }
 }

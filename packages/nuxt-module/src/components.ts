@@ -20,7 +20,7 @@ export function extendComponents(moduleObject: NuxtModuleOptions) {
 
   if (themeFiles.length) {
     moduleObject.extendBuild((config: any) => {
-      themeFiles.forEach(themeFile => {
+      themeFiles.forEach((themeFile) => {
         config.resolve.alias[
           themeFile
             .replace(

@@ -22,20 +22,20 @@ describe("CartService - addProductToCart", () => {
               label: commerce.productName(),
               quantity: 5,
               payload: {
-                productNumber: random.uuid()
-              }
+                productNumber: random.uuid(),
+              },
             },
             {
               id: "044a190a54ab4f06803909c3ee8063ef",
               label: commerce.productName(),
               quantity: 5,
               payload: {
-                productNumber: random.uuid()
-              }
-            }
-          ]
-        }
-      }
+                productNumber: random.uuid(),
+              },
+            },
+          ],
+        },
+      },
     });
 
     let productId = "044a190a54ab4f06803909c3ee8063ef";
@@ -66,7 +66,7 @@ describe("CartService - addProductToCart", () => {
     expect(mockedAxios.post).toBeCalledWith(
       "/checkout/cart/product/someNonExistingProductId",
       {
-        quantity: 1
+        quantity: 1,
       }
     );
   });
@@ -79,7 +79,7 @@ describe("CartService - addProductToCart", () => {
     expect(addProductToCart(productId, 2)).rejects.toThrow("404: Not Found");
     expect(mockedAxios.post).toBeCalledTimes(1);
     expect(mockedAxios.post).toBeCalledWith("/checkout/cart/product/", {
-      quantity: 2
+      quantity: 2,
     });
   });
 
@@ -87,14 +87,14 @@ describe("CartService - addProductToCart", () => {
     mockedAxios.post.mockResolvedValueOnce({
       data: {
         data: {
-          name: commerce.productName()
-        }
-      }
+          name: commerce.productName(),
+        },
+      },
     });
     await addProductToCart("qwe", 0);
     expect(mockedAxios.post).toBeCalledTimes(1);
     expect(mockedAxios.post).toBeCalledWith("/checkout/cart/product/qwe", {
-      quantity: 1
+      quantity: 1,
     });
   });
 });

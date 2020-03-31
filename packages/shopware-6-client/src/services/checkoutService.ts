@@ -1,7 +1,7 @@
 import { apiService } from "../apiService";
 import {
   getCheckoutOrderEndpoint,
-  getCheckoutGuestOrderEndpoint
+  getCheckoutGuestOrderEndpoint,
 } from "../endpoints";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 
@@ -29,7 +29,7 @@ export async function createGuestOrder(email: string): Promise<Order> {
   }
 
   const resp = await apiService.post(getCheckoutGuestOrderEndpoint(), {
-    email
+    email,
   });
 
   return resp.data?.data;
