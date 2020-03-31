@@ -7,6 +7,8 @@ export interface UseSlotsPositions {
   centerSlot: Ref<Readonly<CmsSlot | undefined>>;
   centerLeftSlot: Ref<Readonly<CmsSlot | undefined>>;
   centerRightSlot: Ref<Readonly<CmsSlot | undefined>>;
+  leftTopSlot: Ref<Readonly<CmsSlot | undefined>>;
+  leftBottomSlot: Ref<Readonly<CmsSlot | undefined>>;
 }
 
 export enum PositionType {
@@ -14,7 +16,9 @@ export enum PositionType {
   RIGHT = "right",
   CENTER = "center",
   CENTER_LEFT = "center-left",
-  CENTER_RIGHT = "center-right"
+  CENTER_RIGHT = "center-right",
+  LEFT_TOP = "left-top",
+  LEFT_BOTTOM = "left-bottom"
 }
 
 export const useSlotsPositions = (slots: CmsSlot[]): UseSlotsPositions => {
@@ -36,12 +40,20 @@ export const useSlotsPositions = (slots: CmsSlot[]): UseSlotsPositions => {
   const centerRightSlot = computed((): CmsSlot | undefined =>
     findSlot(PositionType.CENTER_RIGHT)
   );
+  const leftTopSlot = computed((): CmsSlot | undefined =>
+    findSlot(PositionType.LEFT_TOP)
+  );
+  const leftBottomSlot = computed((): CmsSlot | undefined =>
+    findSlot(PositionType.LEFT_BOTTOM)
+  );
 
   return {
     leftSlot,
     rightSlot,
     centerSlot,
     centerLeftSlot,
-    centerRightSlot
+    centerRightSlot,
+    leftBottomSlot,
+    leftTopSlot
   };
 };
