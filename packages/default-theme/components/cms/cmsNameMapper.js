@@ -27,7 +27,6 @@ export function getComponentBy(content) {
   const isBlock = !!content.sectionId
 
   let componentName
-  console.log('content', content.type, content)
   if (isBlock) {
     componentName = blocksMap[content.type]
   }
