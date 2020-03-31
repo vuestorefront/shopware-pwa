@@ -1,12 +1,12 @@
 # Shopware PWA
 
-[![Build Status](https://travis-ci.org/DivanteLtd/shopware-pwa.svg?branch=master)](https://travis-ci.org/DivanteLtd/shopware-pwa) [![Coverage Status](https://coveralls.io/repos/github/DivanteLtd/shopware-pwa/badge.svg?branch=master)](https://coveralls.io/github/DivanteLtd/shopware-pwa) [![Greenkeeper badge](https://badges.greenkeeper.io/DivanteLtd/shopware-pwa.svg)](https://greenkeeper.io/)
+[![CircleCI](https://circleci.com/gh/DivanteLtd/shopware-pwa.svg?style=svg)](https://circleci.com/gh/DivanteLtd/shopware-pwa) [![Coverage Status](https://coveralls.io/repos/github/DivanteLtd/shopware-pwa/badge.svg?branch=master)](https://coveralls.io/github/DivanteLtd/shopware-pwa) [![Greenkeeper badge](https://badges.greenkeeper.io/DivanteLtd/shopware-pwa.svg)](https://greenkeeper.io/)
 
 The only Official Progressive Web App for <a href="https://github.com/shopware/platform">Shopware 6</a>.
 
 About Shopware:
 
-<a href="https://github.com/shopware/platform">Shopware 6</a> is the next generation of open source eCommerce software based on bleeding-edge technologies powered by Symfony and Vue.js. Focused on an API-first approach Shopware provides more flexibility and less complexity
+<a href="https://github.com/shopware/platform">Shopware 6</a> is the next generation of open-source eCommerce software based on bleeding-edge technologies powered by Symfony and Vue.js. Focused on an API-first approach, Shopware provides more flexibility and less complexity.
 
 PS: Check [StorefrontUI](https://github.com/DivanteLtd/storefront-ui/) - our UI library for eCommerce.
 
@@ -24,7 +24,7 @@ PS: Check [StorefrontUI](https://github.com/DivanteLtd/storefront-ui/) - our UI 
         </a>
       </td>
       <td align="left" valign="top">
-        Try out our open demo and if you like it <strong> first give us some star on Github ★</strong> and then contact us on <a href="https://slack.vuestorefront.io">#shopware-pwa channel @ Vue Storefront Official Slack</a> or via contributors@vuestorefront.io. <br /><br /> This demo site is connected to <a href="https://github.com/shopware/platform">Shopware 6</a>. <br />
+        Try out our open demo and if you like it <strong> first give us some star on Github ★</strong> and then contact us on <a href="http://slack.vuestorefront.io/">#shopware-pwa channel @ Vue Storefront Official Slack</a> or via contributors@vuestorefront.io. <br /><br /> This demo site is connected to <a href="https://github.com/shopware/platform">Shopware 6</a>. <br />
       </td>
     </tr>
   </tbody>
@@ -36,7 +36,7 @@ PS: Check [StorefrontUI](https://github.com/DivanteLtd/storefront-ui/) - our UI 
 
 ## Join the community on Slack
 
-If you have any questions or ideas feel free to join our slack: https://vuestorefront.slack.com via [invitation link](https://join.slack.com/t/vuestorefront/shared_invite/enQtNTAwODYzNzI3MjAzLWFkZjc0YjVjODA1Y2I2MTdlNmM0NThjY2M5MzgzN2U2NzE4YmE2YzA4YTM0MTY3OWQzZjBhMjBlZDhmYjAyNGI)
+If you have any questions or ideas feel free to join our slack: https://vuestorefront.slack.com via [invitation link](http://slack.vuestorefront.io/)
 
 ## Getting started
 
@@ -44,7 +44,7 @@ If you have any questions or ideas feel free to join our slack: https://vuestore
 
 See [the documentation](https://shopware-pwa-docs.netlify.com/#introduction-to-shopware-pwa) to get started.
 
-## Quick start
+## Quickstart
 
 ### Installation
 
@@ -78,7 +78,7 @@ Now you have complete ShopwarePWA project running locally.
 
 #### Running Shopware PWA on custom Shopware instance
 
-1. edit file `shopware-pwa.config.js` inside root of the newly created project
+1. edit file `shopware-pwa.config.js` inside the root of the newly created project
 2. fill it with your data, current example:
 
 ```js
@@ -100,15 +100,15 @@ If you already have some Shopware PWA plugins installed (like [HelloCody](https:
 shopware-pwa init
 ```
 
-will ask you for username and password for shopware instance, to load installed plugins.
+Will ask you for username and password for shopware instance, to load installed plugins.
 
 ## Development and contribution
 
-When you create fork and clone repo, just type `yarn start` to install node dependencies and run the post-install script that build and links packages, it also creates a test-project inside root catalog, which is ignored by git. Now, you're ready to develop. You can watch the compilation process by running `yarn dev` or `yarn dev:<package-name>`to specify the package that you will be working on. It also build all nescesarry packages and
+When you create fork and clone repo, just type `yarn start` to install node dependencies and run the post-install script that builds and links packages, it also creates a test-project in root catalogue, which is ignored by git. Now, you're ready to develop. You can watch the compilation process by running `yarn dev` or `yarn dev:<package-name>`to specify the package that you will be working on. It also builds all necessary packages and
 
 Please, remember to always during development have opened terminal with `yarn test --watch` command fired.
 
-To see the project go to `./test-project` and run `yarn dev`. The project will be available in your browser at http://localhost:3000.
+To see the project, go to `./test-project` and run `yarn dev`. The project will be available in your browser at http://localhost:3000.
 You can test changes directly in ignored test-project directory or make changes inside packages (for example default-theme).
 
 A more advanced development guide will be available soon.
@@ -125,9 +125,9 @@ Common issues with solutions are kept in [troubleshooting](./TROUBLESHOOTING.md)
 
 ### What is Shopware-PWA?
 
-It is a product, that will allow Shopware users to easily setup headless storefront for Shopware 6 eCommerce systems. It will provide all the PWA benefits like app-like experience, on-mobile-installation, service worker caching and more. Shopware-PWA by default will be provided with ready-to-go theme built on StorefrontUI.
+It is a product, that will allow Shopware users to quickly set up a headless storefront for Shopware 6 eCommerce systems. It will provide all the PWA benefits like app-like experience, on-mobile-installation, service worker caching and more. Shopware-PWA by default will is equipped with a ready-to-go theme built on StorefrontUI.
 
-It is a native integration dedicated for Shopware 6, which means all the Shopware developers will not have to learn totally new approaches and naming conventions. Goal of the product is to keep the entry threshold as low as possible to make the further implementations fast and simple. Product will be compatible with Shopware 6 Plugins Ecosystem.
+It is a native integration dedicated for Shopware 6, which means all the Shopware developers will not have to learn new approaches and naming conventions. The goal of the product is to keep the entry threshold as low as possible to make further implementations fast and straightforward. The product will be compatible with the Shopware 6 Plugins Ecosystem.
 
 ### Tech stack
 
@@ -142,33 +142,33 @@ It is a native integration dedicated for Shopware 6, which means all the Shopwar
 
 ### What is Shopware-6-Client Library?
 
-One of the key components in Shopware-PWA architecture. It is a separate package built for TypeScript community to allow them to work with Shopware 6 API. It provides all the methods to work with SalesChannel-API of Shopware 6. Shopware-PWA uses that package for communication with Shopware backend.
+This is one of the critical components in Shopware-PWA architecture. It is a separate package built for TypeScript community to allow them to work with Shopware 6 API. It provides all the methods to work with SalesChannel-API of Shopware 6. Shopware-PWA uses that package for communication with Shopware backend.
 
 ### What is StorefrontUI?
 
-It is a powerful design systems for UI layer of your eCommerce systems. Storefront UI is an independent, Vue.js-based, library of UI components for developers, designers, and agencies striving to build fabulous storefronts.
+It is an excellent design system for the UI layer of your eCommerce systems. Storefront UI is an independent, Vue.js-based, the library of UI components for developers, designers, and agencies striving to build fabulous storefronts.
 
-Read more: https://www.storefrontui.io/
+Read more: https://www.storefrontui.io/.
 
 ### Caching approach
 
-In Vue Storefront 1 we provided full offline support.
+In Vue Storefront 1, we provided full offline support.
 
-In Shopware-PWA we will go for service worker caching. That means the product will use Shopware 6 logic through API instead of recreating all of the business logic in the frontend layer.
+In Shopware-PWA we will go for a service worker caching. That means the product will use Shopware 6 logic through API instead of recreating all of the business logic in the frontend layer.
 
-However, service workers will allow you to browse the catalog offline.
+However, service workers will allow you to browse the catalogue offline.
 
 ---
 
 ## Software engineering standards
 
-Before starting the implementation of Shopware-PWA we’ve made a deep analysis of all our previous experience, that we earnt during the implement of Vue Storefront 1. After gathering all the lessons learnt, we decided bo build tech driven high quality product, that will meet the business needs.
+Before starting the implementation of Shopware-PWA, we’ve made an in-depth analysis of all our previous experience, that we earnt during the implement of Vue Storefront 1. After gathering all the lessons learnt, we decided to build a tech-driven high-quality product, that will meet the business needs.
 
 ### Style Guide
 
 We follow official VueJS coding standards - https://vuejs.org/v2/style-guide/.
 
-We also setup Prettier (https://prettier.io/) on git pre-commit hook to automatically format all the code before pushing it to the remote repository. This way we make sure, that all the code’s been written using the same standards. It makes the process of learning the codebase of the product much easier and smoother for all the new developers.
+We also setup Prettier (https://prettier.io/) on git pre-commit hook to automatically format all the code before pushing it to the remote repository. This way, we make sure that all the code’s been written using the same standards. It makes the process of learning the codebase of the product much easier and smoother for all the new developers.
 
 ### Coding standards
 
@@ -185,7 +185,7 @@ We also setup Prettier (https://prettier.io/) on git pre-commit hook to automati
 - Use Prettier locally.
 - Run Linter before commit.
 - Always change data by mutations.
-- Log interactions with cache as this is hard to debug.
+- Log interactions with cache as this are hard to debug.
 - Use Chrome debugger. Do not leave thousands of console.log().
 - Use async awaits instead of promises.
 
@@ -196,7 +196,7 @@ We also setup Prettier (https://prettier.io/) on git pre-commit hook to automati
 
 ##### Tools
 
-- Use axios for handling http requests.
+- Use Axios for handling HTTP requests.
 - Experiment with Live Share for pair programming.
 
 ##### Code review
@@ -211,7 +211,7 @@ We also setup Prettier (https://prettier.io/) on git pre-commit hook to automati
 
 - Self-CR before commit. Do not assume others will check your dirty work.
 - Delete pointless console.log() before commit.
-- Meet commit message criteria to auto-generate change log.
+- Adjust to commit message criteria to auto-generate changelog.
 
 #### DO NOT
 
@@ -224,18 +224,18 @@ We also setup Prettier (https://prettier.io/) on git pre-commit hook to automati
 
 #### User Stories
 
-- Simplified User Story format to describe the issue is used - e.g. - I want to `<goal>` So that `<reason>`.
+- Simplified User Story format to describe the issue is used - e.g., I want to `<goal>` So that `<reason>`.
 - Epic (label) is assigned (the epic provides team members with background information and additional business value).
 - Acceptance criteria are listed.
-- Dependencies are identified and no external dependencies would block the item from being completed (e.g. missing decision / information / implementation from other departments / development teams or missing tools).
-- User story is small enough to be completed in one sprint.
-- Team knows what to do, and do not see any blocking points.
+- Dependencies are identified, and no external dependencies would block the item from being completed (e.g. missing decision/information/implementation from other departments/development teams or missing tools).
+- The user story is small enough to be completed in one sprint.
+- The team knows what to do and do not see any blocking points.
 
 #### Bugs
 
-- Current behavior is explained.
+- The current behaviour is explained.
 - Steps to reproduce are explained.
-- Expected behavior is explained.
+- The expected behaviour is defined.
 - If possible, screenshot or gif is provided.
 
 ### Definition of Done
@@ -246,8 +246,8 @@ We also setup Prettier (https://prettier.io/) on git pre-commit hook to automati
 - Code does not destroy build.
 - All unit tests pass.
 - Code meets our Coding standards.
-- User story is verified by QA.
-- User story is tested on the newest browsers and newest-1 versions.
+- QA verifies the user story.
+- The user story is tested on the newest browsers and newest-1 versions.
 - At least minimal documentation is created.
 
 ##### Bugs
@@ -256,19 +256,15 @@ We also setup Prettier (https://prettier.io/) on git pre-commit hook to automati
 
 ### Pipeline & Continuous integration / delivery / deployment
 
-We use TravisCI for continuous integration tool. In the pipeline we run a few basic checks, we check if the unit tests coverage did not decrease and we rebuild the application to verify if the new code does not break up the build.
-
-You may find the whole history: https://travis-ci.org/DivanteLtd/shopware-pwa
-
-Test eCommerce Page will be automatically deployed to following environment...
+We use CircleCI for continuous integration tool. In the pipeline, we run a few necessary checks, and we check if the unit tests coverage did not decrease and we rebuild the application to verify if the new code does not break up the build.
 
 ### Test coverage
 
-In early stages of the development, we decided to keep 99% percent of unit tests code coverage. That means you will not be suprised by changed behaviour of the methods in your storefront product. If you break it, you will be notified by the tests.
+In the early stages of the development, we decided to keep 99% of unit tests code coverage. That means you will not be surprised by the changed behaviour of the methods in your storefront product. If you break it, you will be notified by the tests.
 
-In the next phases of development we will make the next decisions associated with testing. We will probably cover critical paths with end2end testing.
+In the next phases of development, we will make the following decisions associated with testing. We will probably cover critical paths with end2end testing.
 
-Right now for testing we use Jest framework - https://jestjs.io/.
+Right now, for testing, we use the Jest framework - https://jestjs.io/.
 
 ### Versioning
 
@@ -276,7 +272,7 @@ Versioning of Shopware-PWA is not dependent on Shopware 6 versioning. We will st
 
 ### Change log
 
-We experimentally use conventional commit messages to automatically generate the change log. https://www.conventionalcommits.org
+We experimentally use conventional commit messages to generate the changelog automatically. https://www.conventionalcommits.org
 
 ---
 
@@ -286,4 +282,4 @@ We experimentally use conventional commit messages to automatically generate the
 
 - Bundle size verified with `webpack-bundle-analyzer`.
 - Size lower than 300 kB for JS loaded immediately.
-- Everything, that may exceed 300 KB must be lazy loaded.
+- Everything that may exceed 300 KB must be lazy-loaded.
