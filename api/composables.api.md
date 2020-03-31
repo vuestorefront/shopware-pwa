@@ -31,6 +31,10 @@ export enum PositionType {
     // (undocumented)
     LEFT = "left",
     // (undocumented)
+    LEFT_BOTTOM = "left-bottom",
+    // (undocumented)
+    LEFT_TOP = "left-top",
+    // (undocumented)
     RIGHT = "right"
 }
 
@@ -169,7 +173,11 @@ export interface UseSlotsPositions {
     // (undocumented)
     centerSlot: Ref<Readonly<CmsSlot | undefined>>;
     // (undocumented)
+    leftBottomSlot: Ref<Readonly<CmsSlot | undefined>>;
+    // (undocumented)
     leftSlot: Ref<Readonly<CmsSlot | undefined>>;
+    // (undocumented)
+    leftTopSlot: Ref<Readonly<CmsSlot | undefined>>;
     // (undocumented)
     rightSlot: Ref<Readonly<CmsSlot | undefined>>;
 }
