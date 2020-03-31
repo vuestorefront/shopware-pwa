@@ -15,7 +15,7 @@ describe("Composables - useImageProps", () => {
     }
   };
 
-  const emptyContent = {};
+  const emptyContent = undefined;
 
   it("should return computed url string", () => {
     const { getImgUrl } = useImageProps(content as any);

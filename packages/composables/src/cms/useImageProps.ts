@@ -7,17 +7,17 @@ export interface UseImageProps {
   getTitle: Ref<Readonly<any>>;
 }
 
-export const useImageProps = (content: CmsSlot): UseImageProps => {
+export const useImageProps = (content: CmsSlot | undefined): UseImageProps => {
   const getImgUrl = computed(() => {
-    const imgUrl = content.data?.media?.url;
+    const imgUrl = content?.data?.media?.url;
     return imgUrl || "";
   });
   const getAlt = computed(() => {
-    const alt = content.data?.media?.alt;
+    const alt = content?.data?.media?.alt;
     return alt || "";
   });
   const getTitle = computed(() => {
-    const title = content.data?.media?.title;
+    const title = content?.data?.media?.title;
     return title || "";
   });
 
