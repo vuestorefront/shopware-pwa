@@ -6,7 +6,7 @@ import { getProductUrl } from "./getProductUrl";
  */
 export function getProductOptionsUrl({
   product,
-  options
+  options,
 }: {
   product?: Product;
   options?: string[];
@@ -17,9 +17,9 @@ export function getProductOptionsUrl({
     product.children &&
     product.children
       .filter(
-        variant =>
+        (variant) =>
           variant.optionIds &&
-          variant.optionIds.every(optionId => options.includes(optionId))
+          variant.optionIds.every((optionId) => options.includes(optionId))
       )
       .shift();
   const result = variant || product;

@@ -21,9 +21,9 @@ describe("CheckoutService createOrder", () => {
       mockedAxios.post.mockResolvedValueOnce({
         data: {
           data: {
-            id: "new-order-id"
-          }
-        }
+            id: "new-order-id",
+          },
+        },
       });
 
       const result = await createOrder();
@@ -39,7 +39,7 @@ describe("CheckoutService createOrder", () => {
       const result = await createGuestOrder("some@email.com");
       expect(mockedAxios.post).toBeCalledTimes(1);
       expect(mockedAxios.post).toBeCalledWith("/checkout/guest-order", {
-        email: "some@email.com"
+        email: "some@email.com",
       });
       expect(result).toBeUndefined();
     });
@@ -47,15 +47,15 @@ describe("CheckoutService createOrder", () => {
       mockedAxios.post.mockResolvedValueOnce({
         data: {
           data: {
-            id: "new-order-id"
-          }
-        }
+            id: "new-order-id",
+          },
+        },
       });
 
       const result = await createGuestOrder("dummy@email.com");
       expect(mockedAxios.post).toBeCalledTimes(1);
       expect(mockedAxios.post).toBeCalledWith("/checkout/guest-order", {
-        email: "dummy@email.com"
+        email: "dummy@email.com",
       });
       expect(result).toHaveProperty("id");
     });

@@ -3,7 +3,7 @@ import {
   login,
   getCustomerAddress,
   createCustomerAddress,
-  deleteCustomerAddress
+  deleteCustomerAddress,
 } from "@shopware-pwa/shopware-6-client";
 import { address, name } from "faker";
 
@@ -22,7 +22,7 @@ describe("shopware-6-client - E2E - CustomerService - getCustomerAddress", () =>
       city: address.city(),
       street: address.streetName(),
       salutation: "Mr",
-      countryId: "38245a84c3d5425b8bac97fc845b5ddd"
+      countryId: "38245a84c3d5425b8bac97fc845b5ddd",
     });
     const result: any = await getCustomerAddress(customerAddress.data);
     await deleteCustomerAddress(customerAddress.data);

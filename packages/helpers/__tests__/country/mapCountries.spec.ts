@@ -13,25 +13,25 @@ describe("Shopware helpers - mapCountries", () => {
         active: true,
         id: "id",
         iso: "iso",
-        createdAt: "date"
+        createdAt: "date",
       },
       {
         name: "Romania",
         active: true,
         id: "id",
         iso: "iso",
-        createdAt: "date"
-      }
+        createdAt: "date",
+      },
     ];
     expect(mapCountries(countries)).toEqual([
       {
         name: "Norway",
-        id: "id"
+        id: "id",
       },
       {
         name: "Romania",
-        id: "id"
-      }
+        id: "id",
+      },
     ]);
   });
   it("should return mapped countries only with defined name", () => {
@@ -41,21 +41,21 @@ describe("Shopware helpers - mapCountries", () => {
         active: true,
         id: "id",
         iso: "iso",
-        createdAt: "date"
+        createdAt: "date",
       },
       {
         name: "Romania",
         active: true,
         id: "id",
         iso: "iso",
-        createdAt: "date"
-      }
+        createdAt: "date",
+      },
     ];
     expect(mapCountries(countries)).toEqual([
       {
         name: "Romania",
-        id: "id"
-      }
+        id: "id",
+      },
     ]);
   });
 });

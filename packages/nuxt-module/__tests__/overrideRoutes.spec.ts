@@ -4,8 +4,8 @@ import path from "path";
 describe("nuxt-module - overrideRoutes", () => {
   const moduleObject = {
     options: {
-      rootDir: __dirname
-    }
+      rootDir: __dirname,
+    },
   };
 
   beforeEach(() => {
@@ -19,8 +19,8 @@ describe("nuxt-module - overrideRoutes", () => {
         component: path.join(
           __dirname,
           `node_modules/@shopware-pwa/default-theme/pages/qwe.vue`
-        )
-      }
+        ),
+      },
     ];
     const overrides = ["pages/qweqwe.vue"];
     overrideRoutes(moduleObject, routes, overrides);
@@ -39,8 +39,8 @@ describe("nuxt-module - overrideRoutes", () => {
         component: path.join(
           __dirname,
           `node_modules/@shopware-pwa/default-theme/pages/qwe.vue`
-        )
-      }
+        ),
+      },
     ];
     const overrides = [path.join("pages", "qwe.vue")];
     overrideRoutes(moduleObject, routes, overrides);
@@ -61,10 +61,10 @@ describe("nuxt-module - overrideRoutes", () => {
             component: path.join(
               __dirname,
               "node_modules/@shopware-pwa/default-theme/pages/test/child.vue"
-            )
-          }
-        ]
-      }
+            ),
+          },
+        ],
+      },
     ];
     const overrides = [path.join("pages", "test", "child.vue")];
     overrideRoutes(moduleObject, routes, overrides);

@@ -4,18 +4,18 @@ import {
   EqualsFilter,
   SearchFilterType,
   EqualsAnyFilter,
-  ContainsFilter
+  ContainsFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { getProducts } from "@shopware-pwa/shopware-6-client";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import {
   Sort,
-  SearchCriteria
+  SearchCriteria,
 } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import {
   getFilterSearchCriteria,
   getSortingSearchCriteria,
-  exportUrlQuery
+  exportUrlQuery,
 } from "@shopware-pwa/helpers";
 import { useCms } from "./useCms";
 import { useCategoryFilters } from "./useCategoryFilters";
@@ -32,18 +32,18 @@ export interface UseProductListing {
 const sharedPagination = Vue.observable({
   currentPage: 1,
   perPage: 10,
-  total: 100
+  total: 100,
 } as any);
 
 const sharedListing = Vue.observable({
-  products: []
+  products: [],
 } as any);
 
 const selectedCriteria = Vue.observable({
   pagination: null,
   propertyIds: [],
   filters: {},
-  sorting: ""
+  sorting: "",
 } as any);
 
 /**
@@ -90,11 +90,11 @@ export const useProductListing = (
       }
 
       selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
-        [filter.field]: [...new Set(selected)]
+        [filter.field]: [...new Set(selected)],
       });
     } else {
       selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
-        [filter.field]: [filter.value]
+        [filter.field]: [filter.value],
       });
     }
   };
@@ -113,7 +113,7 @@ export const useProductListing = (
         // append selected filters with currentCategory; should be taken from usePage
         field: "categoryTree",
         type: SearchFilterType.EQUALS_ANY,
-        value: categoryId.value
+        value: categoryId.value,
       },
       true
     );
@@ -126,14 +126,14 @@ export const useProductListing = (
         // fetch variant options
         associations: [
           {
-            name: "options"
+            name: "options",
           },
           // fetch productReviews
           {
-            name: "productReviews"
-          }
-        ]
-      }
+            name: "productReviews",
+          },
+        ],
+      },
     };
 
     const search = exportUrlQuery(searchCriteria);
@@ -154,7 +154,7 @@ export const useProductListing = (
     sharedPagination.currentPage = page;
     selectedCriteria.pagination = {
       limit: sharedPagination.perPage,
-      page
+      page,
     };
     await search();
   };
@@ -185,6 +185,6 @@ export const useProductListing = (
     resetFilters,
     changeSorting,
     selectedSorting,
-    categoryId
+    categoryId,
   };
 };

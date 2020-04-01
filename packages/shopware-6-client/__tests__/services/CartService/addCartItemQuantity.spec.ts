@@ -22,12 +22,12 @@ describe("CartService - addCartItemQuantity", () => {
               label: commerce.productName(),
               quantity: 5,
               payload: {
-                productNumber: random.uuid()
-              }
-            }
-          ]
-        }
-      }
+                productNumber: random.uuid(),
+              },
+            },
+          ],
+        },
+      },
     });
 
     let lineItemId = "3a64e872ca404522a2c5d43ebc751e6b";
@@ -38,7 +38,7 @@ describe("CartService - addCartItemQuantity", () => {
       `/checkout/cart/line-item/3a64e872ca404522a2c5d43ebc751e6b`,
       {
         type: "product",
-        quantity: 3
+        quantity: 3,
       }
     );
     expect(result.lineItems[0].quantity).toEqual(5);
@@ -59,7 +59,7 @@ describe("CartService - addCartItemQuantity", () => {
       "/checkout/cart/line-item/someNonExistingLineItemId",
       {
         quantity: 1,
-        type: "product"
+        type: "product",
       }
     );
   });
@@ -79,7 +79,7 @@ describe("CartService - addCartItemQuantity", () => {
       `/checkout/cart/line-item/${lineItemId}`,
       {
         quantity: -2,
-        type: "product"
+        type: "product",
       }
     );
   });
@@ -95,7 +95,7 @@ describe("CartService - addCartItemQuantity", () => {
     expect(mockedAxios.post).toBeCalledTimes(1);
     expect(mockedAxios.post).toBeCalledWith("/checkout/cart/line-item/", {
       quantity: 2,
-      type: "product"
+      type: "product",
     });
   });
 });

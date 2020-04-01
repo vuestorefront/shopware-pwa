@@ -12,24 +12,24 @@ describe("Shopware helpers - mapSalutations", () => {
         displayName: "Mr.",
         id: "id",
         letterName: "Dear Mr.",
-        salutationKey: "salutation key"
+        salutationKey: "salutation key",
       },
       {
         displayName: "Mrs.",
         id: "id",
         letterName: "Dear Mrs.",
-        salutationKey: "salutation key"
-      }
+        salutationKey: "salutation key",
+      },
     ];
     expect(mapSalutations(salutations)).toEqual([
       {
         name: "Mr.",
-        id: "id"
+        id: "id",
       },
       {
         name: "Mrs.",
-        id: "id"
-      }
+        id: "id",
+      },
     ]);
   });
 
@@ -38,23 +38,23 @@ describe("Shopware helpers - mapSalutations", () => {
       {
         id: "id",
         letterName: "Dear Mr.",
-        salutationKey: "salutation key"
+        salutationKey: "salutation key",
       },
       {
         id: "id",
         letterName: "Dear Mrs.",
-        salutationKey: "salutation key"
-      }
+        salutationKey: "salutation key",
+      },
     ];
     expect(mapSalutations(salutations)).toEqual([
       {
         name: "salutation key",
-        id: "id"
+        id: "id",
       },
       {
         name: "salutation key",
-        id: "id"
-      }
+        id: "id",
+      },
     ]);
   });
   it("should mapped salutations contain objects without null name", () => {
@@ -62,19 +62,19 @@ describe("Shopware helpers - mapSalutations", () => {
       {
         id: "id",
         letterName: "Dear Mr.",
-        salutationKey: "salutation key"
+        salutationKey: "salutation key",
       },
       {
         id: "id",
         letterName: "Dear Mrs.",
-        salutationKey: null
-      }
+        salutationKey: null,
+      },
     ];
     expect(mapSalutations(salutations)).toEqual([
       {
         name: "salutation key",
-        id: "id"
-      }
+        id: "id",
+      },
     ]);
   });
 });

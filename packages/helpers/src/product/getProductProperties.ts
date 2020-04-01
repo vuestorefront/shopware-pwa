@@ -5,11 +5,11 @@ import { UiProductProperty } from "@shopware-pwa/helpers";
  * @alpha
  */
 export function getProductProperties({
-  product
+  product,
 }: { product?: Product } = {}): UiProductProperty[] {
-  const propertyList = product?.properties?.map(property => ({
+  const propertyList = product?.properties?.map((property) => ({
     name: property.group?.name || "",
-    value: property.name
+    value: property.name,
   }));
 
   return propertyList || [];

@@ -1,6 +1,6 @@
 import {
   Association,
-  ShopwareAssociation
+  ShopwareAssociation,
 } from "@shopware-pwa/commons/interfaces/search/Association";
 
 export function convertAssociations(
@@ -8,10 +8,10 @@ export function convertAssociations(
 ): ShopwareAssociation | undefined {
   if (!Array.isArray(associations) || !associations.length) return;
   let shopwareAssociations: ShopwareAssociation = {};
-  associations.forEach(association => {
+  associations.forEach((association) => {
     shopwareAssociations[association.name] = association.associations
       ? {
-          associations: convertAssociations(association.associations)
+          associations: convertAssociations(association.associations),
         }
       : {};
   });

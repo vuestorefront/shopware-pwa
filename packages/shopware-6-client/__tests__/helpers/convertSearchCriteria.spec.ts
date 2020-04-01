@@ -3,7 +3,7 @@ import {
   SearchFilterType,
   EqualsFilter,
   RangeFilter,
-  MultiFilter
+  MultiFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
 import { config, setup, update } from "@shopware-pwa/shopware-6-client";
@@ -19,7 +19,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
   describe("pagination", () => {
     it("should have page number with default limit if not provided", () => {
       const result = convertSearchCriteria({
-        pagination: { page: PaginationLimit.ONE }
+        pagination: { page: PaginationLimit.ONE },
       });
       expect(result?.page).toEqual(1);
       expect(result?.limit).toEqual(config.defaultPaginationLimit);
@@ -40,8 +40,8 @@ describe("SearchConverter - convertSearchCriteria", () => {
       const result = convertSearchCriteria({
         pagination: {
           page: 3,
-          limit: 5
-        }
+          limit: 5,
+        },
       });
       expect(result?.page).toEqual(3);
       expect(result?.limit).toEqual(5);
@@ -49,7 +49,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
     it("should change default pagination limit", () => {
       update({ defaultPaginationLimit: 50 });
       const result = convertSearchCriteria({
-        pagination: { page: PaginationLimit.ONE }
+        pagination: { page: PaginationLimit.ONE },
       });
       expect(result?.page).toEqual(1);
       expect(result?.limit).toEqual(50);
@@ -60,9 +60,9 @@ describe("SearchConverter - convertSearchCriteria", () => {
       const paramsObject = convertSearchCriteria({
         pagination: { page: 1 },
         sort: {
-          field: "name"
+          field: "name",
         },
-        filters: []
+        filters: [],
       });
       expect(paramsObject?.page).toEqual(1);
       expect(paramsObject?.limit).toEqual(config.defaultPaginationLimit);
@@ -72,8 +72,8 @@ describe("SearchConverter - convertSearchCriteria", () => {
       const result = convertSearchCriteria({
         sort: {
           field: "name",
-          desc: true
-        }
+          desc: true,
+        },
       });
       expect(result?.sort).toEqual("-name");
     });
@@ -84,15 +84,15 @@ describe("SearchConverter - convertSearchCriteria", () => {
         const nameFilter: EqualsFilter = {
           type: SearchFilterType.EQUALS,
           field: "name",
-          value: "Aerodynamic Iron Jetsilk"
+          value: "Aerodynamic Iron Jetsilk",
         };
         const result = convertSearchCriteria({
-          filters: [nameFilter]
+          filters: [nameFilter],
         });
         expect(result?.filter?.[0]).toEqual({
           type: "equals",
           value: "Aerodynamic Iron Jetsilk",
-          field: "name"
+          field: "name",
         });
       });
     });
@@ -103,19 +103,19 @@ describe("SearchConverter - convertSearchCriteria", () => {
           field: "price",
           parameters: {
             lt: 120,
-            gte: 5
-          }
+            gte: 5,
+          },
         };
         const result = convertSearchCriteria({
-          filters: [nameFilter]
+          filters: [nameFilter],
         });
         expect(result?.filter?.[0]).toEqual({
           type: "range",
           field: "price",
           parameters: {
             lt: 120,
-            gte: 5
-          }
+            gte: 5,
+          },
         });
       });
     });
@@ -124,33 +124,33 @@ describe("SearchConverter - convertSearchCriteria", () => {
         const nameFilter: EqualsFilter = {
           type: SearchFilterType.EQUALS,
           field: "name",
-          value: "Aerodynamic Iron Jetsilk"
+          value: "Aerodynamic Iron Jetsilk",
         };
         const otherNameFilter: EqualsFilter = {
           type: SearchFilterType.EQUALS,
           field: "name",
-          value: "Rustic Copper Jimbies"
+          value: "Rustic Copper Jimbies",
         };
         const priceFilter: RangeFilter = {
           type: SearchFilterType.RANGE,
           field: "price",
           parameters: {
             gte: 0,
-            lte: 200
-          }
+            lte: 200,
+          },
         };
         const oneFromNameFilter: MultiFilter = {
           type: SearchFilterType.MULTI,
           operator: "OR",
-          queries: [nameFilter, otherNameFilter]
+          queries: [nameFilter, otherNameFilter],
         };
         const priceAndNamesFilter: MultiFilter = {
           type: SearchFilterType.MULTI,
           operator: "AND",
-          queries: [priceFilter, oneFromNameFilter]
+          queries: [priceFilter, oneFromNameFilter],
         };
         const result = convertSearchCriteria({
-          filters: [priceAndNamesFilter]
+          filters: [priceAndNamesFilter],
         });
         expect(result?.filter).toEqual([
           {
@@ -162,8 +162,8 @@ describe("SearchConverter - convertSearchCriteria", () => {
                 field: "price",
                 parameters: {
                   gte: 0,
-                  lte: 200
-                }
+                  lte: 200,
+                },
               },
 
               {
@@ -173,17 +173,17 @@ describe("SearchConverter - convertSearchCriteria", () => {
                   {
                     type: "equals",
                     value: "Aerodynamic Iron Jetsilk",
-                    field: "name"
+                    field: "name",
                   },
 
                   {
                     type: "equals",
                     value: "Rustic Copper Jimbies",
-                    field: "name"
-                  }
-                ]
-              }
-            ]
+                    field: "name",
+                  },
+                ],
+              },
+            ],
           },
           {
             type: "not",
@@ -191,10 +191,10 @@ describe("SearchConverter - convertSearchCriteria", () => {
               {
                 type: "equals",
                 field: "displayGroup",
-                value: null
-              }
-            ]
-          }
+                value: null,
+              },
+            ],
+          },
         ]);
       });
     });
@@ -202,13 +202,13 @@ describe("SearchConverter - convertSearchCriteria", () => {
   describe("term", () => {
     it("should add a term key and proper value", () => {
       const result = convertSearchCriteria({
-        term: "fulltext"
+        term: "fulltext",
       } as any);
       expect(result.term).toEqual("fulltext");
     });
     it("should not add a term key if provided term is null", () => {
       const result = convertSearchCriteria({
-        term: null
+        term: null,
       } as any);
       expect(result).not.toHaveProperty("term");
     });
@@ -219,8 +219,8 @@ describe("SearchConverter - convertSearchCriteria", () => {
         const result = convertSearchCriteria({
           filters: {},
           configuration: {
-            displayParents: true
-          }
+            displayParents: true,
+          },
         } as any);
         expect(result).toEqual({});
       });
@@ -230,23 +230,23 @@ describe("SearchConverter - convertSearchCriteria", () => {
             {
               type: "equals",
               field: "name",
-              value: "test"
-            } as any
+              value: "test",
+            } as any,
           ],
           sort: {
             field: "name",
-            desc: true
-          }
+            desc: true,
+          },
         });
         expect(result).toEqual({
           grouping: {
-            field: "displayGroup"
+            field: "displayGroup",
           },
           filter: [
             {
               field: "name",
               type: "equals",
-              value: "test"
+              value: "test",
             },
             {
               type: "not",
@@ -254,12 +254,12 @@ describe("SearchConverter - convertSearchCriteria", () => {
                 {
                   type: "equals",
                   field: "displayGroup",
-                  value: null
-                }
-              ]
-            }
+                  value: null,
+                },
+              ],
+            },
           ],
-          sort: "-name"
+          sort: "-name",
         });
       });
     });
@@ -268,9 +268,9 @@ describe("SearchConverter - convertSearchCriteria", () => {
         const result = convertSearchCriteria({
           configuration: {
             grouping: {
-              field: "displayGroup"
-            }
-          }
+              field: "displayGroup",
+            },
+          },
         });
         expect(result?.grouping).toEqual({ field: "displayGroup" });
       });
@@ -281,10 +281,10 @@ describe("SearchConverter - convertSearchCriteria", () => {
           configuration: {
             associations: [
               {
-                name: "media"
-              }
-            ]
-          }
+                name: "media",
+              },
+            ],
+          },
         });
         expect(result?.associations).toEqual({ media: {} });
       });
@@ -292,8 +292,8 @@ describe("SearchConverter - convertSearchCriteria", () => {
       it("should not add associations on empty array", () => {
         const result = convertSearchCriteria({
           configuration: {
-            associations: []
-          }
+            associations: [],
+          },
         });
         expect(result).toHaveProperty("associations");
       });
@@ -306,19 +306,19 @@ describe("SearchConverter - convertSearchCriteria", () => {
                 name: "media",
                 associations: [
                   {
-                    name: "cover"
-                  }
-                ]
+                    name: "cover",
+                  },
+                ],
               },
               {
-                name: "stock"
-              }
-            ]
-          }
+                name: "stock",
+              },
+            ],
+          },
         });
         expect(result?.associations).toEqual({
           media: { associations: { cover: {} } },
-          stock: {}
+          stock: {},
         });
       });
 
@@ -332,13 +332,13 @@ describe("SearchConverter - convertSearchCriteria", () => {
                   {
                     name: "sections",
                     associations: [
-                      { name: "blocks", associations: [{ name: "slots" }] }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
+                      { name: "blocks", associations: [{ name: "slots" }] },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
         });
         expect(result?.associations).toEqual({
           cmsPage: {
@@ -347,13 +347,13 @@ describe("SearchConverter - convertSearchCriteria", () => {
                 associations: {
                   blocks: {
                     associations: {
-                      slots: {}
-                    }
-                  }
-                }
-              }
-            }
-          }
+                      slots: {},
+                    },
+                  },
+                },
+              },
+            },
+          },
         });
       });
     });

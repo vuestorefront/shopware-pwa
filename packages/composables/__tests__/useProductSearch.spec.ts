@@ -33,14 +33,14 @@ describe("Composables - useProductSearch", () => {
       expect(mockedGetProduct.getProducts).toBeCalledTimes(1);
       expect(mockedGetProduct.getProducts).toBeCalledWith({
         configuration: {
-          associations: [{ name: "options" }, { name: "productReviews" }]
+          associations: [{ name: "options" }, { name: "productReviews" }],
         },
-        term: "some string"
+        term: "some string",
       });
     });
     it("should have product returned if search term provided", async () => {
       mockedGetProduct.getProducts.mockResolvedValueOnce({
-        data: [{ name: "some string" }]
+        data: [{ name: "some string" }],
       } as any);
       const { search, products } = useProductSearch();
       await search("some string");
@@ -55,7 +55,7 @@ describe("Composables - useProductSearch", () => {
     });
     it("should have error on rejection from API client", async () => {
       mockedGetProduct.getProducts.mockRejectedValueOnce({
-        message: "Something went wrong"
+        message: "Something went wrong",
       } as any);
       const { search, products, error } = useProductSearch();
       await search("test");

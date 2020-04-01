@@ -4,7 +4,7 @@ import { apiService } from "../../../src/apiService";
 import {
   update,
   config,
-  setDefaultCustomerBillingAddress
+  setDefaultCustomerBillingAddress,
 } from "@shopware-pwa/shopware-6-client";
 
 jest.mock("../../../src/apiService");

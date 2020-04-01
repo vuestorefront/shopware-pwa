@@ -8,9 +8,9 @@ describe("Helpers - getProductMainImageUrl", () => {
     const product: any = {
       cover: {
         media: {
-          url: mediaUrl
-        }
-      }
+          url: mediaUrl,
+        },
+      },
     };
     const coverUrl = getProductMainImageUrl(product);
     expect(coverUrl).toEqual(mediaUrl);
@@ -19,8 +19,8 @@ describe("Helpers - getProductMainImageUrl", () => {
   it("should contain url in cover object when media url is blank", () => {
     const product: any = {
       cover: {
-        url: mediaUrl
-      }
+        url: mediaUrl,
+      },
     };
     const coverUrl = getProductMainImageUrl(product);
     expect(coverUrl).toEqual(mediaUrl);
@@ -32,9 +32,9 @@ describe("Helpers - getProductMainImageUrl", () => {
         url:
           "https://shopware.test/media/8a/fd/cb/1572351035/msh06-gray_main_1.jpg",
         media: {
-          url: mediaUrl
-        }
-      }
+          url: mediaUrl,
+        },
+      },
     };
     const coverUrl = getProductMainImageUrl(product);
     expect(coverUrl).toEqual(mediaUrl);

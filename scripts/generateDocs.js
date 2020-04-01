@@ -4,19 +4,34 @@ other packages, also prepare documentation structure that fits
 the project structure.
 */
 const fs = require("fs-extra");
+const jetpack = require("fs-jetpack");
 const path = require("path");
 const execa = require("execa");
 
 run();
 
+async function copyRootDirectoryFile(filename) {
+  await jetpack.copyAsync(
+    path.join(__dirname, "..", filename),
+    path.join(__dirname, "..", "docs", filename),
+    { overwrite: true }
+  );
+}
+
 async function run() {
   await buildDocs();
   copyStaticFiles();
+  await Promise.all([
+    copyRootDirectoryFile("README.md"),
+    copyRootDirectoryFile("CONTRIBUTING.md"),
+    copyRootDirectoryFile("TROUBLESHOOTING.md"),
+    copyRootDirectoryFile("CHEATSHEET.md"),
+  ]);
 }
 
 async function buildDocs() {
   try {
-    execa("npx", ["typedoc", "--options", "typedoc.js"]).stdout.pipe(
+    execa("yarn", ["typedoc", "--options", "typedoc.js"]).stdout.pipe(
       process.stdout
     );
   } catch (e) {
@@ -31,11 +46,11 @@ function createDocsStructure(filepath) {
 }
 
 function copyStaticFiles() {
-  getFilesPath(`${__dirname}/../packages`, /\.md$/, filepath => {
+  getFilesPath(`${__dirname}/../packages`, /\.md$/, (filepath) => {
     let relFilePath = getRelativePath(filepath, "packages/");
     let copyDest = `${__dirname}/../docs/${relFilePath}`;
     createDocsStructure(relFilePath);
-    fs.copyFile(filepath, copyDest, err => {
+    fs.copyFile(filepath, copyDest, (err) => {
       if (err) throw err;
     });
   });
@@ -56,7 +71,7 @@ function getFilesPath(
     throw new Error("Cannot look for files - not existing path!");
   }
   let files = fs.readdirSync(startPath);
-  files.forEach(file => {
+  files.forEach((file) => {
     let filepath = path.join(startPath, file);
     if (excludePattern.test(filepath)) {
     } else {

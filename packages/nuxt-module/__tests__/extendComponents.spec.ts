@@ -9,32 +9,33 @@ const { getAllFiles } = mockedFiles;
 describe("nuxt-module - extendComponents", () => {
   let webpackConfig: WebpackConfig = {
     resolve: {
-      alias: {}
-    }
+      alias: {},
+    },
   };
   let methods: Function[] = [];
   const moduleObject: NuxtModuleOptions = {
     options: {
-      rootDir: __dirname
+      rootDir: __dirname,
     },
     addLayout: jest.fn(),
     extendRoutes: jest.fn(),
     nuxt: jest.fn(),
     addPlugin: jest.fn(),
-    extendBuild: (method: Function): number => methods.push(method)
+    extendBuild: (method: Function): number => methods.push(method),
   };
   /**
    * To resolve extendBuild we need to invoke resolveBuilds after method
    * invocation to test real impact on webpack configuration
    */
-  const resolveBuilds = () => methods.forEach(method => method(webpackConfig));
+  const resolveBuilds = () =>
+    methods.forEach((method) => method(webpackConfig));
 
   beforeEach(() => {
     jest.resetAllMocks();
     webpackConfig = {
       resolve: {
-        alias: {}
-      }
+        alias: {},
+      },
     };
     methods = [];
   });
@@ -47,12 +48,12 @@ describe("nuxt-module - extendComponents", () => {
 
   it("should add aliases with components from project", () => {
     getAllFiles.mockImplementationOnce(() => [
-      `${__dirname}/components/SomeComponent.vue`
+      `${__dirname}/components/SomeComponent.vue`,
     ]);
     extendComponents(moduleObject);
     resolveBuilds();
     expect(webpackConfig.resolve.alias).toEqual({
-      [`@shopware-pwa/default-theme/components/SomeComponent`]: `${__dirname}/components/SomeComponent.vue`
+      [`@shopware-pwa/default-theme/components/SomeComponent`]: `${__dirname}/components/SomeComponent.vue`,
     });
   });
 
@@ -64,13 +65,13 @@ describe("nuxt-module - extendComponents", () => {
       `@shopware-pwa/default-theme/components/AnotherComponent`
     ] = "other/path";
     getAllFiles.mockImplementationOnce(() => [
-      `${__dirname}/components/SomeComponent.vue`
+      `${__dirname}/components/SomeComponent.vue`,
     ]);
     extendComponents(moduleObject);
     resolveBuilds();
     expect(webpackConfig.resolve.alias).toEqual({
       "@shopware-pwa/default-theme/components/AnotherComponent": "other/path",
-      [`@shopware-pwa/default-theme/components/SomeComponent`]: `${__dirname}/components/SomeComponent.vue`
+      [`@shopware-pwa/default-theme/components/SomeComponent`]: `${__dirname}/components/SomeComponent.vue`,
     });
   });
 });

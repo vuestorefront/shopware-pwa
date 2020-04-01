@@ -1,7 +1,7 @@
 import {
   getCustomerAddress,
   update,
-  config
+  config,
 } from "@shopware-pwa/shopware-6-client";
 import { getCustomerAddressEndpoint } from "../../../src/endpoints";
 import { apiService } from "../../../src/apiService";
@@ -25,7 +25,7 @@ describe("CustomerService - getCustomerAddress", () => {
 
   it("should return address object", async () => {
     mockedAxios.get.mockResolvedValueOnce({
-      data: { data: { id: "2bbb89dfa4664bc681e80b37eaa80fb7" } }
+      data: { data: { id: "2bbb89dfa4664bc681e80b37eaa80fb7" } },
     });
     const result = await getCustomerAddress("2bbb89dfa4664bc681e80b37eaa80fb7");
     expect(result.id).toEqual("2bbb89dfa4664bc681e80b37eaa80fb7");

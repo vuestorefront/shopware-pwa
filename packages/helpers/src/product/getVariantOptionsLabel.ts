@@ -4,7 +4,7 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
  * @alpha
  */
 export function getVariantOptionsLabel({
-  product
+  product,
 }: { product?: Product } = {}): string | null {
   if (
     !product ||

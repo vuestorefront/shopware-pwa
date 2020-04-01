@@ -15,24 +15,24 @@ describe("CustomerService - getCustomerOrders", () => {
       data: {
         data: [
           {
-            orderNumber: "1234"
+            orderNumber: "1234",
           },
           {
-            orderNumber: "4321"
-          }
-        ]
-      }
+            orderNumber: "4321",
+          },
+        ],
+      },
     });
     const result = await getCustomerOrders();
     expect(mockedAxios.get).toBeCalledTimes(1);
     expect(mockedAxios.get).toBeCalledWith(getCustomerOrderEndpoint());
     expect(result).toMatchObject([
       {
-        orderNumber: "1234"
+        orderNumber: "1234",
       },
       {
-        orderNumber: "4321"
-      }
+        orderNumber: "4321",
+      },
     ]);
   });
 });

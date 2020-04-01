@@ -17,16 +17,16 @@ describe("CartService - addPromotionCode", () => {
           name: random.uuid(),
           token: random.uuid(),
           price: {
-            netPrice: 150
+            netPrice: 150,
           },
           lineItems: {
             type: "promotion",
             payload: {
-              code: "3a64e872ca404522a2c5d43ebc751e6b"
-            }
-          }
-        }
-      }
+              code: "3a64e872ca404522a2c5d43ebc751e6b",
+            },
+          },
+        },
+      },
     });
 
     let promotionCode = "3a64e872ca404522a2c5d43ebc751e6b";

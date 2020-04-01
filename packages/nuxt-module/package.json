@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/nuxt-module",
-  "version": "0.1.0-alpha.3",
+  "version": "0.1.0-alpha.4",
   "description": "@shopware-pwa/nuxt-module",
   "main": "dist/nuxt-module.cjs.js",
   "module": "dist/nuxt-module.esm-bundler.js",
@@ -15,15 +15,15 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@nuxt/types": "^0.6.4",
-    "@nuxt/typescript-build": "^0.6.0",
-    "@nuxt/typescript-runtime": "^0.4.0",
-    "@nuxt/utils": "^2.11.0",
-    "cookie-universal": "^2.1.1",
+    "@nuxt/types": "^0.7.0",
+    "@nuxt/typescript-build": "^0.6.1",
+    "@nuxt/typescript-runtime": "^0.4.1",
+    "@nuxt/utils": "^2.12.1",
+    "cookie-universal": "^2.1.3",
     "fs-jetpack": "^2.2.3",
     "path": "^0.12.7",
     "vue": "^2.6.11",
-    "vue-loader": "^15.9.0",
+    "vue-loader": "^15.9.1",
     "vue-meta": "^2.3.3",
     "vue-router": "^3.1.6",
     "vue-server-renderer": "^2.6.11",
@@ -32,6 +32,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "e930f9945653eb78b7a78700b6f4d145ee8cb542"
+  }
 }

@@ -11,7 +11,7 @@ describe("shopware-6-client - E2E - CustomerService - updatePassword", () => {
     const result = await updatePassword({
       password: "password",
       newPassword: "password",
-      newPasswordConfirm: "password"
+      newPasswordConfirm: "password",
     });
     expect(result).toMatchSnapshot();
   });
@@ -22,7 +22,7 @@ describe("shopware-6-client - E2E - CustomerService - updatePassword", () => {
       await updatePassword({
         password: "shop1",
         newPassword: internet.password(),
-        newPasswordConfirm: internet.password()
+        newPasswordConfirm: internet.password(),
       });
       expect("didn't throw an error").toEqual("should throw an error");
     } catch (e) {
@@ -36,7 +36,7 @@ describe("shopware-6-client - E2E - CustomerService - updatePassword", () => {
       await updatePassword({
         password: "password",
         newPassword: "shop",
-        newPasswordConfirm: "shop1"
+        newPasswordConfirm: "shop1",
       });
       expect("didn't throw an error").toEqual("should throw an error");
     } catch (e) {

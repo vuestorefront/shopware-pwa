@@ -1,14 +1,17 @@
-<!-- 
-write which issue this pull request closes
-  example: closes #230
+## Changes
+<!-- Describe the changes which you did and which issue you're closing
+ example: closes #230
 -->
 
-## Changes
-<!-- List all the changes that you did -->
 
-## Screenshots of visual changes
 
-## Checklist
 
-- [] I followed code and contributing guidelines
-- [] I wrote all needed tests
+<!-- Paste here screenshot if there are visual changes -->
+
+
+
+
+
+### Checklist
+
+- [ ] I followed [contributing](https://github.com/DivanteLtd/shopware-pwa/blob/master/CONTRIBUTING.md) guidelines

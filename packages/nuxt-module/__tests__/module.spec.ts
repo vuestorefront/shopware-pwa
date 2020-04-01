@@ -1,6 +1,6 @@
 import InterfacesDefault, {
   NuxtModuleOptions,
-  WebpackConfig
+  WebpackConfig,
 } from "../src/interfaces";
 import { runModule } from "../src/module";
 import path from "path";
@@ -13,43 +13,47 @@ jest.mock("../src/layouts");
 jest.mock("../src/components");
 jest.mock("../src/pages");
 const mockedUtils = utils as jest.Mocked<typeof utils>;
+const consoleErrorSpy = jest.spyOn(console, "error");
 
 describe("nuxt-module - ShopwarePWAModule runModule", () => {
   let webpackConfig: WebpackConfig = {
     resolve: {
-      alias: {}
-    }
+      alias: {},
+    },
   };
   let methods: Function[] = [];
   const moduleObject: NuxtModuleOptions = {
     options: {
-      rootDir: __dirname
+      rootDir: __dirname,
     },
     addLayout: jest.fn(),
     extendRoutes: jest.fn(),
     addPlugin: jest.fn(),
     nuxt: jest.fn(),
-    extendBuild: (method: Function): number => methods.push(method)
+    extendBuild: (method: Function): number => methods.push(method),
   };
   /**
    * To resolve extendBuild we need to invoke resolveBuilds after method
    * invocation to test real impact on webpack configuration
    */
-  const resolveBuilds = () => methods.forEach(method => method(webpackConfig));
+  const resolveBuilds = () =>
+    methods.forEach((method) => method(webpackConfig));
 
   beforeEach(() => {
     jest.resetAllMocks();
 
     mockedUtils.loadConfig.mockReturnValueOnce({
       shopwareEndpoint: "mockedEndpoint",
-      shopwareAccessToken: "mockedToken"
+      shopwareAccessToken: "mockedToken",
     });
     webpackConfig = {
       resolve: {
-        alias: {}
-      }
+        alias: {},
+      },
     };
     methods = [];
+
+    consoleErrorSpy.mockImplementationOnce(() => {});
   });
 
   it("should invoke config load", () => {
@@ -92,10 +96,23 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
       fileName: "api-client.js",
       options: {
         shopwareAccessToken: "mockedToken",
-        shopwareEndpoint: "mockedEndpoint"
+        shopwareEndpoint: "mockedEndpoint/sales-channel-api/v1",
       },
-      src: pathForApiClientPlugin
+      src: pathForApiClientPlugin,
     });
+  });
+
+  it("should show console error when shopwareEndpoint contains api endpoint instead of just domain", () => {
+    jest.resetAllMocks();
+
+    mockedUtils.loadConfig.mockReturnValueOnce({
+      shopwareEndpoint: "mockedEndpoint/sales-channel-api/v1",
+      shopwareAccessToken: "mockedToken",
+    });
+    runModule(moduleObject, {});
+    expect(consoleErrorSpy).toBeCalledWith(
+      "Please change your shopwareEndpoint in shopware-pwa.config.js to contain just domain, example: https://github.com/DivanteLtd/shopware-pwa#running-shopware-pwa-on-custom-shopware-instance"
+    );
   });
 
   it("should add cookies plugin", () => {
@@ -111,9 +128,9 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
       fileName: "cookie-universal-nuxt.js",
       options: {
         alias: "cookies",
-        parseJSON: true
+        parseJSON: true,
       },
-      src: pathForCookiesPlugin
+      src: pathForCookiesPlugin,
     });
   });
 

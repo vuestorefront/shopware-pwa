@@ -7,40 +7,23 @@ assignees: ''
 
 ---
 
-**Describe the bug**
+### Describe the bug
 <!-- A clear and concise description of what the bug is -->
 
-**How to reproduce**
-<!--
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+
+
+<!-- Provide reproduction steps, example
+- go to homepage
+- Click checkout button
+ -->
+
+
+
+
+### Additional context
+<!-- Anything additional which you can add
+- screenshots
+- device information
+- packages version
+- etc
 -->
-
-**Expected behavior**
-<!-- A clear and concise description of what you expected to happen. -->
-
-**Actual behavior**
-<!-- What actual happened. -->
-
-**Code examples**
-<!--
- Sample code (or your configuration, error stacktrace, logs) to help us reproduce the bug faster or to understand your use case. 
-```
-//Write code here
-```
-Or add code snippets (Code sandbox)
--->
-
-**Screenshots**
-<!-- If applicable, add screenshots to help explain your problem. -->
-
-**Devices (please complete the following information):**
- - Device: [e.g. iPhone6, Desktop]
- - OS: [e.g. iOS8.1]
- - Browser: [e.g chrome, safari][version]
-
-**Additional context**
-<!-- Anything you would like to add but was not sure which section it fits. -->

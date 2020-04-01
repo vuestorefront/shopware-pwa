@@ -6,8 +6,8 @@ import { responseInterceptor, errorInterceptor } from "./interceptors";
 export const apiService = axios.create({
   // temporary fix to prevent TLS issues
   httpsAgent: new https.Agent({
-    rejectUnauthorized: false
-  })
+    rejectUnauthorized: false,
+  }),
 });
 
 export function reloadConfiguration() {

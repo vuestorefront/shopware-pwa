@@ -19,7 +19,7 @@ describe("Composables - useCountries", () => {
     describe("getMappedCoutries", () => {
       it("should contain empty array when there aren't any available countries", async () => {
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
-          data: null
+          data: null,
         } as any);
         const { getCountries, fetchCountries } = useCountries();
         await fetchCountries();
@@ -33,16 +33,16 @@ describe("Composables - useCountries", () => {
               active: true,
               id: "id",
               iso: "iso",
-              createdAt: "date"
+              createdAt: "date",
             },
             {
               name: "Romania",
               active: true,
               id: "id",
               iso: "iso",
-              createdAt: "date"
-            }
-          ]
+              createdAt: "date",
+            },
+          ],
         } as any);
         const { fetchCountries, getCountries } = useCountries();
         await fetchCountries();
@@ -52,15 +52,15 @@ describe("Composables - useCountries", () => {
             active: true,
             id: "id",
             iso: "iso",
-            createdAt: "date"
+            createdAt: "date",
           },
           {
             name: "Romania",
             active: true,
             id: "id",
             iso: "iso",
-            createdAt: "date"
-          }
+            createdAt: "date",
+          },
         ]);
       });
     });
@@ -69,7 +69,7 @@ describe("Composables - useCountries", () => {
     describe("fetchCoutries", () => {
       it("should assing error to error message if getAvailableCountries throws one", async () => {
         mockedApiClient.getAvailableCountries.mockRejectedValueOnce({
-          message: "Couldn't fetch available countries."
+          message: "Couldn't fetch available countries.",
         });
         const { fetchCountries, error } = useCountries();
         await fetchCountries();
@@ -85,12 +85,12 @@ describe("Composables - useCountries", () => {
     describe("onMountedCallback", () => {
       it("should call fetch countries on mounted when getCountries is any empty list", async () => {
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
-          data: null
+          data: null,
         } as any);
         const {
           fetchCountries,
           mountedCallback,
-          getCountries
+          getCountries,
         } = useCountries();
         await fetchCountries();
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
@@ -100,16 +100,16 @@ describe("Composables - useCountries", () => {
               active: true,
               id: "id",
               iso: "iso",
-              createdAt: "date"
+              createdAt: "date",
             },
             {
               name: "Romania",
               active: true,
               id: "id",
               iso: "iso",
-              createdAt: "date"
-            }
-          ]
+              createdAt: "date",
+            },
+          ],
         } as any);
         await mountedCallback();
         expect(getCountries.value).toEqual([
@@ -118,15 +118,15 @@ describe("Composables - useCountries", () => {
             active: true,
             id: "id",
             iso: "iso",
-            createdAt: "date"
+            createdAt: "date",
           },
           {
             name: "Romania",
             active: true,
             id: "id",
             iso: "iso",
-            createdAt: "date"
-          }
+            createdAt: "date",
+          },
         ]);
       });
     });
@@ -139,21 +139,21 @@ describe("Composables - useCountries", () => {
               active: true,
               id: "id",
               iso: "iso",
-              createdAt: "date"
+              createdAt: "date",
             },
             {
               name: "Turkey",
               active: true,
               id: "id",
               iso: "iso",
-              createdAt: "date"
-            }
-          ]
+              createdAt: "date",
+            },
+          ],
         } as any);
         const {
           fetchCountries,
           mountedCallback,
-          getCountries
+          getCountries,
         } = useCountries();
         await fetchCountries();
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
@@ -163,16 +163,16 @@ describe("Composables - useCountries", () => {
               active: true,
               id: "id",
               iso: "iso",
-              createdAt: "date"
+              createdAt: "date",
             },
             {
               name: "Romania",
               active: true,
               id: "id",
               iso: "iso",
-              createdAt: "date"
-            }
-          ]
+              createdAt: "date",
+            },
+          ],
         } as any);
         await mountedCallback();
         expect(getCountries.value).toEqual([
@@ -181,15 +181,15 @@ describe("Composables - useCountries", () => {
             active: true,
             id: "id",
             iso: "iso",
-            createdAt: "date"
+            createdAt: "date",
           },
           {
             name: "Turkey",
             active: true,
             id: "id",
             iso: "iso",
-            createdAt: "date"
-          }
+            createdAt: "date",
+          },
         ]);
       });
     });

@@ -6,7 +6,7 @@ import { NuxtModuleOptions } from "./interfaces";
 import { runModule } from "./module";
 
 /* istanbul ignore next */
-const ShopwarePWAModule: Module<{}> = function(moduleOptions: {}) {
+const ShopwarePWAModule: Module<{}> = function (moduleOptions: {}) {
   const moduleObject: NuxtModuleOptions = this as any;
   runModule(moduleObject, moduleOptions);
 };

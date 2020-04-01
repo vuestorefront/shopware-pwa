@@ -1,4 +1,4 @@
-# Shopware PWA Setup Cheatsheet
+# Setup Cheatsheet
 
 This cheatsheet will give you an overview of the Shopware PWA project and how to set it up for development.
 
@@ -49,7 +49,7 @@ Now you have complete ShopwarePWA project running locally
 
 ```
 module.exports = {
-  shopwareEndpoint: "https://shopware-2.vuestorefront.io/sales-channel-api/v1",
+  shopwareEndpoint: "https://shopware-2.vuestorefront.io",
   shopwareAccessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG"
 };
 ```

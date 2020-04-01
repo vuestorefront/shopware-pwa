@@ -9,6 +9,8 @@ import {
   getCustomerOrders,
   getCustomerOrderDetails,
   getCustomerAddresses,
+  getUserCountry,
+  getUserSalutation,
   setDefaultCustomerBillingAddress,
   setDefaultCustomerShippingAddress,
   deleteCustomerAddress,
@@ -17,17 +19,19 @@ import {
   CustomerAddressParam,
   CustomerUpdateProfileParam,
   CustomerUpdatePasswordParam,
-  CustomerUpdateEmailParam
+  CustomerUpdateEmailParam,
 } from "@shopware-pwa/shopware-6-client";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { getStore } from "@shopware-pwa/composables";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import {
   CustomerAddress,
-  AddressType
+  AddressType,
 } from "@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress";
 import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
+import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
+import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
 
 /**
  * @alpha
@@ -35,7 +39,7 @@ import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError
 export interface UseUser {
   login: ({
     username,
-    password
+    password,
   }: {
     username?: string;
     password?: string;
@@ -47,11 +51,15 @@ export interface UseUser {
   loading: Ref<boolean>;
   error: Ref<any>;
   isLoggedIn: Ref<boolean>;
+  country: Ref<Country | null>;
+  salutation: Ref<Salutation | null>;
   refreshUser: () => Promise<void>;
   logout: () => Promise<void>;
   loadOrders: () => Promise<void>;
   getOrderDetails: (orderId: string) => Promise<Order>;
   loadAddresses: () => Promise<void>;
+  loadCountry: (countryId: string) => Promise<void>;
+  loadSalutation: (salutationId: string) => Promise<void>;
   addAddress: (params: CustomerAddressParam) => Promise<boolean>;
   deleteAddress: (addressId: string) => Promise<boolean>;
   updatePersonalInfo: (
@@ -63,7 +71,7 @@ export interface UseUser {
   ) => Promise<boolean>;
   markAddressAsDefault: ({
     addressId,
-    type
+    type,
   }: {
     addressId?: string;
     type?: AddressType;
@@ -79,13 +87,15 @@ export const useUser = (): UseUser => {
   const error: Ref<any> = ref(null);
   const orders: Ref<Order[] | null> = ref(null);
   const addresses: Ref<CustomerAddress[] | null> = ref(null);
+  const country: Ref<Country | null> = ref(null);
+  const salutation: Ref<Salutation | null> = ref(null);
   const user: any = computed(() => {
     return vuexStore.getters.getUser;
   });
 
   const login = async ({
     username,
-    password
+    password,
   }: { username?: string; password?: string } = {}): Promise<boolean> => {
     loading.value = true;
     error.value = null;
@@ -131,8 +141,12 @@ export const useUser = (): UseUser => {
   };
 
   const refreshUser = async (): Promise<void> => {
-    const user = await getCustomer();
-    vuexStore.commit("SET_USER", user);
+    try {
+      const user = await getCustomer();
+      vuexStore.commit("SET_USER", user);
+    } catch (e) {
+      console.error("useUser:refreshUser:getCustomer", e);
+    }
   };
 
   const loadOrders = async (): Promise<void> => {
@@ -153,9 +167,27 @@ export const useUser = (): UseUser => {
     }
   };
 
+  const loadCountry = async (userId: string): Promise<void> => {
+    try {
+      country.value = await getUserCountry(userId);
+    } catch (e) {
+      const err: ClientApiError = e;
+      error.value = err.message;
+    }
+  };
+
+  const loadSalutation = async (salutationId: string): Promise<void> => {
+    try {
+      salutation.value = await getUserSalutation(salutationId);
+    } catch (e) {
+      const err: ClientApiError = e;
+      error.value = err.message;
+    }
+  };
+
   const markAddressAsDefault = async ({
     addressId,
-    type
+    type,
   }: {
     addressId?: string;
     type?: AddressType;
@@ -265,6 +297,10 @@ export const useUser = (): UseUser => {
     updatePersonalInfo,
     updatePassword,
     addAddress,
-    deleteAddress
+    deleteAddress,
+    loadSalutation,
+    salutation,
+    loadCountry,
+    country,
   };
 };

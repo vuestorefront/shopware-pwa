@@ -17,7 +17,7 @@ describe("Composables - useSalutations", () => {
     describe("getMappedSalutations", () => {
       it("should contain empty array when there aren't any available salutations", async () => {
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
-          data: null
+          data: null,
         } as any);
         const { getSalutations, fetchSalutations } = useSalutations();
         await fetchSalutations();
@@ -31,15 +31,15 @@ describe("Composables - useSalutations", () => {
               displayName: "Mr.",
               id: "id",
               salutationKey: "salutatonKey",
-              letterName: "Dear Mr."
+              letterName: "Dear Mr.",
             },
             {
               displayName: "Mrs.",
               id: "id",
               salutationKey: "salutatonKey",
-              letterName: "Dear Mrs."
-            }
-          ]
+              letterName: "Dear Mrs.",
+            },
+          ],
         } as any);
         await fetchSalutations();
         expect(getSalutations.value).toEqual([
@@ -47,14 +47,14 @@ describe("Composables - useSalutations", () => {
             displayName: "Mr.",
             id: "id",
             salutationKey: "salutatonKey",
-            letterName: "Dear Mr."
+            letterName: "Dear Mr.",
           },
           {
             displayName: "Mrs.",
             id: "id",
             salutationKey: "salutatonKey",
-            letterName: "Dear Mrs."
-          }
+            letterName: "Dear Mrs.",
+          },
         ]);
       });
     });
@@ -63,7 +63,7 @@ describe("Composables - useSalutations", () => {
     describe("fetchSalutations", () => {
       it("should assing error to error message if getAvailableSalutations throws one", async () => {
         mockedApiClient.getAvailableSalutations.mockRejectedValueOnce({
-          message: "Couldn't fetch available salutations."
+          message: "Couldn't fetch available salutations.",
         });
         const { fetchSalutations, error } = useSalutations();
         await fetchSalutations();
@@ -81,12 +81,12 @@ describe("Composables - useSalutations", () => {
     describe("onMountedCallback", () => {
       it("should call fetch countries when getSalutations is an empty list", async () => {
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
-          data: null
+          data: null,
         } as any);
         const {
           mountedCallback,
           getSalutations,
-          fetchSalutations
+          fetchSalutations,
         } = useSalutations();
         await fetchSalutations();
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
@@ -95,15 +95,15 @@ describe("Composables - useSalutations", () => {
               displayName: "Mr.",
               id: "id",
               salutationKey: "salutatonKey",
-              letterName: "Dear Mr."
+              letterName: "Dear Mr.",
             },
             {
               displayName: "Mrs.",
               id: "id",
               salutationKey: "salutatonKey",
-              letterName: "Dear Mrs."
-            }
-          ]
+              letterName: "Dear Mrs.",
+            },
+          ],
         } as any);
         await mountedCallback();
         expect(getSalutations.value).toEqual([
@@ -111,14 +111,14 @@ describe("Composables - useSalutations", () => {
             displayName: "Mr.",
             id: "id",
             salutationKey: "salutatonKey",
-            letterName: "Dear Mr."
+            letterName: "Dear Mr.",
           },
           {
             displayName: "Mrs.",
             id: "id",
             salutationKey: "salutatonKey",
-            letterName: "Dear Mrs."
-          }
+            letterName: "Dear Mrs.",
+          },
         ]);
       });
       it("should not call fetch countries when getSalutations is not an empty list", async () => {
@@ -128,20 +128,20 @@ describe("Composables - useSalutations", () => {
               displayName: "Not specified",
               id: "id",
               salutationKey: "salutatonKey",
-              letterName: "Dear Mr./Mrs."
+              letterName: "Dear Mr./Mrs.",
             },
             {
               displayName: "Mrs.",
               id: "id",
               salutationKey: "salutatonKey",
-              letterName: "Dear Mrs."
-            }
-          ]
+              letterName: "Dear Mrs.",
+            },
+          ],
         } as any);
         const {
           mountedCallback,
           getSalutations,
-          fetchSalutations
+          fetchSalutations,
         } = useSalutations();
         await fetchSalutations();
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
@@ -150,15 +150,15 @@ describe("Composables - useSalutations", () => {
               displayName: "Mr.",
               id: "id",
               salutationKey: "salutatonKey",
-              letterName: "Dear Mr."
+              letterName: "Dear Mr.",
             },
             {
               displayName: "Mrs.",
               id: "id",
               salutationKey: "salutatonKey",
-              letterName: "Dear Mrs."
-            }
-          ]
+              letterName: "Dear Mrs.",
+            },
+          ],
         } as any);
         await mountedCallback();
         expect(getSalutations.value).toEqual([
@@ -166,14 +166,14 @@ describe("Composables - useSalutations", () => {
             displayName: "Not specified",
             id: "id",
             salutationKey: "salutatonKey",
-            letterName: "Dear Mr./Mrs."
+            letterName: "Dear Mr./Mrs.",
           },
           {
             displayName: "Mrs.",
             id: "id",
             salutationKey: "salutatonKey",
-            letterName: "Dear Mrs."
-          }
+            letterName: "Dear Mrs.",
+          },
         ]);
       });
     });

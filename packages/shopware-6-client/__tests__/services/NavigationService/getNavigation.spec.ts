@@ -20,19 +20,19 @@ describe("NavigationService - getNavigation", () => {
             children: null,
             count: 9,
             level: 1,
-            extensions: []
-          }
-        ]
-      }
+            extensions: [],
+          },
+        ],
+      },
     });
     const result = await getNavigation({
       depth: 1,
-      rootNode: "5e0bf3a85da746e1ba2f9672910ea361"
+      rootNode: "5e0bf3a85da746e1ba2f9672910ea361",
     });
     expect(mockedAxios.post).toBeCalledTimes(1);
     expect(mockedAxios.post).toBeCalledWith("/vsf/navigation", {
       depth: 1,
-      rootNode: "5e0bf3a85da746e1ba2f9672910ea361"
+      rootNode: "5e0bf3a85da746e1ba2f9672910ea361",
     });
     expect(result).toHaveProperty("count");
     expect(result.children[0].id).toEqual("83e555dee2d2425eba42b7c628b65c67");

@@ -8,7 +8,7 @@ import {
   getCustomerLogoutEndpoint,
   getCustomerLoginEndpoint,
   getCustomerOrderEndpoint,
-  getCustomerOrderDetailsEndpoint
+  getCustomerOrderDetailsEndpoint,
 } from "../endpoints";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { apiService } from "../apiService";
@@ -45,7 +45,7 @@ export async function register(
  */
 export async function login({
   username,
-  password
+  password,
 }: { username?: string; password?: string } = {}): Promise<
   ContextTokenResponse
 > {
@@ -53,7 +53,7 @@ export async function login({
     throw new Error("Provide username and password for login");
   const resp = await apiService.post(getCustomerLoginEndpoint(), {
     username,
-    password
+    password,
   });
   const contextToken = resp.data["sw-context-token"];
   return { contextToken };
