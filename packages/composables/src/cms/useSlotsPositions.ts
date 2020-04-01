@@ -1,6 +1,9 @@
 import { computed, Ref } from "@vue/composition-api";
 import { CmsSlot } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
+/**
+ * @alpha
+ */
 export interface UseSlotsPositions {
   leftSlot: Ref<Readonly<CmsSlot | undefined>>;
   rightSlot: Ref<Readonly<CmsSlot | undefined>>;
@@ -11,6 +14,9 @@ export interface UseSlotsPositions {
   leftBottomSlot: Ref<Readonly<CmsSlot | undefined>>;
 }
 
+/**
+ * @alpha
+ */
 export enum PositionType {
   LEFT = "left",
   RIGHT = "right",
@@ -21,6 +27,9 @@ export enum PositionType {
   LEFT_BOTTOM = "left-bottom",
 }
 
+/**
+ * @alpha
+ */
 export const useSlotsPositions = (slots: CmsSlot[]): UseSlotsPositions => {
   const findSlot = (positionType: PositionType): CmsSlot | undefined =>
     slots.find(({ slot }) => slot === positionType);

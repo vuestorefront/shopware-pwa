@@ -88,19 +88,31 @@ export interface CmsBlock {
   slots: CmsSlot[];
 }
 
+/**
+ * @alpha
+ */
 export enum SectionType {
   DEFAULT = "default",
 }
 
+/**
+ * @alpha
+ */
 export enum SizingMode {
   BOXED = "boxed",
 }
 
+/**
+ * @alpha
+ */
 export enum MobileBehavior {
   BOXED = "boxed",
   WRAP = "wrap",
 }
 
+/**
+ * @alpha
+ */
 export enum BackgroundMediaMode {
   COVER = "cover",
 }
