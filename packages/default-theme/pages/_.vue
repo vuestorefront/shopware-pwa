@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import { useCms, useCart, useUser } from "@shopware-pwa/composables";
+import { useCms } from "@shopware-pwa/composables";
 
 const pagesMap = {
   "frontend.navigation.page": "CategoryView",
@@ -24,8 +24,6 @@ export default {
   },
   asyncData: async ({ req, params, query, error: errorView }) => {
     const {search, page, error} = useCms()
-    const {refreshCart} = useCart()
-    const {refreshUser} = useUser()
     // TODO fix this after meeting
     const path = params.pathMatch[0] === "/" ? params.pathMatch.substring(1) : params.pathMatch
     const searchResult = await search(path, query);
@@ -34,9 +32,6 @@ export default {
     if (error.value) {
       errorView(error.value)
     }
-    
-    await refreshCart();
-    await refreshUser();
 
     const unwrappedPage = page && page.value ? page.value : searchResult
 

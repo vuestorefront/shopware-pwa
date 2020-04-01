@@ -2,24 +2,22 @@
   <div id="checkout">
     <div class="checkout">
       <div class="checkout__main">
-        <SfSteps :active="currentStep" @change="updateStep($event)">
+        <SfSteps :active="currentStep" @change="nextStep($event)">
           <SfStep name="Personal Details" v-if="isGuestOrder">
-            <PersonalDetails :order="order" @proceed:shipping="proceed()" />
+            <PersonalDetails :order="order" @proceed="nextStep()" />
           </SfStep>
           <SfStep name="Shipping">
             <Shipping
               :order="order"
               :shipping-methods="shippingMethods"
-              @update:order="updateOrder($event)"
-              @click:back="currentStep--"
+              @click:back="nextStep(currentStep-1)"
             />
           </SfStep>
           <SfStep name="Payment">
             <Payment
               :order="order"
               :payment-methods="paymentMethods"
-              @update:order="updateOrder($event)"
-              @click:back="currentStep--"
+              @click:back="nextStep(currentStep-1)"
             />
           </SfStep>
           <SfStep name="Review">
@@ -27,14 +25,13 @@
               :order="order"
               :shipping-methods="shippingMethods"
               :payment-methods="paymentMethods"
-              @click:back="currentStep--"
-              @click:edit="currentStep = $event"
-              @update:order="updateOrder($event, false)"
+              @click:back="nextStep(currentStep-1)"
             />
           </SfStep>
         </SfSteps>
       </div>
       <div class="checkout__aside desktop-only">
+        <button @click="nextStep()"> next </button>
         <transition name="fade">
           <OrderSummary
             v-if="currentStep <= 2"
@@ -42,7 +39,6 @@
             :order="order"
             :shipping-methods="shippingMethods"
             :payment-methods="paymentMethods"
-            @update:order="updateOrder($event, false)"
           />
           <OrderReview
             v-else
@@ -66,8 +62,23 @@ import PersonalDetails from '@shopware-pwa/default-theme/components/checkout/Per
 import ReviewOrder from '@shopware-pwa/default-theme/components/checkout/ReviewOrder'
 import Shipping from '@shopware-pwa/default-theme/components/checkout/Shipping'
 // import checkoutMiddleware from "@shopware-pwa/default-theme/middleware/checkout"
-import { useUser } from '@shopware-pwa/composables'
-import { ref, computed } from '@vue/composition-api'
+import { useUser, useCheckout } from '@shopware-pwa/composables'
+import { ref, computed, reactive } from '@vue/composition-api'
+import {usePersonalDetails} from '@shopware-pwa/default-theme/components/checkout/usePersonalDetails'
+
+const STEPS = {
+  PERSONAL_DETAILS: 0,
+  SHIPPING: 1,
+  PAYMENT: 2,
+  REVIEW: 3,
+}
+
+const getStepByNumber = (number) => {
+  for (let [key, value] of Object.entries(STEPS)) {
+    if(value === number) return key
+  }
+  return 'PERSONAL_DETAILS'
+}
 
 export default {
   name: 'Checkout',
@@ -79,21 +90,97 @@ export default {
     Payment,
     ReviewOrder,
     OrderSummary,
-    OrderReview
+    OrderReview,
   },
-  setup () {
-    // console.error('SETUP', x)
-    // console.error('SETUPy', y)
-    // console.error('SETUP CS', c)
-    // currentStep = ref(0)
+  setup() {
+    const { isGuestOrder } = useCheckout()
+    const {isValid: isPersonalDetailsStepValid, validate: validatePersonalDetailsStep} = usePersonalDetails()
+    const currentStep = ref(isGuestOrder.value ? STEPS.PERSONAL_DETAILS : STEPS.REVIEW)
+
+    const customerData = ref(null) // this will be from useCheckout
+    const shippingAddress = ref(null) // this will be from useCheckout
+    const billingAddress = ref(null) // this will be from useCheckout
+
+    const isPersonalDetailsStepCompleted = computed(() => {
+      return !isGuestOrder.value || customerData.value || isPersonalDetailsStepValid.value
+    })
+    const isShippingStepCompleted = computed(() => {
+      return !isGuestOrder.value || shippingAddress.value
+    })
+    const isPaymentStepCompleted = computed(() => {
+      return !isGuestOrder.value
+    })
+    const isReviewStepAvailable = computed(() => {
+      return !!isPaymentStepCompleted.value
+    })
+
+    const stepsStatus = computed(() => {
+      return {
+        PERSONAL_DETAILS: {
+          available: true
+        },
+        SHIPPING: {
+          available: !!isPersonalDetailsStepCompleted.value
+        },
+        PAYMENT: {
+          available: !!isShippingStepCompleted.value
+        },
+        REVIEW: {
+          available: isReviewStepAvailable.value
+        }
+      }
+    })
+
+    const nextStep = (stepNumber) => {
+      let nextStepNumber = stepNumber || (currentStep.value + 1)
+      if(stepNumber === 0) nextStepNumber = 0
+      
+      if (currentStep.value === STEPS.PERSONAL_DETAILS && currentStep.value !== nextStepNumber) validatePersonalDetailsStep()
+      
+      const nextStep = getStepByNumber(nextStepNumber)
+      // console.error('STEP NO', nextStepNumber)
+      console.error('STEP NEXT', nextStep)
+      // console.error('NEXT STEP INVOKED', isPersonalDetailsStepValid.value)
+      console.error('Is NextStepAvailable', stepsStatus.value[nextStep].available)
+      if (stepsStatus.value[nextStep].available) {
+        currentStep.value = nextStepNumber
+        // this.$router.push({query: {step: nextStepNumber}})
+      }
+    }
+
 
     return {
-      // currentStep
+      currentStep,
+      isGuestOrder,
+      isPersonalDetailsStepCompleted,
+      nextStep,
+      customerData
     }
+  },
+  watch:{
+    $route: {
+      immediate: true,
+      handler: function () {
+        const stepName = this.$route.query.step
+        console.error('ROUTEEE', stepName)
+        const personalDetailsCache = this.$cookies.get("sw-checkout-0") || {}
+        console.error('personalDetailsCachexx', personalDetailsCache)
+        usePersonalDetails(personalDetailsCache)
+        this.customerData = personalDetailsCache
+        if (stepName) this.nextStep(STEPS[stepName])
+      }
+    },
+    currentStep: {
+      immediate: true,
+      handler: function () {
+        console.error('-> CURRSTEPCHANGED', this.currentStep)
+        this.$router.push({query: {step: getStepByNumber(this.currentStep)}})
+      }
+    },
   },
   data() {
     return {
-      currentStep: 0,
+      // currentStep: 0,
       order: {
         firstName: 'John',
         lastName: 'Doe',
@@ -110,7 +197,7 @@ export default {
           zipCode: '53-300',
           country: 'Poland',
           phoneNumber: '+48 443 393 999',
-          shippingMethod: 'DHL courier'
+          shippingMethod: 'DHL courier',
         },
         payment: {
           sameAsShipping: true,
@@ -130,13 +217,13 @@ export default {
             month: 'Doe',
             year: '2020',
             cvc: '0554',
-            keep: false
-          }
+            keep: false,
+          },
         },
         review: {
           subtotal: '$150.00',
           shipping: '$9.00',
-          total: '$159.00'
+          total: '$159.00',
         },
         products: [
           {
@@ -145,10 +232,10 @@ export default {
             price: { regular: '$50.00' },
             configuration: [
               { name: 'Size', value: 'XS' },
-              { name: 'Color', value: 'White' }
+              { name: 'Color', value: 'White' },
             ],
             qty: 1,
-            sku: 'MSD23-345-324'
+            sku: 'MSD23-345-324',
           },
           {
             title: 'Vila stripe maxi dress',
@@ -156,34 +243,34 @@ export default {
             price: { regular: '$50.00', special: '$20.05' },
             configuration: [
               { name: 'Size', value: 'XS' },
-              { name: 'Color', value: 'White' }
+              { name: 'Color', value: 'White' },
             ],
             qty: 2,
-            sku: 'MSD23-345-325'
-          }
-        ]
+            sku: 'MSD23-345-325',
+          },
+        ],
       },
       paymentMethods: [
         {
           label: 'Visa Debit',
-          value: 'debit'
+          value: 'debit',
         },
         {
           label: 'MasterCard',
-          value: 'mastercard'
+          value: 'mastercard',
         },
         {
           label: 'Visa Electron',
-          value: 'electron'
+          value: 'electron',
         },
         {
           label: 'Cash on delivery',
-          value: 'cash'
+          value: 'cash',
         },
         {
           label: 'Check',
-          value: 'check'
-        }
+          value: 'check',
+        },
       ],
       shippingMethods: [
         {
@@ -193,7 +280,7 @@ export default {
           label: 'Pickup in the store',
           value: 'store',
           description:
-            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.'
+            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
         },
         {
           isOpen: false,
@@ -202,7 +289,7 @@ export default {
           label: 'Delivery to home',
           value: 'home',
           description:
-            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.'
+            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
         },
         {
           isOpen: false,
@@ -211,7 +298,7 @@ export default {
           label: 'Paczkomaty InPost',
           value: 'inpost',
           description:
-            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.'
+            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
         },
         {
           isOpen: false,
@@ -220,7 +307,7 @@ export default {
           label: '48 hours coffee',
           value: 'coffee',
           description:
-            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.'
+            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
         },
         {
           isOpen: false,
@@ -229,36 +316,15 @@ export default {
           label: 'Urgent 24h',
           value: 'urgent',
           description:
-            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.'
-        }
-      ]
+            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
+        },
+      ],
     }
   },
   asyncData: async (context) => {
-    const { isLoggedIn } = useUser();
-    // const currentStep = ref(0)
-    const isGuestOrder = computed(() => !!isLoggedIn)
-    // set current step to 3 (checkout's review) for logged in users, leave the first step otherwise
-    // TODO: create the global checkout's step map in format: 'review => 3, personalDetails => 0, etc'.
-    return { currentStep: isLoggedIn && isLoggedIn.value && 3 || 0, isGuestOrder }
   },
   methods: {
-    updateStep(next) {
-      // prevent to move next by SfStep header
-      // if (next < this.currentStep) {
-        this.currentStep = next
-      // }
-    },
-    proceed() {
-      this.currentStep++
-    },
-    updateOrder(order, next = true) {
-      this.order = { ...this.order, ...order }
-      if (next) {
-        this.currentStep++
-      }
-    }
-  }
+  },
 }
 </script>
 <style lang="scss" scoped>
