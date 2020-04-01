@@ -77,7 +77,6 @@ a {
 }
 
 /*Header styles*/
-
 h1 {
   font-family: var(--body-font-family-secondary);
   font-size: var(--h1-font-size);
