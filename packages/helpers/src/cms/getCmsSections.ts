@@ -1,6 +1,6 @@
 import {
   CmsPage,
-  CmsSection
+  CmsSection,
 } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
 /**

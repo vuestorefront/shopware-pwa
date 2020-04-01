@@ -13,7 +13,7 @@ export interface UseProductSearch {
 }
 
 const sharedListing = Vue.observable({
-  products: []
+  products: [],
 } as any);
 
 /**
@@ -42,13 +42,13 @@ export const useProductSearch = (): UseProductSearch => {
       configuration: {
         associations: [
           {
-            name: "options"
+            name: "options",
           },
           {
-            name: "productReviews"
-          }
-        ]
-      }
+            name: "productReviews",
+          },
+        ],
+      },
     };
     try {
       const result = await getProducts(searchCriteria);
@@ -76,6 +76,6 @@ export const useProductSearch = (): UseProductSearch => {
     search,
     products,
     loading,
-    error
+    error,
   };
 };

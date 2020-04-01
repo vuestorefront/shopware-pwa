@@ -15,9 +15,9 @@ describe("CustomerService - getCustomerOrderDetails", () => {
       data: {
         data: {
           id: "12345-ab",
-          orderNumber: "7020"
-        }
-      }
+          orderNumber: "7020",
+        },
+      },
     });
     const result = await getCustomerOrderDetails("12345-ab");
     expect(mockedAxios.get).toBeCalledTimes(1);
@@ -26,7 +26,7 @@ describe("CustomerService - getCustomerOrderDetails", () => {
     );
     expect(result).toMatchObject({
       id: "12345-ab",
-      orderNumber: "7020"
+      orderNumber: "7020",
     });
   });
 });

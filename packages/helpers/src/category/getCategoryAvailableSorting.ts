@@ -11,7 +11,7 @@ interface Sorting {
  * @alpha
  */
 export function getCategoryAvailableSorting({
-  sorting
+  sorting,
 }: { sorting?: Sorting } = {}): UiCategorySorting[] {
   if (!sorting) {
     return [];
@@ -22,7 +22,7 @@ export function getCategoryAvailableSorting({
       name: sortingCode,
       active: active,
       field: sortingCode.split("-")[0],
-      order: sortingCode.split("-")[1]
+      order: sortingCode.split("-")[1],
     })
   );
 

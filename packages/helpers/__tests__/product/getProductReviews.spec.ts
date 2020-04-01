@@ -10,7 +10,7 @@ describe("Shopware helpers - getProductReviews", () => {
           externalUser: "Joe Doe",
           points: 4,
           content: "Great quality!",
-          createdAt: "2019-10-08T09:42:19+00:00"
+          createdAt: "2019-10-08T09:42:19+00:00",
         },
         {
           id: "3f06d7747f904336a78bf75e86a64535",
@@ -18,9 +18,9 @@ describe("Shopware helpers - getProductReviews", () => {
           externalUser: null,
           points: 5,
           content: "I'm impressed!",
-          createdAt: "2019-11-14T10:22:15+00:00"
-        }
-      ]
+          createdAt: "2019-11-14T10:22:15+00:00",
+        },
+      ],
     };
 
     const reviews = getProductReviews({ product: productWithReviews });

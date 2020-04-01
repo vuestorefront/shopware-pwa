@@ -8,7 +8,7 @@ module.exports = {
   run: async (toolbox: GluegunToolbox) => {
     const {
       system: { run },
-      print: { info, warning, success, spin }
+      print: { info, warning, success, spin },
     } = toolbox;
 
     // when --ci parameter is provided, then we skip questions for default values
@@ -25,30 +25,30 @@ module.exports = {
         type: "input",
         name: "shopwareEndpoint",
         message: "Shopware instance address:",
-        initial: inputParameters.shopwareEndpoint
+        initial: inputParameters.shopwareEndpoint,
       };
       const shopwareAccessTokenQuestion = {
         type: "input",
         name: "shopwareAccessToken",
         message: "Shopware instance access token:",
-        initial: inputParameters.shopwareAccessToken
+        initial: inputParameters.shopwareAccessToken,
       };
       const shopwareUsernameQuestion = !inputParameters.username && {
         type: "input",
         name: "username",
-        message: "Shopware admin username:"
+        message: "Shopware admin username:",
       };
       const shopwarePasswordQuestion = !inputParameters.password && {
         type: "password",
         name: "password",
-        message: "Shopware admin password:"
+        message: "Shopware admin password:",
       };
 
       const answers = await toolbox.prompt.ask([
         shopwareEndpointQuestion,
         shopwareAccessTokenQuestion,
         shopwareUsernameQuestion,
-        shopwarePasswordQuestion
+        shopwarePasswordQuestion,
       ]);
       Object.assign(inputParameters, answers);
     }
@@ -80,7 +80,7 @@ module.exports = {
 
     const generateFilesSpinner = spin("Generating project files");
     await toolbox.generateTemplateFiles();
-    const copyPromisses = toolbox.themeFolders.map(themeFolder =>
+    const copyPromisses = toolbox.themeFolders.map((themeFolder) =>
       toolbox.copyThemeFolder(themeFolder)
     );
     await Promise.all(copyPromisses);
@@ -98,5 +98,5 @@ module.exports = {
 
     success(`Generated Shopware PWA project!`);
     info(`Type 'shopware-pwa dev' and start exploring`);
-  }
+  },
 };

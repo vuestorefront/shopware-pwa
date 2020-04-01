@@ -5,7 +5,7 @@ import {
   RangeFilter,
   EqualsFilter,
   EqualsAnyFilter,
-  SearchFilterType
+  SearchFilterType,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { convertAssociations } from "./convertAssociations";
 import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
@@ -79,7 +79,7 @@ export const convertSearchCriteria = (
     }
     params.grouping = {
       // prevent displaying parent instances of the product
-      field: "displayGroup"
+      field: "displayGroup",
     };
     params.filter.push({
       type: SearchFilterType.NOT,
@@ -87,9 +87,9 @@ export const convertSearchCriteria = (
         {
           type: SearchFilterType.EQUALS,
           field: "displayGroup",
-          value: null
-        }
-      ]
+          value: null,
+        },
+      ],
     });
   }
 

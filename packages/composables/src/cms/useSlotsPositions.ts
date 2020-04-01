@@ -18,7 +18,7 @@ export enum PositionType {
   CENTER_LEFT = "center-left",
   CENTER_RIGHT = "center-right",
   LEFT_TOP = "left-top",
-  LEFT_BOTTOM = "left-bottom"
+  LEFT_BOTTOM = "left-bottom",
 }
 
 export const useSlotsPositions = (slots: CmsSlot[]): UseSlotsPositions => {
@@ -54,6 +54,6 @@ export const useSlotsPositions = (slots: CmsSlot[]): UseSlotsPositions => {
     centerLeftSlot,
     centerRightSlot,
     leftBottomSlot,
-    leftTopSlot
+    leftTopSlot,
   };
 };

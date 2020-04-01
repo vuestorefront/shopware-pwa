@@ -6,7 +6,7 @@ import {
   LtGtRangeFilter,
   LtGteRangeFilter,
   LteGtRangeFilter,
-  LteGteRangeFilter
+  LteGteRangeFilter,
 } from "@shopware-pwa/commons/interfaces/search/RangeFilters";
 
 export enum SearchFilterType {
@@ -15,7 +15,7 @@ export enum SearchFilterType {
   EQUALS_ANY = "equalsAny",
   NOT = "not",
   MULTI = "multi",
-  RANGE = "range"
+  RANGE = "range",
 }
 
 /**

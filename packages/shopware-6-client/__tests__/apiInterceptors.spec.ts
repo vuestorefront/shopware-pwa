@@ -11,10 +11,10 @@ describe("apiInterceptors", () => {
         headers: { "sw-context-token": contextToken },
         status: 200,
         statusText: "OK",
-        config: {}
+        config: {},
       });
       expect(resp.data).toEqual({
-        data: { id: "044a190a54ab4f06803909c3ee8063ef" }
+        data: { id: "044a190a54ab4f06803909c3ee8063ef" },
       });
       expect(config.contextToken).toEqual(contextToken);
     });
@@ -26,10 +26,10 @@ describe("apiInterceptors", () => {
         headers: { "sw-context-token": contextToken },
         status: 200,
         statusText: "OK",
-        config: {}
+        config: {},
       });
       expect(resp.data).toEqual({
-        "sw-context-token": "044a190a54ab4f06803909c3ee8063ef"
+        "sw-context-token": "044a190a54ab4f06803909c3ee8063ef",
       });
       expect(config.contextToken).toEqual("044a190a54ab4f06803909c3ee8063ef");
     });
@@ -49,7 +49,7 @@ describe("apiInterceptors", () => {
     it("should throw an error with no message if errors array is null", async () => {
       try {
         await errorInterceptor({
-          response: { status: 404, data: { errors: null } }
+          response: { status: 404, data: { errors: null } },
         } as any);
         // Fail test if above expression doesn't throw anything.
         expect("didn't throw an error").toEqual("should throw an error");
@@ -61,7 +61,7 @@ describe("apiInterceptors", () => {
     it("should have error with no message when the error has no detail property", async () => {
       try {
         await errorInterceptor({
-          response: { status: 404, data: null }
+          response: { status: 404, data: null },
         } as any);
         // Fail test if above expression doesn't throw anything.
         expect("didn't throw an error").toEqual("should throw an error");
@@ -76,8 +76,8 @@ describe("apiInterceptors", () => {
         await errorInterceptor({
           response: {
             status: 404,
-            data: { errors: [{ detail: "Resource not found" }] }
-          }
+            data: { errors: [{ detail: "Resource not found" }] },
+          },
         } as any);
         // Fail test if above expression doesn't throw anything.
         expect("didn't throw an error").toEqual("should throw an error");
@@ -91,8 +91,8 @@ describe("apiInterceptors", () => {
         await errorInterceptor({
           response: {
             status: 404,
-            data: { errors: [{ detail: "Resource not found" }] }
-          }
+            data: { errors: [{ detail: "Resource not found" }] },
+          },
         } as any);
         // Fail test if above expression doesn't throw anything.
         expect("didn't throw an error").toEqual("should throw an error");
@@ -107,9 +107,12 @@ describe("apiInterceptors", () => {
           response: {
             status: 403,
             data: {
-              errors: [{ detail: "Customer is not logged in." }, { detail: "" }]
-            }
-          }
+              errors: [
+                { detail: "Customer is not logged in." },
+                { detail: "" },
+              ],
+            },
+          },
         } as any);
         // Fail test if above expression doesn't throw anything.
         expect("didn't throw an error").toEqual("should throw an error");
@@ -126,10 +129,10 @@ describe("apiInterceptors", () => {
             data: {
               errors: [
                 { detail: "Param X is required." },
-                { detail: "Param Y should not be blank." }
-              ]
-            }
-          }
+                { detail: "Param Y should not be blank." },
+              ],
+            },
+          },
         } as any);
         // Fail test if above expression doesn't throw anything.
         expect("didn't throw an error").toEqual("should throw an error");
@@ -137,7 +140,7 @@ describe("apiInterceptors", () => {
         expect(e.statusCode).toEqual(400);
         expect(e.message).toStrictEqual([
           { detail: "Param X is required." },
-          { detail: "Param Y should not be blank." }
+          { detail: "Param Y should not be blank." },
         ]);
       }
     });
@@ -159,10 +162,10 @@ describe("apiInterceptors", () => {
             data: {
               errors: [
                 { detail: "Param X is required." },
-                { detail: "Param Y should not be blank." }
-              ]
-            }
-          }
+                { detail: "Param Y should not be blank." },
+              ],
+            },
+          },
         } as any);
         // Fail test if above expression doesn't throw anything.
         expect("didn't throw an error").toEqual("should throw an error");

@@ -32,18 +32,18 @@ export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
     options: {
       shopwareEndpoint:
         shopwarePwaConfig?.shopwareEndpoint + "/sales-channel-api/v1",
-      shopwareAccessToken: shopwarePwaConfig?.shopwareAccessToken
-    }
+      shopwareAccessToken: shopwarePwaConfig?.shopwareAccessToken,
+    },
   });
 
   const defaults = {
     alias: "cookies",
-    parseJSON: true
+    parseJSON: true,
   };
   moduleObject.addPlugin({
     src: path.join(__dirname, "..", "plugins", "cookie-universal-nuxt.js"),
     fileName: "cookie-universal-nuxt.js",
-    options: Object.assign({}, defaults, moduleOptions)
+    options: Object.assign({}, defaults, moduleOptions),
   });
 
   moduleObject.extendBuild((config: WebpackConfig) => {

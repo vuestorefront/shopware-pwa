@@ -14,7 +14,7 @@ export interface UseCountries {
 }
 
 const sharedCountries = Vue.observable({
-  countries: null
+  countries: null,
 } as any);
 
 /**
@@ -50,6 +50,6 @@ export const useCountries = (): UseCountries => {
     mountedCallback,
     fetchCountries,
     getCountries,
-    error
+    error,
   };
 };

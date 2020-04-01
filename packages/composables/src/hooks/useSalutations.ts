@@ -14,7 +14,7 @@ export interface UseSalutations {
 }
 
 const sharedSalutations = Vue.observable({
-  salutations: null
+  salutations: null,
 } as any);
 
 /**
@@ -51,6 +51,6 @@ export const useSalutations = (): UseSalutations => {
     mountedCallback,
     fetchSalutations,
     getSalutations,
-    error
+    error,
   };
 };

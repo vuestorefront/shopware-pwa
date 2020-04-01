@@ -4,7 +4,7 @@ import { getNavigation } from "@shopware-pwa/shopware-6-client";
 import { getNavigationRoutes } from "@shopware-pwa/helpers";
 
 const sharedNavigation = Vue.observable({
-  routes: null
+  routes: null,
 } as any);
 
 /**
@@ -22,6 +22,6 @@ export const useNavigation = (): any => {
 
   return {
     routes,
-    fetchRoutes
+    fetchRoutes,
   };
 };

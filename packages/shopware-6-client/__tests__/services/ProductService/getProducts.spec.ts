@@ -12,7 +12,7 @@ describe("ProductService - getProducts", () => {
   });
   it("should return array of products (default amount of 10)", async () => {
     mockedAxios.post.mockResolvedValueOnce({
-      data: { total: 3, data: [1, 2, 3] }
+      data: { total: 3, data: [1, 2, 3] },
     });
 
     const result = await getProducts();
@@ -22,13 +22,13 @@ describe("ProductService - getProducts", () => {
   });
   it("should invoke api with limit", async () => {
     mockedAxios.post.mockResolvedValueOnce({
-      data: { total: 3, data: [1, 2, 3] }
+      data: { total: 3, data: [1, 2, 3] },
     });
     const pagination = {
       page: 1,
       limit: 5,
       grouping: {
-        field: "displayGroup"
+        field: "displayGroup",
       },
       filter: [
         {
@@ -37,11 +37,11 @@ describe("ProductService - getProducts", () => {
             {
               type: "equals",
               field: "displayGroup",
-              value: null
-            }
-          ]
-        }
-      ]
+              value: null,
+            },
+          ],
+        },
+      ],
     };
     await getProducts({ pagination });
     expect(mockedAxios.post).toBeCalledTimes(1);
@@ -49,7 +49,7 @@ describe("ProductService - getProducts", () => {
       limit: 5,
       page: 1,
       grouping: {
-        field: "displayGroup"
+        field: "displayGroup",
       },
       filter: [
         {
@@ -58,24 +58,24 @@ describe("ProductService - getProducts", () => {
             {
               type: "equals",
               field: "displayGroup",
-              value: null
-            }
-          ]
-        }
-      ]
+              value: null,
+            },
+          ],
+        },
+      ],
     });
   });
   it("should invoke api with limit and sort", async () => {
     mockedAxios.post.mockResolvedValueOnce({
-      data: { total: 3, data: [1, 2, 3] }
+      data: { total: 3, data: [1, 2, 3] },
     });
     const pagination = {
       page: 1,
-      limit: PaginationLimit.SEVENTY_FIVE
+      limit: PaginationLimit.SEVENTY_FIVE,
     };
     const sort: Sort = {
       field: `name`,
-      desc: true
+      desc: true,
     };
     await getProducts({ pagination, sort });
     expect(mockedAxios.post).toBeCalledTimes(1);
@@ -84,7 +84,7 @@ describe("ProductService - getProducts", () => {
       page: 1,
       sort: "-name",
       grouping: {
-        field: "displayGroup"
+        field: "displayGroup",
       },
       filter: [
         {
@@ -93,11 +93,11 @@ describe("ProductService - getProducts", () => {
             {
               type: "equals",
               field: "displayGroup",
-              value: null
-            }
-          ]
-        }
-      ]
+              value: null,
+            },
+          ],
+        },
+      ],
     });
   });
 });

@@ -10,9 +10,9 @@ describe("Composables - useImageProps", () => {
       media: {
         title: "title",
         alt: "alternative text",
-        url: "image-url"
-      }
-    }
+        url: "image-url",
+      },
+    },
   };
 
   const emptyContent = undefined;

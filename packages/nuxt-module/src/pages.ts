@@ -40,17 +40,17 @@ export function addThemePages(moduleObject: NuxtModuleOptions) {
   );
 
   const allPages = themePages
-    .map(page => page.replace(path.normalize(pagesDir + path.sep), ""))
-    .map(page => page.replace(/\\/g, "/"))
-    .filter(page => /.+.(vue|js)$/.test(page))
+    .map((page) => page.replace(path.normalize(pagesDir + path.sep), ""))
+    .map((page) => page.replace(/\\/g, "/"))
+    .filter((page) => /.+.(vue|js)$/.test(page))
     .sort();
   const allOverridedPages = projectPages
-    .map(page =>
+    .map((page) =>
       page.replace(path.normalize(moduleObject.options.rootDir + path.sep), "")
     )
-    .filter(page => /.+.(vue|js)$/.test(page))
+    .filter((page) => /.+.(vue|js)$/.test(page))
     .sort();
-  allOverridedPages.forEach(page => {
+  allOverridedPages.forEach((page) => {
     const p = page.replace(/\\/g, "/");
     if (!allPages.includes(p)) {
       allPages.push(p);
@@ -61,7 +61,7 @@ export function addThemePages(moduleObject: NuxtModuleOptions) {
   const createdRoutes = createRoutes({
     files: allPages,
     srcDir: pagesDir,
-    pagesDir: "pages"
+    pagesDir: "pages",
   });
   overrideRoutes(moduleObject, createdRoutes, allOverridedPages);
 

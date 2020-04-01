@@ -2,7 +2,7 @@ import { GluegunToolbox } from "gluegun";
 
 const defaultConfig = {
   shopwareEndpoint: "https://shopware-2.vuestorefront.io",
-  shopwareAccessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG"
+  shopwareAccessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG",
 };
 // add your CLI-specific functionality here, which will then be accessible
 // to your commands
@@ -16,7 +16,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     "@shopware-pwa/helpers",
     "@shopware-pwa/shopware-6-client",
     "@shopware-pwa/default-theme",
-    "@shopware-pwa/nuxt-module"
+    "@shopware-pwa/nuxt-module",
   ];
 
   toolbox.themeFolders = ["store", "static", ".eslintrc.js"];
@@ -30,7 +30,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     // load default config
     ...defaultConfig,
     // load config file from generated project
-    ...toolbox.config.loadConfig("shopware-pwa", process.cwd())
+    ...toolbox.config.loadConfig("shopware-pwa", process.cwd()),
   };
 
   /**
@@ -56,6 +56,6 @@ module.exports = (toolbox: GluegunToolbox) => {
     username:
       toolbox.parameters.options.username || toolbox.parameters.options.u,
     password:
-      toolbox.parameters.options.password || toolbox.parameters.options.p
+      toolbox.parameters.options.password || toolbox.parameters.options.p,
   };
 };

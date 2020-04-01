@@ -4,7 +4,7 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
  * @alpha
  */
 export function getProductRegularPrice({
-  product
+  product,
 }: { product?: Product } = {}): number {
   return product?.price?.[0]?.gross || 0;
 }

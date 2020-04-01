@@ -3,7 +3,7 @@ import {
   getCheckoutCartEndpoint,
   getCheckoutCartProductEndpoint,
   getCheckoutPromotionCodeEndpoint,
-  getCheckoutCartLineItemEndpoint
+  getCheckoutCartLineItemEndpoint,
 } from "../endpoints";
 import { apiService } from "../apiService";
 import { ContextTokenResponse } from "@shopware-pwa/commons/interfaces/response/ContextTokenResponse";

@@ -5,9 +5,9 @@ describe("Shopware helpers - getProductSpecialPrice", () => {
     const specialPrice = getProductSpecialPrice({
       calculatedPrices: [
         {
-          unitPrice: 125.95
-        }
-      ]
+          unitPrice: 125.95,
+        },
+      ],
     } as any);
     expect(specialPrice).toEqual(125.95);
   });
@@ -23,14 +23,14 @@ describe("Shopware helpers - getProductSpecialPrice", () => {
 
   it("should return 0 if calculatedPrices is an empty array", () => {
     const specialPrice = getProductSpecialPrice({
-      calculatedPrices: []
+      calculatedPrices: [],
     } as any);
     expect(specialPrice).toBe(0);
   });
 
   it("should return 0 if there is no unitPrice", () => {
     const specialPrice = getProductSpecialPrice({
-      calculatedPrices: [{}]
+      calculatedPrices: [{}],
     } as any);
     expect(specialPrice).toBe(0);
   });

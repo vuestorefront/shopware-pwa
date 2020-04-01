@@ -4,7 +4,7 @@ import {
   SectionType,
   SizingMode,
   MobileBehavior,
-  BackgroundMediaMode
+  BackgroundMediaMode,
 } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
 describe("Interfaces - CmsPage", () => {

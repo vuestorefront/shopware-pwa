@@ -7,44 +7,44 @@ import { useSlotsPositions } from "@shopware-pwa/composables";
 describe("Composables - useImageProps", () => {
   const slots = [
     {
-      slot: "right"
+      slot: "right",
     },
     {
-      slot: "left"
+      slot: "left",
     },
     {
-      slot: "center"
+      slot: "center",
     },
     {
-      slot: "center-left"
+      slot: "center-left",
     },
     {
-      slot: "center-right"
+      slot: "center-right",
     },
     {
-      slot: "left-top"
+      slot: "left-top",
     },
     {
-      slot: "left-bottom"
-    }
+      slot: "left-bottom",
+    },
   ];
 
   const fakeSlots = [
     {
-      slot: "this"
+      slot: "this",
     },
     {
-      slot: "is"
+      slot: "is",
     },
     {
-      slot: "just"
+      slot: "just",
     },
     {
-      slot: "a"
+      slot: "a",
     },
     {
-      slot: "test"
-    }
+      slot: "test",
+    },
   ];
 
   it("should return computed CmsSlot which contains slot hey wit left value", () => {

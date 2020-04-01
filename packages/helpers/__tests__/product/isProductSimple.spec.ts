@@ -3,7 +3,7 @@ import { isProductSimple } from "@shopware-pwa/helpers";
 describe("Shopware helpers - isProductSimple", () => {
   it("should return true if product has a parent", () => {
     const productWithParent: any = {
-      parentId: "3f06d7747f904336a78bf75e86a6450f"
+      parentId: "3f06d7747f904336a78bf75e86a6450f",
     };
 
     const isSimple = isProductSimple({ product: productWithParent });
@@ -11,7 +11,7 @@ describe("Shopware helpers - isProductSimple", () => {
   });
   it("should return true if product has no parent", () => {
     const productWithoutParent: any = {
-      parentId: null
+      parentId: null,
     };
 
     const isSimple = isProductSimple({ product: productWithoutParent });
@@ -31,7 +31,7 @@ describe("Shopware helpers - isProductSimple", () => {
   it("should return false when parentId is same as id", () => {
     const product: any = {
       id: "qwe",
-      parentId: "qwe"
+      parentId: "qwe",
     };
 
     const isSimple = isProductSimple({ product: product });

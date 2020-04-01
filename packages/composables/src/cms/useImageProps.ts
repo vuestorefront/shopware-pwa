@@ -24,6 +24,6 @@ export const useImageProps = (content: CmsSlot | undefined): UseImageProps => {
   return {
     getImgUrl,
     getAlt,
-    getTitle
+    getTitle,
   };
 };

@@ -3,7 +3,7 @@ import VueCompositionApi, {
   reactive,
   ref,
   computed,
-  Ref
+  Ref,
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 import { useProductListing, setStore } from "@shopware-pwa/composables";
@@ -13,7 +13,7 @@ import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 import {
   SearchFilterType,
   EqualsFilter,
-  EqualsAnyFilter
+  EqualsAnyFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 
 const mockedGetPage = shopwareClient as jest.Mocked<typeof shopwareClient>;
@@ -28,7 +28,7 @@ describe("Composables - useProductListing", () => {
       getters: reactive({ getPage: computed(() => statePage.value) }),
       commit: (name: string, value: any) => {
         statePage.value = value;
-      }
+      },
     });
   });
   describe("no reference to the products collection", () => {
@@ -53,7 +53,7 @@ describe("Composables - useProductListing", () => {
       toggleFilter({
         type: SearchFilterType.EQUALS,
         value: "white",
-        field: "color"
+        field: "color",
       } as EqualsFilter);
 
       expect(selectedFilters.value).toHaveProperty("color");
@@ -63,14 +63,14 @@ describe("Composables - useProductListing", () => {
       const {
         selectedFilters,
         toggleFilter,
-        resetFilters
+        resetFilters,
       } = useProductListing();
       resetFilters();
 
       toggleFilter({
         type: SearchFilterType.EQUALS_ANY,
         value: ["white", "black"],
-        field: "color"
+        field: "color",
       } as EqualsAnyFilter);
 
       expect(selectedFilters.value).toHaveProperty("color");
@@ -80,20 +80,20 @@ describe("Composables - useProductListing", () => {
       const {
         selectedFilters,
         toggleFilter,
-        resetFilters
+        resetFilters,
       } = useProductListing();
       resetFilters();
 
       toggleFilter({
         type: SearchFilterType.EQUALS,
         value: "white",
-        field: "color"
+        field: "color",
       } as EqualsFilter);
 
       toggleFilter({
         type: SearchFilterType.EQUALS,
         value: "white",
-        field: "color"
+        field: "color",
       } as EqualsFilter);
 
       expect(selectedFilters.value).toHaveProperty("color");
@@ -104,7 +104,7 @@ describe("Composables - useProductListing", () => {
   describe("search", () => {
     it("should reset search criteria on category change event", async () => {
       const { products, selectedFilters } = useProductListing([
-        { product: "1" } as any
+        { product: "1" } as any,
       ]);
       expect(selectedFilters.value).toStrictEqual({ categoryTree: [] });
 
@@ -126,7 +126,7 @@ describe("Composables - useProductListing", () => {
       expect(pagination.value).toStrictEqual({
         currentPage: 1,
         perPage: 10,
-        total: 0
+        total: 0,
       });
       expect(products.value).toStrictEqual([]);
     });
@@ -135,9 +135,9 @@ describe("Composables - useProductListing", () => {
       mockedGetPage.getProducts.mockResolvedValueOnce({
         data: [
           {
-            id: "123456"
-          }
-        ]
+            id: "123456",
+          },
+        ],
       } as any);
 
       const { products, search } = useProductListing();
@@ -147,7 +147,7 @@ describe("Composables - useProductListing", () => {
 
     it("should search with no categoryId passed by page resolver", async () => {
       statePage.value = {
-        resourceIdentifier: "123456"
+        resourceIdentifier: "123456",
       };
       const { categoryId } = useProductListing();
 
@@ -160,13 +160,13 @@ describe("Composables - useProductListing", () => {
       const { changeSorting, selectedSorting } = useProductListing();
       await changeSorting({
         field: "price",
-        desc: false
+        desc: false,
       });
       await changeSorting(undefined as any);
 
       expect(selectedSorting.value).toStrictEqual({
         desc: false,
-        field: "price"
+        field: "price",
       });
     });
   });
@@ -179,7 +179,7 @@ describe("Composables - useProductListing", () => {
       expect(pagination.value).toStrictEqual({
         currentPage: 1,
         perPage: 10,
-        total: 0
+        total: 0,
       });
     });
 
@@ -190,7 +190,7 @@ describe("Composables - useProductListing", () => {
       expect(pagination.value).toStrictEqual({
         currentPage: 10,
         perPage: 10,
-        total: 0
+        total: 0,
       });
     });
   });

@@ -1,7 +1,7 @@
 import { apiService } from "../../../src/apiService";
 import {
   setCurrentPaymentMethod,
-  update
+  update,
 } from "@shopware-pwa/shopware-6-client";
 
 jest.mock("../../../src/apiService");
@@ -15,7 +15,7 @@ describe("ContextService - setCurrentPaymentMethod with contextToken given", () 
 
   it("should return context token", async () => {
     mockedAxios.patch.mockResolvedValueOnce({
-      data: { "sw-context-token": "NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6" }
+      data: { "sw-context-token": "NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6" },
     });
 
     let newPaymentMethodId = "45f96f681f9d4834b29e9e15df3a7149";
@@ -24,7 +24,7 @@ describe("ContextService - setCurrentPaymentMethod with contextToken given", () 
 
     expect(mockedAxios.patch).toBeCalledTimes(1);
     expect(mockedAxios.patch).toBeCalledWith("/context", {
-      paymentMethodId: "45f96f681f9d4834b29e9e15df3a7149"
+      paymentMethodId: "45f96f681f9d4834b29e9e15df3a7149",
     });
 
     expect(result.contextToken).toEqual("NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6");
@@ -39,7 +39,7 @@ describe("ContextService - setCurrentPaymentMethod without contextToken given", 
 
   it("should return context token", async () => {
     mockedAxios.patch.mockResolvedValueOnce({
-      data: { "sw-context-token": "NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6" }
+      data: { "sw-context-token": "NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6" },
     });
 
     let newPaymentMethodId = "45f96f681f9d4834b29e9e15df3a7149";
@@ -48,7 +48,7 @@ describe("ContextService - setCurrentPaymentMethod without contextToken given", 
 
     expect(mockedAxios.patch).toBeCalledTimes(1);
     expect(mockedAxios.patch).toBeCalledWith("/context", {
-      paymentMethodId: "45f96f681f9d4834b29e9e15df3a7149"
+      paymentMethodId: "45f96f681f9d4834b29e9e15df3a7149",
     });
 
     expect(result.contextToken).toEqual("NWDdcRTTWoPk4Ngv13z5NDMMsDFRb9W6");

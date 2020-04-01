@@ -42,7 +42,7 @@ export const useProduct = (
       cover,
       properties,
       productReviews,
-      children
+      children,
     } = await getProduct(
       product.value.parentId || product.value.id,
       associations
@@ -52,7 +52,7 @@ export const useProduct = (
       cover,
       properties,
       productReviews,
-      children
+      children,
     });
   };
 
@@ -75,6 +75,6 @@ export const useProduct = (
     loading,
     search,
     error,
-    loadAssociations
+    loadAssociations,
   };
 };

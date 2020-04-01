@@ -3,7 +3,7 @@ import {
   EqualsFilter,
   RangeFilter,
   MultiFilter,
-  EqualsAnyFilter
+  EqualsAnyFilter,
 } from "./SearchFilter";
 import { Association } from "./Association";
 import { Aggregation } from "./Aggregation";

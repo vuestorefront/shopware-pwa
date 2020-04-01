@@ -15,8 +15,8 @@ describe("Shopware helpers - getVariantOptionsLabel", () => {
   it("should return empty string if empty options array is provided", () => {
     const argument: any = {
       product: {
-        options: []
-      }
+        options: [],
+      },
     };
     const label = getVariantOptionsLabel(argument);
     expect(label).toBeNull();
@@ -27,10 +27,10 @@ describe("Shopware helpers - getVariantOptionsLabel", () => {
       product: {
         options: [
           {
-            name: "XL"
-          }
-        ]
-      }
+            name: "XL",
+          },
+        ],
+      },
     };
     const label = getVariantOptionsLabel(argument);
     expect(label).toBe("XL");
@@ -41,13 +41,13 @@ describe("Shopware helpers - getVariantOptionsLabel", () => {
       product: {
         options: [
           {
-            name: "L"
+            name: "L",
           },
           {
-            name: "black"
-          }
-        ]
-      }
+            name: "black",
+          },
+        ],
+      },
     };
     const label = getVariantOptionsLabel(argument);
     expect(label).toBe("L black");

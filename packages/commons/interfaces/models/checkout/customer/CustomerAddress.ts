@@ -3,7 +3,7 @@ import { CustomField } from "@shopware-pwa/commons/interfaces/models/common/Cust
 
 export enum AddressType {
   billing = "billing",
-  shipping = "shipping"
+  shipping = "shipping",
 }
 
 /**

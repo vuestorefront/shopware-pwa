@@ -11,35 +11,35 @@ describe("Shopware helpers - getProductOptions", () => {
               id: "3858d1baf2544a379c92535ea3d2fe53",
               name: "blue",
               group: {
-                name: "color"
-              }
+                name: "color",
+              },
             },
             {
               id: "3858d1baf2544a379c92535ea3d2fe53",
               name: "blue",
               group: {
-                name: "color"
-              }
+                name: "color",
+              },
             },
             {
               id: "3858d1baf2544a379c92535ea3d2fe52",
-              name: "white"
-            }
-          ]
+              name: "white",
+            },
+          ],
         },
         {
           id: "06a7ed91305d47e1b7f3d6f7660c8316",
-          options: []
+          options: [],
         },
         {
           id: "qwerty",
-          options: []
-        }
-      ]
+          options: [],
+        },
+      ],
     };
 
     const productOptions = getProductOptions({
-      product: productWithChildren
+      product: productWithChildren,
     });
     expect(productOptions).toHaveProperty("color");
   });
@@ -48,7 +48,7 @@ describe("Shopware helpers - getProductOptions", () => {
     const productWithoutChildren: any = {};
 
     const productOptions = getProductOptions({
-      product: productWithoutChildren
+      product: productWithoutChildren,
     });
     expect(productOptions).toEqual({});
   });
@@ -57,17 +57,17 @@ describe("Shopware helpers - getProductOptions", () => {
       children: [
         {
           id: "06a7ed91305d47e1b7f3d6f7660c8316",
-          options: []
+          options: [],
         },
         null,
         {
-          id: "qwerty"
-        }
-      ]
+          id: "qwerty",
+        },
+      ],
     };
 
     const productOptions = getProductOptions({
-      product: productWithoutChildren
+      product: productWithoutChildren,
     });
     expect(productOptions).toStrictEqual({});
   });

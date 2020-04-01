@@ -6,12 +6,12 @@ describe("shopware-6-client - E2E - CustomerService - updateEmail", () => {
     const result = await updateEmail({
       email: "test@test.pl",
       emailConfirmation: "test@test.pl",
-      password: "password"
+      password: "password",
     });
     await updateEmail({
       email: "test.e2e@test.pl",
       emailConfirmation: "test.e2e@test.pl",
-      password: "password"
+      password: "password",
     });
     expect(result).toMatchSnapshot();
   });
@@ -22,7 +22,7 @@ describe("shopware-6-client - E2E - CustomerService - updateEmail", () => {
       await updateEmail({
         email: "test.e2e@test.pl",
         emailConfirmation: "test.e2e@test.pl",
-        password: "password"
+        password: "password",
       });
       expect("didn't throw an error").toEqual("should throw an error");
     } catch (e) {
@@ -36,7 +36,7 @@ describe("shopware-6-client - E2E - CustomerService - updateEmail", () => {
       await updateEmail({
         email: "test.e2etest.pl",
         emailConfirmation: "test.e2etest.pl",
-        password: "password"
+        password: "password",
       });
       expect("didn't throw an error").toEqual("should throw an error");
     } catch (e) {
@@ -50,7 +50,7 @@ describe("shopware-6-client - E2E - CustomerService - updateEmail", () => {
       await updateEmail({
         email: "test.e2e@test.pl",
         emailConfirmation: "teste2test.pl",
-        password: "password"
+        password: "password",
       });
       expect("didn't throw an error").toEqual("should throw an error");
     } catch (e) {
@@ -64,7 +64,7 @@ describe("shopware-6-client - E2E - CustomerService - updateEmail", () => {
       await updateEmail({
         email: "test.e2e@test.pl",
         emailConfirmation: "teste2e@test.pl",
-        password: "shop1"
+        password: "shop1",
       });
     } catch (e) {
       expect(e).toMatchSnapshot();
@@ -76,7 +76,7 @@ describe("shopware-6-client - E2E - CustomerService - updateEmail", () => {
       await updateEmail({
         email: "test.e2e@test.pl",
         emailConfirmation: "teste2etest.pl",
-        password: "password"
+        password: "password",
       });
     } catch (e) {
       expect(e).toMatchSnapshot();

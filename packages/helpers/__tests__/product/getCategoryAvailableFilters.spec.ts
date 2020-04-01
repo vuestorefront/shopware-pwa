@@ -17,35 +17,35 @@ describe("Shopware helpers - getCategoryAvailableFilters", () => {
         name: "textile",
         values: {
           "20beab74a1284d05b9661f973bbc6a4b": {
-            name: "wool"
+            name: "wool",
           },
           a5f307eb50ed48e3963988787bbfcb74: {
-            name: "silk"
-          }
-        }
+            name: "silk",
+          },
+        },
       },
       rating: {
         type: "term",
         values: [
           {
             key: "2",
-            count: 50
-          }
-        ]
+            count: 50,
+          },
+        ],
       },
       color: {
         type: "entity",
         name: "color",
         values: {
           "085059f79c26400990d7b23eba0911fd": {
-            name: "lightseagreen"
-          }
-        }
+            name: "lightseagreen",
+          },
+        },
       },
       novalues: {
         type: "entity",
-        name: "novalues"
-      }
+        name: "novalues",
+      },
     };
     const filters = getCategoryAvailableFilters({ filters: swFilters });
     expect(filters).toHaveLength(4);
@@ -73,9 +73,9 @@ describe("Shopware helpers - getCategoryAvailableFilters", () => {
         type: "unknown",
         name: "unknown",
         values: {
-          a: "b"
-        }
-      }
+          a: "b",
+        },
+      },
     };
 
     const filters = getCategoryAvailableFilters({ filters: swFilters });

@@ -12,7 +12,7 @@ describe("nuxt-module - addThemePages", () => {
   let methods: Function[] = [];
   const moduleObject: NuxtModuleOptions = {
     options: {
-      rootDir: __dirname
+      rootDir: __dirname,
     },
     addLayout: jest.fn(),
     addPlugin: jest.fn(),
@@ -20,13 +20,13 @@ describe("nuxt-module - addThemePages", () => {
     nuxt: jest.fn(),
     extendRoutes: (method: Function): void => {
       methods.push(method);
-    }
+    },
   };
   /**
    * To resolve extendRoutes we need to invoke resolveRoutes after method
    * invocation to test real impact on rootRoutes configuration
    */
-  const resolveRoutes = () => methods.forEach(method => method(rootRoutes));
+  const resolveRoutes = () => methods.forEach((method) => method(rootRoutes));
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -40,8 +40,8 @@ describe("nuxt-module - addThemePages", () => {
         chunkName: "pages/FakeCreatedRoute",
         component: path.join(__dirname, `pages/FakeCreatedRoute.vue`),
         name: "FakeCreatedRoute",
-        path: "/FakeCreatedRoute"
-      }
+        path: "/FakeCreatedRoute",
+      },
     ];
     getAllFiles
       .mockImplementationOnce(() => [])
@@ -63,8 +63,8 @@ describe("nuxt-module - addThemePages", () => {
         chunkName: "pages/Test",
         component: path.join(__dirname, `pages/Test.vue`),
         name: "Test",
-        path: "/Test"
-      }
+        path: "/Test",
+      },
     ]);
   });
 
@@ -99,8 +99,8 @@ describe("nuxt-module - addThemePages", () => {
         chunkName: "pages/Test",
         component: path.join(__dirname, `pages/Test.vue`),
         name: "Test",
-        path: "/Test"
-      }
+        path: "/Test",
+      },
     ]);
   });
 
@@ -110,7 +110,7 @@ describe("nuxt-module - addThemePages", () => {
         path.join(
           __dirname,
           `node_modules/@shopware-pwa/default-theme/pages/SomeTest.vue`
-        )
+        ),
       ])
       .mockImplementationOnce(() => [path.join(__dirname, `pages/Test.vue`)]);
     addThemePages(moduleObject);
@@ -127,14 +127,14 @@ describe("nuxt-module - addThemePages", () => {
           `node_modules/@shopware-pwa/default-theme/pages/SomeTest.vue`
         ),
         name: "SomeTest",
-        path: "/SomeTest"
+        path: "/SomeTest",
       },
       {
         chunkName: "pages/Test",
         component: path.join(__dirname, `pages/Test.vue`),
         name: "Test",
-        path: "/Test"
-      }
+        path: "/Test",
+      },
     ]);
   });
 
@@ -144,7 +144,7 @@ describe("nuxt-module - addThemePages", () => {
         path.join(
           __dirname,
           `node_modules/@shopware-pwa/default-theme/pages/Test.vue`
-        )
+        ),
       ])
       .mockImplementationOnce(() => [path.join(__dirname, `pages/Test.vue`)]);
     addThemePages(moduleObject);
@@ -158,8 +158,8 @@ describe("nuxt-module - addThemePages", () => {
         chunkName: "pages/Test",
         component: path.join(__dirname, `pages/Test.vue`),
         name: "Test",
-        path: "/Test"
-      }
+        path: "/Test",
+      },
     ]);
   });
 });

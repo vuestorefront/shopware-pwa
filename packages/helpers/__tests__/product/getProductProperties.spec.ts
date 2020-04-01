@@ -7,23 +7,23 @@ describe("Shopware helpers - getProductProperties", () => {
         {
           name: "12 mm",
           group: {
-            name: "length"
-          }
+            name: "length",
+          },
         },
         {
-          name: "6 mm"
+          name: "6 mm",
         },
         {
           name: "5 mm",
-          group: {}
+          group: {},
         },
         {
           name: "wool",
           group: {
-            name: "fabric"
-          }
-        }
-      ]
+            name: "fabric",
+          },
+        },
+      ],
     };
 
     const properties = getProductProperties({ product: productWithProperties });
@@ -35,11 +35,11 @@ describe("Shopware helpers - getProductProperties", () => {
 
   it("should return no properties", () => {
     const productWithoutProperties: any = {
-      properties: null
+      properties: null,
     };
 
     const properties = getProductProperties({
-      product: productWithoutProperties
+      product: productWithoutProperties,
     });
     expect(properties).toHaveLength(0);
   });

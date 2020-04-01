@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import {
   ShopwareError,
   ShopwareApiError,
-  ClientApiError
+  ClientApiError,
 } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
 /**
@@ -81,7 +81,7 @@ export async function errorInterceptor(
     message: API_ERROR_CODES.includes(statusCode)
       ? extractApiErrorMessage(error)
       : extractNotApiErrorMessage(error),
-    statusCode: statusCode
+    statusCode: statusCode,
   };
 
   return Promise.reject(clientApiError);

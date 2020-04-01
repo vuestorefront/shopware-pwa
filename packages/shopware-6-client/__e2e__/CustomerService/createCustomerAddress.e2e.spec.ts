@@ -1,7 +1,7 @@
 import {
   deleteCustomerAddress,
   login,
-  update
+  update,
 } from "@shopware-pwa/shopware-6-client";
 import { address, name } from "faker";
 import { createCustomerAddress } from "@shopware-pwa/shopware-6-client";
@@ -21,7 +21,7 @@ describe("shopware-6-client - E2E - CustomerService - createCustomerAddress", ()
       city: address.city(),
       street: address.streetName(),
       salutation: "Mr",
-      countryId: "38245a84c3d5425b8bac97fc845b5ddd"
+      countryId: "38245a84c3d5425b8bac97fc845b5ddd",
     });
     await deleteCustomerAddress(result.data);
     result.data = "mockedCustomerAddressId";
