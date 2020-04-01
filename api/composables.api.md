@@ -22,7 +22,7 @@ import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salut
 // @alpha (undocumented)
 export function getStore(): any;
 
-// @public (undocumented)
+// @alpha (undocumented)
 export enum PositionType {
     // (undocumented)
     CENTER = "center",
@@ -92,7 +92,7 @@ export interface UseCountries {
 // @alpha (undocumented)
 export const useCountries: () => UseCountries;
 
-// @public (undocumented)
+// @alpha (undocumented)
 export interface UseImageProps {
     // (undocumented)
     getAlt: Ref<Readonly<any>>;
@@ -102,8 +102,8 @@ export interface UseImageProps {
     getTitle: Ref<Readonly<any>>;
 }
 
-// @public (undocumented)
-export const useImageProps: (content: CmsSlot) => UseImageProps;
+// @alpha (undocumented)
+export const useImageProps: (content: CmsSlot | undefined) => UseImageProps;
 
 // @alpha (undocumented)
 export const useNavigation: () => any;
@@ -166,7 +166,7 @@ export interface UseSalutations {
 // @alpha (undocumented)
 export const useSalutations: () => UseSalutations;
 
-// @public (undocumented)
+// @alpha (undocumented)
 export interface UseSlotsPositions {
     // (undocumented)
     centerLeftSlot: Ref<Readonly<CmsSlot | undefined>>;
@@ -184,7 +184,7 @@ export interface UseSlotsPositions {
     rightSlot: Ref<Readonly<CmsSlot | undefined>>;
 }
 
-// @public (undocumented)
+// @alpha (undocumented)
 export const useSlotsPositions: (slots: CmsSlot[]) => UseSlotsPositions;
 
 // @alpha (undocumented)
