@@ -11,6 +11,7 @@ import { CustomField } from "../../common/CustomField";
  * @alpha
  */
 export interface PaymentMethod {
+  id: string;
   pluginId: string | null;
   handlerIdentifier: string;
   name: string | null;
