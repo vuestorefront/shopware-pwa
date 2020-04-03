@@ -7,23 +7,28 @@ import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
-import { setCurrentShippingMethod, setCurrentPaymentMethod, getAvailableShippingMethods, getAvailablePaymentMethods } from "@shopware-pwa/shopware-6-client"
+import {
+  setCurrentShippingMethod,
+  setCurrentPaymentMethod,
+  getAvailableShippingMethods,
+  getAvailablePaymentMethods,
+} from "@shopware-pwa/shopware-6-client";
 import { useCart } from "../hooks/useCart";
 /**
  * @alpha
  */
 export interface UseCheckout {
-  customerData: Ref<Customer|null>; // salutationId, name, surname, email - only for guest order
-  shippingAddress: Ref<ShippingAddress|null>; // only for guest order
-  billingAddress: Ref<BillingAddress|null>; // only for guest order
+  customerData: Ref<Customer | null>; // salutationId, name, surname, email - only for guest order
+  shippingAddress: Ref<ShippingAddress | null>; // only for guest order
+  billingAddress: Ref<BillingAddress | null>; // only for guest order
   // shippingMethod: Ref<any>; // set by setShippingMethod and compute to get this - NOT implement by now
   // paymentMethod: Ref<any>; // set by setPaymentMethod and compute to get this - NOT implement by now
   isGuestOrder: Readonly<Ref<boolean>>;
   getShippingMethods: () => Promise<ShippingMethod[]>;
-  getPaymentMethods : ()  => Promise<PaymentMethod[]>;
-  setShippingMethod: (shippingMethod: any)  => Promise<Readonly<boolean>>;
-  setPaymentMethod: (paymentMethod: any)  => Promise<Readonly<boolean>>;
-  createOrder: ()  => Promise<Order>;
+  getPaymentMethods: () => Promise<PaymentMethod[]>;
+  setShippingMethod: (shippingMethod: any) => Promise<Readonly<boolean>>;
+  setPaymentMethod: (paymentMethod: any) => Promise<Readonly<boolean>>;
+  createOrder: () => Promise<Order>;
 }
 
 /**
@@ -35,50 +40,52 @@ export const useCheckout = (): UseCheckout => {
   const { isLoggedIn, user } = useUser();
   const { placeOrder } = useCart();
 
-
-
   // const loading: Ref<boolean> = ref(false);
   // const error: Ref<any> = ref(null);
-  const shippingAddress: Ref<ShippingAddress|null> = ref(null);
-  const billingAddress: Ref<BillingAddress|null> = ref(null);
+  const shippingAddress: Ref<ShippingAddress | null> = ref(null);
+  const billingAddress: Ref<BillingAddress | null> = ref(null);
   const getShippingMethods = async () => {
     // use map to mark the current session's selected method
     // or just export the shippingMethod and paymentMethod as a composable property and do the marking logic (on dropdown to preselect active) in theme
     // same thing in payment methods
-    const shippingMethodsResponse = await getAvailableShippingMethods()
-    return shippingMethodsResponse.data
-  }
+    const shippingMethodsResponse = await getAvailableShippingMethods();
+    return shippingMethodsResponse.data;
+  };
 
   const getPaymentMethods = async () => {
-    const paymentMethodsResponse = await getAvailablePaymentMethods()
-    return paymentMethodsResponse.data
-  }
+    const paymentMethodsResponse = await getAvailablePaymentMethods();
+    return paymentMethodsResponse.data;
+  };
 
-  const setShippingMethod = async ({id: shippingMethodId}: ShippingMethod): Promise<Readonly<boolean>> => {
+  const setShippingMethod = async ({
+    id: shippingMethodId,
+  }: ShippingMethod): Promise<Readonly<boolean>> => {
     try {
-      await setCurrentShippingMethod(shippingMethodId)
+      await setCurrentShippingMethod(shippingMethodId);
       return true;
     } catch (e) {
-      console.error('useCheckout:setShippingMethod', e);
+      console.error("useCheckout:setShippingMethod", e);
     }
     return false;
-  }
+  };
 
-  const setPaymentMethod = async ({id: paymentMethodId}: PaymentMethod): Promise<Readonly<boolean>> => {
+  const setPaymentMethod = async ({
+    id: paymentMethodId,
+  }: PaymentMethod): Promise<Readonly<boolean>> => {
     try {
-      await setCurrentPaymentMethod(paymentMethodId)
+      await setCurrentPaymentMethod(paymentMethodId);
       return true;
     } catch (e) {
-      console.error('useCheckout:setPaymentMethod', e);
+      console.error("useCheckout:setPaymentMethod", e);
     }
     return false;
-  }
+  };
 
   const createOrder = () => {
     // used from useCart; or move the logic here.
     // important thing is to update context/cart under the hood and then just place an order using one shot :)
     return placeOrder();
-  }
+  };
 
   // TODO: use customerData from localStorage/cookie if not logged in
   // temporarly the user from useUser is being used - but it cover only case for logged in customer
@@ -94,6 +101,6 @@ export const useCheckout = (): UseCheckout => {
     getShippingMethods,
     setPaymentMethod,
     setShippingMethod,
-    createOrder
+    createOrder,
   };
 };
