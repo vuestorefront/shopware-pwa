@@ -1,82 +1,94 @@
-import { computed, reactive, ref } from '@vue/composition-api'
+import { computed, reactive, watch, ref } from '@vue/composition-api'
 import cookieUniversal from 'cookie-universal'
 import { required } from 'vuelidate/lib/validators'
 
-const sharedState = reactive({
-  validations: null,
-  salutationId: null,
-  firstName: null,
-  lastName: null,
-  email: null,
+const stepData = reactive({})
+
+const sharedCache = reactive({
+  $v: null,
 })
 
-export const usePersonalDetails = ({
-  salutationId: initialSalutationId,
-  firstName: initialFirstName,
-  lastName: initialLastName,
-  email: initialEmail,
-} = {}) => {
-  const localState = reactive(sharedState)
+const cookies = cookieUniversal()
 
-  const validations = computed(() => localState.validations)
-  const isValid = computed(
-    () => validations.value && !validations.value.$invalid
+export const usePersonalDetails = () => {
+  // const stepData = reactive(stepData)
+  const personalDetailsCache = ref(null)
+  // const vuelidateValidations = ref(null)
+
+  const validations = computed(() => sharedCache.$v)
+  const isValid = computed(() =>
+    validations.value
+      ? !validations.value.$invalid
+      : personalDetailsCache.value?.isValid
   )
 
   const salutationId = computed({
-    get: () => localState.salutationId,
+    get: () => stepData.salutationId,
     set: (val) => {
-      sharedState.salutationId = val
+      stepData.salutationId = val
     },
   })
-  if (initialSalutationId) salutationId.value = initialSalutationId
+  // if (initialSalutationId) salutationId.value = initialSalutationId
 
   const firstName = computed({
-    get: () => localState.firstName,
+    get: () => stepData.firstName,
     set: (val) => {
-      sharedState.firstName = val
+      stepData.firstName = val
     },
   })
-  if (initialFirstName) firstName.value = initialFirstName
+  // if (initialFirstName) firstName.value = initialFirstName
 
   const lastName = computed({
-    get: () => localState.lastName,
+    get: () => stepData.lastName,
     set: (val) => {
-      sharedState.lastName = val
+      stepData.lastName = val
     },
   })
-  if (initialLastName) lastName.value = initialLastName
+  // if (initialLastName) lastName.value = initialLastName
 
   const email = computed({
-    get: () => localState.email,
+    get: () => stepData.email,
     set: (val) => {
-      sharedState.email = val
+      stepData.email = val
     },
   })
-  if (initialEmail) email.value = initialEmail
+  // if (initialEmail) email.value = initialEmail
 
   const setValidations = ($v) => {
-    sharedState.validations = $v
+    sharedCache.$v = $v
   }
 
-  const validate = ($v) => {
-    validations.value && validations.value.$touch()
-    const objectToSave = {
+  const objectToSave = computed(() => {
+    return {
       salutationId: salutationId.value,
       firstName: firstName.value,
       lastName: lastName.value,
       email: email.value,
+      isValid: isValid.value,
     }
-    console.error('VALIDATE salid', objectToSave)
-    console.error('IS VALID', isValid.value)
-    if (isValid.value) {
-      const cookies = cookieUniversal()
-      cookies.set('sw-checkout-0', JSON.stringify(objectToSave), {
+  })
+  watch(objectToSave, (value) => {
+    if (validations.value) {
+      // const cookies = cookieUniversal()
+      cookies.set('sw-checkout-0', value, {
         maxAge: 60 * 15, // 15 min to complete checkout,
         sameSite: true,
       })
       console.error('SOOKIES SET!!!')
+    } else {
+      if (!personalDetailsCache.value) {
+        personalDetailsCache.value = cookies.get('sw-checkout-0') || {}
+        console.error('COOKIE IS LOADED')
+        salutationId.value = personalDetailsCache.value.salutationId
+        firstName.value = personalDetailsCache.value.firstName
+        lastName.value = personalDetailsCache.value.lastName
+        email.value = personalDetailsCache.value.email
+      }
     }
+  })
+
+  const validate = ($v) => {
+    validations.value && validations.value.$touch()
   }
 
   return {

@@ -97,12 +97,12 @@ export default {
     const {isValid: isPersonalDetailsStepValid, validate: validatePersonalDetailsStep} = usePersonalDetails()
     const currentStep = ref(isGuestOrder.value ? STEPS.PERSONAL_DETAILS : STEPS.REVIEW)
 
-    const customerData = ref(null) // this will be from useCheckout
+    // const customerData = ref(null) // this will be from useCheckout
     const shippingAddress = ref(null) // this will be from useCheckout
     const billingAddress = ref(null) // this will be from useCheckout
 
     const isPersonalDetailsStepCompleted = computed(() => {
-      return !isGuestOrder.value || customerData.value || isPersonalDetailsStepValid.value
+      return !isGuestOrder.value || isPersonalDetailsStepValid.value
     })
     const isShippingStepCompleted = computed(() => {
       return !isGuestOrder.value || shippingAddress.value
@@ -153,8 +153,7 @@ export default {
       currentStep,
       isGuestOrder,
       isPersonalDetailsStepCompleted,
-      nextStep,
-      customerData
+      nextStep
     }
   },
   watch:{
@@ -163,10 +162,6 @@ export default {
       handler: function () {
         const stepName = this.$route.query.step
         console.error('ROUTEEE', stepName)
-        const personalDetailsCache = this.$cookies.get("sw-checkout-0") || {}
-        console.error('personalDetailsCachexx', personalDetailsCache)
-        usePersonalDetails(personalDetailsCache)
-        this.customerData = personalDetailsCache
         if (stepName) this.nextStep(STEPS[stepName])
       }
     },
@@ -320,11 +315,7 @@ export default {
         },
       ],
     }
-  },
-  asyncData: async (context) => {
-  },
-  methods: {
-  },
+  }
 }
 </script>
 <style lang="scss" scoped>
