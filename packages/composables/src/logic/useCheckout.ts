@@ -40,6 +40,7 @@ export const useCheckout = (): UseCheckout => {
   // const { shippingMethod, paymentMethod, refresh } = useContext();
   const { isLoggedIn, user } = useUser();
   const { placeOrder } = useCart();
+  const shippingMethods = ref([]);
 
   // const loading: Ref<boolean> = ref(false);
   // const error: Ref<any> = ref(null);
@@ -50,17 +51,17 @@ export const useCheckout = (): UseCheckout => {
     // or just export the shippingMethod and paymentMethod as a composable property and do the marking logic (on dropdown to preselect active) in theme
     // same thing in payment methods
     const shippingMethodsResponse = await getAvailableShippingMethods();
-    return shippingMethodsResponse.data;
+    shippingMethods.value = shippingMethodsResponse.data;
   };
 
   const getPaymentMethods = async () => {
     const paymentMethodsResponse = await getAvailablePaymentMethods();
-    return paymentMethodsResponse.data;
+    return paymentMethodsResponse.data || [];
   };
 
-  const setShippingMethod = async ({
-    id: shippingMethodId,
-  }: ShippingMethod): Promise<Readonly<boolean>> => {
+  const setShippingMethod = async (
+    shippingMethodId: string
+  ): Promise<Readonly<boolean>> => {
     try {
       await setCurrentShippingMethod(shippingMethodId);
       return true;
@@ -108,5 +109,6 @@ export const useCheckout = (): UseCheckout => {
     setPaymentMethod,
     setShippingMethod,
     createOrder,
+    shippingMethods: computed(() => shippingMethods.value),
   };
 };

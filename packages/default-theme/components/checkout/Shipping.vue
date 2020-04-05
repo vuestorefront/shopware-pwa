@@ -69,6 +69,7 @@
         required
       />
       <SfSelect
+        v-if="getCountries.length"
         v-model="country"
         :valid="!validations.country.$error"
         error-message="This field is required"
@@ -77,11 +78,11 @@
         required
       >
         <SfSelectOption
-          v-for="countryOption in countries"
-          :key="countryOption"
-          :value="countryOption"
+          v-for="countryOption in getCountries"
+          :key="countryOption.id"
+          :value="countryOption.id"
         >
-          {{ countryOption }}
+          {{ countryOption.name }}
         </SfSelectOption>
       </SfSelect>
       <SfInput
@@ -102,12 +103,12 @@
       <div class="form__radio-group">
         <SfRadio
           v-for="item in shippingMethods"
-          :key="item.value"
+          :key="item.id"
           v-model="shippingMethod"
-          :label="item.label"
-          :value="item.value"
+          :label="item.name"
+          :value="item.id"
           name="shippingMethod"
-          :description="item.description"
+          :description="item.translated.description"
           class="form__element form__radio shipping"
         >
           <template #label="{label}">
@@ -161,6 +162,8 @@ import {
 } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { useShipping, useShippingValidationRules } from './useShipping'
+import { useCountries, useCheckout } from '@shopware-pwa/composables'
+import { computed } from '@vue/composition-api'
 
 export default {
   name: 'Shipping',
@@ -171,107 +174,6 @@ export default {
     SfButton,
     SfSelect,
     SfRadio,
-  },
-  data() {
-    return {
-      shippingMethod: '',
-      countries: [
-        'Austria',
-        'Azerbaijan',
-        'Belarus',
-        'Belgium',
-        'Bosnia and Herzegovina',
-        'Bulgaria',
-        'Croatia',
-        'Cyprus',
-        'Czech Republic',
-        'Denmark',
-        'Estonia',
-        'Finland',
-        'France',
-        'Georgia',
-        'Germany',
-        'Greece',
-        'Hungary',
-        'Iceland',
-        'Ireland',
-        'Italy',
-        'Kosovo',
-        'Latvia',
-        'Liechtenstein',
-        'Lithuania',
-        'Luxembourg',
-        'Macedonia',
-        'Malta',
-        'Moldova',
-        'Monaco',
-        'Montenegro',
-        'The Netherlands',
-        'Norway',
-        'Poland',
-        'Portugal',
-        'Romania',
-        'Russia',
-        'San Marino',
-        'Serbia',
-        'Slovakia',
-        'Slovenia',
-        'Spain',
-        'Sweden',
-        'Switzerland',
-        'Turkey',
-        'Ukraine',
-        'United Kingdom',
-        'Vatican City',
-      ],
-      shippingMethods: [
-        {
-          isOpen: false,
-          price: 'Free',
-          delivery: 'Delivery from 3 to 7 business days',
-          label: 'Pickup in the store',
-          value: 'store',
-          description:
-            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
-        },
-        {
-          isOpen: false,
-          price: '$9.90',
-          delivery: 'Delivery from 4 to 6 business days',
-          label: 'Delivery to home',
-          value: 'home',
-          description:
-            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
-        },
-        {
-          isOpen: false,
-          price: '$9.90',
-          delivery: 'Delivery from 4 to 6 business days',
-          label: 'Paczkomaty InPost',
-          value: 'inpost',
-          description:
-            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
-        },
-        {
-          isOpen: false,
-          price: '$11.00',
-          delivery: 'Delivery within 48 hours',
-          label: '48 hours coffee',
-          value: 'coffee',
-          description:
-            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
-        },
-        {
-          isOpen: false,
-          price: '$14.00',
-          delivery: 'Delivery within 24 hours',
-          label: 'Urgent 24h',
-          value: 'urgent',
-          description:
-            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
-        },
-      ],
-    }
   },
   setup() {
     const {
@@ -288,6 +190,17 @@ export default {
       country,
       phoneNumber,
     } = useShipping()
+    const { getCountries } = useCountries()
+    const { getShippingMethods, shippingMethods, setShippingMethod } = useCheckout()
+
+    getShippingMethods()
+
+    const shippingMethod = computed({
+      get: () => '', // TODO get from useCheckout
+      set: (val) => {
+        setShippingMethod(val)
+      },
+    })
 
     return {
       validations,
@@ -301,6 +214,9 @@ export default {
       zipCode,
       country,
       phoneNumber,
+      getCountries,
+      shippingMethods,
+      shippingMethod
     }
   },
   watch: {

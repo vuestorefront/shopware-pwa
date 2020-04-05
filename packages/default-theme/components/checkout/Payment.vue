@@ -7,7 +7,7 @@
     <div class="form">
       <SfCheckbox
         v-model="differentThanShipping"
-        label="Copy address data from shipping"
+        label="Use different address for billing"
         name="copyShippingAddress"
         class="form__element"
       />
@@ -211,7 +211,7 @@
       <div class="form__action">
         <SfButton
           class="sf-button--full-width form__action-button"
-          @click="toReview"
+          @click="$emit('proceed')"
           >Review order</SfButton
         >
         <SfButton
@@ -249,70 +249,17 @@ export default {
     SfImage,
     SfCheckbox,
   },
-  props: {
-    paymentMethods: {
-      type: Array,
-      default: () => [],
-    },
-  },
   data() {
     return {
       paymentMethod: '',
+      paymentMethods: [], // useCheckout
       cardNumber: '',
       cardHolder: '',
       cardMonth: '',
       cardYear: '',
       cardCVC: '',
       cardKeep: false,
-      countries: [
-        'Austria',
-        'Azerbaijan',
-        'Belarus',
-        'Belgium',
-        'Bosnia and Herzegovina',
-        'Bulgaria',
-        'Croatia',
-        'Cyprus',
-        'Czech Republic',
-        'Denmark',
-        'Estonia',
-        'Finland',
-        'France',
-        'Georgia',
-        'Germany',
-        'Greece',
-        'Hungary',
-        'Iceland',
-        'Ireland',
-        'Italy',
-        'Kosovo',
-        'Latvia',
-        'Liechtenstein',
-        'Lithuania',
-        'Luxembourg',
-        'Macedonia',
-        'Malta',
-        'Moldova',
-        'Monaco',
-        'Montenegro',
-        'The Netherlands',
-        'Norway',
-        'Poland',
-        'Portugal',
-        'Romania',
-        'Russia',
-        'San Marino',
-        'Serbia',
-        'Slovakia',
-        'Slovenia',
-        'Spain',
-        'Sweden',
-        'Switzerland',
-        'Turkey',
-        'Ukraine',
-        'United Kingdom',
-        'Vatican City',
-      ],
+      countries: [], // useCountries
     }
   },
   setup() {
@@ -361,83 +308,6 @@ export default {
   computed: {
     isCreditCard() {
       return ['debit', 'mastercard', 'electron'].includes(this.paymentMethod)
-    },
-  },
-  // watch: {
-  //   order: {
-  //     handler(value) {
-  //       this.differentThanShipping = value.payment.differentThanShipping
-  //       this.streetName = value.payment.streetName
-  //       this.apartment = value.payment.apartment
-  //       this.city = value.payment.city
-  //       this.state = value.payment.state
-  //       this.zipCode = value.payment.zipCode
-  //       this.country = value.payment.country
-  //       this.phoneNumber = value.payment.phoneNumber
-  //       this.paymentMethod = value.payment.paymentMethod
-  //       this.cardNumber = value.payment.card.number
-  //       this.cardHolder = value.payment.card.holder
-  //       this.cardMonth = value.payment.card.month
-  //       this.cardYear = value.payment.card.year
-  //       this.cardCVC = value.payment.card.cvc
-  //       this.cardKeep = value.payment.card.keep
-  //     },
-  //     immediate: true
-  //   },
-  //   differentThanShipping: {
-  //     handler(value) {
-  //       if (value) {
-  //         this.firstName = this.order.shipping.firstName
-  //         this.lastName = this.order.shipping.lastName
-  //         this.streetName = this.order.shipping.streetName
-  //         this.apartment = this.order.shipping.apartment
-  //         this.city = this.order.shipping.city
-  //         this.state = this.order.shipping.state
-  //         this.zipCode = this.order.shipping.zipCode
-  //         this.country = this.order.shipping.country
-  //         this.phoneNumber = this.order.shipping.phoneNumber
-  //         this.paymentMethod = this.order.shipping.paymentMethod
-  //       } else {
-  //         this.streetName = ''
-  //         this.apartment = ''
-  //         this.city = ''
-  //         this.state = ''
-  //         this.zipCode = ''
-  //         this.country = ''
-  //         this.phoneNumber = ''
-  //         this.paymentMethod = ''
-  //       }
-  //     }
-  //   }
-  // },
-  methods: {
-    toReview() {
-      // const order = { ...this.order }
-      // const payment = { ...order.payment }
-      // const card = { ...payment.card }
-      // payment.differentThanShipping = this.differentThanShipping
-      // payment.firstName = this.firstName
-      // payment.lastName = this.lastName
-      // payment.streetName = this.streetName
-      // payment.streetName = this.streetName
-      // payment.apartment = this.apartment
-      // payment.city = this.city
-      // payment.state = this.state
-      // payment.zipCode = this.zipCode
-      // payment.country = this.country
-      // payment.phoneNumber = this.phoneNumber
-      // payment.paymentMethod = this.paymentMethod
-      // if (this.isCreditCard) {
-      //   card.number = this.cardNumber
-      //   card.holder = this.cardHolder
-      //   card.month = this.cardMonth
-      //   card.year = this.cardYear
-      //   card.cvc = this.cardCVC
-      //   card.keep = this.cardKeep
-      // }
-      // payment.card = card
-      // order.payment = payment
-      this.$emit('proceed')
     },
   },
 }

@@ -18,14 +18,12 @@ export function createCheckoutStep({ stepNumber, stepFields }) {
 
     const validations = computed(() => sharedCache.$v)
     const isValid = computed(() => {
-      console.error('RECOMPUTED perisvalid', stepDataCache.value)
       return validations.value
         ? !validations.value.$invalid
         : stepDataCache.value?.isValid
     })
 
     const setValidations = ($v) => {
-      console.error('SET VALIDATION')
       sharedCache.$v = $v
     }
 
@@ -36,17 +34,14 @@ export function createCheckoutStep({ stepNumber, stepFields }) {
       }
     })
     watch(objectToSave, (value) => {
-      console.error('CHANGED OBJECT in step: ' + stepNumber, value)
       if (validations.value) {
         // const cookies = cookieUniversal()
         cookies.set('sw-checkout-' + stepNumber, value, {
           maxAge: 60 * 15, // 15 min to complete checkout,
         })
-        console.error('COOKIES SET!!!')
       } else {
         if (!stepDataCache.value) {
           stepDataCache.value = cookies.get('sw-checkout-' + stepNumber) || {}
-          console.error('COOKIE IS LOADED', stepDataCache.value)
           Object.assign(stepData, stepDataCache.value)
         }
       }
