@@ -8,9 +8,8 @@
           </SfStep>
           <SfStep name="Shipping">
             <Shipping
-              :order="order"
-              :shipping-methods="shippingMethods"
-              @click:back="nextStep(currentStep-1)"
+              @retreat="nextStep(currentStep-1)"
+              @proceed="nextStep()"
             />
           </SfStep>
           <SfStep name="Payment">
@@ -65,6 +64,7 @@ import Shipping from '@shopware-pwa/default-theme/components/checkout/Shipping'
 import { useUser, useCheckout } from '@shopware-pwa/composables'
 import { ref, computed, reactive } from '@vue/composition-api'
 import {usePersonalDetails} from '@shopware-pwa/default-theme/components/checkout/usePersonalDetails'
+import {useShipping} from '@shopware-pwa/default-theme/components/checkout/useShipping'
 
 const STEPS = {
   PERSONAL_DETAILS: 0,
@@ -95,17 +95,20 @@ export default {
   setup() {
     const { isGuestOrder } = useCheckout()
     const {isValid: isPersonalDetailsStepValid, validate: validatePersonalDetailsStep} = usePersonalDetails()
+    const {isValid: isShippingStepValid, validate: validateShippingStep} = useShipping()
     const currentStep = ref(isGuestOrder.value ? STEPS.PERSONAL_DETAILS : STEPS.REVIEW)
 
     // const customerData = ref(null) // this will be from useCheckout
-    const shippingAddress = ref(null) // this will be from useCheckout
+    // const shippingAddress = ref(null) // this will be from useCheckout
     const billingAddress = ref(null) // this will be from useCheckout
+
+    console.error('-> PERsonal details valid', isPersonalDetailsStepValid.value)
 
     const isPersonalDetailsStepCompleted = computed(() => {
       return !isGuestOrder.value || isPersonalDetailsStepValid.value
     })
     const isShippingStepCompleted = computed(() => {
-      return !isGuestOrder.value || shippingAddress.value
+      return !isGuestOrder.value || isShippingStepValid.value
     })
     const isPaymentStepCompleted = computed(() => {
       return !isGuestOrder.value
@@ -136,6 +139,7 @@ export default {
       if(stepNumber === 0) nextStepNumber = 0
       
       if (currentStep.value === STEPS.PERSONAL_DETAILS && currentStep.value !== nextStepNumber) validatePersonalDetailsStep()
+      if (currentStep.value === STEPS.SHIPPING && currentStep.value !== nextStepNumber) validateShippingStep()
       
       const nextStep = getStepByNumber(nextStepNumber)
       // console.error('STEP NO', nextStepNumber)
@@ -161,7 +165,7 @@ export default {
       immediate: true,
       handler: function () {
         const stepName = this.$route.query.step
-        console.error('ROUTEEE', stepName)
+        console.error('==== ROUTEEE CHANGED TO', stepName)
         if (stepName) this.nextStep(STEPS[stepName])
       }
     },

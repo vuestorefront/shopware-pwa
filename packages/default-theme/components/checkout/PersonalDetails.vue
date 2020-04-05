@@ -197,7 +197,7 @@ export default {
         { description: 'Faster checkout', icon: 'clock' },
         { description: 'Full rewards program benefits', icon: 'rewards' },
         { description: 'Earn credits with every purchase', icon: 'credits' },
-        { description: 'Manage your wishliste', icon: 'heart' }
+        { description: 'Manage your wishlist', icon: 'heart' }
       ]
     }
   },

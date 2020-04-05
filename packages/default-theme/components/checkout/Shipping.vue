@@ -8,12 +8,16 @@
       <SfInput
         v-model="firstName"
         label="First name"
+        :valid="!validations.firstName.$error"
+        error-message="This field is required"
         name="firstName"
         class="form__element form__element--half"
         required
       />
       <SfInput
         v-model="lastName"
+        :valid="!validations.lastName.$error"
+        error-message="This field is required"
         label="Last name"
         name="lastName"
         class="form__element form__element--half form__element--half-even"
@@ -21,6 +25,8 @@
       />
       <SfInput
         v-model="streetName"
+        :valid="!validations.streetName.$error"
+        error-message="This field is required"
         label="Street name"
         name="streetName"
         class="form__element"
@@ -28,6 +34,8 @@
       />
       <SfInput
         v-model="apartment"
+        :valid="!validations.apartment.$error"
+        error-message="This field is required"
         label="House/Apartment number"
         name="apartment"
         class="form__element"
@@ -35,6 +43,8 @@
       />
       <SfInput
         v-model="city"
+        :valid="!validations.city.$error"
+        error-message="This field is required"
         label="City"
         name="city"
         class="form__element form__element--half"
@@ -42,6 +52,8 @@
       />
       <SfInput
         v-model="state"
+        :valid="!validations.state.$error"
+        error-message="This field is required"
         label="State/Province"
         name="state"
         class="form__element form__element--half form__element--half-even"
@@ -49,6 +61,8 @@
       />
       <SfInput
         v-model="zipCode"
+        :valid="!validations.zipCode.$error"
+        error-message="This field is required"
         label="Zip-code"
         name="zipCode"
         class="form__element form__element--half"
@@ -56,6 +70,8 @@
       />
       <SfSelect
         v-model="country"
+        :valid="!validations.country.$error"
+        error-message="This field is required"
         label="Country"
         class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
         required
@@ -70,6 +86,8 @@
       </SfSelect>
       <SfInput
         v-model="phoneNumber"
+        :valid="!validations.phoneNumber.$error"
+        error-message="This field is required"
         label="Phone number"
         name="phone"
         class="form__element"
@@ -121,12 +139,12 @@
       <div class="form__action">
         <SfButton
           class="sf-button--full-width form__action-button"
-          @click="toPayment"
+          @click="$emit('proceed')"
           >Continue to payment</SfButton
         >
         <SfButton
           class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary"
-          @click="$emit('click:back')"
+          @click="$emit('retreat')"
           >Go back to Personal details</SfButton
         >
       </div>
@@ -139,38 +157,23 @@ import {
   SfInput,
   SfButton,
   SfSelect,
-  SfRadio
+  SfRadio,
 } from '@storefront-ui/vue'
+import { validationMixin } from 'vuelidate'
+import { useShipping, useShippingValidationRules } from './useShipping'
+
 export default {
   name: 'Shipping',
+  mixins: [validationMixin],
   components: {
     SfHeading,
     SfInput,
     SfButton,
     SfSelect,
-    SfRadio
-  },
-  props: {
-    order: {
-      type: Object,
-      default: () => ({})
-    },
-    shippingMethods: {
-      type: Array,
-      default: () => []
-    }
+    SfRadio,
   },
   data() {
     return {
-      firstName: '',
-      lastName: '',
-      streetName: '',
-      apartment: '',
-      city: '',
-      state: '',
-      zipCode: '',
-      country: '',
-      phoneNumber: '',
       shippingMethod: '',
       countries: [
         'Austria',
@@ -219,45 +222,103 @@ export default {
         'Turkey',
         'Ukraine',
         'United Kingdom',
-        'Vatican City'
-      ]
+        'Vatican City',
+      ],
+      shippingMethods: [
+        {
+          isOpen: false,
+          price: 'Free',
+          delivery: 'Delivery from 3 to 7 business days',
+          label: 'Pickup in the store',
+          value: 'store',
+          description:
+            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
+        },
+        {
+          isOpen: false,
+          price: '$9.90',
+          delivery: 'Delivery from 4 to 6 business days',
+          label: 'Delivery to home',
+          value: 'home',
+          description:
+            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
+        },
+        {
+          isOpen: false,
+          price: '$9.90',
+          delivery: 'Delivery from 4 to 6 business days',
+          label: 'Paczkomaty InPost',
+          value: 'inpost',
+          description:
+            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
+        },
+        {
+          isOpen: false,
+          price: '$11.00',
+          delivery: 'Delivery within 48 hours',
+          label: '48 hours coffee',
+          value: 'coffee',
+          description:
+            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
+        },
+        {
+          isOpen: false,
+          price: '$14.00',
+          delivery: 'Delivery within 24 hours',
+          label: 'Urgent 24h',
+          value: 'urgent',
+          description:
+            'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
+        },
+      ],
+    }
+  },
+  setup() {
+    const {
+      validations,
+      setValidations,
+      validate,
+      firstName,
+      lastName,
+      streetName,
+      apartment,
+      city,
+      state,
+      zipCode,
+      country,
+      phoneNumber,
+    } = useShipping()
+
+    return {
+      validations,
+      setValidations,
+      firstName,
+      lastName,
+      streetName,
+      apartment,
+      city,
+      state,
+      zipCode,
+      country,
+      phoneNumber,
     }
   },
   watch: {
-    order: {
-      handler(value) {
-        this.firstName = value.shipping.firstName
-        this.lastName = value.shipping.lastName
-        this.streetName = value.shipping.streetName
-        this.apartment = value.shipping.apartment
-        this.city = value.shipping.city
-        this.state = value.shipping.state
-        this.zipCode = value.shipping.zipCode
-        this.country = value.shipping.country
-        this.phoneNumber = value.shipping.phoneNumber
-        this.shippingMethod = value.shipping.shippingMethod
+    $v: {
+      immediate: true,
+      handler: function () {
+        this.setValidations(this.$v)
       },
-      immediate: true
-    }
+    },
+  },
+  validations: {
+    ...useShippingValidationRules,
   },
   methods: {
     toPayment() {
-      const order = { ...this.order }
-      const shipping = { ...order.shipping }
-      shipping.firstName = this.firstName
-      shipping.lastName = this.lastName
-      shipping.streetName = this.streetName
-      shipping.apartment = this.apartment
-      shipping.city = this.city
-      shipping.state = this.state
-      shipping.zipCode = this.zipCode
-      shipping.country = this.country
-      shipping.phoneNumber = this.phoneNumber
-      shipping.shippingMethod = this.shippingMethod
-      order.shipping = shipping
-      this.$emit('update:order', order)
-    }
-  }
+      this.$emit('proceed')
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
