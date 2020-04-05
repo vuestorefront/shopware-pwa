@@ -8,7 +8,7 @@
           </SfStep>
           <SfStep name="Shipping">
             <Shipping
-              @retreat="nextStep(currentStep-1)"
+              @retreat="nextStep(currentStep - 1)"
               @proceed="nextStep()"
             />
           </SfStep>
@@ -16,7 +16,7 @@
             <Payment
               :order="order"
               :payment-methods="paymentMethods"
-              @click:back="nextStep(currentStep-1)"
+              @click:back="nextStep(currentStep - 1)"
             />
           </SfStep>
           <SfStep name="Review">
@@ -24,13 +24,13 @@
               :order="order"
               :shipping-methods="shippingMethods"
               :payment-methods="paymentMethods"
-              @click:back="nextStep(currentStep-1)"
+              @click:back="nextStep(currentStep - 1)"
             />
           </SfStep>
         </SfSteps>
       </div>
       <div class="checkout__aside desktop-only">
-        <button @click="nextStep()"> next </button>
+        <button @click="nextStep()">next</button>
         <transition name="fade">
           <OrderSummary
             v-if="currentStep <= 2"
@@ -63,8 +63,9 @@ import Shipping from '@shopware-pwa/default-theme/components/checkout/Shipping'
 // import checkoutMiddleware from "@shopware-pwa/default-theme/middleware/checkout"
 import { useUser, useCheckout } from '@shopware-pwa/composables'
 import { ref, computed, reactive } from '@vue/composition-api'
-import {usePersonalDetails} from '@shopware-pwa/default-theme/components/checkout/usePersonalDetails'
-import {useShipping} from '@shopware-pwa/default-theme/components/checkout/useShipping'
+import { usePersonalDetails } from '@shopware-pwa/default-theme/components/checkout/usePersonalDetails'
+import { useShipping } from '@shopware-pwa/default-theme/components/checkout/useShipping'
+import { usePayment } from '@shopware-pwa/default-theme/components/checkout/usePayment'
 
 const STEPS = {
   PERSONAL_DETAILS: 0,
@@ -75,7 +76,7 @@ const STEPS = {
 
 const getStepByNumber = (number) => {
   for (let [key, value] of Object.entries(STEPS)) {
-    if(value === number) return key
+    if (value === number) return key
   }
   return 'PERSONAL_DETAILS'
 }
@@ -94,13 +95,26 @@ export default {
   },
   setup() {
     const { isGuestOrder } = useCheckout()
-    const {isValid: isPersonalDetailsStepValid, validate: validatePersonalDetailsStep} = usePersonalDetails()
-    const {isValid: isShippingStepValid, validate: validateShippingStep} = useShipping()
-    const currentStep = ref(isGuestOrder.value ? STEPS.PERSONAL_DETAILS : STEPS.REVIEW)
+    const {
+      isValid: isPersonalDetailsStepValid,
+      validate: validatePersonalDetailsStep,
+    } = usePersonalDetails()
+    const {
+      isValid: isShippingStepValid,
+      validate: validateShippingStep,
+    } = useShipping()
+    const {
+      isValid: isPaymentStepValid,
+      validate: validatePaymentStep,
+    } = usePayment()
+    
+    const currentStep = ref(
+      isGuestOrder.value ? STEPS.PERSONAL_DETAILS : STEPS.REVIEW
+    )
 
     // const customerData = ref(null) // this will be from useCheckout
     // const shippingAddress = ref(null) // this will be from useCheckout
-    const billingAddress = ref(null) // this will be from useCheckout
+    // const billingAddress = ref(null) // this will be from useCheckout
 
     console.error('-> PERsonal details valid', isPersonalDetailsStepValid.value)
 
@@ -111,7 +125,7 @@ export default {
       return !isGuestOrder.value || isShippingStepValid.value
     })
     const isPaymentStepCompleted = computed(() => {
-      return !isGuestOrder.value
+      return !isGuestOrder.value || isPaymentStepValid.value
     })
     const isReviewStepAvailable = computed(() => {
       return !!isPaymentStepCompleted.value
@@ -120,61 +134,78 @@ export default {
     const stepsStatus = computed(() => {
       return {
         PERSONAL_DETAILS: {
-          available: true
+          available: true,
         },
         SHIPPING: {
-          available: !!isPersonalDetailsStepCompleted.value
+          available: !!isPersonalDetailsStepCompleted.value,
         },
         PAYMENT: {
-          available: !!isShippingStepCompleted.value
+          available: !!isShippingStepCompleted.value,
         },
         REVIEW: {
-          available: isReviewStepAvailable.value
-        }
+          available: isReviewStepAvailable.value,
+        },
       }
     })
 
     const nextStep = (stepNumber) => {
-      let nextStepNumber = stepNumber || (currentStep.value + 1)
-      if(stepNumber === 0) nextStepNumber = 0
-      
-      if (currentStep.value === STEPS.PERSONAL_DETAILS && currentStep.value !== nextStepNumber) validatePersonalDetailsStep()
-      if (currentStep.value === STEPS.SHIPPING && currentStep.value !== nextStepNumber) validateShippingStep()
-      
+      let nextStepNumber = stepNumber || currentStep.value + 1
+      if (stepNumber === 0) nextStepNumber = 0
+
+      if (
+        currentStep.value === STEPS.PERSONAL_DETAILS &&
+        currentStep.value !== nextStepNumber
+      )
+        validatePersonalDetailsStep()
+      if (
+        currentStep.value === STEPS.SHIPPING &&
+        currentStep.value !== nextStepNumber
+      )
+        validateShippingStep()
+        if (
+        currentStep.value === STEPS.PAYMENT &&
+        currentStep.value !== nextStepNumber
+      )
+        validatePaymentStep()
+
       const nextStep = getStepByNumber(nextStepNumber)
       // console.error('STEP NO', nextStepNumber)
       console.error('STEP NEXT', nextStep)
       // console.error('NEXT STEP INVOKED', isPersonalDetailsStepValid.value)
-      console.error('Is NextStepAvailable', stepsStatus.value[nextStep].available)
+      console.error(
+        'Is NextStepAvailable',
+        stepsStatus.value[nextStep].available
+      )
       if (stepsStatus.value[nextStep].available) {
         currentStep.value = nextStepNumber
         // this.$router.push({query: {step: nextStepNumber}})
       }
     }
 
-
     return {
       currentStep,
       isGuestOrder,
       isPersonalDetailsStepCompleted,
-      nextStep
+      nextStep,
     }
   },
-  watch:{
+  watch: {
     $route: {
       immediate: true,
       handler: function () {
         const stepName = this.$route.query.step
         console.error('==== ROUTEEE CHANGED TO', stepName)
         if (stepName) this.nextStep(STEPS[stepName])
-      }
+      },
     },
     currentStep: {
       immediate: true,
       handler: function () {
         console.error('-> CURRSTEPCHANGED', this.currentStep)
-        this.$router.push({query: {step: getStepByNumber(this.currentStep)}})
-      }
+        this.$router.push({
+          query: { step: getStepByNumber(this.currentStep) },
+        })
+      },
     },
   },
   data() {
@@ -319,7 +350,7 @@ export default {
         },
       ],
     }
-  }
+  },
 }
 </script>
 <style lang="scss" scoped>

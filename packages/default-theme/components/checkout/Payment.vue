@@ -6,13 +6,17 @@
     />
     <div class="form">
       <SfCheckbox
-        v-model="sameAsShipping"
+        v-model="differentThanShipping"
         label="Copy address data from shipping"
         name="copyShippingAddress"
         class="form__element"
       />
+    </div>
+    <div class="form" v-if="differentThanShipping">
       <SfInput
         v-model="firstName"
+        :valid="!validations.firstName.$error"
+        error-message="This field is required"
         label="First name"
         name="firstName"
         class="form__element form__element--half"
@@ -20,6 +24,8 @@
       />
       <SfInput
         v-model="lastName"
+        :valid="!validations.lastName.$error"
+        error-message="This field is required"
         label="Last name"
         name="lastName"
         class="form__element form__element--half form__element--half-even"
@@ -27,6 +33,8 @@
       />
       <SfInput
         v-model="streetName"
+        :valid="!validations.streetName.$error"
+        error-message="This field is required"
         label="Street name"
         name="streetName"
         class="form__element"
@@ -34,6 +42,8 @@
       />
       <SfInput
         v-model="apartment"
+        :valid="!validations.apartment.$error"
+        error-message="This field is required"
         label="House/Apartment number"
         name="apartment"
         class="form__element"
@@ -41,6 +51,8 @@
       />
       <SfInput
         v-model="city"
+        :valid="!validations.city.$error"
+        error-message="This field is required"
         label="City"
         name="city"
         class="form__element form__element--half"
@@ -48,6 +60,8 @@
       />
       <SfInput
         v-model="state"
+        :valid="!validations.state.$error"
+        error-message="This field is required"
         label="State/Province"
         name="state"
         class="form__element form__element--half form__element--half-even"
@@ -55,6 +69,8 @@
       />
       <SfInput
         v-model="zipCode"
+        :valid="!validations.zipCode.$error"
+        error-message="This field is required"
         label="Zip-code"
         name="zipCode"
         class="form__element form__element--half"
@@ -62,6 +78,8 @@
       />
       <SfSelect
         v-model="country"
+        :valid="!validations.country.$error"
+        error-message="This field is required"
         label="Country"
         class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
         required
@@ -76,6 +94,8 @@
       </SfSelect>
       <SfInput
         v-model="phoneNumber"
+        :valid="!validations.phoneNumber.$error"
+        error-message="This field is required"
         label="Phone number"
         name="phone"
         class="form__element"
@@ -104,8 +124,8 @@
               <template
                 v-if="
                   item.value !== 'debit' &&
-                    item.value !== 'mastercard' &&
-                    item.value !== 'electron'
+                  item.value !== 'mastercard' &&
+                  item.value !== 'electron'
                 "
               >
                 {{ item.label }}
@@ -131,7 +151,7 @@
               <SfInput
                 v-model="cardNumber"
                 name="cardNumber"
-                class=" credit-card-form__input"
+                class="credit-card-form__input"
               />
             </div>
           </div>
@@ -144,7 +164,7 @@
               <SfInput
                 v-model="cardHolder"
                 name="cardHolder"
-                class=" credit-card-form__input"
+                class="credit-card-form__input"
               />
             </div>
           </div>
@@ -158,7 +178,7 @@
                 v-model="cardMonth"
                 label="Month"
                 name="month"
-                class="credit-card-form__input "
+                class="credit-card-form__input"
               />
               <SfInput
                 v-model="cardYear"
@@ -177,7 +197,7 @@
               <SfInput
                 v-model="cardCVC"
                 name="cardCVC"
-                class=" credit-card-form__input credit-card-form__input--small"
+                class="credit-card-form__input credit-card-form__input--small"
               />
             </div>
           </div>
@@ -212,10 +232,14 @@ import {
   SfSelect,
   SfRadio,
   SfImage,
-  SfCheckbox
+  SfCheckbox,
 } from '@storefront-ui/vue'
+import { validationMixin } from 'vuelidate'
+import { usePayment, usePaymentValidationRules } from './usePayment'
+
 export default {
   name: 'Payment',
+  mixins: [validationMixin],
   components: {
     SfHeading,
     SfInput,
@@ -223,30 +247,16 @@ export default {
     SfSelect,
     SfRadio,
     SfImage,
-    SfCheckbox
+    SfCheckbox,
   },
   props: {
-    order: {
-      type: Object,
-      default: () => ({})
-    },
     paymentMethods: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
-      sameAsShipping: false,
-      firstName: '',
-      lastName: '',
-      streetName: '',
-      apartment: '',
-      city: '',
-      state: '',
-      zipCode: '',
-      country: '',
-      phoneNumber: '',
       paymentMethod: '',
       cardNumber: '',
       cardHolder: '',
@@ -301,92 +311,135 @@ export default {
         'Turkey',
         'Ukraine',
         'United Kingdom',
-        'Vatican City'
-      ]
+        'Vatican City',
+      ],
     }
+  },
+  setup() {
+    const {
+      validations,
+      setValidations,
+      validate,
+      firstName,
+      lastName,
+      streetName,
+      apartment,
+      city,
+      state,
+      zipCode,
+      country,
+      phoneNumber,
+      differentThanShipping,
+    } = usePayment()
+
+    return {
+      validations,
+      setValidations,
+      firstName,
+      lastName,
+      streetName,
+      apartment,
+      city,
+      state,
+      zipCode,
+      country,
+      phoneNumber,
+      differentThanShipping,
+    }
+  },
+  watch: {
+    $v: {
+      immediate: true,
+      handler: function () {
+        this.setValidations(this.$v)
+      },
+    },
+  },
+  validations: {
+    ...usePaymentValidationRules,
   },
   computed: {
     isCreditCard() {
       return ['debit', 'mastercard', 'electron'].includes(this.paymentMethod)
-    }
-  },
-  watch: {
-    order: {
-      handler(value) {
-        this.sameAsShipping = value.payment.sameAsShipping
-        this.streetName = value.payment.streetName
-        this.apartment = value.payment.apartment
-        this.city = value.payment.city
-        this.state = value.payment.state
-        this.zipCode = value.payment.zipCode
-        this.country = value.payment.country
-        this.phoneNumber = value.payment.phoneNumber
-        this.paymentMethod = value.payment.paymentMethod
-        this.cardNumber = value.payment.card.number
-        this.cardHolder = value.payment.card.holder
-        this.cardMonth = value.payment.card.month
-        this.cardYear = value.payment.card.year
-        this.cardCVC = value.payment.card.cvc
-        this.cardKeep = value.payment.card.keep
-      },
-      immediate: true
     },
-    sameAsShipping: {
-      handler(value) {
-        if (value) {
-          this.firstName = this.order.shipping.firstName
-          this.lastName = this.order.shipping.lastName
-          this.streetName = this.order.shipping.streetName
-          this.apartment = this.order.shipping.apartment
-          this.city = this.order.shipping.city
-          this.state = this.order.shipping.state
-          this.zipCode = this.order.shipping.zipCode
-          this.country = this.order.shipping.country
-          this.phoneNumber = this.order.shipping.phoneNumber
-          this.paymentMethod = this.order.shipping.paymentMethod
-        } else {
-          this.streetName = ''
-          this.apartment = ''
-          this.city = ''
-          this.state = ''
-          this.zipCode = ''
-          this.country = ''
-          this.phoneNumber = ''
-          this.paymentMethod = ''
-        }
-      }
-    }
   },
+  // watch: {
+  //   order: {
+  //     handler(value) {
+  //       this.differentThanShipping = value.payment.differentThanShipping
+  //       this.streetName = value.payment.streetName
+  //       this.apartment = value.payment.apartment
+  //       this.city = value.payment.city
+  //       this.state = value.payment.state
+  //       this.zipCode = value.payment.zipCode
+  //       this.country = value.payment.country
+  //       this.phoneNumber = value.payment.phoneNumber
+  //       this.paymentMethod = value.payment.paymentMethod
+  //       this.cardNumber = value.payment.card.number
+  //       this.cardHolder = value.payment.card.holder
+  //       this.cardMonth = value.payment.card.month
+  //       this.cardYear = value.payment.card.year
+  //       this.cardCVC = value.payment.card.cvc
+  //       this.cardKeep = value.payment.card.keep
+  //     },
+  //     immediate: true
+  //   },
+  //   differentThanShipping: {
+  //     handler(value) {
+  //       if (value) {
+  //         this.firstName = this.order.shipping.firstName
+  //         this.lastName = this.order.shipping.lastName
+  //         this.streetName = this.order.shipping.streetName
+  //         this.apartment = this.order.shipping.apartment
+  //         this.city = this.order.shipping.city
+  //         this.state = this.order.shipping.state
+  //         this.zipCode = this.order.shipping.zipCode
+  //         this.country = this.order.shipping.country
+  //         this.phoneNumber = this.order.shipping.phoneNumber
+  //         this.paymentMethod = this.order.shipping.paymentMethod
+  //       } else {
+  //         this.streetName = ''
+  //         this.apartment = ''
+  //         this.city = ''
+  //         this.state = ''
+  //         this.zipCode = ''
+  //         this.country = ''
+  //         this.phoneNumber = ''
+  //         this.paymentMethod = ''
+  //       }
+  //     }
+  //   }
+  // },
   methods: {
     toReview() {
-      const order = { ...this.order }
-      const payment = { ...order.payment }
-      const card = { ...payment.card }
-      payment.sameAsShipping = this.sameAsShipping
-      payment.firstName = this.firstName
-      payment.lastName = this.lastName
-      payment.streetName = this.streetName
-      payment.streetName = this.streetName
-      payment.apartment = this.apartment
-      payment.city = this.city
-      payment.state = this.state
-      payment.zipCode = this.zipCode
-      payment.country = this.country
-      payment.phoneNumber = this.phoneNumber
-      payment.paymentMethod = this.paymentMethod
-      if (this.isCreditCard) {
-        card.number = this.cardNumber
-        card.holder = this.cardHolder
-        card.month = this.cardMonth
-        card.year = this.cardYear
-        card.cvc = this.cardCVC
-        card.keep = this.cardKeep
-      }
-      payment.card = card
-      order.payment = payment
-      this.$emit('update:order', order)
-    }
-  }
+      // const order = { ...this.order }
+      // const payment = { ...order.payment }
+      // const card = { ...payment.card }
+      // payment.differentThanShipping = this.differentThanShipping
+      // payment.firstName = this.firstName
+      // payment.lastName = this.lastName
+      // payment.streetName = this.streetName
+      // payment.streetName = this.streetName
+      // payment.apartment = this.apartment
+      // payment.city = this.city
+      // payment.state = this.state
+      // payment.zipCode = this.zipCode
+      // payment.country = this.country
+      // payment.phoneNumber = this.phoneNumber
+      // payment.paymentMethod = this.paymentMethod
+      // if (this.isCreditCard) {
+      //   card.number = this.cardNumber
+      //   card.holder = this.cardHolder
+      //   card.month = this.cardMonth
+      //   card.year = this.cardYear
+      //   card.cvc = this.cardCVC
+      //   card.keep = this.cardKeep
+      // }
+      // payment.card = card
+      // order.payment = payment
+      this.$emit('proceed')
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
