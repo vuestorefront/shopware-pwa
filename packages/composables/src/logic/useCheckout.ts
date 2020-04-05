@@ -12,6 +12,7 @@ import {
   setCurrentPaymentMethod,
   getAvailableShippingMethods,
   getAvailablePaymentMethods,
+  createGuestOrder,
 } from "@shopware-pwa/shopware-6-client";
 import { useCart } from "../hooks/useCart";
 /**
@@ -81,10 +82,15 @@ export const useCheckout = (): UseCheckout => {
     return false;
   };
 
-  const createOrder = () => {
+  const createOrder = async () => {
     // used from useCart; or move the logic here.
     // important thing is to update context/cart under the hood and then just place an order using one shot :)
-    return placeOrder();
+    if (isGuestOrder.value) {
+      console.error("CHECKOUT PLACE ORDER");
+      await createGuestOrder("qwe@qwe.pl");
+    } else {
+      return placeOrder();
+    }
   };
 
   // TODO: use customerData from localStorage/cookie if not logged in

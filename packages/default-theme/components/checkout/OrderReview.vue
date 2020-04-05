@@ -11,10 +11,7 @@
           >Edit</SfButton
         >
       </div>
-      <p class="content">{{ order.firstName }} {{ order.lastName }}<br /></p>
-      <p class="content">
-        {{ order.email }}
-      </p>
+      <PersonalDetails @click:edit="$emit('click:edit', 0)" />
     </div>
     <div class="highlighted">
       <div class="highlighted__header">
@@ -66,11 +63,14 @@
 </template>
 <script>
 import { SfHeading, SfButton } from '@storefront-ui/vue'
+import PersonalDetails from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/PersonalDetails'
+
 export default {
   name: 'OrderReview',
   components: {
     SfHeading,
-    SfButton
+    SfButton,
+    PersonalDetails
   },
   props: {
     order: {
@@ -88,7 +88,7 @@ export default {
   },
   computed: {
     shipping() {
-      return this.order.shipping
+      return {} // this.order.shipping
     },
     shippingMethod() {
       const shippingMethod = this.shipping.shippingMethod
@@ -98,7 +98,7 @@ export default {
       return method ? method : { price: 0 }
     },
     payment() {
-      return this.order.payment
+      return {} // this.order.payment
     },
     paymentMethod() {
       const paymentMethod = this.payment.paymentMethod

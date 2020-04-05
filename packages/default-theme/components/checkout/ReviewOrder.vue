@@ -6,7 +6,7 @@
     />
     <SfAccordion first-open class="accordion mobile-only">
       <SfAccordionItem header="Personal Details">
-        <PersonalDetails :order="order" @click:edit="$emit('click:edit', 0)" />
+        <PersonalDetails @click:edit="$emit('click:edit', 0)" />
       </SfAccordionItem>
       <SfAccordionItem header="Shipping address">
         <ShippingAddress
@@ -108,7 +108,7 @@ export default {
   },
   computed: {
     shipping() {
-      return this.order.shipping
+      return {} // this.order.shipping
     },
     shippingMethod() {
       const shippingMethod = this.shipping.shippingMethod
@@ -118,7 +118,7 @@ export default {
       return method ? method : { price: helpers.formatPrice(0) }
     },
     payment() {
-      return this.order.payment
+      return {} // this.order.payment
     },
     paymentMethod() {
       const paymentMethod = this.payment.paymentMethod

@@ -33,14 +33,6 @@
         </template>
       </SfCheckbox>
     </div>
-    <div class="notification" v-if="!isUserLoggedIn">
-      <SfNotification
-        :visible="true"
-        type="info"
-        title="You can't place the order"
-        message="Dummy checkout is enabled only for logged in users"
-      />
-    </div>
     <div class="notification" v-if="!cartItems.length">
       <SfNotification
         :visible="true"
@@ -51,7 +43,7 @@
     </div>
     <div class="summary__group">
       <SfButton
-        :disabled="!isUserLoggedIn || !cartItems.length"
+        :disabled="!cartItems.length"
         class="sf-button--full-width summary__action-button"
         @click="placeOrder()">Place my order</SfButton
       >
@@ -64,7 +56,7 @@
   </div>
 </template>
 <script>
-import { useCart, useUser } from '@shopware-pwa/composables'
+import { useCart } from '@shopware-pwa/composables'
 import helpers from '@shopware-pwa/default-theme/helpers'
 import { PAGE_SUCCESS_PAGE } from '@shopware-pwa/default-theme/helpers/pages'
 
@@ -96,14 +88,12 @@ export default {
       removeProduct,
       refreshCart
     } = useCart()
-    const { isLoggedIn } = useUser()
     return {
       cartItems,
       refreshCart,
       subtotal,
       total: totalPrice,
       placeApiOrder,
-      isUserLoggedIn: isLoggedIn,
       removeProduct
     }
   },

@@ -146,7 +146,7 @@ export default {
   },
   computed: {
     shipping() {
-      return this.order.shipping
+      return "qwe" // this.order.shipping
     },
     shippingMethod() {
       const shippingMethod = this.shipping.shippingMethod

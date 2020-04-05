@@ -2,7 +2,7 @@ import { requiredIf } from 'vuelidate/lib/validators'
 import { createCheckoutStep } from './createCheckoutStep'
 
 export const usePayment = createCheckoutStep({
-  stepNumber: 3,
+  stepNumber: 2,
   stepFields: {
     differentThanShipping: false,
     firstName: null,
