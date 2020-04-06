@@ -1,7 +1,7 @@
 # Structure
 Short description of project's structure.
 
-#### There are 7 packages which that are part of the project.
+#### There are 7 packages that are part of the project.
 
 They are located in ./packages and can be developing and published separatelly.
 
