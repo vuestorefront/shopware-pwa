@@ -30,7 +30,7 @@ You may want to read:
 
 #### There are 7 packages that are part of the project.
 
-They are located in ./packages and can be developing and published separatelly.
+They are located in ./packages and can be developed and published separatelly.
 
 1. **cli** [_@shopware-pwa/cli_](https://www.npmjs.com/package/@shopware-pwa/cli) - A CLI tool for creating an instance of Shopware PWA projects.
 2. **commons** [_@shopware-pwa/commons_](https://www.npmjs.com/package/@shopware-pwa/commons) - A collection of all necessary interfaces shared across the project's ecosystem.
