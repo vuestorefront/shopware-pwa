@@ -35,11 +35,35 @@ describe("CheckoutService createOrder", () => {
   describe("createGuestOrder", () => {
     it("should return undefined when there is no data property in the response", async () => {
       mockedAxios.post.mockResolvedValueOnce({});
+      const createGuestOrderData = {
+        email: "some@email.com",
+        salutationId: "2bbb89dfa4664bc581e80b37eaa80fa7",
+        firstName: "Joe",
+        lastName: "Doe",
+        billingAddress: {
+          countryId: "0bbb89dfa4664bc581e80b37eaa80fb7",
+          salutationId: "2bbb89dfa4664bc581e80b37eaa80fa7",
+          street: "Shopstreet",
+          zipcode: "51-123",
+          city: "Wroclaw",
+        },
+      };
 
-      const result = await createGuestOrder("some@email.com");
+      const result = await createGuestOrder(createGuestOrderData);
       expect(mockedAxios.post).toBeCalledTimes(1);
+
       expect(mockedAxios.post).toBeCalledWith("/checkout/guest-order", {
         email: "some@email.com",
+        salutationId: "2bbb89dfa4664bc581e80b37eaa80fa7",
+        firstName: "Joe",
+        lastName: "Doe",
+        billingAddress: {
+          countryId: "0bbb89dfa4664bc581e80b37eaa80fb7",
+          salutationId: "2bbb89dfa4664bc581e80b37eaa80fa7",
+          street: "Shopstreet",
+          zipcode: "51-123",
+          city: "Wroclaw",
+        },
       });
       expect(result).toBeUndefined();
     });
@@ -52,10 +76,33 @@ describe("CheckoutService createOrder", () => {
         },
       });
 
-      const result = await createGuestOrder("dummy@email.com");
+      const createGuestOrderData = {
+        email: "some@email.com",
+        salutationId: "2bbb89dfa4664bc581e80b37eaa80fa7",
+        firstName: "Joe",
+        lastName: "Doe",
+        billingAddress: {
+          countryId: "0bbb89dfa4664bc581e80b37eaa80fb7",
+          salutationId: "2bbb89dfa4664bc581e80b37eaa80fa7",
+          street: "Shopstreet",
+          zipcode: "51-123",
+          city: "Wroclaw",
+        },
+      };
+      const result = await createGuestOrder(createGuestOrderData);
       expect(mockedAxios.post).toBeCalledTimes(1);
       expect(mockedAxios.post).toBeCalledWith("/checkout/guest-order", {
-        email: "dummy@email.com",
+        email: "some@email.com",
+        salutationId: "2bbb89dfa4664bc581e80b37eaa80fa7",
+        firstName: "Joe",
+        lastName: "Doe",
+        billingAddress: {
+          countryId: "0bbb89dfa4664bc581e80b37eaa80fb7",
+          salutationId: "2bbb89dfa4664bc581e80b37eaa80fa7",
+          street: "Shopstreet",
+          zipcode: "51-123",
+          city: "Wroclaw",
+        },
       });
       expect(result).toHaveProperty("id");
     });
@@ -65,7 +112,7 @@ describe("CheckoutService createOrder", () => {
         await createGuestOrder(undefined as any);
       } catch (e) {
         expect(e.message).toBe(
-          "createGuestOrder method requires email to be provided as a parameter"
+          "createGuestOrder method accepts only CreateGuestOrderParams interface as an argument"
         );
       }
     });

@@ -32,7 +32,6 @@ export interface UseCheckout {
   createOrder: () => Promise<Order>;
 }
 
-
 /**
  * @alpha
  */
@@ -90,8 +89,7 @@ export const useCheckout = (): UseCheckout => {
     billingAddress: BillingAddress | null | undefined,
     shippingAddress?: ShippingAddress | null,
     affiliateCode?: string,
-    campaignCode?: string,
-
+    campaignCode?: string
   ) => {
     if (!customer || !billingAddress) {
       throw "customer and billingAddress are expected to be provided";
@@ -112,14 +110,17 @@ export const useCheckout = (): UseCheckout => {
     };
   };
 
-
   const createOrder = async () => {
     // used from useCart; or move the logic here.
     // important thing is to update context/cart under the hood and then just place an order using one shot :)
     if (isGuestOrder.value) {
       console.error("CHECKOUT PLACE ORDER");
       await createGuestOrder(
-        getGuestOrderData(user.value, billingAddress.value, shippingAddress.value)
+        getGuestOrderData(
+          user.value,
+          billingAddress.value,
+          shippingAddress.value
+        )
       );
     } else {
       return placeOrder();
