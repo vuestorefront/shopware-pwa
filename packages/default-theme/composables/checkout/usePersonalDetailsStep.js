@@ -1,8 +1,11 @@
 import { required } from 'vuelidate/lib/validators'
-import { createCheckoutStep } from './createCheckoutStep'
+import { useCheckout, createCheckoutStep } from '@shopware-pwa/composables'
 
-export const usePersonalDetails = createCheckoutStep({
+const { customerData } = useCheckout()
+
+export const usePersonalDetailsStep = createCheckoutStep({
   stepNumber: 0,
+  data: customerData,
   stepFields: {
     salutationId: null,
     firstName: null,
@@ -11,7 +14,7 @@ export const usePersonalDetails = createCheckoutStep({
   },
 })
 
-export const usePersonalDetailsValidationRules = {
+export const usePersonalDetailsStepValidationRules = {
   salutationId: {
     required,
   },

@@ -24,11 +24,11 @@
         required
       />
       <SfInput
-        v-model="streetName"
-        :valid="!validations.streetName.$error"
+        v-model="street"
+        :valid="!validations.street.$error"
         error-message="This field is required"
         label="Street name"
-        name="streetName"
+        name="street"
         class="form__element"
         required
       />
@@ -60,18 +60,18 @@
         required
       />
       <SfInput
-        v-model="zipCode"
-        :valid="!validations.zipCode.$error"
+        v-model="zipcode"
+        :valid="!validations.zipcode.$error"
         error-message="This field is required"
         label="Zip-code"
-        name="zipCode"
+        name="zipcode"
         class="form__element form__element--half"
         required
       />
       <SfSelect
         v-if="getCountries.length"
-        v-model="country"
-        :valid="!validations.country.$error"
+        v-model="countryId"
+        :valid="!validations.countryId.$error"
         error-message="This field is required"
         label="Country"
         class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
@@ -161,7 +161,7 @@ import {
   SfRadio,
 } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
-import { useShipping, useShippingValidationRules } from './useShipping'
+import { useShippingStep, useShippingStepValidationRules } from '@shopware-pwa/default-theme/composables/checkout/useShippingStep'
 import { useCountries, useCheckout } from '@shopware-pwa/composables'
 import { computed } from '@vue/composition-api'
 
@@ -182,14 +182,14 @@ export default {
       validate,
       firstName,
       lastName,
-      streetName,
+      street,
       apartment,
       city,
       state,
-      zipCode,
-      country,
+      zipcode,
+      countryId,
       phoneNumber,
-    } = useShipping()
+    } = useShippingStep()
     const { getCountries } = useCountries()
     const { getShippingMethods, shippingMethods, setShippingMethod, shippingMethod: currentShippingMethod } = useCheckout()
 
@@ -207,12 +207,12 @@ export default {
       setValidations,
       firstName,
       lastName,
-      streetName,
+      street,
       apartment,
       city,
       state,
-      zipCode,
-      country,
+      zipcode,
+      countryId,
       phoneNumber,
       getCountries,
       shippingMethods,
@@ -228,13 +228,8 @@ export default {
     },
   },
   validations: {
-    ...useShippingValidationRules,
-  },
-  methods: {
-    toPayment() {
-      this.$emit('proceed')
-    },
-  },
+    ...useShippingStepValidationRules,
+  }
 }
 </script>
 <style lang="scss" scoped>

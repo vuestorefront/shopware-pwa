@@ -1,23 +1,26 @@
 import { requiredIf } from 'vuelidate/lib/validators'
-import { createCheckoutStep } from './createCheckoutStep'
+import { useCheckout, createCheckoutStep } from '@shopware-pwa/composables'
 
-export const usePayment = createCheckoutStep({
+const { billingData } = useCheckout()
+
+export const usePaymentStep = createCheckoutStep({
   stepNumber: 2,
+  data: billingData,
   stepFields: {
     differentThanShipping: false,
     firstName: null,
     lastName: null,
-    streetName: null,
+    street: null,
     apartment: null,
     city: null,
     state: null,
-    zipCode: null,
-    country: null,
+    zipcode: null,
+    countryId: null,
     phoneNumber: null,
   },
 })
 
-export const usePaymentValidationRules = {
+export const usePaymentStepValidationRules = {
   firstName: {
     required: requiredIf(function (instance) {
       return instance.differentThanShipping
@@ -28,7 +31,7 @@ export const usePaymentValidationRules = {
       return instance.differentThanShipping
     }),
   },
-  streetName: {
+  street: {
     required: requiredIf(function (instance) {
       return instance.differentThanShipping
     }),
@@ -48,12 +51,12 @@ export const usePaymentValidationRules = {
       return instance.differentThanShipping
     }),
   },
-  zipCode: {
+  zipcode: {
     required: requiredIf(function (instance) {
       return instance.differentThanShipping
     }),
   },
-  country: {
+  countryId: {
     required: requiredIf(function (instance) {
       return instance.differentThanShipping
     }),

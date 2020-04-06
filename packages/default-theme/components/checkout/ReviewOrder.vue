@@ -35,7 +35,7 @@
       title="Order details"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <Summary @click:back="$emit('click:back')" />
+    <Summary @click:back="$emit('click:back')" @proceed="$emit('proceed')" />
   </div>
 </template>
 
@@ -49,10 +49,7 @@ import PaymentMethod from '@shopware-pwa/default-theme/components/checkout/Revie
 import OrderItemsTable from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/OrderItemsTable'
 import Summary from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/Summary'
 
-import {
-  SfHeading,
-  SfAccordion,
-} from '@storefront-ui/vue'
+import { SfHeading, SfAccordion } from '@storefront-ui/vue'
 
 export default {
   name: 'ReviewOrder',
@@ -64,26 +61,26 @@ export default {
     BillingAddress,
     PaymentMethod,
     OrderItemsTable,
-    Summary
+    Summary,
   },
   props: {
     order: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     shippingMethods: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     paymentMethods: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
       terms: false,
-      tableHeaders: ['Description', 'Quantity', 'Amount']
+      tableHeaders: ['Description', 'Quantity', 'Amount'],
     }
   },
   setup() {
@@ -93,7 +90,7 @@ export default {
       totalPrice,
       placeOrder: placeApiOrder,
       refreshCart,
-      removeProduct
+      removeProduct,
     } = useCart()
     const { isLoggedIn } = useUser()
     return {
@@ -103,7 +100,7 @@ export default {
       total: totalPrice,
       placeApiOrder,
       isUserLoggedIn: isLoggedIn,
-      removeProduct
+      removeProduct,
     }
   },
   computed: {
@@ -113,7 +110,7 @@ export default {
     shippingMethod() {
       const shippingMethod = this.shipping.shippingMethod
       const method = this.shippingMethods.find(
-        method => method.value === shippingMethod
+        (method) => method.value === shippingMethod
       )
       return method ? method : { price: helpers.formatPrice(0) }
     },
@@ -123,10 +120,10 @@ export default {
     paymentMethod() {
       const paymentMethod = this.payment.paymentMethod
       const method = this.paymentMethods.find(
-        method => method.value === paymentMethod
+        (method) => method.value === paymentMethod
       )
       return method ? method : { label: '' }
-    }
+    },
   },
 }
 </script>

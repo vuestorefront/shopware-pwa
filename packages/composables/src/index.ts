@@ -12,4 +12,5 @@ export * from "./hooks/useProductSearch";
 export * from "./theme/cart/useCartSidebar";
 export * from "./theme/user/useUserLoginModal";
 export * from "./logic/useCheckout";
+export * from "./factories/createCheckoutStep";
 export * from "./store";

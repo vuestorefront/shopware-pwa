@@ -15,7 +15,7 @@
 </template>
 <script>
 import { SfButton } from '@storefront-ui/vue'
-import { usePersonalDetails } from '../usePersonalDetails'
+import { usePersonalDetailsStep } from '@shopware-pwa/default-theme/composables/checkout/usePersonalDetailsStep'
 
 export default {
   name: 'PersonalDetails',
@@ -23,7 +23,7 @@ export default {
     SfButton,
   },
   setup() {
-    const { firstName, lastName, email } = usePersonalDetails()
+    const { firstName, lastName, email } = usePersonalDetailsStep()
     return {
       firstName,
       lastName,

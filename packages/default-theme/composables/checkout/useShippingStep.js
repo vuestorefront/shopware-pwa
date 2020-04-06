@@ -1,29 +1,32 @@
 import { required } from 'vuelidate/lib/validators'
-import { createCheckoutStep } from './createCheckoutStep'
+import { useCheckout, createCheckoutStep } from '@shopware-pwa/composables'
 
-export const useShipping = createCheckoutStep({
+const { shippingData } = useCheckout()
+
+export const useShippingStep = createCheckoutStep({
   stepNumber: 1,
+  data: shippingData,
   stepFields: {
     firstName: null,
     lastName: null,
-    streetName: null,
+    street: null,
     apartment: null,
     city: null,
     state: null,
-    zipCode: null,
-    country: null,
+    zipcode: null,
+    countryId: null,
     phoneNumber: null,
   },
 })
 
-export const useShippingValidationRules = {
+export const useShippingStepValidationRules = {
   firstName: {
     required,
   },
   lastName: {
     required,
   },
-  streetName: {
+  street: {
     required,
   },
   apartment: {
@@ -35,10 +38,10 @@ export const useShippingValidationRules = {
   state: {
     required,
   },
-  zipCode: {
+  zipcode: {
     required,
   },
-  country: {
+  countryId: {
     required,
   },
   phoneNumber: {

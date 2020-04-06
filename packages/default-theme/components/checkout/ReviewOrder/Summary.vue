@@ -8,7 +8,8 @@
           class="sf-property--full-width property"
         >
           <template #name
-            ><span class="property__name">Subtotals</span></template>
+            ><span class="property__name">Subtotals</span></template
+          >
         </SfProperty>
         <SfProperty
           name="Shipping"
@@ -16,12 +17,14 @@
           class="sf-property--full-width property"
         >
           <template #name
-            ><span class="property__name">Shipping</span></template>
+            ><span class="property__name">Shipping</span></template
+          >
         </SfProperty>
         <SfProperty
           name="Total"
           :value="formatFrontPrice(total)"
-          class="sf-property--full-width property--huge summary__property-total">
+          class="sf-property--full-width property--huge summary__property-total"
+        >
           <template #name>TOTAL</template>
         </SfProperty>
       </div>
@@ -45,11 +48,13 @@
       <SfButton
         :disabled="!cartItems.length"
         class="sf-button--full-width summary__action-button"
-        @click="placeOrder()">Place my order</SfButton
+        @click="$emit('proceed')"
+        >Place my order</SfButton
       >
       <SfButton
         class="sf-button--full-width sf-button--text summary__action-button summary__action-button--secondary"
-        @click="$emit('click:back')">
+        @click="$emit('click:back')"
+      >
         Go back to Payment
       </SfButton>
     </div>
@@ -64,7 +69,7 @@ import {
   SfProperty,
   SfCheckbox,
   SfButton,
-  SfNotification
+  SfNotification,
 } from '@storefront-ui/vue'
 export default {
   name: 'BillingAddress',
@@ -72,11 +77,11 @@ export default {
     SfProperty,
     SfCheckbox,
     SfButton,
-    SfNotification
+    SfNotification,
   },
   data() {
     return {
-      terms: false
+      terms: false,
     }
   },
   setup() {
@@ -84,33 +89,22 @@ export default {
       cartItems,
       subtotal,
       totalPrice,
-      placeOrder: placeApiOrder,
       removeProduct,
-      refreshCart
+      refreshCart,
     } = useCart()
     return {
       cartItems,
       refreshCart,
       subtotal,
       total: totalPrice,
-      placeApiOrder,
-      removeProduct
+      removeProduct,
     }
   },
   methods: {
     formatFrontPrice(price) {
       return helpers.formatPrice(price)
     },
-    async placeOrder() {
-      try {
-        const order = await this.placeApiOrder()
-        this.refreshCart()
-        this.$router.push(PAGE_SUCCESS_PAGE)
-      } catch (e) {
-        console.warn(e)
-      }
-    }
-  }
+  },
 }
 </script>
 <style lang="scss" scoped>

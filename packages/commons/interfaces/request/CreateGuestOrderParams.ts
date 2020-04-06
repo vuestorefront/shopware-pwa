@@ -1,4 +1,4 @@
-interface BillingAddress {
+export interface BillingAddress {
   countryId: string;
   salutationId: string;
   street: string;
@@ -10,7 +10,7 @@ interface BillingAddress {
   phoneNumber?: string | null | undefined;
 }
 
-interface ShippingAddress extends BillingAddress {
+export interface ShippingAddress extends BillingAddress {
   firstName: string;
   lastName: string;
 }

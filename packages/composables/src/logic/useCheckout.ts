@@ -1,7 +1,7 @@
+import Vue from "vue";
 import { Ref, computed, ref, onMounted } from "@vue/composition-api";
 // import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { useUser } from "@shopware-pwa/composables";
-import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { ShippingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress";
 import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
@@ -17,13 +17,29 @@ import {
   getCurrentShippingMethod,
 } from "@shopware-pwa/shopware-6-client";
 import { useCart } from "../hooks/useCart";
+
+export interface CustomerData {
+  salutationId: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  isValid: boolean;
+}
+export interface ShippingData extends ShippingAddress {
+  isValid: boolean;
+}
+
+export interface BillingData extends BillingAddress {
+  differentThanShipping: boolean;
+  isValid: boolean;
+}
 /**
  * @alpha
  */
 export interface UseCheckout {
-  customerData: Ref<Customer | null>; // salutationId, name, surname, email - only for guest order
-  shippingAddress: Ref<ShippingAddress | null>; // only for guest order
-  billingAddress: Ref<BillingAddress | null>; // only for guest order
+  customerData: Ref<CustomerData | null>; // salutationId, name, surname, email - only for guest order
+  shippingData: Ref<ShippingData | null>; // only for guest order
+  billingData: Ref<BillingData | null>; // only for guest order
   // shippingMethod: Ref<any>; // set by setShippingMethod and compute to get this - NOT implement by now
   // paymentMethod: Ref<any>; // set by setPaymentMethod and compute to get this - NOT implement by now
   isGuestOrder: Readonly<Ref<boolean>>;
@@ -33,6 +49,24 @@ export interface UseCheckout {
   setPaymentMethod: (paymentMethod: any) => Promise<Readonly<boolean>>;
   createOrder: () => Promise<Order>;
 }
+
+// export interface CreateGuestOrderParams {
+//   email: string;
+//   salutationId: string;
+//   firstName: string;
+//   lastName: string;
+//   billingAddress: BillingAddress;
+//   shippingAddress?: ShippingAddress | null | undefined;
+//   affiliateCode?: string;
+//   campaignCode?: string;
+//   phoneNumber?: string;
+// }
+
+const orderData: any = Vue.observable({
+  customerData: null,
+  shippingData: null,
+  billingData: null,
+});
 
 /**
  * @alpha
@@ -44,7 +78,7 @@ export const useCheckout = (): UseCheckout => {
   const currentPaymentMethod: Ref<PaymentMethod | null> = ref(null);
 
   const { isLoggedIn, user } = useUser();
-  const { placeOrder } = useCart();
+  const { placeOrder, refreshCart } = useCart();
   const shippingMethods = ref([]);
 
   // const loading: Ref<boolean> = ref(false);
@@ -104,57 +138,61 @@ export const useCheckout = (): UseCheckout => {
     return false;
   };
 
-  // extract required data from local entities
-  const getGuestOrderData = (
-    customer: Customer | null,
-    billingAddress: BillingAddress | null | undefined,
-    shippingAddress?: ShippingAddress | null,
-    affiliateCode?: string,
-    campaignCode?: string
-  ) => {
-    if (!customer || !billingAddress) {
-      throw "customer and billingAddress are expected to be provided";
-    }
-
-    const { email, salutationId, firstName, lastName, phoneNumber } = customer;
-
-    return {
-      email,
-      salutationId,
-      firstName,
-      lastName,
-      billingAddress,
-      shippingAddress,
-      affiliateCode,
-      campaignCode,
-      phoneNumber,
-    };
-  };
-
   const createOrder = async () => {
     // used from useCart; or move the logic here.
     // important thing is to update context/cart under the hood and then just place an order using one shot :)
-    if (isGuestOrder.value) {
-      console.error("CHECKOUT PLACE ORDER");
-      await createGuestOrder(
-        getGuestOrderData(
-          user.value,
-          billingAddress.value,
-          shippingAddress.value
-        )
-      );
-    } else {
-      return placeOrder();
+    try {
+      if (isGuestOrder.value) {
+        console.error("CHECKOUT PLACE ORDER", orderData.customerData);
+        console.error("CHECKOUT PLACE shipping", orderData.shippingData);
+        console.error("CHECKOUT PLACE billling", orderData.billingData);
+
+        const shippingAddress = {
+          ...(orderData?.shippingData || {}),
+          salutationId: orderData?.customerData?.salutationId,
+        };
+        const guestOrder = {
+          ...(orderData?.customerData || {}),
+          shippingAddress: shippingAddress,
+          billingAddress: orderData?.billingData?.differentThanShipping
+            ? orderData.billingData
+            : shippingAddress,
+        };
+        try {
+          await createGuestOrder(guestOrder);
+        } catch (e) {
+          console.error("ERROR PLACING GUEST ORDER", e);
+        }
+      } else {
+        return placeOrder();
+      }
+    } catch (e) {
+      console.error("PROBLEM WITH PLACING ORDER", e);
+    } finally {
+      await refreshCart();
     }
   };
 
   // TODO: use customerData from localStorage/cookie if not logged in
   // temporarly the user from useUser is being used - but it cover only case for logged in customer
-  const customerData = computed(() => user.value);
+  // const customerData = computed(() => user.value);
   const isGuestOrder = computed(() => !isLoggedIn.value);
 
-  onMounted(() => {
-    getShippingMethod();
+  // onMounted(() => {
+  //   getShippingMethod();
+  // })
+
+  const customerData = computed({
+    get: () => orderData.customerData,
+    set: (val) => (orderData.customerData = val),
+  });
+  const shippingData = computed({
+    get: () => orderData.shippingData,
+    set: (val) => (orderData.shippingData = val),
+  });
+  const billingData = computed({
+    get: () => orderData.billingData,
+    set: (val) => (orderData.billingData = val),
   });
 
   return {
@@ -171,5 +209,8 @@ export const useCheckout = (): UseCheckout => {
     paymentMethod: computed(() => currentPaymentMethod.value),
     shippingMethod: computed(() => currentShippingMethod.value),
     getCurrentShippingMethod,
+    customerData,
+    shippingData,
+    billingData,
   };
 };

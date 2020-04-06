@@ -155,7 +155,7 @@ import {
   useCountries,
   useUserLoginModal
 } from '@shopware-pwa/composables'
-import {usePersonalDetails, usePersonalDetailsValidationRules} from './usePersonalDetails'
+import {usePersonalDetailsStep, usePersonalDetailsStepValidationRules} from '@shopware-pwa/default-theme/composables/checkout/usePersonalDetailsStep'
 
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 
@@ -203,7 +203,7 @@ export default {
   },
   setup() {
     const { toggleModal: toggleLoginModal } = useUserLoginModal()
-    const { validations, setValidations, validate, salutationId, firstName, lastName, email } = usePersonalDetails()
+    const { validations, setValidations, validate, salutationId, firstName, lastName, email } = usePersonalDetailsStep()
 
     const {
       register: registerUser,
@@ -314,7 +314,7 @@ export default {
   },
   // TODO: move all the rules globally
   validations: {
-    ...usePersonalDetailsValidationRules,
+    ...usePersonalDetailsStepValidationRules,
     password: {
       required: requiredIf(function(password) {
         return this.createAccount

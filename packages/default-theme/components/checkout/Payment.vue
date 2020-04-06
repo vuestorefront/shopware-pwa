@@ -32,11 +32,11 @@
         required
       />
       <SfInput
-        v-model="streetName"
-        :valid="!validations.streetName.$error"
+        v-model="street"
+        :valid="!validations.street.$error"
         error-message="This field is required"
         label="Street name"
-        name="streetName"
+        name="street"
         class="form__element"
         required
       />
@@ -68,17 +68,17 @@
         required
       />
       <SfInput
-        v-model="zipCode"
-        :valid="!validations.zipCode.$error"
+        v-model="zipcode"
+        :valid="!validations.zipcode.$error"
         error-message="This field is required"
         label="Zip-code"
-        name="zipCode"
+        name="zipcode"
         class="form__element form__element--half"
         required
       />
       <SfSelect
-        v-model="country"
-        :valid="!validations.country.$error"
+        v-model="countryId"
+        :valid="!validations.countryId.$error"
         error-message="This field is required"
         label="Country"
         class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
@@ -235,7 +235,7 @@ import {
   SfCheckbox,
 } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
-import { usePayment, usePaymentValidationRules } from './usePayment'
+import { usePaymentStep, usePaymentStepValidationRules } from '@shopware-pwa/default-theme/composables/checkout/usePaymentStep'
 
 export default {
   name: 'Payment',
@@ -269,27 +269,27 @@ export default {
       validate,
       firstName,
       lastName,
-      streetName,
+      street,
       apartment,
       city,
       state,
-      zipCode,
-      country,
+      zipcode,
+      countryId,
       phoneNumber,
       differentThanShipping,
-    } = usePayment()
+    } = usePaymentStep()
 
     return {
       validations,
       setValidations,
       firstName,
       lastName,
-      streetName,
+      street,
       apartment,
       city,
       state,
-      zipCode,
-      country,
+      zipcode,
+      countryId,
       phoneNumber,
       differentThanShipping,
     }
@@ -303,7 +303,7 @@ export default {
     },
   },
   validations: {
-    ...usePaymentValidationRules,
+    ...usePaymentStepValidationRules,
   },
   computed: {
     isCreditCard() {
