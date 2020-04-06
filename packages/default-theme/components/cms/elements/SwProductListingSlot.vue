@@ -141,6 +141,7 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
     --loader-overlay-background: transparent;
     width: 38px;
     height: 38px;
+    z-index: 2;
   }
 
   ::v-deep &__wrapper {
