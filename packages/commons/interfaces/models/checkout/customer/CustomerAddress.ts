@@ -20,7 +20,7 @@ export interface CustomerAddress {
   city: string;
   company?: string | null;
   department?: string | null;
-  title?: string | null;
+  title?: string;
   street: string;
   vatId?: string | null;
   phoneNumber?: string | null;

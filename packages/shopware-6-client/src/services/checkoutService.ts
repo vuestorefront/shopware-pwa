@@ -4,6 +4,7 @@ import {
   getCheckoutGuestOrderEndpoint,
 } from "../endpoints";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
+import { CreateGuestOrderParams } from "@shopware-pwa/commons/interfaces/request/CreateGuestOrderParams";
 
 /**
  * Creates an order for logged in users
@@ -21,16 +22,16 @@ export async function createOrder(): Promise<Order> {
  * @param email - customers's email
  * @alpha
  */
-export async function createGuestOrder(email: string): Promise<Order> {
-  if (!email) {
+export async function createGuestOrder(
+  params: CreateGuestOrderParams
+): Promise<Order> {
+  if (!params) {
     throw new Error(
-      "createGuestOrder method requires email to be provided as a parameter"
+      "createGuestOrder method accepts only CreateGuestOrderParams interface as an argument"
     );
   }
 
-  const resp = await apiService.post(getCheckoutGuestOrderEndpoint(), {
-    email,
-  });
+  const resp = await apiService.post(getCheckoutGuestOrderEndpoint(), params);
 
   return resp.data?.data;
 }

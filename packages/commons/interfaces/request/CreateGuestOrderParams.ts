@@ -4,10 +4,10 @@ interface BillingAddress {
   street: string;
   zipcode: string;
   city: string;
-  title?: string;
+  title?: string | null | undefined;
   additionalAddressLine1?: string;
   additionalAddressLine2?: string;
-  phoneNumber?: string;
+  phoneNumber?: string | null | undefined;
 }
 
 interface ShippingAddress extends BillingAddress {
@@ -23,7 +23,7 @@ export interface CreateGuestOrderParams {
   firstName: string;
   lastName: string;
   billingAddress: BillingAddress;
-  shippingAddress: ShippingAddress;
+  shippingAddress?: ShippingAddress | null | undefined;
   affiliateCode?: string;
   campaignCode?: string;
   phoneNumber?: string;

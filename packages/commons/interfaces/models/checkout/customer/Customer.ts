@@ -22,12 +22,12 @@ export interface Customer {
   defaultBillingAddressId: string | null;
   defaultShippingAddressId: string | null;
   customerNumber: number;
-  salutationId: string | null;
+  salutationId: string;
   firstName: string;
   lastName: string;
   company: string | null;
   email: string;
-  title: string | null;
+  title?: string | null;
   active: boolean;
   guest: boolean;
   firstLogin: Date | null;
@@ -51,4 +51,5 @@ export interface Customer {
   promotions: Promotion[] | null;
   customFields: CustomField[];
   productReviews: ProductReview[];
+  phoneNumber?: string;
 }
