@@ -1,62 +1,68 @@
 <template>
-  <SfSelect
-        v-model="selected"
-        :class="customClass"
-        :label="label"
-        :size="size"
-        :required="required"
-        :valid="valid"
-        :error-message="errorMessage"
-        style="max-width: 13.75rem"
-      >
-        <SfSelectOption v-for="(option, key) in options" :key="key" :value="option.value">
-          <SfProductOption :color="option.color" :label="option.label"></SfProductOption>
-        </SfSelectOption>
-      </SfSelect>
+  <div class="container">
+    
+    <SfSelect v-model="currency" class="container__select">
+      <SfSelectOption v-for="currencyItem in availableCurrencies" :key="currencyItem.name" :value="currencyItem.name">
+        <div>{{ currencyItem.symbol }}</div>
+      </SfSelectOption>
+    </SfSelect>
+  </div>
 </template>
 <script>
-const options = [{ value: "amaranth", color: "#E52B50", label: "Amaranth" },
-  { value: "amber", color: "#FFBF00", label: "Amber" },
-  { value: "arctic-lime", color: "#D0FF14", label: "Arctic lime" },
-  { value: "bluetiful", color: "#3C69E7", label: "Bluetiful" },
-  { value: "buff", color: "#F0DC82", label: "Buff" }];
+import { SfSelect, SfSelectOption } from '@storefront-ui/vue';
+import { useCurrencySwitcher } from '@shopware-pwa/composables';
+
 export default {
   name: 'SwCurrency',
   components: {
-    SfSelect
+    SfSelect,
   },
-  data() {
-    return {
-      navigationElements: [],
-      currentRoute: { routeLabel: '', routePath: '/' }
-    }
-  },
+
   setup() {
-    const { toggleSidebar, isSidebarOpen } = useCartSidebar()
-    const { routes } = useNavigation()
-    const { toggleModal } = useUserLoginModal()
-    const { isLoggedIn } = useUser()
+    const { 
+      availableCurrencies,
+      currentCurrency 
+      } = useCurrencySwitcher()
+
     return {
-      isLoggedIn,
-      routes,
-      isSidebarOpen,
-      toggleSidebar,
-      toggleModal
+      availableCurrencies,
+      currentCurrency
     }
   },
   watch: {
-    currentRoute(nextRoute) {
-      this.$router.push(nextRoute.routeLabel)
-    }
+    
   },
   methods: {
-    userIconClick() {
-      if (this.isLoggedIn) {
-        this.$router.push(PAGE_ACCOUNT)
-        return
-      }
-      this.toggleModal()
-    }
   }
 }
 </script>
+<style lang="scss" scoped>
+@import "~@storefront-ui/vue/styles";
+
+.container {
+  margin: 0 -5px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+
+  &::v-deep .sf-select {
+    --select-font-size: var(--font-size-small);
+  }
+
+  &__select {
+    padding: 0 5px;
+    margin: 0;
+    cursor: pointer;
+
+    &::v-deep .sf-select__dropdown {
+      min-width: 150px;
+    }
+
+    &::v-deep .sf-select__selected {
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+</style>
