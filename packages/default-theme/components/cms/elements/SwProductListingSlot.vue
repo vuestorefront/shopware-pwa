@@ -1,7 +1,6 @@
 <template>
   <div class="sw-product-list">
-    <SfLoader :loading="loading" class="sw-product-list__loader">
-    </SfLoader>
+    <SfLoader :loading="loading" class="sw-product-list__loader"/>
       <div class="sw-product-list__wrapper" v-if="products.length">
         <div class="sw-product-list__list" :class="{'sw-product-list__list--blur': loading}">
           <SwProductCard
