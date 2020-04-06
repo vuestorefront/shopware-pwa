@@ -28,7 +28,7 @@ You may want to read:
 
 ## Project's structure
 
-#### There are 7 packages which that are part of the project.
+#### There are 7 packages that are part of the project.
 
 They are located in ./packages and can be developed and published separatelly.
 
