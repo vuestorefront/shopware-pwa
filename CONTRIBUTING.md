@@ -25,6 +25,23 @@ You may want to read:
 - [Project documentation / General README.md](https://github.com/DivanteLtd/shopware-pwa)
 - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
+
+## Project's structure
+
+#### There are 7 packages which that are part of the project.
+
+They are located in ./packages and can be developing and published separatelly.
+
+1. **cli** [_@shopware-pwa/cli_](https://www.npmjs.com/package/@shopware-pwa/cli) - A CLI tool for creating an instance of Shopware PWA projects.
+2. **commons** [_@shopware-pwa/commons_](https://www.npmjs.com/package/@shopware-pwa/commons) - A collection of all necessary interfaces shared across the project's ecosystem.
+3. **composables** [_@shopware-pwa/composables_](https://www.npmjs.com/package/@shopware-pwa/composables) - Vue 3 composables dedicated for Shopware. Composition API based.
+4. **default-theme** [_@shopware-pwa/default-theme_](https://www.npmjs.com/package/@shopware-pwa/default-theme) - Default theme for Shopware PWA. Nuxt based.
+5. **helpers** [_@shopware-pwa/helpers_](https://www.npmjs.com/package/@shopware-pwa/helpers) - Functions that transform/convert Shopware6 specific data that comes from the API. Widely used by _composables_ or _default-theme_.
+6. **nuxt-module** [_@shopware-pwa/nuxt-module_](https://www.npmjs.com/package/@shopware-pwa/nuxt-module) - It makes the whole project working properly. Connects some part of the project and enables modifications.
+7. **shopware-6-client** [_@shopware-pwa/shopware-6-client_](https://www.npmjs.com/package/@shopware-pwa/shopware-6-client) - Shopware 6 API client. Tailored to the sales-channel-api.
+
+[See the file structure explained](./STRUCTURE.md)
+
 ## Branches
 
 For all of the codebase changes please create a new branch. Its name should fit into this template: `<task type eg. feat, fix, chore>/<package eg. cli, client, theme, if there is a global task this part can be ommited>/<short task description is written in kebab-case>-<issue number (also optional)>` `, here are some examples:
