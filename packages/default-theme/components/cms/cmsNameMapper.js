@@ -7,7 +7,7 @@ const slotsMap = {
   'youtube-video': 'SwYoutubeVideo',
   'product-listing': 'SwProductListingSlot',
   'category-navigation': 'SwCategoryNavigationSlot', // waiting for navigation hydration, and domething wrong with accordion
-  'sidebar-filter': 'SwCategorySidebarFilter'
+  'sidebar-filter': 'SwCategorySidebarFilter',
 }
 
 const blocksMap = {
@@ -18,7 +18,8 @@ const blocksMap = {
   'image-three-cover': 'SwImageThreeCover',
   'image-highlight-row': 'SwImageHighlightRow',
   'image-simple-grid': 'SwImageSimpleGrid',
-  'center-text': 'SwCenterText'
+  'center-text': 'SwCenterText',
+  'image-text-cover': 'SwImageTextCover',
 }
 
 export function getComponentBy(content) {
