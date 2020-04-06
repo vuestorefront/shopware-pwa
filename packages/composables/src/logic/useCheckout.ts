@@ -14,7 +14,7 @@ import {
   getAvailablePaymentMethods,
   createGuestOrder,
   getCurrentPaymentMethod,
-  getCurrentShippingMethod
+  getCurrentShippingMethod,
 } from "@shopware-pwa/shopware-6-client";
 import { useCart } from "../hooks/useCart";
 /**
@@ -56,17 +56,16 @@ export const useCheckout = (): UseCheckout => {
     try {
       currentShippingMethod.value = await getCurrentShippingMethod();
     } catch (e) {
-      console.error('useCheckout:getShippingMethod', e)
+      console.error("useCheckout:getShippingMethod", e);
     }
-  }
+  };
   const getPaymentMethod = async (): Promise<void> => {
     try {
       currentPaymentMethod.value = await getCurrentPaymentMethod();
     } catch (e) {
-      console.error('useCheckout:getPaymentMethod', e)
+      console.error("useCheckout:getPaymentMethod", e);
     }
-  }
-
+  };
 
   const getShippingMethods = async () => {
     // use map to mark the current session's selected method
@@ -158,7 +157,6 @@ export const useCheckout = (): UseCheckout => {
     getShippingMethod();
   });
 
-
   return {
     customerData,
     isGuestOrder,
@@ -173,6 +171,5 @@ export const useCheckout = (): UseCheckout => {
     paymentMethod: computed(() => currentPaymentMethod.value),
     shippingMethod: computed(() => currentShippingMethod.value),
     getCurrentShippingMethod,
-
   };
 };
