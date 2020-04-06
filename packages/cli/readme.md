@@ -52,6 +52,20 @@ module.exports = {
 
 3. run again `shopware-pwa init` and then `yarn dev`
 
+## Version update
+
+To be sure that you have the latest version of CLI for Shopware PWA installed, you just need to reinstall the package using the same commands as for installation:
+
+```bash
+yarn global add @shopware-pwa/cli
+```
+
+or
+
+```bash
+npm install -g @shopware-pwa/cli
+```
+
 ## License
 
 MIT - see LICENSE
