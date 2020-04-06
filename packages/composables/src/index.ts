@@ -3,6 +3,7 @@ export * from "./hooks/useProduct";
 export * from "./hooks/useCart";
 export * from "./logic/useAddToCart";
 export * from "./hooks/useCategoryFilters";
+export * from "./hooks/useCurrencySwitcher";
 export * from "./hooks/useNavigation";
 export * from "./hooks/useSalutations";
 export * from "./hooks/useCountries";

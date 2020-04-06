@@ -80,6 +80,14 @@ export async function setCurrentCurrency(
 }
 
 /**
+ * @alpha
+ */
+export async function getCurrentCurrency(): Promise<Currency> {
+  const contextResponse = await apiService.get(getContextEndpoint());
+  return contextResponse.data?.currency;
+}
+
+/**
  * @throws ClientApiError
  * @alpha
  */

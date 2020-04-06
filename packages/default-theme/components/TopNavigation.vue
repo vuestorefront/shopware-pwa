@@ -1,5 +1,6 @@
 <template>
   <div class="top-navigation">
+    {{ currentCurrency.symbol }}
     <SfHeader
       title="Shopware-PWA"
       :has-mobile-search="false"
@@ -84,6 +85,7 @@ import {
   useUser,
   useCart,
   useCartSidebar,
+  useCurrencySwitcher,
   useUserLoginModal,
   useNavigation,
   useProductSearch
@@ -98,6 +100,7 @@ export default {
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
     const { toggleSidebar } = useCartSidebar()
+    const { currentCurrency } = useCurrencySwitcher();
     const { toggleModal } = useUserLoginModal()
     const { search: fulltextSearch } = useProductSearch()
 
@@ -105,6 +108,7 @@ export default {
       routes,
       fetchRoutes,
       count,
+      currentCurrency,
       toggleModal,
       toggleSidebar,
       isLoggedIn,
