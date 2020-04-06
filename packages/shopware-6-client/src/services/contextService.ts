@@ -19,6 +19,7 @@ import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salut
 import { SearchResult } from "@shopware-pwa/commons/interfaces/response/SearchResult";
 import { UpdateContextParams } from "@shopware-pwa/commons/interfaces/request/UpdateContextParams";
 import { ContextTokenResponse } from "@shopware-pwa/commons/interfaces/response/ContextTokenResponse";
+import { Context } from "vm";
 
 /**
  * @throws ClientApiError
@@ -30,6 +31,16 @@ async function updateContext(
   const resp = await apiService.patch(getContextEndpoint(), params);
   const contextToken = resp.data["sw-context-token"];
   return { contextToken };
+}
+
+/**
+ * @throws ClientApiError
+ * @alpha
+ * @private
+ */
+async function getContext(): Promise<Context> {
+  const resp = await apiService.get(getContextEndpoint());
+  return resp.data;
 }
 
 /**
@@ -159,6 +170,16 @@ export async function setCurrentPaymentMethod(
  * @throws ClientApiError
  * @alpha
  */
+export async function getCurrentPaymentMethod(): Promise<PaymentMethod> {
+  const { paymentMethod } = await getContext();
+
+  return paymentMethod;
+}
+
+/**
+ * @throws ClientApiError
+ * @alpha
+ */
 export async function getAvailableShippingMethods(): Promise<
   SearchResult<ShippingMethod[]>
 > {
@@ -179,6 +200,17 @@ export async function setCurrentShippingMethod(
 
   return resp;
 }
+
+/**
+ * @throws ClientApiError
+ * @alpha
+ */
+export async function getCurrentShippingMethod(): Promise<ShippingMethod> {
+  const { ShippingMethod } = await getContext();
+
+  return ShippingMethod;
+}
+
 /**
  * @throws ClientApiError
  * @alpha

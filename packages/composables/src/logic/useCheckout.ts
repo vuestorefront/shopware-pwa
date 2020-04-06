@@ -1,4 +1,4 @@
-import { Ref, computed, ref } from "@vue/composition-api";
+import { Ref, computed, ref, onMounted } from "@vue/composition-api";
 // import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { useUser } from "@shopware-pwa/composables";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
@@ -13,6 +13,8 @@ import {
   getAvailableShippingMethods,
   getAvailablePaymentMethods,
   createGuestOrder,
+  getCurrentPaymentMethod,
+  getCurrentShippingMethod
 } from "@shopware-pwa/shopware-6-client";
 import { useCart } from "../hooks/useCart";
 /**
@@ -38,6 +40,9 @@ export interface UseCheckout {
 export const useCheckout = (): UseCheckout => {
   // TODO: create useContext in order to get current ShippingMethod, PaymentMethod
   // const { shippingMethod, paymentMethod, refresh } = useContext();
+  const currentShippingMethod: Ref<ShippingMethod | null> = ref(null);
+  const currentPaymentMethod: Ref<PaymentMethod | null> = ref(null);
+
   const { isLoggedIn, user } = useUser();
   const { placeOrder } = useCart();
   const shippingMethods = ref([]);
@@ -46,6 +51,23 @@ export const useCheckout = (): UseCheckout => {
   // const error: Ref<any> = ref(null);
   const shippingAddress: Ref<ShippingAddress | null> = ref(null);
   const billingAddress: Ref<BillingAddress | null> = ref(null);
+
+  const getShippingMethod = async (): Promise<void> => {
+    try {
+      currentShippingMethod.value = await getCurrentShippingMethod();
+    } catch (e) {
+      console.error('useCheckout:getShippingMethod', e)
+    }
+  }
+  const getPaymentMethod = async (): Promise<void> => {
+    try {
+      currentPaymentMethod.value = await getCurrentPaymentMethod();
+    } catch (e) {
+      console.error('useCheckout:getPaymentMethod', e)
+    }
+  }
+
+
   const getShippingMethods = async () => {
     // use map to mark the current session's selected method
     // or just export the shippingMethod and paymentMethod as a composable property and do the marking logic (on dropdown to preselect active) in theme
@@ -132,6 +154,11 @@ export const useCheckout = (): UseCheckout => {
   const customerData = computed(() => user.value);
   const isGuestOrder = computed(() => !isLoggedIn.value);
 
+  onMounted(() => {
+    getShippingMethod();
+  });
+
+
   return {
     customerData,
     isGuestOrder,
@@ -143,5 +170,9 @@ export const useCheckout = (): UseCheckout => {
     setShippingMethod,
     createOrder,
     shippingMethods: computed(() => shippingMethods.value),
+    paymentMethod: computed(() => currentPaymentMethod.value),
+    shippingMethod: computed(() => currentShippingMethod.value),
+    getCurrentShippingMethod,
+
   };
 };

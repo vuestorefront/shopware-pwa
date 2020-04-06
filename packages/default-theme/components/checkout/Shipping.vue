@@ -191,12 +191,12 @@ export default {
       phoneNumber,
     } = useShipping()
     const { getCountries } = useCountries()
-    const { getShippingMethods, shippingMethods, setShippingMethod } = useCheckout()
+    const { getShippingMethods, shippingMethods, setShippingMethod, shippingMethod: currentShippingMethod } = useCheckout()
 
     getShippingMethods()
 
     const shippingMethod = computed({
-      get: () => '', // TODO get from useCheckout
+      get: () => currentShippingMethod.value, // TODO get from useCheckout
       set: (val) => {
         setShippingMethod(val)
       },
