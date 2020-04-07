@@ -69,6 +69,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, minLength, sameAs } from 'vuelidate/lib/validators'
+import { computed } from '@vue/composition-api';
 import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 import { getMessagesFromErrorsArray } from '@shopware-pwa/helpers'
@@ -80,12 +81,13 @@ export default {
   props: {},
   setup() {
     const { user, error: userError, updatePassword, refreshUser } = useUser()
+    const userErrorMessages = computed(() => getMessagesFromErrorsArray(userError.value.message))
+
     return {
       refreshUser,
       updatePassword,
       user,
-      userError,
-      getMessagesFromErrorsArray
+      userErrorMessages
     }
   },
   data() {
@@ -94,15 +96,6 @@ export default {
       newPassword: '',
       newPasswordConfirm: '',
       email: this.user && this.user.email
-    }
-  },
-  computed: {
-    useUserErrorMessages() {
-      // all the 400 errors are in a raw format stright from the API - to be extracted easily depeding on needs.
-      return (
-        this.userError &&
-        this.getMessagesFromErrorsArray(this.userError.message)
-      )
     }
   },
   methods: {
