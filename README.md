@@ -47,6 +47,12 @@ If you have any questions or ideas feel free to join our slack: https://vuestore
 ### Installation
 
 ```bash
+yarn global add @shopware-pwa/cli
+```
+
+or
+
+```bash
 npm install -g @shopware-pwa/cli
 ```
 
@@ -100,6 +106,28 @@ module.exports = {
 3. run again `shopware-pwa init` (to refresh plugins from instance) and then `yarn dev`
 
 Read full instruction in `CHEATSHEET.md` file.
+
+### Version update
+
+To be sure that you have the latest version of CLI for Shopware PWA installed, you just need to reinstall the package using the same commands as for installation:
+
+```bash
+yarn global add @shopware-pwa/cli
+```
+
+or
+
+```bash
+npm install -g @shopware-pwa/cli
+```
+
+::: tip Canary version  
+If you want to update to `canary` version, just add this to update command. If you're using it please remember to update often as it's changing with master branch.
+
+```bash
+npm install -g @shopware-pwa/cli@canary
+```
+:::
 
 ### Running with plugins
 
@@ -210,7 +238,7 @@ We also setup Prettier (https://prettier.io/) on git pre-commit hook to automati
 
 ##### Code review
 
-- Two people code review.
+- At least one core team member must do a code review
 
 ##### Environment
 
@@ -269,7 +297,7 @@ We use CircleCI for continuous integration tool. In the pipeline, we run a few n
 
 ### Test coverage
 
-In the early stages of the development, we decided to keep 99% of unit tests code coverage. That means you will not be surprised by the changed behaviour of the methods in your storefront product. If you break it, you will be notified by the tests.
+In the early stages of the development, we decided to keep 100% of unit tests code coverage. That means you will not be surprised by the changed behaviour of the methods in your storefront product. If you break it, you will be notified by the tests.
 
 In the next phases of development, we will make the following decisions associated with testing. We will probably cover critical paths with end2end testing.
 
