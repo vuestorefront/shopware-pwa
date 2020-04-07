@@ -1,9 +1,9 @@
-# Structure
-Short description of project's structure.
+# Project structure
+Short description of project structure.
 
-#### There are 7 packages that are part of the project.
+## Packages description
 
-They are located in ./packages and can be developing and published separatelly.
+They are located in ./packages and can be developing and published separately.
 
 1. **cli** [_@shopware-pwa/cli_](https://www.npmjs.com/package/@shopware-pwa/cli) - A CLI tool for creating an instance of Shopware PWA projects.
 2. **commons** [_@shopware-pwa/commons_](https://www.npmjs.com/package/@shopware-pwa/commons) - A collection of all necessary interfaces shared across the project's ecosystem.
@@ -13,6 +13,8 @@ They are located in ./packages and can be developing and published separatelly.
 6. **nuxt-module** [_@shopware-pwa/nuxt-module_](https://www.npmjs.com/package/@shopware-pwa/nuxt-module) - It makes the whole project working properly. Connects some part of the project and enables modifications.
 7. **shopware-6-client** [_@shopware-pwa/shopware-6-client_](https://www.npmjs.com/package/@shopware-pwa/shopware-6-client) - Shopware 6 API client. Tailored to the sales-channel-api.
 ---
+
+## Project tree
 
 The files structure shows the tree below
 ```
