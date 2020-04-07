@@ -10,26 +10,34 @@ import cookieUniversal from "cookie-universal";
 
 const cookies = cookieUniversal();
 
+export interface CheckoutStepFields {
+  [property: string]: unknown;
+}
+
+export interface VuelidateValidation {
+  $invalid: boolean;
+  $touch: () => void;
+}
 export function createCheckoutStep({
   stepNumber,
   stepFields,
-  data,
+  stepDataUpdated,
 }: {
   stepNumber: number;
-  stepFields: Object;
-  data: Ref<Object>;
+  stepFields: CheckoutStepFields;
+  stepDataUpdated: (updatedData: CheckoutStepFields) => void;
 }) {
   const stepData = reactive({
     ...stepFields,
     isValid: null,
   });
 
-  const sharedCache = reactive({
+  const sharedCache: { $v: VuelidateValidation | null } = reactive({
     $v: null,
   });
 
   return () => {
-    const stepDataCache = ref(null);
+    const stepDataCache: Ref<{ isValid: boolean } | null> = ref(null);
 
     const validations = computed(() => sharedCache.$v);
     const isValid = computed(() => {
@@ -38,7 +46,7 @@ export function createCheckoutStep({
         : stepDataCache.value?.isValid;
     });
 
-    const setValidations = ($v) => {
+    const setValidations = ($v: VuelidateValidation) => {
       sharedCache.$v = $v;
     };
 
@@ -54,17 +62,17 @@ export function createCheckoutStep({
         cookies.set("sw-checkout-" + stepNumber, value, {
           maxAge: 60 * 15, // 15 min to complete checkout,
         });
-        if (data) data.value = value;
+        if (stepDataUpdated) stepDataUpdated(value);
       } else {
         if (!stepDataCache.value) {
           stepDataCache.value = cookies.get("sw-checkout-" + stepNumber) || {};
           Object.assign(stepData, stepDataCache.value);
-          if (data) data.value = objectToSave.value;
+          if (stepDataUpdated) stepDataUpdated(value);
         }
       }
     });
 
-    const validate = ($v) => {
+    const validate = () => {
       validations.value && validations.value.$touch();
     };
 
