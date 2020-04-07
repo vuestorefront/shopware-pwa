@@ -1,8 +1,8 @@
 <template>
   <div class="sw-product-list">
-    <SfLoader :loading="loading">
-      <div class="sw-product-list__wrapper" v-if="products.length && !loading">
-        <div class="sw-product-list__list">
+    <SfLoader :loading="loading" class="sw-product-list__loader"/>
+      <div class="sw-product-list__wrapper" v-if="products.length">
+        <div class="sw-product-list__list" :class="{'sw-product-list__list--blur': loading}">
           <SwProductCard
             class="sw-product-list__product-card"
             v-for="product in products"
@@ -24,7 +24,6 @@
         title="No products found"
         subtitle="let us look for them"
       />
-    </SfLoader>
   </div>
 </template>
 
@@ -132,6 +131,18 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
 .sw-product-list {
   display: flex;
   justify-content: center;
+  position: relative;
+
+  &__loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    --loader-overlay-background: transparent;
+    width: 38px;
+    height: 38px;
+    z-index: 2;
+  }
 
   ::v-deep &__wrapper {
     display: flex;
@@ -143,6 +154,10 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
     display: flex;
     width: 100%;
     flex-flow: row wrap;
+    transition: filter .1s ease-in;
+    &--blur {
+      filter: blur(10px);
+    }
   }
 
   ::v-deep &__product-card {
@@ -223,11 +238,5 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
   @include for-desktop-big {
     max-width: $mx-photo-wth-5 !important;
   }
-}
-
-::v-deep .sf-loader {
-  width: 100%;
-  display: flex;
-  justify-content: center;
 }
 </style>
