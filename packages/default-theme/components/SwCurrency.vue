@@ -1,39 +1,40 @@
 <template>
   <div class="container">
-    
-    <SfSelect v-model="currency" class="container__select">
-      <SfSelectOption v-for="currencyItem in availableCurrencies" :key="currencyItem.name" :value="currencyItem.name">
+    {{activeCurrency}}
+    <SfSelect v-model="activeCurrency" class="container__select">
+      <SfSelectOption v-for="currencyItem in availableCurrencies" :key="currencyItem.id" :value="currencyItem.id">
         <div>{{ currencyItem.symbol }}</div>
       </SfSelectOption>
     </SfSelect>
   </div>
 </template>
 <script>
-import { SfSelect, SfSelectOption } from '@storefront-ui/vue';
+import { SfSelect } from '@storefront-ui/vue';
 import { useCurrencySwitcher } from '@shopware-pwa/composables';
+import { computed } from '@vue/composition-api';
 
 export default {
   name: 'SwCurrency',
   components: {
-    SfSelect,
+    SfSelect
   },
-
+  data() {
+    return {
+      currency: null
+    }
+  },
   setup() {
     const { 
       availableCurrencies,
       currentCurrency 
       } = useCurrencySwitcher()
-
+    const activeCurrency = computed(() => currentCurrency.value && currentCurrency.value.symbol)
     return {
       availableCurrencies,
-      currentCurrency
+      currentCurrency,
+      activeCurrency
     }
   },
-  watch: {
-    
-  },
-  methods: {
-  }
 }
 </script>
 <style lang="scss" scoped>
@@ -41,9 +42,7 @@ export default {
 
 .container {
   margin: 0 -5px;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
+
 
   &::v-deep .sf-select {
     --select-font-size: var(--font-size-small);

@@ -19,7 +19,7 @@ export const useCurrencySwitcher = (): any => {
   const fetchCurrencies = async (): Promise<void> => {
     if (!sharedCurrency.currencies) {
       const currencies = await getAvailableCurrencies();
-      sharedCurrency.currencies = currencies;
+      sharedCurrency.availableCurrencies = currencies;
     }
   };
 
@@ -42,9 +42,9 @@ export const useCurrencySwitcher = (): any => {
     return true;
   }
 
-  onMounted(() => {
-    fetchCurrencies();
-    fetchCurrentCurrency();
+  onMounted( () => {
+     fetchCurrencies();
+     fetchCurrentCurrency();
   })
 
   return {
