@@ -3,7 +3,12 @@ import cookieUniversal from "cookie-universal";
 
 const cookies = cookieUniversal();
 
-export function createCheckoutStep({ stepNumber, stepFields, data }) {
+export function createCheckoutStep({
+  stepNumber,
+  stepFields,
+  data,
+  stepDataUpdated,
+}) {
   const stepData = reactive({
     ...stepFields,
     isValid: null,
@@ -40,11 +45,13 @@ export function createCheckoutStep({ stepNumber, stepFields, data }) {
           maxAge: 60 * 15, // 15 min to complete checkout,
         });
         if (data) data.value = value;
+        if (stepDataUpdated) stepDataUpdated(value);
       } else {
         if (!stepDataCache.value) {
           stepDataCache.value = cookies.get("sw-checkout-" + stepNumber) || {};
           Object.assign(stepData, stepDataCache.value);
           if (data) data.value = objectToSave.value;
+          if (stepDataUpdated) stepDataUpdated(value);
         }
       }
     });

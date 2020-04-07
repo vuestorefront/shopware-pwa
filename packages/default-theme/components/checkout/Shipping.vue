@@ -191,14 +191,15 @@ export default {
       phoneNumber,
     } = useShippingStep()
     const { getCountries } = useCountries()
-    const { getShippingMethods, shippingMethods, setShippingMethod, shippingMethod: currentShippingMethod } = useCheckout()
+    const { getShippingMethods } = useCheckout()
 
     getShippingMethods()
 
     const shippingMethod = computed({
-      get: () => currentShippingMethod.value, // TODO get from useCheckout
+      get: () => null, // currentShippingMethod.value, // TODO get from useCheckout
       set: (val) => {
-        setShippingMethod(val)
+        // setShippingMethod(val)
+        console.error('SETTING SHIPPPING', val)
       },
     })
 
@@ -215,7 +216,7 @@ export default {
       countryId,
       phoneNumber,
       getCountries,
-      shippingMethods,
+      shippingMethods: [],
       shippingMethod
     }
   },
