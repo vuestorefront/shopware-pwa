@@ -22,7 +22,8 @@ Thank you for your interest in, and engagement! :)
 
 You may want to read:
 
-- [Project documentation / General README.md](https://github.com/DivanteLtd/shopware-pwa)
+- [See the file structure explained](./STRUCTURE.md)
+- [Project documentation / General README.md](./README.md)
 - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ## Branches
