@@ -1,4 +1,4 @@
-interface BillingAddress {
+export interface BillingAddress {
   countryId: string;
   salutationId: string;
   street: string;
@@ -10,18 +10,18 @@ interface BillingAddress {
   phoneNumber?: string;
 }
 
-interface ShippingAddress extends BillingAddress {
+export interface ShippingAddress extends BillingAddress {
   firstName: string;
   lastName: string;
 }
 
-export interface CreateGuestOrderParams {
+export interface GuestOrderParams {
   email: string;
   salutationId: string;
   firstName: string;
   lastName: string;
   billingAddress: BillingAddress;
-  shippingAddress: ShippingAddress;
+  shippingAddress?: ShippingAddress;
   affiliateCode?: string;
   campaignCode?: string;
   phoneNumber?: string;

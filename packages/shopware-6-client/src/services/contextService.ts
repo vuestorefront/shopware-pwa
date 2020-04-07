@@ -18,7 +18,10 @@ import { Language } from "@shopware-pwa/commons/interfaces/models/framework/lang
 import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
 import { SearchResult } from "@shopware-pwa/commons/interfaces/response/SearchResult";
 import { UpdateContextParams } from "@shopware-pwa/commons/interfaces/request/UpdateContextParams";
-import { ContextTokenResponse } from "@shopware-pwa/commons/interfaces/response/ContextTokenResponse";
+import {
+  ContextTokenResponse,
+  SessionContext,
+} from "@shopware-pwa/commons/interfaces/response/SessionContext";
 
 /**
  * @throws ClientApiError
@@ -30,6 +33,17 @@ async function updateContext(
   const resp = await apiService.patch(getContextEndpoint(), params);
   const contextToken = resp.data["sw-context-token"];
   return { contextToken };
+}
+
+/**
+ * Loads session context, containing all session-related data.
+ *
+ * @throws ClientApiErrosr
+ * @alpha
+ */
+export async function getSessionContext(): Promise<SessionContext> {
+  const resp = await apiService.get(getContextEndpoint());
+  return resp.data;
 }
 
 /**
