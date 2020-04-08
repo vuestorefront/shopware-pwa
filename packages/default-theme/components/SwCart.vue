@@ -78,12 +78,6 @@ export default {
       removeProduct
     }
   },
-  filters: {
-    price(price) {
-      if (!price) return
-      return `$${price}`
-    }
-  },
   methods: {
     goToCheckout() {
       this.toggleSidebar()

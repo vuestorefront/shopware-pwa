@@ -1,16 +1,19 @@
 <template>
-  <div class="container">
-    {{activeCurrency}}
-    <SfSelect v-model="activeCurrency" class="container__select">
-      <SfSelectOption v-for="currencyItem in availableCurrencies" :key="currencyItem.id" :value="currencyItem.id">
-        <div>{{ currencyItem.symbol }}</div>
+  <div class="container" v-if="activeCurrency && availableCurrencies && availableCurrencies.length">
+    <SfSelect v-model="activeCurrency" :size="availableCurrencies.length" class="container__select">
+      <SfSelectOption
+        v-for="currencyItem in availableCurrencies"
+        :key="currencyItem.id"
+        :value="currencyItem.id"
+      >
+        {{currencyItem.symbol}}
       </SfSelectOption>
     </SfSelect>
   </div>
 </template>
 <script>
-import { SfSelect } from '@storefront-ui/vue';
-import { useCurrencySwitcher } from '@shopware-pwa/composables';
+import { SfSelect, SfProductOption } from '@storefront-ui/vue';
+import { useCurrency } from '@shopware-pwa/composables';
 import { computed } from '@vue/composition-api';
 
 export default {
@@ -18,20 +21,26 @@ export default {
   components: {
     SfSelect
   },
-  data() {
-    return {
-      currency: null
-    }
-  },
   setup() {
     const { 
       availableCurrencies,
-      currentCurrency 
-      } = useCurrencySwitcher()
-    const activeCurrency = computed(() => currentCurrency.value && currentCurrency.value.symbol)
+      currentCurrency,
+      fetchCurrencies,
+      switchCurrency
+      } = useCurrency()
+
+    const activeCurrency = computed({
+      get: () => currentCurrency.value && currentCurrency.value.id,
+      set: (currencyId) => switchCurrency(currencyId).then(() => {
+        if (window) {
+          // TODO: use some kind of event bus, or something that triggers reloading
+          // all the price conversion-related places asynchronously
+          window.location.reload(true)
+        }
+      })
+    })
     return {
       availableCurrencies,
-      currentCurrency,
       activeCurrency
     }
   },
@@ -40,27 +49,44 @@ export default {
 <style lang="scss" scoped>
 @import "~@storefront-ui/vue/styles";
 
+.menu-button {
+  .container {
+    margin: 0;
+    &::v-deep .sf-select {
+      --select-font-size: 1.4rem;
+      --select-font-weight: 400;
+      color: #afb0b6;
+
+      &__dropdown {
+        --select-font-size: var(--font-size-medium);
+        --select-font-weight: 200;
+        color: var(--c-text);
+      }
+    }
+    
+  }
+}
 .container {
-  margin: 0 -5px;
-
-
+  text-align: center;
+  margin: 0 0 0 var(--spacer-big);
+  padding:10 px;
   &::v-deep .sf-select {
-    --select-font-size: var(--font-size-small);
+    --select-font-size: var(--font-size-medium);
+    --select-font-weight: 400;
   }
 
   &__select {
-    padding: 0 5px;
     margin: 0;
+    display: block;
     cursor: pointer;
 
     &::v-deep .sf-select__dropdown {
-      min-width: 150px;
+      min-width: 50px;
     }
 
     &::v-deep .sf-select__selected {
-      padding: 0;
-      display: flex;
-      align-items: center;
+      text-align: center;
+      display: block;
     }
   }
 }

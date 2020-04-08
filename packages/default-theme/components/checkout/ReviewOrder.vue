@@ -40,8 +40,9 @@
 </template>
 
 <script>
-import { useCart, useUser } from '@shopware-pwa/composables'
-import helpers from '@shopware-pwa/default-theme/helpers'
+import { computed } from '@vue/composition-api'
+import { useCart, useUser, useCurrency } from '@shopware-pwa/composables'
+import { formatPrice } from '@shopware-pwa/default-theme/helpers'
 import PersonalDetails from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/PersonalDetails'
 import ShippingAddress from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/ShippingAddress'
 import BillingAddress from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/BillingAddress'
@@ -96,6 +97,8 @@ export default {
       removeProduct
     } = useCart()
     const { isLoggedIn } = useUser()
+    const { currentCurrencySymbol } = useCurrency();
+    const currencySymbol = computed(() => currentCurrencySymbol && currentCurrencySymbol.value)
     return {
       refreshCart,
       cartItems,
@@ -103,7 +106,8 @@ export default {
       total: totalPrice,
       placeApiOrder,
       isUserLoggedIn: isLoggedIn,
-      removeProduct
+      removeProduct,
+      currencySymbol
     }
   },
   computed: {
@@ -115,7 +119,7 @@ export default {
       const method = this.shippingMethods.find(
         method => method.value === shippingMethod
       )
-      return method ? method : { price: helpers.formatPrice(0) }
+      return method ? method : { price: formatPrice(0, { symbol: this.currencySymbol }) }
     },
     payment() {
       return this.order.payment

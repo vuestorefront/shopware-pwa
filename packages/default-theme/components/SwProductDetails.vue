@@ -6,8 +6,8 @@
         :name="name"
         :reviews="reviews"
         :rating-average="ratingAverage"
-        :special="price > getSpecialPrice ? getSpecialPrice : price"
-        :price="price > getSpecialPrice ? price : getSpecialPrice"
+        :special="getSpecialPrice | price"
+        :price="getPrice | price"
       />
     </div>
     <p class="product-details__description desktop-only">
@@ -90,7 +90,6 @@
     </SwProductTabs>
   </div>
 </template>
-
 <script>
 import {
   SfAlert,
@@ -116,7 +115,6 @@ import { useProduct, useAddToCart } from '@shopware-pwa/composables'
 import SwProductHeading from '@shopware-pwa/default-theme/components/SwProductHeading'
 import SwProductSelect from '@shopware-pwa/default-theme/components/SwProductSelect'
 import SwProductTabs from '@shopware-pwa/default-theme/components/SwProductTabs'
-
 export default {
   name: 'SwProductDetails',
   components: {
@@ -156,12 +154,19 @@ export default {
     }
   },
   computed: {
-    price() {
-      return getProductRegularPrice({ product: this.product })
+    getPrice() {
+      // remove that logic once the SW6 API returns right data
+      // related: https://github.com/DivanteLtd/shopware-pwa/issues/263
+      const regularPrice = getProductRegularPrice({ product: this.product })
+      const specialPrice = getProductSpecialPrice(this.product)
+      return regularPrice > specialPrice ? regularPrice : specialPrice
     },
     getSpecialPrice() {
-      const price = getProductSpecialPrice(this.product)
-      return price && '$' + price
+      // remove that logic once the SW6 API returns right data
+      // related: https://github.com/DivanteLtd/shopware-pwa/issues/263
+      const regularPrice = getProductRegularPrice({ product: this.product })
+      const specialPrice = getProductSpecialPrice(this.product)
+      return regularPrice > specialPrice ? specialPrice : regularPrice
     },
     name() {
       return (

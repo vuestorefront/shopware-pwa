@@ -30,17 +30,17 @@
       />
       <SfProperty
         name="Subtotal"
-        :value="subtotal"
+        :value="subtotal | price"
         class="sf-property--full-width property"
       />
       <SfProperty
         name="Shipping"
-        :value="shippingMethod.price"
+        :value="shippingMethod.price | price"
         class="sf-property--full-width property"
       />
       <SfProperty
         name="Total"
-        :value="totalPrice"
+        :value="totalPrice | price"
         class="sf-property--full-width property-total"
       />
     </div>

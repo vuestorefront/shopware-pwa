@@ -4,7 +4,7 @@
       <div class="summary__total">
         <SfProperty
           name="Subtotal"
-          :value="formatFrontPrice(subtotal)"
+          :value="subtotal | price"
           class="sf-property--full-width property"
         >
           <template #name
@@ -20,7 +20,7 @@
         </SfProperty>
         <SfProperty
           name="Total"
-          :value="formatFrontPrice(total)"
+          :value="total | price"
           class="sf-property--full-width property--huge summary__property-total">
           <template #name>TOTAL</template>
         </SfProperty>
@@ -65,7 +65,6 @@
 </template>
 <script>
 import { useCart, useUser } from '@shopware-pwa/composables'
-import helpers from '@shopware-pwa/default-theme/helpers'
 import { PAGE_SUCCESS_PAGE } from '@shopware-pwa/default-theme/helpers/pages'
 
 import {
@@ -108,9 +107,6 @@ export default {
     }
   },
   methods: {
-    formatFrontPrice(price) {
-      return helpers.formatPrice(price)
-    },
     async placeOrder() {
       try {
         const order = await this.placeApiOrder()

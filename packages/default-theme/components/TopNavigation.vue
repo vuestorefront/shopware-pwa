@@ -40,7 +40,6 @@
       <template #header-icons="{accountIcon, cartIcon}">
         <div class="sf-header__icons desktop-only">
           <div class="sf-header__icons">
-            <SwCurrency />
             <SfCircleIcon
               v-if="accountIcon"
               :icon="accountIcon"
@@ -71,6 +70,7 @@
               :aria-pressed="activeIcon === 'cart-icon' ? 'true' : 'false'"
               @click="toggleSidebar"
             />
+            <SwCurrency />
           </div>
         </div>
       </template>
@@ -85,7 +85,6 @@ import {
   useUser,
   useCart,
   useCartSidebar,
-  useCurrencySwitcher,
   useUserLoginModal,
   useNavigation,
   useProductSearch
@@ -101,7 +100,6 @@ export default {
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
     const { toggleSidebar } = useCartSidebar()
-    const { currentCurrency } = useCurrencySwitcher();
     const { toggleModal } = useUserLoginModal()
     const { search: fulltextSearch } = useProductSearch()
 
@@ -109,7 +107,6 @@ export default {
       routes,
       fetchRoutes,
       count,
-      currentCurrency,
       toggleModal,
       toggleSidebar,
       isLoggedIn,

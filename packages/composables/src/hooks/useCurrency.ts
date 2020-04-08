@@ -3,17 +3,18 @@ import { reactive, computed, onMounted } from "@vue/composition-api";
 import { getAvailableCurrencies, setCurrentCurrency, getCurrentCurrency } from "@shopware-pwa/shopware-6-client";
 
 const sharedCurrency = Vue.observable({
-  currentCurrency: null,
+  currentCurrency: '', // should be empty as default to prevent null displaying, next to price
   availableCurrencies: null
 } as any);
 
 /**
  * @alpha
  */
-export const useCurrencySwitcher = (): any => {
+export const useCurrency = (): any => {
   
   const localCurrency = reactive(sharedCurrency);
   const currentCurrency = computed(() => localCurrency.currentCurrency);
+  const currentCurrencySymbol = computed(() => localCurrency.currentCurrency && localCurrency.currentCurrency.symbol);
   const availableCurrencies = computed(() => localCurrency.availableCurrencies);
 
   const fetchCurrencies = async (): Promise<void> => {
@@ -23,8 +24,8 @@ export const useCurrencySwitcher = (): any => {
     }
   };
 
-  const fetchCurrentCurrency = async (): Promise<void> => {
-    if (!sharedCurrency.currentCurrency) {
+  const fetchCurrentCurrency = async (force:boolean = false): Promise<void> => {
+    if (!sharedCurrency.currentCurrency || sharedCurrency.currentCurrency === "" || force) {
       sharedCurrency.currentCurrency = await getCurrentCurrency();
     }
   }
@@ -39,17 +40,21 @@ export const useCurrencySwitcher = (): any => {
       return false;
     }
 
+    await fetchCurrentCurrency(true);
+
     return true;
   }
 
-  onMounted( () => {
+  onMounted(() => {
      fetchCurrencies();
      fetchCurrentCurrency();
   })
 
   return {
+    fetchCurrencies,
+    switchCurrency,
     availableCurrencies,
     currentCurrency,
-    switchCurrency
+    currentCurrencySymbol,
   };
 };
