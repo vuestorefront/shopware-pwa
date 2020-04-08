@@ -8,8 +8,6 @@ import {
 } from "@vue/composition-api";
 import cookieUniversal from "cookie-universal";
 
-const cookies = cookieUniversal();
-
 export interface CheckoutStepFields {
   [property: string]: unknown;
 }
@@ -17,6 +15,14 @@ export interface CheckoutStepFields {
 export interface VuelidateValidation {
   $invalid: boolean;
   $touch: () => void;
+}
+
+export interface CreateCheckoutStep {
+  isValid: Readonly<Ref<boolean>>;
+  validations: Readonly<Ref<Readonly<VuelidateValidation> | null>>;
+  setValidations: ($v: VuelidateValidation) => void;
+  validate: () => void;
+  [property: string]: any;
 }
 export function createCheckoutStep({
   stepNumber,
@@ -27,6 +33,8 @@ export function createCheckoutStep({
   stepFields: CheckoutStepFields;
   stepDataUpdated: (updatedData: CheckoutStepFields) => void;
 }) {
+  const cookies = cookieUniversal();
+
   const stepData = reactive({
     ...stepFields,
     isValid: null,
@@ -36,14 +44,14 @@ export function createCheckoutStep({
     $v: null,
   });
 
-  return () => {
+  return (): CreateCheckoutStep => {
     const stepDataCache: Ref<{ isValid: boolean } | null> = ref(null);
 
     const validations = computed(() => sharedCache.$v);
     const isValid = computed(() => {
       return validations.value
         ? !validations.value.$invalid
-        : stepDataCache.value?.isValid;
+        : !!stepDataCache.value?.isValid;
     });
 
     const setValidations = ($v: VuelidateValidation) => {
@@ -58,7 +66,6 @@ export function createCheckoutStep({
     });
     watch(objectToSave, (value) => {
       if (validations.value) {
-        // const cookies = cookieUniversal()
         cookies.set("sw-checkout-" + stepNumber, value, {
           maxAge: 60 * 15, // 15 min to complete checkout,
         });
@@ -67,8 +74,8 @@ export function createCheckoutStep({
         if (!stepDataCache.value) {
           stepDataCache.value = cookies.get("sw-checkout-" + stepNumber) || {};
           Object.assign(stepData, stepDataCache.value);
-          if (stepDataUpdated) stepDataUpdated(value);
         }
+        if (stepDataUpdated) stepDataUpdated(value);
       }
     });
 
