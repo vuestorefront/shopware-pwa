@@ -13,21 +13,17 @@
       </template>
       <template #navigation>
         <SfHeaderNavigationItem
-          v-for="{ routeLabel, routePath } in routes"
-          :key="routeLabel"
+          v-for="category in navigationElements"
+          :key="category.name"
           class="sf-header__link"
+          @mouseover="setHoverNavigationItem(category.name)"
+          @mouseleave="setHoverNavigationItem('')"
+          @keyup.tab="setHoverNavigationItem(category.name)"
         >
-          <nuxt-link class="sf-header__link" :to="routePath">
-            <a
-              :style="{
-                display: 'flex',
-                alignItems: 'center',
-                height: '100%'
-              }"
-            >
-              {{ routeLabel }}
-            </a>
+          <nuxt-link class="sf-header__link" :to="`/${category.route.path}`">
+            {{ category.name }}
           </nuxt-link>
+          <SwMegaMenu :category="category" :hoveredItem="hoveredNavigationItem"/>
         </SfHeaderNavigationItem>
       </template>
       <template #search>
@@ -89,46 +85,60 @@ import {
   useProductSearch
 } from '@shopware-pwa/composables'
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
+import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
+import { ref, reactive, onMounted } from "@vue/composition-api";
+import { getNavigation } from '@shopware-pwa/shopware-6-client'
 import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
 
 export default {
-  components: { SfHeader, SfCircleIcon, SwLoginModal, SfImage, SfSearchBar },
+  components: { SfHeader, SfCircleIcon, SwLoginModal, SfImage, SfSearchBar, SwMegaMenu },
   setup() {
-    const { routes, fetchRoutes } = useNavigation()
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
     const { toggleSidebar } = useCartSidebar()
     const { toggleModal } = useUserLoginModal()
     const { search: fulltextSearch } = useProductSearch()
 
+    const navigationElements = reactive([])
+    const hoveredNavigationItem = ref('')
+
+    onMounted(async () => {
+      const { children } = await getNavigation({
+        depth: 2
+      })
+      navigationElements.push(...children)
+    })
+
+    function setHoverNavigationItem(itemName) {
+      hoveredNavigationItem.value = itemName
+    }
+
     return {
-      routes,
-      fetchRoutes,
       count,
       toggleModal,
       toggleSidebar,
       isLoggedIn,
       logout,
-      fulltextSearch
+      fulltextSearch,
+      navigationElements,
+      hoveredNavigationItem,
+      setHoverNavigationItem
     }
   },
   data() {
     return {
-      navigationElements: [{ name: '' }],
       activeSidebar: 'account',
       activeIcon: '',
       isModalOpen: false
     }
-  },
-  async mounted() {
-    await this.fetchRoutes({ depth: 1 })
   },
   methods: {
     userIconClick() {
       if (this.isLoggedIn) this.$router.push(PAGE_ACCOUNT)
       else this.toggleModal()
     }
-  }
+  },
+
 }
 </script>
 

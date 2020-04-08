@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <TopNavigation />
+    <SwTopNavigation />
     <SwPluginTopNavigation />
     <SfBreadcrumbs
       v-show="getBreadcrumbs.length > 0"
@@ -17,7 +17,7 @@
 
 <script>
 import { SfBreadcrumbs } from '@storefront-ui/vue'
-import TopNavigation from '@shopware-pwa/default-theme/components/TopNavigation'
+import SwTopNavigation from '@shopware-pwa/default-theme/components/SwTopNavigation'
 import SwBottomNavigation from '@shopware-pwa/default-theme/components/SwBottomNavigation'
 import SwCart from '@shopware-pwa/default-theme/components/SwCart'
 import SwFooter from '@shopware-pwa/default-theme/components/cms/elements/SwFooter'
@@ -26,7 +26,7 @@ import SwPluginTopNavigation from 'sw-plugins/SwPluginTopNavigation'
 export default {
   components: {
     SfBreadcrumbs,
-    TopNavigation,
+    SwTopNavigation,
     SwCart,
     SwFooter,
     SwBottomNavigation,
