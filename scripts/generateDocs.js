@@ -26,6 +26,7 @@ async function run() {
     copyRootDirectoryFile("CONTRIBUTING.md"),
     copyRootDirectoryFile("TROUBLESHOOTING.md"),
     copyRootDirectoryFile("CHEATSHEET.md"),
+    copyRootDirectoryFile("STRUCTURE.md"),
   ]);
 }
 

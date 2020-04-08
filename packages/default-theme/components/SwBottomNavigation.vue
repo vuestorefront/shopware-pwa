@@ -13,10 +13,12 @@
               :key="route.routeLabel"
               :value="route"
             >
-              <SfProductOption
-                :value="route"
-                :label="route.routeLabel"
-              ></SfProductOption>
+              <nuxt-link class="sf-header__link" :to="route.routePath">
+                <SfProductOption
+                  :value="route"
+                  :label="route.routeLabel"
+                />
+              </nuxt-link>
             </SfSelectOption>
           </SfSelect>
         </template>

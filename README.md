@@ -30,6 +30,8 @@ PS: Check [StorefrontUI](https://github.com/DivanteLtd/storefront-ui/) - our UI 
   </tbody>
 </table>
 
+See [the documentation](https://shopware-pwa-docs.netlify.com/#introduction-to-shopware-pwa) to get started.
+
 ## Video demo
 
 [![See video demo!](https://divante.com/github/shopware-pwa/shopware-pwa-miniature.png)](https://youtu.be/t2JJgvvxMG8)
@@ -40,17 +42,27 @@ If you have any questions or ideas feel free to join our slack: https://vuestore
 
 ## Getting started
 
-### Documentation
-
-See [the documentation](https://shopware-pwa-docs.netlify.com/#introduction-to-shopware-pwa) to get started.
-
 ## Quickstart
 
 ### Installation
 
 ```bash
+yarn global add @shopware-pwa/cli
+```
+
+or
+
+```bash
 npm install -g @shopware-pwa/cli
 ```
+
+::: tip Canary version  
+Currently, we're releasing a `canary` version per every push to `master` branch, so in order to have newest changes and fixes just install it like this:
+
+```bash
+npm install -g @shopware-pwa/cli@canary
+```
+:::
 
 ### Usage
 
@@ -67,7 +79,7 @@ initialize project inside the directory
 shopware-pwa init
 ```
 
-after this you're connected to our test shopware instance and ready to run the project locally
+It will ask for the address to yous shopware instance, access token, and admin credentials to load plugins. Only the first two are required to start the instance, and default settings will point to our demo instance. Then you can just begin local development by typing:
 
 ```bash
 yarn dev
@@ -76,8 +88,11 @@ yarn dev
 Your application will be available on [http://localhost:3000](http://localhost:3000).  
 Now you have complete ShopwarePWA project running locally.
 
-#### Running Shopware PWA on custom Shopware instance
+### Running on custom Shopware instance
 
+You can simply invoke once again `shopware-pwa init` and pass data to your custom instance.
+
+Another way of doing this:
 1. edit file `shopware-pwa.config.js` inside the root of the newly created project
 2. fill it with your data, current example:
 
@@ -88,11 +103,33 @@ module.exports = {
 };
 ```
 
-3. run again `shopware-pwa init` and then `yarn dev`
+3. run again `shopware-pwa init` (to refresh plugins from instance) and then `yarn dev`
 
 Read full instruction in `CHEATSHEET.md` file.
 
-#### Running with plugins
+### Version update
+
+To be sure that you have the latest version of CLI for Shopware PWA installed, you just need to reinstall the package using the same commands as for installation:
+
+```bash
+yarn global add @shopware-pwa/cli
+```
+
+or
+
+```bash
+npm install -g @shopware-pwa/cli
+```
+
+::: tip Canary version  
+If you want to update to `canary` version, just add this to update command. If you're using it please remember to update often as it's changing with master branch.
+
+```bash
+npm install -g @shopware-pwa/cli@canary
+```
+:::
+
+### Running with plugins
 
 If you already have some Shopware PWA plugins installed (like [HelloCody](https://github.com/elkmod/SwagHelloCody) plugin example), then you can generate plugin files
 
@@ -201,7 +238,7 @@ We also setup Prettier (https://prettier.io/) on git pre-commit hook to automati
 
 ##### Code review
 
-- Two people code review.
+- At least one core team member must do a code review
 
 ##### Environment
 
@@ -260,7 +297,7 @@ We use CircleCI for continuous integration tool. In the pipeline, we run a few n
 
 ### Test coverage
 
-In the early stages of the development, we decided to keep 99% of unit tests code coverage. That means you will not be surprised by the changed behaviour of the methods in your storefront product. If you break it, you will be notified by the tests.
+In the early stages of the development, we decided to keep 100% of unit tests code coverage. That means you will not be surprised by the changed behaviour of the methods in your storefront product. If you break it, you will be notified by the tests.
 
 In the next phases of development, we will make the following decisions associated with testing. We will probably cover critical paths with end2end testing.
 
