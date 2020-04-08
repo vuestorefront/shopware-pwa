@@ -6,7 +6,7 @@ import {
   getCheckoutCartLineItemEndpoint,
 } from "../endpoints";
 import { apiService } from "../apiService";
-import { ContextTokenResponse } from "@shopware-pwa/commons/interfaces/response/ContextTokenResponse";
+import { ContextTokenResponse } from "@shopware-pwa/commons/interfaces/response/SessionContext";
 import { CartItemType } from "@shopware-pwa/commons/interfaces/cart/CartItemType";
 
 /**

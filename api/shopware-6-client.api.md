@@ -7,7 +7,7 @@
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
 import { Category } from '@shopware-pwa/commons/interfaces/models/content/category/Category';
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
-import { ContextTokenResponse } from '@shopware-pwa/commons/interfaces/response/ContextTokenResponse';
+import { ContextTokenResponse } from '@shopware-pwa/commons/interfaces/response/SessionContext';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
@@ -16,6 +16,7 @@ import { CustomerRegistrationParams } from '@shopware-pwa/commons/interfaces/req
 import { EqualsAnyFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { Grouping } from '@shopware-pwa/commons/interfaces/search/Grouping';
+import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Language } from '@shopware-pwa/commons/interfaces/models/framework/language/Language';
 import { MultiFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { NavigationResponse } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
@@ -27,6 +28,7 @@ import { RangeFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilte
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { SearchResult } from '@shopware-pwa/commons/interfaces/response/SearchResult';
+import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 import { ShopwareAssociation } from '@shopware-pwa/commons/interfaces/search/Association';
 
@@ -60,7 +62,7 @@ export interface ConfigChangedArgs {
 export function createCustomerAddress(params: CustomerAddressParam): Promise<string>;
 
 // @alpha
-export function createGuestOrder(email: string): Promise<Order>;
+export function createGuestOrder(params: GuestOrderParams): Promise<Order>;
 
 // @alpha
 export function createOrder(): Promise<Order>;
@@ -174,6 +176,9 @@ export const getProducts: (searchCriteria?: SearchCriteria | undefined) => Promi
 
 // @alpha
 export const getProductsIds: () => Promise<SearchResult<string[]>>;
+
+// @alpha
+export function getSessionContext(): Promise<SessionContext>;
 
 // @alpha (undocumented)
 export function getUserCountry(countryId: string): Promise<Country>;
