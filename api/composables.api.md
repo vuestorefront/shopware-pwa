@@ -22,13 +22,13 @@ import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salut
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 
-// @public (undocumented)
+// @alpha (undocumented)
 export interface CheckoutStepFields {
     // (undocumented)
     [property: string]: unknown;
 }
 
-// @public (undocumented)
+// @alpha (undocumented)
 export interface CreateCheckoutStep {
     // (undocumented)
     [property: string]: any;
@@ -42,7 +42,7 @@ export interface CreateCheckoutStep {
     validations: Readonly<Ref<Readonly<VuelidateValidation> | null>>;
 }
 
-// @public (undocumented)
+// @alpha (undocumented)
 export function createCheckoutStep({ stepNumber, stepFields, stepDataUpdated, }: {
     stepNumber: number;
     stepFields: CheckoutStepFields;
@@ -263,7 +263,7 @@ export const useUser: () => UseUser;
 // @alpha (undocumented)
 export const useUserLoginModal: () => any;
 
-// @public (undocumented)
+// @alpha (undocumented)
 export interface VuelidateValidation {
     // (undocumented)
     $invalid: boolean;

@@ -8,15 +8,24 @@ import {
 } from "@vue/composition-api";
 import cookieUniversal from "cookie-universal";
 
+/**
+ * @alpha
+ */
 export interface CheckoutStepFields {
   [property: string]: unknown;
 }
 
+/**
+ * @alpha
+ */
 export interface VuelidateValidation {
   $invalid: boolean;
   $touch: () => void;
 }
 
+/**
+ * @alpha
+ */
 export interface CreateCheckoutStep {
   isValid: Readonly<Ref<boolean>>;
   validations: Readonly<Ref<Readonly<VuelidateValidation> | null>>;
@@ -24,6 +33,10 @@ export interface CreateCheckoutStep {
   validate: () => void;
   [property: string]: any;
 }
+
+/**
+ * @alpha
+ */
 export function createCheckoutStep({
   stepNumber,
   stepFields,
