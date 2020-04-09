@@ -1,9 +1,9 @@
 <template>
   <div class="accordion__item">
     <div class="accordion__content">
-      <p class="content">{{ order.firstName }} {{ order.lastName }}<br /></p>
+      <p class="content">{{ firstName }} {{ lastName }}<br /></p>
       <p class="content">
-        {{ order.email }}
+        {{ email }}
       </p>
     </div>
     <SfButton
@@ -14,20 +14,22 @@
   </div>
 </template>
 <script>
-import {
-  SfButton,
-} from '@storefront-ui/vue'
+import { SfButton } from '@storefront-ui/vue'
+import { usePersonalDetailsStep } from '@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep'
+
 export default {
   name: 'PersonalDetails',
   components: {
     SfButton,
   },
-  props: {
-    order: {
-      type: Object,
-      default: () => ({})
+  setup() {
+    const { firstName, lastName, email } = usePersonalDetailsStep()
+    return {
+      firstName,
+      lastName,
+      email,
     }
-  }
+  },
 }
 </script>
 <style lang="scss" scoped>

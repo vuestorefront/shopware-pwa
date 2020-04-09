@@ -80,12 +80,10 @@ import {
   SfButton,
   SfProperty,
   SfCharacteristic,
-  SfInput
+  SfInput,
 } from '@storefront-ui/vue'
-
 import { useCart, useCartSidebar } from '@shopware-pwa/composables'
 import SwCartProduct from '@shopware-pwa/default-theme/components/SwCartProduct'
-
 export default {
   name: 'OrderSummary',
   components: {
@@ -94,21 +92,21 @@ export default {
     SwCartProduct,
     SfProperty,
     SfCharacteristic,
-    SfInput
+    SfInput,
   },
   props: {
     order: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     shippingMethods: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     paymentMethods: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   setup() {
     const { cartItems, count, totalPrice, subtotal } = useCart()
@@ -116,7 +114,7 @@ export default {
       cartItems,
       count,
       totalPrice,
-      subtotal
+      subtotal,
     }
   },
   data() {
@@ -128,30 +126,30 @@ export default {
         {
           title: 'Safety',
           description: 'It carefully packaged with a personal touch',
-          icon: 'safety'
+          icon: 'safety',
         },
         {
           title: 'Easy shipping',
           description:
             'You’ll receive dispatch confirmation and an arrival date',
-          icon: 'shipping'
+          icon: 'shipping',
         },
         {
           title: 'Changed your mind?',
           description: 'Rest assured, we offer free returns within 30 days',
-          icon: 'return'
-        }
-      ]
+          icon: 'return',
+        },
+      ],
     }
   },
   computed: {
     shipping() {
-      return this.order.shipping
+      return 'qwe' // this.order.shipping
     },
     shippingMethod() {
       const shippingMethod = this.shipping.shippingMethod
       const method = this.shippingMethods.find(
-        method => method.value === shippingMethod
+        (method) => method.value === shippingMethod
       )
       return method ? method : { price: '$0.00' }
     },
@@ -161,16 +159,15 @@ export default {
     paymentMethod() {
       const paymentMethod = this.payment.paymentMethod
       const method = this.paymentMethods.find(
-        method => method.value === paymentMethod
+        (method) => method.value === paymentMethod
       )
       return method ? method : { label: '' }
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-
 .highlighted {
   box-sizing: border-box;
   width: 100%;

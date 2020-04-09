@@ -8,26 +8,34 @@
       <SfInput
         v-model="firstName"
         label="First name"
+        :valid="!validations.firstName.$error"
+        error-message="This field is required"
         name="firstName"
         class="form__element form__element--half"
         required
       />
       <SfInput
         v-model="lastName"
+        :valid="!validations.lastName.$error"
+        error-message="This field is required"
         label="Last name"
         name="lastName"
         class="form__element form__element--half form__element--half-even"
         required
       />
       <SfInput
-        v-model="streetName"
+        v-model="street"
+        :valid="!validations.street.$error"
+        error-message="This field is required"
         label="Street name"
-        name="streetName"
+        name="street"
         class="form__element"
         required
       />
       <SfInput
         v-model="apartment"
+        :valid="!validations.apartment.$error"
+        error-message="This field is required"
         label="House/Apartment number"
         name="apartment"
         class="form__element"
@@ -35,6 +43,8 @@
       />
       <SfInput
         v-model="city"
+        :valid="!validations.city.$error"
+        error-message="This field is required"
         label="City"
         name="city"
         class="form__element form__element--half"
@@ -42,34 +52,43 @@
       />
       <SfInput
         v-model="state"
+        :valid="!validations.state.$error"
+        error-message="This field is required"
         label="State/Province"
         name="state"
         class="form__element form__element--half form__element--half-even"
         required
       />
       <SfInput
-        v-model="zipCode"
+        v-model="zipcode"
+        :valid="!validations.zipcode.$error"
+        error-message="This field is required"
         label="Zip-code"
-        name="zipCode"
+        name="zipcode"
         class="form__element form__element--half"
         required
       />
       <SfSelect
-        v-model="country"
+        v-if="getCountries.length"
+        v-model="countryId"
+        :valid="!validations.countryId.$error"
+        error-message="This field is required"
         label="Country"
         class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
         required
       >
         <SfSelectOption
-          v-for="countryOption in countries"
-          :key="countryOption"
-          :value="countryOption"
+          v-for="countryOption in getCountries"
+          :key="countryOption.id"
+          :value="countryOption.id"
         >
-          {{ countryOption }}
+          {{ countryOption.name }}
         </SfSelectOption>
       </SfSelect>
       <SfInput
         v-model="phoneNumber"
+        :valid="!validations.phoneNumber.$error"
+        error-message="This field is required"
         label="Phone number"
         name="phone"
         class="form__element"
@@ -84,12 +103,12 @@
       <div class="form__radio-group">
         <SfRadio
           v-for="item in shippingMethods"
-          :key="item.value"
+          :key="item.id"
           v-model="shippingMethod"
-          :label="item.label"
-          :value="item.value"
+          :label="item.name"
+          :value="item.id"
           name="shippingMethod"
-          :description="item.description"
+          :description="item.translated.description"
           class="form__element form__radio shipping"
         >
           <template #label="{label}">
@@ -121,12 +140,12 @@
       <div class="form__action">
         <SfButton
           class="sf-button--full-width form__action-button"
-          @click="toPayment"
+          @click="$emit('proceed')"
           >Continue to payment</SfButton
         >
         <SfButton
           class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary"
-          @click="$emit('click:back')"
+          @click="$emit('retreat')"
           >Go back to Personal details</SfButton
         >
       </div>
@@ -139,125 +158,82 @@ import {
   SfInput,
   SfButton,
   SfSelect,
-  SfRadio
+  SfRadio,
 } from '@storefront-ui/vue'
+import { validationMixin } from 'vuelidate'
+import {
+  useShippingStep,
+  useShippingStepValidationRules,
+} from '@shopware-pwa/default-theme/logic/checkout/useShippingStep'
+import { useCountries, useCheckout } from '@shopware-pwa/composables'
+import { computed } from '@vue/composition-api'
+
 export default {
   name: 'Shipping',
+  mixins: [validationMixin],
   components: {
     SfHeading,
     SfInput,
     SfButton,
     SfSelect,
-    SfRadio
+    SfRadio,
   },
-  props: {
-    order: {
-      type: Object,
-      default: () => ({})
-    },
-    shippingMethods: {
-      type: Array,
-      default: () => []
-    }
-  },
-  data() {
+  setup() {
+    const {
+      validations,
+      setValidations,
+      validate,
+      firstName,
+      lastName,
+      street,
+      apartment,
+      city,
+      state,
+      zipcode,
+      countryId,
+      phoneNumber,
+    } = useShippingStep()
+    const { getCountries } = useCountries()
+    const { getShippingMethods, setShippingMethod } = useCheckout()
+
+    const shippingMethods = computed(() => []) // await getShippingMethods()
+
+    const shippingMethod = computed({
+      get: () => null, // currentShippingMethod.value, // TODO get from useCheckout
+      set: (val) => {
+        setShippingMethod(val)
+      },
+    })
+
     return {
-      firstName: '',
-      lastName: '',
-      streetName: '',
-      apartment: '',
-      city: '',
-      state: '',
-      zipCode: '',
-      country: '',
-      phoneNumber: '',
-      shippingMethod: '',
-      countries: [
-        'Austria',
-        'Azerbaijan',
-        'Belarus',
-        'Belgium',
-        'Bosnia and Herzegovina',
-        'Bulgaria',
-        'Croatia',
-        'Cyprus',
-        'Czech Republic',
-        'Denmark',
-        'Estonia',
-        'Finland',
-        'France',
-        'Georgia',
-        'Germany',
-        'Greece',
-        'Hungary',
-        'Iceland',
-        'Ireland',
-        'Italy',
-        'Kosovo',
-        'Latvia',
-        'Liechtenstein',
-        'Lithuania',
-        'Luxembourg',
-        'Macedonia',
-        'Malta',
-        'Moldova',
-        'Monaco',
-        'Montenegro',
-        'The Netherlands',
-        'Norway',
-        'Poland',
-        'Portugal',
-        'Romania',
-        'Russia',
-        'San Marino',
-        'Serbia',
-        'Slovakia',
-        'Slovenia',
-        'Spain',
-        'Sweden',
-        'Switzerland',
-        'Turkey',
-        'Ukraine',
-        'United Kingdom',
-        'Vatican City'
-      ]
+      validations,
+      setValidations,
+      firstName,
+      lastName,
+      street,
+      apartment,
+      city,
+      state,
+      zipcode,
+      countryId,
+      phoneNumber,
+      getCountries,
+      shippingMethods,
+      shippingMethod,
     }
   },
   watch: {
-    order: {
-      handler(value) {
-        this.firstName = value.shipping.firstName
-        this.lastName = value.shipping.lastName
-        this.streetName = value.shipping.streetName
-        this.apartment = value.shipping.apartment
-        this.city = value.shipping.city
-        this.state = value.shipping.state
-        this.zipCode = value.shipping.zipCode
-        this.country = value.shipping.country
-        this.phoneNumber = value.shipping.phoneNumber
-        this.shippingMethod = value.shipping.shippingMethod
+    $v: {
+      immediate: true,
+      handler: function () {
+        console.error('SETTING SHIPPING VALIDATIONS')
+        this.setValidations(this.$v)
       },
-      immediate: true
-    }
+    },
   },
-  methods: {
-    toPayment() {
-      const order = { ...this.order }
-      const shipping = { ...order.shipping }
-      shipping.firstName = this.firstName
-      shipping.lastName = this.lastName
-      shipping.streetName = this.streetName
-      shipping.apartment = this.apartment
-      shipping.city = this.city
-      shipping.state = this.state
-      shipping.zipCode = this.zipCode
-      shipping.country = this.country
-      shipping.phoneNumber = this.phoneNumber
-      shipping.shippingMethod = this.shippingMethod
-      order.shipping = shipping
-      this.$emit('update:order', order)
-    }
-  }
+  validations: {
+    ...useShippingStepValidationRules,
+  },
 }
 </script>
 <style lang="scss" scoped>

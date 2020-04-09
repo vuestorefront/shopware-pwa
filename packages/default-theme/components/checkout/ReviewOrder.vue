@@ -6,7 +6,7 @@
     />
     <SfAccordion first-open class="accordion mobile-only">
       <SfAccordionItem header="Personal Details">
-        <PersonalDetails :order="order" @click:edit="$emit('click:edit', 0)" />
+        <PersonalDetails @click:edit="$emit('click:edit', 0)" />
       </SfAccordionItem>
       <SfAccordionItem header="Shipping address">
         <ShippingAddress
@@ -35,7 +35,7 @@
       title="Order details"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <Summary @click:back="$emit('click:back')" />
+    <Summary @click:back="$emit('click:back')" @proceed="$emit('proceed')" />
   </div>
 </template>
 
@@ -49,10 +49,7 @@ import PaymentMethod from '@shopware-pwa/default-theme/components/checkout/Revie
 import OrderItemsTable from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/OrderItemsTable'
 import Summary from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/Summary'
 
-import {
-  SfHeading,
-  SfAccordion,
-} from '@storefront-ui/vue'
+import { SfHeading, SfAccordion } from '@storefront-ui/vue'
 
 export default {
   name: 'ReviewOrder',
@@ -64,26 +61,26 @@ export default {
     BillingAddress,
     PaymentMethod,
     OrderItemsTable,
-    Summary
+    Summary,
   },
   props: {
     order: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     shippingMethods: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     paymentMethods: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
       terms: false,
-      tableHeaders: ['Description', 'Quantity', 'Amount']
+      tableHeaders: ['Description', 'Quantity', 'Amount'],
     }
   },
   setup() {
@@ -91,9 +88,8 @@ export default {
       cartItems,
       subtotal,
       totalPrice,
-      placeOrder: placeApiOrder,
       refreshCart,
-      removeProduct
+      removeProduct,
     } = useCart()
     const { isLoggedIn } = useUser()
     return {
@@ -101,32 +97,33 @@ export default {
       cartItems,
       subtotal,
       total: totalPrice,
-      placeApiOrder,
       isUserLoggedIn: isLoggedIn,
-      removeProduct
+      removeProduct,
     }
   },
   computed: {
     shipping() {
-      return this.order.shipping
+      return {} // this.order.shipping
     },
     shippingMethod() {
-      const shippingMethod = this.shipping.shippingMethod
-      const method = this.shippingMethods.find(
-        method => method.value === shippingMethod
-      )
-      return method ? method : { price: helpers.formatPrice(0) }
+      // const shippingMethod = this.shipping.shippingMethod
+      // const method = this.shippingMethods.find(
+      //   (method) => method.value === shippingMethod
+      // )
+      // return method ? method : { price: helpers.formatPrice(0) }
+      return { label: '' }
     },
     payment() {
-      return this.order.payment
+      return {} // this.order.payment
     },
     paymentMethod() {
-      const paymentMethod = this.payment.paymentMethod
-      const method = this.paymentMethods.find(
-        method => method.value === paymentMethod
-      )
-      return method ? method : { label: '' }
-    }
+      // const paymentMethod = this.payment.paymentMethod
+      // const method = this.paymentMethods.find(
+      //   (method) => method.value === paymentMethod
+      // )
+      // return method ? method : { label: '' }
+      return { label: '' }
+    },
   },
 }
 </script>

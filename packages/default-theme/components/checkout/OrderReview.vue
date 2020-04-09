@@ -11,10 +11,7 @@
           >Edit</SfButton
         >
       </div>
-      <p class="content">{{ order.firstName }} {{ order.lastName }}<br /></p>
-      <p class="content">
-        {{ order.email }}
-      </p>
+      <PersonalDetails @click:edit="$emit('click:edit', 0)" />
     </div>
     <div class="highlighted">
       <div class="highlighted__header">
@@ -66,53 +63,55 @@
 </template>
 <script>
 import { SfHeading, SfButton } from '@storefront-ui/vue'
+import PersonalDetails from '@shopware-pwa/default-theme/components/checkout/ReviewOrder/PersonalDetails'
+
 export default {
   name: 'OrderReview',
   components: {
     SfHeading,
-    SfButton
+    SfButton,
+    PersonalDetails,
   },
   props: {
     order: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     shippingMethods: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     paymentMethods: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   computed: {
     shipping() {
-      return this.order.shipping
+      return {} // this.order.shipping
     },
     shippingMethod() {
       const shippingMethod = this.shipping.shippingMethod
       const method = this.shippingMethods.find(
-        method => method.value === shippingMethod
+        (method) => method.value === shippingMethod
       )
       return method ? method : { price: 0 }
     },
     payment() {
-      return this.order.payment
+      return {} // this.order.payment
     },
     paymentMethod() {
       const paymentMethod = this.payment.paymentMethod
       const method = this.paymentMethods.find(
-        method => method.value === paymentMethod
+        (method) => method.value === paymentMethod
       )
       return method ? method : { label: '' }
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-
 
 #checkout {
   margin: none;
