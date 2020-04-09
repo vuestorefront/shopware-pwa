@@ -139,9 +139,6 @@ export function getCategories(searchCriteria?: SearchCriteria): Promise<SearchRe
 // @alpha (undocumented)
 export function getCategory(categoryId: string): Promise<Category>;
 
-// @alpha (undocumented)
-export function getCurrentCurrency(): Promise<Currency>;
-
 // @alpha
 export function getCustomer(): Promise<Customer | null>;
 

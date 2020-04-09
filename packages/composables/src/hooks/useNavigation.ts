@@ -11,7 +11,6 @@ const sharedNavigation = Vue.observable({
  * @alpha
  */
 export const useNavigation = (): any => {
-  
   const localNavigation = reactive(sharedNavigation);
   const routes = computed(() => localNavigation.routes);
 

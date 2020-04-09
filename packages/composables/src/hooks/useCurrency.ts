@@ -1,34 +1,62 @@
 import Vue from "vue";
-import { reactive, computed, onMounted } from "@vue/composition-api";
-import { getAvailableCurrencies, setCurrentCurrency, getCurrentCurrency } from "@shopware-pwa/shopware-6-client";
-
+import { reactive, computed, onMounted, Ref } from "@vue/composition-api";
+import {
+  getAvailableCurrencies,
+  setCurrentCurrency,
+  getSessionContext,
+} from "@shopware-pwa/shopware-6-client";
 const sharedCurrency = Vue.observable({
-  currentCurrency: '', // should be empty as default to prevent null displaying, next to price
-  availableCurrencies: null
+  currentCurrency: null, // should be empty as default to prevent null displaying, next to price
+  availableCurrencies: [],
 } as any);
 
 /**
  * @alpha
  */
-export const useCurrency = (): any => {
-  
+export interface UseCurrency {
+  onMountedCallback: () => Promise<void>;
+  switchCurrency: (currencyId: string) => Promise<boolean>;
+  availableCurrencies: Ref<Readonly<any>>;
+  currentCurrency: Ref<Readonly<any>>;
+  currentCurrencySymbol: Ref<Readonly<any>>;
+}
+
+/**
+ * @alpha
+ */
+export const useCurrency = (): UseCurrency => {
   const localCurrency = reactive(sharedCurrency);
   const currentCurrency = computed(() => localCurrency.currentCurrency);
-  const currentCurrencySymbol = computed(() => localCurrency.currentCurrency && localCurrency.currentCurrency.symbol);
-  const availableCurrencies = computed(() => localCurrency.availableCurrencies);
+  const currentCurrencySymbol = computed(
+    () =>
+      (localCurrency.currentCurrency && localCurrency.currentCurrency.symbol) ||
+      ""
+  );
+  const availableCurrencies = computed(
+    () => localCurrency.availableCurrencies || []
+  );
 
   const fetchCurrencies = async (): Promise<void> => {
-    if (!sharedCurrency.currencies) {
-      const currencies = await getAvailableCurrencies();
-      sharedCurrency.availableCurrencies = currencies;
+    if (
+      Array.isArray(sharedCurrency.availableCurrencies) &&
+      sharedCurrency.availableCurrencies.length
+    ) {
+      return;
     }
+    const currencies = await getAvailableCurrencies();
+    sharedCurrency.availableCurrencies = currencies;
   };
 
-  const fetchCurrentCurrency = async (force:boolean = false): Promise<void> => {
-    if (!sharedCurrency.currentCurrency || sharedCurrency.currentCurrency === "" || force) {
-      sharedCurrency.currentCurrency = await getCurrentCurrency();
+  const fetchCurrentCurrency = async (
+    force: boolean = false
+  ): Promise<void> => {
+    if (sharedCurrency.currentCurrency && !force) {
+      return;
     }
-  }
+
+    const { currency } = await getSessionContext();
+    sharedCurrency.currentCurrency = currency;
+  };
 
   const switchCurrency = async (currencyId: string): Promise<boolean> => {
     if (!currencyId) {
@@ -43,15 +71,17 @@ export const useCurrency = (): any => {
     await fetchCurrentCurrency(true);
 
     return true;
-  }
+  };
 
-  onMounted(() => {
-     fetchCurrencies();
-     fetchCurrentCurrency();
-  })
+  const onMountedCallback = async () => {
+    await fetchCurrencies();
+    await fetchCurrentCurrency();
+  };
+
+  onMounted(onMountedCallback);
 
   return {
-    fetchCurrencies,
+    onMountedCallback,
     switchCurrency,
     availableCurrencies,
     currentCurrency,

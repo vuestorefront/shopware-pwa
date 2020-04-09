@@ -74,7 +74,7 @@ export interface UseCountries {
 export const useCountries: () => UseCountries;
 
 // @alpha (undocumented)
-export const useCurrencySwitcher: () => any;
+export const useCurrency: () => any;
 
 // @alpha (undocumented)
 export const useNavigation: () => any;
