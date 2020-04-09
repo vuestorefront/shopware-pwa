@@ -13,10 +13,41 @@ import { CustomerRegistrationParams } from '@shopware-pwa/commons/interfaces/req
 import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
+import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
+import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { Ref } from '@vue/composition-api';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
+import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
+import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
+
+// @alpha (undocumented)
+export interface CheckoutStepFields {
+    // (undocumented)
+    [property: string]: unknown;
+}
+
+// @alpha (undocumented)
+export interface CreateCheckoutStep {
+    // (undocumented)
+    [property: string]: any;
+    // (undocumented)
+    isValid: Readonly<Ref<boolean>>;
+    // (undocumented)
+    setValidations: ($v: VuelidateValidation) => void;
+    // (undocumented)
+    validate: () => void;
+    // (undocumented)
+    validations: Readonly<Ref<Readonly<VuelidateValidation> | null>>;
+}
+
+// @alpha (undocumented)
+export function createCheckoutStep({ stepNumber, stepFields, stepDataUpdated, }: {
+    stepNumber: number;
+    stepFields: CheckoutStepFields;
+    stepDataUpdated: (updatedData: CheckoutStepFields) => void;
+}): () => CreateCheckoutStep;
 
 // @alpha (undocumented)
 export function getStore(): any;
@@ -54,6 +85,27 @@ export const useCartSidebar: () => any;
 
 // @alpha (undocumented)
 export const useCategoryFilters: () => any;
+
+// @alpha (undocumented)
+export interface UseCheckout {
+    // (undocumented)
+    createOrder: () => Promise<Order>;
+    // (undocumented)
+    getPaymentMethods: (options?: {
+        forceReload: boolean;
+    }) => Promise<Readonly<Ref<readonly PaymentMethod[]>>>;
+    // (undocumented)
+    getShippingMethods: (options?: {
+        forceReload: boolean;
+    }) => Promise<Readonly<Ref<readonly ShippingMethod[]>>>;
+    // (undocumented)
+    guestOrderParams: Ref<Readonly<Partial<GuestOrderParams | null>>>;
+    // (undocumented)
+    isGuestOrder: Readonly<Ref<boolean>>;
+}
+
+// @alpha (undocumented)
+export const useCheckout: () => UseCheckout;
 
 // @alpha (undocumented)
 export const useCms: () => any;
@@ -134,6 +186,21 @@ export interface UseSalutations {
 // @alpha (undocumented)
 export const useSalutations: () => UseSalutations;
 
+// @alpha
+export interface UseSessionContext {
+    // (undocumented)
+    refreshSessionContext: () => Promise<void>;
+    // (undocumented)
+    sessionContext: Readonly<Ref<SessionContext | null>>;
+    // (undocumented)
+    setShippingMethod: (shippingMethod: Partial<ShippingMethod>) => Promise<void>;
+    // (undocumented)
+    shippingMethod: Readonly<Ref<ShippingMethod>>;
+}
+
+// @alpha (undocumented)
+export const useSessionContext: () => UseSessionContext;
+
 // @alpha (undocumented)
 export interface UseUser {
     // (undocumented)
@@ -195,6 +262,14 @@ export const useUser: () => UseUser;
 
 // @alpha (undocumented)
 export const useUserLoginModal: () => any;
+
+// @alpha (undocumented)
+export interface VuelidateValidation {
+    // (undocumented)
+    $invalid: boolean;
+    // (undocumented)
+    $touch: () => void;
+}
 
 
 // (No @packageDocumentation comment for this package)

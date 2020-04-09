@@ -12,6 +12,7 @@ import { CustomField } from "../../common/CustomField";
  * @alpha
  */
 export interface ShippingMethod {
+  id: string;
   name: string | null;
   active: boolean;
   description: string | null;
