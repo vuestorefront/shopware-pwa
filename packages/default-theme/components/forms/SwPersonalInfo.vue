@@ -17,22 +17,22 @@
 
       <div class="sw-personal-info__form form">
         <slot name="form">
-        <SfSelect
-          v-if="getMappedSalutations && getMappedSalutations.length > 0"
-          v-model="salutation"
-          label="Salutation"
-          :valid="!$v.salutation.$error"
-          error-message="Salutation must be selected"
-          class="sf-select--underlined form__element form__element--half form__select"
-        >
-          <SfSelectOption
-            v-for="salutationOption in getMappedSalutations"
-            :key="salutationOption.id"
-            :value="salutationOption"
+          <SfSelect
+            v-if="getMappedSalutations && getMappedSalutations.length > 0"
+            v-model="salutation"
+            label="Salutation"
+            :valid="!$v.salutation.$error"
+            error-message="Salutation must be selected"
+            class="sf-select--underlined form__element form__element--half form__select"
           >
-            {{ salutationOption.name }}
-          </SfSelectOption>
-        </SfSelect>
+            <SfSelectOption
+              v-for="salutationOption in getMappedSalutations"
+              :key="salutationOption.id"
+              :value="salutationOption"
+            >
+              {{ salutationOption.name }}
+            </SfSelectOption>
+          </SfSelect>
           <SfInput
             v-model="title"
             name="title"
@@ -112,7 +112,9 @@ export default {
       error: salutationsError
     } = useSalutations()
 
-    const getMappedSalutations = computed(() => mapSalutations(getSalutations.value))
+    const getMappedSalutations = computed(() =>
+      mapSalutations(getSalutations.value)
+    )
 
     return {
       fetchSalutations,
@@ -141,7 +143,7 @@ export default {
   },
   computed: {
     getErrorMessage() {
-      return userError && !salutationsError
+      return this.userError && !this.salutationsError
         ? 'Cannot create a new account, the user may already exist'
         : "Coudn't fetch available salutations or countries, please contact the administration."
     }
