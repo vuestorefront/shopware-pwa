@@ -193,7 +193,7 @@ export interface UseSessionContext {
     // (undocumented)
     sessionContext: Readonly<Ref<SessionContext | null>>;
     // (undocumented)
-    setShippingMethod: (id: string) => Promise<void>;
+    setShippingMethod: (shippingMethod: Partial<ShippingMethod>) => Promise<void>;
     // (undocumented)
     shippingMethod: Readonly<Ref<ShippingMethod>>;
 }

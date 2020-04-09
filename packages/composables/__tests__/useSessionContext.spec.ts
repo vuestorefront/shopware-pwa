@@ -99,7 +99,7 @@ describe("Composables - useSessionContext", () => {
           },
         } as any);
         const { setShippingMethod } = useSessionContext();
-        await setShippingMethod("methodId");
+        await setShippingMethod({ id: "methodId" });
         expect(mockedApiClient.setCurrentShippingMethod).toBeCalledWith(
           "methodId"
         );
@@ -110,12 +110,23 @@ describe("Composables - useSessionContext", () => {
           message: "Some error",
         } as any);
         const { setShippingMethod } = useSessionContext();
-        try {
-          await setShippingMethod("qwe");
-          expect(false).toEqual("Should throw an error");
-        } catch (e) {
-          expect(e).toEqual({ message: "Some error" });
-        }
+        await expect(setShippingMethod({ id: "qwe" })).rejects.toEqual({
+          message: "Some error",
+        });
+      });
+
+      it("should throw an error if shipping method is not provided", async () => {
+        const { setShippingMethod } = useSessionContext();
+        await expect(setShippingMethod(undefined as any)).rejects.toThrowError(
+          "You need to provige shipping method id in order to set shipping method."
+        );
+      });
+
+      it("should throw an error if shipping method is empty reference", async () => {
+        const { setShippingMethod } = useSessionContext();
+        await expect(setShippingMethod(null as any)).rejects.toThrowError(
+          "You need to provige shipping method id in order to set shipping method."
+        );
       });
     });
   });

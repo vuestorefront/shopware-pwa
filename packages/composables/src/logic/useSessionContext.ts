@@ -16,7 +16,7 @@ export interface UseSessionContext {
   sessionContext: Readonly<Ref<SessionContext | null>>;
   refreshSessionContext: () => Promise<void>;
   shippingMethod: Readonly<Ref<ShippingMethod>>;
-  setShippingMethod: (id: string) => Promise<void>;
+  setShippingMethod: (shippingMethod: Partial<ShippingMethod>) => Promise<void>;
 }
 
 /**
@@ -40,8 +40,15 @@ export const useSessionContext = (): UseSessionContext => {
   const shippingMethod = computed(
     () => sessionContext.value?.shippingMethod || null
   );
-  const setShippingMethod = async (shippingMethodId: string) => {
-    await setCurrentShippingMethod(shippingMethodId);
+  const setShippingMethod = async (
+    shippingMethod: Partial<ShippingMethod> = {}
+  ) => {
+    if (!shippingMethod?.id) {
+      throw new Error(
+        "You need to provige shipping method id in order to set shipping method."
+      );
+    }
+    await setCurrentShippingMethod(shippingMethod.id);
   };
 
   return {
