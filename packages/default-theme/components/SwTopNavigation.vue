@@ -20,7 +20,7 @@
           @mouseleave="setHoverNavigationItem('')"
           @keyup.tab="setHoverNavigationItem(category.name)"
         >
-          <nuxt-link class="sf-header__link" :to="`/${category.route.path}`">
+          <nuxt-link class="sf-header__link" :to="path(category)">
             {{ category.name }}
           </nuxt-link>
           <SwMegaMenu :category="category" :hoveredItem="hoveredNavigationItem"/>
@@ -87,8 +87,8 @@ import {
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
 import { ref, reactive, onMounted } from "@vue/composition-api";
-import { getNavigation } from '@shopware-pwa/shopware-6-client'
 import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
+import helpers from '@shopware-pwa/default-theme/helpers'
 
 export default {
   components: { SfHeader, SfCircleIcon, SwLoginModal, SfImage, SfSearchBar, SwMegaMenu },
@@ -98,16 +98,9 @@ export default {
     const { toggleSidebar } = useCartSidebar()
     const { toggleModal } = useUserLoginModal()
     const { search: fulltextSearch } = useProductSearch()
+    const {hoveredNavigationItem, getNavigationElements, navigationElements} = useNavigation()
 
-    const navigationElements = reactive([])
-    const hoveredNavigationItem = ref('')
-
-    onMounted(async () => {
-      const { children } = await getNavigation({
-        depth: 2
-      })
-      navigationElements.push(...children)
-    })
+    onMounted(getNavigationElements(2))
 
     function setHoverNavigationItem(itemName) {
       hoveredNavigationItem.value = itemName
@@ -122,7 +115,8 @@ export default {
       fulltextSearch,
       navigationElements,
       hoveredNavigationItem,
-      setHoverNavigationItem
+      setHoverNavigationItem,
+      path: helpers.getCategoryRoutePath
     }
   },
   data() {

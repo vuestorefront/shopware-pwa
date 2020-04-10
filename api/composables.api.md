@@ -13,6 +13,7 @@ import { CustomerRegistrationParams } from '@shopware-pwa/commons/interfaces/req
 import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
+import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { Ref } from '@vue/composition-api';
@@ -74,7 +75,21 @@ export interface UseCountries {
 export const useCountries: () => UseCountries;
 
 // @alpha (undocumented)
-export const useNavigation: () => any;
+export interface UseNavigation {
+    // (undocumented)
+    fetchRoutes: () => Promise<void>;
+    // (undocumented)
+    getNavigationElements: (depth: number) => Promise<void>;
+    // (undocumented)
+    hoveredNavigationItem: Ref<string>;
+    // (undocumented)
+    navigationElements: NavigationElement[];
+    // (undocumented)
+    routes: Ref<Readonly<any>>;
+}
+
+// @alpha (undocumented)
+export const useNavigation: () => UseNavigation;
 
 // @alpha (undocumented)
 export interface UseProduct<PRODUCT, SEARCH> {

@@ -41,5 +41,23 @@ describe("Composables - useNavigation", () => {
         expect(routes.value).toHaveLength(3);
       });
     });
+    describe("getNavigationElements", () => {
+      it("should fetch navigation elements correcly", async () => {
+        mockedGetPage.getNavigation.mockResolvedValueOnce({
+          count: 3,
+          children: [
+            { name: "Clothin", route: { path: "clothing/" } },
+            { name: "Sports", route: { path: "sports/" } },
+            {
+              name: "Accessories & Others",
+              route: { path: "accessories-others/" },
+            },
+          ],
+        } as any);
+        const { navigationElements, getNavigationElements } = useNavigation();
+        await getNavigationElements(2);
+        expect(navigationElements).toHaveLength(3);
+      });
+    });
   });
 });

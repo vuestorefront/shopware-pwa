@@ -3,7 +3,7 @@
       <nuxt-link class="sf-header__link" 
         v-for="subcategory in category.children" 
         :key="subcategory.name" 
-        :to="`/${subcategory.route.path}`"
+        :to="path(subcategory)"
       >
         <SfMegaMenuColumn 
           :title="subcategory.name"
@@ -14,6 +14,7 @@
 
 <script>
 import { SfMegaMenu, SfMenuItem } from '@storefront-ui/vue'
+import helpers from '@shopware-pwa/default-theme/helpers'
 
 export default {
   name: 'SwMegaMenu',
@@ -28,6 +29,9 @@ export default {
       default: ''
     }
   },
+  setup() {
+    return {path: helpers.getCategoryRoutePath}
+  }
 };
 
 </script>
