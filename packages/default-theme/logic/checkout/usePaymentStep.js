@@ -1,13 +1,12 @@
-import { toRefs } from '@vue/composition-api'
 import { requiredIf } from 'vuelidate/lib/validators'
 import { useCheckout, createCheckoutStep } from '@shopware-pwa/composables'
+import { CHECKOUT_STEPS } from '@shopware-pwa/default-theme/logic/checkout'
 
-const { guestOrderParams } = useCheckout()
-const paramsRefs = toRefs(guestOrderParams)
+const { guestOrderParams, setGuestOrderParams } = useCheckout()
 
 export const usePaymentStep = createCheckoutStep({
-  stepNumber: 2,
-  data: paramsRefs.billingAddress,
+  stepNumber: CHECKOUT_STEPS.PAYMENT,
+  data: guestOrderParams.billingAddress,
   stepFields: {
     differentThanShipping: false,
     firstName: null,
@@ -21,7 +20,11 @@ export const usePaymentStep = createCheckoutStep({
     phoneNumber: null,
   },
   stepDataUpdated: (updatedData) => {
-    console.error('UPDATED PAYMENT', updatedData)
+    const billingAddress = updatedData.differentThanShipping
+      ? updatedData
+      : guestOrderParams.value.shippingAddress
+    billingAddress.salutationId = guestOrderParams.value.salutationId
+    setGuestOrderParams({ billingAddress })
   },
 })
 
