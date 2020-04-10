@@ -136,31 +136,6 @@ describe("Composables - useCart", () => {
   });
 
   describe("methods", () => {
-    describe("placeOrder", () => {
-      it("should assign the appropriate error if user email is unknown or is not logged in", async () => {
-        const { error, placeOrder } = useCart();
-        await placeOrder();
-        expect(error.value).toStrictEqual({
-          message: "Order cannot be placed",
-        });
-      });
-      it("should try to place an order if user is logged in and return the order object", async () => {
-        mockedShopwareClient.createOrder.mockResolvedValueOnce({
-          id: "some-order-id-123456",
-        } as any);
-        stateUser.value = {
-          id: "user-id-8754321",
-          email: "test@email.com",
-        } as any;
-
-        const { error, placeOrder } = useCart();
-        const result = await placeOrder();
-        expect(mockedShopwareClient.createOrder).toBeCalledTimes(1);
-        expect(mockedShopwareClient.createOrder).toBeCalledWith();
-        expect(error.value).toBeFalsy();
-        expect(result).toHaveProperty("id");
-      });
-    });
     describe("refreshCart", () => {
       it("should correctly refresh the cart", async () => {
         const { count, refreshCart } = useCart();

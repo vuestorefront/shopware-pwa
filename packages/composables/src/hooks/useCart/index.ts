@@ -4,11 +4,8 @@ import {
   addProductToCart,
   removeCartItem,
   changeCartItemQuantity,
-  createOrder,
 } from "@shopware-pwa/shopware-6-client";
 import { getStore } from "../..";
-import { useUser } from "../useUser";
-import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
 /**
@@ -16,7 +13,6 @@ import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError
  */
 export const useCart = (): any => {
   let vuexStore = getStore();
-  const { isLoggedIn } = useUser();
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
 
@@ -46,22 +42,6 @@ export const useCart = (): any => {
   async function changeProductQuantity({ id, quantity }: any) {
     const result = await changeCartItemQuantity(id, quantity);
     vuexStore.commit("SET_CART", result);
-  }
-
-  /**
-   * todo: move this method to the separated composable after the implementation of dummy checkout.
-   */
-  async function placeOrder(): Promise<Order | undefined> {
-    if (isLoggedIn.value) {
-      return createOrder();
-    }
-
-    // TODO: related https://github.com/DivanteLtd/shopware-pwa/issues/375
-    // return createGuestOrder(guestUserEmail);
-
-    error.value = {
-      message: "Order cannot be placed",
-    };
   }
 
   const cart = computed(() => {
@@ -102,6 +82,5 @@ export const useCart = (): any => {
     removeProduct,
     totalPrice,
     subtotal,
-    placeOrder,
   };
 };

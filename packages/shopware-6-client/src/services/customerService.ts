@@ -14,7 +14,7 @@ import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/custo
 import { apiService } from "../apiService";
 import { CustomerAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress";
 import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams";
-import { ContextTokenResponse } from "@shopware-pwa/commons/interfaces/response/ContextTokenResponse";
+import { ContextTokenResponse } from "@shopware-pwa/commons/interfaces/response/SessionContext";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 
 /**

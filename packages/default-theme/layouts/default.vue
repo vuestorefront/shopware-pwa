@@ -77,7 +77,6 @@ a {
 }
 
 /*Header styles*/
-
 h1 {
   font-family: var(--body-font-family-secondary);
   font-size: var(--h1-font-size);
@@ -155,7 +154,7 @@ body {
 }
 
 .sw-breadcrumbs {
-  padding: 0 var(--spacer-extra-big) var(--spacer-extra-big) var(--spacer-extra-big);
+  padding: 0 var(--spacer-extra-big) var(--spacer-big) var(--spacer-extra-big);
 }
 
 /* Delete firefox outline */

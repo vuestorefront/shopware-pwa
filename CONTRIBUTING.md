@@ -22,7 +22,8 @@ Thank you for your interest in, and engagement! :)
 
 You may want to read:
 
-- [Project documentation / General README.md](https://github.com/DivanteLtd/shopware-pwa)
+- [See the file structure explained](./STRUCTURE.md)
+- [Project documentation / General README.md](./README.md)
 - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ## Branches
@@ -43,7 +44,7 @@ We keep 100% test coverage for our packages (except `default-theme`). Before ope
 
 ## Pull requests
 
-There is a Pull Request template, that contributors should follow. To merge a branch into master two reviewers must accept the changes. All continuous integration checks must pass. Note that, only Shopware-PWA Core Team Members are allowed to accept pull requests.
+There is a Pull Request template, that contributors should follow. To merge a branch into master at least one core team member must accept the changes. All continuous integration checks must pass. Note that, only Shopware-PWA Core Team Members are allowed to accept pull requests.
 
 If you face any problems during the implementation of the complex issue, feel free to implement just a part of it and ask for help in the comment. It's OK if you can only handle styling/tests/whatever. 
 
