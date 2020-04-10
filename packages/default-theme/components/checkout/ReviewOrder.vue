@@ -98,7 +98,6 @@ export default {
     } = useCart()
     const { isLoggedIn } = useUser()
     const { currentCurrencySymbol } = useCurrency();
-    const currencySymbol = computed(() => currentCurrencySymbol && currentCurrencySymbol.value)
     return {
       refreshCart,
       cartItems,
@@ -107,7 +106,7 @@ export default {
       placeApiOrder,
       isUserLoggedIn: isLoggedIn,
       removeProduct,
-      currencySymbol
+      currentCurrencySymbol
     }
   },
   computed: {

@@ -6,7 +6,7 @@ import {
   getSessionContext,
 } from "@shopware-pwa/shopware-6-client";
 const sharedCurrency = Vue.observable({
-  currentCurrency: null, // should be empty as default to prevent null displaying, next to price
+  currentCurrency: null,
   availableCurrencies: [],
 } as any);
 
@@ -58,6 +58,9 @@ export const useCurrency = (): UseCurrency => {
     sharedCurrency.currentCurrency = currency;
   };
 
+  /**
+   * @alpha
+   */
   const switchCurrency = async (currencyId: string): Promise<boolean> => {
     if (!currencyId) {
       return false;
@@ -73,6 +76,9 @@ export const useCurrency = (): UseCurrency => {
     return true;
   };
 
+  /**
+   * @alpha
+   */
   const onMountedCallback = async () => {
     await fetchCurrencies();
     await fetchCurrentCurrency();

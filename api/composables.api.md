@@ -126,7 +126,21 @@ export interface UseCountries {
 export const useCountries: () => UseCountries;
 
 // @alpha (undocumented)
-export const useCurrency: () => any;
+export interface UseCurrency {
+    // (undocumented)
+    availableCurrencies: Ref<Readonly<any>>;
+    // (undocumented)
+    currentCurrency: Ref<Readonly<any>>;
+    // (undocumented)
+    currentCurrencySymbol: Ref<Readonly<any>>;
+    // (undocumented)
+    onMountedCallback: () => Promise<void>;
+    // (undocumented)
+    switchCurrency: (currencyId: string) => Promise<boolean>;
+}
+
+// @alpha (undocumented)
+export const useCurrency: () => UseCurrency;
 
 // @alpha (undocumented)
 export const useNavigation: () => any;
