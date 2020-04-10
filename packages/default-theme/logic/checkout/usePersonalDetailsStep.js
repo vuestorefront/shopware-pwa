@@ -2,7 +2,7 @@ import { required } from 'vuelidate/lib/validators'
 import { useCheckout, createCheckoutStep } from '@shopware-pwa/composables'
 import { CHECKOUT_STEPS } from '@shopware-pwa/default-theme/logic/checkout'
 
-const { guestOrderParams, setGuestOrderParams } = useCheckout()
+const { guestOrderParams, updateGuestOrderParams } = useCheckout()
 
 export const usePersonalDetailsStep = createCheckoutStep({
   stepNumber: CHECKOUT_STEPS.PERSONAL_DETAILS,
@@ -14,7 +14,7 @@ export const usePersonalDetailsStep = createCheckoutStep({
     email: null,
   },
   stepDataUpdated: (updatedData) => {
-    setGuestOrderParams(updatedData)
+    updateGuestOrderParams(updatedData)
   },
 })
 

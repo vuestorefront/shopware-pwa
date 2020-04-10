@@ -2,7 +2,7 @@ import { requiredIf } from 'vuelidate/lib/validators'
 import { useCheckout, createCheckoutStep } from '@shopware-pwa/composables'
 import { CHECKOUT_STEPS } from '@shopware-pwa/default-theme/logic/checkout'
 
-const { guestOrderParams, setGuestOrderParams } = useCheckout()
+const { guestOrderParams, updateGuestOrderParams } = useCheckout()
 
 export const usePaymentStep = createCheckoutStep({
   stepNumber: CHECKOUT_STEPS.PAYMENT,
@@ -24,7 +24,7 @@ export const usePaymentStep = createCheckoutStep({
       ? updatedData
       : guestOrderParams.value.shippingAddress
     billingAddress.salutationId = guestOrderParams.value.salutationId
-    setGuestOrderParams({ billingAddress })
+    updateGuestOrderParams({ billingAddress })
   },
 })
 
