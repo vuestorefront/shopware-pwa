@@ -28,7 +28,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~@storefront-ui/vue/styles.scss';
 
 .sw-image-two-column {
@@ -38,6 +38,11 @@ export default {
   &__image {
     margin: var(--spacer-medium);
     flex: 1;
+    & img {
+      height: 340px;
+      object-fit: cover;
+      width: 100%;
+    }
   }
 
   @include for-desktop {

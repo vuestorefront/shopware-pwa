@@ -40,6 +40,12 @@ export default {
   &__image {
     margin: var(--spacer-medium);
     flex: 1;
+    border: 12px solid #fff;
+    & img {
+      height: 340px;
+      object-fit: cover;
+      width: 100%;
+    }
   }
 
   @include for-desktop {
