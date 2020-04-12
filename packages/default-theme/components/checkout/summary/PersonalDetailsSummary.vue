@@ -8,7 +8,7 @@
     </div>
     <SfButton
       class="sf-button--text accordion__edit"
-      @click="$emit('click:edit', 0)"
+      @click="$emit('click:edit', CHECKOUT_STEPS.PERSONAL_DETAILS)"
       >Edit</SfButton
     >
   </div>
@@ -16,9 +16,10 @@
 <script>
 import { SfButton } from '@storefront-ui/vue'
 import { usePersonalDetailsStep } from '@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep'
+import { CHECKOUT_STEPS } from '@shopware-pwa/default-theme/logic/checkout'
 
 export default {
-  name: 'PersonalDetails',
+  name: 'PersonalDetailsSummary',
   components: {
     SfButton,
   },
@@ -28,6 +29,7 @@ export default {
       firstName,
       lastName,
       email,
+      CHECKOUT_STEPS
     }
   },
 }

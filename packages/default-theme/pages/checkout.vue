@@ -4,22 +4,22 @@
       <div class="checkout__main">
         <SfSteps :active="currentStep" @change="nextStep($event)">
           <SfStep name="Personal Details">
-            <PersonalDetails @proceed="nextStep()" />
+            <PersonalDetailsStep @proceed="nextStep()" />
           </SfStep>
           <SfStep name="Shipping">
-            <Shipping
+            <ShippingStep
               @retreat="nextStep(currentStep - 1)"
               @proceed="nextStep()"
             />
           </SfStep>
           <SfStep name="Payment">
-            <Payment
+            <PaymentStep
               @click:back="nextStep(currentStep - 1)"
               @proceed="nextStep()"
             />
           </SfStep>
           <SfStep name="Review">
-            <ReviewOrder
+            <OrderReviewStep
               @click:back="nextStep(currentStep - 1)"
               @proceed="nextStep()"
             />
@@ -29,8 +29,8 @@
       <div class="checkout__aside desktop-only">
         <button @click="nextStep()">next</button>
         <transition name="fade">
-          <OrderSummary v-if="currentStep <= 2" key="order-summary" />
-          <OrderReview
+          <SidebarOrderSummary v-if="currentStep < CHECKOUT_STEPS.REVIEW" key="order-summary" />
+          <SidebarOrderReview
             v-else
             key="order-review"
             @click:edit="nextStep($event)"
@@ -42,12 +42,12 @@
 </template>
 <script>
 import { SfSteps } from '@storefront-ui/vue'
-import OrderReview from '@shopware-pwa/default-theme/components/checkout/OrderReview'
-import OrderSummary from '@shopware-pwa/default-theme/components/checkout/OrderSummary'
-import Payment from '@shopware-pwa/default-theme/components/checkout/Payment'
-import PersonalDetails from '@shopware-pwa/default-theme/components/checkout/PersonalDetails'
-import ReviewOrder from '@shopware-pwa/default-theme/components/checkout/ReviewOrder'
-import Shipping from '@shopware-pwa/default-theme/components/checkout/Shipping'
+import SidebarOrderReview from '@shopware-pwa/default-theme/components/checkout/sidebar/SidebarOrderReview'
+import SidebarOrderSummary from '@shopware-pwa/default-theme/components/checkout/sidebar/SidebarOrderSummary'
+import PaymentStep from '@shopware-pwa/default-theme/components/checkout/steps/PaymentStep'
+import PersonalDetailsStep from '@shopware-pwa/default-theme/components/checkout/steps/PersonalDetailsStep'
+import ShippingStep from '@shopware-pwa/default-theme/components/checkout/steps/ShippingStep'
+import OrderReviewStep from '@shopware-pwa/default-theme/components/checkout/steps/OrderReviewStep'
 import { useUser, useCheckout } from '@shopware-pwa/composables'
 import { ref, computed, reactive } from '@vue/composition-api'
 import { usePersonalDetailsStep } from '@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep'
@@ -59,15 +59,15 @@ import {
 } from '@shopware-pwa/default-theme/logic/checkout'
 
 export default {
-  name: 'Checkout',
+  name: 'CheckoutPage',
   components: {
     SfSteps,
-    PersonalDetails,
-    Shipping,
-    Payment,
-    ReviewOrder,
-    OrderSummary,
-    OrderReview,
+    PersonalDetailsStep,
+    ShippingStep,
+    PaymentStep,
+    OrderReviewStep,
+    SidebarOrderSummary,
+    SidebarOrderReview,
   },
   setup() {
     const { isGuestOrder, createOrder } = useCheckout()
@@ -167,6 +167,7 @@ export default {
       isGuestOrder,
       isPersonalDetailsStepCompleted,
       nextStep,
+      CHECKOUT_STEPS
     }
   },
   watch: {

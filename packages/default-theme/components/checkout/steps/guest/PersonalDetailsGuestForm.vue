@@ -1,9 +1,5 @@
 <template>
   <div class="sw-checkout__personal_info">
-    <SfHeading
-      title="1. Personal details"
-      class="sf-heading--left sf-heading--no-underline title"
-    />
     <SfAlert
       v-for="(message, index) in useUserErrorMessages"
       :key="index"
@@ -163,7 +159,7 @@ import {
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 
 export default {
-  name: 'PersonalDetails',
+  name: 'PersonalDetailsGuestForm',
   mixins: [validationMixin],
   components: {
     SfInput,
@@ -206,6 +202,7 @@ export default {
   },
   setup() {
     const { toggleModal: toggleLoginModal } = useUserLoginModal()
+    
     const {
       validations,
       setValidations,

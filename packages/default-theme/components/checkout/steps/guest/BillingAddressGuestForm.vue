@@ -1,15 +1,19 @@
 <template>
   <div>
-    <SfHeading
-      title="2. Shipping"
-      class="sf-heading--left sf-heading--no-underline title"
-    />
     <div class="form">
+      <SfCheckbox
+        v-model="differentThanShipping"
+        label="Use different address for billing"
+        name="copyShippingAddress"
+        class="form__element"
+      />
+    </div>
+    <div class="form" v-if="differentThanShipping">
       <SfInput
         v-model="firstName"
-        label="First name"
         :valid="!validations.firstName.$error"
         error-message="This field is required"
+        label="First name"
         name="firstName"
         class="form__element form__element--half"
         required
@@ -69,7 +73,6 @@
         required
       />
       <SfSelect
-        v-if="getCountries.length"
         v-model="countryId"
         :valid="!validations.countryId.$error"
         error-message="This field is required"
@@ -78,11 +81,11 @@
         required
       >
         <SfSelectOption
-          v-for="countryOption in getCountries"
-          :key="countryOption.id"
-          :value="countryOption.id"
+          v-for="countryOption in countries"
+          :key="countryOption"
+          :value="countryOption"
         >
-          {{ countryOption.name }}
+          {{ countryOption }}
         </SfSelectOption>
       </SfSelect>
       <SfInput
@@ -95,61 +98,6 @@
         required
       />
     </div>
-    <SfHeading
-      title="Shipping method"
-      class="sf-heading--left sf-heading--no-underline title"
-    />
-    <div class="form">
-      <div class="form__radio-group">
-        <SfRadio
-          v-for="item in shippingMethods"
-          :key="item.id"
-          v-model="shippingMethod"
-          :label="item.name"
-          :value="item.id"
-          name="shippingMethod"
-          :description="item.translated.description"
-          class="form__element form__radio shipping"
-        >
-          <template #label="{label}">
-            <div class="sf-radio__label shipping__label">
-              <div>{{ label }}</div>
-              <div>{{ item.price }}</div>
-            </div>
-          </template>
-          <template #description="{description}">
-            <div class="sf-radio__description shipping__description">
-              <div class="shipping__delivery">
-                {{ item.delivery }}
-                <SfButton
-                  class="sf-button--text shipping__action"
-                  :class="{ 'shipping__action--is-active': item.isOpen }"
-                  @click="item.isOpen = !item.isOpen"
-                  >info</SfButton
-                >
-              </div>
-              <transition name="fade">
-                <div v-if="item.isOpen" class="shipping__info">
-                  {{ description }}
-                </div>
-              </transition>
-            </div>
-          </template>
-        </SfRadio>
-      </div>
-      <div class="form__action">
-        <SfButton
-          class="sf-button--full-width form__action-button"
-          @click="$emit('proceed')"
-          >Continue to payment</SfButton
-        >
-        <SfButton
-          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary"
-          @click="$emit('retreat')"
-          >Go back to Personal details</SfButton
-        >
-      </div>
-    </div>
   </div>
 </template>
 <script>
@@ -159,17 +107,18 @@ import {
   SfButton,
   SfSelect,
   SfRadio,
+  SfImage,
+  SfCheckbox,
 } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import {
-  useShippingStep,
-  useShippingStepValidationRules,
-} from '@shopware-pwa/default-theme/logic/checkout/useShippingStep'
-import { useCountries, useCheckout } from '@shopware-pwa/composables'
+  usePaymentStep,
+  usePaymentStepValidationRules,
+} from '@shopware-pwa/default-theme/logic/checkout/usePaymentStep'
 import { computed } from '@vue/composition-api'
 
 export default {
-  name: 'Shipping',
+  name: 'BillingAddressGuestForm',
   mixins: [validationMixin],
   components: {
     SfHeading,
@@ -177,6 +126,8 @@ export default {
     SfButton,
     SfSelect,
     SfRadio,
+    SfImage,
+    SfCheckbox,
   },
   setup() {
     const {
@@ -192,18 +143,11 @@ export default {
       zipcode,
       countryId,
       phoneNumber,
-    } = useShippingStep()
-    const { getCountries } = useCountries()
-    const { getShippingMethods, setShippingMethod } = useCheckout()
+      differentThanShipping,
+    } = usePaymentStep()
 
-    const shippingMethods = computed(() => []) // await getShippingMethods()
-
-    const shippingMethod = computed({
-      get: () => null, // currentShippingMethod.value, // TODO get from useCheckout
-      set: (val) => {
-        setShippingMethod(val)
-      },
-    })
+    // TODO add countries
+    const countries = computed(() => [])
 
     return {
       validations,
@@ -217,28 +161,25 @@ export default {
       zipcode,
       countryId,
       phoneNumber,
-      getCountries,
-      shippingMethods,
-      shippingMethod,
+      differentThanShipping,
+      countries
     }
   },
   watch: {
     $v: {
       immediate: true,
       handler: function () {
-        console.error('SETTING SHIPPING VALIDATIONS')
         this.setValidations(this.$v)
       },
     },
   },
   validations: {
-    ...useShippingStepValidationRules,
+    ...usePaymentStepValidationRules,
   },
 }
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-
 .title {
   margin-bottom: var(--spacer-extra-big);
 }
@@ -246,6 +187,7 @@ export default {
   @include for-desktop {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
   }
   &__element {
@@ -282,48 +224,12 @@ export default {
     }
   }
   &__select {
-    // todo: remove after SfSelect refactoring
     ::v-deep .sf-select__selected {
       padding: 5px 0;
     }
   }
   &__radio {
-    margin-bottom: 0;
-    &-group {
-      flex: 0 0 100%;
-      margin: 0 0 var(--spacer-extra-big) 0;
-    }
-  }
-}
-.shipping {
-  margin: 0 calc(var(--spacer-big) * -1);
-  &__label {
-    display: flex;
-    justify-content: space-between;
-  }
-  &__description {
-    width: 100%;
-    margin-top: 0;
-  }
-  &__delivery {
-    color: var(--c-text-muted);
-  }
-  &__action {
-    align-items: center;
-    margin-left: var(--spacer);
-    text-decoration: none;
-    &::before {
-      content: '+';
-    }
-    &--is-active {
-      color: var(--c-primary);
-      &::before {
-        content: '-';
-      }
-    }
-  }
-  &__info {
-    margin-top: var(--spacer);
+    white-space: nowrap;
   }
 }
 </style>

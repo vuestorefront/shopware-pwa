@@ -85,7 +85,7 @@ import {
 import { useCart, useCartSidebar } from '@shopware-pwa/composables'
 import SwCartProduct from '@shopware-pwa/default-theme/components/SwCartProduct'
 export default {
-  name: 'OrderSummary',
+  name: 'SidebarOrderSummary',
   components: {
     SfHeading,
     SfButton,
@@ -94,27 +94,19 @@ export default {
     SfCharacteristic,
     SfInput,
   },
-  props: {
-    order: {
-      type: Object,
-      default: () => ({}),
-    },
-    shippingMethods: {
-      type: Array,
-      default: () => [],
-    },
-    paymentMethods: {
-      type: Array,
-      default: () => [],
-    },
-  },
   setup() {
     const { cartItems, count, totalPrice, subtotal } = useCart()
+
+    // TODO: use useSessionContext
+    const shippingMethod = {
+      price: 'TODO: add price',
+    }
     return {
       cartItems,
       count,
       totalPrice,
       subtotal,
+      shippingMethod,
     }
   },
   data() {
@@ -141,28 +133,6 @@ export default {
         },
       ],
     }
-  },
-  computed: {
-    shipping() {
-      return 'qwe' // this.order.shipping
-    },
-    shippingMethod() {
-      const shippingMethod = this.shipping.shippingMethod
-      const method = this.shippingMethods.find(
-        (method) => method.value === shippingMethod
-      )
-      return method ? method : { price: '$0.00' }
-    },
-    payment() {
-      return this.order.payment
-    },
-    paymentMethod() {
-      const paymentMethod = this.payment.paymentMethod
-      const method = this.paymentMethods.find(
-        (method) => method.value === paymentMethod
-      )
-      return method ? method : { label: '' }
-    },
   },
 }
 </script>

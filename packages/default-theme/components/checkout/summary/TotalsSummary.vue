@@ -72,7 +72,7 @@ import {
   SfNotification,
 } from '@storefront-ui/vue'
 export default {
-  name: 'BillingAddress',
+  name: 'TotalsSummary',
   components: {
     SfProperty,
     SfCheckbox,
