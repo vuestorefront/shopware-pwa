@@ -165,7 +165,6 @@ export default {
     $v: {
       immediate: true,
       handler: function () {
-        console.error('SETTING SHIPPING VALIDATIONS')
         this.setValidations(this.$v)
       },
     },
