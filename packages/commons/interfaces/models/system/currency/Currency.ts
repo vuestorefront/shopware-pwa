@@ -10,6 +10,7 @@ import { CustomField } from "../../common/CustomField";
  * @alpha
  */
 export interface Currency {
+  id: string;
   isoCode: string;
   factor: number;
   symbol: string;
