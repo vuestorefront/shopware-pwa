@@ -8,7 +8,8 @@
           class="sf-property--full-width property"
         >
           <template #name
-            ><span class="property__name">Subtotals</span></template>
+            ><span class="property__name">Subtotals</span></template
+          >
         </SfProperty>
         <SfProperty
           name="Shipping"
@@ -16,7 +17,8 @@
           class="sf-property--full-width property"
         >
           <template #name
-            ><span class="property__name">Shipping</span></template>
+            ><span class="property__name">Shipping</span></template
+          >
         </SfProperty>
         <SfProperty
           name="Total"
@@ -33,14 +35,6 @@
         </template>
       </SfCheckbox>
     </div>
-    <div class="notification" v-if="!isUserLoggedIn">
-      <SfNotification
-        :visible="true"
-        type="info"
-        title="You can't place the order"
-        message="Dummy checkout is enabled only for logged in users"
-      />
-    </div>
     <div class="notification" v-if="!cartItems.length">
       <SfNotification
         :visible="true"
@@ -51,39 +45,42 @@
     </div>
     <div class="summary__group">
       <SfButton
-        :disabled="!isUserLoggedIn || !cartItems.length"
+        :disabled="!cartItems.length"
         class="sf-button--full-width summary__action-button"
-        @click="placeOrder()">Place my order</SfButton
+        @click="$emit('proceed')"
+        >Place my order</SfButton
       >
       <SfButton
         class="sf-button--full-width sf-button--text summary__action-button summary__action-button--secondary"
-        @click="$emit('click:back')">
+        @click="$emit('click:back')"
+      >
         Go back to Payment
       </SfButton>
     </div>
   </div>
 </template>
 <script>
-import { useCart, useUser } from '@shopware-pwa/composables'
+import { useCart } from '@shopware-pwa/composables'
+import helpers from '@shopware-pwa/default-theme/helpers'
 import { PAGE_SUCCESS_PAGE } from '@shopware-pwa/default-theme/helpers/pages'
 
 import {
   SfProperty,
   SfCheckbox,
   SfButton,
-  SfNotification
+  SfNotification,
 } from '@storefront-ui/vue'
 export default {
-  name: 'BillingAddress',
+  name: 'TotalsSummary',
   components: {
     SfProperty,
     SfCheckbox,
     SfButton,
-    SfNotification
+    SfNotification,
   },
   data() {
     return {
-      terms: false
+      terms: false,
     }
   },
   setup() {
@@ -91,37 +88,21 @@ export default {
       cartItems,
       subtotal,
       totalPrice,
-      placeOrder: placeApiOrder,
       removeProduct,
-      refreshCart
+      refreshCart,
     } = useCart()
-    const { isLoggedIn } = useUser()
     return {
       cartItems,
       refreshCart,
       subtotal,
       total: totalPrice,
-      placeApiOrder,
-      isUserLoggedIn: isLoggedIn,
-      removeProduct
-    }
-  },
-  methods: {
-    async placeOrder() {
-      try {
-        const order = await this.placeApiOrder()
-        this.refreshCart()
-        this.$router.push(PAGE_SUCCESS_PAGE)
-      } catch (e) {
-        console.warn(e)
-      }
+      removeProduct,
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-
 .summary {
   background-color: var(--c-light);
   margin: 0 calc(var(--spacer-big) * -1);

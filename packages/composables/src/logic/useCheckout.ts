@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { Ref, computed } from "@vue/composition-api";
+import { Ref, computed, reactive } from "@vue/composition-api";
 import { useUser, useCart } from "@shopware-pwa/composables";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
@@ -25,6 +25,7 @@ export interface UseCheckout {
     forceReload: boolean;
   }) => Promise<Readonly<Ref<readonly PaymentMethod[]>>>;
   createOrder: () => Promise<Order>;
+  updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
 }
 
 const orderData: {
@@ -49,6 +50,7 @@ export const useCheckout = (): UseCheckout => {
   const paymentMethods: Readonly<Ref<readonly PaymentMethod[]>> = computed(
     () => orderData.paymentMethods
   );
+  const localOrderData = reactive(orderData);
 
   const getShippingMethods = async (
     { forceReload } = { forceReload: false }
@@ -89,10 +91,10 @@ export const useCheckout = (): UseCheckout => {
   };
   const isGuestOrder = computed(() => !isLoggedIn.value);
 
-  const guestOrderParams = computed({
-    get: () => orderData.guestOrderParams,
-    set: (val) => (orderData.guestOrderParams = val),
-  });
+  const guestOrderParams = computed(() => localOrderData.guestOrderParams);
+  const updateGuestOrderParams = (params: Partial<GuestOrderParams>): void => {
+    orderData.guestOrderParams = { ...orderData.guestOrderParams, ...params };
+  };
 
   return {
     isGuestOrder,
@@ -100,5 +102,6 @@ export const useCheckout = (): UseCheckout => {
     getShippingMethods,
     createOrder,
     guestOrderParams,
+    updateGuestOrderParams,
   };
 };

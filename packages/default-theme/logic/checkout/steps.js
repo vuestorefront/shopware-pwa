@@ -1,0 +1,6 @@
+export const CHECKOUT_STEPS = {
+  PERSONAL_DETAILS: 0,
+  SHIPPING: 1,
+  PAYMENT: 2,
+  REVIEW: 3,
+}
