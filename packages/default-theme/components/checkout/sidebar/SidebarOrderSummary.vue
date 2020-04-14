@@ -80,43 +80,33 @@ import {
   SfButton,
   SfProperty,
   SfCharacteristic,
-  SfInput
+  SfInput,
 } from '@storefront-ui/vue'
-
 import { useCart, useCartSidebar } from '@shopware-pwa/composables'
 import SwCartProduct from '@shopware-pwa/default-theme/components/SwCartProduct'
-
 export default {
-  name: 'OrderSummary',
+  name: 'SidebarOrderSummary',
   components: {
     SfHeading,
     SfButton,
     SwCartProduct,
     SfProperty,
     SfCharacteristic,
-    SfInput
-  },
-  props: {
-    order: {
-      type: Object,
-      default: () => ({})
-    },
-    shippingMethods: {
-      type: Array,
-      default: () => []
-    },
-    paymentMethods: {
-      type: Array,
-      default: () => []
-    }
+    SfInput,
   },
   setup() {
     const { cartItems, count, totalPrice, subtotal } = useCart()
+
+    // TODO: use useSessionContext
+    const shippingMethod = {
+      price: 'TODO: add price',
+    }
     return {
       cartItems,
       count,
       totalPrice,
-      subtotal
+      subtotal,
+      shippingMethod,
     }
   },
   data() {
@@ -128,49 +118,26 @@ export default {
         {
           title: 'Safety',
           description: 'It carefully packaged with a personal touch',
-          icon: 'safety'
+          icon: 'safety',
         },
         {
           title: 'Easy shipping',
           description:
             'You’ll receive dispatch confirmation and an arrival date',
-          icon: 'shipping'
+          icon: 'shipping',
         },
         {
           title: 'Changed your mind?',
           description: 'Rest assured, we offer free returns within 30 days',
-          icon: 'return'
-        }
-      ]
+          icon: 'return',
+        },
+      ],
     }
   },
-  computed: {
-    shipping() {
-      return this.order.shipping
-    },
-    shippingMethod() {
-      const shippingMethod = this.shipping.shippingMethod
-      const method = this.shippingMethods.find(
-        method => method.value === shippingMethod
-      )
-      return method ? method : { price: '$0.00' }
-    },
-    payment() {
-      return this.order.payment
-    },
-    paymentMethod() {
-      const paymentMethod = this.payment.paymentMethod
-      const method = this.paymentMethods.find(
-        method => method.value === paymentMethod
-      )
-      return method ? method : { label: '' }
-    }
-  }
 }
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-
 .highlighted {
   box-sizing: border-box;
   width: 100%;
