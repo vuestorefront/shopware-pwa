@@ -109,13 +109,13 @@ export default {
 
   &__title {
     font-family: var(--body-font-family-secondary);
-    font-size: var(--font-size-regular-mobile);
+    font-size: var(--font-base-mobile);
     font-weight: 300;
     line-height: 1.6;
-    margin: var(--spacer-small) 0;
+    margin: var(--spacer-2xs) 0;
     @include for-desktop {
-      margin: var(--spacer) 0 var(--spacer-small);
-      font-size: var(--font-size-regular-desktop);
+      margin: var(--spacer-xs) 0 var(--spacer-2xs);
+      font-size: var(--font-base-desktop);
     }
     &:hover {
       cursor: pointer;

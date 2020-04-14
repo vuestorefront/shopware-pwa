@@ -124,7 +124,7 @@ body {
   min-height: 100vh;
   font-family: var(--body-font-family-primary);
   font-weight: var(--body-font-weight-primary);
-  font-size: var(--font-size-regular);
+  font-size: var(--font-base);
   line-height: 1.6;
 }
 
@@ -154,7 +154,7 @@ body {
 }
 
 .sw-breadcrumbs {
-  padding: 0 var(--spacer-extra-big) var(--spacer-big) var(--spacer-extra-big);
+  padding: 0 var(--spacer-xl) var(--spacer-base) var(--spacer-xl);
 }
 
 /* Delete firefox outline */

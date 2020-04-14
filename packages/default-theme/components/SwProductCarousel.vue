@@ -57,17 +57,17 @@ export default {
 @import '~@storefront-ui/vue/styles';
 
 .section {
-  padding: 0 var(--spacer-big);
+  padding: 0 var(--spacer-base);
   @include for-desktop {
     padding: 0;
   }
 }
 
 .product-carousel {
-  margin: 0 calc(var(--spacer-big) * -1) 0 0;
+  margin: 0 calc(var(--spacer-base) * -1) 0 0;
   @include for-desktop {
-    margin: var(--spacer-big) 0;
-    --carousel-padding: var(--spacer-big);
+    margin: var(--spacer-base) 0;
+    --carousel-padding: var(--spacer-base);
     --carousel-max-width: calc(100% - 13.5rem);
   }
 }

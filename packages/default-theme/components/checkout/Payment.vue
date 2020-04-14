@@ -393,7 +393,7 @@ export default {
 @import '~@storefront-ui/vue/styles';
 
 .title {
-  margin-bottom: var(--spacer-extra-big);
+  margin-bottom: var(--spacer-xl);
 }
 .form {
   @include for-desktop {
@@ -403,7 +403,7 @@ export default {
     align-items: center;
   }
   &__element {
-    margin-bottom: var(--spacer-extra-big);
+    margin-bottom: var(--spacer-xl);
     @include for-desktop {
       flex: 0 0 100%;
     }
@@ -413,7 +413,7 @@ export default {
       }
       &-even {
         @include for-desktop {
-          padding-left: var(--spacer-extra-big);
+          padding-left: var(--spacer-xl);
         }
       }
     }
@@ -427,7 +427,7 @@ export default {
   &__action-button {
     flex: 1;
     &--secondary {
-      margin: var(--spacer-big) 0;
+      margin: var(--spacer-base) 0;
       @include for-desktop {
         order: -1;
         margin: 0;
@@ -457,7 +457,7 @@ export default {
 .payment-methods {
   @include for-desktop {
     display: flex;
-    padding: var(--spacer-big) 0;
+    padding: var(--spacer-base) 0;
     border-top: 1px solid var(--c-light);
     border-bottom: 1px solid var(--c-light);
   }
@@ -483,13 +483,13 @@ export default {
         align-items: center;
       }
       &__content {
-        margin: 0 0 0 var(--spacer);
+        margin: 0 0 0 var(--spacer-xs);
       }
     }
   }
 }
 .credit-card-form {
-  margin-bottom: var(--spacer-big);
+  margin-bottom: var(--spacer-base);
   @include for-desktop {
     flex: 0 0 66.666%;
     padding: 0 calc((100% - 66.666%) / 2);
@@ -498,7 +498,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 0 var(--spacer-big) 0;
+    margin: 0 0 var(--spacer-base) 0;
   }
   &__label {
     flex: unset;
@@ -513,7 +513,7 @@ export default {
       flex: 0 0 46.666%;
     }
     & + & {
-      margin-left: var(--spacer-big);
+      margin-left: var(--spacer-base);
     }
   }
 }

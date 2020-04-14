@@ -264,7 +264,7 @@ export default {
 @import '~@storefront-ui/vue/styles';
 
 .title {
-  margin-bottom: var(--spacer-extra-big);
+  margin-bottom: var(--spacer-xl);
 }
 .form {
   @include for-desktop {
@@ -273,7 +273,7 @@ export default {
     align-items: center;
   }
   &__element {
-    margin-bottom: var(--spacer-extra-big);
+    margin-bottom: var(--spacer-xl);
     @include for-desktop {
       flex: 0 0 100%;
     }
@@ -283,7 +283,7 @@ export default {
       }
       &-even {
         @include for-desktop {
-          padding-left: var(--spacer-extra-big);
+          padding-left: var(--spacer-xl);
         }
       }
     }
@@ -297,7 +297,7 @@ export default {
   &__action-button {
     flex: 1;
     &--secondary {
-      margin: var(--spacer-big) 0;
+      margin: var(--spacer-base) 0;
       @include for-desktop {
         order: -1;
         margin: 0;
@@ -315,12 +315,12 @@ export default {
     margin-bottom: 0;
     &-group {
       flex: 0 0 100%;
-      margin: 0 0 var(--spacer-extra-big) 0;
+      margin: 0 0 var(--spacer-xl) 0;
     }
   }
 }
 .shipping {
-  margin: 0 calc(var(--spacer-big) * -1);
+  margin: 0 calc(var(--spacer-base) * -1);
   &__label {
     display: flex;
     justify-content: space-between;
@@ -334,7 +334,7 @@ export default {
   }
   &__action {
     align-items: center;
-    margin-left: var(--spacer);
+    margin-left: var(--spacer-xs);
     text-decoration: none;
     &::before {
       content: '+';
@@ -347,7 +347,7 @@ export default {
     }
   }
   &__info {
-    margin-top: var(--spacer);
+    margin-top: var(--spacer-xs);
   }
 }
 </style>

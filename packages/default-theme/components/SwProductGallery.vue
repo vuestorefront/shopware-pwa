@@ -99,7 +99,7 @@ export default {
     }
     #{$this}__item {
       &:not(:first-child) {
-        margin: 0 0 0 var(--spacer);
+        margin: 0 0 0 var(--spacer-xs);
       }
     }
   }

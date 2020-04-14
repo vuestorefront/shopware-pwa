@@ -340,7 +340,7 @@ export default {
 }
 
 .title {
-  margin-bottom: var(--spacer-extra-big);
+  margin-bottom: var(--spacer-xl);
 }
 .form {
   @include for-desktop {
@@ -349,14 +349,14 @@ export default {
     align-items: center;
   }
   &__element {
-    margin-bottom: var(--spacer-extra-big);
+    margin-bottom: var(--spacer-xl);
     @include for-desktop {
       flex: 0 0 100%;
     }
     &--salutation {
       @include for-desktop {
         flex: 1 1 25%;
-        padding-right: var(--spacer-extra-big);
+        padding-right: var(--spacer-xl);
       }
     }
     &--names {
@@ -365,7 +365,7 @@ export default {
       }
       &-even {
         @include for-desktop {
-          padding-left: var(--spacer-extra-big);
+          padding-left: var(--spacer-xl);
         }
       }
     }
@@ -383,7 +383,7 @@ export default {
   &__action-button {
     flex: 1;
     &--secondary {
-      margin: var(--spacer-big) 0;
+      margin: var(--spacer-base) 0;
       @include for-desktop {
         margin: 0;
         text-align: right;
@@ -392,22 +392,22 @@ export default {
   }
 }
 .info {
-  margin-left: var(--spacer-big);
+  margin-left: var(--spacer-base);
   color: var(--c-text-muted);
   text-decoration: none;
 }
 .characteristic {
-  margin-bottom: var(--spacer-big);
+  margin-bottom: var(--spacer-base);
 }
 .modal {
   .modal {
     &__heading {
-      margin-bottom: var(--spacer-extra-big);
+      margin-bottom: var(--spacer-xl);
     }
   }
   &__button {
     display: block;
-    margin-top: var(--spacer-extra-big);
+    margin-top: var(--spacer-xl);
   }
 }
 </style>

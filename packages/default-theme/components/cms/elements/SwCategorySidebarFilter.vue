@@ -234,8 +234,8 @@ export default {
   &::after {
     position: absolute;
     bottom: 0;
-    left: var(--spacer-big);
-    width: calc(100% - (var(--spacer-big) * -2));
+    left: var(--spacer-base);
+    width: calc(100% - (var(--spacer-base) * -2));
     height: 1px;
     background-color: var(--c-light);
     content: '';
@@ -247,22 +247,22 @@ export default {
     display: flex;
     align-items: center;
     flex: 0 0 15%;
-    padding: var(--spacer-big) var(--spacer-extra-big);
+    padding: var(--spacer-base) var(--spacer-xl);
     border-right: 1px solid var(--c-light);
   }
   &__main {
     flex: 1;
     display: flex;
     align-items: center;
-    padding: var(--spacer-medium) 0;
-    font-size: var(--font-size-small-desktop);
+    padding: var(--spacer-sm) 0;
+    font-size: var(--font-sm-desktop);
     @include for-desktop {
-      padding: var(--spacer-big) 0;
+      padding: var(--spacer-base) 0;
     }
   }
   &__title {
     padding: 0;
-    font-size: var(--font-size-big-desktop);
+    font-size: var(--font-lg-desktop);
     line-height: 2.23;
   }
   &__filters-button {
@@ -275,7 +275,7 @@ export default {
     font-size: inherit;
     font-weight: 500;
     @include for-desktop {
-      margin: 0 0 0 var(--spacer-extra-big);
+      margin: 0 0 0 var(--spacer-xl);
       font-weight: 400;
       text-transform: none;
     }
@@ -298,7 +298,7 @@ export default {
   &__sort {
     display: flex;
     align-items: center;
-    margin-left: var(--spacer-extra-big);
+    margin-left: var(--spacer-xl);
     margin-right: auto;
   }
   &__counter {
@@ -310,7 +310,7 @@ export default {
   &__view {
     display: flex;
     align-items: center;
-    margin: 0 var(--spacer-extra-big);
+    margin: 0 var(--spacer-xl);
     &-icon {
       margin-left: 10px;
     }
@@ -318,8 +318,8 @@ export default {
 }
 
 .section {
-  padding-left: var(--spacer-big);
-  padding-right: var(--spacer-big);
+  padding-left: var(--spacer-base);
+  padding-right: var(--spacer-base);
   @include for-desktop {
     padding-left: 0;
     padding-right: 0;
@@ -342,23 +342,23 @@ export default {
 }
 
 .filters {
-  padding: var(--spacer-big);
+  padding: var(--spacer-base);
   &__title {
-    margin: calc(var(--spacer-big) * 3) 0 var(--spacer-big);
-    font-size: var(--font-size-big-desktop);
+    margin: calc(var(--spacer-base) * 3) 0 var(--spacer-base);
+    font-size: var(--font-lg-desktop);
     line-height: 1.6;
     &:first-child {
-      margin: 0 0 var(--spacer-big) 0;
+      margin: 0 0 var(--spacer-base) 0;
     }
   }
   &__item {
-    padding: var(--spacer-small) 0;
+    padding: var(--spacer-2xs) 0;
     &--color {
-      margin: 0 var(--spacer);
+      margin: 0 var(--spacer-xs);
     }
   }
   &__buttons {
-    margin: calc(var(--spacer-big) * 3) 0 0 0;
+    margin: calc(var(--spacer-base) * 3) 0 0 0;
   }
   &__button-clear {
     color: #a3a5ad;

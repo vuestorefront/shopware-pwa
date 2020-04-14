@@ -33,7 +33,7 @@ export default {
 .sw-image-bubble-row {
   display: flex;
   flex-direction: column;
-  margin: var(--spacer-extra-big) 0;
+  margin: var(--spacer-xl) 0;
 
   @include for-desktop {
     flex-direction: row;
@@ -42,7 +42,7 @@ export default {
 }
 ::v-deep .sf-image {
   border-radius: 50%;
-  margin: var(--spacer-small);
+  margin: var(--spacer-2xs);
   & img {
     height: 300px;
     width: 300px;

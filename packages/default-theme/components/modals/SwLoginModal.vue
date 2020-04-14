@@ -126,27 +126,27 @@ export default {
 
 .form {
   &__input {
-    margin-bottom: var(--spacer-medium);
+    margin-bottom: var(--spacer-sm);
     &--email {
-      margin-bottom: var(--spacer-medium);
+      margin-bottom: var(--spacer-sm);
     }
   }
   &__checkbox {
-    margin-bottom: var(--spacer-big);
+    margin-bottom: var(--spacer-base);
   }
   &__button {
-    margin-top: var(--spacer-big);
+    margin-top: var(--spacer-base);
   }
 }
 
 .action {
-  margin-top: var(--spacer-big);
+  margin-top: var(--spacer-base);
   text-align: center;
 }
 
 .bottom {
-  padding-top: var(--spacer-extra-big);
-  margin-top: var(--spacer-extra-big);
+  padding-top: var(--spacer-xl);
+  margin-top: var(--spacer-xl);
   border-top: 1px solid var(--c-light);
   line-height: 1.6;
   text-align: center;
