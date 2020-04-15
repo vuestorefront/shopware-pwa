@@ -1142,6 +1142,100 @@ const useUserLoginModal = () => {
 /**
  * @alpha
  */
+const useImageProps = (content) => {
+  const getImgUrl = compositionApi.computed(() => {
+    var _a, _b, _c;
+    const imgUrl =
+      (_c =
+        (_b = (_a = content) === null || _a === void 0 ? void 0 : _a.data) ===
+          null || _b === void 0
+          ? void 0
+          : _b.media) === null || _c === void 0
+        ? void 0
+        : _c.url;
+    return imgUrl || "";
+  });
+  const getAlt = compositionApi.computed(() => {
+    var _a, _b, _c;
+    const alt =
+      (_c =
+        (_b = (_a = content) === null || _a === void 0 ? void 0 : _a.data) ===
+          null || _b === void 0
+          ? void 0
+          : _b.media) === null || _c === void 0
+        ? void 0
+        : _c.alt;
+    return alt || "";
+  });
+  const getTitle = compositionApi.computed(() => {
+    var _a, _b, _c;
+    const title =
+      (_c =
+        (_b = (_a = content) === null || _a === void 0 ? void 0 : _a.data) ===
+          null || _b === void 0
+          ? void 0
+          : _b.media) === null || _c === void 0
+        ? void 0
+        : _c.title;
+    return title || "";
+  });
+  return {
+    getImgUrl,
+    getAlt,
+    getTitle,
+  };
+};
+
+(function (PositionType) {
+  PositionType["LEFT"] = "left";
+  PositionType["RIGHT"] = "right";
+  PositionType["CENTER"] = "center";
+  PositionType["CENTER_LEFT"] = "center-left";
+  PositionType["CENTER_RIGHT"] = "center-right";
+  PositionType["LEFT_TOP"] = "left-top";
+  PositionType["LEFT_BOTTOM"] = "left-bottom";
+})(exports.PositionType || (exports.PositionType = {}));
+/**
+ * @alpha
+ */
+const useSlotsPositions = (slots) => {
+  const findSlot = (positionType) =>
+    slots.find(({ slot }) => slot === positionType);
+  const leftSlot = compositionApi.computed(() =>
+    findSlot(exports.PositionType.LEFT)
+  );
+  const rightSlot = compositionApi.computed(() =>
+    findSlot(exports.PositionType.RIGHT)
+  );
+  const centerSlot = compositionApi.computed(() =>
+    findSlot(exports.PositionType.CENTER)
+  );
+  const centerLeftSlot = compositionApi.computed(() =>
+    findSlot(exports.PositionType.CENTER_LEFT)
+  );
+  const centerRightSlot = compositionApi.computed(() =>
+    findSlot(exports.PositionType.CENTER_RIGHT)
+  );
+  const leftTopSlot = compositionApi.computed(() =>
+    findSlot(exports.PositionType.LEFT_TOP)
+  );
+  const leftBottomSlot = compositionApi.computed(() =>
+    findSlot(exports.PositionType.LEFT_BOTTOM)
+  );
+  return {
+    leftSlot,
+    rightSlot,
+    centerSlot,
+    centerLeftSlot,
+    centerRightSlot,
+    leftBottomSlot,
+    leftTopSlot,
+  };
+};
+
+/**
+ * @alpha
+ */
 function createCheckoutStep({ stepNumber, stepFields, stepDataUpdated }) {
   const cookies = cookieUniversal();
   const stepData = compositionApi.reactive({
@@ -1226,11 +1320,13 @@ exports.useCategoryFilters = useCategoryFilters;
 exports.useCheckout = useCheckout;
 exports.useCms = useCms;
 exports.useCountries = useCountries;
+exports.useImageProps = useImageProps;
 exports.useNavigation = useNavigation;
 exports.useProduct = useProduct;
 exports.useProductListing = useProductListing;
 exports.useProductSearch = useProductSearch;
 exports.useSalutations = useSalutations;
 exports.useSessionContext = useSessionContext;
+exports.useSlotsPositions = useSlotsPositions;
 exports.useUser = useUser;
 exports.useUserLoginModal = useUserLoginModal;

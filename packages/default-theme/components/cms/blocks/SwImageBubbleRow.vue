@@ -1,18 +1,19 @@
 <template>
   <div class="sw-image-bubble-row">
-    <SwImage v-for="image in slots.slots" :key="image.id" :content="image"/>
+    <SwImageRounded :content="leftSlot"/>
+    <SwImageRounded :content="centerSlot"/>
+    <SwImageRounded :content="rightSlot"/>
   </div>
 </template>
 
 <script>
-import SwImage from "./SwImage";
-import { setContentOrder } from "../cmsNameMapper";
-import { reactive } from "@vue/composition-api";
+import SwImageRounded from "../elements/SwImageRounded";
+import { useSlotsPositions } from '@shopware-pwa/composables';
 
 export default {
   name: 'SwImageBubbleRow',
   components: {
-    SwImage,
+    SwImageRounded,
   },
   props: {
     content: {
@@ -21,8 +22,9 @@ export default {
     }
   },
   setup(props) {
-    const slots = reactive(setContentOrder(props.content))
-    return {slots}
+    const {leftSlot, centerSlot, rightSlot} = useSlotsPositions(props.content.slots)
+
+    return {leftSlot, centerSlot, rightSlot}
   }
 };
 </script>
@@ -39,15 +41,5 @@ export default {
     flex-direction: row;
     justify-content: space-around;
   }
-}
-::v-deep .sf-image {
-  border-radius: 50%;
-  margin: var(--spacer-small);
-  & img {
-    height: 300px;
-    width: 300px;
-    object-fit: cover;
-  }
-
 }
 </style>

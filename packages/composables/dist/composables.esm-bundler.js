@@ -1162,6 +1162,90 @@ const useUserLoginModal = () => {
 /**
  * @alpha
  */
+const useImageProps = (content) => {
+  const getImgUrl = computed(() => {
+    var _a, _b, _c;
+    const imgUrl =
+      (_c =
+        (_b = (_a = content) === null || _a === void 0 ? void 0 : _a.data) ===
+          null || _b === void 0
+          ? void 0
+          : _b.media) === null || _c === void 0
+        ? void 0
+        : _c.url;
+    return imgUrl || "";
+  });
+  const getAlt = computed(() => {
+    var _a, _b, _c;
+    const alt =
+      (_c =
+        (_b = (_a = content) === null || _a === void 0 ? void 0 : _a.data) ===
+          null || _b === void 0
+          ? void 0
+          : _b.media) === null || _c === void 0
+        ? void 0
+        : _c.alt;
+    return alt || "";
+  });
+  const getTitle = computed(() => {
+    var _a, _b, _c;
+    const title =
+      (_c =
+        (_b = (_a = content) === null || _a === void 0 ? void 0 : _a.data) ===
+          null || _b === void 0
+          ? void 0
+          : _b.media) === null || _c === void 0
+        ? void 0
+        : _c.title;
+    return title || "";
+  });
+  return {
+    getImgUrl,
+    getAlt,
+    getTitle,
+  };
+};
+
+/**
+ * @alpha
+ */
+var PositionType;
+(function (PositionType) {
+  PositionType["LEFT"] = "left";
+  PositionType["RIGHT"] = "right";
+  PositionType["CENTER"] = "center";
+  PositionType["CENTER_LEFT"] = "center-left";
+  PositionType["CENTER_RIGHT"] = "center-right";
+  PositionType["LEFT_TOP"] = "left-top";
+  PositionType["LEFT_BOTTOM"] = "left-bottom";
+})(PositionType || (PositionType = {}));
+/**
+ * @alpha
+ */
+const useSlotsPositions = (slots) => {
+  const findSlot = (positionType) =>
+    slots.find(({ slot }) => slot === positionType);
+  const leftSlot = computed(() => findSlot(PositionType.LEFT));
+  const rightSlot = computed(() => findSlot(PositionType.RIGHT));
+  const centerSlot = computed(() => findSlot(PositionType.CENTER));
+  const centerLeftSlot = computed(() => findSlot(PositionType.CENTER_LEFT));
+  const centerRightSlot = computed(() => findSlot(PositionType.CENTER_RIGHT));
+  const leftTopSlot = computed(() => findSlot(PositionType.LEFT_TOP));
+  const leftBottomSlot = computed(() => findSlot(PositionType.LEFT_BOTTOM));
+  return {
+    leftSlot,
+    rightSlot,
+    centerSlot,
+    centerLeftSlot,
+    centerRightSlot,
+    leftBottomSlot,
+    leftTopSlot,
+  };
+};
+
+/**
+ * @alpha
+ */
 function createCheckoutStep({ stepNumber, stepFields, stepDataUpdated }) {
   const cookies = cookieUniversal();
   const stepData = reactive({
@@ -1237,6 +1321,7 @@ function getStore() {
 }
 
 export {
+  PositionType,
   createCheckoutStep,
   getStore,
   setStore,
@@ -1247,12 +1332,14 @@ export {
   useCheckout,
   useCms,
   useCountries,
+  useImageProps,
   useNavigation,
   useProduct,
   useProductListing,
   useProductSearch,
   useSalutations,
   useSessionContext,
+  useSlotsPositions,
   useUser,
   useUserLoginModal,
 };
