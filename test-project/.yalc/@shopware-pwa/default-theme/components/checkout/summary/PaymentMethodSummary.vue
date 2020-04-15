@@ -11,20 +11,21 @@
   </div>
 </template>
 <script>
-import {
-  SfButton,
-} from '@storefront-ui/vue'
+import { SfButton } from '@storefront-ui/vue'
 export default {
-  name: 'PaymentMethod',
+  name: 'PaymentMethodSummary',
   components: {
     SfButton,
   },
-  props: {
-    paymentMethod: {
-      type: Object,
-      default: () => ({})
+  setup() {
+    // TODO get payment method from useSessionContext
+    const paymentMethod = {
+      label: 'TODO: payment method',
     }
-  }
+    return {
+      paymentMethod,
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>

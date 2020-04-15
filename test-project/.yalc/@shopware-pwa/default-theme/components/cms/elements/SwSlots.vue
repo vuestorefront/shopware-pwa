@@ -78,18 +78,6 @@ export default {
 <style lang="scss">
 @import '~@storefront-ui/vue/styles.scss';
 
-
-
-.sw-blocks {
-  &:nth-child(2) > div:nth-child(1) {
-    @include for-desktop() {
-      min-height: 50vh;
-      margin-top: 20px;
-      border-right: 1px solid var(--c-light);
-    }
-  }
-}
-
 .sw-slots {
   display: flex;
   width: 100%;

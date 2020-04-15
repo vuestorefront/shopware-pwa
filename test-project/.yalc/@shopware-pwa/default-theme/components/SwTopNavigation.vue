@@ -8,26 +8,22 @@
     >
       <template #logo>
         <nuxt-link to="/" class="sf-header__logo">
-          <SfImage src="/img/logo.svg" alt="Shopware PWA" />
+          <SfImage src="/img/logo.png" alt="Shopware PWA" />
         </nuxt-link>
       </template>
       <template #navigation>
         <SfHeaderNavigationItem
-          v-for="{ routeLabel, routePath } in routes"
-          :key="routeLabel"
+          v-for="category in navigationElements"
+          :key="category.name"
           class="sf-header__link"
+          @mouseover="setHoverNavigationItem(category.name)"
+          @mouseleave="setHoverNavigationItem('')"
+          @keyup.tab="setHoverNavigationItem(category.name)"
         >
-          <nuxt-link class="sf-header__link" :to="routePath">
-            <a
-              :style="{
-                display: 'flex',
-                alignItems: 'center',
-                height: '100%'
-              }"
-            >
-              {{ routeLabel }}
-            </a>
+          <nuxt-link class="sf-header__link" :to="path(category)">
+            {{ category.name }}
           </nuxt-link>
+          <SwMegaMenu :category="category" :hoveredItem="hoveredNavigationItem" v-if="category.children.length"/>
         </SfHeaderNavigationItem>
       </template>
       <template #search>
@@ -89,46 +85,58 @@ import {
   useProductSearch
 } from '@shopware-pwa/composables'
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
+import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
+import { ref, reactive, onMounted } from "@vue/composition-api";
 import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
+import helpers from '@shopware-pwa/default-theme/helpers'
 
 export default {
-  components: { SfHeader, SfCircleIcon, SwLoginModal, SfImage, SfSearchBar },
+  components: { SfHeader, SfCircleIcon, SwLoginModal, SfImage, SfSearchBar, SwMegaMenu },
   setup() {
-    const { routes, fetchRoutes } = useNavigation()
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
     const { toggleSidebar } = useCartSidebar()
     const { toggleModal } = useUserLoginModal()
     const { search: fulltextSearch } = useProductSearch()
+    const {hoveredNavigationItem, getNavigationElements, navigationElements} = useNavigation()
+
+    // onMounted(getNavigationElements(3))
+
+    function setHoverNavigationItem(itemName) {
+      hoveredNavigationItem.value = itemName
+    }
 
     return {
-      routes,
-      fetchRoutes,
       count,
       toggleModal,
       toggleSidebar,
       isLoggedIn,
       logout,
-      fulltextSearch
+      fulltextSearch,
+      navigationElements,
+      hoveredNavigationItem,
+      setHoverNavigationItem,
+      path: helpers.getCategoryRoutePath,
+      getNavigationElements
     }
   },
   data() {
     return {
-      navigationElements: [{ name: '' }],
       activeSidebar: 'account',
       activeIcon: '',
       isModalOpen: false
     }
   },
   async mounted() {
-    await this.fetchRoutes({ depth: 1 })
+    await this.getNavigationElements(3)
   },
   methods: {
     userIconClick() {
       if (this.isLoggedIn) this.$router.push(PAGE_ACCOUNT)
       else this.toggleModal()
     }
-  }
+  },
+
 }
 </script>
 
@@ -136,8 +144,8 @@ export default {
 @import '~@storefront-ui/vue/styles.scss';
 
 .top-navigation {
+  margin-bottom: var(--spacer-medium);
   @include for-desktop {
-    margin-bottom: var(--spacer-medium);
 
     .sf-header {
       display: flex;

@@ -1,6 +1,6 @@
 <template>
   <div class="cms-page">
-    <SwSlots
+    <SwGenericBlock
       :content="cmsSection"
       v-for="cmsSection in cmsSections"
       :key="cmsSection.id"
@@ -9,24 +9,24 @@
 </template>
 
 <script>
-import SwSlots from '@shopware-pwa/default-theme/components/cms/elements/SwSlots'
+import SwGenericBlock from '@shopware-pwa/default-theme/components/cms/elements/SwGenericBlock'
 import { getCmsSections } from '@shopware-pwa/helpers'
 
 export default {
   components: {
-    SwSlots
+    SwGenericBlock,
   },
   props: {
     content: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   computed: {
     cmsSections() {
       return getCmsSections(this.content)
-    }
-  }
+    },
+  },
 }
 </script>
 

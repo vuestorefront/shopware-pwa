@@ -3,10 +3,10 @@
     <div class="form sw-login__form">
       <h2 class="sw-login__header">Log in</h2>
       <SfAlert
-        v-if="error"
+        v-if="userError"
         class="sw-login__alert"
         type="danger"
-        message="Invalid credentials"
+        :message="userError"
       />
       <SfInput
         v-model="email"
@@ -47,7 +47,7 @@ import { required, email } from 'vuelidate/lib/validators'
 import { useUser } from '@shopware-pwa/composables'
 
 export default {
-  name: 'SwResetPassword',
+  name: 'SwLogin',
   components: { SfButton, SfInput, SfAlert },
   mixins: [validationMixin],
   data() {
@@ -57,11 +57,11 @@ export default {
     }
   },
   setup() {
-    const { login, loading, error } = useUser()
+    const { login, loading, error: userError } = useUser()
     return {
       clientLogin: login,
       isLoading: loading,
-      error
+      userError
     }
   },
   validations: {
@@ -94,7 +94,7 @@ export default {
 
 .sw-login {
   &__alert {
-    margin-bottom: var(--spacer-small);
+    margin-bottom: var(--spacer-big);
   }
   &__header {
     margin-bottom: var(--spacer-big);
