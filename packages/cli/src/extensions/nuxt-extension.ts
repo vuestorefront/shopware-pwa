@@ -18,8 +18,8 @@ module.exports = (toolbox: GluegunToolbox) => {
     const spinner = spin("Preparing Nuxt project");
     const isNuxtGenerated = exists("nuxt.config.js");
     const nuxtAnswers = {
-      name: "shopware-pwa-project",
-      description: "shopware-pwa-project description",
+      name: "Biżuteria YES - Demo",
+      description: "Biżuteria YES x Shopware PWA",
       author: "Vue Storefront",
       pm: "yarn",
       ui: "none",
