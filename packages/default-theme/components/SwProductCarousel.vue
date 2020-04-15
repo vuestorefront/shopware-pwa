@@ -38,7 +38,7 @@ export default {
       const result = await getProducts({
         sort: {
           field: 'price',
-          desc: false
+          desc: true
         },
         pagination: {
           page: 1,
