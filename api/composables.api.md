@@ -103,6 +103,8 @@ export interface UseCheckout {
     guestOrderParams: Ref<Readonly<Partial<GuestOrderParams | null>>>;
     // (undocumented)
     isGuestOrder: Readonly<Ref<boolean>>;
+    // (undocumented)
+    updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
 }
 
 // @alpha (undocumented)

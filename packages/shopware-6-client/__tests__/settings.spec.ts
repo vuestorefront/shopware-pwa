@@ -71,19 +71,19 @@ describe("Settings", () => {
 
     it("should have default config with empty invocation", () => {
       update();
-      expect(config.accessToken).toEqual("SWSCMUDKAKHSRXPJEHNOSNHYAG");
+      expect(config.accessToken).toEqual("SWSCTXJOZMQWCXA4OUTNZ0REYG");
       expect(config.contextToken).toEqual("");
     });
 
     it("should change defaultPaginationLimit", () => {
       update({ defaultPaginationLimit: 50 });
-      expect(config.accessToken).toEqual("SWSCMUDKAKHSRXPJEHNOSNHYAG");
+      expect(config.accessToken).toEqual("SWSCTXJOZMQWCXA4OUTNZ0REYG");
       expect(config.defaultPaginationLimit).toEqual(50);
     });
 
     it("should change default timeout", () => {
       update({ timeout: 50 });
-      expect(config.accessToken).toEqual("SWSCMUDKAKHSRXPJEHNOSNHYAG");
+      expect(config.accessToken).toEqual("SWSCTXJOZMQWCXA4OUTNZ0REYG");
       expect(config.timeout).toEqual(50);
     });
   });

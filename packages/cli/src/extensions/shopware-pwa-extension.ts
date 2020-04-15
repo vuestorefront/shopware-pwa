@@ -2,7 +2,7 @@ import { GluegunToolbox } from "gluegun";
 
 const defaultConfig = {
   shopwareEndpoint: "https://shopware-2.vuestorefront.io",
-  shopwareAccessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG",
+  shopwareAccessToken: "SWSCTXJOZMQWCXA4OUTNZ0REYG",
 };
 // add your CLI-specific functionality here, which will then be accessible
 // to your commands
