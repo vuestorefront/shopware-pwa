@@ -6,8 +6,8 @@
         :name="name"
         :reviews="reviews"
         :rating-average="ratingAverage"
-        :special="price > getSpecialPrice ? getSpecialPrice : price"
-        :price="price > getSpecialPrice ? price : getSpecialPrice"
+        :special="getSpecialPrice"
+        :price="getRegularPrice"
       />
     </div>
     <!-- <p class="product-details__description desktop-only test" v-html="description"> -->
@@ -153,12 +153,17 @@ export default {
     }
   },
   computed: {
-    price() {
-      return getProductRegularPrice({ product: this.product })
+    getRegularPrice() {
+      const regular = getProductRegularPrice({ product: this.product })
+      const special = getProductSpecialPrice(this.product)
+      // temporary fix to show proper regular price
+      return (regular > special ? regular : special)
     },
     getSpecialPrice() {
-      const price = getProductSpecialPrice(this.product)
-      return price
+      const special = getProductSpecialPrice(this.product)
+      const regular = getProductRegularPrice({ product: this.product })
+      // temporary fix to show proper special price
+      return special && (special < regular ? special : regular)
     },
     name() {
       return (
