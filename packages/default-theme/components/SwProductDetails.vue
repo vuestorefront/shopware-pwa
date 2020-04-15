@@ -48,8 +48,7 @@
     <SwProductTabs>
       <SfTab title="Description">
         <div>
-          <p>
-            {{ description }}
+          <p v-html="description">
           </p>
         </div>
       </SfTab>
