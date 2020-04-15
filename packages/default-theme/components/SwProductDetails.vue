@@ -158,7 +158,7 @@ export default {
     },
     getSpecialPrice() {
       const price = getProductSpecialPrice(this.product)
-      return price && '$' + price
+      return price
     },
     name() {
       return (
