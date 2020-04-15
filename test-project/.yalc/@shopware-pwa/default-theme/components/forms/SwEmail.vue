@@ -6,12 +6,12 @@
           Remember to keep your email up to date in case of loosing password.
         </p>
       </slot>
-
       <SfAlert
-        v-if="error"
-        class="sw-personal-info__alert"
+        v-for="(message, index) in useUserErrorMessages"
+        :key="index"
+        class="sw-email__alert"
         type="danger"
-        message="Errors in the form"
+        :message="message"
       />
 
       <div class="sw-email__form form">
@@ -28,15 +28,15 @@
             @blur="$v.email.$touch()"
           />
           <SfInput
-            v-model="confirmEmail"
-            :valid="!$v.confirmEmail.$error"
+            v-model="emailConfirmation"
+            :valid="!$v.emailConfirmation.$error"
             error-message="Must match first one"
             type="email"
-            name="confirmEmail"
+            name="emailConfirmation"
             label="Confirm e-mail"
             class="form__element"
             required
-            @blur="$v.confirmEmail.$touch()"
+            @blur="$v.emailConfirmation.$touch()"
           />
           <SfInput
             v-model="password"
@@ -65,27 +65,31 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, email, sameAs } from 'vuelidate/lib/validators'
+import { computed } from '@vue/composition-api';
 import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
+import { getMessagesFromErrorsArray } from '@shopware-pwa/helpers'
 
 export default {
-  name: 'MyProfile',
+  name: 'EmailChange',
   components: { SfInput, SfButton, SfAlert },
   mixins: [validationMixin],
   props: {},
   setup() {
-    const { user, error, updateEmail, refreshUser } = useUser()
+    const { user, error: userError, updateEmail, refreshUser } = useUser()
+    const userErrorMessages = computed(() => getMessagesFromErrorsArray(userError.value.message))
+
     return {
       refreshUser,
       updateEmail,
       user,
-      error
+      userErrorMessages
     }
   },
   data() {
     return {
       email: '',
-      confirmEmail: '',
+      emailConfirmation: '',
       password: ''
     }
   },
@@ -93,10 +97,10 @@ export default {
     async invokeUpdate() {
       const emailChanged = await this.updateEmail({
         email: this.email,
-        confirmEmail: this.confirmEmail,
+        emailConfirmation: this.confirmEmail,
         password: this.password
       })
-      await refreshUser()
+      await this.refreshUser()
     }
   },
   validations: {
@@ -104,7 +108,7 @@ export default {
       required,
       email
     },
-    confirmEmail: {
+    emailConfirmation: {
       required,
       sameAsEmail: sameAs('email'),
       email
@@ -118,6 +122,12 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
+
+.sw-email {
+  &__alert {
+    margin-bottom: var(--spacer-big);
+  }
+}
 
 .form {
   @include for-desktop {

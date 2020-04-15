@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/default-theme",
-  "version": "0.1.0-alpha.2-71a63471",
+  "version": "0.1.0-alpha.4-f8350d0c",
   "description": "Shopware PWA theme",
   "author": "patzick",
   "scripts": {
@@ -17,17 +17,16 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@nuxtjs/axios": "^5.9.5",
+    "@nuxtjs/axios": "^5.9.6",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
-    "@storefront-ui/vue": "^0.6.2",
-    "@vue/composition-api": "^0.4.0",
+    "@storefront-ui/vue": "0.6.4",
+    "@vue/composition-api": "^0.5.0",
     "currency.js": "^1.2.2",
-    "dayjs": "^1.8.22",
-    "nuxt": "^2.11.0",
+    "dayjs": "^1.8.23",
+    "nuxt": "^2.12.1",
     "vuelidate": "^0.7.5"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "e930f9945653eb78b7a78700b6f4d145ee8cb542"
+  }
 }

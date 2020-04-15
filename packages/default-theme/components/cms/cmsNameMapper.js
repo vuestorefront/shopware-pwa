@@ -21,12 +21,13 @@ const blocksMap = {
   'center-text': 'SwCenterText',
   'image-text-cover': 'SwImageTextCover',
   'text-three-column': 'SwThreeColumns',
+  sidebar: 'SwSidebar',
 }
 
 export function getComponentBy(content) {
   if (!content) return
   const isSlot = !!content.blockId
-  const isBlock = !!content.sectionId
+  const isBlock = !!content.sectionId || !!content.pageId
 
   let componentName
   if (isBlock) {

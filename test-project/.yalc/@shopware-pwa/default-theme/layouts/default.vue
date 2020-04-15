@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <TopNavigation />
+    <SwTopNavigation />
     <SwPluginTopNavigation />
     <SfBreadcrumbs
       v-show="getBreadcrumbs.length > 0"
@@ -17,7 +17,7 @@
 
 <script>
 import { SfBreadcrumbs } from '@storefront-ui/vue'
-import TopNavigation from '@shopware-pwa/default-theme/components/TopNavigation'
+import SwTopNavigation from '@shopware-pwa/default-theme/components/SwTopNavigation'
 import SwBottomNavigation from '@shopware-pwa/default-theme/components/SwBottomNavigation'
 import SwCart from '@shopware-pwa/default-theme/components/SwCart'
 import SwFooter from '@shopware-pwa/default-theme/components/cms/elements/SwFooter'
@@ -26,37 +26,42 @@ import SwPluginTopNavigation from 'sw-plugins/SwPluginTopNavigation'
 export default {
   components: {
     SfBreadcrumbs,
-    TopNavigation,
+    SwTopNavigation,
     SwCart,
     SwFooter,
     SwBottomNavigation,
-    SwPluginTopNavigation
+    SwPluginTopNavigation,
   },
   computed: {
     componentBreadcrumbs() {
       // TODO probably move to vuex now as it's not rendered on server side
       return (
-        this.$route.matched.map(r => {
-          return r.components.default.options.data().breadcrumbs
-        })[0] || {}
+        this.$route.matched
+          .map((r) => {
+            return (
+              r.components.default.options.data &&
+              r.components.default.options.data().breadcrumbs
+            )
+          })
+          .shift() || {}
       )
     },
     getBreadcrumbs() {
       return Object.keys(this.componentBreadcrumbs)
-        .map(key => this.componentBreadcrumbs[key])
-        .map(breadcrumb => ({
+        .map((key) => this.componentBreadcrumbs[key])
+        .map((breadcrumb) => ({
           text: breadcrumb.name,
           route: {
-            link: breadcrumb.path
-          }
+            link: breadcrumb.path,
+          },
         }))
-    }
+    },
   },
   methods: {
     redirectTo(route) {
       return this.$router.push(route.link)
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -77,7 +82,6 @@ a {
 }
 
 /*Header styles*/
-
 h1 {
   font-family: var(--body-font-family-secondary);
   font-size: var(--h1-font-size);
@@ -155,7 +159,7 @@ body {
 }
 
 .sw-breadcrumbs {
-  padding: var(--spacer-big) var(--spacer-extra-big) var(--spacer-extra-big);
+  padding: 0 var(--spacer-extra-big) var(--spacer-big) var(--spacer-extra-big);
 }
 
 /* Delete firefox outline */

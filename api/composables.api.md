@@ -15,6 +15,7 @@ import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
+import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
@@ -160,7 +161,21 @@ export interface UseImageProps {
 export const useImageProps: (content: CmsSlot | undefined) => UseImageProps;
 
 // @alpha (undocumented)
-export const useNavigation: () => any;
+export interface UseNavigation {
+    // (undocumented)
+    fetchRoutes: () => Promise<void>;
+    // (undocumented)
+    getNavigationElements: (depth: number) => Promise<void>;
+    // (undocumented)
+    hoveredNavigationItem: Ref<string>;
+    // (undocumented)
+    navigationElements: NavigationElement[];
+    // (undocumented)
+    routes: Ref<Readonly<any>>;
+}
+
+// @alpha (undocumented)
+export const useNavigation: () => UseNavigation;
 
 // @alpha (undocumented)
 export interface UseProduct<PRODUCT, SEARCH> {

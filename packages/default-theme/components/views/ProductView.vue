@@ -14,39 +14,6 @@
         <SwProductCarousel />
       </div>
     </div>
-    <SfSection
-      title-heading="Share Your Look"
-      subtitle-heading="#YOURLOOK"
-      class="section"
-    >
-      <div class="images-grid">
-        <div class="images-grid__row">
-          <div class="images-grid__col">
-            <SfImage src="/img/imageA.png">katherina_trn</SfImage>
-          </div>
-          <div class="images-grid__col">
-            <SfImage src="/img/imageB.png">katherina_trn</SfImage>
-          </div>
-          <div class="images-grid__col">
-            <SfImage src="/img/imageC.png">katherina_trn</SfImage>
-          </div>
-        </div>
-        <div class="images-grid__row">
-          <div class="images-grid__col">
-            <SfImage src="/img/imageC.png">katherina_trn</SfImage>
-          </div>
-          <div class="images-grid__col">
-            <SfImage src="/img/imageD.png">katherina_trn</SfImage>
-          </div>
-          <div class="images-grid__col">
-            <SfImage src="/img/imageA.png">katherina_trn</SfImage>
-          </div>
-        </div>
-      </div>
-    </SfSection>
-    <div class="product__advertisement">
-      <SwProductAdvertisement />
-    </div>
   </div>
 </template>
 <script>

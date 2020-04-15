@@ -1332,17 +1332,6 @@
     webpack-node-externals "^1.7.2"
     webpackbar "^4.0.0"
 
-"@nuxtjs/axios@^5.9.5":
-  version "5.9.5"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/axios/-/axios-5.9.5.tgz#5adc0acc4deb7e1d67ab7240c741a401a6c01823"
-  integrity sha512-5sMsl5PbNSbAOou75wN2ztDAfGi6pU12zZQvfkDBz3s9KnKST/Azfc1FLw2Y8TR4UaDv074vt20oxK+z7AnH1A==
-  dependencies:
-    "@nuxtjs/proxy" "^1.3.3"
-    axios "^0.19.2"
-    axios-retry "^3.1.2"
-    consola "^2.11.3"
-    defu "^1.0.0"
-
 "@nuxtjs/axios@^5.9.6":
   version "5.9.6"
   resolved "https://registry.yarnpkg.com/@nuxtjs/axios/-/axios-5.9.6.tgz#c7101396a77414cdfd1c6dae4c4a128dc9ec5c36"
@@ -1419,15 +1408,15 @@
     query-string "^6.11.1"
 
 "@shopware-pwa/default-theme@file:.yalc/@shopware-pwa/default-theme":
-  version "0.1.0-alpha.2-71a63471"
+  version "0.1.0-alpha.4-f8350d0c"
   dependencies:
-    "@nuxtjs/axios" "^5.9.5"
+    "@nuxtjs/axios" "^5.9.6"
     "@nuxtjs/pwa" "^3.0.0-beta.20"
-    "@storefront-ui/vue" "^0.6.2"
-    "@vue/composition-api" "^0.4.0"
+    "@storefront-ui/vue" "0.6.4"
+    "@vue/composition-api" "^0.5.0"
     currency.js "^1.2.2"
-    dayjs "^1.8.22"
-    nuxt "^2.11.0"
+    dayjs "^1.8.23"
+    nuxt "^2.12.1"
     vuelidate "^0.7.5"
 
 "@shopware-pwa/helpers@file:.yalc/@shopware-pwa/helpers":
@@ -1461,11 +1450,6 @@
   dependencies:
     type-detect "4.0.8"
 
-"@storefront-ui/shared@^0.6.3":
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/@storefront-ui/shared/-/shared-0.6.3.tgz#1854b069d32b69983dcf0ce2ec44ff92299301fb"
-  integrity sha512-bq4C+4qpinbD/wQZLPy0GOR5wZtpAAbsNNVVeMehW6OG5TJ+pkhAiDRslWF9bAPMOC7fkU1N9i8ojuGRFtgnLQ==
-
 "@storefront-ui/shared@^0.6.4":
   version "0.6.4"
   resolved "https://registry.yarnpkg.com/@storefront-ui/shared/-/shared-0.6.4.tgz#8e8582673d7739df76cce044ef2a12bec0ec1694"
@@ -1478,27 +1462,6 @@
   dependencies:
     "@glidejs/glide" "^3.3.0"
     "@storefront-ui/shared" "^0.6.4"
-    "@vue/babel-preset-app" "^4.0.0-alpha.1"
-    body-scroll-lock "^2.6.4"
-    core-js "^3.1.3"
-    hammerjs "^2.0.8"
-    leaflet "^1.5.1"
-    lozad "^1.9.0"
-    node-sass "^4.12.0"
-    sass-loader "^7.1.0"
-    simplebar-vue "^1.4.0"
-    vue-drag-drop "^1.1.4"
-    vue-fragment "^1.5.1"
-    vue2-leaflet "^2.1.1"
-    webpack-dev-middleware "3.6.0"
-
-"@storefront-ui/vue@^0.6.2":
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/@storefront-ui/vue/-/vue-0.6.3.tgz#fbeba8421c42a56ec60d3316aab0ea9e5a54a3cd"
-  integrity sha512-OIuMpxPg0g2Vg1E9ywwQB8Ps7c7psxGs5iqBG5qP/EZnk915X/cebbnXoeL5MH98PtCu7btJ3fSqfF9It8uP0A==
-  dependencies:
-    "@glidejs/glide" "^3.3.0"
-    "@storefront-ui/shared" "^0.6.3"
     "@vue/babel-preset-app" "^4.0.0-alpha.1"
     body-scroll-lock "^2.6.4"
     core-js "^3.1.3"
@@ -1996,13 +1959,6 @@
   version "0.3.4"
   resolved "https://registry.yarnpkg.com/@vue/composition-api/-/composition-api-0.3.4.tgz#43d2c3377173cfe1d02e51e3342bcf0fbde9c4b6"
   integrity sha512-aMbg/pEk0PSQAIFyWWLqbAmaCCTx1kFq+49KZslIBJH9Wqos7eEPLtMv4gGxd/EcciBIgfbtUXaXGg/O3mheRA==
-  dependencies:
-    tslib "^1.9.3"
-
-"@vue/composition-api@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@vue/composition-api/-/composition-api-0.4.0.tgz#04e600106687de719d587c704296aa4a5b37ca28"
-  integrity sha512-8QxZK3BBbn29vIoiso+UthT6JUbeS0gPBWAxDUK2EComWNHluaGVWXC9fAnUG+L6PM+ApkFE2dOlv5Oi/o+cSQ==
   dependencies:
     tslib "^1.9.3"
 
@@ -3935,7 +3891,7 @@ date-fns@^1.27.2:
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
 
-dayjs@^1.8.22, dayjs@^1.8.23:
+dayjs@^1.8.23:
   version "1.8.23"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.23.tgz#07b5a8e759c4d75ae07bdd0ad6977f851c01e510"
   integrity sha512-NmYHMFONftoZbeOhVz6jfiXI4zSiPN6NoVWJgC0aZQfYVwzy/ZpESPHuCcI0B8BUMpSJQ08zenHDbofOLKq8hQ==
@@ -7736,7 +7692,7 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
-nuxt@^2.11.0, nuxt@^2.12.1:
+nuxt@^2.12.1:
   version "2.12.1"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-2.12.1.tgz#68489eeeaa287e8b8896d425265c6d951dae8247"
   integrity sha512-L37yoOCerBE/vhn9dgpTWrd0yZMW0irjiTkjBZ4ogIMEXH2McAVK9IGP4gBsp+/GRdhrni516kzevDXQjSo8Tg==

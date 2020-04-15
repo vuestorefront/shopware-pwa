@@ -7,7 +7,7 @@ import { useShippingStep } from '@shopware-pwa/default-theme/logic/checkout/useS
 import { usePaymentStep } from '@shopware-pwa/default-theme/logic/checkout/usePaymentStep'
 
 export const useUICheckoutPage = () => {
-  const { isGuestOrder } = useCheckout()
+  const { isGuestOrder, createOrder } = useCheckout()
   const currentStep = ref(
     isGuestOrder.value ? CHECKOUT_STEPS.PERSONAL_DETAILS : CHECKOUT_STEPS.REVIEW
   )

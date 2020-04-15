@@ -9,6 +9,7 @@ import { CustomerUpdateEmailParam } from "@shopware-pwa/shopware-6-client";
 import { CustomerUpdatePasswordParam } from "@shopware-pwa/shopware-6-client";
 import { CustomerUpdateProfileParam } from "@shopware-pwa/shopware-6-client";
 import { GuestOrderParams } from "@shopware-pwa/commons/interfaces/request/GuestOrderParams";
+import { NavigationElement } from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
@@ -168,7 +169,18 @@ export declare const useImageProps: (
 /**
  * @alpha
  */
-export declare const useNavigation: () => any;
+export declare interface UseNavigation {
+  routes: Ref<Readonly<any>>;
+  hoveredNavigationItem: Ref<string>;
+  navigationElements: NavigationElement[];
+  getNavigationElements: (depth: number) => Promise<void>;
+  fetchRoutes: () => Promise<void>;
+}
+
+/**
+ * @alpha
+ */
+export declare const useNavigation: () => UseNavigation;
 
 /**
  * @alpha

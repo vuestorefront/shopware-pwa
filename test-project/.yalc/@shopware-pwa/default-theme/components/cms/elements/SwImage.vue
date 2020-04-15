@@ -1,52 +1,40 @@
 <template>
   <div class="sw-image">
-    <SfImage :src="imgUrl" :title="title" :alt="alt" :lazy="lazyLoad" />
+    <SfImage :src="getImgUrl" :title="getTitle" :alt="getAlt" lazy />
   </div>
 </template>
 
 <script>
- import {
-   SfImage
- } from "@storefront-ui/vue";
+import {
+  SfImage
+} from "@storefront-ui/vue";
+
+import {useImageProps} from '@shopware-pwa/composables'
 
 export default {
   components: {
-     SfImage
+    SfImage
   },
   props: {
     content: {
       type: Object,
       default: () => ({})
-    }
+    },
   },
-  computed: {
-    getMedia() {
-      return this.content && this.content.data && this.content.data.media
-    },
-    imgUrl() {
-      return this.getMedia && this.getMedia.url
-    },
-    alt() {
-      return this.getMedia && this.getMedia.alt
-    },
-    title() {
-      return this.getMedia && this.getMedia.title
-    },
-    lazyLoad() {
-      return true;
-    }
-  }
+  setup(props) {
+    const { getImgUrl, getAlt, getTitle} = useImageProps(props.content)
+
+    return {getImgUrl, getAlt, getTitle}
+  },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .sw-image {
   position: relative;
   display: flex;
   justify-content: center;
-}
-
-::v-deep .sf-image__img {
-  width: 100%;
+  // width: 100%;
+  // height: 100%;
 }
 </style>
