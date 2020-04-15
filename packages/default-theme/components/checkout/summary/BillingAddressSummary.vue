@@ -1,18 +1,18 @@
 <template>
   <div class="accordion__item">
     <div class="accordion__content">
-      <p v-if="payment.sameAsShipping" class="content">
+      <p v-if="billingAddress.sameAsShipping" class="content">
         Same as shipping address
       </p>
       <template v-else>
         <p class="content">
-          <span class="content__label">{{ payment.shippingMethod }}</span
+          <span class="content__label">{{ billingAddress.shippingMethod }}</span
           ><br />
-          {{ payment.streetName }} {{ payment.apartment }}, {{ payment.zipCode
+          {{ billingAddress.streetName }} {{ billingAddress.apartment }}, {{ billingAddress.zipCode
           }}<br />
-          {{ payment.city }}, {{ payment.country }}
+          {{ billingAddress.city }}, {{ billingAddress.country }}
         </p>
-        <p class="content">{{ payment.phoneNumber }}</p>
+        <p class="content">{{ billingAddress.phoneNumber }}</p>
       </template>
     </div>
     <SfButton
@@ -27,14 +27,17 @@ import {
   SfButton
 } from '@storefront-ui/vue'
 export default {
-  name: 'BillingAddress',
+  name: 'BillingAddressSummary',
   components: {
     SfButton,
   },
-  props: {
-    payment: {
-      type: Object,
-      default: () => ({})
+  setup () {
+    // TODO: get from context or guest order step if guest order
+    const billingAddress = {
+      sameAsShipping: true
+    }
+    return {
+      billingAddress
     }
   }
 }

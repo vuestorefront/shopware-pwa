@@ -46,22 +46,9 @@ describe("Composables - useCheckout", () => {
     });
 
     describe("guestOrderParams", () => {
-      afterEach(() => {
-        // return to default state
-        const { guestOrderParams } = useCheckout();
-        guestOrderParams.value = {};
-      });
       it("should return an empty object when prams are not set", () => {
         const { guestOrderParams } = useCheckout();
         expect(guestOrderParams.value).toEqual({});
-      });
-      it("should return guest order params if are set", () => {
-        const { guestOrderParams } = useCheckout();
-        expect(guestOrderParams.value).toEqual({});
-        guestOrderParams.value = {
-          firstName: "John",
-        };
-        expect(guestOrderParams.value).toEqual({ firstName: "John" });
       });
     });
   });
@@ -270,10 +257,10 @@ describe("Composables - useCheckout", () => {
           mockedApiClient.createGuestOrder.mockResolvedValueOnce({
             id: "newOrderId",
           } as any);
-          const { createOrder, guestOrderParams } = useCheckout();
-          guestOrderParams.value = {
+          const { createOrder, updateGuestOrderParams } = useCheckout();
+          updateGuestOrderParams({
             firstName: "John",
-          };
+          });
           await createOrder();
           expect(mockedApiClient.createGuestOrder).toHaveBeenCalledWith({
             firstName: "John",
