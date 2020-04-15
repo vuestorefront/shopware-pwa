@@ -10,8 +10,7 @@
         :price="price > getSpecialPrice ? price : getSpecialPrice"
       />
     </div>
-    <p class="product-details__description desktop-only">
-      {{ description }}
+    <p class="product-details__description desktop-only test" v-html="description">
     </p>
     <!-- <div class="product-details__action">
       <button v-if="sizes.length > 0" class="sf-action">Size guide</button>
