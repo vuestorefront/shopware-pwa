@@ -1,7 +1,5 @@
 <template>
-  <div class="sw-image">
-    <SfImage :src="getImgUrl" :title="getTitle" :alt="getAlt" lazy />
-  </div>
+  <SfImage :src="getImgUrl" :title="getTitle" :alt="getAlt" lazy class="sw-image"/>
 </template>
 
 <script>
@@ -33,6 +31,11 @@ export default {
 .sw-image {
   position: relative;
   display: flex;
-  justify-content: center;
+  width: 100%;
+  // height: auto;
+  // justify-content: center;
+  // width: 100%;
+  // height: 100%;
+  --image-width: 100%;
 }
 </style>
