@@ -46,7 +46,7 @@ export default {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     &__image {
-      margin: var(--spacer-medium);
+      // margin: var(--spacer-medium);
       &--right {
         grid-column: 2;
         grid-row: 1 / 3;
@@ -54,7 +54,7 @@ export default {
       img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        // object-fit: cover;
       }
     }
   }

@@ -20,6 +20,7 @@ const blocksMap = {
   'image-simple-grid': 'SwImageSimpleGrid',
   'center-text': 'SwCenterText',
   'image-text-cover': 'SwImageTextCover',
+  'text-three-column': 'SwThreeColumns',
 }
 
 export function getComponentBy(content) {
