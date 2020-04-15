@@ -1,0 +1,25 @@
+{
+  "version": "v1",
+  "packages": {
+    "@shopware-pwa/composables": {
+      "signature": "d75e2d1ea336bb17b588d424a4418837",
+      "file": true
+    },
+    "@shopware-pwa/helpers": {
+      "signature": "d34aa1de1c033a2ae655a564d9bda169",
+      "file": true
+    },
+    "@shopware-pwa/shopware-6-client": {
+      "signature": "134034f6f935f10fc8e15e1bd1205c2c",
+      "file": true
+    },
+    "@shopware-pwa/default-theme": {
+      "signature": "71a634716b1556b8321bb6c78b8f456b",
+      "file": true
+    },
+    "@shopware-pwa/nuxt-module": {
+      "signature": "5cd4da9587504c2b97b54c6b90550895",
+      "file": true
+    }
+  }
+}

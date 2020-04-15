@@ -1,0 +1,12 @@
+{
+  "swag-hello-cody": {
+    "configuration": [],
+    "installedAt": "2020-02-12 15:41:19",
+    "version": "9999999-dev"
+  },
+  "swag-shopware-pwa": {
+    "configuration": [],
+    "installedAt": "2020-03-23 08:23:09",
+    "version": "dev-shopware-6-1-compatibility"
+  }
+}

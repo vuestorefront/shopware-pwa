@@ -1,0 +1,38 @@
+{
+  "name": "@shopware-pwa/composables",
+  "version": "0.1.0-alpha.2-d75e2d1e",
+  "description": "@shopware-pwa/composables",
+  "main": "dist/composables.cjs.js",
+  "module": "dist/composables.esm-bundler.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/composables.d.ts",
+  "unpkg": "dist/composables.global.js",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DivanteLtd/shopware-pwa"
+  },
+  "buildOptions": {
+    "name": "composables",
+    "formats": [
+      "esm-bundler",
+      "cjs"
+    ]
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@vue/composition-api": "^0.4.0",
+    "axios": "^0.19.2",
+    "vue": "^2.6.11"
+  },
+  "dependencies": {
+    "@shopware-pwa/shopware-6-client": "^0.1.0-alpha.2",
+    "query-string": "^6.11.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "e930f9945653eb78b7a78700b6f4d145ee8cb542"
+}

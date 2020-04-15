@@ -1,0 +1,30 @@
+{
+  "name": "@shopware-pwa/nuxt-module",
+  "version": "0.1.0-alpha.2-5cd4da95",
+  "description": "@shopware-pwa/nuxt-module",
+  "main": "dist/nuxt-module.cjs.js",
+  "module": "dist/nuxt-module.esm-bundler.js",
+  "files": [
+    "dist",
+    "plugins/*"
+  ],
+  "sideEffects": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DivanteLtd/shopware-pwa"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@nuxt/types": "^0.6.4",
+    "@nuxt/typescript-build": "^0.6.0",
+    "@nuxt/typescript-runtime": "^0.4.0",
+    "@nuxt/utils": "^2.11.0",
+    "cookie-universal": "^2.1.1",
+    "fs-jetpack": "^2.2.3",
+    "path": "^0.12.7"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "e930f9945653eb78b7a78700b6f4d145ee8cb542"
+}

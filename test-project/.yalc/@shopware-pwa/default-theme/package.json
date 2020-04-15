@@ -1,0 +1,33 @@
+{
+  "name": "@shopware-pwa/default-theme",
+  "version": "0.1.0-alpha.2-71a63471",
+  "description": "Shopware PWA theme",
+  "author": "patzick",
+  "scripts": {
+    "lint": "prettier --write './**/*.{js,vue}'",
+    "test": "jest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,vue}": "prettier"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@nuxtjs/axios": "^5.9.5",
+    "@nuxtjs/pwa": "^3.0.0-beta.20",
+    "@storefront-ui/vue": "^0.6.2",
+    "@vue/composition-api": "^0.4.0",
+    "currency.js": "^1.2.2",
+    "dayjs": "^1.8.22",
+    "nuxt": "^2.11.0",
+    "vuelidate": "^0.7.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "e930f9945653eb78b7a78700b6f4d145ee8cb542"
+}

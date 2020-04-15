@@ -88,6 +88,6 @@ sw.*
 
 # Vim swap files
 *.swp
-.yalc
-yalc.lock
-.shopware-pwa
+# .yalc
+# yalc.lock
+# .shopware-pwa

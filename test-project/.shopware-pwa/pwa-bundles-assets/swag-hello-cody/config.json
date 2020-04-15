@@ -1,0 +1,9 @@
+{
+  "slots": [
+    {
+      "name": "SwPluginTopNavigation",
+      "file": "main.vue"
+    }
+  ],
+  "settings": {}
+}
