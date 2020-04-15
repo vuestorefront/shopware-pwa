@@ -93,6 +93,7 @@ export declare function getCmsSections(content: CmsPage): CmsSection[];
 export declare const getFilterSearchCriteria: (selectedFilters: any) => any[];
 
 /**
+ * @alpha
  * Get the messages from the API response (array of ShopwareErrors)
  */
 export declare function getMessagesFromErrorsArray(

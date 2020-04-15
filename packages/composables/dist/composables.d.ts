@@ -1,4 +1,5 @@
 import { AddressType } from "@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress";
+import { CmsSlot } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { CustomerAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress";
@@ -51,6 +52,19 @@ export declare function createCheckoutStep({
  * @alpha
  */
 export declare function getStore(): any;
+
+/**
+ * @alpha
+ */
+export declare enum PositionType {
+  LEFT = "left",
+  RIGHT = "right",
+  CENTER = "center",
+  CENTER_LEFT = "center-left",
+  CENTER_RIGHT = "center-right",
+  LEFT_TOP = "left-top",
+  LEFT_BOTTOM = "left-bottom",
+}
 
 /**
  * @alpha
@@ -138,6 +152,22 @@ export declare const useCountries: () => UseCountries;
 /**
  * @alpha
  */
+export declare interface UseImageProps {
+  getImgUrl: Ref<Readonly<any>>;
+  getAlt: Ref<Readonly<any>>;
+  getTitle: Ref<Readonly<any>>;
+}
+
+/**
+ * @alpha
+ */
+export declare const useImageProps: (
+  content: CmsSlot | undefined
+) => UseImageProps;
+
+/**
+ * @alpha
+ */
 export declare const useNavigation: () => any;
 
 /**
@@ -219,6 +249,24 @@ export declare interface UseSessionContext {
  * @alpha
  */
 export declare const useSessionContext: () => UseSessionContext;
+
+/**
+ * @alpha
+ */
+export declare interface UseSlotsPositions {
+  leftSlot: Ref<Readonly<CmsSlot | undefined>>;
+  rightSlot: Ref<Readonly<CmsSlot | undefined>>;
+  centerSlot: Ref<Readonly<CmsSlot | undefined>>;
+  centerLeftSlot: Ref<Readonly<CmsSlot | undefined>>;
+  centerRightSlot: Ref<Readonly<CmsSlot | undefined>>;
+  leftTopSlot: Ref<Readonly<CmsSlot | undefined>>;
+  leftBottomSlot: Ref<Readonly<CmsSlot | undefined>>;
+}
+
+/**
+ * @alpha
+ */
+export declare const useSlotsPositions: (slots: CmsSlot[]) => UseSlotsPositions;
 
 /**
  * @alpha

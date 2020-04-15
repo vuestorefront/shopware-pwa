@@ -539,6 +539,7 @@ function mapSalutations(salutations) {
 }
 
 /**
+ * @alpha
  * Get the messages from the API response (array of ShopwareErrors)
  */
 function getMessagesFromErrorsArray(errors) {
