@@ -5,6 +5,7 @@
 ```ts
 
 import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
+import { CmsSlot } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
@@ -51,6 +52,24 @@ export function createCheckoutStep({ stepNumber, stepFields, stepDataUpdated, }:
 
 // @alpha (undocumented)
 export function getStore(): any;
+
+// @alpha (undocumented)
+export enum PositionType {
+    // (undocumented)
+    CENTER = "center",
+    // (undocumented)
+    CENTER_LEFT = "center-left",
+    // (undocumented)
+    CENTER_RIGHT = "center-right",
+    // (undocumented)
+    LEFT = "left",
+    // (undocumented)
+    LEFT_BOTTOM = "left-bottom",
+    // (undocumented)
+    LEFT_TOP = "left-top",
+    // (undocumented)
+    RIGHT = "right"
+}
 
 // @alpha (undocumented)
 export type Search = (path: string, associations?: any) => any;
@@ -128,6 +147,19 @@ export interface UseCountries {
 export const useCountries: () => UseCountries;
 
 // @alpha (undocumented)
+export interface UseImageProps {
+    // (undocumented)
+    getAlt: Ref<Readonly<any>>;
+    // (undocumented)
+    getImgUrl: Ref<Readonly<any>>;
+    // (undocumented)
+    getTitle: Ref<Readonly<any>>;
+}
+
+// @alpha (undocumented)
+export const useImageProps: (content: CmsSlot | undefined) => UseImageProps;
+
+// @alpha (undocumented)
 export const useNavigation: () => any;
 
 // @alpha (undocumented)
@@ -202,6 +234,27 @@ export interface UseSessionContext {
 
 // @alpha (undocumented)
 export const useSessionContext: () => UseSessionContext;
+
+// @alpha (undocumented)
+export interface UseSlotsPositions {
+    // (undocumented)
+    centerLeftSlot: Ref<Readonly<CmsSlot | undefined>>;
+    // (undocumented)
+    centerRightSlot: Ref<Readonly<CmsSlot | undefined>>;
+    // (undocumented)
+    centerSlot: Ref<Readonly<CmsSlot | undefined>>;
+    // (undocumented)
+    leftBottomSlot: Ref<Readonly<CmsSlot | undefined>>;
+    // (undocumented)
+    leftSlot: Ref<Readonly<CmsSlot | undefined>>;
+    // (undocumented)
+    leftTopSlot: Ref<Readonly<CmsSlot | undefined>>;
+    // (undocumented)
+    rightSlot: Ref<Readonly<CmsSlot | undefined>>;
+}
+
+// @alpha (undocumented)
+export const useSlotsPositions: (slots: CmsSlot[]) => UseSlotsPositions;
 
 // @alpha (undocumented)
 export interface UseUser {

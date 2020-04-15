@@ -1,6 +1,7 @@
 import { ShopwareError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
 /**
+ * @alpha
  * Get the messages from the API response (array of ShopwareErrors)
  */
 export function getMessagesFromErrorsArray(errors: ShopwareError[]): string[] {
