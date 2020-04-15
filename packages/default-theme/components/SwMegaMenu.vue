@@ -7,7 +7,21 @@
       >
         <SfMegaMenuColumn 
           :title="subcategory.name"
-        />
+        >
+          <SfList>
+            <SfListItem 
+              v-for="child in subcategory.children" 
+              :key="child.label">
+              <nuxt-link class="sf-header__link" 
+                :to="path(child)"
+              >   
+                <SfMenuItem
+                  :label="child.label" 
+                />
+              </nuxt-link>  
+            </SfListItem>
+          </SfList>
+        </SfMegaMenuColumn>
       </nuxt-link>
     </SfMegaMenu>
 </template>

@@ -100,7 +100,7 @@ export default {
     const { search: fulltextSearch } = useProductSearch()
     const {hoveredNavigationItem, getNavigationElements, navigationElements} = useNavigation()
 
-    onMounted(getNavigationElements(2))
+    onMounted(getNavigationElements(3))
 
     function setHoverNavigationItem(itemName) {
       hoveredNavigationItem.value = itemName
