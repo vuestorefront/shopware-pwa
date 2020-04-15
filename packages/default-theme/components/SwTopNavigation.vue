@@ -23,7 +23,7 @@
           <nuxt-link class="sf-header__link" :to="path(category)">
             {{ category.name }}
           </nuxt-link>
-          <SwMegaMenu :category="category" :hoveredItem="hoveredNavigationItem"/>
+          <SwMegaMenu :category="category" :hoveredItem="hoveredNavigationItem" v-if="category.children.length"/>
         </SfHeaderNavigationItem>
       </template>
       <template #search>
@@ -100,7 +100,7 @@ export default {
     const { search: fulltextSearch } = useProductSearch()
     const {hoveredNavigationItem, getNavigationElements, navigationElements} = useNavigation()
 
-    onMounted(getNavigationElements(3))
+    // onMounted(getNavigationElements(3))
 
     function setHoverNavigationItem(itemName) {
       hoveredNavigationItem.value = itemName
@@ -116,7 +116,8 @@ export default {
       navigationElements,
       hoveredNavigationItem,
       setHoverNavigationItem,
-      path: helpers.getCategoryRoutePath
+      path: helpers.getCategoryRoutePath,
+      getNavigationElements
     }
   },
   data() {
@@ -125,6 +126,9 @@ export default {
       activeIcon: '',
       isModalOpen: false
     }
+  },
+  async mounted() {
+    await this.getNavigationElements(3)
   },
   methods: {
     userIconClick() {
