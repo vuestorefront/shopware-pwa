@@ -4,10 +4,7 @@
       v-for="block in content.blocks"
       :key="block.id"
       :content="block"
-      :class="{
-        'sw-sidebar__main': block.sectionPosition === 'main',
-        'sw-sidebar__sidebar': block.sectionPosition === 'sidebar',
-      }"
+      :class="getClasses(block)"
     />
   </div>
 </template>
@@ -24,6 +21,14 @@ export default {
     content: {
       type: Object,
       default: () => ({}),
+    },
+  },
+  methods: {
+    getClasses(block) {
+      return {
+        'sw-sidebar__main': block.sectionPosition === 'main',
+        'sw-sidebar__sidebar': block.sectionPosition === 'sidebar',
+      }
     },
   },
 }
