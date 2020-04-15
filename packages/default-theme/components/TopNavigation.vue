@@ -8,7 +8,7 @@
     >
       <template #logo>
         <nuxt-link to="/" class="sf-header__logo">
-          <SfImage src="/img/logo.svg" alt="Shopware PWA" />
+          <SfImage src="/img/logo.png" alt="Shopware PWA" />
         </nuxt-link>
       </template>
       <template #navigation>
