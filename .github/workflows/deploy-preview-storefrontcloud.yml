@@ -16,10 +16,9 @@ jobs:
       - name: Build packages
         run: |
           yarn
-          yarn build --ci
       - name: Create theme project
         run: |
-          mkdir test-project
+          # mkdir test-project
           cd ./test-project
           ../packages/cli/bin/shopware-pwa init --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci
           yarn build
