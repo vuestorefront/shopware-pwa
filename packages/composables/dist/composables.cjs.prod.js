@@ -593,20 +593,30 @@ const useCategoryFilters = () => {
 
 const sharedNavigation = Vue.observable({
   routes: null,
+  navigationElements: [],
 });
 /**
  * @alpha
  */
 const useNavigation = () => {
+  const hoveredNavigationItem = compositionApi.ref("");
   const localNavigation = compositionApi.reactive(sharedNavigation);
   const routes = compositionApi.computed(() => localNavigation.routes);
   const fetchRoutes = async (params) => {
-    const navigation = await shopware6Client.getNavigation(params);
-    if (typeof navigation.children === "undefined") return;
-    sharedNavigation.routes = getNavigationRoutes(navigation.children);
+    const { children } = await shopware6Client.getNavigation(params);
+    if (typeof children === "undefined") return;
+    sharedNavigation.routes = getNavigationRoutes(children);
+  };
+  const getNavigationElements = async (depth) => {
+    const { children } = await shopware6Client.getNavigation({ depth });
+    localNavigation.navigationElements.length = 0;
+    localNavigation.navigationElements.push(...children);
   };
   return {
     routes,
+    hoveredNavigationItem,
+    navigationElements: localNavigation.navigationElements,
+    getNavigationElements,
     fetchRoutes,
   };
 };

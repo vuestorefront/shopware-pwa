@@ -617,20 +617,30 @@ const useCategoryFilters = () => {
 
 const sharedNavigation = Vue.observable({
   routes: null,
+  navigationElements: [],
 });
 /**
  * @alpha
  */
 const useNavigation = () => {
+  const hoveredNavigationItem = ref("");
   const localNavigation = reactive(sharedNavigation);
   const routes = computed(() => localNavigation.routes);
   const fetchRoutes = async (params) => {
-    const navigation = await getNavigation(params);
-    if (typeof navigation.children === "undefined") return;
-    sharedNavigation.routes = getNavigationRoutes(navigation.children);
+    const { children } = await getNavigation(params);
+    if (typeof children === "undefined") return;
+    sharedNavigation.routes = getNavigationRoutes(children);
+  };
+  const getNavigationElements = async (depth) => {
+    const { children } = await getNavigation({ depth });
+    localNavigation.navigationElements.length = 0;
+    localNavigation.navigationElements.push(...children);
   };
   return {
     routes,
+    hoveredNavigationItem,
+    navigationElements: localNavigation.navigationElements,
+    getNavigationElements,
     fetchRoutes,
   };
 };
