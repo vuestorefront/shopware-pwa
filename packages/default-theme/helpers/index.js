@@ -11,7 +11,7 @@ const formatPrice = (
     formatWithSymbol: true,
   }
 ) => currency(price, options).format()
-const formatDate = (date, format = `DD-MM-YYYY H:m:s`) =>
+const formatDate = (date, format = `DD-MM-YYYY HH:mm:ss`) =>
   dayjs(date).format(format)
 
 const getCategoryRoutePath = (category) => `/${category?.route?.path}`
