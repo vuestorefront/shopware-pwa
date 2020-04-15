@@ -7,7 +7,7 @@ const formatPrice = (
     pattern: `# !`,
     separator: ` `,
     decimal: `,`,
-    symbol: `€`,
+    symbol: `PLN`,
     formatWithSymbol: true,
   }
 ) => currency(price, options).format()

@@ -75,13 +75,13 @@ export default {
       const regular = getProductRegularPrice({ product: this.product })
       const special = getProductSpecialPrice(this.product)
       // temporary fix to show proper regular price
-      return '$' + (regular > special ? regular : special)
+      return (regular > special ? regular : special) + ' PLN'
     },
     getSpecialPrice() {
       const special = getProductSpecialPrice(this.product)
       const regular = getProductRegularPrice({ product: this.product })
       // temporary fix to show proper special price
-      return special && '$' + (special < regular ? special : regular)
+      return special && (special < regular ? special : regular) + ' PLN'
     },
     getImageUrl() {
       return (
