@@ -36,7 +36,8 @@ export const useNavigation = (): UseNavigation => {
 
   const getNavigationElements = async (depth: number) => {
     const { children } = await getNavigation({ depth });
-    localNavigation.navigationElements = [...children];
+    localNavigation.navigationElements.length = 0;
+    localNavigation.navigationElements.push(...children);
   };
 
   return {

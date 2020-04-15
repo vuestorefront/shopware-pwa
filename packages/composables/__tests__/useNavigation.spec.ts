@@ -7,6 +7,9 @@ jest.mock("@shopware-pwa/shopware-6-client");
 const mockedGetPage = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 describe("Composables - useNavigation", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
   describe("computed", () => {
     describe("routes", () => {
       it("should get null when routeNames are not fetched", () => {
