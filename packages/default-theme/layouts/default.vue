@@ -128,7 +128,7 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: var(--font-family-primary);
-  font-weight: var(--font-weight-primary);
+  font-weight: var(--font-light);
   font-size: var(--font-base);
   line-height: 1.6;
 }
