@@ -5,6 +5,7 @@
 ```ts
 
 import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
+import { BillingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
@@ -89,6 +90,8 @@ export const useCategoryFilters: () => any;
 
 // @alpha (undocumented)
 export interface UseCheckout {
+    // (undocumented)
+    billingAddress: Readonly<Ref<BillingAddress | undefined>>;
     // (undocumented)
     createOrder: () => Promise<Order>;
     // (undocumented)

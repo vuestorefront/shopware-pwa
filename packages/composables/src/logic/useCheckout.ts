@@ -107,12 +107,12 @@ export const useCheckout = (): UseCheckout => {
 
   const shippingAddress = computed(() =>
     isGuestOrder.value
-      ? guestOrderParams.value?.shippingAddress
+      ? guestOrderParams.value.shippingAddress
       : sessionContext.value?.shippingLocation?.address
   );
   const billingAddress = computed(() =>
     isGuestOrder.value
-      ? guestOrderParams.value?.billingAddress
+      ? guestOrderParams.value.billingAddress
       : sessionContext.value?.customer?.activeBillingAddress
   );
 
