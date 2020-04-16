@@ -128,7 +128,7 @@ export default {
 }
 
 .section {
-  padding: 0 var(--spacer-big);
+  padding: 0 var(--spacer-base);
   @include for-desktop {
     padding: 0;
   }
@@ -143,9 +143,9 @@ export default {
     flex: 1;
   }
   &__description {
-    padding: 0 var(--spacer-big);
+    padding: 0 var(--spacer-base);
     @include for-desktop {
-      margin-left: calc(var(--spacer-big) * 5);
+      margin-left: calc(var(--spacer-base) * 5);
     }
   }
 }
@@ -154,18 +154,18 @@ export default {
   &__row {
     display: flex;
     & + & {
-      margin-top: calc(var(--spacer-big) / 2);
+      margin-top: calc(var(--spacer-base) / 2);
       @include for-desktop {
-        margin-top: var(--spacer-big);
+        margin-top: var(--spacer-base);
       }
     }
   }
   &__col {
     margin: 0;
     & + & {
-      margin-left: calc(var(--spacer-big) / 2);
+      margin-left: calc(var(--spacer-base) / 2);
       @include for-desktop {
-        margin-left: var(--spacer-big);
+        margin-left: var(--spacer-base);
       }
     }
   }
@@ -179,9 +179,9 @@ export default {
     flex: 1;
   }
   &__description {
-    padding: 0 var(--spacer-big);
+    padding: 0 var(--spacer-base);
     @include for-desktop {
-      margin-left: calc(var(--spacer-big) * 5);
+      margin-left: calc(var(--spacer-base) * 5);
     }
   }
 }

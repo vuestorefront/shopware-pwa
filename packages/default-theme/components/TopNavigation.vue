@@ -44,7 +44,7 @@
               v-if="accountIcon"
               :icon="accountIcon"
               icon-size="1.25rem"
-              class="sf-header__circle-icon"
+              class="sf-header__icon sw-header__icon"
               :class="{
                 'sf-header__circle-icon--is-active':
                   activeIcon === 'account-icon'
@@ -61,7 +61,7 @@
               :has-badge="count > 0"
               :badge-label="count.toString()"
               icon-size="1.25rem"
-              class="sf-header__circle-icon"
+              class="sf-header__icon sw-header__icon"
               :class="{
                 'sf-header__circle-icon--is-active': activeIcon === 'cart-icon'
               }"
@@ -136,7 +136,7 @@ export default {
 @import '~@storefront-ui/vue/styles.scss';
 
 .top-navigation {
-  margin-bottom: var(--spacer-medium);
+  margin-bottom: var(--spacer-sm);
   @include for-desktop {
 
     .sf-header {
@@ -168,6 +168,14 @@ export default {
   .sf-image img {
     height: 2rem;
     width: 2.1rem;
+  }
+
+  .sw-header__icon {
+    background-color: var(--color-white);
+    box-shadow: var(--color-white);
+    margin-left: var(--spacer-sm);
+    height: 40px;
+    width: 40px;
   }
 }
 

@@ -12,7 +12,7 @@ export default ({ app, store }) => {
   setup({
     endpoint: 'https://shopware-2.vuestorefront.io/sales-channel-api/v1',
     accessToken: 'SWSCTXJOZMQWCXA4OUTNZ0REYG',
-    contextToken
+    contextToken,
   })
   /**
    * Save current contextToken when its change
@@ -20,7 +20,7 @@ export default ({ app, store }) => {
   onConfigChange(({ config }) => {
     try {
       app.$cookies.set('sw-context-token', config.contextToken, {
-        maxAge: 60 * 60 * 24 * 365
+        maxAge: 60 * 60 * 24 * 365,
       })
     } catch (e) {
       // Sometimes cookie is set on server after request is send, it can fail silently

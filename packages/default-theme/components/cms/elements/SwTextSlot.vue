@@ -31,6 +31,6 @@ export default {
 <style lang="scss" scoped>
 @import "~@storefront-ui/vue/styles.scss";
 .sw-text {
-  padding: 0 var(--spacer-extra-big);
+  padding: 0 var(--spacer-xl);
 }
 </style>
