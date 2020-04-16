@@ -81,7 +81,7 @@ export default {
   filters: {
     price(price) {
       if (!price) return
-      return `$${price}`
+      return `${price} PLN`
     }
   },
   methods: {

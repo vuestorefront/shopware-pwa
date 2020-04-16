@@ -10,8 +10,8 @@
     <div class="product-heading__sub">
       <slot name="price" v-bind="{ price, special }">
         <SfPrice
-          :regular="`${price}`"
-          :special="special"
+          :regular="`${price} PLN`"
+          :special="special && `${special} PLN`"
           class="sf-price--big product-heading__sub-price"
         />
       </slot>
