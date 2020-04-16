@@ -4,7 +4,7 @@
       title="4. Order review"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <SfAccordion first-open class="accordion mobile-only">
+    <SfAccordion open class="accordion mobile-only">
       <SfAccordionItem header="Personal Details">
         <PersonalDetails :order="order" @click:edit="$emit('click:edit', 0)" />
       </SfAccordionItem>

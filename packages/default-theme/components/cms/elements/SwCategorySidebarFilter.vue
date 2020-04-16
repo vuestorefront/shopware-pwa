@@ -45,6 +45,9 @@
           >
             {{ getSortLabel(option) }}
           </SfSelectOption>
+          <template #icon>
+            <span></span>
+          </template>
         </SfSelect>
       </div>
 
@@ -97,18 +100,19 @@
               />
             </div>
           </div>
-
-          <div class="filters__buttons">
-            <SfButton class="sf-button--full-width" @click="submitFilters()"
-              >Done</SfButton
-            >
-            <SfButton
-              class="sf-button--full-width filters__button-clear"
-              @click="clearAllFilters()"
-              >Clear all</SfButton
-            >
-          </div>
         </div>
+          <template #content-bottom>
+            <div class="filters__buttons">
+              <SfButton class="sf-button--full-width" @click="submitFilters()"
+                >Done</SfButton
+              >
+              <SfButton
+                class="sf-button--full-width filters__button-clear"
+                @click="clearAllFilters()"
+                >Clear all</SfButton
+              >
+            </div>
+          </template>
       </SfSidebar>
     </div>
   </div>
@@ -356,9 +360,6 @@ export default {
     &--color {
       margin: 0 var(--spacer-xs);
     }
-  }
-  &__buttons {
-    margin: calc(var(--spacer-base) * 3) 0 0 0;
   }
   &__button-clear {
     color: #a3a5ad;
