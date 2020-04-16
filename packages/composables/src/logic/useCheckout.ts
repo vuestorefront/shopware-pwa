@@ -6,6 +6,7 @@ import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/
 import {
   GuestOrderParams,
   ShippingAddress,
+  BillingAddress,
 } from "@shopware-pwa/commons/interfaces/request/GuestOrderParams";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import {
@@ -31,6 +32,7 @@ export interface UseCheckout {
   createOrder: () => Promise<Order>;
   updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
   shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
+  billingAddress: Readonly<Ref<BillingAddress | undefined>>;
 }
 
 const orderData: {
@@ -108,6 +110,11 @@ export const useCheckout = (): UseCheckout => {
       ? guestOrderParams.value?.shippingAddress
       : sessionContext.value?.shippingLocation?.address
   );
+  const billingAddress = computed(() =>
+    isGuestOrder.value
+      ? guestOrderParams.value?.billingAddress
+      : sessionContext.value?.customer?.activeBillingAddress
+  );
 
   return {
     isGuestOrder,
@@ -117,5 +124,6 @@ export const useCheckout = (): UseCheckout => {
     guestOrderParams,
     updateGuestOrderParams,
     shippingAddress,
+    billingAddress,
   };
 };

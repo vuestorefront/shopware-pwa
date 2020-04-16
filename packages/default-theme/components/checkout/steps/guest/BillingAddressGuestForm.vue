@@ -73,6 +73,7 @@
         required
       />
       <SfSelect
+        v-if="getCountries.length"
         v-model="countryId"
         :valid="!validations.countryId.$error"
         error-message="This field is required"
@@ -81,11 +82,11 @@
         required
       >
         <SfSelectOption
-          v-for="countryOption in countries"
-          :key="countryOption"
-          :value="countryOption"
+          v-for="countryOption in getCountries"
+          :key="countryOption.id"
+          :value="countryOption.id"
         >
-          {{ countryOption }}
+          {{ countryOption.name }}
         </SfSelectOption>
       </SfSelect>
       <SfInput
@@ -116,6 +117,7 @@ import {
   usePaymentStepValidationRules,
 } from '@shopware-pwa/default-theme/logic/checkout/usePaymentStep'
 import { computed } from '@vue/composition-api'
+import { useCountries } from '@shopware-pwa/composables'
 
 export default {
   name: 'BillingAddressGuestForm',
@@ -146,8 +148,7 @@ export default {
       differentThanShipping,
     } = usePaymentStep()
 
-    // TODO add countries
-    const countries = computed(() => [])
+    const { getCountries } = useCountries()
 
     return {
       validations,
@@ -162,7 +163,7 @@ export default {
       countryId,
       phoneNumber,
       differentThanShipping,
-      countries
+      getCountries,
     }
   },
   watch: {
