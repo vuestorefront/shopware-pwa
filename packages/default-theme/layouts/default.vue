@@ -30,33 +30,38 @@ export default {
     SwCart,
     SwFooter,
     SwBottomNavigation,
-    SwPluginTopNavigation
+    SwPluginTopNavigation,
   },
   computed: {
     componentBreadcrumbs() {
       // TODO probably move to vuex now as it's not rendered on server side
       return (
-        this.$route.matched.map(r => {
-          return r.components.default.options.data().breadcrumbs
-        })[0] || {}
+        this.$route.matched
+          .map((r) => {
+            return (
+              r.components.default.options.data &&
+              r.components.default.options.data().breadcrumbs
+            )
+          })
+          .shift() || {}
       )
     },
     getBreadcrumbs() {
       return Object.keys(this.componentBreadcrumbs)
-        .map(key => this.componentBreadcrumbs[key])
-        .map(breadcrumb => ({
+        .map((key) => this.componentBreadcrumbs[key])
+        .map((breadcrumb) => ({
           text: breadcrumb.name,
           route: {
-            link: breadcrumb.path
-          }
+            link: breadcrumb.path,
+          },
         }))
-    }
+    },
   },
   methods: {
     redirectTo(route) {
       return this.$router.push(route.link)
-    }
-  }
+    },
+  },
 }
 </script>
 

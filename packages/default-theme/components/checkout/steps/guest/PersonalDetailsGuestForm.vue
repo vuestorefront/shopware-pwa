@@ -1,9 +1,5 @@
 <template>
   <div class="sw-checkout__personal_info">
-    <SfHeading
-      title="1. Personal details"
-      class="sf-heading--left sf-heading--no-underline title"
-    />
     <SfAlert
       v-for="(message, index) in useUserErrorMessages"
       :key="index"
@@ -12,12 +8,12 @@
       :message="message"
     />
     <div class="form">
-      <SfSelect
+      <!-- <SfSelect
         v-if="getMappedSalutations && getMappedSalutations.length > 0"
-        v-model="customer.salutationId"
+        v-model="salutationId"
         label="Salutation"
-        :valid="!$v.customer.salutationId.$error"
-        @change="$v.customer.salutationId.$touch()"
+        :valid="!validations.salutationId.$error"
+        @change="validations.salutationId.$touch()"
         error-message="Salutation must be selected"
         class="sf-select--underlined form__element form__element--salutation form__select"
       >
@@ -28,28 +24,28 @@
         >
           {{ salutationOption.name }}
         </SfSelectOption>
-      </SfSelect>
+      </SfSelect> -->
       <SfInput
-        v-model="customer.firstName"
+        v-model="firstName"
         label="First name"
-        :valid="!$v.customer.firstName.$error"
+        :valid="!validations.firstName.$error"
         error-message="First name is required"
         name="firstName"
         class="form__element form__element--names"
         required
       />
       <SfInput
-        v-model="customer.lastName"
+        v-model="lastName"
         label="Last name"
-        :valid="!$v.customer.lastName.$error"
+        :valid="!validations.lastName.$error"
         error-message="last name is required"
         name="lastName"
         class="form__element form__element--names form__element--names-even"
       />
       <SfInput
-        v-model="customer.email"
+        v-model="email"
         label="Your email"
-        :valid="!$v.customer.email.$error"
+        :valid="!validations.email.$error"
         error-message="Proper email is required"
         name="email"
         class="form__element"
@@ -68,16 +64,16 @@
       <transition name="fade">
         <SfInput
           v-if="createAccount"
-          v-model="customer.password"
+          v-model="password"
           type="password"
           label="Create Password"
-          :valid="!$v.customer.password.$error"
+          :valid="!validations.password.$error"
           :error-message="
             //handle two different situations - aligned with validation rules
-            (!$v.customer.password.required && 'Password is required') ||
-              (!$v.customer.password.minLength &&
-                'Password should have at least 8 characters') ||
-              ''
+            (!validations.password.required && 'Password is required') ||
+            (!validations.password.minLength &&
+              'Password should have at least 8 characters') ||
+            ''
           "
           class="form__element"
         />
@@ -134,7 +130,7 @@ import {
   SfCharacteristic,
   SfSelect,
   SfProductOption,
-  SfAlert
+  SfAlert,
 } from '@storefront-ui/vue'
 
 import { validationMixin } from 'vuelidate'
@@ -142,24 +138,28 @@ import {
   required,
   requiredIf,
   email,
-  minLength
+  minLength,
 } from 'vuelidate/lib/validators'
 import { computed } from '@vue/composition-api'
 import {
   mapSalutations,
-  getMessagesFromErrorsArray
+  getMessagesFromErrorsArray,
 } from '@shopware-pwa/helpers'
 import {
   useUser,
   useSalutations,
   useCountries,
-  useUserLoginModal
+  useUserLoginModal,
 } from '@shopware-pwa/composables'
+import {
+  usePersonalDetailsStep,
+  usePersonalDetailsStepValidationRules,
+} from '@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep'
 
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 
 export default {
-  name: 'PersonalDetails',
+  name: 'PersonalDetailsGuestForm',
   mixins: [validationMixin],
   components: {
     SfInput,
@@ -176,24 +176,18 @@ export default {
   props: {
     order: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   data() {
     return {
-      customer: {
+      password: '',
+      billingAddress: {
         salutationId: null,
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        billingAddress: {
-          salutationId: null,
-          street: '-',
-          zipcode: '-',
-          city: '-',
-          countryId: null
-        }
+        street: '-',
+        zipcode: '-',
+        city: '-',
+        countryId: null,
       },
       createAccount: false,
       accountBenefits: false,
@@ -202,24 +196,34 @@ export default {
         { description: 'Faster checkout', icon: 'clock' },
         { description: 'Full rewards program benefits', icon: 'rewards' },
         { description: 'Earn credits with every purchase', icon: 'credits' },
-        { description: 'Manage your wishliste', icon: 'heart' }
-      ]
+        { description: 'Manage your wishlist', icon: 'heart' },
+      ],
     }
   },
   setup() {
     const { toggleModal: toggleLoginModal } = useUserLoginModal()
+    
+    const {
+      validations,
+      setValidations,
+      validate,
+      salutationId,
+      firstName,
+      lastName,
+      email,
+    } = usePersonalDetailsStep()
 
     const {
       register: registerUser,
       login,
       error: userError,
-      isLoggedIn
+      isLoggedIn,
     } = useUser()
 
     const {
       getSalutations,
       fetchSalutations,
-      error: salutationsError
+      error: salutationsError,
     } = useSalutations()
 
     const { fetchCountries, getCountries } = useCountries()
@@ -237,28 +241,40 @@ export default {
       getCountries,
       fetchCountries,
       getMessagesFromErrorsArray,
-      toggleLoginModal
+      toggleLoginModal,
+      validations,
+      setValidations,
+      validate,
+      salutationId,
+      firstName,
+      lastName,
+      email,
     }
   },
   watch: {
     createAccount(value) {
-      if (!value) this.customer.password = ''
+      if (!value) this.password = ''
     },
     // hack to register user without picking up the salutation in billing address (minimal registration)
     // copy the customer's salutation into billing address
-    'customer.salutationId': function(value) {
-      if (value && this.customer && this.customer.billingAddress) {
-        this.customer.billingAddress.salutationId = value
-      }
-    }
-
+    // 'salutationId': function(value) {
+    //   if (value && this.customer && this.billingAddress) {
+    //     this.billingAddress.salutationId = value
+    //   }
+    // },
+    $v: {
+      immediate: true,
+      handler: function () {
+        this.setValidations(this.$v)
+      },
+    },
   },
   methods: {
     async toShipping() {
       // run the validators against the provided data
       // consider using $touch event on $blur event in each input
-      this.$v.$touch()
-      if (this.$v.$invalid) {
+      this.validate()
+      if (this.validations.$invalid) {
         return
       }
 
@@ -269,22 +285,23 @@ export default {
         }
         // extra login step won't be necessary once the register has a autologin option
         await this.login({
-          username: this.customer.email,
-          password: this.customer.password
+          username: this.email,
+          password: this.password,
         })
         if (!this.isLoggedIn) {
           return
         }
+        this.$router.push('/checkout?step="SHIPPING"')
+      } else {
+        return this.$emit('proceed')
       }
-
-      return this.$emit('proceed:shipping')
-    }
+    },
   },
   computed: {
     useUserErrorMessages() {
       // all the 400 errors are in a raw format stright from the API - to be extracted easily depeding on needs.
       return this.userError && this.getMessagesFromErrorsArray(this.userError)
-    }
+    },
   },
   async mounted() {
     // hack to register user without picking up the country (minimal registration)
@@ -295,37 +312,29 @@ export default {
     const pickedCountry = this.getCountries.find(
       ({ name }) => name === 'Poland'
     )
-    this.customer.billingAddress.countryId = pickedCountry && pickedCountry.id
+    this.billingAddress.countryId = pickedCountry && pickedCountry.id
 
     // select "not specified" salutation (works for EN) as default salutation
-    await this.fetchSalutations();
-    const defaultSalutation = this.getMappedSalutations.find(({id, name}) => name == 'Not specified')
-    this.customer.salutationId = defaultSalutation && defaultSalutation.id
+    await this.fetchSalutations()
+    const defaultSalutation = this.getMappedSalutations.find(
+      ({ id, name }) => name == 'Not specified'
+    )
+    this.salutationId = defaultSalutation && defaultSalutation.id
   },
   // TODO: move all the rules globally
   validations: {
-    customer: {
-      salutationId: {
-        required
-      },
-      firstName: {
-        required
-      },
-      lastName: {
-        required
-      },
-      password: {
-        required: requiredIf(function(password) {
-          return this.createAccount
-        }),
-        minLength: minLength(8)
-      },
-      email: {
-        required,
-        email
-      }
-    }
-  }
+    ...usePersonalDetailsStepValidationRules,
+    password: {
+      required: requiredIf(function (password) {
+        return this.createAccount
+      }),
+      minLength: minLength(8),
+    },
+    email: {
+      required,
+      email,
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>

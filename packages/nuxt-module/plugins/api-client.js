@@ -1,7 +1,7 @@
 import { setup, onConfigChange } from "@shopware-pwa/shopware-6-client";
-import { setStore } from "@shopware-pwa/composables";
+import { setStore, useUser, useCart } from "@shopware-pwa/composables";
 
-export default ({ app, store }) => {
+export default async ({ app, store }) => {
   if (!app.$cookies) {
     throw "Error cookie-universal-nuxt module is not applied in nuxt.config.js";
   }
@@ -13,7 +13,7 @@ export default ({ app, store }) => {
   setup({
     endpoint: "<%= options.shopwareEndpoint %>",
     accessToken: "<%= options.shopwareAccessToken %>",
-    contextToken
+    contextToken,
   });
   /**
    * Save current contextToken when its change
@@ -21,7 +21,7 @@ export default ({ app, store }) => {
   onConfigChange(({ config }) => {
     try {
       app.$cookies.set("sw-context-token", config.contextToken, {
-        maxAge: 60 * 60 * 24 * 365
+        maxAge: 60 * 60 * 24 * 365,
       });
     } catch (e) {
       // Sometimes cookie is set on server after request is send, it can fail silently
@@ -30,4 +30,9 @@ export default ({ app, store }) => {
 
   // Temporary fix for SSR and reactivity
   setStore(store);
+
+  const { refreshUser } = useUser();
+  const { refreshCart } = useCart();
+  await refreshUser();
+  await refreshCart();
 };

@@ -11,10 +11,7 @@
           >Edit</SfButton
         >
       </div>
-      <p class="content">{{ order.firstName }} {{ order.lastName }}<br /></p>
-      <p class="content">
-        {{ order.email }}
-      </p>
+      <PersonalDetailsSummary @click:edit="$emit('click:edit', 0)" />
     </div>
     <div class="highlighted">
       <div class="highlighted__header">
@@ -23,14 +20,7 @@
           >Edit</SfButton
         >
       </div>
-      <p class="content">
-        <span class="content__label">{{ shippingMethod.label }}</span
-        ><br />
-        {{ shipping.streetName }} {{ shipping.apartment }}, {{ shipping.zipCode
-        }}<br />
-        {{ shipping.city }}, {{ shipping.country }}
-      </p>
-      <p class="content">{{ shipping.phoneNumber }}</p>
+      <ShippingAddressSummary @click:edit="$emit('click:edit', 1)" />
     </div>
     <div class="highlighted">
       <div class="highlighted__header">
@@ -39,19 +29,7 @@
           >Edit</SfButton
         >
       </div>
-      <p v-if="payment.sameAsShipping" class="content">
-        Same as shipping address
-      </p>
-      <template v-else>
-        <p class="content">
-          <span class="content__label">{{ payment.shippingMethod }}</span
-          ><br />
-          {{ payment.streetName }} {{ payment.apartment }}, {{ payment.zipCode
-          }}<br />
-          {{ payment.city }}, {{ payment.country }}
-        </p>
-        <p class="content">{{ payment.phoneNumber }}</p>
-      </template>
+      <BillingAddressSummary @click:edit="$emit('click:edit', 2)" />
     </div>
     <div class="highlighted">
       <div class="highlighted__header">
@@ -60,59 +38,31 @@
           >Edit</SfButton
         >
       </div>
-      <p class="content">{{ paymentMethod.label }}</p>
+      <PaymentMethodSummary @click:edit="$emit('click:edit', 3)" />
     </div>
   </div>
 </template>
 <script>
 import { SfHeading, SfButton } from '@storefront-ui/vue'
+import PersonalDetailsSummary from '@shopware-pwa/default-theme/components/checkout/summary/PersonalDetailsSummary'
+import ShippingAddressSummary from '@shopware-pwa/default-theme/components/checkout/summary/ShippingAddressSummary'
+import BillingAddressSummary from '@shopware-pwa/default-theme/components/checkout/summary/BillingAddressSummary'
+import PaymentMethodSummary from '@shopware-pwa/default-theme/components/checkout/summary/PaymentMethodSummary'
+
 export default {
-  name: 'OrderReview',
+  name: 'SidebarOrderReview',
   components: {
     SfHeading,
-    SfButton
+    SfButton,
+    PersonalDetailsSummary,
+    ShippingAddressSummary,
+    BillingAddressSummary,
+    PaymentMethodSummary,
   },
-  props: {
-    order: {
-      type: Object,
-      default: () => ({})
-    },
-    shippingMethods: {
-      type: Array,
-      default: () => []
-    },
-    paymentMethods: {
-      type: Array,
-      default: () => []
-    }
-  },
-  computed: {
-    shipping() {
-      return this.order.shipping
-    },
-    shippingMethod() {
-      const shippingMethod = this.shipping.shippingMethod
-      const method = this.shippingMethods.find(
-        method => method.value === shippingMethod
-      )
-      return method ? method : { price: 0 }
-    },
-    payment() {
-      return this.order.payment
-    },
-    paymentMethod() {
-      const paymentMethod = this.payment.paymentMethod
-      const method = this.paymentMethods.find(
-        method => method.value === paymentMethod
-      )
-      return method ? method : { label: '' }
-    }
-  }
 }
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-
 
 #checkout {
   margin: none;

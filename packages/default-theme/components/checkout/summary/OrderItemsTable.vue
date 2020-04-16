@@ -28,7 +28,7 @@ import {
   SfQuantitySelector
 } from '@storefront-ui/vue'
 export default {
-  name: 'BillingAddress',
+  name: 'OrderItemsTable',
   components: {
     SfTable,
     SfCheckbox,
