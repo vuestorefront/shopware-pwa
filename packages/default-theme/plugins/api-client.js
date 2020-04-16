@@ -11,7 +11,7 @@ export default ({ app, store }) => {
    */
   setup({
     endpoint: 'https://shopware-2.vuestorefront.io/sales-channel-api/v1',
-    accessToken: 'SWSCMUDKAKHSRXPJEHNOSNHYAG',
+    accessToken: 'SWSCTXJOZMQWCXA4OUTNZ0REYG',
     contextToken
   })
   /**

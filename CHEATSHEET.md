@@ -50,7 +50,7 @@ Now you have complete ShopwarePWA project running locally
 ```
 module.exports = {
   shopwareEndpoint: "https://shopware-2.vuestorefront.io",
-  shopwareAccessToken: "SWSCMUDKAKHSRXPJEHNOSNHYAG"
+  shopwareAccessToken: "SWSCTXJOZMQWCXA4OUTNZ0REYG"
 };
 ```
 
