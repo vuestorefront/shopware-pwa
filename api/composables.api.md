@@ -6,6 +6,7 @@
 
 import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
+import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { CustomerAddressParam } from '@shopware-pwa/shopware-6-client';
@@ -132,13 +133,13 @@ export interface UseCurrency {
     // (undocumented)
     availableCurrencies: Ref<Readonly<any>>;
     // (undocumented)
-    currentCurrency: Ref<Readonly<any>>;
+    currency: Readonly<Ref<Currency | null>>;
     // (undocumented)
-    currentCurrencySymbol: Ref<Readonly<any>>;
+    currencySymbol: Ref<Readonly<string>>;
     // (undocumented)
     onMountedCallback: () => Promise<void>;
     // (undocumented)
-    switchCurrency: (currencyId: string) => Promise<boolean>;
+    setCurrency: (parameter: Partial<Currency>) => Promise<boolean>;
 }
 
 // @alpha (undocumented)
@@ -208,13 +209,17 @@ export const useSalutations: () => UseSalutations;
 // @alpha
 export interface UseSessionContext {
     // (undocumented)
+    currency: Readonly<Ref<Currency | null>>;
+    // (undocumented)
     refreshSessionContext: () => Promise<void>;
     // (undocumented)
     sessionContext: Readonly<Ref<SessionContext | null>>;
     // (undocumented)
+    setCurrency: (currency: Partial<Currency>) => Promise<void>;
+    // (undocumented)
     setShippingMethod: (shippingMethod: Partial<ShippingMethod>) => Promise<void>;
     // (undocumented)
-    shippingMethod: Readonly<Ref<ShippingMethod>>;
+    shippingMethod: Readonly<Ref<ShippingMethod | null>>;
 }
 
 // @alpha (undocumented)
