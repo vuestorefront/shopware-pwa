@@ -59,7 +59,7 @@ import {
   useUserLoginModal
 } from '@shopware-pwa/composables'
 import { PAGE_ACCOUNT } from '../helpers/pages'
-import SwCurrency from './SwCurrency'
+import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
 
 export default {
   name: 'SwBottomNavigation',

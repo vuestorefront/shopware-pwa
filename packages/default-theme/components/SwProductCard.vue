@@ -72,7 +72,7 @@ export default {
       return getProductUrl(this.product)
     },
     getRegularPrice() {
-      // remove that logic once the SW6 API returns right data
+      // TODO: remove that logic once the SW6 API returns right data
       // related: https://github.com/DivanteLtd/shopware-pwa/issues/263
       const regular = getProductRegularPrice({ product: this.product })
       const special = getProductSpecialPrice(this.product)
@@ -80,7 +80,7 @@ export default {
       return (regular > special ? regular : special)
     },
     getSpecialPrice() {
-      // remove that logic once the SW6 API returns right data
+      // TODO: remove that logic once the SW6 API returns right data
       // related: https://github.com/DivanteLtd/shopware-pwa/issues/263
       const special = getProductSpecialPrice(this.product)
       const regular = getProductRegularPrice({ product: this.product })
