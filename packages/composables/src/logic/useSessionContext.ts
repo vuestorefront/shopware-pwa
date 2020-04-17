@@ -58,7 +58,8 @@ export const useSessionContext = (): UseSessionContext => {
 
   const currency = computed(() => sessionContext.value?.currency || null);
   const setCurrency = async (currency: Partial<Currency> = {}) => {
-    if (!currency?.id) {
+
+    if (!currency.id) {
       throw new Error(
         "You need to provide currency id in order to set currency."
       );

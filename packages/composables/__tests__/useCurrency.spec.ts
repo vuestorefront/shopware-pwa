@@ -2,22 +2,35 @@ import Vue from "vue";
 
 //Mock Vue Composition API onMounted method
 import VueCompostionApi, * as vueComp from "@vue/composition-api";
+import { Ref, ref, reactive, computed } from "@vue/composition-api";
+import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
+import * as shopwareClient from "@shopware-pwa/shopware-6-client";
+
 Vue.use(VueCompostionApi);
 (vueComp.onMounted as any) = jest.fn();
 
 // Mock API client
-import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
-import { useCurrency } from "@shopware-pwa/composables";
-
+import { useCurrency, setStore } from "@shopware-pwa/composables";
 describe("Composables - useCurrency", () => {
+  const stateContext: Ref<Partial<SessionContext> | null> = ref(null);
+
   beforeEach(() => {
     jest.resetAllMocks();
+    stateContext.value = null;
+    setStore({
+      getters: reactive({
+        getSessionContext: computed(() => stateContext.value),
+      }),
+      commit: (name: string, value: SessionContext) => {
+        stateContext.value = value;
+      },
+    });
   });
   describe("computed", () => {
-    describe("currentCurrency", () => {
+    describe("currency", () => {
       it("should return an empty string by default - if no currency was loaded", async () => {
         mockedApiClient.getSessionContext.mockReturnValueOnce({
           data: {
@@ -26,16 +39,16 @@ describe("Composables - useCurrency", () => {
             },
           },
         } as any);
-        const { currentCurrency } = useCurrency();
+        const { currency } = useCurrency();
         expect(mockedApiClient.getSessionContext).toBeCalledTimes(0);
-        expect(currentCurrency.value).toBe(null);
+        expect(currency.value).toBe(null);
       });
     });
-    describe("currentCurrencySymbol", () => {
+    describe("currencySymbol", () => {
       it("should return an empty string by default - if no currency was loaded", async () => {
-        const { currentCurrencySymbol } = useCurrency();
+        const { currencySymbol } = useCurrency();
         expect(mockedApiClient.getSessionContext).toBeCalledTimes(0);
-        expect(currentCurrencySymbol.value).toBe("");
+        expect(currencySymbol.value).toBe("");
       });
       it("should not return a symbol if currency object is falsy or does not exist", async () => {
         mockedApiClient.getSessionContext.mockReturnValueOnce({
@@ -43,9 +56,9 @@ describe("Composables - useCurrency", () => {
             currency: null,
           },
         } as any);
-        const { currentCurrencySymbol, onMountedCallback } = useCurrency();
+        const { currencySymbol, onMountedCallback } = useCurrency();
         await onMountedCallback();
-        expect(currentCurrencySymbol.value).toBe("");
+        expect(currencySymbol.value).toBe("");
       });
       it("should return an empty string if currency symbol object is missing", async () => {
         mockedApiClient.getSessionContext.mockReturnValueOnce({
@@ -55,14 +68,14 @@ describe("Composables - useCurrency", () => {
             },
           },
         } as any);
-        const { currentCurrencySymbol, onMountedCallback } = useCurrency();
+        const { currencySymbol, onMountedCallback } = useCurrency();
         await onMountedCallback();
-        expect(currentCurrencySymbol).toBeTruthy();
-        expect(currentCurrencySymbol.value).toBe("");
+        expect(currencySymbol).toBeTruthy();
+        expect(currencySymbol.value).toBe("");
       });
-      it("should return an empty string if currentCurrency is null", async () => {
-        const { currentCurrencySymbol } = useCurrency();
-        expect(currentCurrencySymbol.value).toBe("");
+      it("should return an empty string if currency is null", async () => {
+        const { currencySymbol } = useCurrency();
+        expect(currencySymbol.value).toBe("");
       });
       it("should return a symbol if exists in currency response", async () => {
         mockedApiClient.getSessionContext.mockReturnValueOnce({
@@ -70,10 +83,10 @@ describe("Composables - useCurrency", () => {
             symbol: "$",
           },
         } as any);
-        const { currentCurrencySymbol, onMountedCallback } = useCurrency();
+        const { currencySymbol, onMountedCallback } = useCurrency();
         await onMountedCallback();
         expect(mockedApiClient.getSessionContext).toBeCalledTimes(1);
-        expect(currentCurrencySymbol.value).toBe("$");
+        expect(currencySymbol.value).toBe("$");
       });
     });
     describe("availableCurrencies", () => {
@@ -116,42 +129,42 @@ describe("Composables - useCurrency", () => {
       });
     });
 
-    describe("switchCurrency", () => {
-      it("should not call apiClient:setCurrentCurrency if no currencyId was provided ", async () => {
-        const { switchCurrency, currentCurrency } = useCurrency();
-        const oldCurrency = currentCurrency.value;
-        const wasChanged = await switchCurrency(null as any);
+    describe("setCurrency", () => {
+      it("should not call apiClient:setCurrency if no currencyId was provided ", async () => {
+        const { setCurrency, currency } = useCurrency();
+        const oldCurrency = currency.value;
+        const wasChanged = await setCurrency({} as any);
         expect(wasChanged).toBeFalsy();
-        expect(currentCurrency.value).toBe(oldCurrency);
+        expect(currency.value).toBe(oldCurrency);
         expect(mockedApiClient.setCurrentCurrency).toBeCalledTimes(0);
       });
-      it("should call apiClient:setCurrentCurrency if currencyId was provided ", async () => {
-        const { switchCurrency, currentCurrency } = useCurrency();
+      it("should call apiClient:setCurrency if currencyId was provided ", async () => {
+        const { setCurrency } = useCurrency();
         mockedApiClient.getSessionContext.mockReturnValueOnce({
           currency: {
             iso: "USD",
           },
         } as any);
-        const oldCurrency = currentCurrency.value;
-        const wasChanged = await switchCurrency("some-currency-id");
+        //const oldCurrency = currency.value;
+        const wasChanged = await setCurrency({ id: "some-currency-id" });
         expect(wasChanged).toBeTruthy();
-        expect(currentCurrency.value).not.toBe(oldCurrency);
+        //expect(currency.value).not.toBe(oldCurrency);
         expect(mockedApiClient.setCurrentCurrency).toBeCalledTimes(1);
         expect(mockedApiClient.setCurrentCurrency).toBeCalledWith(
           "some-currency-id"
         );
-        expect(mockedApiClient.getSessionContext).toBeCalledTimes(1);
       });
       it("should return false without fetching current currency on api client rejection", async () => {
         mockedApiClient.setCurrentCurrency.mockRejectedValueOnce({
           message: "Something went wrong...",
         });
+        mockedApiClient.getSessionContext.mockReturnValueOnce({} as any);
 
-        const { switchCurrency, currentCurrency } = useCurrency();
-        const oldCurrency = currentCurrency.value;
-        const wasChanged = await switchCurrency("some-currency-id");
+        const { setCurrency, currency } = useCurrency();
+        const oldCurrency = currency.value;
+        const wasChanged = await setCurrency({ id: "some-currency-id" });
         expect(wasChanged).toBeFalsy();
-        expect(currentCurrency.value).toBe(oldCurrency);
+        expect(currency.value).toBe(oldCurrency);
         expect(mockedApiClient.setCurrentCurrency).toBeCalledTimes(1);
         expect(mockedApiClient.getSessionContext).toBeCalledTimes(0);
       });

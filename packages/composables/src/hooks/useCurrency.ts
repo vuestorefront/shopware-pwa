@@ -1,12 +1,10 @@
 import Vue from "vue";
 import { reactive, computed, onMounted, Ref } from "@vue/composition-api";
-import {
-  getAvailableCurrencies,
-  setCurrentCurrency,
-  getSessionContext,
-} from "@shopware-pwa/shopware-6-client";
+import { getAvailableCurrencies } from "@shopware-pwa/shopware-6-client";
+import { useSessionContext } from "@shopware-pwa/composables";
+import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
+
 const sharedCurrency = Vue.observable({
-  currentCurrency: null,
   availableCurrencies: [],
 } as any);
 
@@ -15,22 +13,24 @@ const sharedCurrency = Vue.observable({
  */
 export interface UseCurrency {
   onMountedCallback: () => Promise<void>;
-  switchCurrency: (currencyId: string) => Promise<boolean>;
+  setCurrency: (parameter: Partial<Currency>) => Promise<boolean>;
   availableCurrencies: Ref<Readonly<any>>;
-  currentCurrency: Ref<Readonly<any>>;
-  currentCurrencySymbol: Ref<Readonly<any>>;
+  currency: Readonly<Ref<Currency | null>>;
+  currencySymbol: Ref<Readonly<string>>;
 }
 
 /**
  * @alpha
  */
 export const useCurrency = (): UseCurrency => {
+  const {
+    currency,
+    setCurrency: setContextCurrency,
+    refreshSessionContext,
+  } = useSessionContext();
   const localCurrency = reactive(sharedCurrency);
-  const currentCurrency = computed(() => localCurrency.currentCurrency);
-  const currentCurrencySymbol = computed(
-    () =>
-      (localCurrency.currentCurrency && localCurrency.currentCurrency.symbol) ||
-      ""
+  const currencySymbol = computed(
+    () => (currency.value && currency.value.symbol) || ""
   );
   const availableCurrencies = computed(
     () => localCurrency.availableCurrencies || []
@@ -47,31 +47,20 @@ export const useCurrency = (): UseCurrency => {
     sharedCurrency.availableCurrencies = currencies;
   };
 
-  const fetchCurrentCurrency = async (
-    force: boolean = false
-  ): Promise<void> => {
-    if (sharedCurrency.currentCurrency && !force) {
-      return;
-    }
-
-    const { currency } = await getSessionContext();
-    sharedCurrency.currentCurrency = currency;
-  };
-
   /**
    * @alpha
    */
-  const switchCurrency = async (currencyId: string): Promise<boolean> => {
-    if (!currencyId) {
+  const setCurrency = async ({ id }: Partial<Currency>): Promise<boolean> => {
+    if (!id) {
       return false;
     }
     try {
-      await setCurrentCurrency(currencyId);
+      await setContextCurrency({ id });
     } catch (e) {
       return false;
     }
 
-    await fetchCurrentCurrency(true);
+    await refreshSessionContext();
 
     return true;
   };
@@ -80,17 +69,17 @@ export const useCurrency = (): UseCurrency => {
    * @alpha
    */
   const onMountedCallback = async () => {
+    await refreshSessionContext();
     await fetchCurrencies();
-    await fetchCurrentCurrency();
   };
 
   onMounted(onMountedCallback);
 
   return {
     onMountedCallback,
-    switchCurrency,
+    setCurrency,
     availableCurrencies,
-    currentCurrency,
-    currentCurrencySymbol,
+    currencySymbol,
+    currency,
   };
 };

@@ -6,8 +6,7 @@ import { formatPrice } from '@shopware-pwa/default-theme/helpers';
 
 export default ({ app  }) => {
   app.setup = () => {
-    const { currentCurrencySymbol } = useCurrency();
-    const currencySymbol = computed(() => currentCurrencySymbol && currentCurrencySymbol.value)
+    const { currencySymbol } = useCurrency();
   
     provide(Vue.filter('price', (price) => formatPrice(price, { symbol: currencySymbol.value })));
   }

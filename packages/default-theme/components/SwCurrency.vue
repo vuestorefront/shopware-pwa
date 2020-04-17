@@ -24,14 +24,13 @@ export default {
   setup() {
     const { 
       availableCurrencies,
-      currentCurrency,
-      fetchCurrencies,
-      switchCurrency
+      currency,
+      setCurrency
       } = useCurrency()
 
     const activeCurrency = computed({
-      get: () => currentCurrency.value && currentCurrency.value.id,
-      set: (currencyId) => switchCurrency(currencyId).then(() => {
+      get: () => currency.value && currency.value.id,
+      set: (id) => setCurrency({id}).then(() => {
         if (window) {
           // TODO: use some kind of event bus, or something that triggers reloading
           // all the price conversion-related places asynchronously
