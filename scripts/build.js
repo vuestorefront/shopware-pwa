@@ -144,8 +144,8 @@ async function build(target) {
       );
     } else {
       console.error(
-        `API Extractor completed with ${extractorResult.errorCount} errors` +
-          ` and ${extractorResult.warningCount} warnings`
+        `API Extractor completed with ${result.errorCount} errors` +
+          ` and ${result.warningCount} warnings`
       );
       console.log(
         chalk.bold(
