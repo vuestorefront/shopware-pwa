@@ -1,45 +1,63 @@
 const slotsMap = {
-  'product-box': 'CmsSwProductCart',
-  'product-slider': 'SwProductSlider',
-  image: 'SwImage',
-  text: 'SwTextSlot',
-  'vimeo-video': 'SwVimeoVideo',
-  'youtube-video': 'SwYoutubeVideo',
-  'product-listing': 'SwProductListingSlot',
-  'category-navigation': 'SwCategoryNavigationSlot', // waiting for navigation hydration, and domething wrong with accordion
-  'sidebar-filter': 'SwCategorySidebarFilter',
-  'image-bubble-row': 'SwImageBubbleRow'
+  'product-box': 'CmsSlotProductCard',
+  'product-slider': 'CmsSlotProductSlider',
+  image: 'CmsSlotImage',
+  text: 'CmsSlotText',
+  'vimeo-video': 'CmsSlotVideoVimeo',
+  'youtube-video': 'CmsSlotVideoYoutube',
+  'product-listing': 'CmsSlotProductListing',
+  'category-navigation': 'CmsSlotCategoryNavigation',
+  'sidebar-filter': 'CmsSlotCategorySidebarFilter',
 }
 
-const excludedSlots = ['image-bubble-row']
+const blocksMap = {
+  'text-on-image': 'CmsBlockTextOnImage',
+  'sidebar-filter': 'CmsBlockDefault',
+  'product-listing': 'CmsBlockDefault',
+  'image-text': 'CmsBlockTextOnImage',
+  image: 'CmsBlockDefault',
+  'image-cover': 'CmsBlockImageCover',
+  'category-navigation': 'CmsBlockCategoryNavigation',
+  'image-bubble-row': 'CmsBlockImageBubbleRow',
+}
+
+const sectionsMap = {
+  default: 'CmsSectionDefault',
+  sidebar: 'CmsSectionSidebar',
+}
 
 export function getComponentBy(content) {
   if (!content) return
-  const isSlot =
-    !!content.slot || !!excludedSlots.find(slot => slot === content.type)
-  let componentName = isSlot ? slotsMap[content.type] : 'SwSlots'
-  if (!componentName) componentName = 'SwNoComponent'
-  return () =>
-    import(
-      `@shopware-pwa/default-theme/components/cms/elements/${componentName}`
-    )
-}
+  let componentName = null
+  const isSection = !!content.pageId
+  if (isSection) {
+    componentName = sectionsMap[content.type]
+    if (componentName)
+      return () =>
+        import(
+          '@shopware-pwa/default-theme/components/cms/sections/' + componentName
+        )
+  }
+  const isBlock = !!content.sectionId
+  if (isBlock) {
+    componentName = blocksMap[content.type]
+    if (componentName)
+      return () =>
+        import(
+          '@shopware-pwa/default-theme/components/cms/blocks/' + componentName
+        )
+  }
 
-export const setContentOrder = content => {
-  const newContent = JSON.parse(JSON.stringify(content))
-  const slotsArr = []
-  newContent.slots.forEach(slot => {
-    switch (slot.slot) {
-      case 'left':
-        slotsArr[0] = slot
-        break
-      case 'right':
-        slotsArr[2] = slot
-        break
-      default:
-        slotsArr[1] = slot
-    }
-  })
-  newContent.slots = slotsArr
-  return newContent
+  const isSlot = !!content.blockId
+  if (isSlot) {
+    componentName = slotsMap[content.type]
+    if (componentName)
+      return () =>
+        import(
+          '@shopware-pwa/default-theme/components/cms/slots/' + componentName
+        )
+  }
+
+  return () =>
+    import(`@shopware-pwa/default-theme/components/cms/CmsNoComponent`)
 }

@@ -5,7 +5,7 @@
     <SfBreadcrumbs
       v-show="getBreadcrumbs.length > 0"
       :breadcrumbs="getBreadcrumbs"
-      class="sw-breadcrumbs"
+      class="sw-breadcrumbs layout__sized"
       @click="redirectTo"
     />
     <nuxt />
@@ -20,7 +20,7 @@ import { SfBreadcrumbs } from '@storefront-ui/vue'
 import TopNavigation from '@shopware-pwa/default-theme/components/TopNavigation'
 import SwBottomNavigation from '@shopware-pwa/default-theme/components/SwBottomNavigation'
 import SwCart from '@shopware-pwa/default-theme/components/SwCart'
-import SwFooter from '@shopware-pwa/default-theme/components/cms/elements/SwFooter'
+import SwFooter from '@shopware-pwa/default-theme/components/SwFooter'
 import SwPluginTopNavigation from 'sw-plugins/SwPluginTopNavigation'
 
 export default {
@@ -143,10 +143,6 @@ body {
 
 .layout {
   box-sizing: border-box;
-  @include for-desktop {
-    max-width: 1320px;
-    margin: auto;
-  }
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -154,6 +150,14 @@ body {
   &__bottom-navigation {
     @include for-desktop() {
       display: none;
+    }
+  }
+
+  &__sized {
+    @include for-desktop {
+      max-width: 1320px;
+      width: 100%;
+      margin: auto;
     }
   }
 }

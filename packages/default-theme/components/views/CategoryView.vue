@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import CmsPage from "@shopware-pwa/default-theme/components/CmsPage";
+import CmsPage from "@shopware-pwa/default-theme/components/cms/CmsPage";
 
 export default {
   name: 'CategoryView',
