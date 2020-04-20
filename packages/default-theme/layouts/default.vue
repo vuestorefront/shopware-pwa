@@ -10,7 +10,7 @@
     />
     <nuxt />
     <SwCart />
-    <SwBottomNavigation class="layout__bottom-navigation" />
+    <SwBottomNavigation />
     <SwFooter />
   </div>
 </template>
@@ -150,12 +150,6 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-
-  &__bottom-navigation {
-    @include for-desktop() {
-      display: none;
-    }
-  }
 }
 
 .sw-breadcrumbs {

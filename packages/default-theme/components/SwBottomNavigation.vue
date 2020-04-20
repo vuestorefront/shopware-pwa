@@ -101,8 +101,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '~@storefront-ui/vue/styles';
+
 .sw-bottom-navigation {
   align-items: center;
+  @include for-desktop() {
+    display: none;
+  }
 }
 
 .menu-button {
