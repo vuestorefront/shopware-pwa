@@ -165,8 +165,6 @@ export default {
 
       &__link {
         display: flex;
-        align-items: center;
-        height: 100;
       }
     }
   }

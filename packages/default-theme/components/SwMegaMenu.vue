@@ -16,7 +16,7 @@
                 :to="path(child)"
               >   
                 <SfMenuItem
-                  :label="child.label" 
+                  :label="child.name" 
                 />
               </nuxt-link>  
             </SfListItem>
