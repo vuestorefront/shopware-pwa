@@ -4,6 +4,7 @@ import { addThemeLayouts } from "./layouts";
 import { extendComponents } from "./components";
 import path from "path";
 import { loadConfig } from "./utils";
+import { extendCMS } from "./cms";
 
 export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
   const shopwarePwaConfig = loadConfig(moduleObject);
@@ -53,6 +54,8 @@ export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
     );
     config.resolve.alias["sw-plugins"] = swPluginsDirectory;
   });
+
+  extendCMS(moduleObject);
 
   // TODO watch files in development mode
   // if (jetpack.exists(componentsPath)) {

@@ -1,0 +1,34 @@
+// const componentsMap = <%- JSON.stringify(props.componentsMap) %>
+const componentsMap = {
+  <% Object.keys(props.componentsMap).forEach(function(componentKey) { %>
+    "<%= componentKey %>": () => import("<%= props.componentsMap[componentKey] %>"),
+  <% }) %>
+}
+
+import cmsMap from "sw-cms/cmsMap.json"
+
+function loadComponent(path) {
+  if (componentsMap[path]) return componentsMap[path]
+  return () =>
+    import(`sw-cms/CmsNoComponent`)
+}
+
+function resolveComponent(blockType, contentType) {
+  return loadComponent(`sw-cms/${blockType}/${cmsMap[blockType][contentType]}`)
+}
+
+export function getComponentBy(content) {
+  if (!content) return
+  
+  const isSection = !!content.pageId
+  if (isSection) return resolveComponent('sections', content.type)
+  
+  const isBlock = !!content.sectionId
+  if (isBlock) return resolveComponent('blocks', content.type)
+
+  const isSlot = !!content.blockId
+  if (isSlot) return resolveComponent('slots', content.type)
+
+  return () =>
+    import(`sw-cms/CmsNoComponent`)
+}
