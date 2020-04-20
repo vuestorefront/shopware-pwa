@@ -1,17 +1,21 @@
 <template>
-  <div class="cms-block-image-cover">
-    <CmsGenericComponent v-if="getContent" :content="getContent" />
+  <div class="cms-block-text-on-image">
+    <CmsSlotText
+      v-if="getContent"
+      :content="getContent"
+      class="cms-block-text-on-image__content"
+    />
   </div>
 </template>
 
 <script>
-import CmsGenericComponent from '@shopware-pwa/default-theme/components/cms/CmsGenericComponent'
+import CmsSlotText from '../slots/CmsSlotText'
 
 export default {
   components: {
-    CmsGenericComponent,
+    CmsSlotText,
   },
-  name: 'CmsBlockImageCover',
+  name: 'CmsBlockTextOnImage',
   props: {
     content: {
       type: Object,
@@ -30,7 +34,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@shopware-pwa/default-theme/components/cms/settings.scss';
+@import '../settings.scss';
 
-
+.cms-block-text-on-image {
+  &__content {
+    padding: var(--spacer-extra-big);
+  }
+}
 </style>

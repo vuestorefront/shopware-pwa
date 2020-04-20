@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { getComponentBy } from './cmsNameMapper'
+import { getComponentBy } from 'sw-cms/cmsNameMapper'
 
 export default {
   name: 'CmsGenericComponent',
@@ -31,5 +31,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@shopware-pwa/default-theme/components/cms/settings.scss';
 </style>

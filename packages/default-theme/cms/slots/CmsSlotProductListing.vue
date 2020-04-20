@@ -72,7 +72,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@shopware-pwa/default-theme/components/cms/settings.scss';
+@import '../settings.scss';
 
 // additional screen variables
 $desktop-big: 1200px;

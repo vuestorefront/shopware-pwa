@@ -1,5 +1,5 @@
 <template>
-  <SfAlert type="cms-no-component danger">
+  <SfAlert class="cms-no-component" type="danger">
     <template #message>
       <span class="sf-alert__message">
         <b>
@@ -41,5 +41,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@shopware-pwa/default-theme/components/cms/settings.scss';
 </style>

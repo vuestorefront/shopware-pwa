@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import CmsGenericComponent from '@shopware-pwa/default-theme/components/cms/CmsGenericComponent'
+import CmsGenericComponent from 'sw-cms/CmsGenericComponent'
 
 export default {
   components: {
@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@shopware-pwa/default-theme/components/cms/settings.scss';
+@import '../settings.scss';
 
 .sw-sidebar-section {
   display: flex;

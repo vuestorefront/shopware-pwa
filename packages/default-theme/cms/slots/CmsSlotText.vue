@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@shopware-pwa/default-theme/components/cms/settings.scss';
+@import '../settings.scss';
 
 .cms-slot-text {
   padding: 0 var(--spacer-extra-big);

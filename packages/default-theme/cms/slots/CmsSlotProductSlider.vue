@@ -43,7 +43,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@shopware-pwa/default-theme/components/cms/settings.scss';
+@import '../settings.scss';
 
 .cms-slot-product-slider {
   width: 100%;

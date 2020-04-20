@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import CmsGenericComponent from '@shopware-pwa/default-theme/components/cms/CmsGenericComponent'
+import CmsGenericComponent from 'sw-cms/CmsGenericComponent'
 import { getCmsSections } from '@shopware-pwa/helpers'
 
 export default {
@@ -31,5 +31,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@shopware-pwa/default-theme/components/cms/settings.scss';
 </style>

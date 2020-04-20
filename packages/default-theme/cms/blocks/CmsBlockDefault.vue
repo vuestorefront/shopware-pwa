@@ -2,18 +2,18 @@
   <CmsGenericComponent
     v-if="getContent"
     :content="getContent"
-    class="cms-block-category-navigation"
+    class="cms-block-default"
   />
 </template>
 
 <script>
-import CmsGenericComponent from '@shopware-pwa/default-theme/components/cms/CmsGenericComponent'
+import CmsGenericComponent from 'sw-cms/CmsGenericComponent'
 
 export default {
   components: {
     CmsGenericComponent,
   },
-  name: 'CmsBlockCategoryNavigation',
+  name: 'CmsBlockDefault',
   props: {
     content: {
       type: Object,
@@ -32,13 +32,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@shopware-pwa/default-theme/components/cms/settings.scss';
+@import '../settings.scss';
 
-.cms-block-category-navigation {
+.cms-block-default {
   @include desktop-size;
-
-  @include for-desktop {
-    margin-top: 20px;
-  }
 }
 </style>

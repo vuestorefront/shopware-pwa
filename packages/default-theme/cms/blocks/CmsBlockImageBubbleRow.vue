@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import CmsSlotImage from '@shopware-pwa/default-theme/components/cms/slots/CmsSlotImage'
+import CmsSlotImage from '../slots/CmsSlotImage'
 
 export default {
   components: {
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@shopware-pwa/default-theme/components/cms/settings.scss';
+@import '../settings.scss';
 
 .cms-block-image-bubble-row {
   display: flex;
