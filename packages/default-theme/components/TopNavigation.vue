@@ -40,13 +40,13 @@
       <template #header-icons="{accountIcon, cartIcon}">
         <div class="sf-header__icons desktop-only">
           <div class="sf-header__icons">
-            <SfCircleIcon
+            <SfIcon
               v-if="accountIcon"
               :icon="accountIcon"
               icon-size="1.25rem"
               class="sf-header__icon sw-header__icon"
               :class="{
-                'sf-header__circle-icon--is-active':
+                'sf-header__icon--is-active':
                   activeIcon === 'account-icon'
               }"
               role="button"
@@ -55,7 +55,7 @@
               :has-badge="isLoggedIn"
               @click="userIconClick"
             />
-            <SfCircleIcon
+            <SfIcon
               v-if="cartIcon"
               :icon="cartIcon"
               :has-badge="count > 0"
@@ -63,7 +63,7 @@
               icon-size="1.25rem"
               class="sf-header__icon sw-header__icon"
               :class="{
-                'sf-header__circle-icon--is-active': activeIcon === 'cart-icon'
+                'sf-header__icon--is-active': activeIcon === 'cart-icon'
               }"
               role="button"
               aria-label="cart-icon"
@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { SfHeader, SfCircleIcon, SfImage, SfSearchBar } from '@storefront-ui/vue'
+import { SfHeader, SfIcon, SfImage, SfSearchBar } from '@storefront-ui/vue'
 import {
   useUser,
   useCart,
@@ -92,7 +92,7 @@ import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginM
 import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
 
 export default {
-  components: { SfHeader, SfCircleIcon, SwLoginModal, SfImage, SfSearchBar },
+  components: { SfHeader, SfIcon, SwLoginModal, SfImage, SfSearchBar },
   setup() {
     const { routes, fetchRoutes } = useNavigation()
     const { isLoggedIn, logout } = useUser()
@@ -170,13 +170,6 @@ export default {
     width: 2.1rem;
   }
 
-  .sw-header__icon {
-    background-color: var(--color-white);
-    box-shadow: var(--color-white);
-    margin-left: var(--spacer-sm);
-    height: 40px;
-    width: 40px;
-  }
 }
 
 .sf-header__logo {
