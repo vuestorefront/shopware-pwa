@@ -1,7 +1,7 @@
 <template>
   <SwProductCard
     :product="content.data.product"
-    class="cms-slot-product-card"
+    class="cms-element-product-card"
   />
 </template>
 
@@ -12,7 +12,7 @@ export default {
   components: {
     SwProductCard,
   },
-  name: 'CmsSlotProductCard',
+  name: 'CmsElementProductCard',
   props: {
     content: {
       type: Object,

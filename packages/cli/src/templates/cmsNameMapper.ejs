@@ -26,8 +26,8 @@ export function getComponentBy(content) {
   const isBlock = !!content.sectionId
   if (isBlock) return resolveComponent('blocks', content.type)
 
-  const isSlot = !!content.blockId
-  if (isSlot) return resolveComponent('slots', content.type)
+  const isElement = !!content.blockId
+  if (isElement) return resolveComponent('elements', content.type)
 
   return () =>
     import(`sw-cms/CmsNoComponent`)

@@ -1,5 +1,5 @@
 <template>
-  <div class="cms-slot-category-navigation-sidebar-filter sw-navbar navbar section">
+  <div class="cms-element-category-navigation-sidebar-filter sw-navbar navbar section">
     <div class="sw-navbar navbar__main">
       <SfButton
         class="sf-button--text navbar__filters-button "
@@ -139,7 +139,7 @@ export default {
     SfSidebar,
     SfProductOption
   },
-  name: 'CmsSlotCategorySidebarFilter',
+  name: 'CmsElementCategorySidebarFilter',
   props: {
     content: {
       type: Object,

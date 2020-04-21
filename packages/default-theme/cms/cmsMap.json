@@ -13,15 +13,15 @@
     "category-navigation": "CmsBlockCategoryNavigation",
     "image-bubble-row": "CmsBlockImageBubbleRow"
   },
-  "slots": {
-    "product-box": "CmsSlotProductCard",
-    "product-slider": "CmsSlotProductSlider",
-    "image": "CmsSlotImage",
-    "text": "CmsSlotText",
-    "vimeo-video": "CmsSlotVideoVimeo",
-    "youtube-video": "CmsSlotVideoYoutube",
-    "product-listing": "CmsSlotProductListing",
-    "category-navigation": "CmsSlotCategoryNavigation",
-    "sidebar-filter": "CmsSlotCategorySidebarFilter"
+  "elements": {
+    "product-box": "CmsElementProductCard",
+    "product-slider": "CmsElementProductSlider",
+    "image": "CmsElementImage",
+    "text": "CmsElementText",
+    "vimeo-video": "CmsElementVideoVimeo",
+    "youtube-video": "CmsElementVideoYoutube",
+    "product-listing": "CmsElementProductListing",
+    "category-navigation": "CmsElementCategoryNavigation",
+    "sidebar-filter": "CmsElementCategorySidebarFilter"
   }
 }

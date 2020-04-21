@@ -4,7 +4,7 @@
     :title="title"
     :alt="alt"
     :lazy="lazyLoad"
-    class="cms-slot-image"
+    class="cms-element-image"
   />
 </template>
 
@@ -15,7 +15,7 @@ export default {
   components: {
     SfImage,
   },
-  name: 'CmsSlotImage',
+  name: 'CmsElementImage',
   props: {
     content: {
       type: Object,
@@ -45,7 +45,7 @@ export default {
 <style lang="scss" scoped>
 @import '../settings.scss';
 
-.cms-slot-image {
+.cms-element-image {
   --image-width: 100%;
   width: 100%;
 }

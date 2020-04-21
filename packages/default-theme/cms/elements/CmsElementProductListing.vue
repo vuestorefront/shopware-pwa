@@ -1,21 +1,21 @@
 <template>
-  <div class="cms-slot-product-listing">
-    <SfLoader :loading="loading" class="cms-slot-product-listing__loader" />
-    <div class="cms-slot-product-listing__wrapper" v-if="products.length">
+  <div class="cms-element-product-listing">
+    <SfLoader :loading="loading" class="cms-element-product-listing__loader" />
+    <div class="cms-element-product-listing__wrapper" v-if="products.length">
       <div
-        class="cms-slot-product-listing__list"
-        :class="{ 'cms-slot-product-listing__list--blur': loading }"
+        class="cms-element-product-listing__list"
+        :class="{ 'cms-element-product-listing__list--blur': loading }"
       >
         <SwProductCard
-          class="cms-slot-product-listing__product-card"
+          class="cms-element-product-listing__product-card"
           v-for="product in products"
           :key="product.id"
           :product="product"
         />
-        <div class="cms-slot-product-listing__place-holder" />
+        <div class="cms-element-product-listing__place-holder" />
       </div>
       <SfPagination
-        class="cms-slot-product-listing__pagination desktop-only"
+        class="cms-element-product-listing__pagination desktop-only"
         :current="pagination.currentPage"
         :total="Math.ceil(pagination.total / pagination.perPage)"
         :visible="5"
@@ -41,7 +41,7 @@ export default {
     SfHeading,
     SfLoader,
   },
-  name: 'CmsSlotProductListing',
+  name: 'CmsElementProductListing',
   props: {
     content: {
       type: Object,
@@ -130,7 +130,7 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
   }
 }
 
-.cms-slot-product-listing {
+.cms-element-product-listing {
   display: flex;
   justify-content: center;
   position: relative;

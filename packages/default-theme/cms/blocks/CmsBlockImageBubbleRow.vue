@@ -1,9 +1,15 @@
 <template>
   <div class="cms-block-image-bubble-row">
     <CmsSlotImage
-      v-for="slot in getSlots"
-      :key="slot.id"
-      :content="slot"
+      :content="getLeftContent"
+      class="cms-block-image-bubble-row__image"
+    />
+    <CmsSlotImage
+      :content="getLeftContent"
+      class="cms-block-image-bubble-row__image"
+    />
+    <CmsSlotImage
+      :content="getLeftContent"
       class="cms-block-image-bubble-row__image"
     />
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="cms-slot-product-slider">
+  <div class="cms-element-product-slider">
     <SfSection :title-heading="title" class="section">
       <SfCarousel class="product-carousel">
         <SfCarouselItem v-for="product in products" :key="product.id">
@@ -15,7 +15,7 @@ import { SfSection, SfCarousel } from '@storefront-ui/vue'
 import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
 
 export default {
-  name: 'CmsSlotProductSlider',
+  name: 'CmsElementProductSlider',
   components: {
     SfSection,
     SfCarousel,
@@ -45,7 +45,7 @@ export default {
 <style lang="scss" scoped>
 @import '../settings.scss';
 
-.cms-slot-product-slider {
+.cms-element-product-slider {
   width: 100%;
 }
 </style>

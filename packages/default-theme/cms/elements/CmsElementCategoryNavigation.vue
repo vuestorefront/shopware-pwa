@@ -1,9 +1,9 @@
 <template>
-  <div class="cms-slot-category-navigation">
-    <div class="cms-slot-category-navigation__header">
-      <h1 class="cms-slot-category-navigation__title">{{ navTitle }}</h1>
+  <div class="cms-element-category-navigation">
+    <div class="cms-element-category-navigation__header">
+      <h1 class="cms-element-category-navigation__title">{{ navTitle }}</h1>
     </div>
-    <div class="cms-slot-category-navigation__menu">
+    <div class="cms-element-category-navigation__menu">
       <SfHeading subtitle="No subcategories" v-if="!navigation.length" />
       <SfAccordion :show-chevron="true">
         <SfAccordionItem
@@ -49,7 +49,7 @@ export default {
     SfMenuItem,
     SfHeading,
   },
-  name: 'CmsSlotCategoryNavigation',
+  name: 'CmsElementCategoryNavigation',
   props: {
     content: {
       type: Object,
@@ -90,7 +90,7 @@ export default {
 <style lang="scss" scoped>
 @import '../settings.scss';
 
-.cms-slot-category-navigation {
+.cms-element-category-navigation {
   &__header {
     flex: 0 0 15%;
     align-items: center;

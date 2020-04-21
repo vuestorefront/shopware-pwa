@@ -1,13 +1,13 @@
 <template>
-  <div v-show="rawHtml" class="cms-slot-text">
-    <div class="cms-slot-text__content" v-html="rawHtml"></div>
+  <div v-show="rawHtml" class="cms-element-text">
+    <div class="cms-element-text__content" v-html="rawHtml"></div>
   </div>
 </template>
 
 <script>
 export default {
   components: {},
-  name: 'CmsSlotText',
+  name: 'CmsElementText',
   props: {
     content: {
       type: Object,
@@ -28,7 +28,7 @@ export default {
 <style lang="scss" scoped>
 @import '../settings.scss';
 
-.cms-slot-text {
+.cms-element-text {
   padding: 0 var(--spacer-extra-big);
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="cms-slot-video-youtube">
+  <div class="cms-element-video-youtube">
     <!-- <youtube
       :id="slotId"
       :video-id="videoId"
@@ -21,7 +21,7 @@ import Vue from 'vue'
 
 export default {
   components: {},
-  name: 'CmsSlotVideoYoutube',
+  name: 'CmsElementVideoYoutube',
   props: {
     content: {
       type: Object,

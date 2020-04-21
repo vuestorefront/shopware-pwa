@@ -1,5 +1,5 @@
 <template>
-  <div class="cms-clot-video-vimeo">
+  <div class="cms-element-video-vimeo">
     <!-- <vimeo-player
       ref="player"
       :video-id="videoId"
@@ -24,7 +24,7 @@ import Vue from 'vue'
 
 export default {
   components: {},
-  name: 'CmsSlotVideoVimeo',
+  name: 'CmsElementVideoVimeo',
   props: {
     content: {
       type: Object,
