@@ -1,7 +1,7 @@
 # Shopware PWA - Roadmap
 
-* :blue_heart: - Shopware PWA feature
-* :green_heart: - Storefront UI dependency
+* :blue_heart: Shopware PWA feature
+* :green_heart: Storefront UI dependency
 
 ## 2020 Q2 
 
