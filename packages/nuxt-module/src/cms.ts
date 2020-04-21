@@ -1,9 +1,7 @@
 import path from "path";
 import { NuxtModuleOptions, WebpackConfig } from "./interfaces";
 import jetpack from "fs-jetpack";
-// import { invokeRebuild } from "./utils";
 
-// let lastThemeFiles: any = [];
 export function extendCMS(moduleObject: NuxtModuleOptions) {
   // Throw error with instruction if CMS module is not prepared
   const cmsModuleExists = jetpack.exists(
@@ -21,8 +19,8 @@ export function extendCMS(moduleObject: NuxtModuleOptions) {
   }
 
   // Get main cms vue files to create aliases for them
-  const cmsCatalogFiles = jetpack
-    .list(
+  const allThemeCmsFiles =
+    jetpack.list(
       path.join(
         moduleObject.options.rootDir,
         "node_modules",
@@ -30,8 +28,10 @@ export function extendCMS(moduleObject: NuxtModuleOptions) {
         "default-theme",
         "cms"
       )
-    )
-    .filter((name) => name.includes(".vue"));
+    ) || [];
+  const cmsCatalogFiles = allThemeCmsFiles.filter((name) =>
+    name.includes(".vue")
+  );
 
   // Extend webpack config and add aliases
   moduleObject.extendBuild((config: WebpackConfig) => {
