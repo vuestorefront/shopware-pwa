@@ -11,7 +11,7 @@
 * :blue_heart: Slots in the theme for adding the Shopware PWA plugins
 * :blue_heart: Currency Switch
 * :blue_heart: Proof of Concept for PayPal Express Plugin
-* :green_heart: Upgrade to StorefrontUI 7.1
+* :green_heart: Upgrade to Storefront UI 7.1 (https://github.com/DivanteLtd/storefront-ui/releases)
 * :green_heart: MegaMenu
 
 ### 2020 May
