@@ -210,6 +210,22 @@ export interface PageResolverResult<T> {
     resourceType: string;
 }
 
+// @alpha (undocumented)
+export function pluginGet({ code, resource }: PluginRequest): Promise<any>;
+
+// @alpha (undocumented)
+export function pluginPost({ code, resource, payload }: PluginRequest): Promise<any>;
+
+// @alpha (undocumented)
+export interface PluginRequest {
+    // (undocumented)
+    code: string;
+    // (undocumented)
+    payload?: any;
+    // (undocumented)
+    resource: string;
+}
+
 // @alpha
 export function register(params: CustomerRegistrationParams): Promise<CustomerRegisterResponse>;
 
