@@ -16,7 +16,7 @@
 
 ### 2020 May
 
-* :blue_heart: Adjustments to the newsest Shopware 6 API
+* :blue_heart: Adjustments to the newest Shopware 6 API
 * :blue_heart: PayPal Express Plugin
 * :blue_heart: PayPal Smart Payment Plugin
 * :blue_heart: I18n
