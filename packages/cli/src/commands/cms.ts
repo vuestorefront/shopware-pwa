@@ -1,5 +1,5 @@
 import { GluegunToolbox } from "gluegun";
-import { join, resolve } from "path";
+import { join } from "path";
 
 module.exports = {
   name: "cms",
@@ -9,23 +9,37 @@ module.exports = {
     const mainCmsPath = join(toolbox.defaultThemeLocation, "cms");
 
     const swCmsPath = join(`.shopware-pwa`, `sw-cms`);
+    const swPluginsPath = join(`.shopware-pwa`, `pwa-bundles-assets`);
 
-    // Read cmsMap.json file in cms folder, every cms folder should contain one
-    const cmsComponentsMap = await toolbox.filesystem.readAsync(
-      join(mainCmsPath, "cmsMap.json"),
+    // Aliases and componentsMap to save
+    const aliases = {};
+    const cmsComponentsMap = {
+      sections: {},
+      blocks: {},
+      elements: {},
+    };
+
+    // Read theme cms settings
+    await toolbox.resolveCms(mainCmsPath, aliases, cmsComponentsMap);
+
+    // Override CMS by plugins
+    const pluginsConfig = await toolbox.filesystem.readAsync(
+      join(`.shopware-pwa`, "pwa-bundles.json"),
       "json"
     );
+    if (pluginsConfig) {
+      const pluginsList = Object.keys(pluginsConfig);
+      for (let index = 0; index < pluginsList.length; index++) {
+        await toolbox.resolveCms(
+          join(swPluginsPath, pluginsList[index], "cms"),
+          aliases,
+          cmsComponentsMap
+        );
+      }
+    }
 
-    // Map of aliases
-    const aliases = {};
-
-    Object.keys(cmsComponentsMap).forEach((sectionKey) => {
-      Object.values(cmsComponentsMap[sectionKey]).forEach((value: string) => {
-        const alias = `sw-cms/${sectionKey}/${value}`;
-        const path = resolve(join(mainCmsPath, sectionKey, value));
-        aliases[alias] = path;
-      });
-    });
+    // Override CMS by user project
+    await toolbox.resolveCms("cms", aliases, cmsComponentsMap);
 
     // Write merged map to file
     await toolbox.filesystem.writeAsync(

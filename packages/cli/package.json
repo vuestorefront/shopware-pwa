@@ -31,6 +31,7 @@
   "license": "MIT",
   "dependencies": {
     "gluegun": "^4.2.0",
+    "lodash": "^4.17.15",
     "request": "^2.88.2",
     "unzipper": "^0.10.10"
   },
