@@ -1,5 +1,5 @@
 <template>
-  <CmsGenericComponent
+  <CmsGenericElement
     v-if="getContent"
     :content="getContent"
     class="cms-block-default"
@@ -7,11 +7,11 @@
 </template>
 
 <script>
-import CmsGenericComponent from 'sw-cms/CmsGenericComponent'
+import CmsGenericElement from 'sw-cms/CmsGenericElement'
 
 export default {
   components: {
-    CmsGenericComponent,
+    CmsGenericElement,
   },
   name: 'CmsBlockDefault',
   props: {

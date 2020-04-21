@@ -1,15 +1,15 @@
 <template>
   <div class="cms-block-image-cover">
-    <CmsGenericComponent v-if="getContent" :content="getContent" />
+    <CmsGenericElement v-if="getContent" :content="getContent" />
   </div>
 </template>
 
 <script>
-import CmsGenericComponent from 'sw-cms/CmsGenericComponent'
+import CmsGenericElement from 'sw-cms/CmsGenericElement'
 
 export default {
   components: {
-    CmsGenericComponent,
+    CmsGenericElement,
   },
   name: 'CmsBlockImageCover',
   props: {

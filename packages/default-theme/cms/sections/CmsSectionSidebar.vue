@@ -1,14 +1,14 @@
 <template>
   <div class="sw-sidebar-section">
     <div class="sw-sidebar-section__sidebar" v-if="getSidebarBlocks.length">
-      <CmsGenericComponent
+      <CmsGenericBlock
         v-for="cmsBlock in getSidebarBlocks"
         :key="cmsBlock.id"
         :content="cmsBlock"
       />
     </div>
     <div class="sw-sidebar-section__main">
-      <CmsGenericComponent
+      <CmsGenericBlock
         v-for="cmsBlock in getMainBlocks"
         :key="cmsBlock.id"
         :content="cmsBlock"
@@ -18,11 +18,11 @@
 </template>
 
 <script>
-import CmsGenericComponent from 'sw-cms/CmsGenericComponent'
+import CmsGenericBlock from 'sw-cms/CmsGenericBlock'
 
 export default {
   components: {
-    CmsGenericComponent,
+    CmsGenericBlock,
   },
   name: 'CmsSectionSidebar',
   props: {

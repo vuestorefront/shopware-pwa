@@ -1,26 +1,26 @@
 <template>
   <div class="cms-block-image-bubble-row">
-    <CmsSlotImage
+    <CmsGenericElement
       :content="getLeftContent"
       class="cms-block-image-bubble-row__image"
     />
-    <CmsSlotImage
-      :content="getLeftContent"
+    <CmsGenericElement
+      :content="getCenterContent"
       class="cms-block-image-bubble-row__image"
     />
-    <CmsSlotImage
-      :content="getLeftContent"
+    <CmsGenericElement
+      :content="getRightContent"
       class="cms-block-image-bubble-row__image"
     />
   </div>
 </template>
 
 <script>
-import CmsSlotImage from '../slots/CmsSlotImage'
+import CmsGenericElement from 'sw-cms/CmsGenericElement'
 
 export default {
   components: {
-    CmsSlotImage,
+    CmsGenericElement,
   },
   name: 'CmsBlockImageBubbleRow',
   props: {
@@ -33,8 +33,14 @@ export default {
     getSlots() {
       return this.content.slots || []
     },
-    getContent() {
-      return this.getSlots.length && this.getSlots[0]
+    getLeftContent() {
+      return this.getSlots.find((element) => element.slot === 'left')
+    },
+    getCenterContent() {
+      return this.getSlots.find((element) => element.slot === 'center')
+    },
+    getRightContent() {
+      return this.getSlots.find((element) => element.slot === 'right')
     },
   },
 }

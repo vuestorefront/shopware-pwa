@@ -1,6 +1,6 @@
 <template>
   <div class="cms-page">
-    <CmsGenericComponent
+    <CmsGenericSection
       :content="cmsSection"
       v-for="cmsSection in cmsSections"
       :key="cmsSection.id"
@@ -9,12 +9,11 @@
 </template>
 
 <script>
-import CmsGenericComponent from 'sw-cms/CmsGenericComponent'
-import { getCmsSections } from '@shopware-pwa/helpers'
+import CmsGenericSection from 'sw-cms/CmsGenericSection'
 
 export default {
   components: {
-    CmsGenericComponent,
+    CmsGenericSection,
   },
   props: {
     content: {
@@ -30,5 +29,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

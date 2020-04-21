@@ -17,18 +17,15 @@ function resolveComponent(blockType, contentType) {
   return loadComponent(`sw-cms/${blockType}/${cmsMap[blockType][contentType]}`)
 }
 
-export function getComponentBy(content) {
-  if (!content) return
-  
-  const isSection = !!content.pageId
-  if (isSection) return resolveComponent('sections', content.type)
-  
-  const isBlock = !!content.sectionId
-  if (isBlock) return resolveComponent('blocks', content.type)
-
-  const isElement = !!content.blockId
-  if (isElement) return resolveComponent('elements', content.type)
-
-  return () =>
-    import(`sw-cms/CmsNoComponent`)
+export function getCmsSectionComponent(content) {
+  return resolveComponent('sections', content.type)
 }
+
+export function getCmsBlockComponent(content) {
+  return resolveComponent('blocks', content.type)
+}
+
+export function getCmsElementComponent(content) {
+  return resolveComponent('elements', content.type)
+}
+

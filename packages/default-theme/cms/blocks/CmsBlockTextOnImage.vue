@@ -1,6 +1,6 @@
 <template>
   <div class="cms-block-text-on-image">
-    <CmsSlotText
+    <CmsGenericElement
       v-if="getContent"
       :content="getContent"
       class="cms-block-text-on-image__content"
@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import CmsSlotText from '../slots/CmsSlotText'
+import CmsGenericElement from 'sw-cms/CmsGenericElement'
 
 export default {
   components: {
-    CmsSlotText,
+    CmsGenericElement,
   },
   name: 'CmsBlockTextOnImage',
   props: {

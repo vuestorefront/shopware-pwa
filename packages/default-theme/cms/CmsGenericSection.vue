@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import { getComponentBy } from 'sw-cms/cmsNameMapper'
+import { getCmsSectionComponent } from 'sw-cms/cmsNameMapper'
 
 export default {
-  name: 'CmsGenericComponent',
+  name: 'CmsGenericSection',
   props: {
     content: {
       type: Object,
@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     getComponent() {
-      return getComponentBy(this.content)
+      return getCmsSectionComponent(this.content)
     },
     backgroundMediaMode() {
       return this.content.backgroundMediaMode

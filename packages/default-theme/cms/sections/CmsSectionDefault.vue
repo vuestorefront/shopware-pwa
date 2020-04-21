@@ -1,6 +1,6 @@
 <template>
   <div class="sw-default-section">
-    <CmsGenericComponent
+    <CmsGenericBlock
       v-for="cmsBlock in getBlocks"
       :key="cmsBlock.id"
       :content="cmsBlock"
@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import CmsGenericComponent from 'sw-cms/CmsGenericComponent'
+import CmsGenericBlock from 'sw-cms/CmsGenericBlock'
 
 export default {
   components: {
-    CmsGenericComponent,
+    CmsGenericBlock,
   },
   name: 'CmsSectionDefault',
   props: {
