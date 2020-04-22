@@ -1,19 +1,14 @@
 <template>
   <div class="accordion__item">
     <div class="accordion__content">
-      <p v-if="billingAddress.sameAsShipping" class="content">
-        Same as shipping address
+      <p class="content" v-if="billingAddress">
+        {{ billingAddress.street }} {{ billingAddress.apartment }},
+        {{ billingAddress.zipcode }}<br />
+        {{ billingAddress.city }}
       </p>
-      <template v-else>
-        <p class="content">
-          <span class="content__label">{{ billingAddress.shippingMethod }}</span
-          ><br />
-          {{ billingAddress.streetName }} {{ billingAddress.apartment }}, {{ billingAddress.zipCode
-          }}<br />
-          {{ billingAddress.city }}, {{ billingAddress.country }}
-        </p>
-        <p class="content">{{ billingAddress.phoneNumber }}</p>
-      </template>
+      <p class="content" v-if="billingAddress && billingAddress.phoneNumber">
+        {{ billingAddress.phoneNumber }}
+      </p>
     </div>
     <SfButton
       class="sf-button--text accordion__edit"
@@ -23,23 +18,20 @@
   </div>
 </template>
 <script>
-import {
-  SfButton
-} from '@storefront-ui/vue'
+import { SfButton } from '@storefront-ui/vue'
+import { useCheckout } from '@shopware-pwa/composables'
+
 export default {
   name: 'BillingAddressSummary',
   components: {
     SfButton,
   },
-  setup () {
-    // TODO: get from context or guest order step if guest order
-    const billingAddress = {
-      sameAsShipping: true
-    }
+  setup() {
+    const { billingAddress } = useCheckout()
     return {
-      billingAddress
+      billingAddress,
     }
-  }
+  },
 }
 </script>
 <style lang="scss" scoped>
