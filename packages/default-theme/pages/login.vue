@@ -1,5 +1,5 @@
 <template>
-  <div id="login">
+  <div id="login" :key="$route.fullPath">
     <SwLogin class="login__component" @success="redirectToMyAccount"/>
   </div>
 </template>

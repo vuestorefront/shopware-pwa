@@ -1,52 +1,70 @@
 <template>
-  <div class="container" v-if="activeCurrency && availableCurrencies && availableCurrencies.length">
-    <SfSelect v-model="activeCurrency" :size="availableCurrencies.length" class="container__select">
+  <!-- TODO: change this if after onMounted hook here is resolved -->
+  <div
+    class="container"
+    v-if="activeCurrency && availableCurrencies.length > 1"
+  >
+    <SfSelect
+      v-model="activeCurrency"
+      :size="availableCurrencies.length"
+      class="container__select"
+      @click="loadAvailableCurrencies"
+    >
       <SfSelectOption
         v-for="currencyItem in availableCurrencies"
         :key="currencyItem.id"
         :value="currencyItem.id"
       >
-        {{currencyItem.symbol}}
+        {{ currencyItem.symbol }}
       </SfSelectOption>
     </SfSelect>
   </div>
 </template>
 <script>
-import { SfSelect, SfProductOption } from '@storefront-ui/vue';
-import { useCurrency } from '@shopware-pwa/composables';
-import { computed } from '@vue/composition-api';
+import { SfSelect, SfProductOption } from '@storefront-ui/vue'
+import { useCurrency } from '@shopware-pwa/composables'
+import { computed, onMounted } from '@vue/composition-api'
 
 export default {
   name: 'SwCurrency',
   components: {
-    SfSelect
+    SfSelect,
   },
-  setup() {
-    const { 
-      availableCurrencies,
+  setup(context) {
+    const {
       currency,
-      setCurrency
-      } = useCurrency()
+      setCurrency,
+      loadAvailableCurrencies,
+      availableCurrencies,
+    } = useCurrency()
+
+    // TODO: loaded on mounted only untill fixed issue: https://github.com/DivanteLtd/storefront-ui/issues/1097
+    onMounted(async () => {
+      await loadAvailableCurrencies()
+    })
 
     const activeCurrency = computed({
       get: () => currency.value && currency.value.id,
-      set: (id) => setCurrency({id}).then(() => {
-        if (window) {
-          // TODO: use some kind of event bus, or something that triggers reloading
-          // all the price conversion-related places asynchronously
-          window.location.reload(true)
-        }
-      })
+      set: async (id) => await setCurrency({ id }),
     })
     return {
       availableCurrencies,
-      activeCurrency
+      activeCurrency,
+      loadAvailableCurrencies,
     }
+  },
+  watch: {
+    activeCurrency(val) {
+      // re're invoking page reload by adding/changing currenctId in query params
+      this.$router.push({
+        query: { ...this.$router.currentRoute.query, curencyId: val },
+      })
+    },
   },
 }
 </script>
 <style lang="scss" scoped>
-@import "~@storefront-ui/vue/styles";
+@import '~@storefront-ui/vue/styles';
 
 .menu-button {
   .container {
@@ -62,13 +80,12 @@ export default {
         color: var(--c-text);
       }
     }
-    
   }
 }
 .container {
   text-align: center;
   margin: 0 0 0 var(--spacer-big);
-  padding:10 px;
+  padding: 10 px;
   &::v-deep .sf-select {
     --select-font-size: var(--font-size-medium);
     --select-font-weight: 400;

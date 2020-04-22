@@ -1,5 +1,5 @@
 <template>
-  <div id="checkout">
+  <div id="checkout" :key="$route.fullPath">
     <div class="checkout">
       <div class="checkout__main">
         <SfSteps :active="currentStep" @change="nextStep($event)">

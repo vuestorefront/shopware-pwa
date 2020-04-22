@@ -1,5 +1,5 @@
 <template>
-  <div class="success-page">
+  <div class="success-page" :key="$route.fullPath">
     <SfHeading level=2 title="Thank you" subtitle="for shopping with us!" class="success-page__heading" />
     <SfButton @click="$router.push('/')">
       <SfIcon icon="chevron_left" color="white" size="20px" />Return to homepage
