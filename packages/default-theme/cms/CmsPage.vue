@@ -1,6 +1,6 @@
 <template>
   <div class="cms-page">
-    <SwSlots
+    <CmsGenericSection
       :content="cmsSection"
       v-for="cmsSection in cmsSections"
       :key="cmsSection.id"
@@ -9,24 +9,23 @@
 </template>
 
 <script>
-import SwSlots from '@shopware-pwa/default-theme/components/cms/elements/SwSlots'
-import { getCmsSections } from '@shopware-pwa/helpers'
+import CmsGenericSection from 'sw-cms/CmsGenericSection'
 
 export default {
   components: {
-    SwSlots
+    CmsGenericSection,
   },
   props: {
     content: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   computed: {
     cmsSections() {
-      return getCmsSections(this.content)
-    }
-  }
+      return this.content?.sections || []
+    },
+  },
 }
 </script>
 

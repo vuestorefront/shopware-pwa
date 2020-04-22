@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-vimeo-video">
+  <div class="cms-element-video-vimeo">
     <!-- <vimeo-player
       ref="player"
       :video-id="videoId"
@@ -18,82 +18,85 @@
 </template>
 
 <script>
-import Vue from "vue";
+import Vue from 'vue'
 // import vueVimeoPlayer from "vue-vimeo-player";
 // Vue.use(vueVimeoPlayer);
 
 export default {
   components: {},
+  name: 'CmsElementVideoVimeo',
   props: {
     content: {
       type: Object,
       default: () => ({
         config: {
           videoID: {
-            value: ""
+            value: '',
           },
           loop: {
-            value: false
+            value: false,
           },
           autoPlay: {
-            value: false
+            value: false,
           },
           controls: {
-            value: true
+            value: true,
           },
           portrait: {
-            value: false
+            value: false,
           },
           doNotTrack: {
-            value: false
+            value: false,
           },
           byLine: {
-            value: false
+            value: false,
           },
           title: {
-            value: false
+            value: false,
           },
           color: {
-            value: false
-          }
+            value: false,
+          },
         },
-        id: null
-      })
-    }
+        id: null,
+      }),
+    },
   },
   computed: {
     videoId() {
-      return this.content.config.videoID.value;
+      return this.content.config.videoID.value
     },
     slotId() {
-      return this.content.id;
+      return this.content.id
     },
     playInLoop() {
-      return !!this.content.config.loop.value;
+      return !!this.content.config.loop.value
     },
     autoPlay() {
-      return !!this.content.config.autoplay.value;
+      return !!this.content.config.autoplay.value
     },
     showControls() {
-      return !!this.content.config.controls.value;
+      return !!this.content.config.controls.value
     },
     color() {
-      return this.content.config.color.value;
+      return this.content.config.color.value
     },
     portrait() {
-      return !!this.content.config.portrait.value;
+      return !!this.content.config.portrait.value
     },
     doNotTrack() {
-      return !!this.content.config.doNotTrack.value;
+      return !!this.content.config.doNotTrack.value
     },
     byLine() {
-      return !!this.content.config.byLine.value;
+      return !!this.content.config.byLine.value
     },
     title() {
-      return !!this.content.config.title.value;
-    }
-  }
-};
+      return !!this.content.config.title.value
+    },
+  },
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import '../settings.scss';
+</style>
