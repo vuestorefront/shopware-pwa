@@ -1,9 +1,9 @@
 <template>
-  <div class="sw-category-navigation">
-    <div class="sw-category-navigation__header">
-      <h1 class="sw-category-navigation__title">{{ navTitle }}</h1>
+  <div class="cms-element-category-navigation">
+    <div class="cms-element-category-navigation__header">
+      <h1 class="cms-element-category-navigation__title">{{ navTitle }}</h1>
     </div>
-    <div class="sw-category-navigation__menu">
+    <div class="cms-element-category-navigation__menu">
       <SfHeading subtitle="No subcategories" v-if="!navigation.length" />
       <SfAccordion :show-chevron="true">
         <SfAccordionItem
@@ -47,13 +47,14 @@ export default {
     SfAccordion,
     SfList,
     SfMenuItem,
-    SfHeading
+    SfHeading,
   },
+  name: 'CmsElementCategoryNavigation',
   props: {
     content: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   setup() {
     const { categoryId } = useCms()
@@ -63,34 +64,33 @@ export default {
   data() {
     return {
       navTitle: 'Subcategories',
-      navigationElements: []
+      navigationElements: [],
     }
   },
   computed: {
     navigation() {
       return this.navigationElements
-    }
+    },
   },
   async mounted() {
     const { children } = await getNavigation({
       depth: 2,
-      rootNode: this.categoryId
+      rootNode: this.categoryId,
     })
     this.navigationElements = children
   },
   methods: {
     getCategoryUrl(route) {
       return route.path || ''
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles.scss';
+@import '../settings.scss';
 
-.sw-category-navigation {
-  margin: 0 0 20px 20px !important;
+.cms-element-category-navigation {
   &__header {
     flex: 0 0 15%;
     align-items: center;
@@ -110,7 +110,6 @@ export default {
   }
 
   &__menu {
-    margin-right: 20px;
     flex: 0 0 15%;
     padding: 20px 0 20px 0;
 
