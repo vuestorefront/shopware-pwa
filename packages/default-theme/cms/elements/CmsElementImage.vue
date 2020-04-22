@@ -1,23 +1,26 @@
 <template>
-  <div class="sw-image">
-    <SfImage :src="imgUrl" :title="title" :alt="alt" :lazy="lazyLoad" />
-  </div>
+  <SfImage
+    :src="imgUrl"
+    :title="title"
+    :alt="alt"
+    :lazy="lazyLoad"
+    class="cms-element-image"
+  />
 </template>
 
 <script>
- import {
-   SfImage
- } from "@storefront-ui/vue";
+import { SfImage } from '@storefront-ui/vue'
 
 export default {
   components: {
-     SfImage
+    SfImage,
   },
+  name: 'CmsElementImage',
   props: {
     content: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   computed: {
     getMedia() {
@@ -33,16 +36,17 @@ export default {
       return this.getMedia && this.getMedia.title
     },
     lazyLoad() {
-      return true;
-    }
-  }
-};
+      return true
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
-.sw-image {
-  position: relative;
-  display: flex;
-  justify-content: center;
+@import '../settings.scss';
+
+.cms-element-image {
+  --image-width: 100%;
+  width: 100%;
 }
 </style>

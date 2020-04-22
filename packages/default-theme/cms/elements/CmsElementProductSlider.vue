@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-product-slider">
+  <div class="cms-element-product-slider">
     <SfSection :title-heading="title" class="section">
       <SfCarousel class="product-carousel">
         <SfCarouselItem v-for="product in products" :key="product.id">
@@ -12,20 +12,20 @@
 
 <script>
 import { SfSection, SfCarousel } from '@storefront-ui/vue'
-import SwProductCard from '../../SwProductCard'
+import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
 
 export default {
-  name: 'SwProductSlider',
+  name: 'CmsElementProductSlider',
   components: {
     SfSection,
     SfCarousel,
-    SwProductCard
+    SwProductCard,
   },
   props: {
     content: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   computed: {
     products() {
@@ -37,13 +37,15 @@ export default {
         this.content.config.title.value
         ? this.content.config.title.value
         : ''
-    }
-  }
-};
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
-.sw-product-slider {
+@import '../settings.scss';
+
+.cms-element-product-slider {
   width: 100%;
 }
 </style>
