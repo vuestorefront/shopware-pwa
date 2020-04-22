@@ -27,7 +27,6 @@
         </SfSteps>
       </div>
       <div class="checkout__aside desktop-only">
-        <button @click="nextStep()">next</button>
         <transition name="fade">
           <SidebarOrderSummary
             v-if="currentStep < CHECKOUT_STEPS.REVIEW"

@@ -5,6 +5,7 @@
 ```ts
 
 import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
+import { BillingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
@@ -20,6 +21,7 @@ import { Product } from '@shopware-pwa/commons/interfaces/models/content/product
 import { Ref } from '@vue/composition-api';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
+import { ShippingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 
 // @alpha (undocumented)
@@ -89,6 +91,8 @@ export const useCategoryFilters: () => any;
 // @alpha (undocumented)
 export interface UseCheckout {
     // (undocumented)
+    billingAddress: Readonly<Ref<BillingAddress | undefined>>;
+    // (undocumented)
     createOrder: () => Promise<Order>;
     // (undocumented)
     getPaymentMethods: (options?: {
@@ -102,6 +106,8 @@ export interface UseCheckout {
     guestOrderParams: Ref<Readonly<Partial<GuestOrderParams | null>>>;
     // (undocumented)
     isGuestOrder: Readonly<Ref<boolean>>;
+    // (undocumented)
+    shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
     // (undocumented)
     updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
 }
