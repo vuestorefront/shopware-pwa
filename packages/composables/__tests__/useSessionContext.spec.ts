@@ -61,6 +61,25 @@ describe("Composables - useSessionContext", () => {
         expect(shippingMethod.value).toEqual({ id: "qwe" });
       });
     });
+
+    describe("currency", () => {
+      it("should return null when session context value is null", () => {
+        stateContext.value = null;
+        const { currency } = useSessionContext();
+        expect(currency.value).toBeNull();
+      });
+
+      it("should return null when session context doesn't have currency property", () => {
+        stateContext.value = {};
+        const { currency } = useSessionContext();
+        expect(currency.value).toBeNull();
+      });
+      it("should return currency from context", () => {
+        stateContext.value = { currency: { sign: "$$" } } as any;
+        const { currency } = useSessionContext();
+        expect(currency.value).toEqual({ sign: "$$" });
+      });
+    });
   });
 
   describe("methods", () => {
@@ -79,7 +98,7 @@ describe("Composables - useSessionContext", () => {
       it("should not call API client setCurrentCurrency ", async () => {
         const { setCurrency } = useSessionContext();
         try {
-          await setCurrency({id: null} as any);
+          await setCurrency({ id: null } as any);
         } catch (e) {
           expect(e.message).toBe(
             "You need to provide currency id in order to set currency."

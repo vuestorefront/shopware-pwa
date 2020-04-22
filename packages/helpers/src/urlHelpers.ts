@@ -14,7 +14,9 @@ export function parseUrlQuery(query: any): SearchCriteria {
       searchCriteria[key] =
         typeof query[key] === "string" ? JSON.parse(query[key]) : query[key];
     } catch (e) {
-      console.error("[UrlResolver] Problem with resolving url param: " + key);
+      console.error(
+        "[helpers][parseUrlQuery] Problem with resolving url param: " + key
+      );
     }
   });
 

@@ -137,15 +137,17 @@ export const useCountries: () => UseCountries;
 // @alpha (undocumented)
 export interface UseCurrency {
     // (undocumented)
-    availableCurrencies: Ref<Readonly<any>>;
+    availableCurrencies: Readonly<Ref<readonly Currency[]>>;
     // (undocumented)
     currency: Readonly<Ref<Currency | null>>;
     // (undocumented)
     currencySymbol: Ref<Readonly<string>>;
     // (undocumented)
-    onMountedCallback: () => Promise<void>;
+    loadAvailableCurrencies: (options?: {
+        forceReload: boolean;
+    }) => Promise<void>;
     // (undocumented)
-    setCurrency: (parameter: Partial<Currency>) => Promise<boolean>;
+    setCurrency: (parameter: Partial<Currency>) => Promise<void>;
 }
 
 // @alpha (undocumented)
