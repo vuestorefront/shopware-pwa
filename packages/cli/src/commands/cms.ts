@@ -8,8 +8,8 @@ module.exports = {
   run: async (toolbox: GluegunToolbox) => {
     const mainCmsPath = join(toolbox.defaultThemeLocation, "cms");
 
-    const swCmsPath = join(`.shopware-pwa`, `sw-cms`);
-    const swPluginsPath = join(`.shopware-pwa`, `pwa-bundles-assets`);
+    const swCmsPath = join(".shopware-pwa", "sw-cms");
+    const swPluginsPath = join(".shopware-pwa", "pwa-bundles-assets");
 
     // Aliases and componentsMap to save
     const aliases = {};
@@ -24,7 +24,7 @@ module.exports = {
 
     // Override CMS by plugins
     const pluginsConfig = await toolbox.filesystem.readAsync(
-      join(`.shopware-pwa`, "pwa-bundles.json"),
+      join(".shopware-pwa", "pwa-bundles.json"),
       "json"
     );
     if (pluginsConfig) {
@@ -49,8 +49,8 @@ module.exports = {
 
     // Generate cmsNameMapper with cms components
     await toolbox.template.generate({
-      template: `/cmsNameMapper.ejs`,
-      target: `.shopware-pwa/sw-cms/cmsNameMapper.js`,
+      template: "/cmsNameMapper.ejs",
+      target: ".shopware-pwa/sw-cms/cmsNameMapper.js",
       props: {
         componentsMap: aliases,
         cmsMap: cmsComponentsMap,
