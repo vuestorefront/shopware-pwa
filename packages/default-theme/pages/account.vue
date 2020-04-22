@@ -1,5 +1,5 @@
 <template>
-  <div class="my-account">
+  <div class="my-account" :key="$route.fullPath">
     <SfContentPages
       title="My account"
       :active="activePage"

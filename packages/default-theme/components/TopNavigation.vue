@@ -70,6 +70,7 @@
               :aria-pressed="activeIcon === 'cart-icon' ? 'true' : 'false'"
               @click="toggleSidebar"
             />
+            <SwCurrency />
           </div>
         </div>
       </template>
@@ -89,10 +90,11 @@ import {
   useProductSearch
 } from '@shopware-pwa/composables'
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
+import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
 import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
 
 export default {
-  components: { SfHeader, SfCircleIcon, SwLoginModal, SfImage, SfSearchBar },
+  components: { SfHeader, SfCircleIcon, SwLoginModal, SfImage, SfSearchBar, SwCurrency },
   setup() {
     const { routes, fetchRoutes } = useNavigation()
     const { isLoggedIn, logout } = useUser()

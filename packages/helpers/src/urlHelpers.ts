@@ -10,8 +10,14 @@ export function parseUrlQuery(query: any): SearchCriteria {
     return searchCriteria;
   }
   Object.keys(query).forEach((key: string) => {
-    searchCriteria[key] =
-      typeof query[key] === "string" ? JSON.parse(query[key]) : query[key];
+    try {
+      searchCriteria[key] =
+        typeof query[key] === "string" ? JSON.parse(query[key]) : query[key];
+    } catch (e) {
+      console.error(
+        "[helpers][parseUrlQuery] Problem with resolving url param: " + key
+      );
+    }
   });
 
   return searchCriteria;

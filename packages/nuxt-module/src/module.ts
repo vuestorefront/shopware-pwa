@@ -47,6 +47,12 @@ export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
     options: Object.assign({}, defaults, moduleOptions),
   });
 
+  moduleObject.addPlugin({
+    src: path.join(__dirname, "..", "plugins", "price-filter.js"),
+    fileName: "price-filter.js",
+    options: moduleOptions,
+  });
+
   moduleObject.extendBuild((config: WebpackConfig) => {
     const swPluginsDirectory = path.join(
       moduleObject.options.rootDir,

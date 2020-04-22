@@ -28,6 +28,11 @@
         size="20px"
         @click="userIconClick"
       />
+      <SfBottomNavigationItem class="menu-button">
+        <template #icon>
+          <SwCurrency />
+        </template>
+      </SfBottomNavigationItem>
       <SfBottomNavigationItem :is-floating="true">
         <template #icon>
           <SfCircleIcon @click="toggleSidebar">
@@ -54,6 +59,7 @@ import {
   useUserLoginModal
 } from '@shopware-pwa/composables'
 import { PAGE_ACCOUNT } from '../helpers/pages'
+import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
 
 export default {
   name: 'SwBottomNavigation',
@@ -62,7 +68,8 @@ export default {
     SfIcon,
     SfCircleIcon,
     SfSelect,
-    SfProductOption
+    SfProductOption,
+    SwCurrency
   },
   data() {
     return {

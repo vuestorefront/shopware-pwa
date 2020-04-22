@@ -42,12 +42,6 @@ export default {
     SfProperty,
     SfCollectedProduct
   },
-  filters: {
-    price(price) {
-      if (!price) return
-      return `$${price}`
-    }
-  },
   props: {
     product: {
       type: Object,
