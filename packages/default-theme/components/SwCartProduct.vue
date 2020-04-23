@@ -108,9 +108,9 @@ export default {
 @import '~@storefront-ui/vue/styles';
 
 .collected-product {
-  margin: var(--spacer-big)0;
+  margin: var(--spacer-base)0;
   &__properties {
-    margin-top: var(--spacer-big);
+    margin-top: var(--spacer-base);
   }
   &__actions {
     opacity: 0;

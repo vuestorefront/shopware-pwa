@@ -29,6 +29,6 @@ export default {
 @import '../settings.scss';
 
 .cms-element-text {
-  padding: 0 var(--spacer-extra-big);
+  padding: 0 var(--spacer-xl);
 }
 </style>

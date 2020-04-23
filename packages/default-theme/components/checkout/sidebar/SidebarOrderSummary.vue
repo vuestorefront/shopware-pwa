@@ -142,8 +142,8 @@ export default {
   box-sizing: border-box;
   width: 100%;
   background-color: #f1f2f3;
-  padding: var(--spacer-extra-big);
-  margin-bottom: var(--spacer-big);
+  padding: var(--spacer-xl);
+  margin-bottom: var(--spacer-base);
   &:last-child {
     margin-bottom: 0;
   }
@@ -152,23 +152,23 @@ export default {
   }
 }
 .title {
-  margin-bottom: var(--spacer-extra-big);
+  margin-bottom: var(--spacer-xl);
 }
 .total-items {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--spacer-big);
+  margin-bottom: var(--spacer-base);
 }
 .property {
-  margin-bottom: var(--spacer);
+  margin-bottom: var(--spacer-xs);
   ::v-deep .sf-property__name {
     text-transform: unset;
   }
 }
 .property-total {
-  margin-top: var(--spacer-extra-big);
-  font-size: var(--font-size-extra-big-desktop);
+  margin-top: var(--spacer-xl);
+  font-size: var(--font-xl);
   font-weight: 500;
   ::v-deep .sf-property__name {
     color: var(--c-text);
@@ -179,12 +179,12 @@ export default {
 }
 .collected-product {
   &:not(:last-child) {
-    margin-bottom: var(--spacer-big);
+    margin-bottom: var(--spacer-base);
   }
 }
 .characteristic {
   &:not(:last-child) {
-    margin-bottom: var(--spacer-big);
+    margin-bottom: var(--spacer-base);
   }
 }
 .promo-code {
@@ -192,10 +192,10 @@ export default {
     padding: 0;
     background-color: transparent;
     color: var(--c-primary);
-    font-size: var(--font-size-big-desktop);
+    font-size: var(--font-lg);
   }
   &__input {
-    margin: var(--spacer-big) 0;
+    margin: var(--spacer-base) 0;
     ::v-deep input {
       border-color: var(--c-gray-variant);
     }
@@ -203,16 +203,16 @@ export default {
 }
 .product {
   &__properties {
-    margin: var(--spacer-big) 0 0 0;
+    margin: var(--spacer-base) 0 0 0;
   }
   &__property,
   &__action {
-    font-size: var(--font-size-extra-small-desktop);
+    font-size: var(--font-xs);
   }
   &__action {
     color: var(--c-gray-variant);
-    font-size: var(--font-size-extra-small-desktop);
-    margin: 0 0 var(--spacer-small) 0;
+    font-size: var(--font-xs);
+    margin: 0 0 var(--spacer-2xs) 0;
     &:last-child {
       margin: 0;
     }

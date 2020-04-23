@@ -105,15 +105,15 @@ export default {
 @import '~@storefront-ui/vue/styles';
 .summary {
   background-color: var(--c-light);
-  margin: 0 calc(var(--spacer-big) * -1);
-  padding: var(--spacer-big);
+  margin: 0 calc(var(--spacer-base) * -1);
+  padding: var(--spacer-base);
   @include for-desktop {
     background-color: transparent;
   }
   &__group {
     @include for-desktop {
       display: flex;
-      margin: 20px 0 var(--spacer-extra-big) 0;
+      margin: 20px 0 var(--spacer-xl) 0;
     }
     .notification {
       margin: auto;
@@ -122,11 +122,11 @@ export default {
   &__terms {
     flex: 1;
     order: -1;
-    margin-bottom: var(--spacer-big);
+    margin-bottom: var(--spacer-base);
   }
   &__total {
-    margin: 0 0 var(--spacer-extra-big) 0;
-    padding: 0 var(--spacer-big);
+    margin: 0 0 var(--spacer-xl) 0;
+    padding: 0 var(--spacer-base);
     flex: 0 0 16.875rem;
     @include for-desktop {
       padding: 0;
@@ -135,7 +135,7 @@ export default {
   &__action-button {
     flex: 1;
     &--secondary {
-      margin: var(--spacer-big) 0;
+      margin: var(--spacer-base) 0;
       @include for-desktop {
         order: -1;
         margin: 0;
@@ -144,9 +144,9 @@ export default {
     }
   }
   &__property-total {
-    margin: var(--spacer-big) 0 0 0;
+    margin: var(--spacer-base) 0 0 0;
     text-transform: uppercase;
-    font-size: var(--font-size-regular-desktop);
+    font-size: var(--font-base);
     line-height: 1.6;
     font-weight: 500;
   }

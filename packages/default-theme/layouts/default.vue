@@ -83,7 +83,7 @@ a {
 
 /*Header styles*/
 h1 {
-  font-family: var(--body-font-family-secondary);
+  font-family: var(--font-family-secondary);
   font-size: var(--h1-font-size);
   font-weight: var(--h1-font-weight);
   line-height: 1.6;
@@ -91,7 +91,7 @@ h1 {
 }
 
 h2 {
-  font-family: var(--body-font-family-secondary);
+  font-family: var(--font-family-secondary);
   font-size: var(--h2-font-size);
   font-weight: var(--h2-font-weight);
   line-height: 1.6;
@@ -99,7 +99,7 @@ h2 {
 }
 
 h3 {
-  font-family: var(--body-font-family-secondary);
+  font-family: var(--font-family-secondary);
   font-size: var(--h3-font-size);
   font-weight: var(--h3-font-weight);
   line-height: 1.6;
@@ -107,7 +107,7 @@ h3 {
 }
 
 h4 {
-  font-family: var(--body-font-family-secondary);
+  font-family: var(--font-family-secondary);
   font-size: var(--h4-font-size);
   font-weight: var(--h4-font-weight);
   line-height: 1.6;
@@ -115,7 +115,7 @@ h4 {
 }
 
 h5 {
-  font-family: var(--body-font-family-secondary);
+  font-family: var(--font-family-secondary);
   font-size: var(--h5-font-size);
   font-weight: var(--h5-font-weight);
   line-height: 1.6;
@@ -127,9 +127,9 @@ body {
   padding: 0;
   margin: 0;
   min-height: 100vh;
-  font-family: var(--body-font-family-primary);
-  font-weight: var(--body-font-weight-primary);
-  font-size: var(--font-size-regular);
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-light);
+  font-size: var(--font-size-base);
   line-height: 1.6;
 }
 
@@ -163,7 +163,7 @@ body {
 }
 
 .sw-breadcrumbs {
-  padding: 0 var(--spacer-extra-big) var(--spacer-big) var(--spacer-extra-big);
+  padding: 0 var(--spacer-xl) var(--spacer-base) var(--spacer-xl);
 }
 
 /* Delete firefox outline */

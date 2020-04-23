@@ -164,36 +164,36 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
 
   ::v-deep &__product-card {
     flex: 1 0 50%;
-    padding: var(--spacer);
+    padding: var(--spacer-xs);
 
     @include for-phone {
       flex: $col-prod-3;
-      padding: var(--spacer);
+      padding: var(--spacer-xs);
     }
 
     @include for-tablet-small {
       flex: $col-prod-3;
-      padding: var(--spacer);
+      padding: var(--spacer-xs);
     }
 
     @include for-tablet {
       flex: $col-prod-4;
-      padding: var(--spacer);
+      padding: var(--spacer-xs);
     }
 
     @include for-desktop-small {
       flex: $col-prod-4;
-      padding: var(--spacer);
+      padding: var(--spacer-xs);
     }
 
     @include for-desktop {
       flex: $col-prod-4;
-      padding: var(--spacer);
+      padding: var(--spacer-xs);
     }
 
     @include for-desktop-big {
       flex: $col-prod-5;
-      padding: var(--spacer-big);
+      padding: var(--spacer-base);
     }
   }
 
@@ -201,15 +201,15 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
     @include for-desktop-small {
       display: flex;
       justify-content: center;
-      margin-top: var(--spacer-big);
+      margin-top: var(--spacer-base);
     }
   }
 }
 
 .section {
   @media (max-width: $desktop-min) {
-    padding-left: var(--spacer-big);
-    padding-right: var(--spacer-big);
+    padding-left: var(--spacer-base);
+    padding-right: var(--spacer-base);
   }
 }
 

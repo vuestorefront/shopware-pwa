@@ -54,16 +54,16 @@ export default {
 
 
 .notice {
-  font-family: var(--body-font-family-primary);
-  font-weight: var(--body-font-weight-primary);
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-light);
   line-height: 1.6;
-  margin: var(--spacer-big) 0 0 0;
-  font-size: var(--font-size-extra-small-mobile);
+  margin: var(--spacer-base) 0 0 0;
+  font-size: var(--font-2xs);
 
   @include for-desktop {
     max-width: 70%;
-    margin: var(--spacer) 0 0 0;
-    font-size: var(--font-size-extra-small-desktop);
+    margin: var(--spacer-xs) 0 0 0;
+    font-size: var(--font-xs);
   }
 }
 </style>
