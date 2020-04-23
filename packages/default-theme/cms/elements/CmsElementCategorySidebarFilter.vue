@@ -228,6 +228,7 @@ export default {
   display: flex;
   width: 100%;
   @include for-desktop {
+    margin-top: 20px;
     border-top: 1px solid var(--c-light);
     border-bottom: 1px solid var(--c-light);
   }
@@ -329,11 +330,8 @@ export default {
   flex: unset;
   width: 190px;
   padding: 0 10px;
-  font-size: inherit;
-  &__option {
-    padding: 10px;
-    font-size: inherit;
-  }
+  --select-padding: 0 var(--spacer-lg) 0 var(--spacer-2xs);
+  --select-margin: 0;
 
   &--mobile {
     width: auto;
