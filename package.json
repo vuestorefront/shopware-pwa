@@ -76,7 +76,7 @@
     "tslib": "^1.11.1",
     "typedoc": "^0.17.4",
     "typedoc-plugin-markdown": "^2.2.17",
-    "typescript": "^3.7.5",
+    "typescript": "^3.8.3",
     "vuepress": "^1.4.1",
     "vuepress-bar": "^0.3.0",
     "yorkie": "^2.0.0"
