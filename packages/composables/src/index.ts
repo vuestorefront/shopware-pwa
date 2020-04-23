@@ -5,6 +5,7 @@ export * from "./logic/useAddToCart";
 export * from "./logic/useCheckout";
 export * from "./logic/useSessionContext";
 export * from "./hooks/useCategoryFilters";
+export * from "./hooks/useCurrency";
 export * from "./hooks/useNavigation";
 export * from "./hooks/useSalutations";
 export * from "./hooks/useCountries";

@@ -1,34 +1,37 @@
 <template>
-  <div class="sw-product-list">
-    <SfLoader :loading="loading" class="sw-product-list__loader"/>
-      <div class="sw-product-list__wrapper" v-if="products.length">
-        <div class="sw-product-list__list" :class="{'sw-product-list__list--blur': loading}">
-          <SwProductCard
-            class="sw-product-list__product-card"
-            v-for="product in products"
-            :key="product.id"
-            :product="product"
-          />
-          <div class="sw-product-list__place-holder"/>
-        </div>
-        <SfPagination
-          class="sw-product-list__pagination desktop-only"
-          :current="pagination.currentPage"
-          :total="Math.ceil(pagination.total / pagination.perPage)"
-          :visible="5"
-          @click="changedPage"
+  <div class="cms-element-product-listing">
+    <SfLoader :loading="loading" class="cms-element-product-listing__loader" />
+    <div class="cms-element-product-listing__wrapper" v-if="products.length">
+      <div
+        class="cms-element-product-listing__list"
+        :class="{ 'cms-element-product-listing__list--blur': loading }"
+      >
+        <SwProductCard
+          class="cms-element-product-listing__product-card"
+          v-for="product in products"
+          :key="product.id"
+          :product="product"
         />
+        <div class="cms-element-product-listing__place-holder" />
       </div>
-      <SfHeading
-        v-else
-        title="No products found"
-        subtitle="let us look for them"
+      <SfPagination
+        class="cms-element-product-listing__pagination desktop-only"
+        :current="pagination.currentPage"
+        :total="Math.ceil(pagination.total / pagination.perPage)"
+        :visible="5"
+        @click="changedPage"
       />
+    </div>
+    <SfHeading
+      v-else
+      title="No products found"
+      subtitle="let us look for them"
+    />
   </div>
 </template>
 
 <script>
-import SwProductCard from '../../SwProductCard'
+import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
 import { SfPagination, SfHeading, SfLoader } from '@storefront-ui/vue'
 import { useProductListing } from '@shopware-pwa/composables'
 export default {
@@ -36,13 +39,14 @@ export default {
     SwProductCard,
     SfPagination,
     SfHeading,
-    SfLoader
+    SfLoader,
   },
+  name: 'CmsElementProductListing',
   props: {
     content: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   setup({ content }) {
     const propProducts = content.data.listing || []
@@ -50,7 +54,7 @@ export default {
       products,
       changePagination,
       pagination,
-      loading
+      loading,
     } = useProductListing(propProducts)
 
     const changedPage = async (pageNumber) => {
@@ -61,14 +65,14 @@ export default {
       products,
       changedPage,
       pagination,
-      loading
+      loading,
     }
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles.scss';
+@import '../settings.scss';
 
 // additional screen variables
 $desktop-big: 1200px;
@@ -90,8 +94,6 @@ $col-prod-3: 1 0 $mx-photo-wth-3;
 $col-prod-2: 1 0 $mx-photo-wth-2;
 $col-prod-1: 1 0 $mx-photo-wth-1;
 
-
-
 @mixin for-desktop-big {
   @media screen and (min-width: $desktop-big) {
     @content;
@@ -106,29 +108,29 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
 
 @mixin for-desktop-small {
   @media screen and (min-width: $desktop-small) {
-    @content
+    @content;
   }
 }
 
 @mixin for-tablet {
   @media screen and (min-width: $tablet) {
-    @content
+    @content;
   }
 }
 
 @mixin for-tablet-small {
   @media screen and (min-width: $tablet-small) {
-    @content
+    @content;
   }
 }
 
 @mixin for-phone {
   @media screen and (min-width: $phone) {
-    @content
+    @content;
   }
 }
 
-.sw-product-list {
+.cms-element-product-listing {
   display: flex;
   justify-content: center;
   position: relative;
@@ -154,7 +156,7 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
     display: flex;
     width: 100%;
     flex-flow: row wrap;
-    transition: filter .1s ease-in;
+    transition: filter 0.1s ease-in;
     &--blur {
       filter: blur(10px);
     }
@@ -184,7 +186,6 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
       padding: var(--spacer);
     }
 
-
     @include for-desktop {
       flex: $col-prod-4;
       padding: var(--spacer);
@@ -195,7 +196,7 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
       padding: var(--spacer-big);
     }
   }
- 
+
   &__pagination {
     @include for-desktop-small {
       display: flex;

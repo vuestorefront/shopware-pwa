@@ -17,6 +17,8 @@
 import { SfButton } from '@storefront-ui/vue'
 import { usePersonalDetailsStep } from '@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep'
 import { CHECKOUT_STEPS } from '@shopware-pwa/default-theme/logic/checkout'
+import { useCheckout, useUser } from '@shopware-pwa/composables'
+import { computed } from '@vue/composition-api'
 
 export default {
   name: 'PersonalDetailsSummary',
@@ -25,11 +27,20 @@ export default {
   },
   setup() {
     const { firstName, lastName, email } = usePersonalDetailsStep()
+    const { isGuestOrder } = useCheckout()
+    const { user } = useUser()
+
     return {
-      firstName,
-      lastName,
-      email,
-      CHECKOUT_STEPS
+      firstName: computed(() =>
+        isGuestOrder.value ? firstName.value : user.value.firstName
+      ),
+      lastName: computed(() =>
+        isGuestOrder.value ? lastName.value : user.value.lastName
+      ),
+      email: computed(() =>
+        isGuestOrder.value ? email.value : user.value.email
+      ),
+      CHECKOUT_STEPS,
     }
   },
 }

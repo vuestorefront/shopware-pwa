@@ -1,5 +1,10 @@
 import Vue from "vue";
-import VueCompositionApi, { ref } from "@vue/composition-api";
+import VueCompositionApi, {
+  ref,
+  Ref,
+  reactive,
+  computed,
+} from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
 // // Mock API client
@@ -10,9 +15,12 @@ const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 const consoleErrorSpy = jest.spyOn(console, "error");
 import * as Composables from "@shopware-pwa/composables";
 import { useCheckout } from "@shopware-pwa/composables";
+import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
 
 describe("Composables - useCheckout", () => {
   let isLoggedIn = ref(false);
+  const stateContext: Ref<Partial<SessionContext> | null> = ref(null);
+
   const refreshCartMock = jest.fn(async () => {});
   beforeEach(() => {
     jest.resetAllMocks();
@@ -20,12 +28,22 @@ describe("Composables - useCheckout", () => {
     jest.spyOn(Composables, "useUser").mockImplementation(() => {
       return {
         isLoggedIn,
+        user: ref({ firstName: "Elton" }),
       } as any;
     });
     jest.spyOn(Composables, "useCart").mockImplementation(() => {
       return {
         refreshCart: refreshCartMock,
       } as any;
+    });
+    stateContext.value = null;
+    Composables.setStore({
+      getters: reactive({
+        getSessionContext: computed(() => stateContext.value),
+      }),
+      commit: (name: string, value: SessionContext) => {
+        stateContext.value = value;
+      },
     });
     consoleErrorSpy.mockImplementationOnce(() => {});
   });
@@ -49,6 +67,109 @@ describe("Composables - useCheckout", () => {
       it("should return an empty object when prams are not set", () => {
         const { guestOrderParams } = useCheckout();
         expect(guestOrderParams.value).toEqual({});
+      });
+    });
+
+    describe("shippingAddress", () => {
+      it("should return guest order address if is guest order", () => {
+        const { shippingAddress, updateGuestOrderParams } = useCheckout();
+        updateGuestOrderParams({
+          shippingAddress: {
+            street: "first street",
+          },
+        } as any);
+        expect(shippingAddress.value).toEqual({ street: "first street" });
+        updateGuestOrderParams({
+          shippingAddress: undefined,
+        } as any);
+      });
+
+      it("should undefined when guest address is not set", () => {
+        const { shippingAddress } = useCheckout();
+        expect(shippingAddress.value).toBeUndefined();
+      });
+
+      it("should return user address in case of user order", async () => {
+        isLoggedIn.value = true;
+        stateContext.value = {
+          shippingLocation: {
+            address: {
+              street: "some street",
+            },
+          },
+        } as any;
+        const { shippingAddress } = useCheckout();
+        expect(shippingAddress.value).toEqual({ street: "some street" });
+      });
+
+      it("should return undefined if address is not set", async () => {
+        isLoggedIn.value = true;
+        stateContext.value = {} as any;
+        const { shippingAddress } = useCheckout();
+        expect(shippingAddress.value).toBeUndefined();
+      });
+
+      it("should return undefined if no session context", async () => {
+        isLoggedIn.value = true;
+        stateContext.value = null as any;
+        const { shippingAddress } = useCheckout();
+        expect(shippingAddress.value).toBeUndefined();
+      });
+    });
+
+    describe("billingAddress", () => {
+      it("should return guest order address if is guest order", () => {
+        const { billingAddress, updateGuestOrderParams } = useCheckout();
+        updateGuestOrderParams({
+          billingAddress: {
+            street: "thrid street",
+          },
+        } as any);
+        expect(billingAddress.value).toEqual({ street: "thrid street" });
+        updateGuestOrderParams({
+          billingAddress: undefined,
+        } as any);
+      });
+
+      it("should return undefined when guest billing address is not set", () => {
+        const { billingAddress, updateGuestOrderParams } = useCheckout();
+        updateGuestOrderParams({
+          billingAddress: {
+            street: "thrid street",
+          },
+        } as any);
+        expect(billingAddress.value).toEqual({ street: "thrid street" });
+        updateGuestOrderParams({
+          billingAddress: undefined,
+        } as any);
+      });
+
+      it("should return address in case of user order", async () => {
+        isLoggedIn.value = true;
+        stateContext.value = {
+          customer: {
+            activeBillingAddress: {
+              street: "some street",
+            },
+          },
+        } as any;
+        const { billingAddress } = useCheckout();
+        await Vue.nextTick();
+        expect(billingAddress.value).toEqual({ street: "some street" });
+      });
+
+      it("should return undefined if address is not set", async () => {
+        isLoggedIn.value = true;
+        stateContext.value = {} as any;
+        const { billingAddress } = useCheckout();
+        expect(billingAddress.value).toBeUndefined();
+      });
+
+      it("should return undefined if no session context", async () => {
+        isLoggedIn.value = true;
+        stateContext.value = null as any;
+        const { billingAddress } = useCheckout();
+        expect(billingAddress.value).toBeUndefined();
       });
     });
   });

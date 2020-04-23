@@ -2,8 +2,8 @@
   <SfProductCard
     :title="getName"
     :image="getImageUrl"
-    :special-price="getSpecialPrice"
-    :regular-price="getRegularPrice"
+    :special-price="getSpecialPrice | price"
+    :regular-price="getRegularPrice | price"
     :max-rating="5"
     :score-rating="getProductRating"
     :image-width="700"
@@ -72,16 +72,20 @@ export default {
       return getProductUrl(this.product)
     },
     getRegularPrice() {
+      // TODO: remove that logic once the SW6 API returns right data
+      // related: https://github.com/DivanteLtd/shopware-pwa/issues/263
       const regular = getProductRegularPrice({ product: this.product })
       const special = getProductSpecialPrice(this.product)
       // temporary fix to show proper regular price
-      return '$' + (regular > special ? regular : special)
+      return (regular > special ? regular : special)
     },
     getSpecialPrice() {
+      // TODO: remove that logic once the SW6 API returns right data
+      // related: https://github.com/DivanteLtd/shopware-pwa/issues/263
       const special = getProductSpecialPrice(this.product)
       const regular = getProductRegularPrice({ product: this.product })
       // temporary fix to show proper special price
-      return special && '$' + (special < regular ? special : regular)
+      return special && (special < regular ? special : regular)
     },
     getImageUrl() {
       return (

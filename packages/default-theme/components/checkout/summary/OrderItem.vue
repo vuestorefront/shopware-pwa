@@ -14,7 +14,7 @@
     </SfTableData>
     <SfTableData class="table__data">
       <SfPrice
-        :regular="formatPrice(product.price.totalPrice)"
+        :regular="product.price.totalPrice | price"
         class="product-price"
       />
     </SfTableData>
@@ -41,7 +41,6 @@ import {
   SfPrice,
   SfQuantitySelector
 } from '@storefront-ui/vue'
-import helpers from '@shopware-pwa/default-theme/helpers'
 
 export default {
   name: 'OrderItem',
@@ -69,8 +68,7 @@ export default {
     })
     return {
       removeProduct,
-      quantity,
-      formatPrice: helpers.formatPrice
+      quantity
     }
   }
 }

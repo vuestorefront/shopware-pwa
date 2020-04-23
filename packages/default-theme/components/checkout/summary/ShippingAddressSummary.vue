@@ -1,14 +1,20 @@
 <template>
   <div class="accordion__item">
-    <div class="accordion__content">
+    <div class="accordion__content" v-if="shippingMethod">
       <p class="content">
-        <span class="content__label">{{ shippingMethod.name }}</span
-        ><br />
-        {{ shippingMethod.streetName }} {{ shippingMethod.apartment }},
-        {{ shippingMethod.zipCode }}<br />
-        {{ shippingMethod.city }}, {{ shippingMethod.country }}
+        <span class="content__label">{{ shippingMethod.name }}</span>
+        <span class="content__label">{{
+          shippingMethod.deliveryTime.name
+        }}</span>
       </p>
-      <p class="content">{{ shippingMethod.phoneNumber }}</p>
+      <p class="content" v-if="shippingAddress">
+        {{ shippingAddress.street }} {{ shippingAddress.apartment }},
+        {{ shippingAddress.zipcode }}<br />
+        {{ shippingAddress.city }}
+      </p>
+      <p class="content" v-if="shippingAddress && shippingAddress.phoneNumber">
+        {{ shippingAddress.phoneNumber }}
+      </p>
     </div>
     <SfButton
       class="sf-button--text accordion__edit"
@@ -19,18 +25,19 @@
 </template>
 <script>
 import { SfButton } from '@storefront-ui/vue'
+import { useSessionContext, useCheckout } from '@shopware-pwa/composables'
 export default {
   name: 'ShippingAddressSummary',
   components: {
     SfButton,
   },
   setup() {
-    // TODO: get shipping method from useContext
-    const shippingMethod = {
-      name: 'TODO: MockedShippingMethod',
-    }
+    const { shippingMethod, sessionContext } = useSessionContext()
+    const { shippingAddress } = useCheckout()
     return {
       shippingMethod,
+      sessionContext,
+      shippingAddress,
     }
   },
 }

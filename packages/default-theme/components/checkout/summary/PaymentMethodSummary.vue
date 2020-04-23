@@ -1,7 +1,7 @@
 <template>
   <div class="accordion__item">
     <div class="accordion__content">
-      <p class="content">{{ paymentMethod.label }}</p>
+      <p class="content">{{ paymentMethod.name }}</p>
     </div>
     <SfButton
       class="sf-button--text accordion__edit"
@@ -12,18 +12,19 @@
 </template>
 <script>
 import { SfButton } from '@storefront-ui/vue'
+import { useSessionContext } from '@shopware-pwa/composables'
+import { computed } from '@vue/composition-api'
 export default {
   name: 'PaymentMethodSummary',
   components: {
     SfButton,
   },
   setup() {
-    // TODO get payment method from useSessionContext
-    const paymentMethod = {
-      label: 'TODO: payment method',
-    }
+    const { sessionContext } = useSessionContext()
+    const paymentMethod = computed(() => sessionContext.value.paymentMethod)
     return {
       paymentMethod,
+      sessionContext,
     }
   },
 }

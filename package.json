@@ -78,9 +78,8 @@
     "typedoc-plugin-markdown": "^2.2.17",
     "typescript": "^3.7.5",
     "vuepress": "^1.4.0",
-    "vuepress-bar": "^0.2.4",
-    "yorkie": "^2.0.0",
-    "cypress": "^4.4.1"
+    "cypress": "^4.4.1",
+    "vuepress-bar": "^0.3.0"
   },
   "engines": {
     "node": ">=10.x"

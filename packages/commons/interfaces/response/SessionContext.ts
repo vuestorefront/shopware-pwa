@@ -2,6 +2,8 @@ import { PaymentMethod } from "../models/checkout/payment/PaymentMethod";
 import { ShippingMethod } from "../models/checkout/shipping/ShippingMethod";
 import { Country } from "../models/system/country/Country";
 import { User } from "../models/system/user/User";
+import { Currency } from "../models/system/currency/Currency";
+import { ShippingAddress } from "../request/GuestOrderParams";
 
 export interface ContextTokenResponse {
   contextToken: string;
@@ -17,10 +19,7 @@ export interface SessionContext {
     id: string;
     name: string;
   };
-  currency: {
-    id: string;
-    name: string;
-  };
+  currency: Currency;
   salesChannel: {
     id: string;
     name: string;
@@ -33,6 +32,7 @@ export interface SessionContext {
   paymentMethod: PaymentMethod;
   shippingMethod: ShippingMethod;
   shippingLocation: {
+    address: ShippingAddress;
     country: Country;
   };
 }
