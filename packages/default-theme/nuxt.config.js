@@ -14,10 +14,10 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
-      }
+        content: process.env.npm_package_description || '',
+      },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   /*
    ** Customize the progress-bar color
@@ -44,17 +44,17 @@ export default {
             ? [
                 '@shopware-pwa/shopware-6-client',
                 '@shopware-pwa/composables',
-                '@shopware-pwa/helpers'
+                '@shopware-pwa/helpers',
               ]
             : [],
           prod: [
             '@shopware-pwa/shopware-6-client',
             '@shopware-pwa/composables',
-            '@shopware-pwa/helpers'
-          ]
-        }
-      }
-    ]
+            '@shopware-pwa/helpers',
+          ],
+        },
+      },
+    ],
   ],
   /*
    ** Nuxt.js modules
@@ -63,7 +63,7 @@ export default {
     'cookie-universal-nuxt',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
   ],
   /*
    ** Axios module configuration
@@ -82,11 +82,11 @@ export default {
             // require.resolve('@nuxt/babel-preset-app-edge'), // For nuxt-edge users
             {
               buildTarget: isServer ? 'server' : 'client',
-              corejs: { version: 3 }
-            }
-          ]
+              corejs: { version: 3 },
+            },
+          ],
         ]
-      }
+      },
     },
     /*
      ** You can extend webpack config here
@@ -101,6 +101,6 @@ export default {
       if (ctx.isClient && !ctx.isDev) {
         config.optimization.splitChunks.cacheGroups.commons.minChunks = 2
       }
-    }
+    },
   },
 }

@@ -6,14 +6,14 @@ const defaultFormatPriceOptions = {
   separator: ` `,
   decimal: `,`,
   symbol: `€`,
-  formatWithSymbol: true
+  formatWithSymbol: true,
 }
 
-export function formatPrice (
-  price,
-  options
-) {
-  return currency(price, Object.assign(defaultFormatPriceOptions, options)).format()
+export function formatPrice(price, options) {
+  return currency(
+    price,
+    Object.assign(defaultFormatPriceOptions, options)
+  ).format()
 }
 
 const formatDate = (date, format = `DD-MM-YYYY H:m:s`) =>
@@ -21,5 +21,5 @@ const formatDate = (date, format = `DD-MM-YYYY H:m:s`) =>
 
 export default {
   formatPrice,
-  formatDate
+  formatDate,
 }

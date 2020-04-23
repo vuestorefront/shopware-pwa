@@ -22,6 +22,7 @@
     "lint": "prettier --write --parser typescript 'packages/**/*.ts'",
     "test": "jest",
     "test:e2e": "jest --e2e=true --runInBand",
+    "test:cypress": "cypress run",
     "test:coverage": "yarn test --coverage",
     "docs:dev": "vuepress dev docs",
     "docs:build": "node scripts/generateDocs.js && vuepress build docs"
@@ -57,6 +58,7 @@
     "chalk": "^4.0.0",
     "conventional-changelog-cli": "^2.0.31",
     "coveralls": "^3.0.13",
+    "cypress": "^4.4.1",
     "execa": "^4.0.0",
     "faker": "^4.1.0",
     "fs-extra": "^9.0.0",
