@@ -22,6 +22,7 @@
     "lint": "prettier --write --parser typescript 'packages/**/*.ts'",
     "test": "jest",
     "test:e2e": "jest --e2e=true --runInBand",
+    "test:cypress": "cypress run",
     "test:coverage": "yarn test --coverage",
     "docs:dev": "vuepress dev docs",
     "docs:build": "node scripts/generateDocs.js && vuepress build docs"
