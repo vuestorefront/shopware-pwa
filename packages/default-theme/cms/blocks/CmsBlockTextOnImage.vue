@@ -38,7 +38,7 @@ export default {
 
 .cms-block-text-on-image {
   &__content {
-    padding: var(--spacer-extra-big);
+    padding: var(--spacer-xl);
   }
 }
 </style>

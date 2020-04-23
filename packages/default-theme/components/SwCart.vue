@@ -102,20 +102,20 @@ export default {
   display: flex;
   flex-direction: column;
   &__total-items {
-    font-family: var(--body-font-family-secondary);
-    font-size: var(--font-size-big-mobile);
-    font-weight: var(--body-font-weight-secondary);
+    font-family: var(--font-family-secondary);
+    font-size: var(--font-base);
+    font-weight: var(--font-normal);
     @include for-desktop {
-      font-size: var(--font-size-big-desktop);
+      font-size: var(--font-lg);
     }
   }
   &__total-price {
-    margin-bottom: var(--spacer-big);
+    margin-bottom: var(--spacer-base);
   }
 }
 .collected-product-list {
   flex: 1;
-  margin: var(--spacer-big) calc(var(--spacer-big) * -1);
+  margin: var(--spacer-base) calc(var(--spacer-base) * -1);
 }
 .empty-cart {
   flex: 1;
@@ -142,11 +142,11 @@ export default {
     text-align: center;
   }
   &__label {
-    margin-top: var(--spacer-extra-big);
-    font-size: var(--font-size-big-desktop);
+    margin-top: var(--spacer-xl);
+    font-size: var(--font-lg);
   }
   &__description {
-    margin-top: var(--spacer-big);
+    margin-top: var(--spacer-base);
   }
 }
 

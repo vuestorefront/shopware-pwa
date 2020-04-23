@@ -101,10 +101,10 @@ export default {
 
 #checkout {
   box-sizing: border-box;
-  padding: 0 var(--spacer-big);
+  padding: 0 var(--spacer-base);
   @include for-desktop {
     max-width: 1240px;
-    padding: var(--spacer-extra-big);
+    padding: var(--spacer-xl);
   }
 }
 .checkout {

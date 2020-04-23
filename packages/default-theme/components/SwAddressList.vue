@@ -95,17 +95,17 @@ export default {
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
 .shipping-list {
-  margin-bottom: var(--spacer-extra-big);
+  margin-bottom: var(--spacer-xl);
   width: 100%;
   &__address {
     display: flex;
-    padding: var(--spacer-big) 0;
+    padding: var(--spacer-base) 0;
     border-top: 1px solid var(--c-light);
   }
 }
 .shipping {
   display: flex;
-  padding: var(--spacer-big) 0;
+  padding: var(--spacer-base) 0;
   border-top: 1px solid var(--c-light);
 }
 </style>

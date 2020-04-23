@@ -1,13 +1,13 @@
 <template>
   <!-- TODO: change this if after onMounted hook here is resolved -->
   <div
-    class="container"
+    class="sw-currency"
     v-if="activeCurrency && availableCurrencies.length > 1"
   >
     <SfSelect
       v-model="activeCurrency"
       :size="availableCurrencies.length"
-      class="container__select"
+      class="sw-currency__select"
       @click="loadAvailableCurrencies"
     >
       <SfSelectOption
@@ -67,8 +67,10 @@ export default {
 @import '~@storefront-ui/vue/styles';
 
 .menu-button {
-  .container {
+  .sw-currency {
     margin: 0;
+    --select-font-size: var(--font-xl);
+
     &::v-deep .sf-select {
       --select-font-size: 1.4rem;
       --select-font-weight: 400;
@@ -82,27 +84,19 @@ export default {
     }
   }
 }
-.container {
+.sw-currency {
   text-align: center;
-  margin: 0 0 0 var(--spacer-big);
-  padding: 10 px;
-  &::v-deep .sf-select {
-    --select-font-size: var(--font-size-medium);
-    --select-font-weight: 400;
-  }
-
   &__select {
-    margin: 0;
+    --select-width: 50px;
+    --select-margin: 0;
+    --select-padding: var(--spacer-xs);
     display: block;
     cursor: pointer;
-
-    &::v-deep .sf-select__dropdown {
-      min-width: 50px;
-    }
-
     &::v-deep .sf-select__selected {
-      text-align: center;
       display: block;
+    }
+    &::v-deep .sf-select__chevron {
+      display: none;
     }
   }
 }

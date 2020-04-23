@@ -268,7 +268,7 @@ export default {
 .product-details {
   &__action {
     display: flex;
-    margin: var(--spacer-big) 0 calc(var(--spacer-big) / 2);
+    margin: var(--spacer-base) 0 calc(var(--spacer-base) / 2);
     @include for-desktop {
       justify-content: flex-end;
     }
@@ -276,35 +276,35 @@ export default {
   &__add-to-cart {
     margin-top: 1.5rem;
     @include for-desktop {
-      margin-top: var(--spacer-extra-big);
+      margin-top: var(--spacer-xl);
     }
   }
   &__alert {
     margin-top: 1.5rem;
   }
   &__attribute {
-    margin-bottom: var(--spacer-big);
+    margin-bottom: var(--spacer-base);
   }
   &__description {
-    margin: var(--spacer-extra-big) 0 calc(var(--spacer-big) * 3) 0;
-    font-family: var(--body-font-family-secondary);
-    font-size: var(--font-size-regular-mobile);
+    margin: var(--spacer-xl) 0 calc(var(--spacer-base) * 3) 0;
+    font-family: var(--font-family-secondary);
+    font-size: var(--font-sm);
     line-height: 1.6;
   }
   &__divider {
     margin-top: 30px;
   }
   &__heading {
-    --heading-title-font-weight: var(--body-font-weight-primary);
-    margin: var(--spacer-big) 0 0 0;
+    --heading-title-font-weight: var(--font-light);
+    margin: var(--spacer-base) 0 0 0;
     @include for-desktop {
-      --heading-title-font-weight: var(--body-font-weight-secondary);
+      --heading-title-font-weight: var(--font-normal);
       margin: 0;
     }
   }
   &__mobile-bar {
     display: none;
-    padding: var(--spacer-medium) 0;
+    padding: var(--spacer-sm) 0;
     box-sizing: border-box;
     .product--is-active & {
       display: block;
@@ -324,7 +324,7 @@ export default {
     }
   }
   &__properties {
-    margin-top: var(--spacer-big);
+    margin-top: var(--spacer-base);
   }
   &__section {
     border-bottom: 1px solid #f1f2f3;
@@ -336,49 +336,49 @@ export default {
     }
   }
   &__tabs {
-    margin-top: var(--spacer-big);
+    margin-top: var(--spacer-base);
     @include for-desktop {
-      margin-top: calc(5 * var(--spacer-big));
+      margin-top: calc(5 * var(--spacer-base));
     }
     p {
       margin: 0;
     }
   }
   &__review {
-    padding-bottom: var(--spacer-big);
+    padding-bottom: var(--spacer-base);
     @include for-desktop {
-      padding-bottom: var(--spacer-extra-big);
+      padding-bottom: var(--spacer-xl);
       border-bottom: 1px solid var(--c-primary);
     }
     & + & {
-      padding-top: var(--spacer-extra-big);
+      padding-top: var(--spacer-xl);
       border-top: 1px solid var(--c-primary);
       @include for-desktop {
         border-top: 0;
-        padding-top: var(--spacer-extra-big);
+        padding-top: var(--spacer-xl);
       }
     }
   }
   &__product-property {
-    padding: var(--spacer-small) 0;
+    padding: var(--spacer-2xs) 0;
   }
 }
 
 .sf-action {
-  --button-font-size: var(--font-size-small);
+  --button-font-size: var(--font-sm);
   padding: 0;
   border: 0;
   outline: none;
   background-color: transparent;
   color: var(--c-text);
-  font-family: var(--body-font-family-secondary);
-  font-size: var(--font-size-regular-mobile);
-  font-weight: var(--body-font-weight-secondary);
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-sm);
+  font-weight: var(--font-normal);
   line-height: 1.6;
   text-decoration: underline;
   cursor: pointer;
   @include for-desktop {
-    --button-font-size: var(--font-size-regular-desktop);
+    --button-font-size: var(--font-base);
   }
 }
 </style>
