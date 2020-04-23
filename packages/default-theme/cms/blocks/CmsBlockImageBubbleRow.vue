@@ -52,7 +52,7 @@ export default {
 .cms-block-image-bubble-row {
   display: flex;
   flex-direction: column;
-  margin: var(--spacer-extra-big) 0;
+  margin: var(--spacer-xl) 0;
   height: 100%;
 
   &__image {
@@ -63,7 +63,7 @@ export default {
     overflow: hidden;
     border-radius: 50%;
     --image-height: 100%;
-    margin: var(--spacer-small) 0;
+    margin: var(--spacer-2xs) 0;
 
     @include for-desktop {
       max-height: 250px;

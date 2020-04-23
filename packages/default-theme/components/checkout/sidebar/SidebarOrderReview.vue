@@ -75,8 +75,8 @@ export default {
   box-sizing: border-box;
   width: 100%;
   background-color: #f1f2f3;
-  padding: var(--spacer-extra-big);
-  margin-bottom: var(--spacer-big);
+  padding: var(--spacer-xl);
+  margin-bottom: var(--spacer-base);
   &:last-child {
     margin-bottom: 0;
   }
@@ -87,7 +87,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--spacer-big);
+    margin-bottom: var(--spacer-base);
   }
   &__title {
     font-family: var(--font-family-primary);
@@ -96,10 +96,10 @@ export default {
   }
 }
 .title {
-  margin-bottom: var(--spacer-extra-big);
+  margin-bottom: var(--spacer-xl);
 }
 .content {
-  margin: 0 0 var(--spacer-big) 0;
+  margin: 0 0 var(--spacer-base) 0;
   color: var(--c-text);
   font-size: var(--font-size-extra-small-desktop);
   font-weight: 300;

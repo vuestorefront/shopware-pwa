@@ -121,7 +121,7 @@ export default {
       display: flex;
       align-items: center;
       flex: 0 0 15%;
-      padding: var(--spacer-big) var(--spacer-extra-big);
+      padding: var(--spacer-base) var(--spacer-xl);
       border-right: 1px solid var(--c-light);
     }
   }

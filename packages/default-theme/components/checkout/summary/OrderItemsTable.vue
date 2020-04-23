@@ -52,7 +52,7 @@ export default {
 @import '~@storefront-ui/vue/styles';
 
 .table {
-  margin-bottom: var(--spacer-big);
+  margin-bottom: var(--spacer-base);
   &__row {
     @include for-mobile {
       flex: 1;

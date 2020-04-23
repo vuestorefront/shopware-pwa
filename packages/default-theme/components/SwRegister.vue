@@ -273,31 +273,31 @@ export default {
 
 .sw-login {
   &__alert {
-    margin-bottom: var(--spacer-small);
+    margin-bottom: var(--spacer-2xs);
   }
 
   &__header {
-    margin-bottom: var(--spacer-big);
+    margin-bottom: var(--spacer-base);
   }
 }
 
 .sw-register {
   &__alert {
-    margin: var(--spacer-medium) 0;
+    margin: var(--spacer-sm) 0;
   }
 }
 
 .form {
   &__input {
-    margin-bottom: var(--spacer-big);
+    margin-bottom: var(--spacer-base);
   }
 
   &__checkbox {
-    margin-bottom: var(--spacer-big);
+    margin-bottom: var(--spacer-base);
   }
 
   &__button {
-    margin-top: var(--spacer-big);
+    margin-top: var(--spacer-base);
   }
 }
 

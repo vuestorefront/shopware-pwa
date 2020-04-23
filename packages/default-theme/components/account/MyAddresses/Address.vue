@@ -150,11 +150,11 @@ export default {
     background-color: var(--c-light);
     color: var(--c-text-muted);
     @include for-desktop {
-      margin-left: var(--spacer-big);
+      margin-left: var(--spacer-base);
     }
   }
   &__address {
-    margin: 0 0 var(--spacer-big) 0;
+    margin: 0 0 var(--spacer-base) 0;
     &:last-child {
       margin: 0;
     }

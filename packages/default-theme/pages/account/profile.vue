@@ -57,12 +57,12 @@ export default {
   font-family: var(--font-family-primary);
   font-weight: var(--font-light);
   line-height: 1.6;
-  margin: var(--spacer-big) 0 0 0;
+  margin: var(--spacer-base) 0 0 0;
   font-size: var(--font-size-extra-small-mobile);
 
   @include for-desktop {
     max-width: 70%;
-    margin: var(--spacer) 0 0 0;
+    margin: var(--spacer-xs) 0 0 0;
     font-size: var(--font-size-extra-small-desktop);
   }
 }

@@ -84,7 +84,7 @@ export default {
 }
 .container {
   text-align: center;
-  margin: 0 0 0 var(--spacer-big);
+  margin: 0 0 0 var(--spacer-base);
   padding: 10 px;
   &::v-deep .sf-select {
     --select-font-size: var(--font-size-medium);

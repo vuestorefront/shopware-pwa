@@ -116,9 +116,9 @@ export default {
     font-size: var(--font-size-regular-mobile);
     font-weight: 300;
     line-height: 1.6;
-    margin: var(--spacer-small) 0;
+    margin: var(--spacer-2xs) 0;
     @include for-desktop {
-      margin: var(--spacer) 0 var(--spacer-small);
+      margin: var(--spacer-xs) 0 var(--spacer-2xs);
       font-size: var(--font-size-regular-desktop);
     }
     &:hover {

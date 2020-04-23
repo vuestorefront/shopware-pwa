@@ -94,22 +94,22 @@ export default {
 
 .sw-login {
   &__alert {
-    margin-bottom: var(--spacer-big);
+    margin-bottom: var(--spacer-base);
   }
   &__header {
-    margin-bottom: var(--spacer-big);
+    margin-bottom: var(--spacer-base);
   }
 }
 
 .form {
   &__input {
-    margin-bottom: var(--spacer-extra-big);
+    margin-bottom: var(--spacer-xl);
   }
   &__checkbox {
-    margin-bottom: var(--spacer-big);
+    margin-bottom: var(--spacer-base);
   }
   &__button {
-    margin-top: var(--spacer-big);
+    margin-top: var(--spacer-base);
   }
 }
 </style>
