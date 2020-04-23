@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-navbar navbar section">
+  <div class="cms-element-category-navigation-sidebar-filter sw-navbar navbar section">
     <div class="sw-navbar navbar__main">
       <SfButton
         class="sf-button--text navbar__filters-button "
@@ -139,6 +139,7 @@ export default {
     SfSidebar,
     SfProductOption
   },
+  name: 'CmsElementCategorySidebarFilter',
   props: {
     content: {
       type: Object,
@@ -221,7 +222,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import '../settings.scss';
 
 .navbar {
   position: relative;

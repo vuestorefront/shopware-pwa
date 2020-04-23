@@ -1,5 +1,6 @@
 import { parseUrlQuery, exportUrlQuery } from "@shopware-pwa/helpers";
-
+const consoleErrorSpy = jest.spyOn(console, "error");
+consoleErrorSpy.mockImplementation(() => {});
 describe("Shopware helpers - urlHelpers", () => {
   describe("parseUrlQuery", () => {
     it("should return an empty object for empty query", () => {
@@ -14,6 +15,20 @@ describe("Shopware helpers - urlHelpers", () => {
       expect(result).toEqual({
         size: ["xl", "xxl"],
       });
+    });
+
+    it("should show an error when there is a problem with parsing param without failing", () => {
+      const queryJson = {
+        size: JSON.stringify(["xl", "xxl"]),
+        currencyId: "qweq",
+      };
+      const result = parseUrlQuery(queryJson);
+      expect(result).toEqual({
+        size: ["xl", "xxl"],
+      });
+      expect(consoleErrorSpy).toBeCalledWith(
+        "[helpers][parseUrlQuery] Problem with resolving url param: currencyId"
+      );
     });
   });
 

@@ -4,7 +4,7 @@
       <div class="summary__total">
         <SfProperty
           name="Subtotal"
-          :value="formatFrontPrice(subtotal)"
+          :value="subtotal | price"
           class="sf-property--full-width property"
         >
           <template #name
@@ -22,9 +22,8 @@
         </SfProperty>
         <SfProperty
           name="Total"
-          :value="formatFrontPrice(total)"
-          class="sf-property--full-width property--huge summary__property-total"
-        >
+          :value="total | price"
+          class="sf-property--full-width property--huge summary__property-total">
           <template #name>TOTAL</template>
         </SfProperty>
       </div>
@@ -99,12 +98,7 @@ export default {
       total: totalPrice,
       removeProduct,
     }
-  },
-  methods: {
-    formatFrontPrice(price) {
-      return helpers.formatPrice(price)
-    },
-  },
+  }
 }
 </script>
 <style lang="scss" scoped>

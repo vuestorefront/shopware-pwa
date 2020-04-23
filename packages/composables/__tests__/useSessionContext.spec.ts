@@ -61,35 +61,85 @@ describe("Composables - useSessionContext", () => {
         expect(shippingMethod.value).toEqual({ id: "qwe" });
       });
     });
+
+    describe("currency", () => {
+      it("should return null when session context value is null", () => {
+        stateContext.value = null;
+        const { currency } = useSessionContext();
+        expect(currency.value).toBeNull();
+      });
+
+      it("should return null when session context doesn't have currency property", () => {
+        stateContext.value = {};
+        const { currency } = useSessionContext();
+        expect(currency.value).toBeNull();
+      });
+      it("should return currency from context", () => {
+        stateContext.value = { currency: { sign: "$$" } } as any;
+        const { currency } = useSessionContext();
+        expect(currency.value).toEqual({ sign: "$$" });
+      });
+    });
   });
 
   describe("methods", () => {
-    describe("refreshSessionContext", () => {
-      it("should get context from api", async () => {
-        mockedApiClient.getSessionContext.mockResolvedValueOnce({
-          token: "qwe",
-        } as any);
-        const { sessionContext, refreshSessionContext } = useSessionContext();
-        await refreshSessionContext();
-        expect(sessionContext.value).toEqual({ token: "qwe" });
+    describe("setCurrency", () => {
+      it("should not call API client setCurrentCurrency with not argument provided", async () => {
+        const { setCurrency } = useSessionContext();
+        try {
+          await setCurrency(undefined as any);
+        } catch (e) {
+          expect(e.message).toBe(
+            "You need to provide currency id in order to set currency."
+          );
+        }
+        expect(mockedApiClient.setCurrentCurrency).toBeCalledTimes(0);
       });
+      it("should not call API client setCurrentCurrency ", async () => {
+        const { setCurrency } = useSessionContext();
+        try {
+          await setCurrency({ id: null } as any);
+        } catch (e) {
+          expect(e.message).toBe(
+            "You need to provide currency id in order to set currency."
+          );
+        }
+        expect(mockedApiClient.setCurrentCurrency).toBeCalledTimes(0);
+      });
+      it("should call API client setCurrentCurrency ", async () => {
+        const { setCurrency } = useSessionContext();
+        await setCurrency({ id: "euro-id" } as any);
 
-      it("should not set context on api rejection and show console error", async () => {
-        mockedApiClient.getSessionContext.mockRejectedValueOnce({
-          message: "Some error",
-        } as any);
-        const { sessionContext, refreshSessionContext } = useSessionContext();
-        await refreshSessionContext();
-        expect(sessionContext.value).toBeNull();
-        expect(stateContext.value).toBeNull();
-        expect(consoleErrorSpy).toBeCalledWith(
-          "[UseSessionContext][refreshSessionContext]",
-          {
-            message: "Some error",
-          }
-        );
+        expect(mockedApiClient.setCurrentCurrency).toBeCalledTimes(1);
+        expect(mockedApiClient.setCurrentCurrency).toBeCalledWith("euro-id");
       });
-    });
+    }),
+      describe("refreshSessionContext", () => {
+        it("should get context from api", async () => {
+          mockedApiClient.getSessionContext.mockResolvedValueOnce({
+            token: "qwe",
+          } as any);
+          const { sessionContext, refreshSessionContext } = useSessionContext();
+          await refreshSessionContext();
+          expect(sessionContext.value).toEqual({ token: "qwe" });
+        });
+
+        it("should not set context on api rejection and show console error", async () => {
+          mockedApiClient.getSessionContext.mockRejectedValueOnce({
+            message: "Some error",
+          } as any);
+          const { sessionContext, refreshSessionContext } = useSessionContext();
+          await refreshSessionContext();
+          expect(sessionContext.value).toBeNull();
+          expect(stateContext.value).toBeNull();
+          expect(consoleErrorSpy).toBeCalledWith(
+            "[UseSessionContext][refreshSessionContext]",
+            {
+              message: "Some error",
+            }
+          );
+        });
+      });
 
     describe("setShippingMethod", () => {
       it("should set shipping method", async () => {
@@ -118,14 +168,14 @@ describe("Composables - useSessionContext", () => {
       it("should throw an error if shipping method is not provided", async () => {
         const { setShippingMethod } = useSessionContext();
         await expect(setShippingMethod(undefined as any)).rejects.toThrowError(
-          "You need to provige shipping method id in order to set shipping method."
+          "You need to provide shipping method id in order to set shipping method."
         );
       });
 
       it("should throw an error if shipping method is empty reference", async () => {
         const { setShippingMethod } = useSessionContext();
         await expect(setShippingMethod(null as any)).rejects.toThrowError(
-          "You need to provige shipping method id in order to set shipping method."
+          "You need to provide shipping method id in order to set shipping method."
         );
       });
     });
