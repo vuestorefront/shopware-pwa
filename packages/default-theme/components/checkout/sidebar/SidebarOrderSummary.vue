@@ -168,7 +168,7 @@ export default {
 }
 .property-total {
   margin-top: var(--spacer-xl);
-  font-size: var(--font-size-extra-big-desktop);
+  font-size: var(--font-xl);
   font-weight: 500;
   ::v-deep .sf-property__name {
     color: var(--c-text);
@@ -192,7 +192,7 @@ export default {
     padding: 0;
     background-color: transparent;
     color: var(--c-primary);
-    font-size: var(--font-size-big-desktop);
+    font-size: var(--font-lg);
   }
   &__input {
     margin: var(--spacer-base) 0;
@@ -207,11 +207,11 @@ export default {
   }
   &__property,
   &__action {
-    font-size: var(--font-size-extra-small-desktop);
+    font-size: var(--font-xs);
   }
   &__action {
     color: var(--c-gray-variant);
-    font-size: var(--font-size-extra-small-desktop);
+    font-size: var(--font-xs);
     margin: 0 0 var(--spacer-2xs) 0;
     &:last-child {
       margin: 0;

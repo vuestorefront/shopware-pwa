@@ -256,14 +256,14 @@ export default {
     display: flex;
     align-items: center;
     padding: var(--spacer-sm) 0;
-    font-size: var(--font-size-small-desktop);
+    font-size: var(--font-sm);
     @include for-desktop {
       padding: var(--spacer-base) 0;
     }
   }
   &__title {
     padding: 0;
-    font-size: var(--font-size-big-desktop);
+    font-size: var(--font-lg);
     line-height: 2.23;
   }
   &__filters-button {
@@ -346,7 +346,7 @@ export default {
   padding: var(--spacer-base);
   &__title {
     margin: calc(var(--spacer-base) * 3) 0 var(--spacer-base);
-    font-size: var(--font-size-big-desktop);
+    font-size: var(--font-lg);
     line-height: 1.6;
     &:first-child {
       margin: 0 0 var(--spacer-base) 0;

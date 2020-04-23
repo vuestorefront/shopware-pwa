@@ -91,7 +91,7 @@ export default {
   }
   &__title {
     font-family: var(--font-family-primary);
-    font-size: var(--font-size-big-desktop);
+    font-size: var(--font-lg);
     line-height: 1.6;
   }
 }
@@ -101,7 +101,7 @@ export default {
 .content {
   margin: 0 0 var(--spacer-base) 0;
   color: var(--c-text);
-  font-size: var(--font-size-extra-small-desktop);
+  font-size: var(--font-xs);
   font-weight: 300;
   line-height: 1.6;
   &:last-child {

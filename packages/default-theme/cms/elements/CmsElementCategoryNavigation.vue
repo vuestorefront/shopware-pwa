@@ -106,7 +106,7 @@ export default {
 
   &__title {
     padding: 0;
-    font-size: var(--font-size-big-desktop);
+    font-size: var(--font-lg);
   }
 
   &__menu {

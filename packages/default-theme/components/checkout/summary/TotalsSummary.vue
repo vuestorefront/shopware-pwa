@@ -146,7 +146,7 @@ export default {
   &__property-total {
     margin: var(--spacer-base) 0 0 0;
     text-transform: uppercase;
-    font-size: var(--font-size-regular-desktop);
+    font-size: var(--font-base);
     line-height: 1.6;
     font-weight: 500;
   }

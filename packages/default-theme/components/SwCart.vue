@@ -103,10 +103,10 @@ export default {
   flex-direction: column;
   &__total-items {
     font-family: var(--font-family-secondary);
-    font-size: var(--font-size-big-mobile);
+    font-size: var(--font-base);
     font-weight: var(--font-normal);
     @include for-desktop {
-      font-size: var(--font-size-big-desktop);
+      font-size: var(--font-lg);
     }
   }
   &__total-price {
@@ -143,7 +143,7 @@ export default {
   }
   &__label {
     margin-top: var(--spacer-xl);
-    font-size: var(--font-size-big-desktop);
+    font-size: var(--font-lg);
   }
   &__description {
     margin-top: var(--spacer-base);

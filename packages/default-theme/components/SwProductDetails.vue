@@ -288,7 +288,7 @@ export default {
   &__description {
     margin: var(--spacer-xl) 0 calc(var(--spacer-base) * 3) 0;
     font-family: var(--font-family-secondary);
-    font-size: var(--font-size-regular-mobile);
+    font-size: var(--font-sm);
     line-height: 1.6;
   }
   &__divider {
@@ -372,13 +372,13 @@ export default {
   background-color: transparent;
   color: var(--c-text);
   font-family: var(--font-family-secondary);
-  font-size: var(--font-size-regular-mobile);
+  font-size: var(--font-sm);
   font-weight: var(--font-normal);
   line-height: 1.6;
   text-decoration: underline;
   cursor: pointer;
   @include for-desktop {
-    --button-font-size: var(--font-size-regular-desktop);
+    --button-font-size: var(--font-base);
   }
 }
 </style>

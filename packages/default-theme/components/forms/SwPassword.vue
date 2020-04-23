@@ -169,9 +169,9 @@ export default {
   font-weight: var(--font-light);
   font-family: var(--font-family-primary);
   margin: 0 0 var(--spacer-xl) 0;
-  font-size: var(--font-size-regular-mobile);
+  font-size: var(--font-sm);
   @include for-desktop {
-    font-size: var(--font-size-regular-desktop);
+    font-size: var(--font-base);
   }
   &__label {
     font-weight: 400;
