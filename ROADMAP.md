@@ -7,20 +7,22 @@
 
 ### 2020 April
 
-* :blue_heart: Internal Checkout
+* :blue_heart: Internal Checkout - possibility to place a guest order and user order with default addresses
+* :blue_heart: Refactor of CMS structure, possibility to extend and override CMS from plugins and project
 * :blue_heart: Slots in the theme for adding the Shopware PWA plugins
 * :blue_heart: Currency Switch
-* :blue_heart: Proof of Concept for PayPal Express Plugin
-* :green_heart: Upgrade to Storefront UI 7.1 (https://github.com/DivanteLtd/storefront-ui/releases)
+* :blue_heart: Proof of Concept for PayPal Checkout (smart buttons)
+* :green_heart: Upgrade to Storefront UI 7.x (https://github.com/DivanteLtd/storefront-ui/releases)
 * :green_heart: MegaMenu
 
 ### 2020 May
 
 * :blue_heart: Adjustments to the newest Shopware 6 API
-* :blue_heart: PayPal Express Plugin
-* :blue_heart: PayPal Smart Payment Plugin
-* :blue_heart: I18n
-* :blue_heart: Order details in the Thank You Page
+* :blue_heart: PayPal Express Checkout Plugin
+* :blue_heart: PayPal Smart Buttons Payment Plugin - implementation in default theme
+* :blue_heart: i18n - switch language and support in default-theme
+* :blue_heart: Order details in the Thank You Page (shopware 6.2)
+* :blue_heart: Order details in My Account (shopware 6.2)
 * :blue_heart: PWA Feature: Add to Home Screen
 * :blue_heart: Documentation improvement in terms of general structure, content and cookbooks
 
@@ -28,7 +30,6 @@
 
 * :blue_heart: Shopping Experiences Page Preview with Storefront UI components
 * :blue_heart: Start analysis of Shopware 6 Advanced Search integration
-* :blue_heart: Shopping Experiences Page Preview with Storefront UI components
 * :blue_heart: PayPal Invoice Plugin
 
 ## 2020 Q3
