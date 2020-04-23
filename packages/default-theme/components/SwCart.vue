@@ -102,9 +102,9 @@ export default {
   display: flex;
   flex-direction: column;
   &__total-items {
-    font-family: var(--body-font-family-secondary);
+    font-family: var(--font-family-secondary);
     font-size: var(--font-size-big-mobile);
-    font-weight: var(--body-font-weight-secondary);
+    font-weight: var(--font-normal);
     @include for-desktop {
       font-size: var(--font-size-big-desktop);
     }

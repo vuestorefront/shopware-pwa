@@ -70,7 +70,7 @@ export default {
 
   &__header {
     font-size: var(--font-size-regular-desktop);
-    font-weight: var(--body-font-weight-primary);
+    font-weight: var(--font-light);
     @include for-desktop {
       text-align: center;
     }

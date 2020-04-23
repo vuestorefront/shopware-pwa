@@ -112,7 +112,7 @@ export default {
   text-overflow: ellipsis;
 
   &__title {
-    font-family: var(--body-font-family-secondary);
+    font-family: var(--font-family-secondary);
     font-size: var(--font-size-regular-mobile);
     font-weight: 300;
     line-height: 1.6;

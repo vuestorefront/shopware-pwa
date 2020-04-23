@@ -220,7 +220,7 @@ export default {
 
 .message {
   line-height: 1.6;
-  font-family: var(--body-font-family-primary);
+  font-family: var(--font-family-primary);
   margin: 0 0 var(--spacer-extra-big) 0;
   font-size: var(--font-size-regular-mobile);
   @include for-desktop {

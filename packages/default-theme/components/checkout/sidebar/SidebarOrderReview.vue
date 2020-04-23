@@ -90,7 +90,7 @@ export default {
     margin-bottom: var(--spacer-big);
   }
   &__title {
-    font-family: var(--body-font-family-primary);
+    font-family: var(--font-family-primary);
     font-size: var(--font-size-big-desktop);
     line-height: 1.6;
   }

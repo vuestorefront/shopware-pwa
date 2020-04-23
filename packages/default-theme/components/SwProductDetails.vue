@@ -287,7 +287,7 @@ export default {
   }
   &__description {
     margin: var(--spacer-extra-big) 0 calc(var(--spacer-big) * 3) 0;
-    font-family: var(--body-font-family-secondary);
+    font-family: var(--font-family-secondary);
     font-size: var(--font-size-regular-mobile);
     line-height: 1.6;
   }
@@ -295,10 +295,10 @@ export default {
     margin-top: 30px;
   }
   &__heading {
-    --heading-title-font-weight: var(--body-font-weight-primary);
+    --heading-title-font-weight: var(--font-light);
     margin: var(--spacer-big) 0 0 0;
     @include for-desktop {
-      --heading-title-font-weight: var(--body-font-weight-secondary);
+      --heading-title-font-weight: var(--font-normal);
       margin: 0;
     }
   }
@@ -365,15 +365,15 @@ export default {
 }
 
 .sf-action {
-  --button-font-size: var(--font-size-small);
+  --button-font-size: var(--font-sm);
   padding: 0;
   border: 0;
   outline: none;
   background-color: transparent;
   color: var(--c-text);
-  font-family: var(--body-font-family-secondary);
+  font-family: var(--font-family-secondary);
   font-size: var(--font-size-regular-mobile);
-  font-weight: var(--body-font-weight-secondary);
+  font-weight: var(--font-normal);
   line-height: 1.6;
   text-decoration: underline;
   cursor: pointer;

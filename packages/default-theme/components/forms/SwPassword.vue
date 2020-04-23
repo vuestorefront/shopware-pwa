@@ -166,8 +166,8 @@ export default {
 
 .message {
   line-height: 1.6;
-  font-weight: var(--body-font-weight-primary);
-  font-family: var(--body-font-family-primary);
+  font-weight: var(--font-light);
+  font-family: var(--font-family-primary);
   margin: 0 0 var(--spacer-extra-big) 0;
   font-size: var(--font-size-regular-mobile);
   @include for-desktop {
