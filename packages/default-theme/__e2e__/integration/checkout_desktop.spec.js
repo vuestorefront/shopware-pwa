@@ -25,6 +25,7 @@ describe('Test Checkout funcionality Desktop view', () => {
     })
     it('Add the same product to the cart two more times', () => {
       cy.get('.sf-add-to-cart__button').click({ force: true })
+      cy.wait(200)
       cy.get('.sf-add-to-cart__button').click({ force: true })
     })
     it('Check if cart has three products added', () => {
