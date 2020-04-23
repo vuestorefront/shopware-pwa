@@ -199,7 +199,7 @@ However, service workers will allow you to browse the catalogue offline.
 
 ## Software engineering standards
 
-Before starting the implementation of Shopware-PWA, we’ve made an in-depth analysis of all our previous experience, that we earnt during the implement of Vue Storefront 1. After gathering all the lessons learnt, we decided to build a tech-driven high-quality product, that will meet the business needs.
+Before starting the implementation of Shopware-PWA, we’ve made an in-depth analysis of all our previous experience, that we earned during the implement of Vue Storefront 1. After gathering all the lessons learnt, we decided to build a tech-driven high-quality product, that will meet the business needs.
 
 ### Style Guide
 
