@@ -1,8 +1,14 @@
 <template>
   <div class="top-navigation">
-    <SfTopBar>
+    <SfTopBar class="top-bar">
       <template #right>
         <SwCurrency class="sf-header__currency" />
+        <!-- TODO Implement SfLanguageSelector -->
+        <div class="top-bar__location-label">Location:</div>
+        <SfImage
+          :src="require('@shopware-pwa/default-theme/assets/flag.png')"
+          alt="flag of the USA"
+        />
       </template>
     </SfTopBar>
     <SfHeader
@@ -39,7 +45,7 @@
         <SfSearchBar
           placeholder="Search for products"
           aria-label="Search for products"
-          class="sf-header__search"
+          class="sf-header__search desktop-only"
           @enter="fulltextSearch"
         />
       </template>
@@ -162,14 +168,14 @@ export default {
   margin-bottom: var(--spacer-sm);
   .sf-header {
     &__currency {
-      position:relative;
+      position: relative;
       margin: 0 var(--spacer-base) 0 var(--spacer-base);
       --select-padding: var(--spacer-xs);
       --select-dropdown-z-index: 2;
       &::before {
-        content: "";
+        content: '';
         display: block;
-        position:absolute;
+        position: absolute;
         background-color: white;
         width: 20px;
         top: 50%;
@@ -200,6 +206,11 @@ export default {
         height: 100;
       }
     }
+  }
+}
+.top-bar {
+  &__location-label {
+    margin: 0 var(--spacer-sm) 0 0;
   }
 }
 .sf-header__logo {
