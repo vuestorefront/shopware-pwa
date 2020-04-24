@@ -28,13 +28,17 @@ async function run() {
     copyRootDirectoryFile("CHEATSHEET.md"),
     copyRootDirectoryFile("STRUCTURE.md"),
   ]);
+  await jetpack.removeAsync(path.join(__dirname, "..", "docs", "globals.md"));
 }
 
 async function buildDocs() {
   try {
-    execa("yarn", ["typedoc", "--options", "typedoc.js"]).stdout.pipe(
-      process.stdout
-    );
+    const typedocResult = await execa("yarn", [
+      "typedoc",
+      "--options",
+      "typedoc.js",
+    ]);
+    console.log(typedocResult.stdout);
   } catch (e) {
     console.error(e);
   }

@@ -40,8 +40,6 @@ See [the documentation](https://shopware-pwa-docs.netlify.com/#introduction-to-s
 
 If you have any questions or ideas feel free to join our slack: https://vuestorefront.slack.com via [invitation link](http://slack.vuestorefront.io/)
 
-## Getting started
-
 ## Quickstart
 
 ### Installation
@@ -62,6 +60,7 @@ Currently, we're releasing a `canary` version per every push to `master` branch,
 ```bash
 npm install -g @shopware-pwa/cli@canary
 ```
+
 :::
 
 ### Usage
@@ -93,13 +92,14 @@ Now you have complete ShopwarePWA project running locally.
 You can simply invoke once again `shopware-pwa init` and pass data to your custom instance.
 
 Another way of doing this:
+
 1. edit file `shopware-pwa.config.js` inside the root of the newly created project
 2. fill it with your data, current example:
 
 ```js
 module.exports = {
   shopwareEndpoint: "https://shopware-2.vuestorefront.io",
-  shopwareAccessToken: "SWSCTXJOZMQWCXA4OUTNZ0REYG"
+  shopwareAccessToken: "SWSCTXJOZMQWCXA4OUTNZ0REYG",
 };
 ```
 
@@ -127,6 +127,7 @@ If you want to update to `canary` version, just add this to update command. If y
 ```bash
 npm install -g @shopware-pwa/cli@canary
 ```
+
 :::
 
 ### Running with plugins
