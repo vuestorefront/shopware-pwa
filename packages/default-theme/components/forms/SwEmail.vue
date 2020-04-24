@@ -3,7 +3,7 @@
     <slot :user="user">
       <slot name="message">
         <p class="message">
-          Remember to keep your email up to date in case of loosing password.
+          Remember to keep your email up to date in case of losing password.
         </p>
       </slot>
       <SfAlert
@@ -19,7 +19,7 @@
           <SfInput
             v-model="email"
             :valid="!$v.email.$error"
-            error-message="Email cannnot be empty"
+            error-message="Email cannot be empty"
             type="email"
             name="email"
             label="Your new e-mail"

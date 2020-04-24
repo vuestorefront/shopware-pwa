@@ -122,10 +122,10 @@ describe("Composables - useCheckout", () => {
         const { billingAddress, updateGuestOrderParams } = useCheckout();
         updateGuestOrderParams({
           billingAddress: {
-            street: "thrid street",
+            street: "third street",
           },
         } as any);
-        expect(billingAddress.value).toEqual({ street: "thrid street" });
+        expect(billingAddress.value).toEqual({ street: "third street" });
         updateGuestOrderParams({
           billingAddress: undefined,
         } as any);
@@ -135,10 +135,10 @@ describe("Composables - useCheckout", () => {
         const { billingAddress, updateGuestOrderParams } = useCheckout();
         updateGuestOrderParams({
           billingAddress: {
-            street: "thrid street",
+            street: "third street",
           },
         } as any);
-        expect(billingAddress.value).toEqual({ street: "thrid street" });
+        expect(billingAddress.value).toEqual({ street: "third street" });
         updateGuestOrderParams({
           billingAddress: undefined,
         } as any);
