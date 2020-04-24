@@ -100,15 +100,15 @@
       </transition>
       <div class="form__action">
         <SfButton
-          class="form__action-button form__action-button--secondary color-secondary desktop-only"
-          >Go Back</SfButton
+          class="sf-button--full-width  form__action-button form__action-button--secondary color-secondary desktop-only"
+          >Go Back to shop</SfButton
         >
-        <SfButton class="form__action-button" @click="toShipping"
+        <SfButton class="sf-button--full-width form__action-button" @click="toShipping"
           >Continue to shipping</SfButton
         >
         <SfButton
           class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only"
-          >Go back</SfButton
+          >Go back to shop</SfButton
         >
       </div>
     </div>
@@ -369,16 +369,14 @@ export default {
 }
 .form {
   &__checkbox {
-    margin: var(--spacer-base) 0 var(--spacer-xl) 0; 
+    margin: var(--spacer-base) 0 var(--spacer-xl) 0;
   }
   &__action {
     flex: 0 0 100%;
+    margin: var(--spacer-base) 0 0 0;
   }
   &__action-button {
     --button-height: 3.25rem;
-    &:first-child {
-      margin: var(--spacer-sm) 0 0 0;
-    }
   }
   @include for-mobile {
     &__checkbox {
@@ -396,10 +394,8 @@ export default {
       display: flex;
     }
     &__action-button {
-      --button-width: 300px;
       &:first-child {
         margin: 0 var(--spacer-lg) 0 0;
-        --button-width: 172px;
       }
     }
     &__element {
