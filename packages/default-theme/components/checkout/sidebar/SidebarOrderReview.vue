@@ -1,49 +1,43 @@
 <template>
-  <div>
-    <div class="highlighted">
-      <SfHeading
-        title="Order review"
-        class="sf-heading--left sf-heading--no-underline title"
+  <div class="review">
+    <SfHeading
+      title="Order review"
+      :level="3"
+      class="sf-heading--left sf-heading--no-underline title"
+    />
+    <PersonalDetailsSummary class="content" @click:edit="$emit('click:edit', 0)" />
+    <ShippingAddressSummary class="content" @click:edit="$emit('click:edit', 1)" />
+    <BillingAddressSummary class="content" @click:edit="$emit('click:edit', 2)" />
+    <PaymentMethodSummary class="content" @click:edit="$emit('click:edit', 3)" />
+    <div class="promo-code">
+      <SfInput
+        v-model="promoCode"
+        name="promoCode"
+        label="Enter promo code"
+        class="sf-input--filled promo-code__input"
       />
-      <div class="highlighted__header">
-        <h3 class="highlighted__title">Personal details</h3>
-        <SfButton class="sf-button--text" @click="$emit('click:edit', 0)"
-          >Edit</SfButton
-        >
-      </div>
-      <PersonalDetailsSummary @click:edit="$emit('click:edit', 0)" />
+      <SfCircleIcon class="promo-code__circle-icon" icon="check" />
     </div>
-    <div class="highlighted">
-      <div class="highlighted__header">
-        <h3 class="highlighted__title">Shipping details</h3>
-        <SfButton class="sf-button--text" @click="$emit('click:edit', 1)"
-          >Edit</SfButton
-        >
-      </div>
-      <ShippingAddressSummary @click:edit="$emit('click:edit', 1)" />
-    </div>
-    <div class="highlighted">
-      <div class="highlighted__header">
-        <h3 class="highlighted__title">Billing address</h3>
-        <SfButton class="sf-button--text" @click="$emit('click:edit', 2)"
-          >Edit</SfButton
-        >
-      </div>
-      <BillingAddressSummary @click:edit="$emit('click:edit', 2)" />
-    </div>
-    <div class="highlighted">
-      <div class="highlighted__header">
-        <h3 class="highlighted__title">Payment method</h3>
-        <SfButton class="sf-button--text" @click="$emit('click:edit', 2)"
-          >Edit</SfButton
-        >
-      </div>
-      <PaymentMethodSummary @click:edit="$emit('click:edit', 3)" />
+    <div class="characteristics">
+      <SfCharacteristic
+        v-for="characteristic in characteristics"
+        :key="characteristic.title"
+        :title="characteristic.title"
+        :description="characteristic.description"
+        :icon="characteristic.icon"
+        class="characteristics__item"
+      />
     </div>
   </div>
 </template>
 <script>
-import { SfHeading, SfButton } from '@storefront-ui/vue'
+import {
+  SfHeading,
+  SfButton,
+  SfInput,
+  SfCircleIcon,
+  SfCharacteristic,
+} from '@storefront-ui/vue'
 import PersonalDetailsSummary from '@shopware-pwa/default-theme/components/checkout/summary/PersonalDetailsSummary'
 import ShippingAddressSummary from '@shopware-pwa/default-theme/components/checkout/summary/ShippingAddressSummary'
 import BillingAddressSummary from '@shopware-pwa/default-theme/components/checkout/summary/BillingAddressSummary'
@@ -54,24 +48,43 @@ export default {
   components: {
     SfHeading,
     SfButton,
+    SfInput,
+    SfCircleIcon,
+    SfCharacteristic,
     PersonalDetailsSummary,
     ShippingAddressSummary,
     BillingAddressSummary,
     PaymentMethodSummary,
+  },
+  data() {
+    return {
+      promoCode: "",
+      characteristics: [
+        {
+          title: 'Safety',
+          description: 'It carefully packaged with a personal touch',
+          icon: 'safety',
+        },
+        {
+          title: 'Easy shipping',
+          description:
+            'You’ll receive dispatch confirmation and an arrival date',
+          icon: 'shipping',
+        },
+        {
+          title: 'Changed your mind?',
+          description: 'Rest assured, we offer free returns within 30 days',
+          icon: 'return',
+        },
+      ],
+    }
   },
 }
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
 
-#checkout {
-  margin: none;
-  @include for-desktop {
-    margin: none;
-  }
-}
-
-.highlighted {
+.review {
   box-sizing: border-box;
   width: 100%;
   background-color: #f1f2f3;
@@ -80,35 +93,32 @@ export default {
   &:last-child {
     margin-bottom: 0;
   }
-  &--total {
-    margin-bottom: 1px;
-  }
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--spacer-base);
-  }
-  &__title {
-    font-family: var(--font-family-primary);
-    font-size: var(--font-lg);
-    line-height: 1.6;
-  }
 }
 .title {
   margin-bottom: var(--spacer-xl);
 }
 .content {
   margin: 0 0 var(--spacer-base) 0;
-  color: var(--c-text);
-  font-size: var(--font-xs);
-  font-weight: 300;
-  line-height: 1.6;
-  &:last-child {
-    margin: 0;
+}
+.characteristics {
+  margin: 0 0 0 var(--spacer-xs);
+  &__item {
+    margin: var(--spacer-base) 0;
   }
-  &__label {
-    font-weight: 400;
+}
+.promo-code {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: var(--spacer-lg) 0 var(--spacer-base) 0;
+  &__circle-icon {
+    --button-size: 2rem;
+    --icon-size: 0.6875rem;
+  }
+  &__input {
+    --input-background: var(--c-white);
+    flex: 1;
+    margin: 0 var(--spacer-lg) 0 0;
   }
 }
 </style>

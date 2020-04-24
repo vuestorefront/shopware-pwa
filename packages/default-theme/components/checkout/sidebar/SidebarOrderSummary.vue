@@ -57,7 +57,6 @@ import {
   SfInput,
 } from '@storefront-ui/vue'
 import { useCart, useCartSidebar } from '@shopware-pwa/composables'
-import SwCartProduct from '@shopware-pwa/default-theme/components/SwCartProduct'
 export default {
   name: 'SidebarOrderSummary',
   components: {
@@ -65,7 +64,6 @@ export default {
     SfCircleIcon,
     SfProperty,
     SfDivider,
-    SwCartProduct,
     SfCharacteristic,
     SfInput,
   },
