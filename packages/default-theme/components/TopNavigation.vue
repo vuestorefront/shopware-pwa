@@ -1,5 +1,10 @@
 <template>
   <div class="top-navigation">
+    <SfTopBar>
+      <template #right>
+        <SwCurrency class="sf-header__currency" />
+      </template>
+    </SfTopBar>
     <SfHeader
       title="Shopware-PWA"
       :has-mobile-search="false"
@@ -46,8 +51,7 @@
               :icon="accountIcon"
               class="sf-header__icon"
               :class="{
-                'sf-header__icon--is-active':
-                  activeIcon === 'account-icon',
+                'sf-header__icon--is-active': activeIcon === 'account-icon',
               }"
               role="button"
               aria-label="Go to My Account"
@@ -72,7 +76,6 @@
             <!-- TODO - SfBadge will appear with the next StorefrontUI version 
             https://github.com/DivanteLtd/storefront-ui/issues/870 
             -->
-            <SwCurrency class="sf-header__currency"/>
           </div>
         </div>
       </template>
@@ -86,6 +89,7 @@ import {
   SfHeader,
   SfIcon,
   SfImage,
+  SfTopBar,
   SfSearchBar,
 } from '@storefront-ui/vue'
 import {
@@ -106,6 +110,7 @@ export default {
     SfIcon,
     SwLoginModal,
     SfImage,
+    SfTopBar,
     SfSearchBar,
     SwCurrency,
   },
@@ -157,9 +162,23 @@ export default {
   margin-bottom: var(--spacer-sm);
   .sf-header {
     &__currency {
-      margin: 0 0 0 var(--spacer-base);
+      position:relative;
+      margin: 0 var(--spacer-base) 0 var(--spacer-base);
       --select-padding: var(--spacer-xs);
-      --select-width: 60px;
+      --select-dropdown-z-index: 2;
+      &::before {
+        content: "";
+        display: block;
+        position:absolute;
+        background-color: white;
+        width: 20px;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        padding: var(--spacer-2xs);
+        left: 50%;
+        height: 20px;
+      }
     }
     &__icon {
       --icon-size: 1.25rem;
