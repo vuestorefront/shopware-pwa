@@ -1,12 +1,17 @@
 <template>
   <div class="sw-bottom-navigation">
     <SfBottomNavigation>
-      <nuxt-link to="/">
-        <SfBottomNavigationItem icon="home" icon-size="20px" />
+      <nuxt-link aria-label="Go to Home Page" to="/">
+        <SfBottomNavigationItem label="Home" icon="home" icon-size="20px" />
       </nuxt-link>
-      <SfBottomNavigationItem class="menu-button">
+      <SfBottomNavigationItem
+        icon="menu"
+        icon-size="20px"
+        label="Menu"
+        class="menu-button"
+      >
         <template #icon>
-          <SfIcon icon="menu" size="20px" style="width: 25px" />
+          <SfIcon icon="menu" size="20px" style="width: 25px;" />
           <SfSelect v-model="currentRoute" class="menu-button__select">
             <SfSelectOption
               v-for="route in routes"
@@ -14,10 +19,7 @@
               :value="route"
             >
               <nuxt-link class="sf-header__link" :to="route.routePath">
-                <SfProductOption
-                  :value="route"
-                  :label="route.routeLabel"
-                />
+                <SfProductOption :value="route" :label="route.routeLabel" />
               </nuxt-link>
             </SfSelectOption>
           </SfSelect>
@@ -25,17 +27,22 @@
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
         icon="profile"
+        label="My Account"
         size="20px"
         @click="userIconClick"
       />
-      <SfBottomNavigationItem class="menu-button">
+      <SfBottomNavigationItem label="Currency" class="menu-button">
         <template #icon>
-          <SwCurrency />
+          <SwCurrency class="menu-button__currency" />
         </template>
       </SfBottomNavigationItem>
-      <SfBottomNavigationItem :is-floating="true">
+      <SfBottomNavigationItem
+        icon="add_to_cart"
+        label="Add to Cart"
+        :is-floating="true"
+      >
         <template #icon>
-          <SfCircleIcon @click="toggleSidebar">
+          <SfCircleIcon aria-label="Add to cart" @click="toggleSidebar">
             <SfIcon icon="add_to_cart" size="20px" color="white" />
           </SfCircleIcon>
         </template>
@@ -50,13 +57,13 @@ import {
   SfCircleIcon,
   SfIcon,
   SfSelect,
-  SfProductOption
+  SfProductOption,
 } from '@storefront-ui/vue'
 import {
   useCartSidebar,
   useNavigation,
   useUser,
-  useUserLoginModal
+  useUserLoginModal,
 } from '@shopware-pwa/composables'
 import { PAGE_ACCOUNT } from '../helpers/pages'
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
@@ -69,12 +76,12 @@ export default {
     SfCircleIcon,
     SfSelect,
     SfProductOption,
-    SwCurrency
+    SwCurrency,
   },
   data() {
     return {
       navigationElements: [],
-      currentRoute: { routeLabel: '', routePath: '/' }
+      currentRoute: { routeLabel: '', routePath: '/' },
     }
   },
   setup() {
@@ -87,13 +94,13 @@ export default {
       routes,
       isSidebarOpen,
       toggleSidebar,
-      toggleModal
+      toggleModal,
     }
   },
   watch: {
     currentRoute(nextRoute) {
       this.$router.push(nextRoute.routeLabel)
-    }
+    },
   },
   methods: {
     userIconClick() {
@@ -102,23 +109,26 @@ export default {
         return
       }
       this.toggleModal()
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
+.sw-bottom-navigation {
+  align-items: center;
+}
 .menu-button {
   position: relative;
-  &__select {
-    position: absolute !important;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  &__currency {
+    --select-padding: 0;
+    --select-height: 2rem;
+    --select-color: #afb0b6;
   }
-}
-
-::v-deep .sf-select__selected > div:nth-child(1) > div:nth-child(1) {
-  display: none;
+  &__select {
+    --chevron-size: 0;
+    --select-margin: 0;
+    text-align: center;
+    position: absolute;
+  }
 }
 </style>

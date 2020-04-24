@@ -8,22 +8,12 @@
     class="collected-product"
     @click:remove="removeProduct(product)"
   >
-    <template #configuration>
-      <div class="collected-product__properties">
-        <SfProperty
-          v-for="(property, key) in product.configuration"
-          :key="key"
-          :name="property.name"
-          :value="property.value"
-        />
-      </div>
-    </template>
     <template #actions>
       <div class="collected-product__actions">
-        <SfButton class="sf-button--text product__action">
+        <SfButton class="sf-button--text collected-product__actions-element">
           Save for later
         </SfButton>
-        <SfButton class="sf-button--text product__action">
+        <SfButton class="sf-button--text collected-product__actions-element">
           Add to compare
         </SfButton>
       </div>
@@ -40,21 +30,19 @@ export default {
   components: {
     SfButton,
     SfProperty,
-    SfCollectedProduct
+    SfCollectedProduct,
   },
   props: {
     product: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   setup(props) {
     const { removeProduct, changeProductQuantity } = useCart()
 
     const quantity = ref(props.product.quantity)
-    const productImage = computed(() =>
-      getProductMainImageUrl(props.product)
-    )
+    const productImage = computed(() => getProductMainImageUrl(props.product))
 
     watch(quantity, async (qty) => {
       // in future we may want to have debounce here
@@ -70,7 +58,7 @@ export default {
     return {
       productImage,
       removeProduct,
-      quantity
+      quantity,
     }
   },
   computed: {
@@ -97,10 +85,8 @@ export default {
       return special && '$' + (special < regular ? special : regular)
     },
     getImageUrl() {
-      return (
-        getProductMainImageUrl(this.product)
-      )
-    }
+      return getProductMainImageUrl(this.product)
+    },
   },
 }
 </script>
@@ -108,17 +94,24 @@ export default {
 @import '~@storefront-ui/vue/styles';
 
 .collected-product {
-  margin: var(--spacer-base)0;
+  --collected-product-actions-align-items: flex-end;
+  margin: var(--spacer-base) 0;
   &__properties {
     margin-top: var(--spacer-base);
   }
   &__actions {
-    opacity: 0;
-    transition: opacity 300ms ease-in-out;
-    @at-root.collected-product:hover & {
-      @include for-desktop {
-        opacity: 1;
-      }
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    transition: opacity 150ms ease-in-out;
+    opacity: var(--cp-actions-opacity, 0);
+  }
+  &__actions-element {
+    margin-top: var(--spacer-xs);
+  }
+  @include for-desktop {
+    &:hover {
+      --cp-actions-opacity: 1;
     }
   }
 }

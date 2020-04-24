@@ -69,6 +69,9 @@
               :aria-pressed="activeIcon === 'cart-icon' ? 'true' : 'false'"
               @click="toggleSidebar"
             />
+            <!-- TODO - SfBadge will appear with the next StorefrontUI version 
+            https://github.com/DivanteLtd/storefront-ui/issues/870 
+            -->
             <SwCurrency class="sf-header__currency"/>
           </div>
         </div>
@@ -155,6 +158,8 @@ export default {
   .sf-header {
     &__currency {
       margin: 0 0 0 var(--spacer-base);
+      --select-padding: var(--spacer-xs);
+      --select-width: 60px;
     }
     &__icon {
       --icon-size: 1.25rem;
