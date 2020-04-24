@@ -107,9 +107,8 @@ export default {
   }
   &__menu {
     flex: 0 0 15%;
-    padding: 20px 0 20px 0;
-
     @include for-desktop {
+      padding: var(--spacer-sm);
       width: 12rem;
     }
 

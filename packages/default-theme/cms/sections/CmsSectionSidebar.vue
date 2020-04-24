@@ -64,6 +64,11 @@ export default {
   &__sidebar {
     display: flex;
     flex-direction: column;
+    margin: 20px 0 0 0;
+    @include for-desktop {
+      border: 1px solid var(--c-light);
+      border-width: 0 1px 0 0;
+    }
   }
 
   &__main {
