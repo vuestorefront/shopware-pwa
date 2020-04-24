@@ -1,4 +1,4 @@
-describe('Test Checkout funcionality Desktop view', () => {
+describe('Test Checkout functionality Desktop view', () => {
   beforeEach(() => {
     cy.viewport(1280, 800)
     // run these tests as if in a desktop
