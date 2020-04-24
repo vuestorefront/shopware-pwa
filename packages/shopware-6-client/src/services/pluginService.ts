@@ -5,27 +5,27 @@ import { apiService } from "../apiService";
  * @alpha
  */
 export interface PluginRequest {
-  code: string,
-  resource: string,
-  payload?: any // only for POST requests
+  code: string;
+  resource: string;
+  payload?: any; // only for POST requests
 }
 
 /**
  * @throws ClientApiError
  * @alpha
  */
-export async function pluginPost({code, resource, payload}: PluginRequest): Promise<any> {
-  const resp = await apiService.post(getPluginsEndpoint(code, resource), payload);
-
-  return resp;
+export function pluginPost({
+  code,
+  resource,
+  payload,
+}: PluginRequest): Promise<any> {
+  return apiService.post(getPluginsEndpoint(code, resource), payload);
 }
 
 /**
  * @throws ClientApiError
  * @alpha
  */
-export async function pluginGet({code, resource}: PluginRequest): Promise<any> {
-  const resp = await apiService.get(getPluginsEndpoint(code, resource));
-
-  return resp;
+export function pluginGet({ code, resource }: PluginRequest): Promise<any> {
+  return apiService.get(getPluginsEndpoint(code, resource));
 }

@@ -112,4 +112,5 @@ export const getNewsletterUnsubscribeEndpoint = () => `/newsletter/unsubscribe`;
 export const getPageResolverEndpoint = () => `/vsf/page`;
 export const getNavigationEndpoint = () => `/vsf/navigation`;
 
-export const getPluginsEndpoint = (pluginCode: string, resource: string) => `/pwa/plugin/${pluginCode}/${resource}`
+export const getPluginsEndpoint = (pluginCode: string, resource: string) =>
+  `/pwa/plugin/${pluginCode}/${resource}`;
