@@ -214,7 +214,7 @@ export interface PageResolverResult<T> {
 export function pluginGet({ code, resource }: PluginRequest): Promise<any>;
 
 // @alpha (undocumented)
-export function pluginPost({ code, resource, payload }: PluginRequest): Promise<any>;
+export function pluginPost({ code, resource, payload, }: PluginRequest): Promise<any>;
 
 // @alpha (undocumented)
 export interface PluginRequest {
