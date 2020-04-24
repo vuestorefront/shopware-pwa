@@ -52,7 +52,7 @@ export default {
 @import '~@storefront-ui/vue/styles';
 
 .table {
-  margin-bottom: var(--spacer-big);
+  margin-bottom: var(--spacer-base);
   &__row {
     @include for-mobile {
       flex: 1;
@@ -69,8 +69,8 @@ export default {
   }
 
   &__header {
-    font-size: var(--font-size-regular-desktop);
-    font-weight: var(--body-font-weight-primary);
+    font-size: var(--font-base);
+    font-weight: var(--font-light);
     @include for-desktop {
       text-align: center;
     }
@@ -85,7 +85,7 @@ export default {
   }
 
   &__data {
-    font-size: var(--font-size-small-desktop);
+    font-size: var(--font-sm);
     text-align: center;
 
     @include for-mobile {

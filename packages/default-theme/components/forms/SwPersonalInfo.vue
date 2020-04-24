@@ -190,7 +190,7 @@ export default {
     align-items: center;
   }
   &__element {
-    margin-bottom: var(--spacer-extra-big);
+    margin-bottom: var(--spacer-xl);
     @include for-desktop {
       flex: 0 0 100%;
     }
@@ -200,7 +200,7 @@ export default {
       }
       &-even {
         @include for-desktop {
-          padding-left: var(--spacer-extra-big);
+          padding-left: var(--spacer-xl);
         }
       }
     }
@@ -220,11 +220,11 @@ export default {
 
 .message {
   line-height: 1.6;
-  font-family: var(--body-font-family-primary);
-  margin: 0 0 var(--spacer-extra-big) 0;
-  font-size: var(--font-size-regular-mobile);
+  font-family: var(--font-family-primary);
+  margin: 0 0 var(--spacer-xl) 0;
+  font-size: var(--font-sm);
   @include for-desktop {
-    font-size: var(--font-size-regular-desktop);
+    font-size: var(--font-base);
   }
   &__label {
     font-weight: 400;

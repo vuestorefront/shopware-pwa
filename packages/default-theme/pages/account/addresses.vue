@@ -65,7 +65,7 @@ export default {
 
 
 .shipping-list {
-  margin-bottom: var(--spacer-extra-big);
+  margin-bottom: var(--spacer-xl);
   width: 100%;
 }
 </style>

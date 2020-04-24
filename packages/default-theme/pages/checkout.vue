@@ -1,5 +1,5 @@
 <template>
-  <div id="checkout">
+  <div id="checkout" :key="$route.fullPath">
     <div class="checkout">
       <div class="checkout__main">
         <SfSteps :active="currentStep" @change="nextStep($event)">
@@ -27,7 +27,6 @@
         </SfSteps>
       </div>
       <div class="checkout__aside desktop-only">
-        <button @click="nextStep()">next</button>
         <transition name="fade">
           <SidebarOrderSummary
             v-if="currentStep < CHECKOUT_STEPS.REVIEW"
@@ -102,10 +101,10 @@ export default {
 
 #checkout {
   box-sizing: border-box;
-  padding: 0 var(--spacer-big);
+  padding: 0 var(--spacer-base);
   @include for-desktop {
     max-width: 1240px;
-    padding: var(--spacer-extra-big);
+    padding: var(--spacer-xl);
   }
 }
 .checkout {

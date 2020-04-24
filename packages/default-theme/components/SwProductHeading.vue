@@ -72,15 +72,15 @@ export default {
   &__sub-price {
     --price-font-size: 1.5rem;
     flex-basis: 100%;
-    margin-top: calc(var(--spacer-big) / 4);
+    margin-top: calc(var(--spacer-base) / 4);
     @include for-desktop {
       flex-basis: auto;
-      margin-top: calc(var(--spacer-big) / 2);
+      margin-top: calc(var(--spacer-base) / 2);
     }
   }
   &__sub-rating {
     display: flex;
-    margin-top: calc(var(--spacer-big) / 2);
+    margin-top: calc(var(--spacer-base) / 2);
     @include for-desktop {
       margin-left: auto;
     }

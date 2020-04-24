@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@shopware-pwa/shopware-6-client": "^0.1.0-alpha.3",
-    "query-string": "^6.11.1",
+    "query-string": "^6.12.1",
     "cookie-universal": "^2.1.3"
   },
   "publishConfig": {

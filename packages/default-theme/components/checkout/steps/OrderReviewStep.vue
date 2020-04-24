@@ -81,11 +81,11 @@ export default {
 @import '~@storefront-ui/vue/styles';
 
 .title {
-  margin-bottom: var(--spacer-extra-big);
+  margin-bottom: var(--spacer-xl);
 }
 
 .accordion {
-  margin: 0 0 var(--spacer-extra-big) 0;
+  margin: 0 0 var(--spacer-xl) 0;
   &__item {
     display: flex;
     align-items: flex-start;
@@ -102,17 +102,17 @@ export default {
   cursor: pointer;
 }
 .property {
-  margin: 0 0 var(--spacer) 0;
-  font-size: var(--font-size-small-desktop);
+  margin: 0 0 var(--spacer-xs) 0;
+  font-size: var(--font-sm);
   line-height: 1.6;
   &__name {
     color: var(--c-text-muted);
   }
 }
 .content {
-  margin: 0 0 var(--spacer-big) 0;
+  margin: 0 0 var(--spacer-base) 0;
   color: var(--c-text);
-  font-size: var(--font-size-extra-small-desktop);
+  font-size: var(--font-xs);
   font-weight: 300;
   line-height: 1.6;
   &:last-child {
@@ -130,12 +130,12 @@ export default {
 
 .product-sku {
   color: var(--c-text-muted);
-  font-size: var(--font-size-extra-small-desktop);
+  font-size: var(--font-xs);
 }
 .product-price {
   display: flex;
   flex-direction: column;
-  font-size: var(--font-size-small-desktop);
+  font-size: var(--font-sm);
   ::v-deep .sf-price__special {
     order: 1;
     color: var(--c-text);
