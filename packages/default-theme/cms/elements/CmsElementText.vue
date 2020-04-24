@@ -30,6 +30,6 @@ export default {
 
 .cms-element-text {
   @include desktop-size;
-  padding: var(--spacer-base) var(--spacer-xl);
+  padding: var(--spacer-xl);
 }
 </style>
