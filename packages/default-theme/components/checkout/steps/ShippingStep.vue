@@ -182,7 +182,9 @@ export default {
     --button-height: 3.25rem;
   }
   &__radio-group {
-    flex: 0 0 100%;
+    position:relative;
+    flex: 0 0 calc(100% + var(--spacer-sm));
+    margin: 0 calc(var(--spacer-sm) * -1);
   }
   @include for-mobile {
     &__radio-group {
