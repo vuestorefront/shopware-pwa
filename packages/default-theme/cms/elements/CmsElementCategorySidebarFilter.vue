@@ -68,7 +68,7 @@
       >
         <div class="filters">
           <div v-for="filter in filters" :key="filter.name">
-            <SfHeading class="filters__title" :level="4" :title="filter.name"/>
+            <SfHeading class="filters__title" :level="4" :title="filter.name" />
             <div v-if="filter && filter.options && filter.options.length">
               <SfFilter
                 v-for="option in filter.options"
@@ -93,7 +93,8 @@
               />
             </div>
           </div>
-
+        </div>
+        <template #content-bottom>
           <div class="filters__buttons">
             <SfButton class="sf-button--full-width" @click="submitFilters()"
               >Done</SfButton
@@ -104,7 +105,7 @@
               >Clear all</SfButton
             >
           </div>
-        </div>
+        </template>
       </SfSidebar>
     </div>
   </div>
@@ -228,6 +229,7 @@ export default {
   display: flex;
   width: 100%;
   @include for-desktop {
+    margin-top: 20px;
     border-top: 1px solid var(--c-light);
     border-bottom: 1px solid var(--c-light);
   }
@@ -329,11 +331,8 @@ export default {
   flex: unset;
   width: 190px;
   padding: 0 10px;
-  font-size: inherit;
-  &__option {
-    padding: 10px;
-    font-size: inherit;
-  }
+  --select-padding: 0 var(--spacer-lg) 0 var(--spacer-2xs);
+  --select-margin: 0;
 
   &--mobile {
     width: auto;

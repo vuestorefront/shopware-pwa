@@ -1,7 +1,7 @@
 <template>
   <div class="cms-element-category-navigation">
     <div class="cms-element-category-navigation__header">
-      <h1 class="cms-element-category-navigation__title">{{ navTitle }}</h1>
+      <SfHeading :level="3" :title="navTitle" />
     </div>
     <div class="cms-element-category-navigation__menu">
       <SfHeading subtitle="No subcategories" v-if="!navigation.length" />
@@ -92,28 +92,23 @@ export default {
 
 .cms-element-category-navigation {
   &__header {
+    --heading-title-font-weight: var(--font-light);
+    --heading-title-font-size: var(--font-xl);
     flex: 0 0 15%;
     align-items: center;
     display: flex;
-    height: 3.22rem;
-    padding-top: 20px;
+    height: 2.4rem;
+    padding-top: var(--spacer-base);
     @include for-desktop {
-      padding: 20px;
+      padding: var(--spacer-base) var(--spacer-sm);
       border-top: 1px solid var(--c-light);
       border-bottom: 1px solid var(--c-light);
     }
   }
-
-  &__title {
-    padding: 0;
-    font-size: var(--font-lg);
-  }
-
   &__menu {
     flex: 0 0 15%;
-    padding: 20px 0 20px 0;
-
     @include for-desktop {
+      padding: var(--spacer-sm);
       width: 12rem;
     }
 

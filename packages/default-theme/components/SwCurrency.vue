@@ -66,38 +66,13 @@ export default {
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
 
-.menu-button {
-  .sw-currency {
-    margin: 0;
-    --select-font-size: var(--font-xl);
-
-    &::v-deep .sf-select {
-      --select-font-size: 1.4rem;
-      --select-font-weight: 400;
-      color: #afb0b6;
-
-      &__dropdown {
-        --select-font-size: var(--font-size-medium);
-        --select-font-weight: 200;
-        color: var(--c-text);
-      }
-    }
-  }
-}
 .sw-currency {
   text-align: center;
   &__select {
-    --select-width: 50px;
     --select-margin: 0;
-    --select-padding: var(--spacer-xs);
-    display: block;
+    --chevron-size: 0;
+    --select-option-font-size: var(--font-base);
     cursor: pointer;
-    &::v-deep .sf-select__selected {
-      display: block;
-    }
-    &::v-deep .sf-select__chevron {
-      display: none;
-    }
   }
 }
 </style>
