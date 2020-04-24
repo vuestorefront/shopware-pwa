@@ -36,9 +36,5 @@ export default {
 
 .cms-block-category-navigation {
   @include desktop-size;
-
-  @include for-desktop {
-    margin-top: 20px;
-  }
 }
 </style>
