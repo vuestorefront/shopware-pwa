@@ -144,8 +144,6 @@ body {
 .layout {
   box-sizing: border-box;
   height: 100%;
-  display: flex;
-  flex-direction: column;
 
   &__bottom-navigation {
     @include for-desktop() {
