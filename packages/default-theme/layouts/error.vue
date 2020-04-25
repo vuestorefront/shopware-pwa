@@ -92,8 +92,10 @@ export default {
   }
   &__image {
     --image-width: 10rem;
+    min-height: 10rem;
     @include for-desktop {
       --image-width: 18rem;
+      min-height: 18rem;
     }
   }
   &__actions {
