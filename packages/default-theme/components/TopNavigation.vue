@@ -167,6 +167,7 @@ export default {
   --header-container-padding: 0 var(--spacer-base);
   margin-bottom: var(--spacer-sm);
   .sf-header {
+    padding: 0 var(--spacer-sm);
     &__currency {
       position: relative;
       margin: 0 var(--spacer-base) 0 var(--spacer-base);
@@ -185,6 +186,9 @@ export default {
         left: 50%;
         height: 20px;
       }
+    }
+    &__header {
+      padding-left: var(--spacer-sm);
     }
     &__icon {
       --icon-size: 1.25rem;
@@ -209,6 +213,8 @@ export default {
   }
 }
 .top-bar {
+  padding: 0 var(--spacer-sm);
+
   &__location-label {
     margin: 0 var(--spacer-sm) 0 0;
   }
