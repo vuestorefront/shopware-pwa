@@ -64,6 +64,18 @@ async function buildAll(targets) {
     const result = await build(target);
     if (result === false) return;
   }
+  if (buildTypes) {
+    console.log(
+      chalk.bold(
+        chalk.yellow(`Updating docs/api folder with public documentation`)
+      )
+    );
+    await execa(
+      "api-documenter",
+      ["markdown", "-i", "./temp", "-o", "./docs/api"],
+      { stdio: "inherit" }
+    );
+  }
 }
 
 async function build(target) {
