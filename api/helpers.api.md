@@ -146,7 +146,7 @@ export function getVariantOptionsLabel({ product, }?: {
     product?: Product;
 }): string | null;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function isProductSimple({ product, }?: {
     product?: Product;
 }): boolean;

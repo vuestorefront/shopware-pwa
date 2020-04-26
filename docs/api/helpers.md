@@ -4,3 +4,9 @@
 
 ## helpers package
 
+## Functions
+
+|  Function | Description |
+|  --- | --- |
+|  [isProductSimple({ product, })](./helpers.isproductsimple.md) | <b><i>(BETA)</i></b> |
+
