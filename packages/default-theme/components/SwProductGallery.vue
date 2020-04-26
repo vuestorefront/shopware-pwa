@@ -63,25 +63,4 @@ export default {
     width: 100%;
   }
 }
-
-.sf-gallery {
-  $this: &;
-  ::v-deep {
-    ul {
-      margin: 0;
-    }
-    #{$this}__thumbs {
-      left: 50%;
-      transform: translateX(-50%);
-      top: auto;
-      bottom: 10px;
-      display: flex;
-    }
-    #{$this}__item {
-      &:not(:first-child) {
-        margin: 0 0 0 var(--spacer-xs);
-      }
-    }
-  }
-}
 </style>
