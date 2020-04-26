@@ -18,7 +18,7 @@ import {
 import { useSessionContext } from "./useSessionContext";
 
 /**
- * @alpha
+ * @beta
  */
 export interface UseCheckout {
   isGuestOrder: Readonly<Ref<boolean>>;

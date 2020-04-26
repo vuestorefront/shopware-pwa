@@ -89,7 +89,7 @@ export const useCartSidebar: () => any;
 // @alpha (undocumented)
 export const useCategoryFilters: () => any;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UseCheckout {
     // (undocumented)
     billingAddress: Readonly<Ref<BillingAddress | undefined>>;
@@ -113,7 +113,7 @@ export interface UseCheckout {
     updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export const useCheckout: () => UseCheckout;
 
 // @alpha (undocumented)
