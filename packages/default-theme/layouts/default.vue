@@ -73,6 +73,10 @@ html {
   height: 100vh;
 }
 
+:root {
+  --c-primary: #dd1d90;
+}
+
 a {
   text-decoration: none;
   color: var(--c-link);
@@ -170,5 +174,9 @@ body {
 }
 ::-moz-focus-inner {
   border: 0;
+}
+
+.sf-button {
+  --button-background: #dd1d90;
 }
 </style>

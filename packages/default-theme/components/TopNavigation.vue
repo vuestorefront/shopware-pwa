@@ -11,6 +11,11 @@
         />
       </template>
     </SfTopBar>
+    <div style="text-align: center; margin-top: 20px;">
+      <nuxt-link to="/" class="sf-header__logo">
+        <SfImage style="--image-width: 250px; --image-height: auto;" :src="require('@shopware-pwa/default-theme/assets/summer_vibes.png')" alt="Shopware PWA" />
+      </nuxt-link>
+    </div>
     <SfHeader
       title="Shopware-PWA"
       :has-mobile-search="false"
@@ -18,9 +23,7 @@
       :cart-items-qty="count.toString()"
     >
       <template #logo>
-        <nuxt-link to="/" class="sf-header__logo">
-          <SfImage src="/img/logo.svg" alt="Shopware PWA" />
-        </nuxt-link>
+        &nbsp;
       </template>
       <template #navigation>
         <SfHeaderNavigationItem
@@ -214,6 +217,7 @@ export default {
   }
 }
 .sf-header__logo {
-  height: 2rem;
+  height: 3rem;
+  --image-height: 3rem;
 }
 </style>

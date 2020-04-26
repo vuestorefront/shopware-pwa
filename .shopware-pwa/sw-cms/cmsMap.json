@@ -12,10 +12,7 @@
     "image-cover": "CmsBlockImageCover",
     "category-navigation": "CmsBlockCategoryNavigation",
     "image-bubble-row": "CmsBlockImageBubbleRow",
-    "text-hero": "CmsBlockTextHero",
-    "image-two-column": "CmsBlockImageTwoColumn",
-    "image-three-column": "CmsBlockImageThreeColumn",
-    "product-three-column": "CmsBlockImageThreeColumn"
+    "text-hero": "CmsBlockTextHero"
   },
   "elements": {
     "product-box": "CmsElementProductCard",

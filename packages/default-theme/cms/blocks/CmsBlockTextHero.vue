@@ -1,6 +1,10 @@
 <template>
-  <div class="cms-block-image-cover">
-    <CmsGenericElement v-if="getContent" :content="getContent" />
+  <div class="cms-block-text-hero">
+    <CmsGenericElement
+      v-if="getContent"
+      :content="getContent"
+      class="cms-block-text-hero__content"
+    />
   </div>
 </template>
 
@@ -11,7 +15,7 @@ export default {
   components: {
     CmsGenericElement,
   },
-  name: 'CmsBlockImageCover',
+  name: 'CmsBlockTextHero',
   props: {
     content: {
       type: Object,
@@ -32,7 +36,9 @@ export default {
 <style lang="scss" scoped>
 @import '../settings.scss';
 
-.cms-block-image-cover {
-  overflow: hidden;
+.cms-block-text-hero {
+  &__content {
+    padding: var(--spacer-xl);
+  }
 }
 </style>

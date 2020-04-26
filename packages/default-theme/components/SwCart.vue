@@ -31,7 +31,8 @@
             <SfImage
               alt="Empty bag"
               class="empty-cart__image"
-              :src="require('@storefront-ui/shared/icons/empty_cart.svg')"
+              :src="require('@shopware-pwa/default-theme/assets/summer_vibes.png')"
+              style="margin-bottom: 20px;"
             />
             <SfHeading
               title="Your cart is empty"

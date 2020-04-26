@@ -68,13 +68,19 @@ export default {
     @include for-desktop {
       border: 1px solid var(--c-light);
       border-width: 0 1px 0 0;
+      flex: 0 0 0.25;
+      width: 25%;
     }
   }
 
   &__main {
     display: flex;
     flex-direction: column;
-    width: 100%;
+
+    @include for-desktop {
+      flex: 0 0 0.75;
+      width: 75%;
+    }
   }
 }
 </style>

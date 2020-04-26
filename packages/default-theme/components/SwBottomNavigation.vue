@@ -131,4 +131,8 @@ export default {
     position: absolute;
   }
 }
+
+.sf-button {
+  --button-background: #dd1d90;
+}
 </style>

@@ -24,9 +24,6 @@
         </SfSelect>
       </div>
       <div class="navbar__counter">
-        <span class="navbar__label desktop-only">Products found: </span>
-        <strong class="desktop-only">{{ productsTotal }}</strong>
-        <span class="navbar__label mobile-only">{{ productsTotal }} Items</span>
       </div>
       <SfSelect v-model="sortBy" class="sort-by sort-by--mobile mobile-only">
         <SfSelectOption
@@ -38,29 +35,6 @@
           {{ getSortLabel(option) }}
         </SfSelectOption>
       </SfSelect>
-      <div class="navbar__view">
-        <span class="navbar__view-label desktop-only">View</span>
-        <SfIcon
-          class="navbar__view-icon"
-          :color="isGridView ? '#1D1F22' : '#BEBFC4'"
-          icon="tiles"
-          size="2rem"
-          role="button"
-          aria-label="Change to grid view"
-          :aria-pressed="isGridView"
-          @click="isGridView = true"
-        />
-        <SfIcon
-          class="navbar__view-icon"
-          :color="!isGridView ? '#1D1F22' : '#BEBFC4'"
-          icon="list"
-          size="2rem"
-          role="button"
-          aria-label="Change to list view"
-          :aria-pressed="!isGridView"
-          @click="isGridView = false"
-        />
-      </div>
       <SfSidebar
         title="Filters"
         :visible="isFilterSidebarOpen"

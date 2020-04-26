@@ -33,8 +33,4 @@ export default {
 
 <style lang="scss" scoped>
 @import '../settings.scss';
-
-.cms-block-default {
-  @include desktop-size;
-}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-default-section">
+  <div class="sw-default-section" :style="getBackgroundColor">
     <CmsGenericBlock
       v-for="cmsBlock in getBlocks"
       :key="cmsBlock.id"
@@ -25,6 +25,9 @@ export default {
   computed: {
     getBlocks() {
       return this.content.blocks || []
+    },
+    getBackgroundColor() {
+      return "background-color:" + this.content.backgroundColor;
     },
   },
 }

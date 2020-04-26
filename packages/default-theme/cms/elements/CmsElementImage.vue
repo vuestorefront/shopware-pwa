@@ -1,11 +1,20 @@
 <template>
-  <SfImage
-    :src="imgUrl"
-    :title="title"
-    :alt="alt"
-    :lazy="lazyLoad"
-    class="cms-element-image"
-  />
+  <div class="cms-element-image"
+      :style="getStyle">
+    <a :href="getLink" v-if="getLink !== null">
+      <img
+        :src="imgUrl"
+        :title="title"
+        :alt="alt"
+      />
+    </a>
+    <img
+      :src="imgUrl"
+      :title="title"
+      :alt="alt"
+      v-else
+    />
+  </div>
 </template>
 
 <script>
@@ -38,6 +47,12 @@ export default {
     lazyLoad() {
       return true
     },
+    getStyle() {
+      return "height: " + this.content.translated.config.minHeight.value
+    },
+    getLink() {
+      return this.content.translated.config.url && this.content.translated.config.url.value;
+    }
   },
 }
 </script>
@@ -45,8 +60,9 @@ export default {
 <style lang="scss" scoped>
 @import '../settings.scss';
 
-.cms-element-image {
-  --image-width: 100%;
+.cms-element-image img {
+  object-fit: cover !important;
+  height: 100%;
   width: 100%;
 }
 </style>

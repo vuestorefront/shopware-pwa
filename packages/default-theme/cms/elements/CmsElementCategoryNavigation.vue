@@ -1,5 +1,5 @@
 <template>
-  <div class="cms-element-category-navigation">
+  <div class="cms-element-category-navigation" v-if="false">
     <div class="cms-element-category-navigation__header">
       <SfHeading :level="3" :title="navTitle" />
     </div>

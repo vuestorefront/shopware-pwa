@@ -6,12 +6,10 @@
         :name="name"
         :reviews="reviews"
         :rating-average="ratingAverage"
-        :special="getSpecialPrice | price"
         :price="getPrice | price"
       />
     </div>
-    <p class="product-details__description desktop-only">
-      {{ description }}
+    <p class="product-details__description desktop-only" v-html="description">
     </p>
     <!-- <div class="product-details__action">
       <button v-if="sizes.length > 0" class="sf-action">Size guide</button>
@@ -49,8 +47,7 @@
     <SwProductTabs>
       <SfTab title="Description">
         <div>
-          <p>
-            {{ description }}
+          <p v-html="description">
           </p>
         </div>
       </SfTab>
@@ -155,18 +152,7 @@ export default {
   },
   computed: {
     getPrice() {
-      // remove that logic once the SW6 API returns right data
-      // related: https://github.com/DivanteLtd/shopware-pwa/issues/263
-      const regularPrice = getProductRegularPrice({ product: this.product })
-      const specialPrice = getProductSpecialPrice(this.product)
-      return regularPrice > specialPrice ? regularPrice : specialPrice
-    },
-    getSpecialPrice() {
-      // remove that logic once the SW6 API returns right data
-      // related: https://github.com/DivanteLtd/shopware-pwa/issues/263
-      const regularPrice = getProductRegularPrice({ product: this.product })
-      const specialPrice = getProductSpecialPrice(this.product)
-      return regularPrice > specialPrice ? specialPrice : regularPrice
+      return this.product.calculatedPrice.totalPrice
     },
     name() {
       return (
@@ -380,5 +366,9 @@ export default {
   @include for-desktop {
     --button-font-size: var(--font-base);
   }
+}
+
+.sf-image--has-size img {
+    top: 45% !important;
 }
 </style>

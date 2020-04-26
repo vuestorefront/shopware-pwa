@@ -167,12 +167,12 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
     padding: var(--spacer-xs);
 
     @include for-phone {
-      flex: $col-prod-3;
+      flex: $col-prod-2;
       padding: var(--spacer-xs);
     }
 
     @include for-tablet-small {
-      flex: $col-prod-3;
+      flex: $col-prod-2;
       padding: var(--spacer-xs);
     }
 

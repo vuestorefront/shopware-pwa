@@ -29,7 +29,7 @@ export default {
 @import '../settings.scss';
 
 .cms-element-text {
-  @include desktop-size;
+  // @include desktop-size;
   padding: var(--spacer-xl);
 }
 </style>

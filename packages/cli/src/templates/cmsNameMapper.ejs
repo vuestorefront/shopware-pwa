@@ -8,12 +8,14 @@ const componentsMap = {
 import cmsMap from "sw-cms/cmsMap.json"
 
 function loadComponent(path) {
+  console.log(path);
   if (componentsMap[path]) return componentsMap[path]
   return () =>
     import(`sw-cms/CmsNoComponent`)
 }
 
 function resolveComponent(blockType, contentType) {
+  console.log(cmsMap)
   return loadComponent(`sw-cms/${blockType}/${cmsMap[blockType][contentType]}`)
 }
 
