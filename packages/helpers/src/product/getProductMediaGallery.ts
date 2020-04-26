@@ -1,5 +1,5 @@
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { UiMediaGalleryItem } from "@shopware-pwa/helpers";
+import { UiMediaGalleryItem } from "../ui-interfaces";
 
 /**
  * @alpha
