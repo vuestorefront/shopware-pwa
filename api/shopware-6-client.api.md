@@ -64,7 +64,7 @@ export interface ClientSettings {
 // @beta (undocumented)
 export const config: ClientSettings;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface ConfigChangedArgs {
     // (undocumented)
     config: ClientSettings;
@@ -207,8 +207,6 @@ export function login({ username, password, }?: {
 // @beta
 export function logout(): Promise<void>;
 
-// Warning: (ae-incompatible-release-tags) The symbol "onConfigChange" is marked as @beta, but its signature references "ConfigChangedArgs" which is marked as @alpha
-//
 // @beta (undocumented)
 export function onConfigChange(fn: (context: ConfigChangedArgs) => void): void;
 

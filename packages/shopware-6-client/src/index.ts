@@ -34,7 +34,7 @@ export function update(config: ClientSettings = {}): void {
 }
 
 /**
- * @alpha
+ * @beta
  */
 export interface ConfigChangedArgs {
   config: ClientSettings;

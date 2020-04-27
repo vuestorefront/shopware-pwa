@@ -22,6 +22,7 @@
 |  Interface | Description |
 |  --- | --- |
 |  [ClientSettings](./shopware-6-client.clientsettings.md) | <b><i>(BETA)</i></b> |
+|  [ConfigChangedArgs](./shopware-6-client.configchangedargs.md) | <b><i>(BETA)</i></b> |
 
 ## Variables
 
