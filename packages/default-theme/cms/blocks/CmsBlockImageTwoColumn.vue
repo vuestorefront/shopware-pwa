@@ -50,24 +50,39 @@ export default {
 
 .cms-block-image-two-column {
   overflow: hidden;
-  display: flex;
+  display: block;
+  margin: 0 -20px;
 
   &__image {
-  	flex: 0 0 50%;
-    max-width: 50%;
-  	padding-left: 20px;
-  	padding-right: 20px;
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: 10px 0;
+
+    &:first-child {
+      margin-top: -10px;
+      padding-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: -10px;
+      padding-bottom: 0;
+    }
   }
 }
 
-@media (max-width: 700px) {
+@media screen and (min-width: 768px) {
   .cms-block-image-two-column {
-    display: block;
+    display: flex;
 
     &__image {
-      max-width: 100%;
+      flex: 0 0 50%;
+      max-width: 50%;
+      padding: 0 20px;
 
-      padding: 0; 
+      &:first-child,
+      &:last-child {
+        margin: 0;
+      }
     }
   }
 }

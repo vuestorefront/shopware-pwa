@@ -55,50 +55,6 @@ export default {
 <style lang="scss" scoped>
 @import '../settings.scss';
 
-// additional screen variables
-$desktop-big: 1200px;
-$desktop: 1024px;
-$desktop-small: 900px;
-$tablet: 768px;
-$tablet-small: 600px;
-$phone: 480px;
-
-@mixin for-desktop-big {
-  @media screen and (min-width: $desktop-big) {
-    @content;
-  }
-}
-
-@mixin for-desktop {
-  @media screen and (min-width: $desktop) {
-    @content;
-  }
-}
-
-@mixin for-desktop-small {
-  @media screen and (min-width: $desktop-small) {
-    @content;
-  }
-}
-
-@mixin for-tablet {
-  @media screen and (min-width: $tablet) {
-    @content;
-  }
-}
-
-@mixin for-tablet-small {
-  @media screen and (min-width: $tablet-small) {
-    @content;
-  }
-}
-
-@mixin for-phone {
-  @media screen and (min-width: $phone) {
-    @content;
-  }
-}
-
 .cms-block-image-three-column {
   overflow: hidden;
   display: block;
@@ -121,7 +77,7 @@ $phone: 480px;
   }
 }
 
-@include for-tablet {
+@media screen and (min-width: 768px) {
   .cms-block-image-three-column {
     display: flex;
 
