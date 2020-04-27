@@ -24,10 +24,6 @@ export default {
       type: String,
       default: '',
     },
-    selected: {
-      type: String,
-      default: '',
-    },
     label: {
       type: String,
       default: '',

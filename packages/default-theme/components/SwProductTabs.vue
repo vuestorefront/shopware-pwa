@@ -12,8 +12,8 @@
         <SfTab title="Properties">
           <div class="product-details__properties">
             <SfProperty
-              v-for="(property, i) in properties"
-              :key="i"
+              v-for="property in properties"
+              :key="property.id"
               :name="property.name"
               :value="property.value"
               class="product-details__product-property"
