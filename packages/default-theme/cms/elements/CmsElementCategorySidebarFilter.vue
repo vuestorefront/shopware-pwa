@@ -69,7 +69,7 @@
         <div class="filters">
           <div v-for="filter in filters" :key="filter.name">
             <SfHeading class="filters__title" :level="4" :title="filter.name" />
-            <div v-if="filter && filter.options && filter.options.length">
+            <div v-if="filter && filter.options && filter.options.length" :class="{'filters__filter--color': filter && filter.name && filter.name === 'color'}">
               <SfFilter
                 v-for="option in filter.options"
                 :key="option.value"
@@ -83,6 +83,7 @@
                   )
                 "
                 class="filters__item"
+                :class="{'filters__item--color': option.color}"
                 @change.native="
                   toggleFilter({
                     type: 'equals',
@@ -348,10 +349,17 @@ export default {
       margin: 0 0 var(--spacer-base) 0;
     }
   }
+  &__filter {
+    &--color {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
   &__item {
     padding: var(--spacer-2xs) 0;
     &--color {
-      margin: 0 var(--spacer-xs);
+      width: auto;
+      margin: var(--spacer-xs) var(--spacer-xs) var(--spacer-xs) 0;
     }
   }
   &__buttons {
