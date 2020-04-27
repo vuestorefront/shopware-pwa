@@ -4,9 +4,7 @@
       <slot>
         <SfTab title="Description">
           <div>
-            <p>
-              {{ description }}
-            </p>
+            <p v-html="description"></p>
           </div>
         </SfTab>
         <SfTab title="Properties">
