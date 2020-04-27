@@ -9,11 +9,10 @@ describe("ContextService - getAvailableCurrencies", () => {
     jest.resetAllMocks();
   });
   it("should return array with currencies", async () => {
-    mockedAxios.get.mockResolvedValueOnce({ data: { total: 2 } });
-
+    mockedAxios.get.mockResolvedValueOnce({ data: { data: [{ iso: "EUR" }] } });
     const result = await getAvailableCurrencies();
     expect(mockedAxios.get).toBeCalledTimes(1);
     expect(mockedAxios.get).toBeCalledWith("/currency");
-    expect(result.total).toEqual(2);
+    expect(result).toEqual([{ iso: "EUR" }]);
   });
 });

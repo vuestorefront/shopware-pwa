@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "default": "CmsSectionDefault",
+    "sidebar": "CmsSectionSidebar"
+  },
+  "blocks": {
+    "text-on-image": "CmsBlockTextOnImage",
+    "sidebar-filter": "CmsBlockDefault",
+    "product-listing": "CmsBlockDefault",
+    "image-text": "CmsBlockTextOnImage",
+    "image": "CmsBlockDefault",
+    "image-cover": "CmsBlockImageCover",
+    "category-navigation": "CmsBlockCategoryNavigation",
+    "image-bubble-row": "CmsBlockImageBubbleRow"
+  },
+  "elements": {
+    "product-box": "CmsElementProductCard",
+    "product-slider": "CmsElementProductSlider",
+    "image": "CmsElementImage",
+    "text": "CmsElementText",
+    "vimeo-video": "CmsElementVideoVimeo",
+    "youtube-video": "CmsElementVideoYoutube",
+    "product-listing": "CmsElementProductListing",
+    "category-navigation": "CmsElementCategoryNavigation",
+    "sidebar-filter": "CmsElementCategorySidebarFilter"
+  }
+}

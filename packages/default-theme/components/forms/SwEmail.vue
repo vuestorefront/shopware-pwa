@@ -3,7 +3,7 @@
     <slot :user="user">
       <slot name="message">
         <p class="message">
-          Remember to keep your email up to date in case of loosing password.
+          Remember to keep your email up to date in case of losing password.
         </p>
       </slot>
       <SfAlert
@@ -19,7 +19,7 @@
           <SfInput
             v-model="email"
             :valid="!$v.email.$error"
-            error-message="Email cannnot be empty"
+            error-message="Email cannot be empty"
             type="email"
             name="email"
             label="Your new e-mail"
@@ -125,10 +125,9 @@ export default {
 
 .sw-email {
   &__alert {
-    margin-bottom: var(--spacer-big);
+    margin-bottom: var(--spacer-base);
   }
 }
-
 .form {
   @include for-desktop {
     display: flex;
@@ -136,43 +135,20 @@ export default {
     align-items: center;
   }
   &__element {
-    margin-bottom: var(--spacer-extra-big);
+    margin: 0 0 var(--spacer-lg) 0;
     @include for-desktop {
       flex: 0 0 100%;
     }
-    &--half {
-      @include for-desktop {
-        flex: 1 1 50%;
-      }
-      &-even {
-        @include for-desktop {
-          padding-left: var(--spacer-extra-big);
-        }
-      }
-    }
   }
   &__button {
-    width: 100%;
+    --button-width: 100%;
     @include for-desktop {
-      width: auto;
+      --button-width: auto;
     }
   }
 }
-
 .message {
-  line-height: 1.6;
-  font-family: var(--body-font-family-primary);
-  margin: 0 0 var(--spacer-extra-big) 0;
-  font-size: var(--font-size-regular-mobile);
-  @include for-desktop {
-    font-size: var(--font-size-regular-desktop);
-  }
-  &__label {
-    font-weight: 400;
-  }
-
-  &--second {
-    padding: 4rem;
-  }
+  margin: 0 0 var(--spacer-xl) 0;
+  color: var(--c-dark-variant);
 }
 </style>

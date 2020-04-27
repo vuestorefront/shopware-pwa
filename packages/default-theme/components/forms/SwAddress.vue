@@ -296,7 +296,7 @@ export default {
     align-items: center;
   }
   &__element {
-    margin-bottom: var(--spacer-extra-big);
+    margin-bottom: var(--spacer-xl);
     @include for-desktop {
       flex: 0 0 100%;
     }
@@ -306,7 +306,7 @@ export default {
       }
       &-even {
         @include for-desktop {
-          padding-left: var(--spacer-extra-big);
+          padding-left: var(--spacer-xl);
         }
       }
     }
@@ -322,7 +322,7 @@ export default {
       width: auto;
     }
     &--back {
-      margin-left: var(--spacer-big);
+      margin-left: var(--spacer-base);
     }
   }
 }

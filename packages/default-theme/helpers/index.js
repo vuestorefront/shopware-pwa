@@ -11,6 +11,22 @@ const formatPrice = (
     formatWithSymbol: true,
   }
 ) => currency(price, options).format()
+
+const defaultFormatPriceOptions = {
+  pattern: `# !`,
+  separator: ` `,
+  decimal: `,`,
+  symbol: `€`,
+  formatWithSymbol: true,
+}
+
+export function formatPrice(price, options) {
+  return currency(
+    price,
+    Object.assign(defaultFormatPriceOptions, options)
+  ).format()
+}
+
 const formatDate = (date, format = `DD-MM-YYYY H:m:s`) =>
   dayjs(date).format(format)
 

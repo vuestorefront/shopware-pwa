@@ -1,5 +1,16 @@
 <template>
   <div class="top-navigation">
+    <SfTopBar class="top-bar">
+      <template #right>
+        <SwCurrency class="sf-header__currency" />
+        <!-- TODO Implement SfLanguageSelector -->
+        <div class="top-bar__location-label">Location:</div>
+        <SfImage
+          :src="require('@shopware-pwa/default-theme/assets/flag.png')"
+          alt="flag of the USA"
+        />
+      </template>
+    </SfTopBar>
     <SfHeader
       title="Shopware-PWA"
       :has-mobile-search="false"
@@ -23,49 +34,54 @@
           <nuxt-link class="sf-header__link" :to="path(category)">
             {{ category.name }}
           </nuxt-link>
-          <SwMegaMenu :category="category" :hoveredItem="hoveredNavigationItem" v-if="category.children.length"/>
+          <SwMegaMenu
+            :category="category"
+            :hoveredItem="hoveredNavigationItem"
+            v-if="category.children.length"
+          />
         </SfHeaderNavigationItem>
       </template>
       <template #search>
         <SfSearchBar
           placeholder="Search for products"
-          class="sf-header__search"
+          aria-label="Search for products"
+          class="sf-header__search desktop-only"
           @enter="fulltextSearch"
         />
       </template>
       <template #header-icons="{accountIcon, cartIcon}">
         <div class="sf-header__icons desktop-only">
           <div class="sf-header__icons">
-            <SfCircleIcon
+            <SfIcon
               v-if="accountIcon"
               :icon="accountIcon"
-              icon-size="1.25rem"
-              class="sf-header__circle-icon"
+              class="sf-header__icon"
               :class="{
-                'sf-header__circle-icon--is-active':
-                  activeIcon === 'account-icon'
+                'sf-header__icon--is-active': activeIcon === 'account-icon',
               }"
               role="button"
-              aria-label="account-icon"
+              aria-label="Go to My Account"
               :aria-pressed="activeIcon === 'account-icon' ? 'true' : 'false'"
               :has-badge="isLoggedIn"
               @click="userIconClick"
             />
-            <SfCircleIcon
+            <SfIcon
               v-if="cartIcon"
               :icon="cartIcon"
               :has-badge="count > 0"
               :badge-label="count.toString()"
-              icon-size="1.25rem"
-              class="sf-header__circle-icon"
+              class="sf-header__icon"
               :class="{
-                'sf-header__circle-icon--is-active': activeIcon === 'cart-icon'
+                'sf-header__icon--is-active': activeIcon === 'cart-icon',
               }"
               role="button"
-              aria-label="cart-icon"
+              aria-label="Go to cart"
               :aria-pressed="activeIcon === 'cart-icon' ? 'true' : 'false'"
               @click="toggleSidebar"
             />
+            <!-- TODO - SfBadge will appear with the next StorefrontUI version 
+            https://github.com/DivanteLtd/storefront-ui/issues/870 
+            -->
           </div>
         </div>
       </template>
@@ -75,30 +91,47 @@
 </template>
 
 <script>
-import { SfHeader, SfCircleIcon, SfImage, SfSearchBar } from '@storefront-ui/vue'
+import {
+  SfHeader,
+  SfIcon,
+  SfImage,
+  SfTopBar,
+  SfSearchBar,
+} from '@storefront-ui/vue'
 import {
   useUser,
   useCart,
   useCartSidebar,
   useUserLoginModal,
   useNavigation,
-  useProductSearch
+  useProductSearch,
 } from '@shopware-pwa/composables'
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
-import { ref, reactive, onMounted } from "@vue/composition-api";
+import { ref, reactive, onMounted } from '@vue/composition-api'
 import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
 import helpers from '@shopware-pwa/default-theme/helpers'
 
 export default {
-  components: { SfHeader, SfCircleIcon, SwLoginModal, SfImage, SfSearchBar, SwMegaMenu },
+  components: {
+    SfHeader,
+    SfCircleIcon,
+    SwLoginModal,
+    SfImage,
+    SfSearchBar,
+    SwMegaMenu,
+  },
   setup() {
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
     const { toggleSidebar } = useCartSidebar()
     const { toggleModal } = useUserLoginModal()
     const { search: fulltextSearch } = useProductSearch()
-    const {hoveredNavigationItem, getNavigationElements, navigationElements} = useNavigation()
+    const {
+      hoveredNavigationItem,
+      getNavigationElements,
+      navigationElements,
+    } = useNavigation()
 
     function setHoverNavigationItem(itemName) {
       hoveredNavigationItem.value = itemName
@@ -115,14 +148,14 @@ export default {
       hoveredNavigationItem,
       setHoverNavigationItem,
       path: helpers.getCategoryRoutePath,
-      getNavigationElements
+      getNavigationElements,
     }
   },
   data() {
     return {
       activeSidebar: 'account',
       activeIcon: '',
-      isModalOpen: false
+      isModalOpen: false,
     }
   },
   async mounted() {
@@ -132,9 +165,8 @@ export default {
     userIconClick() {
       if (this.isLoggedIn) this.$router.push(PAGE_ACCOUNT)
       else this.toggleModal()
-    }
+    },
   },
-
 }
 </script>
 
@@ -142,39 +174,60 @@ export default {
 @import '~@storefront-ui/vue/styles.scss';
 
 .top-navigation {
-  margin-bottom: var(--spacer-medium);
+  --search-bar-width: 100%;
+  --header-container-padding: 0 var(--spacer-base);
+  margin-bottom: var(--spacer-sm);
+  .sf-header {
+    padding: 0 var(--spacer-sm);
+    &__currency {
+      position: relative;
+      margin: 0 var(--spacer-base) 0 var(--spacer-base);
+      --select-padding: var(--spacer-xs);
+      --select-dropdown-z-index: 2;
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        background-color: white;
+        width: 20px;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        padding: var(--spacer-2xs);
+        left: 50%;
+        height: 20px;
+      }
+    }
+    &__header {
+      padding-left: var(--spacer-sm);
+    }
+    &__icon {
+      --icon-size: 1.25rem;
+    }
+  }
   @include for-desktop {
-
     .sf-header {
       display: flex;
       justify-content: space-between;
-
       &__sticky-container {
         width: 100%;
       }
-
-      &__container {
-        @include for-desktop {
-          padding: 0px;
-        }
-      }
-
       &__navigation {
         flex: 1;
       }
-
       &__link {
         display: flex;
       }
     }
   }
+}
+.top-bar {
+  padding: 0 var(--spacer-sm);
 
-  .sf-image img {
-    height: 2rem;
-    width: 2.1rem;
+  &__location-label {
+    margin: 0 var(--spacer-sm) 0 0;
   }
 }
-
 .sf-header__logo {
   height: 2rem;
 }

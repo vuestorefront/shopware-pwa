@@ -1,5 +1,5 @@
 <template>
-  <div id="checkout">
+  <div id="checkout" :key="$route.fullPath">
     <div class="checkout">
       <div class="checkout__main">
         <SfSteps :active="currentStep" @change="nextStep($event)">
@@ -27,15 +27,16 @@
         </SfSteps>
       </div>
       <div class="checkout__aside desktop-only">
-        <button @click="nextStep()">next</button>
         <transition name="fade">
           <SidebarOrderSummary
             v-if="currentStep < CHECKOUT_STEPS.REVIEW"
             key="order-summary"
+            class="checkout__aside-order"
           />
           <SidebarOrderReview
             v-else
             key="order-review"
+            class="checkout__aside-order"
             @click:edit="nextStep($event)"
           />
         </transition>
@@ -101,26 +102,34 @@ export default {
 @import '~@storefront-ui/vue/styles';
 
 #checkout {
-  box-sizing: border-box;
-  padding: 0 var(--spacer-big);
   @include for-desktop {
-    max-width: 1240px;
-    padding: var(--spacer-extra-big);
+    max-width: 1272px;
+    margin: 0 auto;
+    padding: 0 var(--spacer-base);
   }
 }
 .checkout {
+  --steps-content-padding: 0 var(--spacer-sm);
   @include for-desktop {
+    --steps-content-padding: 0;
     display: flex;
   }
   &__main {
     @include for-desktop {
       flex: 1;
+      padding: var(--spacer-lg) 0 0 0;
     }
   }
   &__aside {
     @include for-desktop {
-      flex: 0 0 25.5rem;
-      margin-left: 4.25rem;
+      flex: 0 0 26.8125rem;
+      margin: 0 0 0 var(--spacer-xl);
+    }
+    &-order {
+      width: 100%;
+      box-shadow: 0px 4px 11px rgba(var(--c-dark-base), 0.1);
+      background: var(--c-light);
+      padding: var(--spacer-xl) calc(var(--spacer-lg) * 2);
     }
   }
 }
