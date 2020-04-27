@@ -1,0 +1,8 @@
+@import '~@storefront-ui/vue/styles.scss';
+
+@mixin desktop-size {
+  @include for-desktop {
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+}

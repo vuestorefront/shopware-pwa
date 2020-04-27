@@ -5,8 +5,9 @@
 ```ts
 
 import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
-import { CmsSlot } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { BillingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
+import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { CustomerAddressParam } from '@shopware-pwa/shopware-6-client';
@@ -21,6 +22,7 @@ import { Product } from '@shopware-pwa/commons/interfaces/models/content/product
 import { Ref } from '@vue/composition-api';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
+import { ShippingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 
 // @alpha (undocumented)
@@ -105,8 +107,10 @@ export const useCartSidebar: () => any;
 // @alpha (undocumented)
 export const useCategoryFilters: () => any;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UseCheckout {
+    // (undocumented)
+    billingAddress: Readonly<Ref<BillingAddress | undefined>>;
     // (undocumented)
     createOrder: () => Promise<Order>;
     // (undocumented)
@@ -121,6 +125,10 @@ export interface UseCheckout {
     guestOrderParams: Ref<Readonly<Partial<GuestOrderParams | null>>>;
     // (undocumented)
     isGuestOrder: Readonly<Ref<boolean>>;
+    // (undocumented)
+    shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
+    // (undocumented)
+    updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
 }
 
 // @alpha (undocumented)
@@ -145,17 +153,23 @@ export interface UseCountries {
 export const useCountries: () => UseCountries;
 
 // @alpha (undocumented)
-export interface UseImageProps {
+export interface UseCurrency {
     // (undocumented)
-    getAlt: Ref<Readonly<any>>;
+    availableCurrencies: Readonly<Ref<readonly Currency[]>>;
     // (undocumented)
-    getImgUrl: Ref<Readonly<any>>;
+    currency: Readonly<Ref<Currency | null>>;
     // (undocumented)
-    getTitle: Ref<Readonly<any>>;
+    currencySymbol: Ref<Readonly<string>>;
+    // (undocumented)
+    loadAvailableCurrencies: (options?: {
+        forceReload: boolean;
+    }) => Promise<void>;
+    // (undocumented)
+    setCurrency: (parameter: Partial<Currency>) => Promise<void>;
 }
 
 // @alpha (undocumented)
-export const useImageProps: (content: CmsSlot | undefined) => UseImageProps;
+export const useCurrency: () => UseCurrency;
 
 // @alpha (undocumented)
 export const useNavigation: () => any;
@@ -221,13 +235,17 @@ export const useSalutations: () => UseSalutations;
 // @alpha
 export interface UseSessionContext {
     // (undocumented)
+    currency: Readonly<Ref<Currency | null>>;
+    // (undocumented)
     refreshSessionContext: () => Promise<void>;
     // (undocumented)
     sessionContext: Readonly<Ref<SessionContext | null>>;
     // (undocumented)
+    setCurrency: (currency: Partial<Currency>) => Promise<void>;
+    // (undocumented)
     setShippingMethod: (shippingMethod: Partial<ShippingMethod>) => Promise<void>;
     // (undocumented)
-    shippingMethod: Readonly<Ref<ShippingMethod>>;
+    shippingMethod: Readonly<Ref<ShippingMethod | null>>;
 }
 
 // @alpha (undocumented)

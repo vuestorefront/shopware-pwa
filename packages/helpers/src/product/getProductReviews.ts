@@ -1,5 +1,5 @@
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { UiProductReview } from "@shopware-pwa/helpers";
+import { UiProductReview } from "../ui-interfaces";
 
 /**
  * @alpha

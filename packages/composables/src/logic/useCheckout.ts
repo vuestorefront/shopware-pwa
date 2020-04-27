@@ -1,9 +1,13 @@
 import Vue from "vue";
-import { Ref, computed } from "@vue/composition-api";
+import { Ref, computed, reactive } from "@vue/composition-api";
 import { useUser, useCart } from "@shopware-pwa/composables";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
-import { GuestOrderParams } from "@shopware-pwa/commons/interfaces/request/GuestOrderParams";
+import {
+  GuestOrderParams,
+  ShippingAddress,
+  BillingAddress,
+} from "@shopware-pwa/commons/interfaces/request/GuestOrderParams";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import {
   getAvailableShippingMethods,
@@ -11,9 +15,10 @@ import {
   createGuestOrder,
   createOrder as createApiOrder,
 } from "@shopware-pwa/shopware-6-client";
+import { useSessionContext } from "./useSessionContext";
 
 /**
- * @alpha
+ * @beta
  */
 export interface UseCheckout {
   isGuestOrder: Readonly<Ref<boolean>>;
@@ -25,6 +30,9 @@ export interface UseCheckout {
     forceReload: boolean;
   }) => Promise<Readonly<Ref<readonly PaymentMethod[]>>>;
   createOrder: () => Promise<Order>;
+  updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
+  shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
+  billingAddress: Readonly<Ref<BillingAddress | undefined>>;
 }
 
 const orderData: {
@@ -43,12 +51,15 @@ const orderData: {
 export const useCheckout = (): UseCheckout => {
   const { isLoggedIn } = useUser();
   const { refreshCart } = useCart();
+  const { sessionContext } = useSessionContext();
+
   const shippingMethods: Readonly<Ref<readonly ShippingMethod[]>> = computed(
     () => orderData.shippingMethods
   );
   const paymentMethods: Readonly<Ref<readonly PaymentMethod[]>> = computed(
     () => orderData.paymentMethods
   );
+  const localOrderData = reactive(orderData);
 
   const getShippingMethods = async (
     { forceReload } = { forceReload: false }
@@ -89,10 +100,21 @@ export const useCheckout = (): UseCheckout => {
   };
   const isGuestOrder = computed(() => !isLoggedIn.value);
 
-  const guestOrderParams = computed({
-    get: () => orderData.guestOrderParams,
-    set: (val) => (orderData.guestOrderParams = val),
-  });
+  const guestOrderParams = computed(() => localOrderData.guestOrderParams);
+  const updateGuestOrderParams = (params: Partial<GuestOrderParams>): void => {
+    orderData.guestOrderParams = { ...orderData.guestOrderParams, ...params };
+  };
+
+  const shippingAddress = computed(() =>
+    isGuestOrder.value
+      ? guestOrderParams.value.shippingAddress
+      : sessionContext.value?.shippingLocation?.address
+  );
+  const billingAddress = computed(() =>
+    isGuestOrder.value
+      ? guestOrderParams.value.billingAddress
+      : sessionContext.value?.customer?.activeBillingAddress
+  );
 
   return {
     isGuestOrder,
@@ -100,5 +122,8 @@ export const useCheckout = (): UseCheckout => {
     getShippingMethods,
     createOrder,
     guestOrderParams,
+    updateGuestOrderParams,
+    shippingAddress,
+    billingAddress,
   };
 };

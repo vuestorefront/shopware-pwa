@@ -33,7 +33,13 @@ export interface CategoryFilterTermValue {
   extensions: any;
 }
 
-interface Filter {
+/**
+ * @alpha
+ */
+export interface Filter {
+  /**
+   * @alpha
+   */
   [filterCode: string]: {
     type: UiCategoryFilterType;
     name: string;

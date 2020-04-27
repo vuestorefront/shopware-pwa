@@ -38,10 +38,10 @@ export async function register(
 }
 
 /**
- * Get the context token for current user
+ * Login user to shopware instance.
  *
  * @throws ClientApiError
- * @alpha
+ * @beta
  */
 export async function login({
   username,
@@ -60,10 +60,10 @@ export async function login({
 }
 
 /**
- * End up the session
+ * End up the user session.
  *
  * @throws ClientApiError
- * @alpha
+ * @beta
  */
 export async function logout(): Promise<void> {
   await apiService.post(getCustomerLogoutEndpoint());
@@ -73,7 +73,7 @@ export async function logout(): Promise<void> {
  * Get customer's object
  *
  * @throws ClientApiError
- * @alpha
+ * @beta
  */
 export async function getCustomer(): Promise<Customer | null> {
   try {
@@ -89,7 +89,7 @@ export async function getCustomer(): Promise<Customer | null> {
  * Get all customer's addresses
  *
  * @throws ClientApiError
- * @alpha
+ * @beta
  */
 export async function getCustomerAddresses(): Promise<CustomerAddress[]> {
   const resp = await apiService.get(getCustomerAddressEndpoint());
@@ -100,7 +100,7 @@ export async function getCustomerAddresses(): Promise<CustomerAddress[]> {
  * Get all customer's orders
  *
  * @throws ClientApiError
- * @alpha
+ * @beta
  */
 export async function getCustomerOrders(): Promise<Order[]> {
   const resp = await apiService.get(getCustomerOrderEndpoint());
