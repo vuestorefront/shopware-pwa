@@ -55,25 +55,85 @@ export default {
 <style lang="scss" scoped>
 @import '../settings.scss';
 
-.cms-block-image-three-column {
-  overflow: hidden;
-  display: flex;
+// additional screen variables
+$desktop-big: 1200px;
+$desktop: 1024px;
+$desktop-small: 900px;
+$tablet: 768px;
+$tablet-small: 600px;
+$phone: 480px;
 
-  &__image {
-  	flex: 0 0 33.3333333333%;
-    max-width: 33.3333333333%;
-  	padding-left: 20px;
-  	padding-right: 20px;
+@mixin for-desktop-big {
+  @media screen and (min-width: $desktop-big) {
+    @content;
   }
 }
 
-@media (max-width: 700px) {
+@mixin for-desktop {
+  @media screen and (min-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin for-desktop-small {
+  @media screen and (min-width: $desktop-small) {
+    @content;
+  }
+}
+
+@mixin for-tablet {
+  @media screen and (min-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin for-tablet-small {
+  @media screen and (min-width: $tablet-small) {
+    @content;
+  }
+}
+
+@mixin for-phone {
+  @media screen and (min-width: $phone) {
+    @content;
+  }
+}
+
+.cms-block-image-three-column {
+  overflow: hidden;
+  display: block;
+  margin: 0 -20px;
+
+  &__image {
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: 10px 0;
+
+    &:first-child {
+      margin-top: -10px;
+      padding-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: -10px;
+      padding-bottom: 0;
+    }
+  }
+}
+
+@include for-tablet {
   .cms-block-image-three-column {
-    display: block;
+    display: flex;
 
     &__image {
-      max-width: 100%;
-      padding: 0; 
+      flex: 0 0 33.3333333333%;
+      max-width: 33.3333333333%;
+      padding: 0 20px;
+
+      &:first-child,
+      &:last-child {
+        margin: 0;
+      }
     }
   }
 }
