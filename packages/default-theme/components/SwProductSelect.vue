@@ -3,16 +3,14 @@
     <SfSelect
       v-if="options.length"
       v-model="selectedOption"
-      :selected="selected"
       :label="label"
-      class="sf-select--bordered product-details__attribute"
-      @change="changeHandler(label, selectedOption)"
+      class="sf-select--underlined product-details__attribute"
+      @change="$emit('change', selectedOption)"
     >
       <SfSelectOption
         v-for="option in options"
         :key="option.code"
         :value="option.code"
-       
       >
       <slot v-bind="option">
         <SfProductOption :label="option.label" :color="label=='color' ? option.label : null" />
@@ -32,13 +30,9 @@ export default {
     event: 'select'
   },
   props: {
-    changeHandler: {
-      type: Function,
-      default: () => {}
-    },
-    selected: {
+    value: {
       type: String,
-      default: ''
+      default: ""
     },
     options: {
       type: Array,
@@ -51,7 +45,7 @@ export default {
   },
   data() {
     return {
-      selectedOption: this.selected
+      selectedOption: this.value
     }
   }
 }

@@ -176,60 +176,50 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-
-.title {
-  margin-bottom: var(--spacer-xl);
-}
 .form {
+  &__group {
+    display: flex;
+    align-items: center;
+  }
+  &__action-button {
+    &:first-child {
+      --button-height: 4.0625rem;
+      margin: var(--spacer-sm) 0 0 0;
+    }
+    &--secondary {
+      margin: var(--spacer-base) 0;
+    }
+  }
+  &__button {
+    --button-width: 100%;
+  }
+  &__radio-group {
+    flex: 0 0 100%;
+  }
   @include for-desktop {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-  }
-  &__element {
-    margin-bottom: var(--spacer-xl);
-    @include for-desktop {
-      flex: 0 0 100%;
+    margin: 0 var(--spacer-2xl) 0 0;
+    &:last-of-type {
+      margin: 0 calc(var(--spacer-2xl) - var(--spacer-sm)) 0 0;
     }
-    &--half {
-      @include for-desktop {
+    &__element {
+      margin: 0 0 var(--spacer-sm) 0;
+      flex: 0 0 100%;
+      &--half {
         flex: 1 1 50%;
-      }
-      &-even {
-        @include for-desktop {
-          padding-left: var(--spacer-xl);
+        &-even {
+          padding: 0 0 0 var(--spacer-xl);
         }
       }
     }
-  }
-  &__action {
-    @include for-desktop {
+    &__action {
       flex: 0 0 100%;
       display: flex;
     }
-  }
-  &__action-button {
-    flex: 1;
-    &--secondary {
-      margin: var(--spacer-base) 0;
-      @include for-desktop {
-        order: -1;
-        margin: 0;
-        text-align: left;
-      }
-    }
-  }
-  &__select {
-    // todo: remove after SfSelect refactoring
-    ::v-deep .sf-select__selected {
-      padding: 5px 0;
-    }
-  }
-  &__radio {
-    margin-bottom: 0;
-    &-group {
-      flex: 0 0 100%;
-      margin: 0 0 var(--spacer-xl) 0;
+    &__button {
+      --button-width: auto;
     }
   }
 }

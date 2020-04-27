@@ -141,7 +141,7 @@ export default {
     align-items: center;
   }
   &__element {
-    margin-bottom: var(--spacer-xl);
+    margin: 0 0 var(--spacer-lg) 0;
     @include for-desktop {
       flex: 0 0 100%;
     }
@@ -151,32 +151,25 @@ export default {
       }
       &-even {
         @include for-desktop {
-          padding-left: var(--spacer-xl);
+          padding: 0 0 0 var(--spacer-lg);
         }
       }
     }
   }
   &__button {
-    width: 100%;
+    --button-width: 100%;
     @include for-desktop {
-      width: auto;
+      --button-width: auto;
     }
   }
 }
 
 .message {
-  line-height: 1.6;
-  font-weight: var(--font-light);
-  font-family: var(--font-family-primary);
   margin: 0 0 var(--spacer-xl) 0;
-  font-size: var(--font-sm);
-  @include for-desktop {
-    font-size: var(--font-base);
-  }
+  color: var(--c-dark-variant);
   &__label {
     font-weight: 400;
   }
-
   &--second {
     padding: 4rem;
   }

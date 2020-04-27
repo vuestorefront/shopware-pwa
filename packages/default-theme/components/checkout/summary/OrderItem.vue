@@ -3,12 +3,12 @@
     <SfTableData class="table__image">
       <SfImage :src="product.cover.url" />
     </SfTableData>
-    <SfTableData class="table__data table__data--left">
+    <SfTableData class="table__description">
       <div class="product-title">{{ product.label }}</div>
       <div class="product-sku">{{ product.productNumber }}</div>
     </SfTableData>
     <SfTableData class="table__data table__quantity">
-      <SfQuantitySelector v-model="quantity">{{
+      <SfQuantitySelector class="sf-quantity-selector--secondary" v-model="quantity">{{
         product.quantity
       }}</SfQuantitySelector>
     </SfTableData>
@@ -16,16 +16,6 @@
       <SfPrice
         :regular="product.price.totalPrice | price"
         class="product-price"
-      />
-    </SfTableData>
-    <SfTableData class="table__action">
-      <SfIcon
-        icon="cross"
-        size="xxs"
-        color="#BEBFC4"
-        role="button"
-        class="button"
-        @click="removeProduct(product)"
       />
     </SfTableData>
   </SfTableRow>
@@ -39,7 +29,7 @@ import {
   SfImage,
   SfIcon,
   SfPrice,
-  SfQuantitySelector
+  SfQuantitySelector,
 } from '@storefront-ui/vue'
 
 export default {
@@ -50,27 +40,27 @@ export default {
     SfImage,
     SfIcon,
     SfPrice,
-    SfQuantitySelector
+    SfQuantitySelector,
   },
   props: {
     product: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   setup(props) {
     const { removeProduct, changeProductQuantity } = useCart()
 
     const quantity = ref(props.product.quantity)
-    watch(quantity, async qty => {
+    watch(quantity, async (qty) => {
       if (qty === props.product.quantity) return
       await changeProductQuantity({ id: props.product.id, quantity: qty })
     })
     return {
       removeProduct,
-      quantity
+      quantity,
     }
-  }
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -78,5 +68,24 @@ export default {
 
 .sf-image {
   max-width: 80%;
+}
+.table {
+  &__description {
+    text-align: left;
+    flex: 0 0 20rem;
+  }
+  &__data {
+    text-align: center;
+    &:last-of-type {
+      text-align: right;
+    }
+  }
+  &__quantity {
+    & > * {
+    --quantity-selector-width: 6rem;
+    --quantity-selector-border-width: 0;
+
+    }
+  }
 }
 </style>

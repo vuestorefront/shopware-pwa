@@ -1,34 +1,37 @@
 <template>
   <div>
     <SfHeading
-      title="4. Order review"
+      title="4. Order details"
+      :level="2"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <SfAccordion first-open class="accordion mobile-only">
+    <SfAccordion open="Personal Details" class="accordion mobile-only">
       <SfAccordionItem header="Personal Details">
         <PersonalDetailsSummary @click:edit="$emit('click:edit', 0)" />
       </SfAccordionItem>
       <SfAccordionItem header="Shipping address">
-        <ShippingAddressSummary
-          @click:edit="$emit('click:edit', 1)"
-        />
+        <ShippingAddressSummary @click:edit="$emit('click:edit', 1)" />
       </SfAccordionItem>
       <SfAccordionItem header="Billing address">
-        <BillingAddressSummary
-          @click:edit="$emit('click:edit', 2)"
-        />
+        <BillingAddressSummary @click:edit="$emit('click:edit', 2)" />
       </SfAccordionItem>
       <SfAccordionItem header="Payment method">
-        <PaymentMethodSummary
-          @click:edit="$emit('click:edit', 2)"
-        />
+        <PaymentMethodSummary @click:edit="$emit('click:edit', 2)" />
+      </SfAccordionItem>
+      <SfAccordionItem header="Order details">
+        <transition name="fade">
+          <div class="collected-product-list">
+            <SwCartProduct
+              v-for="(product, index) in cartItems"
+              :key="index"
+              :product="product"
+              v-model="product.qty"
+            />
+          </div>
+        </transition>
       </SfAccordionItem>
     </SfAccordion>
-    <OrderItemsTable />
-    <SfHeading
-      title="Order details"
-      class="sf-heading--left sf-heading--no-underline title"
-    />
+    <OrderItemsTable class="desktop-only" />
     <TotalsSummary
       @click:back="$emit('click:back')"
       @proceed="$emit('proceed')"
@@ -43,8 +46,10 @@ import BillingAddressSummary from '@shopware-pwa/default-theme/components/checko
 import PaymentMethodSummary from '@shopware-pwa/default-theme/components/checkout/summary/PaymentMethodSummary'
 import OrderItemsTable from '@shopware-pwa/default-theme/components/checkout/summary/OrderItemsTable'
 import TotalsSummary from '@shopware-pwa/default-theme/components/checkout/summary/TotalsSummary'
+import SwCartProduct from '@shopware-pwa/default-theme/components/SwCartProduct'
 
 import { SfHeading, SfAccordion } from '@storefront-ui/vue'
+import { useCart } from '@shopware-pwa/composables'
 
 export default {
   name: 'OrderReviewStep',
@@ -57,9 +62,11 @@ export default {
     PaymentMethodSummary,
     OrderItemsTable,
     TotalsSummary,
+    SwCartProduct
   },
   setup() {
-    return {}
+    const { cartItems, removeProduct } = useCart()
+    return { cartItems, removeProduct }
   },
   computed: {
     shipping() {
@@ -81,25 +88,38 @@ export default {
 @import '~@storefront-ui/vue/styles';
 
 .title {
-  margin-bottom: var(--spacer-xl);
+  --heading-padding: var(--spacer-base) 0;
+  @include for-desktop {
+    --heading-title-font-size: var(--h3-font-size);
+    --heading-padding: var(--spacer-2xl) 0 var(--spacer-base) 0;
+  }
 }
-
 .accordion {
-  margin: 0 0 var(--spacer-xl) 0;
+  --accordion-item-content-padding: 0;
+  --collected-product-padding: 0;
+  --heading-padding: 0;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
   &__item {
-    display: flex;
-    align-items: flex-start;
+    position: relative;
   }
   &__content {
     flex: 1;
+    padding: var(--spacer-sm);
   }
   &__edit {
     flex: unset;
+    position: absolute;
+    right: var(--spacer-base);
+    top: var(--spacer-base);
   }
 }
-
-.button {
-  cursor: pointer;
+.collected-product-list {
+  padding: 0 var(--spacer-sm);
 }
 .property {
   margin: 0 0 var(--spacer-xs) 0;
@@ -120,25 +140,6 @@ export default {
   }
   &__label {
     font-weight: 400;
-  }
-}
-/* TABLE */
-.product-title,
-.product-sku {
-  line-height: 1.6;
-}
-
-.product-sku {
-  color: var(--c-text-muted);
-  font-size: var(--font-xs);
-}
-.product-price {
-  display: flex;
-  flex-direction: column;
-  font-size: var(--font-sm);
-  ::v-deep .sf-price__special {
-    order: 1;
-    color: var(--c-text);
   }
 }
 </style>

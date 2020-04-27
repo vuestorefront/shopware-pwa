@@ -1,43 +1,55 @@
 <template>
   <div id="login" :key="$route.fullPath">
-    <SwLogin class="login__component" @success="redirectToMyAccount"/>
+    <SfHeading
+      class="login__header desktop-only"
+      :level="3"
+      title="Log in"
+    />
+    <SwLogin class="login__component" @success="redirectToMyAccount" />
   </div>
 </template>
 <script>
-import SwLogin from "@shopware-pwa/default-theme/components/SwLogin"
+import { SfHeading } from '@storefront-ui/vue'
+
+import SwLogin from '@shopware-pwa/default-theme/components/SwLogin'
 import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
-import authMiddleware from "@shopware-pwa/default-theme/middleware/auth"
+import authMiddleware from '@shopware-pwa/default-theme/middleware/auth'
 
 export default {
   name: 'Login',
   components: {
-    SwLogin
+    SwLogin,
+    SfHeading,
   },
   middleware: authMiddleware,
   data() {
-    return {
-    }
+    return {}
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     redirectToMyAccount() {
       this.$router.push(PAGE_ACCOUNT)
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
 #login {
-  width: 100%;
   height: 65vh;
   margin-bottom: 10vh;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   display: flex;
+  padding: 0 var(--spacer-sm);
+  @include for-desktop {
+    justify-content: center;
+  }
   .login__component {
-    width: 50%;
+    width: 100%;
+    @include for-desktop {
+      max-width: 450px;
+    }
   }
 }
 </style>
