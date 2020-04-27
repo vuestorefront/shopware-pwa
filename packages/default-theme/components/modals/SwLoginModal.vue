@@ -173,10 +173,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  // padding-tops: var(--spacer-xl);
   &__heading {
     --heading-title-color: var(--c-primary);
-    // margin-bottom: var(--spacer-sm);
     padding: var(--spacer-sm) 0;
   }
   &:last-child {
