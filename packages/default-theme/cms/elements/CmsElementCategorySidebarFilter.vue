@@ -69,7 +69,7 @@
         <div class="filters">
           <div v-for="filter in filters" :key="filter.name">
             <SfHeading class="filters__title" :level="4" :title="filter.name" />
-            <div v-if="filter && filter.options && filter.options.length" :class="{'filters__filter--color': filter && filter.name && filter.name === 'color'}">
+            <div v-if="filter && filter.options && filter.options.length" :class="{'filters__filter--color': filter.name && filter.name === 'color'}">
               <SfFilter
                 v-for="option in filter.options"
                 :key="option.value"
