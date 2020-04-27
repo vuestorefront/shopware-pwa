@@ -1,6 +1,6 @@
 <template>
   <div id="sw-login-modal">
-    <SfModal :visible="isModalOpen" @close="toggleModal">
+    <SfModal title="Log in" :visible="isModalOpen" @close="toggleModal">
       <transition name="fade" mode="out-in">
         <div class="sw-login-modal__wrapper">
           <component :is="component" :key="key" @success="toggleModal" />
@@ -15,9 +15,13 @@
 
           <div class="bottom">
             <template v-if="component !== 'SwRegister'">
-              Don't have and account yet?
+              <SfHeading
+                title="Don't have an account yet?"
+                :level="4"
+                class="bottom__heading"
+              />
               <SfButton
-                class="sf-button--text"
+                class="sf-button--text bottom__element"
                 @click="component = 'SwRegister'"
               >
                 Register today?
@@ -39,31 +43,34 @@
 </template>
 
 <script>
-import { SfButton, SfModal, SfAlert } from '@storefront-ui/vue'
+import { SfButton, SfHeading, SfModal, SfAlert } from '@storefront-ui/vue'
 import { useUser, useUserLoginModal } from '@shopware-pwa/composables'
 import SwLogin from '@shopware-pwa/default-theme/components/SwLogin'
-const SwRegister = () => import('@shopware-pwa/default-theme/components/SwRegister')
-const SwResetPassword = () => import('@shopware-pwa/default-theme/components/SwResetPassword')
+const SwRegister = () =>
+  import('@shopware-pwa/default-theme/components/SwRegister')
+const SwResetPassword = () =>
+  import('@shopware-pwa/default-theme/components/SwResetPassword')
 
 export default {
   name: 'SwLoginModal',
   components: {
     SfAlert,
     SfButton,
+    SfHeading,
     SfModal,
     SwLogin,
     SwRegister,
-    SwResetPassword
+    SwResetPassword,
   },
   props: {
     onClose: {
       type: Function,
-      default: undefined
+      default: undefined,
     },
     onSuccess: {
       type: Function,
-      default: undefined
-    }
+      default: undefined,
+    },
   },
   setup() {
     const { login, loading, error } = useUser()
@@ -74,13 +81,13 @@ export default {
       isLoading: loading,
       toggleModal,
       isModalOpen,
-      error
+      error,
     }
   },
   data() {
     return {
       key: 'modal-opened',
-      component: 'SwLogin'
+      component: 'SwLogin',
     }
   },
   watch: {
@@ -93,22 +100,20 @@ export default {
           return
         }
         this.key = 'modal-opened'
-      }
-    }
+      },
+    },
   },
   methods: {
     closeHandler() {
       ;(typeof this.onClose !== 'undefined' && this.onClose()) ||
         this.isModalOpen()
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
-
-
 
 #sw-login-modal {
   box-sizing: border-box;
@@ -145,11 +150,17 @@ export default {
 }
 
 .bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding-top: var(--spacer-xl);
-  margin-top: var(--spacer-xl);
-  border-top: 1px solid var(--c-light);
-  line-height: 1.6;
-  text-align: center;
+  &__heading {
+    --heading-title-color: var(--c-primary);
+    margin-bottom: var(--spacer-sm);
+  }
+  &:last-child {
+   padding-bottom: var(--spacer-lg);
+  }
 }
 
 .sf-button--muted {
