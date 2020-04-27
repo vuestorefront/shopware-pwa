@@ -124,7 +124,7 @@ describe("Composables - useUser", () => {
         expect(error.value).toEqual(undefined);
       });
 
-      it("should login user succesfully", async () => {
+      it("should login user successfully", async () => {
         mockedApiClient.login.mockResolvedValueOnce({
           "sw-context-token": "qweqwe",
         } as any);
@@ -143,17 +143,17 @@ describe("Composables - useUser", () => {
     describe("register", () => {
       it("should not invoke user register without any data", async () => {
         mockedApiClient.register.mockRejectedValueOnce(
-          new Error("Provide requested informations to create user account")
+          new Error("Provide requested information to create user account")
         );
         const { isLoggedIn, error, register } = useUser();
         const result = await register(undefined as any);
         expect(result).toEqual(false);
         expect(isLoggedIn.value).toBeFalsy();
         expect(error.value).toEqual(
-          "Provide requested informations to create user account"
+          "Provide requested information to create user account"
         );
       });
-      it("should register user succesfully", async () => {
+      it("should register user successfully", async () => {
         mockedApiClient.register.mockResolvedValueOnce({ data: "mockedData" });
         const { error, register } = useUser();
         const result = await register({
@@ -409,7 +409,7 @@ describe("Composables - useUser", () => {
       it("should return false when address type is unknown", async () => {
         const { markAddressAsDefault } = useUser();
         const response = await markAddressAsDefault({
-          type: "uknown",
+          type: "unknown",
           addressId: "someId",
         } as any);
         expect(response).toBe(false);
@@ -418,7 +418,7 @@ describe("Composables - useUser", () => {
       it("should return false and set the error.value on api-client rejection", async () => {
         mockedApiClient.setDefaultCustomerShippingAddress.mockRejectedValueOnce(
           {
-            message: "Error occured",
+            message: "Error occurred",
           }
         );
         const { markAddressAsDefault, error } = useUser();
@@ -431,7 +431,7 @@ describe("Composables - useUser", () => {
         ).toBeCalledTimes(1);
 
         expect(response).toBe(false);
-        expect(error.value).toBe("Error occured");
+        expect(error.value).toBe("Error occurred");
       });
     });
     describe("updatePersonalInfo", () => {

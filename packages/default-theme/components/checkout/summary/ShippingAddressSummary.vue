@@ -1,6 +1,7 @@
 <template>
-  <div class="accordion__item">
-    <div class="accordion__content" v-if="shippingMethod">
+  <div class="review__item">
+    <div class="review__content" v-if="shippingMethod">
+      <h4 class="review__title">Shipping details</h4>
       <p class="content">
         <span class="content__label">{{ shippingMethod.name }}</span>
         <span class="content__label">{{
@@ -17,7 +18,7 @@
       </p>
     </div>
     <SfButton
-      class="sf-button--text accordion__edit"
+      class="sf-button--text review__edit"
       @click="$emit('click:edit', 1)"
       >Edit</SfButton
     >
@@ -44,4 +45,28 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
+.review {
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacer-base);
+    padding: var(--spacer-sm);
+    @include for-desktop {
+      padding: 0;
+    }
+  }
+  &__title {
+    font-size: var(--font-sm);
+    margin-bottom: var(--spacer-sm);
+    color: var(--c-text);
+  }
+  &__content {
+    font-size: var(--font-xs);
+  }
+}
+.content {
+  margin: 0;
+  color: var(--c-text-muted);
+}
 </style>

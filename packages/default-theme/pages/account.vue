@@ -3,6 +3,7 @@
     <SfContentPages
       title="My account"
       :active="activePage"
+      class="my-account__content"
       @click:change="updateActivePage"
     >
       <SfContentCategory title="Personal Details">
@@ -25,7 +26,7 @@
   </div>
 </template>
 <script>
-import { SfContentPages, SfTabs, SfList } from '@storefront-ui/vue'
+import { SfContentPages, SfTabs } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 import { PAGE_LOGIN } from '@shopware-pwa/default-theme/helpers/pages'
 
@@ -36,7 +37,6 @@ export default {
   components: {
     SfContentPages,
     SfTabs,
-    SfList
   },
   middleware: authMiddleware,
   setup() {
@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       activePage: 'My profile',
-      allAddresses: []
+      allAddresses: [],
     }
   },
   computed: {
@@ -55,7 +55,7 @@ export default {
     },
     activeShippingAddress() {
       return (this.user && this.user && this.user.activeShippingAddress) || {}
-    }
+    },
   },
   mounted() {
     this.updateActivePage(this.activePage)
@@ -65,7 +65,7 @@ export default {
       if (to.name === 'account-profile') {
         this.activePage = 'My profile'
       }
-    }
+    },
   },
   methods: {
     async updateActivePage(title) {
@@ -85,10 +85,31 @@ export default {
           break
       }
       this.activePage = title
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
+
+.my-account {
+  @include for-desktop {
+    max-width: 1272px;
+    margin: 0 auto;
+    padding: 0 var(--spacer-sm);
+  }
+  &__content {
+    @include for-mobile {
+      --content-pages-sidebar-category-title-font-weight: var(--font-normal);
+      --content-pages-sidebar-category-title-margin: var(--spacer-sm)
+        var(--spacer-sm) var(--spacer-sm) var(--spacer-base);
+    }
+    @include for-desktop {
+      --content-pages-sidebar-category-title-margin: var(--spacer-xl) 0 0 0;
+      --content-pages-sidebar-padding: var(--spacer-xl);
+      --content-pages-content-padding: var(--spacer-xl);
+      --content-pages-sidebar-title-font-weight: var(--font-normal);
+    }
+  }
+}
 </style>

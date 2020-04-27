@@ -1,13 +1,14 @@
 <template>
-  <div class="accordion__item">
-    <div class="accordion__content">
+  <div class="review__item">
+    <div class="review__content">
+      <h4 class="review__title desktop-only">Personal details</h4>
       <p class="content">{{ firstName }} {{ lastName }}<br /></p>
       <p class="content">
         {{ email }}
       </p>
     </div>
     <SfButton
-      class="sf-button--text accordion__edit"
+      class="sf-button--text review__edit"
       @click="$emit('click:edit', CHECKOUT_STEPS.PERSONAL_DETAILS)"
       >Edit</SfButton
     >
@@ -47,4 +48,28 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
+.review {
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacer-base);
+    padding: var(--spacer-sm);
+    @include for-desktop {
+      padding: 0;
+    }
+  }
+  &__title {
+    font-size: var(--font-sm);
+    margin-bottom: var(--spacer-sm);
+    color: var(--c-text);
+  }
+  &__content {
+    font-size: var(--font-xs);
+  }
+}
+.content {
+  margin: 0;
+  color: var(--c-text-muted);
+}
 </style>

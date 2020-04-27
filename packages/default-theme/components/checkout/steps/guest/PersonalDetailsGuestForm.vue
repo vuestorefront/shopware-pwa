@@ -1,5 +1,17 @@
 <template>
   <div class="sw-checkout__personal_info">
+    <div class="log-in desktop-only">
+      <SfButton
+        @click="toggleLoginModal()"
+        class="log-in__button color-secondary"
+        >Log in to your account</SfButton
+      >
+      <p class="log-in__info">or fill the details below:</p>
+    </div>
+    <SfHeading
+      title="1. Personal details"
+      class="sf-heading--left sf-heading--no-underline title"
+    />
     <SfAlert
       v-for="(message, index) in useUserErrorMessages"
       :key="index"
@@ -31,7 +43,7 @@
         :valid="!validations.firstName.$error"
         error-message="First name is required"
         name="firstName"
-        class="form__element form__element--names"
+        class="form__element form__element--half"
         required
       />
       <SfInput
@@ -40,7 +52,7 @@
         :valid="!validations.lastName.$error"
         error-message="last name is required"
         name="lastName"
-        class="form__element form__element--names form__element--names-even"
+        class="form__element form__element--half form__element--half-even"
       />
       <SfInput
         v-model="email"
@@ -50,17 +62,25 @@
         name="email"
         class="form__element"
       />
-      <div class="form__element form__group">
-        <SfCheckbox
-          v-model="createAccount"
-          name="createAccount"
-          label="I want to create an account"
-          class="form__checkbox"
+      <div class="info">
+        <p class="info__heading">
+          Enjoy these perks with your free account!
+        </p>
+        <SfCharacteristic
+          v-for="(characteristic, key) in characteristics"
+          :key="key"
+          :description="characteristic.description"
+          :icon="characteristic.icon"
+          size-icon="0.75rem"
+          class="info__characteristic"
         />
-        <SfButton class="sf-button--text info" @click="accountBenefits = true"
-          >+info</SfButton
-        >
       </div>
+      <SfCheckbox
+        v-model="createAccount"
+        name="createAccount"
+        label="I want to create an account"
+        class="form__checkbox"
+      />
       <transition name="fade">
         <SfInput
           v-if="createAccount"
@@ -80,40 +100,18 @@
       </transition>
       <div class="form__action">
         <SfButton
-          class="sf-button--full-width form__action-button"
-          @click="toShipping"
+          class="sf-button--full-width  form__action-button form__action-button--secondary color-secondary desktop-only"
+          >Go Back to shop</SfButton
+        >
+        <SfButton class="sf-button--full-width form__action-button" @click="toShipping"
           >Continue to shipping</SfButton
         >
         <SfButton
-          @click="toggleLoginModal()"
-          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary"
-          >or log in to your account</SfButton
+          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only"
+          >Go back to shop</SfButton
         >
       </div>
     </div>
-    <SfModal
-      :visible="accountBenefits"
-      class="modal"
-      @close="accountBenefits = false"
-    >
-      <SfHeading
-        title="Account Benefits"
-        subtitle="Enjoy these perks with your free account!"
-        class="sf-heading--left sf-heading--no-underline modal__heading"
-      />
-      <SfCharacteristic
-        v-for="(characteristic, key) in characteristics"
-        :key="key"
-        :description="characteristic.description"
-        :icon="characteristic.icon"
-        class="characteristic"
-      />
-      <SfButton
-        class="sf-button--full-width color-secondary modal__button"
-        @click="accountBenefits = false"
-        >Ok</SfButton
-      >
-    </SfModal>
     <SwLoginModal
       :is-open="isLoginModalOpen"
       @close="isLoginModalOpen = false"
@@ -202,7 +200,7 @@ export default {
   },
   setup() {
     const { toggleModal: toggleLoginModal } = useUserLoginModal()
-    
+
     const {
       validations,
       setValidations,
@@ -347,76 +345,98 @@ export default {
     }
   }
 }
-
+.log-in {
+  &__info {
+    margin: var(--spacer-lg) 0;
+    color: var(--c-dark-variant);
+    font: var(--font-light) var(--font-base) / 1.6 var(--font-family-primary);
+    @include for-desktop {
+      font-weight: var(--font-normal);
+      font-size: var(--font-sm);
+    }
+  }
+  &__button {
+    margin: var(--spacer-2xl) 0 var(--spacer-xl) 0;
+    --button-font-weight: var(--font-normal);
+  }
+}
 .title {
-  margin-bottom: var(--spacer-xl);
+  --heading-padding: var(--spacer-base) 0;
+  @include for-desktop {
+    --heading-title-font-size: var(--h3-font-size);
+    --heading-padding: 0 0 var(--spacer-xl) 0;
+  }
 }
 .form {
+  &__checkbox {
+    margin: var(--spacer-base) 0 var(--spacer-xl) 0;
+  }
+  &__action {
+    flex: 0 0 100%;
+    margin: var(--spacer-base) 0 0 0;
+  }
+  &__action-button {
+    --button-height: 3.25rem;
+  }
+  @include for-mobile {
+    &__checkbox {
+      --checkbox-font-family: var(--font-family-primary);
+      --checkbox-font-weight: var(--font-light);
+      --checkbox-font-size: var(--font-sm);
+    }
+  }
   @include for-desktop {
+    margin: 0 var(--spacer-2xl) 0 0;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-  }
-  &__element {
-    margin-bottom: var(--spacer-xl);
-    @include for-desktop {
-      flex: 0 0 100%;
+    &__action {
+      display: flex;
     }
-    &--salutation {
-      @include for-desktop {
+    &__action-button {
+      &:first-child {
+        margin: 0 var(--spacer-lg) 0 0;
+      }
+    }
+    &__element {
+      margin: 0 0 var(--spacer-base) 0;
+      flex: 0 0 100%;
+      &--salutation {
         flex: 1 1 25%;
         padding-right: var(--spacer-xl);
       }
-    }
-    &--names {
-      @include for-desktop {
-        flex: 1 1 30%;
-      }
-      &-even {
-        @include for-desktop {
-          padding-left: var(--spacer-xl);
+      &--half {
+        flex: 1 1 50%;
+        &-even {
+          padding: 0 0 0 var(--spacer-lg);
         }
-      }
-    }
-  }
-  &__group {
-    display: flex;
-    align-items: center;
-  }
-  &__action {
-    @include for-desktop {
-      flex: 0 0 100%;
-      display: flex;
-    }
-  }
-  &__action-button {
-    flex: 1;
-    &--secondary {
-      margin: var(--spacer-base) 0;
-      @include for-desktop {
-        margin: 0;
-        text-align: right;
       }
     }
   }
 }
 .info {
-  margin-left: var(--spacer-base);
-  color: var(--c-text-muted);
-  text-decoration: none;
-}
-.characteristic {
-  margin-bottom: var(--spacer-base);
-}
-.modal {
-  .modal {
-    &__heading {
-      margin-bottom: var(--spacer-xl);
-    }
+  margin: 0 0 var(--spacer-sm) 0;
+  &__heading {
+    font-family: var(--font-family-primary);
+    font-weight: var(--font-light);
   }
-  &__button {
-    display: block;
-    margin-top: var(--spacer-xl);
+  &__characteristic {
+    --characteristic-description-font-size: var(--font-xs);
+    margin: 0 0 var(--spacer-sm) var(--spacer-2xs);
+  }
+  @include for-desktop {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    &__heading {
+      margin: 0 0 var(--spacer-sm) 0;
+      font-size: var(--font-xs);
+      flex: 0 0 100%;
+    }
+    &__characteristic {
+      margin: var(--spacer-sm) 0 0 0;
+      flex: 0 0 50%;
+    }
   }
 }
 </style>

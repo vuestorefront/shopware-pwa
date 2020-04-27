@@ -23,7 +23,7 @@
             label="Salutation"
             :valid="!$v.salutation.$error"
             error-message="Salutation must be selected"
-            class="sf-select--underlined form__element form__element--half form__select"
+            class="sf-select--underlined form__element form__element--half form__element--half-even form__select"
           >
             <SfSelectOption
               v-for="salutationOption in getMappedSalutations"
@@ -40,7 +40,7 @@
             :selected="salutation"
             error-message="Title must be selected"
             label="Title"
-            class="form__element form__element--half form__element--half-even"
+            class="form__element form__element--half"
             @blur="$v.title.$touch()"
           />
           <SfInput
@@ -49,7 +49,7 @@
             error-message="First name is required"
             name="firstName"
             label="First Name"
-            class="form__element form__element--half"
+            class="form__element form__element--half form__element--half-even"
             @blur="$v.firstName.$touch()"
           />
           <SfInput
@@ -58,7 +58,7 @@
             error-message="Last name is required"
             name="lastName"
             label="Last Name"
-            class="form__element form__element--half form__element--half-even"
+            class="form__element form__element--half"
             @blur="$v.lastName.$touch()"
           />
           <SfButton
@@ -190,7 +190,10 @@ export default {
     align-items: center;
   }
   &__element {
-    margin-bottom: var(--spacer-xl);
+    margin: 0 0 var(--spacer-lg) 0;
+    &:first-child {
+      margin: 0 0 var(--spacer-base) 0;
+    }
     @include for-desktop {
       flex: 0 0 100%;
     }
@@ -200,34 +203,21 @@ export default {
       }
       &-even {
         @include for-desktop {
-          padding-left: var(--spacer-xl);
+          padding: 0 var(--spacer-lg) 0 0;
         }
       }
     }
   }
   &__button {
-    width: 100%;
+    --button-width: 100%;
     @include for-desktop {
-      width: auto;
-    }
-  }
-  &__select {
-    ::v-deep .sf-select__selected {
-      padding: 5px 0;
+      --button-width: auto;
     }
   }
 }
 
 .message {
-  line-height: 1.6;
-  font-family: var(--font-family-primary);
   margin: 0 0 var(--spacer-xl) 0;
-  font-size: var(--font-sm);
-  @include for-desktop {
-    font-size: var(--font-base);
-  }
-  &__label {
-    font-weight: 400;
-  }
+  color: var(--c-dark-variant);
 }
 </style>

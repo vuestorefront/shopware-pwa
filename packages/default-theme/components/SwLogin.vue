@@ -1,7 +1,6 @@
 <template>
   <div class="sw-login">
     <div class="form sw-login__form">
-      <SfHeading class="sw-login__header" :level="2" title="Log in"/>
       <SfAlert
         v-if="userError"
         class="sw-login__alert"
@@ -34,21 +33,21 @@
         :disabled="isLoading"
         @click="invokeLogin"
       >
-        Login
+        Log in
       </SfButton>
     </div>
   </div>
 </template>
 
 <script>
-import { SfInput, SfButton, SfAlert, SfHeading } from '@storefront-ui/vue'
+import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { required, email } from 'vuelidate/lib/validators'
 import { useUser } from '@shopware-pwa/composables'
 
 export default {
   name: 'SwLogin',
-  components: { SfButton, SfInput, SfAlert, SfHeading },
+  components: { SfButton, SfInput, SfAlert },
   mixins: [validationMixin],
   data() {
     return {
@@ -96,14 +95,11 @@ export default {
   &__alert {
     margin-bottom: var(--spacer-base);
   }
-  &__header {
-    margin-bottom: var(--spacer-base);
-  }
 }
 
 .form {
   &__input {
-    margin-bottom: var(--spacer-xl);
+    margin: var(--spacer-base) 0;
   }
   &__checkbox {
     margin-bottom: var(--spacer-base);

@@ -28,7 +28,7 @@ You may want to read:
 
 ## Branches
 
-For all of the codebase changes please create a new branch. Its name should fit into this template: `<task type eg. feat, fix, chore>/<package eg. cli, client, theme, if there is a global task this part can be ommited>/<short task description is written in kebab-case>-<issue number (also optional)>` `, here are some examples:
+For all of the codebase changes please create a new branch. Its name should fit into this template: `<task type eg. feat, fix, chore>/<package eg. cli, client, theme, if there is a global task this part can be omitted>/<short task description is written in kebab-case>-<issue number (also optional)>` `, here are some examples:
 
 - `feat/theme/add-carousel-to-product-details`
 - `chore/update-project-dependencies`
