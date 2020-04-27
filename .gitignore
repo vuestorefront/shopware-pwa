@@ -10,6 +10,7 @@ explorations
 TODOs.md
 docs/*
 !docs/roadmap.md
+!docs/readme.md
 !docs/assets
 .history
 
