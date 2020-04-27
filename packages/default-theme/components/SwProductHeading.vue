@@ -3,7 +3,7 @@
     <slot name="heading" v-bind="name">
       <SfHeading
         :title="name"
-        :level="1"
+        :level="3"
         class="sf-heading--no-underline sf-heading--left"
       />
     </slot>
@@ -70,24 +70,22 @@ export default {
     align-items: center;
   }
   &__sub-price {
-    --price-font-size: 1.5rem;
     flex-basis: 100%;
-    margin-top: calc(var(--spacer-base) / 4);
+    margin: var(--spacer-xs) 0;
     @include for-desktop {
       flex-basis: auto;
-      margin-top: calc(var(--spacer-base) / 2);
+      margin-top: var(--spacer-base);
     }
   }
   &__sub-rating {
     display: flex;
-    margin-top: calc(var(--spacer-base) / 2);
     @include for-desktop {
       margin-left: auto;
     }
   }
   &__sub-reviews {
     margin-left: 10px;
-    font-size: 0.75rem;
+    font-size: var(--font-xs);
   }
 }
 </style>
