@@ -55,7 +55,7 @@ jobs:
         with:
           preview_url: '${{ steps.deploy.outputs.preview_url }}'
           token: "${{ github.token }}"
-          namespace: 'shopware-pwa'
+          namespace: 'shopware-pwa-canary'
       - name: Update deployment status (success)
         if: success()
         uses: chrnorm/deployment-status@releases/v1
