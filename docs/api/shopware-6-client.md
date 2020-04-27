@@ -11,8 +11,8 @@
 |  [getCustomer()](./shopware-6-client.getcustomer.md) | <b><i>(BETA)</i></b> Get customer's object |
 |  [getCustomerAddresses()](./shopware-6-client.getcustomeraddresses.md) | <b><i>(BETA)</i></b> Get all customer's addresses |
 |  [getCustomerOrders()](./shopware-6-client.getcustomerorders.md) | <b><i>(BETA)</i></b> Get all customer's orders |
-|  [login({ username, password, })](./shopware-6-client.login.md) | <b><i>(BETA)</i></b> Get the context token for current user |
-|  [logout()](./shopware-6-client.logout.md) | <b><i>(BETA)</i></b> End up the session |
+|  [login({ username, password, })](./shopware-6-client.login.md) | <b><i>(BETA)</i></b> Login user to shopware instance. |
+|  [logout()](./shopware-6-client.logout.md) | <b><i>(BETA)</i></b> End up the user session. |
 |  [onConfigChange(fn)](./shopware-6-client.onconfigchange.md) | <b><i>(BETA)</i></b> |
 |  [setup(config)](./shopware-6-client.setup.md) | <b><i>(BETA)</i></b> Setup configuration. Merge default values with provided in param. This method will override existing config. For config update invoke \*\*update\*\* method. |
 |  [update(config)](./shopware-6-client.update.md) | <b><i>(BETA)</i></b> Update current configuration. This will change only provided values. |

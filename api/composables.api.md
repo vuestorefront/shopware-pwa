@@ -113,7 +113,7 @@ export interface UseCheckout {
     updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
 }
 
-// @beta (undocumented)
+// @alpha (undocumented)
 export const useCheckout: () => UseCheckout;
 
 // @alpha (undocumented)
