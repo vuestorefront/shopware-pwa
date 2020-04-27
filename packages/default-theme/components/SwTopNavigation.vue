@@ -1,5 +1,6 @@
 <template>
   <div class="top-navigation">
+    <SfOverlay :visible="!!hoveredNavigationItem" />
     <SfTopBar class="top-bar">
       <template #right>
         <SwCurrency class="sf-header__currency" />
@@ -93,10 +94,11 @@
 <script>
 import {
   SfHeader,
-  SfIcon,
+  SfCircleIcon,
   SfImage,
-  SfTopBar,
   SfSearchBar,
+  SfOverlay,
+  SfTopBar,
 } from '@storefront-ui/vue'
 import {
   useUser,
@@ -107,6 +109,7 @@ import {
   useProductSearch,
 } from '@shopware-pwa/composables'
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
+import SwCurrency from "@shopware-pwa/default-theme/components/SwCurrency"
 import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
 import { ref, reactive, onMounted } from '@vue/composition-api'
 import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
@@ -120,6 +123,9 @@ export default {
     SfImage,
     SfSearchBar,
     SwMegaMenu,
+    SfOverlay,
+    SfTopBar,
+    SwCurrency
   },
   setup() {
     const { isLoggedIn, logout } = useUser()
@@ -178,7 +184,7 @@ export default {
   --header-container-padding: 0 var(--spacer-base);
   margin-bottom: var(--spacer-sm);
   .sf-header {
-    padding: 0 var(--spacer-sm);
+    // padding: 0 var(--spacer-sm);
     &__currency {
       position: relative;
       margin: 0 var(--spacer-base) 0 var(--spacer-base);
@@ -223,7 +229,8 @@ export default {
 }
 .top-bar {
   padding: 0 var(--spacer-sm);
-
+  position: relative;
+  z-index: 1;
   &__location-label {
     margin: 0 var(--spacer-sm) 0 0;
   }
