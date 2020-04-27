@@ -1,5 +1,5 @@
 <template>
-  <SfAlert class="cms-no-component" type="danger">
+  <SfAlert v-if="false" class="cms-no-component" type="danger">
     <template #message>
       <span class="sf-alert__message">
         <b>
