@@ -128,7 +128,6 @@ export default {
     margin-bottom: var(--spacer-base);
   }
 }
-
 .form {
   @include for-desktop {
     display: flex;
@@ -136,43 +135,20 @@ export default {
     align-items: center;
   }
   &__element {
-    margin-bottom: var(--spacer-xl);
+    margin: 0 0 var(--spacer-lg) 0;
     @include for-desktop {
       flex: 0 0 100%;
     }
-    &--half {
-      @include for-desktop {
-        flex: 1 1 50%;
-      }
-      &-even {
-        @include for-desktop {
-          padding-left: var(--spacer-xl);
-        }
-      }
-    }
   }
   &__button {
-    width: 100%;
+    --button-width: 100%;
     @include for-desktop {
-      width: auto;
+      --button-width: auto;
     }
   }
 }
-
 .message {
-  line-height: 1.6;
-  font-family: var(--font-family-primary);
   margin: 0 0 var(--spacer-xl) 0;
-  font-size: var(--font-sm);
-  @include for-desktop {
-    font-size: var(--font-base);
-  }
-  &__label {
-    font-weight: 400;
-  }
-
-  &--second {
-    padding: 4rem;
-  }
+  color: var(--c-dark-variant);
 }
 </style>

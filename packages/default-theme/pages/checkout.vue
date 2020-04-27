@@ -102,7 +102,6 @@ export default {
 @import '~@storefront-ui/vue/styles';
 
 #checkout {
-  box-sizing: border-box;
   @include for-desktop {
     max-width: 1272px;
     margin: 0 auto;
@@ -127,7 +126,6 @@ export default {
       margin: 0 0 0 var(--spacer-xl);
     }
     &-order {
-      box-sizing: border-box;
       width: 100%;
       box-shadow: 0px 4px 11px rgba(var(--c-dark-base), 0.1);
       background: var(--c-light);
