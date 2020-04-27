@@ -48,7 +48,7 @@ jobs:
         uses: mkucmus/storefrontcloud-preview-deploy@master
         with:
           token: "${{ github.token }}"
-          namespace: "shopware-pwa"
+          namespace: "shopware-pwa-canary"
       - name: Comment PR
         if: success()
         uses: mkucmus/storefrontcloud-comment-pr-preview-deploy@master
