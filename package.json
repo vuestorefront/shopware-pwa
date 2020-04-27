@@ -25,7 +25,7 @@
     "test:cypress": "cypress run",
     "test:coverage": "yarn test --coverage",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "node scripts/generateDocs.js && vuepress build docs"
+    "docs:build": "vuepress build docs"
   },
   "husky": {
     "hooks": {
