@@ -28,4 +28,11 @@ export default {
 .cms-element-product-card {
   margin: 0 10px;
 }
+
+@media screen and (min-width: 1200px) {
+  .cms-element-product-card {
+    margin: 0 auto !important;
+    max-width: 15%;
+  }
+}
 </style>
