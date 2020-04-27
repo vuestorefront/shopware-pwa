@@ -1,3 +1,7 @@
+---
+sidebar: auto
+---
+
 # Troubleshooting
 
 ## Issues caused by incorrect configuration.

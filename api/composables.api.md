@@ -89,7 +89,7 @@ export const useCartSidebar: () => any;
 // @alpha (undocumented)
 export const useCategoryFilters: () => any;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UseCheckout {
     // (undocumented)
     billingAddress: Readonly<Ref<BillingAddress | undefined>>;

@@ -1,3 +1,7 @@
+---
+sidebar: auto
+---
+
 # Shopware PWA - Roadmap
 
 Very soon, we will put our roadmap in GitHub Milestones so you may use that to track the progress of the project. All the GitHub Milestones will be linked at the month / quarter chapters below.
