@@ -24,4 +24,8 @@ export default {
 
 <style lang="scss" scoped>
 @import '../settings.scss';
+
+.cms-element-product-card {
+  margin: 0 10px;
+}
 </style>
