@@ -6,7 +6,7 @@
         At Brand name, we attach great importance to privacy issues and are
         committed to protecting the personal data of our users. Learn more about
         how we care and use your personal data in the
-        <a href="">Privacy Policy.</a>
+        <a class="notice__link" href="">Privacy Policy.</a>
       </p>
     </SfTab>
     <SfTab title="Email change">
@@ -41,29 +41,27 @@ export default {
     SfButton,
     SwEmail,
     SwPassword,
-    SwPersonalInfo
+    SwPersonalInfo,
   },
   data() {
     return {}
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
 
-
 .notice {
-  font-family: var(--font-family-primary);
-  font-weight: var(--font-light);
-  line-height: 1.6;
+  max-width: 31rem;
   margin: var(--spacer-base) 0 0 0;
   font-size: var(--font-2xs);
-
-  @include for-desktop {
-    max-width: 70%;
-    margin: var(--spacer-xs) 0 0 0;
-    font-size: var(--font-xs);
+  &__link {
+    color: var(--c-primary);
+    text-decoration: none;
+    &:hover {
+      color: var(--c-text);
+    }
   }
 }
 </style>
