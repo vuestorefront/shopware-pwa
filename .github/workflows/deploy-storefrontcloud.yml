@@ -6,6 +6,8 @@ on:
   release:
     types: [published]
 env:
+  CANARY_SW6_INSTANCE: https://shopware6-demo.vuestorefront.io
+  CANARY_SW6_INSTANCE_TOKEN: SWSCA2RKNFHPANBSRWHOSKZXAG
   CANARY_URL: https://shopware-pwa-canary.storefrontcloud.io
   RELEASE_URL: https://shopware-pwa.storefrontcloud.io
   CANARY_INSTANCE: shopware-pwa-canary
@@ -25,11 +27,19 @@ jobs:
         run: |
           yarn
           yarn build --ci
-      - name: Create theme project
+      - name: Create theme project (release)
+        if: github.event_name == 'release'
         run: |
           mkdir test-project
           cd ./test-project
           ../packages/cli/bin/shopware-pwa init --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci
+          yarn build
+      - name: Create theme project (canary)
+        if: github.event_name == 'push'
+        run: |
+          mkdir test-project
+          cd ./test-project
+          ../packages/cli/bin/shopware-pwa init --shopwareEndpoint=${{ env.CANARY_SW6_INSTANCE }} --shopwareAccessToken=${{ env.CANARY_SW6_INSTANCE_TOKEN }} --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci
           yarn build
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@master
