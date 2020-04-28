@@ -36,6 +36,15 @@ module.exports = {
             ],
           },
           {
+            text: "CMS",
+            items: [
+              {
+                text: "Implementing CMS component",
+                link: "/guide/cms/implement-cms-component.html",
+              },
+            ],
+          },
+          {
             text: "Help",
             items: [
               {
