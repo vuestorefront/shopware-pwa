@@ -28,16 +28,6 @@
         <strong class="desktop-only">{{ productsTotal }}</strong>
         <span class="navbar__label mobile-only">{{ productsTotal }} Items</span>
       </div>
-      <SfSelect v-model="sortBy" class="sort-by sort-by--mobile mobile-only">
-        <SfSelectOption
-          v-for="(option, key) in sorting"
-          :key="key"
-          :value="option"
-          class="sort-by__option"
-        >
-          {{ getSortLabel(option) }}
-        </SfSelectOption>
-      </SfSelect>
       <div class="navbar__view">
         <span class="navbar__view-label desktop-only">View</span>
         <SfIcon
@@ -228,23 +218,13 @@ export default {
   position: relative;
   display: flex;
   width: 100%;
+  border-bottom: 1px solid var(--c-light);
+
   @include for-desktop {
     margin-top: 20px;
     border-top: 1px solid var(--c-light);
-    border-bottom: 1px solid var(--c-light);
   }
-  &::after {
-    position: absolute;
-    bottom: 0;
-    left: var(--spacer-base);
-    width: calc(100% - (var(--spacer-base) * -2));
-    height: 1px;
-    background-color: var(--c-light);
-    content: '';
-    @include for-desktop {
-      content: none;
-    }
-  }
+
   &__aside {
     display: flex;
     align-items: center;
@@ -256,7 +236,7 @@ export default {
     flex: 1;
     display: flex;
     align-items: center;
-    padding: var(--spacer-sm) 0;
+    padding: var(--spacer-sm);
     font-size: var(--font-sm);
     @include for-desktop {
       padding: var(--spacer-base) 0;
@@ -276,6 +256,9 @@ export default {
     color: inherit;
     font-size: inherit;
     font-weight: 500;
+    @include for-mobile {
+      order: 1;
+    }
     @include for-desktop {
       margin: 0 0 0 var(--spacer-xl);
       font-weight: 400;
@@ -313,20 +296,13 @@ export default {
     display: flex;
     align-items: center;
     margin: 0 var(--spacer-xl);
-    &-icon {
-      margin-left: 10px;
+    @include for-mobile {
+      margin: 0;
+      order: -1;
     }
   }
 }
 
-.section {
-  padding-left: var(--spacer-base);
-  padding-right: var(--spacer-base);
-  @include for-desktop {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
 .sort-by {
   flex: unset;
   width: 190px;

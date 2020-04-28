@@ -1,6 +1,6 @@
 <template>
   <div class="top-navigation">
-    <SfTopBar class="top-bar">
+    <SfTopBar class="top-bar desktop-only">
       <template #right>
         <SwCurrency class="sf-header__currency" />
         <!-- TODO Implement SfLanguageSelector -->
