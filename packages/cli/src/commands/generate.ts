@@ -100,12 +100,12 @@ module.exports = {
       await testPromise();
       // console.error("respo4", respo4.data);
     } catch (e) {
-      if (e?.response?.status === 401) {
+      if (e && e.response && e.response.status === 401) {
         error(
           `You provided bad cridentials for your shopware instance: ${inputParameters.shopwareEndpoint} - plugins will not be added`
         );
       } else {
-        console.error("UNEXPECTED ERROR", e?.response || e);
+        console.error("UNEXPECTED ERROR", e ? e.response : e);
       }
       return;
     }
