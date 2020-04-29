@@ -34,15 +34,16 @@ export default {
       return this.getSlots.find(({slot}) => slot === 'right')
     },
   },
+  mounted() {
+    console.log(this.content);
+  },
 };
 </script>
 
 <style lang="scss">
 @import '~@storefront-ui/vue/styles.scss';
-@import '../settings.scss';
 
 .cms-block-image-highlight-row {
-  @include desktop-size;
   display: flex;
   flex-direction: column;
 

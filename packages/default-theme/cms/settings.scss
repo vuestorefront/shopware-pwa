@@ -1,6 +1,6 @@
 @import '~@storefront-ui/vue/styles.scss';
 
-@mixin desktop-size {
+@mixin sizing-mode-boxed {
   @include for-desktop {
     max-width: 1320px;
     margin: 0 auto;

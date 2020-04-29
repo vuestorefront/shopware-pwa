@@ -39,10 +39,8 @@ export default {
 
 <style lang="scss">
 @import '~@storefront-ui/vue/styles.scss';
-@import '../settings.scss';
 
 .cms-block-image-three-cover {
-  @include desktop-size;
   display: flex;
   flex-direction: column;
 

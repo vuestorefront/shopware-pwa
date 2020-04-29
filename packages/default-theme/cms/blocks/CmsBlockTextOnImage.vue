@@ -34,7 +34,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
 
 .cms-block-text-on-image {
   &__content {
