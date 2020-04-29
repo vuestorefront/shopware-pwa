@@ -8,7 +8,7 @@ sidebar: auto
 This documentation does not explain how to create custom pages that contain static content or use non-cms related endpoints. You can follow the Nuxt.js documentation on [pages](https://nuxtjs.org/guide/views/#pages) as Shopware PWA is a Nuxt.js project.
 :::
 
-# Intro
+## Intro
 
 [[toc]]
 
@@ -16,8 +16,8 @@ During the implementation of shopware-pwa and even more during our constant exch
 
 In this guide I will assume you have a general knowledge of
 
- * Content management in Shopware 6 using Shopping Experiences
- * Setting up shopware-pwa
+- Content management in Shopware 6 using Shopping Experiences
+- Setting up shopware-pwa
 
 ## Structure
 
@@ -47,25 +47,25 @@ Let's go through these structural components step by step, before we discuss the
 
 A page serves as a wrapper and contains all content information as well as a `type` which denotes whether it serves as a
 
-* Category / Listing page
-* Shop page
-* Static page
+- Category / Listing page
+- Shop page
+- Static page
 
 ### Section
 
 Defines a horizontal container segment within your page which can be either:
 
-* Two-Columns which we refer to as `sidebar` and `content` or
-* A single column
+- Two-Columns which we refer to as `sidebar` and `content` or
+- A single column
 
 ### Block
 
 A block represent a unit spanning an entire row which can provide custom layout and stylings. For UI purposes blocks are clustered into categories such as:
 
-* Text
-* Images
-* Commerce
-* Video
+- Text
+- Images
+- Commerce
+- Video
 
 Each block can contain none up to multiple **slots**. To be more clear, I will use an example - take the following block:
 
@@ -118,23 +118,21 @@ Elements are the "primitives" in our tree hierarchical of structural components.
 
 Types of elements comprise
 
-* text
-* image
-* product-listing
-* video
-
+- text
+- image
+- product-listing
+- video
 
 ### Wrap-up
 
 Now that we have a proper understanding of all the components involved, we can look at the page shown before. I've used color coding to highlight the different types of components.
 
- * **Page** blue
- * **Section** yellow (*opposed to the horizontal one, the dotted vertical line indicates the column separation, not a separate section*)
- * **Block** green
- * **Element** purple
+- **Page** blue
+- **Section** yellow (_opposed to the horizontal one, the dotted vertical line indicates the column separation, not a separate section_)
+- **Block** green
+- **Element** purple
 
 ![Storefront](./../assets/storefront_structure.png)
-
 
 ## Implementation and Extension
 
@@ -146,7 +144,7 @@ The CMS implementation as well as the extension mechanism for it is part of the 
 
 ### Discovery
 
-> If you want to skip the internals, [go to "Adding blocks and elements"](#adding-blocks-and-elements)
+> If you want to skip the internals, [go to "Adding blocks and elements"](#implementing-cms-components)
 
 First, we switch into the default theme that comes with Shopware PWA.
 
@@ -255,14 +253,17 @@ For that reason, we introduced a generic element (namely `CmsGenericElement` in 
 <template>
   <div class="cms-block-image-bubble-row">
     <CmsGenericElement
-    	:content="getLeftContent"
-    	class="cms-block-image-bubble-row__image" />
+      :content="getLeftContent"
+      class="cms-block-image-bubble-row__image"
+    />
     <CmsGenericElement
-    	:content="getCenterContent"
-    	class="cms-block-image-bubble-row__image" />
+      :content="getCenterContent"
+      class="cms-block-image-bubble-row__image"
+    />
     <CmsGenericElement
-    	:content="getRightContent"
-    	class="cms-block-image-bubble-row__image" />
+      :content="getRightContent"
+      class="cms-block-image-bubble-row__image"
+    />
   </div>
 </template>
 ```
@@ -270,3 +271,156 @@ For that reason, we introduced a generic element (namely `CmsGenericElement` in 
 The identical pattern is applied to resolve the correct block types within cms sections and sections types within cms pages.
 
 This will have us set up for our custom implementation.
+
+## Implementing CMS components
+
+### How to contribute to CMS
+
+The structure is placed inside `cms` directory, and has `cmsMap.json` file inside and 3 subfolders:
+
+- elements
+- blocks
+- slots
+
+Playing with CMSes, you can see that in some cases components are not implemented
+
+![not implemented](./../assets/notImplemented.png)
+
+The message always contains a type of component, so you already know that `block` here is missing. We're not yet sure if should we add a new block or use the existing one. Let's go with that first and for `category-navigation` add config using already existing block.
+
+in `cmsMap.json` at the default-theme package, we're adding a new entry with an already existing block `CmsBlockDefault`
+
+```json{9}
+{
+  "sections": {
+    "default": "CmsSectionDefault",
+    "sidebar": "CmsSectionSidebar"
+  },
+  "blocks": {
+    "text-on-image": "CmsBlockTextOnImage",
+    "sidebar-filter": "CmsBlockDefault",
+    "category-navigation": "CmsBlockDefault"
+  },
+  "elements": {
+    "product-box": "CmsElementProductCard",
+    "product-slider": "CmsElementProductSlider",
+    "image": "CmsElementImage"
+  }
+}
+```
+
+and we see the result:
+
+![preview](./../assets/preview1.png)
+
+As we can see, our block should have some margins inside it. As we shouldn't modify `CmsBlockDefault` for that, because it may break other blocks, we create an individual block for `category-navigation`.
+
+### Creating new CMS component
+
+New CMS component should be placed in specific cms directory. As an example, we're creating a new block for type `category-navigation`.
+
+Block component name should start with `CmsBlock`. In our case, it will be `CmsBlockCategoryNavigation`.
+
+CMS component should contain:
+
+- root CSS class with a similar name to our component, in our example `cms-block-category-navigation`
+- component name property - same as file name
+- prop `content` with type Object and default property
+- computed values to easily display section/block/slot needs
+
+We should use generic components to display children:
+
+- in block components, we use `CmsGenericElement`
+- in section components, we use `CmsGenericBlock`
+
+so our example block component now looks like this
+
+```vue
+<template>
+  <CmsGenericElement
+    v-if="getContent"
+    :content="getContent"
+    class="cms-block-category-navigation"
+  />
+</template>
+
+<script>
+import CmsGenericElement from "sw-cms/CmsGenericElement";
+
+export default {
+  components: {
+    CmsGenericElement,
+  },
+  name: "CmsBlockCategoryNavigation",
+  props: {
+    content: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+  computed: {
+    getSlots() {
+      return this.content.slots || [];
+    },
+    getContent() {
+      return this.getSlots.length && this.getSlots[0];
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+@import "../settings.scss";
+
+.cms-block-category-navigation {
+  @include desktop-size;
+}
+</style>
+```
+
+and we're changing the mapping in `cmsMap.json` to a new component in `blocks` section
+
+```json{9}
+{
+  "sections": {
+    "default": "CmsSectionDefault",
+    "sidebar": "CmsSectionSidebar"
+  },
+  "blocks": {
+    "text-on-image": "CmsBlockTextOnImage",
+    "sidebar-filter": "CmsBlockDefault",
+    "category-navigation": "CmsBlockCategoryNavigation"
+  },
+  "elements": {
+    "product-box": "CmsElementProductCard",
+    "product-slider": "CmsElementProductSlider",
+    "image": "CmsElementImage"
+  }
+}
+```
+
+The display is the same, but we can now modify it safely without affecting other CMS blocks.
+
+So we want to add some top margins to correct our problem - in the desktop sidebar is too high.
+
+So we're changing the styles:
+
+```vue{7-9}
+<style lang="scss" scoped>
+@import "../settings.scss";
+
+.cms-block-category-navigation {
+  @include desktop-size;
+
+  @include for-desktop {
+    margin-top: 20px;
+  }
+}
+</style>
+```
+
+and then we have our desired effect:
+
+![preview](./../assets/preview2.png)
+
+And that's it. Set of these rules apply for sections, blocks and elements. And are applicable in themes, plugins and your project!
