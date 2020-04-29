@@ -36,11 +36,11 @@ module.exports = {
             ],
           },
           {
-            text: "CMS",
+            text: "Concepts",
             items: [
               {
-                text: "Implementing CMS component",
-                link: "/guide/cms/implement-cms-component.html",
+                text: "CMS",
+                link: "/guide/cms.html",
               },
             ],
           },

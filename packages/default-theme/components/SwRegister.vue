@@ -1,7 +1,7 @@
 <template>
   <div class="sw-register">
     <div class="form sw-register">
-      <h2 class="sw-register__header">Register</h2>
+      <!-- <h2 class="sw-register__header">Register</h2> -->
       <SfAlert
         v-if="userError || salutationsError || countriesError"
         class="sw-register__alert"
@@ -14,7 +14,7 @@
         label="Salutation"
         :valid="!$v.salutation.$error"
         error-message="Salutation must be selected"
-        class="sf-select--underlined form__input"
+        class="sf-select--underlined form__input form__select form__element"
       >
         <SfSelectOption
           v-for="salutationOption in getMappedSalutations"
@@ -24,79 +24,75 @@
           {{ salutationOption.name }}
         </SfSelectOption>
       </SfSelect>
-      <div class="input-group">
-        <SfInput
-          v-model="firstName"
-          name="first-name"
-          label="First Name"
-          class="form__input"
-          :valid="!$v.firstName.$error"
-          error-message="First name is required"
-          @blur="$v.firstName.$touch()"
-        />
-        <SfInput
-          v-model="lastName"
-          name="last-name"
-          label="Last Name"
-          class="form__input"
-          :valid="!$v.lastName.$error"
-          error-message="Last name is required"
-          @blur="$v.lastName.$touch()"
-        />
-        <SfInput
-          v-model="email"
-          name="email"
-          label="Your email"
-          class="form__input"
-          :valid="!$v.email.$error"
-          error-message="Proper email is required"
-          @blur="$v.email.$touch()"
-        />
-      </div>
+      <SfInput
+        v-model="firstName"
+        name="first-name"
+        label="First Name"
+        class="form__input form__element form__element--small"
+        :valid="!$v.firstName.$error"
+        error-message="First name is required"
+        @blur="$v.firstName.$touch()"
+      />
+      <SfInput
+        v-model="lastName"
+        name="last-name"
+        label="Last Name"
+        class="form__input form__element form__element--small"
+        :valid="!$v.lastName.$error"
+        error-message="Last name is required"
+        @blur="$v.lastName.$touch()"
+      />
+      <SfInput
+        v-model="email"
+        name="email"
+        label="Your email"
+        class="form__input form__element form__element--small form__element"
+        :valid="!$v.email.$error"
+        error-message="Proper email is required"
+        @blur="$v.email.$touch()"
+      />
       <SfInput
         v-model="password"
         name="password"
         label="Password"
         type="password"
-        class="form__input"
+        class="form__input form__element"
         :valid="!$v.password.$error"
         error-message="Minimum password length is 8 characters"
         @blur="$v.password.$touch()"
       />
-      <div class="input-group">
-        <SfInput
-          v-model="street"
-          name="street"
-          label="Street"
-          class="form__input"
-          :valid="!$v.street.$error"
-          error-message="Street is required"
-          @blur="$v.street.$touch()"
-        />
-        <SfInput
-          v-model="city"
-          name="city"
-          label="City"
-          class="form__input"
-          :valid="!$v.city.$error"
-          error-message="City is required"
-          @blur="$v.city.$touch()"
-        />
-        <SfInput
-          v-model="zipcode"
-          name="zipcode"
-          label="Zip Code"
-          class="form__input"
-          :valid="!$v.zipcode.$error"
-          error-message="Zipcode is required."
-          @blur="$v.zipcode.$touch()"
-        />
-      </div>
+      <SfInput
+        v-model="street"
+        name="street"
+        label="Street"
+        class="form__input form__element form__element--small"
+        :valid="!$v.street.$error"
+        error-message="Street is required"
+        @blur="$v.street.$touch()"
+      />
+      <SfInput
+        v-model="city"
+        name="city"
+        label="City"
+        class="form__input form__element form__element--small"
+        :valid="!$v.city.$error"
+        error-message="City is required"
+        @blur="$v.city.$touch()"
+      />
+      <SfInput
+        v-model="zipcode"
+        name="zipcode"
+        label="Zip Code"
+        class="form__input form__element form__element--small"
+        :valid="!$v.zipcode.$error"
+        error-message="Zipcode is required."
+        @blur="$v.zipcode.$touch()"
+      />
       <SfSelect
         v-model="country"
         v-if="getMappedCountries && getMappedCountries.length > 0"
         label="Country"
-        class="sf-select--underlined form__input"
+        class="sf-select--underlined form__input form__element"
         :valid="!$v.country.$error"
         error-message="Country must be selected"
         @blur="$v.country.$touch()"
@@ -128,7 +124,7 @@ import { required, email, minLength } from 'vuelidate/lib/validators'
 import {
   useUser,
   useCountries,
-  useSalutations
+  useSalutations,
 } from '@shopware-pwa/composables'
 import { mapCountries, mapSalutations } from '@shopware-pwa/helpers'
 
@@ -146,22 +142,18 @@ export default {
       country: null,
       street: '',
       city: '',
-      zipcode: ''
+      zipcode: '',
     }
   },
   setup() {
     const { login, register, loading, error: userError } = useUser()
-    const {
-      getCountries,
-      error: countriesError
-    } = useCountries()
-    const {
-      getSalutations,
-      error: salutationsError
-    } = useSalutations()
+    const { getCountries, error: countriesError } = useCountries()
+    const { getSalutations, error: salutationsError } = useSalutations()
 
     const getMappedCountries = computed(() => mapCountries(getCountries.value))
-    const getMappedSalutations = computed(() => mapSalutations(getSalutations.value))
+    const getMappedSalutations = computed(() =>
+      mapSalutations(getSalutations.value)
+    )
 
     return {
       clientLogin: login,
@@ -171,7 +163,7 @@ export default {
       countriesError,
       getMappedCountries,
       salutationsError,
-      getMappedSalutations
+      getMappedSalutations,
     }
   },
   computed: {
@@ -189,8 +181,8 @@ export default {
           city: this.city,
           street: this.street,
           zipcode: this.zipcode,
-          countryId: this.country.id
-        }
+          countryId: this.country.id,
+        },
       }
     },
     getErrorMessage() {
@@ -200,38 +192,38 @@ export default {
         return "Couldn't fetch available salutations, please contact the administration."
       if (this.countriesError)
         return "Couldn't fetch available countries, please contact the administration."
-    }
+    },
   },
   validations: {
     email: {
       required,
-      email
+      email,
     },
     salutation: {
-      required
+      required,
     },
     password: {
       required,
-      minLength: minLength(8)
+      minLength: minLength(8),
     },
     firstName: {
-      required
+      required,
     },
     lastName: {
-      required
+      required,
     },
     country: {
-      required
+      required,
     },
     street: {
-      required
+      required,
     },
     zipcode: {
-      required
+      required,
     },
     city: {
-      required
-    }
+      required,
+    },
   },
   methods: {
     async invokeRegister() {
@@ -245,31 +237,17 @@ export default {
       if (registeredIn) {
         await this.clientLogin({
           username: this.email,
-          password: this.password
+          password: this.password,
         })
         this.$emit('success')
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-
-@mixin for-desktop {
-  @media screen and (min-width: 900px) {
-    @content;
-  }
-}
-
-.input-group {
-  @include for-desktop {
-    display: flex;
-    width: 40vw;
-    justify-content: space-between;
-  }
-}
 
 .sw-login {
   &__alert {
@@ -289,15 +267,29 @@ export default {
 
 .form {
   &__input {
-    margin-bottom: var(--spacer-base);
+    margin-bottom: var(--spacer-sm);
   }
-
+  &__select {
+    margin-bottom: 0;
+  }
   &__checkbox {
     margin-bottom: var(--spacer-base);
   }
-
-  &__button {
-    margin-top: var(--spacer-base);
+  @include for-desktop {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    &__element {
+      flex: 0 0 100%;
+      &--small {
+        flex: 1 1 calc(33% - calc(2*var(--spacer-sm)));
+        margin-right: var(--spacer-sm);
+        &:odd {
+          margin-right: 0;
+        }
+      }
+    }
   }
 }
 
@@ -306,13 +298,15 @@ export default {
 }
 </style>
 
+//
 <style lang="scss">
-.sf-modal__container {
-  width: 100% !important;
-  height: 100% !important;
-  @media screen and (min-width: 900px) {
-    width: auto !important;
-    height: auto !important;
-  }
-}
+// .sf-modal__container {
+//   width: 100% !important;
+//   height: 100% !important;
+//   @media screen and (min-width: 900px) {
+//     width: auto !important;
+//     height: auto !important;
+//   }
+// }
+//
 </style>

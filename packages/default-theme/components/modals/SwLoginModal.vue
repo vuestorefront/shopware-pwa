@@ -1,6 +1,11 @@
 <template>
   <div id="sw-login-modal">
-    <SfModal title="Log in" :visible="isModalOpen" @close="toggleModal">
+    <SfModal
+      class="sw-modal"
+      :title="modalTitle"
+      :visible="isModalOpen"
+      @close="toggleModal"
+    >
       <transition name="fade" mode="out-in">
         <div class="sw-login-modal__wrapper">
           <component :is="component" :key="key" @success="toggleModal" />
@@ -90,6 +95,16 @@ export default {
       component: 'SwLogin',
     }
   },
+  computed: {
+    modalTitle() {
+      if (this.component === 'SwRegister') {
+        return 'Register'
+      } else if (this.component === 'SwResetPassword') {
+        return 'Reset Password'
+      }
+      return 'Log in'
+    },
+  },
   watch: {
     isModalOpen: {
       handler(oldVal, newVal) {
@@ -118,8 +133,13 @@ export default {
 #sw-login-modal {
   box-sizing: border-box;
   @include for-desktop {
-    max-width: 80vw;
-    margin: auto;
+    & > * {
+      --modal-width: unset;
+      --modal-content-padding: var(--spacer-xl) var(--spacer-base);
+    }
+    ::v-deep .sf-modal__container {
+      min-width: 400px;
+    }
   }
 }
 
@@ -153,13 +173,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: var(--spacer-xl);
   &__heading {
     --heading-title-color: var(--c-primary);
-    margin-bottom: var(--spacer-sm);
+    padding: var(--spacer-sm) 0;
   }
   &:last-child {
-   padding-bottom: var(--spacer-lg);
+    padding-bottom: var(--spacer-lg);
   }
 }
 

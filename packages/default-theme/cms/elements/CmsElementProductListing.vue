@@ -146,10 +146,14 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
     z-index: 2;
   }
 
-  ::v-deep &__wrapper {
+  &__wrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding: 0 var(--spacer-xs);
+    @include for-desktop {
+      padding: 0 var(--spacer-sm);
+    }
   }
 
   &__list {
