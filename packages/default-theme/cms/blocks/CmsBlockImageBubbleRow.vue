@@ -1,5 +1,5 @@
 <template>
-  <div class="cms-block-image-bubble-row">
+  <article class="cms-block-image-bubble-row">
     <CmsGenericElement
       :content="getLeftContent"
       class="cms-block-image-bubble-row__image"
@@ -12,7 +12,7 @@
       :content="getRightContent"
       class="cms-block-image-bubble-row__image"
     />
-  </div>
+  </article>
 </template>
 
 <script>

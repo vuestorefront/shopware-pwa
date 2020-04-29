@@ -1,8 +1,8 @@
 <template>
-  <div class="cms-block-image-text-cover">
+  <article class="cms-block-image-text-cover">
     <CmsGenericElement :content="getLeftContent" class="cms-block-image-text-cover__image"/>
     <CmsGenericElement :content="getRightContent" class="cms-block-image-text-cover__text"/>
-  </div>
+  </article>
 </template>
 
 <script>
@@ -41,7 +41,7 @@ export default {
   flex-direction: column;
 
   &__image, &__text {
-    margin: var(--spacer-medium);
+    margin: var(--spacer-sm);
     flex: 1;
     & img {
       height: 340px;

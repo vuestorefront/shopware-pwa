@@ -1,10 +1,10 @@
 <template>
-  <div class="cms-block-image-four-column">
+  <article class="cms-block-image-four-column">
     <CmsGenericElement :content="getLeftContent" class="cms-block-image-four-column__image"/>
     <CmsGenericElement :content="getCenterLeftContent" class="cms-block-image-four-column__image"/>
     <CmsGenericElement :content="getCenterRightContent" class="cms-block-image-four-column__image"/>
     <CmsGenericElement :content="getRightContent" class="cms-block-image-four-column__image"/>
-  </div>
+  </article>
 </template>
 
 <script>
@@ -49,7 +49,7 @@ export default {
   flex-direction: column;
 
   &__image {
-    margin: var(--spacer-medium);
+    margin: var(--spacer-sm);
     flex: 1;
     & img {
       height: 340px;

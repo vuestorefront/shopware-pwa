@@ -1,9 +1,9 @@
 <template>
-  <div class="cms-block-image-three-cover">
+  <article class="cms-block-image-three-cover">
     <CmsGenericElement :content="getLeftContent" class="cms-block-image-three-cover__image"/>
     <CmsGenericElement :content="getCenterContent" class="cms-block-image-three-cover__image"/>
     <CmsGenericElement :content="getRightContent" class="cms-block-image-three-cover__image"/>
-  </div>
+  </article>
 </template>
 
 <script>
@@ -45,7 +45,7 @@ export default {
   flex-direction: column;
 
   &__image {
-    flex: 1;
+    flex: 1 1 0;
     & img {
       height: 340px;
       object-fit: cover;

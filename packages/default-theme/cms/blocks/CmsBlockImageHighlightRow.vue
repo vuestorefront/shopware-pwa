@@ -1,9 +1,9 @@
 <template>
-  <div class="cms-block-image-highlight-row">
+  <article class="cms-block-image-highlight-row">
     <CmsGenericElement :content="getLeftContent" class="cms-block-image-highlight-row__image"/>
     <CmsGenericElement :content="getCenterContent" class="cms-block-image-highlight-row__image"/>
     <CmsGenericElement :content="getRightContent" class="cms-block-image-highlight-row__image"/>
-  </div>
+  </article>
 </template>
 
 <script>
@@ -37,7 +37,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~@storefront-ui/vue/styles.scss';
 
 .cms-block-image-highlight-row {
@@ -45,7 +45,7 @@ export default {
   flex-direction: column;
 
   &__image {
-    margin: var(--spacer-medium);
+    margin: var(--spacer-sm);
     flex: 1;
     border: 12px solid #fff;
     & img {

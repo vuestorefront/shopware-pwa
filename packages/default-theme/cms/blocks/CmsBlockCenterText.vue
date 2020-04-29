@@ -1,9 +1,9 @@
 <template>
-  <div class="cms-block-center-text">
+  <article class="cms-block-center-text">
     <CmsGenericElement :content="getLeftContent" class="cms-block-center-text__image"/>
     <CmsGenericElement :content="getCenterContent" class="cms-block-center-text__text"/>
     <CmsGenericElement :content="getRightContent" class="cms-block-center-text__image"/>
-  </div>
+  </article>
 </template>
 
 <script>
@@ -45,7 +45,7 @@ export default {
   flex-direction: column;
 
   &__image, &__text {
-    margin: var(--spacer-medium);
+    margin: var(--spacer-sm);
     flex: 1;
     & img {
       height: 340px;

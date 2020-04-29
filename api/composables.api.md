@@ -56,24 +56,6 @@ export function createCheckoutStep({ stepNumber, stepFields, stepDataUpdated, }:
 export function getStore(): any;
 
 // @alpha (undocumented)
-export enum PositionType {
-    // (undocumented)
-    CENTER = "center",
-    // (undocumented)
-    CENTER_LEFT = "center-left",
-    // (undocumented)
-    CENTER_RIGHT = "center-right",
-    // (undocumented)
-    LEFT = "left",
-    // (undocumented)
-    LEFT_BOTTOM = "left-bottom",
-    // (undocumented)
-    LEFT_TOP = "left-top",
-    // (undocumented)
-    RIGHT = "right"
-}
-
-// @alpha (undocumented)
 export type Search = (path: string, associations?: any) => any;
 
 // @alpha (undocumented)
@@ -250,27 +232,6 @@ export interface UseSessionContext {
 
 // @alpha (undocumented)
 export const useSessionContext: () => UseSessionContext;
-
-// @alpha (undocumented)
-export interface UseSlotsPositions {
-    // (undocumented)
-    centerLeftSlot: Ref<Readonly<CmsSlot | undefined>>;
-    // (undocumented)
-    centerRightSlot: Ref<Readonly<CmsSlot | undefined>>;
-    // (undocumented)
-    centerSlot: Ref<Readonly<CmsSlot | undefined>>;
-    // (undocumented)
-    leftBottomSlot: Ref<Readonly<CmsSlot | undefined>>;
-    // (undocumented)
-    leftSlot: Ref<Readonly<CmsSlot | undefined>>;
-    // (undocumented)
-    leftTopSlot: Ref<Readonly<CmsSlot | undefined>>;
-    // (undocumented)
-    rightSlot: Ref<Readonly<CmsSlot | undefined>>;
-}
-
-// @alpha (undocumented)
-export const useSlotsPositions: (slots: CmsSlot[]) => UseSlotsPositions;
 
 // @alpha (undocumented)
 export interface UseUser {

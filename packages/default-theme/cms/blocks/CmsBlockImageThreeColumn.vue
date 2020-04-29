@@ -1,9 +1,9 @@
 <template>
-  <div class="cms-block-image-three-column">
+  <article class="cms-block-image-three-column">
     <CmsGenericElement :content="getLeftContent" class="cms-block-image-three-column__image"/>
     <CmsGenericElement :content="getCenterContent" class="cms-block-image-three-column__image"/>
     <CmsGenericElement :content="getRightContent" class="cms-block-image-three-column__image"/>
-  </div>
+  </article>
 </template>
 
 <script>
@@ -45,7 +45,7 @@ export default {
   flex-direction: column;
 
   &__image {
-    margin: var(--spacer-medium);
+    margin: var(--spacer-sm);
     flex: 1;
     & img {
       height: 340px;
