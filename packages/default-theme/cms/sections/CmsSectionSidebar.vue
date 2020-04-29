@@ -53,7 +53,6 @@ export default {
 .sw-sidebar-section {
   display: flex;
   flex-direction: column;
-  padding: 0 var(--spacer-base);
 
   @include desktop-size;
 

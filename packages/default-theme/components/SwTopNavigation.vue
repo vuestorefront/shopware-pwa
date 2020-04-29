@@ -1,7 +1,7 @@
 <template>
   <div class="top-navigation">
     <SfOverlay :visible="!!hoveredNavigationItem" />
-    <SfTopBar class="top-bar">
+    <SfTopBar class="top-bar desktop-only">
       <template #right>
         <SwCurrency class="sf-header__currency" />
         <!-- TODO Implement SfLanguageSelector -->

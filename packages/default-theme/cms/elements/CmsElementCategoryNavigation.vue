@@ -98,9 +98,8 @@ export default {
     align-items: center;
     display: flex;
     height: 2.4rem;
-    padding-top: var(--spacer-base);
+    padding: var(--spacer-base) var(--spacer-sm);
     @include for-desktop {
-      padding: var(--spacer-base) var(--spacer-sm);
       border-top: 1px solid var(--c-light);
       border-bottom: 1px solid var(--c-light);
     }
