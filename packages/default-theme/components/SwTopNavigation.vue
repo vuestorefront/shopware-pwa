@@ -99,6 +99,7 @@ import {
   SfSearchBar,
   SfOverlay,
   SfTopBar,
+  SfIcon
 } from '@storefront-ui/vue'
 import {
   useUser,
@@ -125,7 +126,8 @@ export default {
     SwMegaMenu,
     SfOverlay,
     SfTopBar,
-    SwCurrency
+    SwCurrency,
+    SfIcon
   },
   setup() {
     const { isLoggedIn, logout } = useUser()
