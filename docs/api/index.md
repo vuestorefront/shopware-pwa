@@ -10,6 +10,5 @@
 |  --- | --- |
 |  [@shopware-pwa/composables](./composables.md) |  |
 |  [@shopware-pwa/helpers](./helpers.md) |  |
-|  [@shopware-pwa/nuxt-module](./nuxt-module.md) |  |
 |  [@shopware-pwa/shopware-6-client](./shopware-6-client.md) |  |
 
