@@ -10,7 +10,7 @@
 import CmsGenericElement from 'sw-cms/CmsGenericElement'
 
 export default {
-  name: 'CmsBlockImageThreeColumn',
+  name: 'CmsBlockCenterText',
   components: {
     CmsGenericElement
   },

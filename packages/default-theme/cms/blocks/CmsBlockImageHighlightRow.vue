@@ -34,9 +34,6 @@ export default {
       return this.getSlots.find(({slot}) => slot === 'right')
     },
   },
-  mounted() {
-    console.log(this.content);
-  },
 };
 </script>
 
