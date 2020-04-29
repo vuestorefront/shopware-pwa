@@ -41,8 +41,10 @@ export default {
 
 <style lang="scss">
 @import '~@storefront-ui/vue/styles.scss';
+@import '../settings.scss';
 
 .sw-image-simple-grid {
+  @include desktop-size;
   display: flex;
   flex-direction: column;
 
