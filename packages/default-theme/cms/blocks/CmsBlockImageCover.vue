@@ -1,7 +1,7 @@
 <template>
-  <div class="cms-block-image-cover">
+  <article class="cms-block-image-cover">
     <CmsGenericElement v-if="getContent" :content="getContent" />
-  </div>
+  </article>
 </template>
 
 <script>
@@ -30,7 +30,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
-
 
 </style>

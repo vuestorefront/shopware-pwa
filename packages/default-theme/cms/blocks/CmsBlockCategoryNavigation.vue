@@ -32,9 +32,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
-
-.cms-block-category-navigation {
-  @include desktop-size;
-}
 </style>

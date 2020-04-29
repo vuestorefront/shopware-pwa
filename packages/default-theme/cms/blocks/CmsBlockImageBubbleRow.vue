@@ -1,5 +1,5 @@
 <template>
-  <div class="cms-block-image-bubble-row">
+  <article class="cms-block-image-bubble-row">
     <CmsGenericElement
       :content="getLeftContent"
       class="cms-block-image-bubble-row__image"
@@ -12,17 +12,17 @@
       :content="getRightContent"
       class="cms-block-image-bubble-row__image"
     />
-  </div>
+  </article>
 </template>
 
 <script>
 import CmsGenericElement from 'sw-cms/CmsGenericElement'
 
 export default {
+  name: 'CmsBlockImageBubbleRow',
   components: {
     CmsGenericElement,
   },
-  name: 'CmsBlockImageBubbleRow',
   props: {
     content: {
       type: Object,
@@ -34,13 +34,13 @@ export default {
       return this.content.slots || []
     },
     getLeftContent() {
-      return this.getSlots.find((element) => element.slot === 'left')
+      return this.getSlots.find(({slot}) => slot === 'left')
     },
     getCenterContent() {
-      return this.getSlots.find((element) => element.slot === 'center')
+      return this.getSlots.find(({slot}) => slot === 'center')
     },
     getRightContent() {
-      return this.getSlots.find((element) => element.slot === 'right')
+      return this.getSlots.find(({slot}) => slot === 'right')
     },
   },
 }
