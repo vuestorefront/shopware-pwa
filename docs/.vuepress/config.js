@@ -36,6 +36,15 @@ module.exports = {
             ],
           },
           {
+            text: "Concepts",
+            items: [
+              {
+                text: "CMS",
+                link: "/guide/cms.html",
+              },
+            ],
+          },
+          {
             text: "Help",
             items: [
               {
