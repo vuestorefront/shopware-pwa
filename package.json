@@ -19,7 +19,7 @@
     "dev:debug": "node --inspect scripts/dev.js",
     "build": "node scripts/build.js",
     "postinstall": "node scripts/linkDependencies.js && lerna link",
-    "lint": "prettier --write --parser typescript 'packages/**/*.ts'",
+    "lint": "prettier --write --parser typescript \"packages/**/*.ts\"",
     "test": "jest",
     "test:e2e": "jest --e2e=true --runInBand",
     "test:cypress": "cypress run",

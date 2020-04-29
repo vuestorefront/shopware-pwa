@@ -54,7 +54,7 @@ export default {
   display: flex;
   flex-direction: column;
 
-  @include desktop-size;
+  @include sizing-mode-boxed;
 
   @include for-desktop() {
     flex-direction: row;

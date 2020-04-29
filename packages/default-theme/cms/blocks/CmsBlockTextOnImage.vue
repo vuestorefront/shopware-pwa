@@ -1,11 +1,11 @@
 <template>
-  <div class="cms-block-text-on-image">
+  <article class="cms-block-text-on-image">
     <CmsGenericElement
       v-if="getContent"
       :content="getContent"
       class="cms-block-text-on-image__content"
     />
-  </div>
+  </article>
 </template>
 
 <script>
@@ -34,7 +34,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
 
 .cms-block-text-on-image {
   &__content {
