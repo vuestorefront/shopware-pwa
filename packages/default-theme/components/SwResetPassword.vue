@@ -1,7 +1,7 @@
 <template>
   <div class="sw-reset-password">
     <div class="form sw-reset-password__form">
-      <h2 class="sw-reset-password__header">Reset password</h2>
+      <!-- <h2 class="sw-reset-password__header">Reset password</h2> -->
       <SfAlert
         v-if="error"
         class="sw-reset-password__alert"

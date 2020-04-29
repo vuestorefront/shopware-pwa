@@ -52,6 +52,7 @@ export default {
 .cms-block-image-bubble-row {
   display: flex;
   flex-direction: column;
+  padding: 0 var(--spacer-sm);
   margin: var(--spacer-xl) 0;
   height: 100%;
 
