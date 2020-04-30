@@ -65,6 +65,18 @@
               :has-badge="isLoggedIn"
               @click="userIconClick"
             />
+            <SfDropdown class="dropdown" :is-open="isDropdownOpen">
+              <SfList>
+                <nuxt-link  :to="getPageAccount">
+                  <SfListItem class="dropdown__item">
+                      Go to My account
+                  </SfListItem>
+                </nuxt-link>
+                <SfListItem class="dropdown__item" @click.native="logoutUser()">
+                  Logout
+                </SfListItem>
+              </SfList>
+            </SfDropdown>
             <SfIcon
               v-if="cartIcon"
               :icon="cartIcon"
@@ -97,6 +109,9 @@ import {
   SfImage,
   SfTopBar,
   SfSearchBar,
+  SfList,
+  SfButton,
+  SfDropdown
 } from '@storefront-ui/vue'
 import {
   useUser,
@@ -108,7 +123,7 @@ import {
 } from '@shopware-pwa/composables'
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
-import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
+import { PAGE_ACCOUNT, PAGE_LOGIN } from '@shopware-pwa/default-theme/helpers/pages'
 
 export default {
   components: {
@@ -118,6 +133,9 @@ export default {
     SfImage,
     SfTopBar,
     SfSearchBar,
+    SfDropdown,
+    SfList,
+    SfButton,
     SwCurrency,
   },
   setup() {
@@ -145,16 +163,31 @@ export default {
       activeSidebar: 'account',
       activeIcon: '',
       isModalOpen: false,
+      isDropdownOpen: false
     }
   },
+  computed: {
+    getPageAccount() {
+      return PAGE_ACCOUNT
+    }
+  },
+  watch:{
+    $route (to, from){
+        this.isDropdownOpen = false;
+    }
+  }, 
   async mounted() {
     await this.fetchRoutes({ depth: 1 })
   },
   methods: {
     userIconClick() {
-      if (this.isLoggedIn) this.$router.push(PAGE_ACCOUNT)
+      if (this.isLoggedIn) this.isDropdownOpen = !this.isDropdownOpen
       else this.toggleModal()
     },
+    async logoutUser() {
+      await this.logout()
+      this.$router.push(PAGE_LOGIN)
+    }
   },
 }
 </script>
@@ -207,7 +240,22 @@ export default {
       &__link {
         display: flex;
         align-items: center;
-        height: 100;
+      }
+    }
+  }
+  .dropdown {
+    --dropdown-width: auto; 
+    &__item {
+      color: var(--c-link);
+      text-align: center;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: var(--spacer-sm) var(--spacer-lg);
+      font-size: 1rem;
+      border-color: --c-light-primary;
+      border-width: 0 0 1px 0;
+      &:hover {
+        color: var(--c-link-hover);
       }
     }
   }
