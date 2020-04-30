@@ -14,10 +14,6 @@ import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salut
 import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { ShopwareError } from '@shopware-pwa/commons/interfaces/errors/ApiError';
 import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
-import { UiMediaGalleryItem as UiMediaGalleryItem_2 } from '@shopware-pwa/helpers';
-import { UiProductOption as UiProductOption_2 } from '@shopware-pwa/helpers';
-import { UiProductProperty as UiProductProperty_2 } from '@shopware-pwa/helpers';
-import { UiProductReview as UiProductReview_2 } from '@shopware-pwa/helpers';
 
 // @alpha (undocumented)
 export interface CategoryFilterEntityValue {
@@ -57,6 +53,16 @@ export interface CategoryFilterTermValue {
 export function exportUrlQuery(searchCriteria: SearchCriteria): string | undefined;
 
 // @alpha (undocumented)
+export interface Filter {
+    // (undocumented)
+    [filterCode: string]: {
+        type: UiCategoryFilterType;
+        name: string;
+        values: CategoryFilterRangeValues | CategoryFilterEntityValues | CategoryFilterTermValue[];
+    };
+}
+
+// @alpha (undocumented)
 export function getCategoryAvailableFilters({ filters, }?: {
     filters?: Filter;
 }): UiCategoryFilter[];
@@ -72,11 +78,9 @@ export function getCmsSections(content: CmsPage): CmsSection[];
 // @alpha (undocumented)
 export const getFilterSearchCriteria: (selectedFilters: any) => any[];
 
-// @public
+// @alpha
 export function getMessagesFromErrorsArray(errors: ShopwareError[]): string[];
 
-// Warning: (ae-forgotten-export) The symbol "NavigationRoute" needs to be exported by the entry point index.d.ts
-//
 // @alpha (undocumented)
 export function getNavigationRoutes(navigationElements: NavigationElement[]): NavigationRoute[];
 
@@ -86,7 +90,7 @@ export function getProductMainImageUrl(product: Product): string;
 // @alpha (undocumented)
 export function getProductMediaGallery({ product, }?: {
     product?: Product;
-}): UiMediaGalleryItem_2[];
+}): UiMediaGalleryItem[];
 
 // @alpha (undocumented)
 export function getProductName({ product }?: {
@@ -99,8 +103,6 @@ export function getProductOption({ product, attribute, }?: {
     attribute?: string;
 }): PropertyGroupOption | undefined;
 
-// Warning: (ae-forgotten-export) The symbol "ProductOptions" needs to be exported by the entry point index.d.ts
-//
 // @alpha (undocumented)
 export function getProductOptions({ product, }?: {
     product?: Product;
@@ -115,7 +117,7 @@ export function getProductOptionsUrl({ product, options, }?: {
 // @alpha (undocumented)
 export function getProductProperties({ product, }?: {
     product?: Product;
-}): UiProductProperty_2[];
+}): UiProductProperty[];
 
 // @alpha (undocumented)
 export function getProductRegularPrice({ product, }?: {
@@ -125,7 +127,7 @@ export function getProductRegularPrice({ product, }?: {
 // @alpha (undocumented)
 export function getProductReviews({ product, }?: {
     product?: Product;
-}): UiProductReview_2[];
+}): UiProductReview[];
 
 // @alpha (undocumented)
 export function getProductSpecialPrice(product: Product): number;
@@ -144,7 +146,7 @@ export function getVariantOptionsLabel({ product, }?: {
     product?: Product;
 }): string | null;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function isProductSimple({ product, }?: {
     product?: Product;
 }): boolean;
@@ -172,7 +174,30 @@ export interface MappedSalutation {
 export function mapSalutations(salutations: Salutation[]): MappedSalutation[];
 
 // @alpha (undocumented)
+export interface NavigationRoute {
+    // (undocumented)
+    routeLabel: string;
+    // (undocumented)
+    routePath: string;
+}
+
+// @alpha (undocumented)
 export function parseUrlQuery(query: any): SearchCriteria;
+
+// @alpha (undocumented)
+export interface ProductOptions {
+    // (undocumented)
+    [attribute: string]: UiProductOption[];
+}
+
+// @alpha (undocumented)
+export interface Sorting {
+    // (undocumented)
+    [sortingCode: string]: {
+        key: string;
+        active: boolean;
+    };
+}
 
 // @alpha (undocumented)
 export interface SwSorting {
@@ -292,11 +317,6 @@ export interface UiProductReview {
     rating: number | null;
 }
 
-
-// Warnings were encountered during analysis:
-//
-// dist/packages/helpers/src/category/getCategoryAvailableFilters.d.ts:42:5 - (ae-forgotten-export) The symbol "Filter" needs to be exported by the entry point index.d.ts
-// dist/packages/helpers/src/category/getCategoryAvailableSorting.d.ts:12:5 - (ae-forgotten-export) The symbol "Sorting" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

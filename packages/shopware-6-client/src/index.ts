@@ -1,7 +1,7 @@
 import { config, ClientSettings, setupConfig, updateConfig } from "./settings";
 import { reloadConfiguration } from "./apiService";
 
-export { config } from "./settings";
+export { config, ClientSettings } from "./settings";
 
 export * from "./services/categoryService";
 export * from "./services/productService";
@@ -16,7 +16,7 @@ export { ShopwareParams } from "./helpers/searchConverter";
 /**
  * Setup configuration. Merge default values with provided in param.
  * This method will override existing config. For config update invoke **update** method.
- * @alpha
+ * @beta
  */
 export function setup(config: ClientSettings = {}): void {
   setupConfig(config);
@@ -25,7 +25,7 @@ export function setup(config: ClientSettings = {}): void {
 
 /**
  * Update current configuration. This will change only provided values.
- * @alpha
+ * @beta
  */
 export function update(config: ClientSettings = {}): void {
   updateConfig(config);
@@ -34,7 +34,7 @@ export function update(config: ClientSettings = {}): void {
 }
 
 /**
- * @alpha
+ * @beta
  */
 export interface ConfigChangedArgs {
   config: ClientSettings;
@@ -42,7 +42,7 @@ export interface ConfigChangedArgs {
 const callbackMethods: ((context: ConfigChangedArgs) => void)[] = [];
 
 /**
- * @alpha
+ * @beta
  */
 export function onConfigChange(fn: (context: ConfigChangedArgs) => void) {
   callbackMethods.push(fn);

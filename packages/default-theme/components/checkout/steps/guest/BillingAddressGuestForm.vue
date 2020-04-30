@@ -1,13 +1,11 @@
 <template>
   <div>
-    <div class="form">
-      <SfCheckbox
-        v-model="differentThanShipping"
-        label="Use different address for billing"
-        name="copyShippingAddress"
-        class="form__element"
-      />
-    </div>
+    <SfCheckbox
+      v-model="differentThanShipping"
+      label="Use different address for billing"
+      name="copyShippingAddress"
+      class="form__element"
+    />
     <div class="form" v-if="differentThanShipping">
       <SfInput
         v-model="firstName"
@@ -73,6 +71,7 @@
         required
       />
       <SfSelect
+        v-if="getCountries.length"
         v-model="countryId"
         :valid="!validations.countryId.$error"
         error-message="This field is required"
@@ -81,11 +80,11 @@
         required
       >
         <SfSelectOption
-          v-for="countryOption in countries"
-          :key="countryOption"
-          :value="countryOption"
+          v-for="countryOption in getCountries"
+          :key="countryOption.id"
+          :value="countryOption.id"
         >
-          {{ countryOption }}
+          {{ countryOption.name }}
         </SfSelectOption>
       </SfSelect>
       <SfInput
@@ -116,6 +115,7 @@ import {
   usePaymentStepValidationRules,
 } from '@shopware-pwa/default-theme/logic/checkout/usePaymentStep'
 import { computed } from '@vue/composition-api'
+import { useCountries } from '@shopware-pwa/composables'
 
 export default {
   name: 'BillingAddressGuestForm',
@@ -146,8 +146,7 @@ export default {
       differentThanShipping,
     } = usePaymentStep()
 
-    // TODO add countries
-    const countries = computed(() => [])
+    const { getCountries } = useCountries()
 
     return {
       validations,
@@ -162,7 +161,7 @@ export default {
       countryId,
       phoneNumber,
       differentThanShipping,
-      countries
+      getCountries,
     }
   },
   watch: {
@@ -180,56 +179,53 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-.title {
-  margin-bottom: var(--spacer-extra-big);
-}
+
 .form {
+  margin-top: var(--spacer-base);
+  &__checkbox {
+    margin: var(--spacer-base) 0 var(--spacer-xl) 0;
+  }
+  &__action {
+    flex: 0 0 100%;
+    margin: var(--spacer-base) 0 0 0;
+  }
+  &__action-button {
+    --button-height: 3.25rem;
+  }
+  @include for-mobile {
+    &__checkbox {
+      --checkbox-font-family: var(--font-family-primary);
+      --checkbox-font-weight: var(--font-light);
+      --checkbox-font-size: var(--font-sm);
+    }
+  }
   @include for-desktop {
+    margin: 0 var(--spacer-2xl) 0 0;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
-  }
-  &__element {
-    margin-bottom: var(--spacer-extra-big);
-    @include for-desktop {
-      flex: 0 0 100%;
+    &__action {
+      display: flex;
     }
-    &--half {
-      @include for-desktop {
-        flex: 1 1 50%;
+    &__action-button {
+      &:first-child {
+        margin: 0 var(--spacer-lg) 0 0;
       }
-      &-even {
-        @include for-desktop {
-          padding-left: var(--spacer-extra-big);
+    }
+    &__element {
+      margin: 0 0 var(--spacer-base) 0;
+      flex: 0 0 100%;
+      &--salutation {
+        flex: 1 1 25%;
+        padding-right: var(--spacer-xl);
+      }
+      &--half {
+        flex: 1 1 50%;
+        &-even {
+          padding: 0 0 0 var(--spacer-lg);
         }
       }
     }
-  }
-  &__action {
-    @include for-desktop {
-      flex: 0 0 100%;
-      display: flex;
-    }
-  }
-  &__action-button {
-    flex: 1;
-    &--secondary {
-      margin: var(--spacer-big) 0;
-      @include for-desktop {
-        order: -1;
-        margin: 0;
-        text-align: left;
-      }
-    }
-  }
-  &__select {
-    ::v-deep .sf-select__selected {
-      padding: 5px 0;
-    }
-  }
-  &__radio {
-    white-space: nowrap;
   }
 }
 </style>

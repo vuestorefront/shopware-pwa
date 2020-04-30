@@ -16,7 +16,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: Build packages
         run: |
-          yarn
+          yarn --frozen-lockfile
           yarn build --release
           cd ./packages/cli && yarn build && cd ../../
       - name: Publish canary version

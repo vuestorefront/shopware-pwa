@@ -8,10 +8,12 @@ import * as utils from "../src/utils";
 import * as layouts from "../src/layouts";
 import * as components from "../src/components";
 import * as pages from "../src/pages";
+import * as cms from "../src/cms";
 jest.mock("../src/utils");
 jest.mock("../src/layouts");
 jest.mock("../src/components");
 jest.mock("../src/pages");
+jest.mock("../src/cms");
 const mockedUtils = utils as jest.Mocked<typeof utils>;
 const consoleErrorSpy = jest.spyOn(console, "error");
 
@@ -140,6 +142,11 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     expect(webpackConfig.resolve.alias["sw-plugins"]).toEqual(
       path.join(__dirname, ".shopware-pwa", "sw-plugins")
     );
+  });
+
+  it("should invoke extendCMS", () => {
+    runModule(moduleObject, {});
+    expect(cms.extendCMS).toBeCalledWith(moduleObject);
   });
 
   it("interfaces should return default empty object", () => {

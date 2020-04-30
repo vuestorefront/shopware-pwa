@@ -114,11 +114,11 @@ export default {
   &__content {
     flex: 1;
     color: var(--c-text);
-    font-size: var(--font-size-small-mobile);
+    font-size: var(--font-xs);
     font-weight: 300;
     line-height: 1.6;
     @include for-desktop {
-      font-size: var(--font-size-small-desktop);
+      font-size: var(--font-sm);
     }
   }
   &__actions {
@@ -150,17 +150,17 @@ export default {
     background-color: var(--c-light);
     color: var(--c-text-muted);
     @include for-desktop {
-      margin-left: var(--spacer-big);
+      margin-left: var(--spacer-base);
     }
   }
   &__address {
-    margin: 0 0 var(--spacer-big) 0;
+    margin: 0 0 var(--spacer-base) 0;
     &:last-child {
       margin: 0;
     }
   }
   &__client-name {
-    font-size: var(--font-size-regular-desktop);
+    font-size: var(--font-base);
     font-weight: 500;
   }
 }

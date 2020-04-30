@@ -1,7 +1,6 @@
 <template>
   <div class="sw-login">
     <div class="form sw-login__form">
-      <h2 class="sw-login__header">Log in</h2>
       <SfAlert
         v-if="userError"
         class="sw-login__alert"
@@ -34,7 +33,7 @@
         :disabled="isLoading"
         @click="invokeLogin"
       >
-        Login
+        Log in
       </SfButton>
     </div>
   </div>
@@ -94,22 +93,19 @@ export default {
 
 .sw-login {
   &__alert {
-    margin-bottom: var(--spacer-big);
-  }
-  &__header {
-    margin-bottom: var(--spacer-big);
+    margin-bottom: var(--spacer-base);
   }
 }
 
 .form {
   &__input {
-    margin-bottom: var(--spacer-extra-big);
+    margin: var(--spacer-base) 0;
   }
   &__checkbox {
-    margin-bottom: var(--spacer-big);
+    margin-bottom: var(--spacer-base);
   }
   &__button {
-    margin-top: var(--spacer-big);
+    margin-top: var(--spacer-base);
   }
 }
 </style>

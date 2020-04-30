@@ -77,7 +77,7 @@ export async function getAvailableCurrencies(): Promise<
 > {
   const resp = await apiService.get(getContextCurrencyEndpoint());
 
-  return resp.data;
+  return resp.data.data;
 }
 
 /**

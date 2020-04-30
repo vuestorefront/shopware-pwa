@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :key="$route.fullPath">
     <component :is="getComponent" :cms-page="cmsPage" :page="page"/>
   </div>
 </template>

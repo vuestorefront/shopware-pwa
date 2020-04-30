@@ -113,16 +113,22 @@
         </div>
       </transition>
       <div class="form__action">
+          <SfButton
+          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only"
+          @click="$emit('click:back')"
+        >
+          Go back to Shipping
+        </SfButton>
         <SfButton
           class="sf-button--full-width form__action-button"
           @click="$emit('proceed')"
           >Review order</SfButton
         >
         <SfButton
-          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary"
+          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only"
           @click="$emit('click:back')"
         >
-          Go back to Personal details
+          Go back to Shipping
         </SfButton>
       </div>
     </div>
@@ -181,55 +187,60 @@ export default {
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
 .title {
-  margin-bottom: var(--spacer-extra-big);
+  --heading-padding: var(--spacer-base) 0;
+  @include for-desktop {
+    --heading-title-font-size: var(--h3-font-size);
+    --heading-padding: var(--spacer-2xl) 0 var(--spacer-base) 0;
+    &:last-of-type {
+      --heading-padding: var(--spacer-xs) 0 var(--spacer-base) 0;
+    }
+  }
 }
 .form {
+  &__checkbox {
+    margin: var(--spacer-base) 0 var(--spacer-xl) 0;
+  }
+  &__action {
+    flex: 0 0 100%;
+    margin: var(--spacer-base) 0 0 0;
+  }
+  &__action-button {
+    --button-height: 3.25rem;
+  }
+  @include for-mobile {
+    &__checkbox {
+      --checkbox-font-family: var(--font-family-primary);
+      --checkbox-font-weight: var(--font-light);
+      --checkbox-font-size: var(--font-sm);
+    }
+  }
   @include for-desktop {
+    margin: 0 var(--spacer-2xl) 0 0;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
-  }
-  &__element {
-    margin-bottom: var(--spacer-extra-big);
-    @include for-desktop {
-      flex: 0 0 100%;
+    &__action {
+      display: flex;
     }
-    &--half {
-      @include for-desktop {
-        flex: 1 1 50%;
+    &__action-button {
+      &:first-child {
+        margin: 0 var(--spacer-lg) 0 0;
       }
-      &-even {
-        @include for-desktop {
-          padding-left: var(--spacer-extra-big);
+    }
+    &__element {
+      margin: 0 0 var(--spacer-base) 0;
+      flex: 0 0 100%;
+      &--salutation {
+        flex: 1 1 25%;
+        padding-right: var(--spacer-xl);
+      }
+      &--half {
+        flex: 1 1 50%;
+        &-even {
+          padding: 0 0 0 var(--spacer-lg);
         }
       }
     }
-  }
-  &__action {
-    @include for-desktop {
-      flex: 0 0 100%;
-      display: flex;
-    }
-  }
-  &__action-button {
-    flex: 1;
-    &--secondary {
-      margin: var(--spacer-big) 0;
-      @include for-desktop {
-        order: -1;
-        margin: 0;
-        text-align: left;
-      }
-    }
-  }
-  &__select {
-    ::v-deep .sf-select__selected {
-      padding: 5px 0;
-    }
-  }
-  &__radio {
-    white-space: nowrap;
   }
 }
 .payment-image {
@@ -245,7 +256,7 @@ export default {
 .payment-methods {
   @include for-desktop {
     display: flex;
-    padding: var(--spacer-big) 0;
+    padding: var(--spacer-base) 0;
     border-top: 1px solid var(--c-light);
     border-bottom: 1px solid var(--c-light);
   }
@@ -271,13 +282,13 @@ export default {
         align-items: center;
       }
       &__content {
-        margin: 0 0 0 var(--spacer);
+        margin: 0 0 0 var(--spacer-xs);
       }
     }
   }
 }
 .credit-card-form {
-  margin-bottom: var(--spacer-big);
+  margin-bottom: var(--spacer-base);
   @include for-desktop {
     flex: 0 0 66.666%;
     padding: 0 calc((100% - 66.666%) / 2);
@@ -286,7 +297,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 0 var(--spacer-big) 0;
+    margin: 0 0 var(--spacer-base) 0;
   }
   &__label {
     flex: unset;
@@ -301,7 +312,7 @@ export default {
       flex: 0 0 46.666%;
     }
     & + & {
-      margin-left: var(--spacer-big);
+      margin-left: var(--spacer-base);
     }
   }
 }
