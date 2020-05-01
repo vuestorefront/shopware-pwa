@@ -1,17 +1,24 @@
 <template>
   <div class="layout">
+    <SwPluginSlot name="page-top" />
     <TopNavigation />
-    <SwPluginTopNavigation />
+    <SwPluginSlot name="top-header-after" />
+    <!-- <SwPluginTopNavigation /> -->
+    <!-- <SwPluginSlot name="SwPluginTopNavigation" /> -->
     <SfBreadcrumbs
       v-show="getBreadcrumbs.length > 0"
       :breadcrumbs="getBreadcrumbs"
       class="sw-breadcrumbs layout__sized"
       @click="redirectTo"
     />
+    <SwPluginSlot name="breadcrumbs-after" />
     <nuxt />
     <SwCart />
-    <SwBottomNavigation class="layout__bottom-navigation" />
+    <SwPluginSlot name="footer-before" />
     <SwFooter />
+    <SwPluginSlot name="footer-after" />
+    <div class="layout__bottom-navigation-placeholder" />
+    <SwBottomNavigation class="layout__bottom-navigation" />
   </div>
 </template>
 
@@ -22,6 +29,7 @@ import SwBottomNavigation from '@shopware-pwa/default-theme/components/SwBottomN
 import SwCart from '@shopware-pwa/default-theme/components/SwCart'
 import SwFooter from '@shopware-pwa/default-theme/components/SwFooter'
 import SwPluginTopNavigation from 'sw-plugins/SwPluginTopNavigation'
+import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 
 export default {
   components: {
@@ -31,6 +39,7 @@ export default {
     SwFooter,
     SwBottomNavigation,
     SwPluginTopNavigation,
+    SwPluginSlot,
   },
   computed: {
     componentBreadcrumbs() {
@@ -145,6 +154,12 @@ body {
   box-sizing: border-box;
   height: 100%;
 
+  &__bottom-navigation-placeholder {
+    height: 6em;
+    @include for-desktop() {
+      display: none;
+    }
+  }
   &__bottom-navigation {
     @include for-desktop() {
       display: none;

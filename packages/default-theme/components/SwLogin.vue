@@ -1,5 +1,6 @@
 <template>
   <div class="sw-login">
+    <SwPluginSlot name="login-form-before" />
     <div class="form sw-login__form">
       <SfAlert
         v-if="userError"
@@ -35,6 +36,7 @@
       >
         Log in
       </SfButton>
+      <SwPluginSlot name="login-form-button-after" />
     </div>
   </div>
 </template>
@@ -44,15 +46,16 @@ import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { required, email } from 'vuelidate/lib/validators'
 import { useUser } from '@shopware-pwa/composables'
+import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 
 export default {
   name: 'SwLogin',
-  components: { SfButton, SfInput, SfAlert },
+  components: { SfButton, SfInput, SfAlert, SwPluginSlot },
   mixins: [validationMixin],
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
     }
   },
   setup() {
@@ -60,17 +63,17 @@ export default {
     return {
       clientLogin: login,
       isLoading: loading,
-      userError
+      userError,
     }
   },
   validations: {
     email: {
       required,
-      email
+      email,
     },
     password: {
-      required
-    }
+      required,
+    },
   },
   methods: {
     async invokeLogin() {
@@ -80,11 +83,11 @@ export default {
       }
       const loggedIn = await this.clientLogin({
         username: this.email,
-        password: this.password
+        password: this.password,
       })
       if (loggedIn) this.$emit('success')
-    }
-  }
+    },
+  },
 }
 </script>
 

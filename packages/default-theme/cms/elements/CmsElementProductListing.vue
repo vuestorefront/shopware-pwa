@@ -15,7 +15,7 @@
         <div class="cms-element-product-listing__place-holder" />
       </div>
       <SfPagination
-        class="cms-element-product-listing__pagination desktop-only"
+        class="cms-element-product-listing__pagination"
         :current="pagination.currentPage"
         :total="Math.ceil(pagination.total / pagination.perPage)"
         :visible="5"
