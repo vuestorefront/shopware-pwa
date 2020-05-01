@@ -17,7 +17,9 @@
     "test": "jest",
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "files": [
     "tsconfig.json",
@@ -33,7 +35,8 @@
     "gluegun": "^4.2.0",
     "lodash": "^4.17.15",
     "request": "^2.88.2",
-    "unzipper": "^0.10.11"
+    "unzipper": "^0.10.11",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",
@@ -53,5 +56,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "snyk": true
 }
