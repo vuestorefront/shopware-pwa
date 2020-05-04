@@ -207,9 +207,6 @@ export default {
     },
     getSortLabel(sorting) {
       return getSortingLabel(sorting)
-    },
-    siema() {
-      console.log('siema');
     }
   },
 }
