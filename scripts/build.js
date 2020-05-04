@@ -23,7 +23,7 @@ const { compress } = require("brotli");
 const {
   targets: buildTargets,
   allTargets,
-  fuzzyMatchTarget
+  fuzzyMatchTarget,
 } = require("./utils");
 
 const args = require("minimist")(process.argv.slice(2));
@@ -48,7 +48,7 @@ async function run() {
         const pkgDir = path.resolve(`packages/${allTargets[index]}`);
         await execa("npx", ["yalc", "push"], {
           stdio: "inherit",
-          cwd: pkgDir
+          cwd: pkgDir,
         });
       }
     }
@@ -64,6 +64,18 @@ async function buildAll(targets) {
     const result = await build(target);
     if (result === false) return;
   }
+  if (buildTypes) {
+    console.log(
+      chalk.bold(
+        chalk.yellow(`Updating docs/api folder with public documentation`)
+      )
+    );
+    await execa(
+      "api-documenter",
+      ["markdown", "-i", "./temp", "-o", "./docs/api"],
+      { stdio: "inherit" }
+    );
+  }
 }
 
 async function build(target) {
@@ -75,7 +87,7 @@ async function build(target) {
     if (isCIRun) {
       await execa("npx", ["yalc", "push"], {
         stdio: "inherit",
-        cwd: pkgDir
+        cwd: pkgDir,
       });
     }
     return;
@@ -101,10 +113,10 @@ async function build(target) {
         formats ? `FORMATS:${formats}` : ``,
         buildTypes ? `TYPES:true` : ``,
         prodOnly ? `PROD_ONLY:true` : ``,
-        sourceMap ? `SOURCE_MAP:true` : ``
+        sourceMap ? `SOURCE_MAP:true` : ``,
       ]
         .filter(Boolean)
-        .join(",")
+        .join(","),
     ],
     { stdio: "inherit" }
   );
@@ -124,7 +136,7 @@ async function build(target) {
     );
     const result = Extractor.invoke(extractorConfig, {
       localBuild: !isCIRun,
-      showVerboseMessages: true
+      showVerboseMessages: true,
     });
 
     if (result.succeeded) {
@@ -133,7 +145,7 @@ async function build(target) {
         const dtsPath = path.resolve(pkgDir, pkg.types);
         const existing = await fs.readFile(dtsPath, "utf-8");
         const toAdd = await Promise.all(
-          pkg.buildOptions.dts.map(file => {
+          pkg.buildOptions.dts.map((file) => {
             return fs.readFile(path.resolve(pkgDir, file), "utf-8");
           })
         );
@@ -144,8 +156,8 @@ async function build(target) {
       );
     } else {
       console.error(
-        `API Extractor completed with ${extractorResult.errorCount} errors` +
-          ` and ${extractorResult.warningCount} warnings`
+        `API Extractor completed with ${result.errorCount} errors` +
+          ` and ${result.warningCount} warnings`
       );
       console.log(
         chalk.bold(

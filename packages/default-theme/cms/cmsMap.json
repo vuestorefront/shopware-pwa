@@ -1,0 +1,35 @@
+{
+  "sections": {
+    "default": "CmsSectionDefault",
+    "sidebar": "CmsSectionSidebar"
+  },
+  "blocks": {
+    "text-on-image": "CmsBlockTextOnImage",
+    "sidebar-filter": "CmsBlockDefault",
+    "product-listing": "CmsBlockDefault",
+    "image-text": "CmsBlockTextOnImage",
+    "image": "CmsBlockDefault",
+    "image-cover": "CmsBlockImageCover",
+    "category-navigation": "CmsBlockCategoryNavigation",
+    "image-bubble-row": "CmsBlockImageBubbleRow",
+    "center-text": "CmsBlockCenterText",
+    "image-four-column": "CmsBlockImageFourColumn",
+    "image-highlight-row": "CmsBlockImageHighlightRow",
+    "image-simple-grid": "CmsBlockImageSimpleGrid",
+    "image-text-cover": "CmsBlockImageTextCover",
+    "image-three-column": "CmsBlockImageThreeColumn",
+    "image-three-cover": "CmsBlockImageThreeCover",
+    "image-two-column": "CmsBlockImageTwoColumn"
+  },
+  "elements": {
+    "product-box": "CmsElementProductCard",
+    "product-slider": "CmsElementProductSlider",
+    "image": "CmsElementImage",
+    "text": "CmsElementText",
+    "vimeo-video": "CmsElementVideoVimeo",
+    "youtube-video": "CmsElementVideoYoutube",
+    "product-listing": "CmsElementProductListing",
+    "category-navigation": "CmsElementCategoryNavigation",
+    "sidebar-filter": "CmsElementCategorySidebarFilter"
+  }
+}

@@ -47,12 +47,24 @@ export function changeCartItemQuantity(itemId: string, newQuantity?: number): Pr
 // @alpha
 export function clearCart(): Promise<ContextTokenResponse>;
 
-// Warning: (ae-forgotten-export) The symbol "ClientSettings" needs to be exported by the entry point index.d.ts
-//
+// @beta (undocumented)
+export interface ClientSettings {
+    // (undocumented)
+    accessToken?: string;
+    // (undocumented)
+    contextToken?: string;
+    // (undocumented)
+    defaultPaginationLimit?: number;
+    // (undocumented)
+    endpoint?: string;
+    // (undocumented)
+    timeout?: number;
+}
+
 // @beta (undocumented)
 export const config: ClientSettings;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface ConfigChangedArgs {
     // (undocumented)
     config: ClientSettings;
@@ -139,19 +151,19 @@ export function getCategories(searchCriteria?: SearchCriteria): Promise<SearchRe
 // @alpha (undocumented)
 export function getCategory(categoryId: string): Promise<Category>;
 
-// @alpha
+// @beta
 export function getCustomer(): Promise<Customer | null>;
 
 // @alpha
 export function getCustomerAddress(addressId: string): Promise<CustomerAddress>;
 
-// @alpha
+// @beta
 export function getCustomerAddresses(): Promise<CustomerAddress[]>;
 
 // @alpha
 export function getCustomerOrderDetails(orderId: string): Promise<Order>;
 
-// @alpha
+// @beta
 export function getCustomerOrders(): Promise<Order[]>;
 
 // @alpha (undocumented)
@@ -186,16 +198,16 @@ export function getUserCountry(countryId: string): Promise<Country>;
 // @alpha (undocumented)
 export function getUserSalutation(salutationId: string): Promise<Salutation>;
 
-// @alpha
+// @beta
 export function login({ username, password, }?: {
     username?: string;
     password?: string;
 }): Promise<ContextTokenResponse>;
 
-// @alpha
+// @beta
 export function logout(): Promise<void>;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function onConfigChange(fn: (context: ConfigChangedArgs) => void): void;
 
 // @alpha (undocumented)
@@ -240,7 +252,7 @@ export function setDefaultCustomerBillingAddress(addressId: string): Promise<str
 // @alpha
 export function setDefaultCustomerShippingAddress(addressId: string): Promise<string>;
 
-// @alpha
+// @beta
 export function setup(config?: ClientSettings): void;
 
 // @alpha (undocumented)
@@ -261,7 +273,7 @@ export interface ShopwareParams {
     term?: string;
 }
 
-// @alpha
+// @beta
 export function update(config?: ClientSettings): void;
 
 // @alpha

@@ -1,5 +1,10 @@
 import { setup, onConfigChange } from "@shopware-pwa/shopware-6-client";
-import { setStore, useUser, useCart } from "@shopware-pwa/composables";
+import {
+  setStore,
+  useUser,
+  useCart,
+  useSessionContext,
+} from "@shopware-pwa/composables";
 
 export default async ({ app, store }) => {
   if (!app.$cookies) {
@@ -31,8 +36,10 @@ export default async ({ app, store }) => {
   // Temporary fix for SSR and reactivity
   setStore(store);
 
+  const { refreshSessionContext } = useSessionContext();
   const { refreshUser } = useUser();
   const { refreshCart } = useCart();
+  await refreshSessionContext();
   await refreshUser();
   await refreshCart();
 };
