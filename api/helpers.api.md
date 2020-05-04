@@ -136,9 +136,6 @@ export function getProductSpecialPrice(product: Product): number;
 export function getProductUrl(product: Product | null): string;
 
 // @alpha (undocumented)
-export const getSortingLabel: (sorting: SwSorting) => string;
-
-// @alpha (undocumented)
 export const getSortingSearchCriteria: (selectedSorting: SwSorting) => Sort;
 
 // @alpha (undocumented)

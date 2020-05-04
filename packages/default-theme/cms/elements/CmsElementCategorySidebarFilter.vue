@@ -116,8 +116,8 @@ import {
   useCategoryFilters,
   useProductListing,
 } from '@shopware-pwa/composables'
-import { getSortingLabel } from '@shopware-pwa/helpers'
 const { availableFilters, availableSorting } = useCategoryFilters()
+import helpers from '../../helpers'
 
 export default {
   components: {
@@ -206,7 +206,7 @@ export default {
       this.isFilterSidebarOpen = false
     },
     getSortLabel(sorting) {
-      return getSortingLabel(sorting)
+      return helpers.getSortingLabel(sorting)
     },
   },
 }
