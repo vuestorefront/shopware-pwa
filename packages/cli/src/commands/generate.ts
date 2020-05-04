@@ -81,10 +81,28 @@ module.exports = {
       `.shopware-pwa/pwa-bundles.json`,
       "json"
     );
-    const pluginsTrace = await toolbox.buildPluginsTrace({
+    const shopwarePluginsTrace = await toolbox.buildPluginsTrace({
       pluginsConfig,
-      allowDevMode,
     });
+    // extend plugins trace from local project
+    const localPluginsConfig = toolbox.filesystem.read(
+      `sw-plugins/local-plugins.json`,
+      "json"
+    );
+    const pluginsTrace = await toolbox.buildPluginsTrace({
+      pluginsConfig: localPluginsConfig,
+      pluginsTrace: shopwarePluginsTrace,
+      rootDirectory: "sw-plugins",
+    });
+    // In dev mode we're injecting to footer to provide plugin slots switcher
+    if (allowDevMode) {
+      if (!pluginsTrace["footer-content-after"])
+        pluginsTrace["footer-content-after"] = [];
+      pluginsTrace["footer-content-after"].push(
+        "sw-plugins/SwPluginSlotPlaceholderSwitcher.vue"
+      );
+    }
+
     generateFilesSpinner.succeed();
 
     const finalMap = await toolbox.buildPluginsMap(pluginsTrace);

@@ -76,12 +76,19 @@ module.exports = (toolbox: GluegunToolbox) => {
     });
   };
 
-  toolbox.buildPluginsTrace = async ({ pluginsConfig, allowDevMode }) => {
-    const pluginsMap = {};
+  toolbox.buildPluginsTrace = async ({
+    pluginsConfig,
+    rootDirectory,
+    pluginsTrace,
+  }: any = {}) => {
+    const pluginsRootDirectory =
+      rootDirectory || ".shopware-pwa/pwa-bundles-assets";
+    const pluginsMap = Object.assign({}, pluginsTrace);
     if (pluginsConfig) {
       const pluginNames = Object.keys(pluginsConfig);
       pluginNames.forEach((pluginName) => {
-        const pluginDirectory = `.shopware-pwa/pwa-bundles-assets/${pluginName}`;
+        if (!pluginsConfig[pluginName]) return;
+        const pluginDirectory = `${pluginsRootDirectory}/${pluginName}`;
         const pluginDirExist = toolbox.filesystem.exists(pluginDirectory);
         if (pluginDirExist) {
           const pluginConfig = toolbox.filesystem.read(
@@ -98,14 +105,6 @@ module.exports = (toolbox: GluegunToolbox) => {
           }
         }
       });
-    }
-    // In dev mode we're injecting to footer to provide plugin slots switcher
-    if (allowDevMode) {
-      if (!pluginsMap["footer-content-after"])
-        pluginsMap["footer-content-after"] = [];
-      pluginsMap["footer-content-after"].push(
-        "sw-plugins/SwPluginSlotPlaceholderSwitcher.vue"
-      );
     }
     return pluginsMap;
   };
