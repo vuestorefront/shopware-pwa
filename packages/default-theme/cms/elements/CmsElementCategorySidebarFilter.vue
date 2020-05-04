@@ -74,7 +74,7 @@
                 "
                 class="filters__item"
                 :class="{'filters__item--color': option.color}"
-                @change.native="
+                @change="
                   toggleFilter({
                     type: 'equals',
                     value: option.value,
@@ -208,6 +208,9 @@ export default {
     getSortLabel(sorting) {
       return getSortingLabel(sorting)
     },
+    siema() {
+      console.log('siema');
+    }
   },
 }
 </script>
