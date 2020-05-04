@@ -67,7 +67,7 @@
             />
             <SfDropdown class="dropdown" :is-open="isDropdownOpen">
               <SfList>
-                <nuxt-link  :to="getPageAccount">
+                <nuxt-link :to="getPageAccount">
                   <SfListItem class="dropdown__item">
                       Go to My account
                   </SfListItem>

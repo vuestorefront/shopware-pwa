@@ -28,9 +28,24 @@
       <SfBottomNavigationItem
         icon="profile"
         label="My Account"
-        size="20px"
-        @click="userIconClick"
-      />
+        class="menu-button"
+      >
+        <template #icon>
+          <SfIcon icon="profile" size="20px" />
+          <SfSelect
+            class="menu-button__select"
+          >
+            <SfSelectOption :value="getPageAccount">
+              <nuxt-link  class="sf-header__link" :to="getPageAccount">
+                Go to my account
+              </nuxt-link>
+            </SfSelectOption>
+            <SfSelectOption @click.native="logoutUser" :value="'logout'">
+                Logout
+            </SfSelectOption>
+          </SfSelect>
+        </template>
+      </SfBottomNavigationItem>
       <SfBottomNavigationItem label="Currency" class="menu-button">
         <template #icon>
           <SwCurrency class="menu-button__currency" />
@@ -65,7 +80,7 @@ import {
   useUser,
   useUserLoginModal,
 } from '@shopware-pwa/composables'
-import { PAGE_ACCOUNT } from '../helpers/pages'
+import { PAGE_ACCOUNT, PAGE_LOGIN } from '../helpers/pages'
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
 
 export default {
@@ -88,9 +103,10 @@ export default {
     const { toggleSidebar, isSidebarOpen } = useCartSidebar()
     const { routes } = useNavigation()
     const { toggleModal } = useUserLoginModal()
-    const { isLoggedIn } = useUser()
+    const { isLoggedIn, logout } = useUser()
     return {
       isLoggedIn,
+      logout,
       routes,
       isSidebarOpen,
       toggleSidebar,
@@ -102,14 +118,16 @@ export default {
       this.$router.push(nextRoute.routeLabel)
     },
   },
+  computed: {
+    getPageAccount() {
+      return PAGE_ACCOUNT
+    }
+  },
   methods: {
-    userIconClick() {
-      if (this.isLoggedIn) {
-        this.$router.push(PAGE_ACCOUNT)
-        return
-      }
-      this.toggleModal()
-    },
+    async logoutUser() {
+      await this.logout()
+      this.$router.push(PAGE_LOGIN)
+    }
   },
 }
 </script>
@@ -129,6 +147,7 @@ export default {
     --select-margin: 0;
     text-align: center;
     position: absolute;
+    text-transform: uppercase;
   }
 }
 </style>
