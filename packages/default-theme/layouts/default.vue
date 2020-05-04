@@ -3,8 +3,6 @@
     <SwPluginSlot name="page-top" />
     <TopNavigation />
     <SwPluginSlot name="top-header-after" />
-    <!-- <SwPluginTopNavigation /> -->
-    <!-- <SwPluginSlot name="SwPluginTopNavigation" /> -->
     <SfBreadcrumbs
       v-show="getBreadcrumbs.length > 0"
       :breadcrumbs="getBreadcrumbs"
@@ -28,7 +26,6 @@ import TopNavigation from '@shopware-pwa/default-theme/components/TopNavigation'
 import SwBottomNavigation from '@shopware-pwa/default-theme/components/SwBottomNavigation'
 import SwCart from '@shopware-pwa/default-theme/components/SwCart'
 import SwFooter from '@shopware-pwa/default-theme/components/SwFooter'
-import SwPluginTopNavigation from 'sw-plugins/SwPluginTopNavigation'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 
 export default {
@@ -38,7 +35,6 @@ export default {
     SwCart,
     SwFooter,
     SwBottomNavigation,
-    SwPluginTopNavigation,
     SwPluginSlot,
   },
   computed: {

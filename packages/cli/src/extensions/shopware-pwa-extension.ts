@@ -43,7 +43,7 @@ module.exports = (toolbox: GluegunToolbox) => {
   /**
    * inputs for commands
    * - most important are params passed to CLI
-   * - fallback is shopware-pwa.config.js filr
+   * - fallback is shopware-pwa.config.js file
    * - next fallback are default values
    */
   toolbox.inputParameters = {
@@ -57,5 +57,6 @@ module.exports = (toolbox: GluegunToolbox) => {
       toolbox.parameters.options.username || toolbox.parameters.options.u,
     password:
       toolbox.parameters.options.password || toolbox.parameters.options.p,
+    devMode: toolbox.parameters.options.devMode,
   };
 };

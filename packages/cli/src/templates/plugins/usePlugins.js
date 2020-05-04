@@ -1,7 +1,7 @@
 import Vue from "vue";
 import { computed, reactive } from "@vue/composition-api";
 
-const allowShowingSlots = "true" === "<%= props.allowShowingSlots %>";
+const allowDevMode = "true" === "<%= props.allowDevMode %>";
 
 const sharedState = Vue.observable({
   slotsAreVisible: false,
@@ -12,7 +12,7 @@ export const usePlugins = () => {
   const showPluginSlots = computed({
     get: () => localState.slotsAreVisible,
     set: (value) => {
-      if (allowShowingSlots) localState.slotsAreVisible = value;
+      if (allowDevMode) localState.slotsAreVisible = value;
     },
   });
 

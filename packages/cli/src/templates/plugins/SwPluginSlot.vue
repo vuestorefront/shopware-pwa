@@ -4,6 +4,12 @@
 <script>
 import { usePlugins } from "./usePlugins";
 
+const pluginsMap = {
+  <% Object.keys(props.pluginsMap).forEach(function(pluginSlotName) { %>
+    "<%= pluginSlotName %>": () => import("<%= props.pluginsMap[pluginSlotName] %>"),
+  <% }) %>
+}
+
 export default {
   props: {
     name: {
@@ -21,25 +27,16 @@ export default {
     return {};
   },
   computed: {
-    getTitle() {
-      return this.name || "Unnamed plugin slot";
-    },
     getComponent() {
       if (this.showPluginSlots) {
         return () => import("./SwPluginSlotPlaceholder.vue");
       }
-      if (this.name === "footer-content-after") {
-        return () => import("./SwPluginSlotPlaceholderSwitcher.vue");
+      if (pluginsMap[this.name]) {
+        return pluginsMap[this.name]
       }
-      // return getCmsElementComponent(this.content)
       return () => import("./SwPluginEmptySlot.vue");
     },
-  },
-  methods: {
-    displayTitle() {
-      console.log(this.getTitle);
-    },
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>
