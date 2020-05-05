@@ -11,15 +11,7 @@
     "image": "CmsBlockDefault",
     "image-cover": "CmsBlockImageCover",
     "category-navigation": "CmsBlockCategoryNavigation",
-    "image-bubble-row": "CmsBlockImageBubbleRow",
-    "center-text": "CmsBlockCenterText",
-    "image-four-column": "CmsBlockImageFourColumn",
-    "image-highlight-row": "CmsBlockImageHighlightRow",
-    "image-simple-grid": "CmsBlockImageSimpleGrid",
-    "image-text-cover": "CmsBlockImageTextCover",
-    "image-three-column": "CmsBlockImageThreeColumn",
-    "image-three-cover": "CmsBlockImageThreeCover",
-    "image-two-column": "CmsBlockImageTwoColumn"
+    "image-bubble-row": "CmsBlockImageBubbleRow"
   },
   "elements": {
     "product-box": "CmsElementProductCard",
