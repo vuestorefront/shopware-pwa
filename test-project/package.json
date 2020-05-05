@@ -23,11 +23,6 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.10.1",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
-    "@shopware-pwa/composables": "file:.yalc/@shopware-pwa/composables",
-    "@shopware-pwa/default-theme": "file:.yalc/@shopware-pwa/default-theme",
-    "@shopware-pwa/helpers": "file:.yalc/@shopware-pwa/helpers",
-    "@shopware-pwa/nuxt-module": "file:.yalc/@shopware-pwa/nuxt-module",
-    "@shopware-pwa/shopware-6-client": "file:.yalc/@shopware-pwa/shopware-6-client",
     "@storefront-ui/vue": "0.7.6",
     "@vue-storefront/nuxt": "^0.0.3",
     "@vue/composition-api": "^0.5.0",
