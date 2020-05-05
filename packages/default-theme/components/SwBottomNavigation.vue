@@ -40,6 +40,7 @@
                 Go to my account
               </nuxt-link>
             </SfSelectOption>
+            <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
             <SfSelectOption @click.native="logoutUser" :value="'logout'">
                 Logout
             </SfSelectOption>
