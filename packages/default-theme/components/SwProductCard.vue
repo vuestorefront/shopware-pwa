@@ -100,7 +100,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~@storefront-ui/vue/styles.scss';
 
 .product-card-title {
@@ -125,6 +125,11 @@ export default {
       cursor: pointer;
       color: var(--c-gray);
     }
+  }
+}
+.products__product-card {
+  ins, del {
+    display: inline-block;
   }
 }
 </style>
