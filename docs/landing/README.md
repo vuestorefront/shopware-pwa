@@ -4,9 +4,9 @@ sidebar: false
 
 ![showpare-vsf-banner](./assets/shopware_vsf_banner.png)
 
-<div style="display: flex; margin-top: 50px;">
+<div class="flex-container">
 
-<div style="width: 50%;">
+<div class="md-50">
 	
 
 ### [Project](project)
@@ -20,7 +20,7 @@ Get to understand the core components of the application
 
 </div>
 
-<div style="width: 50%;">
+<div class="md-50">
 	
 ### [Concepts](concepts)
 Guides for functional concepts like CMS or Checkout
@@ -40,3 +40,20 @@ List of interfaces and helper classes provided by the core
 Made with ❤️ by shopware AG & Vue Storefront
 
 </center>
+
+<style>
+.flex-container {
+	display: block;
+	margin-top: 50px;
+}
+
+@media screen and (min-width: 720px) {
+	.flex-container {
+		display: flex;
+	}
+
+	.md-50 {
+		width: 50%;
+	}
+}
+</style>
