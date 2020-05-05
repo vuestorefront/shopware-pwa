@@ -4,13 +4,26 @@ sidebar: false
 
 ![showpare-vsf-banner](./assets/shopware_vsf_banner.png)
 
+:::details 🚀 Quick setup for busy developers
+
+```bash
+# install CLI
+yarn global add @shopware-pwa/cli
+
+# setup
+shopware-pwa init
+
+# start
+yarn dev
+```
+:::
+
 <div class="flex-container">
 
-<div class="md-50">
-	
+<div class="md-50">	
 
 ### [Project](project)
-Understand the goal of this project
+Understand the goal and scope of this project
 
 ### [Getting started](getting-started)
 Quickstart and finding your way around
@@ -44,7 +57,7 @@ Made with ❤️ by shopware AG & Vue Storefront
 <style>
 .flex-container {
 	display: block;
-	margin-top: 50px;
+	margin-top: 25px;
 }
 
 @media screen and (min-width: 720px) {
