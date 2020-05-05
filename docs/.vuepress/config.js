@@ -6,25 +6,24 @@ module.exports = {
     docsDir: "docs",
     sidebarDepth: 2,
     smoothScroll: true,
-    sidebar: {
-      "/cli/": [""],
-      "/api/": [
-        {
-          title: "API",
-          path: "",
-          collapsable: false,
-          children: [
-            { title: "Composables", path: "composables" },
-            { title: "Helpers", path: "helpers" },
-            { title: "Shopware 6 client", path: "shopware-6-client" },
-          ],
-        },
-      ],
-      "/": [""],
-    },
+    displayAllHeaders: true,
+    sidebar: [
+      {
+        title: "Documentation",
+        path: "/landing/",
+        collapsable: false,
+        children: [
+          ["/landing/project/", "Project"],
+          ["/landing/getting-started/", "Getting started"],
+          ["/landing/fundamentals/", "Fundamentals"],
+          ["/landing/concepts/", "Concepts"],
+          ["/landing/operation/", "Operation"],
+        ],
+      },
+    ],
     nav: (module.exports = [
       {
-        text: "Guide",
+        text: "Guides",
         items: [
           {
             text: "Setup",
