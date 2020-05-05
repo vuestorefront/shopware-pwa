@@ -1,31 +1,27 @@
-import { getPluginsEndpoint } from "../endpoints";
 import { apiService } from "../apiService";
 
 /**
- * @alpha
- */
-export interface PluginRequest {
-  code: string;
-  resource: string;
-  payload?: any; // only for POST requests
-}
-
-/**
+ * Invoke custom POST request to shopware API. Mostly for plugins usage.
+ * You can skip domain and pass only endpoint ex. `/api/my/endpoint`
  * @throws ClientApiError
- * @alpha
+ * @beta
  */
-export function pluginPost({
-  code,
-  resource,
+export function invokePost({
+  address,
   payload,
-}: PluginRequest): Promise<any> {
-  return apiService.post(getPluginsEndpoint(code, resource), payload);
+}: {
+  address: string;
+  payload?: any;
+}): Promise<any> {
+  return apiService.post(address, payload);
 }
 
 /**
+ * Invoke custom GET request to shopware API. Mostly for plugins usage.
+ * You can skip domain and pass only endpoint ex. `/api/my/endpoint`
  * @throws ClientApiError
- * @alpha
+ * @beta
  */
-export function pluginGet({ code, resource }: PluginRequest): Promise<any> {
-  return apiService.get(getPluginsEndpoint(code, resource));
+export function invokeGet({ address }: { address: string }): Promise<any> {
+  return apiService.get(address);
 }

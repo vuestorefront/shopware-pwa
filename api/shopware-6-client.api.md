@@ -199,6 +199,17 @@ export function getUserCountry(countryId: string): Promise<Country>;
 export function getUserSalutation(salutationId: string): Promise<Salutation>;
 
 // @beta
+export function invokeGet({ address }: {
+    address: string;
+}): Promise<any>;
+
+// @beta
+export function invokePost({ address, payload, }: {
+    address: string;
+    payload?: any;
+}): Promise<any>;
+
+// @beta
 export function login({ username, password, }?: {
     username?: string;
     password?: string;
@@ -220,22 +231,6 @@ export interface PageResolverResult<T> {
     resourceIdentifier: string;
     // (undocumented)
     resourceType: string;
-}
-
-// @alpha (undocumented)
-export function pluginGet({ code, resource }: PluginRequest): Promise<any>;
-
-// @alpha (undocumented)
-export function pluginPost({ code, resource, payload, }: PluginRequest): Promise<any>;
-
-// @alpha (undocumented)
-export interface PluginRequest {
-    // (undocumented)
-    code: string;
-    // (undocumented)
-    payload?: any;
-    // (undocumented)
-    resource: string;
 }
 
 // @alpha
