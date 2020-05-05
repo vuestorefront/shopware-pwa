@@ -1,5 +1,5 @@
 module.exports = {
-  title: "Shopware-PWA",
+  title: "PWA",
   description: "Headless PWA for Shopware",
   themeConfig: {
     repo: "DivanteLtd/shopware-pwa",
@@ -7,6 +7,7 @@ module.exports = {
     sidebarDepth: 2,
     smoothScroll: true,
     displayAllHeaders: true,
+    logo: "/shopware_logo.png",
     sidebar: [
       {
         title: "Documentation",
