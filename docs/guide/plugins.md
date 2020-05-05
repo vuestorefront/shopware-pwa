@@ -4,6 +4,8 @@ sidebar: auto
 
 # Plugins
 
+`shopware-pwa init` will take the resources from each plugin `Resources/app/pwa` directory and place it in your project. Plugin installation date determines whether it's "on top" of other plugins (newest installation date means that plugin is on top if there are more than one plugin injected to theme slot)
+
 ## Creating plugin
 
 Plugin development can be easily made locally. First, we need to choose where would we want to plug into. To see all available plugin slots we may want to select `yes` during `shopware-pwa init` command when it asks to allow dev mode.
@@ -199,4 +201,4 @@ So this allows our installed plugin to show up and present itself.
 
 ![local-plugin-3](./../assets/local-plugin-3.png)
 
-In this case, it shows a random plugin bud it could be as well another promotion plugin. You always decide where to show slot with another plugin if exists. There are a lot more use cases. Like social login button - you're doing plugin for Facebook, but others may do plugins for Google, GitHub etc.
+In this case, it shows a random plugin but it could be as well another promotion plugin. You always decide where to show slot with another plugin if exists. There are a lot more use cases. Like social login button - you're doing plugin for Facebook, but others may do plugins for Google, GitHub etc.
