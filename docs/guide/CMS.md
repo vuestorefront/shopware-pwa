@@ -8,32 +8,40 @@ sidebar: auto
 This documentation does not explain how to create custom pages that contain static content or use non-cms related endpoints. You can follow the Nuxt.js documentation on [pages](https://nuxtjs.org/guide/views/#pages) as Shopware PWA is a Nuxt.js project.
 :::
 
-## Intro
-
 [[toc]]
 
-During the implementation of shopware-pwa and even more during our constant exchange with community members it appeared that we are lacking a clear explanation of the internal structure of the Shopware CMS and how it translates to the PWA application.
+## Intro
+
+This is a guide to Shopware CMS and how it translates to Shopware PWA.
+
+After reading the full guide, you will understand how
+
+- CMS pages are organised in Showpare
+- the PWA resolves the page layout from an API response
+- to add custom blocks to extend the layout or make contributions
 
 In this guide I will assume you have a general knowledge of
 
-- Content management in Shopware 6 using Shopping Experiences
-- Setting up shopware-pwa
+- Content management in Shopware 6 using [Shopping Experiences (Shopware Docs)](https://docs.shopware.com/en/shopware-6-en/content/ShoppingExperiences)
+- Setting up shopware-pwa ([Cheatsheet](cheatsheet.html))
 
 ## Structure
 
-So let's start easy, by taking a look at the page structure as provided by the Shopware Store API (earlier Sales-Channel API).
+So let's start easy, by taking a look at the page structure as returned from the `/store-api/v1/pwa/page` endpoint which is provided by the **SwagShopwarePwa** plugin. The snippet below doesn't resemble the exact response, it rather illustrates its structure.
 
 ```js
-page: {
-	sections: [{
-		blocks: [{
-			slots: [{
-				"slot": "content",
-				"type": "product-listing",
-				...
-			}]
-		}, ...]
-	}, ...]
+{
+  cmsPage: {
+  	sections: [{
+  		blocks: [{
+  			slots: [{
+  				slot: "content",
+  				type: "product-listing",
+  				...
+  			}]
+  		}, ...]
+  	}, ...]
+  }
 }
 ```
 
@@ -43,6 +51,8 @@ Let's go through these structural components step by step, before we discuss the
 
 ![Storefront](./../assets/storefront.png)
 
+We do this in a top-down manner, starting from the biggest element or the *tree root*:
+
 ### Page
 
 A page serves as a wrapper and contains all content information as well as a `type` which denotes whether it serves as a
@@ -50,6 +60,7 @@ A page serves as a wrapper and contains all content information as well as a `ty
 - Category / Listing page
 - Shop page
 - Static page
+- (at some point we will support CMS for *Product pages* as well)
 
 ### Section
 
@@ -57,6 +68,8 @@ Defines a horizontal container segment within your page which can be either:
 
 - Two-Columns which we refer to as `sidebar` and `content` or
 - A single column
+
+A section contains blocks which are usually stacked upon each other.
 
 ### Block
 
@@ -67,7 +80,7 @@ A block represent a unit spanning an entire row which can provide custom layout 
 - Commerce
 - Video
 
-Each block can contain none up to multiple **slots**. To be more clear, I will use an example - take the following block:
+Each block can contain none up to multiple **slots**. A slot has a name and is just a container for one element. To be more clear, I will use an example - take the following block:
 
 ```js {2,4}
 block: {
@@ -136,15 +149,15 @@ Now that we have a proper understanding of all the components involved, we can l
 
 ## Implementation and Extension
 
-After that introduction we can start finding our way around `shopware-pwa`. After you have initialized a new project using the `shopware-pwa init` command, you will find a directory named `/cms` in your root. This will be your working area for the custom theme. Let's put that aside at the beginning and take a look into the internals to help us understand the process.
+After that introduction we can start finding our way around `shopware-pwa`. After you have initialized a new project using the `shopware-pwa init` command, you will find a directory named `/cms` in your root. This will be your working area for the custom cms components (or the ones you override). Let's put that aside at the beginning and take a look into the internals to help us understand the process.
 
 :::warning NOTE
 The CMS implementation as well as the extension mechanism for it is part of the default-theme implementation. If you are creating a custom theme from scratch, be aware that you won't be able to use the mechanics described below.
 :::
 
-### Discovery
+### Code Structure
 
-> If you want to skip the internals, [go to "Adding blocks and elements"](#implementing-cms-components)
+> If you want to skip the internals, [go to "Custom components"](#custom-components)
 
 First, we switch into the default theme that comes with Shopware PWA.
 
@@ -154,15 +167,15 @@ cd node_modules/@shopware-pwa/packages/default-theme
 
 If you are familiar with Nuxt.js you will probably recognize directories like `/pages`, `/components` or `/assets`. These files serve as a blueprint for your theme.
 
-There is one directory named `/cms`. The internal structure of that directory is closely resembles the structure followed in the Shopware cure. Sections, blocks and elements are located in their resepective directories and you will have an easy time understanding it if you know Shopware and its CMS. Take a look into the different directories to get familiar with the structure.
+There is one directory named `/cms`. The internal structure of that directory is closely resembles the structure followed in the Shopware core. Sections, blocks and elements are located in their resepective directories and you will have an easy time understanding it if you know Shopware and its CMS. Take a look into the different directories to get familiar with the structure.
 
 ::: tip MENTAL GLUE
 Naming convention dictates the `cms/[section|element|block]/[component-type].vue` scheme for all CMS components.
 :::
 
-#### Resolving
+### Resolving
 
-Recall [what Showpare responds](#block) to your application when calling the API. It provides a `type` parameter for every section, block and element like `"text-hero"` or `"product-listing"`. Now we need to translate this to our components. It's no more than a mapping inside the `cmsMap.json` file. The app will take care of the rest.
+Remember the API response when requesting a CMS page on the [`store-api/v1/pwa/page`](#block) endpoint from further above? It provides a `type` parameter for every section, block and element like `"text-hero"` or `"product-listing"`. Now we need to translate this to our components. It's no more than a mapping in the `cmsMap.json` file within your `cms` directory. The CMS resolving will take care of the rest.
 
 :::details cmsMap.json
 
@@ -272,23 +285,35 @@ The identical pattern is applied to resolve the correct block types within cms s
 
 This will have us set up for our custom implementation.
 
-## Implementing CMS components
+## Custom components
 
-### How to contribute to CMS
+In this section we will show you, how to create custom components and add them to the PWA. This applies to both, contributions as well as custom projects.
 
-The structure is placed inside `cms` directory, and has `cmsMap.json` file inside and 3 subfolders:
+If you used the `showpare-pwa init` command to set up your project, you are probably working on a custom project, so the `cms` directory will be empty for you. If you checked out the `shopware-pwa` repository and initiated your test project using `yarn start`, you are ready to make core contributions and the `cms` directory will be located in `packages/default-theme/cms`.
+
+### Adding the mapping
+
+As described before, the structure is placed inside the `cms` directory, and has the `cmsMap.json` file inside as well as the three subdirectories:
 
 - elements
 - blocks
 - slots
 
-Playing with CMSes, you can see that in some cases components are not implemented
+Playing with CMS pages in the PWA, you can see that in some cases components are not implemented. It will look like this:
 
 ![not implemented](./../assets/notImplemented.png)
 
-The message always contains a type of component, so you already know that `block` here is missing. We're not yet sure if should we add a new block or use the existing one. Let's go with that first and for `category-navigation` add config using already existing block.
+The message always contains a type of component, so you already know that a `block` here is missing. We're not yet sure if should we add a new block or use the existing one. Let's go with that first and for `category-navigation` add config using already existing block.
 
-in `cmsMap.json` at the default-theme package, we're adding a new entry with an already existing block `CmsBlockDefault`
+:::details Why should I use an existing block despite PWA saying it's not implemented?
+Some blocks actually contain remarkably little layout information. For example the blocks `image` and `product-listing` are really just containers for their respective elements. However, as soon as your block requires custom CSS or more markup, it is wise to create a custom block instead of using an existing one.
+
+Remember - if you are reusing an existing block, your layout will change whenever the original block gets changed.
+
+This tutorial will show both ways of doing it.
+:::
+
+In the `cmsMap.json`, we're adding a new entry with an already existing block `CmsBlockDefault`
 
 ```json{9}
 {
@@ -313,27 +338,27 @@ and we see the result:
 
 ![preview](./../assets/preview1.png)
 
-As we can see, our block should have some margins inside it. As we shouldn't modify `CmsBlockDefault` for that, because it may break other blocks, we create an individual block for `category-navigation`.
+As we can see, our block should have some margins inside it to level it with the right blocks. As we shouldn't modify `CmsBlockDefault` for that, because it may break other blocks, we create an individual block for `category-navigation`.
 
-### Creating new CMS component
+### Creating the component
 
-New CMS component should be placed in specific cms directory. As an example, we're creating a new block for type `category-navigation`.
+New CMS components should be placed in their specific cms directory. As an example, we're creating a new block for type `category-navigation` which should be placed in `cms/blocks`.
 
-Block component name should start with `CmsBlock`. In our case, it will be `CmsBlockCategoryNavigation`.
+The block component name should start with `CmsBlock`. In our case, it will be `CmsBlockCategoryNavigation`.
 
-CMS component should contain:
+It should contain:
 
-- root CSS class with a similar name to our component, in our example `cms-block-category-navigation`
-- component name property - same as file name
+- Root CSS class with a similar name to our component, in our example `cms-block-category-navigation`
+- Component name property - same as file name
 - prop `content` with type Object and default property
-- computed values to easily display section/block/slot needs
+- Computed values to easily display section/block/slot needs
 
-We should use generic components to display children:
+We should use generic components ([as described above](#resolving)) to display children:
 
 - in block components, we use `CmsGenericElement`
 - in section components, we use `CmsGenericBlock`
 
-so our example block component now looks like this
+So our example block component file `CmsBlockCategoryNavigation.vue` now looks like this
 
 ```vue
 <template>
@@ -399,9 +424,9 @@ and we're changing the mapping in `cmsMap.json` to a new component in `blocks` s
 }
 ```
 
-The display is the same, but we can now modify it safely without affecting other CMS blocks.
+It looks same, but we can now modify it safely without affecting other CMS blocks.
 
-So we want to add some top margins to correct our problem - in the desktop sidebar is too high.
+So we want to add some top margins to correct our problem - on desktop, the sidebar is too high.
 
 So we're changing the styles:
 
@@ -419,8 +444,8 @@ So we're changing the styles:
 </style>
 ```
 
-and then we have our desired effect:
+Finally we have our desired effect:
 
 ![preview](./../assets/preview2.png)
 
-And that's it. Set of these rules apply for sections, blocks and elements. And are applicable in themes, plugins and your project!
+And that's it. This set of rules applies for sections, blocks and elements.
