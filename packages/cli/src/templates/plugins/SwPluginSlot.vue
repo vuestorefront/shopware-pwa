@@ -1,7 +1,8 @@
 <template>
-  <component :is="getComponent" :name="name" />
+  <component :is="getComponent" :name="name"> <slot /> </component>
 </template>
 <script>
+import Vue from "vue"
 import { usePlugins } from "./usePlugins";
 
 const pluginsMap = {
@@ -9,6 +10,15 @@ const pluginsMap = {
     "<%= pluginSlotName %>": () => import("<%= props.pluginsMap[pluginSlotName] %>"),
   <% }) %>
 }
+
+Vue.component("sw-plugin-empty-slot", {
+  render: function (createElement) {
+    return createElement(
+      'div',
+      this.$slots.default
+    )
+  },
+})
 
 export default {
   props: {
@@ -23,9 +33,6 @@ export default {
       showPluginSlots,
     };
   },
-  data() {
-    return {};
-  },
   computed: {
     getComponent() {
       if (this.showPluginSlots) {
@@ -34,23 +41,8 @@ export default {
       if (pluginsMap[this.name]) {
         return pluginsMap[this.name]
       }
-      return () => import("./SwPluginEmptySlot.vue");
+      return "sw-plugin-empty-slot"
     },
   }
 };
 </script>
-<style lang="scss" scoped>
-.sw-plugin-slot {
-  padding: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid coral;
-  cursor: pointer;
-
-  svg {
-    padding: 0.4rem;
-    border: 3px solid coral;
-  }
-}
-</style>

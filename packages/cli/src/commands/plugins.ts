@@ -59,12 +59,6 @@ module.exports = {
     });
 
     await generate({
-      template: "/plugins/SwPluginEmptySlot.vue",
-      target: ".shopware-pwa/sw-plugins/SwPluginEmptySlot.vue",
-      props: {},
-    });
-
-    await generate({
       template: "/plugins/SwPluginSlotPlaceholder.vue",
       target: ".shopware-pwa/sw-plugins/SwPluginSlotPlaceholder.vue",
       props: {},
@@ -95,9 +89,8 @@ module.exports = {
     });
     // In dev mode we're injecting to footer to provide plugin slots switcher
     if (allowDevMode) {
-      if (!pluginsTrace["footer-content-after"])
-        pluginsTrace["footer-content-after"] = [];
-      pluginsTrace["footer-content-after"].push(
+      if (!pluginsTrace["footer-content"]) pluginsTrace["footer-content"] = [];
+      pluginsTrace["footer-content"].push(
         "sw-plugins/SwPluginSlotPlaceholderSwitcher.vue"
       );
     }

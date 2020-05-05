@@ -2,10 +2,9 @@
   <div class="sw-footer">
     <slot class="sw-footer__content" name="content" v-bind="column">
       <div class="content sw-footer__signature">
-        <SwPluginSlot name="footer-content-before" />
-
-        Made with ❤️ by shopware AG & Vue Storefront
-        <SwPluginSlot name="footer-content-after" />
+        <SwPluginSlot name="footer-content">
+          Made with ❤️ by shopware AG & Vue Storefront
+        </SwPluginSlot>
       </div>
     </slot>
   </div>

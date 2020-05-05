@@ -29,14 +29,15 @@
         error-message="Password is required"
         @blur="$v.password.$touch()"
       />
-      <SfButton
-        class="sf-button--full-width form__button"
-        :disabled="isLoading"
-        @click="invokeLogin"
-      >
-        Log in
-      </SfButton>
-      <SwPluginSlot name="login-form-button-after" />
+      <SwPluginSlot name="login-form-button">
+        <SfButton
+          class="sf-button--full-width form__button"
+          :disabled="isLoading"
+          @click="invokeLogin"
+        >
+          Log in
+        </SfButton>
+      </SwPluginSlot>
     </div>
   </div>
 </template>

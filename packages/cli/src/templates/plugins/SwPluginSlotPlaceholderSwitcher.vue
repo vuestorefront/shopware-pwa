@@ -1,11 +1,14 @@
 <template>
-  <div class="sw-slot-placeholder-switcher">
-    <button
-      class="sw-slot-placeholder-switcher__button"
-      @click="showPluginSlots = true"
-    >
-      Dev mode: Show plugin slots
-    </button>
+  <div>
+    <slot />
+    <div class="sw-slot-placeholder-switcher">
+      <button
+        class="sw-slot-placeholder-switcher__button"
+        @click="showPluginSlots = true"
+      >
+        Dev mode: Show plugin slots
+      </button>
+    </div>
   </div>
 </template>
 <script>

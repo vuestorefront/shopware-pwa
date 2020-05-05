@@ -3,13 +3,14 @@
     <SwPluginSlot name="page-top" />
     <TopNavigation />
     <SwPluginSlot name="top-header-after" />
-    <SfBreadcrumbs
-      v-show="getBreadcrumbs.length > 0"
-      :breadcrumbs="getBreadcrumbs"
-      class="sw-breadcrumbs layout__sized"
-      @click="redirectTo"
-    />
-    <SwPluginSlot name="breadcrumbs-after" />
+    <SwPluginSlot name="breadcrumbs">
+      <SfBreadcrumbs
+        v-show="getBreadcrumbs.length > 0"
+        :breadcrumbs="getBreadcrumbs"
+        class="sw-breadcrumbs layout__sized"
+        @click="redirectTo"
+      />
+    </SwPluginSlot>
     <nuxt />
     <SwCart />
     <SwPluginSlot name="footer-before" />

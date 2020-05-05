@@ -10,11 +10,11 @@
         :price="getPrice | price"
       />
     </div>
-    <SwPluginSlot name="product-page-description-before" />
-    <p class="product-details__description desktop-only">
-      {{ description }}
-    </p>
-    <SwPluginSlot name="product-page-description-after" />
+    <SwPluginSlot name="product-page-description">
+      <p class="product-details__description desktop-only">
+        {{ description }}
+      </p>
+    </SwPluginSlot>
     <!-- <div class="product-details__action">
       <button v-if="sizes.length > 0" class="sf-action">Size guide</button>
     </div> -->
