@@ -1,5 +1,16 @@
 <template>
   <div class="top-navigation">
+    <SfTopBar class="top-bar desktop-only">
+      <template #right>
+        <SwCurrency class="sf-header__currency" />
+        <!-- TODO Implement SfLanguageSelector -->
+        <div class="top-bar__location-label">Location:</div>
+        <SfImage
+          :src="require('@shopware-pwa/default-theme/assets/flag.png')"
+          alt="flag of the USA"
+        />
+      </template>
+    </SfTopBar>
     <SfHeader
       title="Shopware-PWA"
       :has-mobile-search="false"
@@ -34,20 +45,19 @@
         <SfSearchBar
           placeholder="Search for products"
           aria-label="Search for products"
-          class="sf-header__search"
+          class="sf-header__search desktop-only"
           @enter="fulltextSearch"
         />
       </template>
       <template #header-icons="{accountIcon, cartIcon}">
         <div class="sf-header__icons desktop-only">
-          <div class="sf-header__icons">
+          <div class="sw-header__icons">
             <SfIcon
               v-if="accountIcon"
               :icon="accountIcon"
-              class="sf-header__icon"
+              class="sf-header__icon sw-header__icon"
               :class="{
-                'sf-header__icon--is-active':
-                  activeIcon === 'account-icon',
+                'sf-header__icon--is-active': activeIcon === 'account-icon',
               }"
               role="button"
               aria-label="Go to My Account"
@@ -60,7 +70,7 @@
               :icon="cartIcon"
               :has-badge="count > 0"
               :badge-label="count.toString()"
-              class="sf-header__icon"
+              class="sf-header__icon sw-header__icon"
               :class="{
                 'sf-header__icon--is-active': activeIcon === 'cart-icon',
               }"
@@ -72,7 +82,6 @@
             <!-- TODO - SfBadge will appear with the next StorefrontUI version 
             https://github.com/DivanteLtd/storefront-ui/issues/870 
             -->
-            <SwCurrency class="sf-header__currency"/>
           </div>
         </div>
       </template>
@@ -86,6 +95,7 @@ import {
   SfHeader,
   SfIcon,
   SfImage,
+  SfTopBar,
   SfSearchBar,
 } from '@storefront-ui/vue'
 import {
@@ -106,6 +116,7 @@ export default {
     SfIcon,
     SwLoginModal,
     SfImage,
+    SfTopBar,
     SfSearchBar,
     SwCurrency,
   },
@@ -156,10 +167,28 @@ export default {
   --header-container-padding: 0 var(--spacer-base);
   margin-bottom: var(--spacer-sm);
   .sf-header {
+    padding: 0 var(--spacer-sm);
     &__currency {
-      margin: 0 0 0 var(--spacer-base);
+      position: relative;
+      margin: 0 var(--spacer-base) 0 var(--spacer-base);
       --select-padding: var(--spacer-xs);
-      --select-width: 60px;
+      --select-dropdown-z-index: 2;
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        background-color: white;
+        width: 20px;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        padding: var(--spacer-2xs);
+        left: 50%;
+        height: 20px;
+      }
+    }
+    &__header {
+      padding-left: var(--spacer-sm);
     }
     &__icon {
       --icon-size: 1.25rem;
@@ -183,7 +212,22 @@ export default {
     }
   }
 }
+.top-bar {
+  padding: 0 var(--spacer-sm);
+
+  &__location-label {
+    margin: 0 var(--spacer-sm) 0 0;
+  }
+}
 .sf-header__logo {
   height: 2rem;
+}
+.sw-header {
+  &__icons {
+    display: flex;
+  }
+  &__icon {
+    cursor: pointer;
+  }
 }
 </style>

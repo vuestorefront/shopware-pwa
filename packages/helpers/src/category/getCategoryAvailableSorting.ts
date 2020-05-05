@@ -1,6 +1,9 @@
 import { UiCategorySorting } from "../ui-interfaces";
 
-interface Sorting {
+/**
+ * @alpha
+ */
+export interface Sorting {
   [sortingCode: string]: {
     key: string;
     active: boolean;

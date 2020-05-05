@@ -17,15 +17,22 @@
       <button v-if="sizes.length > 0" class="sf-action">Size guide</button>
     </div> -->
     <div v-if="hasChildren" class="product-details__section">
-
-      <SwProductSelect
-        v-for="(options, code) in getAllProductOptions"
-        :key="code"
-        v-model="selected[code]"
-        :options="options"
-        :change-handler="handleChange"
-        :label="code"
-      />
+      <div v-for="productType in getAllProductOptionsTypes" :key="productType">
+        <SwProductColors
+          v-if="productType === 'color'"
+          :colors="getAllProductOptions[productType]"
+          :value="selected[productType]"
+          @input="handleChange(productType, $event)"
+          label="Color:"
+        />
+        <SwProductSelect
+          v-else
+          :value="selected[productType]"
+          :options="getAllProductOptions[productType]"
+          @change="handleChange(productType, $event)"
+          :label="productType"
+        />
+      </div>
     </div>
     <div class="product-details__section">
       <SfAlert
@@ -39,67 +46,25 @@
         class="product-details__add-to-cart"
         @click="addToCart"
       />
-      <div class="product-details__action">
-        <SfButton class="sf-action sf-button--text">Save for later</SfButton>
-      </div>
-      <div class="product-details__action">
-        <SfButton class="sf-action sf-button--text">Add to compare</SfButton>
+      <div class="product-details__action desktop-only">
+        <SfButton class="sf-button--text product-details__action-button">Save for later</SfButton>
+        <SfButton class="sf-button--text product-details__action-button">Add to compare</SfButton>
       </div>
     </div>
-    <SwProductTabs>
-      <SfTab title="Description">
-        <div>
-          <p>
-            {{ description }}
-          </p>
-        </div>
-      </SfTab>
-      <SfTab title="Properties">
-        <div class="product-details__properties">
-          <SfProperty
-            v-for="(property, i) in properties"
-            :key="i"
-            :name="property.name"
-            :value="property.value"
-            class="product-details__product-property"
-          />
-        </div>
-      </SfTab>
-      <SfTab v-if="reviews.length" title="Read reviews">
-        <SfReview
-          v-for="review in reviews"
-          :key="review.id"
-          class="product-details__review"
-          :author="review.author"
-          :date="review.date"
-          :message="review.message"
-          :rating="review.rating"
-          :max-rating="5"
-        />
-      </SfTab>
-      <SfTab v-if="product.manufacturer" title="Manufacturer">
-        <SfHeading
-          :title="product.manufacturer.name"
-          :level="3"
-          class="sf-heading--no-underline sf-heading--left"
-        />
-        <p v-if="product.manufacturer.description">
-          {{ product.manufacturer.description }}
-        </p>
-      </SfTab>
-    </SwProductTabs>
+    <SwProductTabs
+      :description="description"
+      :properties="properties"
+      :reviews="reviews"
+      :manufacturer="product.manufacturer"
+    />
   </div>
 </template>
 <script>
 import {
   SfAlert,
   SfButton,
-  SfProperty,
-  SfHeading,
   SfProductOption,
   SfAddToCart,
-  SfReview,
-  SfDivider
 } from '@storefront-ui/vue'
 import {
   getProductProperties,
@@ -109,40 +74,39 @@ import {
   getProductSpecialPrice,
   isProductSimple,
   getProductOptionsUrl,
-  getProductOptions
+  getProductOptions,
 } from '@shopware-pwa/helpers'
 import { useProduct, useAddToCart } from '@shopware-pwa/composables'
 import SwProductHeading from '@shopware-pwa/default-theme/components/SwProductHeading'
 import SwProductSelect from '@shopware-pwa/default-theme/components/SwProductSelect'
+import SwProductColors from '@shopware-pwa/default-theme/components/SwProductColors'
+
 import SwProductTabs from '@shopware-pwa/default-theme/components/SwProductTabs'
 export default {
   name: 'SwProductDetails',
   components: {
     SfAlert,
     SfButton,
-    SfProperty,
-    SfHeading,
     SfProductOption,
     SfAddToCart,
-    SfReview,
     SwProductHeading,
     SwProductSelect,
     SwProductTabs,
-    SfDivider
+    SwProductColors,
   },
   props: {
     product: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     page: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   data() {
     return {
-      selected: {}
+      selected: {},
     }
   },
   setup({ page }) {
@@ -150,7 +114,7 @@ export default {
 
     return {
       quantity,
-      addToCart
+      addToCart,
     }
   },
   computed: {
@@ -193,17 +157,15 @@ export default {
     properties() {
       return getProductProperties({ product: this.product })
     },
+    // TODO: move to helpers
     getAllProductOptions() {
       const options = getProductOptions({
-        product: this.product
+        product: this.product,
       })
-
       return options
     },
-    getAllProductOption() {
-      return getProductOptions({
-        product: this.product
-      })
+    getAllProductOptionsTypes() {
+      return this.getAllProductOptions && Object.keys(this.getAllProductOptions)
     },
     reviews() {
       return getProductReviews({ product: this.product })
@@ -213,7 +175,7 @@ export default {
     },
     selectedOptions() {
       return this.selected
-    }
+    },
   },
   watch: {
     selectedOptions(selected, selectedOld) {
@@ -230,17 +192,17 @@ export default {
       }
       const url = getProductOptionsUrl({
         product: this.product,
-        options
+        options,
       })
 
       this.$router.push(url)
-    }
+    },
   },
 
   mounted() {
-    this.product.options.forEach(option => {
+    this.product.options.forEach((option) => {
       this.selected = Object.assign({}, this.selected, {
-        [option.group.name]: option.id
+        [option.group.name]: option.id,
       })
     })
   },
@@ -251,8 +213,8 @@ export default {
     },
     handleChange(attribute, option) {
       this.selected = Object.assign({}, this.selected, { [attribute]: option })
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -268,15 +230,17 @@ export default {
 .product-details {
   &__action {
     display: flex;
+    flex-direction: column;
+    align-items: flex-end;
     margin: var(--spacer-base) 0 calc(var(--spacer-base) / 2);
-    @include for-desktop {
-      justify-content: flex-end;
-    }
+  }
+  &__action-button {
+    padding: var(--spacer-xs) 0;
   }
   &__add-to-cart {
-    margin-top: 1.5rem;
+    margin: 1.5rem 0;
     @include for-desktop {
-      margin-top: var(--spacer-xl);
+      margin: var(--spacer-xl) 0;
     }
   }
   &__alert {
@@ -289,17 +253,11 @@ export default {
     margin: var(--spacer-xl) 0 calc(var(--spacer-base) * 3) 0;
     font-family: var(--font-family-secondary);
     font-size: var(--font-sm);
-    line-height: 1.6;
-  }
-  &__divider {
-    margin-top: 30px;
   }
   &__heading {
-    --heading-title-font-weight: var(--font-light);
     margin: var(--spacer-base) 0 0 0;
     @include for-desktop {
-      --heading-title-font-weight: var(--font-normal);
-      margin: 0;
+      margin: var(--spacer-lg) 0 0 0;
     }
   }
   &__mobile-bar {
@@ -323,62 +281,28 @@ export default {
       display: block;
     }
   }
-  &__properties {
-    margin-top: var(--spacer-base);
-  }
   &__section {
-    border-bottom: 1px solid #f1f2f3;
     padding-bottom: 10px;
     padding-top: 20px;
     @include for-desktop {
-      border: 0;
       padding-bottom: 0;
-    }
-  }
-  &__tabs {
-    margin-top: var(--spacer-base);
-    @include for-desktop {
-      margin-top: calc(5 * var(--spacer-base));
-    }
-    p {
-      margin: 0;
     }
   }
   &__review {
     padding-bottom: var(--spacer-base);
+    border-bottom: var(--c-light) solid 1px;
+    margin-bottom: var(--spacer-base);
+    &:last-of-type {
+      border: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
     @include for-desktop {
       padding-bottom: var(--spacer-xl);
-      border-bottom: 1px solid var(--c-primary);
-    }
-    & + & {
-      padding-top: var(--spacer-xl);
-      border-top: 1px solid var(--c-primary);
-      @include for-desktop {
-        border-top: 0;
-        padding-top: var(--spacer-xl);
-      }
     }
   }
   &__product-property {
     padding: var(--spacer-2xs) 0;
-  }
-}
-
-.sf-action {
-  --button-font-size: var(--font-sm);
-  padding: 0;
-  border: 0;
-  outline: none;
-  background-color: transparent;
-  color: var(--c-text);
-  font-family: var(--font-family-secondary);
-  font-size: var(--font-sm);
-  font-weight: var(--font-normal);
-  line-height: 1.6;
-  text-decoration: underline;
-  cursor: pointer;
-  @include for-desktop {
-    --button-font-size: var(--font-base);
   }
 }
 </style>

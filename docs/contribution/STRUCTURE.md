@@ -1,3 +1,7 @@
+---
+sidebar: auto
+---
+
 # Project structure
 Short description of project structure.
 

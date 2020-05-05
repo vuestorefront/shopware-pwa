@@ -33,7 +33,7 @@
       },
 
       "ae-missing-release-tag": {
-        "logLevel": "none"
+        "logLevel": "warning"
       }
     },
 

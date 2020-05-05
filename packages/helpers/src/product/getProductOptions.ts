@@ -1,7 +1,10 @@
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { UiProductOption } from "@shopware-pwa/helpers";
+import { UiProductOption } from "../ui-interfaces";
 
-interface ProductOptions {
+/**
+ * @alpha
+ */
+export interface ProductOptions {
   [attribute: string]: UiProductOption[];
 }
 

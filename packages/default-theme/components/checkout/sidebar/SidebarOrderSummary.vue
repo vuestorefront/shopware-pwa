@@ -1,75 +1,48 @@
 <template>
-  <div>
-    <div class="highlighted">
-      <SfHeading
-        title="Order summary"
-        class="sf-heading--left sf-heading--no-underline title"
+  <div id="order-summary">
+    <SfHeading
+      title="Totals"
+      :level="3"
+      class="sf-heading--left sf-heading--no-underline title"
+    />
+    <SfProperty
+      name="Products"
+      :value="count"
+      class="sf-property--full-width sf-property--large property"
+    />
+    <SfProperty
+      name="Subtotal"
+      :value="subtotal | price"
+      class="sf-property--full-width sf-property--large property"
+    />
+    <SfProperty
+      name="Shipping"
+      :value="shippingMethod.price | price"
+      class="sf-property--full-width sf-property--large property"
+    />
+    <SfDivider class="divider" />
+    <SfProperty
+      name="Total"
+      :value="totalPrice | price"
+      class="sf-property--full-width sf-property--large property"
+    />
+    <div class="promo-code">
+      <SfInput
+        v-model="promoCode"
+        name="promoCode"
+        label="Enter promo code"
+        class="sf-input--filled promo-code__input"
       />
-      <div class="total-items">
-        <h3>Total items: {{ count }}</h3>
-        <SfButton class="sf-button--text" @click="listIsHidden = !listIsHidden"
-          >{{ listIsHidden ? 'Show' : 'Hide' }} items list</SfButton
-        >
-      </div>
-      <transition name="fade">
-        <div v-if="!listIsHidden" class="collected-product-list">
-          <SwCartProduct
-            v-for="(product, index) in cartItems"
-            :key="index"
-            :product="product"
-            v-model="product.qty"
-          />
-        </div>
-      </transition>
+      <SfCircleIcon class="promo-code__circle-icon" icon="check" />
     </div>
-    <div class="highlighted highlighted--total">
-      <SfProperty
-        name="Products"
-        :value="count"
-        class="sf-property--full-width property"
-      />
-      <SfProperty
-        name="Subtotal"
-        :value="subtotal | price"
-        class="sf-property--full-width property"
-      />
-      <SfProperty
-        name="Shipping"
-        :value="shippingMethod.price | price"
-        class="sf-property--full-width property"
-      />
-      <SfProperty
-        name="Total"
-        :value="totalPrice | price"
-        class="sf-property--full-width property-total"
-      />
-    </div>
-    <div class="highlighted promo-code">
-      <SfButton
-        class="promo-code__button"
-        @click="showPromoCode = !showPromoCode"
-        >{{ showPromoCode ? '-' : '+' }} Promo Code</SfButton
-      >
-      <transition name="fade">
-        <div v-if="showPromoCode">
-          <SfInput
-            v-model="promoCode"
-            name="promoCode"
-            label="Enter promo code"
-            class="promo-code__input"
-          />
-          <SfButton class="sf-button--full-width">Apply code</SfButton>
-        </div>
-      </transition>
-    </div>
-    <div class="highlighted">
+    <div class="characteristics">
       <SfCharacteristic
         v-for="characteristic in characteristics"
         :key="characteristic.title"
         :title="characteristic.title"
         :description="characteristic.description"
         :icon="characteristic.icon"
-        class="characteristic"
+        class="characteristics__item"
       />
     </div>
   </div>
@@ -77,32 +50,31 @@
 <script>
 import {
   SfHeading,
-  SfButton,
+  SfCircleIcon,
   SfProperty,
+  SfDivider,
   SfCharacteristic,
   SfInput,
 } from '@storefront-ui/vue'
 import { useCart, useCartSidebar } from '@shopware-pwa/composables'
-import SwCartProduct from '@shopware-pwa/default-theme/components/SwCartProduct'
 export default {
   name: 'SidebarOrderSummary',
   components: {
     SfHeading,
-    SfButton,
-    SwCartProduct,
+    SfCircleIcon,
     SfProperty,
+    SfDivider,
     SfCharacteristic,
     SfInput,
   },
   setup() {
-    const { cartItems, count, totalPrice, subtotal } = useCart()
+    const { count, totalPrice, subtotal } = useCart()
 
     // TODO: use useSessionContext
     const shippingMethod = {
       price: 'TODO: add price',
     }
     return {
-      cartItems,
       count,
       totalPrice,
       subtotal,
@@ -113,7 +85,6 @@ export default {
     return {
       promoCode: '',
       showPromoCode: false,
-      listIsHidden: false,
       characteristics: [
         {
           title: 'Safety',
@@ -138,21 +109,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
-.highlighted {
-  box-sizing: border-box;
-  width: 100%;
-  background-color: #f1f2f3;
-  padding: var(--spacer-xl);
-  margin-bottom: var(--spacer-base);
-  &:last-child {
-    margin-bottom: 0;
-  }
-  &--total {
-    margin-bottom: 1px;
-  }
-}
 .title {
-  margin-bottom: var(--spacer-xl);
+  --heading-title-margin: 0 0 var(--spacer-xl) 0;
 }
 .total-items {
   display: flex;
@@ -161,64 +119,31 @@ export default {
   margin-bottom: var(--spacer-base);
 }
 .property {
-  margin-bottom: var(--spacer-xs);
-  ::v-deep .sf-property__name {
-    text-transform: unset;
-  }
+  margin: var(--spacer-base) 0;
 }
-.property-total {
-  margin-top: var(--spacer-xl);
-  font-size: var(--font-xl);
-  font-weight: 500;
-  ::v-deep .sf-property__name {
-    color: var(--c-text);
-  }
+.divider {
+  --divider-border-color: var(--c-white);
+  --divider-margin: calc(var(--spacer-base) * 2) 0 0 0;
 }
-.collected-product-list {
-  margin: 0 -20px;
-}
-.collected-product {
-  &:not(:last-child) {
-    margin-bottom: var(--spacer-base);
-  }
-}
-.characteristic {
-  &:not(:last-child) {
-    margin-bottom: var(--spacer-base);
+.characteristics {
+  margin: 0 0 0 var(--spacer-xs);
+  &__item {
+    margin: var(--spacer-base) 0;
   }
 }
 .promo-code {
-  &__button {
-    padding: 0;
-    background-color: transparent;
-    color: var(--c-primary);
-    font-size: var(--font-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: var(--spacer-lg) 0 var(--spacer-base) 0;
+  &__circle-icon {
+    --button-size: 2rem;
+    --icon-size: 0.6875rem;
   }
   &__input {
-    margin: var(--spacer-base) 0;
-    ::v-deep input {
-      border-color: var(--c-gray-variant);
-    }
-  }
-}
-.product {
-  &__properties {
-    margin: var(--spacer-base) 0 0 0;
-  }
-  &__property,
-  &__action {
-    font-size: var(--font-xs);
-  }
-  &__action {
-    color: var(--c-gray-variant);
-    font-size: var(--font-xs);
-    margin: 0 0 var(--spacer-2xs) 0;
-    &:last-child {
-      margin: 0;
-    }
-  }
-  &__qty {
-    color: var(--c-text);
+    --input-background: var(--c-white);
+    flex: 1;
+    margin: 0 var(--spacer-lg) 0 0;
   }
 }
 </style>

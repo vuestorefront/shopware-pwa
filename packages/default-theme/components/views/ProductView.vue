@@ -3,9 +3,7 @@
     <div class="product">
       <SwProductGallery :product="product" class="product__gallery" />
       <div class="product__description">
-        <SfSticky class="product-details">
-          <SwProductDetails :product="product" :page="page" />
-        </SfSticky>
+        <SwProductDetails :product="product" :page="page" />
       </div>
     </div>
     <div class="products" />
@@ -50,7 +48,7 @@
   </div>
 </template>
 <script>
-import { SfSticky, SfImage, SfSection } from '@storefront-ui/vue'
+import { SfImage, SfSection } from '@storefront-ui/vue'
 import { useProduct } from '@shopware-pwa/composables'
 import SwProductGallery from '@shopware-pwa/default-theme/components/SwProductGallery'
 import SwProductDetails from '@shopware-pwa/default-theme/components/SwProductDetails'
@@ -60,26 +58,25 @@ import SwProductAdvertisement from '@shopware-pwa/default-theme/components/SwPro
 export default {
   name: 'Product',
   components: {
-    SfSticky,
     SfImage,
     SfSection,
     SwProductGallery,
     SwProductDetails,
     SwProductCarousel,
-    SwProductAdvertisement
+    SwProductAdvertisement,
   },
   props: {
     page: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   data() {
     return {
       productWithAssociations: null,
       relatedProducts: [],
       selectedSize: null,
-      selectedColor: null
+      selectedColor: null,
     }
   },
   computed: {
@@ -87,7 +84,7 @@ export default {
       return this.productWithAssociations
         ? this.productWithAssociations.value
         : this.page.product
-    }
+    },
   },
   async mounted() {
     // TODO remove when page resolver is fully done
@@ -98,7 +95,7 @@ export default {
       'associations[productReviews][]': true, // can be fetched asynchronously
       'associations[manufacturer][]': true,
       'associations[children][associations][options][associations][group][]': true,
-      'associations[children][associations][seoUrls][]': true
+      'associations[children][associations][seoUrls][]': true,
     }
     try {
       const { loadAssociations, product } = useProduct(this.page.product)
@@ -107,7 +104,7 @@ export default {
     } catch (e) {
       console.error('ProductView:mounted:loadAssociations', e)
     }
-  }
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -120,7 +117,6 @@ export default {
 }
 
 #product {
-  box-sizing: border-box;
   @include for-desktop {
     max-width: 1240px;
     margin: auto;
@@ -131,22 +127,6 @@ export default {
   padding: 0 var(--spacer-base);
   @include for-desktop {
     padding: 0;
-  }
-}
-
-.product {
-  @include for-desktop {
-    display: flex;
-  }
-  &__gallery,
-  &__description {
-    flex: 1;
-  }
-  &__description {
-    padding: 0 var(--spacer-base);
-    @include for-desktop {
-      margin-left: calc(var(--spacer-base) * 5);
-    }
   }
 }
 
@@ -179,9 +159,9 @@ export default {
     flex: 1;
   }
   &__description {
-    padding: 0 var(--spacer-base);
+    padding: 0 var(--spacer-sm);
     @include for-desktop {
-      margin-left: calc(var(--spacer-base) * 5);
+      margin-left: calc(var(--spacer-base) * 3);
     }
   }
 }

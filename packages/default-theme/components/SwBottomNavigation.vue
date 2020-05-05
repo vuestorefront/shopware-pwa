@@ -37,13 +37,13 @@
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
-        icon="add_to_cart"
-        label="Add to Cart"
+        icon="empty_cart"
+        label="Cart"
         :is-floating="true"
       >
         <template #icon>
-          <SfCircleIcon aria-label="Add to cart" @click="toggleSidebar">
-            <SfIcon icon="add_to_cart" size="20px" color="white" />
+          <SfCircleIcon aria-label="Go to Cart" @click="toggleSidebar">
+            <SfIcon icon="empty_cart" size="20px" color="white" />
           </SfCircleIcon>
         </template>
       </SfBottomNavigationItem>

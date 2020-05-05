@@ -19,7 +19,7 @@ module.exports = (toolbox: GluegunToolbox) => {
         const path = resolve(join(directoryPath, sectionKey, value));
         const configPathExists = toolbox.filesystem.exists(`${path}.vue`);
         if (configPathExists) {
-          aliases[alias] = path;
+          aliases[alias] = path.replace(/\\/g, "/");
         } else {
           toolbox.print.warning(
             `[cms] Invalid config for type ${alias} - destination file not exist in folder: ${directoryPath}`

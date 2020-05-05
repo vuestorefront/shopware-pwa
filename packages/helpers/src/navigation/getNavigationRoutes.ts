@@ -1,6 +1,9 @@
 import { NavigationElement as SwNavigationElement } from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
 
-interface NavigationRoute {
+/**
+ * @alpha
+ */
+export interface NavigationRoute {
   routeLabel: string;
   routePath: string;
 }
