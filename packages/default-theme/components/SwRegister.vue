@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-register">
+  <div class="sw-register" @keyup.enter="invokeRegister">
     <div class="form sw-register">
       <!-- <h2 class="sw-register__header">Register</h2> -->
       <SfAlert
