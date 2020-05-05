@@ -53,12 +53,12 @@
       </template>
       <template #header-icons="{accountIcon, cartIcon}">
         <div class="sf-header__icons desktop-only">
-          <div class="sf-header__icons">
+          <div class="sw-header__icons">
             <SwPluginSlot name="top-header-icons-before" />
             <SfIcon
               v-if="accountIcon"
               :icon="accountIcon"
-              class="sf-header__icon"
+              class="sf-header__icon sw-header__icon"
               :class="{
                 'sf-header__icon--is-active': activeIcon === 'account-icon',
               }"
@@ -73,7 +73,7 @@
               :icon="cartIcon"
               :has-badge="count > 0"
               :badge-label="count.toString()"
-              class="sf-header__icon"
+              class="sf-header__icon sw-header__icon"
               :class="{
                 'sf-header__icon--is-active': activeIcon === 'cart-icon',
               }"
@@ -228,5 +228,13 @@ export default {
 }
 .sf-header__logo {
   height: 2rem;
+}
+.sw-header {
+  &__icons {
+    display: flex;
+  }
+  &__icon {
+    cursor: pointer;
+  }
 }
 </style>
