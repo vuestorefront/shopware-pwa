@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-login">
+  <div class="sw-login" @keyup.enter="invokeLogin">
     <div class="form sw-login__form">
       <SfAlert
         v-if="userError"
