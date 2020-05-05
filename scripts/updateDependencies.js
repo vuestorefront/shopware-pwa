@@ -11,15 +11,15 @@ async function run() {
   const packagesDirPath = path.join(rootDirPath, "packages");
   const list = fs
     .list(packagesDirPath)
-    .map(filename => path.join(packagesDirPath, filename))
-    .filter(file => fs.exists(file) === "dir");
+    .map((filename) => path.join(packagesDirPath, filename))
+    .filter((file) => fs.exists(file) === "dir");
   list.push(rootDirPath);
 
   try {
     for (let index = 0; index < list.length; index++) {
       await execa("ncu", ["-i"], {
         stdio: "inherit",
-        cwd: list[index]
+        cwd: list[index],
       });
     }
     // This case will be used in future with -u flag
@@ -34,7 +34,7 @@ async function run() {
 
     await execa("yarn", [], {
       stdio: "inherit",
-      cwd: rootDirPath
+      cwd: rootDirPath,
     });
   } catch (e) {
     console.error(

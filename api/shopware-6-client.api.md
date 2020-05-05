@@ -199,6 +199,17 @@ export function getUserCountry(countryId: string): Promise<Country>;
 export function getUserSalutation(salutationId: string): Promise<Salutation>;
 
 // @beta
+export function invokeGet({ address }: {
+    address: string;
+}): Promise<any>;
+
+// @beta
+export function invokePost({ address, payload, }: {
+    address: string;
+    payload?: any;
+}): Promise<any>;
+
+// @beta
 export function login({ username, password, }?: {
     username?: string;
     password?: string;
