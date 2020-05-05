@@ -4,6 +4,12 @@ sidebar: auto
 
 # Payment API
 
+:::warning Disclaimer
+shopware-pwa utilises the [`@shopware-6-client`](https://www.npmjs.com/package/@shopware-pwa/shopware-6-client) package for all API calls and we encourage you to that as well, because it will take care of authentication, session and context state for you.
+
+However, at this point, some payment related API calls are not included in the client package yet. Hence we are giving this "bare bones" description of the API usage. A more convenient programmatic API will follow in a later release of the client package.
+:::
+
 [[toc]]
 
 ## Intro
@@ -33,7 +39,7 @@ That is the easy way, where we just place an order and the payment is processed 
 Asynchronous payments are not much harder, they only involve a redirect for the user. Often that's necessary if your payment provider has a login/confirmation dialog for their users. We then provide a returnUrl so the provider can return us to the confirmation page of our order once payment was completed.
 
 :::tip Go deeper
-If you want to know more about the backend logic of it, please check the Shopware documentation on (payment processing)[https://docs.shopware.com/en/shopware-platform-dev-en/references-internals/core/checkout-process/payment] and [adding custom payment handlers](https://docs.shopware.com/en/shopware-platform-dev-en/how-to/payment-plugin).
+If you want to know more about the backend logic of it, please check the Shopware documentation on [payment processing](https://docs.shopware.com/en/shopware-platform-dev-en/references-internals/core/checkout-process/payment) and [adding custom payment handlers](https://docs.shopware.com/en/shopware-platform-dev-en/how-to/payment-plugin).
 :::
 
 In our PWA, we really want to rely only on the API to handle our payments. That's why Shopware provides some endpoints to lead us through the process of ordering and payment, which are described below.
