@@ -90,4 +90,4 @@ sw.*
 *.swp
 .yalc
 yalc.lock
-.shopware-pwa
+!.shopware-pwa
