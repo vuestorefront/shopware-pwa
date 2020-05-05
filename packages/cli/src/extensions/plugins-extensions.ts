@@ -21,6 +21,9 @@ module.exports = (toolbox: GluegunToolbox) => {
   toolbox.fetchPluginsBuildArtifact = async ({
     shopwareEndpoint,
     authToken,
+  }: {
+    shopwareEndpoint: string;
+    authToken: string;
   }) => {
     const pluginsConfigRsponse = await axios.post(
       `${shopwareEndpoint}/api/v1/_action/pwa/dump-bundles`,
@@ -34,14 +37,14 @@ module.exports = (toolbox: GluegunToolbox) => {
     return pluginsConfigRsponse.data.buildArtifact;
   };
 
-  toolbox.fetchPluginsConfig = async ({ config }) => {
+  toolbox.fetchPluginsConfig = async ({ config }: { config: string }) => {
     const pluginsConfigResponse = await axios.get(
       `${toolbox.inputParameters.shopwareEndpoint}/${config}`
     );
     return pluginsConfigResponse.data;
   };
 
-  toolbox.loadPluginsAssetFile = async ({ asset }) => {
+  toolbox.loadPluginsAssetFile = async ({ asset }: { asset: string }) => {
     const fileUrl = `${toolbox.inputParameters.shopwareEndpoint}/${asset}`;
 
     const request = require("request");
@@ -52,7 +55,7 @@ module.exports = (toolbox: GluegunToolbox) => {
             url: fileUrl,
             encoding: null,
           },
-          function (err, resp, body) {
+          function (err: unknown, resp: unknown, body: any) {
             if (err) reject(err);
             toolbox.filesystem.write(
               ".shopware-pwa/pwa-bundles-assets.zip",
@@ -96,10 +99,12 @@ module.exports = (toolbox: GluegunToolbox) => {
             "json"
           );
           if (pluginConfig) {
-            pluginConfig.slots.forEach(async (slot) => {
-              if (!pluginsMap[slot.name]) pluginsMap[slot.name] = [];
-              pluginsMap[slot.name].push(`~/${pluginDirectory}/${slot.file}`);
-            });
+            pluginConfig.slots.forEach(
+              async (slot: { name: string; file: string }) => {
+                if (!pluginsMap[slot.name]) pluginsMap[slot.name] = [];
+                pluginsMap[slot.name].push(`~/${pluginDirectory}/${slot.file}`);
+              }
+            );
           } else {
             toolbox.print.error(`Plugin ${pluginName} has no config file!`);
           }
@@ -109,8 +114,8 @@ module.exports = (toolbox: GluegunToolbox) => {
     return pluginsMap;
   };
 
-  toolbox.buildPluginsMap = async (pluginsTrace) => {
-    const finalMap = {};
+  toolbox.buildPluginsMap = async (pluginsTrace: any) => {
+    const finalMap: any = {};
     const pluginSlotNames = Object.keys(pluginsTrace);
     for (let index = 0; index < pluginSlotNames.length; index++) {
       const pluginSlotName = pluginSlotNames[index];
@@ -118,36 +123,44 @@ module.exports = (toolbox: GluegunToolbox) => {
       if (slotComponents.length === 1) {
         finalMap[pluginSlotName] = slotComponents[0];
       } else {
-        const componentNames = slotComponents.map((component, index) => {
-          const arr = `${pluginSlotName}-${index + 1}`.split("-");
-          let capital = arr.map((item, index) =>
-            index
-              ? item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()
-              : item
-          );
-          return capital.join("");
-        });
+        const componentNames = slotComponents.map(
+          (component: any, index: number) => {
+            const arr = `${pluginSlotName}-${index + 1}`.split("-");
+            let capital = arr.map((item, index) =>
+              index
+                ? item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()
+                : item
+            );
+            return capital.join("");
+          }
+        );
         const bodyStart = "--> ";
         const bodyEnd = " <!--";
         const startingTags = [...componentNames]
           .reverse()
-          .reduce((prev, current, index) => {
+          .reduce((prev: string, current: string) => {
             return `${prev}<${current}>`;
           }, "");
-        const endingTags = componentNames.reduce((prev, current, index) => {
-          return `${prev}</${current}>`;
-        }, "");
+        const endingTags = componentNames.reduce(
+          (prev: string, current: string) => {
+            return `${prev}</${current}>`;
+          },
+          ""
+        );
         const body = bodyStart + startingTags + endingTags + bodyEnd;
 
         const componentImports = slotComponents.reduce(
-          (prev, current, index) => {
+          (prev: string, current: string, index: number) => {
             return `${prev}\nimport ${componentNames[index]} from '${current}'`;
           },
           ""
         );
-        const components = slotComponents.reduce((prev, current, index) => {
-          return `${prev}\n ${componentNames[index]},`;
-        }, "");
+        const components = slotComponents.reduce(
+          (prev: string, current: string, index: number) => {
+            return `${prev}\n ${componentNames[index]},`;
+          },
+          ""
+        );
         await toolbox.template.generate({
           template: `/plugins/GenericPlugin.vue`,
           target: `.shopware-pwa/sw-plugins/${pluginSlotName}.vue`,
