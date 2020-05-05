@@ -1,45 +1,23 @@
 name: Deploy to Storefrontcloud
 on:
-  push:
-    branches:
-      - master
   release:
     types: [published]
 env:
-  CANARY_SW6_INSTANCE: https://shopware6-demo.vuestorefront.io
-  CANARY_SW6_INSTANCE_TOKEN: SWSCVJJET0RQAXFNBMTDZTV1OQ
-  CANARY_URL: https://shopware-pwa-canary.storefrontcloud.io
   RELEASE_URL: https://shopware-pwa.storefrontcloud.io
-  CANARY_INSTANCE: shopware-pwa-canary
-  RELEASE_INSTANCE: shopware-pwa
+  INSTANCE_CODE: shopware-pwa
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v1
-      - name: Setup node
-        uses: actions/setup-node@v1
-        with:
-          node-version: "12.x"
-      - name: Build packages
+      - name: Install shopware-pwa cli
         run: |
-          yarn
-          yarn build --ci
-      - name: Create theme project (release)
-        if: github.event_name == 'release'
+          yarn global add @shopware-pwa/cli
+      - name: Create default-theme project (release)
         run: |
-          mkdir test-project
-          cd ./test-project
-          ../packages/cli/bin/shopware-pwa init --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci
-          yarn build
-      - name: Create theme project (canary)
-        if: github.event_name == 'push'
-        run: |
-          mkdir test-project
-          cd ./test-project
-          ../packages/cli/bin/shopware-pwa init --shopwareEndpoint=${{ env.CANARY_SW6_INSTANCE }} --shopwareAccessToken=${{ env.CANARY_SW6_INSTANCE_TOKEN }} --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci
+          mkdir app
+          cd ./app
+          shopware-pwa init --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci
           yarn build
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@master
@@ -54,27 +32,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Setup deployment variables
-        run: |
-          echo ::set-env name=DEPLOY_URL::$([[ "${{github.event_name}}" == "release" ]] && echo "$RELEASE_URL" || echo "$CANARY_URL")
-          echo ::set-env name=INSTANCE_CODE::$([[ "${{github.event_name}}" == "release" ]] && echo "$RELEASE_INSTANCE" || echo "$CANARY_INSTANCE")
       - uses: chrnorm/deployment-action@releases/v1
         name: Create GitHub deployment
-        if: github.event_name == 'release'
         id: deployment
         with:
           token: "${{ github.token }}"
-          target_url: ${{ env.DEPLOY_URL }}
+          target_url: ${{ env.RELEASE_URL }}
           environment: production
-          initial_status: in_progress
-      - uses: chrnorm/deployment-action@releases/v1
-        name: Create GitHub deployment
-        if: github.event_name == 'push'
-        id: deployment
-        with:
-          token: "${{ github.token }}"
-          target_url: ${{ env.DEPLOY_URL }}
-          environment: canary
           initial_status: in_progress
       - name: Deploy on Storefrontcloud.io
         run: |
@@ -89,7 +53,7 @@ jobs:
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
-          target_url: ${{ env.DEPLOY_URL }}
+          target_url: ${{ env.RELEASE_URL }}
           state: "success"
           description: Congratulations! The deploy is done.
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
@@ -98,7 +62,7 @@ jobs:
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
-          target_url: ${{ env.DEPLOY_URL }}
+          target_url: ${{ env.RELEASE_URL }}
           description: Unfortunately, the instance hasn't been updated.
           state: "failure"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
