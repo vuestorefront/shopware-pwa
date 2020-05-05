@@ -1,7 +1,6 @@
 <template>
   <div class="layout">
     <TopNavigation />
-    <SwPluginTopNavigation />
     <SfBreadcrumbs
       v-show="getBreadcrumbs.length > 0"
       :breadcrumbs="getBreadcrumbs"
@@ -21,7 +20,6 @@ import TopNavigation from '@shopware-pwa/default-theme/components/TopNavigation'
 import SwBottomNavigation from '@shopware-pwa/default-theme/components/SwBottomNavigation'
 import SwCart from '@shopware-pwa/default-theme/components/SwCart'
 import SwFooter from '@shopware-pwa/default-theme/components/SwFooter'
-import SwPluginTopNavigation from 'sw-plugins/SwPluginTopNavigation'
 
 export default {
   components: {
@@ -30,7 +28,6 @@ export default {
     SwCart,
     SwFooter,
     SwBottomNavigation,
-    SwPluginTopNavigation,
   },
   computed: {
     componentBreadcrumbs() {
