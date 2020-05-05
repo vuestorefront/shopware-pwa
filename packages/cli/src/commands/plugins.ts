@@ -1,8 +1,7 @@
 import { GluegunToolbox } from "gluegun";
 
 module.exports = {
-  name: "generate",
-  alias: ["g"],
+  name: "plugins",
   hidden: true,
   run: async (toolbox: GluegunToolbox) => {
     const {

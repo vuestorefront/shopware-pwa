@@ -75,7 +75,7 @@ module.exports = {
     generateFilesSpinner.succeed();
 
     // generate plugin files
-    await toolbox.runtime.run(`generate`, inputParameters);
+    await toolbox.runtime.run(`plugins`, inputParameters);
     await toolbox.runtime.run(`cms`);
 
     const updateDependenciesSpinner = spin("Updating dependencies");
