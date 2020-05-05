@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-login">
+  <div class="sw-login" @keyup.enter="invokeLogin">
     <SwPluginSlot name="login-form-before" />
     <div class="form sw-login__form">
       <SfAlert
