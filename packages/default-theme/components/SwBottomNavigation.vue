@@ -37,7 +37,7 @@
           >
             <SfSelectOption :value="getPageAccount">
               <nuxt-link  class="sf-header__link" :to="getPageAccount">
-                Go to my account
+                My account
               </nuxt-link>
             </SfSelectOption>
             <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
