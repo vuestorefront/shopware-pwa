@@ -134,6 +134,7 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
   display: flex;
   justify-content: center;
   position: relative;
+  width: 100%;
 
   &__loader {
     position: absolute;
