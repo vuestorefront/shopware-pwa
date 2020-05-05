@@ -49,7 +49,7 @@ export default {
     },
   },
   setup({ content }) {
-    const propProducts = content.data.listing || []
+    const propProducts = content.data.listing.elements || []
     const {
       products,
       changePagination,
