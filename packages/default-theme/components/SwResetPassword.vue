@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-reset-password">
+  <div class="sw-reset-password" @keyup.enter="invokeResetPassword">
     <div class="form sw-reset-password__form">
       <!-- <h2 class="sw-reset-password__header">Reset password</h2> -->
       <SfAlert
