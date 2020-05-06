@@ -16,13 +16,19 @@ export function formatPrice(price, options) {
   ).format()
 }
 
-const formatDate = (date, format = `DD-MM-YYYY H:m:s`) =>
-  dayjs(date).format(format)
+export const getSortingLabel = (sorting) => {
+  if (!sorting || !sorting.order || !sorting.field) {
+    return ''
+  }
 
-const getCategoryRoutePath = (category) => `/${category?.route?.path}`
+  const ascLabel = 'ascending'
+  const descLabel = 'descending'
 
-export default {
-  formatPrice,
-  formatDate,
-  getCategoryRoutePath,
+  const label = sorting.order === 'desc' ? descLabel : ascLabel
+  return `${sorting.field} ${label}`
 }
+
+export const getCategoryRoutePath = (category) => `/${category?.route?.path}`
+
+export const formatDate = (date, format = `DD-MM-YYYY H:m:s`) =>
+  dayjs(date).format(format)
