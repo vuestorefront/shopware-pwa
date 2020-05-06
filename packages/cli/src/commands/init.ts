@@ -33,22 +33,10 @@ module.exports = {
         message: "Shopware instance access token:",
         initial: inputParameters.shopwareAccessToken,
       };
-      const shopwareUsernameQuestion = !inputParameters.username && {
-        type: "input",
-        name: "username",
-        message: "Shopware admin username:",
-      };
-      const shopwarePasswordQuestion = !inputParameters.password && {
-        type: "password",
-        name: "password",
-        message: "Shopware admin password:",
-      };
 
       const answers = await toolbox.prompt.ask([
         shopwareEndpointQuestion,
         shopwareAccessTokenQuestion,
-        shopwareUsernameQuestion,
-        shopwarePasswordQuestion,
       ]);
       Object.assign(inputParameters, answers);
     }
@@ -87,7 +75,7 @@ module.exports = {
     generateFilesSpinner.succeed();
 
     // generate plugin files
-    await toolbox.runtime.run(`generate`, inputParameters);
+    await toolbox.runtime.run(`plugins`, inputParameters);
     await toolbox.runtime.run(`cms`);
 
     const updateDependenciesSpinner = spin("Updating dependencies");

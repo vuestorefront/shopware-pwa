@@ -17,6 +17,7 @@
       <transition name="fade" mode="out-in">
         <div v-if="count" key="my-cart" class="my-cart">
           <div class="collected-product-list">
+            <SwPluginSlot name="sidecart-products-before" />
             <transition-group name="fade" tag="div">
               <SwCartProduct
                 v-for="product in cartItems"
@@ -24,6 +25,7 @@
                 :product="product"
               />
             </transition-group>
+            <SwPluginSlot name="sidecart-products-after" />
           </div>
         </div>
         <div v-else key="empty-cart" class="empty-cart">
@@ -57,6 +59,7 @@
             <SfButton class="sf-button--full-width" @click="goToCheckout()"
               >Go to checkout</SfButton
             >
+            <SwPluginSlot name="sidecart-checkout-button-after" />
           </div>
           <div v-else>
             <SfButton class="sf-button--full-width color-primary"
@@ -80,6 +83,7 @@ import {
 import { useCart, useCartSidebar } from '@shopware-pwa/composables'
 import SwCartProduct from '@shopware-pwa/default-theme/components/SwCartProduct'
 import { PAGE_CHECKOUT } from '@shopware-pwa/default-theme/helpers/pages'
+import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 
 export default {
   name: 'Cart',
@@ -91,6 +95,7 @@ export default {
     SfProperty,
     SfPrice,
     SwCartProduct,
+    SwPluginSlot,
   },
   setup() {
     const { cartItems, count, totalPrice, removeProduct } = useCart()
@@ -117,12 +122,14 @@ export default {
 #cart {
   --sidebar-z-index: 4;
   & > * {
-    --sidebar-content-padding: 0 var(--spacer-xs) var(--spacer-xs) var(--spacer-xs);
+    --sidebar-content-padding: 0 var(--spacer-xs) var(--spacer-xs)
+      var(--spacer-xs);
   }
   @include for-desktop {
-      & > * {
+    & > * {
       --sidebar-bottom-padding: var(--spacer-base);
-      --sidebar-content-padding: 0 var(--spacer-base) var(--spacer-base) var(--spacer-base);
+      --sidebar-content-padding: 0 var(--spacer-base) var(--spacer-base)
+        var(--spacer-base);
     }
   }
 }

@@ -1,5 +1,6 @@
 <template>
   <div class="sw-register" @keyup.enter="invokeRegister">
+    <SwPluginSlot name="registration-form-before" />
     <div class="form sw-register">
       <!-- <h2 class="sw-register__header">Register</h2> -->
       <SfAlert
@@ -127,10 +128,11 @@ import {
   useSalutations,
 } from '@shopware-pwa/composables'
 import { mapCountries, mapSalutations } from '@shopware-pwa/helpers'
+import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 
 export default {
   name: 'SwResetPassword',
-  components: { SfButton, SfInput, SfAlert, SfSelect },
+  components: { SfButton, SfInput, SfAlert, SfSelect, SwPluginSlot },
   mixins: [validationMixin],
   data() {
     return {
