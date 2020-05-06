@@ -10,9 +10,11 @@
         :price="getPrice | price"
       />
     </div>
-    <p class="product-details__description desktop-only">
-      {{ description }}
-    </p>
+    <SwPluginSlot name="product-page-description">
+      <p class="product-details__description desktop-only">
+        {{ description }}
+      </p>
+    </SwPluginSlot>
     <!-- <div class="product-details__action">
       <button v-if="sizes.length > 0" class="sf-action">Size guide</button>
     </div> -->
@@ -46,9 +48,14 @@
         class="product-details__add-to-cart"
         @click="addToCart"
       />
+      <SwPluginSlot name="product-page-add-to-cart-button-after" />
       <div class="product-details__action desktop-only">
-        <SfButton class="sf-button--text product-details__action-button">Save for later</SfButton>
-        <SfButton class="sf-button--text product-details__action-button">Add to compare</SfButton>
+        <SfButton class="sf-button--text product-details__action-button"
+          >Save for later</SfButton
+        >
+        <SfButton class="sf-button--text product-details__action-button"
+          >Add to compare</SfButton
+        >
       </div>
     </div>
     <SwProductTabs
@@ -80,6 +87,7 @@ import { useProduct, useAddToCart } from '@shopware-pwa/composables'
 import SwProductHeading from '@shopware-pwa/default-theme/components/SwProductHeading'
 import SwProductSelect from '@shopware-pwa/default-theme/components/SwProductSelect'
 import SwProductColors from '@shopware-pwa/default-theme/components/SwProductColors'
+import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 
 import SwProductTabs from '@shopware-pwa/default-theme/components/SwProductTabs'
 export default {
@@ -93,6 +101,7 @@ export default {
     SwProductSelect,
     SwProductTabs,
     SwProductColors,
+    SwPluginSlot,
   },
   props: {
     product: {

@@ -43,6 +43,10 @@ module.exports = {
                 link: "/guide/cms.html",
               },
               {
+                text: "Plugins",
+                link: "/guide/plugins.html",
+              },
+              {
                 text: "Payment",
                 link: "/guide/payment.html",
               },

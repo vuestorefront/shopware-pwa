@@ -23,6 +23,7 @@
         </nuxt-link>
       </template>
       <template #navigation>
+        <SwPluginSlot name="top-navigation-before" />
         <SfHeaderNavigationItem
           v-for="{ routeLabel, routePath } in routes"
           :key="routeLabel"
@@ -40,6 +41,7 @@
             </a>
           </nuxt-link>
         </SfHeaderNavigationItem>
+        <SwPluginSlot name="top-navigation-after" />
       </template>
       <template #search>
         <SfSearchBar
@@ -52,6 +54,7 @@
       <template #header-icons="{accountIcon, cartIcon}">
         <div class="sf-header__icons desktop-only">
           <div class="sw-header__icons">
+            <SwPluginSlot name="top-header-icons-before" />
             <SfIcon
               v-if="accountIcon"
               :icon="accountIcon"
@@ -79,6 +82,7 @@
               :aria-pressed="activeIcon === 'cart-icon' ? 'true' : 'false'"
               @click="toggleSidebar"
             />
+            <SwPluginSlot name="top-header-icons-after" />
             <!-- TODO - SfBadge will appear with the next StorefrontUI version 
             https://github.com/DivanteLtd/storefront-ui/issues/870 
             -->
@@ -109,6 +113,7 @@ import {
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
 import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
+import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 
 export default {
   components: {
@@ -119,6 +124,7 @@ export default {
     SfTopBar,
     SfSearchBar,
     SwCurrency,
+    SwPluginSlot
   },
   setup() {
     const { routes, fetchRoutes } = useNavigation()
@@ -165,6 +171,7 @@ export default {
 .top-navigation {
   --search-bar-width: 100%;
   --header-container-padding: 0 var(--spacer-base);
+  --header-navigation-item-margin: 0 1rem 0 0;
   margin-bottom: var(--spacer-sm);
   .sf-header {
     padding: 0 var(--spacer-sm);
