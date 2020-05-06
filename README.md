@@ -10,7 +10,7 @@ About Shopware:
 
 PS: Check [StorefrontUI](https://github.com/DivanteLtd/storefront-ui/) - our UI library for eCommerce.
 
-## See it in action
+## See it in action.
 
 <table>
   <tbody>
