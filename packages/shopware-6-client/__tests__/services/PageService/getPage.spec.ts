@@ -14,7 +14,7 @@ describe("PageService - getPage", () => {
     });
     const result = await getPage("Sports/Grocery-Garden");
     expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith("/vsf/page", {
+    expect(mockedAxios.post).toBeCalledWith("/store-api/v1/pwa/page", {
       path: "Sports/Grocery-Garden",
     });
     expect(result).toHaveProperty("cmsPage");

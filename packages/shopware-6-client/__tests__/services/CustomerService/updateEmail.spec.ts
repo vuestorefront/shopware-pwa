@@ -23,7 +23,7 @@ describe("CustomerService - updateEmail", () => {
   });
 
   it("rejects the promise if the email confirmation is wrong", async () => {
-    mockedAxios.patch.mockRejectedValueOnce(
+    mockedAxios.post.mockRejectedValueOnce(
       new Error("400 - email confirmation is wrong")
     );
     const differentEmail = internet.email();
@@ -34,8 +34,8 @@ describe("CustomerService - updateEmail", () => {
         password: credentials.password,
       })
     ).rejects.toThrow("400 - email confirmation is wrong");
-    expect(mockedAxios.patch).toBeCalledTimes(1);
-    expect(mockedAxios.patch).toBeCalledWith(getCustomerUpdateEmailEndpoint(), {
+    expect(mockedAxios.post).toBeCalledTimes(1);
+    expect(mockedAxios.post).toBeCalledWith(getCustomerUpdateEmailEndpoint(), {
       email: credentials.email,
       emailConfirmation: differentEmail,
       password: credentials.password,
@@ -43,14 +43,14 @@ describe("CustomerService - updateEmail", () => {
   });
 
   it("returns no data if successfully updated", async () => {
-    mockedAxios.patch.mockResolvedValueOnce(null);
+    mockedAxios.post.mockResolvedValueOnce(null);
     await updateEmail({
       email: credentials.email,
       emailConfirmation: credentials.email,
       password: credentials.password,
     });
-    expect(mockedAxios.patch).toBeCalledTimes(1);
-    expect(mockedAxios.patch).toBeCalledWith(getCustomerUpdateEmailEndpoint(), {
+    expect(mockedAxios.post).toBeCalledTimes(1);
+    expect(mockedAxios.post).toBeCalledWith(getCustomerUpdateEmailEndpoint(), {
       email: credentials.email,
       emailConfirmation: credentials.email,
       password: credentials.password,

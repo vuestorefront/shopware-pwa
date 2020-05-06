@@ -13,7 +13,7 @@ describe("CustomerService - getCustomerOrders", () => {
   it("should return array of orders", async () => {
     mockedAxios.get.mockResolvedValueOnce({
       data: {
-        data: [
+        elements: [
           {
             orderNumber: "1234",
           },

@@ -29,7 +29,7 @@ describe("CustomerService - updatePassword", () => {
   });
 
   it("rejects the promise if the password is to short", async () => {
-    mockedAxios.patch.mockRejectedValueOnce(
+    mockedAxios.post.mockRejectedValueOnce(
       new Error("400 - password too short")
     );
     expect(
@@ -39,8 +39,8 @@ describe("CustomerService - updatePassword", () => {
         newPasswordConfirm: "!23",
       })
     ).rejects.toThrow("400 - password too short");
-    expect(mockedAxios.patch).toBeCalledTimes(1);
-    expect(mockedAxios.patch).toBeCalledWith(
+    expect(mockedAxios.post).toBeCalledTimes(1);
+    expect(mockedAxios.post).toBeCalledWith(
       getCustomerUpdatePasswordEndpoint(),
       {
         password: credentials.password,
@@ -51,7 +51,7 @@ describe("CustomerService - updatePassword", () => {
   });
 
   it("rejects the promise if the passwordConfirmation does not match", async () => {
-    mockedAxios.patch.mockRejectedValueOnce(
+    mockedAxios.post.mockRejectedValueOnce(
       new Error("400 - new password confirmation does not match")
     );
     expect(
@@ -61,8 +61,8 @@ describe("CustomerService - updatePassword", () => {
         newPasswordConfirm: `${credentials.newPassword}_123`,
       })
     ).rejects.toThrow("400 - new password confirmation does not match");
-    expect(mockedAxios.patch).toBeCalledTimes(1);
-    expect(mockedAxios.patch).toBeCalledWith(
+    expect(mockedAxios.post).toBeCalledTimes(1);
+    expect(mockedAxios.post).toBeCalledWith(
       getCustomerUpdatePasswordEndpoint(),
       {
         password: credentials.password,
@@ -73,15 +73,15 @@ describe("CustomerService - updatePassword", () => {
   });
 
   it("returns no data if successfully updated", async () => {
-    mockedAxios.patch.mockResolvedValueOnce(null);
+    mockedAxios.post.mockResolvedValueOnce(null);
     const result = await updatePassword({
       password: credentials.password,
       newPassword: credentials.newPassword,
       newPasswordConfirm: credentials.newPassword,
     });
     expect(result).toBeFalsy();
-    expect(mockedAxios.patch).toBeCalledTimes(1);
-    expect(mockedAxios.patch).toBeCalledWith(
+    expect(mockedAxios.post).toBeCalledTimes(1);
+    expect(mockedAxios.post).toBeCalledWith(
       getCustomerUpdatePasswordEndpoint(),
       {
         password: credentials.password,

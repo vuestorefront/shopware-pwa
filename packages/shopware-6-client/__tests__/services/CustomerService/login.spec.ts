@@ -15,6 +15,23 @@ describe("CustomerService - login", () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
+  it("should return context token in new format if old does not exist", async () => {
+    mockedAxios.post.mockResolvedValueOnce({
+      data: { contextToken: "RmzTExFStSBW5GhPmQNicSK6bhUQhqXi" },
+    });
+
+    const result = await login({
+      username: credentials.username,
+      password: credentials.password,
+    });
+    expect(mockedAxios.post).toBeCalledTimes(1);
+    expect(mockedAxios.post).toBeCalledWith(getCustomerLoginEndpoint(), {
+      username: credentials.username,
+      password: credentials.password,
+    });
+
+    expect(result.contextToken).toEqual("RmzTExFStSBW5GhPmQNicSK6bhUQhqXi");
+  });
   it("should return context token", async () => {
     mockedAxios.post.mockResolvedValueOnce({
       data: { "sw-context-token": "RmzTExFStSBW5GhPmQNicSK6bhUQhqXi" },
