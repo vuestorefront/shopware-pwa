@@ -1,11 +1,14 @@
 <template>
   <div class="sw-checkout__personal_info">
-    <div class="log-in desktop-only">
-      <SfButton
-        @click="toggleLoginModal()"
-        class="log-in__button color-secondary"
-        >Log in to your account</SfButton
-      >
+    <div class="log-in">
+      <div class="log-in__buttons-container">
+        <SfButton
+          @click="toggleLoginModal()"
+          class="log-in__button color-secondary"
+          >Log in to your account</SfButton
+        >
+        <SwPluginSlot name="checkout-login-after" />
+      </div>
       <p class="log-in__info">or fill the details below:</p>
     </div>
     <SfHeading
@@ -130,6 +133,7 @@ import {
   SfProductOption,
   SfAlert,
 } from '@storefront-ui/vue'
+import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 
 import { validationMixin } from 'vuelidate'
 import {
@@ -170,6 +174,7 @@ export default {
     SfProductOption,
     SfAlert,
     SwLoginModal,
+    SwPluginSlot,
   },
   props: {
     order: {
@@ -356,8 +361,21 @@ export default {
     }
   }
   &__button {
-    margin: var(--spacer-2xl) 0 var(--spacer-xl) 0;
     --button-font-weight: var(--font-normal);
+    width: 100%;
+
+    @include for-desktop {
+      width: auto;
+    }
+  }
+
+  &__buttons-container {
+    margin: var(--spacer-2xl) 0 var(--spacer-xl) 0;
+
+    @include for-desktop {
+      display: flex;
+      align-items: center;
+    }
   }
 }
 .title {

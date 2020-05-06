@@ -1,12 +1,13 @@
 <template>
   <div v-if="product" id="product">
+    <SwPluginSlot name="product-page-details-before" />
     <div class="product">
       <SwProductGallery :product="product" class="product__gallery" />
       <div class="product__description">
         <SwProductDetails :product="product" :page="page" />
       </div>
     </div>
-    <div class="products" />
+    <SwPluginSlot name="product-page-details-after" />
     <div class="products__recomendations">
       <div class="products-recomendations__section">
         <SwProductCarousel />
@@ -54,6 +55,7 @@ import SwProductGallery from '@shopware-pwa/default-theme/components/SwProductGa
 import SwProductDetails from '@shopware-pwa/default-theme/components/SwProductDetails'
 import SwProductCarousel from '@shopware-pwa/default-theme/components/SwProductCarousel'
 import SwProductAdvertisement from '@shopware-pwa/default-theme/components/SwProductAdvertisement'
+import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 
 export default {
   name: 'Product',
@@ -64,6 +66,7 @@ export default {
     SwProductDetails,
     SwProductCarousel,
     SwProductAdvertisement,
+    SwPluginSlot,
   },
   props: {
     page: {

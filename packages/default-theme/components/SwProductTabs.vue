@@ -42,6 +42,7 @@
             {{ manufacturer.description }}
           </p>
         </SfTab>
+        <SwPluginSlot name="product-page-tab" />
       </slot>
     </SfTabs>
   </div>
@@ -49,10 +50,11 @@
 
 <script>
 import { SfTabs, SfHeading, SfReview, SfProperty } from '@storefront-ui/vue'
+import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 
 export default {
   name: 'SwProductTabs',
-  components: { SfTabs, SfHeading, SfReview, SfProperty },
+  components: { SfTabs, SfHeading, SfReview, SfProperty, SwPluginSlot },
   props: {
     openTab: {
       type: Number,
