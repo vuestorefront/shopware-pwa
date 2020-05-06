@@ -2881,18 +2881,18 @@
     semver-diff "^2.0.0"
     xdg-basedir "^3.0.0"
 
-"@storefront-ui/shared@^0.7.2":
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/@storefront-ui/shared/-/shared-0.7.3.tgz#6aa0c624fa3001c36bea4c6ee2acc66fe632597f"
-  integrity sha512-0aEgYPAdlgwtO5VKpJDX/2Hd8SvuH4/vX1FGa85bd5UJVJ7W83xCcKLkFhwTMbnPgAmoV64khHOegePDAJQXNw==
+"@storefront-ui/shared@^0.7.6":
+  version "0.7.6"
+  resolved "https://registry.yarnpkg.com/@storefront-ui/shared/-/shared-0.7.6.tgz#c3e0f71dae2ae446edd4f3a89285734fb78d8ea3"
+  integrity sha512-naz0GUeQDPwWaHHzN+LAGBhhhH5c3Tz/5k/MjrMAx8NugDouAh0foW0ycy8TTv4GlA4XDAUpRCPTa5rulI2pXw==
 
-"@storefront-ui/vue@0.7.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@storefront-ui/vue/-/vue-0.7.2.tgz#be153575bb07270c0552a9f82a89a8faf226dee5"
-  integrity sha512-DjFzZr0iOamT2lHsIaVHF80PnmrbGJAowvQuYtWTnGUseGD6sT8yxPcwdcyEHkMQ7xZtFRl+u7iTaZSmqY5vnQ==
+"@storefront-ui/vue@0.7.6":
+  version "0.7.6"
+  resolved "https://registry.yarnpkg.com/@storefront-ui/vue/-/vue-0.7.6.tgz#7056347473e899fc45f15b8faa63c64ed04fe0b2"
+  integrity sha512-DmupdIdnTI3e6J1jBgVUguKkzDFCH872aRewn3lDgstqN2WfgIK0eYgkFF4F0BtqvSQuDkgae/af05DtHpo6Hw==
   dependencies:
     "@glidejs/glide" "^3.3.0"
-    "@storefront-ui/shared" "^0.7.2"
+    "@storefront-ui/shared" "^0.7.6"
     "@storybook/addon-storysource" "^5.3.18"
     "@storybook/addon-viewport" "^5.3.18"
     "@types/jest" "^25.2.1"
