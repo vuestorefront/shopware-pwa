@@ -206,7 +206,7 @@ export default {
       this.isFilterSidebarOpen = false
     },
     getSortLabel(sorting) {
-      return helpers.getSortingLabel(sorting)
+      return getSortingLabel(sorting)
     },
   },
 }
