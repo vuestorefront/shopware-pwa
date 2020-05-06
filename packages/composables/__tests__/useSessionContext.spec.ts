@@ -62,6 +62,19 @@ describe("Composables - useSessionContext", () => {
       });
     });
 
+    describe("paymentMethod", () => {
+      it("should return null when there is no shipping method", () => {
+        const { paymentMethod } = useSessionContext();
+        expect(paymentMethod.value).toBeNull();
+      });
+
+      it("should return shipping method when is set", () => {
+        stateContext.value = { paymentMethod: { id: "qwe" } as any };
+        const { paymentMethod } = useSessionContext();
+        expect(paymentMethod.value).toEqual({ id: "qwe" });
+      });
+    });
+
     describe("currency", () => {
       it("should return null when session context value is null", () => {
         stateContext.value = null;
@@ -176,6 +189,45 @@ describe("Composables - useSessionContext", () => {
         const { setShippingMethod } = useSessionContext();
         await expect(setShippingMethod(null as any)).rejects.toThrowError(
           "You need to provide shipping method id in order to set shipping method."
+        );
+      });
+    });
+
+    describe("setPaymentMethod", () => {
+      it("should set payment method", async () => {
+        mockedApiClient.setCurrentPaymentMethod.mockResolvedValueOnce({
+          paymentMethod: {
+            id: "qwe",
+          },
+        } as any);
+        const { setPaymentMethod } = useSessionContext();
+        await setPaymentMethod({ id: "methodId" });
+        expect(mockedApiClient.setCurrentPaymentMethod).toBeCalledWith(
+          "methodId"
+        );
+      });
+
+      it("should throw an error if payment method cannot be set", async () => {
+        mockedApiClient.setCurrentPaymentMethod.mockRejectedValueOnce({
+          message: "Some error",
+        } as any);
+        const { setPaymentMethod } = useSessionContext();
+        await expect(setPaymentMethod({ id: "qwe" })).rejects.toEqual({
+          message: "Some error",
+        });
+      });
+
+      it("should throw an error if payment method is not provided", async () => {
+        const { setPaymentMethod } = useSessionContext();
+        await expect(setPaymentMethod(undefined as any)).rejects.toThrowError(
+          "You need to provide payment method id in order to set payment method."
+        );
+      });
+
+      it("should throw an error if payment method is empty reference", async () => {
+        const { setPaymentMethod } = useSessionContext();
+        await expect(setPaymentMethod(null as any)).rejects.toThrowError(
+          "You need to provide payment method id in order to set payment method."
         );
       });
     });

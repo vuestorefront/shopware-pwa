@@ -177,6 +177,14 @@ export interface GetNavigationParams {
     rootNode?: string;
 }
 
+// @beta
+export function getOrderPaymentUrl({ orderId, finishUrl, }: {
+    orderId: string;
+    finishUrl?: string;
+}): Promise<{
+    paymentUrl: string;
+}>;
+
 // @alpha (undocumented)
 export function getPage(path: string, searchCriteria?: SearchCriteria): Promise<PageResolverResult<CmsPage>>;
 
