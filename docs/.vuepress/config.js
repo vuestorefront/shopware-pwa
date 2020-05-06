@@ -4,10 +4,10 @@ module.exports = {
   themeConfig: {
     repo: "DivanteLtd/shopware-pwa",
     docsDir: "docs",
-    sidebarDepth: 2,
+    sidebarDepth: 1,
     smoothScroll: true,
     displayAllHeaders: true,
-    logo: "/shopware_logo.png",
+    logo: "/shopware_docs_logo.svg",
     sidebar: [
       {
         title: "Documentation",

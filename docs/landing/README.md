@@ -4,19 +4,16 @@ sidebar: false
 
 ![showpare-vsf-banner](./assets/shopware_vsf_banner.png)
 
-:::details 🚀 Quick setup for busy developers
+<center>
+
+**🚀 Quickstart** or [learn more](getting-started)
+
+</center>
 
 ```bash
-# install CLI
-yarn global add @shopware-pwa/cli
-
-# setup
-shopware-pwa init
-
-# start
-yarn dev
+yarn global add @shopware-pwa/cli && shopware-pwa init 		# install CLI & initialize project
+yarn dev 													# start dev server
 ```
-:::
 
 <div class="flex-container">
 

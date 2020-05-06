@@ -1,7 +1,3 @@
----
-sidebarDepth: 2
----
-
 # Project
 
 Shopware PWA is a project that was created in a cooperation between [Vue Storefront](https://www.vuestorefront.io/) and [shopware AG](https://shopware.com/) in order to deliver a state-of-the-art customisable frontend for Shopware 6.
