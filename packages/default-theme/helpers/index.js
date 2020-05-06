@@ -28,7 +28,7 @@ export const getSortingLabel = (sorting) => {
   return `${sorting.field} ${label}`
 }
 
-const formatDate = (date, format = `DD-MM-YYYY H:m:s`) =>
+export const formatDate = (date, format = `DD-MM-YYYY H:m:s`) =>
   dayjs(date).format(format)
 
 export default {
