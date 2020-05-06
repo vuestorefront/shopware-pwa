@@ -4,52 +4,83 @@ module.exports = {
   themeConfig: {
     repo: "DivanteLtd/shopware-pwa",
     docsDir: "docs",
-    sidebarDepth: 1,
+    sidebarDepth: 0,
     smoothScroll: true,
     displayAllHeaders: true,
     logo: "/shopware_docs_logo.svg",
     sidebar: [
       {
-        title: "Documentation",
-        path: "/landing/",
-        collapsable: false,
+        title: "Home",
+        path: "/",
+        collapsable: true,
         children: [
           ["/landing/project/", "Project"],
           ["/landing/getting-started/", "Getting started"],
           ["/landing/fundamentals/", "Fundamentals"],
           ["/landing/concepts/", "Concepts"],
           ["/landing/operation/", "Operation"],
+          ["/landing/resources/", "Resources"],
         ],
       },
     ],
     nav: (module.exports = [
       {
-        text: "Guides",
+        text: "Home",
+        link: "/",
+      },
+      /*{
+        text: "Fundamentals",
+        link: "/landing/fundamentals/"
         items: [
           {
-            text: "Setup",
-            items: [
-              {
-                text: "Cheatsheet",
-                link: "/guide/cheatsheet.html",
-              },
-            ],
+            text: "Nuxt.js",
+            link: "/fundamentals/",
           },
           {
-            text: "Concepts",
+            text: "Storefront UI",
+            link: "/fundamentals/",
+          },
+          {
+            text: "PWA CLI",
             items: [
               {
-                text: "CMS",
+                text: "Themes",
                 link: "/guide/cms.html",
               },
               {
-                text: "Payment",
+                text: "Plugins",
                 link: "/guide/payment.html",
               },
             ],
           },
+        ],
+      },*/
+      {
+        text: "Concepts",
+        items: [
           {
-            text: "Features",
+            text: "CMS",
+            link: "/guide/cms.html",
+          },
+          {
+            text: "Payment",
+            link: "/guide/payment.html",
+          },
+        ],
+      },
+      {
+        text: "Resources",
+        items: [
+          {
+            text: "Roadmap",
+            link: "/guide/roadmap/",
+          },
+          {
+            text: "Package API",
+            link: "/api/",
+          },
+          {
+            text: "Featurelist",
             items: [
               {
                 text: "Functional",
@@ -65,50 +96,8 @@ module.exports = {
               },
             ],
           },
-          {
-            text: "Help",
-            items: [
-              {
-                text: "FAQ / Troubleshooting",
-                link: "/guide/troubleshooting.html",
-              },
-              {
-                text: "Roadmap",
-                link: "/guide/roadmap.html",
-              },
-            ],
-          },
         ],
       },
-      {
-        text: "CLI",
-        link: "/cli/",
-      },
-      {
-        text: "API",
-        link: "/API/index.md",
-      },
-      {
-        text: "Contribution",
-        items: [
-          {
-            text: "Contribution guide",
-            link: "/contribution/contributing.html",
-          },
-          {
-            text: "Project structure",
-            link: "/contribution/structure.html",
-          },
-        ],
-      },
-      // {
-      //   text: "Plugin",
-      //   link: "/plugin/",
-      // },
-      // {
-      //   text: "Theme",
-      //   link: "/theme/",
-      // },
     ]),
   },
 };

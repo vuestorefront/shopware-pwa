@@ -1,4 +1,4 @@
-# Fundamentals
+# Fundamentals <Badge text="coming soon"/>
 
 ::: warning ToDo
 

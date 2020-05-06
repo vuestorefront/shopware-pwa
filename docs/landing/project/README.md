@@ -1,6 +1,10 @@
 # Project
 
-Shopware PWA is a project that was created in a cooperation between [Vue Storefront](https://www.vuestorefront.io/) and [shopware AG](https://shopware.com/) in order to deliver a state-of-the-art customisable frontend for Shopware 6.
+## Video demo
+
+[![See video demo!](https://divante.com/github/shopware-pwa/shopware-pwa-miniature.png)](https://youtu.be/t2JJgvvxMG8)
+
+Shopware PWA is a project created in a cooperation between [Vue Storefront](https://www.vuestorefront.io/) and [shopware AG](https://shopware.com/) in order to deliver a state-of-the-art customisable frontend for Shopware 6.
 
 It takes the capabilities of Shopware 6 and brings it to the hands of the frontend developers to create outstanding customer experiences based on modern frontend technologies like:
 
@@ -37,10 +41,14 @@ This new generation of frontend applications is also often referred to as *JAMst
 
 The project is maintained by a shared core team of Shopware and Vue Storefront experts. The roadmap is obviously closely coupled to the roadmap of the Shopware platform core, but contributions and specific community wishes are just as important to us.
 
+All core maintainers of the project are active and approachable in our slack channel.
+
+If you have any questions or ideas feel free to [join our slack](http://slack.vuestorefront.io/).
+
+![Core team](./../../assets/core_team.jpeg)
+
 ## How can I contribute?
 
 We are excited for every open source contributor to our project. Issue reportings, bugfixes, feature requests, code reviews, pull requests - every type of contribution is more than appreciated. Don't hesitate to ask or raise an issue if you've got a question or anything feels odd to you.
 
-## I want to start a project - where do I begin?
-
-First of all, make sure you have a vision for your project and
+Go ahead and read our [Contribution Guide](/contribution/contributing/) to find out more.

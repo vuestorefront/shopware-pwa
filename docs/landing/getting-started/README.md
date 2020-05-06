@@ -1,6 +1,12 @@
 # Getting started
 
+This guide will help you get started with shopware-pwa.
+
+[[toc]]
+
 ## Quickstart
+
+Set up shopware-pwa in less than 10 minutes.
 
 ### Installation
 
@@ -25,7 +31,7 @@ npm install -g @shopware-pwa/cli@canary
 
 :::
 
-### Usage
+### Create project
 
 Create a directory for your project and enter it
 
@@ -58,13 +64,32 @@ After roughly 30 seconds, your application will be available locally on [http://
 
 ![shopware-pwa after init](./../assets/shopware_pwa_init.png)
 
+### Configure the backend connection
+
+Instead of using the interactive CLI to configure your backend connection, you can also define the parameters in a file
+
+1. Edit the `shopware-pwa.config.js` file inside the root directory of your project
+2. Fill it with the data from your instance ([how to prepare your Shopware 6 instance](/landing/getting-started/prepare-shopware))
+
+```js
+module.exports = {
+  shopwareEndpoint: "https://shopware-2.vuestorefront.io",
+  shopwareAccessToken: "SWSCTXJOZMQWCXA4OUTNZ0REYG",
+};
+```
+
+3. Restart the PWA dev server (you might have to stop it before)
+
+```bash
+yarn dev
+```
+
 ### How do I move on?
 
-How about...
+What about...
 
- * Exploring the [directory structure](/contribution/structure) of the project.
- * Learning [the fundamentals](/landing/fundamentals) like the frameworks and libraries we use or patters we follow
- * Looking into [functional concepts](/landing/concepts) of the PWA, like CMS or Payment
- * [Reporting an issue](https://github.com/DivanteLtd/shopware-pwa/issues/new/choose) to our Github repository if you've encountered any
+ * Exploring the [directory structure](/contribution/structure/) of the project.
+ * Go [troubleshooting](/guide/troubleshooting/) if you encounter any issues
+ * [Reporting an issue](https://github.com/DivanteLtd/shopware-pwa/issues/new/choose) if you couldn't solve it
 
 </center>
