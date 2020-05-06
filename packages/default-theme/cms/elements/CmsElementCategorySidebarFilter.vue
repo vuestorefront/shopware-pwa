@@ -117,7 +117,7 @@ import {
   useProductListing,
 } from '@shopware-pwa/composables'
 const { availableFilters, availableSorting } = useCategoryFilters()
-import helpers from '../../helpers'
+import { getSortingLabel } from '@shopware-pwa/default-theme/helpers'
 
 export default {
   components: {
