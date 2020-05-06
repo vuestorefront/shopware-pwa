@@ -36,6 +36,40 @@ module.exports = {
             ],
           },
           {
+            text: "Concepts",
+            items: [
+              {
+                text: "CMS",
+                link: "/guide/cms.html",
+              },
+              {
+                text: "Plugins",
+                link: "/guide/plugins.html",
+              },
+              {
+                text: "Payment",
+                link: "/guide/payment.html",
+              },
+            ],
+          },
+          {
+            text: "Features",
+            items: [
+              {
+                text: "Functional",
+                link: "/guide/featurelist.html#functional",
+              },
+              {
+                text: "Technical",
+                link: "/guide/featurelist.html#technical",
+              },
+              {
+                text: "Integrations",
+                link: "/guide/featurelist.html#integrations",
+              },
+            ],
+          },
+          {
             text: "Help",
             items: [
               {
