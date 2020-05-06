@@ -16,7 +16,7 @@ export function formatPrice(price, options) {
   ).format()
 }
 
-const getSortingLabel = (sorting) => {
+export const getSortingLabel = (sorting) => {
   if (!sorting || !sorting.order || !sorting.field) {
     return ''
   }
