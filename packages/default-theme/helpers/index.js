@@ -30,9 +30,3 @@ export const getSortingLabel = (sorting) => {
 
 export const formatDate = (date, format = `DD-MM-YYYY H:m:s`) =>
   dayjs(date).format(format)
-
-export default {
-  formatPrice,
-  formatDate,
-  getSortingLabel,
-}
