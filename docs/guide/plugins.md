@@ -47,6 +47,10 @@ so in `local-plugins.json` we're activating our new plugin
 }
 ```
 
+::: details In depth of `local-plugin.json`
+This file allows us to set if plugin is active or not (`true/false`). Plugins importance rule is the same as for the plugins from shopware instance - latest installed is always on top of specific slot. Same in this file, latest key is the most important one.
+:::
+
 inside `cool-promotion-plugin/config.json` we need to put
 
 - slot, in which we want to inject
