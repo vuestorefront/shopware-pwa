@@ -1,4 +1,4 @@
-import { ref, computed } from '@vue/composition-api'
+import { ref, computed, getCurrentInstance } from '@vue/composition-api'
 import { CHECKOUT_STEPS } from '@shopware-pwa/default-theme/logic/checkout/steps'
 import { getStepByNumber } from '@shopware-pwa/default-theme/logic/checkout/helpers'
 import { useCheckout } from '@shopware-pwa/composables'
@@ -7,10 +7,11 @@ import { useShippingStep } from '@shopware-pwa/default-theme/logic/checkout/useS
 import { usePaymentStep } from '@shopware-pwa/default-theme/logic/checkout/usePaymentStep'
 
 export const useUICheckoutPage = () => {
-  const { isGuestOrder } = useCheckout()
+  const { isGuestOrder, createOrder } = useCheckout()
   const currentStep = ref(
     isGuestOrder.value ? CHECKOUT_STEPS.PERSONAL_DETAILS : CHECKOUT_STEPS.REVIEW
   )
+  const vm = getCurrentInstance()
 
   const {
     isValid: isPersonalDetailsStepValid,
@@ -80,12 +81,15 @@ export const useUICheckoutPage = () => {
       currentStep.value === CHECKOUT_STEPS.REVIEW &&
       nextStepNumber > CHECKOUT_STEPS.REVIEW
     ) {
-      await createOrder()
+      const order = await createOrder()
+      vm.$router.push(`/success-page?orderId=${order.id}`)
     } else {
       const nextStep = getStepByNumber(nextStepNumber)
       if (stepsStatus.value[nextStep].available) {
         currentStep.value = nextStepNumber
-        // this.$router.push({query: {step: nextStepNumber}})
+        vm.$router.push({
+          query: { step: nextStep },
+        })
       }
     }
   }
