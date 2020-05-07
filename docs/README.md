@@ -155,7 +155,7 @@ A more advanced development guide will be available soon.
 
 ## Troubleshooting
 
-Common issues with solutions are kept in [troubleshooting](./TROUBLESHOOTING.md) page.
+Common issues with solutions are kept in [troubleshooting](./guide/TROUBLESHOOTING.md) page.
 
 ---
 
