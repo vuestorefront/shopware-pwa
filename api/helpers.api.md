@@ -4,6 +4,7 @@
 
 ```ts
 
+import { Category } from '@shopware-pwa/commons/interfaces/models/content/category/Category';
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { CmsSection } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
@@ -72,6 +73,9 @@ export function getCategoryAvailableSorting({ sorting, }?: {
     sorting?: Sorting;
 }): UiCategorySorting[];
 
+// @alpha
+export const getCategoryUrl: (category: Partial<Category>) => string;
+
 // @alpha (undocumented)
 export function getCmsSections(content: CmsPage): CmsSection[];
 
@@ -134,9 +138,6 @@ export function getProductSpecialPrice(product: Product): number;
 
 // @alpha (undocumented)
 export function getProductUrl(product: Product | null): string;
-
-// @alpha (undocumented)
-export const getSortingLabel: (sorting: SwSorting) => string;
 
 // @alpha (undocumented)
 export const getSortingSearchCriteria: (selectedSorting: SwSorting) => Sort;

@@ -7,6 +7,9 @@ jest.mock("@shopware-pwa/shopware-6-client");
 const mockedGetPage = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 describe("Composables - useNavigation", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
   describe("computed", () => {
     describe("routes", () => {
       it("should get null when routeNames are not fetched", () => {
@@ -39,6 +42,24 @@ describe("Composables - useNavigation", () => {
         const { routes, fetchRoutes } = useNavigation();
         await fetchRoutes();
         expect(routes.value).toHaveLength(3);
+      });
+    });
+    describe("fetchNavigationElements", () => {
+      it("should fetch navigation elements correcly", async () => {
+        mockedGetPage.getNavigation.mockResolvedValueOnce({
+          count: 3,
+          children: [
+            { name: "Clothin", route: { path: "clothing/" } },
+            { name: "Sports", route: { path: "sports/" } },
+            {
+              name: "Accessories & Others",
+              route: { path: "accessories-others/" },
+            },
+          ],
+        } as any);
+        const { navigationElements, fetchNavigationElements } = useNavigation();
+        await fetchNavigationElements(2);
+        expect(navigationElements).toHaveLength(3);
       });
     });
   });
