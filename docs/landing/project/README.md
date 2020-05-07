@@ -29,7 +29,7 @@ If you have a specific set of features, feel free to compare it against our cura
 
 Good question - Shopware already comes with a storefront. However, it is a headless commerce platform which means that it has no "native" frontend to it. So even the **default** Storefront is just **one** frontend that can be used.
 
-We are observing a paradigm shift that lets more and more projects and customers transition into more universal frontend applications based on Javascript. They have the great benefit to integrate easily with other services like CMS, personalisation engines or search by sharing code on both front- and backend.
+We are observing a paradigm shift that lets more and more projects and customers transition into more universal frontend applications based on JavaScript. They have the great benefit to integrate easily with other services like CMS, personalisation engines or search by sharing code on both front- and backend.
 
 The full frontend stack can be Javascript based and, depending on your requirements, use features like SEO-friendly server-side rendering, smart pre-compilation or reactive elements and PWA. It can also provide fully static pages if you wish so.
 
