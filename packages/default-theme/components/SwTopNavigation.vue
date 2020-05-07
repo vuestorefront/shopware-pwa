@@ -30,6 +30,7 @@
           :key="category.name"
           class="sf-header__link"
           @mouseover="currentCategoryName = category.name"
+          @mouseleave="currentCategoryName = null"
           @keyup.tab="currentCategoryName = category.name"
         >
           <nuxt-link
