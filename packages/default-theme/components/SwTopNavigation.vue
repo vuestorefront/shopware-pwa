@@ -98,9 +98,6 @@
               @click="toggleSidebar"
             />
             <SwPluginSlot name="top-header-icons-after" />
-            <!-- TODO - SfBadge will appear with the next StorefrontUI version 
-            https://github.com/DivanteLtd/storefront-ui/issues/870 
-            -->
           </div>
         </div>
       </template>
@@ -196,9 +193,6 @@ export default {
         this.isDropdownOpen = false;
     }
   }, 
-  async mounted() {
-    await this.fetchRoutes({ depth: 1 })
-  },
   methods: {
     userIconClick() {
       if (this.isLoggedIn) this.isDropdownOpen = !this.isDropdownOpen
@@ -221,7 +215,6 @@ export default {
   --header-navigation-item-margin: 0 1rem 0 0;
   margin-bottom: var(--spacer-sm);
   .sf-header {
-    // padding: 0 var(--spacer-sm);
     &__currency {
       position: relative;
       margin: 0 var(--spacer-base) 0 var(--spacer-base);
