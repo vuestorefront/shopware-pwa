@@ -61,7 +61,7 @@ module.exports = (toolbox: GluegunToolbox) => {
    * - uncomment packages which are already published
    * - dynamically get new versions from template
    */
-  toolbox.updateNuxtPackageJson = async () => {
+  toolbox.updateNuxtPackageJson = async (canary = false) => {
     const nuxtThemePackage = toolbox.filesystem.read(
       `${toolbox.defaultThemeLocation}/package.json`,
       "json"
@@ -91,6 +91,20 @@ module.exports = (toolbox: GluegunToolbox) => {
         Object.keys(nuxtThemePackage.devDependencies).forEach((packageName) => {
           config.devDependencies[packageName] =
             nuxtThemePackage.devDependencies[packageName];
+        });
+      }
+
+      // update versions to canary
+      if (canary) {
+        Object.keys(config.dependencies).forEach((dependencyName) => {
+          if (dependencyName.includes("@shopware-pwa")) {
+            config.dependencies[dependencyName] = "canary";
+          }
+        });
+        Object.keys(config.devDependencies).forEach((dependencyName) => {
+          if (dependencyName.includes("@shopware-pwa")) {
+            config.dependencies[dependencyName] = "canary";
+          }
         });
       }
 

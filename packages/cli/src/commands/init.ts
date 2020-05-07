@@ -11,6 +11,12 @@ module.exports = {
       print: { info, warning, success, spin },
     } = toolbox;
 
+    const STAGES = {
+      STABLE: "latest stable (recommended)",
+      CANARY: "canary (current master branch)",
+      LOCAL: "local contibution (to contribute locally in shopware-pwa)",
+    };
+
     const inputParameters = toolbox.inputParameters;
     // when --ci parameter is provided, then we skip questions for default values
     const isCIrun = inputParameters.ci;
@@ -32,36 +38,93 @@ module.exports = {
         message: "Shopware instance access token:",
         initial: inputParameters.shopwareAccessToken,
       };
+      const stageQuestion = {
+        type: "select",
+        name: "stage",
+        message: "Which version you'd like to use:",
+        choices: Object.values(STAGES),
+        initial: inputParameters.projectName,
+      };
 
       const answers = await toolbox.prompt.ask([
         shopwareEndpointQuestion,
         shopwareAccessTokenQuestion,
+        stageQuestion,
       ]);
       Object.assign(inputParameters, answers);
     }
 
     await toolbox.generateNuxtProject();
 
-    const updateConfigSpinner = spin("Updating configuration");
+    let stage = inputParameters.stage || STAGES.STABLE;
+    if (inputParameters.stage === "canary") stage = STAGES.CANARY;
+    if (inputParameters.stage === "local") stage = STAGES.LOCAL;
+
+    const updateConfigSpinner = spin(
+      "Updating configuration for option: " + stage
+    );
+
     // Adding Shopware PWA core dependencies
-    await run(`yarn add -D fs-jetpack cookie-universal husky`);
-    await run(`yarn add @vue-storefront/nuxt`);
+    const corePackages = [
+      "@shopware-pwa/composables",
+      "@shopware-pwa/helpers",
+      "@shopware-pwa/shopware-6-client",
+      "@shopware-pwa/default-theme",
+      "@shopware-pwa/nuxt-module",
+    ];
+    const coreDevPackages = ["@shopware-pwa/cli"];
+
+    const npmPackages = ["@vue-storefront/nuxt"];
+
+    const npmDevPackages = ["fs-jetpack", "cookie-universal", "husky"];
+
     try {
       // - unlink potential linked locally packages
-      await run(`yarn unlink ${toolbox.coreDependencyPackageNames.join(" ")}`);
+      await run(
+        `yarn unlink ${corePackages.join(" ")} ${coreDevPackages.join(" ")}`
+      );
     } catch (e) {
       // It's just for safety, unlink on fresh project will throw an error so we can catch it here
     }
-    // for development run - link local packages
-    if (!toolbox.isProduction) {
-      await run(`npx yalc add ${toolbox.coreDependencyPackageNames.join(" ")}`);
-      await run(`yarn link ${toolbox.coreDependencyPackageNames.join(" ")}`);
-    } else {
-      // - add dependencies from npm
-      await run(`yarn add ${toolbox.coreDependencyPackageNames.join(" ")}`);
+
+    switch (stage) {
+      case STAGES.CANARY:
+        await run(
+          `yarn add ${corePackages
+            .map((dep) => `${dep}@canary`)
+            .join(" ")} ${npmPackages.join(" ")}`
+        );
+        await run(
+          `yarn add -D ${coreDevPackages
+            .map((dep) => `${dep}@canary`)
+            .join(" ")} ${npmDevPackages.join(" ")}`
+        );
+        break;
+      case STAGES.LOCAL:
+        await run(`yarn add ${npmPackages.join(" ")}`);
+        await run(`yarn add -D ${npmDevPackages.join(" ")}`);
+        await run(`npx yalc add ${corePackages.join(" ")}`);
+        await run(`npx yalc add -D ${coreDevPackages.join(" ")}`);
+        await run(
+          `yarn link ${corePackages.join(" ")} ${coreDevPackages.join(" ")}`
+        );
+        break;
+      case STAGES.STABLE:
+      default:
+        await run(
+          `yarn add ${corePackages
+            .map((dep) => `${dep}@latest`)
+            .join(" ")} ${npmPackages.join(" ")}`
+        );
+        await run(
+          `yarn add -D ${coreDevPackages
+            .map((dep) => `${dep}@latest`)
+            .join(" ")} ${npmDevPackages.join(" ")}`
+        );
+        break;
     }
 
-    await toolbox.updateNuxtPackageJson();
+    await toolbox.updateNuxtPackageJson(stage === STAGES.CANARY);
     await toolbox.updateNuxtConfigFile();
     updateConfigSpinner.succeed();
 
