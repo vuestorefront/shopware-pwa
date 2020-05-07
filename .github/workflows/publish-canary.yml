@@ -32,14 +32,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Install shopware-pwa cli
-        run: |
-          yarn global add @shopware-pwa/cli@canary
       - name: Create default-theme project
         run: |
           mkdir app
           cd ./app
-          shopware-pwa init --shopwareEndpoint=${{ env.CANARY_SW6_INSTANCE }} --shopwareAccessToken=${{ env.CANARY_SW6_INSTANCE_TOKEN }} --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci --devMode --stage canary
+          npx @shopware-pwa/cli@canary init --shopwareEndpoint=${{ env.CANARY_SW6_INSTANCE }} --shopwareAccessToken=${{ env.CANARY_SW6_INSTANCE_TOKEN }} --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci --devMode --stage canary
           yarn build
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@master
