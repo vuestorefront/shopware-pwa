@@ -11,14 +11,13 @@ module.exports = {
       print: { info, warning, success, spin },
     } = toolbox;
 
+    const inputParameters = toolbox.inputParameters;
     // when --ci parameter is provided, then we skip questions for default values
-    const isCIrun = toolbox.parameters.options.ci;
+    const isCIrun = inputParameters.ci;
 
     if (!toolbox.isProduction) {
       warning(`You're running CLI in development mode!`);
     }
-
-    const inputParameters = toolbox.inputParameters;
 
     if (!isCIrun) {
       const shopwareEndpointQuestion = {
@@ -33,22 +32,10 @@ module.exports = {
         message: "Shopware instance access token:",
         initial: inputParameters.shopwareAccessToken,
       };
-      const shopwareUsernameQuestion = !inputParameters.username && {
-        type: "input",
-        name: "username",
-        message: "Shopware admin username:",
-      };
-      const shopwarePasswordQuestion = !inputParameters.password && {
-        type: "password",
-        name: "password",
-        message: "Shopware admin password:",
-      };
 
       const answers = await toolbox.prompt.ask([
         shopwareEndpointQuestion,
         shopwareAccessTokenQuestion,
-        shopwareUsernameQuestion,
-        shopwarePasswordQuestion,
       ]);
       Object.assign(inputParameters, answers);
     }
@@ -87,7 +74,7 @@ module.exports = {
     generateFilesSpinner.succeed();
 
     // generate plugin files
-    await toolbox.runtime.run(`generate`, inputParameters);
+    await toolbox.runtime.run(`plugins`, inputParameters);
     await toolbox.runtime.run(`cms`);
 
     const updateDependenciesSpinner = spin("Updating dependencies");

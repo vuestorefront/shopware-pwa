@@ -1,7 +1,6 @@
 import {
   getFilterSearchCriteria,
   getSortingSearchCriteria,
-  getSortingLabel,
 } from "@shopware-pwa/helpers";
 
 describe("Shopware helpers - getFilterSearchCriteria", () => {
@@ -115,30 +114,5 @@ describe("Shopware helpers - getSortingSearchCriteria", () => {
       field: "price",
       desc: true,
     });
-  });
-});
-
-describe("Shopware helpers - getSortingLabel", () => {
-  it("should return empty string if no parameter is provided", () => {
-    const result = getSortingLabel(undefined as any);
-    expect(result).toEqual("");
-  });
-  it("should return empty string if parameter doesn't follow the interface", () => {
-    const result = getSortingLabel({} as any);
-    expect(result).toEqual("");
-  });
-  it("should return descending label", () => {
-    const result = getSortingLabel({
-      field: "price",
-      order: "desc",
-    } as any);
-    expect(result).toEqual("price ▼");
-  });
-  it("should return ascending label", () => {
-    const result = getSortingLabel({
-      field: "price",
-      order: "asc",
-    } as any);
-    expect(result).toEqual("price ▲");
   });
 });
