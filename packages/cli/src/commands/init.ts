@@ -56,7 +56,13 @@ module.exports = {
 
     await toolbox.generateNuxtProject();
 
-    const updateConfigSpinner = spin("Updating configuration");
+    let stage = inputParameters.stage || STAGES.STABLE;
+    if (inputParameters.stage === "canary") stage = STAGES.CANARY;
+    if (inputParameters.stage === "local") stage = STAGES.LOCAL;
+
+    const updateConfigSpinner = spin(
+      "Updating configuration for option: " + stage
+    );
 
     // Adding Shopware PWA core dependencies
     const corePackages = [
@@ -81,9 +87,6 @@ module.exports = {
       // It's just for safety, unlink on fresh project will throw an error so we can catch it here
     }
 
-    let stage = inputParameters.stage || STAGES.STABLE;
-    if (inputParameters.stage === "canary") stage = STAGES.CANARY;
-    if (inputParameters.stage === "local") stage = STAGES.LOCAL;
     switch (stage) {
       case STAGES.CANARY:
         await run(
