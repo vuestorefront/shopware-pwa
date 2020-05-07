@@ -8,9 +8,10 @@ import { OrderTransaction } from "../order/OrderTransaction";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @beta
  */
 export interface PaymentMethod {
+  id: string;
   pluginId: string | null;
   handlerIdentifier: string;
   name: string | null;

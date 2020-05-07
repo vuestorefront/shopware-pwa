@@ -109,7 +109,11 @@ export interface UseCheckout {
     // (undocumented)
     isGuestOrder: Readonly<Ref<boolean>>;
     // (undocumented)
+    paymentMethods: Readonly<Ref<readonly PaymentMethod[]>>;
+    // (undocumented)
     shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
+    // (undocumented)
+    shippingMethods: Readonly<Ref<readonly ShippingMethod[]>>;
     // (undocumented)
     updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
 }
@@ -232,11 +236,15 @@ export interface UseSessionContext {
     // (undocumented)
     currency: Readonly<Ref<Currency | null>>;
     // (undocumented)
+    paymentMethod: Readonly<Ref<PaymentMethod | null>>;
+    // (undocumented)
     refreshSessionContext: () => Promise<void>;
     // (undocumented)
     sessionContext: Readonly<Ref<SessionContext | null>>;
     // (undocumented)
     setCurrency: (currency: Partial<Currency>) => Promise<void>;
+    // (undocumented)
+    setPaymentMethod: (paymentMethod: Partial<PaymentMethod>) => Promise<void>;
     // (undocumented)
     setShippingMethod: (shippingMethod: Partial<ShippingMethod>) => Promise<void>;
     // (undocumented)

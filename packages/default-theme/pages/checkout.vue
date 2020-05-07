@@ -87,14 +87,6 @@ export default {
         if (stepName) this.nextStep(CHECKOUT_STEPS[stepName])
       },
     },
-    currentStep: {
-      immediate: true,
-      handler: function () {
-        this.$router.push({
-          query: { step: getStepByNumber(this.currentStep) },
-        })
-      },
-    },
   },
 }
 </script>
