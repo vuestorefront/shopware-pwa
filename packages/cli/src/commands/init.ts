@@ -82,6 +82,7 @@ module.exports = {
     }
 
     let stage = inputParameters.stage || STAGES.STABLE;
+    if (inputParameters.stage === "canary") stage = STAGES.CANARY;
     if (inputParameters.stage === "local") stage = STAGES.LOCAL;
     switch (stage) {
       case STAGES.CANARY:
