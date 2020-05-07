@@ -157,11 +157,9 @@ export const useCurrency: () => UseCurrency;
 // @alpha (undocumented)
 export interface UseNavigation {
     // (undocumented)
+    fetchNavigationElements: (depth: number) => Promise<void>;
+    // (undocumented)
     fetchRoutes: () => Promise<void>;
-    // (undocumented)
-    getNavigationElements: (depth: number) => Promise<void>;
-    // (undocumented)
-    hoveredNavigationItem: Ref<string>;
     // (undocumented)
     navigationElements: NavigationElement[];
     // (undocumented)

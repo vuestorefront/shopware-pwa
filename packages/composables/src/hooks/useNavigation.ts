@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { reactive, computed, Ref, ref } from "@vue/composition-api";
+import { reactive, computed, Ref } from "@vue/composition-api";
 import { getNavigation } from "@shopware-pwa/shopware-6-client";
 import { getNavigationRoutes } from "@shopware-pwa/helpers";
 import { NavigationElement } from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
@@ -9,9 +9,8 @@ import { NavigationElement } from "@shopware-pwa/commons/interfaces/models/conte
  */
 export interface UseNavigation {
   routes: Ref<Readonly<any>>;
-  hoveredNavigationItem: Ref<string>;
   navigationElements: NavigationElement[];
-  getNavigationElements: (depth: number) => Promise<void>;
+  fetchNavigationElements: (depth: number) => Promise<void>;
   fetchRoutes: () => Promise<void>;
 }
 
@@ -24,7 +23,6 @@ const sharedNavigation = Vue.observable({
  * @alpha
  */
 export const useNavigation = (): UseNavigation => {
-  const hoveredNavigationItem = ref("");
   const localNavigation = reactive(sharedNavigation);
   const routes = computed(() => localNavigation.routes);
 
@@ -34,7 +32,7 @@ export const useNavigation = (): UseNavigation => {
     sharedNavigation.routes = getNavigationRoutes(children);
   };
 
-  const getNavigationElements = async (depth: number) => {
+  const fetchNavigationElements = async (depth: number) => {
     const { children } = await getNavigation({ depth });
     localNavigation.navigationElements.length = 0;
     localNavigation.navigationElements.push(...children);
@@ -42,9 +40,8 @@ export const useNavigation = (): UseNavigation => {
 
   return {
     routes,
-    hoveredNavigationItem,
     navigationElements: localNavigation.navigationElements,
-    getNavigationElements,
+    fetchNavigationElements,
     fetchRoutes,
   };
 };

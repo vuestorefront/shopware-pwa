@@ -44,7 +44,7 @@ describe("Composables - useNavigation", () => {
         expect(routes.value).toHaveLength(3);
       });
     });
-    describe("getNavigationElements", () => {
+    describe("fetchNavigationElements", () => {
       it("should fetch navigation elements correcly", async () => {
         mockedGetPage.getNavigation.mockResolvedValueOnce({
           count: 3,
@@ -57,8 +57,8 @@ describe("Composables - useNavigation", () => {
             },
           ],
         } as any);
-        const { navigationElements, getNavigationElements } = useNavigation();
-        await getNavigationElements(2);
+        const { navigationElements, fetchNavigationElements } = useNavigation();
+        await fetchNavigationElements(2);
         expect(navigationElements).toHaveLength(3);
       });
     });

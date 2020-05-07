@@ -1,53 +1,57 @@
 <template>
-    <SfMegaMenu :visible="category.name === hoveredItem" :title="category.name" class="sw-mega-menu">
-      <nuxt-link class="sf-header__link" 
-        v-for="subcategory in category.children" 
-        :key="subcategory.name" 
-        :to="path(subcategory)"
+  <SfMegaMenu :visible="visible" :title="category.name" class="sw-mega-menu">
+    <div class="sw-mega-menu__content">
+      <div
+        class="sw-mega-menu__content-section"
+        v-for="subcategory in category.children"
+        :key="subcategory.name"
       >
-        <SfMegaMenuColumn 
-          :title="subcategory.name"
+        <nuxt-link
+          class="sf-header__link"
+          :to="getCategoryUrl(subcategory)"
         >
-          <SfList>
-            <SfListItem 
-              v-for="child in subcategory.children" 
-              :key="child.label">
-              <nuxt-link class="sf-header__link" 
-                :to="path(child)"
-              >   
-                <SfMenuItem
-                  :label="child.name" 
-                />
-              </nuxt-link>  
-            </SfListItem>
-          </SfList>
-        </SfMegaMenuColumn>
-      </nuxt-link>
-    </SfMegaMenu>
+          <SfHeading
+            :title="subcategory.name"
+            :subtitle="subcategory.description"
+            :level="4"
+          />
+        </nuxt-link>
+        <SfList>
+          <SfListItem v-for="child in subcategory.children" :key="child.label">
+            <nuxt-link
+              class="sf-header__link"
+              :to="getCategoryUrl(child)"
+            >
+              <SfMenuItem :label="child.name" />
+            </nuxt-link>
+          </SfListItem>
+        </SfList>
+      </div>
+    </div>
+  </SfMegaMenu>
 </template>
 
 <script>
-import { SfMegaMenu, SfMenuItem, SfList } from '@storefront-ui/vue'
-import helpers from '@shopware-pwa/default-theme/helpers'
+import { SfMegaMenu, SfMenuItem, SfList, SfHeading } from '@storefront-ui/vue'
+import { getCategoryUrl } from '@shopware-pwa/helpers'
 
 export default {
   name: 'SwMegaMenu',
-  components: { SfMegaMenu, SfMenuItem, SfList },
+  components: { SfMegaMenu, SfMenuItem, SfList, SfHeading },
   props: {
     category: {
       type: Object,
-      required: true
+      default: () => ({}),
     },
-    hoveredItem: {
-      type: String,
-      default: ''
-    }
+    visible: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup() {
-    return {path: helpers.getCategoryRoutePath}
-  }
-};
-
+    return { getCategoryUrl }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -56,5 +60,18 @@ export default {
   left: 0;
   width: 100%;
   top: 100%;
+  &__content {
+    flex-wrap: wrap;
+    display: flex;
+    max-width: 80vw;
+
+    &-section {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+  }
 }
 </style>

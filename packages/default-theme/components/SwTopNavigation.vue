@@ -1,6 +1,6 @@
 <template>
   <div class="top-navigation">
-    <SfOverlay :visible="!!hoveredNavigationItem" />
+    <SfOverlay :visible="!!currentCategoryName" />
     <SfTopBar class="top-bar desktop-only">
       <template #right>
         <SwCurrency class="sf-header__currency" />
@@ -29,17 +29,18 @@
           v-for="category in navigationElements"
           :key="category.name"
           class="sf-header__link"
-          @mouseover="setHoverNavigationItem(category.name)"
-          @mouseleave="setHoverNavigationItem('')"
-          @keyup.tab="setHoverNavigationItem(category.name)"
+          @mouseover="currentCategoryName = category.name"
+          @keyup.tab="currentCategoryName = category.name"
         >
-          <nuxt-link class="sf-header__link" :to="path(category)">
+          <nuxt-link
+            class="sf-header__link"
+            :to="getCategoryUrl(category)"
+          >
             {{ category.name }}
           </nuxt-link>
           <SwMegaMenu
             :category="category"
-            :hoveredItem="hoveredNavigationItem"
-            v-if="category.children.length"
+            :visible="category.name === currentCategoryName"
           />
         </SfHeaderNavigationItem>
         <SwPluginSlot name="top-navigation-after" />
@@ -69,7 +70,7 @@
               :has-badge="isLoggedIn"
               @click="userIconClick"
             />
-            <SfIcon
+            <SfIcon 
               v-if="cartIcon"
               :icon="cartIcon"
               :has-badge="count > 0"
@@ -102,7 +103,7 @@ import {
   SfSearchBar,
   SfOverlay,
   SfTopBar,
-  SfIcon
+  SfIcon,
 } from '@storefront-ui/vue'
 import {
   useUser,
@@ -113,11 +114,11 @@ import {
   useProductSearch,
 } from '@shopware-pwa/composables'
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
-import SwCurrency from "@shopware-pwa/default-theme/components/SwCurrency"
+import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
 import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
 import { ref, reactive, onMounted } from '@vue/composition-api'
 import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
-import helpers from '@shopware-pwa/default-theme/helpers'
+import { getCategoryUrl } from '@shopware-pwa/helpers'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 
 export default {
@@ -131,7 +132,7 @@ export default {
     SfTopBar,
     SwCurrency,
     SfIcon,
-    SwPluginSlot
+    SwPluginSlot,
   },
   setup() {
     const { isLoggedIn, logout } = useUser()
@@ -139,15 +140,13 @@ export default {
     const { toggleSidebar } = useCartSidebar()
     const { toggleModal } = useUserLoginModal()
     const { search: fulltextSearch } = useProductSearch()
-    const {
-      hoveredNavigationItem,
-      getNavigationElements,
-      navigationElements,
-    } = useNavigation()
+    const { fetchNavigationElements, navigationElements } = useNavigation()
 
-    function setHoverNavigationItem(itemName) {
-      hoveredNavigationItem.value = itemName
-    }
+    const currentCategoryName = ref(null)
+
+    onMounted(async () => {
+      await fetchNavigationElements(3)
+    })
 
     return {
       count,
@@ -157,21 +156,15 @@ export default {
       logout,
       fulltextSearch,
       navigationElements,
-      hoveredNavigationItem,
-      setHoverNavigationItem,
-      path: helpers.getCategoryRoutePath,
-      getNavigationElements,
+      getCategoryUrl,
+      currentCategoryName,
     }
   },
   data() {
     return {
-      activeSidebar: 'account',
       activeIcon: '',
       isModalOpen: false,
     }
-  },
-  async mounted() {
-    await this.getNavigationElements(3)
   },
   methods: {
     userIconClick() {

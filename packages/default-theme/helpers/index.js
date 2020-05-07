@@ -28,7 +28,5 @@ export const getSortingLabel = (sorting) => {
   return `${sorting.field} ${label}`
 }
 
-export const getCategoryRoutePath = (category) => `/${category?.route?.path}`
-
 export const formatDate = (date, format = `DD-MM-YYYY H:m:s`) =>
   dayjs(date).format(format)
