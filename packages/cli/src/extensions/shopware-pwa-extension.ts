@@ -11,14 +11,6 @@ module.exports = (toolbox: GluegunToolbox) => {
     toolbox.print.info("called foo extension");
   };
 
-  toolbox.coreDependencyPackageNames = [
-    "@shopware-pwa/composables",
-    "@shopware-pwa/helpers",
-    "@shopware-pwa/shopware-6-client",
-    "@shopware-pwa/default-theme",
-    "@shopware-pwa/nuxt-module",
-  ];
-
   toolbox.themeFolders = ["store", "static", ".eslintrc.js"];
 
   toolbox.defaultThemeLocation = `node_modules/@shopware-pwa/default-theme`;
