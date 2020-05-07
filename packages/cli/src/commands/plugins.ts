@@ -9,8 +9,9 @@ module.exports = {
       print: { success, spin },
     } = toolbox;
 
-    const isCIrun = toolbox.parameters.options.ci;
     const inputParameters = toolbox.inputParameters;
+    const isCIrun = inputParameters.ci;
+
     if (!isCIrun) {
       toolbox.print.info(
         "Please provide username and password for plugins authentication. You can leave the fields empty if connecting to demo instance or if you don't need plugins :)"

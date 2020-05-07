@@ -58,5 +58,6 @@ module.exports = (toolbox: GluegunToolbox) => {
     password:
       toolbox.parameters.options.password || toolbox.parameters.options.p,
     devMode: toolbox.parameters.options.devMode,
+    ci: toolbox.parameters.options.ci,
   };
 };

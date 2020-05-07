@@ -11,14 +11,13 @@ module.exports = {
       print: { info, warning, success, spin },
     } = toolbox;
 
+    const inputParameters = toolbox.inputParameters;
     // when --ci parameter is provided, then we skip questions for default values
-    const isCIrun = toolbox.parameters.options.ci;
+    const isCIrun = inputParameters.ci;
 
     if (!toolbox.isProduction) {
       warning(`You're running CLI in development mode!`);
     }
-
-    const inputParameters = toolbox.inputParameters;
 
     if (!isCIrun) {
       const shopwareEndpointQuestion = {
