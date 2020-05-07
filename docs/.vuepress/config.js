@@ -18,7 +18,7 @@ module.exports = {
           ["/landing/getting-started/", "Getting started"],
           ["/landing/fundamentals/", "Fundamentals"],
           ["/landing/concepts/", "Concepts"],
-          ["/landing/operation/", "Operation"],
+          ["/landing/operation/", "Operations"],
           ["/landing/resources/", "Resources"],
         ],
       },
