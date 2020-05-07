@@ -5,6 +5,7 @@ import { useCheckout } from '@shopware-pwa/composables'
 import { usePersonalDetailsStep } from '@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep'
 import { useShippingStep } from '@shopware-pwa/default-theme/logic/checkout/useShippingStep'
 import { usePaymentStep } from '@shopware-pwa/default-theme/logic/checkout/usePaymentStep'
+import { PAGE_ORDER_SUCCESS } from '@shopware-pwa/default-theme/helpers/pages'
 
 export const useUICheckoutPage = () => {
   const { isGuestOrder, createOrder } = useCheckout()
@@ -82,7 +83,7 @@ export const useUICheckoutPage = () => {
       nextStepNumber > CHECKOUT_STEPS.REVIEW
     ) {
       const order = await createOrder()
-      vm.$router.push(`/success-page?orderId=${order.id}`)
+      vm.$router.push(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`)
     } else {
       const nextStep = getStepByNumber(nextStepNumber)
       if (stepsStatus.value[nextStep].available) {

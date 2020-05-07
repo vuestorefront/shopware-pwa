@@ -36,6 +36,7 @@ export async function createGuestOrder(
 
 /**
  * Get payment address to redirect user after placing order.
+ * @throws ClientApiError
  * @beta
  */
 export async function getOrderPaymentUrl({

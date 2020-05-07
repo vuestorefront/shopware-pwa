@@ -32,3 +32,7 @@ export declare function getOrderPaymentUrl({ orderId, finishUrl, }: {
     paymentUrl: string;
 }>`
 
+## Exceptions
+
+ClientApiError
+
