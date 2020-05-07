@@ -10,11 +10,11 @@ Visit our Github repository and leave a star ⭐️
 
 See the current roadmap for the project
 
-### [Package API](/guide/roadmap/)
+### [Package API](/api/)
 
 API reference for the package libraries
 
-### [List of features](/guide/roadmap/)
+### [List of features](/guide/featurelist/)
 
 List of functional features, technical features and available integrations
 

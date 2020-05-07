@@ -31,9 +31,9 @@ Good question - Shopware already comes with a storefront. However, it is a headl
 
 We are observing a paradigm shift that lets more and more projects and customers transition into more universal frontend applications based on JavaScript. They have the great benefit to integrate easily with other services like CMS, personalisation engines or search by sharing code on both front- and backend.
 
-The full frontend stack can be Javascript based and, depending on your requirements, use features like SEO-friendly server-side rendering, smart pre-compilation or reactive elements and PWA. It can also provide fully static pages if you wish so.
+The full frontend stack can be JavaScript based and, depending on your requirements, use features like SEO-friendly server-side rendering, smart pre-compilation or reactive elements and PWA. It can also provide fully static pages if you wish so.
 
-This new generation of frontend applications is also often referred to as *JAMstack* (short for Javascript, API and Markup) as coined by frameworks like (Next.js and Gatsby).
+This new generation of frontend applications is also often referred to as *JAMstack* (short for JavaScript, API and Markup) as coined by frameworks like (Next.js and Gatsby).
 
 <!-- Great chance for another article to elaborate on why PMs / SIs would opt for PWA instead of default storefront -->
 
