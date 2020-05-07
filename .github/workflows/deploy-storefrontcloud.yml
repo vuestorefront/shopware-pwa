@@ -1,27 +1,23 @@
 name: Deploy to Storefrontcloud
 on:
-  push:
-    branches:
-      - master
+  release:
+    types: [published]
+env:
+  RELEASE_URL: https://shopware-pwa.storefrontcloud.io
+  INSTANCE_CODE: shopware-pwa
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v1
-      - name: Setup node
-        uses: actions/setup-node@v1
-        with:
-          node-version: "12.x"
-      - name: Build packages
+      - name: Install shopware-pwa cli
         run: |
-          yarn
-          yarn build --ci
-      - name: Create theme project
+          yarn global add @shopware-pwa/cli
+      - name: Create project (release)
         run: |
           mkdir test-project
           cd ./test-project
-          ../packages/cli/bin/shopware-pwa init --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci --devMode --stage local
+          shopware-pwa init --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci --devMode
           yarn build
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@master
@@ -41,15 +37,15 @@ jobs:
         id: deployment
         with:
           token: "${{ github.token }}"
-          target_url: https://shopware-pwa.storefrontcloud.io
+          target_url: ${{ env.RELEASE_URL }}
           environment: production
           initial_status: in_progress
       - name: Deploy on Storefrontcloud.io
         run: |
-          if curl -s -u ${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }} -H 'Content-Type: application/json' -X POST -d '{"code":"shopware-pwa","frontContainerVersion":"${{ github.sha }}"}' https://farmer.storefrontcloud.io/instances | grep -q '{"code":200,"result":"Instance updated!"}'; then
+          if curl -s -u ${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }} -H 'Content-Type: application/json' -X POST -d '{"code":"${{ env.INSTANCE_CODE }}","frontContainerVersion":"${{ github.sha }}"}' https://farmer.storefrontcloud.io/instances | grep -q '{"code":200,"result":"Instance updated!"}'; then
             echo "Instance updated"
           else
-            echo "Something went wrong during the update process..."
+            echo "Deployment failed"
             exit 1
           fi
       - name: Update deployment status (success)
@@ -57,7 +53,7 @@ jobs:
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
-          target_url: https://shopware-pwa.storefrontcloud.io
+          target_url: ${{ env.RELEASE_URL }}
           state: "success"
           description: Congratulations! The deploy is done.
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
@@ -66,7 +62,7 @@ jobs:
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
-          target_url: https://shopware-pwa.storefrontcloud.io
+          target_url: ${{ env.RELEASE_URL }}
           description: Unfortunately, the instance hasn't been updated.
           state: "failure"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}

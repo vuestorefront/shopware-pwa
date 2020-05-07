@@ -1,5 +1,9 @@
 name: Deploy PR Preview on Storefrontcloud
-on: 
+env:
+  CANARY_SW6_INSTANCE: https://shopware6-demo.vuestorefront.io
+  CANARY_SW6_INSTANCE_TOKEN: SWSCVJJET0RQAXFNBMTDZTV1OQ
+  INSTANCE_CODE: shopware-pwa-canary
+on:
   pull_request:
     types: [opened, synchronize]
 
@@ -21,7 +25,7 @@ jobs:
         run: |
           mkdir test-project
           cd ./test-project
-          ../packages/cli/bin/shopware-pwa init --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci --devMode --stage local
+          ../packages/cli/bin/shopware-pwa init --shopwareEndpoint=${{ env.CANARY_SW6_INSTANCE }} --shopwareAccessToken=${{ env.CANARY_SW6_INSTANCE_TOKEN }} --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci --devMode --stage local
           yarn build
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@master
@@ -48,14 +52,14 @@ jobs:
         uses: mkucmus/storefrontcloud-preview-deploy@master
         with:
           token: "${{ github.token }}"
-          namespace: "shopware-pwa"
+          namespace: "${{env.INSTANCE_CODE}}"
       - name: Comment PR
         if: success()
         uses: mkucmus/storefrontcloud-comment-pr-preview-deploy@master
         with:
-          preview_url: '${{ steps.deploy.outputs.preview_url }}'
+          preview_url: "${{ steps.deploy.outputs.preview_url }}"
           token: "${{ github.token }}"
-          namespace: 'shopware-pwa'
+          namespace: "${{env.INSTANCE_CODE}}"
       - name: Update deployment status (success)
         if: success()
         uses: chrnorm/deployment-status@releases/v1
