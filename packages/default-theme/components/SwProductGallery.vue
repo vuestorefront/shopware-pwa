@@ -18,14 +18,14 @@ export default {
   props: {
     product: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   computed: {
     mediaGallery() {
       return getProductMediaGallery({ product: this.product })
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -33,34 +33,36 @@ export default {
 @import '~@storefront-ui/shared/styles/variables';
 
 .gallery-mobile {
-  $height-other: 240px;
-  $height-iOS: 265px;
+  @include for-mobile {
+    $height-other: 240px;
+    $height-iOS: 265px;
 
-  height: calc(100vh - #{$height-other});
-  @supports (-webkit-overflow-scrolling: touch) {
-    height: calc(100vh - #{$height-iOS});
-  }
-  ::v-deep .glide {
-    &,
-    * {
-      height: 100%;
+    height: calc(100vh - #{$height-other});
+    @supports (-webkit-overflow-scrolling: touch) {
+      height: calc(100vh - #{$height-iOS});
     }
-    &__slide {
-      position: relative;
-      overflow: hidden;
-    }
-    img {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      min-width: calc((375 / 490) * (100vh - #{$height-other}));
-      @supports (-webkit-overflow-scrolling: touch) {
-        min-width: calc((375 / 490) * (100vh - #{$height-iOS}));
+    ::v-deep .glide {
+      &,
+      * {
+        height: 100%;
+      }
+      &__slide {
+        position: relative;
+        overflow: hidden;
+      }
+      img {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: calc((375 / 490) * (100vh - #{$height-other}));
+        @supports (-webkit-overflow-scrolling: touch) {
+          min-width: calc((375 / 490) * (100vh - #{$height-iOS}));
+        }
       }
     }
-  }
-  ::v-deep .sf-gallery__stage {
-    width: 100%;
+    ::v-deep .sf-gallery__stage {
+      width: 100%;
+    }
   }
 }
 </style>

@@ -35,6 +35,6 @@ export default {
 @import '../settings.scss';
 
 .cms-block-default {
-  @include desktop-size;
+  @include sizing-mode-boxed;
 }
 </style>

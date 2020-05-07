@@ -177,6 +177,14 @@ export interface GetNavigationParams {
     rootNode?: string;
 }
 
+// @beta
+export function getOrderPaymentUrl({ orderId, finishUrl, }: {
+    orderId: string;
+    finishUrl?: string;
+}): Promise<{
+    paymentUrl: string;
+}>;
+
 // @alpha (undocumented)
 export function getPage(path: string, searchCriteria?: SearchCriteria): Promise<PageResolverResult<CmsPage>>;
 
@@ -197,6 +205,17 @@ export function getUserCountry(countryId: string): Promise<Country>;
 
 // @alpha (undocumented)
 export function getUserSalutation(salutationId: string): Promise<Salutation>;
+
+// @beta
+export function invokeGet({ address }: {
+    address: string;
+}): Promise<any>;
+
+// @beta
+export function invokePost({ address, payload, }: {
+    address: string;
+    payload?: any;
+}): Promise<any>;
 
 // @beta
 export function login({ username, password, }?: {

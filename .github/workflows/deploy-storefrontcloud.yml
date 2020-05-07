@@ -13,11 +13,11 @@ jobs:
       - name: Install shopware-pwa cli
         run: |
           yarn global add @shopware-pwa/cli
-      - name: Create default-theme project (release)
+      - name: Create project (release)
         run: |
-          mkdir app
-          cd ./app
-          shopware-pwa init --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci
+          mkdir test-project
+          cd ./test-project
+          shopware-pwa init --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci --devMode
           yarn build
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@master

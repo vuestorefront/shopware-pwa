@@ -1,6 +1,7 @@
 <template>
   <div class="top-navigation">
-    <SfTopBar class="top-bar">
+    <SfOverlay :visible="!!currentCategoryName" />
+    <SfTopBar class="top-bar desktop-only">
       <template #right>
         <SwCurrency class="sf-header__currency" />
         <!-- TODO Implement SfLanguageSelector -->
@@ -23,23 +24,27 @@
         </nuxt-link>
       </template>
       <template #navigation>
+        <SwPluginSlot name="top-navigation-before" />
         <SfHeaderNavigationItem
-          v-for="{ routeLabel, routePath } in routes"
-          :key="routeLabel"
+          v-for="category in navigationElements"
+          :key="category.name"
           class="sf-header__link"
+          @mouseover="currentCategoryName = category.name"
+          @mouseleave="currentCategoryName = null"
+          @keyup.tab="currentCategoryName = category.name"
         >
-          <nuxt-link class="sf-header__link" :to="routePath">
-            <a
-              :style="{
-                display: 'flex',
-                alignItems: 'center',
-                height: '100%',
-              }"
-            >
-              {{ routeLabel }}
-            </a>
+          <nuxt-link
+            class="sf-header__link"
+            :to="getCategoryUrl(category)"
+          >
+            {{ category.name }}
           </nuxt-link>
+          <SwMegaMenu
+            :category="category"
+            :visible="category.name === currentCategoryName"
+          />
         </SfHeaderNavigationItem>
+        <SwPluginSlot name="top-navigation-after" />
       </template>
       <template #search>
         <SfSearchBar
@@ -51,11 +56,12 @@
       </template>
       <template #header-icons="{accountIcon, cartIcon}">
         <div class="sf-header__icons desktop-only">
-          <div class="sf-header__icons">
+          <div class="sw-header__icons">
+            <SwPluginSlot name="top-header-icons-before" />
             <SfIcon
               v-if="accountIcon"
               :icon="accountIcon"
-              class="sf-header__icon"
+              class="sf-header__icon sw-header__icon"
               :class="{
                 'sf-header__icon--is-active': activeIcon === 'account-icon',
               }"
@@ -65,12 +71,12 @@
               :has-badge="isLoggedIn"
               @click="userIconClick"
             />
-            <SfIcon
+            <SfIcon 
               v-if="cartIcon"
               :icon="cartIcon"
               :has-badge="count > 0"
               :badge-label="count.toString()"
-              class="sf-header__icon"
+              class="sf-header__icon sw-header__icon"
               :class="{
                 'sf-header__icon--is-active': activeIcon === 'cart-icon',
               }"
@@ -79,6 +85,7 @@
               :aria-pressed="activeIcon === 'cart-icon' ? 'true' : 'false'"
               @click="toggleSidebar"
             />
+            <SwPluginSlot name="top-header-icons-after" />
             <!-- TODO - SfBadge will appear with the next StorefrontUI version 
             https://github.com/DivanteLtd/storefront-ui/issues/870 
             -->
@@ -93,10 +100,11 @@
 <script>
 import {
   SfHeader,
-  SfIcon,
   SfImage,
-  SfTopBar,
   SfSearchBar,
+  SfOverlay,
+  SfTopBar,
+  SfIcon,
 } from '@storefront-ui/vue'
 import {
   useUser,
@@ -108,47 +116,56 @@ import {
 } from '@shopware-pwa/composables'
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
+import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
+import { ref, reactive, onMounted } from '@vue/composition-api'
 import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
+import { getCategoryUrl } from '@shopware-pwa/helpers'
+import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 
 export default {
   components: {
     SfHeader,
-    SfIcon,
     SwLoginModal,
     SfImage,
-    SfTopBar,
     SfSearchBar,
+    SwMegaMenu,
+    SfOverlay,
+    SfTopBar,
     SwCurrency,
+    SfIcon,
+    SwPluginSlot,
   },
   setup() {
-    const { routes, fetchRoutes } = useNavigation()
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
     const { toggleSidebar } = useCartSidebar()
     const { toggleModal } = useUserLoginModal()
     const { search: fulltextSearch } = useProductSearch()
+    const { fetchNavigationElements, navigationElements } = useNavigation()
+
+    const currentCategoryName = ref(null)
+
+    onMounted(async () => {
+      await fetchNavigationElements(3)
+    })
 
     return {
-      routes,
-      fetchRoutes,
       count,
       toggleModal,
       toggleSidebar,
       isLoggedIn,
       logout,
       fulltextSearch,
+      navigationElements,
+      getCategoryUrl,
+      currentCategoryName,
     }
   },
   data() {
     return {
-      navigationElements: [{ name: '' }],
-      activeSidebar: 'account',
       activeIcon: '',
       isModalOpen: false,
     }
-  },
-  async mounted() {
-    await this.fetchRoutes({ depth: 1 })
   },
   methods: {
     userIconClick() {
@@ -165,9 +182,10 @@ export default {
 .top-navigation {
   --search-bar-width: 100%;
   --header-container-padding: 0 var(--spacer-base);
+  --header-navigation-item-margin: 0 1rem 0 0;
   margin-bottom: var(--spacer-sm);
   .sf-header {
-    padding: 0 var(--spacer-sm);
+    // padding: 0 var(--spacer-sm);
     &__currency {
       position: relative;
       margin: 0 var(--spacer-base) 0 var(--spacer-base);
@@ -206,20 +224,27 @@ export default {
       }
       &__link {
         display: flex;
-        align-items: center;
-        height: 100;
       }
     }
   }
 }
 .top-bar {
   padding: 0 var(--spacer-sm);
-
+  position: relative;
+  z-index: 1;
   &__location-label {
     margin: 0 var(--spacer-sm) 0 0;
   }
 }
 .sf-header__logo {
   height: 2rem;
+}
+.sw-header {
+  &__icons {
+    display: flex;
+  }
+  &__icon {
+    cursor: pointer;
+  }
 }
 </style>
