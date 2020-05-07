@@ -49,6 +49,10 @@ module.exports = {
               },
               {
                 text: "Plugins",
+                link: "/guide/plugins.html",
+              },
+              {
+                text: "Payment",
                 link: "/guide/payment.html",
               },
             ],
@@ -61,6 +65,10 @@ module.exports = {
           {
             text: "CMS",
             link: "/guide/cms.html",
+          },
+          {
+            text: "Plugins",
+            link: "/guide/plugins.html",
           },
           {
             text: "Payment",
