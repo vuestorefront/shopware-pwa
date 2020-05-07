@@ -18,6 +18,6 @@ API reference for the package libraries
 
 List of functional features, technical features and available integrations
 
-### [Troubleshooting Guide](/guide/troubleshooting/)
+### [Troubleshooting](/guide/troubleshooting/)
 
 Common errors (will likely be replaced with a FAQ guide at some point)

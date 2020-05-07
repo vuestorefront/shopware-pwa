@@ -1,5 +1,5 @@
 module.exports = {
-  title: "PWA",
+  title: "shopware PWA",
   description: "Headless PWA for Shopware",
   themeConfig: {
     repo: "DivanteLtd/shopware-pwa",
