@@ -31,9 +31,10 @@
         class="menu-button"
       >
         <template #icon>
-          <SfIcon icon="profile" size="20px" />
+          <SfIcon icon="profile" size="20px" @click="userIconClick"/>
           <SfSelect
             class="menu-button__select"
+            v-if="isLoggedIn"
           >
             <SfSelectOption :value="getPageAccount">
               <nuxt-link  class="sf-header__link" :to="getPageAccount">
@@ -125,9 +126,14 @@ export default {
     }
   },
   methods: {
+    userIconClick() {
+      if (!this.isLoggedIn) {
+        this.toggleModal()
+      }
+    },
     async logoutUser() {
       await this.logout()
-      this.$router.push(PAGE_LOGIN)
+      this.$router.push('/')
     }
   },
 }

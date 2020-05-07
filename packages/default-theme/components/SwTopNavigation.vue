@@ -75,7 +75,7 @@
               <SfList>
                 <nuxt-link :to="getPageAccount">
                   <SfListItem class="dropdown__item">
-                      Go to My account
+                      My account
                   </SfListItem>
                 </nuxt-link>
                 <SfListItem class="dropdown__item" @click.native="logoutUser()">
@@ -200,7 +200,7 @@ export default {
     },
     async logoutUser() {
       await this.logout()
-      this.$router.push(PAGE_LOGIN)
+      this.$router.push('/')
     }
   },
 }
