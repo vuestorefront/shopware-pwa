@@ -88,6 +88,19 @@ module.exports = {
             link: "/api/",
           },
           {
+            text: "Contribution",
+            items: [
+              {
+                text: "Contribution Guide",
+                link: "/contribution/contributing/",
+              },
+              {
+                text: "Project Structure",
+                link: "/contribution/structure/",
+              },
+            ],
+          },
+          {
             text: "Featurelist",
             items: [
               {
