@@ -1,5 +1,6 @@
 <template>
   <div class="top-navigation">
+    <SfOverlay :visible="!!currentCategoryName" />
     <SfTopBar class="top-bar desktop-only">
       <template #right>
         <SwCurrency class="sf-header__currency" />
@@ -25,21 +26,23 @@
       <template #navigation>
         <SwPluginSlot name="top-navigation-before" />
         <SfHeaderNavigationItem
-          v-for="{ routeLabel, routePath } in routes"
-          :key="routeLabel"
+          v-for="category in navigationElements"
+          :key="category.name"
           class="sf-header__link"
+          @mouseover="currentCategoryName = category.name"
+          @mouseleave="currentCategoryName = null"
+          @keyup.tab="currentCategoryName = category.name"
         >
-          <nuxt-link class="sf-header__link" :to="routePath">
-            <a
-              :style="{
-                display: 'flex',
-                alignItems: 'center',
-                height: '100%',
-              }"
-            >
-              {{ routeLabel }}
-            </a>
+          <nuxt-link
+            class="sf-header__link"
+            :to="getCategoryUrl(category)"
+          >
+            {{ category.name }}
           </nuxt-link>
+          <SwMegaMenu
+            :category="category"
+            :visible="category.name === currentCategoryName"
+          />
         </SfHeaderNavigationItem>
         <SwPluginSlot name="top-navigation-after" />
       </template>
@@ -68,7 +71,7 @@
               :has-badge="isLoggedIn"
               @click="userIconClick"
             />
-            <SfIcon
+            <SfIcon 
               v-if="cartIcon"
               :icon="cartIcon"
               :has-badge="count > 0"
@@ -97,10 +100,11 @@
 <script>
 import {
   SfHeader,
-  SfIcon,
   SfImage,
-  SfTopBar,
   SfSearchBar,
+  SfOverlay,
+  SfTopBar,
+  SfIcon,
 } from '@storefront-ui/vue'
 import {
   useUser,
@@ -112,49 +116,56 @@ import {
 } from '@shopware-pwa/composables'
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
+import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
+import { ref, reactive, onMounted } from '@vue/composition-api'
 import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
+import { getCategoryUrl } from '@shopware-pwa/helpers'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 
 export default {
   components: {
     SfHeader,
-    SfIcon,
     SwLoginModal,
     SfImage,
-    SfTopBar,
     SfSearchBar,
+    SwMegaMenu,
+    SfOverlay,
+    SfTopBar,
     SwCurrency,
-    SwPluginSlot
+    SfIcon,
+    SwPluginSlot,
   },
   setup() {
-    const { routes, fetchRoutes } = useNavigation()
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
     const { toggleSidebar } = useCartSidebar()
     const { toggleModal } = useUserLoginModal()
     const { search: fulltextSearch } = useProductSearch()
+    const { fetchNavigationElements, navigationElements } = useNavigation()
+
+    const currentCategoryName = ref(null)
+
+    onMounted(async () => {
+      await fetchNavigationElements(3)
+    })
 
     return {
-      routes,
-      fetchRoutes,
       count,
       toggleModal,
       toggleSidebar,
       isLoggedIn,
       logout,
       fulltextSearch,
+      navigationElements,
+      getCategoryUrl,
+      currentCategoryName,
     }
   },
   data() {
     return {
-      navigationElements: [{ name: '' }],
-      activeSidebar: 'account',
       activeIcon: '',
       isModalOpen: false,
     }
-  },
-  async mounted() {
-    await this.fetchRoutes({ depth: 1 })
   },
   methods: {
     userIconClick() {
@@ -174,7 +185,7 @@ export default {
   --header-navigation-item-margin: 0 1rem 0 0;
   margin-bottom: var(--spacer-sm);
   .sf-header {
-    padding: 0 var(--spacer-sm);
+    // padding: 0 var(--spacer-sm);
     &__currency {
       position: relative;
       margin: 0 var(--spacer-base) 0 var(--spacer-base);
@@ -213,15 +224,14 @@ export default {
       }
       &__link {
         display: flex;
-        align-items: center;
-        height: 100;
       }
     }
   }
 }
 .top-bar {
   padding: 0 var(--spacer-sm);
-
+  position: relative;
+  z-index: 1;
   &__location-label {
     margin: 0 var(--spacer-sm) 0 0;
   }

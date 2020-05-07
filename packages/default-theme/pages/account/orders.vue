@@ -12,7 +12,7 @@
       <SfTable v-else class="orders">
         <SfTableHeading>
           <SfTableHeader
-          class="orders__header"
+            class="orders__header"
             v-for="tableHeader in tableHeaders"
             :key="tableHeader"
             >{{ tableHeader }}</SfTableHeader
@@ -20,7 +20,11 @@
         </SfTableHeading>
         <!-- consider making SfTableRow public (not internal component) to split it down to smaller components. -->
         <SfTableRow v-for="order in orderList" :key="order[0]">
-          <SfTableData class="orders__data" v-for="(data, key) in order" :key="key">
+          <SfTableData
+            class="orders__data"
+            v-for="(data, key) in order"
+            :key="key"
+          >
             <template v-if="key === 3"
               ><!-- order status -->
               <span
@@ -59,7 +63,7 @@ import {
   SfButton,
 } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
-import helpers from '../../helpers'
+import { formatDate, formatPrice } from '@shopware-pwa/default-theme/helpers'
 
 export default {
   name: 'OrderHistory',
@@ -94,10 +98,10 @@ export default {
   },
   methods: {
     formatDate(date) {
-      return helpers.formatDate(date)
+      return formatDate(date)
     },
     formatPrice(price) {
-      return helpers.formatPrice(price)
+      return formatPrice(price)
     },
   },
 }
@@ -109,5 +113,4 @@ export default {
   margin: 0 0 var(--spacer-xl) 0;
   color: var(--c-dark-variant);
 }
-
 </style>
