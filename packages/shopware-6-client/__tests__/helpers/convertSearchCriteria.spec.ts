@@ -184,17 +184,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
                 ],
               },
             ],
-          },
-          {
-            type: "not",
-            queries: [
-              {
-                type: "equals",
-                field: "displayGroup",
-                value: null,
-              },
-            ],
-          },
+          }
         ]);
       });
     });
@@ -239,25 +229,13 @@ describe("SearchConverter - convertSearchCriteria", () => {
           },
         });
         expect(result).toEqual({
-          grouping: {
-            field: "displayGroup",
-          },
+          
           filter: [
             {
               field: "name",
               type: "equals",
               value: "test",
-            },
-            {
-              type: "not",
-              queries: [
-                {
-                  type: "equals",
-                  field: "displayGroup",
-                  value: null,
-                },
-              ],
-            },
+            }
           ],
           sort: "-name",
         });

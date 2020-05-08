@@ -1,11 +1,10 @@
-import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { SearchCriteria, ApiType } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import {
   NotFilter,
   MultiFilter,
   RangeFilter,
   EqualsFilter,
   EqualsAnyFilter,
-  SearchFilterType,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { convertAssociations } from "./convertAssociations";
 import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
@@ -17,7 +16,8 @@ import { Grouping } from "@shopware-pwa/commons/interfaces/search/Grouping";
  * @alpha
  */
 export interface ShopwareParams {
-  page?: number;
+  p?: number; // p for page in store-api
+  page?: number, // for sales-channel-api
   limit?: number;
   sort?: string;
   term?: string;
@@ -45,14 +45,26 @@ export const convertSearchCriteria = (
     if (limit && Object.values(PaginationLimit).includes(limit))
       params.limit = limit;
     if (page) {
-      params.page = page;
+      // exception for store-api
+      if (searchCriteria.apiType && searchCriteria.apiType === ApiType.store) {
+        // store-api accepts p as page query param (not page for some reason)
+        params.p = page;
+      } else {
+        params.page = page;
+      }
       if (!params.limit) params.limit = config.defaultPaginationLimit;
     }
   }
 
   if (sort) {
-    let prefix = sort.desc ? "-" : "";
-    params.sort = `${prefix}${sort.field}`;
+    // exception for store-api
+    if (searchCriteria.apiType && searchCriteria.apiType === ApiType.store) {
+      let order = sort.desc ? "desc" : "asc";
+      params.sort = `${sort.field}-${order}`;
+    } else {
+      let prefix = sort.desc ? "-" : "";
+      params.sort = `${prefix}${sort.field}`;
+    }
   }
 
   if (filters && filters.length) {
@@ -70,27 +82,6 @@ export const convertSearchCriteria = (
   // fulltext query (works for every entity so can be global)
   if (term) {
     params.term = term;
-  }
-
-  // add extra grouping option and additional filter to prevent displaying redundand products.
-  if (!configuration || (configuration && !configuration.displayParents)) {
-    if (!Array.isArray(params.filter)) {
-      params.filter = [];
-    }
-    params.grouping = {
-      // prevent displaying parent instances of the product
-      field: "displayGroup",
-    };
-    params.filter.push({
-      type: SearchFilterType.NOT,
-      queries: [
-        {
-          type: SearchFilterType.EQUALS,
-          field: "displayGroup",
-          value: null,
-        },
-      ],
-    });
   }
 
   return params;

@@ -47,14 +47,14 @@ describe("endpoints", () => {
   describe("getProductEndpoint", () => {
     it("should return Shopware product endpoint", async () => {
       const result = getProductEndpoint();
-      expect(result).toEqual("/product");
+      expect(result).toEqual("/sales-channel-api/v1/product");
     });
   });
 
   describe("getProductDetailsEndpoint", () => {
     it("should return Shopware product details endpoint", async () => {
       const result = getProductDetailsEndpoint(sampleProductId);
-      expect(result).toEqual("/product/" + sampleProductId);
+      expect(result).toEqual("/sales-channel-api/v1/product/" + sampleProductId);
     });
   });
 
@@ -215,21 +215,21 @@ describe("endpoints", () => {
   describe("getContextCurrencyEndpoint", () => {
     it("should return Shopware currency endpoint", async () => {
       const result = getContextCurrencyEndpoint();
-      expect(result).toEqual("/currency");
+      expect(result).toEqual("/sales-channel-api/v1/currency");
     });
   });
 
   describe("getContextLanguageEndpoint", () => {
     it("should return Shopware language endpoint", async () => {
       const result = getContextLanguageEndpoint();
-      expect(result).toEqual("/language");
+      expect(result).toEqual("/sales-channel-api/v1/language");
     });
   });
 
   describe("getContextCountryEndpoint", () => {
     it("should return Shopware country endpoint", async () => {
       const result = getContextCountryEndpoint();
-      expect(result).toEqual("/country");
+      expect(result).toEqual("/sales-channel-api/v1/country");
     });
   });
 

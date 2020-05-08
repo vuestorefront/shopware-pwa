@@ -2,12 +2,14 @@ import {
   getProductEndpoint,
   getProductDetailsEndpoint,
   getProductsIdsEndpoint,
+  getProductListingEndpoint,
 } from "../endpoints";
-import { SearchResult } from "@shopware-pwa/commons/interfaces/response/SearchResult";
+import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { convertSearchCriteria } from "../helpers/searchConverter";
 import { apiService } from "../apiService";
-import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { SearchCriteria, ApiType } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { SearchResult } from "@shopware-pwa/commons/interfaces/response/SearchResult";
 
 /**
  * Get default amount of products' ids
@@ -34,6 +36,23 @@ export const getProducts = async function (
   const resp = await apiService.post(
     `${getProductEndpoint()}`,
     convertSearchCriteria(searchCriteria)
+  );
+  return resp.data;
+};
+
+/**
+ * Get default amount of products for given category/listing
+ *
+ * @throws ClientApiError
+ * @alpha
+ */
+export const getListingProducts = async function (
+  categoryId: string,
+  searchCriteria?: SearchCriteria
+): Promise<ProductListingResult> {
+  const resp = await apiService.post(
+    `${getProductListingEndpoint(categoryId)}`,
+    convertSearchCriteria(Object.assign({}, searchCriteria, { apiType: ApiType.store }))
   );
   return resp.data;
 };
