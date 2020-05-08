@@ -73,13 +73,15 @@
             />
             <SfDropdown class="dropdown" :is-open="isDropdownOpen">
               <SfList>
-                <nuxt-link :to="getPageAccount">
-                  <SfListItem class="dropdown__item">
-                      My account
-                  </SfListItem>
-                </nuxt-link>
-                <SfListItem class="dropdown__item" @click.native="logoutUser()">
-                  Logout
+                <SfListItem>
+                  <nuxt-link class="sf-button sf-button--full-width sf-button--underlined color-primary" :to="getPageAccount">
+                    My account
+                  </nuxt-link>
+                </SfListItem>
+                <SfListItem>
+                  <SfButton class="sf-button sf-button--full-width sf-button--underlined color-primary dropdown__item" @click="logoutUser()">
+                    Logout
+                  </SfButton>
                 </SfListItem>
               </SfList>
             </SfDropdown>
@@ -148,6 +150,7 @@ export default {
     SfTopBar,
     SwCurrency,
     SfIcon,
+    SfButton,
     SwPluginSlot,
   },
   setup() {
@@ -260,14 +263,6 @@ export default {
   .dropdown {
     --dropdown-width: auto; 
     &__item {
-      color: var(--c-link);
-      text-align: center;
-      text-transform: uppercase;
-      cursor: pointer;
-      padding: var(--spacer-sm) var(--spacer-lg);
-      font-size: 1rem;
-      border-color: --c-light-primary;
-      border-width: 0 0 1px 0;
       &:hover {
         color: var(--c-link-hover);
       }

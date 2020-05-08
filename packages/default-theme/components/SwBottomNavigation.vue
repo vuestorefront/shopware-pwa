@@ -36,14 +36,15 @@
             class="menu-button__select"
             v-if="isLoggedIn"
           >
-            <SfSelectOption :value="getPageAccount">
-              <nuxt-link  class="sf-header__link" :to="getPageAccount">
+            <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
+            <SfSelectOption :value="getPageAccount" @click.native="goToMyAccount">
                 My account
-              </nuxt-link>
             </SfSelectOption>
             <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
-            <SfSelectOption @click.native="logoutUser" :value="'logout'">
-                Logout
+            <SfSelectOption :value="'logout'">
+                <SfButton @click="logoutUser">
+                  Logout
+                </SfButton>
             </SfSelectOption>
           </SfSelect>
         </template>
@@ -75,6 +76,7 @@ import {
   SfIcon,
   SfSelect,
   SfProductOption,
+  SfButton
 } from '@storefront-ui/vue'
 import {
   useCartSidebar,
@@ -94,6 +96,7 @@ export default {
     SfSelect,
     SfProductOption,
     SwCurrency,
+    SfButton
   },
   data() {
     return {
@@ -130,6 +133,9 @@ export default {
       if (!this.isLoggedIn) {
         this.toggleModal()
       }
+    },
+    goToMyAccount() {
+      this.$router.push(PAGE_ACCOUNT)
     },
     async logoutUser() {
       await this.logout()
