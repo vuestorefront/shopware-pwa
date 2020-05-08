@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/default-theme",
-  "version": "0.1.0-alpha.4",
+  "version": "0.1.0-alpha.5",
   "description": "Shopware PWA theme",
   "author": "patzick",
   "scripts": {
@@ -26,8 +26,8 @@
     "currency.js": "^1.2.2",
     "dayjs": "^1.8.25",
     "nuxt": "^2.12.2",
-    "vuelidate": "^0.7.5",
-    "snyk": "^1.316.1"
+    "snyk": "^1.316.1",
+    "vuelidate": "^0.7.5"
   },
   "devDependencies": {
     "@babel/runtime-corejs3": "^7.9.2",
