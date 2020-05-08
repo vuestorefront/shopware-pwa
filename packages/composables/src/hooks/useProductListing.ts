@@ -163,7 +163,7 @@ export const useProductListing = (
   if (initialProducts.length) {
     resetFilters();
     resetSorting();
-    changePagination(1);
+    //changePagination(1);
   }
 
   const pagination: any = computed(() => localPagination);

@@ -106,7 +106,7 @@ describe("Composables - useProductListing", () => {
       const { products, selectedFilters } = useProductListing([
         { product: "1" } as any,
       ]);
-      expect(selectedFilters.value).toStrictEqual({ categoryTree: [] });
+      expect(selectedFilters.value).toStrictEqual({});
 
       expect(products.value).toHaveLength(1);
     });

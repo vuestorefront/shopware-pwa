@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/helpers",
-  "version": "0.1.0-alpha.4",
+  "version": "0.1.0-alpha.5",
   "description": "@shopware-pwa/helpers",
   "main": "dist/helpers.cjs.js",
   "module": "dist/helpers.esm-bundler.js",

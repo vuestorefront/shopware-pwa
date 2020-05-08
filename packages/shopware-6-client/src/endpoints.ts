@@ -111,3 +111,5 @@ export const getNewsletterUnsubscribeEndpoint = () => `/newsletter/unsubscribe`;
 
 export const getPageResolverEndpoint = () => `/vsf/page`;
 export const getNavigationEndpoint = () => `/vsf/navigation`;
+export const getOrderPaymentUrlEndpoint = (orderId: string): string =>
+  `/checkout/order/${orderId}/pay`;

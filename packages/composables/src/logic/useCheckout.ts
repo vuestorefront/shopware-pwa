@@ -26,9 +26,11 @@ export interface UseCheckout {
   getShippingMethods: (options?: {
     forceReload: boolean;
   }) => Promise<Readonly<Ref<readonly ShippingMethod[]>>>;
+  shippingMethods: Readonly<Ref<readonly ShippingMethod[]>>;
   getPaymentMethods: (options?: {
     forceReload: boolean;
   }) => Promise<Readonly<Ref<readonly PaymentMethod[]>>>;
+  paymentMethods: Readonly<Ref<readonly PaymentMethod[]>>;
   createOrder: () => Promise<Order>;
   updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
   shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
@@ -119,7 +121,9 @@ export const useCheckout = (): UseCheckout => {
   return {
     isGuestOrder,
     getPaymentMethods,
+    paymentMethods,
     getShippingMethods,
+    shippingMethods,
     createOrder,
     guestOrderParams,
     updateGuestOrderParams,

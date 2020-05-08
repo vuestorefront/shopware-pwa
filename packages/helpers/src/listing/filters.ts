@@ -112,18 +112,3 @@ export const getSortingSearchCriteria = (selectedSorting: SwSorting): Sort => {
     desc: selectedSorting.order === "desc",
   };
 };
-
-/**
- * @alpha
- */
-export const getSortingLabel = (sorting: SwSorting): string => {
-  if (!sorting || !sorting.order || !sorting.field) {
-    return "";
-  }
-
-  const ascLabel = `▲`;
-  const descLabel = `▼`;
-
-  const label = sorting.order === "desc" ? descLabel : ascLabel;
-  return `${sorting.field} ${label}`;
-};

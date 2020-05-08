@@ -1,11 +1,13 @@
 import { Ref, computed } from "@vue/composition-api";
 import { getStore } from "@shopware-pwa/composables";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
+import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
 import {
   getSessionContext,
   setCurrentShippingMethod,
   setCurrentCurrency,
+  setCurrentPaymentMethod,
 } from "@shopware-pwa/shopware-6-client";
 import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
 
@@ -19,6 +21,8 @@ export interface UseSessionContext {
   refreshSessionContext: () => Promise<void>;
   shippingMethod: Readonly<Ref<ShippingMethod | null>>;
   setShippingMethod: (shippingMethod: Partial<ShippingMethod>) => Promise<void>;
+  paymentMethod: Readonly<Ref<PaymentMethod | null>>;
+  setPaymentMethod: (paymentMethod: Partial<PaymentMethod>) => Promise<void>;
   currency: Readonly<Ref<Currency | null>>;
   setCurrency: (currency: Partial<Currency>) => Promise<void>;
 }
@@ -56,6 +60,21 @@ export const useSessionContext = (): UseSessionContext => {
     await refreshSessionContext();
   };
 
+  const paymentMethod = computed(
+    () => sessionContext.value?.paymentMethod || null
+  );
+  const setPaymentMethod = async (
+    paymentMethod: Partial<PaymentMethod> = {}
+  ) => {
+    if (!paymentMethod?.id) {
+      throw new Error(
+        "You need to provide payment method id in order to set payment method."
+      );
+    }
+    await setCurrentPaymentMethod(paymentMethod.id);
+    await refreshSessionContext();
+  };
+
   const currency = computed(() => sessionContext.value?.currency || null);
   const setCurrency = async (currency: Partial<Currency> = {}) => {
     if (!currency.id) {
@@ -72,6 +91,8 @@ export const useSessionContext = (): UseSessionContext => {
     refreshSessionContext,
     shippingMethod,
     setShippingMethod,
+    paymentMethod,
+    setPaymentMethod,
     currency,
     setCurrency,
   };

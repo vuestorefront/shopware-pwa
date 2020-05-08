@@ -32,6 +32,7 @@ import {
   getCustomerOrderDetailsEndpoint,
   getContextCountryItemEndpoint,
   getContextSalutationItemEndpoint,
+  getOrderPaymentUrlEndpoint,
 } from "../src/endpoints";
 
 const sampleProductId = "eea0f69ec02d44f7a4224272b3d99478";
@@ -279,6 +280,14 @@ describe("endpoints", () => {
     it("should return salutation item endpoint", async () => {
       const result = getContextSalutationItemEndpoint(sampleSalutationId);
       expect(result).toEqual(`/salutation/${sampleSalutationId}`);
+    });
+  });
+
+  describe("getOrderPaymentUrlEndpoint", () => {
+    it("should return order pyment url endpoint", async () => {
+      const orderId = "123321";
+      const result = getOrderPaymentUrlEndpoint(orderId);
+      expect(result).toEqual(`/checkout/order/${orderId}/pay`);
     });
   });
 });
