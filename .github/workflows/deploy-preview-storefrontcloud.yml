@@ -26,7 +26,7 @@ jobs:
           mkdir -p test-project
           cd ./test-project
           yarn
-          ../packages/cli/bin/shopware-pwa init --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci --devMode
+          ../packages/cli/bin/shopware-pwa init --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci --devMode --stage local
           yarn build
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@master
