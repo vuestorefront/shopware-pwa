@@ -23,12 +23,18 @@ export interface Grouping {
   field: string;
 }
 
+export enum ApiType {
+  store = "store-api",
+  salesChannel = "sales-channel-api"
+}
+
 /**
  * configutarion.displayParents: true - if you want to show all the products
  *
  * @alpha
  */
 export interface SearchCriteria {
+  apiType?: ApiType;
   filters?: Array<EqualsFilter | EqualsAnyFilter | RangeFilter | MultiFilter>;
   pagination?: Pagination;
   sort?: Sort;
