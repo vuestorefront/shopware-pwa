@@ -88,6 +88,14 @@ module.exports = {
             link: "/api/",
           },
           {
+            text: "Troubleshooting",
+            link: "/guide/troubleshooting/",
+          },          
+{
+            text: "Cheatsheet",
+            link: "/guide/cheatsheet/",
+          },          
+          {
             text: "Contribution",
             items: [
               {
