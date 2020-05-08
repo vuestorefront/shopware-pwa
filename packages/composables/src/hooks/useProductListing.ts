@@ -2,12 +2,11 @@ import Vue from "vue";
 import { ref, Ref, computed, reactive } from "@vue/composition-api";
 import {
   EqualsFilter,
-  SearchFilterType,
   EqualsAnyFilter,
   ContainsFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
-import { getProducts } from "@shopware-pwa/shopware-6-client";
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import { getListingProducts } from "@shopware-pwa/shopware-6-client";
+import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
 import {
   Sort,
   SearchCriteria,
@@ -15,7 +14,7 @@ import {
 import {
   getFilterSearchCriteria,
   getSortingSearchCriteria,
-  exportUrlQuery,
+  //exportUrlQuery,
 } from "@shopware-pwa/helpers";
 import { useCms } from "./useCms";
 import { useCategoryFilters } from "./useCategoryFilters";
@@ -50,7 +49,7 @@ const selectedCriteria = Vue.observable({
  * @alpha
  */
 export const useProductListing = (
-  initialProducts: Product[] = []
+  initialListing?: ProductListingResult
 ): UseProductListing => {
   const { categoryId } = useCms();
   const { activeSorting } = useCategoryFilters();
@@ -61,7 +60,7 @@ export const useProductListing = (
   const localCriteria = reactive(selectedCriteria);
   const localPagination = reactive(sharedPagination);
 
-  sharedListing.products = initialProducts;
+  sharedListing.products = initialListing && initialListing.elements || [];
   selectedCriteria.sorting = activeSorting.value;
 
   const resetFilters = () => {
@@ -71,6 +70,12 @@ export const useProductListing = (
   const resetSorting = () => {
     selectedCriteria.sorting = activeSorting.value;
   };
+
+  const setupPagination = () => {
+    localPagination.total = initialListing?.total;
+    localPagination.currentPage = initialListing?.page;
+    localPagination.perPage = initialListing?.limit;
+  }
 
   const toggleFilter = (
     filter: EqualsFilter | EqualsAnyFilter | ContainsFilter, // TODO: handle range filter case as well
@@ -108,16 +113,6 @@ export const useProductListing = (
   };
   const search = async (): Promise<void> => {
     loading.value = true;
-    toggleFilter(
-      {
-        // append selected filters with currentCategory; should be taken from usePage
-        field: "categoryTree",
-        type: SearchFilterType.EQUALS_ANY,
-        value: categoryId.value,
-      },
-      true
-    );
-
     const searchCriteria: SearchCriteria = {
       pagination: selectedCriteria.pagination,
       filters: getFilterSearchCriteria(selectedCriteria.filters),
@@ -136,18 +131,20 @@ export const useProductListing = (
       },
     };
 
-    const search = exportUrlQuery(searchCriteria);
-    /* istanbul ignore next */
-    if (typeof history !== "undefined")
-      history.replaceState({}, null as any, location.pathname + "?" + search);
 
-    const result = await getProducts(searchCriteria);
+    //const search = exportUrlQuery(searchCriteria);
+    /* istanbul ignore next */
+    //if (typeof history !== "undefined")
+      //history.replaceState({}, null as any, location.pathname + "?" + search);
+
+    const result = await getListingProducts(categoryId.value, searchCriteria);
     sharedPagination.total = (result && result.total) || 0;
-    sharedListing.products = (result && result.data && [...result.data]) || [];
+    sharedListing.products = (result && result.elements && [...result.elements]) || [];
     loading.value = false;
   };
 
   const changePagination = async (page: number) => {
+    console.warn('changePagination', page);
     if (!page) {
       return;
     }
@@ -156,14 +153,20 @@ export const useProductListing = (
       limit: sharedPagination.perPage,
       page,
     };
-    await search();
+    console.warn('search goes');
+    try {
+      await search();
+    } catch (e) {
+      
+    }
+    
   };
 
   // if reloaded on route change
-  if (initialProducts.length) {
+  if (initialListing && initialListing.elements) {
     resetFilters();
     resetSorting();
-    changePagination(1);
+    setupPagination();
   }
 
   const pagination: any = computed(() => localPagination);

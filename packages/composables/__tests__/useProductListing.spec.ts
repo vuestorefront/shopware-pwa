@@ -37,7 +37,7 @@ describe("Composables - useProductListing", () => {
       expect(products.value).toHaveLength(0);
     });
     it("should have empty array if no products passed", async () => {
-      const { products } = useProductListing([]);
+      const { products } = useProductListing({elements: []} as any);
       expect(products.value).toHaveLength(0);
     });
   });
@@ -103,25 +103,25 @@ describe("Composables - useProductListing", () => {
 
   describe("search", () => {
     it("should reset search criteria on category change event", async () => {
-      const { products, selectedFilters } = useProductListing([
-        { product: "1" } as any,
-      ]);
-      expect(selectedFilters.value).toStrictEqual({ categoryTree: [] });
+      const { products, selectedFilters } = useProductListing({elements: [
+        { product: "1" },
+      ]} as any);
+      expect(selectedFilters.value).toStrictEqual({});
 
       expect(products.value).toHaveLength(1);
     });
 
     it("should set loading property to false when search is done", async () => {
-      const { loading, search } = useProductListing([{ product: "1" } as any]);
+      const { loading, search } = useProductListing({elements: [{ product: "1" }] } as any);
       await search();
       expect(loading.value).toBe(false);
     });
 
     //
     it("should return default total and empty product listing when page resolver fails", async () => {
-      mockedGetPage.getProducts.mockResolvedValueOnce({} as any);
+      mockedGetPage.getListingProducts.mockResolvedValueOnce({} as any);
 
-      const { pagination, products, search } = useProductListing();
+      const { products, search } = useProductListing();
       await search();
       expect(pagination.value).toStrictEqual({
         currentPage: 1,
@@ -132,8 +132,8 @@ describe("Composables - useProductListing", () => {
     });
 
     it("should return products if exist", async () => {
-      mockedGetPage.getProducts.mockResolvedValueOnce({
-        data: [
+      mockedGetPage.getListingProducts.mockResolvedValueOnce({
+        elements: [
           {
             id: "123456",
           },
@@ -186,7 +186,7 @@ describe("Composables - useProductListing", () => {
     it("should perform change the shared pagination object if change succeeds", async () => {
       const { pagination, changePagination } = useProductListing();
 
-      changePagination(10);
+      await changePagination(10);
       expect(pagination.value).toStrictEqual({
         currentPage: 10,
         perPage: 10,
