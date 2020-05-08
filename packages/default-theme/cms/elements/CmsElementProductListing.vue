@@ -21,6 +21,7 @@
         :visible="5"
         @click="changedPage"
       />
+      <div @click="changedPage(pagination.currentPage-1)">prev</div><div @click="changedPage(pagination.currentPage+1)">next</div>
     </div>
     <SfHeading
       v-else
@@ -49,13 +50,13 @@ export default {
     },
   },
   setup({ content }) {
-    const propProducts = content.data.listing || []
+    const listing = content.data.listing || []
     const {
       products,
       changePagination,
       pagination,
       loading,
-    } = useProductListing(propProducts)
+    } = useProductListing(listing)
 
     const changedPage = async (pageNumber) => {
       await changePagination(pageNumber)
