@@ -76,14 +76,16 @@ async function main() {
     throw new Error(`invalid target version: ${targetVersion}`);
   }
 
-  const { yes } = await prompt({
-    type: "confirm",
-    name: "yes",
-    message: `Releasing v${targetVersion}. Confirm?`,
-  });
+  if (!isCanaryRelease) {
+    const { yes } = await prompt({
+      type: "confirm",
+      name: "yes",
+      message: `Releasing v${targetVersion}. Confirm?`,
+    });
 
-  if (!yes) {
-    return;
+    if (!yes) {
+      return;
+    }
   }
 
   // run tests before release
