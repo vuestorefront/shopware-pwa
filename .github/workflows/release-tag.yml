@@ -4,7 +4,7 @@ on:
       - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
 
 env:
-  REPO_URL: https://github.com/patzick/testing-lerna-releases
+  REPO_URL: https://github.com/DivanteLtd/shopware-pwa
 
 name: Create Release
 

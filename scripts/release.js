@@ -217,8 +217,7 @@ async function publishPackage(pkgName, version, runIfNotDry) {
     return;
   }
 
-  // TODO: for tests safety publishing always as canary
-  const releaseTag = "canary";
+  const releaseTag = isCanaryRelease ? "canary" : null;
   // version could inherit fom package prerelease as well
   // const releaseTag = semver.prerelease(version)[0] || null
 
