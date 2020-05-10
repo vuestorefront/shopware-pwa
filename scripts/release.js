@@ -7,11 +7,9 @@ const currentVersion = require("../package.json").version;
 const { prompt } = require("enquirer");
 const execa = require("execa");
 
+const isCanaryRelease = args.canary;
 const preId = args.preid || semver.prerelease(currentVersion)[0] || "alpha";
-const isDryRun = args.dry;
-// TODO: canary version publish
-const isCanaryPublish = args.canary;
-// yarn lerna publish --canary --force-publish --yes --preid prealpha --dist-tag canary
+const isDryRun = args.dry || isCanaryRelease;
 const skipTests = args.skipTests;
 const skipBuild = args.skipBuild;
 const packages = fs
@@ -30,7 +28,8 @@ const versionIncrements = [
   "prerelease",
 ];
 
-const inc = (i) => semver.inc(currentVersion, i, preId);
+const inc = (i, prereleaseId = preId) =>
+  semver.inc(currentVersion, i, prereleaseId);
 const bin = (name) => path.resolve(__dirname, "../node_modules/.bin/" + name);
 const run = (bin, args, opts = {}) =>
   execa(bin, args, { stdio: "inherit", ...opts });
@@ -43,6 +42,10 @@ const step = (msg) => console.log(chalk.cyan(msg));
 async function main() {
   let targetVersion = args._[0];
   step("\nReleasing from current version " + currentVersion);
+  if (isCanaryRelease) {
+    targetVersion = await calculateCanaryTargetVersion();
+    step("CANARY RELEASE --> " + targetVersion);
+  }
 
   if (!targetVersion) {
     // no explicit version, offer suggestions
@@ -108,28 +111,37 @@ async function main() {
   }
 
   // generate changelog
-  await run(`yarn`, ["changelog"]);
-
-  const { stdout } = await run("git", ["diff"], { stdio: "pipe" });
-  if (stdout) {
-    step("\nCommitting changes...");
-    await runIfNotDry("git", ["add", "-A"]);
-    await runIfNotDry("git", ["commit", "-m", `release: v${targetVersion}`]);
+  step("\nGnerating changelog...");
+  if (!isCanaryRelease) {
+    await run(`yarn`, ["changelog"]);
   } else {
-    console.log("No changes to commit.");
+    console.log(`(skipped)`);
+  }
+
+  if (!isCanaryRelease) {
+    const { stdout } = await run("git", ["diff"], { stdio: "pipe" });
+    if (stdout) {
+      step("\nCommitting changes...");
+      await runIfNotDry("git", ["add", "-A"]);
+      await runIfNotDry("git", ["commit", "-m", `release: v${targetVersion}`]);
+    } else {
+      console.log("No changes to commit.");
+    }
   }
 
   // publish packages
-  // step("\nPublishing packages...");
+  step("\nPublishing packages...");
   // for (const pkg of packages) {
   //   await publishPackage(pkg, targetVersion, runIfNotDry);
   // }
 
   // push to GitHub
-  step("\nPushing to GitHub...");
-  await runIfNotDry("git", ["tag", `v${targetVersion}`]);
-  await runIfNotDry("git", ["push", "origin", `refs/tags/v${targetVersion}`]);
-  await runIfNotDry("git", ["push"]);
+  if (!isCanaryRelease) {
+    step("\nPushing to GitHub...");
+    await runIfNotDry("git", ["tag", `v${targetVersion}`]);
+    await runIfNotDry("git", ["push", "origin", `refs/tags/v${targetVersion}`]);
+    await runIfNotDry("git", ["push"]);
+  }
 
   if (isDryRun) {
     console.log(`\nDry run finished - run git diff to see package changes.`);
@@ -145,6 +157,19 @@ async function main() {
     );
   }
   console.log();
+}
+
+async function calculateCanaryTargetVersion() {
+  if (!isCanaryRelease) return null;
+  const { stdout: commitsCount } = await execa("git", [
+    "rev-list",
+    "--all",
+    "--count",
+  ]);
+  const incrementedVrsion = inc("prerelease", "canary");
+  const v = incrementedVrsion.split("canary.");
+  v[v.length - 1] = commitsCount;
+  return v.join("canary.");
 }
 
 function updateVersions(version) {
@@ -168,8 +193,8 @@ function updateDeps(pkg, depType, version) {
   if (!deps) return;
   Object.keys(deps).forEach((dep) => {
     if (
-      dep === "vue" ||
-      (dep.startsWith("@vue") && packages.includes(dep.replace(/^@vue\//, "")))
+      dep.startsWith("@shopware-pwa") &&
+      packages.includes(dep.replace(/^@shopware-pwa\//, ""))
     ) {
       console.log(
         chalk.yellow(`${pkg.name} -> ${depType} -> ${dep}@${version}`)
@@ -190,11 +215,9 @@ async function publishPackage(pkgName, version, runIfNotDry) {
     return;
   }
 
-  // for now (alpha/beta phase), every package except "vue" can be published as
-  // `latest`, whereas "vue" will be published under the "next" tag.
+  // TODO: for tests safety publishing always as canary
   const releaseTag = "canary";
-
-  // TODO use inferred release channel after official 3.0 release
+  // version could inherit fom package prerelease as well
   // const releaseTag = semver.prerelease(version)[0] || null
 
   step(`Publishing ${pkgName}...`);

@@ -32,7 +32,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "gluegun": "^4.2.0",
+    "gluegun": "^4.3.1",
     "lodash": "^4.17.15",
     "request": "^2.88.2",
     "snyk": "^1.316.1",
