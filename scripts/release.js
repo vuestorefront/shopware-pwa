@@ -131,9 +131,9 @@ async function main() {
 
   // publish packages
   step("\nPublishing packages...");
-  // for (const pkg of packages) {
-  //   await publishPackage(pkg, targetVersion, runIfNotDry);
-  // }
+  for (const pkg of packages) {
+    await publishPackage(pkg, targetVersion, runIfNotDry);
+  }
 
   // push to GitHub
   if (!isCanaryRelease) {
