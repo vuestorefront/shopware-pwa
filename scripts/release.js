@@ -9,7 +9,7 @@ const execa = require("execa");
 
 const isCanaryRelease = args.canary;
 const preId = args.preid || semver.prerelease(currentVersion)[0] || "alpha";
-const isDryRun = args.dry || isCanaryRelease;
+const isDryRun = args.dry;
 const skipTests = args.skipTests;
 const skipBuild = args.skipBuild;
 const packages = fs
