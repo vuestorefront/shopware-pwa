@@ -6,8 +6,7 @@
   "scripts": {
     "lint": "prettier --write './**/*.{js,vue}'",
     "test": "jest",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "snyk-protect": "snyk protect"
   },
   "husky": {
     "hooks": {

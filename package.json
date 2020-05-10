@@ -1,5 +1,6 @@
 {
   "name": "shopware-pwa",
+  "version": "0.1.0-alpha.5",
   "private": true,
   "workspaces": {
     "packages": [
@@ -25,7 +26,9 @@
     "test:cypress": "cypress run",
     "test:coverage": "yarn test --coverage",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "release": "node scripts/release.js"
   },
   "husky": {
     "hooks": {
@@ -60,6 +63,7 @@
     "conventional-changelog-cli": "^2.0.31",
     "coveralls": "^3.0.13",
     "cypress": "^4.4.1",
+    "enquirer": "^2.3.5",
     "execa": "^4.0.0",
     "faker": "^4.1.0",
     "fs-extra": "^9.0.0",
@@ -75,6 +79,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.2",
     "rollup-plugin-terser": "^5.3.0",
     "rollup-plugin-typescript2": "^0.27.0",
+    "semver": "^7.3.2",
     "ts-jest": "^25.4.0",
     "tslib": "^1.11.1",
     "typedoc": "^0.17.4",
