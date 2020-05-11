@@ -4,6 +4,7 @@
     :title="title"
     :alt="alt"
     :lazy="lazyLoad"
+    v-if="imgUrl"
     class="cms-element-image"
   />
 </template>

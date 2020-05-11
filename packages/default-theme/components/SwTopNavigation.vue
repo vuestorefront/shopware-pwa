@@ -20,7 +20,7 @@
     >
       <template #logo>
         <nuxt-link to="/" class="sf-header__logo">
-          <SfImage src="/img/creme_logo.png" alt="Shopware PWA" />
+          <SfImage src="/img/logo.png" alt="Shopware PWA" />
         </nuxt-link>
       </template>
       <template #navigation>
@@ -33,10 +33,7 @@
           @mouseleave="currentCategoryName = null"
           @keyup.tab="currentCategoryName = category.name"
         >
-          <nuxt-link
-            class="sf-header__link"
-            :to="getCategoryUrl(category)"
-          >
+          <nuxt-link class="sf-header__link" :to="getCategoryUrl(category)">
             {{ category.name }}
           </nuxt-link>
           <SwMegaMenu
@@ -71,7 +68,7 @@
               :has-badge="isLoggedIn"
               @click="userIconClick"
             />
-            <SfIcon 
+            <SfIcon
               v-if="cartIcon"
               :icon="cartIcon"
               :has-badge="count > 0"
@@ -237,7 +234,11 @@ export default {
   }
 }
 .sf-header__logo {
-  height: 2rem;
+  height: 3rem;
+  .sf-image {
+    --image-width: 70px;
+    --image-height: 70px;
+  }
 }
 .sw-header {
   &__icons {
