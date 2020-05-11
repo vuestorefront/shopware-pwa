@@ -47,10 +47,10 @@ export default {
   &__image {
     margin: var(--spacer-sm);
     flex: 1;
-    & img {
-      height: 340px;
-      object-fit: cover;
-    }
+    // & img {
+    //   height: 340px;
+    //   object-fit: cover;
+    // }
   }
 
   @include for-desktop {

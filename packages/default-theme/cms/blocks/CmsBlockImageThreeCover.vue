@@ -46,10 +46,10 @@ export default {
 
   &__image {
     flex: 1 1 0;
-    & img {
-      height: 340px;
-      object-fit: cover;
-    }
+    // & img {
+    //   height: 340px;
+    //   object-fit: cover;
+    // }
   }
 
   @include for-desktop {

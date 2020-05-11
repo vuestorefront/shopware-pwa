@@ -16,11 +16,33 @@
     @click:wishlist="toggleWishlist"
     @click:add-to-cart="addToCart"
   >
+    <template #image>
+      <SfImage
+        class="sw-product-card__image"
+        :class="{'sw-product-card__image--new': getIsNew}"
+        :src="getImageUrl"
+        :alt="getName" 
+      />
+    </template>
+    <template #wishlist-icon>
+      <span></span>
+    </template>
+    <template #add-to-cart>
+      <SfButton class="sf-button--full-width color-secondary sw-product-card__button">
+        Add to shoping cart
+      </SfButton>
+    </template>
+    <template #title>
+      <SfHeading :level="3" :title="getName" class="sw-product-card__heading"/>
+    </template>
+    <template #reviews>
+      <div v-html="getDescription" class="sw-product-card__description"></div>
+    </template>
   </SfProductCard>
 </template>
 
 <script>
-import { SfProductCard, SfAddToCart } from '@storefront-ui/vue'
+import { SfProductCard, SfAddToCart, SfImage, SfButton, SfHeading, SfLink } from '@storefront-ui/vue'
 import { useAddToCart } from '@shopware-pwa/composables'
 import {
   getProductMainImageUrl,
@@ -28,12 +50,17 @@ import {
   getProductUrl,
   getProductSpecialPrice,
   getProductName,
+  get
 } from '@shopware-pwa/helpers'
 
 export default {
   components: {
     SfProductCard,
     SfAddToCart,
+    SfImage,
+    SfButton,
+    SfHeading,
+    SfLink
   },
   setup({ product }) {
     const { addToCart, quantity, getStock, isInCart } = useAddToCart(product)
@@ -86,6 +113,18 @@ export default {
         require('@shopware-pwa/default-theme/assets/productB.jpg')
       )
     },
+    getDescription() {
+      return (
+        this.product &&
+        (this.product.description ||
+          (this.product.translated && this.product.translated.description))
+      )
+    },
+    getIsNew() {
+      return (
+        this.product && this.product.isNew
+      )
+    },
   },
   methods: {
     async toggleWishlist() {},
@@ -93,10 +132,54 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~@storefront-ui/vue/styles.scss';
 
 .sw-product-card {
-  --product-card-add-button-top: 13rem;
+  --product-card-max-width: 100%;
+  
+  position: relative;
+  padding-bottom: 94px;
+  &__image {
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+    }
+  } 
+  &__image--new {
+    position: relative;
+    &::after {
+      content: 'NEW';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      background-color: #7dd897;
+      color: #fff;
+      padding: 0 8px;
+      font-weight: 700;
+    }
+  } 
+  &::after {
+    --product-card-box-shadow: none;
+  }
+  &__description {
+    height: 54px;
+    overflow: hidden;
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 18px;
+  }
+  &__button {
+    position: absolute;
+    bottom: 0;
+    --button-text-transform: none;
+  }
+  &__heading {
+    --heading-text-align: start;
+  }
 }
 </style>
