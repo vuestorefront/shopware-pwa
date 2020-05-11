@@ -18,7 +18,7 @@ module.exports = {
           ["/landing/getting-started/", "Getting started"],
           ["/landing/fundamentals/", "Fundamentals"],
           ["/landing/concepts/", "Concepts"],
-          ["/landing/operation/", "Operations"],
+          ["/landing/operations/", "Operations"],
           ["/landing/resources/", "Resources"],
         ],
       },
@@ -90,11 +90,11 @@ module.exports = {
           {
             text: "Troubleshooting",
             link: "/guide/troubleshooting/",
-          },          
-{
+          },
+          {
             text: "Cheatsheet",
             link: "/guide/cheatsheet/",
-          },          
+          },
           {
             text: "Contribution",
             items: [

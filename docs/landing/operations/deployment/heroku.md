@@ -12,7 +12,7 @@ This guide assumes you have
 
 According to the Nuxt.js documentation on deploying to Heroku, you have to set two environment variables in your Heroku App. You can set those in your Applications' *Settings* tab in the *Config Vars* section:
 
-![Heroku Configuration](./../../assets/heroku_config_vars.png)
+![Heroku Configuration](./../../../assets/heroku_config_vars.png)
 
 Next, you have to add the Heroku git remote to your repository remotes. shopware-pwa cli already created a Git repository inside your project, so you just have to run
 
