@@ -91,7 +91,7 @@ async function main() {
   // run tests before release
   step("\nRunning tests...");
   if (!skipTests && !isDryRun) {
-    await run(bin("jest"), ["--clearCache"]);
+    // await run(bin("jest"), ["--clearCache"]);
     await run("yarn", ["test", "--runInBand"]);
   } else {
     console.log(`(skipped)`);
@@ -125,7 +125,11 @@ async function main() {
     if (stdout) {
       step("\nCommitting changes...");
       await runIfNotDry("git", ["add", "-A"]);
-      await runIfNotDry("git", ["commit", "-m", `release: v${targetVersion}`]);
+      await runIfNotDry("git", [
+        "commit",
+        "-m",
+        `chore(release): v${targetVersion}`,
+      ]);
     } else {
       console.log("No changes to commit.");
     }

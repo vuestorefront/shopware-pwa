@@ -43,7 +43,7 @@ module.exports = {
         name: "stage",
         message: "Which version you'd like to use:",
         choices: Object.values(STAGES),
-        initial: inputParameters.projectName,
+        initial: inputParameters.stage,
       };
 
       const answers = await toolbox.prompt.ask([
