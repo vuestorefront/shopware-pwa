@@ -41,7 +41,7 @@ export default {
   flex-direction: column;
 
   &__image, &__text {
-    margin: var(--spacer-sm);
+    // margin: var(--spacer-sm);
     flex: 1;
     & img {
       height: 340px;
