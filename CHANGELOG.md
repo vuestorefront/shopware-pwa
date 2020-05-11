@@ -1,3 +1,12 @@
+# [0.1.0-alpha.7](https://github.com/DivanteLtd/shopware-pwa/compare/v0.1.0-alpha.6...v0.1.0-alpha.7) (2020-05-11)
+
+
+### Bug Fixes
+
+* **workflow:** deploy demo page after release ([4d44d06](https://github.com/DivanteLtd/shopware-pwa/commit/4d44d065f50d519da4918a052457b7dee8992de3))
+
+
+
 # 0.1.0-alpha.6 (2020-05-11)
 
 
