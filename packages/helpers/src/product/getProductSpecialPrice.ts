@@ -3,7 +3,7 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 /**
  * @alpha
  */
-export function getProductSpecialPrice(product: Product): number {
+export function getProductSpecialPrice(product: Product): number | undefined {
   const price = product?.calculatedPrices?.[0]?.unitPrice;
-  return price || 0;
+  return price || undefined;
 }
