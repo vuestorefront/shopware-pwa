@@ -27,7 +27,7 @@ jobs:
           npm -v
           mkdir test-project
           cd ./test-project
-          npx @shopware-pwa/cli init --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci --devMode
+          npx @shopware-pwa/cli@latest init --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci --devMode
           yarn build
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@master
