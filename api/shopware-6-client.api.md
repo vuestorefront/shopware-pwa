@@ -24,6 +24,7 @@ import { NotFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter'
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
+import { ProductListingResult } from '@shopware-pwa/commons/interfaces/response/ProductListingResult';
 import { RangeFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
@@ -166,6 +167,9 @@ export function getCustomerOrderDetails(orderId: string): Promise<Order>;
 // @beta
 export function getCustomerOrders(): Promise<Order[]>;
 
+// @alpha
+export const getListingProducts: (categoryId: string, searchCriteria?: SearchCriteria | undefined) => Promise<ProductListingResult>;
+
 // @alpha (undocumented)
 export function getNavigation(params: GetNavigationParams): Promise<NavigationResponse>;
 
@@ -276,6 +280,8 @@ export interface ShopwareParams {
     grouping?: Grouping;
     // (undocumented)
     limit?: number;
+    // (undocumented)
+    p?: number;
     // (undocumented)
     page?: number;
     // (undocumented)

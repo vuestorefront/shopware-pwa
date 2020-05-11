@@ -19,6 +19,7 @@ import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/Guest
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
+import { ProductListingResult } from '@shopware-pwa/commons/interfaces/response/ProductListingResult';
 import { Ref } from '@vue/composition-api';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
@@ -184,7 +185,7 @@ export interface UseProductListing {
 }
 
 // @alpha (undocumented)
-export const useProductListing: (initialProducts?: Product[]) => UseProductListing;
+export const useProductListing: (initialListing?: ProductListingResult | undefined) => UseProductListing;
 
 // @alpha (undocumented)
 export interface UseProductSearch {

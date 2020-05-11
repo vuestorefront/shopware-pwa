@@ -163,9 +163,10 @@ export const useProductListing = (
   };
 
   // if reloaded on route change
-  if (initialListing && initialListing.elements) {
+  if (initialListing && initialListing.elements && initialListing.elements.length > 0) {
     resetFilters();
     resetSorting();
+    console.warn('elements', initialListing.elements)
     setupPagination();
   }
 

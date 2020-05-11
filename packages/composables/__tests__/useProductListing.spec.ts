@@ -121,8 +121,8 @@ describe("Composables - useProductListing", () => {
     it("should return default total and empty product listing when page resolver fails", async () => {
       mockedGetPage.getListingProducts.mockResolvedValueOnce({} as any);
 
-      const { products, search } = useProductListing();
-      await search();
+      const { products, search, pagination } = useProductListing();
+      search();
       expect(pagination.value).toStrictEqual({
         currentPage: 1,
         perPage: 10,
@@ -184,9 +184,10 @@ describe("Composables - useProductListing", () => {
     });
 
     it("should perform change the shared pagination object if change succeeds", async () => {
+
       const { pagination, changePagination } = useProductListing();
 
-      await changePagination(10);
+      changePagination(10);
       expect(pagination.value).toStrictEqual({
         currentPage: 10,
         perPage: 10,
