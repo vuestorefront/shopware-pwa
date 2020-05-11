@@ -2,8 +2,6 @@
   <SfProductCard
     :title="getName"
     :image="getImageUrl"
-    :special-price="getSpecialPrice | price"
-    :regular-price="getRegularPrice | price"
     :max-rating="5"
     :score-rating="getProductRating"
     :image-width="700"
@@ -14,7 +12,7 @@
     :show-add-to-cart-button="true"
     :is-added-to-cart="isInCart"
     @click:wishlist="toggleWishlist"
-    @click:add-to-cart="addToCart"
+    
   >
     <template #image>
       <SfImage
@@ -28,7 +26,7 @@
       <span></span>
     </template>
     <template #add-to-cart>
-      <SfButton class="sf-button--full-width color-secondary sw-product-card__button">
+      <SfButton class="sf-button--full-width color-secondary sw-product-card__button" @click="addToCart">
         Add to shoping cart
       </SfButton>
     </template>
@@ -38,11 +36,17 @@
     <template #reviews>
       <div v-html="getDescription" class="sw-product-card__description"></div>
     </template>
+    <template #price>
+      <SfPrice
+        class="sf-product-card__price sw-product-card__price"
+        :regular="getSpecialPrice ? getSpecialPrice : getRegularPrice | price"
+      />
+    </template>
   </SfProductCard>
 </template>
 
 <script>
-import { SfProductCard, SfAddToCart, SfImage, SfButton, SfHeading, SfLink } from '@storefront-ui/vue'
+import { SfProductCard, SfAddToCart, SfImage, SfButton, SfHeading, SfLink, SfPrice } from '@storefront-ui/vue'
 import { useAddToCart } from '@shopware-pwa/composables'
 import {
   getProductMainImageUrl,
@@ -60,7 +64,8 @@ export default {
     SfImage,
     SfButton,
     SfHeading,
-    SfLink
+    SfLink,
+    SfPrice
   },
   setup({ product }) {
     const { addToCart, quantity, getStock, isInCart } = useAddToCart(product)
@@ -166,6 +171,7 @@ export default {
     height: 54px;
     overflow: hidden;
     margin-top: 10px;
+    margin-bottom: 62px;
     font-size: 14px;
     line-height: 18px;
   }
@@ -176,6 +182,11 @@ export default {
   }
   &__heading {
     --heading-text-align: start;
+  }
+  &__price {
+    --price-color: var(--c-danger);
+    position: absolute;
+    bottom: 64px
   }
 }
 </style>
