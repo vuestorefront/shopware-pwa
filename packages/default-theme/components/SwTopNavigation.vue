@@ -60,7 +60,6 @@
           <div class="sw-header__icons">
             <SwPluginSlot name="top-header-icons-before" />
             <SfIcon
-              v-if="accountIcon"
               :icon="accountIcon"
               class="sf-header__icon sw-header__icon"
               :class="{
@@ -73,7 +72,6 @@
               @click="userIconClick"
             />
             <SfIcon 
-              v-if="cartIcon"
               :icon="cartIcon"
               :has-badge="count > 0"
               :badge-label="count.toString()"
