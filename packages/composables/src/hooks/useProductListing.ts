@@ -84,9 +84,9 @@ export const useProductListing = (
       return;
     }
 
-    localPagination.total = initialListing.total;
-    localPagination.currentPage = initialListing.page;
-    localPagination.perPage = initialListing.limit;
+    sharedPagination.total = initialListing.total;
+    sharedPagination.currentPage = initialListing.page;
+    sharedPagination.perPage = initialListing.limit;
   };
 
   const toggleFilter = (
