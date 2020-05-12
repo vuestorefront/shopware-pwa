@@ -1,13 +1,13 @@
-import { Pagination } from "./Pagination";
+import { Pagination } from "@shopware-pwa/commons/interfaces/search/Pagination";
 import {
   EqualsFilter,
   RangeFilter,
   MultiFilter,
   EqualsAnyFilter,
-} from "./SearchFilter";
-import { Association } from "./Association";
-import { Aggregation } from "./Aggregation";
-import { TotalCountMode } from "./TotalCountMode";
+} from "@shopware-pwa/commons/interfaces/search/SearchFilter";
+import { Association } from "@shopware-pwa/commons/interfaces/search/Association";
+import { Aggregation } from "@shopware-pwa/commons/interfaces/search/Aggregation";
+import { TotalCountMode } from "@shopware-pwa/commons/interfaces/search/TotalCountMode";
 
 /**
  * @alpha
