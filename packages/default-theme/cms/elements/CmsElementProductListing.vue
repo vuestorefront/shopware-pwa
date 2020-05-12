@@ -21,7 +21,6 @@
         :visible="5"
         @click="changedPage"
       />
-      <div @click="changedPage(pagination.currentPage-1)">prev</div><div @click="changedPage(pagination.currentPage+1)">next</div>
     </div>
     <SfHeading
       v-else
