@@ -15,37 +15,21 @@
     <div class="form">
       <div class="form__radio-group">
         <SfRadio
-          v-for="item in shippingMethods"
-          :key="item.id"
-          v-model="shippingMethod"
-          :label="item.name"
-          :value="item.id"
+          v-for="shippingMethod in shippingMethods"
+          :key="shippingMethod.id"
+          v-model="activeShippingMethod"
+          :label="shippingMethod.translated.name"
+          :value="shippingMethod.id"
           name="shippingMethod"
-          :description="item.translated.description"
+          :description="shippingMethod.deliveryTime.translated.name"
           class="form__radio shipping"
         >
           <template #label="{label}">
             <div class="sf-radio__label shipping__label">
               <div>{{ label }}</div>
-              <div class="shipping__label-price">{{ item.price }}</div>
-            </div>
-          </template>
-          <template #description="{description}">
-            <div class="sf-radio__description shipping__description">
-              <div class="shipping__delivery">
-                {{ item.delivery }}
-                <SfButton
-                  class="sf-button--text color-secondary shipping__action"
-                  :class="{ 'shipping__action--is-active': item.isOpen }"
-                  @click="item.isOpen = !item.isOpen"
-                  >info</SfButton
-                >
+              <div class="shipping__label-price">
+                {{ shippingMethod.price }}
               </div>
-              <transition name="fade">
-                <div v-if="item.isOpen" class="shipping__info">
-                  {{ description }}
-                </div>
-              </transition>
             </div>
           </template>
         </SfRadio>
@@ -70,10 +54,14 @@
 </template>
 <script>
 import { SfHeading, SfButton, SfRadio, SfAlert } from '@storefront-ui/vue'
-import { computed } from '@vue/composition-api'
+import { computed, onMounted } from '@vue/composition-api'
 import ShippingAddressGuestForm from '@shopware-pwa/default-theme/components/checkout/steps/guest/ShippingAddressGuestForm'
 import ShippingAddressUserForm from '@shopware-pwa/default-theme/components/checkout/steps/user/ShippingAddressUserForm'
-import { useCheckout } from '@shopware-pwa/composables'
+import {
+  useCheckout,
+  useSessionContext,
+  useCart,
+} from '@shopware-pwa/composables'
 
 export default {
   name: 'ShippingStep',
@@ -86,77 +74,23 @@ export default {
     ShippingAddressUserForm,
   },
   setup() {
-    const { isGuestOrder } = useCheckout()
-    const shippingMethods = computed(() => [])
-    const shippingMethod = computed(() => null)
+    const { isGuestOrder, getShippingMethods, shippingMethods } = useCheckout()
+    const { shippingMethod, setShippingMethod } = useSessionContext()
+    const { refreshCart } = useCart()
 
-    return {
-      isGuestOrder,
-      shippingMethods,
-      shippingMethod,
-    }
-  },
-  data() {
-    return {
-      shippingMethod: '',
-      shippingMethods: [
-        {
-          isOpen: false,
-          price: 'Free',
-          delivery: 'Delivery from 3 to 7 business days',
-          name: 'Pickup in the store',
-          id: 'store',
-          translated: {
-            description:
-              'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
-          },
-        },
-        {
-          isOpen: false,
-          price: '$9.90',
-          delivery: 'Delivery from 4 to 6 business days',
-          name: 'Delivery to home',
-          id: 'home',
-          translated: {
-            description:
-              'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
-          },
-        },
-        {
-          isOpen: false,
-          price: '$9.90',
-          delivery: 'Delivery from 4 to 6 business days',
-          name: 'Paczkomaty InPost',
-          id: 'inpost',
-          translated: {
-            description:
-              'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
-          },
-        },
-        {
-          isOpen: false,
-          price: '$11.00',
-          delivery: 'Delivery within 48 hours',
-          name: '48 hours coffee',
-          id: 'coffee',
-          translated: {
-            description:
-              'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
-          },
-        },
-        {
-          isOpen: false,
-          price: '$14.00',
-          delivery: 'Delivery within 24 hours',
-          name: 'Urgent 24h',
-          id: 'urgent',
-          translated: {
-            description:
-              'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
-          },
-        },
-      ],
-    }
+    const activeShippingMethod = computed({
+      get: () => shippingMethod.value && shippingMethod.value.id,
+      set: async (id) => {
+        await setShippingMethod({ id })
+        await refreshCart()
+      },
+    })
+
+    onMounted(async () => {
+      await getShippingMethods()
+    })
+
+    return { isGuestOrder, shippingMethods, activeShippingMethod }
   },
 }
 </script>
@@ -182,7 +116,7 @@ export default {
     --button-height: 3.25rem;
   }
   &__radio-group {
-    position:relative;
+    position: relative;
     flex: 0 0 calc(100% + var(--spacer-sm));
     margin: 0 calc(var(--spacer-sm) * -1);
   }

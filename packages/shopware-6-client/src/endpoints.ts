@@ -125,3 +125,5 @@ export const getNewsletterUnsubscribeEndpoint = () => `/newsletter/unsubscribe`;
 
 export const getPageResolverEndpoint = () => `/store-api/v1/pwa/page`;
 export const getNavigationEndpoint = () => `/store-api/v1/pwa/navigation`;
+export const getOrderPaymentUrlEndpoint = (orderId: string): string =>
+  `/checkout/order/${orderId}/pay`;

@@ -2,7 +2,7 @@
 sidebar: auto
 ---
 
-# Contributing Guidelines
+# Contribution Guide
 
 ## How to start
 
@@ -22,7 +22,7 @@ After choosing the task, you can solve the problem and create a pull request (PR
 
 **Please read the code of conduct and follow it in all your interactions with the project.** 
 
-Thank you for your interest in, and engagement! :)
+Thank you for your interest and engagement! :)
 
 You may want to read:
 
@@ -32,7 +32,7 @@ You may want to read:
 
 ## Branches
 
-For all of the codebase changes please create a new branch. Its name should fit into this template: `<task type eg. feat, fix, chore>/<package eg. cli, client, theme, if there is a global task this part can be omitted>/<short task description is written in kebab-case>-<issue number (also optional)>` `, here are some examples:
+For all of the codebase changes please create a new branch. Its name should fit into this template: `<task type eg. feat, fix, chore>/<package eg. cli, client, theme, if there is a global task this part can be omitted>/<short task description is written in kebab-case>-<issue number (also optional)>`, here are some examples:
 
 - `feat/theme/add-carousel-to-product-details`
 - `chore/update-project-dependencies`
@@ -45,6 +45,8 @@ After resolving the pull request, all the commits will be automatically squashed
 ## Tests
 
 We keep 100% test coverage for our packages (except `default-theme`). Before opening a pull request, make sure all tests pass and coverage does not decrease. For further information please read the documentation.
+
+Please, remember to always during development have opened terminal with `yarn test --watch` command fired.
 
 ## Pull requests
 

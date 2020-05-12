@@ -67,7 +67,6 @@
 <script>
 import { useCart } from '@shopware-pwa/composables'
 import helpers from '@shopware-pwa/default-theme/helpers'
-import { PAGE_SUCCESS_PAGE } from '@shopware-pwa/default-theme/helpers/pages'
 
 import {
   SfProperty,

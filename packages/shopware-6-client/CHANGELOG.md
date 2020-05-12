@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.4](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/shopware-6-client@0.1.0-alpha.3...@shopware-pwa/shopware-6-client@0.1.0-alpha.4) (2020-05-08)
+
+
+### Bug Fixes
+
+* **cli:** dependency for require package ([#569](https://github.com/DivanteLtd/shopware-pwa/issues/569)) ([59b4788](https://github.com/DivanteLtd/shopware-pwa/commit/59b4788a020316900071ac1b711f45ca574fae04))
+* **theme:** in My addresses edit address does not work ([#452](https://github.com/DivanteLtd/shopware-pwa/issues/452)) ([de217da](https://github.com/DivanteLtd/shopware-pwa/commit/de217daeb51b7de68b3ef6c27a96fefaf32fe509))
+
+
+### Features
+
+* **api-client:** set current context's address - billing & shipping ([#536](https://github.com/DivanteLtd/shopware-pwa/issues/536)) ([40c9836](https://github.com/DivanteLtd/shopware-pwa/commit/40c98362f36f396faad7d0a9ddc1624b5e2f74d6))
+* **client:** add service to interact with plugins ([#631](https://github.com/DivanteLtd/shopware-pwa/issues/631)) ([61615bf](https://github.com/DivanteLtd/shopware-pwa/commit/61615bf7db6c08fc2f7cbb35df1bde6360defd7b))
+* basic payment integration with paypal ([#709](https://github.com/DivanteLtd/shopware-pwa/issues/709)) ([6d55292](https://github.com/DivanteLtd/shopware-pwa/commit/6d552925b19900fdf3c10fc3e610406741add9f7))
+* currency switch [#580](https://github.com/DivanteLtd/shopware-pwa/issues/580) ([#598](https://github.com/DivanteLtd/shopware-pwa/issues/598)) ([e34a9c1](https://github.com/DivanteLtd/shopware-pwa/commit/e34a9c1033056ffbcf05187e7a9c49de1571d288))
+* place guest order with proper params and load sessionContext ([#590](https://github.com/DivanteLtd/shopware-pwa/issues/590)) ([e241104](https://github.com/DivanteLtd/shopware-pwa/commit/e2411046c66b6449efca0dc88a74e9c9035553e4))
+* update access token for demo instance ([#611](https://github.com/DivanteLtd/shopware-pwa/issues/611)) ([e4f1205](https://github.com/DivanteLtd/shopware-pwa/commit/e4f1205c0d041b18f4a2f470d67906c4da5da982))
+
+
+
+
+
 # [0.1.0-alpha.3](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/shopware-6-client@0.1.0-alpha.2...@shopware-pwa/shopware-6-client@0.1.0-alpha.3) (2020-03-24)
 
 

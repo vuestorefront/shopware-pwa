@@ -93,6 +93,12 @@ async function build(target) {
     return;
   }
 
+  // run custom package build if there is one
+  if (pkg.scripts && pkg.scripts.build) {
+    await execa("yarn", ["build"], { stdio: "inherit", cwd: pkgDir });
+    return;
+  }
+
   // if building a specific format, do not remove dist.
   if (!formats) {
     await fs.remove(`${pkgDir}/dist`);

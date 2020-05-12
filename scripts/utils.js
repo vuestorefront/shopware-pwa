@@ -1,13 +1,13 @@
 const fs = require("fs");
 const chalk = require("chalk");
 
-const ownBuildProcessPackages = ["cli", "default-theme", "commons"];
+const ownBuildProcessPackages = ["default-theme", "commons"];
 
 const allTargets = (exports.allTargets = fs
   .readdirSync("packages")
-  .filter(f => !!fs.statSync(`packages/${f}`).isDirectory()));
+  .filter((f) => !!fs.statSync(`packages/${f}`).isDirectory()));
 
-const targets = (exports.targets = allTargets.filter(f => {
+const targets = (exports.targets = allTargets.filter((f) => {
   if (
     !fs.statSync(`packages/${f}`).isDirectory() ||
     ownBuildProcessPackages.includes(f)
@@ -23,7 +23,7 @@ const targets = (exports.targets = allTargets.filter(f => {
 
 exports.fuzzyMatchTarget = (partialTargets, includeAllMatching) => {
   const matched = [];
-  partialTargets.forEach(partialTarget => {
+  partialTargets.forEach((partialTarget) => {
     for (const target of targets) {
       if (target.match(partialTarget)) {
         matched.push(target);
