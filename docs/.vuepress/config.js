@@ -1,6 +1,15 @@
 module.exports = {
-  title: "shopware PWA",
+  title: "Shopware PWA",
   description: "Headless PWA for Shopware",
+  head: [
+    [
+      "link",
+      {
+        rel: "icon",
+        href: "/favicon.png",
+      },
+    ],
+  ],
   themeConfig: {
     repo: "DivanteLtd/shopware-pwa",
     docsDir: "docs",
