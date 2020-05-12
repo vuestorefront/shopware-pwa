@@ -45,7 +45,7 @@ Step 2. will return two file links, one will be a .zip file containing all the r
 ### Build the project
 
 ```
-$ nuxt build
+$ yarn build
 ```
 
 This command will let Nuxt.js generate the minified sources and assets of your application, such as
