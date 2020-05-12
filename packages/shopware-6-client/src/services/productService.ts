@@ -8,7 +8,10 @@ import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { convertSearchCriteria } from "../helpers/searchConverter";
 import { apiService } from "../apiService";
-import { SearchCriteria, ApiType } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import {
+  SearchCriteria,
+  ApiType,
+} from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { SearchResult } from "@shopware-pwa/commons/interfaces/response/SearchResult";
 
 /**
@@ -52,7 +55,9 @@ export const getListingProducts = async function (
 ): Promise<ProductListingResult> {
   const resp = await apiService.post(
     `${getProductListingEndpoint(categoryId)}`,
-    convertSearchCriteria(Object.assign({}, searchCriteria, { apiType: ApiType.store }))
+    convertSearchCriteria(
+      Object.assign({}, searchCriteria, { apiType: ApiType.store })
+    )
   );
   return resp.data;
 };

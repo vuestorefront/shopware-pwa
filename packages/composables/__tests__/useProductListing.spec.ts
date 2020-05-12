@@ -37,7 +37,7 @@ describe("Composables - useProductListing", () => {
       expect(products.value).toHaveLength(0);
     });
     it("should have empty array if no products passed", async () => {
-      const { products } = useProductListing({elements: []} as any);
+      const { products } = useProductListing({ elements: [] } as any);
       expect(products.value).toHaveLength(0);
     });
   });
@@ -99,20 +99,47 @@ describe("Composables - useProductListing", () => {
       expect(selectedFilters.value).toHaveProperty("color");
       expect(selectedFilters.value.color).toStrictEqual([]);
     });
+
+    it("selectedFilters should append the filters array on force", async () => {
+      const {
+        selectedFilters,
+        toggleFilter,
+        resetFilters,
+      } = useProductListing();
+      resetFilters();
+
+      toggleFilter({
+        type: SearchFilterType.EQUALS,
+        value: "white",
+        field: "color",
+      } as EqualsFilter);
+
+      toggleFilter({
+        type: SearchFilterType.EQUALS,
+        value: "black",
+        field: "color",
+      } as EqualsFilter),
+        true;
+
+      expect(selectedFilters.value).toHaveProperty("color");
+      expect(selectedFilters.value.color).toStrictEqual(["white", "black"]);
+    });
   });
 
   describe("search", () => {
     it("should reset search criteria on category change event", async () => {
-      const { products, selectedFilters } = useProductListing({elements: [
-        { product: "1" },
-      ]} as any);
+      const { products, selectedFilters } = useProductListing({
+        elements: [{ product: "1" }],
+      } as any);
       expect(selectedFilters.value).toStrictEqual({});
 
       expect(products.value).toHaveLength(1);
     });
 
     it("should set loading property to false when search is done", async () => {
-      const { loading, search } = useProductListing({elements: [{ product: "1" }] } as any);
+      const { loading, search } = useProductListing({
+        elements: [{ product: "1" }],
+      } as any);
       await search();
       expect(loading.value).toBe(false);
     });
@@ -175,7 +202,7 @@ describe("Composables - useProductListing", () => {
     it("should perform no search and leave default pagination if no change performed", async () => {
       const { pagination, changePagination } = useProductListing();
 
-      changePagination(undefined as any);
+      await changePagination(undefined as any);
       expect(pagination.value).toStrictEqual({
         currentPage: 1,
         perPage: 10,
@@ -183,11 +210,50 @@ describe("Composables - useProductListing", () => {
       });
     });
 
-    it("should perform change the shared pagination object if change succeeds", async () => {
+    it("should not change pagination state to privided one once a useProductListing argument is passed hasn't any required fields", async () => {
+      const { pagination } = useProductListing({
+        // page: undefined,
+        // total: undefined,
+        // limit: undefined,
+        elements: [{ id: "123456" }],
+      } as any);
 
+      expect(pagination.value).toStrictEqual({
+        currentPage: 1,
+        perPage: 10,
+        total: 0,
+      });
+    });
+
+    it("should not change pagination state to privided one once a useProductListing argument is passed has no pagination data", async () => {
+      const { pagination } = useProductListing(undefined as any);
+
+      expect(pagination.value).toStrictEqual({
+        currentPage: 1,
+        perPage: 10,
+        total: 0,
+      });
+    });
+
+    it("should change pagination state to privided one as a useProductListing argument is passed", async () => {
+      const { pagination } = useProductListing({
+        total: 6,
+        page: 2,
+        limit: 10,
+        elements: [{ id: "123456" }],
+      } as any);
+
+      expect(pagination.value).toStrictEqual({
+        currentPage: 2,
+        perPage: 10,
+        total: 6,
+      });
+    });
+
+    it("should perform change the shared pagination object if change succeeds", async () => {
       const { pagination, changePagination } = useProductListing();
 
-      changePagination(10);
+      await changePagination(10);
       expect(pagination.value).toStrictEqual({
         currentPage: 10,
         perPage: 10,

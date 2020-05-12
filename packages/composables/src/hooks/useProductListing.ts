@@ -60,7 +60,7 @@ export const useProductListing = (
   const localCriteria = reactive(selectedCriteria);
   const localPagination = reactive(sharedPagination);
 
-  sharedListing.products = initialListing && initialListing.elements || [];
+  sharedListing.products = (initialListing && initialListing.elements) || [];
   selectedCriteria.sorting = activeSorting.value;
 
   const resetFilters = () => {
@@ -72,10 +72,22 @@ export const useProductListing = (
   };
 
   const setupPagination = () => {
-    localPagination.total = initialListing?.total;
-    localPagination.currentPage = initialListing?.page;
-    localPagination.perPage = initialListing?.limit;
-  }
+    if (
+      !initialListing ||
+      !initialListing.total ||
+      isNaN(initialListing.total) ||
+      !initialListing.page ||
+      isNaN(initialListing.page) ||
+      !initialListing.limit ||
+      isNaN(initialListing.limit)
+    ) {
+      return;
+    }
+
+    localPagination.total = initialListing.total;
+    localPagination.currentPage = initialListing.page;
+    localPagination.perPage = initialListing.limit;
+  };
 
   const toggleFilter = (
     filter: EqualsFilter | EqualsAnyFilter | ContainsFilter, // TODO: handle range filter case as well
@@ -131,20 +143,19 @@ export const useProductListing = (
       },
     };
 
-
     //const search = exportUrlQuery(searchCriteria);
     /* istanbul ignore next */
     //if (typeof history !== "undefined")
-      //history.replaceState({}, null as any, location.pathname + "?" + search);
+    //history.replaceState({}, null as any, location.pathname + "?" + search);
 
     const result = await getListingProducts(categoryId.value, searchCriteria);
     sharedPagination.total = (result && result.total) || 0;
-    sharedListing.products = (result && result.elements && [...result.elements]) || [];
+    sharedListing.products =
+      (result && result.elements && [...result.elements]) || [];
     loading.value = false;
   };
 
   const changePagination = async (page: number) => {
-    console.warn('changePagination', page);
     if (!page) {
       return;
     }
@@ -153,20 +164,16 @@ export const useProductListing = (
       limit: sharedPagination.perPage,
       page,
     };
-    console.warn('search goes');
+
     try {
       await search();
-    } catch (e) {
-      
-    }
-    
+    } catch (e) {}
   };
 
   // if reloaded on route change
-  if (initialListing && initialListing.elements && initialListing.elements.length > 0) {
+  if (initialListing && initialListing.elements) {
     resetFilters();
     resetSorting();
-    console.warn('elements', initialListing.elements)
     setupPagination();
   }
 

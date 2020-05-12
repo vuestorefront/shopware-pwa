@@ -25,7 +25,7 @@ export interface Grouping {
 
 export enum ApiType {
   store = "store-api",
-  salesChannel = "sales-channel-api"
+  salesChannel = "sales-channel-api",
 }
 
 /**

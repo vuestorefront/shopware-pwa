@@ -11,5 +11,3 @@ export interface ProductListingResult<> {
   aggregations: any[];
   currentFilters: any[];
 }
-
-

@@ -7,7 +7,8 @@ export const getCategoryDetailsEndpoint = (categoryId: string) =>
 
 // product-listing
 
-export const getProductListingEndpoint = (categoryId: string) => `/store-api/v1/product-listing/${categoryId}`;
+export const getProductListingEndpoint = (categoryId: string) =>
+  `/store-api/v1/product-listing/${categoryId}`;
 
 // product
 
@@ -95,9 +96,11 @@ export const getCheckoutPromotionCodeEndpoint = (code: string) =>
 
 export const getContextEndpoint = () => `/sales-channel-api/v1/context`;
 
-export const getContextCurrencyEndpoint = () => `/sales-channel-api/v1/currency`;
+export const getContextCurrencyEndpoint = () =>
+  `/sales-channel-api/v1/currency`;
 
-export const getContextLanguageEndpoint = () => `/sales-channel-api/v1/language`;
+export const getContextLanguageEndpoint = () =>
+  `/sales-channel-api/v1/language`;
 
 export const getContextCountryEndpoint = () => `/sales-channel-api/v1/country`;
 

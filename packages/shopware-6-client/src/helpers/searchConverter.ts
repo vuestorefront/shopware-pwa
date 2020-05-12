@@ -1,4 +1,7 @@
-import { SearchCriteria, ApiType } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import {
+  SearchCriteria,
+  ApiType,
+} from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import {
   NotFilter,
   MultiFilter,
@@ -17,7 +20,7 @@ import { Grouping } from "@shopware-pwa/commons/interfaces/search/Grouping";
  */
 export interface ShopwareParams {
   p?: number; // p for page in store-api
-  page?: number, // for sales-channel-api
+  page?: number; // for sales-channel-api
   limit?: number;
   sort?: string;
   term?: string;

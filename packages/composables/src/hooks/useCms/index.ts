@@ -31,8 +31,16 @@ export const useCms = (): any => {
     if (!searchCriteria.configuration) searchCriteria.configuration = {};
     // Temp solution for consistant page size
     // @TODO: move in some kind of configuration
-    if (!searchCriteria.pagination) searchCriteria.pagination = {};
-    if (!searchCriteria.pagination.limit) searchCriteria.pagination.limit = 10;
+    /* istanbul ignore else */
+    if (!searchCriteria.pagination) {
+      searchCriteria.pagination = {};
+    }
+
+    /* istanbul ignore else */
+    if (!searchCriteria.pagination.limit) {
+      searchCriteria.pagination.limit = 10;
+    }
+
     if (!searchCriteria.configuration.associations)
       searchCriteria.configuration.associations = [];
     searchCriteria.configuration.associations.push({

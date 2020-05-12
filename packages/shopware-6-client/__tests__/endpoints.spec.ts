@@ -54,7 +54,9 @@ describe("endpoints", () => {
   describe("getProductDetailsEndpoint", () => {
     it("should return Shopware product details endpoint", async () => {
       const result = getProductDetailsEndpoint(sampleProductId);
-      expect(result).toEqual("/sales-channel-api/v1/product/" + sampleProductId);
+      expect(result).toEqual(
+        "/sales-channel-api/v1/product/" + sampleProductId
+      );
     });
   });
 

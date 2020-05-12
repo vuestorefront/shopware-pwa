@@ -31,8 +31,7 @@ export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
     fileName: "api-client.js",
     src: path.join(__dirname, "..", "plugins", "api-client.js"),
     options: {
-      shopwareEndpoint:
-        shopwarePwaConfig?.shopwareEndpoint,
+      shopwareEndpoint: shopwarePwaConfig?.shopwareEndpoint,
       shopwareAccessToken: shopwarePwaConfig?.shopwareAccessToken,
     },
   });

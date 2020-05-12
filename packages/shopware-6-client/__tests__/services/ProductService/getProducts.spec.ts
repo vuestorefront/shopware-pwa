@@ -26,13 +26,13 @@ describe("ProductService - getProducts", () => {
     });
     const pagination = {
       page: 1,
-      limit: 5
+      limit: 5,
     };
     await getProducts({ pagination });
     expect(mockedAxios.post).toBeCalledTimes(1);
     expect(mockedAxios.post).toBeCalledWith("/sales-channel-api/v1/product", {
       limit: 5,
-      page: 1
+      page: 1,
     });
   });
   it("should invoke api with limit and sort", async () => {
@@ -52,7 +52,7 @@ describe("ProductService - getProducts", () => {
     expect(mockedAxios.post).toBeCalledWith("/sales-channel-api/v1/product", {
       limit: 75,
       page: 1,
-      sort: "-name"
+      sort: "-name",
     });
   });
 });
