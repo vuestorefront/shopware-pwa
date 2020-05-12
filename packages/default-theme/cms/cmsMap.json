@@ -19,7 +19,9 @@
     "image-text-cover": "CmsBlockImageTextCover",
     "image-three-column": "CmsBlockImageThreeColumn",
     "image-three-cover": "CmsBlockImageThreeCover",
-    "image-two-column": "CmsBlockImageTwoColumn"
+    "image-two-column": "CmsBlockImageTwoColumn",
+    "product-slider": "CmsBlockDefault",
+    "text": "CmsBlockDefault"
   },
   "elements": {
     "product-box": "CmsElementProductCard",
