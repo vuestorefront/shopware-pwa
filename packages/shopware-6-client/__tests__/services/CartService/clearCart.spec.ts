@@ -19,7 +19,9 @@ describe("CartService - clearCart", () => {
 
     const result = await clearCart();
     expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith("/checkout/cart");
+    expect(mockedAxios.post).toBeCalledWith(
+      "/sales-channel-api/v1/checkout/cart"
+    );
     expect(result.contextToken).toEqual(contextToken);
   });
 });

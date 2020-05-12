@@ -1,9 +1,9 @@
 // category
 
-export const getCategoryEndpoint = () => `/category`;
+export const getCategoryEndpoint = () => `/sales-channel-api/v1/category`;
 
 export const getCategoryDetailsEndpoint = (categoryId: string) =>
-  `/category/${categoryId}`;
+  `/sales-channel-api/v1/category/${categoryId}`;
 
 // product-listing
 
@@ -17,7 +17,8 @@ export const getProductEndpoint = () => `/sales-channel-api/v1/product`;
 export const getProductDetailsEndpoint = (productId: string) =>
   `/sales-channel-api/v1/product/${productId}`;
 
-export const getProductsIdsEndpoint = () => `/search-ids/product`;
+export const getProductsIdsEndpoint = () =>
+  `/sales-channel-api/v1/search-ids/product`;
 
 // customer
 
@@ -61,7 +62,7 @@ export const getCustomerLogoutEndpoint = () => `/store-api/v1/account/logout`;
 export const getCustomerOrderEndpoint = () => `/store-api/v1/account/order`;
 
 export const getCustomerOrderDetailsEndpoint = (orderId: string) =>
-  `/checkout/guest-order/${orderId}`;
+  `/sales-channel-api/v1/checkout/guest-order/${orderId}`;
 
 export const getCustomerUpdateEmailEndpoint = () =>
   `/store-api/v1/account/change-email`;
@@ -71,26 +72,29 @@ export const getCustomerUpdatePasswordEndpoint = () =>
 
 // checkout
 
-export const getCheckoutCartEndpoint = () => `/checkout/cart`;
+export const getCheckoutCartEndpoint = () =>
+  `/sales-channel-api/v1/checkout/cart`;
 
 export const getCheckoutCartProductEndpoint = (productId: string) =>
-  `/checkout/cart/product/${productId}`;
+  `/sales-channel-api/v1/checkout/cart/product/${productId}`;
 
 export const getCheckoutCartLineItemEndpoint = (lineItemId: string) =>
-  `/checkout/cart/line-item/${lineItemId}`;
+  `/sales-channel-api/v1/checkout/cart/line-item/${lineItemId}`;
 
-export const getCheckoutOrderEndpoint = () => `/checkout/order`;
+export const getCheckoutOrderEndpoint = () =>
+  `/sales-channel-api/v1/checkout/order`;
 
-export const getCheckoutGuestOrderEndpoint = () => `/checkout/guest-order`;
+export const getCheckoutGuestOrderEndpoint = () =>
+  `/sales-channel-api/v1/checkout/guest-order`;
 
 export const getCheckoutOrderPayEndpoint = (orderId: string) =>
-  `/checkout/order/${orderId}/pay`;
+  `/sales-channel-api/v1/checkout/order/${orderId}/pay`;
 
 export const getCheckoutGuestOrderDetailsEndpoint = (orderId: string) =>
-  `/checkout/guest-order/${orderId}`;
+  `/sales-channel-api/v1/checkout/guest-order/${orderId}`;
 
 export const getCheckoutPromotionCodeEndpoint = (code: string) =>
-  `/checkout/cart/code/${code}`;
+  `/sales-channel-api/v1/checkout/cart/code/${code}`;
 
 // context
 
@@ -105,11 +109,13 @@ export const getContextLanguageEndpoint = () =>
 export const getContextCountryEndpoint = () => `/sales-channel-api/v1/country`;
 
 export const getContextCountryItemEndpoint = (countryId: string): string =>
-  `/country/${countryId}`;
+  `/sales-channel-api/v1/country/${countryId}`;
 
-export const getContextPaymentMethodEndpoint = () => `/payment-method`;
+export const getContextPaymentMethodEndpoint = () =>
+  `/sales-channel-api/v1/payment-method`;
 
-export const getContextShippingMethodEndpoint = () => `/shipping-method`;
+export const getContextShippingMethodEndpoint = () =>
+  `/sales-channel-api/v1/shipping-method`;
 
 export const getContextSalutationEndpoint = () => `/store-api/v1/salutation`;
 
@@ -126,4 +132,4 @@ export const getNewsletterUnsubscribeEndpoint = () => `/newsletter/unsubscribe`;
 export const getPageResolverEndpoint = () => `/store-api/v1/pwa/page`;
 export const getNavigationEndpoint = () => `/store-api/v1/pwa/navigation`;
 export const getOrderPaymentUrlEndpoint = (orderId: string): string =>
-  `/checkout/order/${orderId}/pay`;
+  `/sales-channel-api/v1/checkout/order/${orderId}/pay`;
