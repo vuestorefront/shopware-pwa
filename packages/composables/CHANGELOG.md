@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.5](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/composables@0.1.0-alpha.4...@shopware-pwa/composables@0.1.0-alpha.5) (2020-05-08)
+
+
+### Bug Fixes
+
+* **cli:** dependency for require package ([#569](https://github.com/DivanteLtd/shopware-pwa/issues/569)) ([59b4788](https://github.com/DivanteLtd/shopware-pwa/commit/59b4788a020316900071ac1b711f45ca574fae04))
+* **theme:** in My addresses edit address does not work ([#452](https://github.com/DivanteLtd/shopware-pwa/issues/452)) ([de217da](https://github.com/DivanteLtd/shopware-pwa/commit/de217daeb51b7de68b3ef6c27a96fefaf32fe509))
+
+
+### Features
+
+* **composables:** add logic for checkout and sessionContext ([#594](https://github.com/DivanteLtd/shopware-pwa/issues/594)) ([5e2172b](https://github.com/DivanteLtd/shopware-pwa/commit/5e2172b5dceca09753944bbc75c6d01b9089b62a))
+* 605 order summary details ([#615](https://github.com/DivanteLtd/shopware-pwa/issues/615)) ([d5d8c7d](https://github.com/DivanteLtd/shopware-pwa/commit/d5d8c7d6086fd4fb5bfe761ca43a35c2c2d55012))
+* add MegaMenu component ([#593](https://github.com/DivanteLtd/shopware-pwa/issues/593)) ([f6167d5](https://github.com/DivanteLtd/shopware-pwa/commit/f6167d5a1246745b0bf100b006dcfc44a064c9e1))
+* basic payment integration with paypal ([#709](https://github.com/DivanteLtd/shopware-pwa/issues/709)) ([6d55292](https://github.com/DivanteLtd/shopware-pwa/commit/6d552925b19900fdf3c10fc3e610406741add9f7))
+* currency switch [#580](https://github.com/DivanteLtd/shopware-pwa/issues/580) ([#598](https://github.com/DivanteLtd/shopware-pwa/issues/598)) ([e34a9c1](https://github.com/DivanteLtd/shopware-pwa/commit/e34a9c1033056ffbcf05187e7a9c49de1571d288))
+* deploying canary - support ([#662](https://github.com/DivanteLtd/shopware-pwa/issues/662)) ([9e7e693](https://github.com/DivanteLtd/shopware-pwa/commit/9e7e693b6654c01416fef6aa8a037ef863ba8fee))
+* guest order with steps ([#600](https://github.com/DivanteLtd/shopware-pwa/issues/600)) ([1c77b1f](https://github.com/DivanteLtd/shopware-pwa/commit/1c77b1f9657a2c0dfccf7fb73da6c3c920e0f909))
+
+
+
+
+
 # [0.1.0-alpha.4](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/composables@0.1.0-alpha.3...@shopware-pwa/composables@0.1.0-alpha.4) (2020-03-27)
 
 

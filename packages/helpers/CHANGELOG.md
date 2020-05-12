@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.5](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/helpers@0.1.0-alpha.4...@shopware-pwa/helpers@0.1.0-alpha.5) (2020-05-08)
+
+
+### Bug Fixes
+
+* **cli:** dependency for require package ([#569](https://github.com/DivanteLtd/shopware-pwa/issues/569)) ([59b4788](https://github.com/DivanteLtd/shopware-pwa/commit/59b4788a020316900071ac1b711f45ca574fae04))
+
+
+### Features
+
+* add MegaMenu component ([#593](https://github.com/DivanteLtd/shopware-pwa/issues/593)) ([f6167d5](https://github.com/DivanteLtd/shopware-pwa/commit/f6167d5a1246745b0bf100b006dcfc44a064c9e1))
+* currency switch [#580](https://github.com/DivanteLtd/shopware-pwa/issues/580) ([#598](https://github.com/DivanteLtd/shopware-pwa/issues/598)) ([e34a9c1](https://github.com/DivanteLtd/shopware-pwa/commit/e34a9c1033056ffbcf05187e7a9c49de1571d288))
+
+
+
+
+
 # [0.1.0-alpha.4](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/helpers@0.1.0-alpha.3...@shopware-pwa/helpers@0.1.0-alpha.4) (2020-03-27)
 
 
