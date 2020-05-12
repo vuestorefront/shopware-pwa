@@ -231,11 +231,21 @@ export default {
       }
     }
   }
+
+  .sw-header__icons {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 1rem;
+
+    .sw-header__icon {
+      margin: 0 10px;
+    }
+  }
 }
 .top-bar {
   padding: 0 var(--spacer-sm);
   position: relative;
-  z-index: 1;
+  z-index: 3;
   &__location-label {
     margin: 0 var(--spacer-sm) 0 0;
   }

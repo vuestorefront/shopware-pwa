@@ -72,6 +72,7 @@ export default {
     --select-margin: 0;
     --chevron-size: 0;
     --select-option-font-size: var(--font-base);
+    --select-selected-padding: .5rem;
     cursor: pointer;
   }
 }
