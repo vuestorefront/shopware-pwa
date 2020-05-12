@@ -1,3 +1,20 @@
+# [0.1.0-alpha.8](https://github.com/DivanteLtd/shopware-pwa/compare/v0.1.0-alpha.7...v0.1.0-alpha.8) (2020-05-12)
+
+
+### Bug Fixes
+
+* **cli:** build script problems with copy-templates ([#732](https://github.com/DivanteLtd/shopware-pwa/issues/732)) ([1b67a0b](https://github.com/DivanteLtd/shopware-pwa/commit/1b67a0bf0ff4c6b6b7367e3cac4f4edbf122daca))
+* **default-theme:** mega menu appearance ([#731](https://github.com/DivanteLtd/shopware-pwa/issues/731)) ([dfb4200](https://github.com/DivanteLtd/shopware-pwa/commit/dfb4200f59c15e931578248d4d362dc49d6ab5d3))
+* **workflow:** gh action - deploy stable version ([#729](https://github.com/DivanteLtd/shopware-pwa/issues/729)) ([c6cc7aa](https://github.com/DivanteLtd/shopware-pwa/commit/c6cc7aa7a1582f37b8d1b7e73235796df2ebf8c3))
+
+
+### Features
+
+* **cms:** add support for product-slider and text blocks ([#733](https://github.com/DivanteLtd/shopware-pwa/issues/733)) ([42897c0](https://github.com/DivanteLtd/shopware-pwa/commit/42897c01709f847f6394db6e6a51f6517a7a2cea))
+* **default-theme:** update SFUI version to 0.7.10 ([#734](https://github.com/DivanteLtd/shopware-pwa/issues/734)) ([2ed38b5](https://github.com/DivanteLtd/shopware-pwa/commit/2ed38b5454791344afe30ae4214aa0826b159950))
+
+
+
 # [0.1.0-alpha.7](https://github.com/DivanteLtd/shopware-pwa/compare/v0.1.0-alpha.6...v0.1.0-alpha.7) (2020-05-11)
 
 
