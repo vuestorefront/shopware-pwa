@@ -1,6 +1,6 @@
 <template>
   <div class="top-navigation">
-    <SfOverlay :visible="!!currentCategoryName" />
+    <SfOverlay :visible="!!currentCategoryName" class="sw-overlay"/>
     <SfTopBar class="top-bar desktop-only">
       <template #right>
         <SwCurrency class="sf-header__currency" />
@@ -14,6 +14,7 @@
     </SfTopBar>
     <SfHeader
       title="Shopware-PWA"
+      class="sw-header"
       :has-mobile-search="false"
       :is-sticky="false"
       :cart-items-qty="count.toString()"
@@ -183,7 +184,11 @@ export default {
   --search-bar-width: 100%;
   --header-container-padding: 0 var(--spacer-base);
   --header-navigation-item-margin: 0 1rem 0 0;
+  position: relative;
   margin-bottom: var(--spacer-sm);
+  .sw-overlay {
+    --overlay-z-index: 1;
+  }
   .sf-header {
     // padding: 0 var(--spacer-sm);
     &__currency {
@@ -240,6 +245,8 @@ export default {
   height: 2rem;
 }
 .sw-header {
+  z-index: 2;
+  background-color: #fff;
   &__icons {
     display: flex;
   }
