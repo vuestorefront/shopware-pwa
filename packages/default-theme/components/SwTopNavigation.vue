@@ -184,7 +184,6 @@ export default {
   --search-bar-width: 100%;
   --header-container-padding: 0 var(--spacer-base);
   --header-navigation-item-margin: 0 1rem 0 0;
-  position: relative;
   margin-bottom: var(--spacer-sm);
   .sw-overlay {
     --overlay-z-index: 1;
