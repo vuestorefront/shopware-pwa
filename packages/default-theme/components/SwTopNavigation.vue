@@ -231,6 +231,16 @@ export default {
       }
     }
   }
+
+  .sw-header__icons {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 1rem;
+
+    .sw-header__icon {
+      margin: 0 10px;
+    }
+  }
 }
 .top-bar {
   padding: 0 var(--spacer-sm);
