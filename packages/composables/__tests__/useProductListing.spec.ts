@@ -146,7 +146,7 @@ describe("Composables - useProductListing", () => {
 
     //
     it("should return default total and empty product listing when page resolver fails", async () => {
-      mockedGetPage.getListingProducts.mockResolvedValueOnce({} as any);
+      mockedGetPage.getCategoryProductsListing.mockResolvedValueOnce({} as any);
 
       const { products, search, pagination } = useProductListing();
       search();
@@ -159,7 +159,7 @@ describe("Composables - useProductListing", () => {
     });
 
     it("should return products if exist", async () => {
-      mockedGetPage.getListingProducts.mockResolvedValueOnce({
+      mockedGetPage.getCategoryProductsListing.mockResolvedValueOnce({
         elements: [
           {
             id: "123456",

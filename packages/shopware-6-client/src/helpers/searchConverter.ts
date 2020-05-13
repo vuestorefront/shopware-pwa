@@ -1,7 +1,4 @@
-import {
-  SearchCriteria,
-  ApiType,
-} from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import {
   NotFilter,
   MultiFilter,
@@ -14,6 +11,11 @@ import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Paginat
 import { config } from "@shopware-pwa/shopware-6-client";
 import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Association";
 import { Grouping } from "@shopware-pwa/commons/interfaces/search/Grouping";
+
+export enum ApiType {
+  store = "store-api",
+  salesChannel = "sales-channel-api",
+}
 
 /**
  * @alpha
@@ -36,7 +38,8 @@ export interface ShopwareParams {
 }
 
 export const convertSearchCriteria = (
-  searchCriteria?: SearchCriteria
+  searchCriteria?: SearchCriteria,
+  apiType?: ApiType
 ): ShopwareParams => {
   let params: ShopwareParams = {};
 
@@ -49,7 +52,7 @@ export const convertSearchCriteria = (
       params.limit = limit;
     if (page) {
       // exception for store-api
-      if (searchCriteria.apiType && searchCriteria.apiType === ApiType.store) {
+      if (apiType && apiType === ApiType.store) {
         // store-api accepts p as page query param (not page for some reason)
         params.p = page;
       } else {
@@ -61,7 +64,7 @@ export const convertSearchCriteria = (
 
   if (sort) {
     // exception for store-api
-    if (searchCriteria.apiType && searchCriteria.apiType === ApiType.store) {
+    if (apiType && apiType === ApiType.store) {
       let order = sort.desc ? "desc" : "asc";
       params.sort = `${sort.field}-${order}`;
     } else {

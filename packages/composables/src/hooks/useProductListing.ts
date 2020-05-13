@@ -5,7 +5,7 @@ import {
   EqualsAnyFilter,
   ContainsFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
-import { getListingProducts } from "@shopware-pwa/shopware-6-client";
+import { getCategoryProductsListing } from "@shopware-pwa/shopware-6-client";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
 import {
   Sort,
@@ -60,7 +60,7 @@ export const useProductListing = (
   const localCriteria = reactive(selectedCriteria);
   const localPagination = reactive(sharedPagination);
 
-  sharedListing.products = (initialListing && initialListing.elements) || [];
+  sharedListing.products = initialListing?.elements || [];
   selectedCriteria.sorting = activeSorting.value;
 
   const resetFilters = () => {
@@ -74,12 +74,9 @@ export const useProductListing = (
   const setupPagination = () => {
     if (
       !initialListing ||
-      !initialListing.total ||
-      isNaN(initialListing.total) ||
-      !initialListing.page ||
-      isNaN(initialListing.page) ||
-      !initialListing.limit ||
-      isNaN(initialListing.limit)
+      isNaN(initialListing?.total as any) ||
+      isNaN(initialListing?.page as any) ||
+      isNaN(initialListing?.limit as any)
     ) {
       return;
     }
@@ -148,10 +145,12 @@ export const useProductListing = (
     //if (typeof history !== "undefined")
     //history.replaceState({}, null as any, location.pathname + "?" + search);
 
-    const result = await getListingProducts(categoryId.value, searchCriteria);
+    const result = await getCategoryProductsListing(
+      categoryId.value,
+      searchCriteria
+    );
     sharedPagination.total = (result && result.total) || 0;
-    sharedListing.products =
-      (result && result.elements && [...result.elements]) || [];
+    sharedListing.products = result?.elements || [];
     loading.value = false;
   };
 
@@ -165,13 +164,11 @@ export const useProductListing = (
       page,
     };
 
-    try {
-      await search();
-    } catch (e) {}
+    await search();
   };
 
   // if reloaded on route change
-  if (initialListing && initialListing.elements) {
+  if (initialListing?.elements?.length) {
     resetFilters();
     resetSorting();
     setupPagination();

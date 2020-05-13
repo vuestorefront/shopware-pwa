@@ -1,4 +1,7 @@
-import { convertSearchCriteria } from "../../src/helpers/searchConverter";
+import {
+  convertSearchCriteria,
+  ApiType,
+} from "../../src/helpers/searchConverter";
 import {
   SearchFilterType,
   EqualsFilter,
@@ -7,7 +10,6 @@ import {
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
 import { config, setup, update } from "@shopware-pwa/shopware-6-client";
-import { ApiType } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 describe("SearchConverter - convertSearchCriteria", () => {
   beforeEach(() => {
@@ -19,10 +21,12 @@ describe("SearchConverter - convertSearchCriteria", () => {
   });
   describe("pagination", () => {
     it("should use p param for pagination if apiType is set to 'store'", () => {
-      const result = convertSearchCriteria({
-        apiType: ApiType.store,
-        pagination: { page: PaginationLimit.ONE },
-      });
+      const result = convertSearchCriteria(
+        {
+          pagination: { page: PaginationLimit.ONE },
+        },
+        ApiType.store
+      );
       expect(result?.p).toEqual(1);
       expect(result?.limit).toEqual(config.defaultPaginationLimit);
     });
@@ -66,27 +70,31 @@ describe("SearchConverter - convertSearchCriteria", () => {
   });
   describe("sorting", () => {
     it("should have pagination and sort params in specific format if apiType is set to 'store'", () => {
-      const paramsObject = convertSearchCriteria({
-        apiType: ApiType.store,
-        pagination: { page: 1 },
-        sort: {
-          desc: true,
-          field: "name",
+      const paramsObject = convertSearchCriteria(
+        {
+          pagination: { page: 1 },
+          sort: {
+            desc: true,
+            field: "name",
+          },
+          filters: [],
         },
-        filters: [],
-      });
+        ApiType.store
+      );
       expect(paramsObject?.p).toEqual(1);
       expect(paramsObject?.limit).toEqual(config.defaultPaginationLimit);
       expect(paramsObject?.sort).toEqual("name-desc");
     });
     it("should have sorting param in specific format if apiType is set to 'store' - default ascending", () => {
-      const paramsObject = convertSearchCriteria({
-        apiType: ApiType.store,
-        sort: {
-          field: "name",
+      const paramsObject = convertSearchCriteria(
+        {
+          sort: {
+            field: "name",
+          },
+          filters: [],
         },
-        filters: [],
-      });
+        ApiType.store
+      );
       expect(paramsObject?.sort).toEqual("name-asc");
     });
     it("should have pagination and sort params", () => {

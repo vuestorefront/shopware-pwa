@@ -87,9 +87,8 @@ export async function getCustomer(): Promise<Customer | null> {
     );
     return resp.data;
   } catch (e) {
-    console.error(e);
     if (e.statusCode === 403) return null;
-    throw new Error("Unexpected getCustomerResponse.");
+    throw new Error("Unexpected getCustomerResponse. " + e);
   }
 }
 
@@ -112,7 +111,7 @@ export async function getCustomerAddresses(): Promise<CustomerAddress[]> {
  */
 export async function getCustomerOrders(): Promise<Order[]> {
   const resp = await apiService.get(getCustomerOrderEndpoint());
-  return resp.data.elements;
+  return resp.data.elements || [];
 }
 
 /**
