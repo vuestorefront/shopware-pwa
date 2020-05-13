@@ -31,7 +31,7 @@ Next, we have to define a node environment for our Heroku app. We can do that by
   "name": "shopware-pwa-project",
   "version": "1.0.0",
   "engines": {
-    "node": "10.18.x",
+    "node": "12.x",
     "yarn": "1.22.x"
   },
   ...
@@ -57,17 +57,6 @@ Make sure, the `@shopware-pwa/cli` version matches the version you've used to cr
 ```
 
 This will build our application with shopware-pwa init in CI mode (so it doesn't ask for setup options) and then build the Nuxt application.
-
-## Host and port setting
-
-Since Heroku injects the used host and port of your Dyno as the `HOST` and `PORT` environment variables, we have to use those. We can adapt our `nuxt.config.js` to use those variables if they're set as follows within the `server` configuration:
-
-```js
-  server: {
-    port: process.env.PORT || 3000,
-    host: process.env.HOST || '0.0.0.0'
-  },
-```
 
 ## Deploy
 
