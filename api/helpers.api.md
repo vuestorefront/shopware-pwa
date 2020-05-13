@@ -126,7 +126,7 @@ export function getProductProperties({ product, }?: {
 // @alpha (undocumented)
 export function getProductRegularPrice({ product, }?: {
     product?: Product;
-}): number;
+}): number | undefined;
 
 // @alpha (undocumented)
 export function getProductReviews({ product, }?: {
@@ -134,7 +134,7 @@ export function getProductReviews({ product, }?: {
 }): UiProductReview[];
 
 // @alpha (undocumented)
-export function getProductSpecialPrice(product: Product): number;
+export function getProductSpecialPrice(product: Product): number | undefined;
 
 // @alpha (undocumented)
 export function getProductUrl(product: Product | null): string;
