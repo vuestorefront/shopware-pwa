@@ -23,7 +23,7 @@ export enum ApiType {
  */
 export interface ShopwareParams {
   p?: number; // p for page in store-api
-  page?: number; // for sales-channel-api
+  page?: number;
   limit?: number;
   sort?: string;
   term?: string;
@@ -36,6 +36,8 @@ export interface ShopwareParams {
   )[];
   associations?: ShopwareAssociation;
   grouping?: Grouping;
+  properties?: string; // store-api filters
+  manufacturer?: string; // store-api filters
 }
 
 export const convertSearchCriteria = (
