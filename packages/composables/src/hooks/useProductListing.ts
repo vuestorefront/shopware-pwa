@@ -151,6 +151,7 @@ export const useProductListing = (
     );
     sharedPagination.total = (result && result.total) || 0;
     sharedListing.products = result?.elements || [];
+    initialListing = undefined;
     loading.value = false;
   };
 
@@ -168,7 +169,7 @@ export const useProductListing = (
   };
 
   // if reloaded on route change
-  if (initialListing?.elements?.length) {
+  if (initialListing) {
     resetFilters();
     resetSorting();
     setupPagination();

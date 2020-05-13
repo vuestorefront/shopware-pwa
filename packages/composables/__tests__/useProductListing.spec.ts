@@ -212,10 +212,7 @@ describe("Composables - useProductListing", () => {
 
     it("should not change pagination state to privided one once a useProductListing argument is passed hasn't any required fields", async () => {
       const { pagination } = useProductListing({
-        // page: undefined,
-        // total: undefined,
-        // limit: undefined,
-        elements: [{ id: "123456" }],
+        page: undefined
       } as any);
 
       expect(pagination.value).toStrictEqual({
