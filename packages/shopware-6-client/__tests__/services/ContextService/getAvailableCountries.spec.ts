@@ -13,7 +13,7 @@ describe("ContextService - getAvailableCountries", () => {
 
     const result = await getAvailableCountries();
     expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith("/country");
+    expect(mockedAxios.get).toBeCalledWith("/sales-channel-api/v1/country");
     expect(result.total).toEqual(2);
   });
 });

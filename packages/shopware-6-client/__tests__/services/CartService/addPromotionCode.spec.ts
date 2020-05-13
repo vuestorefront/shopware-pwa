@@ -34,7 +34,7 @@ describe("CartService - addPromotionCode", () => {
     const result = await addPromotionCode(promotionCode);
     expect(mockedAxios.post).toBeCalledTimes(1);
     expect(mockedAxios.post).toBeCalledWith(
-      `/checkout/cart/code/3a64e872ca404522a2c5d43ebc751e6b`
+      `/sales-channel-api/v1/checkout/cart/code/3a64e872ca404522a2c5d43ebc751e6b`
     );
     expect(result.price.netPrice).toEqual(150);
   });
@@ -46,6 +46,8 @@ describe("CartService - addPromotionCode", () => {
 
     expect(addPromotionCode(promotionCode)).rejects.toThrow("404: Not Found");
     expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith("/checkout/cart/code/");
+    expect(mockedAxios.post).toBeCalledWith(
+      "/sales-channel-api/v1/checkout/cart/code/"
+    );
   });
 });

@@ -23,7 +23,7 @@ describe("ContextService - setCurrentBillingAddress with contextToken given", ()
     const result = await setCurrentBillingAddress(newBillingAddressId);
 
     expect(mockedAxios.patch).toBeCalledTimes(1);
-    expect(mockedAxios.patch).toBeCalledWith("/context", {
+    expect(mockedAxios.patch).toBeCalledWith("/sales-channel-api/v1/context", {
       billingAddressId: "45f96f681f9d4834b29e9e15df3a7149",
     });
 
@@ -46,7 +46,7 @@ describe("ContextService - setCurrentBillingAddress without contextToken given",
 
     const result = await setCurrentBillingAddress(newBillingAddressId);
     expect(mockedAxios.patch).toBeCalledTimes(1);
-    expect(mockedAxios.patch).toBeCalledWith("/context", {
+    expect(mockedAxios.patch).toBeCalledWith("/sales-channel-api/v1/context", {
       billingAddressId: "45f96f681f9d4834b29e9e15df3a7149",
     });
 

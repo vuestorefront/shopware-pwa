@@ -49,13 +49,13 @@ export default {
     },
   },
   setup({ content }) {
-    const propProducts = content.data.listing || []
+    const listing = content.data.listing || []
     const {
       products,
       changePagination,
       pagination,
       loading,
-    } = useProductListing(propProducts)
+    } = useProductListing(listing)
 
     const changedPage = async (pageNumber) => {
       await changePagination(pageNumber)
