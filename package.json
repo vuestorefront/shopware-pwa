@@ -21,7 +21,7 @@
     "build": "node scripts/build.js",
     "postinstall": "node scripts/linkDependencies.js && lerna link",
     "lint": "prettier --write --parser typescript \"packages/**/*.ts\"",
-    "test": "jest --runInBand",
+    "test": "jest",
     "test:e2e": "jest --e2e=true --runInBand",
     "test:cypress": "cypress run",
     "test:coverage": "yarn test --coverage",
