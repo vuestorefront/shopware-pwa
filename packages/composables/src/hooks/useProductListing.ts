@@ -14,7 +14,7 @@ import {
 import {
   getFilterSearchCriteria,
   getSortingSearchCriteria,
-  //exportUrlQuery,
+  exportUrlQuery,
 } from "@shopware-pwa/helpers";
 import { useCms } from "./useCms";
 import { useCategoryFilters } from "./useCategoryFilters";
@@ -140,10 +140,10 @@ export const useProductListing = (
       },
     };
 
-    //const search = exportUrlQuery(searchCriteria);
+    const search = exportUrlQuery(searchCriteria);
     /* istanbul ignore next */
-    //if (typeof history !== "undefined")
-    //history.replaceState({}, null as any, location.pathname + "?" + search);
+    if (typeof history !== "undefined")
+    history.replaceState({}, null as any, location.pathname + "?" + search);
 
     const result = await getCategoryProductsListing(
       categoryId.value,
