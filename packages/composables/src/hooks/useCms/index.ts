@@ -30,7 +30,7 @@ export const useCms = (): any => {
     // Temp Maciej solution for associations
     if (!searchCriteria.configuration) searchCriteria.configuration = {};
     // Temp solution for consistant page size
-    // @TODO: move in some kind of configuration
+    // @TODO: https://github.com/DivanteLtd/shopware-pwa/issues/739
     /* istanbul ignore else */
     if (!searchCriteria.pagination) {
       searchCriteria.pagination = {};
