@@ -14,8 +14,8 @@ describe("SearchConverter - convertToStoreApiFilters", () => {
   it("should return empty object if any filter does not match", () => {
     const result = convertToStoreApiFilters([
       {
-        field: "test"
-      } as any
+        field: "test",
+      } as any,
     ]);
     expect(result).toEqual({});
   });
@@ -23,11 +23,11 @@ describe("SearchConverter - convertToStoreApiFilters", () => {
     const result = convertToStoreApiFilters([
       {
         field: "manufacturerId",
-        value: ["divante", "shopware"]
-      } as any
+        value: ["divante", "shopware"],
+      } as any,
     ]);
     expect(result).toEqual({
-      "manufacturer": "divante|shopware",
+      manufacturer: "divante|shopware",
     });
   });
   it("should return object with properties property if multi filter containing propertyIds exists", () => {
@@ -37,13 +37,13 @@ describe("SearchConverter - convertToStoreApiFilters", () => {
         queries: [
           {
             field: "propertyIds",
-            value: ["white", "black", "xs", "l"]
-          }
-        ]
-      } as any
+            value: ["white", "black", "xs", "l"],
+          },
+        ],
+      } as any,
     ]);
     expect(result).toEqual({
-      "properties": "white|black|xs|l",
+      properties: "white|black|xs|l",
     });
   });
 });

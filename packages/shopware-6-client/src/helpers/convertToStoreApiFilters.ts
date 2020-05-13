@@ -3,8 +3,9 @@ import {
   SearchFilterType,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 
-const concatIds = (ids: string[]) => ids.join("|")
-const isFilterForProperty = (property: string, filter: any) => (filter.hasOwnProperty('field') && filter.field === property)
+const concatIds = (ids: string[]) => ids.join("|");
+const isFilterForProperty = (property: string, filter: any) =>
+  filter.hasOwnProperty("field") && filter.field === property;
 
 interface StoreApiListingFilters {
   manufacturer?: string;
@@ -20,7 +21,6 @@ interface GenericFilter extends SearchFilter {
   queries?: GenericFilter[];
 }
 
-
 export function convertToStoreApiFilters(
   filters: Array<GenericFilter>
 ): StoreApiListingFilters {
@@ -31,19 +31,18 @@ export function convertToStoreApiFilters(
   }
 
   for (const filter of filters) {
-
     if (isFilterForProperty("manufacturerId", filter) && filter.value) {
-      params.manufacturer = concatIds(filter.value)
+      params.manufacturer = concatIds(filter.value);
     }
     if (filter.type === SearchFilterType.MULTI && filter.queries) {
-      for(const subFilter of filter.queries) {
+      for (const subFilter of filter.queries) {
         /* istanbul ignore else */
         if (isFilterForProperty("propertyIds", subFilter)) {
-          params.properties = concatIds(subFilter.value as any)
+          params.properties = concatIds(subFilter.value as any);
         }
       }
     }
   }
 
   return params;
-};
+}

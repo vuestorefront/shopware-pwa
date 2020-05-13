@@ -240,7 +240,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
 
         const result = convertSearchCriteria(
           {
-            filters: [nameFilter]
+            filters: [nameFilter],
           },
           ApiType.store
         );
