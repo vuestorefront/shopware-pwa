@@ -5,6 +5,6 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
  */
 export function getProductRegularPrice({
   product,
-}: { product?: Product } = {}): number {
-  return product?.price?.[0]?.gross || 0;
+}: { product?: Product } = {}): number | undefined {
+  return product?.price?.[0]?.gross;
 }
