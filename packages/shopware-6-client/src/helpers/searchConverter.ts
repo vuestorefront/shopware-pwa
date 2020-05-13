@@ -11,6 +11,7 @@ import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Paginat
 import { config } from "@shopware-pwa/shopware-6-client";
 import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Association";
 import { Grouping } from "@shopware-pwa/commons/interfaces/search/Grouping";
+import { convertToStoreApiFilters } from "../helpers/convertToStoreApiFilters"
 
 export enum ApiType {
   store = "store-api",
@@ -74,7 +75,12 @@ export const convertSearchCriteria = (
   }
 
   if (filters && filters.length) {
-    params.filter = filters;
+    // append filters in store-api style using convertToStoreApiFilters
+    if (apiType && apiType === ApiType.store) {
+      params = Object.assign({}, params, convertToStoreApiFilters(filters as any));
+    } else {
+      params.filter = filters;
+    }
   }
 
   if (configuration && configuration.associations) {
