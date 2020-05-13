@@ -31,11 +31,13 @@ export function convertToStoreApiFilters(
   }
 
   for (const filter of filters) {
+
     if (isFilterForProperty("manufacturerId", filter) && filter.value) {
       params.manufacturer = concatIds(filter.value)
     }
     if (filter.type === SearchFilterType.MULTI && filter.queries) {
       for(const subFilter of filter.queries) {
+        /* istanbul ignore else */
         if (isFilterForProperty("propertyIds", subFilter)) {
           params.properties = concatIds(subFilter.value as any)
         }

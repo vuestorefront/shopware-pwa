@@ -79,6 +79,7 @@ export const convertSearchCriteria = (
   if (filters && filters.length) {
     // append filters in store-api style using convertToStoreApiFilters
     if (apiType && apiType === ApiType.store) {
+      
       params = Object.assign({}, params, convertToStoreApiFilters(filters as any));
     } else {
       params.filter = filters;
