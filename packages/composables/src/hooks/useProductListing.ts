@@ -74,9 +74,9 @@ export const useProductListing = (
   const setupPagination = () => {
     if (
       !initialListing ||
-      isNaN(initialListing?.total as any) ||
-      isNaN(initialListing?.page as any) ||
-      isNaN(initialListing?.limit as any)
+      isNaN(initialListing.total as any) ||
+      isNaN(initialListing.page as any) ||
+      isNaN(initialListing.limit as any)
     ) {
       return;
     }
@@ -143,7 +143,7 @@ export const useProductListing = (
     const search = exportUrlQuery(searchCriteria);
     /* istanbul ignore next */
     if (typeof history !== "undefined")
-    history.replaceState({}, null as any, location.pathname + "?" + search);
+      history.replaceState({}, null as any, location.pathname + "?" + search);
 
     const result = await getCategoryProductsListing(
       categoryId.value,

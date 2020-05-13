@@ -152,6 +152,9 @@ export function getCategories(searchCriteria?: SearchCriteria): Promise<SearchRe
 // @alpha (undocumented)
 export function getCategory(categoryId: string): Promise<Category>;
 
+// @alpha
+export const getCategoryProductsListing: (categoryId: string, searchCriteria?: SearchCriteria | undefined) => Promise<ProductListingResult>;
+
 // @beta
 export function getCustomer(): Promise<Customer | null>;
 
@@ -166,9 +169,6 @@ export function getCustomerOrderDetails(orderId: string): Promise<Order>;
 
 // @beta
 export function getCustomerOrders(): Promise<Order[]>;
-
-// @alpha
-export const getListingProducts: (categoryId: string, searchCriteria?: SearchCriteria | undefined) => Promise<ProductListingResult>;
 
 // @alpha (undocumented)
 export function getNavigation(params: GetNavigationParams): Promise<NavigationResponse>;
