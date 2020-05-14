@@ -18,7 +18,10 @@
               :key="route.routeLabel"
               :value="route"
             >
-              <nuxt-link class="sf-header__link" :to="route.routePath">
+              <nuxt-link
+                class="sf-header__link"
+                :to="$i18n.path(route.routePath)"
+              >
                 <SfProductOption :value="route" :label="route.routeLabel" />
               </nuxt-link>
             </SfSelectOption>
@@ -92,7 +95,11 @@ export default {
     const { isLoggedIn } = useUser()
 
     onMounted(async () => {
-      await fetchRoutes()
+      try {
+        await fetchRoutes()
+      } catch (e) {
+        console.error('[SwBottomNavigation]', e)
+      }
     })
     return {
       isLoggedIn,
@@ -104,13 +111,13 @@ export default {
   },
   watch: {
     currentRoute(nextRoute) {
-      this.$router.push(nextRoute.routeLabel)
+      this.$router.push(this.$i18n.path(nextRoute.routeLabel))
     },
   },
   methods: {
     userIconClick() {
       if (this.isLoggedIn) {
-        this.$router.push(PAGE_ACCOUNT)
+        this.$router.push(this.$i18n.path(PAGE_ACCOUNT))
         return
       }
       this.toggleModal()

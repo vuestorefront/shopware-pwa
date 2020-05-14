@@ -42,10 +42,10 @@ export default {
   },
   methods: {
     changeAddress() {
-      this.$router.push('addresses/add')
+      this.$router.push(this.$i18n.path('addresses/add'))
     },
     editAddress(addressId) {
-      this.$router.push(`addresses/add/${addressId}`)
+      this.$router.push(this.$i18n.path(`addresses/add/${addressId}`))
     },
   },
   watch: {

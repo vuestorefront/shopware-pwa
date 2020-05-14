@@ -74,7 +74,7 @@ module.exports = {
     ];
     const coreDevPackages = ["@shopware-pwa/cli"];
 
-    const npmPackages = ["@vue-storefront/nuxt"];
+    const npmPackages = ["@vue-storefront/nuxt", "vue-i18n"];
 
     const npmDevPackages = ["fs-jetpack", "cookie-universal", "husky"];
 

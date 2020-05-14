@@ -52,6 +52,13 @@ export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
     options: moduleOptions,
   });
 
+  moduleObject.addPlugin({
+    src: path.join(__dirname, "..", "plugins", "i18n.js"),
+    fileName: "i18n.js",
+    options: moduleOptions,
+  });
+  moduleObject.options.router.middleware.push("i18n");
+
   moduleObject.extendBuild((config: WebpackConfig) => {
     const swPluginsDirectory = path.join(
       moduleObject.options.rootDir,
