@@ -22,6 +22,7 @@ import {
   ContextTokenResponse,
   SessionContext,
 } from "@shopware-pwa/commons/interfaces/response/SessionContext";
+import { extractContextToken } from "../helpers/context";
 
 /**
  * @throws ClientApiError
@@ -31,7 +32,7 @@ async function updateContext(
   params: UpdateContextParams
 ): Promise<ContextTokenResponse> {
   const resp = await apiService.patch(getContextEndpoint(), params);
-  const contextToken = resp.data["sw-context-token"];
+  const contextToken = extractContextToken(resp);
   return { contextToken };
 }
 

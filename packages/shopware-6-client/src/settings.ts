@@ -10,7 +10,7 @@ export interface ClientSettings {
 }
 
 const defaultConfig: ClientSettings = {
-  endpoint: "https://shopware-2.vuestorefront.io/sales-channel-api/v1",
+  endpoint: "https://shopware-2.vuestorefront.io",
   accessToken: "SWSCTXJOZMQWCXA4OUTNZ0REYG",
   contextToken: "",
   defaultPaginationLimit: 10,

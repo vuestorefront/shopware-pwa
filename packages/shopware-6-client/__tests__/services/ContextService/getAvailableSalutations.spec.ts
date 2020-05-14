@@ -13,7 +13,7 @@ describe("ContextService - getAvailableSalutations", () => {
 
     const result = await getAvailableSalutations();
     expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith("/salutation");
+    expect(mockedAxios.get).toBeCalledWith("/store-api/v1/salutation");
     expect(result.total).toEqual(2);
   });
 });

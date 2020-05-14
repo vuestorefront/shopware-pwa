@@ -2,6 +2,8 @@ import {
   getCustomerEndpoint,
   getCustomerAddressEndpoint,
   getCustomerUpdateEmailEndpoint,
+  getCustomerRegisterEndpoint,
+  getCustomerDetailsUpdateEndpoint,
   getCustomerUpdatePasswordEndpoint,
   getCustomerDefaultBillingAddressEndpoint,
   getCustomerDefaultShippingAddressEndpoint,
@@ -33,7 +35,7 @@ export interface CustomerRegisterResponse {
 export async function register(
   params: CustomerRegistrationParams
 ): Promise<CustomerRegisterResponse> {
-  const resp = await apiService.post(getCustomerEndpoint(), params);
+  const resp = await apiService.post(getCustomerRegisterEndpoint(), params);
   return resp.data;
 }
 
@@ -55,7 +57,8 @@ export async function login({
     username,
     password,
   });
-  const contextToken = resp.data["sw-context-token"];
+  const contextToken =
+    resp.data["sw-context-token"] || resp.data["contextToken"];
   return { contextToken };
 }
 
@@ -77,11 +80,15 @@ export async function logout(): Promise<void> {
  */
 export async function getCustomer(): Promise<Customer | null> {
   try {
-    const resp = await apiService.get(getCustomerEndpoint());
-    return resp.data.data;
+    // TODO: implement generic parameter converter for GET query string; related issue #568
+    const associationsQuery = "?associations[salutation][]";
+    const resp = await apiService.get(
+      `${getCustomerEndpoint()}${associationsQuery}`
+    );
+    return resp.data;
   } catch (e) {
     if (e.statusCode === 403) return null;
-    throw new Error("Unexpected getCustomerResponse.");
+    throw new Error("Unexpected getCustomerResponse. " + e);
   }
 }
 
@@ -104,7 +111,7 @@ export async function getCustomerAddresses(): Promise<CustomerAddress[]> {
  */
 export async function getCustomerOrders(): Promise<Order[]> {
   const resp = await apiService.get(getCustomerOrderEndpoint());
-  return resp.data.data;
+  return resp.data.elements || [];
 }
 
 /**
@@ -207,7 +214,7 @@ export interface CustomerUpdateEmailParam {
 export async function updateEmail(
   params: CustomerUpdateEmailParam
 ): Promise<void> {
-  await apiService.patch(getCustomerUpdateEmailEndpoint(), params);
+  await apiService.post(getCustomerUpdateEmailEndpoint(), params);
 }
 
 /**
@@ -228,7 +235,7 @@ export interface CustomerUpdatePasswordParam {
 export async function updatePassword(
   params: CustomerUpdatePasswordParam
 ): Promise<void> {
-  await apiService.patch(getCustomerUpdatePasswordEndpoint(), params);
+  await apiService.post(getCustomerUpdatePasswordEndpoint(), params);
 }
 
 /**
@@ -250,5 +257,5 @@ export interface CustomerUpdateProfileParam {
 export async function updateProfile(
   params: CustomerUpdateProfileParam
 ): Promise<void> {
-  await apiService.patch(getCustomerEndpoint(), params);
+  await apiService.post(getCustomerDetailsUpdateEndpoint(), params);
 }
