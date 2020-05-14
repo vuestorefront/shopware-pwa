@@ -1,8 +1,14 @@
 # Operations <Badge text="new" type="info"/>
 
+## Hosting
+
+Learn about how hosting, configuration and reqirements.
+
+[→ Hosting](./hosting/)
+
 ## Deployment
 
-Find a collection of guides showing how to deploy and host the application.
+Find a collection of guides showing how to deploy the application.
 
 [→ Deployment Guides](./deployment/)
 

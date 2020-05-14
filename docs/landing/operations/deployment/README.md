@@ -4,7 +4,7 @@ This section handles the process of bringing your application from source code t
 
 ## Guides
 
-Guides for specific hosting platforms
+Guides for specific hosting platforms with step-by-step instruction for your setup.
 
  * Deploy on [Heroku](./heroku/)
 
