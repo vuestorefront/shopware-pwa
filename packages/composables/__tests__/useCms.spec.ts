@@ -67,6 +67,19 @@ describe("Shopware composables", () => {
     expect(error.value).toStrictEqual({ message: "Something went wrong..." });
   });
 
+  it("should performs search default pagination limit if not provided", async () => {
+    const { search, page } = useCms();
+    mockedGetPage.getPage.mockResolvedValueOnce({} as any);
+    expect(page.value).toEqual(null);
+    await search("");
+    expect(mockedGetPage.getPage).toBeCalledWith("", {
+      configuration: {
+        associations: [{ associations: [{ name: "group" }], name: "options" }],
+      },
+      pagination: { limit: 10 },
+    });
+  });
+
   it("should return activeCategoryId if it's included within the page object", async () => {
     const { categoryId, search } = useCms();
     const response: shopwareClient.PageResolverResult<any> = {

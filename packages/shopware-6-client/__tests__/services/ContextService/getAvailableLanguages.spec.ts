@@ -13,7 +13,7 @@ describe("ContextService - getAvailableLanguages", () => {
 
     const result = await getAvailableLanguages();
     expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith("/language");
+    expect(mockedAxios.get).toBeCalledWith("/sales-channel-api/v1/language");
     expect(result.total).toEqual(2);
   });
 });

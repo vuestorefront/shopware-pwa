@@ -13,7 +13,9 @@ describe("ContextService - getAvailablePaymentMethods", () => {
 
     const result = await getAvailablePaymentMethods();
     expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith("/payment-method");
+    expect(mockedAxios.get).toBeCalledWith(
+      "/sales-channel-api/v1/payment-method"
+    );
     expect(result.total).toEqual(2);
   });
 });

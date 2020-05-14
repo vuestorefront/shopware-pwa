@@ -13,7 +13,9 @@ describe("ContextService - getAvailableShippingMethods", () => {
 
     const result = await getAvailableShippingMethods();
     expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith("/shipping-method");
+    expect(mockedAxios.get).toBeCalledWith(
+      "/sales-channel-api/v1/shipping-method"
+    );
     expect(result.total).toEqual(2);
   });
 });
