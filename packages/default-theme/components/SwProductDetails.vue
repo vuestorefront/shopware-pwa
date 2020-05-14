@@ -10,8 +10,6 @@
         :price="getPrice | price"
       />
     </div>
-    <p>{{priceRange}}</p>
-
     <SwPluginSlot name="product-page-description">
       <p class="product-details__description desktop-only">
         {{ description }}
