@@ -289,9 +289,13 @@ export interface ShopwareParams {
     // (undocumented)
     limit?: number;
     // (undocumented)
+    manufacturer?: string;
+    // (undocumented)
     p?: number;
     // (undocumented)
     page?: number;
+    // (undocumented)
+    properties?: string;
     // (undocumented)
     sort?: string;
     // (undocumented)

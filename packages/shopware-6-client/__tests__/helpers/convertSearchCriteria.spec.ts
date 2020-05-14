@@ -7,6 +7,7 @@ import {
   EqualsFilter,
   RangeFilter,
   MultiFilter,
+  EqualsAnyFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
 import { config, setup, update } from "@shopware-pwa/shopware-6-client";
@@ -227,6 +228,25 @@ describe("SearchConverter - convertSearchCriteria", () => {
             ],
           },
         ]);
+      });
+    });
+    describe("store-api filters", () => {
+      it("should have properties property", () => {
+        const nameFilter: EqualsAnyFilter = {
+          type: SearchFilterType.EQUALS_ANY,
+          field: "manufacturerId",
+          value: ["shopware"],
+        };
+
+        const result = convertSearchCriteria(
+          {
+            filters: [nameFilter],
+          },
+          ApiType.store
+        );
+        expect(result).toStrictEqual({
+          manufacturer: "shopware",
+        });
       });
     });
   });
