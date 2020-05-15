@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.5](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/default-theme@0.1.0-alpha.4...@shopware-pwa/default-theme@0.1.0-alpha.5) (2020-05-08)
+
+
+### Bug Fixes
+
+* **cli:** dependency for require package ([#569](https://github.com/DivanteLtd/shopware-pwa/issues/569)) ([59b4788](https://github.com/DivanteLtd/shopware-pwa/commit/59b4788a020316900071ac1b711f45ca574fae04))
+* **default-theme:** breadcrumbs position ([#542](https://github.com/DivanteLtd/shopware-pwa/issues/542)) ([235da4a](https://github.com/DivanteLtd/shopware-pwa/commit/235da4a014c65afa7c1635440a4e2966897c9c8d))
+* **default-theme:** breadcrumbs position ([#575](https://github.com/DivanteLtd/shopware-pwa/issues/575)) ([c03ddc8](https://github.com/DivanteLtd/shopware-pwa/commit/c03ddc866cbc50c202c2053f32b8511ef117b151))
+* **default-theme:** change the way of displaying product collection page switch ([#586](https://github.com/DivanteLtd/shopware-pwa/issues/586)) ([2ed9f7b](https://github.com/DivanteLtd/shopware-pwa/commit/2ed9f7b8103d35c37dd6721c64b083893e6e4fa9))
+* **default-theme:** color select filter is possible to click ([#690](https://github.com/DivanteLtd/shopware-pwa/issues/690)) ([65497b6](https://github.com/DivanteLtd/shopware-pwa/commit/65497b63368625bee2a98587e943feb2c5e16c36))
+* **default-theme:** colors filters displaying ([#660](https://github.com/DivanteLtd/shopware-pwa/issues/660)) ([6143f04](https://github.com/DivanteLtd/shopware-pwa/commit/6143f0499b57f7586ddc73a06ca8b4cfe5d052b2))
+* **default-theme:** set product listing to 100% ([#688](https://github.com/DivanteLtd/shopware-pwa/issues/688)) ([8026545](https://github.com/DivanteLtd/shopware-pwa/commit/8026545807f80dd2509bed113fb19edb284957ee))
+* **theme:** in My addresses edit address does not work ([#452](https://github.com/DivanteLtd/shopware-pwa/issues/452)) ([de217da](https://github.com/DivanteLtd/shopware-pwa/commit/de217daeb51b7de68b3ef6c27a96fefaf32fe509))
+
+
+### Features
+
+* **cms:** add picture blocks and elements ([#573](https://github.com/DivanteLtd/shopware-pwa/issues/573)) ([9382384](https://github.com/DivanteLtd/shopware-pwa/commit/9382384f24c0b409ab67d02ac27f805b082242a2))
+* **composables:** add logic for checkout and sessionContext ([#594](https://github.com/DivanteLtd/shopware-pwa/issues/594)) ([5e2172b](https://github.com/DivanteLtd/shopware-pwa/commit/5e2172b5dceca09753944bbc75c6d01b9089b62a))
+* currency switch [#580](https://github.com/DivanteLtd/shopware-pwa/issues/580) ([#598](https://github.com/DivanteLtd/shopware-pwa/issues/598)) ([e34a9c1](https://github.com/DivanteLtd/shopware-pwa/commit/e34a9c1033056ffbcf05187e7a9c49de1571d288))
+* **default-theme:** display 400 errors right from the API ([#572](https://github.com/DivanteLtd/shopware-pwa/issues/572)) ([859c6cc](https://github.com/DivanteLtd/shopware-pwa/commit/859c6cc80c34dc481df34d386ea9b12292dd313b))
+* 605 order summary details ([#615](https://github.com/DivanteLtd/shopware-pwa/issues/615)) ([d5d8c7d](https://github.com/DivanteLtd/shopware-pwa/commit/d5d8c7d6086fd4fb5bfe761ca43a35c2c2d55012))
+* add keyup event invoke actions ([#692](https://github.com/DivanteLtd/shopware-pwa/issues/692)) ([023b25f](https://github.com/DivanteLtd/shopware-pwa/commit/023b25fb0be6983177f145484544b48f156d4401))
+* add MegaMenu component ([#593](https://github.com/DivanteLtd/shopware-pwa/issues/593)) ([f6167d5](https://github.com/DivanteLtd/shopware-pwa/commit/f6167d5a1246745b0bf100b006dcfc44a064c9e1))
+* basic payment integration with paypal ([#709](https://github.com/DivanteLtd/shopware-pwa/issues/709)) ([6d55292](https://github.com/DivanteLtd/shopware-pwa/commit/6d552925b19900fdf3c10fc3e610406741add9f7))
+* deploying canary - support ([#662](https://github.com/DivanteLtd/shopware-pwa/issues/662)) ([9e7e693](https://github.com/DivanteLtd/shopware-pwa/commit/9e7e693b6654c01416fef6aa8a037ef863ba8fee))
+* guest order with steps ([#600](https://github.com/DivanteLtd/shopware-pwa/issues/600)) ([1c77b1f](https://github.com/DivanteLtd/shopware-pwa/commit/1c77b1f9657a2c0dfccf7fb73da6c3c920e0f909))
+* plugin slots and local plugins development 🚀 ([#695](https://github.com/DivanteLtd/shopware-pwa/issues/695)) ([9c232bb](https://github.com/DivanteLtd/shopware-pwa/commit/9c232bbbc4a3bb00fdf3829e945aa33c56309a3b))
+* update access token for demo instance ([#611](https://github.com/DivanteLtd/shopware-pwa/issues/611)) ([e4f1205](https://github.com/DivanteLtd/shopware-pwa/commit/e4f1205c0d041b18f4a2f470d67906c4da5da982))
+
+
+
+
+
 # [0.1.0-alpha.4](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/default-theme@0.1.0-alpha.3...@shopware-pwa/default-theme@0.1.0-alpha.4) (2020-03-27)
 
 

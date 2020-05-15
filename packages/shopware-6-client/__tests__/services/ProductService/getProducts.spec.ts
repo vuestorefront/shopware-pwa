@@ -27,42 +27,12 @@ describe("ProductService - getProducts", () => {
     const pagination = {
       page: 1,
       limit: 5,
-      grouping: {
-        field: "displayGroup",
-      },
-      filter: [
-        {
-          type: "not",
-          queries: [
-            {
-              type: "equals",
-              field: "displayGroup",
-              value: null,
-            },
-          ],
-        },
-      ],
     };
     await getProducts({ pagination });
     expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith("/product", {
+    expect(mockedAxios.post).toBeCalledWith("/sales-channel-api/v1/product", {
       limit: 5,
       page: 1,
-      grouping: {
-        field: "displayGroup",
-      },
-      filter: [
-        {
-          type: "not",
-          queries: [
-            {
-              type: "equals",
-              field: "displayGroup",
-              value: null,
-            },
-          ],
-        },
-      ],
     });
   });
   it("should invoke api with limit and sort", async () => {
@@ -79,25 +49,10 @@ describe("ProductService - getProducts", () => {
     };
     await getProducts({ pagination, sort });
     expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith("/product", {
+    expect(mockedAxios.post).toBeCalledWith("/sales-channel-api/v1/product", {
       limit: 75,
       page: 1,
       sort: "-name",
-      grouping: {
-        field: "displayGroup",
-      },
-      filter: [
-        {
-          type: "not",
-          queries: [
-            {
-              type: "equals",
-              field: "displayGroup",
-              value: null,
-            },
-          ],
-        },
-      ],
     });
   });
 });

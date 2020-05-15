@@ -98,7 +98,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
       fileName: "api-client.js",
       options: {
         shopwareAccessToken: "mockedToken",
-        shopwareEndpoint: "mockedEndpoint/sales-channel-api/v1",
+        shopwareEndpoint: "mockedEndpoint",
       },
       src: pathForApiClientPlugin,
     });

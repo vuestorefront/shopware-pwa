@@ -1,9 +1,13 @@
-import { convertSearchCriteria } from "../../src/helpers/searchConverter";
+import {
+  convertSearchCriteria,
+  ApiType,
+} from "../../src/helpers/searchConverter";
 import {
   SearchFilterType,
   EqualsFilter,
   RangeFilter,
   MultiFilter,
+  EqualsAnyFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
 import { config, setup, update } from "@shopware-pwa/shopware-6-client";
@@ -17,6 +21,16 @@ describe("SearchConverter - convertSearchCriteria", () => {
     expect(result).toEqual({});
   });
   describe("pagination", () => {
+    it("should use p param for pagination if apiType is set to 'store'", () => {
+      const result = convertSearchCriteria(
+        {
+          pagination: { page: PaginationLimit.ONE },
+        },
+        ApiType.store
+      );
+      expect(result?.p).toEqual(1);
+      expect(result?.limit).toEqual(config.defaultPaginationLimit);
+    });
     it("should have page number with default limit if not provided", () => {
       const result = convertSearchCriteria({
         pagination: { page: PaginationLimit.ONE },
@@ -56,6 +70,34 @@ describe("SearchConverter - convertSearchCriteria", () => {
     });
   });
   describe("sorting", () => {
+    it("should have pagination and sort params in specific format if apiType is set to 'store'", () => {
+      const paramsObject = convertSearchCriteria(
+        {
+          pagination: { page: 1 },
+          sort: {
+            desc: true,
+            field: "name",
+          },
+          filters: [],
+        },
+        ApiType.store
+      );
+      expect(paramsObject?.p).toEqual(1);
+      expect(paramsObject?.limit).toEqual(config.defaultPaginationLimit);
+      expect(paramsObject?.sort).toEqual("name-desc");
+    });
+    it("should have sorting param in specific format if apiType is set to 'store' - default ascending", () => {
+      const paramsObject = convertSearchCriteria(
+        {
+          sort: {
+            field: "name",
+          },
+          filters: [],
+        },
+        ApiType.store
+      );
+      expect(paramsObject?.sort).toEqual("name-asc");
+    });
     it("should have pagination and sort params", () => {
       const paramsObject = convertSearchCriteria({
         pagination: { page: 1 },
@@ -185,17 +227,26 @@ describe("SearchConverter - convertSearchCriteria", () => {
               },
             ],
           },
-          {
-            type: "not",
-            queries: [
-              {
-                type: "equals",
-                field: "displayGroup",
-                value: null,
-              },
-            ],
-          },
         ]);
+      });
+    });
+    describe("store-api filters", () => {
+      it("should have properties property", () => {
+        const nameFilter: EqualsAnyFilter = {
+          type: SearchFilterType.EQUALS_ANY,
+          field: "manufacturerId",
+          value: ["shopware"],
+        };
+
+        const result = convertSearchCriteria(
+          {
+            filters: [nameFilter],
+          },
+          ApiType.store
+        );
+        expect(result).toStrictEqual({
+          manufacturer: "shopware",
+        });
       });
     });
   });
@@ -239,24 +290,11 @@ describe("SearchConverter - convertSearchCriteria", () => {
           },
         });
         expect(result).toEqual({
-          grouping: {
-            field: "displayGroup",
-          },
           filter: [
             {
               field: "name",
               type: "equals",
               value: "test",
-            },
-            {
-              type: "not",
-              queries: [
-                {
-                  type: "equals",
-                  field: "displayGroup",
-                  value: null,
-                },
-              ],
             },
           ],
           sort: "-name",

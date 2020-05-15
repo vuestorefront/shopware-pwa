@@ -2,6 +2,10 @@
 
 [![CircleCI](https://circleci.com/gh/DivanteLtd/shopware-pwa.svg?style=svg)](https://circleci.com/gh/DivanteLtd/shopware-pwa) [![Coverage Status](https://coveralls.io/repos/github/DivanteLtd/shopware-pwa/badge.svg?branch=master)](https://coveralls.io/github/DivanteLtd/shopware-pwa) [![Greenkeeper badge](https://badges.greenkeeper.io/DivanteLtd/shopware-pwa.svg)](https://greenkeeper.io/)
 
+<a href="https://shopware-pwa-docs.vuestorefront.io" target="_blank" rel=”noopener”>Documentation</a>
+
+---
+
 The only Official Progressive Web App for <a href="https://github.com/shopware/platform">Shopware 6</a>.
 
 About Shopware:

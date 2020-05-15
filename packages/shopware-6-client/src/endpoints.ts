@@ -1,26 +1,34 @@
 // category
 
-export const getCategoryEndpoint = () => `/category`;
+export const getCategoryEndpoint = () => `/sales-channel-api/v1/category`;
 
 export const getCategoryDetailsEndpoint = (categoryId: string) =>
-  `/category/${categoryId}`;
+  `/sales-channel-api/v1/category/${categoryId}`;
+
+// product-listing
+
+export const getProductListingEndpoint = (categoryId: string) =>
+  `/store-api/v1/product-listing/${categoryId}`;
 
 // product
 
-export const getProductEndpoint = () => `/product`;
+export const getProductEndpoint = () => `/sales-channel-api/v1/product`;
 
 export const getProductDetailsEndpoint = (productId: string) =>
-  `/product/${productId}`;
+  `/sales-channel-api/v1/product/${productId}`;
 
-export const getProductsIdsEndpoint = () => `/search-ids/product`;
+export const getProductsIdsEndpoint = () =>
+  `/sales-channel-api/v1/search-ids/product`;
 
 // customer
 
 export const getCustomerAddressEndpoint = (addressId?: string) =>
-  addressId ? `/customer/address/${addressId}` : "/customer/address";
+  addressId
+    ? `/sales-channel-api/v1/customer/address/${addressId}`
+    : "/sales-channel-api/v1/customer/address";
 
 const getCustomerDefaultAddressEndpoint = (type: string, addressId: string) =>
-  `/customer/address/${addressId}/default-${type}`;
+  `/sales-channel-api/v1/customer/address/${addressId}/default-${type}`;
 
 export const getCustomerDefaultBillingAddressEndpoint = (addressId: string) =>
   getCustomerDefaultAddressEndpoint("billing", addressId);
@@ -29,79 +37,91 @@ export const getCustomerDefaultShippingAddressEndpoint = (addressId: string) =>
   getCustomerDefaultAddressEndpoint("shipping", addressId);
 
 export const getCustomerAddressDetailsEndpoint = (addressId: string) =>
-  `/customer/address/${addressId}`;
+  `/sales-channel-api/v1/customer/address/${addressId}`;
 
 export const getCustomerAddressSetDefaultShippingEndpoint = (
   addressId: string
-) => `/customer/address/${addressId}/default-shipping`;
+) => `/sales-channel-api/v1/customer/address/${addressId}/default-shipping`;
 
 export const getCustomerAddressSetDefaultBillingEndpoint = (
   addressId: string
-) => `/customer/address/${addressId}/default-billing`;
+) => `/sales-channel-api/v1/customer/address/${addressId}/default-billing`;
 
-export const getCustomerEndpoint = () => `/customer`;
-
+export const getCustomerEndpoint = () => `/store-api/v1/account/customer`;
+export const getCustomerRegisterEndpoint = () =>
+  `/store-api/v1/account/register`;
+export const getCustomerDetailsUpdateEndpoint = () =>
+  `/store-api/v1/account/change-profile`;
 export const getCustomerDetailsEndpoint = (customerId: string) =>
-  `/customer/${customerId}`;
+  `/store-api/v1/customer/${customerId}`;
 
-export const getCustomerLoginEndpoint = () => `/customer/login`;
+export const getCustomerLoginEndpoint = () => `/store-api/v1/account/login`;
 
-export const getCustomerLogoutEndpoint = () => `/customer/logout`;
+export const getCustomerLogoutEndpoint = () => `/store-api/v1/account/logout`;
 
-export const getCustomerOrderEndpoint = () => `/customer/order`;
+export const getCustomerOrderEndpoint = () => `/store-api/v1/account/order`;
 
 export const getCustomerOrderDetailsEndpoint = (orderId: string) =>
-  `/checkout/guest-order/${orderId}`;
+  `/sales-channel-api/v1/checkout/guest-order/${orderId}`;
 
-export const getCustomerUpdateEmailEndpoint = () => `/customer/email`;
+export const getCustomerUpdateEmailEndpoint = () =>
+  `/store-api/v1/account/change-email`;
 
-export const getCustomerUpdatePasswordEndpoint = () => `/customer/password`;
+export const getCustomerUpdatePasswordEndpoint = () =>
+  `/store-api/v1/account/change-password`;
 
 // checkout
 
-export const getCheckoutCartEndpoint = () => `/checkout/cart`;
+export const getCheckoutCartEndpoint = () =>
+  `/sales-channel-api/v1/checkout/cart`;
 
 export const getCheckoutCartProductEndpoint = (productId: string) =>
-  `/checkout/cart/product/${productId}`;
+  `/sales-channel-api/v1/checkout/cart/product/${productId}`;
 
 export const getCheckoutCartLineItemEndpoint = (lineItemId: string) =>
-  `/checkout/cart/line-item/${lineItemId}`;
+  `/sales-channel-api/v1/checkout/cart/line-item/${lineItemId}`;
 
-export const getCheckoutOrderEndpoint = () => `/checkout/order`;
+export const getCheckoutOrderEndpoint = () =>
+  `/sales-channel-api/v1/checkout/order`;
 
-export const getCheckoutGuestOrderEndpoint = () => `/checkout/guest-order`;
+export const getCheckoutGuestOrderEndpoint = () =>
+  `/sales-channel-api/v1/checkout/guest-order`;
 
 export const getCheckoutOrderPayEndpoint = (orderId: string) =>
-  `/checkout/order/${orderId}/pay`;
+  `/sales-channel-api/v1/checkout/order/${orderId}/pay`;
 
 export const getCheckoutGuestOrderDetailsEndpoint = (orderId: string) =>
-  `/checkout/guest-order/${orderId}`;
+  `/sales-channel-api/v1/checkout/guest-order/${orderId}`;
 
 export const getCheckoutPromotionCodeEndpoint = (code: string) =>
-  `/checkout/cart/code/${code}`;
+  `/sales-channel-api/v1/checkout/cart/code/${code}`;
 
 // context
 
-export const getContextEndpoint = () => `/context`;
+export const getContextEndpoint = () => `/sales-channel-api/v1/context`;
 
-export const getContextCurrencyEndpoint = () => `/currency`;
+export const getContextCurrencyEndpoint = () =>
+  `/sales-channel-api/v1/currency`;
 
-export const getContextLanguageEndpoint = () => `/language`;
+export const getContextLanguageEndpoint = () =>
+  `/sales-channel-api/v1/language`;
 
-export const getContextCountryEndpoint = () => `/country`;
+export const getContextCountryEndpoint = () => `/sales-channel-api/v1/country`;
 
 export const getContextCountryItemEndpoint = (countryId: string): string =>
-  `/country/${countryId}`;
+  `/sales-channel-api/v1/country/${countryId}`;
 
-export const getContextPaymentMethodEndpoint = () => `/payment-method`;
+export const getContextPaymentMethodEndpoint = () =>
+  `/sales-channel-api/v1/payment-method`;
 
-export const getContextShippingMethodEndpoint = () => `/shipping-method`;
+export const getContextShippingMethodEndpoint = () =>
+  `/sales-channel-api/v1/shipping-method`;
 
-export const getContextSalutationEndpoint = () => `/salutation`;
+export const getContextSalutationEndpoint = () => `/store-api/v1/salutation`;
 
 export const getContextSalutationItemEndpoint = (
   salutationId: string
-): string => `/salutation/${salutationId}`;
+): string => `/store-api/v1/salutation/${salutationId}`;
 
 // newsletter
 
@@ -109,7 +129,7 @@ export const getNewsletterSubscribeEndpoint = () => `/newsletter/subscribe`;
 
 export const getNewsletterUnsubscribeEndpoint = () => `/newsletter/unsubscribe`;
 
-export const getPageResolverEndpoint = () => `/vsf/page`;
-export const getNavigationEndpoint = () => `/vsf/navigation`;
+export const getPageResolverEndpoint = () => `/store-api/v1/pwa/page`;
+export const getNavigationEndpoint = () => `/store-api/v1/pwa/navigation`;
 export const getOrderPaymentUrlEndpoint = (orderId: string): string =>
-  `/checkout/order/${orderId}/pay`;
+  `/sales-channel-api/v1/checkout/order/${orderId}/pay`;

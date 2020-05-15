@@ -6,14 +6,14 @@ sidebar: auto
 
 ## Issues caused by incorrect configuration.
 
-### Issue: [ERROR] Problem with fetching CMS data: Path `` could no be resolved.
+### Issue: [ERROR] Problem with fetching CMS data: `Path `` could no be resolved.`
 
 - Make sure you have followed [CHEATSHEET.md](./CHEATSHEET.md), especially [Shopware setup](./CHEATSHEET.md#shopware-setup).\*
 - Ensure you have configured `shopware-pwa` application by setting the right values described in [this step](./CHEATSHEET.md#running-shopware-pwa-on-custom-shopware-instance).
   It's crucial to have the right `shopwareAccessToken` in the _shopware-pwa.config.js_ file. \
   It should be taken from **`storefront`** Sales Channel type - **NOT** a `headless` one.
 
-### Issue: [ERROR] Problem with fetch <ENTITY_NAME> data: No Matching sales channel found.
+### Issue: [ERROR] Problem with fetch <ENTITY_NAME> data: `No Matching sales channel found.`
 
 - There is no Sales Channel related to the `shopwareAccessToken` you have set in your _shopware-pwa.config.js_ file.
 - Either `shopwareEndpoint` or `shopwareAccessToken` does not match.

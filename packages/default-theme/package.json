@@ -1,13 +1,12 @@
 {
   "name": "@shopware-pwa/default-theme",
-  "version": "0.1.0-alpha.4",
+  "version": "0.1.0-alpha.8",
   "description": "Shopware PWA theme",
   "author": "patzick",
   "scripts": {
     "lint": "prettier --write './**/*.{js,vue}'",
     "test": "jest",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "snyk-protect": "snyk protect"
   },
   "husky": {
     "hooks": {
@@ -21,13 +20,13 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.10.1",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
-    "@storefront-ui/vue": "0.7.8",
+    "@storefront-ui/vue": "0.7.10",
     "@vue/composition-api": "^0.5.0",
     "currency.js": "^1.2.2",
     "dayjs": "^1.8.25",
     "nuxt": "^2.12.2",
-    "vuelidate": "^0.7.5",
-    "snyk": "^1.316.1"
+    "snyk": "^1.316.1",
+    "vuelidate": "^0.7.5"
   },
   "devDependencies": {
     "@babel/runtime-corejs3": "^7.9.2",

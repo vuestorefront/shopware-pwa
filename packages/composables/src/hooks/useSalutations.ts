@@ -26,8 +26,7 @@ export const useSalutations = (): UseSalutations => {
 
   const fetchSalutations = async (): Promise<void> => {
     try {
-      const fetchSalutations = await getAvailableSalutations();
-      sharedSalutations.salutations = fetchSalutations.data;
+      sharedSalutations.salutations = await getAvailableSalutations();
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;

@@ -308,7 +308,7 @@ export default {
   flex: unset;
   width: 190px;
   padding: 0 10px;
-  --select-padding: 0 var(--spacer-lg) 0 var(--spacer-2xs);
+  --select-selected-padding: 0 var(--spacer-lg) 0 var(--spacer-2xs);
   --select-margin: 0;
 
   &--mobile {
