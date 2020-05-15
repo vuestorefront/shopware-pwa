@@ -8,6 +8,7 @@
         :rating-average="ratingAverage"
         :special="getSpecialPrice | price"
         :price="getPrice | price"
+        :tier-prices="getTierPrices"
       />
     </div>
     <SwPluginSlot name="product-page-description">
@@ -80,6 +81,7 @@ import {
   isProductSimple,
   getProductOptionsUrl,
   getProductOptions,
+  getProductTierPrices,
 } from '@shopware-pwa/helpers'
 import { useProduct, useAddToCart } from '@shopware-pwa/composables'
 import SwProductHeading from '@shopware-pwa/default-theme/components/SwProductHeading'
@@ -130,6 +132,9 @@ export default {
     },
     getSpecialPrice() {
       return getProductSpecialPrice(this.product)
+    },
+    getTierPrices() {
+      return getProductTierPrices(this.product)
     },
     name() {
       return (
