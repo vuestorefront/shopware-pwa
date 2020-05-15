@@ -1,3 +1,12 @@
+# [0.1.0-alpha.9](https://github.com/DivanteLtd/shopware-pwa/compare/v0.1.0-alpha.8...v0.1.0-alpha.9) (2020-05-15)
+
+
+### Features
+
+* **default-theme:** upgrade SFUI to 0.7.11 ([4566136](https://github.com/DivanteLtd/shopware-pwa/commit/4566136f21e58a5e84a4760f86710a1dfa4be2fe))
+
+
+
 # [0.1.0-alpha.8](https://github.com/DivanteLtd/shopware-pwa/compare/v0.1.0-alpha.7...v0.1.0-alpha.8) (2020-05-12)
 
 

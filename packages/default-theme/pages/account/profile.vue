@@ -9,9 +9,6 @@
         <a class="notice__link" href="">Privacy Policy.</a>
       </p>
     </SfTab>
-    <SfTab title="Email change">
-      <SwEmail />
-    </SfTab>
     <SfTab title="Password change">
       <SwPassword>
         <template #message="{user}">
@@ -30,7 +27,6 @@
 import { SfTabs, SfInput, SfButton } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 import SwPassword from '@shopware-pwa/default-theme/components/forms/SwPassword'
-import SwEmail from '@shopware-pwa/default-theme/components/forms/SwEmail'
 import SwPersonalInfo from '@shopware-pwa/default-theme/components/forms/SwPersonalInfo'
 
 export default {
@@ -39,7 +35,6 @@ export default {
     SfTabs,
     SfInput,
     SfButton,
-    SwEmail,
     SwPassword,
     SwPersonalInfo,
   },
