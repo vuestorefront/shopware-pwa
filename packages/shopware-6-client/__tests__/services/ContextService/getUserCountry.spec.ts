@@ -14,7 +14,9 @@ describe("ContextService - getUserCountry", () => {
     const countryId = "123123123";
     const result = await getUserCountry(countryId);
     expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith(`/country/${countryId}`);
+    expect(mockedAxios.get).toBeCalledWith(
+      `/sales-channel-api/v1/country/${countryId}`
+    );
     expect(result.name).toEqual("Poland");
   });
 });

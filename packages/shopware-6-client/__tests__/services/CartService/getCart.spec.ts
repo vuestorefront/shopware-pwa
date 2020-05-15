@@ -36,7 +36,9 @@ describe("CartService - getCart", () => {
 
     const result = await getCart();
     expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith("/checkout/cart");
+    expect(mockedAxios.get).toBeCalledWith(
+      "/sales-channel-api/v1/checkout/cart"
+    );
     expect(result.lineItems).not.toBeNull();
   });
 });

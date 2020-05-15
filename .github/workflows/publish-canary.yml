@@ -19,18 +19,15 @@ jobs:
         with:
           node-version: "12.x"
           registry-url: https://registry.npmjs.org/
-      - name: Build packages
-        run: |
-          yarn --frozen-lockfile
-          yarn build --release
-          cd ./packages/cli && yarn build && cd ../../
       - name: Publish canary version
         run: |
-          yarn lerna publish --canary --force-publish --yes --preid prealpha --dist-tag canary
+          yarn --frozen-lockfile
+          yarn release --canary
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
   build:
     runs-on: ubuntu-latest
+    needs: publish
     steps:
       - name: Create default-theme project
         run: |

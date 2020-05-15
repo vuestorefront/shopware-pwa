@@ -45,7 +45,7 @@ describe("CartService - addProductToCart", () => {
     expect(
       mockedAxios.post
     ).toBeCalledWith(
-      "/checkout/cart/product/044a190a54ab4f06803909c3ee8063ef",
+      "/sales-channel-api/v1/checkout/cart/product/044a190a54ab4f06803909c3ee8063ef",
       { quantity: 1 }
     );
 
@@ -64,7 +64,7 @@ describe("CartService - addProductToCart", () => {
     );
     expect(mockedAxios.post).toBeCalledTimes(1);
     expect(mockedAxios.post).toBeCalledWith(
-      "/checkout/cart/product/someNonExistingProductId",
+      "/sales-channel-api/v1/checkout/cart/product/someNonExistingProductId",
       {
         quantity: 1,
       }
@@ -78,9 +78,12 @@ describe("CartService - addProductToCart", () => {
 
     expect(addProductToCart(productId, 2)).rejects.toThrow("404: Not Found");
     expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith("/checkout/cart/product/", {
-      quantity: 2,
-    });
+    expect(mockedAxios.post).toBeCalledWith(
+      "/sales-channel-api/v1/checkout/cart/product/",
+      {
+        quantity: 2,
+      }
+    );
   });
 
   it("should send quantity 1 on 0 value", async () => {
@@ -93,8 +96,11 @@ describe("CartService - addProductToCart", () => {
     });
     await addProductToCart("qwe", 0);
     expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith("/checkout/cart/product/qwe", {
-      quantity: 1,
-    });
+    expect(mockedAxios.post).toBeCalledWith(
+      "/sales-channel-api/v1/checkout/cart/product/qwe",
+      {
+        quantity: 1,
+      }
+    );
   });
 });

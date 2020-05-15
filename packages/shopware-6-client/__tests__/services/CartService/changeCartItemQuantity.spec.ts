@@ -37,7 +37,7 @@ describe("CartService - changeCartItemQuantity", () => {
     expect(
       mockedAxios.patch
     ).toBeCalledWith(
-      "/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
+      "/sales-channel-api/v1/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
       { quantity: 3 }
     );
     expect(result.lineItems[0].quantity).toEqual(3);
@@ -55,7 +55,7 @@ describe("CartService - changeCartItemQuantity", () => {
     );
     expect(mockedAxios.patch).toBeCalledTimes(1);
     expect(mockedAxios.patch).toBeCalledWith(
-      "/checkout/cart/line-item/someNonExistingLineItemId",
+      "/sales-channel-api/v1/checkout/cart/line-item/someNonExistingLineItemId",
       {
         quantity: 1,
       }
@@ -74,7 +74,7 @@ describe("CartService - changeCartItemQuantity", () => {
     );
     expect(mockedAxios.patch).toBeCalledTimes(1);
     expect(mockedAxios.patch).toBeCalledWith(
-      "/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
+      "/sales-channel-api/v1/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
       {
         quantity: -2,
       }
@@ -93,7 +93,7 @@ describe("CartService - changeCartItemQuantity", () => {
     expect(
       mockedAxios.patch
     ).toBeCalledWith(
-      "/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
+      "/sales-channel-api/v1/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
       { quantity: 1 }
     );
   });

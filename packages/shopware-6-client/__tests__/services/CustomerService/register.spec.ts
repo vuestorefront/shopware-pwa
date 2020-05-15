@@ -1,6 +1,6 @@
 import { name, address, random, phone, internet } from "faker";
 import { register } from "@shopware-pwa/shopware-6-client";
-import { getCustomerEndpoint } from "../../../src/endpoints";
+import { getCustomerRegisterEndpoint } from "../../../src/endpoints";
 import { apiService } from "../../../src/apiService";
 import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams";
 
@@ -34,7 +34,7 @@ describe("CustomerService - register", () => {
     const result = await register(customerData);
     expect(mockedAxios.post).toBeCalledTimes(1);
     expect(mockedAxios.post).toBeCalledWith(
-      getCustomerEndpoint(),
+      getCustomerRegisterEndpoint(),
       customerData
     );
     expect(result).toBe(customerId);
@@ -48,7 +48,7 @@ describe("CustomerService - register", () => {
     expect(register(customerData)).rejects.toThrowError("400");
     expect(mockedAxios.post).toBeCalledTimes(1);
     expect(mockedAxios.post).toBeCalledWith(
-      getCustomerEndpoint(),
+      getCustomerRegisterEndpoint(),
       customerData
     );
   });

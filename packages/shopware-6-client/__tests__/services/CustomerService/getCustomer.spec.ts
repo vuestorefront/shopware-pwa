@@ -20,11 +20,13 @@ describe("CustomerService - getCustomer", () => {
 
   it("should return current customer's data - using correct token", async () => {
     mockedAxios.get.mockResolvedValueOnce({
-      data: { data: { id: "c370eb5cd1df4d4dbcc78f055b693e79" } },
+      data: { id: "c370eb5cd1df4d4dbcc78f055b693e79" },
     });
     const result: any = await getCustomer();
     expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith(getCustomerEndpoint());
+    expect(mockedAxios.get).toBeCalledWith(
+      `${getCustomerEndpoint()}?associations[salutation][]`
+    );
     expect(result).not.toBeNull();
     expect(result.id).toEqual("c370eb5cd1df4d4dbcc78f055b693e79");
   });
@@ -35,7 +37,9 @@ describe("CustomerService - getCustomer", () => {
     });
     const result = await getCustomer();
     expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith(getCustomerEndpoint());
+    expect(mockedAxios.get).toBeCalledWith(
+      `${getCustomerEndpoint()}?associations[salutation][]`
+    );
     expect(result).toBeNull();
   });
 
@@ -49,6 +53,8 @@ describe("CustomerService - getCustomer", () => {
       "Unexpected getCustomerResponse."
     );
     expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith(getCustomerEndpoint());
+    expect(mockedAxios.get).toBeCalledWith(
+      `${getCustomerEndpoint()}?associations[salutation][]`
+    );
   });
 });
