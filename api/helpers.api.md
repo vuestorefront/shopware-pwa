@@ -136,6 +136,11 @@ export function getProductReviews({ product, }?: {
 // @alpha (undocumented)
 export function getProductSpecialPrice(product: Product): number | undefined;
 
+// Warning: (ae-forgotten-export) The symbol "TierPrice" needs to be exported by the entry point index.d.ts
+//
+// @alpha (undocumented)
+export function getProductTierPrices(product: Product): TierPrice[] | undefined;
+
 // @alpha (undocumented)
 export function getProductUrl(product: Product | null): string;
 

@@ -3,11 +3,9 @@ import { getProductRegularPrice } from "@shopware-pwa/helpers";
 describe("Shopware helpers - getProductRegularPrice", () => {
   it("should return first gross price from nested price object", () => {
     const productWithPrice: any = {
-      price: [
-        {
-          gross: 125.95,
-        },
-      ],
+      calculatedPrice: {
+        unitPrice: 125.95,
+      },
     };
 
     const price = getProductRegularPrice({ product: productWithPrice });
