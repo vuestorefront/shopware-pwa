@@ -85,9 +85,6 @@
               @click="toggleSidebar"
             />
             <SwPluginSlot name="top-header-icons-after" />
-            <!-- TODO - SfBadge will appear with the next StorefrontUI version 
-            https://github.com/DivanteLtd/storefront-ui/issues/870 
-            -->
           </div>
         </div>
       </template>
