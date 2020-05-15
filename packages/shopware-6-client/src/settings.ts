@@ -10,8 +10,8 @@ export interface ClientSettings {
 }
 
 const defaultConfig: ClientSettings = {
-  endpoint: "https://shopware-2.vuestorefront.io",
-  accessToken: "SWSCTXJOZMQWCXA4OUTNZ0REYG",
+  endpoint: "https://shopware6-demo.vuestorefront.io",
+  accessToken: "SWSCVJJET0RQAXFNBMTDZTV1OQ",
   contextToken: "",
   defaultPaginationLimit: 10,
   timeout: 10000, // ms

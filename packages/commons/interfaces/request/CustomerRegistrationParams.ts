@@ -18,4 +18,5 @@ export interface CustomerRegistrationParams {
     BillingAddress
   > /** TODO: replace Partial with correct optional fields in BillingAddress */;
   shippingAddress?: ShippingAddress;
+  storefrontUrl: URL;
 }
