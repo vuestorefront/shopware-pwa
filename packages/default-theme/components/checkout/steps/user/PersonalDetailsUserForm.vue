@@ -1,5 +1,5 @@
 <template>
-  <div class="form">
+  <div class="personal-details-user-form">
     <SwPersonalInfo>
       <template #message>
         <SfHeading
@@ -9,19 +9,24 @@
         />
       </template>
     </SwPersonalInfo>
+    <SfButton
+      class="personal-details-user-form__proceed"
+      @click="$emit('proceed')"
+    >
+      Continue to shipping
+    </SfButton>
   </div>
 </template>
 <script>
-import { SfAlert, SfButton, SfHeading } from '@storefront-ui/vue'
+import { SfButton, SfHeading } from '@storefront-ui/vue'
 import SwPersonalInfo from '@shopware-pwa/default-theme/components/forms/SwPersonalInfo'
 
 export default {
   name: 'ShippingAddressUserForm',
   components: {
-    SfAlert,
     SfButton,
     SfHeading,
-    SwPersonalInfo
+    SwPersonalInfo,
   },
   setup() {
     return {}
@@ -30,6 +35,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles';
+
+.personal-details-user-form {
+  &__proceed {
+    margin-top: 1rem;
+  }
+}
 
 .title {
   --heading-padding: var(--spacer-base) 0;

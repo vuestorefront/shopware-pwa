@@ -17,7 +17,6 @@
 
       <div class="sw-personal-info__form form">
         <slot name="form">
-          
           <SfInput
             v-model="firstName"
             :valid="!$v.firstName.$error"
@@ -94,10 +93,10 @@ import {
   SfAlert
 } from '@storefront-ui/vue'
 import { useUser, useContext } from '@shopware-pwa/composables'
-import { mapSalutations } from '@shopware-pwa/helpers'
+import { mapSalutations, getMessagesFromErrorsArray } from '@shopware-pwa/helpers'
 
 export default {
-  name: 'MyProfile',
+  name: 'SwPersonalInfo',
   components: {
     SfInput,
     SfButton,
@@ -141,7 +140,7 @@ export default {
   },
   computed: {
     getErrorMessage() {
-      return this.userError && 'Cannot create a new account, the user may already exist'
+      return getMessagesFromErrorsArray(this.userError && this.userError.message)
     },
     isEmailChanging() {
       return this.email !== (this.user && this.user.email)
@@ -186,6 +185,10 @@ export default {
   },
   methods: {
     async invokeUpdate() {
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        return
+      }
       if(this.isNameChanging) {
         const profileChanged = await this.updatePersonalInfo({
           firstName: this.firstName,

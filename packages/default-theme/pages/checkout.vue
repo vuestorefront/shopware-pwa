@@ -53,10 +53,10 @@ import PersonalDetailsStep from '@shopware-pwa/default-theme/components/checkout
 import ShippingStep from '@shopware-pwa/default-theme/components/checkout/steps/ShippingStep'
 import OrderReviewStep from '@shopware-pwa/default-theme/components/checkout/steps/OrderReviewStep'
 import { ref, computed, reactive } from '@vue/composition-api'
-import { useUICheckoutPage } from '@shopware-pwa/default-theme/logic/checkout/useUICheckoutPage'
 import {
   CHECKOUT_STEPS,
   getStepByNumber,
+  useUICheckoutPage
 } from '@shopware-pwa/default-theme/logic/checkout'
 
 export default {
