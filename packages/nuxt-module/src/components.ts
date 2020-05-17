@@ -5,7 +5,10 @@ import { NuxtModuleOptions } from "./interfaces";
 
 // let lastThemeFiles: any = [];
 export function extendComponents(moduleObject: NuxtModuleOptions) {
-  const componentsPath = path.join(moduleObject.options.rootDir, "components");
+  const componentsPath = path.join(
+    moduleObject.options.rootDir || "",
+    "components"
+  );
   const themeFiles = getAllFiles(componentsPath);
 
   // invoking rebuild in development mode
@@ -24,7 +27,7 @@ export function extendComponents(moduleObject: NuxtModuleOptions) {
         config.resolve.alias[
           themeFile
             .replace(
-              moduleObject.options.rootDir,
+              moduleObject.options.rootDir || "",
               "@shopware-pwa/default-theme"
             )
             .replace(".vue", "")
