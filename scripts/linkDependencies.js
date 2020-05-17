@@ -19,11 +19,15 @@ async function run() {
    */
   await execa("yarn", ["link"], {
     stdio: "inherit",
-    cwd: apiClientDir
+    cwd: apiClientDir,
   });
   await execa("yarn", ["link", "@shopware-pwa/shopware-6-client"], {
     stdio: "inherit",
-    cwd: defaultThemeDir
+    cwd: defaultThemeDir,
+  });
+  await execa("yarn", ["link", "@shopware-pwa/shopware-6-client"], {
+    stdio: "inherit",
+    cwd: cliDir,
   });
 
   /**
@@ -31,11 +35,11 @@ async function run() {
    */
   await execa("yarn", ["link"], {
     stdio: "inherit",
-    cwd: composablesDir
+    cwd: composablesDir,
   });
   await execa("yarn", ["link", "@shopware-pwa/composables"], {
     stdio: "inherit",
-    cwd: defaultThemeDir
+    cwd: defaultThemeDir,
   });
 
   /**
@@ -43,40 +47,39 @@ async function run() {
    */
   await execa("yarn", ["link"], {
     stdio: "inherit",
-    cwd: helpersDir
+    cwd: helpersDir,
   });
   await execa("yarn", ["link", "@shopware-pwa/helpers"], {
     stdio: "inherit",
-    cwd: defaultThemeDir
+    cwd: defaultThemeDir,
   });
-  
+
   /**
    * Link commons
    */
   await execa("yarn", ["link"], {
     stdio: "inherit",
-    cwd: commonsDir
+    cwd: commonsDir,
   });
   await execa("yarn", ["link", "@shopware-pwa/commons"], {
     stdio: "inherit",
-    cwd: apiClientDir
+    cwd: apiClientDir,
   });
   await execa("yarn", ["link", "@shopware-pwa/commons"], {
     stdio: "inherit",
-    cwd: helpersDir
+    cwd: helpersDir,
   });
   await execa("yarn", ["link", "@shopware-pwa/commons"], {
     stdio: "inherit",
-    cwd: composablesDir
+    cwd: composablesDir,
   });
-
 
   /**
    * Link nuxt-module
    */
   await execa("yarn", ["link"], {
     stdio: "inherit",
-    cwd: nuxtModuleDir
+    cwd: nuxtModuleDir,
   });
 
   /**
@@ -84,12 +87,12 @@ async function run() {
    */
   await execa("yarn", ["link"], {
     stdio: "inherit",
-    cwd: cliDir
+    cwd: cliDir,
   });
 
   await execa("yarn", ["link", "@shopware-pwa/nuxt-module"], {
     stdio: "inherit",
-    cwd: cliDir
+    cwd: cliDir,
   });
 
   /**
@@ -97,9 +100,8 @@ async function run() {
    */
   await execa("yarn", ["link"], {
     stdio: "inherit",
-    cwd: defaultThemeDir
+    cwd: defaultThemeDir,
   });
-
 
   /**
    * link local storefront-ui

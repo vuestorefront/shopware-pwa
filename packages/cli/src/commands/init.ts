@@ -139,6 +139,7 @@ module.exports = {
     // generate plugin files
     await toolbox.runtime.run(`plugins`, inputParameters);
     await toolbox.runtime.run(`cms`);
+    await toolbox.runtime.run(`languages`, inputParameters);
 
     const updateDependenciesSpinner = spin("Updating dependencies");
     // Loading additional packages

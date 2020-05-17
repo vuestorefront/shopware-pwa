@@ -44,8 +44,8 @@
       </template>
       <template #search>
         <SfSearchBar
-          placeholder="Search for products"
-          aria-label="Search for products"
+          :placeholder="$t('topNavigation.searchPlaceholder')"
+          :aria-label="$t('topNavigation.searchPlaceholder')"
           class="sf-header__search desktop-only"
           @enter="fulltextSearch"
         />

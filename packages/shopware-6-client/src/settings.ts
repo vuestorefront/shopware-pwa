@@ -7,6 +7,7 @@ export interface ClientSettings {
   contextToken?: string;
   defaultPaginationLimit?: number;
   timeout?: number;
+  languageId?: string;
 }
 
 const defaultConfig: ClientSettings = {

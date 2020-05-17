@@ -20,6 +20,11 @@ export function reloadConfiguration() {
   } else {
     delete apiService.defaults.headers.common["sw-context-token"];
   }
+  if (config.languageId) {
+    apiService.defaults.headers.common["sw-language-id"] = config.languageId;
+  } else {
+    delete apiService.defaults.headers.common["sw-language-id"];
+  }
 }
 reloadConfiguration();
 

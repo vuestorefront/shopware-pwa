@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueI18n from "vue-i18n";
 import Middleware from "./middleware";
+import { update } from "@shopware-pwa/shopware-6-client";
+import languagesMap from "sw-plugins/languages";
 
 Vue.use(VueI18n);
 
@@ -33,13 +35,17 @@ Middleware.i18n = function ({ isHMR, app, store, route, params, redirect }) {
   }
   // Get locale from params
   let locale = params.lang || defaultLocale;
-  if (!store.state.locales.includes(locale)) {
+  if (!languagesMap[locale]) {
     locale = defaultLocale;
     //   return error({ message: "This page could not be found.", statusCode: 404 });
   }
+
+  const fromMap = languagesMap[locale];
+  update({ languageId: fromMap && fromMap.id });
+
   // Set locale
   store.commit("SET_LANG", locale);
-  app.i18n.locale = store.state.locale;
+  app.i18n.locale = locale;
   // If route is /<defaultLocale>/... -> redirect to /...
   if (
     locale === defaultLocale &&

@@ -5,6 +5,7 @@
 </template>
 <script>
 import { useCms } from "@shopware-pwa/composables";
+import languagesMap from "sw-plugins/languages";
 
 const pagesMap = {
   "frontend.navigation.page": "CategoryView",
@@ -26,7 +27,7 @@ export default {
     const {search, page, error} = useCms()
     let path = params.pathMatch
     const lang = params.lang
-    if (lang && !store.state.locales.includes(lang)) {
+    if (lang && !languagesMap[lang]) {
       path = `${lang}/${params.pathMatch}`
     }
     const searchResult = await search(path, query);
