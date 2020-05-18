@@ -15,7 +15,7 @@
       :key="key"
     >
       <SfTableData>
-        {{ price.description }}
+        {{ price.label }}
       </SfTableData>
       <SfTableData>
         {{ price.unitPrice | price }}

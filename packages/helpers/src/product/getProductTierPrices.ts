@@ -1,12 +1,20 @@
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 
+/**
+ * @beta
+ */
 interface TierPrice {
-  description: string;
-  unitPrice: number;
+  label: string; // information about the quantity range
+  quantity: number; // price limit value
+  unitPrice: number; // price for only one product in given price range (quantity)
 }
 
 /**
- * @alpha
+ * Get the prices depending on quantity added to cart.
+ * Tier prices can be set in `Advanced pricing` tab in `Product view` (admin panel)
+ *
+ * @returns TierPrice[]
+ * @beta
  */
 export function getProductTierPrices(
   product: Product
@@ -17,7 +25,8 @@ export function getProductTierPrices(
   const size = product.calculatedPrices.length;
 
   return product.calculatedPrices.map(({ unitPrice, quantity }, index) => ({
-    description: index === size - 1 ? `from ${quantity}` : `to ${quantity}`,
+    label: index === size - 1 ? `from ${quantity}` : `to ${quantity}`,
+    quantity,
     unitPrice,
   }));
 }

@@ -123,7 +123,7 @@ export function getProductProperties({ product, }?: {
     product?: Product;
 }): UiProductProperty[];
 
-// @alpha (undocumented)
+// @beta
 export function getProductRegularPrice({ product, }?: {
     product?: Product;
 }): number | undefined;
@@ -133,12 +133,12 @@ export function getProductReviews({ product, }?: {
     product?: Product;
 }): UiProductReview[];
 
-// @alpha (undocumented)
+// @alpha
 export function getProductSpecialPrice(product: Product): number | undefined;
 
 // Warning: (ae-forgotten-export) The symbol "TierPrice" needs to be exported by the entry point index.d.ts
 //
-// @alpha (undocumented)
+// @beta
 export function getProductTierPrices(product: Product): TierPrice[] | undefined;
 
 // @alpha (undocumented)

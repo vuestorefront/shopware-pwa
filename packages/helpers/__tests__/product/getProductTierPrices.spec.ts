@@ -26,11 +26,13 @@ describe("Shopware helpers - getProductTierPrices", () => {
     const price = getProductTierPrices(product as any);
     expect(price).toStrictEqual([
       {
-        description: "to 5",
+        label: "to 5",
+        quantity: 5,
         unitPrice: 50,
       },
       {
-        description: "from 10",
+        label: "from 10",
+        quantity: 10,
         unitPrice: 19.95,
       },
     ]);
