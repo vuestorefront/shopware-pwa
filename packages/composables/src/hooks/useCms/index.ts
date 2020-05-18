@@ -29,6 +29,18 @@ export const useCms = (): any => {
     const searchCriteria: SearchCriteria = parseUrlQuery(query);
     // Temp Maciej solution for associations
     if (!searchCriteria.configuration) searchCriteria.configuration = {};
+    // Temp solution for consistant page size
+    // @TODO: https://github.com/DivanteLtd/shopware-pwa/issues/739
+    /* istanbul ignore else */
+    if (!searchCriteria.pagination) {
+      searchCriteria.pagination = {};
+    }
+
+    /* istanbul ignore else */
+    if (!searchCriteria.pagination.limit) {
+      searchCriteria.pagination.limit = 10;
+    }
+
     if (!searchCriteria.configuration.associations)
       searchCriteria.configuration.associations = [];
     searchCriteria.configuration.associations.push({

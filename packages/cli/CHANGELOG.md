@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.5](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/cli@0.1.0-alpha.4...@shopware-pwa/cli@0.1.0-alpha.5) (2020-05-08)
+
+
+### Bug Fixes
+
+* change CLI TS version ([#585](https://github.com/DivanteLtd/shopware-pwa/issues/585)) ([9fcadd5](https://github.com/DivanteLtd/shopware-pwa/commit/9fcadd5ccb9df59520d561b12df353d7c48248d9))
+* **cli:** [Snyk] Fix for 1 vulnerabilities ([#687](https://github.com/DivanteLtd/shopware-pwa/issues/687)) ([4a348a9](https://github.com/DivanteLtd/shopware-pwa/commit/4a348a9c0f3005b3a2538069792949ac1d0c6c7f))
+* **cli:** dependency for require package ([#569](https://github.com/DivanteLtd/shopware-pwa/issues/569)) ([59b4788](https://github.com/DivanteLtd/shopware-pwa/commit/59b4788a020316900071ac1b711f45ca574fae04))
+* **cli:** windows cli run ([#663](https://github.com/DivanteLtd/shopware-pwa/issues/663)) ([6319397](https://github.com/DivanteLtd/shopware-pwa/commit/631939772e7af950ce6954ab5dbadc34f46302ee))
+
+
+### Features
+
+* basic payment integration with paypal ([#709](https://github.com/DivanteLtd/shopware-pwa/issues/709)) ([6d55292](https://github.com/DivanteLtd/shopware-pwa/commit/6d552925b19900fdf3c10fc3e610406741add9f7))
+* deploy canary version from master ([#567](https://github.com/DivanteLtd/shopware-pwa/issues/567)) ([1f79d88](https://github.com/DivanteLtd/shopware-pwa/commit/1f79d88dfb31501d51226885851b5ef3c350bd2f))
+* plugin slots and local plugins development 🚀 ([#695](https://github.com/DivanteLtd/shopware-pwa/issues/695)) ([9c232bb](https://github.com/DivanteLtd/shopware-pwa/commit/9c232bbbc4a3bb00fdf3829e945aa33c56309a3b))
+* update access token for demo instance ([#611](https://github.com/DivanteLtd/shopware-pwa/issues/611)) ([e4f1205](https://github.com/DivanteLtd/shopware-pwa/commit/e4f1205c0d041b18f4a2f470d67906c4da5da982))
+* **cli:** enable canary and stable mode ([#713](https://github.com/DivanteLtd/shopware-pwa/issues/713)) ([5ec9126](https://github.com/DivanteLtd/shopware-pwa/commit/5ec9126099ec1a2efdec5a053443306c62a0ad36))
+
+
+
+
+
 # [0.1.0-alpha.4](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/cli@0.1.0-alpha.3...@shopware-pwa/cli@0.1.0-alpha.4) (2020-03-27)
 
 

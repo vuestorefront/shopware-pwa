@@ -10,17 +10,29 @@ describe("CustomerService - getCustomerOrders", () => {
     jest.resetAllMocks();
   });
 
+  it("should return empty array if no elements are in the response", async () => {
+    mockedAxios.get.mockResolvedValueOnce({
+      data: {
+        elements: null,
+      },
+    });
+    const result = await getCustomerOrders();
+    expect(result).toStrictEqual([]);
+  });
+
   it("should return array of orders", async () => {
     mockedAxios.get.mockResolvedValueOnce({
       data: {
-        data: [
-          {
-            orderNumber: "1234",
-          },
-          {
-            orderNumber: "4321",
-          },
-        ],
+        orders: {
+          elements: [
+            {
+              orderNumber: "1234",
+            },
+            {
+              orderNumber: "4321",
+            },
+          ],
+        },
       },
     });
     const result = await getCustomerOrders();

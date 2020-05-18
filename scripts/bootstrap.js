@@ -3,12 +3,12 @@
 const args = require("minimist")(process.argv.slice(2));
 const fs = require("fs");
 const path = require("path");
-const baseVersion = require("../lerna.json").version;
+const baseVersion = require("../package.json").version;
 
 const packagesDir = path.resolve(__dirname, "../packages");
 const files = fs.readdirSync(packagesDir);
 
-files.forEach(shortName => {
+files.forEach((shortName) => {
   if (!fs.statSync(path.join(packagesDir, shortName)).isDirectory()) {
     return;
   }
@@ -36,9 +36,9 @@ files.forEach(shortName => {
       sideEffects: false,
       repository: {
         type: "git",
-        url: "git+https://github.com/DivanteLtd/shopware-pwa"
+        url: "git+https://github.com/DivanteLtd/shopware-pwa",
       },
-      license: "MIT"
+      license: "MIT",
     };
     fs.writeFileSync(pkgPath, JSON.stringify(json, null, 2));
   }

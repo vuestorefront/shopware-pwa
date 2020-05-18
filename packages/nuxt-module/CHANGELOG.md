@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.5](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/nuxt-module@0.1.0-alpha.4...@shopware-pwa/nuxt-module@0.1.0-alpha.5) (2020-05-08)
+
+
+### Bug Fixes
+
+* **cli:** dependency for require package ([#569](https://github.com/DivanteLtd/shopware-pwa/issues/569)) ([59b4788](https://github.com/DivanteLtd/shopware-pwa/commit/59b4788a020316900071ac1b711f45ca574fae04))
+
+
+### Features
+
+* 605 order summary details ([#615](https://github.com/DivanteLtd/shopware-pwa/issues/615)) ([d5d8c7d](https://github.com/DivanteLtd/shopware-pwa/commit/d5d8c7d6086fd4fb5bfe761ca43a35c2c2d55012))
+* currency switch [#580](https://github.com/DivanteLtd/shopware-pwa/issues/580) ([#598](https://github.com/DivanteLtd/shopware-pwa/issues/598)) ([e34a9c1](https://github.com/DivanteLtd/shopware-pwa/commit/e34a9c1033056ffbcf05187e7a9c49de1571d288))
+* guest order with steps ([#600](https://github.com/DivanteLtd/shopware-pwa/issues/600)) ([1c77b1f](https://github.com/DivanteLtd/shopware-pwa/commit/1c77b1f9657a2c0dfccf7fb73da6c3c920e0f909))
+
+
+
+
+
 # [0.1.0-alpha.4](https://github.com/DivanteLtd/shopware-pwa/compare/@shopware-pwa/nuxt-module@0.1.0-alpha.3...@shopware-pwa/nuxt-module@0.1.0-alpha.4) (2020-03-27)
 
 

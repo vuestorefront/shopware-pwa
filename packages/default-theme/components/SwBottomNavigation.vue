@@ -86,6 +86,7 @@ import {
 } from '@shopware-pwa/composables'
 import { PAGE_ACCOUNT, PAGE_LOGIN } from '../helpers/pages'
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
+import { onMounted } from '@vue/composition-api'
 
 export default {
   name: 'SwBottomNavigation',
@@ -106,9 +107,13 @@ export default {
   },
   setup() {
     const { toggleSidebar, isSidebarOpen } = useCartSidebar()
-    const { routes } = useNavigation()
+    const { routes, fetchRoutes } = useNavigation()
     const { toggleModal } = useUserLoginModal()
     const { isLoggedIn, logout } = useUser()
+
+    onMounted(async () => {
+      await fetchRoutes()
+    })
     return {
       isLoggedIn,
       logout,

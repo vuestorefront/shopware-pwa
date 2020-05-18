@@ -4,7 +4,6 @@ import {
   update,
   config,
 } from "@shopware-pwa/shopware-6-client";
-import { getCustomerEndpoint } from "../../../src/endpoints";
 import { apiService } from "../../../src/apiService";
 
 jest.mock("../../../src/apiService");
@@ -27,7 +26,9 @@ describe("CustomerService - register", () => {
     mockedAxios.get.mockResolvedValueOnce({ data: { data: {} } });
     const result = await getCustomerAddresses();
     expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith(`${getCustomerEndpoint()}/address`);
+    expect(mockedAxios.get).toBeCalledWith(
+      `/sales-channel-api/v1/customer/address`
+    );
     expect(result).toMatchObject({});
   });
 });
