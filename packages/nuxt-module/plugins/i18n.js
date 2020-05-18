@@ -13,8 +13,8 @@ export default ({ app, store }) => {
     locale: store.state.locale,
     fallbackLocale: "en-GB",
     messages: {
-      "en-GB": require("@shopware-pwa/default-theme/locales/en.json"),
-      "de-DE": require("@shopware-pwa/default-theme/locales/de.json"),
+      "en-GB": require("sw-plugins/locales/en-GB.json"),
+      "de-DE": require("sw-plugins/locales/de-DE.json"),
     },
   });
 

@@ -37,7 +37,7 @@
           </nuxt-link>
           <SwMegaMenu
             :category="category"
-            :visible="category.name === currentCategoryName"
+            :visible="currentCategoryName && category.name === currentCategoryName"
           />
         </SfHeaderNavigationItem>
         <SwPluginSlot name="top-navigation-after" />
