@@ -129,19 +129,19 @@ export function deleteCustomerAddress(addressId: string): Promise<void>;
 export function getAvailableCountries(): Promise<SearchResult<Country[]>>;
 
 // @alpha (undocumented)
-export function getAvailableCurrencies(): Promise<SearchResult<Currency[]>>;
+export function getAvailableCurrencies(): Promise<Currency[]>;
 
 // @alpha (undocumented)
 export function getAvailableLanguages(): Promise<SearchResult<Language[]>>;
 
 // @alpha (undocumented)
-export function getAvailablePaymentMethods(): Promise<SearchResult<PaymentMethod[]>>;
+export function getAvailablePaymentMethods(): Promise<PaymentMethod[]>;
 
 // @alpha
 export function getAvailableSalutations(): Promise<SearchResult<Salutation[]>>;
 
 // @alpha (undocumented)
-export function getAvailableShippingMethods(): Promise<SearchResult<ShippingMethod[]>>;
+export function getAvailableShippingMethods(): Promise<ShippingMethod[]>;
 
 // @alpha
 export function getCart(): Promise<Cart>;
@@ -165,7 +165,7 @@ export function getCustomerAddress(addressId: string): Promise<CustomerAddress>;
 export function getCustomerAddresses(): Promise<CustomerAddress[]>;
 
 // @alpha
-export function getCustomerOrderDetails(orderId: string): Promise<Order>;
+export function getCustomerOrderDetails(orderId: string): Promise<Order | undefined>;
 
 // @beta
 export function getCustomerOrders(): Promise<Order[]>;

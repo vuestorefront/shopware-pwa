@@ -14,7 +14,7 @@ describe("ContextService - getSessionContext", () => {
 
     const result: SessionContext = await getSessionContext();
     expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith("/sales-channel-api/v1/context");
+    expect(mockedAxios.get).toBeCalledWith("/store-api/v1/context");
     expect(result.token).toEqual("qwerty");
   });
 });
