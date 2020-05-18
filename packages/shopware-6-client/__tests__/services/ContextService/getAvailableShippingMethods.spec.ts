@@ -9,13 +9,11 @@ describe("ContextService - getAvailableShippingMethods", () => {
     jest.resetAllMocks();
   });
   it("should return array with shipping methods", async () => {
-    mockedAxios.get.mockResolvedValueOnce({ data: { total: 2 } });
+    mockedAxios.get.mockResolvedValueOnce({ data: [{ id: 1 }, { id: 2 }] });
 
     const result = await getAvailableShippingMethods();
     expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith(
-      "/sales-channel-api/v1/shipping-method"
-    );
-    expect(result.total).toEqual(2);
+    expect(mockedAxios.get).toBeCalledWith("/store-api/v1/shipping-method");
+    expect(result).toHaveLength(2);
   });
 });

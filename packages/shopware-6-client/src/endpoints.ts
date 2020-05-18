@@ -98,13 +98,11 @@ export const getCheckoutPromotionCodeEndpoint = (code: string) =>
 
 // context
 
-export const getContextEndpoint = () => `/sales-channel-api/v1/context`;
+export const getContextEndpoint = () => `/store-api/v1/context`;
 
-export const getContextCurrencyEndpoint = () =>
-  `/sales-channel-api/v1/currency`;
+export const getContextCurrencyEndpoint = () => `/store-api/v1/currency`;
 
-export const getContextLanguageEndpoint = () =>
-  `/sales-channel-api/v1/language`;
+export const getContextLanguageEndpoint = () => `/store-api/v1/language`;
 
 export const getContextCountryEndpoint = () => `/sales-channel-api/v1/country`;
 
@@ -112,10 +110,10 @@ export const getContextCountryItemEndpoint = (countryId: string): string =>
   `/sales-channel-api/v1/country/${countryId}`;
 
 export const getContextPaymentMethodEndpoint = () =>
-  `/sales-channel-api/v1/payment-method`;
+  `/store-api/v1/payment-method`;
 
 export const getContextShippingMethodEndpoint = () =>
-  `/sales-channel-api/v1/shipping-method`;
+  `/store-api/v1/shipping-method`;
 
 export const getContextSalutationEndpoint = () => `/store-api/v1/salutation`;
 
