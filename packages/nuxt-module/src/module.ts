@@ -57,14 +57,11 @@ export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
     fileName: "i18n.js",
     options: moduleOptions,
   });
-  const middlewareArray =
-    moduleObject.options.router &&
-    (moduleObject.options.router.middleware as any);
-  middlewareArray.push("i18n");
+  moduleObject.options.router.middleware.push("i18n");
 
   moduleObject.extendBuild((config: WebpackConfig) => {
     const swPluginsDirectory = path.join(
-      moduleObject.options.rootDir || "",
+      moduleObject.options.rootDir,
       ".shopware-pwa/sw-plugins"
     );
     config.resolve.alias["sw-plugins"] = swPluginsDirectory;

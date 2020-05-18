@@ -15,7 +15,7 @@ export function loadConfig(
   moduleObject: NuxtModuleOptions
 ): ShopwarePwaConfigFile | undefined {
   return require(path.join(
-    moduleObject.options.rootDir || "",
+    moduleObject.options.rootDir,
     "shopware-pwa.config.js"
   ));
 }

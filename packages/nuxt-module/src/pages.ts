@@ -9,7 +9,7 @@ export function overrideRoutes(
   overrides: string[]
 ) {
   const pagesDir = path.join(
-    moduleObject.options.rootDir || "",
+    moduleObject.options.rootDir,
     "node_modules/@shopware-pwa/default-theme"
   );
   routes.forEach((route: any) => {
@@ -30,13 +30,13 @@ export function overrideRoutes(
 
 export function addThemePages(moduleObject: NuxtModuleOptions) {
   const pagesDir = path.join(
-    moduleObject.options.rootDir || "",
+    moduleObject.options.rootDir,
     "node_modules/@shopware-pwa/default-theme"
   );
 
   const themePages = getAllFiles(path.join(pagesDir, "pages"));
   const projectPages = getAllFiles(
-    path.join(moduleObject.options.rootDir || "", "pages")
+    path.join(moduleObject.options.rootDir, "pages")
   );
 
   const allPages = themePages

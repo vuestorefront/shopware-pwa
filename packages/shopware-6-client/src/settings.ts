@@ -14,6 +14,7 @@ const defaultConfig: ClientSettings = {
   endpoint: "https://shopware-2.vuestorefront.io",
   accessToken: "SWSCTXJOZMQWCXA4OUTNZ0REYG",
   contextToken: "",
+  languageId: "",
   defaultPaginationLimit: 10,
   timeout: 10000, // ms
 };

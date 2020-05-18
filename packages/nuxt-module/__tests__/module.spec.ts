@@ -27,6 +27,9 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
   const moduleObject: NuxtModuleOptions = {
     options: {
       rootDir: __dirname,
+      router: {
+        middleware: [],
+      },
     },
     addLayout: jest.fn(),
     extendRoutes: jest.fn(),

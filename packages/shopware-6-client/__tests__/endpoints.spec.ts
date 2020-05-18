@@ -237,7 +237,7 @@ describe("endpoints", () => {
   describe("getContextLanguageEndpoint", () => {
     it("should return Shopware language endpoint", async () => {
       const result = getContextLanguageEndpoint();
-      expect(result).toEqual("/sales-channel-api/v1/language");
+      expect(result).toEqual("/store-api/v1/language");
     });
   });
 
