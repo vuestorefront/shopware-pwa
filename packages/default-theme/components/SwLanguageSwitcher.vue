@@ -1,8 +1,8 @@
 <template>
   <div class="sw-language-switcher">
     <SfSelect
-      :selected="activeLanguage"
-      @change="redirectToLocale"
+      :selected="currentLocale"
+      @change="changeLocale"
       :size="availableLanguages.length"
       class="sw-language-switcher__select"
     >
@@ -20,29 +20,20 @@
 import { SfSelect, SfProductOption } from '@storefront-ui/vue'
 import { computed, onMounted, ref } from '@vue/composition-api'
 import languagesMap from 'sw-plugins/languages'
+import { useLocales } from '@shopware-pwa/default-theme/logic/useLocales'
 
 export default {
   name: 'SwLanguageSwitcher',
   components: {
     SfSelect,
   },
-  computed: {
-    availableLanguages() {
-      return Object.values(languagesMap)
-    },
-    activeLanguage() {
-      return this.$i18n.locale
-    },
-  },
-  methods: {
-    redirectToLocale(localeCode) {
-      if (localeCode === this.$i18n.locale) return
-      if (localeCode === this.$i18n.fallbackLocale) {
-        this.$router.push(this.$route.fullPath.replace(/^\/[^\/]+/, ''))
-      } else {
-        this.$router.push(`/${localeCode}${this.$route.fullPath}`)
-      }
-    },
+  setup() {
+    const { availableLanguages, currentLocale, changeLocale } = useLocales()
+    return {
+      availableLanguages,
+      currentLocale,
+      changeLocale,
+    }
   },
 }
 </script>
