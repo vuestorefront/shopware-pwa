@@ -9,7 +9,7 @@
       </slot>
 
       <SfAlert
-        v-for="(message, index) in useUserErrorMessages"
+        v-for="(message, index) in userErrorMessages"
         :key="index"
         class="sw-password__alert"
         type="danger"
@@ -81,7 +81,7 @@ export default {
   props: {},
   setup() {
     const { user, error: userError, updatePassword, refreshUser } = useUser()
-    const userErrorMessages = computed(() => getMessagesFromErrorsArray(userError.value.message))
+    const userErrorMessages = computed(() => getMessagesFromErrorsArray(userError.value && userError.value.message))
 
     return {
       refreshUser,
