@@ -59,7 +59,7 @@ export const getCustomerLoginEndpoint = () => `/store-api/v1/account/login`;
 
 export const getCustomerLogoutEndpoint = () => `/store-api/v1/account/logout`;
 
-export const getCustomerOrderEndpoint = () => `/store-api/v1/account/order`;
+export const getCustomerOrderEndpoint = () => `/store-api/v1/order`;
 
 export const getCustomerOrderDetailsEndpoint = (orderId: string) =>
   `/sales-channel-api/v1/checkout/guest-order/${orderId}`;

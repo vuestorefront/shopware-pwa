@@ -111,7 +111,7 @@ export async function getCustomerAddresses(): Promise<CustomerAddress[]> {
  */
 export async function getCustomerOrders(): Promise<Order[]> {
   const resp = await apiService.get(getCustomerOrderEndpoint());
-  return resp.data.elements || [];
+  return resp.data.orders?.elements || [];
 }
 
 /**
