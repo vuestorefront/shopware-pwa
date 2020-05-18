@@ -129,7 +129,6 @@ import {
 } from '@shopware-pwa/composables'
 import { mapCountries, mapSalutations } from '@shopware-pwa/helpers'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
-import {config} from '@shopware-pwa/shopware-6-client'
 
 export default {
   name: 'SwResetPassword',
@@ -177,7 +176,7 @@ export default {
         email: this.email,
         password: this.password,
         salutationId: this.salutation.id,
-        storefrontUrl: config.endpoint,
+        storefrontUrl: window?.location?.origin,
         billingAddress: {
           firstName: this.firstName,
           salutationId: this.salutation.id,

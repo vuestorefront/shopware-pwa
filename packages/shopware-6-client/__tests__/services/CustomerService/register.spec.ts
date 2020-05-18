@@ -18,6 +18,7 @@ describe("CustomerService - register", () => {
       lastName: name.lastName(),
       password: internet.password(8),
       email: internet.email(),
+      storefrontUrl: internet.domainName(),
       billingAddress: {
         countryId: random.uuid(),
         street: address.streetName(),

@@ -8,7 +8,7 @@ import { apiService } from "../src/apiService";
 import { ConfigChangedArgs } from "../src";
 import { random } from "faker";
 
-const DEFAULT_ENDPOINT = "https://shopware-2.vuestorefront.io";
+const DEFAULT_ENDPOINT = "https://shopware6-demo.vuestorefront.io";
 const DEFAULT_TIMEOUT = 10000;
 
 describe("Settings", () => {
@@ -70,19 +70,19 @@ describe("Settings", () => {
 
     it("should have default config with empty invocation", () => {
       update();
-      expect(config.accessToken).toEqual("SWSCTXJOZMQWCXA4OUTNZ0REYG");
+      expect(config.accessToken).toEqual("SWSCVJJET0RQAXFNBMTDZTV1OQ");
       expect(config.contextToken).toEqual("");
     });
 
     it("should change defaultPaginationLimit", () => {
       update({ defaultPaginationLimit: 50 });
-      expect(config.accessToken).toEqual("SWSCTXJOZMQWCXA4OUTNZ0REYG");
+      expect(config.accessToken).toEqual("SWSCVJJET0RQAXFNBMTDZTV1OQ");
       expect(config.defaultPaginationLimit).toEqual(50);
     });
 
     it("should change default timeout", () => {
       update({ timeout: 50 });
-      expect(config.accessToken).toEqual("SWSCTXJOZMQWCXA4OUTNZ0REYG");
+      expect(config.accessToken).toEqual("SWSCVJJET0RQAXFNBMTDZTV1OQ");
       expect(config.timeout).toEqual(50);
     });
   });
