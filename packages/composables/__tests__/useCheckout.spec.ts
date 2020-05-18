@@ -199,7 +199,7 @@ describe("Composables - useCheckout", () => {
         ]);
       });
 
-      it("should return an empty array if response data is not defined", async () => {
+      it("should return an empty array if response data is an empty array", async () => {
         mockedApiClient.getAvailableShippingMethods.mockResolvedValueOnce(
           [] as any
         );
@@ -274,7 +274,7 @@ describe("Composables - useCheckout", () => {
         ]);
       });
 
-      it("should return an empty array if response data is not defined", async () => {
+      it("should return an empty array if response data is an empty array", async () => {
         mockedApiClient.getAvailablePaymentMethods.mockResolvedValueOnce(
           [] as any
         );
