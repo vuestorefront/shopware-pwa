@@ -43,20 +43,20 @@
 </template>
 
 <script>
-import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
-import { validationMixin } from 'vuelidate'
-import { required, email } from 'vuelidate/lib/validators'
-import { useUser } from '@shopware-pwa/composables'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+import { SfInput, SfButton, SfAlert } from "@storefront-ui/vue"
+import { validationMixin } from "vuelidate"
+import { required, email } from "vuelidate/lib/validators"
+import { useUser } from "@shopware-pwa/composables"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {
-  name: 'SwLogin',
+  name: "SwLogin",
   components: { SfButton, SfInput, SfAlert, SwPluginSlot },
   mixins: [validationMixin],
   data() {
     return {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     }
   },
   setup() {
@@ -86,14 +86,14 @@ export default {
         username: this.email,
         password: this.password,
       })
-      if (loggedIn) this.$emit('success')
+      if (loggedIn) this.$emit("success")
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 
 .sw-login {
   &__alert {

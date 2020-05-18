@@ -98,17 +98,17 @@ import {
   SfButton,
   SfSelect,
   SfRadio,
-} from '@storefront-ui/vue'
-import { validationMixin } from 'vuelidate'
+} from "@storefront-ui/vue"
+import { validationMixin } from "vuelidate"
 import {
   useShippingStep,
   useShippingStepValidationRules,
-} from '@shopware-pwa/default-theme/logic/checkout/useShippingStep'
-import { useCountries, useCheckout } from '@shopware-pwa/composables'
-import { computed } from '@vue/composition-api'
+} from "@shopware-pwa/default-theme/logic/checkout/useShippingStep"
+import { useCountries, useCheckout } from "@shopware-pwa/composables"
+import { computed } from "@vue/composition-api"
 
 export default {
-  name: 'ShippingAddressGuestForm',
+  name: "ShippingAddressGuestForm",
   mixins: [validationMixin],
   components: {
     SfHeading,
@@ -175,7 +175,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 .form {
   &__group {
     display: flex;
@@ -241,12 +241,12 @@ export default {
     margin-left: var(--spacer-xs);
     text-decoration: none;
     &::before {
-      content: '+';
+      content: "+";
     }
     &--is-active {
       color: var(--c-primary);
       &::before {
-        content: '-';
+        content: "-";
       }
     }
   }

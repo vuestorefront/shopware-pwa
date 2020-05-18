@@ -1,6 +1,6 @@
-import { requiredIf } from 'vuelidate/lib/validators'
-import { useCheckout, createCheckoutStep } from '@shopware-pwa/composables'
-import { CHECKOUT_STEPS } from '@shopware-pwa/default-theme/logic/checkout'
+import { requiredIf } from "vuelidate/lib/validators"
+import { useCheckout, createCheckoutStep } from "@shopware-pwa/composables"
+import { CHECKOUT_STEPS } from "@shopware-pwa/default-theme/logic/checkout"
 
 const { guestOrderParams, updateGuestOrderParams } = useCheckout()
 

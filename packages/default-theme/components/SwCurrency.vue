@@ -21,12 +21,12 @@
   </div>
 </template>
 <script>
-import { SfSelect, SfProductOption } from '@storefront-ui/vue'
-import { useCurrency } from '@shopware-pwa/composables'
-import { computed, onMounted } from '@vue/composition-api'
+import { SfSelect, SfProductOption } from "@storefront-ui/vue"
+import { useCurrency } from "@shopware-pwa/composables"
+import { computed, onMounted } from "@vue/composition-api"
 
 export default {
-  name: 'SwCurrency',
+  name: "SwCurrency",
   components: {
     SfSelect,
   },
@@ -64,7 +64,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 
 .sw-currency {
   text-align: center;
@@ -72,7 +72,7 @@ export default {
     --select-margin: 0;
     --chevron-size: 0;
     --select-option-font-size: var(--font-base);
-    --select-selected-padding: .5rem;
+    --select-selected-padding: 0.5rem;
     cursor: pointer;
   }
 }

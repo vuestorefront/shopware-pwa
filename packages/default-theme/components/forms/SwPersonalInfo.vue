@@ -82,27 +82,36 @@
 </template>
 
 <script>
-import { computed, watch } from '@vue/composition-api'
-import { validationMixin } from 'vuelidate'
-import { required, email, requiredIf, minLength, sameAs } from 'vuelidate/lib/validators'
+import { computed, watch } from "@vue/composition-api"
+import { validationMixin } from "vuelidate"
+import {
+  required,
+  email,
+  requiredIf,
+  minLength,
+  sameAs,
+} from "vuelidate/lib/validators"
 import {
   SfInput,
   SfButton,
   SfSelect,
   SfProductOption,
-  SfAlert
-} from '@storefront-ui/vue'
-import { useUser, useContext } from '@shopware-pwa/composables'
-import { mapSalutations, getMessagesFromErrorsArray } from '@shopware-pwa/helpers'
+  SfAlert,
+} from "@storefront-ui/vue"
+import { useUser, useContext } from "@shopware-pwa/composables"
+import {
+  mapSalutations,
+  getMessagesFromErrorsArray,
+} from "@shopware-pwa/helpers"
 
 export default {
-  name: 'SwPersonalInfo',
+  name: "SwPersonalInfo",
   components: {
     SfInput,
     SfButton,
     SfSelect,
     SfProductOption,
-    SfAlert
+    SfAlert,
   },
   mixins: [validationMixin],
   setup() {
@@ -111,7 +120,7 @@ export default {
       error: userError,
       updatePersonalInfo,
       refreshUser,
-      updateEmail
+      updateEmail,
     } = useUser()
 
     return {
@@ -119,7 +128,7 @@ export default {
       updatePersonalInfo,
       user,
       updateEmail,
-      userError
+      userError,
     }
   },
   data() {
@@ -128,44 +137,49 @@ export default {
         this.user && this.user.salutation
           ? {
               name: this.user.salutation.displayName,
-              id: this.user.salutation.id
+              id: this.user.salutation.id,
             }
           : {},
       firstName: this.user && this.user.firstName,
       lastName: this.user && this.user.lastName,
       email: this.user && this.user.email,
-      emailConfirmation: '',
-      password: ''
+      emailConfirmation: "",
+      password: "",
     }
   },
   computed: {
     getErrorMessage() {
-      return getMessagesFromErrorsArray(this.userError && this.userError.message)
+      return getMessagesFromErrorsArray(
+        this.userError && this.userError.message
+      )
     },
     isEmailChanging() {
       return this.email !== (this.user && this.user.email)
     },
     isNameChanging() {
-      return this.firstName !== (this.user && this.user.firstName) || this.lastName !== (this.user && this.user.lastName)
+      return (
+        this.firstName !== (this.user && this.user.firstName) ||
+        this.lastName !== (this.user && this.user.lastName)
+      )
     },
   },
   validations: {
     firstName: {
-      required
+      required,
     },
     lastName: {
-      required
+      required,
     },
     email: {
       email,
-      required
+      required,
     },
     emailConfirmation: {
       required: requiredIf(function (password) {
         return this.isEmailChanging
       }),
-      sameAsEmail: sameAs('email'),
-      email
+      sameAsEmail: sameAs("email"),
+      email,
     },
     password: {
       required: requiredIf(function (password) {
@@ -176,12 +190,12 @@ export default {
   },
   watch: {
     email() {
-      if(!this.isEmailChanging) {
+      if (!this.isEmailChanging) {
         this.emailConfirmation = this.email
       } else {
-        this.emailConfirmation = ''
+        this.emailConfirmation = ""
       }
-    }
+    },
   },
   methods: {
     async invokeUpdate() {
@@ -189,28 +203,28 @@ export default {
       if (this.$v.$invalid) {
         return
       }
-      if(this.isNameChanging) {
+      if (this.isNameChanging) {
         const profileChanged = await this.updatePersonalInfo({
           firstName: this.firstName,
           lastName: this.lastName,
-          salutationId: this.salutation.id
+          salutationId: this.salutation.id,
         })
       }
-      if(this.isEmailChanging) {
+      if (this.isEmailChanging) {
         const emailChanged = await this.updateEmail({
-        email: this.email,
-        emailConfirmation: this.emailConfirmation,
-        password: this.password
-      })
+          email: this.email,
+          emailConfirmation: this.emailConfirmation,
+          password: this.password,
+        })
       }
       await this.refreshUser()
-    }
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles.scss';
+@import "~@storefront-ui/vue/styles.scss";
 
 .form {
   @include for-desktop {

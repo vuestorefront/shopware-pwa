@@ -12,11 +12,11 @@
   </div>
 </template>
 <script>
-import { SfButton } from '@storefront-ui/vue'
-import { useSessionContext } from '@shopware-pwa/composables'
-import { computed } from '@vue/composition-api'
+import { SfButton } from "@storefront-ui/vue"
+import { useSessionContext } from "@shopware-pwa/composables"
+import { computed } from "@vue/composition-api"
 export default {
-  name: 'PaymentMethodSummary',
+  name: "PaymentMethodSummary",
   components: {
     SfButton,
   },
@@ -31,7 +31,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 .review {
   &__item {
     display: flex;

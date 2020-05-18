@@ -19,11 +19,11 @@
   </div>
 </template>
 <script>
-import { SfButton } from '@storefront-ui/vue'
-import { useCheckout } from '@shopware-pwa/composables'
+import { SfButton } from "@storefront-ui/vue"
+import { useCheckout } from "@shopware-pwa/composables"
 
 export default {
-  name: 'BillingAddressSummary',
+  name: "BillingAddressSummary",
   components: {
     SfButton,
   },
@@ -36,7 +36,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 .review {
   &__item {
     display: flex;

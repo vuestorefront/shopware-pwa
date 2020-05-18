@@ -65,8 +65,8 @@
   </div>
 </template>
 <script>
-import { useCart } from '@shopware-pwa/composables'
-import helpers from '@shopware-pwa/default-theme/helpers'
+import { useCart } from "@shopware-pwa/composables"
+import helpers from "@shopware-pwa/default-theme/helpers"
 
 import {
   SfProperty,
@@ -74,9 +74,9 @@ import {
   SfHeading,
   SfButton,
   SfNotification,
-} from '@storefront-ui/vue'
+} from "@storefront-ui/vue"
 export default {
-  name: 'TotalsSummary',
+  name: "TotalsSummary",
   components: {
     SfProperty,
     SfHeading,
@@ -108,7 +108,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 
 .summary {
   margin: 0 calc(var(--spacer-base) * -1);

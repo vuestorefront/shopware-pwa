@@ -30,38 +30,38 @@
   </div>
 </template>
 <script>
-import { SfHeading, SfPrice, SfRating } from '@storefront-ui/vue'
+import { SfHeading, SfPrice, SfRating } from "@storefront-ui/vue"
 
 export default {
-  name: 'SwProductHeading',
+  name: "SwProductHeading",
   components: { SfHeading, SfPrice, SfRating },
   props: {
     reviews: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     price: {
       type: [Number, String],
-      default: 0
+      default: 0,
     },
     special: {
       type: [Number, String],
-      default: 0
+      default: 0,
     },
     ratingAverage: {
       type: Number,
-      default: 0
+      default: 0,
     },
     name: {
       type: String,
-      default: ''
-    }
-  }
+      default: "",
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/shared/styles/variables';
+@import "~@storefront-ui/shared/styles/variables";
 
 .product-heading {
   &__sub {

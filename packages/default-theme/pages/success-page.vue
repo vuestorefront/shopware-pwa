@@ -16,17 +16,17 @@
   </div>
 </template>
 <script>
-import { SfButton, SfHeading, SfIcon } from '@storefront-ui/vue'
-import { getOrderPaymentUrl } from '@shopware-pwa/shopware-6-client'
+import { SfButton, SfHeading, SfIcon } from "@storefront-ui/vue"
+import { getOrderPaymentUrl } from "@shopware-pwa/shopware-6-client"
 import {
   ref,
   getCurrentInstance,
   onMounted,
   computed,
-} from '@vue/composition-api'
+} from "@vue/composition-api"
 
 export default {
-  name: 'SuccessPage',
+  name: "SuccessPage",
   components: {
     SfHeading,
     SfButton,
@@ -49,7 +49,7 @@ export default {
         })
         paymentUrl.value = resp.paymentUrl
       } catch (e) {
-        console.error('Success page, payment link error', e)
+        console.error("Success page, payment link error", e)
       }
     })
     return {
@@ -59,7 +59,7 @@ export default {
 }
 </script>
 <style lang="scss">
-@import '~@storefront-ui/vue/styles.scss';
+@import "~@storefront-ui/vue/styles.scss";
 
 .success-page {
   min-height: 50vh;

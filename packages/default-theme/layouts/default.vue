@@ -22,12 +22,12 @@
 </template>
 
 <script>
-import { SfBreadcrumbs } from '@storefront-ui/vue'
-import SwTopNavigation from '@shopware-pwa/default-theme/components/SwTopNavigation'
-import SwBottomNavigation from '@shopware-pwa/default-theme/components/SwBottomNavigation'
-import SwCart from '@shopware-pwa/default-theme/components/SwCart'
-import SwFooter from '@shopware-pwa/default-theme/components/SwFooter'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+import { SfBreadcrumbs } from "@storefront-ui/vue"
+import SwTopNavigation from "@shopware-pwa/default-theme/components/SwTopNavigation"
+import SwBottomNavigation from "@shopware-pwa/default-theme/components/SwBottomNavigation"
+import SwCart from "@shopware-pwa/default-theme/components/SwCart"
+import SwFooter from "@shopware-pwa/default-theme/components/SwFooter"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {
   components: {
@@ -72,7 +72,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 
 html {
   overflow-x: hidden;

@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
-import { SfPagination, SfHeading, SfLoader } from '@storefront-ui/vue'
-import { useProductListing } from '@shopware-pwa/composables'
+import SwProductCard from "@shopware-pwa/default-theme/components/SwProductCard"
+import { SfPagination, SfHeading, SfLoader } from "@storefront-ui/vue"
+import { useProductListing } from "@shopware-pwa/composables"
 export default {
   components: {
     SwProductCard,
@@ -41,7 +41,7 @@ export default {
     SfHeading,
     SfLoader,
   },
-  name: 'CmsElementProductListing',
+  name: "CmsElementProductListing",
   props: {
     content: {
       type: Object,
@@ -72,7 +72,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
+@import "../settings.scss";
 
 // additional screen variables
 $desktop-big: 1200px;

@@ -58,19 +58,19 @@ import {
   SfIcon,
   SfSelect,
   SfProductOption,
-} from '@storefront-ui/vue'
+} from "@storefront-ui/vue"
 import {
   useCartSidebar,
   useNavigation,
   useUser,
   useUserLoginModal,
-} from '@shopware-pwa/composables'
-import { PAGE_ACCOUNT } from '../helpers/pages'
-import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
-import { onMounted } from '@vue/composition-api'
+} from "@shopware-pwa/composables"
+import { PAGE_ACCOUNT } from "../helpers/pages"
+import SwCurrency from "@shopware-pwa/default-theme/components/SwCurrency"
+import { onMounted } from "@vue/composition-api"
 
 export default {
-  name: 'SwBottomNavigation',
+  name: "SwBottomNavigation",
   components: {
     SfBottomNavigation,
     SfIcon,
@@ -82,7 +82,7 @@ export default {
   data() {
     return {
       navigationElements: [],
-      currentRoute: { routeLabel: '', routePath: '/' },
+      currentRoute: { routeLabel: "", routePath: "/" },
     }
   },
   setup() {

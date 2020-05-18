@@ -38,9 +38,9 @@
 </template>
 
 <script>
-import { SfList, SfAccordion, SfMenuItem, SfHeading } from '@storefront-ui/vue'
-import { getNavigation } from '@shopware-pwa/shopware-6-client'
-import { useCms } from '@shopware-pwa/composables'
+import { SfList, SfAccordion, SfMenuItem, SfHeading } from "@storefront-ui/vue"
+import { getNavigation } from "@shopware-pwa/shopware-6-client"
+import { useCms } from "@shopware-pwa/composables"
 
 export default {
   components: {
@@ -49,7 +49,7 @@ export default {
     SfMenuItem,
     SfHeading,
   },
-  name: 'CmsElementCategoryNavigation',
+  name: "CmsElementCategoryNavigation",
   props: {
     content: {
       type: Object,
@@ -63,7 +63,7 @@ export default {
   },
   data() {
     return {
-      navTitle: 'Subcategories',
+      navTitle: "Subcategories",
       navigationElements: [],
     }
   },
@@ -81,14 +81,14 @@ export default {
   },
   methods: {
     getCategoryUrl(route) {
-      return route.path || ''
+      return route.path || ""
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
+@import "../settings.scss";
 
 .cms-element-category-navigation {
   &__header {

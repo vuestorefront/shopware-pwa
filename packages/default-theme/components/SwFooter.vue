@@ -11,15 +11,15 @@
 </template>
 
 <script>
-import { SfCheckbox } from '@storefront-ui/vue'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+import { SfCheckbox } from "@storefront-ui/vue"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {
   components: {
     SfCheckbox,
     SwPluginSlot,
   },
-  name: 'SwFooter',
+  name: "SwFooter",
   props: {
     column: {
       type: Number,
@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~@storefront-ui/vue/styles.scss';
+@import "~@storefront-ui/vue/styles.scss";
 
 .sw-footer {
   width: 100%;

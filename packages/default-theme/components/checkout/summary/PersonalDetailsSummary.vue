@@ -15,14 +15,14 @@
   </div>
 </template>
 <script>
-import { SfButton } from '@storefront-ui/vue'
-import { usePersonalDetailsStep } from '@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep'
-import { CHECKOUT_STEPS } from '@shopware-pwa/default-theme/logic/checkout'
-import { useCheckout, useUser } from '@shopware-pwa/composables'
-import { computed } from '@vue/composition-api'
+import { SfButton } from "@storefront-ui/vue"
+import { usePersonalDetailsStep } from "@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep"
+import { CHECKOUT_STEPS } from "@shopware-pwa/default-theme/logic/checkout"
+import { useCheckout, useUser } from "@shopware-pwa/composables"
+import { computed } from "@vue/composition-api"
 
 export default {
-  name: 'PersonalDetailsSummary',
+  name: "PersonalDetailsSummary",
   components: {
     SfButton,
   },
@@ -47,7 +47,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 .review {
   &__item {
     display: flex;

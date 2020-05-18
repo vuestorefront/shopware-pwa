@@ -1,82 +1,102 @@
 <template>
-<div v-if="address">
-  <div class="shipping__content">
-  <p class="shipping__address">
-    <span class="shipping__client-name">
-      {{ firstName }} {{ lastName }}
-    </span>
-    <br />
-    {{ street }}
-    <br />
-    {{ zipcode }} {{ city }}
-    <br />
-    {{ country }}
-  </p>
-  <p class="shipping__address" v-if="phone">
-    {{ phone }}
-  </p>
-  </div>
-  <div class="shipping__actions">
-    <SfIcon
-      icon="shipping"
-      :color="isDefaultShipping ? 'primary' : 'grey'"
-      size="md"
-      role="button"
-      v-on:click="$emit('selectDefaultAddress', address.id, 'shipping')"
-      :title="isDefaultShipping ? 'Default shipping address' : 'set as default'"
-      :class="isDefaultShipping ? 'info' : null"
+  <div v-if="address">
+    <div class="shipping__content">
+      <p class="shipping__address">
+        <span class="shipping__client-name">
+          {{ firstName }} {{ lastName }}
+        </span>
+        <br />
+        {{ street }}
+        <br />
+        {{ zipcode }} {{ city }}
+        <br />
+        {{ country }}
+      </p>
+      <p class="shipping__address" v-if="phone">
+        {{ phone }}
+      </p>
+    </div>
+    <div class="shipping__actions">
+      <SfIcon
+        icon="shipping"
+        :color="isDefaultShipping ? 'primary' : 'grey'"
+        size="md"
+        role="button"
+        v-on:click="$emit('selectDefaultAddress', address.id, 'shipping')"
+        :title="
+          isDefaultShipping ? 'Default shipping address' : 'set as default'
+        "
+        :class="isDefaultShipping ? 'info' : null"
       />
-    <SfIcon
-      icon="credits"
-      :color="isDefaultBilling ? 'primary' : 'grey'"
-      size="md"
-      role="button"
-      v-on:click="$emit('selectDefaultAddress', address.id, 'billing')"
-      :title="isDefaultBilling ? 'Default billing address' : 'set as default'"
-      :class="isDefaultBilling ? 'info' : null"
+      <SfIcon
+        icon="credits"
+        :color="isDefaultBilling ? 'primary' : 'grey'"
+        size="md"
+        role="button"
+        v-on:click="$emit('selectDefaultAddress', address.id, 'billing')"
+        :title="isDefaultBilling ? 'Default billing address' : 'set as default'"
+        :class="isDefaultBilling ? 'info' : null"
       />
-    <SfIcon
-      icon="cross"
-      :color="isDefaultBilling || isDefaultShipping ? 'grey' : 'pink-primary'"
-      size="xs"
-      role="button"
-      title="Delete"
-      v-on:click="(isDefaultBilling || isDefaultShipping) || $emit('deleteAddress', address.id)"
-      :class="{ info: isDefaultBilling || isDefaultShipping }"
-    />
-    <SfIcon
-      icon="chevron_right"
-      color="grey"
-      size="xs"
-      role="button"
-      title="Edit"
-      v-on:click="$emit('editAddress', address.id)"
-    />
-
+      <SfIcon
+        icon="cross"
+        :color="isDefaultBilling || isDefaultShipping ? 'grey' : 'pink-primary'"
+        size="xs"
+        role="button"
+        title="Delete"
+        v-on:click="
+          isDefaultBilling ||
+            isDefaultShipping ||
+            $emit('deleteAddress', address.id)
+        "
+        :class="{ info: isDefaultBilling || isDefaultShipping }"
+      />
+      <SfIcon
+        icon="chevron_right"
+        color="grey"
+        size="xs"
+        role="button"
+        title="Edit"
+        v-on:click="$emit('editAddress', address.id)"
+      />
+    </div>
   </div>
-</div>
 </template>
 <script>
-
-import { SfProperty, SfTabs, SfList, SfButton, SfIcon, SfBadge, SfCheckbox } from '@storefront-ui/vue'
-import { useUser } from '@shopware-pwa/composables'
+import {
+  SfProperty,
+  SfTabs,
+  SfList,
+  SfButton,
+  SfIcon,
+  SfBadge,
+  SfCheckbox,
+} from "@storefront-ui/vue"
+import { useUser } from "@shopware-pwa/composables"
 
 export default {
   name: "Address",
-  components: {SfProperty, SfTabs, SfList, SfButton, SfIcon, SfBadge, SfCheckbox},
+  components: {
+    SfProperty,
+    SfTabs,
+    SfList,
+    SfButton,
+    SfIcon,
+    SfBadge,
+    SfCheckbox,
+  },
   props: {
     address: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     isDefaultBilling: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isDefaultShipping: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     firstName() {
@@ -99,13 +119,13 @@ export default {
     },
     country() {
       return this.address.country && address.country.name
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles.scss';
+@import "~@storefront-ui/vue/styles.scss";
 
 .shipping {
   &:last-child {
@@ -135,7 +155,7 @@ export default {
     .sf-icon {
       margin-left: 10px;
       cursor: pointer;
-    } 
+    }
 
     .sf-icon:not(.info) {
       margin-left: 10px;

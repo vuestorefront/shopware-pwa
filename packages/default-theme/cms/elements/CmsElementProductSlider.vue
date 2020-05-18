@@ -11,11 +11,11 @@
 </template>
 
 <script>
-import { SfSection, SfCarousel } from '@storefront-ui/vue'
-import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
+import { SfSection, SfCarousel } from "@storefront-ui/vue"
+import SwProductCard from "@shopware-pwa/default-theme/components/SwProductCard"
 
 export default {
-  name: 'CmsElementProductSlider',
+  name: "CmsElementProductSlider",
   components: {
     SfSection,
     SfCarousel,
@@ -36,14 +36,14 @@ export default {
         this.content.config &&
         this.content.config.title.value
         ? this.content.config.title.value
-        : ''
+        : ""
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
+@import "../settings.scss";
 
 .cms-element-product-slider {
   width: 100%;

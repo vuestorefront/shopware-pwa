@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import { getCmsSectionComponent } from 'sw-cms/cmsNameMapper'
+import { getCmsSectionComponent } from "sw-cms/cmsNameMapper"
 
 export default {
-  name: 'CmsGenericSection',
+  name: "CmsGenericSection",
   props: {
     content: {
       type: Object,

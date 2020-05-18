@@ -28,37 +28,37 @@
 </template>
 
 <script>
-import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
-import { validationMixin } from 'vuelidate'
-import { required, email } from 'vuelidate/lib/validators'
+import { SfInput, SfButton, SfAlert } from "@storefront-ui/vue"
+import { validationMixin } from "vuelidate"
+import { required, email } from "vuelidate/lib/validators"
 
 export default {
-  name: 'SwResetPassword',
+  name: "SwResetPassword",
   components: { SfButton, SfInput, SfAlert },
   mixins: [validationMixin],
   data() {
     return {
-      email: '',
-      error: ''
+      email: "",
+      error: "",
     }
   },
   validations: {
     email: {
       required,
-      email
-    }
+      email,
+    },
   },
   methods: {
     invokeResetPassword() {
       this.$v.$touch()
-      this.error = 'Reset password is not implemented yet'
-    }
-  }
+      this.error = "Reset password is not implemented yet"
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 
 .sw-reset-password {
   &__alert {

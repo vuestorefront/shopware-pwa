@@ -59,7 +59,13 @@
         <div class="filters">
           <div v-for="filter in filters" :key="filter.name">
             <SfHeading class="filters__title" :level="4" :title="filter.name" />
-            <div v-if="filter && filter.options && filter.options.length" :class="{'filters__filter--color': filter.name && filter.name === 'color'}">
+            <div
+              v-if="filter && filter.options && filter.options.length"
+              :class="{
+                'filters__filter--color':
+                  filter.name && filter.name === 'color',
+              }"
+            >
               <SfFilter
                 v-for="option in filter.options"
                 :key="option.value"
@@ -73,7 +79,7 @@
                   )
                 "
                 class="filters__item"
-                :class="{'filters__item--color': option.color}"
+                :class="{ 'filters__item--color': option.color }"
                 @change="
                   toggleFilter({
                     type: 'equals',
@@ -111,13 +117,13 @@ import {
   SfHeading,
   SfSidebar,
   SfProductOption,
-} from '@storefront-ui/vue'
+} from "@storefront-ui/vue"
 import {
   useCategoryFilters,
   useProductListing,
-} from '@shopware-pwa/composables'
+} from "@shopware-pwa/composables"
 const { availableFilters, availableSorting } = useCategoryFilters()
-import { getSortingLabel } from '@shopware-pwa/default-theme/helpers'
+import { getSortingLabel } from "@shopware-pwa/default-theme/helpers"
 
 export default {
   components: {
@@ -129,7 +135,7 @@ export default {
     SfSidebar,
     SfProductOption,
   },
-  name: 'CmsElementCategorySidebarFilter',
+  name: "CmsElementCategorySidebarFilter",
   props: {
     content: {
       type: Object,
@@ -207,13 +213,13 @@ export default {
     },
     getSortLabel(sorting) {
       return getSortingLabel(sorting)
-    }
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
+@import "../settings.scss";
 
 .navbar {
   position: relative;

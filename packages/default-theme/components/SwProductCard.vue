@@ -20,15 +20,15 @@
 </template>
 
 <script>
-import { SfProductCard, SfAddToCart } from '@storefront-ui/vue'
-import { useAddToCart } from '@shopware-pwa/composables'
+import { SfProductCard, SfAddToCart } from "@storefront-ui/vue"
+import { useAddToCart } from "@shopware-pwa/composables"
 import {
   getProductMainImageUrl,
   getProductRegularPrice,
   getProductUrl,
   getProductSpecialPrice,
   getProductName,
-} from '@shopware-pwa/helpers'
+} from "@shopware-pwa/helpers"
 
 export default {
   components: {
@@ -83,7 +83,7 @@ export default {
     getImageUrl() {
       return (
         getProductMainImageUrl(this.product) ||
-        require('@shopware-pwa/default-theme/assets/productB.jpg')
+        require("@shopware-pwa/default-theme/assets/productB.jpg")
       )
     },
   },
@@ -94,7 +94,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles.scss';
+@import "~@storefront-ui/vue/styles.scss";
 
 .sw-product-card {
   --product-card-add-button-bottom: 17rem;

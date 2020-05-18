@@ -53,18 +53,18 @@
   </div>
 </template>
 <script>
-import { SfHeading, SfButton, SfRadio, SfAlert } from '@storefront-ui/vue'
-import { computed, onMounted } from '@vue/composition-api'
-import ShippingAddressGuestForm from '@shopware-pwa/default-theme/components/checkout/steps/guest/ShippingAddressGuestForm'
-import ShippingAddressUserForm from '@shopware-pwa/default-theme/components/checkout/steps/user/ShippingAddressUserForm'
+import { SfHeading, SfButton, SfRadio, SfAlert } from "@storefront-ui/vue"
+import { computed, onMounted } from "@vue/composition-api"
+import ShippingAddressGuestForm from "@shopware-pwa/default-theme/components/checkout/steps/guest/ShippingAddressGuestForm"
+import ShippingAddressUserForm from "@shopware-pwa/default-theme/components/checkout/steps/user/ShippingAddressUserForm"
 import {
   useCheckout,
   useSessionContext,
   useCart,
-} from '@shopware-pwa/composables'
+} from "@shopware-pwa/composables"
 
 export default {
-  name: 'ShippingStep',
+  name: "ShippingStep",
   components: {
     SfHeading,
     SfButton,
@@ -95,7 +95,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 
 .title {
   --heading-padding: var(--spacer-base) 0;
@@ -174,13 +174,13 @@ export default {
       margin: 0 0 0 var(--spacer-xs);
     }
     &::before {
-      content: '+';
+      content: "+";
     }
     &--is-active {
       --button-color: var(--c-primary);
       --button-transition: color 150ms linear;
       &::before {
-        content: '-';
+        content: "-";
       }
     }
   }

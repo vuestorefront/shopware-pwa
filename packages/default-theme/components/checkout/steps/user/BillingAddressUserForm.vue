@@ -7,10 +7,10 @@
   </div>
 </template>
 <script>
-import { SfAlert } from '@storefront-ui/vue'
+import { SfAlert } from "@storefront-ui/vue"
 
 export default {
-  name: 'BillingAddressUserForm',
+  name: "BillingAddressUserForm",
   components: {
     SfAlert,
   },
@@ -20,5 +20,5 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 </style>

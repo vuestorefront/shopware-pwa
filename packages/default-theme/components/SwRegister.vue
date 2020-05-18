@@ -118,33 +118,33 @@
 </template>
 
 <script>
-import { computed } from '@vue/composition-api'
-import { SfAlert, SfInput, SfButton, SfSelect } from '@storefront-ui/vue'
-import { validationMixin } from 'vuelidate'
-import { required, email, minLength } from 'vuelidate/lib/validators'
+import { computed } from "@vue/composition-api"
+import { SfAlert, SfInput, SfButton, SfSelect } from "@storefront-ui/vue"
+import { validationMixin } from "vuelidate"
+import { required, email, minLength } from "vuelidate/lib/validators"
 import {
   useUser,
   useCountries,
   useSalutations,
-} from '@shopware-pwa/composables'
-import { mapCountries, mapSalutations } from '@shopware-pwa/helpers'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+} from "@shopware-pwa/composables"
+import { mapCountries, mapSalutations } from "@shopware-pwa/helpers"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {
-  name: 'SwResetPassword',
+  name: "SwResetPassword",
   components: { SfButton, SfInput, SfAlert, SfSelect, SwPluginSlot },
   mixins: [validationMixin],
   data() {
     return {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
       salutation: null,
       country: null,
-      street: '',
-      city: '',
-      zipcode: '',
+      street: "",
+      city: "",
+      zipcode: "",
     }
   },
   setup() {
@@ -189,7 +189,7 @@ export default {
     },
     getErrorMessage() {
       if (this.userError)
-        return 'Cannot create a new account, the user may already exist'
+        return "Cannot create a new account, the user may already exist"
       if (this.salutationsError)
         return "Couldn't fetch available salutations, please contact the administration."
       if (this.countriesError)
@@ -241,7 +241,7 @@ export default {
           username: this.email,
           password: this.password,
         })
-        this.$emit('success')
+        this.$emit("success")
       }
     },
   },
@@ -249,7 +249,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 
 .sw-login {
   &__alert {
@@ -285,7 +285,7 @@ export default {
     &__element {
       flex: 0 0 100%;
       &--small {
-        flex: 1 1 calc(33% - calc(2*var(--spacer-sm)));
+        flex: 1 1 calc(33% - calc(2 * var(--spacer-sm)));
         margin-right: var(--spacer-sm);
         &:odd {
           margin-right: 0;

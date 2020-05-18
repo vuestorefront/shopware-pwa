@@ -79,14 +79,14 @@ import {
   SfPrice,
   SfHeading,
   SfImage,
-} from '@storefront-ui/vue'
-import { useCart, useCartSidebar } from '@shopware-pwa/composables'
-import SwCartProduct from '@shopware-pwa/default-theme/components/SwCartProduct'
-import { PAGE_CHECKOUT } from '@shopware-pwa/default-theme/helpers/pages'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+} from "@storefront-ui/vue"
+import { useCart, useCartSidebar } from "@shopware-pwa/composables"
+import SwCartProduct from "@shopware-pwa/default-theme/components/SwCartProduct"
+import { PAGE_CHECKOUT } from "@shopware-pwa/default-theme/helpers/pages"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {
-  name: 'Cart',
+  name: "Cart",
   components: {
     SfSidebar,
     SfButton,
@@ -118,7 +118,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 #cart {
   --sidebar-z-index: 4;
   & > * {

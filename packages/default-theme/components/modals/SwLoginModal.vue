@@ -48,16 +48,16 @@
 </template>
 
 <script>
-import { SfButton, SfHeading, SfModal, SfAlert } from '@storefront-ui/vue'
-import { useUser, useUserLoginModal } from '@shopware-pwa/composables'
-import SwLogin from '@shopware-pwa/default-theme/components/SwLogin'
+import { SfButton, SfHeading, SfModal, SfAlert } from "@storefront-ui/vue"
+import { useUser, useUserLoginModal } from "@shopware-pwa/composables"
+import SwLogin from "@shopware-pwa/default-theme/components/SwLogin"
 const SwRegister = () =>
-  import('@shopware-pwa/default-theme/components/SwRegister')
+  import("@shopware-pwa/default-theme/components/SwRegister")
 const SwResetPassword = () =>
-  import('@shopware-pwa/default-theme/components/SwResetPassword')
+  import("@shopware-pwa/default-theme/components/SwResetPassword")
 
 export default {
-  name: 'SwLoginModal',
+  name: "SwLoginModal",
   components: {
     SfAlert,
     SfButton,
@@ -91,18 +91,18 @@ export default {
   },
   data() {
     return {
-      key: 'modal-opened',
-      component: 'SwLogin',
+      key: "modal-opened",
+      component: "SwLogin",
     }
   },
   computed: {
     modalTitle() {
-      if (this.component === 'SwRegister') {
-        return 'Register'
-      } else if (this.component === 'SwResetPassword') {
-        return 'Reset Password'
+      if (this.component === "SwRegister") {
+        return "Register"
+      } else if (this.component === "SwResetPassword") {
+        return "Reset Password"
       }
-      return 'Log in'
+      return "Log in"
     },
   },
   watch: {
@@ -110,17 +110,17 @@ export default {
       handler(oldVal, newVal) {
         if (oldVal === true) {
           // enforce rerender dynamic component
-          this.key = 'modal-closed'
-          this.component = 'SwLogin'
+          this.key = "modal-closed"
+          this.component = "SwLogin"
           return
         }
-        this.key = 'modal-opened'
+        this.key = "modal-opened"
       },
     },
   },
   methods: {
     closeHandler() {
-      ;(typeof this.onClose !== 'undefined' && this.onClose()) ||
+      ;(typeof this.onClose !== "undefined" && this.onClose()) ||
         this.isModalOpen()
     },
   },
@@ -128,7 +128,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles.scss';
+@import "~@storefront-ui/vue/styles.scss";
 
 #sw-login-modal {
   box-sizing: border-box;

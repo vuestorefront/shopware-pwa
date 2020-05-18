@@ -7,7 +7,7 @@
 <script>
 export default {
   components: {},
-  name: 'CmsElementText',
+  name: "CmsElementText",
   props: {
     content: {
       type: Object,
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
+@import "../settings.scss";
 
 .cms-element-text {
   @include sizing-mode-boxed;

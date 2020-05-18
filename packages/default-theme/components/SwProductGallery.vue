@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import { SfImage, SfGallery } from '@storefront-ui/vue'
-import { getProductMediaGallery } from '@shopware-pwa/helpers'
+import { SfImage, SfGallery } from "@storefront-ui/vue"
+import { getProductMediaGallery } from "@shopware-pwa/helpers"
 
 export default {
-  name: 'SwProductGallery',
+  name: "SwProductGallery",
   components: { SfImage, SfGallery },
   props: {
     product: {
@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~@storefront-ui/shared/styles/variables';
+@import "~@storefront-ui/shared/styles/variables";
 
 .gallery-mobile {
   @include for-mobile {

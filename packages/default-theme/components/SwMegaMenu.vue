@@ -6,10 +6,7 @@
         v-for="subcategory in category.children"
         :key="subcategory.name"
       >
-        <nuxt-link
-          class="sf-header__link"
-          :to="getCategoryUrl(subcategory)"
-        >
+        <nuxt-link class="sf-header__link" :to="getCategoryUrl(subcategory)">
           <SfHeading
             :title="subcategory.name"
             :subtitle="subcategory.description"
@@ -18,10 +15,7 @@
         </nuxt-link>
         <SfList>
           <SfListItem v-for="child in subcategory.children" :key="child.label">
-            <nuxt-link
-              class="sf-header__link"
-              :to="getCategoryUrl(child)"
-            >
+            <nuxt-link class="sf-header__link" :to="getCategoryUrl(child)">
               <SfMenuItem :label="child.name" />
             </nuxt-link>
           </SfListItem>
@@ -32,11 +26,11 @@
 </template>
 
 <script>
-import { SfMegaMenu, SfMenuItem, SfList, SfHeading } from '@storefront-ui/vue'
-import { getCategoryUrl } from '@shopware-pwa/helpers'
+import { SfMegaMenu, SfMenuItem, SfList, SfHeading } from "@storefront-ui/vue"
+import { getCategoryUrl } from "@shopware-pwa/helpers"
 
 export default {
-  name: 'SwMegaMenu',
+  name: "SwMegaMenu",
   components: { SfMegaMenu, SfMenuItem, SfList, SfHeading },
   props: {
     category: {

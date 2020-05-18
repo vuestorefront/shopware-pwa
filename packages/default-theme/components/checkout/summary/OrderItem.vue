@@ -8,9 +8,11 @@
       <div class="product-sku">{{ product.productNumber }}</div>
     </SfTableData>
     <SfTableData class="table__data table__quantity">
-      <SfQuantitySelector class="sf-quantity-selector--secondary" v-model="quantity">{{
-        product.quantity
-      }}</SfQuantitySelector>
+      <SfQuantitySelector
+        class="sf-quantity-selector--secondary"
+        v-model="quantity"
+        >{{ product.quantity }}</SfQuantitySelector
+      >
     </SfTableData>
     <SfTableData class="table__data">
       <SfPrice
@@ -21,8 +23,8 @@
   </SfTableRow>
 </template>
 <script>
-import { useCart } from '@shopware-pwa/composables'
-import { ref, watch, computed } from '@vue/composition-api'
+import { useCart } from "@shopware-pwa/composables"
+import { ref, watch, computed } from "@vue/composition-api"
 import {
   SfTable,
   SfCheckbox,
@@ -30,10 +32,10 @@ import {
   SfIcon,
   SfPrice,
   SfQuantitySelector,
-} from '@storefront-ui/vue'
+} from "@storefront-ui/vue"
 
 export default {
-  name: 'OrderItem',
+  name: "OrderItem",
   components: {
     SfTable,
     SfCheckbox,
@@ -64,7 +66,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 
 .sf-image {
   max-width: 80%;
@@ -82,9 +84,8 @@ export default {
   }
   &__quantity {
     & > * {
-    --quantity-selector-width: 6rem;
-    --quantity-selector-border-width: 0;
-
+      --quantity-selector-width: 6rem;
+      --quantity-selector-border-width: 0;
     }
   }
 }

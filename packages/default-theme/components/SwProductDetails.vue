@@ -11,7 +11,10 @@
       />
     </div>
     <SwPluginSlot name="product-page-description">
-      <p class="product-details__description desktop-only" v-html="description"/>
+      <p
+        class="product-details__description desktop-only"
+        v-html="description"
+      />
     </SwPluginSlot>
     <!-- <div class="product-details__action">
       <button v-if="sizes.length > 0" class="sf-action">Size guide</button>
@@ -70,7 +73,7 @@ import {
   SfButton,
   SfProductOption,
   SfAddToCart,
-} from '@storefront-ui/vue'
+} from "@storefront-ui/vue"
 import {
   getProductProperties,
   getProductOption,
@@ -80,16 +83,16 @@ import {
   isProductSimple,
   getProductOptionsUrl,
   getProductOptions,
-} from '@shopware-pwa/helpers'
-import { useProduct, useAddToCart } from '@shopware-pwa/composables'
-import SwProductHeading from '@shopware-pwa/default-theme/components/SwProductHeading'
-import SwProductSelect from '@shopware-pwa/default-theme/components/SwProductSelect'
-import SwProductColors from '@shopware-pwa/default-theme/components/SwProductColors'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+} from "@shopware-pwa/helpers"
+import { useProduct, useAddToCart } from "@shopware-pwa/composables"
+import SwProductHeading from "@shopware-pwa/default-theme/components/SwProductHeading"
+import SwProductSelect from "@shopware-pwa/default-theme/components/SwProductSelect"
+import SwProductColors from "@shopware-pwa/default-theme/components/SwProductColors"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
-import SwProductTabs from '@shopware-pwa/default-theme/components/SwProductTabs'
+import SwProductTabs from "@shopware-pwa/default-theme/components/SwProductTabs"
 export default {
-  name: 'SwProductDetails',
+  name: "SwProductDetails",
   components: {
     SfAlert,
     SfButton,
@@ -226,7 +229,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 
 @mixin for-iOS {
   @supports (-webkit-overflow-scrolling: touch) {

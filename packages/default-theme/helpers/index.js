@@ -1,5 +1,5 @@
-import dayjs from 'dayjs'
-import currency from 'currency.js'
+import dayjs from "dayjs"
+import currency from "currency.js"
 
 const defaultFormatPriceOptions = {
   pattern: `# !`,
@@ -18,13 +18,13 @@ export function formatPrice(price, options) {
 
 export const getSortingLabel = (sorting) => {
   if (!sorting || !sorting.order || !sorting.field) {
-    return ''
+    return ""
   }
 
-  const ascLabel = 'ascending'
-  const descLabel = 'descending'
+  const ascLabel = "ascending"
+  const descLabel = "descending"
 
-  const label = sorting.order === 'desc' ? descLabel : ascLabel
+  const label = sorting.order === "desc" ? descLabel : ascLabel
   return `${sorting.field} ${label}`
 }
 

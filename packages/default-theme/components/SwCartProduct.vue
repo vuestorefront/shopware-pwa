@@ -21,10 +21,10 @@
   </SfCollectedProduct>
 </template>
 <script>
-import { SfButton, SfProperty, SfCollectedProduct } from '@storefront-ui/vue'
-import { getProductMainImageUrl } from '@shopware-pwa/helpers'
-import { useCart } from '@shopware-pwa/composables'
-import { ref, watch, computed } from '@vue/composition-api'
+import { SfButton, SfProperty, SfCollectedProduct } from "@storefront-ui/vue"
+import { getProductMainImageUrl } from "@shopware-pwa/helpers"
+import { useCart } from "@shopware-pwa/composables"
+import { ref, watch, computed } from "@vue/composition-api"
 
 export default {
   components: {
@@ -76,13 +76,13 @@ export default {
       const regular = getProductRegularPrice({ product: this.product })
       const special = getProductSpecialPrice(this.product)
       // temporary fix to show proper regular price
-      return '$' + (regular > special ? regular : special)
+      return "$" + (regular > special ? regular : special)
     },
     getSpecialPrice() {
       const special = getProductSpecialPrice(this.product)
       const regular = getProductRegularPrice({ product: this.product })
       // temporary fix to show proper special price
-      return special && '$' + (special < regular ? special : regular)
+      return special && "$" + (special < regular ? special : regular)
     },
     getImageUrl() {
       return getProductMainImageUrl(this.product)
@@ -91,7 +91,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 
 .collected-product {
   --collected-product-actions-align-items: flex-end;

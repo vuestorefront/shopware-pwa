@@ -1,11 +1,11 @@
-import { ref, computed, getCurrentInstance } from '@vue/composition-api'
-import { CHECKOUT_STEPS } from '@shopware-pwa/default-theme/logic/checkout/steps'
-import { getStepByNumber } from '@shopware-pwa/default-theme/logic/checkout/helpers'
-import { useCheckout } from '@shopware-pwa/composables'
-import { usePersonalDetailsStep } from '@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep'
-import { useShippingStep } from '@shopware-pwa/default-theme/logic/checkout/useShippingStep'
-import { usePaymentStep } from '@shopware-pwa/default-theme/logic/checkout/usePaymentStep'
-import { PAGE_ORDER_SUCCESS } from '@shopware-pwa/default-theme/helpers/pages'
+import { ref, computed, getCurrentInstance } from "@vue/composition-api"
+import { CHECKOUT_STEPS } from "@shopware-pwa/default-theme/logic/checkout/steps"
+import { getStepByNumber } from "@shopware-pwa/default-theme/logic/checkout/helpers"
+import { useCheckout } from "@shopware-pwa/composables"
+import { usePersonalDetailsStep } from "@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep"
+import { useShippingStep } from "@shopware-pwa/default-theme/logic/checkout/useShippingStep"
+import { usePaymentStep } from "@shopware-pwa/default-theme/logic/checkout/usePaymentStep"
+import { PAGE_ORDER_SUCCESS } from "@shopware-pwa/default-theme/helpers/pages"
 
 export const useUICheckoutPage = () => {
   const { isGuestOrder, createOrder } = useCheckout()

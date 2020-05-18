@@ -103,10 +103,12 @@
       </transition>
       <div class="form__action">
         <SfButton
-          class="sf-button--full-width  form__action-button form__action-button--secondary color-secondary desktop-only"
+          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only"
           >Go Back to shop</SfButton
         >
-        <SfButton class="sf-button--full-width form__action-button" @click="toShipping"
+        <SfButton
+          class="sf-button--full-width form__action-button"
+          @click="toShipping"
           >Continue to shipping</SfButton
         >
         <SfButton
@@ -132,36 +134,36 @@ import {
   SfSelect,
   SfProductOption,
   SfAlert,
-} from '@storefront-ui/vue'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+} from "@storefront-ui/vue"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
-import { validationMixin } from 'vuelidate'
+import { validationMixin } from "vuelidate"
 import {
   required,
   requiredIf,
   email,
   minLength,
-} from 'vuelidate/lib/validators'
-import { computed } from '@vue/composition-api'
+} from "vuelidate/lib/validators"
+import { computed } from "@vue/composition-api"
 import {
   mapSalutations,
   getMessagesFromErrorsArray,
-} from '@shopware-pwa/helpers'
+} from "@shopware-pwa/helpers"
 import {
   useUser,
   useSalutations,
   useCountries,
   useUserLoginModal,
-} from '@shopware-pwa/composables'
+} from "@shopware-pwa/composables"
 import {
   usePersonalDetailsStep,
   usePersonalDetailsStepValidationRules,
-} from '@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep'
+} from "@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep"
 
-import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
+import SwLoginModal from "@shopware-pwa/default-theme/components/modals/SwLoginModal"
 
 export default {
-  name: 'PersonalDetailsGuestForm',
+  name: "PersonalDetailsGuestForm",
   mixins: [validationMixin],
   components: {
     SfInput,
@@ -184,22 +186,22 @@ export default {
   },
   data() {
     return {
-      password: '',
+      password: "",
       billingAddress: {
         salutationId: null,
-        street: '-',
-        zipcode: '-',
-        city: '-',
+        street: "-",
+        zipcode: "-",
+        city: "-",
         countryId: null,
       },
       createAccount: false,
       accountBenefits: false,
       isLoginModalOpen: false,
       characteristics: [
-        { description: 'Faster checkout', icon: 'clock' },
-        { description: 'Full rewards program benefits', icon: 'rewards' },
-        { description: 'Earn credits with every purchase', icon: 'credits' },
-        { description: 'Manage your wishlist', icon: 'heart' },
+        { description: "Faster checkout", icon: "clock" },
+        { description: "Full rewards program benefits", icon: "rewards" },
+        { description: "Earn credits with every purchase", icon: "credits" },
+        { description: "Manage your wishlist", icon: "heart" },
       ],
     }
   },
@@ -256,7 +258,7 @@ export default {
   },
   watch: {
     createAccount(value) {
-      if (!value) this.password = ''
+      if (!value) this.password = ""
     },
     // hack to register user without picking up the salutation in billing address (minimal registration)
     // copy the customer's salutation into billing address
@@ -296,7 +298,7 @@ export default {
         }
         this.$router.push('/checkout?step="SHIPPING"')
       } else {
-        return this.$emit('proceed')
+        return this.$emit("proceed")
       }
     },
   },
@@ -313,14 +315,14 @@ export default {
       return
     }
     const pickedCountry = this.getCountries.find(
-      ({ name }) => name === 'Poland'
+      ({ name }) => name === "Poland"
     )
     this.billingAddress.countryId = pickedCountry && pickedCountry.id
 
     // select "not specified" salutation (works for EN) as default salutation
     await this.fetchSalutations()
     const defaultSalutation = this.getMappedSalutations.find(
-      ({ id, name }) => name == 'Not specified'
+      ({ id, name }) => name == "Not specified"
     )
     this.salutationId = defaultSalutation && defaultSalutation.id
   },
@@ -341,7 +343,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 
 .sw-checkout {
   &__personal_info {

@@ -1,6 +1,6 @@
 <template>
   <div class="top-navigation">
-    <SfOverlay :visible="!!currentCategoryName" class="sw-overlay"/>
+    <SfOverlay :visible="!!currentCategoryName" class="sw-overlay" />
     <SfTopBar class="top-bar desktop-only">
       <template #right>
         <SwCurrency class="sf-header__currency" />
@@ -34,10 +34,7 @@
           @mouseleave="currentCategoryName = null"
           @keyup.tab="currentCategoryName = category.name"
         >
-          <nuxt-link
-            class="sf-header__link"
-            :to="getCategoryUrl(category)"
-          >
+          <nuxt-link class="sf-header__link" :to="getCategoryUrl(category)">
             {{ category.name }}
           </nuxt-link>
           <SwMegaMenu
@@ -71,7 +68,7 @@
               :has-badge="isLoggedIn"
               @click="userIconClick"
             />
-            <SfIcon 
+            <SfIcon
               :icon="cartIcon"
               :has-badge="count > 0"
               :badge-label="count.toString()"
@@ -101,7 +98,7 @@ import {
   SfOverlay,
   SfTopBar,
   SfIcon,
-} from '@storefront-ui/vue'
+} from "@storefront-ui/vue"
 import {
   useUser,
   useCart,
@@ -109,14 +106,14 @@ import {
   useUserLoginModal,
   useNavigation,
   useProductSearch,
-} from '@shopware-pwa/composables'
-import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
-import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
-import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
-import { ref, reactive, onMounted } from '@vue/composition-api'
-import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
-import { getCategoryUrl } from '@shopware-pwa/helpers'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+} from "@shopware-pwa/composables"
+import SwLoginModal from "@shopware-pwa/default-theme/components/modals/SwLoginModal"
+import SwCurrency from "@shopware-pwa/default-theme/components/SwCurrency"
+import SwMegaMenu from "@shopware-pwa/default-theme/components/SwMegaMenu"
+import { ref, reactive, onMounted } from "@vue/composition-api"
+import { PAGE_ACCOUNT } from "@shopware-pwa/default-theme/helpers/pages"
+import { getCategoryUrl } from "@shopware-pwa/helpers"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {
   components: {
@@ -159,7 +156,7 @@ export default {
   },
   data() {
     return {
-      activeIcon: '',
+      activeIcon: "",
       isModalOpen: false,
     }
   },
@@ -173,7 +170,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~@storefront-ui/vue/styles.scss';
+@import "~@storefront-ui/vue/styles.scss";
 
 .top-navigation {
   --search-bar-width: 100%;
@@ -191,7 +188,7 @@ export default {
       --select-padding: var(--spacer-xs);
       --select-dropdown-z-index: 2;
       &::before {
-        content: '';
+        content: "";
         display: block;
         position: absolute;
         background-color: white;

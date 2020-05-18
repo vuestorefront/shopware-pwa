@@ -48,14 +48,14 @@
   </div>
 </template>
 <script>
-import { SfHeading, SfButton, SfRadio } from '@storefront-ui/vue'
-import BillingAddressGuestForm from '@shopware-pwa/default-theme/components/checkout/steps/guest/BillingAddressGuestForm'
-import BillingAddressUserForm from '@shopware-pwa/default-theme/components/checkout/steps/user/BillingAddressUserForm'
-import { useCheckout, useSessionContext } from '@shopware-pwa/composables'
-import { onMounted, computed } from '@vue/composition-api'
+import { SfHeading, SfButton, SfRadio } from "@storefront-ui/vue"
+import BillingAddressGuestForm from "@shopware-pwa/default-theme/components/checkout/steps/guest/BillingAddressGuestForm"
+import BillingAddressUserForm from "@shopware-pwa/default-theme/components/checkout/steps/user/BillingAddressUserForm"
+import { useCheckout, useSessionContext } from "@shopware-pwa/composables"
+import { onMounted, computed } from "@vue/composition-api"
 
 export default {
-  name: 'PaymentStep',
+  name: "PaymentStep",
   components: {
     SfHeading,
     SfButton,
@@ -81,7 +81,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 .title {
   --heading-padding: var(--spacer-base) 0;
   @include for-desktop {

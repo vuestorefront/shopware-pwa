@@ -26,14 +26,14 @@
   </div>
 </template>
 <script>
-import { SfContentPages, SfTabs } from '@storefront-ui/vue'
-import { useUser } from '@shopware-pwa/composables'
-import { PAGE_LOGIN } from '@shopware-pwa/default-theme/helpers/pages'
+import { SfContentPages, SfTabs } from "@storefront-ui/vue"
+import { useUser } from "@shopware-pwa/composables"
+import { PAGE_LOGIN } from "@shopware-pwa/default-theme/helpers/pages"
 
-import authMiddleware from '@shopware-pwa/default-theme/middleware/auth'
+import authMiddleware from "@shopware-pwa/default-theme/middleware/auth"
 
 export default {
-  name: 'Account',
+  name: "Account",
   components: {
     SfContentPages,
     SfTabs,
@@ -45,7 +45,7 @@ export default {
   },
   data() {
     return {
-      activePage: 'My profile',
+      activePage: "My profile",
       allAddresses: [],
     }
   },
@@ -62,24 +62,24 @@ export default {
   },
   watch: {
     $route(to, from) {
-      if (to.name === 'account-profile') {
-        this.activePage = 'My profile'
+      if (to.name === "account-profile") {
+        this.activePage = "My profile"
       }
     },
   },
   methods: {
     async updateActivePage(title) {
       switch (title) {
-        case 'My profile':
-          this.$router.push('/account/profile')
+        case "My profile":
+          this.$router.push("/account/profile")
           break
-        case 'My addresses':
-          this.$router.push('/account/addresses')
+        case "My addresses":
+          this.$router.push("/account/addresses")
           break
         case `Order history (${this.user && this.user.orderCount})`:
-          this.$router.push('/account/orders')
+          this.$router.push("/account/orders")
           break
-        case 'Logout':
+        case "Logout":
           await this.logout()
           this.$router.push(PAGE_LOGIN)
           break
@@ -90,7 +90,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles.scss';
+@import "~@storefront-ui/vue/styles.scss";
 
 .my-account {
   @include for-desktop {

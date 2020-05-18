@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import CmsGenericSection from 'sw-cms/CmsGenericSection'
+import CmsGenericSection from "sw-cms/CmsGenericSection"
 
 export default {
   components: {

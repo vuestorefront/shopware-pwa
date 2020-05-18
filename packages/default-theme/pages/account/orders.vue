@@ -61,17 +61,17 @@ import {
   SfDivider,
   SfTable,
   SfButton,
-} from '@storefront-ui/vue'
-import { useUser } from '@shopware-pwa/composables'
-import { formatDate, formatPrice } from '@shopware-pwa/default-theme/helpers'
+} from "@storefront-ui/vue"
+import { useUser } from "@shopware-pwa/composables"
+import { formatDate, formatPrice } from "@shopware-pwa/default-theme/helpers"
 
 export default {
-  name: 'OrderHistory',
+  name: "OrderHistory",
   components: { SfTabs, SfList, SfDivider, SfTable, SfButton },
   props: {},
   data() {
     return {
-      tableHeaders: ['Order no.', 'Total amount', 'Order date', 'Status'],
+      tableHeaders: ["Order no.", "Total amount", "Order date", "Status"],
     }
   },
   setup() {
@@ -108,7 +108,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles.scss';
+@import "~@storefront-ui/vue/styles.scss";
 .message {
   margin: 0 0 var(--spacer-xl) 0;
   color: var(--c-dark-variant);
