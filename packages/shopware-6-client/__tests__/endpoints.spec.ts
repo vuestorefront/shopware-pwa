@@ -157,7 +157,7 @@ describe("endpoints", () => {
   describe("getCustomerOrderEndpoint", () => {
     it("should return Shopware customer order endpoint", async () => {
       const result = getCustomerOrderEndpoint();
-      expect(result).toEqual("/store-api/v1/account/order");
+      expect(result).toEqual("/store-api/v1/order");
     });
   });
 
@@ -230,7 +230,7 @@ describe("endpoints", () => {
   describe("getContextCurrencyEndpoint", () => {
     it("should return Shopware currency endpoint", async () => {
       const result = getContextCurrencyEndpoint();
-      expect(result).toEqual("/sales-channel-api/v1/currency");
+      expect(result).toEqual("/store-api/v1/currency");
     });
   });
 
@@ -251,13 +251,13 @@ describe("endpoints", () => {
   describe("getContextPaymentMethodEndpoint", () => {
     it("should return Shopware payment method endpoint", async () => {
       const result = getContextPaymentMethodEndpoint();
-      expect(result).toEqual("/sales-channel-api/v1/payment-method");
+      expect(result).toEqual("/store-api/v1/payment-method");
     });
   });
   describe("getContextShippingMethodEndpoint", () => {
     it("should return Shopware shipping method endpoint", async () => {
       const result = getContextShippingMethodEndpoint();
-      expect(result).toEqual("/sales-channel-api/v1/shipping-method");
+      expect(result).toEqual("/store-api/v1/shipping-method");
     });
   });
 

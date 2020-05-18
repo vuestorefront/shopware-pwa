@@ -73,12 +73,10 @@ export function setCurrentBillingAddress(
  * @throws ClientApiError
  * @alpha
  */
-export async function getAvailableCurrencies(): Promise<
-  SearchResult<Currency[]>
-> {
+export async function getAvailableCurrencies(): Promise<Currency[]> {
   const resp = await apiService.get(getContextCurrencyEndpoint());
 
-  return resp.data.data;
+  return resp.data;
 }
 
 /**
@@ -147,9 +145,7 @@ export async function getAvailableSalutations(): Promise<
  * @throws ClientApiError
  * @alpha
  */
-export async function getAvailablePaymentMethods(): Promise<
-  SearchResult<PaymentMethod[]>
-> {
+export async function getAvailablePaymentMethods(): Promise<PaymentMethod[]> {
   const resp = await apiService.get(getContextPaymentMethodEndpoint());
 
   return resp.data;
@@ -172,9 +168,7 @@ export async function setCurrentPaymentMethod(
  * @throws ClientApiError
  * @alpha
  */
-export async function getAvailableShippingMethods(): Promise<
-  SearchResult<ShippingMethod[]>
-> {
+export async function getAvailableShippingMethods(): Promise<ShippingMethod[]> {
   const resp = await apiService.get(getContextShippingMethodEndpoint());
 
   return resp.data;
