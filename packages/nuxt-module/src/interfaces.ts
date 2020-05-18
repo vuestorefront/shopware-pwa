@@ -25,6 +25,7 @@ export interface WebpackConfig {
 export interface ShopwarePwaConfigFile {
   shopwareEndpoint: string;
   shopwareAccessToken: string;
+  defaultLanguageCode?: string;
 }
 
 export default {};

@@ -11,10 +11,11 @@ export default ({ app, store }) => {
   // This way we can use it in middleware and pages asyncData/fetch
   app.i18n = new VueI18n({
     locale: store.state.locale,
-    fallbackLocale: "en-GB",
+    fallbackLocale: "<%= options.defaultLanguage %>",
     messages: {
-      "en-GB": require("sw-plugins/locales/en-GB.json"),
-      "de-DE": require("sw-plugins/locales/de-DE.json"),
+      // <% options.availableLocales.forEach(function(availableLocale) { %>
+      "<%= availableLocale %>": require("sw-plugins/locales/<%= availableLocale %>.json"),
+      // <% }) %>
     },
   });
 

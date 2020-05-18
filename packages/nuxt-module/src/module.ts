@@ -5,6 +5,7 @@ import { extendComponents } from "./components";
 import path from "path";
 import { loadConfig } from "./utils";
 import { extendCMS } from "./cms";
+import { extendLocales } from "./locales";
 
 export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
   const shopwarePwaConfig = loadConfig(moduleObject);
@@ -52,12 +53,8 @@ export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
     options: moduleOptions,
   });
 
-  moduleObject.addPlugin({
-    src: path.join(__dirname, "..", "plugins", "i18n.js"),
-    fileName: "i18n.js",
-    options: moduleOptions,
-  });
-  moduleObject.options.router.middleware.push("i18n");
+  // locales
+  extendLocales(moduleObject, shopwarePwaConfig);
 
   moduleObject.extendBuild((config: WebpackConfig) => {
     const swPluginsDirectory = path.join(
