@@ -157,7 +157,7 @@ describe("endpoints", () => {
   describe("getCustomerOrderEndpoint", () => {
     it("should return Shopware customer order endpoint", async () => {
       const result = getCustomerOrderEndpoint();
-      expect(result).toEqual("/store-api/v1/account/order");
+      expect(result).toEqual("/store-api/v1/order");
     });
   });
 

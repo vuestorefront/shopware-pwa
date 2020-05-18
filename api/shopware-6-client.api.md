@@ -165,7 +165,7 @@ export function getCustomerAddress(addressId: string): Promise<CustomerAddress>;
 export function getCustomerAddresses(): Promise<CustomerAddress[]>;
 
 // @alpha
-export function getCustomerOrderDetails(orderId: string): Promise<Order>;
+export function getCustomerOrderDetails(orderId: string): Promise<Order | undefined>;
 
 // @beta
 export function getCustomerOrders(): Promise<Order[]>;
