@@ -66,7 +66,7 @@
               :has-badge="isLoggedIn"
               @click="userIconClick"
             />
-            <SfDropdown class="dropdown" :is-open="isDropdownOpen">
+            <SfDropdown class="dropdown" :is-open="isDropdownOpen" @click:close="isDropdownOpen = false">
               <SfList>
                 <SfListItem>
                   <nuxt-link class="sf-button sf-button--full-width sf-button--underlined color-primary" :to="getPageAccount">
@@ -193,11 +193,6 @@ export default {
       return PAGE_ACCOUNT
     }
   },
-  watch:{
-    $route (to, from){
-        this.isDropdownOpen = false;
-    }
-  }, 
   methods: {
     userIconClick() {
       if (this.isLoggedIn) this.isDropdownOpen = !this.isDropdownOpen
