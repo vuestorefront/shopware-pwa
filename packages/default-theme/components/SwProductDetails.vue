@@ -11,9 +11,7 @@
       />
     </div>
     <SwPluginSlot name="product-page-description">
-      <p class="product-details__description desktop-only">
-        {{ description }}
-      </p>
+      <p class="product-details__description desktop-only" v-html="description"/>
     </SwPluginSlot>
     <!-- <div class="product-details__action">
       <button v-if="sizes.length > 0" class="sf-action">Size guide</button>

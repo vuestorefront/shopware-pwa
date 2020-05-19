@@ -97,6 +97,6 @@ export default {
 @import '~@storefront-ui/vue/styles.scss';
 
 .sw-product-card {
-  --product-card-add-button-top: 13rem;
+  --product-card-add-button-bottom: 17rem;
 }
 </style>

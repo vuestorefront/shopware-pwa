@@ -24,6 +24,7 @@ import { NotFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter'
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
+import { ProductListingResult } from '@shopware-pwa/commons/interfaces/response/ProductListingResult';
 import { RangeFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
@@ -128,19 +129,19 @@ export function deleteCustomerAddress(addressId: string): Promise<void>;
 export function getAvailableCountries(): Promise<SearchResult<Country[]>>;
 
 // @alpha (undocumented)
-export function getAvailableCurrencies(): Promise<SearchResult<Currency[]>>;
+export function getAvailableCurrencies(): Promise<Currency[]>;
 
 // @alpha (undocumented)
 export function getAvailableLanguages(): Promise<SearchResult<Language[]>>;
 
 // @alpha (undocumented)
-export function getAvailablePaymentMethods(): Promise<SearchResult<PaymentMethod[]>>;
+export function getAvailablePaymentMethods(): Promise<PaymentMethod[]>;
 
 // @alpha
 export function getAvailableSalutations(): Promise<SearchResult<Salutation[]>>;
 
 // @alpha (undocumented)
-export function getAvailableShippingMethods(): Promise<SearchResult<ShippingMethod[]>>;
+export function getAvailableShippingMethods(): Promise<ShippingMethod[]>;
 
 // @alpha
 export function getCart(): Promise<Cart>;
@@ -150,6 +151,9 @@ export function getCategories(searchCriteria?: SearchCriteria): Promise<SearchRe
 
 // @alpha (undocumented)
 export function getCategory(categoryId: string): Promise<Category>;
+
+// @alpha
+export const getCategoryProductsListing: (categoryId: string, searchCriteria?: SearchCriteria | undefined) => Promise<ProductListingResult>;
 
 // @beta
 export function getCustomer(): Promise<Customer | null>;
@@ -161,7 +165,7 @@ export function getCustomerAddress(addressId: string): Promise<CustomerAddress>;
 export function getCustomerAddresses(): Promise<CustomerAddress[]>;
 
 // @alpha
-export function getCustomerOrderDetails(orderId: string): Promise<Order>;
+export function getCustomerOrderDetails(orderId: string): Promise<Order | undefined>;
 
 // @beta
 export function getCustomerOrders(): Promise<Order[]>;
@@ -285,7 +289,13 @@ export interface ShopwareParams {
     // (undocumented)
     limit?: number;
     // (undocumented)
+    manufacturer?: string;
+    // (undocumented)
+    p?: number;
+    // (undocumented)
     page?: number;
+    // (undocumented)
+    properties?: string;
     // (undocumented)
     sort?: string;
     // (undocumented)

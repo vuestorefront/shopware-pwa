@@ -2,12 +2,11 @@ import Vue from "vue";
 import { ref, Ref, computed, reactive } from "@vue/composition-api";
 import {
   EqualsFilter,
-  SearchFilterType,
   EqualsAnyFilter,
   ContainsFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
-import { getProducts } from "@shopware-pwa/shopware-6-client";
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import { getCategoryProductsListing } from "@shopware-pwa/shopware-6-client";
+import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
 import {
   Sort,
   SearchCriteria,
@@ -50,7 +49,7 @@ const selectedCriteria = Vue.observable({
  * @alpha
  */
 export const useProductListing = (
-  initialProducts: Product[] = []
+  initialListing?: ProductListingResult
 ): UseProductListing => {
   const { categoryId } = useCms();
   const { activeSorting } = useCategoryFilters();
@@ -61,7 +60,7 @@ export const useProductListing = (
   const localCriteria = reactive(selectedCriteria);
   const localPagination = reactive(sharedPagination);
 
-  sharedListing.products = initialProducts;
+  sharedListing.products = initialListing?.elements || [];
   selectedCriteria.sorting = activeSorting.value;
 
   const resetFilters = () => {
@@ -70,6 +69,21 @@ export const useProductListing = (
 
   const resetSorting = () => {
     selectedCriteria.sorting = activeSorting.value;
+  };
+
+  const setupPagination = () => {
+    if (
+      !initialListing ||
+      isNaN(initialListing.total as any) ||
+      isNaN(initialListing.page as any) ||
+      isNaN(initialListing.limit as any)
+    ) {
+      return;
+    }
+
+    sharedPagination.total = initialListing.total;
+    sharedPagination.currentPage = initialListing.page;
+    sharedPagination.perPage = initialListing.limit;
   };
 
   const toggleFilter = (
@@ -108,16 +122,6 @@ export const useProductListing = (
   };
   const search = async (): Promise<void> => {
     loading.value = true;
-    toggleFilter(
-      {
-        // append selected filters with currentCategory; should be taken from usePage
-        field: "categoryTree",
-        type: SearchFilterType.EQUALS_ANY,
-        value: categoryId.value,
-      },
-      true
-    );
-
     const searchCriteria: SearchCriteria = {
       pagination: selectedCriteria.pagination,
       filters: getFilterSearchCriteria(selectedCriteria.filters),
@@ -141,9 +145,13 @@ export const useProductListing = (
     if (typeof history !== "undefined")
       history.replaceState({}, null as any, location.pathname + "?" + search);
 
-    const result = await getProducts(searchCriteria);
+    const result = await getCategoryProductsListing(
+      categoryId.value,
+      searchCriteria
+    );
     sharedPagination.total = (result && result.total) || 0;
-    sharedListing.products = (result && result.data && [...result.data]) || [];
+    sharedListing.products = result?.elements || [];
+    initialListing = undefined;
     loading.value = false;
   };
 
@@ -156,14 +164,15 @@ export const useProductListing = (
       limit: sharedPagination.perPage,
       page,
     };
+
     await search();
   };
 
   // if reloaded on route change
-  if (initialProducts.length) {
+  if (initialListing) {
     resetFilters();
     resetSorting();
-    //changePagination(1);
+    setupPagination();
   }
 
   const pagination: any = computed(() => localPagination);

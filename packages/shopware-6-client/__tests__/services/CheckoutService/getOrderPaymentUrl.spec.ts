@@ -24,9 +24,12 @@ describe("CheckoutService getOrderPaymentUrl", () => {
 
     const result = await getOrderPaymentUrl({ orderId: "qwe" });
     expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith("/checkout/order/qwe/pay", {
-      finishUrl: undefined,
-    });
+    expect(mockedAxios.post).toBeCalledWith(
+      "/sales-channel-api/v1/checkout/order/qwe/pay",
+      {
+        finishUrl: undefined,
+      }
+    );
     expect(result.paymentUrl).toEqual("/some/payment/url");
   });
 
@@ -42,8 +45,11 @@ describe("CheckoutService getOrderPaymentUrl", () => {
       finishUrl: "/finish/url",
     });
     expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith("/checkout/order/qwe/pay", {
-      finishUrl: "/finish/url",
-    });
+    expect(mockedAxios.post).toBeCalledWith(
+      "/sales-channel-api/v1/checkout/order/qwe/pay",
+      {
+        finishUrl: "/finish/url",
+      }
+    );
   });
 });

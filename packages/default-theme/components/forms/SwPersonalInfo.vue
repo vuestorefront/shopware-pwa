@@ -9,7 +9,7 @@
       </slot>
 
       <SfAlert
-        v-if="userError || salutationsError"
+        v-if="userError"
         class="sw-personal-info__alert"
         type="danger"
         :message="getErrorMessage"
@@ -17,32 +17,6 @@
 
       <div class="sw-personal-info__form form">
         <slot name="form">
-          <SfSelect
-            v-if="getMappedSalutations && getMappedSalutations.length > 0"
-            v-model="salutation"
-            label="Salutation"
-            :valid="!$v.salutation.$error"
-            error-message="Salutation must be selected"
-            class="sf-select--underlined form__element form__element--half form__element--half-even form__select"
-          >
-            <SfSelectOption
-              v-for="salutationOption in getMappedSalutations"
-              :key="salutationOption.id"
-              :value="salutationOption"
-            >
-              {{ salutationOption.name }}
-            </SfSelectOption>
-          </SfSelect>
-          <SfInput
-            v-model="title"
-            name="title"
-            :valid="!$v.title.$error"
-            :selected="salutation"
-            error-message="Title must be selected"
-            label="Title"
-            class="form__element form__element--half"
-            @blur="$v.title.$touch()"
-          />
           <SfInput
             v-model="firstName"
             :valid="!$v.firstName.$error"
@@ -61,12 +35,45 @@
             class="form__element form__element--half"
             @blur="$v.lastName.$touch()"
           />
+          <SfInput
+            v-model="email"
+            :valid="!$v.email.$error"
+            error-message="Proper email is required"
+            name="email"
+            label="Your email"
+            class="form__element"
+            @blur="$v.email.$touch()"
+          />
+          <SfInput
+            v-if="isEmailChanging"
+            v-model="emailConfirmation"
+            :valid="!$v.emailConfirmation.$error"
+            error-message="Must match first one"
+            type="email"
+            name="emailConfirmation"
+            label="Confirm e-mail"
+            class="form__element"
+            required
+            @blur="$v.emailConfirmation.$touch()"
+          />
+          <SfInput
+            v-if="isEmailChanging"
+            v-model="password"
+            :valid="!$v.password.$error"
+            error-message="Password cannot be empty"
+            type="password"
+            name="password"
+            label="Your password"
+            class="form__element"
+            required
+            @blur="$v.password.$touch()"
+          />
           <SfButton
             class="form__button"
-            :disabled="$v.$invalid"
+            :disabled="$v.$invalid && !isEmailChanging && !isNameChanging"
             @click="invokeUpdate"
           >
-            Update personal data
+            Save Changes
           </SfButton>
         </slot>
       </div>
@@ -75,9 +82,9 @@
 </template>
 
 <script>
-import { computed } from '@vue/composition-api'
+import { computed, watch } from '@vue/composition-api'
 import { validationMixin } from 'vuelidate'
-import { required } from 'vuelidate/lib/validators'
+import { required, email, requiredIf, minLength, sameAs } from 'vuelidate/lib/validators'
 import {
   SfInput,
   SfButton,
@@ -85,11 +92,11 @@ import {
   SfProductOption,
   SfAlert
 } from '@storefront-ui/vue'
-import { useUser, useContext, useSalutations } from '@shopware-pwa/composables'
-import { mapSalutations } from '@shopware-pwa/helpers'
+import { useUser, useContext } from '@shopware-pwa/composables'
+import { mapSalutations, getMessagesFromErrorsArray } from '@shopware-pwa/helpers'
 
 export default {
-  name: 'MyProfile',
+  name: 'SwPersonalInfo',
   components: {
     SfInput,
     SfButton,
@@ -98,31 +105,20 @@ export default {
     SfAlert
   },
   mixins: [validationMixin],
-  props: {},
   setup() {
     const {
       user,
       error: userError,
       updatePersonalInfo,
-      refreshUser
+      refreshUser,
+      updateEmail
     } = useUser()
-    const {
-      getSalutations,
-      fetchSalutations,
-      error: salutationsError
-    } = useSalutations()
-
-    const getMappedSalutations = computed(() =>
-      mapSalutations(getSalutations.value)
-    )
 
     return {
-      fetchSalutations,
-      getMappedSalutations,
-      salutationsError,
       refreshUser,
       updatePersonalInfo,
       user,
+      updateEmail,
       userError
     }
   },
@@ -137,46 +133,79 @@ export default {
           : {},
       firstName: this.user && this.user.firstName,
       lastName: this.user && this.user.lastName,
-      title: this.user && this.user.title,
-      isLoading: true
+      email: this.user && this.user.email,
+      emailConfirmation: '',
+      password: ''
     }
   },
   computed: {
     getErrorMessage() {
-      return this.userError && !this.salutationsError
-        ? 'Cannot create a new account, the user may already exist'
-        : "Coudn't fetch available salutations or countries, please contact the administration."
-    }
+      return getMessagesFromErrorsArray(this.userError && this.userError.message)
+    },
+    isEmailChanging() {
+      return this.email !== (this.user && this.user.email)
+    },
+    isNameChanging() {
+      return this.firstName !== (this.user && this.user.firstName) || this.lastName !== (this.user && this.user.lastName)
+    },
   },
   validations: {
-    salutation: {
-      required
-    },
     firstName: {
       required
     },
     lastName: {
       required
     },
-    title: {
+    email: {
+      email,
       required
+    },
+    emailConfirmation: {
+      required: requiredIf(function (password) {
+        return this.isEmailChanging
+      }),
+      sameAsEmail: sameAs('email'),
+      email
+    },
+    password: {
+      required: requiredIf(function (password) {
+        return this.isEmailChanging
+      }),
+      minLength: minLength(8),
+    },
+  },
+  watch: {
+    email() {
+      if(!this.isEmailChanging) {
+        this.emailConfirmation = this.email
+      } else {
+        this.emailConfirmation = ''
+      }
     }
   },
   methods: {
     async invokeUpdate() {
-      const profileChanged = await this.updatePersonalInfo({
-        firstName: this.firstName,
-        lastName: this.lastName,
-        title: this.title,
-        salutationId: this.salutation.id
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        return
+      }
+      if(this.isNameChanging) {
+        const profileChanged = await this.updatePersonalInfo({
+          firstName: this.firstName,
+          lastName: this.lastName,
+          salutationId: this.salutation.id
+        })
+      }
+      if(this.isEmailChanging) {
+        const emailChanged = await this.updateEmail({
+        email: this.email,
+        emailConfirmation: this.emailConfirmation,
+        password: this.password
       })
+      }
       await this.refreshUser()
     }
   },
-  async mounted() {
-    await this.fetchSalutations()
-    this.isLoading = false
-  }
 }
 </script>
 
