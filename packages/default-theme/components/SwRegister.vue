@@ -176,6 +176,7 @@ export default {
         email: this.email,
         password: this.password,
         salutationId: this.salutation.id,
+        storefrontUrl: window?.location?.origin,
         billingAddress: {
           firstName: this.firstName,
           salutationId: this.salutation.id,

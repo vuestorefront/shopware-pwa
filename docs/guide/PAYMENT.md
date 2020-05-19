@@ -51,8 +51,6 @@ The base for a payment transaction is always the order. There is no transaction 
 ```
 POST sales-channel-api/v1/checkout/order
 ```
-
-
 Respose:
 ```json {7,11}
 {
@@ -69,6 +67,13 @@ Respose:
         ...
     }
 }
+```
+
+or using [**@shopware-pwa/shopware-6-client**](https://www.npmjs.com/package/@shopware-pwa/shopware-6-client)
+```
+import { createOrder } from "@shopware-pwa/shopware-6-client"
+
+const response: Promise<Order> = createOrder()
 ```
 
 The order that was created contains the following (and more) fields:
@@ -94,6 +99,13 @@ POST store-api/v1/payment-method
 	"finishUrl": "http://my-shop-host/confirm.php?orderId=4139ce0f86fb47ff",
 	"errorUrl": "http://my-shop-host/payment-error.php?orderId=4139ce0f86fb47ff"
 }
+```
+
+or using [**@shopware-pwa/shopware-6-client**](https://www.npmjs.com/package/@shopware-pwa/shopware-6-client)
+```
+import { getAvailablePaymentMethods } from "@shopware-pwa/shopware-6-client"
+
+const response: Promise<PaymentMethod[]> = getAvailablePaymentMethods()
 ```
 
 

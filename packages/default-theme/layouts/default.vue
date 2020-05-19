@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     redirectTo(route) {
-      return this.$router.push(route.link)
+      return this.$router.push(this.$i18n.path(route.link))
     },
   },
 }

@@ -96,9 +96,7 @@ export async function setCurrentCurrency(
  * @throws ClientApiError
  * @alpha
  */
-export async function getAvailableLanguages(): Promise<
-  SearchResult<Language[]>
-> {
+export async function getAvailableLanguages(): Promise<Language[]> {
   const resp = await apiService.get(getContextLanguageEndpoint());
 
   return resp.data;

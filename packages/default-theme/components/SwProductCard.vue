@@ -62,7 +62,7 @@ export default {
     },
     // should be replaced with prettyUrl attribute when pretty urls are included in product entity
     getRouterLink() {
-      return getProductUrl(this.product)
+      return this.$i18n.path(getProductUrl(this.product))
     },
     getRegularPrice() {
       // TODO: remove that logic once the SW6 API returns right data

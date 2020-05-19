@@ -9,11 +9,11 @@ describe("ContextService - getAvailableLanguages", () => {
     jest.resetAllMocks();
   });
   it("should return array with languages", async () => {
-    mockedAxios.get.mockResolvedValueOnce({ data: { total: 2 } });
+    mockedAxios.get.mockResolvedValueOnce({ data: [{ id: 2, code: "en" }] });
 
     const result = await getAvailableLanguages();
     expect(mockedAxios.get).toBeCalledTimes(1);
     expect(mockedAxios.get).toBeCalledWith("/store-api/v1/language");
-    expect(result.total).toEqual(2);
+    expect(result).toEqual([{ id: 2, code: "en" }]);
   });
 });

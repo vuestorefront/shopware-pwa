@@ -11,6 +11,7 @@ export default async ({ app, store }) => {
     throw "Error cookie-universal-nuxt module is not applied in nuxt.config.js";
   }
   const contextToken = app.$cookies.get("sw-context-token") || "";
+  const languageId = app.$cookies.get("sw-language-id") || "";
 
   /**
    * Setup Shopware API client
@@ -19,6 +20,7 @@ export default async ({ app, store }) => {
     endpoint: "<%= options.shopwareEndpoint %>",
     accessToken: "<%= options.shopwareAccessToken %>",
     contextToken,
+    languageId,
   });
   /**
    * Save current contextToken when its change
@@ -26,6 +28,9 @@ export default async ({ app, store }) => {
   onConfigChange(({ config }) => {
     try {
       app.$cookies.set("sw-context-token", config.contextToken, {
+        maxAge: 60 * 60 * 24 * 365,
+      });
+      app.$cookies.set("sw-language-id", config.languageId, {
         maxAge: 60 * 60 * 24 * 365,
       });
     } catch (e) {

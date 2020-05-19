@@ -74,7 +74,7 @@ module.exports = {
     ];
     const coreDevPackages = ["@shopware-pwa/cli"];
 
-    const npmPackages = ["@vue-storefront/nuxt"];
+    const npmPackages = ["@vue-storefront/nuxt", "vue-i18n"];
 
     const npmDevPackages = ["fs-jetpack", "cookie-universal", "husky"];
 
@@ -139,6 +139,7 @@ module.exports = {
     // generate plugin files
     await toolbox.runtime.run(`plugins`, inputParameters);
     await toolbox.runtime.run(`cms`);
+    await toolbox.runtime.run(`languages`, inputParameters);
 
     const updateDependenciesSpinner = spin("Updating dependencies");
     // Loading additional packages

@@ -22,5 +22,6 @@ export interface ClientSettings
 |  [contextToken](./shopware-6-client.clientsettings.contexttoken.md) | <code>string</code> | <b><i>(BETA)</i></b> |
 |  [defaultPaginationLimit](./shopware-6-client.clientsettings.defaultpaginationlimit.md) | <code>number</code> | <b><i>(BETA)</i></b> |
 |  [endpoint](./shopware-6-client.clientsettings.endpoint.md) | <code>string</code> | <b><i>(BETA)</i></b> |
+|  [languageId](./shopware-6-client.clientsettings.languageid.md) | <code>string</code> | <b><i>(BETA)</i></b> |
 |  [timeout](./shopware-6-client.clientsettings.timeout.md) | <code>number</code> | <b><i>(BETA)</i></b> |
 
