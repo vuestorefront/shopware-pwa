@@ -154,7 +154,9 @@ export const useUser = (): UseUser => {
     orders.value = fetchedOrders;
   };
 
-  const getOrderDetails = async (orderId: string): Promise<Order | undefined> => {
+  const getOrderDetails = async (
+    orderId: string
+  ): Promise<Order | undefined> => {
     return getCustomerOrderDetails(orderId);
   };
 

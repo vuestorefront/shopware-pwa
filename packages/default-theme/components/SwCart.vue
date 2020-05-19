@@ -9,7 +9,7 @@
     >
       <template v-if="count" #content-top>
         <SfProperty
-          class="my-cart__total-items"
+          class="my-cart__total-items sf-property--large"
           name="Total items"
           :value="count"
         />
@@ -56,7 +56,7 @@
                 <SfPrice :regular="totalPrice | price" class="sf-price--big" />
               </template>
             </SfProperty>
-            <SfButton class="sf-button--full-width" @click="goToCheckout()"
+            <SfButton class="sf-button--full-width color-secondary" @click="goToCheckout()"
               >Go to checkout</SfButton
             >
             <SwPluginSlot name="sidecart-checkout-button-after" />

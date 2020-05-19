@@ -42,9 +42,13 @@
         :is-floating="true"
       >
         <template #icon>
-          <SfCircleIcon aria-label="Go to Cart" @click="toggleSidebar">
-            <SfIcon icon="empty_cart" size="20px" color="white" />
-          </SfCircleIcon>
+          <SfCircleIcon 
+            aria-label="Go to Cart" 
+            @click="toggleSidebar" 
+            icon="empty_cart" 
+            :has-badge="count > 0"
+            :badge-label="count.toString()"
+          />
         </template>
       </SfBottomNavigationItem>
     </SfBottomNavigation>
@@ -63,6 +67,7 @@ import {
   useCartSidebar,
   useNavigation,
   useUser,
+  useCart,
   useUserLoginModal,
 } from '@shopware-pwa/composables'
 import { PAGE_ACCOUNT } from '../helpers/pages'
@@ -90,6 +95,7 @@ export default {
     const { routes, fetchRoutes } = useNavigation()
     const { toggleModal } = useUserLoginModal()
     const { isLoggedIn } = useUser()
+    const { count } = useCart()
 
     onMounted(async () => {
       await fetchRoutes()
@@ -100,6 +106,7 @@ export default {
       isSidebarOpen,
       toggleSidebar,
       toggleModal,
+      count
     }
   },
   watch: {
