@@ -5,6 +5,7 @@ import { extendComponents } from "./components";
 import path from "path";
 import { loadConfig } from "./utils";
 import { extendCMS } from "./cms";
+import { extendLocales } from "./locales";
 
 export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
   const shopwarePwaConfig = loadConfig(moduleObject);
@@ -51,6 +52,9 @@ export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
     fileName: "price-filter.js",
     options: moduleOptions,
   });
+
+  // locales
+  extendLocales(moduleObject, shopwarePwaConfig);
 
   moduleObject.extendBuild((config: WebpackConfig) => {
     const swPluginsDirectory = path.join(

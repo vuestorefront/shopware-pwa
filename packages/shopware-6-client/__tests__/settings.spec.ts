@@ -68,6 +68,23 @@ describe("Settings", () => {
       ).toBeUndefined();
     });
 
+    it("should have languageId in axios defaults after update", () => {
+      update({ languageId: "someLanguageId" });
+
+      expect(apiService.defaults.headers.common["sw-language-id"]).toEqual(
+        "someLanguageId"
+      );
+    });
+
+    it("should clean languageId from axios detault headers after reset", () => {
+      update({ languageId: "someLanguageId" });
+      setup();
+
+      expect(
+        apiService.defaults.headers.common["sw-language-id"]
+      ).toBeUndefined();
+    });
+
     it("should have default config with empty invocation", () => {
       update();
       expect(config.accessToken).toEqual("SWSCVJJET0RQAXFNBMTDZTV1OQ");

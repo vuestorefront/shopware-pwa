@@ -1,0 +1,22 @@
+{
+  "topNavigation": {
+    "searchPlaceholder": "Suche nach Produkten"
+  },
+  "links": {
+    "home": "Zuhause",
+    "about": "Über",
+    "english": "Englische Version",
+    "deutsch": "Deutsch Version"
+  },
+  "home": {
+    "title": "Willkommen",
+    "introduction": "Ceci est un texte d'introduction en Français."
+  },
+  "about": {
+    "title": "Über",
+    "introduction": "Diese Seite dient dazu, Ihnen weitere Informationen zu geben."
+  },
+  "footer": {
+    "description": "Gemacht mit ❤️ von {creator}"
+  }
+}

@@ -9,11 +9,13 @@ import * as layouts from "../src/layouts";
 import * as components from "../src/components";
 import * as pages from "../src/pages";
 import * as cms from "../src/cms";
+import * as locales from "../src/locales";
 jest.mock("../src/utils");
 jest.mock("../src/layouts");
 jest.mock("../src/components");
 jest.mock("../src/pages");
 jest.mock("../src/cms");
+jest.mock("../src/locales");
 const mockedUtils = utils as jest.Mocked<typeof utils>;
 const consoleErrorSpy = jest.spyOn(console, "error");
 
@@ -27,6 +29,9 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
   const moduleObject: NuxtModuleOptions = {
     options: {
       rootDir: __dirname,
+      router: {
+        middleware: [],
+      },
     },
     addLayout: jest.fn(),
     extendRoutes: jest.fn(),
@@ -147,6 +152,14 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
   it("should invoke extendCMS", () => {
     runModule(moduleObject, {});
     expect(cms.extendCMS).toBeCalledWith(moduleObject);
+  });
+
+  it("should invoke extendLocales", () => {
+    runModule(moduleObject, {});
+    expect(locales.extendLocales).toBeCalledWith(moduleObject, {
+      shopwareAccessToken: "mockedToken",
+      shopwareEndpoint: "mockedEndpoint",
+    });
   });
 
   it("interfaces should return default empty object", () => {

@@ -39,7 +39,7 @@
               <SfListItem v-for="item in accordion.children" :key="item.id">
                 <nuxt-link
                   v-if="item.route && item.name"
-                  :to="getCategoryUrl(item.route)"
+                  :to="$i18n.path(getCategoryUrl(item.route))"
                 >
                   <SfMenuItem :label="item.name" />
                 </nuxt-link>
@@ -49,7 +49,7 @@
           <template v-else>
             <nuxt-link
               v-if="accordion.route && accordion.name"
-              :to="getCategoryUrl(accordion.route)"
+              :to="$i18n.path(getCategoryUrl(accordion.route))"
             >
               See {{ accordion.name }}
             </nuxt-link>
