@@ -12,3 +12,9 @@
 |  [getProductTierPrices(product)](./helpers.getproducttierprices.md) | <b><i>(BETA)</i></b> Get the prices depending on quantity added to cart. Tier prices can be set in <code>Advanced pricing</code> tab in <code>Product view</code> (admin panel) |
 |  [isProductSimple({ product, })](./helpers.isproductsimple.md) | <b><i>(BETA)</i></b> |
 
+## Interfaces
+
+|  Interface | Description |
+|  --- | --- |
+|  [TierPrice](./helpers.tierprice.md) | <b><i>(BETA)</i></b> |
+

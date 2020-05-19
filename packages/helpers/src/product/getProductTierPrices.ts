@@ -16,9 +16,7 @@ export interface TierPrice {
  * @returns TierPrice[]
  * @beta
  */
-export function getProductTierPrices(
-  product: Product
-): TierPrice[] | undefined {
+export function getProductTierPrices(product: Product): TierPrice[] {
   if (!product || !product.calculatedPrices?.length) {
     return [];
   }

@@ -136,10 +136,8 @@ export function getProductReviews({ product, }?: {
 // @alpha
 export function getProductSpecialPrice(product: Product): number | undefined;
 
-// Warning: (ae-forgotten-export) The symbol "TierPrice" needs to be exported by the entry point index.d.ts
-//
 // @beta
-export function getProductTierPrices(product: Product): TierPrice[] | undefined;
+export function getProductTierPrices(product: Product): TierPrice[];
 
 // @alpha (undocumented)
 export function getProductUrl(product: Product | null): string;
@@ -215,6 +213,16 @@ export interface SwSorting {
     name: string;
     // (undocumented)
     order: string;
+}
+
+// @beta (undocumented)
+export interface TierPrice {
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    quantity: number;
+    // (undocumented)
+    unitPrice: number;
 }
 
 // @alpha (undocumented)

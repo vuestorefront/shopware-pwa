@@ -12,7 +12,7 @@ Get the prices depending on quantity added to cart. Tier prices can be set in `A
 <b>Signature:</b>
 
 ```typescript
-export declare function getProductTierPrices(product: Product): TierPrice[] | undefined;
+export declare function getProductTierPrices(product: Product): TierPrice[];
 ```
 
 ## Parameters
@@ -23,7 +23,7 @@ export declare function getProductTierPrices(product: Product): TierPrice[] | un
 
 <b>Returns:</b>
 
-`TierPrice[] | undefined`
+`TierPrice[]`
 
 TierPrice\[\]
 
