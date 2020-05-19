@@ -12,6 +12,7 @@ import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/custo
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { CustomerAddressParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerRegistrationParams } from '@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams';
+import { CustomerResetPasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
@@ -299,6 +300,8 @@ export interface UseUser {
     refreshUser: () => Promise<void>;
     // (undocumented)
     register: ({}: CustomerRegistrationParams) => Promise<boolean>;
+    // (undocumented)
+    resetPassword: (resetPasswordData: CustomerResetPasswordParam) => Promise<boolean>;
     // (undocumented)
     salutation: Ref<Salutation | null>;
     // (undocumented)

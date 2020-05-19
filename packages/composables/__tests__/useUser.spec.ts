@@ -497,6 +497,31 @@ describe("Composables - useUser", () => {
       );
     });
   });
+  describe("resetPassword", () => {
+    it("should invoke resetPassword api-client method and return true on success", async () => {
+      mockedApiClient.resetPassword.mockImplementationOnce(async () =>
+        Promise.resolve(undefined)
+      );
+      const { resetPassword } = useUser();
+      const response = await resetPassword({
+        email: "qweqwe@qwe.com",
+      });
+      expect(mockedApiClient.resetPassword).toBeCalledTimes(1);
+      expect(response).toBeTruthy();
+    });
+    it("should return false and set the error.value on api-client on resetPassword rejection", async () => {
+      mockedApiClient.resetPassword.mockImplementationOnce(async () =>
+        Promise.reject("Email does not fit to any in Sales Channel")
+      );
+      const { resetPassword, error } = useUser();
+      const response = await resetPassword({
+        email: "qweqwe@qwe.com",
+      });
+      expect(mockedApiClient.resetPassword).toBeCalledTimes(1);
+      expect(response).toBeFalsy();
+      expect(error.value).toEqual("Email does not fit to any in Sales Channel");
+    });
+  });
   describe("updateEmail", () => {
     it("should invoke updateEmail api-client method and return true on success", async () => {
       mockedApiClient.updateEmail.mockImplementationOnce(async () =>

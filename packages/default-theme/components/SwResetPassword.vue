@@ -3,10 +3,10 @@
     <div class="form sw-reset-password__form">
       <!-- <h2 class="sw-reset-password__header">Reset password</h2> -->
       <SfAlert
-        v-if="error"
+        v-if="userError"
         class="sw-reset-password__alert"
         type="danger"
-        :message="error"
+        :message="userError.message"
       />
       <SfInput
         v-model="email"
@@ -31,6 +31,7 @@
 import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { required, email } from 'vuelidate/lib/validators'
+import {useUser} from '@shopware-pwa/composables';
 
 export default {
   name: 'SwResetPassword',
@@ -42,6 +43,13 @@ export default {
       error: ''
     }
   },
+  setup() {
+    const { resetPassword, error: userError } = useUser()
+    return {
+      resetPassword: resetPassword,
+      userError,
+    }
+  },
   validations: {
     email: {
       required,
@@ -49,9 +57,18 @@ export default {
     }
   },
   methods: {
-    invokeResetPassword() {
+    async invokeResetPassword() {
       this.$v.$touch()
-      this.error = 'Reset password is not implemented yet'
+
+      if (this.$v.$invalid) {
+        return;
+      }
+      const resetSent = await this.resetPassword({
+        email: this.email
+      })
+      if (resetSent) {
+        this.$emit('success');
+      }
     }
   }
 }
