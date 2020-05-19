@@ -93,15 +93,10 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
 
 .sw-product-card {
   --product-card-add-button-top: 13rem;
-}
-.products__product-card {
-  ins, del {
-    display: inline-block;
-  }
 }
 </style>
