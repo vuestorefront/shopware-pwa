@@ -156,9 +156,7 @@ export const useUser = (): UseUser => {
 
   const getOrderDetails = async (
     orderId: string
-  ): Promise<Order | undefined> => {
-    return getCustomerOrderDetails(orderId);
-  };
+  ): Promise<Order | undefined> =>  getCustomerOrderDetails(orderId);
 
   const loadAddresses = async (): Promise<void> => {
     try {
