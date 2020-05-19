@@ -1,15 +1,10 @@
 <template>
   <div class="top-navigation">
-    <SfOverlay :visible="!!currentCategoryName" class="sw-overlay"/>
+    <SfOverlay :visible="!!currentCategoryName" class="sw-overlay" />
     <SfTopBar class="top-bar desktop-only">
       <template #right>
         <SwCurrency class="sf-header__currency" />
-        <!-- TODO Implement SfLanguageSelector -->
-        <div class="top-bar__location-label">Location:</div>
-        <SfImage
-          :src="require('@shopware-pwa/default-theme/assets/flag.png')"
-          alt="flag of the USA"
-        />
+        <SwLanguageSwitcher />
       </template>
     </SfTopBar>
     <SfHeader
@@ -20,7 +15,7 @@
       :cart-items-qty="count.toString()"
     >
       <template #logo>
-        <nuxt-link to="/" class="sf-header__logo">
+        <nuxt-link :to="$i18n.path('/')" class="sf-header__logo">
           <SfImage src="/img/logo.svg" alt="Shopware PWA" />
         </nuxt-link>
       </template>
@@ -36,21 +31,21 @@
         >
           <nuxt-link
             class="sf-header__link"
-            :to="getCategoryUrl(category)"
+            :to="$i18n.path(getCategoryUrl(category))"
           >
             {{ category.name }}
           </nuxt-link>
           <SwMegaMenu
             :category="category"
-            :visible="category.name === currentCategoryName"
+            :visible="currentCategoryName && category.name === currentCategoryName"
           />
         </SfHeaderNavigationItem>
         <SwPluginSlot name="top-navigation-after" />
       </template>
       <template #search>
         <SfSearchBar
-          placeholder="Search for products"
-          aria-label="Search for products"
+          :placeholder="$t('topNavigation.searchPlaceholder')"
+          :aria-label="$t('topNavigation.searchPlaceholder')"
           class="sf-header__search desktop-only"
           @enter="fulltextSearch"
         />
@@ -71,7 +66,7 @@
               :has-badge="isLoggedIn"
               @click="userIconClick"
             />
-            <SfIcon 
+            <SfIcon
               :icon="cartIcon"
               :has-badge="count > 0"
               :badge-label="count.toString()"
@@ -112,11 +107,13 @@ import {
 } from '@shopware-pwa/composables'
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
+import SwLanguageSwitcher from '@shopware-pwa/default-theme/components/SwLanguageSwitcher'
 import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
 import { ref, reactive, onMounted } from '@vue/composition-api'
 import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
 import { getCategoryUrl } from '@shopware-pwa/helpers'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+import { getAvailableLanguages } from '@shopware-pwa/shopware-6-client'
 
 export default {
   components: {
@@ -128,6 +125,7 @@ export default {
     SfOverlay,
     SfTopBar,
     SwCurrency,
+    SwLanguageSwitcher,
     SfIcon,
     SwPluginSlot,
   },
@@ -142,7 +140,11 @@ export default {
     const currentCategoryName = ref(null)
 
     onMounted(async () => {
-      await fetchNavigationElements(3)
+      try {
+        await fetchNavigationElements(3)
+      } catch (e) {
+        console.error('[SwTopNavigation]', e)
+      }
     })
 
     return {

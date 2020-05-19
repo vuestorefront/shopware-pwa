@@ -50,8 +50,9 @@ export async function login({
 }: { username?: string; password?: string } = {}): Promise<
   ContextTokenResponse
 > {
-  if (!username || !password)
+  if (!username || !password) {
     throw new Error("Provide username and password for login");
+  }
   const resp = await apiService.post(getCustomerLoginEndpoint(), {
     username,
     password,

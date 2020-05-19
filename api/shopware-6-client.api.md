@@ -59,6 +59,8 @@ export interface ClientSettings {
     // (undocumented)
     endpoint?: string;
     // (undocumented)
+    languageId?: string;
+    // (undocumented)
     timeout?: number;
 }
 
@@ -132,7 +134,7 @@ export function getAvailableCountries(): Promise<SearchResult<Country[]>>;
 export function getAvailableCurrencies(): Promise<Currency[]>;
 
 // @alpha (undocumented)
-export function getAvailableLanguages(): Promise<SearchResult<Language[]>>;
+export function getAvailableLanguages(): Promise<Language[]>;
 
 // @alpha (undocumented)
 export function getAvailablePaymentMethods(): Promise<PaymentMethod[]>;

@@ -18,7 +18,10 @@
               :key="route.routeLabel"
               :value="route"
             >
-              <nuxt-link class="sf-header__link" :to="route.routePath">
+              <nuxt-link
+                class="sf-header__link"
+                :to="$i18n.path(route.routePath)"
+              >
                 <SfProductOption :value="route" :label="route.routeLabel" />
               </nuxt-link>
             </SfSelectOption>
@@ -42,9 +45,13 @@
         :is-floating="true"
       >
         <template #icon>
-          <SfCircleIcon aria-label="Go to Cart" @click="toggleSidebar">
-            <SfIcon icon="empty_cart" size="20px" color="white" />
-          </SfCircleIcon>
+          <SfCircleIcon 
+            aria-label="Go to Cart" 
+            @click="toggleSidebar" 
+            icon="empty_cart" 
+            :has-badge="count > 0"
+            :badge-label="count.toString()"
+          />
         </template>
       </SfBottomNavigationItem>
     </SfBottomNavigation>
@@ -63,6 +70,7 @@ import {
   useCartSidebar,
   useNavigation,
   useUser,
+  useCart,
   useUserLoginModal,
 } from '@shopware-pwa/composables'
 import { PAGE_ACCOUNT } from '../helpers/pages'
@@ -90,9 +98,14 @@ export default {
     const { routes, fetchRoutes } = useNavigation()
     const { toggleModal } = useUserLoginModal()
     const { isLoggedIn } = useUser()
+    const { count } = useCart()
 
     onMounted(async () => {
-      await fetchRoutes()
+      try {
+        await fetchRoutes()
+      } catch (e) {
+        console.error('[SwBottomNavigation]', e)
+      }
     })
     return {
       isLoggedIn,
@@ -100,17 +113,18 @@ export default {
       isSidebarOpen,
       toggleSidebar,
       toggleModal,
+      count
     }
   },
   watch: {
     currentRoute(nextRoute) {
-      this.$router.push(nextRoute.routeLabel)
+      this.$router.push(this.$i18n.path(nextRoute.routeLabel))
     },
   },
   methods: {
     userIconClick() {
       if (this.isLoggedIn) {
-        this.$router.push(PAGE_ACCOUNT)
+        this.$router.push(this.$i18n.path(PAGE_ACCOUNT))
         return
       }
       this.toggleModal()

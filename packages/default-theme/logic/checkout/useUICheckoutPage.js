@@ -83,7 +83,9 @@ export const useUICheckoutPage = () => {
       nextStepNumber > CHECKOUT_STEPS.REVIEW
     ) {
       const order = await createOrder()
-      vm.$router.push(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`)
+      vm.$router.push(
+        vm.$i18n.path(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`)
+      )
     } else {
       const nextStep = getStepByNumber(nextStepNumber)
       if (stepsStatus.value[nextStep].available) {

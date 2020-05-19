@@ -199,7 +199,7 @@ export default {
         options,
       })
 
-      this.$router.push(url)
+      this.$router.push(this.$i18n.path(url))
     },
   },
 
