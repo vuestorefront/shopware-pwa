@@ -11,6 +11,29 @@
           :key="accordion.id"
           :header="accordion.name"
         >
+          <template #header="{header, isOpen, accordionClick, showChevron}">
+            <div class="cms-element-category-navigation__menu-item">
+              <nuxt-link
+                :to="getCategoryUrl(accordion.route)"
+                
+              >
+                <SfButton
+                  :aria-pressed="isOpen.toString()"
+                  :aria-expanded="isOpen.toString()"
+                  :class="{ 'sf-accordion-item__header--open': isOpen }"
+                  class="sf-button--pure sf-accordion-item__header"
+                >
+                {{ header }}
+                </SfButton>
+              </nuxt-link>
+              <SfChevron
+                tabindex="0"
+                class="sf-accordion-item__chevron"
+                :class="{ 'sf-chevron--right': !isOpen }"
+                @click.native="accordionClick"
+              />
+            </div>
+        </template>
           <template v-if="accordion.children.length > 0">
             <SfList>
               <SfListItem v-for="item in accordion.children" :key="item.id">
@@ -38,7 +61,7 @@
 </template>
 
 <script>
-import { SfList, SfAccordion, SfMenuItem, SfHeading } from '@storefront-ui/vue'
+import { SfList, SfAccordion, SfMenuItem, SfHeading, SfChevron, SfButton } from '@storefront-ui/vue'
 import { getNavigation } from '@shopware-pwa/shopware-6-client'
 import { useCms } from '@shopware-pwa/composables'
 
@@ -48,6 +71,8 @@ export default {
     SfList,
     SfMenuItem,
     SfHeading,
+    SfChevron,
+    SfButton
   },
   name: 'CmsElementCategoryNavigation',
   props: {
@@ -118,6 +143,11 @@ export default {
       padding: var(--spacer-base) var(--spacer-xl);
       border-right: 1px solid var(--c-light);
     }
+  }
+  &__menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 </style>
