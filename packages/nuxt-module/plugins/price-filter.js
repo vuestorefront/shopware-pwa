@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { computed, provide } from "@vue/composition-api";
+import { provide } from "@vue/composition-api";
 import { useCurrency } from "@shopware-pwa/composables";
 import { formatPrice } from "@shopware-pwa/default-theme/helpers";
 

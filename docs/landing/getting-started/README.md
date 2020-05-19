@@ -73,8 +73,8 @@ Instead of using the interactive CLI to configure your backend connection, you c
 
 ```js
 module.exports = {
-  shopwareEndpoint: "https://shopware-2.vuestorefront.io",
-  shopwareAccessToken: "SWSCTXJOZMQWCXA4OUTNZ0REYG",
+  shopwareEndpoint: "https://shopware6-demo.vuestorefront.io",
+  shopwareAccessToken: "SWSCVJJET0RQAXFNBMTDZTV1OQ",
 };
 ```
 

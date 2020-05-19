@@ -7,7 +7,7 @@
         class="sf-button--text navbar__filters-button"
         @click="isFilterSidebarOpen = true"
       >
-        <SfIcon size="1.5rem" icon="filter" style="margin-right: 10px;" />
+        <SfIcon size="14px" icon="filter" style="margin-right: 10px;" />
         Filters
       </SfButton>
       <div class="navbar__sort desktop-only">
@@ -34,7 +34,7 @@
           class="navbar__view-icon"
           :color="isGridView ? '#1D1F22' : '#BEBFC4'"
           icon="tiles"
-          size="2rem"
+          size="10px"
           role="button"
           aria-label="Change to grid view"
           :aria-pressed="isGridView"
@@ -44,7 +44,7 @@
           class="navbar__view-icon"
           :color="!isGridView ? '#1D1F22' : '#BEBFC4'"
           icon="list"
-          size="2rem"
+          size="10px"
           role="button"
           aria-label="Change to list view"
           :aria-pressed="!isGridView"
@@ -297,6 +297,9 @@ export default {
     display: flex;
     align-items: center;
     margin: 0 var(--spacer-xl);
+    &-icon {
+      margin: 11px;
+    }
     @include for-mobile {
       margin: 0;
       order: -1;

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "allowSyntheticDefaultImports": false,
     "experimentalDecorators": true,
     "lib": [
@@ -21,7 +22,10 @@
     "strict": false,
     "target": "es5",
     "declaration": true,
-    "declarationDir": "build/types"
+    "declarationDir": "build/types",
+    "paths": {
+      "@shopware-pwa/shopware-6-client": ["../shopware-6-client/src"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

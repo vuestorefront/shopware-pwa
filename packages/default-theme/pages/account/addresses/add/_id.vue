@@ -1,21 +1,4 @@
-<template>
-  <div class="addresses-add">
-    <SwAddress />
-  </div>
-</template>
-
 <script>
-import SwAddress from '@shopware-pwa/default-theme/components/forms/SwAddress.vue'
-
-export default {
-  components: { SwAddress },
-  data() {
-    return {}
-  },
-  mounted() {
-    console.log(this.$router.params.id)
-  }
-}
+import AddAddress from '@shopware-pwa/default-theme/pages/_lang/account/addresses/add/_id'
+export default AddAddress
 </script>
-
-<style lang="scss" scoped></style>

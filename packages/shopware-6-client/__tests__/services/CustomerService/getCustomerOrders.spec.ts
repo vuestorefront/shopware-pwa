@@ -23,14 +23,16 @@ describe("CustomerService - getCustomerOrders", () => {
   it("should return array of orders", async () => {
     mockedAxios.get.mockResolvedValueOnce({
       data: {
-        elements: [
-          {
-            orderNumber: "1234",
-          },
-          {
-            orderNumber: "4321",
-          },
-        ],
+        orders: {
+          elements: [
+            {
+              orderNumber: "1234",
+            },
+            {
+              orderNumber: "4321",
+            },
+          ],
+        },
       },
     });
     const result = await getCustomerOrders();
