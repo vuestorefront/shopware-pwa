@@ -1,7 +1,7 @@
 <template>
   <div class="sw-bottom-navigation">
     <SfBottomNavigation>
-      <nuxt-link aria-label="Go to Home Page" to="/">
+      <nuxt-link aria-label="Go to Home Page" :to="$i18n.path('/')">
         <SfBottomNavigationItem label="Home" icon="home" icon-size="20px" />
       </nuxt-link>
       <SfBottomNavigationItem
@@ -155,11 +155,11 @@ export default {
       }
     },
     goToMyAccount() {
-      this.$router.push(PAGE_ACCOUNT)
+      this.$router.push(this.$i18n.path(PAGE_ACCOUNT))
     },
     async logoutUser() {
       await this.logout()
-      this.$router.push('/')
+      this.$router.push(this.$i18n.path('/'))
     }
   },
 }

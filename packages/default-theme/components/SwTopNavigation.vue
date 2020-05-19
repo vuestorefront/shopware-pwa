@@ -81,7 +81,6 @@
               </SfList>
             </SfDropdown>
             <SfIcon
-              v-if="cartIcon"
               :icon="cartIcon"
               :has-badge="count > 0"
               :badge-label="count.toString()"
@@ -190,7 +189,7 @@ export default {
   },
   computed: {
     getPageAccount() {
-      return PAGE_ACCOUNT
+      return this.$i18n.path(PAGE_ACCOUNT)
     }
   },
   methods: {
@@ -200,7 +199,7 @@ export default {
     },
     async logoutUser() {
       await this.logout()
-      this.$router.push('/')
+      this.$router.push(this.$i18n.path('/'))
     }
   },
 }
