@@ -28,11 +28,12 @@ There will be a more streamlined, interactive development setup, but for now we'
 
 Note: You can skip this section if you just want to try the PWA. It will be preconfigured to use a public instance.
 
-1.  Make sure you have a running Shopware 6 instance (preferably stable 6.0 once available)
+1.  Make sure you have a running Shopware 6 instance (preferably stable 6.2 once available)
 2.  Clone [SwagShopwarePwa](https://github.com/elkmod/SwagShopwarePwa) into your `custom/plugins` directory.
 3.  Install the plugin by running `bin/console plugin:install --activate SwagShopwarePwa`
 4.  Refresh the indices using `bin/console dal:refresh:index`
 5.  Go to the admin panel and copy the API access key from your sales channel settings
+6.  Make sure that you have proper domain configured in your sales channel settings - should contain your PWA instance URL (otherwise, the customer registration won't be possible - since v6.2)
 
 #### PWA setup
 
@@ -53,8 +54,8 @@ Now you have complete ShopwarePWA project running locally
 
 ```
 module.exports = {
-  shopwareEndpoint: "https://shopware-2.vuestorefront.io",
-  shopwareAccessToken: "SWSCTXJOZMQWCXA4OUTNZ0REYG"
+  shopwareEndpoint: "https://shopware6-demo.vuestorefront.io/",
+  shopwareAccessToken: "SWSCVJJET0RQAXFNBMTDZTV1OQ"
 };
 ```
 
