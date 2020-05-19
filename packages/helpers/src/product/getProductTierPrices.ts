@@ -3,7 +3,7 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 /**
  * @beta
  */
-interface TierPrice {
+export interface TierPrice {
   label: string; // information about the quantity range
   quantity: number; // price limit value
   unitPrice: number; // price for only one product in given price range (quantity)
