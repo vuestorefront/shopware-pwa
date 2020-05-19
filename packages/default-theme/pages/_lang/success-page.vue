@@ -1,22 +1,24 @@
 <template>
   <div class="success-page" :key="$route.fullPath">
-    <a :href="paymentUrl" v-if="paymentUrl">
-      <SfButton>
-        Pay for your order
-      </SfButton>
-    </a>
     <SfHeading
       title="Thank you"
       subtitle="for shopping with us!"
       class="success-page__heading"
     />
-    <SfButton @click="$router.push($i18n.path('/'))">
+    <SfDivider />
+    <SwOrderDetails :order-id="orderId" />
+    <a :href="paymentUrl" v-if="paymentUrl">
+      <SfButton class="pay-button color-danger">
+        Pay for your order
+      </SfButton>
+    </a>
+    <SfButton @click="$router.push('/')">
       <SfIcon icon="chevron_left" color="white" size="20px" />Return to homepage
     </SfButton>
   </div>
 </template>
 <script>
-import { SfButton, SfHeading, SfIcon } from '@storefront-ui/vue'
+import { SfButton, SfHeading, SfIcon, SfDivider } from '@storefront-ui/vue'
 import { getOrderPaymentUrl } from '@shopware-pwa/shopware-6-client'
 import {
   ref,
@@ -25,12 +27,16 @@ import {
   computed,
 } from '@vue/composition-api'
 
+import SwOrderDetails from "@shopware-pwa/default-theme/components/SwOrderDetails";
+
 export default {
   name: 'SuccessPage',
   components: {
     SfHeading,
     SfButton,
     SfIcon,
+    SfDivider,
+    SwOrderDetails,
   },
   data() {
     return {}
@@ -54,6 +60,7 @@ export default {
     })
     return {
       paymentUrl,
+      orderId
     }
   },
 }
@@ -75,6 +82,15 @@ export default {
       font-size: 5rem;
       color: var(--c-primary);
     }
+  }
+
+  .sf-divider {
+    border-color: var(--c-primary);
+    max-width: var(--header-width, 77.5rem);
+  }
+
+  .pay-button {
+    margin-bottom: 2rem;
   }
 
   .sf-icon {
