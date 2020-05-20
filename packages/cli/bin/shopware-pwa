@@ -9,7 +9,7 @@ var wantsCompiled = process.argv.indexOf('--compiled-build') >= 0
 
 if (wantsCompiled || !devMode) {
   // this runs from the compiled javascript source
-  require(`${__dirname}/../build/cli`).run(process.argv)
+  require(`${__dirname}/../build/cli/src/cli`).run(process.argv)
 } else {
   // this runs from the typescript source (for dev only)
   // hook into ts-node so we can run typescript on the fly
