@@ -28,7 +28,7 @@ jobs:
           ../packages/cli/bin/shopware-pwa init --shopwareEndpoint=${{ env.CANARY_SW6_INSTANCE }} --shopwareAccessToken=${{ env.CANARY_SW6_INSTANCE_TOKEN }} --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci --devMode --stage local
           yarn build
       - name: Build and publish docker image
-        uses: elgohr/Publish-Docker-Github-Action@master
+        uses: elgohr/Publish-Docker-Github-Action@2.14
         with:
           name: shopware-pwa-storefrontcloud-io/vue-storefront:${{ github.sha }}
           registry: registry.storefrontcloud.io
