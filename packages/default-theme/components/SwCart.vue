@@ -1,16 +1,16 @@
 <template>
   <div id="cart">
     <SfSidebar
-      title="My cart"
+      :title="$t('My cart')"
       :visible="isSidebarOpen"
-      heading-title="My Cart"
+      :heading-title="$t('My cart')"
       class="sf-sidebar--right"
       @close="toggleSidebar"
     >
       <template v-if="count" #content-top>
         <SfProperty
           class="my-cart__total-items sf-property--large"
-          name="Total items"
+          :name="$t('Total items')"
           :value="count"
         />
       </template>
@@ -31,16 +31,15 @@
         <div v-else key="empty-cart" class="empty-cart">
           <div class="empty-cart__banner">
             <SfImage
-              alt="Empty bag"
+              :alt="$t('Empty bag')"
               class="empty-cart__image"
               :src="require('@storefront-ui/shared/icons/empty_cart.svg')"
             />
             <SfHeading
-              title="Your cart is empty"
+              :title="$t('Your cart is empty')"
               :level="2"
               class="empty-cart__heading"
-              subtitle="Looks like you haven’t added any items to the bag yet. Start
-              shopping to fill it in."
+              :subtitle="$t('No items in cart')"
             />
           </div>
         </div>
@@ -49,22 +48,24 @@
         <transition name="fade">
           <div v-if="count">
             <SfProperty
-              name="Total price"
+              :name="$t('Total price')"
               class="sf-property--full-width sf-property--large my-cart__total-price"
             >
               <template #value>
                 <SfPrice :regular="totalPrice | price" class="sf-price--big" />
               </template>
             </SfProperty>
-            <SfButton class="sf-button--full-width color-secondary" @click="goToCheckout()"
-              >Go to checkout</SfButton
+            <SfButton
+              class="sf-button--full-width color-secondary"
+              @click="goToCheckout()"
+              >{{ $t('Go to checkout') }}</SfButton
             >
             <SwPluginSlot name="sidecart-checkout-button-after" />
           </div>
           <div v-else>
-            <SfButton class="sf-button--full-width color-primary"
-              >Start shopping</SfButton
-            >
+            <SfButton class="sf-button--full-width color-primary">
+              {{ $t('Start shopping') }}
+            </SfButton>
           </div>
         </transition>
       </template>
