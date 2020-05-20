@@ -34,26 +34,26 @@
           class="sf-button--pure"
           aria-label="Change to grid view"
           :aria-pressed="isGridView.toString()"
-          @click="isGridView = true"
+          @click="setGridView(true)"
         >
           <SfIcon
             class="navbar__view-icon"
             :color="isGridView ? '#1D1F22' : '#BEBFC4'"
             icon="tiles"
-            size="10px"
+            size="12px"
           />
         </SfButton>
         <SfButton
           class="sf-button--pure"
           aria-label="Change to list view"
           :aria-pressed="!isGridView.toString()"
-          @click="isGridView = false"
+          @click="setGridView(false)"
         >
           <SfIcon
             class="navbar__view-icon"
             :color="!isGridView ? '#1D1F22' : '#BEBFC4'"
             icon="list"
-            size="10px"
+            size="12px"
           />
         </SfButton>
       </div>
@@ -171,7 +171,6 @@ export default {
     return {
       isFilterSidebarOpen: false,
       sortBy: this.selectedSorting,
-      isGridView: true,
     }
   },
   computed: {
@@ -196,6 +195,9 @@ export default {
     lazyLoad() {
       return true
     },
+    isGridView() {
+      return this.$store.state.isGridView
+    },
   },
   watch: {
     sortBy(newSorting, oldOne) {
@@ -217,6 +219,9 @@ export default {
     },
     getSortLabel(sorting) {
       return getSortingLabel(sorting)
+    },
+    setGridView(flag) {
+      this.$store.commit('SET_IS_GRID_VIEW', flag)
     },
   },
 }

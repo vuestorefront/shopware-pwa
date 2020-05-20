@@ -6,6 +6,7 @@ export const state = () => ({
   cartSidebarOpen: false,
   locales: ['en-GB', 'de-DE'],
   locale: 'en-GB',
+  isGridView: true,
 })
 
 export const mutations = {
@@ -28,6 +29,9 @@ export const mutations = {
     if (state.locales.includes(locale)) {
       state.locale = locale
     }
+  },
+  SET_IS_GRID_VIEW(state, flag) {
+    state.isGridView = flag
   },
 }
 

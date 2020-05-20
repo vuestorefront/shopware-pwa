@@ -85,10 +85,10 @@ export default {
       loading,
     }
   },
-  data() {
-    return {
-      isGridView: false,
-    }
+  computed: {
+    isGridView() {
+      return this.$store.state.isGridView
+    },
   },
 }
 </script>
