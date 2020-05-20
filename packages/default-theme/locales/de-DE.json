@@ -1,22 +1,30 @@
 {
-  "topNavigation": {
-    "searchPlaceholder": "Suche nach Produkten"
-  },
-  "links": {
-    "home": "Zuhause",
-    "about": "Über",
-    "english": "Englische Version",
-    "deutsch": "Deutsch Version"
-  },
-  "home": {
-    "title": "Willkommen",
-    "introduction": "Ceci est un texte d'introduction en Français."
-  },
-  "about": {
-    "title": "Über",
-    "introduction": "Diese Seite dient dazu, Ihnen weitere Informationen zu geben."
+  "page": {
+    "title": "Shopware PWA"
   },
   "footer": {
     "description": "Gemacht mit ❤️ von {creator}"
-  }
+  },
+  "Empty bag": "Leere Tasche",
+  "Go to cart": "Go to cart",
+  "Go to checkout": "Zum Checkout gehen",
+  "Go to My Account": "Zum Einkaufskorb gehen",
+  "Log in": "Einloggen",
+  "Logout": "Ausloggen",
+  "My account": "Mein Konto",
+  "My addresses": "Meine Adressen",
+  "My cart": "Mein Warenkorb",
+  "My profile": "Mein Profil",
+  "No items in cart": "Sieht so aus, als hätten Sie der Tasche noch keine Artikel hinzugefügt. Beginnen Sie mit dem Einkaufen, um sie auszufüllen.",
+  "Order details": "Bestelldetails",
+  "Order history": "Bestellverlauf ({count})",
+  "Payment": "Zahlung",
+  "Personal Details": "Persönliche Daten",
+  "Review": "Rezension",
+  "Search for products": "Suche nach Produkten",
+  "Shipping": "Versand",
+  "Start shopping": "Beginn mit dem Einkauf",
+  "Total items": "Gesamtanzahl",
+  "Total price": "Gesamtpreis",
+  "Your cart is empty": "Ihr Warenkorb ist leer"
 }
