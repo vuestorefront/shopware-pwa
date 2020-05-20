@@ -11,3 +11,4 @@ export * from "./getProductOptionsUrl";
 export * from "./getProductUrl";
 export * from "./getVariantOptionsLabel";
 export * from "./getProductName";
+export * from "./getProductTierPrices";
