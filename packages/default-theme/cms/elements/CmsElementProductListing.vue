@@ -2,25 +2,33 @@
   <div class="cms-element-product-listing">
     <SfLoader :loading="loading" class="cms-element-product-listing__loader" />
     <div v-if="products.length" class="cms-element-product-listing__wrapper">
-      <div
+      <transition-group
+        tag="div"
+        appear
+        name="cms-element-product-listing__slide"
         class="cms-element-product-listing__list"
         :class="{ 'cms-element-product-listing__list--blur': loading }"
       >
-        <SwProductCard
-          v-for="product in products"
-          v-if="false"
-          :key="product.id"
-          class="cms-element-product-listing__product-card"
-          :product="product"
-        />
-        <SwProductCardHorizontal
-          v-for="product in products"
-          :key="product.id"
-          class="cms-element-product-listing__product-card-horizontal"
-          :product="product"
-        />
-        <div class="cms-element-product-listing__place-holder" />
-      </div>
+        <template v-if="isGridView">
+          <SwProductCard
+            v-for="(product, i) in products"
+            :key="product.id"
+            class="cms-element-product-listing__product-card"
+            :product="product"
+            :style="{ '--index': i }"
+          />
+        </template>
+        <template v-else>
+          <SwProductCardHorizontal
+            v-for="product in products"
+            :key="product.id"
+            class="cms-element-product-listing__product-card-horizontal"
+            :product="product"
+            :style="{ '--index': i }"
+          />
+        </template>
+        <div key="holder" class="cms-element-product-listing__place-holder" />
+      </transition-group>
       <SfPagination
         class="cms-element-product-listing__pagination"
         :current="pagination.currentPage"
@@ -75,6 +83,11 @@ export default {
       changedPage,
       pagination,
       loading,
+    }
+  },
+  data() {
+    return {
+      isGridView: false,
     }
   },
 }
@@ -223,6 +236,14 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
       margin-top: var(--spacer-base);
     }
   }
+  &__slide-enter {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  &__slide-enter-active {
+    transition: all 0.2s ease;
+    transition-delay: calc(0.1s * var(--index));
+  }
 }
 .section {
   @media (max-width: $desktop-min) {
@@ -230,7 +251,6 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
     padding-right: var(--spacer-base);
   }
 }
-
 ::v-deep .sf-product-card {
   max-width: $mx-photo-wth-2 !important;
 
