@@ -9,18 +9,20 @@ const command: GluegunCommand = {
       print: { info },
     } = toolbox;
 
+    const jetpack = require("fs-jetpack");
+
     info(`Starting Shopware PWA development project...`);
 
     // toolbox.themeFolders.forEach((themeFolder) =>
     //   toolbox.watchThemeFolder(themeFolder)
     // );
 
-    const fs = require("fs");
-
     // Refresh languages during local development
-    fs.watch(`locales`, { recursive: true }, async () => {
-      await toolbox.runtime.run(`languages`, { local: true });
-    });
+    if (jetpack.exists("locales")) {
+      jetpack.watch("locales", { recursive: true }, async () => {
+        await toolbox.runtime.run(`languages`, { local: true });
+      });
+    }
 
     await spawn("yarn dev", {
       stdio: "inherit",

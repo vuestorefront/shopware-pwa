@@ -3,7 +3,7 @@
     <SfHeading
       class="login__header desktop-only"
       :level="3"
-      title="Log in"
+      :title="$t('Log in')"
     />
     <SwLogin class="login__component" @success="redirectToMyAccount" />
   </div>
