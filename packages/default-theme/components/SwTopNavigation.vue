@@ -68,6 +68,20 @@
               :has-badge="isLoggedIn"
               @click="userIconClick"
             />
+            <SfDropdown class="dropdown" :is-open="isDropdownOpen" @click:close="isDropdownOpen = false">
+              <SfList>
+                <SfListItem>
+                  <nuxt-link class="sf-button sf-button--full-width sf-button--underlined color-primary" :to="getPageAccount">
+                    My account
+                  </nuxt-link>
+                </SfListItem>
+                <SfListItem>
+                  <SfButton class="sf-button sf-button--full-width sf-button--underlined color-primary dropdown__item" @click="logoutUser()">
+                    Logout
+                  </SfButton>
+                </SfListItem>
+              </SfList>
+            </SfDropdown>
             <SfIcon
               :icon="cartIcon"
               :has-badge="count > 0"
@@ -95,6 +109,9 @@ import {
   SfHeader,
   SfImage,
   SfSearchBar,
+  SfList,
+  SfButton,
+  SfDropdown,
   SfOverlay,
   SfTopBar,
   SfIcon,
@@ -109,6 +126,7 @@ import {
 } from '@shopware-pwa/composables'
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
+import { PAGE_ACCOUNT, PAGE_LOGIN } from '@shopware-pwa/default-theme/helpers/pages'
 import SwLanguageSwitcher from '@shopware-pwa/default-theme/components/SwLanguageSwitcher'
 import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
 import { ref, reactive, onMounted, watch } from '@vue/composition-api'
@@ -124,12 +142,16 @@ export default {
     SwLoginModal,
     SfImage,
     SfSearchBar,
+    SfDropdown,
+    SfList,
+    SfButton,
     SwMegaMenu,
     SfOverlay,
     SfTopBar,
     SwCurrency,
     SwLanguageSwitcher,
     SfIcon,
+    SfButton,
     SwPluginSlot,
   },
   setup() {
@@ -169,13 +191,23 @@ export default {
     return {
       activeIcon: '',
       isModalOpen: false,
+      isDropdownOpen: false
+    }
+  },
+  computed: {
+    getPageAccount() {
+      return this.$i18n.path(PAGE_ACCOUNT)
     }
   },
   methods: {
     userIconClick() {
-      if (this.isLoggedIn) this.$router.push(PAGE_ACCOUNT)
+      if (this.isLoggedIn) this.isDropdownOpen = !this.isDropdownOpen
       else this.toggleModal()
     },
+    async logoutUser() {
+      await this.logout()
+      this.$router.push(this.$i18n.path('/'))
+    }
   },
 }
 </script>
@@ -192,7 +224,6 @@ export default {
     --overlay-z-index: 1;
   }
   .sf-header {
-    // padding: 0 var(--spacer-sm);
     &__currency {
       position: relative;
       margin: 0 var(--spacer-base) 0 var(--spacer-base);
@@ -231,6 +262,15 @@ export default {
       }
       &__link {
         display: flex;
+        align-items: center;
+      }
+    }
+  }
+  .dropdown {
+    --dropdown-width: auto; 
+    &__item {
+      &:hover {
+        color: var(--c-link-hover);
       }
     }
   }
