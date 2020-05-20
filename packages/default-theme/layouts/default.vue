@@ -175,12 +175,4 @@ body {
 .sw-breadcrumbs {
   padding: 0 var(--spacer-xl) var(--spacer-base) var(--spacer-xl);
 }
-
-/* Delete firefox outline */
-:focus {
-  outline: none;
-}
-::-moz-focus-inner {
-  border: 0;
-}
 </style>
