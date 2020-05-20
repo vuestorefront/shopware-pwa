@@ -8,6 +8,7 @@
         :rating-average="ratingAverage"
         :special="getSpecialPrice | price"
         :price="getPrice | price"
+        :tier-prices="getTierPrices"
       />
     </div>
     <SwPluginSlot name="product-page-description">
@@ -80,6 +81,7 @@ import {
   isProductSimple,
   getProductOptionsUrl,
   getProductOptions,
+  getProductTierPrices,
 } from '@shopware-pwa/helpers'
 import { useProduct, useAddToCart } from '@shopware-pwa/composables'
 import SwProductHeading from '@shopware-pwa/default-theme/components/SwProductHeading'
@@ -126,18 +128,13 @@ export default {
   },
   computed: {
     getPrice() {
-      // remove that logic once the SW6 API returns right data
-      // related: https://github.com/DivanteLtd/shopware-pwa/issues/263
-      const regularPrice = getProductRegularPrice({ product: this.product })
-      const specialPrice = getProductSpecialPrice(this.product)
-      return regularPrice > specialPrice ? regularPrice : specialPrice
+      return getProductRegularPrice({ product: this.product })
     },
     getSpecialPrice() {
-      // remove that logic once the SW6 API returns right data
-      // related: https://github.com/DivanteLtd/shopware-pwa/issues/263
-      const regularPrice = getProductRegularPrice({ product: this.product })
-      const specialPrice = getProductSpecialPrice(this.product)
-      return regularPrice > specialPrice ? specialPrice : regularPrice
+      return getProductSpecialPrice(this.product)
+    },
+    getTierPrices() {
+      return getProductTierPrices(this.product)
     },
     name() {
       return (
