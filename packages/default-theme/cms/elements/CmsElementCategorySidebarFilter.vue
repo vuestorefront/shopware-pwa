@@ -122,7 +122,6 @@ import {
   SfFilter,
   SfHeading,
   SfSidebar,
-  SfProductOption,
 } from '@storefront-ui/vue'
 import {
   useCategoryFilters,
@@ -140,7 +139,6 @@ export default {
     SfFilter,
     SfHeading,
     SfSidebar,
-    SfProductOption,
   },
   props: {
     content: {
