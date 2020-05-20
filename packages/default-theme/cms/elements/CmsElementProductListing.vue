@@ -20,7 +20,7 @@
         </template>
         <template v-else>
           <SwProductCardHorizontal
-            v-for="product in products"
+            v-for="(product, i) in products"
             :key="product.id"
             class="cms-element-product-listing__product-card-horizontal"
             :product="product"
