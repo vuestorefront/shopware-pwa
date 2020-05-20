@@ -3,7 +3,11 @@
     <slot class="sw-footer__content" name="content" v-bind="column">
       <div class="content sw-footer__signature">
         <SwPluginSlot name="footer-content">
-          Made with ❤️ by shopware AG & Vue Storefront
+          {{
+            $t('footer.description', {
+              creator: 'shopware AG & Vue Storefront',
+            })
+          }}
         </SwPluginSlot>
       </div>
     </slot>

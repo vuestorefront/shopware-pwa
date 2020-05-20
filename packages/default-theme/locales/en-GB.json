@@ -1,0 +1,30 @@
+{
+  "page": {
+    "title": "Shopware PWA"
+  },
+  "footer": {
+    "description": "Made with ❤️ by {creator}"
+  },
+  "Empty bag": "Empty bag",
+  "Go to cart": "Go to cart",
+  "Go to checkout": "Go to checkout",
+  "Go to My Account": "Go to My Account",
+  "Log in": "Log in",
+  "Logout": "Logout",
+  "My account": "My account",
+  "My addresses": "My addresses",
+  "My cart": "My cart",
+  "My profile": "My profile",
+  "No items in cart": "Looks like you haven’t added any items to the bag yet. Start shopping to fill it in.",
+  "Order details": "Order details",
+  "Order history": "Order history ({count})",
+  "Payment": "Payment",
+  "Personal Details": "Personal Details",
+  "Review": "Review",
+  "Search for products": "Search for products",
+  "Shipping": "Shipping",
+  "Start shopping": "Start shopping",
+  "Total items": "Total items",
+  "Total price": "Total price",
+  "Your cart is empty": "Your cart is empty"
+}

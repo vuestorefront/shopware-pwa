@@ -123,18 +123,21 @@ export function getProductProperties({ product, }?: {
     product?: Product;
 }): UiProductProperty[];
 
-// @alpha (undocumented)
+// @beta
 export function getProductRegularPrice({ product, }?: {
     product?: Product;
-}): number;
+}): number | undefined;
 
 // @alpha (undocumented)
 export function getProductReviews({ product, }?: {
     product?: Product;
 }): UiProductReview[];
 
-// @alpha (undocumented)
-export function getProductSpecialPrice(product: Product): number;
+// @alpha
+export function getProductSpecialPrice(product: Product): number | undefined;
+
+// @beta
+export function getProductTierPrices(product: Product): TierPrice[];
 
 // @alpha (undocumented)
 export function getProductUrl(product: Product | null): string;
@@ -210,6 +213,16 @@ export interface SwSorting {
     name: string;
     // (undocumented)
     order: string;
+}
+
+// @beta (undocumented)
+export interface TierPrice {
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    quantity: number;
+    // (undocumented)
+    unitPrice: number;
 }
 
 // @alpha (undocumented)

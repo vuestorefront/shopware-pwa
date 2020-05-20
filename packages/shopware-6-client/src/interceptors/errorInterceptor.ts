@@ -22,7 +22,7 @@ const extractApiErrorStatusCode = (error: ShopwareApiError): number => {
 
 const guessTheStatusCodeFromTheMessage = (message: string): number => {
   // catch the specific timeout rejection from axios
-  if (typeof message == "string" && message.startsWith("timeout of")) {
+  if (typeof message === "string" && message.startsWith("timeout of")) {
     return 408;
   }
 
