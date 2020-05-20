@@ -1,15 +1,22 @@
 <template>
   <div class="cms-element-product-listing">
     <SfLoader :loading="loading" class="cms-element-product-listing__loader" />
-    <div class="cms-element-product-listing__wrapper" v-if="products.length">
+    <div v-if="products.length" class="cms-element-product-listing__wrapper">
       <div
         class="cms-element-product-listing__list"
         :class="{ 'cms-element-product-listing__list--blur': loading }"
       >
         <SwProductCard
+          v-for="product in products"
+          v-if="false"
+          :key="product.id"
           class="cms-element-product-listing__product-card"
+          :product="product"
+        />
+        <SwProductCardHorizontal
           v-for="product in products"
           :key="product.id"
+          class="cms-element-product-listing__product-card-horizontal"
           :product="product"
         />
         <div class="cms-element-product-listing__place-holder" />
@@ -32,16 +39,18 @@
 
 <script>
 import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
+import SwProductCardHorizontal from '@shopware-pwa/default-theme/components/SwProductCardHorizontal'
 import { SfPagination, SfHeading, SfLoader } from '@storefront-ui/vue'
 import { useProductListing } from '@shopware-pwa/composables'
 export default {
+  name: 'CmsElementProductListing',
   components: {
+    SwProductCardHorizontal,
     SwProductCard,
     SfPagination,
     SfHeading,
     SfLoader,
   },
-  name: 'CmsElementProductListing',
   props: {
     content: {
       type: Object,
@@ -201,7 +210,12 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
       padding: var(--spacer-base);
     }
   }
-
+  &__product-card-horizontal {
+    flex: 0 0 100%;
+    @include for-desktop-small {
+      margin: var(--spacer-sm) 0;
+    }
+  }
   &__pagination {
     @include for-desktop-small {
       display: flex;
@@ -210,7 +224,6 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
     }
   }
 }
-
 .section {
   @media (max-width: $desktop-min) {
     padding-left: var(--spacer-base);
