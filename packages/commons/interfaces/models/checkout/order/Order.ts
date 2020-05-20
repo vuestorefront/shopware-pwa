@@ -7,6 +7,7 @@ import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currenc
 import { Language } from "@shopware-pwa/commons/interfaces/models/framework/language/Language";
 import { SalesChannel } from "@shopware-pwa/commons/interfaces/models/system/sales-channel/SalesChannel";
 import { CustomFields } from "@shopware-pwa/commons/interfaces/models/common/CustomField";
+import { Delivery } from "@shopware-pwa/commons/interfaces/models/checkout/delivery/Delivery";
 
 interface CalculatedTax {
   tax: number;
@@ -86,7 +87,7 @@ export interface Order {
   language: Language | null;
   salesChannel: SalesChannel | null;
   addresses: CustomerAddress[];
-  deliveries: null;
+  deliveries: Delivery[];
   lineItems: OrderLineItem[] | null;
   transactions: OrderTransaction[] | null;
   deepLinkCode: string;
