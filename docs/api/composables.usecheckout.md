@@ -20,7 +20,9 @@ export interface UseCheckout
 |  --- | --- | --- |
 |  [billingAddress](./composables.usecheckout.billingaddress.md) | <code>Readonly&lt;Ref&lt;BillingAddress &#124; undefined&gt;&gt;</code> | <b><i>(BETA)</i></b> |
 |  [createOrder](./composables.usecheckout.createorder.md) | <code>() =&gt; Promise&lt;Order&gt;</code> | <b><i>(BETA)</i></b> |
+|  [getPaymentMethod](./composables.usecheckout.getpaymentmethod.md) | <code>(paymentMethodId: string) =&gt; Promise&lt;PaymentMethod&gt;</code> | <b><i>(BETA)</i></b> |
 |  [getPaymentMethods](./composables.usecheckout.getpaymentmethods.md) | <code>(options?: {</code><br/><code>        forceReload: boolean;</code><br/><code>    }) =&gt; Promise&lt;Readonly&lt;Ref&lt;readonly PaymentMethod[]&gt;&gt;&gt;</code> | <b><i>(BETA)</i></b> |
+|  [getShippingMethod](./composables.usecheckout.getshippingmethod.md) | <code>(shippingMethodId: string) =&gt; Promise&lt;ShippingMethod&gt;</code> | <b><i>(BETA)</i></b> |
 |  [getShippingMethods](./composables.usecheckout.getshippingmethods.md) | <code>(options?: {</code><br/><code>        forceReload: boolean;</code><br/><code>    }) =&gt; Promise&lt;Readonly&lt;Ref&lt;readonly ShippingMethod[]&gt;&gt;&gt;</code> | <b><i>(BETA)</i></b> |
 |  [guestOrderParams](./composables.usecheckout.guestorderparams.md) | <code>Ref&lt;Readonly&lt;Partial&lt;GuestOrderParams &#124; null&gt;&gt;&gt;</code> | <b><i>(BETA)</i></b> |
 |  [isGuestOrder](./composables.usecheckout.isguestorder.md) | <code>Readonly&lt;Ref&lt;boolean&gt;&gt;</code> | <b><i>(BETA)</i></b> |

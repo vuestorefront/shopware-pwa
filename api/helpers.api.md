@@ -9,6 +9,7 @@ import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/Cms
 import { CmsSection } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
+import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { PropertyGroupOption } from '@shopware-pwa/commons/interfaces/models/content/property/PropertyGroupOption';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
@@ -87,6 +88,12 @@ export function getMessagesFromErrorsArray(errors: ShopwareError[]): string[];
 
 // @alpha (undocumented)
 export function getNavigationRoutes(navigationElements: NavigationElement[]): NavigationRoute[];
+
+// @alpha
+export function getOrderPaymentMethodId(order: Order): string | undefined;
+
+// @alpha
+export function getOrderShippingMethodId(order: Order): string | undefined;
 
 // @alpha
 export function getProductMainImageUrl(product: Product): string;
