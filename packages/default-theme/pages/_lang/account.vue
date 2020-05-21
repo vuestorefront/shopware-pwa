@@ -105,6 +105,7 @@ export default {
         var(--spacer-sm) var(--spacer-sm) var(--spacer-base);
     }
     @include for-desktop {
+      --content-pages-sidebar-flex: 0 0 20rem;
       --content-pages-sidebar-category-title-margin: var(--spacer-xl) 0 0 0;
       --content-pages-sidebar-padding: var(--spacer-xl);
       --content-pages-content-padding: var(--spacer-xl);

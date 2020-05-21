@@ -19,37 +19,7 @@
           >
         </SfTableHeading>
         <!-- consider making SfTableRow public (not internal component) to split it down to smaller components. -->
-        <SfTableRow v-for="order in orderList" :key="order[0]">
-          <SfTableData
-            class="orders__data"
-            v-for="(data, key) in order"
-            :key="key"
-          >
-            <template v-if="key === 3"
-              ><!-- order status -->
-              <span
-                :class="{
-                  'text-success': data === 'Closed',
-                  'text-info': data === 'Open',
-                }"
-                >{{ data }}</span
-              >
-            </template>
-            <template v-else-if="key === 2"
-              ><!-- order date -->
-              {{ formatDate(data) }}
-            </template>
-            <template v-else-if="key === 1"
-              ><!-- total amount -->
-              {{ formatPrice(data) }}
-            </template>
-            <template v-else>{{ data }}</template>
-          </SfTableData>
-          <!-- <SfTableData class="orders__view">
-            <SfButton class="sf-button--text mobile-only">Download</SfButton>
-            <SfButton class="sf-button--text desktop-only">VIEW</SfButton>
-          </SfTableData> -->
-        </SfTableRow>
+        <Order :order="order" v-for="order in orderList" :key="order.id" />
       </SfTable>
     </SfTab>
   </SfTabs>
@@ -63,15 +33,16 @@ import {
   SfButton,
 } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
+import Order from '@shopware-pwa/default-theme/components/account/orders/Order'
 import { formatDate, formatPrice } from '@shopware-pwa/default-theme/helpers'
 
 export default {
   name: 'OrderHistory',
-  components: { SfTabs, SfList, SfDivider, SfTable, SfButton },
+  components: { SfTabs, SfList, SfDivider, SfTable, SfButton, Order },
   props: {},
   data() {
     return {
-      tableHeaders: ['Order no.', 'Total amount', 'Order date', 'Status'],
+      tableHeaders: ['Order no.', 'Total amount', 'Order date', 'Status', ' '],
     }
   },
   setup() {
@@ -83,27 +54,9 @@ export default {
   },
   computed: {
     orderList() {
-      return (
-        this.orders &&
-        this.orders.map(
-          ({ orderNumber, amountTotal, orderDateTime, stateMachineState }) => [
-            orderNumber,
-            amountTotal,
-            orderDateTime,
-            stateMachineState.name,
-          ]
-        )
-      )
+      return this.orders
     },
-  },
-  methods: {
-    formatDate(date) {
-      return formatDate(date)
-    },
-    formatPrice(price) {
-      return formatPrice(price)
-    },
-  },
+  }
 }
 </script>
 
@@ -112,5 +65,11 @@ export default {
 .message {
   margin: 0 0 var(--spacer-xl) 0;
   color: var(--c-dark-variant);
+}
+
+.sf-table.orders:hover {
+  &__row {
+    --table-row-box-shadow: none;
+  }
 }
 </style>

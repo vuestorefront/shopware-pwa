@@ -62,5 +62,9 @@ export default {
   &__description {
     flex: 3;
   }
+
+  &__row:hover {
+    --table-row-box-shadow: none;
+  }
 }
 </style>
