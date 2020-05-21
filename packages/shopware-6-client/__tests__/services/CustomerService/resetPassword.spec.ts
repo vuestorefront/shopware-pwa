@@ -31,7 +31,7 @@ describe("CustomerService - resetPassword", () => {
     expect(
       resetPassword({
         email: credentials.email,
-        storefrontUrl: credentials.storefrontUrl ?? "",
+        storefrontUrl: credentials.storefrontUrl,
       })
     ).rejects.toThrow("400 - invalid email");
     expect(mockedAxios.post).toBeCalledTimes(1);
@@ -46,17 +46,30 @@ describe("CustomerService - resetPassword", () => {
 
   it("returns no data if successfully updated", async () => {
     mockedAxios.post.mockResolvedValueOnce(null);
-    const result = await resetPassword({
+
+    const resultWithFullParams = await resetPassword({
       email: credentials.email,
-      storefrontUrl: credentials.storefrontUrl ?? "",
+      storefrontUrl: credentials.storefrontUrl,
     });
-    expect(result).toBeFalsy();
-    expect(mockedAxios.post).toBeCalledTimes(1);
+    expect(resultWithFullParams).toBeFalsy();
+
+    const resultWithEmptyUrl = await resetPassword({
+      email: credentials.email,
+      storefrontUrl: "",
+    });
+    expect(resultWithEmptyUrl).toBeFalsy();
+
+    const resultWithoutUrl = await resetPassword({
+      email: credentials.email,
+    });
+    expect(resultWithoutUrl).toBeFalsy();
+
+    expect(mockedAxios.post).toBeCalledTimes(3);
     expect(mockedAxios.post).toBeCalledWith(
       getCustomerResetPasswordEndpoint(),
       {
         email: credentials.email,
-        storefrontUrl: credentials.storefrontUrl ?? "",
+        storefrontUrl: credentials.storefrontUrl,
       }
     );
   });

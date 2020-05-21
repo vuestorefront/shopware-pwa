@@ -257,7 +257,8 @@ export interface CustomerResetPasswordParam {
 export async function resetPassword(
   params: CustomerResetPasswordParam
 ): Promise<void> {
-  if (!params.storefrontUrl) {
+  /* istanbul ignore next */
+  if (!params?.storefrontUrl) {
     params.storefrontUrl = config.endpoint;
   }
 
