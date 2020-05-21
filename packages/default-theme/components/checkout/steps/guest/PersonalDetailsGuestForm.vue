@@ -103,10 +103,12 @@
       </transition>
       <div class="form__action">
         <SfButton
-          class="sf-button--full-width  form__action-button form__action-button--secondary color-secondary desktop-only"
+          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only"
           >Go Back to shop</SfButton
         >
-        <SfButton class="sf-button--full-width form__action-button" @click="toShipping"
+        <SfButton
+          class="sf-button--full-width form__action-button"
+          @click="toShipping"
           >Continue to shipping</SfButton
         >
         <SfButton
@@ -317,11 +319,10 @@ export default {
     )
     this.billingAddress.countryId = pickedCountry && pickedCountry.id
 
-    // select "not specified" salutation (works for EN) as default salutation
     await this.fetchSalutations()
-    const defaultSalutation = this.getMappedSalutations.find(
-      ({ id, name }) => name == 'Not specified'
-    )
+    const defaultSalutation = this.getMappedSalutations[
+      this.getMappedSalutations.length - 1
+    ]
     this.salutationId = defaultSalutation && defaultSalutation.id
   },
   // TODO: move all the rules globally

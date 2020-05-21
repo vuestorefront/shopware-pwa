@@ -30,26 +30,32 @@
       </div>
       <div class="navbar__view">
         <span class="navbar__view-label desktop-only">View</span>
-        <SfIcon
-          class="navbar__view-icon"
-          :color="isGridView ? '#1D1F22' : '#BEBFC4'"
-          icon="tiles"
-          size="10px"
-          role="button"
+        <SfButton
+          class="sf-button--pure"
           aria-label="Change to grid view"
-          :aria-pressed="isGridView"
-          @click="isGridView = true"
-        />
-        <SfIcon
-          class="navbar__view-icon"
-          :color="!isGridView ? '#1D1F22' : '#BEBFC4'"
-          icon="list"
-          size="10px"
-          role="button"
+          :aria-pressed="isGridView.toString()"
+          @click="setGridView(true)"
+        >
+          <SfIcon
+            class="navbar__view-icon"
+            :color="isGridView ? '#1D1F22' : '#BEBFC4'"
+            icon="tiles"
+            size="12px"
+          />
+        </SfButton>
+        <SfButton
+          class="sf-button--pure"
           aria-label="Change to list view"
-          :aria-pressed="!isGridView"
-          @click="isGridView = false"
-        />
+          :aria-pressed="!isGridView.toString()"
+          @click="setGridView(false)"
+        >
+          <SfIcon
+            class="navbar__view-icon"
+            :color="!isGridView ? '#1D1F22' : '#BEBFC4'"
+            icon="list"
+            size="12px"
+          />
+        </SfButton>
       </div>
       <SfSidebar
         title="Filters"
@@ -59,7 +65,13 @@
         <div class="filters">
           <div v-for="filter in filters" :key="filter.name">
             <SfHeading class="filters__title" :level="4" :title="filter.name" />
-            <div v-if="filter && filter.options && filter.options.length" :class="{'filters__filter--color': filter.name && filter.name === 'color'}">
+            <div
+              v-if="filter && filter.options && filter.options.length"
+              :class="{
+                'filters__filter--color':
+                  filter.name && filter.name === 'color',
+              }"
+            >
               <SfFilter
                 v-for="option in filter.options"
                 :key="option.value"
@@ -73,7 +85,7 @@
                   )
                 "
                 class="filters__item"
-                :class="{'filters__item--color': option.color}"
+                :class="{ 'filters__item--color': option.color }"
                 @change="
                   toggleFilter({
                     type: 'equals',
@@ -110,16 +122,16 @@ import {
   SfFilter,
   SfHeading,
   SfSidebar,
-  SfProductOption,
 } from '@storefront-ui/vue'
 import {
   useCategoryFilters,
   useProductListing,
 } from '@shopware-pwa/composables'
-const { availableFilters, availableSorting } = useCategoryFilters()
 import { getSortingLabel } from '@shopware-pwa/default-theme/helpers'
+const { availableFilters, availableSorting } = useCategoryFilters()
 
 export default {
+  name: 'CmsElementCategorySidebarFilter',
   components: {
     SfButton,
     SfIcon,
@@ -127,9 +139,7 @@ export default {
     SfFilter,
     SfHeading,
     SfSidebar,
-    SfProductOption,
   },
-  name: 'CmsElementCategorySidebarFilter',
   props: {
     content: {
       type: Object,
@@ -161,7 +171,6 @@ export default {
     return {
       isFilterSidebarOpen: false,
       sortBy: this.selectedSorting,
-      isGridView: true,
     }
   },
   computed: {
@@ -186,6 +195,9 @@ export default {
     lazyLoad() {
       return true
     },
+    isGridView() {
+      return this.$store.state.isGridView
+    },
   },
   watch: {
     sortBy(newSorting, oldOne) {
@@ -207,7 +219,10 @@ export default {
     },
     getSortLabel(sorting) {
       return getSortingLabel(sorting)
-    }
+    },
+    setGridView(flag) {
+      this.$store.commit('SET_IS_GRID_VIEW', flag)
+    },
   },
 }
 </script>

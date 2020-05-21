@@ -1,19 +1,34 @@
 <template>
   <div class="cms-element-product-listing">
     <SfLoader :loading="loading" class="cms-element-product-listing__loader" />
-    <div class="cms-element-product-listing__wrapper" v-if="products.length">
-      <div
+    <div v-if="products.length" class="cms-element-product-listing__wrapper">
+      <transition-group
+        tag="div"
+        appear
+        name="cms-element-product-listing__slide"
         class="cms-element-product-listing__list"
         :class="{ 'cms-element-product-listing__list--blur': loading }"
       >
-        <SwProductCard
-          class="cms-element-product-listing__product-card"
-          v-for="product in products"
-          :key="product.id"
-          :product="product"
-        />
-        <div class="cms-element-product-listing__place-holder" />
-      </div>
+        <template v-if="isGridView">
+          <SwProductCard
+            v-for="(product, i) in products"
+            :key="product.id"
+            class="cms-element-product-listing__product-card"
+            :product="product"
+            :style="{ '--index': i }"
+          />
+        </template>
+        <template v-else>
+          <SwProductCardHorizontal
+            v-for="(product, i) in products"
+            :key="product.id"
+            class="cms-element-product-listing__product-card-horizontal"
+            :product="product"
+            :style="{ '--index': i }"
+          />
+        </template>
+        <div key="holder" class="cms-element-product-listing__place-holder" />
+      </transition-group>
       <SfPagination
         class="cms-element-product-listing__pagination"
         :current="pagination.currentPage"
@@ -32,16 +47,18 @@
 
 <script>
 import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
+import SwProductCardHorizontal from '@shopware-pwa/default-theme/components/SwProductCardHorizontal'
 import { SfPagination, SfHeading, SfLoader } from '@storefront-ui/vue'
 import { useProductListing } from '@shopware-pwa/composables'
 export default {
+  name: 'CmsElementProductListing',
   components: {
+    SwProductCardHorizontal,
     SwProductCard,
     SfPagination,
     SfHeading,
     SfLoader,
   },
-  name: 'CmsElementProductListing',
   props: {
     content: {
       type: Object,
@@ -67,6 +84,11 @@ export default {
       pagination,
       loading,
     }
+  },
+  computed: {
+    isGridView() {
+      return this.$store.state.isGridView
+    },
   },
 }
 </script>
@@ -201,7 +223,12 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
       padding: var(--spacer-base);
     }
   }
-
+  &__product-card-horizontal {
+    flex: 0 0 100%;
+    @include for-desktop-small {
+      margin: var(--spacer-sm) 0;
+    }
+  }
   &__pagination {
     @include for-desktop-small {
       display: flex;
@@ -209,15 +236,21 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
       margin-top: var(--spacer-base);
     }
   }
+  &__slide-enter {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  &__slide-enter-active {
+    transition: all 0.2s ease;
+    transition-delay: calc(0.1s * var(--index));
+  }
 }
-
 .section {
   @media (max-width: $desktop-min) {
     padding-left: var(--spacer-base);
     padding-right: var(--spacer-base);
   }
 }
-
 ::v-deep .sf-product-card {
   max-width: $mx-photo-wth-2 !important;
 
