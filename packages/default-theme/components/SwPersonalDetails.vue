@@ -1,7 +1,7 @@
 <template>
   <div class="sw-personal-details">
     <div class="sw-personal-details__content">
-      <h4 class="sw-personal-details__title desktop-only">Personal details</h4>
+      <h4 class="sw-personal-details__title">Personal details</h4>
       <p class="content">{{ firstName }} {{ lastName }}<br /></p>
       <p class="content">
         {{ email }}
@@ -15,26 +15,25 @@ import { SfInput, SfButton, SfAlert, SfTable } from '@storefront-ui/vue'
 
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 
-
 export default {
   name: 'SwPersonalDetails',
   components: { SfButton, SfInput, SfAlert, SfTable, SwPluginSlot },
   props: {
     personalDetails: {
       type: Object,
-      default: (()=> {})
-    }
+      default: () => {},
+    },
   },
   computed: {
     email() {
-      return this.personalDetails.email;
+      return this.personalDetails.email
     },
     firstName() {
-      return this.personalDetails.firstName;
+      return this.personalDetails.firstName
     },
     lastName() {
-      return this.personalDetails.lastName;
-    }
+      return this.personalDetails.lastName
+    },
   },
 }
 </script>
@@ -43,7 +42,7 @@ export default {
 @import '~@storefront-ui/vue/styles';
 
 .sw-personal-details {
-   &__title {
+  &__title {
     font-size: var(--font-sm);
     margin-bottom: var(--spacer-sm);
     color: var(--c-text);
@@ -56,5 +55,4 @@ export default {
   margin: 0;
   color: var(--c-text-muted);
 }
-
 </style>

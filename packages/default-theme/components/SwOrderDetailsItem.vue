@@ -5,21 +5,13 @@
       <div class="product-sku">{{ product.productNumber }}</div>
     </SfTableData>
     <SfTableData class="table__data">
-      <SfPrice
-        :regular="getUnitPrice | price"
-        class="product-price"
-      />
+      <SfPrice :regular="getUnitPrice | price" class="product-price" />
     </SfTableData>
     <SfTableData class="table__data table__quantity">
-      {{
-        getQuantity
-      }}
+      {{ getQuantity }}
     </SfTableData>
     <SfTableData class="table__data">
-      <SfPrice
-        :regular="getTotalPrice | price"
-        class="product-price"
-      />
+      <SfPrice :regular="getTotalPrice | price" class="product-price" />
     </SfTableData>
   </SfTableRow>
 </template>
@@ -51,7 +43,7 @@ export default {
   },
   computed: {
     getName() {
-      return this.product.label;
+      return this.product.label
     },
     getUnitPrice() {
       return this.product.unitPrice
@@ -61,15 +53,14 @@ export default {
     },
     getQuantity() {
       return this.product.quantity
-    }
+    },
   },
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
-
-.sf-image {
-  max-width: 80%;
+.table {
+  &__description {
+    flex: 3;
+  }
 }
-
 </style>

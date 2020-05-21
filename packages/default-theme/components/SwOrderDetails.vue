@@ -7,91 +7,148 @@
             v-for="tableHeader in tableHeaders"
             :key="tableHeader"
             class="table__header"
-            :class="{ 'table__description': tableHeader === 'Item' }"
+            :class="{ table__description: tableHeader === 'Item' }"
           >
             {{ tableHeader }}
           </SfTableHeader>
         </SfTableHeading>
-        <SwOrderDetailsItem v-for="item in order.lineItems" :product="item" :key="item.id" />
+        <SwOrderDetailsItem
+          v-for="item in order.lineItems"
+          :product="item"
+          :key="item.id"
+        />
       </SfTable>
+      <SwTotals :shipping="shippingCosts" :total="total" :subtotal="subtotal" />
     </div>
     <div class="sw-order-details__addresses">
-        <SfHeading
-          title="Your address details"
-          :level="3"
-          class="sf-heading--left sf-heading--no-underline title"
-        />
-        <SwPersonalDetails :personal-details="personalDetails" class="content"/>
-        <SwAddress class="content"/>
-        <SwAddress :address="billingAddress" address-title="Billing address" v-if="billingAddress" class="content"/>
-        <SwPaymentMethod :payment-method="paymentMethod" v-if="paymentMethod" class="content"/>
-        <SwPaymentMethod :payment-method="shippingMethod" v-if="shippingMethod" class="content"/>
-
+      <SwPersonalDetails :personal-details="personalDetails" class="content" />
+      <SwAddress
+        :address="billingAddress"
+        address-title="Billing address"
+        v-if="billingAddress"
+        class="content"
+      />
+      <SwGenericMethod
+        :method="paymentMethod"
+        label="Payment method"
+        v-if="paymentMethod"
+        class="content"
+      />
+      <SwGenericMethod
+        :method="shippingMethod"
+        label="Shipping method"
+        v-if="shippingMethod"
+        class="content"
+      />
+      <SfProperty name="Order status" :value="status" />
     </div>
   </div>
 </template>
 
 <script>
-import { SfInput, SfButton, SfAlert, SfTable, SfHeading } from '@storefront-ui/vue'
+import {
+  SfInput,
+  SfButton,
+  SfAlert,
+  SfTable,
+  SfProperty,
+  SfHeading,
+} from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { required, email } from 'vuelidate/lib/validators'
 import { useUser, useCheckout } from '@shopware-pwa/composables'
-import {
-  ref,
-  onMounted,
-  computed,
-  watchEffect
-} from '@vue/composition-api'
+import { ref, onMounted, computed, watchEffect } from '@vue/composition-api'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
-import SwOrderDetailsItem from './SwOrderDetailsItem';
+import SwOrderDetailsItem from './SwOrderDetailsItem'
 import SwPersonalDetails from './SwPersonalDetails'
 import SwAddress from './SwAddress'
-import SwPaymentMethod from './SwPaymentMethod'
-import { getOrderPaymentMethodId, getOrderShippingMethodId } from '@shopware-pwa/helpers'
+import SwGenericMethod from './SwGenericMethod'
+import SwTotals from './SwTotals'
+import {
+  getOrderPaymentMethodId,
+  getOrderShippingMethodId,
+} from '@shopware-pwa/helpers'
 
 export default {
   name: 'SwOrderDetails',
-  components: { SfHeading, SfButton, SfInput, SfAlert, SfTable, SwPluginSlot, SwOrderDetailsItem,
-  SwPersonalDetails,
+  components: {
+    SfProperty,
+    SfHeading,
+    SfButton,
+    SfInput,
+    SfAlert,
+    SfTable,
+    SwPluginSlot,
+    SwOrderDetailsItem,
+    SwPersonalDetails,
     SwAddress,
-    SwPaymentMethod, },
+    SwGenericMethod,
+    SwTotals,
+  },
   props: {
     orderId: {
-      type: String
-    }
+      type: String,
+    },
   },
   data() {
     return {
       tableHeaders: ['Item', 'Price', 'Quantity', 'Amount'],
     }
   },
-  setup({orderId}) {
-    const { getPaymentMethod, getShippingMethod } = useCheckout();
+  setup({ orderId }) {
+    const { getPaymentMethod, getShippingMethod } = useCheckout()
     const { getOrderDetails, loading, error: userError } = useUser()
     const order = ref(null)
     const paymentMethod = ref(null)
     const shippingMethod = ref(null)
 
-    
+    const personalDetails = computed(
+      () =>
+        order.value && {
+          email: order.value.orderCustomer.email,
+          firstName: order.value.orderCustomer.firstName,
+          lastName: order.value.orderCustomer.lastName,
+        }
+    )
+    const billingAddress = computed(
+      () =>
+        order.value &&
+        order.value.addresses &&
+        order.value.addresses.find(
+          ({ id }) => id == order.value.billingAddressId
+        )
+    )
+    const shippingAddress = computed(
+      () =>
+        order.value &&
+        order.value.addresses &&
+        order.value.addresses.find(
+          ({ id }) => id == order.value.shippingAddressId
+        )
+    )
+    const paymentMethodId = computed(
+      () => order.value && getOrderPaymentMethodId(order.value)
+    )
+    const shippingMethodId = computed(
+      () => order.value && getOrderShippingMethodId(order.value)
+    )
+    const shippingCosts = computed(
+      () => order.value && order.value.shippingCosts.totalPrice
+    )
+    const subtotal = computed(
+      () => order.value && order.value.price.positionPrice
+    )
+    const total = computed(() => order.value && order.value.price.totalPrice)
+    const status = computed(
+      () => order.value && order.value.stateMachineState.name
+    )
 
-    const personalDetails = computed(() => order.value && ({
-      email: order.value.orderCustomer.email,
-      firstName: order.value.orderCustomer.firstName,
-      lastName: order.value.orderCustomer.lastName
-    }))
-    const billingAddress = computed(() => order.value && order.value.addresses && order.value.addresses.find(({id}) => id == order.value.billingAddressId))
-    const shippingAddress = computed(() => order.value && order.value.addresses && order.value.addresses.find(({id}) => id == order.value.shippingAddressId))
-    const paymentMethodId = computed(() => order.value && getOrderPaymentMethodId(order.value));
-    const shippingMethodId = computed(() => order.value && getOrderShippingMethodId(order.value));
-    
     onMounted(async () => {
-       order.value = await getOrderDetails(orderId);
-       paymentMethod.value = await getPaymentMethod(paymentMethodId.value);
-       shippingMethod.value = await getShippingMethod(shippingMethodId.value);
-    });
+      order.value = await getOrderDetails(orderId)
+      paymentMethod.value = await getPaymentMethod(paymentMethodId.value)
+      shippingMethod.value = await getShippingMethod(shippingMethodId.value)
+    })
 
-
-    
     return {
       isLoading: loading,
       userError,
@@ -99,7 +156,11 @@ export default {
       personalDetails,
       billingAddress,
       paymentMethod,
-      shippingMethod
+      shippingMethod,
+      shippingCosts,
+      subtotal,
+      total,
+      status,
     }
   },
 }
@@ -110,21 +171,35 @@ export default {
 
 .sw-order-details {
   padding: 1rem;
-  width: 50%;
+  width: 60%;
   display: flex;
   flex-wrap: wrap;
-   @include for-mobile {
-      width: 80%;
-      padding: 20px;
-    }
+  @include for-mobile {
+    flex-direction: column;
+    width: 80%;
+    padding: var(--spacer-base);
+  }
 
   &__totals {
-    flex: 2;
+    flex: 4;
+
+    @include for-desktop {
+      flex: 2;
+      margin-right: var(--spacer-base);
+    }
+
+    .sw-totals {
+      margin-top: var(--spacer-base);
+      @include for-desktop {
+        margin-left: auto;
+        width: 50%;
+        padding: 0;
+      }
+    }
   }
 
   &__addresses {
     flex: 1;
-    
     box-sizing: border-box;
     width: 100%;
     background-color: #f1f2f3;
@@ -133,8 +208,12 @@ export default {
     &:last-child {
       margin-bottom: 0;
     }
+
+    & > .content {
+      margin-bottom: var(--spacer-base);
+    }
   }
- 
+
   .sf-divider {
     border: --c-primary;
     width: 50%;
@@ -150,13 +229,11 @@ export default {
       text-align: right;
     }
   }
+  &__description {
+    flex: 3;
+  }
   &__quantity {
-    & > * {
-    --quantity-selector-width: 6rem;
-    --quantity-selector-border-width: 0;
-
-    }
+    text-align: center;
   }
 }
-
 </style>
