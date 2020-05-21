@@ -1,5 +1,5 @@
 import { addThemePages } from "./pages";
-import { NuxtModuleOptions, WebpackConfig } from "./interfaces";
+import { NuxtModuleOptions, WebpackConfig, WebpackContext } from "./interfaces";
 import { addThemeLayouts } from "./layouts";
 import { extendComponents } from "./components";
 import path from "path";
@@ -56,16 +56,40 @@ export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
   // locales
   extendLocales(moduleObject, shopwarePwaConfig);
 
-  moduleObject.extendBuild((config: WebpackConfig) => {
+  moduleObject.extendBuild((config: WebpackConfig, ctx: WebpackContext) => {
     const swPluginsDirectory = path.join(
       moduleObject.options.rootDir,
       ".shopware-pwa/sw-plugins"
     );
     config.resolve.alias["sw-plugins"] = swPluginsDirectory;
+    if (ctx.isClient && !ctx.isDev) {
+      config.optimization.splitChunks.cacheGroups.commons.minChunks = 2;
+    }
   });
 
   extendCMS(moduleObject);
 
+  moduleObject.options.build = moduleObject.options.build || {};
+  moduleObject.options.build.babel = moduleObject.options.build.babel || {};
+  moduleObject.options.build.babel.presets = ({ isServer }) => {
+    return [
+      [
+        require.resolve(
+          path.join(
+            moduleObject.options.rootDir,
+            "node_modules",
+            "@nuxt",
+            "babel-preset-app"
+          )
+        ),
+        // require.resolve('@nuxt/babel-preset-app-edge'), // For nuxt-edge users
+        {
+          buildTarget: isServer ? "server" : "client",
+          corejs: { version: 3 },
+        },
+      ],
+    ];
+  };
   // TODO watch files in development mode
   // if (jetpack.exists(componentsPath)) {
   //   fs.watch(componentsPath, { recursive: true }, async () => {
