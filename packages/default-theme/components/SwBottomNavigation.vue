@@ -1,7 +1,7 @@
 <template>
   <div class="sw-bottom-navigation">
     <SfBottomNavigation>
-      <nuxt-link aria-label="Go to Home Page" to="/">
+      <nuxt-link aria-label="Go to Home Page" :to="$i18n.path('/')">
         <SfBottomNavigationItem label="Home" icon="home" icon-size="20px" />
       </nuxt-link>
       <SfBottomNavigationItem
@@ -31,9 +31,27 @@
       <SfBottomNavigationItem
         icon="profile"
         label="My Account"
-        size="20px"
-        @click="userIconClick"
-      />
+        class="menu-button"
+      >
+        <template #icon>
+          <SfIcon icon="profile" size="20px" @click="userIconClick"/>
+          <SfSelect
+            class="menu-button__select"
+            v-if="isLoggedIn"
+          >
+            <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
+            <SfSelectOption :value="getPageAccount" @click.native="goToMyAccount">
+                My account
+            </SfSelectOption>
+            <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
+            <SfSelectOption :value="'logout'">
+                <SfButton @click="logoutUser">
+                  Logout
+                </SfButton>
+            </SfSelectOption>
+          </SfSelect>
+        </template>
+      </SfBottomNavigationItem>
       <SfBottomNavigationItem label="Currency" class="menu-button">
         <template #icon>
           <SwCurrency class="menu-button__currency" />
@@ -65,6 +83,7 @@ import {
   SfIcon,
   SfSelect,
   SfProductOption,
+  SfButton
 } from '@storefront-ui/vue'
 import {
   useCartSidebar,
@@ -73,7 +92,7 @@ import {
   useCart,
   useUserLoginModal,
 } from '@shopware-pwa/composables'
-import { PAGE_ACCOUNT } from '../helpers/pages'
+import { PAGE_ACCOUNT, PAGE_LOGIN } from '../helpers/pages'
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
 import { onMounted } from '@vue/composition-api'
 
@@ -86,6 +105,7 @@ export default {
     SfSelect,
     SfProductOption,
     SwCurrency,
+    SfButton
   },
   data() {
     return {
@@ -97,7 +117,7 @@ export default {
     const { toggleSidebar, isSidebarOpen } = useCartSidebar()
     const { routes, fetchRoutes } = useNavigation()
     const { toggleModal } = useUserLoginModal()
-    const { isLoggedIn } = useUser()
+    const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
 
     onMounted(async () => {
@@ -109,6 +129,7 @@ export default {
     })
     return {
       isLoggedIn,
+      logout,
       routes,
       isSidebarOpen,
       toggleSidebar,
@@ -121,14 +142,25 @@ export default {
       this.$router.push(this.$i18n.path(nextRoute.routeLabel))
     },
   },
+  computed: {
+    getPageAccount() {
+      return PAGE_ACCOUNT
+    }
+  },
   methods: {
     userIconClick() {
       if (this.isLoggedIn) {
         this.$router.push(this.$i18n.path(PAGE_ACCOUNT))
         return
       }
-      this.toggleModal()
     },
+    goToMyAccount() {
+      this.$router.push(this.$i18n.path(PAGE_ACCOUNT))
+    },
+    async logoutUser() {
+      await this.logout()
+      this.$router.push(this.$i18n.path('/'))
+    }
   },
 }
 </script>
@@ -148,6 +180,7 @@ export default {
     --select-margin: 0;
     text-align: center;
     position: absolute;
+    text-transform: uppercase;
   }
 }
 </style>

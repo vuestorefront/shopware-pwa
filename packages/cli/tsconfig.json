@@ -22,10 +22,7 @@
     "strict": false,
     "target": "es5",
     "declaration": true,
-    "declarationDir": "build/types",
-    "paths": {
-      "@shopware-pwa/shopware-6-client": ["../shopware-6-client/src"]
-    }
+    "declarationDir": "build/types"
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

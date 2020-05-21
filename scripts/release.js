@@ -169,8 +169,8 @@ async function calculateCanaryTargetVersion() {
   if (!isCanaryRelease) return null;
   const { stdout: commitsCount } = await execa("git", [
     "rev-list",
-    "--all",
     "--count",
+    "HEAD",
   ]);
   const incrementedVrsion = inc("prerelease", "canary");
   const v = incrementedVrsion.split("canary.");
