@@ -92,11 +92,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles.scss';
-
-.sw-product-card {
-  --product-card-add-button-bottom: 17rem;
-}
-</style>
