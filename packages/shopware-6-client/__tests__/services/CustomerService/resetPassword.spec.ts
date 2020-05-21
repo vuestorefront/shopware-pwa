@@ -73,4 +73,25 @@ describe("CustomerService - resetPassword", () => {
       }
     );
   });
+
+  it("should set storefrontUrl from config if not provided with params ", async () => {
+    await resetPassword({
+      email: credentials.email,
+    });
+    expect(mockedAxios.post).toBeCalledWith(
+      "/store-api/v1/account/recovery-password",
+      {
+        email: credentials.email,
+        storefrontUrl: "https://shopware6-demo.vuestorefront.io",
+      }
+    );
+  });
+
+  it("should invokde post method with null if params are not provided", async () => {
+    await resetPassword(null as any);
+    expect(mockedAxios.post).toBeCalledWith(
+      "/store-api/v1/account/recovery-password",
+      null
+    );
+  });
 });
