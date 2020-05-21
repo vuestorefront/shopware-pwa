@@ -8,7 +8,7 @@
       </template>
     </SfTopBar>
     <SfHeader
-      title="Shopware-PWA"
+      :title="$t('page.title')"
       class="sw-header"
       :has-mobile-search="false"
       :is-sticky="false"
@@ -16,7 +16,7 @@
     >
       <template #logo>
         <nuxt-link :to="$i18n.path('/')" class="sf-header__logo">
-          <SfImage src="/img/logo.svg" alt="Shopware PWA" />
+          <SfImage src="/img/logo.svg" :alt="$t('page.title')" />
         </nuxt-link>
       </template>
       <template #navigation>
@@ -37,15 +37,17 @@
           </nuxt-link>
           <SwMegaMenu
             :category="category"
-            :visible="currentCategoryName && category.name === currentCategoryName"
+            :visible="
+              currentCategoryName && category.name === currentCategoryName
+            "
           />
         </SfHeaderNavigationItem>
         <SwPluginSlot name="top-navigation-after" />
       </template>
       <template #search>
         <SfSearchBar
-          :placeholder="$t('topNavigation.searchPlaceholder')"
-          :aria-label="$t('topNavigation.searchPlaceholder')"
+          :placeholder="$t('Search for products')"
+          :aria-label="$t('Search for products')"
           class="sf-header__search desktop-only"
           @enter="fulltextSearch"
         />
@@ -61,7 +63,7 @@
                 'sf-header__icon--is-active': activeIcon === 'account-icon',
               }"
               role="button"
-              aria-label="Go to My Account"
+              :aria-label="$t('Go to My Account')"
               :aria-pressed="activeIcon === 'account-icon' ? 'true' : 'false'"
               :has-badge="isLoggedIn"
               @click="userIconClick"
@@ -75,7 +77,7 @@
                 'sf-header__icon--is-active': activeIcon === 'cart-icon',
               }"
               role="button"
-              aria-label="Go to cart"
+              :aria-label="$t('Go to cart')"
               :aria-pressed="activeIcon === 'cart-icon' ? 'true' : 'false'"
               @click="toggleSidebar"
             />
@@ -109,11 +111,12 @@ import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginM
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
 import SwLanguageSwitcher from '@shopware-pwa/default-theme/components/SwLanguageSwitcher'
 import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
-import { ref, reactive, onMounted } from '@vue/composition-api'
+import { ref, reactive, onMounted, watch } from '@vue/composition-api'
 import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
 import { getCategoryUrl } from '@shopware-pwa/helpers'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 import { getAvailableLanguages } from '@shopware-pwa/shopware-6-client'
+import { useLocales } from '@shopware-pwa/default-theme/logic'
 
 export default {
   components: {
@@ -136,15 +139,18 @@ export default {
     const { toggleModal } = useUserLoginModal()
     const { search: fulltextSearch } = useProductSearch()
     const { fetchNavigationElements, navigationElements } = useNavigation()
+    const { currentLocale } = useLocales()
 
     const currentCategoryName = ref(null)
 
-    onMounted(async () => {
-      try {
-        await fetchNavigationElements(3)
-      } catch (e) {
-        console.error('[SwTopNavigation]', e)
-      }
+    onMounted(() => {
+      watch(currentLocale, async () => {
+        try {
+          await fetchNavigationElements(3)
+        } catch (e) {
+          console.error('[SwTopNavigation]', e)
+        }
+      })
     })
 
     return {

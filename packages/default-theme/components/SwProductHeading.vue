@@ -27,36 +27,44 @@
         </div>
       </slot>
     </div>
+    <SwTierPrices
+      v-if="tierPrices && tierPrices.length"
+      :tier-prices="tierPrices"
+    />
   </div>
 </template>
 <script>
 import { SfHeading, SfPrice, SfRating } from '@storefront-ui/vue'
+import SwTierPrices from './SwTierPrices'
 
 export default {
   name: 'SwProductHeading',
-  components: { SfHeading, SfPrice, SfRating },
+  components: { SfHeading, SfPrice, SfRating, SwTierPrices },
   props: {
     reviews: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     price: {
       type: [Number, String],
-      default: 0
+      default: 0,
     },
     special: {
       type: [Number, String],
-      default: 0
+      default: undefined,
+    },
+    tierPrices: {
+      type: Array,
     },
     ratingAverage: {
       type: Number,
-      default: 0
+      default: 0,
     },
     name: {
       type: String,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 }
 </script>
 

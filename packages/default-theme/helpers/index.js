@@ -10,6 +10,10 @@ const defaultFormatPriceOptions = {
 }
 
 export function formatPrice(price, options) {
+  if (typeof price !== 'number') {
+    return;
+  }
+  
   return currency(
     price,
     Object.assign(defaultFormatPriceOptions, options)

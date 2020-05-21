@@ -1,27 +1,27 @@
 <template>
   <div class="my-account" :key="$route.fullPath">
     <SfContentPages
-      title="My account"
+      :title="$t('My account')"
       :active="activePage"
       class="my-account__content"
       @click:change="updateActivePage"
     >
-      <SfContentCategory title="Personal Details">
-        <SfContentPage title="My profile">
+      <SfContentCategory :title="$t('Personal Details')">
+        <SfContentPage :title="$t('My profile')">
           <nuxt-child />
         </SfContentPage>
-        <SfContentPage title="My addresses">
+        <SfContentPage :title="$t('My addresses')">
           <SfTabs :open-tab="1">
             <nuxt-child />
           </SfTabs>
         </SfContentPage>
       </SfContentCategory>
-      <SfContentCategory title="Order details">
-        <SfContentPage :title="`Order history (${user && user.orderCount})`">
+      <SfContentCategory :title="$t('Order details')">
+        <SfContentPage :title="$tc('Order history', user && user.orderCount)">
           <nuxt-child />
         </SfContentPage>
       </SfContentCategory>
-      <SfContentPage title="Logout"></SfContentPage>
+      <SfContentPage :title="$t('Logout')"></SfContentPage>
     </SfContentPages>
   </div>
 </template>
