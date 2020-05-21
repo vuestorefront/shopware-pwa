@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     redirectTo(route) {
-      return this.$router.push(route.link)
+      return this.$router.push(this.$i18n.path(route.link))
     },
   },
 }
@@ -174,13 +174,5 @@ body {
 
 .sw-breadcrumbs {
   padding: 0 var(--spacer-xl) var(--spacer-base) var(--spacer-xl);
-}
-
-/* Delete firefox outline */
-:focus {
-  outline: none;
-}
-::-moz-focus-inner {
-  border: 0;
 }
 </style>

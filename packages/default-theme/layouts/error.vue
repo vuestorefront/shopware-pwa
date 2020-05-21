@@ -11,7 +11,7 @@
       :subtitle="message"
     />
     <div class="error-page__actions">
-      <SfButton class="error-page__actions-button" @click="$router.push('/')">
+      <SfButton class="error-page__actions-button" @click="$router.push($i18n.path('/'))">
         <SfIcon
           class="error-page__actions-button-icon"
           icon="chevron_left"

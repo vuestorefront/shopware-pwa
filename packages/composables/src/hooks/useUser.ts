@@ -58,7 +58,7 @@ export interface UseUser {
   refreshUser: () => Promise<void>;
   logout: () => Promise<void>;
   loadOrders: () => Promise<void>;
-  getOrderDetails: (orderId: string) => Promise<Order>;
+  getOrderDetails: (orderId: string) => Promise<Order | undefined>;
   loadAddresses: () => Promise<void>;
   loadCountry: (countryId: string) => Promise<void>;
   loadSalutation: (salutationId: string) => Promise<void>;
@@ -159,9 +159,9 @@ export const useUser = (): UseUser => {
     orders.value = fetchedOrders;
   };
 
-  const getOrderDetails = async (orderId: string): Promise<Order> => {
-    return getCustomerOrderDetails(orderId);
-  };
+  const getOrderDetails = async (
+    orderId: string
+  ): Promise<Order | undefined> =>  getCustomerOrderDetails(orderId);
 
   const loadAddresses = async (): Promise<void> => {
     try {

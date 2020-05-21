@@ -13,6 +13,9 @@ describe("nuxt-module - addThemePages", () => {
   const moduleObject: NuxtModuleOptions = {
     options: {
       rootDir: __dirname,
+      router: {
+        middleware: [],
+      },
     },
     addLayout: jest.fn(),
     addPlugin: jest.fn(),

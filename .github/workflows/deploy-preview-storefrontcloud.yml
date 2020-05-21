@@ -49,10 +49,12 @@ jobs:
           initial_status: in_progress
       - name: Deploy on Storefrontcloud.io
         id: deploy
-        uses: mkucmus/storefrontcloud-preview-deploy@master
+        uses: StorefrontCloud/storefrontcloud-preview-deploy@master
         with:
           token: "${{ github.token }}"
           namespace: "${{env.INSTANCE_CODE}}"
+          username: "${{ secrets.DOCKER_USERNAME }}"
+          password: "${{ secrets.DOCKER_PASSWORD }}"
       - name: Comment PR
         if: success()
         uses: mkucmus/storefrontcloud-comment-pr-preview-deploy@master
@@ -65,7 +67,7 @@ jobs:
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
-          target_url: ${{ steps.deploy.outputs.preview_url }}
+          target-url: ${{ steps.deploy.outputs.preview_url }}
           state: "success"
           description: Congratulations! The deploy is done.
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}

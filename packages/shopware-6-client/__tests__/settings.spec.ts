@@ -8,7 +8,7 @@ import { apiService } from "../src/apiService";
 import { ConfigChangedArgs } from "../src";
 import { random } from "faker";
 
-const DEFAULT_ENDPOINT = "https://shopware-2.vuestorefront.io";
+const DEFAULT_ENDPOINT = "https://shopware6-demo.vuestorefront.io";
 const DEFAULT_TIMEOUT = 10000;
 
 describe("Settings", () => {
@@ -68,21 +68,38 @@ describe("Settings", () => {
       ).toBeUndefined();
     });
 
+    it("should have languageId in axios defaults after update", () => {
+      update({ languageId: "someLanguageId" });
+
+      expect(apiService.defaults.headers.common["sw-language-id"]).toEqual(
+        "someLanguageId"
+      );
+    });
+
+    it("should clean languageId from axios detault headers after reset", () => {
+      update({ languageId: "someLanguageId" });
+      setup();
+
+      expect(
+        apiService.defaults.headers.common["sw-language-id"]
+      ).toBeUndefined();
+    });
+
     it("should have default config with empty invocation", () => {
       update();
-      expect(config.accessToken).toEqual("SWSCTXJOZMQWCXA4OUTNZ0REYG");
+      expect(config.accessToken).toEqual("SWSCVJJET0RQAXFNBMTDZTV1OQ");
       expect(config.contextToken).toEqual("");
     });
 
     it("should change defaultPaginationLimit", () => {
       update({ defaultPaginationLimit: 50 });
-      expect(config.accessToken).toEqual("SWSCTXJOZMQWCXA4OUTNZ0REYG");
+      expect(config.accessToken).toEqual("SWSCVJJET0RQAXFNBMTDZTV1OQ");
       expect(config.defaultPaginationLimit).toEqual(50);
     });
 
     it("should change default timeout", () => {
       update({ timeout: 50 });
-      expect(config.accessToken).toEqual("SWSCTXJOZMQWCXA4OUTNZ0REYG");
+      expect(config.accessToken).toEqual("SWSCVJJET0RQAXFNBMTDZTV1OQ");
       expect(config.timeout).toEqual(50);
     });
   });

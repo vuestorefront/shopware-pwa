@@ -11,7 +11,6 @@ import {
   getCustomerLogoutEndpoint,
   getCustomerLoginEndpoint,
   getCustomerOrderEndpoint,
-  getCustomerOrderDetailsEndpoint,
 } from "../endpoints";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { apiService } from "../apiService";
@@ -53,8 +52,9 @@ export async function login({
 }: { username?: string; password?: string } = {}): Promise<
   ContextTokenResponse
 > {
-  if (!username || !password)
+  if (!username || !password) {
     throw new Error("Provide username and password for login");
+  }
   const resp = await apiService.post(getCustomerLoginEndpoint(), {
     username,
     password,
@@ -113,7 +113,7 @@ export async function getCustomerAddresses(): Promise<CustomerAddress[]> {
  */
 export async function getCustomerOrders(): Promise<Order[]> {
   const resp = await apiService.get(getCustomerOrderEndpoint());
-  return resp.data.elements || [];
+  return resp.data.orders?.elements || [];
 }
 
 /**
@@ -122,9 +122,17 @@ export async function getCustomerOrders(): Promise<Order[]> {
  * @throws ClientApiError
  * @alpha
  */
-export async function getCustomerOrderDetails(orderId: string): Promise<Order> {
-  const resp = await apiService.get(getCustomerOrderDetailsEndpoint(orderId));
-  return resp.data.data;
+export async function getCustomerOrderDetails(
+  orderId: string
+): Promise<Order | undefined> {
+  if (!orderId) {
+    return;
+  }
+
+  const resp = await apiService.get(
+    `${getCustomerOrderEndpoint()}?filter[id]=${orderId}&associations[lineItems][]`
+  );
+  return resp.data.orders?.elements?.[0];
 }
 
 /**

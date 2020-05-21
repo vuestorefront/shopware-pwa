@@ -51,8 +51,9 @@ export const convertSearchCriteria = (
 
   if (pagination) {
     const { limit, page } = pagination;
-    if (limit && Object.values(PaginationLimit).includes(limit))
+    if (limit && Object.values(PaginationLimit).includes(limit)) {
       params.limit = limit;
+    }
     if (page) {
       // exception for store-api
       if (apiType && apiType === ApiType.store) {

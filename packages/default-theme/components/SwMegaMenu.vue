@@ -8,7 +8,7 @@
       >
         <nuxt-link
           class="sf-header__link"
-          :to="getCategoryUrl(subcategory)"
+          :to="$i18n.path(getCategoryUrl(subcategory))"
         >
           <SfHeading
             :title="subcategory.name"
@@ -20,7 +20,7 @@
           <SfListItem v-for="child in subcategory.children" :key="child.label">
             <nuxt-link
               class="sf-header__link"
-              :to="getCategoryUrl(child)"
+              :to="$i18n.path(getCategoryUrl(child))"
             >
               <SfMenuItem :label="child.name" />
             </nuxt-link>
