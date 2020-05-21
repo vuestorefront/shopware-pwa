@@ -27,10 +27,7 @@
 <script>
 import {
   SfTabs,
-  SfList,
-  SfDivider,
   SfTable,
-  SfButton,
 } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 import Order from '@shopware-pwa/default-theme/components/account/orders/Order'
@@ -38,7 +35,7 @@ import { formatDate, formatPrice } from '@shopware-pwa/default-theme/helpers'
 
 export default {
   name: 'OrderHistory',
-  components: { SfTabs, SfList, SfDivider, SfTable, SfButton, Order },
+  components: { SfTabs, SfTable, Order },
   props: {},
   data() {
     return {

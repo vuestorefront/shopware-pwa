@@ -47,15 +47,9 @@
 
 <script>
 import {
-  SfInput,
-  SfButton,
-  SfAlert,
   SfTable,
   SfProperty,
-  SfHeading,
 } from '@storefront-ui/vue'
-import { validationMixin } from 'vuelidate'
-import { required, email } from 'vuelidate/lib/validators'
 import { useUser, useCheckout } from '@shopware-pwa/composables'
 import { ref, onMounted, computed, watchEffect } from '@vue/composition-api'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
@@ -73,10 +67,6 @@ export default {
   name: 'SwOrderDetails',
   components: {
     SfProperty,
-    SfHeading,
-    SfButton,
-    SfInput,
-    SfAlert,
     SfTable,
     SwPluginSlot,
     SwOrderDetailsItem,

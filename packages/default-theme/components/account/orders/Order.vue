@@ -30,16 +30,13 @@
     </SfTableData>
     
     <SfTableData>
-      <SfButton class="sf-button--text desktop-only" @click="showDetails = !showDetails">{{!showDetails ? 'View details' : 'hide details'}}</SfButton>
+      <SfButton class="sf-button--text" @click="showDetails = !showDetails">{{!showDetails ? 'View details' : 'hide details'}}</SfButton>
     </SfTableData>
     <SwOrderDetails class="order-view__details" v-if="showDetails" :order-id="order.id" :key="order.id"/>
   </SfTableRow>
 </template>
 <script>
 import {
-  SfTabs,
-  SfList,
-  SfDivider,
   SfTable,
   SfButton
 } from '@storefront-ui/vue'
@@ -49,7 +46,7 @@ import { formatDate, formatPrice } from '@shopware-pwa/default-theme/helpers'
 
 export default {
   name: 'Order',
-  components: { SfTabs, SfList, SfDivider, SfTable, SfButton, SwOrderDetails },
+  components: { SfTable, SfButton, SwOrderDetails },
   props: {
     order: {
       type: Object,
