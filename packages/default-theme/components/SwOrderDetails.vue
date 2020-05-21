@@ -1,5 +1,10 @@
 <template>
   <div class="sw-order-details" v-if="order">
+    <SfHeading
+      class="sw-order-details__header full-width"
+      :level="3"
+      :title="`Order #${order.orderNumber}`"
+    />
     <div class="sw-order-details__totals">
       <SfTable class="sf-table--bordered table">
         <SfTableHeading class="table__row">
@@ -49,6 +54,7 @@
 import {
   SfTable,
   SfProperty,
+  SfHeading
 } from '@storefront-ui/vue'
 import { useUser, useCheckout } from '@shopware-pwa/composables'
 import { ref, onMounted, computed, watchEffect } from '@vue/composition-api'
@@ -68,6 +74,7 @@ export default {
   components: {
     SfProperty,
     SfTable,
+    SfHeading,
     SwPluginSlot,
     SwOrderDetailsItem,
     SwPersonalDetails,
@@ -168,6 +175,11 @@ export default {
     flex-direction: column;
     width: 80%;
     padding: var(--spacer-base);
+  }
+
+  &__header {
+    text-align: left;
+    width: 100%;
   }
 
   &__totals {

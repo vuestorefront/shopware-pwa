@@ -30,9 +30,8 @@
     </SfTableData>
     
     <SfTableData>
-      <SfButton class="sf-button--text" @click="showDetails = !showDetails">{{!showDetails ? 'View details' : 'hide details'}}</SfButton>
+      <SfButton class="sf-button--text" @click="viewOrder(order.id)">View details</SfButton>
     </SfTableData>
-    <SwOrderDetails class="order-view__details" v-if="showDetails" :order-id="order.id" :key="order.id"/>
   </SfTableRow>
 </template>
 <script>
@@ -59,6 +58,9 @@ export default {
     }
   },
   methods: {
+    viewOrder(orderId) {
+      this.$router.push(this.$i18n.path(`/account/orders/${orderId}`))
+    },
     formatDate(date) {
       return formatDate(date)
     },
