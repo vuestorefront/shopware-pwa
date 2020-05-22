@@ -71,6 +71,7 @@ export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
 
   moduleObject.options.build = moduleObject.options.build || {};
   moduleObject.options.build.babel = moduleObject.options.build.babel || {};
+  /* istanbul ignore next */
   moduleObject.options.build.babel.presets = ({ isServer }) => {
     return [
       [
