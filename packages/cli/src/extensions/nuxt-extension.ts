@@ -90,7 +90,7 @@ module.exports = (toolbox: GluegunToolbox) => {
         });
         Object.keys(config.devDependencies).forEach((dependencyName) => {
           if (dependencyName.includes("@shopware-pwa")) {
-            config.dependencies[dependencyName] = "canary";
+            config.devDependencies[dependencyName] = "canary";
           }
         });
       }
