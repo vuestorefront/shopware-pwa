@@ -7,12 +7,14 @@ import * as components from "../src/components";
 import * as pages from "../src/pages";
 import * as cms from "../src/cms";
 import * as locales from "../src/locales";
+import * as packages from "../src/packages";
 jest.mock("../src/utils");
 jest.mock("../src/layouts");
 jest.mock("../src/components");
 jest.mock("../src/pages");
 jest.mock("../src/cms");
 jest.mock("../src/locales");
+jest.mock("../src/packages");
 const mockedUtils = utils as jest.Mocked<typeof utils>;
 const consoleErrorSpy = jest.spyOn(console, "error");
 
@@ -196,6 +198,18 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
       shopwareAccessToken: "mockedToken",
       shopwareEndpoint: "mockedEndpoint",
     });
+  });
+
+  it("should invoke useCorePackages", () => {
+    runModule(moduleObject, {});
+    expect(packages.useCorePackages).toBeCalledWith(moduleObject, [
+      "@shopware-pwa/composables",
+      "@shopware-pwa/helpers",
+      "@shopware-pwa/shopware-6-client",
+      "@shopware-pwa/default-theme",
+      "@storefront-ui/vue",
+      "@storefront-ui/shared",
+    ]);
   });
 
   it("should add babel preset to config", () => {

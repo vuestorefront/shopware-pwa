@@ -107,30 +107,11 @@ module.exports = (toolbox: GluegunToolbox) => {
     // Add buildModules
     const VSFbuildModuleExist = await toolbox.patching.exists(
       "nuxt.config.js",
-      `'@vue-storefront/nuxt'`
+      `'@shopware-pwa/nuxt-module'`
     );
     if (!VSFbuildModuleExist) {
       await toolbox.patching.patch("nuxt.config.js", {
         insert: `
-    [
-      '@vue-storefront/nuxt',
-      {
-        useRawSource: {
-          dev: [
-            '@shopware-pwa/shopware-6-client',
-            '@shopware-pwa/composables',
-            '@shopware-pwa/helpers',
-            '@shopware-pwa/default-theme'
-          ],
-          prod: [
-            '@shopware-pwa/shopware-6-client',
-            '@shopware-pwa/composables',
-            '@shopware-pwa/helpers',
-            '@shopware-pwa/default-theme'
-          ]
-        }
-      }
-    ],
     '@shopware-pwa/nuxt-module',
     `,
         after: "buildModules: [",
