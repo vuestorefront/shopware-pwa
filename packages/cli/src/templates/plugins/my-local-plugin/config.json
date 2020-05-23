@@ -1,0 +1,9 @@
+{
+  "slots": [
+    {
+      "name": "top-header-after",
+      "file": "myLocalPlugin.vue"
+    }
+  ],
+  "settings": {}
+}
