@@ -72,15 +72,6 @@ module.exports = (toolbox: GluegunToolbox) => {
     await toolbox.patching.update("package.json", (config) => {
       config.scripts.lint = "prettier --write '*.{js,vue}'";
 
-      config["lint-staged"] = {
-        "*.{js,vue}": "prettier",
-      };
-      config["husky"] = {
-        hooks: {
-          "pre-commit": "lint-staged",
-        },
-      };
-
       // update versions to canary
       if (canary) {
         Object.keys(config.dependencies).forEach((dependencyName) => {
