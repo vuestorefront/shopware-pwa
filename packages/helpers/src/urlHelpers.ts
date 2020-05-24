@@ -13,7 +13,7 @@ export function parseUrlQuery(query: any): SearchCriteria {
     try {
       searchCriteria[key] =
         typeof query[key] === "string" &&
-        (query[key].startsWith("{") || query[key].startsWith("["))
+        ["{", "["].includes(query[key].charAt(0)) // it's a JSON
           ? JSON.parse(query[key])
           : query[key];
     } catch (e) {
