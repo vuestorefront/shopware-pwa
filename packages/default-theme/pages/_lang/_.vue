@@ -23,6 +23,7 @@ export default {
   name: 'DynamicRoute',
   components: {
   },
+  watchQuery: true,
   asyncData: async ({ req, params, query, error: errorView, store }) => {
     const {search, page, error} = useCms()
     let path = params.pathMatch
