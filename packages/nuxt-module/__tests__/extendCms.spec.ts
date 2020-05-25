@@ -1,5 +1,4 @@
 import { extendCMS } from "../src/cms";
-import { NuxtModuleOptions, WebpackConfig } from "../src/interfaces";
 import jetpack from "fs-jetpack";
 import path from "path";
 
@@ -7,13 +6,13 @@ jest.mock("fs-jetpack");
 const mockedJetpack = jetpack as jest.Mocked<typeof jetpack>;
 
 describe("nuxt-module - extendCMS", () => {
-  let webpackConfig: WebpackConfig = {
+  let webpackConfig: any = {
     resolve: {
       alias: {},
     },
   };
   let methods: Function[] = [];
-  const moduleObject: NuxtModuleOptions = {
+  const moduleObject: any = {
     options: {
       rootDir: __dirname,
       router: {

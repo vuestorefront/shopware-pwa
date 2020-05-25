@@ -65,24 +65,18 @@ module.exports = {
     );
 
     // Adding Shopware PWA core dependencies
-    const corePackages = [
+    const coreDevPackages = [
+      "@shopware-pwa/cli",
       "@shopware-pwa/composables",
       "@shopware-pwa/helpers",
       "@shopware-pwa/shopware-6-client",
       "@shopware-pwa/default-theme",
       "@shopware-pwa/nuxt-module",
     ];
-    const coreDevPackages = ["@shopware-pwa/cli"];
-
-    const npmPackages = ["@vue-storefront/nuxt", "vue-i18n"];
-
-    const npmDevPackages = ["fs-jetpack", "cookie-universal", "husky"];
 
     try {
       // - unlink potential linked locally packages
-      await run(
-        `yarn unlink ${corePackages.join(" ")} ${coreDevPackages.join(" ")}`
-      );
+      await run(`yarn unlink ${coreDevPackages.join(" ")}`);
     } catch (e) {
       // It's just for safety, unlink on fresh project will throw an error so we can catch it here
     }
@@ -90,36 +84,21 @@ module.exports = {
     switch (stage) {
       case STAGES.CANARY:
         await run(
-          `yarn add ${corePackages
-            .map((dep) => `${dep}@canary`)
-            .join(" ")} ${npmPackages.join(" ")}`
-        );
-        await run(
           `yarn add -D ${coreDevPackages
             .map((dep) => `${dep}@canary`)
-            .join(" ")} ${npmDevPackages.join(" ")}`
+            .join(" ")}`
         );
         break;
       case STAGES.LOCAL:
-        await run(`yarn add ${npmPackages.join(" ")}`);
-        await run(`yarn add -D ${npmDevPackages.join(" ")}`);
-        await run(`npx yalc add ${corePackages.join(" ")}`);
         await run(`npx yalc add -D ${coreDevPackages.join(" ")}`);
-        await run(
-          `yarn link ${corePackages.join(" ")} ${coreDevPackages.join(" ")}`
-        );
+        await run(`yarn link ${coreDevPackages.join(" ")}`);
         break;
       case STAGES.STABLE:
       default:
         await run(
-          `yarn add ${corePackages
-            .map((dep) => `${dep}@latest`)
-            .join(" ")} ${npmPackages.join(" ")}`
-        );
-        await run(
           `yarn add -D ${coreDevPackages
             .map((dep) => `${dep}@latest`)
-            .join(" ")} ${npmDevPackages.join(" ")}`
+            .join(" ")}`
         );
         break;
     }
@@ -145,7 +124,6 @@ module.exports = {
     // Loading additional packages
     await run(`npx sort-package-json`);
     await run(`yarn`);
-    // await run(`yarn lint`);
     updateDependenciesSpinner.succeed();
 
     success(`Generated Shopware PWA project!`);
