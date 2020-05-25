@@ -100,7 +100,9 @@ export default {
       tableHeaders: ['Item', 'Price', 'Quantity', 'Amount'],
     }
   },
-  setup({ orderId }) { // TODO: 
+   // TODO: move this logic into separate service; 
+   // details: https://github.com/DivanteLtd/shopware-pwa/issues/781
+  setup({ orderId }) {
     const { getOrderDetails, loading, error: userError } = useUser()
     const order = ref(null)
     const paymentMethod = ref(null)
