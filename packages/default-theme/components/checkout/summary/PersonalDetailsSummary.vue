@@ -31,19 +31,10 @@ export default {
 
     return {
       personalDetails: computed(()=> ({
-        firstName: firstName.value,
-        lastName: lastName.value,
-        email: email.value
+        firstName: isGuestOrder.value ? firstName.value : user.value.firstName,
+        lastName: isGuestOrder.value ? lastName.value : user.value.lastName,
+        email: isGuestOrder.value ? email.value : user.value.email
       })),
-      firstName: computed(() =>
-        isGuestOrder.value ? firstName.value : user.value.firstName
-      ),
-      lastName: computed(() =>
-        isGuestOrder.value ? lastName.value : user.value.lastName
-      ),
-      email: computed(() =>
-        isGuestOrder.value ? email.value : user.value.email
-      ),
       CHECKOUT_STEPS,
     }
   },
