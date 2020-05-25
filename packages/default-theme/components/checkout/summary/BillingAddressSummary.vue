@@ -1,31 +1,24 @@
 <template>
-  <div class="review__item">
-    <div class="review__content">
-      <h4 class="review__title">Billing address</h4>
-      <p class="content" v-if="billingAddress">
-        {{ billingAddress.street }} {{ billingAddress.apartment }},
-        {{ billingAddress.zipcode }}<br />
-        {{ billingAddress.city }}
-      </p>
-      <p class="content" v-if="billingAddress && billingAddress.phoneNumber">
-        {{ billingAddress.phoneNumber }}
-      </p>
-    </div>
-    <SfButton
-      class="sf-button--text review__edit"
-      @click="$emit('click:edit', 2)"
-      >Edit</SfButton
-    >
-  </div>
+  <SwAddress :address="billingAddress" address-title="Billing address">
+    <template #after-content>
+      <SfButton
+        class="sf-button--text review__edit"
+        @click="$emit('click:edit', 2)"
+        >Edit</SfButton
+      >
+    </template>
+  </SwAddress>
 </template>
 <script>
 import { SfButton } from '@storefront-ui/vue'
 import { useCheckout } from '@shopware-pwa/composables'
+import SwAddress from '@shopware-pwa/default-theme/components/SwAddress'
 
 export default {
   name: 'BillingAddressSummary',
   components: {
     SfButton,
+    SwAddress
   },
   setup() {
     const { billingAddress } = useCheckout()

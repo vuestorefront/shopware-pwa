@@ -1,18 +1,13 @@
 <template>
-  <div class="review__item">
-    <div class="review__content">
-      <h4 class="review__title desktop-only">Personal details</h4>
-      <p class="content">{{ firstName }} {{ lastName }}<br /></p>
-      <p class="content">
-        {{ email }}
-      </p>
-    </div>
-    <SfButton
-      class="sf-button--text review__edit"
-      @click="$emit('click:edit', CHECKOUT_STEPS.PERSONAL_DETAILS)"
-      >Edit</SfButton
-    >
-  </div>
+  <SwPersonalDetails :personal-details="personalDetails">
+    <template #after-content>
+      <SfButton
+        class="sf-button--text review__edit"
+        @click="$emit('click:edit', CHECKOUT_STEPS.PERSONAL_DETAILS)"
+        >Edit</SfButton
+      >
+    </template>
+  </SwPersonalDetails>
 </template>
 <script>
 import { SfButton } from '@storefront-ui/vue'
@@ -20,11 +15,14 @@ import { usePersonalDetailsStep } from '@shopware-pwa/default-theme/logic/checko
 import { CHECKOUT_STEPS } from '@shopware-pwa/default-theme/logic/checkout'
 import { useCheckout, useUser } from '@shopware-pwa/composables'
 import { computed } from '@vue/composition-api'
+import SwPersonalDetails from '@shopware-pwa/default-theme/components/SwPersonalDetails'
+
 
 export default {
   name: 'PersonalDetailsSummary',
   components: {
     SfButton,
+    SwPersonalDetails
   },
   setup() {
     const { firstName, lastName, email } = usePersonalDetailsStep()
@@ -32,6 +30,11 @@ export default {
     const { user } = useUser()
 
     return {
+      personalDetails: computed(()=> ({
+        firstName: firstName.value,
+        lastName: lastName.value,
+        email: email.value
+      })),
       firstName: computed(() =>
         isGuestOrder.value ? firstName.value : user.value.firstName
       ),

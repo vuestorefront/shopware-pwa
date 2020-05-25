@@ -1,20 +1,19 @@
 <template>
   <div class="sw-generic-method">
-    <h4 class="sw-generic-method__title">{{ label }}</h4>
-    <p class="sw-generic-method__content">
-      {{ method.name }}
-    </p>
+    <div class="sw-generic-method__content">
+      <h4 class="sw-generic-method__title">{{ label }}</h4>
+      <p class="content">{{ method.name }}</p>
+    </div>
+    <slot name="after-content"></slot>
   </div>
 </template>
 
 <script>
 import { SfInput, SfButton, SfAlert, SfTable } from '@storefront-ui/vue'
 
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
-
 export default {
-  name: 'SwGenericMethod',
-  components: { SfButton, SfInput, SfAlert, SfTable, SwPluginSlot },
+  name: 'SwCheckoutMethod',
+  components: { SfButton, SfInput, SfAlert, SfTable },
   props: {
     label: {
       type: String,
@@ -33,7 +32,9 @@ export default {
 
 .sw-generic-method {
   margin-bottom: var(--spacer-sm);
-
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   &__title {
     font-size: var(--font-sm);
     margin-bottom: var(--spacer-xs);
@@ -43,5 +44,10 @@ export default {
     font-size: var(--font-xs);
     color: var(--c-text-muted);
   }
+}
+
+.content {
+  margin: 0;
+  color: var(--c-text-muted);
 }
 </style>

@@ -7,7 +7,7 @@
     />
     <SfDivider />
     <SwOrderDetails :order-id="orderId" />
-    <SfButton @click="$router.push('/')">
+    <SfButton @click="$router.push($i18n.path('/'))">
       <SfIcon icon="chevron_left" color="white" size="20px" />Return to homepage
     </SfButton>
   </div>

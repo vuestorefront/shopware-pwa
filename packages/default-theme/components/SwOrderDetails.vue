@@ -33,13 +33,13 @@
         v-if="billingAddress"
         class="content"
       />
-      <SwGenericMethod
+      <SwCheckoutMethod
         :method="paymentMethod"
         label="Payment method"
         v-if="paymentMethod"
         class="content"
       />
-      <SwGenericMethod
+      <SwCheckoutMethod
         :method="shippingMethod"
         label="Shipping method"
         v-if="shippingMethod"
@@ -60,7 +60,8 @@
 import {
   SfTable,
   SfProperty,
-  SfHeading
+  SfHeading,
+  SfButton
 } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 import { ref, onMounted, computed, watchEffect } from '@vue/composition-api'
@@ -68,7 +69,7 @@ import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 import SwOrderDetailsItem from './SwOrderDetailsItem'
 import SwPersonalDetails from './SwPersonalDetails'
 import SwAddress from './SwAddress'
-import SwGenericMethod from './SwGenericMethod'
+import SwCheckoutMethod from './SwCheckoutMethod'
 import SwTotals from './SwTotals'
 import {
   getOrderPaymentMethodId,
@@ -83,11 +84,11 @@ export default {
     SfProperty,
     SfTable,
     SfHeading,
-    SwPluginSlot,
+    SfButton,
     SwOrderDetailsItem,
     SwPersonalDetails,
     SwAddress,
-    SwGenericMethod,
+    SwCheckoutMethod,
     SwTotals,
   },
   props: {
@@ -260,6 +261,7 @@ export default {
 }
 
 .pay-button {
+  display: flex;
   margin-top: var(--spacer-base);
   margin-bottom: 0;
 }

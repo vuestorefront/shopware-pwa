@@ -7,8 +7,7 @@ import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Or
  */
 export function getOrderShippingMethodId(order: Order): string | undefined {
   const openDelivery = order?.deliveries?.find(
-    ({ stateMachineState }) =>
-      stateMachineState && stateMachineState.technicalName === "open"
+    ({ stateMachineState }) => stateMachineState?.technicalName === "open"
   );
   return openDelivery?.shippingMethodId;
 }

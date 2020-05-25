@@ -7,17 +7,16 @@
         {{ email }}
       </p>
     </div>
+    <slot name="after-content"/>
   </div>
 </template>
 
 <script>
-import { SfInput, SfButton, SfAlert, SfTable } from '@storefront-ui/vue'
-
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+import { SfButton } from '@storefront-ui/vue'
 
 export default {
   name: 'SwPersonalDetails',
-  components: { SfButton, SfInput, SfAlert, SfTable, SwPluginSlot },
+  components: { SfButton },
   props: {
     personalDetails: {
       type: Object,
@@ -42,6 +41,10 @@ export default {
 @import '~@storefront-ui/vue/styles';
 
 .sw-personal-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
   &__title {
     font-size: var(--font-sm);
     margin-bottom: var(--spacer-sm);

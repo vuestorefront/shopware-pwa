@@ -2,6 +2,7 @@
   <div class="sw-address" v-if="address">
     <div class="sw-address__content">
       <h4 class="sw-address__title">{{ addressTitle }}</h4>
+      <slot name="before-content"/>
       <p class="content">
         {{ street }} {{ apartment }}, {{ zipcode }}<br />
         {{ city }}
@@ -10,16 +11,14 @@
         {{ phoneNumber }}
       </p>
     </div>
+    <slot name="after-content"/>
   </div>
 </template>
 
 <script>
-import { SfInput, SfButton, SfAlert, SfTable } from '@storefront-ui/vue'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
-
 export default {
   name: 'SwPersonalDetails',
-  components: { SfButton, SfInput, SfAlert, SfTable, SwPluginSlot },
+  components: { },
   props: {
     addressTitle: {
       type: String,
@@ -58,6 +57,9 @@ export default {
 @import '~@storefront-ui/vue/styles';
 
 .sw-address {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   &__title {
     font-size: var(--font-sm);
     margin-bottom: var(--spacer-sm);
