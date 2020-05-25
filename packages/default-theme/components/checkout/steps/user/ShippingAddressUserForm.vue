@@ -101,6 +101,11 @@ export default {
   &__default {
     margin: 0 0 var(--spacer-xl) 0;
   }
+  &__add-new {
+    @include for-mobile {
+      --button-width: 100%;
+    }
+  }
 }
 .address {
   --radio-container-padding: var(--spacer-sm) var(--spacer-base);
