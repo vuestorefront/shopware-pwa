@@ -46,7 +46,13 @@
         class="content"
       />
       <SfProperty name="Order status" :value="status" />
+      <a :href="paymentUrl" v-if="paymentUrl">
+        <SfButton class="sf-button sf-button--full-width pay-button color-danger">
+          Pay for your order
+        </SfButton>
+      </a>
     </div>
+    
   </div>
 </template>
 
@@ -56,7 +62,7 @@ import {
   SfProperty,
   SfHeading
 } from '@storefront-ui/vue'
-import { useUser, useCheckout } from '@shopware-pwa/composables'
+import { useUser } from '@shopware-pwa/composables'
 import { ref, onMounted, computed, watchEffect } from '@vue/composition-api'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 import SwOrderDetailsItem from './SwOrderDetailsItem'
@@ -68,6 +74,8 @@ import {
   getOrderPaymentMethodId,
   getOrderShippingMethodId,
 } from '@shopware-pwa/helpers'
+import { getShippingMethodDetails, getPaymentMethodDetails, getOrderPaymentUrl } from '@shopware-pwa/shopware-6-client'
+
 
 export default {
   name: 'SwOrderDetails',
@@ -92,12 +100,12 @@ export default {
       tableHeaders: ['Item', 'Price', 'Quantity', 'Amount'],
     }
   },
-  setup({ orderId }) {
-    const { getPaymentMethod, getShippingMethod } = useCheckout()
+  setup({ orderId }) { // TODO: 
     const { getOrderDetails, loading, error: userError } = useUser()
     const order = ref(null)
     const paymentMethod = ref(null)
     const shippingMethod = ref(null)
+    const paymentUrl = ref(null)
 
     const personalDetails = computed(
       () =>
@@ -141,9 +149,18 @@ export default {
     )
 
     onMounted(async () => {
-      order.value = await getOrderDetails(orderId)
-      paymentMethod.value = await getPaymentMethod(paymentMethodId.value)
-      shippingMethod.value = await getShippingMethod(shippingMethodId.value)
+      try {
+        order.value = await getOrderDetails(orderId)
+        paymentMethod.value = await getPaymentMethodDetails(paymentMethodId.value)
+        shippingMethod.value = await getShippingMethodDetails(shippingMethodId.value)
+        const resp = await getOrderPaymentUrl({
+          orderId: orderId,
+          finishUrl: window.location.origin + `/success-page?orderId=${orderId}`,
+        })
+        paymentUrl.value = resp.paymentUrl
+      } catch (e) {
+
+      }
     })
 
     return {
@@ -158,6 +175,7 @@ export default {
       subtotal,
       total,
       status,
+      paymentUrl
     }
   },
 }
@@ -237,5 +255,10 @@ export default {
   &__quantity {
     text-align: center;
   }
+}
+
+.pay-button {
+  margin-top: var(--spacer-base);
+  margin-bottom: 0;
 }
 </style>

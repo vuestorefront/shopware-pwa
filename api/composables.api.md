@@ -98,13 +98,9 @@ export interface UseCheckout {
     // (undocumented)
     createOrder: () => Promise<Order>;
     // (undocumented)
-    getPaymentMethod: (paymentMethodId: string) => Promise<PaymentMethod>;
-    // (undocumented)
     getPaymentMethods: (options?: {
         forceReload: boolean;
     }) => Promise<Readonly<Ref<readonly PaymentMethod[]>>>;
-    // (undocumented)
-    getShippingMethod: (shippingMethodId: string) => Promise<ShippingMethod>;
     // (undocumented)
     getShippingMethods: (options?: {
         forceReload: boolean;

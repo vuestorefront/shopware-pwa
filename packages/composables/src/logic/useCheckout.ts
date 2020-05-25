@@ -12,10 +12,8 @@ import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Or
 import {
   getAvailableShippingMethods,
   getAvailablePaymentMethods,
-  getPaymentMethodDetails,
   createGuestOrder,
   createOrder as createApiOrder,
-  getShippingMethodDetails,
 } from "@shopware-pwa/shopware-6-client";
 import { useSessionContext } from "./useSessionContext";
 
@@ -32,9 +30,7 @@ export interface UseCheckout {
   getPaymentMethods: (options?: {
     forceReload: boolean;
   }) => Promise<Readonly<Ref<readonly PaymentMethod[]>>>;
-  getShippingMethod: (shippingMethodId: string) => Promise<ShippingMethod>;
   paymentMethods: Readonly<Ref<readonly PaymentMethod[]>>;
-  getPaymentMethod: (paymentMethodId: string) => Promise<PaymentMethod>;
   createOrder: () => Promise<Order>;
   updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
   shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
@@ -85,12 +81,6 @@ export const useCheckout = (): UseCheckout => {
     return paymentMethods;
   };
 
-  const getPaymentMethod = (paymentMethodId: string): Promise<PaymentMethod> =>
-    getPaymentMethodDetails(paymentMethodId);
-  const getShippingMethod = (
-    shippingMethodId: string
-  ): Promise<ShippingMethod> => getShippingMethodDetails(shippingMethodId);
-
   const createOrder = async () => {
     try {
       if (isGuestOrder.value) {
@@ -131,8 +121,6 @@ export const useCheckout = (): UseCheckout => {
   return {
     isGuestOrder,
     getPaymentMethods,
-    getPaymentMethod,
-    getShippingMethod,
     paymentMethods,
     getShippingMethods,
     shippingMethods,
