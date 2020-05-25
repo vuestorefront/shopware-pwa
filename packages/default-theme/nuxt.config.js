@@ -30,7 +30,10 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    { src: '~/plugins/entities-parser/entities-parser.csr.js', mode: 'client' },
+    { src: '~/plugins/entities-parser/entities-parser.ssr.js', mode: 'server' },
+  ],
   /*
    ** Nuxt.js dev-modules
    */
