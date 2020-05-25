@@ -23,7 +23,7 @@
 <script>
 import { SfSelect, SfProductOption } from '@storefront-ui/vue'
 import { useCurrency } from '@shopware-pwa/composables'
-import { computed, onMounted } from '@vue/composition-api'
+import { computed, onMounted, getCurrentInstance } from '@vue/composition-api'
 
 export default {
   name: 'SwCurrency',
@@ -37,6 +37,7 @@ export default {
       loadAvailableCurrencies,
       availableCurrencies,
     } = useCurrency()
+    const vm = getCurrentInstance()
 
     // TODO: loaded on mounted only untill fixed issue: https://github.com/DivanteLtd/storefront-ui/issues/1097
     onMounted(async () => {
@@ -45,21 +46,18 @@ export default {
 
     const activeCurrency = computed({
       get: () => currency.value && currency.value.id,
-      set: async (id) => await setCurrency({ id }),
+      set: async (id) => {
+        await setCurrency({ id })
+        vm.$router.push({
+          query: { ...vm.$router.currentRoute.query, currencyId: id },
+        })
+      },
     })
     return {
       availableCurrencies,
       activeCurrency,
       loadAvailableCurrencies,
     }
-  },
-  watch: {
-    activeCurrency(val) {
-      // re're invoking page reload by adding/changing currenctId in query params
-      this.$router.push({
-        query: { ...this.$router.currentRoute.query, curencyId: val },
-      })
-    },
   },
 }
 </script>
@@ -72,7 +70,7 @@ export default {
     --select-margin: 0;
     --chevron-size: 0;
     --select-option-font-size: var(--font-base);
-    --select-selected-padding: .5rem;
+    --select-selected-padding: 0.5rem;
     cursor: pointer;
   }
 }

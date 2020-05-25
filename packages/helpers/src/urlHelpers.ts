@@ -12,7 +12,10 @@ export function parseUrlQuery(query: any): SearchCriteria {
   Object.keys(query).forEach((key: string) => {
     try {
       searchCriteria[key] =
-        typeof query[key] === "string" ? JSON.parse(query[key]) : query[key];
+        typeof query[key] === "string" &&
+        ["{", "["].includes(query[key].charAt(0)) // it's a JSON
+          ? JSON.parse(query[key])
+          : query[key];
     } catch (e) {
       console.error(
         "[helpers][parseUrlQuery] Problem with resolving url param: " + key
