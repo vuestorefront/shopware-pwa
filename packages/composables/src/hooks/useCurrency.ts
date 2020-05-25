@@ -28,7 +28,6 @@ export const useCurrency = (): UseCurrency => {
   const {
     currency,
     setCurrency: setContextCurrency,
-    refreshSessionContext,
   } = useSessionContext();
   const { refreshCart } = useCart();
   const localState: { availableCurrencies: Currency[] } = reactive(
@@ -53,8 +52,7 @@ export const useCurrency = (): UseCurrency => {
   const setCurrency = async (currency: Partial<Currency>): Promise<void> => {
     try {
       await setContextCurrency(currency);
-      await refreshSessionContext();
-      await refreshCart();
+      refreshCart();
     } catch (e) {
       console.error(
         "[useCurrency][setCurrency] Problem with currency change",

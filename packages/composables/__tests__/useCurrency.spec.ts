@@ -151,12 +151,6 @@ describe("Composables - useCurrency", () => {
         });
       });
 
-      it("should call refreshSessionContext from useSessionContext", async () => {
-        const { setCurrency } = useCurrency();
-        await setCurrency({ id: "some-currency-id" });
-        expect(refreshSessionContextMock).toBeCalled();
-      });
-
       it("should call refreshCart from useCart", async () => {
         const { setCurrency } = useCurrency();
         await setCurrency({ id: "some-currency-id" });
