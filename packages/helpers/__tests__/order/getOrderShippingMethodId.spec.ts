@@ -6,6 +6,17 @@ describe("Shopware helpers - getOrderShippingMethodId", () => {
     const shippingMethodId = getOrderShippingMethodId(order);
     expect(shippingMethodId).toBeUndefined();
   });
+  it("should return undefined if order parameter is uncomplete", () => {
+    const order: any = {
+      deliveries: [
+        {
+          shippingMethodId: "closed-1234",
+        },
+      ],
+    };
+    const shippingMethodId = getOrderShippingMethodId(order);
+    expect(shippingMethodId).toBeUndefined();
+  });
   it("should return undefined if there is no argument provided", () => {
     const shippingMethodId = getOrderShippingMethodId(undefined as any);
     expect(shippingMethodId).toBeUndefined();

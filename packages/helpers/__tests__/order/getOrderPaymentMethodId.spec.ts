@@ -1,6 +1,18 @@
 import { getOrderPaymentMethodId } from "@shopware-pwa/helpers";
 
 describe("Shopware helpers - getOrderShippingMethodId", () => {
+  it("should return undefined if order parameter is uncomplete", () => {
+    const order: any = {
+      transactions: [
+        {
+          paymentMethodId: "closed-1234",
+        },
+      ],
+    };
+
+    const paymentMethodId = getOrderPaymentMethodId(order);
+    expect(paymentMethodId).toBeUndefined();
+  });
   it("should return undefined if order is an empty object", () => {
     const order: any = {};
     const paymentMethodId = getOrderPaymentMethodId(order);
