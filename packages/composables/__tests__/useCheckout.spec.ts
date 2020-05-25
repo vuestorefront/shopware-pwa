@@ -185,15 +185,12 @@ describe("Composables - useCheckout", () => {
         await getShippingMethods({ forceReload: true });
       });
       it("should return Shipping methods from API", async () => {
-        mockedApiClient.getAvailableShippingMethods.mockResolvedValueOnce({
-          total: 2,
-          data: [
-            {
-              name: "Shipping method 1",
-            },
-            { name: "Shipping method 2" },
-          ],
-        } as any);
+        mockedApiClient.getAvailableShippingMethods.mockResolvedValueOnce([
+          {
+            name: "Shipping method 1",
+          },
+          { name: "Shipping method 2" },
+        ] as any);
         const { getShippingMethods } = useCheckout();
         const result = await getShippingMethods();
         expect(result.value).toEqual([
@@ -202,10 +199,10 @@ describe("Composables - useCheckout", () => {
         ]);
       });
 
-      it("should return an empty array if response data is not defined", async () => {
-        mockedApiClient.getAvailableShippingMethods.mockResolvedValueOnce({
-          total: 2,
-        } as any);
+      it("should return an empty array if response data is an empty array", async () => {
+        mockedApiClient.getAvailableShippingMethods.mockResolvedValueOnce(
+          [] as any
+        );
         const { getShippingMethods } = useCheckout();
         const result = await getShippingMethods();
         expect(result.value).toEqual([]);
@@ -222,15 +219,12 @@ describe("Composables - useCheckout", () => {
       });
 
       it("should not call api if Shipping methods are already in cache", async () => {
-        mockedApiClient.getAvailableShippingMethods.mockResolvedValueOnce({
-          total: 2,
-          data: [
-            {
-              name: "Shipping method 1",
-            },
-            { name: "Shipping method 2" },
-          ],
-        } as any);
+        mockedApiClient.getAvailableShippingMethods.mockResolvedValueOnce([
+          {
+            name: "Shipping method 1",
+          },
+          { name: "Shipping method 2" },
+        ] as any);
         const { getShippingMethods } = useCheckout();
 
         const result = await getShippingMethods();
@@ -246,6 +240,14 @@ describe("Composables - useCheckout", () => {
 
         expect(mockedApiClient.getAvailableShippingMethods).toBeCalledTimes(1);
       });
+      it("should return an empty array if response data is not defined", async () => {
+        mockedApiClient.getAvailableShippingMethods.mockResolvedValueOnce(
+          undefined as any
+        );
+        const { getShippingMethods } = useCheckout();
+        const result = await getShippingMethods();
+        expect(result.value).toEqual([]);
+      });
     });
 
     describe("getPaymentMethods", () => {
@@ -258,15 +260,12 @@ describe("Composables - useCheckout", () => {
         await getPaymentMethods({ forceReload: true });
       });
       it("should return Payment methods from API", async () => {
-        mockedApiClient.getAvailablePaymentMethods.mockResolvedValueOnce({
-          total: 2,
-          data: [
-            {
-              name: "Payment method 1",
-            },
-            { name: "Payment method 2" },
-          ],
-        } as any);
+        mockedApiClient.getAvailablePaymentMethods.mockResolvedValueOnce([
+          {
+            name: "Payment method 1",
+          },
+          { name: "Payment method 2" },
+        ] as any);
         const { getPaymentMethods } = useCheckout();
         const result = await getPaymentMethods();
         expect(result.value).toEqual([
@@ -275,10 +274,19 @@ describe("Composables - useCheckout", () => {
         ]);
       });
 
+      it("should return an empty array if response data is an empty array", async () => {
+        mockedApiClient.getAvailablePaymentMethods.mockResolvedValueOnce(
+          [] as any
+        );
+        const { getPaymentMethods } = useCheckout();
+        const result = await getPaymentMethods();
+        expect(result.value).toEqual([]);
+      });
+
       it("should return an empty array if response data is not defined", async () => {
-        mockedApiClient.getAvailablePaymentMethods.mockResolvedValueOnce({
-          total: 2,
-        } as any);
+        mockedApiClient.getAvailablePaymentMethods.mockResolvedValueOnce(
+          undefined as any
+        );
         const { getPaymentMethods } = useCheckout();
         const result = await getPaymentMethods();
         expect(result.value).toEqual([]);
@@ -295,15 +303,12 @@ describe("Composables - useCheckout", () => {
       });
 
       it("should not call api if Payment methods are already in cache", async () => {
-        mockedApiClient.getAvailablePaymentMethods.mockResolvedValueOnce({
-          total: 2,
-          data: [
-            {
-              name: "Payment method 1",
-            },
-            { name: "Payment method 2" },
-          ],
-        } as any);
+        mockedApiClient.getAvailablePaymentMethods.mockResolvedValueOnce([
+          {
+            name: "Payment method 1",
+          },
+          { name: "Payment method 2" },
+        ] as any);
         const { getPaymentMethods } = useCheckout();
 
         const result = await getPaymentMethods();

@@ -5,6 +5,9 @@ describe("nuxt-module - overrideRoutes", () => {
   const moduleObject = {
     options: {
       rootDir: __dirname,
+      router: {
+        middleware: [],
+      },
     },
   };
 

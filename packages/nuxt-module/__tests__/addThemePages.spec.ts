@@ -1,6 +1,5 @@
 import { addThemePages } from "../src/pages";
 import * as files from "../src/files";
-import { NuxtModuleOptions } from "../src/interfaces";
 import path from "path";
 
 jest.mock("../src/files");
@@ -10,9 +9,12 @@ const { getAllFiles } = mockedFiles;
 describe("nuxt-module - addThemePages", () => {
   let rootRoutes: any = [];
   let methods: Function[] = [];
-  const moduleObject: NuxtModuleOptions = {
+  const moduleObject: any = {
     options: {
       rootDir: __dirname,
+      router: {
+        middleware: [],
+      },
     },
     addLayout: jest.fn(),
     addPlugin: jest.fn(),

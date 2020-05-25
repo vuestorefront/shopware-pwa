@@ -80,19 +80,6 @@ module.exports = (toolbox: GluegunToolbox) => {
           "pre-commit": "lint-staged",
         },
       };
-      if (nuxtThemePackage.dependencies) {
-        Object.keys(nuxtThemePackage.dependencies).forEach((packageName) => {
-          config.dependencies[packageName] =
-            nuxtThemePackage.dependencies[packageName];
-        });
-      }
-
-      if (nuxtThemePackage.devDependencies) {
-        Object.keys(nuxtThemePackage.devDependencies).forEach((packageName) => {
-          config.devDependencies[packageName] =
-            nuxtThemePackage.devDependencies[packageName];
-        });
-      }
 
       // update versions to canary
       if (canary) {
@@ -117,100 +104,17 @@ module.exports = (toolbox: GluegunToolbox) => {
    * Updates nuxt.config.js with configuration for Shopwre PWA
    */
   toolbox.updateNuxtConfigFile = async () => {
-    // Add path import
-    const pathImportExist = await toolbox.patching.exists(
-      "nuxt.config.js",
-      `import path from 'path'`
-    );
-    if (!pathImportExist) {
-      await toolbox.patching.prepend(
-        "nuxt.config.js",
-        `import path from 'path'\n`
-      );
-    }
-    // Add coreDevelopment flag
-    await toolbox.patching.patch("nuxt.config.js", {
-      insert: "const coreDevelopment = true\n",
-      before: "export default {",
-    });
     // Add buildModules
     const VSFbuildModuleExist = await toolbox.patching.exists(
       "nuxt.config.js",
-      `'@vue-storefront/nuxt'`
+      `'@shopware-pwa/nuxt-module'`
     );
     if (!VSFbuildModuleExist) {
       await toolbox.patching.patch("nuxt.config.js", {
         insert: `
-    [
-      '@vue-storefront/nuxt',
-      {
-        coreDevelopment,
-        useRawSource: {
-          dev: coreDevelopment
-            ? [
-                '@shopware-pwa/shopware-6-client',
-                '@shopware-pwa/composables',
-                '@shopware-pwa/helpers',
-                '@shopware-pwa/default-theme'
-              ]
-            : [],
-          prod: [
-            '@shopware-pwa/shopware-6-client',
-            '@shopware-pwa/composables',
-            '@shopware-pwa/helpers',
-            '@shopware-pwa/default-theme'
-          ]
-        }
-      }
-    ],
     '@shopware-pwa/nuxt-module',
     `,
         after: "buildModules: [",
-      });
-    }
-    // Add coreJS
-    const coreJSBuildExist = await toolbox.patching.exists(
-      "nuxt.config.js",
-      `require.resolve('@nuxt/babel-preset-app')`
-    );
-    if (!coreJSBuildExist) {
-      await toolbox.patching.patch("nuxt.config.js", {
-        insert: `
-    babel: {
-      presets({ isServer }) {
-        return [
-          [
-            require.resolve('@nuxt/babel-preset-app'),
-            // require.resolve('@nuxt/babel-preset-app-edge'), // For nuxt-edge users
-            {
-              buildTarget: isServer ? 'server' : 'client',
-              corejs: { version: 3 }
-            }
-          ]
-        ]
-      }
-    },`,
-        after: "build: {",
-      });
-    }
-    // extend webpack
-    const webpackConfigExtended = await toolbox.patching.exists(
-      "nuxt.config.js",
-      `config.resolve.alias['@storefront-ui/vue'] = path.resolve(`
-    );
-    if (!webpackConfigExtended) {
-      await toolbox.patching.patch("nuxt.config.js", {
-        insert: `
-      config.resolve.alias['@storefront-ui/vue'] = path.resolve(
-        'node_modules/@storefront-ui/vue'
-      )
-      config.resolve.alias['@storefront-ui/shared'] = path.resolve(
-        'node_modules/@storefront-ui/shared'
-      )
-      if (ctx.isClient && !ctx.isDev) {
-        config.optimization.splitChunks.cacheGroups.commons.minChunks = 2
-      }`,
-        after: /extend[ ]?\(config, ctx\)[ ]?{/,
       });
     }
 

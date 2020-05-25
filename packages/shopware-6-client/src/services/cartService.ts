@@ -91,7 +91,7 @@ export async function changeCartItemQuantity(
   itemId: string,
   newQuantity: number = 1
 ): Promise<Cart> {
-  let params = { quantity: parseInt(newQuantity.toString()) };
+  let params = { quantity: parseInt(newQuantity.toString(), 10) };
   const resp = await apiService.patch(
     getCheckoutCartLineItemEndpoint(itemId),
     params

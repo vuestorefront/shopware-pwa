@@ -1,11 +1,11 @@
-import axios from "axios";
-import https from "https";
+import axios, { AxiosInstance } from "axios";
+import { Agent } from "https";
 import { config } from "./settings";
 import { responseInterceptor, errorInterceptor } from "./interceptors";
 
-export const apiService = axios.create({
+export const apiService: AxiosInstance = axios.create({
   // temporary fix to prevent TLS issues
-  httpsAgent: new https.Agent({
+  httpsAgent: new Agent({
     rejectUnauthorized: false,
   }),
 });
@@ -19,6 +19,11 @@ export function reloadConfiguration() {
       config.contextToken;
   } else {
     delete apiService.defaults.headers.common["sw-context-token"];
+  }
+  if (config.languageId) {
+    apiService.defaults.headers.common["sw-language-id"] = config.languageId;
+  } else {
+    delete apiService.defaults.headers.common["sw-language-id"];
   }
 }
 reloadConfiguration();

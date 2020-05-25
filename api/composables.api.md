@@ -268,7 +268,7 @@ export interface UseUser {
     // (undocumented)
     error: Ref<any>;
     // (undocumented)
-    getOrderDetails: (orderId: string) => Promise<Order>;
+    getOrderDetails: (orderId: string) => Promise<Order | undefined>;
     // (undocumented)
     isLoggedIn: Ref<boolean>;
     // (undocumented)

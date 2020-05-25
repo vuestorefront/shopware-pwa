@@ -90,11 +90,11 @@ module.exports = {
           {
             text: "Troubleshooting",
             link: "/guide/troubleshooting/",
-          },          
-{
+          },
+          {
             text: "Cheatsheet",
             link: "/guide/cheatsheet/",
-          },          
+          },
           {
             text: "Contribution",
             items: [

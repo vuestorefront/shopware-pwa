@@ -68,7 +68,7 @@ export const useCheckout = (): UseCheckout => {
   ) => {
     if (shippingMethods.value.length && !forceReload) return shippingMethods;
     const shippingMethodsResponse = await getAvailableShippingMethods();
-    orderData.shippingMethods = shippingMethodsResponse.data || [];
+    orderData.shippingMethods = shippingMethodsResponse || [];
     return shippingMethods;
   };
 
@@ -77,7 +77,7 @@ export const useCheckout = (): UseCheckout => {
   ) => {
     if (paymentMethods.value.length && !forceReload) return paymentMethods;
     const paymentMethodsResponse = await getAvailablePaymentMethods();
-    orderData.paymentMethods = paymentMethodsResponse.data || [];
+    orderData.paymentMethods = paymentMethodsResponse || [];
     return paymentMethods;
   };
 

@@ -23,7 +23,7 @@ describe("ContextService - setCurrentShippingAddress with contextToken given", (
     const result = await setCurrentShippingAddress(newShippingAddressId);
 
     expect(mockedAxios.patch).toBeCalledTimes(1);
-    expect(mockedAxios.patch).toBeCalledWith("/sales-channel-api/v1/context", {
+    expect(mockedAxios.patch).toBeCalledWith("/store-api/v1/context", {
       shippingAddressId: "45f96f681f9d4834b29e9e15df3a7149",
     });
 
@@ -46,7 +46,7 @@ describe("ContextService - setCurrentShippingAddress without contextToken given"
 
     const result = await setCurrentShippingAddress(newShippingAddressId);
     expect(mockedAxios.patch).toBeCalledTimes(1);
-    expect(mockedAxios.patch).toBeCalledWith("/sales-channel-api/v1/context", {
+    expect(mockedAxios.patch).toBeCalledWith("/store-api/v1/context", {
       shippingAddressId: "45f96f681f9d4834b29e9e15df3a7149",
     });
 
