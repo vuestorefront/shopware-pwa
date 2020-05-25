@@ -1,6 +1,6 @@
 <template>
   <div class="sw-reset-password" @keyup.enter="invokeResetPassword">
-    <div class="form sw-reset-password__form">
+    <div class="form sw-reset-password__form" v-if="!emailSent">
       <!-- <h2 class="sw-reset-password__header">Reset password</h2> -->
       <SfAlert
         v-if="userError"
@@ -24,23 +24,30 @@
         Resend password
       </SfButton>
     </div>
+    <SfHeading
+      v-if="emailSent"
+      title="You should receive a link in a few moments. Please open that link to reset your password."
+      :level="5"
+      class="bottom__heading"
+    />
   </div>
 </template>
 
 <script>
-import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
+import { SfInput, SfButton, SfAlert, SfHeading } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { required, email } from 'vuelidate/lib/validators'
 import {useUser} from '@shopware-pwa/composables';
 
 export default {
   name: 'SwResetPassword',
-  components: { SfButton, SfInput, SfAlert },
+  components: { SfButton, SfInput, SfAlert, SfHeading },
   mixins: [validationMixin],
   data() {
     return {
       email: '',
-      error: ''
+      error: '',
+      emailSent: false
     }
   },
   setup() {
@@ -63,12 +70,10 @@ export default {
       if (this.$v.$invalid) {
         return;
       }
-      const resetSent = await this.resetPassword({
+
+      this.emailSent = await this.resetPassword({
         email: this.email
       })
-      if (resetSent) {
-        this.$emit('success');
-      }
     }
   }
 }
