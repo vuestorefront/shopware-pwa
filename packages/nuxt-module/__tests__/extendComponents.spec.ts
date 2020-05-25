@@ -1,19 +1,18 @@
 import { extendComponents } from "../src/components";
 import * as files from "../src/files";
-import { NuxtModuleOptions, WebpackConfig } from "../src/interfaces";
 
 jest.mock("../src/files");
 const mockedFiles = files as jest.Mocked<typeof files>;
 const { getAllFiles } = mockedFiles;
 
 describe("nuxt-module - extendComponents", () => {
-  let webpackConfig: WebpackConfig = {
+  let webpackConfig: any = {
     resolve: {
       alias: {},
     },
   };
   let methods: Function[] = [];
-  const moduleObject: NuxtModuleOptions = {
+  const moduleObject: any = {
     options: {
       rootDir: __dirname,
       router: {

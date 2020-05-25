@@ -23,10 +23,13 @@ module.exports = {
       (await toolbox.filesystem.listAsync("locales")) || [];
 
     await toolbox.filesystem.removeAsync(shopwarePwaLocalesPath);
-    await toolbox.filesystem.copyAsync(
-      themeLanguagesDir,
-      shopwarePwaLocalesPath
-    );
+
+    if (await toolbox.filesystem.existsAsync(themeLanguagesDir)) {
+      await toolbox.filesystem.copyAsync(
+        themeLanguagesDir,
+        shopwarePwaLocalesPath
+      );
+    }
 
     // Override theme translations by project translations
     for (let index = 0; index < projectLocales.length; index++) {

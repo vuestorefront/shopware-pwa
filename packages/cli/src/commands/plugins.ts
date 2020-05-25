@@ -108,6 +108,8 @@ module.exports = {
       },
     });
 
+    await toolbox.runtime.run(`languages`, inputParameters);
+
     success(`Plugins generated`);
   },
 };

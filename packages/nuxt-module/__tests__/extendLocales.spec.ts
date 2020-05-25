@@ -1,5 +1,5 @@
 import { extendLocales } from "../src/locales";
-import { NuxtModuleOptions, ShopwarePwaConfigFile } from "../src/interfaces";
+import { ShopwarePwaConfigFile } from "../src/interfaces";
 import jetpack from "fs-jetpack";
 import path from "path";
 
@@ -8,7 +8,7 @@ const mockedJetpack = jetpack as jest.Mocked<typeof jetpack>;
 
 describe("nuxt-module - extendLocales", () => {
   let methods: Function[] = [];
-  const moduleObject: NuxtModuleOptions = {
+  const moduleObject: any = {
     options: {
       rootDir: __dirname,
       router: {

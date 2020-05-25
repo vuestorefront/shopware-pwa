@@ -1,11 +1,10 @@
 import jetpack from "fs-jetpack";
 import { invokeRebuild, loadConfig } from "../src/utils";
-import { NuxtModuleOptions } from "../src/interfaces";
 jest.mock("fs-jetpack");
 const mockedJetpack = jetpack as jest.Mocked<typeof jetpack>;
 
 describe("nuxt-module - utils", () => {
-  const moduleObject: NuxtModuleOptions = {
+  const moduleObject: any = {
     options: {
       rootDir: __dirname,
       router: {
