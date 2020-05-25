@@ -1,12 +1,12 @@
 <template>
   <div class="sw-reset-password" @keyup.enter="invokeResetPassword">
-    <div class="form sw-reset-password__form">
+    <div class="form sw-reset-password__form" v-if="!emailSent">
       <!-- <h2 class="sw-reset-password__header">Reset password</h2> -->
       <SfAlert
-        v-if="error"
+        v-if="userError"
         class="sw-reset-password__alert"
         type="danger"
-        :message="error"
+        :message="userError.message"
       />
       <SfInput
         v-model="email"
@@ -24,22 +24,37 @@
         Resend password
       </SfButton>
     </div>
+    <SfHeading
+      v-if="emailSent"
+      title="You should receive a link in a few moments. Please open that link to reset your password."
+      :level="5"
+      class="bottom__heading"
+    />
   </div>
 </template>
 
 <script>
-import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
+import { SfInput, SfButton, SfAlert, SfHeading } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { required, email } from 'vuelidate/lib/validators'
+import {useUser} from '@shopware-pwa/composables';
 
 export default {
   name: 'SwResetPassword',
-  components: { SfButton, SfInput, SfAlert },
+  components: { SfButton, SfInput, SfAlert, SfHeading },
   mixins: [validationMixin],
   data() {
     return {
       email: '',
-      error: ''
+      error: '',
+      emailSent: false
+    }
+  },
+  setup() {
+    const { resetPassword, error: userError } = useUser()
+    return {
+      resetPassword: resetPassword,
+      userError,
     }
   },
   validations: {
@@ -49,9 +64,16 @@ export default {
     }
   },
   methods: {
-    invokeResetPassword() {
+    async invokeResetPassword() {
       this.$v.$touch()
-      this.error = 'Reset password is not implemented yet'
+
+      if (this.$v.$invalid) {
+        return;
+      }
+
+      this.emailSent = await this.resetPassword({
+        email: this.email
+      })
     }
   }
 }

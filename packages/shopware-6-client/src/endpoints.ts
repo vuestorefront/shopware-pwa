@@ -70,6 +70,9 @@ export const getCustomerUpdateEmailEndpoint = () =>
 export const getCustomerUpdatePasswordEndpoint = () =>
   `/store-api/v1/account/change-password`;
 
+export const getCustomerResetPasswordEndpoint = () =>
+  `/store-api/v1/account/recovery-password`;
+
 // checkout
 
 export const getCheckoutCartEndpoint = () =>

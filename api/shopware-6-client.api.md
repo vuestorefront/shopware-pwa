@@ -93,6 +93,14 @@ export interface CustomerRegisterResponse {
 }
 
 // @alpha (undocumented)
+export interface CustomerResetPasswordParam {
+    // (undocumented)
+    email: string;
+    // (undocumented)
+    storefrontUrl?: string;
+}
+
+// @alpha (undocumented)
 export interface CustomerUpdateEmailParam {
     // (undocumented)
     email: string;
@@ -252,6 +260,9 @@ export function register(params: CustomerRegistrationParams): Promise<CustomerRe
 
 // @alpha
 export function removeCartItem(itemId: string): Promise<Cart>;
+
+// @alpha
+export function resetPassword(params: CustomerResetPasswordParam): Promise<void>;
 
 // @alpha
 export function setCurrentBillingAddress(billingAddressId: string): Promise<ContextTokenResponse>;
