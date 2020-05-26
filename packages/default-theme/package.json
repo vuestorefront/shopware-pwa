@@ -18,7 +18,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@storefront-ui/vue": "0.7.11",
+    "@storefront-ui/vue": "0.7.15",
     "currency.js": "^1.2.2",
     "dayjs": "^1.8.25",
     "node-sass": "^4.14.1",
