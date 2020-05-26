@@ -357,7 +357,10 @@ export default {
     }
   }
   &__buttons {
-    margin: calc(var(--spacer-base) * 3) 0 0 0;
+    margin: calc(var(--spacer-base) * 3) 0;
+    @include for-desktop {
+      margin: calc(var(--spacer-base) * 3) 0 0 0;
+    }
   }
   &__button-clear {
     color: #a3a5ad;
