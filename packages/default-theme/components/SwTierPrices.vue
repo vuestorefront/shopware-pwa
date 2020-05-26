@@ -44,7 +44,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .sw-tier-prices {
   margin-top: 20px;
   &__heading {

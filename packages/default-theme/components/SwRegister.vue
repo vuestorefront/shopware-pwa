@@ -302,7 +302,7 @@ export default {
 </style>
 
 //
-<style lang="scss">
+<style lang="scss" scoped>
 // .sf-modal__container {
 //   width: 100% !important;
 //   height: 100% !important;
