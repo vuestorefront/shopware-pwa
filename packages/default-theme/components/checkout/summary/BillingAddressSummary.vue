@@ -11,21 +11,21 @@
         {{ billingAddress.phoneNumber }}
       </p>
     </div>
-    <SfButton
+    <SwButton
       class="sf-button--text review__edit"
       @click="$emit('click:edit', 2)"
-      >Edit</SfButton
+      >Edit</SwButton
     >
   </div>
 </template>
 <script>
-import { SfButton } from '@storefront-ui/vue'
 import { useCheckout } from '@shopware-pwa/composables'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   name: 'BillingAddressSummary',
   components: {
-    SfButton,
+    SwButton,
   },
   setup() {
     const { billingAddress } = useCheckout()

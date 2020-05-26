@@ -106,20 +106,20 @@
           {{ countryOption.name }}
         </SfSelectOption>
       </SfSelect>
-      <SfButton
+      <SwButton
         class="sf-button--full-width form__button"
         :disabled="isLoading"
         @click="invokeRegister"
       >
         Create an account
-      </SfButton>
+      </SwButton>
     </div>
   </div>
 </template>
 
 <script>
 import { computed } from '@vue/composition-api'
-import { SfAlert, SfInput, SfButton, SfSelect } from '@storefront-ui/vue'
+import { SfAlert, SfInput, SfSelect } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength } from 'vuelidate/lib/validators'
 import {
@@ -129,10 +129,11 @@ import {
 } from '@shopware-pwa/composables'
 import { mapCountries, mapSalutations } from '@shopware-pwa/helpers'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   name: 'SwResetPassword',
-  components: { SfButton, SfInput, SfAlert, SfSelect, SwPluginSlot },
+  components: { SwButton, SfInput, SfAlert, SfSelect, SwPluginSlot },
   mixins: [validationMixin],
   data() {
     return {

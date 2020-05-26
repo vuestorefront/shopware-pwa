@@ -46,8 +46,8 @@
             <template v-else>{{ data }}</template>
           </SfTableData>
           <!-- <SfTableData class="orders__view">
-            <SfButton class="sf-button--text mobile-only">Download</SfButton>
-            <SfButton class="sf-button--text desktop-only">VIEW</SfButton>
+            <SwButton class="sf-button--text mobile-only">Download</SwButton>
+            <SwButton class="sf-button--text desktop-only">VIEW</SwButton>
           </SfTableData> -->
         </SfTableRow>
       </SfTable>
@@ -59,15 +59,14 @@ import {
   SfTabs,
   SfList,
   SfDivider,
-  SfTable,
-  SfButton,
+  SfTable
 } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 import { formatDate, formatPrice } from '@shopware-pwa/default-theme/helpers'
 
 export default {
   name: 'OrderHistory',
-  components: { SfTabs, SfList, SfDivider, SfTable, SfButton },
+  components: { SfTabs, SfList, SfDivider, SfTable },
   props: {},
   data() {
     return {

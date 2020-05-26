@@ -3,13 +3,13 @@
     class="cms-element-category-navigation-sidebar-filter sw-navbar navbar section"
   >
     <div class="sw-navbar navbar__main">
-      <SfButton
+      <SwButton
         class="sf-button--text navbar__filters-button"
         @click="isFilterSidebarOpen = true"
       >
         <SfIcon size="14px" icon="filter" style="margin-right: 10px;" />
         Filters
-      </SfButton>
+      </SwButton>
       <div class="navbar__sort desktop-only">
         <span class="navbar__label">Sort by:</span>
         <SfSelect v-model="sortBy" :size="sorting.length" class="sort-by">
@@ -30,7 +30,7 @@
       </div>
       <div class="navbar__view">
         <span class="navbar__view-label desktop-only">View</span>
-        <SfButton
+        <SwButton
           class="sf-button--pure"
           aria-label="Change to grid view"
           :aria-pressed="isGridView.toString()"
@@ -42,8 +42,8 @@
             icon="tiles"
             size="12px"
           />
-        </SfButton>
-        <SfButton
+        </SwButton>
+        <SwButton
           class="sf-button--pure"
           aria-label="Change to list view"
           :aria-pressed="!isGridView.toString()"
@@ -55,7 +55,7 @@
             icon="list"
             size="12px"
           />
-        </SfButton>
+        </SwButton>
       </div>
       <SfSidebar
         title="Filters"
@@ -99,13 +99,13 @@
         </div>
         <template #content-bottom>
           <div class="filters__buttons">
-            <SfButton class="sf-button--full-width" @click="submitFilters()"
-              >Done</SfButton
+            <SwButton class="sf-button--full-width" @click="submitFilters()"
+              >Done</SwButton
             >
-            <SfButton
+            <SwButton
               class="sf-button--full-width filters__button-clear"
               @click="clearAllFilters()"
-              >Clear all</SfButton
+              >Clear all</SwButton
             >
           </div>
         </template>
@@ -116,7 +116,6 @@
 
 <script>
 import {
-  SfButton,
   SfIcon,
   SfSelect,
   SfFilter,
@@ -128,12 +127,13 @@ import {
   useProductListing,
 } from '@shopware-pwa/composables'
 import { getSortingLabel } from '@shopware-pwa/default-theme/helpers'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 const { availableFilters, availableSorting } = useCategoryFilters()
 
 export default {
   name: 'CmsElementCategorySidebarFilter',
   components: {
-    SfButton,
+    SwButton,
     SfIcon,
     SfSelect,
     SfFilter,

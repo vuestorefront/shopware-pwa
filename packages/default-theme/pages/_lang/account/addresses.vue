@@ -11,9 +11,9 @@
             with each order.
           </p>
           <sw-address-list @editAddress="editAddress" />
-          <SfButton class="action-button" @click="changeAddress">
+          <SwButton class="action-button" @click="changeAddress">
             Add new address
-          </SfButton>
+          </SwButton>
         </SfTab>
       </SfTabs>
       <SfTabs v-else>
@@ -24,14 +24,15 @@
   </div>
 </template>
 <script>
-import { SfTabs, SfButton } from '@storefront-ui/vue'
+import { SfTabs } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 import SwAddressList from '@shopware-pwa/default-theme/components/SwAddressList.vue'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   name: 'MyAddresses',
   components: {
-    SfButton,
+    SwButton,
     SfTabs,
     SwAddressList
   },

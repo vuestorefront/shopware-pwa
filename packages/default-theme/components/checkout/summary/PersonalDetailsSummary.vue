@@ -7,15 +7,15 @@
         {{ email }}
       </p>
     </div>
-    <SfButton
+    <SwButton
       class="sf-button--text review__edit"
       @click="$emit('click:edit', CHECKOUT_STEPS.PERSONAL_DETAILS)"
-      >Edit</SfButton
+      >Edit</SwButton
     >
   </div>
 </template>
 <script>
-import { SfButton } from '@storefront-ui/vue'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 import { usePersonalDetailsStep } from '@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep'
 import { CHECKOUT_STEPS } from '@shopware-pwa/default-theme/logic/checkout'
 import { useCheckout, useUser } from '@shopware-pwa/composables'
@@ -24,7 +24,7 @@ import { computed } from '@vue/composition-api'
 export default {
   name: 'PersonalDetailsSummary',
   components: {
-    SfButton,
+    SwButton,
   },
   setup() {
     const { firstName, lastName, email } = usePersonalDetailsStep()

@@ -95,7 +95,6 @@
 import {
   SfHeading,
   SfInput,
-  SfButton,
   SfSelect,
   SfRadio,
 } from '@storefront-ui/vue'
@@ -113,7 +112,6 @@ export default {
   components: {
     SfHeading,
     SfInput,
-    SfButton,
     SfSelect,
     SfRadio,
   },

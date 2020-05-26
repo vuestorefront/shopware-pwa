@@ -1,22 +1,22 @@
 <template>
   <div class="success-page" :key="$route.fullPath">
     <a :href="paymentUrl" v-if="paymentUrl">
-      <SfButton>
+      <SwButton>
         Pay for your order
-      </SfButton>
+      </SwButton>
     </a>
     <SfHeading
       title="Thank you"
       subtitle="for shopping with us!"
       class="success-page__heading"
     />
-    <SfButton @click="$router.push($i18n.path('/'))">
+    <SwButton @click="$router.push($i18n.path('/'))">
       <SfIcon icon="chevron_left" color="white" size="20px" />Return to homepage
-    </SfButton>
+    </SwButton>
   </div>
 </template>
 <script>
-import { SfButton, SfHeading, SfIcon } from '@storefront-ui/vue'
+import { SfHeading, SfIcon } from '@storefront-ui/vue'
 import { getOrderPaymentUrl } from '@shopware-pwa/shopware-6-client'
 import {
   ref,
@@ -24,12 +24,13 @@ import {
   onMounted,
   computed,
 } from '@vue/composition-api'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   name: 'SuccessPage',
   components: {
     SfHeading,
-    SfButton,
+    SwButton,
     SfIcon,
   },
   data() {
