@@ -50,8 +50,10 @@
           :aria-label="$t('Search for products')"
           class="sf-header__search desktop-only"
           v-model="currentQuery"
+          @keyup.native="performSuggestSearch"
           @enter="performSearch"
         />
+        total found {{suggestResultTotal}}
       </template>
       <template #header-icons="{accountIcon, cartIcon}">
         <div class="sf-header__icons desktop-only">
@@ -130,7 +132,7 @@ import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
 import { PAGE_ACCOUNT, PAGE_LOGIN } from '@shopware-pwa/default-theme/helpers/pages'
 import SwLanguageSwitcher from '@shopware-pwa/default-theme/components/SwLanguageSwitcher'
 import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
-import { ref, reactive, onMounted, watch } from '@vue/composition-api'
+import { ref, reactive, onMounted, watch, computed } from '@vue/composition-api'
 import { getCategoryUrl } from '@shopware-pwa/helpers'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 import { getAvailableLanguages } from '@shopware-pwa/shopware-6-client'
@@ -160,12 +162,13 @@ export default {
     const { count } = useCart()
     const { toggleSidebar } = useCartSidebar()
     const { toggleModal } = useUserLoginModal()
-    const { currentQuery } = useProductSearch()
+    const { suggestSearch, suggestedProductListingResult, currentQuery } = useProductSearch()
     const { fetchNavigationElements, navigationElements } = useNavigation()
     const { currentLocale } = useLocales()
 
     const currentCategoryName = ref(null)
-
+    const suggestResultProducts = computed(() => suggestedProductListingResult.value && suggestedProductListingResult.value.elements)
+    const suggestResultTotal = computed(() => suggestedProductListingResult.value && suggestedProductListingResult.value.total)
     onMounted(() => {
       watch(currentLocale, async () => {
         try {
@@ -182,10 +185,13 @@ export default {
       toggleSidebar,
       isLoggedIn,
       logout,
-      currentQuery,
       navigationElements,
       getCategoryUrl,
       currentCategoryName,
+      suggestSearch,
+      currentQuery,
+      suggestResultTotal,
+      suggestResultProducts
     }
   },
   data() {
@@ -201,6 +207,12 @@ export default {
     }
   },
   methods: {
+    performSuggestSearch(event) {
+      const searchTerm = event.target.value;
+      if (typeof searchTerm === "string" && searchTerm.length > 0) {
+        this.suggestSearch(searchTerm)
+      }
+    },
     performSearch(searchTerm) {
       if (typeof searchTerm === "string" && searchTerm.length > 0) {
         window.location.href = `${window.location.origin}${getSearchPageUrl(searchTerm)}`;

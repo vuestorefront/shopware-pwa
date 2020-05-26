@@ -1,14 +1,15 @@
 <template>
   <div class="search-page">
-    <div class="search-page__main">
+    <SfLoader :loading="isLoading">
+    <div class="search-page__main" v-if="cmsListingContent">
       <h3>search results for <strong>{{ currentQuery }}</strong>:</h3>
-
       <CmsElementProductListing v-if="cmsListingContent" :content="cmsListingContent"/>
     </div>
+    </SfLoader>
   </div>
 </template>
 <script>
-import { SfButton, SfHeading, SfIcon } from '@storefront-ui/vue'
+import { SfButton, SfHeading, SfIcon, SfLoader } from '@storefront-ui/vue'
 import { useProductListing, useProductSearch } from '@shopware-pwa/composables'
 import {
   ref,
@@ -26,28 +27,29 @@ export default {
     SfHeading,
     SfButton,
     SfIcon,
+    SfLoader,
     CmsElementProductListing
   },
   setup() {
     const vm = getCurrentInstance()
     const searchQuery = computed(() => vm.$route.query.query)
     const searchResultListing = ref(null);
+    const isLoading = ref(true);
     const cmsListingContent = computed(() => searchResultListing.value && ({data: { listing: searchResultListing.value} }))
     const { search, currentQuery } = useProductSearch()
 
     onBeforeMount(async () => {
       searchResultListing.value = await search(searchQuery.value);
+      isLoading.value = false;
     })
 
     return {
       cmsListingContent,
       searchResultListing,
-      currentQuery
+      currentQuery,
+      isLoading
     }
-    
-    
   }
-  
 }
 </script>
 <style lang="scss">
@@ -58,6 +60,10 @@ export default {
     max-width: 1272px;
     margin: 0 auto;
     padding: 0 var(--spacer-base);
+  }
+
+  .sf-loader {
+    min-height: 50vh;
   }
 
   &__main {

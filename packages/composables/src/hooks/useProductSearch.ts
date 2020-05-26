@@ -5,6 +5,8 @@ import {
   getResults,
 } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
+
 
 /**
  * @alpha
@@ -27,15 +29,18 @@ export const useProductSearch = (): UseProductSearch => {
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
   const localSharedSearch = reactive(sharedSearch);
+  const suggestedProductListingResult: Ref<ProductListingResult | null> = ref(null);
 
   const suggestSearch = async (
     term: string,
     searchCriteria?: SearchCriteria
   ): Promise<any> => {
+    console.warn('suggestSearch', term);
     const suggestedProductListing = await getSuggestedResults(
       term,
       searchCriteria
     );
+    suggestedProductListingResult.value = suggestedProductListing || []
     return suggestedProductListing;
   };
 
@@ -49,12 +54,16 @@ export const useProductSearch = (): UseProductSearch => {
     return result;
   };
 
-  const currentQuery = computed(() => localSharedSearch.query);
+  const currentQuery = computed({
+    get: () => localSharedSearch.query,
+    set: (query) => {}
+  });
 
   return {
     suggestSearch,
     search,
     currentQuery,
+    suggestedProductListingResult,
     loading,
     error,
   };

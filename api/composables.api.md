@@ -213,6 +213,8 @@ export interface UseProductSearch {
     error: Ref<any>;
     // (undocumented)
     loading: Ref<boolean>;
+    // (undocumented)
+    suggestSearch: (term: string) => Promise<any>;
 }
 
 // @alpha (undocumented)
