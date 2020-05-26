@@ -40,6 +40,9 @@ export interface ShopwareParams {
   manufacturer?: string; // store-api filters
 }
 
+/**
+ * @param apiType - depending on api type, the output should be different (especially sorting and filters part)
+ **/
 export const convertSearchCriteria = (
   searchCriteria?: SearchCriteria,
   apiType?: ApiType

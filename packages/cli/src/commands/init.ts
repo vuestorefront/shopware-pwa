@@ -116,7 +116,7 @@ module.exports = {
     generateFilesSpinner.succeed();
 
     // generate plugin files
-    await toolbox.createPluginsTemplate()
+    await toolbox.createPluginsTemplate();
     await toolbox.runtime.run(`plugins`, inputParameters);
     await toolbox.runtime.run(`cms`);
     await toolbox.createCmsTemplate(); // generate template for user CMS folder

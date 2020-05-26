@@ -30,6 +30,7 @@
         <div key="holder" class="cms-element-product-listing__place-holder" />
       </transition-group>
       <SfPagination
+        v-if="pagination && pagination.currentPage"
         class="cms-element-product-listing__pagination"
         :current="pagination.currentPage"
         :total="Math.ceil(pagination.total / pagination.perPage)"

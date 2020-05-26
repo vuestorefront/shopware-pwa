@@ -25,10 +25,7 @@ export interface UseCurrency {
  * @alpha
  */
 export const useCurrency = (): UseCurrency => {
-  const {
-    currency,
-    setCurrency: setContextCurrency,
-  } = useSessionContext();
+  const { currency, setCurrency: setContextCurrency } = useSessionContext();
   const { refreshCart } = useCart();
   const localState: { availableCurrencies: Currency[] } = reactive(
     sharedCurrencyState

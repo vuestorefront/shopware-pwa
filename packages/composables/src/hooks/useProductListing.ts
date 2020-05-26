@@ -39,7 +39,7 @@ const sharedListing = Vue.observable({
 } as any);
 
 const selectedCriteria = Vue.observable({
-  pagination: null,
+  pagination: {},
   propertyIds: [],
   filters: {},
   sorting: "",

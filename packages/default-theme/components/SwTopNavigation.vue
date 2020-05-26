@@ -49,7 +49,8 @@
           :placeholder="$t('Search for products')"
           :aria-label="$t('Search for products')"
           class="sf-header__search desktop-only"
-          @enter="fulltextSearch"
+          v-model="currentQuery"
+          @enter="performSearch"
         />
       </template>
       <template #header-icons="{accountIcon, cartIcon}">
@@ -134,6 +135,7 @@ import { getCategoryUrl } from '@shopware-pwa/helpers'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 import { getAvailableLanguages } from '@shopware-pwa/shopware-6-client'
 import { useLocales } from '@shopware-pwa/default-theme/logic'
+import { getSearchPageUrl } from '@shopware-pwa/default-theme/helpers'
 
 export default {
   components: {
@@ -158,7 +160,7 @@ export default {
     const { count } = useCart()
     const { toggleSidebar } = useCartSidebar()
     const { toggleModal } = useUserLoginModal()
-    const { search: fulltextSearch } = useProductSearch()
+    const { currentQuery } = useProductSearch()
     const { fetchNavigationElements, navigationElements } = useNavigation()
     const { currentLocale } = useLocales()
 
@@ -180,7 +182,7 @@ export default {
       toggleSidebar,
       isLoggedIn,
       logout,
-      fulltextSearch,
+      currentQuery,
       navigationElements,
       getCategoryUrl,
       currentCategoryName,
@@ -199,6 +201,11 @@ export default {
     }
   },
   methods: {
+    performSearch(searchTerm) {
+      if (typeof searchTerm === "string" && searchTerm.length > 0) {
+        window.location.href = `${window.location.origin}${getSearchPageUrl(searchTerm)}`;
+      }
+    },
     userIconClick() {
       if (this.isLoggedIn) this.isDropdownOpen = !this.isDropdownOpen
       else this.toggleModal()
