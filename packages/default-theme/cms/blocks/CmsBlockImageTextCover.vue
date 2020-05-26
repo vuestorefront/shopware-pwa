@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~@storefront-ui/vue/styles.scss';
+@import '@/assets/scss/variables';
 
 .cms-block-image-text-cover {
   display: flex;

@@ -91,7 +91,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import '@/assets/scss/variables';
 
 #checkout {
   @include for-desktop {

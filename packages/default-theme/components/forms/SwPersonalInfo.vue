@@ -210,7 +210,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles.scss';
+@import '@/assets/scss/variables';
 
 .form {
   @include for-desktop {
