@@ -60,6 +60,7 @@ export default {
   left: 0;
   width: 100%;
   top: 100%;
+  background: var(--c-white);
   &__content {
     flex-wrap: wrap;
     display: flex;

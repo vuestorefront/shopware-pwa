@@ -12,7 +12,7 @@
       />
     </SwPluginSlot>
     <nuxt />
-    <SwCart />
+    <SwCart v-if="isSidebarOpen" />
     <SwPluginSlot name="footer-before" />
     <SwFooter />
     <SwPluginSlot name="footer-after" />
@@ -25,9 +25,17 @@
 import { SfBreadcrumbs } from '@storefront-ui/vue'
 import SwTopNavigation from '@shopware-pwa/default-theme/components/SwTopNavigation'
 import SwBottomNavigation from '@shopware-pwa/default-theme/components/SwBottomNavigation'
-import SwCart from '@shopware-pwa/default-theme/components/SwCart'
 import SwFooter from '@shopware-pwa/default-theme/components/SwFooter'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+import { useCms, useCartSidebar } from '@shopware-pwa/composables'
+import {
+  computed,
+  getCurrentInstance,
+  ref,
+  watchEffect,
+} from '@vue/composition-api'
+const SwCart = () =>
+  import('@shopware-pwa/default-theme/components/SwCart')
 
 export default {
   components: {
@@ -38,30 +46,32 @@ export default {
     SwBottomNavigation,
     SwPluginSlot,
   },
-  computed: {
-    componentBreadcrumbs() {
-      // TODO probably move to vuex now as it's not rendered on server side
-      return (
-        this.$route.matched
-          .map((r) => {
-            return (
-              r.components.default.options.data &&
-              r.components.default.options.data().breadcrumbs
-            )
-          })
-          .shift() || {}
-      )
-    },
-    getBreadcrumbs() {
-      return Object.keys(this.componentBreadcrumbs)
-        .map((key) => this.componentBreadcrumbs[key])
-        .map((breadcrumb) => ({
-          text: breadcrumb.name,
-          route: {
-            link: breadcrumb.path,
-          },
-        }))
-    },
+  setup() {
+    const vm = getCurrentInstance()
+    const { breadcrumbsObject } = useCms()
+    const { isSidebarOpen } = useCartSidebar()
+
+    // Load cart component only when needed
+    const loadSidebarComponent = ref(isSidebarOpen.value)
+    const stopWatcher = watchEffect(() => {
+      if (isSidebarOpen.value) {
+        loadSidebarComponent.value = isSidebarOpen.value
+        stopWatcher()
+      }
+    })
+
+    const getBreadcrumbs = computed(() =>
+      Object.values(breadcrumbsObject.value).map((breadcrumb) => ({
+        text: breadcrumb.name,
+        route: {
+          link: vm.$i18n.path(breadcrumb.path),
+        },
+      }))
+    )
+    return {
+      getBreadcrumbs,
+      isSidebarOpen: loadSidebarComponent,
+    }
   },
   methods: {
     redirectTo(route) {
