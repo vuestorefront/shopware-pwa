@@ -95,7 +95,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import '@/assets/scss/variables';
 
 .title {
   --heading-padding: var(--spacer-base) 0;
