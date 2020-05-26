@@ -76,7 +76,7 @@ export default {
       margin: 0;
     }
     @include for-desktop {
-      flex: 0 0 50%;
+      flex: 0 1 50%;
       margin: 0 var(--spacer-base) 0 0;
       &:last-child {
         margin: 0;
