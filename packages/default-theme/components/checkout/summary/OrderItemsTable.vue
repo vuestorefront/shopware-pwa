@@ -48,7 +48,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/variables';
 .product-sku {
   color: var(--c-text-muted);

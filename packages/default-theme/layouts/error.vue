@@ -68,7 +68,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/variables';
 .error-page {
   box-sizing: border-box;

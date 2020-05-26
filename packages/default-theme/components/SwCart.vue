@@ -1,5 +1,5 @@
 <template>
-  <div id="cart">
+  <div class="sw-side-cart">
     <SfSidebar
       :title="$t('My cart')"
       :visible="isSidebarOpen"
@@ -85,9 +85,10 @@ import { useCart, useCartSidebar } from '@shopware-pwa/composables'
 import SwCartProduct from '@shopware-pwa/default-theme/components/SwCartProduct'
 import { PAGE_CHECKOUT } from '@shopware-pwa/default-theme/helpers/pages'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+import { computed, onMounted, ref } from '@vue/composition-api'
 
 export default {
-  name: 'Cart',
+  name: 'SwCart',
   components: {
     SfSidebar,
     SfButton,
@@ -101,8 +102,18 @@ export default {
   setup() {
     const { cartItems, count, totalPrice, removeProduct } = useCart()
     const { isSidebarOpen, toggleSidebar } = useCartSidebar()
+
+    // Component is lazy loaded so to allow animation on first load it needs to be done after it is mounted
+    const isComponentMounted = ref(false)
+    onMounted(() => {
+      isComponentMounted.value = true
+    })
+    const sidebarState = computed(
+      () => isSidebarOpen.value && isComponentMounted.value
+    )
+
     return {
-      isSidebarOpen,
+      isSidebarOpen: sidebarState,
       toggleSidebar,
       cartItems,
       count,
@@ -120,7 +131,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/assets/scss/variables';
-#cart {
+
+.sw-side-cart {
   --sidebar-z-index: 4;
   & > * {
     --sidebar-content-padding: 0 var(--spacer-xs) var(--spacer-xs)
