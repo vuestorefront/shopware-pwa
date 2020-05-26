@@ -49,7 +49,7 @@ export default {
 }
 </script>
 <style lang="scss">
-@import '~@storefront-ui/vue/styles';
+@import '@/assets/scss/variables';
 .product-sku {
   color: var(--c-text-muted);
 }

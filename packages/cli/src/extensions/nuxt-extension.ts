@@ -125,6 +125,19 @@ module.exports = (toolbox: GluegunToolbox) => {
       });
     }
 
+    // Add global SCSS file to config
+    const isGlobalScssFileAdded = await toolbox.patching.exists(
+      "nuxt.config.js",
+      `~assets/scss/main.scss`
+    );
+    if (!isGlobalScssFileAdded) {
+      await toolbox.patching.patch("nuxt.config.js", {
+        insert: `
+    '~assets/scss/main.scss',`,
+        after: "css: [",
+      });
+    }
+
     // ignore .yalc
     const yalcIgnoreExist = await toolbox.patching.exists(
       ".gitignore",
@@ -166,6 +179,24 @@ module.exports = (toolbox: GluegunToolbox) => {
       await toolbox.template.generate({
         template: "Dockerfile",
         target: `Dockerfile`,
+        props: {},
+      });
+    }
+
+    const isMainScssFileCreated = exists("./assets/scss/main.scss");
+    if (!isMainScssFileCreated) {
+      await toolbox.template.generate({
+        template: "main.scss",
+        target: `./assets/scss/main.scss`,
+        props: {},
+      });
+    }
+
+    const isVariablesScssFileCreated = exists("./assets/scss/variables.scss");
+    if (!isVariablesScssFileCreated) {
+      await toolbox.template.generate({
+        template: "variables.scss",
+        target: `./assets/scss/variables.scss`,
         props: {},
       });
     }

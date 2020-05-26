@@ -108,7 +108,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import '@/assets/scss/variables';
 
 .summary {
   margin: 0 calc(var(--spacer-base) * -1);
