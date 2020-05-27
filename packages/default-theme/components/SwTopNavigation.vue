@@ -279,6 +279,7 @@ export default {
   }
   .dropdown {
     --dropdown-width: auto;
+    --dropdown-transform: translate(-10%, 100%);
     &__item {
       &:hover {
         color: var(--c-link-hover);
