@@ -1,5 +1,6 @@
 <template>
   <SfProductCardHorizontal
+    v-model="quantity"
     :title="getName"
     :image="getImageUrl"
     :special-price="getSpecialPrice | price"
