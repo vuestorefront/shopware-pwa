@@ -18,9 +18,9 @@ export declare function onConfigChange(fn: (context: ConfigChangedArgs) => void)
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  fn | <code>(context: ConfigChangedArgs) =&gt; void</code> |  |
+|  fn | (context: [ConfigChangedArgs](./shopware-6-client.configchangedargs.md)<!-- -->) =&gt; void |  |
 
 <b>Returns:</b>
 
-`void`
+void
 

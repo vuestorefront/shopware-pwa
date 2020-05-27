@@ -196,7 +196,7 @@ export default {
       return true
     },
     isGridView() {
-      return this.$store.state.isGridView
+      return !!this.$store.state.isGridView
     },
   },
   watch: {

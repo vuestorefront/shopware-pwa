@@ -21,11 +21,11 @@ export declare function invokeGet({ address }: {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { address } | <code>{</code><br/><code>    address: string;</code><br/><code>}</code> |  |
+|  { address } | { address: string; } |  |
 
 <b>Returns:</b>
 
-`Promise<any>`
+Promise&lt;any&gt;
 
 ## Exceptions
 

@@ -22,11 +22,11 @@ export declare function login({ username, password, }?: {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { username, password, } | <code>{</code><br/><code>    username?: string;</code><br/><code>    password?: string;</code><br/><code>}</code> |  |
+|  { username, password, } | { username?: string; password?: string; } |  |
 
 <b>Returns:</b>
 
-`Promise<ContextTokenResponse>`
+Promise&lt;ContextTokenResponse&gt;
 
 ## Exceptions
 

@@ -1,39 +1,6 @@
 <template>
   <div class="summary">
-    <div class="summary__group">
-      <SfHeading
-        title="Totals"
-        :level="2"
-        class="sf-heading--left sf-heading--no-underline summary__title mobile-only"
-      />
-      <div class="summary__total">
-        <SfProperty
-          name="Subtotal"
-          :value="subtotal | price"
-          class="sf-property--full-width summary__property"
-        >
-        </SfProperty>
-        <SfProperty
-          name="Shipping"
-          :value="0"
-          class="sf-property--full-width summary__property"
-        >
-        </SfProperty>
-        <SfProperty
-          name="Total price"
-          :value="total | price"
-          class="sf-property--full-width summary__property summary__property-total"
-        >
-        </SfProperty>
-      </div>
-      <SfCheckbox v-model="terms" name="terms" class="summary__terms">
-        <template #label>
-          <div class="sf-checkbox__label">
-            I agree to <a href="#">Terms and conditions</a>
-          </div>
-        </template>
-      </SfCheckbox>
-    </div>
+    <SwTotals :total="total" :subtotal="subtotal" />
     <div class="notification" v-if="!cartItems.length">
       <SfNotification
         :visible="true"
@@ -66,6 +33,7 @@
 </template>
 <script>
 import { useCart } from '@shopware-pwa/composables'
+import SwTotals from '@shopware-pwa/default-theme/components/SwTotals'
 import helpers from '@shopware-pwa/default-theme/helpers'
 
 import {
@@ -84,6 +52,7 @@ export default {
     SfCheckbox,
     SwButton,
     SfNotification,
+    SwTotals,
   },
   data() {
     return {

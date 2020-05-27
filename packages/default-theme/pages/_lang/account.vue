@@ -17,7 +17,7 @@
         </SfContentPage>
       </SfContentCategory>
       <SfContentCategory :title="$t('Order details')">
-        <SfContentPage :title="$tc('Order history', user && user.orderCount)">
+        <SfContentPage :title="$tc('Order history', ordersCount)">
           <nuxt-child />
         </SfContentPage>
       </SfContentCategory>
@@ -26,6 +26,7 @@
   </div>
 </template>
 <script>
+import { computed, onBeforeMount } from '@vue/composition-api';
 import { SfContentPages, SfTabs } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 import { PAGE_LOGIN } from '@shopware-pwa/default-theme/helpers/pages'
@@ -41,7 +42,8 @@ export default {
   middleware: authMiddleware,
   setup() {
     const { logout, user, loadOrders, orders } = useUser()
-    return { logout, user, loadOrders, orders }
+    const ordersCount = computed(() => user.value && user.value.orderCount)
+    return { logout, user, loadOrders, orders, ordersCount }
   },
   data() {
     return {
@@ -105,6 +107,7 @@ export default {
         var(--spacer-sm) var(--spacer-sm) var(--spacer-base);
     }
     @include for-desktop {
+      --content-pages-sidebar-flex: 0 0 20rem;
       --content-pages-sidebar-category-title-margin: var(--spacer-xl) 0 0 0;
       --content-pages-sidebar-padding: var(--spacer-xl);
       --content-pages-content-padding: var(--spacer-xl);
