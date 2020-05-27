@@ -49,7 +49,7 @@ export default {
       return this.content?.config?.verticalAlign?.value
     },
   },
-  render(createElement, context) {
+  render(createElement) {
     const _c = Object.assign({}, this.config)
     _c.textTransformer = this.$entitiesDecoder
     return renderHtml(this.rawHtml, _c, createElement)
