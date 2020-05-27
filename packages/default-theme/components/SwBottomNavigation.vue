@@ -34,20 +34,20 @@
         class="menu-button"
       >
         <template #icon>
-          <SfIcon icon="profile" size="20px" @click="userIconClick"/>
-          <SfSelect
-            class="menu-button__select"
-            v-if="isLoggedIn"
-          >
+          <SfIcon icon="profile" size="20px" @click="userIconClick" />
+          <SfSelect v-if="isLoggedIn" class="menu-button__select">
             <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
-            <SfSelectOption :value="getPageAccount" @click.native="goToMyAccount">
-                My account
+            <SfSelectOption
+              :value="getPageAccount"
+              @click.native="goToMyAccount"
+            >
+              My account
             </SfSelectOption>
             <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
             <SfSelectOption :value="'logout'">
-                <SfButton @click="logoutUser">
-                  Logout
-                </SfButton>
+              <SwButton class="sf-button--full-width" @click="logoutUser">
+                Logout
+              </SwButton>
             </SfSelectOption>
           </SfSelect>
         </template>
@@ -63,12 +63,12 @@
         :is-floating="true"
       >
         <template #icon>
-          <SfCircleIcon 
-            aria-label="Go to Cart" 
-            @click="toggleSidebar" 
-            icon="empty_cart" 
+          <SfCircleIcon
+            aria-label="Go to Cart"
+            icon="empty_cart"
             :has-badge="count > 0"
             :badge-label="count.toString()"
+            @click="toggleSidebar"
           />
         </template>
       </SfBottomNavigationItem>
@@ -83,18 +83,17 @@ import {
   SfIcon,
   SfSelect,
   SfProductOption,
-  SfButton
 } from '@storefront-ui/vue'
 import {
-  useCartSidebar,
+  useUIState,
   useNavigation,
   useUser,
   useCart,
-  useUserLoginModal,
 } from '@shopware-pwa/composables'
-import { PAGE_ACCOUNT, PAGE_LOGIN } from '../helpers/pages'
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
 import { onMounted } from '@vue/composition-api'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import { PAGE_ACCOUNT, PAGE_LOGIN } from '../helpers/pages'
 
 export default {
   name: 'SwBottomNavigation',
@@ -105,7 +104,7 @@ export default {
     SfSelect,
     SfProductOption,
     SwCurrency,
-    SfButton
+    SwButton,
   },
   data() {
     return {
@@ -114,9 +113,11 @@ export default {
     }
   },
   setup() {
-    const { toggleSidebar, isSidebarOpen } = useCartSidebar()
+    const { switchState: toggleSidebar, isOpen: isSidebarOpen } = useUIState(
+      'CART_SIDEBAR_STATE'
+    )
     const { routes, fetchRoutes } = useNavigation()
-    const { toggleModal } = useUserLoginModal()
+    const { switchState: toggleModal } = useUIState('LOGIN_MODAL_STATE')
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
 
@@ -134,25 +135,24 @@ export default {
       isSidebarOpen,
       toggleSidebar,
       toggleModal,
-      count
+      count,
     }
+  },
+  computed: {
+    getPageAccount() {
+      return PAGE_ACCOUNT
+    },
   },
   watch: {
     currentRoute(nextRoute) {
       this.$router.push(this.$i18n.path(nextRoute.routeLabel))
     },
   },
-  computed: {
-    getPageAccount() {
-      return PAGE_ACCOUNT
-    }
-  },
   methods: {
     userIconClick() {
       if (this.isLoggedIn) {
         this.$router.push(this.$i18n.path(PAGE_ACCOUNT))
-        return
-      }
+      } else this.toggleModal()
     },
     goToMyAccount() {
       this.$router.push(this.$i18n.path(PAGE_ACCOUNT))
@@ -160,7 +160,7 @@ export default {
     async logoutUser() {
       await this.logout()
       this.$router.push(this.$i18n.path('/'))
-    }
+    },
   },
 }
 </script>

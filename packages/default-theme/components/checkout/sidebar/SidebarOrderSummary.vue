@@ -56,7 +56,7 @@ import {
   SfCharacteristic,
   SfInput,
 } from '@storefront-ui/vue'
-import { useCart, useCartSidebar } from '@shopware-pwa/composables'
+import { useCart } from '@shopware-pwa/composables'
 export default {
   name: 'SidebarOrderSummary',
   components: {
@@ -108,7 +108,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import '@/assets/scss/variables';
 .title {
   --heading-title-margin: 0 0 var(--spacer-xl) 0;
 }

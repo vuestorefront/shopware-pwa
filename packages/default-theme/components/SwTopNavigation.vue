@@ -75,17 +75,28 @@
               :has-badge="isLoggedIn"
               @click="userIconClick"
             />
-            <SfDropdown class="dropdown" :is-open="isDropdownOpen" @click:close="isDropdownOpen = false">
+            <SfDropdown
+              class="dropdown"
+              :is-open="isDropdownOpen"
+              @click:close="isDropdownOpen = false"
+            >
               <SfList>
                 <SfListItem>
-                  <nuxt-link class="sf-button sf-button--full-width sf-button--underlined color-primary" :to="getPageAccount">
+                  <nuxt-link
+                    class="sf-button sf-button--full-width sf-button--underlined color-primary"
+                    :to="getPageAccount"
+                    @click.native="isDropdownOpen = false"
+                  >
                     My account
                   </nuxt-link>
                 </SfListItem>
                 <SfListItem>
-                  <SfButton class="sf-button sf-button--full-width sf-button--underlined color-primary dropdown__item" @click="logoutUser()">
+                  <SwButton
+                    class="sf-button sf-button--full-width sf-button--underlined color-primary dropdown__item"
+                    @click="logoutUser()"
+                  >
                     Logout
-                  </SfButton>
+                  </SwButton>
                 </SfListItem>
               </SfList>
             </SfDropdown>
@@ -117,7 +128,6 @@ import {
   SfImage,
   SfSearchBar,
   SfList,
-  SfButton,
   SfDropdown,
   SfOverlay,
   SfTopBar,
@@ -126,14 +136,16 @@ import {
 import {
   useUser,
   useCart,
-  useCartSidebar,
-  useUserLoginModal,
+  useUIState,
   useNavigation,
   useProductSearch,
 } from '@shopware-pwa/composables'
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
-import { PAGE_ACCOUNT, PAGE_LOGIN } from '@shopware-pwa/default-theme/helpers/pages'
+import {
+  PAGE_ACCOUNT,
+  PAGE_LOGIN,
+} from '@shopware-pwa/default-theme/helpers/pages'
 import SwLanguageSwitcher from '@shopware-pwa/default-theme/components/SwLanguageSwitcher'
 import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
 import { ref, reactive, onMounted, watch, computed } from '@vue/composition-api'
@@ -142,6 +154,7 @@ import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 import { getAvailableLanguages } from '@shopware-pwa/shopware-6-client'
 import { useLocales } from '@shopware-pwa/default-theme/logic'
 import { getSearchPageUrl } from '@shopware-pwa/default-theme/helpers'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   components: {
@@ -151,14 +164,13 @@ export default {
     SfSearchBar,
     SfDropdown,
     SfList,
-    SfButton,
     SwMegaMenu,
     SfOverlay,
     SfTopBar,
     SwCurrency,
     SwLanguageSwitcher,
     SfIcon,
-    SfButton,
+    SwButton,
     SwPluginSlot,
   },
   setup() {
@@ -167,6 +179,9 @@ export default {
     const { toggleSidebar } = useCartSidebar()
     const { toggleModal } = useUserLoginModal()
     const { suggestSearch, suggestedProductListingResult, currentQuery } = useProductSearch()
+    const { switchState: toggleSidebar } = useUIState('CART_SIDEBAR_STATE')
+    const { switchState: toggleModal } = useUIState('LOGIN_MODAL_STATE')
+    const { search: fulltextSearch } = useProductSearch()
     const { fetchNavigationElements, navigationElements } = useNavigation()
     const { currentLocale } = useLocales()
 
@@ -202,13 +217,13 @@ export default {
     return {
       activeIcon: '',
       isModalOpen: false,
-      isDropdownOpen: false
+      isDropdownOpen: false,
     }
   },
   computed: {
     getPageAccount() {
       return this.$i18n.path(PAGE_ACCOUNT)
-    }
+    },
   },
   methods: {
     performSuggestSearch(event) {
@@ -228,14 +243,15 @@ export default {
     },
     async logoutUser() {
       await this.logout()
+      this.isDropdownOpen = false
       this.$router.push(this.$i18n.path('/'))
-    }
+    },
   },
 }
 </script>
 
-<style lang="scss">
-@import '~@storefront-ui/vue/styles.scss';
+<style lang="scss" scoped>
+@import '@/assets/scss/variables';
 
 .suggest-search-result {
   display: flex;
@@ -257,10 +273,10 @@ export default {
   }
   .sf-header {
     &__currency {
+      --select-dropdown-z-index: 2;
       position: relative;
       margin: 0 var(--spacer-base) 0 var(--spacer-base);
-      --select-padding: var(--spacer-xs);
-      --select-dropdown-z-index: 2;
+      width: 2.5rem;
       &::before {
         content: '';
         display: block;
@@ -283,23 +299,20 @@ export default {
     }
   }
   @include for-desktop {
-    .sf-header {
+    ::v-deep .sf-header {
       display: flex;
       justify-content: space-between;
       &__sticky-container {
         width: 100%;
       }
       &__navigation {
-        flex: 1;
-      }
-      &__link {
-        display: flex;
-        align-items: center;
+        flex: 0 0 calc(100% - 20rem);
       }
     }
   }
   .dropdown {
-    --dropdown-width: auto; 
+    --dropdown-width: auto;
+    --dropdown-transform: translate(-10%, 100%);
     &__item {
       &:hover {
         color: var(--c-link-hover);

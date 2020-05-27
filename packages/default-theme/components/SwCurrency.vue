@@ -1,13 +1,13 @@
 <template>
   <!-- TODO: change this if after onMounted hook here is resolved -->
   <div
-    class="sw-currency"
     v-if="activeCurrency && availableCurrencies.length > 1"
+    class="sw-currency"
   >
     <SfSelect
       v-model="activeCurrency"
       :size="availableCurrencies.length"
-      class="sw-currency__select"
+      class="sw-currency__select sf-select--no-chevron"
       @click="loadAvailableCurrencies"
     >
       <SfSelectOption
@@ -62,16 +62,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import '@/assets/scss/variables';
 
 .sw-currency {
+  --select-padding: 0;
+  --select-margin: 0;
+  --select-selected-padding: 0 var(--spacer-xs);
+  --select-selected-justify-content: center;
   text-align: center;
-  &__select {
-    --select-margin: 0;
-    --chevron-size: 0;
-    --select-option-font-size: var(--font-base);
-    --select-selected-padding: 0.5rem;
-    cursor: pointer;
-  }
+  cursor: pointer;
 }
 </style>

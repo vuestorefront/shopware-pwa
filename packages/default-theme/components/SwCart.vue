@@ -1,5 +1,5 @@
 <template>
-  <div id="cart">
+  <div class="sw-side-cart">
     <SfSidebar
       :title="$t('My cart')"
       :visible="isSidebarOpen"
@@ -55,17 +55,20 @@
                 <SfPrice :regular="totalPrice | price" class="sf-price--big" />
               </template>
             </SfProperty>
-            <SfButton
+            <SwButton
               class="sf-button--full-width color-secondary"
               @click="goToCheckout()"
-              >{{ $t('Go to checkout') }}</SfButton
+              >{{ $t('Go to checkout') }}</SwButton
             >
             <SwPluginSlot name="sidecart-checkout-button-after" />
           </div>
           <div v-else>
-            <SfButton class="sf-button--full-width color-primary">
+            <SwButton
+              class="sf-button--full-width color-primary"
+              @click="toggleSidebar"
+            >
               {{ $t('Start shopping') }}
-            </SfButton>
+            </SwButton>
           </div>
         </transition>
       </template>
@@ -75,34 +78,47 @@
 <script>
 import {
   SfSidebar,
-  SfButton,
   SfProperty,
   SfPrice,
   SfHeading,
   SfImage,
 } from '@storefront-ui/vue'
-import { useCart, useCartSidebar } from '@shopware-pwa/composables'
+import { useCart, useUIState } from '@shopware-pwa/composables'
 import SwCartProduct from '@shopware-pwa/default-theme/components/SwCartProduct'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 import { PAGE_CHECKOUT } from '@shopware-pwa/default-theme/helpers/pages'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+import { computed, onMounted, ref } from '@vue/composition-api'
 
 export default {
-  name: 'Cart',
+  name: 'SwCart',
   components: {
     SfSidebar,
-    SfButton,
     SfHeading,
     SfImage,
     SfProperty,
     SfPrice,
     SwCartProduct,
     SwPluginSlot,
+    SwButton,
   },
   setup() {
     const { cartItems, count, totalPrice, removeProduct } = useCart()
-    const { isSidebarOpen, toggleSidebar } = useCartSidebar()
+    const { isOpen: isSidebarOpen, switchState: toggleSidebar } = useUIState(
+      'CART_SIDEBAR_STATE'
+    )
+
+    // Component is lazy loaded so to allow animation on first load it needs to be done after it is mounted
+    const isComponentMounted = ref(false)
+    onMounted(() => {
+      isComponentMounted.value = true
+    })
+    const sidebarState = computed(
+      () => isSidebarOpen.value && isComponentMounted.value
+    )
+
     return {
-      isSidebarOpen,
+      isSidebarOpen: sidebarState,
       toggleSidebar,
       cartItems,
       count,
@@ -119,8 +135,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
-#cart {
+@import '@/assets/scss/variables';
+
+.sw-side-cart {
   --sidebar-z-index: 4;
   & > * {
     --sidebar-content-padding: 0 var(--spacer-xs) var(--spacer-xs)

@@ -87,9 +87,6 @@ export const useAddToCart: (product: Product) => UseAddToCart;
 export const useCart: () => any;
 
 // @alpha (undocumented)
-export const useCartSidebar: () => any;
-
-// @alpha (undocumented)
 export const useCategoryFilters: () => any;
 
 // @beta (undocumented)
@@ -258,6 +255,12 @@ export interface UseSessionContext {
 // @alpha (undocumented)
 export const useSessionContext: () => UseSessionContext;
 
+// @beta
+export const useUIState: (stateName?: string | undefined) => {
+    isOpen: Readonly<Ref<boolean>>;
+    switchState: (to?: boolean | undefined) => void;
+};
+
 // @alpha (undocumented)
 export interface UseUser {
     // (undocumented)
@@ -318,9 +321,6 @@ export interface UseUser {
 
 // @alpha (undocumented)
 export const useUser: () => UseUser;
-
-// @alpha (undocumented)
-export const useUserLoginModal: () => any;
 
 // @alpha (undocumented)
 export interface VuelidateValidation {

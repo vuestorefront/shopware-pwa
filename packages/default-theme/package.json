@@ -18,14 +18,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@nuxtjs/axios": "^5.10.1",
-    "@nuxtjs/pwa": "^3.0.0-beta.20",
-    "@storefront-ui/vue": "0.7.11",
-    "@vue/composition-api": "^0.5.0",
+    "@storefront-ui/vue": "0.7.15",
     "currency.js": "^1.2.2",
     "dayjs": "^1.8.25",
-    "husky": "^4.2.5",
+    "node-sass": "^4.14.1",
     "nuxt": "^2.12.2",
+    "sass-loader": "^8.0.2",
     "vue-i18n": "^8.17.7",
     "vuelidate": "^0.7.5"
   },
@@ -34,6 +32,7 @@
     "@nuxtjs/eslint-config": "^2.0.2",
     "@nuxtjs/eslint-module": "^1.1.0",
     "@vue-storefront/nuxt": "^0.0.3",
+    "@vue/composition-api": "^0.5.0",
     "@vue/test-utils": "^1.0.0-beta.33",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.4.0",
@@ -44,7 +43,7 @@
     "jest": "^25.4.0",
     "lint-staged": "^10.1.7",
     "prettier": "^2.0.5",
-    "snyk": "^1.316.1",
+    "snyk": "^1.328.0",
     "vue-jest": "^4.0.0-0"
   },
   "publishConfig": {

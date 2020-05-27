@@ -16,7 +16,7 @@ import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
 import authMiddleware from '@shopware-pwa/default-theme/middleware/auth'
 
 export default {
-  name: 'Login',
+  name: 'LoginPage',
   components: {
     SwLogin,
     SfHeading,
@@ -34,7 +34,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles.scss';
+@import '@/assets/scss/variables';
 #login {
   height: 65vh;
   margin-bottom: 10vh;
