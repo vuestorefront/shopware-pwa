@@ -13,7 +13,7 @@ const sharedUIState: any = {};
  */
 export const useUIState = (
   stateName?: string
-): { isOpen: Readonly<Ref<boolean>>; toggleState: () => void } => {
+): { isOpen: Readonly<Ref<boolean>>; switchState: (to?: boolean) => void } => {
   if (stateName && !sharedUIState[stateName]) {
     sharedUIState[stateName] = Vue.observable({ state: false } as any);
   }
@@ -23,16 +23,19 @@ export const useUIState = (
 
   const isOpen = computed(() => localMappedState?.state || localState.value);
 
-  function toggleState() {
+  function switchState(to?: boolean) {
     if (stateName) {
-      sharedUIState[stateName].state = !sharedUIState[stateName].state;
+      const stateToChange =
+        to !== undefined ? !!to : !sharedUIState[stateName].state;
+      sharedUIState[stateName].state = stateToChange;
     } else {
-      localState.value = !localState.value;
+      const stateToChange = to !== undefined ? !!to : !localState.value;
+      localState.value = stateToChange;
     }
   }
 
   return {
     isOpen,
-    toggleState,
+    switchState,
   };
 };

@@ -256,7 +256,7 @@ export const useSessionContext: () => UseSessionContext;
 // @beta
 export const useUIState: (stateName?: string | undefined) => {
     isOpen: Readonly<Ref<boolean>>;
-    toggleState: () => void;
+    switchState: (to?: boolean | undefined) => void;
 };
 
 // @alpha (undocumented)

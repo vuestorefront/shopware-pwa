@@ -206,7 +206,7 @@ export default {
     }
   },
   setup() {
-    const { toggleState: toggleLoginModal } = useUIState('LOGIN_MODAL_STATE')
+    const { switchState: toggleLoginModal } = useUIState('LOGIN_MODAL_STATE')
 
     const {
       validations,

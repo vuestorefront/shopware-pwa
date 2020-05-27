@@ -80,12 +80,12 @@ export default {
   },
   setup() {
     const { login, loading, error } = useUser()
-    const { isOpen, toggleState } = useUIState('LOGIN_MODAL_STATE')
+    const { isOpen, switchState } = useUIState('LOGIN_MODAL_STATE')
 
     return {
       clientLogin: login,
       isLoading: loading,
-      toggleModal: toggleState,
+      toggleModal: switchState,
       isModalOpen: isOpen,
       error,
     }

@@ -5,7 +5,6 @@ export const state = () => ({
   sessionContext: null,
   locales: ['en-GB', 'de-DE'],
   locale: 'en-GB',
-  isGridView: true,
 })
 
 export const mutations = {
@@ -26,14 +25,11 @@ export const mutations = {
       state.locale = locale
     }
   },
-  SET_IS_GRID_VIEW(state, flag) {
-    state.isGridView = flag
-  },
 }
 
 export const getters = {
   getCart: (state) => state.cart,
   getPage: (state) => state.page,
   getUser: (state) => state.user,
-  getSessionContext: (state) => state.sessionContext
+  getSessionContext: (state) => state.sessionContext,
 }

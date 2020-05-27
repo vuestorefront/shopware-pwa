@@ -11,17 +11,28 @@ describe("Composables - useUIState", () => {
     });
 
     it("should change UI state", () => {
-      const { isOpen, toggleState } = useUIState();
-      toggleState();
+      const { isOpen, switchState } = useUIState();
+      switchState();
       expect(isOpen.value).toEqual(true);
     });
 
     it("should change only local state", () => {
-      const { isOpen, toggleState } = useUIState();
+      const { isOpen, switchState } = useUIState();
       const { isOpen: isOpen2 } = useUIState();
-      toggleState();
+      switchState();
       expect(isOpen.value).toEqual(true);
       expect(isOpen2.value).toEqual(false);
+    });
+
+    it("should change state to desired", () => {
+      const { isOpen, switchState } = useUIState();
+      expect(isOpen.value).toEqual(false);
+      switchState();
+      expect(isOpen.value).toEqual(true);
+      switchState(true);
+      expect(isOpen.value).toEqual(true);
+      switchState(false);
+      expect(isOpen.value).toEqual(false);
     });
   });
 
@@ -32,12 +43,28 @@ describe("Composables - useUIState", () => {
     });
 
     it("should change UI state in multiple instances", () => {
-      const { isOpen, toggleState } = useUIState("some-test-key2");
+      const { isOpen, switchState } = useUIState("some-test-key2");
       const { isOpen: isOpen2 } = useUIState("some-test-key2");
       expect(isOpen.value).toEqual(false);
-      toggleState();
+      switchState();
       expect(isOpen.value).toEqual(true);
       expect(isOpen2.value).toEqual(true);
+    });
+
+    it("should change shared instande to desired state", () => {
+      const { isOpen, switchState } = useUIState("some-test-key3");
+      const { isOpen: isOpen2 } = useUIState("some-test-key3");
+      expect(isOpen.value).toEqual(false);
+      expect(isOpen2.value).toEqual(false);
+      switchState();
+      expect(isOpen.value).toEqual(true);
+      expect(isOpen2.value).toEqual(true);
+      switchState(true);
+      expect(isOpen.value).toEqual(true);
+      expect(isOpen2.value).toEqual(true);
+      switchState(false);
+      expect(isOpen.value).toEqual(false);
+      expect(isOpen2.value).toEqual(false);
     });
   });
 });

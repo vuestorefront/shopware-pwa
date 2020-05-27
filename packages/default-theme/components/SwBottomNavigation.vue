@@ -113,11 +113,11 @@ export default {
     }
   },
   setup() {
-    const { toggleState: toggleSidebar, isOpen: isSidebarOpen } = useUIState(
+    const { switchState: toggleSidebar, isOpen: isSidebarOpen } = useUIState(
       'CART_SIDEBAR_STATE'
     )
     const { routes, fetchRoutes } = useNavigation()
-    const { toggleState: toggleModal } = useUIState('LOGIN_MODAL_STATE')
+    const { switchState: toggleModal } = useUIState('LOGIN_MODAL_STATE')
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
 

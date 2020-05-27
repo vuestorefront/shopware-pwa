@@ -14,6 +14,6 @@ Simple state management for UI purposes. If you pase `stateName` on composable i
 ```typescript
 useUIState: (stateName?: string | undefined) => {
     isOpen: Readonly<Ref<boolean>>;
-    toggleState: () => void;
+    switchState: (to?: boolean | undefined) => void;
 }
 ```

@@ -104,7 +104,7 @@ export default {
   },
   setup() {
     const { cartItems, count, totalPrice, removeProduct } = useCart()
-    const { isOpen: isSidebarOpen, toggleState: toggleSidebar } = useUIState(
+    const { isOpen: isSidebarOpen, switchState: toggleSidebar } = useUIState(
       'CART_SIDEBAR_STATE'
     )
 

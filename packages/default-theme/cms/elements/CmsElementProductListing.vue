@@ -9,7 +9,7 @@
         class="cms-element-product-listing__list"
         :class="{ 'cms-element-product-listing__list--blur': loading }"
       >
-        <template v-if="isGridView">
+        <template v-if="!isListView">
           <SwProductCard
             v-for="(product, i) in products"
             :key="product.id"
@@ -49,7 +49,7 @@
 import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
 import SwProductCardHorizontal from '@shopware-pwa/default-theme/components/SwProductCardHorizontal'
 import { SfPagination, SfHeading, SfLoader } from '@storefront-ui/vue'
-import { useProductListing } from '@shopware-pwa/composables'
+import { useProductListing, useUIState } from '@shopware-pwa/composables'
 export default {
   name: 'CmsElementProductListing',
   components: {
@@ -74,6 +74,8 @@ export default {
       loading,
     } = useProductListing(listing)
 
+    const { isOpen: isListView } = useUIState('PRODUCT_LISTING_STATE')
+
     const changedPage = async (pageNumber) => {
       await changePagination(pageNumber)
     }
@@ -83,12 +85,8 @@ export default {
       changedPage,
       pagination,
       loading,
+      isListView,
     }
-  },
-  computed: {
-    isGridView() {
-      return this.$store.state.isGridView
-    },
   },
 }
 </script>
