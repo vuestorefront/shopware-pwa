@@ -10,3 +10,9 @@
 |  --- | --- |
 |  [UseCheckout](./composables.usecheckout.md) | <b><i>(BETA)</i></b> |
 
+## Variables
+
+|  Variable | Description |
+|  --- | --- |
+|  [useUIState](./composables.useuistate.md) | <b><i>(BETA)</i></b> Simple state management for UI purposes. If you pase <code>stateName</code> on composable invocation (ex. <code>useUIState('sidebarCart')</code>), then state is shared between all instances with this key. Otherwise state is local, so multiple <code>useUIState()</code> will not share state |
+

@@ -153,7 +153,7 @@ import {
   useUser,
   useSalutations,
   useCountries,
-  useUserLoginModal,
+  useUIState,
 } from '@shopware-pwa/composables'
 import {
   usePersonalDetailsStep,
@@ -206,7 +206,7 @@ export default {
     }
   },
   setup() {
-    const { toggleModal: toggleLoginModal } = useUserLoginModal()
+    const { switchState: toggleLoginModal } = useUIState('LOGIN_MODAL_STATE')
 
     const {
       validations,

@@ -83,7 +83,7 @@ import {
   SfHeading,
   SfImage,
 } from '@storefront-ui/vue'
-import { useCart, useCartSidebar } from '@shopware-pwa/composables'
+import { useCart, useUIState } from '@shopware-pwa/composables'
 import SwCartProduct from '@shopware-pwa/default-theme/components/SwCartProduct'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 import { PAGE_CHECKOUT } from '@shopware-pwa/default-theme/helpers/pages'
@@ -104,7 +104,9 @@ export default {
   },
   setup() {
     const { cartItems, count, totalPrice, removeProduct } = useCart()
-    const { isSidebarOpen, toggleSidebar } = useCartSidebar()
+    const { isOpen: isSidebarOpen, switchState: toggleSidebar } = useUIState(
+      'CART_SIDEBAR_STATE'
+    )
 
     // Component is lazy loaded so to allow animation on first load it needs to be done after it is mounted
     const isComponentMounted = ref(false)

@@ -85,11 +85,10 @@ import {
   SfProductOption,
 } from '@storefront-ui/vue'
 import {
-  useCartSidebar,
+  useUIState,
   useNavigation,
   useUser,
   useCart,
-  useUserLoginModal,
 } from '@shopware-pwa/composables'
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
 import { onMounted } from '@vue/composition-api'
@@ -114,9 +113,11 @@ export default {
     }
   },
   setup() {
-    const { toggleSidebar, isSidebarOpen } = useCartSidebar()
+    const { switchState: toggleSidebar, isOpen: isSidebarOpen } = useUIState(
+      'CART_SIDEBAR_STATE'
+    )
     const { routes, fetchRoutes } = useNavigation()
-    const { toggleModal } = useUserLoginModal()
+    const { switchState: toggleModal } = useUIState('LOGIN_MODAL_STATE')
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
 

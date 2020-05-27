@@ -252,7 +252,12 @@ export function onConfigChange(fn: (context: ConfigChangedArgs) => void): void;
 // @alpha (undocumented)
 export interface PageResolverResult<T> {
     // (undocumented)
-    breadcrumb: any[];
+    breadcrumb: {
+        [id: string]: {
+            name: string;
+            path: string;
+        };
+    };
     // (undocumented)
     cmsPage: T;
     // (undocumented)

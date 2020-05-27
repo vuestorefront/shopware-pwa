@@ -33,12 +33,12 @@
         <SwButton
           class="sf-button--pure"
           aria-label="Change to grid view"
-          :aria-pressed="isGridView.toString()"
-          @click="setGridView(true)"
+          :aria-pressed="!isListView.toString()"
+          @click="switchToListView(false)"
         >
           <SfIcon
             class="navbar__view-icon"
-            :color="isGridView ? '#1D1F22' : '#BEBFC4'"
+            :color="!isListView ? '#1D1F22' : '#BEBFC4'"
             icon="tiles"
             size="12px"
           />
@@ -46,12 +46,12 @@
         <SwButton
           class="sf-button--pure"
           aria-label="Change to list view"
-          :aria-pressed="!isGridView.toString()"
-          @click="setGridView(false)"
+          :aria-pressed="isListView.toString()"
+          @click="switchToListView(true)"
         >
           <SfIcon
             class="navbar__view-icon"
-            :color="!isGridView ? '#1D1F22' : '#BEBFC4'"
+            :color="isListView ? '#1D1F22' : '#BEBFC4'"
             icon="list"
             size="12px"
           />
@@ -125,6 +125,7 @@ import {
 import {
   useCategoryFilters,
   useProductListing,
+  useUIState,
 } from '@shopware-pwa/composables'
 import { getSortingLabel } from '@shopware-pwa/default-theme/helpers'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
@@ -157,6 +158,10 @@ export default {
       productsTotal,
     } = useProductListing()
 
+    const { isOpen: isListView, switchState: switchToListView } = useUIState(
+      'PRODUCT_LISTING_STATE'
+    )
+
     return {
       toggleFilter,
       changeSorting,
@@ -165,6 +170,8 @@ export default {
       selectedFilters,
       resetFilters,
       productsTotal,
+      isListView,
+      switchToListView,
     }
   },
   data() {
@@ -195,9 +202,6 @@ export default {
     lazyLoad() {
       return true
     },
-    isGridView() {
-      return !!this.$store.state.isGridView
-    },
   },
   watch: {
     sortBy(newSorting, oldOne) {
@@ -219,9 +223,6 @@ export default {
     },
     getSortLabel(sorting) {
       return getSortingLabel(sorting)
-    },
-    setGridView(flag) {
-      this.$store.commit('SET_IS_GRID_VIEW', flag)
     },
   },
 }
