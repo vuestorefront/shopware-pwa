@@ -37,7 +37,6 @@
                 <nuxt-link
                   v-if="item.route && item.name"
                   :to="$i18n.path(getCategoryUrl(item))"
-                  )
                 >
                   <SfMenuItem :label="item.name" />
                 </nuxt-link>
