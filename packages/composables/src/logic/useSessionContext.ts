@@ -83,7 +83,7 @@ export const useSessionContext = (): UseSessionContext => {
       );
     }
     await setCurrentCurrency(currency.id);
-    await refreshSessionContext();
+    refreshSessionContext();
   };
 
   return {

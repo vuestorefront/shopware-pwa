@@ -33,7 +33,6 @@
 <script>
 import {
   SfHeading,
-  SfButton,
   SfInput,
   SfCircleIcon,
   SfCharacteristic,
@@ -47,7 +46,6 @@ export default {
   name: 'SidebarOrderReview',
   components: {
     SfHeading,
-    SfButton,
     SfInput,
     SfCircleIcon,
     SfCharacteristic,
@@ -82,7 +80,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import '@/assets/scss/variables';
 
 .review {
   box-sizing: border-box;

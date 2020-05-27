@@ -37,8 +37,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
-@import '~@storefront-ui/vue/styles.scss';
+<style lang="scss" scoped>
+@import '@/assets/scss/variables';
 
 .cms-block-image-three-column {
   display: flex;

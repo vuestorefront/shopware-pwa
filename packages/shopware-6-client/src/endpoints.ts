@@ -70,6 +70,9 @@ export const getCustomerUpdateEmailEndpoint = () =>
 export const getCustomerUpdatePasswordEndpoint = () =>
   `/store-api/v1/account/change-password`;
 
+export const getCustomerResetPasswordEndpoint = () =>
+  `/store-api/v1/account/recovery-password`;
+
 // checkout
 
 export const getCheckoutCartEndpoint = () =>
@@ -112,8 +115,16 @@ export const getContextCountryItemEndpoint = (countryId: string): string =>
 export const getContextPaymentMethodEndpoint = () =>
   `/store-api/v1/payment-method`;
 
+export const getContextPaymentMethodDetailsEndpoint = (
+  paymentId: string
+): string => `/sales-channel-api/v1/payment-method/${paymentId}`;
+
 export const getContextShippingMethodEndpoint = () =>
   `/store-api/v1/shipping-method`;
+
+export const getContextShippingMethodDetailsEndpoint = (
+  shippingId: string
+): string => `/sales-channel-api/v1/shipping-method/${shippingId}`;
 
 export const getContextSalutationEndpoint = () => `/store-api/v1/salutation`;
 

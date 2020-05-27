@@ -95,7 +95,6 @@
 import {
   SfHeading,
   SfInput,
-  SfButton,
   SfSelect,
   SfRadio,
 } from '@storefront-ui/vue'
@@ -113,7 +112,6 @@ export default {
   components: {
     SfHeading,
     SfInput,
-    SfButton,
     SfSelect,
     SfRadio,
   },
@@ -175,7 +173,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import '@/assets/scss/variables';
 .form {
   &__group {
     display: flex;

@@ -1,13 +1,13 @@
 <template>
   <!-- TODO: change this if after onMounted hook here is resolved -->
   <div
-    class="sw-currency"
     v-if="activeCurrency && availableCurrencies.length > 1"
+    class="sw-currency"
   >
     <SfSelect
       v-model="activeCurrency"
       :size="availableCurrencies.length"
-      class="sw-currency__select"
+      class="sw-currency__select sf-select--no-chevron"
       @click="loadAvailableCurrencies"
     >
       <SfSelectOption
@@ -23,7 +23,7 @@
 <script>
 import { SfSelect, SfProductOption } from '@storefront-ui/vue'
 import { useCurrency } from '@shopware-pwa/composables'
-import { computed, onMounted } from '@vue/composition-api'
+import { computed, onMounted, getCurrentInstance } from '@vue/composition-api'
 
 export default {
   name: 'SwCurrency',
@@ -37,6 +37,7 @@ export default {
       loadAvailableCurrencies,
       availableCurrencies,
     } = useCurrency()
+    const vm = getCurrentInstance()
 
     // TODO: loaded on mounted only untill fixed issue: https://github.com/DivanteLtd/storefront-ui/issues/1097
     onMounted(async () => {
@@ -45,7 +46,12 @@ export default {
 
     const activeCurrency = computed({
       get: () => currency.value && currency.value.id,
-      set: async (id) => await setCurrency({ id }),
+      set: async (id) => {
+        await setCurrency({ id })
+        vm.$router.push({
+          query: { ...vm.$router.currentRoute.query, currencyId: id },
+        })
+      },
     })
     return {
       availableCurrencies,
@@ -53,27 +59,17 @@ export default {
       loadAvailableCurrencies,
     }
   },
-  watch: {
-    activeCurrency(val) {
-      // re're invoking page reload by adding/changing currenctId in query params
-      this.$router.push({
-        query: { ...this.$router.currentRoute.query, curencyId: val },
-      })
-    },
-  },
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import '@/assets/scss/variables';
 
 .sw-currency {
+  --select-padding: 0;
+  --select-margin: 0;
+  --select-selected-padding: 0 var(--spacer-xs);
+  --select-selected-justify-content: center;
   text-align: center;
-  &__select {
-    --select-margin: 0;
-    --chevron-size: 0;
-    --select-option-font-size: var(--font-base);
-    --select-selected-padding: .5rem;
-    cursor: pointer;
-  }
+  cursor: pointer;
 }
 </style>

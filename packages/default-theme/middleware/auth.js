@@ -14,11 +14,13 @@ const PAGES_FOR_LOGGED_IN_ONLY = [
  * 2. Redirect to /login otherwise (always force logout on /login route)
  */
 export default async function({ route, redirect }) {
-  const { isLoggedIn, logout } = useUser()
+  const { isLoggedIn, logout, refreshUser } = useUser()
 
   if (route.name === LOGIN_ROUTE_NAME) {
     await logout()
   }
+
+  await refreshUser();
 
   if (
     PAGES_FOR_LOGGED_IN_ONLY.includes(route.name) &&

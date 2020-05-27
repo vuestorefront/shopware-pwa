@@ -103,7 +103,6 @@
 import {
   SfHeading,
   SfInput,
-  SfButton,
   SfSelect,
   SfRadio,
   SfImage,
@@ -123,7 +122,6 @@ export default {
   components: {
     SfHeading,
     SfInput,
-    SfButton,
     SfSelect,
     SfRadio,
     SfImage,
@@ -178,7 +176,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import '@/assets/scss/variables';
 
 .form {
   margin-top: var(--spacer-base);

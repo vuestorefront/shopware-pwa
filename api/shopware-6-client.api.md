@@ -93,6 +93,14 @@ export interface CustomerRegisterResponse {
 }
 
 // @alpha (undocumented)
+export interface CustomerResetPasswordParam {
+    // (undocumented)
+    email: string;
+    // (undocumented)
+    storefrontUrl?: string;
+}
+
+// @alpha (undocumented)
 export interface CustomerUpdateEmailParam {
     // (undocumented)
     email: string;
@@ -194,6 +202,9 @@ export function getOrderPaymentUrl({ orderId, finishUrl, }: {
 // @alpha (undocumented)
 export function getPage(path: string, searchCriteria?: SearchCriteria): Promise<PageResolverResult<CmsPage>>;
 
+// @alpha (undocumented)
+export function getPaymentMethodDetails(paymentId: string): Promise<PaymentMethod>;
+
 // @alpha
 export function getProduct(productId: string, params?: any): Promise<Product>;
 
@@ -205,6 +216,9 @@ export const getProductsIds: () => Promise<SearchResult<string[]>>;
 
 // @alpha
 export function getSessionContext(): Promise<SessionContext>;
+
+// @alpha (undocumented)
+export function getShippingMethodDetails(shippingId: string): Promise<ShippingMethod>;
 
 // @alpha (undocumented)
 export function getUserCountry(countryId: string): Promise<Country>;
@@ -252,6 +266,9 @@ export function register(params: CustomerRegistrationParams): Promise<CustomerRe
 
 // @alpha
 export function removeCartItem(itemId: string): Promise<Cart>;
+
+// @alpha
+export function resetPassword(params: CustomerResetPasswordParam): Promise<void>;
 
 // @alpha
 export function setCurrentBillingAddress(billingAddressId: string): Promise<ContextTokenResponse>;

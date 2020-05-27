@@ -68,17 +68,27 @@
               :has-badge="isLoggedIn"
               @click="userIconClick"
             />
-            <SfDropdown class="dropdown" :is-open="isDropdownOpen" @click:close="isDropdownOpen = false">
+            <SfDropdown
+              class="dropdown"
+              :is-open="isDropdownOpen"
+              @click:close="isDropdownOpen = false"
+            >
               <SfList>
                 <SfListItem>
-                  <nuxt-link class="sf-button sf-button--full-width sf-button--underlined color-primary" :to="getPageAccount">
+                  <nuxt-link
+                    class="sf-button sf-button--full-width sf-button--underlined color-primary"
+                    :to="getPageAccount"
+                  >
                     My account
                   </nuxt-link>
                 </SfListItem>
                 <SfListItem>
-                  <SfButton class="sf-button sf-button--full-width sf-button--underlined color-primary dropdown__item" @click="logoutUser()">
+                  <SwButton
+                    class="sf-button sf-button--full-width sf-button--underlined color-primary dropdown__item"
+                    @click="logoutUser()"
+                  >
                     Logout
-                  </SfButton>
+                  </SwButton>
                 </SfListItem>
               </SfList>
             </SfDropdown>
@@ -110,7 +120,6 @@ import {
   SfImage,
   SfSearchBar,
   SfList,
-  SfButton,
   SfDropdown,
   SfOverlay,
   SfTopBar,
@@ -126,7 +135,10 @@ import {
 } from '@shopware-pwa/composables'
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
-import { PAGE_ACCOUNT, PAGE_LOGIN } from '@shopware-pwa/default-theme/helpers/pages'
+import {
+  PAGE_ACCOUNT,
+  PAGE_LOGIN,
+} from '@shopware-pwa/default-theme/helpers/pages'
 import SwLanguageSwitcher from '@shopware-pwa/default-theme/components/SwLanguageSwitcher'
 import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
 import { ref, reactive, onMounted, watch } from '@vue/composition-api'
@@ -134,6 +146,7 @@ import { getCategoryUrl } from '@shopware-pwa/helpers'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 import { getAvailableLanguages } from '@shopware-pwa/shopware-6-client'
 import { useLocales } from '@shopware-pwa/default-theme/logic'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   components: {
@@ -143,14 +156,13 @@ export default {
     SfSearchBar,
     SfDropdown,
     SfList,
-    SfButton,
     SwMegaMenu,
     SfOverlay,
     SfTopBar,
     SwCurrency,
     SwLanguageSwitcher,
     SfIcon,
-    SfButton,
+    SwButton,
     SwPluginSlot,
   },
   setup() {
@@ -190,13 +202,13 @@ export default {
     return {
       activeIcon: '',
       isModalOpen: false,
-      isDropdownOpen: false
+      isDropdownOpen: false,
     }
   },
   computed: {
     getPageAccount() {
       return this.$i18n.path(PAGE_ACCOUNT)
-    }
+    },
   },
   methods: {
     userIconClick() {
@@ -206,13 +218,13 @@ export default {
     async logoutUser() {
       await this.logout()
       this.$router.push(this.$i18n.path('/'))
-    }
+    },
   },
 }
 </script>
 
-<style lang="scss">
-@import '~@storefront-ui/vue/styles.scss';
+<style lang="scss" scoped>
+@import '@/assets/scss/variables';
 
 .top-navigation {
   --search-bar-width: 100%;
@@ -224,10 +236,10 @@ export default {
   }
   .sf-header {
     &__currency {
+      --select-dropdown-z-index: 2;
       position: relative;
       margin: 0 var(--spacer-base) 0 var(--spacer-base);
-      --select-padding: var(--spacer-xs);
-      --select-dropdown-z-index: 2;
+      width: 2.5rem;
       &::before {
         content: '';
         display: block;
@@ -266,7 +278,7 @@ export default {
     }
   }
   .dropdown {
-    --dropdown-width: auto; 
+    --dropdown-width: auto;
     &__item {
       &:hover {
         color: var(--c-link-hover);
