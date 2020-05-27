@@ -151,7 +151,7 @@ export default {
     userIconClick() {
       if (this.isLoggedIn) {
         this.$router.push(this.$i18n.path(PAGE_ACCOUNT))
-      }
+      } else this.toggleModal()
     },
     goToMyAccount() {
       this.$router.push(this.$i18n.path(PAGE_ACCOUNT))
