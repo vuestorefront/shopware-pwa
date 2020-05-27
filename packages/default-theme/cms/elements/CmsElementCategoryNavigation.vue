@@ -13,17 +13,14 @@
         >
           <template #header="{header, isOpen, accordionClick}">
             <div class="cms-element-category-navigation__menu-item">
-              <nuxt-link
-                :to="getCategoryUrl(accordion.route)"
-                
-              >
+              <nuxt-link :to="$i18n.path(getCategoryUrl(accordion))">
                 <SwButton
                   :aria-pressed="isOpen.toString()"
                   :aria-expanded="isOpen.toString()"
                   :class="{ 'sf-accordion-item__header--open': isOpen }"
                   class="sf-button--pure sf-accordion-item__header"
                 >
-                {{ header }}
+                  {{ header }}
                 </SwButton>
               </nuxt-link>
               <SfChevron
@@ -33,13 +30,13 @@
                 @click.native="accordionClick"
               />
             </div>
-        </template>
+          </template>
           <template v-if="accordion.children.length > 0">
             <SfList>
               <SfListItem v-for="item in accordion.children" :key="item.id">
                 <nuxt-link
                   v-if="item.route && item.name"
-                  :to="$i18n.path(getCategoryUrl(item.route))"
+                  :to="$i18n.path(getCategoryUrl(item))"
                 >
                   <SfMenuItem :label="item.name" />
                 </nuxt-link>
@@ -49,7 +46,7 @@
           <template v-else>
             <nuxt-link
               v-if="accordion.route && accordion.name"
-              :to="$i18n.path(getCategoryUrl(accordion.route))"
+              :to="$i18n.path(getCategoryUrl(accordion))"
             >
               See {{ accordion.name }}
             </nuxt-link>
@@ -61,10 +58,17 @@
 </template>
 
 <script>
-import { SfList, SfAccordion, SfMenuItem, SfHeading, SfChevron } from '@storefront-ui/vue'
+import {
+  SfList,
+  SfAccordion,
+  SfMenuItem,
+  SfHeading,
+  SfChevron,
+} from '@storefront-ui/vue'
 import { getNavigation } from '@shopware-pwa/shopware-6-client'
 import { useCms } from '@shopware-pwa/composables'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import { getCategoryUrl } from '@shopware-pwa/helpers'
 
 export default {
   components: {
@@ -73,7 +77,7 @@ export default {
     SfMenuItem,
     SfHeading,
     SfChevron,
-    SwButton
+    SwButton,
   },
   name: 'CmsElementCategoryNavigation',
   props: {
@@ -85,7 +89,7 @@ export default {
   setup() {
     const { categoryId } = useCms()
 
-    return { categoryId }
+    return { categoryId, getCategoryUrl }
   },
   data() {
     return {
@@ -104,11 +108,6 @@ export default {
       rootNode: this.categoryId,
     })
     this.navigationElements = children
-  },
-  methods: {
-    getCategoryUrl(route) {
-      return route.path || ''
-    },
   },
 }
 </script>
