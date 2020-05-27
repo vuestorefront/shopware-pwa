@@ -4,10 +4,11 @@
 
 <script>
 export default {
-  name: 'OrderHistory';
+  name: 'OrderHistory'
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/scss/variables';
-</script>
+
+</style>
