@@ -53,7 +53,9 @@
           @keyup.native="performSuggestSearch"
           @enter="performSearch"
         />
-        total found {{suggestResultTotal}}
+        <div id="suggest-search-result" v-if="suggestResultTotal">
+          total found {{suggestResultTotal}}
+        </div>
       </template>
       <template #header-icons="{accountIcon, cartIcon}">
         <div class="sf-header__icons desktop-only">
