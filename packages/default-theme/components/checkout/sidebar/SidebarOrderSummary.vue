@@ -56,7 +56,7 @@ import {
   SfCharacteristic,
   SfInput,
 } from '@storefront-ui/vue'
-import { useCart, useCartSidebar } from '@shopware-pwa/composables'
+import { useCart } from '@shopware-pwa/composables'
 export default {
   name: 'SidebarOrderSummary',
   components: {

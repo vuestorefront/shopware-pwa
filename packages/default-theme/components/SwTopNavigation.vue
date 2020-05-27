@@ -128,8 +128,7 @@ import {
 import {
   useUser,
   useCart,
-  useCartSidebar,
-  useUserLoginModal,
+  useUIState,
   useNavigation,
   useProductSearch,
 } from '@shopware-pwa/composables'
@@ -168,8 +167,8 @@ export default {
   setup() {
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
-    const { toggleSidebar } = useCartSidebar()
-    const { toggleModal } = useUserLoginModal()
+    const { toggleState: toggleSidebar } = useUIState('CART_SIDEBAR_STATE')
+    const { toggleState } = useUIState('LOGIN_MODAL_STATE')
     const { search: fulltextSearch } = useProductSearch()
     const { fetchNavigationElements, navigationElements } = useNavigation()
     const { currentLocale } = useLocales()
@@ -188,7 +187,7 @@ export default {
 
     return {
       count,
-      toggleModal,
+      toggleModal: toggleState,
       toggleSidebar,
       isLoggedIn,
       logout,
