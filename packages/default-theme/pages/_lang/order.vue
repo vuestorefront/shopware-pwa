@@ -1,9 +1,9 @@
 <template>
-  <div class="success-page" :key="$route.fullPath">
+  <div class="order-page" :key="$route.fullPath">
     <SfHeading
       title="Thank you"
       subtitle="for shopping with us!"
-      class="success-page__heading"
+      class="order-page__heading"
     />
     <SfDivider />
     <SwOrderDetails :order-id="orderId" />
@@ -26,7 +26,7 @@ import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 import SwOrderDetails from '@shopware-pwa/default-theme/components/SwOrderDetails'
 
 export default {
-  name: 'SuccessPage',
+  name: 'OrderPage',
   components: {
     SfHeading,
     SwButton,
@@ -50,7 +50,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/variables';
 
-.success-page {
+.order-page {
   min-height: 50vh;
   display: flex;
   flex-direction: column;

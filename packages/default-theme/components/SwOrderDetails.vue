@@ -76,6 +76,7 @@ import {
 } from '@shopware-pwa/helpers'
 import { getShippingMethodDetails, getPaymentMethodDetails, getOrderPaymentUrl } from '@shopware-pwa/shopware-6-client'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import { PAGE_ORDER_SUCCESS } from '@shopware-pwa/default-theme/helpers/pages'
 
 
 export default {
@@ -158,7 +159,7 @@ export default {
         shippingMethod.value = await getShippingMethodDetails(shippingMethodId.value)
         const resp = await getOrderPaymentUrl({
           orderId: orderId,
-          finishUrl: window.location.origin + `/success-page?orderId=${orderId}`,
+          finishUrl: `${window.location.origin}${PAGE_ORDER_SUCCESS}?orderId=${orderId}`,
         })
         paymentUrl.value = resp.paymentUrl
       } catch (e) {
