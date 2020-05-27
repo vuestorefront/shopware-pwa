@@ -1,10 +1,13 @@
 <template>
   <div class="search-page">
-    <SfLoader :loading="isLoading">
-    <div class="search-page__main" v-if="cmsListingContent">
-      <h3>search results for <strong>{{ currentQuery }}</strong>:</h3>
-      <CmsElementProductListing v-if="cmsListingContent" :content="cmsListingContent"/>
-    </div>
+    <h3 class="search-page__warning" v-if="!searchQuery">
+      You didn't provide any term to be found
+    </h3>
+    <SfLoader :loading="isLoading" v-else>
+      <div class="search-page__main" v-if="searchResultListing">
+        <h3>search results for <strong>{{ currentQuery }}</strong>:</h3>
+        <SwProductListing :product-listing="searchResultListing"/>
+      </div>
     </SfLoader>
   </div>
 </template>
@@ -14,40 +17,38 @@ import { useProductListing, useProductSearch } from '@shopware-pwa/composables'
 import {
   ref,
   getCurrentInstance,
-  onMounted,
   onBeforeMount,
   computed,
 } from '@vue/composition-api'
 
-import CmsElementProductListing from '@shopware-pwa/default-theme/cms/elements/CmsElementProductListing';
+import SwProductListing from '@shopware-pwa/default-theme/components/SwProductListing';
 
 export default {
-  name: 'SuccessPage',
+  name: 'SearchResultsPage',
   components: {
     SfHeading,
     SfButton,
     SfIcon,
     SfLoader,
-    CmsElementProductListing
+    SwProductListing
   },
   setup() {
     const vm = getCurrentInstance()
     const searchQuery = computed(() => vm.$route.query.query)
     const searchResultListing = ref(null);
     const isLoading = ref(true);
-    const cmsListingContent = computed(() => searchResultListing.value && ({data: { listing: searchResultListing.value} }))
     const { search, currentQuery } = useProductSearch()
 
     onBeforeMount(async () => {
-      searchResultListing.value = await search(searchQuery.value);
+      searchResultListing.value = searchQuery.value && await search(searchQuery.value);
       isLoading.value = false;
     })
 
     return {
-      cmsListingContent,
       searchResultListing,
       currentQuery,
-      isLoading
+      isLoading,
+      searchQuery
     }
   }
 }
@@ -66,17 +67,23 @@ export default {
     min-height: 50vh;
   }
 
+  &__warning {
+    padding-top: 20vh;
+    min-height: 30vh;
+  }
+
   &__main {
     @include for-desktop {
       flex: 1;
       padding: var(--spacer-lg) 0 0 0;
     }
-
-    h3 {
-      text-align: center;
-      margin-bottom: var(--spacer-base);
-    }
   }
+
+  h3 {
+    text-align: center;
+    margin-bottom: var(--spacer-base);
+  }
+
   
 }
 </style>

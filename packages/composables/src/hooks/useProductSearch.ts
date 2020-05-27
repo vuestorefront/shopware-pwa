@@ -35,23 +35,29 @@ export const useProductSearch = (): UseProductSearch => {
     term: string,
     searchCriteria?: SearchCriteria
   ): Promise<any> => {
-    console.warn('suggestSearch', term);
-    const suggestedProductListing = await getSuggestedResults(
-      term,
-      searchCriteria
-    );
-    suggestedProductListingResult.value = suggestedProductListing || []
-    return suggestedProductListing;
+    try {
+      const suggestedProductListing = await getSuggestedResults(
+        term,
+        searchCriteria
+      );
+      suggestedProductListingResult.value = suggestedProductListing || []
+      return suggestedProductListing;
+    } catch (e) {
+      console.error('useProductSearch:suggestSearch', e);
+    }
   };
 
   const search = async (
     term: string,
     searchCriteria?: SearchCriteria
   ): Promise<any> => {
-    const result = await getResults(term, searchCriteria);
-    sharedSearch.query = term;
-
-    return result;
+    try {
+      const result = await getResults(term, searchCriteria);
+      sharedSearch.query = term;
+      return result;
+    } catch (e) {
+      console.error('useProductSearch:search', e);
+    }
   };
 
   const currentQuery = computed({

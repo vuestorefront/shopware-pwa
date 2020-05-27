@@ -53,9 +53,11 @@
           @keyup.native="performSuggestSearch"
           @enter="performSearch"
         />
-        <div id="suggest-search-result" v-if="suggestResultTotal">
-          total found {{suggestResultTotal}}
-        </div>
+        <!-- 
+        TODO: https://github.com/DivanteLtd/shopware-pwa/issues/807
+        <div class="suggest-search-result" v-if="suggestResultTotal">
+          <span class="suggest-search-result__count">({{suggestResultTotal}})</span>
+        </div> -->
       </template>
       <template #header-icons="{accountIcon, cartIcon}">
         <div class="sf-header__icons desktop-only">
@@ -234,6 +236,16 @@ export default {
 
 <style lang="scss">
 @import '~@storefront-ui/vue/styles.scss';
+
+.suggest-search-result {
+  display: flex;
+  background-color: var(--_c-green-primary-lighten);
+
+  &__count {
+    font-size: var(--font-xs);
+    font-weight: var(--font-light);
+  }
+}
 
 .top-navigation {
   --search-bar-width: 100%;
