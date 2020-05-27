@@ -179,7 +179,6 @@ export default {
     const { suggestSearch, suggestedProductListingResult, currentQuery } = useProductSearch()
     const { switchState: toggleSidebar } = useUIState('CART_SIDEBAR_STATE')
     const { switchState: toggleModal } = useUIState('LOGIN_MODAL_STATE')
-    const { search: fulltextSearch } = useProductSearch()
     const { fetchNavigationElements, navigationElements } = useNavigation()
     const { currentLocale } = useLocales()
 
