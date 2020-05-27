@@ -18,7 +18,6 @@ import {
   SfProperty,
   SfTabs,
   SfList,
-  SfButton,
   SfIcon,
   SfBadge,
   SfCheckbox
@@ -32,7 +31,6 @@ export default {
     SfProperty,
     SfTabs,
     SfList,
-    SfButton,
     SfIcon,
     SfBadge,
     SfCheckbox,

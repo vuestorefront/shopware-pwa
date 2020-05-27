@@ -10,25 +10,26 @@
   >
     <template #actions>
       <div class="collected-product__actions">
-        <SfButton class="sf-button--text collected-product__actions-element">
+        <SwButton class="sf-button--text collected-product__actions-element">
           Save for later
-        </SfButton>
-        <SfButton class="sf-button--text collected-product__actions-element">
+        </SwButton>
+        <SwButton class="sf-button--text collected-product__actions-element">
           Add to compare
-        </SfButton>
+        </SwButton>
       </div>
     </template>
   </SfCollectedProduct>
 </template>
 <script>
-import { SfButton, SfProperty, SfCollectedProduct } from '@storefront-ui/vue'
+import { SfProperty, SfCollectedProduct } from '@storefront-ui/vue'
 import { getProductMainImageUrl } from '@shopware-pwa/helpers'
 import { useCart } from '@shopware-pwa/composables'
 import { ref, watch, computed } from '@vue/composition-api'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   components: {
-    SfButton,
+    SwButton,
     SfProperty,
     SfCollectedProduct,
   },

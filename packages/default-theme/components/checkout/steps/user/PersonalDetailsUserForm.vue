@@ -9,22 +9,23 @@
         />
       </template>
     </SwPersonalInfo>
-    <SfButton
+    <SwButton
       class="personal-details-user-form__proceed"
       @click="$emit('proceed')"
     >
       Continue to shipping
-    </SfButton>
+    </SwButton>
   </div>
 </template>
 <script>
-import { SfButton, SfHeading } from '@storefront-ui/vue'
+import { SfHeading } from '@storefront-ui/vue'
 import SwPersonalInfo from '@shopware-pwa/default-theme/components/forms/SwPersonalInfo'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   name: 'ShippingAddressUserForm',
   components: {
-    SfButton,
+    SwButton,
     SfHeading,
     SwPersonalInfo,
   },

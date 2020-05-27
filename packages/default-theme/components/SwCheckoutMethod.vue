@@ -9,11 +9,8 @@
 </template>
 
 <script>
-import { SfInput, SfButton, SfAlert, SfTable } from '@storefront-ui/vue'
-
 export default {
   name: 'SwCheckoutMethod',
-  components: { SfButton, SfInput, SfAlert, SfTable },
   props: {
     label: {
       type: String,

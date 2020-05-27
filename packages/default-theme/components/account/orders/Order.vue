@@ -1,10 +1,10 @@
 <template>
   <SfTableRow class="order-view" :key="order.id">
-     <SfTableData>
+    <SfTableData>
       <template>
         {{ order.orderNumber }}
       </template>
-     </SfTableData>
+    </SfTableData>
     <SfTableData>
       <template
         ><!-- total amount -->
@@ -18,43 +18,44 @@
       </template>
     </SfTableData>
     <SfTableData>
-      <template><!-- order status -->
+      <template
+        ><!-- order status -->
         <span
           :class="{
             'text-success': order.stateMachineState.technicalName === 'closed',
             'text-info': order.stateMachineState.technicalName === 'open',
           }"
-          >{{  order.stateMachineState.name }}</span
+          >{{ order.stateMachineState.name }}</span
         >
       </template>
     </SfTableData>
-    
+
     <SfTableData>
-      <SfButton class="sf-button--text" @click="viewOrder(order.id)">View details</SfButton>
+      <SwButton class="sf-button--text" @click="viewOrder(order.id)"
+        >View details</SwButton
+      >
     </SfTableData>
   </SfTableRow>
 </template>
 <script>
-import {
-  SfTable,
-  SfButton
-} from '@storefront-ui/vue'
+import { SfTable } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 import SwOrderDetails from '@shopware-pwa/default-theme/components/SwOrderDetails'
 import { formatDate, formatPrice } from '@shopware-pwa/default-theme/helpers'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   name: 'Order',
-  components: { SfTable, SfButton, SwOrderDetails },
+  components: { SfTable, SwButton, SwOrderDetails },
   props: {
     order: {
       type: Object,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   data() {
     return {
-      showDetails: false
+      showDetails: false,
     }
   },
   methods: {
@@ -73,9 +74,9 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@storefront-ui/vue/styles.scss';
-  .order-view {
-    &__details {
-      flex: 0 0 100%;
-    }
+.order-view {
+  &__details {
+    flex: 0 0 100%;
   }
+}
 </style>

@@ -49,11 +49,11 @@
       />
       <SwPluginSlot name="product-page-add-to-cart-button-after" />
       <div class="product-details__action desktop-only">
-        <SfButton class="sf-button--text product-details__action-button"
-          >Save for later</SfButton
+        <SwButton class="sf-button--text product-details__action-button"
+          >Save for later</SwButton
         >
-        <SfButton class="sf-button--text product-details__action-button"
-          >Add to compare</SfButton
+        <SwButton class="sf-button--text product-details__action-button"
+          >Add to compare</SwButton
         >
       </div>
     </div>
@@ -68,7 +68,6 @@
 <script>
 import {
   SfAlert,
-  SfButton,
   SfProductOption,
   SfAddToCart,
 } from '@storefront-ui/vue'
@@ -88,13 +87,14 @@ import SwProductHeading from '@shopware-pwa/default-theme/components/SwProductHe
 import SwProductSelect from '@shopware-pwa/default-theme/components/SwProductSelect'
 import SwProductColors from '@shopware-pwa/default-theme/components/SwProductColors'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 import SwProductTabs from '@shopware-pwa/default-theme/components/SwProductTabs'
 export default {
   name: 'SwProductDetails',
   components: {
     SfAlert,
-    SfButton,
+    SwButton,
     SfProductOption,
     SfAddToCart,
     SwProductHeading,

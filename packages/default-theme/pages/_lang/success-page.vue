@@ -7,13 +7,13 @@
     />
     <SfDivider />
     <SwOrderDetails :order-id="orderId" />
-    <SfButton @click="$router.push($i18n.path('/'))">
+    <SwButton @click="$router.push($i18n.path('/'))">
       <SfIcon icon="chevron_left" color="white" size="20px" />Return to homepage
-    </SfButton>
+    </SwButton>
   </div>
 </template>
 <script>
-import { SfButton, SfHeading, SfIcon, SfDivider } from '@storefront-ui/vue'
+import { SfHeading, SfIcon, SfDivider } from '@storefront-ui/vue'
 import { getOrderPaymentUrl } from '@shopware-pwa/shopware-6-client'
 import {
   ref,
@@ -21,14 +21,15 @@ import {
   onMounted,
   computed,
 } from '@vue/composition-api'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
-import SwOrderDetails from "@shopware-pwa/default-theme/components/SwOrderDetails";
+import SwOrderDetails from '@shopware-pwa/default-theme/components/SwOrderDetails'
 
 export default {
   name: 'SuccessPage',
   components: {
     SfHeading,
-    SfButton,
+    SwButton,
     SfIcon,
     SfDivider,
     SwOrderDetails,
@@ -39,9 +40,9 @@ export default {
   setup(params) {
     const vm = getCurrentInstance()
     const orderId = computed(() => vm.$route.query.orderId)
-   
+
     return {
-      orderId
+      orderId,
     }
   },
 }

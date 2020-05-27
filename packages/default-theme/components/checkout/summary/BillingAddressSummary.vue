@@ -1,24 +1,25 @@
 <template>
   <SwAddress :address="billingAddress" address-title="Billing address">
     <template #after-content>
-      <SfButton
+      <SwButton
         class="sf-button--text review__edit"
         @click="$emit('click:edit', 2)"
-        >Edit</SfButton
       >
+        Edit
+      </SwButton>
     </template>
   </SwAddress>
 </template>
 <script>
-import { SfButton } from '@storefront-ui/vue'
 import { useCheckout } from '@shopware-pwa/composables'
 import SwAddress from '@shopware-pwa/default-theme/components/SwAddress'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   name: 'BillingAddressSummary',
   components: {
-    SfButton,
     SwAddress
+    SwButton,
   },
   setup() {
     const { billingAddress } = useCheckout()

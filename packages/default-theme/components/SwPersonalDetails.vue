@@ -12,11 +12,9 @@
 </template>
 
 <script>
-import { SfButton } from '@storefront-ui/vue'
 
 export default {
   name: 'SwPersonalDetails',
-  components: { SfButton },
   props: {
     personalDetails: {
       type: Object,

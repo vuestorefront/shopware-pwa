@@ -125,15 +125,15 @@
         required
         class="form__element"
       />
-      <SfButton class="form__button" @click="updateAddress">
+      <SwButton class="form__button" @click="updateAddress">
         Update the address
-      </SfButton>
-      <SfButton
+      </SwButton>
+      <SwButton
         class="sf-button--outline form__button form__button--back"
         @click="returnToAddresses"
       >
         Back
-      </SfButton>
+      </SwButton>
     </div>
   </div>
 </template>
@@ -146,7 +146,6 @@ import {
   SfAlert,
   SfTabs,
   SfInput,
-  SfButton,
   SfSelect,
   SfIcon
 } from '@storefront-ui/vue'
@@ -156,10 +155,11 @@ import {
   useSalutations
 } from '@shopware-pwa/composables'
 import { mapCountries, mapSalutations } from '@shopware-pwa/helpers'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   name: 'SwAddress',
-  components: { SfAlert, SfTabs, SfInput, SfButton, SfSelect, SfIcon },
+  components: { SfAlert, SfTabs, SfInput, SwButton, SfSelect, SfIcon },
   mixins: [validationMixin],
   props: {
     address: {

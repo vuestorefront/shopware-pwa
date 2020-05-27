@@ -17,12 +17,12 @@
         error-message="Valid email is required"
         @blur="$v.email.$touch()"
       />
-      <SfButton
+      <SwButton
         class="sf-button--full-width form__button"
         @click="invokeResetPassword"
       >
         Resend password
-      </SfButton>
+      </SwButton>
     </div>
     <SfHeading
       v-if="emailSent"
@@ -34,14 +34,15 @@
 </template>
 
 <script>
-import { SfInput, SfButton, SfAlert, SfHeading } from '@storefront-ui/vue'
+import { SfInput, SfAlert, SfHeading } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { required, email } from 'vuelidate/lib/validators'
 import {useUser} from '@shopware-pwa/composables';
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   name: 'SwResetPassword',
-  components: { SfButton, SfInput, SfAlert, SfHeading },
+  components: { SwButton, SfInput, SfAlert, SfHeading },
   mixins: [validationMixin],
   data() {
     return {

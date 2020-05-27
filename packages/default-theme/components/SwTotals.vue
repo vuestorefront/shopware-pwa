@@ -29,24 +29,13 @@
 </template>
 
 <script>
-import {
-  SfInput,
-  SfButton,
-  SfAlert,
-  SfTable,
-  SfProperty,
-  SfHeading,
-} from '@storefront-ui/vue'
+import { SfProperty, SfHeading } from '@storefront-ui/vue'
 
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 
 export default {
   name: 'SwTotals',
   components: {
-    SfButton,
-    SfInput,
-    SfAlert,
-    SfTable,
     SwPluginSlot,
     SfProperty,
     SfHeading,

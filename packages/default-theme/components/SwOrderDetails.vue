@@ -47,9 +47,9 @@
       />
       <SfProperty name="Order status" :value="status" />
       <a :href="paymentUrl" v-if="paymentUrl">
-        <SfButton class="sf-button sf-button--full-width pay-button color-danger">
+        <SwButton class="sf-button sf-button--full-width pay-button color-danger">
           Pay for your order
-        </SfButton>
+        </SwButton>
       </a>
     </div>
     
@@ -61,7 +61,6 @@ import {
   SfTable,
   SfProperty,
   SfHeading,
-  SfButton
 } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 import { ref, onMounted, computed, watchEffect } from '@vue/composition-api'
@@ -76,6 +75,7 @@ import {
   getOrderShippingMethodId,
 } from '@shopware-pwa/helpers'
 import { getShippingMethodDetails, getPaymentMethodDetails, getOrderPaymentUrl } from '@shopware-pwa/shopware-6-client'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 
 export default {
@@ -84,7 +84,7 @@ export default {
     SfProperty,
     SfTable,
     SfHeading,
-    SfButton,
+    SwButton,
     SwOrderDetailsItem,
     SwPersonalDetails,
     SwAddress,

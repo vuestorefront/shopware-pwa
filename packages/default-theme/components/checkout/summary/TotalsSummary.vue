@@ -10,24 +10,24 @@
       />
     </div>
     <div class="summary__action">
-      <SfButton
+      <SwButton
         class="sf-button--full-width summary__action-button summary__action-button--secondary color-secondary desktop-only"
         @click="$emit('click:back')"
       >
         Go back to Payment
-      </SfButton>
-      <SfButton
+      </SwButton>
+      <SwButton
         :disabled="!cartItems.length"
         class="sf-button--full-width summary__action-button"
         @click="$emit('proceed')"
-        >Place my order</SfButton
+        >Place my order</SwButton
       >
-      <SfButton
+      <SwButton
         class="sf-button--full-width sf-button--text summary__action-button summary__action-button--secondary mobile-only"
         @click="$emit('click:back')"
       >
         Go back to Payment
-      </SfButton>
+      </SwButton>
     </div>
   </div>
 </template>
@@ -40,16 +40,17 @@ import {
   SfProperty,
   SfCheckbox,
   SfHeading,
-  SfButton,
   SfNotification,
 } from '@storefront-ui/vue'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+
 export default {
   name: 'TotalsSummary',
   components: {
     SfProperty,
     SfHeading,
     SfCheckbox,
-    SfButton,
+    SwButton,
     SfNotification,
     SwTotals,
   },

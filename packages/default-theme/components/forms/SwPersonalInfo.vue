@@ -68,13 +68,13 @@
             required
             @blur="$v.password.$touch()"
           />
-          <SfButton
+          <SwButton
             class="form__button"
             :disabled="$v.$invalid && !isEmailChanging && !isNameChanging"
             @click="invokeUpdate"
           >
             Save Changes
-          </SfButton>
+          </SwButton>
         </slot>
       </div>
     </slot>
@@ -87,19 +87,19 @@ import { validationMixin } from 'vuelidate'
 import { required, email, requiredIf, minLength, sameAs } from 'vuelidate/lib/validators'
 import {
   SfInput,
-  SfButton,
   SfSelect,
   SfProductOption,
   SfAlert
 } from '@storefront-ui/vue'
 import { useUser, useContext } from '@shopware-pwa/composables'
 import { mapSalutations, getMessagesFromErrorsArray } from '@shopware-pwa/helpers'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   name: 'SwPersonalInfo',
   components: {
     SfInput,
-    SfButton,
+    SwButton,
     SfSelect,
     SfProductOption,
     SfAlert

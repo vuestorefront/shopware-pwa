@@ -1,24 +1,25 @@
 <template>
   <SwCheckoutMethod :method="paymentMethod" label="Payment method">
     <template #after-content>
-      <SfButton
-      class="sf-button--text review__edit"
-      @click="$emit('click:edit', 2)"
-      >Edit</SfButton
-    >
+      <SwButton
+        class="sf-button--text review__edit"
+        @click="$emit('click:edit', 2)"
+      >
+        Edit
+      </SwButton>
     </template>
   </SwCheckoutMethod>
 </template>
 <script>
-import { SfButton } from '@storefront-ui/vue'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 import { useSessionContext } from '@shopware-pwa/composables'
 import { computed } from '@vue/composition-api'
 import SwCheckoutMethod from '@shopware-pwa/default-theme/components/SwCheckoutMethod'
 export default {
   name: 'PaymentMethodSummary',
   components: {
-    SfButton,
-    SwCheckoutMethod
+    SwCheckoutMethod,
+    SwButton,
   },
   setup() {
     const { sessionContext } = useSessionContext()
