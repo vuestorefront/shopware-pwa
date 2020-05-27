@@ -13,7 +13,7 @@
         >
           <template #header="{header, isOpen, accordionClick}">
             <div class="cms-element-category-navigation__menu-item">
-              <nuxt-link :to="getCategoryUrl(accordion.route)">
+              <nuxt-link :to="$i18n.path(getCategoryUrl(accordion))">
                 <SwButton
                   :aria-pressed="isOpen.toString()"
                   :aria-expanded="isOpen.toString()"
@@ -36,7 +36,8 @@
               <SfListItem v-for="item in accordion.children" :key="item.id">
                 <nuxt-link
                   v-if="item.route && item.name"
-                  :to="getCategoryUrl(item.route)"
+                  :to="$i18n.path(getCategoryUrl(item))"
+                  )
                 >
                   <SfMenuItem :label="item.name" />
                 </nuxt-link>
@@ -46,7 +47,7 @@
           <template v-else>
             <nuxt-link
               v-if="accordion.route && accordion.name"
-              :to="getCategoryUrl(accordion.route)"
+              :to="$i18n.path(getCategoryUrl(accordion))"
             >
               See {{ accordion.name }}
             </nuxt-link>
@@ -68,6 +69,7 @@ import {
 import { getNavigation } from '@shopware-pwa/shopware-6-client'
 import { useCms } from '@shopware-pwa/composables'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import { getCategoryUrl } from '@shopware-pwa/helpers'
 
 export default {
   components: {
@@ -88,7 +90,7 @@ export default {
   setup() {
     const { categoryId } = useCms()
 
-    return { categoryId }
+    return { categoryId, getCategoryUrl }
   },
   data() {
     return {
@@ -107,11 +109,6 @@ export default {
       rootNode: this.categoryId,
     })
     this.navigationElements = children
-  },
-  methods: {
-    getCategoryUrl(route) {
-      return this.$i18n.path('/' + route.path)
-    },
   },
 }
 </script>
