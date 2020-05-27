@@ -264,18 +264,14 @@ export default {
     }
   }
   @include for-desktop {
-    .sf-header {
+    ::v-deep .sf-header {
       display: flex;
       justify-content: space-between;
       &__sticky-container {
         width: 100%;
       }
       &__navigation {
-        flex: 1;
-      }
-      &__link {
-        display: flex;
-        align-items: center;
+        flex: 0 0 calc(100% - 20rem);
       }
     }
   }
