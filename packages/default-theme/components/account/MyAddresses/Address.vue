@@ -58,12 +58,12 @@
 </template>
 <script>
 
-import { SfProperty, SfTabs, SfList, SfButton, SfIcon, SfBadge, SfCheckbox } from '@storefront-ui/vue'
+import { SfIcon } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 
 export default {
   name: "Address",
-  components: {SfProperty, SfTabs, SfList, SfButton, SfIcon, SfBadge, SfCheckbox},
+  components: {SfIcon},
   props: {
     address: {
       type: Object,

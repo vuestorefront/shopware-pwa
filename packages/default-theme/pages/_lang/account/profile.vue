@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { SfTabs, SfInput, SfButton } from '@storefront-ui/vue'
+import { SfTabs, SfInput } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 import SwPassword from '@shopware-pwa/default-theme/components/forms/SwPassword'
 import SwPersonalInfo from '@shopware-pwa/default-theme/components/forms/SwPersonalInfo'
@@ -34,7 +34,6 @@ export default {
   components: {
     SfTabs,
     SfInput,
-    SfButton,
     SwPassword,
     SwPersonalInfo,
   },

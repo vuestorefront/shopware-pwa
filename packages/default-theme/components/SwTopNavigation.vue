@@ -76,9 +76,9 @@
                   </nuxt-link>
                 </SfListItem>
                 <SfListItem>
-                  <SfButton class="sf-button sf-button--full-width sf-button--underlined color-primary dropdown__item" @click="logoutUser()">
+                  <SwButton class="sf-button sf-button--full-width sf-button--underlined color-primary dropdown__item" @click="logoutUser()">
                     Logout
-                  </SfButton>
+                  </SwButton>
                 </SfListItem>
               </SfList>
             </SfDropdown>
@@ -110,7 +110,6 @@ import {
   SfImage,
   SfSearchBar,
   SfList,
-  SfButton,
   SfDropdown,
   SfOverlay,
   SfTopBar,
@@ -134,6 +133,7 @@ import { getCategoryUrl } from '@shopware-pwa/helpers'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 import { getAvailableLanguages } from '@shopware-pwa/shopware-6-client'
 import { useLocales } from '@shopware-pwa/default-theme/logic'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   components: {
@@ -143,14 +143,13 @@ export default {
     SfSearchBar,
     SfDropdown,
     SfList,
-    SfButton,
     SwMegaMenu,
     SfOverlay,
     SfTopBar,
     SwCurrency,
     SwLanguageSwitcher,
     SfIcon,
-    SfButton,
+    SwButton,
     SwPluginSlot,
   },
   setup() {

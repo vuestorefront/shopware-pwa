@@ -4,21 +4,21 @@
       <h4 class="review__title">Payment method</h4>
       <p class="content">{{ paymentMethod.name }}</p>
     </div>
-    <SfButton
+    <SwButton
       class="sf-button--text review__edit"
       @click="$emit('click:edit', 2)"
-      >Edit</SfButton
+      >Edit</SwButton
     >
   </div>
 </template>
 <script>
-import { SfButton } from '@storefront-ui/vue'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 import { useSessionContext } from '@shopware-pwa/composables'
 import { computed } from '@vue/composition-api'
 export default {
   name: 'PaymentMethodSummary',
   components: {
-    SfButton,
+    SwButton,
   },
   setup() {
     const { sessionContext } = useSessionContext()

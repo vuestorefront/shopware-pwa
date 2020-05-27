@@ -103,7 +103,6 @@
 import {
   SfHeading,
   SfInput,
-  SfButton,
   SfSelect,
   SfRadio,
   SfImage,
@@ -123,7 +122,6 @@ export default {
   components: {
     SfHeading,
     SfInput,
-    SfButton,
     SfSelect,
     SfRadio,
     SfImage,
