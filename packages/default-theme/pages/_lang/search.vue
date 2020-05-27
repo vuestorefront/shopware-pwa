@@ -6,14 +6,14 @@
     <SfLoader :loading="isLoading" v-else>
       <div class="search-page__main" v-if="searchResultListing">
         <h3>search results for <strong>{{ currentQuery }}</strong>:</h3>
-        <SwProductListing :product-listing="searchResultListing"/>
+        <SwSearchProductListing :product-listing="searchResultListing" :is-search-result-page="true"/>
       </div>
     </SfLoader>
   </div>
 </template>
 <script>
 import { SfButton, SfHeading, SfIcon, SfLoader } from '@storefront-ui/vue'
-import { useProductListing, useProductSearch } from '@shopware-pwa/composables'
+import { useProductSearch } from '@shopware-pwa/composables'
 import {
   ref,
   getCurrentInstance,
@@ -21,7 +21,7 @@ import {
   computed,
 } from '@vue/composition-api'
 
-import SwProductListing from '@shopware-pwa/default-theme/components/SwProductListing';
+import SwSearchProductListing from '@shopware-pwa/default-theme/components/SwSearchProductListing';
 
 export default {
   name: 'SearchResultsPage',
@@ -30,7 +30,7 @@ export default {
     SfButton,
     SfIcon,
     SfLoader,
-    SwProductListing
+    SwSearchProductListing
   },
   setup() {
     const vm = getCurrentInstance()

@@ -47,7 +47,9 @@ export const convertSearchCriteria = (
   searchCriteria?: SearchCriteria,
   apiType?: ApiType
 ): ShopwareParams => {
-  let params: ShopwareParams = {};
+  let params: ShopwareParams = {
+    limit: config.defaultPaginationLimit
+  };
 
   if (!searchCriteria) return params;
   const { filters, sort, pagination, configuration, term } = searchCriteria;
@@ -65,7 +67,6 @@ export const convertSearchCriteria = (
       } else {
         params.page = page;
       }
-      if (!params.limit) params.limit = config.defaultPaginationLimit;
     }
   }
 

@@ -50,7 +50,7 @@
 import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
 import SwProductCardHorizontal from '@shopware-pwa/default-theme/components/SwProductCardHorizontal'
 import { SfPagination, SfHeading, SfLoader } from '@storefront-ui/vue'
-import { useProductListing } from '@shopware-pwa/composables'
+import { useProductListing, useProductSearch } from '@shopware-pwa/composables'
 export default {
   name: 'CmsElementProductListing',
   components: {
@@ -65,15 +65,20 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    isSearchResult: {
+      type: Boolean,
+      default: false
+    }
   },
-  setup({ content }) {
+  setup({ content, isSearchResult }) {
+    const { search } = useProductSearch();
     const listing = content.data.listing || []
     const {
       products,
       changePagination,
       pagination,
       loading,
-    } = useProductListing(listing)
+    } = useProductListing(listing, isSearchResult && search)
 
     const changedPage = async (pageNumber) => {
       await changePagination(pageNumber)

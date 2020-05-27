@@ -1,5 +1,5 @@
 <template>
-  <CmsElementProductListing v-if="cmsProductListing" :content="cmsProductListing"/>
+  <CmsElementProductListing v-if="cmsProductListing" :content="cmsProductListing" :is-search-result="true"/>
 </template>
 
 <script>
@@ -13,6 +13,7 @@ export default {
       type: Object,
       default: () => {}
     },
+    
   },
   computed: {
     cmsProductListing(){
