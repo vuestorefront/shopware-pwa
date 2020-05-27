@@ -72,15 +72,6 @@ module.exports = (toolbox: GluegunToolbox) => {
     await toolbox.patching.update("package.json", (config) => {
       config.scripts.lint = "prettier --write '*.{js,vue}'";
 
-      config["lint-staged"] = {
-        "*.{js,vue}": "prettier",
-      };
-      config["husky"] = {
-        hooks: {
-          "pre-commit": "lint-staged",
-        },
-      };
-
       // update versions to canary
       if (canary) {
         Object.keys(config.dependencies).forEach((dependencyName) => {
@@ -90,7 +81,7 @@ module.exports = (toolbox: GluegunToolbox) => {
         });
         Object.keys(config.devDependencies).forEach((dependencyName) => {
           if (dependencyName.includes("@shopware-pwa")) {
-            config.dependencies[dependencyName] = "canary";
+            config.devDependencies[dependencyName] = "canary";
           }
         });
       }
@@ -131,6 +122,19 @@ module.exports = (toolbox: GluegunToolbox) => {
     host: '0.0.0.0'
   },`,
         after: "mode: 'universal',",
+      });
+    }
+
+    // Add global SCSS file to config
+    const isGlobalScssFileAdded = await toolbox.patching.exists(
+      "nuxt.config.js",
+      `~assets/scss/main.scss`
+    );
+    if (!isGlobalScssFileAdded) {
+      await toolbox.patching.patch("nuxt.config.js", {
+        insert: `
+    '~assets/scss/main.scss',`,
+        after: "css: [",
       });
     }
 
@@ -175,6 +179,24 @@ module.exports = (toolbox: GluegunToolbox) => {
       await toolbox.template.generate({
         template: "Dockerfile",
         target: `Dockerfile`,
+        props: {},
+      });
+    }
+
+    const isMainScssFileCreated = exists("./assets/scss/main.scss");
+    if (!isMainScssFileCreated) {
+      await toolbox.template.generate({
+        template: "main.scss",
+        target: `./assets/scss/main.scss`,
+        props: {},
+      });
+    }
+
+    const isVariablesScssFileCreated = exists("./assets/scss/variables.scss");
+    if (!isVariablesScssFileCreated) {
+      await toolbox.template.generate({
+        template: "variables.scss",
+        target: `./assets/scss/variables.scss`,
         props: {},
       });
     }

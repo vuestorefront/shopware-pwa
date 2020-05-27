@@ -1,5 +1,6 @@
 import { GluegunToolbox } from "gluegun";
 import axios from "axios";
+import { join } from "path";
 
 module.exports = (toolbox: GluegunToolbox) => {
   toolbox.fetchPluginsAuthToken = async (
@@ -217,6 +218,59 @@ module.exports = (toolbox: GluegunToolbox) => {
         console.error("UNEXPECTED ERROR", e ? e.response : e);
       }
       return;
+    }
+  };
+
+  toolbox.createPluginsTemplate = async () => {
+    const localPluginsDirName = "sw-plugins";
+    const localPluginsConfigFilename = "local-plugins.json";
+
+    const examplePluginDirectoryPath = join(
+      localPluginsDirName,
+      "my-local-plugin"
+    );
+    // create folders structure
+    await toolbox.filesystem.dirAsync(localPluginsDirName);
+    await toolbox.filesystem.dirAsync(examplePluginDirectoryPath);
+    const localPluginsConfigExists = await toolbox.filesystem.existsAsync(
+      join(localPluginsDirName, localPluginsConfigFilename)
+    );
+    if (!localPluginsConfigExists) {
+      await toolbox.template.generate({
+        template: "/plugins/" + localPluginsConfigFilename,
+        target: "sw-plugins/" + localPluginsConfigFilename,
+        props: {},
+      });
+    }
+    const localPluginConfigExists = await toolbox.filesystem.existsAsync(
+      join(examplePluginDirectoryPath, "config.json")
+    );
+    if (!localPluginConfigExists) {
+      await toolbox.template.generate({
+        template: "/plugins/my-local-plugin/config.json",
+        target: "sw-plugins/my-local-plugin/config.json",
+        props: {},
+      });
+    }
+    const localPluginVueFileExists = await toolbox.filesystem.existsAsync(
+      join(examplePluginDirectoryPath, "myLocalPlugin.vue")
+    );
+    if (!localPluginVueFileExists) {
+      await toolbox.template.generate({
+        template: "/plugins/my-local-plugin/myLocalPlugin.vue",
+        target: "sw-plugins/my-local-plugin/myLocalPlugin.vue",
+        props: {},
+      });
+    }
+    const cmsReadmeExists = await toolbox.filesystem.existsAsync(
+      join(localPluginsDirName, "readme.md")
+    );
+    if (!cmsReadmeExists) {
+      await toolbox.template.generate({
+        template: "/plugins/readme.md",
+        target: "sw-plugins/readme.md",
+        props: {},
+      });
     }
   };
 };

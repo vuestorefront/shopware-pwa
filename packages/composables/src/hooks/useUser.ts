@@ -4,6 +4,7 @@ import {
   logout as apiLogout,
   register as apiRegister,
   updatePassword as apiUpdatePassword,
+  resetPassword as apiResetPassword,
   updateEmail as apiUpdateEmail,
   getCustomer,
   getCustomerOrders,
@@ -20,6 +21,7 @@ import {
   CustomerUpdateProfileParam,
   CustomerUpdatePasswordParam,
   CustomerUpdateEmailParam,
+  CustomerResetPasswordParam,
 } from "@shopware-pwa/shopware-6-client";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { getStore } from "@shopware-pwa/composables";
@@ -68,6 +70,9 @@ export interface UseUser {
   updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
   updatePassword: (
     updatePasswordData: CustomerUpdatePasswordParam
+  ) => Promise<boolean>;
+  resetPassword: (
+    resetPasswordData: CustomerResetPasswordParam
   ) => Promise<boolean>;
   markAddressAsDefault: ({
     addressId,
@@ -263,6 +268,18 @@ export const useUser = (): UseUser => {
     return true;
   };
 
+  const resetPassword = async (
+    resetPasswordData: CustomerResetPasswordParam
+  ): Promise<boolean> => {
+    try {
+      await apiResetPassword(resetPasswordData);
+    } catch (e) {
+      error.value = e;
+      return false;
+    }
+    return true;
+  };
+
   const updateEmail = async (
     updateEmailData: CustomerUpdateEmailParam
   ): Promise<boolean> => {
@@ -295,6 +312,7 @@ export const useUser = (): UseUser => {
     updateEmail,
     updatePersonalInfo,
     updatePassword,
+    resetPassword,
     addAddress,
     deleteAddress,
     loadSalutation,

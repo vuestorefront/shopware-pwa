@@ -68,8 +68,8 @@ export default {
   },
 }
 </script>
-<style lang="scss">
-@import '~@storefront-ui/vue/styles.scss';
+<style lang="scss" scoped>
+@import '@/assets/scss/variables';
 .error-page {
   box-sizing: border-box;
   text-align: center;

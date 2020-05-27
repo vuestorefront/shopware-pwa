@@ -108,7 +108,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import '@/assets/scss/variables';
 .title {
   --heading-title-margin: 0 0 var(--spacer-xl) 0;
 }

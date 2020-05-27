@@ -32,7 +32,7 @@ export const useCms = (): any => {
     // Temp solution for consistant page size
     // @TODO: https://github.com/DivanteLtd/shopware-pwa/issues/739
     /* istanbul ignore else */
-    if (!searchCriteria.pagination) {
+    if (!searchCriteria.pagination || searchCriteria.pagination === "null") {
       searchCriteria.pagination = {};
     }
 
@@ -63,11 +63,14 @@ export const useCms = (): any => {
     }
   };
 
+  const breadcrumbsObject = computed(() => page.value?.breadcrumb || []);
+
   return {
     page,
     categoryId,
     loading,
     search,
     error,
+    breadcrumbsObject
   };
 };

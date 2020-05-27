@@ -5,6 +5,7 @@ import {
   getCustomerRegisterEndpoint,
   getCustomerDetailsUpdateEndpoint,
   getCustomerUpdatePasswordEndpoint,
+  getCustomerResetPasswordEndpoint,
   getCustomerDefaultBillingAddressEndpoint,
   getCustomerDefaultShippingAddressEndpoint,
   getCustomerLogoutEndpoint,
@@ -13,6 +14,7 @@ import {
 } from "../endpoints";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { apiService } from "../apiService";
+import { config } from "../settings";
 import { CustomerAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress";
 import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams";
 import { ContextTokenResponse } from "@shopware-pwa/commons/interfaces/response/SessionContext";
@@ -244,6 +246,30 @@ export async function updatePassword(
   params: CustomerUpdatePasswordParam
 ): Promise<void> {
   await apiService.post(getCustomerUpdatePasswordEndpoint(), params);
+}
+
+/**
+ * @alpha
+ */
+export interface CustomerResetPasswordParam {
+  email: string;
+  storefrontUrl?: string;
+}
+
+/**
+ * Reset a customer's password
+ *
+ * @throws ClientApiError
+ * @alpha
+ */
+export async function resetPassword(
+  params: CustomerResetPasswordParam
+): Promise<void> {
+  if (params && !params.storefrontUrl) {
+    params.storefrontUrl = config.endpoint;
+  }
+
+  await apiService.post(getCustomerResetPasswordEndpoint(), params);
 }
 
 /**

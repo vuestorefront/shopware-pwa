@@ -250,7 +250,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import '@/assets/scss/variables';
 
 .sw-login {
   &__alert {
@@ -302,7 +302,7 @@ export default {
 </style>
 
 //
-<style lang="scss">
+<style lang="scss" scoped>
 // .sf-modal__container {
 //   width: 100% !important;
 //   height: 100% !important;
