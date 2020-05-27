@@ -4,7 +4,8 @@
 
 <script>
 export default {
-  name: 'OrderHistory'
+  name: 'OrderHistory';
+}
 </script>
 
 <style lang="scss" scoped>
