@@ -26,39 +26,40 @@
         </SfRadio>
       </div>
       <div class="form__action">
-        <SfButton
+        <SwButton
           class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only"
           @click="$emit('click:back')"
         >
           Go back to Shipping
-        </SfButton>
-        <SfButton
+        </SwButton>
+        <SwButton
           class="sf-button--full-width form__action-button"
           @click="$emit('proceed')"
-          >Review order</SfButton
+          >Review order</SwButton
         >
-        <SfButton
+        <SwButton
           class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only"
           @click="$emit('click:back')"
         >
           Go back to Shipping
-        </SfButton>
+        </SwButton>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { SfHeading, SfButton, SfRadio } from '@storefront-ui/vue'
+import { SfHeading, SfRadio } from '@storefront-ui/vue'
 import BillingAddressGuestForm from '@shopware-pwa/default-theme/components/checkout/steps/guest/BillingAddressGuestForm'
 import BillingAddressUserForm from '@shopware-pwa/default-theme/components/checkout/steps/user/BillingAddressUserForm'
 import { useCheckout, useSessionContext } from '@shopware-pwa/composables'
 import { onMounted, computed } from '@vue/composition-api'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   name: 'PaymentStep',
   components: {
     SfHeading,
-    SfButton,
+    SwButton,
     SfRadio,
     BillingAddressGuestForm,
     BillingAddressUserForm,

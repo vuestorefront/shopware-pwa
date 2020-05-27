@@ -35,25 +35,25 @@
         </SfRadio>
       </div>
       <div class="form__action">
-        <SfButton class="form__action-button color-secondary desktop-only"
-          >Go Back to Personal details</SfButton
+        <SwButton class="form__action-button color-secondary desktop-only"
+          >Go Back to Personal details</SwButton
         >
-        <SfButton
+        <SwButton
           class="sf-button--full-width form__action-button"
           @click="$emit('proceed')"
-          >Continue to payment</SfButton
+          >Continue to payment</SwButton
         >
-        <SfButton
+        <SwButton
           class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only"
           @click="$emit('retreat')"
-          >Go back to Personal details</SfButton
+          >Go back to Personal details</SwButton
         >
       </div>
     </div>
   </div>
 </template>
 <script>
-import { SfHeading, SfButton, SfRadio, SfAlert } from '@storefront-ui/vue'
+import { SfHeading, SfRadio, SfAlert } from '@storefront-ui/vue'
 import { computed, onMounted } from '@vue/composition-api'
 import ShippingAddressGuestForm from '@shopware-pwa/default-theme/components/checkout/steps/guest/ShippingAddressGuestForm'
 import ShippingAddressUserForm from '@shopware-pwa/default-theme/components/checkout/steps/user/ShippingAddressUserForm'
@@ -62,12 +62,13 @@ import {
   useSessionContext,
   useCart,
 } from '@shopware-pwa/composables'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   name: 'ShippingStep',
   components: {
     SfHeading,
-    SfButton,
+    SwButton,
     SfRadio,
     SfAlert,
     ShippingAddressGuestForm,

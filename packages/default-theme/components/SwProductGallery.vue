@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '~@storefront-ui/shared/styles/variables';
 
 .gallery-mobile {
