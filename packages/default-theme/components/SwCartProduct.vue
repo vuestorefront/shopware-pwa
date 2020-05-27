@@ -18,10 +18,28 @@
         </SwButton>
       </div>
     </template>
+    <!--  TODO: Remove after update SfUI to 0.7.16 or higher-->
+    <template #remove="{removeHandler}">
+      <SfCircleIcon
+        icon="cross"
+        aria-label="Remove"
+        class="sf-circle-icon--small sf-collected-product__remove sf-collected-product__remove--circle-icon"
+        @click="removeHandler"
+      />
+      <SwButton
+        class="sf-button--text sf-collected-product__remove sf-collected-product__remove--text"
+        @click="removeHandler"
+        >Remove</SwButton
+      >
+    </template>
   </SfCollectedProduct>
 </template>
 <script>
-import { SfProperty, SfCollectedProduct } from '@storefront-ui/vue'
+import {
+  SfProperty,
+  SfCollectedProduct,
+  SfCircleIcon,
+} from '@storefront-ui/vue'
 import { getProductMainImageUrl } from '@shopware-pwa/helpers'
 import { useCart } from '@shopware-pwa/composables'
 import { ref, watch, computed } from '@vue/composition-api'
@@ -30,6 +48,7 @@ import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 export default {
   components: {
     SwButton,
+    SfCircleIcon,
     SfProperty,
     SfCollectedProduct,
   },
