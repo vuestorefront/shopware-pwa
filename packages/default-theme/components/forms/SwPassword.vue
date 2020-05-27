@@ -52,13 +52,13 @@
               class="form__element form__element--half form__element--half-even"
               @blur="$v.newPasswordConfirm.$touch()"
             />
-            <SfButton
+            <SwButton
               class="form__button"
               :disabled="$v.$invalid"
               @click="invokeUpdate"
             >
               Update password
-            </SfButton>
+            </SwButton>
           </div>
         </slot>
       </div>
@@ -70,13 +70,14 @@
 import { validationMixin } from 'vuelidate'
 import { required, minLength, sameAs } from 'vuelidate/lib/validators'
 import { computed } from '@vue/composition-api';
-import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
+import { SfInput, SfAlert } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 import { getMessagesFromErrorsArray } from '@shopware-pwa/helpers'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   name: 'SwPassword',
-  components: { SfInput, SfButton, SfAlert },
+  components: { SfInput, SwButton, SfAlert },
   mixins: [validationMixin],
   props: {},
   setup() {

@@ -83,12 +83,12 @@
                   </nuxt-link>
                 </SfListItem>
                 <SfListItem>
-                  <SfButton
+                  <SwButton
                     class="sf-button sf-button--full-width sf-button--underlined color-primary dropdown__item"
                     @click="logoutUser()"
                   >
                     Logout
-                  </SfButton>
+                  </SwButton>
                 </SfListItem>
               </SfList>
             </SfDropdown>
@@ -120,7 +120,6 @@ import {
   SfImage,
   SfSearchBar,
   SfList,
-  SfButton,
   SfDropdown,
   SfOverlay,
   SfTopBar,
@@ -147,6 +146,7 @@ import { getCategoryUrl } from '@shopware-pwa/helpers'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 import { getAvailableLanguages } from '@shopware-pwa/shopware-6-client'
 import { useLocales } from '@shopware-pwa/default-theme/logic'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   components: {
@@ -156,14 +156,13 @@ export default {
     SfSearchBar,
     SfDropdown,
     SfList,
-    SfButton,
     SwMegaMenu,
     SfOverlay,
     SfTopBar,
     SwCurrency,
     SwLanguageSwitcher,
     SfIcon,
-    SfButton,
+    SwButton,
     SwPluginSlot,
   },
   setup() {
@@ -237,10 +236,10 @@ export default {
   }
   .sf-header {
     &__currency {
+      --select-dropdown-z-index: 2;
       position: relative;
       margin: 0 var(--spacer-base) 0 var(--spacer-base);
-      --select-padding: var(--spacer-xs);
-      --select-dropdown-z-index: 2;
+      width: 2.5rem;
       &::before {
         content: '';
         display: block;
@@ -263,14 +262,18 @@ export default {
     }
   }
   @include for-desktop {
-    ::v-deep .sf-header {
+    .sf-header {
       display: flex;
       justify-content: space-between;
       &__sticky-container {
         width: 100%;
       }
       &__navigation {
-        flex: 0 0 calc(100% - 20rem);
+        flex: 1;
+      }
+      &__link {
+        display: flex;
+        align-items: center;
       }
     }
   }

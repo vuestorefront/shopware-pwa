@@ -30,28 +30,29 @@
         @blur="$v.password.$touch()"
       />
       <SwPluginSlot name="login-form-button">
-        <SfButton
+        <SwButton
           class="sf-button--full-width form__button"
           :disabled="isLoading"
           @click="invokeLogin"
         >
           Log in
-        </SfButton>
+        </SwButton>
       </SwPluginSlot>
     </div>
   </div>
 </template>
 
 <script>
-import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
+import { SfInput, SfAlert } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { required, email } from 'vuelidate/lib/validators'
 import { useUser } from '@shopware-pwa/composables'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   name: 'SwLogin',
-  components: { SfButton, SfInput, SfAlert, SwPluginSlot },
+  components: { SwButton, SfInput, SfAlert, SwPluginSlot },
   mixins: [validationMixin],
   data() {
     return {

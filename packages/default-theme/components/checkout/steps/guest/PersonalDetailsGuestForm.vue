@@ -2,10 +2,10 @@
   <div class="sw-checkout__personal_info">
     <div class="log-in">
       <div class="log-in__buttons-container">
-        <SfButton
+        <SwButton
           @click="toggleLoginModal()"
           class="log-in__button color-secondary"
-          >Log in to your account</SfButton
+          >Log in to your account</SwButton
         >
         <SwPluginSlot name="checkout-login-after" />
       </div>
@@ -102,18 +102,18 @@
         />
       </transition>
       <div class="form__action">
-        <SfButton
+        <SwButton
           class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only"
-          >Go Back to shop</SfButton
+          >Go Back to shop</SwButton
         >
-        <SfButton
+        <SwButton
           class="sf-button--full-width form__action-button"
           @click="toShipping"
-          >Continue to shipping</SfButton
+          >Continue to shipping</SwButton
         >
-        <SfButton
+        <SwButton
           class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only"
-          >Go back to shop</SfButton
+          >Go back to shop</SwButton
         >
       </div>
     </div>
@@ -127,7 +127,6 @@
 import {
   SfInput,
   SfCheckbox,
-  SfButton,
   SfHeading,
   SfModal,
   SfCharacteristic,
@@ -136,6 +135,7 @@ import {
   SfAlert,
 } from '@storefront-ui/vue'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 import { validationMixin } from 'vuelidate'
 import {
@@ -168,7 +168,7 @@ export default {
   components: {
     SfInput,
     SfCheckbox,
-    SfButton,
+    SwButton,
     SfHeading,
     SfModal,
     SfCharacteristic,

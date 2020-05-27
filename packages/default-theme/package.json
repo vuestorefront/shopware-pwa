@@ -43,7 +43,7 @@
     "jest": "^25.4.0",
     "lint-staged": "^10.1.7",
     "prettier": "^2.0.5",
-    "snyk": "^1.316.1",
+    "snyk": "^1.328.0",
     "vue-jest": "^4.0.0-0"
   },
   "publishConfig": {

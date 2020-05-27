@@ -10,12 +10,12 @@
         <div class="sw-login-modal__wrapper">
           <component :is="component" :key="key" @success="toggleModal" />
           <div v-if="component !== 'SwResetPassword'" class="action">
-            <SfButton
+            <SwButton
               class="sf-button--text button--muted"
               @click="component = 'SwResetPassword'"
             >
               Forgotten password?
-            </SfButton>
+            </SwButton>
           </div>
 
           <div class="bottom">
@@ -25,21 +25,21 @@
                 :level="4"
                 class="bottom__heading"
               />
-              <SfButton
+              <SwButton
                 class="sf-button--text bottom__element"
                 @click="component = 'SwRegister'"
               >
                 Register today?
-              </SfButton>
+              </SwButton>
             </template>
           </div>
           <div v-if="component !== 'SwLogin'" class="action">
-            <SfButton
+            <SwButton
               class="sf-button--text button--muted"
               @click="component = 'SwLogin'"
             >
               or try to log in again.
-            </SfButton>
+            </SwButton>
           </div>
         </div>
       </transition>
@@ -48,9 +48,10 @@
 </template>
 
 <script>
-import { SfButton, SfHeading, SfModal, SfAlert } from '@storefront-ui/vue'
+import { SfHeading, SfModal, SfAlert } from '@storefront-ui/vue'
 import { useUser, useUserLoginModal } from '@shopware-pwa/composables'
 import SwLogin from '@shopware-pwa/default-theme/components/SwLogin'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 const SwRegister = () =>
   import('@shopware-pwa/default-theme/components/SwRegister')
 const SwResetPassword = () =>
@@ -60,7 +61,7 @@ export default {
   name: 'SwLoginModal',
   components: {
     SfAlert,
-    SfButton,
+    SwButton,
     SfHeading,
     SfModal,
     SwLogin,
