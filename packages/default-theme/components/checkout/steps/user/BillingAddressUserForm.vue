@@ -7,7 +7,7 @@
         class="billing-address-user-form__list-item"
       >
         <SfRadio
-          v-model="selectedAddress"
+          v-model="selectedAddressId"
           :value="address._uniqueIdentifier"
           class="billing-address-user-form__address address"
         >
@@ -27,7 +27,7 @@
         </SfRadio>
       </SfListItem>
     </SfList>
-    <SfCheckbox
+    <!-- <SfCheckbox
       v-model="generateInvoice"
       label="I want to generate invoice for the company"
       class="billing-address-user-form__invoice"
@@ -36,32 +36,32 @@
       v-model="useAsDefaultAddress"
       label="Use this address as my default one"
       class="billing-address-user-form__default"
-    />
-    <SfButton
+    /> -->
+    <!-- <SwButton
       class="sf-button color-secondary billing-address-user-form__add-new"
-      >Add new</SfButton
-    >
+      >Add new</SwButton
+    > -->
   </div>
 </template>
 <script>
-import { SfList, SfRadio, SfCheckbox, SfButton } from '@storefront-ui/vue'
+import { SfList, SfRadio, SfCheckbox } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import { ref } from '@vue/composition-api'
+
 export default {
   name: 'ShippingAddressUserForm',
-  components: { SfList, SfRadio, SfCheckbox, SfButton },
+  components: { SfList, SfRadio, SfCheckbox, SwButton },
   setup() {
-    const { addresses, loadAddresses } = useUser()
+    const { addresses, loadAddresses, user } = useUser()
     loadAddresses()
+
+    const selectedAddressId = ref(user.value.defaultBillingAddressId)
+
     return {
       addresses,
       loadAddresses,
-    }
-  },
-  data() {
-    return {
-      selectedAddress: '',
-      useAsDefaultAddress: false,
-      generateInvoice: false,
+      selectedAddressId,
     }
   },
 }

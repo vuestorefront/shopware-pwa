@@ -16,7 +16,7 @@ export declare function logout(): Promise<void>;
 ```
 <b>Returns:</b>
 
-Promise&lt;void&gt;
+`Promise<void>`
 
 ## Exceptions
 

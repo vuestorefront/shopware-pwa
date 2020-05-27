@@ -7,7 +7,7 @@
         class="shipping-address-user-form__list-item"
       >
         <SfRadio
-          v-model="selectedAddress"
+          v-model="selectedAddressId"
           :value="address._uniqueIdentifier"
           class="shipping-address-user-form__address address"
         >
@@ -27,37 +27,54 @@
         </SfRadio>
       </SfListItem>
     </SfList>
-    <SfCheckbox
+    <!-- <SfCheckbox
       v-model="useAsDefaultAddress"
       label="Use this address as my default one"
       class="shipping-address-user-form__default"
-    />
-    <SfButton
+    /> -->
+    <SwButton
       class="sf-button color-secondary shipping-address-user-form__add-new"
-      >Add new</SfButton
+      @click="isModalOpen = true"
     >
+      Add new
+    </SwButton>
+    <SfModal
+      class="sw-modal"
+      title="Add address"
+      :visible="isModalOpen"
+      @close="isModalOpen = false"
+    >
+      <SwAddress />
+    </SfModal>
   </div>
 </template>
 <script>
-import { SfList, SfRadio, SfCheckbox, SfButton } from '@storefront-ui/vue'
+import { SfList, SfRadio, SfCheckbox, SfModal } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import { ref, onMounted } from '@vue/composition-api'
+import SwAddress from '@shopware-pwa/default-theme/components/forms/SwAddress.vue'
+
 export default {
   name: 'ShippingAddressUserForm',
-  components: { SfList, SfRadio, SfCheckbox, SfButton },
+  components: { SfList, SfRadio, SfCheckbox, SwButton, SfModal, SwAddress },
   setup() {
-    const { addresses, loadAddresses } = useUser()
+    const { addresses, loadAddresses, user } = useUser()
     loadAddresses()
+
+    const selectedAddressId = ref(user.value.defaultShippingAddressId)
+
+    const isModalOpen = ref(false)
+
     return {
       addresses,
       loadAddresses,
+      user,
+      selectedAddressId,
+      isModalOpen,
     }
   },
-  data() {
-    return {
-      selectedAddress: '',
-      useAsDefaultAddress: false,
-    }
-  },
+  async mounted() {},
 }
 </script>
 <style lang="scss" scoped>
