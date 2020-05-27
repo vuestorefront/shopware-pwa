@@ -78,6 +78,7 @@
                   <nuxt-link
                     class="sf-button sf-button--full-width sf-button--underlined color-primary"
                     :to="getPageAccount"
+                    @click.native="isDropdownOpen = false"
                   >
                     My account
                   </nuxt-link>
@@ -217,6 +218,7 @@ export default {
     },
     async logoutUser() {
       await this.logout()
+      this.isDropdownOpen = false
       this.$router.push(this.$i18n.path('/'))
     },
   },
@@ -279,6 +281,7 @@ export default {
   }
   .dropdown {
     --dropdown-width: auto;
+    --dropdown-transform: translate(-10%, 100%);
     &__item {
       &:hover {
         color: var(--c-link-hover);
