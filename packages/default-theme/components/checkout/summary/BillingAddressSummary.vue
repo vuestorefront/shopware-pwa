@@ -18,7 +18,7 @@ import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 export default {
   name: 'BillingAddressSummary',
   components: {
-    SwAddress
+    SwAddress,
     SwButton,
   },
   setup() {
