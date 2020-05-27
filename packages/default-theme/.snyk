@@ -98,3 +98,9 @@ patch:
         patched: '2020-05-01T02:06:22.546Z'
     - nuxt > @nuxt/builder > @nuxt/webpack > @nuxt/babel-preset-app > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
         patched: '2020-05-01T02:06:22.546Z'
+    - node-sass > lodash:
+        patched: '2020-05-26T12:05:35.968Z'
+    - node-sass > sass-graph > lodash:
+        patched: '2020-05-26T12:05:35.968Z'
+    - node-sass > gaze > globule > lodash:
+        patched: '2020-05-26T12:05:35.968Z'

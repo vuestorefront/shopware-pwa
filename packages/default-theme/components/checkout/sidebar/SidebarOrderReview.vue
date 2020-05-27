@@ -33,7 +33,6 @@
 <script>
 import {
   SfHeading,
-  SfButton,
   SfInput,
   SfCircleIcon,
   SfCharacteristic,
@@ -47,7 +46,6 @@ export default {
   name: 'SidebarOrderReview',
   components: {
     SfHeading,
-    SfButton,
     SfInput,
     SfCircleIcon,
     SfCharacteristic,

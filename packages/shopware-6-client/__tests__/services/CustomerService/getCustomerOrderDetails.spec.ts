@@ -49,7 +49,7 @@ describe("CustomerService - getCustomerOrderDetails", () => {
     const result = await getCustomerOrderDetails("12345-ab");
     expect(mockedAxios.get).toBeCalledTimes(1);
     expect(mockedAxios.get).toBeCalledWith(
-      `${getCustomerOrderEndpoint()}?filter[id]=12345-ab&associations[lineItems][]`
+      `${getCustomerOrderEndpoint()}?filter[id]=12345-ab&associations[lineItems][]&associations[addresses][]&associations[transactions][]&associations[deliveries][]`
     );
     expect(result).toMatchObject({
       id: "12345-ab",

@@ -22,11 +22,11 @@ export declare function invokePost({ address, payload, }: {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { address, payload, } | <code>{</code><br/><code>    address: string;</code><br/><code>    payload?: any;</code><br/><code>}</code> |  |
+|  { address, payload, } | { address: string; payload?: any; } |  |
 
 <b>Returns:</b>
 
-`Promise<any>`
+Promise&lt;any&gt;
 
 ## Exceptions
 

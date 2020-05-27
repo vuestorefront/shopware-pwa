@@ -202,6 +202,9 @@ export function getOrderPaymentUrl({ orderId, finishUrl, }: {
 // @alpha (undocumented)
 export function getPage(path: string, searchCriteria?: SearchCriteria): Promise<PageResolverResult<CmsPage>>;
 
+// @alpha (undocumented)
+export function getPaymentMethodDetails(paymentId: string): Promise<PaymentMethod>;
+
 // @alpha
 export function getProduct(productId: string, params?: any): Promise<Product>;
 
@@ -213,6 +216,9 @@ export const getProductsIds: () => Promise<SearchResult<string[]>>;
 
 // @alpha
 export function getSessionContext(): Promise<SessionContext>;
+
+// @alpha (undocumented)
+export function getShippingMethodDetails(shippingId: string): Promise<ShippingMethod>;
 
 // @alpha (undocumented)
 export function getUserCountry(countryId: string): Promise<Country>;

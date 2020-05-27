@@ -130,7 +130,7 @@ export async function getCustomerOrderDetails(
   }
 
   const resp = await apiService.get(
-    `${getCustomerOrderEndpoint()}?filter[id]=${orderId}&associations[lineItems][]`
+    `${getCustomerOrderEndpoint()}?filter[id]=${orderId}&associations[lineItems][]&associations[addresses][]&associations[transactions][]&associations[deliveries][]`
   );
   return resp.data.orders?.elements?.[0];
 }

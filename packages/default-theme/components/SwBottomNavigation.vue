@@ -45,9 +45,9 @@
             </SfSelectOption>
             <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
             <SfSelectOption :value="'logout'">
-                <SfButton @click="logoutUser">
+                <SwButton @click="logoutUser">
                   Logout
-                </SfButton>
+                </SwButton>
             </SfSelectOption>
           </SfSelect>
         </template>
@@ -82,8 +82,7 @@ import {
   SfCircleIcon,
   SfIcon,
   SfSelect,
-  SfProductOption,
-  SfButton
+  SfProductOption
 } from '@storefront-ui/vue'
 import {
   useCartSidebar,
@@ -95,6 +94,7 @@ import {
 import { PAGE_ACCOUNT, PAGE_LOGIN } from '../helpers/pages'
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
 import { onMounted } from '@vue/composition-api'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   name: 'SwBottomNavigation',
@@ -105,7 +105,7 @@ export default {
     SfSelect,
     SfProductOption,
     SwCurrency,
-    SfButton
+    SwButton
   },
   data() {
     return {

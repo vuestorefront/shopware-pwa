@@ -25,7 +25,7 @@ export default {
   },
   watchQuery: true,
   asyncData: async ({ req, params, query, error: errorView, store }) => {
-    const {search, page, error} = useCms()
+    const {search, page, error } = useCms()
     let path = params.pathMatch
     const lang = params.lang
     if (lang && !languagesMap[lang]) {
@@ -42,13 +42,11 @@ export default {
 
 
     const name = unwrappedPage && unwrappedPage.cmsPage && unwrappedPage.cmsPage.name
-    const breadcrumbs = unwrappedPage && unwrappedPage.breadcrumb
     const cmsPage = unwrappedPage && unwrappedPage.cmsPage
     
     return {
       cmsPageName: name,
       page: unwrappedPage,
-      breadcrumbs,
       cmsPage
     }
   },
