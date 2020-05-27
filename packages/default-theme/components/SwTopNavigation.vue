@@ -78,6 +78,7 @@
                   <nuxt-link
                     class="sf-button sf-button--full-width sf-button--underlined color-primary"
                     :to="getPageAccount"
+                    @click.native="isDropdownOpen = false"
                   >
                     My account
                   </nuxt-link>
@@ -216,6 +217,7 @@ export default {
     },
     async logoutUser() {
       await this.logout()
+      this.isDropdownOpen = false
       this.$router.push(this.$i18n.path('/'))
     },
   },
@@ -261,23 +263,20 @@ export default {
     }
   }
   @include for-desktop {
-    .sf-header {
+    ::v-deep .sf-header {
       display: flex;
       justify-content: space-between;
       &__sticky-container {
         width: 100%;
       }
       &__navigation {
-        flex: 1;
-      }
-      &__link {
-        display: flex;
-        align-items: center;
+        flex: 0 0 calc(100% - 20rem);
       }
     }
   }
   .dropdown {
     --dropdown-width: auto;
+    --dropdown-transform: translate(-10%, 100%);
     &__item {
       &:hover {
         color: var(--c-link-hover);

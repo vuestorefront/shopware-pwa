@@ -35,7 +35,7 @@
       >
         <template #icon>
           <SfIcon icon="profile" size="20px" @click="userIconClick" />
-          <SfSelect class="menu-button__select" v-if="isLoggedIn">
+          <SfSelect v-if="isLoggedIn" class="menu-button__select">
             <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
             <SfSelectOption
               :value="getPageAccount"
@@ -45,7 +45,7 @@
             </SfSelectOption>
             <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
             <SfSelectOption :value="'logout'">
-              <SwButton @click="logoutUser">
+              <SwButton class="sf-button--full-width" @click="logoutUser">
                 Logout
               </SwButton>
             </SfSelectOption>
@@ -65,10 +65,10 @@
         <template #icon>
           <SfCircleIcon
             aria-label="Go to Cart"
-            @click="toggleSidebar"
             icon="empty_cart"
             :has-badge="count > 0"
             :badge-label="count.toString()"
+            @click="toggleSidebar"
           />
         </template>
       </SfBottomNavigationItem>
@@ -90,10 +90,10 @@ import {
   useUser,
   useCart,
 } from '@shopware-pwa/composables'
-import { PAGE_ACCOUNT, PAGE_LOGIN } from '../helpers/pages'
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
 import { onMounted } from '@vue/composition-api'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import { PAGE_ACCOUNT, PAGE_LOGIN } from '../helpers/pages'
 
 export default {
   name: 'SwBottomNavigation',
@@ -138,22 +138,21 @@ export default {
       count,
     }
   },
-  watch: {
-    currentRoute(nextRoute) {
-      this.$router.push(this.$i18n.path(nextRoute.routeLabel))
-    },
-  },
   computed: {
     getPageAccount() {
       return PAGE_ACCOUNT
+    },
+  },
+  watch: {
+    currentRoute(nextRoute) {
+      this.$router.push(this.$i18n.path(nextRoute.routeLabel))
     },
   },
   methods: {
     userIconClick() {
       if (this.isLoggedIn) {
         this.$router.push(this.$i18n.path(PAGE_ACCOUNT))
-        return
-      }
+      } else this.toggleModal()
     },
     goToMyAccount() {
       this.$router.push(this.$i18n.path(PAGE_ACCOUNT))
