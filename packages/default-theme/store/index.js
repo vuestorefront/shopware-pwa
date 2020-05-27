@@ -3,7 +3,6 @@ export const state = () => ({
   page: null,
   user: null,
   sessionContext: null,
-  cartSidebarOpen: false,
   locales: ['en-GB', 'de-DE'],
   locale: 'en-GB',
   isGridView: true,
@@ -22,9 +21,6 @@ export const mutations = {
   SET_SESSION_CONTEXT(state, sessionContext) {
     state.sessionContext = sessionContext
   },
-  SET_CART_SIDEBAR_IS_OPEN(state, flag) {
-    state.cartSidebarOpen = flag
-  },
   SET_LANG(state, locale) {
     if (state.locales.includes(locale)) {
       state.locale = locale
@@ -39,6 +35,5 @@ export const getters = {
   getCart: (state) => state.cart,
   getPage: (state) => state.page,
   getUser: (state) => state.user,
-  getSessionContext: (state) => state.sessionContext,
-  getIsCartSidebarOpen: (state) => state.cartSidebarOpen,
+  getSessionContext: (state) => state.sessionContext
 }

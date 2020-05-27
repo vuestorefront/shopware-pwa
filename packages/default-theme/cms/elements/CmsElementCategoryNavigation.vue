@@ -11,20 +11,20 @@
           :key="accordion.id"
           :header="accordion.name"
         >
-          <template #header="{header, isOpen, accordionClick, showChevron}">
+          <template #header="{header, isOpen, accordionClick}">
             <div class="cms-element-category-navigation__menu-item">
               <nuxt-link
                 :to="getCategoryUrl(accordion.route)"
                 
               >
-                <SfButton
+                <SwButton
                   :aria-pressed="isOpen.toString()"
                   :aria-expanded="isOpen.toString()"
                   :class="{ 'sf-accordion-item__header--open': isOpen }"
                   class="sf-button--pure sf-accordion-item__header"
                 >
                 {{ header }}
-                </SfButton>
+                </SwButton>
               </nuxt-link>
               <SfChevron
                 tabindex="0"
@@ -61,9 +61,10 @@
 </template>
 
 <script>
-import { SfList, SfAccordion, SfMenuItem, SfHeading, SfChevron, SfButton } from '@storefront-ui/vue'
+import { SfList, SfAccordion, SfMenuItem, SfHeading, SfChevron } from '@storefront-ui/vue'
 import { getNavigation } from '@shopware-pwa/shopware-6-client'
 import { useCms } from '@shopware-pwa/composables'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   components: {
@@ -72,7 +73,7 @@ export default {
     SfMenuItem,
     SfHeading,
     SfChevron,
-    SfButton
+    SwButton
   },
   name: 'CmsElementCategoryNavigation',
   props: {

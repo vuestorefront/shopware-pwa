@@ -16,7 +16,7 @@ export declare function getCustomerOrders(): Promise<Order[]>;
 ```
 <b>Returns:</b>
 
-`Promise<Order[]>`
+Promise&lt;Order\[\]&gt;
 
 ## Exceptions
 

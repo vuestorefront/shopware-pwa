@@ -18,10 +18,10 @@ export interface ClientSettings
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [accessToken](./shopware-6-client.clientsettings.accesstoken.md) | <code>string</code> | <b><i>(BETA)</i></b> |
-|  [contextToken](./shopware-6-client.clientsettings.contexttoken.md) | <code>string</code> | <b><i>(BETA)</i></b> |
-|  [defaultPaginationLimit](./shopware-6-client.clientsettings.defaultpaginationlimit.md) | <code>number</code> | <b><i>(BETA)</i></b> |
-|  [endpoint](./shopware-6-client.clientsettings.endpoint.md) | <code>string</code> | <b><i>(BETA)</i></b> |
-|  [languageId](./shopware-6-client.clientsettings.languageid.md) | <code>string</code> | <b><i>(BETA)</i></b> |
-|  [timeout](./shopware-6-client.clientsettings.timeout.md) | <code>number</code> | <b><i>(BETA)</i></b> |
+|  [accessToken](./shopware-6-client.clientsettings.accesstoken.md) | string | <b><i>(BETA)</i></b> |
+|  [contextToken](./shopware-6-client.clientsettings.contexttoken.md) | string | <b><i>(BETA)</i></b> |
+|  [defaultPaginationLimit](./shopware-6-client.clientsettings.defaultpaginationlimit.md) | number | <b><i>(BETA)</i></b> |
+|  [endpoint](./shopware-6-client.clientsettings.endpoint.md) | string | <b><i>(BETA)</i></b> |
+|  [languageId](./shopware-6-client.clientsettings.languageid.md) | string | <b><i>(BETA)</i></b> |
+|  [timeout](./shopware-6-client.clientsettings.timeout.md) | number | <b><i>(BETA)</i></b> |
 

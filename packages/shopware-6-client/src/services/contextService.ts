@@ -10,6 +10,8 @@ import {
   getContextEndpoint,
   getContextCountryItemEndpoint,
   getContextSalutationItemEndpoint,
+  getContextPaymentMethodDetailsEndpoint,
+  getContextShippingMethodDetailsEndpoint,
 } from "../endpoints";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
@@ -155,6 +157,20 @@ export async function getAvailablePaymentMethods(): Promise<PaymentMethod[]> {
  * @throws ClientApiError
  * @alpha
  */
+export async function getPaymentMethodDetails(
+  paymentId: string
+): Promise<PaymentMethod> {
+  const resp = await apiService.get(
+    getContextPaymentMethodDetailsEndpoint(paymentId)
+  );
+
+  return resp.data.data;
+}
+
+/**
+ * @throws ClientApiError
+ * @alpha
+ */
 export async function setCurrentPaymentMethod(
   newPaymentMethodId: string
 ): Promise<ContextTokenResponse> {
@@ -172,6 +188,20 @@ export async function getAvailableShippingMethods(): Promise<ShippingMethod[]> {
   const resp = await apiService.get(getContextShippingMethodEndpoint());
 
   return resp.data;
+}
+
+/**
+ * @throws ClientApiError
+ * @alpha
+ */
+export async function getShippingMethodDetails(
+  shippingId: string
+): Promise<ShippingMethod> {
+  const resp = await apiService.get(
+    getContextShippingMethodDetailsEndpoint(shippingId)
+  );
+
+  return resp.data.data;
 }
 
 /**

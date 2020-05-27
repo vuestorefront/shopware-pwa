@@ -18,14 +18,14 @@ export interface UseCheckout
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [billingAddress](./composables.usecheckout.billingaddress.md) | <code>Readonly&lt;Ref&lt;BillingAddress &#124; undefined&gt;&gt;</code> | <b><i>(BETA)</i></b> |
-|  [createOrder](./composables.usecheckout.createorder.md) | <code>() =&gt; Promise&lt;Order&gt;</code> | <b><i>(BETA)</i></b> |
-|  [getPaymentMethods](./composables.usecheckout.getpaymentmethods.md) | <code>(options?: {</code><br/><code>        forceReload: boolean;</code><br/><code>    }) =&gt; Promise&lt;Readonly&lt;Ref&lt;readonly PaymentMethod[]&gt;&gt;&gt;</code> | <b><i>(BETA)</i></b> |
-|  [getShippingMethods](./composables.usecheckout.getshippingmethods.md) | <code>(options?: {</code><br/><code>        forceReload: boolean;</code><br/><code>    }) =&gt; Promise&lt;Readonly&lt;Ref&lt;readonly ShippingMethod[]&gt;&gt;&gt;</code> | <b><i>(BETA)</i></b> |
-|  [guestOrderParams](./composables.usecheckout.guestorderparams.md) | <code>Ref&lt;Readonly&lt;Partial&lt;GuestOrderParams &#124; null&gt;&gt;&gt;</code> | <b><i>(BETA)</i></b> |
-|  [isGuestOrder](./composables.usecheckout.isguestorder.md) | <code>Readonly&lt;Ref&lt;boolean&gt;&gt;</code> | <b><i>(BETA)</i></b> |
-|  [paymentMethods](./composables.usecheckout.paymentmethods.md) | <code>Readonly&lt;Ref&lt;readonly PaymentMethod[]&gt;&gt;</code> | <b><i>(BETA)</i></b> |
-|  [shippingAddress](./composables.usecheckout.shippingaddress.md) | <code>Readonly&lt;Ref&lt;ShippingAddress &#124; undefined&gt;&gt;</code> | <b><i>(BETA)</i></b> |
-|  [shippingMethods](./composables.usecheckout.shippingmethods.md) | <code>Readonly&lt;Ref&lt;readonly ShippingMethod[]&gt;&gt;</code> | <b><i>(BETA)</i></b> |
-|  [updateGuestOrderParams](./composables.usecheckout.updateguestorderparams.md) | <code>(params: Partial&lt;GuestOrderParams&gt;) =&gt; void</code> | <b><i>(BETA)</i></b> |
+|  [billingAddress](./composables.usecheckout.billingaddress.md) | Readonly&lt;Ref&lt;BillingAddress \| undefined&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [createOrder](./composables.usecheckout.createorder.md) | () =&gt; Promise&lt;Order&gt; | <b><i>(BETA)</i></b> |
+|  [getPaymentMethods](./composables.usecheckout.getpaymentmethods.md) | (options?: { forceReload: boolean; }) =&gt; Promise&lt;Readonly&lt;Ref&lt;readonly PaymentMethod\[\]&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [getShippingMethods](./composables.usecheckout.getshippingmethods.md) | (options?: { forceReload: boolean; }) =&gt; Promise&lt;Readonly&lt;Ref&lt;readonly ShippingMethod\[\]&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [guestOrderParams](./composables.usecheckout.guestorderparams.md) | Ref&lt;Readonly&lt;Partial&lt;GuestOrderParams \| null&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [isGuestOrder](./composables.usecheckout.isguestorder.md) | Readonly&lt;Ref&lt;boolean&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [paymentMethods](./composables.usecheckout.paymentmethods.md) | Readonly&lt;Ref&lt;readonly PaymentMethod\[\]&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [shippingAddress](./composables.usecheckout.shippingaddress.md) | Readonly&lt;Ref&lt;ShippingAddress \| undefined&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [shippingMethods](./composables.usecheckout.shippingmethods.md) | Readonly&lt;Ref&lt;readonly ShippingMethod\[\]&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [updateGuestOrderParams](./composables.usecheckout.updateguestorderparams.md) | (params: Partial&lt;GuestOrderParams&gt;) =&gt; void | <b><i>(BETA)</i></b> |
 

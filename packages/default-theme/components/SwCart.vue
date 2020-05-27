@@ -55,17 +55,20 @@
                 <SfPrice :regular="totalPrice | price" class="sf-price--big" />
               </template>
             </SfProperty>
-            <SfButton
+            <SwButton
               class="sf-button--full-width color-secondary"
               @click="goToCheckout()"
-              >{{ $t('Go to checkout') }}</SfButton
+              >{{ $t('Go to checkout') }}</SwButton
             >
             <SwPluginSlot name="sidecart-checkout-button-after" />
           </div>
           <div v-else>
-            <SfButton class="sf-button--full-width color-primary">
+            <SwButton
+              class="sf-button--full-width color-primary"
+              @click="toggleSidebar"
+            >
               {{ $t('Start shopping') }}
-            </SfButton>
+            </SwButton>
           </div>
         </transition>
       </template>
@@ -75,7 +78,6 @@
 <script>
 import {
   SfSidebar,
-  SfButton,
   SfProperty,
   SfPrice,
   SfHeading,
@@ -83,6 +85,7 @@ import {
 } from '@storefront-ui/vue'
 import { useCart, useCartSidebar } from '@shopware-pwa/composables'
 import SwCartProduct from '@shopware-pwa/default-theme/components/SwCartProduct'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 import { PAGE_CHECKOUT } from '@shopware-pwa/default-theme/helpers/pages'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 import { computed, onMounted, ref } from '@vue/composition-api'
@@ -91,13 +94,13 @@ export default {
   name: 'SwCart',
   components: {
     SfSidebar,
-    SfButton,
     SfHeading,
     SfImage,
     SfProperty,
     SfPrice,
     SwCartProduct,
     SwPluginSlot,
+    SwButton,
   },
   setup() {
     const { cartItems, count, totalPrice, removeProduct } = useCart()

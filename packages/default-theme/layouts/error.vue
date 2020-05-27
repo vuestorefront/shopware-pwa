@@ -11,25 +11,26 @@
       :subtitle="message"
     />
     <div class="error-page__actions">
-      <SfButton class="error-page__actions-button" @click="$router.push($i18n.path('/'))">
+      <SwButton class="error-page__actions-button" @click="$router.push($i18n.path('/'))">
         <SfIcon
           class="error-page__actions-button-icon"
           icon="chevron_left"
           color="white"
           size="20px"
         />Return to homepage
-      </SfButton>
-      <SfButton
+      </SwButton>
+      <SwButton
         @click="$router.back()"
         class="sf-button--full-width sf-button--text error-page__actions-button"
       >
         Back
-      </SfButton>
+      </SwButton>
     </div>
   </div>
 </template>
 <script>
-import { SfHeading, SfButton, SfIcon, SfImage } from '@storefront-ui/vue'
+import { SfHeading, SfIcon, SfImage } from '@storefront-ui/vue'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 const customMessageDictionary = {
   404: "We can't find what you are looking for. Are you lost?",
@@ -45,7 +46,7 @@ export default {
   name: 'ErrorPage',
   components: {
     SfHeading,
-    SfButton,
+    SwButton,
     SfImage,
     SfIcon,
   },
