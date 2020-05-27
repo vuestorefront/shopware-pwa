@@ -191,12 +191,12 @@ export default {
     )
 
     form.salutation = {
-      name: props.address.salutation.displayName,
-      id: props.address.salutation.id
+      name: props.address.salutation && props.address.salutation.displayName,
+      id: props.address.salutation && props.address.salutation.id
     }
     form.country = {
-      name: props.address.country.name,
-      id: props.address.country.id
+      name: props.address.country && props.address.country.name,
+      id: props.address.country && props.address.country.id
     }
 
     return {

@@ -18,7 +18,7 @@ export interface TierPrice
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [label](./helpers.tierprice.label.md) | string | <b><i>(BETA)</i></b> |
-|  [quantity](./helpers.tierprice.quantity.md) | number | <b><i>(BETA)</i></b> |
-|  [unitPrice](./helpers.tierprice.unitprice.md) | number | <b><i>(BETA)</i></b> |
+|  [label](./helpers.tierprice.label.md) | <code>string</code> | <b><i>(BETA)</i></b> |
+|  [quantity](./helpers.tierprice.quantity.md) | <code>number</code> | <b><i>(BETA)</i></b> |
+|  [unitPrice](./helpers.tierprice.unitprice.md) | <code>number</code> | <b><i>(BETA)</i></b> |
 

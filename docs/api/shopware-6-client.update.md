@@ -19,9 +19,9 @@ export declare function update(config?: ClientSettings): void;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  config | [ClientSettings](./shopware-6-client.clientsettings.md) |  |
+|  config | <code>ClientSettings</code> |  |
 
 <b>Returns:</b>
 
-void
+`void`
 

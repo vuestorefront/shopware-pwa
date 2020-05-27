@@ -16,7 +16,7 @@ export declare function getCustomer(): Promise<Customer | null>;
 ```
 <b>Returns:</b>
 
-Promise&lt;Customer \| null&gt;
+`Promise<Customer | null>`
 
 ## Exceptions
 
