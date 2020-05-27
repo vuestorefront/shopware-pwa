@@ -68,15 +68,25 @@
               :has-badge="isLoggedIn"
               @click="userIconClick"
             />
-            <SfDropdown class="dropdown" :is-open="isDropdownOpen" @click:close="isDropdownOpen = false">
+            <SfDropdown
+              class="dropdown"
+              :is-open="isDropdownOpen"
+              @click:close="isDropdownOpen = false"
+            >
               <SfList>
                 <SfListItem>
-                  <nuxt-link class="sf-button sf-button--full-width sf-button--underlined color-primary" :to="getPageAccount">
+                  <nuxt-link
+                    class="sf-button sf-button--full-width sf-button--underlined color-primary"
+                    :to="getPageAccount"
+                  >
                     My account
                   </nuxt-link>
                 </SfListItem>
                 <SfListItem>
-                  <SfButton class="sf-button sf-button--full-width sf-button--underlined color-primary dropdown__item" @click="logoutUser()">
+                  <SfButton
+                    class="sf-button sf-button--full-width sf-button--underlined color-primary dropdown__item"
+                    @click="logoutUser()"
+                  >
                     Logout
                   </SfButton>
                 </SfListItem>
@@ -126,7 +136,10 @@ import {
 } from '@shopware-pwa/composables'
 import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
-import { PAGE_ACCOUNT, PAGE_LOGIN } from '@shopware-pwa/default-theme/helpers/pages'
+import {
+  PAGE_ACCOUNT,
+  PAGE_LOGIN,
+} from '@shopware-pwa/default-theme/helpers/pages'
 import SwLanguageSwitcher from '@shopware-pwa/default-theme/components/SwLanguageSwitcher'
 import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
 import { ref, reactive, onMounted, watch } from '@vue/composition-api'
@@ -190,13 +203,13 @@ export default {
     return {
       activeIcon: '',
       isModalOpen: false,
-      isDropdownOpen: false
+      isDropdownOpen: false,
     }
   },
   computed: {
     getPageAccount() {
       return this.$i18n.path(PAGE_ACCOUNT)
-    }
+    },
   },
   methods: {
     userIconClick() {
@@ -206,7 +219,7 @@ export default {
     async logoutUser() {
       await this.logout()
       this.$router.push(this.$i18n.path('/'))
-    }
+    },
   },
 }
 </script>
@@ -250,23 +263,19 @@ export default {
     }
   }
   @include for-desktop {
-    .sf-header {
+    ::v-deep .sf-header {
       display: flex;
       justify-content: space-between;
       &__sticky-container {
         width: 100%;
       }
       &__navigation {
-        flex: 1;
-      }
-      &__link {
-        display: flex;
-        align-items: center;
+        flex: 0 0 calc(100% - 20rem);
       }
     }
   }
   .dropdown {
-    --dropdown-width: auto; 
+    --dropdown-width: auto;
     &__item {
       &:hover {
         color: var(--c-link-hover);
