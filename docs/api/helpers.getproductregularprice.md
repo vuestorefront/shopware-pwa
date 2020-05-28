@@ -12,16 +12,14 @@ Get the price for 1 unit of a product
 <b>Signature:</b>
 
 ```typescript
-export declare function getProductRegularPrice({ product, }?: {
-    product?: Product;
-}): number | undefined;
+export declare function getProductRegularPrice(product: Product): number | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { product, } | <code>{</code><br/><code>    product?: Product;</code><br/><code>}</code> |  |
+|  product | <code>Product</code> |  |
 
 <b>Returns:</b>
 

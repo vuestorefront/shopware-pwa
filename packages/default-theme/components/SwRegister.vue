@@ -25,7 +25,7 @@
           {{ salutationOption.name }}
         </SfSelectOption>
       </SfSelect>
-      <SfInput
+      <SwInput
         v-model="firstName"
         name="first-name"
         label="First Name"
@@ -34,7 +34,7 @@
         error-message="First name is required"
         @blur="$v.firstName.$touch()"
       />
-      <SfInput
+      <SwInput
         v-model="lastName"
         name="last-name"
         label="Last Name"
@@ -43,7 +43,7 @@
         error-message="Last name is required"
         @blur="$v.lastName.$touch()"
       />
-      <SfInput
+      <SwInput
         v-model="email"
         name="email"
         label="Your email"
@@ -52,7 +52,7 @@
         error-message="Proper email is required"
         @blur="$v.email.$touch()"
       />
-      <SfInput
+      <SwInput
         v-model="password"
         name="password"
         label="Password"
@@ -62,7 +62,7 @@
         error-message="Minimum password length is 8 characters"
         @blur="$v.password.$touch()"
       />
-      <SfInput
+      <SwInput
         v-model="street"
         name="street"
         label="Street"
@@ -71,7 +71,7 @@
         error-message="Street is required"
         @blur="$v.street.$touch()"
       />
-      <SfInput
+      <SwInput
         v-model="city"
         name="city"
         label="City"
@@ -80,7 +80,7 @@
         error-message="City is required"
         @blur="$v.city.$touch()"
       />
-      <SfInput
+      <SwInput
         v-model="zipcode"
         name="zipcode"
         label="Zip Code"
@@ -119,7 +119,7 @@
 
 <script>
 import { computed } from '@vue/composition-api'
-import { SfAlert, SfInput, SfSelect } from '@storefront-ui/vue'
+import { SfAlert, SfSelect } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength } from 'vuelidate/lib/validators'
 import {
@@ -130,10 +130,11 @@ import {
 import { mapCountries, mapSalutations } from '@shopware-pwa/helpers'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
 
 export default {
   name: 'SwResetPassword',
-  components: { SwButton, SfInput, SfAlert, SfSelect, SwPluginSlot },
+  components: { SwButton, SwInput, SfAlert, SfSelect, SwPluginSlot },
   mixins: [validationMixin],
   data() {
     return {

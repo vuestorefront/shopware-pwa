@@ -1,180 +1,54 @@
 <template>
-  <div class="top-navigation">
-    <SfOverlay :visible="!!currentCategoryName" class="sw-overlay" />
-    <SfTopBar class="top-bar desktop-only">
-      <template #right>
-        <SwCurrency class="sf-header__currency" />
-        <SwLanguageSwitcher />
-      </template>
-    </SfTopBar>
-    <SfHeader
-      :title="$t('page.title')"
-      class="sw-header"
-      :has-mobile-search="false"
-      :is-sticky="false"
-      :cart-items-qty="count.toString()"
+  <div class="sw-top-navigation">
+    <SwPluginSlot name="sw-top-navigation-before" />
+    <SfHeaderNavigationItem
+      v-for="category in navigationElements"
+      :key="category.name"
+      class="sf-header__link"
+      @mouseover="changeCurrentCategory(category.name)"
+      @mouseleave="changeCurrentCategory(null)"
+      @keyup.tab="changeCurrentCategory(category.name)"
     >
-      <template #logo>
-        <nuxt-link :to="$i18n.path('/')" class="sf-header__logo">
-          <SfImage src="/img/logo.svg" :alt="$t('page.title')" />
-        </nuxt-link>
-      </template>
-      <template #navigation>
-        <SwPluginSlot name="top-navigation-before" />
-        <SfHeaderNavigationItem
-          v-for="category in navigationElements"
-          :key="category.name"
-          class="sf-header__link"
-          @mouseover="currentCategoryName = category.name"
-          @mouseleave="currentCategoryName = null"
-          @keyup.tab="currentCategoryName = category.name"
-        >
-          <nuxt-link
-            class="sf-header__link"
-            :to="$i18n.path(getCategoryUrl(category))"
-          >
-            {{ category.name }}
-          </nuxt-link>
-          <SwMegaMenu
-            :category="category"
-            :visible="
-              currentCategoryName && category.name === currentCategoryName
-            "
-          />
-        </SfHeaderNavigationItem>
-        <SwPluginSlot name="top-navigation-after" />
-      </template>
-      <template #search>
-        <SfSearchBar
-          :placeholder="$t('Search for products')"
-          :aria-label="$t('Search for products')"
-          class="sf-header__search desktop-only"
-          @enter="fulltextSearch"
-        />
-      </template>
-      <template #header-icons="{accountIcon, cartIcon}">
-        <div class="sf-header__icons desktop-only">
-          <div class="sw-header__icons">
-            <SwPluginSlot name="top-header-icons-before" />
-            <SfIcon
-              :icon="accountIcon"
-              class="sf-header__icon sw-header__icon"
-              :class="{
-                'sf-header__icon--is-active': activeIcon === 'account-icon',
-              }"
-              role="button"
-              :aria-label="$t('Go to My Account')"
-              :aria-pressed="activeIcon === 'account-icon' ? 'true' : 'false'"
-              :has-badge="isLoggedIn"
-              @click="userIconClick"
-            />
-            <SfDropdown
-              class="dropdown"
-              :is-open="isDropdownOpen"
-              @click:close="isDropdownOpen = false"
-            >
-              <SfList>
-                <SfListItem>
-                  <nuxt-link
-                    class="sf-button sf-button--full-width sf-button--underlined color-primary"
-                    :to="getPageAccount"
-                    @click.native="isDropdownOpen = false"
-                  >
-                    My account
-                  </nuxt-link>
-                </SfListItem>
-                <SfListItem>
-                  <SwButton
-                    class="sf-button sf-button--full-width sf-button--underlined color-primary dropdown__item"
-                    @click="logoutUser()"
-                  >
-                    Logout
-                  </SwButton>
-                </SfListItem>
-              </SfList>
-            </SfDropdown>
-            <SfIcon
-              :icon="cartIcon"
-              :has-badge="count > 0"
-              :badge-label="count.toString()"
-              class="sf-header__icon sw-header__icon"
-              :class="{
-                'sf-header__icon--is-active': activeIcon === 'cart-icon',
-              }"
-              role="button"
-              :aria-label="$t('Go to cart')"
-              :aria-pressed="activeIcon === 'cart-icon' ? 'true' : 'false'"
-              @click="toggleSidebar"
-            />
-            <SwPluginSlot name="top-header-icons-after" />
-          </div>
-        </div>
-      </template>
-    </SfHeader>
-    <SwLoginModal :is-open="isModalOpen" @close="isModalOpen = false" />
+      <nuxt-link
+        class="sf-header__link"
+        :to="$i18n.path(getCategoryUrl(category))"
+      >
+        {{ category.name }}
+      </nuxt-link>
+      <SwMegaMenu
+        :category="category"
+        :visible="currentCategoryName && category.name === currentCategoryName"
+      />
+    </SfHeaderNavigationItem>
+    <SwPluginSlot name="sw-top-navigation-after" />
   </div>
 </template>
 
 <script>
-import {
-  SfHeader,
-  SfImage,
-  SfSearchBar,
-  SfList,
-  SfDropdown,
-  SfOverlay,
-  SfTopBar,
-  SfIcon,
-} from '@storefront-ui/vue'
-import {
-  useUser,
-  useCart,
-  useUIState,
-  useNavigation,
-  useProductSearch,
-} from '@shopware-pwa/composables'
-import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
-import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
-import {
-  PAGE_ACCOUNT,
-  PAGE_LOGIN,
-} from '@shopware-pwa/default-theme/helpers/pages'
-import SwLanguageSwitcher from '@shopware-pwa/default-theme/components/SwLanguageSwitcher'
+import { useNavigation, useUIState } from '@shopware-pwa/composables'
+
 import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
-import { ref, reactive, onMounted, watch } from '@vue/composition-api'
+import { ref, onMounted, watch } from '@vue/composition-api'
 import { getCategoryUrl } from '@shopware-pwa/helpers'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
-import { getAvailableLanguages } from '@shopware-pwa/shopware-6-client'
 import { useLocales } from '@shopware-pwa/default-theme/logic'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
   components: {
-    SfHeader,
-    SwLoginModal,
-    SfImage,
-    SfSearchBar,
-    SfDropdown,
-    SfList,
     SwMegaMenu,
-    SfOverlay,
-    SfTopBar,
-    SwCurrency,
-    SwLanguageSwitcher,
-    SfIcon,
-    SwButton,
     SwPluginSlot,
   },
   setup() {
-    const { isLoggedIn, logout } = useUser()
-    const { count } = useCart()
-    const { switchState: toggleSidebar } = useUIState('CART_SIDEBAR_STATE')
-    const { switchState: toggleModal } = useUIState('LOGIN_MODAL_STATE')
-    const { search: fulltextSearch } = useProductSearch()
+    const { switchState: switchOverlay } = useUIState('MEGA_MENU_OVERLAY_STATE')
     const { fetchNavigationElements, navigationElements } = useNavigation()
     const { currentLocale } = useLocales()
 
     const currentCategoryName = ref(null)
+
+    const changeCurrentCategory = (categoryName) => {
+      currentCategoryName.value = categoryName
+      switchOverlay(!!currentCategoryName.value)
+    }
 
     onMounted(() => {
       watch(currentLocale, async () => {
@@ -187,39 +61,11 @@ export default {
     })
 
     return {
-      count,
-      toggleModal,
-      toggleSidebar,
-      isLoggedIn,
-      logout,
-      fulltextSearch,
       navigationElements,
       getCategoryUrl,
       currentCategoryName,
+      changeCurrentCategory,
     }
-  },
-  data() {
-    return {
-      activeIcon: '',
-      isModalOpen: false,
-      isDropdownOpen: false,
-    }
-  },
-  computed: {
-    getPageAccount() {
-      return this.$i18n.path(PAGE_ACCOUNT)
-    },
-  },
-  methods: {
-    userIconClick() {
-      if (this.isLoggedIn) this.isDropdownOpen = !this.isDropdownOpen
-      else this.toggleModal()
-    },
-    async logoutUser() {
-      await this.logout()
-      this.isDropdownOpen = false
-      this.$router.push(this.$i18n.path('/'))
-    },
   },
 }
 </script>
@@ -227,7 +73,9 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/variables';
 
-.top-navigation {
+.sw-top-navigation {
+  display: flex;
+  flex-wrap: wrap;
   --search-bar-width: 100%;
   --header-container-padding: 0 var(--spacer-base);
   --header-navigation-item-margin: 0 1rem 0 0;
@@ -235,33 +83,7 @@ export default {
   .sw-overlay {
     --overlay-z-index: 1;
   }
-  .sf-header {
-    &__currency {
-      --select-dropdown-z-index: 2;
-      position: relative;
-      margin: 0 var(--spacer-base) 0 var(--spacer-base);
-      width: 2.5rem;
-      &::before {
-        content: '';
-        display: block;
-        position: absolute;
-        background-color: white;
-        width: 20px;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
-        padding: var(--spacer-2xs);
-        left: 50%;
-        height: 20px;
-      }
-    }
-    &__header {
-      padding-left: var(--spacer-sm);
-    }
-    &__icon {
-      --icon-size: 1.25rem;
-    }
-  }
+
   @include for-desktop {
     ::v-deep .sf-header {
       display: flex;
@@ -273,46 +95,6 @@ export default {
         flex: 0 0 calc(100% - 20rem);
       }
     }
-  }
-  .dropdown {
-    --dropdown-width: auto;
-    --dropdown-transform: translate(-10%, 100%);
-    &__item {
-      &:hover {
-        color: var(--c-link-hover);
-      }
-    }
-  }
-
-  .sw-header__icons {
-    display: flex;
-    justify-content: space-around;
-    margin-left: 1rem;
-
-    .sw-header__icon {
-      margin: 0 10px;
-    }
-  }
-}
-.top-bar {
-  padding: 0 var(--spacer-sm);
-  position: relative;
-  z-index: 3;
-  &__location-label {
-    margin: 0 var(--spacer-sm) 0 0;
-  }
-}
-.sf-header__logo {
-  height: 2rem;
-}
-.sw-header {
-  z-index: 2;
-  background-color: #fff;
-  &__icons {
-    display: flex;
-  }
-  &__icon {
-    cursor: pointer;
   }
 }
 </style>

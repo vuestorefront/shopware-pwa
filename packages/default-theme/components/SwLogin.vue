@@ -8,7 +8,7 @@
         type="danger"
         :message="userError"
       />
-      <SfInput
+      <SwInput
         v-model="email"
         name="email"
         label="Your email"
@@ -18,7 +18,7 @@
         error-message="Email is required"
         @blur="$v.email.$touch()"
       />
-      <SfInput
+      <SwInput
         v-model="password"
         name="password"
         label="Password"
@@ -43,16 +43,17 @@
 </template>
 
 <script>
-import { SfInput, SfAlert } from '@storefront-ui/vue'
+import { SfAlert } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { required, email } from 'vuelidate/lib/validators'
 import { useUser } from '@shopware-pwa/composables'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
 
 export default {
   name: 'SwLogin',
-  components: { SwButton, SfInput, SfAlert, SwPluginSlot },
+  components: { SwButton, SwInput, SfAlert, SwPluginSlot },
   mixins: [validationMixin],
   data() {
     return {
