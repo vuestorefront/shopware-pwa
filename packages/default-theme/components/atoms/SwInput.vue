@@ -1,7 +1,5 @@
 <template>
-  <SfInput v-bind="{...$props, ...$attrs}" v-on="$listeners">
-    <slot />
-  </SfInput>
+  <SfInput v-bind="{...$props, ...$attrs}" v-on="$listeners" />
 </template>
 
 <script>
