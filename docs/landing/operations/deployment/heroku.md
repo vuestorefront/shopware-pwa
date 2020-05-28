@@ -52,7 +52,7 @@ Make sure, the `@shopware-pwa/cli` version matches the version you've used to cr
 
 ```json
 "scripts": {
-  "build": "npx @shopware-pwa/cli@^0.1.0-alpha.4 init --ci && nuxt build",
+  "build": "shopware-pwa init --ci && nuxt build",
   ...
 ```
 
