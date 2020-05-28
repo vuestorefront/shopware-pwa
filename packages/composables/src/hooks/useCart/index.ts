@@ -7,11 +7,41 @@ import {
 } from "@shopware-pwa/shopware-6-client";
 import { getStore } from "../..";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
+import { Cart } from "@shopware-pwa/commons/interfaces/models/checkout/cart/Cart";
+import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
 
 /**
- * @alpha
+ * interface for {@link useCart} composable
+ *
+ * @beta
  */
-export const useCart = (): any => {
+export interface IUseCart {
+  addProduct: ({ id, quantity }: { id: string; quantity: number }) => void;
+  cart: Readonly<Ref<Readonly<Cart>>>;
+  cartItems: Readonly<Ref<Readonly<LineItem[]>>>;
+  changeProductQuantity: ({
+    id,
+    quantity,
+  }: {
+    id: string;
+    quantity: number;
+  }) => void;
+  count: Readonly<Ref<Readonly<number>>>;
+  error: Readonly<Ref<Readonly<string>>>;
+  loading: Readonly<Ref<Readonly<boolean>>>;
+  refreshCart: () => void;
+  removeProduct: ({ id }: Partial<Product>) => void;
+  totalPrice: Readonly<Ref<Readonly<number>>>;
+  subtotal: Readonly<Ref<Readonly<number>>>;
+}
+
+/**
+ * Composable for cart management. Options - {@link IUseCart}
+ *
+ * @beta
+ */
+export const useCart = (): IUseCart => {
   let vuexStore = getStore();
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
@@ -29,12 +59,18 @@ export const useCart = (): any => {
     }
   }
 
-  async function addProduct({ id, quantity }: any) {
+  async function addProduct({
+    id,
+    quantity,
+  }: {
+    id: string;
+    quantity: number;
+  }) {
     const result = await addProductToCart(id, quantity);
     vuexStore.commit("SET_CART", result);
   }
 
-  async function removeProduct({ id }: any) {
+  async function removeProduct({ id }: Product) {
     const result = await removeCartItem(id);
     vuexStore.commit("SET_CART", result);
   }
@@ -44,7 +80,7 @@ export const useCart = (): any => {
     vuexStore.commit("SET_CART", result);
   }
 
-  const cart = computed(() => {
+  const cart: Readonly<Ref<Readonly<Cart>>> = computed(() => {
     return vuexStore.getters.getCart;
   });
 
@@ -54,7 +90,8 @@ export const useCart = (): any => {
 
   const count = computed(() => {
     return cartItems.value.reduce(
-      (accumulator: number, lineItem: any) => lineItem.quantity + accumulator,
+      (accumulator: number, lineItem: LineItem) =>
+        lineItem.quantity + accumulator,
       0
     );
   });

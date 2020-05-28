@@ -6,6 +6,7 @@
 
 import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { BillingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
+import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
@@ -17,6 +18,7 @@ import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
+import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
 import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
@@ -69,6 +71,38 @@ export interface IUseAddToCart {
 }
 
 // @beta
+export interface IUseCart {
+    // (undocumented)
+    addProduct: ({ id, quantity }: {
+        id: string;
+        quantity: number;
+    }) => void;
+    // (undocumented)
+    cart: Readonly<Ref<Readonly<Cart>>>;
+    // (undocumented)
+    cartItems: Readonly<Ref<Readonly<LineItem[]>>>;
+    // (undocumented)
+    changeProductQuantity: ({ id, quantity, }: {
+        id: string;
+        quantity: number;
+    }) => void;
+    // (undocumented)
+    count: Readonly<Ref<Readonly<number>>>;
+    // (undocumented)
+    error: Readonly<Ref<Readonly<string>>>;
+    // (undocumented)
+    loading: Readonly<Ref<Readonly<boolean>>>;
+    // (undocumented)
+    refreshCart: () => void;
+    // (undocumented)
+    removeProduct: ({ id }: Partial<Product>) => void;
+    // (undocumented)
+    subtotal: Readonly<Ref<Readonly<number>>>;
+    // (undocumented)
+    totalPrice: Readonly<Ref<Readonly<number>>>;
+}
+
+// @beta
 export interface IUseCheckout {
     // (undocumented)
     billingAddress: Readonly<Ref<BillingAddress | undefined>>;
@@ -95,6 +129,96 @@ export interface IUseCheckout {
     updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
 }
 
+// @beta
+export interface IUseNavigation {
+    // (undocumented)
+    fetchNavigationElements: (depth: number) => Promise<void>;
+    // (undocumented)
+    fetchRoutes: () => Promise<void>;
+    // (undocumented)
+    navigationElements: NavigationElement[];
+    // (undocumented)
+    routes: Ref<Readonly<any>>;
+}
+
+// @beta
+export interface IUseSessionContext {
+    // (undocumented)
+    currency: Readonly<Ref<Currency | null>>;
+    // (undocumented)
+    paymentMethod: Readonly<Ref<PaymentMethod | null>>;
+    // (undocumented)
+    refreshSessionContext: () => Promise<void>;
+    // (undocumented)
+    sessionContext: Readonly<Ref<SessionContext | null>>;
+    // (undocumented)
+    setCurrency: (currency: Partial<Currency>) => Promise<void>;
+    // (undocumented)
+    setPaymentMethod: (paymentMethod: Partial<PaymentMethod>) => Promise<void>;
+    // (undocumented)
+    setShippingMethod: (shippingMethod: Partial<ShippingMethod>) => Promise<void>;
+    // (undocumented)
+    shippingMethod: Readonly<Ref<ShippingMethod | null>>;
+}
+
+// @beta
+export interface IUseUser {
+    // (undocumented)
+    addAddress: (params: CustomerAddressParam) => Promise<boolean>;
+    // (undocumented)
+    addresses: Ref<CustomerAddress[] | null>;
+    // (undocumented)
+    country: Ref<Country | null>;
+    // (undocumented)
+    deleteAddress: (addressId: string) => Promise<boolean>;
+    // (undocumented)
+    error: Ref<any>;
+    // (undocumented)
+    getOrderDetails: (orderId: string) => Promise<Order | undefined>;
+    // (undocumented)
+    isLoggedIn: Ref<boolean>;
+    // (undocumented)
+    loadAddresses: () => Promise<void>;
+    // (undocumented)
+    loadCountry: (countryId: string) => Promise<void>;
+    // (undocumented)
+    loading: Ref<boolean>;
+    // (undocumented)
+    loadOrders: () => Promise<void>;
+    // (undocumented)
+    loadSalutation: (salutationId: string) => Promise<void>;
+    // (undocumented)
+    login: ({ username, password, }: {
+        username?: string;
+        password?: string;
+    }) => Promise<boolean>;
+    // (undocumented)
+    logout: () => Promise<void>;
+    // (undocumented)
+    markAddressAsDefault: ({ addressId, type, }: {
+        addressId?: string;
+        type?: AddressType;
+    }) => Promise<string | boolean>;
+    // (undocumented)
+    orders: Ref<Order[] | null>;
+    // (undocumented)
+    refreshUser: () => Promise<void>;
+    // (undocumented)
+    register: ({}: CustomerRegistrationParams) => Promise<boolean>;
+    // (undocumented)
+    resetPassword: (resetPasswordData: CustomerResetPasswordParam) => Promise<boolean>;
+    // (undocumented)
+    salutation: Ref<Salutation | null>;
+    // (undocumented)
+    updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
+    // (undocumented)
+    updatePassword: (updatePasswordData: CustomerUpdatePasswordParam) => Promise<boolean>;
+    // (undocumented)
+    updatePersonalInfo: (personals: CustomerUpdateProfileParam) => Promise<boolean>;
+    // (undocumented)
+    user: Ref<Customer | null>;
+}
+
 // @alpha (undocumented)
 export type Search = (path: string, associations?: any) => any;
 
@@ -104,8 +228,8 @@ export function setStore(ref: any): void;
 // @beta
 export const useAddToCart: (product: Product) => IUseAddToCart;
 
-// @alpha (undocumented)
-export const useCart: () => any;
+// @beta
+export const useCart: () => IUseCart;
 
 // @alpha (undocumented)
 export const useCategoryFilters: () => any;
@@ -150,20 +274,8 @@ export interface UseCurrency {
 // @alpha (undocumented)
 export const useCurrency: () => UseCurrency;
 
-// @alpha (undocumented)
-export interface UseNavigation {
-    // (undocumented)
-    fetchNavigationElements: (depth: number) => Promise<void>;
-    // (undocumented)
-    fetchRoutes: () => Promise<void>;
-    // (undocumented)
-    navigationElements: NavigationElement[];
-    // (undocumented)
-    routes: Ref<Readonly<any>>;
-}
-
-// @alpha (undocumented)
-export const useNavigation: () => UseNavigation;
+// @beta
+export const useNavigation: () => IUseNavigation;
 
 // @alpha (undocumented)
 export interface UseProduct<PRODUCT, SEARCH> {
@@ -223,28 +335,8 @@ export interface UseSalutations {
 // @alpha (undocumented)
 export const useSalutations: () => UseSalutations;
 
-// @alpha
-export interface UseSessionContext {
-    // (undocumented)
-    currency: Readonly<Ref<Currency | null>>;
-    // (undocumented)
-    paymentMethod: Readonly<Ref<PaymentMethod | null>>;
-    // (undocumented)
-    refreshSessionContext: () => Promise<void>;
-    // (undocumented)
-    sessionContext: Readonly<Ref<SessionContext | null>>;
-    // (undocumented)
-    setCurrency: (currency: Partial<Currency>) => Promise<void>;
-    // (undocumented)
-    setPaymentMethod: (paymentMethod: Partial<PaymentMethod>) => Promise<void>;
-    // (undocumented)
-    setShippingMethod: (shippingMethod: Partial<ShippingMethod>) => Promise<void>;
-    // (undocumented)
-    shippingMethod: Readonly<Ref<ShippingMethod | null>>;
-}
-
-// @alpha (undocumented)
-export const useSessionContext: () => UseSessionContext;
+// @beta
+export const useSessionContext: () => IUseSessionContext;
 
 // @beta
 export const useUIState: (stateName?: string | undefined) => {
@@ -252,66 +344,8 @@ export const useUIState: (stateName?: string | undefined) => {
     switchState: (to?: boolean | undefined) => void;
 };
 
-// @alpha (undocumented)
-export interface UseUser {
-    // (undocumented)
-    addAddress: (params: CustomerAddressParam) => Promise<boolean>;
-    // (undocumented)
-    addresses: Ref<CustomerAddress[] | null>;
-    // (undocumented)
-    country: Ref<Country | null>;
-    // (undocumented)
-    deleteAddress: (addressId: string) => Promise<boolean>;
-    // (undocumented)
-    error: Ref<any>;
-    // (undocumented)
-    getOrderDetails: (orderId: string) => Promise<Order | undefined>;
-    // (undocumented)
-    isLoggedIn: Ref<boolean>;
-    // (undocumented)
-    loadAddresses: () => Promise<void>;
-    // (undocumented)
-    loadCountry: (countryId: string) => Promise<void>;
-    // (undocumented)
-    loading: Ref<boolean>;
-    // (undocumented)
-    loadOrders: () => Promise<void>;
-    // (undocumented)
-    loadSalutation: (salutationId: string) => Promise<void>;
-    // (undocumented)
-    login: ({ username, password, }: {
-        username?: string;
-        password?: string;
-    }) => Promise<boolean>;
-    // (undocumented)
-    logout: () => Promise<void>;
-    // (undocumented)
-    markAddressAsDefault: ({ addressId, type, }: {
-        addressId?: string;
-        type?: AddressType;
-    }) => Promise<string | boolean>;
-    // (undocumented)
-    orders: Ref<Order[] | null>;
-    // (undocumented)
-    refreshUser: () => Promise<void>;
-    // (undocumented)
-    register: ({}: CustomerRegistrationParams) => Promise<boolean>;
-    // (undocumented)
-    resetPassword: (resetPasswordData: CustomerResetPasswordParam) => Promise<boolean>;
-    // (undocumented)
-    salutation: Ref<Salutation | null>;
-    // (undocumented)
-    updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
-    // (undocumented)
-    updatePassword: (updatePasswordData: CustomerUpdatePasswordParam) => Promise<boolean>;
-    // (undocumented)
-    updatePersonalInfo: (personals: CustomerUpdateProfileParam) => Promise<boolean>;
-    // (undocumented)
-    user: Ref<Customer | null>;
-}
-
-// @alpha (undocumented)
-export const useUser: () => UseUser;
+// @beta
+export const useUser: () => IUseUser;
 
 // @alpha (undocumented)
 export interface VuelidateValidation {

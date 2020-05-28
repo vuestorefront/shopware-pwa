@@ -9,13 +9,21 @@
 |  Interface | Description |
 |  --- | --- |
 |  [IUseAddToCart](./composables.iuseaddtocart.md) | <b><i>(BETA)</i></b> interface for [useAddToCart](./composables.useaddtocart.md) composable |
+|  [IUseCart](./composables.iusecart.md) | <b><i>(BETA)</i></b> interface for [useCart](./composables.usecart.md) composable |
 |  [IUseCheckout](./composables.iusecheckout.md) | <b><i>(BETA)</i></b> interface for [useCheckout](./composables.usecheckout.md) composable |
+|  [IUseNavigation](./composables.iusenavigation.md) | <b><i>(BETA)</i></b> interface for [useNavigation](./composables.usenavigation.md) composable |
+|  [IUseSessionContext](./composables.iusesessioncontext.md) | <b><i>(BETA)</i></b> interface for [useSessionContext](./composables.usesessioncontext.md) composable |
+|  [IUseUser](./composables.iuseuser.md) | <b><i>(BETA)</i></b> interface for [useUser](./composables.useuser.md) composable |
 
 ## Variables
 
 |  Variable | Description |
 |  --- | --- |
 |  [useAddToCart](./composables.useaddtocart.md) | <b><i>(BETA)</i></b> Add product to cart. Options - [IUseAddToCart](./composables.iuseaddtocart.md) |
+|  [useCart](./composables.usecart.md) | <b><i>(BETA)</i></b> Composable for cart management. Options - [IUseCart](./composables.iusecart.md) |
 |  [useCheckout](./composables.usecheckout.md) | <b><i>(BETA)</i></b> Composable for Checkout management. Options - [IUseCheckout](./composables.iusecheckout.md) |
+|  [useNavigation](./composables.usenavigation.md) | <b><i>(BETA)</i></b> Composable for navigation. Options - [IUseNavigation](./composables.iusenavigation.md) |
+|  [useSessionContext](./composables.usesessioncontext.md) | <b><i>(BETA)</i></b> Composable for session management. Options - [IUseSessionContext](./composables.iusesessioncontext.md) |
 |  [useUIState](./composables.useuistate.md) | <b><i>(BETA)</i></b> Simple state management for UI purposes. |
+|  [useUser](./composables.useuser.md) | <b><i>(BETA)</i></b> Composable for user management. Options - [IUseUser](./composables.iuseuser.md) |
 
