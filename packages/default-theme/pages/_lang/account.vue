@@ -34,7 +34,7 @@ import { PAGE_LOGIN } from '@shopware-pwa/default-theme/helpers/pages'
 import authMiddleware from '@shopware-pwa/default-theme/middleware/auth'
 
 export default {
-  name: 'Account',
+  name: 'AccountPage',
   components: {
     SfContentPages,
     SfTabs,

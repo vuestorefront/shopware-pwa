@@ -27,15 +27,14 @@ import SwTopNavigation from '@shopware-pwa/default-theme/components/SwTopNavigat
 import SwBottomNavigation from '@shopware-pwa/default-theme/components/SwBottomNavigation'
 import SwFooter from '@shopware-pwa/default-theme/components/SwFooter'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
-import { useCms, useCartSidebar } from '@shopware-pwa/composables'
+import { useCms, useUIState } from '@shopware-pwa/composables'
 import {
   computed,
   getCurrentInstance,
   ref,
   watchEffect,
 } from '@vue/composition-api'
-const SwCart = () =>
-  import('@shopware-pwa/default-theme/components/SwCart')
+const SwCart = () => import('@shopware-pwa/default-theme/components/SwCart')
 
 export default {
   components: {
@@ -48,8 +47,8 @@ export default {
   },
   setup() {
     const vm = getCurrentInstance()
-    const { breadcrumbsObject } = useCms()
-    const { isSidebarOpen } = useCartSidebar()
+    const { getBreadcrumbsObject } = useCms()
+    const { isOpen: isSidebarOpen } = useUIState('CART_SIDEBAR_STATE')
 
     // Load cart component only when needed
     const loadSidebarComponent = ref(isSidebarOpen.value)
@@ -61,7 +60,7 @@ export default {
     })
 
     const getBreadcrumbs = computed(() =>
-      Object.values(breadcrumbsObject.value).map((breadcrumb) => ({
+      Object.values(getBreadcrumbsObject.value).map((breadcrumb) => ({
         text: breadcrumb.name,
         route: {
           link: vm.$i18n.path(breadcrumb.path),

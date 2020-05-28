@@ -10,7 +10,7 @@
     <BillingAddressSummary class="content" @click:edit="$emit('click:edit', 2)" />
     <PaymentMethodSummary class="content" @click:edit="$emit('click:edit', 3)" />
     <div class="promo-code">
-      <SfInput
+      <SwInput
         v-model="promoCode"
         name="promoCode"
         label="Enter promo code"
@@ -33,7 +33,6 @@
 <script>
 import {
   SfHeading,
-  SfInput,
   SfCircleIcon,
   SfCharacteristic,
 } from '@storefront-ui/vue'
@@ -41,12 +40,13 @@ import PersonalDetailsSummary from '@shopware-pwa/default-theme/components/check
 import ShippingAddressSummary from '@shopware-pwa/default-theme/components/checkout/summary/ShippingAddressSummary'
 import BillingAddressSummary from '@shopware-pwa/default-theme/components/checkout/summary/BillingAddressSummary'
 import PaymentMethodSummary from '@shopware-pwa/default-theme/components/checkout/summary/PaymentMethodSummary'
+import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
 
 export default {
   name: 'SidebarOrderReview',
   components: {
     SfHeading,
-    SfInput,
+    SwInput,
     SfCircleIcon,
     SfCharacteristic,
     PersonalDetailsSummary,

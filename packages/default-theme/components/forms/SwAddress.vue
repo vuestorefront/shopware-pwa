@@ -10,7 +10,7 @@
       :message="countriesError || JSON.stringify(userError)"
     />
     <div class="form">
-      <SfInput
+      <SwInput
         v-model="form.firstName"
         name="firstName"
         label="First Name"
@@ -20,7 +20,7 @@
         required
         class="form__element form__element--half"
       />
-      <SfInput
+      <SwInput
         v-model="form.lastName"
         name="lastName"
         label="Last Name"
@@ -47,7 +47,7 @@
           {{ salutationOption.name }}
         </SfSelectOption>
       </SfSelect>
-      <SfInput
+      <SwInput
         v-model="form.street"
         name="street"
         label="Street Name"
@@ -57,7 +57,7 @@
         required
         class="form__element form__element--half form__element--half-even"
       />
-      <SfInput
+      <SwInput
         v-model="form.apartment"
         name="apartment"
         label="House/Apartment number"
@@ -67,7 +67,7 @@
         required
         class="form__element"
       />
-      <SfInput
+      <SwInput
         v-model="form.city"
         name="city"
         label="City"
@@ -77,7 +77,7 @@
         required
         class="form__element form__element--half"
       />
-      <SfInput
+      <SwInput
         v-model="form.state"
         name="state"
         label="State/Province"
@@ -87,7 +87,7 @@
         required
         class="form__element form__element--half form__element--half-even"
       />
-      <SfInput
+      <SwInput
         v-model="form.zipcode"
         name="zipcode"
         label="Zip-code"
@@ -115,7 +115,7 @@
           {{ countryOption.name }}
         </SfSelectOption>
       </SfSelect>
-      <SfInput
+      <SwInput
         v-model="form.phoneNumber"
         name="phoneNumber"
         label="Phone number"
@@ -145,7 +145,6 @@ import { computed, reactive, ref, onBeforeMount } from '@vue/composition-api'
 import {
   SfAlert,
   SfTabs,
-  SfInput,
   SfSelect,
   SfIcon
 } from '@storefront-ui/vue'
@@ -156,10 +155,11 @@ import {
 } from '@shopware-pwa/composables'
 import { mapCountries, mapSalutations } from '@shopware-pwa/helpers'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
 
 export default {
   name: 'SwAddress',
-  components: { SfAlert, SfTabs, SfInput, SwButton, SfSelect, SfIcon },
+  components: { SfAlert, SfTabs, SwInput, SwButton, SfSelect, SfIcon },
   mixins: [validationMixin],
   props: {
     address: {

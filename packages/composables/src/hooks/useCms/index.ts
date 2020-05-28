@@ -63,7 +63,7 @@ export const useCms = (): any => {
     }
   };
 
-  const breadcrumbsObject = computed(() => page.value?.breadcrumb || []);
+  const getBreadcrumbsObject = computed(() => page.value?.breadcrumb || []);
 
   return {
     page,
@@ -71,6 +71,6 @@ export const useCms = (): any => {
     loading,
     search,
     error,
-    breadcrumbsObject
+    getBreadcrumbsObject
   };
 };

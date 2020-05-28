@@ -19,7 +19,7 @@
       <div class="sw-password__form form">
         <slot name="form">
           <div class="form">
-            <SfInput
+            <SwInput
               v-model="password"
               :valid="!$v.password.$error"
               error-message="Current password is required"
@@ -30,7 +30,7 @@
               required
               @blur="$v.password.$touch()"
             />
-            <SfInput
+            <SwInput
               v-model="newPassword"
               :valid="!$v.newPassword.$error"
               error-message="This field is required"
@@ -41,7 +41,7 @@
               required
               @blur="$v.newPassword.$touch()"
             />
-            <SfInput
+            <SwInput
               v-model="newPasswordConfirm"
               :valid="!$v.newPasswordConfirm.$error"
               error-message="This filed must be same as new password"
@@ -70,14 +70,15 @@
 import { validationMixin } from 'vuelidate'
 import { required, minLength, sameAs } from 'vuelidate/lib/validators'
 import { computed } from '@vue/composition-api';
-import { SfInput, SfAlert } from '@storefront-ui/vue'
+import { SfAlert } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 import { getMessagesFromErrorsArray } from '@shopware-pwa/helpers'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
 
 export default {
   name: 'SwPassword',
-  components: { SfInput, SwButton, SfAlert },
+  components: { SwInput, SwButton, SfAlert },
   mixins: [validationMixin],
   props: {},
   setup() {

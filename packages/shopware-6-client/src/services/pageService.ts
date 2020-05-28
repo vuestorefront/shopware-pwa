@@ -8,7 +8,12 @@ import { convertSearchCriteria } from "../helpers/searchConverter";
  * @alpha
  */
 export interface PageResolverResult<T> {
-  breadcrumb: any[];
+  breadcrumb: {
+    [id: string]: {
+      name: string;
+      path: string;
+    };
+  };
   resourceType: string;
   resourceIdentifier: string;
   cmsPage: T;
