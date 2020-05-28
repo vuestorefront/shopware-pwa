@@ -54,28 +54,23 @@ export default {
 ::v-deep.sw-image-simple-grid {
   display: flex;
   flex-direction: column;
-
-  &__left-images {
-    margin: var(--spacer-sm);
-  }
-
   &__image {
-    margin: var(--spacer-sm);
     img {
       height: 340px;
       object-fit: cover;
     }
   }
   @include for-desktop {
+    flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    flex-direction: row;
-
     &__left-images {
       display: flex;
       flex-direction: column;
+      margin: var(--spacer-sm);
     }
     &__image {
+      margin: var(--spacer-sm);
       &--right {
         img {
           height: 712px;
