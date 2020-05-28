@@ -62,7 +62,7 @@ and place it in the `.nuxt` directory.
 $ yarn start
 ```
 
-Will start the application server. You can specify a specific host and port using the `--hostname` and `--port` parameters.
+Will start the application server. You can specify a specific host and port using the `--hostname` and `--port` parameters or using the environment variablbes `HOST` and `PORT` respectively.
 
 Instead you can also set them in your `nuxt.config.js`
 
