@@ -58,39 +58,18 @@ export function createCheckoutStep({ stepNumber, stepFields, stepDataUpdated, }:
 // @alpha (undocumented)
 export function getStore(): any;
 
-// @alpha (undocumented)
-export type Search = (path: string, associations?: any) => any;
-
-// @alpha (undocumented)
-export function setStore(ref: any): void;
-
-// @alpha (undocumented)
-export interface UseAddToCart {
-    // (undocumented)
+// @beta
+export interface IUseAddToCart {
     addToCart: () => Promise<void>;
-    // (undocumented)
-    error: Ref<any>;
-    // (undocumented)
+    error: Ref<string>;
     getStock: Ref<number | null>;
-    // (undocumented)
     isInCart: Ref<boolean>;
-    // (undocumented)
     loading: Ref<boolean>;
-    // (undocumented)
     quantity: Ref<number>;
 }
 
-// @alpha (undocumented)
-export const useAddToCart: (product: Product) => UseAddToCart;
-
-// @alpha (undocumented)
-export const useCart: () => any;
-
-// @alpha (undocumented)
-export const useCategoryFilters: () => any;
-
-// @beta (undocumented)
-export interface UseCheckout {
+// @beta
+export interface IUseCheckout {
     // (undocumented)
     billingAddress: Readonly<Ref<BillingAddress | undefined>>;
     // (undocumented)
@@ -105,7 +84,6 @@ export interface UseCheckout {
     }) => Promise<Readonly<Ref<readonly ShippingMethod[]>>>;
     // (undocumented)
     guestOrderParams: Ref<Readonly<Partial<GuestOrderParams | null>>>;
-    // (undocumented)
     isGuestOrder: Readonly<Ref<boolean>>;
     // (undocumented)
     paymentMethods: Readonly<Ref<readonly PaymentMethod[]>>;
@@ -118,7 +96,22 @@ export interface UseCheckout {
 }
 
 // @alpha (undocumented)
-export const useCheckout: () => UseCheckout;
+export type Search = (path: string, associations?: any) => any;
+
+// @alpha (undocumented)
+export function setStore(ref: any): void;
+
+// @beta
+export const useAddToCart: (product: Product) => IUseAddToCart;
+
+// @alpha (undocumented)
+export const useCart: () => any;
+
+// @alpha (undocumented)
+export const useCategoryFilters: () => any;
+
+// @beta
+export const useCheckout: () => IUseCheckout;
 
 // @alpha (undocumented)
 export const useCms: () => any;

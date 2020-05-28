@@ -8,11 +8,14 @@
 
 |  Interface | Description |
 |  --- | --- |
-|  [UseCheckout](./composables.usecheckout.md) | <b><i>(BETA)</i></b> |
+|  [IUseAddToCart](./composables.iuseaddtocart.md) | <b><i>(BETA)</i></b> interface for [useAddToCart](./composables.useaddtocart.md) composable |
+|  [IUseCheckout](./composables.iusecheckout.md) | <b><i>(BETA)</i></b> interface for [useCheckout](./composables.usecheckout.md) composable |
 
 ## Variables
 
 |  Variable | Description |
 |  --- | --- |
-|  [useUIState](./composables.useuistate.md) | <b><i>(BETA)</i></b> Simple state management for UI purposes. If you pase <code>stateName</code> on composable invocation (ex. <code>useUIState('sidebarCart')</code>), then state is shared between all instances with this key. Otherwise state is local, so multiple <code>useUIState()</code> will not share state |
+|  [useAddToCart](./composables.useaddtocart.md) | <b><i>(BETA)</i></b> Add product to cart. Options - [IUseAddToCart](./composables.iuseaddtocart.md) |
+|  [useCheckout](./composables.usecheckout.md) | <b><i>(BETA)</i></b> Composable for Checkout management. Options - [IUseCheckout](./composables.iusecheckout.md) |
+|  [useUIState](./composables.useuistate.md) | <b><i>(BETA)</i></b> Simple state management for UI purposes. |
 
