@@ -228,6 +228,7 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
     }
   }
   &__pagination {
+    margin: auto;
     @include for-desktop-small {
       display: flex;
       justify-content: center;
