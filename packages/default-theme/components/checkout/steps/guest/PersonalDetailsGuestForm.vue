@@ -40,7 +40,7 @@
           {{ salutationOption.name }}
         </SfSelectOption>
       </SfSelect> -->
-      <SfInput
+      <SwInput
         v-model="firstName"
         label="First name"
         :valid="!validations.firstName.$error"
@@ -49,7 +49,7 @@
         class="form__element form__element--half"
         required
       />
-      <SfInput
+      <SwInput
         v-model="lastName"
         label="Last name"
         :valid="!validations.lastName.$error"
@@ -57,7 +57,7 @@
         name="lastName"
         class="form__element form__element--half form__element--half-even"
       />
-      <SfInput
+      <SwInput
         v-model="email"
         label="Your email"
         :valid="!validations.email.$error"
@@ -85,7 +85,7 @@
         class="form__checkbox"
       />
       <transition name="fade">
-        <SfInput
+        <SwInput
           v-if="createAccount"
           v-model="password"
           type="password"
@@ -125,7 +125,6 @@
 </template>
 <script>
 import {
-  SfInput,
   SfCheckbox,
   SfHeading,
   SfModal,
@@ -136,6 +135,7 @@ import {
 } from '@storefront-ui/vue'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
 
 import { validationMixin } from 'vuelidate'
 import {
@@ -166,7 +166,7 @@ export default {
   name: 'PersonalDetailsGuestForm',
   mixins: [validationMixin],
   components: {
-    SfInput,
+    SwInput,
     SfCheckbox,
     SwButton,
     SfHeading,

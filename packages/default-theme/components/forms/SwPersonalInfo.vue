@@ -17,7 +17,7 @@
 
       <div class="sw-personal-info__form form">
         <slot name="form">
-          <SfInput
+          <SwInput
             v-model="firstName"
             :valid="!$v.firstName.$error"
             error-message="First name is required"
@@ -26,7 +26,7 @@
             class="form__element form__element--half form__element--half-even"
             @blur="$v.firstName.$touch()"
           />
-          <SfInput
+          <SwInput
             v-model="lastName"
             :valid="!$v.lastName.$error"
             error-message="Last name is required"
@@ -35,7 +35,7 @@
             class="form__element form__element--half"
             @blur="$v.lastName.$touch()"
           />
-          <SfInput
+          <SwInput
             v-model="email"
             :valid="!$v.email.$error"
             error-message="Proper email is required"
@@ -44,7 +44,7 @@
             class="form__element"
             @blur="$v.email.$touch()"
           />
-          <SfInput
+          <SwInput
             v-if="isEmailChanging"
             v-model="emailConfirmation"
             :valid="!$v.emailConfirmation.$error"
@@ -56,7 +56,7 @@
             required
             @blur="$v.emailConfirmation.$touch()"
           />
-          <SfInput
+          <SwInput
             v-if="isEmailChanging"
             v-model="password"
             :valid="!$v.password.$error"
@@ -86,7 +86,6 @@ import { computed, watch } from '@vue/composition-api'
 import { validationMixin } from 'vuelidate'
 import { required, email, requiredIf, minLength, sameAs } from 'vuelidate/lib/validators'
 import {
-  SfInput,
   SfSelect,
   SfProductOption,
   SfAlert
@@ -94,11 +93,12 @@ import {
 import { useUser, useContext } from '@shopware-pwa/composables'
 import { mapSalutations, getMessagesFromErrorsArray } from '@shopware-pwa/helpers'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
 
 export default {
   name: 'SwPersonalInfo',
   components: {
-    SfInput,
+    SwInput,
     SwButton,
     SfSelect,
     SfProductOption,
