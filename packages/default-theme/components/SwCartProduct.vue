@@ -18,20 +18,6 @@
         </SwButton>
       </div>
     </template>
-    <!--  TODO: Remove after update SfUI to 0.7.16 or higher-->
-    <template #remove="{removeHandler}">
-      <SfCircleIcon
-        icon="cross"
-        aria-label="Remove"
-        class="sf-circle-icon--small sf-collected-product__remove sf-collected-product__remove--circle-icon"
-        @click="removeHandler"
-      />
-      <SwButton
-        class="sf-button--text sf-collected-product__remove sf-collected-product__remove--text"
-        @click="removeHandler"
-        >Remove</SwButton
-      >
-    </template>
   </SfCollectedProduct>
 </template>
 <script>
