@@ -1,12 +1,17 @@
 <template>
-  <div class="search-page">
-    <h3 class="search-page__warning" v-if="!searchQuery">
+  <div class="search-page" :key="$route.fullPath">
+    <h3 class="search-page__warning" v-if="!searchQuery && startedSearching">
       You didn't provide any term to be found
     </h3>
-    <SfLoader :loading="isLoading" v-else>
-      <div class="search-page__main" v-if="searchResultListing">
-        <h3>search results for <strong>{{ currentQuery }}</strong>:</h3>
-        <SwSearchProductListing :product-listing="searchResultListing" :is-search-result-page="true"/>
+    <SfLoader :loading="loadingSearch" v-else>
+      <div class="search-page__main" v-if="searchResult">
+        <h3>
+          search results for <strong>{{ searchQuery }}</strong> :
+        </h3>
+        <SwSearchProductListing
+          :product-listing="searchResult"
+          :is-search-result-page="true"
+        />
       </div>
     </SfLoader>
   </div>
@@ -17,40 +22,57 @@ import { useProductSearch } from '@shopware-pwa/composables'
 import {
   ref,
   getCurrentInstance,
-  onBeforeMount,
   computed,
+  watchEffect,
 } from '@vue/composition-api'
-
-import SwSearchProductListing from '@shopware-pwa/default-theme/components/SwSearchProductListing';
+import SwSearchProductListing from '@shopware-pwa/default-theme/components/SwSearchProductListing'
 
 export default {
   name: 'SearchResultsPage',
+  watchQuery: true,
   components: {
     SfHeading,
     SfButton,
     SfIcon,
     SfLoader,
-    SwSearchProductListing
+    SwSearchProductListing,
   },
   setup() {
     const vm = getCurrentInstance()
-    const searchQuery = computed(() => vm.$route.query.query)
-    const searchResultListing = ref(null);
-    const isLoading = ref(true);
-    const { search, currentQuery } = useProductSearch()
+    const {
+      search,
+      currentSearchTerm,
+      searchResult,
+      loadingSearch,
+    } = useProductSearch()
 
-    onBeforeMount(async () => {
-      searchResultListing.value = searchQuery.value && await search(searchQuery.value);
-      isLoading.value = false;
+    const searchQuery = ref(currentSearchTerm.value)
+    const startedSearching = ref(false)
+
+    watchEffect(async () => {
+      searchQuery.value = vm.$route.query.query
+      startedSearching.value = true
+      if (
+        searchQuery.value &&
+        searchQuery.value !== currentSearchTerm.value &&
+        !loadingSearch.value &&
+        process.client
+      ) {
+        try {
+          await search(searchQuery.value)
+        } catch (e) {
+          console.error('search: ' + e)
+        }
+      }
     })
 
     return {
-      searchResultListing,
-      currentQuery,
-      isLoading,
-      searchQuery
+      searchResult,
+      searchQuery,
+      loadingSearch,
+      startedSearching,
     }
-  }
+  },
 }
 </script>
 <style lang="scss">
@@ -83,7 +105,5 @@ export default {
     text-align: center;
     margin-bottom: var(--spacer-base);
   }
-
-  
 }
 </style>

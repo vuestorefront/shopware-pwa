@@ -49,7 +49,7 @@
           :placeholder="$t('Search for products')"
           :aria-label="$t('Search for products')"
           class="sf-header__search desktop-only"
-          v-model="currentQuery"
+          v-model="typingQuery"
           @keyup.native="performSuggestSearch"
           @enter="performSearch"
         />
@@ -176,15 +176,20 @@ export default {
   setup() {
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
-    const { suggestSearch, suggestedProductListingResult, currentQuery } = useProductSearch()
+    const { suggestSearch, suggestionsResult } = useProductSearch()
     const { switchState: toggleSidebar } = useUIState('CART_SIDEBAR_STATE')
     const { switchState: toggleModal } = useUIState('LOGIN_MODAL_STATE')
     const { fetchNavigationElements, navigationElements } = useNavigation()
     const { currentLocale } = useLocales()
 
     const currentCategoryName = ref(null)
-    const suggestResultProducts = computed(() => suggestedProductListingResult.value && suggestedProductListingResult.value.elements)
-    const suggestResultTotal = computed(() => suggestedProductListingResult.value && suggestedProductListingResult.value.total)
+    const typingQuery = ref('')
+    const suggestResultProducts = computed(
+      () => suggestionsResult.value && suggestionsResult.value.elements
+    )
+    const suggestResultTotal = computed(
+      () => suggestionsResult.value && suggestionsResult.value.total
+    )
     onMounted(() => {
       watch(currentLocale, async () => {
         try {
@@ -205,9 +210,9 @@ export default {
       getCategoryUrl,
       currentCategoryName,
       suggestSearch,
-      currentQuery,
+      typingQuery,
       suggestResultTotal,
-      suggestResultProducts
+      suggestResultProducts,
     }
   },
   data() {
@@ -224,14 +229,18 @@ export default {
   },
   methods: {
     performSuggestSearch(event) {
-      const searchTerm = event.target.value;
-      if (typeof searchTerm === "string" && searchTerm.length > 0) {
-        this.suggestSearch(searchTerm)
+      const searchTerm = event.target.value
+      if (typeof searchTerm === 'string' && searchTerm.length > 0) {
+        try {
+          this.suggestSearch(searchTerm)
+        } catch (e) {
+          console.error('[SwTopNavigation][performSuggestSearch]: ' + e)
+        }
       }
     },
     performSearch(searchTerm) {
-      if (typeof searchTerm === "string" && searchTerm.length > 0) {
-        window.location.href = `${window.location.origin}${getSearchPageUrl(searchTerm)}`;
+      if (typeof searchTerm === 'string' && searchTerm.length > 0) {
+        this.$router.push(this.$i18n.path(getSearchPageUrl(searchTerm)))
       }
     },
     userIconClick() {
