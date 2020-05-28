@@ -16,6 +16,10 @@
     <SwPluginSlot name="footer-before" />
     <SwFooter />
     <SwPluginSlot name="footer-after" />
+    <SwLoginModal
+      :is-open="isLoginModalOpen"
+      @close="switchLoginModalState(false)"
+    />
     <div class="layout__bottom-navigation-placeholder" />
     <SwBottomNavigation class="layout__bottom-navigation" />
   </div>
@@ -34,6 +38,7 @@ import {
   ref,
   watchEffect,
 } from '@vue/composition-api'
+import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 const SwCart = () => import('@shopware-pwa/default-theme/components/SwCart')
 
 export default {
@@ -44,11 +49,16 @@ export default {
     SwFooter,
     SwBottomNavigation,
     SwPluginSlot,
+    SwLoginModal,
   },
   setup() {
     const vm = getCurrentInstance()
     const { getBreadcrumbsObject } = useCms()
     const { isOpen: isSidebarOpen } = useUIState('CART_SIDEBAR_STATE')
+    const {
+      isOpen: isLoginModalOpen,
+      switchState: switchLoginModalState,
+    } = useUIState('LOGIN_MODAL_STATE')
 
     // Load cart component only when needed
     const loadSidebarComponent = ref(isSidebarOpen.value)
@@ -70,6 +80,8 @@ export default {
     return {
       getBreadcrumbs,
       isSidebarOpen: loadSidebarComponent,
+      isLoginModalOpen,
+      switchLoginModalState,
     }
   },
   methods: {

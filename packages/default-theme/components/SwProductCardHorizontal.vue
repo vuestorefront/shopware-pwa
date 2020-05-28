@@ -60,7 +60,7 @@ export default {
       return this.$i18n.path(getProductUrl(this.product))
     },
     getRegularPrice() {
-      return getProductRegularPrice({ product: this.product })
+      return getProductRegularPrice(this.product)
     },
     getSpecialPrice() {
       return getProductSpecialPrice(this.product)

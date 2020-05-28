@@ -7,8 +7,6 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
  *
  * @beta
  */
-export function getProductRegularPrice({
-  product,
-}: { product?: Product } = {}): number | undefined {
+export function getProductRegularPrice(product: Product): number | undefined {
   return product?.calculatedPrice?.unitPrice;
 }
