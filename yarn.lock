@@ -8908,10 +8908,10 @@ html-tags@^2.0.0:
   resolved "https://registry.yarnpkg.com/html-tags/-/html-tags-2.0.0.tgz#10b30a386085f43cede353cc8fa7cb0deeea668b"
   integrity sha1-ELMKOGCF9Dzt41PMj6fLDe7qZos=
 
-html-to-vue@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/html-to-vue/-/html-to-vue-1.1.0.tgz#b4be11109729b01b5268c43103cb78286f9871d2"
-  integrity sha512-RAxpxJepkCX7OCXkRCY0MfR7JAkYFJI06OmWyRyUnIdfkRxpYNESMvh2EVlZl9F5fyCk0lJ7uvb+ZUQmdl2w/Q==
+html-to-vue@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/html-to-vue/-/html-to-vue-1.2.0.tgz#d123f37f78cc944d67161bc5610bb8563dedbf22"
+  integrity sha512-x0rcwxsv+Vqz3bUYYw4fwsfzFB25xSH8/LcRQyInVwqXcdmxx3ak3ckX3FW//pDwublPBWVfkjnBWzcfNird4Q==
   dependencies:
     html-parse-stringify2 "^2.0.1"
 

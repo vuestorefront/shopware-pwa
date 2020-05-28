@@ -1,25 +1,28 @@
 <script>
 // import any extra components here
 import { SfLink } from '@storefront-ui/vue'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 import { renderHtml } from 'html-to-vue'
 
 export default {
   name: 'CmsElementText',
+  functional: true,
   props: {
     content: {
       type: Object,
       default: () => ({}),
     },
   },
-  data: () => ({
-    config: {
+  render(h, context) {
+    const config = {
+      textTransformer: context.parent.$entitiesDecoder,
       extraComponentsMap: {
-        cta: {
+        link: {
           conditions(node) {
             return (
               node.type === 'tag' &&
               node.name === 'a' &&
-              node.attrs?.class?.match(/btn\s?/)
+              !node.attrs?.class?.match(/btn\s?/)
             )
           },
           renderer(node, children, createElement) {
@@ -38,30 +41,52 @@ export default {
             )
           },
         },
+        button: {
+          conditions(node) {
+            return (
+              node.type === 'tag' &&
+              node.name === 'a' &&
+              node.attrs?.class?.match(/btn\s?/)
+            )
+          },
+          renderer(node, children, createElement) {
+            const _class = node.attrs?.class.replace('btn-secondary', 'color-secondary').replace('btn-primary', 'color-primary')
+            return createElement(
+              SwButton,
+              {
+                class: _class,
+                attrs: {
+                  target: node.attrs?.target,
+                },
+                props: {
+                  link: node.attrs?.href,
+                },
+              },
+              [...children]
+            )
+          },
+        },
       },
-    },
-  }),
-  computed: {
-    rawHtml() {
-      return this.content?.data?.content
-    },
-    verticalAlign() {
-      return this.content?.config?.verticalAlign?.value
-    },
-  },
-  render(createElement) {
-    const _c = Object.assign({}, this.config)
-    _c.textTransformer = this.$entitiesDecoder
-    return renderHtml(this.rawHtml, _c, createElement)
+    }
+    const rawHtml = context.props.content?.data?.content
+    return renderHtml(rawHtml, config, h, context)
   },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../settings.scss';
 
 .cms-element-text {
   @include sizing-mode-boxed;
   padding: var(--spacer-xl);
+}
+
+.sf-button {
+  display: inline-block;
+
+  &.btn-sm {
+    --button-padding: 0.5rem;
+  }
 }
 </style>

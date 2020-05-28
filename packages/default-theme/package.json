@@ -21,7 +21,7 @@
     "@storefront-ui/vue": "0.7.15",
     "currency.js": "^1.2.2",
     "dayjs": "^1.8.25",
-    "html-to-vue": "^1.1.0",
+    "html-to-vue": "^1.2.0",
     "node-sass": "^4.14.1",
     "nuxt": "^2.12.2",
     "sass-loader": "^8.0.2",
