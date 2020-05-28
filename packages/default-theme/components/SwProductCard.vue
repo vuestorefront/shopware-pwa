@@ -92,3 +92,11 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+@import '@/assets/scss/variables';
+.sw-product-card {
+  ::v-deep .sf-price {
+    flex-wrap: wrap;
+  }
+}
+</style>
