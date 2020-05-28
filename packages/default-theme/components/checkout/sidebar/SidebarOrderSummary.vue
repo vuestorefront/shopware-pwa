@@ -27,7 +27,7 @@
       class="sf-property--full-width sf-property--large property"
     />
     <div class="promo-code">
-      <SfInput
+      <SwInput
         v-model="promoCode"
         name="promoCode"
         label="Enter promo code"
@@ -54,9 +54,10 @@ import {
   SfProperty,
   SfDivider,
   SfCharacteristic,
-  SfInput,
 } from '@storefront-ui/vue'
 import { useCart } from '@shopware-pwa/composables'
+import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
+
 export default {
   name: 'SidebarOrderSummary',
   components: {
@@ -65,7 +66,7 @@ export default {
     SfProperty,
     SfDivider,
     SfCharacteristic,
-    SfInput,
+    SwInput,
   },
   setup() {
     const { count, totalPrice, subtotal } = useCart()

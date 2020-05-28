@@ -8,7 +8,7 @@
         type="danger"
         :message="userError.message"
       />
-      <SfInput
+      <SwInput
         v-model="email"
         name="email"
         label="Your email"
@@ -34,15 +34,16 @@
 </template>
 
 <script>
-import { SfInput, SfAlert, SfHeading } from '@storefront-ui/vue'
+import { SfAlert, SfHeading } from '@storefront-ui/vue'
 import { validationMixin } from 'vuelidate'
 import { required, email } from 'vuelidate/lib/validators'
 import {useUser} from '@shopware-pwa/composables';
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
 
 export default {
   name: 'SwResetPassword',
-  components: { SwButton, SfInput, SfAlert, SfHeading },
+  components: { SwButton, SwInput, SfAlert, SfHeading },
   mixins: [validationMixin],
   data() {
     return {
