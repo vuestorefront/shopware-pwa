@@ -40,63 +40,8 @@
       <template #search>
         <!-- TODO: SwSearchBar here -->
       </template>
-      <template #header-icons="{accountIcon, cartIcon}">
-        <div class="sf-header__icons desktop-only">
-          <div class="sw-header__icons">
-            <SwPluginSlot name="top-header-icons-before" />
-            <SfIcon
-              :icon="accountIcon"
-              class="sf-header__icon sw-header__icon"
-              :class="{
-                'sf-header__icon--is-active': activeIcon === 'account-icon',
-              }"
-              role="button"
-              :aria-label="$t('Go to My Account')"
-              :aria-pressed="activeIcon === 'account-icon' ? 'true' : 'false'"
-              :has-badge="isLoggedIn"
-              @click="userIconClick"
-            />
-            <SfDropdown
-              class="dropdown"
-              :is-open="isDropdownOpen"
-              @click:close="isDropdownOpen = false"
-            >
-              <SfList>
-                <SfListItem>
-                  <nuxt-link
-                    class="sf-button sf-button--full-width sf-button--underlined color-primary"
-                    :to="getPageAccount"
-                    @click.native="isDropdownOpen = false"
-                  >
-                    My account
-                  </nuxt-link>
-                </SfListItem>
-                <SfListItem>
-                  <SwButton
-                    class="sf-button sf-button--full-width sf-button--underlined color-primary dropdown__item"
-                    @click="logoutUser()"
-                  >
-                    Logout
-                  </SwButton>
-                </SfListItem>
-              </SfList>
-            </SfDropdown>
-            <SfIcon
-              :icon="cartIcon"
-              :has-badge="count > 0"
-              :badge-label="count.toString()"
-              class="sf-header__icon sw-header__icon"
-              :class="{
-                'sf-header__icon--is-active': activeIcon === 'cart-icon',
-              }"
-              role="button"
-              :aria-label="$t('Go to cart')"
-              :aria-pressed="activeIcon === 'cart-icon' ? 'true' : 'false'"
-              @click="toggleSidebar"
-            />
-            <SwPluginSlot name="top-header-icons-after" />
-          </div>
-        </div>
+      <template #header-icons>
+        <SwHeaderIcons />
       </template>
     </SfHeader>
   </div>
@@ -132,6 +77,7 @@ import { useLocales } from '@shopware-pwa/default-theme/logic'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 import SwTopBar from '@shopware-pwa/default-theme/components/SwTopBar'
 import SwLogo from '@shopware-pwa/default-theme/components/SwLogo'
+import SwHeaderIcons from '@shopware-pwa/default-theme/components/SwHeaderIcons'
 
 export default {
   components: {
@@ -146,6 +92,7 @@ export default {
     SwPluginSlot,
     SwTopBar,
     SwLogo,
+    SwHeaderIcons
   },
   setup() {
     const { isLoggedIn, logout } = useUser()
@@ -232,15 +179,7 @@ export default {
       }
     }
   }
-  .dropdown {
-    --dropdown-width: auto;
-    --dropdown-transform: translate(-10%, 100%);
-    &__item {
-      &:hover {
-        color: var(--c-link-hover);
-      }
-    }
-  }
+  
 
   .sw-header__icons {
     display: flex;
