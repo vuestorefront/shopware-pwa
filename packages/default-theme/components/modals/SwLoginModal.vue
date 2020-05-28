@@ -49,7 +49,7 @@
 
 <script>
 import { SfHeading, SfModal, SfAlert } from '@storefront-ui/vue'
-import { useUser, useUserLoginModal } from '@shopware-pwa/composables'
+import { useUser, useUIState } from '@shopware-pwa/composables'
 import SwLogin from '@shopware-pwa/default-theme/components/SwLogin'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 const SwRegister = () =>
@@ -80,13 +80,13 @@ export default {
   },
   setup() {
     const { login, loading, error } = useUser()
-    const { isModalOpen, toggleModal } = useUserLoginModal()
+    const { isOpen, switchState } = useUIState('LOGIN_MODAL_STATE')
 
     return {
       clientLogin: login,
       isLoading: loading,
-      toggleModal,
-      isModalOpen,
+      toggleModal: switchState,
+      isModalOpen: isOpen,
       error,
     }
   },
