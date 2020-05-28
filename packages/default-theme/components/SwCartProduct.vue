@@ -79,14 +79,14 @@ export default {
       return getProductUrl(this.product)
     },
     getRegularPrice() {
-      const regular = getProductRegularPrice({ product: this.product })
+      const regular = getProductRegularPrice(this.product)
       const special = getProductSpecialPrice(this.product)
       // temporary fix to show proper regular price
       return '$' + (regular > special ? regular : special)
     },
     getSpecialPrice() {
       const special = getProductSpecialPrice(this.product)
-      const regular = getProductRegularPrice({ product: this.product })
+      const regular = getProductRegularPrice(this.product)
       // temporary fix to show proper special price
       return special && '$' + (special < regular ? special : regular)
     },

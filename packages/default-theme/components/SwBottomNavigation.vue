@@ -54,7 +54,7 @@
       </SfBottomNavigationItem>
       <SfBottomNavigationItem label="Currency" class="menu-button">
         <template #icon>
-          <SwCurrency class="menu-button__currency" />
+          <SwCurrencySwitcher class="menu-button__currency" />
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
@@ -90,7 +90,7 @@ import {
   useUser,
   useCart,
 } from '@shopware-pwa/composables'
-import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
+import SwCurrencySwitcher from '@shopware-pwa/default-theme/components/SwCurrencySwitcher'
 import { onMounted } from '@vue/composition-api'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 import { PAGE_ACCOUNT, PAGE_LOGIN } from '../helpers/pages'
@@ -103,7 +103,7 @@ export default {
     SfCircleIcon,
     SfSelect,
     SfProductOption,
-    SwCurrency,
+    SwCurrencySwitcher,
     SwButton,
   },
   data() {
