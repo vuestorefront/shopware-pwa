@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <SwPluginSlot name="page-top" />
-    <SwTopNavigation />
+    <SwHeader />
     <SwPluginSlot name="top-header-after" />
     <SwPluginSlot name="breadcrumbs">
       <SfBreadcrumbs
@@ -27,7 +27,7 @@
 
 <script>
 import { SfBreadcrumbs } from '@storefront-ui/vue'
-import SwTopNavigation from '@shopware-pwa/default-theme/components/SwTopNavigation'
+import SwHeader from '@shopware-pwa/default-theme/components/SwHeader'
 import SwBottomNavigation from '@shopware-pwa/default-theme/components/SwBottomNavigation'
 import SwFooter from '@shopware-pwa/default-theme/components/SwFooter'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
@@ -44,7 +44,7 @@ const SwCart = () => import('@shopware-pwa/default-theme/components/SwCart')
 export default {
   components: {
     SfBreadcrumbs,
-    SwTopNavigation,
+    SwHeader,
     SwCart,
     SwFooter,
     SwBottomNavigation,

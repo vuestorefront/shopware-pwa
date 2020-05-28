@@ -126,6 +126,7 @@ export default {
   }
 
   .sw-header__icon {
+    cursor: pointer;
     margin: 0 10px;
   }
 }
