@@ -1,12 +1,7 @@
 <template>
-  <div class="top-navigation">
+  <div class="sw-top-navigation">
     <SfOverlay :visible="!!currentCategoryName" class="sw-overlay" />
-    <SfTopBar class="top-bar desktop-only">
-      <template #right>
-        <SwCurrency class="sf-header__currency" />
-        <SwLanguageSwitcher />
-      </template>
-    </SfTopBar>
+    <SwTopBar />
     <SfHeader
       :title="$t('page.title')"
       class="sw-header"
@@ -15,12 +10,10 @@
       :cart-items-qty="count.toString()"
     >
       <template #logo>
-        <nuxt-link :to="$i18n.path('/')" class="sf-header__logo">
-          <SfImage src="/img/logo.svg" :alt="$t('page.title')" />
-        </nuxt-link>
+        <SwLogo />
       </template>
       <template #navigation>
-        <SwPluginSlot name="top-navigation-before" />
+        <SwPluginSlot name="sw-top-navigation-before" />
         <SfHeaderNavigationItem
           v-for="category in navigationElements"
           :key="category.name"
@@ -42,15 +35,10 @@
             "
           />
         </SfHeaderNavigationItem>
-        <SwPluginSlot name="top-navigation-after" />
+        <SwPluginSlot name="sw-top-navigation-after" />
       </template>
       <template #search>
-        <SfSearchBar
-          :placeholder="$t('Search for products')"
-          :aria-label="$t('Search for products')"
-          class="sf-header__search desktop-only"
-          @enter="fulltextSearch"
-        />
+        <!-- TODO: SwSearchBar here -->
       </template>
       <template #header-icons="{accountIcon, cartIcon}">
         <div class="sf-header__icons desktop-only">
@@ -111,15 +99,12 @@
         </div>
       </template>
     </SfHeader>
-    <SwLoginModal :is-open="isModalOpen" @close="isModalOpen = false" />
   </div>
 </template>
 
 <script>
 import {
   SfHeader,
-  SfImage,
-  SfSearchBar,
   SfList,
   SfDropdown,
   SfOverlay,
@@ -133,13 +118,11 @@ import {
   useNavigation,
   useProductSearch,
 } from '@shopware-pwa/composables'
-import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
-import SwCurrency from '@shopware-pwa/default-theme/components/SwCurrency'
+
 import {
   PAGE_ACCOUNT,
   PAGE_LOGIN,
 } from '@shopware-pwa/default-theme/helpers/pages'
-import SwLanguageSwitcher from '@shopware-pwa/default-theme/components/SwLanguageSwitcher'
 import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
 import { ref, reactive, onMounted, watch } from '@vue/composition-api'
 import { getCategoryUrl } from '@shopware-pwa/helpers'
@@ -147,29 +130,30 @@ import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 import { getAvailableLanguages } from '@shopware-pwa/shopware-6-client'
 import { useLocales } from '@shopware-pwa/default-theme/logic'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import SwTopBar from '@shopware-pwa/default-theme/components/SwTopBar'
+import SwLogo from '@shopware-pwa/default-theme/components/SwLogo'
 
 export default {
   components: {
     SfHeader,
-    SwLoginModal,
-    SfImage,
-    SfSearchBar,
     SfDropdown,
     SfList,
     SwMegaMenu,
     SfOverlay,
     SfTopBar,
-    SwCurrency,
-    SwLanguageSwitcher,
     SfIcon,
     SwButton,
     SwPluginSlot,
+    SwTopBar,
+    SwLogo,
   },
   setup() {
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
     const { switchState: toggleSidebar } = useUIState('CART_SIDEBAR_STATE')
-    const { switchState: toggleModal } = useUIState('LOGIN_MODAL_STATE')
+    const { switchState: switchLoginModalState } = useUIState(
+      'LOGIN_MODAL_STATE'
+    )
     const { search: fulltextSearch } = useProductSearch()
     const { fetchNavigationElements, navigationElements } = useNavigation()
     const { currentLocale } = useLocales()
@@ -188,7 +172,7 @@ export default {
 
     return {
       count,
-      toggleModal,
+      switchLoginModalState,
       toggleSidebar,
       isLoggedIn,
       logout,
@@ -213,7 +197,7 @@ export default {
   methods: {
     userIconClick() {
       if (this.isLoggedIn) this.isDropdownOpen = !this.isDropdownOpen
-      else this.toggleModal()
+      else this.switchLoginModalState(true)
     },
     async logoutUser() {
       await this.logout()
@@ -227,7 +211,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/variables';
 
-.top-navigation {
+.sw-top-navigation {
   --search-bar-width: 100%;
   --header-container-padding: 0 var(--spacer-base);
   --header-navigation-item-margin: 0 1rem 0 0;
@@ -235,33 +219,7 @@ export default {
   .sw-overlay {
     --overlay-z-index: 1;
   }
-  .sf-header {
-    &__currency {
-      --select-dropdown-z-index: 2;
-      position: relative;
-      margin: 0 var(--spacer-base) 0 var(--spacer-base);
-      width: 2.5rem;
-      &::before {
-        content: '';
-        display: block;
-        position: absolute;
-        background-color: white;
-        width: 20px;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
-        padding: var(--spacer-2xs);
-        left: 50%;
-        height: 20px;
-      }
-    }
-    &__header {
-      padding-left: var(--spacer-sm);
-    }
-    &__icon {
-      --icon-size: 1.25rem;
-    }
-  }
+
   @include for-desktop {
     ::v-deep .sf-header {
       display: flex;
@@ -293,17 +251,6 @@ export default {
       margin: 0 10px;
     }
   }
-}
-.top-bar {
-  padding: 0 var(--spacer-sm);
-  position: relative;
-  z-index: 3;
-  &__location-label {
-    margin: 0 var(--spacer-sm) 0 0;
-  }
-}
-.sf-header__logo {
-  height: 2rem;
 }
 .sw-header {
   z-index: 2;
