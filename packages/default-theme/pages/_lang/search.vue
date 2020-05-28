@@ -3,7 +3,7 @@
     <h3 class="search-page__warning" v-if="!searchQuery && startedSearching">
       You didn't provide any term to be found
     </h3>
-    <SfLoader :loading="loadingSearch" v-else>
+    <SfLoader :loading="loadingSearch || !startedSearching" v-else>
       <div class="search-page__main" v-if="searchResult">
         <h3>
           search results for <strong>{{ searchQuery }}</strong> :
