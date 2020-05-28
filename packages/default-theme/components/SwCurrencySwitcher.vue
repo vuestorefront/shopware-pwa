@@ -26,7 +26,7 @@ import { useCurrency } from '@shopware-pwa/composables'
 import { computed, onMounted, getCurrentInstance } from '@vue/composition-api'
 
 export default {
-  name: 'SwCurrency',
+  name: 'SwCurrencySwitcher',
   components: {
     SfSelect,
   },
