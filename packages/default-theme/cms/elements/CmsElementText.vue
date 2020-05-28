@@ -62,7 +62,7 @@ export default {
                   link: node.attrs?.href,
                 },
               },
-              [...children]
+              [createElement(SfLink, {}, [...children])]
             )
           },
         },
@@ -84,6 +84,10 @@ export default {
 
 .sf-button {
   display: inline-block;
+
+  .sf-link {
+    text-decoration: none;
+  }
 
   &.btn-sm {
     --button-padding: 0.5rem;
