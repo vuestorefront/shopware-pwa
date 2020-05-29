@@ -35,12 +35,12 @@
         :current="pagination.currentPage"
         :total="Math.ceil(pagination.total / pagination.perPage)"
         :visible="5"
-        @click="changedPage"
+        @click="changePage"
       >
         <template #prev>
           <span
             class="cms-element-product-listing__pagination__number"
-            @click="changedPage(pagination.currentPage - 1)"
+            @click="changePage(pagination.currentPage - 1)"
           >
             &lt;
           </span>
@@ -51,7 +51,7 @@
             v-bind:style="{
               'font-weight': pagination.currentPage === page ? 700 : 300,
             }"
-            @click="changedPage(page)"
+            @click="changePage(page)"
           >
             {{ page }}
           </span>
@@ -59,7 +59,7 @@
         <template #next>
           <span
             class="cms-element-product-listing__pagination__number"
-            @click="changedPage(pagination.currentPage + 1)"
+            @click="changePage(pagination.currentPage + 1)"
           >
             &gt;
           </span>
@@ -78,13 +78,8 @@
 import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
 import SwProductCardHorizontal from '@shopware-pwa/default-theme/components/SwProductCardHorizontal'
 import { SfPagination, SfHeading, SfLoader } from '@storefront-ui/vue'
-import {
-  useProductListing,
-  useUIState,
-  useProductSearch,
-} from '@shopware-pwa/composables'
 export default {
-  name: 'CmsElementProductListing',
+  name: 'SwProductListing',
   components: {
     SwProductCardHorizontal,
     SwProductCard,
@@ -93,40 +88,43 @@ export default {
     SfLoader,
   },
   props: {
-    content: {
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    isListView: {
+      type: Boolean,
+      default: false,
+    },
+    listing: {
       type: Object,
       default: () => ({}),
     },
   },
-  setup({ content }) {
-    const { search } = useProductSearch()
-    const listing = content.data.listing || []
-    const {
-      products,
-      changePagination,
-      pagination,
-      loading,
-    } = useProductListing(listing)
-
-    const { isOpen: isListView } = useUIState('PRODUCT_LISTING_STATE')
-
-    const changedPage = async (pageNumber) => {
-      await changePagination(pageNumber)
-    }
-
-    return {
-      products,
-      changedPage,
-      pagination,
-      loading,
-      isListView,
-    }
+  computed: {
+    products() {
+      return (this.listing && this.listing.elements) || []
+    },
+    pagination() {
+      return (
+        this.listing && {
+          currentPage: this.listing.page,
+          perPage: this.listing.limit,
+          total: this.listing.total,
+        }
+      )
+    },
+  },
+  methods: {
+    changePage(page) {
+      this.$emit('change-page', page)
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
+@import '../cms/settings.scss';
 
 // additional screen variables
 $desktop-big: 1200px;
@@ -262,7 +260,6 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
     }
   }
   &__pagination {
-    margin: auto;
     @include for-desktop-small {
       display: flex;
       justify-content: center;

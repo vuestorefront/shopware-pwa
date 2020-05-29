@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-order-details" v-if="order">
+  <div v-if="order" class="sw-order-details">
     <SfHeading
       class="sw-order-details__header full-width"
       :level="3"
@@ -12,15 +12,19 @@
             v-for="tableHeader in tableHeaders"
             :key="tableHeader"
             class="table__header"
-            :class="{ table__description: tableHeader === 'Item' }"
+            :class="{
+              table__description: tableHeader === 'Item',
+              table__quantity: tableHeader === 'Quantity',
+              table__amount: tableHeader === 'Amount',
+            }"
           >
             {{ tableHeader }}
           </SfTableHeader>
         </SfTableHeading>
         <SwOrderDetailsItem
           v-for="item in order.lineItems"
-          :product="item"
           :key="item.id"
+          :product="item"
         />
       </SfTable>
       <SwTotals :shipping="shippingCosts" :total="total" :subtotal="subtotal" />
@@ -28,56 +32,56 @@
     <div class="sw-order-details__addresses">
       <SwPersonalDetails :personal-details="personalDetails" class="content" />
       <SwAddress
+        v-if="billingAddress"
         :address="billingAddress"
         address-title="Billing address"
-        v-if="billingAddress"
         class="content"
       />
       <SwCheckoutMethod
+        v-if="paymentMethod"
         :method="paymentMethod"
         label="Payment method"
-        v-if="paymentMethod"
         class="content"
       />
       <SwCheckoutMethod
+        v-if="shippingMethod"
         :method="shippingMethod"
         label="Shipping method"
-        v-if="shippingMethod"
         class="content"
       />
       <SfProperty name="Order status" :value="status" />
-      <a :href="paymentUrl" v-if="paymentUrl">
-        <SwButton class="sf-button sf-button--full-width pay-button color-danger">
+      <a v-if="paymentUrl" :href="paymentUrl">
+        <SwButton
+          class="sf-button sf-button--full-width pay-button color-danger"
+        >
           Pay for your order
         </SwButton>
       </a>
     </div>
-    
   </div>
 </template>
 
 <script>
-import {
-  SfTable,
-  SfProperty,
-  SfHeading,
-} from '@storefront-ui/vue'
+import { SfTable, SfProperty, SfHeading } from '@storefront-ui/vue'
 import { useUser } from '@shopware-pwa/composables'
 import { ref, onMounted, computed, watchEffect } from '@vue/composition-api'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+import {
+  getOrderPaymentMethodId,
+  getOrderShippingMethodId,
+} from '@shopware-pwa/helpers'
+import {
+  getShippingMethodDetails,
+  getPaymentMethodDetails,
+  getOrderPaymentUrl,
+} from '@shopware-pwa/shopware-6-client'
+import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import { PAGE_ORDER_SUCCESS } from '@shopware-pwa/default-theme/helpers/pages'
 import SwOrderDetailsItem from './SwOrderDetailsItem'
 import SwPersonalDetails from './SwPersonalDetails'
 import SwAddress from './SwAddress'
 import SwCheckoutMethod from './SwCheckoutMethod'
 import SwTotals from './SwTotals'
-import {
-  getOrderPaymentMethodId,
-  getOrderShippingMethodId,
-} from '@shopware-pwa/helpers'
-import { getShippingMethodDetails, getPaymentMethodDetails, getOrderPaymentUrl } from '@shopware-pwa/shopware-6-client'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
-import { PAGE_ORDER_SUCCESS } from '@shopware-pwa/default-theme/helpers/pages'
-
 
 export default {
   name: 'SwOrderDetails',
@@ -102,8 +106,8 @@ export default {
       tableHeaders: ['Item', 'Price', 'Quantity', 'Amount'],
     }
   },
-   // TODO: move this logic into separate service; 
-   // details: https://github.com/DivanteLtd/shopware-pwa/issues/781
+  // TODO: move this logic into separate service;
+  // details: https://github.com/DivanteLtd/shopware-pwa/issues/781
   setup({ orderId }) {
     const { getOrderDetails, loading, error: userError } = useUser()
     const order = ref(null)
@@ -155,16 +159,18 @@ export default {
     onMounted(async () => {
       try {
         order.value = await getOrderDetails(orderId)
-        paymentMethod.value = await getPaymentMethodDetails(paymentMethodId.value)
-        shippingMethod.value = await getShippingMethodDetails(shippingMethodId.value)
+        paymentMethod.value = await getPaymentMethodDetails(
+          paymentMethodId.value
+        )
+        shippingMethod.value = await getShippingMethodDetails(
+          shippingMethodId.value
+        )
         const resp = await getOrderPaymentUrl({
-          orderId: orderId,
+          orderId,
           finishUrl: `${window.location.origin}${PAGE_ORDER_SUCCESS}?orderId=${orderId}`,
         })
         paymentUrl.value = resp.paymentUrl
-      } catch (e) {
-
-      }
+      } catch (e) {}
     })
 
     return {
@@ -179,7 +185,7 @@ export default {
       subtotal,
       total,
       status,
-      paymentUrl
+      paymentUrl,
     }
   },
 }
@@ -202,6 +208,7 @@ export default {
   &__header {
     text-align: left;
     width: 100%;
+    margin: 0 0 var(--spacer-base) 0;
   }
 
   &__totals {
@@ -258,6 +265,9 @@ export default {
   }
   &__quantity {
     text-align: center;
+  }
+  &__amount {
+    text-align: right;
   }
 }
 

@@ -12,6 +12,8 @@ export * from "./services/navigationService";
 export * from "./services/pageService";
 export * from "./services/checkoutService";
 export * from "./services/pluginService";
+export * from "./services/searchService";
+
 export { ShopwareParams } from "./helpers/searchConverter";
 
 /**

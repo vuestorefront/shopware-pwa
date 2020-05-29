@@ -81,16 +81,4 @@ export default {
   @include sizing-mode-boxed;
   padding: var(--spacer-xl);
 }
-
-.sf-button {
-  display: inline-block;
-
-  .sf-link {
-    text-decoration: none;
-  }
-
-  &.btn-sm {
-    --button-padding: 0.5rem;
-  }
-}
 </style>
