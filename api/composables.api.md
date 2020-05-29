@@ -75,7 +75,7 @@ export interface IUseCart {
     // (undocumented)
     addProduct: ({ id, quantity }: {
         id: string;
-        quantity: number;
+        quantity?: number;
     }) => void;
     // (undocumented)
     cart: Readonly<Ref<Readonly<Cart>>>;

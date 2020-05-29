@@ -19,7 +19,7 @@ export interface IUseCart
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [addProduct](./composables.iusecart.addproduct.md) | <code>({ id, quantity }: {</code><br/><code>        id: string;</code><br/><code>        quantity: number;</code><br/><code>    }) =&gt; void</code> | <b><i>(BETA)</i></b> |
+|  [addProduct](./composables.iusecart.addproduct.md) | <code>({ id, quantity }: {</code><br/><code>        id: string;</code><br/><code>        quantity?: number;</code><br/><code>    }) =&gt; void</code> | <b><i>(BETA)</i></b> |
 |  [cart](./composables.iusecart.cart.md) | <code>Readonly&lt;Ref&lt;Readonly&lt;Cart&gt;&gt;&gt;</code> | <b><i>(BETA)</i></b> |
 |  [cartItems](./composables.iusecart.cartitems.md) | <code>Readonly&lt;Ref&lt;Readonly&lt;LineItem[]&gt;&gt;&gt;</code> | <b><i>(BETA)</i></b> |
 |  [changeProductQuantity](./composables.iusecart.changeproductquantity.md) | <code>({ id, quantity, }: {</code><br/><code>        id: string;</code><br/><code>        quantity: number;</code><br/><code>    }) =&gt; void</code> | <b><i>(BETA)</i></b> |

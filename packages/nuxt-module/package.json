@@ -23,6 +23,7 @@
     "fs-jetpack": "^2.2.3",
     "path": "^0.12.7",
     "snyk": "^1.316.1",
+    "universal-analytics": "^0.4.20",
     "vue": "^2.6.11",
     "vue-loader": "^15.9.1",
     "vue-meta": "^2.3.3",
