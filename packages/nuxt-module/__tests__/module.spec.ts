@@ -118,6 +118,40 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     });
   });
 
+  it("should add entities-parser client plugin", () => {
+    runModule(moduleObject, {});
+    const pathForEntitiesParserClientPlugin = path.join(
+      __dirname,
+      "..",
+      "plugins",
+      "entities-parser",
+      "entities-parser.csr.js"
+    );
+    expect(moduleObject.addPlugin).toBeCalledWith({
+      fileName: "entities-parser.csr.js",
+      mode: "client",
+      options: {},
+      src: pathForEntitiesParserClientPlugin,
+    });
+  });
+
+  it("should add entities-parser server plugin", () => {
+    runModule(moduleObject, {});
+    const pathForEntitiesParserServerPlugin = path.join(
+      __dirname,
+      "..",
+      "plugins",
+      "entities-parser",
+      "entities-parser.ssr.js"
+    );
+    expect(moduleObject.addPlugin).toBeCalledWith({
+      fileName: "entities-parser.ssr.js",
+      mode: "server",
+      options: {},
+      src: pathForEntitiesParserServerPlugin,
+    });
+  });
+
   it("should show console error when shopwareEndpoint contains api endpoint instead of just domain", () => {
     jest.resetAllMocks();
 

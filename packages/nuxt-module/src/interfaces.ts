@@ -17,7 +17,12 @@ export interface NuxtModuleOptions extends ModuleThis {
     };
   };
   addLayout: (options: { src: string }, templateName: string) => void;
-  addPlugin: (options: { src: string; fileName: string; options: {} }) => void;
+  addPlugin: (options: {
+    src: string;
+    fileName: string;
+    mode?: string;
+    options: {};
+  }) => void;
   extendRoutes: (method: Function) => void;
   extendBuild: (method: Function) => void;
   nuxt: any;
