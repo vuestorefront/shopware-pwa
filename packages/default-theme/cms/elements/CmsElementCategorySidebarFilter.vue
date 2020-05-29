@@ -60,6 +60,7 @@
       <SfSidebar
         title="Filters"
         :visible="isFilterSidebarOpen"
+        class="filters-sidebar"
         @close="isFilterSidebarOpen = false"
       >
         <div class="filters">
@@ -368,5 +369,9 @@ export default {
     margin-top: 10px;
     background-color: var(--c-light);
   }
+}
+.filters-sidebar {
+  --sidebar-z-index: 4;
+  --overlay-z-index: 4;
 }
 </style>
