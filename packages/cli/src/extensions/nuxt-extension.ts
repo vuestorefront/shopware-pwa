@@ -118,8 +118,8 @@ module.exports = (toolbox: GluegunToolbox) => {
       await toolbox.patching.patch("nuxt.config.js", {
         insert: `
   server: {
-    port: 3000,
-    host: '0.0.0.0'
+    port: process.env.PORT || 3000,
+    host: process.env.HOST || '0.0.0.0'
   },`,
         after: "mode: 'universal',",
       });

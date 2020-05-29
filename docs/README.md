@@ -35,7 +35,7 @@ Get to understand the core components of the application
 ### [Concepts](/landing/concepts/)
 Guides for functional concepts like CMS or Checkout
 
-### [Operation](/landing/operation) <Badge text="coming soon"/>
+### [Operations](/landing/operations) <Badge text="new" type="info"/>
 Best practices, guidelines for setup, hosting and deployment
 
 ### [Resources](/landing/resources/)

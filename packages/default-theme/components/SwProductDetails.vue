@@ -128,7 +128,7 @@ export default {
   },
   computed: {
     getPrice() {
-      return getProductRegularPrice({ product: this.product })
+      return getProductRegularPrice(this.product)
     },
     getSpecialPrice() {
       return getProductSpecialPrice(this.product)

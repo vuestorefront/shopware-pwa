@@ -37,7 +37,7 @@ import { ShopwareAssociation } from '@shopware-pwa/commons/interfaces/search/Ass
 export function addCartItemQuantity(itemId: string, quantity: number): Promise<Cart>;
 
 // @alpha
-export function addProductToCart(productId: string, quantity: number): Promise<Cart>;
+export function addProductToCart(productId: string, quantity?: number): Promise<Cart>;
 
 // @alpha
 export function addPromotionCode(promotionCode: string): Promise<Cart>;

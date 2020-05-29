@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Simple state management for UI purposes. If you pase `stateName` on composable invocation (ex. `useUIState('sidebarCart')`<!-- -->), then state is shared between all instances with this key. Otherwise state is local, so multiple `useUIState()` will not share state
+Simple state management for UI purposes.
 
 <b>Signature:</b>
 
@@ -17,3 +17,34 @@ useUIState: (stateName?: string | undefined) => {
     switchState: (to?: boolean | undefined) => void;
 }
 ```
+
+## Remarks
+
+If you pase `stateName` on composable invocation (ex. `useUIState('sidebarCart')`<!-- -->), then state is shared between all instances with this key. Otherwise state is local, so multiple `useUIState()` will not share state
+
+## Example
+
+
+```ts
+// Component1
+const {isOpen, switchState} = useUIState('SIDEBAR_STATE')
+switchState()
+
+// Component 2
+const {isOpen} = useUIState('SIDEBAR_STATE')
+// isOpen will be true
+
+```
+If you'll not use KEY on composable init, then state is only local
+
+```ts
+// Component1
+const {isOpen, switchState} = useUIState()
+switchState()
+
+// Component 2
+const {isOpen} = useUIState()
+// isOpen will be false
+
+```
+

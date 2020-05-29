@@ -4,21 +4,52 @@ import { useCart } from "@shopware-pwa/composables";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
 /**
- * @alpha
+ * interface for {@link useAddToCart} composable
+ * @beta
  */
-export interface UseAddToCart {
+export interface IUseAddToCart {
+  /**
+   * Add to cart method
+   */
   addToCart: () => Promise<void>;
+  /**
+   * If you want to add more that 1 product set quantity before invoking `addToCart`
+   */
   quantity: Ref<number>;
+  /**
+   * Adding to cart is in progress
+   */
   loading: Ref<boolean>;
-  error: Ref<any>;
+  /**
+   * Error message when adding to cart was not successful
+   */
+  error: Ref<string>;
+  /**
+   * Returns product count in stock
+   */
   getStock: Ref<number | null>;
+  /**
+   * Flag if product is already in cart
+   */
   isInCart: Ref<boolean>;
 }
 
 /**
- * @alpha
+ * Add product to cart. Options - {@link IUseAddToCart}
+ *
+ * @example
+ * Example of possibilities:
+ *
+ * ```ts
+ * const {isInCart, quantity, addToCart} = useAddToCart(product)
+ * if (!isInCart.value) {
+ *    quantity.value = 5
+ *    await addToCart()
+ * }
+ * ```
+ * @beta
  */
-export const useAddToCart = (product: Product): UseAddToCart => {
+export const useAddToCart = (product: Product): IUseAddToCart => {
   const { addProduct, cartItems } = useCart();
   const quantity: Ref<number> = ref(1);
   const loading: Ref<boolean> = ref(false);

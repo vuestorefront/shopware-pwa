@@ -7,8 +7,11 @@ import { loadConfig } from "./utils";
 import { extendCMS } from "./cms";
 import { extendLocales } from "./locales";
 import { useCorePackages } from "./packages";
+import { invokeBuildLogger } from "./logger";
 
 export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
+  /* istanbul ignore next */
+  invokeBuildLogger(moduleObject);
   const shopwarePwaConfig = loadConfig(moduleObject);
   extendComponents(moduleObject);
   addThemeLayouts(moduleObject);
@@ -55,10 +58,37 @@ export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
   });
 
   moduleObject.addPlugin({
+    src: path.join(
+      __dirname,
+      "..",
+      "plugins",
+      "entities-parser",
+      "entities-parser.csr.js"
+    ),
+    fileName: "entities-parser.csr.js",
+    mode: "client",
+    options: moduleOptions,
+  });
+
+  moduleObject.addPlugin({
+    src: path.join(
+      __dirname,
+      "..",
+      "plugins",
+      "entities-parser",
+      "entities-parser.ssr.js"
+    ),
+    fileName: "entities-parser.ssr.js",
+    mode: "server",
+    options: {},
+  });
+
+  moduleObject.addPlugin({
     src: path.join(__dirname, "..", "plugins", "composition-api.js"),
     fileName: "composition-api.js",
     options: moduleOptions,
   });
+
   // fixes problem with multiple composition-api instances
   moduleObject.extendBuild((config: WebpackConfig) => {
     config.resolve.alias["@vue/composition-api"] = path.resolve(

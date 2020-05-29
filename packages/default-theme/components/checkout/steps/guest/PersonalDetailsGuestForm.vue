@@ -3,7 +3,7 @@
     <div class="log-in">
       <div class="log-in__buttons-container">
         <SwButton
-          @click="toggleLoginModal()"
+          @click="switchLoginModalState(true)"
           class="log-in__button color-secondary"
           >Log in to your account</SwButton
         >
@@ -40,7 +40,7 @@
           {{ salutationOption.name }}
         </SfSelectOption>
       </SfSelect> -->
-      <SfInput
+      <SwInput
         v-model="firstName"
         label="First name"
         :valid="!validations.firstName.$error"
@@ -49,7 +49,7 @@
         class="form__element form__element--half"
         required
       />
-      <SfInput
+      <SwInput
         v-model="lastName"
         label="Last name"
         :valid="!validations.lastName.$error"
@@ -57,7 +57,7 @@
         name="lastName"
         class="form__element form__element--half form__element--half-even"
       />
-      <SfInput
+      <SwInput
         v-model="email"
         label="Your email"
         :valid="!validations.email.$error"
@@ -85,7 +85,7 @@
         class="form__checkbox"
       />
       <transition name="fade">
-        <SfInput
+        <SwInput
           v-if="createAccount"
           v-model="password"
           type="password"
@@ -117,15 +117,10 @@
         >
       </div>
     </div>
-    <SwLoginModal
-      :is-open="isLoginModalOpen"
-      @close="isLoginModalOpen = false"
-    />
   </div>
 </template>
 <script>
 import {
-  SfInput,
   SfCheckbox,
   SfHeading,
   SfModal,
@@ -136,6 +131,7 @@ import {
 } from '@storefront-ui/vue'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
 
 import { validationMixin } from 'vuelidate'
 import {
@@ -160,13 +156,11 @@ import {
   usePersonalDetailsStepValidationRules,
 } from '@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep'
 
-import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
-
 export default {
   name: 'PersonalDetailsGuestForm',
   mixins: [validationMixin],
   components: {
-    SfInput,
+    SwInput,
     SfCheckbox,
     SwButton,
     SfHeading,
@@ -175,7 +169,6 @@ export default {
     SfSelect,
     SfProductOption,
     SfAlert,
-    SwLoginModal,
     SwPluginSlot,
   },
   props: {
@@ -206,7 +199,9 @@ export default {
     }
   },
   setup() {
-    const { switchState: toggleLoginModal } = useUIState('LOGIN_MODAL_STATE')
+    const { switchState: switchLoginModalState } = useUIState(
+      'LOGIN_MODAL_STATE'
+    )
 
     const {
       validations,
@@ -246,7 +241,7 @@ export default {
       getCountries,
       fetchCountries,
       getMessagesFromErrorsArray,
-      toggleLoginModal,
+      switchLoginModalState,
       validations,
       setValidations,
       validate,

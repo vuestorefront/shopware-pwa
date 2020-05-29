@@ -17,7 +17,7 @@
 
       <div class="sw-personal-info__form form">
         <slot name="form">
-          <SfInput
+          <SwInput
             v-model="firstName"
             :valid="!$v.firstName.$error"
             error-message="First name is required"
@@ -26,7 +26,7 @@
             class="form__element form__element--half form__element--half-even"
             @blur="$v.firstName.$touch()"
           />
-          <SfInput
+          <SwInput
             v-model="lastName"
             :valid="!$v.lastName.$error"
             error-message="Last name is required"
@@ -35,7 +35,7 @@
             class="form__element form__element--half"
             @blur="$v.lastName.$touch()"
           />
-          <SfInput
+          <SwInput
             v-model="email"
             :valid="!$v.email.$error"
             error-message="Proper email is required"
@@ -44,7 +44,7 @@
             class="form__element"
             @blur="$v.email.$touch()"
           />
-          <SfInput
+          <SwInput
             v-if="isEmailChanging"
             v-model="emailConfirmation"
             :valid="!$v.emailConfirmation.$error"
@@ -56,7 +56,7 @@
             required
             @blur="$v.emailConfirmation.$touch()"
           />
-          <SfInput
+          <SwInput
             v-if="isEmailChanging"
             v-model="password"
             :valid="!$v.password.$error"
@@ -75,6 +75,7 @@
           >
             Save Changes
           </SwButton>
+          <SfIcon v-if="isUpdating" :color="updated ? 'green-primary' : 'gray-primary'" size="14px" icon="check" style="margin-left: 10px;" />
         </slot>
       </div>
     </slot>
@@ -86,23 +87,25 @@ import { computed, watch } from '@vue/composition-api'
 import { validationMixin } from 'vuelidate'
 import { required, email, requiredIf, minLength, sameAs } from 'vuelidate/lib/validators'
 import {
-  SfInput,
   SfSelect,
   SfProductOption,
-  SfAlert
+  SfAlert,
+  SfIcon,
 } from '@storefront-ui/vue'
 import { useUser, useContext } from '@shopware-pwa/composables'
 import { mapSalutations, getMessagesFromErrorsArray } from '@shopware-pwa/helpers'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
 
 export default {
   name: 'SwPersonalInfo',
   components: {
-    SfInput,
+    SwInput,
     SwButton,
     SfSelect,
     SfProductOption,
-    SfAlert
+    SfAlert,
+    SfIcon,
   },
   mixins: [validationMixin],
   setup() {
@@ -124,23 +127,24 @@ export default {
   },
   data() {
     return {
-      salutation:
-        this.user && this.user.salutation
-          ? {
-              name: this.user.salutation.displayName,
-              id: this.user.salutation.id
-            }
-          : {},
+      updated: false,
+      isUpdating: false,
+      salutation: this.user && this.user.salutation
+        ? {
+            name: this.user.salutation.displayName,
+            id: this.user.salutation.id
+          }
+        : {},
       firstName: this.user && this.user.firstName,
       lastName: this.user && this.user.lastName,
       email: this.user && this.user.email,
-      emailConfirmation: '',
-      password: ''
+      emailConfirmation: null,
+      password: null
     }
   },
   computed: {
     getErrorMessage() {
-      return getMessagesFromErrorsArray(this.userError && this.userError.message)
+      return getMessagesFromErrorsArray(this.userError && this.userError.message).join("<br/>")
     },
     isEmailChanging() {
       return this.email !== (this.user && this.user.email)
@@ -148,60 +152,62 @@ export default {
     isNameChanging() {
       return this.firstName !== (this.user && this.user.firstName) || this.lastName !== (this.user && this.user.lastName)
     },
+    emailConfirmationValidation() {
+      return this.isEmailChanging ? ({
+        required,
+        email,
+        sameAsEmail: sameAs('email')
+      }) : {}
+    }
   },
-  validations: {
-    firstName: {
-      required
-    },
-    lastName: {
-      required
-    },
-    email: {
-      email,
-      required
-    },
-    emailConfirmation: {
-      required: requiredIf(function (password) {
-        return this.isEmailChanging
-      }),
-      sameAsEmail: sameAs('email'),
-      email
-    },
-    password: {
-      required: requiredIf(function (password) {
-        return this.isEmailChanging
-      }),
-      minLength: minLength(8),
-    },
-  },
-  watch: {
-    email() {
-      if(!this.isEmailChanging) {
-        this.emailConfirmation = this.email
-      } else {
-        this.emailConfirmation = ''
-      }
+  validations() {
+    return {
+      firstName: {
+        required
+      },
+      lastName: {
+        required
+      },
+      email: {
+        email,
+        required
+      },
+      emailConfirmation: this.emailConfirmationValidation, // take a dynamic one
+      password: {
+        required: requiredIf(function (password) {
+          return this.isEmailChanging
+        }),
+        minLength: minLength(8),
+      },
     }
   },
   methods: {
     async invokeUpdate() {
+      this.updated = false;
+      this.isUpdating = false;
       this.$v.$touch()
-      if (this.$v.$invalid) {
+      if (this.$v.$invalid || (!this.isNameChanging && !this.isEmailChanging)) {
         return
       }
       if(this.isNameChanging) {
+        this.isUpdating = true;
+        
         const profileChanged = await this.updatePersonalInfo({
           firstName: this.firstName,
           lastName: this.lastName,
           salutationId: this.salutation.id
         })
+        this.updated = profileChanged;
       }
       if(this.isEmailChanging) {
+        this.isUpdating = true;
         const emailChanged = await this.updateEmail({
         email: this.email,
         emailConfirmation: this.emailConfirmation,
         password: this.password
       })
+      this.updated = emailChanged;
+      
       }
       await this.refreshUser()
     }

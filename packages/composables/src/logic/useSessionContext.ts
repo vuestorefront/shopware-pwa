@@ -12,11 +12,14 @@ import {
 import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
 
 /**
- * Simple session management.
+ * interface for {@link useSessionContext} composable
+ *
+ * @remarks
  * SessionContext contain all related data like user, currency, country, shippingMethod, paymentMethod etc.
- * @alpha
+ *
+ * @beta
  */
-export interface UseSessionContext {
+export interface IUseSessionContext {
   sessionContext: Readonly<Ref<SessionContext | null>>;
   refreshSessionContext: () => Promise<void>;
   shippingMethod: Readonly<Ref<ShippingMethod | null>>;
@@ -28,9 +31,11 @@ export interface UseSessionContext {
 }
 
 /**
- * @alpha
+ * Composable for session management. Options - {@link IUseSessionContext}
+ *
+ * @beta
  */
-export const useSessionContext = (): UseSessionContext => {
+export const useSessionContext = (): IUseSessionContext => {
   let vuexStore = getStore();
 
   const sessionContext: Readonly<Ref<SessionContext>> = computed(() => {

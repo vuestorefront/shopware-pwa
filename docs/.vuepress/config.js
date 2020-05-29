@@ -1,6 +1,15 @@
 module.exports = {
-  title: "shopware PWA",
+  title: "Shopware PWA",
   description: "Headless PWA for Shopware",
+  head: [
+    [
+      "link",
+      {
+        rel: "icon",
+        href: "/favicon.png",
+      },
+    ],
+  ],
   themeConfig: {
     repo: "DivanteLtd/shopware-pwa",
     docsDir: "docs",
@@ -18,7 +27,7 @@ module.exports = {
           ["/landing/getting-started/", "Getting started"],
           ["/landing/fundamentals/", "Fundamentals"],
           ["/landing/concepts/", "Concepts"],
-          ["/landing/operation/", "Operations"],
+          ["/landing/operations/", "Operations"],
           ["/landing/resources/", "Resources"],
         ],
       },
