@@ -32,19 +32,21 @@ export default {
     return {
       search,
       suggestSearch,
-      getSearchPageUrl
+      getSearchPageUrl,
+      typingQuery
     }
   },
   methods: {
     performSuggestSearch(event) {
-      const searchTerm = event.target.value
-      if (typeof searchTerm === 'string' && searchTerm.length > 0) {
-        try {
-          this.suggestSearch(searchTerm)
-        } catch (e) {
-          console.error('[SwTopNavigation][performSuggestSearch]: ' + e)
-        }
-      }
+      // TODO bring back with debounde when there will be UI preview
+      // const searchTerm = event.target.value
+      // if (typeof searchTerm === 'string' && searchTerm.length > 0) {
+      //   try {
+      //     this.suggestSearch(searchTerm)
+      //   } catch (e) {
+      //     console.error('[SwTopNavigation][performSuggestSearch]: ' + e)
+      //   }
+      // }
     },
     performSearch(searchTerm) {
       if (typeof searchTerm === 'string' && searchTerm.length > 0) {
