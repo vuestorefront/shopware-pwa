@@ -17,7 +17,7 @@ import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/
  * @beta
  */
 export interface IUseCart {
-  addProduct: ({ id, quantity }: { id: string; quantity: number }) => void;
+  addProduct: ({ id, quantity }: { id: string; quantity?: number }) => void;
   cart: Readonly<Ref<Readonly<Cart>>>;
   cartItems: Readonly<Ref<Readonly<LineItem[]>>>;
   changeProductQuantity: ({
@@ -64,7 +64,7 @@ export const useCart = (): IUseCart => {
     quantity,
   }: {
     id: string;
-    quantity: number;
+    quantity?: number;
   }) {
     const result = await addProductToCart(id, quantity);
     vuexStore.commit("SET_CART", result);
