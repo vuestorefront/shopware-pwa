@@ -35,6 +35,7 @@
     "lodash": "^4.17.15",
     "request": "^2.88.2",
     "snyk": "^1.316.1",
+    "universal-analytics": "^0.4.20",
     "unzipper": "^0.10.11"
   },
   "devDependencies": {
@@ -47,8 +48,7 @@
     "tslint": "^6.1.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-config-standard": "^9.0.0",
-    "typescript": "^3.8.3",
-    "universal-analytics": "^0.4.20"
+    "typescript": "^3.8.3"
   },
   "jest": {
     "preset": "ts-jest",

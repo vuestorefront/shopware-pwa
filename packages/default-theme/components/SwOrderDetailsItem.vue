@@ -1,5 +1,5 @@
 <template>
-  <SfTableRow class="table__row" :key="product.id">
+  <SfTableRow :key="product.id" class="table__row">
     <SfTableData class="table__description">
       <div class="product-title">{{ getName }}</div>
       <div class="product-sku">{{ product.productNumber }}</div>
@@ -10,7 +10,7 @@
     <SfTableData class="table__data table__quantity">
       {{ getQuantity }}
     </SfTableData>
-    <SfTableData class="table__data">
+    <SfTableData class="table__data table__amount">
       <SfPrice :regular="getTotalPrice | price" class="product-price" />
     </SfTableData>
   </SfTableRow>
@@ -58,13 +58,32 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.product-price {
+  white-space: nowrap;
+}
+
 .table {
+  &__data {
+    --price-regular-font-weight: var(--font-normal);
+  }
   &__description {
     flex: 3;
   }
 
   &__row:hover {
     --table-row-box-shadow: none;
+  }
+  &__quantity {
+    text-align: center;
+    font-size: var(--font-lg);
+  }
+  &__amount {
+    text-align: right;
+  }
+}
+::v-deep .product-price {
+  & > * {
+    flex: 1;
   }
 }
 </style>

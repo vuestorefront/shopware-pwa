@@ -1,5 +1,5 @@
 <template>
-  <SfTableRow class="table__row" :key="product.id">
+  <SfTableRow :key="product.id" class="table__row">
     <SfTableData class="table__image">
       <SfImage :src="product.cover.url" />
     </SfTableData>
@@ -8,11 +8,13 @@
       <div class="product-sku">{{ product.productNumber }}</div>
     </SfTableData>
     <SfTableData class="table__data table__quantity">
-      <SfQuantitySelector class="sf-quantity-selector--secondary" v-model="quantity">{{
-        product.quantity
-      }}</SfQuantitySelector>
+      <SfQuantitySelector
+        v-model="quantity"
+        class="sf-quantity-selector--secondary"
+        >{{ product.quantity }}</SfQuantitySelector
+      >
     </SfTableData>
-    <SfTableData class="table__data">
+    <SfTableData class="table__data table__amount">
       <SfPrice
         :regular="product.price.totalPrice | price"
         class="product-price"
@@ -69,6 +71,7 @@ export default {
 .sf-image {
   max-width: 80%;
 }
+
 .table {
   &__description {
     text-align: left;
@@ -81,11 +84,20 @@ export default {
     }
   }
   &__quantity {
+    text-align: center;
+    font-size: var(--font-lg);
     & > * {
-    --quantity-selector-width: 6rem;
-    --quantity-selector-border-width: 0;
-
+      --quantity-selector-width: 6rem;
+      --quantity-selector-border-width: 0;
     }
+  }
+  &__amount {
+    text-align: right;
+  }
+}
+::v-deep .product-price {
+  & > * {
+    flex: 1;
   }
 }
 </style>
