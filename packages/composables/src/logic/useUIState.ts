@@ -5,9 +5,34 @@ const sharedUIState: any = {};
 
 /**
  * Simple state management for UI purposes.
+ *
+ * @remarks
  * If you pase `stateName` on composable invocation (ex. `useUIState('sidebarCart')`), then
  * state is shared between all instances with this key.
  * Otherwise state is local, so multiple `useUIState()` will not share state
+ *
+ * @example
+ * ```ts
+ * // Component1
+ * const {isOpen, switchState} = useUIState('SIDEBAR_STATE')
+ * switchState()
+ *
+ * // Component 2
+ * const {isOpen} = useUIState('SIDEBAR_STATE')
+ * // isOpen will be true
+ * ```
+ *
+ * If you'll not use KEY on composable init, then state is only local
+ *
+ * ```ts
+ * // Component1
+ * const {isOpen, switchState} = useUIState()
+ * switchState()
+ *
+ * // Component 2
+ * const {isOpen} = useUIState()
+ * // isOpen will be false
+ * ```
  *
  * @beta
  */

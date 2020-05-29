@@ -8,24 +8,23 @@ describe("Shopware helpers - getProductRegularPrice", () => {
       },
     };
 
-    const price = getProductRegularPrice({ product: productWithPrice });
+    const price = getProductRegularPrice(productWithPrice);
     expect(price).toEqual(125.95);
   });
   it("should return 0 if there is no price nested", () => {
     const productWithoutPrice: any = {};
 
-    const price = getProductRegularPrice({ product: productWithoutPrice });
+    const price = getProductRegularPrice(productWithoutPrice);
     expect(price).toBeUndefined();
   });
 
   it("should return default negative value if argument wasn't provided", () => {
-    const price = getProductRegularPrice();
+    const price = getProductRegularPrice(undefined as any);
     expect(price).toBeUndefined();
   });
 
   it("should return default value if product was null", () => {
-    const argument: any = { product: null };
-    const price = getProductRegularPrice(argument);
+    const price = getProductRegularPrice(null as any);
     expect(price).toBeUndefined();
   });
 });

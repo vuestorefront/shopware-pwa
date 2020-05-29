@@ -3,7 +3,7 @@
     <div class="log-in">
       <div class="log-in__buttons-container">
         <SwButton
-          @click="toggleLoginModal()"
+          @click="switchLoginModalState(true)"
           class="log-in__button color-secondary"
           >Log in to your account</SwButton
         >
@@ -117,10 +117,6 @@
         >
       </div>
     </div>
-    <SwLoginModal
-      :is-open="isLoginModalOpen"
-      @close="isLoginModalOpen = false"
-    />
   </div>
 </template>
 <script>
@@ -160,8 +156,6 @@ import {
   usePersonalDetailsStepValidationRules,
 } from '@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep'
 
-import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
-
 export default {
   name: 'PersonalDetailsGuestForm',
   mixins: [validationMixin],
@@ -175,7 +169,6 @@ export default {
     SfSelect,
     SfProductOption,
     SfAlert,
-    SwLoginModal,
     SwPluginSlot,
   },
   props: {
@@ -206,7 +199,9 @@ export default {
     }
   },
   setup() {
-    const { switchState: toggleLoginModal } = useUIState('LOGIN_MODAL_STATE')
+    const { switchState: switchLoginModalState } = useUIState(
+      'LOGIN_MODAL_STATE'
+    )
 
     const {
       validations,
@@ -246,7 +241,7 @@ export default {
       getCountries,
       fetchCountries,
       getMessagesFromErrorsArray,
-      toggleLoginModal,
+      switchLoginModalState,
       validations,
       setValidations,
       validate,

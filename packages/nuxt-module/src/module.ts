@@ -7,8 +7,11 @@ import { loadConfig } from "./utils";
 import { extendCMS } from "./cms";
 import { extendLocales } from "./locales";
 import { useCorePackages } from "./packages";
+import { invokeBuildLogger } from "./logger";
 
 export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
+  /* istanbul ignore next */
+  invokeBuildLogger(moduleObject);
   const shopwarePwaConfig = loadConfig(moduleObject);
   extendComponents(moduleObject);
   addThemeLayouts(moduleObject);

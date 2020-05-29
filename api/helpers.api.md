@@ -131,9 +131,7 @@ export function getProductProperties({ product, }?: {
 }): UiProductProperty[];
 
 // @beta
-export function getProductRegularPrice({ product, }?: {
-    product?: Product;
-}): number | undefined;
+export function getProductRegularPrice(product: Product): number | undefined;
 
 // @alpha (undocumented)
 export function getProductReviews({ product, }?: {

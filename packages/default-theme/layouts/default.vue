@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <SwPluginSlot name="page-top" />
-    <SwTopNavigation />
+    <SwHeader />
     <SwPluginSlot name="top-header-after" />
     <SwPluginSlot name="breadcrumbs">
       <SfBreadcrumbs
@@ -16,6 +16,10 @@
     <SwPluginSlot name="footer-before" />
     <SwFooter />
     <SwPluginSlot name="footer-after" />
+    <SwLoginModal
+      :is-open="isLoginModalOpen"
+      @close="switchLoginModalState(false)"
+    />
     <div class="layout__bottom-navigation-placeholder" />
     <SwBottomNavigation class="layout__bottom-navigation" />
   </div>
@@ -23,7 +27,7 @@
 
 <script>
 import { SfBreadcrumbs } from '@storefront-ui/vue'
-import SwTopNavigation from '@shopware-pwa/default-theme/components/SwTopNavigation'
+import SwHeader from '@shopware-pwa/default-theme/components/SwHeader'
 import SwBottomNavigation from '@shopware-pwa/default-theme/components/SwBottomNavigation'
 import SwFooter from '@shopware-pwa/default-theme/components/SwFooter'
 import SwPluginSlot from 'sw-plugins/SwPluginSlot'
@@ -34,21 +38,27 @@ import {
   ref,
   watchEffect,
 } from '@vue/composition-api'
+import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
 const SwCart = () => import('@shopware-pwa/default-theme/components/SwCart')
 
 export default {
   components: {
     SfBreadcrumbs,
-    SwTopNavigation,
+    SwHeader,
     SwCart,
     SwFooter,
     SwBottomNavigation,
     SwPluginSlot,
+    SwLoginModal,
   },
   setup() {
     const vm = getCurrentInstance()
     const { getBreadcrumbsObject } = useCms()
     const { isOpen: isSidebarOpen } = useUIState('CART_SIDEBAR_STATE')
+    const {
+      isOpen: isLoginModalOpen,
+      switchState: switchLoginModalState,
+    } = useUIState('LOGIN_MODAL_STATE')
 
     // Load cart component only when needed
     const loadSidebarComponent = ref(isSidebarOpen.value)
@@ -70,6 +80,8 @@ export default {
     return {
       getBreadcrumbs,
       isSidebarOpen: loadSidebarComponent,
+      isLoginModalOpen,
+      switchLoginModalState,
     }
   },
   methods: {

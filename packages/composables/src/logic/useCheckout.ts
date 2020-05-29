@@ -18,9 +18,14 @@ import {
 import { useSessionContext } from "./useSessionContext";
 
 /**
+ * interface for {@link useCheckout} composable
+ *
  * @beta
  */
-export interface UseCheckout {
+export interface IUseCheckout {
+  /**
+   * Flag isGuestOrder is true when user is not logged in
+   */
   isGuestOrder: Readonly<Ref<boolean>>;
   guestOrderParams: Ref<Readonly<Partial<GuestOrderParams | null>>>;
   getShippingMethods: (options?: {
@@ -48,9 +53,11 @@ const orderData: {
 });
 
 /**
- * @alpha
+ * Composable for Checkout management. Options - {@link IUseCheckout}
+ *
+ * @beta
  */
-export const useCheckout = (): UseCheckout => {
+export const useCheckout = (): IUseCheckout => {
   const { isLoggedIn } = useUser();
   const { refreshCart } = useCart();
   const { sessionContext } = useSessionContext();

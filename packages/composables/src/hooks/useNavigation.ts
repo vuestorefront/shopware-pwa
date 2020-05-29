@@ -5,9 +5,11 @@ import { getNavigationRoutes } from "@shopware-pwa/helpers";
 import { NavigationElement } from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
 
 /**
- * @alpha
+ * interface for {@link useNavigation} composable
+ *
+ * @beta
  */
-export interface UseNavigation {
+export interface IUseNavigation {
   routes: Ref<Readonly<any>>;
   navigationElements: NavigationElement[];
   fetchNavigationElements: (depth: number) => Promise<void>;
@@ -20,9 +22,10 @@ const sharedNavigation = Vue.observable({
 } as any);
 
 /**
- * @alpha
+ * Composable for navigation. Options - {@link IUseNavigation}
+ * @beta
  */
-export const useNavigation = (): UseNavigation => {
+export const useNavigation = (): IUseNavigation => {
   const localNavigation = reactive(sharedNavigation);
   const routes = computed(() => localNavigation.routes);
 

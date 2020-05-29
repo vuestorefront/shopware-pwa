@@ -47,7 +47,7 @@ export async function getCart(): Promise<Cart> {
  */
 export async function addProductToCart(
   productId: string,
-  quantity: number
+  quantity?: number
 ): Promise<Cart> {
   const qty = quantity || 1;
   const resp = await apiService.post(

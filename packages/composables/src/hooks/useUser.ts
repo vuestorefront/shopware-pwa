@@ -36,9 +36,11 @@ import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/
 import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
 
 /**
- * @alpha
+ * interface for {@link useUser} composable
+ *
+ * @beta
  */
-export interface UseUser {
+export interface IUseUser {
   login: ({
     username,
     password,
@@ -84,9 +86,11 @@ export interface UseUser {
 }
 
 /**
- * @alpha
+ * Composable for user management. Options - {@link IUseUser}
+ *
+ * @beta
  */
-export const useUser = (): UseUser => {
+export const useUser = (): IUseUser => {
   let vuexStore = getStore();
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);

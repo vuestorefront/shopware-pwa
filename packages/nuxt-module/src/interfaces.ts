@@ -5,6 +5,7 @@ export interface NuxtModuleOptions extends ModuleThis {
     rootDir: string;
     buildDir: string;
     plugins?: string[];
+    dev?: boolean;
     router: {
       middleware: string[];
     };
