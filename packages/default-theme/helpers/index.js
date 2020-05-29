@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import currency from 'currency.js'
+import { PAGE_SEARCH } from './pages';
 
 const defaultFormatPriceOptions = {
   pattern: `# !`,
@@ -34,3 +35,6 @@ export const getSortingLabel = (sorting) => {
 
 export const formatDate = (date, format = `DD-MM-YYYY H:m:s`) =>
   dayjs(date).format(format)
+
+
+export const getSearchPageUrl = searchTerm => `${PAGE_SEARCH}?query=${searchTerm}`

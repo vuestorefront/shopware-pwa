@@ -39,7 +39,7 @@ const sharedListing = Vue.observable({
 } as any);
 
 const selectedCriteria = Vue.observable({
-  pagination: null,
+  pagination: {},
   propertyIds: [],
   filters: {},
   sorting: "",
@@ -113,12 +113,12 @@ export const useProductListing = (
     }
   };
 
-  const changeSorting = async (sorting: Sort) => {
+  const changeSorting = (sorting: Sort) => {
     if (!sorting) {
       return;
     }
     selectedCriteria.sorting = sorting;
-    await search();
+    search();
   };
   const search = async (): Promise<void> => {
     loading.value = true;

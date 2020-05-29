@@ -7,8 +7,7 @@ import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Or
  */
 export function getOrderPaymentMethodId(order: Order): string | undefined {
   const openTransaction = order?.transactions?.find(
-    ({ stateMachineState }) =>
-      stateMachineState?.technicalName === "open"
+    ({ stateMachineState }) => stateMachineState?.technicalName === "open"
   );
   return openTransaction?.paymentMethodId;
 }

@@ -15,9 +15,11 @@ describe("ProductService - getCategoryProductsListing", () => {
     const categoryId = "044a190a54ab4f06803909c3ee8063ef";
     const result = await getCategoryProductsListing(categoryId);
     expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith(
+    expect(
+      mockedAxios.post
+    ).toBeCalledWith(
       "/store-api/v1/product-listing/044a190a54ab4f06803909c3ee8063ef",
-      {}
+      { limit: 10 }
     );
     expect(result).toHaveProperty("elements");
   });
@@ -34,7 +36,7 @@ describe("ProductService - getCategoryProductsListing", () => {
       mockedAxios.post
     ).toBeCalledWith(
       "/store-api/v1/product-listing/044a190a54ab4f06803909c3ee8063ef",
-      { sort: "name-asc" }
+      { sort: "name-asc", limit: 10 }
     );
     expect(result).toHaveProperty("elements");
   });

@@ -71,6 +71,6 @@ export const useCms = (): any => {
     loading,
     search,
     error,
-    getBreadcrumbsObject
+    getBreadcrumbsObject,
   };
 };

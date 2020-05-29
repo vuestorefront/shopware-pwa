@@ -20,6 +20,12 @@ export const getProductDetailsEndpoint = (productId: string) =>
 export const getProductsIdsEndpoint = () =>
   `/sales-channel-api/v1/search-ids/product`;
 
+// search
+
+export const getSuggestSearchEndpoint = () => `/store-api/v1/search-suggest`;
+
+export const getSearchEndpoint = () => `/store-api/v1/search`;
+
 // customer
 
 export const getCustomerAddressEndpoint = (addressId?: string) =>
