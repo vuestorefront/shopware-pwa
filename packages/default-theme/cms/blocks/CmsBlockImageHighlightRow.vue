@@ -1,44 +1,53 @@
 <template>
   <article class="cms-block-image-highlight-row">
-    <CmsGenericElement :content="getLeftContent" class="cms-block-image-highlight-row__image"/>
-    <CmsGenericElement :content="getCenterContent" class="cms-block-image-highlight-row__image"/>
-    <CmsGenericElement :content="getRightContent" class="cms-block-image-highlight-row__image"/>
+    <CmsGenericElement
+      :content="getLeftContent"
+      class="cms-block-image-highlight-row__image"
+    />
+    <CmsGenericElement
+      :content="getCenterContent"
+      class="cms-block-image-highlight-row__image"
+    />
+    <CmsGenericElement
+      :content="getRightContent"
+      class="cms-block-image-highlight-row__image"
+    />
   </article>
 </template>
 
 <script>
-import CmsGenericElement from 'sw-cms/CmsGenericElement'
+import CmsGenericElement from "sw-cms/CmsGenericElement"
 
 export default {
-  name: 'CmsBlockImageHighlightRow',
+  name: "CmsBlockImageHighlightRow",
   components: {
     CmsGenericElement,
   },
   props: {
     content: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   computed: {
     getSlots() {
       return this.content.slots || []
     },
     getLeftContent() {
-      return this.getSlots.find(({slot}) => slot === 'left')
+      return this.getSlots.find(({ slot }) => slot === "left")
     },
     getCenterContent() {
-      return this.getSlots.find(({slot}) => slot === 'center')
+      return this.getSlots.find(({ slot }) => slot === "center")
     },
     getRightContent() {
-      return this.getSlots.find(({slot}) => slot === 'right')
+      return this.getSlots.find(({ slot }) => slot === "right")
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .cms-block-image-highlight-row {
   display: flex;
@@ -61,5 +70,4 @@ export default {
     align-items: center;
   }
 }
-
 </style>

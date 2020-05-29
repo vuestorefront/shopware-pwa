@@ -18,15 +18,15 @@
 </template>
 
 <script>
-import { SfProductCardHorizontal } from '@storefront-ui/vue'
-import { useAddToCart } from '@shopware-pwa/composables'
+import { SfProductCardHorizontal } from "@storefront-ui/vue"
+import { useAddToCart } from "@shopware-pwa/composables"
 import {
   getProductMainImageUrl,
   getProductRegularPrice,
   getProductUrl,
   getProductSpecialPrice,
   getProductName,
-} from '@shopware-pwa/helpers'
+} from "@shopware-pwa/helpers"
 
 export default {
   components: { SfProductCardHorizontal },
@@ -68,7 +68,7 @@ export default {
     getImageUrl() {
       return (
         getProductMainImageUrl(this.product) ||
-        require('@shopware-pwa/default-theme/assets/productB.jpg')
+        require("@shopware-pwa/default-theme/assets/productB.jpg")
       )
     },
   },

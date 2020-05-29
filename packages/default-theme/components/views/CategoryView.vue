@@ -4,20 +4,19 @@
   </div>
 </template>
 <script>
-import CmsPage from "sw-cms/CmsPage";
+import CmsPage from "sw-cms/CmsPage"
 
 export default {
-  name: 'CategoryView',
+  name: "CategoryView",
   components: {
-    CmsPage
+    CmsPage,
   },
   props: {
     cmsPage: {
       type: Object,
-      default: () => ({})
-    }
-  }
+      default: () => ({}),
+    },
+  },
 }
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

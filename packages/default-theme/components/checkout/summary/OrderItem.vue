@@ -23,8 +23,8 @@
   </SfTableRow>
 </template>
 <script>
-import { useCart } from '@shopware-pwa/composables'
-import { ref, watch, computed } from '@vue/composition-api'
+import { useCart } from "@shopware-pwa/composables"
+import { ref, watch, computed } from "@vue/composition-api"
 import {
   SfTable,
   SfCheckbox,
@@ -32,10 +32,10 @@ import {
   SfIcon,
   SfPrice,
   SfQuantitySelector,
-} from '@storefront-ui/vue'
+} from "@storefront-ui/vue"
 
 export default {
-  name: 'OrderItem',
+  name: "OrderItem",
   components: {
     SfTable,
     SfCheckbox,
@@ -66,7 +66,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .sf-image {
   max-width: 80%;

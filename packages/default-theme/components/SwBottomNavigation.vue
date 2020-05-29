@@ -83,20 +83,20 @@ import {
   SfIcon,
   SfSelect,
   SfProductOption,
-} from '@storefront-ui/vue'
+} from "@storefront-ui/vue"
 import {
   useUIState,
   useNavigation,
   useUser,
   useCart,
-} from '@shopware-pwa/composables'
-import SwCurrencySwitcher from '@shopware-pwa/default-theme/components/SwCurrencySwitcher'
-import { onMounted } from '@vue/composition-api'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
-import { PAGE_ACCOUNT, PAGE_LOGIN } from '../helpers/pages'
+} from "@shopware-pwa/composables"
+import SwCurrencySwitcher from "@shopware-pwa/default-theme/components/SwCurrencySwitcher"
+import { onMounted } from "@vue/composition-api"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import { PAGE_ACCOUNT, PAGE_LOGIN } from "../helpers/pages"
 
 export default {
-  name: 'SwBottomNavigation',
+  name: "SwBottomNavigation",
   components: {
     SfBottomNavigation,
     SfIcon,
@@ -109,15 +109,15 @@ export default {
   data() {
     return {
       navigationElements: [],
-      currentRoute: { routeLabel: '', routePath: '/' },
+      currentRoute: { routeLabel: "", routePath: "/" },
     }
   },
   setup() {
     const { switchState: toggleSidebar, isOpen: isSidebarOpen } = useUIState(
-      'CART_SIDEBAR_STATE'
+      "CART_SIDEBAR_STATE"
     )
     const { routes, fetchRoutes } = useNavigation()
-    const { switchState: toggleModal } = useUIState('LOGIN_MODAL_STATE')
+    const { switchState: toggleModal } = useUIState("LOGIN_MODAL_STATE")
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
 
@@ -125,7 +125,7 @@ export default {
       try {
         await fetchRoutes()
       } catch (e) {
-        console.error('[SwBottomNavigation]', e)
+        console.error("[SwBottomNavigation]", e)
       }
     })
     return {
@@ -159,7 +159,7 @@ export default {
     },
     async logoutUser() {
       await this.logout()
-      this.$router.push(this.$i18n.path('/'))
+      this.$router.push(this.$i18n.path("/"))
     },
   },
 }

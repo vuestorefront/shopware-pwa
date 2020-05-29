@@ -1,11 +1,11 @@
 <script>
 // import any extra components here
-import { SfLink } from '@storefront-ui/vue'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
-import { renderHtml } from 'html-to-vue'
+import { SfLink } from "@storefront-ui/vue"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import { renderHtml } from "html-to-vue"
 
 export default {
-  name: 'CmsElementText',
+  name: "CmsElementText",
   functional: true,
   props: {
     content: {
@@ -20,8 +20,8 @@ export default {
         link: {
           conditions(node) {
             return (
-              node.type === 'tag' &&
-              node.name === 'a' &&
+              node.type === "tag" &&
+              node.name === "a" &&
               !node.attrs?.class?.match(/btn\s?/)
             )
           },
@@ -44,13 +44,15 @@ export default {
         button: {
           conditions(node) {
             return (
-              node.type === 'tag' &&
-              node.name === 'a' &&
+              node.type === "tag" &&
+              node.name === "a" &&
               node.attrs?.class?.match(/btn\s?/)
             )
           },
           renderer(node, children, createElement) {
-            const _class = node.attrs?.class.replace('btn-secondary', 'color-secondary').replace('btn-primary', 'color-primary')
+            const _class = node.attrs?.class
+              .replace("btn-secondary", "color-secondary")
+              .replace("btn-primary", "color-primary")
             return createElement(
               SwButton,
               {
@@ -75,7 +77,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../settings.scss';
+@import "../settings.scss";
 
 .cms-element-text {
   @include sizing-mode-boxed;

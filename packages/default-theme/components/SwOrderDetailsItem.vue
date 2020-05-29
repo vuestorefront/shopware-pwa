@@ -23,10 +23,10 @@ import {
   SfIcon,
   SfPrice,
   SfQuantitySelector,
-} from '@storefront-ui/vue'
+} from "@storefront-ui/vue"
 
 export default {
-  name: 'OrderItem',
+  name: "OrderItem",
   components: {
     SfTable,
     SfCheckbox,

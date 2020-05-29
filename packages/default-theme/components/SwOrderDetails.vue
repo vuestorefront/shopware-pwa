@@ -62,29 +62,29 @@
 </template>
 
 <script>
-import { SfTable, SfProperty, SfHeading } from '@storefront-ui/vue'
-import { useUser } from '@shopware-pwa/composables'
-import { ref, onMounted, computed, watchEffect } from '@vue/composition-api'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+import { SfTable, SfProperty, SfHeading } from "@storefront-ui/vue"
+import { useUser } from "@shopware-pwa/composables"
+import { ref, onMounted, computed, watchEffect } from "@vue/composition-api"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import {
   getOrderPaymentMethodId,
   getOrderShippingMethodId,
-} from '@shopware-pwa/helpers'
+} from "@shopware-pwa/helpers"
 import {
   getShippingMethodDetails,
   getPaymentMethodDetails,
   getOrderPaymentUrl,
-} from '@shopware-pwa/shopware-6-client'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
-import { PAGE_ORDER_SUCCESS } from '@shopware-pwa/default-theme/helpers/pages'
-import SwOrderDetailsItem from './SwOrderDetailsItem'
-import SwPersonalDetails from './SwPersonalDetails'
-import SwAddress from './SwAddress'
-import SwCheckoutMethod from './SwCheckoutMethod'
-import SwTotals from './SwTotals'
+} from "@shopware-pwa/shopware-6-client"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import { PAGE_ORDER_SUCCESS } from "@shopware-pwa/default-theme/helpers/pages"
+import SwOrderDetailsItem from "./SwOrderDetailsItem"
+import SwPersonalDetails from "./SwPersonalDetails"
+import SwAddress from "./SwAddress"
+import SwCheckoutMethod from "./SwCheckoutMethod"
+import SwTotals from "./SwTotals"
 
 export default {
-  name: 'SwOrderDetails',
+  name: "SwOrderDetails",
   components: {
     SfProperty,
     SfTable,
@@ -103,7 +103,7 @@ export default {
   },
   data() {
     return {
-      tableHeaders: ['Item', 'Price', 'Quantity', 'Amount'],
+      tableHeaders: ["Item", "Price", "Quantity", "Amount"],
     }
   },
   // TODO: move this logic into separate service;
@@ -192,7 +192,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 
 .sw-order-details {
   padding: 1rem;

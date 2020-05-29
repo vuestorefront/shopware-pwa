@@ -15,46 +15,46 @@
 </template>
 
 <script>
-import { SfSection, SfCarousel } from '@storefront-ui/vue'
-import { getProducts } from '@shopware-pwa/shopware-6-client'
-import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
+import { SfSection, SfCarousel } from "@storefront-ui/vue"
+import { getProducts } from "@shopware-pwa/shopware-6-client"
+import SwProductCard from "@shopware-pwa/default-theme/components/SwProductCard"
 
 export default {
-  name: 'SwProductCarousel',
+  name: "SwProductCarousel",
   components: { SfSection, SfCarousel, SwProductCard },
   props: {
     titleHeading: {
       type: String,
-      default: 'Match it'
-    }
+      default: "Match it",
+    },
   },
   data() {
     return {
-      products: {}
+      products: {},
     }
   },
   async mounted() {
     try {
       const result = await getProducts({
         sort: {
-          field: 'price',
-          desc: false
+          field: "price",
+          desc: false,
         },
         pagination: {
           page: 1,
-          limit: 10
-        }
+          limit: 10,
+        },
       })
       this.products = result.data
     } catch (e) {
-      console.error('SwProductCarousel:mounted:getProducts', e)
+      console.error("SwProductCarousel:mounted:getProducts", e)
     }
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .section {
   padding: 0 var(--spacer-base);

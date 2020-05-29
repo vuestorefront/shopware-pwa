@@ -38,14 +38,14 @@
   </SfTableRow>
 </template>
 <script>
-import { SfTable } from '@storefront-ui/vue'
-import { useUser } from '@shopware-pwa/composables'
-import SwOrderDetails from '@shopware-pwa/default-theme/components/SwOrderDetails'
-import { formatDate, formatPrice } from '@shopware-pwa/default-theme/helpers'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import { SfTable } from "@storefront-ui/vue"
+import { useUser } from "@shopware-pwa/composables"
+import SwOrderDetails from "@shopware-pwa/default-theme/components/SwOrderDetails"
+import { formatDate, formatPrice } from "@shopware-pwa/default-theme/helpers"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 
 export default {
-  name: 'Order',
+  name: "Order",
   components: { SfTable, SwButton, SwOrderDetails },
   props: {
     order: {
@@ -73,7 +73,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles.scss';
+@import "~@storefront-ui/vue/styles.scss";
 .order-view {
   &__details {
     flex: 0 0 100%;

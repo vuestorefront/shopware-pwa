@@ -6,13 +6,13 @@
 </template>
 
 <script>
-import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
+import SwProductCard from "@shopware-pwa/default-theme/components/SwProductCard"
 
 export default {
   components: {
     SwProductCard,
   },
-  name: 'CmsElementProductCard',
+  name: "CmsElementProductCard",
   props: {
     content: {
       type: Object,
@@ -23,5 +23,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
+@import "../settings.scss";
 </style>

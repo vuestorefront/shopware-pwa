@@ -34,11 +34,11 @@
   </div>
 </template>
 <script>
-import { SfHeading, SfPrice, SfRating } from '@storefront-ui/vue'
-import SwTierPrices from './SwTierPrices'
+import { SfHeading, SfPrice, SfRating } from "@storefront-ui/vue"
+import SwTierPrices from "./SwTierPrices"
 
 export default {
-  name: 'SwProductHeading',
+  name: "SwProductHeading",
   components: { SfHeading, SfPrice, SfRating, SwTierPrices },
   props: {
     reviews: {
@@ -62,14 +62,14 @@ export default {
     },
     name: {
       type: String,
-      default: '',
+      default: "",
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/shared/styles/variables';
+@import "~@storefront-ui/shared/styles/variables";
 
 .product-heading {
   &__sub {

@@ -12,42 +12,45 @@
         :key="option.code"
         :value="option.code"
       >
-      <slot v-bind="option">
-        <SfProductOption :label="option.label" :color="label=='color' ? option.label : null" />
-      </slot>
+        <slot v-bind="option">
+          <SfProductOption
+            :label="option.label"
+            :color="label == 'color' ? option.label : null"
+          />
+        </slot>
       </SfSelectOption>
     </SfSelect>
   </div>
 </template>
 <script>
-import { SfSelect, SfProductOption } from '@storefront-ui/vue'
+import { SfSelect, SfProductOption } from "@storefront-ui/vue"
 
 export default {
-  name: 'SwProductSelect',
+  name: "SwProductSelect",
   components: { SfSelect, SfProductOption },
   model: {
-    prop: 'selected',
-    event: 'select'
+    prop: "selected",
+    event: "select",
   },
   props: {
     value: {
       type: String,
-      default: ""
+      default: "",
     },
     options: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     label: {
       type: String,
-      default: ''
-    }
+      default: "",
+    },
   },
   data() {
     return {
-      selectedOption: this.value
+      selectedOption: this.value,
     }
-  }
+  },
 }
 </script>
 <style lang="scss" scoped></style>

@@ -10,11 +10,11 @@
 
 <script>
 export default {
-  name: 'SwCheckoutMethod',
+  name: "SwCheckoutMethod",
   props: {
     label: {
       type: String,
-      default: '',
+      default: "",
     },
     method: {
       type: Object,
@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 
 .sw-generic-method {
   margin-bottom: var(--spacer-sm);

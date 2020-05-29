@@ -19,19 +19,19 @@
   </div>
 </template>
 <script>
-import { SfButton, SfHeading, SfIcon, SfLoader } from '@storefront-ui/vue'
-import { useProductSearch, useUIState } from '@shopware-pwa/composables'
+import { SfButton, SfHeading, SfIcon, SfLoader } from "@storefront-ui/vue"
+import { useProductSearch, useUIState } from "@shopware-pwa/composables"
 
 import {
   ref,
   getCurrentInstance,
   computed,
   watchEffect,
-} from '@vue/composition-api'
-import SwProductListing from '@shopware-pwa/default-theme/components/SwProductListing'
+} from "@vue/composition-api"
+import SwProductListing from "@shopware-pwa/default-theme/components/SwProductListing"
 
 export default {
-  name: 'SearchResultsPage',
+  name: "SearchResultsPage",
   watchQuery: true,
   components: {
     SfHeading,
@@ -52,8 +52,7 @@ export default {
 
     const searchQuery = ref(currentSearchTerm.value)
     const startedSearching = ref(false)
-    const { isOpen: isListView } = useUIState('PRODUCT_LISTING_STATE')
-
+    const { isOpen: isListView } = useUIState("PRODUCT_LISTING_STATE")
 
     watchEffect(async () => {
       searchQuery.value = vm.$route.query.query
@@ -67,7 +66,7 @@ export default {
         try {
           await search(searchQuery.value)
         } catch (e) {
-          console.error('search: ' + e)
+          console.error("search: " + e)
         }
       }
     })
@@ -78,13 +77,13 @@ export default {
       loadingSearch,
       startedSearching,
       changePage,
-      isListView
+      isListView,
     }
-  }
+  },
 }
 </script>
 <style lang="scss">
-@import '~@storefront-ui/vue/styles.scss';
+@import "~@storefront-ui/vue/styles.scss";
 
 .search-page {
   @include for-desktop {

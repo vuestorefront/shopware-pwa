@@ -18,10 +18,10 @@
 </template>
 
 <script>
-import CmsGenericElement from 'sw-cms/CmsGenericElement'
+import CmsGenericElement from "sw-cms/CmsGenericElement"
 
 export default {
-  name: 'CmsBlockImageSimpleGrid',
+  name: "CmsBlockImageSimpleGrid",
   components: {
     CmsGenericElement,
   },
@@ -36,20 +36,20 @@ export default {
       return this.content.slots || []
     },
     getLeftTopContent() {
-      return this.getSlots.find(({ slot }) => slot === 'left-top')
+      return this.getSlots.find(({ slot }) => slot === "left-top")
     },
     getLeftBottomContent() {
-      return this.getSlots.find(({ slot }) => slot === 'left-bottom')
+      return this.getSlots.find(({ slot }) => slot === "left-bottom")
     },
     getRightContent() {
-      return this.getSlots.find(({ slot }) => slot === 'right')
+      return this.getSlots.find(({ slot }) => slot === "right")
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 ::v-deep.sw-image-simple-grid {
   display: flex;

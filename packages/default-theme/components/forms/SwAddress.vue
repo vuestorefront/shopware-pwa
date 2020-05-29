@@ -105,7 +105,6 @@
         @blur="$v.form.country.$touch()"
         required
         class="sf-select--underlined form__element form__element--half form__element--half-even form__select"
-
       >
         <SfSelectOption
           v-for="countryOption in getMappedCountries"
@@ -139,43 +138,38 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
-import { required } from 'vuelidate/lib/validators'
-import { computed, reactive, ref, onBeforeMount } from '@vue/composition-api'
-import {
-  SfAlert,
-  SfTabs,
-  SfSelect,
-  SfIcon
-} from '@storefront-ui/vue'
+import { validationMixin } from "vuelidate"
+import { required } from "vuelidate/lib/validators"
+import { computed, reactive, ref, onBeforeMount } from "@vue/composition-api"
+import { SfAlert, SfTabs, SfSelect, SfIcon } from "@storefront-ui/vue"
 import {
   useCountries,
   useUser,
-  useSalutations
-} from '@shopware-pwa/composables'
-import { mapCountries, mapSalutations } from '@shopware-pwa/helpers'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
-import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
+  useSalutations,
+} from "@shopware-pwa/composables"
+import { mapCountries, mapSalutations } from "@shopware-pwa/helpers"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
 export default {
-  name: 'SwAddress',
+  name: "SwAddress",
   components: { SfAlert, SfTabs, SwInput, SwButton, SfSelect, SfIcon },
   mixins: [validationMixin],
   props: {
     address: {
       type: Object,
       default: () => ({
-        firstName: '',
-        lastName: '',
+        firstName: "",
+        lastName: "",
         salutation: null,
         country: null,
-        zipcode: '',
-        street: '',
-        apartment: '',
-        city: '',
-        phoneNumber: ''
-      })
-    }
+        zipcode: "",
+        street: "",
+        apartment: "",
+        city: "",
+        phoneNumber: "",
+      }),
+    },
   },
   setup(props) {
     const { getSalutations, error: salutationsError } = useSalutations()
@@ -192,11 +186,11 @@ export default {
 
     form.salutation = {
       name: props.address.salutation && props.address.salutation.displayName,
-      id: props.address.salutation && props.address.salutation.id
+      id: props.address.salutation && props.address.salutation.id,
     }
     form.country = {
       name: props.address.country && props.address.country.name,
-      id: props.address.country && props.address.country.id
+      id: props.address.country && props.address.country.id,
     }
 
     return {
@@ -205,7 +199,7 @@ export default {
       countriesError,
       getMappedCountries,
       getMappedSalutations,
-      form
+      form,
     }
   },
   computed: {
@@ -220,7 +214,7 @@ export default {
         city,
         country,
         phoneNumber,
-        _uniqueIdentifier
+        _uniqueIdentifier,
       } = this.form
       return {
         id: _uniqueIdentifier,
@@ -232,9 +226,9 @@ export default {
         apartment,
         city,
         countryId: country.id,
-        phoneNumber
+        phoneNumber,
       }
-    }
+    },
   },
   methods: {
     async updateAddress() {
@@ -246,48 +240,48 @@ export default {
       this.returnToAddresses()
     },
     returnToAddresses() {
-      this.$router.push(this.$i18n.path('/account/addresses'))
-    }
+      this.$router.push(this.$i18n.path("/account/addresses"))
+    },
   },
   validations: {
     form: {
       lastName: {
-        required
+        required,
       },
       firstName: {
-        required
+        required,
       },
       salutation: {
-        required
+        required,
       },
       street: {
-        required
+        required,
       },
       apartment: {
-        required
+        required,
       },
       city: {
-        required
+        required,
       },
       state: {
-        required
+        required,
       },
       zipcode: {
-        required
+        required,
       },
       country: {
-        required
+        required,
       },
       phoneNumber: {
-        required
-      }
-    }
-  }
+        required,
+      },
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .form {
   @include for-desktop {

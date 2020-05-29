@@ -14,25 +14,25 @@
 </template>
 
 <script>
-import { SfColor } from '@storefront-ui/vue'
+import { SfColor } from "@storefront-ui/vue"
 
 export default {
-  name: 'SwProductColors',
+  name: "SwProductColors",
   components: { SfColor },
   props: {
     value: {
       type: String,
-      default: '',
+      default: "",
     },
     label: {
       type: String,
-      default: '',
+      default: "",
     },
     colors: {
       type: Array,
       default: () => [],
     },
-  }
+  },
 }
 </script>
 

@@ -25,22 +25,19 @@
   </SfTabs>
 </template>
 <script>
-import {
-  SfTabs,
-  SfTable,
-} from '@storefront-ui/vue'
-import { useUser } from '@shopware-pwa/composables'
-import Order from '@shopware-pwa/default-theme/components/account/orders/Order'
-import { formatDate, formatPrice } from '@shopware-pwa/default-theme/helpers'
+import { SfTabs, SfTable } from "@storefront-ui/vue"
+import { useUser } from "@shopware-pwa/composables"
+import Order from "@shopware-pwa/default-theme/components/account/orders/Order"
+import { formatDate, formatPrice } from "@shopware-pwa/default-theme/helpers"
 
 export default {
-  name: 'OrderHistory',
+  name: "OrderHistory",
   components: { SfTabs, SfTable, Order },
   props: {},
   data() {
     return {
       listOrders: true,
-      tableHeaders: ['Order no.', 'Total amount', 'Order date', 'Status', ' '],
+      tableHeaders: ["Order no.", "Total amount", "Order date", "Status", " "],
     }
   },
   setup() {
@@ -54,12 +51,12 @@ export default {
     orderList() {
       return this.orders
     },
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles.scss';
+@import "~@storefront-ui/vue/styles.scss";
 .message {
   margin: 0 0 var(--spacer-xl) 0;
   color: var(--c-dark-variant);

@@ -49,16 +49,16 @@
   </div>
 </template>
 <script>
-import { SfImage, SfSection } from '@storefront-ui/vue'
-import { useProduct } from '@shopware-pwa/composables'
-import SwProductGallery from '@shopware-pwa/default-theme/components/SwProductGallery'
-import SwProductDetails from '@shopware-pwa/default-theme/components/SwProductDetails'
-import SwProductCarousel from '@shopware-pwa/default-theme/components/SwProductCarousel'
-import SwProductAdvertisement from '@shopware-pwa/default-theme/components/SwProductAdvertisement'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+import { SfImage, SfSection } from "@storefront-ui/vue"
+import { useProduct } from "@shopware-pwa/composables"
+import SwProductGallery from "@shopware-pwa/default-theme/components/SwProductGallery"
+import SwProductDetails from "@shopware-pwa/default-theme/components/SwProductDetails"
+import SwProductCarousel from "@shopware-pwa/default-theme/components/SwProductCarousel"
+import SwProductAdvertisement from "@shopware-pwa/default-theme/components/SwProductAdvertisement"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {
-  name: 'Product',
+  name: "Product",
   components: {
     SfImage,
     SfSection,
@@ -92,26 +92,26 @@ export default {
   async mounted() {
     // TODO remove when page resolver is fully done
     const associations = {
-      'associations[media][]': true,
-      'associations[options][associations][group][]': true,
-      'associations[properties][associations][group][]': true,
-      'associations[productReviews][]': true, // can be fetched asynchronously
-      'associations[manufacturer][]': true,
-      'associations[children][associations][options][associations][group][]': true,
-      'associations[children][associations][seoUrls][]': true,
+      "associations[media][]": true,
+      "associations[options][associations][group][]": true,
+      "associations[properties][associations][group][]": true,
+      "associations[productReviews][]": true, // can be fetched asynchronously
+      "associations[manufacturer][]": true,
+      "associations[children][associations][options][associations][group][]": true,
+      "associations[children][associations][seoUrls][]": true,
     }
     try {
       const { loadAssociations, product } = useProduct(this.page.product)
       this.productWithAssociations = product
       await loadAssociations(associations)
     } catch (e) {
-      console.error('ProductView:mounted:loadAssociations', e)
+      console.error("ProductView:mounted:loadAssociations", e)
     }
   },
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 @mixin for-iOS {
   @supports (-webkit-overflow-scrolling: touch) {

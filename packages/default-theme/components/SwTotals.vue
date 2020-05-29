@@ -29,12 +29,12 @@
 </template>
 
 <script>
-import { SfProperty, SfHeading } from '@storefront-ui/vue'
+import { SfProperty, SfHeading } from "@storefront-ui/vue"
 
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {
-  name: 'SwTotals',
+  name: "SwTotals",
   components: {
     SwPluginSlot,
     SfProperty,
@@ -58,7 +58,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 
 .sw-totals {
   padding: var(--spacer-base) var(--spacer-xl);

@@ -64,11 +64,11 @@ import {
   SfMenuItem,
   SfHeading,
   SfChevron,
-} from '@storefront-ui/vue'
-import { getNavigation } from '@shopware-pwa/shopware-6-client'
-import { useCms } from '@shopware-pwa/composables'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
-import { getCategoryUrl } from '@shopware-pwa/helpers'
+} from "@storefront-ui/vue"
+import { getNavigation } from "@shopware-pwa/shopware-6-client"
+import { useCms } from "@shopware-pwa/composables"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import { getCategoryUrl } from "@shopware-pwa/helpers"
 
 export default {
   components: {
@@ -79,7 +79,7 @@ export default {
     SfChevron,
     SwButton,
   },
-  name: 'CmsElementCategoryNavigation',
+  name: "CmsElementCategoryNavigation",
   props: {
     content: {
       type: Object,
@@ -93,7 +93,7 @@ export default {
   },
   data() {
     return {
-      navTitle: 'Subcategories',
+      navTitle: "Subcategories",
       navigationElements: [],
     }
   },
@@ -113,7 +113,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
+@import "../settings.scss";
 
 .cms-element-category-navigation {
   &__header {

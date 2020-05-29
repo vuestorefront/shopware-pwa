@@ -15,12 +15,12 @@
   </SwAddress>
 </template>
 <script>
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
-import { useSessionContext, useCheckout } from '@shopware-pwa/composables'
-import SwAddress from '@shopware-pwa/default-theme/components/SwAddress'
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import { useSessionContext, useCheckout } from "@shopware-pwa/composables"
+import SwAddress from "@shopware-pwa/default-theme/components/SwAddress"
 
 export default {
-  name: 'ShippingAddressSummary',
+  name: "ShippingAddressSummary",
   components: {
     SwAddress,
     SwButton,
@@ -37,7 +37,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 .review {
   &__item {
     display: flex;

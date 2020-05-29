@@ -25,14 +25,14 @@
 </template>
 
 <script>
-import { SfHeader, SfOverlay } from '@storefront-ui/vue'
-import { useUIState } from '@shopware-pwa/composables'
+import { SfHeader, SfOverlay } from "@storefront-ui/vue"
+import { useUIState } from "@shopware-pwa/composables"
 
-import SwTopBar from '@shopware-pwa/default-theme/components/SwTopBar'
-import SwLogo from '@shopware-pwa/default-theme/components/SwLogo'
-import SwHeaderIcons from '@shopware-pwa/default-theme/components/SwHeaderIcons'
-import SwTopNavigation from '@shopware-pwa/default-theme/components/SwTopNavigation'
-import SwSearchBar from '@shopware-pwa/default-theme/components/SwSearchBar';
+import SwTopBar from "@shopware-pwa/default-theme/components/SwTopBar"
+import SwLogo from "@shopware-pwa/default-theme/components/SwLogo"
+import SwHeaderIcons from "@shopware-pwa/default-theme/components/SwHeaderIcons"
+import SwTopNavigation from "@shopware-pwa/default-theme/components/SwTopNavigation"
+import SwSearchBar from "@shopware-pwa/default-theme/components/SwSearchBar"
 
 export default {
   components: {
@@ -42,10 +42,10 @@ export default {
     SwLogo,
     SwHeaderIcons,
     SwTopNavigation,
-    SwSearchBar
+    SwSearchBar,
   },
   setup() {
-    const { isOpen } = useUIState('MEGA_MENU_OVERLAY_STATE')
+    const { isOpen } = useUIState("MEGA_MENU_OVERLAY_STATE")
 
     return {
       isOpen,
@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .sw-top-navigation {
   --search-bar-width: 100%;

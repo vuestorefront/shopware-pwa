@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import { SfTopBar } from '@storefront-ui/vue'
-import SwCurrencySwitcher from '@shopware-pwa/default-theme/components/SwCurrencySwitcher'
-import SwLanguageSwitcher from '@shopware-pwa/default-theme/components/SwLanguageSwitcher'
+import { SfTopBar } from "@storefront-ui/vue"
+import SwCurrencySwitcher from "@shopware-pwa/default-theme/components/SwCurrencySwitcher"
+import SwLanguageSwitcher from "@shopware-pwa/default-theme/components/SwLanguageSwitcher"
 
 export default {
   components: {
@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .sw-top-bar {
   padding: 0 var(--spacer-sm);
@@ -39,7 +39,7 @@ export default {
       margin: 0 var(--spacer-base) 0 var(--spacer-base);
       width: 2.5rem;
       &::before {
-        content: '';
+        content: "";
         display: block;
         position: absolute;
         background-color: white;

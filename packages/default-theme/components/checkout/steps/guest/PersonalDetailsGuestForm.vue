@@ -128,36 +128,36 @@ import {
   SfSelect,
   SfProductOption,
   SfAlert,
-} from '@storefront-ui/vue'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
-import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
+} from "@storefront-ui/vue"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
-import { validationMixin } from 'vuelidate'
+import { validationMixin } from "vuelidate"
 import {
   required,
   requiredIf,
   email,
   minLength,
-} from 'vuelidate/lib/validators'
-import { computed } from '@vue/composition-api'
+} from "vuelidate/lib/validators"
+import { computed } from "@vue/composition-api"
 import {
   mapSalutations,
   getMessagesFromErrorsArray,
-} from '@shopware-pwa/helpers'
+} from "@shopware-pwa/helpers"
 import {
   useUser,
   useSalutations,
   useCountries,
   useUIState,
-} from '@shopware-pwa/composables'
+} from "@shopware-pwa/composables"
 import {
   usePersonalDetailsStep,
   usePersonalDetailsStepValidationRules,
-} from '@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep'
+} from "@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep"
 
 export default {
-  name: 'PersonalDetailsGuestForm',
+  name: "PersonalDetailsGuestForm",
   mixins: [validationMixin],
   components: {
     SwInput,
@@ -179,28 +179,28 @@ export default {
   },
   data() {
     return {
-      password: '',
+      password: "",
       billingAddress: {
         salutationId: null,
-        street: '-',
-        zipcode: '-',
-        city: '-',
+        street: "-",
+        zipcode: "-",
+        city: "-",
         countryId: null,
       },
       createAccount: false,
       accountBenefits: false,
       isLoginModalOpen: false,
       characteristics: [
-        { description: 'Faster checkout', icon: 'clock' },
-        { description: 'Full rewards program benefits', icon: 'rewards' },
-        { description: 'Earn credits with every purchase', icon: 'credits' },
-        { description: 'Manage your wishlist', icon: 'heart' },
+        { description: "Faster checkout", icon: "clock" },
+        { description: "Full rewards program benefits", icon: "rewards" },
+        { description: "Earn credits with every purchase", icon: "credits" },
+        { description: "Manage your wishlist", icon: "heart" },
       ],
     }
   },
   setup() {
     const { switchState: switchLoginModalState } = useUIState(
-      'LOGIN_MODAL_STATE'
+      "LOGIN_MODAL_STATE"
     )
 
     const {
@@ -253,7 +253,7 @@ export default {
   },
   watch: {
     createAccount(value) {
-      if (!value) this.password = ''
+      if (!value) this.password = ""
     },
     // hack to register user without picking up the salutation in billing address (minimal registration)
     // copy the customer's salutation into billing address
@@ -293,7 +293,7 @@ export default {
         }
         this.$router.push(this.$i18n.path('/checkout?step="SHIPPING"'))
       } else {
-        return this.$emit('proceed')
+        return this.$emit("proceed")
       }
     },
   },
@@ -310,7 +310,7 @@ export default {
       return
     }
     const pickedCountry = this.getCountries.find(
-      ({ name }) => name === 'Poland'
+      ({ name }) => name === "Poland"
     )
     this.billingAddress.countryId = pickedCountry && pickedCountry.id
 
@@ -337,7 +337,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .sw-checkout {
   &__personal_info {

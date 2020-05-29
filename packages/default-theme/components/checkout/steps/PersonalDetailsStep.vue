@@ -5,13 +5,13 @@
   </div>
 </template>
 <script>
-import { useCheckout } from '@shopware-pwa/composables'
+import { useCheckout } from "@shopware-pwa/composables"
 
-import PersonalDetailsGuestForm from '@shopware-pwa/default-theme/components/checkout/steps/guest/PersonalDetailsGuestForm'
-import PersonalDetailsUserForm from '@shopware-pwa/default-theme/components/checkout/steps/user/PersonalDetailsUserForm'
+import PersonalDetailsGuestForm from "@shopware-pwa/default-theme/components/checkout/steps/guest/PersonalDetailsGuestForm"
+import PersonalDetailsUserForm from "@shopware-pwa/default-theme/components/checkout/steps/user/PersonalDetailsUserForm"
 
 export default {
-  name: 'PersonalDetailsStep',
+  name: "PersonalDetailsStep",
   components: {
     PersonalDetailsGuestForm,
     PersonalDetailsUserForm,
@@ -22,9 +22,9 @@ export default {
     return {
       isGuestOrder,
     }
-  }
+  },
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 </style>

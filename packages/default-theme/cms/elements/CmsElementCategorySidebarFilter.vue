@@ -122,18 +122,18 @@ import {
   SfFilter,
   SfHeading,
   SfSidebar,
-} from '@storefront-ui/vue'
+} from "@storefront-ui/vue"
 import {
   useCategoryFilters,
   useProductListing,
   useUIState,
-} from '@shopware-pwa/composables'
-import { getSortingLabel } from '@shopware-pwa/default-theme/helpers'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+} from "@shopware-pwa/composables"
+import { getSortingLabel } from "@shopware-pwa/default-theme/helpers"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 const { availableFilters, availableSorting } = useCategoryFilters()
 
 export default {
-  name: 'CmsElementCategorySidebarFilter',
+  name: "CmsElementCategorySidebarFilter",
   components: {
     SwButton,
     SfIcon,
@@ -160,7 +160,7 @@ export default {
     } = useProductListing()
 
     const { isOpen: isListView, switchState: switchToListView } = useUIState(
-      'PRODUCT_LISTING_STATE'
+      "PRODUCT_LISTING_STATE"
     )
 
     return {
@@ -230,7 +230,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
+@import "../settings.scss";
 
 .navbar {
   position: relative;

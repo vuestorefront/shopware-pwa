@@ -3,8 +3,8 @@ export const state = () => ({
   page: null,
   user: null,
   sessionContext: null,
-  locales: ['en-GB', 'de-DE'],
-  locale: 'en-GB',
+  locales: ["en-GB", "de-DE"],
+  locale: "en-GB",
 })
 
 export const mutations = {

@@ -14,21 +14,21 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from "vue"
 // import VueYouTubeEmbed from "vue-youtube-embed";
 
 // Vue.use(VueYouTubeEmbed);
 
 export default {
   components: {},
-  name: 'CmsElementVideoYoutube',
+  name: "CmsElementVideoYoutube",
   props: {
     content: {
       type: Object,
       default: () => ({
         config: {
           videoID: {
-            value: '',
+            value: "",
           },
           loop: {
             value: false,
@@ -43,7 +43,7 @@ export default {
             value: false,
           },
           displayMode: {
-            value: 'standard',
+            value: "standard",
           },
           showControls: {
             value: true,
@@ -89,5 +89,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
+@import "../settings.scss";
 </style>

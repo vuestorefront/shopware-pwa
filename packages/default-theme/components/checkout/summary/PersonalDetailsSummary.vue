@@ -11,15 +11,15 @@
   </SwPersonalDetails>
 </template>
 <script>
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
-import { usePersonalDetailsStep } from '@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep'
-import { CHECKOUT_STEPS } from '@shopware-pwa/default-theme/logic/checkout'
-import { useCheckout, useUser } from '@shopware-pwa/composables'
-import { computed } from '@vue/composition-api'
-import SwPersonalDetails from '@shopware-pwa/default-theme/components/SwPersonalDetails'
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import { usePersonalDetailsStep } from "@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep"
+import { CHECKOUT_STEPS } from "@shopware-pwa/default-theme/logic/checkout"
+import { useCheckout, useUser } from "@shopware-pwa/composables"
+import { computed } from "@vue/composition-api"
+import SwPersonalDetails from "@shopware-pwa/default-theme/components/SwPersonalDetails"
 
 export default {
-  name: 'PersonalDetailsSummary',
+  name: "PersonalDetailsSummary",
   components: {
     SwPersonalDetails,
     SwButton,
@@ -41,7 +41,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 .review {
   &__item {
     display: flex;

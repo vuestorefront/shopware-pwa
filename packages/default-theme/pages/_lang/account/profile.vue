@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import { SfTabs } from '@storefront-ui/vue'
-import { useUser } from '@shopware-pwa/composables'
-import SwPassword from '@shopware-pwa/default-theme/components/forms/SwPassword'
-import SwPersonalInfo from '@shopware-pwa/default-theme/components/forms/SwPersonalInfo'
+import { SfTabs } from "@storefront-ui/vue"
+import { useUser } from "@shopware-pwa/composables"
+import SwPassword from "@shopware-pwa/default-theme/components/forms/SwPassword"
+import SwPersonalInfo from "@shopware-pwa/default-theme/components/forms/SwPersonalInfo"
 
 export default {
-  name: 'MyProfile',
+  name: "MyProfile",
   components: {
     SfTabs,
     SwPassword,
@@ -43,7 +43,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .notice {
   max-width: 31rem;

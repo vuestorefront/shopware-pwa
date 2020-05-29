@@ -92,22 +92,18 @@
   </div>
 </template>
 <script>
-import {
-  SfHeading,
-  SfSelect,
-  SfRadio,
-} from '@storefront-ui/vue'
-import { validationMixin } from 'vuelidate'
+import { SfHeading, SfSelect, SfRadio } from "@storefront-ui/vue"
+import { validationMixin } from "vuelidate"
 import {
   useShippingStep,
   useShippingStepValidationRules,
-} from '@shopware-pwa/default-theme/logic/checkout/useShippingStep'
-import { useCountries, useCheckout } from '@shopware-pwa/composables'
-import { computed } from '@vue/composition-api'
-import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
+} from "@shopware-pwa/default-theme/logic/checkout/useShippingStep"
+import { useCountries, useCheckout } from "@shopware-pwa/composables"
+import { computed } from "@vue/composition-api"
+import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
 export default {
-  name: 'ShippingAddressGuestForm',
+  name: "ShippingAddressGuestForm",
   mixins: [validationMixin],
   components: {
     SfHeading,
@@ -173,7 +169,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 .form {
   &__group {
     display: flex;
@@ -239,12 +235,12 @@ export default {
     margin-left: var(--spacer-xs);
     text-decoration: none;
     &::before {
-      content: '+';
+      content: "+";
     }
     &--is-active {
       color: var(--c-primary);
       &::before {
-        content: '-';
+        content: "-";
       }
     }
   }

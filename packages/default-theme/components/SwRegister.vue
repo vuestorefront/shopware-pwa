@@ -118,35 +118,35 @@
 </template>
 
 <script>
-import { computed } from '@vue/composition-api'
-import { SfAlert, SfSelect } from '@storefront-ui/vue'
-import { validationMixin } from 'vuelidate'
-import { required, email, minLength } from 'vuelidate/lib/validators'
+import { computed } from "@vue/composition-api"
+import { SfAlert, SfSelect } from "@storefront-ui/vue"
+import { validationMixin } from "vuelidate"
+import { required, email, minLength } from "vuelidate/lib/validators"
 import {
   useUser,
   useCountries,
   useSalutations,
-} from '@shopware-pwa/composables'
-import { mapCountries, mapSalutations } from '@shopware-pwa/helpers'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
-import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
+} from "@shopware-pwa/composables"
+import { mapCountries, mapSalutations } from "@shopware-pwa/helpers"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
 export default {
-  name: 'SwResetPassword',
+  name: "SwResetPassword",
   components: { SwButton, SwInput, SfAlert, SfSelect, SwPluginSlot },
   mixins: [validationMixin],
   data() {
     return {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
       salutation: null,
       country: null,
-      street: '',
-      city: '',
-      zipcode: '',
+      street: "",
+      city: "",
+      zipcode: "",
     }
   },
   setup() {
@@ -192,7 +192,7 @@ export default {
     },
     getErrorMessage() {
       if (this.userError)
-        return 'Cannot create a new account, the user may already exist'
+        return "Cannot create a new account, the user may already exist"
       if (this.salutationsError)
         return "Couldn't fetch available salutations, please contact the administration."
       if (this.countriesError)
@@ -244,7 +244,7 @@ export default {
           username: this.email,
           password: this.password,
         })
-        this.$emit('success')
+        this.$emit("success")
       }
     },
   },
@@ -252,7 +252,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .sw-login {
   &__alert {
@@ -288,7 +288,7 @@ export default {
     &__element {
       flex: 0 0 100%;
       &--small {
-        flex: 1 1 calc(33% - calc(2*var(--spacer-sm)));
+        flex: 1 1 calc(33% - calc(2 * var(--spacer-sm)));
         margin-right: var(--spacer-sm);
         &:odd {
           margin-right: 0;

@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { SfTable } from '@storefront-ui/vue'
+import { SfTable } from "@storefront-ui/vue"
 
 export default {
   components: {
@@ -38,7 +38,7 @@ export default {
   },
   data() {
     return {
-      tableHeaders: ['Quantity', 'Unit price'],
+      tableHeaders: ["Quantity", "Unit price"],
     }
   },
 }

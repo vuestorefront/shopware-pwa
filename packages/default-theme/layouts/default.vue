@@ -26,20 +26,20 @@
 </template>
 
 <script>
-import { SfBreadcrumbs } from '@storefront-ui/vue'
-import SwHeader from '@shopware-pwa/default-theme/components/SwHeader'
-import SwBottomNavigation from '@shopware-pwa/default-theme/components/SwBottomNavigation'
-import SwFooter from '@shopware-pwa/default-theme/components/SwFooter'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
-import { useCms, useUIState } from '@shopware-pwa/composables'
+import { SfBreadcrumbs } from "@storefront-ui/vue"
+import SwHeader from "@shopware-pwa/default-theme/components/SwHeader"
+import SwBottomNavigation from "@shopware-pwa/default-theme/components/SwBottomNavigation"
+import SwFooter from "@shopware-pwa/default-theme/components/SwFooter"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import { useCms, useUIState } from "@shopware-pwa/composables"
 import {
   computed,
   getCurrentInstance,
   ref,
   watchEffect,
-} from '@vue/composition-api'
-import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
-const SwCart = () => import('@shopware-pwa/default-theme/components/SwCart')
+} from "@vue/composition-api"
+import SwLoginModal from "@shopware-pwa/default-theme/components/modals/SwLoginModal"
+const SwCart = () => import("@shopware-pwa/default-theme/components/SwCart")
 
 export default {
   components: {
@@ -54,11 +54,11 @@ export default {
   setup() {
     const vm = getCurrentInstance()
     const { getBreadcrumbsObject } = useCms()
-    const { isOpen: isSidebarOpen } = useUIState('CART_SIDEBAR_STATE')
+    const { isOpen: isSidebarOpen } = useUIState("CART_SIDEBAR_STATE")
     const {
       isOpen: isLoginModalOpen,
       switchState: switchLoginModalState,
-    } = useUIState('LOGIN_MODAL_STATE')
+    } = useUIState("LOGIN_MODAL_STATE")
 
     // Load cart component only when needed
     const loadSidebarComponent = ref(isSidebarOpen.value)
@@ -93,7 +93,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .layout {
   box-sizing: border-box;

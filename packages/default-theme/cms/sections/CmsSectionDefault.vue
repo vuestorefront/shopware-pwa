@@ -1,5 +1,8 @@
 <template>
-  <div class="sw-default-section" :class="{ 'sw-default-section--boxed': isSizingModeBoxed }">
+  <div
+    class="sw-default-section"
+    :class="{ 'sw-default-section--boxed': isSizingModeBoxed }"
+  >
     <CmsGenericBlock
       v-for="cmsBlock in getBlocks"
       :key="cmsBlock.id"
@@ -9,13 +12,13 @@
 </template>
 
 <script>
-import CmsGenericBlock from 'sw-cms/CmsGenericBlock'
+import CmsGenericBlock from "sw-cms/CmsGenericBlock"
 
 export default {
   components: {
     CmsGenericBlock,
   },
-  name: 'CmsSectionDefault',
+  name: "CmsSectionDefault",
   props: {
     content: {
       type: Object,
@@ -27,14 +30,14 @@ export default {
       return this.content.blocks || []
     },
     isSizingModeBoxed() {
-      return this.content.sizingMode === 'boxed'
-    }
-  }
+      return this.content.sizingMode === "boxed"
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
+@import "../settings.scss";
 
 .sw-default-section {
   &--boxed {

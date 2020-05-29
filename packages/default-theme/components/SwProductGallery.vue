@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import { SfGallery } from '@storefront-ui/vue'
-import { getProductMediaGallery } from '@shopware-pwa/helpers'
+import { SfGallery } from "@storefront-ui/vue"
+import { getProductMediaGallery } from "@shopware-pwa/helpers"
 
 export default {
-  name: 'SwProductGallery',
+  name: "SwProductGallery",
   components: { SfGallery },
   props: {
     product: {

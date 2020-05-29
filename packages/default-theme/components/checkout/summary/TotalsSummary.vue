@@ -32,20 +32,20 @@
   </div>
 </template>
 <script>
-import { useCart } from '@shopware-pwa/composables'
-import SwTotals from '@shopware-pwa/default-theme/components/SwTotals'
-import helpers from '@shopware-pwa/default-theme/helpers'
+import { useCart } from "@shopware-pwa/composables"
+import SwTotals from "@shopware-pwa/default-theme/components/SwTotals"
+import helpers from "@shopware-pwa/default-theme/helpers"
 
 import {
   SfProperty,
   SfCheckbox,
   SfHeading,
   SfNotification,
-} from '@storefront-ui/vue'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+} from "@storefront-ui/vue"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 
 export default {
-  name: 'TotalsSummary',
+  name: "TotalsSummary",
   components: {
     SfProperty,
     SfHeading,
@@ -78,7 +78,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .summary {
   margin: 0 calc(var(--spacer-base) * -1);
