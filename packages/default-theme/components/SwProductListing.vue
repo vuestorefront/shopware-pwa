@@ -36,7 +36,35 @@
         :total="Math.ceil(pagination.total / pagination.perPage)"
         :visible="5"
         @click="changePage"
-      />
+      >
+        <template #prev>
+          <span
+            class="cms-element-product-listing__pagination__number"
+            @click="changePage(pagination.currentPage - 1)"
+          >
+            &lt;
+          </span>
+        </template>
+        <template #number="{page}">
+          <span
+            class="cms-element-product-listing__pagination__number"
+            v-bind:style="{
+              'font-weight': pagination.currentPage === page ? 700 : 300,
+            }"
+            @click="changePage(page)"
+          >
+            {{ page }}
+          </span>
+        </template>
+        <template #next>
+          <span
+            class="cms-element-product-listing__pagination__number"
+            @click="changePage(pagination.currentPage + 1)"
+          >
+            &gt;
+          </span>
+        </template>
+      </SfPagination>
     </div>
     <SfHeading
       v-else
@@ -62,34 +90,35 @@ export default {
   props: {
     loading: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isListView: {
-      type:Boolean,
+      type: Boolean,
       default: false,
     },
     listing: {
       type: Object,
       default: () => ({}),
-    }
+    },
   },
   computed: {
     products() {
-      return this.listing && this.listing.elements || []
+      return (this.listing && this.listing.elements) || []
     },
     pagination() {
-      return this.listing && ({
-        currentPage: this.listing.page,
-        perPage: this.listing.limit,
-        total: this.listing.total
-      })
-    }
-
+      return (
+        this.listing && {
+          currentPage: this.listing.page,
+          perPage: this.listing.limit,
+          total: this.listing.total,
+        }
+      )
+    },
   },
   methods: {
     changePage(page) {
-      this.$emit('change-page', page);
-    }
+      this.$emit('change-page', page)
+    },
   },
 }
 </script>
@@ -235,6 +264,11 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
       display: flex;
       justify-content: center;
       margin-top: var(--spacer-base);
+    }
+
+    &__number {
+      margin: 0 5px;
+      cursor: pointer;
     }
   }
   &__slide-enter {

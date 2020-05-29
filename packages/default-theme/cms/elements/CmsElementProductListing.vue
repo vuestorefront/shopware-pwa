@@ -36,7 +36,35 @@
         :total="Math.ceil(pagination.total / pagination.perPage)"
         :visible="5"
         @click="changedPage"
-      />
+      >
+        <template #prev>
+          <span
+            class="cms-element-product-listing__pagination__number"
+            @click="changedPage(pagination.currentPage - 1)"
+          >
+            &lt;
+          </span>
+        </template>
+        <template #number="{page}">
+          <span
+            class="cms-element-product-listing__pagination__number"
+            v-bind:style="{
+              'font-weight': pagination.currentPage === page ? 700 : 300,
+            }"
+            @click="changedPage(page)"
+          >
+            {{ page }}
+          </span>
+        </template>
+        <template #next>
+          <span
+            class="cms-element-product-listing__pagination__number"
+            @click="changedPage(pagination.currentPage + 1)"
+          >
+            &gt;
+          </span>
+        </template>
+      </SfPagination>
     </div>
     <SfHeading
       v-else
@@ -50,7 +78,11 @@
 import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
 import SwProductCardHorizontal from '@shopware-pwa/default-theme/components/SwProductCardHorizontal'
 import { SfPagination, SfHeading, SfLoader } from '@storefront-ui/vue'
-import { useProductListing, useUIState, useProductSearch } from '@shopware-pwa/composables'
+import {
+  useProductListing,
+  useUIState,
+  useProductSearch,
+} from '@shopware-pwa/composables'
 export default {
   name: 'CmsElementProductListing',
   components: {
@@ -64,10 +96,10 @@ export default {
     content: {
       type: Object,
       default: () => ({}),
-    }
+    },
   },
   setup({ content }) {
-    const { search } = useProductSearch();
+    const { search } = useProductSearch()
     const listing = content.data.listing || []
     const {
       products,
@@ -235,6 +267,11 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
       display: flex;
       justify-content: center;
       margin-top: var(--spacer-base);
+    }
+
+    &__number {
+      margin: 0 5px;
+      cursor: pointer;
     }
   }
   &__slide-enter {
