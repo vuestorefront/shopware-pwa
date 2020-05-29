@@ -58,6 +58,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.product-price {
+  white-space: nowrap;
+}
+
 .table {
   &__description {
     flex: 3;
