@@ -53,19 +53,19 @@
   </div>
 </template>
 <script>
-import { SfHeading, SfRadio, SfAlert } from '@storefront-ui/vue'
-import { computed, onMounted } from '@vue/composition-api'
-import ShippingAddressGuestForm from '@shopware-pwa/default-theme/components/checkout/steps/guest/ShippingAddressGuestForm'
-import ShippingAddressUserForm from '@shopware-pwa/default-theme/components/checkout/steps/user/ShippingAddressUserForm'
+import { SfHeading, SfRadio, SfAlert } from "@storefront-ui/vue"
+import { computed, onMounted } from "@vue/composition-api"
+import ShippingAddressGuestForm from "@shopware-pwa/default-theme/components/checkout/steps/guest/ShippingAddressGuestForm"
+import ShippingAddressUserForm from "@shopware-pwa/default-theme/components/checkout/steps/user/ShippingAddressUserForm"
 import {
   useCheckout,
   useSessionContext,
   useCart,
-} from '@shopware-pwa/composables'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+} from "@shopware-pwa/composables"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 
 export default {
-  name: 'ShippingStep',
+  name: "ShippingStep",
   components: {
     SfHeading,
     SwButton,
@@ -96,7 +96,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .title {
   --heading-padding: var(--spacer-base) 0;
@@ -175,13 +175,13 @@ export default {
       margin: 0 0 0 var(--spacer-xs);
     }
     &::before {
-      content: '+';
+      content: "+";
     }
     &--is-active {
       --button-color: var(--c-primary);
       --button-transition: color 150ms linear;
       &::before {
-        content: '-';
+        content: "-";
       }
     }
   }

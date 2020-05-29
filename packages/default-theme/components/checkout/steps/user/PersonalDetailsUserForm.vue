@@ -18,12 +18,12 @@
   </div>
 </template>
 <script>
-import { SfHeading } from '@storefront-ui/vue'
-import SwPersonalInfo from '@shopware-pwa/default-theme/components/forms/SwPersonalInfo'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import { SfHeading } from "@storefront-ui/vue"
+import SwPersonalInfo from "@shopware-pwa/default-theme/components/forms/SwPersonalInfo"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 
 export default {
-  name: 'ShippingAddressUserForm',
+  name: "ShippingAddressUserForm",
   components: {
     SwButton,
     SfHeading,
@@ -35,7 +35,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .personal-details-user-form {
   &__proceed {

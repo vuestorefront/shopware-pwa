@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import { getCmsElementComponent } from 'sw-cms/cmsNameMapper'
+import { getCmsElementComponent } from "sw-cms/cmsNameMapper"
 
 export default {
-  name: 'CmsGenericElement',
+  name: "CmsGenericElement",
   props: {
     content: {
       type: Object,
@@ -30,5 +30,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

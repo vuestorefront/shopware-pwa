@@ -1,46 +1,53 @@
 <template>
   <article class="cms-block-image-text-cover">
-    <CmsGenericElement :content="getLeftContent" class="cms-block-image-text-cover__image"/>
-    <CmsGenericElement :content="getRightContent" class="cms-block-image-text-cover__text"/>
+    <CmsGenericElement
+      :content="getLeftContent"
+      class="cms-block-image-text-cover__image"
+    />
+    <CmsGenericElement
+      :content="getRightContent"
+      class="cms-block-image-text-cover__text"
+    />
   </article>
 </template>
 
 <script>
-import CmsGenericElement from 'sw-cms/CmsGenericElement'
+import CmsGenericElement from "sw-cms/CmsGenericElement"
 
 export default {
-  name: 'CmsBlockImageTextCover',
+  name: "CmsBlockImageTextCover",
   components: {
-    CmsGenericElement
+    CmsGenericElement,
   },
   props: {
     content: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   computed: {
     getSlots() {
       return this.content.slots || []
     },
     getLeftContent() {
-      return this.getSlots.find(({slot}) => slot === 'left')
+      return this.getSlots.find(({ slot }) => slot === "left")
     },
     getRightContent() {
-      return this.getSlots.find(({slot}) => slot === 'right')
+      return this.getSlots.find(({ slot }) => slot === "right")
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .cms-block-image-text-cover {
   display: flex;
   flex-direction: column;
 
-  &__image, &__text {
+  &__image,
+  &__text {
     margin: var(--spacer-sm);
     flex: 1;
     & img {
@@ -56,5 +63,4 @@ export default {
     align-items: center;
   }
 }
-
 </style>

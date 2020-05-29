@@ -40,19 +40,19 @@
 </template>
 
 <script>
-import PersonalDetailsSummary from '@shopware-pwa/default-theme/components/checkout/summary/PersonalDetailsSummary'
-import ShippingAddressSummary from '@shopware-pwa/default-theme/components/checkout/summary/ShippingAddressSummary'
-import BillingAddressSummary from '@shopware-pwa/default-theme/components/checkout/summary/BillingAddressSummary'
-import PaymentMethodSummary from '@shopware-pwa/default-theme/components/checkout/summary/PaymentMethodSummary'
-import OrderItemsTable from '@shopware-pwa/default-theme/components/checkout/summary/OrderItemsTable'
-import TotalsSummary from '@shopware-pwa/default-theme/components/checkout/summary/TotalsSummary'
-import SwCartProduct from '@shopware-pwa/default-theme/components/SwCartProduct'
+import PersonalDetailsSummary from "@shopware-pwa/default-theme/components/checkout/summary/PersonalDetailsSummary"
+import ShippingAddressSummary from "@shopware-pwa/default-theme/components/checkout/summary/ShippingAddressSummary"
+import BillingAddressSummary from "@shopware-pwa/default-theme/components/checkout/summary/BillingAddressSummary"
+import PaymentMethodSummary from "@shopware-pwa/default-theme/components/checkout/summary/PaymentMethodSummary"
+import OrderItemsTable from "@shopware-pwa/default-theme/components/checkout/summary/OrderItemsTable"
+import TotalsSummary from "@shopware-pwa/default-theme/components/checkout/summary/TotalsSummary"
+import SwCartProduct from "@shopware-pwa/default-theme/components/SwCartProduct"
 
-import { SfHeading, SfAccordion } from '@storefront-ui/vue'
-import { useCart } from '@shopware-pwa/composables'
+import { SfHeading, SfAccordion } from "@storefront-ui/vue"
+import { useCart } from "@shopware-pwa/composables"
 
 export default {
-  name: 'OrderReviewStep',
+  name: "OrderReviewStep",
   components: {
     SfHeading,
     SfAccordion,
@@ -62,7 +62,7 @@ export default {
     PaymentMethodSummary,
     OrderItemsTable,
     TotalsSummary,
-    SwCartProduct
+    SwCartProduct,
   },
   setup() {
     const { cartItems, removeProduct } = useCart()
@@ -73,19 +73,19 @@ export default {
       return {} // this.order.shipping
     },
     shippingMethod() {
-      return { label: '' }
+      return { label: "" }
     },
     payment() {
       return {} // this.order.payment
     },
     paymentMethod() {
-      return { label: '' }
+      return { label: "" }
     },
   },
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .title {
   --heading-padding: var(--spacer-base) 0;

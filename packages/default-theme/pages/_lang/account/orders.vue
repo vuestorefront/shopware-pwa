@@ -4,6 +4,6 @@
 
 <script>
 export default {
-  name: 'OrderHistory',
+  name: "OrderHistory",
 }
 </script>

@@ -26,15 +26,15 @@
   </div>
 </template>
 <script>
-import { computed, onBeforeMount } from '@vue/composition-api';
-import { SfContentPages, SfTabs } from '@storefront-ui/vue'
-import { useUser } from '@shopware-pwa/composables'
-import { PAGE_LOGIN } from '@shopware-pwa/default-theme/helpers/pages'
+import { computed, onBeforeMount } from "@vue/composition-api"
+import { SfContentPages, SfTabs } from "@storefront-ui/vue"
+import { useUser } from "@shopware-pwa/composables"
+import { PAGE_LOGIN } from "@shopware-pwa/default-theme/helpers/pages"
 
-import authMiddleware from '@shopware-pwa/default-theme/middleware/auth'
+import authMiddleware from "@shopware-pwa/default-theme/middleware/auth"
 
 export default {
-  name: 'AccountPage',
+  name: "AccountPage",
   components: {
     SfContentPages,
     SfTabs,
@@ -47,7 +47,7 @@ export default {
   },
   data() {
     return {
-      activePage: 'My profile',
+      activePage: "My profile",
       allAddresses: [],
     }
   },
@@ -64,24 +64,24 @@ export default {
   },
   watch: {
     $route(to, from) {
-      if (to.name === 'account-profile') {
-        this.activePage = 'My profile'
+      if (to.name === "account-profile") {
+        this.activePage = "My profile"
       }
     },
   },
   methods: {
     async updateActivePage(title) {
       switch (title) {
-        case 'My profile':
-          this.$router.push(this.$i18n.path('/account/profile'))
+        case "My profile":
+          this.$router.push(this.$i18n.path("/account/profile"))
           break
-        case 'My addresses':
-          this.$router.push(this.$i18n.path('/account/addresses'))
+        case "My addresses":
+          this.$router.push(this.$i18n.path("/account/addresses"))
           break
         case `Order history (${this.user && this.user.orderCount})`:
-          this.$router.push(this.$i18n.path('/account/orders'))
+          this.$router.push(this.$i18n.path("/account/orders"))
           break
-        case 'Logout':
+        case "Logout":
           await this.logout()
           this.$router.push(this.$i18n.path(PAGE_LOGIN))
           break
@@ -92,7 +92,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .my-account {
   @include for-desktop {

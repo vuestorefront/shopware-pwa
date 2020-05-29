@@ -17,13 +17,13 @@
   </div>
 </template>
 <script>
-import { SfSelect, SfProductOption } from '@storefront-ui/vue'
-import { computed, onMounted, ref } from '@vue/composition-api'
-import languagesMap from 'sw-plugins/languages'
-import { useLocales } from '@shopware-pwa/default-theme/logic/useLocales'
+import { SfSelect, SfProductOption } from "@storefront-ui/vue"
+import { computed, onMounted, ref } from "@vue/composition-api"
+import languagesMap from "sw-plugins/languages"
+import { useLocales } from "@shopware-pwa/default-theme/logic/useLocales"
 
 export default {
-  name: 'SwLanguageSwitcher',
+  name: "SwLanguageSwitcher",
   components: {
     SfSelect,
   },
@@ -38,7 +38,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .sw-language-switcher {
   --select-padding: 0;

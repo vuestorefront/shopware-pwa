@@ -75,11 +75,11 @@
 </template>
 
 <script>
-import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
-import SwProductCardHorizontal from '@shopware-pwa/default-theme/components/SwProductCardHorizontal'
-import { SfPagination, SfHeading, SfLoader } from '@storefront-ui/vue'
+import SwProductCard from "@shopware-pwa/default-theme/components/SwProductCard"
+import SwProductCardHorizontal from "@shopware-pwa/default-theme/components/SwProductCardHorizontal"
+import { SfPagination, SfHeading, SfLoader } from "@storefront-ui/vue"
 export default {
-  name: 'SwProductListing',
+  name: "SwProductListing",
   components: {
     SwProductCardHorizontal,
     SwProductCard,
@@ -117,14 +117,14 @@ export default {
   },
   methods: {
     changePage(page) {
-      this.$emit('change-page', page)
+      this.$emit("change-page", page)
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../cms/settings.scss';
+@import "../cms/settings.scss";
 
 // additional screen variables
 $desktop-big: 1200px;

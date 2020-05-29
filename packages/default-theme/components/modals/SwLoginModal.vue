@@ -48,17 +48,17 @@
 </template>
 
 <script>
-import { SfHeading, SfModal, SfAlert } from '@storefront-ui/vue'
-import { useUser, useUIState } from '@shopware-pwa/composables'
-import SwLogin from '@shopware-pwa/default-theme/components/SwLogin'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import { SfHeading, SfModal, SfAlert } from "@storefront-ui/vue"
+import { useUser, useUIState } from "@shopware-pwa/composables"
+import SwLogin from "@shopware-pwa/default-theme/components/SwLogin"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 const SwRegister = () =>
-  import('@shopware-pwa/default-theme/components/SwRegister')
+  import("@shopware-pwa/default-theme/components/SwRegister")
 const SwResetPassword = () =>
-  import('@shopware-pwa/default-theme/components/SwResetPassword')
+  import("@shopware-pwa/default-theme/components/SwResetPassword")
 
 export default {
-  name: 'SwLoginModal',
+  name: "SwLoginModal",
   components: {
     SfAlert,
     SwButton,
@@ -80,7 +80,7 @@ export default {
   },
   setup() {
     const { login, loading, error } = useUser()
-    const { isOpen, switchState } = useUIState('LOGIN_MODAL_STATE')
+    const { isOpen, switchState } = useUIState("LOGIN_MODAL_STATE")
 
     return {
       clientLogin: login,
@@ -92,18 +92,18 @@ export default {
   },
   data() {
     return {
-      key: 'modal-opened',
-      component: 'SwLogin',
+      key: "modal-opened",
+      component: "SwLogin",
     }
   },
   computed: {
     modalTitle() {
-      if (this.component === 'SwRegister') {
-        return 'Register'
-      } else if (this.component === 'SwResetPassword') {
-        return 'Reset Password'
+      if (this.component === "SwRegister") {
+        return "Register"
+      } else if (this.component === "SwResetPassword") {
+        return "Reset Password"
       }
-      return 'Log in'
+      return "Log in"
     },
   },
   watch: {
@@ -111,17 +111,17 @@ export default {
       handler(oldVal, newVal) {
         if (oldVal === true) {
           // enforce rerender dynamic component
-          this.key = 'modal-closed'
-          this.component = 'SwLogin'
+          this.key = "modal-closed"
+          this.component = "SwLogin"
           return
         }
-        this.key = 'modal-opened'
+        this.key = "modal-opened"
       },
     },
   },
   methods: {
     closeHandler() {
-      ;(typeof this.onClose !== 'undefined' && this.onClose()) ||
+      ;(typeof this.onClose !== "undefined" && this.onClose()) ||
         this.isModalOpen()
     },
   },
@@ -129,7 +129,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 #sw-login-modal {
   box-sizing: border-box;

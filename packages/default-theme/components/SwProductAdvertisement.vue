@@ -32,11 +32,11 @@
 </template>
 
 <script>
-import { SfBanner } from '@storefront-ui/vue'
+import { SfBanner } from "@storefront-ui/vue"
 
 export default {
-  name: 'SwProductAdvertisement',
-  components: { SfBanner }
+  name: "SwProductAdvertisement",
+  components: { SfBanner },
 }
 </script>
 

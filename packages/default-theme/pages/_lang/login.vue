@@ -9,14 +9,14 @@
   </div>
 </template>
 <script>
-import { SfHeading } from '@storefront-ui/vue'
+import { SfHeading } from "@storefront-ui/vue"
 
-import SwLogin from '@shopware-pwa/default-theme/components/SwLogin'
-import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
-import authMiddleware from '@shopware-pwa/default-theme/middleware/auth'
+import SwLogin from "@shopware-pwa/default-theme/components/SwLogin"
+import { PAGE_ACCOUNT } from "@shopware-pwa/default-theme/helpers/pages"
+import authMiddleware from "@shopware-pwa/default-theme/middleware/auth"
 
 export default {
-  name: 'LoginPage',
+  name: "LoginPage",
   components: {
     SwLogin,
     SfHeading,
@@ -34,7 +34,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 #login {
   height: 65vh;
   margin-bottom: 10vh;

@@ -75,16 +75,16 @@
 </template>
 
 <script>
-import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
-import SwProductCardHorizontal from '@shopware-pwa/default-theme/components/SwProductCardHorizontal'
-import { SfPagination, SfHeading, SfLoader } from '@storefront-ui/vue'
+import SwProductCard from "@shopware-pwa/default-theme/components/SwProductCard"
+import SwProductCardHorizontal from "@shopware-pwa/default-theme/components/SwProductCardHorizontal"
+import { SfPagination, SfHeading, SfLoader } from "@storefront-ui/vue"
 import {
   useProductListing,
   useUIState,
   useProductSearch,
-} from '@shopware-pwa/composables'
+} from "@shopware-pwa/composables"
 export default {
-  name: 'CmsElementProductListing',
+  name: "CmsElementProductListing",
   components: {
     SwProductCardHorizontal,
     SwProductCard,
@@ -108,7 +108,7 @@ export default {
       loading,
     } = useProductListing(listing)
 
-    const { isOpen: isListView } = useUIState('PRODUCT_LISTING_STATE')
+    const { isOpen: isListView } = useUIState("PRODUCT_LISTING_STATE")
 
     const changedPage = async (pageNumber) => {
       await changePagination(pageNumber)
@@ -126,7 +126,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
+@import "../settings.scss";
 
 // additional screen variables
 $desktop-big: 1200px;

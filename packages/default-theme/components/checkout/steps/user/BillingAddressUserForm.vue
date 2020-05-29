@@ -44,13 +44,13 @@
   </div>
 </template>
 <script>
-import { SfList, SfRadio, SfCheckbox } from '@storefront-ui/vue'
-import { useUser } from '@shopware-pwa/composables'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
-import { ref } from '@vue/composition-api'
+import { SfList, SfRadio, SfCheckbox } from "@storefront-ui/vue"
+import { useUser } from "@shopware-pwa/composables"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import { ref } from "@vue/composition-api"
 
 export default {
-  name: 'ShippingAddressUserForm',
+  name: "ShippingAddressUserForm",
   components: { SfList, SfRadio, SfCheckbox, SwButton },
   setup() {
     const { addresses, loadAddresses, user } = useUser()
@@ -67,7 +67,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 .billing-address-user-form {
   margin: 0 0 var(--spacer-xl) 0;
   &__list {

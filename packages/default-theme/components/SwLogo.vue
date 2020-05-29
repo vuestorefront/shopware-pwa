@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { SfImage } from '@storefront-ui/vue'
+import { SfImage } from "@storefront-ui/vue"
 
 export default {
   components: {
@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .sf-header__logo {
   height: 2rem;

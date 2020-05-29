@@ -52,12 +52,12 @@
 </template>
 
 <script>
-import { SfList, SfDropdown, SfIcon } from '@storefront-ui/vue'
-import { useUser, useCart, useUIState } from '@shopware-pwa/composables'
+import { SfList, SfDropdown, SfIcon } from "@storefront-ui/vue"
+import { useUser, useCart, useUIState } from "@shopware-pwa/composables"
 
-import { PAGE_ACCOUNT } from '@shopware-pwa/default-theme/helpers/pages'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import { PAGE_ACCOUNT } from "@shopware-pwa/default-theme/helpers/pages"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 
 export default {
   components: {
@@ -70,9 +70,9 @@ export default {
   setup() {
     const { isLoggedIn, logout } = useUser()
     const { count } = useCart()
-    const { switchState: toggleSidebar } = useUIState('CART_SIDEBAR_STATE')
+    const { switchState: toggleSidebar } = useUIState("CART_SIDEBAR_STATE")
     const { switchState: switchLoginModalState } = useUIState(
-      'LOGIN_MODAL_STATE'
+      "LOGIN_MODAL_STATE"
     )
 
     return {
@@ -101,14 +101,14 @@ export default {
     async logoutUser() {
       await this.logout()
       this.isDropdownOpen = false
-      this.$router.push(this.$i18n.path('/'))
+      this.$router.push(this.$i18n.path("/"))
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .sw-header__icons {
   display: flex;

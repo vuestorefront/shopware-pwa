@@ -11,12 +11,12 @@
   </SwAddress>
 </template>
 <script>
-import { useCheckout } from '@shopware-pwa/composables'
-import SwAddress from '@shopware-pwa/default-theme/components/SwAddress'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import { useCheckout } from "@shopware-pwa/composables"
+import SwAddress from "@shopware-pwa/default-theme/components/SwAddress"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 
 export default {
-  name: 'BillingAddressSummary',
+  name: "BillingAddressSummary",
   components: {
     SwAddress,
     SwButton,
@@ -30,7 +30,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 .review {
   &__item {
     display: flex;

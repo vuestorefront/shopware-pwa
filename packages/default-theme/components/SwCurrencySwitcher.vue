@@ -21,12 +21,12 @@
   </div>
 </template>
 <script>
-import { SfSelect, SfProductOption } from '@storefront-ui/vue'
-import { useCurrency } from '@shopware-pwa/composables'
-import { computed, onMounted, getCurrentInstance } from '@vue/composition-api'
+import { SfSelect, SfProductOption } from "@storefront-ui/vue"
+import { useCurrency } from "@shopware-pwa/composables"
+import { computed, onMounted, getCurrentInstance } from "@vue/composition-api"
 
 export default {
-  name: 'SwCurrencySwitcher',
+  name: "SwCurrencySwitcher",
   components: {
     SfSelect,
   },
@@ -62,7 +62,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .sw-currency {
   --select-padding: 0;

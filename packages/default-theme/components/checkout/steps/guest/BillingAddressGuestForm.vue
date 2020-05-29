@@ -106,18 +106,18 @@ import {
   SfRadio,
   SfImage,
   SfCheckbox,
-} from '@storefront-ui/vue'
-import { validationMixin } from 'vuelidate'
+} from "@storefront-ui/vue"
+import { validationMixin } from "vuelidate"
 import {
   usePaymentStep,
   usePaymentStepValidationRules,
-} from '@shopware-pwa/default-theme/logic/checkout/usePaymentStep'
-import { computed } from '@vue/composition-api'
-import { useCountries } from '@shopware-pwa/composables'
-import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
+} from "@shopware-pwa/default-theme/logic/checkout/usePaymentStep"
+import { computed } from "@vue/composition-api"
+import { useCountries } from "@shopware-pwa/composables"
+import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
 export default {
-  name: 'BillingAddressGuestForm',
+  name: "BillingAddressGuestForm",
   mixins: [validationMixin],
   components: {
     SfHeading,
@@ -176,7 +176,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .form {
   margin-top: var(--spacer-base);

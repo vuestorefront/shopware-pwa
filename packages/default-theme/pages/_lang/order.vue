@@ -13,20 +13,20 @@
   </div>
 </template>
 <script>
-import { SfHeading, SfIcon, SfDivider } from '@storefront-ui/vue'
-import { getOrderPaymentUrl } from '@shopware-pwa/shopware-6-client'
+import { SfHeading, SfIcon, SfDivider } from "@storefront-ui/vue"
+import { getOrderPaymentUrl } from "@shopware-pwa/shopware-6-client"
 import {
   ref,
   getCurrentInstance,
   onMounted,
   computed,
-} from '@vue/composition-api'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+} from "@vue/composition-api"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 
-import SwOrderDetails from '@shopware-pwa/default-theme/components/SwOrderDetails'
+import SwOrderDetails from "@shopware-pwa/default-theme/components/SwOrderDetails"
 
 export default {
-  name: 'OrderPage',
+  name: "OrderPage",
   components: {
     SfHeading,
     SwButton,
@@ -48,7 +48,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .order-page {
   min-height: 50vh;

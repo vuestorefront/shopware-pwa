@@ -32,11 +32,11 @@
 </template>
 
 <script>
-import { SfMegaMenu, SfMenuItem, SfList, SfHeading } from '@storefront-ui/vue'
-import { getCategoryUrl } from '@shopware-pwa/helpers'
+import { SfMegaMenu, SfMenuItem, SfList, SfHeading } from "@storefront-ui/vue"
+import { getCategoryUrl } from "@shopware-pwa/helpers"
 
 export default {
-  name: 'SwMegaMenu',
+  name: "SwMegaMenu",
   components: { SfMegaMenu, SfMenuItem, SfList, SfHeading },
   props: {
     category: {

@@ -1,5 +1,5 @@
-import { computed, getCurrentInstance } from '@vue/composition-api'
-import languagesMap from 'sw-plugins/languages'
+import { computed, getCurrentInstance } from "@vue/composition-api"
+import languagesMap from "sw-plugins/languages"
 
 export const useLocales = () => {
   const vm = getCurrentInstance()
@@ -10,7 +10,7 @@ export const useLocales = () => {
   const changeLocale = async (localeCode) => {
     if (localeCode === vm.$i18n.locale) return
     if (localeCode === vm.$i18n.fallbackLocale) {
-      vm.$router.push(vm.$route.fullPath.replace(/^\/[^\/]+/, ''))
+      vm.$router.push(vm.$route.fullPath.replace(/^\/[^\/]+/, ""))
     } else {
       vm.$router.push(`/${localeCode}${vm.$route.fullPath}`)
     }

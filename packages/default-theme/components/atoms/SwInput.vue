@@ -1,12 +1,12 @@
 <template>
-  <SfInput v-bind="{...$props, ...$attrs}" v-on="$listeners" />
+  <SfInput v-bind="{ ...$props, ...$attrs }" v-on="$listeners" />
 </template>
 
 <script>
-import { SfInput } from '@storefront-ui/vue'
+import { SfInput } from "@storefront-ui/vue"
 
 export default {
-  name: 'SwInput',
+  name: "SwInput",
   components: {
     SfInput,
   },

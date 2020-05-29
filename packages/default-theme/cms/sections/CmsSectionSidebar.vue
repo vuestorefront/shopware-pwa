@@ -18,13 +18,13 @@
 </template>
 
 <script>
-import CmsGenericBlock from 'sw-cms/CmsGenericBlock'
+import CmsGenericBlock from "sw-cms/CmsGenericBlock"
 
 export default {
   components: {
     CmsGenericBlock,
   },
-  name: 'CmsSectionSidebar',
+  name: "CmsSectionSidebar",
   props: {
     content: {
       type: Object,
@@ -37,18 +37,18 @@ export default {
     },
     getSidebarBlocks() {
       return this.getBlocks.filter(
-        (block) => block.sectionPosition === 'sidebar'
+        (block) => block.sectionPosition === "sidebar"
       )
     },
     getMainBlocks() {
-      return this.getBlocks.filter((block) => block.sectionPosition === 'main')
+      return this.getBlocks.filter((block) => block.sectionPosition === "main")
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
+@import "../settings.scss";
 
 .sw-sidebar-section {
   display: flex;

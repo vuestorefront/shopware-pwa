@@ -34,22 +34,22 @@
 </template>
 
 <script>
-import { SfAlert, SfHeading } from '@storefront-ui/vue'
-import { validationMixin } from 'vuelidate'
-import { required, email } from 'vuelidate/lib/validators'
-import {useUser} from '@shopware-pwa/composables';
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
-import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
+import { SfAlert, SfHeading } from "@storefront-ui/vue"
+import { validationMixin } from "vuelidate"
+import { required, email } from "vuelidate/lib/validators"
+import { useUser } from "@shopware-pwa/composables"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
 export default {
-  name: 'SwResetPassword',
+  name: "SwResetPassword",
   components: { SwButton, SwInput, SfAlert, SfHeading },
   mixins: [validationMixin],
   data() {
     return {
-      email: '',
-      error: '',
-      emailSent: false
+      email: "",
+      error: "",
+      emailSent: false,
     }
   },
   setup() {
@@ -62,27 +62,27 @@ export default {
   validations: {
     email: {
       required,
-      email
-    }
+      email,
+    },
   },
   methods: {
     async invokeResetPassword() {
       this.$v.$touch()
 
       if (this.$v.$invalid) {
-        return;
+        return
       }
 
       this.emailSent = await this.resetPassword({
-        email: this.email
+        email: this.email,
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .sw-reset-password {
   &__alert {

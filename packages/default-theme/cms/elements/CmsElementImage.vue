@@ -9,13 +9,13 @@
 </template>
 
 <script>
-import { SfImage } from '@storefront-ui/vue'
+import { SfImage } from "@storefront-ui/vue"
 
 export default {
   components: {
     SfImage,
   },
-  name: 'CmsElementImage',
+  name: "CmsElementImage",
   props: {
     content: {
       type: Object,
@@ -43,7 +43,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
+@import "../settings.scss";
 
 .cms-element-image {
   --image-width: 100%;

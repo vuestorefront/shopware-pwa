@@ -48,15 +48,15 @@
   </div>
 </template>
 <script>
-import { SfHeading, SfRadio } from '@storefront-ui/vue'
-import BillingAddressGuestForm from '@shopware-pwa/default-theme/components/checkout/steps/guest/BillingAddressGuestForm'
-import BillingAddressUserForm from '@shopware-pwa/default-theme/components/checkout/steps/user/BillingAddressUserForm'
-import { useCheckout, useSessionContext } from '@shopware-pwa/composables'
-import { onMounted, computed } from '@vue/composition-api'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import { SfHeading, SfRadio } from "@storefront-ui/vue"
+import BillingAddressGuestForm from "@shopware-pwa/default-theme/components/checkout/steps/guest/BillingAddressGuestForm"
+import BillingAddressUserForm from "@shopware-pwa/default-theme/components/checkout/steps/user/BillingAddressUserForm"
+import { useCheckout, useSessionContext } from "@shopware-pwa/composables"
+import { onMounted, computed } from "@vue/composition-api"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 
 export default {
-  name: 'PaymentStep',
+  name: "PaymentStep",
   components: {
     SfHeading,
     SwButton,
@@ -82,7 +82,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 .title {
   --heading-padding: var(--spacer-base) 0;
   @include for-desktop {

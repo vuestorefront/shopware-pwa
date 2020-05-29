@@ -58,7 +58,7 @@
             <SwButton
               class="sf-button--full-width color-secondary"
               @click="goToCheckout()"
-              >{{ $t('Go to checkout') }}</SwButton
+              >{{ $t("Go to checkout") }}</SwButton
             >
             <SwPluginSlot name="sidecart-checkout-button-after" />
           </div>
@@ -67,7 +67,7 @@
               class="sf-button--full-width color-primary"
               @click="toggleSidebar"
             >
-              {{ $t('Start shopping') }}
+              {{ $t("Start shopping") }}
             </SwButton>
           </div>
         </transition>
@@ -82,16 +82,16 @@ import {
   SfPrice,
   SfHeading,
   SfImage,
-} from '@storefront-ui/vue'
-import { useCart, useUIState } from '@shopware-pwa/composables'
-import SwCartProduct from '@shopware-pwa/default-theme/components/SwCartProduct'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
-import { PAGE_CHECKOUT } from '@shopware-pwa/default-theme/helpers/pages'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
-import { computed, onMounted, ref } from '@vue/composition-api'
+} from "@storefront-ui/vue"
+import { useCart, useUIState } from "@shopware-pwa/composables"
+import SwCartProduct from "@shopware-pwa/default-theme/components/SwCartProduct"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import { PAGE_CHECKOUT } from "@shopware-pwa/default-theme/helpers/pages"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import { computed, onMounted, ref } from "@vue/composition-api"
 
 export default {
-  name: 'SwCart',
+  name: "SwCart",
   components: {
     SfSidebar,
     SfHeading,
@@ -105,7 +105,7 @@ export default {
   setup() {
     const { cartItems, count, totalPrice, removeProduct } = useCart()
     const { isOpen: isSidebarOpen, switchState: toggleSidebar } = useUIState(
-      'CART_SIDEBAR_STATE'
+      "CART_SIDEBAR_STATE"
     )
 
     // Component is lazy loaded so to allow animation on first load it needs to be done after it is mounted
@@ -135,7 +135,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .sw-side-cart {
   --sidebar-z-index: 4;

@@ -20,13 +20,13 @@ import {
   SfList,
   SfIcon,
   SfBadge,
-  SfCheckbox
-} from '@storefront-ui/vue'
-import { useUser } from '@shopware-pwa/composables'
-import Address from '@shopware-pwa/default-theme/components/account/MyAddresses/Address.vue'
+  SfCheckbox,
+} from "@storefront-ui/vue"
+import { useUser } from "@shopware-pwa/composables"
+import Address from "@shopware-pwa/default-theme/components/account/MyAddresses/Address.vue"
 
 export default {
-  name: 'MyAddresses',
+  name: "MyAddresses",
   components: {
     SfProperty,
     SfTabs,
@@ -34,13 +34,13 @@ export default {
     SfIcon,
     SfBadge,
     SfCheckbox,
-    Address
+    Address,
   },
   props: {},
   data() {
     return {
       selectedBilling: this.defaultBillingAddressId,
-      selectedShipping: this.defaultShippingAddressId
+      selectedShipping: this.defaultShippingAddressId,
     }
   },
   setup() {
@@ -50,7 +50,7 @@ export default {
       loadAddresses,
       markAddressAsDefault,
       refreshUser,
-      deleteAddress
+      deleteAddress,
     } = useUser()
     loadAddresses()
     return {
@@ -60,7 +60,7 @@ export default {
       addresses,
       loadAddresses,
       markAddressAsDefault,
-      refreshUser
+      refreshUser,
     }
   },
   async mounted() {
@@ -71,10 +71,10 @@ export default {
     async selectDefaultAddress(addressId, type) {
       await this.markAddressAsDefault({ addressId, type })
       switch (type) {
-        case 'shipping':
+        case "shipping":
           this.selectedShipping = addressId
           break
-        case 'billing':
+        case "billing":
           this.selectedBilling = addressId
       }
       await this.loadAddresses()
@@ -84,14 +84,14 @@ export default {
       await this.loadAddresses()
     },
     editAddress(addressId) {
-      this.$emit('editAddress', addressId)
-    }
-  }
+      this.$emit("editAddress", addressId)
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 .shipping-list {
   margin-bottom: var(--spacer-xl);
   width: 100%;

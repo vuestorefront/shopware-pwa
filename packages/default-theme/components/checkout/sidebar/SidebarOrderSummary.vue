@@ -54,12 +54,12 @@ import {
   SfProperty,
   SfDivider,
   SfCharacteristic,
-} from '@storefront-ui/vue'
-import { useCart } from '@shopware-pwa/composables'
-import SwInput from '@shopware-pwa/default-theme/components/atoms/SwInput'
+} from "@storefront-ui/vue"
+import { useCart } from "@shopware-pwa/composables"
+import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
 export default {
-  name: 'SidebarOrderSummary',
+  name: "SidebarOrderSummary",
   components: {
     SfHeading,
     SfCircleIcon,
@@ -73,7 +73,7 @@ export default {
 
     // TODO: use useSessionContext
     const shippingMethod = {
-      price: 'TODO: add price',
+      price: "TODO: add price",
     }
     return {
       count,
@@ -84,24 +84,24 @@ export default {
   },
   data() {
     return {
-      promoCode: '',
+      promoCode: "",
       showPromoCode: false,
       characteristics: [
         {
-          title: 'Safety',
-          description: 'It carefully packaged with a personal touch',
-          icon: 'safety',
+          title: "Safety",
+          description: "It carefully packaged with a personal touch",
+          icon: "safety",
         },
         {
-          title: 'Easy shipping',
+          title: "Easy shipping",
           description:
-            'You’ll receive dispatch confirmation and an arrival date',
-          icon: 'shipping',
+            "You’ll receive dispatch confirmation and an arrival date",
+          icon: "shipping",
         },
         {
-          title: 'Changed your mind?',
-          description: 'Rest assured, we offer free returns within 30 days',
-          icon: 'return',
+          title: "Changed your mind?",
+          description: "Rest assured, we offer free returns within 30 days",
+          icon: "return",
         },
       ],
     }
@@ -109,7 +109,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 .title {
   --heading-title-margin: 0 0 var(--spacer-xl) 0;
 }

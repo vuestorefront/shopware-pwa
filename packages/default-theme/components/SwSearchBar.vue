@@ -10,19 +10,19 @@
 </template>
 
 <script>
-import { ref, reactive, onMounted, watch, computed } from '@vue/composition-api'
-import { getSearchPageUrl } from '@shopware-pwa/default-theme/helpers'
-import { SfSearchBar } from '@storefront-ui/vue'
-import { useProductSearch } from '@shopware-pwa/composables'
+import { ref, reactive, onMounted, watch, computed } from "@vue/composition-api"
+import { getSearchPageUrl } from "@shopware-pwa/default-theme/helpers"
+import { SfSearchBar } from "@storefront-ui/vue"
+import { useProductSearch } from "@shopware-pwa/composables"
 
 export default {
   components: {
-    SfSearchBar
+    SfSearchBar,
   },
 
   setup() {
-    const { search, suggestSearch, suggestionsResult } = useProductSearch();
-    const typingQuery = ref('')
+    const { search, suggestSearch, suggestionsResult } = useProductSearch()
+    const typingQuery = ref("")
     const suggestResultProducts = computed(
       () => suggestionsResult.value && suggestionsResult.value.elements
     )
@@ -33,7 +33,7 @@ export default {
       search,
       suggestSearch,
       getSearchPageUrl,
-      typingQuery
+      typingQuery,
     }
   },
   methods: {
@@ -49,16 +49,16 @@ export default {
       // }
     },
     performSearch(searchTerm) {
-      if (typeof searchTerm === 'string' && searchTerm.length > 0) {
+      if (typeof searchTerm === "string" && searchTerm.length > 0) {
         this.$router.push(this.$i18n.path(getSearchPageUrl(searchTerm)))
       }
     },
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .sw-top-navigation {
   --search-bar-width: 100%;

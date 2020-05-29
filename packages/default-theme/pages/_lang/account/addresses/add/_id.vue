@@ -7,14 +7,14 @@
 </template>
 
 <script>
-import SwAddress from '@shopware-pwa/default-theme/components/forms/SwAddress.vue'
-import { useUser } from '@shopware-pwa/composables'
+import SwAddress from "@shopware-pwa/default-theme/components/forms/SwAddress.vue"
+import { useUser } from "@shopware-pwa/composables"
 
 export default {
   components: { SwAddress },
   data() {
     return {
-      address: '',
+      address: "",
     }
   },
   setup() {

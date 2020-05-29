@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import { useNavigation, useUIState } from '@shopware-pwa/composables'
+import { useNavigation, useUIState } from "@shopware-pwa/composables"
 
-import SwMegaMenu from '@shopware-pwa/default-theme/components/SwMegaMenu'
-import { ref, onMounted, watch } from '@vue/composition-api'
-import { getCategoryUrl } from '@shopware-pwa/helpers'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
-import { useLocales } from '@shopware-pwa/default-theme/logic'
+import SwMegaMenu from "@shopware-pwa/default-theme/components/SwMegaMenu"
+import { ref, onMounted, watch } from "@vue/composition-api"
+import { getCategoryUrl } from "@shopware-pwa/helpers"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import { useLocales } from "@shopware-pwa/default-theme/logic"
 
 export default {
   components: {
@@ -39,7 +39,7 @@ export default {
     SwPluginSlot,
   },
   setup() {
-    const { switchState: switchOverlay } = useUIState('MEGA_MENU_OVERLAY_STATE')
+    const { switchState: switchOverlay } = useUIState("MEGA_MENU_OVERLAY_STATE")
     const { fetchNavigationElements, navigationElements } = useNavigation()
     const { currentLocale } = useLocales()
 
@@ -55,7 +55,7 @@ export default {
         try {
           await fetchNavigationElements(3)
         } catch (e) {
-          console.error('[SwTopNavigation]', e)
+          console.error("[SwTopNavigation]", e)
         }
       })
     })
@@ -71,7 +71,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .sw-top-navigation {
   display: flex;

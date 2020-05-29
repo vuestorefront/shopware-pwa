@@ -2,7 +2,7 @@
   <div class="sw-address" v-if="address">
     <div class="sw-address__content">
       <h4 class="sw-address__title">{{ addressTitle }}</h4>
-      <slot name="before-content"/>
+      <slot name="before-content" />
       <p class="content">
         {{ street }} {{ apartment }}, {{ zipcode }}<br />
         {{ city }}
@@ -11,18 +11,18 @@
         {{ phoneNumber }}
       </p>
     </div>
-    <slot name="after-content"/>
+    <slot name="after-content" />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'SwPersonalDetails',
-  components: { },
+  name: "SwPersonalDetails",
+  components: {},
   props: {
     addressTitle: {
       type: String,
-      default: '',
+      default: "",
     },
     address: {
       type: Object,
@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 
 .sw-address {
   display: flex;

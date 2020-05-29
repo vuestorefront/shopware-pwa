@@ -1,44 +1,53 @@
 <template>
   <article class="cms-block-image-three-cover">
-    <CmsGenericElement :content="getLeftContent" class="cms-block-image-three-cover__image"/>
-    <CmsGenericElement :content="getCenterContent" class="cms-block-image-three-cover__image"/>
-    <CmsGenericElement :content="getRightContent" class="cms-block-image-three-cover__image"/>
+    <CmsGenericElement
+      :content="getLeftContent"
+      class="cms-block-image-three-cover__image"
+    />
+    <CmsGenericElement
+      :content="getCenterContent"
+      class="cms-block-image-three-cover__image"
+    />
+    <CmsGenericElement
+      :content="getRightContent"
+      class="cms-block-image-three-cover__image"
+    />
   </article>
 </template>
 
 <script>
-import CmsGenericElement from 'sw-cms/CmsGenericElement'
+import CmsGenericElement from "sw-cms/CmsGenericElement"
 
 export default {
-  name: 'CmsBlockImageThreeCover',
+  name: "CmsBlockImageThreeCover",
   components: {
     CmsGenericElement,
   },
   props: {
     content: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   computed: {
     getSlots() {
       return this.content.slots || []
     },
     getLeftContent() {
-      return this.getSlots.find(({slot}) => slot === 'left')
+      return this.getSlots.find(({ slot }) => slot === "left")
     },
     getCenterContent() {
-      return this.getSlots.find(({slot}) => slot === 'center')
+      return this.getSlots.find(({ slot }) => slot === "center")
     },
     getRightContent() {
-      return this.getSlots.find(({slot}) => slot === 'right')
+      return this.getSlots.find(({ slot }) => slot === "right")
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .cms-block-image-three-cover {
   display: flex;
@@ -58,5 +67,4 @@ export default {
     align-items: center;
   }
 }
-
 </style>

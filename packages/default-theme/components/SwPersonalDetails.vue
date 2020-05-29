@@ -7,14 +7,13 @@
         {{ email }}
       </p>
     </div>
-    <slot name="after-content"/>
+    <slot name="after-content" />
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'SwPersonalDetails',
+  name: "SwPersonalDetails",
   props: {
     personalDetails: {
       type: Object,
@@ -36,7 +35,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "~@storefront-ui/vue/styles";
 
 .sw-personal-details {
   display: flex;

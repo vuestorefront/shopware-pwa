@@ -47,11 +47,11 @@
 </template>
 
 <script>
-import { SfTabs, SfHeading, SfReview, SfProperty } from '@storefront-ui/vue'
-import SwPluginSlot from 'sw-plugins/SwPluginSlot'
+import { SfTabs, SfHeading, SfReview, SfProperty } from "@storefront-ui/vue"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {
-  name: 'SwProductTabs',
+  name: "SwProductTabs",
   components: { SfTabs, SfHeading, SfReview, SfProperty, SwPluginSlot },
   props: {
     openTab: {
@@ -68,7 +68,7 @@ export default {
     },
     description: {
       type: String,
-      default: '',
+      default: "",
     },
     manufacturer: {
       type: Object,
@@ -79,7 +79,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import "@/assets/scss/variables";
 
 .product-details {
   &__tabs {
