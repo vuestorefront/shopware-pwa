@@ -2796,10 +2796,10 @@
   resolved "https://registry.yarnpkg.com/@storefront-ui/shared/-/shared-0.7.16.tgz#7229bd8b020899bc1a4c34fd34a32d9f59be3fe7"
   integrity sha512-cYsEk63K1guTEwRPh1xQGZpCHq5370/p4T8cGvublDlQUMo0CXYhTLprB4d8FLeRUkM9wxl0sFpp5Eas8R/xUw==
 
-"@storefront-ui/vue@0.7.16":
-  version "0.7.16"
-  resolved "https://registry.yarnpkg.com/@storefront-ui/vue/-/vue-0.7.16.tgz#6f76c935a52d64b08b7161df5ba4de9890a048a9"
-  integrity sha512-AK2L0eNQRRi+gkNsCXhil5aNhE3AFqZIUae1Z+S91qO54LBMJNxzp5k4B0qzwDHVw3AIPE1DCA8s0301h5vyQA==
+"@storefront-ui/vue@0.7.17":
+  version "0.7.17"
+  resolved "https://registry.yarnpkg.com/@storefront-ui/vue/-/vue-0.7.17.tgz#a8f87a4bdd167a67617cb1ea13a53972c9f7cd6f"
+  integrity sha512-33kHzxGF/t+gESJ8oFAfI5mghrhlyIG+jeJ/ZGKahZUnRUUjUb3tctdAQ/00XMmD99RNMy7nd2CVtlAF61OlHw==
   dependencies:
     "@glidejs/glide" "^3.3.0"
     "@storefront-ui/shared" "0.7.16"
