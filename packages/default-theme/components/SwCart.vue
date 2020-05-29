@@ -139,6 +139,7 @@ export default {
 
 .sw-side-cart {
   --sidebar-z-index: 4;
+  --overlay-z-index: 4;
   & > * {
     --sidebar-content-padding: 0 var(--spacer-xs) var(--spacer-xs)
       var(--spacer-xs);

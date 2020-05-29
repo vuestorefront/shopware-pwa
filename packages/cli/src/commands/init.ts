@@ -6,6 +6,13 @@ module.exports = {
   description:
     "Create new Shopware PWA project inside the current directory. Can be invoked multiple times for actualisations.",
   run: async (toolbox: GluegunToolbox) => {
+    const { performance } = require("perf_hooks");
+    const t0 = performance.now();
+
+    const ua = require("universal-analytics");
+    const visitor = ua("UA-167979975-1");
+    visitor.pageview("/init").send();
+
     const {
       system: { run },
       print: { info, warning, success, spin },
@@ -116,7 +123,7 @@ module.exports = {
     generateFilesSpinner.succeed();
 
     // generate plugin files
-    await toolbox.createPluginsTemplate()
+    await toolbox.createPluginsTemplate();
     await toolbox.runtime.run(`plugins`, inputParameters);
     await toolbox.runtime.run(`cms`);
     await toolbox.createCmsTemplate(); // generate template for user CMS folder
@@ -129,6 +136,8 @@ module.exports = {
     updateDependenciesSpinner.succeed();
 
     success(`Generated Shopware PWA project!`);
+    const t1 = performance.now();
+    visitor.timing("CLI", "init", Math.round(t1 - t0)).send();
     info(`Type 'shopware-pwa dev' and start exploring`);
   },
 };
