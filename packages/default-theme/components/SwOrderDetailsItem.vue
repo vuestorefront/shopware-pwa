@@ -1,5 +1,5 @@
 <template>
-  <SfTableRow class="table__row" :key="product.id">
+  <SfTableRow :key="product.id" class="table__row">
     <SfTableData class="table__description">
       <div class="product-title">{{ getName }}</div>
       <div class="product-sku">{{ product.productNumber }}</div>
@@ -65,6 +65,10 @@ export default {
 
   &__row:hover {
     --table-row-box-shadow: none;
+  }
+  &__quantity {
+    text-align: center;
+    font-size: var(--font-lg);
   }
 }
 </style>
