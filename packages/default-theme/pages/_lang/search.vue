@@ -8,9 +8,11 @@
         <h3>
           search results for <strong>{{ searchQuery }}</strong> :
         </h3>
-        <SwSearchProductListing
-          :product-listing="searchResult"
-          :is-search-result-page="true"
+        <SwProductListing
+          :listing="searchResult"
+          :loading="loadingSearch"
+          :is-list-view="isListView"
+          @change-page="changePage"
         />
       </div>
     </SfLoader>
@@ -18,14 +20,15 @@
 </template>
 <script>
 import { SfButton, SfHeading, SfIcon, SfLoader } from '@storefront-ui/vue'
-import { useProductSearch } from '@shopware-pwa/composables'
+import { useProductSearch, useUIState } from '@shopware-pwa/composables'
+
 import {
   ref,
   getCurrentInstance,
   computed,
   watchEffect,
 } from '@vue/composition-api'
-import SwSearchProductListing from '@shopware-pwa/default-theme/components/SwSearchProductListing'
+import SwProductListing from '@shopware-pwa/default-theme/components/SwProductListing'
 
 export default {
   name: 'SearchResultsPage',
@@ -35,7 +38,7 @@ export default {
     SfButton,
     SfIcon,
     SfLoader,
-    SwSearchProductListing,
+    SwProductListing,
   },
   setup() {
     const vm = getCurrentInstance()
@@ -44,10 +47,13 @@ export default {
       currentSearchTerm,
       searchResult,
       loadingSearch,
+      changePage,
     } = useProductSearch()
 
     const searchQuery = ref(currentSearchTerm.value)
     const startedSearching = ref(false)
+    const { isOpen: isListView } = useUIState('PRODUCT_LISTING_STATE')
+
 
     watchEffect(async () => {
       searchQuery.value = vm.$route.query.query
@@ -71,8 +77,10 @@ export default {
       searchQuery,
       loadingSearch,
       startedSearching,
+      changePage,
+      isListView
     }
-  },
+  }
 }
 </script>
 <style lang="scss">

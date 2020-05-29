@@ -18,7 +18,6 @@ import {
 } from "@shopware-pwa/helpers";
 import { useCms } from "./useCms";
 import { useCategoryFilters } from "./useCategoryFilters";
-import { useProductSearch } from "./useProductSearch";
 
 /**
  * @alpha
@@ -50,11 +49,9 @@ const selectedCriteria = Vue.observable({
  * @alpha
  */
 export const useProductListing = (
-  initialListing?: ProductListingResult,
-  customSearchFunction?: Function
+  initialListing?: ProductListingResult
 ): UseProductListing => {
   const { categoryId } = useCms();
-  const { currentQuery } = useProductSearch();
   const { activeSorting } = useCategoryFilters();
 
   const loading: Ref<boolean> = ref(false);
@@ -148,7 +145,7 @@ export const useProductListing = (
     if (typeof history !== "undefined")
       history.replaceState({}, null as any, location.pathname + "?" + search);
 
-    const result =  customSearchFunction && await customSearchFunction(currentQuery.value, selectedCriteria) || await getCategoryProductsListing(
+    const result = await getCategoryProductsListing(
       categoryId.value,
       searchCriteria
     );

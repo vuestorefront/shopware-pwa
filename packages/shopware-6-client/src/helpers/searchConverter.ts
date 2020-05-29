@@ -48,7 +48,7 @@ export const convertSearchCriteria = (
   apiType?: ApiType
 ): ShopwareParams => {
   let params: ShopwareParams = {
-    limit: config.defaultPaginationLimit
+    limit: config.defaultPaginationLimit,
   };
 
   if (!searchCriteria) return params;

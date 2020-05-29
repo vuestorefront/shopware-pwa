@@ -64,13 +64,9 @@ export default {
     content: {
       type: Object,
       default: () => ({}),
-    },
-    isSearchResult: {
-      type: Boolean,
-      default: false
     }
   },
-  setup({ content, isSearchResult }) {
+  setup({ content }) {
     const { search } = useProductSearch();
     const listing = content.data.listing || []
     const {
@@ -78,7 +74,7 @@ export default {
       changePagination,
       pagination,
       loading,
-    } = useProductListing(listing, isSearchResult && search)
+    } = useProductListing(listing)
 
     const { isOpen: isListView } = useUIState('PRODUCT_LISTING_STATE')
 

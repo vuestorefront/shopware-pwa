@@ -18,7 +18,9 @@ describe("SearchConverter - convertSearchCriteria", () => {
   });
   it("should returns empty object if no params provided", () => {
     const result = convertSearchCriteria();
-    expect(result).toEqual({});
+    expect(result).toEqual({
+      limit: 10,
+    });
   });
   describe("pagination", () => {
     it("should use p param for pagination if apiType is set to 'store'", () => {
@@ -42,9 +44,9 @@ describe("SearchConverter - convertSearchCriteria", () => {
       const result = convertSearchCriteria({ pagination: { limit: 5 } });
       expect(result?.limit).toEqual(5);
     });
-    it("should not have not existing limit", () => {
+    it("should have default limit if provided is out of range", () => {
       const result = convertSearchCriteria({ pagination: { limit: 7 } });
-      expect(result).not.toHaveProperty("limit");
+      expect(result).toStrictEqual({ limit: 10 });
     });
     it("should not add pagination for an empty object", () => {
       const result = convertSearchCriteria({ pagination: {} });
@@ -245,6 +247,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
           ApiType.store
         );
         expect(result).toStrictEqual({
+          limit: 10,
           manufacturer: "shopware",
         });
       });
@@ -273,7 +276,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
             displayParents: true,
           },
         } as any);
-        expect(result).toEqual({});
+        expect(result).toEqual({ limit: 10 });
       });
       it("should return displayGroup grouped parameter and appropriate filter by default", () => {
         const result = convertSearchCriteria({
@@ -298,6 +301,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
             },
           ],
           sort: "-name",
+          limit: 10,
         });
       });
     });

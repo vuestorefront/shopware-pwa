@@ -26,6 +26,7 @@ export async function getSuggestedResults(
  * @throws ClientApiError
  * @beta
  */
+
 export async function getResults(
   term: string,
   searchCriteria?: SearchCriteria

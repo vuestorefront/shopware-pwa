@@ -24,6 +24,7 @@ import { Product } from '@shopware-pwa/commons/interfaces/models/content/product
 import { ProductListingResult } from '@shopware-pwa/commons/interfaces/response/ProductListingResult';
 import { Ref } from '@vue/composition-api';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
+import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
 import { ShippingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
@@ -54,6 +55,16 @@ export function createCheckoutStep({ stepNumber, stepFields, stepDataUpdated, }:
     stepFields: CheckoutStepFields;
     stepDataUpdated: (updatedData: CheckoutStepFields) => void;
 }): () => CreateCheckoutStep;
+
+// @beta (undocumented)
+export interface CurrentPagination {
+    // (undocumented)
+    currentPage: number | undefined;
+    // (undocumented)
+    perPage: number | undefined;
+    // (undocumented)
+    total: number | undefined;
+}
 
 // @alpha (undocumented)
 export function getStore(): any;
@@ -205,13 +216,23 @@ export const useProductListing: (initialListing?: ProductListingResult | undefin
 // @alpha (undocumented)
 export interface UseProductSearch {
     // (undocumented)
-    [x: string]: any;
+    changePage: (page: number) => Promise<void>;
     // (undocumented)
-    error: Ref<any>;
+    currentPagination: Ref<CurrentPagination | undefined>;
     // (undocumented)
-    loading: Ref<boolean>;
+    currentSearchTerm: Readonly<Ref<string>>;
     // (undocumented)
-    suggestSearch: (term: string) => Promise<any>;
+    loadingSearch: Readonly<Ref<boolean>>;
+    // (undocumented)
+    loadingSuggestions: Readonly<Ref<boolean>>;
+    // (undocumented)
+    search: (term: string, searchCriteria?: SearchCriteria) => Promise<void>;
+    // (undocumented)
+    searchResult: Readonly<Ref<ProductListingResult | null>>;
+    // (undocumented)
+    suggestionsResult: Readonly<Ref<ProductListingResult | null>>;
+    // (undocumented)
+    suggestSearch: (term: string) => Promise<void>;
 }
 
 // @alpha (undocumented)

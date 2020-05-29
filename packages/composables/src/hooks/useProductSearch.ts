@@ -1,11 +1,19 @@
-import Vue from "vue";
-import { ref, Ref, computed, reactive } from "@vue/composition-api";
+import { ref, Ref, computed } from "@vue/composition-api";
 import {
   getSuggestedResults,
   getResults,
 } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
+
+/**
+ * @beta
+ */
+export interface CurrentPagination {
+  currentPage: number | undefined;
+  perPage: number | undefined;
+  total: number | undefined;
+}
 
 /**
  * @alpha
@@ -18,6 +26,8 @@ export interface UseProductSearch {
   suggestionsResult: Readonly<Ref<ProductListingResult | null>>;
   suggestSearch: (term: string) => Promise<void>;
   search: (term: string, searchCriteria?: SearchCriteria) => Promise<void>;
+  currentPagination: Ref<CurrentPagination | undefined>;
+  changePage: (page: number) => Promise<void>;
 }
 
 /**
@@ -29,17 +39,30 @@ export const useProductSearch = (): UseProductSearch => {
   const currentSearchTerm: Ref<string> = ref("");
   const searchResult: Ref<ProductListingResult | null> = ref(null);
   const suggestionsResult: Ref<ProductListingResult | null> = ref(null);
+  const currentPagination = computed(() => ({
+    currentPage: searchResult.value?.page,
+    perPage: searchResult.value?.limit,
+    total: searchResult.value?.total,
+  }));
 
-  const suggestSearch = async (
-    term: string,
-    searchCriteria?: SearchCriteria
-  ): Promise<void> => {
+  const searchCriteria: Ref<SearchCriteria> = ref({});
+
+  const changePage = (page: number): Promise<void> => {
+    /* istanbul ignore else */
+    if (!searchCriteria.value.pagination) {
+      searchCriteria.value.pagination = {
+        limit: currentPagination.value.perPage,
+      };
+    }
+
+    searchCriteria.value.pagination.page = page;
+    return search(currentSearchTerm.value);
+  };
+
+  const suggestSearch = async (term: string): Promise<void> => {
     try {
       loadingSuggestions.value = true;
-      const suggestedProductListing = await getSuggestedResults(
-        term,
-        searchCriteria
-      );
+      const suggestedProductListing = await getSuggestedResults(term);
       suggestionsResult.value = suggestedProductListing;
     } catch (e) {
       console.error("useProductSearch:suggestSearch", e);
@@ -48,15 +71,16 @@ export const useProductSearch = (): UseProductSearch => {
     }
   };
 
-  const search = async (
-    term: string,
-    searchCriteria?: SearchCriteria
-  ): Promise<void> => {
+  const search = async (term: string): Promise<void> => {
+    if (!term) {
+      return;
+    }
+
     try {
       loadingSearch.value = true;
       currentSearchTerm.value = term;
       searchResult.value = null;
-      const result = await getResults(term, searchCriteria);
+      const result = await getResults(term, searchCriteria.value);
       searchResult.value = result;
     } catch (e) {
       throw e;
@@ -72,6 +96,8 @@ export const useProductSearch = (): UseProductSearch => {
     loadingSearch,
     loadingSuggestions,
     searchResult: computed(() => searchResult.value),
-    suggestionsResult: computed(() => suggestionsResult.value),
+    suggestionsResult,
+    currentPagination,
+    changePage,
   };
 };

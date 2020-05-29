@@ -8,6 +8,7 @@
 
 |  Interface | Description |
 |  --- | --- |
+|  [CurrentPagination](./composables.currentpagination.md) | <b><i>(BETA)</i></b> |
 |  [UseCheckout](./composables.usecheckout.md) | <b><i>(BETA)</i></b> |
 
 ## Variables

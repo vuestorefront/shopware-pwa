@@ -220,11 +220,11 @@ export function getResults(term: string, searchCriteria?: SearchCriteria): Promi
 // @alpha
 export function getSessionContext(): Promise<SessionContext>;
 
-// @beta (undocumented)
-export function getSuggestedResults(term: string, searchCriteria?: SearchCriteria): Promise<ProductListingResult>;
-
 // @alpha (undocumented)
 export function getShippingMethodDetails(shippingId: string): Promise<ShippingMethod>;
+
+// @beta (undocumented)
+export function getSuggestedResults(term: string, searchCriteria?: SearchCriteria): Promise<ProductListingResult>;
 
 // @alpha (undocumented)
 export function getUserCountry(countryId: string): Promise<Country>;

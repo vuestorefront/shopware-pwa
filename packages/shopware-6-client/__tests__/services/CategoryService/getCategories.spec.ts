@@ -13,10 +13,9 @@ describe("CategoryService - getCategories", () => {
 
     const result = await getCategories();
     expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith(
-      "/sales-channel-api/v1/category",
-      {}
-    );
+    expect(mockedAxios.post).toBeCalledWith("/sales-channel-api/v1/category", {
+      limit: 10,
+    });
     expect(result.total).toEqual(22);
   });
 });
