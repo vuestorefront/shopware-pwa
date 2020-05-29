@@ -10,7 +10,7 @@
     <SfTableData class="table__data table__quantity">
       {{ getQuantity }}
     </SfTableData>
-    <SfTableData class="table__data">
+    <SfTableData class="table__data table__amount">
       <SfPrice :regular="getTotalPrice | price" class="product-price" />
     </SfTableData>
   </SfTableRow>
@@ -63,6 +63,9 @@ export default {
 }
 
 .table {
+  &__data {
+    --price-regular-font-weight: var(--font-normal);
+  }
   &__description {
     flex: 3;
   }
@@ -73,6 +76,14 @@ export default {
   &__quantity {
     text-align: center;
     font-size: var(--font-lg);
+  }
+  &__amount {
+    text-align: right;
+  }
+}
+::v-deep .product-price {
+  & > * {
+    flex: 1;
   }
 }
 </style>
