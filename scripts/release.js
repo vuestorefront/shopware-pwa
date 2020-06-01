@@ -8,7 +8,9 @@ const { prompt } = require("enquirer");
 const execa = require("execa");
 
 const isCanaryRelease = args.canary;
-const preId = args.preid || semver.prerelease(currentVersion)[0] || "alpha";
+const semverPrereleaseTag =
+  semver.prerelease(currentVersion) && semver.prerelease(currentVersion)[0];
+const preId = args.preid || semverPrereleaseTag || "alpha";
 const isDryRun = args.dry;
 const skipTests = args.skipTests;
 const skipBuild = args.skipBuild;
