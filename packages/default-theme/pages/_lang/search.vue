@@ -89,11 +89,6 @@ export default {
       changeSorting
     }
   },
-  // methods: {
-  //   changeSorting(sorting) {
-  //     console.warn('change-sorting', sorting);
-  //   }
-  // }
 }
 </script>
 <style lang="scss">
