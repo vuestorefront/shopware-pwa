@@ -11,7 +11,7 @@
         :tier-prices="getTierPrices"
       />
     </div>
-    <SwPluginSlot name="product-page-description">
+    <SwPluginSlot name="product-page-description" :slotContext="product">
       <p
         class="product-details__description desktop-only"
         v-html="description"
@@ -50,7 +50,10 @@
         class="product-details__add-to-cart"
         @click="addToCart"
       />
-      <SwPluginSlot name="product-page-add-to-cart-button-after" />
+      <SwPluginSlot
+        name="product-page-add-to-cart-button-after"
+        :slotContext="product"
+      />
       <div class="product-details__action desktop-only">
         <SwButton class="sf-button--text product-details__action-button"
           >Save for later</SwButton

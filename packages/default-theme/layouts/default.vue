@@ -3,7 +3,7 @@
     <SwPluginSlot name="page-top" />
     <SwHeader />
     <SwPluginSlot name="top-header-after" />
-    <SwPluginSlot name="breadcrumbs">
+    <SwPluginSlot name="breadcrumbs" :slotContext="getBreadcrumbs" >
       <SfBreadcrumbs
         v-show="getBreadcrumbs.length > 0"
         :breadcrumbs="getBreadcrumbs"

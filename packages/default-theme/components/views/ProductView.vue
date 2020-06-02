@@ -1,13 +1,13 @@
 <template>
   <div v-if="product" id="product">
-    <SwPluginSlot name="product-page-details-before" />
+    <SwPluginSlot name="product-page-details-before" :slotContext="product" />
     <div class="product">
       <SwProductGallery :product="product" class="product__gallery" />
       <div class="product__description">
         <SwProductDetails :product="product" :page="page" />
       </div>
     </div>
-    <SwPluginSlot name="product-page-details-after" />
+    <SwPluginSlot name="product-page-details-after" :slotContext="product" />
     <div class="products__recomendations">
       <div class="products-recomendations__section">
         <SwProductCarousel />
