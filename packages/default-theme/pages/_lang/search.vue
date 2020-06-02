@@ -10,7 +10,6 @@
         </h3>
         <SwProductListingFilters 
           :listing="searchResult"
-          :is-list-view="isListView"
           @change-sorting="changeSorting"
         />
         <SwProductListing
