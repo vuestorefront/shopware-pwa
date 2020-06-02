@@ -8,7 +8,7 @@
         <h3>
           search results for <strong>{{ searchQuery }}</strong> :
         </h3>
-        <SwProductListingFilters 
+        <SwProductListingFilters
           :listing="searchResult"
           @change-sorting="changeSorting"
         />
@@ -44,7 +44,7 @@ export default {
     SfIcon,
     SfLoader,
     SwProductListing,
-    SwProductListingFilters
+    SwProductListingFilters,
   },
   setup() {
     const vm = getCurrentInstance()
@@ -54,7 +54,7 @@ export default {
       searchResult,
       loadingSearch,
       changePage,
-      changeSorting
+      changeSorting,
     } = useProductSearch()
 
     const searchQuery = ref(currentSearchTerm.value)
@@ -85,7 +85,7 @@ export default {
       startedSearching,
       changePage,
       isListView,
-      changeSorting
+      changeSorting,
     }
   },
 }

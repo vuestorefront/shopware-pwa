@@ -12,7 +12,11 @@
       </SwButton> -->
       <div class="navbar__sort desktop-only">
         <span class="navbar__label">Sort by:</span>
-        <SfSelect v-model="activeSorting" :size="sortings.length" class="sort-by">
+        <SfSelect
+          v-model="activeSorting"
+          :size="sortings.length"
+          class="sort-by"
+        >
           <SfSelectOption
             v-for="(option, key) in sortings"
             :key="key"
@@ -122,20 +126,20 @@ import {
   SfFilter,
   SfHeading,
   SfSidebar,
-} from '@storefront-ui/vue'
+} from "@storefront-ui/vue"
 import {
   useCategoryFilters,
   useProductListing,
   useUIState,
-} from '@shopware-pwa/composables';
+} from "@shopware-pwa/composables"
 
 import { ref, computed } from "@vue/composition-api"
-import { getSortingLabel } from '@shopware-pwa/default-theme/helpers'
-import { getCategoryAvailableSorting } from '@shopware-pwa/helpers'
-import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
+import { getSortingLabel } from "@shopware-pwa/default-theme/helpers"
+import { getCategoryAvailableSorting } from "@shopware-pwa/helpers"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 
 export default {
-  name: 'SwProductListingFilters',
+  name: "SwProductListingFilters",
   components: {
     SwButton,
     SfIcon,
@@ -150,16 +154,20 @@ export default {
       default: () => ({}),
     },
   },
-  setup({listing}, { emit }) {
+  setup({ listing }, { emit }) {
     const availableSorting = ref(listing.sortings)
-    const sortings = computed(() => getCategoryAvailableSorting({sorting: availableSorting.value}))
+    const sortings = computed(() =>
+      getCategoryAvailableSorting({ sorting: availableSorting.value })
+    )
     const activeSorting = computed({
       get: () => sortings.value.find((sorting) => sorting.active),
       set: (sorting) => {
-        emit('change-sorting', sorting);
-      }
+        emit("change-sorting", sorting)
+      },
     })
-    const { isOpen: isListView, switchState: switchToListView } = useUIState("PRODUCT_LISTING_STATE")
+    const { isOpen: isListView, switchState: switchToListView } = useUIState(
+      "PRODUCT_LISTING_STATE"
+    )
 
     return {
       getCategoryAvailableSorting,
@@ -167,7 +175,7 @@ export default {
       activeSorting,
       sortings,
       isListView,
-      switchToListView
+      switchToListView,
     }
   },
   data() {
@@ -182,9 +190,9 @@ export default {
       // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/834
       const aggregations = this.listing && this.listing.aggregations
       if (!aggregations) {
-        return [];
+        return []
       }
-      
+
       // return this.getListingAvailableFilters(aggregations);
     },
     totalFound() {
@@ -204,13 +212,13 @@ export default {
     async submitFilters() {
       await this.search()
       this.isFilterSidebarOpen = false
-    }
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../cms/settings.scss';
+@import "../cms/settings.scss";
 
 .navbar {
   position: relative;
