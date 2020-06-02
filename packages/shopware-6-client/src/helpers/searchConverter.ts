@@ -74,7 +74,8 @@ export const convertSearchCriteria = (
     // exception for store-api
     if (apiType && apiType === ApiType.store) {
       let order = sort.desc ? "desc" : "asc";
-      params.sort = `${sort.field}-${order}`;
+      // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/834
+      params.sort = sort.name || `${sort.field}-${order}`;
     } else {
       let prefix = sort.desc ? "-" : "";
       params.sort = `${prefix}${sort.field}`;

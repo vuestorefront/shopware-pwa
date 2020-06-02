@@ -3,7 +3,10 @@ import {
   getSuggestedResults,
   getResults,
 } from "@shopware-pwa/shopware-6-client";
-import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import {
+  SearchCriteria,
+  Sort,
+} from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
 
 /**
@@ -28,6 +31,7 @@ export interface UseProductSearch {
   search: (term: string, searchCriteria?: SearchCriteria) => Promise<void>;
   currentPagination: Ref<CurrentPagination | undefined>;
   changePage: (page: number) => Promise<void>;
+  changeSorting: (sorting: Sort) => void;
 }
 
 /**
@@ -46,7 +50,6 @@ export const useProductSearch = (): UseProductSearch => {
   }));
 
   const searchCriteria: Ref<SearchCriteria> = ref({});
-
   const changePage = (page: number): Promise<void> => {
     /* istanbul ignore else */
     if (!searchCriteria.value.pagination) {
@@ -69,6 +72,14 @@ export const useProductSearch = (): UseProductSearch => {
     } finally {
       loadingSuggestions.value = false;
     }
+  };
+
+  const changeSorting = async (sorting: Sort) => {
+    if (!sorting) {
+      return;
+    }
+    searchCriteria.value.sort = sorting;
+    await search(currentSearchTerm.value);
   };
 
   const search = async (term: string): Promise<void> => {
@@ -99,5 +110,6 @@ export const useProductSearch = (): UseProductSearch => {
     suggestionsResult,
     currentPagination,
     changePage,
+    changeSorting,
   };
 };

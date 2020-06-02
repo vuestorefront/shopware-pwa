@@ -8,6 +8,11 @@
         <h3>
           search results for <strong>{{ searchQuery }}</strong> :
         </h3>
+        <SwProductListingFilters 
+          :listing="searchResult"
+          :is-list-view="isListView"
+          @change-sorting="changeSorting"
+        />
         <SwProductListing
           :listing="searchResult"
           :loading="loadingSearch"
@@ -29,6 +34,7 @@ import {
   watchEffect,
 } from "@vue/composition-api"
 import SwProductListing from "@shopware-pwa/default-theme/components/SwProductListing"
+import SwProductListingFilters from "@shopware-pwa/default-theme/components/SwProductListingFilters"
 
 export default {
   name: "SearchResultsPage",
@@ -39,6 +45,7 @@ export default {
     SfIcon,
     SfLoader,
     SwProductListing,
+    SwProductListingFilters
   },
   setup() {
     const vm = getCurrentInstance()
@@ -48,6 +55,7 @@ export default {
       searchResult,
       loadingSearch,
       changePage,
+      changeSorting
     } = useProductSearch()
 
     const searchQuery = ref(currentSearchTerm.value)
@@ -78,8 +86,14 @@ export default {
       startedSearching,
       changePage,
       isListView,
+      changeSorting
     }
   },
+  // methods: {
+  //   changeSorting(sorting) {
+  //     console.warn('change-sorting', sorting);
+  //   }
+  // }
 }
 </script>
 <style lang="scss">

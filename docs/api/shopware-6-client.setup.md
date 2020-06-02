@@ -19,9 +19,9 @@ export declare function setup(config?: ClientSettings): void;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  config | <code>ClientSettings</code> |  |
+|  config | [ClientSettings](./shopware-6-client.clientsettings.md) |  |
 
 <b>Returns:</b>
 
-`void`
+void
 

@@ -111,4 +111,29 @@ describe("Composables - useProductSearch", () => {
       expect(mockedApi.getResults).toBeCalledTimes(2);
     });
   });
+  describe("changeSorting", () => {
+    it("should invoke getResults with provided sorting config", async () => {
+      const { search, changeSorting } = useProductSearch();
+      await search("test");
+      await changeSorting({
+        field: "name",
+        name: "name-desc",
+        desc: true,
+      });
+      expect(mockedApi.getResults).toBeCalledWith("test", {
+        sort: {
+          desc: true,
+          field: "name",
+          name: "name-desc",
+        },
+      });
+      expect(mockedApi.getResults).toBeCalledTimes(2);
+    });
+    it("should not invoke getResults if no sorting was provided", async () => {
+      const { search, changeSorting } = useProductSearch();
+      await search("test");
+      await changeSorting(undefined as any);
+      expect(mockedApi.getResults).toBeCalledTimes(1);
+    });
+  });
 });

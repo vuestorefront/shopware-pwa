@@ -3,23 +3,23 @@
     class="cms-element-category-navigation-sidebar-filter sw-navbar navbar section"
   >
     <div class="sw-navbar navbar__main">
-      <SwButton
+      <!-- <SwButton // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/834
         class="sf-button--text navbar__filters-button"
         @click="isFilterSidebarOpen = true"
       >
         <SfIcon size="14px" icon="filter" style="margin-right: 10px;" />
         Filters
-      </SwButton>
+      </SwButton> -->
       <div class="navbar__sort desktop-only">
         <span class="navbar__label">Sort by:</span>
-        <SfSelect v-model="sortBy" :size="sorting.length" class="sort-by">
+        <SfSelect v-model="activeSorting" :size="sortings.length" class="sort-by">
           <SfSelectOption
-            v-for="(option, key) in sorting"
+            v-for="(option, key) in sortings"
             :key="key"
             :value="option"
             class="sort-by__option"
           >
-            {{ getSortLabel(option) }}
+            {{ getSortingLabel(option) }}
           </SfSelectOption>
         </SfSelect>
       </div>
@@ -58,6 +58,7 @@
         </SwButton>
       </div>
       <SfSidebar
+        v-if="filters"
         title="Filters"
         :visible="isFilterSidebarOpen"
         @close="isFilterSidebarOpen = false"
@@ -126,8 +127,11 @@ import {
   useCategoryFilters,
   useProductListing,
   useUIState,
-} from '@shopware-pwa/composables'
-import { getSortingLabel, getListingAvailableFilters } from '@shopware-pwa/default-theme/helpers'
+} from '@shopware-pwa/composables';
+
+import { ref, computed } from "@vue/composition-api"
+import { getSortingLabel } from '@shopware-pwa/default-theme/helpers'
+import { getCategoryAvailableSorting } from '@shopware-pwa/helpers'
 import SwButton from '@shopware-pwa/default-theme/components/atoms/SwButton'
 
 export default {
@@ -141,57 +145,56 @@ export default {
     SfSidebar,
   },
   props: {
-    isListView: {
-      type: Object,
-      default: false
-    },
     listing: {
       type: Object,
       default: () => ({}),
     },
   },
-  setup() {
-    
+  setup({listing}, { emit }) {
+    const availableSorting = ref(listing.sortings)
+    const sortings = computed(() => getCategoryAvailableSorting({sorting: availableSorting.value}))
+    const activeSorting = computed({
+      get: () => sortings.value.find((sorting) => sorting.active),
+      set: (sorting) => {
+        emit('change-sorting', sorting);
+      }
+    })
+    const { isOpen: isListView, switchState: switchToListView } = useUIState("PRODUCT_LISTING_STATE")
+
     return {
-      getListingAvailableFilters
+      getCategoryAvailableSorting,
+      getSortingLabel,
+      activeSorting,
+      sortings,
+      isListView,
+      switchToListView
     }
   },
   data() {
     return {
-      isListView: false,
       isFilterSidebarOpen: false,
-      sortBy: this.selectedSorting,
+      sortBy: this.activeSorting,
+      selectedFilters: {},
     }
   },
   computed: {
-
     filters() {
+      // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/834
       const aggregations = this.listing && this.listing.aggregations
       if (!aggregations) {
         return [];
       }
       
-      return this.getListingAvailableFilters(aggregations);
+      // return this.getListingAvailableFilters(aggregations);
     },
     totalFound() {
       return this.listing && this.listing.total
     },
-    sorting() {
-      return []//return (availableSorting && availableSorting.value) || []
-    },
-    
     lazyLoad() {
       return true
     },
   },
-  watch: {
-    sortBy(newSorting, oldOne) {
-      // prevent reloading on default sorting
-      if (oldOne.name !== newSorting.name) {
-        this.changeSorting(newSorting)
-      }
-    },
-  },
+
   methods: {
     async clearAllFilters() {
       this.resetFilters()
@@ -201,10 +204,7 @@ export default {
     async submitFilters() {
       await this.search()
       this.isFilterSidebarOpen = false
-    },
-    getSortLabel(sorting) {
-      return getSortingLabel(sorting)
-    },
+    }
   },
 }
 </script>

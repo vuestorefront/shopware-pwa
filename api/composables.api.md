@@ -30,6 +30,7 @@ import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCr
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
 import { ShippingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
+import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 
 // @alpha (undocumented)
 export interface CheckoutStepFields {
@@ -322,6 +323,8 @@ export const useProductListing: (initialListing?: ProductListingResult | undefin
 export interface UseProductSearch {
     // (undocumented)
     changePage: (page: number) => Promise<void>;
+    // (undocumented)
+    changeSorting: (sorting: Sort) => void;
     // (undocumented)
     currentPagination: Ref<CurrentPagination | undefined>;
     // (undocumented)

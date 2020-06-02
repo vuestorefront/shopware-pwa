@@ -17,12 +17,12 @@ export declare function getSuggestedResults(term: string, searchCriteria?: Searc
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  term | <code>string</code> |  |
-|  searchCriteria | <code>SearchCriteria</code> |  |
+|  term | string |  |
+|  searchCriteria | SearchCriteria |  |
 
 <b>Returns:</b>
 
-`Promise<ProductListingResult>`
+Promise&lt;ProductListingResult&gt;
 
 ## Exceptions
 

@@ -14,6 +14,7 @@ import { TotalCountMode } from "@shopware-pwa/commons/interfaces/search/TotalCou
  */
 export interface Sort {
   field: string;
+  name?: string; // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/834
   desc?: boolean;
 }
 /**

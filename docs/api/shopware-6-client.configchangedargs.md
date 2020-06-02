@@ -18,5 +18,5 @@ export interface ConfigChangedArgs
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [config](./shopware-6-client.configchangedargs.config.md) | <code>ClientSettings</code> | <b><i>(BETA)</i></b> |
+|  [config](./shopware-6-client.configchangedargs.config.md) | [ClientSettings](./shopware-6-client.clientsettings.md) | <b><i>(BETA)</i></b> |
 
