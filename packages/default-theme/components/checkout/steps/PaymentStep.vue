@@ -23,6 +23,24 @@
           :description="paymentMethod.description"
           class="form__radio payment-method"
         >
+          <template #description="{description}">
+            <div class="sf-radio__description">
+              <div class="payment_description">
+                <p>{{ description }}</p>
+              </div>
+              <transition name="sf-fade">
+                <div
+                  v-if="activePaymentMethod === paymentMethod.id"
+                  class="shipping__info"
+                >
+                  <SwPluginSlot
+                    :name="`checkout-payment-method-${paymentMethod.name}`"
+                    :slotContext="paymentMethod"
+                  />
+                </div>
+              </transition>
+            </div>
+          </template>
         </SfRadio>
       </div>
       <div class="form__action">
@@ -54,6 +72,7 @@ import BillingAddressUserForm from "@shopware-pwa/default-theme/components/check
 import { useCheckout, useSessionContext } from "@shopware-pwa/composables"
 import { onMounted, computed } from "@vue/composition-api"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {
   name: "PaymentStep",
@@ -63,6 +82,7 @@ export default {
     SfRadio,
     BillingAddressGuestForm,
     BillingAddressUserForm,
+    SwPluginSlot
   },
   setup() {
     const { isGuestOrder, getPaymentMethods, paymentMethods } = useCheckout()

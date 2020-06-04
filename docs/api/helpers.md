@@ -11,6 +11,7 @@
 |  [getProductRegularPrice(product)](./helpers.getproductregularprice.md) | <b><i>(BETA)</i></b> Get the price for 1 unit of a product |
 |  [getProductTierPrices(product)](./helpers.getproducttierprices.md) | <b><i>(BETA)</i></b> Get the prices depending on quantity added to cart. Tier prices can be set in <code>Advanced pricing</code> tab in <code>Product view</code> (admin panel) |
 |  [isProductSimple({ product, })](./helpers.isproductsimple.md) | <b><i>(BETA)</i></b> |
+|  [loadScript(src)](./helpers.loadscript.md) | <b><i>(BETA)</i></b> Helper for plugins to load external scripts for plugins |
 
 ## Interfaces
 
