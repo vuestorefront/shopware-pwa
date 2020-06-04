@@ -160,6 +160,9 @@ export function isProductSimple({ product, }?: {
     product?: Product;
 }): boolean;
 
+// @beta
+export function loadScript(src: string): Promise<void>;
+
 // @alpha
 export function mapCountries(countries: Country[]): MappedCountry[];
 
