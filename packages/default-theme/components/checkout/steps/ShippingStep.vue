@@ -32,6 +32,24 @@
               </div>
             </div>
           </template>
+          <template #description="{description}">
+            <div class="sf-radio__description shipping__description">
+              <div class="shipping__delivery">
+                <p>{{ description }}</p>
+              </div>
+              <transition name="sf-fade">
+                <div
+                  v-if="activeShippingMethod === shippingMethod.id"
+                  class="shipping__info"
+                >
+                  <SwPluginSlot
+                    :name="`checkout-shiping-method-${shippingMethod.name}`"
+                    :slotContext="shippingMethod"
+                  />
+                </div>
+              </transition>
+            </div>
+          </template>
         </SfRadio>
       </div>
       <div class="form__action">
@@ -63,6 +81,7 @@ import {
   useCart,
 } from "@shopware-pwa/composables"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {
   name: "ShippingStep",
@@ -73,6 +92,7 @@ export default {
     SfAlert,
     ShippingAddressGuestForm,
     ShippingAddressUserForm,
+    SwPluginSlot,
   },
   setup() {
     const { isGuestOrder, getShippingMethods, shippingMethods } = useCheckout()

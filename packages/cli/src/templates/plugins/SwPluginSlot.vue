@@ -29,7 +29,7 @@ export default {
       default: "",
     },
     slotContext: {
-      type: Object,
+      type: Object | Array | String,
       default: null
     }
   },
