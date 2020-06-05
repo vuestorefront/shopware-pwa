@@ -172,6 +172,25 @@ describe("Composables - useProductSearch", () => {
     });
   });
   describe("toggleFilter", () => {
+    it("should not set the filters array to selectedCriteria if selectedFilterBucket is empty", async () => {
+      const { toggleFilter, search, resetFilters } = useProductSearch();
+      resetFilters();
+      toggleFilter(
+        {
+          field: "aaaaaaa",
+          value: undefined,
+        } as any,
+        false
+      );
+      await search("some term");
+
+      expect(mockedApi.getSearchResults).toBeCalledWith("some term", {});
+    });
+    it("should not select filter if it has wrong format", () => {
+      const { toggleFilter, selectedFilters } = useProductSearch();
+      toggleFilter(undefined as any, false);
+      expect(selectedFilters.value).toStrictEqual({});
+    });
     it("should trigger ToggleSelectedFilter on toggleFilter run", () => {
       const { toggleFilter, selectedFilters } = useProductSearch();
       toggleFilter(

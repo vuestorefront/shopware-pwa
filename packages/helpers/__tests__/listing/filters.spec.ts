@@ -15,6 +15,13 @@ describe("Shopware helpers - getFilterSearchCriteria", () => {
     expect(result).toEqual([]);
   });
 
+  it("should ignore default filter type on unexpected EqualsAnyFilter filter format", () => {
+    const result = getFilterSearchCriteria({
+      someFilter: {},
+    } as any);
+    expect(result).toEqual([]);
+  });
+
   it("should return category filter if any provided", () => {
     const result = getFilterSearchCriteria({
       categoryTree: ["12345", "2345"],

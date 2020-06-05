@@ -114,19 +114,22 @@ export const useProductSearch = (): UseProductSearch => {
     filter: EqualsFilter | EqualsAnyFilter | ContainsFilter,
     forceSave?: boolean
   ): void => {
-    toggleSelectedFilter(filter, selectedFiltersBucket.value, forceSave);
-  };
-
-  const search = async (term: string): Promise<void> => {
-    if (!term) {
+    if (!filter || !Object.keys(filter).length) {
       return;
     }
 
+    toggleSelectedFilter(filter, selectedFiltersBucket.value, forceSave);
     const filters = getFilterSearchCriteria(
       selectedFiltersBucket.value.filters
     );
     if (filters.length) {
       searchCriteria.value.filters = filters;
+    }
+  };
+
+  const search = async (term: string): Promise<void> => {
+    if (!term) {
+      return;
     }
 
     try {
@@ -136,7 +139,7 @@ export const useProductSearch = (): UseProductSearch => {
       const result = await getSearchResults(term, searchCriteria.value);
       searchResult.value = result;
 
-      // set the base aggregations as default for the listing
+      // set the base aggregations as default for the listing on first call
       if (isBaseSearch()) {
         availableFilters.value = getListingAvailableFilters(aggregations.value);
       }

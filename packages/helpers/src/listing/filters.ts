@@ -27,13 +27,23 @@ const createEqualsFilter = (value: string, field: string): EqualsFilter => ({
 });
 
 const createEqualsAnyFilter = (
-  value: string[],
+  values: string[],
   field: string = "propertyIds"
-): EqualsAnyFilter => ({
-  type: SearchFilterType.EQUALS_ANY,
-  field,
-  value,
-});
+): EqualsAnyFilter => {
+  if (!Array.isArray(values)) {
+    throw "EqualsAnyFilter value is not an array";
+  }
+  const valuesFiltered = values.filter((value) => !!value);
+  if (!valuesFiltered.length) {
+    throw "EqualsAnyFilter has no values provided";
+  }
+
+  return {
+    type: SearchFilterType.EQUALS_ANY,
+    field,
+    value: valuesFiltered,
+  };
+};
 
 /**
  * Get the right filter format depending on filter's code
@@ -81,10 +91,11 @@ export const getFilterSearchCriteria = (selectedFilters: any): any[] => {
   }
 
   for (const filterName of Object.keys(selectedFilters)) {
-    // if (!selectedFilters[filterName].length && typeof selectedFilters[filterName] !== "boolean" && !selectedFilters[filterName].hasOwnProperty('gte')) {
-    //   continue;
-    // }
-    filters.push(extractFilter(filterName, selectedFilters[filterName]));
+    try {
+      filters.push(extractFilter(filterName, selectedFilters[filterName]));
+    } catch (error) {
+      console.error("helpers:getFilterSearchCriteria:extractFilter", error);
+    }
   }
 
   return filters;
