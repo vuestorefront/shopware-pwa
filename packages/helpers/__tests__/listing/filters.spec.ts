@@ -10,6 +10,7 @@ import {
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 
 describe("Shopware helpers - getFilterSearchCriteria", () => {
+  console.error = jest.fn();
   it("should return an empty array if no filters provided", () => {
     const result = getFilterSearchCriteria(undefined as any);
     expect(result).toEqual([]);
