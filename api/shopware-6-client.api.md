@@ -215,7 +215,7 @@ export const getProducts: (searchCriteria?: SearchCriteria | undefined) => Promi
 export const getProductsIds: () => Promise<SearchResult<string[]>>;
 
 // @beta (undocumented)
-export function getResults(term: string, searchCriteria?: SearchCriteria): Promise<ProductListingResult>;
+export function getSearchResults(term: string, searchCriteria?: SearchCriteria): Promise<ProductListingResult>;
 
 // @alpha
 export function getSessionContext(): Promise<SessionContext>;

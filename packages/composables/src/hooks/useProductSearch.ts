@@ -1,12 +1,25 @@
 import { ref, Ref, computed } from "@vue/composition-api";
 import {
   getSuggestedResults,
-  getResults,
+  getSearchResults,
 } from "@shopware-pwa/shopware-6-client";
+import {
+  getListingAvailableFilters,
+  UiCategoryFilter,
+  toggleFilter as toggleSelectedFilter,
+  getFilterSearchCriteria,
+} from "@shopware-pwa/helpers";
+
 import {
   SearchCriteria,
   Sort,
 } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import {
+  EqualsFilter,
+  EqualsAnyFilter,
+  ContainsFilter,
+} from "@shopware-pwa/commons/interfaces/search/SearchFilter";
+import { Aggregations } from "@shopware-pwa/commons/interfaces/search/Aggregations";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
 
 /**
@@ -32,6 +45,13 @@ export interface UseProductSearch {
   currentPagination: Ref<CurrentPagination | undefined>;
   changePage: (page: number) => Promise<void>;
   changeSorting: (sorting: Sort) => void;
+  toggleFilter: (
+    filter: EqualsFilter | EqualsAnyFilter | ContainsFilter,
+    forceSave: boolean
+  ) => void;
+  availableFilters: Readonly<Ref<any>>;
+  selectedFilters: Readonly<Ref<any>>;
+  resetFilters: () => void;
 }
 
 /**
@@ -43,13 +63,21 @@ export const useProductSearch = (): UseProductSearch => {
   const currentSearchTerm: Ref<string> = ref("");
   const searchResult: Ref<ProductListingResult | null> = ref(null);
   const suggestionsResult: Ref<ProductListingResult | null> = ref(null);
+  const availableFilters: Ref<UiCategoryFilter[]> = ref([]);
+  const selectedFiltersBucket = ref({
+    filters: {} as any,
+  });
   const currentPagination = computed(() => ({
     currentPage: searchResult.value?.page,
     perPage: searchResult.value?.limit,
     total: searchResult.value?.total,
   }));
-
   const searchCriteria: Ref<SearchCriteria> = ref({});
+  const isBaseSearch = () => !searchCriteria.value.filters?.length;
+  const aggregations: Readonly<Ref<Aggregations | null>> = computed(
+    () => searchResult.value && searchResult.value.aggregations
+  );
+
   const changePage = (page: number): Promise<void> => {
     /* istanbul ignore else */
     if (!searchCriteria.value.pagination) {
@@ -82,22 +110,46 @@ export const useProductSearch = (): UseProductSearch => {
     await search(currentSearchTerm.value);
   };
 
+  const toggleFilter = (
+    filter: EqualsFilter | EqualsAnyFilter | ContainsFilter,
+    forceSave?: boolean
+  ): void => {
+    toggleSelectedFilter(filter, selectedFiltersBucket.value, forceSave);
+  };
+
   const search = async (term: string): Promise<void> => {
     if (!term) {
       return;
+    }
+
+    const filters = getFilterSearchCriteria(
+      selectedFiltersBucket.value.filters
+    );
+    if (filters.length) {
+      searchCriteria.value.filters = filters;
     }
 
     try {
       loadingSearch.value = true;
       currentSearchTerm.value = term;
       searchResult.value = null;
-      const result = await getResults(term, searchCriteria.value);
+      const result = await getSearchResults(term, searchCriteria.value);
       searchResult.value = result;
+
+      // set the base aggregations as default for the listing
+      if (isBaseSearch()) {
+        availableFilters.value = getListingAvailableFilters(aggregations.value);
+      }
     } catch (e) {
       throw e;
     } finally {
       loadingSearch.value = false;
     }
+  };
+
+  const resetFilters = () => {
+    selectedFiltersBucket.value.filters = {};
+    search(currentSearchTerm.value);
   };
 
   return {
@@ -111,5 +163,9 @@ export const useProductSearch = (): UseProductSearch => {
     currentPagination,
     changePage,
     changeSorting,
+    toggleFilter,
+    selectedFilters: computed(() => selectedFiltersBucket.value.filters),
+    availableFilters,
+    resetFilters,
   };
 };

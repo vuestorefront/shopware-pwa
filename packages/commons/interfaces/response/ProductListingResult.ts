@@ -1,6 +1,6 @@
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { Sort } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { Aggregation } from "@shopware-pwa/commons/interfaces/search/Aggregation";
+import { Aggregations } from "@shopware-pwa/commons/interfaces/search/Aggregations";
 import {
   EqualsFilter,
   RangeFilter,
@@ -18,7 +18,7 @@ export interface ProductListingResult {
   page: number;
   limit: number;
   sortings: Sort[];
-  aggregations: Aggregation[];
+  aggregations: Aggregations;
   currentFilters: Array<
     EqualsFilter | EqualsAnyFilter | RangeFilter | MultiFilter
   >;

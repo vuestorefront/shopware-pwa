@@ -3,13 +3,13 @@
     class="cms-element-category-navigation-sidebar-filter sw-navbar navbar section"
   >
     <div class="sw-navbar navbar__main">
-      <!-- <SwButton // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/834
+      <SwButton
         class="sf-button--text navbar__filters-button"
         @click="isFilterSidebarOpen = true"
       >
         <SfIcon size="14px" icon="filter" style="margin-right: 10px;" />
         Filters
-      </SwButton> -->
+      </SwButton>
       <div class="navbar__sort desktop-only">
         <span class="navbar__label">Sort by:</span>
         <SfSelect
@@ -71,7 +71,7 @@
           <div v-for="filter in filters" :key="filter.name">
             <SfHeading class="filters__title" :level="4" :title="filter.name" />
             <div
-              v-if="filter && filter.options && filter.options.length"
+              v-if="filter && filter.type === 'entity' && filter.options && filter.options.length"
               :class="{
                 'filters__filter--color':
                   filter.name && filter.name === 'color',
@@ -91,8 +91,7 @@
                 "
                 class="filters__item"
                 :class="{ 'filters__item--color': option.color }"
-                @change="
-                  toggleFilter({
+                @change="$emit('toggle-filter-value', {
                     type: 'equals',
                     value: option.value,
                     field: filter.name,
@@ -104,7 +103,7 @@
         </div>
         <template #content-bottom>
           <div class="filters__buttons">
-            <SwButton class="sf-button--full-width" @click="submitFilters()"
+            <SwButton class="sf-button--full-width" @click="submitFilters"
               >Done</SwButton
             >
             <SwButton
@@ -131,8 +130,10 @@ import {
   useCategoryFilters,
   useProductListing,
   useUIState,
+  useProductSearch
 } from "@shopware-pwa/composables"
 
+import { getSearchResults } from "@shopware-pwa/shopware-6-client"
 import { ref, computed } from "@vue/composition-api"
 import { getSortingLabel } from "@shopware-pwa/default-theme/helpers"
 import { getCategoryAvailableSorting } from "@shopware-pwa/helpers"
@@ -153,6 +154,14 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    filters: {
+      type: Array,
+      default: [],
+    },
+    selectedFilters: {
+      type: Object,
+      default: () => ({})
+    }
   },
   setup({ listing }, { emit }) {
     const availableSorting = ref(listing.sortings)
@@ -182,19 +191,9 @@ export default {
     return {
       isFilterSidebarOpen: false,
       sortBy: this.activeSorting,
-      selectedFilters: {},
     }
   },
   computed: {
-    filters() {
-      // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/834
-      const aggregations = this.listing && this.listing.aggregations
-      if (!aggregations) {
-        return []
-      }
-
-      // return this.getListingAvailableFilters(aggregations);
-    },
     totalFound() {
       return this.listing && this.listing.total
     },
@@ -205,12 +204,11 @@ export default {
 
   methods: {
     async clearAllFilters() {
-      this.resetFilters()
-      await this.search()
+      this.$emit('reset-filters');
       this.isFilterSidebarOpen = false
     },
     async submitFilters() {
-      await this.search()
+      await this.$emit('submit-filters')
       this.isFilterSidebarOpen = false
     },
   },

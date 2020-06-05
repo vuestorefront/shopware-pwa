@@ -1,7 +1,13 @@
 import {
   getFilterSearchCriteria,
   getSortingSearchCriteria,
+  toggleFilter,
 } from "@shopware-pwa/helpers";
+import {
+  SearchFilterType,
+  EqualsFilter,
+  EqualsAnyFilter,
+} from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 
 describe("Shopware helpers - getFilterSearchCriteria", () => {
   it("should return an empty array if no filters provided", () => {
@@ -113,6 +119,94 @@ describe("Shopware helpers - getSortingSearchCriteria", () => {
     expect(result).toEqual({
       field: "price",
       desc: true,
+    });
+  });
+
+  describe("toggleFilter", () => {
+    it("filters should not contain any filter on init", async () => {
+      const selectedCriteria = { filters: {} } as any;
+      toggleFilter(undefined as any, selectedCriteria);
+      expect(selectedCriteria.filters).toStrictEqual({});
+    });
+
+    it("filters should be filled with passed one", async () => {
+      const selectedCriteria = { filters: {} } as any;
+      toggleFilter(
+        {
+          type: SearchFilterType.EQUALS,
+          value: "white",
+          field: "color",
+        } as EqualsFilter,
+        selectedCriteria
+      );
+
+      expect(selectedCriteria.filters).toHaveProperty("color");
+    });
+
+    it("filters should append the existing one", async () => {
+      const selectedCriteria = { filters: {} } as any;
+
+      toggleFilter(
+        {
+          type: SearchFilterType.EQUALS_ANY,
+          value: ["white", "black"],
+          field: "color",
+        } as EqualsAnyFilter,
+        selectedCriteria
+      );
+
+      expect(selectedCriteria.filters).toHaveProperty("color");
+    });
+
+    it("filters should remove the existing one if toggled", async () => {
+      const selectedCriteria = { filters: {} } as any;
+
+      toggleFilter(
+        {
+          type: SearchFilterType.EQUALS,
+          value: "white",
+          field: "color",
+        } as EqualsFilter,
+        selectedCriteria
+      );
+
+      toggleFilter(
+        {
+          type: SearchFilterType.EQUALS,
+          value: "white",
+          field: "color",
+        } as EqualsFilter,
+        selectedCriteria
+      );
+
+      expect(selectedCriteria.filters).toHaveProperty("color");
+      expect(selectedCriteria.filters.color).toStrictEqual([]);
+    });
+
+    it("filters should append the filters array on force", async () => {
+      const selectedCriteria = { filters: {} } as any;
+
+      toggleFilter(
+        {
+          type: SearchFilterType.EQUALS,
+          value: "white",
+          field: "color",
+        } as EqualsFilter,
+        selectedCriteria
+      );
+
+      toggleFilter(
+        {
+          type: SearchFilterType.EQUALS,
+          value: "black",
+          field: "color",
+        } as EqualsFilter,
+        selectedCriteria,
+        true
+      );
+
+      expect(selectedCriteria.filters).toHaveProperty("color");
+      expect(selectedCriteria.filters.color).toStrictEqual(["white", "black"]);
     });
   });
 });

@@ -27,7 +27,7 @@ export async function getSuggestedResults(
  * @beta
  */
 
-export async function getResults(
+export async function getSearchResults(
   term: string,
   searchCriteria?: SearchCriteria
 ): Promise<ProductListingResult> {

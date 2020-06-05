@@ -16,7 +16,7 @@ export declare function getCustomerAddresses(): Promise<CustomerAddress[]>;
 ```
 <b>Returns:</b>
 
-Promise&lt;CustomerAddress\[\]&gt;
+`Promise<CustomerAddress[]>`
 
 ## Exceptions
 

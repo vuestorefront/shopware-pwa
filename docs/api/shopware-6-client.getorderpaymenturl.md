@@ -24,11 +24,13 @@ export declare function getOrderPaymentUrl({ orderId, finishUrl, }: {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { orderId, finishUrl, } | { orderId: string; finishUrl?: string; } |  |
+|  { orderId, finishUrl, } | <code>{</code><br/><code>    orderId: string;</code><br/><code>    finishUrl?: string;</code><br/><code>}</code> |  |
 
 <b>Returns:</b>
 
-Promise&lt;{ paymentUrl: string; }&gt;
+`Promise<{
+    paymentUrl: string;
+}>`
 
 ## Exceptions
 

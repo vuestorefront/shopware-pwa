@@ -23,12 +23,12 @@ SessionContext contain all related data like user, currency, country, shippingMe
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [currency](./composables.iusesessioncontext.currency.md) | Readonly&lt;Ref&lt;Currency \| null&gt;&gt; | <b><i>(BETA)</i></b> |
-|  [paymentMethod](./composables.iusesessioncontext.paymentmethod.md) | Readonly&lt;Ref&lt;PaymentMethod \| null&gt;&gt; | <b><i>(BETA)</i></b> |
-|  [refreshSessionContext](./composables.iusesessioncontext.refreshsessioncontext.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
-|  [sessionContext](./composables.iusesessioncontext.sessioncontext.md) | Readonly&lt;Ref&lt;SessionContext \| null&gt;&gt; | <b><i>(BETA)</i></b> |
-|  [setCurrency](./composables.iusesessioncontext.setcurrency.md) | (currency: Partial&lt;Currency&gt;) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
-|  [setPaymentMethod](./composables.iusesessioncontext.setpaymentmethod.md) | (paymentMethod: Partial&lt;PaymentMethod&gt;) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
-|  [setShippingMethod](./composables.iusesessioncontext.setshippingmethod.md) | (shippingMethod: Partial&lt;ShippingMethod&gt;) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
-|  [shippingMethod](./composables.iusesessioncontext.shippingmethod.md) | Readonly&lt;Ref&lt;ShippingMethod \| null&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [currency](./composables.iusesessioncontext.currency.md) | <code>Readonly&lt;Ref&lt;Currency &#124; null&gt;&gt;</code> | <b><i>(BETA)</i></b> |
+|  [paymentMethod](./composables.iusesessioncontext.paymentmethod.md) | <code>Readonly&lt;Ref&lt;PaymentMethod &#124; null&gt;&gt;</code> | <b><i>(BETA)</i></b> |
+|  [refreshSessionContext](./composables.iusesessioncontext.refreshsessioncontext.md) | <code>() =&gt; Promise&lt;void&gt;</code> | <b><i>(BETA)</i></b> |
+|  [sessionContext](./composables.iusesessioncontext.sessioncontext.md) | <code>Readonly&lt;Ref&lt;SessionContext &#124; null&gt;&gt;</code> | <b><i>(BETA)</i></b> |
+|  [setCurrency](./composables.iusesessioncontext.setcurrency.md) | <code>(currency: Partial&lt;Currency&gt;) =&gt; Promise&lt;void&gt;</code> | <b><i>(BETA)</i></b> |
+|  [setPaymentMethod](./composables.iusesessioncontext.setpaymentmethod.md) | <code>(paymentMethod: Partial&lt;PaymentMethod&gt;) =&gt; Promise&lt;void&gt;</code> | <b><i>(BETA)</i></b> |
+|  [setShippingMethod](./composables.iusesessioncontext.setshippingmethod.md) | <code>(shippingMethod: Partial&lt;ShippingMethod&gt;) =&gt; Promise&lt;void&gt;</code> | <b><i>(BETA)</i></b> |
+|  [shippingMethod](./composables.iusesessioncontext.shippingmethod.md) | <code>Readonly&lt;Ref&lt;ShippingMethod &#124; null&gt;&gt;</code> | <b><i>(BETA)</i></b> |
 

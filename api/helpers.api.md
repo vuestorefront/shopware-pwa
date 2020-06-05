@@ -4,10 +4,14 @@
 
 ```ts
 
+import { Aggregations } from '@shopware-pwa/commons/interfaces/search/Aggregations';
 import { Category } from '@shopware-pwa/commons/interfaces/models/content/category/Category';
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { CmsSection } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { ContainsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
+import { EqualsAnyFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
+import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
@@ -82,6 +86,11 @@ export function getCmsSections(content: CmsPage): CmsSection[];
 
 // @alpha (undocumented)
 export const getFilterSearchCriteria: (selectedFilters: any) => any[];
+
+// Warning: (ae-incompatible-release-tags) The symbol "getListingAvailableFilters" is marked as @beta, but its signature references "UiCategoryFilter" which is marked as @alpha
+//
+// @beta (undocumented)
+export function getListingAvailableFilters(aggregations: Aggregations | undefined | null): UiCategoryFilter[];
 
 // @alpha
 export function getMessagesFromErrorsArray(errors: ShopwareError[]): string[];
@@ -229,6 +238,9 @@ export interface TierPrice {
     // (undocumented)
     unitPrice: number;
 }
+
+// @beta
+export const toggleFilter: (filter: EqualsFilter | EqualsAnyFilter | ContainsFilter, selectedCriteria: any, forceSave?: boolean) => void;
 
 // @alpha (undocumented)
 export interface UiCategoryFilter {

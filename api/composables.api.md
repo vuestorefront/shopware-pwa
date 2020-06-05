@@ -7,6 +7,7 @@
 import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { BillingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
+import { ContainsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
@@ -17,6 +18,8 @@ import { CustomerResetPasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
+import { EqualsAnyFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
+import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
 import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
@@ -322,6 +325,8 @@ export const useProductListing: (initialListing?: ProductListingResult | undefin
 // @alpha (undocumented)
 export interface UseProductSearch {
     // (undocumented)
+    availableFilters: Readonly<Ref<any>>;
+    // (undocumented)
     changePage: (page: number) => Promise<void>;
     // (undocumented)
     changeSorting: (sorting: Sort) => void;
@@ -334,13 +339,19 @@ export interface UseProductSearch {
     // (undocumented)
     loadingSuggestions: Readonly<Ref<boolean>>;
     // (undocumented)
+    resetFilters: () => void;
+    // (undocumented)
     search: (term: string, searchCriteria?: SearchCriteria) => Promise<void>;
     // (undocumented)
     searchResult: Readonly<Ref<ProductListingResult | null>>;
     // (undocumented)
+    selectedFilters: Readonly<Ref<any>>;
+    // (undocumented)
     suggestionsResult: Readonly<Ref<ProductListingResult | null>>;
     // (undocumented)
     suggestSearch: (term: string) => Promise<void>;
+    // (undocumented)
+    toggleFilter: (filter: EqualsFilter | EqualsAnyFilter | ContainsFilter, forceSave: boolean) => void;
 }
 
 // @alpha (undocumented)

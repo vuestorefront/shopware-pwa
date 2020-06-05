@@ -10,7 +10,12 @@
         </h3>
         <SwProductListingFilters
           :listing="searchResult"
+          :selected-filters="selectedFilters"
+          :filters="availableFilters"
+          @reset-filters="resetFilters"
+          @submit-filters="submitFilters"
           @change-sorting="changeSorting"
+          @toggle-filter-value="toggleFilter"
         />
         <SwProductListing
           :listing="searchResult"
@@ -55,12 +60,17 @@ export default {
       loadingSearch,
       changePage,
       changeSorting,
+      toggleFilter,
+      selectedFilters,
+      availableFilters,
+      resetFilters
     } = useProductSearch()
 
     const searchQuery = ref(currentSearchTerm.value)
     const startedSearching = ref(false)
     const { isOpen: isListView } = useUIState("PRODUCT_LISTING_STATE")
-
+    const submitFilters = () => search(searchQuery.value);
+  
     watchEffect(async () => {
       searchQuery.value = vm.$route.query.query
       startedSearching.value = true
@@ -86,8 +96,15 @@ export default {
       changePage,
       isListView,
       changeSorting,
+      toggleFilter,
+      selectedFilters,
+      search,
+      submitFilters,
+      availableFilters,
+      resetFilters
     }
   },
+
 }
 </script>
 <style lang="scss">
