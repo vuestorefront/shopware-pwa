@@ -5,9 +5,9 @@
       class="section"
       title-heading="You may also like"
     >
-      <SfCarousel class="product-carousel">
+      <SfCarousel class="product-carousel" :settings="options">
         <SfCarouselItem v-for="product in products" :key="product.id">
-          <SwProductCard :product="product" />
+          <SwProductCard :product="product" class="product-carousel__product" />
         </SfCarouselItem>
       </SfCarousel>
     </SfSection>
@@ -31,6 +31,20 @@ export default {
   data() {
     return {
       products: {},
+      options: {
+        breakpoints: {
+          480: {
+            perView: 2,
+            peek: {
+              before: 0,
+              after: 50,
+            },
+          },
+          1023: {
+            perView: 4,
+          },
+        },
+      }
     }
   },
   async mounted() {
@@ -69,6 +83,11 @@ export default {
     margin: var(--spacer-base) 0;
     --carousel-padding: var(--spacer-base);
     --carousel-max-width: calc(100% - 13.5rem);
+  }
+  &__product {
+    @include for-mobile {
+      max-width: unset;
+    }
   }
 }
 </style>
