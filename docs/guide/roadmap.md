@@ -26,8 +26,6 @@ Very soon, we will put our roadmap in GitHub Milestones so you may use that to t
 ### 2020 May
 
 * :blue_heart: Adjustments to the newest Shopware 6 API
-* :blue_heart: PayPal Express Checkout Plugin
-* :blue_heart: PayPal Smart Buttons Payment Plugin - implementation in default theme
 * :blue_heart: i18n - switch language and support in default-theme
 * :blue_heart: Order details in the Thank You Page (shopware 6.2)
 * :blue_heart: Order details in My Account (shopware 6.2)
@@ -36,9 +34,18 @@ Very soon, we will put our roadmap in GitHub Milestones so you may use that to t
 
 ### 2020 June
 
-* :blue_heart: Shopping Experiences Page Preview with Storefront UI components
 * :blue_heart: Start analysis of Shopware 6 Advanced Search integration
+* :blue_heart: Community support with plugins & questions
+* :blue_heart: Advanced search
+* :blue_heart: CMS forms elements
+* :green_heart: CMS embedded video (YouTube, Vimeo)
+* :blue_heart: Mobile navigation enhancements
+* :blue_heart: Custom theming with sample theme
+* :blue_heart: iOS improvements
+* :blue_heart: PayPal Express Checkout Plugin
+* :blue_heart: PayPal Smart Buttons Payment Plugin - implementation in default theme
 * :blue_heart: PayPal Invoice Plugin
+* :blue_heart: Shopping Experiences Page Preview with Storefront UI components
 
 ## 2020 Q3
 
