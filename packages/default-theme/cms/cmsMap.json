@@ -17,6 +17,7 @@
     "image-highlight-row": "CmsBlockImageHighlightRow",
     "image-simple-grid": "CmsBlockImageSimpleGrid",
     "image-text-cover": "CmsBlockImageTextCover",
+    "image-text-gallery": "ImageTextGallery",
     "image-three-column": "CmsBlockImageThreeColumn",
     "image-three-cover": "CmsBlockImageThreeCover",
     "image-two-column": "CmsBlockImageTwoColumn",
