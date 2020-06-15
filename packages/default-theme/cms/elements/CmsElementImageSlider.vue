@@ -21,6 +21,7 @@ export default {
   components: {
     SfHero, SwButton
   },
+  name: "CmsElementImageSlider",
   props: {
     content: {
       type: Object,
