@@ -59,7 +59,7 @@ const extractGalleryData = (slots, position) => {
 }
 
 export default {
-  name: "CmsBlockImageThreeCover",
+  name: "CmsBlockImageTextGallery",
   components: {
     CmsGenericElement,
     CmsElementImage,
