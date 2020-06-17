@@ -10,7 +10,7 @@ export interface ClientSettings {
   languageId?: string;
 }
 
-const defaultConfig: ClientSettings = {
+export const defaultConfig: ClientSettings = {
   endpoint: "https://shopware6-demo.vuestorefront.io",
   accessToken: "SWSCVJJET0RQAXFNBMTDZTV1OQ",
   contextToken: "",
@@ -18,21 +18,3 @@ const defaultConfig: ClientSettings = {
   defaultPaginationLimit: 10,
   timeout: 10000, // ms
 };
-
-let clientConfig: ClientSettings = {};
-
-const setupConfig = function (config: ClientSettings = {}): void {
-  clientConfig = Object.assign(clientConfig, defaultConfig, config);
-};
-setupConfig();
-
-const updateConfig = function (config: ClientSettings): void {
-  clientConfig = Object.assign(clientConfig, config);
-};
-
-/**
- * @beta
- */
-const config: ClientSettings = clientConfig;
-
-export { config, setupConfig, updateConfig };

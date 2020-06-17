@@ -8,7 +8,7 @@ describe("PluginService - invokePost", () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
-  it("should call apiService.post method with provided payload", async () => {
+  it("should call contextInstance.invoke.post method with provided payload", async () => {
     mockedAxios.post.mockResolvedValueOnce({ data: { success: true } });
 
     const result = await invokePost({
@@ -28,7 +28,7 @@ describe("PluginService - invokeGet", () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
-  it("should call apiService.get method with provided resource", async () => {
+  it("should call contextInstance.invoke.get method with provided resource", async () => {
     mockedAxios.get.mockResolvedValueOnce({ data: { success: true } });
 
     const result = await invokeGet({

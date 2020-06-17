@@ -13,8 +13,7 @@ import {
   getCustomerOrderEndpoint,
 } from "../endpoints";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
-import { apiService } from "../apiService";
-import { config } from "../settings";
+import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import { CustomerAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress";
 import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams";
 import { ContextTokenResponse } from "@shopware-pwa/commons/interfaces/response/SessionContext";
@@ -34,9 +33,13 @@ export interface CustomerRegisterResponse {
  * @alpha
  */
 export async function register(
-  params: CustomerRegistrationParams
+  params: CustomerRegistrationParams,
+  contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<CustomerRegisterResponse> {
-  const resp = await apiService.post(getCustomerRegisterEndpoint(), params);
+  const resp = await contextInstance.invoke.post(
+    getCustomerRegisterEndpoint(),
+    params
+  );
   return resp.data;
 }
 
@@ -46,16 +49,14 @@ export async function register(
  * @throws ClientApiError
  * @beta
  */
-export async function login({
-  username,
-  password,
-}: { username?: string; password?: string } = {}): Promise<
-  ContextTokenResponse
-> {
+export async function login(
+  { username, password }: { username?: string; password?: string } = {},
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<ContextTokenResponse> {
   if (!username || !password) {
     throw new Error("Provide username and password for login");
   }
-  const resp = await apiService.post(getCustomerLoginEndpoint(), {
+  const resp = await contextInstance.invoke.post(getCustomerLoginEndpoint(), {
     username,
     password,
   });
@@ -70,8 +71,10 @@ export async function login({
  * @throws ClientApiError
  * @beta
  */
-export async function logout(): Promise<void> {
-  await apiService.post(getCustomerLogoutEndpoint());
+export async function logout(
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<void> {
+  await contextInstance.invoke.post(getCustomerLogoutEndpoint());
 }
 
 /**
@@ -80,11 +83,13 @@ export async function logout(): Promise<void> {
  * @throws ClientApiError
  * @beta
  */
-export async function getCustomer(): Promise<Customer | null> {
+export async function getCustomer(
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<Customer | null> {
   try {
     // TODO: implement generic parameter converter for GET query string; related issue #568
     const associationsQuery = "?associations[salutation][]";
-    const resp = await apiService.get(
+    const resp = await contextInstance.invoke.get(
       `${getCustomerEndpoint()}${associationsQuery}`
     );
     return resp.data;
@@ -100,8 +105,10 @@ export async function getCustomer(): Promise<Customer | null> {
  * @throws ClientApiError
  * @beta
  */
-export async function getCustomerAddresses(): Promise<CustomerAddress[]> {
-  const resp = await apiService.get(getCustomerAddressEndpoint());
+export async function getCustomerAddresses(
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<CustomerAddress[]> {
+  const resp = await contextInstance.invoke.get(getCustomerAddressEndpoint());
   return resp.data.data;
 }
 
@@ -111,8 +118,10 @@ export async function getCustomerAddresses(): Promise<CustomerAddress[]> {
  * @throws ClientApiError
  * @beta
  */
-export async function getCustomerOrders(): Promise<Order[]> {
-  const resp = await apiService.get(getCustomerOrderEndpoint());
+export async function getCustomerOrders(
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<Order[]> {
+  const resp = await contextInstance.invoke.get(getCustomerOrderEndpoint());
   return resp.data.orders?.elements || [];
 }
 
@@ -123,13 +132,14 @@ export async function getCustomerOrders(): Promise<Order[]> {
  * @alpha
  */
 export async function getCustomerOrderDetails(
-  orderId: string
+  orderId: string,
+  contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Order | undefined> {
   if (!orderId) {
     return;
   }
 
-  const resp = await apiService.get(
+  const resp = await contextInstance.invoke.get(
     `${getCustomerOrderEndpoint()}?filter[id]=${orderId}&associations[lineItems][]&associations[addresses][]&associations[transactions][]&associations[deliveries][]`
   );
   return resp.data.orders?.elements?.[0];
@@ -142,16 +152,14 @@ export async function getCustomerOrderDetails(
  * @alpha
  */
 export async function getCustomerAddress(
-  addressId: string
+  addressId: string,
+  contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<CustomerAddress> {
-  const resp = await apiService.get(getCustomerAddressEndpoint(addressId));
+  const resp = await contextInstance.invoke.get(
+    getCustomerAddressEndpoint(addressId)
+  );
   return resp.data.data;
 }
-
-/**
- * @alpha
- */
-export interface CustomerAddressParam extends Partial<CustomerAddress> {}
 
 /**
  * Create an address and respond the new address's id
@@ -160,9 +168,13 @@ export interface CustomerAddressParam extends Partial<CustomerAddress> {}
  * @alpha
  */
 export async function createCustomerAddress(
-  params: CustomerAddressParam
+  params: Partial<CustomerAddress>,
+  contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<string> {
-  const resp = await apiService.post(getCustomerAddressEndpoint(), params);
+  const resp = await contextInstance.invoke.post(
+    getCustomerAddressEndpoint(),
+    params
+  );
   return resp.data;
 }
 
@@ -172,8 +184,11 @@ export async function createCustomerAddress(
  * @throws ClientApiError
  * @alpha
  */
-export async function deleteCustomerAddress(addressId: string): Promise<void> {
-  await apiService.delete(getCustomerAddressEndpoint(addressId));
+export async function deleteCustomerAddress(
+  addressId: string,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<void> {
+  await contextInstance.invoke.delete(getCustomerAddressEndpoint(addressId));
 }
 
 /**
@@ -183,9 +198,10 @@ export async function deleteCustomerAddress(addressId: string): Promise<void> {
  * @alpha
  */
 export async function setDefaultCustomerBillingAddress(
-  addressId: string
+  addressId: string,
+  contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<string> {
-  const response = await apiService.patch(
+  const response = await contextInstance.invoke.patch(
     getCustomerDefaultBillingAddressEndpoint(addressId)
   );
   return response.data;
@@ -198,9 +214,10 @@ export async function setDefaultCustomerBillingAddress(
  * @alpha
  */
 export async function setDefaultCustomerShippingAddress(
-  addressId: string
+  addressId: string,
+  contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<string> {
-  const response = await apiService.patch(
+  const response = await contextInstance.invoke.patch(
     getCustomerDefaultShippingAddressEndpoint(addressId)
   );
   return response.data;
@@ -222,9 +239,10 @@ export interface CustomerUpdateEmailParam {
  * @alpha
  */
 export async function updateEmail(
-  params: CustomerUpdateEmailParam
+  params: CustomerUpdateEmailParam,
+  contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<void> {
-  await apiService.post(getCustomerUpdateEmailEndpoint(), params);
+  await contextInstance.invoke.post(getCustomerUpdateEmailEndpoint(), params);
 }
 
 /**
@@ -243,9 +261,13 @@ export interface CustomerUpdatePasswordParam {
  * @alpha
  */
 export async function updatePassword(
-  params: CustomerUpdatePasswordParam
+  params: CustomerUpdatePasswordParam,
+  contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<void> {
-  await apiService.post(getCustomerUpdatePasswordEndpoint(), params);
+  await contextInstance.invoke.post(
+    getCustomerUpdatePasswordEndpoint(),
+    params
+  );
 }
 
 /**
@@ -263,13 +285,14 @@ export interface CustomerResetPasswordParam {
  * @alpha
  */
 export async function resetPassword(
-  params: CustomerResetPasswordParam
+  params: CustomerResetPasswordParam,
+  contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<void> {
   if (params && !params.storefrontUrl) {
-    params.storefrontUrl = config.endpoint;
+    params.storefrontUrl = contextInstance.config.endpoint;
   }
 
-  await apiService.post(getCustomerResetPasswordEndpoint(), params);
+  await contextInstance.invoke.post(getCustomerResetPasswordEndpoint(), params);
 }
 
 /**
@@ -289,7 +312,8 @@ export interface CustomerUpdateProfileParam {
  * @alpha
  */
 export async function updateProfile(
-  params: CustomerUpdateProfileParam
+  params: CustomerUpdateProfileParam,
+  contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<void> {
-  await apiService.post(getCustomerDetailsUpdateEndpoint(), params);
+  await contextInstance.invoke.post(getCustomerDetailsUpdateEndpoint(), params);
 }
