@@ -1,11 +1,7 @@
 import { getCustomerUpdatePasswordEndpoint } from "../../../src/endpoints";
-import { apiService } from "../../../src/apiService";
-import { internet, random } from "faker";
-import {
-  updatePassword,
-  update,
-  config,
-} from "@shopware-pwa/shopware-6-client";
+import { defaultInstance } from "../../../src/apiService";
+import { internet } from "faker";
+import { updatePassword } from "@shopware-pwa/shopware-6-client";
 
 const newPassword = internet.password(8);
 const credentials = {
@@ -15,23 +11,21 @@ const credentials = {
 };
 
 jest.mock("../../../src/apiService");
-const mockedAxios = apiService as jest.Mocked<typeof apiService>;
+const mockedApiInstance = defaultInstance as jest.Mocked<
+  typeof defaultInstance
+>;
 
 describe("CustomerService - updatePassword", () => {
-  let contextToken: string;
+  const mockedPost = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
-    contextToken = random.uuid();
-    update({ contextToken });
-  });
-  afterEach(() => {
-    expect(config.contextToken).toEqual(contextToken);
+    mockedApiInstance.invoke = {
+      post: mockedPost,
+    } as any;
   });
 
   it("rejects the promise if the password is to short", async () => {
-    mockedAxios.post.mockRejectedValueOnce(
-      new Error("400 - password too short")
-    );
+    mockedPost.mockRejectedValueOnce(new Error("400 - password too short"));
     expect(
       updatePassword({
         password: credentials.password,
@@ -39,19 +33,16 @@ describe("CustomerService - updatePassword", () => {
         newPasswordConfirm: "!23",
       })
     ).rejects.toThrow("400 - password too short");
-    expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith(
-      getCustomerUpdatePasswordEndpoint(),
-      {
-        password: credentials.password,
-        newPassword: "!23",
-        newPasswordConfirm: "!23",
-      }
-    );
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith(getCustomerUpdatePasswordEndpoint(), {
+      password: credentials.password,
+      newPassword: "!23",
+      newPasswordConfirm: "!23",
+    });
   });
 
   it("rejects the promise if the passwordConfirmation does not match", async () => {
-    mockedAxios.post.mockRejectedValueOnce(
+    mockedPost.mockRejectedValueOnce(
       new Error("400 - new password confirmation does not match")
     );
     expect(
@@ -61,33 +52,27 @@ describe("CustomerService - updatePassword", () => {
         newPasswordConfirm: `${credentials.newPassword}_123`,
       })
     ).rejects.toThrow("400 - new password confirmation does not match");
-    expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith(
-      getCustomerUpdatePasswordEndpoint(),
-      {
-        password: credentials.password,
-        newPassword: credentials.newPassword,
-        newPasswordConfirm: `${credentials.newPassword}_123`,
-      }
-    );
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith(getCustomerUpdatePasswordEndpoint(), {
+      password: credentials.password,
+      newPassword: credentials.newPassword,
+      newPasswordConfirm: `${credentials.newPassword}_123`,
+    });
   });
 
   it("returns no data if successfully updated", async () => {
-    mockedAxios.post.mockResolvedValueOnce(null);
+    mockedPost.mockResolvedValueOnce(null);
     const result = await updatePassword({
       password: credentials.password,
       newPassword: credentials.newPassword,
       newPasswordConfirm: credentials.newPassword,
     });
     expect(result).toBeFalsy();
-    expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith(
-      getCustomerUpdatePasswordEndpoint(),
-      {
-        password: credentials.password,
-        newPassword: credentials.newPassword,
-        newPasswordConfirm: credentials.newPassword,
-      }
-    );
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith(getCustomerUpdatePasswordEndpoint(), {
+      password: credentials.password,
+      newPassword: credentials.newPassword,
+      newPasswordConfirm: credentials.newPassword,
+    });
   });
 });

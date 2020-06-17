@@ -15,8 +15,8 @@ export interface ConfigChangedArgs {
 export interface ShopwareApiInstance {
   onConfigChange: (fn: (context: ConfigChangedArgs) => void) => void;
   config: ClientSettings;
-  setup: (settings: ClientSettings) => void;
-  update: (settings: ClientSettings) => void;
+  setup: (config?: ClientSettings) => void;
+  update: (config?: ClientSettings) => void;
 
   invoke: {
     post: AxiosInstance["post"];
@@ -25,6 +25,7 @@ export interface ShopwareApiInstance {
     patch: AxiosInstance["patch"];
     delete: AxiosInstance["delete"];
   };
+  defaults: AxiosInstance["defaults"];
 }
 
 /**
@@ -78,7 +79,7 @@ export function createInstance(
   };
   setup(initialConfig);
 
-  const update = function (config: ClientSettings): void {
+  const update = function (config: ClientSettings = {}): void {
     clientConfig = Object.assign(clientConfig, config);
     configChanged();
     reloadConfiguration();
@@ -103,7 +104,8 @@ export function createInstance(
     setup,
     update,
     invoke,
+    defaults: apiService.defaults,
   };
 }
 
-export let defaultInstance = createInstance();
+export const defaultInstance = createInstance();

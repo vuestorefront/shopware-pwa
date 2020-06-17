@@ -22,13 +22,13 @@ export const config = defaultInstance.config;
  * This method will override existing config. For config update invoke **update** method.
  * @beta
  */
-export const setup = defaultInstance.setup(config);
+export const setup = defaultInstance.setup;
 
 /**
  * Update current configuration. This will change only provided values.
  * @beta
  */
-export const update = defaultInstance.update(config);
+export const update = defaultInstance.update;
 
 /**
  * @beta

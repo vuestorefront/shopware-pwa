@@ -1,6 +1,6 @@
 import { login } from "@shopware-pwa/shopware-6-client";
 import { getCustomerLoginEndpoint } from "../../../src/endpoints";
-import { apiService } from "../../../src/apiService";
+import { defaultInstance } from "../../../src/apiService";
 import { internet } from "faker";
 
 const credentials = {
@@ -9,14 +9,20 @@ const credentials = {
 };
 
 jest.mock("../../../src/apiService");
-const mockedAxios = apiService as jest.Mocked<typeof apiService>;
+const mockedApiInstance = defaultInstance as jest.Mocked<
+  typeof defaultInstance
+>;
 
 describe("CustomerService - login", () => {
+  const mockedPost = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
+    mockedApiInstance.invoke = {
+      post: mockedPost,
+    } as any;
   });
   it("should return context token in new format if old does not exist", async () => {
-    mockedAxios.post.mockResolvedValueOnce({
+    mockedPost.mockResolvedValueOnce({
       data: { contextToken: "RmzTExFStSBW5GhPmQNicSK6bhUQhqXi" },
     });
 
@@ -24,8 +30,8 @@ describe("CustomerService - login", () => {
       username: credentials.username,
       password: credentials.password,
     });
-    expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith(getCustomerLoginEndpoint(), {
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith(getCustomerLoginEndpoint(), {
       username: credentials.username,
       password: credentials.password,
     });
@@ -33,7 +39,7 @@ describe("CustomerService - login", () => {
     expect(result.contextToken).toEqual("RmzTExFStSBW5GhPmQNicSK6bhUQhqXi");
   });
   it("should return context token", async () => {
-    mockedAxios.post.mockResolvedValueOnce({
+    mockedPost.mockResolvedValueOnce({
       data: { "sw-context-token": "RmzTExFStSBW5GhPmQNicSK6bhUQhqXi" },
     });
 
@@ -41,8 +47,8 @@ describe("CustomerService - login", () => {
       username: credentials.username,
       password: credentials.password,
     });
-    expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith(getCustomerLoginEndpoint(), {
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith(getCustomerLoginEndpoint(), {
       username: credentials.username,
       password: credentials.password,
     });
@@ -50,7 +56,7 @@ describe("CustomerService - login", () => {
     expect(result.contextToken).toEqual("RmzTExFStSBW5GhPmQNicSK6bhUQhqXi");
   });
   it("should throws unhandled rejection - 401", async () => {
-    mockedAxios.post.mockRejectedValue(new Error());
+    mockedPost.mockRejectedValue(new Error());
 
     expect(
       login({
@@ -59,20 +65,20 @@ describe("CustomerService - login", () => {
       })
     ).rejects.toThrow();
 
-    expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith(getCustomerLoginEndpoint(), {
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith(getCustomerLoginEndpoint(), {
       username: credentials.username,
       password: "wrong-password-123456",
     });
   });
 
   it("should throw error on no arguments", async () => {
-    mockedAxios.post.mockRejectedValue(new Error());
+    mockedPost.mockRejectedValue(new Error());
 
     await expect(login()).rejects.toThrowError(
       "Provide username and password for login"
     );
 
-    expect(mockedAxios.post).not.toBeCalled();
+    expect(mockedPost).not.toBeCalled();
   });
 });
