@@ -1,7 +1,12 @@
-import { defaultInstance } from "./apiService";
+import { defaultInstance, ConfigChangedArgs } from "./apiService";
+import { ClientSettings } from "./settings";
 
 export { ClientSettings } from "./settings";
-export { createInstance, ConfigChangedArgs } from "./apiService";
+export {
+  createInstance,
+  ConfigChangedArgs,
+  ShopwareApiInstance,
+} from "./apiService";
 
 export * from "./services/categoryService";
 export * from "./services/productService";
@@ -16,21 +21,26 @@ export * from "./services/searchService";
 
 export { ShopwareParams } from "./helpers/searchConverter";
 
-export const config = defaultInstance.config;
+/**
+ * @beta
+ */
+export const config: ClientSettings = defaultInstance.config;
 /**
  * Setup configuration. Merge default values with provided in param.
  * This method will override existing config. For config update invoke **update** method.
  * @beta
  */
-export const setup = defaultInstance.setup;
+export const setup: (config?: ClientSettings) => void = defaultInstance.setup;
 
 /**
  * Update current configuration. This will change only provided values.
  * @beta
  */
-export const update = defaultInstance.update;
+export const update: (config?: ClientSettings) => void = defaultInstance.update;
 
 /**
  * @beta
  */
-export const onConfigChange = defaultInstance.onConfigChange;
+export const onConfigChange: (
+  fn: (context: ConfigChangedArgs) => void
+) => void = defaultInstance.onConfigChange;

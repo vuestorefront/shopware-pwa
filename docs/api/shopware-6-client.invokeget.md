@@ -14,7 +14,7 @@ Invoke custom GET request to shopware API. Mostly for plugins usage. You can ski
 ```typescript
 export declare function invokeGet({ address }: {
     address: string;
-}): Promise<any>;
+}, contextInstance?: ShopwareApiInstance): Promise<any>;
 ```
 
 ## Parameters
@@ -22,6 +22,7 @@ export declare function invokeGet({ address }: {
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  { address } | <code>{</code><br/><code>    address: string;</code><br/><code>}</code> |  |
+|  contextInstance | <code>ShopwareApiInstance</code> |  |
 
 <b>Returns:</b>
 

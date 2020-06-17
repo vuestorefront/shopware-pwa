@@ -8,19 +8,17 @@
 
 |  Function | Description |
 |  --- | --- |
-|  [getCustomer()](./shopware-6-client.getcustomer.md) | <b><i>(BETA)</i></b> Get customer's object |
-|  [getCustomerAddresses()](./shopware-6-client.getcustomeraddresses.md) | <b><i>(BETA)</i></b> Get all customer's addresses |
-|  [getCustomerOrders()](./shopware-6-client.getcustomerorders.md) | <b><i>(BETA)</i></b> Get all customer's orders |
-|  [getOrderPaymentUrl({ orderId, finishUrl, })](./shopware-6-client.getorderpaymenturl.md) | <b><i>(BETA)</i></b> Get payment address to redirect user after placing order. |
-|  [getResults(term, searchCriteria)](./shopware-6-client.getresults.md) | <b><i>(BETA)</i></b> |
-|  [getSuggestedResults(term, searchCriteria)](./shopware-6-client.getsuggestedresults.md) | <b><i>(BETA)</i></b> |
-|  [invokeGet({ address })](./shopware-6-client.invokeget.md) | <b><i>(BETA)</i></b> Invoke custom GET request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
-|  [invokePost({ address, payload, })](./shopware-6-client.invokepost.md) | <b><i>(BETA)</i></b> Invoke custom POST request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
-|  [login({ username, password, })](./shopware-6-client.login.md) | <b><i>(BETA)</i></b> Login user to shopware instance. |
-|  [logout()](./shopware-6-client.logout.md) | <b><i>(BETA)</i></b> End up the user session. |
-|  [onConfigChange(fn)](./shopware-6-client.onconfigchange.md) | <b><i>(BETA)</i></b> |
-|  [setup(config)](./shopware-6-client.setup.md) | <b><i>(BETA)</i></b> Setup configuration. Merge default values with provided in param. This method will override existing config. For config update invoke \*\*update\*\* method. |
-|  [update(config)](./shopware-6-client.update.md) | <b><i>(BETA)</i></b> Update current configuration. This will change only provided values. |
+|  [createInstance(initialConfig)](./shopware-6-client.createinstance.md) | <b><i>(BETA)</i></b> |
+|  [getCustomer(contextInstance)](./shopware-6-client.getcustomer.md) | <b><i>(BETA)</i></b> Get customer's object |
+|  [getCustomerAddresses(contextInstance)](./shopware-6-client.getcustomeraddresses.md) | <b><i>(BETA)</i></b> Get all customer's addresses |
+|  [getCustomerOrders(contextInstance)](./shopware-6-client.getcustomerorders.md) | <b><i>(BETA)</i></b> Get all customer's orders |
+|  [getOrderPaymentUrl({ orderId, finishUrl, }, contextInstance)](./shopware-6-client.getorderpaymenturl.md) | <b><i>(BETA)</i></b> Get payment address to redirect user after placing order. |
+|  [getResults(term, searchCriteria, contextInstance)](./shopware-6-client.getresults.md) | <b><i>(BETA)</i></b> |
+|  [getSuggestedResults(term, searchCriteria, contextInstance)](./shopware-6-client.getsuggestedresults.md) | <b><i>(BETA)</i></b> |
+|  [invokeGet({ address }, contextInstance)](./shopware-6-client.invokeget.md) | <b><i>(BETA)</i></b> Invoke custom GET request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
+|  [invokePost({ address, payload, }, contextInstance)](./shopware-6-client.invokepost.md) | <b><i>(BETA)</i></b> Invoke custom POST request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
+|  [login({ username, password }, contextInstance)](./shopware-6-client.login.md) | <b><i>(BETA)</i></b> Login user to shopware instance. |
+|  [logout(contextInstance)](./shopware-6-client.logout.md) | <b><i>(BETA)</i></b> End up the user session. |
 
 ## Interfaces
 
@@ -28,10 +26,14 @@
 |  --- | --- |
 |  [ClientSettings](./shopware-6-client.clientsettings.md) | <b><i>(BETA)</i></b> |
 |  [ConfigChangedArgs](./shopware-6-client.configchangedargs.md) | <b><i>(BETA)</i></b> |
+|  [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) | <b><i>(BETA)</i></b> |
 
 ## Variables
 
 |  Variable | Description |
 |  --- | --- |
 |  [config](./shopware-6-client.config.md) | <b><i>(BETA)</i></b> |
+|  [onConfigChange](./shopware-6-client.onconfigchange.md) | <b><i>(BETA)</i></b> |
+|  [setup](./shopware-6-client.setup.md) | <b><i>(BETA)</i></b> Setup configuration. Merge default values with provided in param. This method will override existing config. For config update invoke \*\*update\*\* method. |
+|  [update](./shopware-6-client.update.md) | <b><i>(BETA)</i></b> Update current configuration. This will change only provided values. |
 

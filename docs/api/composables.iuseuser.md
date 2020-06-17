@@ -19,7 +19,7 @@ export interface IUseUser
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [addAddress](./composables.iuseuser.addaddress.md) | <code>(params: CustomerAddressParam) =&gt; Promise&lt;boolean&gt;</code> | <b><i>(BETA)</i></b> |
+|  [addAddress](./composables.iuseuser.addaddress.md) | <code>(params: Partial&lt;CustomerAddress&gt;) =&gt; Promise&lt;boolean&gt;</code> | <b><i>(BETA)</i></b> |
 |  [addresses](./composables.iuseuser.addresses.md) | <code>Ref&lt;CustomerAddress[] &#124; null&gt;</code> | <b><i>(BETA)</i></b> |
 |  [country](./composables.iuseuser.country.md) | <code>Ref&lt;Country &#124; null&gt;</code> | <b><i>(BETA)</i></b> |
 |  [deleteAddress](./composables.iuseuser.deleteaddress.md) | <code>(addressId: string) =&gt; Promise&lt;boolean&gt;</code> | <b><i>(BETA)</i></b> |
