@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/shopware-6-client](./shopware-6-client.md) &gt; [update](./shopware-6-client.update.md)
 
-## update() function
+## update variable
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -12,16 +12,5 @@ Update current configuration. This will change only provided values.
 <b>Signature:</b>
 
 ```typescript
-export declare function update(config?: ClientSettings): void;
+update: (config?: ClientSettings) => void
 ```
-
-## Parameters
-
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  config | <code>ClientSettings</code> |  |
-
-<b>Returns:</b>
-
-`void`
-

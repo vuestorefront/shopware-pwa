@@ -1,15 +1,21 @@
-import { apiService } from "../../../src/apiService";
+import { defaultInstance } from "../../../src/apiService";
 import { getPaymentMethodDetails } from "@shopware-pwa/shopware-6-client";
 
 jest.mock("../../../src/apiService");
-const mockedAxios = apiService as jest.Mocked<typeof apiService>;
+const mockedApiInstance = defaultInstance as jest.Mocked<
+  typeof defaultInstance
+>;
 
 describe("ContextService - getPaymentMethodDetails", () => {
+  const mockedGet = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
+    mockedApiInstance.invoke = {
+      get: mockedGet,
+    } as any;
   });
   it("should return an object of specific payment method details", async () => {
-    mockedAxios.get.mockResolvedValueOnce({
+    mockedGet.mockResolvedValueOnce({
       data: {
         data: {
           id: "paypal",
@@ -18,8 +24,8 @@ describe("ContextService - getPaymentMethodDetails", () => {
     });
 
     const result = await getPaymentMethodDetails("paypal");
-    expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith(
+    expect(mockedGet).toBeCalledTimes(1);
+    expect(mockedGet).toBeCalledWith(
       "/sales-channel-api/v1/payment-method/paypal"
     );
     expect(result).toHaveProperty("id");

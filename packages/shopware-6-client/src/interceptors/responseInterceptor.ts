@@ -1,11 +1,13 @@
-import { update } from "../";
 import { AxiosResponse } from "axios";
 import { extractContextToken } from "../helpers/context";
+import { ClientSettings } from "../settings";
 
-export function responseInterceptor(response: AxiosResponse) {
-  // Any status code that lie within the range of 2xx cause this function to trigger
-  // Do something with response data
-  const contextToken = extractContextToken(response);
-  contextToken && update({ contextToken });
-  return response;
+export function createResponseInterceptor(
+  update: (settings: Partial<ClientSettings>) => void
+) {
+  return function (response: AxiosResponse) {
+    const contextToken = extractContextToken(response);
+    contextToken && update({ contextToken });
+    return response;
+  };
 }

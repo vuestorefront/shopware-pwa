@@ -4,7 +4,7 @@ import {
   update,
   onConfigChange,
 } from "@shopware-pwa/shopware-6-client";
-import { apiService } from "../src/apiService";
+import { defaultInstance } from "../src/apiService";
 import { ConfigChangedArgs } from "../src";
 import { random } from "faker";
 
@@ -54,9 +54,9 @@ describe("Settings", () => {
     it("should have contextToken in axios defaults after update", () => {
       update({ contextToken: "xxx" });
 
-      expect(apiService.defaults.headers.common["sw-context-token"]).toEqual(
-        "xxx"
-      );
+      expect(
+        defaultInstance.defaults.headers.common["sw-context-token"]
+      ).toEqual("xxx");
     });
 
     it("should clean contextToken from axios detault headers after reset", () => {
@@ -64,14 +64,14 @@ describe("Settings", () => {
       setup();
 
       expect(
-        apiService.defaults.headers.common["sw-context-token"]
+        defaultInstance.defaults.headers.common["sw-context-token"]
       ).toBeUndefined();
     });
 
     it("should have languageId in axios defaults after update", () => {
       update({ languageId: "someLanguageId" });
 
-      expect(apiService.defaults.headers.common["sw-language-id"]).toEqual(
+      expect(defaultInstance.defaults.headers.common["sw-language-id"]).toEqual(
         "someLanguageId"
       );
     });
@@ -81,7 +81,7 @@ describe("Settings", () => {
       setup();
 
       expect(
-        apiService.defaults.headers.common["sw-language-id"]
+        defaultInstance.defaults.headers.common["sw-language-id"]
       ).toBeUndefined();
     });
 

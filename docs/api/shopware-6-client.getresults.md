@@ -10,7 +10,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getResults(term: string, searchCriteria?: SearchCriteria): Promise<ProductListingResult>;
+export declare function getResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 ```
 
 ## Parameters
@@ -19,6 +19,7 @@ export declare function getResults(term: string, searchCriteria?: SearchCriteria
 |  --- | --- | --- |
 |  term | <code>string</code> |  |
 |  searchCriteria | <code>SearchCriteria</code> |  |
+|  contextInstance | <code>ShopwareApiInstance</code> |  |
 
 <b>Returns:</b>
 

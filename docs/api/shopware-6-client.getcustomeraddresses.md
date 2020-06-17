@@ -12,8 +12,15 @@ Get all customer's addresses
 <b>Signature:</b>
 
 ```typescript
-export declare function getCustomerAddresses(): Promise<CustomerAddress[]>;
+export declare function getCustomerAddresses(contextInstance?: ShopwareApiInstance): Promise<CustomerAddress[]>;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  contextInstance | <code>ShopwareApiInstance</code> |  |
+
 <b>Returns:</b>
 
 `Promise<CustomerAddress[]>`

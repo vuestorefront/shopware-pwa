@@ -8,10 +8,10 @@ import {
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { convertAssociations } from "./convertAssociations";
 import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
-import { config } from "@shopware-pwa/shopware-6-client";
 import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Association";
 import { Grouping } from "@shopware-pwa/commons/interfaces/search/Grouping";
 import { convertToStoreApiFilters } from "../helpers/convertToStoreApiFilters";
+import { ClientSettings } from "../settings";
 
 export enum ApiType {
   store = "store-api",
@@ -43,10 +43,15 @@ export interface ShopwareParams {
 /**
  * @param apiType - depending on api type, the output should be different (especially sorting and filters part)
  **/
-export const convertSearchCriteria = (
-  searchCriteria?: SearchCriteria,
-  apiType?: ApiType
-): ShopwareParams => {
+export const convertSearchCriteria = ({
+  searchCriteria,
+  apiType,
+  config,
+}: {
+  searchCriteria?: SearchCriteria;
+  apiType?: ApiType;
+  config: ClientSettings;
+}): ShopwareParams => {
   let params: ShopwareParams = {
     limit: config.defaultPaginationLimit,
   };

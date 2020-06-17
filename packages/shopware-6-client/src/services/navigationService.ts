@@ -1,5 +1,5 @@
 import { getNavigationEndpoint } from "../endpoints";
-import { apiService } from "../apiService";
+import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import { NavigationResponse } from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
 
 /**
@@ -14,9 +14,13 @@ export interface GetNavigationParams {
  * @alpha
  */
 export async function getNavigation(
-  params: GetNavigationParams
+  params: GetNavigationParams,
+  contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<NavigationResponse> {
-  const resp = await apiService.post(getNavigationEndpoint(), params);
+  const resp = await contextInstance.invoke.post(
+    getNavigationEndpoint(),
+    params
+  );
 
   return resp.data;
 }

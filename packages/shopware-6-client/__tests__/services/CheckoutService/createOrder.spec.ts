@@ -1,27 +1,31 @@
 import { createOrder, createGuestOrder } from "@shopware-pwa/shopware-6-client";
-import { apiService } from "../../../src/apiService";
+import { defaultInstance } from "../../../src/apiService";
 import { GuestOrderParams } from "@shopware-pwa/commons/interfaces/request/GuestOrderParams";
 
 jest.mock("../../../src/apiService");
-const mockedAxios = apiService as jest.Mocked<typeof apiService>;
+const mockedApiInstance = defaultInstance as jest.Mocked<
+  typeof defaultInstance
+>;
 
 describe("CheckoutService createOrder", () => {
+  const mockedPost = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
+    mockedApiInstance.invoke = {
+      post: mockedPost,
+    } as any;
   });
   describe("createOrder", () => {
     it("should return undefined when there is no data property in the response", async () => {
-      mockedAxios.post.mockResolvedValueOnce({});
+      mockedPost.mockResolvedValueOnce({});
 
       const result = await createOrder();
-      expect(mockedAxios.post).toBeCalledTimes(1);
-      expect(mockedAxios.post).toBeCalledWith(
-        "/sales-channel-api/v1/checkout/order"
-      );
+      expect(mockedPost).toBeCalledTimes(1);
+      expect(mockedPost).toBeCalledWith("/sales-channel-api/v1/checkout/order");
       expect(result).toBeUndefined();
     });
     it("should return newly added order object", async () => {
-      mockedAxios.post.mockResolvedValueOnce({
+      mockedPost.mockResolvedValueOnce({
         data: {
           data: {
             id: "new-order-id",
@@ -30,10 +34,8 @@ describe("CheckoutService createOrder", () => {
       });
 
       const result = await createOrder();
-      expect(mockedAxios.post).toBeCalledTimes(1);
-      expect(mockedAxios.post).toBeCalledWith(
-        "/sales-channel-api/v1/checkout/order"
-      );
+      expect(mockedPost).toBeCalledTimes(1);
+      expect(mockedPost).toBeCalledWith("/sales-channel-api/v1/checkout/order");
       expect(result).toHaveProperty("id");
     });
   });
@@ -52,18 +54,18 @@ describe("CheckoutService createOrder", () => {
       },
     };
     it("should return undefined when there is no data property in the response", async () => {
-      mockedAxios.post.mockResolvedValueOnce({});
+      mockedPost.mockResolvedValueOnce({});
 
       const result = await createGuestOrder(createGuestOrderData);
-      expect(mockedAxios.post).toBeCalledTimes(1);
-      expect(mockedAxios.post).toBeCalledWith(
+      expect(mockedPost).toBeCalledTimes(1);
+      expect(mockedPost).toBeCalledWith(
         "/sales-channel-api/v1/checkout/guest-order",
         createGuestOrderData
       );
       expect(result).toBeUndefined();
     });
     it("should return newly added order object", async () => {
-      mockedAxios.post.mockResolvedValueOnce({
+      mockedPost.mockResolvedValueOnce({
         data: {
           data: {
             id: "new-order-id",
@@ -72,8 +74,8 @@ describe("CheckoutService createOrder", () => {
       });
 
       const result = await createGuestOrder(createGuestOrderData);
-      expect(mockedAxios.post).toBeCalledTimes(1);
-      expect(mockedAxios.post).toBeCalledWith(
+      expect(mockedPost).toBeCalledTimes(1);
+      expect(mockedPost).toBeCalledWith(
         "/sales-channel-api/v1/checkout/guest-order",
         createGuestOrderData
       );

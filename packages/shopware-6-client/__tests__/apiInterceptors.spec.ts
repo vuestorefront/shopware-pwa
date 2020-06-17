@@ -1,37 +1,39 @@
-import { config } from "@shopware-pwa/shopware-6-client";
-import { responseInterceptor, errorInterceptor } from "../src/interceptors";
+import {
+  createResponseInterceptor,
+  errorInterceptor,
+} from "../src/interceptors";
 import { random } from "faker";
 
 describe("apiInterceptors", () => {
-  describe("responseInterceptor", () => {
+  describe("createResponseInterceptor", () => {
     it("should update contextToken after any request", async () => {
       const contextToken = random.uuid();
-      const resp = responseInterceptor({
+      const updateMethod = jest.fn();
+      const responseInterceptor = createResponseInterceptor(updateMethod);
+      responseInterceptor({
         data: { data: { id: "044a190a54ab4f06803909c3ee8063ef" } },
         headers: { "sw-context-token": contextToken },
         status: 200,
         statusText: "OK",
         config: {},
       });
-      expect(resp.data).toEqual({
-        data: { id: "044a190a54ab4f06803909c3ee8063ef" },
-      });
-      expect(config.contextToken).toEqual(contextToken);
+      expect(updateMethod).toHaveBeenCalledWith({ contextToken });
     });
 
     it("should get contextToken from response, not header, if there is one", () => {
       const contextToken = random.uuid();
-      const resp = responseInterceptor({
+      const updateMethod = jest.fn();
+      const responseInterceptor = createResponseInterceptor(updateMethod);
+      responseInterceptor({
         data: { contextToken: "044a190a54ab4f06803909c3ee8063ef" },
         headers: { "sw-context-token": contextToken },
         status: 200,
         statusText: "OK",
         config: {},
       });
-      expect(resp.data).toEqual({
+      expect(updateMethod).toHaveBeenCalledWith({
         contextToken: "044a190a54ab4f06803909c3ee8063ef",
       });
-      expect(config.contextToken).toEqual("044a190a54ab4f06803909c3ee8063ef");
     });
   });
 

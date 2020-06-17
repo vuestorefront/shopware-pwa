@@ -17,7 +17,6 @@ import {
   deleteCustomerAddress,
   createCustomerAddress,
   updateProfile,
-  CustomerAddressParam,
   CustomerUpdateProfileParam,
   CustomerUpdatePasswordParam,
   CustomerUpdateEmailParam,
@@ -64,7 +63,7 @@ export interface IUseUser {
   loadAddresses: () => Promise<void>;
   loadCountry: (countryId: string) => Promise<void>;
   loadSalutation: (salutationId: string) => Promise<void>;
-  addAddress: (params: CustomerAddressParam) => Promise<boolean>;
+  addAddress: (params: Partial<CustomerAddress>) => Promise<boolean>;
   deleteAddress: (addressId: string) => Promise<boolean>;
   updatePersonalInfo: (
     personals: CustomerUpdateProfileParam
@@ -225,7 +224,9 @@ export const useUser = (): IUseUser => {
     return true;
   };
 
-  const addAddress = async (params: CustomerAddressParam): Promise<boolean> => {
+  const addAddress = async (
+    params: Partial<CustomerAddress>
+  ): Promise<boolean> => {
     try {
       await createCustomerAddress(params);
       return true;
