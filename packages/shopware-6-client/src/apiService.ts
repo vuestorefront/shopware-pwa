@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 import { createResponseInterceptor, errorInterceptor } from "./interceptors";
 import { ClientSettings, defaultConfig } from "./settings";
 
@@ -35,8 +35,6 @@ export interface ShopwareApiInstance {
 export function createInstance(
   initialConfig: ClientSettings = {}
 ): ShopwareApiInstance {
-  const x = Math.random();
-  console.error("=== CREATED NEW INSTANCE", x);
   const callbackMethods: ((context: ConfigChangedArgs) => void)[] = [];
   let clientConfig: ClientSettings = {};
   const apiService: AxiosInstance = axios.create();
@@ -61,16 +59,7 @@ export function createInstance(
   }
 
   function onConfigChange(fn: (context: ConfigChangedArgs) => void): void {
-    console.error("++ Added config method", x);
     callbackMethods.push(fn);
-  }
-
-  function configChanged(): void {
-    // TODO remove after tests
-    if (!callbackMethods.length) {
-      console.error("HAVE NO CALLBACK METHODS", x);
-    }
-    callbackMethods.forEach((fn) => fn({ config: clientConfig }));
   }
 
   const setup = function (config: ClientSettings = {}): void {
@@ -79,9 +68,21 @@ export function createInstance(
   };
   setup(initialConfig);
 
-  const update = function (config: ClientSettings = {}): void {
+  const update = function (
+    config: ClientSettings = {},
+    responseConfig?: AxiosResponse<any>["config"]
+  ): void {
     clientConfig = Object.assign(clientConfig, config);
-    configChanged();
+    if (
+      process.env.NODE_ENV !== "production" &&
+      !callbackMethods.length &&
+      responseConfig
+    ) {
+      console.warn(
+        `[shopware-6-api] After calling API method ${responseConfig?.url} there is no "onConfigChange" listener.` // TODO: see docs link...
+      );
+    }
+    callbackMethods.forEach((fn) => fn({ config: clientConfig }));
     reloadConfiguration();
   };
 
@@ -102,7 +103,9 @@ export function createInstance(
     onConfigChange,
     config: clientConfig,
     setup,
-    update,
+    update: (config: ClientSettings = {}): void => {
+      update(config);
+    },
     invoke,
     defaults: apiService.defaults,
   };
