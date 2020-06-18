@@ -21,7 +21,7 @@ export default {
       default: "",
     },
   },
-  setup() {
+  setup(props, {root}) {
     const { showPluginSlots } = usePlugins();
     return {
       showPluginSlots,

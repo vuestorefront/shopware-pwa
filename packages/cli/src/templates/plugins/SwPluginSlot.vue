@@ -33,7 +33,7 @@ export default {
       default: null
     }
   },
-  setup() {
+  setup(props, {root}) {
     const { showPluginSlots } = usePlugins();
     return {
       showPluginSlots,
