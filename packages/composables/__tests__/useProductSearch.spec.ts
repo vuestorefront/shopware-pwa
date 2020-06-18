@@ -24,6 +24,16 @@ describe("Composables - useProductSearch", () => {
     });
   });
   describe("currentPagination", () => {
+    it("should have undefined properties if there is no search result", async () => {
+      mockedApi.getSearchResults.mockResolvedValueOnce(null as any);
+      const { search, currentPagination } = useProductSearch();
+      await search("some term");
+      expect(currentPagination.value).toStrictEqual({
+        currentPage: undefined,
+        perPage: undefined,
+        total: undefined,
+      });
+    });
     it("should have proper values under the pagination property", async () => {
       mockedApi.getSearchResults.mockResolvedValueOnce({
         page: 4,
@@ -37,6 +47,28 @@ describe("Composables - useProductSearch", () => {
         perPage: 10,
         total: 189,
       });
+    });
+    it("should get the limit from the currentPagination if there is no pagination in search criteria", async () => {
+      mockedApi.getSearchResults.mockResolvedValueOnce({
+        page: 4,
+        limit: 10,
+        total: 189,
+      } as any);
+      const { search, changePage, currentPagination } = useProductSearch();
+      await search("some term");
+      expect(currentPagination.value).toStrictEqual({
+        currentPage: 4,
+        perPage: 10,
+        total: 189,
+      });
+      await changePage(2);
+      expect(mockedApi.getSearchResults).toBeCalledWith("some term", {
+        manufacturer: [],
+        pagination: { limit: undefined, page: 2 },
+        properties: [],
+        sort: {},
+      });
+      jest.resetAllMocks();
     });
   });
   describe("currentSearchTerm", () => {
@@ -64,6 +96,59 @@ describe("Composables - useProductSearch", () => {
     });
   });
   describe("search", () => {
+    it("should make a second call for full collection of aggregations if it's not a basic search", async () => {
+      mockedApi.getSearchResults.mockResolvedValue({
+        currentFilters: {
+          manufacturer: ["divante"],
+        },
+        aggregations: {
+          manufacturer: {
+            entities: [
+              {
+                translated: {
+                  name: "DivanteLtd",
+                },
+                id: "123456",
+              },
+            ],
+          },
+        },
+      } as any);
+
+      const { search } = useProductSearch();
+      await search("some string");
+      expect(mockedApi.getSearchResults).toBeCalledTimes(2);
+    });
+    it("should return false if there is no active filter set in the payload", async () => {
+      mockedApi.getSearchResults.mockResolvedValue({
+        currentFilters: {},
+        aggregations: {},
+      } as any);
+
+      const { search, isBaseSearch } = useProductSearch();
+      await search("some string");
+      expect(isBaseSearch()).toBe(true);
+    });
+    it("should return false if there is no active filter set in the payload", async () => {
+      mockedApi.getSearchResults.mockResolvedValue({
+        currentFilters: {
+          manufacturer: null,
+          properties: [],
+        },
+        aggregations: {},
+      } as any);
+
+      const { search, isBaseSearch } = useProductSearch();
+      await search("some string");
+      expect(isBaseSearch()).toBe(true);
+    });
+    it("should return false if there is no active filter set in the payload", async () => {
+      mockedApi.getSearchResults.mockResolvedValue(null as any);
+
+      const { search, isBaseSearch } = useProductSearch();
+      await search("some string");
+      expect(isBaseSearch()).toBe(true);
+    });
     it("should set available filters if it's a base search with aggregations for whole collection", async () => {
       mockedApi.getSearchResults.mockResolvedValueOnce({
         page: 4,
@@ -99,10 +184,19 @@ describe("Composables - useProductSearch", () => {
       ]);
     });
     it("should have appriopriate API call invoked on search action", async () => {
-      const { search } = useProductSearch();
+      const { search, resetFilters } = useProductSearch();
+      resetFilters();
       await search("some string");
       expect(mockedApi.getSearchResults).toBeCalledTimes(1);
-      expect(mockedApi.getSearchResults).toBeCalledWith("some string", {});
+      expect(mockedApi.getSearchResults).toBeCalledWith("some string", {
+        manufacturer: [],
+        properties: [],
+        sort: {},
+        pagination: {
+          limit: undefined,
+          page: undefined,
+        },
+      });
     });
     it("should have product returned if search term provided", async () => {
       mockedApi.getSearchResults.mockResolvedValueOnce({
@@ -143,6 +237,9 @@ describe("Composables - useProductSearch", () => {
       await changePage(5);
       expect(mockedApi.getSearchResults).toBeCalledWith("test", {
         pagination: { limit: undefined, page: 5 },
+        manufacturer: [],
+        properties: [],
+        sort: {},
       });
       expect(mockedApi.getSearchResults).toBeCalledTimes(2);
     });
@@ -157,10 +254,16 @@ describe("Composables - useProductSearch", () => {
         desc: true,
       });
       expect(mockedApi.getSearchResults).toBeCalledWith("test", {
+        manufacturer: [],
+        properties: [],
+        pagination: {
+          limit: undefined,
+          page: 5,
+        },
         sort: {
-          desc: true,
           field: "name",
           name: "name-desc",
+          order: "desc",
         },
       });
       expect(mockedApi.getSearchResults).toBeCalledTimes(2);
@@ -185,12 +288,20 @@ describe("Composables - useProductSearch", () => {
       );
       await search("some term");
 
-      expect(mockedApi.getSearchResults).toBeCalledWith("some term", {});
+      expect(mockedApi.getSearchResults).toBeCalledWith("some term", {
+        manufacturer: [],
+        properties: [],
+        pagination: {
+          limit: undefined,
+          page: undefined,
+        },
+        sort: {},
+      });
     });
     it("should not select filter if it has wrong format", () => {
       const { toggleFilter, selectedFilters } = useProductSearch();
       toggleFilter(undefined as any, false);
-      expect(selectedFilters.value).toStrictEqual({});
+      expect(selectedFilters.value).toStrictEqual([]);
     });
     it("should trigger ToggleSelectedFilter on toggleFilter run", () => {
       const { toggleFilter, selectedFilters } = useProductSearch();
@@ -202,7 +313,7 @@ describe("Composables - useProductSearch", () => {
         },
         false
       );
-      expect(selectedFilters.value).toStrictEqual({ color: ["white"] });
+      expect(selectedFilters.value).toStrictEqual(["white"]);
     });
     it("should call getSearchResults with transformed filters if any provided", async () => {
       const { toggleFilter, search } = useProductSearch();
@@ -217,16 +328,13 @@ describe("Composables - useProductSearch", () => {
       await search("t-shirt");
       expect(mockedApi.getSearchResults).toBeCalledTimes(1);
       expect(mockedApi.getSearchResults).toBeCalledWith("t-shirt", {
-        filters: [
-          {
-            operator: "OR",
-            queries: [
-              { field: "propertyIds", type: "equalsAny", value: ["white"] },
-              { field: "optionIds", type: "equalsAny", value: ["white"] },
-            ],
-            type: "multi",
-          },
-        ],
+        manufacturer: [],
+        properties: ["white"],
+        pagination: {
+          limit: undefined,
+          page: undefined,
+        },
+        sort: {},
       });
     });
   });
@@ -245,9 +353,9 @@ describe("Composables - useProductSearch", () => {
         },
         false
       );
-      expect(selectedFilters.value).toHaveProperty("color");
+      expect(selectedFilters.value).toStrictEqual(["white"]);
       resetFilters();
-      expect(selectedFilters.value).not.toHaveProperty("color");
+      expect(selectedFilters.value).not.toBe(["white"]);
     });
   });
 });

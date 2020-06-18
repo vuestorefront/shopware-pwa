@@ -1,7 +1,11 @@
 import { getSuggestSearchEndpoint, getSearchEndpoint } from "../endpoints";
 import { apiService } from "../apiService";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { convertSearchCriteria, ApiType } from "../helpers/searchConverter";
+import {
+  convertSearchCriteria,
+  ApiType,
+  convertNewSearchCriteria,
+} from "../helpers/searchConverter";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
 
 /**
@@ -32,7 +36,7 @@ export async function getSearchResults(
   searchCriteria?: SearchCriteria
 ): Promise<ProductListingResult> {
   const resp = await apiService.post(`${getSearchEndpoint()}?search=${term}`, {
-    ...convertSearchCriteria(searchCriteria, ApiType.store),
+    ...convertNewSearchCriteria(searchCriteria),
   });
 
   return resp.data;

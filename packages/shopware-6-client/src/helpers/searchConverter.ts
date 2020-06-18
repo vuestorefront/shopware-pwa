@@ -1,4 +1,7 @@
-import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import {
+  SearchCriteria,
+  NewShopwareParams,
+} from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import {
   NotFilter,
   MultiFilter,
@@ -19,6 +22,7 @@ export enum ApiType {
 }
 
 /**
+ * @deprecated
  * @alpha
  */
 export interface ShopwareParams {
@@ -41,7 +45,28 @@ export interface ShopwareParams {
 }
 
 /**
+ * @deprecated
  * @param apiType - depending on api type, the output should be different (especially sorting and filters part)
+ * @alpha
+ **/
+export const convertNewSearchCriteria = (
+  searchCriteria?: SearchCriteria
+): NewShopwareParams => {
+  const params = {
+    limit: searchCriteria?.pagination?.limit || 10,
+    p: searchCriteria?.pagination?.page || 1,
+    manufacturer: searchCriteria?.manufacturer?.join("|") || undefined,
+    properties: searchCriteria?.properties?.join("|") || undefined,
+    sort: searchCriteria?.sort?.name,
+  };
+
+  return params;
+};
+
+/**
+ * @deprecated
+ * @param apiType - depending on api type, the output should be different (especially sorting and filters part)
+ * @alpha
  **/
 export const convertSearchCriteria = (
   searchCriteria?: SearchCriteria,

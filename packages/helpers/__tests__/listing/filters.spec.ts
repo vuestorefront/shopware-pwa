@@ -2,11 +2,12 @@ import {
   getFilterSearchCriteria,
   getSortingSearchCriteria,
   toggleFilter,
+  toggleEntityFilter,
+  resetSearchCriteria,
 } from "@shopware-pwa/helpers";
 import {
   SearchFilterType,
   EqualsFilter,
-  EqualsAnyFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 
 describe("Shopware helpers - getFilterSearchCriteria", () => {
@@ -47,6 +48,13 @@ describe("Shopware helpers - getFilterSearchCriteria", () => {
         value: ["divante-ltd"],
       },
     ]);
+  });
+
+  it("should return an empty array if no positive values provided as the id", () => {
+    const result = getFilterSearchCriteria({
+      manufacturer: [undefined],
+    } as any);
+    expect(result).toStrictEqual([]);
   });
 
   it("should return shipping-free filter if any provided", () => {
@@ -151,19 +159,72 @@ describe("Shopware helpers - getSortingSearchCriteria", () => {
       expect(selectedCriteria.filters).toHaveProperty("color");
     });
 
-    it("filters should append the existing one", async () => {
-      const selectedCriteria = { filters: {} } as any;
+    describe("toggleEntityFilter", () => {
+      it("filters should not contain any filter on init", async () => {
+        const selectedCriteria = { filters: {} } as any;
+        toggleEntityFilter(undefined as any, selectedCriteria);
+        expect(selectedCriteria.filters).toStrictEqual({});
+      });
 
-      toggleFilter(
-        {
-          type: SearchFilterType.EQUALS_ANY,
-          value: ["white", "black"],
-          field: "color",
-        } as EqualsAnyFilter,
-        selectedCriteria
-      );
+      it("filters should be filled with passed one", async () => {
+        const selectedCriteria = { filters: {} } as any;
+        toggleEntityFilter(
+          {
+            type: SearchFilterType.EQUALS,
+            value: "white",
+            field: "test",
+          } as EqualsFilter,
+          selectedCriteria
+        );
 
-      expect(selectedCriteria.filters).toHaveProperty("color");
+        expect(selectedCriteria.properties).toStrictEqual(["white"]);
+      });
+      it("filters should remove the existing one if toggled - not manufacturer", async () => {
+        const selectedCriteria = { filters: {} } as any;
+
+        toggleEntityFilter(
+          {
+            type: SearchFilterType.EQUALS,
+            value: "test-value",
+            field: "test",
+          } as EqualsFilter,
+          selectedCriteria
+        );
+
+        toggleEntityFilter(
+          {
+            type: SearchFilterType.EQUALS,
+            value: "test-value",
+            field: "test",
+          } as EqualsFilter,
+          selectedCriteria
+        );
+
+        expect(selectedCriteria.properties).toStrictEqual([]);
+      });
+      it("filters should remove the existing one if toggled - manufacturer", async () => {
+        const selectedCriteria = { filters: {} } as any;
+
+        toggleEntityFilter(
+          {
+            type: SearchFilterType.EQUALS,
+            value: "divante",
+            field: "manufacturer",
+          } as EqualsFilter,
+          selectedCriteria
+        );
+
+        toggleEntityFilter(
+          {
+            type: SearchFilterType.EQUALS,
+            value: "divante",
+            field: "manufacturer",
+          } as EqualsFilter,
+          selectedCriteria
+        );
+
+        expect(selectedCriteria.properties).toStrictEqual([]);
+      });
     });
 
     it("filters should remove the existing one if toggled", async () => {
@@ -215,6 +276,27 @@ describe("Shopware helpers - getSortingSearchCriteria", () => {
 
       expect(selectedCriteria.filters).toHaveProperty("color");
       expect(selectedCriteria.filters.color).toStrictEqual(["white", "black"]);
+    });
+  });
+  describe("resetSearchCriteria", () => {
+    it("should reset the whole search criteria, create missing properties if not exists", () => {
+      const searchCriteria = {
+        manufacturer: ["divante"],
+        properties: ["123", "4441"],
+        sort: undefined,
+        pagination: undefined,
+      };
+
+      resetSearchCriteria(searchCriteria);
+      expect(searchCriteria).toStrictEqual({
+        manufacturer: [],
+        properties: [],
+        sort: {},
+        pagination: {
+          page: undefined,
+          limit: undefined,
+        },
+      });
     });
   });
 });

@@ -8,6 +8,7 @@ import {
 import { Association } from "@shopware-pwa/commons/interfaces/search/Association";
 import { Aggregation } from "@shopware-pwa/commons/interfaces/search/Aggregation";
 import { TotalCountMode } from "@shopware-pwa/commons/interfaces/search/TotalCountMode";
+import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Association";
 
 /**
  * @alpha
@@ -16,6 +17,7 @@ export interface Sort {
   field: string;
   name?: string; // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/834
   desc?: boolean;
+  order?: string;
 }
 /**
  * @alpha
@@ -26,7 +28,7 @@ export interface Grouping {
 
 /**
  * configutarion.displayParents: true - if you want to show all the products
- *
+ * @deprecated
  * @alpha
  */
 export interface SearchCriteria {
@@ -34,6 +36,8 @@ export interface SearchCriteria {
   pagination?: Pagination;
   sort?: Sort;
   term?: string;
+  manufacturer?: string[];
+  properties?: string[];
   configuration?: {
     displayParents?: boolean;
     grouping?: Grouping;
@@ -41,4 +45,30 @@ export interface SearchCriteria {
     aggregations?: Aggregation[];
     totalCountMode?: TotalCountMode;
   };
+}
+
+/**
+ * @beta
+ */
+export interface ListingQueryParams {
+  query: string;
+  page?: number;
+  limit?: number;
+  sort?: string;
+  manufacturer?: string | string[];
+  properties?: string | string[];
+}
+
+/**
+ * @beta
+ */
+export interface NewShopwareParams {
+  p?: number | undefined;
+  limit?: number | undefined;
+  sort?: string | undefined;
+  term?: string | undefined;
+  associations?: ShopwareAssociation;
+  grouping?: Grouping;
+  properties?: string | undefined | never[];
+  manufacturer?: string | undefined | never[];
 }

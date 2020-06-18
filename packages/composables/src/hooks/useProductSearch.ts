@@ -1,4 +1,5 @@
-import { ref, Ref, computed } from "@vue/composition-api";
+import { ref, Ref, computed, reactive } from "@vue/composition-api";
+import queryString from "query-string";
 import {
   getSuggestedResults,
   getSearchResults,
@@ -6,11 +7,14 @@ import {
 import {
   getListingAvailableFilters,
   UiCategoryFilter,
-  toggleFilter as toggleSelectedFilter,
-  getFilterSearchCriteria,
+  toggleEntityFilter as toggleSelectedFilter,
+  appendQueryParamsToSearchCriteria,
+  resetSearchCriteria,
+  appendSearchCriteriaToUrl,
 } from "@shopware-pwa/helpers";
 
 import {
+  ListingQueryParams,
   SearchCriteria,
   Sort,
 } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
@@ -40,18 +44,19 @@ export interface UseProductSearch {
   currentSearchTerm: Readonly<Ref<string>>;
   searchResult: Readonly<Ref<ProductListingResult | null>>;
   suggestionsResult: Readonly<Ref<ProductListingResult | null>>;
-  suggestSearch: (term: string) => Promise<void>;
-  search: (term: string, searchCriteria?: SearchCriteria) => Promise<void>;
   currentPagination: Ref<CurrentPagination | undefined>;
+  availableFilters: Readonly<Ref<any>>;
+  selectedFilters: Readonly<Ref<any>>;
+  suggestSearch: (term: string) => Promise<void>;
+  search: (term: string) => Promise<void>;
   changePage: (page: number) => Promise<void>;
   changeSorting: (sorting: Sort) => void;
   toggleFilter: (
     filter: EqualsFilter | EqualsAnyFilter | ContainsFilter,
     forceSave: boolean
   ) => void;
-  availableFilters: Readonly<Ref<any>>;
-  selectedFilters: Readonly<Ref<any>>;
   resetFilters: () => void;
+  isBaseSearch: () => boolean;
 }
 
 /**
@@ -64,29 +69,27 @@ export const useProductSearch = (): UseProductSearch => {
   const searchResult: Ref<ProductListingResult | null> = ref(null);
   const suggestionsResult: Ref<ProductListingResult | null> = ref(null);
   const availableFilters: Ref<UiCategoryFilter[]> = ref([]);
-  const selectedFiltersBucket = ref({
-    filters: {} as any,
-  });
   const currentPagination = computed(() => ({
     currentPage: searchResult.value?.page,
     perPage: searchResult.value?.limit,
     total: searchResult.value?.total,
   }));
-  const searchCriteria: Ref<SearchCriteria> = ref({});
-  const isBaseSearch = () => !searchCriteria.value.filters?.length;
+  const searchCriteria: Partial<SearchCriteria> | any = reactive({
+    manufacturer: [],
+    properties: [],
+    pagination: {},
+    sort: {},
+  });
+  const isBaseSearch = () =>
+    !searchResult.value?.currentFilters?.manufacturer?.length &&
+    !searchResult.value?.currentFilters?.properties?.length;
   const aggregations: Readonly<Ref<Aggregations | null>> = computed(
     () => searchResult.value && searchResult.value.aggregations
   );
 
   const changePage = (page: number): Promise<void> => {
-    /* istanbul ignore else */
-    if (!searchCriteria.value.pagination) {
-      searchCriteria.value.pagination = {
-        limit: currentPagination.value.perPage,
-      };
-    }
-
-    searchCriteria.value.pagination.page = page;
+    searchCriteria.pagination.page = page;
+    syncQueryParams();
     return search(currentSearchTerm.value);
   };
 
@@ -102,29 +105,45 @@ export const useProductSearch = (): UseProductSearch => {
     }
   };
 
+  const syncQueryParams = () => {
+    appendSearchCriteriaToUrl(searchCriteria, currentSearchTerm.value);
+  };
+
   const changeSorting = async (sorting: Sort) => {
     if (!sorting) {
       return;
     }
-    searchCriteria.value.sort = sorting;
+    searchCriteria.sort = sorting;
+    syncQueryParams();
     await search(currentSearchTerm.value);
   };
 
   const toggleFilter = (
-    filter: EqualsFilter | EqualsAnyFilter | ContainsFilter,
+    filter: EqualsFilter,
     forceSave?: boolean
-  ): void => {
+  ): undefined | string => {
     if (!filter || !Object.keys(filter).length) {
       return;
     }
 
-    toggleSelectedFilter(filter, selectedFiltersBucket.value, forceSave);
-    const filters = getFilterSearchCriteria(
-      selectedFiltersBucket.value.filters
+    toggleSelectedFilter(filter, searchCriteria, forceSave);
+    syncQueryParams();
+  };
+
+  const captureQueryParams = () => {
+    /* istanbul ignore next */
+    const criteriaQueryParams: ListingQueryParams | any = queryString.parse(
+      window?.location?.search,
+      {
+        parseNumbers: true,
+      }
     );
-    if (filters.length) {
-      searchCriteria.value.filters = filters;
+    /* istanbul ignore next */
+    if (!criteriaQueryParams) {
+      return;
     }
+
+    appendQueryParamsToSearchCriteria(criteriaQueryParams, searchCriteria);
   };
 
   const search = async (term: string): Promise<void> => {
@@ -133,15 +152,23 @@ export const useProductSearch = (): UseProductSearch => {
     }
 
     try {
+      captureQueryParams();
       loadingSearch.value = true;
       currentSearchTerm.value = term;
       searchResult.value = null;
-      const result = await getSearchResults(term, searchCriteria.value);
+      const result = await getSearchResults(term, searchCriteria);
       searchResult.value = result;
-
       // set the base aggregations as default for the listing on first call
       if (isBaseSearch()) {
         availableFilters.value = getListingAvailableFilters(aggregations.value);
+      } else {
+        // make the second call for entire collection of available filters
+        const result = await getSearchResults(term, {
+          pagination: { limit: 1 },
+        });
+        availableFilters.value = getListingAvailableFilters(
+          result.aggregations
+        );
       }
     } catch (e) {
       throw e;
@@ -150,9 +177,9 @@ export const useProductSearch = (): UseProductSearch => {
     }
   };
 
-  const resetFilters = () => {
-    selectedFiltersBucket.value.filters = {};
-    search(currentSearchTerm.value);
+  const resetFilters = async () => {
+    resetSearchCriteria(searchCriteria);
+    syncQueryParams();
   };
 
   return {
@@ -164,11 +191,14 @@ export const useProductSearch = (): UseProductSearch => {
     searchResult: computed(() => searchResult.value),
     suggestionsResult,
     currentPagination,
+    selectedFilters: computed(() =>
+      searchCriteria.properties.concat(searchCriteria.manufacturer)
+    ),
+    availableFilters,
     changePage,
     changeSorting,
     toggleFilter,
-    selectedFilters: computed(() => selectedFiltersBucket.value.filters),
-    availableFilters,
     resetFilters,
+    isBaseSearch,
   };
 };

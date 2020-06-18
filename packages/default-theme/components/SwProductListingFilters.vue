@@ -83,12 +83,7 @@
                 :label="option.label"
                 :count="option.count"
                 :color="option.color ? option.color : null"
-                :selected="
-                  selectedFilters[filter.name] &&
-                  !!selectedFilters[filter.name].find(
-                    (propertyId) => propertyId === option.value
-                  )
-                "
+                :selected="!!selectedFilters.find((id) => id === option.value)"
                 class="filters__item"
                 :class="{ 'filters__item--color': option.color }"
                 @change="$emit('toggle-filter-value', {
@@ -134,7 +129,7 @@ import {
 } from "@shopware-pwa/composables"
 
 import { getSearchResults } from "@shopware-pwa/shopware-6-client"
-import { ref, computed } from "@vue/composition-api"
+import { ref, computed, reactive } from "@vue/composition-api"
 import { getSortingLabel } from "@shopware-pwa/default-theme/helpers"
 import { getCategoryAvailableSorting } from "@shopware-pwa/helpers"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
@@ -156,15 +151,16 @@ export default {
     },
     filters: {
       type: Array,
-      default: [],
+      default: () => []
     },
     selectedFilters: {
-      type: Object,
-      default: () => ({})
+      type: Array,
+      default: () => []
     }
   },
   setup({ listing }, { emit }) {
     const availableSorting = ref(listing.sortings)
+    const selectedSortingField = ref(listing.sorting);
     const sortings = computed(() =>
       getCategoryAvailableSorting({ sorting: availableSorting.value })
     )
@@ -189,8 +185,7 @@ export default {
   },
   data() {
     return {
-      isFilterSidebarOpen: false,
-      sortBy: this.activeSorting,
+      isFilterSidebarOpen: false
     }
   },
   computed: {

@@ -18,6 +18,7 @@ describe("SearchService - getSearchResults", () => {
       "/store-api/v1/search?search=some term",
       {
         limit: 10,
+        p: 1,
       }
     );
     expect(result).toHaveProperty("apiAlias");
