@@ -29,7 +29,6 @@ import { Product } from '@shopware-pwa/commons/interfaces/models/content/product
 import { ProductListingResult } from '@shopware-pwa/commons/interfaces/response/ProductListingResult';
 import { Ref } from '@vue/composition-api';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
-import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
 import { ShippingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
@@ -335,13 +334,15 @@ export interface UseProductSearch {
     // (undocumented)
     currentSearchTerm: Readonly<Ref<string>>;
     // (undocumented)
+    isBaseSearch: () => boolean;
+    // (undocumented)
     loadingSearch: Readonly<Ref<boolean>>;
     // (undocumented)
     loadingSuggestions: Readonly<Ref<boolean>>;
     // (undocumented)
     resetFilters: () => void;
     // (undocumented)
-    search: (term: string, searchCriteria?: SearchCriteria) => Promise<void>;
+    search: (term: string) => Promise<void>;
     // (undocumented)
     searchResult: Readonly<Ref<ProductListingResult | null>>;
     // (undocumented)

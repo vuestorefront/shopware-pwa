@@ -308,7 +308,7 @@ export function setDefaultCustomerShippingAddress(addressId: string): Promise<st
 // @beta
 export function setup(config?: ClientSettings): void;
 
-// @alpha (undocumented)
+// @alpha @deprecated (undocumented)
 export interface ShopwareParams {
     // (undocumented)
     associations?: ShopwareAssociation;
