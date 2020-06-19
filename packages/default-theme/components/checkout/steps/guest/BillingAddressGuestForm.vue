@@ -127,7 +127,7 @@ export default {
     SfImage,
     SfCheckbox,
   },
-  setup() {
+  setup(props, {root}) {
     const {
       validations,
       setValidations,

@@ -3,7 +3,7 @@
     <SwPluginSlot name="page-top" />
     <SwHeader />
     <SwPluginSlot name="top-header-after" />
-    <SwPluginSlot name="breadcrumbs" :slotContext="getBreadcrumbs" >
+    <SwPluginSlot name="breadcrumbs" :slotContext="getBreadcrumbs">
       <SfBreadcrumbs
         v-show="getBreadcrumbs.length > 0"
         :breadcrumbs="getBreadcrumbs"
@@ -32,12 +32,7 @@ import SwBottomNavigation from "@shopware-pwa/default-theme/components/SwBottomN
 import SwFooter from "@shopware-pwa/default-theme/components/SwFooter"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import { useCms, useUIState } from "@shopware-pwa/composables"
-import {
-  computed,
-  getCurrentInstance,
-  ref,
-  watchEffect,
-} from "@vue/composition-api"
+import { computed, ref, watchEffect } from "@vue/composition-api"
 import SwLoginModal from "@shopware-pwa/default-theme/components/modals/SwLoginModal"
 const SwCart = () => import("@shopware-pwa/default-theme/components/SwCart")
 
@@ -51,14 +46,13 @@ export default {
     SwPluginSlot,
     SwLoginModal,
   },
-  setup() {
-    const vm = getCurrentInstance()
-    const { getBreadcrumbsObject } = useCms()
-    const { isOpen: isSidebarOpen } = useUIState("CART_SIDEBAR_STATE")
+  setup(props, { root }) {
+    const { getBreadcrumbsObject } = useCms(root)
+    const { isOpen: isSidebarOpen } = useUIState(root, "CART_SIDEBAR_STATE")
     const {
       isOpen: isLoginModalOpen,
       switchState: switchLoginModalState,
-    } = useUIState("LOGIN_MODAL_STATE")
+    } = useUIState(root, "LOGIN_MODAL_STATE")
 
     // Load cart component only when needed
     const loadSidebarComponent = ref(isSidebarOpen.value)
@@ -73,7 +67,7 @@ export default {
       Object.values(getBreadcrumbsObject.value).map((breadcrumb) => ({
         text: breadcrumb.name,
         route: {
-          link: vm.$i18n.path(breadcrumb.path),
+          link: root.$i18n.path(breadcrumb.path),
         },
       }))
     )

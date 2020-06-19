@@ -21,8 +21,8 @@ export default {
     SwCheckoutMethod,
     SwButton,
   },
-  setup() {
-    const { sessionContext } = useSessionContext()
+  setup(props, {root}) {
+    const { sessionContext } = useSessionContext(root)
     const paymentMethod = computed(() => sessionContext.value.paymentMethod)
     return {
       paymentMethod,

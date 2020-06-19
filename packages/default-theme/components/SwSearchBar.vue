@@ -20,8 +20,8 @@ export default {
     SfSearchBar,
   },
 
-  setup() {
-    const { search, suggestSearch, suggestionsResult } = useProductSearch()
+  setup(props, {root}) {
+    const { search, suggestSearch, suggestionsResult } = useProductSearch(root)
     const typingQuery = ref("")
     const suggestResultProducts = computed(
       () => suggestionsResult.value && suggestionsResult.value.elements

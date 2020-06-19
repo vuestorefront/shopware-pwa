@@ -111,7 +111,7 @@ export default {
     SfSelect,
     SfRadio,
   },
-  setup() {
+  setup(props, {root}) {
     const {
       validations,
       setValidations,
@@ -126,8 +126,8 @@ export default {
       countryId,
       phoneNumber,
     } = useShippingStep()
-    const { getCountries } = useCountries()
-    const { getShippingMethods, setShippingMethod } = useCheckout()
+    const { getCountries } = useCountries(root)
+    const { getShippingMethods, setShippingMethod } = useCheckout(root)
 
     const shippingMethods = computed(() => []) // await getShippingMethods()
 

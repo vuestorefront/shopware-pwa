@@ -48,7 +48,7 @@ export default {
       default: false,
     },
   },
-  setup() {
+  setup(props, {root}) {
     return { getCategoryUrl }
   },
 }

@@ -108,8 +108,8 @@ export default {
   },
   // TODO: move this logic into separate service;
   // details: https://github.com/DivanteLtd/shopware-pwa/issues/781
-  setup({ orderId }) {
-    const { getOrderDetails, loading, error: userError } = useUser()
+  setup({ orderId }, { root }) {
+    const { getOrderDetails, loading, error: userError } = useUser(root)
     const order = ref(null)
     const paymentMethod = ref(null)
     const shippingMethod = ref(null)
