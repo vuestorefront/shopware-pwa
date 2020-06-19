@@ -142,7 +142,7 @@ interface ShopwareParamsInternal {
 /**
  * TODO: https://github.com/DivanteLtd/shopware-pwa/issues/841
  * TODO: https://github.com/DivanteLtd/shopware-pwa/issues/840
- * @deprecated
+ * @deprecated - a general solution for toggling the filters will be replaced by dedicated ones.
  * @beta
  */
 export const toggleFilter = (

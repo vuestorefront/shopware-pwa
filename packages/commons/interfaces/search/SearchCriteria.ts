@@ -28,7 +28,6 @@ export interface Grouping {
 
 /**
  * configutarion.displayParents: true - if you want to show all the products
- * @deprecated
  * @alpha
  */
 export interface SearchCriteria {

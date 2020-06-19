@@ -9,6 +9,7 @@
 
 > Warning: This API is now obsolete.
 > 
+> - a general solution for toggling the filters will be replaced by dedicated ones.
 > 
 
 TODO: https://github.com/DivanteLtd/shopware-pwa/issues/841 TODO: https://github.com/DivanteLtd/shopware-pwa/issues/840

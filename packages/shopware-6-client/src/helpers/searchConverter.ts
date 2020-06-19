@@ -22,7 +22,7 @@ export enum ApiType {
 }
 
 /**
- * @deprecated
+ * @deprecated - that interface will be replaced with the new one from NewShopwareParams to follow the product-listing filters interface.
  * @alpha
  */
 export interface ShopwareParams {
@@ -45,7 +45,6 @@ export interface ShopwareParams {
 }
 
 /**
- * @deprecated
  * @param apiType - depending on api type, the output should be different (especially sorting and filters part)
  * @alpha
  **/
@@ -64,7 +63,7 @@ export const convertNewSearchCriteria = (
 };
 
 /**
- * @deprecated
+ * @deprecated - since SW 6.2 the listing filters will be formatted as convertNewSearchCriteria method does
  * @param apiType - depending on api type, the output should be different (especially sorting and filters part)
  * @alpha
  **/

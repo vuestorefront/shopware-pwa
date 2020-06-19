@@ -215,7 +215,7 @@ export const getProducts: (searchCriteria?: SearchCriteria | undefined, contextI
 export const getProductsIds: (options?: any, contextInstance?: ShopwareApiInstance) => Promise<SearchResult<string[]>>;
 
 // @beta (undocumented)
-export function getSearchResults(term: string, searchCriteria?: SearchCriteria): Promise<ProductListingResult>;
+export function getSearchResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
 // @alpha
 export function getSessionContext(contextInstance?: ShopwareApiInstance): Promise<SessionContext>;
