@@ -1,4 +1,4 @@
-import { apiService } from "../apiService";
+import { defaultInstance, ShopwareApiInstance } from "../apiService";
 
 /**
  * Invoke custom POST request to shopware API. Mostly for plugins usage.
@@ -6,14 +6,17 @@ import { apiService } from "../apiService";
  * @throws ClientApiError
  * @beta
  */
-export function invokePost({
-  address,
-  payload,
-}: {
-  address: string;
-  payload?: any;
-}): Promise<any> {
-  return apiService.post(address, payload);
+export function invokePost(
+  {
+    address,
+    payload,
+  }: {
+    address: string;
+    payload?: any;
+  },
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<any> {
+  return contextInstance.invoke.post(address, payload);
 }
 
 /**
@@ -22,6 +25,9 @@ export function invokePost({
  * @throws ClientApiError
  * @beta
  */
-export function invokeGet({ address }: { address: string }): Promise<any> {
-  return apiService.get(address);
+export function invokeGet(
+  { address }: { address: string },
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<any> {
+  return contextInstance.invoke.get(address);
 }

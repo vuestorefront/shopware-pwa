@@ -1,7 +1,7 @@
 import { getCustomerUpdateEmailEndpoint } from "../../../src/endpoints";
-import { apiService } from "../../../src/apiService";
-import { internet, random } from "faker";
-import { updateEmail, update, config } from "@shopware-pwa/shopware-6-client";
+import { defaultInstance } from "../../../src/apiService";
+import { internet } from "faker";
+import { updateEmail } from "@shopware-pwa/shopware-6-client";
 
 const credentials = {
   email: internet.email(),
@@ -9,21 +9,21 @@ const credentials = {
 };
 
 jest.mock("../../../src/apiService");
-const mockedAxios = apiService as jest.Mocked<typeof apiService>;
+const mockedApiInstance = defaultInstance as jest.Mocked<
+  typeof defaultInstance
+>;
 
 describe("CustomerService - updateEmail", () => {
-  let contextToken: string;
+  const mockedPost = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
-    contextToken = random.uuid();
-    update({ contextToken });
-  });
-  afterEach(() => {
-    expect(config.contextToken).toEqual(contextToken);
+    mockedApiInstance.invoke = {
+      post: mockedPost,
+    } as any;
   });
 
   it("rejects the promise if the email confirmation is wrong", async () => {
-    mockedAxios.post.mockRejectedValueOnce(
+    mockedPost.mockRejectedValueOnce(
       new Error("400 - email confirmation is wrong")
     );
     const differentEmail = internet.email();
@@ -34,8 +34,8 @@ describe("CustomerService - updateEmail", () => {
         password: credentials.password,
       })
     ).rejects.toThrow("400 - email confirmation is wrong");
-    expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith(getCustomerUpdateEmailEndpoint(), {
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith(getCustomerUpdateEmailEndpoint(), {
       email: credentials.email,
       emailConfirmation: differentEmail,
       password: credentials.password,
@@ -43,14 +43,14 @@ describe("CustomerService - updateEmail", () => {
   });
 
   it("returns no data if successfully updated", async () => {
-    mockedAxios.post.mockResolvedValueOnce(null);
+    mockedPost.mockResolvedValueOnce(null);
     await updateEmail({
       email: credentials.email,
       emailConfirmation: credentials.email,
       password: credentials.password,
     });
-    expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith(getCustomerUpdateEmailEndpoint(), {
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith(getCustomerUpdateEmailEndpoint(), {
       email: credentials.email,
       emailConfirmation: credentials.email,
       password: credentials.password,

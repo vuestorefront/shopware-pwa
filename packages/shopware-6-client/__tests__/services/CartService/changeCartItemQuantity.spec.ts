@@ -1,17 +1,23 @@
 import { changeCartItemQuantity } from "@shopware-pwa/shopware-6-client";
-import { apiService } from "../../../src/apiService";
+import { defaultInstance } from "../../../src/apiService";
 import { random, commerce } from "faker";
 
 jest.mock("../../../src/apiService");
-const mockedAxios = apiService as jest.Mocked<typeof apiService>;
+const mockedApiInstance = defaultInstance as jest.Mocked<
+  typeof defaultInstance
+>;
 
 describe("CartService - changeCartItemQuantity", () => {
+  const mockedPatch = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
+    mockedApiInstance.invoke = {
+      patch: mockedPatch,
+    } as any;
   });
 
   it("should call valid endpoint and return cart with no items", async () => {
-    mockedAxios.patch.mockResolvedValueOnce({
+    mockedPatch.mockResolvedValueOnce({
       data: {
         data: {
           name: random.uuid(),
@@ -33,9 +39,9 @@ describe("CartService - changeCartItemQuantity", () => {
     let lineItemId = "geawq90a5dab4206843d0vc3sa8wefdf";
 
     const result = await changeCartItemQuantity(lineItemId, 3);
-    expect(mockedAxios.patch).toBeCalledTimes(1);
+    expect(mockedPatch).toBeCalledTimes(1);
     expect(
-      mockedAxios.patch
+      mockedPatch
     ).toBeCalledWith(
       "/sales-channel-api/v1/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
       { quantity: 3 }
@@ -44,7 +50,7 @@ describe("CartService - changeCartItemQuantity", () => {
   });
 
   it("should throw unhandled 400 error when non-existing lineItemId given", async () => {
-    mockedAxios.patch.mockRejectedValueOnce(
+    mockedPatch.mockRejectedValueOnce(
       new Error("400: CHECKOUT__CART_LINEITEM_NOT_FOUND")
     );
 
@@ -53,8 +59,8 @@ describe("CartService - changeCartItemQuantity", () => {
     expect(changeCartItemQuantity(lineItemId, 1)).rejects.toThrow(
       "400: CHECKOUT__CART_LINEITEM_NOT_FOUND"
     );
-    expect(mockedAxios.patch).toBeCalledTimes(1);
-    expect(mockedAxios.patch).toBeCalledWith(
+    expect(mockedPatch).toBeCalledTimes(1);
+    expect(mockedPatch).toBeCalledWith(
       "/sales-channel-api/v1/checkout/cart/line-item/someNonExistingLineItemId",
       {
         quantity: 1,
@@ -63,7 +69,7 @@ describe("CartService - changeCartItemQuantity", () => {
   });
 
   it("should throw unhandled 400 error when negative quantity given", async () => {
-    mockedAxios.patch.mockRejectedValueOnce(
+    mockedPatch.mockRejectedValueOnce(
       new Error("400: CHECKOUT__CART_INVALID_LINEITEM_QUANTITY")
     );
 
@@ -72,8 +78,8 @@ describe("CartService - changeCartItemQuantity", () => {
     expect(changeCartItemQuantity(lineItemId, -2)).rejects.toThrow(
       "400: CHECKOUT__CART_INVALID_LINEITEM_QUANTITY"
     );
-    expect(mockedAxios.patch).toBeCalledTimes(1);
-    expect(mockedAxios.patch).toBeCalledWith(
+    expect(mockedPatch).toBeCalledTimes(1);
+    expect(mockedPatch).toBeCalledWith(
       "/sales-channel-api/v1/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
       {
         quantity: -2,
@@ -82,16 +88,16 @@ describe("CartService - changeCartItemQuantity", () => {
   });
 
   it("should call api with default value of quantity", async () => {
-    mockedAxios.patch.mockResolvedValueOnce({
+    mockedPatch.mockResolvedValueOnce({
       data: {},
     });
 
     let lineItemId = "geawq90a5dab4206843d0vc3sa8wefdf";
 
     await changeCartItemQuantity(lineItemId);
-    expect(mockedAxios.patch).toBeCalledTimes(1);
+    expect(mockedPatch).toBeCalledTimes(1);
     expect(
-      mockedAxios.patch
+      mockedPatch
     ).toBeCalledWith(
       "/sales-channel-api/v1/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
       { quantity: 1 }

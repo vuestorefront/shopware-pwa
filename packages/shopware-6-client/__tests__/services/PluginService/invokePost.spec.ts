@@ -1,15 +1,21 @@
-import { apiService } from "../../../src/apiService";
+import { defaultInstance } from "../../../src/apiService";
 import { invokePost, invokeGet } from "@shopware-pwa/shopware-6-client";
 
 jest.mock("../../../src/apiService");
-const mockedAxios = apiService as jest.Mocked<typeof apiService>;
+const mockedApiInstance = defaultInstance as jest.Mocked<
+  typeof defaultInstance
+>;
 
 describe("PluginService - invokePost", () => {
+  const mockedPost = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
+    mockedApiInstance.invoke = {
+      post: mockedPost,
+    } as any;
   });
-  it("should call apiService.post method with provided payload", async () => {
-    mockedAxios.post.mockResolvedValueOnce({ data: { success: true } });
+  it("should call contextInstance.invoke.post method with provided payload", async () => {
+    mockedPost.mockResolvedValueOnce({ data: { success: true } });
 
     const result = await invokePost({
       address: "/some/post/endpoint",
@@ -17,25 +23,29 @@ describe("PluginService - invokePost", () => {
         some: "payload",
       },
     });
-    expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith("/some/post/endpoint", {
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith("/some/post/endpoint", {
       some: "payload",
     });
     expect(result.data.success).toEqual(true);
   });
 });
 describe("PluginService - invokeGet", () => {
+  const mockedGet = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
+    mockedApiInstance.invoke = {
+      get: mockedGet,
+    } as any;
   });
-  it("should call apiService.get method with provided resource", async () => {
-    mockedAxios.get.mockResolvedValueOnce({ data: { success: true } });
+  it("should call contextInstance.invoke.get method with provided resource", async () => {
+    mockedGet.mockResolvedValueOnce({ data: { success: true } });
 
     const result = await invokeGet({
       address: "/some/get/endpoint",
     });
-    expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith("/some/get/endpoint");
+    expect(mockedGet).toBeCalledTimes(1);
+    expect(mockedGet).toBeCalledWith("/some/get/endpoint");
     expect(result.data.success).toEqual(true);
   });
 });

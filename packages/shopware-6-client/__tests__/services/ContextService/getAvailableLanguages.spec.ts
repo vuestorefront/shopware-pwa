@@ -1,19 +1,25 @@
-import { apiService } from "../../../src/apiService";
+import { defaultInstance } from "../../../src/apiService";
 import { getAvailableLanguages } from "@shopware-pwa/shopware-6-client";
 
 jest.mock("../../../src/apiService");
-const mockedAxios = apiService as jest.Mocked<typeof apiService>;
+const mockedApiInstance = defaultInstance as jest.Mocked<
+  typeof defaultInstance
+>;
 
 describe("ContextService - getAvailableLanguages", () => {
+  const mockedGet = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
+    mockedApiInstance.invoke = {
+      get: mockedGet,
+    } as any;
   });
   it("should return array with languages", async () => {
-    mockedAxios.get.mockResolvedValueOnce({ data: [{ id: 2, code: "en" }] });
+    mockedGet.mockResolvedValueOnce({ data: [{ id: 2, code: "en" }] });
 
     const result = await getAvailableLanguages();
-    expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith("/store-api/v1/language");
+    expect(mockedGet).toBeCalledTimes(1);
+    expect(mockedGet).toBeCalledWith("/store-api/v1/language");
     expect(result).toEqual([{ id: 2, code: "en" }]);
   });
 });

@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/shopware-6-client](./shopware-6-client.md) &gt; [onConfigChange](./shopware-6-client.onconfigchange.md)
 
-## onConfigChange() function
+## onConfigChange variable
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -11,16 +11,5 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function onConfigChange(fn: (context: ConfigChangedArgs) => void): void;
+onConfigChange: (fn: (context: ConfigChangedArgs) => void) => void
 ```
-
-## Parameters
-
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  fn | <code>(context: ConfigChangedArgs) =&gt; void</code> |  |
-
-<b>Returns:</b>
-
-`void`
-

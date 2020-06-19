@@ -12,8 +12,15 @@ Get customer's object
 <b>Signature:</b>
 
 ```typescript
-export declare function getCustomer(): Promise<Customer | null>;
+export declare function getCustomer(contextInstance?: ShopwareApiInstance): Promise<Customer | null>;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  contextInstance | <code>ShopwareApiInstance</code> |  |
+
 <b>Returns:</b>
 
 `Promise<Customer | null>`

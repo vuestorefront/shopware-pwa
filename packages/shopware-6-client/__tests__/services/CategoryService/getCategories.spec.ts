@@ -1,19 +1,25 @@
 import { getCategories } from "@shopware-pwa/shopware-6-client";
-import { apiService } from "../../../src/apiService";
+import { defaultInstance } from "../../../src/apiService";
 
 jest.mock("../../../src/apiService");
-const mockedAxios = apiService as jest.Mocked<typeof apiService>;
+const mockedApiInstance = defaultInstance as jest.Mocked<
+  typeof defaultInstance
+>;
 
 describe("CategoryService - getCategories", () => {
+  const mockedPost = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
+    mockedApiInstance.invoke = {
+      post: mockedPost,
+    } as any;
   });
   it("should return array with categories", async () => {
-    mockedAxios.post.mockResolvedValueOnce({ data: { total: 22 } });
+    mockedPost.mockResolvedValueOnce({ data: { total: 22 } });
 
     const result = await getCategories();
-    expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith("/sales-channel-api/v1/category", {
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith("/sales-channel-api/v1/category", {
       limit: 10,
     });
     expect(result.total).toEqual(22);

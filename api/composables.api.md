@@ -12,7 +12,6 @@ import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/
 import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
-import { CustomerAddressParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerRegistrationParams } from '@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams';
 import { CustomerResetPasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
@@ -178,7 +177,7 @@ export interface IUseSessionContext {
 // @beta
 export interface IUseUser {
     // (undocumented)
-    addAddress: (params: CustomerAddressParam) => Promise<boolean>;
+    addAddress: (params: Partial<CustomerAddress>) => Promise<boolean>;
     // (undocumented)
     addresses: Ref<CustomerAddress[] | null>;
     // (undocumented)
