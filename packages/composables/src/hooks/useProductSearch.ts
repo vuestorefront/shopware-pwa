@@ -191,9 +191,10 @@ export const useProductSearch = (): UseProductSearch => {
     searchResult: computed(() => searchResult.value),
     suggestionsResult,
     currentPagination,
-    selectedFilters: computed(() =>
-      searchCriteria.properties.concat(searchCriteria.manufacturer)
-    ),
+    selectedFilters: computed(() => [
+      ...searchCriteria.properties,
+      ...searchCriteria.manufacturer,
+    ]),
     availableFilters,
     changePage,
     changeSorting,
