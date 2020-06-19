@@ -71,7 +71,7 @@ export default {
     SidebarOrderReview,
   },
   setup(props, {root}) {
-    const { currentStep, nextStep } = useUICheckoutPage()
+    const { currentStep, nextStep } = useUICheckoutPage(root)
 
     return {
       currentStep,

@@ -142,9 +142,9 @@ export default {
       countryId,
       phoneNumber,
       differentThanShipping,
-    } = usePaymentStep()
+    } = usePaymentStep(root)
 
-    const { getCountries } = useCountries()
+    const { getCountries } = useCountries(root)
 
     return {
       validations,

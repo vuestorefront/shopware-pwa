@@ -212,7 +212,7 @@ export default {
       firstName,
       lastName,
       email,
-    } = usePersonalDetailsStep()
+    } = usePersonalDetailsStep(root)
 
     const {
       register: registerUser,

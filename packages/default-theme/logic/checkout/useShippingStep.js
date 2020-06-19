@@ -1,12 +1,9 @@
 import { required } from "vuelidate/lib/validators"
-import { useCheckout, createCheckoutStep } from "@shopware-pwa/composables"
+import { createCheckoutStep } from "@shopware-pwa/composables"
 import { CHECKOUT_STEPS } from "@shopware-pwa/default-theme/logic/checkout"
-
-const { guestOrderParams, updateGuestOrderParams } = useCheckout()
 
 export const useShippingStep = createCheckoutStep({
   stepNumber: CHECKOUT_STEPS.SHIPPING,
-  data: guestOrderParams.shippingAddress,
   stepFields: {
     firstName: null,
     lastName: null,
@@ -18,16 +15,17 @@ export const useShippingStep = createCheckoutStep({
     countryId: null,
     phoneNumber: null,
   },
-  stepDataUpdated: (updatedData) => {
-    const shippingAddress = {
+  stepDataUpdated: (updatedData, guestOrderParams) => {
+    let result = {}
+    result.shippingAddress = {
       ...updatedData,
       salutationId: guestOrderParams.value.salutationId,
     }
-    updateGuestOrderParams({ shippingAddress })
     // update billing address if is no different than shipping
     if (!guestOrderParams.value.billingAddress?.differentThanShipping) {
-      updateGuestOrderParams({ billingAddress: shippingAddress })
+      result.billingAddress = result.shippingAddress
     }
+    return result
   },
 })
 

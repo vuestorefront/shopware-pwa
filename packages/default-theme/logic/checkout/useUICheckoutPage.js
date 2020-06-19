@@ -1,4 +1,4 @@
-import { ref, computed, getCurrentInstance } from "@vue/composition-api"
+import { ref, computed } from "@vue/composition-api"
 import { CHECKOUT_STEPS } from "@shopware-pwa/default-theme/logic/checkout/steps"
 import { getStepByNumber } from "@shopware-pwa/default-theme/logic/checkout/helpers"
 import { useCheckout } from "@shopware-pwa/composables"
@@ -7,25 +7,25 @@ import { useShippingStep } from "@shopware-pwa/default-theme/logic/checkout/useS
 import { usePaymentStep } from "@shopware-pwa/default-theme/logic/checkout/usePaymentStep"
 import { PAGE_ORDER_SUCCESS } from "@shopware-pwa/default-theme/helpers/pages"
 
-export const useUICheckoutPage = () => {
-  const { isGuestOrder, createOrder } = useCheckout()
+export const useUICheckoutPage = (rootContext) => {
+  // TODO check context
+  const { isGuestOrder, createOrder } = useCheckout(rootContext)
   const currentStep = ref(
     isGuestOrder.value ? CHECKOUT_STEPS.PERSONAL_DETAILS : CHECKOUT_STEPS.REVIEW
   )
-  const vm = getCurrentInstance()
 
   const {
     isValid: isPersonalDetailsStepValid,
     validate: validatePersonalDetailsStep,
-  } = usePersonalDetailsStep()
+  } = usePersonalDetailsStep(rootContext)
   const {
     isValid: isShippingStepValid,
     validate: validateShippingStep,
-  } = useShippingStep()
+  } = useShippingStep(rootContext)
   const {
     isValid: isPaymentStepValid,
     validate: validatePaymentStep,
-  } = usePaymentStep()
+  } = usePaymentStep(rootContext)
 
   const isPersonalDetailsStepCompleted = computed(() => {
     return !isGuestOrder.value || isPersonalDetailsStepValid.value
@@ -83,14 +83,14 @@ export const useUICheckoutPage = () => {
       nextStepNumber > CHECKOUT_STEPS.REVIEW
     ) {
       const order = await createOrder()
-      vm.$router.push(
-        vm.$i18n.path(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`)
+      rootContext.$router.push(
+        rootContext.$i18n.path(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`)
       )
     } else {
       const nextStep = getStepByNumber(nextStepNumber)
       if (stepsStatus.value[nextStep].available) {
         currentStep.value = nextStepNumber
-        vm.$router.push({
+        rootContext.$router.push({
           query: { step: nextStep },
         })
       }

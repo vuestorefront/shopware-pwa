@@ -125,7 +125,7 @@ export default {
       zipcode,
       countryId,
       phoneNumber,
-    } = useShippingStep()
+    } = useShippingStep(root)
     const { getCountries } = useCountries(root)
     const { getShippingMethods, setShippingMethod } = useCheckout(root)
 

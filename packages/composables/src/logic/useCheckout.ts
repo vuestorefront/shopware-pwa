@@ -28,7 +28,7 @@ export interface IUseCheckout {
    * Flag isGuestOrder is true when user is not logged in
    */
   isGuestOrder: Readonly<Ref<boolean>>;
-  guestOrderParams: Ref<Readonly<Partial<GuestOrderParams | null>>>;
+  guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>;
   getShippingMethods: (options?: {
     forceReload: boolean;
   }) => Promise<Readonly<Ref<readonly ShippingMethod[]>>>;
