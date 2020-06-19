@@ -1,5 +1,6 @@
 import Vue from "vue";
 import { computed, reactive, ref, Ref } from "@vue/composition-api";
+import { checkAppContext } from "../appContext";
 
 const sharedUIState: any = {};
 
@@ -37,8 +38,10 @@ const sharedUIState: any = {};
  * @beta
  */
 export const useUIState = (
+  rootContext: any,
   stateName?: string
 ): { isOpen: Readonly<Ref<boolean>>; switchState: (to?: boolean) => void } => {
+  checkAppContext("useUIState", rootContext);
   if (stateName && !sharedUIState[stateName]) {
     sharedUIState[stateName] = Vue.observable({ state: false } as any);
   }

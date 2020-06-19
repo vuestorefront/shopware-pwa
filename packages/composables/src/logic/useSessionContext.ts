@@ -1,5 +1,4 @@
 import { Ref, computed } from "@vue/composition-api";
-import { getStore } from "@shopware-pwa/composables";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
@@ -10,6 +9,7 @@ import {
   setCurrentPaymentMethod,
 } from "@shopware-pwa/shopware-6-client";
 import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
+import { getApplicationContext } from "../appContext";
 
 /**
  * interface for {@link useSessionContext} composable
@@ -35,15 +35,18 @@ export interface IUseSessionContext {
  *
  * @beta
  */
-export const useSessionContext = (): IUseSessionContext => {
-  let vuexStore = getStore();
+export const useSessionContext = (rootContext: any): IUseSessionContext => {
+  const { vuexStore, apiInstance } = getApplicationContext(
+    "useSessionContext",
+    rootContext
+  );
 
   const sessionContext: Readonly<Ref<SessionContext>> = computed(() => {
     return (vuexStore.getters.getSessionContext as SessionContext) || null;
   });
   const refreshSessionContext = async () => {
     try {
-      const context = await getSessionContext();
+      const context = await getSessionContext(apiInstance);
       vuexStore.commit("SET_SESSION_CONTEXT", context);
     } catch (e) {
       console.error("[UseSessionContext][refreshSessionContext]", e);
@@ -61,7 +64,7 @@ export const useSessionContext = (): IUseSessionContext => {
         "You need to provide shipping method id in order to set shipping method."
       );
     }
-    await setCurrentShippingMethod(shippingMethod.id);
+    await setCurrentShippingMethod(shippingMethod.id, apiInstance);
     await refreshSessionContext();
   };
 
@@ -76,7 +79,7 @@ export const useSessionContext = (): IUseSessionContext => {
         "You need to provide payment method id in order to set payment method."
       );
     }
-    await setCurrentPaymentMethod(paymentMethod.id);
+    await setCurrentPaymentMethod(paymentMethod.id, apiInstance);
     await refreshSessionContext();
   };
 
@@ -87,7 +90,7 @@ export const useSessionContext = (): IUseSessionContext => {
         "You need to provide currency id in order to set currency."
       );
     }
-    await setCurrentCurrency(currency.id);
+    await setCurrentCurrency(currency.id, apiInstance);
     refreshSessionContext();
   };
 

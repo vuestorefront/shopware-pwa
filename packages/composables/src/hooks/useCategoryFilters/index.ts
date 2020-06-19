@@ -7,12 +7,14 @@ import {
   UiCategorySorting,
   SwSorting,
 } from "@shopware-pwa/helpers";
+import { checkAppContext } from "../../appContext";
 
 /**
  * @alpha
  */
-export const useCategoryFilters = (): any => {
-  const { page } = useCms();
+export const useCategoryFilters = (rootContext: any): any => {
+  checkAppContext("useCategoryFilters", rootContext);
+  const { page } = useCms(rootContext);
 
   const activeFilters = computed(() => {
     if (!page || !page.value || !page.value.listingConfiguration) {

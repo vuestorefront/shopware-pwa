@@ -1,15 +1,19 @@
 import { ref, Ref, computed } from "@vue/composition-api";
 import { getPage } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { getStore } from "../..";
 import { parseUrlQuery } from "@shopware-pwa/helpers";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
+import { getApplicationContext } from "../../appContext";
 
 /**
  * @alpha
  */
-export const useCms = (): any => {
-  let vuexStore = getStore();
+export const useCms = (rootContext: any): any => {
+  const { vuexStore, apiInstance } = getApplicationContext(
+    "useCms",
+    rootContext
+  );
+
   const error: Ref<any> = ref(null);
   const loading: Ref<boolean> = ref(false);
   const page = computed(() => {
@@ -53,7 +57,7 @@ export const useCms = (): any => {
     });
 
     try {
-      const result = await getPage(path, searchCriteria);
+      const result = await getPage(path, searchCriteria, apiInstance);
       vuexStore.commit("SET_PAGE", result);
     } catch (e) {
       const err: ClientApiError = e;

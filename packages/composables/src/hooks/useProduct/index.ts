@@ -2,6 +2,7 @@ import { ref, Ref } from "@vue/composition-api";
 import { getProduct } from "@shopware-pwa/shopware-6-client";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
+import { getApplicationContext } from "../../appContext";
 
 const NO_PRODUCT_REFERENCE_ERROR =
   "Associations cannot be loaded for undefined product";
@@ -26,8 +27,11 @@ export type Search = (path: string, associations?: any) => any;
  * @alpha
  */
 export const useProduct = (
+  rootContext: any,
   loadedProduct?: any
 ): UseProduct<Product, Search> => {
+  const { apiInstance } = getApplicationContext("useProduct", rootContext);
+
   const loading: Ref<boolean> = ref(false);
   const product: Ref<Product> = ref(loadedProduct);
   const error: Ref<any> = ref(null);
@@ -45,7 +49,8 @@ export const useProduct = (
       children,
     } = await getProduct(
       product.value.parentId || product.value.id,
-      associations
+      associations,
+      apiInstance
     );
     product.value = Object.assign({}, product.value, {
       media,
@@ -59,7 +64,7 @@ export const useProduct = (
   const search = async (productId: string) => {
     loading.value = true;
     try {
-      const result = await getProduct(productId);
+      const result = await getProduct(productId, apiInstance);
       product.value = result;
       return result;
     } catch (e) {
