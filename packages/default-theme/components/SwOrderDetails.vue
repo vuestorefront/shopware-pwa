@@ -160,15 +160,20 @@ export default {
       try {
         order.value = await getOrderDetails(orderId)
         paymentMethod.value = await getPaymentMethodDetails(
-          paymentMethodId.value
+          paymentMethodId.value,
+          root.$shopwareApiInstance
         )
         shippingMethod.value = await getShippingMethodDetails(
-          shippingMethodId.value
+          shippingMethodId.value,
+          root.$shopwareApiInstance
         )
-        const resp = await getOrderPaymentUrl({
-          orderId,
-          finishUrl: `${window.location.origin}${PAGE_ORDER_SUCCESS}?orderId=${orderId}`,
-        })
+        const resp = await getOrderPaymentUrl(
+          {
+            orderId,
+            finishUrl: `${window.location.origin}${PAGE_ORDER_SUCCESS}?orderId=${orderId}`,
+          },
+          root.$shopwareApiInstance
+        )
         paymentUrl.value = resp.paymentUrl
       } catch (e) {}
     })

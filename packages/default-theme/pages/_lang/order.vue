@@ -14,7 +14,6 @@
 </template>
 <script>
 import { SfHeading, SfIcon, SfDivider } from "@storefront-ui/vue"
-import { getOrderPaymentUrl } from "@shopware-pwa/shopware-6-client"
 import { ref, onMounted, computed } from "@vue/composition-api"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 

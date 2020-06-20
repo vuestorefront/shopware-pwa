@@ -1,5 +1,6 @@
 import { computed } from "@vue/composition-api"
 import languagesMap from "sw-plugins/languages"
+import { getApplicationContext } from "@shopware-pwa/composables"
 
 export const useLocales = (rootContext) => {
   const { i18n, router } = getApplicationContext(

@@ -1,7 +1,7 @@
 import { ref, computed } from "@vue/composition-api"
 import { CHECKOUT_STEPS } from "@shopware-pwa/default-theme/logic/checkout/steps"
 import { getStepByNumber } from "@shopware-pwa/default-theme/logic/checkout/helpers"
-import { useCheckout } from "@shopware-pwa/composables"
+import { useCheckout, getApplicationContext } from "@shopware-pwa/composables"
 import { usePersonalDetailsStep } from "@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep"
 import { useShippingStep } from "@shopware-pwa/default-theme/logic/checkout/useShippingStep"
 import { usePaymentStep } from "@shopware-pwa/default-theme/logic/checkout/usePaymentStep"
