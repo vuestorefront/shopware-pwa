@@ -8,7 +8,10 @@ import { usePaymentStep } from "@shopware-pwa/default-theme/logic/checkout/usePa
 import { PAGE_ORDER_SUCCESS } from "@shopware-pwa/default-theme/helpers/pages"
 
 export const useUICheckoutPage = (rootContext) => {
-  // TODO check context
+  const { router, i18n } = getApplicationContext(
+    "useUICheckoutPage",
+    rootContext
+  )
   const { isGuestOrder, createOrder } = useCheckout(rootContext)
   const currentStep = ref(
     isGuestOrder.value ? CHECKOUT_STEPS.PERSONAL_DETAILS : CHECKOUT_STEPS.REVIEW
@@ -83,14 +86,12 @@ export const useUICheckoutPage = (rootContext) => {
       nextStepNumber > CHECKOUT_STEPS.REVIEW
     ) {
       const order = await createOrder()
-      rootContext.$router.push(
-        rootContext.$i18n.path(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`)
-      )
+      router.push(i18n.path(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`))
     } else {
       const nextStep = getStepByNumber(nextStepNumber)
       if (stepsStatus.value[nextStep].available) {
         currentStep.value = nextStepNumber
-        rootContext.$router.push({
+        router.push({
           query: { step: nextStep },
         })
       }

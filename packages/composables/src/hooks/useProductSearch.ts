@@ -5,7 +5,7 @@ import {
 } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
-import { getApplicationContext } from "../appContext";
+import { getApplicationContext } from "@shopware-pwa/composables";
 
 /**
  * @beta

@@ -2,19 +2,20 @@ import { computed } from "@vue/composition-api"
 import languagesMap from "sw-plugins/languages"
 
 export const useLocales = (rootContext) => {
-  // TODO getAppContext
+  const { i18n, router } = getApplicationContext(
+    "useUICheckoutPage",
+    rootContext
+  )
 
   const availableLanguages = computed(() => Object.values(languagesMap) || [])
-  const currentLocale = computed(() => rootContext.$i18n.locale)
+  const currentLocale = computed(() => i18n.locale)
 
   const changeLocale = async (localeCode) => {
-    if (localeCode === rootContext.$i18n.locale) return
-    if (localeCode === rootContext.$i18n.fallbackLocale) {
-      rootContext.$router.push(
-        rootContext.$route.fullPath.replace(/^\/[^\/]+/, "")
-      )
+    if (localeCode === i18n.locale) return
+    if (localeCode === i18n.fallbackLocale) {
+      router.push(rootContext.$route.fullPath.replace(/^\/[^\/]+/, ""))
     } else {
-      rootContext.$router.push(`/${localeCode}${rootContext.$route.fullPath}`)
+      router.push(`/${localeCode}${rootContext.$route.fullPath}`)
     }
   }
 

@@ -9,7 +9,7 @@ import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError
 import { Cart } from "@shopware-pwa/commons/interfaces/models/checkout/cart/Cart";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
-import { getApplicationContext } from "../../appContext";
+import { getApplicationContext } from "@shopware-pwa/composables";
 
 /**
  * interface for {@link useCart} composable

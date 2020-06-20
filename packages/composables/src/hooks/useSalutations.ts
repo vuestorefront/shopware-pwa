@@ -2,7 +2,7 @@ import Vue from "vue";
 import { Ref, ref, computed, reactive, onMounted } from "@vue/composition-api";
 import { getAvailableSalutations } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { getApplicationContext } from "../appContext";
+import { getApplicationContext } from "@shopware-pwa/composables";
 
 /**
  * @alpha

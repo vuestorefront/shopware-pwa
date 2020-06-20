@@ -1,5 +1,5 @@
 import { computed } from "@vue/composition-api";
-import { useCms } from "@shopware-pwa/composables";
+import { useCms, getApplicationContext } from "@shopware-pwa/composables";
 import {
   getCategoryAvailableFilters,
   getCategoryAvailableSorting,
@@ -7,13 +7,12 @@ import {
   UiCategorySorting,
   SwSorting,
 } from "@shopware-pwa/helpers";
-import { checkAppContext } from "../../appContext";
 
 /**
  * @alpha
  */
 export const useCategoryFilters = (rootContext: any): any => {
-  checkAppContext("useCategoryFilters", rootContext);
+  getApplicationContext("useCategoryFilters", rootContext);
   const { page } = useCms(rootContext);
 
   const activeFilters = computed(() => {

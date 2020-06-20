@@ -1,6 +1,6 @@
 import { getCurrentInstance } from "@vue/composition-api";
 
-export function checkAppContext(key: string, rootContext: any): boolean {
+function checkAppContext(key: string, rootContext: any): boolean {
   if (!rootContext?.$shopwareApiInstance) {
     process.env.NODE_ENV !== "production" &&
       console.warn(
@@ -11,13 +11,19 @@ export function checkAppContext(key: string, rootContext: any): boolean {
   return true;
 }
 
+/**
+ *
+ * @beta
+ */
 export function getApplicationContext(key: string, rootContext: any) {
   let context = rootContext;
   if (!checkAppContext(key, rootContext)) {
     context = getCurrentInstance();
   }
   return {
-    apiInstance: context?.shopwareApiInstance || context?.$shopwareApiInstance,
-    vuexStore: context?.store || context?.$store,
+    apiInstance: context?.$shopwareApiInstance || context?.shopwareApiInstance,
+    vuexStore: context?.$store || context?.store,
+    router: context?.$router || context?.router,
+    i18n: context?.$i18n || context?.$i18n,
   };
 }

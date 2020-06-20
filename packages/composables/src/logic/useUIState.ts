@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { computed, reactive, ref, Ref } from "@vue/composition-api";
-import { checkAppContext } from "../appContext";
+import { getApplicationContext } from "@shopware-pwa/composables";
 
 const sharedUIState: any = {};
 
@@ -41,7 +41,7 @@ export const useUIState = (
   rootContext: any,
   stateName?: string
 ): { isOpen: Readonly<Ref<boolean>>; switchState: (to?: boolean) => void } => {
-  checkAppContext("useUIState", rootContext);
+  getApplicationContext("useUIState", rootContext);
   if (stateName && !sharedUIState[stateName]) {
     sharedUIState[stateName] = Vue.observable({ state: false } as any);
   }

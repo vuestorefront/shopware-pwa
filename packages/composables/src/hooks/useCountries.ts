@@ -2,7 +2,7 @@ import Vue from "vue";
 import { computed, Ref, ref, reactive, onMounted } from "@vue/composition-api";
 import { getAvailableCountries } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { checkAppContext } from "../appContext";
+import { getApplicationContext } from "@shopware-pwa/composables";
 
 /**
  * @alpha
@@ -22,7 +22,7 @@ const sharedCountries = Vue.observable({
  * @alpha
  */
 export const useCountries = (rootContext: any): UseCountries => {
-  checkAppContext("useCountries", rootContext);
+  getApplicationContext("useCountries", rootContext);
   const localCountries = reactive(sharedCountries);
   const error: Ref<any> = ref(null);
 

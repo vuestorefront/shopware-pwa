@@ -16,9 +16,11 @@ import {
   getSortingSearchCriteria,
   exportUrlQuery,
 } from "@shopware-pwa/helpers";
-import { useCms } from "./useCms";
-import { useCategoryFilters } from "./useCategoryFilters";
-import { getApplicationContext } from "../appContext";
+import {
+  useCms,
+  useCategoryFilters,
+  getApplicationContext,
+} from "@shopware-pwa/composables";
 
 /**
  * @alpha
