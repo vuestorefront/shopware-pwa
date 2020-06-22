@@ -29,7 +29,7 @@ describe('Test Checkout functionality Desktop view', () => {
       cy.get('.sf-add-to-cart__button')
         .click({ force: true })
         .click({ force: true })
-      cy.wait(200)
+      cy.wait(180)
     })
     it('Check if cart has three products added', () => {
       cy.get('[aria-label="Go to cart"] > .sf-badge').contains(/3/)

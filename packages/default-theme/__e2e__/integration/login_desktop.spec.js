@@ -4,7 +4,7 @@ describe('Test login functionality- desktop view', () => {
     // browser with a 800p monitor
     cy.viewport(1280, 800)
     cy.visit('')
-    cy.wait(2000)
+    cy.wait(2500)
     //opens login popup window
     cy.get('[aria-label="Go to My Account"]').click({
       force: true,
