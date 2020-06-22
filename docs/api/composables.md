@@ -4,6 +4,12 @@
 
 ## composables package
 
+## Functions
+
+|  Function | Description |
+|  --- | --- |
+|  [getApplicationContext(key, rootContext)](./composables.getapplicationcontext.md) | <b><i>(BETA)</i></b> |
+
 ## Interfaces
 
 |  Interface | Description |

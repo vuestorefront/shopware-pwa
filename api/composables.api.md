@@ -54,8 +54,8 @@ export interface CreateCheckoutStep {
 export function createCheckoutStep({ stepNumber, stepFields, stepDataUpdated, }: {
     stepNumber: number;
     stepFields: CheckoutStepFields;
-    stepDataUpdated: (updatedData: CheckoutStepFields) => void;
-}): () => CreateCheckoutStep;
+    stepDataUpdated: (updatedData: CheckoutStepFields, guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>) => Partial<GuestOrderParams>;
+}): (rootContext: any) => CreateCheckoutStep;
 
 // @beta (undocumented)
 export interface CurrentPagination {
@@ -67,8 +67,13 @@ export interface CurrentPagination {
     total: number | undefined;
 }
 
-// @alpha (undocumented)
-export function getStore(): any;
+// @beta (undocumented)
+export function getApplicationContext(key: string, rootContext: any): {
+    apiInstance: any;
+    vuexStore: any;
+    router: any;
+    i18n: any;
+};
 
 // @beta
 export interface IUseAddToCart {
@@ -127,7 +132,7 @@ export interface IUseCheckout {
         forceReload: boolean;
     }) => Promise<Readonly<Ref<readonly ShippingMethod[]>>>;
     // (undocumented)
-    guestOrderParams: Ref<Readonly<Partial<GuestOrderParams | null>>>;
+    guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>;
     isGuestOrder: Readonly<Ref<boolean>>;
     // (undocumented)
     paymentMethods: Readonly<Ref<readonly PaymentMethod[]>>;
@@ -232,23 +237,20 @@ export interface IUseUser {
 // @alpha (undocumented)
 export type Search = (path: string, associations?: any) => any;
 
-// @alpha (undocumented)
-export function setStore(ref: any): void;
+// @beta
+export const useAddToCart: (rootContext: any, product: Product) => IUseAddToCart;
 
 // @beta
-export const useAddToCart: (product: Product) => IUseAddToCart;
-
-// @beta
-export const useCart: () => IUseCart;
+export const useCart: (rootContext: any) => IUseCart;
 
 // @alpha (undocumented)
-export const useCategoryFilters: () => any;
+export const useCategoryFilters: (rootContext: any) => any;
 
 // @beta
-export const useCheckout: () => IUseCheckout;
+export const useCheckout: (rootContext: any) => IUseCheckout;
 
 // @alpha (undocumented)
-export const useCms: () => any;
+export const useCms: (rootContext: any) => any;
 
 // @alpha (undocumented)
 export interface UseCountries {
@@ -263,7 +265,7 @@ export interface UseCountries {
 }
 
 // @alpha (undocumented)
-export const useCountries: () => UseCountries;
+export const useCountries: (rootContext: any) => UseCountries;
 
 // @alpha (undocumented)
 export interface UseCurrency {
@@ -282,10 +284,10 @@ export interface UseCurrency {
 }
 
 // @alpha (undocumented)
-export const useCurrency: () => UseCurrency;
+export const useCurrency: (rootContext: any) => UseCurrency;
 
 // @beta
-export const useNavigation: () => IUseNavigation;
+export const useNavigation: (rootContext: any) => IUseNavigation;
 
 // @alpha (undocumented)
 export interface UseProduct<PRODUCT, SEARCH> {
@@ -302,7 +304,7 @@ export interface UseProduct<PRODUCT, SEARCH> {
 }
 
 // @alpha (undocumented)
-export const useProduct: (loadedProduct?: any) => UseProduct<Product, Search>;
+export const useProduct: (rootContext: any, loadedProduct?: any) => UseProduct<Product, Search>;
 
 // @alpha (undocumented)
 export interface UseProductListing {
@@ -315,7 +317,7 @@ export interface UseProductListing {
 }
 
 // @alpha (undocumented)
-export const useProductListing: (initialListing?: ProductListingResult | undefined) => UseProductListing;
+export const useProductListing: (rootContext: any, initialListing?: ProductListingResult | undefined) => UseProductListing;
 
 // @alpha (undocumented)
 export interface UseProductSearch {
@@ -340,7 +342,7 @@ export interface UseProductSearch {
 }
 
 // @alpha (undocumented)
-export const useProductSearch: () => UseProductSearch;
+export const useProductSearch: (rootContext: any) => UseProductSearch;
 
 // @alpha (undocumented)
 export interface UseSalutations {
@@ -355,19 +357,19 @@ export interface UseSalutations {
 }
 
 // @alpha (undocumented)
-export const useSalutations: () => UseSalutations;
+export const useSalutations: (rootContext: any) => UseSalutations;
 
 // @beta
-export const useSessionContext: () => IUseSessionContext;
+export const useSessionContext: (rootContext: any) => IUseSessionContext;
 
 // @beta
-export const useUIState: (stateName?: string | undefined) => {
+export const useUIState: (rootContext: any, stateName?: string | undefined) => {
     isOpen: Readonly<Ref<boolean>>;
     switchState: (to?: boolean | undefined) => void;
 };
 
 // @beta
-export const useUser: () => IUseUser;
+export const useUser: (rootContext: any) => IUseUser;
 
 // @alpha (undocumented)
 export interface VuelidateValidation {
