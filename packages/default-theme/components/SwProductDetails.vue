@@ -3,6 +3,7 @@
     <div class="product-details__mobile-top">
       <SwProductHeading
         class="product-details__heading"
+        :shippingFree="shippingFree"
         :name="name"
         :reviews="reviews"
         :rating-average="ratingAverage"
@@ -54,6 +55,9 @@
         name="product-page-add-to-cart-button-after"
         :slotContext="product"
       />
+      <div v-if="productNumber" class="product-details__product-number">
+        <p>Product number: <span v-html="productNumber" /></p>
+      </div>
       <div class="product-details__action desktop-only">
         <SwButton class="sf-button--text product-details__action-button"
           >Save for later</SwButton
@@ -151,6 +155,12 @@ export default {
         (this.product.description ||
           (this.product.translated && this.product.translated.description))
       )
+    },
+    shippingFree() {
+      return this.product && this.product.shippingFree
+    },
+    productNumber() {
+      return this.product && this.product.productNumber || null
     },
     ratingAverage() {
       return this.product && this.product.ratingAverage
@@ -285,6 +295,16 @@ export default {
     align-items: center;
     @include for-desktop {
       display: block;
+    }
+  }
+  &__product-number {
+    p {
+      font-size: var(--font-sm);
+      font-weight: bold;
+
+      span {
+        font-weight: var(--font-light);
+      }
     }
   }
   &__section {

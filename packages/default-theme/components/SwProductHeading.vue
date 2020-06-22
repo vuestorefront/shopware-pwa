@@ -15,6 +15,7 @@
           class="sf-price--big product-heading__sub-price"
         />
       </slot>
+
       <slot name="reviews" v-bind="reviews">
         <div v-if="reviews.length" class="product-heading__sub-rating">
           <SfRating :score="ratingAverage" :max="5" />
@@ -27,6 +28,13 @@
         </div>
       </slot>
     </div>
+
+    <slot name="shippingFree">
+      <SfBadge class="sf-badge--number product-heading__shipping-badge">
+        Free shipping
+      </SfBadge>
+    </slot>
+
     <SwTierPrices
       v-if="tierPrices && tierPrices.length"
       :tier-prices="tierPrices"
@@ -34,12 +42,12 @@
   </div>
 </template>
 <script>
-import { SfHeading, SfPrice, SfRating } from "@storefront-ui/vue"
+import { SfBadge, SfHeading, SfPrice, SfRating } from "@storefront-ui/vue"
 import SwTierPrices from "./SwTierPrices"
 
 export default {
   name: "SwProductHeading",
-  components: { SfHeading, SfPrice, SfRating, SwTierPrices },
+  components: { SfBadge,SfHeading, SfPrice, SfRating, SwTierPrices },
   props: {
     reviews: {
       type: Array,
@@ -48,6 +56,10 @@ export default {
     price: {
       type: [Number, String],
       default: 0,
+    },
+    shippingFree: {
+      default: false,
+      type: Boolean
     },
     special: {
       type: [Number, String],
@@ -72,6 +84,9 @@ export default {
 @import "~@storefront-ui/shared/styles/variables";
 
 .product-heading {
+  &__shipping-badge {
+    background: var(--c-primary);
+  }
   &__sub {
     display: flex;
     flex-wrap: wrap;
