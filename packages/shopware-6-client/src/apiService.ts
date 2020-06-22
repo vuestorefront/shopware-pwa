@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from "axios";
 import { createResponseInterceptor, errorInterceptor } from "./interceptors";
 import { ClientSettings, defaultConfig } from "./settings";
 
@@ -67,7 +67,7 @@ export function _createInstance(initialConfig: ClientSettings = {}) {
 
   const update = function (
     config: ClientSettings,
-    responseConfig?: AxiosResponse<any>["config"]
+    responseConfig?: AxiosResponse<AxiosRequestConfig>["config"]
   ): void {
     clientConfig = Object.assign(clientConfig, config);
     if (
