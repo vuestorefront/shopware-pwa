@@ -70,6 +70,7 @@ export const useProductSearch = (rootContext: any): UseProductSearch => {
       loadingSuggestions.value = true;
       const suggestedProductListing = await getSuggestedResults(
         term,
+        undefined,
         apiInstance
       );
       suggestionsResult.value = suggestedProductListing;

@@ -29,12 +29,9 @@ export interface ShopwareApiInstance {
 }
 
 /**
- *
- * @beta
+ * Internal method for creating new instance, exported only for tests, not exported by package
  */
-export function createInstance(
-  initialConfig: ClientSettings = {}
-): ShopwareApiInstance {
+export function _createInstance(initialConfig: ClientSettings = {}) {
   const callbackMethods: ((context: ConfigChangedArgs) => void)[] = [];
   let clientConfig: ClientSettings = {};
   const apiService: AxiosInstance = axios.create();
@@ -69,7 +66,7 @@ export function createInstance(
   setup(initialConfig);
 
   const update = function (
-    config: ClientSettings = {},
+    config: ClientSettings,
     responseConfig?: AxiosResponse<any>["config"]
   ): void {
     clientConfig = Object.assign(clientConfig, config);
@@ -79,7 +76,7 @@ export function createInstance(
       responseConfig
     ) {
       console.warn(
-        `[shopware-6-api] After calling API method ${responseConfig?.url} there is no "onConfigChange" listener.` // TODO: see docs link...
+        `[shopware-6-api] After calling API method ${responseConfig.url} there is no "onConfigChange" listener.` // TODO: see docs link...
       );
     }
     callbackMethods.forEach((fn) => fn({ config: clientConfig }));
@@ -103,11 +100,37 @@ export function createInstance(
     onConfigChange,
     config: clientConfig,
     setup,
+    update,
+    invoke,
+    defaults: apiService.defaults,
+  };
+}
+
+/**
+ *
+ * @beta
+ */
+export function createInstance(
+  initialConfig: ClientSettings = {}
+): ShopwareApiInstance {
+  const {
+    onConfigChange,
+    config,
+    setup,
+    update,
+    invoke,
+    defaults,
+  } = _createInstance(initialConfig);
+
+  return {
+    onConfigChange,
+    config,
+    setup,
     update: (config: ClientSettings = {}): void => {
       update(config);
     },
     invoke,
-    defaults: apiService.defaults,
+    defaults,
   };
 }
 
