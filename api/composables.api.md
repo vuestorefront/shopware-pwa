@@ -68,7 +68,7 @@ export interface CurrentPagination {
 }
 
 // @beta (undocumented)
-export function getApplicationContext(key: string, rootContext: any): {
+export function getApplicationContext(rootContext: any, key?: string): {
     apiInstance: any;
     vuexStore: any;
     router: any;
