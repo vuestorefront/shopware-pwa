@@ -43,8 +43,8 @@ export interface IUseCart {
  */
 export const useCart = (rootContext: any): IUseCart => {
   const { vuexStore, apiInstance } = getApplicationContext(
-    "useCart",
-    rootContext
+    rootContext,
+    "useCart"
   );
 
   const loading: Ref<boolean> = ref(false);

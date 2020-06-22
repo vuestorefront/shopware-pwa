@@ -76,7 +76,7 @@ export function _createInstance(initialConfig: ClientSettings = {}) {
       responseConfig
     ) {
       console.warn(
-        `[shopware-6-api] After calling API method ${responseConfig.url} there is no "onConfigChange" listener.` // TODO: see docs link...
+        `[shopware-6-api] After calling API method ${responseConfig.url} there is no "onConfigChange" listener. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/#context-awareness`
       );
     }
     callbackMethods.forEach((fn) => fn({ config: clientConfig }));

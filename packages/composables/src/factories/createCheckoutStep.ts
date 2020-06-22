@@ -60,7 +60,7 @@ export function createCheckoutStep({
   });
 
   return (rootContext: any): CreateCheckoutStep => {
-    getApplicationContext("checkoutStep", rootContext);
+    getApplicationContext(rootContext, "checkoutStep");
     const stepDataCache: Ref<{ isValid: boolean } | null> = ref(null);
     const { guestOrderParams, updateGuestOrderParams } = useCheckout(
       rootContext

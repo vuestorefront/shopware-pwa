@@ -22,7 +22,7 @@ const sharedSalutations = Vue.observable({
  * @alpha
  */
 export const useSalutations = (rootContext: any): UseSalutations => {
-  const { apiInstance } = getApplicationContext("useSalutations", rootContext);
+  const { apiInstance } = getApplicationContext(rootContext, "useSalutations");
 
   const localSalutations = reactive(sharedSalutations);
   const error: Ref<any> = ref(null);

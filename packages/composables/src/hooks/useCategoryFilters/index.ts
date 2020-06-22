@@ -12,7 +12,7 @@ import {
  * @alpha
  */
 export const useCategoryFilters = (rootContext: any): any => {
-  getApplicationContext("useCategoryFilters", rootContext);
+  getApplicationContext(rootContext, "useCategoryFilters");
   const { page } = useCms(rootContext);
 
   const activeFilters = computed(() => {

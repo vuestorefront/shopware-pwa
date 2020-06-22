@@ -4,7 +4,7 @@ function checkAppContext(key: string, rootContext: any): boolean {
   if (!rootContext?.$shopwareApiInstance) {
     process.env.NODE_ENV !== "production" &&
       console.warn(
-        `[SECURITY][${key}] Trying to access Application context without Vue instance context.` // TODO: see link...
+        `[SECURITY][${key}] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/#context-awareness`
       );
     return false;
   }
@@ -15,7 +15,10 @@ function checkAppContext(key: string, rootContext: any): boolean {
  *
  * @beta
  */
-export function getApplicationContext(key: string, rootContext: any) {
+export function getApplicationContext(
+  rootContext: any,
+  key: string = "getApplicationContext"
+) {
   let context = rootContext;
   if (!checkAppContext(key, rootContext)) {
     context = getCurrentInstance();

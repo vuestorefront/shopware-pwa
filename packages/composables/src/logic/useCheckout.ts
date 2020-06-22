@@ -61,7 +61,7 @@ const orderData: {
  * @beta
  */
 export const useCheckout = (rootContext: any): IUseCheckout => {
-  const { apiInstance } = getApplicationContext("useCheckout", rootContext);
+  const { apiInstance } = getApplicationContext(rootContext, "useCheckout");
 
   const { isLoggedIn } = useUser(rootContext);
   const { refreshCart } = useCart(rootContext);

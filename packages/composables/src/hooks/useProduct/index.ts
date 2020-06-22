@@ -30,7 +30,7 @@ export const useProduct = (
   rootContext: any,
   loadedProduct?: any
 ): UseProduct<Product, Search> => {
-  const { apiInstance } = getApplicationContext("useProduct", rootContext);
+  const { apiInstance } = getApplicationContext(rootContext, "useProduct");
 
   const loading: Ref<boolean> = ref(false);
   const product: Ref<Product> = ref(loadedProduct);

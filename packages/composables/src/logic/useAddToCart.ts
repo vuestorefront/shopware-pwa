@@ -53,7 +53,7 @@ export const useAddToCart = (
   rootContext: any,
   product: Product
 ): IUseAddToCart => {
-  getApplicationContext("useAddToCart", rootContext);
+  getApplicationContext("useAddToCart");
   const { addProduct, cartItems } = useCart(rootContext);
   const quantity: Ref<number> = ref(1);
   const loading: Ref<boolean> = ref(false);

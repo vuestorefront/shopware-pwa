@@ -4,8 +4,8 @@ import { getApplicationContext } from "@shopware-pwa/composables"
 
 export const useLocales = (rootContext) => {
   const { i18n, router } = getApplicationContext(
-    "useUICheckoutPage",
-    rootContext
+    rootContext,
+    "useUICheckoutPage"
   )
 
   const availableLanguages = computed(() => Object.values(languagesMap) || [])

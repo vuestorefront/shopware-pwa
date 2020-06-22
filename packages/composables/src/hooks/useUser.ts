@@ -91,8 +91,8 @@ export interface IUseUser {
  */
 export const useUser = (rootContext: any): IUseUser => {
   const { vuexStore, apiInstance } = getApplicationContext(
-    "useUser",
-    rootContext
+    rootContext,
+    "useUser"
   );
 
   const loading: Ref<boolean> = ref(false);

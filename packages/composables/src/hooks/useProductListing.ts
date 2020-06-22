@@ -56,8 +56,8 @@ export const useProductListing = (
   initialListing?: ProductListingResult
 ): UseProductListing => {
   const { apiInstance } = getApplicationContext(
-    "useProductListing",
-    rootContext
+    rootContext,
+    "useProductListing"
   );
 
   const { categoryId } = useCms(rootContext);

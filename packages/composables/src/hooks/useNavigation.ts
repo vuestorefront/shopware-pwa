@@ -27,7 +27,7 @@ const sharedNavigation = Vue.observable({
  * @beta
  */
 export const useNavigation = (rootContext: any): IUseNavigation => {
-  const { apiInstance } = getApplicationContext("useNavigation", rootContext);
+  const { apiInstance } = getApplicationContext(rootContext, "useNavigation");
 
   const localNavigation = reactive(sharedNavigation);
   const routes = computed(() => localNavigation.routes);

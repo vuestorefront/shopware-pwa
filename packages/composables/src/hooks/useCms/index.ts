@@ -10,8 +10,8 @@ import { getApplicationContext } from "@shopware-pwa/composables";
  */
 export const useCms = (rootContext: any): any => {
   const { vuexStore, apiInstance } = getApplicationContext(
-    "useCms",
-    rootContext
+    rootContext,
+    "useCms"
   );
 
   const error: Ref<any> = ref(null);

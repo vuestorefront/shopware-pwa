@@ -29,7 +29,7 @@ export interface UseCurrency {
  * @alpha
  */
 export const useCurrency = (rootContext: any): UseCurrency => {
-  const { apiInstance } = getApplicationContext("useCurrency", rootContext);
+  const { apiInstance } = getApplicationContext(rootContext, "useCurrency");
 
   const { currency, setCurrency: setContextCurrency } = useSessionContext(
     rootContext

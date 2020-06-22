@@ -9,8 +9,8 @@ import { PAGE_ORDER_SUCCESS } from "@shopware-pwa/default-theme/helpers/pages"
 
 export const useUICheckoutPage = (rootContext) => {
   const { router, i18n } = getApplicationContext(
-    "useUICheckoutPage",
-    rootContext
+    rootContext,
+    "useUICheckoutPage"
   )
   const { isGuestOrder, createOrder } = useCheckout(rootContext)
   const currentStep = ref(

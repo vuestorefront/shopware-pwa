@@ -36,8 +36,8 @@ export interface IUseSessionContext {
  */
 export const useSessionContext = (rootContext: any): IUseSessionContext => {
   const { vuexStore, apiInstance } = getApplicationContext(
-    "useSessionContext",
-    rootContext
+    rootContext,
+    "useSessionContext"
   );
 
   const sessionContext: Readonly<Ref<SessionContext>> = computed(() => {

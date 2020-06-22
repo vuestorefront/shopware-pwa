@@ -36,8 +36,8 @@ export interface UseProductSearch {
  */
 export const useProductSearch = (rootContext: any): UseProductSearch => {
   const { apiInstance } = getApplicationContext(
-    "useProductSearch",
-    rootContext
+    rootContext,
+    "useProductSearch"
   );
 
   const loadingSearch: Ref<boolean> = ref(false);

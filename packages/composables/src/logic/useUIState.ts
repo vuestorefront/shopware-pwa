@@ -41,7 +41,7 @@ export const useUIState = (
   rootContext: any,
   stateName?: string
 ): { isOpen: Readonly<Ref<boolean>>; switchState: (to?: boolean) => void } => {
-  getApplicationContext("useUIState", rootContext);
+  getApplicationContext(rootContext, "useUIState");
   if (stateName && !sharedUIState[stateName]) {
     sharedUIState[stateName] = Vue.observable({ state: false } as any);
   }

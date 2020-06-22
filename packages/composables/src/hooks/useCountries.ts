@@ -22,7 +22,7 @@ const sharedCountries = Vue.observable({
  * @alpha
  */
 export const useCountries = (rootContext: any): UseCountries => {
-  getApplicationContext("useCountries", rootContext);
+  getApplicationContext(rootContext, "useCountries");
   const localCountries = reactive(sharedCountries);
   const error: Ref<any> = ref(null);
 
