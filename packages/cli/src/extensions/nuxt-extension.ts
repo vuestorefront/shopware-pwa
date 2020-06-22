@@ -32,7 +32,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       devTools: [],
     };
     if (!isNuxtGenerated) {
-      const nuxtGenerate = `npx --ignore-existing create-nuxt-app --answers "${JSON.stringify(
+      const nuxtGenerate = `npx --ignore-existing create-nuxt-app@2.15.0 --answers "${JSON.stringify(
         nuxtAnswers
       ).replace(/"/g, '\\"')}"`;
       await run(nuxtGenerate);
@@ -152,6 +152,19 @@ module.exports = (toolbox: GluegunToolbox) => {
     );
     if (!swPluginsIgnoreExist) {
       await toolbox.patching.append(".gitignore", ".shopware-pwa\n");
+    }
+
+    // Add telemetry flag
+    const configTelemetryFlag = await toolbox.patching.exists(
+      "nuxt.config.js",
+      `telemetry:`
+    );
+    if (!configTelemetryFlag) {
+      await toolbox.patching.patch("nuxt.config.js", {
+        insert: `
+  telemetry: false,`,
+        after: "mode: 'universal',",
+      });
     }
   };
 
