@@ -11,6 +11,12 @@
         :tier-prices="getTierPrices"
       />
     </div>
+    <SwPluginSlot name="product-page-description" :slotContext="product">
+      <p
+        class="product-details__description desktop-only"
+        v-html="description"
+      />
+    </SwPluginSlot>
     <!-- <div class="product-details__action">
       <button v-if="sizes.length > 0" class="sf-action">Size guide</button>
     </div> -->
@@ -58,7 +64,6 @@
       </div>
     </div>
     <SwProductTabs
-      :description="description"
       :properties="properties"
       :reviews="reviews"
       :manufacturer="product.manufacturer"
@@ -248,6 +253,11 @@ export default {
   }
   &__attribute {
     margin-bottom: var(--spacer-base);
+  }
+  &__description {
+    margin: var(--spacer-xl) 0 calc(var(--spacer-base) * 3) 0;
+    font-family: var(--font-family-secondary);
+    font-size: var(--font-sm);
   }
   &__heading {
     margin: var(--spacer-base) 0 0 0;
