@@ -3,11 +3,11 @@ describe('Test login functionality- desktop view', () => {
     // run these tests as if in a desktop
     // browser with a 800p monitor
     cy.viewport(1280, 800)
-    cy.visit('https://shopware-pwa.storefrontcloud.io')
-    cy.wait(1500)
+    cy.visit('')
+    cy.wait(2000)
     //opens login popup window
-    cy.get('[aria-label="Go to My Account"] > .sf-icon-path').click({
-      foce: true,
+    cy.get('[aria-label="Go to My Account"]').click({
+      force: true,
     })
   })
 
@@ -39,13 +39,12 @@ describe('Test login functionality- desktop view', () => {
     )
   })
   it('opens my account after successful login', () => {
-    cy.get('#email').type('joe@example.com')
+    cy.get('#email').type('joe@divante.pl')
     cy.get('#password').type('exampletest')
     cy.get('button').contains('Log in').click()
-    cy.get('[aria-label="Go to My Account"] > .sf-icon-path').click({
-      foce: true,
-    })
-    cy.wait(1000)
+    cy.get('.sf-header__icon--is-active > .sf-icon-path').click({ force: true })
+    cy.get('.sf-list > :nth-child(1) > .sf-button').click({ force: true })
+    cy.wait(2500)
     cy.location('pathname').should('eq', '/account/profile')
   })
 })
