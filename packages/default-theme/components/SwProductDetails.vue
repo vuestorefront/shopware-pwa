@@ -55,9 +55,11 @@
         name="product-page-add-to-cart-button-after"
         :slotContext="product"
       />
+
       <div v-if="productNumber" class="product-details__product-number">
         <p>Product number: <span v-html="productNumber" /></p>
       </div>
+
       <div class="product-details__action desktop-only">
         <SwButton class="sf-button--text product-details__action-button"
           >Save for later</SwButton

@@ -29,8 +29,11 @@
       </slot>
     </div>
 
-    <slot name="shippingFree">
-      <SfBadge class="sf-badge--number product-heading__shipping-badge">
+    <slot name="shippingFree" v-bind="shippingFree">
+      <SfBadge
+        class="sf-badge--number product-heading__shipping-badge"
+        v-if="shippingFree"
+      >
         Free shipping
       </SfBadge>
     </slot>
