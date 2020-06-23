@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/default-theme",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Shopware PWA theme",
   "author": "patzick",
   "scripts": {
@@ -19,6 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "@storefront-ui/vue": "0.7.17",
+    "core-js": "^3.6.5",
     "currency.js": "^1.2.2",
     "dayjs": "^1.8.25",
     "html-to-vue": "^1.2.0",

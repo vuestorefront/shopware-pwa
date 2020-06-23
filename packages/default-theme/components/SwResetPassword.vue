@@ -52,8 +52,8 @@ export default {
       emailSent: false,
     }
   },
-  setup() {
-    const { resetPassword, error: userError } = useUser()
+  setup(props, {root}) {
+    const { resetPassword, error: userError } = useUser(root)
     return {
       resetPassword: resetPassword,
       userError,

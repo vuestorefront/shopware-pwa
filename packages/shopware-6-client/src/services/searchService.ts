@@ -1,5 +1,5 @@
 import { getSuggestSearchEndpoint, getSearchEndpoint } from "../endpoints";
-import { apiService } from "../apiService";
+import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { convertSearchCriteria, ApiType } from "../helpers/searchConverter";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
@@ -10,12 +10,17 @@ import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/
  */
 export async function getSuggestedResults(
   term: string,
-  searchCriteria?: SearchCriteria
+  searchCriteria?: SearchCriteria,
+  contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<ProductListingResult> {
-  const resp = await apiService.post(
+  const resp = await contextInstance.invoke.post(
     `${getSuggestSearchEndpoint()}?search=${term}`,
     {
-      ...convertSearchCriteria(searchCriteria, ApiType.store),
+      ...convertSearchCriteria({
+        searchCriteria,
+        apiType: ApiType.store,
+        config: contextInstance.config,
+      }),
     }
   );
 
@@ -29,11 +34,19 @@ export async function getSuggestedResults(
 
 export async function getResults(
   term: string,
-  searchCriteria?: SearchCriteria
+  searchCriteria?: SearchCriteria,
+  contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<ProductListingResult> {
-  const resp = await apiService.post(`${getSearchEndpoint()}?search=${term}`, {
-    ...convertSearchCriteria(searchCriteria, ApiType.store),
-  });
+  const resp = await contextInstance.invoke.post(
+    `${getSearchEndpoint()}?search=${term}`,
+    {
+      ...convertSearchCriteria({
+        searchCriteria,
+        apiType: ApiType.store,
+        config: contextInstance.config,
+      }),
+    }
+  );
 
   return resp.data;
 }

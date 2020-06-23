@@ -5,11 +5,12 @@ import {
   removeCartItem,
   changeCartItemQuantity,
 } from "@shopware-pwa/shopware-6-client";
-import { getStore } from "../..";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { Cart } from "@shopware-pwa/commons/interfaces/models/checkout/cart/Cart";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
+import { getApplicationContext } from "@shopware-pwa/composables";
+import { ApplicationVueContext } from "../../appContext";
 
 /**
  * interface for {@link useCart} composable
@@ -41,15 +42,19 @@ export interface IUseCart {
  *
  * @beta
  */
-export const useCart = (): IUseCart => {
-  let vuexStore = getStore();
+export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
+  const { vuexStore, apiInstance } = getApplicationContext(
+    rootContext,
+    "useCart"
+  );
+
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
 
   async function refreshCart(): Promise<void> {
     loading.value = true;
     try {
-      const result = await getCart();
+      const result = await getCart(apiInstance);
       vuexStore.commit("SET_CART", result);
     } catch (e) {
       const err: ClientApiError = e;
@@ -66,17 +71,17 @@ export const useCart = (): IUseCart => {
     id: string;
     quantity?: number;
   }) {
-    const result = await addProductToCart(id, quantity);
+    const result = await addProductToCart(id, quantity, apiInstance);
     vuexStore.commit("SET_CART", result);
   }
 
   async function removeProduct({ id }: Product) {
-    const result = await removeCartItem(id);
+    const result = await removeCartItem(id, apiInstance);
     vuexStore.commit("SET_CART", result);
   }
 
   async function changeProductQuantity({ id, quantity }: any) {
-    const result = await changeCartItemQuantity(id, quantity);
+    const result = await changeCartItemQuantity(id, quantity, apiInstance);
     vuexStore.commit("SET_CART", result);
   }
 

@@ -1,7 +1,7 @@
 import { getCustomerResetPasswordEndpoint } from "../../../src/endpoints";
-import { apiService } from "../../../src/apiService";
-import { internet, random } from "faker";
-import { resetPassword, update, config } from "@shopware-pwa/shopware-6-client";
+import { defaultInstance } from "../../../src/apiService";
+import { internet } from "faker";
+import { resetPassword, config } from "@shopware-pwa/shopware-6-client";
 
 const DEFAULT_ENDPOINT = "https://shopware-2.vuestorefront.io";
 const email = internet.email("John", "Doe");
@@ -11,41 +11,36 @@ const credentials = {
 };
 
 jest.mock("../../../src/apiService");
-const mockedAxios = apiService as jest.Mocked<typeof apiService>;
+const mockedApiInstance = defaultInstance as jest.Mocked<
+  typeof defaultInstance
+>;
 
 describe("CustomerService - resetPassword", () => {
-  let contextToken: string;
+  const mockedPost = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
-    contextToken = random.uuid();
-    update({ contextToken });
-  });
-  afterEach(() => {
-    expect(config.contextToken).toEqual(contextToken);
+    mockedApiInstance.invoke = {
+      post: mockedPost,
+    } as any;
   });
 
   it("rejects the promise if the email do not mach any in Sales Channel", async () => {
-    mockedAxios.post.mockRejectedValueOnce(
-      new Error("400 - invalid email address")
-    );
+    mockedPost.mockRejectedValueOnce(new Error("400 - invalid email address"));
     expect(
       resetPassword({
         email: credentials.email,
         storefrontUrl: credentials.storefrontUrl,
       })
     ).rejects.toThrow("400 - invalid email");
-    expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith(
-      getCustomerResetPasswordEndpoint(),
-      {
-        email: credentials.email,
-        storefrontUrl: credentials.storefrontUrl,
-      }
-    );
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith(getCustomerResetPasswordEndpoint(), {
+      email: credentials.email,
+      storefrontUrl: credentials.storefrontUrl,
+    });
   });
 
   it("returns no data if successfully updated", async () => {
-    mockedAxios.post.mockResolvedValueOnce(null);
+    mockedPost.mockResolvedValueOnce(null);
 
     const resultWithFullParams = await resetPassword({
       email: credentials.email,
@@ -64,21 +59,18 @@ describe("CustomerService - resetPassword", () => {
     });
     expect(resultWithoutUrl).toBeFalsy();
 
-    expect(mockedAxios.post).toBeCalledTimes(3);
-    expect(mockedAxios.post).toBeCalledWith(
-      getCustomerResetPasswordEndpoint(),
-      {
-        email: credentials.email,
-        storefrontUrl: credentials.storefrontUrl,
-      }
-    );
+    expect(mockedPost).toBeCalledTimes(3);
+    expect(mockedPost).toBeCalledWith(getCustomerResetPasswordEndpoint(), {
+      email: credentials.email,
+      storefrontUrl: credentials.storefrontUrl,
+    });
   });
 
   it("should set storefrontUrl from config if not provided with params ", async () => {
     await resetPassword({
       email: credentials.email,
     });
-    expect(mockedAxios.post).toBeCalledWith(
+    expect(mockedPost).toBeCalledWith(
       "/store-api/v1/account/recovery-password",
       {
         email: credentials.email,
@@ -89,7 +81,7 @@ describe("CustomerService - resetPassword", () => {
 
   it("should invokde post method with null if params are not provided", async () => {
     await resetPassword(null as any);
-    expect(mockedAxios.post).toBeCalledWith(
+    expect(mockedPost).toBeCalledWith(
       "/store-api/v1/account/recovery-password",
       null
     );

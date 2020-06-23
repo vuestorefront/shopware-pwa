@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-guestOrderParams: Ref<Readonly<Partial<GuestOrderParams | null>>>;
+guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>;
 ```

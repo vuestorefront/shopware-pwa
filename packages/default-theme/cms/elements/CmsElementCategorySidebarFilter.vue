@@ -130,7 +130,6 @@ import {
 } from "@shopware-pwa/composables"
 import { getSortingLabel } from "@shopware-pwa/default-theme/helpers"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
-const { availableFilters, availableSorting } = useCategoryFilters()
 
 export default {
   name: "CmsElementCategorySidebarFilter",
@@ -148,7 +147,8 @@ export default {
       default: () => ({}),
     },
   },
-  setup() {
+  setup(props, { root }) {
+    const { availableFilters, availableSorting } = useCategoryFilters(root)
     const {
       toggleFilter,
       changeSorting,
@@ -157,9 +157,10 @@ export default {
       selectedFilters,
       resetFilters,
       productsTotal,
-    } = useProductListing()
+    } = useProductListing(root, null)
 
     const { isOpen: isListView, switchState: switchToListView } = useUIState(
+      root,
       "PRODUCT_LISTING_STATE"
     )
 
@@ -173,6 +174,8 @@ export default {
       productsTotal,
       isListView,
       switchToListView,
+      availableFilters,
+      availableSorting
     }
   },
   data() {
@@ -183,10 +186,10 @@ export default {
   },
   computed: {
     filters() {
-      return (availableFilters && availableFilters.value) || []
+      return this.availableFilters || []
     },
     sorting() {
-      return (availableSorting && availableSorting.value) || []
+      return this.availableSorting || []
     },
     getMedia() {
       return this.content && this.content.data && this.content.data.media

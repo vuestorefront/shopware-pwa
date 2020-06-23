@@ -15,7 +15,7 @@ Invoke custom POST request to shopware API. Mostly for plugins usage. You can sk
 export declare function invokePost({ address, payload, }: {
     address: string;
     payload?: any;
-}): Promise<any>;
+}, contextInstance?: ShopwareApiInstance): Promise<any>;
 ```
 
 ## Parameters
@@ -23,6 +23,7 @@ export declare function invokePost({ address, payload, }: {
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  { address, payload, } | <code>{</code><br/><code>    address: string;</code><br/><code>    payload?: any;</code><br/><code>}</code> |  |
+|  contextInstance | <code>ShopwareApiInstance</code> |  |
 
 <b>Returns:</b>
 

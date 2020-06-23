@@ -1,12 +1,21 @@
 import { getProductsIds } from "@shopware-pwa/shopware-6-client";
-import { apiService } from "../../../src/apiService";
+import { defaultInstance } from "../../../src/apiService";
 
 jest.mock("../../../src/apiService");
-const mockedAxios = apiService as jest.Mocked<typeof apiService>;
+const mockedApiInstance = defaultInstance as jest.Mocked<
+  typeof defaultInstance
+>;
 
 describe("ProductService - getProductsIds", () => {
+  const mockedPost = jest.fn();
+  beforeEach(() => {
+    jest.resetAllMocks();
+    mockedApiInstance.invoke = {
+      post: mockedPost,
+    } as any;
+  });
   it("should return array of products' ids (default amount of 10)", async () => {
-    mockedAxios.post.mockResolvedValueOnce({
+    mockedPost.mockResolvedValueOnce({
       data: { total: 3, data: [1, 2, 3] },
     });
 

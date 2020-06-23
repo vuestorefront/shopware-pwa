@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-addAddress: (params: CustomerAddressParam) => Promise<boolean>;
+addAddress: (params: Partial<CustomerAddress>) => Promise<boolean>;
 ```

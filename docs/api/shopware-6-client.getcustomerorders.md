@@ -12,8 +12,15 @@ Get all customer's orders
 <b>Signature:</b>
 
 ```typescript
-export declare function getCustomerOrders(): Promise<Order[]>;
+export declare function getCustomerOrders(contextInstance?: ShopwareApiInstance): Promise<Order[]>;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  contextInstance | <code>ShopwareApiInstance</code> |  |
+
 <b>Returns:</b>
 
 `Promise<Order[]>`

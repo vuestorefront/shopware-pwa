@@ -40,8 +40,8 @@ export default {
     SfTabs,
   },
   middleware: authMiddleware,
-  setup() {
-    const { logout, user, loadOrders, orders } = useUser()
+  setup(props, {root}) {
+    const { logout, user, loadOrders, orders } = useUser(root)
     const ordersCount = computed(() => user.value && user.value.orderCount)
     return { logout, user, loadOrders, orders, ordersCount }
   },

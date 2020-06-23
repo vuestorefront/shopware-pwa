@@ -12,8 +12,15 @@ End up the user session.
 <b>Signature:</b>
 
 ```typescript
-export declare function logout(): Promise<void>;
+export declare function logout(contextInstance?: ShopwareApiInstance): Promise<void>;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  contextInstance | <code>ShopwareApiInstance</code> |  |
+
 <b>Returns:</b>
 
 `Promise<void>`
