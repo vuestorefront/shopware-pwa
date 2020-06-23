@@ -120,8 +120,8 @@ export default {
       selected: {},
     }
   },
-  setup({ page }) {
-    const { addToCart, quantity } = useAddToCart(page && page.product)
+  setup({ page }, { root }) {
+    const { addToCart, quantity } = useAddToCart(root, page && page.product)
 
     return {
       quantity,

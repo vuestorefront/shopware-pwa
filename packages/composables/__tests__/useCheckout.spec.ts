@@ -20,6 +20,17 @@ import { SessionContext } from "@shopware-pwa/commons/interfaces/response/Sessio
 describe("Composables - useCheckout", () => {
   let isLoggedIn = ref(false);
   const stateContext: Ref<Partial<SessionContext> | null> = ref(null);
+  const rootContextMock: any = {
+    $store: {
+      getters: reactive({
+        getSessionContext: computed(() => stateContext.value),
+      }),
+      commit: (name: string, value: SessionContext) => {
+        stateContext.value = value;
+      },
+    },
+    $shopwareApiInstance: jest.fn(),
+  };
 
   const refreshCartMock = jest.fn(async () => {});
   beforeEach(() => {
@@ -37,14 +48,6 @@ describe("Composables - useCheckout", () => {
       } as any;
     });
     stateContext.value = null;
-    Composables.setStore({
-      getters: reactive({
-        getSessionContext: computed(() => stateContext.value),
-      }),
-      commit: (name: string, value: SessionContext) => {
-        stateContext.value = value;
-      },
-    });
     consoleErrorSpy.mockImplementationOnce(() => {});
   });
 
@@ -52,27 +55,29 @@ describe("Composables - useCheckout", () => {
     describe("isGuestOrder", () => {
       it("should show false if user is logged in", () => {
         isLoggedIn.value = true;
-        const { isGuestOrder } = useCheckout();
+        const { isGuestOrder } = useCheckout(rootContextMock);
         expect(isGuestOrder.value).toBe(false);
       });
 
       it("should show true it user is not logged in", () => {
         isLoggedIn.value = false;
-        const { isGuestOrder } = useCheckout();
+        const { isGuestOrder } = useCheckout(rootContextMock);
         expect(isGuestOrder.value).toBe(true);
       });
     });
 
     describe("guestOrderParams", () => {
       it("should return an empty object when prams are not set", () => {
-        const { guestOrderParams } = useCheckout();
+        const { guestOrderParams } = useCheckout(rootContextMock);
         expect(guestOrderParams.value).toEqual({});
       });
     });
 
     describe("shippingAddress", () => {
       it("should return guest order address if is guest order", () => {
-        const { shippingAddress, updateGuestOrderParams } = useCheckout();
+        const { shippingAddress, updateGuestOrderParams } = useCheckout(
+          rootContextMock
+        );
         updateGuestOrderParams({
           shippingAddress: {
             street: "first street",
@@ -85,7 +90,7 @@ describe("Composables - useCheckout", () => {
       });
 
       it("should undefined when guest address is not set", () => {
-        const { shippingAddress } = useCheckout();
+        const { shippingAddress } = useCheckout(rootContextMock);
         expect(shippingAddress.value).toBeUndefined();
       });
 
@@ -98,28 +103,30 @@ describe("Composables - useCheckout", () => {
             },
           },
         } as any;
-        const { shippingAddress } = useCheckout();
+        const { shippingAddress } = useCheckout(rootContextMock);
         expect(shippingAddress.value).toEqual({ street: "some street" });
       });
 
       it("should return undefined if address is not set", async () => {
         isLoggedIn.value = true;
         stateContext.value = {} as any;
-        const { shippingAddress } = useCheckout();
+        const { shippingAddress } = useCheckout(rootContextMock);
         expect(shippingAddress.value).toBeUndefined();
       });
 
       it("should return undefined if no session context", async () => {
         isLoggedIn.value = true;
         stateContext.value = null as any;
-        const { shippingAddress } = useCheckout();
+        const { shippingAddress } = useCheckout(rootContextMock);
         expect(shippingAddress.value).toBeUndefined();
       });
     });
 
     describe("billingAddress", () => {
       it("should return guest order address if is guest order", () => {
-        const { billingAddress, updateGuestOrderParams } = useCheckout();
+        const { billingAddress, updateGuestOrderParams } = useCheckout(
+          rootContextMock
+        );
         updateGuestOrderParams({
           billingAddress: {
             street: "third street",
@@ -132,7 +139,9 @@ describe("Composables - useCheckout", () => {
       });
 
       it("should return undefined when guest billing address is not set", () => {
-        const { billingAddress, updateGuestOrderParams } = useCheckout();
+        const { billingAddress, updateGuestOrderParams } = useCheckout(
+          rootContextMock
+        );
         updateGuestOrderParams({
           billingAddress: {
             street: "third street",
@@ -153,7 +162,7 @@ describe("Composables - useCheckout", () => {
             },
           },
         } as any;
-        const { billingAddress } = useCheckout();
+        const { billingAddress } = useCheckout(rootContextMock);
         await Vue.nextTick();
         expect(billingAddress.value).toEqual({ street: "some street" });
       });
@@ -161,14 +170,14 @@ describe("Composables - useCheckout", () => {
       it("should return undefined if address is not set", async () => {
         isLoggedIn.value = true;
         stateContext.value = {} as any;
-        const { billingAddress } = useCheckout();
+        const { billingAddress } = useCheckout(rootContextMock);
         expect(billingAddress.value).toBeUndefined();
       });
 
       it("should return undefined if no session context", async () => {
         isLoggedIn.value = true;
         stateContext.value = null as any;
-        const { billingAddress } = useCheckout();
+        const { billingAddress } = useCheckout(rootContextMock);
         expect(billingAddress.value).toBeUndefined();
       });
     });
@@ -181,7 +190,7 @@ describe("Composables - useCheckout", () => {
         mockedApiClient.getAvailableShippingMethods.mockResolvedValueOnce(
           [] as any
         );
-        const { getShippingMethods } = useCheckout();
+        const { getShippingMethods } = useCheckout(rootContextMock);
         await getShippingMethods({ forceReload: true });
       });
       it("should return Shipping methods from API", async () => {
@@ -191,7 +200,7 @@ describe("Composables - useCheckout", () => {
           },
           { name: "Shipping method 2" },
         ] as any);
-        const { getShippingMethods } = useCheckout();
+        const { getShippingMethods } = useCheckout(rootContextMock);
         const result = await getShippingMethods();
         expect(result.value).toEqual([
           { name: "Shipping method 1" },
@@ -203,7 +212,7 @@ describe("Composables - useCheckout", () => {
         mockedApiClient.getAvailableShippingMethods.mockResolvedValueOnce(
           [] as any
         );
-        const { getShippingMethods } = useCheckout();
+        const { getShippingMethods } = useCheckout(rootContextMock);
         const result = await getShippingMethods();
         expect(result.value).toEqual([]);
       });
@@ -212,7 +221,7 @@ describe("Composables - useCheckout", () => {
         mockedApiClient.getAvailableShippingMethods.mockRejectedValueOnce({
           message: "Some error",
         } as any);
-        const { getShippingMethods } = useCheckout();
+        const { getShippingMethods } = useCheckout(rootContextMock);
         await expect(getShippingMethods()).rejects.toEqual({
           message: "Some error",
         });
@@ -225,7 +234,7 @@ describe("Composables - useCheckout", () => {
           },
           { name: "Shipping method 2" },
         ] as any);
-        const { getShippingMethods } = useCheckout();
+        const { getShippingMethods } = useCheckout(rootContextMock);
 
         const result = await getShippingMethods();
         expect(result.value).toEqual([
@@ -244,7 +253,7 @@ describe("Composables - useCheckout", () => {
         mockedApiClient.getAvailableShippingMethods.mockResolvedValueOnce(
           undefined as any
         );
-        const { getShippingMethods } = useCheckout();
+        const { getShippingMethods } = useCheckout(rootContextMock);
         const result = await getShippingMethods();
         expect(result.value).toEqual([]);
       });
@@ -256,7 +265,7 @@ describe("Composables - useCheckout", () => {
         mockedApiClient.getAvailablePaymentMethods.mockResolvedValueOnce(
           [] as any
         );
-        const { getPaymentMethods } = useCheckout();
+        const { getPaymentMethods } = useCheckout(rootContextMock);
         await getPaymentMethods({ forceReload: true });
       });
       it("should return Payment methods from API", async () => {
@@ -266,7 +275,7 @@ describe("Composables - useCheckout", () => {
           },
           { name: "Payment method 2" },
         ] as any);
-        const { getPaymentMethods } = useCheckout();
+        const { getPaymentMethods } = useCheckout(rootContextMock);
         const result = await getPaymentMethods();
         expect(result.value).toEqual([
           { name: "Payment method 1" },
@@ -278,7 +287,7 @@ describe("Composables - useCheckout", () => {
         mockedApiClient.getAvailablePaymentMethods.mockResolvedValueOnce(
           [] as any
         );
-        const { getPaymentMethods } = useCheckout();
+        const { getPaymentMethods } = useCheckout(rootContextMock);
         const result = await getPaymentMethods();
         expect(result.value).toEqual([]);
       });
@@ -287,7 +296,7 @@ describe("Composables - useCheckout", () => {
         mockedApiClient.getAvailablePaymentMethods.mockResolvedValueOnce(
           undefined as any
         );
-        const { getPaymentMethods } = useCheckout();
+        const { getPaymentMethods } = useCheckout(rootContextMock);
         const result = await getPaymentMethods();
         expect(result.value).toEqual([]);
       });
@@ -296,7 +305,7 @@ describe("Composables - useCheckout", () => {
         mockedApiClient.getAvailablePaymentMethods.mockRejectedValueOnce({
           message: "Some error",
         } as any);
-        const { getPaymentMethods } = useCheckout();
+        const { getPaymentMethods } = useCheckout(rootContextMock);
         await expect(getPaymentMethods()).rejects.toEqual({
           message: "Some error",
         });
@@ -309,7 +318,7 @@ describe("Composables - useCheckout", () => {
           },
           { name: "Payment method 2" },
         ] as any);
-        const { getPaymentMethods } = useCheckout();
+        const { getPaymentMethods } = useCheckout(rootContextMock);
 
         const result = await getPaymentMethods();
         expect(result.value).toEqual([
@@ -329,7 +338,7 @@ describe("Composables - useCheckout", () => {
       it("should refresh cart after method called", async () => {
         isLoggedIn.value = true;
         mockedApiClient.createOrder.mockResolvedValueOnce({} as any);
-        const { createOrder } = useCheckout();
+        const { createOrder } = useCheckout(rootContextMock);
         await createOrder();
         expect(refreshCartMock).toHaveBeenCalled();
       });
@@ -342,7 +351,7 @@ describe("Composables - useCheckout", () => {
           mockedApiClient.createOrder.mockResolvedValueOnce({
             id: "newOrderId",
           } as any);
-          const { createOrder } = useCheckout();
+          const { createOrder } = useCheckout(rootContextMock);
           const result = await createOrder();
           expect(mockedApiClient.createOrder).toHaveBeenCalled();
           expect(result).toEqual({ id: "newOrderId" });
@@ -352,7 +361,7 @@ describe("Composables - useCheckout", () => {
           mockedApiClient.createOrder.mockRejectedValueOnce({
             message: "some error",
           } as any);
-          const { createOrder } = useCheckout();
+          const { createOrder } = useCheckout(rootContextMock);
           await expect(createOrder()).rejects.toEqual({
             message: "some error",
           });
@@ -373,7 +382,7 @@ describe("Composables - useCheckout", () => {
           mockedApiClient.createGuestOrder.mockResolvedValueOnce({
             id: "newOrderId",
           } as any);
-          const { createOrder } = useCheckout();
+          const { createOrder } = useCheckout(rootContextMock);
           const result = await createOrder();
           expect(mockedApiClient.createGuestOrder).toHaveBeenCalled();
           expect(result).toEqual({ id: "newOrderId" });
@@ -383,21 +392,26 @@ describe("Composables - useCheckout", () => {
           mockedApiClient.createGuestOrder.mockResolvedValueOnce({
             id: "newOrderId",
           } as any);
-          const { createOrder, updateGuestOrderParams } = useCheckout();
+          const { createOrder, updateGuestOrderParams } = useCheckout(
+            rootContextMock
+          );
           updateGuestOrderParams({
             firstName: "John",
           });
           await createOrder();
-          expect(mockedApiClient.createGuestOrder).toHaveBeenCalledWith({
-            firstName: "John",
-          });
+          expect(mockedApiClient.createGuestOrder).toHaveBeenCalledWith(
+            {
+              firstName: "John",
+            },
+            rootContextMock.$shopwareApiInstance
+          );
         });
 
         it("should throw an error if guest api rejects", async () => {
           mockedApiClient.createGuestOrder.mockRejectedValueOnce({
             message: "some guest error",
           } as any);
-          const { createOrder } = useCheckout();
+          const { createOrder } = useCheckout(rootContextMock);
           await expect(createOrder()).rejects.toEqual({
             message: "some guest error",
           });

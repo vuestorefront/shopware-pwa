@@ -6,7 +6,9 @@ import {
   toRefs,
   Ref,
 } from "@vue/composition-api";
-import cookieUniversal from "cookie-universal";
+import { useCheckout, getApplicationContext } from "@shopware-pwa/composables";
+import { GuestOrderParams } from "@shopware-pwa/commons/interfaces/request/GuestOrderParams";
+import { ApplicationVueContext } from "../appContext";
 
 /**
  * @alpha
@@ -44,10 +46,11 @@ export function createCheckoutStep({
 }: {
   stepNumber: number;
   stepFields: CheckoutStepFields;
-  stepDataUpdated: (updatedData: CheckoutStepFields) => void;
+  stepDataUpdated: (
+    updatedData: CheckoutStepFields,
+    guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>
+  ) => Partial<GuestOrderParams>;
 }) {
-  const cookies = cookieUniversal();
-
   const stepData = reactive({
     ...stepFields,
     isValid: null,
@@ -57,8 +60,12 @@ export function createCheckoutStep({
     $v: null,
   });
 
-  return (): CreateCheckoutStep => {
+  return (rootContext: ApplicationVueContext): CreateCheckoutStep => {
+    getApplicationContext(rootContext, "checkoutStep");
     const stepDataCache: Ref<{ isValid: boolean } | null> = ref(null);
+    const { guestOrderParams, updateGuestOrderParams } = useCheckout(
+      rootContext
+    );
 
     const validations = computed(() => sharedCache.$v);
     const isValid = computed(() => {
@@ -79,16 +86,19 @@ export function createCheckoutStep({
     });
     watch(objectToSave, (value) => {
       if (validations.value) {
-        cookies.set("sw-checkout-" + stepNumber, value, {
+        rootContext.$cookies.set("sw-checkout-" + stepNumber, value, {
           maxAge: 60 * 15, // 15 min to complete checkout,
         });
-        if (stepDataUpdated) stepDataUpdated(value);
+        if (stepDataUpdated)
+          updateGuestOrderParams(stepDataUpdated(value, guestOrderParams));
       } else {
         if (!stepDataCache.value) {
-          stepDataCache.value = cookies.get("sw-checkout-" + stepNumber) || {};
+          stepDataCache.value =
+            rootContext.$cookies.get("sw-checkout-" + stepNumber) || {};
           Object.assign(stepData, stepDataCache.value);
         }
-        if (stepDataUpdated) stepDataUpdated(value);
+        if (stepDataUpdated)
+          updateGuestOrderParams(stepDataUpdated(value, guestOrderParams));
       }
     });
 

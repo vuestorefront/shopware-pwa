@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueI18n from "vue-i18n";
 import Middleware from "./middleware";
-import { update } from "@shopware-pwa/shopware-6-client";
 import languagesMap from "sw-plugins/languages";
 
 Vue.use(VueI18n);
@@ -42,7 +41,7 @@ Middleware.i18n = function ({ isHMR, app, store, route, params, redirect }) {
   }
 
   const fromMap = languagesMap[locale];
-  update({ languageId: fromMap && fromMap.id });
+  app.$shopwareApiInstance.update({ languageId: fromMap && fromMap.id });
 
   // Set locale
   store.commit("SET_LANG", locale);

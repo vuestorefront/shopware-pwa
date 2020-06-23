@@ -19,9 +19,9 @@ this example uses `@shopware-pwa/shopware-6-client` package for loading product 
 import { useProduct } from "@shopware-pwa/composables"
 
 // in component
-setup () {
+setup (props, { root }) {
   const productId = "hiufh3847fhb4y3uvf"
-  const { product, search } = useProduct()
+  const { product, search } = useProduct(root)
   search(productId)
 
   return { product }
