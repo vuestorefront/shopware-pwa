@@ -18,6 +18,7 @@ import {
 import {
   getApplicationContext,
   useSessionContext,
+  ApplicationVueContext,
 } from "@shopware-pwa/composables";
 
 /**
@@ -60,7 +61,9 @@ const orderData: {
  *
  * @beta
  */
-export const useCheckout = (rootContext: any): IUseCheckout => {
+export const useCheckout = (
+  rootContext: ApplicationVueContext
+): IUseCheckout => {
   const { apiInstance } = getApplicationContext(rootContext, "useCheckout");
 
   const { isLoggedIn } = useUser(rootContext);

@@ -5,7 +5,10 @@ import {
 } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
-import { getApplicationContext } from "@shopware-pwa/composables";
+import {
+  getApplicationContext,
+  ApplicationVueContext,
+} from "@shopware-pwa/composables";
 
 /**
  * @beta
@@ -34,7 +37,9 @@ export interface UseProductSearch {
 /**
  * @alpha
  */
-export const useProductSearch = (rootContext: any): UseProductSearch => {
+export const useProductSearch = (
+  rootContext: ApplicationVueContext
+): UseProductSearch => {
   const { apiInstance } = getApplicationContext(
     rootContext,
     "useProductSearch"

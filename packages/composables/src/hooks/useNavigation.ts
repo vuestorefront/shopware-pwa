@@ -3,7 +3,10 @@ import { reactive, computed, Ref } from "@vue/composition-api";
 import { getNavigation } from "@shopware-pwa/shopware-6-client";
 import { getNavigationRoutes } from "@shopware-pwa/helpers";
 import { NavigationElement } from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
-import { getApplicationContext } from "@shopware-pwa/composables";
+import {
+  getApplicationContext,
+  ApplicationVueContext,
+} from "@shopware-pwa/composables";
 
 /**
  * interface for {@link useNavigation} composable
@@ -26,7 +29,9 @@ const sharedNavigation = Vue.observable({
  * Composable for navigation. Options - {@link IUseNavigation}
  * @beta
  */
-export const useNavigation = (rootContext: any): IUseNavigation => {
+export const useNavigation = (
+  rootContext: ApplicationVueContext
+): IUseNavigation => {
   const { apiInstance } = getApplicationContext(rootContext, "useNavigation");
 
   const localNavigation = reactive(sharedNavigation);

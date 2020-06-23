@@ -6,7 +6,11 @@ import {
   toRefs,
   Ref,
 } from "@vue/composition-api";
-import { useCheckout, getApplicationContext } from "@shopware-pwa/composables";
+import {
+  useCheckout,
+  getApplicationContext,
+  ApplicationVueContext,
+} from "@shopware-pwa/composables";
 import { GuestOrderParams } from "@shopware-pwa/commons/interfaces/request/GuestOrderParams";
 
 /**
@@ -59,7 +63,7 @@ export function createCheckoutStep({
     $v: null,
   });
 
-  return (rootContext: any): CreateCheckoutStep => {
+  return (rootContext: ApplicationVueContext): CreateCheckoutStep => {
     getApplicationContext(rootContext, "checkoutStep");
     const stepDataCache: Ref<{ isValid: boolean } | null> = ref(null);
     const { guestOrderParams, updateGuestOrderParams } = useCheckout(

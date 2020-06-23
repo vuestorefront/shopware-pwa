@@ -1,6 +1,23 @@
 import { getCurrentInstance } from "@vue/composition-api";
+import { ShopwareApiInstance } from "@shopware-pwa/shopware-6-client";
 
-function checkAppContext(key: string, rootContext: any): boolean {
+/**
+ * Applicatoin Context for Shopware PWA. It's an extended Vue instance.
+ *
+ * @beta
+ */
+export interface ApplicationVueContext extends Vue {
+  $shopwareApiInstance?: ShopwareApiInstance;
+  $store?: any; // Vuex Store
+  $router?: any; // Vue router
+  $i18n?: any; // Vue i18n plugin
+  $cookies: any; // cookie-universal
+}
+
+function checkAppContext(
+  key: string,
+  rootContext: ApplicationVueContext
+): boolean {
   if (!rootContext?.$shopwareApiInstance) {
     process.env.NODE_ENV !== "production" &&
       console.warn(
@@ -16,12 +33,12 @@ function checkAppContext(key: string, rootContext: any): boolean {
  * @beta
  */
 export function getApplicationContext(
-  rootContext: any,
+  rootContext: ApplicationVueContext,
   key: string = "getApplicationContext"
 ) {
   let context = rootContext;
   if (!checkAppContext(key, rootContext)) {
-    context = getCurrentInstance();
+    context = getCurrentInstance() as ApplicationVueContext;
   }
   return {
     apiInstance: context?.$shopwareApiInstance,

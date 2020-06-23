@@ -1,6 +1,10 @@
 import { ref, Ref, computed } from "@vue/composition-api";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { useCart, getApplicationContext } from "@shopware-pwa/composables";
+import {
+  useCart,
+  getApplicationContext,
+  ApplicationVueContext,
+} from "@shopware-pwa/composables";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
 /**
@@ -50,10 +54,10 @@ export interface IUseAddToCart {
  * @beta
  */
 export const useAddToCart = (
-  rootContext: any,
+  rootContext: ApplicationVueContext,
   product: Product
 ): IUseAddToCart => {
-  getApplicationContext("useAddToCart");
+  getApplicationContext(rootContext, "useAddToCart");
   const { addProduct, cartItems } = useCart(rootContext);
   const quantity: Ref<number> = ref(1);
   const loading: Ref<boolean> = ref(false);

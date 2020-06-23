@@ -5,6 +5,7 @@ import {
   useSessionContext,
   useCart,
   getApplicationContext,
+  ApplicationVueContext,
 } from "@shopware-pwa/composables";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
 
@@ -28,7 +29,9 @@ export interface UseCurrency {
 /**
  * @alpha
  */
-export const useCurrency = (rootContext: any): UseCurrency => {
+export const useCurrency = (
+  rootContext: ApplicationVueContext
+): UseCurrency => {
   const { apiInstance } = getApplicationContext(rootContext, "useCurrency");
 
   const { currency, setCurrency: setContextCurrency } = useSessionContext(

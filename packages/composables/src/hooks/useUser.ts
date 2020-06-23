@@ -32,7 +32,10 @@ import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/req
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
-import { getApplicationContext } from "@shopware-pwa/composables";
+import {
+  getApplicationContext,
+  ApplicationVueContext,
+} from "@shopware-pwa/composables";
 
 /**
  * interface for {@link useUser} composable
@@ -89,7 +92,7 @@ export interface IUseUser {
  *
  * @beta
  */
-export const useUser = (rootContext: any): IUseUser => {
+export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   const { vuexStore, apiInstance } = getApplicationContext(
     rootContext,
     "useUser"

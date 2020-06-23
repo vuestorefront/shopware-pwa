@@ -3,12 +3,15 @@ import { getPage } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { parseUrlQuery } from "@shopware-pwa/helpers";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { getApplicationContext } from "@shopware-pwa/composables";
+import {
+  getApplicationContext,
+  ApplicationVueContext,
+} from "@shopware-pwa/composables";
 
 /**
  * @alpha
  */
-export const useCms = (rootContext: any): any => {
+export const useCms = (rootContext: ApplicationVueContext): any => {
   const { vuexStore, apiInstance } = getApplicationContext(
     rootContext,
     "useCms"

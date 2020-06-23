@@ -20,6 +20,7 @@ import {
   useCms,
   useCategoryFilters,
   getApplicationContext,
+  ApplicationVueContext,
 } from "@shopware-pwa/composables";
 
 /**
@@ -52,7 +53,7 @@ const selectedCriteria = Vue.observable({
  * @alpha
  */
 export const useProductListing = (
-  rootContext: any,
+  rootContext: ApplicationVueContext,
   initialListing?: ProductListingResult
 ): UseProductListing => {
   const { apiInstance } = getApplicationContext(

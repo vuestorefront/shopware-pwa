@@ -1,10 +1,5 @@
 import { createInstance } from "@shopware-pwa/shopware-6-client";
-import {
-  setStore,
-  useUser,
-  useCart,
-  useSessionContext,
-} from "@shopware-pwa/composables";
+import { useUser, useCart, useSessionContext } from "@shopware-pwa/composables";
 
 export default async ({ app }, inject) => {
   if (!app.$cookies) {
