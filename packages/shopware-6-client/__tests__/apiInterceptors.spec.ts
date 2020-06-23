@@ -5,6 +5,9 @@ import {
 import { random } from "faker";
 
 describe("apiInterceptors", () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
   describe("createResponseInterceptor", () => {
     it("should update contextToken after any request", async () => {
       const contextToken = random.uuid();
@@ -17,7 +20,7 @@ describe("apiInterceptors", () => {
         statusText: "OK",
         config: {},
       });
-      expect(updateMethod).toHaveBeenCalledWith({ contextToken });
+      expect(updateMethod).toHaveBeenCalledWith({ contextToken }, {});
     });
 
     it("should get contextToken from response, not header, if there is one", () => {
@@ -31,9 +34,12 @@ describe("apiInterceptors", () => {
         statusText: "OK",
         config: {},
       });
-      expect(updateMethod).toHaveBeenCalledWith({
-        contextToken: "044a190a54ab4f06803909c3ee8063ef",
-      });
+      expect(updateMethod).toHaveBeenCalledWith(
+        {
+          contextToken: "044a190a54ab4f06803909c3ee8063ef",
+        },
+        {}
+      );
     });
   });
 

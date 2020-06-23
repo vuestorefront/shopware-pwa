@@ -12,5 +12,5 @@ Composable for session management. Options - [IUseSessionContext](./composables.
 <b>Signature:</b>
 
 ```typescript
-useSessionContext: () => IUseSessionContext
+useSessionContext: (rootContext: ApplicationVueContext) => IUseSessionContext
 ```

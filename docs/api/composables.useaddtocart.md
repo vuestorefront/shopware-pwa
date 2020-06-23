@@ -12,7 +12,7 @@ Add product to cart. Options - [IUseAddToCart](./composables.iuseaddtocart.md)
 <b>Signature:</b>
 
 ```typescript
-useAddToCart: (product: Product) => IUseAddToCart
+useAddToCart: (rootContext: ApplicationVueContext, product: Product) => IUseAddToCart
 ```
 
 ## Example
@@ -20,7 +20,7 @@ useAddToCart: (product: Product) => IUseAddToCart
 Example of possibilities:
 
 ```ts
-const {isInCart, quantity, addToCart} = useAddToCart(product)
+const {isInCart, quantity, addToCart} = useAddToCart(root, product)
 if (!isInCart.value) {
    quantity.value = 5
    await addToCart()

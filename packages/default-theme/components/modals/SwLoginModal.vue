@@ -78,9 +78,9 @@ export default {
       default: undefined,
     },
   },
-  setup() {
-    const { login, loading, error } = useUser()
-    const { isOpen, switchState } = useUIState("LOGIN_MODAL_STATE")
+  setup(props, { root }) {
+    const { login, loading, error } = useUser(root)
+    const { isOpen, switchState } = useUIState(root, "LOGIN_MODAL_STATE")
 
     return {
       clientLogin: login,

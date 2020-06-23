@@ -23,21 +23,20 @@
 <script>
 import { SfSelect, SfProductOption } from "@storefront-ui/vue"
 import { useCurrency } from "@shopware-pwa/composables"
-import { computed, onMounted, getCurrentInstance } from "@vue/composition-api"
+import { computed, onMounted } from "@vue/composition-api"
 
 export default {
   name: "SwCurrencySwitcher",
   components: {
     SfSelect,
   },
-  setup(context) {
+  setup(props, {root}) {
     const {
       currency,
       setCurrency,
       loadAvailableCurrencies,
       availableCurrencies,
-    } = useCurrency()
-    const vm = getCurrentInstance()
+    } = useCurrency(root)
 
     // TODO: loaded on mounted only untill fixed issue: https://github.com/DivanteLtd/storefront-ui/issues/1097
     onMounted(async () => {
@@ -48,8 +47,8 @@ export default {
       get: () => currency.value && currency.value.id,
       set: async (id) => {
         await setCurrency({ id })
-        vm.$router.push({
-          query: { ...vm.$router.currentRoute.query, currencyId: id },
+        root.$router.push({
+          query: { ...root.$router.currentRoute.query, currencyId: id },
         })
       },
     })

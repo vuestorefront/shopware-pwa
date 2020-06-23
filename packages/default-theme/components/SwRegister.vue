@@ -149,10 +149,10 @@ export default {
       zipcode: "",
     }
   },
-  setup() {
-    const { login, register, loading, error: userError } = useUser()
-    const { getCountries, error: countriesError } = useCountries()
-    const { getSalutations, error: salutationsError } = useSalutations()
+  setup(props, {root}) {
+    const { login, register, loading, error: userError } = useUser(root)
+    const { getCountries, error: countriesError } = useCountries(root)
+    const { getSalutations, error: salutationsError } = useSalutations(root)
 
     const getMappedCountries = computed(() => mapCountries(getCountries.value))
     const getMappedSalutations = computed(() =>
