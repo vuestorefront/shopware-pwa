@@ -34,7 +34,7 @@ import { ShopwareApiInstance } from '@shopware-pwa/shopware-6-client';
 // @beta
 export interface ApplicationVueContext extends Vue {
     // (undocumented)
-    $cookies: any;
+    $cookies?: any;
     // (undocumented)
     $i18n?: any;
     // (undocumented)
@@ -43,6 +43,16 @@ export interface ApplicationVueContext extends Vue {
     $shopwareApiInstance?: ShopwareApiInstance;
     // (undocumented)
     $store?: any;
+    // (undocumented)
+    cookies?: any;
+    // (undocumented)
+    i18n?: any;
+    // (undocumented)
+    router?: any;
+    // (undocumented)
+    shopwareApiInstance?: ShopwareApiInstance;
+    // (undocumented)
+    store?: any;
 }
 
 // @alpha (undocumented)
@@ -88,6 +98,7 @@ export function getApplicationContext(rootContext: ApplicationVueContext, key?: 
     vuexStore: any;
     router: any;
     i18n: any;
+    cookies: any;
 };
 
 // @beta

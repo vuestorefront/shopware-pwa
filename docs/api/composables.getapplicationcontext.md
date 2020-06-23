@@ -16,6 +16,7 @@ export declare function getApplicationContext(rootContext: ApplicationVueContext
     vuexStore: any;
     router: any;
     i18n: any;
+    cookies: any;
 };
 ```
 
@@ -33,5 +34,6 @@ export declare function getApplicationContext(rootContext: ApplicationVueContext
     vuexStore: any;
     router: any;
     i18n: any;
+    cookies: any;
 }`
 
