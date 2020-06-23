@@ -198,8 +198,9 @@ export default {
       ],
     }
   },
-  setup() {
+  setup(props, { root }) {
     const { switchState: switchLoginModalState } = useUIState(
+      root,
       "LOGIN_MODAL_STATE"
     )
 
@@ -211,22 +212,22 @@ export default {
       firstName,
       lastName,
       email,
-    } = usePersonalDetailsStep()
+    } = usePersonalDetailsStep(root)
 
     const {
       register: registerUser,
       login,
       error: userError,
       isLoggedIn,
-    } = useUser()
+    } = useUser(root)
 
     const {
       getSalutations,
       fetchSalutations,
       error: salutationsError,
-    } = useSalutations()
+    } = useSalutations(root)
 
-    const { fetchCountries, getCountries } = useCountries()
+    const { fetchCountries, getCountries } = useCountries(root)
 
     const getMappedSalutations = computed(() =>
       mapSalutations(getSalutations.value)

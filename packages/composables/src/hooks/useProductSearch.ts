@@ -25,6 +25,8 @@ import {
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { Aggregations } from "@shopware-pwa/commons/interfaces/search/Aggregations";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
+import { getApplicationContext } from "@shopware-pwa/composables";
+import { ApplicationVueContext } from "../appContext";
 
 /**
  * @beta
@@ -62,7 +64,14 @@ export interface UseProductSearch {
 /**
  * @alpha
  */
-export const useProductSearch = (): UseProductSearch => {
+export const useProductSearch = (
+  rootContext: ApplicationVueContext
+): UseProductSearch => {
+  const { apiInstance } = getApplicationContext(
+    rootContext,
+    "useProductSearch"
+  );
+
   const loadingSearch: Ref<boolean> = ref(false);
   const loadingSuggestions: Ref<boolean> = ref(false);
   const currentSearchTerm: Ref<string> = ref("");
@@ -96,7 +105,11 @@ export const useProductSearch = (): UseProductSearch => {
   const suggestSearch = async (term: string): Promise<void> => {
     try {
       loadingSuggestions.value = true;
-      const suggestedProductListing = await getSuggestedResults(term);
+      const suggestedProductListing = await getSuggestedResults(
+        term,
+        undefined,
+        apiInstance
+      );
       suggestionsResult.value = suggestedProductListing;
     } catch (e) {
       console.error("useProductSearch:suggestSearch", e);
@@ -156,7 +169,11 @@ export const useProductSearch = (): UseProductSearch => {
       loadingSearch.value = true;
       currentSearchTerm.value = term;
       searchResult.value = null;
-      const result = await getSearchResults(term, searchCriteria);
+      const result = await getSearchResults(
+        term,
+        searchCriteria.value,
+        apiInstance
+      );
       searchResult.value = result;
       // set the base aggregations as default for the listing on first call
       if (isBaseSearch()) {

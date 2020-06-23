@@ -14,46 +14,48 @@ jest.mock("@shopware-pwa/shopware-6-client");
 
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
-import { useUser, setStore } from "@shopware-pwa/composables";
+import { useUser } from "@shopware-pwa/composables";
 
 describe("Composables - useUser", () => {
   console.error = jest.fn();
   const stateUser: Ref<Object | null> = ref(null);
-  beforeEach(() => {
-    // mock vuex store
-    jest.resetAllMocks();
-    stateUser.value = null;
-    setStore({
+  const rootContextMock: any = {
+    $store: {
       getters: reactive({ getUser: computed(() => stateUser.value) }),
       commit: (name: string, value: any) => {
         stateUser.value = value;
       },
-    });
+    },
+    $shopwareApiInstance: jest.fn(),
+  };
+  beforeEach(() => {
+    jest.resetAllMocks();
+    stateUser.value = null;
   });
 
   describe("computed", () => {
     describe("user", () => {
       it("should return null when no user", () => {
-        const { user } = useUser();
+        const { user } = useUser(rootContextMock);
         expect(user.value).toBeNull();
       });
 
       it("should return a proper user object", () => {
         stateUser.value = { id: "111" };
-        const { user } = useUser();
+        const { user } = useUser(rootContextMock);
         expect(user.value).toEqual({ id: "111" });
       });
     });
 
     describe("isLoggedIn", () => {
       it("should return false when no user is set", () => {
-        const { isLoggedIn } = useUser();
+        const { isLoggedIn } = useUser(rootContextMock);
         expect(isLoggedIn.value).toEqual(false);
       });
 
       it("should return true when user obnject is set", () => {
         stateUser.value = { id: "111" };
-        const { isLoggedIn } = useUser();
+        const { isLoggedIn } = useUser(rootContextMock);
         expect(isLoggedIn.value).toEqual(true);
       });
     });
@@ -63,14 +65,14 @@ describe("Composables - useUser", () => {
     describe("refreshUser", () => {
       it("should get an empty customer when user is not logged in", async () => {
         mockedApiClient.getCustomer.mockResolvedValueOnce(null);
-        const { user, refreshUser } = useUser();
+        const { user, refreshUser } = useUser(rootContextMock);
         await refreshUser();
         expect(user.value).toEqual(null);
       });
 
       it("should get a customer when user is logged in", async () => {
         mockedApiClient.getCustomer.mockResolvedValueOnce({ id: "123" } as any);
-        const { user, refreshUser } = useUser();
+        const { user, refreshUser } = useUser(rootContextMock);
         await refreshUser();
         expect(user.value).toEqual({ id: "123" });
       });
@@ -78,7 +80,7 @@ describe("Composables - useUser", () => {
         mockedApiClient.getCustomer.mockRejectedValueOnce({
           message: "Some error",
         } as any);
-        const { user, refreshUser } = useUser();
+        const { user, refreshUser } = useUser(rootContextMock);
         await refreshUser();
         expect(user.value).toBeNull();
         expect(stateUser.value).toBeNull();
@@ -89,7 +91,7 @@ describe("Composables - useUser", () => {
         mockedApiClient.login.mockRejectedValueOnce(
           new Error("Provide username and password for login")
         );
-        const { isLoggedIn, error, login } = useUser();
+        const { isLoggedIn, error, login } = useUser(rootContextMock);
         const result = await login(undefined as any);
         expect(result).toEqual(false);
         expect(isLoggedIn.value).toBeFalsy();
@@ -100,7 +102,7 @@ describe("Composables - useUser", () => {
         mockedApiClient.login.mockRejectedValueOnce(
           new Error("Bad user credentials")
         );
-        const { isLoggedIn, error, login } = useUser();
+        const { isLoggedIn, error, login } = useUser(rootContextMock);
         const result = await login({
           username: "qwe@qwe.com",
           password: "fakePassword",
@@ -116,7 +118,7 @@ describe("Composables - useUser", () => {
             status: 401,
           },
         });
-        const { error, login } = useUser();
+        const { error, login } = useUser(rootContextMock);
         const result = await login({
           username: "qwe@qwe.com",
           password: "fakePassword",
@@ -130,7 +132,7 @@ describe("Composables - useUser", () => {
           "sw-context-token": "qweqwe",
         } as any);
         mockedApiClient.getCustomer.mockResolvedValueOnce({ id: "123" } as any);
-        const { isLoggedIn, error, login } = useUser();
+        const { isLoggedIn, error, login } = useUser(rootContextMock);
         const result = await login({
           username: "qwe@qwe.com",
           password: "correctPassword",
@@ -146,7 +148,7 @@ describe("Composables - useUser", () => {
         mockedApiClient.register.mockRejectedValueOnce(
           new Error("Provide requested information to create user account")
         );
-        const { isLoggedIn, error, register } = useUser();
+        const { isLoggedIn, error, register } = useUser(rootContextMock);
         const result = await register(undefined as any);
         expect(result).toEqual(false);
         expect(isLoggedIn.value).toBeFalsy();
@@ -156,7 +158,7 @@ describe("Composables - useUser", () => {
       });
       it("should register user successfully", async () => {
         mockedApiClient.register.mockResolvedValueOnce({ data: "mockedData" });
-        const { error, register } = useUser();
+        const { error, register } = useUser(rootContextMock);
         const result = await register({
           firstName: "qwe",
           lastName: "lastName",
@@ -182,7 +184,7 @@ describe("Composables - useUser", () => {
           "sw-context-token": "qweqwe",
         } as any);
         mockedApiClient.getCustomer.mockResolvedValueOnce(null as any);
-        const { isLoggedIn, error, logout } = useUser();
+        const { isLoggedIn, error, logout } = useUser(rootContextMock);
         expect(isLoggedIn.value).toBeTruthy();
         await logout();
         expect(isLoggedIn.value).toBeFalsy();
@@ -195,7 +197,7 @@ describe("Composables - useUser", () => {
           new Error("Something wrong with logout")
         );
         mockedApiClient.getCustomer.mockResolvedValueOnce({ id: "111" } as any);
-        const { isLoggedIn, error, logout } = useUser();
+        const { isLoggedIn, error, logout } = useUser(rootContextMock);
         expect(isLoggedIn.value).toBeTruthy();
         await logout();
         expect(isLoggedIn.value).toBeTruthy();
@@ -214,7 +216,7 @@ describe("Composables - useUser", () => {
         mockedApiClient.getCustomerOrders.mockResolvedValueOnce(
           ordersResponse as any
         );
-        const { orders, loadOrders } = useUser();
+        const { orders, loadOrders } = useUser(rootContextMock);
         expect(orders.value).toBeNull();
         await loadOrders();
         expect(orders.value).toHaveLength(1);
@@ -230,7 +232,7 @@ describe("Composables - useUser", () => {
         mockedApiClient.getCustomerOrderDetails.mockResolvedValueOnce(
           orderResponse as any
         );
-        const { getOrderDetails } = useUser();
+        const { getOrderDetails } = useUser(rootContextMock);
         const orderDetails = await getOrderDetails("12345");
         expect(orderDetails).toBe(orderResponse);
       });
@@ -239,7 +241,7 @@ describe("Composables - useUser", () => {
     describe("addAddress", () => {
       it("should add address", async () => {
         mockedApiClient.createCustomerAddress.mockResolvedValueOnce("ok");
-        const { addAddress } = useUser();
+        const { addAddress } = useUser(rootContextMock);
         const response = await addAddress({ city: "Wrocław" });
         expect(mockedApiClient.createCustomerAddress).toBeCalledTimes(1);
         expect(response).toBe(true);
@@ -248,7 +250,7 @@ describe("Composables - useUser", () => {
         mockedApiClient.createCustomerAddress.mockRejectedValueOnce({
           message: "There is no address provided",
         } as ClientApiError);
-        const { addAddress, error } = useUser();
+        const { addAddress, error } = useUser(rootContextMock);
         const response = await addAddress(null as any);
         expect(mockedApiClient.createCustomerAddress).toBeCalledTimes(1);
         expect(response).toBe(false);
@@ -259,7 +261,7 @@ describe("Composables - useUser", () => {
     describe("deleteAddress", () => {
       it("should invoke client deleteCustomerAddress method and return true on success", async () => {
         mockedApiClient.deleteCustomerAddress.mockResolvedValueOnce();
-        const { deleteAddress } = useUser();
+        const { deleteAddress } = useUser(rootContextMock);
         const response = await deleteAddress("address-1234");
         expect(mockedApiClient.deleteCustomerAddress).toBeCalledTimes(1);
         expect(response).toBe(true);
@@ -268,7 +270,7 @@ describe("Composables - useUser", () => {
         mockedApiClient.deleteCustomerAddress.mockRejectedValueOnce(
           "Cannot delete the provided address"
         );
-        const { deleteAddress } = useUser();
+        const { deleteAddress } = useUser(rootContextMock);
         const response = await deleteAddress("address-unknown");
         expect(mockedApiClient.deleteCustomerAddress).toBeCalledTimes(1);
         expect(response).toBe(false);
@@ -282,7 +284,7 @@ describe("Composables - useUser", () => {
             id: "addressId-12345",
           },
         ] as any);
-        const { addresses, loadAddresses, error } = useUser();
+        const { addresses, loadAddresses, error } = useUser(rootContextMock);
         await loadAddresses();
         expect(mockedApiClient.getCustomerAddresses).toBeCalledTimes(1);
         expect(error.value).toBeFalsy();
@@ -297,7 +299,7 @@ describe("Composables - useUser", () => {
         mockedApiClient.getCustomerAddresses.mockRejectedValueOnce({
           message: "Something went wrong...",
         });
-        const { loadAddresses, error } = useUser();
+        const { loadAddresses, error } = useUser(rootContextMock);
         await loadAddresses();
         expect(mockedApiClient.getCustomerAddresses).toBeCalledTimes(1);
         expect(error.value).toBe("Something went wrong...");
@@ -312,7 +314,7 @@ describe("Composables - useUser", () => {
             id: "12345",
           },
         ] as any);
-        const { country, loadCountry, error } = useUser();
+        const { country, loadCountry, error } = useUser(rootContextMock);
         const userId = "123qwe";
         await loadCountry(userId);
         expect(mockedApiClient.getUserCountry).toBeCalledTimes(1);
@@ -329,7 +331,7 @@ describe("Composables - useUser", () => {
         mockedApiClient.getUserCountry.mockRejectedValueOnce({
           message: "Something went wrong...",
         });
-        const { loadCountry, error } = useUser();
+        const { loadCountry, error } = useUser(rootContextMock);
         const salutationId = "123qwe";
         await loadCountry(salutationId);
         expect(mockedApiClient.getUserCountry).toBeCalledTimes(1);
@@ -345,7 +347,7 @@ describe("Composables - useUser", () => {
             id: "12345",
           },
         ] as any);
-        const { salutation, loadSalutation, error } = useUser();
+        const { salutation, loadSalutation, error } = useUser(rootContextMock);
         const salutationId = "123qwe";
         await loadSalutation(salutationId);
         expect(mockedApiClient.getUserSalutation).toBeCalledTimes(1);
@@ -362,7 +364,7 @@ describe("Composables - useUser", () => {
         mockedApiClient.getUserSalutation.mockRejectedValueOnce({
           message: "Something went wrong...",
         });
-        const { loadSalutation, error } = useUser();
+        const { loadSalutation, error } = useUser(rootContextMock);
         const userId = "123qwe";
         await loadSalutation(userId);
         expect(mockedApiClient.getUserSalutation).toBeCalledTimes(1);
@@ -375,7 +377,7 @@ describe("Composables - useUser", () => {
         mockedApiClient.setDefaultCustomerBillingAddress.mockResolvedValue(
           "address-1234"
         );
-        const { markAddressAsDefault } = useUser();
+        const { markAddressAsDefault } = useUser(rootContextMock);
         const response = await markAddressAsDefault({
           addressId: "address-1234",
           type: "billing",
@@ -390,7 +392,7 @@ describe("Composables - useUser", () => {
         mockedApiClient.setDefaultCustomerShippingAddress.mockResolvedValue(
           "address-1234"
         );
-        const { markAddressAsDefault } = useUser();
+        const { markAddressAsDefault } = useUser(rootContextMock);
         const response = await markAddressAsDefault({
           addressId: "address-1234",
           type: "shipping",
@@ -402,13 +404,13 @@ describe("Composables - useUser", () => {
       });
 
       it("should return false when no argument is provided", async () => {
-        const { markAddressAsDefault } = useUser();
+        const { markAddressAsDefault } = useUser(rootContextMock);
         const response = await markAddressAsDefault({} as any);
         expect(response).toBe(false);
       });
 
       it("should return false when address type is unknown", async () => {
-        const { markAddressAsDefault } = useUser();
+        const { markAddressAsDefault } = useUser(rootContextMock);
         const response = await markAddressAsDefault({
           type: "unknown",
           addressId: "someId",
@@ -422,7 +424,7 @@ describe("Composables - useUser", () => {
             message: "Error occurred",
           }
         );
-        const { markAddressAsDefault, error } = useUser();
+        const { markAddressAsDefault, error } = useUser(rootContextMock);
         const response = await markAddressAsDefault({
           type: "shipping",
           addressId: "someId",
@@ -440,7 +442,7 @@ describe("Composables - useUser", () => {
         mockedApiClient.updateProfile.mockImplementationOnce(async () =>
           Promise.resolve(undefined)
         );
-        const { updatePersonalInfo } = useUser();
+        const { updatePersonalInfo } = useUser(rootContextMock);
         const response = await updatePersonalInfo({
           title: "some title",
           salutationId: "qweqwe",
@@ -455,7 +457,7 @@ describe("Composables - useUser", () => {
       mockedApiClient.updateProfile.mockImplementationOnce(async () =>
         Promise.reject("Incorrect user data")
       );
-      const { updatePersonalInfo, error } = useUser();
+      const { updatePersonalInfo, error } = useUser(rootContextMock);
       const response = await updatePersonalInfo({
         title: "some title",
         salutationId: "",
@@ -472,7 +474,7 @@ describe("Composables - useUser", () => {
       mockedApiClient.updatePassword.mockImplementationOnce(async () =>
         Promise.resolve(undefined)
       );
-      const { updatePassword } = useUser();
+      const { updatePassword } = useUser(rootContextMock);
       const response = await updatePassword({
         password: "qweqweqwe",
         newPassword: "qweqweqwe1",
@@ -485,7 +487,7 @@ describe("Composables - useUser", () => {
       mockedApiClient.updatePassword.mockImplementationOnce(async () =>
         Promise.reject("Password must be at least 8 characters long")
       );
-      const { updatePassword, error } = useUser();
+      const { updatePassword, error } = useUser(rootContextMock);
       const response = await updatePassword({
         password: "qweqweqwe",
         newPassword: "qwe",
@@ -503,7 +505,7 @@ describe("Composables - useUser", () => {
       mockedApiClient.resetPassword.mockImplementationOnce(async () =>
         Promise.resolve(undefined)
       );
-      const { resetPassword } = useUser();
+      const { resetPassword } = useUser(rootContextMock);
       const response = await resetPassword({
         email: "qweqwe@qwe.com",
       });
@@ -514,7 +516,7 @@ describe("Composables - useUser", () => {
       mockedApiClient.resetPassword.mockImplementationOnce(async () =>
         Promise.reject("Email does not fit to any in Sales Channel")
       );
-      const { resetPassword, error } = useUser();
+      const { resetPassword, error } = useUser(rootContextMock);
       const response = await resetPassword({
         email: "qweqwe@qwe.com",
       });
@@ -528,7 +530,7 @@ describe("Composables - useUser", () => {
       mockedApiClient.updateEmail.mockImplementationOnce(async () =>
         Promise.resolve(undefined)
       );
-      const { updateEmail } = useUser();
+      const { updateEmail } = useUser(rootContextMock);
       const response = await updateEmail({
         password: "qweqweqwe",
         email: "qweqwe@qwe.com",
@@ -541,7 +543,7 @@ describe("Composables - useUser", () => {
       mockedApiClient.updateEmail.mockImplementationOnce(async () =>
         Promise.reject("Email confirmation does not match to the first one")
       );
-      const { updateEmail, error } = useUser();
+      const { updateEmail, error } = useUser(rootContextMock);
       const response = await updateEmail({
         password: "qweqweqwe",
         email: "qweqwe@qwe.com",

@@ -44,21 +44,24 @@ export default {
             perView: 4,
           },
         },
-      }
+      },
     }
   },
   async mounted() {
     try {
-      const result = await getProducts({
-        sort: {
-          field: "price",
-          desc: false,
+      const result = await getProducts(
+        {
+          sort: {
+            field: "price",
+            desc: false,
+          },
+          pagination: {
+            page: 1,
+            limit: 10,
+          },
         },
-        pagination: {
-          page: 1,
-          limit: 10,
-        },
-      })
+        this.$shopwareApiInstance
+      )
       this.products = result.data
     } catch (e) {
       console.error("SwProductCarousel:mounted:getProducts", e)

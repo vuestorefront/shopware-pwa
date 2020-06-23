@@ -13,8 +13,8 @@ const PAGES_FOR_LOGGED_IN_ONLY = [
  * 1. Check if requesting route is restricted only for authenticated user
  * 2. Redirect to /login otherwise (always force logout on /login route)
  */
-export default async function ({ route, redirect }) {
-  const { isLoggedIn, logout, refreshUser } = useUser()
+export default async function ({ route, redirect, app }) {
+  const { isLoggedIn, logout, refreshUser } = useUser(app)
 
   if (route.name === LOGIN_ROUTE_NAME) {
     await logout()

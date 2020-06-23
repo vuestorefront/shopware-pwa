@@ -9,17 +9,21 @@ const mockedApi = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 describe("Composables - useProductSearch", () => {
   console.error = jest.fn();
+  const rootContextMock: any = {
+    $store: jest.fn(),
+    $shopwareApiInstance: jest.fn(),
+  };
   beforeEach(() => {
     jest.resetAllMocks();
   });
 
   describe("initial values", () => {
     it("should have no listing result if search wasn't performed", async () => {
-      const { searchResult } = useProductSearch();
+      const { searchResult } = useProductSearch(rootContextMock);
       expect(searchResult.value).toBeNull();
     });
     it("should have loading value set to false by default", async () => {
-      const { loadingSearch } = useProductSearch();
+      const { loadingSearch } = useProductSearch(rootContextMock);
       expect(loadingSearch.value).toBeFalsy();
     });
   });
@@ -40,7 +44,7 @@ describe("Composables - useProductSearch", () => {
         limit: 10,
         total: 189,
       } as any);
-      const { search, currentPagination } = useProductSearch();
+      const { search, currentPagination } = useProductSearch(rootContextMock);
       await search("some term");
       expect(currentPagination.value).toStrictEqual({
         currentPage: 4,
@@ -73,21 +77,27 @@ describe("Composables - useProductSearch", () => {
   });
   describe("currentSearchTerm", () => {
     it("should have current search-term if there is one provided during the search", async () => {
-      const { search, currentSearchTerm } = useProductSearch();
+      const { search, currentSearchTerm } = useProductSearch(rootContextMock);
       await search("some term");
       expect(currentSearchTerm.value).toBe("some term");
     });
   });
   describe("suggestSearch", () => {
     it("should have appriopriate API call invoked on search action", async () => {
-      const { suggestSearch, suggestionsResult } = useProductSearch();
+      const { suggestSearch, suggestionsResult } = useProductSearch(
+        rootContextMock
+      );
       await suggestSearch("some string");
       expect(mockedApi.getSuggestedResults).toBeCalledTimes(1);
-      expect(mockedApi.getSuggestedResults).toBeCalledWith("some string");
+      expect(mockedApi.getSuggestedResults).toBeCalledWith(
+        "some string",
+        undefined,
+        rootContextMock.$shopwareApiInstance
+      );
       expect(suggestionsResult.value).toBeUndefined();
     });
     it("should catch and log the error on api call rejection", async () => {
-      const { suggestSearch } = useProductSearch();
+      const { suggestSearch } = useProductSearch(rootContextMock);
       mockedApi.getSuggestedResults.mockRejectedValueOnce({
         message: "Something went wrong",
       } as any);
@@ -202,14 +212,14 @@ describe("Composables - useProductSearch", () => {
       mockedApi.getSearchResults.mockResolvedValueOnce({
         data: [{ name: "some string" }],
       } as any);
-      const { search, searchResult } = useProductSearch();
+      const { search, searchResult } = useProductSearch(rootContextMock);
       await search("some string");
       expect(searchResult.value).toStrictEqual({
         data: [{ name: "some string" }],
       });
     });
     it("should not perform search without any term provided", async () => {
-      const { search, searchResult } = useProductSearch();
+      const { search, searchResult } = useProductSearch(rootContextMock);
       await search(undefined as any);
       expect(mockedApi.getSearchResults).toBeCalledTimes(0);
       expect(searchResult.value).toStrictEqual(null);
@@ -219,7 +229,7 @@ describe("Composables - useProductSearch", () => {
         message: "Something went wrong",
       } as any);
 
-      const { search, searchResult } = useProductSearch();
+      const { search, searchResult } = useProductSearch(rootContextMock);
       try {
         await search("test");
       } catch (e) {
@@ -232,7 +242,7 @@ describe("Composables - useProductSearch", () => {
   });
   describe("changePage", () => {
     it("should append the provided page to the pagination object", async () => {
-      const { search, changePage } = useProductSearch();
+      const { search, changePage } = useProductSearch(rootContextMock);
       await search("test");
       await changePage(5);
       expect(mockedApi.getSearchResults).toBeCalledWith("test", {

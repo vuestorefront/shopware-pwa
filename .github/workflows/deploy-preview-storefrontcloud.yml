@@ -69,7 +69,7 @@ jobs:
           password: "${{ secrets.DOCKER_PASSWORD }}"
       - name: Comment PR
         if: success()
-        uses: mkucmus/storefrontcloud-comment-pr-preview-deploy@master
+        uses: StorefrontCloud/storefrontcloud-comment-pr-preview-deploy@master
         with:
           preview_url: "${{ steps.deploy.outputs.preview_url }}"
           token: "${{ github.token }}"

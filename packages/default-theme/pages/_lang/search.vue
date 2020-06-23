@@ -6,7 +6,8 @@
     <SfLoader :loading="loadingSearch || !startedSearching" v-else>
       <div class="search-page__main" v-if="searchResult">
         <h3>
-          search results for <strong>{{ searchQuery }}</strong>:
+          search results for <strong>{{ searchQuery }}</strong
+          >:
         </h3>
         <SwProductListingFilters
           :listing="searchResult"
@@ -54,8 +55,7 @@ export default {
     SwProductListing,
     SwProductListingFilters,
   },
-  setup() {
-    const vm = getCurrentInstance()
+  setup(props, { root }) {
     const {
       search,
       currentSearchTerm,
@@ -66,17 +66,21 @@ export default {
       toggleFilter,
       selectedFilters,
       availableFilters,
-      resetFilters
-    } = useProductSearch()
+      resetFilters,
+    } = useProductSearch(root)
 
     const searchQuery = ref(currentSearchTerm.value)
     const startedSearching = ref(false)
     const { isOpen: isListView } = useUIState("PRODUCT_LISTING_STATE")
-    const submitFilters = () => changePage(1);
-    const error = ref(null);
-  
+    const submitFilters = () => changePage(1)
+    const error = ref(null)
+
+    const searchQuery = ref(currentSearchTerm.value)
+    const startedSearching = ref(false)
+    const { isOpen: isListView } = useUIState(root, "PRODUCT_LISTING_STATE")
+
     watchEffect(async () => {
-      searchQuery.value = vm.$route.query.query
+      searchQuery.value = root.$route.query.query
       startedSearching.value = true
       if (
         searchQuery.value &&
@@ -88,7 +92,8 @@ export default {
           await search(searchQuery.value)
         } catch (e) {
           console.error("SearchResultsPage:watchEffect:search: " + e.message)
-          error.value = "Something went wrong. Please try again or report a bug.";
+          error.value =
+            "Something went wrong. Please try again or report a bug."
         }
       }
     })
@@ -112,13 +117,13 @@ export default {
   },
   methods: {
     changeSorting(sorting) {
-      this.changeSortingInternal(sorting);
+      this.changeSortingInternal(sorting)
     },
     async resetFiltersHandler() {
-      this.resetFilters();
-      await this.search(this.searchQuery);
-    }
-  }
+      this.resetFilters()
+      await this.search(this.searchQuery)
+    },
+  },
 }
 </script>
 <style lang="scss">
