@@ -65,7 +65,7 @@
           <div v-else>
             <SwButton
               class="sf-button--full-width color-primary"
-              @click="toggleSidebar"
+              @click="toggleSidebar()"
             >
               {{ $t("Start shopping") }}
             </SwButton>
