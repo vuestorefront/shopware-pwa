@@ -31,8 +31,8 @@ import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salut
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
 import { ShippingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
-import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { ShopwareApiInstance } from '@shopware-pwa/shopware-6-client';
+import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 
 // @beta
 export interface ApplicationVueContext extends Vue {
