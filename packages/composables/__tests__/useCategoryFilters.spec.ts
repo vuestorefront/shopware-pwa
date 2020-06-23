@@ -11,7 +11,7 @@ import { useCategoryFilters } from "@shopware-pwa/composables";
 
 describe("Composables - useCategoryFilters", () => {
   const statePage: Ref<Object | null> = ref(null);
-  const rootContextMock = {
+  const rootContextMock: any = {
     $store: {
       getters: reactive({ getPage: computed(() => statePage.value) }),
       commit: (name: string, value: any) => {

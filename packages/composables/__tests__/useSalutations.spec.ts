@@ -13,7 +13,7 @@ const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 import { useSalutations } from "@shopware-pwa/composables";
 
 describe("Composables - useSalutations", () => {
-  const rootContextMock = {
+  const rootContextMock: any = {
     $store: jest.fn(),
     $shopwareApiInstance: jest.fn(),
   };

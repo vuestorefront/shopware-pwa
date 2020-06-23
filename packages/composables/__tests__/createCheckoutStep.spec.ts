@@ -10,7 +10,7 @@ import {
 const getCookie = jest.fn();
 const setCookie = jest.fn();
 
-const rootContextMock = {
+const rootContextMock: any = {
   $store: jest.fn(),
   $shopwareApiInstance: jest.fn(),
   $cookies: {

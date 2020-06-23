@@ -18,7 +18,7 @@ import { useUser } from "@shopware-pwa/composables";
 
 describe("Composables - useUser", () => {
   const stateUser: Ref<Object | null> = ref(null);
-  const rootContextMock = {
+  const rootContextMock: any = {
     $store: {
       getters: reactive({ getUser: computed(() => stateUser.value) }),
       commit: (name: string, value: any) => {

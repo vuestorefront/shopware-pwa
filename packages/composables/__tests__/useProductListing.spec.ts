@@ -20,7 +20,7 @@ const mockedGetPage = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 describe("Composables - useProductListing", () => {
   const statePage: Ref<Object | null> = ref(null);
-  const rootContextMock = {
+  const rootContextMock: any = {
     $store: {
       getters: reactive({ getPage: computed(() => statePage.value) }),
       commit: (name: string, value: any) => {

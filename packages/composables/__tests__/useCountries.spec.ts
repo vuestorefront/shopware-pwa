@@ -14,7 +14,7 @@ import { useCountries } from "@shopware-pwa/composables";
 (useCountries as any).onMounted = jest.fn();
 
 describe("Composables - useCountries", () => {
-  const rootContextMock = {
+  const rootContextMock: any = {
     $store: jest.fn(),
     $shopwareApiInstance: jest.fn(),
   };

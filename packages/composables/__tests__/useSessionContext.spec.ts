@@ -20,7 +20,7 @@ import { SessionContext } from "@shopware-pwa/commons/interfaces/response/Sessio
 
 describe("Composables - useSessionContext", () => {
   const stateContext: Ref<Partial<SessionContext> | null> = ref(null);
-  const rootContextMock = {
+  const rootContextMock: any = {
     $store: {
       getters: reactive({
         getSessionContext: computed(() => stateContext.value),

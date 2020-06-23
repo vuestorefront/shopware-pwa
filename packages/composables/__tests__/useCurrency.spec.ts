@@ -20,7 +20,7 @@ describe("Composables - useCurrency", () => {
   const refreshSessionContextMock = jest.fn(async () => {});
   const setCurrencyContextMock = jest.fn(async () => {});
   const refreshCartMock = jest.fn(async () => {});
-  const rootContextMock = {
+  const rootContextMock: any = {
     $store: {
       getters: reactive({
         getSessionContext: computed(() => stateContext.value),

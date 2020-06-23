@@ -7,7 +7,7 @@ jest.mock("@shopware-pwa/shopware-6-client");
 const mockedGetPage = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 describe("Composables - useNavigation", () => {
-  const rootContextMock = {
+  const rootContextMock: any = {
     $store: jest.fn(),
     $shopwareApiInstance: jest.fn(),
   };

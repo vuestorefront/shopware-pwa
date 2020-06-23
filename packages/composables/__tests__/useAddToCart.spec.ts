@@ -12,7 +12,7 @@ const { useAddToCart } = composables;
 
 describe("Composables - useAddToCart", () => {
   const stateCart: Ref<Object | null> = ref(null);
-  const rootContextMock = {
+  const rootContextMock: any = {
     $store: {
       getters: reactive({ getCart: computed(() => stateCart.value) }),
       commit: (name: string, value: any) => {

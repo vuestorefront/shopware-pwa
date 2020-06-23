@@ -7,7 +7,7 @@ import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 const mockedApi = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 describe("Composables - useProductSearch", () => {
-  const rootContextMock = {
+  const rootContextMock: any = {
     $store: jest.fn(),
     $shopwareApiInstance: jest.fn(),
   };

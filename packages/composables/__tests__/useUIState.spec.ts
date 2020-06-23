@@ -4,7 +4,7 @@ Vue.use(VueCompositionApi);
 import { useUIState } from "@shopware-pwa/composables";
 
 describe("Composables - useUIState", () => {
-  const rootContextMock = {
+  const rootContextMock: any = {
     $store: jest.fn(),
     $shopwareApiInstance: jest.fn(),
   };

@@ -18,7 +18,7 @@ const mockedShopwareClient = shopwareClient as jest.Mocked<
 describe("Composables - useCart", () => {
   const stateCart: Ref<Object | null> = ref(null);
   const stateUser: Ref<Object | null> = ref(null);
-  const rootContextMock = {
+  const rootContextMock: any = {
     $store: {
       getters: reactive({
         getCart: computed(() => stateCart.value),
