@@ -8,35 +8,43 @@ import VueCompositionApi, {
 Vue.use(VueCompositionApi);
 
 import * as composables from "@shopware-pwa/composables";
-const { useAddToCart, setStore } = composables;
+const { useAddToCart } = composables;
 
 describe("Composables - useAddToCart", () => {
   const stateCart: Ref<Object | null> = ref(null);
-  beforeEach(() => {
-    jest.clearAllMocks();
-    stateCart.value = null;
-    setStore({
+  const rootContextMock: any = {
+    $store: {
       getters: reactive({ getCart: computed(() => stateCart.value) }),
       commit: (name: string, value: any) => {
         stateCart.value = value;
       },
-    });
+    },
+    $shopwareApiInstance: jest.fn(),
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    stateCart.value = null;
   });
 
   describe("computed", () => {
     describe("getStock", () => {
       it("should return null when no product", () => {
-        const { getStock } = useAddToCart(null as any);
+        const { getStock } = useAddToCart(rootContextMock, null as any);
         expect(getStock.value).toBeNull();
       });
 
       it("should return null when no product stock", () => {
-        const { getStock } = useAddToCart({ stock: null } as any);
+        const { getStock } = useAddToCart(rootContextMock, {
+          stock: null,
+        } as any);
         expect(getStock.value).toBeNull();
       });
 
       it("should return a proper product stock", () => {
-        const { getStock } = useAddToCart({ stock: 22 } as any);
+        const { getStock } = useAddToCart(rootContextMock, {
+          stock: 22,
+        } as any);
         expect(getStock.value).toEqual(22);
       });
     });
@@ -46,7 +54,9 @@ describe("Composables - useAddToCart", () => {
         stateCart.value = {
           lineItems: [{ id: "qwe" }],
         };
-        const { isInCart } = useAddToCart({ id: "qwe" } as any);
+        const { isInCart } = useAddToCart(rootContextMock, {
+          id: "qwe",
+        } as any);
         expect(isInCart.value).toBeTruthy();
       });
 
@@ -54,7 +64,9 @@ describe("Composables - useAddToCart", () => {
         stateCart.value = {
           lineItems: [{ id: "qwert" }],
         };
-        const { isInCart } = useAddToCart({ id: "qwe" } as any);
+        const { isInCart } = useAddToCart(rootContextMock, {
+          id: "qwe",
+        } as any);
         expect(isInCart.value).toBeFalsy();
       });
     });
@@ -70,7 +82,7 @@ describe("Composables - useAddToCart", () => {
           })
         );
 
-        const { addToCart, error, quantity } = useAddToCart({
+        const { addToCart, error, quantity } = useAddToCart(rootContextMock, {
           id: "qwe",
         } as any);
         quantity.value = null as any;
@@ -88,7 +100,7 @@ describe("Composables - useAddToCart", () => {
           })
         );
 
-        const { addToCart, error, quantity } = useAddToCart({
+        const { addToCart, error, quantity } = useAddToCart(rootContextMock, {
           id: "qwe",
         } as any);
         quantity.value = 4;
@@ -106,7 +118,7 @@ describe("Composables - useAddToCart", () => {
           })
         );
 
-        const { addToCart, error, quantity } = useAddToCart({
+        const { addToCart, error, quantity } = useAddToCart(rootContextMock, {
           id: "qwe",
         } as any);
         quantity.value = 4;
@@ -124,7 +136,10 @@ describe("Composables - useAddToCart", () => {
           })
         );
 
-        const { addToCart, error, quantity } = useAddToCart(null as any);
+        const { addToCart, error, quantity } = useAddToCart(
+          rootContextMock,
+          null as any
+        );
         quantity.value = 4;
         await addToCart();
         expect(error.value).toEqual(

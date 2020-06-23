@@ -112,14 +112,15 @@ export default {
       currentRoute: { routeLabel: "", routePath: "/" },
     }
   },
-  setup() {
+  setup(props, { root }) {
     const { switchState: toggleSidebar, isOpen: isSidebarOpen } = useUIState(
+      root,
       "CART_SIDEBAR_STATE"
     )
-    const { routes, fetchRoutes } = useNavigation()
-    const { switchState: toggleModal } = useUIState("LOGIN_MODAL_STATE")
-    const { isLoggedIn, logout } = useUser()
-    const { count } = useCart()
+    const { routes, fetchRoutes } = useNavigation(root)
+    const { switchState: toggleModal } = useUIState(root, "LOGIN_MODAL_STATE")
+    const { isLoggedIn, logout } = useUser(root)
+    const { count } = useCart(root)
 
     onMounted(async () => {
       try {

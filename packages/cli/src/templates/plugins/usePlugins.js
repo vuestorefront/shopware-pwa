@@ -7,7 +7,7 @@ const sharedState = Vue.observable({
   slotsAreVisible: false,
 });
 
-export const usePlugins = () => {
+export const usePlugins = (rootContext) => {
   const localState = reactive(sharedState);
   const showPluginSlots = computed({
     get: () => localState.slotsAreVisible,
