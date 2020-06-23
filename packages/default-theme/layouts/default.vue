@@ -66,6 +66,7 @@ export default {
     const getBreadcrumbs = computed(() =>
       Object.values(getBreadcrumbsObject.value).map((breadcrumb) => ({
         text: breadcrumb.name,
+        link: vm.$i18n.path(breadcrumb.path),
         route: {
           link: root.$i18n.path(breadcrumb.path),
         },
