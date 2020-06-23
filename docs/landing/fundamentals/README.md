@@ -1,9 +1,15 @@
 # Fundamentals <Badge text="coming soon"/>
 
-::: warning ToDo
+Understand some of the foundational concepts within Shopware PWA like and our thoughts on architecture, security and customization.
 
-Provide clear and concise documentation of functionalities and technical concepts (more architecture related)
-:::
+
+## Security <Badge text="new" type="info"/>
+
+It is critical to understand which authentication mechanisms are utilized to make sure that your application is safe. Read this to see how Shopware PWA handles this regarding the usage of APIs.
+
+→ [Security Fundamentals](./security)
+
+## WIP
 
 Potential fundamentals
 

@@ -25,7 +25,7 @@ Understand the goal and scope of this project
 ### [Getting started](/landing/getting-started/)
 Quickstart and finding your way around
 
-### [Fundamentals](/landing/fundamentals/) <Badge text="coming soon"/>
+### [Fundamentals](/landing/fundamentals/) <Badge text="new" type="info"/>
 Get to understand the core components of the application 
 
 </div>
