@@ -35,4 +35,11 @@ describe("Shopware composables - getAppContext", () => {
       "[SECURITY][test2] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/#context-awareness"
     );
   });
+
+  it("should add default key when not provided", () => {
+    getApplicationContext(null as any);
+    expect(consoleWarnSpy).toBeCalledWith(
+      "[SECURITY][getApplicationContext] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/#context-awareness"
+    );
+  });
 });
