@@ -14,6 +14,15 @@ import { useCountries } from "@shopware-pwa/composables";
 (useCountries as any).onMounted = jest.fn();
 
 describe("Composables - useCountries", () => {
+  const rootContextMock: any = {
+    $store: jest.fn(),
+    $shopwareApiInstance: jest.fn(),
+  };
+
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
   describe("refs", () => {});
   describe("computed", () => {
     describe("getMappedCoutries", () => {
@@ -21,7 +30,7 @@ describe("Composables - useCountries", () => {
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
           data: null,
         } as any);
-        const { getCountries, fetchCountries } = useCountries();
+        const { getCountries, fetchCountries } = useCountries(rootContextMock);
         await fetchCountries();
         expect(getCountries.value).toEqual([]);
       });
@@ -44,7 +53,7 @@ describe("Composables - useCountries", () => {
             },
           ],
         } as any);
-        const { fetchCountries, getCountries } = useCountries();
+        const { fetchCountries, getCountries } = useCountries(rootContextMock);
         await fetchCountries();
         expect(getCountries.value).toEqual([
           {
@@ -71,14 +80,14 @@ describe("Composables - useCountries", () => {
         mockedApiClient.getAvailableCountries.mockRejectedValueOnce({
           message: "Couldn't fetch available countries.",
         });
-        const { fetchCountries, error } = useCountries();
+        const { fetchCountries, error } = useCountries(rootContextMock);
         await fetchCountries();
         expect(error.value).toEqual("Couldn't fetch available countries.");
       });
     });
     describe("onMounted", () => {
       it("should(call onMounted on useCountries mount", () => {
-        useCountries();
+        useCountries(rootContextMock);
         expect(vueComp.onMounted).toBeCalled();
       });
     });
@@ -87,11 +96,9 @@ describe("Composables - useCountries", () => {
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
           data: null,
         } as any);
-        const {
-          fetchCountries,
-          mountedCallback,
-          getCountries,
-        } = useCountries();
+        const { fetchCountries, mountedCallback, getCountries } = useCountries(
+          rootContextMock
+        );
         await fetchCountries();
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
           data: [
@@ -150,11 +157,9 @@ describe("Composables - useCountries", () => {
             },
           ],
         } as any);
-        const {
-          fetchCountries,
-          mountedCallback,
-          getCountries,
-        } = useCountries();
+        const { fetchCountries, mountedCallback, getCountries } = useCountries(
+          rootContextMock
+        );
         await fetchCountries();
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
           data: [

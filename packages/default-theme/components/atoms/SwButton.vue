@@ -12,7 +12,7 @@ export default {
   components: {
     SfButton,
   },
-  setup() {
+  setup(props, {root}) {
     return {}
   },
 }

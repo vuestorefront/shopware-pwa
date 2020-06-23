@@ -64,8 +64,8 @@ export default {
     TotalsSummary,
     SwCartProduct,
   },
-  setup() {
-    const { cartItems, removeProduct } = useCart()
+  setup(props, {root}) {
+    const { cartItems, removeProduct } = useCart(root)
     return { cartItems, removeProduct }
   },
   computed: {

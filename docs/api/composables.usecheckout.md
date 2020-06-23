@@ -12,5 +12,5 @@ Composable for Checkout management. Options - [IUseCheckout](./composables.iusec
 <b>Signature:</b>
 
 ```typescript
-useCheckout: () => IUseCheckout
+useCheckout: (rootContext: ApplicationVueContext) => IUseCheckout
 ```

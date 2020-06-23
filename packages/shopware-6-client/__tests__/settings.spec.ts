@@ -4,16 +4,19 @@ import {
   update,
   onConfigChange,
 } from "@shopware-pwa/shopware-6-client";
-import { defaultInstance } from "../src/apiService";
+import { defaultInstance, _createInstance } from "../src/apiService";
 import { ConfigChangedArgs } from "../src";
 import { random } from "faker";
+const consoleWarnSpy = jest.spyOn(console, "warn");
 
 const DEFAULT_ENDPOINT = "https://shopware6-demo.vuestorefront.io";
 const DEFAULT_TIMEOUT = 10000;
 
 describe("Settings", () => {
   beforeEach(() => {
+    jest.resetAllMocks();
     setup(); // we need to clean settings to default values before every test
+    consoleWarnSpy.mockImplementationOnce(() => {});
   });
 
   describe("setup", () => {
@@ -111,6 +114,14 @@ describe("Settings", () => {
         expect(configChangedArgs.config.contextToken).toEqual(contextToken);
       });
       update({ contextToken: contextToken });
+    });
+
+    it("should show console warning when no callback methods are connected", () => {
+      const apiInstance = _createInstance();
+      apiInstance.update({ contextToken: "xxx" }, { url: "/some-url" });
+      expect(consoleWarnSpy).toBeCalledWith(
+        '[shopware-6-api] After calling API method /some-url there is no "onConfigChange" listener. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/#context-awareness'
+      );
     });
   });
 });

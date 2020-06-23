@@ -67,11 +67,15 @@ export default {
     SwButton,
     SwPluginSlot,
   },
-  setup() {
-    const { isLoggedIn, logout } = useUser()
-    const { count } = useCart()
-    const { switchState: toggleSidebar } = useUIState("CART_SIDEBAR_STATE")
+  setup(props, { root }) {
+    const { isLoggedIn, logout } = useUser(root)
+    const { count } = useCart(root)
+    const { switchState: toggleSidebar } = useUIState(
+      root,
+      "CART_SIDEBAR_STATE"
+    )
     const { switchState: switchLoginModalState } = useUIState(
+      root,
       "LOGIN_MODAL_STATE"
     )
 
