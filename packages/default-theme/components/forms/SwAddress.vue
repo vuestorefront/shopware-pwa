@@ -312,11 +312,17 @@ export default {
   }
   &__button {
     width: 100%;
+
+    &--back {
+      margin: var(--spacer-base) 0 0 0;
+    }
+
     @include for-desktop {
       width: auto;
-    }
-    &--back {
-      margin-left: var(--spacer-base);
+
+      &--back {
+        margin: 0 0 0 var(--spacer-base);
+      }
     }
   }
 }
