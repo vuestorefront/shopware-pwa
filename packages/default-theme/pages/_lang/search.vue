@@ -69,9 +69,6 @@ export default {
       resetFilters,
     } = useProductSearch(root)
 
-    const searchQuery = ref(currentSearchTerm.value)
-    const startedSearching = ref(false)
-    const { isOpen: isListView } = useUIState("PRODUCT_LISTING_STATE")
     const submitFilters = () => changePage(1)
     const error = ref(null)
 

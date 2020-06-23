@@ -30,7 +30,7 @@ describe("Composables - useProductSearch", () => {
   describe("currentPagination", () => {
     it("should have undefined properties if there is no search result", async () => {
       mockedApi.getSearchResults.mockResolvedValueOnce(null as any);
-      const { search, currentPagination } = useProductSearch();
+      const { search, currentPagination } = useProductSearch(rootContextMock);
       await search("some term");
       expect(currentPagination.value).toStrictEqual({
         currentPage: undefined,
@@ -58,7 +58,9 @@ describe("Composables - useProductSearch", () => {
         limit: 10,
         total: 189,
       } as any);
-      const { search, changePage, currentPagination } = useProductSearch();
+      const { search, changePage, currentPagination } = useProductSearch(
+        rootContextMock
+      );
       await search("some term");
       expect(currentPagination.value).toStrictEqual({
         currentPage: 4,
@@ -125,7 +127,7 @@ describe("Composables - useProductSearch", () => {
         },
       } as any);
 
-      const { search } = useProductSearch();
+      const { search } = useProductSearch(rootContextMock);
       await search("some string");
       expect(mockedApi.getSearchResults).toBeCalledTimes(2);
     });
@@ -135,7 +137,7 @@ describe("Composables - useProductSearch", () => {
         aggregations: {},
       } as any);
 
-      const { search, isBaseSearch } = useProductSearch();
+      const { search, isBaseSearch } = useProductSearch(rootContextMock);
       await search("some string");
       expect(isBaseSearch()).toBe(true);
     });
@@ -148,14 +150,14 @@ describe("Composables - useProductSearch", () => {
         aggregations: {},
       } as any);
 
-      const { search, isBaseSearch } = useProductSearch();
+      const { search, isBaseSearch } = useProductSearch(rootContextMock);
       await search("some string");
       expect(isBaseSearch()).toBe(true);
     });
     it("should return false if there is no active filter set in the payload", async () => {
       mockedApi.getSearchResults.mockResolvedValue(null as any);
 
-      const { search, isBaseSearch } = useProductSearch();
+      const { search, isBaseSearch } = useProductSearch(rootContextMock);
       await search("some string");
       expect(isBaseSearch()).toBe(true);
     });
@@ -177,7 +179,7 @@ describe("Composables - useProductSearch", () => {
           },
         },
       } as any);
-      const { search, availableFilters } = useProductSearch();
+      const { search, availableFilters } = useProductSearch(rootContextMock);
       await search("some string");
       expect(availableFilters.value).toStrictEqual([
         {
@@ -194,7 +196,7 @@ describe("Composables - useProductSearch", () => {
       ]);
     });
     it("should have appriopriate API call invoked on search action", async () => {
-      const { search, resetFilters } = useProductSearch();
+      const { search, resetFilters } = useProductSearch(rootContextMock);
       resetFilters();
       await search("some string");
       expect(mockedApi.getSearchResults).toBeCalledTimes(1);
@@ -256,7 +258,7 @@ describe("Composables - useProductSearch", () => {
   });
   describe("changeSorting", () => {
     it("should invoke getSearchResults with provided sorting config", async () => {
-      const { search, changeSorting } = useProductSearch();
+      const { search, changeSorting } = useProductSearch(rootContextMock);
       await search("test");
       await changeSorting({
         field: "name",
@@ -279,7 +281,7 @@ describe("Composables - useProductSearch", () => {
       expect(mockedApi.getSearchResults).toBeCalledTimes(2);
     });
     it("should not invoke getSearchResults if no sorting was provided", async () => {
-      const { search, changeSorting } = useProductSearch();
+      const { search, changeSorting } = useProductSearch(rootContextMock);
       await search("test");
       await changeSorting(undefined as any);
       expect(mockedApi.getSearchResults).toBeCalledTimes(1);
@@ -287,7 +289,9 @@ describe("Composables - useProductSearch", () => {
   });
   describe("toggleFilter", () => {
     it("should not set the filters array to selectedCriteria if selectedFilterBucket is empty", async () => {
-      const { toggleFilter, search, resetFilters } = useProductSearch();
+      const { toggleFilter, search, resetFilters } = useProductSearch(
+        rootContextMock
+      );
       resetFilters();
       toggleFilter(
         {
@@ -309,12 +313,16 @@ describe("Composables - useProductSearch", () => {
       });
     });
     it("should not select filter if it has wrong format", () => {
-      const { toggleFilter, selectedFilters } = useProductSearch();
+      const { toggleFilter, selectedFilters } = useProductSearch(
+        rootContextMock
+      );
       toggleFilter(undefined as any, false);
       expect(selectedFilters.value).toStrictEqual([]);
     });
     it("should trigger ToggleSelectedFilter on toggleFilter run", () => {
-      const { toggleFilter, selectedFilters } = useProductSearch();
+      const { toggleFilter, selectedFilters } = useProductSearch(
+        rootContextMock
+      );
       toggleFilter(
         {
           type: SearchFilterType.EQUALS,
@@ -326,7 +334,7 @@ describe("Composables - useProductSearch", () => {
       expect(selectedFilters.value).toStrictEqual(["white"]);
     });
     it("should call getSearchResults with transformed filters if any provided", async () => {
-      const { toggleFilter, search } = useProductSearch();
+      const { toggleFilter, search } = useProductSearch(rootContextMock);
       toggleFilter(
         {
           type: SearchFilterType.EQUALS,
@@ -350,11 +358,9 @@ describe("Composables - useProductSearch", () => {
   });
   describe("resetFilters", () => {
     it("should removed all filters from selectedFilters computed property", () => {
-      const {
-        toggleFilter,
-        selectedFilters,
-        resetFilters,
-      } = useProductSearch();
+      const { toggleFilter, selectedFilters, resetFilters } = useProductSearch(
+        rootContextMock
+      );
       toggleFilter(
         {
           type: SearchFilterType.EQUALS,
