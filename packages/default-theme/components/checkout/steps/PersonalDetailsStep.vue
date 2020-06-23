@@ -16,8 +16,8 @@ export default {
     PersonalDetailsGuestForm,
     PersonalDetailsUserForm,
   },
-  setup() {
-    const { isGuestOrder } = useCheckout()
+  setup(props, {root}) {
+    const { isGuestOrder } = useCheckout(root)
 
     return {
       isGuestOrder,

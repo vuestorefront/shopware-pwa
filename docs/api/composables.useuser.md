@@ -12,5 +12,5 @@ Composable for user management. Options - [IUseUser](./composables.iuseuser.md)
 <b>Signature:</b>
 
 ```typescript
-useUser: () => IUseUser
+useUser: (rootContext: ApplicationVueContext) => IUseUser
 ```

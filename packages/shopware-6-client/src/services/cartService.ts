@@ -14,7 +14,7 @@ import { CartItemType } from "@shopware-pwa/commons/interfaces/cart/CartItemType
  *
  * When sw-context-token given then this method simply returns the current state of the cart.
  *
- * As the purpose of this method is not clear we recommend to use getCart() method because its behaviour seems to be the same.
+ * As the purpose of this method is not clear we recommend to use `getCart` method because its behaviour seems to be the same.
  *
  * @throws ClientApiError
  *

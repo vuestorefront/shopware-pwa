@@ -16,8 +16,12 @@ import {
   getSortingSearchCriteria,
   exportUrlQuery,
 } from "@shopware-pwa/helpers";
-import { useCms } from "./useCms";
-import { useCategoryFilters } from "./useCategoryFilters";
+import {
+  useCms,
+  useCategoryFilters,
+  getApplicationContext,
+} from "@shopware-pwa/composables";
+import { ApplicationVueContext } from "../appContext";
 
 /**
  * @alpha
@@ -49,10 +53,16 @@ const selectedCriteria = Vue.observable({
  * @alpha
  */
 export const useProductListing = (
+  rootContext: ApplicationVueContext,
   initialListing?: ProductListingResult
 ): UseProductListing => {
-  const { categoryId } = useCms();
-  const { activeSorting } = useCategoryFilters();
+  const { apiInstance } = getApplicationContext(
+    rootContext,
+    "useProductListing"
+  );
+
+  const { categoryId } = useCms(rootContext);
+  const { activeSorting } = useCategoryFilters(rootContext);
 
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
@@ -147,7 +157,8 @@ export const useProductListing = (
 
     const result = await getCategoryProductsListing(
       categoryId.value,
-      searchCriteria
+      searchCriteria,
+      apiInstance
     );
     sharedPagination.total = (result && result.total) || 0;
     sharedListing.products = result?.elements || [];
