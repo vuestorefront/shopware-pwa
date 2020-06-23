@@ -19,9 +19,9 @@ export declare function loadScript(src: string): Promise<void>;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  src | <code>string</code> |  |
+|  src | string |  |
 
 <b>Returns:</b>
 
-`Promise<void>`
+Promise&lt;void&gt;
 
