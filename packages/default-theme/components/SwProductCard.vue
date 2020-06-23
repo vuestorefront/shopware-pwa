@@ -34,8 +34,11 @@ export default {
     SfProductCard,
     SfAddToCart,
   },
-  setup({ product }) {
-    const { addToCart, quantity, getStock, isInCart } = useAddToCart(product)
+  setup({ product }, { root }) {
+    const { addToCart, quantity, getStock, isInCart } = useAddToCart(
+      root,
+      product
+    )
     return {
       quantity,
       addToCart,

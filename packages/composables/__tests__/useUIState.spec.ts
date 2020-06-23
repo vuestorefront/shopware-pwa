@@ -4,28 +4,36 @@ Vue.use(VueCompositionApi);
 import { useUIState } from "@shopware-pwa/composables";
 
 describe("Composables - useUIState", () => {
+  const rootContextMock: any = {
+    $store: jest.fn(),
+    $shopwareApiInstance: jest.fn(),
+  };
+
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
   describe("local state", () => {
     it("should have isOpen state false by default", () => {
-      const { isOpen } = useUIState();
+      const { isOpen } = useUIState(rootContextMock);
       expect(isOpen.value).toEqual(false);
     });
 
     it("should change UI state", () => {
-      const { isOpen, switchState } = useUIState();
+      const { isOpen, switchState } = useUIState(rootContextMock);
       switchState();
       expect(isOpen.value).toEqual(true);
     });
 
     it("should change only local state", () => {
-      const { isOpen, switchState } = useUIState();
-      const { isOpen: isOpen2 } = useUIState();
+      const { isOpen, switchState } = useUIState(rootContextMock);
+      const { isOpen: isOpen2 } = useUIState(rootContextMock);
       switchState();
       expect(isOpen.value).toEqual(true);
       expect(isOpen2.value).toEqual(false);
     });
 
     it("should change state to desired", () => {
-      const { isOpen, switchState } = useUIState();
+      const { isOpen, switchState } = useUIState(rootContextMock);
       expect(isOpen.value).toEqual(false);
       switchState();
       expect(isOpen.value).toEqual(true);
@@ -38,13 +46,16 @@ describe("Composables - useUIState", () => {
 
   describe("shared state", () => {
     it("should have isOpen state false by default", () => {
-      const { isOpen } = useUIState("some-test-key");
+      const { isOpen } = useUIState(rootContextMock, "some-test-key");
       expect(isOpen.value).toEqual(false);
     });
 
     it("should change UI state in multiple instances", () => {
-      const { isOpen, switchState } = useUIState("some-test-key2");
-      const { isOpen: isOpen2 } = useUIState("some-test-key2");
+      const { isOpen, switchState } = useUIState(
+        rootContextMock,
+        "some-test-key2"
+      );
+      const { isOpen: isOpen2 } = useUIState(rootContextMock, "some-test-key2");
       expect(isOpen.value).toEqual(false);
       switchState();
       expect(isOpen.value).toEqual(true);
@@ -52,8 +63,11 @@ describe("Composables - useUIState", () => {
     });
 
     it("should change shared instande to desired state", () => {
-      const { isOpen, switchState } = useUIState("some-test-key3");
-      const { isOpen: isOpen2 } = useUIState("some-test-key3");
+      const { isOpen, switchState } = useUIState(
+        rootContextMock,
+        "some-test-key3"
+      );
+      const { isOpen: isOpen2 } = useUIState(rootContextMock, "some-test-key3");
       expect(isOpen.value).toEqual(false);
       expect(isOpen2.value).toEqual(false);
       switchState();

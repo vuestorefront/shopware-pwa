@@ -15,7 +15,7 @@ Get payment address to redirect user after placing order.
 export declare function getOrderPaymentUrl({ orderId, finishUrl, }: {
     orderId: string;
     finishUrl?: string;
-}): Promise<{
+}, contextInstance?: ShopwareApiInstance): Promise<{
     paymentUrl: string;
 }>;
 ```
@@ -25,6 +25,7 @@ export declare function getOrderPaymentUrl({ orderId, finishUrl, }: {
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  { orderId, finishUrl, } | <code>{</code><br/><code>    orderId: string;</code><br/><code>    finishUrl?: string;</code><br/><code>}</code> |  |
+|  contextInstance | <code>ShopwareApiInstance</code> |  |
 
 <b>Returns:</b>
 

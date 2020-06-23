@@ -1,30 +1,36 @@
 import { getOrderPaymentUrl } from "@shopware-pwa/shopware-6-client";
-import { apiService } from "../../../src/apiService";
+import { defaultInstance } from "../../../src/apiService";
 
 jest.mock("../../../src/apiService");
-const mockedAxios = apiService as jest.Mocked<typeof apiService>;
+const mockedApiInstance = defaultInstance as jest.Mocked<
+  typeof defaultInstance
+>;
 
 describe("CheckoutService getOrderPaymentUrl", () => {
+  const mockedPost = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
+    mockedApiInstance.invoke = {
+      post: mockedPost,
+    } as any;
   });
   it("should throw an error when orderId is not provided", async () => {
-    mockedAxios.post.mockResolvedValueOnce({});
+    mockedPost.mockResolvedValueOnce({});
 
     await expect(
       getOrderPaymentUrl({ orderId: null as any })
     ).rejects.toThrowError("getOrderPaymentUrl method requires orderId");
   });
   it("should return paymentUrl from API", async () => {
-    mockedAxios.post.mockResolvedValueOnce({
+    mockedPost.mockResolvedValueOnce({
       data: {
         paymentUrl: "/some/payment/url",
       },
     });
 
     const result = await getOrderPaymentUrl({ orderId: "qwe" });
-    expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith(
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith(
       "/sales-channel-api/v1/checkout/order/qwe/pay",
       {
         finishUrl: undefined,
@@ -34,7 +40,7 @@ describe("CheckoutService getOrderPaymentUrl", () => {
   });
 
   it("should add finishUrl to payload", async () => {
-    mockedAxios.post.mockResolvedValueOnce({
+    mockedPost.mockResolvedValueOnce({
       data: {
         paymentUrl: "/some/payment/url",
       },
@@ -44,8 +50,8 @@ describe("CheckoutService getOrderPaymentUrl", () => {
       orderId: "qwe",
       finishUrl: "/finish/url",
     });
-    expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith(
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith(
       "/sales-channel-api/v1/checkout/order/qwe/pay",
       {
         finishUrl: "/finish/url",

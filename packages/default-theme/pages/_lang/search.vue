@@ -40,22 +40,21 @@ export default {
     SfLoader,
     SwProductListing,
   },
-  setup() {
-    const vm = getCurrentInstance()
+  setup(props, { root }) {
     const {
       search,
       currentSearchTerm,
       searchResult,
       loadingSearch,
       changePage,
-    } = useProductSearch()
+    } = useProductSearch(root)
 
     const searchQuery = ref(currentSearchTerm.value)
     const startedSearching = ref(false)
-    const { isOpen: isListView } = useUIState("PRODUCT_LISTING_STATE")
+    const { isOpen: isListView } = useUIState(root, "PRODUCT_LISTING_STATE")
 
     watchEffect(async () => {
-      searchQuery.value = vm.$route.query.query
+      searchQuery.value = root.$route.query.query
       startedSearching.value = true
       if (
         searchQuery.value &&

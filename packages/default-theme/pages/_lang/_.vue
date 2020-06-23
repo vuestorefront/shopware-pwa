@@ -23,8 +23,8 @@ export default {
   name: "DynamicRoute",
   components: {},
   watchQuery: true,
-  asyncData: async ({ req, params, query, error: errorView, store }) => {
-    const { search, page, error } = useCms()
+  asyncData: async ({ params, app, error: errorView, query }) => {
+    const { search, page, error } = useCms(app)
     let path = params.pathMatch
     const lang = params.lang
     if (lang && !languagesMap[lang]) {

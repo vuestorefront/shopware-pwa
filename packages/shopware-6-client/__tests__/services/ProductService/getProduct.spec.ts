@@ -1,21 +1,27 @@
 import { getProduct } from "@shopware-pwa/shopware-6-client";
-import { apiService } from "../../../src/apiService";
+import { defaultInstance } from "../../../src/apiService";
 
 jest.mock("../../../src/apiService");
-const mockedAxios = apiService as jest.Mocked<typeof apiService>;
+const mockedApiInstance = defaultInstance as jest.Mocked<
+  typeof defaultInstance
+>;
 
 describe("ProductService - getProduct", () => {
+  const mockedGet = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
+    mockedApiInstance.invoke = {
+      get: mockedGet,
+    } as any;
   });
   it("should return chosen product", async () => {
-    mockedAxios.get.mockResolvedValueOnce({
+    mockedGet.mockResolvedValueOnce({
       data: { data: { id: "044a190a54ab4f06803909c3ee8063ef" } },
     });
     const productId = "044a190a54ab4f06803909c3ee8063ef";
     const result = await getProduct(productId);
-    expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith(
+    expect(mockedGet).toBeCalledTimes(1);
+    expect(mockedGet).toBeCalledWith(
       "/sales-channel-api/v1/product/044a190a54ab4f06803909c3ee8063ef",
       {
         params: null,

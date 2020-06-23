@@ -1,18 +1,22 @@
-import { computed, getCurrentInstance } from "@vue/composition-api"
+import { computed } from "@vue/composition-api"
 import languagesMap from "sw-plugins/languages"
+import { getApplicationContext } from "@shopware-pwa/composables"
 
-export const useLocales = () => {
-  const vm = getCurrentInstance()
+export const useLocales = (rootContext) => {
+  const { i18n, router } = getApplicationContext(
+    rootContext,
+    "useUICheckoutPage"
+  )
 
   const availableLanguages = computed(() => Object.values(languagesMap) || [])
-  const currentLocale = computed(() => vm.$i18n.locale)
+  const currentLocale = computed(() => i18n.locale)
 
   const changeLocale = async (localeCode) => {
-    if (localeCode === vm.$i18n.locale) return
-    if (localeCode === vm.$i18n.fallbackLocale) {
-      vm.$router.push(vm.$route.fullPath.replace(/^\/[^\/]+/, ""))
+    if (localeCode === i18n.locale) return
+    if (localeCode === i18n.fallbackLocale) {
+      router.push(rootContext.$route.fullPath.replace(/^\/[^\/]+/, ""))
     } else {
-      vm.$router.push(`/${localeCode}${vm.$route.fullPath}`)
+      router.push(`/${localeCode}${rootContext.$route.fullPath}`)
     }
   }
 

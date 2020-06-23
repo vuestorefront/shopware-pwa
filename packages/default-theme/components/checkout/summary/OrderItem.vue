@@ -50,8 +50,8 @@ export default {
       default: () => ({}),
     },
   },
-  setup(props) {
-    const { removeProduct, changeProductQuantity } = useCart()
+  setup(props, { root }) {
+    const { removeProduct, changeProductQuantity } = useCart(root)
 
     const quantity = ref(props.product.quantity)
     watch(quantity, async (qty) => {

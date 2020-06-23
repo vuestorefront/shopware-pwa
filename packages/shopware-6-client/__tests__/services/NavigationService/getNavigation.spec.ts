@@ -1,15 +1,21 @@
 import { getNavigation } from "@shopware-pwa/shopware-6-client";
-import { apiService } from "../../../src/apiService";
+import { defaultInstance } from "../../../src/apiService";
 
 jest.mock("../../../src/apiService");
-const mockedAxios = apiService as jest.Mocked<typeof apiService>;
+const mockedApiInstance = defaultInstance as jest.Mocked<
+  typeof defaultInstance
+>;
 
 describe("NavigationService - getNavigation", () => {
+  const mockedPost = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
+    mockedApiInstance.invoke = {
+      post: mockedPost,
+    } as any;
   });
   it("should return navigation elements for given depth and rootNode", async () => {
-    mockedAxios.post.mockResolvedValueOnce({
+    mockedPost.mockResolvedValueOnce({
       data: {
         count: 1,
         children: [
@@ -29,8 +35,8 @@ describe("NavigationService - getNavigation", () => {
       depth: 1,
       rootNode: "5e0bf3a85da746e1ba2f9672910ea361",
     });
-    expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith("/store-api/v1/pwa/navigation", {
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith("/store-api/v1/pwa/navigation", {
       depth: 1,
       rootNode: "5e0bf3a85da746e1ba2f9672910ea361",
     });

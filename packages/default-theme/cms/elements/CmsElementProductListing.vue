@@ -98,17 +98,17 @@ export default {
       default: () => ({}),
     },
   },
-  setup({ content }) {
-    const { search } = useProductSearch()
+  setup({ content }, { root }) {
+    const { search } = useProductSearch(root)
     const listing = content.data.listing || []
     const {
       products,
       changePagination,
       pagination,
       loading,
-    } = useProductListing(listing)
+    } = useProductListing(root, listing)
 
-    const { isOpen: isListView } = useUIState("PRODUCT_LISTING_STATE")
+    const { isOpen: isListView } = useUIState(root, "PRODUCT_LISTING_STATE")
 
     const changedPage = async (pageNumber) => {
       await changePagination(pageNumber)

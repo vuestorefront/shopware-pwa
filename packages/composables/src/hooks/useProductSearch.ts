@@ -5,6 +5,8 @@ import {
 } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
+import { getApplicationContext } from "@shopware-pwa/composables";
+import { ApplicationVueContext } from "../appContext";
 
 /**
  * @beta
@@ -33,7 +35,14 @@ export interface UseProductSearch {
 /**
  * @alpha
  */
-export const useProductSearch = (): UseProductSearch => {
+export const useProductSearch = (
+  rootContext: ApplicationVueContext
+): UseProductSearch => {
+  const { apiInstance } = getApplicationContext(
+    rootContext,
+    "useProductSearch"
+  );
+
   const loadingSearch: Ref<boolean> = ref(false);
   const loadingSuggestions: Ref<boolean> = ref(false);
   const currentSearchTerm: Ref<string> = ref("");
@@ -62,7 +71,11 @@ export const useProductSearch = (): UseProductSearch => {
   const suggestSearch = async (term: string): Promise<void> => {
     try {
       loadingSuggestions.value = true;
-      const suggestedProductListing = await getSuggestedResults(term);
+      const suggestedProductListing = await getSuggestedResults(
+        term,
+        undefined,
+        apiInstance
+      );
       suggestionsResult.value = suggestedProductListing;
     } catch (e) {
       console.error("useProductSearch:suggestSearch", e);
@@ -80,7 +93,7 @@ export const useProductSearch = (): UseProductSearch => {
       loadingSearch.value = true;
       currentSearchTerm.value = term;
       searchResult.value = null;
-      const result = await getResults(term, searchCriteria.value);
+      const result = await getResults(term, searchCriteria.value, apiInstance);
       searchResult.value = result;
     } catch (e) {
       throw e;

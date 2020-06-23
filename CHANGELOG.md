@@ -1,3 +1,12 @@
+## [0.1.1](https://github.com/DivanteLtd/shopware-pwa/compare/v0.1.0...v0.1.1) (2020-06-22)
+
+
+### Bug Fixes
+
+* **cli:** fix breaking changes after Nuxt 2.13 released ([51629fa](https://github.com/DivanteLtd/shopware-pwa/commit/51629fad22686a659a01925b06747c4dc86f3322))
+
+
+
 # [0.1.0](https://github.com/DivanteLtd/shopware-pwa/compare/v0.1.0-alpha.9...v0.1.0) (2020-05-29)
 
 

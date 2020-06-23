@@ -84,9 +84,9 @@ export default {
     BillingAddressUserForm,
     SwPluginSlot
   },
-  setup() {
-    const { isGuestOrder, getPaymentMethods, paymentMethods } = useCheckout()
-    const { paymentMethod, setPaymentMethod } = useSessionContext()
+  setup(props, {root}) {
+    const { isGuestOrder, getPaymentMethods, paymentMethods } = useCheckout(root)
+    const { paymentMethod, setPaymentMethod } = useSessionContext(root)
 
     const activePaymentMethod = computed({
       get: () => paymentMethod.value && paymentMethod.value.id,

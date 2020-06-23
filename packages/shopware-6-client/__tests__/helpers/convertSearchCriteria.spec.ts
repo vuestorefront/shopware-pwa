@@ -16,48 +16,59 @@ describe("SearchConverter - convertSearchCriteria", () => {
   beforeEach(() => {
     setup();
   });
-  it("should returns empty object if no params provided", () => {
-    const result = convertSearchCriteria();
-    expect(result).toEqual({
-      limit: 10,
-    });
-  });
   describe("pagination", () => {
     it("should use p param for pagination if apiType is set to 'store'", () => {
-      const result = convertSearchCriteria(
-        {
+      const config = {
+        defaultPaginationLimit: 10,
+      };
+      const result = convertSearchCriteria({
+        searchCriteria: {
           pagination: { page: PaginationLimit.ONE },
         },
-        ApiType.store
-      );
+        apiType: ApiType.store,
+        config,
+      });
       expect(result?.p).toEqual(1);
       expect(result?.limit).toEqual(config.defaultPaginationLimit);
     });
     it("should have page number with default limit if not provided", () => {
       const result = convertSearchCriteria({
-        pagination: { page: PaginationLimit.ONE },
+        searchCriteria: { pagination: { page: PaginationLimit.ONE } },
+        config,
       });
       expect(result?.page).toEqual(1);
       expect(result?.limit).toEqual(config.defaultPaginationLimit);
     });
     it("should have page number", () => {
-      const result = convertSearchCriteria({ pagination: { limit: 5 } });
+      const result = convertSearchCriteria({
+        searchCriteria: { pagination: { limit: 5 } },
+        config,
+      });
       expect(result?.limit).toEqual(5);
     });
     it("should have default limit if provided is out of range", () => {
-      const result = convertSearchCriteria({ pagination: { limit: 7 } });
+      const result = convertSearchCriteria({
+        searchCriteria: { pagination: { limit: 7 } },
+        config,
+      });
       expect(result).toStrictEqual({ limit: 10 });
     });
     it("should not add pagination for an empty object", () => {
-      const result = convertSearchCriteria({ pagination: {} });
+      const result = convertSearchCriteria({
+        searchCriteria: { pagination: {} },
+        config,
+      });
       expect(result).not.toHaveProperty("page");
     });
     it("should have full pagination info", () => {
       const result = convertSearchCriteria({
-        pagination: {
-          page: 3,
-          limit: 5,
+        searchCriteria: {
+          pagination: {
+            page: 3,
+            limit: 5,
+          },
         },
+        config,
       });
       expect(result?.page).toEqual(3);
       expect(result?.limit).toEqual(5);
@@ -65,7 +76,10 @@ describe("SearchConverter - convertSearchCriteria", () => {
     it("should change default pagination limit", () => {
       update({ defaultPaginationLimit: 50 });
       const result = convertSearchCriteria({
-        pagination: { page: PaginationLimit.ONE },
+        searchCriteria: {
+          pagination: { page: PaginationLimit.ONE },
+        },
+        config,
       });
       expect(result?.page).toEqual(1);
       expect(result?.limit).toEqual(50);
@@ -73,8 +87,8 @@ describe("SearchConverter - convertSearchCriteria", () => {
   });
   describe("sorting", () => {
     it("should have pagination and sort params in specific format if apiType is set to 'store'", () => {
-      const paramsObject = convertSearchCriteria(
-        {
+      const paramsObject = convertSearchCriteria({
+        searchCriteria: {
           pagination: { page: 1 },
           sort: {
             desc: true,
@@ -82,31 +96,36 @@ describe("SearchConverter - convertSearchCriteria", () => {
           },
           filters: [],
         },
-        ApiType.store
-      );
+        apiType: ApiType.store,
+        config,
+      });
       expect(paramsObject?.p).toEqual(1);
       expect(paramsObject?.limit).toEqual(config.defaultPaginationLimit);
       expect(paramsObject?.sort).toEqual("name-desc");
     });
     it("should have sorting param in specific format if apiType is set to 'store' - default ascending", () => {
-      const paramsObject = convertSearchCriteria(
-        {
+      const paramsObject = convertSearchCriteria({
+        searchCriteria: {
           sort: {
             field: "name",
           },
           filters: [],
         },
-        ApiType.store
-      );
+        apiType: ApiType.store,
+        config,
+      });
       expect(paramsObject?.sort).toEqual("name-asc");
     });
     it("should have pagination and sort params", () => {
       const paramsObject = convertSearchCriteria({
-        pagination: { page: 1 },
-        sort: {
-          field: "name",
+        searchCriteria: {
+          pagination: { page: 1 },
+          sort: {
+            field: "name",
+          },
+          filters: [],
         },
-        filters: [],
+        config,
       });
       expect(paramsObject?.page).toEqual(1);
       expect(paramsObject?.limit).toEqual(config.defaultPaginationLimit);
@@ -114,10 +133,13 @@ describe("SearchConverter - convertSearchCriteria", () => {
     });
     it("should add prefix when desc sort", () => {
       const result = convertSearchCriteria({
-        sort: {
-          field: "name",
-          desc: true,
+        searchCriteria: {
+          sort: {
+            field: "name",
+            desc: true,
+          },
         },
+        config,
       });
       expect(result?.sort).toEqual("-name");
     });
@@ -131,7 +153,10 @@ describe("SearchConverter - convertSearchCriteria", () => {
           value: "Aerodynamic Iron Jetsilk",
         };
         const result = convertSearchCriteria({
-          filters: [nameFilter],
+          searchCriteria: {
+            filters: [nameFilter],
+          },
+          config,
         });
         expect(result?.filter?.[0]).toEqual({
           type: "equals",
@@ -151,7 +176,10 @@ describe("SearchConverter - convertSearchCriteria", () => {
           },
         };
         const result = convertSearchCriteria({
-          filters: [nameFilter],
+          searchCriteria: {
+            filters: [nameFilter],
+          },
+          config,
         });
         expect(result?.filter?.[0]).toEqual({
           type: "range",
@@ -194,7 +222,10 @@ describe("SearchConverter - convertSearchCriteria", () => {
           queries: [priceFilter, oneFromNameFilter],
         };
         const result = convertSearchCriteria({
-          filters: [priceAndNamesFilter],
+          searchCriteria: {
+            filters: [priceAndNamesFilter],
+          },
+          config,
         });
         expect(result?.filter).toEqual([
           {
@@ -240,12 +271,13 @@ describe("SearchConverter - convertSearchCriteria", () => {
           value: ["shopware"],
         };
 
-        const result = convertSearchCriteria(
-          {
+        const result = convertSearchCriteria({
+          searchCriteria: {
             filters: [nameFilter],
           },
-          ApiType.store
-        );
+          apiType: ApiType.store,
+          config,
+        });
         expect(result).toStrictEqual({
           limit: 10,
           manufacturer: "shopware",
@@ -256,13 +288,19 @@ describe("SearchConverter - convertSearchCriteria", () => {
   describe("term", () => {
     it("should add a term key and proper value", () => {
       const result = convertSearchCriteria({
-        term: "fulltext",
-      } as any);
+        searchCriteria: {
+          term: "fulltext",
+        },
+        config,
+      });
       expect(result.term).toEqual("fulltext");
     });
     it("should not add a term key if provided term is null", () => {
       const result = convertSearchCriteria({
-        term: null,
+        searchCriteria: {
+          term: null,
+        },
+        config,
       } as any);
       expect(result).not.toHaveProperty("term");
     });
@@ -271,26 +309,32 @@ describe("SearchConverter - convertSearchCriteria", () => {
     describe("displayParents", () => {
       it("should not return displayGroup grouped parameter and appropriate filter when displayParents switch is on", () => {
         const result = convertSearchCriteria({
-          filters: {},
-          configuration: {
-            displayParents: true,
+          searchCriteria: {
+            filters: {},
+            configuration: {
+              displayParents: true,
+            },
           },
+          config,
         } as any);
         expect(result).toEqual({ limit: 10 });
       });
       it("should return displayGroup grouped parameter and appropriate filter by default", () => {
         const result = convertSearchCriteria({
-          filters: [
-            {
-              type: "equals",
+          searchCriteria: {
+            filters: [
+              {
+                type: "equals",
+                field: "name",
+                value: "test",
+              } as any,
+            ],
+            sort: {
               field: "name",
-              value: "test",
-            } as any,
-          ],
-          sort: {
-            field: "name",
-            desc: true,
+              desc: true,
+            },
           },
+          config,
         });
         expect(result).toEqual({
           filter: [
@@ -308,11 +352,14 @@ describe("SearchConverter - convertSearchCriteria", () => {
     describe("grouping", () => {
       it("should return grouped field", () => {
         const result = convertSearchCriteria({
-          configuration: {
-            grouping: {
-              field: "displayGroup",
+          searchCriteria: {
+            configuration: {
+              grouping: {
+                field: "displayGroup",
+              },
             },
           },
+          config,
         });
         expect(result?.grouping).toEqual({ field: "displayGroup" });
       });
@@ -320,43 +367,52 @@ describe("SearchConverter - convertSearchCriteria", () => {
     describe("associations", () => {
       it("should return association", () => {
         const result = convertSearchCriteria({
-          configuration: {
-            associations: [
-              {
-                name: "media",
-              },
-            ],
+          searchCriteria: {
+            configuration: {
+              associations: [
+                {
+                  name: "media",
+                },
+              ],
+            },
           },
+          config,
         });
         expect(result?.associations).toEqual({ media: {} });
       });
 
       it("should not add associations on empty array", () => {
         const result = convertSearchCriteria({
-          configuration: {
-            associations: [],
+          searchCriteria: {
+            configuration: {
+              associations: [],
+            },
           },
+          config,
         });
         expect(result).toHaveProperty("associations");
       });
 
       it("should return multiple associations", () => {
         const result = convertSearchCriteria({
-          configuration: {
-            associations: [
-              {
-                name: "media",
-                associations: [
-                  {
-                    name: "cover",
-                  },
-                ],
-              },
-              {
-                name: "stock",
-              },
-            ],
+          searchCriteria: {
+            configuration: {
+              associations: [
+                {
+                  name: "media",
+                  associations: [
+                    {
+                      name: "cover",
+                    },
+                  ],
+                },
+                {
+                  name: "stock",
+                },
+              ],
+            },
           },
+          config,
         });
         expect(result?.associations).toEqual({
           media: { associations: { cover: {} } },
@@ -366,21 +422,24 @@ describe("SearchConverter - convertSearchCriteria", () => {
 
       it("should return deep association", () => {
         const result = convertSearchCriteria({
-          configuration: {
-            associations: [
-              {
-                name: "cmsPage",
-                associations: [
-                  {
-                    name: "sections",
-                    associations: [
-                      { name: "blocks", associations: [{ name: "slots" }] },
-                    ],
-                  },
-                ],
-              },
-            ],
+          searchCriteria: {
+            configuration: {
+              associations: [
+                {
+                  name: "cmsPage",
+                  associations: [
+                    {
+                      name: "sections",
+                      associations: [
+                        { name: "blocks", associations: [{ name: "slots" }] },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
           },
+          config,
         });
         expect(result?.associations).toEqual({
           cmsPage: {

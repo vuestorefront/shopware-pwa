@@ -17,7 +17,7 @@ export default {
       address: "",
     }
   },
-  setup() {
+  setup(props, {root}) {
     const {
       addresses,
       loadAddresses,
@@ -25,7 +25,7 @@ export default {
       loadCountry,
       salutation,
       loadSalutation,
-    } = useUser()
+    } = useUser(root)
     return {
       loadAddresses,
       addresses,

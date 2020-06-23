@@ -9,7 +9,7 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { SearchResult } from "@shopware-pwa/commons/interfaces/response/SearchResult";
 import { convertSearchCriteria, ApiType } from "../helpers/searchConverter";
-import { apiService } from "../apiService";
+import { defaultInstance, ShopwareApiInstance } from "../apiService";
 
 /**
  * Get default amount of products' ids
@@ -17,10 +17,11 @@ import { apiService } from "../apiService";
  * @throws ClientApiError
  * @alpha
  */
-export const getProductsIds = async function (): Promise<SearchResult<
-  string[]
->> {
-  const resp = await apiService.post(getProductsIdsEndpoint());
+export const getProductsIds = async function (
+  options?: any,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<SearchResult<string[]>> {
+  const resp = await contextInstance.invoke.post(getProductsIdsEndpoint());
   return resp.data;
 };
 
@@ -31,14 +32,19 @@ export const getProductsIds = async function (): Promise<SearchResult<
  * @alpha
  */
 export const getProducts = async function (
-  searchCriteria?: SearchCriteria
+  searchCriteria?: SearchCriteria,
+  contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<SearchResult<Product[]>> {
-  const resp = await apiService.post(
+  const resp = await contextInstance.invoke.post(
     `${getProductEndpoint()}`,
-    convertSearchCriteria(searchCriteria)
+    convertSearchCriteria({ searchCriteria, config: contextInstance.config })
   );
   return resp.data;
 };
+
+function wait(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 /**
  * Get default amount of products and listing configuration for given category
@@ -48,11 +54,17 @@ export const getProducts = async function (
  */
 export const getCategoryProductsListing = async function (
   categoryId: string,
-  searchCriteria?: SearchCriteria
+  searchCriteria?: SearchCriteria,
+  contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<ProductListingResult> {
-  const resp = await apiService.post(
+  await wait(5000);
+  const resp = await contextInstance.invoke.post(
     `${getProductListingEndpoint(categoryId)}`,
-    convertSearchCriteria(searchCriteria, ApiType.store)
+    convertSearchCriteria({
+      searchCriteria,
+      apiType: ApiType.store,
+      config: contextInstance.config,
+    })
   );
   return resp.data;
 };
@@ -65,10 +77,14 @@ export const getCategoryProductsListing = async function (
  */
 export async function getProduct(
   productId: string,
-  params: any = null
+  params: any = null,
+  contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Product> {
-  const resp = await apiService.get(getProductDetailsEndpoint(productId), {
-    params,
-  });
+  const resp = await contextInstance.invoke.get(
+    getProductDetailsEndpoint(productId),
+    {
+      params,
+    }
+  );
   return resp.data.data;
 }
