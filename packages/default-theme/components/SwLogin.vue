@@ -61,8 +61,8 @@ export default {
       password: "",
     }
   },
-  setup() {
-    const { login, loading, error: userError } = useUser()
+  setup(props, {root}) {
+    const { login, loading, error: userError } = useUser(root)
     return {
       clientLogin: login,
       isLoading: loading,

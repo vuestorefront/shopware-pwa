@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from "axios";
 import { createResponseInterceptor, errorInterceptor } from "./interceptors";
 import { ClientSettings, defaultConfig } from "./settings";
 
@@ -29,14 +29,9 @@ export interface ShopwareApiInstance {
 }
 
 /**
- *
- * @beta
+ * Internal method for creating new instance, exported only for tests, not exported by package
  */
-export function createInstance(
-  initialConfig: ClientSettings = {}
-): ShopwareApiInstance {
-  const x = Math.random();
-  console.error("=== CREATED NEW INSTANCE", x);
+export function _createInstance(initialConfig: ClientSettings = {}) {
   const callbackMethods: ((context: ConfigChangedArgs) => void)[] = [];
   let clientConfig: ClientSettings = {};
   const apiService: AxiosInstance = axios.create();
@@ -61,16 +56,7 @@ export function createInstance(
   }
 
   function onConfigChange(fn: (context: ConfigChangedArgs) => void): void {
-    console.error("++ Added config method", x);
     callbackMethods.push(fn);
-  }
-
-  function configChanged(): void {
-    // TODO remove after tests
-    if (!callbackMethods.length) {
-      console.error("HAVE NO CALLBACK METHODS", x);
-    }
-    callbackMethods.forEach((fn) => fn({ config: clientConfig }));
   }
 
   const setup = function (config: ClientSettings = {}): void {
@@ -79,9 +65,21 @@ export function createInstance(
   };
   setup(initialConfig);
 
-  const update = function (config: ClientSettings = {}): void {
+  const update = function (
+    config: ClientSettings,
+    responseConfig?: AxiosResponse<AxiosRequestConfig>["config"]
+  ): void {
     clientConfig = Object.assign(clientConfig, config);
-    configChanged();
+    if (
+      process.env.NODE_ENV !== "production" &&
+      !callbackMethods.length &&
+      responseConfig
+    ) {
+      console.warn(
+        `[shopware-6-api] After calling API method ${responseConfig.url} there is no "onConfigChange" listener. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/#context-awareness`
+      );
+    }
+    callbackMethods.forEach((fn) => fn({ config: clientConfig }));
     reloadConfiguration();
   };
 
@@ -105,6 +103,34 @@ export function createInstance(
     update,
     invoke,
     defaults: apiService.defaults,
+  };
+}
+
+/**
+ *
+ * @beta
+ */
+export function createInstance(
+  initialConfig: ClientSettings = {}
+): ShopwareApiInstance {
+  const {
+    onConfigChange,
+    config,
+    setup,
+    update,
+    invoke,
+    defaults,
+  } = _createInstance(initialConfig);
+
+  return {
+    onConfigChange,
+    config,
+    setup,
+    update: (config: ClientSettings = {}): void => {
+      update(config);
+    },
+    invoke,
+    defaults,
   };
 }
 

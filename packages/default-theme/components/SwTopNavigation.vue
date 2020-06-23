@@ -38,10 +38,13 @@ export default {
     SwMegaMenu,
     SwPluginSlot,
   },
-  setup() {
-    const { switchState: switchOverlay } = useUIState("MEGA_MENU_OVERLAY_STATE")
-    const { fetchNavigationElements, navigationElements } = useNavigation()
-    const { currentLocale } = useLocales()
+  setup(props, { root }) {
+    const { switchState: switchOverlay } = useUIState(
+      root,
+      "MEGA_MENU_OVERLAY_STATE"
+    )
+    const { fetchNavigationElements, navigationElements } = useNavigation(root)
+    const { currentLocale } = useLocales(root)
 
     const currentCategoryName = ref(null)
 

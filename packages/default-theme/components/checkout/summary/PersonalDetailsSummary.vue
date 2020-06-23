@@ -24,10 +24,10 @@ export default {
     SwPersonalDetails,
     SwButton,
   },
-  setup() {
-    const { firstName, lastName, email } = usePersonalDetailsStep()
-    const { isGuestOrder } = useCheckout()
-    const { user } = useUser()
+  setup(props, {root}) {
+    const { firstName, lastName, email } = usePersonalDetailsStep(root)
+    const { isGuestOrder } = useCheckout(root)
+    const { user } = useUser(root)
 
     return {
       personalDetails: computed(() => ({

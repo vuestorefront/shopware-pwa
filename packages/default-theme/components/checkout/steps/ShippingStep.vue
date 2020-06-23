@@ -94,10 +94,10 @@ export default {
     ShippingAddressUserForm,
     SwPluginSlot,
   },
-  setup() {
-    const { isGuestOrder, getShippingMethods, shippingMethods } = useCheckout()
-    const { shippingMethod, setShippingMethod } = useSessionContext()
-    const { refreshCart } = useCart()
+  setup(props, {root}) {
+    const { isGuestOrder, getShippingMethods, shippingMethods } = useCheckout(root)
+    const { shippingMethod, setShippingMethod } = useSessionContext(root)
+    const { refreshCart } = useCart(root)
 
     const activeShippingMethod = computed({
       get: () => shippingMethod.value && shippingMethod.value.id,

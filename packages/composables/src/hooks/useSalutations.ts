@@ -2,6 +2,8 @@ import Vue from "vue";
 import { Ref, ref, computed, reactive, onMounted } from "@vue/composition-api";
 import { getAvailableSalutations } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
+import { getApplicationContext } from "@shopware-pwa/composables";
+import { ApplicationVueContext } from "../appContext";
 
 /**
  * @alpha
@@ -20,13 +22,19 @@ const sharedSalutations = Vue.observable({
 /**
  * @alpha
  */
-export const useSalutations = (): UseSalutations => {
+export const useSalutations = (
+  rootContext: ApplicationVueContext
+): UseSalutations => {
+  const { apiInstance } = getApplicationContext(rootContext, "useSalutations");
+
   const localSalutations = reactive(sharedSalutations);
   const error: Ref<any> = ref(null);
 
   const fetchSalutations = async (): Promise<void> => {
     try {
-      sharedSalutations.salutations = await getAvailableSalutations();
+      sharedSalutations.salutations = await getAvailableSalutations(
+        apiInstance
+      );
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
