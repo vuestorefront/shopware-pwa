@@ -1,9 +1,7 @@
 import Vue from "vue";
 import { computed, reactive, ref, Ref } from "@vue/composition-api";
-import {
-  getApplicationContext,
-  ApplicationVueContext,
-} from "@shopware-pwa/composables";
+import { getApplicationContext } from "@shopware-pwa/composables";
+import { ApplicationVueContext } from "../appContext";
 
 const sharedUIState: any = {};
 

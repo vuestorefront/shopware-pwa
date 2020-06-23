@@ -1,9 +1,5 @@
 import { computed } from "@vue/composition-api";
-import {
-  useCms,
-  getApplicationContext,
-  ApplicationVueContext,
-} from "@shopware-pwa/composables";
+import { useCms, getApplicationContext } from "@shopware-pwa/composables";
 import {
   getCategoryAvailableFilters,
   getCategoryAvailableSorting,
@@ -11,6 +7,7 @@ import {
   UiCategorySorting,
   SwSorting,
 } from "@shopware-pwa/helpers";
+import { ApplicationVueContext } from "../../appContext";
 
 /**
  * @alpha

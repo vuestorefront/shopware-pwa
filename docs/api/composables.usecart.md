@@ -12,5 +12,5 @@ Composable for cart management. Options - [IUseCart](./composables.iusecart.md)
 <b>Signature:</b>
 
 ```typescript
-useCart: (rootContext: any) => IUseCart
+useCart: (rootContext: ApplicationVueContext) => IUseCart
 ```

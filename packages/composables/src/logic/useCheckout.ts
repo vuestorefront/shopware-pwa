@@ -18,8 +18,8 @@ import {
 import {
   getApplicationContext,
   useSessionContext,
-  ApplicationVueContext,
 } from "@shopware-pwa/composables";
+import { ApplicationVueContext } from "../appContext";
 
 /**
  * interface for {@link useCheckout} composable

@@ -12,7 +12,7 @@ Simple state management for UI purposes.
 <b>Signature:</b>
 
 ```typescript
-useUIState: (rootContext: any, stateName?: string | undefined) => {
+useUIState: (rootContext: ApplicationVueContext, stateName?: string | undefined) => {
     isOpen: Readonly<Ref<boolean>>;
     switchState: (to?: boolean | undefined) => void;
 }

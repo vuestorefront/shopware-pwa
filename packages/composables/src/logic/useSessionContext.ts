@@ -9,10 +9,8 @@ import {
   setCurrentPaymentMethod,
 } from "@shopware-pwa/shopware-6-client";
 import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
-import {
-  getApplicationContext,
-  ApplicationVueContext,
-} from "@shopware-pwa/composables";
+import { getApplicationContext } from "@shopware-pwa/composables";
+import { ApplicationVueContext } from "../appContext";
 /**
  * interface for {@link useSessionContext} composable
  *

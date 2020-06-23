@@ -5,9 +5,9 @@ import {
   useSessionContext,
   useCart,
   getApplicationContext,
-  ApplicationVueContext,
 } from "@shopware-pwa/composables";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
+import { ApplicationVueContext } from "../appContext";
 
 const sharedCurrencyState = Vue.observable({
   availableCurrencies: [],

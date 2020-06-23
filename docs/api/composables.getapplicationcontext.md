@@ -11,8 +11,8 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getApplicationContext(rootContext: any, key?: string): {
-    apiInstance: any;
+export declare function getApplicationContext(rootContext: ApplicationVueContext, key?: string): {
+    apiInstance: ShopwareApiInstance | undefined;
     vuexStore: any;
     router: any;
     i18n: any;
@@ -23,13 +23,13 @@ export declare function getApplicationContext(rootContext: any, key?: string): {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  rootContext | <code>any</code> |  |
+|  rootContext | <code>ApplicationVueContext</code> |  |
 |  key | <code>string</code> |  |
 
 <b>Returns:</b>
 
 `{
-    apiInstance: any;
+    apiInstance: ShopwareApiInstance | undefined;
     vuexStore: any;
     router: any;
     i18n: any;

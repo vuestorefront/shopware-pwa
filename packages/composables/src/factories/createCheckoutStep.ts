@@ -6,12 +6,9 @@ import {
   toRefs,
   Ref,
 } from "@vue/composition-api";
-import {
-  useCheckout,
-  getApplicationContext,
-  ApplicationVueContext,
-} from "@shopware-pwa/composables";
+import { useCheckout, getApplicationContext } from "@shopware-pwa/composables";
 import { GuestOrderParams } from "@shopware-pwa/commons/interfaces/request/GuestOrderParams";
+import { ApplicationVueContext } from "../appContext";
 
 /**
  * @alpha

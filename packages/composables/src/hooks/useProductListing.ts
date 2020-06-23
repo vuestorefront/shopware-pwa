@@ -20,8 +20,8 @@ import {
   useCms,
   useCategoryFilters,
   getApplicationContext,
-  ApplicationVueContext,
 } from "@shopware-pwa/composables";
+import { ApplicationVueContext } from "../appContext";
 
 /**
  * @alpha
