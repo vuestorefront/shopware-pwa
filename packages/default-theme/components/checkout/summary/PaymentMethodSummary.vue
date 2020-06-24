@@ -1,27 +1,28 @@
 <template>
-  <div class="review__item">
-    <div class="review__content">
-      <h4 class="review__title">Payment method</h4>
-      <p class="content">{{ paymentMethod.name }}</p>
-    </div>
-    <SfButton
-      class="sf-button--text review__edit"
-      @click="$emit('click:edit', 2)"
-      >Edit</SfButton
-    >
-  </div>
+  <SwCheckoutMethod :method="paymentMethod" label="Payment method">
+    <template #after-content>
+      <SwButton
+        class="sf-button--text review__edit"
+        @click="$emit('click:edit', 2)"
+      >
+        Edit
+      </SwButton>
+    </template>
+  </SwCheckoutMethod>
 </template>
 <script>
-import { SfButton } from '@storefront-ui/vue'
-import { useSessionContext } from '@shopware-pwa/composables'
-import { computed } from '@vue/composition-api'
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import { useSessionContext } from "@shopware-pwa/composables"
+import { computed } from "@vue/composition-api"
+import SwCheckoutMethod from "@shopware-pwa/default-theme/components/SwCheckoutMethod"
 export default {
-  name: 'PaymentMethodSummary',
+  name: "PaymentMethodSummary",
   components: {
-    SfButton,
+    SwCheckoutMethod,
+    SwButton,
   },
-  setup() {
-    const { sessionContext } = useSessionContext()
+  setup(props, {root}) {
+    const { sessionContext } = useSessionContext(root)
     const paymentMethod = computed(() => sessionContext.value.paymentMethod)
     return {
       paymentMethod,
@@ -31,7 +32,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "@/assets/scss/variables";
 .review {
   &__item {
     display: flex;

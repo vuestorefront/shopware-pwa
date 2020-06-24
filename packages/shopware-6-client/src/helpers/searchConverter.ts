@@ -5,18 +5,24 @@ import {
   RangeFilter,
   EqualsFilter,
   EqualsAnyFilter,
-  SearchFilterType,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { convertAssociations } from "./convertAssociations";
 import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
-import { config } from "@shopware-pwa/shopware-6-client";
 import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Association";
 import { Grouping } from "@shopware-pwa/commons/interfaces/search/Grouping";
+import { convertToStoreApiFilters } from "../helpers/convertToStoreApiFilters";
+import { ClientSettings } from "../settings";
+
+export enum ApiType {
+  store = "store-api",
+  salesChannel = "sales-channel-api",
+}
 
 /**
  * @alpha
  */
 export interface ShopwareParams {
+  p?: number; // p for page in store-api
   page?: number;
   limit?: number;
   sort?: string;
@@ -30,33 +36,67 @@ export interface ShopwareParams {
   )[];
   associations?: ShopwareAssociation;
   grouping?: Grouping;
+  properties?: string; // store-api filters
+  manufacturer?: string; // store-api filters
 }
 
-export const convertSearchCriteria = (
-  searchCriteria?: SearchCriteria
-): ShopwareParams => {
-  let params: ShopwareParams = {};
+/**
+ * @param apiType - depending on api type, the output should be different (especially sorting and filters part)
+ **/
+export const convertSearchCriteria = ({
+  searchCriteria,
+  apiType,
+  config,
+}: {
+  searchCriteria?: SearchCriteria;
+  apiType?: ApiType;
+  config: ClientSettings;
+}): ShopwareParams => {
+  let params: ShopwareParams = {
+    limit: config.defaultPaginationLimit,
+  };
 
   if (!searchCriteria) return params;
   const { filters, sort, pagination, configuration, term } = searchCriteria;
 
   if (pagination) {
     const { limit, page } = pagination;
-    if (limit && Object.values(PaginationLimit).includes(limit))
+    if (limit && Object.values(PaginationLimit).includes(limit)) {
       params.limit = limit;
+    }
     if (page) {
-      params.page = page;
-      if (!params.limit) params.limit = config.defaultPaginationLimit;
+      // exception for store-api
+      if (apiType && apiType === ApiType.store) {
+        // store-api accepts p as page query param (not page for some reason)
+        params.p = page;
+      } else {
+        params.page = page;
+      }
     }
   }
 
   if (sort) {
-    let prefix = sort.desc ? "-" : "";
-    params.sort = `${prefix}${sort.field}`;
+    // exception for store-api
+    if (apiType && apiType === ApiType.store) {
+      let order = sort.desc ? "desc" : "asc";
+      params.sort = `${sort.field}-${order}`;
+    } else {
+      let prefix = sort.desc ? "-" : "";
+      params.sort = `${prefix}${sort.field}`;
+    }
   }
 
   if (filters && filters.length) {
-    params.filter = filters;
+    // append filters in store-api style using convertToStoreApiFilters
+    if (apiType && apiType === ApiType.store) {
+      params = Object.assign(
+        {},
+        params,
+        convertToStoreApiFilters(filters as any)
+      );
+    } else {
+      params.filter = filters;
+    }
   }
 
   if (configuration && configuration.associations) {
@@ -70,27 +110,6 @@ export const convertSearchCriteria = (
   // fulltext query (works for every entity so can be global)
   if (term) {
     params.term = term;
-  }
-
-  // add extra grouping option and additional filter to prevent displaying redundand products.
-  if (!configuration || (configuration && !configuration.displayParents)) {
-    if (!Array.isArray(params.filter)) {
-      params.filter = [];
-    }
-    params.grouping = {
-      // prevent displaying parent instances of the product
-      field: "displayGroup",
-    };
-    params.filter.push({
-      type: SearchFilterType.NOT,
-      queries: [
-        {
-          type: SearchFilterType.EQUALS,
-          field: "displayGroup",
-          value: null,
-        },
-      ],
-    });
   }
 
   return params;

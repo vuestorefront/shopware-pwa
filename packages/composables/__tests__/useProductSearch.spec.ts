@@ -4,64 +4,129 @@ Vue.use(VueCompositionApi);
 import { useProductSearch } from "@shopware-pwa/composables";
 jest.mock("@shopware-pwa/shopware-6-client");
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
-const mockedGetProduct = shopwareClient as jest.Mocked<typeof shopwareClient>;
+const mockedApi = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 describe("Composables - useProductSearch", () => {
+  const rootContextMock: any = {
+    $store: jest.fn(),
+    $shopwareApiInstance: jest.fn(),
+  };
   beforeEach(() => {
     jest.resetAllMocks();
   });
 
   describe("initial values", () => {
-    it("should have no products if search wasn't performed", async () => {
-      const { products } = useProductSearch();
-      expect(products.value).toHaveLength(0);
-    });
-    it("should have error with no data", async () => {
-      const { error } = useProductSearch();
-      expect(error.value).toBeNull();
+    it("should have no listing result if search wasn't performed", async () => {
+      const { searchResult } = useProductSearch(rootContextMock);
+      expect(searchResult.value).toBeNull();
     });
     it("should have loading value set to false by default", async () => {
-      const { loading } = useProductSearch();
-      expect(loading.value).toBeFalsy();
+      const { loadingSearch } = useProductSearch(rootContextMock);
+      expect(loadingSearch.value).toBeFalsy();
     });
   });
-
-  describe("search", () => {
-    it("should have appriopriate API call invoked on search action", async () => {
-      const { search } = useProductSearch();
-      await search("some string");
-      expect(mockedGetProduct.getProducts).toBeCalledTimes(1);
-      expect(mockedGetProduct.getProducts).toBeCalledWith({
-        configuration: {
-          associations: [{ name: "options" }, { name: "productReviews" }],
-        },
-        term: "some string",
+  describe("currentPagination", () => {
+    it("should have proper values under the pagination property", async () => {
+      mockedApi.getResults.mockResolvedValueOnce({
+        page: 4,
+        limit: 10,
+        total: 189,
+      } as any);
+      const { search, currentPagination } = useProductSearch(rootContextMock);
+      await search("some term");
+      expect(currentPagination.value).toStrictEqual({
+        currentPage: 4,
+        perPage: 10,
+        total: 189,
       });
     });
-    it("should have product returned if search term provided", async () => {
-      mockedGetProduct.getProducts.mockResolvedValueOnce({
-        data: [{ name: "some string" }],
-      } as any);
-      const { search, products } = useProductSearch();
-      await search("some string");
-      expect(products.value).toStrictEqual([{ name: "some string" }]);
+  });
+  describe("currentSearchTerm", () => {
+    it("should have current search-term if there is one provided during the search", async () => {
+      const { search, currentSearchTerm } = useProductSearch(rootContextMock);
+      await search("some term");
+      expect(currentSearchTerm.value).toBe("some term");
     });
-    it("should not perform search without any term provided", async () => {
-      const { search, products, error } = useProductSearch();
-      await search();
-      expect(mockedGetProduct.getProducts).toBeCalledTimes(0);
-      expect(products.value).toStrictEqual([]);
-      expect(error.value).toBe("Term string expected to be passed");
+  });
+  describe("suggestSearch", () => {
+    it("should have appriopriate API call invoked on search action", async () => {
+      const { suggestSearch, suggestionsResult } = useProductSearch(
+        rootContextMock
+      );
+      await suggestSearch("some string");
+      expect(mockedApi.getSuggestedResults).toBeCalledTimes(1);
+      expect(mockedApi.getSuggestedResults).toBeCalledWith(
+        "some string",
+        undefined,
+        rootContextMock.$shopwareApiInstance
+      );
+      expect(suggestionsResult.value).toBeUndefined();
     });
-    it("should have error on rejection from API client", async () => {
-      mockedGetProduct.getProducts.mockRejectedValueOnce({
+    it("should catch and log the error on api call rejection", async () => {
+      const { suggestSearch } = useProductSearch(rootContextMock);
+      mockedApi.getSuggestedResults.mockRejectedValueOnce({
         message: "Something went wrong",
       } as any);
-      const { search, products, error } = useProductSearch();
+
+      await suggestSearch("lucky search");
+    });
+  });
+  describe("search", () => {
+    it("should have appriopriate API call invoked on search action", async () => {
+      const { search } = useProductSearch(rootContextMock);
+      await search("some string");
+      expect(mockedApi.getResults).toBeCalledTimes(1);
+      expect(mockedApi.getResults).toBeCalledWith(
+        "some string",
+        {},
+        rootContextMock.$shopwareApiInstance
+      );
+    });
+    it("should have product returned if search term provided", async () => {
+      mockedApi.getResults.mockResolvedValueOnce({
+        data: [{ name: "some string" }],
+      } as any);
+      const { search, searchResult } = useProductSearch(rootContextMock);
+      await search("some string");
+      expect(searchResult.value).toStrictEqual({
+        data: [{ name: "some string" }],
+      });
+    });
+    it("should not perform search without any term provided", async () => {
+      const { search, searchResult } = useProductSearch(rootContextMock);
+      await search(undefined as any);
+      expect(mockedApi.getResults).toBeCalledTimes(0);
+      expect(searchResult.value).toStrictEqual(null);
+    });
+    it("should have error on rejection from API client", async () => {
+      mockedApi.getResults.mockRejectedValueOnce({
+        message: "Something went wrong",
+      } as any);
+
+      const { search, searchResult } = useProductSearch(rootContextMock);
+      try {
+        await search("test");
+      } catch (e) {
+        expect(e).toStrictEqual({ message: "Something went wrong" });
+      }
+
+      expect(mockedApi.getResults).toBeCalledTimes(1);
+      expect(searchResult.value).toStrictEqual(null);
+    });
+  });
+  describe("changePage", () => {
+    it("should append the provided page to the pagination object", async () => {
+      const { search, changePage } = useProductSearch(rootContextMock);
       await search("test");
-      expect(mockedGetProduct.getProducts).toBeCalledTimes(1);
-      expect(products.value).toStrictEqual([]);
-      expect(error.value).toStrictEqual({ message: "Something went wrong" });
+      await changePage(5);
+      expect(mockedApi.getResults).toBeCalledWith(
+        "test",
+        {
+          pagination: { limit: undefined, page: 5 },
+        },
+        rootContextMock.$shopwareApiInstance
+      );
+      expect(mockedApi.getResults).toBeCalledTimes(2);
     });
   });
 });

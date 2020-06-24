@@ -7,10 +7,18 @@ jest.mock("@shopware-pwa/shopware-6-client");
 const mockedGetPage = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 describe("Composables - useNavigation", () => {
+  const rootContextMock: any = {
+    $store: jest.fn(),
+    $shopwareApiInstance: jest.fn(),
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
   describe("computed", () => {
     describe("routes", () => {
       it("should get null when routeNames are not fetched", () => {
-        const { routes } = useNavigation();
+        const { routes } = useNavigation(rootContextMock);
         expect(routes.value).toBe(null);
       });
     });
@@ -20,7 +28,7 @@ describe("Composables - useNavigation", () => {
     describe("fetchRoutes", () => {
       it("should routes set to null when navigation data are not fetched", async () => {
         mockedGetPage.getNavigation.mockResolvedValueOnce({} as any);
-        const { routes, fetchRoutes } = useNavigation();
+        const { routes, fetchRoutes } = useNavigation(rootContextMock);
         await fetchRoutes();
         expect(routes.value).toBe(null);
       });
@@ -36,9 +44,29 @@ describe("Composables - useNavigation", () => {
             },
           ],
         } as any);
-        const { routes, fetchRoutes } = useNavigation();
+        const { routes, fetchRoutes } = useNavigation(rootContextMock);
         await fetchRoutes();
         expect(routes.value).toHaveLength(3);
+      });
+    });
+    describe("fetchNavigationElements", () => {
+      it("should fetch navigation elements correcly", async () => {
+        mockedGetPage.getNavigation.mockResolvedValueOnce({
+          count: 3,
+          children: [
+            { name: "Clothin", route: { path: "clothing/" } },
+            { name: "Sports", route: { path: "sports/" } },
+            {
+              name: "Accessories & Others",
+              route: { path: "accessories-others/" },
+            },
+          ],
+        } as any);
+        const { navigationElements, fetchNavigationElements } = useNavigation(
+          rootContextMock
+        );
+        await fetchNavigationElements(2);
+        expect(navigationElements).toHaveLength(3);
       });
     });
   });

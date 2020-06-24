@@ -9,13 +9,13 @@
 </template>
 
 <script>
-import CmsGenericElement from 'sw-cms/CmsGenericElement'
+import CmsGenericElement from "sw-cms/CmsGenericElement"
 
 export default {
   components: {
     CmsGenericElement,
   },
-  name: 'CmsBlockTextOnImage',
+  name: "CmsBlockTextOnImage",
   props: {
     content: {
       type: Object,
@@ -34,7 +34,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .cms-block-text-on-image {
   &__content {
     padding: var(--spacer-xl);

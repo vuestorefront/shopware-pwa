@@ -5,12 +5,24 @@
       :level="3"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <PersonalDetailsSummary class="content" @click:edit="$emit('click:edit', 0)" />
-    <ShippingAddressSummary class="content" @click:edit="$emit('click:edit', 1)" />
-    <BillingAddressSummary class="content" @click:edit="$emit('click:edit', 2)" />
-    <PaymentMethodSummary class="content" @click:edit="$emit('click:edit', 3)" />
+    <PersonalDetailsSummary
+      class="content"
+      @click:edit="$emit('click:edit', 0)"
+    />
+    <ShippingAddressSummary
+      class="content"
+      @click:edit="$emit('click:edit', 1)"
+    />
+    <BillingAddressSummary
+      class="content"
+      @click:edit="$emit('click:edit', 2)"
+    />
+    <PaymentMethodSummary
+      class="content"
+      @click:edit="$emit('click:edit', 3)"
+    />
     <div class="promo-code">
-      <SfInput
+      <SwInput
         v-model="promoCode"
         name="promoCode"
         label="Enter promo code"
@@ -31,24 +43,18 @@
   </div>
 </template>
 <script>
-import {
-  SfHeading,
-  SfButton,
-  SfInput,
-  SfCircleIcon,
-  SfCharacteristic,
-} from '@storefront-ui/vue'
-import PersonalDetailsSummary from '@shopware-pwa/default-theme/components/checkout/summary/PersonalDetailsSummary'
-import ShippingAddressSummary from '@shopware-pwa/default-theme/components/checkout/summary/ShippingAddressSummary'
-import BillingAddressSummary from '@shopware-pwa/default-theme/components/checkout/summary/BillingAddressSummary'
-import PaymentMethodSummary from '@shopware-pwa/default-theme/components/checkout/summary/PaymentMethodSummary'
+import { SfHeading, SfCircleIcon, SfCharacteristic } from "@storefront-ui/vue"
+import PersonalDetailsSummary from "@shopware-pwa/default-theme/components/checkout/summary/PersonalDetailsSummary"
+import ShippingAddressSummary from "@shopware-pwa/default-theme/components/checkout/summary/ShippingAddressSummary"
+import BillingAddressSummary from "@shopware-pwa/default-theme/components/checkout/summary/BillingAddressSummary"
+import PaymentMethodSummary from "@shopware-pwa/default-theme/components/checkout/summary/PaymentMethodSummary"
+import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
 export default {
-  name: 'SidebarOrderReview',
+  name: "SidebarOrderReview",
   components: {
     SfHeading,
-    SfButton,
-    SfInput,
+    SwInput,
     SfCircleIcon,
     SfCharacteristic,
     PersonalDetailsSummary,
@@ -61,20 +67,20 @@ export default {
       promoCode: "",
       characteristics: [
         {
-          title: 'Safety',
-          description: 'It carefully packaged with a personal touch',
-          icon: 'safety',
+          title: "Safety",
+          description: "It carefully packaged with a personal touch",
+          icon: "safety",
         },
         {
-          title: 'Easy shipping',
+          title: "Easy shipping",
           description:
-            'You’ll receive dispatch confirmation and an arrival date',
-          icon: 'shipping',
+            "You’ll receive dispatch confirmation and an arrival date",
+          icon: "shipping",
         },
         {
-          title: 'Changed your mind?',
-          description: 'Rest assured, we offer free returns within 30 days',
-          icon: 'return',
+          title: "Changed your mind?",
+          description: "Rest assured, we offer free returns within 30 days",
+          icon: "return",
         },
       ],
     }
@@ -82,7 +88,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "@/assets/scss/variables";
 
 .review {
   box-sizing: border-box;

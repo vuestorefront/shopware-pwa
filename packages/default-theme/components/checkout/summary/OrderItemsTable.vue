@@ -6,7 +6,7 @@
         v-for="tableHeader in tableHeaders"
         :key="tableHeader"
         class="table__header"
-        :class="{ 'table__description': tableHeader === 'Description' }"
+        :class="{ table__description: tableHeader === 'Description' }"
       >
         {{ tableHeader }}
       </SfTableHeader>
@@ -16,8 +16,8 @@
   </SfTable>
 </template>
 <script>
-import { useCart } from '@shopware-pwa/composables'
-import OrderItem from './OrderItem'
+import { useCart } from "@shopware-pwa/composables"
+import OrderItem from "./OrderItem"
 
 import {
   SfTable,
@@ -26,9 +26,9 @@ import {
   SfIcon,
   SfPrice,
   SfQuantitySelector,
-} from '@storefront-ui/vue'
+} from "@storefront-ui/vue"
 export default {
-  name: 'OrderItemsTable',
+  name: "OrderItemsTable",
   components: {
     SfTable,
     SfCheckbox,
@@ -36,11 +36,11 @@ export default {
   },
   data() {
     return {
-      tableHeaders: ['Description', 'Quantity', 'Amount'],
+      tableHeaders: ["Description", "Quantity", "Amount"],
     }
   },
-  setup() {
-    const { cartItems, removeProduct } = useCart()
+  setup(props, {root}) {
+    const { cartItems, removeProduct } = useCart(root)
     return {
       cartItems,
       removeProduct,
@@ -48,8 +48,8 @@ export default {
   },
 }
 </script>
-<style lang="scss">
-@import '~@storefront-ui/vue/styles';
+<style lang="scss" scoped>
+@import "@/assets/scss/variables";
 .product-sku {
   color: var(--c-text-muted);
 }

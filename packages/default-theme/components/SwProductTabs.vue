@@ -4,9 +4,7 @@
       <slot>
         <SfTab title="Description">
           <div>
-            <p>
-              {{ description }}
-            </p>
+            <p v-html="description" />
           </div>
         </SfTab>
         <SfTab title="Properties">
@@ -42,17 +40,19 @@
             {{ manufacturer.description }}
           </p>
         </SfTab>
+        <SwPluginSlot name="product-page-tab" />
       </slot>
     </SfTabs>
   </div>
 </template>
 
 <script>
-import { SfTabs, SfHeading, SfReview, SfProperty } from '@storefront-ui/vue'
+import { SfTabs, SfHeading, SfReview, SfProperty } from "@storefront-ui/vue"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {
-  name: 'SwProductTabs',
-  components: { SfTabs, SfHeading, SfReview, SfProperty },
+  name: "SwProductTabs",
+  components: { SfTabs, SfHeading, SfReview, SfProperty, SwPluginSlot },
   props: {
     openTab: {
       type: Number,
@@ -68,7 +68,7 @@ export default {
     },
     description: {
       type: String,
-      default: '',
+      default: "",
     },
     manufacturer: {
       type: Object,
@@ -79,7 +79,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "@/assets/scss/variables";
 
 .product-details {
   &__tabs {

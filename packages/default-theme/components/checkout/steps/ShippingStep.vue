@@ -15,35 +15,37 @@
     <div class="form">
       <div class="form__radio-group">
         <SfRadio
-          v-for="item in shippingMethods"
-          :key="item.id"
-          v-model="shippingMethod"
-          :label="item.name"
-          :value="item.id"
+          v-for="shippingMethod in shippingMethods"
+          :key="shippingMethod.id"
+          v-model="activeShippingMethod"
+          :label="shippingMethod.translated.name"
+          :value="shippingMethod.id"
           name="shippingMethod"
-          :description="item.translated.description"
+          :description="shippingMethod.deliveryTime.translated.name"
           class="form__radio shipping"
         >
           <template #label="{label}">
             <div class="sf-radio__label shipping__label">
               <div>{{ label }}</div>
-              <div class="shipping__label-price">{{ item.price }}</div>
+              <div class="shipping__label-price">
+                {{ shippingMethod.price }}
+              </div>
             </div>
           </template>
           <template #description="{description}">
             <div class="sf-radio__description shipping__description">
               <div class="shipping__delivery">
-                {{ item.delivery }}
-                <SfButton
-                  class="sf-button--text color-secondary shipping__action"
-                  :class="{ 'shipping__action--is-active': item.isOpen }"
-                  @click="item.isOpen = !item.isOpen"
-                  >info</SfButton
-                >
+                <p>{{ description }}</p>
               </div>
-              <transition name="fade">
-                <div v-if="item.isOpen" class="shipping__info">
-                  {{ description }}
+              <transition name="sf-fade">
+                <div
+                  v-if="activeShippingMethod === shippingMethod.id"
+                  class="shipping__info"
+                >
+                  <SwPluginSlot
+                    :name="`checkout-shiping-method-${shippingMethod.name}`"
+                    :slotContext="shippingMethod"
+                  />
                 </div>
               </transition>
             </div>
@@ -51,117 +53,70 @@
         </SfRadio>
       </div>
       <div class="form__action">
-        <SfButton class="form__action-button color-secondary desktop-only"
-          >Go Back to Personal details</SfButton
+        <SwButton class="form__action-button color-secondary desktop-only"
+          >Go Back to Personal details</SwButton
         >
-        <SfButton
+        <SwButton
           class="sf-button--full-width form__action-button"
           @click="$emit('proceed')"
-          >Continue to payment</SfButton
+          >Continue to payment</SwButton
         >
-        <SfButton
+        <SwButton
           class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only"
           @click="$emit('retreat')"
-          >Go back to Personal details</SfButton
+          >Go back to Personal details</SwButton
         >
       </div>
     </div>
   </div>
 </template>
 <script>
-import { SfHeading, SfButton, SfRadio, SfAlert } from '@storefront-ui/vue'
-import { computed } from '@vue/composition-api'
-import ShippingAddressGuestForm from '@shopware-pwa/default-theme/components/checkout/steps/guest/ShippingAddressGuestForm'
-import ShippingAddressUserForm from '@shopware-pwa/default-theme/components/checkout/steps/user/ShippingAddressUserForm'
-import { useCheckout } from '@shopware-pwa/composables'
+import { SfHeading, SfRadio, SfAlert } from "@storefront-ui/vue"
+import { computed, onMounted } from "@vue/composition-api"
+import ShippingAddressGuestForm from "@shopware-pwa/default-theme/components/checkout/steps/guest/ShippingAddressGuestForm"
+import ShippingAddressUserForm from "@shopware-pwa/default-theme/components/checkout/steps/user/ShippingAddressUserForm"
+import {
+  useCheckout,
+  useSessionContext,
+  useCart,
+} from "@shopware-pwa/composables"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {
-  name: 'ShippingStep',
+  name: "ShippingStep",
   components: {
     SfHeading,
-    SfButton,
+    SwButton,
     SfRadio,
     SfAlert,
     ShippingAddressGuestForm,
     ShippingAddressUserForm,
+    SwPluginSlot,
   },
-  setup() {
-    const { isGuestOrder } = useCheckout()
-    const shippingMethods = computed(() => [])
-    const shippingMethod = computed(() => null)
+  setup(props, {root}) {
+    const { isGuestOrder, getShippingMethods, shippingMethods } = useCheckout(root)
+    const { shippingMethod, setShippingMethod } = useSessionContext(root)
+    const { refreshCart } = useCart(root)
 
-    return {
-      isGuestOrder,
-      shippingMethods,
-      shippingMethod,
-    }
-  },
-  data() {
-    return {
-      shippingMethod: '',
-      shippingMethods: [
-        {
-          isOpen: false,
-          price: 'Free',
-          delivery: 'Delivery from 3 to 7 business days',
-          name: 'Pickup in the store',
-          id: 'store',
-          translated: {
-            description:
-              'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
-          },
-        },
-        {
-          isOpen: false,
-          price: '$9.90',
-          delivery: 'Delivery from 4 to 6 business days',
-          name: 'Delivery to home',
-          id: 'home',
-          translated: {
-            description:
-              'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
-          },
-        },
-        {
-          isOpen: false,
-          price: '$9.90',
-          delivery: 'Delivery from 4 to 6 business days',
-          name: 'Paczkomaty InPost',
-          id: 'inpost',
-          translated: {
-            description:
-              'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
-          },
-        },
-        {
-          isOpen: false,
-          price: '$11.00',
-          delivery: 'Delivery within 48 hours',
-          name: '48 hours coffee',
-          id: 'coffee',
-          translated: {
-            description:
-              'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
-          },
-        },
-        {
-          isOpen: false,
-          price: '$14.00',
-          delivery: 'Delivery within 24 hours',
-          name: 'Urgent 24h',
-          id: 'urgent',
-          translated: {
-            description:
-              'Novelty! From now on you have the option of picking up an order in the selected InPack parceled. Just remember that in the case of orders paid on delivery, only the card payment will be accepted.',
-          },
-        },
-      ],
-    }
+    const activeShippingMethod = computed({
+      get: () => shippingMethod.value && shippingMethod.value.id,
+      set: async (id) => {
+        await setShippingMethod({ id })
+        await refreshCart()
+      },
+    })
+
+    onMounted(async () => {
+      await getShippingMethods()
+    })
+
+    return { isGuestOrder, shippingMethods, activeShippingMethod }
   },
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "@/assets/scss/variables";
 
 .title {
   --heading-padding: var(--spacer-base) 0;
@@ -182,7 +137,7 @@ export default {
     --button-height: 3.25rem;
   }
   &__radio-group {
-    position:relative;
+    position: relative;
     flex: 0 0 calc(100% + var(--spacer-sm));
     margin: 0 calc(var(--spacer-sm) * -1);
   }
@@ -240,13 +195,13 @@ export default {
       margin: 0 0 0 var(--spacer-xs);
     }
     &::before {
-      content: '+';
+      content: "+";
     }
     &--is-active {
       --button-color: var(--c-primary);
       --button-transition: color 150ms linear;
       &::before {
-        content: '-';
+        content: "-";
       }
     }
   }

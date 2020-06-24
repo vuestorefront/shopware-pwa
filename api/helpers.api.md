@@ -4,10 +4,12 @@
 
 ```ts
 
+import { Category } from '@shopware-pwa/commons/interfaces/models/content/category/Category';
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { CmsSection } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
+import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { PropertyGroupOption } from '@shopware-pwa/commons/interfaces/models/content/property/PropertyGroupOption';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
@@ -72,6 +74,9 @@ export function getCategoryAvailableSorting({ sorting, }?: {
     sorting?: Sorting;
 }): UiCategorySorting[];
 
+// @alpha
+export const getCategoryUrl: (category: Partial<Category>) => string;
+
 // @alpha (undocumented)
 export function getCmsSections(content: CmsPage): CmsSection[];
 
@@ -83,6 +88,12 @@ export function getMessagesFromErrorsArray(errors: ShopwareError[]): string[];
 
 // @alpha (undocumented)
 export function getNavigationRoutes(navigationElements: NavigationElement[]): NavigationRoute[];
+
+// @alpha
+export function getOrderPaymentMethodId(order: Order): string | undefined;
+
+// @alpha
+export function getOrderShippingMethodId(order: Order): string | undefined;
 
 // @alpha
 export function getProductMainImageUrl(product: Product): string;
@@ -119,24 +130,22 @@ export function getProductProperties({ product, }?: {
     product?: Product;
 }): UiProductProperty[];
 
-// @alpha (undocumented)
-export function getProductRegularPrice({ product, }?: {
-    product?: Product;
-}): number;
+// @beta
+export function getProductRegularPrice(product: Product): number | undefined;
 
 // @alpha (undocumented)
 export function getProductReviews({ product, }?: {
     product?: Product;
 }): UiProductReview[];
 
-// @alpha (undocumented)
-export function getProductSpecialPrice(product: Product): number;
+// @alpha
+export function getProductSpecialPrice(product: Product): number | undefined;
+
+// @beta
+export function getProductTierPrices(product: Product): TierPrice[];
 
 // @alpha (undocumented)
 export function getProductUrl(product: Product | null): string;
-
-// @alpha (undocumented)
-export const getSortingLabel: (sorting: SwSorting) => string;
 
 // @alpha (undocumented)
 export const getSortingSearchCriteria: (selectedSorting: SwSorting) => Sort;
@@ -150,6 +159,9 @@ export function getVariantOptionsLabel({ product, }?: {
 export function isProductSimple({ product, }?: {
     product?: Product;
 }): boolean;
+
+// @beta
+export function loadScript(src: string): Promise<void>;
 
 // @alpha
 export function mapCountries(countries: Country[]): MappedCountry[];
@@ -209,6 +221,16 @@ export interface SwSorting {
     name: string;
     // (undocumented)
     order: string;
+}
+
+// @beta (undocumented)
+export interface TierPrice {
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    quantity: number;
+    // (undocumented)
+    unitPrice: number;
 }
 
 // @alpha (undocumented)

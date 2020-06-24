@@ -7,7 +7,7 @@
       class="form__element"
     />
     <div class="form" v-if="differentThanShipping">
-      <SfInput
+      <SwInput
         v-model="firstName"
         :valid="!validations.firstName.$error"
         error-message="This field is required"
@@ -16,7 +16,7 @@
         class="form__element form__element--half"
         required
       />
-      <SfInput
+      <SwInput
         v-model="lastName"
         :valid="!validations.lastName.$error"
         error-message="This field is required"
@@ -25,7 +25,7 @@
         class="form__element form__element--half form__element--half-even"
         required
       />
-      <SfInput
+      <SwInput
         v-model="street"
         :valid="!validations.street.$error"
         error-message="This field is required"
@@ -34,7 +34,7 @@
         class="form__element"
         required
       />
-      <SfInput
+      <SwInput
         v-model="apartment"
         :valid="!validations.apartment.$error"
         error-message="This field is required"
@@ -43,7 +43,7 @@
         class="form__element"
         required
       />
-      <SfInput
+      <SwInput
         v-model="city"
         :valid="!validations.city.$error"
         error-message="This field is required"
@@ -52,7 +52,7 @@
         class="form__element form__element--half"
         required
       />
-      <SfInput
+      <SwInput
         v-model="state"
         :valid="!validations.state.$error"
         error-message="This field is required"
@@ -61,7 +61,7 @@
         class="form__element form__element--half form__element--half-even"
         required
       />
-      <SfInput
+      <SwInput
         v-model="zipcode"
         :valid="!validations.zipcode.$error"
         error-message="This field is required"
@@ -87,7 +87,7 @@
           {{ countryOption.name }}
         </SfSelectOption>
       </SfSelect>
-      <SfInput
+      <SwInput
         v-model="phoneNumber"
         :valid="!validations.phoneNumber.$error"
         error-message="This field is required"
@@ -102,34 +102,32 @@
 <script>
 import {
   SfHeading,
-  SfInput,
-  SfButton,
   SfSelect,
   SfRadio,
   SfImage,
   SfCheckbox,
-} from '@storefront-ui/vue'
-import { validationMixin } from 'vuelidate'
+} from "@storefront-ui/vue"
+import { validationMixin } from "vuelidate"
 import {
   usePaymentStep,
   usePaymentStepValidationRules,
-} from '@shopware-pwa/default-theme/logic/checkout/usePaymentStep'
-import { computed } from '@vue/composition-api'
-import { useCountries } from '@shopware-pwa/composables'
+} from "@shopware-pwa/default-theme/logic/checkout/usePaymentStep"
+import { computed } from "@vue/composition-api"
+import { useCountries } from "@shopware-pwa/composables"
+import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
 export default {
-  name: 'BillingAddressGuestForm',
+  name: "BillingAddressGuestForm",
   mixins: [validationMixin],
   components: {
     SfHeading,
-    SfInput,
-    SfButton,
+    SwInput,
     SfSelect,
     SfRadio,
     SfImage,
     SfCheckbox,
   },
-  setup() {
+  setup(props, {root}) {
     const {
       validations,
       setValidations,
@@ -144,9 +142,9 @@ export default {
       countryId,
       phoneNumber,
       differentThanShipping,
-    } = usePaymentStep()
+    } = usePaymentStep(root)
 
-    const { getCountries } = useCountries()
+    const { getCountries } = useCountries(root)
 
     return {
       validations,
@@ -178,7 +176,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "@/assets/scss/variables";
 
 .form {
   margin-top: var(--spacer-base);

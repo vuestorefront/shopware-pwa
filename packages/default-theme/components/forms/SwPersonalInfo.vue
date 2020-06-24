@@ -9,7 +9,7 @@
       </slot>
 
       <SfAlert
-        v-if="userError || salutationsError"
+        v-if="userError"
         class="sw-personal-info__alert"
         type="danger"
         :message="getErrorMessage"
@@ -17,33 +17,7 @@
 
       <div class="sw-personal-info__form form">
         <slot name="form">
-          <SfSelect
-            v-if="getMappedSalutations && getMappedSalutations.length > 0"
-            v-model="salutation"
-            label="Salutation"
-            :valid="!$v.salutation.$error"
-            error-message="Salutation must be selected"
-            class="sf-select--underlined form__element form__element--half form__element--half-even form__select"
-          >
-            <SfSelectOption
-              v-for="salutationOption in getMappedSalutations"
-              :key="salutationOption.id"
-              :value="salutationOption"
-            >
-              {{ salutationOption.name }}
-            </SfSelectOption>
-          </SfSelect>
-          <SfInput
-            v-model="title"
-            name="title"
-            :valid="!$v.title.$error"
-            :selected="salutation"
-            error-message="Title must be selected"
-            label="Title"
-            class="form__element form__element--half"
-            @blur="$v.title.$touch()"
-          />
-          <SfInput
+          <SwInput
             v-model="firstName"
             :valid="!$v.firstName.$error"
             error-message="First name is required"
@@ -52,7 +26,7 @@
             class="form__element form__element--half form__element--half-even"
             @blur="$v.firstName.$touch()"
           />
-          <SfInput
+          <SwInput
             v-model="lastName"
             :valid="!$v.lastName.$error"
             error-message="Last name is required"
@@ -61,13 +35,53 @@
             class="form__element form__element--half"
             @blur="$v.lastName.$touch()"
           />
-          <SfButton
+          <SwInput
+            v-model="email"
+            :valid="!$v.email.$error"
+            error-message="Proper email is required"
+            name="email"
+            label="Your email"
+            class="form__element"
+            @blur="$v.email.$touch()"
+          />
+          <SwInput
+            v-if="isEmailChanging"
+            v-model="emailConfirmation"
+            :valid="!$v.emailConfirmation.$error"
+            error-message="Must match first one"
+            type="email"
+            name="emailConfirmation"
+            label="Confirm e-mail"
+            class="form__element"
+            required
+            @blur="$v.emailConfirmation.$touch()"
+          />
+          <SwInput
+            v-if="isEmailChanging"
+            v-model="password"
+            :valid="!$v.password.$error"
+            error-message="Password cannot be empty"
+            type="password"
+            name="password"
+            label="Your password"
+            class="form__element"
+            required
+            @blur="$v.password.$touch()"
+          />
+          <SwButton
             class="form__button"
-            :disabled="$v.$invalid"
+            :disabled="$v.$invalid && !isEmailChanging && !isNameChanging"
             @click="invokeUpdate"
           >
-            Update personal data
-          </SfButton>
+            Save Changes
+          </SwButton>
+          <SfIcon
+            v-if="isUpdating"
+            :color="updated ? 'green-primary' : 'gray-primary'"
+            size="14px"
+            icon="check"
+            style="margin-left: 10px;"
+          />
         </slot>
       </div>
     </slot>
@@ -75,113 +89,151 @@
 </template>
 
 <script>
-import { computed } from '@vue/composition-api'
-import { validationMixin } from 'vuelidate'
-import { required } from 'vuelidate/lib/validators'
+import { computed, watch } from "@vue/composition-api"
+import { validationMixin } from "vuelidate"
 import {
-  SfInput,
-  SfButton,
-  SfSelect,
-  SfProductOption,
-  SfAlert
-} from '@storefront-ui/vue'
-import { useUser, useContext, useSalutations } from '@shopware-pwa/composables'
-import { mapSalutations } from '@shopware-pwa/helpers'
+  required,
+  email,
+  requiredIf,
+  minLength,
+  sameAs,
+} from "vuelidate/lib/validators"
+import { SfSelect, SfProductOption, SfAlert, SfIcon } from "@storefront-ui/vue"
+import { useUser, useContext } from "@shopware-pwa/composables"
+import {
+  mapSalutations,
+  getMessagesFromErrorsArray,
+} from "@shopware-pwa/helpers"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
 export default {
-  name: 'MyProfile',
+  name: "SwPersonalInfo",
   components: {
-    SfInput,
-    SfButton,
+    SwInput,
+    SwButton,
     SfSelect,
     SfProductOption,
-    SfAlert
+    SfAlert,
+    SfIcon,
   },
   mixins: [validationMixin],
-  props: {},
-  setup() {
+  setup(props, {root}) {
     const {
       user,
       error: userError,
       updatePersonalInfo,
-      refreshUser
-    } = useUser()
-    const {
-      getSalutations,
-      fetchSalutations,
-      error: salutationsError
-    } = useSalutations()
-
-    const getMappedSalutations = computed(() =>
-      mapSalutations(getSalutations.value)
-    )
+      refreshUser,
+      updateEmail,
+    } = useUser(root)
 
     return {
-      fetchSalutations,
-      getMappedSalutations,
-      salutationsError,
       refreshUser,
       updatePersonalInfo,
       user,
-      userError
+      updateEmail,
+      userError,
     }
   },
   data() {
     return {
+      updated: false,
+      isUpdating: false,
       salutation:
         this.user && this.user.salutation
           ? {
               name: this.user.salutation.displayName,
-              id: this.user.salutation.id
+              id: this.user.salutation.id,
             }
           : {},
       firstName: this.user && this.user.firstName,
       lastName: this.user && this.user.lastName,
-      title: this.user && this.user.title,
-      isLoading: true
+      email: this.user && this.user.email,
+      emailConfirmation: null,
+      password: null,
     }
   },
   computed: {
     getErrorMessage() {
-      return this.userError && !this.salutationsError
-        ? 'Cannot create a new account, the user may already exist'
-        : "Coudn't fetch available salutations or countries, please contact the administration."
-    }
+      return getMessagesFromErrorsArray(
+        this.userError && this.userError.message
+      ).join("<br/>")
+    },
+    isEmailChanging() {
+      return this.email !== (this.user && this.user.email)
+    },
+    isNameChanging() {
+      return (
+        this.firstName !== (this.user && this.user.firstName) ||
+        this.lastName !== (this.user && this.user.lastName)
+      )
+    },
+    emailConfirmationValidation() {
+      return this.isEmailChanging
+        ? {
+            required,
+            email,
+            sameAsEmail: sameAs("email"),
+          }
+        : {}
+    },
   },
-  validations: {
-    salutation: {
-      required
-    },
-    firstName: {
-      required
-    },
-    lastName: {
-      required
-    },
-    title: {
-      required
+  validations() {
+    return {
+      firstName: {
+        required,
+      },
+      lastName: {
+        required,
+      },
+      email: {
+        email,
+        required,
+      },
+      emailConfirmation: this.emailConfirmationValidation, // take a dynamic one
+      password: {
+        required: requiredIf(function (password) {
+          return this.isEmailChanging
+        }),
+        minLength: minLength(8),
+      },
     }
   },
   methods: {
     async invokeUpdate() {
-      const profileChanged = await this.updatePersonalInfo({
-        firstName: this.firstName,
-        lastName: this.lastName,
-        title: this.title,
-        salutationId: this.salutation.id
-      })
+      this.updated = false
+      this.isUpdating = false
+      this.$v.$touch()
+      if (this.$v.$invalid || (!this.isNameChanging && !this.isEmailChanging)) {
+        return
+      }
+      if (this.isNameChanging) {
+        this.isUpdating = true
+
+        const profileChanged = await this.updatePersonalInfo({
+          firstName: this.firstName,
+          lastName: this.lastName,
+          salutationId: this.salutation.id,
+        })
+        this.updated = profileChanged
+      }
+      if (this.isEmailChanging) {
+        this.isUpdating = true
+        const emailChanged = await this.updateEmail({
+          email: this.email,
+          emailConfirmation: this.emailConfirmation,
+          password: this.password,
+        })
+        this.updated = emailChanged
+      }
       await this.refreshUser()
-    }
+    },
   },
-  async mounted() {
-    await this.fetchSalutations()
-    this.isLoading = false
-  }
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles.scss';
+@import "@/assets/scss/variables";
 
 .form {
   @include for-desktop {

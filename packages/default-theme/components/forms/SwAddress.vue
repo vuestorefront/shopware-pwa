@@ -10,7 +10,7 @@
       :message="countriesError || JSON.stringify(userError)"
     />
     <div class="form">
-      <SfInput
+      <SwInput
         v-model="form.firstName"
         name="firstName"
         label="First Name"
@@ -20,7 +20,7 @@
         required
         class="form__element form__element--half"
       />
-      <SfInput
+      <SwInput
         v-model="form.lastName"
         name="lastName"
         label="Last Name"
@@ -47,7 +47,7 @@
           {{ salutationOption.name }}
         </SfSelectOption>
       </SfSelect>
-      <SfInput
+      <SwInput
         v-model="form.street"
         name="street"
         label="Street Name"
@@ -57,7 +57,7 @@
         required
         class="form__element form__element--half form__element--half-even"
       />
-      <SfInput
+      <SwInput
         v-model="form.apartment"
         name="apartment"
         label="House/Apartment number"
@@ -67,7 +67,7 @@
         required
         class="form__element"
       />
-      <SfInput
+      <SwInput
         v-model="form.city"
         name="city"
         label="City"
@@ -77,7 +77,7 @@
         required
         class="form__element form__element--half"
       />
-      <SfInput
+      <SwInput
         v-model="form.state"
         name="state"
         label="State/Province"
@@ -87,7 +87,7 @@
         required
         class="form__element form__element--half form__element--half-even"
       />
-      <SfInput
+      <SwInput
         v-model="form.zipcode"
         name="zipcode"
         label="Zip-code"
@@ -105,7 +105,6 @@
         @blur="$v.form.country.$touch()"
         required
         class="sf-select--underlined form__element form__element--half form__element--half-even form__select"
-
       >
         <SfSelectOption
           v-for="countryOption in getMappedCountries"
@@ -115,7 +114,7 @@
           {{ countryOption.name }}
         </SfSelectOption>
       </SfSelect>
-      <SfInput
+      <SwInput
         v-model="form.phoneNumber"
         name="phoneNumber"
         label="Phone number"
@@ -125,62 +124,57 @@
         required
         class="form__element"
       />
-      <SfButton class="form__button" @click="updateAddress">
+      <SwButton class="form__button" @click="updateAddress">
         Update the address
-      </SfButton>
-      <SfButton
+      </SwButton>
+      <SwButton
         class="sf-button--outline form__button form__button--back"
         @click="returnToAddresses"
       >
         Back
-      </SfButton>
+      </SwButton>
     </div>
   </div>
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
-import { required } from 'vuelidate/lib/validators'
-import { computed, reactive, ref, onBeforeMount } from '@vue/composition-api'
-import {
-  SfAlert,
-  SfTabs,
-  SfInput,
-  SfButton,
-  SfSelect,
-  SfIcon
-} from '@storefront-ui/vue'
+import { validationMixin } from "vuelidate"
+import { required } from "vuelidate/lib/validators"
+import { computed, reactive, ref, onBeforeMount } from "@vue/composition-api"
+import { SfAlert, SfTabs, SfSelect, SfIcon } from "@storefront-ui/vue"
 import {
   useCountries,
   useUser,
-  useSalutations
-} from '@shopware-pwa/composables'
-import { mapCountries, mapSalutations } from '@shopware-pwa/helpers'
+  useSalutations,
+} from "@shopware-pwa/composables"
+import { mapCountries, mapSalutations } from "@shopware-pwa/helpers"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
 export default {
-  name: 'SwAddress',
-  components: { SfAlert, SfTabs, SfInput, SfButton, SfSelect, SfIcon },
+  name: "SwAddress",
+  components: { SfAlert, SfTabs, SwInput, SwButton, SfSelect, SfIcon },
   mixins: [validationMixin],
   props: {
     address: {
       type: Object,
       default: () => ({
-        firstName: '',
-        lastName: '',
+        firstName: "",
+        lastName: "",
         salutation: null,
         country: null,
-        zipcode: '',
-        street: '',
-        apartment: '',
-        city: '',
-        phoneNumber: ''
-      })
-    }
+        zipcode: "",
+        street: "",
+        apartment: "",
+        city: "",
+        phoneNumber: "",
+      }),
+    },
   },
   setup(props) {
-    const { getSalutations, error: salutationsError } = useSalutations()
-    const { addAddress, error: userError } = useUser()
-    const { getCountries, error: countriesError } = useCountries()
+    const { getSalutations, error: salutationsError } = useSalutations(root)
+    const { addAddress, error: userError } = useUser(root)
+    const { getCountries, error: countriesError } = useCountries(root)
     const editAddress = ref(false)
     const editedAddress = ref(-1)
     const form = reactive(JSON.parse(JSON.stringify(props.address)))
@@ -191,12 +185,12 @@ export default {
     )
 
     form.salutation = {
-      name: props.address.salutation.displayName,
-      id: props.address.salutation.id
+      name: props.address.salutation && props.address.salutation.displayName,
+      id: props.address.salutation && props.address.salutation.id,
     }
     form.country = {
-      name: props.address.country.name,
-      id: props.address.country.id
+      name: props.address.country && props.address.country.name,
+      id: props.address.country && props.address.country.id,
     }
 
     return {
@@ -205,7 +199,7 @@ export default {
       countriesError,
       getMappedCountries,
       getMappedSalutations,
-      form
+      form,
     }
   },
   computed: {
@@ -220,7 +214,7 @@ export default {
         city,
         country,
         phoneNumber,
-        _uniqueIdentifier
+        _uniqueIdentifier,
       } = this.form
       return {
         id: _uniqueIdentifier,
@@ -232,9 +226,9 @@ export default {
         apartment,
         city,
         countryId: country.id,
-        phoneNumber
+        phoneNumber,
       }
-    }
+    },
   },
   methods: {
     async updateAddress() {
@@ -246,48 +240,48 @@ export default {
       this.returnToAddresses()
     },
     returnToAddresses() {
-      this.$router.push('/account/addresses')
-    }
+      this.$router.push(this.$i18n.path("/account/addresses"))
+    },
   },
   validations: {
     form: {
       lastName: {
-        required
+        required,
       },
       firstName: {
-        required
+        required,
       },
       salutation: {
-        required
+        required,
       },
       street: {
-        required
+        required,
       },
       apartment: {
-        required
+        required,
       },
       city: {
-        required
+        required,
       },
       state: {
-        required
+        required,
       },
       zipcode: {
-        required
+        required,
       },
       country: {
-        required
+        required,
       },
       phoneNumber: {
-        required
-      }
-    }
-  }
+        required,
+      },
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "@/assets/scss/variables";
 
 .form {
   @include for-desktop {

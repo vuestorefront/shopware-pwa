@@ -5,21 +5,56 @@ import {
   removeCartItem,
   changeCartItemQuantity,
 } from "@shopware-pwa/shopware-6-client";
-import { getStore } from "../..";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
+import { Cart } from "@shopware-pwa/commons/interfaces/models/checkout/cart/Cart";
+import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
+import { getApplicationContext } from "@shopware-pwa/composables";
+import { ApplicationVueContext } from "../../appContext";
 
 /**
- * @alpha
+ * interface for {@link useCart} composable
+ *
+ * @beta
  */
-export const useCart = (): any => {
-  let vuexStore = getStore();
+export interface IUseCart {
+  addProduct: ({ id, quantity }: { id: string; quantity?: number }) => void;
+  cart: Readonly<Ref<Readonly<Cart>>>;
+  cartItems: Readonly<Ref<Readonly<LineItem[]>>>;
+  changeProductQuantity: ({
+    id,
+    quantity,
+  }: {
+    id: string;
+    quantity: number;
+  }) => void;
+  count: Readonly<Ref<Readonly<number>>>;
+  error: Readonly<Ref<Readonly<string>>>;
+  loading: Readonly<Ref<Readonly<boolean>>>;
+  refreshCart: () => void;
+  removeProduct: ({ id }: Partial<Product>) => void;
+  totalPrice: Readonly<Ref<Readonly<number>>>;
+  subtotal: Readonly<Ref<Readonly<number>>>;
+}
+
+/**
+ * Composable for cart management. Options - {@link IUseCart}
+ *
+ * @beta
+ */
+export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
+  const { vuexStore, apiInstance } = getApplicationContext(
+    rootContext,
+    "useCart"
+  );
+
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
 
   async function refreshCart(): Promise<void> {
     loading.value = true;
     try {
-      const result = await getCart();
+      const result = await getCart(apiInstance);
       vuexStore.commit("SET_CART", result);
     } catch (e) {
       const err: ClientApiError = e;
@@ -29,22 +64,28 @@ export const useCart = (): any => {
     }
   }
 
-  async function addProduct({ id, quantity }: any) {
-    const result = await addProductToCart(id, quantity);
+  async function addProduct({
+    id,
+    quantity,
+  }: {
+    id: string;
+    quantity?: number;
+  }) {
+    const result = await addProductToCart(id, quantity, apiInstance);
     vuexStore.commit("SET_CART", result);
   }
 
-  async function removeProduct({ id }: any) {
-    const result = await removeCartItem(id);
+  async function removeProduct({ id }: Product) {
+    const result = await removeCartItem(id, apiInstance);
     vuexStore.commit("SET_CART", result);
   }
 
   async function changeProductQuantity({ id, quantity }: any) {
-    const result = await changeCartItemQuantity(id, quantity);
+    const result = await changeCartItemQuantity(id, quantity, apiInstance);
     vuexStore.commit("SET_CART", result);
   }
 
-  const cart = computed(() => {
+  const cart: Readonly<Ref<Readonly<Cart>>> = computed(() => {
     return vuexStore.getters.getCart;
   });
 
@@ -54,7 +95,8 @@ export const useCart = (): any => {
 
   const count = computed(() => {
     return cartItems.value.reduce(
-      (accumulator: number, lineItem: any) => lineItem.quantity + accumulator,
+      (accumulator: number, lineItem: LineItem) =>
+        lineItem.quantity + accumulator,
       0
     );
   });

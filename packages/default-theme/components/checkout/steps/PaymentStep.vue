@@ -14,178 +14,95 @@
     <div class="form">
       <div class="form__element payment-methods">
         <SfRadio
-          v-for="item in paymentMethods"
-          :key="item.value"
-          v-model="paymentMethod"
-          :label="item.label"
-          :value="item.value"
+          v-for="paymentMethod in paymentMethods"
+          :key="paymentMethod.id"
+          v-model="activePaymentMethod"
+          :label="paymentMethod.name"
+          :value="paymentMethod.id"
           name="paymentMethod"
-          :description="item.description"
+          :description="paymentMethod.description"
           class="form__radio payment-method"
         >
-          <template #label>
-            <div class="sf-radio__label">
-              <template
-                v-if="
-                  item.value !== 'debit' &&
-                  item.value !== 'mastercard' &&
-                  item.value !== 'electron'
-                "
-              >
-                {{ item.label }}
-              </template>
-              <template v-else>
-                <SfImage
-                  :src="`/img/${item.value}.png`"
-                  class="payment-image"
-                />
-              </template>
+          <template #description="{description}">
+            <div class="sf-radio__description">
+              <div class="payment_description">
+                <p>{{ description }}</p>
+              </div>
+              <transition name="sf-fade">
+                <div
+                  v-if="activePaymentMethod === paymentMethod.id"
+                  class="shipping__info"
+                >
+                  <SwPluginSlot
+                    :name="`checkout-payment-method-${paymentMethod.name}`"
+                    :slotContext="paymentMethod"
+                  />
+                </div>
+              </transition>
             </div>
           </template>
         </SfRadio>
       </div>
-      <transition name="fade">
-        <div v-if="isCreditCard" class="credit-card-form">
-          <div class="credit-card-form__group">
-            <span
-              class="credit-card-form__label credit-card-form__label--required"
-              >Number</span
-            >
-            <div class="credit-card-form__element">
-              <SfInput
-                v-model="cardNumber"
-                name="cardNumber"
-                class="credit-card-form__input"
-              />
-            </div>
-          </div>
-          <div class="credit-card-form__group">
-            <span
-              class="credit-card-form__label credit-card-form__label--required"
-              >Card holder</span
-            >
-            <div class="credit-card-form__element">
-              <SfInput
-                v-model="cardHolder"
-                name="cardHolder"
-                class="credit-card-form__input"
-              />
-            </div>
-          </div>
-          <div class="credit-card-form__group">
-            <span
-              class="credit-card-form__label credit-card-form__label--required"
-              >Expiry date</span
-            >
-            <div class="credit-card-form__element">
-              <SfInput
-                v-model="cardMonth"
-                label="Month"
-                name="month"
-                class="credit-card-form__input"
-              />
-              <SfInput
-                v-model="cardYear"
-                label="Year"
-                name="year"
-                class="credit-card-form__input"
-              />
-            </div>
-          </div>
-          <div class="credit-card-form__group">
-            <span
-              class="credit-card-form__label credit-card-form__label--required"
-              >Code CVC</span
-            >
-            <div class="credit-card-form__element">
-              <SfInput
-                v-model="cardCVC"
-                name="cardCVC"
-                class="credit-card-form__input credit-card-form__input--small"
-              />
-            </div>
-          </div>
-          <SfCheckbox
-            v-model="cardKeep"
-            name="keepcard"
-            label="I want to keed this data for other purchases."
-          />
-        </div>
-      </transition>
       <div class="form__action">
-          <SfButton
+        <SwButton
           class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only"
           @click="$emit('click:back')"
         >
           Go back to Shipping
-        </SfButton>
-        <SfButton
+        </SwButton>
+        <SwButton
           class="sf-button--full-width form__action-button"
           @click="$emit('proceed')"
-          >Review order</SfButton
+          >Review order</SwButton
         >
-        <SfButton
+        <SwButton
           class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only"
           @click="$emit('click:back')"
         >
           Go back to Shipping
-        </SfButton>
+        </SwButton>
       </div>
     </div>
   </div>
 </template>
 <script>
-import {
-  SfHeading,
-  SfInput,
-  SfButton,
-  SfRadio,
-  SfImage,
-  SfCheckbox,
-} from '@storefront-ui/vue'
-import BillingAddressGuestForm from '@shopware-pwa/default-theme/components/checkout/steps/guest/BillingAddressGuestForm'
-import BillingAddressUserForm from '@shopware-pwa/default-theme/components/checkout/steps/user/BillingAddressUserForm'
-import { useCheckout } from '@shopware-pwa/composables'
+import { SfHeading, SfRadio } from "@storefront-ui/vue"
+import BillingAddressGuestForm from "@shopware-pwa/default-theme/components/checkout/steps/guest/BillingAddressGuestForm"
+import BillingAddressUserForm from "@shopware-pwa/default-theme/components/checkout/steps/user/BillingAddressUserForm"
+import { useCheckout, useSessionContext } from "@shopware-pwa/composables"
+import { onMounted, computed } from "@vue/composition-api"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {
-  name: 'PaymentStep',
+  name: "PaymentStep",
   components: {
     SfHeading,
-    SfInput,
-    SfButton,
+    SwButton,
     SfRadio,
-    SfImage,
-    SfCheckbox,
     BillingAddressGuestForm,
     BillingAddressUserForm,
+    SwPluginSlot
   },
-  data() {
-    return {
-      paymentMethod: '',
-      paymentMethods: [], // useCheckout
-      cardNumber: '',
-      cardHolder: '',
-      cardMonth: '',
-      cardYear: '',
-      cardCVC: '',
-      cardKeep: false,
-      countries: [], // useCountries
-    }
-  },
-  setup() {
-    const { isGuestOrder } = useCheckout()
+  setup(props, {root}) {
+    const { isGuestOrder, getPaymentMethods, paymentMethods } = useCheckout(root)
+    const { paymentMethod, setPaymentMethod } = useSessionContext(root)
 
-    return { isGuestOrder }
-  },
-  computed: {
-    isCreditCard() {
-      return ['debit', 'mastercard', 'electron'].includes(this.paymentMethod)
-    },
+    const activePaymentMethod = computed({
+      get: () => paymentMethod.value && paymentMethod.value.id,
+      set: async (id) => await setPaymentMethod({ id }),
+    })
+
+    onMounted(async () => {
+      await getPaymentMethods()
+    })
+
+    return { isGuestOrder, paymentMethods, activePaymentMethod }
   },
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "@/assets/scss/variables";
 .title {
   --heading-padding: var(--spacer-base) 0;
   @include for-desktop {
@@ -240,79 +157,6 @@ export default {
           padding: 0 0 0 var(--spacer-lg);
         }
       }
-    }
-  }
-}
-.payment-image {
-  display: flex;
-  align-items: center;
-  height: 2.125rem;
-  width: auto;
-  ::v-deep > * {
-    width: auto;
-    max-width: unset;
-  }
-}
-.payment-methods {
-  @include for-desktop {
-    display: flex;
-    padding: var(--spacer-base) 0;
-    border-top: 1px solid var(--c-light);
-    border-bottom: 1px solid var(--c-light);
-  }
-}
-.payment-method {
-  border-top: 1px solid var(--c-light);
-  @include for-mobile {
-    background-color: transparent;
-  }
-  @include for-desktop {
-    border: 0;
-    border-radius: 4px;
-  }
-  &:last-child {
-    border-bottom: 1px solid var(--c-light);
-    @include for-desktop {
-      border-bottom: 0;
-    }
-  }
-  ::v-deep {
-    .sf-radio {
-      &__container {
-        align-items: center;
-      }
-      &__content {
-        margin: 0 0 0 var(--spacer-xs);
-      }
-    }
-  }
-}
-.credit-card-form {
-  margin-bottom: var(--spacer-base);
-  @include for-desktop {
-    flex: 0 0 66.666%;
-    padding: 0 calc((100% - 66.666%) / 2);
-  }
-  &__group {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 0 var(--spacer-base) 0;
-  }
-  &__label {
-    flex: unset;
-  }
-  &__element {
-    display: flex;
-    flex: 0 0 66.666%;
-  }
-  &__input {
-    flex: 1;
-    &--small {
-      flex: 0 0 46.666%;
-    }
-    & + & {
-      margin-left: var(--spacer-base);
     }
   }
 }

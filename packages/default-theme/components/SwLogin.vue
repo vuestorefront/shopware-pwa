@@ -1,5 +1,6 @@
 <template>
-  <div class="sw-login">
+  <div class="sw-login" @keyup.enter="invokeLogin">
+    <SwPluginSlot name="login-form-before" />
     <div class="form sw-login__form">
       <SfAlert
         v-if="userError"
@@ -7,7 +8,7 @@
         type="danger"
         :message="userError"
       />
-      <SfInput
+      <SwInput
         v-model="email"
         name="email"
         label="Your email"
@@ -17,7 +18,7 @@
         error-message="Email is required"
         @blur="$v.email.$touch()"
       />
-      <SfInput
+      <SwInput
         v-model="password"
         name="password"
         label="Password"
@@ -28,49 +29,54 @@
         error-message="Password is required"
         @blur="$v.password.$touch()"
       />
-      <SfButton
-        class="sf-button--full-width form__button"
-        :disabled="isLoading"
-        @click="invokeLogin"
-      >
-        Log in
-      </SfButton>
+      <SwPluginSlot name="login-form-button">
+        <SwButton
+          class="sf-button--full-width form__button"
+          :disabled="isLoading"
+          @click="invokeLogin"
+        >
+          Log in
+        </SwButton>
+      </SwPluginSlot>
     </div>
   </div>
 </template>
 
 <script>
-import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
-import { validationMixin } from 'vuelidate'
-import { required, email } from 'vuelidate/lib/validators'
-import { useUser } from '@shopware-pwa/composables'
+import { SfAlert } from "@storefront-ui/vue"
+import { validationMixin } from "vuelidate"
+import { required, email } from "vuelidate/lib/validators"
+import { useUser } from "@shopware-pwa/composables"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
 export default {
-  name: 'SwLogin',
-  components: { SfButton, SfInput, SfAlert },
+  name: "SwLogin",
+  components: { SwButton, SwInput, SfAlert, SwPluginSlot },
   mixins: [validationMixin],
   data() {
     return {
-      email: '',
-      password: ''
+      email: "",
+      password: "",
     }
   },
-  setup() {
-    const { login, loading, error: userError } = useUser()
+  setup(props, {root}) {
+    const { login, loading, error: userError } = useUser(root)
     return {
       clientLogin: login,
       isLoading: loading,
-      userError
+      userError,
     }
   },
   validations: {
     email: {
       required,
-      email
+      email,
     },
     password: {
-      required
-    }
+      required,
+    },
   },
   methods: {
     async invokeLogin() {
@@ -80,16 +86,16 @@ export default {
       }
       const loggedIn = await this.clientLogin({
         username: this.email,
-        password: this.password
+        password: this.password,
       })
-      if (loggedIn) this.$emit('success')
-    }
-  }
+      if (loggedIn) this.$emit("success")
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "@/assets/scss/variables";
 
 .sw-login {
   &__alert {

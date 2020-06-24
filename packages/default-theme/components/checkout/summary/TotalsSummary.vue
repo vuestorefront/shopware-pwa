@@ -1,39 +1,6 @@
 <template>
   <div class="summary">
-    <div class="summary__group">
-      <SfHeading
-        title="Totals"
-        :level="2"
-        class="sf-heading--left sf-heading--no-underline summary__title mobile-only"
-      />
-      <div class="summary__total">
-        <SfProperty
-          name="Subtotal"
-          :value="subtotal | price"
-          class="sf-property--full-width summary__property"
-        >
-        </SfProperty>
-        <SfProperty
-          name="Shipping"
-          :value="0"
-          class="sf-property--full-width summary__property"
-        >
-        </SfProperty>
-        <SfProperty
-          name="Total price"
-          :value="total | price"
-          class="sf-property--full-width summary__property summary__property-total"
-        >
-        </SfProperty>
-      </div>
-      <SfCheckbox v-model="terms" name="terms" class="summary__terms">
-        <template #label>
-          <div class="sf-checkbox__label">
-            I agree to <a href="#">Terms and conditions</a>
-          </div>
-        </template>
-      </SfCheckbox>
-    </div>
+    <SwTotals :total="total" :subtotal="subtotal" />
     <div class="notification" v-if="!cartItems.length">
       <SfNotification
         :visible="true"
@@ -43,61 +10,63 @@
       />
     </div>
     <div class="summary__action">
-      <SfButton
+      <SwButton
         class="sf-button--full-width summary__action-button summary__action-button--secondary color-secondary desktop-only"
         @click="$emit('click:back')"
       >
         Go back to Payment
-      </SfButton>
-      <SfButton
+      </SwButton>
+      <SwButton
         :disabled="!cartItems.length"
         class="sf-button--full-width summary__action-button"
         @click="$emit('proceed')"
-        >Place my order</SfButton
+        >Place my order</SwButton
       >
-      <SfButton
+      <SwButton
         class="sf-button--full-width sf-button--text summary__action-button summary__action-button--secondary mobile-only"
         @click="$emit('click:back')"
       >
         Go back to Payment
-      </SfButton>
+      </SwButton>
     </div>
   </div>
 </template>
 <script>
-import { useCart } from '@shopware-pwa/composables'
-import helpers from '@shopware-pwa/default-theme/helpers'
-import { PAGE_SUCCESS_PAGE } from '@shopware-pwa/default-theme/helpers/pages'
+import { useCart } from "@shopware-pwa/composables"
+import SwTotals from "@shopware-pwa/default-theme/components/SwTotals"
+import helpers from "@shopware-pwa/default-theme/helpers"
 
 import {
   SfProperty,
   SfCheckbox,
   SfHeading,
-  SfButton,
   SfNotification,
-} from '@storefront-ui/vue'
+} from "@storefront-ui/vue"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+
 export default {
-  name: 'TotalsSummary',
+  name: "TotalsSummary",
   components: {
     SfProperty,
     SfHeading,
     SfCheckbox,
-    SfButton,
+    SwButton,
     SfNotification,
+    SwTotals,
   },
   data() {
     return {
       terms: false,
     }
   },
-  setup() {
+  setup(props, {root}) {
     const {
       cartItems,
       subtotal,
       totalPrice,
       removeProduct,
       refreshCart,
-    } = useCart()
+    } = useCart(root)
     return {
       cartItems,
       refreshCart,
@@ -109,7 +78,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "@/assets/scss/variables";
 
 .summary {
   margin: 0 calc(var(--spacer-base) * -1);

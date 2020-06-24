@@ -1,6 +1,5 @@
 import { addThemeLayouts } from "../src/layouts";
 import * as files from "../src/files";
-import { NuxtModuleOptions } from "../src/interfaces";
 import jetpack from "fs-jetpack";
 import path from "path";
 
@@ -12,9 +11,12 @@ jest.mock("fs-jetpack");
 const mockedJetpack = jetpack as jest.Mocked<typeof jetpack>;
 
 describe("nuxt-module - addThemeLayouts", () => {
-  const moduleObject: NuxtModuleOptions = {
+  const moduleObject: any = {
     options: {
       rootDir: __dirname,
+      router: {
+        middleware: [],
+      },
     },
     addLayout: jest.fn(),
     addPlugin: jest.fn(),

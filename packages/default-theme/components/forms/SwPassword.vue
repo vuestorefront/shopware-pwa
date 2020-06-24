@@ -9,7 +9,7 @@
       </slot>
 
       <SfAlert
-        v-for="(message, index) in useUserErrorMessages"
+        v-for="(message, index) in userErrorMessages"
         :key="index"
         class="sw-password__alert"
         type="danger"
@@ -19,7 +19,7 @@
       <div class="sw-password__form form">
         <slot name="form">
           <div class="form">
-            <SfInput
+            <SwInput
               v-model="password"
               :valid="!$v.password.$error"
               error-message="Current password is required"
@@ -30,7 +30,7 @@
               required
               @blur="$v.password.$touch()"
             />
-            <SfInput
+            <SwInput
               v-model="newPassword"
               :valid="!$v.newPassword.$error"
               error-message="This field is required"
@@ -41,7 +41,7 @@
               required
               @blur="$v.newPassword.$touch()"
             />
-            <SfInput
+            <SwInput
               v-model="newPasswordConfirm"
               :valid="!$v.newPasswordConfirm.$error"
               error-message="This filed must be same as new password"
@@ -52,13 +52,13 @@
               class="form__element form__element--half form__element--half-even"
               @blur="$v.newPasswordConfirm.$touch()"
             />
-            <SfButton
+            <SwButton
               class="form__button"
               :disabled="$v.$invalid"
               @click="invokeUpdate"
             >
               Update password
-            </SfButton>
+            </SwButton>
           </div>
         </slot>
       </div>
@@ -67,35 +67,39 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
-import { required, minLength, sameAs } from 'vuelidate/lib/validators'
-import { computed } from '@vue/composition-api';
-import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
-import { useUser } from '@shopware-pwa/composables'
-import { getMessagesFromErrorsArray } from '@shopware-pwa/helpers'
+import { validationMixin } from "vuelidate"
+import { required, minLength, sameAs } from "vuelidate/lib/validators"
+import { computed } from "@vue/composition-api"
+import { SfAlert } from "@storefront-ui/vue"
+import { useUser } from "@shopware-pwa/composables"
+import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
 export default {
-  name: 'SwPassword',
-  components: { SfInput, SfButton, SfAlert },
+  name: "SwPassword",
+  components: { SwInput, SwButton, SfAlert },
   mixins: [validationMixin],
   props: {},
-  setup() {
-    const { user, error: userError, updatePassword, refreshUser } = useUser()
-    const userErrorMessages = computed(() => getMessagesFromErrorsArray(userError.value.message))
+  setup(props, {root}) {
+    const { user, error: userError, updatePassword, refreshUser } = useUser(root)
+    const userErrorMessages = computed(() =>
+      getMessagesFromErrorsArray(userError.value && userError.value.message)
+    )
 
     return {
       refreshUser,
       updatePassword,
       user,
-      userErrorMessages
+      userErrorMessages,
     }
   },
   data() {
     return {
-      password: '',
-      newPassword: '',
-      newPasswordConfirm: '',
-      email: this.user && this.user.email
+      password: "",
+      newPassword: "",
+      newPasswordConfirm: "",
+      email: this.user && this.user.email,
     }
   },
   methods: {
@@ -103,30 +107,30 @@ export default {
       const passwordChanged = await this.updatePassword({
         password: this.password,
         newPassword: this.newPassword,
-        newPasswordConfirm: this.newPasswordConfirm
+        newPasswordConfirm: this.newPasswordConfirm,
       })
       await this.refreshUser()
-    }
+    },
   },
   validations: {
     password: {
       required,
-      minLenght: minLength(8)
+      minLenght: minLength(8),
     },
     newPassword: {
       required,
-      minLength: minLength(8)
+      minLength: minLength(8),
     },
     newPasswordConfirm: {
       required,
-      sameAsNewPassword: sameAs('newPassword')
-    }
-  }
+      sameAsNewPassword: sameAs("newPassword"),
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles.scss';
+@import "@/assets/scss/variables";
 
 .sw-password {
   &__alert {

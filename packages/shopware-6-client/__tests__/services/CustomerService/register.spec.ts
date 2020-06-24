@@ -1,23 +1,30 @@
 import { name, address, random, phone, internet } from "faker";
 import { register } from "@shopware-pwa/shopware-6-client";
-import { getCustomerEndpoint } from "../../../src/endpoints";
-import { apiService } from "../../../src/apiService";
+import { getCustomerRegisterEndpoint } from "../../../src/endpoints";
+import { defaultInstance } from "../../../src/apiService";
 import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams";
 
 jest.mock("../../../src/apiService");
-const mockedAxios = apiService as jest.Mocked<typeof apiService>;
+const mockedApiInstance = defaultInstance as jest.Mocked<
+  typeof defaultInstance
+>;
 
 let customerData: CustomerRegistrationParams;
 
 describe("CustomerService - register", () => {
+  const mockedPost = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
+    mockedApiInstance.invoke = {
+      post: mockedPost,
+    } as any;
     customerData = {
       salutationId: random.uuid(),
       firstName: name.firstName(),
       lastName: name.lastName(),
       password: internet.password(8),
       email: internet.email(),
+      storefrontUrl: internet.domainName(),
       billingAddress: {
         countryId: random.uuid(),
         street: address.streetName(),
@@ -30,11 +37,11 @@ describe("CustomerService - register", () => {
 
   it("should register the new customer with basic data provided", async () => {
     const customerId = random.uuid();
-    mockedAxios.post.mockResolvedValueOnce({ data: customerId });
+    mockedPost.mockResolvedValueOnce({ data: customerId });
     const result = await register(customerData);
-    expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith(
-      getCustomerEndpoint(),
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith(
+      getCustomerRegisterEndpoint(),
       customerData
     );
     expect(result).toBe(customerId);
@@ -43,12 +50,12 @@ describe("CustomerService - register", () => {
   it("should never register a customer without billing address", async () => {
     delete customerData.billingAddress;
 
-    mockedAxios.post.mockRejectedValueOnce(new Error("400"));
+    mockedPost.mockRejectedValueOnce(new Error("400"));
 
     expect(register(customerData)).rejects.toThrowError("400");
-    expect(mockedAxios.post).toBeCalledTimes(1);
-    expect(mockedAxios.post).toBeCalledWith(
-      getCustomerEndpoint(),
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith(
+      getCustomerRegisterEndpoint(),
       customerData
     );
   });

@@ -6,19 +6,31 @@ module.exports = {
   description:
     "Create new Shopware PWA project inside the current directory. Can be invoked multiple times for actualisations.",
   run: async (toolbox: GluegunToolbox) => {
+    const { performance } = require("perf_hooks");
+    const t0 = performance.now();
+
+    const ua = require("universal-analytics");
+    const visitor = ua("UA-167979975-1");
+    visitor.pageview("/init").send();
+
     const {
       system: { run },
       print: { info, warning, success, spin },
     } = toolbox;
 
+    const STAGES = {
+      STABLE: "latest stable (recommended)",
+      CANARY: "canary (current master branch)",
+      LOCAL: "local contibution (to contribute locally in shopware-pwa)",
+    };
+
+    const inputParameters = toolbox.inputParameters;
     // when --ci parameter is provided, then we skip questions for default values
-    const isCIrun = toolbox.parameters.options.ci;
+    const isCIrun = inputParameters.ci;
 
     if (!toolbox.isProduction) {
       warning(`You're running CLI in development mode!`);
     }
-
-    const inputParameters = toolbox.inputParameters;
 
     if (!isCIrun) {
       const shopwareEndpointQuestion = {
@@ -33,48 +45,72 @@ module.exports = {
         message: "Shopware instance access token:",
         initial: inputParameters.shopwareAccessToken,
       };
-      const shopwareUsernameQuestion = !inputParameters.username && {
-        type: "input",
-        name: "username",
-        message: "Shopware admin username:",
-      };
-      const shopwarePasswordQuestion = !inputParameters.password && {
-        type: "password",
-        name: "password",
-        message: "Shopware admin password:",
+      const stageQuestion = {
+        type: "select",
+        name: "stage",
+        message: "Which version you'd like to use:",
+        choices: Object.values(STAGES),
+        initial: inputParameters.stage,
       };
 
       const answers = await toolbox.prompt.ask([
         shopwareEndpointQuestion,
         shopwareAccessTokenQuestion,
-        shopwareUsernameQuestion,
-        shopwarePasswordQuestion,
+        stageQuestion,
       ]);
       Object.assign(inputParameters, answers);
     }
 
     await toolbox.generateNuxtProject();
 
-    const updateConfigSpinner = spin("Updating configuration");
+    let stage = inputParameters.stage || STAGES.STABLE;
+    if (inputParameters.stage === "canary") stage = STAGES.CANARY;
+    if (inputParameters.stage === "local") stage = STAGES.LOCAL;
+
+    const updateConfigSpinner = spin(
+      "Updating configuration for option: " + stage
+    );
+
     // Adding Shopware PWA core dependencies
-    await run(`yarn add -D fs-jetpack cookie-universal husky`);
-    await run(`yarn add @vue-storefront/nuxt`);
+    const coreDevPackages = [
+      "@shopware-pwa/cli",
+      "@shopware-pwa/composables",
+      "@shopware-pwa/helpers",
+      "@shopware-pwa/shopware-6-client",
+      "@shopware-pwa/default-theme",
+      "@shopware-pwa/nuxt-module",
+    ];
+
     try {
       // - unlink potential linked locally packages
-      await run(`yarn unlink ${toolbox.coreDependencyPackageNames.join(" ")}`);
+      await run(`yarn unlink ${coreDevPackages.join(" ")}`);
     } catch (e) {
       // It's just for safety, unlink on fresh project will throw an error so we can catch it here
     }
-    // for development run - link local packages
-    if (!toolbox.isProduction) {
-      await run(`npx yalc add ${toolbox.coreDependencyPackageNames.join(" ")}`);
-      await run(`yarn link ${toolbox.coreDependencyPackageNames.join(" ")}`);
-    } else {
-      // - add dependencies from npm
-      await run(`yarn add ${toolbox.coreDependencyPackageNames.join(" ")}`);
+
+    switch (stage) {
+      case STAGES.CANARY:
+        await run(
+          `yarn add -D ${coreDevPackages
+            .map((dep) => `${dep}@canary`)
+            .join(" ")}`
+        );
+        break;
+      case STAGES.LOCAL:
+        await run(`npx yalc add -D ${coreDevPackages.join(" ")}`);
+        await run(`yarn link ${coreDevPackages.join(" ")}`);
+        break;
+      case STAGES.STABLE:
+      default:
+        await run(
+          `yarn add -D ${coreDevPackages
+            .map((dep) => `${dep}@latest`)
+            .join(" ")}`
+        );
+        break;
     }
 
-    await toolbox.updateNuxtPackageJson();
+    await toolbox.updateNuxtPackageJson(stage === STAGES.CANARY);
     await toolbox.updateNuxtConfigFile();
     updateConfigSpinner.succeed();
 
@@ -87,17 +123,21 @@ module.exports = {
     generateFilesSpinner.succeed();
 
     // generate plugin files
-    await toolbox.runtime.run(`generate`, inputParameters);
+    await toolbox.createPluginsTemplate();
+    await toolbox.runtime.run(`plugins`, inputParameters);
     await toolbox.runtime.run(`cms`);
+    await toolbox.createCmsTemplate(); // generate template for user CMS folder
+    await toolbox.runtime.run(`languages`, inputParameters);
 
     const updateDependenciesSpinner = spin("Updating dependencies");
     // Loading additional packages
     await run(`npx sort-package-json`);
     await run(`yarn`);
-    // await run(`yarn lint`);
     updateDependenciesSpinner.succeed();
 
     success(`Generated Shopware PWA project!`);
+    const t1 = performance.now();
+    visitor.timing("CLI", "init", Math.round(t1 - t0)).send();
     info(`Type 'shopware-pwa dev' and start exploring`);
   },
 };

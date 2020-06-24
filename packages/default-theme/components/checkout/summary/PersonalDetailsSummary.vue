@@ -1,53 +1,47 @@
 <template>
-  <div class="review__item">
-    <div class="review__content">
-      <h4 class="review__title desktop-only">Personal details</h4>
-      <p class="content">{{ firstName }} {{ lastName }}<br /></p>
-      <p class="content">
-        {{ email }}
-      </p>
-    </div>
-    <SfButton
-      class="sf-button--text review__edit"
-      @click="$emit('click:edit', CHECKOUT_STEPS.PERSONAL_DETAILS)"
-      >Edit</SfButton
-    >
-  </div>
+  <SwPersonalDetails :personal-details="personalDetails">
+    <template #after-content>
+      <SwButton
+        class="sf-button--text review__edit"
+        @click="$emit('click:edit', CHECKOUT_STEPS.PERSONAL_DETAILS)"
+      >
+        Edit
+      </SwButton>
+    </template>
+  </SwPersonalDetails>
 </template>
 <script>
-import { SfButton } from '@storefront-ui/vue'
-import { usePersonalDetailsStep } from '@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep'
-import { CHECKOUT_STEPS } from '@shopware-pwa/default-theme/logic/checkout'
-import { useCheckout, useUser } from '@shopware-pwa/composables'
-import { computed } from '@vue/composition-api'
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import { usePersonalDetailsStep } from "@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep"
+import { CHECKOUT_STEPS } from "@shopware-pwa/default-theme/logic/checkout"
+import { useCheckout, useUser } from "@shopware-pwa/composables"
+import { computed } from "@vue/composition-api"
+import SwPersonalDetails from "@shopware-pwa/default-theme/components/SwPersonalDetails"
 
 export default {
-  name: 'PersonalDetailsSummary',
+  name: "PersonalDetailsSummary",
   components: {
-    SfButton,
+    SwPersonalDetails,
+    SwButton,
   },
-  setup() {
-    const { firstName, lastName, email } = usePersonalDetailsStep()
-    const { isGuestOrder } = useCheckout()
-    const { user } = useUser()
+  setup(props, {root}) {
+    const { firstName, lastName, email } = usePersonalDetailsStep(root)
+    const { isGuestOrder } = useCheckout(root)
+    const { user } = useUser(root)
 
     return {
-      firstName: computed(() =>
-        isGuestOrder.value ? firstName.value : user.value.firstName
-      ),
-      lastName: computed(() =>
-        isGuestOrder.value ? lastName.value : user.value.lastName
-      ),
-      email: computed(() =>
-        isGuestOrder.value ? email.value : user.value.email
-      ),
+      personalDetails: computed(() => ({
+        firstName: isGuestOrder.value ? firstName.value : user.value.firstName,
+        lastName: isGuestOrder.value ? lastName.value : user.value.lastName,
+        email: isGuestOrder.value ? email.value : user.value.email,
+      })),
       CHECKOUT_STEPS,
     }
   },
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "@/assets/scss/variables";
 .review {
   &__item {
     display: flex;

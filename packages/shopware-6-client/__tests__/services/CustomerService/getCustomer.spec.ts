@@ -1,46 +1,47 @@
-import { getCustomer, update, config } from "@shopware-pwa/shopware-6-client";
-import { apiService } from "../../../src/apiService";
+import { getCustomer } from "@shopware-pwa/shopware-6-client";
+import { defaultInstance } from "../../../src/apiService";
 import { getCustomerEndpoint } from "../../../src/endpoints";
-import { random } from "faker";
 jest.mock("../../../src/apiService");
-const mockedAxios = apiService as jest.Mocked<typeof apiService>;
+const mockedApiInstance = defaultInstance as jest.Mocked<
+  typeof defaultInstance
+>;
 
 describe("CustomerService - getCustomer", () => {
-  let contextToken: string;
+  const mockedGet = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
-    contextToken = random.uuid();
-    update({ contextToken });
-  });
-  afterEach(() => {
-    afterEach(() => {
-      expect(config.contextToken).toEqual(contextToken);
-    });
+    mockedApiInstance.invoke = {
+      get: mockedGet,
+    } as any;
   });
 
   it("should return current customer's data - using correct token", async () => {
-    mockedAxios.get.mockResolvedValueOnce({
-      data: { data: { id: "c370eb5cd1df4d4dbcc78f055b693e79" } },
+    mockedGet.mockResolvedValueOnce({
+      data: { id: "c370eb5cd1df4d4dbcc78f055b693e79" },
     });
     const result: any = await getCustomer();
-    expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith(getCustomerEndpoint());
+    expect(mockedGet).toBeCalledTimes(1);
+    expect(mockedGet).toBeCalledWith(
+      `${getCustomerEndpoint()}?associations[salutation][]`
+    );
     expect(result).not.toBeNull();
     expect(result.id).toEqual("c370eb5cd1df4d4dbcc78f055b693e79");
   });
 
   it("should return null when user not logged in", async () => {
-    mockedAxios.get.mockRejectedValueOnce({
+    mockedGet.mockRejectedValueOnce({
       statusCode: 403,
     });
     const result = await getCustomer();
-    expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith(getCustomerEndpoint());
+    expect(mockedGet).toBeCalledTimes(1);
+    expect(mockedGet).toBeCalledWith(
+      `${getCustomerEndpoint()}?associations[salutation][]`
+    );
     expect(result).toBeNull();
   });
 
   it("should throw an error on status code different than 403", async () => {
-    mockedAxios.get.mockRejectedValueOnce({
+    mockedGet.mockRejectedValueOnce({
       response: {
         status: 401,
       },
@@ -48,7 +49,9 @@ describe("CustomerService - getCustomer", () => {
     await expect(getCustomer()).rejects.toThrowError(
       "Unexpected getCustomerResponse."
     );
-    expect(mockedAxios.get).toBeCalledTimes(1);
-    expect(mockedAxios.get).toBeCalledWith(getCustomerEndpoint());
+    expect(mockedGet).toBeCalledTimes(1);
+    expect(mockedGet).toBeCalledWith(
+      `${getCustomerEndpoint()}?associations[salutation][]`
+    );
   });
 });

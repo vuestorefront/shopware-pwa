@@ -4,17 +4,19 @@ import {
   update,
   onConfigChange,
 } from "@shopware-pwa/shopware-6-client";
-import { apiService } from "../src/apiService";
+import { defaultInstance, _createInstance } from "../src/apiService";
 import { ConfigChangedArgs } from "../src";
 import { random } from "faker";
+const consoleWarnSpy = jest.spyOn(console, "warn");
 
-const DEFAULT_ENDPOINT =
-  "https://shopware-2.vuestorefront.io/sales-channel-api/v1";
-const DEFAULT_TIMEOUT = 3000;
+const DEFAULT_ENDPOINT = "https://shopware6-demo.vuestorefront.io";
+const DEFAULT_TIMEOUT = 10000;
 
 describe("Settings", () => {
   beforeEach(() => {
+    jest.resetAllMocks();
     setup(); // we need to clean settings to default values before every test
+    consoleWarnSpy.mockImplementationOnce(() => {});
   });
 
   describe("setup", () => {
@@ -55,9 +57,9 @@ describe("Settings", () => {
     it("should have contextToken in axios defaults after update", () => {
       update({ contextToken: "xxx" });
 
-      expect(apiService.defaults.headers.common["sw-context-token"]).toEqual(
-        "xxx"
-      );
+      expect(
+        defaultInstance.defaults.headers.common["sw-context-token"]
+      ).toEqual("xxx");
     });
 
     it("should clean contextToken from axios detault headers after reset", () => {
@@ -65,25 +67,42 @@ describe("Settings", () => {
       setup();
 
       expect(
-        apiService.defaults.headers.common["sw-context-token"]
+        defaultInstance.defaults.headers.common["sw-context-token"]
+      ).toBeUndefined();
+    });
+
+    it("should have languageId in axios defaults after update", () => {
+      update({ languageId: "someLanguageId" });
+
+      expect(defaultInstance.defaults.headers.common["sw-language-id"]).toEqual(
+        "someLanguageId"
+      );
+    });
+
+    it("should clean languageId from axios detault headers after reset", () => {
+      update({ languageId: "someLanguageId" });
+      setup();
+
+      expect(
+        defaultInstance.defaults.headers.common["sw-language-id"]
       ).toBeUndefined();
     });
 
     it("should have default config with empty invocation", () => {
       update();
-      expect(config.accessToken).toEqual("SWSCTXJOZMQWCXA4OUTNZ0REYG");
+      expect(config.accessToken).toEqual("SWSCVJJET0RQAXFNBMTDZTV1OQ");
       expect(config.contextToken).toEqual("");
     });
 
     it("should change defaultPaginationLimit", () => {
       update({ defaultPaginationLimit: 50 });
-      expect(config.accessToken).toEqual("SWSCTXJOZMQWCXA4OUTNZ0REYG");
+      expect(config.accessToken).toEqual("SWSCVJJET0RQAXFNBMTDZTV1OQ");
       expect(config.defaultPaginationLimit).toEqual(50);
     });
 
     it("should change default timeout", () => {
       update({ timeout: 50 });
-      expect(config.accessToken).toEqual("SWSCTXJOZMQWCXA4OUTNZ0REYG");
+      expect(config.accessToken).toEqual("SWSCVJJET0RQAXFNBMTDZTV1OQ");
       expect(config.timeout).toEqual(50);
     });
   });
@@ -95,6 +114,14 @@ describe("Settings", () => {
         expect(configChangedArgs.config.contextToken).toEqual(contextToken);
       });
       update({ contextToken: contextToken });
+    });
+
+    it("should show console warning when no callback methods are connected", () => {
+      const apiInstance = _createInstance();
+      apiInstance.update({ contextToken: "xxx" }, { url: "/some-url" });
+      expect(consoleWarnSpy).toBeCalledWith(
+        '[shopware-6-api] After calling API method /some-url there is no "onConfigChange" listener. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/#context-awareness'
+      );
     });
   });
 });

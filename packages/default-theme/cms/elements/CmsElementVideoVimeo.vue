@@ -18,20 +18,20 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from "vue"
 // import vueVimeoPlayer from "vue-vimeo-player";
 // Vue.use(vueVimeoPlayer);
 
 export default {
   components: {},
-  name: 'CmsElementVideoVimeo',
+  name: "CmsElementVideoVimeo",
   props: {
     content: {
       type: Object,
       default: () => ({
         config: {
           videoID: {
-            value: '',
+            value: "",
           },
           loop: {
             value: false,
@@ -98,5 +98,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
+@import "../settings.scss";
 </style>

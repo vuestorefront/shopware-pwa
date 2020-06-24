@@ -1,11 +1,14 @@
 <template>
   <div class="sw-checkout__personal_info">
-    <div class="log-in desktop-only">
-      <SfButton
-        @click="toggleLoginModal()"
-        class="log-in__button color-secondary"
-        >Log in to your account</SfButton
-      >
+    <div class="log-in">
+      <div class="log-in__buttons-container">
+        <SwButton
+          @click="switchLoginModalState(true)"
+          class="log-in__button color-secondary"
+          >Log in to your account</SwButton
+        >
+        <SwPluginSlot name="checkout-login-after" />
+      </div>
       <p class="log-in__info">or fill the details below:</p>
     </div>
     <SfHeading
@@ -37,7 +40,7 @@
           {{ salutationOption.name }}
         </SfSelectOption>
       </SfSelect> -->
-      <SfInput
+      <SwInput
         v-model="firstName"
         label="First name"
         :valid="!validations.firstName.$error"
@@ -46,7 +49,7 @@
         class="form__element form__element--half"
         required
       />
-      <SfInput
+      <SwInput
         v-model="lastName"
         label="Last name"
         :valid="!validations.lastName.$error"
@@ -54,7 +57,7 @@
         name="lastName"
         class="form__element form__element--half form__element--half-even"
       />
-      <SfInput
+      <SwInput
         v-model="email"
         label="Your email"
         :valid="!validations.email.$error"
@@ -82,7 +85,7 @@
         class="form__checkbox"
       />
       <transition name="fade">
-        <SfInput
+        <SwInput
           v-if="createAccount"
           v-model="password"
           type="password"
@@ -99,77 +102,74 @@
         />
       </transition>
       <div class="form__action">
-        <SfButton
-          class="sf-button--full-width  form__action-button form__action-button--secondary color-secondary desktop-only"
-          >Go Back to shop</SfButton
+        <SwButton
+          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only"
+          >Go Back to shop</SwButton
         >
-        <SfButton class="sf-button--full-width form__action-button" @click="toShipping"
-          >Continue to shipping</SfButton
+        <SwButton
+          class="sf-button--full-width form__action-button"
+          @click="toShipping"
+          >Continue to shipping</SwButton
         >
-        <SfButton
+        <SwButton
           class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only"
-          >Go back to shop</SfButton
+          >Go back to shop</SwButton
         >
       </div>
     </div>
-    <SwLoginModal
-      :is-open="isLoginModalOpen"
-      @close="isLoginModalOpen = false"
-    />
   </div>
 </template>
 <script>
 import {
-  SfInput,
   SfCheckbox,
-  SfButton,
   SfHeading,
   SfModal,
   SfCharacteristic,
   SfSelect,
   SfProductOption,
   SfAlert,
-} from '@storefront-ui/vue'
+} from "@storefront-ui/vue"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
-import { validationMixin } from 'vuelidate'
+import { validationMixin } from "vuelidate"
 import {
   required,
   requiredIf,
   email,
   minLength,
-} from 'vuelidate/lib/validators'
-import { computed } from '@vue/composition-api'
+} from "vuelidate/lib/validators"
+import { computed } from "@vue/composition-api"
 import {
   mapSalutations,
   getMessagesFromErrorsArray,
-} from '@shopware-pwa/helpers'
+} from "@shopware-pwa/helpers"
 import {
   useUser,
   useSalutations,
   useCountries,
-  useUserLoginModal,
-} from '@shopware-pwa/composables'
+  useUIState,
+} from "@shopware-pwa/composables"
 import {
   usePersonalDetailsStep,
   usePersonalDetailsStepValidationRules,
-} from '@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep'
-
-import SwLoginModal from '@shopware-pwa/default-theme/components/modals/SwLoginModal'
+} from "@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep"
 
 export default {
-  name: 'PersonalDetailsGuestForm',
+  name: "PersonalDetailsGuestForm",
   mixins: [validationMixin],
   components: {
-    SfInput,
+    SwInput,
     SfCheckbox,
-    SfButton,
+    SwButton,
     SfHeading,
     SfModal,
     SfCharacteristic,
     SfSelect,
     SfProductOption,
     SfAlert,
-    SwLoginModal,
+    SwPluginSlot,
   },
   props: {
     order: {
@@ -179,27 +179,30 @@ export default {
   },
   data() {
     return {
-      password: '',
+      password: "",
       billingAddress: {
         salutationId: null,
-        street: '-',
-        zipcode: '-',
-        city: '-',
+        street: "-",
+        zipcode: "-",
+        city: "-",
         countryId: null,
       },
       createAccount: false,
       accountBenefits: false,
       isLoginModalOpen: false,
       characteristics: [
-        { description: 'Faster checkout', icon: 'clock' },
-        { description: 'Full rewards program benefits', icon: 'rewards' },
-        { description: 'Earn credits with every purchase', icon: 'credits' },
-        { description: 'Manage your wishlist', icon: 'heart' },
+        { description: "Faster checkout", icon: "clock" },
+        { description: "Full rewards program benefits", icon: "rewards" },
+        { description: "Earn credits with every purchase", icon: "credits" },
+        { description: "Manage your wishlist", icon: "heart" },
       ],
     }
   },
-  setup() {
-    const { toggleModal: toggleLoginModal } = useUserLoginModal()
+  setup(props, { root }) {
+    const { switchState: switchLoginModalState } = useUIState(
+      root,
+      "LOGIN_MODAL_STATE"
+    )
 
     const {
       validations,
@@ -209,22 +212,22 @@ export default {
       firstName,
       lastName,
       email,
-    } = usePersonalDetailsStep()
+    } = usePersonalDetailsStep(root)
 
     const {
       register: registerUser,
       login,
       error: userError,
       isLoggedIn,
-    } = useUser()
+    } = useUser(root)
 
     const {
       getSalutations,
       fetchSalutations,
       error: salutationsError,
-    } = useSalutations()
+    } = useSalutations(root)
 
-    const { fetchCountries, getCountries } = useCountries()
+    const { fetchCountries, getCountries } = useCountries(root)
 
     const getMappedSalutations = computed(() =>
       mapSalutations(getSalutations.value)
@@ -239,7 +242,7 @@ export default {
       getCountries,
       fetchCountries,
       getMessagesFromErrorsArray,
-      toggleLoginModal,
+      switchLoginModalState,
       validations,
       setValidations,
       validate,
@@ -251,7 +254,7 @@ export default {
   },
   watch: {
     createAccount(value) {
-      if (!value) this.password = ''
+      if (!value) this.password = ""
     },
     // hack to register user without picking up the salutation in billing address (minimal registration)
     // copy the customer's salutation into billing address
@@ -289,9 +292,9 @@ export default {
         if (!this.isLoggedIn) {
           return
         }
-        this.$router.push('/checkout?step="SHIPPING"')
+        this.$router.push(this.$i18n.path('/checkout?step="SHIPPING"'))
       } else {
-        return this.$emit('proceed')
+        return this.$emit("proceed")
       }
     },
   },
@@ -308,15 +311,14 @@ export default {
       return
     }
     const pickedCountry = this.getCountries.find(
-      ({ name }) => name === 'Poland'
+      ({ name }) => name === "Poland"
     )
     this.billingAddress.countryId = pickedCountry && pickedCountry.id
 
-    // select "not specified" salutation (works for EN) as default salutation
     await this.fetchSalutations()
-    const defaultSalutation = this.getMappedSalutations.find(
-      ({ id, name }) => name == 'Not specified'
-    )
+    const defaultSalutation = this.getMappedSalutations[
+      this.getMappedSalutations.length - 1
+    ]
     this.salutationId = defaultSalutation && defaultSalutation.id
   },
   // TODO: move all the rules globally
@@ -336,7 +338,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "@/assets/scss/variables";
 
 .sw-checkout {
   &__personal_info {
@@ -356,8 +358,21 @@ export default {
     }
   }
   &__button {
-    margin: var(--spacer-2xl) 0 var(--spacer-xl) 0;
     --button-font-weight: var(--font-normal);
+    width: 100%;
+
+    @include for-desktop {
+      width: auto;
+    }
+  }
+
+  &__buttons-container {
+    margin: var(--spacer-2xl) 0 var(--spacer-xl) 0;
+
+    @include for-desktop {
+      display: flex;
+      align-items: center;
+    }
   }
 }
 .title {

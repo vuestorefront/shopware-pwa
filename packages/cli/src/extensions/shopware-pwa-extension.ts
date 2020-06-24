@@ -1,8 +1,8 @@
 import { GluegunToolbox } from "gluegun";
 
 const defaultConfig = {
-  shopwareEndpoint: "https://shopware-2.vuestorefront.io",
-  shopwareAccessToken: "SWSCTXJOZMQWCXA4OUTNZ0REYG",
+  shopwareEndpoint: "https://shopware6-demo.vuestorefront.io",
+  shopwareAccessToken: "SWSCVJJET0RQAXFNBMTDZTV1OQ",
 };
 // add your CLI-specific functionality here, which will then be accessible
 // to your commands
@@ -10,14 +10,6 @@ module.exports = (toolbox: GluegunToolbox) => {
   toolbox.foo = () => {
     toolbox.print.info("called foo extension");
   };
-
-  toolbox.coreDependencyPackageNames = [
-    "@shopware-pwa/composables",
-    "@shopware-pwa/helpers",
-    "@shopware-pwa/shopware-6-client",
-    "@shopware-pwa/default-theme",
-    "@shopware-pwa/nuxt-module",
-  ];
 
   toolbox.themeFolders = ["store", "static", ".eslintrc.js"];
 
@@ -43,7 +35,7 @@ module.exports = (toolbox: GluegunToolbox) => {
   /**
    * inputs for commands
    * - most important are params passed to CLI
-   * - fallback is shopware-pwa.config.js filr
+   * - fallback is shopware-pwa.config.js file
    * - next fallback are default values
    */
   toolbox.inputParameters = {
@@ -57,5 +49,8 @@ module.exports = (toolbox: GluegunToolbox) => {
       toolbox.parameters.options.username || toolbox.parameters.options.u,
     password:
       toolbox.parameters.options.password || toolbox.parameters.options.p,
+    devMode: toolbox.parameters.options.devMode,
+    ci: toolbox.parameters.options.ci,
+    stage: toolbox.parameters.options.stage,
   };
 };

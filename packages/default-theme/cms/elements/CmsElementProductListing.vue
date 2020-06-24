@@ -1,26 +1,70 @@
 <template>
   <div class="cms-element-product-listing">
     <SfLoader :loading="loading" class="cms-element-product-listing__loader" />
-    <div class="cms-element-product-listing__wrapper" v-if="products.length">
-      <div
+    <div v-if="products.length" class="cms-element-product-listing__wrapper">
+      <transition-group
+        tag="div"
+        appear
+        name="cms-element-product-listing__slide"
         class="cms-element-product-listing__list"
         :class="{ 'cms-element-product-listing__list--blur': loading }"
       >
-        <SwProductCard
-          class="cms-element-product-listing__product-card"
-          v-for="product in products"
-          :key="product.id"
-          :product="product"
-        />
-        <div class="cms-element-product-listing__place-holder" />
-      </div>
+        <template v-if="!isListView">
+          <SwProductCard
+            v-for="(product, i) in products"
+            :key="product.id"
+            class="cms-element-product-listing__product-card"
+            :product="product"
+            :style="{ '--index': i }"
+          />
+        </template>
+        <template v-else>
+          <SwProductCardHorizontal
+            v-for="(product, i) in products"
+            :key="product.id"
+            class="cms-element-product-listing__product-card-horizontal"
+            :product="product"
+            :style="{ '--index': i }"
+          />
+        </template>
+        <div key="holder" class="cms-element-product-listing__place-holder" />
+      </transition-group>
       <SfPagination
-        class="cms-element-product-listing__pagination desktop-only"
+        v-if="pagination && pagination.currentPage"
+        class="cms-element-product-listing__pagination"
         :current="pagination.currentPage"
         :total="Math.ceil(pagination.total / pagination.perPage)"
         :visible="5"
         @click="changedPage"
-      />
+      >
+        <template #prev>
+          <span
+            class="cms-element-product-listing__pagination__number"
+            @click="changedPage(pagination.currentPage - 1)"
+          >
+            &lt;
+          </span>
+        </template>
+        <template #number="{page}">
+          <span
+            class="cms-element-product-listing__pagination__number"
+            v-bind:style="{
+              'font-weight': pagination.currentPage === page ? 700 : 300,
+            }"
+            @click="changedPage(page)"
+          >
+            {{ page }}
+          </span>
+        </template>
+        <template #next>
+          <span
+            class="cms-element-product-listing__pagination__number"
+            @click="changedPage(pagination.currentPage + 1)"
+          >
+            &gt;
+          </span>
+        </template>
+      </SfPagination>
     </div>
     <SfHeading
       v-else
@@ -31,31 +75,40 @@
 </template>
 
 <script>
-import SwProductCard from '@shopware-pwa/default-theme/components/SwProductCard'
-import { SfPagination, SfHeading, SfLoader } from '@storefront-ui/vue'
-import { useProductListing } from '@shopware-pwa/composables'
+import SwProductCard from "@shopware-pwa/default-theme/components/SwProductCard"
+import SwProductCardHorizontal from "@shopware-pwa/default-theme/components/SwProductCardHorizontal"
+import { SfPagination, SfHeading, SfLoader } from "@storefront-ui/vue"
+import {
+  useProductListing,
+  useUIState,
+  useProductSearch,
+} from "@shopware-pwa/composables"
 export default {
+  name: "CmsElementProductListing",
   components: {
+    SwProductCardHorizontal,
     SwProductCard,
     SfPagination,
     SfHeading,
     SfLoader,
   },
-  name: 'CmsElementProductListing',
   props: {
     content: {
       type: Object,
       default: () => ({}),
     },
   },
-  setup({ content }) {
-    const propProducts = content.data.listing || []
+  setup({ content }, { root }) {
+    const { search } = useProductSearch(root)
+    const listing = content.data.listing || []
     const {
       products,
       changePagination,
       pagination,
       loading,
-    } = useProductListing(propProducts)
+    } = useProductListing(root, listing)
+
+    const { isOpen: isListView } = useUIState(root, "PRODUCT_LISTING_STATE")
 
     const changedPage = async (pageNumber) => {
       await changePagination(pageNumber)
@@ -66,13 +119,14 @@ export default {
       changedPage,
       pagination,
       loading,
+      isListView,
     }
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
+@import "../settings.scss";
 
 // additional screen variables
 $desktop-big: 1200px;
@@ -134,6 +188,7 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
   display: flex;
   justify-content: center;
   position: relative;
+  width: 100%;
 
   &__loader {
     position: absolute;
@@ -200,23 +255,40 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
       padding: var(--spacer-base);
     }
   }
-
+  &__product-card-horizontal {
+    flex: 0 0 100%;
+    @include for-desktop-small {
+      margin: var(--spacer-sm) 0;
+    }
+  }
   &__pagination {
+    margin: auto;
     @include for-desktop-small {
       display: flex;
       justify-content: center;
       margin-top: var(--spacer-base);
     }
+
+    &__number {
+      margin: 0 5px;
+      cursor: pointer;
+    }
+  }
+  &__slide-enter {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  &__slide-enter-active {
+    transition: all 0.2s ease;
+    transition-delay: calc(0.1s * var(--index));
   }
 }
-
 .section {
   @media (max-width: $desktop-min) {
     padding-left: var(--spacer-base);
     padding-right: var(--spacer-base);
   }
 }
-
 ::v-deep .sf-product-card {
   max-width: $mx-photo-wth-2 !important;
 

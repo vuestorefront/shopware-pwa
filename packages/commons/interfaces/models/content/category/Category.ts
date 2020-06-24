@@ -39,4 +39,7 @@ export interface Category extends Entity {
   parentVersionId: string;
   childrenCount: number;
   afterCategoryVersionId: string;
+  route?: {
+    path?: string;
+  };
 }

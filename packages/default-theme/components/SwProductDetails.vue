@@ -8,11 +8,15 @@
         :rating-average="ratingAverage"
         :special="getSpecialPrice | price"
         :price="getPrice | price"
+        :tier-prices="getTierPrices"
       />
     </div>
-    <p class="product-details__description desktop-only">
-      {{ description }}
-    </p>
+    <SwPluginSlot name="product-page-description" :slotContext="product">
+      <p
+        class="product-details__description desktop-only"
+        v-html="description"
+      />
+    </SwPluginSlot>
     <!-- <div class="product-details__action">
       <button v-if="sizes.length > 0" class="sf-action">Size guide</button>
     </div> -->
@@ -46,9 +50,17 @@
         class="product-details__add-to-cart"
         @click="addToCart"
       />
+      <SwPluginSlot
+        name="product-page-add-to-cart-button-after"
+        :slotContext="product"
+      />
       <div class="product-details__action desktop-only">
-        <SfButton class="sf-button--text product-details__action-button">Save for later</SfButton>
-        <SfButton class="sf-button--text product-details__action-button">Add to compare</SfButton>
+        <SwButton class="sf-button--text product-details__action-button"
+          >Save for later</SwButton
+        >
+        <SwButton class="sf-button--text product-details__action-button"
+          >Add to compare</SwButton
+        >
       </div>
     </div>
     <SwProductTabs
@@ -60,12 +72,7 @@
   </div>
 </template>
 <script>
-import {
-  SfAlert,
-  SfButton,
-  SfProductOption,
-  SfAddToCart,
-} from '@storefront-ui/vue'
+import { SfAlert, SfProductOption, SfAddToCart } from "@storefront-ui/vue"
 import {
   getProductProperties,
   getProductOption,
@@ -75,24 +82,28 @@ import {
   isProductSimple,
   getProductOptionsUrl,
   getProductOptions,
-} from '@shopware-pwa/helpers'
-import { useProduct, useAddToCart } from '@shopware-pwa/composables'
-import SwProductHeading from '@shopware-pwa/default-theme/components/SwProductHeading'
-import SwProductSelect from '@shopware-pwa/default-theme/components/SwProductSelect'
-import SwProductColors from '@shopware-pwa/default-theme/components/SwProductColors'
+  getProductTierPrices,
+} from "@shopware-pwa/helpers"
+import { useProduct, useAddToCart } from "@shopware-pwa/composables"
+import SwProductHeading from "@shopware-pwa/default-theme/components/SwProductHeading"
+import SwProductSelect from "@shopware-pwa/default-theme/components/SwProductSelect"
+import SwProductColors from "@shopware-pwa/default-theme/components/SwProductColors"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 
-import SwProductTabs from '@shopware-pwa/default-theme/components/SwProductTabs'
+import SwProductTabs from "@shopware-pwa/default-theme/components/SwProductTabs"
 export default {
-  name: 'SwProductDetails',
+  name: "SwProductDetails",
   components: {
     SfAlert,
-    SfButton,
+    SwButton,
     SfProductOption,
     SfAddToCart,
     SwProductHeading,
     SwProductSelect,
     SwProductTabs,
     SwProductColors,
+    SwPluginSlot,
   },
   props: {
     product: {
@@ -109,8 +120,8 @@ export default {
       selected: {},
     }
   },
-  setup({ page }) {
-    const { addToCart, quantity } = useAddToCart(page && page.product)
+  setup({ page }, { root }) {
+    const { addToCart, quantity } = useAddToCart(root, page && page.product)
 
     return {
       quantity,
@@ -119,18 +130,13 @@ export default {
   },
   computed: {
     getPrice() {
-      // remove that logic once the SW6 API returns right data
-      // related: https://github.com/DivanteLtd/shopware-pwa/issues/263
-      const regularPrice = getProductRegularPrice({ product: this.product })
-      const specialPrice = getProductSpecialPrice(this.product)
-      return regularPrice > specialPrice ? regularPrice : specialPrice
+      return getProductRegularPrice(this.product)
     },
     getSpecialPrice() {
-      // remove that logic once the SW6 API returns right data
-      // related: https://github.com/DivanteLtd/shopware-pwa/issues/263
-      const regularPrice = getProductRegularPrice({ product: this.product })
-      const specialPrice = getProductSpecialPrice(this.product)
-      return regularPrice > specialPrice ? specialPrice : regularPrice
+      return getProductSpecialPrice(this.product)
+    },
+    getTierPrices() {
+      return getProductTierPrices(this.product)
     },
     name() {
       return (
@@ -195,7 +201,7 @@ export default {
         options,
       })
 
-      this.$router.push(url)
+      this.$router.push(this.$i18n.path(url))
     },
   },
 
@@ -219,7 +225,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "@/assets/scss/variables";
 
 @mixin for-iOS {
   @supports (-webkit-overflow-scrolling: touch) {

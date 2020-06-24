@@ -5,26 +5,26 @@
   </div>
 </template>
 <script>
-import { useCheckout } from '@shopware-pwa/composables'
+import { useCheckout } from "@shopware-pwa/composables"
 
-import PersonalDetailsGuestForm from '@shopware-pwa/default-theme/components/checkout/steps/guest/PersonalDetailsGuestForm'
-import PersonalDetailsUserForm from '@shopware-pwa/default-theme/components/checkout/steps/user/PersonalDetailsUserForm'
+import PersonalDetailsGuestForm from "@shopware-pwa/default-theme/components/checkout/steps/guest/PersonalDetailsGuestForm"
+import PersonalDetailsUserForm from "@shopware-pwa/default-theme/components/checkout/steps/user/PersonalDetailsUserForm"
 
 export default {
-  name: 'PersonalDetailsStep',
+  name: "PersonalDetailsStep",
   components: {
     PersonalDetailsGuestForm,
     PersonalDetailsUserForm,
   },
-  setup() {
-    const { isGuestOrder } = useCheckout()
+  setup(props, {root}) {
+    const { isGuestOrder } = useCheckout(root)
 
     return {
       isGuestOrder,
     }
-  }
+  },
 }
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "@/assets/scss/variables";
 </style>

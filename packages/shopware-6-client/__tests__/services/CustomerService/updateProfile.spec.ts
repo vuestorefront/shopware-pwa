@@ -1,7 +1,7 @@
 import { name, random } from "faker";
-import { apiService } from "../../../src/apiService";
-import { updateProfile, update, config } from "@shopware-pwa/shopware-6-client";
-import { getCustomerEndpoint } from "../../../src/endpoints";
+import { defaultInstance } from "../../../src/apiService";
+import { updateProfile } from "@shopware-pwa/shopware-6-client";
+import { getCustomerDetailsUpdateEndpoint } from "../../../src/endpoints";
 
 const customerData = {
   salutationId: random.uuid(),
@@ -11,27 +11,27 @@ const customerData = {
 };
 
 jest.mock("../../../src/apiService");
-const mockedAxios = apiService as jest.Mocked<typeof apiService>;
+const mockedApiInstance = defaultInstance as jest.Mocked<
+  typeof defaultInstance
+>;
 
 describe("CustomerService - updateProfile", () => {
-  let contextToken: string;
+  const mockedPost = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
-    contextToken = random.uuid();
-    update({ contextToken });
-  });
-  afterEach(() => {
-    expect(config.contextToken).toEqual(contextToken);
+    mockedApiInstance.invoke = {
+      post: mockedPost,
+    } as any;
   });
 
   it("returns no data if successfully updated", async () => {
-    mockedAxios.patch.mockResolvedValueOnce(null);
+    mockedPost.mockResolvedValueOnce(null);
     const result = await updateProfile(customerData);
 
     expect(result).toBeFalsy();
-    expect(mockedAxios.patch).toBeCalledTimes(1);
-    expect(mockedAxios.patch).toBeCalledWith(
-      getCustomerEndpoint(),
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith(
+      getCustomerDetailsUpdateEndpoint(),
       customerData
     );
   });

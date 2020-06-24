@@ -15,20 +15,31 @@ import {
   createGuestOrder,
   createOrder as createApiOrder,
 } from "@shopware-pwa/shopware-6-client";
-import { useSessionContext } from "./useSessionContext";
+import {
+  getApplicationContext,
+  useSessionContext,
+} from "@shopware-pwa/composables";
+import { ApplicationVueContext } from "../appContext";
 
 /**
+ * interface for {@link useCheckout} composable
+ *
  * @beta
  */
-export interface UseCheckout {
+export interface IUseCheckout {
+  /**
+   * Flag isGuestOrder is true when user is not logged in
+   */
   isGuestOrder: Readonly<Ref<boolean>>;
-  guestOrderParams: Ref<Readonly<Partial<GuestOrderParams | null>>>;
+  guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>;
   getShippingMethods: (options?: {
     forceReload: boolean;
   }) => Promise<Readonly<Ref<readonly ShippingMethod[]>>>;
+  shippingMethods: Readonly<Ref<readonly ShippingMethod[]>>;
   getPaymentMethods: (options?: {
     forceReload: boolean;
   }) => Promise<Readonly<Ref<readonly PaymentMethod[]>>>;
+  paymentMethods: Readonly<Ref<readonly PaymentMethod[]>>;
   createOrder: () => Promise<Order>;
   updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
   shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
@@ -46,12 +57,18 @@ const orderData: {
 });
 
 /**
- * @alpha
+ * Composable for Checkout management. Options - {@link IUseCheckout}
+ *
+ * @beta
  */
-export const useCheckout = (): UseCheckout => {
-  const { isLoggedIn } = useUser();
-  const { refreshCart } = useCart();
-  const { sessionContext } = useSessionContext();
+export const useCheckout = (
+  rootContext: ApplicationVueContext
+): IUseCheckout => {
+  const { apiInstance } = getApplicationContext(rootContext, "useCheckout");
+
+  const { isLoggedIn } = useUser(rootContext);
+  const { refreshCart } = useCart(rootContext);
+  const { sessionContext } = useSessionContext(rootContext);
 
   const shippingMethods: Readonly<Ref<readonly ShippingMethod[]>> = computed(
     () => orderData.shippingMethods
@@ -65,8 +82,10 @@ export const useCheckout = (): UseCheckout => {
     { forceReload } = { forceReload: false }
   ) => {
     if (shippingMethods.value.length && !forceReload) return shippingMethods;
-    const shippingMethodsResponse = await getAvailableShippingMethods();
-    orderData.shippingMethods = shippingMethodsResponse.data || [];
+    const shippingMethodsResponse = await getAvailableShippingMethods(
+      apiInstance
+    );
+    orderData.shippingMethods = shippingMethodsResponse || [];
     return shippingMethods;
   };
 
@@ -74,8 +93,10 @@ export const useCheckout = (): UseCheckout => {
     { forceReload } = { forceReload: false }
   ) => {
     if (paymentMethods.value.length && !forceReload) return paymentMethods;
-    const paymentMethodsResponse = await getAvailablePaymentMethods();
-    orderData.paymentMethods = paymentMethodsResponse.data || [];
+    const paymentMethodsResponse = await getAvailablePaymentMethods(
+      apiInstance
+    );
+    orderData.paymentMethods = paymentMethodsResponse || [];
     return paymentMethods;
   };
 
@@ -83,10 +104,11 @@ export const useCheckout = (): UseCheckout => {
     try {
       if (isGuestOrder.value) {
         return await createGuestOrder(
-          orderData.guestOrderParams as GuestOrderParams
+          orderData.guestOrderParams as GuestOrderParams,
+          apiInstance
         );
       } else {
-        return await createApiOrder();
+        return await createApiOrder(apiInstance);
       }
     } catch (e) {
       console.error(
@@ -119,7 +141,9 @@ export const useCheckout = (): UseCheckout => {
   return {
     isGuestOrder,
     getPaymentMethods,
+    paymentMethods,
     getShippingMethods,
+    shippingMethods,
     createOrder,
     guestOrderParams,
     updateGuestOrderParams,

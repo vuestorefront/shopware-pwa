@@ -3,13 +3,13 @@
     class="cms-element-category-navigation-sidebar-filter sw-navbar navbar section"
   >
     <div class="sw-navbar navbar__main">
-      <SfButton
+      <SwButton
         class="sf-button--text navbar__filters-button"
         @click="isFilterSidebarOpen = true"
       >
-        <SfIcon size="1.5rem" icon="filter" style="margin-right: 10px;" />
+        <SfIcon size="14px" icon="filter" style="margin-right: 10px;" />
         Filters
-      </SfButton>
+      </SwButton>
       <div class="navbar__sort desktop-only">
         <span class="navbar__label">Sort by:</span>
         <SfSelect v-model="sortBy" :size="sorting.length" class="sort-by">
@@ -30,36 +30,49 @@
       </div>
       <div class="navbar__view">
         <span class="navbar__view-label desktop-only">View</span>
-        <SfIcon
-          class="navbar__view-icon"
-          :color="isGridView ? '#1D1F22' : '#BEBFC4'"
-          icon="tiles"
-          size="2rem"
-          role="button"
+        <SwButton
+          class="sf-button--pure"
           aria-label="Change to grid view"
-          :aria-pressed="isGridView"
-          @click="isGridView = true"
-        />
-        <SfIcon
-          class="navbar__view-icon"
-          :color="!isGridView ? '#1D1F22' : '#BEBFC4'"
-          icon="list"
-          size="2rem"
-          role="button"
+          :aria-pressed="!isListView.toString()"
+          @click="switchToListView(false)"
+        >
+          <SfIcon
+            class="navbar__view-icon"
+            :color="!isListView ? '#1D1F22' : '#BEBFC4'"
+            icon="tiles"
+            size="12px"
+          />
+        </SwButton>
+        <SwButton
+          class="sf-button--pure"
           aria-label="Change to list view"
-          :aria-pressed="!isGridView"
-          @click="isGridView = false"
-        />
+          :aria-pressed="isListView.toString()"
+          @click="switchToListView(true)"
+        >
+          <SfIcon
+            class="navbar__view-icon"
+            :color="isListView ? '#1D1F22' : '#BEBFC4'"
+            icon="list"
+            size="12px"
+          />
+        </SwButton>
       </div>
       <SfSidebar
         title="Filters"
         :visible="isFilterSidebarOpen"
+        class="filters-sidebar"
         @close="isFilterSidebarOpen = false"
       >
         <div class="filters">
           <div v-for="filter in filters" :key="filter.name">
             <SfHeading class="filters__title" :level="4" :title="filter.name" />
-            <div v-if="filter && filter.options && filter.options.length" :class="{'filters__filter--color': filter.name && filter.name === 'color'}">
+            <div
+              v-if="filter && filter.options && filter.options.length"
+              :class="{
+                'filters__filter--color':
+                  filter.name && filter.name === 'color',
+              }"
+            >
               <SfFilter
                 v-for="option in filter.options"
                 :key="option.value"
@@ -73,8 +86,8 @@
                   )
                 "
                 class="filters__item"
-                :class="{'filters__item--color': option.color}"
-                @change.native="
+                :class="{ 'filters__item--color': option.color }"
+                @change="
                   toggleFilter({
                     type: 'equals',
                     value: option.value,
@@ -87,13 +100,13 @@
         </div>
         <template #content-bottom>
           <div class="filters__buttons">
-            <SfButton class="sf-button--full-width" @click="submitFilters()"
-              >Done</SfButton
+            <SwButton class="sf-button--full-width" @click="submitFilters()"
+              >Done</SwButton
             >
-            <SfButton
+            <SwButton
               class="sf-button--full-width filters__button-clear"
               @click="clearAllFilters()"
-              >Clear all</SfButton
+              >Clear all</SwButton
             >
           </div>
         </template>
@@ -104,39 +117,38 @@
 
 <script>
 import {
-  SfButton,
   SfIcon,
   SfSelect,
   SfFilter,
   SfHeading,
   SfSidebar,
-  SfProductOption,
-} from '@storefront-ui/vue'
+} from "@storefront-ui/vue"
 import {
   useCategoryFilters,
   useProductListing,
-} from '@shopware-pwa/composables'
-import { getSortingLabel } from '@shopware-pwa/helpers'
-const { availableFilters, availableSorting } = useCategoryFilters()
+  useUIState,
+} from "@shopware-pwa/composables"
+import { getSortingLabel } from "@shopware-pwa/default-theme/helpers"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 
 export default {
+  name: "CmsElementCategorySidebarFilter",
   components: {
-    SfButton,
+    SwButton,
     SfIcon,
     SfSelect,
     SfFilter,
     SfHeading,
     SfSidebar,
-    SfProductOption,
   },
-  name: 'CmsElementCategorySidebarFilter',
   props: {
     content: {
       type: Object,
       default: () => ({}),
     },
   },
-  setup() {
+  setup(props, { root }) {
+    const { availableFilters, availableSorting } = useCategoryFilters(root)
     const {
       toggleFilter,
       changeSorting,
@@ -145,7 +157,12 @@ export default {
       selectedFilters,
       resetFilters,
       productsTotal,
-    } = useProductListing()
+    } = useProductListing(root, null)
+
+    const { isOpen: isListView, switchState: switchToListView } = useUIState(
+      root,
+      "PRODUCT_LISTING_STATE"
+    )
 
     return {
       toggleFilter,
@@ -155,21 +172,24 @@ export default {
       selectedFilters,
       resetFilters,
       productsTotal,
+      isListView,
+      switchToListView,
+      availableFilters,
+      availableSorting
     }
   },
   data() {
     return {
       isFilterSidebarOpen: false,
       sortBy: this.selectedSorting,
-      isGridView: true,
     }
   },
   computed: {
     filters() {
-      return (availableFilters && availableFilters.value) || []
+      return this.availableFilters || []
     },
     sorting() {
-      return (availableSorting && availableSorting.value) || []
+      return this.availableSorting || []
     },
     getMedia() {
       return this.content && this.content.data && this.content.data.media
@@ -213,7 +233,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../settings.scss';
+@import "../settings.scss";
 
 .navbar {
   position: relative;
@@ -297,6 +317,9 @@ export default {
     display: flex;
     align-items: center;
     margin: 0 var(--spacer-xl);
+    &-icon {
+      margin: 11px;
+    }
     @include for-mobile {
       margin: 0;
       order: -1;
@@ -308,7 +331,7 @@ export default {
   flex: unset;
   width: 190px;
   padding: 0 10px;
-  --select-padding: 0 var(--spacer-lg) 0 var(--spacer-2xs);
+  --select-selected-padding: 0 var(--spacer-lg) 0 var(--spacer-2xs);
   --select-margin: 0;
 
   &--mobile {
@@ -339,12 +362,19 @@ export default {
     }
   }
   &__buttons {
-    margin: calc(var(--spacer-base) * 3) 0 0 0;
+    margin: var(--spacer-base) 0 calc(var(--spacer-base) * 3) 0;
+    @include for-desktop {
+      margin: var(--spacer-xl) 0 0 0;
+    }
   }
   &__button-clear {
     color: #a3a5ad;
     margin-top: 10px;
     background-color: var(--c-light);
   }
+}
+.filters-sidebar {
+  --sidebar-z-index: 4;
+  --overlay-z-index: 4;
 }
 </style>

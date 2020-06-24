@@ -1,14 +1,14 @@
 <template>
-  <div class="sw-reset-password">
-    <div class="form sw-reset-password__form">
+  <div class="sw-reset-password" @keyup.enter="invokeResetPassword">
+    <div class="form sw-reset-password__form" v-if="!emailSent">
       <!-- <h2 class="sw-reset-password__header">Reset password</h2> -->
       <SfAlert
-        v-if="error"
+        v-if="userError"
         class="sw-reset-password__alert"
         type="danger"
-        :message="error"
+        :message="userError.message"
       />
-      <SfInput
+      <SwInput
         v-model="email"
         name="email"
         label="Your email"
@@ -17,48 +17,72 @@
         error-message="Valid email is required"
         @blur="$v.email.$touch()"
       />
-      <SfButton
+      <SwButton
         class="sf-button--full-width form__button"
         @click="invokeResetPassword"
       >
         Resend password
-      </SfButton>
+      </SwButton>
     </div>
+    <SfHeading
+      v-if="emailSent"
+      title="You should receive a link in a few moments. Please open that link to reset your password."
+      :level="5"
+      class="bottom__heading"
+    />
   </div>
 </template>
 
 <script>
-import { SfInput, SfButton, SfAlert } from '@storefront-ui/vue'
-import { validationMixin } from 'vuelidate'
-import { required, email } from 'vuelidate/lib/validators'
+import { SfAlert, SfHeading } from "@storefront-ui/vue"
+import { validationMixin } from "vuelidate"
+import { required, email } from "vuelidate/lib/validators"
+import { useUser } from "@shopware-pwa/composables"
+import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
 export default {
-  name: 'SwResetPassword',
-  components: { SfButton, SfInput, SfAlert },
+  name: "SwResetPassword",
+  components: { SwButton, SwInput, SfAlert, SfHeading },
   mixins: [validationMixin],
   data() {
     return {
-      email: '',
-      error: ''
+      email: "",
+      error: "",
+      emailSent: false,
+    }
+  },
+  setup(props, {root}) {
+    const { resetPassword, error: userError } = useUser(root)
+    return {
+      resetPassword: resetPassword,
+      userError,
     }
   },
   validations: {
     email: {
       required,
-      email
-    }
+      email,
+    },
   },
   methods: {
-    invokeResetPassword() {
+    async invokeResetPassword() {
       this.$v.$touch()
-      this.error = 'Reset password is not implemented yet'
-    }
-  }
+
+      if (this.$v.$invalid) {
+        return
+      }
+
+      this.emailSent = await this.resetPassword({
+        email: this.email,
+      })
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@storefront-ui/vue/styles';
+@import "@/assets/scss/variables";
 
 .sw-reset-password {
   &__alert {

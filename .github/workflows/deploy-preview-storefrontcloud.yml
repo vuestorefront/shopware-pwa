@@ -1,5 +1,9 @@
 name: Deploy PR Preview on Storefrontcloud
-on: 
+env:
+  CANARY_SW6_INSTANCE: https://shopware6-demo.vuestorefront.io
+  CANARY_SW6_INSTANCE_TOKEN: SWSCVJJET0RQAXFNBMTDZTV1OQ
+  INSTANCE_CODE: shopware-pwa-canary
+on:
   pull_request:
     types: [opened, synchronize]
 
@@ -21,10 +25,11 @@ jobs:
         run: |
           mkdir test-project
           cd ./test-project
-          ../packages/cli/bin/shopware-pwa init --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci
+          ../packages/cli/bin/shopware-pwa init --shopwareEndpoint=${{ env.CANARY_SW6_INSTANCE }} --shopwareAccessToken=${{ env.CANARY_SW6_INSTANCE_TOKEN }} --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci --devMode --stage local
           yarn build
       - name: Build and publish docker image
-        uses: elgohr/Publish-Docker-Github-Action@master
+        uses: elgohr/Publish-Docker-Github-Action@2.14
+        if: github.repository_owner	== 'DivanteLtd'
         with:
           name: shopware-pwa-storefrontcloud-io/vue-storefront:${{ github.sha }}
           registry: registry.storefrontcloud.io
@@ -32,6 +37,16 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           workdir: ./test-project
           buildoptions: "--compress"
+      - name: Add information about PR from forked repo
+        if: github.repository_owner	!= 'DivanteLtd'
+        uses: mshick/add-pr-comment@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          allow-repeats: false
+          message: |
+            :warning: This PR comes from forked repository and cannot be deployed on our preview instance!
+            Nevertheless, thank you, we are going to see it in action locally first 👍
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -45,23 +60,26 @@ jobs:
           initial_status: in_progress
       - name: Deploy on Storefrontcloud.io
         id: deploy
-        uses: mkucmus/storefrontcloud-preview-deploy@master
+        uses: StorefrontCloud/storefrontcloud-preview-deploy@master
+        if: github.repository_owner	== 'DivanteLtd'
         with:
           token: "${{ github.token }}"
-          namespace: "shopware-pwa"
+          namespace: "${{env.INSTANCE_CODE}}"
+          username: "${{ secrets.DOCKER_USERNAME }}"
+          password: "${{ secrets.DOCKER_PASSWORD }}"
       - name: Comment PR
         if: success()
-        uses: mkucmus/storefrontcloud-comment-pr-preview-deploy@master
+        uses: StorefrontCloud/storefrontcloud-comment-pr-preview-deploy@master
         with:
-          preview_url: '${{ steps.deploy.outputs.preview_url }}'
+          preview_url: "${{ steps.deploy.outputs.preview_url }}"
           token: "${{ github.token }}"
-          namespace: 'shopware-pwa'
+          namespace: "${{env.INSTANCE_CODE}}"
       - name: Update deployment status (success)
         if: success()
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
-          target_url: ${{ steps.deploy.outputs.preview_url }}
+          target-url: ${{ steps.deploy.outputs.preview_url }}
           state: "success"
           description: Congratulations! The deploy is done.
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}

@@ -12,17 +12,18 @@ Login user to shopware instance.
 <b>Signature:</b>
 
 ```typescript
-export declare function login({ username, password, }?: {
+export declare function login({ username, password }?: {
     username?: string;
     password?: string;
-}): Promise<ContextTokenResponse>;
+}, contextInstance?: ShopwareApiInstance): Promise<ContextTokenResponse>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { username, password, } | <code>{</code><br/><code>    username?: string;</code><br/><code>    password?: string;</code><br/><code>}</code> |  |
+|  { username, password } | <code>{</code><br/><code>    username?: string;</code><br/><code>    password?: string;</code><br/><code>}</code> |  |
+|  contextInstance | <code>ShopwareApiInstance</code> |  |
 
 <b>Returns:</b>
 

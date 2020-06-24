@@ -6,24 +6,54 @@
 
 import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { BillingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
+import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
-import { CustomerAddressParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerRegistrationParams } from '@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams';
+import { CustomerResetPasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
+import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
+import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
+import { ProductListingResult } from '@shopware-pwa/commons/interfaces/response/ProductListingResult';
 import { Ref } from '@vue/composition-api';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
+import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
 import { ShippingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
+import { ShopwareApiInstance } from '@shopware-pwa/shopware-6-client';
+
+// @beta
+export interface ApplicationVueContext extends Vue {
+    // (undocumented)
+    $cookies?: any;
+    // (undocumented)
+    $i18n?: any;
+    // (undocumented)
+    $router?: any;
+    // (undocumented)
+    $shopwareApiInstance?: ShopwareApiInstance;
+    // (undocumented)
+    $store?: any;
+    // (undocumented)
+    cookies?: any;
+    // (undocumented)
+    i18n?: any;
+    // (undocumented)
+    router?: any;
+    // (undocumented)
+    shopwareApiInstance?: ShopwareApiInstance;
+    // (undocumented)
+    store?: any;
+}
 
 // @alpha (undocumented)
 export interface CheckoutStepFields {
@@ -49,48 +79,72 @@ export interface CreateCheckoutStep {
 export function createCheckoutStep({ stepNumber, stepFields, stepDataUpdated, }: {
     stepNumber: number;
     stepFields: CheckoutStepFields;
-    stepDataUpdated: (updatedData: CheckoutStepFields) => void;
-}): () => CreateCheckoutStep;
+    stepDataUpdated: (updatedData: CheckoutStepFields, guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>) => Partial<GuestOrderParams>;
+}): (rootContext: ApplicationVueContext) => CreateCheckoutStep;
 
-// @alpha (undocumented)
-export function getStore(): any;
-
-// @alpha (undocumented)
-export type Search = (path: string, associations?: any) => any;
-
-// @alpha (undocumented)
-export function setStore(ref: any): void;
-
-// @alpha (undocumented)
-export interface UseAddToCart {
+// @beta (undocumented)
+export interface CurrentPagination {
     // (undocumented)
+    currentPage: number | undefined;
+    // (undocumented)
+    perPage: number | undefined;
+    // (undocumented)
+    total: number | undefined;
+}
+
+// @beta (undocumented)
+export function getApplicationContext(rootContext: ApplicationVueContext, key?: string): {
+    apiInstance: ShopwareApiInstance | undefined;
+    vuexStore: any;
+    router: any;
+    i18n: any;
+    cookies: any;
+};
+
+// @beta
+export interface IUseAddToCart {
     addToCart: () => Promise<void>;
-    // (undocumented)
-    error: Ref<any>;
-    // (undocumented)
+    error: Ref<string>;
     getStock: Ref<number | null>;
-    // (undocumented)
     isInCart: Ref<boolean>;
-    // (undocumented)
     loading: Ref<boolean>;
-    // (undocumented)
     quantity: Ref<number>;
 }
 
-// @alpha (undocumented)
-export const useAddToCart: (product: Product) => UseAddToCart;
+// @beta
+export interface IUseCart {
+    // (undocumented)
+    addProduct: ({ id, quantity }: {
+        id: string;
+        quantity?: number;
+    }) => void;
+    // (undocumented)
+    cart: Readonly<Ref<Readonly<Cart>>>;
+    // (undocumented)
+    cartItems: Readonly<Ref<Readonly<LineItem[]>>>;
+    // (undocumented)
+    changeProductQuantity: ({ id, quantity, }: {
+        id: string;
+        quantity: number;
+    }) => void;
+    // (undocumented)
+    count: Readonly<Ref<Readonly<number>>>;
+    // (undocumented)
+    error: Readonly<Ref<Readonly<string>>>;
+    // (undocumented)
+    loading: Readonly<Ref<Readonly<boolean>>>;
+    // (undocumented)
+    refreshCart: () => void;
+    // (undocumented)
+    removeProduct: ({ id }: Partial<Product>) => void;
+    // (undocumented)
+    subtotal: Readonly<Ref<Readonly<number>>>;
+    // (undocumented)
+    totalPrice: Readonly<Ref<Readonly<number>>>;
+}
 
-// @alpha (undocumented)
-export const useCart: () => any;
-
-// @alpha (undocumented)
-export const useCartSidebar: () => any;
-
-// @alpha (undocumented)
-export const useCategoryFilters: () => any;
-
-// @beta (undocumented)
-export interface UseCheckout {
+// @beta
+export interface IUseCheckout {
     // (undocumented)
     billingAddress: Readonly<Ref<BillingAddress | undefined>>;
     // (undocumented)
@@ -104,120 +158,36 @@ export interface UseCheckout {
         forceReload: boolean;
     }) => Promise<Readonly<Ref<readonly ShippingMethod[]>>>;
     // (undocumented)
-    guestOrderParams: Ref<Readonly<Partial<GuestOrderParams | null>>>;
-    // (undocumented)
+    guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>;
     isGuestOrder: Readonly<Ref<boolean>>;
     // (undocumented)
+    paymentMethods: Readonly<Ref<readonly PaymentMethod[]>>;
+    // (undocumented)
     shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
+    // (undocumented)
+    shippingMethods: Readonly<Ref<readonly ShippingMethod[]>>;
     // (undocumented)
     updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
 }
 
-// @alpha (undocumented)
-export const useCheckout: () => UseCheckout;
-
-// @alpha (undocumented)
-export const useCms: () => any;
-
-// @alpha (undocumented)
-export interface UseCountries {
+// @beta
+export interface IUseNavigation {
     // (undocumented)
-    error: Ref<any>;
+    fetchNavigationElements: (depth: number) => Promise<void>;
     // (undocumented)
-    fetchCountries: () => Promise<void>;
+    fetchRoutes: () => Promise<void>;
     // (undocumented)
-    getCountries: Ref<Readonly<any>>;
+    navigationElements: NavigationElement[];
     // (undocumented)
-    mountedCallback: () => Promise<void>;
+    routes: Ref<Readonly<any>>;
 }
 
-// @alpha (undocumented)
-export const useCountries: () => UseCountries;
-
-// @alpha (undocumented)
-export interface UseCurrency {
-    // (undocumented)
-    availableCurrencies: Readonly<Ref<readonly Currency[]>>;
+// @beta
+export interface IUseSessionContext {
     // (undocumented)
     currency: Readonly<Ref<Currency | null>>;
     // (undocumented)
-    currencySymbol: Ref<Readonly<string>>;
-    // (undocumented)
-    loadAvailableCurrencies: (options?: {
-        forceReload: boolean;
-    }) => Promise<void>;
-    // (undocumented)
-    setCurrency: (parameter: Partial<Currency>) => Promise<void>;
-}
-
-// @alpha (undocumented)
-export const useCurrency: () => UseCurrency;
-
-// @alpha (undocumented)
-export const useNavigation: () => any;
-
-// @alpha (undocumented)
-export interface UseProduct<PRODUCT, SEARCH> {
-    // (undocumented)
-    [x: string]: any;
-    // (undocumented)
-    error: Ref<any>;
-    // (undocumented)
-    loading: Ref<boolean>;
-    // (undocumented)
-    product: Ref<PRODUCT>;
-    // (undocumented)
-    search: SEARCH;
-}
-
-// @alpha (undocumented)
-export const useProduct: (loadedProduct?: any) => UseProduct<Product, Search>;
-
-// @alpha (undocumented)
-export interface UseProductListing {
-    // (undocumented)
-    [x: string]: any;
-    // (undocumented)
-    error: Ref<any>;
-    // (undocumented)
-    loading: Ref<boolean>;
-}
-
-// @alpha (undocumented)
-export const useProductListing: (initialProducts?: Product[]) => UseProductListing;
-
-// @alpha (undocumented)
-export interface UseProductSearch {
-    // (undocumented)
-    [x: string]: any;
-    // (undocumented)
-    error: Ref<any>;
-    // (undocumented)
-    loading: Ref<boolean>;
-}
-
-// @alpha (undocumented)
-export const useProductSearch: () => UseProductSearch;
-
-// @alpha (undocumented)
-export interface UseSalutations {
-    // (undocumented)
-    error: Ref<any>;
-    // (undocumented)
-    fetchSalutations: () => Promise<void>;
-    // (undocumented)
-    getSalutations: Ref<Readonly<any>>;
-    // (undocumented)
-    mountedCallback: () => Promise<void>;
-}
-
-// @alpha (undocumented)
-export const useSalutations: () => UseSalutations;
-
-// @alpha
-export interface UseSessionContext {
-    // (undocumented)
-    currency: Readonly<Ref<Currency | null>>;
+    paymentMethod: Readonly<Ref<PaymentMethod | null>>;
     // (undocumented)
     refreshSessionContext: () => Promise<void>;
     // (undocumented)
@@ -225,18 +195,17 @@ export interface UseSessionContext {
     // (undocumented)
     setCurrency: (currency: Partial<Currency>) => Promise<void>;
     // (undocumented)
+    setPaymentMethod: (paymentMethod: Partial<PaymentMethod>) => Promise<void>;
+    // (undocumented)
     setShippingMethod: (shippingMethod: Partial<ShippingMethod>) => Promise<void>;
     // (undocumented)
     shippingMethod: Readonly<Ref<ShippingMethod | null>>;
 }
 
-// @alpha (undocumented)
-export const useSessionContext: () => UseSessionContext;
-
-// @alpha (undocumented)
-export interface UseUser {
+// @beta
+export interface IUseUser {
     // (undocumented)
-    addAddress: (params: CustomerAddressParam) => Promise<boolean>;
+    addAddress: (params: Partial<CustomerAddress>) => Promise<boolean>;
     // (undocumented)
     addresses: Ref<CustomerAddress[] | null>;
     // (undocumented)
@@ -246,7 +215,7 @@ export interface UseUser {
     // (undocumented)
     error: Ref<any>;
     // (undocumented)
-    getOrderDetails: (orderId: string) => Promise<Order>;
+    getOrderDetails: (orderId: string) => Promise<Order | undefined>;
     // (undocumented)
     isLoggedIn: Ref<boolean>;
     // (undocumented)
@@ -278,6 +247,8 @@ export interface UseUser {
     // (undocumented)
     register: ({}: CustomerRegistrationParams) => Promise<boolean>;
     // (undocumented)
+    resetPassword: (resetPasswordData: CustomerResetPasswordParam) => Promise<boolean>;
+    // (undocumented)
     salutation: Ref<Salutation | null>;
     // (undocumented)
     updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
@@ -290,10 +261,141 @@ export interface UseUser {
 }
 
 // @alpha (undocumented)
-export const useUser: () => UseUser;
+export type Search = (path: string, associations?: any) => any;
+
+// @beta
+export const useAddToCart: (rootContext: ApplicationVueContext, product: Product) => IUseAddToCart;
+
+// @beta
+export const useCart: (rootContext: ApplicationVueContext) => IUseCart;
 
 // @alpha (undocumented)
-export const useUserLoginModal: () => any;
+export const useCategoryFilters: (rootContext: ApplicationVueContext) => any;
+
+// @beta
+export const useCheckout: (rootContext: ApplicationVueContext) => IUseCheckout;
+
+// @alpha (undocumented)
+export const useCms: (rootContext: ApplicationVueContext) => any;
+
+// @alpha (undocumented)
+export interface UseCountries {
+    // (undocumented)
+    error: Ref<any>;
+    // (undocumented)
+    fetchCountries: () => Promise<void>;
+    // (undocumented)
+    getCountries: Ref<Readonly<any>>;
+    // (undocumented)
+    mountedCallback: () => Promise<void>;
+}
+
+// @alpha (undocumented)
+export const useCountries: (rootContext: ApplicationVueContext) => UseCountries;
+
+// @alpha (undocumented)
+export interface UseCurrency {
+    // (undocumented)
+    availableCurrencies: Readonly<Ref<readonly Currency[]>>;
+    // (undocumented)
+    currency: Readonly<Ref<Currency | null>>;
+    // (undocumented)
+    currencySymbol: Ref<Readonly<string>>;
+    // (undocumented)
+    loadAvailableCurrencies: (options?: {
+        forceReload: boolean;
+    }) => Promise<void>;
+    // (undocumented)
+    setCurrency: (parameter: Partial<Currency>) => Promise<void>;
+}
+
+// @alpha (undocumented)
+export const useCurrency: (rootContext: ApplicationVueContext) => UseCurrency;
+
+// @beta
+export const useNavigation: (rootContext: ApplicationVueContext) => IUseNavigation;
+
+// @alpha (undocumented)
+export interface UseProduct<PRODUCT, SEARCH> {
+    // (undocumented)
+    [x: string]: any;
+    // (undocumented)
+    error: Ref<any>;
+    // (undocumented)
+    loading: Ref<boolean>;
+    // (undocumented)
+    product: Ref<PRODUCT>;
+    // (undocumented)
+    search: SEARCH;
+}
+
+// @alpha (undocumented)
+export const useProduct: (rootContext: ApplicationVueContext, loadedProduct?: any) => UseProduct<Product, Search>;
+
+// @alpha (undocumented)
+export interface UseProductListing {
+    // (undocumented)
+    [x: string]: any;
+    // (undocumented)
+    error: Ref<any>;
+    // (undocumented)
+    loading: Ref<boolean>;
+}
+
+// @alpha (undocumented)
+export const useProductListing: (rootContext: ApplicationVueContext, initialListing?: ProductListingResult | undefined) => UseProductListing;
+
+// @alpha (undocumented)
+export interface UseProductSearch {
+    // (undocumented)
+    changePage: (page: number) => Promise<void>;
+    // (undocumented)
+    currentPagination: Ref<CurrentPagination | undefined>;
+    // (undocumented)
+    currentSearchTerm: Readonly<Ref<string>>;
+    // (undocumented)
+    loadingSearch: Readonly<Ref<boolean>>;
+    // (undocumented)
+    loadingSuggestions: Readonly<Ref<boolean>>;
+    // (undocumented)
+    search: (term: string, searchCriteria?: SearchCriteria) => Promise<void>;
+    // (undocumented)
+    searchResult: Readonly<Ref<ProductListingResult | null>>;
+    // (undocumented)
+    suggestionsResult: Readonly<Ref<ProductListingResult | null>>;
+    // (undocumented)
+    suggestSearch: (term: string) => Promise<void>;
+}
+
+// @alpha (undocumented)
+export const useProductSearch: (rootContext: ApplicationVueContext) => UseProductSearch;
+
+// @alpha (undocumented)
+export interface UseSalutations {
+    // (undocumented)
+    error: Ref<any>;
+    // (undocumented)
+    fetchSalutations: () => Promise<void>;
+    // (undocumented)
+    getSalutations: Ref<Readonly<any>>;
+    // (undocumented)
+    mountedCallback: () => Promise<void>;
+}
+
+// @alpha (undocumented)
+export const useSalutations: (rootContext: ApplicationVueContext) => UseSalutations;
+
+// @beta
+export const useSessionContext: (rootContext: ApplicationVueContext) => IUseSessionContext;
+
+// @beta
+export const useUIState: (rootContext: ApplicationVueContext, stateName?: string | undefined) => {
+    isOpen: Readonly<Ref<boolean>>;
+    switchState: (to?: boolean | undefined) => void;
+};
+
+// @beta
+export const useUser: (rootContext: ApplicationVueContext) => IUseUser;
 
 // @alpha (undocumented)
 export interface VuelidateValidation {

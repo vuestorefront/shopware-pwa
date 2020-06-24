@@ -1,93 +1,141 @@
 module.exports = {
-  title: "Shopware-PWA",
+  title: "Shopware PWA",
   description: "Headless PWA for Shopware",
+  head: [
+    [
+      "link",
+      {
+        rel: "icon",
+        href: "/favicon.png",
+      },
+    ],
+  ],
   themeConfig: {
     repo: "DivanteLtd/shopware-pwa",
     docsDir: "docs",
-    sidebarDepth: 2,
+    sidebarDepth: 0,
     smoothScroll: true,
-    sidebar: {
-      "/cli/": [""],
-      "/api/": [
-        {
-          title: "API",
-          path: "",
-          collapsable: false,
-          children: [
-            { title: "Composables", path: "composables" },
-            { title: "Helpers", path: "helpers" },
-            { title: "Shopware 6 client", path: "shopware-6-client" },
-          ],
-        },
-      ],
-      "/": [""],
-    },
+    displayAllHeaders: true,
+    logo: "/shopware_docs_logo.svg",
+    sidebar: [
+      {
+        title: "Home",
+        path: "/",
+        collapsable: true,
+        children: [
+          ["/landing/project/", "Project"],
+          ["/landing/getting-started/", "Getting started"],
+          ["/landing/fundamentals/", "Fundamentals"],
+          ["/landing/concepts/", "Concepts"],
+          ["/landing/operations/", "Operations"],
+          ["/landing/resources/", "Resources"],
+        ],
+      },
+    ],
     nav: (module.exports = [
       {
-        text: "Guide",
+        text: "Home",
+        link: "/",
+      },
+      /*{
+        text: "Fundamentals",
+        link: "/landing/fundamentals/"
         items: [
           {
-            text: "Setup",
-            items: [
-              {
-                text: "Cheatsheet",
-                link: "/guide/cheatsheet.html",
-              },
-            ],
+            text: "Nuxt.js",
+            link: "/fundamentals/",
           },
           {
-            text: "Concepts",
+            text: "Storefront UI",
+            link: "/fundamentals/",
+          },
+          {
+            text: "PWA CLI",
             items: [
               {
-                text: "CMS",
+                text: "Themes",
                 link: "/guide/cms.html",
               },
-            ],
-          },
-          {
-            text: "Help",
-            items: [
               {
-                text: "FAQ / Troubleshooting",
-                link: "/guide/troubleshooting.html",
+                text: "Plugins",
+                link: "/guide/plugins.html",
               },
               {
-                text: "Roadmap",
-                link: "/guide/roadmap.html",
+                text: "Payment",
+                link: "/guide/payment.html",
               },
             ],
           },
         ],
-      },
+      },*/
       {
-        text: "CLI",
-        link: "/cli/",
-      },
-      {
-        text: "API",
-        link: "/API/index.md",
-      },
-      {
-        text: "Contribution",
+        text: "Concepts",
         items: [
           {
-            text: "Contribution guide",
-            link: "/contribution/contributing.html",
+            text: "CMS",
+            link: "/guide/cms.html",
           },
           {
-            text: "Project structure",
-            link: "/contribution/structure.html",
+            text: "Plugins",
+            link: "/guide/plugins.html",
+          },
+          {
+            text: "Payment",
+            link: "/guide/payment.html",
           },
         ],
       },
-      // {
-      //   text: "Plugin",
-      //   link: "/plugin/",
-      // },
-      // {
-      //   text: "Theme",
-      //   link: "/theme/",
-      // },
+      {
+        text: "Resources",
+        items: [
+          {
+            text: "Roadmap",
+            link: "/guide/roadmap/",
+          },
+          {
+            text: "Package API",
+            link: "/api/",
+          },
+          {
+            text: "Troubleshooting",
+            link: "/guide/troubleshooting/",
+          },
+          {
+            text: "Cheatsheet",
+            link: "/guide/cheatsheet/",
+          },
+          {
+            text: "Contribution",
+            items: [
+              {
+                text: "Contribution Guide",
+                link: "/contribution/contributing/",
+              },
+              {
+                text: "Project Structure",
+                link: "/contribution/structure/",
+              },
+            ],
+          },
+          {
+            text: "Featurelist",
+            items: [
+              {
+                text: "Functional",
+                link: "/guide/featurelist.html#functional",
+              },
+              {
+                text: "Technical",
+                link: "/guide/featurelist.html#technical",
+              },
+              {
+                text: "Integrations",
+                link: "/guide/featurelist.html#integrations",
+              },
+            ],
+          },
+        ],
+      },
     ]),
   },
 };
