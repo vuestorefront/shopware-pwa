@@ -37,37 +37,19 @@ module.exports = {
         text: "Home",
         link: "/",
       },
-      /*{
+      {
+        text: "Getting Started",
+        link: "/landing/getting-started/",
+      },
+      {
         text: "Fundamentals",
-        link: "/landing/fundamentals/"
         items: [
           {
-            text: "Nuxt.js",
-            link: "/fundamentals/",
-          },
-          {
-            text: "Storefront UI",
-            link: "/fundamentals/",
-          },
-          {
-            text: "PWA CLI",
-            items: [
-              {
-                text: "Themes",
-                link: "/guide/cms.html",
-              },
-              {
-                text: "Plugins",
-                link: "/guide/plugins.html",
-              },
-              {
-                text: "Payment",
-                link: "/guide/payment.html",
-              },
-            ],
+            text: "Security",
+            link: "/landing/fundamentals/security.html",
           },
         ],
-      },*/
+      },
       {
         text: "Concepts",
         items: [
@@ -82,6 +64,19 @@ module.exports = {
           {
             text: "Payment",
             link: "/guide/payment.html",
+          },
+        ],
+      },
+      {
+        text: "Operations",
+        items: [
+          {
+            text: "Hosting",
+            link: "/landing/operations/hosting/",
+          },
+          {
+            text: "Deployment",
+            link: "/landing/operations/deployment/",
           },
         ],
       },
