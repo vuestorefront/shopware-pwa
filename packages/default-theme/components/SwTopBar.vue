@@ -1,5 +1,5 @@
 <template>
-  <SfTopBar class="sw-top-bar desktop-only">
+  <SfTopBar class="sw-top-bar desktop-only" data-cy="top-bar">
     <template #right>
       <SwCurrencySwitcher class="sf-header__currency" />
       <SwLanguageSwitcher />

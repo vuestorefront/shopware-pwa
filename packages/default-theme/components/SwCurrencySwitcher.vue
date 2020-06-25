@@ -3,17 +3,20 @@
   <div
     v-if="activeCurrency && availableCurrencies.length > 1"
     class="sw-currency"
+    data-cy="currency-switcher"
   >
     <SfSelect
       v-model="activeCurrency"
       :size="availableCurrencies.length"
       class="sw-currency__select sf-select--no-chevron"
       @click="loadAvailableCurrencies"
+      data-cy="currency-switcher-select"
     >
       <SfSelectOption
         v-for="currencyItem in availableCurrencies"
         :key="currencyItem.id"
         :value="currencyItem.id"
+        data-cy="currency-switcher-option"
       >
         {{ currencyItem.symbol }}
       </SfSelectOption>
@@ -30,7 +33,7 @@ export default {
   components: {
     SfSelect,
   },
-  setup(props, {root}) {
+  setup(props, { root }) {
     const {
       currency,
       setCurrency,

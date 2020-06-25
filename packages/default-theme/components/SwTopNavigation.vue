@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-top-navigation">
+  <div class="sw-top-navigation" data-cy="top-navigation">
     <SwPluginSlot name="sw-top-navigation-before" />
     <SfHeaderNavigationItem
       v-for="category in navigationElements"
@@ -8,6 +8,7 @@
       @mouseover="changeCurrentCategory(category.name)"
       @mouseleave="changeCurrentCategory(null)"
       @keyup.tab="changeCurrentCategory(category.name)"
+      data-cy="top-navigation-item"
     >
       <nuxt-link
         class="sf-header__link"
