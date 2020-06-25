@@ -174,7 +174,7 @@ export default {
   }
 }
 .product-page-back {
-  left: 1rem;
+  left: 0.5rem;
   position: absolute;
   top: 1.5rem;
   z-index: 4;
