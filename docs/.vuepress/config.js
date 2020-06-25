@@ -1,5 +1,5 @@
 module.exports = {
-  title: "Shopware PWA",
+  title: "PWA",
   description: "Headless PWA for Shopware",
   head: [
     [
@@ -16,7 +16,7 @@ module.exports = {
     sidebarDepth: 0,
     smoothScroll: true,
     displayAllHeaders: true,
-    logo: "/shopware_docs_logo.svg",
+    logo: "/shopware_docs_horizontal.svg",
     sidebar: [
       {
         title: "Home",

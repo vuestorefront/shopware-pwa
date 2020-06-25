@@ -13,13 +13,16 @@ jest.mock("@shopware-pwa/shopware-6-client");
 
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 const consoleErrorSpy = jest.spyOn(console, "error");
-import * as Composables from "@shopware-pwa/composables";
-import { useCheckout } from "@shopware-pwa/composables";
 import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+import { useCheckout } from "../src/logic/useCheckout";
 
 describe("Composables - useCheckout", () => {
   let isLoggedIn = ref(false);
   const stateContext: Ref<Partial<SessionContext> | null> = ref(null);
+  const sessionContextMock: Ref<Partial<SessionContext> | null> = ref(null);
   const rootContextMock: any = {
     $store: {
       getters: reactive({
@@ -36,15 +39,22 @@ describe("Composables - useCheckout", () => {
   beforeEach(() => {
     jest.resetAllMocks();
     isLoggedIn.value = false;
-    jest.spyOn(Composables, "useUser").mockImplementation(() => {
+    sessionContextMock.value = null;
+
+    mockedComposables.useUser.mockImplementation(() => {
       return {
         isLoggedIn,
         user: ref({ firstName: "Elton" }),
       } as any;
     });
-    jest.spyOn(Composables, "useCart").mockImplementation(() => {
+    mockedComposables.useCart.mockImplementation(() => {
       return {
         refreshCart: refreshCartMock,
+      } as any;
+    });
+    mockedComposables.useSessionContext.mockImplementation(() => {
+      return {
+        sessionContext: sessionContextMock,
       } as any;
     });
     stateContext.value = null;
@@ -96,7 +106,7 @@ describe("Composables - useCheckout", () => {
 
       it("should return user address in case of user order", async () => {
         isLoggedIn.value = true;
-        stateContext.value = {
+        sessionContextMock.value = {
           shippingLocation: {
             address: {
               street: "some street",
@@ -155,7 +165,7 @@ describe("Composables - useCheckout", () => {
 
       it("should return address in case of user order", async () => {
         isLoggedIn.value = true;
-        stateContext.value = {
+        sessionContextMock.value = {
           customer: {
             activeBillingAddress: {
               street: "some street",

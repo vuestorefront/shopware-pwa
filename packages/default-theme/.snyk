@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.14.1
+version: v1.15.0
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -104,3 +104,5 @@ patch:
         patched: '2020-05-26T12:05:35.968Z'
     - node-sass > gaze > globule > lodash:
         patched: '2020-05-26T12:05:35.968Z'
+    - nuxt > @nuxt/telemetry > inquirer > lodash:
+        patched: '2020-06-19T02:03:15.420Z'

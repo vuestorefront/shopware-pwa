@@ -33,9 +33,10 @@ import { ShippingAddress } from '@shopware-pwa/commons/interfaces/request/GuestO
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 import { ShopwareApiInstance } from '@shopware-pwa/shopware-6-client';
 import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
+import { VueConstructor } from 'vue';
 
 // @beta
-export interface ApplicationVueContext extends Vue {
+export interface ApplicationVueContext extends VueConstructor {
     // (undocumented)
     $cookies?: any;
     // (undocumented)
