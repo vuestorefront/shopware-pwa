@@ -19,8 +19,8 @@ export interface IUseNavigation
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [fetchNavigationElements](./composables.iusenavigation.fetchnavigationelements.md) | <code>(depth: number) =&gt; Promise&lt;void&gt;</code> | <b><i>(BETA)</i></b> |
-|  [fetchRoutes](./composables.iusenavigation.fetchroutes.md) | <code>() =&gt; Promise&lt;void&gt;</code> | <b><i>(BETA)</i></b> |
-|  [navigationElements](./composables.iusenavigation.navigationelements.md) | <code>NavigationElement[]</code> | <b><i>(BETA)</i></b> |
-|  [routes](./composables.iusenavigation.routes.md) | <code>Ref&lt;Readonly&lt;any&gt;&gt;</code> | <b><i>(BETA)</i></b> |
+|  [fetchNavigationElements](./composables.iusenavigation.fetchnavigationelements.md) | (depth: number) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
+|  [fetchRoutes](./composables.iusenavigation.fetchroutes.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
+|  [navigationElements](./composables.iusenavigation.navigationelements.md) | NavigationElement\[\] | <b><i>(BETA)</i></b> |
+|  [routes](./composables.iusenavigation.routes.md) | Ref&lt;Readonly&lt;any&gt;&gt; | <b><i>(BETA)</i></b> |
 

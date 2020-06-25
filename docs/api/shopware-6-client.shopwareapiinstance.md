@@ -18,10 +18,10 @@ export interface ShopwareApiInstance
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [config](./shopware-6-client.shopwareapiinstance.config.md) | <code>ClientSettings</code> | <b><i>(BETA)</i></b> |
-|  [defaults](./shopware-6-client.shopwareapiinstance.defaults.md) | <code>AxiosInstance[&quot;defaults&quot;]</code> | <b><i>(BETA)</i></b> |
-|  [invoke](./shopware-6-client.shopwareapiinstance.invoke.md) | <code>{</code><br/><code>        post: AxiosInstance[&quot;post&quot;];</code><br/><code>        get: AxiosInstance[&quot;get&quot;];</code><br/><code>        put: AxiosInstance[&quot;put&quot;];</code><br/><code>        patch: AxiosInstance[&quot;patch&quot;];</code><br/><code>        delete: AxiosInstance[&quot;delete&quot;];</code><br/><code>    }</code> | <b><i>(BETA)</i></b> |
-|  [onConfigChange](./shopware-6-client.shopwareapiinstance.onconfigchange.md) | <code>(fn: (context: ConfigChangedArgs) =&gt; void) =&gt; void</code> | <b><i>(BETA)</i></b> |
-|  [setup](./shopware-6-client.shopwareapiinstance.setup.md) | <code>(config?: ClientSettings) =&gt; void</code> | <b><i>(BETA)</i></b> |
-|  [update](./shopware-6-client.shopwareapiinstance.update.md) | <code>(config?: ClientSettings) =&gt; void</code> | <b><i>(BETA)</i></b> |
+|  [config](./shopware-6-client.shopwareapiinstance.config.md) | [ClientSettings](./shopware-6-client.clientsettings.md) | <b><i>(BETA)</i></b> |
+|  [defaults](./shopware-6-client.shopwareapiinstance.defaults.md) | AxiosInstance\["defaults"\] | <b><i>(BETA)</i></b> |
+|  [invoke](./shopware-6-client.shopwareapiinstance.invoke.md) | { post: AxiosInstance\["post"\]; get: AxiosInstance\["get"\]; put: AxiosInstance\["put"\]; patch: AxiosInstance\["patch"\]; delete: AxiosInstance\["delete"\]; } | <b><i>(BETA)</i></b> |
+|  [onConfigChange](./shopware-6-client.shopwareapiinstance.onconfigchange.md) | (fn: (context: [ConfigChangedArgs](./shopware-6-client.configchangedargs.md)<!-- -->) =&gt; void) =&gt; void | <b><i>(BETA)</i></b> |
+|  [setup](./shopware-6-client.shopwareapiinstance.setup.md) | (config?: [ClientSettings](./shopware-6-client.clientsettings.md)<!-- -->) =&gt; void | <b><i>(BETA)</i></b> |
+|  [update](./shopware-6-client.shopwareapiinstance.update.md) | (config?: [ClientSettings](./shopware-6-client.clientsettings.md)<!-- -->) =&gt; void | <b><i>(BETA)</i></b> |
 
