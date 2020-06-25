@@ -18,6 +18,7 @@
     "image-simple-grid": "CmsBlockImageSimpleGrid",
     "image-slider": "CmsBlockDefault",
     "image-text-cover": "CmsBlockImageTextCover",
+    "image-text-gallery": "CmsBlockImageTextGallery",
     "image-three-column": "CmsBlockImageThreeColumn",
     "image-three-cover": "CmsBlockImageThreeCover",
     "image-two-column": "CmsBlockImageTwoColumn",
