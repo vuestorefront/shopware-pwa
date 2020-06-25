@@ -19,11 +19,11 @@ export declare function getCustomerAddresses(contextInstance?: ShopwareApiInstan
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contextInstance | <code>ShopwareApiInstance</code> |  |
+|  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 <b>Returns:</b>
 
-`Promise<CustomerAddress[]>`
+Promise&lt;CustomerAddress\[\]&gt;
 
 ## Exceptions
 

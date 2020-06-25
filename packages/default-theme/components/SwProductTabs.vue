@@ -2,11 +2,6 @@
   <div class="sw-product-tabs">
     <SfTabs class="product-details__tabs" :open-tab="openTab">
       <slot>
-        <SfTab title="Description">
-          <div>
-            <p v-html="description" />
-          </div>
-        </SfTab>
         <SfTab title="Properties">
           <div class="product-details__properties">
             <SfProperty
@@ -65,10 +60,6 @@ export default {
     reviews: {
       type: Array,
       default: () => [],
-    },
-    description: {
-      type: String,
-      default: "",
     },
     manufacturer: {
       type: Object,

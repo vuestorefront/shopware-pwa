@@ -24,16 +24,10 @@ export declare function getApplicationContext(rootContext: ApplicationVueContext
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  rootContext | <code>ApplicationVueContext</code> |  |
-|  key | <code>string</code> |  |
+|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
+|  key | string |  |
 
 <b>Returns:</b>
 
-`{
-    apiInstance: ShopwareApiInstance | undefined;
-    vuexStore: any;
-    router: any;
-    i18n: any;
-    cookies: any;
-}`
+{ apiInstance: ShopwareApiInstance \| undefined; vuexStore: any; router: any; i18n: any; cookies: any; }
 

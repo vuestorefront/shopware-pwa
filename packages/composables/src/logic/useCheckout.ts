@@ -15,11 +15,8 @@ import {
   createGuestOrder,
   createOrder as createApiOrder,
 } from "@shopware-pwa/shopware-6-client";
-import {
-  getApplicationContext,
-  useSessionContext,
-} from "@shopware-pwa/composables";
-import { ApplicationVueContext } from "../appContext";
+import { useSessionContext } from "@shopware-pwa/composables";
+import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
 /**
  * interface for {@link useCheckout} composable
