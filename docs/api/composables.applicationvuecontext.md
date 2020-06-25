@@ -12,21 +12,22 @@ Applicatoin Context for Shopware PWA. It's an extended Vue instance.
 <b>Signature:</b>
 
 ```typescript
-export interface ApplicationVueContext extends Vue 
+export interface ApplicationVueContext extends VueConstructor 
 ```
+<b>Extends:</b> VueConstructor
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [$cookies](./composables.applicationvuecontext._cookies.md) | <code>any</code> | <b><i>(BETA)</i></b> |
-|  [$i18n](./composables.applicationvuecontext._i18n.md) | <code>any</code> | <b><i>(BETA)</i></b> |
-|  [$router](./composables.applicationvuecontext._router.md) | <code>any</code> | <b><i>(BETA)</i></b> |
-|  [$shopwareApiInstance](./composables.applicationvuecontext._shopwareapiinstance.md) | <code>ShopwareApiInstance</code> | <b><i>(BETA)</i></b> |
-|  [$store](./composables.applicationvuecontext._store.md) | <code>any</code> | <b><i>(BETA)</i></b> |
-|  [cookies](./composables.applicationvuecontext.cookies.md) | <code>any</code> | <b><i>(BETA)</i></b> |
-|  [i18n](./composables.applicationvuecontext.i18n.md) | <code>any</code> | <b><i>(BETA)</i></b> |
-|  [router](./composables.applicationvuecontext.router.md) | <code>any</code> | <b><i>(BETA)</i></b> |
-|  [shopwareApiInstance](./composables.applicationvuecontext.shopwareapiinstance.md) | <code>ShopwareApiInstance</code> | <b><i>(BETA)</i></b> |
-|  [store](./composables.applicationvuecontext.store.md) | <code>any</code> | <b><i>(BETA)</i></b> |
+|  [$cookies](./composables.applicationvuecontext._cookies.md) | any | <b><i>(BETA)</i></b> |
+|  [$i18n](./composables.applicationvuecontext._i18n.md) | any | <b><i>(BETA)</i></b> |
+|  [$router](./composables.applicationvuecontext._router.md) | any | <b><i>(BETA)</i></b> |
+|  [$shopwareApiInstance](./composables.applicationvuecontext._shopwareapiinstance.md) | ShopwareApiInstance | <b><i>(BETA)</i></b> |
+|  [$store](./composables.applicationvuecontext._store.md) | any | <b><i>(BETA)</i></b> |
+|  [cookies](./composables.applicationvuecontext.cookies.md) | any | <b><i>(BETA)</i></b> |
+|  [i18n](./composables.applicationvuecontext.i18n.md) | any | <b><i>(BETA)</i></b> |
+|  [router](./composables.applicationvuecontext.router.md) | any | <b><i>(BETA)</i></b> |
+|  [shopwareApiInstance](./composables.applicationvuecontext.shopwareapiinstance.md) | ShopwareApiInstance | <b><i>(BETA)</i></b> |
+|  [store](./composables.applicationvuecontext.store.md) | any | <b><i>(BETA)</i></b> |
 
