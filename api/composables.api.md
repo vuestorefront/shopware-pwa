@@ -30,9 +30,10 @@ import { SessionContext } from '@shopware-pwa/commons/interfaces/response/Sessio
 import { ShippingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 import { ShopwareApiInstance } from '@shopware-pwa/shopware-6-client';
+import { VueConstructor } from 'vue';
 
 // @beta
-export interface ApplicationVueContext extends Vue {
+export interface ApplicationVueContext extends VueConstructor {
     // (undocumented)
     $cookies?: any;
     // (undocumented)
