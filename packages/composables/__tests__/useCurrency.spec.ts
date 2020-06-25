@@ -2,17 +2,19 @@ import Vue from "vue";
 import VueCompostionApi from "@vue/composition-api";
 import { Ref, ref, reactive, computed } from "@vue/composition-api";
 import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
-import * as Composables from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
-import { useCurrency } from "@shopware-pwa/composables";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
-
 Vue.use(VueCompostionApi);
 
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 const consoleErrorSpy = jest.spyOn(console, "error");
 consoleErrorSpy.mockImplementation(() => {});
+
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+import { useCurrency } from "../src/hooks/useCurrency";
 
 describe("Composables - useCurrency", () => {
   const stateContext: Ref<Partial<SessionContext> | null> = ref(null);
@@ -36,14 +38,14 @@ describe("Composables - useCurrency", () => {
     jest.resetAllMocks();
     stateContext.value = null;
     mockedCurrentCurrency.value = null;
-    jest.spyOn(Composables, "useSessionContext").mockImplementation(() => {
+    mockedComposables.useSessionContext.mockImplementation(() => {
       return {
         refreshSessionContext: refreshSessionContextMock,
         setCurrency: setCurrencyContextMock,
         currency: mockedCurrentCurrency,
       } as any;
     });
-    jest.spyOn(Composables, "useCart").mockImplementation(() => {
+    mockedComposables.useCart.mockImplementation(() => {
       return {
         refreshCart: refreshCartMock,
       } as any;

@@ -1,13 +1,9 @@
 import Vue from "vue";
 import { reactive, computed, Ref } from "@vue/composition-api";
 import { getAvailableCurrencies } from "@shopware-pwa/shopware-6-client";
-import {
-  useSessionContext,
-  useCart,
-  getApplicationContext,
-} from "@shopware-pwa/composables";
+import { useSessionContext, useCart } from "@shopware-pwa/composables";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
-import { ApplicationVueContext } from "../appContext";
+import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
 const sharedCurrencyState = Vue.observable({
   availableCurrencies: [],
