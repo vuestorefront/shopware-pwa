@@ -44,8 +44,8 @@ export default {
     SwTopNavigation,
     SwSearchBar,
   },
-  setup() {
-    const { isOpen } = useUIState("MEGA_MENU_OVERLAY_STATE")
+  setup(props, {root}) {
+    const { isOpen } = useUIState(root, "MEGA_MENU_OVERLAY_STATE")
 
     return {
       isOpen,

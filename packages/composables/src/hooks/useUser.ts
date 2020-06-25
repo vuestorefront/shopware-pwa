@@ -23,7 +23,6 @@ import {
   CustomerResetPasswordParam,
 } from "@shopware-pwa/shopware-6-client";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
-import { getStore } from "@shopware-pwa/composables";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import {
   CustomerAddress,
@@ -33,6 +32,8 @@ import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/req
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
+import { getApplicationContext } from "@shopware-pwa/composables";
+import { ApplicationVueContext } from "../appContext";
 
 /**
  * interface for {@link useUser} composable
@@ -89,8 +90,12 @@ export interface IUseUser {
  *
  * @beta
  */
-export const useUser = (): IUseUser => {
-  let vuexStore = getStore();
+export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
+  const { vuexStore, apiInstance } = getApplicationContext(
+    rootContext,
+    "useUser"
+  );
+
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
   const orders: Ref<Order[] | null> = ref(null);
@@ -108,7 +113,7 @@ export const useUser = (): IUseUser => {
     loading.value = true;
     error.value = null;
     try {
-      await apiLogin({ username, password });
+      await apiLogin({ username, password }, apiInstance);
       return true;
     } catch (e) {
       const err: ClientApiError = e;
@@ -126,7 +131,7 @@ export const useUser = (): IUseUser => {
     loading.value = true;
     error.value = null;
     try {
-      await apiRegister(params);
+      await apiRegister(params, apiInstance);
       return true;
     } catch (e) {
       const err: ClientApiError = e;
@@ -139,7 +144,7 @@ export const useUser = (): IUseUser => {
 
   const logout = async (): Promise<void> => {
     try {
-      await apiLogout();
+      await apiLogout(apiInstance);
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
@@ -150,7 +155,7 @@ export const useUser = (): IUseUser => {
 
   const refreshUser = async (): Promise<void> => {
     try {
-      const user = await getCustomer();
+      const user = await getCustomer(apiInstance);
       vuexStore.commit("SET_USER", user);
     } catch (e) {
       console.error("useUser:refreshUser:getCustomer", e);
@@ -158,7 +163,7 @@ export const useUser = (): IUseUser => {
   };
 
   const loadOrders = async (): Promise<void> => {
-    const fetchedOrders = await getCustomerOrders();
+    const fetchedOrders = await getCustomerOrders(apiInstance);
     orders.value = fetchedOrders;
   };
 
@@ -167,7 +172,7 @@ export const useUser = (): IUseUser => {
 
   const loadAddresses = async (): Promise<void> => {
     try {
-      addresses.value = await getCustomerAddresses();
+      addresses.value = await getCustomerAddresses(apiInstance);
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
@@ -176,7 +181,7 @@ export const useUser = (): IUseUser => {
 
   const loadCountry = async (userId: string): Promise<void> => {
     try {
-      country.value = await getUserCountry(userId);
+      country.value = await getUserCountry(userId, apiInstance);
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
@@ -185,7 +190,7 @@ export const useUser = (): IUseUser => {
 
   const loadSalutation = async (salutationId: string): Promise<void> => {
     try {
-      salutation.value = await getUserSalutation(salutationId);
+      salutation.value = await getUserSalutation(salutationId, apiInstance);
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
@@ -206,10 +211,10 @@ export const useUser = (): IUseUser => {
     try {
       switch (type) {
         case AddressType.billing:
-          await setDefaultCustomerBillingAddress(addressId);
+          await setDefaultCustomerBillingAddress(addressId, apiInstance);
           break;
         case AddressType.shipping:
-          await setDefaultCustomerShippingAddress(addressId);
+          await setDefaultCustomerShippingAddress(addressId, apiInstance);
           break;
         default:
           return false;
@@ -228,7 +233,7 @@ export const useUser = (): IUseUser => {
     params: Partial<CustomerAddress>
   ): Promise<boolean> => {
     try {
-      await createCustomerAddress(params);
+      await createCustomerAddress(params, apiInstance);
       return true;
     } catch (e) {
       const err: ClientApiError = e;
@@ -239,7 +244,7 @@ export const useUser = (): IUseUser => {
 
   const deleteAddress = async (addressId: string): Promise<boolean> => {
     try {
-      await deleteCustomerAddress(addressId);
+      await deleteCustomerAddress(addressId, apiInstance);
       return true;
     } catch (e) {
       const err: ClientApiError = e;
@@ -253,7 +258,7 @@ export const useUser = (): IUseUser => {
     personals: CustomerUpdateProfileParam
   ): Promise<boolean> => {
     try {
-      await updateProfile(personals);
+      await updateProfile(personals, apiInstance);
     } catch (e) {
       error.value = e;
       return false;
@@ -265,7 +270,7 @@ export const useUser = (): IUseUser => {
     updatePasswordData: CustomerUpdatePasswordParam
   ): Promise<boolean> => {
     try {
-      await apiUpdatePassword(updatePasswordData);
+      await apiUpdatePassword(updatePasswordData, apiInstance);
     } catch (e) {
       error.value = e;
       return false;
@@ -277,7 +282,7 @@ export const useUser = (): IUseUser => {
     resetPasswordData: CustomerResetPasswordParam
   ): Promise<boolean> => {
     try {
-      await apiResetPassword(resetPasswordData);
+      await apiResetPassword(resetPasswordData, apiInstance);
     } catch (e) {
       error.value = e;
       return false;
@@ -289,7 +294,7 @@ export const useUser = (): IUseUser => {
     updateEmailData: CustomerUpdateEmailParam
   ): Promise<boolean> => {
     try {
-      await apiUpdateEmail(updateEmailData);
+      await apiUpdateEmail(updateEmailData, apiInstance);
     } catch (e) {
       error.value = e;
       return false;

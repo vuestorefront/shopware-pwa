@@ -18,7 +18,7 @@ export interface CurrentPagination
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [currentPage](./composables.currentpagination.currentpage.md) | <code>number &#124; undefined</code> | <b><i>(BETA)</i></b> |
-|  [perPage](./composables.currentpagination.perpage.md) | <code>number &#124; undefined</code> | <b><i>(BETA)</i></b> |
-|  [total](./composables.currentpagination.total.md) | <code>number &#124; undefined</code> | <b><i>(BETA)</i></b> |
+|  [currentPage](./composables.currentpagination.currentpage.md) | number \| undefined | <b><i>(BETA)</i></b> |
+|  [perPage](./composables.currentpagination.perpage.md) | number \| undefined | <b><i>(BETA)</i></b> |
+|  [total](./composables.currentpagination.total.md) | number \| undefined | <b><i>(BETA)</i></b> |
 

@@ -86,8 +86,8 @@ export default {
       default: () => ({}),
     },
   },
-  setup() {
-    const { categoryId } = useCms()
+  setup(props, { root }) {
+    const { categoryId } = useCms(root)
 
     return { categoryId, getCategoryUrl }
   },
@@ -103,10 +103,13 @@ export default {
     },
   },
   async mounted() {
-    const { children } = await getNavigation({
-      depth: 2,
-      rootNode: this.categoryId,
-    })
+    const { children } = await getNavigation(
+      {
+        depth: 2,
+        rootNode: this.categoryId,
+      },
+      this.$shopwareApiInstance
+    )
     this.navigationElements = children
   },
 }

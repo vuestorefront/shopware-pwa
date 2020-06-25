@@ -59,14 +59,14 @@ export default {
       terms: false,
     }
   },
-  setup() {
+  setup(props, {root}) {
     const {
       cartItems,
       subtotal,
       totalPrice,
       removeProduct,
       refreshCart,
-    } = useCart()
+    } = useCart(root)
     return {
       cartItems,
       refreshCart,

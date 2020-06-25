@@ -13,14 +13,11 @@
       />
     </div>
     <SwPluginSlot name="product-page-description" :slotContext="product">
-      <p
-        class="product-details__description desktop-only"
-        v-html="description"
-      />
+      <p class="product-details__description" v-html="description" />
     </SwPluginSlot>
     <!-- <div class="product-details__action">
       <button v-if="sizes.length > 0" class="sf-action">Size guide</button>
-    </div> -->
+    </div>-->
     <div v-if="hasChildren" class="product-details__section">
       <div v-for="productType in getAllProductOptionsTypes" :key="productType">
         <SwProductColors
@@ -40,37 +37,19 @@
       </div>
     </div>
     <div class="product-details__section">
-      <SfAlert
-        message="Low in stock"
-        type="warning"
-        class="product-details__alert mobile-only"
-      />
+      <SfAlert message="Low in stock" type="warning" class="product-details__alert mobile-only" />
       <SfAddToCart
         v-model="quantity"
         :stock="stock"
         class="product-details__add-to-cart"
         @click="addToCart"
       />
-      <SwPluginSlot
-        name="product-page-add-to-cart-button-after"
-        :slotContext="product"
-      />
-
+      <SwPluginSlot name="product-page-add-to-cart-button-after" :slotContext="product" />
       <div v-if="productNumber" class="product-details__product-number">
         <p>Product number: <span v-html="productNumber" /></p>
       </div>
-
-      <div class="product-details__action desktop-only">
-        <SwButton class="sf-button--text product-details__action-button"
-          >Save for later</SwButton
-        >
-        <SwButton class="sf-button--text product-details__action-button"
-          >Add to compare</SwButton
-        >
-      </div>
     </div>
     <SwProductTabs
-      :description="description"
       :properties="properties"
       :reviews="reviews"
       :manufacturer="product.manufacturer"
@@ -95,14 +74,12 @@ import SwProductHeading from "@shopware-pwa/default-theme/components/SwProductHe
 import SwProductSelect from "@shopware-pwa/default-theme/components/SwProductSelect"
 import SwProductColors from "@shopware-pwa/default-theme/components/SwProductColors"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 
 import SwProductTabs from "@shopware-pwa/default-theme/components/SwProductTabs"
 export default {
   name: "SwProductDetails",
   components: {
     SfAlert,
-    SwButton,
     SfProductOption,
     SfAddToCart,
     SwProductHeading,
@@ -126,8 +103,8 @@ export default {
       selected: {},
     }
   },
-  setup({ page }) {
-    const { addToCart, quantity } = useAddToCart(page && page.product)
+  setup({ page }, { root }) {
+    const { addToCart, quantity } = useAddToCart(root, page && page.product)
 
     return {
       quantity,
@@ -268,7 +245,7 @@ export default {
     margin-bottom: var(--spacer-base);
   }
   &__description {
-    margin: var(--spacer-xl) 0 calc(var(--spacer-base) * 3) 0;
+    margin: var(--spacer-xl) 0;
     font-family: var(--font-family-secondary);
     font-size: var(--font-sm);
   }

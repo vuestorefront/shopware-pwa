@@ -7,30 +7,33 @@ import VueCompositionApi, {
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
-import { useCategoryFilters, setStore } from "@shopware-pwa/composables";
+import { useCategoryFilters } from "@shopware-pwa/composables";
 
 describe("Composables - useCategoryFilters", () => {
   const statePage: Ref<Object | null> = ref(null);
-  beforeEach(() => {
-    jest.resetAllMocks();
-    statePage.value = null;
-    setStore({
+  const rootContextMock: any = {
+    $store: {
       getters: reactive({ getPage: computed(() => statePage.value) }),
       commit: (name: string, value: any) => {
         statePage.value = value;
       },
-    });
+    },
+    $shopwareApiInstance: jest.fn(),
+  };
+  beforeEach(() => {
+    jest.resetAllMocks();
+    statePage.value = null;
   });
 
   describe("computed", () => {
     describe("availableFilters", () => {
       it("should return empty array if there is no page loaded", () => {
-        const { availableFilters } = useCategoryFilters();
+        const { availableFilters } = useCategoryFilters(rootContextMock);
         expect(availableFilters.value).toBeTruthy();
         expect(availableFilters.value).toHaveLength(0);
       });
       it("should return array filters if there is page loaded", () => {
-        const { availableFilters } = useCategoryFilters();
+        const { availableFilters } = useCategoryFilters(rootContextMock);
         expect(availableFilters.value).toBeTruthy();
         expect(availableFilters.value).toHaveLength(0);
         statePage.value = {
@@ -54,13 +57,13 @@ describe("Composables - useCategoryFilters", () => {
     });
     describe("activeFilters", () => {
       it("should return empty array if there is no page loaded", () => {
-        const { activeFilters } = useCategoryFilters();
+        const { activeFilters } = useCategoryFilters(rootContextMock);
         expect(activeFilters.value).toBeTruthy();
         expect(activeFilters.value).toHaveLength(0);
       });
       it("should return array of active filters if there is a page loaded", () => {
         statePage.value = {};
-        const { activeFilters } = useCategoryFilters();
+        const { activeFilters } = useCategoryFilters(rootContextMock);
         expect(activeFilters.value).toBeTruthy();
         expect(activeFilters.value).toHaveLength(0);
         statePage.value = {
@@ -89,7 +92,7 @@ describe("Composables - useCategoryFilters", () => {
 
     describe("availableSorting", () => {
       it("should return empty array if there is no page loaded", () => {
-        const { availableSorting } = useCategoryFilters();
+        const { availableSorting } = useCategoryFilters(rootContextMock);
         expect(availableSorting.value).toBeTruthy();
         expect(availableSorting.value).toHaveLength(0);
       });
@@ -112,7 +115,7 @@ describe("Composables - useCategoryFilters", () => {
 
         statePage.value = listingConfiguration;
 
-        const { availableSorting } = useCategoryFilters();
+        const { availableSorting } = useCategoryFilters(rootContextMock);
         expect(availableSorting.value).toBeTruthy();
         expect(availableSorting.value).toHaveLength(2);
         expect(availableSorting.value).toStrictEqual([
@@ -124,7 +127,7 @@ describe("Composables - useCategoryFilters", () => {
 
     describe("activeSorting", () => {
       it("should return no sorting when any is active", () => {
-        const { activeSorting } = useCategoryFilters();
+        const { activeSorting } = useCategoryFilters(rootContextMock);
         expect(activeSorting.value).toBeFalsy();
       });
 
@@ -146,7 +149,7 @@ describe("Composables - useCategoryFilters", () => {
 
         statePage.value = listingConfiguration;
 
-        const { activeSorting } = useCategoryFilters();
+        const { activeSorting } = useCategoryFilters(rootContextMock);
         expect(activeSorting.value).toEqual({
           name: "name-asc",
           field: "name",

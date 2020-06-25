@@ -121,7 +121,9 @@ export async function getCustomerAddresses(
 export async function getCustomerOrders(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Order[]> {
-  const resp = await contextInstance.invoke.get(getCustomerOrderEndpoint());
+  const resp = await contextInstance.invoke.get(
+    `${getCustomerOrderEndpoint()}?sort=-createdAt`
+  );
   return resp.data.orders?.elements || [];
 }
 

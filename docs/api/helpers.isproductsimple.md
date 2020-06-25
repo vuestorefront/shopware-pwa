@@ -20,9 +20,9 @@ export declare function isProductSimple({ product, }?: {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { product, } | <code>{</code><br/><code>    product?: Product;</code><br/><code>}</code> |  |
+|  { product, } | { product?: Product; } |  |
 
 <b>Returns:</b>
 
-`boolean`
+boolean
 

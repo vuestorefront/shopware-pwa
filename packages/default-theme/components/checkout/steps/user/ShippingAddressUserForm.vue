@@ -58,8 +58,8 @@ import SwAddress from "@shopware-pwa/default-theme/components/forms/SwAddress.vu
 export default {
   name: "ShippingAddressUserForm",
   components: { SfList, SfRadio, SfCheckbox, SwButton, SfModal, SwAddress },
-  setup() {
-    const { addresses, loadAddresses, user } = useUser()
+  setup(props, {root}) {
+    const { addresses, loadAddresses, user } = useUser(root)
     loadAddresses()
 
     const selectedAddressId = ref(user.value.defaultShippingAddressId)

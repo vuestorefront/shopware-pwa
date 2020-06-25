@@ -33,7 +33,7 @@ export const getSortingLabel = (sorting) => {
   return `${sorting.field} ${label}`
 }
 
-export const formatDate = (date, format = `DD-MM-YYYY H:m:s`) =>
+export const formatDate = (date, format = `DD-MM-YYYY HH:mm:ss`) =>
   dayjs(date).format(format)
 
 export const getSearchPageUrl = (searchTerm) =>

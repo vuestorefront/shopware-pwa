@@ -172,9 +172,9 @@ export default {
     },
   },
   setup(props) {
-    const { getSalutations, error: salutationsError } = useSalutations()
-    const { addAddress, error: userError } = useUser()
-    const { getCountries, error: countriesError } = useCountries()
+    const { getSalutations, error: salutationsError } = useSalutations(root)
+    const { addAddress, error: userError } = useUser(root)
+    const { getCountries, error: countriesError } = useCountries(root)
     const editAddress = ref(false)
     const editedAddress = ref(-1)
     const form = reactive(JSON.parse(JSON.stringify(props.address)))
