@@ -1,12 +1,13 @@
 import { getCurrentInstance } from "@vue/composition-api";
 import { ShopwareApiInstance } from "@shopware-pwa/shopware-6-client";
+import { VueConstructor } from "vue";
 
 /**
  * Applicatoin Context for Shopware PWA. It's an extended Vue instance.
  *
  * @beta
  */
-export interface ApplicationVueContext extends Vue {
+export interface ApplicationVueContext extends VueConstructor {
   $shopwareApiInstance?: ShopwareApiInstance;
   shopwareApiInstance?: ShopwareApiInstance;
   $store?: any; // Vuex Store
@@ -43,7 +44,7 @@ export function getApplicationContext(
 ) {
   let context = rootContext;
   if (!checkAppContext(key, rootContext)) {
-    context = getCurrentInstance() as ApplicationVueContext;
+    context = getCurrentInstance() as any;
   }
   return {
     apiInstance: context?.$shopwareApiInstance || context?.shopwareApiInstance,

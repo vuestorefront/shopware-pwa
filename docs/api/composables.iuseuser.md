@@ -19,28 +19,28 @@ export interface IUseUser
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [addAddress](./composables.iuseuser.addaddress.md) | <code>(params: Partial&lt;CustomerAddress&gt;) =&gt; Promise&lt;boolean&gt;</code> | <b><i>(BETA)</i></b> |
-|  [addresses](./composables.iuseuser.addresses.md) | <code>Ref&lt;CustomerAddress[] &#124; null&gt;</code> | <b><i>(BETA)</i></b> |
-|  [country](./composables.iuseuser.country.md) | <code>Ref&lt;Country &#124; null&gt;</code> | <b><i>(BETA)</i></b> |
-|  [deleteAddress](./composables.iuseuser.deleteaddress.md) | <code>(addressId: string) =&gt; Promise&lt;boolean&gt;</code> | <b><i>(BETA)</i></b> |
-|  [error](./composables.iuseuser.error.md) | <code>Ref&lt;any&gt;</code> | <b><i>(BETA)</i></b> |
-|  [getOrderDetails](./composables.iuseuser.getorderdetails.md) | <code>(orderId: string) =&gt; Promise&lt;Order &#124; undefined&gt;</code> | <b><i>(BETA)</i></b> |
-|  [isLoggedIn](./composables.iuseuser.isloggedin.md) | <code>Ref&lt;boolean&gt;</code> | <b><i>(BETA)</i></b> |
-|  [loadAddresses](./composables.iuseuser.loadaddresses.md) | <code>() =&gt; Promise&lt;void&gt;</code> | <b><i>(BETA)</i></b> |
-|  [loadCountry](./composables.iuseuser.loadcountry.md) | <code>(countryId: string) =&gt; Promise&lt;void&gt;</code> | <b><i>(BETA)</i></b> |
-|  [loading](./composables.iuseuser.loading.md) | <code>Ref&lt;boolean&gt;</code> | <b><i>(BETA)</i></b> |
-|  [loadOrders](./composables.iuseuser.loadorders.md) | <code>() =&gt; Promise&lt;void&gt;</code> | <b><i>(BETA)</i></b> |
-|  [loadSalutation](./composables.iuseuser.loadsalutation.md) | <code>(salutationId: string) =&gt; Promise&lt;void&gt;</code> | <b><i>(BETA)</i></b> |
-|  [login](./composables.iuseuser.login.md) | <code>({ username, password, }: {</code><br/><code>        username?: string;</code><br/><code>        password?: string;</code><br/><code>    }) =&gt; Promise&lt;boolean&gt;</code> | <b><i>(BETA)</i></b> |
-|  [logout](./composables.iuseuser.logout.md) | <code>() =&gt; Promise&lt;void&gt;</code> | <b><i>(BETA)</i></b> |
-|  [markAddressAsDefault](./composables.iuseuser.markaddressasdefault.md) | <code>({ addressId, type, }: {</code><br/><code>        addressId?: string;</code><br/><code>        type?: AddressType;</code><br/><code>    }) =&gt; Promise&lt;string &#124; boolean&gt;</code> | <b><i>(BETA)</i></b> |
-|  [orders](./composables.iuseuser.orders.md) | <code>Ref&lt;Order[] &#124; null&gt;</code> | <b><i>(BETA)</i></b> |
-|  [refreshUser](./composables.iuseuser.refreshuser.md) | <code>() =&gt; Promise&lt;void&gt;</code> | <b><i>(BETA)</i></b> |
-|  [register](./composables.iuseuser.register.md) | <code>({}: CustomerRegistrationParams) =&gt; Promise&lt;boolean&gt;</code> | <b><i>(BETA)</i></b> |
-|  [resetPassword](./composables.iuseuser.resetpassword.md) | <code>(resetPasswordData: CustomerResetPasswordParam) =&gt; Promise&lt;boolean&gt;</code> | <b><i>(BETA)</i></b> |
-|  [salutation](./composables.iuseuser.salutation.md) | <code>Ref&lt;Salutation &#124; null&gt;</code> | <b><i>(BETA)</i></b> |
-|  [updateEmail](./composables.iuseuser.updateemail.md) | <code>(updateEmailData: CustomerUpdateEmailParam) =&gt; Promise&lt;boolean&gt;</code> | <b><i>(BETA)</i></b> |
-|  [updatePassword](./composables.iuseuser.updatepassword.md) | <code>(updatePasswordData: CustomerUpdatePasswordParam) =&gt; Promise&lt;boolean&gt;</code> | <b><i>(BETA)</i></b> |
-|  [updatePersonalInfo](./composables.iuseuser.updatepersonalinfo.md) | <code>(personals: CustomerUpdateProfileParam) =&gt; Promise&lt;boolean&gt;</code> | <b><i>(BETA)</i></b> |
-|  [user](./composables.iuseuser.user.md) | <code>Ref&lt;Customer &#124; null&gt;</code> | <b><i>(BETA)</i></b> |
+|  [addAddress](./composables.iuseuser.addaddress.md) | (params: Partial&lt;CustomerAddress&gt;) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
+|  [addresses](./composables.iuseuser.addresses.md) | Ref&lt;CustomerAddress\[\] \| null&gt; | <b><i>(BETA)</i></b> |
+|  [country](./composables.iuseuser.country.md) | Ref&lt;Country \| null&gt; | <b><i>(BETA)</i></b> |
+|  [deleteAddress](./composables.iuseuser.deleteaddress.md) | (addressId: string) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
+|  [error](./composables.iuseuser.error.md) | Ref&lt;any&gt; | <b><i>(BETA)</i></b> |
+|  [getOrderDetails](./composables.iuseuser.getorderdetails.md) | (orderId: string) =&gt; Promise&lt;Order \| undefined&gt; | <b><i>(BETA)</i></b> |
+|  [isLoggedIn](./composables.iuseuser.isloggedin.md) | Ref&lt;boolean&gt; | <b><i>(BETA)</i></b> |
+|  [loadAddresses](./composables.iuseuser.loadaddresses.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
+|  [loadCountry](./composables.iuseuser.loadcountry.md) | (countryId: string) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
+|  [loading](./composables.iuseuser.loading.md) | Ref&lt;boolean&gt; | <b><i>(BETA)</i></b> |
+|  [loadOrders](./composables.iuseuser.loadorders.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
+|  [loadSalutation](./composables.iuseuser.loadsalutation.md) | (salutationId: string) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
+|  [login](./composables.iuseuser.login.md) | ({ username, password, }: { username?: string; password?: string; }) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
+|  [logout](./composables.iuseuser.logout.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
+|  [markAddressAsDefault](./composables.iuseuser.markaddressasdefault.md) | ({ addressId, type, }: { addressId?: string; type?: AddressType; }) =&gt; Promise&lt;string \| boolean&gt; | <b><i>(BETA)</i></b> |
+|  [orders](./composables.iuseuser.orders.md) | Ref&lt;Order\[\] \| null&gt; | <b><i>(BETA)</i></b> |
+|  [refreshUser](./composables.iuseuser.refreshuser.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
+|  [register](./composables.iuseuser.register.md) | ({}: CustomerRegistrationParams) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
+|  [resetPassword](./composables.iuseuser.resetpassword.md) | (resetPasswordData: CustomerResetPasswordParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
+|  [salutation](./composables.iuseuser.salutation.md) | Ref&lt;Salutation \| null&gt; | <b><i>(BETA)</i></b> |
+|  [updateEmail](./composables.iuseuser.updateemail.md) | (updateEmailData: CustomerUpdateEmailParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
+|  [updatePassword](./composables.iuseuser.updatepassword.md) | (updatePasswordData: CustomerUpdatePasswordParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
+|  [updatePersonalInfo](./composables.iuseuser.updatepersonalinfo.md) | (personals: CustomerUpdateProfileParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
+|  [user](./composables.iuseuser.user.md) | Ref&lt;Customer \| null&gt; | <b><i>(BETA)</i></b> |
 

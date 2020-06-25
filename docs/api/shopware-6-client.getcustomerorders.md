@@ -19,11 +19,11 @@ export declare function getCustomerOrders(contextInstance?: ShopwareApiInstance)
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contextInstance | <code>ShopwareApiInstance</code> |  |
+|  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 <b>Returns:</b>
 
-`Promise<Order[]>`
+Promise&lt;Order\[\]&gt;
 
 ## Exceptions
 
