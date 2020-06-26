@@ -8,5 +8,5 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
  * @alpha
  */
 export function getRatingAverage(product: Product): number | null {
-  return product?.ratingAverage || null;
+  return product?.ratingAverage;
 }

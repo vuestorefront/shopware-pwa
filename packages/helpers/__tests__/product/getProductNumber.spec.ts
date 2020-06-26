@@ -1,16 +1,16 @@
 import { getProductNumber } from "@shopware-pwa/helpers";
 
 describe("Shopware helpers - getProductNumber", () => {
-  it("should return null when no product object", () => {
+  it("should return undefined when no product object", () => {
     const productNumber = getProductNumber(undefined as any);
-    expect(productNumber).toBeNull();
+    expect(productNumber).toBe(undefined);
   });
 
-  it("should return null when no productNumber property in product", () => {
+  it("should return undefined when no productNumber property in product", () => {
     const args: any = {};
 
     const productNumber = getProductNumber(args);
-    expect(productNumber).toBeNull();
+    expect(productNumber).toBe(undefined);
   });
 
   it("should return String when productNumber property is in product", () => {

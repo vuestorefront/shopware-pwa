@@ -3,7 +3,7 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 /**
  * Get product has free shipping option
  *
- * @returns (boolean, undefined)
+ * @returns (boolean)
  *
  * @alpha
  */
