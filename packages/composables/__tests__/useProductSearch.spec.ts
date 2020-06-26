@@ -8,7 +8,6 @@ import { SearchFilterType } from "@shopware-pwa/commons/interfaces/search/Search
 const mockedApi = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 describe("Composables - useProductSearch", () => {
-  console.error = jest.fn();
   const rootContextMock: any = {
     $store: jest.fn(),
     $shopwareApiInstance: jest.fn(),

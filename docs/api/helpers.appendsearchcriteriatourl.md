@@ -18,10 +18,10 @@ export declare function appendSearchCriteriaToUrl(searchCriteria: SearchCriteria
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  searchCriteria | <code>SearchCriteria</code> |  |
-|  searchTerm | <code>string</code> |  |
+|  searchCriteria | SearchCriteria |  |
+|  searchTerm | string |  |
 
 <b>Returns:</b>
 
-`void`
+void
 

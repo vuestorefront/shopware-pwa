@@ -30,8 +30,6 @@ module.exports = (toolbox: GluegunToolbox) => {
       test: "jest",
       mode: "universal",
       devTools: [],
-      target: "server",
-      telemetry: false,
     };
     if (!isNuxtGenerated) {
       const nuxtGenerate = `npx --ignore-existing create-nuxt-app@2.15.0 --answers "${JSON.stringify(

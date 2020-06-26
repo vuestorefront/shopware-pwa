@@ -18,10 +18,10 @@ export declare function appendQueryParamsToSearchCriteria(params: ListingQueryPa
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  params | <code>ListingQueryParams</code> |  |
-|  searchCriteria | <code>SearchCriteria</code> |  |
+|  params | ListingQueryParams |  |
+|  searchCriteria | SearchCriteria |  |
 
 <b>Returns:</b>
 
-`void`
+void
 

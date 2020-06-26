@@ -61,7 +61,7 @@ export interface ListingQueryParams {
 /**
  * @beta
  */
-export interface NewShopwareParams {
+export interface ShopwareSearchParams {
   p?: number | undefined;
   limit?: number | undefined;
   sort?: string | undefined;

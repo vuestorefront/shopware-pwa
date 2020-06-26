@@ -71,7 +71,12 @@
           <div v-for="filter in filters" :key="filter.name">
             <SfHeading class="filters__title" :level="4" :title="filter.name" />
             <div
-              v-if="filter && filter.type === 'entity' && filter.options && filter.options.length"
+              v-if="
+                filter &&
+                filter.type === 'entity' &&
+                filter.options &&
+                filter.options.length
+              "
               :class="{
                 'filters__filter--color':
                   filter.name && filter.name === 'color',
@@ -86,7 +91,8 @@
                 :selected="!!selectedFilters.find((id) => id === option.value)"
                 class="filters__item"
                 :class="{ 'filters__item--color': option.color }"
-                @change="$emit('toggle-filter-value', {
+                @change="
+                  $emit('toggle-filter-value', {
                     type: 'equals',
                     value: option.value,
                     field: filter.name,
@@ -125,7 +131,7 @@ import {
   useCategoryFilters,
   useProductListing,
   useUIState,
-  useProductSearch
+  useProductSearch,
 } from "@shopware-pwa/composables"
 
 import { getSearchResults } from "@shopware-pwa/shopware-6-client"
@@ -151,16 +157,16 @@ export default {
     },
     filters: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     selectedFilters: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
-  setup({ listing }, { emit }) {
+  setup({ listing }, { root, emit }) {
     const availableSorting = ref(listing.sortings)
-    const selectedSortingField = ref(listing.sorting);
+    const selectedSortingField = ref(listing.sorting)
     const sortings = computed(() =>
       getCategoryAvailableSorting({ sorting: availableSorting.value })
     )
@@ -171,6 +177,7 @@ export default {
       },
     })
     const { isOpen: isListView, switchState: switchToListView } = useUIState(
+      root,
       "PRODUCT_LISTING_STATE"
     )
 
@@ -185,7 +192,7 @@ export default {
   },
   data() {
     return {
-      isFilterSidebarOpen: false
+      isFilterSidebarOpen: false,
     }
   },
   computed: {
@@ -199,11 +206,11 @@ export default {
 
   methods: {
     async clearAllFilters() {
-      this.$emit('reset-filters');
+      this.$emit("reset-filters")
       this.isFilterSidebarOpen = false
     },
     async submitFilters() {
-      await this.$emit('submit-filters')
+      await this.$emit("submit-filters")
       this.isFilterSidebarOpen = false
     },
   },

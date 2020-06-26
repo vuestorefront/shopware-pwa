@@ -4,9 +4,10 @@ import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCr
 import {
   convertSearchCriteria,
   ApiType,
-  convertNewSearchCriteria,
+  convertShopwareSearchCriteria,
 } from "../helpers/searchConverter";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
+import { deprecationWarning } from "@shopware-pwa/commons";
 
 /**
  * @throws ClientApiError
@@ -32,6 +33,23 @@ export async function getSuggestedResults(
 }
 
 /**
+ * @beta
+ * @deprecated
+ */
+export async function getResults(
+  term: string,
+  searchCriteria?: SearchCriteria,
+  contextInstance: ShopwareApiInstance = defaultInstance
+) {
+  deprecationWarning({
+    methodName: "getResults",
+    newMethodName: "getSearchResults",
+    packageName: "shopware-6-client",
+  });
+  return getSearchResults(term, searchCriteria, contextInstance);
+}
+
+/**
  * @throws ClientApiError
  * @beta
  */
@@ -44,7 +62,7 @@ export async function getSearchResults(
   const resp = await contextInstance.invoke.post(
     `${getSearchEndpoint()}?search=${term}`,
     {
-      ...convertNewSearchCriteria(searchCriteria),
+      ...convertShopwareSearchCriteria(searchCriteria),
     }
   );
 

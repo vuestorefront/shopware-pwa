@@ -1,6 +1,6 @@
 import {
   SearchCriteria,
-  NewShopwareParams,
+  ShopwareSearchParams,
 } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import {
   NotFilter,
@@ -15,6 +15,7 @@ import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Ass
 import { Grouping } from "@shopware-pwa/commons/interfaces/search/Grouping";
 import { convertToStoreApiFilters } from "../helpers/convertToStoreApiFilters";
 import { ClientSettings } from "../settings";
+import { deprecationWarning } from "@shopware-pwa/commons";
 
 export enum ApiType {
   store = "store-api",
@@ -22,7 +23,7 @@ export enum ApiType {
 }
 
 /**
- * @deprecated - that interface will be replaced with the new one from NewShopwareParams to follow the product-listing filters interface.
+ * @deprecated - that interface will be replaced with the new one from ShopwareSearchParams to follow the product-listing filters interface.
  * @alpha
  */
 export interface ShopwareParams {
@@ -48,9 +49,9 @@ export interface ShopwareParams {
  * @param apiType - depending on api type, the output should be different (especially sorting and filters part)
  * @alpha
  **/
-export const convertNewSearchCriteria = (
+export const convertShopwareSearchCriteria = (
   searchCriteria?: SearchCriteria
-): NewShopwareParams => {
+): ShopwareSearchParams => {
   const params = {
     limit: searchCriteria?.pagination?.limit || 10,
     p: searchCriteria?.pagination?.page || 1,
@@ -63,7 +64,7 @@ export const convertNewSearchCriteria = (
 };
 
 /**
- * @deprecated - since SW 6.2 the listing filters will be formatted as convertNewSearchCriteria method does
+ * @deprecated - since SW 6.2 the listing filters will be formatted as convertShopwareSearchCriteria method does
  * @param apiType - depending on api type, the output should be different (especially sorting and filters part)
  * @alpha
  **/
@@ -76,6 +77,11 @@ export const convertSearchCriteria = ({
   apiType?: ApiType;
   config: ClientSettings;
 }): ShopwareParams => {
+  deprecationWarning({
+    methodName: "convertSearchCriteria",
+    newMethodName: "convertShopwareSearchCriteria",
+    packageName: "helpers",
+  });
   let params: ShopwareParams = {
     limit: config.defaultPaginationLimit,
   };

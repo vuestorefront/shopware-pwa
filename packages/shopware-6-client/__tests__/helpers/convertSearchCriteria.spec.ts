@@ -1,6 +1,6 @@
 import {
   convertSearchCriteria,
-  convertNewSearchCriteria,
+  convertShopwareSearchCriteria,
   ApiType,
 } from "../../src/helpers/searchConverter";
 import {
@@ -13,13 +13,13 @@ import {
 import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
 import { config, setup, update } from "@shopware-pwa/shopware-6-client";
 
-describe("SearchConverter - convertNewSearchCriteria", () => {
+describe("SearchConverter - convertShopwareSearchCriteria", () => {
   it("should return default request params if there are lacks of properties", () => {
     const searchCriteria = {
       pagination: { page: PaginationLimit.ONE },
     };
 
-    const result = convertNewSearchCriteria(searchCriteria);
+    const result = convertShopwareSearchCriteria(searchCriteria);
     expect(result).toStrictEqual({
       limit: 10,
       manufacturer: undefined,
@@ -34,7 +34,7 @@ describe("SearchConverter - convertNewSearchCriteria", () => {
       manufacturer: undefined,
     };
 
-    const result = convertNewSearchCriteria(searchCriteria);
+    const result = convertShopwareSearchCriteria(searchCriteria);
     expect(result).toStrictEqual({
       limit: 10,
       manufacturer: undefined,
@@ -49,7 +49,7 @@ describe("SearchConverter - convertNewSearchCriteria", () => {
       manufacturer: ["divante", "shopware"],
     };
 
-    const result = convertNewSearchCriteria(searchCriteria);
+    const result = convertShopwareSearchCriteria(searchCriteria);
     expect(result).toStrictEqual({
       limit: 10,
       manufacturer: "divante|shopware",
@@ -65,7 +65,7 @@ describe("SearchConverter - convertNewSearchCriteria", () => {
       },
     } as any;
 
-    const result = convertNewSearchCriteria(searchCriteria);
+    const result = convertShopwareSearchCriteria(searchCriteria);
     expect(result).toStrictEqual({
       limit: 10,
       manufacturer: undefined,
