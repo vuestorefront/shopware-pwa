@@ -46,3 +46,7 @@ export const getProductFreeShipping = (product) => {
 export const getProductNumber = (product) => {
   return (product && product.productNumber) || null
 }
+
+export const getRatingAverage = (product) => {
+  return product && product.ratingAverage
+}

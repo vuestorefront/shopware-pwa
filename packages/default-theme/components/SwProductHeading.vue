@@ -47,13 +47,18 @@
 </template>
 
 <script>
-import { getProductFreeShipping } from "@shopware-pwa/default-theme/helpers"
+import {
+  getProductFreeShipping,
+  getRatingAverage,
+} from "@shopware-pwa/default-theme/helpers"
+
 import {
   getProductRegularPrice,
+  getProductReviews,
   getProductSpecialPrice,
   getProductTierPrices,
-  getProductReviews,
 } from "@shopware-pwa/helpers"
+
 import { SfBadge, SfHeading, SfPrice, SfRating } from "@storefront-ui/vue"
 
 import SwTierPrices from "./SwTierPrices"
@@ -61,7 +66,13 @@ import SwTierPrices from "./SwTierPrices"
 export default {
   name: "SwProductHeading",
 
-  components: { SfBadge, SfHeading, SfPrice, SfRating, SwTierPrices },
+  components: {
+    SfBadge,
+    SfHeading,
+    SfPrice,
+    SfRating,
+    SwTierPrices,
+  },
 
   props: {
     product: {
@@ -84,7 +95,7 @@ export default {
     },
 
     ratingAverage() {
-      return this.product && this.product.ratingAverage
+      return getRatingAverage(this.product)
     },
 
     reviews() {
