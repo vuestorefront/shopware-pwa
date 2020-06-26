@@ -49,14 +49,11 @@
 <script>
 import {
   getProductFreeShipping,
-  getRatingAverage,
-} from "@shopware-pwa/default-theme/helpers"
-
-import {
   getProductRegularPrice,
   getProductReviews,
   getProductSpecialPrice,
   getProductTierPrices,
+  getRatingAverage,
 } from "@shopware-pwa/helpers"
 
 import { SfBadge, SfHeading, SfPrice, SfRating } from "@storefront-ui/vue"

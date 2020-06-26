@@ -65,12 +65,12 @@
 <script>
 import { SfAlert, SfAddToCart } from "@storefront-ui/vue"
 import {
+  getProductNumber,
+  getProductOptions,
+  getProductOptionsUrl,
   getProductProperties,
   getProductReviews,
-  getProductOptionsUrl,
-  getProductOptions,
 } from "@shopware-pwa/helpers"
-import { getProductNumber } from "@shopware-pwa/default-theme/helpers"
 import { useAddToCart } from "@shopware-pwa/composables"
 import SwProductHeading from "@shopware-pwa/default-theme/components/SwProductHeading"
 import SwProductSelect from "@shopware-pwa/default-theme/components/SwProductSelect"

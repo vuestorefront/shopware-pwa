@@ -96,6 +96,9 @@ export function getOrderPaymentMethodId(order: Order): string | undefined;
 export function getOrderShippingMethodId(order: Order): string | undefined;
 
 // @alpha
+export function getProductFreeShipping(product: Product): boolean | null;
+
+// @alpha
 export function getProductMainImageUrl(product: Product): string;
 
 // @alpha (undocumented)
@@ -107,6 +110,9 @@ export function getProductMediaGallery({ product, }?: {
 export function getProductName({ product }?: {
     product?: Product;
 }): string | null;
+
+// @alpha
+export function getProductNumber(product: Product): string | null;
 
 // @alpha (undocumented)
 export function getProductOption({ product, attribute, }?: {
@@ -146,6 +152,9 @@ export function getProductTierPrices(product: Product): TierPrice[];
 
 // @alpha (undocumented)
 export function getProductUrl(product: Product | null): string;
+
+// @alpha
+export function getRatingAverage(product: Product): number | null;
 
 // @alpha (undocumented)
 export const getSortingSearchCriteria: (selectedSorting: SwSorting) => Sort;
