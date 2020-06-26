@@ -3,8 +3,6 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 /**
  * Get product number propety
  *
- * @returns (string, null)
- *
  * @alpha
  */
 export function getProductNumber(product: Product): string | null {
