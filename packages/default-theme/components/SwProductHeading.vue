@@ -7,11 +7,12 @@
         class="sf-heading--no-underline sf-heading--left"
       />
     </slot>
+
     <div class="product-heading__sub">
       <slot name="price" v-bind="{ price, special }">
         <SfPrice
-          :regular="`${price}`"
-          :special="special"
+          :regular="price | price"
+          :special="special | price"
           class="sf-price--big product-heading__sub-price"
         />
       </slot>
@@ -31,8 +32,8 @@
 
     <slot name="shippingFree" v-bind="shippingFree">
       <SfBadge
-        class="sf-badge--number product-heading__shipping-badge"
         v-if="shippingFree"
+        class="sf-badge--number product-heading__shipping-badge"
       >
         Free shipping
       </SfBadge>
@@ -44,40 +45,62 @@
     />
   </div>
 </template>
+
 <script>
+import { getProductFreeShipping } from "@shopware-pwa/default-theme/helpers"
+import {
+  getProductRegularPrice,
+  getProductSpecialPrice,
+  getProductTierPrices,
+  getProductReviews,
+} from "@shopware-pwa/helpers"
 import { SfBadge, SfHeading, SfPrice, SfRating } from "@storefront-ui/vue"
+
 import SwTierPrices from "./SwTierPrices"
 
 export default {
   name: "SwProductHeading",
-  components: { SfBadge,SfHeading, SfPrice, SfRating, SwTierPrices },
+
+  components: { SfBadge, SfHeading, SfPrice, SfRating, SwTierPrices },
+
   props: {
-    reviews: {
-      type: Array,
-      default: () => [],
+    product: {
+      required: true,
+      type: Object,
     },
-    price: {
-      type: [Number, String],
-      default: 0,
+  },
+
+  computed: {
+    name() {
+      return (
+        this.product &&
+        (this.product.name ||
+          (this.product.translated && this.product.translated.name))
+      )
     },
-    shippingFree: {
-      default: false,
-      type: Boolean
+
+    price() {
+      return getProductRegularPrice(this.product)
     },
-    special: {
-      type: [Number, String],
-      default: undefined,
+
+    ratingAverage() {
+      return this.product && this.product.ratingAverage
     },
-    tierPrices: {
-      type: Array,
+
+    reviews() {
+      return getProductReviews({ product: this.product })
     },
-    ratingAverage: {
-      type: Number,
-      default: 0,
+
+    shippingFree() {
+      return getProductFreeShipping(this.product)
     },
-    name: {
-      type: String,
-      default: "",
+
+    special() {
+      return getProductSpecialPrice(this.product)
+    },
+
+    tierPrices() {
+      return getProductTierPrices(this.product)
     },
   },
 }

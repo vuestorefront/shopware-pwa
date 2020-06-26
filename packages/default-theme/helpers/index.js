@@ -38,3 +38,11 @@ export const formatDate = (date, format = `DD-MM-YYYY HH:mm:ss`) =>
 
 export const getSearchPageUrl = (searchTerm) =>
   `${PAGE_SEARCH}?query=${searchTerm}`
+
+export const getProductFreeShipping = (product) => {
+  return product && product.shippingFree
+}
+
+export const getProductNumber = (product) => {
+  return (product && product.productNumber) || null
+}
