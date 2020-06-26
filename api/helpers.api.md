@@ -96,7 +96,7 @@ export function getOrderPaymentMethodId(order: Order): string | undefined;
 export function getOrderShippingMethodId(order: Order): string | undefined;
 
 // @alpha
-export function getProductFreeShipping(product: Product): boolean | null;
+export function getProductFreeShipping(product?: Product): boolean;
 
 // @alpha
 export function getProductMainImageUrl(product: Product): string;

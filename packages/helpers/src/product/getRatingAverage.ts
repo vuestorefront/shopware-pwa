@@ -3,7 +3,7 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 /**
  * Get product rating average
  *
- * @returns (boolean, null)
+ * @returns (number, null)
  *
  * @alpha
  */
