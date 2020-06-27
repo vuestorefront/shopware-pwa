@@ -1,8 +1,4 @@
----
-sidebar: auto
----
-
-# CMS
+# Shopping Experiences (CMS)
 
 ::: tip
 This documentation does not explain how to create custom pages that contain static content or use non-cms related endpoints. You can follow the Nuxt.js documentation on [pages](https://nuxtjs.org/guide/views/#pages) as Shopware PWA is a Nuxt.js project.
@@ -23,7 +19,7 @@ After reading the full guide, you will understand how
 In this guide I will assume you have a general knowledge of
 
 - Content management in Shopware 6 using [Shopping Experiences (Shopware Docs)](https://docs.shopware.com/en/shopware-6-en/content/ShoppingExperiences)
-- Setting up shopware-pwa ([Cheatsheet](cheatsheet.html))
+- Setting up shopware-pwa ([Cheatsheet](/landing/resources/cheatsheet.html))
 
 ## Structure
 
@@ -49,7 +45,7 @@ It is a tree where the root node is a page. Each page can have multiple sections
 
 Let's go through these structural components step by step, before we discuss the structure based on this page:
 
-![Storefront](./../assets/storefront.png)
+![Storefront](./../../assets/storefront.png)
 
 We do this in a top-down manner, starting from the biggest element or the *tree root*:
 
@@ -145,7 +141,7 @@ Now that we have a proper understanding of all the components involved, we can l
 - **Block** green
 - **Element** purple
 
-![Storefront](./../assets/storefront_structure.png)
+![Storefront](./../../assets/storefront_structure.png)
 
 ## Implementation and Extension
 
@@ -221,7 +217,7 @@ For a reference, you can take a look at [this example showing such an implementa
 
 In the example below there is an image element rendered inside each slot:
 
-![image bubble row with three images](./../assets/bubble-image.png)
+![image bubble row with three images](./../../assets/bubble-image.png)
 
 The specific part of the API response that contains the `image-bubble-row` block will look similar to this:
 
@@ -258,7 +254,7 @@ You can see, that for every slot within the `image-bubble-block` there is one ob
 
 Each of these objects also contains a `type` field specifying the type of cms element yielded for that slot. By default there would be three images, but one could also be of `type: text`. It's totally up to the user to configure that and we have to be aware of that. A corresponding case could look like this:
 
-![image-bubble-row containing a text element](./../assets/bubble-text.png)
+![image-bubble-row containing a text element](./../../assets/bubble-text.png)
 
 For that reason, we introduced a generic element (namely `CmsGenericElement` in `cms/CmsGenericElement.vue`) which will resolve the correct element type and render it based on the configuration:
 
@@ -301,7 +297,7 @@ As described before, the structure is placed inside the `cms` directory, and has
 
 Playing with CMS pages in the PWA, you can see that in some cases components are not implemented. It will look like this:
 
-![not implemented](./../assets/notImplemented.png)
+![not implemented](./../../assets/notImplemented.png)
 
 The message always contains a type of component, so you already know that a `block` here is missing. We're not yet sure if should we add a new block or use the existing one. Let's go with that first and for `category-navigation` add config using already existing block.
 
@@ -336,7 +332,7 @@ In the `cmsMap.json`, we're adding a new entry with an already existing block `C
 
 and we see the result:
 
-![preview](./../assets/preview1.png)
+![preview](./../../assets/preview1.png)
 
 As we can see, our block should have some margins inside it to level it with the right blocks. As we shouldn't modify `CmsBlockDefault` for that, because it may break other blocks, we create an individual block for `category-navigation`.
 
@@ -446,6 +442,6 @@ So we're changing the styles:
 
 Finally we have our desired effect:
 
-![preview](./../assets/preview2.png)
+![preview](./../../assets/preview2.png)
 
 And that's it. This set of rules applies for sections, blocks and elements.

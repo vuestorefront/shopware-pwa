@@ -1,15 +1,11 @@
----
-sidebar: auto
----
-
-# Troubleshooting
+# FAQ & Troubleshooting
 
 ## Issues caused by incorrect configuration.
 
 ### Issue: [ERROR] Problem with fetching CMS data: ` Path `` could no be resolved. `
 
-- Make sure you have followed [CHEATSHEET.md](./CHEATSHEET.md), especially [Shopware setup](./CHEATSHEET.md#shopware-setup).\*
-- Ensure you have configured `shopware-pwa` application by setting the right values described in [this step](./CHEATSHEET.md#running-shopware-pwa-on-custom-shopware-instance).
+- Make sure you have followed the instructions in our [Cheatsheet](./cheatsheet.html), especially [Shopware setup](./cheatsheet.html#shopware-setup).\*
+- Ensure you have configured `shopware-pwa` application by setting the right values described in [this step](./cheatsheet.html#running-shopware-pwa-on-custom-shopware-instance).
   It's crucial to have the right `shopwareAccessToken` in the _shopware-pwa.config.js_ file. \
   It should be taken from **`storefront`** Sales Channel type - **NOT** a `headless` one.
 
@@ -17,7 +13,7 @@ sidebar: auto
 
 - There is no Sales Channel related to the `shopwareAccessToken` you have set in your _shopware-pwa.config.js_ file.
 - Either `shopwareEndpoint` or `shopwareAccessToken` does not match.
-- Use the appropriate endpoint and access token (from Shopware admin panel) and follow steps described [here](./CHEATSHEET.md#running-shopware-pwa-on-custom-shopware-instance) ("Running Shopware PWA on custom Shopware instance" chapter).
+- Use the appropriate endpoint and access token (from Shopware admin panel) and follow steps described [here](./cheatsheet.html#running-shopware-pwa-on-custom-shopware-instance) ("Running Shopware PWA on custom Shopware instance" chapter).
 
 ### Issue: There are no products in the product listing. \*
 
@@ -37,18 +33,18 @@ Please remember, that overriding component means you no longer use theme compone
 :::
 
 Here's how overriding component looks like:
-![overriding theme components](../assets/shopware-pwa-components-override.gif)
+![overriding theme components](../../assets/shopware-pwa-components-override.gif)
 
 ### Issue: Console warning - Trying to access Application context without Vue instance context.
 
 Example:
-![composables context security warning](../assets/composables-context-security-warning.png)
+![composables context security warning](../../assets/composables-context-security-warning.png)
 It means that somewhere you have useAddToCart invocation without passing root. Find that in your code and add context.
 
-See: [Context-awareness](/landing/fundamentals/#context-awareness) section. It's explained in details.
+See: [Context-awareness](/landing/fundamentals/security.html#context-awareness) section. It's explained in details.
 
 ### Issue: Console warning - [shopware-6-api] After calling API method XXXXXX there is no "onConfigChange" listener.
 
 You should check all your imports for @shopware-pwa/shopware-6-client and add apiInstance as the last parameter.
 
-See: [Context-awareness](/landing/fundamentals/#context-awareness) section. It's explained in details.
+See: [Context-awareness](/landing/fundamentals/security.html#context-awareness) section. It's explained in details.

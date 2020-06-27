@@ -23,7 +23,7 @@ Many of the Shopware Core concepts you are used to will be available as well, in
  * User self-management
  * Plugin system
 
-If you have a specific set of features, feel free to compare it against our curated and regularly updated [Feature List](/guide/featurelist)
+If you have a specific set of features, feel free to compare it against our curated and regularly updated [Feature List](/landing/resources/features)
 
 ## Why a new storefront?
 
@@ -51,4 +51,4 @@ If you have any questions or ideas feel free to [join our slack](http://slack.vu
 
 We are excited for every open source contributor to our project. Issue reportings, bugfixes, feature requests, code reviews, pull requests - every type of contribution is more than appreciated. Don't hesitate to ask or raise an issue if you've got a question or anything feels odd to you.
 
-Go ahead and read our [Contribution Guide](/contribution/contributing/) to find out more.
+Go ahead and read our [Contribution Guide](./contribution) to find out more.

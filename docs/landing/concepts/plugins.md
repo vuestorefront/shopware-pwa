@@ -1,7 +1,3 @@
----
-sidebar: auto
----
-
 # Plugins
 
 `shopware-pwa init` will take the resources from each plugin `Resources/app/pwa` directory and place it in your project. Plugin installation date determines whether it's "on top" of other plugins (newest installation date means that plugin is on top if there are more than one plugin injected to theme slot)
@@ -10,22 +6,22 @@ sidebar: auto
 
 Plugin development can be easily made locally. First, we need to choose where would we want to plug into. To see all available plugin slots we may want to select `yes` during `shopware-pwa init` command when it asks to allow dev mode.
 
-![cli plugin dev mode](./../assets/cli-plugin-dev-mode.png)
+![cli plugin dev mode](./../../assets/cli-plugin-dev-mode.png)
 
 It shows then a button in the footer, which allows us to turn on Dev mode, and see all plugin slots in theme.
 
-![turn-on-dev-mode](./../assets/turn-on-dev-mode.png)
+![turn-on-dev-mode](./../../assets/turn-on-dev-mode.png)
 
 it will show us available slots on the theme, and you can click on any of them to see its name in the console
 
-![theme-slots](./../assets/theme-slots.png)
+![theme-slots](./../../assets/theme-slots.png)
 
 ### Local plugin
 
 Let's create `cool-promotion-plugin`, which can display our special product under the top header.
 We're creating following files inside your project.
 
-![local-plugin-structure](./../assets/local-plugin-structure.png)
+![local-plugin-structure](./../../assets/local-plugin-structure.png)
 
 ```
 .
@@ -97,7 +93,7 @@ export default {
 
 we run `shopware-pwa plugins`, and we see the effect
 
-![local-plugin-1](./../assets/local-plugin-1.png)
+![local-plugin-1](./../../assets/local-plugin-1.png)
 
 Let's put some logic there, and we're getting the cheapest product and displaying it with link.
 
@@ -172,7 +168,7 @@ export default {
 
 so we achieved this:
 
-![local-plugin-2](./../assets/local-plugin-2.png)
+![local-plugin-2](./../../assets/local-plugin-2.png)
 
 ### Nesting plugins
 
@@ -203,6 +199,6 @@ Okay, so how we can allow other plugins to display as well if we're in `top-head
 
 So this allows our installed plugin to show up and present itself.
 
-![local-plugin-3](./../assets/local-plugin-3.png)
+![local-plugin-3](./../../assets/local-plugin-3.png)
 
 In this case, it shows a random plugin but it could be as well another promotion plugin. You always decide where to show slot with another plugin if exists. There are a lot more use cases. Like social login button - you're doing plugin for Facebook, but others may do plugins for Google, GitHub etc.

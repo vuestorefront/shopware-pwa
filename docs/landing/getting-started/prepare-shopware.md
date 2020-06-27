@@ -1,4 +1,4 @@
-# How to prepare Shopware
+# Prepare Shopware
 
 ::: tip
 This whole guide is also available as a [video tutorial](https://www.youtube.com/watch?v=--jUufVubyE) on Youtube.

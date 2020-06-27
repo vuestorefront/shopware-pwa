@@ -1,8 +1,4 @@
----
-sidebar: auto
----
-
-# Project structure
+# Structure
 Short description of project structure.
 
 ## Packages description

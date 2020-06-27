@@ -6,19 +6,19 @@ No matter whether you're familiar with Shopware or not - you might have come acr
 
 The content management system is certainly one of the most prominent features built into Shopware. We have prepared a guide to dig into the structure of our CMS and how to use and extend it within the PWA. 
 
-→ [CMS Guide](/guide/cms/)
+→ [CMS Guide](./cms)
 
 ## Plugins
 
 Plugins are a common concept in Shopware applications. Learn how they translate to the PWA world and how to use them to inject custom components into your layout.
 
-→ [Plugins Guide](/guide/plugins/)
+→ [Plugins Guide](./plugins)
 
 ## Payment and Checkout
 
 Checkout and payment are critical parts within every eCommerce application. Learn how payments are adopted and captured using the Shopware API and how they translate into a programmatic API that you can use in the PWA.
 
-→ [Payment Guide](/guide/payment/)
+→ [Payment Guide](./payment)
 
 ## User Management <Badge text="coming soon"/>
 

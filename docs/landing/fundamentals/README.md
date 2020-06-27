@@ -2,6 +2,12 @@
 
 Understand some of the foundational concepts within Shopware PWA like and our thoughts on architecture, security and customization.
 
+## CLI
+
+Shopware PWA comes with a command line interace `shopware-pwa` with useful functionalities to prepare, customize, build and deploy your application.
+
+→ [CLI](./cli)
+
 ## Security <Badge text="new" type="info"/>
 
 It is critical to understand which authentication mechanisms are utilized to make sure that your application is safe. Read this to see how Shopware PWA handles this regarding the usage of APIs.

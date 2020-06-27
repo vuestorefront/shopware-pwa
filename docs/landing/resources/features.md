@@ -1,8 +1,4 @@
----
-sidebar: auto
----
-
-# Feature List Shopware PWA
+# List of features
 
 ## Functional
 

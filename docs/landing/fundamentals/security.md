@@ -1,8 +1,3 @@
----
-sidebar: auto
-sidebarDepth: 2
----
-
 # Security
 
 At a fundamental level, Shopware PWA serves as a facade for users (customers) to interact with one or multiple backends (merchant services) of which Shopware will be at least one. We can achieve this type of architecture using APIs and following a so-called *headless* approach. This yields great freedom as to which services and tools can be integrated without affecting others.

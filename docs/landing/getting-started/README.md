@@ -69,7 +69,7 @@ After roughly 30 seconds, your application will be available locally on [http://
 Instead of using the interactive CLI to configure your backend connection, you can also define the parameters in a file
 
 1. Edit the `shopware-pwa.config.js` file inside the root directory of your project
-2. Fill it with the data from your instance ([how to prepare your Shopware 6 instance](/landing/getting-started/prepare-shopware))
+2. Fill it with the data from your instance ([how to prepare your Shopware 6 instance](./prepare-shopware))
 
 ```js
 module.exports = {
@@ -88,8 +88,8 @@ yarn dev
 
 What about...
 
- * Exploring the [directory structure](/contribution/structure/) of the project.
- * Go [troubleshooting](/guide/troubleshooting/) if you encounter any issues
+ * Exploring the [directory structure](/landing/project/structure/) of the project.
+ * Go [troubleshooting](/landing/resources/troubleshooting/) if you encounter any issues
  * [Reporting an issue](https://github.com/DivanteLtd/shopware-pwa/issues/new/choose) if you couldn't solve it
 
 </center>

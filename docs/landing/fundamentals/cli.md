@@ -1,6 +1,6 @@
-# Shopware PWA CLI
+# CLI
 
-A CLI for [Shopware PWA](https://github.com/DivanteLtd/shopware-pwa).
+A command line interface for [Shopware PWA](https://github.com/DivanteLtd/shopware-pwa).
 
 ## Installation
 

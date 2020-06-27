@@ -1,7 +1,3 @@
----
-sidebar: auto
----
-
 # Payment API
 
 :::warning Disclaimer

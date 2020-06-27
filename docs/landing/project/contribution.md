@@ -1,8 +1,4 @@
----
-sidebar: auto
----
-
-# Contribution Guide
+# Contribution
 
 ## How to start
 
@@ -26,8 +22,8 @@ Thank you for your interest and engagement! :)
 
 You may want to read:
 
-- [See the file structure explained](./STRUCTURE.md)
-- [Project documentation / General README.md](./README.md)
+- [See the file structure explained](./structure)
+- [Project documentation / General README.md](./)
 - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ## Branches
