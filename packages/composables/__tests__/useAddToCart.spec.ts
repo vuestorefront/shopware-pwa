@@ -7,11 +7,15 @@ import VueCompositionApi, {
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
-import * as composables from "@shopware-pwa/composables";
-const { useAddToCart } = composables;
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+import { useAddToCart } from "../src/logic/useAddToCart";
 
 describe("Composables - useAddToCart", () => {
   const stateCart: Ref<Object | null> = ref(null);
+  const addProductMock = jest.fn(async () => {});
+  const cartItemsMock: Ref<any[]> = ref([]);
   const rootContextMock: any = {
     $store: {
       getters: reactive({ getCart: computed(() => stateCart.value) }),
@@ -25,6 +29,13 @@ describe("Composables - useAddToCart", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     stateCart.value = null;
+    cartItemsMock.value = [];
+    mockedComposables.useCart.mockImplementation(() => {
+      return {
+        addProduct: addProductMock,
+        cartItems: cartItemsMock,
+      } as any;
+    });
   });
 
   describe("computed", () => {
@@ -51,9 +62,7 @@ describe("Composables - useAddToCart", () => {
 
     describe("isInCart", () => {
       it("should show that product is in cart", () => {
-        stateCart.value = {
-          lineItems: [{ id: "qwe" }],
-        };
+        cartItemsMock.value = [{ id: "qwe" }];
         const { isInCart } = useAddToCart(rootContextMock, {
           id: "qwe",
         } as any);
@@ -75,13 +84,6 @@ describe("Composables - useAddToCart", () => {
   describe("methods", () => {
     describe("addToCart", () => {
       it("should add product without quantity to cart", async () => {
-        let addProductMock = jest.fn().mockResolvedValueOnce(null);
-        jest.spyOn(composables, "useCart").mockImplementation(
-          jest.fn().mockReturnValue({
-            addProduct: addProductMock,
-          })
-        );
-
         const { addToCart, error, quantity } = useAddToCart(rootContextMock, {
           id: "qwe",
         } as any);
@@ -93,13 +95,6 @@ describe("Composables - useAddToCart", () => {
       });
 
       it("should add product with quantity to cart and reset quantity", async () => {
-        let addProductMock = jest.fn().mockResolvedValueOnce(null);
-        jest.spyOn(composables, "useCart").mockImplementation(
-          jest.fn().mockReturnValue({
-            addProduct: addProductMock,
-          })
-        );
-
         const { addToCart, error, quantity } = useAddToCart(rootContextMock, {
           id: "qwe",
         } as any);
@@ -111,12 +106,7 @@ describe("Composables - useAddToCart", () => {
       });
 
       it("should contain error message when product cannot be added", async () => {
-        let addProductMock = jest.fn().mockRejectedValueOnce("Error message");
-        jest.spyOn(composables, "useCart").mockImplementation(
-          jest.fn().mockReturnValue({
-            addProduct: addProductMock,
-          })
-        );
+        addProductMock.mockRejectedValueOnce("Error message");
 
         const { addToCart, error, quantity } = useAddToCart(rootContextMock, {
           id: "qwe",
@@ -129,13 +119,6 @@ describe("Composables - useAddToCart", () => {
       });
 
       it("should not try add to cart on empty product", async () => {
-        let addProductMock = jest.fn().mockResolvedValueOnce(null);
-        jest.spyOn(composables, "useCart").mockImplementation(
-          jest.fn().mockReturnValue({
-            addProduct: addProductMock,
-          })
-        );
-
         const { addToCart, error, quantity } = useAddToCart(
           rootContextMock,
           null as any
