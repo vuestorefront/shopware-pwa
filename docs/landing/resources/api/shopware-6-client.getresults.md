@@ -7,6 +7,11 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
+> Warning: This API is now obsolete.
+> 
+> - this function will be replaced by getSearchResults what is a more appriopriate name.
+> 
+
 <b>Signature:</b>
 
 ```typescript
@@ -17,15 +22,11 @@ export declare function getResults(term: string, searchCriteria?: SearchCriteria
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  term | <code>string</code> |  |
-|  searchCriteria | <code>SearchCriteria</code> |  |
-|  contextInstance | <code>ShopwareApiInstance</code> |  |
+|  term | string |  |
+|  searchCriteria | SearchCriteria |  |
+|  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 <b>Returns:</b>
 
-`Promise<ProductListingResult>`
-
-## Exceptions
-
-ClientApiError
+Promise&lt;ProductListingResult&gt;
 

@@ -19,11 +19,11 @@ export declare function getProductTierPrices(product: Product): TierPrice[];
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  product | <code>Product</code> |  |
+|  product | Product |  |
 
 <b>Returns:</b>
 
-`TierPrice[]`
+[TierPrice](./helpers.tierprice.md)<!-- -->\[\]
 
 TierPrice\[\]
 
