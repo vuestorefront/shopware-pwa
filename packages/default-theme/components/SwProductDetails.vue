@@ -5,7 +5,7 @@
     </div>
 
     <SwPluginSlot name="product-page-description" :slot-context="product">
-      <p class="product-details__description">{{ description }}</p>
+      <p class="product-details__description" v-html="description" />
     </SwPluginSlot>
 
     <!-- <div class="product-details__action">
