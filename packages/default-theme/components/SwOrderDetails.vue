@@ -50,19 +50,27 @@
         class="content"
       />
       <SfProperty name="Order status" :value="status" />
-      <a v-if="paymentUrl" :href="paymentUrl">
-        <SwButton
-          class="sf-button sf-button--full-width pay-button color-danger"
-        >
-          Pay for your order
-        </SwButton>
-      </a>
+      <SfLoader
+        :loading="isPaymentButtonLoading"
+        class="sw-order-details__loader"
+      >
+        <a v-if="paymentUrl" :href="paymentUrl">
+          <SwButton
+            class="sf-button sf-button--full-width pay-button color-danger"
+          >
+            Pay for your order
+          </SwButton>
+        </a>
+        <template #loader>
+          Payment button is being loaded...
+        </template>
+      </SfLoader>
     </div>
   </div>
 </template>
 
 <script>
-import { SfTable, SfProperty, SfHeading } from "@storefront-ui/vue"
+import { SfTable, SfProperty, SfHeading, SfLoader } from "@storefront-ui/vue"
 import { useUser, getApplicationContext } from "@shopware-pwa/composables"
 import { ref, onMounted, computed, watchEffect } from "@vue/composition-api"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
@@ -89,6 +97,7 @@ export default {
     SfProperty,
     SfTable,
     SfHeading,
+    SfLoader,
     SwButton,
     SwOrderDetailsItem,
     SwPersonalDetails,
@@ -115,6 +124,7 @@ export default {
     const paymentMethod = ref(null)
     const shippingMethod = ref(null)
     const paymentUrl = ref(null)
+    const isPaymentButtonLoading = ref(false)
 
     const personalDetails = computed(
       () =>
@@ -159,6 +169,7 @@ export default {
 
     onMounted(async () => {
       try {
+        isPaymentButtonLoading.value = true
         order.value = await getOrderDetails(orderId)
         paymentMethod.value = await getPaymentMethodDetails(
           paymentMethodId.value,
@@ -177,6 +188,7 @@ export default {
         )
         paymentUrl.value = resp.paymentUrl
       } catch (e) {}
+      isPaymentButtonLoading.value = false
     })
 
     return {
@@ -192,6 +204,7 @@ export default {
       total,
       status,
       paymentUrl,
+      isPaymentButtonLoading,
     }
   },
 }
@@ -209,6 +222,11 @@ export default {
     flex-direction: column;
     width: 80%;
     padding: var(--spacer-base);
+  }
+
+  &__loader {
+    margin-top: var(--spacer-base);
+    height: 3rem;
   }
 
   &__header {
