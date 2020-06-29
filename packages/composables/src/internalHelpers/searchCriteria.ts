@@ -3,7 +3,10 @@ import {
   ListingQueryParams,
   SearchCriteria,
 } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { EqualsFilter } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
+import {
+  EqualsFilter,
+  EqualsAnyFilter,
+} from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 
 export function appendSearchCriteriaToUrl(
   searchCriteria: SearchCriteria,
@@ -138,5 +141,42 @@ export const toggleEntityFilter = (
     } else {
       selectedCriteria.properties.push(filter.value);
     }
+  }
+};
+
+/**
+ * TODO: https://github.com/DivanteLtd/shopware-pwa/issues/841
+ * TODO: https://github.com/DivanteLtd/shopware-pwa/issues/840
+ * @beta
+ */
+export const toggleFilter = (
+  filter: EqualsFilter | EqualsAnyFilter, // TODO: handle range filter case as well
+  selectedCriteria: any,
+  forceSave: boolean = false
+): void => {
+  if (!filter) {
+    return;
+  }
+
+  if (!!selectedCriteria.filters[filter.field]) {
+    let selected = selectedCriteria.filters[filter.field];
+    if (
+      !selected.find((optionId: string) => optionId === filter.value) ||
+      forceSave
+    ) {
+      selected.push(filter.value);
+    } else {
+      selected = selected.filter(
+        (optionId: string) => optionId !== filter.value
+      );
+    }
+
+    selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
+      [filter.field]: [...new Set(selected)],
+    });
+  } else {
+    selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
+      [filter.field]: [filter.value],
+    });
   }
 };
