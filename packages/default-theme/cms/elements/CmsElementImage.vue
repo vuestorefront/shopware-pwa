@@ -1,5 +1,15 @@
 <template>
+  <SwLink v-if="link" :link="link" :target="target">
+    <SfImage
+      :src="imgUrl"
+      :title="title"
+      :alt="alt"
+      :lazy="lazyLoad"
+      class="cms-element-image"
+    />
+  </SwLink>
   <SfImage
+    v-else
     :src="imgUrl"
     :title="title"
     :alt="alt"
@@ -9,19 +19,25 @@
 </template>
 
 <script>
+import { getCmsLink, getCmsLinkTarget } from "@shopware-pwa/helpers"
 import { SfImage } from "@storefront-ui/vue"
+import SwLink from "@shopware-pwa/default-theme/components/atoms/SwLink"
 
 export default {
+  name: "CmsElementImage",
+
   components: {
     SfImage,
+    SwLink,
   },
-  name: "CmsElementImage",
+
   props: {
     content: {
       type: Object,
       default: () => ({}),
     },
   },
+
   computed: {
     getMedia() {
       return this.content && this.content.data && this.content.data.media
@@ -37,6 +53,13 @@ export default {
     },
     lazyLoad() {
       return true
+    },
+
+    link() {
+      return getCmsLink(this.content)
+    },
+    target() {
+      return getCmsLinkTarget(this.content)
     },
   },
 }
