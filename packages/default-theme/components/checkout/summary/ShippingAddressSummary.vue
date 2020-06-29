@@ -25,9 +25,9 @@ export default {
     SwAddress,
     SwButton,
   },
-  setup() {
-    const { shippingMethod, sessionContext } = useSessionContext()
-    const { shippingAddress } = useCheckout()
+  setup(props, {root}) {
+    const { shippingMethod, sessionContext } = useSessionContext(root)
+    const { shippingAddress } = useCheckout(root)
     return {
       shippingMethod,
       sessionContext,

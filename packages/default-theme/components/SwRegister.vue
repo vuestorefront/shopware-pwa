@@ -149,10 +149,10 @@ export default {
       zipcode: "",
     }
   },
-  setup() {
-    const { login, register, loading, error: userError } = useUser()
-    const { getCountries, error: countriesError } = useCountries()
-    const { getSalutations, error: salutationsError } = useSalutations()
+  setup(props, {root}) {
+    const { login, register, loading, error: userError } = useUser(root)
+    const { getCountries, error: countriesError } = useCountries(root)
+    const { getSalutations, error: salutationsError } = useSalutations(root)
 
     const getMappedCountries = computed(() => mapCountries(getCountries.value))
     const getMappedSalutations = computed(() =>
@@ -178,7 +178,7 @@ export default {
         email: this.email,
         password: this.password,
         salutationId: this.salutation.id,
-        storefrontUrl: window?.location?.origin,
+        storefrontUrl: window && window.location && `${window.location.protocol}//${window.location.hostname}`,
         billingAddress: {
           firstName: this.firstName,
           salutationId: this.salutation.id,

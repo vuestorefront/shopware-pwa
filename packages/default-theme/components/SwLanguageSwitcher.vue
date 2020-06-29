@@ -27,8 +27,8 @@ export default {
   components: {
     SfSelect,
   },
-  setup() {
-    const { availableLanguages, currentLocale, changeLocale } = useLocales()
+  setup(props, {root}) {
+    const { availableLanguages, currentLocale, changeLocale } = useLocales(root)
     return {
       availableLanguages,
       currentLocale,

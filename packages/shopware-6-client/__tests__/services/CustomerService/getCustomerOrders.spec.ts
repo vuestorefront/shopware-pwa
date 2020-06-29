@@ -43,7 +43,9 @@ describe("CustomerService - getCustomerOrders", () => {
     });
     const result = await getCustomerOrders();
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith(getCustomerOrderEndpoint());
+    expect(mockedGet).toBeCalledWith(
+      `${getCustomerOrderEndpoint()}?sort=-createdAt`
+    );
     expect(result).toMatchObject([
       {
         orderNumber: "1234",

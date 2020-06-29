@@ -3,6 +3,7 @@ import { reactive, computed, Ref } from "@vue/composition-api";
 import { getAvailableCurrencies } from "@shopware-pwa/shopware-6-client";
 import { useSessionContext, useCart } from "@shopware-pwa/composables";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
+import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
 const sharedCurrencyState = Vue.observable({
   availableCurrencies: [],
@@ -24,9 +25,15 @@ export interface UseCurrency {
 /**
  * @alpha
  */
-export const useCurrency = (): UseCurrency => {
-  const { currency, setCurrency: setContextCurrency } = useSessionContext();
-  const { refreshCart } = useCart();
+export const useCurrency = (
+  rootContext: ApplicationVueContext
+): UseCurrency => {
+  const { apiInstance } = getApplicationContext(rootContext, "useCurrency");
+
+  const { currency, setCurrency: setContextCurrency } = useSessionContext(
+    rootContext
+  );
+  const { refreshCart } = useCart(rootContext);
   const localState: { availableCurrencies: Currency[] } = reactive(
     sharedCurrencyState
   );
@@ -42,7 +49,7 @@ export const useCurrency = (): UseCurrency => {
     forceReload: boolean;
   }): Promise<void> => {
     if (!options?.forceReload && localState.availableCurrencies.length) return;
-    const currencies = await getAvailableCurrencies();
+    const currencies = await getAvailableCurrencies(apiInstance);
     sharedCurrencyState.availableCurrencies = currencies;
   };
 

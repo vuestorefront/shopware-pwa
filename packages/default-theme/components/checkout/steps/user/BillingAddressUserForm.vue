@@ -52,8 +52,8 @@ import { ref } from "@vue/composition-api"
 export default {
   name: "ShippingAddressUserForm",
   components: { SfList, SfRadio, SfCheckbox, SwButton },
-  setup() {
-    const { addresses, loadAddresses, user } = useUser()
+  setup(props, {root}) {
+    const { addresses, loadAddresses, user } = useUser(root)
     loadAddresses()
 
     const selectedAddressId = ref(user.value.defaultBillingAddressId)

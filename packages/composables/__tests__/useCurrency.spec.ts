@@ -2,11 +2,8 @@ import Vue from "vue";
 import VueCompostionApi from "@vue/composition-api";
 import { Ref, ref, reactive, computed } from "@vue/composition-api";
 import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
-import * as Composables from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
-import { useCurrency, setStore } from "@shopware-pwa/composables";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
-
 Vue.use(VueCompostionApi);
 
 jest.mock("@shopware-pwa/shopware-6-client");
@@ -14,32 +11,41 @@ const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 const consoleErrorSpy = jest.spyOn(console, "error");
 consoleErrorSpy.mockImplementation(() => {});
 
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+import { useCurrency } from "../src/hooks/useCurrency";
+
 describe("Composables - useCurrency", () => {
   const stateContext: Ref<Partial<SessionContext> | null> = ref(null);
   const mockedCurrentCurrency: Ref<Currency | null> = ref(null);
   const refreshSessionContextMock = jest.fn(async () => {});
   const setCurrencyContextMock = jest.fn(async () => {});
   const refreshCartMock = jest.fn(async () => {});
-  beforeEach(async () => {
-    jest.resetAllMocks();
-    stateContext.value = null;
-    mockedCurrentCurrency.value = null;
-    setStore({
+  const rootContextMock: any = {
+    $store: {
       getters: reactive({
         getSessionContext: computed(() => stateContext.value),
       }),
       commit: (name: string, value: SessionContext) => {
         stateContext.value = value;
       },
-    });
-    jest.spyOn(Composables, "useSessionContext").mockImplementation(() => {
+    },
+    $shopwareApiInstance: jest.fn(),
+  };
+
+  beforeEach(async () => {
+    jest.resetAllMocks();
+    stateContext.value = null;
+    mockedCurrentCurrency.value = null;
+    mockedComposables.useSessionContext.mockImplementation(() => {
       return {
         refreshSessionContext: refreshSessionContextMock,
         setCurrency: setCurrencyContextMock,
         currency: mockedCurrentCurrency,
       } as any;
     });
-    jest.spyOn(Composables, "useCart").mockImplementation(() => {
+    mockedComposables.useCart.mockImplementation(() => {
       return {
         refreshCart: refreshCartMock,
       } as any;
@@ -49,7 +55,7 @@ describe("Composables - useCurrency", () => {
 
   afterEach(async () => {
     // clear shared available currencies array
-    const { loadAvailableCurrencies } = useCurrency();
+    const { loadAvailableCurrencies } = useCurrency(rootContextMock);
     await loadAvailableCurrencies({ forceReload: true });
   });
 
@@ -57,30 +63,30 @@ describe("Composables - useCurrency", () => {
     describe("currency", () => {
       it("should return currency from useSessionContext", async () => {
         mockedCurrentCurrency.value = { symbol: "$$$" } as any;
-        const { currency } = useCurrency();
+        const { currency } = useCurrency(rootContextMock);
         expect(currency.value).toEqual({ symbol: "$$$" });
       });
     });
     describe("currencySymbol", () => {
       it("should return an empty string if currency symbol object is missing", async () => {
         mockedCurrentCurrency.value = {} as any;
-        const { currencySymbol } = useCurrency();
+        const { currencySymbol } = useCurrency(rootContextMock);
         expect(currencySymbol.value).toBe("");
       });
       it("should return an empty string if currency is null", async () => {
         mockedCurrentCurrency.value = null;
-        const { currencySymbol } = useCurrency();
+        const { currencySymbol } = useCurrency(rootContextMock);
         expect(currencySymbol.value).toBe("");
       });
       it("should return a symbol of current currency", async () => {
         mockedCurrentCurrency.value = { symbol: "$" } as any;
-        const { currencySymbol } = useCurrency();
+        const { currencySymbol } = useCurrency(rootContextMock);
         expect(currencySymbol.value).toEqual("$");
       });
     });
     describe("availableCurrencies", () => {
       it("should return empty array if there are no currencies loaded", async () => {
-        const { availableCurrencies } = useCurrency();
+        const { availableCurrencies } = useCurrency(rootContextMock);
         expect(availableCurrencies.value).toStrictEqual([]);
       });
 
@@ -91,7 +97,9 @@ describe("Composables - useCurrency", () => {
           },
         ] as any);
 
-        const { loadAvailableCurrencies, availableCurrencies } = useCurrency();
+        const { loadAvailableCurrencies, availableCurrencies } = useCurrency(
+          rootContextMock
+        );
         await loadAvailableCurrencies();
         expect(availableCurrencies.value).toEqual([
           {
@@ -102,7 +110,7 @@ describe("Composables - useCurrency", () => {
 
       it("should return array with current currenry inside, when no currencies loaded", async () => {
         mockedCurrentCurrency.value = { symbol: "$$$" } as any;
-        const { availableCurrencies } = useCurrency();
+        const { availableCurrencies } = useCurrency(rootContextMock);
         expect(availableCurrencies.value).toEqual([{ symbol: "$$$" }]);
       });
     });
@@ -110,7 +118,7 @@ describe("Composables - useCurrency", () => {
   describe("methods", () => {
     describe("loadAvailableCurrencies", () => {
       it("should call apiClient:getAvailableCurrencies to fetch and set available currencies ", async () => {
-        const { loadAvailableCurrencies } = useCurrency();
+        const { loadAvailableCurrencies } = useCurrency(rootContextMock);
         await loadAvailableCurrencies();
         expect(mockedApiClient.getAvailableCurrencies).toBeCalledTimes(1);
       });
@@ -122,7 +130,7 @@ describe("Composables - useCurrency", () => {
           },
         ] as any);
 
-        const { loadAvailableCurrencies } = useCurrency();
+        const { loadAvailableCurrencies } = useCurrency(rootContextMock);
         await loadAvailableCurrencies();
         await loadAvailableCurrencies();
         expect(mockedApiClient.getAvailableCurrencies).toBeCalledTimes(1);
@@ -135,7 +143,7 @@ describe("Composables - useCurrency", () => {
           },
         ] as any);
 
-        const { loadAvailableCurrencies } = useCurrency();
+        const { loadAvailableCurrencies } = useCurrency(rootContextMock);
         await loadAvailableCurrencies();
         await loadAvailableCurrencies({ forceReload: true });
         expect(mockedApiClient.getAvailableCurrencies).toBeCalledTimes(2);
@@ -144,7 +152,7 @@ describe("Composables - useCurrency", () => {
 
     describe("setCurrency", () => {
       it("should call setCurrency from useSessionContext", async () => {
-        const { setCurrency } = useCurrency();
+        const { setCurrency } = useCurrency(rootContextMock);
         await setCurrency({ id: "some-currency-id" });
         expect(setCurrencyContextMock).toBeCalledWith({
           id: "some-currency-id",
@@ -152,7 +160,7 @@ describe("Composables - useCurrency", () => {
       });
 
       it("should call refreshCart from useCart", async () => {
-        const { setCurrency } = useCurrency();
+        const { setCurrency } = useCurrency(rootContextMock);
         await setCurrency({ id: "some-currency-id" });
         expect(refreshCartMock).toBeCalled();
       });
@@ -161,7 +169,7 @@ describe("Composables - useCurrency", () => {
         setCurrencyContextMock.mockRejectedValueOnce({
           message: "Some error",
         } as any);
-        const { setCurrency } = useCurrency();
+        const { setCurrency } = useCurrency(rootContextMock);
         await setCurrency({ id: "some-currency-id" });
         expect(setCurrencyContextMock).toBeCalled();
         expect(consoleErrorSpy).toBeCalledWith(

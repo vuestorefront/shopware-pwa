@@ -118,14 +118,14 @@ export default {
     SfIcon,
   },
   mixins: [validationMixin],
-  setup() {
+  setup(props, {root}) {
     const {
       user,
       error: userError,
       updatePersonalInfo,
       refreshUser,
       updateEmail,
-    } = useUser()
+    } = useUser(root)
 
     return {
       refreshUser,

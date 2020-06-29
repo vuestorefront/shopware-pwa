@@ -71,7 +71,7 @@
 
 <script>
 import { SfTable, SfProperty, SfHeading, SfLoader } from "@storefront-ui/vue"
-import { useUser } from "@shopware-pwa/composables"
+import { useUser, getApplicationContext } from "@shopware-pwa/composables"
 import { ref, onMounted, computed, watchEffect } from "@vue/composition-api"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import {
@@ -117,8 +117,9 @@ export default {
   },
   // TODO: move this logic into separate service;
   // details: https://github.com/DivanteLtd/shopware-pwa/issues/781
-  setup({ orderId }) {
-    const { getOrderDetails, loading, error: userError } = useUser()
+  setup({ orderId }, { root }) {
+    const { apiInstance } = getApplicationContext(rootContext, "myComponent")
+    const { getOrderDetails, loading, error: userError } = useUser(root)
     const order = ref(null)
     const paymentMethod = ref(null)
     const shippingMethod = ref(null)
@@ -171,16 +172,20 @@ export default {
         isPaymentButtonLoading.value = true
         order.value = await getOrderDetails(orderId)
         paymentMethod.value = await getPaymentMethodDetails(
-          paymentMethodId.value
+          paymentMethodId.value,
+          apiInstance
         )
         shippingMethod.value = await getShippingMethodDetails(
-          shippingMethodId.value
+          shippingMethodId.value,
+          apiInstance
         )
-
-        const resp = await getOrderPaymentUrl({
-          orderId,
-          finishUrl: `${window.location.origin}${PAGE_ORDER_SUCCESS}?orderId=${orderId}`,
-        })
+        const resp = await getOrderPaymentUrl(
+          {
+            orderId,
+            finishUrl: `${window.location.origin}${PAGE_ORDER_SUCCESS}?orderId=${orderId}`,
+          },
+          apiInstance
+        )
         paymentUrl.value = resp.paymentUrl
       } catch (e) {}
       isPaymentButtonLoading.value = false
