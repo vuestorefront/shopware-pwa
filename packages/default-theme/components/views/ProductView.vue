@@ -101,7 +101,7 @@ export default {
       "associations[children][associations][seoUrls][]": true,
     }
     try {
-      const { loadAssociations, product } = useProduct(this.page.product)
+      const { loadAssociations, product } = useProduct(this, this.page.product)
       this.productWithAssociations = product
       await loadAssociations(associations)
     } catch (e) {

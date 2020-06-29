@@ -65,7 +65,7 @@
           <div v-else>
             <SwButton
               class="sf-button--full-width color-primary"
-              @click="toggleSidebar"
+              @click="toggleSidebar()"
             >
               {{ $t("Start shopping") }}
             </SwButton>
@@ -102,9 +102,10 @@ export default {
     SwPluginSlot,
     SwButton,
   },
-  setup() {
-    const { cartItems, count, totalPrice, removeProduct } = useCart()
+  setup(props, { root }) {
+    const { cartItems, count, totalPrice, removeProduct } = useCart(root)
     const { isOpen: isSidebarOpen, switchState: toggleSidebar } = useUIState(
+      root,
       "CART_SIDEBAR_STATE"
     )
 

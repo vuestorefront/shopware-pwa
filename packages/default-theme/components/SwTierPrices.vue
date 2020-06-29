@@ -1,5 +1,5 @@
 <template>
-  <SfTable class="sw-tier-prices">
+  <SfTable class="sw-tier-prices" v-if="showTable">
     <SfTableHeading class="sw-tier-prices sw-tier-prices__heading">
       <SfTableHeader
         v-for="tableHeader in tableHeaders"
@@ -38,8 +38,12 @@ export default {
   },
   data() {
     return {
+      showTable: false,
       tableHeaders: ["Quantity", "Unit price"],
     }
+  },
+  mounted() {
+    this.showTable = true
   },
 }
 </script>

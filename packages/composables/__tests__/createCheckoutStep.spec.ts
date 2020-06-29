@@ -9,13 +9,15 @@ import {
 
 const getCookie = jest.fn();
 const setCookie = jest.fn();
-jest.mock("cookie-universal", () => ({
-  __esModule: true, // mock as ES6 module
-  default: () => ({
+
+const rootContextMock: any = {
+  $store: jest.fn(),
+  $shopwareApiInstance: jest.fn(),
+  $cookies: {
     get: getCookie,
     set: setCookie,
-  }),
-}));
+  },
+};
 
 describe("Composables - createCheckoutStep", () => {
   beforeEach(() => {
@@ -31,7 +33,9 @@ describe("Composables - createCheckoutStep", () => {
       },
       stepDataUpdated: jest.fn(),
     });
-    const { isValid, validations, someField, otherField } = stepComposable();
+    const { isValid, validations, someField, otherField } = stepComposable(
+      rootContextMock
+    );
     expect(isValid.value).toEqual(false);
     expect(validations.value).toBeNull();
     expect(someField.value).toEqual("with value");
@@ -47,14 +51,14 @@ describe("Composables - createCheckoutStep", () => {
       stepFields: initialData,
       stepDataUpdated: jest.fn(),
     });
-    const { someField } = stepComposable();
+    const { someField } = stepComposable(rootContextMock);
     someField.value = "qwerty";
     expect(initialData.someField).toEqual("qwe");
   });
 
-  it("should call stepDataUpdated on field update", () => {
+  it("should call stepDataUpdated on field update", async () => {
     const initialData = {
-      someField: "qwe",
+      someField: "qwe eee",
     };
     const stepDataUpdatedMock = jest.fn();
     const stepComposable = createCheckoutStep({
@@ -62,13 +66,19 @@ describe("Composables - createCheckoutStep", () => {
       stepFields: initialData,
       stepDataUpdated: stepDataUpdatedMock,
     });
-    const { someField } = stepComposable();
+    const { someField } = stepComposable(rootContextMock);
     someField.value = "qwerty";
-    expect(stepDataUpdatedMock).toHaveBeenCalledWith({
-      isValid: false,
-      someField: "qwe",
-    });
-    expect(stepDataUpdatedMock).toHaveBeenCalledTimes(1);
+
+    await Vue.nextTick();
+
+    expect(stepDataUpdatedMock).toHaveBeenCalledWith(
+      {
+        isValid: false,
+        someField: "qwerty",
+      },
+      { value: {} }
+    );
+    expect(stepDataUpdatedMock).toHaveBeenCalledTimes(2);
   });
 
   it("should override field existing value with cached from cookie", async () => {
@@ -85,19 +95,45 @@ describe("Composables - createCheckoutStep", () => {
       stepFields: initialData,
       stepDataUpdated: stepDataUpdatedMock,
     });
-    const { someField } = stepComposable();
-    // someField.value = "qwerty";
+    const { someField } = stepComposable(rootContextMock);
+    someField.value = "qwerty";
     await Vue.nextTick();
     expect(getCookie).toHaveBeenCalledWith("sw-checkout-2");
-    expect(stepDataUpdatedMock).toHaveBeenCalledWith({
-      isValid: false,
-      someField: "qwe",
-    });
-    expect(stepDataUpdatedMock).toHaveBeenCalledWith({
-      isValid: true,
-      someField: "eeeh",
-    });
+    expect(stepDataUpdatedMock).toHaveBeenCalledWith(
+      {
+        isValid: false,
+        someField: "qwerty",
+      },
+      { value: {} }
+    );
+    expect(stepDataUpdatedMock).toHaveBeenCalledWith(
+      {
+        isValid: true,
+        someField: "eeeh",
+      },
+      { value: {} }
+    );
     expect(stepDataUpdatedMock).toHaveBeenCalledTimes(2);
+    expect(someField.value).toEqual("eeeh");
+  });
+
+  it("should override field existing value with cached from cookie without stepDataUpdate", async () => {
+    const initialData = {
+      someField: "qwe",
+    };
+    getCookie.mockReturnValueOnce({
+      someField: "eeeh",
+      isValid: true,
+    });
+    const stepComposable = createCheckoutStep({
+      stepNumber: 2,
+      stepFields: initialData,
+      stepDataUpdated: null as any,
+    });
+    const { someField } = stepComposable(rootContextMock);
+    someField.value = "qwerty";
+    await Vue.nextTick();
+    expect(getCookie).toHaveBeenCalledWith("sw-checkout-2");
     expect(someField.value).toEqual("eeeh");
   });
 
@@ -110,7 +146,7 @@ describe("Composables - createCheckoutStep", () => {
       stepFields: initialData,
       stepDataUpdated: jest.fn(),
     });
-    const { validations } = stepComposable();
+    const { validations } = stepComposable(rootContextMock);
     expect(validations.value).toBeNull();
   });
 
@@ -127,7 +163,7 @@ describe("Composables - createCheckoutStep", () => {
       stepFields: initialData,
       stepDataUpdated: jest.fn(),
     });
-    const { isValid, setValidations } = stepComposable();
+    const { isValid, setValidations } = stepComposable(rootContextMock);
     setValidations(validationObject);
     await Vue.nextTick();
     expect(isValid.value).toBe(false);
@@ -146,7 +182,9 @@ describe("Composables - createCheckoutStep", () => {
       stepFields: initialData,
       stepDataUpdated: jest.fn(),
     });
-    const { isValid, setValidations, validate } = stepComposable();
+    const { isValid, setValidations, validate } = stepComposable(
+      rootContextMock
+    );
     setValidations(validationObject);
     validate();
     expect(isValid.value).toBe(false);
@@ -167,7 +205,7 @@ describe("Composables - createCheckoutStep", () => {
       stepFields: initialData,
       stepDataUpdated: stepDataUpdatedMock,
     });
-    const { setValidations, someField } = stepComposable();
+    const { setValidations, someField } = stepComposable(rootContextMock);
     setValidations(validationObject);
     someField.value = "newValue";
     await Vue.nextTick();
@@ -191,7 +229,7 @@ describe("Composables - createCheckoutStep", () => {
       stepFields: initialData,
       stepDataUpdated: null as any,
     });
-    const { setValidations, someField } = stepComposable();
+    const { setValidations, someField } = stepComposable(rootContextMock);
     setValidations(validationObject);
     someField.value = "changedValue";
     await Vue.nextTick();

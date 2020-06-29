@@ -43,7 +43,7 @@ export default {
       selectedShipping: this.defaultShippingAddressId,
     }
   },
-  setup() {
+  setup(props, { root }) {
     const {
       user,
       addresses,
@@ -51,7 +51,7 @@ export default {
       markAddressAsDefault,
       refreshUser,
       deleteAddress,
-    } = useUser()
+    } = useUser(root)
     loadAddresses()
     return {
       defaultBillingAddressId: user.value.defaultBillingAddressId,
