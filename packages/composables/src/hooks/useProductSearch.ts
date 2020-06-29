@@ -7,10 +7,6 @@ import {
 import {
   getListingAvailableFilters,
   UiCategoryFilter,
-  toggleEntityFilter as toggleSelectedFilter,
-  appendQueryParamsToSearchCriteria,
-  resetSearchCriteria,
-  appendSearchCriteriaToUrl,
 } from "@shopware-pwa/helpers";
 
 import {
@@ -27,6 +23,12 @@ import { Aggregations } from "@shopware-pwa/commons/interfaces/search/Aggregatio
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
 import { getApplicationContext } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
+import {
+  appendSearchCriteriaToUrl,
+  appendQueryParamsToSearchCriteria,
+  resetSearchCriteria,
+  toggleEntityFilter as toggleSelectedFilter,
+} from "../internalHelpers/searchCriteria";
 
 /**
  * @beta
@@ -96,10 +98,10 @@ export const useProductSearch = (
     () => searchResult.value && searchResult.value.aggregations
   );
 
-  const changePage = (page: number): Promise<void> => {
+  const changePage = async (page: number): Promise<void> => {
     searchCriteria.pagination.page = page;
     syncQueryParams();
-    return search(currentSearchTerm.value);
+    await search(currentSearchTerm.value);
   };
 
   const suggestSearch = async (term: string): Promise<void> => {

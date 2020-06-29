@@ -5,10 +5,7 @@ import {
   EqualsFilter,
   RangeFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
-import {
-  Sort,
-  SearchCriteria,
-} from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { Sort } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 const createMultiFilter = (operator: string, queries: any[]): MultiFilter => ({
   type: SearchFilterType.MULTI,
@@ -128,17 +125,6 @@ export const getSortingSearchCriteria = (selectedSorting: SwSorting): Sort => {
   };
 };
 
-interface ShopwareParamsInternal {
-  p?: number; // p for page in store-api
-  page?: number;
-  limit?: number;
-  sort?: string;
-  //associations?: ShopwareAssociation;
-  //grouping?: Grouping;
-  properties?: string[]; // store-api filters
-  manufacturer?: string[]; // store-api filters
-}
-
 /**
  * TODO: https://github.com/DivanteLtd/shopware-pwa/issues/841
  * TODO: https://github.com/DivanteLtd/shopware-pwa/issues/840
@@ -175,71 +161,4 @@ export const toggleFilter = (
       [filter.field]: [filter.value],
     });
   }
-};
-
-/**
- * TODO: https://github.com/DivanteLtd/shopware-pwa/issues/841
- * TODO: https://github.com/DivanteLtd/shopware-pwa/issues/840
- *
- * @beta
- */
-export const toggleEntityFilter = (
-  filter: EqualsFilter, // TODO: handle range filter case as well
-  selectedCriteria: ShopwareParamsInternal,
-  forceSave: boolean = false
-): void => {
-  if (!filter) {
-    return;
-  }
-
-  if (!selectedCriteria.properties) {
-    selectedCriteria.properties = [];
-  }
-  if (!selectedCriteria.manufacturer) {
-    selectedCriteria.manufacturer = [];
-  }
-
-  if (filter.field === "manufacturer" && filter.value) {
-    if (selectedCriteria.manufacturer.includes(filter.value)) {
-      selectedCriteria.manufacturer = selectedCriteria.manufacturer.filter(
-        (manufacturerId) => filter.value !== manufacturerId
-      );
-    } else {
-      selectedCriteria.manufacturer.push(filter.value);
-    }
-  }
-
-  if (
-    !["price", "shipping-free", "rating", "manufacturer"].includes(
-      filter.field
-    ) &&
-    filter.value
-  ) {
-    if (selectedCriteria.properties.includes(filter.value)) {
-      selectedCriteria.properties = selectedCriteria.properties.filter(
-        (propertyId) => filter.value !== propertyId
-      );
-    } else {
-      selectedCriteria.properties.push(filter.value);
-    }
-  }
-};
-
-/**
- * @beta
- */
-export const resetSearchCriteria = (
-  searchCriteria: Partial<SearchCriteria>
-) => {
-  searchCriteria.manufacturer = [];
-  searchCriteria.properties = [];
-  if (!searchCriteria.pagination) {
-    searchCriteria.pagination = {};
-  }
-  if (!searchCriteria.sort) {
-    searchCriteria.sort = {} as any;
-  }
-  searchCriteria.pagination.page = undefined;
-  searchCriteria.pagination.limit = undefined;
-  searchCriteria.sort = {} as any;
 };
