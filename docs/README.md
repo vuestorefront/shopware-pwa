@@ -2,7 +2,7 @@
 sidebar: false
 ---
 
-![showpare-vsf-banner](./landing/assets/shopware_vsf_banner.png)
+![Shopware PWA](./landing/assets/shopware_vsf_banner.png)
 
 <center>
 
@@ -14,6 +14,17 @@ sidebar: false
 yarn global add @shopware-pwa/cli && shopware-pwa init 		# install CLI & initialize project
 yarn dev 													# start dev server
 ```
+
+---
+
+<center>
+
+:::tip Watch our talk on Shopware PWA
+
+[📺 Shopware PWA for Developers](https://www.youtube.com/watch?v=VVfreCzDDKM) from June, 19th (EN).
+:::
+
+</center>
 
 <div class="flex-container">
 
@@ -55,6 +66,10 @@ Made with ❤️ by shopware AG & Vue Storefront
 .flex-container {
 	display: block;
 	margin-top: 25px;
+}
+
+.preview-image {
+	width: 50%;
 }
 
 @media screen and (min-width: 720px) {

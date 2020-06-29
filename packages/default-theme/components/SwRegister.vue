@@ -191,7 +191,10 @@ export default {
         email: this.email,
         password: this.password,
         salutationId: this.salutation.id,
-        storefrontUrl: window && window.location && `${window.location.protocol}//${window.location.hostname}`,
+        storefrontUrl:
+          window &&
+          window.location &&
+          `${window.location.protocol}//${window.location.hostname}`,
         billingAddress: {
           firstName: this.firstName,
           salutationId: this.salutation.id,
