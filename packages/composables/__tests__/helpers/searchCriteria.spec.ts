@@ -42,7 +42,7 @@ describe("composables searchCriteria", () => {
       expect(replaceStateSpy).toBeCalledWith(
         {},
         null,
-        "/?manufacturer=12345&query=a%20term"
+        "/?query=a%20term&manufacturer=12345"
       );
       replaceStateSpy.mockRestore();
     });
