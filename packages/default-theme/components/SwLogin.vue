@@ -7,6 +7,7 @@
         class="sw-login__alert"
         type="danger"
         :message="userError"
+        data-cy="login-alert"
       />
       <SwInput
         v-model="email"
@@ -17,6 +18,7 @@
         :disabled="isLoading"
         error-message="Email is required"
         @blur="$v.email.$touch()"
+        data-cy="email-input"
       />
       <SwInput
         v-model="password"
@@ -28,12 +30,14 @@
         :disabled="isLoading"
         error-message="Password is required"
         @blur="$v.password.$touch()"
+        data-cy="password-input"
       />
       <SwPluginSlot name="login-form-button">
         <SwButton
           class="sf-button--full-width form__button"
           :disabled="isLoading"
           @click="invokeLogin"
+          data-cy="submit-login-button"
         >
           Log in
         </SwButton>
@@ -61,7 +65,7 @@ export default {
       password: "",
     }
   },
-  setup(props, {root}) {
+  setup(props, { root }) {
     const { login, loading, error: userError } = useUser(root)
     return {
       clientLogin: login,

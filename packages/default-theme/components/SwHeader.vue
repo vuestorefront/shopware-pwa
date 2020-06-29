@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-top-navigation">
+  <div class="sw-top-navigation" data-cy="main-header">
     <SfOverlay :visible="isOpen" class="sw-overlay" />
     <SwTopBar />
     <SfHeader
@@ -44,7 +44,7 @@ export default {
     SwTopNavigation,
     SwSearchBar,
   },
-  setup(props, {root}) {
+  setup(props, { root }) {
     const { isOpen } = useUIState(root, "MEGA_MENU_OVERLAY_STATE")
 
     return {

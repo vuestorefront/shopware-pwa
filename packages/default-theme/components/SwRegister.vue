@@ -8,6 +8,7 @@
         class="sw-register__alert"
         type="danger"
         :message="getErrorMessage"
+        data-cy="register-alert"
       />
       <SfSelect
         v-if="getMappedSalutations && getMappedSalutations.length > 0"
@@ -16,11 +17,13 @@
         :valid="!$v.salutation.$error"
         error-message="Salutation must be selected"
         class="sf-select--underlined form__input form__select form__element"
+        data-cy="salutation-select"
       >
         <SfSelectOption
           v-for="salutationOption in getMappedSalutations"
           :key="salutationOption.id"
           :value="salutationOption"
+          data-cy="salutation-option"
         >
           {{ salutationOption.name }}
         </SfSelectOption>
@@ -33,6 +36,7 @@
         :valid="!$v.firstName.$error"
         error-message="First name is required"
         @blur="$v.firstName.$touch()"
+        data-cy="first-name-input"
       />
       <SwInput
         v-model="lastName"
@@ -42,6 +46,7 @@
         :valid="!$v.lastName.$error"
         error-message="Last name is required"
         @blur="$v.lastName.$touch()"
+        data-cy="last-name-input"
       />
       <SwInput
         v-model="email"
@@ -51,6 +56,7 @@
         :valid="!$v.email.$error"
         error-message="Proper email is required"
         @blur="$v.email.$touch()"
+        data-cy="email-input"
       />
       <SwInput
         v-model="password"
@@ -61,6 +67,7 @@
         :valid="!$v.password.$error"
         error-message="Minimum password length is 8 characters"
         @blur="$v.password.$touch()"
+        data-cy="password-input"
       />
       <SwInput
         v-model="street"
@@ -70,6 +77,7 @@
         :valid="!$v.street.$error"
         error-message="Street is required"
         @blur="$v.street.$touch()"
+        data-cy="street-input"
       />
       <SwInput
         v-model="city"
@@ -79,6 +87,7 @@
         :valid="!$v.city.$error"
         error-message="City is required"
         @blur="$v.city.$touch()"
+        data-cy="city-input"
       />
       <SwInput
         v-model="zipcode"
@@ -88,6 +97,7 @@
         :valid="!$v.zipcode.$error"
         error-message="Zipcode is required."
         @blur="$v.zipcode.$touch()"
+        data-cy="zip-code-input"
       />
       <SfSelect
         v-model="country"
@@ -97,11 +107,13 @@
         :valid="!$v.country.$error"
         error-message="Country must be selected"
         @blur="$v.country.$touch()"
+        data-cy="country-select"
       >
         <SfSelectOption
           v-for="countryOption in getMappedCountries"
           :key="countryOption.id"
           :value="countryOption"
+          data-cy="country-option"
         >
           {{ countryOption.name }}
         </SfSelectOption>
@@ -110,6 +122,7 @@
         class="sf-button--full-width form__button"
         :disabled="isLoading"
         @click="invokeRegister"
+        data-cy="submit-register-button"
       >
         Create an account
       </SwButton>
@@ -149,7 +162,7 @@ export default {
       zipcode: "",
     }
   },
-  setup(props, {root}) {
+  setup(props, { root }) {
     const { login, register, loading, error: userError } = useUser(root)
     const { getCountries, error: countriesError } = useCountries(root)
     const { getSalutations, error: salutationsError } = useSalutations(root)
