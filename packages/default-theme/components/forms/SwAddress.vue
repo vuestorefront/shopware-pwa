@@ -140,7 +140,7 @@
 <script>
 import { validationMixin } from "vuelidate"
 import { required } from "vuelidate/lib/validators"
-import { computed, reactive, ref } from "@vue/composition-api"
+import { computed, reactive } from "@vue/composition-api"
 import { SfAlert, SfSelect } from "@storefront-ui/vue"
 import {
   useCountries,

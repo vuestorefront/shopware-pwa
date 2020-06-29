@@ -13,6 +13,7 @@
         </SwButton>
       </SfTab>
     </SfTabs>
+
     <SfTabs v-else>
       <SfTab title="Add address">
         <nuxt-child />
@@ -20,13 +21,15 @@
     </SfTabs>
   </div>
 </template>
+
 <script>
 import SwAddressList from "@shopware-pwa/default-theme/components/SwAddressList.vue"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
-
+import { SfTabs } from "@storefront-ui/vue"
 export default {
   name: "MyAddresses",
   components: {
+    SfTabs,
     SwButton,
     SwAddressList,
   },
