@@ -60,7 +60,7 @@ export interface UseProductSearch {
     forceSave: boolean
   ) => void;
   resetFilters: () => void;
-  isBaseSearch: () => boolean;
+  // isBaseSearch: () => boolean;
 }
 
 /**
@@ -91,6 +91,7 @@ export const useProductSearch = (
     pagination: {},
     sort: {},
   });
+  /* istanbul ignore next */
   const isBaseSearch = () =>
     !searchResult.value?.currentFilters?.manufacturer?.length &&
     !searchResult.value?.currentFilters?.properties?.length;
@@ -128,6 +129,7 @@ export const useProductSearch = (
     if (!sorting) {
       return;
     }
+
     searchCriteria.sort = sorting;
     syncQueryParams();
     await search(currentSearchTerm.value);
@@ -171,11 +173,7 @@ export const useProductSearch = (
       loadingSearch.value = true;
       currentSearchTerm.value = term;
       searchResult.value = null;
-      const result = await getSearchResults(
-        term,
-        searchCriteria.value,
-        apiInstance
-      );
+      const result = await getSearchResults(term, searchCriteria, apiInstance);
       searchResult.value = result;
       // set the base aggregations as default for the listing on first call
       if (isBaseSearch()) {
@@ -219,6 +217,5 @@ export const useProductSearch = (
     changeSorting,
     toggleFilter,
     resetFilters,
-    isBaseSearch,
   };
 };

@@ -18,9 +18,9 @@ export declare function getListingAvailableFilters(aggregations: Aggregations | 
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  aggregations | Aggregations \| undefined \| null |  |
+|  aggregations | <code>Aggregations &#124; undefined &#124; null</code> |  |
 
 <b>Returns:</b>
 
-[UiCategoryFilter](./helpers.uicategoryfilter.md)<!-- -->\[\]
+`UiCategoryFilter[]`
 

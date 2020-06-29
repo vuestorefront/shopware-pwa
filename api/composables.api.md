@@ -362,8 +362,6 @@ export interface UseProductSearch {
     // (undocumented)
     currentSearchTerm: Readonly<Ref<string>>;
     // (undocumented)
-    isBaseSearch: () => boolean;
-    // (undocumented)
     loadingSearch: Readonly<Ref<boolean>>;
     // (undocumented)
     loadingSuggestions: Readonly<Ref<boolean>>;

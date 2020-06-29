@@ -17,13 +17,13 @@ export declare function getSuggestedResults(term: string, searchCriteria?: Searc
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  term | string |  |
-|  searchCriteria | SearchCriteria |  |
-|  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
+|  term | <code>string</code> |  |
+|  searchCriteria | <code>SearchCriteria</code> |  |
+|  contextInstance | <code>ShopwareApiInstance</code> |  |
 
 <b>Returns:</b>
 
-Promise&lt;ProductListingResult&gt;
+`Promise<ProductListingResult>`
 
 ## Exceptions
 

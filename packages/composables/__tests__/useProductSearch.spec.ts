@@ -51,34 +51,6 @@ describe("Composables - useProductSearch", () => {
         total: 189,
       });
     });
-    // it("should get the limit from the currentPagination if there is no pagination in search criteria", async () => {
-    //   mockedApi.getSearchResults.mockResolvedValueOnce({
-    //     page: 4,
-    //     limit: 10,
-    //     total: 189,
-    //   } as any);
-    //   const { search, changePage, currentPagination } = useProductSearch(
-    //     rootContextMock
-    //   );
-    //   await search("some term");
-    //   expect(currentPagination.value).toStrictEqual({
-    //     currentPage: 4,
-    //     perPage: 10,
-    //     total: 189,
-    //   });
-    //   await changePage(2);
-    //   expect(mockedApi.getSearchResults).toBeCalledWith(
-    //     "some term",
-    //     {
-    //       manufacturer: [],
-    //       pagination: { limit: undefined, page: 2 },
-    //       properties: [],
-    //       sort: {},
-    //     },
-    //     rootContextMock.$shopwareApiInstance
-    //   );
-    //   jest.resetAllMocks();
-    // });
   });
   describe("currentSearchTerm", () => {
     it("should have current search-term if there is one provided during the search", async () => {
@@ -134,36 +106,7 @@ describe("Composables - useProductSearch", () => {
       await search("some string");
       expect(mockedApi.getSearchResults).toBeCalledTimes(2);
     });
-    it("should return false if there is no active filter set in the payload", async () => {
-      mockedApi.getSearchResults.mockResolvedValue({
-        currentFilters: {},
-        aggregations: {},
-      } as any);
 
-      const { search, isBaseSearch } = useProductSearch(rootContextMock);
-      await search("some string");
-      expect(isBaseSearch()).toBe(true);
-    });
-    it("should return false if there is no active filter set in the payload", async () => {
-      mockedApi.getSearchResults.mockResolvedValue({
-        currentFilters: {
-          manufacturer: null,
-          properties: [],
-        },
-        aggregations: {},
-      } as any);
-
-      const { search, isBaseSearch } = useProductSearch(rootContextMock);
-      await search("some string");
-      expect(isBaseSearch()).toBe(true);
-    });
-    it("should return false if there is no active filter set in the payload", async () => {
-      mockedApi.getSearchResults.mockResolvedValue(null as any);
-
-      const { search, isBaseSearch } = useProductSearch(rootContextMock);
-      await search("some string");
-      expect(isBaseSearch()).toBe(true);
-    });
     it("should set available filters if it's a base search with aggregations for whole collection", async () => {
       mockedApi.getSearchResults.mockResolvedValueOnce({
         page: 4,
@@ -198,25 +141,25 @@ describe("Composables - useProductSearch", () => {
         },
       ]);
     });
-    // it("should have appriopriate API call invoked on search action", async () => {
-    //   const { search, resetFilters } = useProductSearch(rootContextMock);
-    //   resetFilters();
-    //   await search("some string");
-    //   expect(mockedApi.getSearchResults).toBeCalledTimes(1);
-    //   expect(mockedApi.getSearchResults).toBeCalledWith(
-    //     "some string",
-    //     {
-    //       manufacturer: [],
-    //       properties: [],
-    //       sort: {},
-    //       pagination: {
-    //         limit: undefined,
-    //         page: undefined,
-    //       },
-    //     },
-    //     rootContextMock.$shopwareApiInstance
-    //   );
-    // });
+    it("should have appriopriate API call invoked on search action", async () => {
+      const { search, resetFilters } = useProductSearch(rootContextMock);
+      resetFilters();
+      await search("some string");
+      expect(mockedApi.getSearchResults).toBeCalledTimes(1);
+      expect(mockedApi.getSearchResults).toBeCalledWith(
+        "some string",
+        {
+          manufacturer: [],
+          properties: [],
+          sort: {},
+          pagination: {
+            limit: undefined,
+            page: undefined,
+          },
+        },
+        rootContextMock.$shopwareApiInstance
+      );
+    });
     it("should have product returned if search term provided", async () => {
       mockedApi.getSearchResults.mockResolvedValueOnce({
         data: [{ name: "some string" }],
@@ -251,14 +194,14 @@ describe("Composables - useProductSearch", () => {
   });
   describe("changePage", () => {
     it("should append the provided page to the pagination object", async () => {
-      const { changePage } = useProductSearch(rootContextMock);
-      // await search("test");
+      const { changePage, search } = useProductSearch(rootContextMock);
+      await search("test");
       await changePage(5);
       expect(mockedApi.getSearchResults).toBeCalledWith(
         "test",
         {
-          pagination: { limit: undefined, page: 5 },
           manufacturer: [],
+          pagination: { limit: undefined, page: 5 },
           properties: [],
           sort: {},
         },
@@ -268,33 +211,33 @@ describe("Composables - useProductSearch", () => {
     });
   });
   describe("changeSorting", () => {
-    // it("should invoke getSearchResults with provided sorting config", async () => {
-    //   const { search, changeSorting } = useProductSearch(rootContextMock);
-    //   await search("test");
-    //   await changeSorting({
-    //     field: "name",
-    //     name: "name-desc",
-    //     desc: true,
-    //   });
-    //   expect(mockedApi.getSearchResults).toBeCalledWith(
-    //     "test",
-    //     {
-    //       manufacturer: [],
-    //       properties: [],
-    //       pagination: {
-    //         limit: undefined,
-    //         page: 5,
-    //       },
-    //       sort: {
-    //         field: "name",
-    //         name: "name-desc",
-    //         order: "desc",
-    //       },
-    //     },
-    //     rootContextMock.$shopwareApiInstance
-    //   );
-    //   expect(mockedApi.getSearchResults).toBeCalledTimes(2);
-    // });
+    it("should invoke getSearchResults with provided sorting config", async () => {
+      const { search, changeSorting } = useProductSearch(rootContextMock);
+      await search("test");
+      await changeSorting({
+        field: "name",
+        name: "name-desc",
+        desc: true,
+      });
+      expect(mockedApi.getSearchResults).toBeCalledWith(
+        "test",
+        {
+          manufacturer: [],
+          properties: [],
+          pagination: {
+            limit: undefined,
+            page: 5,
+          },
+          sort: {
+            field: "name",
+            name: "name-desc",
+            order: "desc",
+          },
+        },
+        rootContextMock.$shopwareApiInstance
+      );
+      expect(mockedApi.getSearchResults).toBeCalledTimes(2);
+    });
     it("should not invoke getSearchResults if no sorting was provided", async () => {
       const { search, changeSorting } = useProductSearch(rootContextMock);
       await search("test");

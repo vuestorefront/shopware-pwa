@@ -18,9 +18,9 @@ export declare function createInstance(initialConfig?: ClientSettings): Shopware
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  initialConfig | [ClientSettings](./shopware-6-client.clientsettings.md) |  |
+|  initialConfig | <code>ClientSettings</code> |  |
 
 <b>Returns:</b>
 
-[ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md)
+`ShopwareApiInstance`
 
