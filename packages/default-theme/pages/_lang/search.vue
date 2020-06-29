@@ -1,10 +1,10 @@
 <template>
-  <div class="search-page" :key="$route.fullPath">
-    <h3 class="search-page__warning" v-if="!searchQuery && startedSearching">
+  <div :key="$route.fullPath" class="search-page">
+    <h3 v-if="!searchQuery && startedSearching" class="search-page__warning">
       You didn't provide any term to be found
     </h3>
-    <SfLoader :loading="loadingSearch || !startedSearching" v-else>
-      <div class="search-page__main" v-if="searchResult">
+    <SfLoader v-else :loading="loadingSearch || !startedSearching">
+      <div v-if="searchResult" class="search-page__main">
         <h3>
           search results for <strong>{{ searchQuery }}</strong> :
         </h3>
@@ -19,24 +19,16 @@
   </div>
 </template>
 <script>
-import { SfButton, SfHeading, SfIcon, SfLoader } from "@storefront-ui/vue"
+import { SfLoader } from "@storefront-ui/vue"
 import { useProductSearch, useUIState } from "@shopware-pwa/composables"
 
-import {
-  ref,
-  getCurrentInstance,
-  computed,
-  watchEffect,
-} from "@vue/composition-api"
+import { ref, watchEffect } from "@vue/composition-api"
 import SwProductListing from "@shopware-pwa/default-theme/components/SwProductListing"
 
 export default {
   name: "SearchResultsPage",
   watchQuery: true,
   components: {
-    SfHeading,
-    SfButton,
-    SfIcon,
     SfLoader,
     SwProductListing,
   },

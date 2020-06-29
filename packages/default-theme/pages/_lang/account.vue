@@ -1,5 +1,5 @@
 <template>
-  <div class="my-account" :key="$route.fullPath">
+  <div :key="$route.fullPath" class="my-account">
     <SfContentPages
       :title="$t('My account')"
       :active="activePage"
@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-import { computed, onBeforeMount } from "@vue/composition-api"
+import { computed } from "@vue/composition-api"
 import { SfContentPages, SfTabs } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
 import { PAGE_LOGIN } from "@shopware-pwa/default-theme/helpers/pages"
@@ -59,15 +59,15 @@ export default {
       return (this.user && this.user && this.user.activeShippingAddress) || {}
     },
   },
-  mounted() {
-    this.updateActivePage(this.activePage)
-  },
   watch: {
     $route(to, from) {
       if (to.name === "account-profile") {
         this.activePage = "My profile"
       }
     },
+  },
+  mounted() {
+    this.updateActivePage(this.activePage)
   },
   methods: {
     async updateActivePage(title) {
