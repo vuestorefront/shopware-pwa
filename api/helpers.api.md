@@ -11,7 +11,6 @@ import { CmsSection } from '@shopware-pwa/commons/interfaces/models/content/cms/
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { EqualsAnyFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
-import { ListingQueryParams } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
@@ -20,12 +19,6 @@ import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salut
 import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { ShopwareError } from '@shopware-pwa/commons/interfaces/errors/ApiError';
 import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
-
-// @beta (undocumented)
-export function appendQueryParamsToSearchCriteria(params: ListingQueryParams, searchCriteria: SearchCriteria): void;
-
-// @beta (undocumented)
-export function appendSearchCriteriaToUrl(searchCriteria: SearchCriteria, searchTerm: string): void;
 
 // @alpha (undocumented)
 export interface CategoryFilterEntityValue {
@@ -93,8 +86,6 @@ export function getCmsSections(content: CmsPage): CmsSection[];
 // @alpha (undocumented)
 export const getFilterSearchCriteria: (selectedFilters: any) => any[];
 
-// Warning: (ae-incompatible-release-tags) The symbol "getListingAvailableFilters" is marked as @beta, but its signature references "UiCategoryFilter" which is marked as @alpha
-//
 // @beta (undocumented)
 export function getListingAvailableFilters(aggregations: Aggregations | undefined | null): UiCategoryFilter[];
 
@@ -217,9 +208,6 @@ export interface ProductOptions {
     [attribute: string]: UiProductOption[];
 }
 
-// @beta (undocumented)
-export const resetSearchCriteria: (searchCriteria: Partial<SearchCriteria>) => void;
-
 // @alpha (undocumented)
 export interface Sorting {
     // (undocumented)
@@ -251,15 +239,10 @@ export interface TierPrice {
     unitPrice: number;
 }
 
-// Warning: (ae-forgotten-export) The symbol "ShopwareParamsInternal" needs to be exported by the entry point index.d.ts
-//
-// @beta
-export const toggleEntityFilter: (filter: EqualsFilter, selectedCriteria: ShopwareParamsInternal, forceSave?: boolean) => void;
-
 // @beta @deprecated
 export const toggleFilter: (filter: EqualsFilter | EqualsAnyFilter, selectedCriteria: any, forceSave?: boolean) => void;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UiCategoryFilter {
     // (undocumented)
     name: string;
@@ -269,7 +252,7 @@ export interface UiCategoryFilter {
     type: UiCategoryFilterType;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UiCategoryFilterOption {
     // (undocumented)
     color: boolean | string;
@@ -281,7 +264,7 @@ export interface UiCategoryFilterOption {
     value: string;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export enum UiCategoryFilterType {
     // (undocumented)
     entity = "entity",
@@ -293,7 +276,7 @@ export enum UiCategoryFilterType {
     term = "term"
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UiCategoryRangeFilterOption {
     // (undocumented)
     max: string;

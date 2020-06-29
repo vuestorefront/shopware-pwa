@@ -22,5 +22,5 @@ export declare function getListingAvailableFilters(aggregations: Aggregations | 
 
 <b>Returns:</b>
 
-UiCategoryFilter\[\]
+[UiCategoryFilter](./helpers.uicategoryfilter.md)<!-- -->\[\]
 

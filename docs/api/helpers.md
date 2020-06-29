@@ -4,12 +4,16 @@
 
 ## helpers package
 
+## Enumerations
+
+|  Enumeration | Description |
+|  --- | --- |
+|  [UiCategoryFilterType](./helpers.uicategoryfiltertype.md) | <b><i>(BETA)</i></b> |
+
 ## Functions
 
 |  Function | Description |
 |  --- | --- |
-|  [appendQueryParamsToSearchCriteria(params, searchCriteria)](./helpers.appendqueryparamstosearchcriteria.md) | <b><i>(BETA)</i></b> |
-|  [appendSearchCriteriaToUrl(searchCriteria, searchTerm)](./helpers.appendsearchcriteriatourl.md) | <b><i>(BETA)</i></b> |
 |  [getListingAvailableFilters(aggregations)](./helpers.getlistingavailablefilters.md) | <b><i>(BETA)</i></b> |
 |  [getProductRegularPrice(product)](./helpers.getproductregularprice.md) | <b><i>(BETA)</i></b> Get the price for 1 unit of a product |
 |  [getProductTierPrices(product)](./helpers.getproducttierprices.md) | <b><i>(BETA)</i></b> Get the prices depending on quantity added to cart. Tier prices can be set in <code>Advanced pricing</code> tab in <code>Product view</code> (admin panel) |
@@ -21,12 +25,13 @@
 |  Interface | Description |
 |  --- | --- |
 |  [TierPrice](./helpers.tierprice.md) | <b><i>(BETA)</i></b> |
+|  [UiCategoryFilter](./helpers.uicategoryfilter.md) | <b><i>(BETA)</i></b> |
+|  [UiCategoryFilterOption](./helpers.uicategoryfilteroption.md) | <b><i>(BETA)</i></b> |
+|  [UiCategoryRangeFilterOption](./helpers.uicategoryrangefilteroption.md) | <b><i>(BETA)</i></b> |
 
 ## Variables
 
 |  Variable | Description |
 |  --- | --- |
-|  [resetSearchCriteria](./helpers.resetsearchcriteria.md) | <b><i>(BETA)</i></b> |
-|  [toggleEntityFilter](./helpers.toggleentityfilter.md) | <b><i>(BETA)</i></b> TODO: https://github.com/DivanteLtd/shopware-pwa/issues/841 TODO: https://github.com/DivanteLtd/shopware-pwa/issues/840 |
 |  [toggleFilter](./helpers.togglefilter.md) | <b><i>(BETA)</i></b> TODO: https://github.com/DivanteLtd/shopware-pwa/issues/841 TODO: https://github.com/DivanteLtd/shopware-pwa/issues/840 |
 
