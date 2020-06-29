@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-footer">
+  <div class="sw-footer" data-cy="main-footer">
     <slot class="sw-footer__content" name="content" v-bind="column">
       <div class="content sw-footer__signature">
         <SwPluginSlot name="footer-content">

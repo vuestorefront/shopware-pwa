@@ -1,5 +1,5 @@
 <template>
-  <div id="sw-login-modal">
+  <div id="sw-login-modal" data-cy="login-modal">
     <SfModal
       class="sw-modal"
       :title="modalTitle"
@@ -13,6 +13,7 @@
             <SwButton
               class="sf-button--text button--muted"
               @click="component = 'SwResetPassword'"
+              data-cy="forgotten-password-button"
             >
               Forgotten password?
             </SwButton>
@@ -28,6 +29,7 @@
               <SwButton
                 class="sf-button--text bottom__element"
                 @click="component = 'SwRegister'"
+                data-cy="go-to-register-button"
               >
                 Register today?
               </SwButton>
@@ -37,6 +39,7 @@
             <SwButton
               class="sf-button--text button--muted"
               @click="component = 'SwLogin'"
+              data-cy="go-to-login-button"
             >
               or try to log in again.
             </SwButton>

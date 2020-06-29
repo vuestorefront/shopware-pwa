@@ -6,6 +6,7 @@
     v-model="typingQuery"
     @keyup.native="performSuggestSearch"
     @enter="performSearch"
+    data-cy="search-bar"
   />
 </template>
 
@@ -20,7 +21,7 @@ export default {
     SfSearchBar,
   },
 
-  setup(props, {root}) {
+  setup(props, { root }) {
     const { search, suggestSearch, suggestionsResult } = useProductSearch(root)
     const typingQuery = ref("")
     const suggestResultProducts = computed(

@@ -1,18 +1,28 @@
 <template>
   <div class="sw-bottom-navigation">
-    <SfBottomNavigation>
+    <SfBottomNavigation data-cy="bottom-navigation">
       <nuxt-link aria-label="Go to Home Page" :to="$i18n.path('/')">
-        <SfBottomNavigationItem label="Home" icon="home" icon-size="20px" />
+        <SfBottomNavigationItem
+          label="Home"
+          icon="home"
+          icon-size="20px"
+          data-cy="bottom-navigation-home"
+        />
       </nuxt-link>
       <SfBottomNavigationItem
         icon="menu"
         icon-size="20px"
         label="Menu"
         class="menu-button"
+        data-cy="bottom-navigation-menu"
       >
         <template #icon>
           <SfIcon icon="menu" size="20px" style="width: 25px;" />
-          <SfSelect v-model="currentRoute" class="menu-button__select">
+          <SfSelect
+            v-model="currentRoute"
+            class="menu-button__select"
+            data-cy="bottom-navigation-menu-select"
+          >
             <SfSelectOption
               v-for="route in routes"
               :key="route.routeLabel"
@@ -22,7 +32,11 @@
                 class="sf-header__link"
                 :to="$i18n.path(route.routePath)"
               >
-                <SfProductOption :value="route" :label="route.routeLabel" />
+                <SfProductOption
+                  :value="route"
+                  :label="route.routeLabel"
+                  data-cy="bottom-navigation-menu-option"
+                />
               </nuxt-link>
             </SfSelectOption>
           </SfSelect>
@@ -32,14 +46,20 @@
         icon="profile"
         label="My Account"
         class="menu-button"
+        data-cy="bottom-navigation-account"
       >
         <template #icon>
           <SfIcon icon="profile" size="20px" @click="userIconClick" />
-          <SfSelect v-if="isLoggedIn" class="menu-button__select">
+          <SfSelect
+            v-if="isLoggedIn"
+            class="menu-button__select"
+            data-cy="bottom-navigation-account-select"
+          >
             <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
             <SfSelectOption
               :value="getPageAccount"
               @click.native="goToMyAccount"
+              data-cy="bottom-navigation-account-option"
             >
               My account
             </SfSelectOption>
@@ -52,7 +72,11 @@
           </SfSelect>
         </template>
       </SfBottomNavigationItem>
-      <SfBottomNavigationItem label="Currency" class="menu-button">
+      <SfBottomNavigationItem
+        label="Currency"
+        class="menu-button"
+        data-cy="bottom-navigation-currency"
+      >
         <template #icon>
           <SwCurrencySwitcher class="menu-button__currency" />
         </template>
@@ -61,6 +85,7 @@
         icon="empty_cart"
         label="Cart"
         :is-floating="true"
+        data-cy="bottom-navigation-cart"
       >
         <template #icon>
           <SfCircleIcon

@@ -7,14 +7,16 @@
         class="sf-heading--no-underline sf-heading--left"
       />
     </slot>
+
     <div class="product-heading__sub">
       <slot name="price" v-bind="{ price, special }">
         <SfPrice
-          :regular="`${price}`"
-          :special="special"
+          :regular="price | price"
+          :special="special | price"
           class="sf-price--big product-heading__sub-price"
         />
       </slot>
+
       <slot name="reviews" v-bind="reviews">
         <div v-if="reviews.length" class="product-heading__sub-rating">
           <SfRating :score="ratingAverage" :max="5" />
@@ -27,42 +29,86 @@
         </div>
       </slot>
     </div>
+
+    <slot name="shippingFree" v-bind="shippingFree">
+      <SfBadge
+        v-if="shippingFree"
+        class="sf-badge--number product-heading__shipping-badge"
+      >
+        Free shipping
+      </SfBadge>
+    </slot>
+
     <SwTierPrices
       v-if="tierPrices && tierPrices.length"
       :tier-prices="tierPrices"
     />
   </div>
 </template>
+
 <script>
-import { SfHeading, SfPrice, SfRating } from "@storefront-ui/vue"
+import {
+  getProductFreeShipping,
+  getProductRegularPrice,
+  getProductReviews,
+  getProductSpecialPrice,
+  getProductTierPrices,
+  getProductRatingAverage,
+} from "@shopware-pwa/helpers"
+
+import { SfBadge, SfHeading, SfPrice, SfRating } from "@storefront-ui/vue"
+
 import SwTierPrices from "./SwTierPrices"
 
 export default {
   name: "SwProductHeading",
-  components: { SfHeading, SfPrice, SfRating, SwTierPrices },
+
+  components: {
+    SfBadge,
+    SfHeading,
+    SfPrice,
+    SfRating,
+    SwTierPrices,
+  },
+
   props: {
-    reviews: {
-      type: Array,
-      default: () => [],
+    product: {
+      required: true,
+      type: Object,
     },
-    price: {
-      type: [Number, String],
-      default: 0,
+  },
+
+  computed: {
+    name() {
+      return (
+        this.product &&
+        (this.product.name ||
+          (this.product.translated && this.product.translated.name))
+      )
     },
-    special: {
-      type: [Number, String],
-      default: undefined,
+
+    price() {
+      return getProductRegularPrice(this.product)
     },
-    tierPrices: {
-      type: Array,
+
+    ratingAverage() {
+      return getProductRatingAverage(this.product)
     },
-    ratingAverage: {
-      type: Number,
-      default: 0,
+
+    reviews() {
+      return getProductReviews({ product: this.product })
     },
-    name: {
-      type: String,
-      default: "",
+
+    shippingFree() {
+      return getProductFreeShipping(this.product)
+    },
+
+    special() {
+      return getProductSpecialPrice(this.product)
+    },
+
+    tierPrices() {
+      return getProductTierPrices(this.product)
     },
   },
 }
@@ -72,6 +118,9 @@ export default {
 @import "~@storefront-ui/shared/styles/variables";
 
 .product-heading {
+  &__shipping-badge {
+    background: var(--c-primary);
+  }
   &__sub {
     display: flex;
     flex-wrap: wrap;
