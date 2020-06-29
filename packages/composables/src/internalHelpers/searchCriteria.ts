@@ -26,6 +26,7 @@ export function appendSearchCriteriaToUrl(
     arrayFormat: "separator",
     arrayFormatSeparator: "|",
     skipNull: true,
+    sort: false,
   });
 
   if (typeof history !== "undefined" && combinedURL) {
