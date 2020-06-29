@@ -1,5 +1,9 @@
 <template>
-  <nuxt-link :to="$i18n.path('/')" class="sf-header__logo">
+  <nuxt-link
+    :to="$i18n.path('/')"
+    class="sf-header__logo"
+    data-cy="header-logo"
+  >
     <SfImage src="/img/logo.svg" :alt="$t('page.title')" />
   </nuxt-link>
 </template>

@@ -90,7 +90,6 @@ export default {
     SwProductColors,
     SwPluginSlot,
   },
-
   props: {
     product: {
       type: Object,
@@ -101,13 +100,11 @@ export default {
       default: () => ({}),
     },
   },
-
   data() {
     return {
       selected: {},
     }
   },
-
   setup({ page }, { root }) {
     const { addToCart, quantity } = useAddToCart(root, page && page.product)
 
@@ -125,7 +122,6 @@ export default {
           (this.product.translated && this.product.translated.description))
       )
     },
-
     hasChildren() {
       return (
         this.product && this.product.children && this.product.children.length
