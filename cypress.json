@@ -1,6 +1,7 @@
 {
-    "integrationFolder":"packages/default-theme/__e2e__/integration",
-    "fixturesFolder":"packages/default-theme/__e2e__/fixtures",
-    "pluginsFile":"packages/default-theme/__e2e__/plugins",
-    "supportFile":"packages/default-theme/__e2e__/support"
+    "baseUrl": "https://shopware-pwa.storefrontcloud.io/",
+    "integrationFolder":"packages\\default-theme\\__e2e__\\integration",
+    "fixturesFolder":"packages\\default-theme\\__e2e__\\fixtures",
+    "pluginsFile":"packages\\default-theme\\__e2e__\\plugins",
+    "supportFile":"packages\\default-theme\\__e2e__\\support"
 }

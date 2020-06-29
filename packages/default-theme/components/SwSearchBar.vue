@@ -6,6 +6,7 @@
     v-model="typingQuery"
     @keyup.native="performSuggestSearch"
     @enter="performSearch"
+    data-cy="search-bar"
   />
 </template>
 
