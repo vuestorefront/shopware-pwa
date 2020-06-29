@@ -82,6 +82,9 @@ export const getCategoryUrl: (category: Partial<Category>) => string;
 export function getCmsLink(content?: CmsSlot): String;
 
 // @alpha (undocumented)
+export function getCmsLinkTarget(content?: CmsSlot): String;
+
+// @alpha (undocumented)
 export function getCmsSections(content: CmsPage): CmsSection[];
 
 // @alpha (undocumented)
