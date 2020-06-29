@@ -19,11 +19,11 @@ export declare function getProductRegularPrice(product: Product): number | undef
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  product | Product |  |
+|  product | <code>Product</code> |  |
 
 <b>Returns:</b>
 
-number \| undefined
+`number | undefined`
 
 (number\|undefined)
 

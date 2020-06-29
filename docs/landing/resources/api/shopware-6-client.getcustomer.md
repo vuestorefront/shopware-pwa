@@ -19,11 +19,11 @@ export declare function getCustomer(contextInstance?: ShopwareApiInstance): Prom
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
+|  contextInstance | <code>ShopwareApiInstance</code> |  |
 
 <b>Returns:</b>
 
-Promise&lt;Customer \| null&gt;
+`Promise<Customer | null>`
 
 ## Exceptions
 

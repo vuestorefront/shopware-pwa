@@ -29,9 +29,3 @@
 |  [UiCategoryFilterOption](./helpers.uicategoryfilteroption.md) | <b><i>(BETA)</i></b> |
 |  [UiCategoryRangeFilterOption](./helpers.uicategoryrangefilteroption.md) | <b><i>(BETA)</i></b> |
 
-## Variables
-
-|  Variable | Description |
-|  --- | --- |
-|  [toggleFilter](./helpers.togglefilter.md) | <b><i>(BETA)</i></b> TODO: https://github.com/DivanteLtd/shopware-pwa/issues/841 TODO: https://github.com/DivanteLtd/shopware-pwa/issues/840 |
-

@@ -9,8 +9,6 @@ import { Category } from '@shopware-pwa/commons/interfaces/models/content/catego
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { CmsSection } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
-import { EqualsAnyFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
-import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
@@ -247,9 +245,6 @@ export interface TierPrice {
     // (undocumented)
     unitPrice: number;
 }
-
-// @beta @deprecated
-export const toggleFilter: (filter: EqualsFilter | EqualsAnyFilter, selectedCriteria: any, forceSave?: boolean) => void;
 
 // @beta (undocumented)
 export interface UiCategoryFilter {
