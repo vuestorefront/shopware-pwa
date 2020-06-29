@@ -79,7 +79,7 @@ export function getCategoryAvailableSorting({ sorting, }?: {
 export const getCategoryUrl: (category: Partial<Category>) => string;
 
 // @alpha (undocumented)
-export function getCmsLink(content: CmsSlot): String;
+export function getCmsLink(content?: CmsSlot): String;
 
 // @alpha (undocumented)
 export function getCmsSections(content: CmsPage): CmsSection[];

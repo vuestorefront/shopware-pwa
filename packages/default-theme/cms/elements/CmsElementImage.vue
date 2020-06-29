@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { getCmsLink } from "@shopware-pwa/helpers"
 import { SfImage } from "@storefront-ui/vue"
 import SwLink from "@shopware-pwa/default-theme/components/atoms/SwLink"
 
@@ -55,7 +56,7 @@ export default {
     },
 
     link() {
-      return this.content?.data?.url || ""
+      return getCmsLink(this.content)
     },
 
     target() {

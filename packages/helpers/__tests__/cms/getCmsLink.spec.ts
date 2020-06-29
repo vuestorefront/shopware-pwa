@@ -5,4 +5,15 @@ describe("Shopware helpers - getCmsLink", () => {
     const link = getCmsLink(undefined as any);
     expect(link).toEqual("");
   });
+
+  it("should return strig when content has url property", () => {
+    const args: any = {
+      data: {
+        url: "https://www.google.pl/",
+      },
+    };
+
+    const link = getCmsLink(args);
+    expect(link).toEqual("https://www.google.pl/");
+  });
 });
