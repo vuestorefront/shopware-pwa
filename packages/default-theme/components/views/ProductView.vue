@@ -1,6 +1,7 @@
 <template>
   <div v-if="product" id="product">
     <SwPluginSlot name="product-page-details-before" :slotContext="product" />
+    <SwGoBackArrow class="product-page-back" />
     <div class="product">
       <SwProductGallery :product="product" class="product__gallery" />
       <div class="product__description">
@@ -51,6 +52,7 @@
 <script>
 import { SfImage, SfSection } from "@storefront-ui/vue"
 import { useProduct } from "@shopware-pwa/composables"
+import SwGoBackArrow from "@shopware-pwa/default-theme/components/atoms/SwGoBackArrow"
 import SwProductGallery from "@shopware-pwa/default-theme/components/SwProductGallery"
 import SwProductDetails from "@shopware-pwa/default-theme/components/SwProductDetails"
 import SwProductCarousel from "@shopware-pwa/default-theme/components/SwProductCarousel"
@@ -60,6 +62,7 @@ import SwPluginSlot from "sw-plugins/SwPluginSlot"
 export default {
   name: "Product",
   components: {
+    SwGoBackArrow,
     SfImage,
     SfSection,
     SwProductGallery,
@@ -120,6 +123,8 @@ export default {
 }
 
 #product {
+  position: relative;
+
   @include for-desktop {
     max-width: 1240px;
     margin: auto;
@@ -167,5 +172,11 @@ export default {
       margin-left: calc(var(--spacer-base) * 3);
     }
   }
+}
+.product-page-back {
+  left: 0.5rem;
+  position: absolute;
+  top: 1.5rem;
+  z-index: 4;
 }
 </style>
