@@ -1,7 +1,7 @@
 import { getProductFreeShipping } from "@shopware-pwa/helpers";
 
 describe("Shopware helpers - getProductFreeShipping", () => {
-  it("should false false when no product object", () => {
+  it("should return false when no product object", () => {
     const shippingFree = getProductFreeShipping();
     expect(shippingFree).toBe(false);
   });
