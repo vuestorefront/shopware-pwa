@@ -34,7 +34,7 @@ export async function getSuggestedResults(
 
 /**
  * @beta
- * @deprecated
+ * @deprecated - this function will be replaced by getSearchResults what is a more appriopriate name.
  */
 export async function getResults(
   term: string,
