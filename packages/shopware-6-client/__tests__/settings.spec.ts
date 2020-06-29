@@ -120,7 +120,7 @@ describe("Settings", () => {
       const apiInstance = _createInstance();
       apiInstance.update({ contextToken: "xxx" }, { url: "/some-url" });
       expect(consoleWarnSpy).toBeCalledWith(
-        '[shopware-6-api] After calling API method /some-url there is no "onConfigChange" listener. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/#context-awareness'
+        '[shopware-6-api] After calling API method /some-url there is no "onConfigChange" listener. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/security.html#context-awareness'
       );
     });
   });
