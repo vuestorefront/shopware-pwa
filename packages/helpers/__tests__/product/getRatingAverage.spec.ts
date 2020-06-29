@@ -1,24 +1,24 @@
-import { getRatingAverage } from "@shopware-pwa/helpers";
+import { getProductRatingAverage } from "@shopware-pwa/helpers";
 
-describe("Shopware helpers - getRatingAverage", () => {
+describe("Shopware helpers - getProductRatingAverage", () => {
   it("should return undefined when no product object", () => {
-    const productNumber = getRatingAverage(undefined as any);
+    const productNumber = getProductRatingAverage(undefined as any);
     expect(productNumber).toBe(undefined);
   });
 
-  it("should return undfined when no getRatingAverage property in product", () => {
+  it("should return undfined when no getProductRatingAverage property in product", () => {
     const args: any = {};
 
-    const productNumber = getRatingAverage(args);
+    const productNumber = getProductRatingAverage(args);
     expect(productNumber).toBe(undefined);
   });
 
-  it("should return Number when getRatingAverage property is in product", () => {
+  it("should return Number when getProductRatingAverage property is in product", () => {
     const args: any = {
       ratingAverage: 5,
     };
 
-    const freeShipping = getRatingAverage(args);
+    const freeShipping = getProductRatingAverage(args);
     expect(freeShipping).toBe(5);
   });
 });

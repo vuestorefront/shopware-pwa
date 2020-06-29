@@ -136,6 +136,9 @@ export function getProductProperties({ product, }?: {
     product?: Product;
 }): UiProductProperty[];
 
+// @alpha
+export function getProductRatingAverage(product: Product): number | null;
+
 // @beta
 export function getProductRegularPrice(product: Product): number | undefined;
 
@@ -152,9 +155,6 @@ export function getProductTierPrices(product: Product): TierPrice[];
 
 // @alpha (undocumented)
 export function getProductUrl(product: Product | null): string;
-
-// @alpha
-export function getRatingAverage(product: Product): number | null;
 
 // @alpha (undocumented)
 export const getSortingSearchCriteria: (selectedSorting: SwSorting) => Sort;

@@ -12,6 +12,6 @@ export * from "./getProductReviews";
 export * from "./getProductSpecialPrice";
 export * from "./getProductTierPrices";
 export * from "./getProductUrl";
-export * from "./getRatingAverage";
+export * from "./getProductRatingAverage";
 export * from "./getVariantOptionsLabel";
 export * from "./isProductSimple";

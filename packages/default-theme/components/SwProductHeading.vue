@@ -53,7 +53,7 @@ import {
   getProductReviews,
   getProductSpecialPrice,
   getProductTierPrices,
-  getRatingAverage,
+  getProductRatingAverage,
 } from "@shopware-pwa/helpers"
 
 import { SfBadge, SfHeading, SfPrice, SfRating } from "@storefront-ui/vue"
@@ -92,7 +92,7 @@ export default {
     },
 
     ratingAverage() {
-      return getRatingAverage(this.product)
+      return getProductRatingAverage(this.product)
     },
 
     reviews() {
