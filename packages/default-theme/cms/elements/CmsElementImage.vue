@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { getCmsLink } from "@shopware-pwa/helpers"
+import { getCmsLink, getCmsLinkTarget } from "@shopware-pwa/helpers"
 import { SfImage } from "@storefront-ui/vue"
 import SwLink from "@shopware-pwa/default-theme/components/atoms/SwLink"
 
@@ -60,8 +60,7 @@ export default {
     },
 
     target() {
-      const inNewTab = this.content?.data?.newTab
-      return inNewTab ? "_blank" : "_self"
+      return getCmsLinkTarget(this.content)
     },
   },
 }
