@@ -11,11 +11,13 @@
         role="button"
         :aria-label="$t('Go to My Account')"
         @click="userIconClick"
+        data-cy="login-icon"
       />
       <SfDropdown
         class="dropdown"
         :is-open="isDropdownOpen"
         @click:close="isDropdownOpen = false"
+        data-cy="account-dropdown"
       >
         <SfList>
           <SfListItem>
@@ -23,6 +25,7 @@
               class="sf-button sf-button--full-width sf-button--underlined color-primary"
               :to="getPageAccount"
               @click.native="isDropdownOpen = false"
+              data-cy="my-account-link"
             >
               My account
             </nuxt-link>
@@ -31,6 +34,7 @@
             <SwButton
               class="sf-button sf-button--full-width sf-button--underlined color-primary dropdown__item"
               @click="logoutUser()"
+              data-cy="logout-button"
             >
               Logout
             </SwButton>
@@ -45,6 +49,7 @@
         role="button"
         :aria-label="$t('Go to cart')"
         @click="toggleSidebar"
+        data-cy="cart-icon"
       />
       <SwPluginSlot name="top-header-icons-after" />
     </div>

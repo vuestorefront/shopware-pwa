@@ -1,15 +1,17 @@
 <template>
-  <div class="sw-language-switcher">
+  <div class="sw-language-switcher" data-cy="language-switcher">
     <SfSelect
       :selected="currentLocale"
       :size="availableLanguages.length"
       class="sw-language-switcher__select sf-select--no-chevron"
       @change="changeLocale"
+      data-cy="language-switcher-select"
     >
       <SfSelectOption
         v-for="language in availableLanguages"
         :key="language.code"
         :value="language.code"
+        data-cy="language-switcher-option"
       >
         {{ language.name }}
       </SfSelectOption>

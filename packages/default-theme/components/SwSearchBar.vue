@@ -6,6 +6,7 @@
     v-model="typingQuery"
     @keyup.native="performSuggestSearch"
     @enter="performSearch"
+    data-cy="search-bar"
   />
 </template>
 
@@ -26,6 +27,7 @@ export default {
       suggestionsResult,
       resetFilters,
     } = useProductSearch(root)
+
     const typingQuery = ref("")
     const suggestResultProducts = computed(
       () => suggestionsResult.value && suggestionsResult.value.elements

@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-top-navigation">
+  <div class="sw-top-navigation" data-cy="main-header">
     <SfOverlay :visible="isOpen" class="sw-overlay" />
     <SwTopBar />
     <SfHeader
