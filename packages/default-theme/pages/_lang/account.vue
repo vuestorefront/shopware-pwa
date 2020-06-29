@@ -11,7 +11,9 @@
           <nuxt-child />
         </SfContentPage>
         <SfContentPage :title="$t('My addresses')">
-          <nuxt-child />
+          <SfTabs :open-tab="1">
+            <nuxt-child />
+          </SfTabs>
         </SfContentPage>
       </SfContentCategory>
       <SfContentCategory :title="$t('Order details')">
@@ -26,7 +28,7 @@
 
 <script>
 import { computed } from "@vue/composition-api"
-import { SfContentPages } from "@storefront-ui/vue"
+import { SfContentPages, SfTabs } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
 import { PAGE_LOGIN } from "@shopware-pwa/default-theme/helpers/pages"
 
@@ -36,6 +38,7 @@ export default {
   name: "AccountPage",
   components: {
     SfContentPages,
+    SfTabs,
   },
   middleware: authMiddleware,
   setup(props, { root }) {
@@ -91,6 +94,7 @@ export default {
 </script>
 
 <style lang="scss">
+.my-account .my-account__content,
 .my-account .sf-content-pages__content {
   height: auto;
 }
