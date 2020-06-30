@@ -20,15 +20,18 @@ import CmsGenericElement from "sw-cms/CmsGenericElement"
 
 export default {
   name: "CmsBlockImageSimpleGrid",
+
   components: {
     CmsGenericElement,
   },
+
   props: {
     content: {
       type: Object,
       default: () => ({}),
     },
   },
+
   computed: {
     getSlots() {
       return this.content.slots || []
@@ -57,7 +60,7 @@ export default {
     "lb"
     "rf";
   grid-template-rows: repeat(3, 340px);
-  margin: var(--spacer-sm) 0;
+  margin: var(--spacer-sm);
 
   &__image {
     &--lt {
@@ -86,6 +89,7 @@ export default {
     grid-template-areas:
       "lt rf"
       "lb rf";
+    margin: var(--spacer-sm) 0;
   }
 }
 </style>
