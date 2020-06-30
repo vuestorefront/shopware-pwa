@@ -6,16 +6,20 @@
 
 <script>
 import { SfLink } from "@storefront-ui/vue"
+
 export default {
   name: "SwLink",
+
   components: {
     SfLink,
   },
+
   props: {
     link: {
       required: true,
       type: String,
     },
+
     target: {
       default: "_blank",
       type: String,
