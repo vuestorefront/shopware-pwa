@@ -18,6 +18,6 @@ export interface UiCategoryRangeFilterOption
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [max](./helpers.uicategoryrangefilteroption.max.md) | <code>string</code> | <b><i>(BETA)</i></b> |
-|  [min](./helpers.uicategoryrangefilteroption.min.md) | <code>string</code> | <b><i>(BETA)</i></b> |
+|  [max](./helpers.uicategoryrangefilteroption.max.md) | string | <b><i>(BETA)</i></b> |
+|  [min](./helpers.uicategoryrangefilteroption.min.md) | string | <b><i>(BETA)</i></b> |
 

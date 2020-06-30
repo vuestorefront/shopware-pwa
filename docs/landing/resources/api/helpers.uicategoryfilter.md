@@ -18,7 +18,7 @@ export interface UiCategoryFilter
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [name](./helpers.uicategoryfilter.name.md) | <code>string</code> | <b><i>(BETA)</i></b> |
-|  [options](./helpers.uicategoryfilter.options.md) | <code>UiCategoryFilterOption[] &#124; UiCategoryRangeFilterOption &#124; any</code> | <b><i>(BETA)</i></b> |
-|  [type](./helpers.uicategoryfilter.type.md) | <code>UiCategoryFilterType</code> | <b><i>(BETA)</i></b> |
+|  [name](./helpers.uicategoryfilter.name.md) | string | <b><i>(BETA)</i></b> |
+|  [options](./helpers.uicategoryfilter.options.md) | [UiCategoryFilterOption](./helpers.uicategoryfilteroption.md)<!-- -->\[\] \| [UiCategoryRangeFilterOption](./helpers.uicategoryrangefilteroption.md) \| any | <b><i>(BETA)</i></b> |
+|  [type](./helpers.uicategoryfilter.type.md) | [UiCategoryFilterType](./helpers.uicategoryfiltertype.md) | <b><i>(BETA)</i></b> |
 
