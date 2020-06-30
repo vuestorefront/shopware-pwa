@@ -24,14 +24,12 @@ export declare function getOrderPaymentUrl({ orderId, finishUrl, }: {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { orderId, finishUrl, } | <code>{</code><br/><code>    orderId: string;</code><br/><code>    finishUrl?: string;</code><br/><code>}</code> |  |
-|  contextInstance | <code>ShopwareApiInstance</code> |  |
+|  { orderId, finishUrl, } | { orderId: string; finishUrl?: string; } |  |
+|  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 <b>Returns:</b>
 
-`Promise<{
-    paymentUrl: string;
-}>`
+Promise&lt;{ paymentUrl: string; }&gt;
 
 ## Exceptions
 

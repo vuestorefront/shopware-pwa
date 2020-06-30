@@ -17,13 +17,13 @@ export declare function getSearchResults(term: string, searchCriteria?: SearchCr
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  term | <code>string</code> |  |
-|  searchCriteria | <code>SearchCriteria</code> |  |
-|  contextInstance | <code>ShopwareApiInstance</code> |  |
+|  term | string |  |
+|  searchCriteria | SearchCriteria |  |
+|  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 <b>Returns:</b>
 
-`Promise<ProductListingResult>`
+Promise&lt;ProductListingResult&gt;
 
 ## Exceptions
 
