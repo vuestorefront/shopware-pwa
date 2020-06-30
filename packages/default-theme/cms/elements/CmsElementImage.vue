@@ -39,18 +39,18 @@ export default {
   },
 
   computed: {
-    getMedia() {
-      return this.content && this.content.data && this.content.data.media
-    },
-    imgUrl() {
-      return this.getMedia && this.getMedia.url
-    },
     alt() {
       return this.getMedia && this.getMedia.alt
     },
-    title() {
-      return this.getMedia && this.getMedia.title
+
+    getMedia() {
+      return this.content && this.content.data && this.content.data.media
     },
+
+    imgUrl() {
+      return this.getMedia && this.getMedia.url
+    },
+
     lazyLoad() {
       return true
     },
@@ -58,6 +58,11 @@ export default {
     link() {
       return getCmsLink(this.content)
     },
+
+    title() {
+      return this.getMedia && this.getMedia.title
+    },
+
     target() {
       return getCmsLinkTarget(this.content)
     },
