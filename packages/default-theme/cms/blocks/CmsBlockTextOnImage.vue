@@ -12,16 +12,19 @@
 import CmsGenericElement from "sw-cms/CmsGenericElement"
 
 export default {
+  name: "CmsBlockTextOnImage",
+
   components: {
     CmsGenericElement,
   },
-  name: "CmsBlockTextOnImage",
+
   props: {
     content: {
       type: Object,
       default: () => ({}),
     },
   },
+
   computed: {
     getSlots() {
       return this.content.slots || []

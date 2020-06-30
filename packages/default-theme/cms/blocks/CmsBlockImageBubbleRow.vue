@@ -20,15 +20,18 @@ import CmsGenericElement from "sw-cms/CmsGenericElement"
 
 export default {
   name: "CmsBlockImageBubbleRow",
+
   components: {
     CmsGenericElement,
   },
+
   props: {
     content: {
       type: Object,
       default: () => ({}),
     },
   },
+
   computed: {
     getSlots() {
       return this.content.slots || []
@@ -49,33 +52,32 @@ export default {
 <style lang="scss" scoped>
 @import "../settings.scss";
 
-.cms-block-image-bubble-row {
-  display: flex;
-  flex-direction: column;
-  padding: 0 var(--spacer-sm);
-  margin: var(--spacer-xl) 0;
-  height: 100%;
+::v-deep.cms-block-image-bubble-row {
+  display: grid;
+  grid-gap: var(--spacer-sm);
+  grid-template-rows: repeat(3, 286px);
+  margin: var(--spacer-sm);
 
-  &__image {
-    display: inline-block;
-    position: relative;
-    width: auto;
-    height: 100vw;
-    overflow: hidden;
-    border-radius: 50%;
-    --image-height: 100%;
-    margin: var(--spacer-2xs) 0;
+  &__image,
+  .cms-element-image {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
 
-    @include for-desktop {
-      max-height: 250px;
-      max-width: 250px;
-      --image-width: auto;
+    img {
+      border-radius: 50%;
+      height: 250px;
+      object-fit: cover;
+      object-position: center;
+      width: 250px;
     }
   }
 
   @include for-desktop {
-    flex-direction: row;
-    justify-content: space-around;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 286px);
+    margin: var(--spacer-sm) 0;
   }
 }
 </style>
