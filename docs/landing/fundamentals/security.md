@@ -1,8 +1,3 @@
----
-sidebar: auto
-sidebarDepth: 2
----
-
 # Security
 
 At a fundamental level, Shopware PWA serves as a facade for users (customers) to interact with one or multiple backends (merchant services) of which Shopware will be at least one. We can achieve this type of architecture using APIs and following a so-called *headless* approach. This yields great freedom as to which services and tools can be integrated without affecting others.
@@ -79,3 +74,71 @@ After the build process, there is no connection required anymore, so it is advis
 $ shopware-pwa init --ci --username [user] --password [pass]
 $ shopware-pwa plugins --ci --username [user] --password [pass]
 ```
+
+## Context-Awareness <Badge text="new (0.2.0)" type="info"/>
+
+As described above, `universal` applications may share the data between different server requests. It's very important to keep this in mind. To ensure, that data is always assiociated with the correct invocation we introduced `context awareness` for both - client and composables logic.
+
+### Composables
+
+To ensure, that the whole logic is connected, we now require that every composable usage needs to have th  `Vue` context as its first parameter. It's effortless and straightforward but ensures that all data is secured.
+
+```js
+import { useUser } from "@shopware-pwa/composables"
+
+// later in component
+setup(props, { root }) {
+  const { isLoggedIn } = useUser(root) // you're passing root to any composable as a first argument
+}
+```
+
+`root` is an equivalent of the component context `this`, so we're passing our Vue instance. In asyncData and Nuxt plugins, we use `app` instead.
+
+```js
+import { useUser } from "@shopware-pwa/composables"
+
+// later in component
+asyncData: async ({ params, app, }) => {
+  const { isLoggedIn } = useUser(app)
+})
+```
+
+If you don't pass the Vue instance context to the composable, you'll see the following security warning.
+
+![composables context security warning](../../assets/composables-context-security-warning.png)
+
+It means that somewhere you're invoking `useAddToCart` without passing the root. Find that in your code and add the context to fix it.
+
+### API Client
+
+Similar to `composables`, the API client instance should be created for every request on the server. To ensure that all requests are secured and we still have the power of tree-shaking (having only code in your bundle which is used), we changed the way we invoke API methods, to pass them the API client context as well. Most of the API client logic is invoked under the hood inside composables, but if you need to invoke an API client method by yourself, you should add the context. To ensure there's a common way for composables and API client, we introduced `getApplicationContext` method.
+
+**Usage example**
+
+```js
+import {
+  getShippingMethodDetails,
+  getPaymentMethodDetails,
+  getOrderPaymentUrl,
+} from "@shopware-pwa/shopware-6-client"
+import { getApplicationContext } from "@shopware-pwa/composables"
+
+// later in component
+setup(params, {root}) {
+  // we can pass component name, to easily track where the context is not passed
+  const { apiInstance } = getApplicationContext(root, "myComponent")
+  const someShippingMethodId = "123"
+  const shippingMethod = await getShippingMethodDetails(
+      someShippingMethodId,
+      apiInstance
+    )
+}
+```
+
+You should check all your imports for `@shopware-pwa/shopware-6-client` and add `apiInstance` as the last parameter.
+
+**Additional resources**
+
+If you'd like to learn more about context awareness and shared contexts between requests, refer to the Vue Server-Side-Renderer documentation.
+
+ * [Vue Server-Side-Renderer](https://ssr.vuejs.org/)

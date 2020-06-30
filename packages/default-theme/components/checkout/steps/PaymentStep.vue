@@ -82,10 +82,12 @@ export default {
     SfRadio,
     BillingAddressGuestForm,
     BillingAddressUserForm,
-    SwPluginSlot
+    SwPluginSlot,
   },
-  setup(props, {root}) {
-    const { isGuestOrder, getPaymentMethods, paymentMethods } = useCheckout(root)
+  setup(props, { root }) {
+    const { isGuestOrder, getPaymentMethods, paymentMethods } = useCheckout(
+      root
+    )
     const { paymentMethod, setPaymentMethod } = useSessionContext(root)
 
     const activePaymentMethod = computed({

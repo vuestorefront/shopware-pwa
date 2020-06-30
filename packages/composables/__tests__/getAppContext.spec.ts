@@ -69,21 +69,21 @@ describe("Shopware composables - getAppContext", () => {
   it("should show console warning when rootContext is not provided", () => {
     getApplicationContext(null as any, "test1");
     expect(consoleWarnSpy).toBeCalledWith(
-      "[SECURITY][test1] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/#context-awareness"
+      "[SECURITY][test1] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/security.html#context-awareness"
     );
   });
 
   it("should show console warning if rootContext doesn't contain apiInstance", () => {
     getApplicationContext({} as any, "test2");
     expect(consoleWarnSpy).toBeCalledWith(
-      "[SECURITY][test2] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/#context-awareness"
+      "[SECURITY][test2] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/security.html#context-awareness"
     );
   });
 
   it("should add default key when not provided", () => {
     getApplicationContext(null as any);
     expect(consoleWarnSpy).toBeCalledWith(
-      "[SECURITY][getApplicationContext] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/#context-awareness"
+      "[SECURITY][getApplicationContext] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/security.html#context-awareness"
     );
   });
 });

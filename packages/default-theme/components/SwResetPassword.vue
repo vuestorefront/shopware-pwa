@@ -7,6 +7,7 @@
         class="sw-reset-password__alert"
         type="danger"
         :message="userError.message"
+        data-cy="reset-alert"
       />
       <SwInput
         v-model="email"
@@ -16,10 +17,12 @@
         :valid="!$v.email.$error"
         error-message="Valid email is required"
         @blur="$v.email.$touch()"
+        data-cy="email-input"
       />
       <SwButton
         class="sf-button--full-width form__button"
         @click="invokeResetPassword"
+        data-cy="submit-reset-button"
       >
         Resend password
       </SwButton>
@@ -52,7 +55,7 @@ export default {
       emailSent: false,
     }
   },
-  setup(props, {root}) {
+  setup(props, { root }) {
     const { resetPassword, error: userError } = useUser(root)
     return {
       resetPassword: resetPassword,

@@ -17,6 +17,7 @@ const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 import { useUser } from "@shopware-pwa/composables";
 
 describe("Composables - useUser", () => {
+  console.error = jest.fn();
   const stateUser: Ref<Object | null> = ref(null);
   const rootContextMock: any = {
     $store: {

@@ -29,7 +29,7 @@ export default {
     SfHeading,
     SwPersonalInfo,
   },
-  setup(props, {root}) {
+  setup(props, { root }) {
     return {}
   },
 }

@@ -9,6 +9,7 @@
 
 > Warning: This API is now obsolete.
 > 
+> - this function will be replaced by getSearchResults what is a more appriopriate name.
 > 
 
 <b>Signature:</b>

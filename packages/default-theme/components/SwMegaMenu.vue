@@ -1,10 +1,16 @@
 <template>
-  <SfMegaMenu :visible="visible" :title="category.name" class="sw-mega-menu">
+  <SfMegaMenu
+    :visible="visible"
+    :title="category.name"
+    class="sw-mega-menu"
+    data-cy="mega-menu"
+  >
     <div class="sw-mega-menu__content">
       <div
         class="sw-mega-menu__content-section"
         v-for="subcategory in category.children"
         :key="subcategory.name"
+        data-cy="mega-menu-category"
       >
         <nuxt-link
           class="sf-header__link"

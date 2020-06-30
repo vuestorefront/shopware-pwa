@@ -67,12 +67,14 @@ async function buildAll(targets) {
   if (buildTypes) {
     console.log(
       chalk.bold(
-        chalk.yellow(`Updating docs/api folder with public documentation`)
+        chalk.yellow(
+          `Updating docs/landing/resources/api folder with public documentation`
+        )
       )
     );
     await execa(
       "api-documenter",
-      ["markdown", "-i", "./temp", "-o", "./docs/api"],
+      ["markdown", "-i", "./temp", "-o", "./docs/landing/resources/api"],
       { stdio: "inherit" }
     );
   }

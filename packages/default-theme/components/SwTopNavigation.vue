@@ -1,5 +1,5 @@
 <template>
-  <div ref="navigation" class="sw-top-navigation">
+  <div ref="navigation" class="sw-top-navigation" data-cy="top-navigation">
     <SwPluginSlot name="sw-top-navigation-before" />
     <SfHeaderNavigationItem
       v-for="category in visibleCategories"
@@ -8,6 +8,7 @@
       @mouseover="changeCurrentCategory(category.name)"
       @mouseleave="changeCurrentCategory(null)"
       @keyup.tab="changeCurrentCategory(category.name)"
+      data-cy="top-navigation-item"
     >
       <nuxt-link
         class="sf-header__link"
@@ -67,14 +68,19 @@ export default {
       switchOverlay(!!currentCategoryName.value)
     }
 
-    onMounted(() => {
-      watch(currentLocale, async () => {
+    onMounted(async () => {
+      await watch(currentLocale, async () => {
         try {
           await fetchNavigationElements(3)
         } catch (e) {
           console.error("[SwTopNavigation]", e)
         }
       })
+
+      // fixes a watch issue - fetch the elements if watch wasn't fired
+      if (Array.isArray(navigationElements) && !navigationElements.length) {
+        fetchNavigationElements(3)
+      }
     })
 
     return {
@@ -134,7 +140,7 @@ export default {
             visibleItemsCount += 1
           }
         })
-        //This subtraction makes more space in nav and prevent to move "more category " to the next line and make some space.
+        //This subtraction makes more space in nav and prevent to move "more category " to the next line.
         this.unwrappedElements = Math.max(0, visibleItemsCount - 2)
       })
     },

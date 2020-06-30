@@ -40,7 +40,7 @@ export default {
       tableHeaders: ["Order no.", "Total amount", "Order date", "Status", " "],
     }
   },
-  setup(props, {root}) {
+  setup(props, { root }) {
     const { orders, loadOrders } = useUser(root)
     loadOrders()
     return {

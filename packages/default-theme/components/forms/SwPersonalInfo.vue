@@ -118,7 +118,7 @@ export default {
     SfIcon,
   },
   mixins: [validationMixin],
-  setup(props, {root}) {
+  setup(props, { root }) {
     const {
       user,
       error: userError,
