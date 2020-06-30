@@ -456,6 +456,34 @@ describe("SearchConverter - convertSearchCriteria", () => {
         });
         expect(result).toHaveProperty("associations");
       });
+    });
+    describe("includes", () => {
+      it("should return includes object", () => {
+        const result = convertSearchCriteria({
+          searchCriteria: {
+            configuration: {
+              includes: {},
+            },
+          },
+          config,
+        });
+        expect(result?.includes).toEqual({});
+      });
+
+      it("should have product property within includes params", () => {
+        const result = convertSearchCriteria({
+          searchCriteria: {
+            configuration: {
+              includes: {
+                product: ["name", "id"],
+              },
+            },
+          },
+          config,
+        });
+        expect(result).toHaveProperty("includes");
+        expect(result.includes).toHaveProperty("product");
+      });
 
       it("should return multiple associations", () => {
         const result = convertSearchCriteria({

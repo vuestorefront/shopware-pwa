@@ -57,6 +57,7 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
       ],
     });
 
+    /* istanbul ignore else */
     if (!searchCriteria.configuration.includes) {
       searchCriteria.configuration.includes = {
         cms_page_slot: [
