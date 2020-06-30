@@ -54,14 +54,19 @@ export default {
       switchOverlay(!!currentCategoryName.value)
     }
 
-    onMounted(() => {
-      watch(currentLocale, async () => {
+    onMounted(async () => {
+      await watch(currentLocale, async () => {
         try {
           await fetchNavigationElements(3)
         } catch (e) {
           console.error("[SwTopNavigation]", e)
         }
       })
+
+      // fixes a watch issue - fetch the elements if watch wasn't fired
+      if (Array.isArray(navigationElements) && !navigationElements.length) {
+        fetchNavigationElements(3)
+      }
     })
 
     return {
