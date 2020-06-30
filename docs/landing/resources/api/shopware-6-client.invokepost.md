@@ -22,12 +22,12 @@ export declare function invokePost({ address, payload, }: {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { address, payload, } | <code>{</code><br/><code>    address: string;</code><br/><code>    payload?: any;</code><br/><code>}</code> |  |
-|  contextInstance | <code>ShopwareApiInstance</code> |  |
+|  { address, payload, } | { address: string; payload?: any; } |  |
+|  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 <b>Returns:</b>
 
-`Promise<any>`
+Promise&lt;any&gt;
 
 ## Exceptions
 
