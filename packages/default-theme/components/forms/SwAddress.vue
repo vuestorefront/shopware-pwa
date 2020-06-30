@@ -283,22 +283,22 @@ export default {
 @import "@/assets/scss/variables";
 
 .form {
-  @include for-desktop {
+  @include for-tablet {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
   }
   &__element {
     margin-bottom: var(--spacer-xl);
-    @include for-desktop {
+    @include for-tablet {
       flex: 0 0 100%;
     }
     &--half {
-      @include for-desktop {
+      @include for-tablet {
         flex: 1 1 50%;
       }
       &-even {
-        @include for-desktop {
+        @include for-tablet {
           padding-left: var(--spacer-xl);
         }
       }
@@ -316,7 +316,7 @@ export default {
       margin: var(--spacer-base) 0 0 0;
     }
 
-    @include for-desktop {
+    @include for-tablet {
       width: auto;
 
       &--back {

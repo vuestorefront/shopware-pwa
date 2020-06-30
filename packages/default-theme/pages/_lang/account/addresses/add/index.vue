@@ -19,6 +19,9 @@ export default {
 @import "@/assets/scss/variables";
 
 .addresses-add {
+  box-sizing: border-box;
+  width: 100%;
+
   @include for-mobile {
     padding: var(--spacer-sm);
   }
