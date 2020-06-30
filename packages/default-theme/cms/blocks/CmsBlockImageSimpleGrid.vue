@@ -1,18 +1,16 @@
 <template>
   <article class="sw-image-simple-grid">
-    <section class="sw-image-simple-grid__left-images">
-      <CmsGenericElement
-        :content="getLeftTopContent"
-        class="sw-image-simple-grid__image"
-      />
-      <CmsGenericElement
-        :content="getLeftBottomContent"
-        class="sw-image-simple-grid__image"
-      />
-    </section>
+    <CmsGenericElement
+      :content="getLeftTopContent"
+      class="sw-image-simple-grid__image sw-image-simple-grid__image--lt"
+    />
+    <CmsGenericElement
+      :content="getLeftBottomContent"
+      class="sw-image-simple-grid__image sw-image-simple-grid__image--lb"
+    />
     <CmsGenericElement
       :content="getRightContent"
-      class="sw-image-simple-grid__image sw-image-simple-grid__image--right"
+      class="sw-image-simple-grid__image sw-image-simple-grid__image--rf"
     />
   </article>
 </template>
@@ -52,31 +50,42 @@ export default {
 @import "@/assets/scss/variables";
 
 ::v-deep.sw-image-simple-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-gap: var(--spacer-sm);
+  grid-template-areas:
+    "lt"
+    "lb"
+    "rf";
+  grid-template-rows: repeat(3, 340px);
+  margin: var(--spacer-sm) 0;
+
   &__image {
+    &--lt {
+      grid-area: lt;
+    }
+
+    &--lb {
+      grid-area: lb;
+    }
+
+    &--rf {
+      grid-area: rf;
+    }
+
     img {
-      height: 340px;
+      height: 100%;
       object-fit: cover;
+      object-position: center;
+      width: 100%;
     }
   }
+
   @include for-desktop {
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    &__left-images {
-      display: flex;
-      flex-direction: column;
-      margin: var(--spacer-sm);
-    }
-    &__image {
-      margin: var(--spacer-sm);
-      &--right {
-        img {
-          height: 712px;
-        }
-      }
-    }
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 340px);
+    grid-template-areas:
+      "lt rf"
+      "lb rf";
   }
 }
 </style>

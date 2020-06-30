@@ -1,5 +1,10 @@
 <template>
-  <SwLink v-if="link" :link="link" :target="target">
+  <SwLink
+    v-if="link"
+    :link="link"
+    :target="target"
+    class="cms-element-image__link"
+  >
     <SfImage
       :src="imgUrl"
       :title="title"
@@ -74,7 +79,6 @@ export default {
 @import "../settings.scss";
 
 .cms-element-image {
-  --image-width: 100%;
-  width: 100%;
+  height: 100%;
 }
 </style>
