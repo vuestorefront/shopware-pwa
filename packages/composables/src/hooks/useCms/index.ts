@@ -57,6 +57,50 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
       ],
     });
 
+    if (!searchCriteria.configuration.includes) {
+      searchCriteria.configuration.includes = {
+        cms_page_slot: [
+          "id",
+          "type",
+          "slot",
+          "blockId",
+          "data",
+          "backgroundMediaMode",
+          "backgroundMedia",
+        ],
+        cms_page_block: [
+          "slots",
+          "type",
+          "id",
+          "backgroundMedia",
+          "sectionPosition",
+        ],
+        cms_page_section: [
+          "id",
+          "backgroundMedia",
+          "blocks",
+          "type",
+          "sizingMode",
+        ],
+        cms_page: ["id", "name", "sections", "type", "config"],
+        product: [
+          "name",
+          "ratingAverage",
+          "calculatedPrice",
+          "calculatedPrices",
+          "cover",
+          "id",
+          "translated",
+          "options",
+        ],
+        product_media: ["media"],
+        media: ["url"],
+        calculated_price: ["unitPrice"],
+        product_group_option: ["name", "id", "group", "translated"],
+        product_group: ["id", "name", "options", "translated"],
+      };
+    }
+
     try {
       const result = await getPage(path, searchCriteria, apiInstance);
       vuexStore.commit("SET_PAGE", result);
