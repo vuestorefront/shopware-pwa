@@ -2,15 +2,15 @@
   <article class="sw-image-simple-grid">
     <CmsGenericElement
       :content="getLeftTopContent"
-      class="sw-image-simple-grid__image sw-image-simple-grid__image--lt"
+      class="sw-image-simple-grid__image sw-image-simple-grid__image--left-top"
     />
     <CmsGenericElement
       :content="getLeftBottomContent"
-      class="sw-image-simple-grid__image sw-image-simple-grid__image--lb"
+      class="sw-image-simple-grid__image sw-image-simple-grid__image--left-bottom"
     />
     <CmsGenericElement
       :content="getRightContent"
-      class="sw-image-simple-grid__image sw-image-simple-grid__image--rf"
+      class="sw-image-simple-grid__image sw-image-simple-grid__image--right-full"
     />
   </article>
 </template>
@@ -56,23 +56,23 @@ export default {
   display: grid;
   grid-gap: var(--spacer-sm);
   grid-template-areas:
-    "lt"
-    "lb"
-    "rf";
+    "left-top"
+    "left-bottom"
+    "right-full";
   grid-template-rows: repeat(3, 340px);
   margin: var(--spacer-sm);
 
   &__image {
-    &--lt {
-      grid-area: lt;
+    &--left-top {
+      grid-area: left-top;
     }
 
-    &--lb {
-      grid-area: lb;
+    &--left-bottom {
+      grid-area: left-bottom;
     }
 
-    &--rf {
-      grid-area: rf;
+    &--right-full {
+      grid-area: right-full;
     }
 
     img {
@@ -87,8 +87,8 @@ export default {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 340px);
     grid-template-areas:
-      "lt rf"
-      "lb rf";
+      "left-top right-full"
+      "left-bottom right-full";
     margin: var(--spacer-sm) 0;
   }
 }
