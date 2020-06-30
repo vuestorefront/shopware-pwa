@@ -48,7 +48,7 @@ export default {
       default: false,
     },
   },
-  setup(props, {root}) {
+  setup(props, { root }) {
     return { getCategoryUrl }
   },
 }
@@ -56,22 +56,39 @@ export default {
 
 <style lang="scss" scoped>
 .sw-mega-menu {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  top: 100%;
   background: var(--c-white);
+  left: 0;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+
   &__content {
-    flex-wrap: wrap;
     display: flex;
+    flex-wrap: wrap;
     max-width: 80vw;
 
     &-section {
-      padding: 1rem;
+      align-items: flex-start;
+      box-sizing: border-box;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      align-items: flex-start;
+      padding: 1rem;
+      width: 170px;
+
+      .sf-list {
+        margin-top: 15px;
+
+        &__item {
+          & + .sf-list__item {
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+
+    .sf-heading {
+      padding: 0;
     }
   }
 }
