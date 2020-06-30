@@ -10,7 +10,7 @@ export default {
   components: {
     SfInput,
   },
-  setup(props, {root}) {
+  setup(props, { root }) {
     return {}
   },
 }

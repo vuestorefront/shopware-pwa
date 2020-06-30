@@ -81,8 +81,10 @@ export default {
   components: { SwInput, SwButton, SfAlert },
   mixins: [validationMixin],
   props: {},
-  setup(props, {root}) {
-    const { user, error: userError, updatePassword, refreshUser } = useUser(root)
+  setup(props, { root }) {
+    const { user, error: userError, updatePassword, refreshUser } = useUser(
+      root
+    )
     const userErrorMessages = computed(() =>
       getMessagesFromErrorsArray(userError.value && userError.value.message)
     )

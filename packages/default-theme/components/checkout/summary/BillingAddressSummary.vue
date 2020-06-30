@@ -21,7 +21,7 @@ export default {
     SwAddress,
     SwButton,
   },
-  setup(props, {root}) {
+  setup(props, { root }) {
     const { billingAddress } = useCheckout(root)
     return {
       billingAddress,

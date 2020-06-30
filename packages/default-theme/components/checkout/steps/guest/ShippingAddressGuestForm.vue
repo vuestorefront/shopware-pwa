@@ -111,7 +111,7 @@ export default {
     SfSelect,
     SfRadio,
   },
-  setup(props, {root}) {
+  setup(props, { root }) {
     const {
       validations,
       setValidations,

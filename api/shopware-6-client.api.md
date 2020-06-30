@@ -214,8 +214,11 @@ export const getProducts: (searchCriteria?: SearchCriteria | undefined, contextI
 // @alpha
 export const getProductsIds: (options?: any, contextInstance?: ShopwareApiInstance) => Promise<SearchResult<string[]>>;
 
-// @beta (undocumented)
+// @beta @deprecated (undocumented)
 export function getResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
+
+// @beta (undocumented)
+export function getSearchResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
 // @alpha
 export function getSessionContext(contextInstance?: ShopwareApiInstance): Promise<SessionContext>;
@@ -330,7 +333,7 @@ export interface ShopwareApiInstance {
     update: (config?: ClientSettings) => void;
 }
 
-// @alpha (undocumented)
+// @alpha @deprecated (undocumented)
 export interface ShopwareParams {
     // (undocumented)
     associations?: ShopwareAssociation;

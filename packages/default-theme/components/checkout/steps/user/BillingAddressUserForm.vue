@@ -52,7 +52,7 @@ import { ref } from "@vue/composition-api"
 export default {
   name: "ShippingAddressUserForm",
   components: { SfList, SfRadio, SfCheckbox, SwButton },
-  setup(props, {root}) {
+  setup(props, { root }) {
     const { addresses, loadAddresses, user } = useUser(root)
     loadAddresses()
 

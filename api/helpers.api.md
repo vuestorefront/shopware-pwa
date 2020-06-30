@@ -4,6 +4,7 @@
 
 ```ts
 
+import { Aggregations } from '@shopware-pwa/commons/interfaces/search/Aggregations';
 import { Category } from '@shopware-pwa/commons/interfaces/models/content/category/Category';
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { CmsSection } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
@@ -89,6 +90,9 @@ export function getCmsSections(content: CmsPage): CmsSection[];
 
 // @alpha (undocumented)
 export const getFilterSearchCriteria: (selectedFilters: any) => any[];
+
+// @beta (undocumented)
+export function getListingAvailableFilters(aggregations: Aggregations | undefined | null): UiCategoryFilter[];
 
 // @alpha
 export function getMessagesFromErrorsArray(errors: ShopwareError[]): string[];
@@ -249,7 +253,7 @@ export interface TierPrice {
     unitPrice: number;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UiCategoryFilter {
     // (undocumented)
     name: string;
@@ -259,7 +263,7 @@ export interface UiCategoryFilter {
     type: UiCategoryFilterType;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UiCategoryFilterOption {
     // (undocumented)
     color: boolean | string;
@@ -271,7 +275,7 @@ export interface UiCategoryFilterOption {
     value: string;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export enum UiCategoryFilterType {
     // (undocumented)
     entity = "entity",
@@ -283,7 +287,7 @@ export enum UiCategoryFilterType {
     term = "term"
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UiCategoryRangeFilterOption {
     // (undocumented)
     max: string;

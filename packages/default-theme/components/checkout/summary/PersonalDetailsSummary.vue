@@ -24,7 +24,7 @@ export default {
     SwPersonalDetails,
     SwButton,
   },
-  setup(props, {root}) {
+  setup(props, { root }) {
     const { firstName, lastName, email } = usePersonalDetailsStep(root)
     const { isGuestOrder } = useCheckout(root)
     const { user } = useUser(root)

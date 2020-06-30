@@ -68,7 +68,7 @@ export default {
     SfCharacteristic,
     SwInput,
   },
-  setup(props, {root}) {
+  setup(props, { root }) {
     const { count, totalPrice, subtotal } = useCart(root)
 
     // TODO: use useSessionContext

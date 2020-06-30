@@ -6,8 +6,18 @@
     <SfLoader :loading="loadingSearch || !startedSearching" v-else>
       <div class="search-page__main" v-if="searchResult">
         <h3>
-          search results for <strong>{{ searchQuery }}</strong> :
+          search results for <strong>{{ searchQuery }}</strong
+          >:
         </h3>
+        <SwProductListingFilters
+          :listing="searchResult"
+          :selected-filters="selectedFilters"
+          :filters="availableFilters"
+          @reset-filters="resetFiltersHandler"
+          @submit-filters="submitFilters"
+          @change-sorting="changeSorting"
+          @toggle-filter-value="toggleFilter"
+        />
         <SwProductListing
           :listing="searchResult"
           :loading="loadingSearch"
@@ -15,6 +25,9 @@
           @change-page="changePage"
         />
       </div>
+      <h3 class="search-page__warning" v-if="error">
+        {{ error }}
+      </h3>
     </SfLoader>
   </div>
 </template>
@@ -29,6 +42,7 @@ import {
   watchEffect,
 } from "@vue/composition-api"
 import SwProductListing from "@shopware-pwa/default-theme/components/SwProductListing"
+import SwProductListingFilters from "@shopware-pwa/default-theme/components/SwProductListingFilters"
 
 export default {
   name: "SearchResultsPage",
@@ -39,6 +53,7 @@ export default {
     SfIcon,
     SfLoader,
     SwProductListing,
+    SwProductListingFilters,
   },
   setup(props, { root }) {
     const {
@@ -47,7 +62,15 @@ export default {
       searchResult,
       loadingSearch,
       changePage,
+      changeSorting,
+      toggleFilter,
+      selectedFilters,
+      availableFilters,
+      resetFilters,
     } = useProductSearch(root)
+
+    const submitFilters = () => changePage(1)
+    const error = ref(null)
 
     const searchQuery = ref(currentSearchTerm.value)
     const startedSearching = ref(false)
@@ -65,7 +88,9 @@ export default {
         try {
           await search(searchQuery.value)
         } catch (e) {
-          console.error("search: " + e)
+          console.error("SearchResultsPage:watchEffect:search: " + e.message)
+          error.value =
+            "Something went wrong. Please try again or report a bug."
         }
       }
     })
@@ -77,7 +102,24 @@ export default {
       startedSearching,
       changePage,
       isListView,
+      changeSortingInternal: changeSorting,
+      toggleFilter,
+      selectedFilters,
+      search,
+      submitFilters,
+      availableFilters,
+      resetFilters,
+      error,
     }
+  },
+  methods: {
+    changeSorting(sorting) {
+      this.changeSortingInternal(sorting)
+    },
+    async resetFiltersHandler() {
+      this.resetFilters()
+      await this.search(this.searchQuery)
+    },
   },
 }
 </script>

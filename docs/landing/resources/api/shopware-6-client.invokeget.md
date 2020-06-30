@@ -21,12 +21,12 @@ export declare function invokeGet({ address }: {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { address } | { address: string; } |  |
-|  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
+|  { address } | <code>{</code><br/><code>    address: string;</code><br/><code>}</code> |  |
+|  contextInstance | <code>ShopwareApiInstance</code> |  |
 
 <b>Returns:</b>
 
-Promise&lt;any&gt;
+`Promise<any>`
 
 ## Exceptions
 

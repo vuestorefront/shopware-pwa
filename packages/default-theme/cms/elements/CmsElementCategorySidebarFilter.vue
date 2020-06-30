@@ -175,7 +175,7 @@ export default {
       isListView,
       switchToListView,
       availableFilters,
-      availableSorting
+      availableSorting,
     }
   },
   data() {

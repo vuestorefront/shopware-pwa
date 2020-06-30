@@ -19,11 +19,11 @@ export declare function logout(contextInstance?: ShopwareApiInstance): Promise<v
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
+|  contextInstance | <code>ShopwareApiInstance</code> |  |
 
 <b>Returns:</b>
 
-Promise&lt;void&gt;
+`Promise<void>`
 
 ## Exceptions
 

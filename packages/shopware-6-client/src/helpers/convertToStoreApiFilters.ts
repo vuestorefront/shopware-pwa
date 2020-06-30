@@ -14,6 +14,7 @@ interface StoreApiListingFilters {
   "shipping-free"?: boolean; // to be handled later on
   "min-price"?: number; // to be handled later on
   "max-price"?: number; // to be handled later on
+  "no-aggregations"?: number; // 0 if false, 1 otherwise
 }
 
 interface GenericFilter extends SearchFilter {

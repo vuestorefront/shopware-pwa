@@ -1,4 +1,7 @@
-import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import {
+  SearchCriteria,
+  ShopwareSearchParams,
+} from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import {
   NotFilter,
   MultiFilter,
@@ -12,6 +15,7 @@ import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Ass
 import { Grouping } from "@shopware-pwa/commons/interfaces/search/Grouping";
 import { convertToStoreApiFilters } from "../helpers/convertToStoreApiFilters";
 import { ClientSettings } from "../settings";
+import { deprecationWarning } from "@shopware-pwa/commons";
 
 export enum ApiType {
   store = "store-api",
@@ -19,6 +23,7 @@ export enum ApiType {
 }
 
 /**
+ * @deprecated - that interface will be replaced with the new one from ShopwareSearchParams to follow the product-listing filters interface.
  * @alpha
  */
 export interface ShopwareParams {
@@ -42,6 +47,26 @@ export interface ShopwareParams {
 
 /**
  * @param apiType - depending on api type, the output should be different (especially sorting and filters part)
+ * @alpha
+ **/
+export const convertShopwareSearchCriteria = (
+  searchCriteria?: SearchCriteria
+): ShopwareSearchParams => {
+  const params = {
+    limit: searchCriteria?.pagination?.limit || 10,
+    p: searchCriteria?.pagination?.page || 1,
+    manufacturer: searchCriteria?.manufacturer?.join("|") || undefined,
+    properties: searchCriteria?.properties?.join("|") || undefined,
+    sort: searchCriteria?.sort?.name,
+  };
+
+  return params;
+};
+
+/**
+ * @deprecated - since SW 6.2 the listing filters will be formatted as convertShopwareSearchCriteria method does
+ * @param apiType - depending on api type, the output should be different (especially sorting and filters part)
+ * @alpha
  **/
 export const convertSearchCriteria = ({
   searchCriteria,
@@ -52,6 +77,11 @@ export const convertSearchCriteria = ({
   apiType?: ApiType;
   config: ClientSettings;
 }): ShopwareParams => {
+  deprecationWarning({
+    methodName: "convertSearchCriteria",
+    newMethodName: "convertShopwareSearchCriteria",
+    packageName: "helpers",
+  });
   let params: ShopwareParams = {
     limit: config.defaultPaginationLimit,
   };
@@ -79,7 +109,8 @@ export const convertSearchCriteria = ({
     // exception for store-api
     if (apiType && apiType === ApiType.store) {
       let order = sort.desc ? "desc" : "asc";
-      params.sort = `${sort.field}-${order}`;
+      // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/834
+      params.sort = sort.name || `${sort.field}-${order}`;
     } else {
       let prefix = sort.desc ? "-" : "";
       params.sort = `${prefix}${sort.field}`;

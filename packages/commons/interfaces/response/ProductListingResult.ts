@@ -1,12 +1,7 @@
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { Sort } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { Aggregation } from "@shopware-pwa/commons/interfaces/search/Aggregation";
-import {
-  EqualsFilter,
-  RangeFilter,
-  MultiFilter,
-  EqualsAnyFilter,
-} from "@shopware-pwa/commons/interfaces/search/SearchFilter";
+import { Aggregations } from "@shopware-pwa/commons/interfaces/search/Aggregations";
+
 export interface ProductListingResult {
   /**
    * apiAlias - determines the entity name that can be used within "includes" functionality (added in store-api)
@@ -18,8 +13,13 @@ export interface ProductListingResult {
   page: number;
   limit: number;
   sortings: Sort[];
-  aggregations: Aggregation[];
-  currentFilters: Array<
-    EqualsFilter | EqualsAnyFilter | RangeFilter | MultiFilter
-  >;
+  aggregations: Aggregations;
+  currentFilters: {
+    manufacturer: string[];
+    properties: string[];
+    price: { min: null | number; max: null | number };
+    rating: number;
+    search: string | null;
+    "shipping-free": boolean | null;
+  };
 }
