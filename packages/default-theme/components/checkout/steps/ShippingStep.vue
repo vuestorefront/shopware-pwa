@@ -94,8 +94,10 @@ export default {
     ShippingAddressUserForm,
     SwPluginSlot,
   },
-  setup(props, {root}) {
-    const { isGuestOrder, getShippingMethods, shippingMethods } = useCheckout(root)
+  setup(props, { root }) {
+    const { isGuestOrder, getShippingMethods, shippingMethods } = useCheckout(
+      root
+    )
     const { shippingMethod, setShippingMethod } = useSessionContext(root)
     const { refreshCart } = useCart(root)
 

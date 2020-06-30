@@ -39,7 +39,7 @@ export default {
       tableHeaders: ["Description", "Quantity", "Amount"],
     }
   },
-  setup(props, {root}) {
+  setup(props, { root }) {
     const { cartItems, removeProduct } = useCart(root)
     return {
       cartItems,

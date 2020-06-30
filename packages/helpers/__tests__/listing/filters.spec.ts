@@ -4,8 +4,16 @@ import {
 } from "@shopware-pwa/helpers";
 
 describe("Shopware helpers - getFilterSearchCriteria", () => {
+  console.error = jest.fn();
   it("should return an empty array if no filters provided", () => {
     const result = getFilterSearchCriteria(undefined as any);
+    expect(result).toEqual([]);
+  });
+
+  it("should ignore default filter type on unexpected EqualsAnyFilter filter format", () => {
+    const result = getFilterSearchCriteria({
+      someFilter: {},
+    } as any);
     expect(result).toEqual([]);
   });
 
@@ -33,6 +41,13 @@ describe("Shopware helpers - getFilterSearchCriteria", () => {
         value: ["divante-ltd"],
       },
     ]);
+  });
+
+  it("should return an empty array if no positive values provided as the id", () => {
+    const result = getFilterSearchCriteria({
+      manufacturer: [undefined],
+    } as any);
+    expect(result).toStrictEqual([]);
   });
 
   it("should return shipping-free filter if any provided", () => {

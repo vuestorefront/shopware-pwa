@@ -1,8 +1,13 @@
 import { getSuggestSearchEndpoint, getSearchEndpoint } from "../endpoints";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { convertSearchCriteria, ApiType } from "../helpers/searchConverter";
+import {
+  convertSearchCriteria,
+  ApiType,
+  convertShopwareSearchCriteria,
+} from "../helpers/searchConverter";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
+import { deprecationWarning } from "@shopware-pwa/commons";
 
 /**
  * @throws ClientApiError
@@ -28,11 +33,28 @@ export async function getSuggestedResults(
 }
 
 /**
+ * @beta
+ * @deprecated - this function will be replaced by getSearchResults what is a more appriopriate name.
+ */
+export async function getResults(
+  term: string,
+  searchCriteria?: SearchCriteria,
+  contextInstance: ShopwareApiInstance = defaultInstance
+) {
+  deprecationWarning({
+    methodName: "getResults",
+    newMethodName: "getSearchResults",
+    packageName: "shopware-6-client",
+  });
+  return getSearchResults(term, searchCriteria, contextInstance);
+}
+
+/**
  * @throws ClientApiError
  * @beta
  */
 
-export async function getResults(
+export async function getSearchResults(
   term: string,
   searchCriteria?: SearchCriteria,
   contextInstance: ShopwareApiInstance = defaultInstance
@@ -40,11 +62,7 @@ export async function getResults(
   const resp = await contextInstance.invoke.post(
     `${getSearchEndpoint()}?search=${term}`,
     {
-      ...convertSearchCriteria({
-        searchCriteria,
-        apiType: ApiType.store,
-        config: contextInstance.config,
-      }),
+      ...convertShopwareSearchCriteria(searchCriteria),
     }
   );
 

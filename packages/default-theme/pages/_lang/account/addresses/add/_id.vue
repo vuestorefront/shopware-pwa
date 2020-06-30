@@ -17,7 +17,7 @@ export default {
       address: "",
     }
   },
-  setup(props, {root}) {
+  setup(props, { root }) {
     const {
       addresses,
       loadAddresses,

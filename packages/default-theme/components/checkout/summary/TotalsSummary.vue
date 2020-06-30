@@ -59,7 +59,7 @@ export default {
       terms: false,
     }
   },
-  setup(props, {root}) {
+  setup(props, { root }) {
     const {
       cartItems,
       subtotal,

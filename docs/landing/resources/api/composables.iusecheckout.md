@@ -19,14 +19,14 @@ export interface IUseCheckout
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [billingAddress](./composables.iusecheckout.billingaddress.md) | Readonly&lt;Ref&lt;BillingAddress \| undefined&gt;&gt; | <b><i>(BETA)</i></b> |
-|  [createOrder](./composables.iusecheckout.createorder.md) | () =&gt; Promise&lt;Order&gt; | <b><i>(BETA)</i></b> |
-|  [getPaymentMethods](./composables.iusecheckout.getpaymentmethods.md) | (options?: { forceReload: boolean; }) =&gt; Promise&lt;Readonly&lt;Ref&lt;readonly PaymentMethod\[\]&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
-|  [getShippingMethods](./composables.iusecheckout.getshippingmethods.md) | (options?: { forceReload: boolean; }) =&gt; Promise&lt;Readonly&lt;Ref&lt;readonly ShippingMethod\[\]&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
-|  [guestOrderParams](./composables.iusecheckout.guestorderparams.md) | Ref&lt;Readonly&lt;Partial&lt;GuestOrderParams&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
-|  [isGuestOrder](./composables.iusecheckout.isguestorder.md) | Readonly&lt;Ref&lt;boolean&gt;&gt; | <b><i>(BETA)</i></b> Flag isGuestOrder is true when user is not logged in |
-|  [paymentMethods](./composables.iusecheckout.paymentmethods.md) | Readonly&lt;Ref&lt;readonly PaymentMethod\[\]&gt;&gt; | <b><i>(BETA)</i></b> |
-|  [shippingAddress](./composables.iusecheckout.shippingaddress.md) | Readonly&lt;Ref&lt;ShippingAddress \| undefined&gt;&gt; | <b><i>(BETA)</i></b> |
-|  [shippingMethods](./composables.iusecheckout.shippingmethods.md) | Readonly&lt;Ref&lt;readonly ShippingMethod\[\]&gt;&gt; | <b><i>(BETA)</i></b> |
-|  [updateGuestOrderParams](./composables.iusecheckout.updateguestorderparams.md) | (params: Partial&lt;GuestOrderParams&gt;) =&gt; void | <b><i>(BETA)</i></b> |
+|  [billingAddress](./composables.iusecheckout.billingaddress.md) | <code>Readonly&lt;Ref&lt;BillingAddress &#124; undefined&gt;&gt;</code> | <b><i>(BETA)</i></b> |
+|  [createOrder](./composables.iusecheckout.createorder.md) | <code>() =&gt; Promise&lt;Order&gt;</code> | <b><i>(BETA)</i></b> |
+|  [getPaymentMethods](./composables.iusecheckout.getpaymentmethods.md) | <code>(options?: {</code><br/><code>        forceReload: boolean;</code><br/><code>    }) =&gt; Promise&lt;Readonly&lt;Ref&lt;readonly PaymentMethod[]&gt;&gt;&gt;</code> | <b><i>(BETA)</i></b> |
+|  [getShippingMethods](./composables.iusecheckout.getshippingmethods.md) | <code>(options?: {</code><br/><code>        forceReload: boolean;</code><br/><code>    }) =&gt; Promise&lt;Readonly&lt;Ref&lt;readonly ShippingMethod[]&gt;&gt;&gt;</code> | <b><i>(BETA)</i></b> |
+|  [guestOrderParams](./composables.iusecheckout.guestorderparams.md) | <code>Ref&lt;Readonly&lt;Partial&lt;GuestOrderParams&gt;&gt;&gt;</code> | <b><i>(BETA)</i></b> |
+|  [isGuestOrder](./composables.iusecheckout.isguestorder.md) | <code>Readonly&lt;Ref&lt;boolean&gt;&gt;</code> | <b><i>(BETA)</i></b> Flag isGuestOrder is true when user is not logged in |
+|  [paymentMethods](./composables.iusecheckout.paymentmethods.md) | <code>Readonly&lt;Ref&lt;readonly PaymentMethod[]&gt;&gt;</code> | <b><i>(BETA)</i></b> |
+|  [shippingAddress](./composables.iusecheckout.shippingaddress.md) | <code>Readonly&lt;Ref&lt;ShippingAddress &#124; undefined&gt;&gt;</code> | <b><i>(BETA)</i></b> |
+|  [shippingMethods](./composables.iusecheckout.shippingmethods.md) | <code>Readonly&lt;Ref&lt;readonly ShippingMethod[]&gt;&gt;</code> | <b><i>(BETA)</i></b> |
+|  [updateGuestOrderParams](./composables.iusecheckout.updateguestorderparams.md) | <code>(params: Partial&lt;GuestOrderParams&gt;) =&gt; void</code> | <b><i>(BETA)</i></b> |
 

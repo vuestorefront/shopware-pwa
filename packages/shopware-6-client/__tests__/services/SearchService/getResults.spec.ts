@@ -5,7 +5,6 @@ jest.mock("../../../src/apiService");
 const mockedApiInstance = defaultInstance as jest.Mocked<
   typeof defaultInstance
 >;
-
 describe("SearchService - getResults", () => {
   const mockedPost = jest.fn();
   beforeEach(() => {
@@ -22,6 +21,7 @@ describe("SearchService - getResults", () => {
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith("/store-api/v1/search?search=some term", {
       limit: 10,
+      p: 1,
     });
     expect(result).toHaveProperty("apiAlias");
   });

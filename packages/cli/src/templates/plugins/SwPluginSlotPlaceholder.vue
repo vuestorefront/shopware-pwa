@@ -40,7 +40,7 @@ export default {
       default: "",
     },
   },
-  setup(props, {root}) {
+  setup(props, { root }) {
     const { showPluginSlots } = usePlugins(root);
     return {
       showPluginSlots,

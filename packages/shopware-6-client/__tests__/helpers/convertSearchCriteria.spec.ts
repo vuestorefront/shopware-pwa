@@ -1,5 +1,6 @@
 import {
   convertSearchCriteria,
+  convertShopwareSearchCriteria,
   ApiType,
 } from "../../src/helpers/searchConverter";
 import {
@@ -11,6 +12,69 @@ import {
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
 import { config, setup, update } from "@shopware-pwa/shopware-6-client";
+
+describe("SearchConverter - convertShopwareSearchCriteria", () => {
+  it("should return default request params if there are lacks of properties", () => {
+    const searchCriteria = {
+      pagination: { page: PaginationLimit.ONE },
+    };
+
+    const result = convertShopwareSearchCriteria(searchCriteria);
+    expect(result).toStrictEqual({
+      limit: 10,
+      manufacturer: undefined,
+      p: 1,
+      properties: undefined,
+      sort: undefined,
+    });
+  });
+  it("should return undefined for properties and manufacturer if there is no source", () => {
+    const searchCriteria = {
+      properties: undefined,
+      manufacturer: undefined,
+    };
+
+    const result = convertShopwareSearchCriteria(searchCriteria);
+    expect(result).toStrictEqual({
+      limit: 10,
+      manufacturer: undefined,
+      p: 1,
+      properties: undefined,
+      sort: undefined,
+    });
+  });
+  it("should join the attributes elements into one string for manufacturer and properties", () => {
+    const searchCriteria = {
+      properties: ["blue", "black"],
+      manufacturer: ["divante", "shopware"],
+    };
+
+    const result = convertShopwareSearchCriteria(searchCriteria);
+    expect(result).toStrictEqual({
+      limit: 10,
+      manufacturer: "divante|shopware",
+      p: 1,
+      properties: "blue|black",
+      sort: undefined,
+    });
+  });
+  it("should get the name property from the search criteria sort", () => {
+    const searchCriteria = {
+      sort: {
+        name: "price-desc",
+      },
+    } as any;
+
+    const result = convertShopwareSearchCriteria(searchCriteria);
+    expect(result).toStrictEqual({
+      limit: 10,
+      manufacturer: undefined,
+      p: 1,
+      properties: undefined,
+      sort: "price-desc",
+    });
+  });
+});
 
 describe("SearchConverter - convertSearchCriteria", () => {
   beforeEach(() => {

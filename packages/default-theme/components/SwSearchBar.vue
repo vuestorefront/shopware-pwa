@@ -20,9 +20,14 @@ export default {
   components: {
     SfSearchBar,
   },
-
   setup(props, { root }) {
-    const { search, suggestSearch, suggestionsResult } = useProductSearch(root)
+    const {
+      search,
+      suggestSearch,
+      suggestionsResult,
+      resetFilters,
+    } = useProductSearch(root)
+
     const typingQuery = ref("")
     const suggestResultProducts = computed(
       () => suggestionsResult.value && suggestionsResult.value.elements
@@ -35,6 +40,7 @@ export default {
       suggestSearch,
       getSearchPageUrl,
       typingQuery,
+      resetFilters,
     }
   },
   methods: {
@@ -51,6 +57,7 @@ export default {
     },
     performSearch(searchTerm) {
       if (typeof searchTerm === "string" && searchTerm.length > 0) {
+        this.resetFilters()
         this.$router.push(this.$i18n.path(getSearchPageUrl(searchTerm)))
       }
     },
