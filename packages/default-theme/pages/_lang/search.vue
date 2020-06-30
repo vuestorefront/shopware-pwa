@@ -39,7 +39,7 @@ import {
   ref,
   getCurrentInstance,
   computed,
-  watchEffect,
+  onMounted,
 } from "@vue/composition-api"
 import SwProductListing from "@shopware-pwa/default-theme/components/SwProductListing"
 import SwProductListingFilters from "@shopware-pwa/default-theme/components/SwProductListingFilters"
@@ -76,7 +76,7 @@ export default {
     const startedSearching = ref(false)
     const { isOpen: isListView } = useUIState(root, "PRODUCT_LISTING_STATE")
 
-    watchEffect(async () => {
+    onMounted(async () => {
       searchQuery.value = root.$route.query.query
       startedSearching.value = true
       if (
