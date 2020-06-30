@@ -138,6 +138,6 @@ export default {
 
 .sw-breadcrumbs {
   box-sizing: border-box;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
 }
 </style>
