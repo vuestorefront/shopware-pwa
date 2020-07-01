@@ -7,7 +7,9 @@
       :image="`'${slide.media.url}'`"
     >
       <template v-if="slide.url" #call-to-action>
-        <!-- ToDo go to SWLink -->
+        <!-- ToDo https://github.com/DivanteLtd/storefront-ui/issues/1279 
+        ToDo move nuxt-link to SwLink when https://github.com/DivanteLtd/shopware-pwa/pull/901 merge -->
+
         <nuxt-link
           :to="$i18n.path(slide.url)"
           class="cms-element-image-slider__link"
