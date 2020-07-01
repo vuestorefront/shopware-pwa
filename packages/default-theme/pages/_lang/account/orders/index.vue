@@ -12,14 +12,14 @@
       <SfTable v-else class="orders">
         <SfTableHeading>
           <SfTableHeader
-            class="orders__header"
             v-for="tableHeader in tableHeaders"
             :key="tableHeader"
+            class="orders__header"
             >{{ tableHeader }}</SfTableHeader
           >
         </SfTableHeading>
         <!-- consider making SfTableRow public (not internal component) to split it down to smaller components. -->
-        <Order :order="order" v-for="order in orderList" :key="order.id" />
+        <Order v-for="order in orderList" :key="order.id" :order="order" />
       </SfTable>
     </SfTab>
   </SfTabs>
@@ -28,7 +28,6 @@
 import { SfTabs, SfTable } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
 import Order from "@shopware-pwa/default-theme/components/account/orders/Order"
-import { formatDate, formatPrice } from "@shopware-pwa/default-theme/helpers"
 
 export default {
   name: "OrderHistory",
