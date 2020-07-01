@@ -1,11 +1,12 @@
-import { getResults } from "@shopware-pwa/shopware-6-client";
+import { getSearchResults } from "@shopware-pwa/shopware-6-client";
 import { defaultInstance } from "../../../src/apiService";
 
 jest.mock("../../../src/apiService");
 const mockedApiInstance = defaultInstance as jest.Mocked<
   typeof defaultInstance
 >;
-describe("SearchService - getResults", () => {
+
+describe("SearchService - getSearchResults", () => {
   const mockedPost = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
@@ -17,7 +18,7 @@ describe("SearchService - getResults", () => {
     mockedPost.mockResolvedValueOnce({
       data: { apiAlias: "product_listing" },
     });
-    const result = await getResults("some term");
+    const result = await getSearchResults("some term");
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith("/store-api/v1/search?search=some term", {
       limit: 10,

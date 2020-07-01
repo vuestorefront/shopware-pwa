@@ -118,7 +118,7 @@ export default {
   // TODO: move this logic into separate service;
   // details: https://github.com/DivanteLtd/shopware-pwa/issues/781
   setup({ orderId }, { root }) {
-    const { apiInstance } = getApplicationContext(rootContext, "myComponent")
+    const { apiInstance } = getApplicationContext(root, "myComponent")
     const { getOrderDetails, loading, error: userError } = useUser(root)
     const order = ref(null)
     const paymentMethod = ref(null)

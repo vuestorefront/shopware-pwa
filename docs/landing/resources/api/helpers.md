@@ -4,10 +4,17 @@
 
 ## helpers package
 
+## Enumerations
+
+|  Enumeration | Description |
+|  --- | --- |
+|  [UiCategoryFilterType](./helpers.uicategoryfiltertype.md) | <b><i>(BETA)</i></b> |
+
 ## Functions
 
 |  Function | Description |
 |  --- | --- |
+|  [getListingAvailableFilters(aggregations)](./helpers.getlistingavailablefilters.md) | <b><i>(BETA)</i></b> |
 |  [getProductRegularPrice(product)](./helpers.getproductregularprice.md) | <b><i>(BETA)</i></b> Get the price for 1 unit of a product |
 |  [getProductTierPrices(product)](./helpers.getproducttierprices.md) | <b><i>(BETA)</i></b> Get the prices depending on quantity added to cart. Tier prices can be set in <code>Advanced pricing</code> tab in <code>Product view</code> (admin panel) |
 |  [isProductSimple({ product, })](./helpers.isproductsimple.md) | <b><i>(BETA)</i></b> |
@@ -18,4 +25,7 @@
 |  Interface | Description |
 |  --- | --- |
 |  [TierPrice](./helpers.tierprice.md) | <b><i>(BETA)</i></b> |
+|  [UiCategoryFilter](./helpers.uicategoryfilter.md) | <b><i>(BETA)</i></b> |
+|  [UiCategoryFilterOption](./helpers.uicategoryfilteroption.md) | <b><i>(BETA)</i></b> |
+|  [UiCategoryRangeFilterOption](./helpers.uicategoryrangefilteroption.md) | <b><i>(BETA)</i></b> |
 

@@ -168,7 +168,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   };
 
   const getOrderDetails = async (orderId: string): Promise<Order | undefined> =>
-    getCustomerOrderDetails(orderId);
+    getCustomerOrderDetails(orderId, apiInstance);
 
   const loadAddresses = async (): Promise<void> => {
     try {

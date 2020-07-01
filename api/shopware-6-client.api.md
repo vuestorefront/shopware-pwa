@@ -18,6 +18,7 @@ import { EqualsAnyFilter } from '@shopware-pwa/commons/interfaces/search/SearchF
 import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { Grouping } from '@shopware-pwa/commons/interfaces/search/Grouping';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
+import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { Language } from '@shopware-pwa/commons/interfaces/models/framework/language/Language';
 import { MultiFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { NavigationResponse } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
@@ -214,8 +215,11 @@ export const getProducts: (searchCriteria?: SearchCriteria | undefined, contextI
 // @alpha
 export const getProductsIds: (options?: any, contextInstance?: ShopwareApiInstance) => Promise<SearchResult<string[]>>;
 
-// @beta (undocumented)
+// @beta @deprecated (undocumented)
 export function getResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
+
+// @beta (undocumented)
+export function getSearchResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
 // @alpha
 export function getSessionContext(contextInstance?: ShopwareApiInstance): Promise<SessionContext>;
@@ -330,7 +334,7 @@ export interface ShopwareApiInstance {
     update: (config?: ClientSettings) => void;
 }
 
-// @alpha (undocumented)
+// @alpha @deprecated (undocumented)
 export interface ShopwareParams {
     // (undocumented)
     associations?: ShopwareAssociation;
@@ -338,6 +342,8 @@ export interface ShopwareParams {
     filter?: (NotFilter | MultiFilter | EqualsFilter | EqualsAnyFilter | RangeFilter)[];
     // (undocumented)
     grouping?: Grouping;
+    // (undocumented)
+    includes?: Includes;
     // (undocumented)
     limit?: number;
     // (undocumented)
