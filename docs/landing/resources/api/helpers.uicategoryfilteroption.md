@@ -18,8 +18,8 @@ export interface UiCategoryFilterOption
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [color](./helpers.uicategoryfilteroption.color.md) | <code>boolean &#124; string</code> | <b><i>(BETA)</i></b> |
-|  [count](./helpers.uicategoryfilteroption.count.md) | <code>number</code> | <b><i>(BETA)</i></b> |
-|  [label](./helpers.uicategoryfilteroption.label.md) | <code>string</code> | <b><i>(BETA)</i></b> |
-|  [value](./helpers.uicategoryfilteroption.value.md) | <code>string</code> | <b><i>(BETA)</i></b> |
+|  [color](./helpers.uicategoryfilteroption.color.md) | boolean \| string | <b><i>(BETA)</i></b> |
+|  [count](./helpers.uicategoryfilteroption.count.md) | number | <b><i>(BETA)</i></b> |
+|  [label](./helpers.uicategoryfilteroption.label.md) | string | <b><i>(BETA)</i></b> |
+|  [value](./helpers.uicategoryfilteroption.value.md) | string | <b><i>(BETA)</i></b> |
 

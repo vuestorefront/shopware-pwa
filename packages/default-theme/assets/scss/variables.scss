@@ -1,7 +1,15 @@
-@import '~@storefront-ui/shared/styles/variables';
+@import "~@storefront-ui/shared/styles/variables";
 
 // Global variables for theme
 
 // #__nuxt {
 //   --c-primary: #5ece7b;
 // }
+
+$tablet: 768px;
+
+@mixin for-tablet {
+  @media screen and (min-width: $tablet) {
+    @content;
+  }
+}

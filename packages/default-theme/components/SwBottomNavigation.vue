@@ -118,7 +118,7 @@ import {
 import SwCurrencySwitcher from "@shopware-pwa/default-theme/components/SwCurrencySwitcher"
 import { onMounted } from "@vue/composition-api"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
-import { PAGE_ACCOUNT, PAGE_LOGIN } from "../helpers/pages"
+import { PAGE_ACCOUNT } from "../helpers/pages"
 
 export default {
   name: "SwBottomNavigation",
