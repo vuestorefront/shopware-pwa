@@ -4,6 +4,8 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { getApplicationContext } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../../appContext";
+import { getProductDetailsIncludes } from "../../internalHelpers/includesParameter";
+import { convertIncludesToGetParams } from "../../internalHelpers/includesConverter";
 
 const NO_PRODUCT_REFERENCE_ERROR =
   "Associations cannot be loaded for undefined product";
@@ -37,11 +39,13 @@ export const useProduct = (
   const product: Ref<Product> = ref(loadedProduct);
   const error: Ref<any> = ref(null);
 
-  const loadAssociations = async (associations: any) => {
+  const loadAssociations = async (associationsParams: any) => {
     if (!product || !product.value || !product.value.id) {
       throw NO_PRODUCT_REFERENCE_ERROR;
     }
-
+    const includesParams = convertIncludesToGetParams(
+      getProductDetailsIncludes()
+    );
     const {
       media,
       cover,
@@ -50,7 +54,7 @@ export const useProduct = (
       children,
     } = await getProduct(
       product.value.parentId || product.value.id,
-      associations,
+      Object.assign({}, associationsParams, includesParams),
       apiInstance
     );
     product.value = Object.assign({}, product.value, {
@@ -65,7 +69,7 @@ export const useProduct = (
   const search = async (productId: string) => {
     loading.value = true;
     try {
-      const result = await getProduct(productId, apiInstance);
+      const result = await getProduct(productId, null, apiInstance);
       product.value = result;
       return result;
     } catch (e) {
