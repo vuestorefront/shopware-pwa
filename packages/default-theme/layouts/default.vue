@@ -81,7 +81,7 @@ export default {
 
       if (breadcrumbs.length > 0) {
         breadcrumbs.unshift({
-          text: "Home",
+          text: root.$t("Home"),
           link: root.$i18n.path("/"),
           route: {
             link: root.$i18n.path("/"),
