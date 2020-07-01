@@ -18,6 +18,7 @@ import { EqualsAnyFilter } from '@shopware-pwa/commons/interfaces/search/SearchF
 import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { Grouping } from '@shopware-pwa/commons/interfaces/search/Grouping';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
+import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { Language } from '@shopware-pwa/commons/interfaces/models/framework/language/Language';
 import { MultiFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { NavigationResponse } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
@@ -341,6 +342,8 @@ export interface ShopwareParams {
     filter?: (NotFilter | MultiFilter | EqualsFilter | EqualsAnyFilter | RangeFilter)[];
     // (undocumented)
     grouping?: Grouping;
+    // (undocumented)
+    includes?: Includes;
     // (undocumented)
     limit?: number;
     // (undocumented)

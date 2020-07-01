@@ -9,6 +9,7 @@ Vue.use(VueCompositionApi);
 
 import { useCms } from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
+import { getPageIncludes } from "../src/internalHelpers/includesParameter";
 
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedGetPage = shopwareClient as jest.Mocked<typeof shopwareClient>;
@@ -69,42 +70,112 @@ describe("Composables - useCms", () => {
     expect(error.value).toStrictEqual({ message: "Something went wrong..." });
   });
 
-  it("should performs search default pagination limit if not provided", async () => {
-    const { search, page } = useCms(rootContextMock);
-    mockedGetPage.getPage.mockResolvedValueOnce({} as any);
-    expect(page.value).toEqual(null);
-    await search("");
-    expect(mockedGetPage.getPage).toBeCalledWith(
-      "",
-      {
-        configuration: {
-          associations: [
-            { associations: [{ name: "group" }], name: "options" },
-          ],
-        },
-        pagination: { limit: 10 },
-      },
-      rootContextMock.$shopwareApiInstance
-    );
-  });
+  describe("methods", () => {
+    describe("search", () => {
+      it("should performs search default pagination limit if not provided", async () => {
+        const { search, page } = useCms(rootContextMock);
+        mockedGetPage.getPage.mockResolvedValueOnce({} as any);
+        expect(page.value).toEqual(null);
+        await search("");
+        expect(mockedGetPage.getPage).toBeCalledWith(
+          "",
+          {
+            configuration: {
+              associations: [
+                { associations: [{ name: "group" }], name: "options" },
+              ],
+              includes: getPageIncludes(),
+            },
+            pagination: { limit: 10 },
+          },
+          rootContextMock.$shopwareApiInstance
+        );
+      });
 
-  it("should perform search default pagination limit if wrong value", async () => {
-    const { search, page } = useCms(rootContextMock);
-    mockedGetPage.getPage.mockResolvedValueOnce({} as any);
-    expect(page.value).toEqual(null);
-    await search("", { pagination: "null" });
-    expect(mockedGetPage.getPage).toBeCalledWith(
-      "",
-      {
-        configuration: {
-          associations: [
-            { associations: [{ name: "group" }], name: "options" },
-          ],
-        },
-        pagination: { limit: 10 },
-      },
-      rootContextMock.$shopwareApiInstance
-    );
+      it("should perform search default pagination limit if wrong value", async () => {
+        const { search, page } = useCms(rootContextMock);
+        mockedGetPage.getPage.mockResolvedValueOnce({} as any);
+        expect(page.value).toEqual(null);
+        await search("", { pagination: "null" });
+        expect(mockedGetPage.getPage).toBeCalledWith(
+          "",
+          {
+            configuration: {
+              associations: [
+                { associations: [{ name: "group" }], name: "options" },
+              ],
+              includes: getPageIncludes(),
+            },
+            pagination: { limit: 10 },
+          },
+          rootContextMock.$shopwareApiInstance
+        );
+      });
+
+      it("should performs search with pagination if provided", async () => {
+        const { search, page } = useCms(rootContextMock);
+        mockedGetPage.getPage.mockResolvedValueOnce({} as any);
+        expect(page.value).toEqual(null);
+        await search("", { pagination: { limit: 50 } });
+        expect(mockedGetPage.getPage).toBeCalledWith(
+          "",
+          {
+            configuration: {
+              associations: [
+                { associations: [{ name: "group" }], name: "options" },
+              ],
+              includes: getPageIncludes(),
+            },
+            pagination: { limit: 50 },
+          },
+          rootContextMock.$shopwareApiInstance
+        );
+      });
+
+      it("should provide default includes if not provided, but configuration exist", async () => {
+        const { search, page } = useCms(rootContextMock);
+        mockedGetPage.getPage.mockResolvedValueOnce({} as any);
+        expect(page.value).toEqual(null);
+        await search("", {
+          configuration: {},
+        });
+        expect(mockedGetPage.getPage).toBeCalledWith(
+          "",
+          {
+            configuration: {
+              associations: [
+                { associations: [{ name: "group" }], name: "options" },
+              ],
+              includes: getPageIncludes(),
+            },
+            pagination: { limit: 10 },
+          },
+          rootContextMock.$shopwareApiInstance
+        );
+      });
+
+      it("should invoke search with custom includes", async () => {
+        const { search, page } = useCms(rootContextMock);
+        mockedGetPage.getPage.mockResolvedValueOnce({} as any);
+        expect(page.value).toEqual(null);
+        await search("", {
+          configuration: { includes: { product: ["name"] } },
+        });
+        expect(mockedGetPage.getPage).toBeCalledWith(
+          "",
+          {
+            configuration: {
+              associations: [
+                { associations: [{ name: "group" }], name: "options" },
+              ],
+              includes: { product: ["name"] },
+            },
+            pagination: { limit: 10 },
+          },
+          rootContextMock.$shopwareApiInstance
+        );
+      });
+    });
   });
 
   it("should return activeCategoryId if it's included within the page object", async () => {
