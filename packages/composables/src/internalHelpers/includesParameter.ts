@@ -57,3 +57,15 @@ export const getPageIncludes = () => ({
   product_group_option: PRODUCT_GROUP_OPTION,
   product_group: PRODUCT_GROUP,
 });
+
+/**
+ * Parameters for product listing - aligned with getCategoryProductsListing method of @shopware-pwa/shopware-6-client
+ */
+export const getProductListingIncludes = () => ({
+  product: PRODUCT,
+  product_media: PRODUCT_MEDIA,
+  media: MEDIA,
+  calculated_price: PRODUCT_CALCULATED_PRICE,
+  product_group_option: PRODUCT_GROUP_OPTION,
+  product_group: PRODUCT_GROUP,
+});

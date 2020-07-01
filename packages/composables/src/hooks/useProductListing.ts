@@ -22,6 +22,7 @@ import {
   getApplicationContext,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
+import { getProductListingIncludes } from "../internalHelpers/includesParameter";
 
 /**
  * @alpha
@@ -147,6 +148,8 @@ export const useProductListing = (
             name: "productReviews",
           },
         ],
+        // performance enhancement - fetch only the relevant fields
+        includes: getProductListingIncludes(),
       },
     };
 
