@@ -84,7 +84,11 @@ describe("Composables - useCart", () => {
 
       it("should show correct items quantity", () => {
         stateCart.value = {
-          lineItems: [{ quantity: 2 }, { quantity: 3 }],
+          lineItems: [
+            { quantity: 2, type: "product" },
+            { quantity: 3, type: "product" },
+            { quantity: 1, type: "promotion" },
+          ],
         };
         const { count } = useCart(rootContextMock);
         expect(count.value).toEqual(5);
