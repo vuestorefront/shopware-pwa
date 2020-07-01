@@ -1,5 +1,5 @@
 <template>
-  <div class="my-account" :key="$route.fullPath">
+  <div :key="$route.fullPath" class="my-account">
     <SfContentPages
       :title="$t('My account')"
       :active="activePage"
@@ -11,9 +11,7 @@
           <nuxt-child />
         </SfContentPage>
         <SfContentPage :title="$t('My addresses')">
-          <SfTabs :open-tab="1">
-            <nuxt-child />
-          </SfTabs>
+          <nuxt-child />
         </SfContentPage>
       </SfContentCategory>
       <SfContentCategory :title="$t('Order details')">
@@ -25,9 +23,10 @@
     </SfContentPages>
   </div>
 </template>
+
 <script>
-import { computed, onBeforeMount } from "@vue/composition-api"
-import { SfContentPages, SfTabs } from "@storefront-ui/vue"
+import { computed } from "@vue/composition-api"
+import { SfContentPages } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
 import { PAGE_LOGIN } from "@shopware-pwa/default-theme/helpers/pages"
 
@@ -37,7 +36,6 @@ export default {
   name: "AccountPage",
   components: {
     SfContentPages,
-    SfTabs,
   },
   middleware: authMiddleware,
   setup(props, { root }) {
@@ -59,15 +57,15 @@ export default {
       return (this.user && this.user && this.user.activeShippingAddress) || {}
     },
   },
-  mounted() {
-    this.updateActivePage(this.activePage)
-  },
   watch: {
     $route(to, from) {
       if (to.name === "account-profile") {
         this.activePage = "My profile"
       }
     },
+  },
+  mounted() {
+    this.updateActivePage(this.activePage)
   },
   methods: {
     async updateActivePage(title) {
@@ -91,6 +89,14 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.my-account .my-account__content,
+.my-account .sf-content-pages__content {
+  height: auto;
+}
+</style>
+
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 

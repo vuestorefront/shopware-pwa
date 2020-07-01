@@ -25,7 +25,6 @@
 
 <script>
 import { SfTabs } from "@storefront-ui/vue"
-import { useUser } from "@shopware-pwa/composables"
 import SwPassword from "@shopware-pwa/default-theme/components/forms/SwPassword"
 import SwPersonalInfo from "@shopware-pwa/default-theme/components/forms/SwPersonalInfo"
 

@@ -16,9 +16,9 @@
         label="First Name"
         error-message="First name is required"
         :valid="!$v.form.firstName.$error"
-        @blur="$v.form.firstName.$touch()"
         required
         class="form__element form__element--half"
+        @blur="$v.form.firstName.$touch()"
       />
       <SwInput
         v-model="form.lastName"
@@ -26,9 +26,9 @@
         label="Last Name"
         error-message="Last name is required"
         :valid="!$v.form.lastName.$error"
-        @blur="$v.form.lastName.$touch()"
         required
         class="form__element form__element--half form__element--half-even"
+        @blur="$v.form.lastName.$touch()"
       />
       <SfSelect
         v-model="form.salutation"
@@ -36,8 +36,8 @@
         error-message="Salutation must be selected"
         required
         :valid="!$v.form.salutation.$error"
-        @blur="$v.form.salutaiton.$touch()"
         class="sf-select--underlined form__element form__element--half form__element--half form__select"
+        @blur="$v.form.salutaiton.$touch()"
       >
         <SfSelectOption
           v-for="salutationOption in getMappedSalutations"
@@ -53,9 +53,9 @@
         label="Street Name"
         error-message="Street name is required"
         :valid="!$v.form.street.$error"
-        @blur="$v.form.street.$touch()"
         required
         class="form__element form__element--half form__element--half-even"
+        @blur="$v.form.street.$touch()"
       />
       <SwInput
         v-model="form.apartment"
@@ -63,9 +63,9 @@
         label="House/Apartment number"
         error-message="Apartment is required"
         :valid="!$v.form.apartment.$error"
-        @blur="$v.form.apartment.$touch()"
         required
         class="form__element"
+        @blur="$v.form.apartment.$touch()"
       />
       <SwInput
         v-model="form.city"
@@ -73,9 +73,9 @@
         label="City"
         error-message="City is required"
         :valid="!$v.form.city.$error"
-        @blur="$v.form.city.$touch()"
         required
         class="form__element form__element--half"
+        @blur="$v.form.city.$touch()"
       />
       <SwInput
         v-model="form.state"
@@ -83,9 +83,9 @@
         label="State/Province"
         error-message="State is required"
         :valid="!$v.form.state.$error"
-        @blur="$v.form.state.$touch()"
         required
         class="form__element form__element--half form__element--half-even"
+        @blur="$v.form.state.$touch()"
       />
       <SwInput
         v-model="form.zipcode"
@@ -93,18 +93,18 @@
         label="Zip-code"
         error-message="Zip code is required"
         :valid="!$v.form.zipcode.$error"
-        @blur="$v.form.zipcode.$touch()"
         required
         class="form__element form__element--half"
+        @blur="$v.form.zipcode.$touch()"
       />
       <SfSelect
         v-model="form.country"
         label="Country"
         error-message="Country must be selected"
         :valid="!$v.form.country.$error"
-        @blur="$v.form.country.$touch()"
         required
         class="sf-select--underlined form__element form__element--half form__element--half-even form__select"
+        @blur="$v.form.country.$touch()"
       >
         <SfSelectOption
           v-for="countryOption in getMappedCountries"
@@ -120,9 +120,9 @@
         label="Phone number"
         error-message="Wrong phone number"
         :valid="!$v.form.phoneNumber.$error"
-        @blur="$v.form.phoneNumber.$touch()"
         required
         class="form__element"
+        @blur="$v.form.phoneNumber.$touch()"
       />
       <SwButton class="form__button" @click="updateAddress">
         Update the address
@@ -140,8 +140,8 @@
 <script>
 import { validationMixin } from "vuelidate"
 import { required } from "vuelidate/lib/validators"
-import { computed, reactive, ref, onBeforeMount } from "@vue/composition-api"
-import { SfAlert, SfTabs, SfSelect, SfIcon } from "@storefront-ui/vue"
+import { computed, reactive } from "@vue/composition-api"
+import { SfAlert, SfSelect } from "@storefront-ui/vue"
 import {
   useCountries,
   useUser,
@@ -153,7 +153,7 @@ import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
 export default {
   name: "SwAddress",
-  components: { SfAlert, SfTabs, SwInput, SwButton, SfSelect, SfIcon },
+  components: { SfAlert, SwInput, SwButton, SfSelect },
   mixins: [validationMixin],
   props: {
     address: {
@@ -171,12 +171,11 @@ export default {
       }),
     },
   },
-  setup(props) {
-    const { getSalutations, error: salutationsError } = useSalutations(root)
+  setup(props, { root }) {
+    const { getSalutations } = useSalutations(root)
     const { addAddress, error: userError } = useUser(root)
     const { getCountries, error: countriesError } = useCountries(root)
-    const editAddress = ref(false)
-    const editedAddress = ref(-1)
+
     const form = reactive(JSON.parse(JSON.stringify(props.address)))
 
     const getMappedCountries = computed(() => mapCountries(getCountries.value))
@@ -284,22 +283,22 @@ export default {
 @import "@/assets/scss/variables";
 
 .form {
-  @include for-desktop {
+  @include for-tablet {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
   }
   &__element {
     margin-bottom: var(--spacer-xl);
-    @include for-desktop {
+    @include for-tablet {
       flex: 0 0 100%;
     }
     &--half {
-      @include for-desktop {
+      @include for-tablet {
         flex: 1 1 50%;
       }
       &-even {
-        @include for-desktop {
+        @include for-tablet {
           padding-left: var(--spacer-xl);
         }
       }
@@ -312,11 +311,17 @@ export default {
   }
   &__button {
     width: 100%;
-    @include for-desktop {
-      width: auto;
-    }
+
     &--back {
-      margin-left: var(--spacer-base);
+      margin: var(--spacer-base) 0 0 0;
+    }
+
+    @include for-tablet {
+      width: auto;
+
+      &--back {
+        margin: 0 0 0 var(--spacer-base);
+      }
     }
   }
 }

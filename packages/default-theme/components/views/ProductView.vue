@@ -1,6 +1,6 @@
 <template>
   <div v-if="product" id="product">
-    <SwPluginSlot name="product-page-details-before" :slotContext="product" />
+    <SwPluginSlot name="product-page-details-before" :slot-context="product" />
     <SwGoBackArrow class="product-page-back" />
     <div class="product">
       <SwProductGallery :product="product" class="product__gallery" />
@@ -8,7 +8,7 @@
         <SwProductDetails :product="product" :page="page" />
       </div>
     </div>
-    <SwPluginSlot name="product-page-details-after" :slotContext="product" />
+    <SwPluginSlot name="product-page-details-after" :slot-context="product" />
     <div class="products__recomendations">
       <div class="products-recomendations__section">
         <SwProductCarousel />
