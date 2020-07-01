@@ -9,6 +9,7 @@ Vue.use(VueCompositionApi);
 
 import { useCms } from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
+import { getPageIncludes } from "../src/internalHelpers/includesParameter";
 
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedGetPage = shopwareClient as jest.Mocked<typeof shopwareClient>;
@@ -81,47 +82,7 @@ describe("Composables - useCms", () => {
           associations: [
             { associations: [{ name: "group" }], name: "options" },
           ],
-          includes: {
-            cms_page_slot: [
-              "id",
-              "type",
-              "slot",
-              "blockId",
-              "data",
-              "backgroundMediaMode",
-              "backgroundMedia",
-            ],
-            cms_page_block: [
-              "slots",
-              "type",
-              "id",
-              "backgroundMedia",
-              "sectionPosition",
-            ],
-            cms_page_section: [
-              "id",
-              "backgroundMedia",
-              "blocks",
-              "type",
-              "sizingMode",
-            ],
-            cms_page: ["id", "name", "sections", "type", "config"],
-            product: [
-              "name",
-              "ratingAverage",
-              "calculatedPrice",
-              "calculatedPrices",
-              "cover",
-              "id",
-              "translated",
-              "options",
-            ],
-            product_media: ["media"],
-            media: ["url"],
-            calculated_price: ["unitPrice"],
-            product_group_option: ["name", "id", "group", "translated"],
-            product_group: ["id", "name", "options", "translated"],
-          },
+          includes: getPageIncludes(),
         },
         pagination: { limit: 10 },
       },
@@ -141,47 +102,7 @@ describe("Composables - useCms", () => {
           associations: [
             { associations: [{ name: "group" }], name: "options" },
           ],
-          includes: {
-            cms_page_slot: [
-              "id",
-              "type",
-              "slot",
-              "blockId",
-              "data",
-              "backgroundMediaMode",
-              "backgroundMedia",
-            ],
-            cms_page_block: [
-              "slots",
-              "type",
-              "id",
-              "backgroundMedia",
-              "sectionPosition",
-            ],
-            cms_page_section: [
-              "id",
-              "backgroundMedia",
-              "blocks",
-              "type",
-              "sizingMode",
-            ],
-            cms_page: ["id", "name", "sections", "type", "config"],
-            product: [
-              "name",
-              "ratingAverage",
-              "calculatedPrice",
-              "calculatedPrices",
-              "cover",
-              "id",
-              "translated",
-              "options",
-            ],
-            product_media: ["media"],
-            media: ["url"],
-            calculated_price: ["unitPrice"],
-            product_group_option: ["name", "id", "group", "translated"],
-            product_group: ["id", "name", "options", "translated"],
-          },
+          includes: getPageIncludes(),
         },
         pagination: { limit: 10 },
       },
