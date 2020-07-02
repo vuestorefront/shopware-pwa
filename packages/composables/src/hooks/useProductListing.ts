@@ -149,6 +149,7 @@ export const useProductListing = (
           },
         ],
         // performance enhancement - fetch only the relevant fields
+        // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/911
         includes: getProductListingIncludes(),
       },
     };
