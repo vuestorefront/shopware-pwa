@@ -64,6 +64,7 @@ export const getPageIncludes = () => ({
 export const getProductDetailsIncludes = () => ({
   product: [...PRODUCT, "children", "manufacturer", "properties", "media"],
   product_media: PRODUCT_MEDIA,
+  media: MEDIA,
   calculated_price: PRODUCT_CALCULATED_PRICE,
   product_group_option: PRODUCT_GROUP_OPTION,
   product_group: PRODUCT_GROUP,
