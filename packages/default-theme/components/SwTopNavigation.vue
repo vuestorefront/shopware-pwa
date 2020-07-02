@@ -5,10 +5,10 @@
       v-for="category in visibleCategories"
       :key="category.name"
       class="sf-header__link"
+      data-cy="top-navigation-item"
       @mouseover="changeCurrentCategory(category.name)"
       @mouseleave="changeCurrentCategory(null)"
       @keyup.tab="changeCurrentCategory(category.name)"
-      data-cy="top-navigation-item"
     >
       <nuxt-link
         class="sf-header__link"
@@ -22,13 +22,14 @@
     </SfHeaderNavigationItem>
 
     <SfHeaderNavigationItem
-      class="sf-header__link"
       v-if="unvisibleCategories"
+      class="sf-header__link"
       @mouseover="changeCurrentCategory('categories')"
       @mouseleave="changeCurrentCategory(null)"
       @keyup.tab="changeCurrentCategory('categories')"
     >
-      <span class="sf-header__link">More</span>
+      <SwTopNavigationShowMore />
+
       <SwMegaMenu
         :category="unvisibleCategories"
         :visible="currentCategoryName && 'categories' === currentCategoryName"
@@ -46,12 +47,13 @@ import { ref, onMounted, watch } from "@vue/composition-api"
 import { getCategoryUrl } from "@shopware-pwa/helpers"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import { useLocales } from "@shopware-pwa/default-theme/logic"
-import { setTimeout } from "timers"
+import SwTopNavigationShowMore from "./SwTopNavigationShowMore"
 
 export default {
   components: {
     SwMegaMenu,
     SwPluginSlot,
+    SwTopNavigationShowMore,
   },
   setup(props, { root }) {
     const { switchState: switchOverlay } = useUIState(
@@ -91,20 +93,6 @@ export default {
     }
   },
 
-  mounted() {
-    window.addEventListener("resize", this.countVisibleCategories)
-  },
-
-  unmounted() {
-    window.removeEventListener("resize", this.countVisibleCategories)
-  },
-
-  watch: {
-    navigationElements() {
-      this.countVisibleCategories()
-    },
-  },
-
   data() {
     return { unwrappedElements: 0 }
   },
@@ -126,6 +114,20 @@ export default {
     },
   },
 
+  watch: {
+    navigationElements() {
+      this.countVisibleCategories()
+    },
+  },
+
+  mounted() {
+    window.addEventListener("resize", this.countVisibleCategories)
+  },
+
+  unmounted() {
+    window.removeEventListener("resize", this.countVisibleCategories)
+  },
+
   methods: {
     countVisibleCategories() {
       this.unwrappedElements = this.navigationElements.length
@@ -140,7 +142,7 @@ export default {
             visibleItemsCount += 1
           }
         })
-        //This subtraction makes more space in nav and prevent to move "more category " to the next line.
+        // This subtraction makes more space in nav and prevent to move "more category " to the next line.
         this.unwrappedElements = Math.max(0, visibleItemsCount - 2)
       })
     },

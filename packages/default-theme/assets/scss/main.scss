@@ -1,5 +1,5 @@
-@import '~@storefront-ui/vue/styles';
-@import '@/assets/scss/variables.scss';
+@import "~@storefront-ui/vue/styles";
+@import "@/assets/scss/variables.scss";
 
 // Global styles for theme
 
@@ -74,4 +74,35 @@ body {
 
 #__layout {
   height: 100%;
+}
+
+.sw-top-navigation {
+  .sw-mega-menu {
+    .sf-heading__title {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+    }
+
+    .sw-mega-menu__content-section {
+      &:hover {
+        > .sf-header__link {
+          .sf-heading__title {
+            color: var(--_c-green-primary);
+          }
+        }
+      }
+    }
+
+    .sf-header__link {
+      &:hover {
+        color: var(--_c-green-primary);
+        text-decoration: underline;
+
+        .sf-menu-item__label {
+          color: var(--_c-green-primary);
+        }
+      }
+    }
+  }
 }
