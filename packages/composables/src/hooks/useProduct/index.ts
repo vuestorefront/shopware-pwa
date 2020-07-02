@@ -43,6 +43,7 @@ export const useProduct = (
     if (!product || !product.value || !product.value.id) {
       throw NO_PRODUCT_REFERENCE_ERROR;
     }
+    // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/911
     const includesParams = convertIncludesToGetParams(
       getProductDetailsIncludes()
     );
@@ -54,6 +55,7 @@ export const useProduct = (
       children,
     } = await getProduct(
       product.value.parentId || product.value.id,
+      // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/911
       Object.assign({}, associationsParams, includesParams),
       apiInstance
     );
