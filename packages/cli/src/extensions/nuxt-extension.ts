@@ -63,7 +63,7 @@ module.exports = (toolbox: GluegunToolbox) => {
    */
   toolbox.updateNuxtPackageJson = async (canary = false) => {
     const nuxtThemePackage = toolbox.filesystem.read(
-      `${toolbox.defaultThemeLocation}/package.json`,
+      `${toolbox.defaultThemeLocation}\\package.json`,
       "json"
     );
 

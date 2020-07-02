@@ -22,4 +22,15 @@
 //
 //
 // -- This will overwrite an existing command --
+
+const { createPartiallyEmittedExpression } = require("typescript")
+
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add("addtocart", () => {
+  cy.visit("")
+  cy.wait(5000)
+  cy.get(".sf-header__link").eq(0).dblclick()
+  cy.wait(1000)
+  cy.get(".sf-product-card__title").first().click({ force: true })
+  cy.get(".sf-add-to-cart__button").click({ force: true })
+})
