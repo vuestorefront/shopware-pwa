@@ -15,7 +15,7 @@ const PRODUCT = [
 const PRODUCT_MEDIA = ["media"];
 const PRODUCT_GROUP = ["id", "name", "options", "translated"];
 const PRODUCT_GROUP_OPTION = ["name", "id", "group", "translated"];
-const PRODUCT_CALCULATED_PRICE = ["unitPrice"];
+const PRODUCT_CALCULATED_PRICE = ["unitPrice", "quantity"];
 const MEDIA = ["url"];
 const CMS_PAGE = ["id", "name", "sections", "type", "config"];
 const CMS_PAGE_SECTION = [
@@ -59,10 +59,22 @@ export const getPageIncludes = () => ({
 });
 
 /**
- * Parameters for product listing - aligned with getCategoryProductsListing method of @shopware-pwa/shopware-6-client
+ * Parameters for product listing - aligned with getProductListing method of @shopware-pwa/shopware-6-client
  */
 export const getProductListingIncludes = () => ({
   product: PRODUCT,
+  product_media: PRODUCT_MEDIA,
+  media: MEDIA,
+  calculated_price: PRODUCT_CALCULATED_PRICE,
+  product_group_option: PRODUCT_GROUP_OPTION,
+  product_group: PRODUCT_GROUP,
+});
+
+/**
+ * Parameters for product details - aligned with getProduct GET method of @shopware-pwa/shopware-6-client
+ */
+export const getProductDetailsIncludes = () => ({
+  product: [...PRODUCT, "children", "manufacturer", "properties", "media"],
   product_media: PRODUCT_MEDIA,
   media: MEDIA,
   calculated_price: PRODUCT_CALCULATED_PRICE,
