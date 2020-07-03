@@ -31,3 +31,22 @@ export function invokeGet(
 ): Promise<any> {
   return contextInstance.invoke.get(address);
 }
+
+/**
+ * Invoke custom PATCH request to shopware API. Mostly for plugins usage.
+ * You can skip domain and pass only endpoint ex. `/api/my/endpoint`
+ * @throws ClientApiError
+ * @beta
+ */
+export function invokePatch(
+  {
+    address,
+    payload,
+  }: {
+    address: string;
+    payload?: any;
+  },
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<any> {
+  return contextInstance.invoke.patch(address, payload);
+}

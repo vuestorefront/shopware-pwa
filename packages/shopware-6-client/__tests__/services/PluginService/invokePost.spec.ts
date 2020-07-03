@@ -49,3 +49,26 @@ describe("PluginService - invokeGet", () => {
     expect(result.data.success).toEqual(true);
   });
 });
+
+describe("PluginService - invokePatch", () => {
+  const mockedPatch = jest.fn();
+  beforeEach(() => {
+    jest.resetAllMocks();
+    mockedApiInstance.invoke = {
+      patch: mockedPatch,
+    } as any;
+  });
+  it("should call contextInstance.invoke.patch method with provided resource", async () => {
+    mockedPatch.mockResolvedValueOnce({ data: { success: true } });
+
+    const result = await invokePatch({
+      address: "/some/patch/endpoint",
+      payload: {
+        some: "payload",
+      },
+    });
+    expect(mockedPatch).toBeCalledTimes(1);
+    expect(mockedPatch).toBeCalledWith("/some/patch/endpoint");
+    expect(result.data.success).toEqual(true);
+  });
+});
