@@ -102,5 +102,8 @@ export default {
         config.optimization.splitChunks.cacheGroups.commons.minChunks = 2
       }
     },
+    filenames: {
+      chunk: ({ isDev }) => (isDev ? "[name].js" : "[id].[contenthash].js"),
+    },
   },
 }
