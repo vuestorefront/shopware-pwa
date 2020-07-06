@@ -8,6 +8,7 @@ import { Aggregations } from '@shopware-pwa/commons/interfaces/search/Aggregatio
 import { Category } from '@shopware-pwa/commons/interfaces/models/content/category/Category';
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { CmsSection } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { CmsSlot } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
@@ -77,6 +78,12 @@ export function getCategoryAvailableSorting({ sorting, }?: {
 
 // @alpha
 export const getCategoryUrl: (category: Partial<Category>) => string;
+
+// @alpha (undocumented)
+export function getCmsLink(content?: CmsSlot): String;
+
+// @alpha (undocumented)
+export function getCmsLinkTarget(content?: CmsSlot): String;
 
 // @alpha (undocumented)
 export function getCmsSections(content: CmsPage): CmsSection[];
