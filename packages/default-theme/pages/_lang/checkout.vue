@@ -52,10 +52,8 @@ import PaymentStep from "@shopware-pwa/default-theme/components/checkout/steps/P
 import PersonalDetailsStep from "@shopware-pwa/default-theme/components/checkout/steps/PersonalDetailsStep"
 import ShippingStep from "@shopware-pwa/default-theme/components/checkout/steps/ShippingStep"
 import OrderReviewStep from "@shopware-pwa/default-theme/components/checkout/steps/OrderReviewStep"
-import { ref, computed, reactive } from "@vue/composition-api"
 import {
   CHECKOUT_STEPS,
-  getStepByNumber,
   useUICheckoutPage,
 } from "@shopware-pwa/default-theme/logic/checkout"
 
@@ -82,7 +80,7 @@ export default {
   watch: {
     $route: {
       immediate: true,
-      handler: function () {
+      handler() {
         const stepName = this.$route.query.step
         if (stepName) this.nextStep(CHECKOUT_STEPS[stepName])
       },

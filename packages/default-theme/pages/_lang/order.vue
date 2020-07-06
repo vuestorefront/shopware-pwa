@@ -1,5 +1,5 @@
 <template>
-  <div class="order-page" :key="$route.fullPath">
+  <div :key="$route.fullPath" class="order-page">
     <SfHeading
       title="Thank you"
       subtitle="for shopping with us!"
@@ -14,7 +14,7 @@
 </template>
 <script>
 import { SfHeading, SfIcon, SfDivider } from "@storefront-ui/vue"
-import { ref, onMounted, computed } from "@vue/composition-api"
+import { computed } from "@vue/composition-api"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 
 import SwOrderDetails from "@shopware-pwa/default-theme/components/SwOrderDetails"

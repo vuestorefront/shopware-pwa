@@ -445,3 +445,11 @@ Finally we have our desired effect:
 ![preview](./../../assets/preview2.png)
 
 And that's it. This set of rules applies for sections, blocks and elements.
+
+
+## Performance
+The Shopware6 API returns all data that you may need, and even more. This is why an `includes` parameter was invented - [Read more at _Includes_ chapter here](https://docs.shopware.com/en/shopware-platform-dev-en/admin-api-guide/reading-entities).
+
+In order to make the response payload smaller, aligned with our needs - the `includes` parameter is being used.
+
+The list of all fetched fields within the page resolver, which is responsible for getting the CMS content (but not only) can be found [here (_getPageIncludes_ method)](../../../packages/composables/src/internalHelpers/includesParameter.ts). Thanks to this mechanism - the shopware-pwa fetches only the relevant data.

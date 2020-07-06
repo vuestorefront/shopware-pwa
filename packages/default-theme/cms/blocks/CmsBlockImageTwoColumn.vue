@@ -16,15 +16,18 @@ import CmsGenericElement from "sw-cms/CmsGenericElement"
 
 export default {
   name: "CmsBlockImageTwoColumn",
+
   components: {
     CmsGenericElement,
   },
+
   props: {
     content: {
       type: Object,
       default: () => ({}),
     },
   },
+
   computed: {
     getSlots() {
       return this.content.slots || []
@@ -42,24 +45,25 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 
-.cms-block-image-two-column {
-  display: flex;
-  flex-direction: column;
+::v-deep.cms-block-image-two-column {
+  display: grid;
+  grid-gap: var(--spacer-sm);
+  grid-template-rows: repeat(2, 340px);
+  margin: var(--spacer-sm);
 
   &__image {
-    margin: var(--spacer-sm);
-    flex: 1;
-    & img {
-      height: 340px;
+    img {
+      height: 100%;
       object-fit: cover;
+      object-position: center;
       width: 100%;
     }
   }
 
   @include for-desktop {
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 340px);
+    margin: var(--spacer-sm) 0;
   }
 }
 </style>

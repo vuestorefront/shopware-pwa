@@ -42,10 +42,6 @@ export const getProducts = async function (
   return resp.data;
 };
 
-function wait(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 /**
  * Get default amount of products and listing configuration for given category
  *
@@ -57,7 +53,6 @@ export const getCategoryProductsListing = async function (
   searchCriteria?: SearchCriteria,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<ProductListingResult> {
-  await wait(5000);
   const resp = await contextInstance.invoke.post(
     `${getProductListingEndpoint(categoryId)}`,
     convertSearchCriteria({

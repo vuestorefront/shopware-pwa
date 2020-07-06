@@ -8,16 +8,19 @@
 import CmsGenericElement from "sw-cms/CmsGenericElement"
 
 export default {
+  name: "CmsBlockImageCover",
+
   components: {
     CmsGenericElement,
   },
-  name: "CmsBlockImageCover",
+
   props: {
     content: {
       type: Object,
       default: () => ({}),
     },
   },
+
   computed: {
     getSlots() {
       return this.content.slots || []
