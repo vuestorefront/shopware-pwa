@@ -9,8 +9,8 @@
       v-model="activeCurrency"
       :size="availableCurrencies.length"
       class="sw-currency__select sf-select--no-chevron"
-      @click="loadAvailableCurrencies"
       data-cy="currency-switcher-select"
+      @click="loadAvailableCurrencies"
     >
       <SfSelectOption
         v-for="currencyItem in availableCurrencies"
@@ -24,15 +24,17 @@
   </div>
 </template>
 <script>
-import { SfSelect, SfProductOption } from "@storefront-ui/vue"
+import { SfSelect } from "@storefront-ui/vue"
 import { useCurrency } from "@shopware-pwa/composables"
 import { computed, onMounted } from "@vue/composition-api"
 
 export default {
   name: "SwCurrencySwitcher",
+
   components: {
     SfSelect,
   },
+
   setup(props, { root }) {
     const {
       currency,
@@ -63,6 +65,7 @@ export default {
   },
 }
 </script>
+
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 
@@ -72,6 +75,9 @@ export default {
   --select-selected-padding: 0 var(--spacer-xs);
   --select-selected-justify-content: center;
   text-align: center;
-  cursor: pointer;
+
+  .sf-select {
+    cursor: pointer;
+  }
 }
 </style>

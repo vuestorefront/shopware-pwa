@@ -1,7 +1,9 @@
 <template>
   <div class="sw-top-navigation" data-cy="main-header">
     <SfOverlay :visible="isOpen" class="sw-overlay" />
+
     <SwTopBar />
+
     <SfHeader
       :title="$t('page.title')"
       class="sw-header"
@@ -54,6 +56,15 @@ export default {
 }
 </script>
 
+<style lang="scss">
+.sf-header__wrapper {
+  header {
+    box-sizing: border-box;
+    max-width: 1320px;
+  }
+}
+</style>
+
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 
@@ -83,9 +94,11 @@ export default {
 .sw-header {
   z-index: 2;
   background-color: var(--c-white);
+
   &__icons {
     display: flex;
   }
+
   &__icon {
     cursor: pointer;
   }

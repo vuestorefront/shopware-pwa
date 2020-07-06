@@ -21,13 +21,22 @@ export default {
 }
 </script>
 
+<style lang="scss">
+.sf-top-bar__container {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 1320px;
+  padding: 0 1rem;
+}
+</style>
+
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 
 .sw-top-bar {
-  padding: 0 var(--spacer-sm);
   position: relative;
   z-index: 3;
+
   &__location-label {
     margin: 0 var(--spacer-sm) 0 0;
   }
