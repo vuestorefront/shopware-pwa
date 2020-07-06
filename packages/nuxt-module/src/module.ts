@@ -135,6 +135,11 @@ export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
     ];
   };
 
+  moduleObject.options.build.filenames =
+    moduleObject.options.build.filenames || {};
+  moduleObject.options.build.filenames.chunk = ({ isDev }) =>
+    isDev ? "[name].js" : "[id].[contenthash].js";
+
   const corePackages: string[] = [
     "@shopware-pwa/composables",
     "@shopware-pwa/helpers",
