@@ -6,7 +6,10 @@ import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError
 import { useProduct } from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 import { convertIncludesToGetParams } from "../src/internalHelpers/includesConverter";
+import { convertAssociationsToGetParams } from "../src/internalHelpers/associationsConverter";
 import { getProductDetailsIncludes } from "../src/internalHelpers/includesParameter";
+import { getAssociationsForEntity } from "../src/internalHelpers/associationsParameter";
+import { EntityType } from "@shopware-pwa/commons/interfaces/internal/EntityType";
 
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedGetProduct = shopwareClient as jest.Mocked<typeof shopwareClient>;
@@ -70,10 +73,13 @@ describe("Composables - useProduct", () => {
       const includesParams = convertIncludesToGetParams(
         getProductDetailsIncludes()
       );
+      const associationsParams = convertAssociationsToGetParams(
+        getAssociationsForEntity(EntityType.PRODUCT)
+      );
       loadAssociations({} as any);
       expect(mockedGetProduct.getProduct).toBeCalledWith(
         "1c3e927309014a67a07f3bb574f9e804",
-        includesParams,
+        { ...includesParams, ...associationsParams },
         rootContextMock.$shopwareApiInstance
       );
     });
@@ -96,11 +102,15 @@ describe("Composables - useProduct", () => {
         responseLoadAssociations
       );
       const associations = {
-        "associations[media][]": true,
-        "associations[options][associations][group][]": true,
-        "associations[productReviews][]": true,
+        media: {},
+        options: {
+          associations: {
+            group: {},
+          },
+        },
+        productReviews: {},
       };
-      await loadAssociations("3f637f17cd9f4891a2d7625d19fb37c9", associations);
+      await loadAssociations(associations);
       expect(product.value).toHaveProperty("productReviews");
       expect(product.value).toHaveProperty("media");
     });

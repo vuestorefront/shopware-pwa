@@ -1,3 +1,5 @@
+import { EntityType } from "@shopware-pwa/commons/interfaces/internal/EntityType";
+
 /**
  * A collection of performance set of includes parameters
  */
@@ -81,3 +83,24 @@ export const getProductDetailsIncludes = () => ({
   product_group_option: PRODUCT_GROUP_OPTION,
   product_group: PRODUCT_GROUP,
 });
+
+/**
+ * Gets the right includes parameter for given entity type
+ * @param entity
+ */
+export const getIncludesForEntity = (entity: string): any => {
+  if (!entity) {
+    throw new Error("getIncludesForEntity: there is no entityType provided.");
+  }
+
+  switch (entity) {
+    case EntityType.PRODUCT:
+      return getProductDetailsIncludes();
+    case EntityType.PRODUCT_LISTING:
+      return getProductListingIncludes();
+    case EntityType.CMS:
+      return getPageIncludes();
+    default:
+      throw new Error("getIncludesForEntity: entityType is not recognizable.");
+  }
+};

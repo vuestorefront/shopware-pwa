@@ -1,12 +1,11 @@
 import { ref, Ref, computed } from "@vue/composition-api";
 import { getPage } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { EntityType } from "@shopware-pwa/commons/interfaces/internal/EntityType";
 import { parseUrlQuery } from "@shopware-pwa/helpers";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { getApplicationContext } from "@shopware-pwa/composables";
+import { getApplicationContext, useDefaults } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../../appContext";
-import { getPageIncludes } from "../../internalHelpers/includesParameter";
-
 /**
  * @alpha
  */
@@ -16,6 +15,9 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
     "useCms"
   );
 
+  const { getAssociationsConfig, getIncludesConfig } = useDefaults(
+    EntityType.CMS
+  );
   const error: Ref<any> = ref(null);
   const loading: Ref<boolean> = ref(false);
   const page = computed(() => {
@@ -47,18 +49,12 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
 
     if (!searchCriteria.configuration.associations)
       searchCriteria.configuration.associations = [];
-    searchCriteria.configuration.associations.push({
-      name: "options",
-      associations: [
-        {
-          name: "group",
-        },
-      ],
-    });
+
+    searchCriteria.configuration.associations.push(getAssociationsConfig());
 
     if (!searchCriteria.configuration.includes) {
       // performance enhancement
-      searchCriteria.configuration.includes = getPageIncludes();
+      searchCriteria.configuration.includes = getIncludesConfig();
     }
 
     try {

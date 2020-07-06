@@ -6,6 +6,7 @@ import {
   ContainsFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { getCategoryProductsListing } from "@shopware-pwa/shopware-6-client";
+import { EntityType } from "@shopware-pwa/commons/interfaces/internal/EntityType";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
 import {
   Sort,
@@ -20,9 +21,9 @@ import {
   useCms,
   useCategoryFilters,
   getApplicationContext,
+  useDefaults,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
-import { getProductListingIncludes } from "../internalHelpers/includesParameter";
 
 /**
  * @alpha
@@ -61,7 +62,9 @@ export const useProductListing = (
     rootContext,
     "useProductListing"
   );
-
+  const { getAssociationsConfig, getIncludesConfig } = useDefaults(
+    EntityType.PRODUCT_LISTING
+  );
   const { categoryId } = useCms(rootContext);
   const { activeSorting } = useCategoryFilters(rootContext);
 
@@ -138,19 +141,8 @@ export const useProductListing = (
       filters: getFilterSearchCriteria(selectedCriteria.filters),
       sort: getSortingSearchCriteria(selectedCriteria.sorting),
       configuration: {
-        // fetch variant options
-        associations: [
-          {
-            name: "options",
-          },
-          // fetch productReviews
-          {
-            name: "productReviews",
-          },
-        ],
-        // performance enhancement - fetch only the relevant fields
-        // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/911
-        includes: getProductListingIncludes(),
+        associations: getAssociationsConfig(),
+        includes: getIncludesConfig(),
       },
     };
 

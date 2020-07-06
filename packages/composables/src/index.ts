@@ -3,6 +3,7 @@ export * from "./hooks/useProduct";
 export * from "./hooks/useCart";
 export * from "./logic/useAddToCart";
 export * from "./logic/useCheckout";
+export * from "./logic/useDefaults";
 export * from "./logic/useSessionContext";
 export * from "./logic/useUIState";
 export * from "./hooks/useCategoryFilters";
