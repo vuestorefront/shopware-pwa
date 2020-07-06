@@ -20,15 +20,18 @@ import CmsGenericElement from "sw-cms/CmsGenericElement"
 
 export default {
   name: "CmsBlockImageThreeCover",
+
   components: {
     CmsGenericElement,
   },
+
   props: {
     content: {
       type: Object,
       default: () => ({}),
     },
   },
+
   computed: {
     getSlots() {
       return this.content.slots || []
@@ -45,26 +48,27 @@ export default {
   },
 }
 </script>
-
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 
-.cms-block-image-three-cover {
-  display: flex;
-  flex-direction: column;
+::v-deep.cms-block-image-three-cover {
+  display: grid;
+  grid-template-rows: repeat(3, 340px);
+  margin: var(--spacer-sm);
 
   &__image {
-    flex: 1 1 0;
-    & img {
-      height: 340px;
+    img {
+      height: 100%;
       object-fit: cover;
+      object-position: center;
+      width: 100%;
     }
   }
 
   @include for-desktop {
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 340px);
+    margin: var(--spacer-sm) 0;
   }
 }
 </style>
