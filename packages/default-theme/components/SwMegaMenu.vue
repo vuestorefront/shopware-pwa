@@ -28,7 +28,7 @@
               class="sf-header__link"
               :to="$i18n.path(getCategoryUrl(child))"
             >
-              <SfMenuItem :label="child.name" />
+              <SfMenuItem class="sw-menu-item" :label="child.name" />
             </nuxt-link>
           </SfListItem>
         </SfList>
@@ -67,6 +67,16 @@ export default {
   position: absolute;
   top: 100%;
   width: 100%;
+
+  .sf-header__link:hover {
+    --heading-title-color: var(--_c-green-primary);
+    text-decoration: underline;
+  }
+
+  .sw-menu-item:hover {
+    --menu-item-label-color: var(--_c-green-primary);
+    text-decoration: underline;
+  }
 
   &__content {
     display: flex;

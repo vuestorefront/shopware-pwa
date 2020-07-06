@@ -159,6 +159,10 @@ export default {
   --search-bar-width: 100%;
   --header-container-padding: 0 var(--spacer-base);
   --header-navigation-item-margin: 0 1rem 0 0;
+  --heading-title-font-size: 16px;
+  --heading-title-font-weight: 500;
+  --c-link-hover: var(--_c-green-primary);
+  --heading-title-font-line-height: 24px;
 
   .sw-overlay {
     --overlay-z-index: 1;
