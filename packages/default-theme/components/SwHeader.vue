@@ -72,7 +72,7 @@ export default {
   --search-bar-width: 100%;
   --header-container-padding: 0 var(--spacer-base);
   --header-navigation-item-margin: 0 1rem 0 0;
-  margin-bottom: var(--spacer-sm);
+
   .sw-overlay {
     --overlay-z-index: 1;
   }
@@ -93,7 +93,7 @@ export default {
 
 .sw-header {
   z-index: 2;
-  background-color: #fff;
+  background-color: var(--c-white);
 
   &__icons {
     display: flex;

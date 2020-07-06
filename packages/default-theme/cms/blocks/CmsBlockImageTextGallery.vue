@@ -7,8 +7,8 @@
       <div class="cms-block-image-text-gallery__container__column">
         <CmsElementImage
           :content="getLeftColumn.image"
+          :style="{ cursor: getLeftColumn.url && 'pointer' }"
           @click.native="onImageClick(getLeftColumn)"
-          v-bind:style="{ cursor: getLeftColumn.url && 'pointer' }"
         />
         <CmsElementText
           :content="getLeftColumn.text"
@@ -18,8 +18,8 @@
       <div class="cms-block-image-text-gallery__container__column">
         <CmsElementImage
           :content="getCenterColumn.image"
+          :style="{ cursor: getCenterColumn.url && 'pointer' }"
           @click.native="onImageClick(getCenterColumn)"
-          v-bind:style="{ cursor: getCenterColumn.url && 'pointer' }"
         />
         <CmsElementText
           :content="getCenterColumn.text"
@@ -29,8 +29,8 @@
       <div class="cms-block-image-text-gallery__container__column">
         <CmsElementImage
           :content="getRightColumn.image"
+          :style="{ cursor: getRightColumn.url && 'pointer' }"
           @click.native="onImageClick(getRightColumn)"
-          v-bind:style="{ cursor: getRightColumn.url && 'pointer' }"
         />
         <CmsElementText
           :content="getRightColumn.text"
@@ -42,7 +42,6 @@
 </template>
 
 <script>
-import CmsGenericElement from "sw-cms/CmsGenericElement"
 import CmsElementImage from "@shopware-pwa/default-theme/cms/elements/CmsElementImage"
 import CmsElementText from "@shopware-pwa/default-theme/cms/elements/CmsElementText"
 
@@ -60,17 +59,19 @@ const extractGalleryData = (slots, position) => {
 
 export default {
   name: "CmsBlockImageTextGallery",
+
   components: {
-    CmsGenericElement,
     CmsElementImage,
     CmsElementText,
   },
+
   props: {
     content: {
       type: Object,
       default: () => ({}),
     },
   },
+
   computed: {
     getBgColor() {
       return this.content.backgroundColor
