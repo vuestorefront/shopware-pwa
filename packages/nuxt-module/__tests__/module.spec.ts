@@ -254,4 +254,15 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
   it("interfaces should return default empty object", () => {
     expect(InterfacesDefault).toEqual({});
   });
+
+  it("should change build chunk names", () => {
+    runModule(moduleObject, {});
+    expect(moduleObject.options.build.filenames.chunk).toBeTruthy();
+    expect(
+      moduleObject.options.build.filenames.chunk({ isDev: false })
+    ).toEqual("[id].[contenthash].js");
+    expect(moduleObject.options.build.filenames.chunk({ isDev: true })).toEqual(
+      "[name].js"
+    );
+  });
 });

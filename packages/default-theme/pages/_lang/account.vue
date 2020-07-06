@@ -34,21 +34,26 @@ import authMiddleware from "@shopware-pwa/default-theme/middleware/auth"
 
 export default {
   name: "AccountPage",
+
   components: {
     SfContentPages,
   },
+
   middleware: authMiddleware,
+
   setup(props, { root }) {
     const { logout, user, loadOrders, orders } = useUser(root)
     const ordersCount = computed(() => user.value && user.value.orderCount)
     return { logout, user, loadOrders, orders, ordersCount }
   },
+
   data() {
     return {
       activePage: "My profile",
       allAddresses: [],
     }
   },
+
   computed: {
     activeBillingAddress() {
       return (this.user && this.user && this.user.activeBillingAddress) || {}
@@ -57,6 +62,7 @@ export default {
       return (this.user && this.user && this.user.activeShippingAddress) || {}
     },
   },
+  
   watch: {
     $route(to, from) {
       if (to.name === "account-profile") {
@@ -64,9 +70,11 @@ export default {
       }
     },
   },
+
   mounted() {
     this.updateActivePage(this.activePage)
   },
+
   methods: {
     async updateActivePage(title) {
       switch (title) {
@@ -102,7 +110,7 @@ export default {
 
 .my-account {
   @include for-desktop {
-    max-width: 1272px;
+    max-width: 1320px;
     margin: 0 auto;
     padding: 0 var(--spacer-sm);
   }
