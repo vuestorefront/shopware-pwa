@@ -1,6 +1,12 @@
 import { GluegunToolbox } from "gluegun";
-import { merge } from "lodash";
 
+/**
+ * 1. get theme locales
+ * 2. get plugin locales
+ * 3. get local plugin locales
+ * 4. get local project locales
+ * -> save merged locales
+ */
 module.exports = {
   name: "languages",
   alias: ["lang"],
@@ -19,46 +25,76 @@ module.exports = {
       toolbox.defaultThemeLocation,
       "locales"
     );
-    const projectLocales =
-      (await toolbox.filesystem.listAsync("locales")) || [];
+
+    /**
+     * -> Create results map
+     */
+    const resultLocalesMap = {};
+
+    /**
+     * 1. get theme locales
+     */
+    const themeLocalesMap = await toolbox.languages.getLocalesMap(
+      themeLanguagesDir
+    );
+    await toolbox.languages.mergeLocalesMap(resultLocalesMap, themeLocalesMap);
+
+    /**
+     * 2. get plugins locales
+     */
+    const pluginsConfig = await toolbox.plugins.getPluginsConfig();
+    const pluginsLocalesPaths = await toolbox.languages.getPluginsLocalesPaths({
+      pluginsConfig: pluginsConfig,
+    });
+    for (let index = 0; index < pluginsLocalesPaths.length; index++) {
+      const localePath = pluginsLocalesPaths[index];
+      const localeMap = await toolbox.languages.getLocalesMap(localePath);
+      await toolbox.languages.mergeLocalesMap(resultLocalesMap, localeMap);
+    }
+
+    /**
+     * 3. get local plugins locales
+     */
+    const localPluginsConfig = await toolbox.plugins.getPluginsConfig({
+      localPlugins: true,
+    });
+    const localPluginsLocalesPaths = await toolbox.languages.getPluginsLocalesPaths(
+      {
+        pluginsConfig: localPluginsConfig,
+        rootDirectory: "sw-plugins",
+      }
+    );
+    for (let index = 0; index < localPluginsLocalesPaths.length; index++) {
+      const localePath = localPluginsLocalesPaths[index];
+      const localeMap = await toolbox.languages.getLocalesMap(localePath);
+      await toolbox.languages.mergeLocalesMap(resultLocalesMap, localeMap);
+    }
+
+    /**
+     * 4. get local project locales
+     */
+    const localProjectLocalesMap = await toolbox.languages.getLocalesMap(
+      "locales"
+    );
+    await toolbox.languages.mergeLocalesMap(
+      resultLocalesMap,
+      localProjectLocalesMap
+    );
 
     await toolbox.filesystem.removeAsync(shopwarePwaLocalesPath);
 
-    if (await toolbox.filesystem.existsAsync(themeLanguagesDir)) {
-      await toolbox.filesystem.copyAsync(
-        themeLanguagesDir,
-        shopwarePwaLocalesPath
-      );
-    }
-
-    // Override theme translations by project translations
-    for (let index = 0; index < projectLocales.length; index++) {
-      const localeFileName = projectLocales[index];
-      const pwaLocaleFilePath = path.join(
+    // -> Save result map
+    const languageFileNames = Object.keys(resultLocalesMap);
+    for (let index = 0; index < languageFileNames.length; index++) {
+      const currentLocaleFileName = languageFileNames[index];
+      const currentLocaleFilePath = path.join(
         shopwarePwaLocalesPath,
-        localeFileName
+        currentLocaleFileName
       );
-      const isOverridingThemeLocale = await toolbox.filesystem.existsAsync(
-        pwaLocaleFilePath
+      await toolbox.filesystem.writeAsync(
+        currentLocaleFilePath,
+        resultLocalesMap[currentLocaleFileName]
       );
-      const projectLocalePath = path.join("locales", localeFileName);
-      if (isOverridingThemeLocale) {
-        const themeLocales = await toolbox.filesystem.readAsync(
-          pwaLocaleFilePath,
-          "json"
-        );
-        const projectLocales = await toolbox.filesystem.readAsync(
-          projectLocalePath,
-          "json"
-        );
-        merge(themeLocales, projectLocales);
-        await toolbox.filesystem.writeAsync(pwaLocaleFilePath, themeLocales);
-      } else {
-        await toolbox.filesystem.copyAsync(
-          projectLocalePath,
-          pwaLocaleFilePath
-        );
-      }
     }
 
     const isLocalReload = !!toolbox.parameters.options.local;
