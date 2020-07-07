@@ -71,18 +71,14 @@ module.exports = {
       props: {},
     });
 
-    const pluginsConfig = toolbox.filesystem.read(
-      `.shopware-pwa/pwa-bundles.json`,
-      "json"
-    );
+    const pluginsConfig = await toolbox.plugins.getPluginsConfig();
     const shopwarePluginsTrace = await toolbox.buildPluginsTrace({
       pluginsConfig,
     });
     // extend plugins trace from local project
-    const localPluginsConfig = toolbox.filesystem.read(
-      `sw-plugins/local-plugins.json`,
-      "json"
-    );
+    const localPluginsConfig = await toolbox.plugins.getPluginsConfig({
+      localPlugins: true,
+    });
     const pluginsTrace = await toolbox.buildPluginsTrace({
       pluginsConfig: localPluginsConfig,
       pluginsTrace: shopwarePluginsTrace,

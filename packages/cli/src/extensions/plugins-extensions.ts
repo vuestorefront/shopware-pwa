@@ -3,6 +3,25 @@ import axios from "axios";
 import { join } from "path";
 
 module.exports = (toolbox: GluegunToolbox) => {
+  toolbox.plugins = {};
+
+  toolbox.plugins.getPluginsConfig = async (
+    options: {
+      localPlugins?: boolean;
+    } = {}
+  ) => {
+    if (options.localPlugins) {
+      return toolbox.filesystem.readAsync(
+        `sw-plugins/local-plugins.json`,
+        "json"
+      );
+    }
+    return toolbox.filesystem.readAsync(
+      `.shopware-pwa/pwa-bundles.json`,
+      "json"
+    );
+  };
+
   toolbox.fetchPluginsAuthToken = async (
     { shopwareEndpoint, username, password } = toolbox.inputParameters
   ) => {
