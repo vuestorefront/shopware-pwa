@@ -82,7 +82,6 @@ jobs:
           SLACK_MESSAGE: 'Your PR was successfully deployed on StorefrontCloud :rocket:'
           SLACK_TITLE: PR Preview
           SLACK_USERNAME: StorefrontCloudBot
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SITE_NAME: preview
           SITE_URL: ${{ steps.deploy.outputs.preview_url }}
       - name: Update deployment status (success)
