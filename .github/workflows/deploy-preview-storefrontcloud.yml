@@ -84,6 +84,8 @@ jobs:
           SLACK_USERNAME: StorefrontCloudBot
           SITE_NAME: preview
           SITE_URL: ${{ steps.deploy.outputs.preview_url }}
+          SHOW_REF: true
+          SHOW_EVENT: true
       - name: Update deployment status (success)
         if: success()
         uses: chrnorm/deployment-status@releases/v1
