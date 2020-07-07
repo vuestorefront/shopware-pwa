@@ -11,7 +11,6 @@ interface IUseDefaults {
 /**
  * Returns default config that can be appended by the new values
  * @beta
- * @param entityType
  */
 export const useDefaults = (entityType: EntityType): IUseDefaults => {
   const type = ref(entityType);
