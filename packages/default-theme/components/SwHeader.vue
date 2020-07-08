@@ -92,7 +92,7 @@ export default {
 }
 
 .sw-header {
-  z-index: 2;
+  z-index: 1;
   background-color: var(--c-white);
 
   &__icons {

@@ -142,7 +142,7 @@ export default {
   }
 
   h3 {
-    text-align: center;
+    text-align: left;
     margin-bottom: var(--spacer-base);
   }
 }
