@@ -17,7 +17,7 @@ const command: GluegunCommand = {
 
     // Watch locales
     const localesWatchEvents = ["add", "change", "unlink"];
-    const locales = path.join("locales");
+    const locales = path.join("locales/*.json");
     const localPLuginsLocales = path.join("sw-plugins/**/locales/*");
     chokidar
       .watch([locales, localPLuginsLocales], {
