@@ -108,7 +108,7 @@ module.exports = {
       local: true,
       ...inputParameters
     }
-    await toolbox.runtime.run(`languages`, langParams);
+    await toolbox?.runtime?.run(`languages`, langParams);
 
     success(`Plugins generated`);
   },

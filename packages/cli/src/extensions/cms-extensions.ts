@@ -11,7 +11,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       return;
     }
     runningRefreshCms = true;
-    await toolbox.runtime.run(`cms`, {});
+    await toolbox?.runtime?.run(`cms`, {});
     runningRefreshCms = false;
   };
 

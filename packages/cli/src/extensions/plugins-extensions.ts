@@ -11,7 +11,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       return;
     }
     runningRefreshPlugins = true;
-    await toolbox.runtime.run(`plugins`, { ci: true, devMode });
+    await toolbox?.runtime?.run(`plugins`, { ci: true, devMode });
     runningRefreshPlugins = false;
   };
 
