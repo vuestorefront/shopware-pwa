@@ -20,10 +20,14 @@ module.exports = (toolbox: GluegunToolbox) => {
     );
     const resultMap = {};
     languageKeys.forEach((languageKey) => {
-      resultMap[languageKey] = toolbox.filesystem.read(
-        path.join(directoryPath, languageKey),
-        "json"
-      );
+      try {
+        resultMap[languageKey] = toolbox.filesystem.read(
+          path.join(directoryPath, languageKey),
+          "json"
+        );
+      } catch (e) {
+        console.warn("Language file " + languageKey + " is not a proper JSON");
+      }
     });
     return resultMap;
   };
