@@ -5,6 +5,16 @@ import { join } from "path";
 module.exports = (toolbox: GluegunToolbox) => {
   toolbox.plugins = {};
 
+  let runningRefreshPlugins: boolean = false;
+  toolbox.plugins.invokeRefreshPlugins = async (devMode: boolean = false) => {
+    if (runningRefreshPlugins) {
+      return;
+    }
+    runningRefreshPlugins = true;
+    await toolbox?.runtime?.run(`plugins`, { ci: true, devMode });
+    runningRefreshPlugins = false;
+  };
+
   toolbox.plugins.getPluginsConfig = async (
     options: {
       localPlugins?: boolean;

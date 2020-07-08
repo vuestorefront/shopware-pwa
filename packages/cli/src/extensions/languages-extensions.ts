@@ -20,10 +20,14 @@ module.exports = (toolbox: GluegunToolbox) => {
     );
     const resultMap = {};
     languageKeys.forEach((languageKey) => {
-      resultMap[languageKey] = toolbox.filesystem.read(
-        path.join(directoryPath, languageKey),
-        "json"
-      );
+      try {
+        resultMap[languageKey] = toolbox.filesystem.read(
+          path.join(directoryPath, languageKey),
+          "json"
+        );
+      } catch (e) {
+        console.warn("Language file " + languageKey + " is not a proper JSON");
+      }
     });
     return resultMap;
   };
@@ -57,5 +61,17 @@ module.exports = (toolbox: GluegunToolbox) => {
       });
     }
     return localesPaths;
+  };
+
+  let runningRefreshLanguages: boolean = false;
+  toolbox.languages.invokeRefreshLanguages = async (
+    isLocal: boolean = false
+  ) => {
+    if (runningRefreshLanguages) {
+      return;
+    }
+    runningRefreshLanguages = true;
+    await toolbox?.runtime?.run(`languages`, { local: isLocal });
+    runningRefreshLanguages = false;
   };
 };

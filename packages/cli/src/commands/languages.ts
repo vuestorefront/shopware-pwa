@@ -108,6 +108,9 @@ module.exports = {
           endpoint: inputParameters.shopwareEndpoint,
           accessToken: inputParameters.shopwareAccessToken,
         });
+        apiClient.onConfigChange(() => {
+          // nothing to do for now
+        });
 
         const langs: any = await apiClient.getAvailableLanguages();
         langs.forEach((lang) => {
