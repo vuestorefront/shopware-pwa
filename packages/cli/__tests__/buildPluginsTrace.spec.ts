@@ -8,6 +8,9 @@ describe("CLI extensions - plugins - buildPluginsTrace", () => {
     print: {
       error: jest.fn(),
     },
+    runtime: {
+      run: jest.fn(),
+    },
   };
   beforeAll(() => {
     pluginsModule(toolbox);
