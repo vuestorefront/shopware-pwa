@@ -58,4 +58,16 @@ module.exports = (toolbox: GluegunToolbox) => {
     }
     return localesPaths;
   };
+
+  let runningRefreshLanguages: boolean = false;
+  toolbox.languages.invokeRefreshLanguages = async (
+    isLocal: boolean = false
+  ) => {
+    if (runningRefreshLanguages) {
+      return;
+    }
+    runningRefreshLanguages = true;
+    await toolbox.runtime.run(`languages`, { local: isLocal });
+    runningRefreshLanguages = false;
+  };
 };
