@@ -49,7 +49,7 @@ module.exports = {
     const generateFilesSpinner = spin("Generating plugins files");
 
     // remove plugin files
-    await toolbox.filesystem.removeAsync(`.shopware-pwa/sw-plugins`);
+    // await toolbox.filesystem.removeAsync(`.shopware-pwa/sw-plugins`);
 
     await generate({
       template: "/plugins/usePlugins.js",
@@ -104,7 +104,11 @@ module.exports = {
       },
     });
 
-    await toolbox.runtime.run(`languages`, inputParameters);
+    const langParams = {
+      local: true,
+      ...inputParameters
+    }
+    await toolbox?.runtime?.run(`languages`, langParams);
 
     success(`Plugins generated`);
   },
