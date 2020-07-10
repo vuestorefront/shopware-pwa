@@ -17,6 +17,7 @@ import { Grouping } from "@shopware-pwa/commons/interfaces/search/Grouping";
 import { convertToStoreApiFilters } from "../helpers/convertToStoreApiFilters";
 import { ClientSettings } from "../settings";
 import { deprecationWarning } from "@shopware-pwa/commons";
+import { getQueryString } from "../helpers/queryParamsBuilder";
 
 export enum ApiType {
   store = "store-api",
@@ -63,6 +64,19 @@ export const convertShopwareSearchCriteria = (
   };
 
   return params;
+};
+
+/**
+ * @alpha
+ **/
+export const convertSearchCriteriaToQueryParams = (
+  searchCriteria?: SearchCriteria
+): string => {
+  const shopwareSearchParams: ShopwareSearchParams = convertShopwareSearchCriteria(
+    searchCriteria
+  );
+  console.warn("shopwareSearchParams", shopwareSearchParams);
+  return getQueryString(shopwareSearchParams);
 };
 
 /**

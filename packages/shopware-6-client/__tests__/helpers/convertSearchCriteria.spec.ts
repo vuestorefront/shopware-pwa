@@ -1,6 +1,7 @@
 import {
   convertSearchCriteria,
   convertShopwareSearchCriteria,
+  convertSearchCriteriaToQueryParams,
   ApiType,
 } from "../../src/helpers/searchConverter";
 import {
@@ -12,6 +13,17 @@ import {
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
 import { config, setup, update } from "@shopware-pwa/shopware-6-client";
+
+describe("SearchConverter - convertSearchCriteriaToQueryParams", () => {
+  it("should return stringified parameter for given SearchCriteria", () => {
+    const searchCriteria = {
+      pagination: { page: PaginationLimit.ONE },
+    };
+
+    const result = convertSearchCriteriaToQueryParams(searchCriteria);
+    expect(result).toStrictEqual("limit=10&p=1");
+  });
+});
 
 describe("SearchConverter - convertShopwareSearchCriteria", () => {
   it("should return default request params if there are lacks of properties", () => {
