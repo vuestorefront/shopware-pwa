@@ -9,6 +9,7 @@
   "Go to cart": "Go to cart",
   "Go to checkout": "Zum Checkout gehen",
   "Go to My Account": "Zum Einkaufskorb gehen",
+  "Home": "Startseite",
   "Log in": "Einloggen",
   "Logout": "Ausloggen",
   "My account": "Mein Konto",
@@ -26,5 +27,6 @@
   "Start shopping": "Beginn mit dem Einkauf",
   "Total items": "Gesamtanzahl",
   "Total price": "Gesamtpreis",
-  "Your cart is empty": "Ihr Warenkorb ist leer"
+  "Your cart is empty": "Ihr Warenkorb ist leer",
+  "More": "Mehr"
 }

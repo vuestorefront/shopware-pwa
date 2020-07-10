@@ -4,8 +4,8 @@
       :selected="currentLocale"
       :size="availableLanguages.length"
       class="sw-language-switcher__select sf-select--no-chevron"
-      @change="changeLocale"
       data-cy="language-switcher-select"
+      @change="changeLocale"
     >
       <SfSelectOption
         v-for="language in availableLanguages"
@@ -19,16 +19,16 @@
   </div>
 </template>
 <script>
-import { SfSelect, SfProductOption } from "@storefront-ui/vue"
-import { computed, onMounted, ref } from "@vue/composition-api"
-import languagesMap from "sw-plugins/languages"
+import { SfSelect } from "@storefront-ui/vue"
 import { useLocales } from "@shopware-pwa/default-theme/logic/useLocales"
 
 export default {
   name: "SwLanguageSwitcher",
+
   components: {
     SfSelect,
   },
+
   setup(props, { root }) {
     const { availableLanguages, currentLocale, changeLocale } = useLocales(root)
     return {
@@ -48,6 +48,9 @@ export default {
   --select-selected-padding: 0 var(--spacer-xs);
   --select-selected-justify-content: center;
   text-align: center;
-  cursor: pointer;
+
+  .sf-select {
+    cursor: pointer;
+  }
 }
 </style>

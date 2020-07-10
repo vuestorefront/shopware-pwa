@@ -15,4 +15,15 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "@/assets/scss/variables";
+
+.addresses-add {
+  box-sizing: border-box;
+  width: 100%;
+
+  @include for-mobile {
+    padding: var(--spacer-sm);
+  }
+}
+</style>

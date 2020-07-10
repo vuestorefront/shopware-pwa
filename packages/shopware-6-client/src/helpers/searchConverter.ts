@@ -1,6 +1,7 @@
 import {
   SearchCriteria,
   ShopwareSearchParams,
+  Includes,
 } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import {
   NotFilter,
@@ -43,6 +44,7 @@ export interface ShopwareParams {
   grouping?: Grouping;
   properties?: string; // store-api filters
   manufacturer?: string; // store-api filters
+  includes?: Includes;
 }
 
 /**
@@ -136,6 +138,10 @@ export const convertSearchCriteria = ({
 
   if (configuration?.grouping) {
     params.grouping = configuration.grouping;
+  }
+
+  if (configuration?.includes) {
+    params.includes = configuration.includes;
   }
 
   // fulltext query (works for every entity so can be global)

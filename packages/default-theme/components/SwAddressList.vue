@@ -2,38 +2,24 @@
   <div class="shipping-list">
     <Address
       v-for="address in addresses"
-      :address="address"
       :key="address.id"
-      :isDefaultShipping="address.id === selectedShipping"
-      :isDefaultBilling="address.id === selectedBilling"
+      :address="address"
+      :is-default-shipping="address.id === selectedShipping"
+      :is-default-billing="address.id === selectedBilling"
+      class="shipping-list__address"
       @selectDefaultAddress="selectDefaultAddress"
       @deleteAddress="deleteAddress"
       @editAddress="editAddress"
-      class="shipping-list__address"
     />
   </div>
 </template>
 <script>
-import {
-  SfProperty,
-  SfTabs,
-  SfList,
-  SfIcon,
-  SfBadge,
-  SfCheckbox,
-} from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
 import Address from "@shopware-pwa/default-theme/components/account/MyAddresses/Address.vue"
 
 export default {
   name: "MyAddresses",
   components: {
-    SfProperty,
-    SfTabs,
-    SfList,
-    SfIcon,
-    SfBadge,
-    SfCheckbox,
     Address,
   },
   props: {},
@@ -63,10 +49,10 @@ export default {
       refreshUser,
     }
   },
+  computed: {},
   async mounted() {
     await this.loadAddresses()
   },
-  computed: {},
   methods: {
     async selectDefaultAddress(addressId, type) {
       await this.markAddressAsDefault({ addressId, type })

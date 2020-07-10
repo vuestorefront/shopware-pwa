@@ -27,6 +27,13 @@ export interface Grouping {
 }
 
 /**
+ * @beta
+ */
+export interface Includes {
+  [key: string]: string[];
+}
+
+/**
  * configutarion.displayParents: true - if you want to show all the products
  * @alpha
  */
@@ -43,6 +50,7 @@ export interface SearchCriteria {
     associations?: Association[];
     aggregations?: Aggregation[];
     totalCountMode?: TotalCountMode;
+    includes?: Includes;
   };
 }
 
@@ -70,4 +78,5 @@ export interface ShopwareSearchParams {
   grouping?: Grouping;
   properties?: string | undefined | never[];
   manufacturer?: string | undefined | never[];
+  includes?: Includes;
 }
