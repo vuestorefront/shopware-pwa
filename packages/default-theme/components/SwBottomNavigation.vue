@@ -60,14 +60,13 @@
               :value="getPageAccount"
               @click.native="goToMyAccount"
               data-cy="bottom-navigation-account-option"
+              >My account</SfSelectOption
             >
-              My account
-            </SfSelectOption>
             <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
             <SfSelectOption :value="'logout'">
-              <SwButton class="sf-button--full-width" @click="logoutUser">
-                Logout
-              </SwButton>
+              <SwButton class="sf-button--full-width" @click="logoutUser"
+                >Logout</SwButton
+              >
             </SfSelectOption>
           </SfSelect>
         </template>
@@ -201,12 +200,20 @@ export default {
     --select-height: 2rem;
     --select-color: #afb0b6;
   }
+
   &__select {
     --chevron-size: 0;
     --select-margin: 0;
     text-align: center;
     position: absolute;
     text-transform: uppercase;
+
+    // TODO[SFUI]: remove current category from bottom nav in mobile - https://github.com/DivanteLtd/storefront-ui/issues/1298
+    .sf-select__selected {
+      .sf-header__link {
+        display: none;
+      }
+    }
   }
 }
 </style>

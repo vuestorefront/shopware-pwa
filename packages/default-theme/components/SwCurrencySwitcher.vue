@@ -17,9 +17,8 @@
         :key="currencyItem.id"
         :value="currencyItem.id"
         data-cy="currency-switcher-option"
+        >{{ currencyItem.symbol }}</SfSelectOption
       >
-        {{ currencyItem.symbol }}
-      </SfSelectOption>
     </SfSelect>
   </div>
 </template>
@@ -70,14 +69,15 @@ export default {
 @import "@/assets/scss/variables";
 
 .sw-currency {
-  --select-padding: 0;
   --select-margin: 0;
-  --select-selected-padding: 0 var(--spacer-xs);
+  --select-padding: 0;
   --select-selected-justify-content: center;
+  --select-selected-padding: 0 var(--spacer-xs);
   text-align: center;
 
   .sf-select {
     cursor: pointer;
+    max-height: var(--top-bar-height, 2.5rem);
   }
 }
 </style>
