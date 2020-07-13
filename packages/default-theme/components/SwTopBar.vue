@@ -35,7 +35,7 @@ export default {
 
 .sw-top-bar {
   position: relative;
-  z-index: 1;
+  z-index: 3;
 
   &__location-label {
     margin: 0 var(--spacer-sm) 0 0;
