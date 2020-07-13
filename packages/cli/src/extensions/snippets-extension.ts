@@ -39,41 +39,7 @@ module.exports = (toolbox: GluegunToolbox) => {
   };
 
   /**
-   * Helper for Stackoverflow hack
-   */
-  const isObject = (item) => {
-    return item && typeof item === "object" && !Array.isArray(item);
-  };
-
-  /**
-   * Deep merge two objects.
-   *
-   * Taken from - https://stackoverflow.com/questions/27936772/how-to-deep-merge-instead-of-shallow-merge
-   *
-   * Is there a better way to do that?
-   * @param target
-   * @param ...sources
-   */
-  const mergeDeep = (target, ...sources) => {
-    if (!sources.length) return target;
-    const source = sources.shift();
-
-    if (isObject(target) && isObject(source)) {
-      for (const key in source) {
-        if (isObject(source[key])) {
-          if (!target[key]) Object.assign(target, { [key]: {} });
-          mergeDeep(target[key], source[key]);
-        } else {
-          Object.assign(target, { [key]: source[key] });
-        }
-      }
-    }
-
-    return mergeDeep(target, ...sources);
-  };
-
-  /**
-   * Work
+   * Creates a nested structure within object, given the path and places a value at the deepest place
    */
   const _deepCopy = (object, path: Array<string>, value) => {
     let currentKey = path.shift();
@@ -92,7 +58,7 @@ module.exports = (toolbox: GluegunToolbox) => {
   /**
    * Converts a flat, dot-cased dictionary of values into a nested object (flattenSnippetObject(inflateSnippetOject) = identity)
    */
-  toolbox.snippets.inflateSnippetObject = (flatSnippets, nestedObject) => {
+  toolbox.snippets.inflateSnippetObject = (flatSnippets) => {
     var objectSet = [];
     for (var i = 0; i < flatSnippets.length; i++) {
       var value = flatSnippets[i];
@@ -101,9 +67,10 @@ module.exports = (toolbox: GluegunToolbox) => {
       objectSet.push(_deepCopy({}, path, value));
     }
 
-    var deepSet = mergeDeep({}, ...objectSet);
+    const { merge } = require("lodash");
+    var deepSet = merge(...objectSet);
 
-    toolbox.print.success(JSON.stringify(deepSet));
+    return deepSet;
   };
 
   /**
@@ -111,7 +78,8 @@ module.exports = (toolbox: GluegunToolbox) => {
    */
   toolbox.snippets.fetchFromApi = async (
     shopwareEndpoint: string,
-    authToken: string
+    authToken: string,
+    snippetSetIdentifier: string
   ) => {
     const fetchSnippetsResponse = await axios.post(
       `${shopwareEndpoint}/api/v1/search/snippet`,
@@ -121,6 +89,11 @@ module.exports = (toolbox: GluegunToolbox) => {
             type: "contains",
             field: "translationKey",
             value: "pwa.",
+          },
+          {
+            type: "equals",
+            field: "setId",
+            value: snippetSetIdentifier,
           },
         ],
         includes: {
@@ -161,26 +134,27 @@ module.exports = (toolbox: GluegunToolbox) => {
       });
     }
 
-    const writeSnippetsResponse = await axios.post(
-      `${shopwareEndpoint}/api/v1/_action/sync`,
-      [
+    try {
+      await axios.post(
+        `${shopwareEndpoint}/api/v1/_action/sync`,
+        [
+          {
+            action: "upsert",
+            entity: "snippet",
+            payload,
+          },
+        ],
         {
-          action: "upsert",
-          entity: "snippet",
-          payload,
-        },
-      ],
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
-
-    if (writeSnippetsResponse.status === 200) {
-      return;
-    } else {
-      toolbox.print.error(writeSnippetsResponse.data);
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+    } catch (error) {
+      toolbox.print.error(
+        "Error exporting snippets to API (PWA snippets should never be created through the Admin panel)"
+      );
+      toolbox.print.error(JSON.stringify(error.response.data.data));
     }
   };
 

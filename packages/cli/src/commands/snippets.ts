@@ -1,6 +1,20 @@
 import { GluegunToolbox } from "gluegun";
 import axios from "axios";
 
+/**
+ * Provides snippets support for Shopware PWA
+ *
+ * shopware-pwa snippets will only import snippets from Shopware and append them to your locale file (currently in .shopware-pwa)
+ *  adding the --export flag will also use that file to write snippets back to Shopware (in case you've added new ones)
+ *
+ * IMPORTANT: You cannot create snippets from the admin and import them into the PWA.
+ * First they have to be created within your locales/[iso-code].json file and exported to Shopware.
+ *
+ * 1. Create PWA project with custom snippets
+ * 2. Run shopware-pwa languages
+ * 3. Run shopware-pwa snippets --export --username="admin" --password="shopware"
+ */
+
 module.exports = {
   name: "snippets",
   hidden: "true",
@@ -37,51 +51,59 @@ module.exports = {
 
     const authToken = await fetchAuthToken(toolbox.inputParameters);
 
+    // We get all snippet sets and create a map locale => snippet set id
     const snippetSetsMap = await toolbox.snippets.getSnippetSetsByLocales(
       isoCodes,
       toolbox.inputParameters.shopwareEndpoint,
       authToken
     );
 
-    // Fetch snippets
-    // const fetchSnippets = async (
-    //   shopwareEndpoint: string,
-    //   authToken: string
-    // ) => {
-
-    //   const snippetsResponse = await axios.post(
-    //     `${shopwareEndpoint}/api/v1/_action/snippet-set`,
-    //     {
-    //       filters: {
-    //          term: "pwa.*"
-    //       }
-    //     },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${authToken}`,
-    //       },
-    //     }
-    //   )
-    //   return snippetsResponse.data
-    // }
-
-    // const snippets = await fetchSnippets(toolbox.inputParameters.shopwareEndpoint, authToken)
-
+    // Import all snippets through the API and recursively merge them with our local snippets
     const importSnippets = async () => {
-      const flatSnippets = await toolbox.snippets.fetchFromApi(
-        toolbox.inputParameters.shopwareEndpoint,
-        authToken
-      );
+      // For every locale
+      for (let [locale, snippetSetIdentifier] of Object.entries(
+        snippetSetsMap
+      )) {
+        // Fetch snippets from API
+        const flatSnippets = await toolbox.snippets.fetchFromApi(
+          toolbox.inputParameters.shopwareEndpoint,
+          authToken,
+          snippetSetIdentifier
+        );
 
-      const nestedSnippets = toolbox.snippets.inflateSnippetObject(
-        flatSnippets,
-        {}
-      );
+        // Make them objects that we can write to locale files
+        const nestedSnippets = toolbox.snippets.inflateSnippetObject(
+          flatSnippets,
+          {}
+        );
 
-      toolbox.print.success(nestedSnippets);
+        // Generate locale file path
+        const localePath = path.join(
+          ".shopware-pwa",
+          "sw-plugins",
+          "locales",
+          `${locale}.json`
+        );
+
+        const oldSnippets = require(localePath);
+
+        const { merge } = require("lodash");
+
+        // Merge old and new and write them into a file
+        await toolbox.filesystem.writeAsync(
+          localePath,
+          merge(nestedSnippets.pwa, oldSnippets)
+        );
+
+        toolbox.print.success(
+          `Wrote ${flatSnippets.length} snippets to '${localePath}'.`
+        );
+      }
+
+      toolbox.print.success("Snippets have been imported");
     };
 
-    importSnippets();
+    await importSnippets();
 
     const doExport = toolbox.parameters.options.export;
 
@@ -92,7 +114,7 @@ module.exports = {
       return;
     }
 
-    // Export snippets from locales files
+    // Export snippets from locales files and send them to the API
     const exportSnippets = async () => {
       const localesPath = path.join(".shopware-pwa", "sw-plugins", "locales");
       const files = await toolbox.filesystem.listAsync(localesPath);
@@ -105,7 +127,7 @@ module.exports = {
           "pwa"
         );
 
-        // I feel ashamed for that
+        // Get locale from file name
         let locale = files[i].split(".")[0];
 
         // Get correct snippet set id for that locale
@@ -118,7 +140,7 @@ module.exports = {
       }
     };
 
-    exportSnippets();
+    await exportSnippets();
     toolbox.print.success("Snippets exported to Shopware API");
   },
 };
