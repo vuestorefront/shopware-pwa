@@ -24,20 +24,29 @@
             data-cy="bottom-navigation-menu-select"
           >
             <SfSelectOption
-              v-for="route in routes"
-              :key="route.routeLabel"
-              :value="route"
+              v-for="category in categoriesList"
+              :key="category.name"
+              :value="category.route.path"
             >
               <nuxt-link
                 class="sf-header__link"
-                :to="$i18n.path(route.routePath)"
+                :to="$i18n.path(getCategoryUrl(category))"
               >
                 <SfProductOption
-                  :value="route"
-                  :label="route.routeLabel"
+                  :value="category.route.path"
+                  :label="category.name"
                   data-cy="bottom-navigation-menu-option"
                 />
               </nuxt-link>
+              <div class="choose-subcategory">
+                <SfIcon
+                  v-if="category.children.length"
+                  icon="chevron_right"
+                  class="icon sf-chevron_right"
+                  size="21px"
+                  view-box="0 0 24 12"
+                />
+              </div>
             </SfSelectOption>
           </SfSelect>
         </template>
@@ -60,14 +69,13 @@
               :value="getPageAccount"
               @click.native="goToMyAccount"
               data-cy="bottom-navigation-account-option"
+              >My account</SfSelectOption
             >
-              My account
-            </SfSelectOption>
             <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
             <SfSelectOption :value="'logout'">
-              <SwButton class="sf-button--full-width" @click="logoutUser">
-                Logout
-              </SwButton>
+              <SwButton class="sf-button--full-width" @click="logoutUser"
+                >Logout</SwButton
+              >
             </SfSelectOption>
           </SfSelect>
         </template>
@@ -119,6 +127,7 @@ import SwCurrencySwitcher from "@shopware-pwa/default-theme/components/SwCurrenc
 import { onMounted } from "@vue/composition-api"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import { PAGE_ACCOUNT } from "@shopware-pwa/default-theme/helpers/pages"
+import { getCategoryUrl } from "@shopware-pwa/helpers"
 
 export default {
   name: "SwBottomNavigation",
@@ -133,7 +142,6 @@ export default {
   },
   data() {
     return {
-      navigationElements: [],
       currentRoute: { routeLabel: "", routePath: "/" },
     }
   },
@@ -142,22 +150,28 @@ export default {
       root,
       "CART_SIDEBAR_STATE"
     )
-    const { routes, fetchRoutes } = useNavigation(root)
+    const { fetchNavigationElements, navigationElements } = useNavigation(root)
     const { switchState: toggleModal } = useUIState(root, "LOGIN_MODAL_STATE")
     const { isLoggedIn, logout } = useUser(root)
     const { count } = useCart(root)
 
     onMounted(async () => {
       try {
-        await fetchRoutes()
+        await fetchNavigationElements(3)
       } catch (e) {
         console.error("[SwBottomNavigation]", e)
+      }
+
+      // fixes a watch issue - fetch the elements if watch wasn't fired
+      if (Array.isArray(navigationElements) && !navigationElements.length) {
+        fetchNavigationElements(3)
       }
     })
     return {
       isLoggedIn,
       logout,
-      routes,
+      navigationElements,
+      getCategoryUrl,
       isSidebarOpen,
       toggleSidebar,
       toggleModal,
@@ -167,6 +181,9 @@ export default {
   computed: {
     getPageAccount() {
       return PAGE_ACCOUNT
+    },
+    categoriesList() {
+      return this.navigationElements
     },
   },
   watch: {
@@ -196,6 +213,7 @@ export default {
 }
 .menu-button {
   position: relative;
+
   &__currency {
     --select-padding: 0;
     --select-height: 2rem;
@@ -207,6 +225,20 @@ export default {
     text-align: center;
     position: absolute;
     text-transform: uppercase;
+  }
+
+  .sf-select__dropdown {
+    .sf-select-option {
+      position: relative;
+
+      .choose-subcategory {
+        position: absolute;
+        right: 13px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+    }
   }
 }
 </style>
