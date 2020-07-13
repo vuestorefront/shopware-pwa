@@ -148,3 +148,5 @@ export const getPageResolverEndpoint = () => `/store-api/v1/pwa/page`;
 export const getNavigationEndpoint = () => `/store-api/v1/pwa/navigation`;
 export const getOrderPaymentUrlEndpoint = (orderId: string): string =>
   `/sales-channel-api/v1/checkout/order/${orderId}/pay`;
+
+export const getContactFormEndpoint = () => `/store-api/v1/contact-from`;
