@@ -37,7 +37,8 @@
     "request": "^2.88.2",
     "snyk": "^1.348.1",
     "universal-analytics": "^0.4.20",
-    "unzipper": "^0.10.11"
+    "unzipper": "^0.10.11",
+    "md5-hex": "^3.0.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.0",
