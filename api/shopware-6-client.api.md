@@ -34,6 +34,7 @@ import { SearchResult } from '@shopware-pwa/commons/interfaces/response/SearchRe
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 import { ShopwareAssociation } from '@shopware-pwa/commons/interfaces/search/Association';
+import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 
 // @alpha
 export function addCartItemQuantity(itemId: string, quantity: number, contextInstance?: ShopwareApiInstance): Promise<Cart>;
@@ -226,6 +227,21 @@ export function getSessionContext(contextInstance?: ShopwareApiInstance): Promis
 
 // @alpha (undocumented)
 export function getShippingMethodDetails(shippingId: string, contextInstance?: ShopwareApiInstance): Promise<ShippingMethod>;
+
+// @beta (undocumented)
+export function getStoreNavigation({ activeNavigationId, navigationId, params }: GetStoreNavigationParams, contextInstance?: ShopwareApiInstance): Promise<StoreNavigationElement[]>;
+
+// @beta (undocumented)
+export interface GetStoreNavigationParams {
+    // (undocumented)
+    activeNavigationId: string;
+    // (undocumented)
+    navigationId: string;
+    // Warning: (ae-incompatible-release-tags) The symbol "params" is marked as @beta, but its signature references "ShopwareParams" which is marked as @alpha
+    //
+    // (undocumented)
+    params?: ShopwareParams;
+}
 
 // @beta (undocumented)
 export function getSuggestedResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
