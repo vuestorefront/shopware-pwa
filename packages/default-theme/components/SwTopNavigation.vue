@@ -1,10 +1,10 @@
 <template>
   <div ref="navigation" class="sw-top-navigation" data-cy="top-navigation">
     <SwPluginSlot name="sw-top-navigation-before" />
-    <SfHeaderNavigationItem
+    <div
       v-for="category in visibleCategories"
       :key="category.name"
-      class="sf-header__link"
+      class="sf-header-navigation-item sf-header__link"
       data-cy="top-navigation-item"
       @mouseover="changeCurrentCategory(category.name)"
       @mouseleave="changeCurrentCategory(null)"
@@ -19,11 +19,11 @@
         :category="category"
         :visible="currentCategoryName && category.name === currentCategoryName"
       />
-    </SfHeaderNavigationItem>
+    </div>
 
-    <SfHeaderNavigationItem
+    <div
       v-if="unvisibleCategories"
-      class="sf-header__link"
+      class="sf-header-navigation-item sf-header__link"
       @mouseover="changeCurrentCategory('categories')"
       @mouseleave="changeCurrentCategory(null)"
       @keyup.tab="changeCurrentCategory('categories')"
@@ -34,7 +34,7 @@
         :category="unvisibleCategories"
         :visible="currentCategoryName && 'categories' === currentCategoryName"
       />
-    </SfHeaderNavigationItem>
+    </div>
     <SwPluginSlot name="sw-top-navigation-after" />
   </div>
 </template>
