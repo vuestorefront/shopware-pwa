@@ -38,11 +38,26 @@
                   data-cy="bottom-navigation-menu-option"
                 />
               </nuxt-link>
-              <div class="choose-subcategory">
+              <div
+                v-if="category.children.length"
+                class="choose-subcategory"
+                @click="currentCategory = category.name"
+              >
                 <SfIcon
-                  v-if="category.children.length"
                   icon="chevron_right"
                   class="icon sf-chevron_right"
+                  size="21px"
+                  view-box="0 0 24 12"
+                />
+              </div>
+              <div
+                v-if="currentCategory != null"
+                class="back-subcategory"
+                @click="currentCategory = null"
+              >
+                <SfIcon
+                  icon="chevron_left"
+                  class="icon sf-chevron_left"
                   size="21px"
                   view-box="0 0 24 12"
                 />
@@ -143,6 +158,7 @@ export default {
   data() {
     return {
       currentRoute: { routeLabel: "", routePath: "/" },
+      currentCategory: null,
     }
   },
   setup(props, { root }) {
@@ -183,7 +199,14 @@ export default {
       return PAGE_ACCOUNT
     },
     categoriesList() {
-      return this.navigationElements
+      if (this.currentCategory === null) {
+        return this.navigationElements
+      } else {
+        const categoryIndex = this.navigationElements.findIndex((category) => {
+          return category.name === this.currentCategory
+        })
+        return this.navigationElements[categoryIndex].children
+      }
     },
   },
   watch: {
@@ -230,13 +253,22 @@ export default {
   .sf-select__dropdown {
     .sf-select-option {
       position: relative;
+      margin-right: 15px;
 
-      .choose-subcategory {
+      .choose-subcategory,
+      .back-subcategory {
         position: absolute;
-        right: 13px;
         top: 50%;
         transform: translateY(-50%);
         z-index: 2;
+      }
+
+      .choose-subcategory {
+        right: 8px;
+      }
+
+      .back-subcategory {
+        left: 8px;
       }
     }
   }
