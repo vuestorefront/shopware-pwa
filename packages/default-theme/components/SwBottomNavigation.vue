@@ -39,9 +39,9 @@
                 />
               </nuxt-link>
               <div
-                v-if="category.children.length"
+                v-if="category.children && category.children.length"
                 class="choose-subcategory"
-                @click="currentCategory = category.name"
+                @click="goDeeper(category.name)"
               >
                 <SfIcon
                   icon="chevron_right"
@@ -51,9 +51,9 @@
                 />
               </div>
               <div
-                v-if="currentCategory != null"
+                v-if="currentCategory.length != 0"
                 class="back-subcategory"
-                @click="currentCategory = null"
+                @click="goBack(category.name)"
               >
                 <SfIcon
                   icon="chevron_left"
@@ -158,7 +158,7 @@ export default {
   data() {
     return {
       currentRoute: { routeLabel: "", routePath: "/" },
-      currentCategory: null,
+      currentCategory: [],
     }
   },
   setup(props, { root }) {
@@ -198,22 +198,30 @@ export default {
     getPageAccount() {
       return PAGE_ACCOUNT
     },
+
     categoriesList() {
-      if (this.currentCategory === null) {
-        return this.navigationElements
-      } else {
-        const categoryIndex = this.navigationElements.findIndex((category) => {
-          return category.name === this.currentCategory
+      let categoriesToDisplay = this.navigationElements
+      for (let i = 0; i < this.currentCategory.length; i++) {
+        const foundedCat = categoriesToDisplay.find((cat) => {
+          return cat.name === this.currentCategory[i]
         })
-        return this.navigationElements[categoryIndex].children
+        if (foundedCat) {
+          categoriesToDisplay = foundedCat.children
+          console.log("foundedCatCategoriesToDisplay: " + categoriesToDisplay)
+        } else {
+          categoriesToDisplay = this.navigationElements
+          this.currentCategory = []
+          break
+        }
       }
+      return categoriesToDisplay
     },
   },
-  watch: {
-    currentRoute(nextRoute) {
-      this.$router.push(this.$i18n.path(nextRoute.routeLabel))
-    },
-  },
+  // watch: {
+  //   currentRoute(nextRoute) {
+  //     this.$router.push(this.$i18n.path(nextRoute.routeLabel))
+  //   },
+  // },
   methods: {
     userIconClick() {
       if (this.isLoggedIn) {
@@ -226,6 +234,12 @@ export default {
     async logoutUser() {
       await this.logout()
       this.$router.push(this.$i18n.path("/"))
+    },
+    goDeeper(name) {
+      this.currentCategory.push(name)
+    },
+    goBack(name) {
+      this.currentCategory.pop(name)
     },
   },
 }
@@ -253,7 +267,12 @@ export default {
   .sf-select__dropdown {
     .sf-select-option {
       position: relative;
-      margin-right: 15px;
+
+      .sf-header__link {
+        display: block;
+        margin: 0 auto;
+        max-width: 90%;
+      }
 
       .choose-subcategory,
       .back-subcategory {
