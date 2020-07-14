@@ -28,7 +28,36 @@ export interface NavigationElement {
 /**
  * @beta
  */
+export interface SeoUrl {
+  salesChannelId: string;
+  languageId: string;
+  routeName: string;
+  foreignKey: string;
+  pathInfo: string;
+  seoPathInfo: string;
+  isCanonical: boolean;
+  isModified: boolean;
+  isDeleted: boolean;
+  isValid: null | boolean;
+  language: null | boolean;
+  url: null | string;
+  customFields: null | any;
+  error: null | any;
+  _uniqueIdentifier: string;
+  versionId: null | string;
+  translated: [];
+  createdAt: Date;
+  updatedAt: null | Date;
+  extensions: any;
+  id: string;
+  apiAlias: string;
+}
+
+/**
+ * @beta
+ */
 export interface StoreNavigationElement {
+  seoUrls: SeoUrl[];
   parentId: string | null;
   autoIncrement: number;
   mediaId: string | null;

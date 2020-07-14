@@ -1,6 +1,10 @@
 <template>
   <div class="sw-footer" data-cy="main-footer">
     <slot class="sw-footer__content" name="content" v-bind="column">
+      <SwFooterNavigation
+        class="content sw-footer__bottom-navigation"
+        :navigation-links="navigation"
+      />
       <div class="content sw-footer__signature">
         <SwPluginSlot name="footer-content">
           <i18n path="footer.description" :tag="false">
@@ -26,17 +30,47 @@
 
 <script>
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
-
+import SwFooterNavigation from "@shopware-pwa/default-theme/components/organisms/SwFooter"
+import { getStoreNavigation } from "@shopware-pwa/shopware-6-client"
+import { onMounted, ref } from "@vue/composition-api"
+import { getApplicationContext } from "@shopware-pwa/composables"
+import { getStoreNavigationRoutes } from "@shopware-pwa/helpers"
 export default {
   name: "SwFooter",
   components: {
     SwPluginSlot,
+    SwFooterNavigation,
   },
   props: {
     column: {
       type: Number,
       default: 4,
     },
+  },
+  setup({}, { root }) {
+    const { apiInstance } = getApplicationContext(root, "SwFooter")
+    const navigation = ref([])
+    onMounted(async () => {
+      const navigationResponse = await getStoreNavigation({
+        activeNavigationId: "footer-navigation",
+        navigationId: "footer-navigation",
+        params: {
+          includes: {
+            category: ["seoUrls", "externalLink", "name", "id", "children"],
+            seo_url: ["pathInfo", "seoPathInfo"],
+          },
+          associations: {
+            seoUrls: {},
+          },
+        },
+      })
+
+      navigation.value = getStoreNavigationRoutes(navigationResponse)
+    })
+
+    return {
+      navigation,
+    }
   },
 }
 </script>
@@ -47,7 +81,8 @@ export default {
 .sw-footer {
   align-items: flex-end;
   display: flex;
-  flex-shrink: 0;
+  flex-direction: row;
+  flex-wrap: wrap;
   height: auto;
   justify-content: center;
   margin-top: 1em;
@@ -75,6 +110,10 @@ export default {
     @include for-desktop {
       margin-bottom: 0;
     }
+  }
+
+  &__bottom-navigation {
+    width: 100%;
   }
 }
 </style>

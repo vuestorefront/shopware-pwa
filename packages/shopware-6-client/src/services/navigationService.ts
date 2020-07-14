@@ -52,9 +52,7 @@ export async function getStoreNavigation(
 ): Promise<StoreNavigationElement[]> {
   const resp = await contextInstance.invoke.post(
     getStoreNavigationEndpoint(activeNavigationId, navigationId),
-    {
-      params,
-    }
+    params
   );
 
   return resp.data;

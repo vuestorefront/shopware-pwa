@@ -29,9 +29,7 @@ describe("NavigationService - getStoreNavigation", () => {
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
       "/store-api/v1/navigation/footer-navigation/footer-navigation",
-      {
-        params: undefined,
-      }
+      undefined
     );
     expect(result).toStrictEqual([{ id: "footer-navigation" }]);
   });
