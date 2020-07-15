@@ -65,6 +65,7 @@
       >
         <div class="filters">
           <SwProductListingFilter
+            class="filters__filter"
             :filter="filter"
             v-for="filter in filters"
             :selected-filters="selectedFilters"
@@ -325,36 +326,8 @@ export default {
 }
 
 .filters {
-  &__title {
-    margin: calc(var(--spacer-base) * 3) 0 var(--spacer-base);
-    text-align: left;
-    &:first-child {
-      margin: 0 0 var(--spacer-base) 0;
-    }
-  }
   &__filter {
-    &--color {
-      display: flex;
-      flex-wrap: wrap;
-    }
-  }
-  &__item {
-    padding: var(--spacer-2xs) 0;
-    &--color {
-      width: auto;
-      margin: var(--spacer-xs) var(--spacer-xs) var(--spacer-xs) 0;
-    }
-  }
-  &__buttons {
-    margin: var(--spacer-base) 0 calc(var(--spacer-base) * 3) 0;
-    @include for-desktop {
-      margin: var(--spacer-xl) 0 0 0;
-    }
-  }
-  &__button-clear {
-    color: #a3a5ad;
-    margin-top: 10px;
-    background-color: var(--c-light);
+    padding: 1rem 0;
   }
 }
 .filters-sidebar {

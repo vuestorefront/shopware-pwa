@@ -46,3 +46,21 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/scss/variables";
+
+.filters {
+  &__filter {
+    &--color {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  .sf-filter {
+    width: auto;
+    margin: 5px;
+  }
+}
+</style>
