@@ -1,7 +1,7 @@
 import { StoreNavigationElement } from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
 
 /**
- * @alpha
+ * @beta
  */
 export interface StoreNavigationRoute {
   routeLabel: string;
@@ -11,7 +11,7 @@ export interface StoreNavigationRoute {
 }
 
 /**
- * @alpha
+ * @beta
  */
 export function getStoreNavigationRoutes(
   navigationElements: StoreNavigationElement[]

@@ -18,6 +18,9 @@ import { convertToStoreApiFilters } from "../helpers/convertToStoreApiFilters";
 import { ClientSettings } from "../settings";
 import { deprecationWarning } from "@shopware-pwa/commons";
 
+/**
+ * @beta
+ */
 export enum ApiType {
   store = "store-api",
   salesChannel = "sales-channel-api",

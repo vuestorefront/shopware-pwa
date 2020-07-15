@@ -52,8 +52,8 @@ export default {
     const navigation = ref([])
     onMounted(async () => {
       const navigationResponse = await getStoreNavigation({
-        activeNavigationId: "footer-navigation",
-        navigationId: "footer-navigation",
+        requestActiveId: "footer-navigation",
+        requestRootId: "footer-navigation",
         params: {
           includes: {
             category: ["seoUrls", "externalLink", "name", "id", "children"],

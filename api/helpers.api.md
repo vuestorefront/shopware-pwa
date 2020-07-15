@@ -171,7 +171,7 @@ export function getProductUrl(product: Product | null): string;
 // @alpha (undocumented)
 export const getSortingSearchCriteria: (selectedSorting: SwSorting) => Sort;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function getStoreNavigationRoutes(navigationElements: StoreNavigationElement[]): StoreNavigationRoute[];
 
 // @alpha (undocumented)
@@ -235,7 +235,7 @@ export interface Sorting {
     };
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface StoreNavigationRoute {
     // (undocumented)
     children?: StoreNavigationRoute[] | null;

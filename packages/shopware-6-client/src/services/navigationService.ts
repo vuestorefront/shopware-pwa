@@ -7,7 +7,8 @@ import {
   NavigationResponse,
   StoreNavigationElement,
 } from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
-import { ShopwareParams } from "../helpers/searchConverter";
+import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { convertSearchCriteria, ApiType } from "../helpers/searchConverter";
 
 /**
  * @alpha
@@ -18,12 +19,16 @@ export interface GetNavigationParams {
 }
 
 /**
+ * More about the navigation parameters: https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/navigation?category=shopware-platform-dev-en/store-api-guide
  * @beta
  */
 export interface GetStoreNavigationParams {
-  activeNavigationId: string;
-  navigationId: string;
-  params?: ShopwareParams;
+  requestActiveId:
+    | "main-navigation"
+    | "service-navigation"
+    | "footer-navigation";
+  requestRootId: "main-navigation" | "service-navigation" | "footer-navigation";
+  searchCriteria?: SearchCriteria;
 }
 
 /**
@@ -47,12 +52,16 @@ export async function getNavigation(
  * @beta
  */
 export async function getStoreNavigation(
-  { activeNavigationId, navigationId, params }: GetStoreNavigationParams,
+  { requestActiveId, requestRootId, searchCriteria }: GetStoreNavigationParams,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<StoreNavigationElement[]> {
   const resp = await contextInstance.invoke.post(
-    getStoreNavigationEndpoint(activeNavigationId, navigationId),
-    params
+    getStoreNavigationEndpoint(requestActiveId, requestRootId),
+    convertSearchCriteria({
+      searchCriteria,
+      apiType: ApiType.store,
+      config: contextInstance.config,
+    })
   );
 
   return resp.data;

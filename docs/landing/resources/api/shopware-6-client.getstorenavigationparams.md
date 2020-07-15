@@ -7,6 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
+More about the navigation parameters: https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/navigation?category=shopware-platform-dev-en/store-api-guide
 
 <b>Signature:</b>
 
@@ -18,7 +19,7 @@ export interface GetStoreNavigationParams
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [activeNavigationId](./shopware-6-client.getstorenavigationparams.activenavigationid.md) | string | <b><i>(BETA)</i></b> |
-|  [navigationId](./shopware-6-client.getstorenavigationparams.navigationid.md) | string | <b><i>(BETA)</i></b> |
-|  [params](./shopware-6-client.getstorenavigationparams.params.md) | ShopwareParams | <b><i>(BETA)</i></b> |
+|  [requestActiveId](./shopware-6-client.getstorenavigationparams.requestactiveid.md) | "main-navigation" \| "service-navigation" \| "footer-navigation" | <b><i>(BETA)</i></b> |
+|  [requestRootId](./shopware-6-client.getstorenavigationparams.requestrootid.md) | "main-navigation" \| "service-navigation" \| "footer-navigation" | <b><i>(BETA)</i></b> |
+|  [searchCriteria](./shopware-6-client.getstorenavigationparams.searchcriteria.md) | SearchCriteria | <b><i>(BETA)</i></b> |
 

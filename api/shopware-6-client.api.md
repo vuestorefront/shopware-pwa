@@ -229,18 +229,16 @@ export function getSessionContext(contextInstance?: ShopwareApiInstance): Promis
 export function getShippingMethodDetails(shippingId: string, contextInstance?: ShopwareApiInstance): Promise<ShippingMethod>;
 
 // @beta (undocumented)
-export function getStoreNavigation({ activeNavigationId, navigationId, params }: GetStoreNavigationParams, contextInstance?: ShopwareApiInstance): Promise<StoreNavigationElement[]>;
+export function getStoreNavigation({ requestActiveId, requestRootId, searchCriteria }: GetStoreNavigationParams, contextInstance?: ShopwareApiInstance): Promise<StoreNavigationElement[]>;
 
-// @beta (undocumented)
+// @beta
 export interface GetStoreNavigationParams {
     // (undocumented)
-    activeNavigationId: string;
+    requestActiveId: "main-navigation" | "service-navigation" | "footer-navigation";
     // (undocumented)
-    navigationId: string;
-    // Warning: (ae-incompatible-release-tags) The symbol "params" is marked as @beta, but its signature references "ShopwareParams" which is marked as @alpha
-    //
+    requestRootId: "main-navigation" | "service-navigation" | "footer-navigation";
     // (undocumented)
-    params?: ShopwareParams;
+    searchCriteria?: SearchCriteria;
 }
 
 // @beta (undocumented)
