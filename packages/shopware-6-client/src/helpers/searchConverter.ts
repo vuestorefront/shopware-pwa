@@ -75,7 +75,6 @@ export const convertSearchCriteriaToQueryParams = (
   const shopwareSearchParams: ShopwareSearchParams = convertShopwareSearchCriteria(
     searchCriteria
   );
-  console.warn("shopwareSearchParams", shopwareSearchParams);
   return getQueryString(shopwareSearchParams);
 };
 
