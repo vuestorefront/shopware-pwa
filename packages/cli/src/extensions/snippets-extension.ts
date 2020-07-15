@@ -22,7 +22,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     snippetObject: object,
     prefix: string
   ) => {
-    var flatSet = {};
+    let flatSet = {};
 
     for (let [key, value] of Object.entries(snippetObject)) {
       if (typeof value == "object") {
@@ -59,16 +59,16 @@ module.exports = (toolbox: GluegunToolbox) => {
    * Converts a flat, dot-cased dictionary of values into a nested object (flattenSnippetObject(inflateSnippetOject) = identity)
    */
   toolbox.snippets.inflateSnippetObject = (flatSnippets) => {
-    var objectSet = [];
-    for (var i = 0; i < flatSnippets.length; i++) {
-      var value = flatSnippets[i];
-      var path = value.translationKey.split(".");
+    let objectSet = [];
+    for (let i = 0; i < flatSnippets.length; i++) {
+      let value = flatSnippets[i];
+      let path = value.translationKey.split(".");
 
       objectSet.push(_deepCopy({}, path, value));
     }
 
     const { merge } = require("lodash");
-    var deepSet = merge(...objectSet);
+    let deepSet = merge(...objectSet);
 
     return deepSet;
   };
@@ -121,7 +121,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     shopwareEndpoint: string,
     authToken: string
   ) => {
-    var payload = [];
+    let payload = [];
     const md5Hex = require("md5-hex");
 
     for (let [key, value] of Object.entries(snippetSet)) {
@@ -150,11 +150,16 @@ module.exports = (toolbox: GluegunToolbox) => {
           },
         }
       );
+
+      toolbox.print.success(
+        `Exported ${payload.length} snippets to '${shopwareEndpoint}/api/v1/_action/sync'`
+      );
     } catch (error) {
       toolbox.print.error(
         "Error exporting snippets to API (PWA snippets should never be created through the Admin panel)"
       );
       toolbox.print.error(JSON.stringify(error.response.data.data));
+      return;
     }
   };
 
@@ -195,7 +200,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     const data = snippetSetsResponse.data.data;
     let snippetSetsMap = {};
 
-    for (var i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
       snippetSetsMap[data[i].iso] = data[i].id;
     }
 
