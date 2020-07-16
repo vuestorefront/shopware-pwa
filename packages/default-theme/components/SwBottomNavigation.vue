@@ -1,5 +1,6 @@
 <template>
   <div class="sw-bottom-navigation">
+    <SfOverlay :visible="overlayIsVisible" :transition="transition" />
     <SfBottomNavigation data-cy="bottom-navigation">
       <nuxt-link aria-label="Go to Home Page" :to="$i18n.path('/')">
         <SfBottomNavigationItem
@@ -15,55 +16,60 @@
         label="Menu"
         class="menu-button"
         data-cy="bottom-navigation-menu"
+        @click.self="triggerMobileNav"
       >
         <template #icon>
-          <SfIcon icon="menu" size="20px" style="width: 25px;" />
-          <SfSelect
-            v-model="currentRoute"
-            class="menu-button__select"
-            data-cy="bottom-navigation-menu-select"
-          >
-            <SfSelectOption
-              v-for="category in categoriesList"
-              :key="category.name"
-              :value="category.route.path"
-            >
-              <nuxt-link
-                class="sf-header__link"
-                :to="$i18n.path(getCategoryUrl(category))"
-              >
-                <SfProductOption
-                  :value="category.route.path"
-                  :label="category.name"
-                  data-cy="bottom-navigation-menu-option"
-                />
-              </nuxt-link>
-              <div
-                v-if="category.children && category.children.length"
-                class="choose-subcategory"
-                @click="goDeeper(category.name)"
-              >
-                <SfIcon
-                  icon="chevron_right"
-                  class="icon sf-chevron_right"
-                  size="21px"
-                  view-box="0 0 24 12"
-                />
-              </div>
-              <div
+          <SfIcon
+            icon="menu"
+            size="20px"
+            style="width: 25px;"
+            @click="triggerMobileNav"
+          />
+          <transition name="sf-collapse-bottom">
+            <SfList class="mobile-nav-list">
+              <SfListItem
                 v-if="currentCategory.length != 0"
-                class="back-subcategory"
-                @click="goBack(category.name)"
+                class="back-to-category"
               >
-                <SfIcon
-                  icon="chevron_left"
-                  class="icon sf-chevron_left"
-                  size="21px"
-                  view-box="0 0 24 12"
-                />
+                <div class="name" @click="goBack">
+                  <SfIcon
+                    icon="chevron_left"
+                    class="icon sf-chevron_left"
+                    size="21px"
+                    view-box="0 0 24 12"
+                  />
+                  {{ currentCategory.slice(-1)[0] }}
+                </div>
+              </SfListItem>
+              <div v-if="mobileNavIsActive">
+                <SfListItem
+                  v-for="category in categoriesList"
+                  :key="category.name"
+                >
+                  <nuxt-link
+                    class="sf-header__link"
+                    :to="$i18n.path(getCategoryUrl(category))"
+                    @click="triggerMobileNav"
+                  >
+                    {{ category.name }}
+                  </nuxt-link>
+
+                  <div
+                    v-if="category.children && category.children.length"
+                    class="choose-subcategory"
+                    @click="goDeeper(category.name)"
+                  >
+                    <SfIcon
+                      icon="chevron_right"
+                      class="icon sf-chevron_right"
+                      size="21px"
+                      view-box="0 0 24 12"
+                    />
+                  </div>
+                </SfListItem>
               </div>
-            </SfSelectOption>
-          </SfSelect>
+            </SfList>
+          </transition>
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
@@ -82,8 +88,8 @@
             <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
             <SfSelectOption
               :value="getPageAccount"
-              @click.native="goToMyAccount"
               data-cy="bottom-navigation-account-option"
+              @click.native="goToMyAccount"
               >My account</SfSelectOption
             >
             <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
@@ -125,13 +131,7 @@
 </template>
 
 <script>
-import {
-  SfBottomNavigation,
-  SfCircleIcon,
-  SfIcon,
-  SfSelect,
-  SfProductOption,
-} from "@storefront-ui/vue"
+import { SfBottomNavigation, SfCircleIcon, SfIcon } from "@storefront-ui/vue"
 import {
   useUIState,
   useNavigation,
@@ -151,14 +151,18 @@ export default {
     SfIcon,
     SfCircleIcon,
     SfSelect,
-    SfProductOption,
     SwCurrencySwitcher,
     SwButton,
+    SfList,
+    SfOverlay,
   },
   data() {
     return {
       currentRoute: { routeLabel: "", routePath: "/" },
       currentCategory: [],
+      mobileNavIsActive: false,
+      transition: "sf-fade",
+      overlayIsVisible: false,
     }
   },
   setup(props, { root }) {
@@ -207,7 +211,6 @@ export default {
         })
         if (foundedCat) {
           categoriesToDisplay = foundedCat.children
-          console.log("foundedCatCategoriesToDisplay: " + categoriesToDisplay)
         } else {
           categoriesToDisplay = this.navigationElements
           this.currentCategory = []
@@ -217,11 +220,11 @@ export default {
       return categoriesToDisplay
     },
   },
-  // watch: {
-  //   currentRoute(nextRoute) {
-  //     this.$router.push(this.$i18n.path(nextRoute.routeLabel))
-  //   },
-  // },
+  watch: {
+    $route() {
+      this.triggerMobileNav()
+    },
+  },
   methods: {
     userIconClick() {
       if (this.isLoggedIn) {
@@ -238,8 +241,12 @@ export default {
     goDeeper(name) {
       this.currentCategory.push(name)
     },
-    goBack(name) {
-      this.currentCategory.pop(name)
+    goBack() {
+      this.currentCategory.pop()
+    },
+    triggerMobileNav() {
+      this.mobileNavIsActive = !this.mobileNavIsActive
+      this.overlayIsVisible = !this.overlayIsVisible
     },
   },
 }
@@ -289,6 +296,44 @@ export default {
       .back-subcategory {
         left: 8px;
       }
+    }
+  }
+}
+
+.mobile-nav-list {
+  background-color: white;
+  bottom: 60px;
+  box-sizing: border-box;
+  left: 0;
+  padding: 10px 10px 40px;
+  position: var(--select-dropdown-position, fixed);
+  width: 100%;
+
+  .sf-list__item {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 13px 0;
+  }
+
+  .back-to-category {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 15px 0;
+    position: relative;
+    width: 100%;
+
+    .name {
+      font-weight: bolder;
+    }
+
+    .icon {
+      font-weight: bolder;
+      left: 0;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
     }
   }
 }
