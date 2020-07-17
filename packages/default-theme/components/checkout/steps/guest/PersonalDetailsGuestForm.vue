@@ -47,6 +47,7 @@
         error-message="First name is required"
         name="firstName"
         class="form__element form__element--half"
+        data-cy="first-name"
         required
       />
       <SwInput
@@ -56,6 +57,7 @@
         error-message="last name is required"
         name="lastName"
         class="form__element form__element--half form__element--half-even"
+        data-cy="last-name"
       />
       <SwInput
         v-model="email"
@@ -64,6 +66,7 @@
         error-message="Proper email is required"
         name="email"
         class="form__element"
+        data-cy="proper-email"
       />
       <div class="info">
         <p class="info__heading">
@@ -104,10 +107,12 @@
       <div class="form__action">
         <SwButton
           class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only"
+          data-cy="go-back-to-shop-button"
           >Go Back to shop</SwButton
         >
         <SwButton
           class="sf-button--full-width form__action-button"
+          data-cy="continue-to-shipping-button"
           @click="toShipping"
           >Continue to shipping</SwButton
         >

@@ -1,16 +1,17 @@
 <template>
   <SfTableRow :key="product.id" class="table__row">
     <SfTableData class="table__image">
-      <SfImage :src="product.cover.url" />
+      <SfImage :src="product.cover.url" data-cy="product-image" />
     </SfTableData>
     <SfTableData class="table__description">
       <div class="product-title">{{ product.label }}</div>
       <div class="product-sku">{{ product.productNumber }}</div>
     </SfTableData>
-    <SfTableData class="table__data table__quantity">
+    <SfTableData class="table__data table__quantity" data-cy="table-quantity">
       <SfQuantitySelector
         v-model="quantity"
         class="sf-quantity-selector--secondary"
+        data-cy="quantity"
         >{{ product.quantity }}</SfQuantitySelector
       >
     </SfTableData>

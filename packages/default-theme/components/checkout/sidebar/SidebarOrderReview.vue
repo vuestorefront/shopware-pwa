@@ -7,14 +7,17 @@
     />
     <PersonalDetailsSummary
       class="content"
+      data-cy="name"
       @click:edit="$emit('click:edit', 0)"
     />
     <ShippingAddressSummary
       class="content"
+      data-cy="shipping"
       @click:edit="$emit('click:edit', 1)"
     />
     <BillingAddressSummary
       class="content"
+      data-cy="billing"
       @click:edit="$emit('click:edit', 2)"
     />
     <PaymentMethodSummary
