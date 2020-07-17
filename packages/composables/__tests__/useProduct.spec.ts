@@ -5,6 +5,8 @@ import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError
 
 import { useProduct } from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
+import { convertIncludesToGetParams } from "../src/internalHelpers/includesConverter";
+import { getProductDetailsIncludes } from "../src/internalHelpers/includesParameter";
 
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedGetProduct = shopwareClient as jest.Mocked<typeof shopwareClient>;
@@ -65,10 +67,13 @@ describe("Composables - useProduct", () => {
       };
       mockedGetProduct.getProduct.mockResolvedValueOnce({} as any);
       const { loadAssociations } = useProduct(rootContextMock, loadedProduct);
+      const includesParams = convertIncludesToGetParams(
+        getProductDetailsIncludes()
+      );
       loadAssociations({} as any);
       expect(mockedGetProduct.getProduct).toBeCalledWith(
         "1c3e927309014a67a07f3bb574f9e804",
-        {},
+        includesParams,
         rootContextMock.$shopwareApiInstance
       );
     });

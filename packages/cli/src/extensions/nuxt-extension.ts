@@ -71,6 +71,8 @@ module.exports = (toolbox: GluegunToolbox) => {
 
     await toolbox.patching.update("package.json", (config) => {
       config.scripts.lint = "prettier --write '*.{js,vue}'";
+      config.scripts.dev = "shopware-pwa dev";
+      config.scripts.build = "shopware-pwa build";
 
       // update versions to canary
       if (canary) {

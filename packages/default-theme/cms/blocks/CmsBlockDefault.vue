@@ -10,16 +10,19 @@
 import CmsGenericElement from "sw-cms/CmsGenericElement"
 
 export default {
+  name: "CmsBlockDefault",
+
   components: {
     CmsGenericElement,
   },
-  name: "CmsBlockDefault",
+
   props: {
     content: {
       type: Object,
       default: () => ({}),
     },
   },
+
   computed: {
     getSlots() {
       return this.content.slots || []
