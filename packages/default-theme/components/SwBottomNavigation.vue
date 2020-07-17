@@ -26,48 +26,54 @@
             @click="triggerMobileNav"
           />
           <transition name="sf-collapse-bottom">
-            <SfList class="mobile-nav-list">
-              <SfListItem
-                v-if="currentCategory.length != 0"
-                class="back-to-category"
-              >
-                <div class="name" @click="goBack">
-                  <SfIcon
-                    icon="chevron_left"
-                    class="icon sf-chevron_left"
-                    size="21px"
-                    view-box="0 0 24 12"
-                  />
-                  {{ currentCategory.slice(-1)[0] }}
+            <SfList v-if="mobileNavIsActive" class="mobile-nav-list">
+              <transition name="fade">
+                <div v-if="categoryIsChanging">
+                  <SfListItem
+                    v-if="currentCategory.length != 0"
+                    class="back-to-category"
+                  >
+                    <div class="name" @click="goBack">
+                      <SfIcon
+                        icon="chevron_left"
+                        class="icon sf-chevron_left"
+                        size="21px"
+                        view-box="0 0 24 12"
+                      />
+                      {{ currentCategory.slice(-1)[0] }}
+                    </div>
+                  </SfListItem>
                 </div>
-              </SfListItem>
-              <div v-if="mobileNavIsActive">
-                <SfListItem
-                  v-for="category in categoriesList"
-                  :key="category.name"
-                >
-                  <nuxt-link
-                    class="sf-header__link"
-                    :to="$i18n.path(getCategoryUrl(category))"
-                    @click="triggerMobileNav"
+              </transition>
+              <transition name="slide-fade">
+                <div v-if="categoryIsChanging">
+                  <SfListItem
+                    v-for="category in categoriesList"
+                    :key="category.name"
                   >
-                    {{ category.name }}
-                  </nuxt-link>
+                    <nuxt-link
+                      class="sf-header__link"
+                      :to="$i18n.path(getCategoryUrl(category))"
+                      @click="triggerMobileNav"
+                    >
+                      {{ category.name }}
+                    </nuxt-link>
 
-                  <div
-                    v-if="category.children && category.children.length"
-                    class="choose-subcategory"
-                    @click="goDeeper(category.name)"
-                  >
-                    <SfIcon
-                      icon="chevron_right"
-                      class="icon sf-chevron_right"
-                      size="21px"
-                      view-box="0 0 24 12"
-                    />
-                  </div>
-                </SfListItem>
-              </div>
+                    <div
+                      v-if="category.children && category.children.length"
+                      class="choose-subcategory"
+                      @click="goDeeper(category.name)"
+                    >
+                      <SfIcon
+                        icon="chevron_right"
+                        class="icon sf-chevron_right"
+                        size="21px"
+                        view-box="0 0 24 12"
+                      />
+                    </div>
+                  </SfListItem>
+                </div>
+              </transition>
             </SfList>
           </transition>
         </template>
@@ -131,7 +137,14 @@
 </template>
 
 <script>
-import { SfBottomNavigation, SfCircleIcon, SfIcon } from "@storefront-ui/vue"
+import {
+  SfBottomNavigation,
+  SfCircleIcon,
+  SfIcon,
+  SfList,
+  SfOverlay,
+  SfSelect,
+} from "@storefront-ui/vue"
 import {
   useUIState,
   useNavigation,
@@ -163,6 +176,7 @@ export default {
       mobileNavIsActive: false,
       transition: "sf-fade",
       overlayIsVisible: false,
+      categoryIsChanging: true,
     }
   },
   setup(props, { root }) {
@@ -240,9 +254,18 @@ export default {
     },
     goDeeper(name) {
       this.currentCategory.push(name)
+      this.changeCategoryAnimation()
     },
     goBack() {
       this.currentCategory.pop()
+      this.changeCategoryAnimation()
+    },
+    changeCategoryAnimation() {
+      this.categoryIsChanging = false
+
+      setTimeout(() => {
+        this.categoryIsChanging = true
+      }, 500)
     },
     triggerMobileNav() {
       this.mobileNavIsActive = !this.mobileNavIsActive
@@ -252,6 +275,27 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.slide-fade-enter-active {
+  transition: all 0.55s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.55s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.55s ease;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateX(34px);
+  opacity: 0;
+}
 .sw-bottom-navigation {
   align-items: center;
 }
