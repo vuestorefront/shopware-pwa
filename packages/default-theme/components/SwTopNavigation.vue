@@ -136,22 +136,14 @@ export default {
         const nav = this.$refs.navigation
         const navElements = nav.querySelectorAll(".sf-header-navigation-item")
         let visibleItemsCount = 0
-        let unvisibleItemsCount = 0
 
         navElements.forEach((element) => {
           if (element.offsetTop === 0) {
             visibleItemsCount += 1
           }
-          if (element.offsetTop > 0) {
-            unvisibleItemsCount += 1
-          }
         })
-        if (unvisibleItemsCount >= 1) {
-          // This subtraction makes more space in nav and prevent to move "more category " to the next line.
-          this.unwrappedElements = Math.max(0, visibleItemsCount - 2)
-        } else {
-          this.unwrappedElements = visibleItemsCount
-        }
+        // This subtraction makes more space in nav and prevent to move "more category " to the next line.
+        this.unwrappedElements = Math.max(0, visibleItemsCount - 2)
       })
     },
   },
