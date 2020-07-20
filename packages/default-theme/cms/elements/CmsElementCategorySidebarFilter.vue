@@ -62,39 +62,15 @@
         @close="isFilterSidebarOpen = false"
       >
         <div class="filters">
-          <div v-for="filter in filters" :key="filter.name">
-            <SfHeading class="filters__title" :level="4" :title="filter.name" />
-            <div
-              v-if="filter && filter.options && filter.options.length"
-              :class="{
-                'filters__filter--color':
-                  filter.name && filter.name === 'color',
-              }"
-            >
-              <SfFilter
-                v-for="option in filter.options"
-                :key="option.value"
-                :label="option.label"
-                :count="option.count"
-                :color="option.color ? option.color : null"
-                :selected="
-                  selectedFilters[filter.name] &&
-                  !!selectedFilters[filter.name].find(
-                    (propertyId) => propertyId === option.value
-                  )
-                "
-                class="filters__item"
-                :class="{ 'filters__item--color': option.color }"
-                @change="
-                  toggleFilter({
-                    type: 'equals',
-                    value: option.value,
-                    field: filter.name,
-                  })
-                "
-              />
-            </div>
-          </div>
+          <SwProductListingFilter
+            class="filters__filter"
+            :filter="filter"
+            v-for="filter in filters"
+            :selected-filters="selectedFilters"
+            :selected-entity-filters="selectedEntityFilters"
+            :key="filter.name"
+            @toggle-filter-value="toggleFilterValue"
+          />
         </div>
         <template #content-bottom>
           <div class="filters__buttons">
@@ -121,6 +97,8 @@ import {
   SfHeading,
   SfSidebar,
 } from "@storefront-ui/vue"
+import { computed } from "@vue/composition-api"
+
 import {
   useCategoryFilters,
   useProductListing,
@@ -128,6 +106,7 @@ import {
 } from "@shopware-pwa/composables"
 import { getSortingLabel } from "@shopware-pwa/default-theme/helpers"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwProductListingFilter from "@shopware-pwa/default-theme/components/listing/SwProductListingFilter"
 
 export default {
   name: "CmsElementCategorySidebarFilter",
@@ -138,6 +117,7 @@ export default {
     SfFilter,
     SfHeading,
     SfSidebar,
+    SwProductListingFilter,
   },
   props: {
     content: {
@@ -153,6 +133,7 @@ export default {
       selectedSorting,
       search,
       selectedFilters,
+      selectedEntityFilters,
       resetFilters,
       productsTotal,
     } = useProductListing(root, null)
@@ -168,6 +149,7 @@ export default {
       selectedSorting,
       search,
       selectedFilters,
+      selectedEntityFilters,
       resetFilters,
       productsTotal,
       isListView,
@@ -214,6 +196,9 @@ export default {
     },
   },
   methods: {
+    toggleFilterValue(value) {
+      this.toggleFilter(value)
+    },
     async clearAllFilters() {
       this.resetFilters()
       await this.search()
@@ -340,36 +325,8 @@ export default {
 }
 
 .filters {
-  &__title {
-    margin: calc(var(--spacer-base) * 3) 0 var(--spacer-base);
-    text-align: left;
-    &:first-child {
-      margin: 0 0 var(--spacer-base) 0;
-    }
-  }
   &__filter {
-    &--color {
-      display: flex;
-      flex-wrap: wrap;
-    }
-  }
-  &__item {
-    padding: var(--spacer-2xs) 0;
-    &--color {
-      width: auto;
-      margin: var(--spacer-xs) var(--spacer-xs) var(--spacer-xs) 0;
-    }
-  }
-  &__buttons {
-    margin: var(--spacer-base) 0 calc(var(--spacer-base) * 3) 0;
-    @include for-desktop {
-      margin: var(--spacer-xl) 0 0 0;
-    }
-  }
-  &__button-clear {
-    color: #a3a5ad;
-    margin-top: 10px;
-    background-color: var(--c-light);
+    padding: 1rem 0;
   }
 }
 .filters-sidebar {

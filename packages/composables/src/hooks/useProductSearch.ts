@@ -16,8 +16,8 @@ import {
 } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import {
   EqualsFilter,
-  EqualsAnyFilter,
-  ContainsFilter,
+  RangeFilter,
+  SearchFilterType,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { Aggregations } from "@shopware-pwa/commons/interfaces/search/Aggregations";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
@@ -27,7 +27,8 @@ import {
   appendSearchCriteriaToUrl,
   appendQueryParamsToSearchCriteria,
   resetSearchCriteria,
-  toggleEntityFilter as toggleSelectedFilter,
+  toggleEntityFilter,
+  toggleFilter as toggleGenericFilter,
 } from "../internalHelpers/searchCriteria";
 
 /**
@@ -51,12 +52,13 @@ export interface UseProductSearch {
   currentPagination: Ref<CurrentPagination | undefined>;
   availableFilters: Readonly<Ref<any>>;
   selectedFilters: Readonly<Ref<any>>;
+  selectedEntityFilters: Readonly<Ref<any>>;
   suggestSearch: (term: string) => Promise<void>;
   search: (term: string) => Promise<void>;
   changePage: (page: number) => Promise<void>;
   changeSorting: (sorting: Sort) => void;
   toggleFilter: (
-    filter: EqualsFilter | EqualsAnyFilter | ContainsFilter,
+    filter: EqualsFilter | RangeFilter,
     forceSave: boolean
   ) => void;
   resetFilters: () => void;
@@ -88,6 +90,7 @@ export const useProductSearch = (
   const searchCriteria: Partial<SearchCriteria> | any = reactive({
     manufacturer: [],
     properties: [],
+    filters: {},
     pagination: {},
     sort: {},
   });
@@ -136,14 +139,21 @@ export const useProductSearch = (
   };
 
   const toggleFilter = (
-    filter: EqualsFilter,
+    filter: EqualsFilter | RangeFilter,
     forceSave?: boolean
   ): undefined | string => {
     if (!filter || !Object.keys(filter).length) {
       return;
     }
 
-    toggleSelectedFilter(filter, searchCriteria, forceSave);
+    if (filter.type === SearchFilterType.RANGE) {
+      toggleGenericFilter(filter, searchCriteria);
+    }
+
+    if (filter.type === SearchFilterType.EQUALS) {
+      toggleEntityFilter(filter as EqualsFilter, searchCriteria, forceSave);
+    }
+
     syncQueryParams();
   };
 
@@ -208,9 +218,10 @@ export const useProductSearch = (
     searchResult: computed(() => searchResult.value),
     suggestionsResult,
     currentPagination,
-    selectedFilters: computed(() => [
-      ...searchCriteria.properties,
+    selectedFilters: computed(() => searchCriteria.filters), // other type of filters, like price range
+    selectedEntityFilters: computed(() => [
       ...searchCriteria.manufacturer,
+      ...searchCriteria.properties,
     ]),
     availableFilters,
     changePage,

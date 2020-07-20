@@ -66,39 +66,14 @@
         @close="isFilterSidebarOpen = false"
       >
         <div class="filters">
-          <div v-for="filter in filters" :key="filter.name">
-            <SfHeading class="filters__title" :level="4" :title="filter.name" />
-            <div
-              v-if="
-                filter &&
-                filter.type === 'entity' &&
-                filter.options &&
-                filter.options.length
-              "
-              :class="{
-                'filters__filter--color':
-                  filter.name && filter.name === 'color',
-              }"
-            >
-              <SfFilter
-                v-for="option in filter.options"
-                :key="option.value"
-                :label="option.label"
-                :count="option.count"
-                :color="option.color ? option.color : null"
-                :selected="!!selectedFilters.find((id) => id === option.value)"
-                class="filters__item"
-                :class="{ 'filters__item--color': option.color }"
-                @change="
-                  $emit('toggle-filter-value', {
-                    type: 'equals',
-                    value: option.value,
-                    field: filter.name,
-                  })
-                "
-              />
-            </div>
-          </div>
+          <SwProductListingFilter
+            :filter="filter"
+            v-for="filter in filters"
+            @toggle-filter-value="toggleFilterValue"
+            :selected-entity-filters="selectedEntityFilters"
+            :selected-filters="selectedFilters"
+            :key="filter.name"
+          />
         </div>
         <template #content-bottom>
           <div class="filters__buttons">
@@ -137,6 +112,7 @@ import { ref, computed, reactive } from "@vue/composition-api"
 import { getSortingLabel } from "@shopware-pwa/default-theme/helpers"
 import { getCategoryAvailableSorting } from "@shopware-pwa/helpers"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwProductListingFilter from "@shopware-pwa/default-theme/components/listing/SwProductListingFilter"
 
 export default {
   name: "SwProductListingFilters",
@@ -147,6 +123,7 @@ export default {
     SfFilter,
     SfHeading,
     SfSidebar,
+    SwProductListingFilter,
   },
   props: {
     listing: {
@@ -158,7 +135,11 @@ export default {
       default: () => [],
     },
     selectedFilters: {
-      type: Array,
+      type: Array | Object,
+      default: () => [],
+    },
+    selectedEntityFilters: {
+      type: Array | Object,
       default: () => [],
     },
   },
@@ -203,6 +184,9 @@ export default {
   },
 
   methods: {
+    toggleFilterValue(value) {
+      this.$emit("toggle-filter-value", value)
+    },
     async clearAllFilters() {
       this.$emit("reset-filters")
       this.isFilterSidebarOpen = false
