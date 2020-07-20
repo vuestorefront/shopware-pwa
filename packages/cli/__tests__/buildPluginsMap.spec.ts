@@ -4,6 +4,9 @@ describe("CLI extensions - plugins - buildPluginsMap", () => {
     template: {
       generate: jest.fn(),
     },
+    runtime: {
+      run: jest.fn(),
+    },
   };
   beforeAll(() => {
     pluginsModule(toolbox);

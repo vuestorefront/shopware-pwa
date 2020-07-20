@@ -2,8 +2,8 @@ import Vue from "vue";
 import { ref, Ref, computed, reactive } from "@vue/composition-api";
 import {
   EqualsFilter,
-  EqualsAnyFilter,
-  ContainsFilter,
+  RangeFilter,
+  SearchFilterType,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { getCategoryProductsListing } from "@shopware-pwa/shopware-6-client";
 import { EntityType } from "@shopware-pwa/commons/interfaces/internal/EntityType";
@@ -25,6 +25,10 @@ import {
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
 
+import {
+  toggleEntityFilter,
+  toggleFilter as toggleGenericFilter,
+} from "../internalHelpers/searchCriteria";
 /**
  * @alpha
  */
@@ -47,6 +51,8 @@ const sharedListing = Vue.observable({
 const selectedCriteria = Vue.observable({
   pagination: {},
   propertyIds: [],
+  manufacturer: [],
+  properties: [],
   filters: {},
   sorting: "",
 } as any);
@@ -79,6 +85,8 @@ export const useProductListing = (
 
   const resetFilters = () => {
     selectedCriteria.filters = {};
+    selectedCriteria.manufacturer = [];
+    selectedCriteria.properties = [];
   };
 
   const resetSorting = () => {
@@ -101,29 +109,18 @@ export const useProductListing = (
   };
 
   const toggleFilter = (
-    filter: EqualsFilter | EqualsAnyFilter | ContainsFilter, // TODO: handle range filter case as well
-    forceSave: boolean = false
-  ): void => {
-    if (!!selectedCriteria.filters[filter.field]) {
-      let selected = selectedCriteria.filters[filter.field];
-      if (
-        !selected.find((optionId: string) => optionId === filter.value) ||
-        forceSave
-      ) {
-        selected.push(filter.value);
-      } else {
-        selected = selected.filter(
-          (optionId: string) => optionId !== filter.value
-        );
-      }
+    filter: EqualsFilter | RangeFilter,
+    forceSave?: boolean
+  ): undefined | string => {
+    if (!filter || !Object.keys(filter).length) {
+      return;
+    }
+    if (filter.type === SearchFilterType.RANGE) {
+      toggleGenericFilter(filter, selectedCriteria);
+    }
 
-      selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
-        [filter.field]: [...new Set(selected)],
-      });
-    } else {
-      selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
-        [filter.field]: [filter.value],
-      });
+    if ([SearchFilterType.EQUALS].includes(filter.type)) {
+      toggleEntityFilter(filter as EqualsFilter, selectedCriteria, forceSave);
     }
   };
 
@@ -138,7 +135,13 @@ export const useProductListing = (
     loading.value = true;
     const searchCriteria: SearchCriteria = {
       pagination: selectedCriteria.pagination,
-      filters: getFilterSearchCriteria(selectedCriteria.filters),
+      filters: getFilterSearchCriteria(
+        Object.assign({}, selectedCriteria.filters, {
+          // Add entity filters to other filters' object
+          manufacturer: selectedCriteria.manufacturer,
+          properties: selectedCriteria.properties,
+        })
+      ),
       sort: getSortingSearchCriteria(selectedCriteria.sorting),
       configuration: {
         associations: getAssociationsConfig(),
@@ -185,6 +188,10 @@ export const useProductListing = (
   const pagination: any = computed(() => localPagination);
   const products = computed(() => localListing.products);
   const productsTotal = computed(() => localPagination.total);
+  const selectedEntityFilters = computed(() => [
+    ...localCriteria.manufacturer,
+    ...localCriteria.properties,
+  ]);
   const selectedFilters = computed(() => localCriteria.filters);
   const selectedSorting = computed(() => localCriteria.sorting);
 
@@ -197,6 +204,7 @@ export const useProductListing = (
     error,
     changePagination,
     selectedFilters,
+    selectedEntityFilters,
     toggleFilter,
     resetFilters,
     changeSorting,

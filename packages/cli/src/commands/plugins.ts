@@ -49,7 +49,7 @@ module.exports = {
     const generateFilesSpinner = spin("Generating plugins files");
 
     // remove plugin files
-    await toolbox.filesystem.removeAsync(`.shopware-pwa/sw-plugins`);
+    // await toolbox.filesystem.removeAsync(`.shopware-pwa/sw-plugins`);
 
     await generate({
       template: "/plugins/usePlugins.js",
@@ -71,18 +71,14 @@ module.exports = {
       props: {},
     });
 
-    const pluginsConfig = toolbox.filesystem.read(
-      `.shopware-pwa/pwa-bundles.json`,
-      "json"
-    );
+    const pluginsConfig = await toolbox.plugins.getPluginsConfig();
     const shopwarePluginsTrace = await toolbox.buildPluginsTrace({
       pluginsConfig,
     });
     // extend plugins trace from local project
-    const localPluginsConfig = toolbox.filesystem.read(
-      `sw-plugins/local-plugins.json`,
-      "json"
-    );
+    const localPluginsConfig = await toolbox.plugins.getPluginsConfig({
+      localPlugins: true,
+    });
     const pluginsTrace = await toolbox.buildPluginsTrace({
       pluginsConfig: localPluginsConfig,
       pluginsTrace: shopwarePluginsTrace,
@@ -108,7 +104,11 @@ module.exports = {
       },
     });
 
-    await toolbox.runtime.run(`languages`, inputParameters);
+    const langParams = {
+      local: true,
+      ...inputParameters,
+    };
+    await toolbox?.runtime?.run(`languages`, langParams);
 
     success(`Plugins generated`);
   },

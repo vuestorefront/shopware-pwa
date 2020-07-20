@@ -3,6 +3,18 @@ import { join, resolve } from "path";
 import { merge } from "lodash";
 
 module.exports = (toolbox: GluegunToolbox) => {
+  toolbox.cms = {};
+
+  let runningRefreshCms: boolean = false;
+  toolbox.cms.invokeRefreshCMS = async () => {
+    if (runningRefreshCms) {
+      return;
+    }
+    runningRefreshCms = true;
+    await toolbox?.runtime?.run(`cms`, {});
+    runningRefreshCms = false;
+  };
+
   toolbox.resolveCms = async (directoryPath, aliases, cmsComponentsMap) => {
     // Read cmsMap.json file in cms folder, every cms folder should contain one
     const readedMap = await toolbox.filesystem.readAsync(
