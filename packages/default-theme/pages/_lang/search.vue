@@ -12,6 +12,7 @@
         <SwProductListingFilters
           :listing="searchResult"
           :selected-filters="selectedFilters"
+          :selected-entity-filters="selectedEntityFilters"
           :filters="availableFilters"
           @reset-filters="resetFiltersHandler"
           @submit-filters="submitFilters"
@@ -57,6 +58,7 @@ export default {
       changeSorting,
       toggleFilter,
       selectedFilters,
+      selectedEntityFilters,
       availableFilters,
       resetFilters,
     } = useProductSearch(root)
@@ -97,6 +99,7 @@ export default {
       changeSortingInternal: changeSorting,
       toggleFilter,
       selectedFilters,
+      selectedEntityFilters,
       search,
       submitFilters,
       availableFilters,
