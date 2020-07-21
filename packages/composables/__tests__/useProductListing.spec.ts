@@ -13,7 +13,6 @@ import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 import {
   SearchFilterType,
   EqualsFilter,
-  EqualsAnyFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 
 const mockedGetPage = shopwareClient as jest.Mocked<typeof shopwareClient>;
@@ -53,38 +52,53 @@ describe("Composables - useProductListing", () => {
       expect(selectedFilters.value).toStrictEqual({});
     });
 
-    it("selectedFilters should be filled with passed one", async () => {
+    it("selectedFilters should not contain any filter if provided one is not a valid object", async () => {
+      const { selectedFilters, toggleFilter } = useProductListing(
+        rootContextMock
+      );
+      toggleFilter(undefined as any);
+      expect(selectedFilters.value).toStrictEqual({});
+    });
+
+    it("selectedFilters append selected filters with the range type filter", async () => {
       const { selectedFilters, toggleFilter } = useProductListing(
         rootContextMock
       );
       toggleFilter({
+        type: SearchFilterType.RANGE,
+        field: "price",
+        parameters: {
+          gt: 10,
+          lt: 15,
+        },
+      } as any);
+      expect(selectedFilters.value).toStrictEqual({
+        price: {
+          gt: 10,
+          lt: 15,
+        },
+      });
+    });
+
+    it("selectedFilters should be filled with passed one", async () => {
+      const { selectedEntityFilters, toggleFilter } = useProductListing(
+        rootContextMock
+      );
+      toggleFilter({
         type: SearchFilterType.EQUALS,
         value: "white",
         field: "color",
       } as EqualsFilter);
 
-      expect(selectedFilters.value).toHaveProperty("color");
-    });
-
-    it("selectedFilters should append the existing one", async () => {
-      const { selectedFilters, toggleFilter, resetFilters } = useProductListing(
-        rootContextMock
-      );
-      resetFilters();
-
-      toggleFilter({
-        type: SearchFilterType.EQUALS_ANY,
-        value: ["white", "black"],
-        field: "color",
-      } as EqualsAnyFilter);
-
-      expect(selectedFilters.value).toHaveProperty("color");
+      expect(selectedEntityFilters.value).toStrictEqual(["white"]);
     });
 
     it("selectedFilters should remove the existing one if toggled", async () => {
-      const { selectedFilters, toggleFilter, resetFilters } = useProductListing(
-        rootContextMock
-      );
+      const {
+        selectedEntityFilters,
+        toggleFilter,
+        resetFilters,
+      } = useProductListing(rootContextMock);
       resetFilters();
 
       toggleFilter({
@@ -99,14 +113,15 @@ describe("Composables - useProductListing", () => {
         field: "color",
       } as EqualsFilter);
 
-      expect(selectedFilters.value).toHaveProperty("color");
-      expect(selectedFilters.value.color).toStrictEqual([]);
+      expect(selectedEntityFilters.value).toStrictEqual([]);
     });
 
     it("selectedFilters should append the filters array on force", async () => {
-      const { selectedFilters, toggleFilter, resetFilters } = useProductListing(
-        rootContextMock
-      );
+      const {
+        selectedEntityFilters,
+        toggleFilter,
+        resetFilters,
+      } = useProductListing(rootContextMock);
       resetFilters();
 
       toggleFilter({
@@ -122,8 +137,7 @@ describe("Composables - useProductListing", () => {
       } as EqualsFilter),
         true;
 
-      expect(selectedFilters.value).toHaveProperty("color");
-      expect(selectedFilters.value.color).toStrictEqual(["white", "black"]);
+      expect(selectedEntityFilters.value).toStrictEqual(["white", "black"]);
     });
   });
 
