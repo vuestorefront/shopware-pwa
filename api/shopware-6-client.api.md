@@ -34,6 +34,7 @@ import { SearchResult } from '@shopware-pwa/commons/interfaces/response/SearchRe
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 import { ShopwareAssociation } from '@shopware-pwa/commons/interfaces/search/Association';
+import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 
 // @alpha
 export function addCartItemQuantity(itemId: string, quantity: number, contextInstance?: ShopwareApiInstance): Promise<Cart>;
@@ -226,6 +227,19 @@ export function getSessionContext(contextInstance?: ShopwareApiInstance): Promis
 
 // @alpha (undocumented)
 export function getShippingMethodDetails(shippingId: string, contextInstance?: ShopwareApiInstance): Promise<ShippingMethod>;
+
+// @beta (undocumented)
+export function getStoreNavigation({ requestActiveId, requestRootId, searchCriteria }: GetStoreNavigationParams, contextInstance?: ShopwareApiInstance): Promise<StoreNavigationElement[]>;
+
+// @beta
+export interface GetStoreNavigationParams {
+    // (undocumented)
+    requestActiveId: "main-navigation" | "service-navigation" | "footer-navigation";
+    // (undocumented)
+    requestRootId: "main-navigation" | "service-navigation" | "footer-navigation";
+    // (undocumented)
+    searchCriteria?: SearchCriteria;
+}
 
 // @beta (undocumented)
 export function getSuggestedResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;

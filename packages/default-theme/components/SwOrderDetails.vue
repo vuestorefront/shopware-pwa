@@ -62,7 +62,7 @@
           </SwButton>
         </a>
         <template #loader>
-          Payment button is being loaded...
+          Checking payment status...
         </template>
       </SfLoader>
     </div>

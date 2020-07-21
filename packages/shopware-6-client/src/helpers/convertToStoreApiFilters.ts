@@ -20,6 +20,7 @@ interface StoreApiListingFilters {
 interface GenericFilter extends SearchFilter {
   value?: string[];
   queries?: GenericFilter[];
+  parameters?: any; // for range
 }
 
 export function convertToStoreApiFilters(
@@ -32,6 +33,17 @@ export function convertToStoreApiFilters(
   }
 
   for (const filter of filters) {
+    if (isFilterForProperty("price", filter) && filter.parameters) {
+      const { lt, gt, lte, gte } = filter.parameters;
+      if (lt || lte) {
+        params["max-price"] = lt || lte;
+      }
+
+      if (gt || gte) {
+        params["min-price"] = gt || gte;
+      }
+    }
+
     if (isFilterForProperty("manufacturerId", filter) && filter.value) {
       params.manufacturer = concatIds(filter.value);
     }
