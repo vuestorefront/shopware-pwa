@@ -50,10 +50,6 @@ export interface ShopwareParams {
   includes?: Includes;
 }
 
-/**
- * @param apiType - depending on api type, the output should be different (especially sorting and filters part)
- * @alpha
- **/
 export const convertShopwareSearchCriteria = (
   searchCriteria?: SearchCriteria
 ): ShopwareSearchParams => {
@@ -69,22 +65,8 @@ export const convertShopwareSearchCriteria = (
 };
 
 /**
- * @alpha
- **/
-export const convertSearchCriteriaToQueryParams = (
-  searchCriteria?: SearchCriteria
-): string => {
-  const shopwareSearchParams: ShopwareSearchParams = convertShopwareSearchCriteria(
-    searchCriteria
-  );
-  return 
-  (shopwareSearchParams);
-};
-
-/**
  * @deprecated - since SW 6.2 the listing filters will be formatted as convertShopwareSearchCriteria method does
  * @param apiType - depending on api type, the output should be different (especially sorting and filters part)
- * @alpha
  **/
 export const convertSearchCriteria = ({
   searchCriteria,
