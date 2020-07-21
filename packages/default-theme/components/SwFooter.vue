@@ -1,12 +1,11 @@
 <template>
   <div class="sw-footer" data-cy="main-footer">
     <slot class="sw-footer__content" name="content" v-bind="column">
-      <SwFooterNavigation
-        class="content sw-footer__bottom-navigation"
-        :navigation-links="navigation"
-      />
-      <div class="content sw-footer__signature">
+      <div class="sw-footer__signature">
         <SwPluginSlot name="footer-content">
+          <SwFooterNavigation
+            class="sw-footer__bottom-navigation"
+          />
           <i18n path="footer.description" :tag="false">
             <template #creator>
               <a
@@ -30,11 +29,8 @@
 
 <script>
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import SwFooterNavigation from "@shopware-pwa/default-theme/components/organisms/SwFooter"
-import { getStoreNavigation } from "@shopware-pwa/shopware-6-client"
-import { onMounted, ref } from "@vue/composition-api"
-import { getApplicationContext } from "@shopware-pwa/composables"
-import { getStoreNavigationRoutes } from "@shopware-pwa/helpers"
+import SwFooterNavigation from "@shopware-pwa/default-theme/components/organisms/SwFooterNavigation"
+
 export default {
   name: "SwFooter",
   components: {
@@ -46,31 +42,6 @@ export default {
       type: Number,
       default: 4,
     },
-  },
-  setup({}, { root }) {
-    const { apiInstance } = getApplicationContext(root, "SwFooter")
-    const navigation = ref([])
-    onMounted(async () => {
-      const navigationResponse = await getStoreNavigation({
-        requestActiveId: "footer-navigation",
-        requestRootId: "footer-navigation",
-        params: {
-          includes: {
-            category: ["seoUrls", "externalLink", "name", "id", "children"],
-            seo_url: ["pathInfo", "seoPathInfo"],
-          },
-          associations: {
-            seoUrls: {},
-          },
-        },
-      })
-
-      navigation.value = getStoreNavigationRoutes(navigationResponse)
-    })
-
-    return {
-      navigation,
-    }
   },
 }
 </script>
@@ -103,7 +74,6 @@ export default {
   }
 
   &__signature {
-    padding: 2em;
     text-align: center;
     width: 100%;
 

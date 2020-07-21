@@ -16,7 +16,7 @@ import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Ass
 import { Grouping } from "@shopware-pwa/commons/interfaces/search/Grouping";
 import { convertToStoreApiFilters } from "../helpers/convertToStoreApiFilters";
 import { ClientSettings } from "../settings";
-import { deprecationWarning } from "@shopware-pwa/commons";
+// import { deprecationWarning } from "@shopware-pwa/commons";
 
 /**
  * @beta
@@ -82,11 +82,11 @@ export const convertSearchCriteria = ({
   apiType?: ApiType;
   config: ClientSettings;
 }): ShopwareParams => {
-  deprecationWarning({
-    methodName: "convertSearchCriteria",
-    newMethodName: "convertShopwareSearchCriteria",
-    packageName: "helpers",
-  });
+  // deprecationWarning({
+  //   methodName: "convertSearchCriteria",
+  //   newMethodName: "convertShopwareSearchCriteria",
+  //   packageName: "helpers",
+  // });
   let params: ShopwareParams = {
     limit: config.defaultPaginationLimit,
   };
