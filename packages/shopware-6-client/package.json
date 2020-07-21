@@ -21,9 +21,12 @@
       "cjs"
     ]
   },
-  "peerDependencies": {
+  "dependencies": {
     "axios": "^0.19.2",
-    "https": "^1.0.0"
+    "query-string": "^6.13.1"
+  },
+  "devDependencies": {
+    "@types/query-string": "^6.3.0"
   },
   "license": "MIT",
   "publishConfig": {

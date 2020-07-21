@@ -16,7 +16,7 @@ const command: GluegunCommand = {
     info(`Starting Shopware PWA development project...`);
 
     // Watch locales
-    await jetpack.dirAsync("locales") // create folder if not exist
+    await jetpack.dirAsync("locales"); // create folder if not exist
     const localesWatchEvents = ["add", "change", "unlink"];
     const locales = path.join("locales/*.json");
     const localPLuginsLocales = path.join("sw-plugins/**/locales/*");
