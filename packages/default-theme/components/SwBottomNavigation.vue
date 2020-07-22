@@ -1,6 +1,12 @@
 <template>
   <div class="sw-bottom-navigation">
-    <SfOverlay :visible="overlayIsVisible" :transition="transition" />
+    <transition name="fade">
+      <SfOverlay
+        :visible="overlayIsVisible"
+        :transition="transition"
+        @click="triggerMobileNav"
+      />
+    </transition>
     <SfBottomNavigation data-cy="bottom-navigation">
       <nuxt-link aria-label="Go to Home Page" :to="$i18n.path('/')">
         <SfBottomNavigationItem
@@ -236,7 +242,8 @@ export default {
   },
   watch: {
     $route() {
-      this.triggerMobileNav()
+      this.mobileNavIsActive = false
+      this.overlayIsVisible = false
     },
   },
   methods: {
