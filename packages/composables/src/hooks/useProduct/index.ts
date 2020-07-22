@@ -42,16 +42,15 @@ export const useProduct = (
   const product: Ref<Product> = ref(loadedProduct);
   const error: Ref<any> = ref(null);
 
-  const loadAssociations = async (associationsParamsAdditional?: any) => {
+  const loadAssociations = async () => {
     if (!product || !product.value || !product.value.id) {
       throw NO_PRODUCT_REFERENCE_ERROR;
     }
     // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/911
     const includesParams = convertIncludesToGetParams(getIncludesConfig());
     const associationsParams = convertAssociationsToGetParams(
-      getAssociationsConfig(associationsParamsAdditional)
+      getAssociationsConfig()
     );
-    console.warn("associationsParams", associationsParams);
 
     const {
       media,

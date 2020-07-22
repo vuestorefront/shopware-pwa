@@ -16,7 +16,7 @@ describe("composables includesParameter", () => {
         getIncludesForEntity("some_string" as any);
       } catch (error) {
         expect(error.message).toBe(
-          "getIncludesForEntity: entityType is not recognizable."
+          "getIncludesForEntity: there are no includes for given entity type."
         );
       }
     });

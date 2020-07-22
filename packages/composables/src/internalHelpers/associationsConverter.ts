@@ -1,24 +1,29 @@
-const extractSubProperties = (object: any, aggregator: string[]) => {
-  const properties = Object.keys(object);
-  if (!properties.length) {
+import { Association } from "@shopware-pwa/commons/interfaces/search/Association";
+
+const extractSubProperties = (associations: any, aggregator: string[]) => {
+  if (!Array.isArray(associations)) {
     return;
   }
-
-  for (const property of properties) {
-    aggregator.push(property);
-    extractSubProperties(object[property], aggregator);
+  for (const association of associations) {
+    aggregator.push("associations");
+    aggregator.push(association.name);
+    extractSubProperties(association.associations, aggregator);
   }
 };
 
-export const convertAssociationsToGetParams = (associations: any = {}) => {
+export const convertAssociationsToGetParams = (associations: Association[]) => {
+  if (!Array.isArray(associations)) {
+    return;
+  }
+
   let queryParams: any = {};
-  for (const apiAlias of Object.keys(associations)) {
-    const fields = associations[apiAlias];
+  for (const association of associations) {
     let aggregations: string[] = [];
-    extractSubProperties(fields, aggregations);
+    association.associations &&
+      extractSubProperties(association.associations, aggregations);
     const key: string = !aggregations.length
-      ? `associations[${apiAlias}]`
-      : `associations[${apiAlias}][${aggregations.join("][")}]`;
+      ? `associations[${association.name}]`
+      : `associations[${association.name}][${aggregations.join("][")}]`;
     queryParams[`${key}[]`] = true;
   }
 

@@ -17,7 +17,6 @@ import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
 import { EntityType } from '@shopware-pwa/commons/interfaces/internal/EntityType';
-import { EqualsAnyFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';

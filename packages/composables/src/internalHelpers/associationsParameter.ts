@@ -1,50 +1,7 @@
-import { EntityType } from "@shopware-pwa/commons/interfaces/internal/EntityType";
-
-const PRODUCT = {
-  media: {},
-  options: {
-    associations: {
-      group: {},
-    },
-  },
-  properties: {
-    associations: {
-      group: {},
-    },
-  },
-  productReviews: {},
-  manufacturer: {},
-  children: {
-    associations: {
-      options: {
-        associations: {
-          group: {},
-        },
-      },
-      seoUrls: {},
-    },
-  },
-};
-
-const PRODUCT_LISTING = {
-  options: {},
-  productReviews: {},
-};
-
-const CMS = {
-  name: "options",
-  associations: [
-    {
-      name: "group",
-    },
-  ],
-};
-
-const getProductDetailsAssociations = () => PRODUCT;
-
-const getProductListingAssociations = () => PRODUCT_LISTING;
-
-const getPageAssociations = () => CMS;
+/**
+ * A collection of performance set of association parameters
+ */
+import apiParams from "@shopware-pwa/composables/src/api-params.json";
 
 /**
  * Gets the right associations parameter for given entity type
@@ -56,17 +13,13 @@ export const getAssociationsForEntity = (entity: string): any => {
       "getAssociationsForEntity: there is no entityType provided."
     );
   }
+  const params: any = apiParams;
 
-  switch (entity) {
-    case EntityType.PRODUCT:
-      return getProductDetailsAssociations();
-    case EntityType.PRODUCT_LISTING:
-      return getProductListingAssociations();
-    case EntityType.CMS:
-      return getPageAssociations();
-    default:
-      throw new Error(
-        "getAssociationsForEntity: entityType is not recognizable."
-      );
+  if (!(entity in params)) {
+    throw new Error(
+      "getAssociationsForEntity: there are no associations for given entity type."
+    );
   }
+
+  return params[entity]["associations"];
 };

@@ -1,5 +1,5 @@
 export enum EntityType {
-  PRODUCT = "product",
-  PRODUCT_LISTING = "product-listing",
-  CMS = "cms",
+  PRODUCT = "useProduct",
+  PRODUCT_LISTING = "useProductListing",
+  CMS = "useCms",
 }

@@ -16,7 +16,7 @@ describe("composables includesParameter", () => {
         getAssociationsForEntity("some_string" as any);
       } catch (error) {
         expect(error.message).toBe(
-          "getAssociationsForEntity: entityType is not recognizable."
+          "getAssociationsForEntity: there are no associations for given entity type."
         );
       }
     });

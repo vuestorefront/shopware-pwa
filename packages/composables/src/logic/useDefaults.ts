@@ -4,8 +4,8 @@ import { getAssociationsForEntity } from "../internalHelpers/associationsParamet
 import { EntityType } from "@shopware-pwa/commons/interfaces/internal/EntityType";
 
 interface IUseDefaults {
-  getIncludesConfig: (newConfig?: any) => any;
-  getAssociationsConfig: (newConfig?: any) => any;
+  getIncludesConfig: () => any;
+  getAssociationsConfig: () => any;
 }
 
 /**
@@ -15,22 +15,20 @@ interface IUseDefaults {
 export const useDefaults = (entityType: EntityType): IUseDefaults => {
   const type = ref(entityType);
 
-  const getIncludesConfig = (newConfig?: any) => {
+  const getIncludesConfig = () => {
     if (!type.value) {
       return;
     }
 
-    const includes = getIncludesForEntity(type.value);
-    return Object.assign({}, includes, newConfig);
+    return getIncludesForEntity(type.value);
   };
 
-  const getAssociationsConfig = (newConfig?: any) => {
+  const getAssociationsConfig = () => {
     if (!type.value) {
       return;
     }
 
-    const associations = getAssociationsForEntity(type.value);
-    return Object.assign({}, associations, newConfig);
+    return getAssociationsForEntity(type.value);
   };
 
   return {

@@ -7,7 +7,7 @@ import { useProduct } from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 import { convertIncludesToGetParams } from "../src/internalHelpers/includesConverter";
 import { convertAssociationsToGetParams } from "../src/internalHelpers/associationsConverter";
-import { getProductDetailsIncludes } from "../src/internalHelpers/includesParameter";
+import { getIncludesForEntity } from "../src/internalHelpers/includesParameter";
 import { getAssociationsForEntity } from "../src/internalHelpers/associationsParameter";
 import { EntityType } from "@shopware-pwa/commons/interfaces/internal/EntityType";
 
@@ -71,7 +71,7 @@ describe("Composables - useProduct", () => {
       mockedGetProduct.getProduct.mockResolvedValueOnce({} as any);
       const { loadAssociations } = useProduct(rootContextMock, loadedProduct);
       const includesParams = convertIncludesToGetParams(
-        getProductDetailsIncludes()
+        getIncludesForEntity("useProduct")
       );
       const associationsParams = convertAssociationsToGetParams(
         getAssociationsForEntity(EntityType.PRODUCT)

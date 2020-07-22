@@ -1,88 +1,7 @@
-import { EntityType } from "@shopware-pwa/commons/interfaces/internal/EntityType";
-
 /**
  * A collection of performance set of includes parameters
  */
-
-const PRODUCT = [
-  "name",
-  "ratingAverage",
-  "calculatedPrice",
-  "calculatedPrices",
-  "cover",
-  "id",
-  "translated",
-  "options",
-];
-const PRODUCT_MEDIA = ["media"];
-const PRODUCT_GROUP = ["id", "name", "options", "translated"];
-const PRODUCT_GROUP_OPTION = ["name", "id", "group", "translated"];
-const PRODUCT_CALCULATED_PRICE = ["unitPrice", "quantity"];
-const MEDIA = ["url"];
-const CMS_PAGE = ["id", "name", "sections", "type", "config"];
-const CMS_PAGE_SECTION = [
-  "id",
-  "backgroundMedia",
-  "blocks",
-  "type",
-  "sizingMode",
-];
-const CMS_PAGE_BLOCK = [
-  "slots",
-  "type",
-  "id",
-  "backgroundMedia",
-  "sectionPosition",
-];
-const CMS_PAGE_SLOT = [
-  "id",
-  "type",
-  "slot",
-  "blockId",
-  "data",
-  "backgroundMediaMode",
-  "backgroundMedia",
-];
-
-/**
- * Parameters for page resolver - aligned with getPage method of @shopware-pwa/shopware-6-client
- */
-export const getPageIncludes = () => ({
-  cms_page_slot: CMS_PAGE_SLOT,
-  cms_page_block: CMS_PAGE_BLOCK,
-  cms_page_section: CMS_PAGE_SECTION,
-  cms_page: CMS_PAGE,
-  product: PRODUCT,
-  product_media: PRODUCT_MEDIA,
-  media: MEDIA,
-  calculated_price: PRODUCT_CALCULATED_PRICE,
-  product_group_option: PRODUCT_GROUP_OPTION,
-  product_group: PRODUCT_GROUP,
-});
-
-/**
- * Parameters for product listing - aligned with getProductListing method of @shopware-pwa/shopware-6-client
- */
-export const getProductListingIncludes = () => ({
-  product: PRODUCT,
-  product_media: PRODUCT_MEDIA,
-  media: MEDIA,
-  calculated_price: PRODUCT_CALCULATED_PRICE,
-  product_group_option: PRODUCT_GROUP_OPTION,
-  product_group: PRODUCT_GROUP,
-});
-
-/**
- * Parameters for product details - aligned with getProduct GET method of @shopware-pwa/shopware-6-client
- */
-export const getProductDetailsIncludes = () => ({
-  product: [...PRODUCT, "children", "manufacturer", "properties", "media"],
-  product_media: PRODUCT_MEDIA,
-  media: MEDIA,
-  calculated_price: PRODUCT_CALCULATED_PRICE,
-  product_group_option: PRODUCT_GROUP_OPTION,
-  product_group: PRODUCT_GROUP,
-});
+import apiParams from "@shopware-pwa/composables/src/api-params.json";
 
 /**
  * Gets the right includes parameter for given entity type
@@ -92,15 +11,13 @@ export const getIncludesForEntity = (entity: string): any => {
   if (!entity) {
     throw new Error("getIncludesForEntity: there is no entityType provided.");
   }
+  const params: any = apiParams;
 
-  switch (entity) {
-    case EntityType.PRODUCT:
-      return getProductDetailsIncludes();
-    case EntityType.PRODUCT_LISTING:
-      return getProductListingIncludes();
-    case EntityType.CMS:
-      return getPageIncludes();
-    default:
-      throw new Error("getIncludesForEntity: entityType is not recognizable.");
+  if (!(entity in params)) {
+    throw new Error(
+      "getIncludesForEntity: there are no includes for given entity type."
+    );
   }
+
+  return params[entity]["includes"];
 };

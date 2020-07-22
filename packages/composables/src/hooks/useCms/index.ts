@@ -50,7 +50,8 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
     if (!searchCriteria.configuration.associations)
       searchCriteria.configuration.associations = [];
 
-    searchCriteria.configuration.associations.push(getAssociationsConfig());
+    const associations = getAssociationsConfig();
+    searchCriteria.configuration.associations.push(...associations);
 
     if (!searchCriteria.configuration.includes) {
       // performance enhancement
