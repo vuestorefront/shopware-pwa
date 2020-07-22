@@ -1,5 +1,4 @@
 import { getCustomerOrders } from "@shopware-pwa/shopware-6-client";
-import { getCustomerOrderEndpoint } from "../../../src/endpoints";
 import { defaultInstance } from "../../../src/apiService";
 
 jest.mock("../../../src/apiService");
@@ -43,9 +42,9 @@ describe("CustomerService - getCustomerOrders", () => {
     });
     const result = await getCustomerOrders();
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith(
-      `${getCustomerOrderEndpoint()}?sort=-createdAt`
-    );
+    expect(mockedGet).toBeCalledWith("/store-api/v1/order", {
+      params: { sort: "-createdAt" },
+    });
     expect(result).toMatchObject([
       {
         orderNumber: "1234",
