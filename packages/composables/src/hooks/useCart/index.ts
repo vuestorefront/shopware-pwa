@@ -96,7 +96,9 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
   const count = computed(() => {
     return cartItems.value.reduce(
       (accumulator: number, lineItem: LineItem) =>
-        lineItem.quantity + accumulator,
+        lineItem.type === "product"
+          ? lineItem.quantity + accumulator
+          : accumulator,
       0
     );
   });

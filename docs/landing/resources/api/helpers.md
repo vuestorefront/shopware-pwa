@@ -17,6 +17,7 @@
 |  [getListingAvailableFilters(aggregations)](./helpers.getlistingavailablefilters.md) | <b><i>(BETA)</i></b> |
 |  [getProductRegularPrice(product)](./helpers.getproductregularprice.md) | <b><i>(BETA)</i></b> Get the price for 1 unit of a product |
 |  [getProductTierPrices(product)](./helpers.getproducttierprices.md) | <b><i>(BETA)</i></b> Get the prices depending on quantity added to cart. Tier prices can be set in <code>Advanced pricing</code> tab in <code>Product view</code> (admin panel) |
+|  [getStoreNavigationRoutes(navigationElements)](./helpers.getstorenavigationroutes.md) | <b><i>(BETA)</i></b> |
 |  [isProductSimple({ product, })](./helpers.isproductsimple.md) | <b><i>(BETA)</i></b> |
 |  [loadScript(src)](./helpers.loadscript.md) | <b><i>(BETA)</i></b> Helper for plugins to load external scripts for plugins |
 
@@ -24,6 +25,7 @@
 
 |  Interface | Description |
 |  --- | --- |
+|  [StoreNavigationRoute](./helpers.storenavigationroute.md) | <b><i>(BETA)</i></b> |
 |  [TierPrice](./helpers.tierprice.md) | <b><i>(BETA)</i></b> |
 |  [UiCategoryFilter](./helpers.uicategoryfilter.md) | <b><i>(BETA)</i></b> |
 |  [UiCategoryFilterOption](./helpers.uicategoryfilteroption.md) | <b><i>(BETA)</i></b> |
