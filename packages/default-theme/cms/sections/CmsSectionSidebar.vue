@@ -1,5 +1,8 @@
 <template>
-  <div class="sw-sidebar-section">
+  <div
+    class="sw-sidebar-section"
+    :class="{ 'sw-sidebar-section--boxed': isSizingModeBoxed }"
+  >
     <div class="sw-sidebar-section__sidebar" v-if="getSidebarBlocks.length">
       <CmsGenericBlock
         v-for="cmsBlock in getSidebarBlocks"
@@ -43,6 +46,9 @@ export default {
     getMainBlocks() {
       return this.getBlocks.filter((block) => block.sectionPosition === "main")
     },
+    isSizingModeBoxed() {
+      return this.content.sizingMode === "boxed"
+    },
   },
 }
 </script>
@@ -54,10 +60,12 @@ export default {
   display: flex;
   flex-direction: column;
 
-  @include sizing-mode-boxed;
-
   @include for-desktop() {
     flex-direction: row;
+  }
+
+  &--boxed {
+    @include sizing-mode-boxed;
   }
 
   &__sidebar {
