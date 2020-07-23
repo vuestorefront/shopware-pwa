@@ -1,8 +1,9 @@
-import { useDefaults } from "@shopware-pwa/composables";
 import Vue from "vue";
 import VueCompositionApi from "@vue/composition-api";
 import { getAssociationsForEntity } from "../src/internalHelpers/associationsParameter";
 import { getIncludesForEntity } from "../src/internalHelpers/includesParameter";
+import { useDefaults } from "../src/logic/useDefaults";
+
 Vue.use(VueCompositionApi);
 describe("Composables - useDefaults", () => {
   describe("validation", () => {

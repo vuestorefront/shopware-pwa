@@ -315,11 +315,6 @@ export interface UseCurrency {
 // @alpha (undocumented)
 export const useCurrency: (rootContext: ApplicationVueContext) => UseCurrency;
 
-// Warning: (ae-forgotten-export) The symbol "IUseDefaults" needs to be exported by the entry point index.d.ts
-//
-// @public
-export const useDefaults: (key: string) => IUseDefaults;
-
 // @beta
 export const useNavigation: (rootContext: ApplicationVueContext) => IUseNavigation;
 

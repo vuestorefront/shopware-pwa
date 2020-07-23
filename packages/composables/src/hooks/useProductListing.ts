@@ -20,9 +20,9 @@ import {
   useCms,
   useCategoryFilters,
   getApplicationContext,
-  useDefaults,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
+import { useDefaults } from "../logic/useDefaults";
 
 import {
   toggleEntityFilter,
