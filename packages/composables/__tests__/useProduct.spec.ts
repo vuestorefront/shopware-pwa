@@ -9,7 +9,6 @@ import { convertIncludesToGetParams } from "../src/internalHelpers/includesConve
 import { convertAssociationsToGetParams } from "../src/internalHelpers/associationsConverter";
 import { getIncludesForEntity } from "../src/internalHelpers/includesParameter";
 import { getAssociationsForEntity } from "../src/internalHelpers/associationsParameter";
-import { EntityType } from "@shopware-pwa/commons/interfaces/internal/EntityType";
 
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedGetProduct = shopwareClient as jest.Mocked<typeof shopwareClient>;
@@ -74,7 +73,7 @@ describe("Composables - useProduct", () => {
         getIncludesForEntity("useProduct")
       );
       const associationsParams = convertAssociationsToGetParams(
-        getAssociationsForEntity(EntityType.PRODUCT)
+        getAssociationsForEntity("useProduct")
       );
       loadAssociations({} as any);
       expect(mockedGetProduct.getProduct).toBeCalledWith(

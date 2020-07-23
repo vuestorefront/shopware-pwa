@@ -6,7 +6,6 @@ import {
   SearchFilterType,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { getCategoryProductsListing } from "@shopware-pwa/shopware-6-client";
-import { EntityType } from "@shopware-pwa/commons/interfaces/internal/EntityType";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
 import {
   Sort,
@@ -69,7 +68,7 @@ export const useProductListing = (
     "useProductListing"
   );
   const { getAssociationsConfig, getIncludesConfig } = useDefaults(
-    EntityType.PRODUCT_LISTING
+    "useProductListing"
   );
   const { categoryId } = useCms(rootContext);
   const { activeSorting } = useCategoryFilters(rootContext);
@@ -144,8 +143,8 @@ export const useProductListing = (
       ),
       sort: getSortingSearchCriteria(selectedCriteria.sorting),
       configuration: {
-        associations: getAssociationsConfig(),
-        includes: getIncludesConfig(),
+        associations: getAssociationsConfig.value,
+        includes: getIncludesConfig.value,
       },
     };
 

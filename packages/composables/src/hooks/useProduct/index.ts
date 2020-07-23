@@ -1,6 +1,5 @@
 import { ref, Ref } from "@vue/composition-api";
 import { getProduct } from "@shopware-pwa/shopware-6-client";
-import { EntityType } from "@shopware-pwa/commons/interfaces/internal/EntityType";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { getApplicationContext, useDefaults } from "@shopware-pwa/composables";
@@ -35,7 +34,7 @@ export const useProduct = (
 ): UseProduct<Product, Search> => {
   const { apiInstance } = getApplicationContext(rootContext, "useProduct");
   const { getAssociationsConfig, getIncludesConfig } = useDefaults(
-    EntityType.PRODUCT
+    "useProduct"
   );
 
   const loading: Ref<boolean> = ref(false);
@@ -47,9 +46,9 @@ export const useProduct = (
       throw NO_PRODUCT_REFERENCE_ERROR;
     }
     // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/911
-    const includesParams = convertIncludesToGetParams(getIncludesConfig());
+    const includesParams = convertIncludesToGetParams(getIncludesConfig.value);
     const associationsParams = convertAssociationsToGetParams(
-      getAssociationsConfig()
+      getAssociationsConfig.value
     );
 
     const {

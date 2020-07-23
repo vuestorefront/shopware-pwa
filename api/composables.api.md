@@ -16,7 +16,6 @@ import { CustomerResetPasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
-import { EntityType } from '@shopware-pwa/commons/interfaces/internal/EntityType';
 import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
@@ -318,8 +317,8 @@ export const useCurrency: (rootContext: ApplicationVueContext) => UseCurrency;
 
 // Warning: (ae-forgotten-export) The symbol "IUseDefaults" needs to be exported by the entry point index.d.ts
 //
-// @beta
-export const useDefaults: (entityType: EntityType) => IUseDefaults;
+// @public
+export const useDefaults: (key: string) => IUseDefaults;
 
 // @beta
 export const useNavigation: (rootContext: ApplicationVueContext) => IUseNavigation;

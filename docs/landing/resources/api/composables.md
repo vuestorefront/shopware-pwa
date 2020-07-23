@@ -30,7 +30,7 @@
 |  [useAddToCart](./composables.useaddtocart.md) | <b><i>(BETA)</i></b> Add product to cart. Options - [IUseAddToCart](./composables.iuseaddtocart.md) |
 |  [useCart](./composables.usecart.md) | <b><i>(BETA)</i></b> Composable for cart management. Options - [IUseCart](./composables.iusecart.md) |
 |  [useCheckout](./composables.usecheckout.md) | <b><i>(BETA)</i></b> Composable for Checkout management. Options - [IUseCheckout](./composables.iusecheckout.md) |
-|  [useDefaults](./composables.usedefaults.md) | <b><i>(BETA)</i></b> Returns default config that can be appended by the new values |
+|  [useDefaults](./composables.usedefaults.md) | Returns default config depending on config key |
 |  [useNavigation](./composables.usenavigation.md) | <b><i>(BETA)</i></b> Composable for navigation. Options - [IUseNavigation](./composables.iusenavigation.md) |
 |  [useSessionContext](./composables.usesessioncontext.md) | <b><i>(BETA)</i></b> Composable for session management. Options - [IUseSessionContext](./composables.iusesessioncontext.md) |
 |  [useUIState](./composables.useuistate.md) | <b><i>(BETA)</i></b> Simple state management for UI purposes. |

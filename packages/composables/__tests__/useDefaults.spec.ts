@@ -1,4 +1,3 @@
-import { EntityType } from "@shopware-pwa/commons/interfaces/internal/EntityType";
 import { useDefaults } from "@shopware-pwa/composables";
 import Vue from "vue";
 import VueCompositionApi from "@vue/composition-api";
@@ -8,52 +7,52 @@ Vue.use(VueCompositionApi);
 describe("Composables - useDefaults", () => {
   describe("validation", () => {
     it("should return undefined when the entity type is not set", async () => {
-      const { getIncludesConfig, getAssociationsConfig } = useDefaults(
-        undefined as any
-      );
-      expect(getIncludesConfig()).toBeUndefined();
-      expect(getAssociationsConfig()).toBeUndefined();
+      try {
+        useDefaults(undefined as any);
+      } catch (e) {
+        expect(e.message).toEqual("useDefaults: key has not been provided.");
+      }
     });
   });
   describe("CMS", () => {
     it("should correctly get the cms includes", async () => {
-      const { getIncludesConfig } = useDefaults(EntityType.CMS);
-      expect(getIncludesConfig()).toStrictEqual(
-        getIncludesForEntity(EntityType.CMS)
+      const { getIncludesConfig } = useDefaults("useCms");
+      expect(getIncludesConfig.value).toStrictEqual(
+        getIncludesForEntity("useCms")
       );
     });
     it("should correctly get the cms associations", async () => {
-      const { getAssociationsConfig } = useDefaults(EntityType.CMS);
-      expect(getAssociationsConfig()).toStrictEqual(
-        getAssociationsForEntity(EntityType.CMS)
+      const { getAssociationsConfig } = useDefaults("useCms");
+      expect(getAssociationsConfig.value).toStrictEqual(
+        getAssociationsForEntity("useCms")
       );
     });
   });
   describe("PRODUCT", () => {
     it("should correctly get the product details includes", async () => {
-      const { getIncludesConfig } = useDefaults(EntityType.PRODUCT);
-      expect(getIncludesConfig()).toStrictEqual(
-        getIncludesForEntity(EntityType.PRODUCT)
+      const { getIncludesConfig } = useDefaults("useProduct");
+      expect(getIncludesConfig.value).toStrictEqual(
+        getIncludesForEntity("useProduct")
       );
     });
     it("should correctly get the product details associations", async () => {
-      const { getAssociationsConfig } = useDefaults(EntityType.PRODUCT);
-      expect(getAssociationsConfig()).toStrictEqual(
-        getAssociationsForEntity(EntityType.PRODUCT)
+      const { getAssociationsConfig } = useDefaults("useProduct");
+      expect(getAssociationsConfig.value).toStrictEqual(
+        getAssociationsForEntity("useProduct")
       );
     });
   });
   describe("PRODUCT_LISTING", () => {
     it("should correctly get the product listing includes", async () => {
-      const { getIncludesConfig } = useDefaults(EntityType.PRODUCT_LISTING);
-      expect(getIncludesConfig()).toStrictEqual(
-        getIncludesForEntity(EntityType.PRODUCT_LISTING)
+      const { getIncludesConfig } = useDefaults("useProductListing");
+      expect(getIncludesConfig.value).toStrictEqual(
+        getIncludesForEntity("useProductListing")
       );
     });
     it("should correctly get the product listing associations", async () => {
-      const { getAssociationsConfig } = useDefaults(EntityType.PRODUCT_LISTING);
-      expect(getAssociationsConfig()).toStrictEqual(
-        getAssociationsForEntity(EntityType.PRODUCT_LISTING)
+      const { getAssociationsConfig } = useDefaults("useProductListing");
+      expect(getAssociationsConfig.value).toStrictEqual(
+        getAssociationsForEntity("useProductListing")
       );
     });
   });

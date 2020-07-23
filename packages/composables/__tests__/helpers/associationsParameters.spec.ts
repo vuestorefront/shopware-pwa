@@ -1,5 +1,17 @@
 import { getAssociationsForEntity } from "../../src/internalHelpers/associationsParameter";
-
+jest.mock(
+  "@shopware-pwa/composables/src/api-params.json",
+  () => ({
+    useProduct: {
+      associations: [
+        {
+          name: "media",
+        },
+      ],
+    },
+  }),
+  { virtual: true }
+);
 describe("composables includesParameter", () => {
   describe("getAssociationsForEntity", () => {
     it("should throw the error if no entity type provided", () => {
@@ -19,6 +31,14 @@ describe("composables includesParameter", () => {
           "getAssociationsForEntity: there are no associations for given entity type."
         );
       }
+    });
+    it("should return a proper associations object", () => {
+      const result = getAssociationsForEntity("useProduct");
+      expect(result).toStrictEqual([
+        {
+          name: "media",
+        },
+      ]);
     });
   });
 });

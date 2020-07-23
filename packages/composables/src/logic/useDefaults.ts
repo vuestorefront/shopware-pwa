@@ -1,38 +1,23 @@
-import { ref } from "@vue/composition-api";
+import { ref, computed, Ref } from "@vue/composition-api";
 import { getIncludesForEntity } from "../internalHelpers/includesParameter";
 import { getAssociationsForEntity } from "../internalHelpers/associationsParameter";
-import { EntityType } from "@shopware-pwa/commons/interfaces/internal/EntityType";
 
 interface IUseDefaults {
-  getIncludesConfig: () => any;
-  getAssociationsConfig: () => any;
+  getIncludesConfig: Readonly<Ref<any>>;
+  getAssociationsConfig: Readonly<Ref<any>>;
 }
 
 /**
- * Returns default config that can be appended by the new values
- * @beta
+ * Returns default config depending on config key
  */
-export const useDefaults = (entityType: EntityType): IUseDefaults => {
-  const type = ref(entityType);
-
-  const getIncludesConfig = () => {
-    if (!type.value) {
-      return;
-    }
-
-    return getIncludesForEntity(type.value);
-  };
-
-  const getAssociationsConfig = () => {
-    if (!type.value) {
-      return;
-    }
-
-    return getAssociationsForEntity(type.value);
-  };
+export const useDefaults = (key: string): IUseDefaults => {
+  if (!key) {
+    throw new Error("useDefaults: key has not been provided.");
+  }
+  const type = ref(key);
 
   return {
-    getIncludesConfig,
-    getAssociationsConfig,
+    getIncludesConfig: computed(() => getIncludesForEntity(type.value)),
+    getAssociationsConfig: computed(() => getAssociationsForEntity(type.value)),
   };
 };

@@ -1,7 +1,6 @@
 import { ref, Ref, computed } from "@vue/composition-api";
 import { getPage } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { EntityType } from "@shopware-pwa/commons/interfaces/internal/EntityType";
 import { parseUrlQuery } from "@shopware-pwa/helpers";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { getApplicationContext, useDefaults } from "@shopware-pwa/composables";
@@ -15,9 +14,7 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
     "useCms"
   );
 
-  const { getAssociationsConfig, getIncludesConfig } = useDefaults(
-    EntityType.CMS
-  );
+  const { getAssociationsConfig, getIncludesConfig } = useDefaults("useCms");
   const error: Ref<any> = ref(null);
   const loading: Ref<boolean> = ref(false);
   const page = computed(() => {
@@ -50,12 +47,12 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
     if (!searchCriteria.configuration.associations)
       searchCriteria.configuration.associations = [];
 
-    const associations = getAssociationsConfig();
+    const associations = getAssociationsConfig.value;
     searchCriteria.configuration.associations.push(...associations);
 
     if (!searchCriteria.configuration.includes) {
       // performance enhancement
-      searchCriteria.configuration.includes = getIncludesConfig();
+      searchCriteria.configuration.includes = getIncludesConfig.value;
     }
 
     try {

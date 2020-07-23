@@ -6,6 +6,10 @@ describe("composables associationsConverter", () => {
       const result = convertAssociationsToGetParams(undefined as any);
       expect(result).toBeUndefined();
     });
+    it("should return undefined if associations argument is not iterable", () => {
+      const result = convertAssociationsToGetParams({} as any);
+      expect(result).toBeUndefined();
+    });
 
     it("should not perform an extraction if there is no associations attached", () => {
       const result = convertAssociationsToGetParams([

@@ -1,4 +1,15 @@
 import { getIncludesForEntity } from "../../src/internalHelpers/includesParameter";
+jest.mock(
+  "@shopware-pwa/composables/src/api-params.json",
+  () => ({
+    useProduct: {
+      includes: {
+        product: ["media"],
+      },
+    },
+  }),
+  { virtual: true }
+);
 
 describe("composables includesParameter", () => {
   describe("getIncludesForEntity", () => {
@@ -19,6 +30,11 @@ describe("composables includesParameter", () => {
           "getIncludesForEntity: there are no includes for given entity type."
         );
       }
+    });
+
+    it("should return a proper includes object", () => {
+      const result = getIncludesForEntity("useProduct");
+      expect(result).toStrictEqual({ product: ["media"] });
     });
   });
 });
