@@ -3,7 +3,11 @@
     class="sw-sidebar-section"
     :class="{ 'sw-sidebar-section--boxed': isSizingModeBoxed }"
   >
-    <div class="sw-sidebar-section__sidebar" v-if="getSidebarBlocks.length">
+    <div
+      class="sw-sidebar-section__sidebar"
+      :class="{ 'sw-sidebar-section__sidebar--boxed': isSizingModeBoxed }"
+      v-if="getSidebarBlocks.length"
+    >
       <CmsGenericBlock
         v-for="cmsBlock in getSidebarBlocks"
         :key="cmsBlock.id"
@@ -73,8 +77,15 @@ export default {
     flex-direction: column;
     margin: 20px 0 0 0;
     @include for-desktop {
+      margin-left: var(--spacer-base);
       border: 1px solid var(--c-light);
       border-width: 0 1px 0 0;
+    }
+
+    &--boxed {
+      @include for-desktop {
+        margin-left: inherit;
+      }
     }
   }
 
