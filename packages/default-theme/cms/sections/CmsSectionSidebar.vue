@@ -82,6 +82,12 @@ export default {
     display: flex;
     flex-direction: column;
     width: 100%;
+
+    & > div {
+      @include for-desktop {
+        max-width: inherit;
+      }
+    }
   }
 }
 </style>
