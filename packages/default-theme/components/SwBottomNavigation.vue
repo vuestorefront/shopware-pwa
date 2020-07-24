@@ -1,12 +1,5 @@
 <template>
   <div class="sw-bottom-navigation">
-    <transition name="fade">
-      <SfOverlay
-        :visible="overlayIsVisible"
-        :transition="transition"
-        @click="triggerMobileNav"
-      />
-    </transition>
     <SfBottomNavigation data-cy="bottom-navigation">
       <nuxt-link aria-label="Go to Home Page" :to="$i18n.path('/')">
         <SfBottomNavigationItem
@@ -22,66 +15,19 @@
         label="Menu"
         class="menu-button"
         data-cy="bottom-navigation-menu"
-        @click.self="triggerMobileNav"
+        @click.self="toggleMobileNavigation"
       >
         <template #icon>
           <SfIcon
             icon="menu"
             size="20px"
             style="width: 25px;"
-            @click="triggerMobileNav"
+            @click="toggleMobileNavigation"
           />
-          <transition name="sf-collapse-bottom">
-            <SfList v-if="mobileNavIsActive" class="mobile-nav-list">
-              <transition name="fade">
-                <div v-if="categoryIsChanging">
-                  <SfListItem
-                    v-if="currentCategory.length != 0"
-                    class="back-to-category"
-                  >
-                    <div class="name" @click="goBack">
-                      <SfIcon
-                        icon="chevron_left"
-                        class="icon sf-chevron_left"
-                        size="21px"
-                        view-box="0 0 24 12"
-                      />
-                      {{ currentCategory.slice(-1)[0] }}
-                    </div>
-                  </SfListItem>
-                </div>
-              </transition>
-              <transition name="slide-fade">
-                <div v-if="categoryIsChanging">
-                  <SfListItem
-                    v-for="category in categoriesList"
-                    :key="category.name"
-                  >
-                    <nuxt-link
-                      class="sf-header__link"
-                      :to="$i18n.path(getCategoryUrl(category))"
-                      @click="triggerMobileNav"
-                    >
-                      {{ category.name }}
-                    </nuxt-link>
-
-                    <div
-                      v-if="category.children && category.children.length"
-                      class="choose-subcategory"
-                      @click="goDeeper(category.name)"
-                    >
-                      <SfIcon
-                        icon="chevron_right"
-                        class="icon sf-chevron_right"
-                        size="21px"
-                        view-box="0 0 24 12"
-                      />
-                    </div>
-                  </SfListItem>
-                </div>
-              </transition>
-            </SfList>
-          </transition>
+          <SwBottomMenu
+            v-if="mobileNavIsActive"
+            @close="mobileNavIsActive = false"
+          />
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
@@ -147,19 +93,13 @@ import {
   SfBottomNavigation,
   SfCircleIcon,
   SfIcon,
-  SfList,
-  SfOverlay,
   SfSelect,
 } from "@storefront-ui/vue"
-import {
-  useUIState,
-  useNavigation,
-  useUser,
-  useCart,
-} from "@shopware-pwa/composables"
+import { useUIState, useUser, useCart } from "@shopware-pwa/composables"
 import SwCurrencySwitcher from "@shopware-pwa/default-theme/components/SwCurrencySwitcher"
 import { onMounted } from "@vue/composition-api"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwBottomMenu from "@shopware-pwa/default-theme/components/SwBottomMenu"
 import { PAGE_ACCOUNT } from "@shopware-pwa/default-theme/helpers/pages"
 import { getCategoryUrl } from "@shopware-pwa/helpers"
 
@@ -172,17 +112,11 @@ export default {
     SfSelect,
     SwCurrencySwitcher,
     SwButton,
-    SfList,
-    SfOverlay,
+    SwBottomMenu,
   },
   data() {
     return {
-      currentRoute: { routeLabel: "", routePath: "/" },
-      currentCategory: [],
       mobileNavIsActive: false,
-      transition: "sf-fade",
-      overlayIsVisible: false,
-      categoryIsChanging: true,
     }
   },
   setup(props, { root }) {
@@ -190,27 +124,13 @@ export default {
       root,
       "CART_SIDEBAR_STATE"
     )
-    const { fetchNavigationElements, navigationElements } = useNavigation(root)
     const { switchState: toggleModal } = useUIState(root, "LOGIN_MODAL_STATE")
     const { isLoggedIn, logout } = useUser(root)
     const { count } = useCart(root)
 
-    onMounted(async () => {
-      try {
-        await fetchNavigationElements(3)
-      } catch (e) {
-        console.error("[SwBottomNavigation]", e)
-      }
-
-      // fixes a watch issue - fetch the elements if watch wasn't fired
-      if (Array.isArray(navigationElements) && !navigationElements.length) {
-        fetchNavigationElements(3)
-      }
-    })
     return {
       isLoggedIn,
       logout,
-      navigationElements,
       getCategoryUrl,
       isSidebarOpen,
       toggleSidebar,
@@ -221,29 +141,6 @@ export default {
   computed: {
     getPageAccount() {
       return PAGE_ACCOUNT
-    },
-
-    categoriesList() {
-      let categoriesToDisplay = this.navigationElements
-      for (let i = 0; i < this.currentCategory.length; i++) {
-        const foundedCat = categoriesToDisplay.find((cat) => {
-          return cat.name === this.currentCategory[i]
-        })
-        if (foundedCat) {
-          categoriesToDisplay = foundedCat.children
-        } else {
-          categoriesToDisplay = this.navigationElements
-          this.currentCategory = []
-          break
-        }
-      }
-      return categoriesToDisplay
-    },
-  },
-  watch: {
-    $route() {
-      this.mobileNavIsActive = false
-      this.overlayIsVisible = false
     },
   },
   methods: {
@@ -259,50 +156,13 @@ export default {
       await this.logout()
       this.$router.push(this.$i18n.path("/"))
     },
-    goDeeper(name) {
-      this.currentCategory.push(name)
-      this.changeCategoryAnimation()
-    },
-    goBack() {
-      this.currentCategory.pop()
-      this.changeCategoryAnimation()
-    },
-    changeCategoryAnimation() {
-      this.categoryIsChanging = false
-
-      setTimeout(() => {
-        this.categoryIsChanging = true
-      }, 500)
-    },
-    triggerMobileNav() {
+    toggleMobileNavigation() {
       this.mobileNavIsActive = !this.mobileNavIsActive
-      this.overlayIsVisible = !this.overlayIsVisible
     },
   },
 }
 </script>
 <style lang="scss" scoped>
-.slide-fade-enter-active {
-  transition: all 0.55s ease;
-}
-.slide-fade-leave-active {
-  transition: all 0.55s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.55s ease;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.slide-fade-enter,
-.slide-fade-leave-to {
-  transform: translateX(34px);
-  opacity: 0;
-}
 .sw-bottom-navigation {
   align-items: center;
 }
@@ -347,44 +207,6 @@ export default {
       .back-subcategory {
         left: 8px;
       }
-    }
-  }
-}
-
-.mobile-nav-list {
-  background-color: white;
-  bottom: 60px;
-  box-sizing: border-box;
-  left: 0;
-  padding: 10px 10px 40px;
-  position: var(--select-dropdown-position, fixed);
-  width: 100%;
-
-  .sf-list__item {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    margin: 13px 0;
-  }
-
-  .back-to-category {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    padding: 15px 0;
-    position: relative;
-    width: 100%;
-
-    .name {
-      font-weight: bolder;
-    }
-
-    .icon {
-      font-weight: bolder;
-      left: 0;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
     }
   }
 }
