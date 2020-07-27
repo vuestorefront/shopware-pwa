@@ -16,31 +16,33 @@
         {{ currentCategoryName }}
       </div>
     </template>
-    <SfList class="mobile-nav-list">
-      <SfListItem v-for="category in categoriesList" :key="category.name">
-        <nuxt-link
-          class="sf-header__link"
-          :to="$i18n.path(getCategoryUrl(category))"
-          @click="toggleMobileNavigation"
-        >
-          {{ category.name }}
-        </nuxt-link>
+    <transition :name="menuTransitionName" mode="out-in">
+      <SfList class="mobile-nav-list" :key="categoryBreadcrumbs.length">
+        <SfListItem v-for="category in categoriesList" :key="category.name">
+          <nuxt-link
+            class="sf-header__link"
+            :to="$i18n.path(getCategoryUrl(category))"
+            @click="toggleMobileNavigation"
+          >
+            {{ category.name }}
+          </nuxt-link>
 
-        <div
-          v-if="category.children && category.children.length"
-          class="sw-bottom-menu__subcategory"
-          @click="goDeeper(category.name)"
-        >
-          <SfIcon
-            icon="chevron_right"
-            class="icon sf-chevron_right"
-            size="21px"
-            view-box="0 0 24 12"
-          />
-          ({{ category.count }})
-        </div>
-      </SfListItem>
-    </SfList>
+          <div
+            v-if="category.children && category.children.length"
+            class="sw-bottom-menu__subcategory"
+            @click="goDeeper(category.name)"
+          >
+            <SfIcon
+              icon="chevron_right"
+              class="icon sf-chevron_right"
+              size="21px"
+              view-box="0 0 24 12"
+            />
+            ({{ category.count }})
+          </div>
+        </SfListItem>
+      </SfList>
+    </transition>
   </SfBottomModal>
 </template>
 
@@ -60,6 +62,7 @@ export default {
   data() {
     return {
       categoryBreadcrumbs: [],
+      menuTransitionName: "menu-slide-left",
     }
   },
   setup(props, { root }) {
@@ -118,9 +121,11 @@ export default {
       this.$router.push(this.$i18n.path("/"))
     },
     goDeeper(name) {
+      this.menuTransitionName = "menu-slide-left"
       this.categoryBreadcrumbs.push(name)
     },
     goBack() {
+      this.menuTransitionName = "menu-slide-right"
       this.categoryBreadcrumbs.pop()
     },
     toggleMobileNavigation() {
@@ -130,6 +135,25 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.menu-slide-left-leave-active,
+.menu-slide-left-enter-active,
+.menu-slide-right-leave-active,
+.menu-slide-right-enter-active {
+  transition: 0.25s;
+}
+.menu-slide-left-enter {
+  transform: translate(100%, 0);
+}
+.menu-slide-left-leave-to {
+  transform: translate(-100%, 0);
+}
+.menu-slide-right-enter {
+  transform: translate(-100%, 0);
+}
+.menu-slide-right-leave-to {
+  transform: translate(100%, 0);
+}
+
 .sf-bottom-modal {
   --button-height: 60px;
   z-index: 1;
@@ -139,7 +163,11 @@ export default {
 .sw-bottom-menu {
   &__title {
     display: flex;
+    align-items: center;
     padding: 10px 5px;
+    font-size: 1.5rem;
+    line-height: 1.7rem;
+    font-weight: 700;
   }
 
   &__subcategory {
