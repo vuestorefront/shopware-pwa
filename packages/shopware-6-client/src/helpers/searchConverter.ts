@@ -16,8 +16,11 @@ import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Ass
 import { Grouping } from "@shopware-pwa/commons/interfaces/search/Grouping";
 import { convertToStoreApiFilters } from "../helpers/convertToStoreApiFilters";
 import { ClientSettings } from "../settings";
-import { deprecationWarning } from "@shopware-pwa/commons";
+// import { deprecationWarning } from "@shopware-pwa/commons";
 
+/**
+ * @beta
+ */
 export enum ApiType {
   store = "store-api",
   salesChannel = "sales-channel-api",
@@ -47,10 +50,6 @@ export interface ShopwareParams {
   includes?: Includes;
 }
 
-/**
- * @param apiType - depending on api type, the output should be different (especially sorting and filters part)
- * @alpha
- **/
 export const convertShopwareSearchCriteria = (
   searchCriteria?: SearchCriteria
 ): ShopwareSearchParams => {
@@ -68,7 +67,6 @@ export const convertShopwareSearchCriteria = (
 /**
  * @deprecated - since SW 6.2 the listing filters will be formatted as convertShopwareSearchCriteria method does
  * @param apiType - depending on api type, the output should be different (especially sorting and filters part)
- * @alpha
  **/
 export const convertSearchCriteria = ({
   searchCriteria,
@@ -79,11 +77,11 @@ export const convertSearchCriteria = ({
   apiType?: ApiType;
   config: ClientSettings;
 }): ShopwareParams => {
-  deprecationWarning({
-    methodName: "convertSearchCriteria",
-    newMethodName: "convertShopwareSearchCriteria",
-    packageName: "helpers",
-  });
+  // deprecationWarning({
+  //   methodName: "convertSearchCriteria",
+  //   newMethodName: "convertShopwareSearchCriteria",
+  //   packageName: "helpers",
+  // });
   let params: ShopwareParams = {
     limit: config.defaultPaginationLimit,
   };

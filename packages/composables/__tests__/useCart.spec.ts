@@ -84,7 +84,11 @@ describe("Composables - useCart", () => {
 
       it("should show correct items quantity", () => {
         stateCart.value = {
-          lineItems: [{ quantity: 2 }, { quantity: 3 }],
+          lineItems: [
+            { quantity: 2, type: "product" },
+            { quantity: 3, type: "product" },
+            { quantity: 1, type: "promotion" },
+          ],
         };
         const { count } = useCart(rootContextMock);
         expect(count.value).toEqual(5);
@@ -143,7 +147,7 @@ describe("Composables - useCart", () => {
         const { count, refreshCart } = useCart(rootContextMock);
         expect(count.value).toEqual(0);
         mockedShopwareClient.getCart.mockResolvedValueOnce({
-          lineItems: [{ quantity: 1 }],
+          lineItems: [{ quantity: 1, type: "product" }],
         } as any);
         await refreshCart();
         expect(count.value).toEqual(1);
@@ -165,7 +169,7 @@ describe("Composables - useCart", () => {
         const { count, addProduct } = useCart(rootContextMock);
         expect(count.value).toEqual(0);
         mockedShopwareClient.addProductToCart.mockResolvedValueOnce({
-          lineItems: [{ quantity: 1 }],
+          lineItems: [{ quantity: 1, type: "product" }],
         } as any);
         await addProduct({ id: "qwe" });
         expect(count.value).toEqual(1);
@@ -187,7 +191,7 @@ describe("Composables - useCart", () => {
       it("should add product to cart", async () => {
         const { count, removeProduct } = useCart(rootContextMock);
         stateCart.value = {
-          lineItems: [{ quantity: 3 }],
+          lineItems: [{ quantity: 3, type: "product" }],
         };
         expect(count.value).toEqual(3);
         mockedShopwareClient.removeCartItem.mockResolvedValueOnce({
@@ -212,11 +216,11 @@ describe("Composables - useCart", () => {
       it("should change product quantity in cart", async () => {
         const { count, changeProductQuantity } = useCart(rootContextMock);
         stateCart.value = {
-          lineItems: [{ quantity: 3 }],
+          lineItems: [{ quantity: 3, type: "product" }],
         };
         expect(count.value).toEqual(3);
         mockedShopwareClient.changeCartItemQuantity.mockResolvedValueOnce({
-          lineItems: [{ quantity: 7 }],
+          lineItems: [{ quantity: 7, type: "product" }],
         } as any);
         await changeProductQuantity({ id: "qwer", quantity: 7 });
         expect(count.value).toEqual(7);

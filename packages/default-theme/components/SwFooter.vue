@@ -1,8 +1,9 @@
 <template>
   <div class="sw-footer" data-cy="main-footer">
     <slot class="sw-footer__content" name="content" v-bind="column">
-      <div class="content sw-footer__signature">
+      <div class="sw-footer__signature">
         <SwPluginSlot name="footer-content">
+          <SwFooterNavigation class="sw-footer__bottom-navigation" />
           <i18n path="footer.description" :tag="false">
             <template #creator>
               <a
@@ -26,11 +27,13 @@
 
 <script>
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwFooterNavigation from "@shopware-pwa/default-theme/components/organisms/SwFooterNavigation"
 
 export default {
   name: "SwFooter",
   components: {
     SwPluginSlot,
+    SwFooterNavigation,
   },
   props: {
     column: {
@@ -47,7 +50,8 @@ export default {
 .sw-footer {
   align-items: flex-end;
   display: flex;
-  flex-shrink: 0;
+  flex-direction: row;
+  flex-wrap: wrap;
   height: auto;
   justify-content: center;
   margin-top: 1em;
@@ -68,13 +72,16 @@ export default {
   }
 
   &__signature {
-    padding: 2em;
     text-align: center;
     width: 100%;
 
     @include for-desktop {
       margin-bottom: 0;
     }
+  }
+
+  &__bottom-navigation {
+    width: 100%;
   }
 }
 </style>

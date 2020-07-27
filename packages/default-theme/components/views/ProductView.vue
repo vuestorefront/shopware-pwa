@@ -94,6 +94,7 @@ export default {
   },
   async mounted() {
     // TODO remove when page resolver is fully done
+    // TODO: change after #911 is done
     const associations = {
       "associations[media][]": true,
       "associations[options][associations][group][]": true,

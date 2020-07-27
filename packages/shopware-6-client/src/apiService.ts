@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from "axios";
 import { createResponseInterceptor, errorInterceptor } from "./interceptors";
 import { ClientSettings, defaultConfig } from "./settings";
-
+import { getQueryString } from "./helpers/queryParamsBuilder";
 /**
  * @beta
  */
@@ -41,6 +41,8 @@ export function _createInstance(initialConfig: ClientSettings = {}) {
     apiService.defaults.timeout = clientConfig.timeout;
     apiService.defaults.headers.common["sw-access-key"] =
       clientConfig.accessToken;
+    // convert SearchCriteria into query string
+    apiService.defaults.paramsSerializer = getQueryString;
     if (clientConfig.contextToken) {
       apiService.defaults.headers.common["sw-context-token"] =
         clientConfig.contextToken;

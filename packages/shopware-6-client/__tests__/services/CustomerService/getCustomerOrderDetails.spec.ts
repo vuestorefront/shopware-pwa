@@ -1,5 +1,4 @@
 import { getCustomerOrderDetails } from "@shopware-pwa/shopware-6-client";
-import { getCustomerOrderEndpoint } from "../../../src/endpoints";
 import { defaultInstance } from "../../../src/apiService";
 
 jest.mock("../../../src/apiService");
@@ -54,9 +53,10 @@ describe("CustomerService - getCustomerOrderDetails", () => {
     });
     const result = await getCustomerOrderDetails("12345-ab");
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith(
-      `${getCustomerOrderEndpoint()}?filter[id]=12345-ab&associations[lineItems][]&associations[addresses][]&associations[transactions][]&associations[deliveries][]`
-    );
+    expect(mockedGet).toBeCalledWith("/store-api/v1/order", {
+      params:
+        "filter[id]=12345-ab&associations[lineItems][]&associations[addresses][]&associations[transactions][]&associations[deliveries][]",
+    });
     expect(result).toMatchObject({
       id: "12345-ab",
       orderNumber: "7020",

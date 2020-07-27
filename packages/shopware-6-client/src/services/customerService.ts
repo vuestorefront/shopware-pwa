@@ -88,10 +88,9 @@ export async function getCustomer(
 ): Promise<Customer | null> {
   try {
     // TODO: implement generic parameter converter for GET query string; related issue #568
-    const associationsQuery = "?associations[salutation][]";
-    const resp = await contextInstance.invoke.get(
-      `${getCustomerEndpoint()}${associationsQuery}`
-    );
+    const resp = await contextInstance.invoke.get(`${getCustomerEndpoint()}`, {
+      params: "associations[salutation][]",
+    });
     return resp.data;
   } catch (e) {
     if (e.statusCode === 403) return null;
@@ -121,9 +120,11 @@ export async function getCustomerAddresses(
 export async function getCustomerOrders(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Order[]> {
-  const resp = await contextInstance.invoke.get(
-    `${getCustomerOrderEndpoint()}?sort=-createdAt`
-  );
+  const resp = await contextInstance.invoke.get(getCustomerOrderEndpoint(), {
+    params: {
+      sort: "-createdAt",
+    },
+  });
   return resp.data.orders?.elements || [];
 }
 
@@ -141,9 +142,10 @@ export async function getCustomerOrderDetails(
     return;
   }
 
-  const resp = await contextInstance.invoke.get(
-    `${getCustomerOrderEndpoint()}?filter[id]=${orderId}&associations[lineItems][]&associations[addresses][]&associations[transactions][]&associations[deliveries][]`
-  );
+  const resp = await contextInstance.invoke.get(getCustomerOrderEndpoint(), {
+    // TODO: move into plain Object after https://github.com/DivanteLtd/shopware-pwa/issues/911 is merged
+    params: `filter[id]=${orderId}&associations[lineItems][]&associations[addresses][]&associations[transactions][]&associations[deliveries][]`,
+  });
   return resp.data.orders?.elements?.[0];
 }
 
