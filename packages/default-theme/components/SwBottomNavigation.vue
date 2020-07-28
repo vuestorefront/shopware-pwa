@@ -15,31 +15,19 @@
         label="Menu"
         class="menu-button"
         data-cy="bottom-navigation-menu"
+        @click.self="toggleMobileNavigation"
       >
         <template #icon>
-          <SfIcon icon="menu" size="20px" style="width: 25px;" />
-          <SfSelect
-            v-model="currentRoute"
-            class="menu-button__select"
-            data-cy="bottom-navigation-menu-select"
-          >
-            <SfSelectOption
-              v-for="route in routes"
-              :key="route.routeLabel"
-              :value="route"
-            >
-              <nuxt-link
-                class="sf-header__link"
-                :to="$i18n.path(route.routePath)"
-              >
-                <SfProductOption
-                  :value="route"
-                  :label="route.routeLabel"
-                  data-cy="bottom-navigation-menu-option"
-                />
-              </nuxt-link>
-            </SfSelectOption>
-          </SfSelect>
+          <SfIcon
+            icon="menu"
+            size="20px"
+            style="width: 25px;"
+            @click="toggleMobileNavigation"
+          />
+          <SwBottomMenu
+            v-if="mobileNavIsActive"
+            @close="mobileNavIsActive = false"
+          />
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
@@ -58,16 +46,15 @@
             <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
             <SfSelectOption
               :value="getPageAccount"
-              @click.native="goToMyAccount"
               data-cy="bottom-navigation-account-option"
+              @click.native="goToMyAccount"
+              >My account</SfSelectOption
             >
-              My account
-            </SfSelectOption>
             <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
             <SfSelectOption :value="'logout'">
-              <SwButton class="sf-button--full-width" @click="logoutUser">
-                Logout
-              </SwButton>
+              <SwButton class="sf-button--full-width" @click="logoutUser"
+                >Logout</SwButton
+              >
             </SfSelectOption>
           </SfSelect>
         </template>
@@ -107,18 +94,14 @@ import {
   SfCircleIcon,
   SfIcon,
   SfSelect,
-  SfProductOption,
 } from "@storefront-ui/vue"
-import {
-  useUIState,
-  useNavigation,
-  useUser,
-  useCart,
-} from "@shopware-pwa/composables"
+import { useUIState, useUser, useCart } from "@shopware-pwa/composables"
 import SwCurrencySwitcher from "@shopware-pwa/default-theme/components/SwCurrencySwitcher"
 import { onMounted } from "@vue/composition-api"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwBottomMenu from "@shopware-pwa/default-theme/components/SwBottomMenu"
 import { PAGE_ACCOUNT } from "@shopware-pwa/default-theme/helpers/pages"
+import { getCategoryUrl } from "@shopware-pwa/helpers"
 
 export default {
   name: "SwBottomNavigation",
@@ -127,14 +110,13 @@ export default {
     SfIcon,
     SfCircleIcon,
     SfSelect,
-    SfProductOption,
     SwCurrencySwitcher,
     SwButton,
+    SwBottomMenu,
   },
   data() {
     return {
-      navigationElements: [],
-      currentRoute: { routeLabel: "", routePath: "/" },
+      mobileNavIsActive: false,
     }
   },
   setup(props, { root }) {
@@ -142,22 +124,14 @@ export default {
       root,
       "CART_SIDEBAR_STATE"
     )
-    const { routes, fetchRoutes } = useNavigation(root)
     const { switchState: toggleModal } = useUIState(root, "LOGIN_MODAL_STATE")
     const { isLoggedIn, logout } = useUser(root)
     const { count } = useCart(root)
 
-    onMounted(async () => {
-      try {
-        await fetchRoutes()
-      } catch (e) {
-        console.error("[SwBottomNavigation]", e)
-      }
-    })
     return {
       isLoggedIn,
       logout,
-      routes,
+      getCategoryUrl,
       isSidebarOpen,
       toggleSidebar,
       toggleModal,
@@ -167,11 +141,6 @@ export default {
   computed: {
     getPageAccount() {
       return PAGE_ACCOUNT
-    },
-  },
-  watch: {
-    currentRoute(nextRoute) {
-      this.$router.push(this.$i18n.path(nextRoute.routeLabel))
     },
   },
   methods: {
@@ -187,6 +156,9 @@ export default {
       await this.logout()
       this.$router.push(this.$i18n.path("/"))
     },
+    toggleMobileNavigation() {
+      this.mobileNavIsActive = !this.mobileNavIsActive
+    },
   },
 }
 </script>
@@ -196,6 +168,7 @@ export default {
 }
 .menu-button {
   position: relative;
+
   &__currency {
     --select-padding: 0;
     --select-height: 2rem;
@@ -207,6 +180,34 @@ export default {
     text-align: center;
     position: absolute;
     text-transform: uppercase;
+  }
+
+  .sf-select__dropdown {
+    .sf-select-option {
+      position: relative;
+
+      .sf-header__link {
+        display: block;
+        margin: 0 auto;
+        max-width: 90%;
+      }
+
+      .choose-subcategory,
+      .back-subcategory {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+
+      .choose-subcategory {
+        right: 8px;
+      }
+
+      .back-subcategory {
+        left: 8px;
+      }
+    }
   }
 }
 </style>
