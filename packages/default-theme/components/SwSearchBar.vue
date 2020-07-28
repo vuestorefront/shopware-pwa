@@ -1,13 +1,23 @@
 <template>
-  <SfSearchBar
-    :placeholder="$t('Search for products')"
-    :aria-label="$t('Search for products')"
-    class="sf-header__search desktop-only"
-    v-model="typingQuery"
-    @keyup.native="performSuggestSearch"
-    @enter="performSearch"
-    data-cy="search-bar"
-  />
+  <div>
+    <SfSearchBar
+      :placeholder="$t('Search for products')"
+      :aria-label="$t('Search for products')"
+      class="sf-header__search desktop-only"
+      v-model="typingQuery"
+      @keyup.native="performSuggestSearch"
+      @enter="performSearch"
+      data-cy="search-bar"
+    />
+    <SwSuggestSearch
+      :products="suggestResultProducts"
+      :total-found="suggestResultTotal"
+      :search-phrase="typingQuery"
+      :is-open="isSuggestSearchVisible"
+      @close="isSuggestBoxOpen = false"
+      @seeMore="onSeeMore"
+    />
+  </div>
 </template>
 
 <script>
@@ -15,13 +25,16 @@ import { ref, reactive, onMounted, watch, computed } from "@vue/composition-api"
 import { getSearchPageUrl } from "@shopware-pwa/default-theme/helpers"
 import { SfSearchBar } from "@storefront-ui/vue"
 import { useProductSearch } from "@shopware-pwa/composables"
+import SwSuggestSearch from "@shopware-pwa/default-theme/components/SwSuggestSearch"
 
 export default {
   components: {
     SfSearchBar,
+    SwSuggestSearch,
   },
   setup(props, { root }) {
     const {
+      currentSearchTerm,
       search,
       suggestSearch,
       suggestionsResult,
@@ -29,37 +42,70 @@ export default {
     } = useProductSearch(root)
 
     const typingQuery = ref("")
+    const isSuggestBoxOpen = ref(false)
     const suggestResultProducts = computed(
       () => suggestionsResult.value && suggestionsResult.value.elements
     )
     const suggestResultTotal = computed(
       () => suggestionsResult.value && suggestionsResult.value.total
     )
+
+    const isSuggestSearchVisible = computed(() => isSuggestBoxOpen.value)
+
     return {
+      currentSearchTerm,
       search,
       suggestSearch,
+      suggestResultTotal,
+      suggestResultProducts,
+      isSuggestSearchVisible,
+      isSuggestBoxOpen,
       getSearchPageUrl,
       typingQuery,
       resetFilters,
+      debounce,
+    }
+  },
+  data() {
+    return {
+      debounce: null,
     }
   },
   methods: {
     performSuggestSearch(event) {
-      // TODO bring back with debounde when there will be UI preview
-      // const searchTerm = event.target.value
-      // if (typeof searchTerm === 'string' && searchTerm.length > 0) {
-      //   try {
-      //     this.suggestSearch(searchTerm)
-      //   } catch (e) {
-      //     console.error('[SwTopNavigation][performSuggestSearch]: ' + e)
-      //   }
-      // }
+      clearTimeout(this.debounce)
+
+      if (event && event.key === "Enter") {
+        return
+      }
+
+      this.debounce = setTimeout(() => {
+        const searchTerm = event.target.value
+        if (typeof searchTerm === "string" && searchTerm.length > 0) {
+          try {
+            this.suggestSearch(searchTerm)
+            this.isSuggestBoxOpen = true
+          } catch (e) {
+            console.error("[SwTopNavigation][performSuggestSearch]: " + e)
+          }
+        } else {
+          this.isSuggestBoxOpen = false
+        }
+      }, 400)
     },
     performSearch(searchTerm) {
       if (typeof searchTerm === "string" && searchTerm.length > 0) {
         this.resetFilters()
         this.$router.push(this.$i18n.path(getSearchPageUrl(searchTerm)))
       }
+    },
+    onSeeMore() {
+      return this.performSearch(this.typingQuery)
+    },
+  },
+  watch: {
+    $route(to, from) {
+      this.isSuggestBoxOpen = false
     },
   },
 }
