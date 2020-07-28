@@ -136,7 +136,6 @@ export default {
 
 #sw-login-modal {
   box-sizing: border-box;
-  --overlay-z-index: 4;
   --modal-index: 4;
   @include for-desktop {
     & > * {
