@@ -9,7 +9,7 @@ export interface CustomerSendContactFormParam {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phone?: string;
   subject: string;
   comment: string;
 }

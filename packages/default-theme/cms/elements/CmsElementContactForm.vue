@@ -1,147 +1,145 @@
 <template>
   <div>
-    <form action="">
+    <form action="" @submit.prevent="submit">
       <SfSelect
-        v-model="selected"
+        v-model="salutation"
         :label="`Salutation`"
         :required="true"
-        :valid="true"
         :disabled="false"
         :error-message="`this field is required`"
-        :persistent="Hello"
+        :persistent="`Hello`"
         style="max-width: 30rem;"
+        :valid="!$v.salutation.$error"
+        @blur="$v.salutation.$touch()"
       >
         <SfSelectOption
-          v-for="(option, key) in optionsList"
-          :key="key"
-          :value="option.value"
+          v-for="item in salutationsList"
+          :key="item"
+          :value="item"
         >
-          <SfProductOption
-            :color="option.color"
-            :label="option.label"
-          ></SfProductOption>
+          {{ item }}
         </SfSelectOption>
       </SfSelect>
 
       <SfInput
-        v-model="value"
-        :type="text"
+        v-model="fname"
+        :type="formFields.textType"
         :label="`First name`"
         :name="`firstname`"
-        :valid="false"
         :error-message="`this field is required`"
-        :required="false"
         :disabled="false"
-        :has-show-password="false"
+        :valid="!$v.fname.$error"
+        @blur="$v.fname.$touch()"
       />
 
       <SfInput
-        v-model="value"
-        :type="text"
+        v-model="lname"
+        :type="formFields.textType"
         :label="`Last name`"
         :name="`lastname`"
-        :valid="false"
         :error-message="`this field is required`"
-        :required="false"
         :disabled="false"
-        :has-show-password="false"
+        :valid="!$v.lname.$error"
+        @blur="$v.lname.$touch()"
       />
 
       <SfInput
-        v-model="value"
-        :type="text"
+        v-model="email"
+        :type="formFields.textType"
         :label="`Email address`"
         :name="`email`"
-        :valid="false"
         :error-message="`this field is required`"
-        :required="false"
         :disabled="false"
-        :has-show-password="false"
+        :valid="!$v.email.$error"
+        @blur="$v.email.$touch()"
       />
 
       <SfInput
-        v-model="value"
-        :type="text"
+        v-model="phone"
+        :type="formFields.textType"
         :label="`Phone number`"
         :name="`phone`"
-        :valid="false"
         :error-message="`this field is required`"
-        :required="false"
         :disabled="false"
-        :has-show-password="false"
+        :valid="!$v.phone.$error"
+        @blur="$v.phone.$touch()"
       />
 
       <SfInput
-        v-model="value"
-        :type="text"
+        v-model="subject"
+        :type="formFields.textType"
         :label="`Subject line`"
         :name="`subject`"
-        :valid="false"
         :error-message="`this field is required`"
-        :required="false"
         :disabled="false"
-        :has-show-password="false"
+        :valid="!$v.subject.$error"
+        @blur="$v.subject.$touch()"
       />
 
       <SfInput
-        v-model="value"
-        :type="text"
+        v-model="message"
+        :type="formFields.textType"
         :label="`Your message`"
         :name="`message`"
-        :valid="false"
         :error-message="`this field is required`"
-        :required="false"
         :disabled="false"
-        :has-show-password="false"
+        :valid="!$v.message.$error"
+        @blur="$v.message.$touch()"
       />
 
       <SfCheckbox
-        v-model="checked"
+        v-model="checkbox"
         :name="`checkbox`"
         :label="`I have read the data protection information.`"
-        :required="true"
-        :disabled="false"
-        :valid="true"
-        :checked="false"
+        :valid="!$v.checkbox.$error"
+        @blur="$v.checkbox.$touch()"
       />
+
+      <SfButton>
+        send
+      </SfButton>
     </form>
   </div>
 </template>
 
 <script>
-import {
-  SfSelect,
-  SfProductOption,
-  SfInput,
-  SfIcon,
-  SfCheckbox,
-} from "@storefront-ui/vue"
+import { SfSelect, SfInput, SfCheckbox, SfButton } from "@storefront-ui/vue"
+import { validationMixin } from "vuelidate"
+import { required, email, minLength } from "vuelidate/lib/validators"
 
 export default {
   name: "CmsElementContactForm",
   components: {
     SfSelect,
-    SfProductOption,
     SfInput,
-    SfIcon,
     SfCheckbox,
+    SfButton,
   },
+  mixins: [validationMixin],
   props: {
     content: {
       type: Object,
       default: () => ({}),
     },
   },
-
   data() {
     return {
-      optionsList: [
-        { value: "amaranth", color: "#E52B50", label: "Amaranth" },
-        { value: "amber", color: "#FFBF00", label: "Amber" },
-        { value: "arctic-lime", color: "#D0FF14", label: "Arctic lime" },
-        { value: "bluetiful", color: "#3C69E7", label: "Bluetiful" },
-        { value: "buff", color: "#F0DC82", label: "Buff" },
-      ],
+      salutationsList: ["Sir", "Madam", "Mr", "Mrs"],
+      formFields: {
+        textType: "text",
+        defaultCheckbox: "",
+        defaultInput: "",
+        defaultSelect: "Mr",
+      },
+      salutation: "",
+      fname: "",
+      lname: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+      checkbox: "",
+      checked: false,
     }
   },
   computed: {
@@ -150,6 +148,52 @@ export default {
     },
     getContent() {
       return this.getSlots.length && this.getSlots[0]
+    },
+  },
+  methods: {
+    submit() {
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        this.submitStatus = "ERROR"
+        console.log("error")
+      } else {
+        this.submitStatus = "PENDING"
+        setTimeout(() => {
+          this.submitStatus = "OK"
+        }, 500)
+        console.log("sending")
+      }
+    },
+  },
+  validations: {
+    email: {
+      required,
+      email,
+    },
+    fname: {
+      required,
+      minLength: minLength(3),
+    },
+    lname: {
+      required,
+      minLength: minLength(3),
+    },
+    salutation: {
+      required,
+    },
+    phone: {
+      minLength: minLength(3),
+    },
+    subject: {
+      required,
+      minLength: minLength(3),
+    },
+    message: {
+      required,
+      minLength: minLength(10),
+    },
+    checkbox: {
+      required,
     },
   },
 }
