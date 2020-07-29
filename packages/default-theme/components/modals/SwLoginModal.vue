@@ -31,7 +31,7 @@
                 @click="component = 'SwRegister'"
                 data-cy="go-to-register-button"
               >
-                Register today?
+                {{ $t("Register today!") }}
               </SwButton>
             </template>
           </div>
