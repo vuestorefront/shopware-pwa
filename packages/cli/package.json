@@ -11,7 +11,7 @@
     "lint": "tslint --config tslint.json -p . --fix",
     "clean-build": "node ./scripts/clean-build.js",
     "compile": "tsc -p .",
-    "copy-templates": "copy src\\templates build\\",
+    "copy-templates": "node ./scripts/copy-templates.js",
     "build": "yarn format && yarn lint && yarn clean-build && yarn compile && yarn copy-templates",
     "test": "jest",
     "watch": "jest --watch",

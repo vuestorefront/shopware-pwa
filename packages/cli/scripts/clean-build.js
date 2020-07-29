@@ -1,4 +1,3 @@
-// import jetpack from "fs-jetpack";
 const jetpack = require("fs-jetpack");
 
 function run() {
