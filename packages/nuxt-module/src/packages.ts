@@ -7,8 +7,8 @@ export function useCorePackages(
   corePackages: string[]
 ) {
   const useRawSource = (packageName: string) => {
-    const pkgPath = path.resolve("node_modules/" + packageName);
-    const pkg = require(pkgPath + "/package.json");
+    const pkgPath = path.resolve(path.join("node_modules", packageName));
+    const pkg = require(path.join(pkgPath, "package.json"));
 
     if (pkg.module) {
       moduleObject.extendBuild((config: WebpackConfig) => {

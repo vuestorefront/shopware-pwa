@@ -58,6 +58,7 @@
         >
         <SwButton
           class="sf-button--full-width form__action-button"
+          data-cy="continue-to-payment"
           @click="$emit('proceed')"
           >Continue to payment</SwButton
         >
