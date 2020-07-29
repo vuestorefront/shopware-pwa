@@ -58,7 +58,7 @@
     <SwProductTabs
       :properties="properties"
       :reviews="reviews"
-      :manufacturer="product.manufacturer"
+      :manufacturer="manufacturer"
     />
   </div>
 </template>
@@ -144,6 +144,9 @@ export default {
       return this.getAllProductOptions && Object.keys(this.getAllProductOptions)
     },
 
+    manufacturer() {
+      return this.product && this.product.manufacturer
+    },
     reviews() {
       return getProductReviews({ product: this.product })
     },

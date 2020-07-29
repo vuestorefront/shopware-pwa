@@ -11,7 +11,7 @@ const command: GluegunCommand = {
 
     const path = require("path");
     const chokidar = require("chokidar");
-    const jetpack = require("fs-jetpack");
+    const jetpack = toolbox.filesystem;
 
     info(`Starting Shopware PWA development project...`);
 

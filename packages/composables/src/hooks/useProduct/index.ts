@@ -4,9 +4,9 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { getApplicationContext } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../../appContext";
-import { getProductDetailsIncludes } from "../../internalHelpers/includesParameter";
 import { convertIncludesToGetParams } from "../../internalHelpers/includesConverter";
-
+import { convertAssociationsToGetParams } from "../../internalHelpers/associationsConverter";
+import { useDefaults } from "../../logic/useDefaults";
 const NO_PRODUCT_REFERENCE_ERROR =
   "Associations cannot be loaded for undefined product";
 
@@ -34,24 +34,30 @@ export const useProduct = (
   loadedProduct?: any
 ): UseProduct<Product, Search> => {
   const { apiInstance } = getApplicationContext(rootContext, "useProduct");
+  const { getAssociationsConfig, getIncludesConfig } = useDefaults(
+    "useProduct"
+  );
 
   const loading: Ref<boolean> = ref(false);
   const product: Ref<Product> = ref(loadedProduct);
   const error: Ref<any> = ref(null);
 
-  const loadAssociations = async (associationsParams: any) => {
+  const loadAssociations = async () => {
     if (!product || !product.value || !product.value.id) {
       throw NO_PRODUCT_REFERENCE_ERROR;
     }
     // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/911
-    const includesParams = convertIncludesToGetParams(
-      getProductDetailsIncludes()
+    const includesParams = convertIncludesToGetParams(getIncludesConfig.value);
+    const associationsParams = convertAssociationsToGetParams(
+      getAssociationsConfig.value
     );
+
     const {
       media,
       cover,
       properties,
       productReviews,
+      manufacturer,
       children,
     } = await getProduct(
       product.value.parentId || product.value.id,
@@ -65,6 +71,7 @@ export const useProduct = (
       properties,
       productReviews,
       children,
+      manufacturer,
     });
   };
 
