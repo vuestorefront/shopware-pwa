@@ -52,27 +52,37 @@ export default {
     const column = ref(4)
 
     onMounted(async () => {
-      const navigationResponse = await getStoreNavigation(
-        {
-          requestActiveId: "footer-navigation",
-          requestRootId: "footer-navigation",
-          searchCriteria: {
-            configuration: {
-              includes: {
-                category: ["seoUrls", "externalLink", "name", "id", "children"],
-                seo_url: ["pathInfo", "seoPathInfo"],
-              },
-              associations: [
-                {
-                  name: "seoUrls",
+      try {
+        const navigationResponse = await getStoreNavigation(
+          {
+            requestActiveId: "footer-navigation",
+            requestRootId: "footer-navigation",
+            searchCriteria: {
+              configuration: {
+                includes: {
+                  category: [
+                    "seoUrls",
+                    "externalLink",
+                    "name",
+                    "id",
+                    "children",
+                  ],
+                  seo_url: ["pathInfo", "seoPathInfo"],
                 },
-              ],
+                associations: [
+                  {
+                    name: "seoUrls",
+                  },
+                ],
+              },
             },
           },
-        },
-        apiInstance
-      )
-      navigationLinks.value = getStoreNavigationRoutes(navigationResponse)
+          apiInstance
+        )
+        navigationLinks.value = getStoreNavigationRoutes(navigationResponse)
+      } catch (e) {
+        console.error("SwFooterNavigation:setup:onMounted", e)
+      }
     })
 
     const open = computed(() => {

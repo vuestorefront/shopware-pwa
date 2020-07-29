@@ -1,0 +1,189 @@
+{
+  "useCms": {
+    "associations": [{
+      "name": "options",
+      "associations": [
+        {
+          "name": "group"
+        }
+      ]
+    }],
+    "includes": {
+        "cms_page_slot": [
+          "id",
+          "type",
+          "slot",
+          "blockId",
+          "data",
+          "backgroundMediaMode",
+          "backgroundMedia"
+      ],
+      "cms_page_block": [
+          "slots",
+          "type",
+          "id",
+          "backgroundMedia",
+          "sectionPosition"
+      ],
+      "cms_page_section": [
+          "id",
+          "backgroundMedia",
+          "blocks",
+          "type",
+          "sizingMode"
+      ],
+      "cms_page": [
+          "id",
+          "name",
+          "sections",
+          "type",
+          "config"
+      ],
+      "product": [
+          "name",
+          "ratingAverage",
+          "calculatedPrice",
+          "calculatedPrices",
+          "cover",
+          "id",
+          "translated",
+          "options"
+      ],
+      "product_media": [
+          "media"
+      ],
+      "media": [
+          "url"
+      ],
+      "calculated_price": [
+          "unitPrice",
+          "quantity"
+      ],
+      "product_group_option": [
+          "name",
+          "id",
+          "group",
+          "translated"
+      ],
+      "product_group": [
+          "id",
+          "name",
+          "options",
+          "translated"
+      ]
+    }
+  },
+  "useProductListing": {
+    "includes": {
+      "product": [
+        "name",
+        "ratingAverage",
+        "calculatedPrice",
+        "calculatedPrices",
+        "cover",
+        "id",
+        "translated",
+        "options"
+      ],
+      "product_media": [
+          "media"
+      ],
+      "media": [
+          "url"
+      ],
+      "calculated_price": [
+          "unitPrice",
+          "quantity"
+      ],
+      "product_group_option": [
+          "name",
+          "id",
+          "group",
+          "translated"
+      ],
+      "product_group": [
+          "id",
+          "name",
+          "options",
+          "translated"
+      ]
+    }
+    
+  },
+  "useProduct": {
+    "associations": [
+      {
+        "name": "media"
+      },
+      {
+        "name": "options",
+        "associations": [
+          {
+            "name": "group"
+          }
+        ]
+      },
+      {
+        "name": "properties",
+        "associations": [
+          {
+            "name": "group"
+          }
+        ]
+      },
+      {
+        "name": "productReviews"
+      },
+      {
+        "name": "manufacturer"
+      },
+      {
+        "name": "children",
+        "associations": [
+          {
+            "name": "seoUrls"
+          }
+          
+        ]
+      }
+    ],
+    "includes": {
+      "product": [
+        "name",
+        "ratingAverage",
+        "calculatedPrice",
+        "calculatedPrices",
+        "cover",
+        "id",
+        "translated",
+        "options",
+        "children",
+        "manufacturer",
+        "properties",
+        "media"
+      ],
+      "product_media": [
+          "media"
+      ],
+      "media": [
+          "url"
+      ],
+      "calculated_price": [
+          "unitPrice",
+          "quantity"
+      ],
+      "product_group_option": [
+          "name",
+          "id",
+          "group",
+          "translated"
+      ],
+      "product_group": [
+          "id",
+          "name",
+          "options",
+          "translated"
+      ]
+    }
+  }
+}

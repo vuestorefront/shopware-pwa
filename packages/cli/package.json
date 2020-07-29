@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/cli",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Shopware PWA CLI",
   "types": "build/types/types.d.ts",
   "bin": {
@@ -9,9 +9,9 @@
   "scripts": {
     "format": "prettier --write **/*.{js,ts,json}",
     "lint": "tslint --config tslint.json -p . --fix",
-    "clean-build": "rm -rf ./build",
+    "clean-build": "node ./scripts/clean-build.js",
     "compile": "tsc -p .",
-    "copy-templates": "cp -a ./src/templates ./build/",
+    "copy-templates": "node ./scripts/copy-templates.js",
     "build": "yarn format && yarn lint && yarn clean-build && yarn compile && yarn copy-templates",
     "test": "jest",
     "watch": "jest --watch",
@@ -30,7 +30,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@shopware-pwa/shopware-6-client": "0.2.0",
+    "@shopware-pwa/shopware-6-client": "0.2.1",
     "chokidar": "^3.4.0",
     "gluegun": "^4.3.1",
     "lodash": "^4.17.15",

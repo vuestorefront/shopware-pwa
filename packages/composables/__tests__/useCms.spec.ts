@@ -9,7 +9,7 @@ Vue.use(VueCompositionApi);
 
 import { useCms } from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
-import { getPageIncludes } from "../src/internalHelpers/includesParameter";
+import { getIncludesForEntity } from "../src/internalHelpers/includesParameter";
 
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedGetPage = shopwareClient as jest.Mocked<typeof shopwareClient>;
@@ -84,7 +84,7 @@ describe("Composables - useCms", () => {
               associations: [
                 { associations: [{ name: "group" }], name: "options" },
               ],
-              includes: getPageIncludes(),
+              includes: getIncludesForEntity("useCms"),
             },
             pagination: { limit: 10 },
           },
@@ -104,7 +104,7 @@ describe("Composables - useCms", () => {
               associations: [
                 { associations: [{ name: "group" }], name: "options" },
               ],
-              includes: getPageIncludes(),
+              includes: getIncludesForEntity("useCms"),
             },
             pagination: { limit: 10 },
           },
@@ -124,7 +124,7 @@ describe("Composables - useCms", () => {
               associations: [
                 { associations: [{ name: "group" }], name: "options" },
               ],
-              includes: getPageIncludes(),
+              includes: getIncludesForEntity("useCms"),
             },
             pagination: { limit: 50 },
           },
@@ -146,7 +146,7 @@ describe("Composables - useCms", () => {
               associations: [
                 { associations: [{ name: "group" }], name: "options" },
               ],
-              includes: getPageIncludes(),
+              includes: getIncludesForEntity("useCms"),
             },
             pagination: { limit: 10 },
           },

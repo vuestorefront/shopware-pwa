@@ -1,3 +1,13 @@
+## [0.2.1](https://github.com/DivanteLtd/shopware-pwa/compare/v0.2.0...v0.2.1) (2020-07-29)
+
+
+### Bug Fixes
+
+* **default-theme:** catch api client rejection during fetching the footer navigation ([#979](https://github.com/DivanteLtd/shopware-pwa/issues/979)) ([fdd7fc3](https://github.com/DivanteLtd/shopware-pwa/commit/fdd7fc340051abfe7a5bb93229f4fef4ae03a446))
+* **default-theme:** second search doesn't invoke redender ([6b943cc](https://github.com/DivanteLtd/shopware-pwa/commit/6b943cce272af2ec36f8960ca00393d3caac3cbd))
+
+
+
 # [0.2.0](https://github.com/DivanteLtd/shopware-pwa/compare/v0.1.1...v0.2.0) (2020-07-21)
 
 
