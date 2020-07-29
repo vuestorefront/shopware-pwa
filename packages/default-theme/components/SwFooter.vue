@@ -3,9 +3,7 @@
     <slot class="sw-footer__content" name="content" v-bind="column">
       <div class="sw-footer__signature">
         <SwPluginSlot name="footer-content">
-          <SwFooterNavigation
-            class="sw-footer__bottom-navigation"
-          />
+          <SwFooterNavigation class="sw-footer__bottom-navigation" />
           <i18n path="footer.description" :tag="false">
             <template #creator>
               <a

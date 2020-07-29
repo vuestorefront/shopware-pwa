@@ -93,21 +93,10 @@ export default {
     },
   },
   async mounted() {
-    // TODO remove when page resolver is fully done
-    // TODO: change after #911 is done
-    const associations = {
-      "associations[media][]": true,
-      "associations[options][associations][group][]": true,
-      "associations[properties][associations][group][]": true,
-      "associations[productReviews][]": true, // can be fetched asynchronously
-      "associations[manufacturer][]": true,
-      "associations[children][associations][options][associations][group][]": true,
-      "associations[children][associations][seoUrls][]": true,
-    }
     try {
       const { loadAssociations, product } = useProduct(this, this.page.product)
       this.productWithAssociations = product
-      await loadAssociations(associations)
+      await loadAssociations()
     } catch (e) {
       console.error("ProductView:mounted:loadAssociations", e)
     }
