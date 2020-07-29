@@ -12,6 +12,7 @@
     <div class="summary__action">
       <SwButton
         class="sf-button--full-width summary__action-button summary__action-button--secondary color-secondary desktop-only"
+        data-cy="go-back-to-payment"
         @click="$emit('click:back')"
       >
         Go back to Payment
@@ -19,6 +20,7 @@
       <SwButton
         :disabled="!cartItems.length"
         class="sf-button--full-width summary__action-button"
+        data-cy="place-my-order"
         @click="$emit('proceed')"
         >Place my order</SwButton
       >

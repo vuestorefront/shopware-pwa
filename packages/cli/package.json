@@ -9,9 +9,9 @@
   "scripts": {
     "format": "prettier --write **/*.{js,ts,json}",
     "lint": "tslint --config tslint.json -p . --fix",
-    "clean-build": "rm -rf ./build",
+    "clean-build": "node ./scripts/clean-build.js",
     "compile": "tsc -p .",
-    "copy-templates": "cp -a ./src/templates ./build/",
+    "copy-templates": "node ./scripts/copy-templates.js",
     "build": "yarn format && yarn lint && yarn clean-build && yarn compile && yarn copy-templates",
     "test": "jest",
     "watch": "jest --watch",
