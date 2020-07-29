@@ -25,13 +25,13 @@ const sharedCountries = Vue.observable({
 export const useCountries = (
   rootContext: ApplicationVueContext
 ): UseCountries => {
-  getApplicationContext(rootContext, "useCountries");
+  const { apiInstance } = getApplicationContext(rootContext, "useCountries");
   const localCountries = reactive(sharedCountries);
   const error: Ref<any> = ref(null);
 
   const fetchCountries = async (): Promise<void> => {
     try {
-      const fetchCountries = await getAvailableCountries();
+      const fetchCountries = await getAvailableCountries(apiInstance);
       sharedCountries.countries = fetchCountries.data;
     } catch (e) {
       const err: ClientApiError = e;

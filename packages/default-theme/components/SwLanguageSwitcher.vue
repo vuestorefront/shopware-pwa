@@ -12,9 +12,8 @@
         :key="language.code"
         :value="language.code"
         data-cy="language-switcher-option"
+        >{{ language.name }}</SfSelectOption
       >
-        {{ language.name }}
-      </SfSelectOption>
     </SfSelect>
   </div>
 </template>
@@ -43,10 +42,11 @@ export default {
 @import "@/assets/scss/variables";
 
 .sw-language-switcher {
-  --select-padding: 0;
   --select-margin: 0;
-  --select-selected-padding: 0 var(--spacer-xs);
+  --select-padding: 0;
   --select-selected-justify-content: center;
+  --select-selected-padding: 0 var(--spacer-xs);
+  max-height: var(--top-bar-height, 2.5rem);
   text-align: center;
 
   .sf-select {

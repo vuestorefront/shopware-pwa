@@ -7,8 +7,7 @@
         class="sf-button--text navbar__filters-button"
         @click="isFilterSidebarOpen = true"
       >
-        <SfIcon size="14px" icon="filter" style="margin-right: 10px;" />
-        Filters
+        <SfIcon size="14px" icon="filter" style="margin-right: 10px;" />Filters
       </SwButton>
       <div class="navbar__sort desktop-only">
         <span class="navbar__label">Sort by:</span>
@@ -18,13 +17,12 @@
             :key="key"
             :value="option"
             class="sort-by__option"
+            >{{ getSortLabel(option) }}</SfSelectOption
           >
-            {{ getSortLabel(option) }}
-          </SfSelectOption>
         </SfSelect>
       </div>
       <div class="navbar__counter">
-        <span class="navbar__label desktop-only">Products found: </span>
+        <span class="navbar__label desktop-only">Products found:</span>
         <strong class="desktop-only">{{ productsTotal }}</strong>
         <span class="navbar__label mobile-only">{{ productsTotal }} Items</span>
       </div>
@@ -314,10 +312,11 @@ export default {
 
 .sort-by {
   flex: unset;
-  width: 190px;
+  max-height: 40px;
   padding: 0 10px;
-  --select-selected-padding: 0 var(--spacer-lg) 0 var(--spacer-2xs);
+  width: 190px;
   --select-margin: 0;
+  --select-selected-padding: 0 var(--spacer-lg) 0 var(--spacer-2xs);
 
   &--mobile {
     width: auto;

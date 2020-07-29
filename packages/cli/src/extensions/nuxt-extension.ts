@@ -1,4 +1,6 @@
 import { GluegunToolbox } from "gluegun";
+import { STAGES } from "../stages";
+const path = require("path");
 
 module.exports = (toolbox: GluegunToolbox) => {
   const {
@@ -50,9 +52,9 @@ module.exports = (toolbox: GluegunToolbox) => {
    * TODO: check generated files and add here ones which are not necessary
    */
   toolbox.removeDefaultNuxtFiles = async () => {
-    toolbox.filesystem.remove("pages/index.vue");
-    toolbox.filesystem.remove("components/Logo.vue");
-    toolbox.filesystem.remove("layouts/default.vue");
+    toolbox.filesystem.remove(path.join("pages", "index.vue"));
+    toolbox.filesystem.remove(path.join("components", "Logo.vue"));
+    toolbox.filesystem.remove(path.join("layouts", "default.vue"));
   };
 
   /**
@@ -61,9 +63,9 @@ module.exports = (toolbox: GluegunToolbox) => {
    * - uncomment packages which are already published
    * - dynamically get new versions from template
    */
-  toolbox.updateNuxtPackageJson = async (canary = false) => {
+  toolbox.updateNuxtPackageJson = async (stage) => {
     const nuxtThemePackage = toolbox.filesystem.read(
-      `${toolbox.defaultThemeLocation}/package.json`,
+      path.join(toolbox.defaultThemeLocation, "package.json"),
       "json"
     );
 
@@ -75,7 +77,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       config.scripts.build = "shopware-pwa build";
 
       // update versions to canary
-      if (canary) {
+      if (stage === STAGES.CANARY) {
         Object.keys(config.dependencies).forEach((dependencyName) => {
           if (dependencyName.includes("@shopware-pwa")) {
             config.dependencies[dependencyName] = "canary";
@@ -220,7 +222,7 @@ module.exports = (toolbox: GluegunToolbox) => {
   toolbox.copyThemeFolder = async (folderName, destination) => {
     const dest = destination ? destination : folderName;
     await toolbox.filesystem.copyAsync(
-      `${toolbox.defaultThemeLocation}/${folderName}`,
+      path.join(toolbox.defaultThemeLocation, folderName),
       dest,
       { overwrite: true }
     );
@@ -229,7 +231,7 @@ module.exports = (toolbox: GluegunToolbox) => {
   toolbox.watchThemeFolder = (folderName) => {
     const fs = require("fs");
     fs.watch(
-      `${toolbox.defaultThemeLocation}/${folderName}`,
+      path.join(toolbox.defaultThemeLocation, folderName),
       { recursive: true },
       async () => {
         toolbox.print.info(`Reloading [${folderName}] files...`);

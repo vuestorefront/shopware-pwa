@@ -58,6 +58,7 @@
             <SwButton
               class="sf-button--full-width color-secondary"
               @click="goToCheckout()"
+              data-cy="goToCheckout-button"
               >{{ $t("Go to checkout") }}</SwButton
             >
             <SwPluginSlot name="sidecart-checkout-button-after" />

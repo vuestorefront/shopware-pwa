@@ -22,7 +22,8 @@ import {
   getApplicationContext,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
-import { getProductListingIncludes } from "../internalHelpers/includesParameter";
+import { useDefaults } from "../logic/useDefaults";
+
 import {
   toggleEntityFilter,
   toggleFilter as toggleGenericFilter,
@@ -66,7 +67,9 @@ export const useProductListing = (
     rootContext,
     "useProductListing"
   );
-
+  const { getAssociationsConfig, getIncludesConfig } = useDefaults(
+    "useProductListing"
+  );
   const { categoryId } = useCms(rootContext);
   const { activeSorting } = useCategoryFilters(rootContext);
 
@@ -140,19 +143,8 @@ export const useProductListing = (
       ),
       sort: getSortingSearchCriteria(selectedCriteria.sorting),
       configuration: {
-        // fetch variant options
-        associations: [
-          {
-            name: "options",
-          },
-          // fetch productReviews
-          {
-            name: "productReviews",
-          },
-        ],
-        // performance enhancement - fetch only the relevant fields
-        // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/911
-        includes: getProductListingIncludes(),
+        associations: getAssociationsConfig.value,
+        includes: getIncludesConfig.value,
       },
     };
 

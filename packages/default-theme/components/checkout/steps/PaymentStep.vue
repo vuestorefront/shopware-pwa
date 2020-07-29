@@ -52,6 +52,7 @@
         </SwButton>
         <SwButton
           class="sf-button--full-width form__action-button"
+          data-cy="review-order"
           @click="$emit('proceed')"
           >Review order</SwButton
         >
