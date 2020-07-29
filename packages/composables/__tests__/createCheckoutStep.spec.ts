@@ -1,5 +1,5 @@
 import Vue from "vue";
-import VueCompositionApi from "@vue/composition-api";
+import VueCompositionApi, { computed } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
 import {
@@ -60,6 +60,7 @@ describe("Composables - createCheckoutStep", () => {
     const initialData = {
       someField: "qwe eee",
     };
+    const guestOrderParamsValue = computed(() => ({}));
     const stepDataUpdatedMock = jest.fn();
     const stepComposable = createCheckoutStep({
       stepNumber: 2,
@@ -76,7 +77,7 @@ describe("Composables - createCheckoutStep", () => {
         isValid: false,
         someField: "qwerty",
       },
-      { value: {} }
+      guestOrderParamsValue
     );
     expect(stepDataUpdatedMock).toHaveBeenCalledTimes(2);
   });
@@ -89,6 +90,7 @@ describe("Composables - createCheckoutStep", () => {
       someField: "eeeh",
       isValid: true,
     });
+    const guestOrderParamsValue = computed(() => ({}));
     const stepDataUpdatedMock = jest.fn();
     const stepComposable = createCheckoutStep({
       stepNumber: 2,
@@ -104,14 +106,14 @@ describe("Composables - createCheckoutStep", () => {
         isValid: false,
         someField: "qwerty",
       },
-      { value: {} }
+      guestOrderParamsValue
     );
     expect(stepDataUpdatedMock).toHaveBeenCalledWith(
       {
         isValid: true,
         someField: "eeeh",
       },
-      { value: {} }
+      guestOrderParamsValue
     );
     expect(stepDataUpdatedMock).toHaveBeenCalledTimes(2);
     expect(someField.value).toEqual("eeeh");
