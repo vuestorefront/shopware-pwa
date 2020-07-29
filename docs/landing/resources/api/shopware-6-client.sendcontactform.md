@@ -4,6 +4,10 @@
 
 ## sendContactForm() function
 
+> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
+> 
+
+
 <b>Signature:</b>
 
 ```typescript
@@ -14,7 +18,7 @@ export declare function sendContactForm(params: CustomerSendContactFormParam, co
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  params | CustomerSendContactFormParam |  |
+|  params | [CustomerSendContactFormParam](./shopware-6-client.customersendcontactformparam.md) |  |
 |  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 <b>Returns:</b>

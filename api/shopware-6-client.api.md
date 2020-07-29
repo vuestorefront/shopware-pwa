@@ -102,7 +102,7 @@ export interface CustomerResetPasswordParam {
     storefrontUrl?: string;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface CustomerSendContactFormParam {
     // (undocumented)
     comment: string;
@@ -317,10 +317,7 @@ export function removeCartItem(itemId: string, contextInstance?: ShopwareApiInst
 // @alpha
 export function resetPassword(params: CustomerResetPasswordParam, contextInstance?: ShopwareApiInstance): Promise<void>;
 
-// Warning: (ae-incompatible-release-tags) The symbol "sendContactForm" is marked as @public, but its signature references "CustomerSendContactFormParam" which is marked as @alpha
-// Warning: (ae-incompatible-release-tags) The symbol "sendContactForm" is marked as @public, but its signature references "ShopwareApiInstance" which is marked as @beta
-//
-// @public (undocumented)
+// @beta (undocumented)
 export function sendContactForm(params: CustomerSendContactFormParam, contextInstance?: ShopwareApiInstance): Promise<void>;
 
 // @alpha

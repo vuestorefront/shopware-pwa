@@ -2,7 +2,7 @@ import { getContactFormEndpoint } from "../endpoints";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
 
 /**
- * @alpha
+ * @beta
  */
 export interface CustomerSendContactFormParam {
   salutationId: string;
@@ -14,6 +14,9 @@ export interface CustomerSendContactFormParam {
   comment: string;
 }
 
+/**
+ * @beta
+ */
 export async function sendContactForm(
   params: CustomerSendContactFormParam,
   contextInstance: ShopwareApiInstance = defaultInstance

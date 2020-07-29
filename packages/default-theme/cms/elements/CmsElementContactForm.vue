@@ -1,76 +1,81 @@
 <template>
   <div>
-    <form action="" @submit.prevent="submit">
+    <form action="" class="cms-element-contact-form" @submit.prevent="submit">
       <SfSelect
+        v-if="getMappedSalutations && getMappedSalutations.length > 0"
         v-model="salutation"
-        :label="`Salutation`"
-        :required="true"
-        :disabled="false"
-        :error-message="`this field is required`"
-        :persistent="`Hello`"
-        style="max-width: 30rem;"
+        label="Salutation"
         :valid="!$v.salutation.$error"
-        @blur="$v.salutation.$touch()"
+        error-message="Salutation must be selected"
+        data-cy="salutation-select"
       >
         <SfSelectOption
-          v-for="item in salutationsList"
-          :key="item"
-          :value="item"
+          v-for="salutationOption in getMappedSalutations"
+          :key="salutationOption.id"
+          :value="salutationOption"
+          data-cy="salutation-option"
         >
-          {{ item }}
+          {{ salutationOption.name }}
         </SfSelectOption>
       </SfSelect>
 
-      <SfInput
-        v-model="fname"
-        :type="formFields.textType"
-        :label="`First name`"
-        :name="`firstname`"
-        :error-message="`this field is required`"
-        :disabled="false"
-        :valid="!$v.fname.$error"
-        @blur="$v.fname.$touch()"
-      />
+      <div class="input-group">
+        <SfInput
+          v-model="fname"
+          :type="formFields.textType"
+          :label="`First name`"
+          :name="`firstname`"
+          :error-message="`First name is required`"
+          :disabled="false"
+          :valid="!$v.fname.$error"
+          class="small input"
+          @blur="$v.fname.$touch()"
+        />
 
-      <SfInput
-        v-model="lname"
-        :type="formFields.textType"
-        :label="`Last name`"
-        :name="`lastname`"
-        :error-message="`this field is required`"
-        :disabled="false"
-        :valid="!$v.lname.$error"
-        @blur="$v.lname.$touch()"
-      />
+        <SfInput
+          v-model="lname"
+          :type="formFields.textType"
+          :label="`Last name`"
+          :name="`lastname`"
+          :error-message="`Last name is required`"
+          :disabled="false"
+          :valid="!$v.lname.$error"
+          class="small input"
+          @blur="$v.lname.$touch()"
+        />
+      </div>
 
-      <SfInput
-        v-model="email"
-        :type="formFields.textType"
-        :label="`Email address`"
-        :name="`email`"
-        :error-message="`this field is required`"
-        :disabled="false"
-        :valid="!$v.email.$error"
-        @blur="$v.email.$touch()"
-      />
+      <div class="input-group">
+        <SfInput
+          v-model="email"
+          :type="formFields.textType"
+          :label="`Email address`"
+          :name="`email`"
+          :error-message="`Email is required`"
+          :disabled="false"
+          :valid="!$v.email.$error"
+          class="small input"
+          @blur="$v.email.$touch()"
+        />
 
-      <SfInput
-        v-model="phone"
-        :type="formFields.textType"
-        :label="`Phone number`"
-        :name="`phone`"
-        :error-message="`this field is required`"
-        :disabled="false"
-        :valid="!$v.phone.$error"
-        @blur="$v.phone.$touch()"
-      />
+        <SfInput
+          v-model="phone"
+          :type="formFields.textType"
+          :label="`Phone number`"
+          :name="`phone`"
+          :error-message="`Enter valid phone number`"
+          :disabled="false"
+          :valid="!$v.phone.$error"
+          @blur="$v.phone.$touch()"
+        />
+      </div>
 
       <SfInput
         v-model="subject"
         :type="formFields.textType"
         :label="`Subject line`"
         :name="`subject`"
-        :error-message="`this field is required`"
+        :error-message="`Subject is required`"
         :disabled="false"
         :valid="!$v.subject.$error"
         @blur="$v.subject.$touch()"
@@ -81,7 +86,7 @@
         :type="formFields.textType"
         :label="`Your message`"
         :name="`message`"
-        :error-message="`this field is required`"
+        :error-message="`Message is required`"
         :disabled="false"
         :valid="!$v.message.$error"
         @blur="$v.message.$touch()"
@@ -95,7 +100,7 @@
         @blur="$v.checkbox.$touch()"
       />
 
-      <SfButton>
+      <SfButton class="send button">
         send
       </SfButton>
     </form>
@@ -106,6 +111,9 @@
 import { SfSelect, SfInput, SfCheckbox, SfButton } from "@storefront-ui/vue"
 import { validationMixin } from "vuelidate"
 import { required, email, minLength } from "vuelidate/lib/validators"
+import { mapSalutations } from "@shopware-pwa/helpers"
+import { useSalutations } from "@shopware-pwa/composables"
+import { computed } from "@vue/composition-api"
 
 export default {
   name: "CmsElementContactForm",
@@ -140,6 +148,17 @@ export default {
       message: "",
       checkbox: "",
       checked: false,
+    }
+  },
+  setup(props, { root }) {
+    const { getSalutations, error: salutationsError } = useSalutations(root)
+    const getMappedSalutations = computed(() =>
+      mapSalutations(getSalutations.value)
+    )
+
+    return {
+      getMappedSalutations,
+      salutationsError,
     }
   },
   computed: {
@@ -201,5 +220,30 @@ export default {
 
 <style lang="scss" scoped>
 .cms-element-contact-form {
+  max-width: 1024px;
+  margin: 0 auto;
+
+  .input {
+    &-group {
+      display: flex;
+
+      > * {
+        margin-right: var(--spacer-sm);
+        margin-bottom: var(--spacer-sm);
+        width: 100%;
+      }
+    }
+  }
+
+  .sf-checkbox {
+    margin-top: var(--spacer-sm);
+    margin-bottom: var(--spacer-sm);
+  }
+
+  .button {
+    &.send {
+      float: right;
+    }
+  }
 }
 </style>
