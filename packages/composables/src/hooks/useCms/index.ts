@@ -5,7 +5,7 @@ import { parseUrlQuery } from "@shopware-pwa/helpers";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { getApplicationContext } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../../appContext";
-import { getPageIncludes } from "../../internalHelpers/includesParameter";
+import { useDefaults } from "../../logic/useDefaults";
 
 /**
  * @alpha
@@ -16,6 +16,7 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
     "useCms"
   );
 
+  const { getAssociationsConfig, getIncludesConfig } = useDefaults("useCms");
   const error: Ref<any> = ref(null);
   const loading: Ref<boolean> = ref(false);
   const page = computed(() => {
@@ -47,18 +48,13 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
 
     if (!searchCriteria.configuration.associations)
       searchCriteria.configuration.associations = [];
-    searchCriteria.configuration.associations.push({
-      name: "options",
-      associations: [
-        {
-          name: "group",
-        },
-      ],
-    });
+
+    const associations = getAssociationsConfig.value;
+    searchCriteria.configuration.associations.push(...associations);
 
     if (!searchCriteria.configuration.includes) {
       // performance enhancement
-      searchCriteria.configuration.includes = getPageIncludes();
+      searchCriteria.configuration.includes = getIncludesConfig.value;
     }
 
     try {
