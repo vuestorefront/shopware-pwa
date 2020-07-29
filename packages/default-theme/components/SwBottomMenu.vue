@@ -154,12 +154,6 @@ export default {
   transform: translate(100%, 0);
 }
 
-.sf-bottom-modal {
-  --button-height: 60px;
-  z-index: 1;
-  left: 0;
-}
-
 .sw-bottom-menu {
   &__title {
     display: flex;

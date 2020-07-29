@@ -38,25 +38,24 @@
       >
         <template #icon>
           <SfIcon icon="profile" size="20px" @click="userIconClick" />
-          <SfSelect
-            v-if="isLoggedIn"
-            class="menu-button__select"
-            data-cy="bottom-navigation-account-select"
+          <SfBottomModal
+            :is-open="userIconActive"
+            @click:close="userIconActive = false"
+            class="sw-bottom-menu"
           >
-            <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
-            <SfSelectOption
-              :value="getPageAccount"
-              data-cy="bottom-navigation-account-option"
-              @click.native="goToMyAccount"
-              >My account</SfSelectOption
-            >
-            <!-- TODO: change .native to @click after https://github.com/DivanteLtd/storefront-ui/issues/1097 -->
-            <SfSelectOption :value="'logout'">
-              <SwButton class="sf-button--full-width" @click="logoutUser"
-                >Logout</SwButton
-              >
-            </SfSelectOption>
-          </SfSelect>
+            <SfList class="mobile-nav-list">
+              <SfListItem>
+                <SfMenuItem
+                  label="My Account"
+                  :icon="null"
+                  @click="goToMyAccount"
+                />
+              </SfListItem>
+              <SfListItem>
+                <SfMenuItem label="Logout" :icon="null" @click="logoutUser" />
+              </SfListItem>
+            </SfList>
+          </SfBottomModal>
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
@@ -93,7 +92,9 @@ import {
   SfBottomNavigation,
   SfCircleIcon,
   SfIcon,
-  SfSelect,
+  SfBottomModal,
+  SfList,
+  SfMenuItem,
 } from "@storefront-ui/vue"
 import { useUIState, useUser, useCart } from "@shopware-pwa/composables"
 import SwCurrencySwitcher from "@shopware-pwa/default-theme/components/SwCurrencySwitcher"
@@ -109,14 +110,17 @@ export default {
     SfBottomNavigation,
     SfIcon,
     SfCircleIcon,
-    SfSelect,
+    SfBottomModal,
     SwCurrencySwitcher,
     SwButton,
     SwBottomMenu,
+    SfList,
+    SfMenuItem,
   },
   data() {
     return {
       mobileNavIsActive: false,
+      userIconActive: false,
     }
   },
   setup(props, { root }) {
@@ -138,6 +142,11 @@ export default {
       count,
     }
   },
+  watch: {
+    $route() {
+      this.userIconActive = false
+    },
+  },
   computed: {
     getPageAccount() {
       return PAGE_ACCOUNT
@@ -146,7 +155,7 @@ export default {
   methods: {
     userIconClick() {
       if (this.isLoggedIn) {
-        this.$router.push(this.$i18n.path(PAGE_ACCOUNT))
+        this.userIconActive = true
       } else this.toggleModal()
     },
     goToMyAccount() {
@@ -163,6 +172,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.sf-list__item {
+  padding: 0 1rem;
+}
+
 .sw-bottom-navigation {
   align-items: center;
 }
@@ -174,12 +187,20 @@ export default {
     --select-height: 2rem;
     --select-color: #afb0b6;
   }
+
   &__select {
     --chevron-size: 0;
     --select-margin: 0;
     text-align: center;
     position: absolute;
     text-transform: uppercase;
+
+    // TODO[SFUI]: remove current category from bottom nav in mobile - https://github.com/DivanteLtd/storefront-ui/issues/1298
+    .sf-select__selected {
+      .sf-header__link {
+        display: none;
+      }
+    }
   }
 
   .sf-select__dropdown {

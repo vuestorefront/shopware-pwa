@@ -18,7 +18,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@storefront-ui/vue": "0.7.17",
+    "@storefront-ui/vue": "0.7.18",
     "core-js": "^3.6.5",
     "currency.js": "^1.2.2",
     "dayjs": "^1.8.28",
@@ -35,7 +35,7 @@
     "@nuxtjs/eslint-config": "^3.0.0",
     "@nuxtjs/eslint-module": "^2.0.0",
     "@vue-storefront/nuxt": "^0.0.3",
-    "@vue/composition-api": "^0.6.6",
+    "@vue/composition-api": "^1.0.0-beta.6",
     "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.1.0",
