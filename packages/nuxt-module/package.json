@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/nuxt-module",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "@shopware-pwa/nuxt-module",
   "main": "dist/nuxt-module.cjs.js",
   "module": "dist/nuxt-module.esm-bundler.js",
