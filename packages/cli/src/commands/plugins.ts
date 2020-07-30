@@ -106,8 +106,8 @@ module.exports = {
 
     const langParams = {
       local: true,
-      ...inputParameters
-    }
+      ...inputParameters,
+    };
     await toolbox?.runtime?.run(`languages`, langParams);
 
     success(`Plugins generated`);

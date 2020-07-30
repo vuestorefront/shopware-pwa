@@ -5,13 +5,15 @@
       label="Use different address for billing"
       name="copyShippingAddress"
       class="form__element"
+      data-cy="different-address-for-billing"
     />
-    <div class="form" v-if="differentThanShipping">
+    <div class="form" v-if="differentThanShipping" data-cy="form">
       <SwInput
         v-model="firstName"
         :valid="!validations.firstName.$error"
         error-message="This field is required"
         label="First name"
+        data-cy="first-name"
         name="firstName"
         class="form__element form__element--half"
         required
@@ -21,6 +23,7 @@
         :valid="!validations.lastName.$error"
         error-message="This field is required"
         label="Last name"
+        data-cy="last-name"
         name="lastName"
         class="form__element form__element--half form__element--half-even"
         required
@@ -30,6 +33,7 @@
         :valid="!validations.street.$error"
         error-message="This field is required"
         label="Street name"
+        data-cy="street-name"
         name="street"
         class="form__element"
         required
@@ -39,6 +43,7 @@
         :valid="!validations.apartment.$error"
         error-message="This field is required"
         label="House/Apartment number"
+        data-cy="apartment"
         name="apartment"
         class="form__element"
         required
@@ -48,6 +53,7 @@
         :valid="!validations.city.$error"
         error-message="This field is required"
         label="City"
+        data-cy="city"
         name="city"
         class="form__element form__element--half"
         required
@@ -57,6 +63,7 @@
         :valid="!validations.state.$error"
         error-message="This field is required"
         label="State/Province"
+        data-cy="state"
         name="state"
         class="form__element form__element--half form__element--half-even"
         required
@@ -66,6 +73,7 @@
         :valid="!validations.zipcode.$error"
         error-message="This field is required"
         label="Zip-code"
+        data-cy="zipcode"
         name="zipcode"
         class="form__element form__element--half"
         required
@@ -76,6 +84,7 @@
         :valid="!validations.countryId.$error"
         error-message="This field is required"
         label="Country"
+        data-cy="country"
         class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
         required
       >
@@ -92,6 +101,7 @@
         :valid="!validations.phoneNumber.$error"
         error-message="This field is required"
         label="Phone number"
+        data-cy="phone"
         name="phone"
         class="form__element"
         required

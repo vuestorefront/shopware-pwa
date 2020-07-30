@@ -76,3 +76,9 @@ body {
   height: 100%;
 }
 
+// global fix for bottom modal
+.sf-bottom-modal {
+  --button-height: 60px;
+  z-index: 1;
+  left: 0;
+}

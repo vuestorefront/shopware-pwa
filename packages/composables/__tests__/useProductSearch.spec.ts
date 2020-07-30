@@ -156,6 +156,7 @@ describe("Composables - useProductSearch", () => {
             limit: undefined,
             page: undefined,
           },
+          filters: {},
         },
         rootContextMock.$shopwareApiInstance
       );
@@ -204,6 +205,7 @@ describe("Composables - useProductSearch", () => {
           pagination: { limit: undefined, page: 5 },
           properties: [],
           sort: {},
+          filters: {},
         },
         rootContextMock.$shopwareApiInstance
       );
@@ -233,6 +235,7 @@ describe("Composables - useProductSearch", () => {
             name: "name-desc",
             order: "desc",
           },
+          filters: {},
         },
         rootContextMock.$shopwareApiInstance
       );
@@ -246,87 +249,55 @@ describe("Composables - useProductSearch", () => {
     });
   });
   describe("toggleFilter", () => {
-    // it("should not set the filters array to selectedCriteria if selectedFilterBucket is empty", async () => {
-    //   const { toggleFilter, search, resetFilters } = useProductSearch(
-    //     rootContextMock
-    //   );
-    //   resetFilters();
-    //   toggleFilter(
-    //     {
-    //       field: "aaaaaaa",
-    //       value: undefined,
-    //     } as any,
-    //     false
-    //   );
-    //   await search("some term");
-
-    //   expect(mockedApi.getSearchResults).toBeCalledWith(
-    //     "some term",
-    //     {
-    //       manufacturer: [],
-    //       properties: [],
-    //       pagination: {
-    //         limit: undefined,
-    //         page: undefined,
-    //       },
-    //       sort: {},
-    //     },
-    //     rootContextMock.$shopwareApiInstance
-    //   );
-    // });
     it("should not select filter if it has wrong format", () => {
       const { toggleFilter, selectedFilters } = useProductSearch(
         rootContextMock
       );
       toggleFilter(undefined as any, false);
-      expect(selectedFilters.value).toStrictEqual([]);
+      expect(selectedFilters.value).toStrictEqual({});
     });
     it("should trigger ToggleSelectedFilter on toggleFilter run", () => {
+      const { toggleFilter, selectedEntityFilters } = useProductSearch(
+        rootContextMock
+      );
+      toggleFilter(
+        {
+          type: SearchFilterType.EQUALS,
+          value: "white",
+          field: "color",
+        },
+        false
+      );
+      expect(selectedEntityFilters.value).toStrictEqual(["white"]);
+    });
+    it("should contain a range filter as selectedFilter if any provided", () => {
       const { toggleFilter, selectedFilters } = useProductSearch(
         rootContextMock
       );
       toggleFilter(
         {
-          type: SearchFilterType.EQUALS,
-          value: "white",
-          field: "color",
-        },
+          type: SearchFilterType.RANGE,
+          parameters: {
+            gt: 10,
+          },
+          field: "price",
+        } as any,
         false
       );
-      expect(selectedFilters.value).toStrictEqual(["white"]);
+      expect(selectedFilters.value).toStrictEqual({
+        price: {
+          gt: 10,
+        },
+      });
     });
-    // it("should call getSearchResults with transformed filters if any provided", async () => {
-    //   const { toggleFilter, search } = useProductSearch(rootContextMock);
-    //   toggleFilter(
-    //     {
-    //       type: SearchFilterType.EQUALS,
-    //       value: "white",
-    //       field: "color",
-    //     },
-    //     false
-    //   );
-    //   await search("t-shirt");
-    //   expect(mockedApi.getSearchResults).toBeCalledTimes(1);
-    //   expect(mockedApi.getSearchResults).toBeCalledWith(
-    //     "t-shirt",
-    //     {
-    //       manufacturer: [],
-    //       properties: ["white"],
-    //       pagination: {
-    //         limit: undefined,
-    //         page: undefined,
-    //       },
-    //       sort: {},
-    //     },
-    //     rootContextMock.$shopwareApiInstance
-    //   );
-    // });
   });
   describe("resetFilters", () => {
     it("should removed all filters from selectedFilters computed property", () => {
-      const { toggleFilter, selectedFilters, resetFilters } = useProductSearch(
-        rootContextMock
-      );
+      const {
+        toggleFilter,
+        selectedEntityFilters,
+        resetFilters,
+      } = useProductSearch(rootContextMock);
       toggleFilter(
         {
           type: SearchFilterType.EQUALS,
@@ -335,9 +306,9 @@ describe("Composables - useProductSearch", () => {
         },
         false
       );
-      expect(selectedFilters.value).toStrictEqual(["white"]);
+      expect(selectedEntityFilters.value).toStrictEqual(["white"]);
       resetFilters();
-      expect(selectedFilters.value).not.toBe(["white"]);
+      expect(selectedEntityFilters.value).not.toBe(["white"]);
     });
   });
 });

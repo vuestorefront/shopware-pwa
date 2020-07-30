@@ -12,6 +12,7 @@
         <SwProductListingFilters
           :listing="searchResult"
           :selected-filters="selectedFilters"
+          :selected-entity-filters="selectedEntityFilters"
           :filters="availableFilters"
           @reset-filters="resetFiltersHandler"
           @submit-filters="submitFilters"
@@ -35,7 +36,7 @@
 import { SfLoader } from "@storefront-ui/vue"
 import { useProductSearch, useUIState } from "@shopware-pwa/composables"
 
-import { ref, onMounted } from "@vue/composition-api"
+import { ref } from "@vue/composition-api"
 import SwProductListing from "@shopware-pwa/default-theme/components/SwProductListing"
 import SwProductListingFilters from "@shopware-pwa/default-theme/components/SwProductListingFilters"
 
@@ -57,6 +58,7 @@ export default {
       changeSorting,
       toggleFilter,
       selectedFilters,
+      selectedEntityFilters,
       availableFilters,
       resetFilters,
     } = useProductSearch(root)
@@ -68,7 +70,7 @@ export default {
     const startedSearching = ref(false)
     const { isOpen: isListView } = useUIState(root, "PRODUCT_LISTING_STATE")
 
-    onMounted(async () => {
+    const invokeSearch = async () => {
       searchQuery.value = root.$route.query.query
       startedSearching.value = true
       if (
@@ -85,7 +87,7 @@ export default {
             "Something went wrong. Please try again or report a bug."
         }
       }
-    })
+    }
 
     return {
       searchResult,
@@ -97,12 +99,22 @@ export default {
       changeSortingInternal: changeSorting,
       toggleFilter,
       selectedFilters,
+      selectedEntityFilters,
       search,
       submitFilters,
       availableFilters,
       resetFilters,
       error,
+      invokeSearch,
     }
+  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler() {
+        this.invokeSearch()
+      },
+    },
   },
   methods: {
     changeSorting(sorting) {

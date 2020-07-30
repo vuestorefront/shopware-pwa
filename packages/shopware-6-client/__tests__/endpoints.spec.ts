@@ -29,6 +29,7 @@ import {
   getNewsletterUnsubscribeEndpoint,
   getProductsIdsEndpoint,
   getNavigationEndpoint,
+  getStoreNavigationEndpoint,
   getCustomerOrderDetailsEndpoint,
   getContextCountryItemEndpoint,
   getContextSalutationItemEndpoint,
@@ -286,6 +287,18 @@ describe("endpoints", () => {
     it("should return navigation endpoint", async () => {
       const result = getNavigationEndpoint();
       expect(result).toEqual("/store-api/v1/pwa/navigation");
+    });
+  });
+
+  describe("getStoreNavigationEndpoint", () => {
+    it("should return store navigation endpoint", async () => {
+      const result = getStoreNavigationEndpoint(
+        "footer-navigation",
+        "footer-navigation"
+      );
+      expect(result).toEqual(
+        "/store-api/v1/navigation/footer-navigation/footer-navigation"
+      );
     });
   });
 

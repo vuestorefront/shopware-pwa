@@ -5,7 +5,8 @@ import {
 } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import {
   EqualsFilter,
-  EqualsAnyFilter,
+  RangeFilter,
+  SearchFilterType,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 
 export function appendSearchCriteriaToUrl(
@@ -150,33 +151,45 @@ export const toggleEntityFilter = (
  * @beta
  */
 export const toggleFilter = (
-  filter: EqualsFilter | EqualsAnyFilter, // TODO: handle range filter case as well
+  filter: EqualsFilter | RangeFilter,
   selectedCriteria: any,
   forceSave: boolean = false
 ): void => {
   if (!filter) {
     return;
   }
+  if (filter.type === SearchFilterType.RANGE) {
+    const rangeFilter = filter as RangeFilter;
+    const selectedRange = selectedCriteria.filters[filter.field];
+    selectedCriteria.filters[rangeFilter.field] = Object.assign(
+      {},
+      selectedRange,
+      rangeFilter.parameters
+    );
+  }
 
-  if (!!selectedCriteria.filters[filter.field]) {
-    let selected = selectedCriteria.filters[filter.field];
-    if (
-      !selected.find((optionId: string) => optionId === filter.value) ||
-      forceSave
-    ) {
-      selected.push(filter.value);
+  if (filter.type !== SearchFilterType.RANGE) {
+    const equalsFilter = filter as EqualsFilter;
+    if (!!selectedCriteria.filters[equalsFilter.field]) {
+      let selected = selectedCriteria.filters[equalsFilter.field];
+      if (
+        !selected.find((optionId: string) => optionId === equalsFilter.value) ||
+        forceSave
+      ) {
+        selected.push(equalsFilter.value);
+      } else {
+        selected = selected.filter(
+          (optionId: string) => optionId !== equalsFilter.value
+        );
+      }
+
+      selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
+        [equalsFilter.field]: [...new Set(selected)],
+      });
     } else {
-      selected = selected.filter(
-        (optionId: string) => optionId !== filter.value
-      );
+      selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
+        [equalsFilter.field]: [equalsFilter.value],
+      });
     }
-
-    selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
-      [filter.field]: [...new Set(selected)],
-    });
-  } else {
-    selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
-      [filter.field]: [filter.value],
-    });
   }
 };

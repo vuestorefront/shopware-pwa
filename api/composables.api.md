@@ -7,7 +7,6 @@
 import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { BillingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
-import { ContainsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
@@ -17,7 +16,6 @@ import { CustomerResetPasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
-import { EqualsAnyFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
@@ -26,6 +24,7 @@ import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Or
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { ProductListingResult } from '@shopware-pwa/commons/interfaces/response/ProductListingResult';
+import { RangeFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { Ref } from '@vue/composition-api';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
@@ -372,13 +371,15 @@ export interface UseProductSearch {
     // (undocumented)
     searchResult: Readonly<Ref<ProductListingResult | null>>;
     // (undocumented)
+    selectedEntityFilters: Readonly<Ref<any>>;
+    // (undocumented)
     selectedFilters: Readonly<Ref<any>>;
     // (undocumented)
     suggestionsResult: Readonly<Ref<ProductListingResult | null>>;
     // (undocumented)
     suggestSearch: (term: string) => Promise<void>;
     // (undocumented)
-    toggleFilter: (filter: EqualsFilter | EqualsAnyFilter | ContainsFilter, forceSave: boolean) => void;
+    toggleFilter: (filter: EqualsFilter | RangeFilter, forceSave: boolean) => void;
 }
 
 // @alpha (undocumented)
