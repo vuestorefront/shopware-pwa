@@ -1,12 +1,11 @@
 @import "~@storefront-ui/shared/styles/variables";
 
-// Global variables for theme
-
-// #__nuxt {
-//   --c-primary: #5ece7b;
-// }
-
 $tablet: 768px;
+
+// Global variables for theme
+#__nuxt {
+  --boxed-mode-max-width: 1366px;
+}
 
 @mixin for-tablet {
   @media screen and (min-width: $tablet) {
@@ -16,7 +15,7 @@ $tablet: 768px;
 
 @mixin sizing-mode-boxed {
   @include for-desktop {
-    max-width: 1320px;
+    max-width: var(--boxed-mode-max-width);
     margin: 0 auto;
   }
 }
