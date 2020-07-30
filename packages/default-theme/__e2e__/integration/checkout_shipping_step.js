@@ -20,16 +20,17 @@ describe("shipping step", () => {
   it("check if go back to personal details button exist", () => {
     cy.get("button").contains("Go Back", { matchCase: false }).should("exist")
   })
-  it("check if go back to personal details button work", () => {
-    cy.get("button")
-      .contains("Go Back", { matchCase: false })
-      .click({ force: true })
-    cy.url().should(
-      "eq",
-      Cypress.config().baseUrl + "checkout?step=PERSONAL_DETAILS"
-    )
-    cy.get("[data-cy=continue-to-shipping-button]").click({ force: true })
-  })
+  // commented until the issue is completed: https://github.com/DivanteLtd/shopware-pwa/issues/786
+  // it("check if go back to personal details button work", () => {
+  //   cy.get("button")
+  //     .contains("Go Back", { matchCase: false })
+  //     .click({ force: true })
+  //   cy.url().should(
+  //     "eq",
+  //     Cypress.config().baseUrl + "checkout?step=PERSONAL_DETAILS"
+  //   )
+  //   cy.get("[data-cy=continue-to-shipping-button]").click({ force: true })
+  // })
   it("shows message: Shipping methods", () => {
     cy.contains("Shipping methods", { matchCase: false })
   })

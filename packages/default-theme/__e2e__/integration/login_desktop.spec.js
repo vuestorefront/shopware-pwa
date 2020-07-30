@@ -12,7 +12,9 @@ describe("Test login functionality- desktop view", () => {
   })
 
   it("checks if register button exists", () => {
-    cy.get("button").contains("Register today?").click({ force: true })
+    cy.get("button")
+      .contains("Register today", { matchCase: false })
+      .click({ force: true })
   })
   it("cheks if reset password button exists", () => {
     cy.get("button").contains("Forgotten password?").click({ force: true })

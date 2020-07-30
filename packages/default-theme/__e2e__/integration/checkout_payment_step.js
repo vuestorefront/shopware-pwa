@@ -36,7 +36,7 @@ describe("Payment step with different address for billing and pay in advance met
         expect($el).to.contain("This field is required")
       })
   })
-  it.only("contiunue to rewiev order after filling in address for billing", () => {
+  it("contiunue to rewiev order after filling in address for billing", () => {
     cy.get('[type="checkbox"]').check({ force: true })
     cy.get("[data-cy=first-name]").last().clear().type("Bill")
     cy.get("[data-cy=last-name]").last().clear().type("Bing")
