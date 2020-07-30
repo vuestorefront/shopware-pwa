@@ -1,8 +1,9 @@
 <template>
-  <div class="search-suggestions" v-if="isOpen && products">
-    <button class="search-suggestions__close" @click="$emit('close')">
-      <SfIcon icon="cross" />
-    </button>
+  <div
+    class="search-suggestions"
+    v-if="isOpen && products"
+    v-click-outside="close"
+  >
     <div class="search-suggestions__results">
       <div class="search-suggestions__results-heading">
         <SfHeading :title="title" :level="5" class="sf-heading--left" />
@@ -36,7 +37,7 @@
     <Button
       v-if="isShowMoreAvailable"
       class="sf-button--secondary sf-button--full-width"
-      @click="$emit('seeMore')"
+      @click="$emit('search')"
       >See more</Button
     >
   </div>
@@ -50,6 +51,7 @@ import {
   SfImage,
   SfIcon,
 } from "@storefront-ui/vue"
+import { clickOutside } from "@storefront-ui/vue/src/utilities/directives"
 import Button from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import {
   getProductMainImageUrl,
@@ -79,7 +81,7 @@ export default {
       default: 0,
     },
   },
-
+  directives: { clickOutside },
   computed: {
     title() {
       return `${this.searchPhrase} (${this.totalFound} found)`
@@ -92,6 +94,9 @@ export default {
     getProductRouterLink(product) {
       return this.$i18n.path(getProductUrl(product))
     },
+    close() {
+      this.$emit("close")
+    },
   },
 }
 </script>
@@ -103,17 +108,6 @@ export default {
   padding: 0.625rem;
   position: absolute;
   width: 18.75rem;
-  &__close {
-    background: transparent;
-    border: none;
-    padding: 0;
-    position: absolute;
-    right: 0.625rem;
-    top: 0.625rem;
-    .sf-icon {
-      --icon-size: 0.6rem;
-    }
-  }
   &__results {
     padding: var(--spacer-xs) 0;
     &-heading {

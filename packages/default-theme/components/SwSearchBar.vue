@@ -7,15 +7,16 @@
       v-model="typingQuery"
       @keyup.native="performSuggestSearch"
       @enter="performSearch"
+      @focus="isSuggestBoxOpen = true"
       data-cy="search-bar"
     />
     <SwSuggestSearch
       :products="suggestResultProducts"
       :total-found="suggestResultTotal"
       :search-phrase="typingQuery"
-      :is-open="isSuggestSearchVisible"
+      :is-open="isSuggestBoxOpen"
       @close="isSuggestBoxOpen = false"
-      @seeMore="onSeeMore"
+      @search="performSearch"
     />
   </div>
 </template>
@@ -51,8 +52,6 @@ export default {
       () => suggestionsResult.value && suggestionsResult.value.total
     )
 
-    const isSuggestSearchVisible = computed(() => isSuggestBoxOpen.value)
-
     const performSuggestSearch = debounce((event) => {
       if (event && event.key === "Enter") {
         return
@@ -72,7 +71,6 @@ export default {
       suggestSearch,
       suggestResultTotal,
       suggestResultProducts,
-      isSuggestSearchVisible,
       isSuggestBoxOpen,
       getSearchPageUrl,
       typingQuery,
@@ -81,14 +79,11 @@ export default {
     }
   },
   methods: {
-    performSearch(searchTerm) {
-      if (typeof searchTerm === "string" && searchTerm.length > 0) {
+    performSearch() {
+      if (this.typingQuery.length > 0) {
         this.resetFilters()
-        this.$router.push(this.$i18n.path(getSearchPageUrl(searchTerm)))
+        this.$router.push(this.$i18n.path(getSearchPageUrl(this.typingQuery)))
       }
-    },
-    onSeeMore() {
-      return this.performSearch(this.typingQuery)
     },
   },
   watch: {
