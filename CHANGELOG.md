@@ -1,3 +1,12 @@
+## [0.2.2](https://github.com/DivanteLtd/shopware-pwa/compare/v0.2.1...v0.2.2) (2020-07-30)
+
+
+### Bug Fixes
+
+* **composables:** change the includes configuration for page resolver ([c03e11d](https://github.com/DivanteLtd/shopware-pwa/commit/c03e11dcd789fb97c8960f260beb30fa17bde854))
+
+
+
 ## [0.2.1](https://github.com/DivanteLtd/shopware-pwa/compare/v0.2.0...v0.2.1) (2020-07-29)
 
 
