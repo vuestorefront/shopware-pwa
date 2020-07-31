@@ -187,30 +187,30 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-    - name: Cache composables build
-      uses: actions/cache@v2
-      env:
-        cache-name: cache-composables-build
-      with:
-        path: |
-          packages/composables/dist
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-    - name: Check dist file existence
-        id: check_dist_file
-        uses: andstor/file-existence-action@v1.0.1
+      - name: Cache composables build
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-composables-build
         with:
-          files: "packages/composables/dist"
-    - name: Build nuxt-module
-      if: steps.check_dist_file.outputs.files_exists == 'true'
-      run: |
-        yarn build nuxt-module --ci
-    - name: Upload build folder
-      uses: actions/upload-artifact@v2
-      with:
-        name: nuxt-module-build
-        path: ./packages/nuxt-module/dist/
+          path: |
+            packages/composables/dist
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+      - name: Check dist file existence
+          id: check_dist_file
+          uses: andstor/file-existence-action@v1.0.1
+          with:
+            files: "packages/composables/dist"
+      - name: Build nuxt-module
+        if: steps.check_dist_file.outputs.files_exists == 'true'
+        run: |
+          yarn build nuxt-module --ci
+      - name: Upload build folder
+        uses: actions/upload-artifact@v2
+        with:
+          name: nuxt-module-build
+          path: ./packages/nuxt-module/dist/
 
   build-shopware-6-client:
     name: Build shopware-6-client package
