@@ -8,7 +8,8 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  build:
+  init:
+    name: Init dependencies
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -74,6 +75,72 @@ jobs:
       #       :warning: This PR comes from forked repository and cannot be deployed on our preview instance!
       #       Nevertheless, thank you, we are going to see it in action locally first 👍
 
+  build-cli:
+    name: Build CLI
+    needs: init
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules-test
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Build CLI
+        run: |
+          cd ./packages/cli/
+          yarn build
+      - name: Upload build folder
+        uses: actions/upload-artifact@v2
+        with:
+          name: cli-build
+          path: ./packages/cli/build/
+
+  build-composables:
+    name: Build composables package
+    needs: init
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules-test
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Build Composables
+        run: |
+          yarn build composables --ci
+      - name: Upload build folder
+        uses: actions/upload-artifact@v2
+        with:
+          name: composables-build
+          path: ./packages/composables/dist/
   # deploy:
   #   runs-on: ubuntu-latest
   #   needs: build
