@@ -9,7 +9,7 @@
     >
       <template v-if="count" #content-top>
         <SfProperty
-          class="my-cart__total-items sf-property--large"
+          class="my-cart__total-items"
           :name="$t('Total items')"
           :value="count"
         />
@@ -141,6 +141,8 @@ export default {
 
 .sw-side-cart {
   --sidebar-z-index: 4;
+  --property-name-font-size: var(--font-lg);
+  --property-value-font-size: var(--font-lg);
   --overlay-z-index: 4;
   & > * {
     --sidebar-content-padding: 0 var(--spacer-xs) var(--spacer-xs)
@@ -161,7 +163,7 @@ export default {
   &__total-items {
     margin: var(--spacer-xs) 0;
     @include for-desktop {
-      margin: var(--spacer-xs) 0 0 0;
+      margin: var(--spacer-xl) 0 var(--spacer-lg) 0;
     }
   }
   &__total-price {
