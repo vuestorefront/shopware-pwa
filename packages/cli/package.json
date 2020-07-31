@@ -31,25 +31,25 @@
   "license": "MIT",
   "dependencies": {
     "@shopware-pwa/shopware-6-client": "0.2.2",
-    "chokidar": "^3.4.0",
+    "chokidar": "^3.4.1",
     "gluegun": "^4.3.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "request": "^2.88.2",
-    "snyk": "^1.348.1",
-    "universal-analytics": "^0.4.20",
+    "snyk": "^1.369.2",
+    "universal-analytics": "^0.4.23",
     "unzipper": "^0.10.11"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.0",
+    "@types/jest": "^26.0.8",
     "@types/node": "^12.12.31",
-    "jest": "^26.1.0",
+    "jest": "^26.2.1",
     "prettier": "^2.0.5",
-    "ts-jest": "^26.1.1",
+    "ts-jest": "^26.1.4",
     "ts-node": "^8.10.2",
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
     "tslint-config-standard": "^9.0.0",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.7"
   },
   "jest": {
     "preset": "ts-jest",
