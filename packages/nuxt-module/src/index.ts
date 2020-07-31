@@ -12,4 +12,4 @@ const ShopwarePWAModule: Module<{}> = function (moduleOptions: {}) {
 };
 
 /* istanbul ignore next */
-export default ShopwarePWAModule;
+module.exports = ShopwarePWAModule;
