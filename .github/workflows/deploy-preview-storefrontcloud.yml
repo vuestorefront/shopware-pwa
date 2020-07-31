@@ -53,6 +53,7 @@ jobs:
           paths: packages/cli
       - name: Cache composables build
         if: steps.changed-cli.outputs.changed != 'true'
+        id: step-cache-cli-build
         uses: actions/cache@v2
         env:
           cache-name: test-cache-composables-build
@@ -61,7 +62,7 @@ jobs:
             packages/composables/dist
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
       - name: Cache node_modules
-        if: steps.changed-cli.outputs.changed == 'true' || steps.changed-cli.outputs.cache-hit != 'true'
+        if: steps.changed-cli.outputs.changed == 'true' || steps.step-cache-cli-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules-test
@@ -73,7 +74,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Build CLI
-        if: steps.changed-cli.outputs.changed == 'true' || steps.changed-cli.outputs.cache-hit != 'true'
+        if: steps.changed-cli.outputs.changed == 'true' || steps.step-cache-cli-build.outputs.cache-hit != 'true'
         run: |
           cd ./packages/cli/
           yarn build
@@ -96,7 +97,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
+      - name: Check if composables has changed
+        uses: marceloprado/has-changed-path@master
+        id: changed-composables
+        with:
+          paths: packages/composables
       - name: Cache composables build
+        if: steps.changed-composables.outputs.changed != 'true'
+        id: step-cache-composables-build
         uses: actions/cache@v2
         env:
           cache-name: test-cache-composables-build
@@ -106,13 +114,8 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
-      - name: Check dist file existence
-        id: check_dist_file
-        uses: andstor/file-existence-action@v1.0.1
-        with:
-          files: "packages/composables/dist"
       - name: Cache node_modules
-        if: steps.check_dist_file.outputs.files_exists != 'true'
+        if: steps.changed-composables.outputs.changed == 'true' || steps.step-cache-composables-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules-test
@@ -124,7 +127,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Build Composables
-        if: steps.check_dist_file.outputs.files_exists != 'true'
+        if: steps.changed-composables.outputs.changed == 'true' || steps.step-cache-composables-build.outputs.cache-hit != 'true'
         run: |
           yarn build composables --ci
       - name: Upload build folder
