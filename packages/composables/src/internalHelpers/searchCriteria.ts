@@ -22,7 +22,7 @@ export function appendSearchCriteriaToUrl(
     query: searchTerm,
     page: pagination?.page,
     limit: pagination?.limit,
-    sort: sort?.name,
+    sort: !Array.isArray(sort) ? sort?.name : undefined,
     manufacturer: manufacturer,
     properties: properties,
   };

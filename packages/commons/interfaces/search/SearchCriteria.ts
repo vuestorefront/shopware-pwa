@@ -40,7 +40,8 @@ export interface Includes {
 export interface SearchCriteria {
   filters?: Array<EqualsFilter | EqualsAnyFilter | RangeFilter | MultiFilter>;
   pagination?: Pagination;
-  sort?: Sort;
+  //
+  sort?: Sort | Sort[];
   term?: string;
   manufacturer?: string[];
   properties?: string[];
