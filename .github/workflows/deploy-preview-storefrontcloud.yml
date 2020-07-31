@@ -51,15 +51,15 @@ jobs:
         id: changed-cli
         with:
           paths: packages/cli
-      - name: Cache composables build
+      - name: Cache cli build
         if: steps.changed-cli.outputs.changed != 'true'
         id: step-cache-cli-build
         uses: actions/cache@v2
         env:
-          cache-name: test-cache-composables-build
+          cache-name: test-cache-cli-build
         with:
           path: |
-            packages/composables/dist
+            packages/cli/build
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
       - name: Cache node_modules
         if: steps.changed-cli.outputs.changed == 'true' || steps.step-cache-cli-build.outputs.cache-hit != 'true'
