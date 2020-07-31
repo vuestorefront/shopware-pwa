@@ -17,9 +17,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - name: Build packages
+      - name: Install dependencies
         run: |
           yarn
+      - name: Build packages
+        run: |
           yarn build --ci
       - name: Create theme project
         run: |
