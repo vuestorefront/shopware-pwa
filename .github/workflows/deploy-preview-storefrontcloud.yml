@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Setup node
         uses: actions/setup-node@v1
         with:
@@ -31,35 +31,7 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Install dependencies
         run: |
-          yarn
-      # - name: Build packages
-      #   run: |
-      #     yarn build --ci
-      # - name: Create theme project
-      #   run: |
-      #     mkdir test-project
-      #     cd ./test-project
-      #     ../packages/cli/bin/shopware-pwa init --shopwareEndpoint=${{ env.CANARY_SW6_INSTANCE }} --shopwareAccessToken=${{ env.CANARY_SW6_INSTANCE_TOKEN }} --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci --devMode --stage local
-      #     yarn build
-      # - name: Build and publish docker image
-      #   uses: elgohr/Publish-Docker-Github-Action@2.14
-      #   if: github.repository_owner	== 'DivanteLtd'
-      #   with:
-      #     name: shopware-pwa-storefrontcloud-io/vue-storefront:${{ github.sha }}
-      #     registry: registry.storefrontcloud.io
-      #     username: ${{ secrets.DOCKER_USERNAME }}
-      #     password: ${{ secrets.DOCKER_PASSWORD }}
-      #     workdir: ./test-project
-      #     buildoptions: "--compress"
-      # - name: Add information about PR from forked repo
-      #   if: github.repository_owner	!= 'DivanteLtd'
-      #   uses: mshick/add-pr-comment@v1
-      #   with:
-      #     repo-token: ${{ secrets.GITHUB_TOKEN }}
-      #     allow-repeats: false
-      #     message: |
-      #       :warning: This PR comes from forked repository and cannot be deployed on our preview instance!
-      #       Nevertheless, thank you, we are going to see it in action locally first 👍
+          yarn --frozen-lockfile
 
   build-cli:
     name: Build CLI
@@ -67,12 +39,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 100
       - name: Setup node
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
+      - name: Check if cli has changed
+        uses: marceloprado/has-changed-path@master
+        id: changed-cli
+        with:
+          paths: packages/cli
+      - name: Cache composables build
+        if: steps.changed-cli.outputs.changed != 'true'
+        uses: actions/cache@v2
+        env:
+          cache-name: test-cache-composables-build
+        with:
+          path: |
+            packages/composables/dist
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
       - name: Cache node_modules
+        if: steps.changed-cli.outputs.changed == 'true' || steps.changed-cli.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules-test
@@ -84,6 +73,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Build CLI
+        if: steps.changed-cli.outputs.changed == 'true' || steps.changed-cli.outputs.cache-hit != 'true'
         run: |
           cd ./packages/cli/
           yarn build
@@ -99,7 +89,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 100
       - name: Setup node
         uses: actions/setup-node@v1
         with:
@@ -147,7 +139,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 100
       - name: Setup node
         uses: actions/setup-node@v1
         with:
@@ -195,7 +189,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 100
       - name: Setup node
         uses: actions/setup-node@v1
         with:
@@ -243,7 +239,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 100
       - name: Setup node
         uses: actions/setup-node@v1
         with:
@@ -298,7 +296,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 100
       - name: Setup node
         uses: actions/setup-node@v1
         with:
