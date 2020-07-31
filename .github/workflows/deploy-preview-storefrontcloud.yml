@@ -137,7 +137,7 @@ jobs:
         with:
           files: "packages/composables/dist"
       - name: Build Composables
-        if: steps.check_dist_file.outputs.files_exists == 'true'
+        if: steps.check_dist_file.outputs.files_exists != 'true'
         run: |
           yarn build composables --ci
       - name: Upload build folder
