@@ -65,6 +65,10 @@ export default {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(1, 340px);
     margin: var(--spacer-sm) 0;
+    height: 100%;
+    height: -moz-available; /* WebKit-based browsers will ignore this. */
+    height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+    height: fill-available;
   }
 }
 </style>

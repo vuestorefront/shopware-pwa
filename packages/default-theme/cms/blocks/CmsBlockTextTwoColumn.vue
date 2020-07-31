@@ -47,7 +47,7 @@ export default {
 
 .cms-block-text-two-column {
   display: grid;
-  grid-gap: var(--spacer-sm);
+  grid-gap: 2rem;
   grid-template-rows: repeat(2, 340px);
   margin: var(--spacer-sm);
 
@@ -59,6 +59,10 @@ export default {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(1, 340px);
     margin: var(--spacer-sm) 0;
+  }
+
+  @include for-mobile {
+    display: initial;
   }
 }
 </style>

@@ -65,5 +65,9 @@ export default {
     grid-template-rows: repeat(1, 340px);
     margin: var(--spacer-sm) 0;
   }
+
+  @include for-mobile {
+    display: initial;
+  }
 }
 </style>
