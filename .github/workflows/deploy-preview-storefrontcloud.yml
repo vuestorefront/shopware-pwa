@@ -314,8 +314,31 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
-      - name: Download all packages artifacts
+      - name: Download cli artifact
         uses: actions/download-artifact@v2
+        with:
+          name: cli-build
+          path: packages/cli/build
+      - name: Download composables artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: composables-build
+          path: packages/composables/dist
+      - name: Download helpers artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: helpers-build
+          path: packages/helpers/dist
+      - name: Download nuxt-module artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: nuxt-module-build
+          path: packages/nuxt-module/dist
+      - name: Download shopware-6-client artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: shopware-6-client-build
+          path: packages/shopware-6-client/dist
       - name: Link packages
         run: |
           yarn
