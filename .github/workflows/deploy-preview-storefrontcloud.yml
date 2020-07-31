@@ -31,16 +31,17 @@ jobs:
       #       ${{ runner.os }}-
       - name: Cache node_modules
         uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules-test
         with:
           path: |
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-build-node-modules-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-build-node-modules-${{ env.cache-name }}-
-            ${{ runner.os }}-build-node-modules-
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
             ${{ runner.os }}-
-    key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
       - name: Install dependencies
         run: |
           yarn
