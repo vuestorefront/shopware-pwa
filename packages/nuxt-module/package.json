@@ -15,23 +15,23 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@nuxt/types": "^2.13.0",
-    "@nuxt/typescript-build": "^1.0.3",
-    "@nuxt/typescript-runtime": "^0.4.10",
-    "@nuxt/utils": "^2.13.0",
+    "@nuxt/types": "^2.14.0",
+    "@nuxt/typescript-build": "^2.0.2",
+    "@nuxt/typescript-runtime": "^1.0.0",
+    "@nuxt/utils": "^2.14.0",
     "cookie-universal": "^2.1.4",
-    "fs-jetpack": "^2.4.0",
+    "fs-jetpack": "^3.1.0",
     "he": "^1.2.0",
     "path": "^0.12.7",
-    "snyk": "^1.348.1",
-    "universal-analytics": "^0.4.20",
+    "snyk": "^1.369.2",
+    "universal-analytics": "^0.4.23",
     "vue": "^2.6.11",
     "vue-loader": "^15.9.3",
     "vue-meta": "^2.4.0",
     "vue-router": "^3.3.4",
     "vue-server-renderer": "^2.6.11",
     "vue-template-compiler": "^2.6.11",
-    "vuex": "^3.4.0"
+    "vuex": "^3.5.1"
   },
   "publishConfig": {
     "access": "public"
