@@ -104,17 +104,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - name: Cache node_modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules-test
-        with:
-          path: |
-            node_modules
-            packages/*/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Cache composables build
         uses: actions/cache@v2
         env:
@@ -130,6 +119,18 @@ jobs:
         uses: andstor/file-existence-action@v1.0.1
         with:
           files: "packages/composables/dist"
+      - name: Cache node_modules
+        if: steps.check_dist_file.outputs.files_exists != 'true'
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules-test
+        with:
+          path: |
+            node_modules
+            packages/*/node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Build Composables
         if: steps.check_dist_file.outputs.files_exists != 'true'
         run: |
@@ -151,7 +152,23 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
+      - name: Cache helpers build
+        uses: actions/cache@v2
+        env:
+          cache-name: test-cache-helpers-build
+        with:
+          path: |
+            packages/helpers/dist
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+      - name: Check dist file existence
+        id: check_dist_file
+        uses: andstor/file-existence-action@v1.0.1
+        with:
+          files: "packages/helpers/dist"
       - name: Cache node_modules
+        if: steps.check_dist_file.outputs.files_exists != 'true'
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules-test
@@ -163,6 +180,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Build helpers
+        if: steps.check_dist_file.outputs.files_exists != 'true'
         run: |
           yarn build helpers --ci
       - name: Upload build folder
@@ -182,7 +200,23 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
+      - name: Cache nuxt-module build
+        uses: actions/cache@v2
+        env:
+          cache-name: test-cache-nuxt-module-build
+        with:
+          path: |
+            packages/nuxt-module/dist
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+      - name: Check dist file existence
+        id: check_dist_file
+        uses: andstor/file-existence-action@v1.0.1
+        with:
+          files: "packages/nuxt-module/dist"
       - name: Cache node_modules
+        if: steps.check_dist_file.outputs.files_exists != 'true'
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules-test
@@ -194,6 +228,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Build nuxt-module
+        if: steps.check_dist_file.outputs.files_exists != 'true'
         run: |
           yarn build nuxt-module --ci
       - name: Upload build folder
@@ -213,7 +248,23 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
+      - name: Cache shopware-6-client build
+        uses: actions/cache@v2
+        env:
+          cache-name: test-cache-shopware-6-client-build
+        with:
+          path: |
+            packages/shopware-6-client/dist
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+      - name: Check dist file existence
+        id: check_dist_file
+        uses: andstor/file-existence-action@v1.0.1
+        with:
+          files: "packages/shopware-6-client/dist"
       - name: Cache node_modules
+        if: steps.check_dist_file.outputs.files_exists != 'true'
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules-test
@@ -225,6 +276,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Build shopware-6-client
+        if: steps.check_dist_file.outputs.files_exists != 'true'
         run: |
           yarn build shopware-6-client --ci
       - name: Upload build folder
