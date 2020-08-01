@@ -72,7 +72,7 @@
   </div>
 </template>
 <script>
-import { SfHeading, SfRadio, SfAlert } from "@storefront-ui/vue"
+import { SfHeading, SfRadio } from "@storefront-ui/vue"
 import { computed, onMounted } from "@vue/composition-api"
 import ShippingAddressGuestForm from "@shopware-pwa/default-theme/components/checkout/steps/guest/ShippingAddressGuestForm"
 import ShippingAddressUserForm from "@shopware-pwa/default-theme/components/checkout/steps/user/ShippingAddressUserForm"
@@ -90,7 +90,6 @@ export default {
     SfHeading,
     SwButton,
     SfRadio,
-    SfAlert,
     ShippingAddressGuestForm,
     ShippingAddressUserForm,
     SwPluginSlot,

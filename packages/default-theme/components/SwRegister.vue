@@ -28,36 +28,38 @@
           {{ salutationOption.name }}
         </SfSelectOption>
       </SfSelect>
-      <SwInput
-        v-model="firstName"
-        name="first-name"
-        label="First Name"
-        class="form__input form__element form__element--small"
-        :valid="!$v.firstName.$error"
-        error-message="First name is required"
-        @blur="$v.firstName.$touch()"
-        data-cy="first-name-input"
-      />
-      <SwInput
-        v-model="lastName"
-        name="last-name"
-        label="Last Name"
-        class="form__input form__element form__element--small"
-        :valid="!$v.lastName.$error"
-        error-message="Last name is required"
-        @blur="$v.lastName.$touch()"
-        data-cy="last-name-input"
-      />
-      <SwInput
-        v-model="email"
-        name="email"
-        label="Your email"
-        class="form__input form__element form__element--small form__element"
-        :valid="!$v.email.$error"
-        error-message="Proper email is required"
-        @blur="$v.email.$touch()"
-        data-cy="email-input"
-      />
+      <div class="inputs-group">
+        <SwInput
+          v-model="firstName"
+          name="first-name"
+          label="First Name"
+          class="form__input form__element form__element--small"
+          :valid="!$v.firstName.$error"
+          error-message="First name is required"
+          @blur="$v.firstName.$touch()"
+          data-cy="first-name-input"
+        />
+        <SwInput
+          v-model="lastName"
+          name="last-name"
+          label="Last Name"
+          class="form__input form__element form__element--small"
+          :valid="!$v.lastName.$error"
+          error-message="Last name is required"
+          @blur="$v.lastName.$touch()"
+          data-cy="last-name-input"
+        />
+        <SwInput
+          v-model="email"
+          name="email"
+          label="Your email"
+          class="form__input form__element form__element--small form__element"
+          :valid="!$v.email.$error"
+          error-message="Proper email is required"
+          @blur="$v.email.$touch()"
+          data-cy="email-input"
+        />
+      </div>
       <SwInput
         v-model="password"
         name="password"
@@ -69,36 +71,38 @@
         @blur="$v.password.$touch()"
         data-cy="password-input"
       />
-      <SwInput
-        v-model="street"
-        name="street"
-        label="Street"
-        class="form__input form__element form__element--small"
-        :valid="!$v.street.$error"
-        error-message="Street is required"
-        @blur="$v.street.$touch()"
-        data-cy="street-input"
-      />
-      <SwInput
-        v-model="city"
-        name="city"
-        label="City"
-        class="form__input form__element form__element--small"
-        :valid="!$v.city.$error"
-        error-message="City is required"
-        @blur="$v.city.$touch()"
-        data-cy="city-input"
-      />
-      <SwInput
-        v-model="zipcode"
-        name="zipcode"
-        label="Zip Code"
-        class="form__input form__element form__element--small"
-        :valid="!$v.zipcode.$error"
-        error-message="Zipcode is required."
-        @blur="$v.zipcode.$touch()"
-        data-cy="zip-code-input"
-      />
+      <div class="inputs-group">
+        <SwInput
+          v-model="street"
+          name="street"
+          label="Street"
+          class="form__input form__element form__element--small"
+          :valid="!$v.street.$error"
+          error-message="Street is required"
+          @blur="$v.street.$touch()"
+          data-cy="street-input"
+        />
+        <SwInput
+          v-model="city"
+          name="city"
+          label="City"
+          class="form__input form__element form__element--small"
+          :valid="!$v.city.$error"
+          error-message="City is required"
+          @blur="$v.city.$touch()"
+          data-cy="city-input"
+        />
+        <SwInput
+          v-model="zipcode"
+          name="zipcode"
+          label="Zip Code"
+          class="form__input form__element form__element--small"
+          :valid="!$v.zipcode.$error"
+          error-message="Zipcode is required."
+          @blur="$v.zipcode.$touch()"
+          data-cy="zip-code-input"
+        />
+      </div>
       <SfSelect
         v-model="country"
         v-if="getMappedCountries && getMappedCountries.length > 0"
@@ -286,48 +290,7 @@ export default {
   }
 }
 
-.form {
-  &__input {
-    margin-bottom: var(--spacer-sm);
-  }
-  &__select {
-    margin-bottom: 0;
-  }
-  &__checkbox {
-    margin-bottom: var(--spacer-base);
-  }
-  @include for-desktop {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    &__element {
-      flex: 0 0 100%;
-      &--small {
-        flex: 1 1 calc(33% - calc(2 * var(--spacer-sm)));
-        margin-right: var(--spacer-sm);
-        &:odd {
-          margin-right: 0;
-        }
-      }
-    }
-  }
-}
-
 .sf-button--muted {
   color: var(--c-text-muted);
 }
-</style>
-
-//
-<style lang="scss" scoped>
-// .sf-modal__container {
-//   width: 100% !important;
-//   height: 100% !important;
-//   @media screen and (min-width: 900px) {
-//     width: auto !important;
-//     height: auto !important;
-//   }
-// }
-//
 </style>
