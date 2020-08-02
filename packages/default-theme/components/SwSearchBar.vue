@@ -1,6 +1,6 @@
 <template>
   <SfSearchBar
-    :placeholder="$t('Search for products!')"
+    :placeholder="$t('Search for products')"
     :aria-label="$t('Search for products')"
     class="sf-header__search desktop-only"
     v-model="typingQuery"

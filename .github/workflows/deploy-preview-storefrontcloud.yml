@@ -319,11 +319,14 @@ jobs:
       - name: Link packages
         run: |
           yarn
-      - name: Create theme project
+      - name: Create test project
         run: |
           mkdir test-project
           cd ./test-project
           ../packages/cli/bin/shopware-pwa init --shopwareEndpoint=${{ env.CANARY_SW6_INSTANCE }} --shopwareAccessToken=${{ env.CANARY_SW6_INSTANCE_TOKEN }} --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci --devMode --stage local
+      - name: Build test project
+        run: |
+          cd ./test-project
           yarn build
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@2.19
