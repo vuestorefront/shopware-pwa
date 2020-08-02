@@ -12,6 +12,6 @@ export function getProductName({ product }: { product?: Product } = {}):
   }
   const variantLabel = getVariantOptionsLabel({ product: product });
   return `${product.translated.name}${
-    variantLabel ? " - " + variantLabel : ""
+    variantLabel ? " - " + variantLabel : "!!!"
   }`;
 }
