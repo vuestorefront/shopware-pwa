@@ -48,7 +48,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - name: Check hash for directory
+      - name: Check hash for directory - to check
         id: folder-hash-step
         uses: theowenyoung/folder-hash@v2.0.1
         with:
