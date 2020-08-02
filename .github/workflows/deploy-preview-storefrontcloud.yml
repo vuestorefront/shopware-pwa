@@ -47,6 +47,7 @@ jobs:
         with:
           node-version: "12.x"
       - name: Check hash for directory
+        id: folder-hash-step
         uses: theowenyoung/folder-hash@v2.0.1
         with:
           path: packages/cli
@@ -64,7 +65,7 @@ jobs:
         with:
           path: |
             packages/cli/build
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ steps.folder-hash-step.outputs.hash }}
       - name: Cache node_modules
         if: steps.package-changed-step.outputs.changed == 'true' || steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
