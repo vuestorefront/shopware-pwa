@@ -46,6 +46,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
+      - name: Check hash for directory
+        uses: theowenyoung/folder-hash@v2.0.1
+        with:
+          path: packages/cli
       - name: Check if cli has changed
         uses: marceloprado/has-changed-path@master
         id: package-changed-step
@@ -358,7 +362,7 @@ jobs:
           ../packages/cli/bin/shopware-pwa init --shopwareEndpoint=${{ env.CANARY_SW6_INSTANCE }} --shopwareAccessToken=${{ env.CANARY_SW6_INSTANCE_TOKEN }} --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci --devMode --stage local
           yarn build
       - name: Build and publish docker image
-        uses: elgohr/Publish-Docker-Github-Action@2.14
+        uses: elgohr/Publish-Docker-Github-Action@2.19
         if: github.repository_owner	== 'DivanteLtd'
         with:
           name: shopware-pwa-storefrontcloud-io/vue-storefront:${{ github.sha }}
