@@ -20,6 +20,7 @@ jobs:
           node-version: "12.x"
       - name: Cache node_modules
         uses: actions/cache@v2
+        id: step-cache-node-modules
         env:
           cache-name: cache-node-modules-test
         with:
@@ -30,6 +31,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Install dependencies
+        if: steps.step-cache-node-modules.outputs.cache-hit != 'true'
         run: |
           yarn --frozen-lockfile
 
@@ -51,13 +53,7 @@ jobs:
         uses: theowenyoung/folder-hash@v2.0.1
         with:
           path: packages/cli
-      - name: Check if cli has changed
-        uses: marceloprado/has-changed-path@master
-        id: package-changed-step
-        with:
-          paths: packages/cli
       - name: Cache cli build
-        if: steps.package-changed-step.outputs.changed != 'true'
         id: step-cache-build
         uses: actions/cache@v2
         env:
@@ -67,7 +63,7 @@ jobs:
             packages/cli/build
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ steps.folder-hash-step.outputs.hash }}
       - name: Cache node_modules
-        if: steps.package-changed-step.outputs.changed == 'true' || steps.step-cache-build.outputs.cache-hit != 'true'
+        if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules-test
@@ -79,7 +75,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Build CLI
-        if: steps.package-changed-step.outputs.changed == 'true' || steps.step-cache-build.outputs.cache-hit != 'true'
+        if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
           cd ./packages/cli/
           yarn build
