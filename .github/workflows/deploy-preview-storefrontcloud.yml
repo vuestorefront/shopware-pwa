@@ -50,9 +50,13 @@ jobs:
           node-version: "12.x"
       - name: Check hash for directory - to check
         id: folder-hash-step
-        uses: theowenyoung/folder-hash@v2.0.1
-        with:
-          path: packages/cli
+        # uses: theowenyoung/folder-hash@v2.0.1
+        run: |
+          HASH=$(git rev-parse HEAD:packages/cli)
+          echo "::set-output name=hash::$HASH"
+          echo "Hash is: $HASH"
+        # with:
+        #   path: packages/cli
       - name: Cache cli build
         id: step-cache-build
         uses: actions/cache@v2
