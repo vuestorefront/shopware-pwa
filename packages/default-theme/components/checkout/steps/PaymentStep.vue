@@ -45,19 +45,19 @@
       </div>
       <div class="form__action">
         <SwButton
-          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only"
+          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only form__button"
           @click="$emit('click:back')"
         >
           Go back to Shipping
         </SwButton>
         <SwButton
-          class="sf-button--full-width form__action-button"
+          class="sf-button--full-width form__action-button form__button"
           data-cy="review-order"
           @click="$emit('proceed')"
           >Review order</SwButton
         >
         <SwButton
-          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only"
+          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only form__button"
           @click="$emit('click:back')"
         >
           Go back to Shipping
@@ -116,51 +116,51 @@ export default {
     }
   }
 }
-.form {
-  &__checkbox {
-    margin: var(--spacer-base) 0 var(--spacer-xl) 0;
-  }
-  &__action {
-    flex: 0 0 100%;
-    margin: var(--spacer-base) 0 0 0;
-  }
-  &__action-button {
-    --button-height: 3.25rem;
-  }
-  @include for-mobile {
-    &__checkbox {
-      --checkbox-font-family: var(--font-family-primary);
-      --checkbox-font-weight: var(--font-light);
-      --checkbox-font-size: var(--font-sm);
-    }
-  }
-  @include for-desktop {
-    margin: 0 var(--spacer-2xl) 0 0;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    &__action {
-      display: flex;
-    }
-    &__action-button {
-      &:first-child {
-        margin: 0 var(--spacer-lg) 0 0;
-      }
-    }
-    &__element {
-      margin: 0 0 var(--spacer-base) 0;
-      flex: 0 0 100%;
-      &--salutation {
-        flex: 1 1 25%;
-        padding-right: var(--spacer-xl);
-      }
-      &--half {
-        flex: 1 1 50%;
-        &-even {
-          padding: 0 0 0 var(--spacer-lg);
-        }
-      }
-    }
-  }
-}
+// .form {
+//   &__checkbox {
+//     margin: var(--spacer-base) 0 var(--spacer-xl) 0;
+//   }
+//   &__action {
+//     flex: 0 0 100%;
+//     margin: var(--spacer-base) 0 0 0;
+//   }
+//   &__action-button {
+//     --button-height: 3.25rem;
+//   }
+//   @include for-mobile {
+//     &__checkbox {
+//       --checkbox-font-family: var(--font-family-primary);
+//       --checkbox-font-weight: var(--font-light);
+//       --checkbox-font-size: var(--font-sm);
+//     }
+//   }
+//   @include for-desktop {
+//     margin: 0 var(--spacer-2xl) 0 0;
+//     display: flex;
+//     flex-wrap: wrap;
+//     align-items: center;
+//     &__action {
+//       display: flex;
+//     }
+//     &__action-button {
+//       &:first-child {
+//         margin: 0 var(--spacer-lg) 0 0;
+//       }
+//     }
+//     &__element {
+//       margin: 0 0 var(--spacer-base) 0;
+//       flex: 0 0 100%;
+//       &--salutation {
+//         flex: 1 1 25%;
+//         padding-right: var(--spacer-xl);
+//       }
+//       &--half {
+//         flex: 1 1 50%;
+//         &-even {
+//           padding: 0 0 0 var(--spacer-lg);
+//         }
+//       }
+//     }
+//   }
+// }
 </style>

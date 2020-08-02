@@ -3,8 +3,8 @@
     <div class="log-in">
       <div class="log-in__buttons-container">
         <SwButton
-          @click="switchLoginModalState(true)"
           class="log-in__button color-secondary"
+          @click="switchLoginModalState(true)"
           >Log in to your account</SwButton
         >
         <SwPluginSlot name="checkout-login-after" />
@@ -40,32 +40,34 @@
           {{ salutationOption.name }}
         </SfSelectOption>
       </SfSelect> -->
-      <SwInput
-        v-model="firstName"
-        label="First name"
-        :valid="!validations.firstName.$error"
-        error-message="First name is required"
-        name="firstName"
-        class="form__element form__element--half"
-        data-cy="first-name"
-        required
-      />
-      <SwInput
-        v-model="lastName"
-        label="Last name"
-        :valid="!validations.lastName.$error"
-        error-message="last name is required"
-        name="lastName"
-        class="form__element form__element--half form__element--half-even"
-        data-cy="last-name"
-      />
+      <div class="inputs-group">
+        <SwInput
+          v-model="firstName"
+          label="First name"
+          :valid="!validations.firstName.$error"
+          error-message="First name is required"
+          name="firstName"
+          class="form__input"
+          data-cy="first-name"
+          required
+        />
+        <SwInput
+          v-model="lastName"
+          label="Last name"
+          :valid="!validations.lastName.$error"
+          error-message="last name is required"
+          name="lastName"
+          class="form__input"
+          data-cy="last-name"
+        />
+      </div>
       <SwInput
         v-model="email"
         label="Your email"
         :valid="!validations.email.$error"
         error-message="Proper email is required"
         name="email"
-        class="form__element"
+        class="form__input"
         data-cy="proper-email"
       />
       <div class="info">
@@ -106,18 +108,18 @@
       </transition>
       <div class="form__action">
         <SwButton
-          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only"
+          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only form__button"
           data-cy="go-back-to-shop-button"
           >Go Back to shop</SwButton
         >
         <SwButton
-          class="sf-button--full-width form__action-button"
+          class="sf-button--full-width form__action-button form__button"
           data-cy="continue-to-shipping-button"
           @click="toShipping"
           >Continue to shipping</SwButton
         >
         <SwButton
-          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only"
+          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only form__button"
           >Go back to shop</SwButton
         >
       </div>
@@ -128,10 +130,7 @@
 import {
   SfCheckbox,
   SfHeading,
-  SfModal,
   SfCharacteristic,
-  SfSelect,
-  SfProductOption,
   SfAlert,
 } from "@storefront-ui/vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
@@ -163,19 +162,16 @@ import {
 
 export default {
   name: "PersonalDetailsGuestForm",
-  mixins: [validationMixin],
   components: {
     SwInput,
     SfCheckbox,
     SwButton,
     SfHeading,
-    SfModal,
     SfCharacteristic,
-    SfSelect,
-    SfProductOption,
     SfAlert,
     SwPluginSlot,
   },
+  mixins: [validationMixin],
   props: {
     order: {
       type: Object,
@@ -257,6 +253,12 @@ export default {
       email,
     }
   },
+  computed: {
+    useUserErrorMessages() {
+      // all the 400 errors are in a raw format stright from the API - to be extracted easily depeding on needs.
+      return this.userError && this.getMessagesFromErrorsArray(this.userError)
+    },
+  },
   watch: {
     createAccount(value) {
       if (!value) this.password = ""
@@ -270,43 +272,9 @@ export default {
     // },
     $v: {
       immediate: true,
-      handler: function () {
+      handler() {
         this.setValidations(this.$v)
       },
-    },
-  },
-  methods: {
-    async toShipping() {
-      // run the validators against the provided data
-      // consider using $touch event on $blur event in each input
-      this.validate()
-      if (this.validations.$invalid) {
-        return
-      }
-
-      if (this.createAccount) {
-        const isRegistered = await this.registerUser(this.customer)
-        if (!isRegistered) {
-          return
-        }
-        // extra login step won't be necessary once the register has a autologin option
-        await this.login({
-          username: this.email,
-          password: this.password,
-        })
-        if (!this.isLoggedIn) {
-          return
-        }
-        this.$router.push(this.$i18n.path('/checkout?step="SHIPPING"'))
-      } else {
-        return this.$emit("proceed")
-      }
-    },
-  },
-  computed: {
-    useUserErrorMessages() {
-      // all the 400 errors are in a raw format stright from the API - to be extracted easily depeding on needs.
-      return this.userError && this.getMessagesFromErrorsArray(this.userError)
     },
   },
   async mounted() {
@@ -338,6 +306,34 @@ export default {
     email: {
       required,
       email,
+    },
+  },
+  methods: {
+    async toShipping() {
+      // run the validators against the provided data
+      // consider using $touch event on $blur event in each input
+      this.validate()
+      if (this.validations.$invalid) {
+        return
+      }
+
+      if (this.createAccount) {
+        const isRegistered = await this.registerUser(this.customer)
+        if (!isRegistered) {
+          return
+        }
+        // extra login step won't be necessary once the register has a autologin option
+        await this.login({
+          username: this.email,
+          password: this.password,
+        })
+        if (!this.isLoggedIn) {
+          return
+        }
+        this.$router.push(this.$i18n.path('/checkout?step="SHIPPING"'))
+      } else {
+        return this.$emit("proceed")
+      }
     },
   },
 }
@@ -387,53 +383,53 @@ export default {
     --heading-padding: 0 0 var(--spacer-xl) 0;
   }
 }
-.form {
-  &__checkbox {
-    margin: var(--spacer-base) 0 var(--spacer-xl) 0;
-  }
-  &__action {
-    flex: 0 0 100%;
-    margin: var(--spacer-base) 0 0 0;
-  }
-  &__action-button {
-    --button-height: 3.25rem;
-  }
-  @include for-mobile {
-    &__checkbox {
-      --checkbox-font-family: var(--font-family-primary);
-      --checkbox-font-weight: var(--font-light);
-      --checkbox-font-size: var(--font-sm);
-    }
-  }
-  @include for-desktop {
-    margin: 0 var(--spacer-2xl) 0 0;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    &__action {
-      display: flex;
-    }
-    &__action-button {
-      &:first-child {
-        margin: 0 var(--spacer-lg) 0 0;
-      }
-    }
-    &__element {
-      margin: 0 0 var(--spacer-base) 0;
-      flex: 0 0 100%;
-      &--salutation {
-        flex: 1 1 25%;
-        padding-right: var(--spacer-xl);
-      }
-      &--half {
-        flex: 1 1 50%;
-        &-even {
-          padding: 0 0 0 var(--spacer-lg);
-        }
-      }
-    }
-  }
-}
+// .form {
+//   &__checkbox {
+//     margin: var(--spacer-base) 0 var(--spacer-xl) 0;
+//   }
+//   &__action {
+//     flex: 0 0 100%;
+//     margin: var(--spacer-base) 0 0 0;
+//   }
+//   &__action-button {
+//     --button-height: 3.25rem;
+//   }
+//   @include for-mobile {
+//     &__checkbox {
+//       --checkbox-font-family: var(--font-family-primary);
+//       --checkbox-font-weight: var(--font-light);
+//       --checkbox-font-size: var(--font-sm);
+//     }
+//   }
+//   @include for-desktop {
+//     margin: 0 var(--spacer-2xl) 0 0;
+//     display: flex;
+//     flex-wrap: wrap;
+//     align-items: center;
+//     &__action {
+//       display: flex;
+//     }
+//     &__action-button {
+//       &:first-child {
+//         margin: 0 var(--spacer-lg) 0 0;
+//       }
+//     }
+//     &__element {
+//       margin: 0 0 var(--spacer-base) 0;
+//       flex: 0 0 100%;
+//       &--salutation {
+//         flex: 1 1 25%;
+//         padding-right: var(--spacer-xl);
+//       }
+//       &--half {
+//         flex: 1 1 50%;
+//         &-even {
+//           padding: 0 0 0 var(--spacer-lg);
+//         }
+//       }
+//     }
+//   }
+// }
 .info {
   margin: 0 0 var(--spacer-sm) 0;
   &__heading {

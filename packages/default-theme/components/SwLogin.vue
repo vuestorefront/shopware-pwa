@@ -17,8 +17,8 @@
         :valid="!$v.email.$error"
         :disabled="isLoading"
         error-message="Email is required"
-        @blur="$v.email.$touch()"
         data-cy="email-input"
+        @blur="$v.email.$touch()"
       />
       <SwInput
         v-model="password"
@@ -29,15 +29,15 @@
         :valid="!$v.password.$error"
         :disabled="isLoading"
         error-message="Password is required"
-        @blur="$v.password.$touch()"
         data-cy="password-input"
+        @blur="$v.password.$touch()"
       />
       <SwPluginSlot name="login-form-button">
         <SwButton
           class="sf-button--full-width form__button"
           :disabled="isLoading"
-          @click="invokeLogin"
           data-cy="submit-login-button"
+          @click="invokeLogin"
         >
           Log in
         </SwButton>

@@ -95,16 +95,4 @@ export default {
     margin-bottom: var(--spacer-base);
   }
 }
-
-.form {
-  &__input {
-    margin-bottom: var(--spacer-xl);
-  }
-  &__checkbox {
-    margin-bottom: var(--spacer-base);
-  }
-  &__button {
-    margin-top: var(--spacer-base);
-  }
-}
 </style>

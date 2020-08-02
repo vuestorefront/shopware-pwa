@@ -15,8 +15,15 @@
   --form-button-margin-right: 0;
   --form-button-margin-top: var(--spacer-base);
 
+  --form-radio-margin-bottom: 0;
+  --form-radio-margin-left: 0;
+  --form-radio-margin-right: 0;
+  --form-radio-margin-top: var(--spacer-base);
+
+  align-items: stretch;
   display: flex;
   flex-direction: var(--form-direction);
+  flex-wrap: nowrap;
 
   &__input {
     margin-bottom: var(--form-input-margin-bottom);
@@ -39,9 +46,17 @@
     margin-top: var(--form-button-margin-top);
   }
 
+  &__radio {
+    & + .form__radio {
+      margin-top: var(--form-radio-margin-top);
+    }
+  }
+
   .inputs-group {
+    align-items: flex-start;
     display: flex;
     flex-direction: column;
+    justify-content: stretch;
 
     > * {
       width: 100%;
