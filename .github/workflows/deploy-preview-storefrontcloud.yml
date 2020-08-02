@@ -40,8 +40,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 100
       - name: Setup node
         uses: actions/setup-node@v1
         with:
@@ -89,8 +87,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 100
       - name: Setup node
         uses: actions/setup-node@v1
         with:
@@ -137,8 +133,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 100
       - name: Setup node
         uses: actions/setup-node@v1
         with:
@@ -185,8 +179,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 100
       - name: Setup node
         uses: actions/setup-node@v1
         with:
@@ -233,8 +225,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 100
       - name: Setup node
         uses: actions/setup-node@v1
         with:
@@ -288,8 +278,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 100
       - name: Setup node
         uses: actions/setup-node@v1
         with:
