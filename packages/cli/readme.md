@@ -2,7 +2,7 @@
 
 A CLI for [Shopware PWA](https://github.com/DivanteLtd/shopware-pwa).
 
-## Usage
+## Installation and usage
 
 ```bash
 mkdir my-shopware-pwa
