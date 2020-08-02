@@ -4,6 +4,8 @@ A CLI for [Shopware PWA](https://github.com/DivanteLtd/shopware-pwa).
 
 ## Installation and usage
 
+Instead of installation we recommend to use `npx` to ensure, that you always use current version of the CLI.
+
 ```bash
 mkdir my-shopware-pwa
 cd ./my-shopware-pwa
