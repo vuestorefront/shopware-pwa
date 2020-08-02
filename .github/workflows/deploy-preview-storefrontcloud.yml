@@ -28,8 +28,6 @@ jobs:
             node_modules
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Install dependencies
         if: steps.step-cache-node-modules.outputs.cache-hit != 'true'
         run: |
@@ -73,8 +71,6 @@ jobs:
             node_modules
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Build CLI
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
@@ -99,13 +95,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - name: Check if composables has changed
-        uses: marceloprado/has-changed-path@master
-        id: package-changed-step
-        with:
-          paths: packages/composables
+      - name: Check hash for directory
+        id: folder-hash-step
+        run: |
+          HASH=$(git rev-parse HEAD:packages/composables)
+          echo "::set-output name=hash::$HASH"
+          echo "Hash is: $HASH"
       - name: Cache composables build
-        if: steps.package-changed-step.outputs.changed != 'true'
         id: step-cache-build
         uses: actions/cache@v2
         env:
@@ -113,11 +109,9 @@ jobs:
         with:
           path: |
             packages/composables/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ steps.folder-hash-step.outputs.hash }}
       - name: Cache node_modules
-        if: steps.package-changed-step.outputs.changed == 'true' || steps.step-cache-build.outputs.cache-hit != 'true'
+        if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules-test
@@ -126,10 +120,8 @@ jobs:
             node_modules
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Build Composables
-        if: steps.package-changed-step.outputs.changed == 'true' || steps.step-cache-build.outputs.cache-hit != 'true'
+        if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
           yarn build composables --ci
       - name: Upload build folder
@@ -151,13 +143,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - name: Check if heelpers has changed
-        uses: marceloprado/has-changed-path@master
-        id: package-changed-step
-        with:
-          paths: packages/heelpers
+      - name: Check hash for directory
+        id: folder-hash-step
+        run: |
+          HASH=$(git rev-parse HEAD:packages/helpers)
+          echo "::set-output name=hash::$HASH"
+          echo "Hash is: $HASH"
       - name: Cache helpers build
-        if: steps.package-changed-step.outputs.changed != 'true'
         id: step-cache-build
         uses: actions/cache@v2
         env:
@@ -165,11 +157,9 @@ jobs:
         with:
           path: |
             packages/helpers/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ steps.folder-hash-step.outputs.hash }}
       - name: Cache node_modules
-        if: steps.package-changed-step.outputs.changed == 'true' || steps.step-cache-build.outputs.cache-hit != 'true'
+        if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules-test
@@ -178,10 +168,8 @@ jobs:
             node_modules
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Build helpers
-        if: steps.package-changed-step.outputs.changed == 'true' || steps.step-cache-build.outputs.cache-hit != 'true'
+        if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
           yarn build helpers --ci
       - name: Upload build folder
@@ -203,13 +191,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - name: Check if nuxt-module has changed
-        uses: marceloprado/has-changed-path@master
-        id: package-changed-step
-        with:
-          paths: packages/nuxt-module
+      - name: Check hash for directory
+        id: folder-hash-step
+        run: |
+          HASH=$(git rev-parse HEAD:packages/nuxt-module)
+          echo "::set-output name=hash::$HASH"
+          echo "Hash is: $HASH"
       - name: Cache nuxt-module build
-        if: steps.package-changed-step.outputs.changed != 'true'
         id: step-cache-build
         uses: actions/cache@v2
         env:
@@ -217,11 +205,9 @@ jobs:
         with:
           path: |
             packages/nuxt-module/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ steps.folder-hash-step.outputs.hash }}
       - name: Cache node_modules
-        if: steps.package-changed-step.outputs.changed == 'true' || steps.step-cache-build.outputs.cache-hit != 'true'
+        if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules-test
@@ -230,10 +216,8 @@ jobs:
             node_modules
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Build nuxt-module
-        if: steps.package-changed-step.outputs.changed == 'true' || steps.step-cache-build.outputs.cache-hit != 'true'
+        if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
           yarn build nuxt-module --ci
       - name: Upload build folder
@@ -255,13 +239,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - name: Check if shopware-6-client has changed
-        uses: marceloprado/has-changed-path@master
-        id: package-changed-step
-        with:
-          paths: packages/shopware-6-client
+      - name: Check hash for directory
+        id: folder-hash-step
+        run: |
+          HASH=$(git rev-parse HEAD:packages/shopware-6-client)
+          echo "::set-output name=hash::$HASH"
+          echo "Hash is: $HASH"
       - name: Cache shopware-6-client build
-        if: steps.package-changed-step.outputs.changed != 'true'
         id: step-cache-build
         uses: actions/cache@v2
         env:
@@ -269,11 +253,9 @@ jobs:
         with:
           path: |
             packages/shopware-6-client/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ steps.folder-hash-step.outputs.hash }}
       - name: Cache node_modules
-        if: steps.package-changed-step.outputs.changed == 'true' || steps.step-cache-build.outputs.cache-hit != 'true'
+        if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules-test
@@ -282,10 +264,8 @@ jobs:
             node_modules
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Build shopware-6-client
-        if: steps.package-changed-step.outputs.changed == 'true' || steps.step-cache-build.outputs.cache-hit != 'true'
+        if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
           yarn build shopware-6-client --ci
       - name: Upload build folder
@@ -323,8 +303,6 @@ jobs:
             node_modules
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Download cli artifact
         uses: actions/download-artifact@v2
         with:
