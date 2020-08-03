@@ -17,31 +17,33 @@
 
       <div class="sw-personal-info__form form">
         <slot name="form">
-          <SwInput
-            v-model="firstName"
-            :valid="!$v.firstName.$error"
-            error-message="First name is required"
-            name="firstName"
-            label="First Name"
-            class="form__element form__element--half form__element--half-even"
-            @blur="$v.firstName.$touch()"
-          />
-          <SwInput
-            v-model="lastName"
-            :valid="!$v.lastName.$error"
-            error-message="Last name is required"
-            name="lastName"
-            label="Last Name"
-            class="form__element form__element--half"
-            @blur="$v.lastName.$touch()"
-          />
+          <div class="inputs-group">
+            <SwInput
+              v-model="firstName"
+              :valid="!$v.firstName.$error"
+              error-message="First name is required"
+              name="firstName"
+              label="First Name"
+              class="form__input"
+              @blur="$v.firstName.$touch()"
+            />
+            <SwInput
+              v-model="lastName"
+              :valid="!$v.lastName.$error"
+              error-message="Last name is required"
+              name="lastName"
+              label="Last Name"
+              class="form__input"
+              @blur="$v.lastName.$touch()"
+            />
+          </div>
           <SwInput
             v-model="email"
             :valid="!$v.email.$error"
             error-message="Proper email is required"
             name="email"
             label="Your email"
-            class="form__element"
+            class="form__input"
             @blur="$v.email.$touch()"
           />
           <SwInput
@@ -52,7 +54,7 @@
             type="email"
             name="emailConfirmation"
             label="Confirm e-mail"
-            class="form__element"
+            class="form__input"
             required
             @blur="$v.emailConfirmation.$touch()"
           />
@@ -64,7 +66,7 @@
             type="password"
             name="password"
             label="Your password"
-            class="form__element"
+            class="form__input"
             required
             @blur="$v.password.$touch()"
           />
@@ -89,7 +91,6 @@
 </template>
 
 <script>
-import { computed, watch } from "@vue/composition-api"
 import { validationMixin } from "vuelidate"
 import {
   required,
@@ -98,12 +99,9 @@ import {
   minLength,
   sameAs,
 } from "vuelidate/lib/validators"
-import { SfSelect, SfProductOption, SfAlert, SfIcon } from "@storefront-ui/vue"
-import { useUser, useContext } from "@shopware-pwa/composables"
-import {
-  mapSalutations,
-  getMessagesFromErrorsArray,
-} from "@shopware-pwa/helpers"
+import { SfAlert, SfIcon } from "@storefront-ui/vue"
+import { useUser } from "@shopware-pwa/composables"
+import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
@@ -112,8 +110,6 @@ export default {
   components: {
     SwInput,
     SwButton,
-    SfSelect,
-    SfProductOption,
     SfAlert,
     SfIcon,
   },
@@ -235,38 +231,38 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 
-.form {
-  @include for-desktop {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  &__element {
-    margin: 0 0 var(--spacer-lg) 0;
-    &:first-child {
-      margin: 0 0 var(--spacer-base) 0;
-    }
-    @include for-desktop {
-      flex: 0 0 100%;
-    }
-    &--half {
-      @include for-desktop {
-        flex: 1 1 50%;
-      }
-      &-even {
-        @include for-desktop {
-          padding: 0 var(--spacer-lg) 0 0;
-        }
-      }
-    }
-  }
-  &__button {
-    --button-width: 100%;
-    @include for-desktop {
-      --button-width: auto;
-    }
-  }
-}
+// .form {
+//   @include for-desktop {
+//     display: flex;
+//     flex-wrap: wrap;
+//     align-items: center;
+//   }
+//   &__element {
+//     margin: 0 0 var(--spacer-lg) 0;
+//     &:first-child {
+//       margin: 0 0 var(--spacer-base) 0;
+//     }
+//     @include for-desktop {
+//       flex: 0 0 100%;
+//     }
+//     &--half {
+//       @include for-desktop {
+//         flex: 1 1 50%;
+//       }
+//       &-even {
+//         @include for-desktop {
+//           padding: 0 var(--spacer-lg) 0 0;
+//         }
+//       }
+//     }
+//   }
+//   &__button {
+//     --button-width: 100%;
+//     @include for-desktop {
+//       --button-width: auto;
+//     }
+//   }
+// }
 
 .message {
   margin: 0 0 var(--spacer-xl) 0;

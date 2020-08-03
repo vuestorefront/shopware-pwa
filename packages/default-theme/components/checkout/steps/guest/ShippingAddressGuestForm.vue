@@ -82,7 +82,7 @@
         error-message="This field is required"
         label="Country"
         data-cy="country"
-        class="form__input"
+        class="form__select sf-select--underlined"
         required
       >
         <SfSelectOption

@@ -3,13 +3,16 @@
     <SwPluginSlot name="registration-form-before" />
     <div class="form sw-register">
       <!-- <h2 class="sw-register__header">Register</h2> -->
+
       <SfAlert
-        v-if="userError || salutationsError || countriesError"
+        v-for="(message, index) in userErrorMessages"
+        :key="index"
         class="sw-register__alert"
         type="danger"
-        :message="getErrorMessage"
+        :message="message"
         data-cy="register-alert"
       />
+
       <SfSelect
         v-if="getMappedSalutations && getMappedSalutations.length > 0"
         v-model="salutation"
@@ -36,8 +39,8 @@
           class="form__input form__element form__element--small"
           :valid="!$v.firstName.$error"
           error-message="First name is required"
-          @blur="$v.firstName.$touch()"
           data-cy="first-name-input"
+          @blur="$v.firstName.$touch()"
         />
         <SwInput
           v-model="lastName"
@@ -46,8 +49,8 @@
           class="form__input form__element form__element--small"
           :valid="!$v.lastName.$error"
           error-message="Last name is required"
-          @blur="$v.lastName.$touch()"
           data-cy="last-name-input"
+          @blur="$v.lastName.$touch()"
         />
         <SwInput
           v-model="email"
@@ -56,8 +59,8 @@
           class="form__input form__element form__element--small form__element"
           :valid="!$v.email.$error"
           error-message="Proper email is required"
-          @blur="$v.email.$touch()"
           data-cy="email-input"
+          @blur="$v.email.$touch()"
         />
       </div>
       <SwInput
@@ -68,8 +71,8 @@
         class="form__input form__element"
         :valid="!$v.password.$error"
         error-message="Minimum password length is 8 characters"
-        @blur="$v.password.$touch()"
         data-cy="password-input"
+        @blur="$v.password.$touch()"
       />
       <div class="inputs-group">
         <SwInput
@@ -79,8 +82,8 @@
           class="form__input form__element form__element--small"
           :valid="!$v.street.$error"
           error-message="Street is required"
-          @blur="$v.street.$touch()"
           data-cy="street-input"
+          @blur="$v.street.$touch()"
         />
         <SwInput
           v-model="city"
@@ -89,8 +92,8 @@
           class="form__input form__element form__element--small"
           :valid="!$v.city.$error"
           error-message="City is required"
-          @blur="$v.city.$touch()"
           data-cy="city-input"
+          @blur="$v.city.$touch()"
         />
         <SwInput
           v-model="zipcode"
@@ -99,19 +102,19 @@
           class="form__input form__element form__element--small"
           :valid="!$v.zipcode.$error"
           error-message="Zipcode is required."
-          @blur="$v.zipcode.$touch()"
           data-cy="zip-code-input"
+          @blur="$v.zipcode.$touch()"
         />
       </div>
       <SfSelect
-        v-model="country"
         v-if="getMappedCountries && getMappedCountries.length > 0"
+        v-model="country"
         label="Country"
         class="sf-select--underlined form__input form__element"
         :valid="!$v.country.$error"
         error-message="Country must be selected"
-        @blur="$v.country.$touch()"
         data-cy="country-select"
+        @blur="$v.country.$touch()"
       >
         <SfSelectOption
           v-for="countryOption in getMappedCountries"
@@ -125,8 +128,8 @@
       <SwButton
         class="sf-button--full-width form__button"
         :disabled="isLoading"
-        @click="invokeRegister"
         data-cy="submit-register-button"
+        @click="invokeRegister"
       >
         Create an account
       </SwButton>
@@ -144,7 +147,11 @@ import {
   useCountries,
   useSalutations,
 } from "@shopware-pwa/composables"
-import { mapCountries, mapSalutations } from "@shopware-pwa/helpers"
+import {
+  mapCountries,
+  mapSalutations,
+  getMessagesFromErrorsArray,
+} from "@shopware-pwa/helpers"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
@@ -175,16 +182,19 @@ export default {
     const getMappedSalutations = computed(() =>
       mapSalutations(getSalutations.value)
     )
+    const userErrorMessages = computed(() =>
+      getMessagesFromErrorsArray(userError.value && userError.value.message)
+    )
 
     return {
       clientLogin: login,
       clientRegister: register,
       isLoading: loading,
-      userError,
       countriesError,
       getMappedCountries,
       salutationsError,
       getMappedSalutations,
+      userErrorMessages,
     }
   },
   computed: {
@@ -209,14 +219,6 @@ export default {
           countryId: this.country.id,
         },
       }
-    },
-    getErrorMessage() {
-      if (this.userError)
-        return "Cannot create a new account, the user may already exist"
-      if (this.salutationsError)
-        return "Couldn't fetch available salutations, please contact the administration."
-      if (this.countriesError)
-        return "Couldn't fetch available countries, please contact the administration."
     },
   },
   validations: {
@@ -292,5 +294,16 @@ export default {
 
 .sf-button--muted {
   color: var(--c-text-muted);
+}
+
+.message {
+  margin: 0 0 var(--spacer-xl) 0;
+  color: var(--c-dark-variant);
+  &__label {
+    font-weight: 400;
+  }
+  &--second {
+    padding: 4rem;
+  }
 }
 </style>

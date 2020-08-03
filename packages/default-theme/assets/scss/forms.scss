@@ -20,6 +20,11 @@
   --form-radio-margin-right: 0;
   --form-radio-margin-top: var(--spacer-base);
 
+  --form-select-padding-bottom: 0;
+  --form-select-padding-left: 0;
+  --form-select-padding-right: 0;
+  --form-select-padding-top: 0;
+
   align-items: stretch;
   display: flex;
   flex-direction: var(--form-direction);
@@ -44,6 +49,17 @@
     margin-left: var(--form-button-margin-left);
     margin-right: var(--form-button-margin-right);
     margin-top: var(--form-button-margin-top);
+  }
+
+  &__select {
+    padding-bottom: var(--form-select-padding-bottom);
+    padding-left: var(--form-select-padding-left);
+    padding-right: var(--form-select-padding-right);
+    padding-top: var(--form-select-padding-top);
+
+    .sf-select__selected.sf-select-option {
+      min-height: 46px;
+    }
   }
 
   &__radio {
@@ -73,6 +89,13 @@
       --form-input-margin-left: var(--spacer-sm);
       --form-input-margin-right: var(--spacer-sm);
       --form-input-margin-top: var(--spacer-base);
+    }
+
+    &__select {
+      --form-select-padding-bottom: var(--spacer-base);
+      --form-select-padding-left: var(--spacer-sm);
+      --form-select-padding-right: var(--spacer-sm);
+      --form-select-padding-top: var(--spacer-base);
     }
   }
 }

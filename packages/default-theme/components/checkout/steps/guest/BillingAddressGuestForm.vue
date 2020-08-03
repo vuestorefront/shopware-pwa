@@ -90,7 +90,7 @@
           error-message="This field is required"
           label="Country"
           data-cy="country"
-          class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
+          class="form__select sf-select--underlined"
           required
         >
           <SfSelectOption

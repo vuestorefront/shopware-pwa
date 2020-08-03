@@ -10,53 +10,57 @@
       :message="countriesError || JSON.stringify(userError)"
     />
     <div class="form">
-      <SwInput
-        v-model="form.firstName"
-        name="firstName"
-        label="First Name"
-        error-message="First name is required"
-        :valid="!$v.form.firstName.$error"
-        required
-        class="form__element form__element--half"
-        @blur="$v.form.firstName.$touch()"
-      />
-      <SwInput
-        v-model="form.lastName"
-        name="lastName"
-        label="Last Name"
-        error-message="Last name is required"
-        :valid="!$v.form.lastName.$error"
-        required
-        class="form__element form__element--half form__element--half-even"
-        @blur="$v.form.lastName.$touch()"
-      />
-      <SfSelect
-        v-model="form.salutation"
-        label="Salutation"
-        error-message="Salutation must be selected"
-        required
-        :valid="!$v.form.salutation.$error"
-        class="sf-select--underlined form__element form__element--half form__element--half form__select"
-        @blur="$v.form.salutaiton.$touch()"
-      >
-        <SfSelectOption
-          v-for="salutationOption in getMappedSalutations"
-          :key="salutationOption.id"
-          :value="salutationOption"
+      <div class="inputs-group">
+        <SwInput
+          v-model="form.firstName"
+          name="firstName"
+          label="First Name"
+          error-message="First name is required"
+          :valid="!$v.form.firstName.$error"
+          required
+          class="form__input"
+          @blur="$v.form.firstName.$touch()"
+        />
+        <SwInput
+          v-model="form.lastName"
+          name="lastName"
+          label="Last Name"
+          error-message="Last name is required"
+          :valid="!$v.form.lastName.$error"
+          required
+          class="form__input"
+          @blur="$v.form.lastName.$touch()"
+        />
+      </div>
+      <div class="inputs-group">
+        <SfSelect
+          v-model="form.salutation"
+          label="Salutation"
+          error-message="Salutation must be selected"
+          required
+          :valid="!$v.form.salutation.$error"
+          class="sf-select--underlined form__select"
+          @blur="$v.form.salutaiton.$touch()"
         >
-          {{ salutationOption.name }}
-        </SfSelectOption>
-      </SfSelect>
-      <SwInput
-        v-model="form.street"
-        name="street"
-        label="Street Name"
-        error-message="Street name is required"
-        :valid="!$v.form.street.$error"
-        required
-        class="form__element form__element--half form__element--half-even"
-        @blur="$v.form.street.$touch()"
-      />
+          <SfSelectOption
+            v-for="salutationOption in getMappedSalutations"
+            :key="salutationOption.id"
+            :value="salutationOption"
+          >
+            {{ salutationOption.name }}
+          </SfSelectOption>
+        </SfSelect>
+        <SwInput
+          v-model="form.street"
+          name="street"
+          label="Street Name"
+          error-message="Street name is required"
+          :valid="!$v.form.street.$error"
+          required
+          class="form__input"
+          @blur="$v.form.street.$touch()"
+        />
+      </div>
       <SwInput
         v-model="form.apartment"
         name="apartment"
@@ -67,53 +71,58 @@
         class="form__element"
         @blur="$v.form.apartment.$touch()"
       />
-      <SwInput
-        v-model="form.city"
-        name="city"
-        label="City"
-        error-message="City is required"
-        :valid="!$v.form.city.$error"
-        required
-        class="form__element form__element--half"
-        @blur="$v.form.city.$touch()"
-      />
-      <SwInput
-        v-model="form.state"
-        name="state"
-        label="State/Province"
-        error-message="State is required"
-        :valid="!$v.form.state.$error"
-        required
-        class="form__element form__element--half form__element--half-even"
-        @blur="$v.form.state.$touch()"
-      />
-      <SwInput
-        v-model="form.zipcode"
-        name="zipcode"
-        label="Zip-code"
-        error-message="Zip code is required"
-        :valid="!$v.form.zipcode.$error"
-        required
-        class="form__element form__element--half"
-        @blur="$v.form.zipcode.$touch()"
-      />
-      <SfSelect
-        v-model="form.country"
-        label="Country"
-        error-message="Country must be selected"
-        :valid="!$v.form.country.$error"
-        required
-        class="sf-select--underlined form__element form__element--half form__element--half-even form__select"
-        @blur="$v.form.country.$touch()"
-      >
-        <SfSelectOption
-          v-for="countryOption in getMappedCountries"
-          :key="countryOption.id"
-          :value="countryOption"
+      <div class="inputs-group">
+        <SwInput
+          v-model="form.city"
+          name="city"
+          label="City"
+          error-message="City is required"
+          :valid="!$v.form.city.$error"
+          required
+          class="form__input"
+          @blur="$v.form.city.$touch()"
+        />
+        <SwInput
+          v-model="form.state"
+          name="state"
+          label="State/Province"
+          error-message="State is required"
+          :valid="!$v.form.state.$error"
+          required
+          class="form__input"
+          @blur="$v.form.state.$touch()"
+        />
+      </div>
+      <div class="inputs-group">
+        <SwInput
+          v-model="form.zipcode"
+          name="zipcode"
+          label="Zip-code"
+          error-message="Zip code is required"
+          :valid="!$v.form.zipcode.$error"
+          required
+          class="form__input"
+          @blur="$v.form.zipcode.$touch()"
+        />
+
+        <SfSelect
+          v-model="form.country"
+          label="Country"
+          error-message="Country must be selected"
+          :valid="!$v.form.country.$error"
+          required
+          class="sf-select--underlined form__select"
+          @blur="$v.form.country.$touch()"
         >
-          {{ countryOption.name }}
-        </SfSelectOption>
-      </SfSelect>
+          <SfSelectOption
+            v-for="countryOption in getMappedCountries"
+            :key="countryOption.id"
+            :value="countryOption"
+          >
+            {{ countryOption.name }}
+          </SfSelectOption>
+        </SfSelect>
+      </div>
       <SwInput
         v-model="form.phoneNumber"
         name="phoneNumber"
@@ -121,9 +130,10 @@
         error-message="Wrong phone number"
         :valid="!$v.form.phoneNumber.$error"
         required
-        class="form__element"
+        class="form__input"
         @blur="$v.form.phoneNumber.$touch()"
       />
+
       <SwButton class="form__button" @click="updateAddress">
         Update the address
       </SwButton>
@@ -282,47 +292,47 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 
-.form {
-  @include for-tablet {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  &__element {
-    margin-bottom: var(--spacer-xl);
-    @include for-tablet {
-      flex: 0 0 100%;
-    }
-    &--half {
-      @include for-tablet {
-        flex: 1 1 50%;
-      }
-      &-even {
-        @include for-tablet {
-          padding-left: var(--spacer-xl);
-        }
-      }
-    }
-  }
-  &__select {
-    ::v-deep .sf-select__selected {
-      padding: 5px 0;
-    }
-  }
-  &__button {
-    width: 100%;
+// .form {
+//   @include for-tablet {
+//     display: flex;
+//     flex-wrap: wrap;
+//     align-items: center;
+//   }
+//   &__element {
+//     margin-bottom: var(--spacer-xl);
+//     @include for-tablet {
+//       flex: 0 0 100%;
+//     }
+//     &--half {
+//       @include for-tablet {
+//         flex: 1 1 50%;
+//       }
+//       &-even {
+//         @include for-tablet {
+//           padding-left: var(--spacer-xl);
+//         }
+//       }
+//     }
+//   }
+//   &__select {
+//     ::v-deep .sf-select__selected {
+//       padding: 5px 0;
+//     }
+//   }
+//   &__button {
+//     width: 100%;
 
-    &--back {
-      margin: var(--spacer-base) 0 0 0;
-    }
+//     &--back {
+//       margin: var(--spacer-base) 0 0 0;
+//     }
 
-    @include for-tablet {
-      width: auto;
+//     @include for-tablet {
+//       width: auto;
 
-      &--back {
-        margin: 0 0 0 var(--spacer-base);
-      }
-    }
-  }
-}
+//       &--back {
+//         margin: 0 0 0 var(--spacer-base);
+//       }
+//     }
+//   }
+// }
 </style>
