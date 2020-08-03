@@ -7,7 +7,10 @@ export function addThemeLayouts(moduleObject: NuxtModuleOptions) {
   const layouts = getAllFiles(
     path.join(
       moduleObject.options.rootDir,
-      "node_modules/@shopware-pwa/default-theme/layouts"
+      "node_modules",
+      "@shopware-pwa",
+      "default-theme",
+      "layouts"
     )
   );
   layouts.forEach((layout) => {
