@@ -318,7 +318,7 @@ jobs:
             !test-project/.shopware-pwa
             !test-project/.yalc
             !test-project/.yalc.lock
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}
       - name: Cache node_modules
         uses: actions/cache@v2
         env:
