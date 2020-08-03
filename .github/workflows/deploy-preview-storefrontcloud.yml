@@ -315,7 +315,7 @@ jobs:
         with:
           path: |
             packages/helpers/dist
-            key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-helpers.outputs.package-hash }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-helpers.outputs.package-hash }}
       - name: Cache nuxt-module build
         uses: actions/cache@v2
         env:
@@ -323,7 +323,7 @@ jobs:
         with:
           path: |
             packages/nuxt-module/dist
-            key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-nuxt-module.outputs.package-hash }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-nuxt-module.outputs.package-hash }}
       - name: Cache shopware-6-client build
         uses: actions/cache@v2
         env:
@@ -331,7 +331,7 @@ jobs:
         with:
           path: |
             packages/shopware-6-client/dist
-            key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-shopware-6-client.outputs.package-hash }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-shopware-6-client.outputs.package-hash }}
       - name: Cache node_modules
         uses: actions/cache@v2
         env:
