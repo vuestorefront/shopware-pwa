@@ -6,21 +6,21 @@ sidebar: auto
 
 ## How to start
 
-Before you start contributing, you should fork this repository and pick up the issue. 
+Before you start contributing, you should fork this repository and pick up the issue.
 
-**Issues, labeled with `core-team`, `shopware-task` are reserved for Shopware-PWA Core Team Members and Shopware Core Team**. 
+**Issues, labeled with `core-team`, `shopware-task` are reserved for Shopware-PWA Core Team Members and Shopware Core Team**.
 
 To find community tasks [click here](https://github.com/DivanteLtd/shopware-pwa/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+-label%3A%22Shopware+Task%22+-label%3A%22Core+Team%22+) or use following filter in the issues:
 
-``` 
-is:open is:issue -label:"Shopware Task" -label:"Core Team" 
+```
+is:open is:issue -label:"Shopware Task" -label:"Core Team"
 ```
 
 After choosing the task, you can solve the problem and create a pull request (PR). Feature requests should be discussed on our Slack channel (please see the link in [README.md](https://github.com/DivanteLtd/shopware-pwa)). After the discussion, please create the issue describing your request.
 
 **Github Project Broad is intended only for core developers.**
 
-**Please read the code of conduct and follow it in all your interactions with the project.** 
+**Please read the code of conduct and follow it in all your interactions with the project.**
 
 Thank you for your interest and engagement! :)
 
@@ -52,6 +52,23 @@ Please, remember to always during development have opened terminal with `yarn te
 
 There is a Pull Request template, that contributors should follow. To merge a branch into master at least one core team member must accept the changes. All continuous integration checks must pass. Note that, only Shopware-PWA Core Team Members are allowed to accept pull requests.
 
-If you face any problems during the implementation of the complex issue, feel free to implement just a part of it and ask for help in the comment. It's OK if you can only handle styling/tests/whatever. 
+If you face any problems during the implementation of the complex issue, feel free to implement just a part of it and ask for help in the comment. It's OK if you can only handle styling/tests/whatever.
 
 In case of any problems feel free to contact us in comments or our Slack channel. :)
+
+## PR preview
+
+Repository has Pull Request preview feature. When you create a new Pull Request we're rebuilding packages to provide preview of your changes.
+Feature uses cache strategy to provide efficient and fast previews. Cache strategy is documented for every package:
+
+- CLI - we're using here hash from yarn.lock file and hash from packages/cli directory. If any of those has changed - it should be rebuild.
+- composables - we're using here hash from yarn.lock file and hash from packages/composables directory. If any of those has changed - it should be rebuild.
+- default-theme - this package is not hashed as it is published as raw source and linked locally during preview.
+- helpers - we're using here hash from yarn.lock file and hash from packages/helpers directory. If any of those has changed - it should be rebuild.
+- nuxt-module - we're using here hash from yarn.lock file and hash from packages/nuxt-module directory. If any of those has changed - it should be rebuild.
+- shopware-6-client - we're using here hash from yarn.lock file and hash from packages/shopware-6-client directory. If any of those has changed - it should be rebuild.
+- test-project - we're using here hash from yarn.lock file and hash from packages/cli directory, as project should be generated from scratch only when CLI or dependencies have changed.
+
+::: warning PR Preview from forked repos
+Currently, we're do not chave PR preview working for Pull Reequests comming from forked repos. Do not worry, wee're working on that.
+:::
