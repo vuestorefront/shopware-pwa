@@ -61,13 +61,13 @@ In case of any problems feel free to contact us in comments or our Slack channel
 Repository has Pull Request preview feature. When you create a new Pull Request we're rebuilding packages to provide preview of your changes.
 Feature uses cache strategy to provide efficient and fast previews. Cache strategy is documented for every package:
 
-- CLI - we're using here hash from yarn.lock file and hash from cli directory. If any of those has changed - it should be rebuild.
-- composables - we're using here hash from yarn.lock file and hash from cli directory. If any of those has changed - it should be rebuild.
+- CLI - we're using here hash from yarn.lock file and hash from packages/cli directory. If any of those has changed - it should be rebuild.
+- composables - we're using here hash from yarn.lock file and hash from packages/composables directory. If any of those has changed - it should be rebuild.
 - default-theme - this package is not hashed as it is published as raw source and linked locally during preview.
-- helpers - we're using here hash from yarn.lock file and hash from cli directory. If any of those has changed - it should be rebuild.
-- nuxt-module - we're using here hash from yarn.lock file and hash from cli directory. If any of those has changed - it should be rebuild.
-- shopware-6-client - we're using here hash from yarn.lock file and hash from cli directory. If any of those has changed - it should be rebuild.
-- test-project - currently not cached
+- helpers - we're using here hash from yarn.lock file and hash from packages/helpers directory. If any of those has changed - it should be rebuild.
+- nuxt-module - we're using here hash from yarn.lock file and hash from packages/nuxt-module directory. If any of those has changed - it should be rebuild.
+- shopware-6-client - we're using here hash from yarn.lock file and hash from packages/shopware-6-client directory. If any of those has changed - it should be rebuild.
+- test-project - we're using here hash from yarn.lock file and hash from packages/cli directory, as project should be generated from scratch only when CLI or dependencies have changed.
 
 ::: warning PR Preview from forked repos
 Currently, we're do not chave PR preview working for Pull Reequests comming from forked repos. Do not worry, wee're working on that.
