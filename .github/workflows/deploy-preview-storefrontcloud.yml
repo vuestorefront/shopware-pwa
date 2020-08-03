@@ -308,17 +308,6 @@ jobs:
             packages/shopware-6-client/dist
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-shopware-6-client.outputs.package-hash }}
       # Step to speed up project init
-      - name: Cache test-project
-        uses: actions/cache@v2
-        env:
-          cache-name: test-cache-test-project
-        with:
-          path: |
-            test-project
-            !test-project/.shopware-pwa
-            !test-project/.yalc
-            !test-project/.yalc.lock
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}
       - name: Cache node_modules
         uses: actions/cache@v2
         env:
@@ -331,6 +320,18 @@ jobs:
       - name: Link packages
         run: |
           yarn --frozen-lockfile
+      # Step to speed up project init
+      - name: Cache test-project
+        uses: actions/cache@v2
+        env:
+          cache-name: test-cache-test-project
+        with:
+          path: |
+            test-project
+            !test-project/.shopware-pwa
+            !test-project/.yalc
+            !test-project/.yalc.lock
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}
       - name: Create test project
         run: |
           mkdir -p test-project
