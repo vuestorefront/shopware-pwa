@@ -76,11 +76,6 @@ jobs:
         run: |
           cd ./packages/cli/
           yarn build
-      # - name: Upload build folder
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: cli-build
-      #     path: ./packages/cli/build/
 
   build-composables:
     name: Build composables package
@@ -124,11 +119,6 @@ jobs:
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
           yarn build composables --ci
-      # - name: Upload build folder
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: composables-build
-      #     path: ./packages/composables/dist/
 
   build-helpers:
     name: Build helpers package
@@ -172,11 +162,6 @@ jobs:
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
           yarn build helpers --ci
-      # - name: Upload build folder
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: helpers-build
-      #     path: ./packages/helpers/dist/
 
   build-nuxt-module:
     name: Build nuxt-module package
@@ -220,11 +205,6 @@ jobs:
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
           yarn build nuxt-module --ci
-      # - name: Upload build folder
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: nuxt-module-build
-      #     path: ./packages/nuxt-module/dist/
 
   build-shopware-6-client:
     name: Build shopware-6-client package
@@ -268,11 +248,6 @@ jobs:
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
           yarn build shopware-6-client --ci
-      # - name: Upload build folder
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: shopware-6-client-build
-      #     path: ./packages/shopware-6-client/dist/
 
   create-test-project:
     name: Create test project
@@ -332,6 +307,18 @@ jobs:
           path: |
             packages/shopware-6-client/dist
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-shopware-6-client.outputs.package-hash }}
+      # Step to speed up project init
+      - name: Cache test-project
+        uses: actions/cache@v2
+        env:
+          cache-name: test-cache-test-project
+        with:
+          path: |
+            test-project
+            !test-project/.shopware-pwa
+            !test-project/.yalc
+            !test-project/.yalc.lock
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}
       - name: Cache node_modules
         uses: actions/cache@v2
         env:
@@ -341,37 +328,12 @@ jobs:
             node_modules
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-      # - name: Download cli artifact
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: cli-build
-      #     path: packages/cli/build
-      # - name: Download composables artifact
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: composables-build
-      #     path: packages/composables/dist
-      # - name: Download helpers artifact
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: helpers-build
-      #     path: packages/helpers/dist
-      # - name: Download nuxt-module artifact
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: nuxt-module-build
-      #     path: packages/nuxt-module/dist
-      # - name: Download shopware-6-client artifact
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: shopware-6-client-build
-      #     path: packages/shopware-6-client/dist
       - name: Link packages
         run: |
           yarn --frozen-lockfile
       - name: Create test project
         run: |
-          mkdir test-project
+          mkdir -p test-project
           cd ./test-project
           ../packages/cli/bin/shopware-pwa init --shopwareEndpoint=${{ env.CANARY_SW6_INSTANCE }} --shopwareAccessToken=${{ env.CANARY_SW6_INSTANCE_TOKEN }} --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --ci --devMode --stage local
       - name: Build test project
