@@ -31,7 +31,8 @@ module.exports = {
   description:
     "Allows you to override theme component. Component will appear in project ready to be edited.",
   run: async (toolbox: GluegunToolbox) => {
-    const directoryPath = `${toolbox.defaultThemeLocation}/components/`;
+    const path = require("path");
+    const directoryPath = path.join(toolbox.defaultThemeLocation, "components");
 
     const componentsFullPaths = getAllFiles(directoryPath);
     const themeComponents = componentsFullPaths.map((path) =>
@@ -48,8 +49,8 @@ module.exports = {
 
     const answers = await toolbox.prompt.ask([componentToOverrideQuestion]);
 
-    const copyFrom = `${directoryPath}${answers.componentToOverride}`;
-    const copyTo = `components/${answers.componentToOverride}`;
+    const copyFrom = path.join(directoryPath, answers.componentToOverride);
+    const copyTo = path.join("components", answers.componentToOverride);
 
     try {
       await toolbox.filesystem.copyAsync(copyFrom, copyTo);
