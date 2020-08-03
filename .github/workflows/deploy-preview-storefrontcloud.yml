@@ -292,15 +292,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - name: Cache node_modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules-test
-        with:
-          path: |
-            node_modules
-            packages/*/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
       - name: Cache cli build
         uses: actions/cache@v2
         env:
@@ -341,6 +332,15 @@ jobs:
           path: |
             packages/shopware-6-client/dist
             key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-shopware-6-client.outputs.package-hash }}
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules-test
+        with:
+          path: |
+            node_modules
+            packages/*/node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
       # - name: Download cli artifact
       #   uses: actions/download-artifact@v2
       #   with:
@@ -368,7 +368,7 @@ jobs:
       #     path: packages/shopware-6-client/dist
       - name: Link packages
         run: |
-          yarn
+          yarn --frozen-lockfile
       - name: Create test project
         run: |
           mkdir test-project
