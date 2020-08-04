@@ -332,7 +332,7 @@ describe("endpoints", () => {
   describe("getContactFormEndpoint", () => {
     it("should return contact form url endpoint", async () => {
       const result = getContactFormEndpoint();
-      expect(result).toEqual(`/store-api/v1/contact-from`);
+      expect(result).toEqual(`/store-api/v1/contact-form`);
     });
   });
 });

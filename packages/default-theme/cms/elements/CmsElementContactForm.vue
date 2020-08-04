@@ -1,6 +1,11 @@
 <template>
   <div>
-    <form action="" class="cms-element-contact-form" @submit.prevent="submit">
+    <form
+      action=""
+      class="cms-element-contact-form"
+      @submit.prevent="submit"
+      v-if="!formSent"
+    >
       <SfSelect
         v-if="getMappedSalutations && getMappedSalutations.length > 0"
         v-model="salutation"
@@ -21,34 +26,34 @@
 
       <div class="input-group">
         <SfInput
-          v-model="fname"
-          :type="formFields.textType"
+          v-model="firstName"
+          type="text"
           label="First name"
           name="firstname"
           error-message="First name is required"
           :disabled="false"
-          :valid="!$v.fname.$error"
+          :valid="!$v.firstName.$error"
           class="small input"
-          @blur="$v.fname.$touch()"
+          @blur="$v.firstName.$touch()"
         />
 
         <SfInput
-          v-model="lname"
-          :type="formFields.textType"
+          v-model="lastName"
+          type="text"
           label="Last name"
           name="lastname"
           error-message="Last name is required"
           :disabled="false"
-          :valid="!$v.lname.$error"
+          :valid="!$v.lastName.$error"
           class="small input"
-          @blur="$v.lname.$touch()"
+          @blur="$v.lastName.$touch()"
         />
       </div>
 
       <div class="input-group">
         <SfInput
           v-model="email"
-          :type="formFields.textType"
+          type="text"
           label="Email address"
           name="email"
           error-message="Email is required"
@@ -59,7 +64,7 @@
         />
         <SfInput
           v-model="phone"
-          :type="formFields.textType"
+          type="text"
           label="Phone number"
           name="phone"
           error-message="Enter valid phone number"
@@ -72,7 +77,7 @@
       <div class="input-group">
         <SfInput
           v-model="subject"
-          :type="formFields.textType"
+          type="text"
           label="Subject line"
           name="subject"
           error-message="Subject is required"
@@ -84,7 +89,7 @@
       <div class="input-group">
         <SfInput
           v-model="message"
-          :type="formFields.textType"
+          type="text"
           label="Your message"
           name="message"
           error-message="Message is required"
@@ -105,16 +110,17 @@
         />
       </div>
 
-      <SfAlert
-        v-if="$v.$invalid && errorMessage"
-        :message="errorMessage"
-        type="danger"
-      />
+      <SfAlert v-if="errorMessage" :message="errorMessage" type="danger" />
 
       <SwButton class="send button">
         {{ $t("send") }}
       </SwButton>
     </form>
+    <SfAlert
+      v-else
+      message="Thanks! We'll contact you as soon as possible!"
+      type="success"
+    />
   </div>
 </template>
 
@@ -122,10 +128,15 @@
 import { SfSelect, SfInput, SfCheckbox, SfAlert } from "@storefront-ui/vue"
 import { validationMixin } from "vuelidate"
 import { required, email, minLength } from "vuelidate/lib/validators"
-import { mapSalutations } from "@shopware-pwa/helpers"
+import {
+  mapSalutations,
+  getMessagesFromErrorsArray,
+} from "@shopware-pwa/helpers"
 import { useSalutations } from "@shopware-pwa/composables"
-import { computed } from "@vue/composition-api"
+import { computed, ref } from "@vue/composition-api"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import { sendContactForm } from "@shopware-pwa/shopware-6-client"
+import { getApplicationContext } from "@shopware-pwa/composables"
 
 export default {
   name: "CmsElementContactForm",
@@ -143,27 +154,8 @@ export default {
       default: () => ({}),
     },
   },
-  data() {
-    return {
-      salutationsList: ["Sir", "Madam", "Mr", "Mrs"],
-      formFields: {
-        textType: "text",
-        defaultCheckbox: "",
-        defaultInput: "",
-        defaultSelect: "Mr",
-      },
-      salutation: "",
-      fname: "",
-      lname: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: "",
-      checkbox: false,
-      errorMessage: "",
-    }
-  },
   setup(props, { root }) {
+    const { apiInstance } = getApplicationContext(root, "SwFooter")
     const { getSalutations, error: salutationsError } = useSalutations(root)
     const getMappedSalutations = computed(() =>
       mapSalutations(getSalutations.value)
@@ -175,10 +167,51 @@ export default {
         "I have read and agree with the data protection regulations."
     )
 
+    const errorMessage = ref("")
+    const salutation = ref(null)
+    const firstName = ref(null)
+    const lastName = ref(null)
+    const email = ref(null)
+    const phone = ref(null)
+    const subject = ref(null)
+    const message = ref(null)
+    const formSent = ref(false)
+    const sendForm = async () => {
+      try {
+        await sendContactForm(
+          {
+            salutationId: salutation.value?.id,
+            firstName: firstName.value,
+            lastName: lastName.value,
+            email: email.value,
+            subject: subject.value,
+            comment: message.value,
+            phone: phone.value,
+          },
+          apiInstance
+        )
+        formSent.value = true
+      } catch (e) {
+        errorMessage.value = getMessagesFromErrorsArray(e.message)
+      }
+    }
+    const checkbox = ref(false)
+
     return {
       getMappedSalutations,
       salutationsError,
       getConfirmationText,
+      sendForm,
+      errorMessage,
+      salutation,
+      firstName,
+      lastName,
+      email,
+      phone,
+      subject,
+      message,
+      checkbox,
+      formSent,
     }
   },
   methods: {
@@ -192,7 +225,7 @@ export default {
         return
       }
 
-      console.error("SENDING")
+      await this.sendForm()
     },
   },
   validations: {
@@ -200,11 +233,11 @@ export default {
       required,
       email,
     },
-    fname: {
+    firstName: {
       required,
       minLength: minLength(3),
     },
-    lname: {
+    lastName: {
       required,
       minLength: minLength(3),
     },
@@ -212,6 +245,7 @@ export default {
       required,
     },
     phone: {
+      required,
       minLength: minLength(3),
     },
     subject: {
