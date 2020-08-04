@@ -1,8 +1,2 @@
 @import '~@storefront-ui/vue/styles.scss';
-
-@mixin sizing-mode-boxed {
-  @include for-desktop {
-    max-width: 1320px;
-    margin: 0 auto;
-  }
-}
+@import '@/assets/scss/variables';

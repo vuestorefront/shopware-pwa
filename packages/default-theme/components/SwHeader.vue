@@ -69,7 +69,6 @@ export default {
 @import "@/assets/scss/variables";
 
 .sw-top-navigation {
-  --search-bar-width: 100%;
   --header-container-padding: 0 var(--spacer-base);
   --header-navigation-item-margin: 0 1rem 0 0;
 

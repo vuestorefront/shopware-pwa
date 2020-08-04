@@ -28,6 +28,7 @@ export function extendComponents(moduleObject: NuxtModuleOptions) {
               "@shopware-pwa/default-theme"
             )
             .replace(".vue", "")
+            .replace(/\\/g, "/") // windows fix
         ] = themeFile;
       });
       // lastThemeFiles = themeFiles;
