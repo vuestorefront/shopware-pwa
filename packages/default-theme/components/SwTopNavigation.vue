@@ -47,7 +47,7 @@ import { ref, onMounted, watch } from "@vue/composition-api"
 import { getCategoryUrl } from "@shopware-pwa/helpers"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import { useLocales } from "@shopware-pwa/default-theme/logic"
-import SwTopNavigationShowMore from "./SwTopNavigationShowMore"
+import SwTopNavigationShowMore from "@shopware-pwa/default-theme/components/SwTopNavigationShowMore"
 
 export default {
   components: {
