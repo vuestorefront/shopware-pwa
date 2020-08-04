@@ -102,7 +102,8 @@ export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
   moduleObject.extendBuild((config: WebpackConfig, ctx: WebpackContext) => {
     const swPluginsDirectory = path.join(
       moduleObject.options.rootDir,
-      ".shopware-pwa/sw-plugins"
+      ".shopware-pwa",
+      "sw-plugins"
     );
     config.resolve.alias["sw-plugins"] = swPluginsDirectory;
     if (ctx.isClient && !ctx.isDev) {
