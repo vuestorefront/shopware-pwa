@@ -11,14 +11,14 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function sendContactForm(params: CustomerSendContactFormParam, contextInstance?: ShopwareApiInstance): Promise<void>;
+export declare function sendContactForm(params: ContactFormData, contextInstance?: ShopwareApiInstance): Promise<void>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  params | [CustomerSendContactFormParam](./shopware-6-client.customersendcontactformparam.md) |  |
+|  params | [ContactFormData](./shopware-6-client.contactformdata.md) |  |
 |  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 <b>Returns:</b>

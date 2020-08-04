@@ -76,6 +76,24 @@ export interface ConfigChangedArgs {
     config: ClientSettings;
 }
 
+// @beta (undocumented)
+export interface ContactFormData {
+    // (undocumented)
+    comment: string;
+    // (undocumented)
+    email: string;
+    // (undocumented)
+    firstName: string;
+    // (undocumented)
+    lastName: string;
+    // (undocumented)
+    phone?: string;
+    // (undocumented)
+    salutationId: string;
+    // (undocumented)
+    subject: string;
+}
+
 // @alpha
 export function createCustomerAddress(params: Partial<CustomerAddress>, contextInstance?: ShopwareApiInstance): Promise<string>;
 
@@ -100,24 +118,6 @@ export interface CustomerResetPasswordParam {
     email: string;
     // (undocumented)
     storefrontUrl?: string;
-}
-
-// @beta (undocumented)
-export interface CustomerSendContactFormParam {
-    // (undocumented)
-    comment: string;
-    // (undocumented)
-    email: string;
-    // (undocumented)
-    firstName: string;
-    // (undocumented)
-    lastName: string;
-    // (undocumented)
-    phone?: string;
-    // (undocumented)
-    salutationId: string;
-    // (undocumented)
-    subject: string;
 }
 
 // @alpha (undocumented)
@@ -318,7 +318,7 @@ export function removeCartItem(itemId: string, contextInstance?: ShopwareApiInst
 export function resetPassword(params: CustomerResetPasswordParam, contextInstance?: ShopwareApiInstance): Promise<void>;
 
 // @beta (undocumented)
-export function sendContactForm(params: CustomerSendContactFormParam, contextInstance?: ShopwareApiInstance): Promise<void>;
+export function sendContactForm(params: ContactFormData, contextInstance?: ShopwareApiInstance): Promise<void>;
 
 // @alpha
 export function setCurrentBillingAddress(billingAddressId: string, contextInstance?: ShopwareApiInstance): Promise<ContextTokenResponse>;

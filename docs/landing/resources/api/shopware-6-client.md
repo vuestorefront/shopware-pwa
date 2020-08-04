@@ -29,7 +29,7 @@
 |  --- | --- |
 |  [ClientSettings](./shopware-6-client.clientsettings.md) | <b><i>(BETA)</i></b> |
 |  [ConfigChangedArgs](./shopware-6-client.configchangedargs.md) | <b><i>(BETA)</i></b> |
-|  [CustomerSendContactFormParam](./shopware-6-client.customersendcontactformparam.md) | <b><i>(BETA)</i></b> |
+|  [ContactFormData](./shopware-6-client.contactformdata.md) | <b><i>(BETA)</i></b> |
 |  [GetStoreNavigationParams](./shopware-6-client.getstorenavigationparams.md) | <b><i>(BETA)</i></b> More about the navigation parameters: https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/navigation?category=shopware-platform-dev-en/store-api-guide |
 |  [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) | <b><i>(BETA)</i></b> |
 
