@@ -72,6 +72,7 @@
         label="Cart"
         :is-floating="true"
         data-cy="bottom-navigation-cart"
+        @click="toggleSidebar"
       >
         <template #icon>
           <SfCircleIcon
@@ -79,7 +80,6 @@
             icon="empty_cart"
             :has-badge="count > 0"
             :badge-label="count.toString()"
-            @click="toggleSidebar"
           />
         </template>
       </SfBottomNavigationItem>
