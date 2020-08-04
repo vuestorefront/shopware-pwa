@@ -6,7 +6,8 @@
     <SfLoader v-else :loading="loadingSearch || !startedSearching">
       <div v-if="searchResult" class="search-page__main">
         <h3>
-          search results for <strong>{{ searchQuery }}</strong
+          search results for
+          <strong>{{ searchQuery }}</strong
           >:
         </h3>
         <SwProductListingFilters
@@ -26,9 +27,7 @@
           @change-page="changePage"
         />
       </div>
-      <h3 class="search-page__warning" v-if="error">
-        {{ error }}
-      </h3>
+      <h3 class="search-page__warning" v-if="error">{{ error }}</h3>
     </SfLoader>
   </div>
 </template>
@@ -36,7 +35,7 @@
 import { SfLoader } from "@storefront-ui/vue"
 import { useProductSearch, useUIState } from "@shopware-pwa/composables"
 
-import { ref, onMounted } from "@vue/composition-api"
+import { ref } from "@vue/composition-api"
 import SwProductListing from "@shopware-pwa/default-theme/components/SwProductListing"
 import SwProductListingFilters from "@shopware-pwa/default-theme/components/SwProductListingFilters"
 
@@ -70,7 +69,7 @@ export default {
     const startedSearching = ref(false)
     const { isOpen: isListView } = useUIState(root, "PRODUCT_LISTING_STATE")
 
-    onMounted(async () => {
+    const invokeSearch = async () => {
       searchQuery.value = root.$route.query.query
       startedSearching.value = true
       if (
@@ -87,7 +86,7 @@ export default {
             "Something went wrong. Please try again or report a bug."
         }
       }
-    })
+    }
 
     return {
       searchResult,
@@ -105,7 +104,16 @@ export default {
       availableFilters,
       resetFilters,
       error,
+      invokeSearch,
     }
+  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler() {
+        this.invokeSearch()
+      },
+    },
   },
   methods: {
     changeSorting(sorting) {

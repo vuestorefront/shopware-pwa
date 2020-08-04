@@ -26,7 +26,8 @@
     "text": "CmsBlockDefault",
     "text-three-column": "CmsBlockTextThreeColumn",
     "product-three-column": "CmsBlockProductThreeColumn",
-    "text-two-column": "CmsBlockTextTwoColumn"
+    "text-two-column": "CmsBlockTextTwoColumn",
+    "form": "CmsBlockDefault"
   },
   "elements": {
     "product-box": "CmsElementProductCard",
@@ -38,6 +39,7 @@
     "youtube-video": "CmsElementVideoYoutube",
     "product-listing": "CmsElementProductListing",
     "category-navigation": "CmsElementCategoryNavigation",
-    "sidebar-filter": "CmsElementCategorySidebarFilter"
+    "sidebar-filter": "CmsElementCategorySidebarFilter",
+    "form": "CmsElementContactForm"
   }
 }

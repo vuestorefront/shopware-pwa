@@ -40,8 +40,18 @@ export default {
 @import "../settings.scss";
 
 .sw-default-section {
+  width: 100%;
+
   &--boxed {
     @include sizing-mode-boxed;
+    & > div {
+      @include sizing-mode-boxed;
+    }
+  }
+
+  & > div {
+    @include sizing-mode-boxed;
+    max-width: none !important;
   }
 }
 </style>

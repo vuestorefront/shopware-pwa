@@ -152,3 +152,5 @@ export const getStoreNavigationEndpoint = (
 ) => `/store-api/v1/navigation/${requestActiveId}/${requestRootId}`;
 export const getOrderPaymentUrlEndpoint = (orderId: string): string =>
   `/sales-channel-api/v1/checkout/order/${orderId}/pay`;
+
+export const getContactFormEndpoint = () => `/store-api/v1/contact-form`;
