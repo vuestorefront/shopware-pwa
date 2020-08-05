@@ -1,21 +1,21 @@
 import { GluegunToolbox } from "gluegun";
 
-/**
- * Provides snippets support for Shopware PWA
- *
- * shopware-pwa snippets will only import snippets from Shopware and append them to your locale file (currently in .shopware-pwa)
- *  adding the --export flag will also use that file to write snippets back to Shopware (in case you've added new ones)
- *
- * IMPORTANT: You cannot create snippets from the admin and import them into the PWA.
- * First they have to be created within your locales/[iso-code].json file and exported to Shopware.
- *
- * 1. Create PWA project with custom snippets
- * 2. Run shopware-pwa snippets --export --username="admin" --password="shopware"
- */
-
 module.exports = {
   name: "snippets",
-  hidden: "true",
+  description: `Provides snippets support for Shopware PWA
+ 
+  shopware-pwa snippets will only import snippets from Shopware and append them to your locale file (currently in .shopware-pwa)
+   adding the --export flag will also use that file to write snippets back to Shopware (in case you've added new ones)
+ 
+  IMPORTANT: You cannot create snippets from the admin and import them into the PWA.
+  First they have to be created within your locales/[iso-code].json file and exported to Shopware.
+
+  Usage:
+  1. Create PWA project with custom snippets
+  2. Run shopware-pwa snippets --export --username="admin" --password="shopware"
+
+  Full docs: https://shopware-pwa-docs.vuestorefront.io/landing/concepts/snippets.html#translations-snippets
+  `,
   run: async (toolbox: GluegunToolbox) => {
     const inputParameters = toolbox.inputParameters;
     Object.assign(inputParameters, toolbox.parameters.options);
