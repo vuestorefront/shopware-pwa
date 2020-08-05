@@ -25,7 +25,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     let flatSet = {};
 
     for (let [key, value] of Object.entries(snippetObject)) {
-      if (typeof value == "object") {
+      if (typeof value === "object") {
         flatSet = {
           ...flatSet,
           ...toolbox.snippets.flattenSnippetObject(value, `${prefix}.${key}`),
@@ -44,7 +44,7 @@ module.exports = (toolbox: GluegunToolbox) => {
   const _deepCopy = (object, path: Array<string>, value) => {
     let currentKey = path.shift();
 
-    if (path.length == 0) {
+    if (!path.length) {
       object[currentKey] = value.value;
       return object;
     } else {
@@ -255,7 +255,7 @@ module.exports = (toolbox: GluegunToolbox) => {
         "json"
       );
 
-      var mergedSnippets = {};
+      let mergedSnippets = {};
       const { merge } = require("lodash");
 
       if (inputParameters.keepLocal) {

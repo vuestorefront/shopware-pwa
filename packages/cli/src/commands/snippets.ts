@@ -97,7 +97,7 @@ module.exports = {
     try {
       authToken = await toolbox.fetchPluginsAuthToken(toolbox.inputParameters);
     } catch (error) {
-      if (error.response.status == 401) {
+      if (error.response.status === 401) {
         toolbox.print.error("Invalid credentials, aborting snippet import.");
         return -1;
       }
