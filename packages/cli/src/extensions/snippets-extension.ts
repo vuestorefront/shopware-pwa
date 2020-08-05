@@ -206,4 +206,110 @@ module.exports = (toolbox: GluegunToolbox) => {
 
     return snippetSetsMap;
   };
+
+  toolbox.snippets.importSnippets = async ({
+    inputParameters,
+    snippetSetsMap,
+    authToken,
+  }) => {
+    toolbox.print.info("Importing Snippets from Shopware");
+
+    if (!inputParameters.keepLocal) {
+      toolbox.print.warning(
+        "Local Snippets will be overridden (run with --keep-local to keep local changes)"
+      );
+    }
+
+    // For every locale
+    for (let [locale, snippetSetIdentifier] of Object.entries(snippetSetsMap)) {
+      // Fetch snippets from API
+      let flatRemoteSnippets = [];
+      try {
+        flatRemoteSnippets = await toolbox.snippets.fetchFromApi(
+          inputParameters.shopwareEndpoint,
+          authToken,
+          snippetSetIdentifier
+        );
+      } catch (error) {
+        toolbox.print.error(`Fetch from API error: ${error}`);
+      }
+
+      // Make them objects that we can write to locale files
+      const remoteSnippets = toolbox.snippets.inflateSnippetObject(
+        flatRemoteSnippets,
+        {}
+      );
+
+      // Generate locale file path
+      const path = require("path");
+      const localSnippetsPath = path.join("locales", `${locale}.json`);
+
+      if (!toolbox.filesystem.exists(localSnippetsPath)) {
+        toolbox.print.warning(
+          `Creating '${localSnippetsPath}, have you deleted your local snippets?`
+        );
+        toolbox.filesystem.write(localSnippetsPath, {});
+      }
+      const localSnippets = await toolbox.filesystem.readAsync(
+        localSnippetsPath,
+        "json"
+      );
+
+      var mergedSnippets = {};
+      const { merge } = require("lodash");
+
+      if (inputParameters.keepLocal) {
+        // First apply remote ones and then apply local ones
+        mergedSnippets = merge(remoteSnippets.pwa, localSnippets);
+      } else {
+        mergedSnippets = merge(localSnippets, remoteSnippets.pwa);
+      }
+
+      // Merge old and new and write them into the local snippets file
+      await toolbox.filesystem.writeAsync(localSnippetsPath, mergedSnippets);
+
+      toolbox.print.success(
+        `Wrote ${flatRemoteSnippets.length} snippets to '${localSnippetsPath}'.`
+      );
+    }
+  };
+
+  toolbox.snippets.exportSnippets = async ({
+    inputParameters,
+    snippetSetsMap,
+    authToken,
+  }) => {
+    toolbox.print.info("Exporting Snippets to Shopware");
+    const path = require("path");
+
+    const localesPath = "locales";
+    const files = await toolbox.filesystem.listAsync(localesPath);
+
+    for (let i = 0; i < files.length; i++) {
+      const snippetSet = await toolbox.filesystem.readAsync(
+        path.join(localesPath, files[i]),
+        "json"
+      );
+
+      const flatSnippets = toolbox.snippets.flattenSnippetObject(
+        snippetSet,
+        "pwa"
+      );
+
+      // Get locale from file name
+      let locale = files[i].split(".")[0];
+
+      // Get correct snippet set id for that locale
+      try {
+        toolbox.snippets.writeToApi(
+          flatSnippets,
+          snippetSetsMap[locale],
+          inputParameters.shopwareEndpoint,
+          authToken
+        );
+      } catch (error) {
+        toolbox.print.error(`Export to API error: ${error}`);
+      }
+    }
+  };
 };
