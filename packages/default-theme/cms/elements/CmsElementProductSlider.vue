@@ -39,7 +39,7 @@ export default {
         : ""
     },
   },
-  data(){
+  data() {
     return {
       options: {
         breakpoints: {
@@ -54,7 +54,7 @@ export default {
             perView: 4,
           },
         },
-      }
+      },
     }
   },
 }
@@ -67,6 +67,11 @@ export default {
   width: 100%;
 }
 .product-carousel {
+  @include for-desktop {
+    text-align: center;
+    text-align: -moz-center;
+    text-align: -webkit-center;
+  }
   &__product {
     @include for-mobile {
       max-width: unset;

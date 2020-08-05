@@ -1,4 +1,5 @@
 import { GluegunToolbox } from "gluegun";
+import { STAGES } from "../stages";
 
 module.exports = {
   name: "init",
@@ -17,12 +18,6 @@ module.exports = {
       system: { run },
       print: { info, warning, success, spin },
     } = toolbox;
-
-    const STAGES = {
-      STABLE: "latest stable (recommended)",
-      CANARY: "canary (current master branch)",
-      LOCAL: "local contibution (to contribute locally in shopware-pwa)",
-    };
 
     const inputParameters = toolbox.inputParameters;
     // when --ci parameter is provided, then we skip questions for default values
@@ -97,6 +92,11 @@ module.exports = {
         );
         break;
       case STAGES.LOCAL:
+        await run(
+          `yarn add -D ${coreDevPackages
+            .map((dep) => `${dep}@canary`)
+            .join(" ")}`
+        );
         await run(`npx yalc add -D ${coreDevPackages.join(" ")}`);
         await run(`yarn link ${coreDevPackages.join(" ")}`);
         break;
@@ -110,7 +110,7 @@ module.exports = {
         break;
     }
 
-    await toolbox.updateNuxtPackageJson(stage === STAGES.CANARY);
+    await toolbox.updateNuxtPackageJson(stage);
     await toolbox.updateNuxtConfigFile();
     updateConfigSpinner.succeed();
 

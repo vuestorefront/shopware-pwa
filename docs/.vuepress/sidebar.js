@@ -27,6 +27,7 @@ module.exports = {
         "/landing/concepts/cms",
         "/landing/concepts/plugins",
         "/landing/concepts/payment",
+        "/landing/concepts/snippets",
       ],
     },
     {

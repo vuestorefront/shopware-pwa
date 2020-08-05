@@ -55,6 +55,9 @@ export interface CategoryFilterTermValue {
 }
 
 // @alpha (undocumented)
+export function debounce<T extends (...args: any[]) => any>(fn: T, delay?: number): T;
+
+// @alpha (undocumented)
 export function exportUrlQuery(searchCriteria: SearchCriteria): string | undefined;
 
 // @alpha (undocumented)
