@@ -24,10 +24,13 @@
             style="width: 25px;"
             @click="toggleMobileNavigation"
           />
-          <SwBottomMenu
-            v-if="mobileNavIsActive"
-            @close="mobileNavIsActive = false"
-          />
+          <!-- TODO: remove transition after animation fix in SFUI -->
+          <transition name="sf-collapse-bottom" mode="out-in">
+            <SwBottomMenu
+              v-if="mobileNavIsActive"
+              @close="mobileNavIsActive = false"
+            />
+          </transition>
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
