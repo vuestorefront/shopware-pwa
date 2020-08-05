@@ -9,7 +9,6 @@ export function parseUrlQuery(query: any): SearchCriteria {
   if (!query || typeof query !== "object") {
     return searchCriteria;
   }
-  console.warn("parseUrlQuery", query);
 
   Object.keys(query).forEach((key: string) => {
     try {
