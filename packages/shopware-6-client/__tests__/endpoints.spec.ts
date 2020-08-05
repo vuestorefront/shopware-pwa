@@ -35,6 +35,7 @@ import {
   getContextSalutationItemEndpoint,
   getOrderPaymentUrlEndpoint,
   getStoreOrderPaymentUrlEndpoint,
+  getContactFormEndpoint,
 } from "../src/endpoints";
 
 const sampleProductId = "eea0f69ec02d44f7a4224272b3d99478";
@@ -333,6 +334,13 @@ describe("endpoints", () => {
     it("should return handle payment method url endpoint", async () => {
       const result = getStoreOrderPaymentUrlEndpoint();
       expect(result).toEqual(`/store-api/v1/handle-payment`);
+    });
+  });
+
+  describe("getContactFormEndpoint", () => {
+    it("should return contact form url endpoint", async () => {
+      const result = getContactFormEndpoint();
+      expect(result).toEqual(`/store-api/v1/contact-form`);
     });
   });
 });
