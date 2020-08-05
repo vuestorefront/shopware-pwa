@@ -1,5 +1,4 @@
 import { GluegunToolbox } from "gluegun";
-import axios from "axios";
 
 /**
  * Provides snippets support for Shopware PWA
@@ -11,8 +10,7 @@ import axios from "axios";
  * First they have to be created within your locales/[iso-code].json file and exported to Shopware.
  *
  * 1. Create PWA project with custom snippets
- * 2. Run shopware-pwa languages
- * 3. Run shopware-pwa snippets --export --username="admin" --password="shopware"
+ * 2. Run shopware-pwa snippets --export --username="admin" --password="shopware"
  */
 
 module.exports = {
@@ -63,6 +61,7 @@ module.exports = {
     }
 
     // Get languages from configuration file
+    await toolbox.runtime.run(`languages`);
     const path = require("path");
 
     const languageConfig = path.join(
@@ -70,13 +69,23 @@ module.exports = {
       "sw-plugins",
       "languages.json"
     );
-    const languages = require(languageConfig);
+    const languages = await toolbox.filesystem.readAsync(
+      languageConfig,
+      "json"
+    );
+
+    if (!languages) {
+      toolbox.print.error(
+        "Language config does not exist. Pleas run 'yarn shopware-pwa languages' first."
+      );
+      return;
+    }
 
     const isoCodes = Object.keys(languages);
 
     const { username, password } = inputParameters;
 
-    if (typeof username === "undefined" || typeof password === "undefined") {
+    if (!username || !password) {
       toolbox.print.error(
         "Please provide your admin credentials using the --username and --password options."
       );
@@ -84,38 +93,18 @@ module.exports = {
     }
 
     // Get Auth Token for API
-    const fetchAuthToken = async ({ shopwareEndpoint, username, password }) => {
-      let authTokenResponse = null;
-
-      try {
-        authTokenResponse = await axios.post(
-          `${shopwareEndpoint}/api/oauth/token`,
-          {
-            client_id: "administration",
-            grant_type: "password",
-            scopes: "write",
-            username,
-            password,
-          }
-        );
-      } catch (error) {
-        if (error.response.status == 401) {
-          toolbox.print.error("Invalid credentials, aborting snippet import.");
-          return -1;
-        }
-        toolbox.print.error(
-          `Error during API authentication: ${error.response.status} (${error.response.statusText})`
-        );
+    let authToken;
+    try {
+      authToken = await toolbox.fetchPluginsAuthToken(toolbox.inputParameters);
+    } catch (error) {
+      if (error.response.status == 401) {
+        toolbox.print.error("Invalid credentials, aborting snippet import.");
         return -1;
       }
-
-      return authTokenResponse?.data?.access_token;
-    };
-
-    const authToken = await fetchAuthToken(inputParameters);
-
-    if (authToken == -1) {
-      return;
+      toolbox.print.error(
+        `Error during API authentication: ${error.response.status} (${error.response.statusText})`
+      );
+      return -1;
     }
 
     // We get all snippet sets and create a map locale => snippet set id
