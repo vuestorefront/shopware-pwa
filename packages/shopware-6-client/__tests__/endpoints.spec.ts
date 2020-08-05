@@ -34,6 +34,7 @@ import {
   getContextCountryItemEndpoint,
   getContextSalutationItemEndpoint,
   getOrderPaymentUrlEndpoint,
+  getContactFormEndpoint,
 } from "../src/endpoints";
 
 const sampleProductId = "eea0f69ec02d44f7a4224272b3d99478";
@@ -325,6 +326,13 @@ describe("endpoints", () => {
       expect(result).toEqual(
         `/sales-channel-api/v1/checkout/order/${orderId}/pay`
       );
+    });
+  });
+
+  describe("getContactFormEndpoint", () => {
+    it("should return contact form url endpoint", async () => {
+      const result = getContactFormEndpoint();
+      expect(result).toEqual(`/store-api/v1/contact-form`);
     });
   });
 });
