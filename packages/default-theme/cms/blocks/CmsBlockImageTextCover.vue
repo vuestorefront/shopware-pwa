@@ -60,10 +60,28 @@ export default {
     }
   }
 
+  .cms-block-image-text-cover__image,
+  .cms-block-image-text-cover__text {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   @include for-desktop {
+    align-items: center;
     flex-direction: row;
     justify-content: space-around;
-    align-items: center;
+
+    .cms-block-image-text-cover__image {
+      margin-bottom: 0;
+      margin-right: var(--spacer-sm);
+      margin-top: 0;
+    }
+
+    .cms-block-image-text-cover__text {
+      margin-bottom: 0;
+      margin-left: var(--spacer-sm);
+      margin-top: 0;
+    }
   }
 }
 </style>
