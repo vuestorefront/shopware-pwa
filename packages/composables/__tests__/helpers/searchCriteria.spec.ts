@@ -18,6 +18,21 @@ describe("composables searchCriteria", () => {
       expect(replaceStateSpy).toBeCalledTimes(0);
       replaceStateSpy.mockRestore();
     });
+    it("should convert sorting to undefined if array is passed", () => {
+      const replaceStateSpy = jest.spyOn(history, "replaceState");
+      appendSearchCriteriaToUrl(
+        {
+          sort: [
+            {
+              some: "sorting",
+            },
+          ],
+        } as any,
+        undefined as any
+      );
+      expect(replaceStateSpy).toBeCalledTimes(0);
+      replaceStateSpy.mockRestore();
+    });
     it("should not invoke replaceState if all searchCriteria are falsy", () => {
       const replaceStateSpy = jest.spyOn(history, "replaceState");
       appendSearchCriteriaToUrl(

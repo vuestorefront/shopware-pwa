@@ -12,6 +12,13 @@ import {
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
 import { config, setup, update } from "@shopware-pwa/shopware-6-client";
+jest.mock("@shopware-pwa/commons", () => ({
+  __esModule: true,
+  default: "commons",
+  warning: jest.fn(),
+}));
+
+import { warning } from "@shopware-pwa/commons";
 
 describe("SearchConverter - convertShopwareSearchCriteria", () => {
   it("should return default request params if there are lacks of properties", () => {
@@ -73,6 +80,19 @@ describe("SearchConverter - convertShopwareSearchCriteria", () => {
       properties: undefined,
       sort: "price-desc",
     });
+  });
+  it("should return undefined when array of Sort is provided", () => {
+    const searchCriteria = {
+      sort: [
+        {
+          name: "price-desc",
+        },
+      ],
+    } as any;
+
+    const result = convertShopwareSearchCriteria(searchCriteria);
+    expect(result).toHaveProperty("sort");
+    expect(result.sort).toBeUndefined();
   });
 });
 
@@ -150,6 +170,44 @@ describe("SearchConverter - convertSearchCriteria", () => {
     });
   });
   describe("sorting", () => {
+    it("should assing the sort parameter made of all items in array of Sort objects", () => {
+      const paramsObject = convertSearchCriteria({
+        searchCriteria: {
+          sort: [
+            {
+              field: "name",
+              desc: true,
+            },
+            {
+              field: "price",
+              desc: false,
+            },
+          ],
+        },
+        apiType: ApiType.salesChannel,
+        config,
+      });
+      expect(paramsObject?.sort).toEqual("-name,price");
+    });
+    it("should not parse array of sortings from SearchCriteria if api type is store-api", () => {
+      convertSearchCriteria({
+        searchCriteria: {
+          sort: [
+            {
+              field: "name",
+              desc: true,
+            },
+            {
+              field: "price",
+              desc: false,
+            },
+          ],
+        },
+        apiType: ApiType.store,
+        config,
+      });
+      expect(warning).toBeCalled();
+    });
     it("should have pagination and sort params in specific format if apiType is set to 'store'", () => {
       const paramsObject = convertSearchCriteria({
         searchCriteria: {
