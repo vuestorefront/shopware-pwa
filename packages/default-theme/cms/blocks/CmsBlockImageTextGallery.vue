@@ -111,6 +111,10 @@ export default {
     display: flex;
     flex-wrap: wrap;
 
+    @include for-mobile {
+      display: contents;
+    }
+
     @include for-desktop {
       margin-right: 7rem;
       margin-left: 7rem;
@@ -119,6 +123,7 @@ export default {
       padding: var(--spacer-sm);
 
       @include for-desktop {
+        display: grid;
         flex-grow: 1;
         flex: 1 1 0;
       }
