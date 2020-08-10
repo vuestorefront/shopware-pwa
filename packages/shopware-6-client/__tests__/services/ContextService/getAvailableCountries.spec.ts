@@ -19,7 +19,7 @@ describe("ContextService - getAvailableCountries", () => {
 
     const result = await getAvailableCountries();
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith("/sales-channel-api/v1/country");
+    expect(mockedGet).toBeCalledWith("/sales-channel-api/v3/country");
     expect(result.total).toEqual(2);
   });
 });

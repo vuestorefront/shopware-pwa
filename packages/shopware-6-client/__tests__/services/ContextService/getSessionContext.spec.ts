@@ -20,7 +20,7 @@ describe("ContextService - getSessionContext", () => {
 
     const result: SessionContext = await getSessionContext();
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith("/store-api/v1/context");
+    expect(mockedGet).toBeCalledWith("/store-api/v3/context");
     expect(result.token).toEqual("qwerty");
   });
 });

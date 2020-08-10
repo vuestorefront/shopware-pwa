@@ -45,7 +45,7 @@ describe("CartService - getCart", () => {
 
     const result = await getCart();
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith("/sales-channel-api/v1/checkout/cart");
+    expect(mockedGet).toBeCalledWith("/sales-channel-api/v3/checkout/cart");
     expect(result.lineItems).not.toBeNull();
   });
 });

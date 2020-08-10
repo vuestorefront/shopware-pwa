@@ -32,7 +32,7 @@ describe("CartService - removeCartItem", () => {
     const result = await removeCartItem(lineItemId);
     expect(mockedDelete).toBeCalledTimes(1);
     expect(mockedDelete).toBeCalledWith(
-      "/sales-channel-api/v1/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf"
+      "/sales-channel-api/v3/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf"
     );
     expect(result.lineItems).toHaveLength(0);
   });
@@ -49,7 +49,7 @@ describe("CartService - removeCartItem", () => {
     );
     expect(mockedDelete).toBeCalledTimes(1);
     expect(mockedDelete).toBeCalledWith(
-      "/sales-channel-api/v1/checkout/cart/line-item/someNonExistingLineItemId"
+      "/sales-channel-api/v3/checkout/cart/line-item/someNonExistingLineItemId"
     );
   });
 });

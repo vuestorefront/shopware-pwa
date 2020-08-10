@@ -42,7 +42,7 @@ describe("CustomerService - getCustomerOrders", () => {
     });
     const result = await getCustomerOrders();
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith("/store-api/v1/order", {
+    expect(mockedGet).toBeCalledWith("/store-api/v3/order", {
       params: { sort: "-createdAt" },
     });
     expect(result).toMatchObject([

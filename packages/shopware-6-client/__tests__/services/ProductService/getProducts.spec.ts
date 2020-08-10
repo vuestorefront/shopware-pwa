@@ -35,7 +35,7 @@ describe("ProductService - getProducts", () => {
     };
     await getProducts({ pagination });
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/sales-channel-api/v1/product", {
+    expect(mockedPost).toBeCalledWith("/sales-channel-api/v3/product", {
       limit: 5,
       page: 1,
     });
@@ -54,7 +54,7 @@ describe("ProductService - getProducts", () => {
     };
     await getProducts({ pagination, sort });
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/sales-channel-api/v1/product", {
+    expect(mockedPost).toBeCalledWith("/sales-channel-api/v3/product", {
       limit: 75,
       page: 1,
       sort: "-name",

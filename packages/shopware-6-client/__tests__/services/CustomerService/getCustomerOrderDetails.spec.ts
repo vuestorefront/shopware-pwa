@@ -53,7 +53,7 @@ describe("CustomerService - getCustomerOrderDetails", () => {
     });
     const result = await getCustomerOrderDetails("12345-ab");
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith("/store-api/v1/order", {
+    expect(mockedGet).toBeCalledWith("/store-api/v3/order", {
       params:
         "filter[id]=12345-ab&associations[lineItems][]&associations[addresses][]&associations[transactions][]&associations[deliveries][]",
     });

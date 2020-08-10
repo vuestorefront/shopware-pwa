@@ -20,7 +20,7 @@ describe("PageService - getPage", () => {
     });
     const result = await getPage("Sports/Grocery-Garden");
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/store-api/v1/pwa/page", {
+    expect(mockedPost).toBeCalledWith("/store-api/v3/pwa/page", {
       path: "Sports/Grocery-Garden",
       limit: 10,
     });

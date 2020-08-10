@@ -26,7 +26,7 @@ describe("ContextService - getShippingMethodDetails", () => {
     const result = await getShippingMethodDetails("dhl");
     expect(mockedGet).toBeCalledTimes(1);
     expect(mockedGet).toBeCalledWith(
-      "/sales-channel-api/v1/shipping-method/dhl"
+      "/sales-channel-api/v3/shipping-method/dhl"
     );
     expect(result).toHaveProperty("id");
     expect(result.id).toBe("dhl");

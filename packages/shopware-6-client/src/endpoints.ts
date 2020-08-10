@@ -144,8 +144,8 @@ export const getNewsletterSubscribeEndpoint = () => `/newsletter/subscribe`;
 
 export const getNewsletterUnsubscribeEndpoint = () => `/newsletter/unsubscribe`;
 
-export const getPageResolverEndpoint = () => `/store-api/v1/pwa/page`;
-export const getNavigationEndpoint = () => `/store-api/v1/pwa/navigation`;
+export const getPageResolverEndpoint = () => `/store-api/v3/pwa/page`;
+export const getNavigationEndpoint = () => `/store-api/v3/pwa/navigation`;
 export const getStoreNavigationEndpoint = (
   requestActiveId: string,
   requestRootId: string
