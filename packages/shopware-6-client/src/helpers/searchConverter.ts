@@ -11,7 +11,6 @@ import {
   EqualsAnyFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { convertAssociations } from "./convertAssociations";
-import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
 import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Association";
 import { Grouping } from "@shopware-pwa/commons/interfaces/search/Grouping";
 import { convertToStoreApiFilters } from "../helpers/convertToStoreApiFilters";
@@ -93,7 +92,7 @@ export const convertSearchCriteria = ({
 
   if (pagination) {
     const { limit, page } = pagination;
-    if (limit && Object.values(PaginationLimit).includes(limit)) {
+    if (limit) {
       params.limit = limit;
     }
     if (page) {
