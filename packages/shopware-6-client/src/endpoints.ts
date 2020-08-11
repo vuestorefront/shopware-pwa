@@ -153,4 +153,7 @@ export const getStoreNavigationEndpoint = (
 export const getOrderPaymentUrlEndpoint = (orderId: string): string =>
   `/sales-channel-api/v1/checkout/order/${orderId}/pay`;
 
+export const getStoreOrderPaymentUrlEndpoint = () =>
+  `/store-api/v1/handle-payment`;
+
 export const getContactFormEndpoint = () => `/store-api/v1/contact-form`;

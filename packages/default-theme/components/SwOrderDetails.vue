@@ -16,6 +16,7 @@
               table__description: tableHeader === 'Item',
               table__quantity: tableHeader === 'Quantity',
               table__amount: tableHeader === 'Amount',
+              table__price: tableHeader === 'Price',
             }"
           >
             {{ tableHeader }}
@@ -278,19 +279,37 @@ export default {
 }
 
 .table {
+  &__row {
+    flex-wrap: nowrap;
+
+    & > th {
+      order: unset;
+    }
+  }
+
   &__data {
+    flex: 1;
+    order: unset;
     text-align: center;
     &:last-of-type {
       text-align: right;
     }
   }
   &__description {
-    flex: 3;
+    flex: 2;
   }
   &__quantity {
     text-align: center;
+    flex: 1;
   }
+
+  &__price {
+    flex: 1;
+    order: unset;
+  }
+
   &__amount {
+    flex: 1;
     text-align: right;
   }
 }
