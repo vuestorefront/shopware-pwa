@@ -5,7 +5,7 @@
       :visible="isSidebarOpen"
       :heading-title="$t('My cart')"
       class="sf-sidebar--right"
-      @close="toggleSidebar"
+      @close="toggleSidebar(false)"
     >
       <template v-if="count" #content-top>
         <SfProperty
@@ -139,16 +139,26 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 
+::v-deep .sf-sidebar__aside {
+  height: auto;
+}
+
 .sw-side-cart {
-  --sidebar-z-index: 4;
+  --sidebar-z-index: 1;
   --property-name-font-size: var(--font-lg);
   --property-value-font-size: var(--font-lg);
-  --overlay-z-index: 4;
+  --sidebar-bottom: var(--bottom-navigation-height, 0);
+  --overlay-z-index: 0;
+  --sidebar-bottom-padding: var(--spacer-sm) var(--spacer-sm) var(--spacer-xl);
+
   & > * {
     --sidebar-content-padding: 0 var(--spacer-xs) var(--spacer-xs)
       var(--spacer-xs);
   }
   @include for-desktop {
+    --sidebar-z-index: 4;
+    --overlay-z-index: 4;
+    --sidebar-bottom: 0;
     & > * {
       --sidebar-bottom-padding: var(--spacer-base);
       --sidebar-content-padding: 0 var(--spacer-base) var(--spacer-base)
