@@ -333,7 +333,7 @@ describe("endpoints", () => {
   describe("getStoreOrderPaymentUrlEndpoint", () => {
     it("should return handle payment method url endpoint", async () => {
       const result = getStoreOrderPaymentUrlEndpoint();
-      expect(result).toEqual(`/store-api/v1/handle-payment`);
+      expect(result).toEqual(`/store-api/v3/handle-payment`);
     });
   });
 
