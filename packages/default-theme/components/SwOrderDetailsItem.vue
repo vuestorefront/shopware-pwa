@@ -4,7 +4,7 @@
       <div class="product-title">{{ getName }}</div>
       <div class="product-sku">{{ product.productNumber }}</div>
     </SfTableData>
-    <SfTableData class="table__data">
+    <SfTableData class="table__data table__price">
       <SfPrice :regular="getUnitPrice | price" class="product-price" />
     </SfTableData>
     <SfTableData class="table__data table__quantity">
@@ -58,16 +58,27 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import "~@storefront-ui/vue/styles";
+
 .product-price {
   white-space: nowrap;
 }
 
 .table {
+  & > td {
+    flex: 1;
+    order: unset;
+  }
+
   &__data {
+    order: unset;
+    flex: 1;
     --price-regular-font-weight: var(--font-normal);
   }
   &__description {
-    flex: 3;
+    padding-right: var(--spacer-sm);
+    order: unset;
+    flex: 2;
   }
 
   &__row:hover {
