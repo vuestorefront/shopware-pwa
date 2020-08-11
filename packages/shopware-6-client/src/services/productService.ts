@@ -28,6 +28,7 @@ export const getProductsIds = async function (
 /**
  * Get default amount of products
  *
+ * @deprecated Due to some limitation of sales-channel-api - consider using other method within store-api insted
  * @throws ClientApiError
  * @alpha
  */
