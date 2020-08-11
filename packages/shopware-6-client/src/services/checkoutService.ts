@@ -3,6 +3,7 @@ import {
   getCheckoutOrderEndpoint,
   getCheckoutGuestOrderEndpoint,
   getOrderPaymentUrlEndpoint,
+  getStoreOrderPaymentUrlEndpoint,
 } from "../endpoints";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import { GuestOrderParams } from "@shopware-pwa/commons/interfaces/request/GuestOrderParams";
@@ -65,6 +66,33 @@ export async function getOrderPaymentUrl(
     getOrderPaymentUrlEndpoint(orderId),
     {
       finishUrl,
+    }
+  );
+
+  return resp.data;
+}
+
+/**
+ * @alpha
+ */
+
+export async function getStoreOrderPaymentUrl(
+  orderId: string,
+
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<{
+  /** TODO:  Discover what is hidden under unknown property https://github.com/DivanteLtd/shopware-pwa/issues/999 */
+  redirectResponse: unknown;
+  apiAlias: string;
+}> {
+  if (!orderId) {
+    throw new Error("getStoreOrderPaymentUrl method requires orderId");
+  }
+
+  const resp = await contextInstance.invoke.get(
+    getStoreOrderPaymentUrlEndpoint(),
+    {
+      params: { orderId },
     }
   );
 

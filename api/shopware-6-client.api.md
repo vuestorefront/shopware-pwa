@@ -259,6 +259,12 @@ export interface GetStoreNavigationParams {
     searchCriteria?: SearchCriteria;
 }
 
+// @alpha (undocumented)
+export function getStoreOrderPaymentUrl(orderId: string, contextInstance?: ShopwareApiInstance): Promise<{
+    redirectResponse: unknown;
+    apiAlias: string;
+}>;
+
 // @beta (undocumented)
 export function getSuggestedResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
