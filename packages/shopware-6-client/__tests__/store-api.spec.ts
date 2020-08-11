@@ -16,13 +16,11 @@ describe("store-api", () => {
     } = await invokeGet({ address: `/store-api/v3/_info/openapi3.json` });
     const regex = /(\{[\w-A-Za-z]+})/g;
 
-    const coveredEndpoints = Object.keys(paths)
-      .filter((path) => path.includes("store-api"))
-      .map((path) => {
-        const endpointPath = path.replace(regex, "undefined");
-        const endpoint = `/store-api/v${version}${endpointPath}`;
-        return endpoint;
-      });
+    const coveredEndpoints = Object.keys(paths).map((path) => {
+      const endpointPath = path.replace(regex, "undefined");
+      const endpoint = `/store-api/v${version}${endpointPath}`;
+      return endpoint;
+    });
     expect(ApiEndpointsMap).toEqual(expect.arrayContaining(coveredEndpoints));
   });
 });
