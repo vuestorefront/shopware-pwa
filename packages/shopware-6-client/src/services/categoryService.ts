@@ -6,6 +6,7 @@ import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
+ * @deprecated Due to some limitation of sales-channel-api - consider using other method within store-api insted
  * @throws ClientApiError
  * @alpha
  */
