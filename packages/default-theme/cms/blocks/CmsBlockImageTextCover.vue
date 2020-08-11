@@ -60,8 +60,7 @@ export default {
     }
   }
 
-  .cms-block-image-text-cover__image,
-  .cms-block-image-text-cover__text {
+  .cms-block-image-text-cover__image {
     margin-left: 0;
     margin-right: 0;
   }
