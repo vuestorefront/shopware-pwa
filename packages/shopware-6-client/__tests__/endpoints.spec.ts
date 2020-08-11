@@ -34,6 +34,7 @@ import {
   getContextCountryItemEndpoint,
   getContextSalutationItemEndpoint,
   getOrderPaymentUrlEndpoint,
+  getStoreOrderPaymentUrlEndpoint,
   getContactFormEndpoint,
 } from "../src/endpoints";
 
@@ -326,6 +327,13 @@ describe("endpoints", () => {
       expect(result).toEqual(
         `/sales-channel-api/v1/checkout/order/${orderId}/pay`
       );
+    });
+  });
+
+  describe("getStoreOrderPaymentUrlEndpoint", () => {
+    it("should return handle payment method url endpoint", async () => {
+      const result = getStoreOrderPaymentUrlEndpoint();
+      expect(result).toEqual(`/store-api/v1/handle-payment`);
     });
   });
 
