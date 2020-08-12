@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/default-theme",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Shopware PWA theme",
   "author": "patzick",
   "scripts": {
