@@ -29,7 +29,7 @@ export const getProductsIds = async function (
 /**
  * Get default amount of products
  *
- * @deprecated use {@link getProductListing} method instead
+ * @deprecated use {@link getCategoryProductsListing} method instead
  * @throws ClientApiError
  * @alpha
  */
