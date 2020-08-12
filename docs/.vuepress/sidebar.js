@@ -5,7 +5,10 @@ module.exports = {
       path: "/landing/project/",
       title: "Project",
       collapsable: false,
-      children: ["landing/project/contribution"],
+      children: [
+        "/landing/project/contribution",
+        "/landing/project/versioning",
+      ],
     },
     {
       path: "/landing/getting-started/",
