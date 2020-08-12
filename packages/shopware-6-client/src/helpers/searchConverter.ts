@@ -108,12 +108,6 @@ export const convertSearchCriteria = ({
 
   if (sort) {
     if (!apiType || apiType === ApiType.salesChannel) {
-      warning({
-        packageName: "shopware-6-client",
-        methodName: "convertSearchCriteria",
-        notes:
-          "Due to limitations of sales-channel-api - some of the sorting may not work correctly. Please consider using store-api instead to avoid further problems.",
-      });
       if (Array.isArray(sort)) {
         const sorting = sort.map(
           ({ desc, field }) => `${desc ? "-" : ""}${field}`

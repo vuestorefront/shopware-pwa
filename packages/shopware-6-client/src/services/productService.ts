@@ -10,6 +10,7 @@ import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCr
 import { SearchResult } from "@shopware-pwa/commons/interfaces/response/SearchResult";
 import { convertSearchCriteria, ApiType } from "../helpers/searchConverter";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
+import { deprecationWarning } from "@shopware-pwa/commons";
 
 /**
  * Get default amount of products' ids
@@ -28,7 +29,7 @@ export const getProductsIds = async function (
 /**
  * Get default amount of products
  *
- * @deprecated Due to some limitation of sales-channel-api - consider using other method within store-api insted
+ * @deprecated use {@link getProductListing} method instead
  * @throws ClientApiError
  * @alpha
  */
@@ -36,6 +37,11 @@ export const getProducts = async function (
   searchCriteria?: SearchCriteria,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<SearchResult<Product[]>> {
+  deprecationWarning({
+    methodName: "getProducts",
+    newMethodName: "getProductListing",
+    packageName: "shopware-6-client",
+  });
   const resp = await contextInstance.invoke.post(
     `${getProductEndpoint()}`,
     convertSearchCriteria({ searchCriteria, config: contextInstance.config })
