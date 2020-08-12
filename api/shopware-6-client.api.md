@@ -390,6 +390,8 @@ export interface ShopwareParams {
     // (undocumented)
     manufacturer?: string;
     // (undocumented)
+    order?: string;
+    // (undocumented)
     p?: number;
     // (undocumented)
     page?: number;

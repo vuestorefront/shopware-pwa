@@ -33,6 +33,7 @@ export interface ShopwareParams {
   p?: number; // p for page in store-api
   page?: number;
   limit?: number;
+  order?: string;
   sort?: string;
   term?: string;
   filter?: (
@@ -131,7 +132,7 @@ export const convertSearchCriteria = ({
       } else {
         let order = sort.desc ? "desc" : "asc";
         // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/834
-        params.sort = sort.name || `${sort.field}-${order}`;
+        params.order = sort.name || `${sort.field}-${order}`;
       }
     }
   }

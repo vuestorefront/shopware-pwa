@@ -222,7 +222,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
       });
       expect(paramsObject?.p).toEqual(1);
       expect(paramsObject?.limit).toEqual(config.defaultPaginationLimit);
-      expect(paramsObject?.sort).toEqual("name-desc");
+      expect(paramsObject?.order).toEqual("name-desc");
     });
     it("should have sorting param in specific format if apiType is set to 'store' - default ascending", () => {
       const paramsObject = convertSearchCriteria({
@@ -235,7 +235,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
         apiType: ApiType.store,
         config,
       });
-      expect(paramsObject?.sort).toEqual("name-asc");
+      expect(paramsObject?.order).toEqual("name-asc");
     });
     it("should have pagination and sort params", () => {
       const paramsObject = convertSearchCriteria({
