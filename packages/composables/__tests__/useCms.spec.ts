@@ -82,6 +82,8 @@ describe("Composables - useCms", () => {
           {
             configuration: {
               associations: [
+                { name: "productReviews" },
+                { name: "media" },
                 { associations: [{ name: "group" }], name: "options" },
               ],
               includes: getIncludesForEntity("useCms"),
@@ -102,6 +104,8 @@ describe("Composables - useCms", () => {
           {
             configuration: {
               associations: [
+                { name: "productReviews" },
+                { name: "media" },
                 { associations: [{ name: "group" }], name: "options" },
               ],
               includes: getIncludesForEntity("useCms"),
@@ -122,6 +126,8 @@ describe("Composables - useCms", () => {
           {
             configuration: {
               associations: [
+                { name: "productReviews" },
+                { name: "media" },
                 { associations: [{ name: "group" }], name: "options" },
               ],
               includes: getIncludesForEntity("useCms"),
@@ -144,6 +150,8 @@ describe("Composables - useCms", () => {
           {
             configuration: {
               associations: [
+                { name: "productReviews" },
+                { name: "media" },
                 { associations: [{ name: "group" }], name: "options" },
               ],
               includes: getIncludesForEntity("useCms"),
@@ -166,7 +174,9 @@ describe("Composables - useCms", () => {
           {
             configuration: {
               associations: [
-                { associations: [{ name: "group" }], name: "options" },
+                { name: "productReviews" },
+                { name: "media" },
+                { name: "options", associations: [{ name: "group" }] },
               ],
               includes: { product: ["name"] },
             },

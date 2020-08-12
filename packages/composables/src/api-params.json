@@ -1,6 +1,13 @@
 {
   "useCms": {
-    "associations": [{
+    "associations": [
+      {
+        "name": "productReviews"
+      },
+      {
+        "name": "media"
+      },
+      {
       "name": "options",
       "associations": [
         {
@@ -41,6 +48,8 @@
           "config"
       ],
       "product": [
+          "media",
+          "productReviews",
           "name",
           "ratingAverage",
           "calculatedPrice",

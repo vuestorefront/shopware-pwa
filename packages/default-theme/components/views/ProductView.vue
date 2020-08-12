@@ -92,15 +92,6 @@ export default {
         : this.page.product
     },
   },
-  async mounted() {
-    try {
-      const { loadAssociations, product } = useProduct(this, this.page.product)
-      this.productWithAssociations = product
-      await loadAssociations()
-    } catch (e) {
-      console.error("ProductView:mounted:loadAssociations", e)
-    }
-  },
 }
 </script>
 <style lang="scss" scoped>
