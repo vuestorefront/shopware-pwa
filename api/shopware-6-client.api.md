@@ -228,8 +228,6 @@ export function getPaymentMethodDetails(paymentId: string, contextInstance?: Sho
 // @alpha
 export function getProduct(productId: string, params?: any, contextInstance?: ShopwareApiInstance): Promise<Product>;
 
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@shopware-pwa/shopware-6-client" does not have an export "getProductListing"
-//
 // @alpha @deprecated
 export const getProducts: (searchCriteria?: SearchCriteria | undefined, contextInstance?: ShopwareApiInstance) => Promise<SearchResult<Product[]>>;
 

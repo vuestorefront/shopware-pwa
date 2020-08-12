@@ -39,7 +39,7 @@ export const getProducts = async function (
 ): Promise<SearchResult<Product[]>> {
   deprecationWarning({
     methodName: "getProducts",
-    newMethodName: "getProductListing",
+    newMethodName: "getCategoryProductsListing",
     packageName: "shopware-6-client",
   });
   const resp = await contextInstance.invoke.post(
