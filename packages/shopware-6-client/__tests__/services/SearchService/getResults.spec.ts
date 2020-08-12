@@ -19,7 +19,7 @@ describe("SearchService - getResults", () => {
     });
     const result = await getResults("some term");
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/store-api/v1/search?search=some term", {
+    expect(mockedPost).toBeCalledWith("/store-api/v3/search?search=some term", {
       limit: 10,
       p: 1,
     });

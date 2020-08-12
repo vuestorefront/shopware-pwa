@@ -36,7 +36,7 @@ describe("NavigationService - getNavigation", () => {
       rootNode: "5e0bf3a85da746e1ba2f9672910ea361",
     });
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/store-api/v1/pwa/navigation", {
+    expect(mockedPost).toBeCalledWith("/store-api/v3/pwa/navigation", {
       depth: 1,
       rootNode: "5e0bf3a85da746e1ba2f9672910ea361",
     });

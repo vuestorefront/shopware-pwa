@@ -40,7 +40,7 @@ describe("CartService - addPromotionCode", () => {
     const result = await addPromotionCode(promotionCode);
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      `/sales-channel-api/v1/checkout/cart/code/3a64e872ca404522a2c5d43ebc751e6b`
+      `/sales-channel-api/v3/checkout/cart/code/3a64e872ca404522a2c5d43ebc751e6b`
     );
     expect(result.price.netPrice).toEqual(150);
   });
@@ -53,7 +53,7 @@ describe("CartService - addPromotionCode", () => {
     expect(addPromotionCode(promotionCode)).rejects.toThrow("404: Not Found");
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      "/sales-channel-api/v1/checkout/cart/code/"
+      "/sales-channel-api/v3/checkout/cart/code/"
     );
   });
 });

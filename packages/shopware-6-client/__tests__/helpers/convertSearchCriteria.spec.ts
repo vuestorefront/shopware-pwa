@@ -10,7 +10,6 @@ import {
   MultiFilter,
   EqualsAnyFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
-import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
 import { config, setup, update } from "@shopware-pwa/shopware-6-client";
 jest.mock("@shopware-pwa/commons", () => ({
   __esModule: true,
@@ -23,7 +22,7 @@ import { warning } from "@shopware-pwa/commons";
 describe("SearchConverter - convertShopwareSearchCriteria", () => {
   it("should return default request params if there are lacks of properties", () => {
     const searchCriteria = {
-      pagination: { page: PaginationLimit.ONE },
+      pagination: { page: 1 },
     };
 
     const result = convertShopwareSearchCriteria(searchCriteria);
@@ -107,7 +106,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
       };
       const result = convertSearchCriteria({
         searchCriteria: {
-          pagination: { page: PaginationLimit.ONE },
+          pagination: { page: 1 },
         },
         apiType: ApiType.store,
         config,
@@ -117,7 +116,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
     });
     it("should have page number with default limit if not provided", () => {
       const result = convertSearchCriteria({
-        searchCriteria: { pagination: { page: PaginationLimit.ONE } },
+        searchCriteria: { pagination: { page: 1 } },
         config,
       });
       expect(result?.page).toEqual(1);
@@ -135,7 +134,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
         searchCriteria: { pagination: { limit: 7 } },
         config,
       });
-      expect(result).toStrictEqual({ limit: 10 });
+      expect(result).toStrictEqual({ limit: 7 });
     });
     it("should not add pagination for an empty object", () => {
       const result = convertSearchCriteria({
@@ -161,7 +160,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
       update({ defaultPaginationLimit: 50 });
       const result = convertSearchCriteria({
         searchCriteria: {
-          pagination: { page: PaginationLimit.ONE },
+          pagination: { page: 1 },
         },
         config,
       });
