@@ -1,7 +1,6 @@
 # API client for Shopware 6
 
-Compatibility with Shopware 6:  
-[![shopware-ver](https://img.shields.io/badge/version-6.2.3-green)](https://github.com/shopware/platform/releases/tag/v6.2.3)
+See compatibility with Shopware 6 in our [docs](https://shopware-pwa-docs.vuestorefront.io/landing/getting-started/prepare-shopware.html#compatibility-table)
 
 ## Installing
 
@@ -11,19 +10,19 @@ Using yarn:
 $ yarn add @shopware-pwa/shopware-6-client
 ```
 
-
 ## Usage example
 
 A simple example of how to use API client to connect with your Shopware instance.
 
 In main project file setup connection informations.
+
 ```js
-import {setup} from "@shopware-pwa/shopware-6-client"
+import { setup } from "@shopware-pwa/shopware-6-client";
 
 setup({
-  endpoint: 'https://address-to-my-shopware-instance.com',
-  accessToken: 'myaccesstoken'
-})
+  endpoint: "https://address-to-my-shopware-instance.com",
+  accessToken: "myaccesstoken",
+});
 ```
 
 And then anywhere in your project, you can use API Client methods:
