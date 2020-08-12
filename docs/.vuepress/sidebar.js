@@ -5,16 +5,16 @@ module.exports = {
       path: "/landing/project/",
       title: "Project",
       collapsable: false,
-      children: [
-        "/landing/project/contribution",
-        "/landing/project/versioning",
-      ],
+      children: ["/landing/project/contribution"],
     },
     {
       path: "/landing/getting-started/",
       title: "Getting Started",
       collapsable: false,
-      children: ["/landing/getting-started/prepare-shopware"],
+      children: [
+        "/landing/getting-started/prepare-shopware",
+        "/landing/getting-started/upgrade",
+      ],
     },
     {
       path: "/landing/fundamentals/",
