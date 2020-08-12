@@ -68,7 +68,7 @@ export default {
     height: 100%;
     height: -moz-available; /* WebKit-based browsers will ignore this. */
     height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
-    height: fill-available;
+    height: stretch;
   }
 }
 </style>
