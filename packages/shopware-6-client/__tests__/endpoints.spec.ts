@@ -13,8 +13,8 @@ import {
   getCustomerLogoutEndpoint,
   getCustomerOrderEndpoint,
   getCheckoutCartEndpoint,
-  getCheckoutCartProductEndpoint,
   getCheckoutCartLineItemEndpoint,
+  getCheckoutPromotionCodeEndpoint,
   getCheckoutOrderEndpoint,
   getCheckoutGuestOrderEndpoint,
   getCheckoutGuestOrderDetailsEndpoint,
@@ -42,7 +42,6 @@ const sampleProductId = "eea0f69ec02d44f7a4224272b3d99478";
 const sampleCategoryId = "03dfd5badd3d43bd8a345ef660761e09";
 const sampleAddressId = "324af469318f46b68e0fe69d77ef15fb";
 const sampleCustomerId = "8b67c1fbb718487db750651430023298";
-const sampleLineItemId = "042df8812942487bb52c9fc1e5b26e20";
 const sampleOrderId = "27356105cf9b4484b96143881c37bbcb";
 const sampleCountryId = "27356105cf9b4484b96143881c37bbcb";
 const sampleSalutationId = "27356105cf9b4484b96143881c37bbcb";
@@ -176,25 +175,21 @@ describe("endpoints", () => {
   describe("getCheckoutCartEndpoint", () => {
     it("should return Shopware checkout-cart endpoint", async () => {
       const result = getCheckoutCartEndpoint();
-      expect(result).toEqual("/sales-channel-api/v3/checkout/cart");
-    });
-  });
-
-  describe("getCheckoutCartProductEndpoint", () => {
-    it("should return Shopware checkout-cart-product endpoint", async () => {
-      const result = getCheckoutCartProductEndpoint(sampleProductId);
-      expect(result).toEqual(
-        "/sales-channel-api/v3/checkout/cart/product/" + sampleProductId
-      );
+      expect(result).toEqual("/store-api/v3/checkout/cart");
     });
   });
 
   describe("getCheckoutCartLineItemEndpoint", () => {
     it("should return Shopware checkout-cart-lineItem endpoint", async () => {
-      const result = getCheckoutCartLineItemEndpoint(sampleLineItemId);
-      expect(result).toEqual(
-        "/sales-channel-api/v3/checkout/cart/line-item/" + sampleLineItemId
-      );
+      const result = getCheckoutCartLineItemEndpoint();
+      expect(result).toEqual("/store-api/v3/checkout/cart/line-item");
+    });
+  });
+
+  describe("getCheckoutPromotionCodeEndpoint", () => {
+    it("should return Shopware checkout-cart-promotion-code endpoint", async () => {
+      const result = getCheckoutPromotionCodeEndpoint("xyz");
+      expect(result).toEqual("/sales-channel-api/v3/checkout/cart/code/xyz");
     });
   });
 

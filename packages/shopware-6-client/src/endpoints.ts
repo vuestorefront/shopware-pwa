@@ -81,14 +81,10 @@ export const getCustomerResetPasswordEndpoint = () =>
 
 // checkout
 
-export const getCheckoutCartEndpoint = () =>
-  `/sales-channel-api/v3/checkout/cart`;
+export const getCheckoutCartEndpoint = () => `/store-api/v3/checkout/cart`;
 
-export const getCheckoutCartProductEndpoint = (productId: string) =>
-  `/sales-channel-api/v3/checkout/cart/product/${productId}`;
-
-export const getCheckoutCartLineItemEndpoint = (lineItemId: string) =>
-  `/sales-channel-api/v3/checkout/cart/line-item/${lineItemId}`;
+export const getCheckoutCartLineItemEndpoint = () =>
+  `/store-api/v3/checkout/cart/line-item`;
 
 export const getCheckoutOrderEndpoint = () =>
   `/sales-channel-api/v3/checkout/order`;

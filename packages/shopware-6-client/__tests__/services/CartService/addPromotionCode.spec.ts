@@ -19,17 +19,15 @@ describe("CartService - addPromotionCode", () => {
   it("should call valid endpoint and return a cart", async () => {
     mockedPost.mockResolvedValueOnce({
       data: {
-        data: {
-          name: random.uuid(),
-          token: random.uuid(),
-          price: {
-            netPrice: 150,
-          },
-          lineItems: {
-            type: "promotion",
-            payload: {
-              code: "3a64e872ca404522a2c5d43ebc751e6b",
-            },
+        name: random.uuid(),
+        token: random.uuid(),
+        price: {
+          netPrice: 150,
+        },
+        lineItems: {
+          type: "promotion",
+          payload: {
+            code: "3a64e872ca404522a2c5d43ebc751e6b",
           },
         },
       },
@@ -39,9 +37,11 @@ describe("CartService - addPromotionCode", () => {
 
     const result = await addPromotionCode(promotionCode);
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith(
-      `/sales-channel-api/v3/checkout/cart/code/3a64e872ca404522a2c5d43ebc751e6b`
-    );
+    expect(mockedPost).toBeCalledWith("/store-api/v3/checkout/cart/line-item", {
+      items: [
+        { referencedId: "3a64e872ca404522a2c5d43ebc751e6b", type: "promotion" },
+      ],
+    });
     expect(result.price.netPrice).toEqual(150);
   });
 
@@ -52,8 +52,8 @@ describe("CartService - addPromotionCode", () => {
 
     expect(addPromotionCode(promotionCode)).rejects.toThrow("404: Not Found");
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith(
-      "/sales-channel-api/v3/checkout/cart/code/"
-    );
+    expect(mockedPost).toBeCalledWith("/store-api/v3/checkout/cart/line-item", {
+      items: [{ referencedId: "", type: "promotion" }],
+    });
   });
 });

@@ -19,20 +19,18 @@ describe("CartService - addCartItemQuantity", () => {
   it("should call valid endpoint and return a cart", async () => {
     mockedPost.mockResolvedValueOnce({
       data: {
-        data: {
-          name: random.uuid(),
-          token: random.uuid(),
-          lineItems: [
-            {
-              id: "3a64e872ca404522a2c5d43ebc751e6",
-              label: commerce.productName(),
-              quantity: 5,
-              payload: {
-                productNumber: random.uuid(),
-              },
+        name: random.uuid(),
+        token: random.uuid(),
+        lineItems: [
+          {
+            id: "3a64e872ca404522a2c5d43ebc751e6",
+            label: commerce.productName(),
+            quantity: 5,
+            payload: {
+              productNumber: random.uuid(),
             },
-          ],
-        },
+          },
+        ],
       },
     });
 
@@ -41,7 +39,7 @@ describe("CartService - addCartItemQuantity", () => {
     const result = await addCartItemQuantity(lineItemId, 3);
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      `/sales-channel-api/v3/checkout/cart/line-item/3a64e872ca404522a2c5d43ebc751e6b`,
+      `/store-api/v3/checkout/cart/line-item/3a64e872ca404522a2c5d43ebc751e6b`,
       {
         type: "product",
         quantity: 3,
@@ -62,7 +60,7 @@ describe("CartService - addCartItemQuantity", () => {
     );
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      "/sales-channel-api/v3/checkout/cart/line-item/someNonExistingLineItemId",
+      "/store-api/v3/checkout/cart/line-item/someNonExistingLineItemId",
       {
         quantity: 1,
         type: "product",
@@ -82,7 +80,7 @@ describe("CartService - addCartItemQuantity", () => {
     );
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      `/sales-channel-api/v3/checkout/cart/line-item/${lineItemId}`,
+      `/store-api/v3/checkout/cart/line-item/someNonExistingLineItemId`,
       {
         quantity: -2,
         type: "product",
@@ -100,7 +98,7 @@ describe("CartService - addCartItemQuantity", () => {
     );
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      "/sales-channel-api/v3/checkout/cart/line-item/",
+      "/store-api/v3/checkout/cart/line-item/",
       {
         quantity: 2,
         type: "product",
