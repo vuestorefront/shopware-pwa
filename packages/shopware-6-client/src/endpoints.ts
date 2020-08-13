@@ -157,3 +157,12 @@ export const getStoreOrderPaymentUrlEndpoint = () =>
   `/store-api/v1/handle-payment`;
 
 export const getContactFormEndpoint = () => `/store-api/v1/contact-form`;
+
+export const getStoreNewsletterSubscribeEndpoint = () =>
+  `/store-api/v3/newsletter/subscribe`;
+
+export const getStoreNewsletterConfirmEndpoint = () =>
+  `/store-api/v3/newsletter/confirm`;
+
+export const getStoreNewsletterUnsubscribeEndpoint = () =>
+  `/store-api/v3/newsletter/unsubscribe`;

@@ -21,6 +21,8 @@
 |  [invokePost({ address, payload, }, contextInstance)](./shopware-6-client.invokepost.md) | <b><i>(BETA)</i></b> Invoke custom POST request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
 |  [login({ username, password }, contextInstance)](./shopware-6-client.login.md) | <b><i>(BETA)</i></b> Login user to shopware instance. |
 |  [logout(contextInstance)](./shopware-6-client.logout.md) | <b><i>(BETA)</i></b> End up the user session. |
+|  [postNewsletterSubscribe(params, contextInstance)](./shopware-6-client.postnewslettersubscribe.md) | <b><i>(BETA)</i></b> |
+|  [postNewsletterUnsubscribe({ email, }, contextInstance)](./shopware-6-client.postnewsletterunsubscribe.md) | <b><i>(BETA)</i></b> |
 |  [sendContactForm(params, contextInstance)](./shopware-6-client.sendcontactform.md) | <b><i>(BETA)</i></b> |
 
 ## Interfaces
@@ -31,6 +33,7 @@
 |  [ConfigChangedArgs](./shopware-6-client.configchangedargs.md) | <b><i>(BETA)</i></b> |
 |  [ContactFormData](./shopware-6-client.contactformdata.md) | <b><i>(BETA)</i></b> |
 |  [GetStoreNavigationParams](./shopware-6-client.getstorenavigationparams.md) | <b><i>(BETA)</i></b> More about the navigation parameters: https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/navigation?category=shopware-platform-dev-en/store-api-guide |
+|  [NewsletterSubscribeData](./shopware-6-client.newslettersubscribedata.md) | <b><i>(BETA)</i></b> |
 |  [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) | <b><i>(BETA)</i></b> |
 
 ## Variables
