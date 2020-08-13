@@ -56,7 +56,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     authToken: string;
   }) => {
     const pluginsConfigRsponse = await axios.post(
-      `${shopwareEndpoint}/api/v1/_action/pwa/dump-bundles`,
+      `${shopwareEndpoint}/api/v3/_action/pwa/dump-bundles`,
       null,
       {
         headers: {

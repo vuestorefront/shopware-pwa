@@ -23,7 +23,7 @@ In this guide I will assume you have a general knowledge of
 
 ## Structure
 
-So let's start easy, by taking a look at the page structure as returned from the `/store-api/v1/pwa/page` endpoint which is provided by the **SwagShopwarePwa** plugin. The snippet below doesn't resemble the exact response, it rather illustrates its structure.
+So let's start easy, by taking a look at the page structure as returned from the `/store-api/v3/pwa/page` endpoint which is provided by the **SwagShopwarePwa** plugin. The snippet below doesn't resemble the exact response, it rather illustrates its structure.
 
 ```js
 {
@@ -171,7 +171,7 @@ Naming convention dictates the `cms/[section|element|block]/[component-type].vue
 
 ### Resolving
 
-Remember the API response when requesting a CMS page on the [`store-api/v1/pwa/page`](#block) endpoint from further above? It provides a `type` parameter for every section, block and element like `"text-hero"` or `"product-listing"`. Now we need to translate this to our components. It's no more than a mapping in the `cmsMap.json` file within your `cms` directory. The CMS resolving will take care of the rest.
+Remember the API response when requesting a CMS page on the [`store-api/v3/pwa/page`](#block) endpoint from further above? It provides a `type` parameter for every section, block and element like `"text-hero"` or `"product-listing"`. Now we need to translate this to our components. It's no more than a mapping in the `cmsMap.json` file within your `cms` directory. The CMS resolving will take care of the rest.
 
 :::details cmsMap.json
 
