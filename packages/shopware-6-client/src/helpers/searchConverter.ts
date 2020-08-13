@@ -27,7 +27,6 @@ export enum ApiType {
 
 /**
  * @deprecated - that interface will be replaced with the new one from ShopwareSearchParams to follow the product-listing filters interface.
- * @alpha
  */
 export interface ShopwareParams {
   p?: number; // p for page in store-api
