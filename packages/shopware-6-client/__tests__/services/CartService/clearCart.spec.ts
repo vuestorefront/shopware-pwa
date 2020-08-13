@@ -25,7 +25,7 @@ describe("CartService - clearCart", () => {
 
     const result = await clearCart();
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/sales-channel-api/v3/checkout/cart");
+    expect(mockedPost).toBeCalledWith("/store-api/v3/checkout/cart");
     expect(result.contextToken).toEqual(contextToken);
   });
 });

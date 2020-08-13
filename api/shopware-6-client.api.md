@@ -28,16 +28,16 @@ import { SessionContext } from '@shopware-pwa/commons/interfaces/response/Sessio
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 
-// @alpha
+// @beta @deprecated
 export function addCartItemQuantity(itemId: string, quantity: number, contextInstance?: ShopwareApiInstance): Promise<Cart>;
 
-// @alpha
+// @beta
 export function addProductToCart(productId: string, quantity?: number, contextInstance?: ShopwareApiInstance): Promise<Cart>;
 
 // @alpha
 export function addPromotionCode(promotionCode: string, contextInstance?: ShopwareApiInstance): Promise<Cart>;
 
-// @alpha
+// @beta
 export function changeCartItemQuantity(itemId: string, newQuantity?: number, contextInstance?: ShopwareApiInstance): Promise<Cart>;
 
 // @alpha
@@ -165,7 +165,7 @@ export function getAvailableSalutations(contextInstance?: ShopwareApiInstance): 
 // @alpha (undocumented)
 export function getAvailableShippingMethods(contextInstance?: ShopwareApiInstance): Promise<ShippingMethod[]>;
 
-// @alpha
+// @beta
 export function getCart(contextInstance?: ShopwareApiInstance): Promise<Cart>;
 
 // @alpha @deprecated (undocumented)
@@ -309,7 +309,7 @@ export interface PageResolverResult<T> {
 // @alpha
 export function register(params: CustomerRegistrationParams, contextInstance?: ShopwareApiInstance): Promise<CustomerRegisterResponse>;
 
-// @alpha
+// @beta
 export function removeCartItem(itemId: string, contextInstance?: ShopwareApiInstance): Promise<Cart>;
 
 // @alpha
