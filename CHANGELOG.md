@@ -1,3 +1,42 @@
+# [0.3.0](https://github.com/DivanteLtd/shopware-pwa/compare/v0.2.2...v0.3.0) (2020-08-12)
+
+
+### Bug Fixes
+
+* **cli:** problems with init on windows ([#921](https://github.com/DivanteLtd/shopware-pwa/issues/921)) ([b23cf38](https://github.com/DivanteLtd/shopware-pwa/commit/b23cf3830c57c85aca4fcb5749fa3ddf817239d3))
+* **cms:** replace fill available with stretch in CmsBlockProductThreeColumn ([#1015](https://github.com/DivanteLtd/shopware-pwa/issues/1015)) ([0a682ba](https://github.com/DivanteLtd/shopware-pwa/commit/0a682ba144a5daefe40b417a88abeb9c58d383b5))
+* **composables:** apiInstance used in useCountries causing warning ([#964](https://github.com/DivanteLtd/shopware-pwa/issues/964)) ([715cd30](https://github.com/DivanteLtd/shopware-pwa/commit/715cd30788f8176ee34aa12a766ecd8667918009))
+* **composables:** only count products in cart [#908](https://github.com/DivanteLtd/shopware-pwa/issues/908) ([#909](https://github.com/DivanteLtd/shopware-pwa/issues/909)) ([6e4bb5a](https://github.com/DivanteLtd/shopware-pwa/commit/6e4bb5a3e382201187c7baaba3d81e6ed0e47476))
+* **default-theme:** catch api client rejection during fetching the footer navigation ([#979](https://github.com/DivanteLtd/shopware-pwa/issues/979)) ([056cab2](https://github.com/DivanteLtd/shopware-pwa/commit/056cab2991ee9a76b97c1e89bd9b4d4fa7aa5115))
+* **default-theme:** fixed back to 1st step checkout button ([#1010](https://github.com/DivanteLtd/shopware-pwa/issues/1010)) ([1b08688](https://github.com/DivanteLtd/shopware-pwa/commit/1b08688c5d7f50f675b3f70e8fc263ad245ed549))
+* **default-theme:** fixed margins in cms block ([#1003](https://github.com/DivanteLtd/shopware-pwa/issues/1003)) ([c375833](https://github.com/DivanteLtd/shopware-pwa/commit/c375833bc43e23549fe749683f39761459e34c4d))
+* **default-theme:** fixed side cart styles ([#986](https://github.com/DivanteLtd/shopware-pwa/issues/986)) ([d44d822](https://github.com/DivanteLtd/shopware-pwa/commit/d44d82240ca4855c900e32863c71a396493ee28e))
+* **default-theme:** order details styling ([#1011](https://github.com/DivanteLtd/shopware-pwa/issues/1011)) ([cdde791](https://github.com/DivanteLtd/shopware-pwa/commit/cdde791bba8132200955d7fbf27ee9d3c5d75449))
+* **default-theme:** require component from default theme ([#995](https://github.com/DivanteLtd/shopware-pwa/issues/995)) ([4959144](https://github.com/DivanteLtd/shopware-pwa/commit/49591442636229d77d0c683b1c0afa24d3485709))
+* **default-theme:** second search doesn't invoke redender ([1b67f1b](https://github.com/DivanteLtd/shopware-pwa/commit/1b67f1b9a588b9cf1d89b0a7586398b90769abe0))
+* **nuxt-module:** correct aliases to support windows 10 component override ([#991](https://github.com/DivanteLtd/shopware-pwa/issues/991)) ([eaeb020](https://github.com/DivanteLtd/shopware-pwa/commit/eaeb020fb9827625af5a6cca43af92e7b6e3c625))
+
+
+### Features
+
+* **api-client:** query params converter [#568](https://github.com/DivanteLtd/shopware-pwa/issues/568) ([#940](https://github.com/DivanteLtd/shopware-pwa/issues/940)) ([acd20eb](https://github.com/DivanteLtd/shopware-pwa/commit/acd20ebac4bdcede42abe5d5aca8e16b18d25f99))
+* **cli:** initial concept for snippet handling. ([#945](https://github.com/DivanteLtd/shopware-pwa/issues/945)) ([73e18dd](https://github.com/DivanteLtd/shopware-pwa/commit/73e18ddfaa41da1955274500d377000f03456d83))
+* **client:** adjust api version for Shopware v6.3 ([#1012](https://github.com/DivanteLtd/shopware-pwa/issues/1012)) ([db93862](https://github.com/DivanteLtd/shopware-pwa/commit/db9386281d9179f75a90fd430c049ae0a8a40a8b))
+* **client:** handle multiple sorting ([#988](https://github.com/DivanteLtd/shopware-pwa/issues/988)) ([5aeb651](https://github.com/DivanteLtd/shopware-pwa/commit/5aeb651e3161d0f4e670b375dd0153288ccab581))
+* **client:** method to handle payment URL [#952](https://github.com/DivanteLtd/shopware-pwa/issues/952) ([#1001](https://github.com/DivanteLtd/shopware-pwa/issues/1001)) ([23bbb74](https://github.com/DivanteLtd/shopware-pwa/commit/23bbb7457d6a2b41cb6086438c582584f30cb6b7))
+* **cms:** cms sections full-width awareness ([#962](https://github.com/DivanteLtd/shopware-pwa/issues/962)) ([3ffca57](https://github.com/DivanteLtd/shopware-pwa/commit/3ffca5774b729f205fc754bd5cd65c5807570ff9))
+* **cms:** contact form component [#666](https://github.com/DivanteLtd/shopware-pwa/issues/666) ([#941](https://github.com/DivanteLtd/shopware-pwa/issues/941)) ([fccfc0a](https://github.com/DivanteLtd/shopware-pwa/commit/fccfc0a9658cc8aef270509b513bad132fd77ce7))
+* **composables:** add useDefaults for includes and associations parameters (internals) [#911](https://github.com/DivanteLtd/shopware-pwa/issues/911) ([#934](https://github.com/DivanteLtd/shopware-pwa/issues/934)) ([996a9fb](https://github.com/DivanteLtd/shopware-pwa/commit/996a9fb5e6ba79d601a139db8d58869694fcbd16))
+* **default-theme:** add subcat in mobile nav ([#944](https://github.com/DivanteLtd/shopware-pwa/issues/944)) ([4037876](https://github.com/DivanteLtd/shopware-pwa/commit/4037876ef67c65fcf8c3dbaa4697003235eabab9))
+* **default-theme:** bottom navigation always visible on mobile ([#1000](https://github.com/DivanteLtd/shopware-pwa/issues/1000)) ([91524d6](https://github.com/DivanteLtd/shopware-pwa/commit/91524d6cbdb41349f2dca21cf08c40fadc3aa89b))
+* **default-theme:** boxed-mode max width can now be changed by parent theme ([#980](https://github.com/DivanteLtd/shopware-pwa/issues/980)) ([844c906](https://github.com/DivanteLtd/shopware-pwa/commit/844c9063b1e3ce38898a47d2c258c050c18eba56))
+* **default-theme:** close modal button for mobile [#956](https://github.com/DivanteLtd/shopware-pwa/issues/956) ([#960](https://github.com/DivanteLtd/shopware-pwa/issues/960)) ([325c640](https://github.com/DivanteLtd/shopware-pwa/commit/325c640e3402d3082f66e42174e84b5626ff7d61))
+* **default-theme:** handle product-three-column, text-three-column and text-two-column block ([#977](https://github.com/DivanteLtd/shopware-pwa/issues/977)) ([a9bc5a4](https://github.com/DivanteLtd/shopware-pwa/commit/a9bc5a4839369a0b197071ca1da32f279e16d3f7))
+* **default-theme:** suggest search with debounce helper [#807](https://github.com/DivanteLtd/shopware-pwa/issues/807) ([#971](https://github.com/DivanteLtd/shopware-pwa/issues/971)) ([7356a03](https://github.com/DivanteLtd/shopware-pwa/commit/7356a03ffceffe380b2043abe632702dfb28c327))
+* **default-theme:** updated storefront-ui to 0.7.18 ([#928](https://github.com/DivanteLtd/shopware-pwa/issues/928)) ([f740dca](https://github.com/DivanteLtd/shopware-pwa/commit/f740dca49eee9840db0df2302e81e0fadb589a23))
+
+
+
 ## [0.2.2](https://github.com/DivanteLtd/shopware-pwa/compare/v0.2.1...v0.2.2) (2020-07-30)
 
 

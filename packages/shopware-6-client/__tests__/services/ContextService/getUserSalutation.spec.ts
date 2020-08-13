@@ -21,7 +21,7 @@ describe("ContextService - getUserCountry", () => {
     const result = await getUserSalutation(salutationId);
     expect(mockedGet).toBeCalledTimes(1);
     expect(mockedGet).toBeCalledWith(
-      `/store-api/v1/salutation/${salutationId}`
+      `/store-api/v3/salutation/${salutationId}`
     );
     expect(result.displayName).toEqual("Mrs.");
   });

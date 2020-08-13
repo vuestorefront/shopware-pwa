@@ -26,7 +26,7 @@ describe("ContextService - getPaymentMethodDetails", () => {
     const result = await getPaymentMethodDetails("paypal");
     expect(mockedGet).toBeCalledTimes(1);
     expect(mockedGet).toBeCalledWith(
-      "/sales-channel-api/v1/payment-method/paypal"
+      "/sales-channel-api/v3/payment-method/paypal"
     );
     expect(result).toHaveProperty("id");
     expect(result.id).toBe("paypal");

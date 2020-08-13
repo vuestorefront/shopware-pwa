@@ -19,7 +19,7 @@ describe("CustomerService - register", () => {
     mockedGet.mockResolvedValueOnce({ data: { data: {} } });
     const result = await getCustomerAddresses();
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith(`/sales-channel-api/v1/customer/address`);
+    expect(mockedGet).toBeCalledWith(`/sales-channel-api/v3/customer/address`);
     expect(result).toMatchObject({});
   });
 });

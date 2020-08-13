@@ -51,7 +51,7 @@ describe("CartService - addProductToCart", () => {
     expect(
       mockedPost
     ).toBeCalledWith(
-      "/sales-channel-api/v1/checkout/cart/product/044a190a54ab4f06803909c3ee8063ef",
+      "/sales-channel-api/v3/checkout/cart/product/044a190a54ab4f06803909c3ee8063ef",
       { quantity: 1 }
     );
 
@@ -68,7 +68,7 @@ describe("CartService - addProductToCart", () => {
     );
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      "/sales-channel-api/v1/checkout/cart/product/someNonExistingProductId",
+      "/sales-channel-api/v3/checkout/cart/product/someNonExistingProductId",
       {
         quantity: 1,
       }
@@ -83,7 +83,7 @@ describe("CartService - addProductToCart", () => {
     expect(addProductToCart(productId, 2)).rejects.toThrow("404: Not Found");
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      "/sales-channel-api/v1/checkout/cart/product/",
+      "/sales-channel-api/v3/checkout/cart/product/",
       {
         quantity: 2,
       }
@@ -101,7 +101,7 @@ describe("CartService - addProductToCart", () => {
     await addProductToCart("qwe", 0);
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      "/sales-channel-api/v1/checkout/cart/product/qwe",
+      "/sales-channel-api/v3/checkout/cart/product/qwe",
       {
         quantity: 1,
       }

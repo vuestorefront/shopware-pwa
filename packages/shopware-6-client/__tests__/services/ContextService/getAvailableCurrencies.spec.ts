@@ -18,7 +18,7 @@ describe("ContextService - getAvailableCurrencies", () => {
     mockedGet.mockResolvedValueOnce({ data: [{ iso: "EUR" }] });
     const result = await getAvailableCurrencies();
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith("/store-api/v1/currency");
+    expect(mockedGet).toBeCalledWith("/store-api/v3/currency");
     expect(result).toEqual([{ iso: "EUR" }]);
   });
 });
