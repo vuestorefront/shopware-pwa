@@ -42,7 +42,7 @@ describe("ProductService - getCategoryProductsListing", () => {
       mockedPost
     ).toBeCalledWith(
       "/store-api/v3/product-listing/044a190a54ab4f06803909c3ee8063ef",
-      { sort: "name-asc", limit: 10 }
+      { order: "name-asc", limit: 10 }
     );
     expect(result).toHaveProperty("elements");
   });

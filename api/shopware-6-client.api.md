@@ -14,26 +14,18 @@ import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currenc
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { CustomerRegistrationParams } from '@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams';
-import { EqualsAnyFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
-import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
-import { Grouping } from '@shopware-pwa/commons/interfaces/search/Grouping';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
-import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { Language } from '@shopware-pwa/commons/interfaces/models/framework/language/Language';
-import { MultiFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { NavigationResponse } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
-import { NotFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { ProductListingResult } from '@shopware-pwa/commons/interfaces/response/ProductListingResult';
-import { RangeFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { SearchResult } from '@shopware-pwa/commons/interfaces/response/SearchResult';
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
-import { ShopwareAssociation } from '@shopware-pwa/commons/interfaces/search/Association';
 import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 
 // @alpha
@@ -373,32 +365,6 @@ export interface ShopwareApiInstance {
     setup: (config?: ClientSettings) => void;
     // (undocumented)
     update: (config?: ClientSettings) => void;
-}
-
-// @alpha @deprecated (undocumented)
-export interface ShopwareParams {
-    // (undocumented)
-    associations?: ShopwareAssociation;
-    // (undocumented)
-    filter?: (NotFilter | MultiFilter | EqualsFilter | EqualsAnyFilter | RangeFilter)[];
-    // (undocumented)
-    grouping?: Grouping;
-    // (undocumented)
-    includes?: Includes;
-    // (undocumented)
-    limit?: number;
-    // (undocumented)
-    manufacturer?: string;
-    // (undocumented)
-    p?: number;
-    // (undocumented)
-    page?: number;
-    // (undocumented)
-    properties?: string;
-    // (undocumented)
-    sort?: string;
-    // (undocumented)
-    term?: string;
 }
 
 // @beta
