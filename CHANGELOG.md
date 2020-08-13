@@ -1,3 +1,15 @@
+## [0.3.1](https://github.com/DivanteLtd/shopware-pwa/compare/v0.3.0...v0.3.1) (2020-08-13)
+
+
+### Bug Fixes
+
+* **cli:** adjust CLI invocation to shopware instance ([#1020](https://github.com/DivanteLtd/shopware-pwa/issues/1020)) ([32cec46](https://github.com/DivanteLtd/shopware-pwa/commit/32cec4654e62385a48a1fada06529b7eb90e95cb))
+* **client:** move cart functionalities to the store-api ([#1017](https://github.com/DivanteLtd/shopware-pwa/issues/1017)) ([87c834d](https://github.com/DivanteLtd/shopware-pwa/commit/87c834dc16d4dea9ba3eac96c3fa525d91511e00))
+* **client:** sorting for store-api ([#1018](https://github.com/DivanteLtd/shopware-pwa/issues/1018)) ([3564da4](https://github.com/DivanteLtd/shopware-pwa/commit/3564da422fca809417aef975925322df15da30fc))
+* **default-theme:** product details associations problem ([11cb80b](https://github.com/DivanteLtd/shopware-pwa/commit/11cb80b3656150342b081044026ea1cc37e1f545))
+
+
+
 # [0.3.0](https://github.com/DivanteLtd/shopware-pwa/compare/v0.2.2...v0.3.0) (2020-08-12)
 
 
