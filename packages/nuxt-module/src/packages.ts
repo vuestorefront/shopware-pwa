@@ -1,4 +1,5 @@
 import path from "path";
+import jetpack from "fs-jetpack";
 import { NuxtModuleOptions, WebpackConfig } from "./interfaces";
 
 /* istanbul ignore next */
@@ -8,7 +9,7 @@ export function useCorePackages(
 ) {
   const useRawSource = (packageName: string) => {
     const pkgPath = path.resolve(path.join("node_modules", packageName));
-    const pkg = require(path.join(pkgPath, "package.json"));
+    const pkg = jetpack.read(path.join(pkgPath, "package.json"), "json");
 
     if (pkg.module) {
       moduleObject.extendBuild((config: WebpackConfig) => {
