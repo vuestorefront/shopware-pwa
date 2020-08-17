@@ -19,20 +19,18 @@ describe("CartService - changeCartItemQuantity", () => {
   it("should call valid endpoint and return cart with no items", async () => {
     mockedPatch.mockResolvedValueOnce({
       data: {
-        data: {
-          name: random.uuid(),
-          token: random.uuid(),
-          lineItems: [
-            {
-              id: "geawq90a5dab4206843d0vc3sa8wefdf",
-              label: commerce.productName(),
-              quantity: 3,
-              payload: {
-                productNumber: random.uuid,
-              },
+        name: random.uuid(),
+        token: random.uuid(),
+        lineItems: [
+          {
+            id: "geawq90a5dab4206843d0vc3sa8wefdf",
+            label: commerce.productName(),
+            quantity: 3,
+            payload: {
+              productNumber: random.uuid,
             },
-          ],
-        },
+          },
+        ],
       },
     });
 
@@ -40,11 +38,9 @@ describe("CartService - changeCartItemQuantity", () => {
 
     const result = await changeCartItemQuantity(lineItemId, 3);
     expect(mockedPatch).toBeCalledTimes(1);
-    expect(
-      mockedPatch
-    ).toBeCalledWith(
-      "/sales-channel-api/v3/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
-      { quantity: 3 }
+    expect(mockedPatch).toBeCalledWith(
+      "/store-api/v3/checkout/cart/line-item",
+      { items: [{ quantity: 3, id: "geawq90a5dab4206843d0vc3sa8wefdf" }] }
     );
     expect(result.lineItems[0].quantity).toEqual(3);
   });
@@ -61,9 +57,14 @@ describe("CartService - changeCartItemQuantity", () => {
     );
     expect(mockedPatch).toBeCalledTimes(1);
     expect(mockedPatch).toBeCalledWith(
-      "/sales-channel-api/v3/checkout/cart/line-item/someNonExistingLineItemId",
+      "/store-api/v3/checkout/cart/line-item",
       {
-        quantity: 1,
+        items: [
+          {
+            quantity: 1,
+            id: "someNonExistingLineItemId",
+          },
+        ],
       }
     );
   });
@@ -80,9 +81,14 @@ describe("CartService - changeCartItemQuantity", () => {
     );
     expect(mockedPatch).toBeCalledTimes(1);
     expect(mockedPatch).toBeCalledWith(
-      "/sales-channel-api/v3/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
+      "/store-api/v3/checkout/cart/line-item",
       {
-        quantity: -2,
+        items: [
+          {
+            id: "geawq90a5dab4206843d0vc3sa8wefdf",
+            quantity: -2,
+          },
+        ],
       }
     );
   });
@@ -96,11 +102,9 @@ describe("CartService - changeCartItemQuantity", () => {
 
     await changeCartItemQuantity(lineItemId);
     expect(mockedPatch).toBeCalledTimes(1);
-    expect(
-      mockedPatch
-    ).toBeCalledWith(
-      "/sales-channel-api/v3/checkout/cart/line-item/geawq90a5dab4206843d0vc3sa8wefdf",
-      { quantity: 1 }
+    expect(mockedPatch).toBeCalledWith(
+      "/store-api/v3/checkout/cart/line-item",
+      { items: [{ quantity: 1, id: "geawq90a5dab4206843d0vc3sa8wefdf" }] }
     );
   });
 });

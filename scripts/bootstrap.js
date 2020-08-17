@@ -29,7 +29,7 @@ files.forEach((shortName) => {
       version: baseVersion,
       description: name,
       main: `dist/${shortName}.cjs.js`,
-      module: `dist/${shortName}.esm-bundler.js`,
+      module: `dist/${shortName}.esm.js`,
       files: [`dist`],
       types: `dist/${shortName}.d.ts`,
       unpkg: `dist/${shortName}.global.js`,

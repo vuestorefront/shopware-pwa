@@ -17,26 +17,24 @@ __DEV__=false yarn dev
 */
 
 const execa = require("execa");
+const path = require("path");
 const { fuzzyMatchTarget } = require("./utils");
 const args = require("minimist")(process.argv.slice(2));
 const target = args._.length
   ? fuzzyMatchTarget(args._)[0]
   : "shopware-6-client";
-const formats = args.formats || args.f;
-const commit = execa.sync("git", ["rev-parse", "HEAD"]).stdout.slice(0, 7);
+const chokidar = require("chokidar");
 
-execa(
-  "rollup",
-  [
-    "-wc",
-    "--environment",
-    [
-      `COMMIT:${commit}`,
-      `TARGET:${target}`,
-      `FORMATS:${formats || "cjs"}`
-    ].join(",")
-  ],
-  {
-    stdio: "inherit"
-  }
-);
+chokidar
+  .watch([path.join(__dirname, "..", "packages", target, "src")], {
+    ignoreInitial: true,
+  })
+  .on("all", async (event) => {
+    execa("yarn", ["build", target], {
+      stdio: "inherit",
+    });
+  });
+
+execa("yarn", ["build", target], {
+  stdio: "inherit",
+});
