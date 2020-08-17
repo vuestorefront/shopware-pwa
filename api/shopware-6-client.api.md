@@ -287,6 +287,36 @@ export function login({ username, password }?: {
 export function logout(contextInstance?: ShopwareApiInstance): Promise<void>;
 
 // @beta (undocumented)
+export function newsletterSubscribe(params: NewsletterSubscribeData, contextInstance?: ShopwareApiInstance): Promise<void>;
+
+// @beta (undocumented)
+export interface NewsletterSubscribeData {
+    // (undocumented)
+    city?: string;
+    // (undocumented)
+    email: string;
+    // (undocumented)
+    firstName?: string;
+    // (undocumented)
+    lastName?: string;
+    // (undocumented)
+    option: string;
+    // (undocumented)
+    salutationId?: string;
+    // (undocumented)
+    storefrontUrl: string;
+    // (undocumented)
+    street?: string;
+    // (undocumented)
+    zipCode?: string;
+}
+
+// @beta (undocumented)
+export function newsletterUnsubscribe({ email, }: {
+    email: string;
+}, contextInstance?: ShopwareApiInstance): Promise<void>;
+
+// @beta (undocumented)
 export const onConfigChange: (fn: (context: ConfigChangedArgs) => void) => void;
 
 // @alpha (undocumented)

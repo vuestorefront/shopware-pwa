@@ -152,3 +152,12 @@ export const getOrderPaymentUrlEndpoint = (orderId: string): string =>
 export const getContactFormEndpoint = () => `/store-api/v3/contact-form`;
 export const getStoreOrderPaymentUrlEndpoint = () =>
   `/store-api/v3/handle-payment`;
+
+export const getStoreNewsletterSubscribeEndpoint = () =>
+  `/store-api/v3/newsletter/subscribe`;
+
+export const getStoreNewsletterConfirmEndpoint = () =>
+  `/store-api/v3/newsletter/confirm`;
+
+export const getStoreNewsletterUnsubscribeEndpoint = () =>
+  `/store-api/v3/newsletter/unsubscribe`;
