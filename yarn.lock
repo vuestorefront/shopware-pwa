@@ -8548,6 +8548,11 @@ es6-promisify@^5.0.0:
   dependencies:
     es6-promise "^4.0.3"
 
+esbuild@^0.6.22:
+  version "0.6.22"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.6.22.tgz#cadabf5d8762d105206c501a31c2c0afe6b0ffd3"
+  integrity sha512-dgcdoOZ7rghMageuGFS6geQ77UacoZ/qrd0MRc2iPnYtMNfQ1cJ7mVkotVpUDJYdOWvLVa87NFEtqPg7D2mKSA==
+
 escape-goat@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/escape-goat/-/escape-goat-2.1.1.tgz#1b2dc77003676c457ec760b2dc68edb648188675"
