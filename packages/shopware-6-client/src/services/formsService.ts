@@ -45,7 +45,7 @@ export interface NewsletterSubscribeData {
 /**
  * @beta
  */
-export async function postNewsletterSubscribe(
+export async function newsletterSubscribe(
   params: NewsletterSubscribeData,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<void> {
@@ -58,7 +58,7 @@ export async function postNewsletterSubscribe(
 /**
  * @beta
  */
-export async function postNewsletterUnsubscribe(
+export async function newsletterUnsubscribe(
   {
     email,
   }: {

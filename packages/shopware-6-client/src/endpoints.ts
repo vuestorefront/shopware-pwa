@@ -161,4 +161,3 @@ export const getStoreNewsletterConfirmEndpoint = () =>
 
 export const getStoreNewsletterUnsubscribeEndpoint = () =>
   `/store-api/v3/newsletter/unsubscribe`;
-`/store-api/v3/handle-payment`;

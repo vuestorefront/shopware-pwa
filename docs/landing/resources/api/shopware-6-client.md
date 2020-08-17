@@ -25,8 +25,8 @@
 |  [invokePost({ address, payload, }, contextInstance)](./shopware-6-client.invokepost.md) | <b><i>(BETA)</i></b> Invoke custom POST request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
 |  [login({ username, password }, contextInstance)](./shopware-6-client.login.md) | <b><i>(BETA)</i></b> Login user to shopware instance. |
 |  [logout(contextInstance)](./shopware-6-client.logout.md) | <b><i>(BETA)</i></b> End up the user session. |
-|  [postNewsletterSubscribe(params, contextInstance)](./shopware-6-client.postnewslettersubscribe.md) | <b><i>(BETA)</i></b> |
-|  [postNewsletterUnsubscribe({ email, }, contextInstance)](./shopware-6-client.postnewsletterunsubscribe.md) | <b><i>(BETA)</i></b> |
+|  [newsletterSubscribe(params, contextInstance)](./shopware-6-client.newslettersubscribe.md) | <b><i>(BETA)</i></b> |
+|  [newsletterUnsubscribe({ email, }, contextInstance)](./shopware-6-client.newsletterunsubscribe.md) | <b><i>(BETA)</i></b> |
 |  [removeCartItem(itemId, contextInstance)](./shopware-6-client.removecartitem.md) | <b><i>(BETA)</i></b> Deletes the cart line item by id.<!-- -->This method may be used for deleting "product" type item lines as well as "promotion" type item lines. |
 |  [sendContactForm(params, contextInstance)](./shopware-6-client.sendcontactform.md) | <b><i>(BETA)</i></b> |
 
