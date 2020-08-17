@@ -36,12 +36,12 @@
     "lodash": "^4.17.20",
     "md5-hex": "^3.0.1",
     "request": "^2.88.2",
-    "snyk": "^1.373.1",
+    "snyk": "^1.374.0",
     "universal-analytics": "^0.4.23",
     "unzipper": "^0.10.11"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.9",
+    "@types/jest": "^26.0.10",
     "@types/node": "^12.12.31",
     "jest": "^26.4.0",
     "prettier": "^2.0.5",
