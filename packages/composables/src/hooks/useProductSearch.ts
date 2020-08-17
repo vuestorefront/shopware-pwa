@@ -1,5 +1,5 @@
 import { ref, Ref, computed, reactive } from "@vue/composition-api";
-import queryString from "query-string";
+import { parse } from "query-string";
 import {
   getSuggestedResults,
   getSearchResults,
@@ -159,7 +159,7 @@ export const useProductSearch = (
 
   const captureQueryParams = () => {
     /* istanbul ignore next */
-    const criteriaQueryParams: ListingQueryParams | any = queryString.parse(
+    const criteriaQueryParams: ListingQueryParams | any = parse(
       window?.location?.search,
       {
         parseNumbers: true,

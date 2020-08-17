@@ -3,7 +3,7 @@
   "version": "0.3.1",
   "description": "Rest API client for Shopware 6.",
   "main": "dist/shopware-6-client.cjs.js",
-  "module": "dist/shopware-6-client.esm-bundler.js",
+  "module": "dist/shopware-6-client.esm.js",
   "files": [
     "dist"
   ],
@@ -17,7 +17,7 @@
   "buildOptions": {
     "name": "Shopware6Client",
     "formats": [
-      "esm-bundler",
+      "esm",
       "cjs"
     ]
   },
