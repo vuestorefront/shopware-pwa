@@ -1,6 +1,13 @@
 {
   "useCms": {
-    "associations": [{
+    "associations": [
+      {
+        "name": "productReviews"
+      },
+      {
+        "name": "media"
+      },
+      {
       "name": "options",
       "associations": [
         {
@@ -14,6 +21,7 @@
           "type",
           "slot",
           "blockId",
+          "config",
           "data",
           "backgroundMediaMode",
           "backgroundMedia"
@@ -40,6 +48,8 @@
           "config"
       ],
       "product": [
+          "media",
+          "productReviews",
           "name",
           "ratingAverage",
           "calculatedPrice",

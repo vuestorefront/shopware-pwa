@@ -24,10 +24,13 @@
             style="width: 25px;"
             @click="toggleMobileNavigation"
           />
-          <SwBottomMenu
-            v-if="mobileNavIsActive"
-            @close="mobileNavIsActive = false"
-          />
+          <!-- TODO: remove transition after animation fix in SFUI -->
+          <transition name="sf-collapse-bottom" mode="out-in">
+            <SwBottomMenu
+              v-if="mobileNavIsActive"
+              @close="mobileNavIsActive = false"
+            />
+          </transition>
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
@@ -67,22 +70,38 @@
           <SwCurrencySwitcher class="menu-button__currency" />
         </template>
       </SfBottomNavigationItem>
-      <SfBottomNavigationItem
-        icon="empty_cart"
-        label="Cart"
-        :is-floating="true"
-        data-cy="bottom-navigation-cart"
-      >
-        <template #icon>
-          <SfCircleIcon
-            aria-label="Go to Cart"
-            icon="empty_cart"
-            :has-badge="count > 0"
-            :badge-label="count.toString()"
-            @click="toggleSidebar"
-          />
-        </template>
-      </SfBottomNavigationItem>
+      <transition name="sf-collapse-bottom" mode="out-in">
+        <SfBottomNavigationItem
+          v-if="!isSidebarOpen"
+          key="openCart"
+          icon="empty_cart"
+          label="Cart"
+          class="sw-bottom-navigation__action-button"
+          :is-floating="true"
+          data-cy="bottom-navigation-cart"
+          @click="toggleSidebar(true)"
+        >
+          <template #icon>
+            <SfCircleIcon
+              aria-label="Go to Cart"
+              icon="empty_cart"
+              :has-badge="count > 0"
+              :badge-label="count.toString()"
+            />
+          </template>
+        </SfBottomNavigationItem>
+        <SfBottomNavigationItem
+          v-else
+          key="closeCart"
+          icon="cross"
+          label="Close"
+          class="sw-bottom-navigation__action-button"
+          :is-floating="true"
+          data-cy="bottom-navigation-close"
+          @click="toggleSidebar(false)"
+        >
+        </SfBottomNavigationItem>
+      </transition>
     </SfBottomNavigation>
   </div>
 </template>
@@ -176,8 +195,16 @@ export default {
   padding: 0 1rem;
 }
 
+::v-deep .sf-bottom-navigation-item .sf-circle-icon {
+  --button-size: 3.7rem;
+}
+
 .sw-bottom-navigation {
   align-items: center;
+
+  &__action-button {
+    min-width: 2rem;
+  }
 }
 .menu-button {
   position: relative;

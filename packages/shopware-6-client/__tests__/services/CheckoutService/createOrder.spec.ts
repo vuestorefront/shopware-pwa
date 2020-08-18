@@ -21,7 +21,7 @@ describe("CheckoutService createOrder", () => {
 
       const result = await createOrder();
       expect(mockedPost).toBeCalledTimes(1);
-      expect(mockedPost).toBeCalledWith("/sales-channel-api/v1/checkout/order");
+      expect(mockedPost).toBeCalledWith("/sales-channel-api/v3/checkout/order");
       expect(result).toBeUndefined();
     });
     it("should return newly added order object", async () => {
@@ -35,7 +35,7 @@ describe("CheckoutService createOrder", () => {
 
       const result = await createOrder();
       expect(mockedPost).toBeCalledTimes(1);
-      expect(mockedPost).toBeCalledWith("/sales-channel-api/v1/checkout/order");
+      expect(mockedPost).toBeCalledWith("/sales-channel-api/v3/checkout/order");
       expect(result).toHaveProperty("id");
     });
   });
@@ -59,7 +59,7 @@ describe("CheckoutService createOrder", () => {
       const result = await createGuestOrder(createGuestOrderData);
       expect(mockedPost).toBeCalledTimes(1);
       expect(mockedPost).toBeCalledWith(
-        "/sales-channel-api/v1/checkout/guest-order",
+        "/sales-channel-api/v3/checkout/guest-order",
         createGuestOrderData
       );
       expect(result).toBeUndefined();
@@ -76,7 +76,7 @@ describe("CheckoutService createOrder", () => {
       const result = await createGuestOrder(createGuestOrderData);
       expect(mockedPost).toBeCalledTimes(1);
       expect(mockedPost).toBeCalledWith(
-        "/sales-channel-api/v1/checkout/guest-order",
+        "/sales-channel-api/v3/checkout/guest-order",
         createGuestOrderData
       );
       expect(result).toHaveProperty("id");

@@ -10,13 +10,19 @@ import {
   MultiFilter,
   EqualsAnyFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
-import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
 import { config, setup, update } from "@shopware-pwa/shopware-6-client";
+jest.mock("@shopware-pwa/commons", () => ({
+  __esModule: true,
+  default: "commons",
+  warning: jest.fn(),
+}));
+
+import { warning } from "@shopware-pwa/commons";
 
 describe("SearchConverter - convertShopwareSearchCriteria", () => {
   it("should return default request params if there are lacks of properties", () => {
     const searchCriteria = {
-      pagination: { page: PaginationLimit.ONE },
+      pagination: { page: 1 },
     };
 
     const result = convertShopwareSearchCriteria(searchCriteria);
@@ -74,6 +80,19 @@ describe("SearchConverter - convertShopwareSearchCriteria", () => {
       sort: "price-desc",
     });
   });
+  it("should return undefined when array of Sort is provided", () => {
+    const searchCriteria = {
+      sort: [
+        {
+          name: "price-desc",
+        },
+      ],
+    } as any;
+
+    const result = convertShopwareSearchCriteria(searchCriteria);
+    expect(result).toHaveProperty("sort");
+    expect(result.sort).toBeUndefined();
+  });
 });
 
 describe("SearchConverter - convertSearchCriteria", () => {
@@ -87,7 +106,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
       };
       const result = convertSearchCriteria({
         searchCriteria: {
-          pagination: { page: PaginationLimit.ONE },
+          pagination: { page: 1 },
         },
         apiType: ApiType.store,
         config,
@@ -97,7 +116,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
     });
     it("should have page number with default limit if not provided", () => {
       const result = convertSearchCriteria({
-        searchCriteria: { pagination: { page: PaginationLimit.ONE } },
+        searchCriteria: { pagination: { page: 1 } },
         config,
       });
       expect(result?.page).toEqual(1);
@@ -115,7 +134,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
         searchCriteria: { pagination: { limit: 7 } },
         config,
       });
-      expect(result).toStrictEqual({ limit: 10 });
+      expect(result).toStrictEqual({ limit: 7 });
     });
     it("should not add pagination for an empty object", () => {
       const result = convertSearchCriteria({
@@ -141,7 +160,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
       update({ defaultPaginationLimit: 50 });
       const result = convertSearchCriteria({
         searchCriteria: {
-          pagination: { page: PaginationLimit.ONE },
+          pagination: { page: 1 },
         },
         config,
       });
@@ -150,6 +169,44 @@ describe("SearchConverter - convertSearchCriteria", () => {
     });
   });
   describe("sorting", () => {
+    it("should assing the sort parameter made of all items in array of Sort objects", () => {
+      const paramsObject = convertSearchCriteria({
+        searchCriteria: {
+          sort: [
+            {
+              field: "name",
+              desc: true,
+            },
+            {
+              field: "price",
+              desc: false,
+            },
+          ],
+        },
+        apiType: ApiType.salesChannel,
+        config,
+      });
+      expect(paramsObject?.sort).toEqual("-name,price");
+    });
+    it("should not parse array of sortings from SearchCriteria if api type is store-api", () => {
+      convertSearchCriteria({
+        searchCriteria: {
+          sort: [
+            {
+              field: "name",
+              desc: true,
+            },
+            {
+              field: "price",
+              desc: false,
+            },
+          ],
+        },
+        apiType: ApiType.store,
+        config,
+      });
+      expect(warning).toBeCalled();
+    });
     it("should have pagination and sort params in specific format if apiType is set to 'store'", () => {
       const paramsObject = convertSearchCriteria({
         searchCriteria: {
@@ -165,7 +222,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
       });
       expect(paramsObject?.p).toEqual(1);
       expect(paramsObject?.limit).toEqual(config.defaultPaginationLimit);
-      expect(paramsObject?.sort).toEqual("name-desc");
+      expect(paramsObject?.order).toEqual("name-desc");
     });
     it("should have sorting param in specific format if apiType is set to 'store' - default ascending", () => {
       const paramsObject = convertSearchCriteria({
@@ -178,7 +235,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
         apiType: ApiType.store,
         config,
       });
-      expect(paramsObject?.sort).toEqual("name-asc");
+      expect(paramsObject?.order).toEqual("name-asc");
     });
     it("should have pagination and sort params", () => {
       const paramsObject = convertSearchCriteria({

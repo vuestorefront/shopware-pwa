@@ -1,29 +1,6 @@
 import { ModuleThis } from "@nuxt/types/config/module";
 
 export interface NuxtModuleOptions extends ModuleThis {
-  options: {
-    rootDir: string;
-    buildDir: string;
-    plugins?: string[];
-    dev?: boolean;
-    router: {
-      middleware: string[];
-    };
-    build?: {
-      transpile?: string[];
-      babel?: {
-        presets?: (params: { isServer: boolean }) => void;
-      };
-      filenames?: {
-        app?: ({ isDev }: { isDev: boolean }) => string;
-        chunk?: ({ isDev }: { isDev: boolean }) => string;
-        css?: ({ isDev }: { isDev: boolean }) => string;
-        img?: ({ isDev }: { isDev: boolean }) => string;
-        font?: ({ isDev }: { isDev: boolean }) => string;
-        video?: ({ isDev }: { isDev: boolean }) => string;
-      };
-    };
-  };
   addLayout: (options: { src: string }, templateName: string) => void;
   addPlugin: (options: {
     src: string;

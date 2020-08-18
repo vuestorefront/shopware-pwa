@@ -9,6 +9,7 @@ export function parseUrlQuery(query: any): SearchCriteria {
   if (!query || typeof query !== "object") {
     return searchCriteria;
   }
+
   Object.keys(query).forEach((key: string) => {
     try {
       searchCriteria[key] =
