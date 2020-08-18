@@ -6,6 +6,7 @@
 html {
   overflow-x: hidden;
   height: 100vh;
+  overflow: auto;
 }
 
 a {
@@ -58,7 +59,6 @@ h5 {
 }
 
 body {
-  overflow-x: hidden;
   padding: 0;
   margin: 0;
   min-height: 100vh;
