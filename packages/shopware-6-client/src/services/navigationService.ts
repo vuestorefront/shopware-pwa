@@ -28,6 +28,8 @@ export interface GetStoreNavigationParams {
     | "service-navigation"
     | "footer-navigation";
   requestRootId: "main-navigation" | "service-navigation" | "footer-navigation";
+  depth?: number;
+  buildTree?: boolean;
   searchCriteria?: SearchCriteria;
 }
 
@@ -52,16 +54,28 @@ export async function getNavigation(
  * @beta
  */
 export async function getStoreNavigation(
-  { requestActiveId, requestRootId, searchCriteria }: GetStoreNavigationParams,
+  {
+    requestActiveId,
+    requestRootId,
+    depth,
+    buildTree,
+    searchCriteria,
+  }: GetStoreNavigationParams,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<StoreNavigationElement[]> {
   const resp = await contextInstance.invoke.post(
     getStoreNavigationEndpoint(requestActiveId, requestRootId),
-    convertSearchCriteria({
-      searchCriteria,
-      apiType: ApiType.store,
-      config: contextInstance.config,
-    })
+    {
+      ...convertSearchCriteria({
+        searchCriteria,
+        apiType: ApiType.store,
+        config: contextInstance.config,
+      }),
+      ...{
+        depth,
+        buildTree,
+      },
+    }
   );
 
   return resp.data;
