@@ -40,6 +40,6 @@
     "product-listing": "CmsElementProductListing",
     "category-navigation": "CmsElementCategoryNavigation",
     "sidebar-filter": "CmsElementCategorySidebarFilter",
-    "form": "CmsElementContactForm"
+    "form": "CmsElementForm"
   }
 }
