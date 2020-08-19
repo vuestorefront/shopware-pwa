@@ -11,23 +11,30 @@
     <!-- <div class="product-details__action">
       <button v-if="sizes.length > 0" class="sf-action">Size guide</button>
     </div>-->
-
-    <div v-if="hasChildren" class="product-details__section">
-      <div v-for="productType in getAllProductOptionsTypes" :key="productType">
-        <SwProductColors
-          v-if="productType === 'color'"
-          :colors="getAllProductOptions[productType]"
-          :value="selected[productType]"
-          label="Color:"
-          @input="handleChange(productType, $event)"
-        />
-        <SwProductSelect
-          v-else
-          :value="selected[productType]"
-          :options="getAllProductOptions[productType]"
-          :label="productType"
-          @change="handleChange(productType, $event)"
-        />
+    <div
+      class="product-details-wrapper"
+      :class="{ 'product-details-wrapper__loaded': hasChildren }"
+    >
+      <div v-if="hasChildren" class="product-details__section">
+        <div
+          v-for="productType in getAllProductOptionsTypes"
+          :key="productType"
+        >
+          <SwProductColors
+            v-if="productType === 'color'"
+            :colors="getAllProductOptions[productType]"
+            :value="selected[productType]"
+            label="Color:"
+            @input="handleChange(productType, $event)"
+          />
+          <SwProductSelect
+            v-else
+            :value="selected[productType]"
+            :options="getAllProductOptions[productType]"
+            :label="productType"
+            @change="handleChange(productType, $event)"
+          />
+        </div>
       </div>
     </div>
     <div class="product-details__section">
@@ -211,6 +218,18 @@ export default {
     @content;
   }
 }
+.product-details-wrapper {
+  @include for-desktop {
+    height: 0;
+    transition: height 0.66s ease-out;
+  }
+
+  &__loaded {
+    @include for-desktop {
+      height: 120px;
+    }
+  }
+}
 
 .product-details {
   &__action {
@@ -282,6 +301,9 @@ export default {
     @include for-desktop {
       padding-bottom: 0;
     }
+    // &-attributes {
+    //   height: 50px;
+    // }
   }
   &__review {
     padding-bottom: var(--spacer-base);

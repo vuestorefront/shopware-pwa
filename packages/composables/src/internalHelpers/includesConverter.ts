@@ -7,6 +7,10 @@ import { Includes } from "@shopware-pwa/commons/interfaces/search/SearchCriteria
  */
 export const convertIncludesToGetParams = (includes: Includes): any => {
   let queryParams: any = {};
+  if (!includes) {
+    return queryParams;
+  }
+
   for (const apiAlias of Object.keys(includes)) {
     const fields = includes[apiAlias];
     for (const field of fields) {
