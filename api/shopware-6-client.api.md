@@ -239,10 +239,14 @@ export function getSessionContext(contextInstance?: ShopwareApiInstance): Promis
 export function getShippingMethodDetails(shippingId: string, contextInstance?: ShopwareApiInstance): Promise<ShippingMethod>;
 
 // @beta (undocumented)
-export function getStoreNavigation({ requestActiveId, requestRootId, searchCriteria }: GetStoreNavigationParams, contextInstance?: ShopwareApiInstance): Promise<StoreNavigationElement[]>;
+export function getStoreNavigation({ requestActiveId, requestRootId, depth, buildTree, searchCriteria, }: GetStoreNavigationParams, contextInstance?: ShopwareApiInstance): Promise<StoreNavigationElement[]>;
 
 // @beta
 export interface GetStoreNavigationParams {
+    // (undocumented)
+    buildTree?: boolean;
+    // (undocumented)
+    depth?: number;
     // (undocumented)
     requestActiveId: "main-navigation" | "service-navigation" | "footer-navigation";
     // (undocumented)
