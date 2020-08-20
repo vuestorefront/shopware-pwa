@@ -92,6 +92,9 @@
           "media"
       ],
       "media": [
+          "thumbnails",
+          "width",
+          "height",
           "url"
       ],
       "calculated_price": [
@@ -128,6 +131,9 @@
           "media"
       ],
       "media": [
+          "thumbnails",
+          "width",
+          "height",
           "url"
       ],
       "calculated_price": [
