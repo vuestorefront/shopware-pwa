@@ -9,7 +9,6 @@
       <SfHeading
         title="Subscribe to Newsletters"
         subtitle="Be aware of upcoming sales and events. Receive gifts and special offers!"
-        class="sf-heading--left"
       />
       <div>
         <SwButton
@@ -129,6 +128,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/variables";
+
 .cms-element-sign-to-newsletter {
   --heading-title-color: var(--c-white);
   --heading-subtitle-color: var(--c-white);
@@ -136,7 +137,8 @@ export default {
   align-items: center;
   background-color: rgba($color: #000000, $alpha: 0.7);
   display: flex;
-  height: 231px;
+  flex-direction: column;
+  min-height: 231px;
   justify-content: space-around;
   padding-bottom: var(--spacer-sm);
   padding-left: var(--spacer-sm);
@@ -152,6 +154,10 @@ export default {
 
   .toggle-input {
     --button-width: 218px;
+  }
+
+  @include for-desktop {
+    flex-direction: row;
   }
 }
 </style>
