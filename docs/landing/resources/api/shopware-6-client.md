@@ -17,14 +17,17 @@
 |  [getCustomerAddresses(contextInstance)](./shopware-6-client.getcustomeraddresses.md) | <b><i>(BETA)</i></b> Get all customer's addresses |
 |  [getCustomerOrders(contextInstance)](./shopware-6-client.getcustomerorders.md) | <b><i>(BETA)</i></b> Get all customer's orders |
 |  [getOrderPaymentUrl({ orderId, finishUrl, }, contextInstance)](./shopware-6-client.getorderpaymenturl.md) | <b><i>(BETA)</i></b> Get payment address to redirect user after placing order. |
+|  [getProductPage(path, searchCriteria, contextInstance)](./shopware-6-client.getproductpage.md) | <b><i>(BETA)</i></b> |
 |  [getResults(term, searchCriteria, contextInstance)](./shopware-6-client.getresults.md) | <b><i>(BETA)</i></b> |
 |  [getSearchResults(term, searchCriteria, contextInstance)](./shopware-6-client.getsearchresults.md) | <b><i>(BETA)</i></b> |
-|  [getStoreNavigation({ requestActiveId, requestRootId, searchCriteria }, contextInstance)](./shopware-6-client.getstorenavigation.md) | <b><i>(BETA)</i></b> |
+|  [getStoreNavigation({ requestActiveId, requestRootId, depth, buildTree, searchCriteria, }, contextInstance)](./shopware-6-client.getstorenavigation.md) | <b><i>(BETA)</i></b> |
 |  [getSuggestedResults(term, searchCriteria, contextInstance)](./shopware-6-client.getsuggestedresults.md) | <b><i>(BETA)</i></b> |
 |  [invokeGet({ address }, contextInstance)](./shopware-6-client.invokeget.md) | <b><i>(BETA)</i></b> Invoke custom GET request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
 |  [invokePost({ address, payload, }, contextInstance)](./shopware-6-client.invokepost.md) | <b><i>(BETA)</i></b> Invoke custom POST request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
 |  [login({ username, password }, contextInstance)](./shopware-6-client.login.md) | <b><i>(BETA)</i></b> Login user to shopware instance. |
 |  [logout(contextInstance)](./shopware-6-client.logout.md) | <b><i>(BETA)</i></b> End up the user session. |
+|  [newsletterSubscribe(params, contextInstance)](./shopware-6-client.newslettersubscribe.md) | <b><i>(BETA)</i></b> |
+|  [newsletterUnsubscribe({ email, }, contextInstance)](./shopware-6-client.newsletterunsubscribe.md) | <b><i>(BETA)</i></b> |
 |  [removeCartItem(itemId, contextInstance)](./shopware-6-client.removecartitem.md) | <b><i>(BETA)</i></b> Deletes the cart line item by id.<!-- -->This method may be used for deleting "product" type item lines as well as "promotion" type item lines. |
 |  [sendContactForm(params, contextInstance)](./shopware-6-client.sendcontactform.md) | <b><i>(BETA)</i></b> |
 
@@ -36,6 +39,9 @@
 |  [ConfigChangedArgs](./shopware-6-client.configchangedargs.md) | <b><i>(BETA)</i></b> |
 |  [ContactFormData](./shopware-6-client.contactformdata.md) | <b><i>(BETA)</i></b> |
 |  [GetStoreNavigationParams](./shopware-6-client.getstorenavigationparams.md) | <b><i>(BETA)</i></b> More about the navigation parameters: https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/navigation?category=shopware-platform-dev-en/store-api-guide |
+|  [NewsletterSubscribeData](./shopware-6-client.newslettersubscribedata.md) | <b><i>(BETA)</i></b> |
+|  [PageResolverProductResult](./shopware-6-client.pageresolverproductresult.md) | <b><i>(BETA)</i></b> |
+|  [PageResolverResult](./shopware-6-client.pageresolverresult.md) | <b><i>(BETA)</i></b> |
 |  [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) | <b><i>(BETA)</i></b> |
 
 ## Variables

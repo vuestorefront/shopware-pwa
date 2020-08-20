@@ -1,11 +1,9 @@
 import { ref, Ref } from "@vue/composition-api";
-import { getProduct } from "@shopware-pwa/shopware-6-client";
+import { getProduct, getProductPage } from "@shopware-pwa/shopware-6-client";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { getApplicationContext } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../../appContext";
-import { convertIncludesToGetParams } from "../../internalHelpers/includesConverter";
-import { convertAssociationsToGetParams } from "../../internalHelpers/associationsConverter";
 import { useDefaults } from "../../logic/useDefaults";
 const NO_PRODUCT_REFERENCE_ERROR =
   "Associations cannot be loaded for undefined product";
@@ -46,32 +44,23 @@ export const useProduct = (
     if (!product || !product.value || !product.value.id) {
       throw NO_PRODUCT_REFERENCE_ERROR;
     }
-    // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/911
-    const includesParams = convertIncludesToGetParams(getIncludesConfig.value);
-    const associationsParams = convertAssociationsToGetParams(
-      getAssociationsConfig.value
-    );
 
+    const searchCriteria = {
+      configuration: {
+        includes: getIncludesConfig.value,
+        associations: getAssociationsConfig.value,
+      },
+    };
+
+    // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/911
+    const urlPath = `detail/${product.value.parentId || product.value.id}`;
     const {
-      media,
-      cover,
-      properties,
-      productReviews,
-      manufacturer,
-      children,
-    } = await getProduct(
-      product.value.parentId || product.value.id,
-      // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/911
-      Object.assign({}, associationsParams, includesParams),
-      apiInstance
-    );
+      product: { children },
+    } = await getProductPage(urlPath, searchCriteria, apiInstance);
+
+    // load only children; other properties are loaded synchronously
     product.value = Object.assign({}, product.value, {
-      media,
-      cover,
-      properties,
-      productReviews,
       children,
-      manufacturer,
     });
   };
 

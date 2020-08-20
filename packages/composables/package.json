@@ -3,7 +3,7 @@
   "version": "0.3.1",
   "description": "@shopware-pwa/composables",
   "main": "dist/composables.cjs.js",
-  "module": "dist/composables.esm-bundler.js",
+  "module": "dist/composables.esm.js",
   "files": [
     "dist"
   ],
@@ -17,7 +17,7 @@
   "buildOptions": {
     "name": "composables",
     "formats": [
-      "esm-bundler",
+      "esm",
       "cjs"
     ]
   },

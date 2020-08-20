@@ -3,7 +3,6 @@
   "version": "0.3.1",
   "description": "@shopware-pwa/nuxt-module",
   "main": "dist/nuxt-module.cjs.js",
-  "module": "dist/nuxt-module.esm-bundler.js",
   "files": [
     "dist",
     "plugins/*"
@@ -35,6 +34,12 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "buildOptions": {
+    "name": "nuxt-module",
+    "formats": [
+      "cjs"
+    ]
   },
   "scripts": {
     "snyk-protect": "snyk protect"

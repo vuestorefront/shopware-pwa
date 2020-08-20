@@ -1,4 +1,4 @@
-import queryString from "query-string";
+import { stringify } from "query-string";
 import {
   ListingQueryParams,
   SearchCriteria,
@@ -26,7 +26,7 @@ export function appendSearchCriteriaToUrl(
     manufacturer: manufacturer,
     properties: properties,
   };
-  const combinedURL = queryString.stringify(query, {
+  const combinedURL = stringify(query, {
     arrayFormat: "separator",
     arrayFormatSeparator: "|",
     skipNull: true,

@@ -51,10 +51,6 @@ export default {
     try {
       const result = await getProducts(
         {
-          sort: {
-            field: "price",
-            desc: false,
-          },
           pagination: {
             page: 1,
             limit: 10,

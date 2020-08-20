@@ -5,13 +5,11 @@ import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError
 
 import { useProduct } from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
-import { convertIncludesToGetParams } from "../src/internalHelpers/includesConverter";
-import { convertAssociationsToGetParams } from "../src/internalHelpers/associationsConverter";
 import { getIncludesForEntity } from "../src/internalHelpers/includesParameter";
 import { getAssociationsForEntity } from "../src/internalHelpers/associationsParameter";
 
 jest.mock("@shopware-pwa/shopware-6-client");
-const mockedGetProduct = shopwareClient as jest.Mocked<typeof shopwareClient>;
+const mockedAxios = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 describe("Composables - useProduct", () => {
   const rootContextMock: any = {
@@ -27,7 +25,7 @@ describe("Composables - useProduct", () => {
       const response: any = {
         id: "3f637f17cd9f4891a2d7625d19fb37c9",
       };
-      mockedGetProduct.getProduct.mockResolvedValueOnce(response);
+      mockedAxios.getProductPage.mockResolvedValueOnce(response);
       expect(product.value).toBeUndefined();
     });
   });
@@ -38,7 +36,7 @@ describe("Composables - useProduct", () => {
       const response: any = {
         id: "3f637f17cd9f4891a2d7625d19fb37c9",
       };
-      mockedGetProduct.getProduct.mockResolvedValueOnce(response);
+      mockedAxios.getProduct.mockResolvedValueOnce(response);
       expect(product.value).toBeUndefined();
       await search("3f637f17cd9f4891a2d7625d19fb37c9");
       expect(product.value).toBeTruthy();
@@ -52,7 +50,7 @@ describe("Composables - useProduct", () => {
       const response: any = {
         id: "3f637f17cd9f4891a2d7625d19fb37c9",
       };
-      mockedGetProduct.getProduct.mockResolvedValueOnce(response);
+      mockedAxios.getProduct.mockResolvedValueOnce(response);
       expect(product.value).toBeTruthy();
       expect(product.value.id).toBe("some-old-id");
       await search("3f637f17cd9f4891a2d7625d19fb37c9");
@@ -67,23 +65,24 @@ describe("Composables - useProduct", () => {
         id: "3f637f17cd9f4891a2d7625d19fb37c9",
         parentId: "1c3e927309014a67a07f3bb574f9e804",
       };
-      mockedGetProduct.getProduct.mockResolvedValueOnce({} as any);
+      mockedAxios.getProductPage.mockResolvedValueOnce({} as any);
       const { loadAssociations } = useProduct(rootContextMock, loadedProduct);
-      const includesParams = convertIncludesToGetParams(
-        getIncludesForEntity("useProduct")
-      );
-      const associationsParams = convertAssociationsToGetParams(
-        getAssociationsForEntity("useProduct")
-      );
+      const includesParams = getIncludesForEntity("useProduct");
+      const associationsParams = getAssociationsForEntity("useProduct");
       loadAssociations({} as any);
-      expect(mockedGetProduct.getProduct).toBeCalledWith(
-        "1c3e927309014a67a07f3bb574f9e804",
-        { ...includesParams, ...associationsParams },
+      expect(mockedAxios.getProductPage).toBeCalledWith(
+        "detail/1c3e927309014a67a07f3bb574f9e804",
+        {
+          configuration: {
+            includes: includesParams,
+            associations: associationsParams,
+          },
+        },
         rootContextMock.$shopwareApiInstance
       );
     });
 
-    it("should have associations if loadAssociations was triggered", async () => {
+    it("should have children association if loadAssociations was triggered", async () => {
       const loadedProduct: any = {
         id: "3f637f17cd9f4891a2d7625d19fb37c9",
       };
@@ -92,26 +91,17 @@ describe("Composables - useProduct", () => {
         loadedProduct
       );
       const responseLoadAssociations: any = {
-        id: "3f637f17cd9f4891a2d7625d19fb37c9",
-        options: [],
-        media: [],
-        productReviews: [],
+        product: {
+          id: "3f637f17cd9f4891a2d7625d19fb37c9",
+          children: [{ id: "child-id" }],
+        },
       };
-      mockedGetProduct.getProduct.mockResolvedValueOnce(
+      mockedAxios.getProductPage.mockResolvedValueOnce(
         responseLoadAssociations
       );
-      const associations = {
-        media: {},
-        options: {
-          associations: {
-            group: {},
-          },
-        },
-        productReviews: {},
-      };
-      await loadAssociations(associations);
-      expect(product.value).toHaveProperty("productReviews");
-      expect(product.value).toHaveProperty("media");
+      await loadAssociations();
+      expect(product.value).toHaveProperty("children");
+      expect(product.value.children).toStrictEqual([{ id: "child-id" }]);
     });
     it("should have failed on empty product during loading associations", async () => {
       const { loadAssociations, error } = useProduct(rootContextMock);
@@ -129,7 +119,7 @@ describe("Composables - useProduct", () => {
   describe("problems", () => {
     it("should have failed on bad url settings", async () => {
       const { search, product, error } = useProduct(rootContextMock);
-      mockedGetProduct.getProduct.mockRejectedValueOnce({
+      mockedAxios.getProduct.mockRejectedValueOnce({
         message: "Something went wrong...",
       } as ClientApiError);
       expect(product.value).toBeUndefined();

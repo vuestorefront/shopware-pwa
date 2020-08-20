@@ -4,6 +4,7 @@
 
 ```ts
 
+import { Aggregation } from '@shopware-pwa/commons/interfaces/search/Aggregation';
 import { AxiosInstance } from 'axios';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
 import { Category } from '@shopware-pwa/commons/interfaces/models/content/category/Category';
@@ -220,6 +221,9 @@ export function getPaymentMethodDetails(paymentId: string, contextInstance?: Sho
 // @alpha
 export function getProduct(productId: string, params?: any, contextInstance?: ShopwareApiInstance): Promise<Product>;
 
+// @beta (undocumented)
+export function getProductPage(path: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<PageResolverProductResult>;
+
 // @alpha @deprecated
 export const getProducts: (searchCriteria?: SearchCriteria | undefined, contextInstance?: ShopwareApiInstance) => Promise<SearchResult<Product[]>>;
 
@@ -239,10 +243,14 @@ export function getSessionContext(contextInstance?: ShopwareApiInstance): Promis
 export function getShippingMethodDetails(shippingId: string, contextInstance?: ShopwareApiInstance): Promise<ShippingMethod>;
 
 // @beta (undocumented)
-export function getStoreNavigation({ requestActiveId, requestRootId, searchCriteria }: GetStoreNavigationParams, contextInstance?: ShopwareApiInstance): Promise<StoreNavigationElement[]>;
+export function getStoreNavigation({ requestActiveId, requestRootId, depth, buildTree, searchCriteria, }: GetStoreNavigationParams, contextInstance?: ShopwareApiInstance): Promise<StoreNavigationElement[]>;
 
 // @beta
 export interface GetStoreNavigationParams {
+    // (undocumented)
+    buildTree?: boolean;
+    // (undocumented)
+    depth?: number;
     // (undocumented)
     requestActiveId: "main-navigation" | "service-navigation" | "footer-navigation";
     // (undocumented)
@@ -287,10 +295,58 @@ export function login({ username, password }?: {
 export function logout(contextInstance?: ShopwareApiInstance): Promise<void>;
 
 // @beta (undocumented)
+export function newsletterSubscribe(params: NewsletterSubscribeData, contextInstance?: ShopwareApiInstance): Promise<void>;
+
+// @beta (undocumented)
+export interface NewsletterSubscribeData {
+    // (undocumented)
+    city?: string;
+    // (undocumented)
+    email: string;
+    // (undocumented)
+    firstName?: string;
+    // (undocumented)
+    lastName?: string;
+    // (undocumented)
+    option: string;
+    // (undocumented)
+    salutationId?: string;
+    // (undocumented)
+    storefrontUrl: string;
+    // (undocumented)
+    street?: string;
+    // (undocumented)
+    zipCode?: string;
+}
+
+// @beta (undocumented)
+export function newsletterUnsubscribe({ email, }: {
+    email: string;
+}, contextInstance?: ShopwareApiInstance): Promise<void>;
+
+// @beta (undocumented)
 export const onConfigChange: (fn: (context: ConfigChangedArgs) => void) => void;
 
-// @alpha (undocumented)
+// @beta (undocumented)
+export interface PageResolverProductResult {
+    // (undocumented)
+    aggregations: Aggregation[];
+    // (undocumented)
+    apiAlias: string;
+    // (undocumented)
+    cannonicalPathInfo: string;
+    // (undocumented)
+    product: Partial<Product>;
+    // (undocumented)
+    resourceIdentifier: string;
+    // (undocumented)
+    resourceType: string;
+}
+
+// @beta (undocumented)
 export interface PageResolverResult<T> {
+    // (undocumented)
+    apiAlias: string;
     // (undocumented)
     breadcrumb: {
         [id: string]: {
@@ -300,6 +356,8 @@ export interface PageResolverResult<T> {
     };
     // (undocumented)
     cmsPage: T;
+    // (undocumented)
+    listingConfiguration: any;
     // (undocumented)
     resourceIdentifier: string;
     // (undocumented)

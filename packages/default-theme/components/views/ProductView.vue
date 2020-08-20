@@ -79,7 +79,7 @@ export default {
   },
   data() {
     return {
-      productWithAssociations: null,
+      productWithChildren: null,
       relatedProducts: [],
       selectedSize: null,
       selectedColor: null,
@@ -87,10 +87,24 @@ export default {
   },
   computed: {
     product() {
-      return this.productWithAssociations
-        ? this.productWithAssociations.value
+      return this.productWithChildren
+        ? this.productWithChildren.value
         : this.page.product
     },
+  },
+  // load children association from the parent - variants loading
+  async mounted() {
+    if (!this.page.product.parentId) {
+      return
+    }
+
+    try {
+      const { loadAssociations, product } = useProduct(this, this.page.product)
+      this.productWithChildren = product
+      await loadAssociations()
+    } catch (e) {
+      console.error("ProductView:mounted:loadAssociations", e)
+    }
   },
 }
 </script>

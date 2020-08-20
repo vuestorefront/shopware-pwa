@@ -15,3 +15,4 @@ export * from "./getProductUrl";
 export * from "./getProductRatingAverage";
 export * from "./getVariantOptionsLabel";
 export * from "./isProductSimple";
+export * from "./getProductThumbnailUrl";

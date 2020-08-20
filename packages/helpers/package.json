@@ -3,7 +3,7 @@
   "version": "0.3.1",
   "description": "@shopware-pwa/helpers",
   "main": "dist/helpers.cjs.js",
-  "module": "dist/helpers.esm-bundler.js",
+  "module": "dist/helpers.esm.js",
   "files": [
     "dist"
   ],
@@ -17,7 +17,7 @@
   "buildOptions": {
     "name": "helpers",
     "formats": [
-      "esm-bundler",
+      "esm",
       "cjs"
     ]
   },
