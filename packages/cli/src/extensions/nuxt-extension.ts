@@ -31,10 +31,11 @@ module.exports = (toolbox: GluegunToolbox) => {
       linter: ["prettier", "lintStaged"],
       test: "jest",
       mode: "universal",
+      target: "server",
       devTools: [],
     };
     if (!isNuxtGenerated) {
-      const nuxtGenerate = `npx --ignore-existing create-nuxt-app@2.15.0 --answers "${JSON.stringify(
+      const nuxtGenerate = `npx --ignore-existing create-nuxt-app@3.2.0 --answers "${JSON.stringify(
         nuxtAnswers
       ).replace(/"/g, '\\"')}"`;
       await run(nuxtGenerate);
