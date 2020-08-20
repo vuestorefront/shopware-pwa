@@ -12,12 +12,10 @@ export function useCorePackages(
     const pkg = jetpack.read(path.join(pkgPath, "package.json"), "json");
 
     if (pkg.module) {
-      moduleObject.extendBuild((config: WebpackConfig) => {
-        config.resolve.alias[pkg.name + "$"] = path.resolve(
-          pkgPath,
-          pkg.module
-        );
-      });
+      moduleObject.options.alias[pkg.name + "$"] = path.resolve(
+        pkgPath,
+        pkg.module
+      );
     }
     moduleObject.options.build = moduleObject.options.build || {};
     moduleObject.options.build.transpile =

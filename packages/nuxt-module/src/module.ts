@@ -25,6 +25,15 @@ export async function runModule(
 
   // Change project source root to Target path
   moduleObject.options.srcDir = TARGET_SOURCE;
+  moduleObject.options.store = true; // enable store generation
+  // resolve project src aliases
+  moduleObject.options.alias["~"] = TARGET_SOURCE;
+  moduleObject.options.alias["@"] = TARGET_SOURCE;
+  moduleObject.options.alias["assets"] = path.join(TARGET_SOURCE, "assets");
+  moduleObject.options.alias["static"] = path.join(TARGET_SOURCE, "static");
+
+  // theme resolve
+  moduleObject.options.alias["@theme"] = BASE_SOURCE;
 
   await useThemeAndProjectFiles({ TARGET_SOURCE, PROJECT_SOURCE, BASE_SOURCE });
 
@@ -135,13 +144,11 @@ export async function runModule(
   moduleObject.options.build.babel.presets = ({ isServer }) => {
     return [
       [
-        require.resolve(
-          path.join(
-            moduleObject.options.rootDir,
-            "node_modules",
-            "@nuxt",
-            "babel-preset-app"
-          )
+        path.join(
+          moduleObject.options.rootDir,
+          "node_modules",
+          "@nuxt",
+          "babel-preset-app"
         ),
         // require.resolve('@nuxt/babel-preset-app-edge'), // For nuxt-edge users
         {
@@ -167,21 +174,12 @@ export async function runModule(
 
   useCorePackages(moduleObject, corePackages);
 
-  moduleObject.extendBuild((config: WebpackConfig, ctx: WebpackContext) => {
-    // backward compatibility for defaullt-theme alias
-    config.resolve.alias["@shopware-pwa/default-theme$"] = TARGET_SOURCE;
-    moduleObject.options.build = moduleObject.options.build || {};
-    moduleObject.options.build.transpile =
-      moduleObject.options.build.transpile || [];
-    moduleObject.options.build.transpile.push("@shopware-pwa/default-theme");
-
-    // resolve project src aliases
-    config.resolve.alias["~"] = TARGET_SOURCE;
-    config.resolve.alias["@"] = TARGET_SOURCE;
-
-    // theme resolve
-    config.resolve.alias["@theme"] = BASE_SOURCE;
-  });
+  // backward compatibility for defaullt-theme alias
+  moduleObject.options.alias["@shopware-pwa/default-theme$"] = TARGET_SOURCE;
+  moduleObject.options.build = moduleObject.options.build || {};
+  moduleObject.options.build.transpile =
+    moduleObject.options.build.transpile || [];
+  moduleObject.options.build.transpile.push("@shopware-pwa/default-theme");
 
   // Watching files in development mode
   if (moduleObject.options.dev) {

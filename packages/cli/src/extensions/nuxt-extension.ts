@@ -54,12 +54,16 @@ module.exports = (toolbox: GluegunToolbox) => {
    * TODO: check generated files and add here ones which are not necessary
    */
   toolbox.removeDefaultNuxtFiles = async () => {
-    toolbox.filesystem.remove(path.join("pages", "index.vue"));
-    toolbox.filesystem.remove(path.join("components", "Logo.vue"));
-    toolbox.filesystem.remove(path.join("layouts", "default.vue"));
-    toolbox.filesystem.remove(path.join("layouts", "default.vue"));
+    return Promise.all([
+      toolbox.filesystem.removeAsync(path.join("pages", "index.vue")),
+      toolbox.filesystem.removeAsync(path.join("components", "Logo.vue")),
+      toolbox.filesystem.removeAsync(path.join("layouts", "default.vue")),
+    ]);
   };
 
+  /**
+   * Change structure of project, by moving all Nuxt related folders to `src`
+   */
   toolbox.moveDefaultNuxtFoldersToSrc = async (
     newProjectGenerated: boolean
   ) => {

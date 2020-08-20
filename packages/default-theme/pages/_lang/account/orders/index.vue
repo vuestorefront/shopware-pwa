@@ -55,7 +55,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@storefront-ui/vue/styles.scss";
 .message {
   margin: 0 0 var(--spacer-xl) 0;
   color: var(--c-dark-variant);

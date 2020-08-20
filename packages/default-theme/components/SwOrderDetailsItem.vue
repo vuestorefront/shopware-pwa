@@ -58,8 +58,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "~@storefront-ui/vue/styles";
-
 .product-price {
   white-space: nowrap;
 }

@@ -56,7 +56,7 @@ module.exports = {
       Object.assign(inputParameters, answers);
     }
 
-    const newProjectGenerated: boolean = toolbox.generateNuxtProject();
+    const newProjectGenerated: boolean = await toolbox.generateNuxtProject();
     await toolbox.moveDefaultNuxtFoldersToSrc(newProjectGenerated);
 
     let stage = inputParameters.stage || STAGES.STABLE;
