@@ -1,21 +1,36 @@
-import { addThemePages } from "./pages";
 import { NuxtModuleOptions, WebpackConfig, WebpackContext } from "./interfaces";
-import { addThemeLayouts } from "./layouts";
-import { extendComponents } from "./components";
 import path from "path";
 import { loadConfig } from "./utils";
 import { extendCMS } from "./cms";
 import { extendLocales } from "./locales";
 import { useCorePackages } from "./packages";
 import { invokeBuildLogger } from "./logger";
+import {
+  getTargetSourcePath,
+  getBaseSourcePath,
+  getProjectSourcePath,
+  useThemeAndProjectFiles,
+  onThemeFilesChanged,
+  onProjectFilesChanged,
+} from "./theme";
+import chokidar from "chokidar";
 
-export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
+export async function runModule(
+  moduleObject: NuxtModuleOptions,
+  moduleOptions: {}
+) {
+  const TARGET_SOURCE = getTargetSourcePath(moduleObject);
+  const BASE_SOURCE = getBaseSourcePath(moduleObject);
+  const PROJECT_SOURCE = getProjectSourcePath(moduleObject);
+
+  // Change project source root to Target path
+  moduleObject.options.srcDir = TARGET_SOURCE;
+
+  await useThemeAndProjectFiles({ TARGET_SOURCE, PROJECT_SOURCE, BASE_SOURCE });
+
   /* istanbul ignore next */
   invokeBuildLogger(moduleObject);
-  const shopwarePwaConfig = loadConfig(moduleObject);
-  extendComponents(moduleObject);
-  addThemeLayouts(moduleObject);
-  addThemePages(moduleObject);
+  const shopwarePwaConfig = await loadConfig(moduleObject);
 
   if (!shopwarePwaConfig?.shopwareAccessToken)
     console.error("shopwareAccessToken in shopware-pwa.config.js is missing");
@@ -23,6 +38,7 @@ export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
     console.error("shopwareEndpoint in shopware-pwa.config.js is missing");
 
   // Warning about wrong API address
+  // TODO: remove in 1.0
   if (
     shopwarePwaConfig?.shopwareEndpoint &&
     shopwarePwaConfig.shopwareEndpoint.includes("/sales-channel-api/v1")
@@ -145,16 +161,60 @@ export function runModule(moduleObject: NuxtModuleOptions, moduleOptions: {}) {
     "@shopware-pwa/composables",
     "@shopware-pwa/helpers",
     "@shopware-pwa/shopware-6-client",
-    "@shopware-pwa/default-theme",
     "@storefront-ui/vue",
     "@storefront-ui/shared",
   ];
 
   useCorePackages(moduleObject, corePackages);
-  // TODO watch files in development mode
-  // if (jetpack.exists(componentsPath)) {
-  //   fs.watch(componentsPath, { recursive: true }, async () => {
-  //     extendComponents(moduleObject, true);
-  //   });
-  // }
+
+  moduleObject.extendBuild((config: WebpackConfig, ctx: WebpackContext) => {
+    // backward compatibility for defaullt-theme alias
+    config.resolve.alias["@shopware-pwa/default-theme$"] = TARGET_SOURCE;
+    moduleObject.options.build = moduleObject.options.build || {};
+    moduleObject.options.build.transpile =
+      moduleObject.options.build.transpile || [];
+    moduleObject.options.build.transpile.push("@shopware-pwa/default-theme");
+
+    // resolve project src aliases
+    config.resolve.alias["~"] = TARGET_SOURCE;
+    config.resolve.alias["@"] = TARGET_SOURCE;
+
+    // theme resolve
+    config.resolve.alias["@theme"] = BASE_SOURCE;
+  });
+
+  // Watching files in development mode
+  if (moduleObject.options.dev) {
+    // Observing theme
+    chokidar
+      .watch([BASE_SOURCE], {
+        ignored: `${BASE_SOURCE}/node_modules/**/*`,
+        ignoreInitial: true,
+        followSymlinks: true,
+      })
+      .on("all", async (event: string, filePath: string) =>
+        onThemeFilesChanged({
+          event,
+          filePath,
+          TARGET_SOURCE,
+          PROJECT_SOURCE,
+          BASE_SOURCE,
+        })
+      );
+
+    // Observe project
+    chokidar
+      .watch([PROJECT_SOURCE], {
+        ignoreInitial: true,
+      })
+      .on("all", async (event: string, filePath: string) =>
+        onProjectFilesChanged({
+          event,
+          filePath,
+          TARGET_SOURCE,
+          PROJECT_SOURCE,
+          BASE_SOURCE,
+        })
+      );
+  }
 }
