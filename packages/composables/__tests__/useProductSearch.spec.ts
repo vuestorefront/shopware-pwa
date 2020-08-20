@@ -132,7 +132,7 @@ describe("Composables - useProductSearch", () => {
           name: "manufacturer",
           options: [
             {
-              color: false,
+              color: undefined,
               label: "DivanteLtd",
               value: "123456",
             },

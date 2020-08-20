@@ -37,6 +37,7 @@ export function getProductOptions({
             label: option.name,
             code: option.id,
             value: option.name,
+            color: option.colorHexCode,
           } as UiProductOption);
         }
       }

@@ -23,6 +23,8 @@ import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/
 // @alpha (undocumented)
 export interface CategoryFilterEntityValue {
     // (undocumented)
+    colorHexCode: null | string;
+    // (undocumented)
     customFields: any;
     // (undocumented)
     description: string | null;
@@ -353,6 +355,8 @@ export interface UiProductOption {
     attribute: string;
     // (undocumented)
     code: string;
+    // (undocumented)
+    color: string;
     // (undocumented)
     label: string;
     // (undocumented)
