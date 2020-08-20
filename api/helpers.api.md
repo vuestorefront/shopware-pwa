@@ -166,6 +166,9 @@ export function getProductReviews({ product, }?: {
 export function getProductSpecialPrice(product: Product): number | undefined;
 
 // @beta
+export function getProductThumbnailUrl(product: Product): string;
+
+// @beta
 export function getProductTierPrices(product: Product): TierPrice[];
 
 // @alpha (undocumented)
