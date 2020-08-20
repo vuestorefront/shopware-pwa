@@ -2,10 +2,34 @@
   "useCms": {
     "associations": [
       {
-        "name": "productReviews"
+        "name": "manufacturer"
+      },
+      {
+        "name": "properties",
+        "associations": [
+          {
+            "name": "group"
+          }
+        ]
       },
       {
         "name": "media"
+      },
+      {
+        "name": "productReviews"
+      },
+      {
+        "name": "children",
+        "associations": [
+          {
+            "name": "options",
+            "associations": [
+              {
+                "name": "group"
+              }
+            ]
+          }
+        ]
       },
       {
       "name": "options",
@@ -47,17 +71,22 @@
           "type",
           "config"
       ],
+
       "product": [
           "media",
           "productReviews",
+          "children",
           "name",
           "ratingAverage",
           "calculatedPrice",
           "calculatedPrices",
           "cover",
+          "parentId",
           "id",
           "translated",
-          "options"
+          "options",
+          "properties",
+          "manufacturer"
       ],
       "product_media": [
           "media"
@@ -152,6 +181,14 @@
         "associations": [
           {
             "name": "seoUrls"
+          },
+          {
+            "name": "options",
+            "associations": [
+              {
+              "name": "group"
+              }
+            ]
           }
           
         ]
@@ -165,12 +202,15 @@
         "calculatedPrices",
         "cover",
         "id",
+        "parentId",
         "translated",
         "options",
         "children",
         "manufacturer",
         "properties",
-        "media"
+        "media",
+        "seoUrls",
+        "optionIds"
       ],
       "product_media": [
           "media"

@@ -4,6 +4,7 @@
 
 ```ts
 
+import { Aggregation } from '@shopware-pwa/commons/interfaces/search/Aggregation';
 import { AxiosInstance } from 'axios';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
 import { Category } from '@shopware-pwa/commons/interfaces/models/content/category/Category';
@@ -220,6 +221,9 @@ export function getPaymentMethodDetails(paymentId: string, contextInstance?: Sho
 // @alpha
 export function getProduct(productId: string, params?: any, contextInstance?: ShopwareApiInstance): Promise<Product>;
 
+// @beta (undocumented)
+export function getProductPage(path: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<PageResolverProductResult>;
+
 // @alpha @deprecated
 export const getProducts: (searchCriteria?: SearchCriteria | undefined, contextInstance?: ShopwareApiInstance) => Promise<SearchResult<Product[]>>;
 
@@ -323,8 +327,26 @@ export function newsletterUnsubscribe({ email, }: {
 // @beta (undocumented)
 export const onConfigChange: (fn: (context: ConfigChangedArgs) => void) => void;
 
-// @alpha (undocumented)
+// @beta (undocumented)
+export interface PageResolverProductResult {
+    // (undocumented)
+    aggregations: Aggregation[];
+    // (undocumented)
+    apiAlias: string;
+    // (undocumented)
+    cannonicalPathInfo: string;
+    // (undocumented)
+    product: Partial<Product>;
+    // (undocumented)
+    resourceIdentifier: string;
+    // (undocumented)
+    resourceType: string;
+}
+
+// @beta (undocumented)
 export interface PageResolverResult<T> {
+    // (undocumented)
+    apiAlias: string;
     // (undocumented)
     breadcrumb: {
         [id: string]: {
@@ -334,6 +356,8 @@ export interface PageResolverResult<T> {
     };
     // (undocumented)
     cmsPage: T;
+    // (undocumented)
+    listingConfiguration: any;
     // (undocumented)
     resourceIdentifier: string;
     // (undocumented)

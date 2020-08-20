@@ -17,7 +17,7 @@
           :link="$i18n.path(getProductRouterLink(product))"
         >
           <SfImage
-            :src="product.cover.media.url"
+            :src="getProducImageUrl(product)"
             :alt="product.label"
             class="search-suggestions__product-image"
             width="90"
@@ -28,7 +28,7 @@
               {{ product.name }}
             </span>
             <span class="search-suggestions__product-price">{{
-              product.price[0].gross | price
+              getProductPrice(product) | price
             }}</span>
           </span>
         </SfLink>
@@ -57,8 +57,6 @@ import {
   getProductMainImageUrl,
   getProductRegularPrice,
   getProductUrl,
-  getProductSpecialPrice,
-  getProductName,
 } from "@shopware-pwa/helpers"
 
 export default {
@@ -96,6 +94,12 @@ export default {
     },
     close() {
       this.$emit("close")
+    },
+    getProductPrice(product) {
+      return getProductRegularPrice(product)
+    },
+    getProducImageUrl(product) {
+      return getProductMainImageUrl(product)
     },
   },
 }
