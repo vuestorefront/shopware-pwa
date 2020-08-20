@@ -3,9 +3,6 @@
 </template>
 
 <script>
-import CmsElementContactForm from "@shopware-pwa/default-theme/cms/elements/CmsElementContactForm"
-import CmsElementNewsletterForm from "@shopware-pwa/default-theme/cms/elements/CmsElementNesletterForm"
-
 export default {
   name: "CmsElementForm",
 
@@ -19,16 +16,13 @@ export default {
   data() {
     return {
       map: {
-        // newsletter: CmsElementNewsletterForm,
         newsletter: () =>
           import(
-            "@shopware-pwa/default-theme/cms/elements/CmsElementNesletterForm.vue"
+            "@shopware-pwa/default-theme/cms/elements/CmsElementNesletterForm"
           ),
-
-        // contact: CmsElementContactForm,
         contact: () =>
           import(
-            "@shopware-pwa/default-theme/cms/elements/CmsElementContactForm.vue"
+            "@shopware-pwa/default-theme/cms/elements/CmsElementContactForm"
           ),
       },
     }
@@ -36,8 +30,7 @@ export default {
 
   computed: {
     getComponent() {
-      //   return this.map[this.config.type.value]
-      return this.map.newsletter
+      return this.map[this.content.config.type.value]
     },
   },
 }
