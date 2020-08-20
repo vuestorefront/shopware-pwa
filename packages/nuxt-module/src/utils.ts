@@ -1,6 +1,6 @@
 import jetpack from "fs-jetpack";
-import path from "path";
 import { NuxtModuleOptions, ShopwarePwaConfigFile } from "./interfaces";
+import { cosmiconfig } from "cosmiconfig";
 
 // TODO: find a nuxt trigger which do the same
 export function invokeRebuild(moduleObject: NuxtModuleOptions) {
@@ -11,11 +11,10 @@ export function invokeRebuild(moduleObject: NuxtModuleOptions) {
   );
 }
 
-export function loadConfig(
+export async function loadConfig(
   moduleObject: NuxtModuleOptions
-): ShopwarePwaConfigFile | undefined {
-  return require(path.join(
-    moduleObject.options.rootDir,
-    "shopware-pwa.config.js"
-  ));
+): Promise<ShopwarePwaConfigFile | undefined> {
+  const explorer = cosmiconfig("shopware-pwa");
+  const result = await explorer.search();
+  return result?.config;
 }
