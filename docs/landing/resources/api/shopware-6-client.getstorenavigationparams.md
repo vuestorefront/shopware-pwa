@@ -19,6 +19,8 @@ export interface GetStoreNavigationParams
 
 |  Property | Type | Description |
 |  --- | --- | --- |
+|  [buildTree](./shopware-6-client.getstorenavigationparams.buildtree.md) | boolean | <b><i>(BETA)</i></b> |
+|  [depth](./shopware-6-client.getstorenavigationparams.depth.md) | number | <b><i>(BETA)</i></b> |
 |  [requestActiveId](./shopware-6-client.getstorenavigationparams.requestactiveid.md) | "main-navigation" \| "service-navigation" \| "footer-navigation" | <b><i>(BETA)</i></b> |
 |  [requestRootId](./shopware-6-client.getstorenavigationparams.requestrootid.md) | "main-navigation" \| "service-navigation" \| "footer-navigation" | <b><i>(BETA)</i></b> |
 |  [searchCriteria](./shopware-6-client.getstorenavigationparams.searchcriteria.md) | SearchCriteria | <b><i>(BETA)</i></b> |

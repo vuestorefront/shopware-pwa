@@ -25,13 +25,15 @@ describe("NavigationService - getStoreNavigation", () => {
     const result = await getStoreNavigation({
       requestActiveId: "footer-navigation",
       requestRootId: "footer-navigation",
+      depth: 5,
+      buildTree: false,
     });
     expect(mockedPost).toBeCalledTimes(1);
     expect(
       mockedPost
     ).toBeCalledWith(
       "/store-api/v3/navigation/footer-navigation/footer-navigation",
-      { limit: 10 }
+      { limit: 10, buildTree: false, depth: 5 }
     );
     expect(result).toStrictEqual([{ id: "footer-navigation" }]);
   });
