@@ -28,3 +28,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.sw-product-gallery ::v-deep .sf-gallery__stage {
+  margin: 0 auto;
+}
+</style>
