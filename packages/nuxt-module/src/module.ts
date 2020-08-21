@@ -19,14 +19,15 @@ export async function runModule(
   moduleObject: NuxtModuleOptions,
   moduleOptions: {}
 ) {
-  const TARGET_SOURCE = getTargetSourcePath(moduleObject);
-  const BASE_SOURCE = getBaseSourcePath(moduleObject);
-  const PROJECT_SOURCE = getProjectSourcePath(moduleObject);
+  const TARGET_SOURCE: string = getTargetSourcePath(moduleObject);
+  const BASE_SOURCE: string = getBaseSourcePath(moduleObject);
+  const PROJECT_SOURCE: string = getProjectSourcePath(moduleObject);
 
   // Change project source root to Target path
   moduleObject.options.srcDir = TARGET_SOURCE;
   moduleObject.options.store = true; // enable store generation
   // resolve project src aliases
+  moduleObject.options.alias = moduleObject.options.alias || {};
   moduleObject.options.alias["~"] = TARGET_SOURCE;
   moduleObject.options.alias["@"] = TARGET_SOURCE;
   moduleObject.options.alias["assets"] = path.join(TARGET_SOURCE, "assets");
@@ -176,7 +177,6 @@ export async function runModule(
 
   // backward compatibility for defaullt-theme alias
   moduleObject.options.alias["@shopware-pwa/default-theme$"] = TARGET_SOURCE;
-  moduleObject.options.build = moduleObject.options.build || {};
   moduleObject.options.build.transpile =
     moduleObject.options.build.transpile || [];
   moduleObject.options.build.transpile.push("@shopware-pwa/default-theme");
@@ -190,7 +190,7 @@ export async function runModule(
         ignoreInitial: true,
         followSymlinks: true,
       })
-      .on("all", async (event: string, filePath: string) =>
+      .on("all", (event: string, filePath: string) =>
         onThemeFilesChanged({
           event,
           filePath,
@@ -205,7 +205,7 @@ export async function runModule(
       .watch([PROJECT_SOURCE], {
         ignoreInitial: true,
       })
-      .on("all", async (event: string, filePath: string) =>
+      .on("all", (event: string, filePath: string) =>
         onProjectFilesChanged({
           event,
           filePath,

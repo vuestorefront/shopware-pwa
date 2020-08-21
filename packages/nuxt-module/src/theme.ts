@@ -58,7 +58,8 @@ export async function onThemeFilesChanged({
   if (existInProject) return; // Do nothing
   if (event === "add" || event === "change") {
     await fse.copy(filePath, targetFilePath);
-  } else if (event === "unlink") {
+  }
+  if (event === "unlink") {
     await fse.remove(targetFilePath);
   }
 }

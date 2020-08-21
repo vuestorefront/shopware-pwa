@@ -1,4 +1,4 @@
-import { getAllFiles } from "@shopware-pwa/nuxt-module/src/files";
+import { getAllFiles } from "../src/files";
 import { join } from "path";
 
 describe("nuxt-module - getAllFiles", () => {

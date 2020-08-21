@@ -1,6 +1,6 @@
 import path from "path";
 import jetpack from "fs-jetpack";
-import { NuxtModuleOptions, WebpackConfig } from "./interfaces";
+import { NuxtModuleOptions } from "./interfaces";
 
 /* istanbul ignore next */
 export function useCorePackages(

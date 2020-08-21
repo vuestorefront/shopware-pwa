@@ -45,8 +45,8 @@ describe("nuxt-module - theme", () => {
       "default-theme"
     );
     PROJECT_SOURCE = path.join(moduleObject.options.rootDir, "src");
-    mockedFse.copy.mockResolvedValue();
-    mockedFse.emptyDir.mockResolvedValue();
+    mockedFse.copy.mockResolvedValue(null as never);
+    mockedFse.emptyDir.mockResolvedValue(null as never);
   });
 
   describe("useThemeAndProjectFiles", () => {
@@ -113,7 +113,7 @@ describe("nuxt-module - theme", () => {
 
   describe("onThemeFilesChanged", () => {
     it("should not copy or remove if file added to theme exists in project", async () => {
-      mockedFse.pathExists.mockResolvedValueOnce(true);
+      mockedFse.pathExists.mockResolvedValueOnce(true as never);
       await onThemeFilesChanged({
         event: "add",
         filePath: path.join(BASE_SOURCE, "testfile.vue"),
@@ -126,7 +126,7 @@ describe("nuxt-module - theme", () => {
     });
 
     it("should not copy or remove if file changed in theme exists in project", async () => {
-      mockedFse.pathExists.mockResolvedValueOnce(true);
+      mockedFse.pathExists.mockResolvedValueOnce(true as never);
       await onThemeFilesChanged({
         event: "change",
         filePath: path.join(BASE_SOURCE, "testfile.vue"),
@@ -139,7 +139,7 @@ describe("nuxt-module - theme", () => {
     });
 
     it("should not copy or remove if file deleted in theme exists in project", async () => {
-      mockedFse.pathExists.mockResolvedValueOnce(true);
+      mockedFse.pathExists.mockResolvedValueOnce(true as never);
       await onThemeFilesChanged({
         event: "unlink",
         filePath: path.join(BASE_SOURCE, "testfile.vue"),
@@ -152,7 +152,7 @@ describe("nuxt-module - theme", () => {
     });
 
     it("should copy added theme file to target if it not exist in project", async () => {
-      mockedFse.pathExists.mockResolvedValueOnce(false);
+      mockedFse.pathExists.mockResolvedValueOnce(false as never);
       await onThemeFilesChanged({
         event: "add",
         filePath: path.join(BASE_SOURCE, "testfile.vue"),
@@ -168,7 +168,7 @@ describe("nuxt-module - theme", () => {
     });
 
     it("should copy changed theme file to target if it not exist in project", async () => {
-      mockedFse.pathExists.mockResolvedValueOnce(false);
+      mockedFse.pathExists.mockResolvedValueOnce(false as never);
       await onThemeFilesChanged({
         event: "change",
         filePath: path.join(BASE_SOURCE, "components", "testfile.vue"),
@@ -184,7 +184,7 @@ describe("nuxt-module - theme", () => {
     });
 
     it("should delete removed theme file in target if it not exist in project", async () => {
-      mockedFse.pathExists.mockResolvedValueOnce(false);
+      mockedFse.pathExists.mockResolvedValueOnce(false as never);
       await onThemeFilesChanged({
         event: "unlink",
         filePath: path.join(BASE_SOURCE, "testfile.vue"),
@@ -229,7 +229,7 @@ describe("nuxt-module - theme", () => {
       expect(mockedFse.remove).not.toBeCalled();
     });
     it("should copy file from theme (if exist there) to target when removed in project", async () => {
-      mockedFse.pathExists.mockResolvedValueOnce(true);
+      mockedFse.pathExists.mockResolvedValueOnce(true as never);
       await onProjectFilesChanged({
         event: "unlink",
         filePath: path.join(PROJECT_SOURCE, "testfile.vue"),
@@ -244,7 +244,7 @@ describe("nuxt-module - theme", () => {
       expect(mockedFse.remove).not.toBeCalled();
     });
     it("should remove file from target when removed in project and not exist in theme", async () => {
-      mockedFse.pathExists.mockResolvedValueOnce(false);
+      mockedFse.pathExists.mockResolvedValueOnce(false as never);
       await onProjectFilesChanged({
         event: "unlink",
         filePath: path.join(PROJECT_SOURCE, "testfile.vue"),
