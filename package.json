@@ -55,6 +55,7 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-replace": "^2.3.3",
     "@types/faker": "^4.1.12",
+    "@types/fs-extra": "^9.0.1",
     "@types/jest": "^26.0.10",
     "@types/node": "^14.0.27",
     "axios": "^0.19.2",

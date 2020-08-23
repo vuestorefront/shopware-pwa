@@ -152,7 +152,7 @@ import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
 export default {
-  name: "SwAddress",
+  name: "SwAddressForm",
   components: { SfAlert, SwInput, SwButton, SfSelect },
   mixins: [validationMixin],
   props: {

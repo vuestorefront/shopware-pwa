@@ -11,7 +11,7 @@ const rootDir = path.resolve(__dirname, "../");
 const testProjectDir = path.join(rootDir, "test-project");
 
 async function run() {
-  await jetpack.dir(testProjectDir);
+  await jetpack.dirAsync(testProjectDir);
 
   await execa(
     "../packages/cli/bin/shopware-pwa",

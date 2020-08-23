@@ -1,4 +1,4 @@
-import { overrideRoutes } from "@shopware-pwa/nuxt-module/src/pages";
+import { overrideRoutes } from "../src/pages";
 import path from "path";
 
 describe("nuxt-module - overrideRoutes", () => {

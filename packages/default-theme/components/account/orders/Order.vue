@@ -73,7 +73,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@storefront-ui/vue/styles.scss";
 .order-view {
   &__details {
     flex: 0 0 100%;

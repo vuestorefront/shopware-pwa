@@ -1,7 +1,12 @@
 import jetpack from "fs-jetpack";
 import { invokeRebuild, loadConfig } from "../src/utils";
+import * as cosmiconfigPackage from "cosmiconfig";
 jest.mock("fs-jetpack");
+jest.mock("cosmiconfig");
 const mockedJetpack = jetpack as jest.Mocked<typeof jetpack>;
+const mockedCosmiconfigPackage = cosmiconfigPackage as jest.Mocked<
+  typeof cosmiconfigPackage
+>;
 
 describe("nuxt-module - utils", () => {
   const moduleObject: any = {
@@ -37,13 +42,30 @@ describe("nuxt-module - utils", () => {
   });
 
   describe("loadConfig", () => {
-    it("should load config from module root directory", () => {
+    it("should load config from module root directory", async () => {
+      mockedCosmiconfigPackage.cosmiconfig.mockReturnValueOnce({
+        search: () => ({
+          config: {
+            shopwareAccessToken: "qweqwe",
+            shopwareEndpoint: "https://instance.com",
+          },
+        }),
+      } as never);
       moduleObject.options.rootDir = `${__dirname}/files_tests`;
-      const result = loadConfig(moduleObject);
+      const result = await loadConfig(moduleObject);
       expect(result).toEqual({
         shopwareAccessToken: "qweqwe",
         shopwareEndpoint: "https://instance.com",
       });
+    });
+
+    it("should return undefined when no config found", async () => {
+      mockedCosmiconfigPackage.cosmiconfig.mockReturnValueOnce({
+        search: () => null,
+      } as never);
+      moduleObject.options.rootDir = `${__dirname}/files_tests`;
+      const result = await loadConfig(moduleObject);
+      expect(result).toBeUndefined();
     });
   });
 });

@@ -1,7 +1,7 @@
 /**
  * A collection of performance set of includes parameters
  */
-import * as apiParams from "@shopware-pwa/composables/src/api-params.json";
+import * as apiParams from "../api-params.json";
 
 /**
  * Gets the right includes parameter for given entity type

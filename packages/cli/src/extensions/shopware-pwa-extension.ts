@@ -11,7 +11,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     toolbox.print.info("called foo extension");
   };
 
-  toolbox.themeFolders = ["store", "static", ".eslintrc.js"];
+  toolbox.themeFolders = [".eslintrc.js"];
 
   toolbox.defaultThemeLocation = `node_modules/@shopware-pwa/default-theme`;
   // enable this if you want to read configuration in from

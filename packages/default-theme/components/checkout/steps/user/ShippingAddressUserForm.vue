@@ -44,7 +44,7 @@
       :visible="isModalOpen"
       @close="isModalOpen = false"
     >
-      <SwAddress />
+      <SwAddressForm />
     </SfModal>
   </div>
 </template>
@@ -53,11 +53,11 @@ import { SfList, SfRadio, SfCheckbox, SfModal } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import { ref, onMounted } from "@vue/composition-api"
-import SwAddress from "@shopware-pwa/default-theme/components/forms/SwAddress.vue"
+import SwAddressForm from "@shopware-pwa/default-theme/components/forms/SwAddressForm.vue"
 
 export default {
   name: "ShippingAddressUserForm",
-  components: { SfList, SfRadio, SfCheckbox, SwButton, SfModal, SwAddress },
+  components: { SfList, SfRadio, SfCheckbox, SwButton, SfModal, SwAddressForm },
   setup(props, { root }) {
     const { addresses, loadAddresses, user } = useUser(root)
     loadAddresses()
