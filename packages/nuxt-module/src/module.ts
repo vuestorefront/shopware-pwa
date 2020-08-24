@@ -176,7 +176,7 @@ export async function runModule(
   useCorePackages(moduleObject, corePackages);
 
   // backward compatibility for defaullt-theme alias
-  moduleObject.options.alias["@shopware-pwa/default-theme$"] = TARGET_SOURCE;
+  moduleObject.options.alias["@shopware-pwa/default-theme"] = TARGET_SOURCE;
   moduleObject.options.build.transpile =
     moduleObject.options.build.transpile || [];
   moduleObject.options.build.transpile.push("@shopware-pwa/default-theme");
