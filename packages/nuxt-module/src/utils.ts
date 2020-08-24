@@ -13,8 +13,8 @@ export function invokeRebuild(moduleObject: NuxtModuleOptions) {
 
 export async function loadConfig(
   moduleObject: NuxtModuleOptions
-): Promise<ShopwarePwaConfigFile | undefined> {
+): Promise<ShopwarePwaConfigFile> {
   const explorer = cosmiconfig("shopware-pwa");
   const result = await explorer.search();
-  return result?.config;
+  return result?.config || {};
 }

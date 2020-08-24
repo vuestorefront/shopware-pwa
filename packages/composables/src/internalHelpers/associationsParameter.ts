@@ -1,7 +1,7 @@
 /**
  * A collection of performance set of association parameters
  */
-import * as apiParams from "../api-params.json";
+import * as apiParams from "./defaultApiParams.json";
 
 /**
  * Gets the right associations parameter for given entity type

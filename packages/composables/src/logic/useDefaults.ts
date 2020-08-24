@@ -1,23 +1,47 @@
-import { ref, computed, Ref } from "@vue/composition-api";
-import { getIncludesForEntity } from "../internalHelpers/includesParameter";
-import { getAssociationsForEntity } from "../internalHelpers/associationsParameter";
-
-interface IUseDefaults {
-  getIncludesConfig: Readonly<Ref<any>>;
-  getAssociationsConfig: Readonly<Ref<any>>;
-}
+import {
+  ApplicationVueContext,
+  getApplicationContext,
+} from "@shopware-pwa/composables";
+import { Includes } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { Association } from "@shopware-pwa/commons/interfaces/search/Association";
 
 /**
- * Returns default config depending on config key
+ * Returns default config depending on config key.
+ *
+ * @beta
  */
-export const useDefaults = (key: string): IUseDefaults => {
-  if (!key) {
-    throw new Error("useDefaults: key has not been provided.");
+export const useDefaults = (
+  rootContext: ApplicationVueContext,
+  defaultsKey: string
+): {
+  getIncludesConfig: () => Includes;
+  getAssociationsConfig: () => Association[];
+} => {
+  const { shopwareDefaults } = getApplicationContext(
+    rootContext,
+    "useDefaults"
+  );
+  if (!shopwareDefaults) {
+    throw new Error(
+      "[composables][useDefaults]: applicationContext does not have shopwareDefaults!"
+    );
   }
-  const type = ref(key);
+
+  const getDefaultsFor = (keyName: string) => {
+    if (!shopwareDefaults?.[keyName]) {
+      throw new Error(
+        `[composables][useDefaults][getDefaultsFor]: there is no defaults configuration for key: ${keyName}`
+      );
+    }
+    return shopwareDefaults?.[keyName];
+  };
+
+  const getIncludesConfig = () => getDefaultsFor(defaultsKey)?.includes || {};
+  const getAssociationsConfig = () =>
+    getDefaultsFor(defaultsKey)?.associations || [];
 
   return {
-    getIncludesConfig: computed(() => getIncludesForEntity(type.value)),
-    getAssociationsConfig: computed(() => getAssociationsForEntity(type.value)),
+    getIncludesConfig,
+    getAssociationsConfig,
   };
 };
