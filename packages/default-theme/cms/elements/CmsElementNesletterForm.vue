@@ -10,7 +10,7 @@
         title="Subscribe to Newsletters"
         subtitle="Be aware of upcoming sales and events. Receive gifts and special offers!"
       />
-      <div>
+      <div class="form-actions" :class="{ bg: newsletterForm }">
         <SwButton
           v-if="!newsletterForm"
           class="send button toggle-input"
@@ -39,6 +39,8 @@
           />
         </transition>
 
+        <SfAlert v-if="errorMessage" :message="errorMessage" type="danger" />
+
         <span>
           <SwButton
             v-if="newsletterForm"
@@ -49,11 +51,12 @@
         </span>
       </div>
     </form>
+    <SfAlert v-else message="Thanks! Check your mailbox!" type="success" />
   </div>
 </template>
 
 <script>
-import { SfInput, SfHeading } from "@storefront-ui/vue"
+import { SfInput, SfHeading, SfAlert } from "@storefront-ui/vue"
 import { validationMixin } from "vuelidate"
 import { required, email } from "vuelidate/lib/validators"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
@@ -68,8 +71,15 @@ export default {
     SfInput,
     SwButton,
     SfHeading,
+    SfAlert,
   },
   mixins: [validationMixin],
+  props: {
+    content: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   data() {
     return {
       newsletterForm: false,
@@ -146,10 +156,17 @@ export default {
   padding-top: var(--spacer-sm);
 
   .email {
-    --input-color: var(--c-white);
+    --input-color: var(--c-black);
+    --input-border-color: var(--c-black);
 
-    color: var(--c-white);
-    margin-bottom: var(--spacer-lg);
+    margin-bottom: var(--spacer-sm);
+  }
+
+  .email ::v-deep input:-webkit-autofill,
+  input:-internal-autofill-selected {
+    box-shadow: 0 0 0 1000px var(--c-white) inset;
+    background-color: transparent;
+    text-indent: var(--spacer-sm);
   }
 
   .toggle-input {
@@ -158,6 +175,14 @@ export default {
 
   @include for-desktop {
     flex-direction: row;
+  }
+
+  .form-actions {
+    padding: var(--spacer-sm);
+
+    &.bg {
+      background-color: rgba($color: #ffffff, $alpha: 0.8);
+    }
   }
 }
 </style>
