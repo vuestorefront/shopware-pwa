@@ -13,5 +13,5 @@ export function getDefaultApiParams(): {
     associations?: Association[];
   };
 } {
-  return defaultApiParams || {};
+  return defaultApiParams;
 }

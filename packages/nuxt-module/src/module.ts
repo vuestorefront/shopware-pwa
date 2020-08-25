@@ -20,7 +20,7 @@ import {
 } from "./theme";
 import chokidar from "chokidar";
 import { getDefaultApiParams } from "@shopware-pwa/composables";
-import { merge } from "lodash";
+import merge from "lodash/merge";
 
 export async function runModule(
   moduleObject: NuxtModuleOptions,

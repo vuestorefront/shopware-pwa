@@ -1,4 +1,4 @@
-import InterfacesDefault from "../src/interfaces";
+import InterfacesDefault, { ShopwarePwaConfigFile } from "../src/interfaces";
 import { runModule } from "../src/module";
 import path from "path";
 import * as utils from "../src/utils";
@@ -146,7 +146,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
   });
 
   it("should show console info, that shopware-pwa.config.js is missing endpoint settings", async () => {
-    mockedUtils.loadConfig.mockResolvedValueOnce(undefined);
+    mockedUtils.loadConfig.mockResolvedValueOnce({} as ShopwarePwaConfigFile);
     await runModule(moduleObject, {});
     expect(consoleErrorSpy).toBeCalledWith(
       "shopwareAccessToken in shopware-pwa.config.js is missing"

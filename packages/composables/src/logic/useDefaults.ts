@@ -1,6 +1,7 @@
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
 import { Includes } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { Association } from "@shopware-pwa/commons/interfaces/search/Association";
+import { warning } from "@shopware-pwa/commons";
 
 /**
  * Returns default config depending on config key.
@@ -25,12 +26,15 @@ export const useDefaults = (
   }
 
   const getDefaultsFor = (keyName: string) => {
-    if (!shopwareDefaults?.[keyName]) {
-      throw new Error(
-        `[composables][useDefaults][getDefaultsFor]: there is no defaults configuration for key: ${keyName}`
-      );
+    if (!shopwareDefaults[keyName]) {
+      warning({
+        packageName: "composables",
+        methodName: "useDefaults",
+        notes: `there is no defaults configuration for key: ${keyName}`,
+      });
+      return;
     }
-    return shopwareDefaults?.[keyName];
+    return shopwareDefaults[keyName];
   };
 
   const getIncludesConfig = () => getDefaultsFor(defaultsKey)?.includes || {};
