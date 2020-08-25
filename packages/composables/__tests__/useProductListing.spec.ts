@@ -6,7 +6,10 @@ import VueCompositionApi, {
   Ref,
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
-import { useProductListing } from "@shopware-pwa/composables";
+import {
+  useProductListing,
+  getDefaultApiParams,
+} from "@shopware-pwa/composables";
 
 jest.mock("@shopware-pwa/shopware-6-client");
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
@@ -27,6 +30,7 @@ describe("Composables - useProductListing", () => {
       },
     },
     $shopwareApiInstance: jest.fn(),
+    $shopwareDefaults: getDefaultApiParams(),
   };
 
   beforeEach(() => {

@@ -18,6 +18,8 @@ export interface ApplicationVueContext extends VueConstructor {
   i18n?: any; // Vue i18n plugin
   $cookies?: any; // cookie-universal
   cookies?: any; // cookie-universal
+  shopwareDefaults?: any; // defaults for API
+  $shopwareDefaults?: any; // defaults for API
 }
 
 function checkAppContext(
@@ -52,5 +54,7 @@ export function getApplicationContext(
     router: context?.$router || context?.router,
     i18n: context?.$i18n || context?.i18n,
     cookies: context?.$cookies || context?.cookies,
+    shopwareDefaults: context?.$shopwareDefaults || context?.shopwareDefaults,
+    contextName: key,
   };
 }

@@ -23,7 +23,7 @@ describe("helpers", () => {
       });
 
       expect(mockedWarn).toBeCalledWith(
-        "[PROBLEM][@shopware-pwa/helpers][warning]: some warning"
+        "[WARNING][@shopware-pwa/helpers][warning]: some warning"
       );
     });
     it("should invoke console.warn in NODE_ENV other than production", () => {

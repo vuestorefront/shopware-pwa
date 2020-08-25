@@ -59,13 +59,13 @@ describe("nuxt-module - utils", () => {
       });
     });
 
-    it("should return undefined when no config found", async () => {
+    it("should return empty object when no config found", async () => {
       mockedCosmiconfigPackage.cosmiconfig.mockReturnValueOnce({
         search: () => null,
       } as never);
       moduleObject.options.rootDir = `${__dirname}/files_tests`;
       const result = await loadConfig(moduleObject);
-      expect(result).toBeUndefined();
+      expect(result).toEqual({});
     });
   });
 });

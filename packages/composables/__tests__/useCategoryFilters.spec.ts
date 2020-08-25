@@ -7,7 +7,10 @@ import VueCompositionApi, {
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
-import { useCategoryFilters } from "@shopware-pwa/composables";
+import {
+  useCategoryFilters,
+  getDefaultApiParams,
+} from "@shopware-pwa/composables";
 
 describe("Composables - useCategoryFilters", () => {
   const statePage: Ref<Object | null> = ref(null);
@@ -19,6 +22,7 @@ describe("Composables - useCategoryFilters", () => {
       },
     },
     $shopwareApiInstance: jest.fn(),
+    $shopwareDefaults: getDefaultApiParams(),
   };
   beforeEach(() => {
     jest.resetAllMocks();
