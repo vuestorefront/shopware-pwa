@@ -21,6 +21,7 @@ import {
 import chokidar from "chokidar";
 import { getDefaultApiParams } from "@shopware-pwa/composables";
 import merge from "lodash/merge";
+import fse from "fs-extra";
 
 export async function runModule(
   moduleObject: NuxtModuleOptions,
@@ -232,5 +233,18 @@ export async function runModule(
           BASE_SOURCE,
         })
       );
+  }
+
+  if (!moduleObject.options.dev) {
+    moduleObject.nuxt.hook("build:done", async (builder) => {
+      const sourceDir = path.join(TARGET_SOURCE, "static");
+      const destinationDir = path.join(
+        builder.options.buildDir,
+        "dist",
+        "client"
+      );
+      await fse.copy(sourceDir, destinationDir);
+      console.log("Moved static files to client dist.");
+    });
   }
 }
