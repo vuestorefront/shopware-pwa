@@ -5,6 +5,29 @@ import { warning } from "@shopware-pwa/commons";
 
 /**
  * Returns default config depending on config key.
+ * It is used in composables, so defaultsKey is in most cases composable name (ex. `useDefaults(rootContext, "useCms")`)
+ *
+ * @remarks
+ * To extend defaults you need to add configuration to `shopware-pwa.config.js` file.
+ * Let's say we want to have a product manufacturer and media associations on CMS pages. We need to add to configuration file:
+ * ```js
+ * // inside shopware-pwa.config.js
+ *
+ * module.exports = {
+ *   // ... other settings
+ *   apiDefaults: {
+ *    useCms: {
+ *      includes: {
+ *        product: ["manufacturer"]
+ *      },
+ *      associations: [
+ *        { name: "media" }
+ *      ]
+ *    },
+ *   },
+ * }
+ * ```
+ * We need to remember the structure of includes and associations. You can read more about this {@link https://docs.shopware.com/en/shopware-platform-dev-en/admin-api-guide/reading-entities?category=shopware-platform-dev-en/admin-api-guide#parameter-overview | in shopware docs}.
  *
  * @beta
  */

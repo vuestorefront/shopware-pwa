@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Returns default config depending on config key.
+Returns default config depending on config key. It is used in composables, so defaultsKey is in most cases composable name (ex. `useDefaults(rootContext, "useCms")`<!-- -->)
 
 <b>Signature:</b>
 
@@ -17,3 +17,28 @@ useDefaults: (rootContext: ApplicationVueContext, defaultsKey: string) => {
     getAssociationsConfig: () => Association[];
 }
 ```
+
+## Remarks
+
+To extend defaults you need to add configuration to `shopware-pwa.config.js` file. Let's say we want to have a product manufacturer and media associations on CMS pages. We need to add to configuration file:
+
+```js
+// inside shopware-pwa.config.js
+
+module.exports = {
+  // ... other settings
+  apiDefaults: {
+   useCms: {
+     includes: {
+       product: ["manufacturer"]
+     },
+     associations: [
+       { name: "media" }
+     ]
+   },
+  },
+}
+
+```
+We need to remember the structure of includes and associations. You can read more about this [in shopware docs](https://docs.shopware.com/en/shopware-platform-dev-en/admin-api-guide/reading-entities?category=shopware-platform-dev-en/admin-api-guide#parameter-overview)<!-- -->.
+
