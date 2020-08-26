@@ -39,7 +39,12 @@
           />
         </transition>
 
-        <SfAlert v-if="errorMessage" :message="errorMessage" type="danger" />
+        <SfAlert
+          v-if="errorMessage"
+          :message="errorMessage"
+          type="danger"
+          class="error-alert"
+        />
 
         <span>
           <SwButton
@@ -105,7 +110,8 @@ export default {
         )
         formSent.value = true
       } catch (e) {
-        errorMessage.value = getMessagesFromErrorsArray(e.message)
+        errorMessage.value = "Internal error. Please try again later."
+        console.error(getMessagesFromErrorsArray(e.message))
       }
     }
 
@@ -154,6 +160,10 @@ export default {
   padding-left: var(--spacer-sm);
   padding-right: var(--spacer-sm);
   padding-top: var(--spacer-sm);
+
+  .error-alert {
+    margin-bottom: var(--spacer-sm);
+  }
 
   .email {
     --input-color: var(--c-black);
