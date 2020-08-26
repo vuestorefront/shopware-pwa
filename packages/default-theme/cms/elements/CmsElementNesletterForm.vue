@@ -39,12 +39,15 @@
           />
         </transition>
 
-        <SfAlert
-          v-if="errorMessage"
-          :message="errorMessage"
-          type="danger"
-          class="error-alert"
-        />
+        <div v-if="errorMessage">
+          <SfAlert
+            v-for="(message, key) in errorMessage"
+            :key="key"
+            :message="message"
+            type="danger"
+            class="error-alert"
+          />
+        </div>
 
         <span>
           <SwButton
@@ -110,8 +113,7 @@ export default {
         )
         formSent.value = true
       } catch (e) {
-        errorMessage.value = "Internal error. Please try again later."
-        console.error(getMessagesFromErrorsArray(e.message))
+        errorMessage.value = getMessagesFromErrorsArray(e.message)
       }
     }
 
@@ -127,7 +129,6 @@ export default {
       this.errorMessage = ""
       this.$v.$touch()
       if (this.$v.$invalid) {
-        this.errorMessage = this.$t("Please fill form data.")
         return
       }
 
