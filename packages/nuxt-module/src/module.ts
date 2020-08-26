@@ -236,7 +236,7 @@ export async function runModule(
   }
 
   if (!moduleObject.options.dev) {
-    moduleObject.nuxt.hook("build:done", async (builder) => {
+    moduleObject.nuxt.hook("build:done", async (builder: NuxtModuleOptions) => {
       const sourceDir = path.join(TARGET_SOURCE, "static");
       const destinationDir = path.join(
         builder.options.buildDir,
