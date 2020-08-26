@@ -52,6 +52,7 @@ describe("CartService - addProductToCart", () => {
           quantity: 1,
           referencedId: "044a190a54ab4f06803909c3ee8063ef",
           type: "product",
+          id: "044a190a54ab4f06803909c3ee8063ef",
         },
       ],
     });
@@ -77,6 +78,7 @@ describe("CartService - addProductToCart", () => {
             quantity: 1,
             referencedId: "someNonExistingProductId",
             type: "product",
+            id: "someNonExistingProductId",
           },
         ],
       }
@@ -96,6 +98,7 @@ describe("CartService - addProductToCart", () => {
           referencedId: "",
           type: "product",
           quantity: 2,
+          id: "",
         },
       ],
     });
@@ -117,6 +120,7 @@ describe("CartService - addProductToCart", () => {
           quantity: 1,
           referencedId: "qwe",
           type: "product",
+          id: "qwe",
         },
       ],
     });
