@@ -54,8 +54,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@storefront-ui/vue/styles";
-
 .sw-address {
   display: flex;
   justify-content: space-between;

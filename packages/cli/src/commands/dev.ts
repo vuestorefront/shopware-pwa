@@ -58,24 +58,12 @@ const command: GluegunCommand = {
         }
       });
 
-    // Watch Cmponents
-    const componentsWatchEvents = ["add", "unlink"];
-    const componentsPath = path.join("components");
-    chokidar
-      .watch([componentsPath], {
-        ignoreInitial: true,
-      })
-      .on("all", async (event) => {
-        if (componentsWatchEvents.includes(event)) {
-          jetpack.copy(`nuxt.config.js`, `nuxt.config.js`, { overwrite: true });
-        }
-      });
-
     // initial config invoke
     await toolbox.plugins.invokeRefreshPlugins(true);
     await toolbox.cms.invokeRefreshCMS();
     await toolbox.languages.invokeRefreshLanguages();
 
+    // for debug: node --inspect node_modules/.bin/nuxt
     await spawn("yarn nuxt", {
       stdio: "inherit",
     });

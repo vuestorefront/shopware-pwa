@@ -1,5 +1,5 @@
 // we're importing here main style variables from theme
-@import '~@shopware-pwa/default-theme/assets/scss/main';
+@import "@theme/assets/scss/main";
 
 // Here you can override you global styles.
 // It will be included once on webside and visible unless some more specific styles in components will extend that

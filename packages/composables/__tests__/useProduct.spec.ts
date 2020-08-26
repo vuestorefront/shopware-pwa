@@ -3,10 +3,8 @@ import VueCompositionApi from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
-import { useProduct } from "@shopware-pwa/composables";
+import { useProduct, getDefaultApiParams } from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
-import { getIncludesForEntity } from "../src/internalHelpers/includesParameter";
-import { getAssociationsForEntity } from "../src/internalHelpers/associationsParameter";
 
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedAxios = shopwareClient as jest.Mocked<typeof shopwareClient>;
@@ -15,6 +13,7 @@ describe("Composables - useProduct", () => {
   const rootContextMock: any = {
     $store: jest.fn(),
     $shopwareApiInstance: jest.fn(),
+    $shopwareDefaults: getDefaultApiParams(),
   };
   beforeEach(() => {
     jest.resetAllMocks();
@@ -67,8 +66,9 @@ describe("Composables - useProduct", () => {
       };
       mockedAxios.getProductPage.mockResolvedValueOnce({} as any);
       const { loadAssociations } = useProduct(rootContextMock, loadedProduct);
-      const includesParams = getIncludesForEntity("useProduct");
-      const associationsParams = getAssociationsForEntity("useProduct");
+      const includesParams = getDefaultApiParams()?.["useProduct"]?.includes;
+      const associationsParams = getDefaultApiParams()?.["useProduct"]
+        ?.associations;
       loadAssociations({} as any);
       expect(mockedAxios.getProductPage).toBeCalledWith(
         "detail/1c3e927309014a67a07f3bb574f9e804",

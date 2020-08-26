@@ -7,10 +7,8 @@ import VueCompositionApi, {
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
-import { useCms } from "@shopware-pwa/composables";
+import { useCms, getDefaultApiParams } from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
-import { getIncludesForEntity } from "../src/internalHelpers/includesParameter";
-import { getAssociationsForEntity } from "../src/internalHelpers/associationsParameter";
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedGetPage = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
@@ -24,6 +22,7 @@ describe("Composables - useCms", () => {
       },
     },
     $shopwareApiInstance: jest.fn(),
+    $shopwareDefaults: getDefaultApiParams(),
   };
   beforeEach(() => {
     jest.resetAllMocks();
@@ -83,8 +82,8 @@ describe("Composables - useCms", () => {
           "",
           {
             configuration: {
-              associations: getAssociationsForEntity("useCms"),
-              includes: getIncludesForEntity("useCms"),
+              associations: getDefaultApiParams()?.["useCms"]?.associations,
+              includes: getDefaultApiParams()?.["useCms"]?.includes,
             },
             pagination: { limit: 10 },
           },
@@ -101,8 +100,8 @@ describe("Composables - useCms", () => {
           "",
           {
             configuration: {
-              associations: getAssociationsForEntity("useCms"),
-              includes: getIncludesForEntity("useCms"),
+              associations: getDefaultApiParams()?.["useCms"]?.associations,
+              includes: getDefaultApiParams()?.["useCms"]?.includes,
             },
             pagination: { limit: 10 },
           },
@@ -119,8 +118,8 @@ describe("Composables - useCms", () => {
           "",
           {
             configuration: {
-              associations: getAssociationsForEntity("useCms"),
-              includes: getIncludesForEntity("useCms"),
+              associations: getDefaultApiParams()?.["useCms"]?.associations,
+              includes: getDefaultApiParams()?.["useCms"]?.includes,
             },
             pagination: { limit: 50 },
           },
@@ -139,8 +138,8 @@ describe("Composables - useCms", () => {
           "",
           {
             configuration: {
-              associations: getAssociationsForEntity("useCms"),
-              includes: getIncludesForEntity("useCms"),
+              associations: getDefaultApiParams()?.["useCms"]?.associations,
+              includes: getDefaultApiParams()?.["useCms"]?.includes,
             },
             pagination: { limit: 10 },
           },
@@ -159,7 +158,7 @@ describe("Composables - useCms", () => {
           "",
           {
             configuration: {
-              associations: getAssociationsForEntity("useCms"),
+              associations: getDefaultApiParams()?.["useCms"]?.associations,
               includes: { product: ["name"] },
             },
             pagination: { limit: 10 },

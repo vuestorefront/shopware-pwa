@@ -68,6 +68,7 @@ export const useProductListing = (
     "useProductListing"
   );
   const { getAssociationsConfig, getIncludesConfig } = useDefaults(
+    rootContext,
     "useProductListing"
   );
   const { categoryId } = useCms(rootContext);
@@ -143,8 +144,8 @@ export const useProductListing = (
       ),
       sort: getSortingSearchCriteria(selectedCriteria.sorting),
       configuration: {
-        associations: getAssociationsConfig.value,
-        includes: getIncludesConfig.value,
+        associations: getAssociationsConfig(),
+        includes: getIncludesConfig(),
       },
     };
 

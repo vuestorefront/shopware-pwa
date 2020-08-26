@@ -9,6 +9,6 @@ export function warning({
 }) {
   process.env.NODE_ENV !== "production" &&
     console.warn(
-      `[PROBLEM][@shopware-pwa/${packageName}][${methodName}]: ${notes}`
+      `[WARNING][@shopware-pwa/${packageName}][${methodName}]: ${notes}`
     );
 }

@@ -1,17 +1,17 @@
 <template>
   <div class="addresses-add">
     <div v-if="address !== ''">
-      <SwAddress :address="address" />
+      <SwAddressForm :address="address" />
     </div>
   </div>
 </template>
 
 <script>
-import SwAddress from "@shopware-pwa/default-theme/components/forms/SwAddress.vue"
+import SwAddressForm from "@shopware-pwa/default-theme/components/forms/SwAddressForm.vue"
 import { useUser } from "@shopware-pwa/composables"
 
 export default {
-  components: { SwAddress },
+  components: { SwAddressForm },
   data() {
     return {
       address: "",

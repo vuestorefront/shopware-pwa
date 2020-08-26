@@ -16,7 +16,10 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
     "useCms"
   );
 
-  const { getAssociationsConfig, getIncludesConfig } = useDefaults("useCms");
+  const { getAssociationsConfig, getIncludesConfig } = useDefaults(
+    rootContext,
+    "useCms"
+  );
   const error: Ref<any> = ref(null);
   const loading: Ref<boolean> = ref(false);
   const page = computed(() => {
@@ -49,12 +52,12 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
     if (!searchCriteria.configuration.associations)
       searchCriteria.configuration.associations = [];
 
-    const associations = getAssociationsConfig.value;
+    const associations = getAssociationsConfig();
     searchCriteria.configuration.associations.push(...associations);
 
     if (!searchCriteria.configuration.includes) {
       // performance enhancement
-      searchCriteria.configuration.includes = getIncludesConfig.value;
+      searchCriteria.configuration.includes = getIncludesConfig();
     }
 
     try {
