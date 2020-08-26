@@ -56,7 +56,8 @@ module.exports = {
       Object.assign(inputParameters, answers);
     }
 
-    await toolbox.generateNuxtProject();
+    const newProjectGenerated: boolean = await toolbox.generateNuxtProject();
+    await toolbox.moveDefaultNuxtFoldersToSrc(newProjectGenerated);
 
     let stage = inputParameters.stage || STAGES.STABLE;
     if (inputParameters.stage === "canary") stage = STAGES.CANARY;

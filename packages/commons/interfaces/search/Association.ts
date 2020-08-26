@@ -1,7 +1,7 @@
 import { SearchFilter } from "./SearchFilter";
 
 /**
- * @alpha
+ * @beta
  */
 export interface Association {
   /**

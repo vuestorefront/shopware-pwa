@@ -52,8 +52,8 @@ import { validationMixin } from "vuelidate"
 import { required, email } from "vuelidate/lib/validators"
 import { useUser } from "@shopware-pwa/composables"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
-import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
+import SwButton from "@/components/atoms/SwButton"
+import SwInput from "@/components/atoms/SwInput"
 
 export default {
   name: "SwLogin",

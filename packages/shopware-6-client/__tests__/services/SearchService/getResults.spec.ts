@@ -1,5 +1,6 @@
 import { getResults } from "@shopware-pwa/shopware-6-client";
 import { defaultInstance } from "../../../src/apiService";
+const consoleWarnSpy = jest.spyOn(console, "warn");
 
 jest.mock("../../../src/apiService");
 const mockedApiInstance = defaultInstance as jest.Mocked<
@@ -12,6 +13,7 @@ describe("SearchService - getResults", () => {
     mockedApiInstance.invoke = {
       post: mockedPost,
     } as any;
+    consoleWarnSpy.mockImplementation(() => {});
   });
   it("should return ProductListingResult", async () => {
     mockedPost.mockResolvedValueOnce({
@@ -24,5 +26,14 @@ describe("SearchService - getResults", () => {
       p: 1,
     });
     expect(result).toHaveProperty("apiAlias");
+  });
+  it("should show deprecation info on this method", async () => {
+    mockedPost.mockResolvedValueOnce({
+      data: { apiAlias: "product_listing" },
+    });
+    await getResults("some term");
+    expect(consoleWarnSpy).toBeCalledWith(
+      '[DEPRECATED][@shopware-pwa/shopware-6-client][getResults] This method has been deprecated. Use "getSearchResults" instead.'
+    );
   });
 });

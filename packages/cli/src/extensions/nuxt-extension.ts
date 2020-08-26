@@ -31,19 +31,22 @@ module.exports = (toolbox: GluegunToolbox) => {
       linter: ["prettier", "lintStaged"],
       test: "jest",
       mode: "universal",
+      target: "server",
       devTools: [],
     };
     if (!isNuxtGenerated) {
-      const nuxtGenerate = `npx --ignore-existing create-nuxt-app@2.15.0 --answers "${JSON.stringify(
+      const nuxtGenerate = `npx --ignore-existing create-nuxt-app@3.2.0 --answers "${JSON.stringify(
         nuxtAnswers
       ).replace(/"/g, '\\"')}"`;
       await run(nuxtGenerate);
       await toolbox.removeDefaultNuxtFiles();
       spinner.succeed();
+      return true;
     } else {
       spinner.succeed(
         "Preparing Nuxt project: project is already created. Remove `nuxt.config.js` to regenerate whole project."
       );
+      return false;
     }
   };
 
@@ -52,9 +55,50 @@ module.exports = (toolbox: GluegunToolbox) => {
    * TODO: check generated files and add here ones which are not necessary
    */
   toolbox.removeDefaultNuxtFiles = async () => {
-    toolbox.filesystem.remove(path.join("pages", "index.vue"));
-    toolbox.filesystem.remove(path.join("components", "Logo.vue"));
-    toolbox.filesystem.remove(path.join("layouts", "default.vue"));
+    return Promise.all([
+      toolbox.filesystem.removeAsync(path.join("pages", "index.vue")),
+      toolbox.filesystem.removeAsync(path.join("components", "Logo.vue")),
+      toolbox.filesystem.removeAsync(path.join("layouts", "default.vue")),
+    ]);
+  };
+
+  /**
+   * Change structure of project, by moving all Nuxt related folders to `src`
+   */
+  toolbox.moveDefaultNuxtFoldersToSrc = async (
+    newProjectGenerated: boolean
+  ) => {
+    const foldersToMove = [
+      "assets",
+      "components",
+      "layouts",
+      "middleware",
+      "pages",
+      "plugins",
+      "static",
+      "store",
+    ];
+    return Promise.all(
+      foldersToMove.map(async (folderName: string) => {
+        const destinationDirectory: string = path.join("src", folderName);
+        const existSrc = await toolbox.filesystem.existsAsync(folderName);
+        const existDestination = await toolbox.filesystem.existsAsync(
+          destinationDirectory
+        );
+        if (existSrc && !existDestination) {
+          await toolbox.filesystem.moveAsync(folderName, destinationDirectory);
+          if (!newProjectGenerated) {
+            toolbox.print.success(
+              `Directory "${folderName}" has been migrated to "${destinationDirectory}"`
+            );
+          }
+        } else if (existSrc && existDestination) {
+          toolbox.print.error(
+            `Couldn't automatically migrate directory "${folderName}" to "${destinationDirectory}". Please do manual migration and remove ${folderName} from the root directory.`
+          );
+        }
+      })
+    );
   };
 
   /**
@@ -200,20 +244,22 @@ module.exports = (toolbox: GluegunToolbox) => {
       });
     }
 
-    const isMainScssFileCreated = exists("./assets/scss/main.scss");
+    const isMainScssFileCreated = exists("./src/assets/scss/main.scss");
     if (!isMainScssFileCreated) {
       await toolbox.template.generate({
         template: "main.scss",
-        target: `./assets/scss/main.scss`,
+        target: `./src/assets/scss/main.scss`,
         props: {},
       });
     }
 
-    const isVariablesScssFileCreated = exists("./assets/scss/variables.scss");
+    const isVariablesScssFileCreated = exists(
+      "./src/assets/scss/variables.scss"
+    );
     if (!isVariablesScssFileCreated) {
       await toolbox.template.generate({
         template: "variables.scss",
-        target: `./assets/scss/variables.scss`,
+        target: `./src/assets/scss/variables.scss`,
         props: {},
       });
     }
@@ -221,22 +267,12 @@ module.exports = (toolbox: GluegunToolbox) => {
 
   toolbox.copyThemeFolder = async (folderName, destination) => {
     const dest = destination ? destination : folderName;
+    const destinationExist = toolbox.filesystem.existsAsync(dest);
+    if (destinationExist) return;
     await toolbox.filesystem.copyAsync(
       path.join(toolbox.defaultThemeLocation, folderName),
       dest,
       { overwrite: true }
-    );
-  };
-
-  toolbox.watchThemeFolder = (folderName) => {
-    const fs = require("fs");
-    fs.watch(
-      path.join(toolbox.defaultThemeLocation, folderName),
-      { recursive: true },
-      async () => {
-        toolbox.print.info(`Reloading [${folderName}] files...`);
-        await toolbox.copyThemeFolder(folderName);
-      }
     );
   };
 };
