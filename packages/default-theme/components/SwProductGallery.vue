@@ -30,7 +30,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.sw-product-gallery ::v-deep .sf-gallery__stage {
-  margin: 0 auto;
+.gallery__mobile .sf-gallery {
+  align-items: center;
+}
+
+.gallery__mobile ::v-deep .glide__slide {
+  min-width: 100px;
+}
+
+.gallery__mobile ::v-deep .sf-gallery__thumbs {
+  width: 100%;
 }
 </style>
