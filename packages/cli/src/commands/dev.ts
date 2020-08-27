@@ -63,8 +63,14 @@ const command: GluegunCommand = {
     await toolbox.cms.invokeRefreshCMS();
     await toolbox.languages.invokeRefreshLanguages();
 
-    // for debug: node --inspect node_modules/.bin/nuxt
-    await spawn("yarn nuxt", {
+    const debugOn = toolbox.parameters.options.debug;
+
+    let spawnCommand = "yarn nuxt";
+    if (debugOn) {
+      spawnCommand = "node --inspect node_modules/.bin/nuxt";
+    }
+
+    await spawn(spawnCommand, {
       stdio: "inherit",
     });
   },
