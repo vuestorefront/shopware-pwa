@@ -1,6 +1,6 @@
 .form {
-  --form-direction: column;
-  --form-input-margin-bottom: 0;
+  --form-direction: var(--form-direction, column);
+  --form-input-margin-bottom: var(--form-input-margin-bottom, 0);
   --form-input-margin-left: 0;
   --form-input-margin-right: 0;
   --form-input-margin-top: 0;
