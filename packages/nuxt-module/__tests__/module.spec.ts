@@ -7,16 +7,19 @@ import * as locales from "../src/locales";
 import * as packages from "../src/packages";
 import * as theme from "../src/theme";
 import chokidar from "chokidar";
+import fse from "fs-extra";
 jest.mock("../src/utils");
 jest.mock("../src/cms");
 jest.mock("../src/locales");
 jest.mock("../src/packages");
 jest.mock("../src/theme");
 jest.mock("chokidar");
+jest.mock("fs-extra");
 const mockedUtils = utils as jest.Mocked<typeof utils>;
 const mockedTheme = theme as jest.Mocked<typeof theme>;
 const consoleErrorSpy = jest.spyOn(console, "error");
 const mockedChokidar = chokidar as jest.Mocked<typeof chokidar>;
+const mockedFse = fse as jest.Mocked<typeof fse>;
 
 describe("nuxt-module - ShopwarePWAModule runModule", () => {
   let webpackConfig: any = {};
@@ -32,7 +35,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     addLayout: jest.fn(),
     extendRoutes: jest.fn(),
     addPlugin: jest.fn(),
-    nuxt: jest.fn(),
+    nuxt: { hook: jest.fn() },
     extendBuild: (method: Function): number => methods.push(method),
   };
   let BASE_SOURCE = path.join("node_modules", "theme");
@@ -328,5 +331,23 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
       event: "add",
       filePath: "some/project/filepath.vue",
     });
+  });
+
+  it("should copy target static directory to project root directory after production build", async () => {
+    moduleObject.options.dev = false;
+    const afterBuildMethods: any[] = [];
+    moduleObject.nuxt.hook.mockImplementationOnce(
+      (hookName: string, method: Function) => afterBuildMethods.push(method)
+    );
+    await runModule(moduleObject, {});
+    expect(moduleObject.nuxt.hook).toBeCalledWith(
+      "build:done",
+      expect.any(Function)
+    );
+    expect(afterBuildMethods.length).toEqual(1);
+    await afterBuildMethods[0](moduleObject);
+    const fromPath = path.join(TARGET_SOURCE, "static");
+    const toPath = path.join(moduleObject.options.rootDir, "static");
+    expect(mockedFse.copy).toBeCalledWith(fromPath, toPath);
   });
 });
