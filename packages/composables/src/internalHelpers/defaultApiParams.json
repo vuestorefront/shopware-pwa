@@ -54,6 +54,7 @@
           "slots",
           "type",
           "id",
+          "backgroundColor",
           "backgroundMedia",
           "sectionPosition",
           "backgroundColor"
@@ -72,7 +73,6 @@
           "type",
           "config"
       ],
-
       "product": [
           "media",
           "productReviews",
@@ -154,7 +154,6 @@
           "translated"
       ]
     }
-    
   },
   "useProduct": {
     "associations": [
@@ -197,7 +196,6 @@
               }
             ]
           }
-          
         ]
       }
     ],

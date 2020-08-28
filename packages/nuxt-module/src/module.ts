@@ -21,6 +21,7 @@ import {
 import chokidar from "chokidar";
 import { getDefaultApiParams } from "@shopware-pwa/composables";
 import merge from "lodash/merge";
+import fse from "fs-extra";
 
 export async function runModule(
   moduleObject: NuxtModuleOptions,
@@ -232,5 +233,17 @@ export async function runModule(
           BASE_SOURCE,
         })
       );
+  }
+
+  // On build copy combined static files to rootStatic folder
+  if (!moduleObject.options.dev) {
+    moduleObject.nuxt.hook("build:done", async (builder: NuxtModuleOptions) => {
+      const sourceDir = path.join(TARGET_SOURCE, "static");
+      const destinationDir = path.join(builder.options.rootDir, "static");
+      await fse.copy(sourceDir, destinationDir);
+      console.log(
+        "Moved static files to root directory static folder. Make sure your static files are placed inside `src/static` directory."
+      );
+    });
   }
 }
