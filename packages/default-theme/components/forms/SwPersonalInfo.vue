@@ -24,7 +24,7 @@
               error-message="First name is required"
               name="firstName"
               label="First Name"
-              class="form__input"
+              class="sw-form__input"
               @blur="$v.firstName.$touch()"
             />
             <SwInput
@@ -33,7 +33,7 @@
               error-message="Last name is required"
               name="lastName"
               label="Last Name"
-              class="form__input"
+              class="sw-form__input"
               @blur="$v.lastName.$touch()"
             />
           </div>
@@ -43,7 +43,7 @@
             error-message="Proper email is required"
             name="email"
             label="Your email"
-            class="form__input"
+            class="sw-form__input"
             @blur="$v.email.$touch()"
           />
           <SwInput
@@ -54,7 +54,7 @@
             type="email"
             name="emailConfirmation"
             label="Confirm e-mail"
-            class="form__input"
+            class="sw-form__input"
             required
             @blur="$v.emailConfirmation.$touch()"
           />
@@ -66,12 +66,12 @@
             type="password"
             name="password"
             label="Your password"
-            class="form__input"
+            class="sw-form__input"
             required
             @blur="$v.password.$touch()"
           />
           <SwButton
-            class="form__button"
+            class="sw-form__button"
             :disabled="$v.$invalid && !isEmailChanging && !isNameChanging"
             @click="invokeUpdate"
           >

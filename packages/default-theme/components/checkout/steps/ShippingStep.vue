@@ -13,7 +13,7 @@
       class="sf-heading--left sf-heading--no-underline title"
     />
     <div class="sw-form">
-      <div class="form__radio-group">
+      <div class="sw-form__radio-group">
         <SfRadio
           v-for="shippingMethod in shippingMethods"
           :key="shippingMethod.id"
@@ -22,7 +22,7 @@
           :value="shippingMethod.id"
           name="shippingMethod"
           :description="shippingMethod.deliveryTime.translated.name"
-          class="form__radio shipping"
+          class="sw-form__radio shipping"
         >
           <template #label="{label}">
             <div class="sf-radio__label shipping__label">
@@ -59,13 +59,13 @@
           >Go Back to Personal details</SwButton
         >
         <SwButton
-          class="sf-button--full-width form__action-button form__button"
+          class="sf-button--full-width form__action-button sw-form__button"
           data-cy="continue-to-payment"
           @click="$emit('proceed')"
           >Continue to payment</SwButton
         >
         <SwButton
-          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only form__button"
+          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only sw-form__button"
           @click="$emit('retreat')"
           >Go back to Personal details</SwButton
         >

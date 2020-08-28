@@ -13,14 +13,14 @@
         v-model="email"
         name="email"
         label="Your email"
-        class="form__input"
+        class="sw-form__input"
         :valid="!$v.email.$error"
         error-message="Valid email is required"
         @blur="$v.email.$touch()"
         data-cy="email-input"
       />
       <SwButton
-        class="sf-button--full-width form__button"
+        class="sf-button--full-width sw-form__button"
         @click="invokeResetPassword"
         data-cy="submit-reset-button"
       >

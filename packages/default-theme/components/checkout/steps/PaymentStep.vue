@@ -21,7 +21,7 @@
           :value="paymentMethod.id"
           name="paymentMethod"
           :description="paymentMethod.description"
-          class="form__radio payment-method"
+          class="sw-form__radio payment-method"
         >
           <template #description="{description}">
             <div class="sf-radio__description">
@@ -45,19 +45,19 @@
       </div>
       <div class="form__action">
         <SwButton
-          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only form__button"
+          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only sw-form__button"
           @click="$emit('click:back')"
         >
           Go back to Shipping
         </SwButton>
         <SwButton
-          class="sf-button--full-width form__action-button form__button"
+          class="sf-button--full-width form__action-button sw-form__button"
           data-cy="review-order"
           @click="$emit('proceed')"
           >Review order</SwButton
         >
         <SwButton
-          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only form__button"
+          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only sw-form__button"
           @click="$emit('click:back')"
         >
           Go back to Shipping

@@ -18,7 +18,7 @@
           error-message="First name is required"
           :valid="!$v.form.firstName.$error"
           required
-          class="form__input"
+          class="sw-form__input"
           @blur="$v.form.firstName.$touch()"
         />
         <SwInput
@@ -28,7 +28,7 @@
           error-message="Last name is required"
           :valid="!$v.form.lastName.$error"
           required
-          class="form__input"
+          class="sw-form__input"
           @blur="$v.form.lastName.$touch()"
         />
       </div>
@@ -39,7 +39,7 @@
           error-message="Salutation must be selected"
           required
           :valid="!$v.form.salutation.$error"
-          class="sf-select--underlined form__select"
+          class="sf-select--underlined sw-form__select"
           @blur="$v.form.salutaiton.$touch()"
         >
           <SfSelectOption
@@ -57,7 +57,7 @@
           error-message="Street name is required"
           :valid="!$v.form.street.$error"
           required
-          class="form__input"
+          class="sw-form__input"
           @blur="$v.form.street.$touch()"
         />
       </div>
@@ -79,7 +79,7 @@
           error-message="City is required"
           :valid="!$v.form.city.$error"
           required
-          class="form__input"
+          class="sw-form__input"
           @blur="$v.form.city.$touch()"
         />
         <SwInput
@@ -89,7 +89,7 @@
           error-message="State is required"
           :valid="!$v.form.state.$error"
           required
-          class="form__input"
+          class="sw-form__input"
           @blur="$v.form.state.$touch()"
         />
       </div>
@@ -101,7 +101,7 @@
           error-message="Zip code is required"
           :valid="!$v.form.zipcode.$error"
           required
-          class="form__input"
+          class="sw-form__input"
           @blur="$v.form.zipcode.$touch()"
         />
 
@@ -111,7 +111,7 @@
           error-message="Country must be selected"
           :valid="!$v.form.country.$error"
           required
-          class="sf-select--underlined form__select"
+          class="sf-select--underlined sw-form__select"
           @blur="$v.form.country.$touch()"
         >
           <SfSelectOption
@@ -130,15 +130,15 @@
         error-message="Wrong phone number"
         :valid="!$v.form.phoneNumber.$error"
         required
-        class="form__input"
+        class="sw-form__input"
         @blur="$v.form.phoneNumber.$touch()"
       />
 
-      <SwButton class="form__button" @click="updateAddress">
+      <SwButton class="sw-form__button" @click="updateAddress">
         Update the address
       </SwButton>
       <SwButton
-        class="sf-button--outline form__button form__button--back"
+        class="sf-button--outline sw-form__button sw-form__button--back"
         @click="returnToAddresses"
       >
         Back

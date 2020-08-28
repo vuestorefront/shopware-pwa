@@ -1,5 +1,5 @@
 .sw-form {
-  --form-direction: var(--form-direction, column);
+  --form-direction: var(--flex-direction, column);
   --form-input-margin-bottom: var(--form-input-margin-bottom, 0);
   --form-input-margin-left: 0;
   --form-input-margin-right: 0;
@@ -63,7 +63,7 @@
   }
 
   &__radio {
-    & + .form__radio {
+    & + .sw-form__radio {
       margin-top: var(--form-radio-margin-top);
     }
   }
@@ -71,7 +71,7 @@
   .inputs-group {
     align-items: flex-start;
     display: flex;
-    flex-direction: column;
+    flex-direction: var(--flex-direction, column);
     justify-content: stretch;
 
     > * {
@@ -81,21 +81,19 @@
 
   @include for-desktop {
     .inputs-group {
-      flex-direction: row;
+      flex-direction: var(--flex-direction, row);
     }
 
     &__input {
-      --form-input-margin-bottom: var(--spacer-base);
+      --form-input-margin-bottom: var(--spacer-xs);
       --form-input-margin-left: var(--spacer-sm);
       --form-input-margin-right: var(--spacer-sm);
-      --form-input-margin-top: var(--spacer-base);
+      --form-input-margin-top: var(--spacer-xs);
     }
 
     &__select {
-      --form-select-padding-bottom: var(--spacer-base);
-      --form-select-padding-left: var(--spacer-sm);
-      --form-select-padding-right: var(--spacer-sm);
-      --form-select-padding-top: var(--spacer-base);
+      --form-select-padding-bottom: var(--spacer-sm);
+      --form-select-padding-top: var(--spacer-sm);
     }
   }
 }

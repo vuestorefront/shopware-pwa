@@ -26,7 +26,7 @@
               type="password"
               name="currentPassword"
               label="Current Password"
-              class="form__input"
+              class="sw-form__input"
               required
               @blur="$v.password.$touch()"
             />
@@ -38,7 +38,7 @@
                 type="password"
                 name="newPassword"
                 label="New Password"
-                class="form__input"
+                class="sw-form__input"
                 required
                 @blur="$v.newPassword.$touch()"
               />
@@ -50,12 +50,12 @@
                 name="repeatPassword"
                 label="Repeat Password"
                 required
-                class="form__input"
+                class="sw-form__input"
                 @blur="$v.newPasswordConfirm.$touch()"
               />
             </div>
             <SwButton
-              class="form__button"
+              class="sw-form__button"
               :disabled="$v.$invalid"
               @click="invokeUpdate"
             >

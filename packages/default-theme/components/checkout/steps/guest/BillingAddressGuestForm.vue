@@ -4,7 +4,7 @@
       v-model="differentThanShipping"
       label="Use different address for billing"
       name="copyShippingAddress"
-      class="form__checkbox"
+      class="sw-form__checkbox"
       data-cy="different-address-for-billing"
     />
     <div v-if="differentThanShipping" class="sw-form" data-cy="form">
@@ -16,7 +16,7 @@
           label="First name"
           data-cy="first-name"
           name="firstName"
-          class="form__input"
+          class="sw-form__input"
           required
         />
         <SwInput
@@ -26,7 +26,7 @@
           label="Last name"
           data-cy="last-name"
           name="lastName"
-          class="form__input"
+          class="sw-form__input"
           required
         />
         <SwInput
@@ -36,7 +36,7 @@
           label="Street name"
           data-cy="street-name"
           name="street"
-          class="form__input"
+          class="sw-form__input"
           required
         />
       </div>
@@ -48,7 +48,7 @@
           label="House/Apartment number"
           data-cy="apartment"
           name="apartment"
-          class="form__input"
+          class="sw-form__input"
           required
         />
         <SwInput
@@ -58,7 +58,7 @@
           label="City"
           data-cy="city"
           name="city"
-          class="form__input"
+          class="sw-form__input"
           required
         />
         <SwInput
@@ -68,7 +68,7 @@
           label="State/Province"
           data-cy="state"
           name="state"
-          class="form__input"
+          class="sw-form__input"
           required
         />
       </div>
@@ -80,7 +80,7 @@
           label="Zip-code"
           data-cy="zipcode"
           name="zipcode"
-          class="form__input"
+          class="sw-form__input"
           required
         />
         <SfSelect
@@ -90,7 +90,7 @@
           error-message="This field is required"
           label="Country"
           data-cy="country"
-          class="form__select sf-select--underlined"
+          class="sw-form__select sf-select--underlined"
           required
         >
           <SfSelectOption
@@ -108,7 +108,7 @@
           label="Phone number"
           data-cy="phone"
           name="phone"
-          class="form__input"
+          class="sw-form__input"
           required
         />
       </div>

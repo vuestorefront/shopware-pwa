@@ -30,7 +30,7 @@
           :valid="!validations.firstName.$error"
           error-message="First name is required"
           name="firstName"
-          class="form__input"
+          class="sw-form__input"
           data-cy="first-name"
           required
         />
@@ -40,7 +40,7 @@
           :valid="!validations.lastName.$error"
           error-message="last name is required"
           name="lastName"
-          class="form__input"
+          class="sw-form__input"
           data-cy="last-name"
         />
       </div>
@@ -50,7 +50,7 @@
         :valid="!validations.email.$error"
         error-message="Proper email is required"
         name="email"
-        class="form__input"
+        class="sw-form__input"
         data-cy="proper-email"
       />
       <div class="info">
@@ -70,7 +70,7 @@
         v-model="createAccount"
         name="createAccount"
         label="I want to create an account"
-        class="form__checkbox"
+        class="sw-form__checkbox"
       />
       <transition name="fade">
         <SwInput
@@ -91,18 +91,18 @@
       </transition>
       <div class="form__action">
         <SwButton
-          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only form__button"
+          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only sw-form__button"
           data-cy="go-back-to-shop-button"
           >Go Back to shop</SwButton
         >
         <SwButton
-          class="sf-button--full-width form__action-button form__button"
+          class="sf-button--full-width form__action-button sw-form__button"
           data-cy="continue-to-shipping-button"
           @click="toShipping"
           >Continue to shipping</SwButton
         >
         <SwButton
-          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only form__button"
+          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only sw-form__button"
           >Go back to shop</SwButton
         >
       </div>

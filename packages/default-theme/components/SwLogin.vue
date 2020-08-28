@@ -13,7 +13,7 @@
         v-model="email"
         name="email"
         label="Your email"
-        class="form__input"
+        class="sw-form__input"
         :valid="!$v.email.$error"
         :disabled="isLoading"
         error-message="Email is required"
@@ -25,7 +25,7 @@
         name="password"
         label="Password"
         type="password"
-        class="form__input"
+        class="sw-form__input"
         :valid="!$v.password.$error"
         :disabled="isLoading"
         error-message="Password is required"
@@ -34,7 +34,7 @@
       />
       <SwPluginSlot name="login-form-button">
         <SwButton
-          class="sf-button--full-width form__button"
+          class="sf-button--full-width sw-form__button"
           :disabled="isLoading"
           data-cy="submit-login-button"
           @click="invokeLogin"
