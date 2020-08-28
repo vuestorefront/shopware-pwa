@@ -10,14 +10,14 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getStoreNavigation({ requestActiveId, requestRootId, searchCriteria }: GetStoreNavigationParams, contextInstance?: ShopwareApiInstance): Promise<StoreNavigationElement[]>;
+export declare function getStoreNavigation({ requestActiveId, requestRootId, depth, buildTree, searchCriteria, }: GetStoreNavigationParams, contextInstance?: ShopwareApiInstance): Promise<StoreNavigationElement[]>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { requestActiveId, requestRootId, searchCriteria } | [GetStoreNavigationParams](./shopware-6-client.getstorenavigationparams.md) |  |
+|  { requestActiveId, requestRootId, depth, buildTree, searchCriteria, } | [GetStoreNavigationParams](./shopware-6-client.getstorenavigationparams.md) |  |
 |  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 <b>Returns:</b>

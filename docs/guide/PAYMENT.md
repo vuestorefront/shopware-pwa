@@ -49,7 +49,7 @@ In our PWA, we really want to rely only on the API to handle our payments. That'
 The base for a payment transaction is always the order. There is no transaction without an order. However, an order can be in an `open` payment state. You can place an order using the Sales Channel API Order endpoint which will return you the order entity once the order is completed.
 
 ```
-POST sales-channel-api/v1/checkout/order
+POST sales-channel-api/v3/checkout/order
 ```
 Respose:
 ```json {7,11}
@@ -92,7 +92,7 @@ We can initiate the payment by calling the **payment-method** endpoint for the o
 
 Request:
 ```json
-POST store-api/v1/payment-method
+POST store-api/v3/payment-method
 
 {
 	"orderId": "4139ce0f86fb47ff872a1ec88378f5d1",
@@ -141,7 +141,7 @@ In order to alter the payment method for your order, call the **order payment** 
 
 Request:
 ```json
-POST /store-api/v1/order/payment
+POST /store-api/v3/order/payment
 
 {
 	"paymentMethodId": "1901dc5e888f4b1ea4168c2c5f005540",

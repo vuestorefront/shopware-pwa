@@ -71,7 +71,7 @@ describe("CustomerService - resetPassword", () => {
       email: credentials.email,
     });
     expect(mockedPost).toBeCalledWith(
-      "/store-api/v1/account/recovery-password",
+      "/store-api/v3/account/recovery-password",
       {
         email: credentials.email,
         storefrontUrl: "https://shopware6-demo.vuestorefront.io",
@@ -82,7 +82,7 @@ describe("CustomerService - resetPassword", () => {
   it("should invokde post method with null if params are not provided", async () => {
     await resetPassword(null as any);
     expect(mockedPost).toBeCalledWith(
-      "/store-api/v1/account/recovery-password",
+      "/store-api/v3/account/recovery-password",
       null
     );
   });

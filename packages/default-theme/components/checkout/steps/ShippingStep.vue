@@ -44,7 +44,7 @@
                 >
                   <SwPluginSlot
                     :name="`checkout-shiping-method-${shippingMethod.name}`"
-                    :slotContext="shippingMethod"
+                    :slot-context="shippingMethod"
                   />
                 </div>
               </transition>
@@ -54,7 +54,8 @@
       </div>
       <div class="form__action">
         <SwButton
-          class="form__action-button color-secondary desktop-only sf-button--full-width form__button"
+          class="form__action-button color-secondary desktop-only"
+          @click="$emit('retreat')"
           >Go Back to Personal details</SwButton
         >
         <SwButton

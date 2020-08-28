@@ -1,9 +1,8 @@
 {
   "name": "@shopware-pwa/nuxt-module",
-  "version": "0.2.2",
+  "version": "0.3.1",
   "description": "@shopware-pwa/nuxt-module",
   "main": "dist/nuxt-module.cjs.js",
-  "module": "dist/nuxt-module.esm-bundler.js",
   "files": [
     "dist",
     "plugins/*"
@@ -15,26 +14,36 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@nuxt/types": "^2.14.0",
+    "@nuxt/types": "^2.14.3",
     "@nuxt/typescript-build": "^2.0.2",
     "@nuxt/typescript-runtime": "^1.0.0",
-    "@nuxt/utils": "^2.14.0",
+    "@nuxt/utils": "^2.14.3",
+    "chokidar": "^3.4.2",
     "cookie-universal": "^2.1.4",
+    "cosmiconfig": "^7.0.0",
+    "fs-extra": "^9.0.1",
     "fs-jetpack": "^3.1.0",
     "he": "^1.2.0",
+    "lodash": "^4.17.20",
     "path": "^0.12.7",
-    "snyk": "^1.369.2",
+    "snyk": "^1.374.0",
     "universal-analytics": "^0.4.23",
     "vue": "^2.6.11",
     "vue-loader": "^15.9.3",
     "vue-meta": "^2.4.0",
-    "vue-router": "^3.3.4",
+    "vue-router": "^3.4.3",
     "vue-server-renderer": "^2.6.11",
     "vue-template-compiler": "^2.6.11",
     "vuex": "^3.5.1"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "buildOptions": {
+    "name": "nuxt-module",
+    "formats": [
+      "cjs"
+    ]
   },
   "scripts": {
     "snyk-protect": "snyk protect"

@@ -44,5 +44,20 @@ describe("composables associationsConverter", () => {
         "associations[manufacturer][]": true,
       });
     });
+    it("should return sub associations", () => {
+      const result = convertAssociationsToGetParams([
+        {
+          name: "attribute",
+          associations: [
+            {
+              name: "group",
+            },
+          ],
+        },
+      ]);
+      expect(result).toStrictEqual({
+        "associations[attribute][associations][group][]": true,
+      });
+    });
   });
 });

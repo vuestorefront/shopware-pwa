@@ -7,10 +7,8 @@ import VueCompositionApi, {
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
-import { useCms } from "@shopware-pwa/composables";
+import { useCms, getDefaultApiParams } from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
-import { getIncludesForEntity } from "../src/internalHelpers/includesParameter";
-
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedGetPage = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
@@ -24,6 +22,7 @@ describe("Composables - useCms", () => {
       },
     },
     $shopwareApiInstance: jest.fn(),
+    $shopwareDefaults: getDefaultApiParams(),
   };
   beforeEach(() => {
     jest.resetAllMocks();
@@ -36,6 +35,8 @@ describe("Composables - useCms", () => {
       cmsPage: { name: "super category", type: "product_list" },
       resourceIdentifier: "3f637f17cd9f4891a2d7625d19fb37c9",
       resourceType: "frontend.navigation.page",
+      listingConfiguration: {},
+      apiAlias: "pwa_page_result",
     };
     mockedGetPage.getPage.mockResolvedValueOnce(response);
     expect(page.value).toEqual(null);
@@ -81,10 +82,8 @@ describe("Composables - useCms", () => {
           "",
           {
             configuration: {
-              associations: [
-                { associations: [{ name: "group" }], name: "options" },
-              ],
-              includes: getIncludesForEntity("useCms"),
+              associations: getDefaultApiParams()?.["useCms"]?.associations,
+              includes: getDefaultApiParams()?.["useCms"]?.includes,
             },
             pagination: { limit: 10 },
           },
@@ -101,10 +100,8 @@ describe("Composables - useCms", () => {
           "",
           {
             configuration: {
-              associations: [
-                { associations: [{ name: "group" }], name: "options" },
-              ],
-              includes: getIncludesForEntity("useCms"),
+              associations: getDefaultApiParams()?.["useCms"]?.associations,
+              includes: getDefaultApiParams()?.["useCms"]?.includes,
             },
             pagination: { limit: 10 },
           },
@@ -121,10 +118,8 @@ describe("Composables - useCms", () => {
           "",
           {
             configuration: {
-              associations: [
-                { associations: [{ name: "group" }], name: "options" },
-              ],
-              includes: getIncludesForEntity("useCms"),
+              associations: getDefaultApiParams()?.["useCms"]?.associations,
+              includes: getDefaultApiParams()?.["useCms"]?.includes,
             },
             pagination: { limit: 50 },
           },
@@ -143,10 +138,8 @@ describe("Composables - useCms", () => {
           "",
           {
             configuration: {
-              associations: [
-                { associations: [{ name: "group" }], name: "options" },
-              ],
-              includes: getIncludesForEntity("useCms"),
+              associations: getDefaultApiParams()?.["useCms"]?.associations,
+              includes: getDefaultApiParams()?.["useCms"]?.includes,
             },
             pagination: { limit: 10 },
           },
@@ -165,9 +158,7 @@ describe("Composables - useCms", () => {
           "",
           {
             configuration: {
-              associations: [
-                { associations: [{ name: "group" }], name: "options" },
-              ],
+              associations: getDefaultApiParams()?.["useCms"]?.associations,
               includes: { product: ["name"] },
             },
             pagination: { limit: 10 },
@@ -185,6 +176,8 @@ describe("Composables - useCms", () => {
       cmsPage: { name: "super category", type: "product_list" },
       resourceIdentifier: "3f637f17cd9f4891a2d7625d19fb37c9",
       resourceType: "frontend.navigation.page",
+      listingConfiguration: {},
+      apiAlias: "pwa_page_result",
     };
     mockedGetPage.getPage.mockResolvedValueOnce(response);
     expect(categoryId.value).toBeNull();
@@ -206,6 +199,8 @@ describe("Composables - useCms", () => {
           cmsPage: { name: "super category", type: "product_list" },
           resourceIdentifier: "3f637f17cd9f4891a2d7625d19fb37c9",
           resourceType: "frontend.navigation.page",
+          listingConfiguration: {},
+          apiAlias: "pwa_page_result",
         };
         mockedGetPage.getPage.mockResolvedValueOnce(response);
         expect(getBreadcrumbsObject.value).toEqual([]);

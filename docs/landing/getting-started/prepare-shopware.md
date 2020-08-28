@@ -8,9 +8,23 @@ Some paths and namings might not be 100% up to date in the video, so be aware of
 
 In order to make Shopware work with shopware-pwa you have to follow a few simple steps.
 
+## Compatibility Table
+
+We want Shopware PWA to be in sync with the latest endpoints of Shopware, to be able to ship new features to you as soon as they are released within Shopware. 
+
+Here you may find a compatibility table for the Shopware API.
+
+| Shopware PWA version                                                | Shopware 6 version                                                                                                                 |
+| :------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------- |
+| 0.2.x                                                               | [![shopware-ver](https://img.shields.io/badge/version-6.2.3-red)](https://github.com/shopware/platform/releases/tag/v6.2.3)        |
+| 0.3.x (latest stable)                                               | [![shopware-ver](https://img.shields.io/badge/version-6.3.0.1-green)](https://github.com/shopware/platform/releases/tag/v6.3.0.1)  |
+| ![npm (tag)](https://img.shields.io/npm/v/@shopware-pwa/cli/canary) | [![shopware-ver](https://img.shields.io/badge/version-6.3.0.1-orange)](https://github.com/shopware/platform/releases/tag/v6.3.0.1) |
+
+Find more information on updating and versioning within our [Upgrade](/landing/getting-started/upgrade) section
+
 ## Installation
 
-Make sure your current Shopware version is 6.1.5 or higher.
+Make sure you've installed a compatible version of Shopware according to the compatibility table above.
 
 Within your Shopware root directory run:
 

@@ -25,18 +25,16 @@ const {
   allTargets,
   fuzzyMatchTarget,
 } = require("./utils");
+const { build: esBuild } = require("esbuild");
 
 const args = require("minimist")(process.argv.slice(2));
 const isCIRun = !!args.ci;
 const targets = args._;
 const formats = args.formats || args.f;
 const devOnly = args.devOnly || args.d;
-const prodOnly = !devOnly && (args.prodOnly || args.p);
-const sourceMap = args.sourcemap || args.s;
 const isRelease = args.release;
-const buildTypes = true; // args.t || args.types || isRelease || isCIRun; -> for now build always with types
+const buildTypes = args.t || args.types || isRelease || isCIRun;
 const buildAllMatching = args.all || args.a;
-const commit = execa.sync("git", ["rev-parse", "HEAD"]).stdout.slice(0, 7);
 
 run();
 
@@ -80,20 +78,49 @@ async function buildAll(targets) {
   }
 }
 
+async function runBuild({ target, packageJson, format = "esm" }) {
+  const buildTarget = format === "esm" ? "es2020" : "es2015";
+
+  try {
+    const external = Object.keys(packageJson.dependencies);
+    await esBuild({
+      entryPoints: [path.join("packages", target, "src", "index.ts")],
+      outfile: path.join("packages", target, "dist", `${target}.${format}.js`),
+      minify: false,
+      bundle: true,
+      external,
+      target: buildTarget,
+      format,
+    });
+    return true;
+  } catch (e) {
+    console.error("Error building " + target, e);
+    return false;
+  }
+}
+
+async function buildPackage(target, packageJson) {
+  const formats =
+    (packageJson.buildOptions && packageJson.buildOptions.formats) || [];
+  const results = await Promise.all(
+    formats.map((format) => {
+      return runBuild({
+        target,
+        packageJson,
+        format,
+      });
+    })
+  );
+  return !results.includes(false);
+}
+
 async function build(target) {
+  console.log();
+  console.log(`Building ${chalk.bold(target)} package...`);
+  const { performance } = require("perf_hooks");
+  const t0 = performance.now();
   const pkgDir = path.resolve(`packages/${target}`);
   const pkg = require(`${pkgDir}/package.json`);
-
-  // only build published packages for release
-  if (isRelease && pkg.private) {
-    if (isCIRun) {
-      await execa("npx", ["yalc", "push"], {
-        stdio: "inherit",
-        cwd: pkgDir,
-      });
-    }
-    return;
-  }
 
   // run custom package build if there is one
   if (pkg.scripts && pkg.scripts.build) {
@@ -106,34 +133,36 @@ async function build(target) {
     await fs.remove(`${pkgDir}/dist`);
   }
 
-  const env =
-    (pkg.buildOptions && pkg.buildOptions.env) ||
-    (devOnly ? "development" : "production");
-  await execa(
-    "rollup",
-    [
-      "-c",
-      "--environment",
-      [
-        `COMMIT:${commit}`,
-        `NODE_ENV:${env}`,
-        `TARGET:${target}`,
-        formats ? `FORMATS:${formats}` : ``,
-        buildTypes ? `TYPES:true` : ``,
-        prodOnly ? `PROD_ONLY:true` : ``,
-        sourceMap ? `SOURCE_MAP:true` : ``,
-      ]
-        .filter(Boolean)
-        .join(","),
-    ],
-    { stdio: "inherit" }
-  );
+  const buildResult = await buildPackage(target, pkg);
+  if (!buildResult) return false;
+  const t1 = performance.now();
+  console.log(chalk.green(`Build success: ${Math.round(t1 - t0)} ms`));
 
   if (buildTypes && pkg.types) {
     console.log();
     console.log(
       chalk.bold(chalk.yellow(`Rolling up type definitions for ${target}...`))
     );
+
+    try {
+      await execa(
+        "yarn",
+        [
+          "tsc",
+          "--emitDeclarationOnly",
+          "--declaration",
+          "--skipLibCheck",
+          "--project",
+          path.join("packages", target, `tsconfig-${target}.json`),
+        ],
+        {
+          stdio: "inherit",
+        }
+      );
+    } catch (e) {
+      console.error("Problem with generationg declarations file", e);
+      return false;
+    }
 
     // build types
     const { Extractor, ExtractorConfig } = require("@microsoft/api-extractor");
@@ -180,6 +209,9 @@ async function build(target) {
 
     await fs.remove(`${pkgDir}/dist/packages`);
   }
+  const t2 = performance.now();
+  console.log(chalk.green(`Whole package build: ${Math.round(t2 - t0)} ms`));
+  console.log();
 }
 
 function checkAllSizes(targets) {

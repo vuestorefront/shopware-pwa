@@ -11,12 +11,11 @@ import {
   EqualsAnyFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { convertAssociations } from "./convertAssociations";
-import { PaginationLimit } from "@shopware-pwa/commons/interfaces/search/Pagination";
 import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Association";
 import { Grouping } from "@shopware-pwa/commons/interfaces/search/Grouping";
 import { convertToStoreApiFilters } from "../helpers/convertToStoreApiFilters";
 import { ClientSettings } from "../settings";
-// import { deprecationWarning } from "@shopware-pwa/commons";
+import { warning } from "@shopware-pwa/commons";
 
 /**
  * @beta
@@ -28,12 +27,12 @@ export enum ApiType {
 
 /**
  * @deprecated - that interface will be replaced with the new one from ShopwareSearchParams to follow the product-listing filters interface.
- * @alpha
  */
 export interface ShopwareParams {
   p?: number; // p for page in store-api
   page?: number;
   limit?: number;
+  order?: string;
   sort?: string;
   term?: string;
   filter?: (
@@ -58,7 +57,9 @@ export const convertShopwareSearchCriteria = (
     p: searchCriteria?.pagination?.page || 1,
     manufacturer: searchCriteria?.manufacturer?.join("|") || undefined,
     properties: searchCriteria?.properties?.join("|") || undefined,
-    sort: searchCriteria?.sort?.name,
+    sort: !Array.isArray(searchCriteria?.sort)
+      ? searchCriteria?.sort?.name
+      : undefined,
   };
 
   return params;
@@ -91,7 +92,7 @@ export const convertSearchCriteria = ({
 
   if (pagination) {
     const { limit, page } = pagination;
-    if (limit && Object.values(PaginationLimit).includes(limit)) {
+    if (limit) {
       params.limit = limit;
     }
     if (page) {
@@ -106,14 +107,32 @@ export const convertSearchCriteria = ({
   }
 
   if (sort) {
-    // exception for store-api
+    if (!apiType || apiType === ApiType.salesChannel) {
+      if (Array.isArray(sort)) {
+        const sorting = sort.map(
+          ({ desc, field }) => `${desc ? "-" : ""}${field}`
+        );
+        // join fields into format: (-)first_field,(-)second_field,...
+        params.sort = sorting.join(",");
+      } else {
+        let prefix = sort.desc ? "-" : "";
+        params.sort = `${prefix}${sort.field}`;
+      }
+    }
+
     if (apiType && apiType === ApiType.store) {
-      let order = sort.desc ? "desc" : "asc";
-      // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/834
-      params.sort = sort.name || `${sort.field}-${order}`;
-    } else {
-      let prefix = sort.desc ? "-" : "";
-      params.sort = `${prefix}${sort.field}`;
+      if (Array.isArray(sort)) {
+        // sorting by multiple fields is not available for store-api
+        warning({
+          packageName: "shopware-6-client",
+          methodName: "convertSearchCriteria",
+          notes: "store-api does not accept sorting on multiple fields",
+        });
+      } else {
+        let order = sort.desc ? "desc" : "asc";
+        // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/834
+        params.order = sort.name || `${sort.field}-${order}`;
+      }
     }
   }
 

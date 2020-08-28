@@ -62,7 +62,7 @@ describe("Composables - useAddToCart", () => {
 
     describe("isInCart", () => {
       it("should show that product is in cart", () => {
-        cartItemsMock.value = [{ id: "qwe" }];
+        cartItemsMock.value = [{ referencedId: "qwe" }];
         const { isInCart } = useAddToCart(rootContextMock, {
           id: "qwe",
         } as any);
@@ -71,7 +71,7 @@ describe("Composables - useAddToCart", () => {
 
       it("should show that product is not cart", () => {
         stateCart.value = {
-          lineItems: [{ id: "qwert" }],
+          lineItems: [{ referencedId: "qwert" }],
         };
         const { isInCart } = useAddToCart(rootContextMock, {
           id: "qwe",

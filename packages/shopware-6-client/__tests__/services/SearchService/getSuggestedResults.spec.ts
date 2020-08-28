@@ -21,7 +21,7 @@ describe("SearchService - getSuggestedResults", () => {
     const result = await getSuggestedResults("some term");
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      "/store-api/v1/search-suggest?search=some term",
+      "/store-api/v3/search-suggest?search=some term",
       {
         limit: 10,
       }

@@ -6,7 +6,8 @@
     <SfLoader v-else :loading="loadingSearch || !startedSearching">
       <div v-if="searchResult" class="search-page__main">
         <h3>
-          search results for <strong>{{ searchQuery }}</strong
+          search results for
+          <strong>{{ searchQuery }}</strong
           >:
         </h3>
         <SwProductListingFilters
@@ -26,9 +27,7 @@
           @change-page="changePage"
         />
       </div>
-      <h3 class="search-page__warning" v-if="error">
-        {{ error }}
-      </h3>
+      <h3 class="search-page__warning" v-if="error">{{ error }}</h3>
     </SfLoader>
   </div>
 </template>
@@ -128,7 +127,7 @@ export default {
 }
 </script>
 <style lang="scss">
-@import "~@storefront-ui/vue/styles.scss";
+@import "@/assets/scss/variables";
 
 .search-page {
   @include for-desktop {

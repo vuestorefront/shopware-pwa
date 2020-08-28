@@ -55,6 +55,9 @@ export interface CategoryFilterTermValue {
 }
 
 // @alpha (undocumented)
+export function debounce<T extends (...args: any[]) => any>(fn: T, delay?: number): T;
+
+// @alpha (undocumented)
 export function exportUrlQuery(searchCriteria: SearchCriteria): string | undefined;
 
 // @alpha (undocumented)
@@ -161,6 +164,9 @@ export function getProductReviews({ product, }?: {
 
 // @alpha
 export function getProductSpecialPrice(product: Product): number | undefined;
+
+// @beta
+export function getProductThumbnailUrl(product: Product): string;
 
 // @beta
 export function getProductTierPrices(product: Product): TierPrice[];

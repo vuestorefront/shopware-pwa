@@ -27,7 +27,7 @@ describe("CategoryService - getCategory", () => {
     const result = await getCategory(categoryId);
     expect(mockedGet).toBeCalledTimes(1);
     expect(mockedGet).toBeCalledWith(
-      "/sales-channel-api/v1/category/3a64e872ca404522a2c5d43ebc751e6b"
+      "/sales-channel-api/v3/category/3a64e872ca404522a2c5d43ebc751e6b"
     );
     expect(result).toHaveProperty("id");
     expect(result.id).toEqual(categoryId);

@@ -8,19 +8,28 @@
 
 |  Function | Description |
 |  --- | --- |
+|  [addCartItemQuantity(itemId, quantity, contextInstance)](./shopware-6-client.addcartitemquantity.md) | <b><i>(BETA)</i></b> Increases the current quantity in specific cart line item by given quantity.<!-- -->Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 5. |
+|  [addProductToCart(productId, quantity, contextInstance)](./shopware-6-client.addproducttocart.md) | <b><i>(BETA)</i></b> Adds specific quantity of the product to the cart by productId. It creates a new cart line item.<!-- -->Warning: This method does not change the state of the cart in any way if productId already exists in a cart. For changing the quantity use addQuantityToCartLineItem() or changeCartLineItemQuantity() methods. |
+|  [changeCartItemQuantity(itemId, newQuantity, contextInstance)](./shopware-6-client.changecartitemquantity.md) | <b><i>(BETA)</i></b> Changes the current quantity in specific cart line item to given quantity.<!-- -->Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 2. |
 |  [createInstance(initialConfig)](./shopware-6-client.createinstance.md) | <b><i>(BETA)</i></b> |
+|  [getCart(contextInstance)](./shopware-6-client.getcart.md) | <b><i>(BETA)</i></b> Gets the current cart for the sw-context-token. |
 |  [getCustomer(contextInstance)](./shopware-6-client.getcustomer.md) | <b><i>(BETA)</i></b> Get customer's object |
 |  [getCustomerAddresses(contextInstance)](./shopware-6-client.getcustomeraddresses.md) | <b><i>(BETA)</i></b> Get all customer's addresses |
 |  [getCustomerOrders(contextInstance)](./shopware-6-client.getcustomerorders.md) | <b><i>(BETA)</i></b> Get all customer's orders |
 |  [getOrderPaymentUrl({ orderId, finishUrl, }, contextInstance)](./shopware-6-client.getorderpaymenturl.md) | <b><i>(BETA)</i></b> Get payment address to redirect user after placing order. |
+|  [getProductPage(path, searchCriteria, contextInstance)](./shopware-6-client.getproductpage.md) | <b><i>(BETA)</i></b> |
 |  [getResults(term, searchCriteria, contextInstance)](./shopware-6-client.getresults.md) | <b><i>(BETA)</i></b> |
 |  [getSearchResults(term, searchCriteria, contextInstance)](./shopware-6-client.getsearchresults.md) | <b><i>(BETA)</i></b> |
-|  [getStoreNavigation({ requestActiveId, requestRootId, searchCriteria }, contextInstance)](./shopware-6-client.getstorenavigation.md) | <b><i>(BETA)</i></b> |
+|  [getStoreNavigation({ requestActiveId, requestRootId, depth, buildTree, searchCriteria, }, contextInstance)](./shopware-6-client.getstorenavigation.md) | <b><i>(BETA)</i></b> |
 |  [getSuggestedResults(term, searchCriteria, contextInstance)](./shopware-6-client.getsuggestedresults.md) | <b><i>(BETA)</i></b> |
 |  [invokeGet({ address }, contextInstance)](./shopware-6-client.invokeget.md) | <b><i>(BETA)</i></b> Invoke custom GET request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
 |  [invokePost({ address, payload, }, contextInstance)](./shopware-6-client.invokepost.md) | <b><i>(BETA)</i></b> Invoke custom POST request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
 |  [login({ username, password }, contextInstance)](./shopware-6-client.login.md) | <b><i>(BETA)</i></b> Login user to shopware instance. |
 |  [logout(contextInstance)](./shopware-6-client.logout.md) | <b><i>(BETA)</i></b> End up the user session. |
+|  [newsletterSubscribe(params, contextInstance)](./shopware-6-client.newslettersubscribe.md) | <b><i>(BETA)</i></b> |
+|  [newsletterUnsubscribe({ email, }, contextInstance)](./shopware-6-client.newsletterunsubscribe.md) | <b><i>(BETA)</i></b> |
+|  [removeCartItem(itemId, contextInstance)](./shopware-6-client.removecartitem.md) | <b><i>(BETA)</i></b> Deletes the cart line item by id.<!-- -->This method may be used for deleting "product" type item lines as well as "promotion" type item lines. |
+|  [sendContactForm(params, contextInstance)](./shopware-6-client.sendcontactform.md) | <b><i>(BETA)</i></b> |
 
 ## Interfaces
 
@@ -28,7 +37,11 @@
 |  --- | --- |
 |  [ClientSettings](./shopware-6-client.clientsettings.md) | <b><i>(BETA)</i></b> |
 |  [ConfigChangedArgs](./shopware-6-client.configchangedargs.md) | <b><i>(BETA)</i></b> |
+|  [ContactFormData](./shopware-6-client.contactformdata.md) | <b><i>(BETA)</i></b> |
 |  [GetStoreNavigationParams](./shopware-6-client.getstorenavigationparams.md) | <b><i>(BETA)</i></b> More about the navigation parameters: https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/navigation?category=shopware-platform-dev-en/store-api-guide |
+|  [NewsletterSubscribeData](./shopware-6-client.newslettersubscribedata.md) | <b><i>(BETA)</i></b> |
+|  [PageResolverProductResult](./shopware-6-client.pageresolverproductresult.md) | <b><i>(BETA)</i></b> |
+|  [PageResolverResult](./shopware-6-client.pageresolverresult.md) | <b><i>(BETA)</i></b> |
 |  [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) | <b><i>(BETA)</i></b> |
 
 ## Variables

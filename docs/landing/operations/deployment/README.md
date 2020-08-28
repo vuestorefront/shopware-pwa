@@ -37,7 +37,7 @@ All artifacts of that step are placed in the `.shopware-pwa` directory.
 If you want to restrict requests by the build server for your API, make sure to exclude these routes:
 
 1. Obtain Admin API authentication token `/api/oauth/token`
-2. Fetch plugin assets `/api/v1/_action/pwa/dump-bundles`
+2. Fetch plugin assets `/api/v3/_action/pwa/dump-bundles`
 
 Step 2. will return two file links, one will be a .zip file containing all the resources from your plugins, the other one will be a .json file containing your plugins configuration (as made in the admin interface). Make sure, that these files are accessible by your build server.
 :::

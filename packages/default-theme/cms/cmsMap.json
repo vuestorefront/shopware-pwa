@@ -23,7 +23,11 @@
     "image-three-cover": "CmsBlockImageThreeCover",
     "image-two-column": "CmsBlockImageTwoColumn",
     "product-slider": "CmsBlockDefault",
-    "text": "CmsBlockDefault"
+    "text": "CmsBlockDefault",
+    "text-three-column": "CmsBlockTextThreeColumn",
+    "product-three-column": "CmsBlockProductThreeColumn",
+    "text-two-column": "CmsBlockTextTwoColumn",
+    "form": "CmsBlockForms"
   },
   "elements": {
     "product-box": "CmsElementProductCard",
@@ -35,6 +39,7 @@
     "youtube-video": "CmsElementVideoYoutube",
     "product-listing": "CmsElementProductListing",
     "category-navigation": "CmsElementCategoryNavigation",
-    "sidebar-filter": "CmsElementCategorySidebarFilter"
+    "sidebar-filter": "CmsElementCategorySidebarFilter",
+    "form": "CmsElementForm"
   }
 }

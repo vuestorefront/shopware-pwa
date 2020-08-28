@@ -19,8 +19,8 @@ const packageOptions = pkg.buildOptions || {};
 let hasTSChecked = false;
 
 const outputConfigs = {
-  "esm-bundler": {
-    file: resolve(`dist/${name}.esm-bundler.js`),
+  esm: {
+    file: resolve(`dist/${name}.esm.js`),
     format: `es`,
   },
   cjs: {
@@ -37,7 +37,7 @@ const outputConfigs = {
   },
 };
 
-const defaultFormats = ["esm-bundler", "cjs"];
+const defaultFormats = ["esm", "cjs"];
 const inlineFormats = process.env.FORMATS && process.env.FORMATS.split(",");
 const packageFormats =
   inlineFormats || packageOptions.formats || defaultFormats;
@@ -72,7 +72,7 @@ function createConfig(format, output, plugins = []) {
   const isGlobalBuild = /global/.test(format);
   const isRawESMBuild = format === "esm";
   const isNodeBuild = format === "cjs";
-  const isBundlerESMBuild = /esm-bundler/.test(format);
+  const isBundlerESMBuild = /esm/.test(format);
 
   if (isGlobalBuild) {
     output.name = packageOptions.name;

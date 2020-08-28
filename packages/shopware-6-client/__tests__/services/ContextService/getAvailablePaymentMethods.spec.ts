@@ -19,7 +19,7 @@ describe("ContextService - getAvailablePaymentMethods", () => {
 
     const result = await getAvailablePaymentMethods();
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith("/store-api/v1/payment-method");
+    expect(mockedGet).toBeCalledWith("/store-api/v3/payment-method");
     expect(result).toHaveLength(2);
   });
 });

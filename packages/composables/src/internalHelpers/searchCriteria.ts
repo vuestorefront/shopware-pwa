@@ -1,4 +1,4 @@
-import queryString from "query-string";
+import { stringify } from "query-string";
 import {
   ListingQueryParams,
   SearchCriteria,
@@ -22,11 +22,11 @@ export function appendSearchCriteriaToUrl(
     query: searchTerm,
     page: pagination?.page,
     limit: pagination?.limit,
-    sort: sort?.name,
+    sort: !Array.isArray(sort) ? sort?.name : undefined,
     manufacturer: manufacturer,
     properties: properties,
   };
-  const combinedURL = queryString.stringify(query, {
+  const combinedURL = stringify(query, {
     arrayFormat: "separator",
     arrayFormatSeparator: "|",
     skipNull: true,
