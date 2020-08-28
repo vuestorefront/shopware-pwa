@@ -1,9 +1,12 @@
 <template>
   <article class="cms-block-text-on-image">
     <CmsGenericElement
-      v-if="getContent"
-      :content="getContent"
-      class="cms-block-text-on-image__content"
+      :content="getLeftContent"
+      class="cms-block-text-on-image__image"
+    />
+    <CmsGenericElement
+      :content="getRightContent"
+      class="cms-block-text-on-image__text"
     />
   </article>
 </template>
@@ -29,20 +32,53 @@ export default {
     getSlots() {
       return this.content.slots || []
     },
-    getContent() {
-      return this.getSlots.length && this.getSlots[0]
+
+    getLeftContent() {
+      return this.getSlots.find(({ slot }) => slot === "left")
+    },
+    getRightContent() {
+      return this.getSlots.find(({ slot }) => slot === "right")
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.cms-block-text-on-image {
-  background-position: center;
-  background-size: cover;
+@import "@/assets/scss/variables";
 
-  &__content {
-    padding: var(--spacer-2xl) var(--spacer-xl);
+.cms-block-text-on-image {
+  display: flex;
+  flex-direction: column;
+  margin-right: 0;
+  margin-left: 0;
+
+  &__image,
+  &__text {
+    margin: var(--spacer-sm);
+    flex: 1;
+    & img {
+      height: 340px;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+
+  @include for-desktop {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+
+    .cms-block-text-on-image__image {
+      margin-bottom: 0;
+      margin-right: var(--spacer-sm);
+      margin-top: 0;
+    }
+
+    .cms-block-text-on-image__text {
+      margin-bottom: 0;
+      margin-left: var(--spacer-sm);
+      margin-top: 0;
+    }
   }
 }
 </style>
