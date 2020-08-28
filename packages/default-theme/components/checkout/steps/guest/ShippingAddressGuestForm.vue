@@ -1,5 +1,5 @@
 <template>
-  <div class="form" data-cy="form">
+  <div class="sw-form" data-cy="form">
     <div class="inputs-group">
       <SwInput
         v-model="firstName"
@@ -182,53 +182,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
-// .form {
-//   &__group {
-//     display: flex;
-//     align-items: center;
-//   }
-//   &__action-button {
-//     &:first-child {
-//       --button-height: 4.0625rem;
-//       margin: var(--spacer-sm) 0 0 0;
-//     }
-//     &--secondary {
-//       margin: var(--spacer-base) 0;
-//     }
-//   }
-//   &__button {
-//     --button-width: 100%;
-//   }
-//   &__radio-group {
-//     flex: 0 0 100%;
-//   }
-//   @include for-desktop {
-//     display: flex;
-//     flex-wrap: wrap;
-//     align-items: center;
-//     margin: 0 var(--spacer-2xl) 0 0;
-//     &:last-of-type {
-//       margin: 0 calc(var(--spacer-2xl) - var(--spacer-sm)) 0 0;
-//     }
-//     &__element {
-//       margin: 0 0 var(--spacer-sm) 0;
-//       flex: 0 0 100%;
-//       &--half {
-//         flex: 1 1 50%;
-//         &-even {
-//           padding: 0 0 0 var(--spacer-xl);
-//         }
-//       }
-//     }
-//     &__action {
-//       flex: 0 0 100%;
-//       display: flex;
-//     }
-//     &__button {
-//       --button-width: auto;
-//     }
-//   }
-// }
 .shipping {
   margin: 0 calc(var(--spacer-base) * -1);
   &__label {

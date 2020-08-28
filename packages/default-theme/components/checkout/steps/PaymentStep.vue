@@ -11,7 +11,7 @@
       subtitle="Choose your payment method"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <div class="form">
+    <div class="sw-form">
       <div class="form__element payment-methods">
         <SfRadio
           v-for="paymentMethod in paymentMethods"
@@ -35,7 +35,7 @@
                 >
                   <SwPluginSlot
                     :name="`checkout-payment-method-${paymentMethod.name}`"
-                    :slotContext="paymentMethod"
+                    :slot-context="paymentMethod"
                   />
                 </div>
               </transition>
@@ -116,51 +116,4 @@ export default {
     }
   }
 }
-// .form {
-//   &__checkbox {
-//     margin: var(--spacer-base) 0 var(--spacer-xl) 0;
-//   }
-//   &__action {
-//     flex: 0 0 100%;
-//     margin: var(--spacer-base) 0 0 0;
-//   }
-//   &__action-button {
-//     --button-height: 3.25rem;
-//   }
-//   @include for-mobile {
-//     &__checkbox {
-//       --checkbox-font-family: var(--font-family-primary);
-//       --checkbox-font-weight: var(--font-light);
-//       --checkbox-font-size: var(--font-sm);
-//     }
-//   }
-//   @include for-desktop {
-//     margin: 0 var(--spacer-2xl) 0 0;
-//     display: flex;
-//     flex-wrap: wrap;
-//     align-items: center;
-//     &__action {
-//       display: flex;
-//     }
-//     &__action-button {
-//       &:first-child {
-//         margin: 0 var(--spacer-lg) 0 0;
-//       }
-//     }
-//     &__element {
-//       margin: 0 0 var(--spacer-base) 0;
-//       flex: 0 0 100%;
-//       &--salutation {
-//         flex: 1 1 25%;
-//         padding-right: var(--spacer-xl);
-//       }
-//       &--half {
-//         flex: 1 1 50%;
-//         &-even {
-//           padding: 0 0 0 var(--spacer-lg);
-//         }
-//       }
-//     }
-//   }
-// }
 </style>

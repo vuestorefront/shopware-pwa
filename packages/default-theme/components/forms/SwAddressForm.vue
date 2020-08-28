@@ -9,7 +9,7 @@
       type="danger"
       :message="countriesError || JSON.stringify(userError)"
     />
-    <div class="form">
+    <div class="sw-form">
       <div class="inputs-group">
         <SwInput
           v-model="form.firstName"
@@ -288,51 +288,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-@import "@/assets/scss/variables";
-
-// .form {
-//   @include for-tablet {
-//     display: flex;
-//     flex-wrap: wrap;
-//     align-items: center;
-//   }
-//   &__element {
-//     margin-bottom: var(--spacer-xl);
-//     @include for-tablet {
-//       flex: 0 0 100%;
-//     }
-//     &--half {
-//       @include for-tablet {
-//         flex: 1 1 50%;
-//       }
-//       &-even {
-//         @include for-tablet {
-//           padding-left: var(--spacer-xl);
-//         }
-//       }
-//     }
-//   }
-//   &__select {
-//     ::v-deep .sf-select__selected {
-//       padding: 5px 0;
-//     }
-//   }
-//   &__button {
-//     width: 100%;
-
-//     &--back {
-//       margin: var(--spacer-base) 0 0 0;
-//     }
-
-//     @include for-tablet {
-//       width: auto;
-
-//       &--back {
-//         margin: 0 0 0 var(--spacer-base);
-//       }
-//     }
-//   }
-// }
-</style>

@@ -16,7 +16,7 @@
       />
 
       <div class="sw-personal-info__form form">
-        <slot name="form">
+        <slot name="sw-form">
           <div class="inputs-group">
             <SwInput
               v-model="firstName"
@@ -230,39 +230,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
-
-// .form {
-//   @include for-desktop {
-//     display: flex;
-//     flex-wrap: wrap;
-//     align-items: center;
-//   }
-//   &__element {
-//     margin: 0 0 var(--spacer-lg) 0;
-//     &:first-child {
-//       margin: 0 0 var(--spacer-base) 0;
-//     }
-//     @include for-desktop {
-//       flex: 0 0 100%;
-//     }
-//     &--half {
-//       @include for-desktop {
-//         flex: 1 1 50%;
-//       }
-//       &-even {
-//         @include for-desktop {
-//           padding: 0 var(--spacer-lg) 0 0;
-//         }
-//       }
-//     }
-//   }
-//   &__button {
-//     --button-width: 100%;
-//     @include for-desktop {
-//       --button-width: auto;
-//     }
-//   }
-// }
 
 .message {
   margin: 0 0 var(--spacer-xl) 0;

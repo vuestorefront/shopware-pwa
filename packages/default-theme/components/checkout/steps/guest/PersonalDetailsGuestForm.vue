@@ -22,24 +22,7 @@
       type="danger"
       :message="message"
     />
-    <div class="form">
-      <!-- <SfSelect
-        v-if="getMappedSalutations && getMappedSalutations.length > 0"
-        v-model="salutationId"
-        label="Salutation"
-        :valid="!validations.salutationId.$error"
-        @change="validations.salutationId.$touch()"
-        error-message="Salutation must be selected"
-        class="sf-select--underlined form__element form__element--salutation form__select"
-      >
-        <SfSelectOption
-          v-for="salutationOption in getMappedSalutations"
-          :key="salutationOption.id"
-          :value="salutationOption.id || ''"
-        >
-          {{ salutationOption.name }}
-        </SfSelectOption>
-      </SfSelect> -->
+    <div class="sw-form">
       <div class="inputs-group">
         <SwInput
           v-model="firstName"
@@ -383,53 +366,7 @@ export default {
     --heading-padding: 0 0 var(--spacer-xl) 0;
   }
 }
-// .form {
-//   &__checkbox {
-//     margin: var(--spacer-base) 0 var(--spacer-xl) 0;
-//   }
-//   &__action {
-//     flex: 0 0 100%;
-//     margin: var(--spacer-base) 0 0 0;
-//   }
-//   &__action-button {
-//     --button-height: 3.25rem;
-//   }
-//   @include for-mobile {
-//     &__checkbox {
-//       --checkbox-font-family: var(--font-family-primary);
-//       --checkbox-font-weight: var(--font-light);
-//       --checkbox-font-size: var(--font-sm);
-//     }
-//   }
-//   @include for-desktop {
-//     margin: 0 var(--spacer-2xl) 0 0;
-//     display: flex;
-//     flex-wrap: wrap;
-//     align-items: center;
-//     &__action {
-//       display: flex;
-//     }
-//     &__action-button {
-//       &:first-child {
-//         margin: 0 var(--spacer-lg) 0 0;
-//       }
-//     }
-//     &__element {
-//       margin: 0 0 var(--spacer-base) 0;
-//       flex: 0 0 100%;
-//       &--salutation {
-//         flex: 1 1 25%;
-//         padding-right: var(--spacer-xl);
-//       }
-//       &--half {
-//         flex: 1 1 50%;
-//         &-even {
-//           padding: 0 0 0 var(--spacer-lg);
-//         }
-//       }
-//     }
-//   }
-// }
+
 .info {
   margin: 0 0 var(--spacer-sm) 0;
   &__heading {

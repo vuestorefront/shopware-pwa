@@ -1,9 +1,7 @@
 <template>
   <div class="sw-register" @keyup.enter="invokeRegister">
     <SwPluginSlot name="registration-form-before" />
-    <div class="form sw-register">
-      <!-- <h2 class="sw-register__header">Register</h2> -->
-
+    <div class="sw-form sw-register">
       <SfAlert
         v-for="(message, index) in userErrorMessages"
         :key="index"

@@ -7,7 +7,7 @@
       class="form__checkbox"
       data-cy="different-address-for-billing"
     />
-    <div class="form" v-if="differentThanShipping" data-cy="form">
+    <div v-if="differentThanShipping" class="sw-form" data-cy="form">
       <div class="inputs-group">
         <SwInput
           v-model="firstName"
@@ -180,55 +180,3 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-@import "@/assets/scss/variables";
-
-// .form {
-//   margin-top: var(--spacer-base);
-//   &__checkbox {
-//     margin: var(--spacer-base) 0 var(--spacer-xl) 0;
-//   }
-//   &__action {
-//     flex: 0 0 100%;
-//     margin: var(--spacer-base) 0 0 0;
-//   }
-//   &__action-button {
-//     --button-height: 3.25rem;
-//   }
-//   @include for-mobile {
-//     &__checkbox {
-//       --checkbox-font-family: var(--font-family-primary);
-//       --checkbox-font-weight: var(--font-light);
-//       --checkbox-font-size: var(--font-sm);
-//     }
-//   }
-//   @include for-desktop {
-//     margin: 0 var(--spacer-2xl) 0 0;
-//     display: flex;
-//     flex-wrap: wrap;
-//     align-items: center;
-//     &__action {
-//       display: flex;
-//     }
-//     &__action-button {
-//       &:first-child {
-//         margin: 0 var(--spacer-lg) 0 0;
-//       }
-//     }
-//     &__element {
-//       margin: 0 0 var(--spacer-base) 0;
-//       flex: 0 0 100%;
-//       &--salutation {
-//         flex: 1 1 25%;
-//         padding-right: var(--spacer-xl);
-//       }
-//       &--half {
-//         flex: 1 1 50%;
-//         &-even {
-//           padding: 0 0 0 var(--spacer-lg);
-//         }
-//       }
-//     }
-//   }
-// }
-</style>

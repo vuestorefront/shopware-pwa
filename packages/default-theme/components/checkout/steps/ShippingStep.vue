@@ -12,7 +12,7 @@
       :level="3"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <div class="form">
+    <div class="sw-form">
       <div class="form__radio-group">
         <SfRadio
           v-for="shippingMethod in shippingMethods"
@@ -132,48 +132,6 @@ export default {
     }
   }
 }
-// .form {
-//   &__action {
-//     flex: 0 0 100%;
-//     margin: var(--spacer-base) 0 0 0;
-//   }
-//   &__action-button {
-//     --button-height: 3.25rem;
-//   }
-//   &__radio-group {
-//     position: relative;
-//     flex: 0 0 calc(100% + var(--spacer-sm));
-//     margin: 0 calc(var(--spacer-sm) * -1);
-//   }
-//   @include for-mobile {
-//     &__radio-group {
-//       position: relative;
-//       left: 50%;
-//       right: 50%;
-//       margin-left: -50vw;
-//       margin-right: -50vw;
-//       width: 100vw;
-//     }
-//   }
-//   @include for-desktop {
-//     display: flex;
-//     flex-wrap: wrap;
-//     align-items: center;
-//     margin: 0 var(--spacer-2xl) 0 0;
-//     &:last-of-type {
-//       margin: 0 calc(var(--spacer-2xl) - var(--spacer-sm)) 0 0;
-//     }
-//     &__action {
-//       display: flex;
-//     }
-//     &__action-button {
-//       --button-font-weight: var(--font-normal);
-//       &:first-child {
-//         margin: 0 var(--spacer-lg) 0 0;
-//       }
-//     }
-//   }
-// }
 
 .shipping {
   --radio-container-padding: var(--spacer-sm);
