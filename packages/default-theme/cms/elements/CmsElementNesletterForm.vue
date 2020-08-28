@@ -1,16 +1,25 @@
 <template>
   <div>
     <form
-      v-if="!formSent"
       action=""
       class="cms-element-sign-to-newsletter"
       @submit.prevent="submit"
     >
       <SfHeading
-        title="Subscribe to Newsletters"
-        subtitle="Be aware of upcoming sales and events. Receive gifts and special offers!"
+        :title="
+          !formSent ? 'Subscribe to Newsletter' : 'Subscribed to Newsletter!'
+        "
+        :subtitle="
+          !formSent
+            ? 'Be aware of upcoming sales and events. Receive gifts and special offers!'
+            : ''
+        "
       />
-      <div class="form-actions" :class="{ bg: newsletterForm }">
+      <div
+        v-if="!formSent"
+        class="form-actions"
+        :class="{ bg: newsletterForm }"
+      >
         <SwButton
           v-if="!newsletterForm"
           class="send button toggle-input"
@@ -59,7 +68,6 @@
         </span>
       </div>
     </form>
-    <SfAlert v-else message="Thanks! Check your mailbox!" type="success" />
   </div>
 </template>
 
