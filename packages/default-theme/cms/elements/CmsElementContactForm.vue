@@ -142,11 +142,13 @@ import {
   mapSalutations,
   getMessagesFromErrorsArray,
 } from "@shopware-pwa/helpers"
-import { useSalutations } from "@shopware-pwa/composables"
+import {
+  useSalutations,
+  getApplicationContext,
+} from "@shopware-pwa/composables"
 import { computed, ref } from "@vue/composition-api"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import { sendContactForm } from "@shopware-pwa/shopware-6-client"
-import { getApplicationContext } from "@shopware-pwa/composables"
 
 export default {
   name: "CmsElementContactForm",

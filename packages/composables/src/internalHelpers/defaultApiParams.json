@@ -56,7 +56,8 @@
           "id",
           "backgroundColor",
           "backgroundMedia",
-          "sectionPosition"
+          "sectionPosition",
+          "backgroundColor"
       ],
       "cms_page_section": [
           "id",
