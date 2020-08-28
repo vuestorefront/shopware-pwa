@@ -37,6 +37,8 @@ So for example even if you overwritten SwButton as above you can still call them
 
 **REFACTOR(default-theme)**: `SwAddress` in `components/forms/SwAddress` has been renamed to `SwAddressForm` to avoid duplications with `SwAddress` in `components/SwAddress.vue`
 
+**FEATURE**: introduced `useDefaults` composable, which is used inside other composables to provide specific fields from API. You can extend it in `shopware-pwa.config.js` file. Read how in [useDefaults docs](/landing/resources/api/composables.usedefaults.html)
+
 ## Migrate version 0.2.x to 0.3.x
 
 All changes are documented in our [Changelog](https://github.com/DivanteLtd/shopware-pwa/blob/master/CHANGELOG.md)

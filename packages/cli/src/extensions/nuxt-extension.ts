@@ -202,6 +202,15 @@ module.exports = (toolbox: GluegunToolbox) => {
       await toolbox.patching.append(".gitignore", ".shopware-pwa\n");
     }
 
+    // Ignore rootDirectory static folder: https://github.com/DivanteLtd/shopware-pwa/issues/1047
+    const rootStaticDirectoryIgnored = await toolbox.patching.exists(
+      ".gitignore",
+      `/static`
+    );
+    if (!rootStaticDirectoryIgnored) {
+      await toolbox.patching.append(".gitignore", "/static");
+    }
+
     // Add telemetry flag
     const configTelemetryFlag = await toolbox.patching.exists(
       "nuxt.config.js",

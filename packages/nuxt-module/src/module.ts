@@ -1,4 +1,9 @@
-import { NuxtModuleOptions, WebpackConfig, WebpackContext } from "./interfaces";
+import {
+  NuxtModuleOptions,
+  WebpackConfig,
+  WebpackContext,
+  ShopwarePwaConfigFile,
+} from "./interfaces";
 import path from "path";
 import { loadConfig } from "./utils";
 import { extendCMS } from "./cms";
@@ -14,6 +19,9 @@ import {
   onProjectFilesChanged,
 } from "./theme";
 import chokidar from "chokidar";
+import { getDefaultApiParams } from "@shopware-pwa/composables";
+import merge from "lodash/merge";
+import fse from "fs-extra";
 
 export async function runModule(
   moduleObject: NuxtModuleOptions,
@@ -40,30 +48,41 @@ export async function runModule(
 
   /* istanbul ignore next */
   invokeBuildLogger(moduleObject);
-  const shopwarePwaConfig = await loadConfig(moduleObject);
+  const shopwarePwaConfig: ShopwarePwaConfigFile = await loadConfig(
+    moduleObject
+  );
 
-  if (!shopwarePwaConfig?.shopwareAccessToken)
+  if (!shopwarePwaConfig.shopwareAccessToken)
     console.error("shopwareAccessToken in shopware-pwa.config.js is missing");
-  if (!shopwarePwaConfig?.shopwareEndpoint)
+  if (!shopwarePwaConfig.shopwareEndpoint)
     console.error("shopwareEndpoint in shopware-pwa.config.js is missing");
 
   // Warning about wrong API address
   // TODO: remove in 1.0
-  if (
-    shopwarePwaConfig?.shopwareEndpoint &&
-    shopwarePwaConfig.shopwareEndpoint.includes("/sales-channel-api/v1")
-  ) {
+  if (shopwarePwaConfig.shopwareEndpoint?.includes("/sales-channel-api/v1")) {
     console.error(
       "Please change your shopwareEndpoint in shopware-pwa.config.js to contain just domain, example: https://github.com/DivanteLtd/shopware-pwa#running-shopware-pwa-on-custom-shopware-instance"
     );
   }
 
   moduleObject.addPlugin({
+    fileName: "api-defaults.js",
+    src: path.join(__dirname, "..", "plugins", "api-defaults.js"),
+    options: {
+      apiDefaults: merge(
+        {},
+        getDefaultApiParams(),
+        shopwarePwaConfig.apiDefaults
+      ),
+    },
+  });
+
+  moduleObject.addPlugin({
     fileName: "api-client.js",
     src: path.join(__dirname, "..", "plugins", "api-client.js"),
     options: {
-      shopwareEndpoint: shopwarePwaConfig?.shopwareEndpoint,
-      shopwareAccessToken: shopwarePwaConfig?.shopwareAccessToken,
+      shopwareEndpoint: shopwarePwaConfig.shopwareEndpoint,
+      shopwareAccessToken: shopwarePwaConfig.shopwareAccessToken,
     },
   });
 
@@ -214,5 +233,17 @@ export async function runModule(
           BASE_SOURCE,
         })
       );
+  }
+
+  // On build copy combined static files to rootStatic folder
+  if (!moduleObject.options.dev) {
+    moduleObject.nuxt.hook("build:done", async (builder: NuxtModuleOptions) => {
+      const sourceDir = path.join(TARGET_SOURCE, "static");
+      const destinationDir = path.join(builder.options.rootDir, "static");
+      await fse.copy(sourceDir, destinationDir);
+      console.log(
+        "Moved static files to root directory static folder. Make sure your static files are placed inside `src/static` directory."
+      );
+    });
   }
 }
