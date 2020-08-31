@@ -48,7 +48,7 @@
         <template #number="{page}">
           <span
             class="cms-element-product-listing__pagination__number"
-            v-bind:style="{
+            :style="{
               'font-weight': pagination.currentPage === page ? 700 : 300,
             }"
             @click="changedPage(page)"
@@ -112,6 +112,7 @@ export default {
 
     const changedPage = async (pageNumber) => {
       await changePagination(pageNumber)
+      window.scrollTo(0, 0)
     }
 
     return {
