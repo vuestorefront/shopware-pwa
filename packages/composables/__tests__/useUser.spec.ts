@@ -71,7 +71,9 @@ describe("Composables - useUser", () => {
       });
 
       it("should get a customer when user is logged in", async () => {
-        mockedApiClient.getCustomer.mockResolvedValueOnce({ id: "123" } as any);
+        mockedApiClient.getCustomer.mockResolvedValueOnce({
+          id: "123",
+        } as any);
         const { user, refreshUser } = useUser(rootContextMock);
         await refreshUser();
         expect(user.value).toEqual({ id: "123" });
@@ -131,7 +133,9 @@ describe("Composables - useUser", () => {
         mockedApiClient.login.mockResolvedValueOnce({
           "sw-context-token": "qweqwe",
         } as any);
-        mockedApiClient.getCustomer.mockResolvedValueOnce({ id: "123" } as any);
+        mockedApiClient.getCustomer.mockResolvedValueOnce({
+          id: "123",
+        } as any);
         const { isLoggedIn, error, login } = useUser(rootContextMock);
         const result = await login({
           username: "qwe@qwe.com",
@@ -152,12 +156,14 @@ describe("Composables - useUser", () => {
         const result = await register(undefined as any);
         expect(result).toEqual(false);
         expect(isLoggedIn.value).toBeFalsy();
-        expect(error.value).toEqual(
+        expect(error.value.message).toEqual(
           "Provide requested information to create user account"
         );
       });
       it("should register user successfully", async () => {
-        mockedApiClient.register.mockResolvedValueOnce({ data: "mockedData" });
+        mockedApiClient.register.mockResolvedValueOnce({
+          data: "mockedData",
+        });
         const { error, register } = useUser(rootContextMock);
         const result = await register({
           firstName: "qwe",
@@ -196,7 +202,9 @@ describe("Composables - useUser", () => {
         mockedApiClient.logout.mockRejectedValueOnce(
           new Error("Something wrong with logout")
         );
-        mockedApiClient.getCustomer.mockResolvedValueOnce({ id: "111" } as any);
+        mockedApiClient.getCustomer.mockResolvedValueOnce({
+          id: "111",
+        } as any);
         const { isLoggedIn, error, logout } = useUser(rootContextMock);
         expect(isLoggedIn.value).toBeTruthy();
         await logout();
