@@ -22,6 +22,7 @@ export interface CategoryFilterEntityValue {
   name: string;
   description: string | null;
   customFields: any;
+  colorHexCode: null | string;
 }
 
 /**
@@ -59,19 +60,19 @@ const convertTermFilterValues = (values: CategoryFilterTermValue[]) => {
 };
 
 const convertEntityFilterValues = (
-  values: CategoryFilterEntityValues,
-  isColor: boolean
+  values: CategoryFilterEntityValues
+  //isColor: boolean
 ) => {
   return !values
     ? []
-    : Object.entries(values).map(([valueId, { name }]) => {
+    : Object.entries(values).map(([valueId, { name, colorHexCode }]) => {
         let filterValue = {
           value: valueId,
           label: name,
         };
 
-        if (isColor) {
-          filterValue = Object.assign({}, filterValue, { color: name });
+        if (colorHexCode) {
+          filterValue = Object.assign({}, filterValue, { color: colorHexCode });
         }
 
         return filterValue;
@@ -81,17 +82,15 @@ const convertEntityFilterValues = (
 const convertOptionsByType = ({
   type,
   values,
-  isColor,
 }: {
   type: string;
   values: any;
-  isColor: boolean;
 }) => {
   switch (type) {
     case UiCategoryFilterType.term:
       return convertTermFilterValues(values);
     case UiCategoryFilterType.entity:
-      return convertEntityFilterValues(values, isColor);
+      return convertEntityFilterValues(values);
     default:
       return values;
   }
@@ -106,17 +105,17 @@ export function getCategoryAvailableFilters({
   if (!filters) {
     return [];
   }
-
   const filtersTransformed = Object.entries(filters).map(
-    ([filterCode, { name, values, type }]) => ({
-      name: name || filterCode,
-      type: type,
-      options: convertOptionsByType({
-        type,
-        values,
-        isColor: filterCode === "color",
-      }),
-    })
+    ([filterCode, { name, values, type }]) => {
+      return {
+        name: name || filterCode,
+        type: type,
+        options: convertOptionsByType({
+          type,
+          values,
+        }),
+      };
+    }
   );
 
   return filtersTransformed;

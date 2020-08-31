@@ -21,10 +21,12 @@
           :key="productType"
         >
           <SwProductColors
-            v-if="productType === 'color'"
+            v-if="
+              getAllProductOptions[productType].find(({ color }) => !!color)
+            "
             :colors="getAllProductOptions[productType]"
             :value="selected[productType]"
-            label="Color:"
+            :label="productType"
             @input="handleChange(productType, $event)"
           />
           <SwProductSelect
@@ -226,7 +228,7 @@ export default {
 
   &__loaded {
     @include for-desktop {
-      height: 120px;
+      height: auto;
     }
   }
 }

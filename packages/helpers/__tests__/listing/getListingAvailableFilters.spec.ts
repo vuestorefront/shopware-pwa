@@ -33,7 +33,7 @@ describe("Shopware helpers - getListingAvailableFilters", () => {
         name: "manufacturer",
         options: [
           {
-            color: false,
+            color: undefined,
             label: "Rolfson-Schuppe",
             value: "2cc7db79c4214b448df87fb6642ebc57",
           },
@@ -51,6 +51,7 @@ describe("Shopware helpers - getListingAvailableFilters", () => {
             options: [
               {
                 name: "mediumblue",
+                colorHexCode: "#ffc",
                 translated: {
                   name: "mediumblue",
                 },
@@ -68,7 +69,7 @@ describe("Shopware helpers - getListingAvailableFilters", () => {
         name: "color",
         options: [
           {
-            color: "mediumblue",
+            color: "#ffc",
             label: "mediumblue",
             value: "e4af09b1c8ac463ca7a61fac99e71226",
           },
