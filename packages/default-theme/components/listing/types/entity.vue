@@ -2,7 +2,7 @@
   <div
     v-if="filter.options && filter.options.length"
     :class="{
-      'filters__filter--color': filter.name && filter.name === 'color',
+      'filters__filter--color': filter.options.find(({ color }) => !!color),
     }"
   >
     <SfFilter
@@ -10,7 +10,7 @@
       :key="option.value"
       :label="option.label"
       :count="option.count"
-      :color="option.color ? option.color : null"
+      :color="option.color"
       :selected="
         selectedValues &&
         !!selectedValues.find((propertyId) => propertyId === option.value)

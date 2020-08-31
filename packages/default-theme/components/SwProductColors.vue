@@ -4,7 +4,7 @@
     <SfColor
       v-for="(color, code) in colors"
       :key="code"
-      :color="color.value"
+      :color="color.color"
       :aria-label="color.label"
       :selected="value === color.code"
       @click="$emit('input', color.code)"

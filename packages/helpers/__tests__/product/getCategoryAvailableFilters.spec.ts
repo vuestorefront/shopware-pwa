@@ -39,6 +39,7 @@ describe("Shopware helpers - getCategoryAvailableFilters", () => {
         values: {
           "085059f79c26400990d7b23eba0911fd": {
             name: "lightseagreen",
+            colorHexCode: "#fff",
           },
         },
       },

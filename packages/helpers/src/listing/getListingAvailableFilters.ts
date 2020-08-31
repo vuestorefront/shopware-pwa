@@ -19,7 +19,7 @@ const extractEntityTypeFilter = (
     label: filterData.translated.name,
     value: filterData.id,
     // false when there's no color property is fine, UI accepts it
-    color: name === "color" && filterData.name,
+    color: filterData.colorHexCode,
   })),
 });
 
