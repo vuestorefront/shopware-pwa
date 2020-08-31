@@ -116,27 +116,39 @@
         {{ $t("send") }}
       </SwButton>
     </form>
-    <SfAlert
-      v-else
-      message="Thanks! We'll contact you as soon as possible!"
-      type="success"
-    />
+
+    <div v-if="formSent" class="thanks-message">
+      <SfIcon size="21px" icon="heart_fill" />
+      <SfHeading
+        title="Thanks!"
+        subtitle="We'll contact you as soon as possible!"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import { SfSelect, SfInput, SfCheckbox, SfAlert } from "@storefront-ui/vue"
+import {
+  SfSelect,
+  SfInput,
+  SfCheckbox,
+  SfAlert,
+  SfIcon,
+  SfHeading,
+} from "@storefront-ui/vue"
 import { validationMixin } from "vuelidate"
 import { required, email, minLength } from "vuelidate/lib/validators"
 import {
   mapSalutations,
   getMessagesFromErrorsArray,
 } from "@shopware-pwa/helpers"
-import { useSalutations } from "@shopware-pwa/composables"
+import {
+  useSalutations,
+  getApplicationContext,
+} from "@shopware-pwa/composables"
 import { computed, ref } from "@vue/composition-api"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import { sendContactForm } from "@shopware-pwa/shopware-6-client"
-import { getApplicationContext } from "@shopware-pwa/composables"
 
 export default {
   name: "CmsElementContactForm",
@@ -146,6 +158,8 @@ export default {
     SfCheckbox,
     SwButton,
     SfAlert,
+    SfIcon,
+    SfHeading,
   },
   mixins: [validationMixin],
   props: {
@@ -291,5 +305,16 @@ export default {
       float: right;
     }
   }
+}
+.thanks-message {
+  --icon-color: var(--_c-blue-primary);
+  --heading-title-color: var(--_c-green-primary);
+
+  margin-top: var(--spacer-sm);
+  margin-bottom: var(--spacer-sm);
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>

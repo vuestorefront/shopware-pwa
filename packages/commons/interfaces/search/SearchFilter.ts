@@ -9,6 +9,9 @@ import {
   LteGteRangeFilter,
 } from "@shopware-pwa/commons/interfaces/search/RangeFilters";
 
+/**
+ * @beta
+ */
 export enum SearchFilterType {
   EQUALS = "equals",
   CONTAINS = "contains",
@@ -19,14 +22,14 @@ export enum SearchFilterType {
 }
 
 /**
- * @alpha
+ * @beta
  */
 export interface SearchFilter {
   type: SearchFilterType;
 }
 
 /**
- * @alpha
+ * @beta
  */
 export interface EqualsFilter extends SearchFilter {
   value: string | null;
@@ -34,7 +37,7 @@ export interface EqualsFilter extends SearchFilter {
 }
 
 /**
- * @alpha
+ * @beta
  */
 export interface EqualsAnyFilter extends SearchFilter {
   value: string[];
@@ -42,7 +45,7 @@ export interface EqualsAnyFilter extends SearchFilter {
 }
 
 /**
- * @alpha
+ * @beta
  */
 export interface ContainsFilter extends SearchFilter {
   value: string[];
@@ -50,7 +53,7 @@ export interface ContainsFilter extends SearchFilter {
 }
 
 /**
- * @alpha
+ * @beta
  */
 export interface RangeFilter extends SearchFilter {
   field: string;
@@ -66,7 +69,7 @@ export interface RangeFilter extends SearchFilter {
 }
 
 /**
- * @alpha
+ * @beta
  */
 export interface MultiFilter extends SearchFilter {
   operator: string;
@@ -76,7 +79,7 @@ export interface MultiFilter extends SearchFilter {
 }
 
 /**
- * @alpha
+ * @beta
  */
 export interface NotFilter {
   type: SearchFilterType.NOT;

@@ -33,6 +33,7 @@ export const useProduct = (
 ): UseProduct<Product, Search> => {
   const { apiInstance } = getApplicationContext(rootContext, "useProduct");
   const { getAssociationsConfig, getIncludesConfig } = useDefaults(
+    rootContext,
     "useProduct"
   );
 
@@ -47,8 +48,8 @@ export const useProduct = (
 
     const searchCriteria = {
       configuration: {
-        includes: getIncludesConfig.value,
-        associations: getAssociationsConfig.value,
+        includes: getIncludesConfig(),
+        associations: getAssociationsConfig(),
       },
     };
 

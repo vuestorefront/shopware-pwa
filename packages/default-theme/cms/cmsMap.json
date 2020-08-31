@@ -27,7 +27,7 @@
     "text-three-column": "CmsBlockTextThreeColumn",
     "product-three-column": "CmsBlockProductThreeColumn",
     "text-two-column": "CmsBlockTextTwoColumn",
-    "form": "CmsBlockDefault"
+    "form": "CmsBlockForms"
   },
   "elements": {
     "product-box": "CmsElementProductCard",
@@ -40,6 +40,6 @@
     "product-listing": "CmsElementProductListing",
     "category-navigation": "CmsElementCategoryNavigation",
     "sidebar-filter": "CmsElementCategorySidebarFilter",
-    "form": "CmsElementContactForm"
+    "form": "CmsElementForm"
   }
 }

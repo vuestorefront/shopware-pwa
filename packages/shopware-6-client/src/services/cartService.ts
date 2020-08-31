@@ -61,6 +61,7 @@ export async function addProductToCart(
           type: CartItemType.PRODUCT,
           referencedId: productId,
           quantity: qty,
+          id: productId,
         },
       ],
     }

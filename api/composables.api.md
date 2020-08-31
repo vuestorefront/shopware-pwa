@@ -5,6 +5,7 @@
 ```ts
 
 import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
+import { Association } from '@shopware-pwa/commons/interfaces/search/Association';
 import { BillingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
@@ -18,6 +19,7 @@ import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
 import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
+import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
 import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
@@ -45,6 +47,8 @@ export interface ApplicationVueContext extends VueConstructor {
     // (undocumented)
     $shopwareApiInstance?: ShopwareApiInstance;
     // (undocumented)
+    $shopwareDefaults?: any;
+    // (undocumented)
     $store?: any;
     // (undocumented)
     cookies?: any;
@@ -54,6 +58,8 @@ export interface ApplicationVueContext extends VueConstructor {
     router?: any;
     // (undocumented)
     shopwareApiInstance?: ShopwareApiInstance;
+    // (undocumented)
+    shopwareDefaults?: any;
     // (undocumented)
     store?: any;
 }
@@ -102,6 +108,16 @@ export function getApplicationContext(rootContext: ApplicationVueContext, key?: 
     router: any;
     i18n: any;
     cookies: any;
+    shopwareDefaults: any;
+    contextName: string;
+};
+
+// @beta
+export function getDefaultApiParams(): {
+    [composableName: string]: {
+        includes?: Includes;
+        associations?: Association[];
+    };
 };
 
 // @beta
@@ -314,6 +330,12 @@ export interface UseCurrency {
 
 // @alpha (undocumented)
 export const useCurrency: (rootContext: ApplicationVueContext) => UseCurrency;
+
+// @beta
+export const useDefaults: (rootContext: ApplicationVueContext, defaultsKey: string) => {
+    getIncludesConfig: () => Includes;
+    getAssociationsConfig: () => Association[];
+};
 
 // @beta
 export const useNavigation: (rootContext: ApplicationVueContext) => IUseNavigation;
