@@ -42,42 +42,7 @@ describe("Shopware helpers - getListingAvailableFilters", () => {
       },
     ]);
   });
-  it("should return transformed filter if properties property is resolved", () => {
-    const aggregations = {
-      properties: {
-        entities: [
-          {
-            name: "color",
-            options: [
-              {
-                name: "mediumblue",
-                colorHexCode: "#ffc",
-                translated: {
-                  name: "mediumblue",
-                },
-                id: "e4af09b1c8ac463ca7a61fac99e71226",
-              },
-            ],
-            id: "8c6aadfc5ed84a7db0b54935e3f60403",
-          },
-        ],
-      },
-    } as any;
-    const result = getListingAvailableFilters(aggregations);
-    expect(result).toEqual([
-      {
-        name: "color",
-        options: [
-          {
-            color: "#ffc",
-            label: "mediumblue",
-            value: "e4af09b1c8ac463ca7a61fac99e71226",
-          },
-        ],
-        type: "entity",
-      },
-    ]);
-  });
+
   it("should return an empty array if resolved aggregation has no values", () => {
     const aggregation = {
       manufacturer: {},

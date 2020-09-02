@@ -34,21 +34,10 @@ export function getListingAvailableFilters(
   }
   const transformedFilters: UiCategoryFilter[] = [];
   for (const [aggregationName, aggregation] of Object.entries(aggregations)) {
-    if (
-      aggregationName === "manufacturer" &&
-      Array.isArray(aggregation.entities)
-    ) {
+    if (Array.isArray(aggregation.entities)) {
       transformedFilters.push(
         extractEntityTypeFilter(aggregationName, aggregation.entities)
       );
-    }
-
-    if (aggregationName === "properties") {
-      for (const filter of aggregation.entities) {
-        transformedFilters.push(
-          extractEntityTypeFilter(filter.name, filter.options)
-        );
-      }
     }
   }
 
