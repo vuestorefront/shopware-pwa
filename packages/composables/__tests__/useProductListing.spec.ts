@@ -296,5 +296,38 @@ describe("Composables - useProductListing", () => {
         expect(productsTotal.value).toBeFalsy();
       });
     });
+
+    describe("availableFilters", () => {
+      it("should parse aggregations if the initial listing has any", () => {
+        const { availableFilters } = useProductListing(rootContextMock, {
+          aggregations: {
+            manufacturer: {
+              entities: [
+                {
+                  name: "Dicki, Gerhold and Witting",
+                  translated: {
+                    name: "Dicki, Gerhold and Witting",
+                  },
+                },
+              ],
+            },
+          },
+        } as any);
+
+        expect(availableFilters.value).toStrictEqual([
+          {
+            name: "manufacturer",
+            options: [
+              {
+                color: undefined,
+                label: "Dicki, Gerhold and Witting",
+                value: undefined,
+              },
+            ],
+            type: "entity",
+          },
+        ]);
+      });
+    });
   });
 });

@@ -15,6 +15,7 @@ import {
   getFilterSearchCriteria,
   getSortingSearchCriteria,
   exportUrlQuery,
+  getListingAvailableFilters,
 } from "@shopware-pwa/helpers";
 import {
   useCms,
@@ -45,6 +46,7 @@ const sharedPagination = Vue.observable({
 
 const sharedListing = Vue.observable({
   products: [],
+  availableFilters: [],
 } as any);
 
 const selectedCriteria = Vue.observable({
@@ -82,6 +84,12 @@ export const useProductListing = (
 
   sharedListing.products = initialListing?.elements || [];
   selectedCriteria.sorting = activeSorting.value;
+
+  if (initialListing?.aggregations) {
+    sharedListing.availableFilters = getListingAvailableFilters(
+      initialListing.aggregations
+    );
+  }
 
   const resetFilters = () => {
     selectedCriteria.filters = {};
@@ -161,6 +169,9 @@ export const useProductListing = (
     );
     sharedPagination.total = (result && result.total) || 0;
     sharedListing.products = result?.elements || [];
+    sharedListing.availableFilters = getListingAvailableFilters(
+      result?.aggregations
+    );
     initialListing = undefined;
     loading.value = false;
   };
@@ -194,6 +205,7 @@ export const useProductListing = (
   ]);
   const selectedFilters = computed(() => localCriteria.filters);
   const selectedSorting = computed(() => localCriteria.sorting);
+  const availableFilters = computed(() => localListing.availableFilters);
 
   return {
     search,
@@ -210,5 +222,6 @@ export const useProductListing = (
     changeSorting,
     selectedSorting,
     categoryId,
+    availableFilters,
   };
 };
