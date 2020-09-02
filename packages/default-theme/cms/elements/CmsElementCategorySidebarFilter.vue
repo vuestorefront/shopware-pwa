@@ -126,7 +126,7 @@ export default {
     },
   },
   setup(props, { root }) {
-    const { availableFilters, availableSorting } = useCategoryFilters(root)
+    const { availableSorting } = useCategoryFilters(root)
     const {
       toggleFilter,
       changeSorting,
@@ -136,6 +136,7 @@ export default {
       selectedEntityFilters,
       resetFilters,
       productsTotal,
+      availableFilters,
     } = useProductListing(root, null)
 
     const { isOpen: isListView, switchState: switchToListView } = useUIState(
