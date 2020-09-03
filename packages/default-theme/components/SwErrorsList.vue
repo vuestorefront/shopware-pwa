@@ -1,6 +1,6 @@
 <template>
   <div v-if="list" class="errors-list-component">
-    <SwAlert :message="alertMessage" type="danger" />
+    <SwAlert :message="$t('Encountered problems:')" type="danger" />
 
     <ul class="list">
       <li v-for="message in list" :key="message" class="item">{{ message }}</li>
@@ -17,13 +17,8 @@ export default {
   props: {
     list: {
       type: Array,
-      default: null,
+      default: [],
     },
-  },
-  data() {
-    return {
-      alertMessage: "Encountered problems:",
-    }
   },
   setup(props, { root }) {
     return {}
