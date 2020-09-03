@@ -39,4 +39,13 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
+
+.cms-block-text-on-image {
+  background-position: center;
+  background-size: cover;
+
+  &__content {
+    padding: var(--spacer-2xl) var(--spacer-xl);
+  }
+}
 </style>

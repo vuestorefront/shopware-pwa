@@ -7,7 +7,7 @@
     "text-on-image": "CmsBlockTextOnImage",
     "sidebar-filter": "CmsBlockDefault",
     "product-listing": "CmsBlockDefault",
-    "image-text": "CmsBlockTextOnImage",
+    "image-text": "CmsBlockImageText",
     "image": "CmsBlockDefault",
     "image-cover": "CmsBlockImageCover",
     "category-navigation": "CmsBlockCategoryNavigation",
