@@ -93,7 +93,7 @@ export const getFilterSearchCriteria = (selectedFilters: any): any[] => {
     try {
       filters.push(extractFilter(filterName, selectedFilters[filterName]));
     } catch (error) {
-      console.error("helpers:getFilterSearchCriteria:extractFilter", error);
+      console.warn("helpers:getFilterSearchCriteria:extractFilter", error);
     }
   }
 
