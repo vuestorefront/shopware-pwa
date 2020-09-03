@@ -1,0 +1,11 @@
+// we're importing here main style variables
+@import "@theme/assets/scss/variables";
+
+// For available variables check SFUI docs - https://docs.storefrontui.io/customization.html#global-variables
+//
+// Please remember to ONLY override variables here, as it will be used in components.
+// If you'd add some styles here as well it would be included in almost every component. You don't want it ;) You can add global styles in main.scss file.
+
+// #__nuxt {
+//   --c-primary: #5ece7b;
+// }

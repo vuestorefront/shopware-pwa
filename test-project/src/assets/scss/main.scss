@@ -1,0 +1,15 @@
+// we're importing here main style variables from theme
+@import "@theme/assets/scss/main";
+
+// Here you can override you global styles.
+// It will be included once on webside and visible unless some more specific styles in components will extend that
+//
+// note: To override global variables go to variables.scss
+
+// example of global styles you may want to override
+// body {
+//   font-family: var(--font-family-primary);
+//   font-weight: var(--font-light);
+//   font-size: var(--font-size-base);
+//   line-height: 1.6;
+// }
