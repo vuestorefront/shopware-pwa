@@ -322,6 +322,10 @@ describe("Composables - useProductListing", () => {
                 color: undefined,
                 label: "Dicki, Gerhold and Witting",
                 value: undefined,
+                name: "Dicki, Gerhold and Witting",
+                translated: {
+                  name: "Dicki, Gerhold and Witting",
+                },
               },
             ],
             type: "entity",
