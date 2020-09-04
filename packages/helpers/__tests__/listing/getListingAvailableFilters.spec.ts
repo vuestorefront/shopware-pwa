@@ -56,6 +56,47 @@ describe("Shopware helpers - getListingAvailableFilters", () => {
     expect(result).toEqual([]);
   });
 
+  it("should treat properties aggregation differently", () => {
+    const aggregation = {
+      properties: {
+        entities: [
+          {
+            name: "color",
+            options: [
+              {
+                id: "white",
+                name: "white",
+                colorHexCode: "#fff",
+                translated: {
+                  name: "white",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    } as any;
+
+    const result = getListingAvailableFilters(aggregation);
+    expect(result).toStrictEqual([
+      {
+        name: "color",
+        options: [
+          {
+            colorHexCode: "#fff",
+            color: "#fff",
+            id: "white",
+            label: "white",
+            name: "white",
+            translated: { name: "white" },
+            value: "white",
+          },
+        ],
+        type: "entity",
+      },
+    ]);
+  });
+
   it("should handle max filter type", () => {
     const aggregation = {
       "shipping-free": {

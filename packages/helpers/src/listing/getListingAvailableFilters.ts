@@ -9,11 +9,11 @@ const getFilterType = (aggregation: any) => {
     return UiCategoryFilterType.entity;
   }
 
-  if (aggregation.min && aggregation.max) {
+  if (aggregation.hasOwnProperty("max") && aggregation.hasOwnProperty("min")) {
     return UiCategoryFilterType.range;
   }
 
-  if (aggregation.max && !aggregation.min) {
+  if (aggregation.hasOwnProperty("max") && !aggregation.min) {
     return UiCategoryFilterType.max;
   }
 
@@ -50,14 +50,24 @@ export function getListingAvailableFilters(
     return [];
   }
   const transformedFilters: UiCategoryFilter[] = [];
+  // first level aggregations
   for (const [aggregationName, aggregation] of Object.entries(aggregations)) {
     try {
       const filterType = getFilterType(aggregation);
       // entity type
       if (filterType === UiCategoryFilterType.entity) {
-        transformedFilters.push(
-          extractEntityTypeFilter(aggregationName, aggregation.entities)
-        );
+        // some of the aggregations are grouped as a properties and have different structure
+        if (aggregationName === "properties") {
+          for (const property of aggregation.entities) {
+            transformedFilters.push(
+              extractEntityTypeFilter(property.name, property.options)
+            );
+          }
+        } else {
+          transformedFilters.push(
+            extractEntityTypeFilter(aggregationName, aggregation.entities)
+          );
+        }
       } else {
         // other types
         transformedFilters.push({
