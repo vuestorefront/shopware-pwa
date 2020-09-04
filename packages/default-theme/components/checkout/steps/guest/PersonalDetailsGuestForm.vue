@@ -3,8 +3,8 @@
     <div class="log-in">
       <div class="log-in__buttons-container">
         <SwButton
-          @click="switchLoginModalState(true)"
           class="log-in__button color-secondary"
+          @click="switchLoginModalState(true)"
           >Log in to your account</SwButton
         >
         <SwPluginSlot name="checkout-login-after" />
@@ -15,31 +15,10 @@
       title="1. Personal details"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <SfAlert
-      v-for="(message, index) in useUserErrorMessages"
-      :key="index"
-      class="sw-checkout__personal_info__alert"
-      type="danger"
-      :message="message"
-    />
+
+    <SwErrorsList :list="useUserErrorMessages" />
+
     <div class="form">
-      <!-- <SfSelect
-        v-if="getMappedSalutations && getMappedSalutations.length > 0"
-        v-model="salutationId"
-        label="Salutation"
-        :valid="!validations.salutationId.$error"
-        @change="validations.salutationId.$touch()"
-        error-message="Salutation must be selected"
-        class="sf-select--underlined form__element form__element--salutation form__select"
-      >
-        <SfSelectOption
-          v-for="salutationOption in getMappedSalutations"
-          :key="salutationOption.id"
-          :value="salutationOption.id || ''"
-        >
-          {{ salutationOption.name }}
-        </SfSelectOption>
-      </SfSelect> -->
       <SwInput
         v-model="firstName"
         label="First name"
@@ -132,7 +111,6 @@ import {
   SfCharacteristic,
   SfSelect,
   SfProductOption,
-  SfAlert,
 } from "@storefront-ui/vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
@@ -160,22 +138,20 @@ import {
   usePersonalDetailsStep,
   usePersonalDetailsStepValidationRules,
 } from "@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep"
+import SwErrorsList from "@shopware-pwa/default-theme/components/SwErrorsList"
 
 export default {
   name: "PersonalDetailsGuestForm",
-  mixins: [validationMixin],
   components: {
     SwInput,
     SfCheckbox,
     SwButton,
     SfHeading,
-    SfModal,
     SfCharacteristic,
-    SfSelect,
-    SfProductOption,
-    SfAlert,
+    SwErrorsList,
     SwPluginSlot,
   },
+  mixins: [validationMixin],
   props: {
     order: {
       type: Object,
@@ -257,6 +233,12 @@ export default {
       email,
     }
   },
+  computed: {
+    useUserErrorMessages() {
+      // all the 400 errors are in a raw format stright from the API - to be extracted easily depeding on needs.
+      return this.userError && this.getMessagesFromErrorsArray(this.userError)
+    },
+  },
   watch: {
     createAccount(value) {
       if (!value) this.password = ""
@@ -270,10 +252,27 @@ export default {
     // },
     $v: {
       immediate: true,
-      handler: function () {
+      handler() {
         this.setValidations(this.$v)
       },
     },
+  },
+  async mounted() {
+    // hack to register user without picking up the country (minimal registration)
+    await this.fetchCountries()
+    if (!this.getCountries) {
+      return
+    }
+    const pickedCountry = this.getCountries.find(
+      ({ name }) => name === "Poland"
+    )
+    this.billingAddress.countryId = pickedCountry && pickedCountry.id
+
+    await this.fetchSalutations()
+    const defaultSalutation = this.getMappedSalutations[
+      this.getMappedSalutations.length - 1
+    ]
+    this.salutationId = defaultSalutation && defaultSalutation.id
   },
   methods: {
     async toShipping() {
@@ -302,29 +301,6 @@ export default {
         return this.$emit("proceed")
       }
     },
-  },
-  computed: {
-    useUserErrorMessages() {
-      // all the 400 errors are in a raw format stright from the API - to be extracted easily depeding on needs.
-      return this.userError && this.getMessagesFromErrorsArray(this.userError)
-    },
-  },
-  async mounted() {
-    // hack to register user without picking up the country (minimal registration)
-    await this.fetchCountries()
-    if (!this.getCountries) {
-      return
-    }
-    const pickedCountry = this.getCountries.find(
-      ({ name }) => name === "Poland"
-    )
-    this.billingAddress.countryId = pickedCountry && pickedCountry.id
-
-    await this.fetchSalutations()
-    const defaultSalutation = this.getMappedSalutations[
-      this.getMappedSalutations.length - 1
-    ]
-    this.salutationId = defaultSalutation && defaultSalutation.id
   },
   // TODO: move all the rules globally
   validations: {
