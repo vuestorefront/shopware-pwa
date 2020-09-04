@@ -18,7 +18,7 @@ import {
   EqualsFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 
-const mockedGetPage = shopwareClient as jest.Mocked<typeof shopwareClient>;
+const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 describe("Composables - useProductListing", () => {
   const statePage: Ref<Object | null> = ref(null);
@@ -165,7 +165,9 @@ describe("Composables - useProductListing", () => {
 
     //
     it("should return default total and empty product listing when page resolver fails", async () => {
-      mockedGetPage.getCategoryProductsListing.mockResolvedValueOnce({} as any);
+      mockedApiClient.getCategoryProductsListing.mockResolvedValueOnce(
+        {} as any
+      );
 
       const { products, search, pagination } = useProductListing(
         rootContextMock
@@ -180,7 +182,7 @@ describe("Composables - useProductListing", () => {
     });
 
     it("should return products if exist", async () => {
-      mockedGetPage.getCategoryProductsListing.mockResolvedValueOnce({
+      mockedApiClient.getCategoryProductsListing.mockResolvedValueOnce({
         elements: [
           {
             id: "123456",
@@ -331,6 +333,26 @@ describe("Composables - useProductListing", () => {
             type: "entity",
           },
         ]);
+      });
+      it("should make another call if the response is narrowed down", async () => {
+        mockedApiClient.getCategoryProductsListing.mockResolvedValue({
+          aggregations: {
+            color: {
+              elements: [],
+            },
+          },
+          currentFilters: {
+            manufacturer: [{ name: "shopware ag" }],
+            properties: [{ name: "color" }],
+          },
+        } as any);
+
+        const { availableFilters, search } = useProductListing(
+          rootContextMock as any
+        );
+        await search();
+        expect(mockedApiClient.getCategoryProductsListing).toBeCalledTimes(2);
+        expect(availableFilters.value).toStrictEqual([]);
       });
     });
   });

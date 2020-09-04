@@ -81,6 +81,13 @@ export const useProductListing = (
   const localListing = reactive(sharedListing);
   const localCriteria = reactive(selectedCriteria);
   const localPagination = reactive(sharedPagination);
+  const productListingResult: Ref<ProductListingResult | null> = ref(null);
+
+  // check whether the search result has some filters applied
+  /* istanbul ignore next */
+  const isBaseRequest = () =>
+    !productListingResult.value?.currentFilters?.manufacturer?.length &&
+    !productListingResult.value?.currentFilters?.properties?.length;
 
   sharedListing.products = initialListing?.elements || [];
   selectedCriteria.sorting = activeSorting.value;
@@ -162,16 +169,32 @@ export const useProductListing = (
     if (typeof history !== "undefined")
       history.replaceState({}, null as any, location.pathname + "?" + search);
 
-    const result = await getCategoryProductsListing(
+    productListingResult.value = await getCategoryProductsListing(
       categoryId.value,
       searchCriteria,
       apiInstance
     );
-    sharedPagination.total = (result && result.total) || 0;
-    sharedListing.products = result?.elements || [];
-    sharedListing.availableFilters = getListingAvailableFilters(
-      result?.aggregations
-    );
+    sharedPagination.total =
+      (productListingResult.value && productListingResult.value.total) || 0;
+    sharedListing.products = productListingResult.value?.elements || [];
+
+    // base response has always all the aggregations
+    if (isBaseRequest()) {
+      sharedListing.availableFilters = getListingAvailableFilters(
+        productListingResult.value?.aggregations
+      );
+    } else {
+      // get the aggregations without narrowing down the results, so another api call is needed (using post-aggregation may fix it)
+      const productListingBaseResult = await getCategoryProductsListing(
+        categoryId.value,
+        { pagination: { limit: 1 } },
+        apiInstance
+      );
+      sharedListing.availableFilters = getListingAvailableFilters(
+        productListingBaseResult.aggregations
+      );
+    }
+
     initialListing = undefined;
     loading.value = false;
   };
