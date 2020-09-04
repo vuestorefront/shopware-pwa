@@ -1,10 +1,10 @@
 <template>
   <div>
     <form
+      v-if="!formSent"
       action=""
       class="cms-element-contact-form"
       @submit.prevent="submit"
-      v-if="!formSent"
     >
       <SfSelect
         v-if="getMappedSalutations && getMappedSalutations.length > 0"
@@ -110,7 +110,7 @@
         />
       </div>
 
-      <SfAlert v-if="errorMessage" :message="errorMessage" type="danger" />
+      <SwErrorsList :list="errorMessage" />
 
       <SwButton class="send button">
         {{ $t("send") }}
@@ -132,7 +132,6 @@ import {
   SfSelect,
   SfInput,
   SfCheckbox,
-  SfAlert,
   SfIcon,
   SfHeading,
 } from "@storefront-ui/vue"
@@ -149,6 +148,7 @@ import {
 import { computed, ref } from "@vue/composition-api"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import { sendContactForm } from "@shopware-pwa/shopware-6-client"
+import SwErrorsList from "@shopware-pwa/default-theme/components/SwErrorsList"
 
 export default {
   name: "CmsElementContactForm",
@@ -157,7 +157,7 @@ export default {
     SfInput,
     SfCheckbox,
     SwButton,
-    SfAlert,
+    SwErrorsList,
     SfIcon,
     SfHeading,
   },
