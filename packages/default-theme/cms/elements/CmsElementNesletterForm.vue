@@ -48,15 +48,7 @@
           />
         </transition>
 
-        <div v-if="errorMessage">
-          <SfAlert
-            v-for="(message, key) in errorMessage"
-            :key="key"
-            :message="message"
-            type="danger"
-            class="error-alert"
-          />
-        </div>
+        <SwErrorsList :list="errorMessage" />
 
         <span>
           <SwButton
@@ -72,7 +64,7 @@
 </template>
 
 <script>
-import { SfInput, SfHeading, SfAlert } from "@storefront-ui/vue"
+import { SfInput, SfHeading } from "@storefront-ui/vue"
 import { validationMixin } from "vuelidate"
 import { required, email } from "vuelidate/lib/validators"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
@@ -80,6 +72,7 @@ import { newsletterSubscribe } from "@shopware-pwa/shopware-6-client"
 import { ref } from "@vue/composition-api"
 import { getApplicationContext } from "@shopware-pwa/composables"
 import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
+import SwErrorsList from "@shopware-pwa/default-theme/components/SwErrorsList"
 
 export default {
   name: "CmsElementNewsletterForm",
@@ -87,7 +80,7 @@ export default {
     SfInput,
     SwButton,
     SfHeading,
-    SfAlert,
+    SwErrorsList,
   },
   mixins: [validationMixin],
   props: {

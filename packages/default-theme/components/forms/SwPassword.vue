@@ -8,13 +8,7 @@
         </p>
       </slot>
 
-      <SfAlert
-        v-for="(message, index) in userErrorMessages"
-        :key="index"
-        class="sw-password__alert"
-        type="danger"
-        :message="message"
-      />
+      <SwErrorsList :list="userErrorMessages" />
 
       <div class="sw-password__form form">
         <slot name="form">
@@ -70,15 +64,15 @@
 import { validationMixin } from "vuelidate"
 import { required, minLength, sameAs } from "vuelidate/lib/validators"
 import { computed } from "@vue/composition-api"
-import { SfAlert } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
 import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
+import SwErrorsList from "@shopware-pwa/default-theme/components/SwErrorsList"
 
 export default {
   name: "SwPassword",
-  components: { SwInput, SwButton, SfAlert },
+  components: { SwInput, SwButton, SwErrorsList },
   mixins: [validationMixin],
   props: {},
   setup(props, { root }) {
