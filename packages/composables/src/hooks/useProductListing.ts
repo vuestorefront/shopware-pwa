@@ -89,7 +89,10 @@ export const useProductListing = (
     !productListingResult.value?.currentFilters?.manufacturer?.length &&
     !productListingResult.value?.currentFilters?.properties?.length;
 
-  sharedListing.products = initialListing?.elements || [];
+  if (initialListing?.elements && initialListing.elements.length) {
+    sharedListing.products = initialListing.elements;
+  }
+
   selectedCriteria.sorting = activeSorting.value;
 
   if (initialListing?.aggregations) {
