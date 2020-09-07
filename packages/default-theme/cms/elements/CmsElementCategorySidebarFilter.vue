@@ -126,7 +126,7 @@ export default {
     },
   },
   setup(props, { root }) {
-    const { availableFilters, availableSorting } = useCategoryFilters(root)
+    const { availableSorting } = useCategoryFilters(root)
     const {
       toggleFilter,
       changeSorting,
@@ -136,6 +136,8 @@ export default {
       selectedEntityFilters,
       resetFilters,
       productsTotal,
+      availableFilters,
+      changePagination,
     } = useProductListing(root, null)
 
     const { isOpen: isListView, switchState: switchToListView } = useUIState(
@@ -156,6 +158,7 @@ export default {
       switchToListView,
       availableFilters,
       availableSorting,
+      changePagination,
     }
   },
   data() {
@@ -201,11 +204,11 @@ export default {
     },
     async clearAllFilters() {
       this.resetFilters()
-      await this.search()
+      await this.changePagination(1)
       this.isFilterSidebarOpen = false
     },
     async submitFilters() {
-      await this.search()
+      await this.changePagination(1)
       this.isFilterSidebarOpen = false
     },
     getSortLabel(sorting) {

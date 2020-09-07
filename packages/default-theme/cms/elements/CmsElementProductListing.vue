@@ -99,7 +99,6 @@ export default {
     },
   },
   setup({ content }, { root }) {
-    const { search } = useProductSearch(root)
     const listing = content.data.listing || []
     const {
       products,
