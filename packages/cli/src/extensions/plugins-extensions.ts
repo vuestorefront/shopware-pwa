@@ -68,14 +68,21 @@ module.exports = (toolbox: GluegunToolbox) => {
   };
 
   toolbox.fetchPluginsConfig = async ({ config }: { config: string }) => {
-    const pluginsConfigResponse = await axios.get(
-      `${toolbox.inputParameters.shopwareEndpoint}/${config}`
-    );
+    const endpoint = toolbox.inputParameters.shopwareEndpoint;
+    const url =
+      config.indexOf(endpoint) >= 0
+        ? config
+        : `${toolbox.inputParameters.shopwareEndpoint}/${config}`;
+    const pluginsConfigResponse = await axios.get(url);
     return pluginsConfigResponse.data;
   };
 
   toolbox.loadPluginsAssetFile = async ({ asset }: { asset: string }) => {
-    const fileUrl = `${toolbox.inputParameters.shopwareEndpoint}/${asset}`;
+    const endpoint = toolbox.inputParameters.shopwareEndpoint;
+    const fileUrl =
+      asset.indexOf(endpoint) >= 0
+        ? asset
+        : `${toolbox.inputParameters.shopwareEndpoint}/${asset}`;
 
     const request = require("request");
     const loadFile = function () {
@@ -224,6 +231,7 @@ module.exports = (toolbox: GluegunToolbox) => {
         ...toolbox.inputParameters,
         authToken,
       });
+
       const pluginsConfig = await toolbox.fetchPluginsConfig(buildArtifact);
 
       await toolbox.filesystem.removeAsync(`.shopware-pwa/pwa-bundles.json`);
@@ -239,12 +247,12 @@ module.exports = (toolbox: GluegunToolbox) => {
       await toolbox.loadPluginsAssetFile(buildArtifact);
       await toolbox.unzipPluginsAssetsFile();
     } catch (e) {
-      if (e && e.response && e.response.status === 401) {
+      if (e?.response?.status === 401) {
         toolbox.print.error(
           `You provided bad cridentials for your shopware instance: ${toolbox.inputParameters.shopwareEndpoint} - plugins will not be added`
         );
       } else {
-        console.error("UNEXPECTED ERROR", e ? e.response : e);
+        toolbox.print.error(`UNEXPECTED ERROR ${e?.response ? e.response : e}`);
       }
       return;
     }
