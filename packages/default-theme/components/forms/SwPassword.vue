@@ -134,7 +134,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/variables";
+@import "@/assets/scss/forms";
 
 .sw-password {
   &__alert {

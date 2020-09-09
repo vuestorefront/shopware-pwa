@@ -229,7 +229,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/variables";
+@import "@/assets/scss/forms";
 
 .message {
   margin: 0 0 var(--spacer-xl) 0;

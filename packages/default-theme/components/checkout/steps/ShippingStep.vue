@@ -120,7 +120,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "@/assets/scss/variables";
+@import "@/assets/scss/forms";
 
 .title {
   --heading-padding: var(--spacer-base) 0;

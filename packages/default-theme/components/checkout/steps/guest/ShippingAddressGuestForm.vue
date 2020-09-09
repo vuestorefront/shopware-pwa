@@ -181,7 +181,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "@/assets/scss/variables";
+@import "@/assets/scss/forms";
+
 .shipping {
   margin: 0 calc(var(--spacer-base) * -1);
   &__label {

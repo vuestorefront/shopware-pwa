@@ -1,3 +1,5 @@
+@import "@/assets/scss/variables.scss";
+
 .sw-form {
   --form-direction: var(--flex-direction, column);
   --form-input-margin-bottom: var(--form-input-margin-bottom, 0);

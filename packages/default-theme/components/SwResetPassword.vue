@@ -1,6 +1,6 @@
 <template>
   <div class="sw-reset-password" @keyup.enter="invokeResetPassword">
-    <div class="form sw-reset-password__form" v-if="!emailSent">
+    <div v-if="!emailSent" class="form sw-reset-password__form">
       <!-- <h2 class="sw-reset-password__header">Reset password</h2> -->
       <SfAlert
         v-if="userError"
@@ -16,13 +16,13 @@
         class="sw-form__input"
         :valid="!$v.email.$error"
         error-message="Valid email is required"
-        @blur="$v.email.$touch()"
         data-cy="email-input"
+        @blur="$v.email.$touch()"
       />
       <SwButton
         class="sf-button--full-width sw-form__button"
-        @click="invokeResetPassword"
         data-cy="submit-reset-button"
+        @click="invokeResetPassword"
       >
         Resend password
       </SwButton>
@@ -58,7 +58,7 @@ export default {
   setup(props, { root }) {
     const { resetPassword, error: userError } = useUser(root)
     return {
-      resetPassword: resetPassword,
+      resetPassword,
       userError,
     }
   },
@@ -85,7 +85,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/variables";
+@import "@/assets/scss/forms";
 
 .sw-reset-password {
   &__alert {
