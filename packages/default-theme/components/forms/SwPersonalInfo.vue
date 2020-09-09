@@ -8,12 +8,7 @@
         </p>
       </slot>
 
-      <SfAlert
-        v-if="userError"
-        class="sw-personal-info__alert"
-        type="danger"
-        :message="getErrorMessage"
-      />
+      <SwErrorsList :list="getErrorMessage" />
 
       <div class="sw-personal-info__form form">
         <slot name="sw-form">
@@ -99,18 +94,19 @@ import {
   minLength,
   sameAs,
 } from "vuelidate/lib/validators"
-import { SfAlert, SfIcon } from "@storefront-ui/vue"
+import { SfIcon } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
 import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
+import SwErrorsList from "@shopware-pwa/default-theme/components/SwErrorsList"
 
 export default {
   name: "SwPersonalInfo",
   components: {
     SwInput,
     SwButton,
-    SfAlert,
+    SwErrorsList,
     SfIcon,
   },
   mixins: [validationMixin],
@@ -153,7 +149,7 @@ export default {
     getErrorMessage() {
       return getMessagesFromErrorsArray(
         this.userError && this.userError.message
-      ).join("<br/>")
+      )
     },
     isEmailChanging() {
       return this.email !== (this.user && this.user.email)

@@ -15,35 +15,29 @@
       title="1. Personal details"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <SfAlert
-      v-for="(message, index) in useUserErrorMessages"
-      :key="index"
-      class="sw-checkout__personal_info__alert"
-      type="danger"
-      :message="message"
-    />
-    <div class="sw-form">
-      <div class="inputs-group">
-        <SwInput
-          v-model="firstName"
-          label="First name"
-          :valid="!validations.firstName.$error"
-          error-message="First name is required"
-          name="firstName"
-          class="sw-form__input"
-          data-cy="first-name"
-          required
-        />
-        <SwInput
-          v-model="lastName"
-          label="Last name"
-          :valid="!validations.lastName.$error"
-          error-message="last name is required"
-          name="lastName"
-          class="sw-form__input"
-          data-cy="last-name"
-        />
-      </div>
+
+    <SwErrorsList :list="useUserErrorMessages" />
+
+    <div class="form">
+      <SwInput
+        v-model="firstName"
+        label="First name"
+        :valid="!validations.firstName.$error"
+        error-message="First name is required"
+        name="firstName"
+        class="form__element form__element--half"
+        data-cy="first-name"
+        required
+      />
+      <SwInput
+        v-model="lastName"
+        label="Last name"
+        :valid="!validations.lastName.$error"
+        error-message="last name is required"
+        name="lastName"
+        class="form__element form__element--half form__element--half-even"
+        data-cy="last-name"
+      />
       <SwInput
         v-model="email"
         label="Your email"
@@ -114,7 +108,8 @@ import {
   SfCheckbox,
   SfHeading,
   SfCharacteristic,
-  SfAlert,
+  SfSelect,
+  SfProductOption,
 } from "@storefront-ui/vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
@@ -142,6 +137,7 @@ import {
   usePersonalDetailsStep,
   usePersonalDetailsStepValidationRules,
 } from "@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep"
+import SwErrorsList from "@shopware-pwa/default-theme/components/SwErrorsList"
 
 export default {
   name: "PersonalDetailsGuestForm",
@@ -151,7 +147,7 @@ export default {
     SwButton,
     SfHeading,
     SfCharacteristic,
-    SfAlert,
+    SwErrorsList,
     SwPluginSlot,
   },
   mixins: [validationMixin],
@@ -276,6 +272,34 @@ export default {
       this.getMappedSalutations.length - 1
     ]
     this.salutationId = defaultSalutation && defaultSalutation.id
+  },
+  methods: {
+    async toShipping() {
+      // run the validators against the provided data
+      // consider using $touch event on $blur event in each input
+      this.validate()
+      if (this.validations.$invalid) {
+        return
+      }
+
+      if (this.createAccount) {
+        const isRegistered = await this.registerUser(this.customer)
+        if (!isRegistered) {
+          return
+        }
+        // extra login step won't be necessary once the register has a autologin option
+        await this.login({
+          username: this.email,
+          password: this.password,
+        })
+        if (!this.isLoggedIn) {
+          return
+        }
+        this.$router.push(this.$i18n.path('/checkout?step="SHIPPING"'))
+      } else {
+        return this.$emit("proceed")
+      }
+    },
   },
   // TODO: move all the rules globally
   validations: {

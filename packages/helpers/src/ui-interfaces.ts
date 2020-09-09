@@ -22,6 +22,7 @@ export interface UiProductOption {
   value: string;
   code: string;
   attribute: string;
+  color: string;
   [attribute: string]: string;
 }
 
