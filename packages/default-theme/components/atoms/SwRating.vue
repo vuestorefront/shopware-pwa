@@ -1,14 +1,16 @@
 <template>
-  <div class="sw-rating" :class="{ 'sw-rating-hover-off': !hoverEffect }">
+  <div
+    class="sw-rating"
+    :class="{ 'sw-rating-hover-off': !hoverEffect }"
+    @mouseleave="isHoverActive = false"
+  >
     <SfIcon
       class="sw-rating__star"
       v-for="i in max"
       :key="i"
       icon="star"
-      :style="{}"
       :size="size"
-      :color="i <= score ? 'green-primary' : 'grey-primary'"
-      :ref="`rating-${i}`"
+      :color="i <= displayedScore ? 'green-primary' : 'grey-primary'"
       @click="$emit('click', i)"
       @mouseover="hoverRating(i)"
     />
@@ -25,7 +27,10 @@ export default {
     SfIcon,
   },
   data() {
-    return {}
+    return {
+      hoveredIndex: 0,
+      isHoverActive: false,
+    }
   },
 
   props: {
@@ -47,30 +52,19 @@ export default {
       default: false,
     },
   },
+  computed: {
+    displayedScore() {
+      return this.isHoverActive ? this.hoveredIndex : this.score
+    },
+  },
   methods: {
     hoverRating(key) {
       if (!this.hoverEffect) {
         return
       }
 
-      for (let j = key; j <= this.max; j++) {
-        if (this.$refs[`rating-${j}`][0]) {
-          this.$refs[`rating-${j}`][0].$el.classList.remove(
-            "color-green-primary"
-          )
-          this.$refs[`rating-${j}`][0].$el.classList.add("color-gray-primary")
-          this.$refs[`rating-${j}`][0].$el.style = null
-        }
-      }
-      for (let i = 1; i <= key; i++) {
-        if (this.$refs[`rating-${i}`][0]) {
-          this.$refs[`rating-${i}`][0].$el.classList.remove(
-            "color-gray-primary"
-          )
-          this.$refs[`rating-${i}`][0].$el.classList.add("color-green-primary")
-          this.$refs[`rating-${i}`][0].$el.style = null
-        }
-      }
+      this.hoveredIndex = key
+      this.isHoverActive = true
     },
   },
 }
