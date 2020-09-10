@@ -4,6 +4,7 @@ import {
   EqualsAnyFilter,
   EqualsFilter,
   RangeFilter,
+  MaxFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { Sort } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
@@ -15,8 +16,14 @@ const createMultiFilter = (operator: string, queries: any[]): MultiFilter => ({
 
 const createRangeFilter = (filterData: any, field: string): RangeFilter => ({
   type: SearchFilterType.RANGE,
-  field: field,
+  field,
   parameters: filterData,
+});
+
+const createMaxFilter = (filterData: any, field: string): MaxFilter => ({
+  type: SearchFilterType.MAX,
+  field,
+  max: filterData.max,
 });
 
 const createEqualsFilter = (value: string, field: string): EqualsFilter => ({
@@ -50,14 +57,17 @@ const createEqualsAnyFilter = (
 const extractFilter = (
   filterCode: string,
   filterData: any
-): RangeFilter | EqualsFilter | EqualsAnyFilter | MultiFilter => {
+): RangeFilter | EqualsFilter | EqualsAnyFilter | MultiFilter | MaxFilter => {
   let extractedFilter = null;
   switch (filterCode) {
     case "price":
       extractedFilter = createRangeFilter(filterData, filterCode);
       break;
     case "shipping-free":
-      extractedFilter = createEqualsFilter(filterData, filterCode);
+      extractedFilter = createMaxFilter(filterData, filterCode);
+      break;
+    case "rating":
+      extractedFilter = createMaxFilter(filterData, filterCode);
       break;
     case "categoryTree":
       extractedFilter = createEqualsFilter(
