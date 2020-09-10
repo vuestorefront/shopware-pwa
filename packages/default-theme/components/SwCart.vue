@@ -128,6 +128,8 @@ export default {
       removeProduct,
     }
   },
+
+  // TODO: hotfix - not final solution. To remove after fix cause of a problem.
   watch: {
     isSidebarOpen(val) {
       if (!val) {
