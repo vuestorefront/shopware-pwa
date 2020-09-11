@@ -1,16 +1,11 @@
 <template>
-  <div
-    v-if="filter.options && filter.options.length"
-    :class="{
-      'filters__filter--color': filter.name === 'color',
-    }"
-  >
+  <div class="filters__filter--color">
     <SfFilter
-      v-for="option in filter.options"
-      :key="option.value"
-      :label="option.label"
+      v-for="option in filter.entities"
+      :key="option.id"
+      :label="option.name"
       :count="option.count"
-      :color="filter.name === 'color' ? option.name : null"
+      :color="option.name"
       :selected="
         selectedValues &&
         !!selectedValues.find((propertyId) => propertyId === option.value)

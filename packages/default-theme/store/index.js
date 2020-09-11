@@ -5,6 +5,9 @@ export const state = () => ({
   sessionContext: null,
   locales: ["en-GB", "de-DE"],
   locale: "en-GB",
+  initialListings: {},
+  currentListings: {},
+  appliedListings: {},
 })
 
 export const mutations = {
@@ -25,6 +28,21 @@ export const mutations = {
       state.locale = locale
     }
   },
+  SET_INITIAL_LISTING(state, { listingKey, initialListing }) {
+    state.initialListings = Object.assign({}, state.initialListings, {
+      [listingKey]: initialListing,
+    })
+  },
+  SET_CURRENT_LISTING(state, { listingKey, currentListing }) {
+    state.currentListings = Object.assign({}, state.currentListings, {
+      [listingKey]: currentListing,
+    })
+  },
+  SET_APPLIED_LISTING(state, { listingKey, appliedListing }) {
+    state.appliedListings = Object.assign({}, state.appliedListings, {
+      [listingKey]: appliedListing,
+    })
+  },
 }
 
 export const getters = {
@@ -32,4 +50,7 @@ export const getters = {
   getPage: (state) => state.page,
   getUser: (state) => state.user,
   getSessionContext: (state) => state.sessionContext,
+  getInitialListings: (state) => state.initialListings,
+  getCurrentListings: (state) => state.currentListings,
+  getAppliedListings: (state) => state.appliedListings,
 }

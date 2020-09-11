@@ -1,7 +1,7 @@
 <template>
   <div class="cms-element-product-listing">
     <SfLoader :loading="loading" class="cms-element-product-listing__loader" />
-    <div v-if="products.length" class="cms-element-product-listing__wrapper">
+    <div v-if="getProducts.length" class="cms-element-product-listing__wrapper">
       <transition-group
         tag="div"
         appear
@@ -11,7 +11,7 @@
       >
         <template v-if="!isListView">
           <SwProductCard
-            v-for="(product, i) in products"
+            v-for="(product, i) in getProducts"
             :key="product.id"
             class="cms-element-product-listing__product-card"
             :product="product"
@@ -20,7 +20,7 @@
         </template>
         <template v-else>
           <SwProductCardHorizontal
-            v-for="(product, i) in products"
+            v-for="(product, i) in getProducts"
             :key="product.id"
             class="cms-element-product-listing__product-card-horizontal"
             :product="product"
@@ -30,17 +30,17 @@
         <div key="holder" class="cms-element-product-listing__place-holder" />
       </transition-group>
       <SfPagination
-        v-if="pagination && pagination.currentPage"
+        v-if="currentPage && !isListView"
         class="cms-element-product-listing__pagination"
-        :current="pagination.currentPage"
-        :total="Math.ceil(pagination.total / pagination.perPage)"
+        :current="currentPage"
+        :total="getTotalPagesCount"
         :visible="5"
-        @click="changedPage"
+        @click="changePage"
       >
         <template #prev>
           <span
             class="cms-element-product-listing__pagination__number"
-            @click="changedPage(pagination.currentPage - 1)"
+            @click="changePage(currentPage - 1)"
           >
             &lt;
           </span>
@@ -49,9 +49,9 @@
           <span
             class="cms-element-product-listing__pagination__number"
             :style="{
-              'font-weight': pagination.currentPage === page ? 700 : 300,
+              'font-weight': currentPage === page ? 700 : 300,
             }"
-            @click="changedPage(page)"
+            @click="changePage(page)"
           >
             {{ page }}
           </span>
@@ -59,12 +59,21 @@
         <template #next>
           <span
             class="cms-element-product-listing__pagination__number"
-            @click="changedPage(pagination.currentPage + 1)"
+            @click="changePage(currentPage + 1)"
           >
             &gt;
           </span>
         </template>
       </SfPagination>
+      <div v-else-if="currentPage < getTotalPagesCount" class="load-more">
+        <SwButton
+          class="sf-button--outline"
+          @click="loadMore"
+          :disabled="loadingMore"
+        >
+          load more...
+        </SwButton>
+      </div>
     </div>
     <SfHeading
       v-else
@@ -75,14 +84,16 @@
 </template>
 
 <script>
-import SwProductCard from "@shopware-pwa/default-theme/components/SwProductCard"
-import SwProductCardHorizontal from "@shopware-pwa/default-theme/components/SwProductCardHorizontal"
+import SwProductCard from "@/components/SwProductCard"
+import SwButton from "@/components/atoms/SwButton"
+import SwProductCardHorizontal from "@/components/SwProductCardHorizontal"
 import { SfPagination, SfHeading, SfLoader } from "@storefront-ui/vue"
 import {
   useProductListing,
   useUIState,
-  useProductSearch,
+  useListing,
 } from "@shopware-pwa/composables"
+import { computed, watch } from "@vue/composition-api"
 export default {
   name: "CmsElementProductListing",
   components: {
@@ -98,28 +109,44 @@ export default {
       default: () => ({}),
     },
   },
-  setup({ content }, { root }) {
-    const listing = content.data.listing || []
+  setup(props, { root }) {
     const {
-      products,
-      changePagination,
-      pagination,
+      getProducts,
+      setInitialListing,
+      currentPage,
+      getTotalPagesCount,
       loading,
-    } = useProductListing(root, listing)
+      loadMore,
+      loadingMore,
+    } = useListing(root, "products")
+
+    // Set initial listing and watch for changes of cms page
+    const initialListing = props.content.data.listing || []
+    setInitialListing(initialListing)
+    watch(
+      () => props.content,
+      () => {
+        const initialListing = props.content.data.listing || []
+        setInitialListing(initialListing)
+      }
+    )
 
     const { isOpen: isListView } = useUIState(root, "PRODUCT_LISTING_STATE")
 
-    const changedPage = async (pageNumber) => {
-      await changePagination(pageNumber)
+    const changePage = async (pageNumber) => {
+      currentPage.value = pageNumber
       window.scrollTo(0, 0)
     }
 
     return {
-      products,
-      changedPage,
-      pagination,
+      changePage,
+      getTotalPagesCount,
       loading,
       isListView,
+      getProducts,
+      currentPage,
+      loadMore,
+      loadingMore,
     }
   },
 }
@@ -182,6 +209,11 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
   @media screen and (min-width: $phone) {
     @content;
   }
+}
+
+.load-more {
+  display: flex;
+  justify-content: center;
 }
 
 .cms-element-product-listing {

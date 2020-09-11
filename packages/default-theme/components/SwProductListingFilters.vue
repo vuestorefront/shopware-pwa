@@ -27,8 +27,8 @@
       </div>
       <div class="navbar__counter">
         <span class="navbar__label desktop-only">Products found:</span>
-        <strong class="desktop-only">{{ totalFound }}</strong>
-        <span class="navbar__label mobile-only">{{ totalFound }} Items</span>
+        <strong class="desktop-only">{{ getTotal }}</strong>
+        <span class="navbar__label mobile-only">{{ getTotal }} Items</span>
       </div>
       <div class="navbar__view">
         <span class="navbar__view-label desktop-only">View</span>
@@ -101,10 +101,9 @@ import {
   SfSidebar,
 } from "@storefront-ui/vue"
 import {
-  useCategoryFilters,
-  useProductListing,
   useUIState,
   useProductSearch,
+  useListing,
 } from "@shopware-pwa/composables"
 
 import { getSearchResults } from "@shopware-pwa/shopware-6-client"
@@ -159,6 +158,7 @@ export default {
       root,
       "PRODUCT_LISTING_STATE"
     )
+    const { getTotal } = useListing(root, "products")
 
     return {
       getCategoryAvailableSorting,
@@ -167,6 +167,7 @@ export default {
       sortings,
       isListView,
       switchToListView,
+      getTotal,
     }
   },
   data() {
@@ -174,15 +175,6 @@ export default {
       isFilterSidebarOpen: false,
     }
   },
-  computed: {
-    totalFound() {
-      return this.listing && this.listing.total
-    },
-    lazyLoad() {
-      return true
-    },
-  },
-
   methods: {
     toggleFilterValue(value) {
       this.$emit("toggle-filter-value", value)

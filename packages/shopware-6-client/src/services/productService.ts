@@ -6,7 +6,10 @@ import {
 } from "../endpoints";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import {
+  SearchCriteria,
+  ShopwareSearchParams,
+} from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { SearchResult } from "@shopware-pwa/commons/interfaces/response/SearchResult";
 import { convertSearchCriteria, ApiType } from "../helpers/searchConverter";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
@@ -67,6 +70,24 @@ export const getCategoryProductsListing = async function (
       apiType: ApiType.store,
       config: contextInstance.config,
     })
+  );
+  return resp.data;
+};
+
+/**
+ * Get default amount of products and listing configuration for given category
+ *
+ * @throws ClientApiError
+ * @beta
+ */
+export const getCategoryProducts = async function (
+  categoryId: string,
+  criteria?: ShopwareSearchParams,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<ProductListingResult> {
+  const resp = await contextInstance.invoke.post(
+    `${getProductListingEndpoint(categoryId)}`,
+    criteria
   );
   return resp.data;
 };

@@ -1,5 +1,8 @@
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
-import { Includes } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import {
+  Includes,
+  ShopwareSearchParams,
+} from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { Association } from "@shopware-pwa/commons/interfaces/search/Association";
 import { warning } from "@shopware-pwa/commons";
 
@@ -9,7 +12,7 @@ import { warning } from "@shopware-pwa/commons";
  *
  * @remarks
  * To extend defaults you need to add configuration to `shopware-pwa.config.js` file.
- * Let's say we want to have a product manufacturer and media associations on CMS pages. We need to add to configuration file:
+ * Let's say we want to have a product manufacturer, media associations and listing limit on CMS pages. We need to add to configuration file:
  * ```js
  * // inside shopware-pwa.config.js
  *
@@ -17,6 +20,7 @@ import { warning } from "@shopware-pwa/commons";
  *   // ... other settings
  *   apiDefaults: {
  *    useCms: {
+ *      limit: 8,
  *      includes: {
  *        product: ["manufacturer"]
  *      },
@@ -37,6 +41,7 @@ export const useDefaults = (
 ): {
   getIncludesConfig: () => Includes;
   getAssociationsConfig: () => Association[];
+  getDefaults: () => ShopwareSearchParams;
 } => {
   const { shopwareDefaults } = getApplicationContext(
     rootContext,
@@ -63,9 +68,11 @@ export const useDefaults = (
   const getIncludesConfig = () => getDefaultsFor(defaultsKey)?.includes || {};
   const getAssociationsConfig = () =>
     getDefaultsFor(defaultsKey)?.associations || [];
+  const getDefaults = () => getDefaultsFor(defaultsKey) || {};
 
   return {
     getIncludesConfig,
     getAssociationsConfig,
+    getDefaults,
   };
 };

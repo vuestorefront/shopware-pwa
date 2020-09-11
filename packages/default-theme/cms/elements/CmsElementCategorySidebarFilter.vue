@@ -5,26 +5,30 @@
     <div class="sw-navbar navbar__main">
       <SwButton
         class="sf-button--text navbar__filters-button"
-        @click="isFilterSidebarOpen = true"
+        @click="openFiltersSidebar"
       >
         <SfIcon size="14px" icon="filter" style="margin-right: 10px;" />Filters
       </SwButton>
       <div class="navbar__sort desktop-only">
         <span class="navbar__label">Sort by:</span>
-        <SfSelect v-model="sortBy" :size="sorting.length" class="sort-by">
+        <SfSelect
+          v-model="currentSortingOrder"
+          :size="getOrderOptions.length"
+          class="sort-by"
+        >
           <SfSelectOption
-            v-for="(option, key) in sorting"
-            :key="key"
-            :value="option"
+            v-for="option in getOrderOptions"
+            :key="option.key"
+            :value="option.key"
             class="sort-by__option"
-            >{{ getSortLabel(option) }}</SfSelectOption
+            >{{ $t(option.snippet) }}</SfSelectOption
           >
         </SfSelect>
       </div>
       <div class="navbar__counter">
         <span class="navbar__label desktop-only">Products found:</span>
-        <strong class="desktop-only">{{ productsTotal }}</strong>
-        <span class="navbar__label mobile-only">{{ productsTotal }} Items</span>
+        <strong class="desktop-only">{{ getTotal }}</strong>
+        <span class="navbar__label mobile-only">{{ getTotal }} Items</span>
       </div>
       <div class="navbar__view">
         <span class="navbar__view-label desktop-only">View</span>
@@ -59,24 +63,21 @@
         title="Filters"
         :visible="isFilterSidebarOpen"
         class="filters-sidebar"
-        @close="isFilterSidebarOpen = false"
+        @close="closeFiltersSidebar"
       >
         <div class="filters">
           <SwProductListingFilter
             class="filters__filter"
             :filter="filter"
             v-for="filter in filters"
-            :selected-filters="selectedFilters"
-            :selected-entity-filters="selectedEntityFilters"
+            :selected-filters="sidebarSelectedFilters[filter.name]"
+            :selected-entity-filters="{}"
             :key="filter.name"
             @toggle-filter-value="toggleFilterValue"
           />
         </div>
         <template #content-bottom>
           <div class="filters__buttons">
-            <SwButton class="sf-button--full-width" @click="submitFilters()"
-              >Done</SwButton
-            >
             <SwButton
               class="sf-button--full-width filters__button-clear"
               @click="clearAllFilters()"
@@ -97,14 +98,13 @@ import {
   SfHeading,
   SfSidebar,
 } from "@storefront-ui/vue"
-import { computed } from "@vue/composition-api"
+import { computed, ref } from "@vue/composition-api"
 
 import {
   useCategoryFilters,
-  useProductListing,
   useUIState,
+  useListing,
 } from "@shopware-pwa/composables"
-import { getSortingLabel } from "@shopware-pwa/default-theme/helpers"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import SwProductListingFilter from "@shopware-pwa/default-theme/components/listing/SwProductListingFilter"
 
@@ -128,48 +128,46 @@ export default {
   setup(props, { root }) {
     const { availableSorting } = useCategoryFilters(root)
     const {
-      toggleFilter,
-      changeSorting,
-      selectedSorting,
+      currentSortingOrder,
+      getOrderOptions,
+      getAvailableFilters,
       search,
-      selectedFilters,
-      selectedEntityFilters,
-      resetFilters,
-      productsTotal,
-      availableFilters,
-      changePagination,
-    } = useProductListing(root, null)
+      getCurrentFilters,
+      getTotal,
+    } = useListing(root, "products")
 
     const { isOpen: isListView, switchState: switchToListView } = useUIState(
       root,
       "PRODUCT_LISTING_STATE"
     )
 
+    const sidebarSelectedFilters = ref({})
+    const initSidebarFilters = () => {
+      sidebarSelectedFilters.value =
+        JSON.parse(JSON.stringify(getCurrentFilters.value)) || {}
+    }
+
     return {
-      toggleFilter,
-      changeSorting,
-      selectedSorting,
       search,
-      selectedFilters,
-      selectedEntityFilters,
-      resetFilters,
-      productsTotal,
       isListView,
       switchToListView,
-      availableFilters,
+      getAvailableFilters,
       availableSorting,
-      changePagination,
+      getOrderOptions,
+      currentSortingOrder,
+      initSidebarFilters,
+      sidebarSelectedFilters,
+      getTotal,
     }
   },
   data() {
     return {
       isFilterSidebarOpen: false,
-      sortBy: this.selectedSorting,
     }
   },
   computed: {
     filters() {
-      return this.availableFilters || []
+      return this.getAvailableFilters || []
     },
     sorting() {
       return this.availableSorting || []
@@ -190,29 +188,34 @@ export default {
       return true
     },
   },
-  watch: {
-    sortBy(newSorting, oldOne) {
-      // prevent reloading on default sorting
-      if (oldOne.name !== newSorting.name) {
-        this.changeSorting(newSorting)
-      }
-    },
-  },
   methods: {
-    toggleFilterValue(value) {
-      this.toggleFilter(value)
+    async toggleFilterValue(filter) {
+      // TODO this logic needs to be taken care of by core with filters recognition
+      const filterCopy = this.sidebarSelectedFilters[filter.field] || []
+      if (!Array.isArray(filterCopy)) filterCopy = [filterCopy]
+      const index = filterCopy.findIndex((element) => element === filter.value)
+      if (index < 0) {
+        filterCopy.push(filter.value)
+      } else {
+        filterCopy.splice(index, 1)
+      }
+
+      this.sidebarSelectedFilters = {
+        ...this.sidebarSelectedFilters,
+        [filter.field]: filterCopy.length ? filterCopy : undefined,
+      }
+      this.search(this.sidebarSelectedFilters)
     },
     async clearAllFilters() {
-      this.resetFilters()
-      await this.changePagination(1)
-      this.isFilterSidebarOpen = false
+      this.closeFiltersSidebar()
+      await this.search()
     },
-    async submitFilters() {
-      await this.changePagination(1)
-      this.isFilterSidebarOpen = false
+    openFiltersSidebar() {
+      this.isFilterSidebarOpen = true
+      this.initSidebarFilters()
     },
-    getSortLabel(sorting) {
-      return getSortingLabel(sorting)
+    closeFiltersSidebar() {
+      this.isFilterSidebarOpen = false
     },
   },
 }

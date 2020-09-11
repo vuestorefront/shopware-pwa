@@ -16,4 +16,5 @@ export * from "./hooks/useProductSearch";
 export * from "./factories/createCheckoutStep";
 export * from "./logic/useDefaults";
 export * from "./getDefaultApiParams";
+export * from "./logic/useListing";
 export { getApplicationContext, ApplicationVueContext } from "./appContext";
