@@ -42,7 +42,7 @@ export default {
   },
   setup({ filter, selectedValues }, { emit }) {
     const min = computed({
-      get: () => selectedValues.gt || filter.options.min,
+      get: () => selectedValues.gt || filter.min,
       set: (value) =>
         emit("toggle-filter-value", {
           type: "range",
@@ -53,7 +53,7 @@ export default {
         }),
     })
     const max = computed({
-      get: () => selectedValues.lt || filter.options.max,
+      get: () => selectedValues.lt || filter.max,
       set: (value) =>
         emit("toggle-filter-value", {
           type: "range",

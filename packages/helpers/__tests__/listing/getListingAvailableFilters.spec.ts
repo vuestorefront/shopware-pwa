@@ -34,50 +34,19 @@ describe("Shopware helpers - getListingAvailableFilters", () => {
         options: [
           {
             color: undefined,
+            id: "2cc7db79c4214b448df87fb6642ebc57",
             label: "Rolfson-Schuppe",
             value: "2cc7db79c4214b448df87fb6642ebc57",
+            translated: {
+              name: "Rolfson-Schuppe",
+            },
           },
         ],
         type: "entity",
       },
     ]);
   });
-  it("should return transformed filter if properties property is resolved", () => {
-    const aggregations = {
-      properties: {
-        entities: [
-          {
-            name: "color",
-            options: [
-              {
-                name: "mediumblue",
-                colorHexCode: "#ffc",
-                translated: {
-                  name: "mediumblue",
-                },
-                id: "e4af09b1c8ac463ca7a61fac99e71226",
-              },
-            ],
-            id: "8c6aadfc5ed84a7db0b54935e3f60403",
-          },
-        ],
-      },
-    } as any;
-    const result = getListingAvailableFilters(aggregations);
-    expect(result).toEqual([
-      {
-        name: "color",
-        options: [
-          {
-            color: "#ffc",
-            label: "mediumblue",
-            value: "e4af09b1c8ac463ca7a61fac99e71226",
-          },
-        ],
-        type: "entity",
-      },
-    ]);
-  });
+
   it("should return an empty array if resolved aggregation has no values", () => {
     const aggregation = {
       manufacturer: {},
@@ -85,5 +54,85 @@ describe("Shopware helpers - getListingAvailableFilters", () => {
 
     const result = getListingAvailableFilters(aggregation);
     expect(result).toEqual([]);
+  });
+
+  it("should treat properties aggregation differently", () => {
+    const aggregation = {
+      properties: {
+        entities: [
+          {
+            name: "color",
+            options: [
+              {
+                id: "white",
+                name: "white",
+                colorHexCode: "#fff",
+                translated: {
+                  name: "white",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    } as any;
+
+    const result = getListingAvailableFilters(aggregation);
+    expect(result).toStrictEqual([
+      {
+        name: "color",
+        options: [
+          {
+            colorHexCode: "#fff",
+            color: "#fff",
+            id: "white",
+            label: "white",
+            name: "white",
+            translated: { name: "white" },
+            value: "white",
+          },
+        ],
+        type: "entity",
+      },
+    ]);
+  });
+
+  it("should handle max filter type", () => {
+    const aggregation = {
+      "shipping-free": {
+        max: "1",
+      },
+    } as any;
+
+    const result = getListingAvailableFilters(aggregation);
+    expect(result).toEqual([
+      {
+        max: "1",
+        name: "shipping-free",
+        type: "max",
+      },
+    ]);
+  });
+  it("should handle range filter type", () => {
+    const aggregation = {
+      price: {
+        min: "50",
+        max: "974",
+        avg: 770.5172413793103,
+        sum: 22345,
+      },
+    } as any;
+
+    const result = getListingAvailableFilters(aggregation);
+    expect(result).toEqual([
+      {
+        max: "974",
+        name: "price",
+        type: "range",
+        min: "50",
+        avg: 770.5172413793103,
+        sum: 22345,
+      },
+    ]);
   });
 });

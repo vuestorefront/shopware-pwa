@@ -18,7 +18,7 @@ import {
   EqualsFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 
-const mockedGetPage = shopwareClient as jest.Mocked<typeof shopwareClient>;
+const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 describe("Composables - useProductListing", () => {
   const statePage: Ref<Object | null> = ref(null);
@@ -80,6 +80,24 @@ describe("Composables - useProductListing", () => {
         price: {
           gt: 10,
           lt: 15,
+        },
+      });
+    });
+    it("selectedFilters append selected filters with the max type filter", async () => {
+      const { selectedFilters, toggleFilter, resetFilters } = useProductListing(
+        rootContextMock
+      );
+      resetFilters();
+      toggleFilter({
+        type: SearchFilterType.MAX,
+        field: "rating",
+        max: 4,
+      } as any);
+      expect(selectedFilters.value).toStrictEqual({
+        rating: {
+          field: "rating",
+          max: 4,
+          type: SearchFilterType.MAX,
         },
       });
     });
@@ -156,6 +174,7 @@ describe("Composables - useProductListing", () => {
     });
 
     it("should set loading property to false when search is done", async () => {
+      mockedApiClient.getCategoryProductsListing.mockResolvedValue({} as any);
       const { loading, search } = useProductListing(rootContextMock, {
         elements: [{ product: "1" }],
       } as any);
@@ -163,9 +182,57 @@ describe("Composables - useProductListing", () => {
       expect(loading.value).toBe(false);
     });
 
+    it("should not make another call if previous request was basic", async () => {
+      mockedApiClient.getCategoryProductsListing.mockResolvedValue({
+        currentFilters: {
+          rating: null,
+          manufacturer: [],
+          properties: [],
+          "shipping-free": null,
+        },
+        aggregations: {
+          manufacturer: {
+            entities: [
+              {
+                name: "Divante",
+                id: "12345",
+                translated: {
+                  name: "DivanteLtd",
+                },
+              },
+            ],
+          },
+        },
+      } as any);
+      const { availableFilters, search } = useProductListing(
+        rootContextMock,
+        null as any
+      );
+      await search();
+      expect(mockedApiClient.getCategoryProductsListing).toBeCalledTimes(1);
+      expect(availableFilters.value).toStrictEqual([
+        {
+          name: "manufacturer",
+          options: [
+            {
+              color: undefined,
+              id: "12345",
+              label: "DivanteLtd",
+              name: "Divante",
+              translated: { name: "DivanteLtd" },
+              value: "12345",
+            },
+          ],
+          type: "entity",
+        },
+      ]);
+    });
+
     //
     it("should return default total and empty product listing when page resolver fails", async () => {
-      mockedGetPage.getCategoryProductsListing.mockResolvedValueOnce({} as any);
+      mockedApiClient.getCategoryProductsListing.mockResolvedValueOnce(
+        {} as any
+      );
 
       const { products, search, pagination } = useProductListing(
         rootContextMock
@@ -180,7 +247,7 @@ describe("Composables - useProductListing", () => {
     });
 
     it("should return products if exist", async () => {
-      mockedGetPage.getCategoryProductsListing.mockResolvedValueOnce({
+      mockedApiClient.getCategoryProductsListing.mockResolvedValue({
         elements: [
           {
             id: "123456",
@@ -276,6 +343,7 @@ describe("Composables - useProductListing", () => {
     });
 
     it("should perform change the shared pagination object if change succeeds", async () => {
+      mockedApiClient.getCategoryProductsListing.mockResolvedValue({} as any);
       const { pagination, changePagination } = useProductListing(
         rootContextMock
       );
@@ -294,6 +362,63 @@ describe("Composables - useProductListing", () => {
       it("should return 0 by default", () => {
         const { productsTotal } = useProductListing(rootContextMock);
         expect(productsTotal.value).toBeFalsy();
+      });
+    });
+
+    describe("availableFilters", () => {
+      it("should parse aggregations if the initial listing has any", () => {
+        const { availableFilters } = useProductListing(rootContextMock, {
+          aggregations: {
+            manufacturer: {
+              entities: [
+                {
+                  name: "Dicki, Gerhold and Witting",
+                  translated: {
+                    name: "Dicki, Gerhold and Witting",
+                  },
+                },
+              ],
+            },
+          },
+        } as any);
+
+        expect(availableFilters.value).toStrictEqual([
+          {
+            name: "manufacturer",
+            options: [
+              {
+                color: undefined,
+                label: "Dicki, Gerhold and Witting",
+                value: undefined,
+                name: "Dicki, Gerhold and Witting",
+                translated: {
+                  name: "Dicki, Gerhold and Witting",
+                },
+              },
+            ],
+            type: "entity",
+          },
+        ]);
+      });
+      it("should make another call if the response is narrowed down", async () => {
+        mockedApiClient.getCategoryProductsListing.mockResolvedValue({
+          aggregations: {
+            color: {
+              elements: [],
+            },
+          },
+          currentFilters: {
+            manufacturer: [{ name: "shopware ag" }],
+            properties: [{ name: "color" }],
+          },
+        } as any);
+
+        const { availableFilters, search } = useProductListing(
+          rootContextMock as any
+        );
+        await search();
+        expect(mockedApiClient.getCategoryProductsListing).toBeCalledTimes(2);
+        expect(availableFilters.value).toStrictEqual([]);
       });
     });
   });

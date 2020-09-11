@@ -30,6 +30,40 @@ describe("Shopware helpers - getFilterSearchCriteria", () => {
     ]);
   });
 
+  it("should return shipping-free filter if any provided", () => {
+    const result = getFilterSearchCriteria({
+      "shipping-free": {
+        type: "max",
+        max: 1,
+        field: "shipping-free",
+      },
+    } as any);
+    expect(result).toEqual([
+      {
+        type: "max",
+        max: 1,
+        field: "shipping-free",
+      },
+    ]);
+  });
+
+  it("should return rating filter if any provided", () => {
+    const result = getFilterSearchCriteria({
+      rating: {
+        max: 4,
+        field: "rating",
+        type: "max",
+      },
+    } as any);
+    expect(result).toEqual([
+      {
+        field: "rating",
+        type: "max",
+        max: 4,
+      },
+    ]);
+  });
+
   it("should return manufacturerId filter if any provided", () => {
     const result = getFilterSearchCriteria({
       manufacturer: ["divante-ltd"],
@@ -51,23 +85,35 @@ describe("Shopware helpers - getFilterSearchCriteria", () => {
   });
 
   it("should return shipping-free filter if any provided", () => {
-    const result = getFilterSearchCriteria({ "shipping-free": true });
+    const result = getFilterSearchCriteria({
+      "shipping-free": {
+        field: "shipping-free",
+        max: true,
+        type: "max",
+      },
+    });
     expect(result).toEqual([
       {
         field: "shipping-free",
-        type: "equals",
-        value: true,
+        max: true,
+        type: "max",
       },
     ]);
   });
 
   it("should return shipping-free filter if any provided", () => {
-    const result = getFilterSearchCriteria({ "shipping-free": true });
+    const result = getFilterSearchCriteria({
+      "shipping-free": {
+        field: "shipping-free",
+        max: true,
+        type: "max",
+      },
+    });
     expect(result).toEqual([
       {
         field: "shipping-free",
-        type: "equals",
-        value: true,
+        max: true,
+        type: "max",
       },
     ]);
   });

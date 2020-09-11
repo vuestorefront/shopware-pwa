@@ -6,6 +6,7 @@ import {
 import {
   EqualsFilter,
   RangeFilter,
+  MaxFilter,
   SearchFilterType,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 
@@ -151,7 +152,7 @@ export const toggleEntityFilter = (
  * @beta
  */
 export const toggleFilter = (
-  filter: EqualsFilter | RangeFilter,
+  filter: EqualsFilter | RangeFilter | MaxFilter,
   selectedCriteria: any,
   forceSave: boolean = false
 ): void => {
@@ -168,7 +169,17 @@ export const toggleFilter = (
     );
   }
 
-  if (filter.type !== SearchFilterType.RANGE) {
+  if (filter.type === SearchFilterType.MAX) {
+    const maxFilter = filter as MaxFilter;
+    // if (!selectedCriteria.filters[filter.field]) {
+    //   selectedCriteria.filters[filter.field] = {};
+    // }
+    selectedCriteria.filters = Object.assign({}, selectedCriteria.filters, {
+      [filter.field]: maxFilter,
+    });
+  }
+
+  if (![SearchFilterType.RANGE, SearchFilterType.MAX].includes(filter.type)) {
     const equalsFilter = filter as EqualsFilter;
     if (!!selectedCriteria.filters[equalsFilter.field]) {
       let selected = selectedCriteria.filters[equalsFilter.field];

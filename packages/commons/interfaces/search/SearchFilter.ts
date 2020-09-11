@@ -19,6 +19,7 @@ export enum SearchFilterType {
   NOT = "not",
   MULTI = "multi",
   RANGE = "range",
+  MAX = "max",
 }
 
 /**
@@ -66,6 +67,14 @@ export interface RangeFilter extends SearchFilter {
     | LtGteRangeFilter
     | LteGtRangeFilter
     | LteGteRangeFilter;
+}
+
+/**
+ * @beta
+ */
+export interface MaxFilter extends SearchFilter {
+  field: string;
+  max: number;
 }
 
 /**

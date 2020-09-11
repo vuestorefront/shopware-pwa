@@ -20,6 +20,18 @@ describe("SearchConverter - convertToStoreApiFilters", () => {
     ]);
     expect(result).toEqual({});
   });
+  it("should return object with provided max filter", () => {
+    const result = convertToStoreApiFilters([
+      {
+        type: "max",
+        field: "rating",
+        max: 5,
+      } as any,
+    ]);
+    expect(result).toEqual({
+      rating: 5,
+    });
+  });
   it("should return object with manufacturer property if manufacturerId filter exists", () => {
     const result = convertToStoreApiFilters([
       {
