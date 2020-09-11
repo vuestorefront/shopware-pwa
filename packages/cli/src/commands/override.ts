@@ -50,7 +50,7 @@ module.exports = {
     const answers = await toolbox.prompt.ask([componentToOverrideQuestion]);
 
     const copyFrom = path.join(directoryPath, answers.componentToOverride);
-    const copyTo = path.join("src", "components", answers.componentToOverride);
+    const copyTo = path.join("components", answers.componentToOverride);
 
     try {
       await toolbox.filesystem.copyAsync(copyFrom, copyTo);
