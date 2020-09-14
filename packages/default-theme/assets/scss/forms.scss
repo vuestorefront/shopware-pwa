@@ -1,0 +1,101 @@
+@import "@/assets/scss/variables.scss";
+
+.sw-form {
+  --form-direction: var(--flex-direction, column);
+  --form-input-margin-bottom: var(--form-input-margin-bottom, 0);
+  --form-input-margin-left: 0;
+  --form-input-margin-right: 0;
+  --form-input-margin-top: 0;
+
+  --form-checkbox-margin-bottom: var(--spacer-base);
+  --form-checkbox-margin-left: 0;
+  --form-checkbox-margin-right: 0;
+  --form-checkbox-margin-top: var(--spacer-base);
+
+  --form-button-margin-bottom: 0;
+  --form-button-margin-left: 0;
+  --form-button-margin-right: 0;
+  --form-button-margin-top: var(--spacer-base);
+
+  --form-radio-margin-bottom: 0;
+  --form-radio-margin-left: 0;
+  --form-radio-margin-right: 0;
+  --form-radio-margin-top: var(--spacer-base);
+
+  --form-select-padding-bottom: 0;
+  --form-select-padding-left: 0;
+  --form-select-padding-right: 0;
+  --form-select-padding-top: 0;
+
+  align-items: stretch;
+  display: flex;
+  flex-direction: var(--form-direction);
+  flex-wrap: nowrap;
+
+  &__input {
+    margin-bottom: var(--form-input-margin-bottom);
+    margin-left: var(--form-input-margin-left);
+    margin-right: var(--form-input-margin-right);
+    margin-top: var(--form-input-margin-top);
+  }
+
+  &__checkbox {
+    margin-bottom: var(--form-checkbox-margin-bottom);
+    margin-left: var(--form-checkbox-margin-left);
+    margin-right: var(--form-checkbox-margin-right);
+    margin-top: var(--form-checkbox-margin-top);
+  }
+
+  &__button {
+    margin-bottom: var(--form-button-margin-bottom);
+    margin-left: var(--form-button-margin-left);
+    margin-right: var(--form-button-margin-right);
+    margin-top: var(--form-button-margin-top);
+  }
+
+  &__select {
+    padding-bottom: var(--form-select-padding-bottom);
+    padding-left: var(--form-select-padding-left);
+    padding-right: var(--form-select-padding-right);
+    padding-top: var(--form-select-padding-top);
+
+    .sf-select__selected.sf-select-option {
+      min-height: 46px;
+    }
+  }
+
+  &__radio {
+    & + .sw-form__radio {
+      margin-top: var(--form-radio-margin-top);
+    }
+  }
+
+  .inputs-group {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: var(--flex-direction, column);
+    justify-content: stretch;
+
+    > * {
+      width: 100%;
+    }
+  }
+
+  @include for-desktop {
+    .inputs-group {
+      flex-direction: var(--flex-direction, row);
+    }
+
+    &__input {
+      --form-input-margin-bottom: var(--spacer-xs);
+      --form-input-margin-left: var(--spacer-sm);
+      --form-input-margin-right: var(--spacer-sm);
+      --form-input-margin-top: var(--spacer-xs);
+    }
+
+    &__select {
+      --form-select-padding-bottom: var(--spacer-sm);
+      --form-select-padding-top: var(--spacer-sm);
+    }
+  }
+}

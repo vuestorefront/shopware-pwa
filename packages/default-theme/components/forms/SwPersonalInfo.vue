@@ -11,32 +11,34 @@
       <SwErrorsList :list="getErrorMessage" />
 
       <div class="sw-personal-info__form form">
-        <slot name="form">
-          <SwInput
-            v-model="firstName"
-            :valid="!$v.firstName.$error"
-            error-message="First name is required"
-            name="firstName"
-            label="First Name"
-            class="form__element form__element--half form__element--half-even"
-            @blur="$v.firstName.$touch()"
-          />
-          <SwInput
-            v-model="lastName"
-            :valid="!$v.lastName.$error"
-            error-message="Last name is required"
-            name="lastName"
-            label="Last Name"
-            class="form__element form__element--half"
-            @blur="$v.lastName.$touch()"
-          />
+        <slot name="sw-form">
+          <div class="inputs-group">
+            <SwInput
+              v-model="firstName"
+              :valid="!$v.firstName.$error"
+              error-message="First name is required"
+              name="firstName"
+              label="First Name"
+              class="sw-form__input"
+              @blur="$v.firstName.$touch()"
+            />
+            <SwInput
+              v-model="lastName"
+              :valid="!$v.lastName.$error"
+              error-message="Last name is required"
+              name="lastName"
+              label="Last Name"
+              class="sw-form__input"
+              @blur="$v.lastName.$touch()"
+            />
+          </div>
           <SwInput
             v-model="email"
             :valid="!$v.email.$error"
             error-message="Proper email is required"
             name="email"
             label="Your email"
-            class="form__element"
+            class="sw-form__input"
             @blur="$v.email.$touch()"
           />
           <SwInput
@@ -47,7 +49,7 @@
             type="email"
             name="emailConfirmation"
             label="Confirm e-mail"
-            class="form__element"
+            class="sw-form__input"
             required
             @blur="$v.emailConfirmation.$touch()"
           />
@@ -59,12 +61,12 @@
             type="password"
             name="password"
             label="Your password"
-            class="form__element"
+            class="sw-form__input"
             required
             @blur="$v.password.$touch()"
           />
           <SwButton
-            class="form__button"
+            class="sw-form__button"
             :disabled="$v.$invalid && !isEmailChanging && !isNameChanging"
             @click="invokeUpdate"
           >
@@ -223,40 +225,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/variables";
-
-.form {
-  @include for-desktop {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  &__element {
-    margin: 0 0 var(--spacer-lg) 0;
-    &:first-child {
-      margin: 0 0 var(--spacer-base) 0;
-    }
-    @include for-desktop {
-      flex: 0 0 100%;
-    }
-    &--half {
-      @include for-desktop {
-        flex: 1 1 50%;
-      }
-      &-even {
-        @include for-desktop {
-          padding: 0 var(--spacer-lg) 0 0;
-        }
-      }
-    }
-  }
-  &__button {
-    --button-width: 100%;
-    @include for-desktop {
-      --button-width: auto;
-    }
-  }
-}
+@import "@/assets/scss/forms";
 
 .message {
   margin: 0 0 var(--spacer-xl) 0;

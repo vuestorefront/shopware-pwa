@@ -163,21 +163,6 @@ export default {
   justify-content: space-between;
 }
 
-.form {
-  &__input {
-    margin-bottom: var(--spacer-sm);
-    &--email {
-      margin-bottom: var(--spacer-sm);
-    }
-  }
-  &__checkbox {
-    margin-bottom: var(--spacer-base);
-  }
-  &__button {
-    margin-top: var(--spacer-base);
-  }
-}
-
 .action {
   margin-top: var(--spacer-base);
   text-align: center;
