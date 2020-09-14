@@ -1,6 +1,6 @@
 <template>
   <div v-if="getComponent">
-    <SfHeading class="filters__title" :level="4" :title="filter.name" />
+    <SfHeading class="filters__title" :level="4" :title="filter.label" />
     <component
       :is="getComponent"
       :filter="filter"
@@ -40,7 +40,7 @@ export default {
     getComponent() {
       try {
         return () => ({
-          component: import("@/components/listing/types/" + this.filter.type),
+          component: import("@/components/listing/types/" + this.filter.code),
           error: NoFilterFound,
         })
       } catch (e) {
@@ -51,7 +51,7 @@ export default {
       return this.selectedFilters || []
     },
     selected() {
-      return this.selectedFilters[this.filter.name]
+      return this.selectedFilters[this.filter.code]
     },
   },
   methods: {

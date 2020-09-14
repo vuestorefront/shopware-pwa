@@ -1,12 +1,12 @@
 <template>
   <div
-    v-if="filter.options && filter.options.length"
+    v-if="filter.entities && filter.entities.length"
     :class="{
       'filters__filter--color': filter.name === 'color',
     }"
   >
     <SfFilter
-      v-for="option in filter.options"
+      v-for="option in filter.entities"
       :key="option.value"
       :label="option.label"
       :count="option.count"

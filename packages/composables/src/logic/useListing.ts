@@ -1,5 +1,5 @@
 import { getCategoryProducts } from "@shopware-pwa/shopware-6-client";
-import { getListingAvailableFilters } from "@shopware-pwa/helpers";
+import { getListingFilters } from "@shopware-pwa/helpers";
 
 import {
   useCms,
@@ -151,7 +151,7 @@ export const useListing = (
   };
 
   const getAvailableFilters = computed(() => {
-    return getListingAvailableFilters(getCurrentListing.value?.aggregations);
+    return getListingFilters(getCurrentListing.value?.aggregations);
   });
 
   const getCurrentFilters = computed(() => {

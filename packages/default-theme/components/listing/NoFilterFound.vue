@@ -4,10 +4,10 @@
       <span class="sf-alert__message">
         Filter
         <b>
-          {{ filter.type }}
+          {{ filter.code }}
         </b>
         is not implemented! Please add new filter to
-        `src/components/listing/types/{{ filter.type }}.vue`
+        `src/components/listing/types/{{ filter.code }}.vue`
       </span>
     </template>
   </SfAlert>
