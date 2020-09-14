@@ -57,8 +57,8 @@
             </SfProperty>
             <SwButton
               class="sf-button--full-width color-secondary"
-              @click="goToCheckout()"
               data-cy="goToCheckout-button"
+              @click="goToCheckout()"
               >{{ $t("Go to checkout") }}</SwButton
             >
             <SwPluginSlot name="sidecart-checkout-button-after" />
@@ -127,6 +127,15 @@ export default {
       totalPrice,
       removeProduct,
     }
+  },
+
+  // TODO: hotfix - not final solution. To remove after fix cause of a problem.
+  watch: {
+    isSidebarOpen(val) {
+      if (!val) {
+        document.body.style.overflow = "auto"
+      }
+    },
   },
   methods: {
     goToCheckout() {

@@ -6,6 +6,7 @@
       :filter="filter"
       :selected-values="selectedValues"
       @toggle-filter-value="toggleFilterValue"
+      :selected="selected"
       :key="filter.code"
     />
   </div>
@@ -19,6 +20,8 @@ const filterMap = {
     import(`@shopware-pwa/default-theme/components/listing/types/entity.vue`),
   range: () =>
     import(`@shopware-pwa/default-theme/components/listing/types/range.vue`),
+  max: () =>
+    import(`@shopware-pwa/default-theme/components/listing/types/max.vue`),
 }
 
 export default {
@@ -57,9 +60,11 @@ export default {
       // filters may come with the different format depending on whether useProductListing or useProductSearch is used
       return (
         (this.filter.type === "entity" && this.selectedEntityFilters) ||
-        this.selectedFilters[this.filter.name] ||
-        []
+        this.selectedFilters[this.filter.name]
       )
+    },
+    selected() {
+      return this.selectedFilters[this.filter.name]
     },
   },
   methods: {

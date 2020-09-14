@@ -83,6 +83,24 @@ describe("Composables - useProductListing", () => {
         },
       });
     });
+    it("selectedFilters append selected filters with the max type filter", async () => {
+      const { selectedFilters, toggleFilter, resetFilters } = useProductListing(
+        rootContextMock
+      );
+      resetFilters();
+      toggleFilter({
+        type: SearchFilterType.MAX,
+        field: "rating",
+        max: 4,
+      } as any);
+      expect(selectedFilters.value).toStrictEqual({
+        rating: {
+          field: "rating",
+          max: 4,
+          type: SearchFilterType.MAX,
+        },
+      });
+    });
 
     it("selectedFilters should be filled with passed one", async () => {
       const { selectedEntityFilters, toggleFilter } = useProductListing(
@@ -156,11 +174,58 @@ describe("Composables - useProductListing", () => {
     });
 
     it("should set loading property to false when search is done", async () => {
+      mockedApiClient.getCategoryProductsListing.mockResolvedValue({} as any);
       const { loading, search } = useProductListing(rootContextMock, {
         elements: [{ product: "1" }],
       } as any);
       await search();
       expect(loading.value).toBe(false);
+    });
+
+    it("should not make another call if previous request was basic", async () => {
+      mockedApiClient.getCategoryProductsListing.mockResolvedValue({
+        currentFilters: {
+          rating: null,
+          manufacturer: [],
+          properties: [],
+          "shipping-free": null,
+        },
+        aggregations: {
+          manufacturer: {
+            entities: [
+              {
+                name: "Divante",
+                id: "12345",
+                translated: {
+                  name: "DivanteLtd",
+                },
+              },
+            ],
+          },
+        },
+      } as any);
+      const { availableFilters, search } = useProductListing(
+        rootContextMock,
+        null as any
+      );
+      await search();
+      expect(mockedApiClient.getCategoryProductsListing).toBeCalledTimes(1);
+      expect(availableFilters.value).toStrictEqual([
+        {
+          name: "manufacturer",
+          options: [
+            {
+              color: undefined,
+              id: "12345",
+              label: "DivanteLtd",
+              name: "Divante",
+              translated: { name: "DivanteLtd" },
+              value: "12345",
+            },
+          ],
+          type: "entity",
+        },
+      ]);
     });
 
     //
@@ -182,7 +247,7 @@ describe("Composables - useProductListing", () => {
     });
 
     it("should return products if exist", async () => {
-      mockedApiClient.getCategoryProductsListing.mockResolvedValueOnce({
+      mockedApiClient.getCategoryProductsListing.mockResolvedValue({
         elements: [
           {
             id: "123456",
@@ -278,6 +343,7 @@ describe("Composables - useProductListing", () => {
     });
 
     it("should perform change the shared pagination object if change succeeds", async () => {
+      mockedApiClient.getCategoryProductsListing.mockResolvedValue({} as any);
       const { pagination, changePagination } = useProductListing(
         rootContextMock
       );

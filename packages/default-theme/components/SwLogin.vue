@@ -13,31 +13,31 @@
         v-model="email"
         name="email"
         label="Your email"
-        class="form__input"
+        class="sw-form__input"
         :valid="!$v.email.$error"
         :disabled="isLoading"
         error-message="Email is required"
-        @blur="$v.email.$touch()"
         data-cy="email-input"
+        @blur="$v.email.$touch()"
       />
       <SwInput
         v-model="password"
         name="password"
         label="Password"
         type="password"
-        class="form__input"
+        class="sw-form__input"
         :valid="!$v.password.$error"
         :disabled="isLoading"
         error-message="Password is required"
-        @blur="$v.password.$touch()"
         data-cy="password-input"
+        @blur="$v.password.$touch()"
       />
       <SwPluginSlot name="login-form-button">
         <SwButton
-          class="sf-button--full-width form__button"
+          class="sf-button--full-width sw-form__button"
           :disabled="isLoading"
-          @click="invokeLogin"
           data-cy="submit-login-button"
+          @click="invokeLogin"
         >
           Log in
         </SwButton>
@@ -99,23 +99,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/variables";
+@import "@/assets/scss/forms";
 
 .sw-login {
   &__alert {
     margin-bottom: var(--spacer-base);
-  }
-}
-
-.form {
-  &__input {
-    margin: var(--spacer-base) 0;
-  }
-  &__checkbox {
-    margin-bottom: var(--spacer-base);
-  }
-  &__button {
-    margin-top: var(--spacer-base);
   }
 }
 </style>

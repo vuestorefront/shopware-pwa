@@ -207,7 +207,21 @@ describe("composables searchCriteria", () => {
       toggleFilter(undefined as any, selectedCriteria);
       expect(selectedCriteria.filters).toStrictEqual({});
     });
-
+    it("should add max filter key if not exists", async () => {
+      const selectedCriteria = { filters: {} } as any;
+      toggleFilter(
+        {
+          type: "max",
+          field: "max-filter",
+        } as any,
+        selectedCriteria
+      );
+      expect(selectedCriteria.filters).toHaveProperty("max-filter");
+      expect(selectedCriteria.filters["max-filter"]).toStrictEqual({
+        type: "max",
+        field: "max-filter",
+      });
+    });
     it("filters should be filled with passed one", async () => {
       const selectedCriteria = { filters: {} } as any;
       toggleFilter(

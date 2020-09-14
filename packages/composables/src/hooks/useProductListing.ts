@@ -3,6 +3,7 @@ import { ref, Ref, computed, reactive } from "@vue/composition-api";
 import {
   EqualsFilter,
   RangeFilter,
+  MaxFilter,
   SearchFilterType,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { getCategoryProductsListing } from "@shopware-pwa/shopware-6-client";
@@ -86,6 +87,8 @@ export const useProductListing = (
   // check whether the search result has some filters applied
   /* istanbul ignore next */
   const isBaseRequest = () =>
+    productListingResult.value?.currentFilters?.rating === null &&
+    productListingResult.value?.currentFilters["shipping-free"] === null &&
     !productListingResult.value?.currentFilters?.manufacturer?.length &&
     !productListingResult.value?.currentFilters?.properties?.length;
 
@@ -127,12 +130,17 @@ export const useProductListing = (
   };
 
   const toggleFilter = (
-    filter: EqualsFilter | RangeFilter,
+    filter: EqualsFilter | RangeFilter | MaxFilter,
     forceSave?: boolean
   ): undefined | string => {
     if (!filter || !Object.keys(filter).length) {
       return;
     }
+
+    if (filter.type === SearchFilterType.MAX) {
+      toggleGenericFilter(filter, selectedCriteria);
+    }
+
     if (filter.type === SearchFilterType.RANGE) {
       toggleGenericFilter(filter, selectedCriteria);
     }
@@ -184,7 +192,7 @@ export const useProductListing = (
     // base response has always all the aggregations
     if (isBaseRequest()) {
       sharedListing.availableFilters = getListingAvailableFilters(
-        productListingResult.value?.aggregations
+        productListingResult.value.aggregations
       );
     } else {
       // get the aggregations without narrowing down the results, so another api call is needed (using post-aggregation may fix it)
