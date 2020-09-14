@@ -33,6 +33,7 @@
 |  [useCheckout](./composables.usecheckout.md) | <b><i>(BETA)</i></b> Composable for Checkout management. Options - [IUseCheckout](./composables.iusecheckout.md) |
 |  [useDefaults](./composables.usedefaults.md) | <b><i>(BETA)</i></b> Returns default config depending on config key. It is used in composables, so defaultsKey is in most cases composable name (ex. <code>useDefaults(rootContext, &quot;useCms&quot;)</code>) |
 |  [useNavigation](./composables.usenavigation.md) | <b><i>(BETA)</i></b> Composable for navigation. Options - [IUseNavigation](./composables.iusenavigation.md) |
+|  [useNotifications](./composables.usenotifications.md) | <b><i>(BETA)</i></b> |
 |  [useSessionContext](./composables.usesessioncontext.md) | <b><i>(BETA)</i></b> Composable for session management. Options - [IUseSessionContext](./composables.iusesessioncontext.md) |
 |  [useUIState](./composables.useuistate.md) | <b><i>(BETA)</i></b> Simple state management for UI purposes. |
 |  [useUser](./composables.useuser.md) | <b><i>(BETA)</i></b> Composable for user management. Options - [IUseUser](./composables.iuseuser.md) |

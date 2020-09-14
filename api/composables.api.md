@@ -8,6 +8,7 @@ import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/cu
 import { Association } from '@shopware-pwa/commons/interfaces/search/Association';
 import { BillingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
+import { ComputedRef } from '@vue/composition-api';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
@@ -340,6 +341,17 @@ export const useDefaults: (rootContext: ApplicationVueContext, defaultsKey: stri
 // @beta
 export const useNavigation: (rootContext: ApplicationVueContext) => IUseNavigation;
 
+// @beta (undocumented)
+export const useNotifications: () => {
+    notifications: ComputedRef<Notification_2[]>;
+    removeOne: (id: number) => void;
+    removeAll: () => void;
+    pushInfo: (message: string) => void;
+    pushWarning: (message: string) => void;
+    pushError: (message: string) => void;
+    pushSuccess: (message: string) => void;
+};
+
 // @alpha (undocumented)
 export interface UseProduct<PRODUCT, SEARCH> {
     // (undocumented)
@@ -442,6 +454,10 @@ export interface VuelidateValidation {
     $touch: () => void;
 }
 
+
+// Warnings were encountered during analysis:
+//
+// src/logic/useNotifications.ts:19:30 - (ae-forgotten-export) The symbol "Notification" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { computed, reactive } from "@vue/composition-api";
+import { computed, reactive, ComputedRef } from "@vue/composition-api";
 
 interface Notification {
   type: "info" | "warning" | "success" | "danger";
@@ -16,7 +16,15 @@ const sharedNotifications = Vue.observable({
 /**
  * @beta
  */
-export const useNotifications = () => {
+export const useNotifications = (): {
+  notifications: ComputedRef<Notification[]>;
+  removeOne: (id: number) => void;
+  removeAll: () => void;
+  pushInfo: (message: string) => void;
+  pushWarning: (message: string) => void;
+  pushError: (message: string) => void;
+  pushSuccess: (message: string) => void;
+} => {
   const localNotifications = reactive(sharedNotifications);
 
   /**
