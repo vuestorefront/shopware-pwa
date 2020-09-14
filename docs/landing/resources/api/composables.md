@@ -23,6 +23,7 @@
 |  [IUseNavigation](./composables.iusenavigation.md) | <b><i>(BETA)</i></b> interface for [useNavigation](./composables.usenavigation.md) composable |
 |  [IUseSessionContext](./composables.iusesessioncontext.md) | <b><i>(BETA)</i></b> interface for [useSessionContext](./composables.usesessioncontext.md) composable |
 |  [IUseUser](./composables.iuseuser.md) | <b><i>(BETA)</i></b> interface for [useUser](./composables.useuser.md) composable |
+|  [Notification\_2](./composables.notification_2.md) | <b><i>(BETA)</i></b> |
 
 ## Variables
 

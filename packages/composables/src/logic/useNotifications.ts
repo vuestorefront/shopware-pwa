@@ -1,7 +1,10 @@
 import Vue from "vue";
 import { computed, reactive, ComputedRef } from "@vue/composition-api";
 
-interface Notification {
+/**
+ * @beta
+ */
+export interface Notification {
   type: "info" | "warning" | "success" | "danger";
   message: string;
   id?: number;

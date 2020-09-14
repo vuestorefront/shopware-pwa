@@ -280,6 +280,18 @@ export interface IUseUser {
     user: Ref<Customer | null>;
 }
 
+// @beta (undocumented)
+interface Notification_2 {
+    // (undocumented)
+    id?: number;
+    // (undocumented)
+    message: string;
+    // (undocumented)
+    type: "info" | "warning" | "success" | "danger";
+}
+
+export { Notification_2 as Notification }
+
 // @alpha (undocumented)
 export type Search = (path: string, associations?: any) => any;
 
@@ -454,10 +466,6 @@ export interface VuelidateValidation {
     $touch: () => void;
 }
 
-
-// Warnings were encountered during analysis:
-//
-// src/logic/useNotifications.ts:19:30 - (ae-forgotten-export) The symbol "Notification" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 
