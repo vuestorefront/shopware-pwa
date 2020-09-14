@@ -6,7 +6,6 @@ export const state = () => ({
   locales: ["en-GB", "de-DE"],
   locale: "en-GB",
   initialListings: {},
-  currentListings: {},
   appliedListings: {},
 })
 
@@ -33,11 +32,6 @@ export const mutations = {
       [listingKey]: initialListing,
     })
   },
-  SET_CURRENT_LISTING(state, { listingKey, currentListing }) {
-    state.currentListings = Object.assign({}, state.currentListings, {
-      [listingKey]: currentListing,
-    })
-  },
   SET_APPLIED_LISTING(state, { listingKey, appliedListing }) {
     state.appliedListings = Object.assign({}, state.appliedListings, {
       [listingKey]: appliedListing,
@@ -51,6 +45,5 @@ export const getters = {
   getUser: (state) => state.user,
   getSessionContext: (state) => state.sessionContext,
   getInitialListings: (state) => state.initialListings,
-  getCurrentListings: (state) => state.currentListings,
   getAppliedListings: (state) => state.appliedListings,
 }

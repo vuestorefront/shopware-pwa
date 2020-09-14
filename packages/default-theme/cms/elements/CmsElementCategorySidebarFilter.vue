@@ -128,7 +128,8 @@ export default {
   setup(props, { root }) {
     const { availableSorting } = useCategoryFilters(root)
     const {
-      currentSortingOrder,
+      getCurrentSortingOrder,
+      changeCurrentSortingOrder,
       getOrderOptions,
       getAvailableFilters,
       search,
@@ -146,6 +147,11 @@ export default {
       sidebarSelectedFilters.value =
         JSON.parse(JSON.stringify(getCurrentFilters.value)) || {}
     }
+
+    const currentSortingOrder = computed({
+      get: () => getCurrentSortingOrder.value,
+      set: (order) => changeCurrentSortingOrder(order),
+    })
 
     return {
       search,

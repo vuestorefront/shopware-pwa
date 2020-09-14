@@ -30,9 +30,9 @@
         <div key="holder" class="cms-element-product-listing__place-holder" />
       </transition-group>
       <SfPagination
-        v-if="currentPage && !isListView"
+        v-if="getCurrentPage && !isListView"
         class="cms-element-product-listing__pagination"
-        :current="currentPage"
+        :current="getCurrentPage"
         :total="getTotalPagesCount"
         :visible="5"
         @click="changePage"
@@ -40,7 +40,7 @@
         <template #prev>
           <span
             class="cms-element-product-listing__pagination__number"
-            @click="changePage(currentPage - 1)"
+            @click="changePage(getCurrentPage - 1)"
           >
             &lt;
           </span>
@@ -49,7 +49,7 @@
           <span
             class="cms-element-product-listing__pagination__number"
             :style="{
-              'font-weight': currentPage === page ? 700 : 300,
+              'font-weight': getCurrentPage === page ? 700 : 300,
             }"
             @click="changePage(page)"
           >
@@ -59,13 +59,13 @@
         <template #next>
           <span
             class="cms-element-product-listing__pagination__number"
-            @click="changePage(currentPage + 1)"
+            @click="changePage(getCurrentPage + 1)"
           >
             &gt;
           </span>
         </template>
       </SfPagination>
-      <div v-else-if="currentPage < getTotalPagesCount" class="load-more">
+      <div v-else-if="getCurrentPage < getTotalPagesCount" class="load-more">
         <SwButton
           class="sf-button--outline"
           @click="loadMore"
@@ -113,7 +113,8 @@ export default {
     const {
       getProducts,
       setInitialListing,
-      currentPage,
+      getCurrentPage,
+      changeCurrentPage,
       getTotalPagesCount,
       loading,
       loadMore,
@@ -134,8 +135,8 @@ export default {
     const { isOpen: isListView } = useUIState(root, "PRODUCT_LISTING_STATE")
 
     const changePage = async (pageNumber) => {
-      currentPage.value = pageNumber
       window.scrollTo(0, 0)
+      await changeCurrentPage(pageNumber)
     }
 
     return {
@@ -144,7 +145,7 @@ export default {
       loading,
       isListView,
       getProducts,
-      currentPage,
+      getCurrentPage,
       loadMore,
       loadingMore,
     }

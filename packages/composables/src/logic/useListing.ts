@@ -9,6 +9,7 @@ import {
 } from "@shopware-pwa/composables";
 import { computed, ref } from "@vue/composition-api";
 import merge from "lodash/merge";
+import { ShopwareParams } from "@shopware-pwa/shopware-6-client/src/helpers/searchConverter";
 
 /**
  * @alpha
@@ -29,18 +30,23 @@ export const useListing = (
     rootContext,
     "useListing"
   );
+  const { getDefaults } = useDefaults(rootContext, "useProductListing");
+  const { categoryId } = useCms(rootContext);
 
   const loading = ref(false);
   const loadingMore = ref(false);
-  const { getDefaults } = useDefaults(rootContext, "useProductListing");
-  const { categoryId } = useCms(rootContext);
 
   const getInitialListing = computed(
     () => vuexStore.getters.getInitialListings[listingKey] || {}
   );
-  const setInitialListing = (initialListing: any) =>
+  const setInitialListing = (initialListing: any) => {
     vuexStore.commit("SET_INITIAL_LISTING", { listingKey, initialListing });
+    appliedListing.value = null;
+  };
 
+  const getCurrentRouteQuery = computed(() => router.currentRoute.query);
+
+  // for internal usage, actual listing is computed from applied and initial listing
   const appliedListing = computed({
     get: () => vuexStore.getters.getAppliedListings[listingKey],
     set: (appliedListing) => {
@@ -48,9 +54,10 @@ export const useListing = (
     },
   });
 
-  const search = async (criteria: any): Promise<void> => {
+  const search = async (criteria: Partial<ShopwareParams>): Promise<void> => {
     loading.value = true;
     try {
+      // replace URL query params with currently selected criteria
       router
         .replace({
           query: {
@@ -59,6 +66,7 @@ export const useListing = (
         })
         .catch(() => {});
 
+      // prepare full criteria using defaults and currently selected criteria
       const searchCriteria = merge({}, getDefaults(), criteria);
       const result = await getCategoryProducts(
         categoryId.value,
@@ -77,8 +85,8 @@ export const useListing = (
     loadingMore.value = true;
     try {
       const query = {
-        ...router.currentRoute.query,
-        p: currentPage.value + 1,
+        ...getCurrentRouteQuery.value,
+        p: getCurrentPage.value + 1,
       };
 
       const searchCriteria = merge({}, getDefaults(), query);
@@ -122,29 +130,25 @@ export const useListing = (
     return Object.values(sortings);
   });
 
-  // TODO: add possibility to pass an array for multiple orders strategy
-  const currentSortingOrder = computed({
-    get: () => getCurrentListing.value?.sorting,
-    set: (order) => {
-      const query = {
-        ...router.currentRoute.query,
-        order,
-      };
-      search(query);
-    },
-  });
+  const getCurrentSortingOrder = computed(
+    () => getCurrentListing.value?.sorting
+  );
+  const changeCurrentSortingOrder = async (order: string | string[]) => {
+    const query = {
+      ...getCurrentRouteQuery.value,
+      order,
+    };
+    await search(query);
+  };
 
-  const currentPage = computed({
-    get: () => getCurrentListing.value?.page || 1,
-    set: (page) => {
-      const query = {
-        ...router.currentRoute.query,
-        p: page || 1,
-      };
-
-      search(query);
-    },
-  });
+  const getCurrentPage = computed(() => getCurrentListing.value?.page || 1);
+  const changeCurrentPage = async (pageNumber: number | string) => {
+    const query = {
+      ...getCurrentRouteQuery.value,
+      p: pageNumber || 1,
+    };
+    await search(query);
+  };
 
   const getAvailableFilters = computed(() => {
     return getListingAvailableFilters(getCurrentListing.value?.aggregations);
@@ -154,7 +158,7 @@ export const useListing = (
     const currentFiltersResult: any = {};
     const currentFilters = {
       ...getCurrentListing.value.currentFilters,
-      ...router.currentRoute.query,
+      ...getCurrentRouteQuery.value,
     };
     Object.keys(currentFilters).forEach((objectKey) => {
       if (!currentFilters[objectKey]) return;
@@ -179,8 +183,10 @@ export const useListing = (
     getCurrentListing,
     getProducts,
     getOrderOptions,
-    currentSortingOrder,
-    currentPage,
+    getCurrentSortingOrder,
+    changeCurrentSortingOrder,
+    getCurrentPage,
+    changeCurrentPage,
     getTotal,
     getTotalPagesCount,
     getLimit,
