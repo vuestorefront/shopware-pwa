@@ -54,6 +54,7 @@ export default {
 
   .sf-notification {
     max-width: 100%;
+    --notification-font-size: 0.9em;
   }
 }
 </style>

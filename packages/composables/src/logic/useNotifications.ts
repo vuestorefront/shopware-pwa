@@ -41,47 +41,25 @@ export const useNotifications = () => {
     id: new Date().getTime(),
   });
 
-  /**
-   * Exposed methods to push the notifications by its type
-   */
-  const pushInfo = (message: string) =>
+  const pushNotification = (
+    type: "info" | "warning" | "success" | "danger",
+    message: string
+  ) => {
     sharedNotifications.list.push(
       appendId({
-        type: "info",
+        type,
         message,
       })
     );
-  const pushSuccess = (message: string) =>
-    sharedNotifications.list.push(
-      appendId({
-        type: "success",
-        message,
-      })
-    );
-
-  const pushWarning = (message: string) =>
-    sharedNotifications.list.push(
-      appendId({
-        type: "warning",
-        message,
-      })
-    );
-
-  const pushError = (message: string) =>
-    sharedNotifications.list.push(
-      appendId({
-        type: "danger",
-        message,
-      })
-    );
+  };
 
   return {
     removeOne,
     removeAll,
-    pushInfo,
-    pushSuccess,
-    pushWarning,
-    pushError,
+    pushInfo: (message: string) => pushNotification("info", message),
+    pushSuccess: (message: string) => pushNotification("success", message),
+    pushWarning: (message: string) => pushNotification("warning", message),
+    pushError: (message: string) => pushNotification("danger", message),
     notifications: computed(() => localNotifications.list),
   };
 };

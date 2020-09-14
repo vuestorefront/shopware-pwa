@@ -1,6 +1,10 @@
 import { ref, Ref, computed } from "@vue/composition-api";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { useCart, getApplicationContext } from "@shopware-pwa/composables";
+import {
+  useCart,
+  useNotifications,
+  getApplicationContext,
+} from "@shopware-pwa/composables";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { ApplicationVueContext } from "../appContext";
 
@@ -56,6 +60,7 @@ export const useAddToCart = (
 ): IUseAddToCart => {
   getApplicationContext(rootContext, "useAddToCart");
   const { addProduct, cartItems } = useCart(rootContext);
+  const { pushError, pushSuccess } = useNotifications();
   const quantity: Ref<number> = ref(1);
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
@@ -72,9 +77,11 @@ export const useAddToCart = (
     try {
       await addProduct({ id: product.id, quantity: quantity.value });
       quantity.value = 1;
+      pushSuccess(`${product.name} has been added to cart.`);
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err;
+      pushError("Product cannot be added to cart.");
     } finally {
       loading.value = false;
     }

@@ -32,7 +32,10 @@ import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/req
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
-import { getApplicationContext } from "@shopware-pwa/composables";
+import {
+  getApplicationContext,
+  useNotifications,
+} from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
 
 /**
@@ -95,7 +98,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     rootContext,
     "useUser"
   );
-
+  const { pushSuccess } = useNotifications();
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
   const orders: Ref<Order[] | null> = ref(null);
@@ -150,6 +153,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       error.value = err.message;
     } finally {
       await refreshUser();
+      pushSuccess("you have been logged out");
     }
   };
 
