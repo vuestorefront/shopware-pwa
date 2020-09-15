@@ -24,6 +24,7 @@ export async function createOrder(
  * Creates an order for not logged in users
  * Should be used when the user is logged out, but has items in the cart
  * @alpha
+ * @deprecated - This function can be replaced with createOrder() for guests as well
  */
 export async function createGuestOrder(
   params: GuestOrderParams,
