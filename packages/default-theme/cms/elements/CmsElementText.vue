@@ -77,7 +77,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../settings.scss";
+@import "@/cms/settings.scss";
 
 .cms-element-text {
   @include sizing-mode-boxed;
