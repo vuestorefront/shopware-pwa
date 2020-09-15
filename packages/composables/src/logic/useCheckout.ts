@@ -12,7 +12,6 @@ import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Or
 import {
   getAvailableShippingMethods,
   getAvailablePaymentMethods,
-  createGuestOrder,
   createOrder as createApiOrder,
 } from "@shopware-pwa/shopware-6-client";
 import { useSessionContext } from "@shopware-pwa/composables";
@@ -99,14 +98,7 @@ export const useCheckout = (
 
   const createOrder = async () => {
     try {
-      if (isGuestOrder.value) {
-        return await createGuestOrder(
-          orderData.guestOrderParams as GuestOrderParams,
-          apiInstance
-        );
-      } else {
-        return await createApiOrder(apiInstance);
-      }
+      return await createApiOrder(apiInstance);
     } catch (e) {
       console.error(
         "[useCheckout][createOrder] isGuest:" + isGuestOrder.value,
