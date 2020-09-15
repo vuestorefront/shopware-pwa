@@ -86,11 +86,11 @@ import {
 } from "@shopware-pwa/shopware-6-client"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import { PAGE_ORDER_SUCCESS } from "@shopware-pwa/default-theme/helpers/pages"
-import SwOrderDetailsItem from "./SwOrderDetailsItem"
-import SwPersonalDetails from "./SwPersonalDetails"
-import SwAddress from "./SwAddress"
-import SwCheckoutMethod from "./SwCheckoutMethod"
-import SwTotals from "./SwTotals"
+import SwOrderDetailsItem from "@/components/SwOrderDetailsItem"
+import SwPersonalDetails from "@/components/SwPersonalDetails"
+import SwAddress from "@/components/SwAddress"
+import SwCheckoutMethod from "@/components/SwCheckoutMethod"
+import SwTotals from "@/components/SwTotals"
 
 export default {
   name: "SwOrderDetails",
