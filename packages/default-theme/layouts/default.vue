@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <SwNotifications />
-
+    <SwOfflineMode />
     <SwPluginSlot name="page-top" />
     <SwHeader />
 
@@ -40,7 +40,7 @@ import { useCms, useUIState } from "@shopware-pwa/composables"
 import { computed, ref, watchEffect } from "@vue/composition-api"
 import SwLoginModal from "@shopware-pwa/default-theme/components/modals/SwLoginModal"
 import SwNotifications from "@shopware-pwa/default-theme/components/SwNotifications"
-
+import SwOfflineMode from "@shopware-pwa/default-theme/components/SwOfflineMode"
 const SwCart = () => import("@shopware-pwa/default-theme/components/SwCart")
 
 export default {

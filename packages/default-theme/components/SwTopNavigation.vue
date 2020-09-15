@@ -81,7 +81,11 @@ export default {
 
       // fixes a watch issue - fetch the elements if watch wasn't fired
       if (Array.isArray(navigationElements) && !navigationElements.length) {
-        fetchNavigationElements(3)
+        try {
+          fetchNavigationElements(3)
+        } catch (e) {
+          console.error("[SwTopNavigation]", e)
+        }
       }
     })
 
