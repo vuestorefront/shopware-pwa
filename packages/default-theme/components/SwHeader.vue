@@ -2,6 +2,12 @@
   <div class="sw-top-navigation" data-cy="main-header">
     <SfOverlay :visible="isOpen" class="sw-overlay" />
 
+    <SwCookieBar v-if="isAccepted">
+      <template #cookieText>
+        <SwCookieBarDescription />
+      </template>
+    </SwCookieBar>
+
     <SwTopBar />
 
     <SfHeader
@@ -36,6 +42,9 @@ import SwHeaderIcons from "@shopware-pwa/default-theme/components/SwHeaderIcons"
 import SwTopNavigation from "@shopware-pwa/default-theme/components/SwTopNavigation"
 import SwSearchBar from "@shopware-pwa/default-theme/components/SwSearchBar"
 
+import SwCookieBar from "@shopware-pwa/default-theme/components/gdpr/SwCookieBar"
+import SwCookieBarDescription from "@shopware-pwa/default-theme/components/gdpr/SwCookieBarDescription"
+
 export default {
   components: {
     SfHeader,
@@ -45,12 +54,15 @@ export default {
     SwHeaderIcons,
     SwTopNavigation,
     SwSearchBar,
+    SwCookieBar,
+    SwCookieBarDescription,
   },
   setup(props, { root }) {
     const { isOpen } = useUIState(root, "MEGA_MENU_OVERLAY_STATE")
 
     return {
       isOpen,
+      isAccepted: true,
     }
   },
 }
