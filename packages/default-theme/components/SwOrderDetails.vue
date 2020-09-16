@@ -37,20 +37,30 @@
         address-title="Billing address"
         class="content"
       />
-      <SwCheckoutMethod
-        v-if="paymentMethod"
-        :method="paymentMethod"
-        label="Payment method"
-        class="content"
-      />
-      <SwPluginSlot name="order-details-payment-method-after"></SwPluginSlot>
-      <SwCheckoutMethod
-        v-if="shippingMethod"
-        :method="shippingMethod"
-        label="Shipping method"
-        class="content"
-      />
-      <SwPluginSlot name="order-details-shipping-method-after"></SwPluginSlot>
+
+      <SwPluginSlot
+        name="order-details-payment-method"
+        :slot-context="paymentMethod"
+      >
+        <SwCheckoutMethod
+          v-if="paymentMethod"
+          :method="paymentMethod"
+          label="Payment method"
+          class="content"
+        />
+      </SwPluginSlot>
+
+      <SwPluginSlot
+        name="order-details-shipping-method"
+        :slot-context="shippingMethod"
+      >
+        <SwCheckoutMethod
+          v-if="shippingMethod"
+          :method="shippingMethod"
+          label="Shipping method"
+          class="content"
+        />
+      </SwPluginSlot>
       <SfProperty name="Order status" :value="status" />
       <SfLoader
         :loading="isPaymentButtonLoading"

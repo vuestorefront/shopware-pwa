@@ -38,6 +38,7 @@ export default {
   &__content {
     font-size: var(--font-xs);
     color: var(--c-text-muted);
+    margin-bottom: var(--spacer-sm);
   }
 }
 
