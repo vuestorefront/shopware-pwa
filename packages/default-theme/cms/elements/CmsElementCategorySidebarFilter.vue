@@ -70,7 +70,8 @@
             class="filters__filter"
             :filter="filter"
             v-for="filter in filters"
-            :selected-filters="sidebarSelectedFilters[filter.name]"
+            :current-filters="sidebarSelectedFilters"
+            :selected-filters="sidebarSelectedFilters[filter.code]"
             :selected-entity-filters="{}"
             :key="filter.name"
             @toggle-filter-value="toggleFilterValue"
@@ -164,6 +165,7 @@ export default {
       initSidebarFilters,
       sidebarSelectedFilters,
       getTotal,
+      getCurrentFilters,
     }
   },
   data() {
@@ -196,19 +198,36 @@ export default {
   },
   methods: {
     async toggleFilterValue(filter) {
-      // TODO this logic needs to be taken care of by core with filters recognition
-      const filterCopy = this.sidebarSelectedFilters[filter.field] || []
-      if (!Array.isArray(filterCopy)) filterCopy = [filterCopy]
-      const index = filterCopy.findIndex((element) => element === filter.value)
-      if (index < 0) {
-        filterCopy.push(filter.value)
-      } else {
-        filterCopy.splice(index, 1)
-      }
+      // TODO WIP - this logic needs to be taken care of by core with filters recognition
+      console.error("TOGGLE FILTER", filter)
 
-      this.sidebarSelectedFilters = {
-        ...this.sidebarSelectedFilters,
-        [filter.field]: filterCopy.length ? filterCopy : undefined,
+      if (["range", "max"].includes(filter.type)) {
+        // if(filter.value) this.sidebarSelectedFilters[filter.code]
+        this.sidebarSelectedFilters = Object.assign(
+          {},
+          {
+            ...this.sidebarSelectedFilters,
+            [filter.code]: filter.value ? filter.value : undefined,
+          }
+        )
+      } else {
+        let filterCopy = this.sidebarSelectedFilters[filter.code] || []
+        if (!Array.isArray(filterCopy)) filterCopy = [filterCopy]
+        const index = filterCopy.findIndex(
+          (element) => element === filter.value
+        )
+        if (index < 0) {
+          filterCopy.push(filter.value)
+        } else {
+          filterCopy.splice(index, 1)
+        }
+        this.sidebarSelectedFilters = Object.assign(
+          {},
+          {
+            ...this.sidebarSelectedFilters,
+            [filter.code]: filterCopy.length ? filterCopy : undefined,
+          }
+        )
       }
       this.search(this.sidebarSelectedFilters)
     },

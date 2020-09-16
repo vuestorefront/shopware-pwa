@@ -6,6 +6,7 @@
       class="filter__range-min"
       type="number"
       v-model="min"
+      @blur="minChanged"
     />
     <SwInput
       label="Max"
@@ -13,6 +14,7 @@
       class="filter__range-max"
       type="number"
       v-model="max"
+      @blur="maxChanged"
     />
   </div>
 </template>
@@ -41,31 +43,30 @@ export default {
     },
   },
   setup({ filter, selectedValues }, { emit }) {
-    const min = computed({
-      get: () => selectedValues.gt || filter.min,
-      set: (value) =>
-        emit("toggle-filter-value", {
-          type: "range",
-          parameters: {
-            gt: value,
-          },
-          field: filter.name,
-        }),
-    })
-    const max = computed({
-      get: () => selectedValues.lt || filter.max,
-      set: (value) =>
-        emit("toggle-filter-value", {
-          type: "range",
-          parameters: {
-            lt: value,
-          },
-          field: filter.name,
-        }),
-    })
+    const min = ref(selectedValues.gt || filter.min)
+    const max = ref(selectedValues.lt || filter.max)
+
+    const minChanged = () => {
+      emit("toggle-filter-value", {
+        ...filter,
+        type: "range",
+        code: `min-${filter.code}`,
+        value: min.value,
+      })
+    }
+    const maxChanged = () => {
+      emit("toggle-filter-value", {
+        ...filter,
+        type: "range",
+        code: `max-${filter.code}`,
+        value: max.value,
+      })
+    }
     return {
       min,
       max,
+      minChanged,
+      maxChanged,
     }
   },
 }

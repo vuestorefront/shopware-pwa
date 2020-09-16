@@ -96,8 +96,17 @@
         "page",
         "limit",
         "sortings",
+        "availableSortings",
         "total",
         "aggregations"
+      ],
+      "property_group": ["id", "translated", "options"],
+      "property_group_option": [
+        "name",
+        "translated",
+        "id",
+        "colorHexCode",
+        "media"
       ]
     }
   },
@@ -119,7 +128,14 @@
       "calculated_price": ["unitPrice", "quantity"],
       "product_group_option": ["name", "id", "group", "translated"],
       "product_group": ["id", "name", "options", "translated"],
-      "property_group_option": ["name", "translated", "id", "colorHexCode", "media"]
+      "property_group": ["id", "translated", "options"],
+      "property_group_option": [
+        "name",
+        "translated",
+        "id",
+        "colorHexCode",
+        "media"
+      ]
     }
   },
   "useProduct": {

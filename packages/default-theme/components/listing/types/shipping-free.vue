@@ -3,10 +3,10 @@
     <SfCheckbox
       v-model="selected"
       @change="
-        $emit('toggle-select', {
+        $emit('toggle-filter-value', {
+          ...filter,
           type: 'max',
-          max: !max,
-          field: filter.name,
+          value: !currentFilters[filter.code],
         })
       "
     />
@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      selected: this.max,
+      selected: false, // !!this.currentFilters[filter.code],
     }
   },
   props: {
@@ -35,8 +35,8 @@ export default {
       type: Object,
       default: () => ({}),
     },
-    max: {
-      type: Boolean,
+    currentFilters: {
+      type: Object,
     },
   },
 }

@@ -4,6 +4,7 @@
     <component
       :is="getComponent"
       :filter="filter"
+      :current-filters="currentFilters"
       :selected-values="selectedValues"
       @toggle-filter-value="toggleFilterValue"
       :selected="selected"
@@ -35,12 +36,16 @@ export default {
       type: Array | Object,
       default: () => [],
     },
+    currentFilters: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   computed: {
     getComponent() {
       try {
         return () => ({
-          component: import("@/components/listing/types/" + this.filter.code),
+          component: import("@/components/listing/types/" + this.filter.label),
           error: NoFilterFound,
         })
       } catch (e) {

@@ -28,11 +28,11 @@ export function getListingFilters(
   }
   const transformedFilters: ListingFilter[] = [];
   for (const [aggregationName, aggregation] of Object.entries(aggregations)) {
-    if (aggregationName === "properties") {
+    if (aggregationName === "properties" && aggregation.entities) {
       for (const property of aggregation.entities) {
         transformedFilters.push(getFilter(aggregationName, property));
       }
-    } else {
+    } else if (!["properties", "options"].includes(aggregationName)) {
       transformedFilters.push(getFilter(aggregationName, aggregation));
     }
   }

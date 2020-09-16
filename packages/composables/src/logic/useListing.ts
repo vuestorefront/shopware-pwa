@@ -44,8 +44,6 @@ export const useListing = (
     appliedListing.value = null;
   };
 
-  const getCurrentRouteQuery = computed(() => router.currentRoute.query);
-
   // for internal usage, actual listing is computed from applied and initial listing
   const appliedListing = computed({
     get: () => vuexStore.getters.getAppliedListings[listingKey],
@@ -85,7 +83,7 @@ export const useListing = (
     loadingMore.value = true;
     try {
       const query = {
-        ...getCurrentRouteQuery.value,
+        ...router.currentRoute.query,
         p: getCurrentPage.value + 1,
       };
 
@@ -126,8 +124,8 @@ export const useListing = (
   );
 
   const getOrderOptions = computed(() => {
-    const sortings = getCurrentListing.value?.sortings || {};
-    return Object.values(sortings);
+    const oldSortings = Object.values(getCurrentListing.value?.sortings || {}); // before Shopware 6.4
+    return getCurrentListing.value?.availableSortings || oldSortings;
   });
 
   const getCurrentSortingOrder = computed(
@@ -135,7 +133,7 @@ export const useListing = (
   );
   const changeCurrentSortingOrder = async (order: string | string[]) => {
     const query = {
-      ...getCurrentRouteQuery.value,
+      ...router.currentRoute.query,
       order,
     };
     await search(query);
@@ -144,7 +142,7 @@ export const useListing = (
   const getCurrentPage = computed(() => getCurrentListing.value?.page || 1);
   const changeCurrentPage = async (pageNumber: number | string) => {
     const query = {
-      ...getCurrentRouteQuery.value,
+      ...router.currentRoute.query,
       p: pageNumber || 1,
     };
     await search(query);
@@ -158,7 +156,7 @@ export const useListing = (
     const currentFiltersResult: any = {};
     const currentFilters = {
       ...getCurrentListing.value.currentFilters,
-      ...getCurrentRouteQuery.value,
+      ...router.currentRoute.query,
     };
     Object.keys(currentFilters).forEach((objectKey) => {
       if (!currentFilters[objectKey]) return;

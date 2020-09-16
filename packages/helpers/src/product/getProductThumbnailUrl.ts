@@ -12,7 +12,8 @@ export function getProductThumbnailUrl(product: Product): string {
     thumb
   ) {
     return thumb.width < res.width ? thumb : res;
-  });
+  },
+  {});
 
   return thumbnailImage?.url || coverImageUrlFallback;
 }

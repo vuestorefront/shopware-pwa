@@ -1,27 +1,22 @@
 <template>
   <div
-    v-if="filter.entities && filter.entities.length"
+    v-if="getOptions.length"
     :class="{
       'filters__filter--color': filter.name === 'color',
     }"
   >
     <SfFilter
-      v-for="option in filter.entities"
-      :key="option.value"
-      :label="option.label"
-      :count="option.count"
-      :color="filter.name === 'color' ? option.name : null"
-      :selected="
-        selectedValues &&
-        !!selectedValues.find((propertyId) => propertyId === option.value)
-      "
+      v-for="option in getOptions"
+      :key="option.id"
+      :label="option.translated.name"
+      :color="filter.code === 'color' ? option.name : null"
+      :selected="selectedValues && selectedValues.includes(option.id)"
       class="filters__item"
       :class="{ 'filters__item--color': option.color }"
       @change="
         $emit('toggle-filter-value', {
-          type: 'equals',
-          value: option.value,
-          field: filter.name,
+          ...filter,
+          value: option.id,
         })
       "
     />
@@ -42,6 +37,11 @@ export default {
     selectedValues: {
       type: Array | Object,
       default: () => [],
+    },
+  },
+  computed: {
+    getOptions() {
+      return this.filter.entities || this.filter.options || []
     },
   },
 }
