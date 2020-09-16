@@ -1,22 +1,23 @@
 <template>
   <div class="sw-register" @keyup.enter="invokeRegister">
     <SwPluginSlot name="registration-form-before" />
-    <div class="form sw-register">
-      <!-- <h2 class="sw-register__header">Register</h2> -->
+    <div class="sw-form sw-register">
       <SfAlert
-        v-if="userError || salutationsError || countriesError"
+        v-for="(message, index) in userErrorMessages"
+        :key="index"
         class="sw-register__alert"
         type="danger"
-        :message="getErrorMessage"
+        :message="message"
         data-cy="register-alert"
       />
+
       <SfSelect
         v-if="getMappedSalutations && getMappedSalutations.length > 0"
         v-model="salutation"
         label="Salutation"
         :valid="!$v.salutation.$error"
         error-message="Salutation must be selected"
-        class="sf-select--underlined form__input form__select form__element"
+        class="sf-select--underlined sw-form__input sw-form__select form__element"
         data-cy="salutation-select"
       >
         <SfSelectOption
@@ -28,86 +29,90 @@
           {{ salutationOption.name }}
         </SfSelectOption>
       </SfSelect>
-      <SwInput
-        v-model="firstName"
-        name="first-name"
-        label="First Name"
-        class="form__input form__element form__element--small"
-        :valid="!$v.firstName.$error"
-        error-message="First name is required"
-        @blur="$v.firstName.$touch()"
-        data-cy="first-name-input"
-      />
-      <SwInput
-        v-model="lastName"
-        name="last-name"
-        label="Last Name"
-        class="form__input form__element form__element--small"
-        :valid="!$v.lastName.$error"
-        error-message="Last name is required"
-        @blur="$v.lastName.$touch()"
-        data-cy="last-name-input"
-      />
-      <SwInput
-        v-model="email"
-        name="email"
-        label="Your email"
-        class="form__input form__element form__element--small form__element"
-        :valid="!$v.email.$error"
-        error-message="Proper email is required"
-        @blur="$v.email.$touch()"
-        data-cy="email-input"
-      />
+      <div class="inputs-group">
+        <SwInput
+          v-model="firstName"
+          name="first-name"
+          label="First Name"
+          class="sw-form__input form__element form__element--small"
+          :valid="!$v.firstName.$error"
+          error-message="First name is required"
+          data-cy="first-name-input"
+          @blur="$v.firstName.$touch()"
+        />
+        <SwInput
+          v-model="lastName"
+          name="last-name"
+          label="Last Name"
+          class="sw-form__input form__element form__element--small"
+          :valid="!$v.lastName.$error"
+          error-message="Last name is required"
+          data-cy="last-name-input"
+          @blur="$v.lastName.$touch()"
+        />
+        <SwInput
+          v-model="email"
+          name="email"
+          label="Your email"
+          class="sw-form__input form__element form__element--small form__element"
+          :valid="!$v.email.$error"
+          error-message="Proper email is required"
+          data-cy="email-input"
+          @blur="$v.email.$touch()"
+        />
+      </div>
       <SwInput
         v-model="password"
         name="password"
         label="Password"
         type="password"
-        class="form__input form__element"
+        class="sw-form__input form__element"
         :valid="!$v.password.$error"
         error-message="Minimum password length is 8 characters"
-        @blur="$v.password.$touch()"
         data-cy="password-input"
+        @blur="$v.password.$touch()"
       />
-      <SwInput
-        v-model="street"
-        name="street"
-        label="Street"
-        class="form__input form__element form__element--small"
-        :valid="!$v.street.$error"
-        error-message="Street is required"
-        @blur="$v.street.$touch()"
-        data-cy="street-input"
-      />
-      <SwInput
-        v-model="city"
-        name="city"
-        label="City"
-        class="form__input form__element form__element--small"
-        :valid="!$v.city.$error"
-        error-message="City is required"
-        @blur="$v.city.$touch()"
-        data-cy="city-input"
-      />
-      <SwInput
-        v-model="zipcode"
-        name="zipcode"
-        label="Zip Code"
-        class="form__input form__element form__element--small"
-        :valid="!$v.zipcode.$error"
-        error-message="Zipcode is required."
-        @blur="$v.zipcode.$touch()"
-        data-cy="zip-code-input"
-      />
+      <div class="inputs-group">
+        <SwInput
+          v-model="street"
+          name="street"
+          label="Street"
+          class="sw-form__input form__element form__element--small"
+          :valid="!$v.street.$error"
+          error-message="Street is required"
+          data-cy="street-input"
+          @blur="$v.street.$touch()"
+        />
+        <SwInput
+          v-model="city"
+          name="city"
+          label="City"
+          class="sw-form__input form__element form__element--small"
+          :valid="!$v.city.$error"
+          error-message="City is required"
+          data-cy="city-input"
+          @blur="$v.city.$touch()"
+        />
+        <SwInput
+          v-model="zipcode"
+          name="zipcode"
+          label="Zip Code"
+          class="sw-form__input form__element form__element--small"
+          :valid="!$v.zipcode.$error"
+          error-message="Zipcode is required."
+          data-cy="zip-code-input"
+          @blur="$v.zipcode.$touch()"
+        />
+      </div>
       <SfSelect
-        v-model="country"
         v-if="getMappedCountries && getMappedCountries.length > 0"
+        v-model="country"
         label="Country"
-        class="sf-select--underlined form__input form__element"
+        class="sf-select--underlined sw-form__input form__element"
         :valid="!$v.country.$error"
         error-message="Country must be selected"
-        @blur="$v.country.$touch()"
         data-cy="country-select"
+        @blur="$v.country.$touch()"
       >
         <SfSelectOption
           v-for="countryOption in getMappedCountries"
@@ -119,10 +124,10 @@
         </SfSelectOption>
       </SfSelect>
       <SwButton
-        class="sf-button--full-width form__button"
+        class="sf-button--full-width sw-form__button"
         :disabled="isLoading"
-        @click="invokeRegister"
         data-cy="submit-register-button"
+        @click="invokeRegister"
       >
         Create an account
       </SwButton>
@@ -140,7 +145,11 @@ import {
   useCountries,
   useSalutations,
 } from "@shopware-pwa/composables"
-import { mapCountries, mapSalutations } from "@shopware-pwa/helpers"
+import {
+  mapCountries,
+  mapSalutations,
+  getMessagesFromErrorsArray,
+} from "@shopware-pwa/helpers"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
@@ -171,16 +180,19 @@ export default {
     const getMappedSalutations = computed(() =>
       mapSalutations(getSalutations.value)
     )
+    const userErrorMessages = computed(() =>
+      getMessagesFromErrorsArray(userError.value && userError.value.message)
+    )
 
     return {
       clientLogin: login,
       clientRegister: register,
       isLoading: loading,
-      userError,
       countriesError,
       getMappedCountries,
       salutationsError,
       getMappedSalutations,
+      userErrorMessages,
     }
   },
   computed: {
@@ -205,14 +217,6 @@ export default {
           countryId: this.country.id,
         },
       }
-    },
-    getErrorMessage() {
-      if (this.userError)
-        return "Cannot create a new account, the user may already exist"
-      if (this.salutationsError)
-        return "Couldn't fetch available salutations, please contact the administration."
-      if (this.countriesError)
-        return "Couldn't fetch available countries, please contact the administration."
     },
   },
   validations: {
@@ -268,7 +272,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/variables";
+@import "@/assets/scss/forms";
 
 .sw-login {
   &__alert {
@@ -286,48 +290,18 @@ export default {
   }
 }
 
-.form {
-  &__input {
-    margin-bottom: var(--spacer-sm);
-  }
-  &__select {
-    margin-bottom: 0;
-  }
-  &__checkbox {
-    margin-bottom: var(--spacer-base);
-  }
-  @include for-desktop {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    &__element {
-      flex: 0 0 100%;
-      &--small {
-        flex: 1 1 calc(33% - calc(2 * var(--spacer-sm)));
-        margin-right: var(--spacer-sm);
-        &:odd {
-          margin-right: 0;
-        }
-      }
-    }
-  }
-}
-
 .sf-button--muted {
   color: var(--c-text-muted);
 }
-</style>
 
-//
-<style lang="scss" scoped>
-// .sf-modal__container {
-//   width: 100% !important;
-//   height: 100% !important;
-//   @media screen and (min-width: 900px) {
-//     width: auto !important;
-//     height: auto !important;
-//   }
-// }
-//
+.message {
+  margin: 0 0 var(--spacer-xl) 0;
+  color: var(--c-dark-variant);
+  &__label {
+    font-weight: 400;
+  }
+  &--second {
+    padding: 4rem;
+  }
+}
 </style>

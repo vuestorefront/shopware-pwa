@@ -126,7 +126,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../settings.scss";
+@import "@/cms/settings.scss";
 
 // additional screen variables
 $desktop-big: 1200px;

@@ -135,7 +135,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       return true;
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err.message;
+      error.value = err;
       return false;
     } finally {
       loading.value = false;

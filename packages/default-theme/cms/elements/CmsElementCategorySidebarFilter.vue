@@ -219,7 +219,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../settings.scss";
+@import "@/cms/settings.scss";
 
 .navbar {
   position: relative;

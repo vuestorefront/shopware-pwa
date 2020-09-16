@@ -12,8 +12,8 @@
       :level="3"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <div class="form">
-      <div class="form__radio-group">
+    <div class="sw-form">
+      <div class="sw-form__radio-group">
         <SfRadio
           v-for="shippingMethod in shippingMethods"
           :key="shippingMethod.id"
@@ -22,7 +22,7 @@
           :value="shippingMethod.id"
           name="shippingMethod"
           :description="shippingMethod.deliveryTime.translated.name"
-          class="form__radio shipping"
+          class="sw-form__radio shipping"
         >
           <template #label="{label}">
             <div class="sf-radio__label shipping__label">
@@ -59,13 +59,13 @@
           >Go Back to Personal details</SwButton
         >
         <SwButton
-          class="sf-button--full-width form__action-button"
+          class="sf-button--full-width form__action-button sw-form__button"
           data-cy="continue-to-payment"
           @click="$emit('proceed')"
           >Continue to payment</SwButton
         >
         <SwButton
-          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only"
+          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only sw-form__button"
           @click="$emit('retreat')"
           >Go back to Personal details</SwButton
         >
@@ -74,7 +74,7 @@
   </div>
 </template>
 <script>
-import { SfHeading, SfRadio, SfAlert } from "@storefront-ui/vue"
+import { SfHeading, SfRadio } from "@storefront-ui/vue"
 import { computed, onMounted } from "@vue/composition-api"
 import ShippingAddressGuestForm from "@shopware-pwa/default-theme/components/checkout/steps/guest/ShippingAddressGuestForm"
 import ShippingAddressUserForm from "@shopware-pwa/default-theme/components/checkout/steps/user/ShippingAddressUserForm"
@@ -92,7 +92,6 @@ export default {
     SfHeading,
     SwButton,
     SfRadio,
-    SfAlert,
     ShippingAddressGuestForm,
     ShippingAddressUserForm,
     SwPluginSlot,
@@ -121,7 +120,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "@/assets/scss/variables";
+@import "@/assets/scss/forms";
 
 .title {
   --heading-padding: var(--spacer-base) 0;
@@ -130,48 +129,6 @@ export default {
     --heading-padding: var(--spacer-2xl) 0 var(--spacer-base) 0;
     &:last-of-type {
       --heading-padding: var(--spacer-xs) 0 var(--spacer-base) 0;
-    }
-  }
-}
-.form {
-  &__action {
-    flex: 0 0 100%;
-    margin: var(--spacer-base) 0 0 0;
-  }
-  &__action-button {
-    --button-height: 3.25rem;
-  }
-  &__radio-group {
-    position: relative;
-    flex: 0 0 calc(100% + var(--spacer-sm));
-    margin: 0 calc(var(--spacer-sm) * -1);
-  }
-  @include for-mobile {
-    &__radio-group {
-      position: relative;
-      left: 50%;
-      right: 50%;
-      margin-left: -50vw;
-      margin-right: -50vw;
-      width: 100vw;
-    }
-  }
-  @include for-desktop {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    margin: 0 var(--spacer-2xl) 0 0;
-    &:last-of-type {
-      margin: 0 calc(var(--spacer-2xl) - var(--spacer-sm)) 0 0;
-    }
-    &__action {
-      display: flex;
-    }
-    &__action-button {
-      --button-font-weight: var(--font-normal);
-      &:first-child {
-        margin: 0 var(--spacer-lg) 0 0;
-      }
     }
   }
 }
