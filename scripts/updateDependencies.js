@@ -17,7 +17,7 @@ async function run() {
 
   try {
     for (let index = 0; index < list.length; index++) {
-      await execa("ncu", ["-i"], {
+      await execa("npx", ["npm-check-updates", "-i"], {
         stdio: "inherit",
         cwd: list[index],
       });

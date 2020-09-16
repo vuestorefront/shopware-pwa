@@ -48,15 +48,18 @@ describe("CustomerService - register", () => {
   });
 
   it("should never register a customer without billing address", async () => {
-    delete customerData.billingAddress;
+    const customerDataNew: any = {
+      ...customerData,
+      billingAddress: undefined,
+    };
 
     mockedPost.mockRejectedValueOnce(new Error("400"));
 
-    expect(register(customerData)).rejects.toThrowError("400");
+    expect(register(customerDataNew)).rejects.toThrowError("400");
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
       getCustomerRegisterEndpoint(),
-      customerData
+      customerDataNew
     );
   });
 });
