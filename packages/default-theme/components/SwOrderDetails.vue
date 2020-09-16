@@ -18,9 +18,8 @@
               table__amount: tableHeader === 'Amount',
               table__price: tableHeader === 'Price',
             }"
+            >{{ tableHeader }}</SfTableHeader
           >
-            {{ tableHeader }}
-          </SfTableHeader>
         </SfTableHeading>
         <SwOrderDetailsItem
           v-for="item in order.lineItems"
@@ -44,12 +43,14 @@
         label="Payment method"
         class="content"
       />
+      <SwPluginSlot name="order-details-payment-method-after"></SwPluginSlot>
       <SwCheckoutMethod
         v-if="shippingMethod"
         :method="shippingMethod"
         label="Shipping method"
         class="content"
       />
+      <SwPluginSlot name="order-details-shipping-method-after"></SwPluginSlot>
       <SfProperty name="Order status" :value="status" />
       <SfLoader
         :loading="isPaymentButtonLoading"
@@ -58,13 +59,10 @@
         <a v-if="paymentUrl" :href="paymentUrl">
           <SwButton
             class="sf-button sf-button--full-width pay-button color-danger"
+            >Pay for your order</SwButton
           >
-            Pay for your order
-          </SwButton>
         </a>
-        <template #loader>
-          Checking payment status...
-        </template>
+        <template #loader>Checking payment status...</template>
       </SfLoader>
     </div>
   </div>
@@ -105,6 +103,7 @@ export default {
     SwAddress,
     SwCheckoutMethod,
     SwTotals,
+    SwPluginSlot,
   },
   props: {
     orderId: {
