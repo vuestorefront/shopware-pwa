@@ -2,12 +2,11 @@ import { ref, Ref, computed } from "@vue/composition-api";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import {
   useCart,
-  getApplicationContext,
   INTERCEPTOR_KEYS,
   useIntercept,
 } from "@shopware-pwa/composables";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { ApplicationVueContext } from "../appContext";
+import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
 /**
  * interface for {@link useAddToCart} composable

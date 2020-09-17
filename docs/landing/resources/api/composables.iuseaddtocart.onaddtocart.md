@@ -12,5 +12,8 @@ React on product added to cart
 <b>Signature:</b>
 
 ```typescript
-onAddToCart: (fn: (product: Product, quantity: Number) => void) => void;
+onAddToCart: (fn: (params: {
+        product: Product;
+        quantity: Number;
+    }) => void) => void;
 ```

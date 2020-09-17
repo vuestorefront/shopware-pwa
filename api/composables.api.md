@@ -139,7 +139,10 @@ export interface IUseAddToCart {
     getStock: Ref<number | null>;
     isInCart: Ref<boolean>;
     loading: Ref<boolean>;
-    onAddToCart: (fn: (product: Product, quantity: Number) => void) => void;
+    onAddToCart: (fn: (params: {
+        product: Product;
+        quantity: Number;
+    }) => void) => void;
     quantity: Ref<number>;
 }
 
@@ -357,7 +360,7 @@ export const useDefaults: (rootContext: ApplicationVueContext, defaultsKey: stri
     getAssociationsConfig: () => Association[];
 };
 
-// @beta (undocumented)
+// @beta
 export const useIntercept: (rootContext: ApplicationVueContext_2) => IUseIntercept;
 
 // @beta
