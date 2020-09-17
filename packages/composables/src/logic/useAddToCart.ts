@@ -41,7 +41,9 @@ export interface IUseAddToCart {
   /**
    * React on product added to cart
    */
-  onAddToCart: (fn: (product: Product, quantity: Number) => void) => void;
+  onAddToCart: (
+    fn: (params: { product: Product; quantity: Number }) => void
+  ) => void;
 }
 
 /**
