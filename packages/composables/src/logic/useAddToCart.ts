@@ -1,8 +1,12 @@
 import { ref, Ref, computed } from "@vue/composition-api";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { useCart, getApplicationContext } from "@shopware-pwa/composables";
+import {
+  useCart,
+  INTERCEPTOR_KEYS,
+  useIntercept,
+} from "@shopware-pwa/composables";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { ApplicationVueContext } from "../appContext";
+import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
 /**
  * interface for {@link useAddToCart} composable
@@ -33,6 +37,12 @@ export interface IUseAddToCart {
    * Flag if product is already in cart
    */
   isInCart: Ref<boolean>;
+  /**
+   * React on product added to cart
+   */
+  onAddToCart: (
+    fn: (params: { product: Product; quantity: Number }) => void
+  ) => void;
 }
 
 /**
@@ -54,8 +64,9 @@ export const useAddToCart = (
   rootContext: ApplicationVueContext,
   product: Product
 ): IUseAddToCart => {
-  getApplicationContext(rootContext, "useAddToCart");
+  const { contextName } = getApplicationContext(rootContext, "useAddToCart");
   const { addProduct, cartItems } = useCart(rootContext);
+  const { broadcast, intercept } = useIntercept(rootContext);
   const quantity: Ref<number> = ref(1);
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
@@ -71,14 +82,29 @@ export const useAddToCart = (
     if (!quantity.value) quantity.value = 1;
     try {
       await addProduct({ id: product.id, quantity: quantity.value });
+      broadcast(INTERCEPTOR_KEYS.ADD_TO_CART, {
+        product,
+        quantity: quantity.value,
+      });
       quantity.value = 1;
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err;
+      broadcast(INTERCEPTOR_KEYS.ERROR, {
+        methodName: `[${contextName}][addToCart]`,
+        inputParams: {
+          product,
+          quantity: quantity.value,
+        },
+        error: err,
+      });
     } finally {
       loading.value = false;
     }
   };
+
+  const onAddToCart = (fn: Function) =>
+    intercept(INTERCEPTOR_KEYS.ADD_TO_CART, fn);
 
   const getStock = computed(() => product && product.stock);
 
@@ -95,5 +121,6 @@ export const useAddToCart = (
     loading,
     getStock,
     isInCart,
+    onAddToCart,
   };
 };

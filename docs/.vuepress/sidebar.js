@@ -31,6 +31,7 @@ module.exports = {
         "/landing/concepts/plugins",
         "/landing/concepts/payment",
         "/landing/concepts/snippets",
+        "/landing/concepts/interceptor",
       ],
     },
     {
