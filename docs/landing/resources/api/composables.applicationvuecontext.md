@@ -22,12 +22,14 @@ export interface ApplicationVueContext extends VueConstructor
 |  --- | --- | --- |
 |  [$cookies](./composables.applicationvuecontext._cookies.md) | any | <b><i>(BETA)</i></b> |
 |  [$i18n](./composables.applicationvuecontext._i18n.md) | any | <b><i>(BETA)</i></b> |
+|  [$interceptors](./composables.applicationvuecontext._interceptors.md) | any | <b><i>(BETA)</i></b> |
 |  [$router](./composables.applicationvuecontext._router.md) | any | <b><i>(BETA)</i></b> |
 |  [$shopwareApiInstance](./composables.applicationvuecontext._shopwareapiinstance.md) | ShopwareApiInstance | <b><i>(BETA)</i></b> |
 |  [$shopwareDefaults](./composables.applicationvuecontext._shopwaredefaults.md) | any | <b><i>(BETA)</i></b> |
 |  [$store](./composables.applicationvuecontext._store.md) | any | <b><i>(BETA)</i></b> |
 |  [cookies](./composables.applicationvuecontext.cookies.md) | any | <b><i>(BETA)</i></b> |
 |  [i18n](./composables.applicationvuecontext.i18n.md) | any | <b><i>(BETA)</i></b> |
+|  [interceptors](./composables.applicationvuecontext.interceptors.md) | any | <b><i>(BETA)</i></b> |
 |  [router](./composables.applicationvuecontext.router.md) | any | <b><i>(BETA)</i></b> |
 |  [shopwareApiInstance](./composables.applicationvuecontext.shopwareapiinstance.md) | ShopwareApiInstance | <b><i>(BETA)</i></b> |
 |  [shopwareDefaults](./composables.applicationvuecontext.shopwaredefaults.md) | any | <b><i>(BETA)</i></b> |
