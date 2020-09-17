@@ -24,5 +24,6 @@ export interface IUseAddToCart
 |  [getStock](./composables.iuseaddtocart.getstock.md) | Ref&lt;number \| null&gt; | <b><i>(BETA)</i></b> Returns product count in stock |
 |  [isInCart](./composables.iuseaddtocart.isincart.md) | Ref&lt;boolean&gt; | <b><i>(BETA)</i></b> Flag if product is already in cart |
 |  [loading](./composables.iuseaddtocart.loading.md) | Ref&lt;boolean&gt; | <b><i>(BETA)</i></b> Adding to cart is in progress |
+|  [onAddToCart](./composables.iuseaddtocart.onaddtocart.md) | (fn: (params: { product: Product; quantity: Number; }) =&gt; void) =&gt; void | <b><i>(BETA)</i></b> React on product added to cart |
 |  [quantity](./composables.iuseaddtocart.quantity.md) | Ref&lt;number&gt; | <b><i>(BETA)</i></b> If you want to add more that 1 product set quantity before invoking <code>addToCart</code> |
 
