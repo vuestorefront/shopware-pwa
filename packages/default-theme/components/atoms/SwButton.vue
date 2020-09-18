@@ -12,6 +12,12 @@ export default {
   components: {
     SfButton,
   },
+  props: {
+    link: {
+      type: [String, Object],
+      default: "",
+    },
+  },
   setup(props, { root }) {
     return {}
   },

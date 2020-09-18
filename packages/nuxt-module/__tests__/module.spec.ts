@@ -356,14 +356,15 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
   });
 
   it("should add plugins registered in theme - js files only", async () => {
-    await runModule(moduleObject, {});
     mockedFiles.getAllFiles.mockReturnValueOnce([
       "/file/path/plugins/notifications.js",
+      "/file/path/plugins/README.md",
     ]);
-
-    // expect(moduleObject.addPlugin).toBeCalledWith({
-    //   fileName: "plugin.js",
-    //   options: {},
-    // });
+    await runModule(moduleObject, {});
+    expect(moduleObject.addPlugin).toHaveBeenCalledWith({
+      src: "/file/path/plugins/notifications.js",
+      fileName: "notifications.js",
+      options: expect.anything(),
+    });
   });
 });

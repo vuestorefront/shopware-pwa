@@ -55,18 +55,22 @@ export default {
 
 <style lang="scss" scoped>
 .sw-address {
+  align-items: flex-start;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  margin: var(--spacer-sm);
+
   &__title {
     font-size: var(--font-sm);
     margin-bottom: var(--spacer-sm);
     color: var(--c-text);
   }
+
   &__content {
     font-size: var(--font-xs);
   }
 }
+
 .content {
   margin: 0;
   color: var(--c-text-muted);
