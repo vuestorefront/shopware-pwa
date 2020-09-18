@@ -126,6 +126,7 @@ export default {
 
   mounted() {
     window.addEventListener("resize", this.countVisibleCategories)
+    this.countVisibleCategories()
   },
 
   unmounted() {
