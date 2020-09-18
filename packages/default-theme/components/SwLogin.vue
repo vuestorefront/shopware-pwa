@@ -14,6 +14,7 @@
         name="email"
         label="Your email"
         class="sw-form__input"
+        type="email"
         :valid="!$v.email.$error"
         :disabled="isLoading"
         error-message="Email is required"

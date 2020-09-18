@@ -34,7 +34,7 @@ export const getCustomerAddressEndpoint = (addressId?: string) =>
     : "/sales-channel-api/v3/customer/address"; // replace with `/store-api/v4/account/list-address`
 
 const getCustomerDefaultAddressEndpoint = (type: string, addressId: string) =>
-  `/sales-channel-api/v3/customer/address/${addressId}/default-${type}`;  // replace with `/store-api/v4/context` { includes: { customer: defaultBillingAddress|defaultShipingAddress } }
+  `/sales-channel-api/v3/customer/address/${addressId}/default-${type}`; // replace with `/store-api/v4/context` { includes: { customer: defaultBillingAddress|defaultShipingAddress } }
 
 export const getCustomerDefaultBillingAddressEndpoint = (addressId: string) =>
   getCustomerDefaultAddressEndpoint("billing", addressId);
@@ -43,7 +43,7 @@ export const getCustomerDefaultShippingAddressEndpoint = (addressId: string) =>
   getCustomerDefaultAddressEndpoint("shipping", addressId);
 
 export const getCustomerAddressDetailsEndpoint = (addressId: string) =>
-  `/sales-channel-api/v3/customer/address/${addressId}`;  // replace with `/store-api/v4/account/list-address` { ids: [ addressId  }
+  `/sales-channel-api/v3/customer/address/${addressId}`; // replace with `/store-api/v4/account/list-address` { ids: [ addressId  }
 
 export const getCustomerAddressSetDefaultShippingEndpoint = (
   addressId: string
@@ -68,7 +68,7 @@ export const getCustomerLogoutEndpoint = () => `/store-api/v3/account/logout`;
 export const getCustomerOrderEndpoint = () => `/store-api/v3/order`;
 
 export const getCustomerOrderDetailsEndpoint = (orderId: string) =>
-  `/sales-channel-api/v3/checkout/guest-order/${orderId}`; 
+  `/sales-channel-api/v3/checkout/guest-order/${orderId}`;
 
 export const getCustomerUpdateEmailEndpoint = () =>
   `/store-api/v3/account/change-email`;
@@ -96,7 +96,7 @@ export const getCheckoutOrderPayEndpoint = (orderId: string) =>
   `/sales-channel-api/v3/checkout/order/${orderId}/pay`; // replace with `/store-api/v4/handle-payment` { orderId: orderId }
 
 export const getCheckoutGuestOrderDetailsEndpoint = (orderId: string) =>
-  `/sales-channel-api/v3/checkout/guest-order/${orderId}`;  // replace with `/store-api/v3/account/order` { ids: [ orderId ] }
+  `/sales-channel-api/v3/checkout/guest-order/${orderId}`; // replace with `/store-api/v3/account/order` { ids: [ orderId ] }
 
 export const getCheckoutPromotionCodeEndpoint = (code: string) =>
   `/sales-channel-api/v3/checkout/cart/code/${code}`; // replace with `/store-api/v3/checkout/cart/line-item` - see https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/cart?category=shopware-platform-dev-en/store-api-guide#promotion
@@ -112,7 +112,7 @@ export const getContextLanguageEndpoint = () => `/store-api/v3/language`;
 export const getContextCountryEndpoint = () => `/sales-channel-api/v3/country`; // replace with `/store-api/v4/country`
 
 export const getContextCountryItemEndpoint = (countryId: string): string =>
-  `/sales-channel-api/v3/country/${countryId}`;  // replace with `/store-api/v4/country` { ids: [ countryId ] } 
+  `/sales-channel-api/v3/country/${countryId}`; // replace with `/store-api/v4/country` { ids: [ countryId ] }
 
 export const getContextPaymentMethodEndpoint = () =>
   `/store-api/v3/payment-method`;
