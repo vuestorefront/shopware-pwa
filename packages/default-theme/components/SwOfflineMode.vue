@@ -1,11 +1,11 @@
-<template> </template>
+<template></template>
 <script>
 import { useNotifications } from "@shopware-pwa/composables"
 import { computed, watch } from "@vue/composition-api"
 export default {
   name: "SwOfflineMode",
   setup({}, { root }) {
-    const { pushError, pushInfo } = useNotifications()
+    const { pushError, pushInfo } = useNotifications(root)
     const isOffline = computed(() => root.isOffline)
     watch(
       () => isOffline.value,
