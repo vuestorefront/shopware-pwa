@@ -30,13 +30,16 @@ describe("Composables - useUser", () => {
     },
     $shopwareApiInstance: jest.fn(),
   };
+
   const interceptMock = jest.fn();
+  const broadcastMock = jest.fn();
 
   beforeEach(() => {
     jest.resetAllMocks();
     stateUser.value = null;
     mockedComposables.useIntercept.mockImplementation(() => {
       return {
+        broadcast: broadcastMock,
         intercept: interceptMock,
       } as any;
     });
