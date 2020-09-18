@@ -1,13 +1,11 @@
 <template>
   <div class="cookie-description">
     <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque esse natus
-      recusandae voluptatem cum ex porro hic dignissimos necessitatibus, dolorem
-      magni sapiente, et, iste laboriosam maxime? At corporis odio architecto?
+      This site uses cookies. Read our cookies policy.
 
-      <SfLink class="link" :link="$i18n.path()">
-        Link
-      </SfLink>
+      <!-- <SfLink class="link" :link="$i18n.path()">
+        cookies policy.
+      </SfLink> -->
     </p>
   </div>
 </template>
@@ -22,6 +20,8 @@ export default {
 
 <style lang="scss" scoped>
 .cookie-description {
+  padding: var(--spacer-xs) 0;
+
   .link {
     margin-left: var(--spacer-xs);
     font-size: var(--font-xs);

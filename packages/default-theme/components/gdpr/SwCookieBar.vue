@@ -1,12 +1,8 @@
 <template>
-  <SfTopBar
-    v-show="displayCookieBar"
-    class="sw-cookie-bar"
-    data-cy="cookie-bar"
-  >
+  <SfTopBar v-if="displayCookieBar" class="sw-cookie-bar" data-cy="cookie-bar">
     <template #left>
       <div class="cookie-info">
-        <slot name="cookieText" />
+        <SwCookieBarContent />
       </div>
     </template>
     <template #right>
@@ -20,13 +16,14 @@
 <script>
 import { SfTopBar } from "@storefront-ui/vue"
 import SwButton from "@/components/atoms/SwButton"
-import { method } from "lodash"
+const SwCookieBarContent = () => import("@/components/gdpr/SwCookieBarContent")
 
 export default {
   name: "SwCookieBar",
   components: {
     SfTopBar,
     SwButton,
+    SwCookieBarContent,
   },
   data() {
     return {
@@ -34,23 +31,16 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(function () {
-      if (localStorage.getItem("cookies") === "accepted") {
-        this.$parent.isAccepted = false
-      } else {
-        this.displayCookieBar = true
-      }
-    })
+    const res = localStorage.getItem("gdpr-cookie-notification-accepted")
+    if (res !== "true") {
+      this.displayCookieBar = true
+    }
   },
 
   methods: {
     acceptCookies() {
-      localStorage.setItem("cookies", "accepted")
-      this.hideCookieBar()
-    },
-
-    hideCookieBar() {
-      this.$parent.isAccepted = false
+      localStorage.setItem("gdpr-cookie-notification-accepted", true)
+      this.displayCookieBar = false
     },
   },
 }
