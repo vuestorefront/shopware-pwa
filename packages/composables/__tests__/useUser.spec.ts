@@ -11,13 +11,13 @@ import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError
 // Mock API client
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 jest.mock("@shopware-pwa/shopware-6-client");
-
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
-import { useUser, useIntercept } from "@shopware-pwa/composables";
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 
-const mockedUseIntercept = useIntercept as jest.Mocked<typeof useIntercept>;
-
+import { useUser } from "../src/hooks/useUser";
 describe("Composables - useUser", () => {
   console.error = jest.fn();
   const stateUser: Ref<Object | null> = ref(null);
@@ -30,9 +30,16 @@ describe("Composables - useUser", () => {
     },
     $shopwareApiInstance: jest.fn(),
   };
+  const interceptMock = jest.fn();
+
   beforeEach(() => {
     jest.resetAllMocks();
     stateUser.value = null;
+    mockedComposables.useIntercept.mockImplementation(() => {
+      return {
+        intercept: interceptMock,
+      } as any;
+    });
   });
 
   describe("computed", () => {
@@ -70,7 +77,7 @@ describe("Composables - useUser", () => {
         const callback = jest.fn();
         await onLogout(callback);
 
-        expect(mockedUseIntercept.intercept).toBeCalledTimes(1);
+        expect(interceptMock).toBeCalledTimes(1);
       });
     });
     describe("refreshUser", () => {
