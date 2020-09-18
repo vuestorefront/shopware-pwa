@@ -26,15 +26,18 @@ export default {
 
 <style lang="scss" scoped>
 .sw-generic-method {
-  margin-bottom: var(--spacer-sm);
+  align-items: flex-start;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  margin-bottom: var(--spacer-sm);
+  margin: var(--spacer-sm);
+
   &__title {
     font-size: var(--font-sm);
     margin-bottom: var(--spacer-xs);
     color: var(--c-text);
   }
+
   &__content {
     font-size: var(--font-xs);
     color: var(--c-text-muted);
