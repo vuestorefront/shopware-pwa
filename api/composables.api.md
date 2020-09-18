@@ -5,6 +5,7 @@
 ```ts
 
 import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
+import { ApplicationVueContext as ApplicationVueContext_2 } from '@shopware-pwa/composables';
 import { Association } from '@shopware-pwa/commons/interfaces/search/Association';
 import { BillingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
@@ -43,6 +44,8 @@ export interface ApplicationVueContext extends VueConstructor {
     // (undocumented)
     $i18n?: any;
     // (undocumented)
+    $interceptors?: any;
+    // (undocumented)
     $router?: any;
     // (undocumented)
     $shopwareApiInstance?: ShopwareApiInstance;
@@ -54,6 +57,8 @@ export interface ApplicationVueContext extends VueConstructor {
     cookies?: any;
     // (undocumented)
     i18n?: any;
+    // (undocumented)
+    interceptors?: any;
     // (undocumented)
     router?: any;
     // (undocumented)
@@ -109,6 +114,7 @@ export function getApplicationContext(rootContext: ApplicationVueContext, key?: 
     i18n: any;
     cookies: any;
     shopwareDefaults: any;
+    interceptors: any;
     contextName: string;
 };
 
@@ -121,12 +127,22 @@ export function getDefaultApiParams(): {
 };
 
 // @beta
+export const INTERCEPTOR_KEYS: {
+    ADD_TO_CART: string;
+    ERROR: string;
+};
+
+// @beta
 export interface IUseAddToCart {
     addToCart: () => Promise<void>;
     error: Ref<string>;
     getStock: Ref<number | null>;
     isInCart: Ref<boolean>;
     loading: Ref<boolean>;
+    onAddToCart: (fn: (params: {
+        product: Product;
+        quantity: Number;
+    }) => void) => void;
     quantity: Ref<number>;
 }
 
@@ -187,6 +203,13 @@ export interface IUseCheckout {
     shippingMethods: Readonly<Ref<readonly ShippingMethod[]>>;
     // (undocumented)
     updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
+}
+
+// @beta
+export interface IUseIntercept {
+    broadcast: (broadcastKey: string, value: any) => void;
+    disconnect: (broadcastKey: string, method: Function) => void;
+    intercept: (broadcastKey: string, method: Function) => void;
 }
 
 // @beta
@@ -336,6 +359,9 @@ export const useDefaults: (rootContext: ApplicationVueContext, defaultsKey: stri
     getIncludesConfig: () => Includes;
     getAssociationsConfig: () => Association[];
 };
+
+// @beta
+export const useIntercept: (rootContext: ApplicationVueContext_2) => IUseIntercept;
 
 // @beta
 export const useNavigation: (rootContext: ApplicationVueContext) => IUseNavigation;

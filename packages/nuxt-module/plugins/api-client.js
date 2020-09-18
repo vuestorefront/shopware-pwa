@@ -19,6 +19,7 @@ export default async ({ app }, inject) => {
   });
 
   inject("shopwareApiInstance", instance);
+  inject("interceptors", {}); // functionality for useIntercept composable
 
   /**
    * Save current contextToken when its change
