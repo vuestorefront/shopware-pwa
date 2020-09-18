@@ -48,9 +48,7 @@
         data-cy="proper-email"
       />
       <div class="info">
-        <p class="info__heading">
-          Enjoy these perks with your free account!
-        </p>
+        <p class="info__heading">Enjoy these perks with your free account!</p>
         <SfCharacteristic
           v-for="(characteristic, key) in characteristics"
           :key="key"
@@ -104,13 +102,7 @@
   </div>
 </template>
 <script>
-import {
-  SfCheckbox,
-  SfHeading,
-  SfCharacteristic,
-  SfSelect,
-  SfProductOption,
-} from "@storefront-ui/vue"
+import { SfCheckbox, SfHeading, SfCharacteristic } from "@storefront-ui/vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
@@ -315,34 +307,6 @@ export default {
       email,
     },
   },
-  methods: {
-    async toShipping() {
-      // run the validators against the provided data
-      // consider using $touch event on $blur event in each input
-      this.validate()
-      if (this.validations.$invalid) {
-        return
-      }
-
-      if (this.createAccount) {
-        const isRegistered = await this.registerUser(this.customer)
-        if (!isRegistered) {
-          return
-        }
-        // extra login step won't be necessary once the register has a autologin option
-        await this.login({
-          username: this.email,
-          password: this.password,
-        })
-        if (!this.isLoggedIn) {
-          return
-        }
-        this.$router.push(this.$i18n.path('/checkout?step="SHIPPING"'))
-      } else {
-        return this.$emit("proceed")
-      }
-    },
-  },
 }
 </script>
 <style lang="scss" scoped>
@@ -414,6 +378,14 @@ export default {
       margin: var(--spacer-sm) 0 0 0;
       flex: 0 0 50%;
     }
+  }
+}
+
+.form__action {
+  margin: var(--spacer-sm) 0;
+
+  .sf-button + .sf-button {
+    margin-top: var(--spacer-sm);
   }
 }
 </style>

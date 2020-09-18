@@ -36,19 +36,22 @@ export default {
 
 <style lang="scss" scoped>
 .sw-personal-details {
+  align-items: flex-start;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  margin: var(--spacer-sm);
 
   &__title {
+    color: var(--c-text);
     font-size: var(--font-sm);
     margin-bottom: var(--spacer-sm);
-    color: var(--c-text);
   }
+
   &__content {
     font-size: var(--font-xs);
   }
 }
+
 .content {
   margin: 0;
   color: var(--c-text-muted);

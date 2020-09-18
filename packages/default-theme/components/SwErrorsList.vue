@@ -1,5 +1,5 @@
 <template>
-  <div v-if="list" class="errors-list-component">
+  <div v-if="Array.isArray(list) && list.length" class="errors-list-component">
     <SwAlert :message="$t('Encountered problems:')" type="danger" />
 
     <ul class="list">

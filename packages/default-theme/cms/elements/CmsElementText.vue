@@ -64,7 +64,7 @@ export default {
                   link: node.attrs?.href,
                 },
               },
-              [createElement(SfLink, {}, [...children])]
+              [...children]
             )
           },
         },
