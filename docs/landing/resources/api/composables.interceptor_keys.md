@@ -15,5 +15,6 @@ Keys used accross composables with the description of incommint parameters.
 INTERCEPTOR_KEYS: {
     ADD_TO_CART: string;
     ERROR: string;
+    USER_LOGOUT: string;
 }
 ```

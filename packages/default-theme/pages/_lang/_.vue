@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import { useCms } from "@shopware-pwa/composables"
+import { useCms, useNotifications } from "@shopware-pwa/composables"
 import languagesMap from "sw-plugins/languages"
 
 const pagesMap = {
@@ -25,6 +25,7 @@ export default {
   watchQuery: true,
   asyncData: async ({ params, app, error: errorView, query }) => {
     const { search, page, error } = useCms(app)
+    const { pushError } = useNotifications()
     let path = params.pathMatch
     const lang = params.lang
     if (lang && !languagesMap[lang]) {
@@ -34,7 +35,12 @@ export default {
 
     // direct user to the error page (keep http status code - so do not redirect)
     if (error.value) {
-      errorView(error.value)
+      if (error.value.statusCode === 404) {
+        errorView(error.value)
+      } else {
+        // show the error other than 404 in SwNotifications
+        pushError(error.value.message)
+      }
     }
 
     const unwrappedPage = page && page.value ? page.value : searchResult

@@ -9,6 +9,7 @@ import { ApplicationVueContext as ApplicationVueContext_2 } from '@shopware-pwa/
 import { Association } from '@shopware-pwa/commons/interfaces/search/Association';
 import { BillingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
+import { ComputedRef } from '@vue/composition-api';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
@@ -130,6 +131,7 @@ export function getDefaultApiParams(): {
 export const INTERCEPTOR_KEYS: {
     ADD_TO_CART: string;
     ERROR: string;
+    USER_LOGOUT: string;
 };
 
 // @beta
@@ -207,7 +209,7 @@ export interface IUseCheckout {
 
 // @beta
 export interface IUseIntercept {
-    broadcast: (broadcastKey: string, value: any) => void;
+    broadcast: (broadcastKey: string, value?: any) => void;
     disconnect: (broadcastKey: string, method: Function) => void;
     intercept: (broadcastKey: string, method: Function) => void;
 }
@@ -282,6 +284,7 @@ export interface IUseUser {
         addressId?: string;
         type?: AddressType;
     }) => Promise<string | boolean>;
+    onLogout: (fn: () => void) => void;
     // (undocumented)
     orders: Ref<Order[] | null>;
     // (undocumented)
@@ -301,6 +304,18 @@ export interface IUseUser {
     // (undocumented)
     user: Ref<Customer | null>;
 }
+
+// @beta (undocumented)
+interface Notification_2 {
+    // (undocumented)
+    id?: number;
+    // (undocumented)
+    message: string;
+    // (undocumented)
+    type: "info" | "warning" | "success" | "danger";
+}
+
+export { Notification_2 as Notification }
 
 // @alpha (undocumented)
 export type Search = (path: string, associations?: any) => any;
@@ -365,6 +380,17 @@ export const useIntercept: (rootContext: ApplicationVueContext_2) => IUseInterce
 
 // @beta
 export const useNavigation: (rootContext: ApplicationVueContext) => IUseNavigation;
+
+// @beta (undocumented)
+export const useNotifications: (rootContext: ApplicationVueContext) => {
+    notifications: ComputedRef<Notification_2[]>;
+    removeOne: (id: number) => void;
+    removeAll: () => void;
+    pushInfo: (message: string, options?: any) => void;
+    pushWarning: (message: string, options?: any) => void;
+    pushError: (message: string, options?: any) => void;
+    pushSuccess: (message: string, options?: any) => void;
+};
 
 // @alpha (undocumented)
 export interface UseProduct<PRODUCT, SEARCH> {

@@ -15,6 +15,8 @@ import { useAddToCart } from "../src/logic/useAddToCart";
 describe("Composables - useAddToCart", () => {
   const stateCart: Ref<Object | null> = ref(null);
   const addProductMock = jest.fn(async () => {});
+  const pushErrorMock = jest.fn(() => {});
+  const pushSuccessMock = jest.fn(() => {});
   const cartItemsMock: Ref<any[]> = ref([]);
   const rootContextMock: any = {
     $store: {
@@ -33,6 +35,12 @@ describe("Composables - useAddToCart", () => {
     jest.clearAllMocks();
     stateCart.value = null;
     cartItemsMock.value = [];
+    mockedComposables.useNotifications.mockImplementation(() => {
+      return {
+        pushError: pushErrorMock,
+        pushSuccess: pushSuccessMock,
+      } as any;
+    });
     mockedComposables.useCart.mockImplementation(() => {
       return {
         addProduct: addProductMock,

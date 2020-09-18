@@ -11,11 +11,13 @@ import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError
 // Mock API client
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 jest.mock("@shopware-pwa/shopware-6-client");
-
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
-import { useUser } from "@shopware-pwa/composables";
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 
+import { useUser } from "../src/hooks/useUser";
 describe("Composables - useUser", () => {
   console.error = jest.fn();
   const stateUser: Ref<Object | null> = ref(null);
@@ -28,9 +30,19 @@ describe("Composables - useUser", () => {
     },
     $shopwareApiInstance: jest.fn(),
   };
+
+  const interceptMock = jest.fn();
+  const broadcastMock = jest.fn();
+
   beforeEach(() => {
     jest.resetAllMocks();
     stateUser.value = null;
+    mockedComposables.useIntercept.mockImplementation(() => {
+      return {
+        broadcast: broadcastMock,
+        intercept: interceptMock,
+      } as any;
+    });
   });
 
   describe("computed", () => {
@@ -62,6 +74,15 @@ describe("Composables - useUser", () => {
   });
 
   describe("methods", () => {
+    describe("onLogout", () => {
+      it("should invoke an intercept function on onLogout event", async () => {
+        const { onLogout } = useUser(rootContextMock);
+        const callback = jest.fn();
+        await onLogout(callback);
+
+        expect(interceptMock).toBeCalledTimes(1);
+      });
+    });
     describe("refreshUser", () => {
       it("should get an empty customer when user is not logged in", async () => {
         mockedApiClient.getCustomer.mockResolvedValueOnce(null);

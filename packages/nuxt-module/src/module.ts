@@ -9,6 +9,7 @@ import { loadConfig } from "./utils";
 import { extendCMS } from "./cms";
 import { extendLocales } from "./locales";
 import { useCorePackages } from "./packages";
+import { getAllFiles } from "./files";
 import { invokeBuildLogger } from "./logger";
 import {
   getTargetSourcePath,
@@ -132,6 +133,19 @@ export async function runModule(
     src: path.join(__dirname, "..", "plugins", "composition-api.js"),
     fileName: "composition-api.js",
     options: moduleOptions,
+  });
+
+  // Add plugins registered in theme
+  const pluginFiles = getAllFiles(
+    path.join(moduleObject.options.srcDir, "plugins")
+  ).filter((filePath) => /.+.(js)$/.test(filePath)); // get only js files
+  pluginFiles.forEach((pluginPath) => {
+    const pluginFilename = pluginPath.replace(/^.*[\\\/]/, "");
+    moduleObject.addPlugin({
+      src: pluginPath,
+      fileName: pluginFilename,
+      options: moduleOptions,
+    });
   });
 
   // fixes problem with multiple composition-api instances

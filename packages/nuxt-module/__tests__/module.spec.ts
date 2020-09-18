@@ -6,6 +6,7 @@ import * as cms from "../src/cms";
 import * as locales from "../src/locales";
 import * as packages from "../src/packages";
 import * as theme from "../src/theme";
+import * as files from "../src/files";
 import chokidar from "chokidar";
 import fse from "fs-extra";
 jest.mock("../src/utils");
@@ -13,10 +14,12 @@ jest.mock("../src/cms");
 jest.mock("../src/locales");
 jest.mock("../src/packages");
 jest.mock("../src/theme");
+jest.mock("../src/files");
 jest.mock("chokidar");
 jest.mock("fs-extra");
 const mockedUtils = utils as jest.Mocked<typeof utils>;
 const mockedTheme = theme as jest.Mocked<typeof theme>;
+const mockedFiles = files as jest.Mocked<typeof files>;
 const consoleErrorSpy = jest.spyOn(console, "error");
 const mockedChokidar = chokidar as jest.Mocked<typeof chokidar>;
 const mockedFse = fse as jest.Mocked<typeof fse>;
@@ -80,6 +83,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     mockedTheme.getTargetSourcePath.mockReturnValue(TARGET_SOURCE);
     mockedTheme.getProjectSourcePath.mockReturnValue(PROJECT_SOURCE);
     mockedChokidar.watch.mockReturnValue({ on: () => {} });
+    mockedFiles.getAllFiles.mockReturnValue([]);
   });
 
   it("should invoke config load", async () => {
@@ -349,5 +353,18 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     const fromPath = path.join(TARGET_SOURCE, "static");
     const toPath = path.join(moduleObject.options.rootDir, "static");
     expect(mockedFse.copy).toBeCalledWith(fromPath, toPath);
+  });
+
+  it("should add plugins registered in theme - js files only", async () => {
+    mockedFiles.getAllFiles.mockReturnValueOnce([
+      "/file/path/plugins/notifications.js",
+      "/file/path/plugins/README.md",
+    ]);
+    await runModule(moduleObject, {});
+    expect(moduleObject.addPlugin).toHaveBeenCalledWith({
+      src: "/file/path/plugins/notifications.js",
+      fileName: "notifications.js",
+      options: expect.anything(),
+    });
   });
 });
