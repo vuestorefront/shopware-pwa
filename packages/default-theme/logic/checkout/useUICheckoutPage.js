@@ -1,11 +1,7 @@
 import { ref, computed } from "@vue/composition-api"
 import { CHECKOUT_STEPS } from "@shopware-pwa/default-theme/logic/checkout/steps"
 import { getStepByNumber } from "@shopware-pwa/default-theme/logic/checkout/helpers"
-import {
-  useCheckout,
-  useNotifications,
-  getApplicationContext,
-} from "@shopware-pwa/composables"
+import { useCheckout, getApplicationContext } from "@shopware-pwa/composables"
 import { usePersonalDetailsStep } from "@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep"
 import { useShippingStep } from "@shopware-pwa/default-theme/logic/checkout/useShippingStep"
 import { usePaymentStep } from "@shopware-pwa/default-theme/logic/checkout/usePaymentStep"
@@ -17,7 +13,6 @@ export const useUICheckoutPage = (rootContext) => {
     "useUICheckoutPage"
   )
   const { isGuestOrder, createOrder } = useCheckout(rootContext)
-  const { pushError } = useNotifications()
 
   const currentStep = ref(
     isGuestOrder.value ? CHECKOUT_STEPS.PERSONAL_DETAILS : CHECKOUT_STEPS.REVIEW
@@ -91,12 +86,8 @@ export const useUICheckoutPage = (rootContext) => {
       currentStep.value === CHECKOUT_STEPS.REVIEW &&
       nextStepNumber > CHECKOUT_STEPS.REVIEW
     ) {
-      try {
-        const order = await createOrder()
-        router.push(i18n.path(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`))
-      } catch (error) {
-        pushError("The order cannot be placed at the moment")
-      }
+      const order = await createOrder()
+      router.push(i18n.path(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`))
     } else {
       const nextStep = getStepByNumber(nextStepNumber)
       if (stepsStatus.value[nextStep].available) {
