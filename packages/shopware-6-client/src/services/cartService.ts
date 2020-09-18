@@ -135,12 +135,7 @@ export async function removeCartItem(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Cart> {
   const resp = await contextInstance.invoke.delete(
-    getCheckoutCartLineItemEndpoint(),
-    {
-      data: {
-        ids: [itemId],
-      },
-    }
+    `${getCheckoutCartLineItemEndpoint()}?ids[]=${itemId}`
   );
 
   return resp.data;
