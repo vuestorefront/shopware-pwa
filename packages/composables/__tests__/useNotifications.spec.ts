@@ -15,6 +15,16 @@ describe("Composables - useNotifications", () => {
     jest.resetAllMocks();
   });
   describe("pushNotifications", () => {
+    it("should not remove a notification with persistant option after timout", () => {
+      jest.useFakeTimers();
+      const { pushError, notifications } = useNotifications(rootContextMock);
+      pushError("An error occured", {
+        persistent: true,
+      });
+      expect(notifications.value).toHaveLength(1);
+      jest.runOnlyPendingTimers();
+      expect(notifications.value).toHaveLength(1);
+    });
     it("should add a notification with all required fields", () => {
       const { pushError, notifications } = useNotifications(rootContextMock);
       pushError("An error occured");
@@ -72,6 +82,15 @@ describe("Composables - useNotifications", () => {
       pushError("An error occured");
       expect(notifications.value).toHaveLength(1);
       removeOne(1600081318135);
+      expect(notifications.value).toHaveLength(0);
+    });
+    it("should remove an item after the given timeout", () => {
+      jest.useFakeTimers();
+      jest.spyOn(Date.prototype, "getTime").mockReturnValue(1600081318135);
+      const { pushError, notifications } = useNotifications(rootContextMock);
+      pushError("An error occured", { persistent: false });
+      expect(notifications.value).toHaveLength(1);
+      jest.runOnlyPendingTimers();
       expect(notifications.value).toHaveLength(0);
     });
   });

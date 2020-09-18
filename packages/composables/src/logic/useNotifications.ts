@@ -54,20 +54,19 @@ export const useNotifications = (
 
   const pushNotification = async (
     message: string,
-    options?: {
+    options: {
       type: "info" | "warning" | "success" | "danger";
       timeout: number;
       persistent: boolean;
     }
   ) => {
-    const type = options?.type || "info";
-    const timeout = options?.timeout || 2500;
-    const persistent = !!options?.persistent;
+    const timeout = options.timeout || 2500;
+    const persistent = !!options.persistent;
 
     const messageId = geterateId();
     sharedNotifications.list.push({
       id: messageId,
-      type,
+      type: options.type,
       message,
     });
     if (!persistent) {
