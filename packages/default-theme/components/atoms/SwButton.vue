@@ -12,16 +12,6 @@ export default {
   components: {
     SfButton,
   },
-  props: {
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    link: {
-      type: [String, Object],
-      default: "",
-    },
-  },
   setup(props, { root }) {
     return {}
   },
