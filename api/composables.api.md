@@ -131,6 +131,7 @@ export function getDefaultApiParams(): {
 export const INTERCEPTOR_KEYS: {
     ADD_TO_CART: string;
     ERROR: string;
+    USER_LOGOUT: string;
 };
 
 // @beta
@@ -208,7 +209,7 @@ export interface IUseCheckout {
 
 // @beta
 export interface IUseIntercept {
-    broadcast: (broadcastKey: string, value: any) => void;
+    broadcast: (broadcastKey: string, value?: any) => void;
     disconnect: (broadcastKey: string, method: Function) => void;
     intercept: (broadcastKey: string, method: Function) => void;
 }
@@ -283,6 +284,7 @@ export interface IUseUser {
         addressId?: string;
         type?: AddressType;
     }) => Promise<string | boolean>;
+    onLogout: (fn: () => void) => void;
     // (undocumented)
     orders: Ref<Order[] | null>;
     // (undocumented)
@@ -380,14 +382,14 @@ export const useIntercept: (rootContext: ApplicationVueContext_2) => IUseInterce
 export const useNavigation: (rootContext: ApplicationVueContext) => IUseNavigation;
 
 // @beta (undocumented)
-export const useNotifications: () => {
+export const useNotifications: (rootContext: ApplicationVueContext) => {
     notifications: ComputedRef<Notification_2[]>;
     removeOne: (id: number) => void;
     removeAll: () => void;
-    pushInfo: (message: string) => void;
-    pushWarning: (message: string) => void;
-    pushError: (message: string) => void;
-    pushSuccess: (message: string) => void;
+    pushInfo: (message: string, options?: any) => void;
+    pushWarning: (message: string, options?: any) => void;
+    pushError: (message: string, options?: any) => void;
+    pushSuccess: (message: string, options?: any) => void;
 };
 
 // @alpha (undocumented)

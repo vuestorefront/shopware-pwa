@@ -19,7 +19,7 @@ export interface IUseIntercept
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [broadcast](./composables.iuseintercept.broadcast.md) | (broadcastKey: string, value: any) =&gt; void | <b><i>(BETA)</i></b> Broadcast new event |
+|  [broadcast](./composables.iuseintercept.broadcast.md) | (broadcastKey: string, value?: any) =&gt; void | <b><i>(BETA)</i></b> Broadcast new event |
 |  [disconnect](./composables.iuseintercept.disconnect.md) | (broadcastKey: string, method: Function) =&gt; void | <b><i>(BETA)</i></b> Stop listening on event |
 |  [intercept](./composables.iuseintercept.intercept.md) | (broadcastKey: string, method: Function) =&gt; void | <b><i>(BETA)</i></b> Intercept broadcasted event |
 

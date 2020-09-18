@@ -12,5 +12,5 @@ Broadcast new event
 <b>Signature:</b>
 
 ```typescript
-broadcast: (broadcastKey: string, value: any) => void;
+broadcast: (broadcastKey: string, value?: any) => void;
 ```

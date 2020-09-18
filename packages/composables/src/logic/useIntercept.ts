@@ -39,7 +39,7 @@ export interface IUseIntercept {
   /**
    * Broadcast new event
    */
-  broadcast: (broadcastKey: string, value: any) => void;
+  broadcast: (broadcastKey: string, value?: any) => void;
   /**
    * Intercept broadcasted event
    */

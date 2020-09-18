@@ -11,13 +11,13 @@
 <b>Signature:</b>
 
 ```typescript
-useNotifications: () => {
+useNotifications: (rootContext: ApplicationVueContext) => {
     notifications: ComputedRef<Notification[]>;
     removeOne: (id: number) => void;
     removeAll: () => void;
-    pushInfo: (message: string) => void;
-    pushWarning: (message: string) => void;
-    pushError: (message: string) => void;
-    pushSuccess: (message: string) => void;
+    pushInfo: (message: string, options?: any) => void;
+    pushWarning: (message: string, options?: any) => void;
+    pushError: (message: string, options?: any) => void;
+    pushSuccess: (message: string, options?: any) => void;
 }
 ```

@@ -1,5 +1,6 @@
 import Vue from "vue";
 import { computed, reactive, ComputedRef } from "@vue/composition-api";
+import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
 /**
  * @beta
@@ -19,15 +20,18 @@ const sharedNotifications = Vue.observable({
 /**
  * @beta
  */
-export const useNotifications = (): {
+export const useNotifications = (
+  rootContext: ApplicationVueContext
+): {
   notifications: ComputedRef<Notification[]>;
   removeOne: (id: number) => void;
   removeAll: () => void;
-  pushInfo: (message: string) => void;
-  pushWarning: (message: string) => void;
-  pushError: (message: string) => void;
-  pushSuccess: (message: string) => void;
+  pushInfo: (message: string, options?: any) => void;
+  pushWarning: (message: string, options?: any) => void;
+  pushError: (message: string, options?: any) => void;
+  pushSuccess: (message: string, options?: any) => void;
 } => {
+  getApplicationContext(rootContext, "useNotifications");
   const localNotifications = reactive(sharedNotifications);
 
   /**
@@ -46,31 +50,44 @@ export const useNotifications = (): {
    */
   const removeAll = () => (sharedNotifications.list = []);
 
-  // append an object with id made of current time
-  const appendId = (notification: Notification) => ({
-    ...notification,
-    id: new Date().getTime(),
-  });
+  const geterateId = () => new Date().getTime();
 
-  const pushNotification = (
-    type: "info" | "warning" | "success" | "danger",
-    message: string
+  const pushNotification = async (
+    message: string,
+    options?: {
+      type: "info" | "warning" | "success" | "danger";
+      timeout: number;
+      persistent: boolean;
+    }
   ) => {
-    sharedNotifications.list.push(
-      appendId({
-        type,
-        message,
-      })
-    );
+    const type = options?.type || "info";
+    const timeout = options?.timeout || 2500;
+    const persistent = !!options?.persistent;
+
+    const messageId = geterateId();
+    sharedNotifications.list.push({
+      id: messageId,
+      type,
+      message,
+    });
+    if (!persistent) {
+      setTimeout(() => {
+        removeOne(messageId);
+      }, timeout);
+    }
   };
 
   return {
     removeOne,
     removeAll,
-    pushInfo: (message: string) => pushNotification("info", message),
-    pushSuccess: (message: string) => pushNotification("success", message),
-    pushWarning: (message: string) => pushNotification("warning", message),
-    pushError: (message: string) => pushNotification("danger", message),
+    pushInfo: (message: string, options = {}) =>
+      pushNotification(message, { ...options, type: "info" }),
+    pushSuccess: (message: string, options = {}) =>
+      pushNotification(message, { ...options, type: "success" }),
+    pushWarning: (message: string, options = {}) =>
+      pushNotification(message, { ...options, type: "warning" }),
+    pushError: (message: string, options = {}) =>
+      pushNotification(message, { ...options, type: "danger" }),
     notifications: computed(() => localNotifications.list),
   };
 };
