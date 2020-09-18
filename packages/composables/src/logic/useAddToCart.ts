@@ -87,7 +87,6 @@ export const useAddToCart = (
         quantity: quantity.value,
       });
       quantity.value = 1;
-      pushSuccess(`${product.name} has been added to cart.`);
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err;

@@ -24,6 +24,11 @@ export const INTERCEPTOR_KEYS = {
    * - error - string - message of the error
    */
   ERROR: "error",
+  /**
+   * Broadcasted after user is logged out.
+   * Contains no params.
+   */
+  USER_LOGOUT: "onUserLogout",
 };
 
 /**
@@ -58,7 +63,7 @@ export const useIntercept = (
   const localSunscribers: any[] = [];
   const isVueInstance: boolean = !!getCurrentInstance();
 
-  const broadcast = (broadcastKey: string, value: any) => {
+  const broadcast = (broadcastKey: string, value?: any) => {
     if (interceptors[broadcastKey]?.length) {
       interceptors[broadcastKey].forEach((broadcastMethod: Function) =>
         broadcastMethod(value)

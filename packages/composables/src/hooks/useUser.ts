@@ -34,7 +34,8 @@ import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/
 import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
 import {
   getApplicationContext,
-  useNotifications,
+  INTERCEPTOR_KEYS,
+  useIntercept,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
 
@@ -86,6 +87,10 @@ export interface IUseUser {
     addressId?: string;
     type?: AddressType;
   }) => Promise<string | boolean>;
+  /**
+   * React on user logout
+   */
+  onLogout: (fn: () => void) => void;
 }
 
 /**
@@ -94,11 +99,11 @@ export interface IUseUser {
  * @beta
  */
 export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
-  const { vuexStore, apiInstance } = getApplicationContext(
+  const { contextName, vuexStore, apiInstance } = getApplicationContext(
     rootContext,
     "useUser"
   );
-  const { pushSuccess } = useNotifications();
+  const { broadcast, intercept } = useIntercept(rootContext);
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
   const orders: Ref<Order[] | null> = ref(null);
@@ -148,14 +153,21 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   const logout = async (): Promise<void> => {
     try {
       await apiLogout(apiInstance);
+      broadcast(INTERCEPTOR_KEYS.USER_LOGOUT);
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
+      broadcast(INTERCEPTOR_KEYS.ERROR, {
+        methodName: `[${contextName}][logout]`,
+        inputParams: {},
+        error: err,
+      });
     } finally {
       await refreshUser();
-      pushSuccess("you have been logged out");
     }
   };
+  const onLogout = (fn: Function) =>
+    intercept(INTERCEPTOR_KEYS.USER_LOGOUT, fn);
 
   const refreshUser = async (): Promise<void> => {
     try {
@@ -333,5 +345,6 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     salutation,
     loadCountry,
     country,
+    onLogout,
   };
 };
