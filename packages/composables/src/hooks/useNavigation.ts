@@ -43,12 +43,10 @@ export const useNavigation = (
 
   const fetchNavigationElements = async (depth: number) => {
     const { children } = await getNavigation({ depth }, apiInstance);
-    sharedNavigation.navigationElements = [...children] || [];
+    sharedNavigation.navigationElements = children || [];
   };
 
-  const navigationElements = computed(
-    () => localNavigation.navigationElements || []
-  );
+  const navigationElements = computed(() => localNavigation.navigationElements);
 
   return {
     routes,
