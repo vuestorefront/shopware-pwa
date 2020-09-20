@@ -21,6 +21,6 @@ export interface IUseNavigation
 |  --- | --- | --- |
 |  [fetchNavigationElements](./composables.iusenavigation.fetchnavigationelements.md) | (depth: number) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [fetchRoutes](./composables.iusenavigation.fetchroutes.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
-|  [navigationElements](./composables.iusenavigation.navigationelements.md) | NavigationElement\[\] | <b><i>(BETA)</i></b> |
+|  [navigationElements](./composables.iusenavigation.navigationelements.md) | Ref&lt;Readonly&lt;NavigationElement\[\]&gt;&gt; | <b><i>(BETA)</i></b> |
 |  [routes](./composables.iusenavigation.routes.md) | Ref&lt;Readonly&lt;any&gt;&gt; | <b><i>(BETA)</i></b> |
 
