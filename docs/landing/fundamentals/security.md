@@ -1,6 +1,6 @@
 # Security
 
-At a fundamental level, Shopware PWA serves as a facade for users (customers) to interact with one or multiple backends (merchant services) of which Shopware will be at least one. We can achieve this type of architecture using APIs and following a so-called *headless* approach. This yields great freedom as to which services and tools can be integrated without affecting others.
+At a fundamental level, Shopware PWA serves as a facade for users (customers) to interact with one or multiple backends (merchant services) of which Shopware will be at least one. We can achieve this type of architecture using APIs and following a so-called _headless_ approach. This yields great freedom as to which services and tools can be integrated without affecting others.
 
 However, due to the applications [universal](/landing/project/#why-a-new-storefront) (isomorphic) nature **and contrary to fully server-side-rendered applications** this implies that some type of identification of the client application has to be achieved.
 
@@ -20,12 +20,12 @@ Shopware provides two API endpoints which are used by the PWA. The Store API and
 
 The Store API serves as an abstraction for every storefront in Shopware and can be thought of as the user's API. It allows applications to obtain user views on data like products, categories, carts or conduct user operations like a registration, payment, or login. Fundamentally it requires two tokens to identify a user:
 
-|Type|Key|Scope|Function|
-|---|---|---|---|
-|HTTP Header|`sw-access-key`|Global|Identifies the application as a certain sales channel|
-|HTTP Header|`sw-context-token`|User|Identifies the user context (login state, cart, selected language)|
+| Type        | Key                | Scope  | Function                                                           |
+| ----------- | ------------------ | ------ | ------------------------------------------------------------------ |
+| HTTP Header | `sw-access-key`    | Global | Identifies the application as a certain sales channel              |
+| HTTP Header | `sw-context-token` | User   | Identifies the user context (login state, cart, selected language) |
 
-As you can see, the purpose of both keys is to *identify* the given user. Note that there are two "users" here - the *customer* (identified by `sw-context-token`) as well as the client application (identified by `sw-access-key`). Both keys are visible to the user (agent) and that's totally fine.
+As you can see, the purpose of both keys is to _identify_ the given user. Note that there are two "users" here - the _customer_ (identified by `sw-context-token`) as well as the client application (identified by `sw-access-key`). Both keys are visible to the user (agent) and that's totally fine.
 
 #### Access Key
 
@@ -42,37 +42,37 @@ module.exports = {
 
 #### Context Token
 
-This token protects highly sensitive data and should never be persisted in other places that the user agent. It is either automatically given to any "new" customer or can be obtained by logging in as a customer. It is similar to a *Session ID* and subject to the same vulnerabilities, such as session hijacking, if exposed in a non-sensitive way.
+This token protects highly sensitive data and should never be persisted in other places that the user agent. It is either automatically given to any "new" customer or can be obtained by logging in as a customer. It is similar to a _Session ID_ and subject to the same vulnerabilities, such as session hijacking, if exposed in a non-sensitive way.
 
 ### Admin API
 
 The Admin API is used to synchronise your PWA project with your Shopware 6 backend. This connection is only required during build time when running one of the following commands. The `shopware-pwa` CLI uses it to request resources from Shopware plugins and install them.
 
 ```sh
-$ shopware-pwa init 		# Initialize a new project
-$ shopware-pwa plugins 		# Refresh plugins from SW instance
+$ npx @shopware-pwa/cli init 		# Initialize a new project
+$ yarn shopware-pwa plugins 		# Refresh plugins from SW instance
 ```
 
 The data is transmitted as a `.json` file containing plugin configurations and a `.zip` file containing plugin resources like `.js` or `.vue` files or other assets.
 
 ::: warning IMPORTANT
-A runtime connection to the Admin API is not required and Admin API credentials **should never** find their way out of your build environment or be accessible from the outside. 
+A runtime connection to the Admin API is not required and Admin API credentials **should never** find their way out of your build environment or be accessible from the outside.
 :::
 
-The Admin API is guarded with the OAuth 2.0 flow. Although it supports multiple grant types, the `shopware-pwa` CLI *User Password Credentials* grant where one has to provide username and password of an admin user. These credentials will then be used to obtain a token that can be used for authentication.
+The Admin API is guarded with the OAuth 2.0 flow. Although it supports multiple grant types, the `shopware-pwa` CLI _User Password Credentials_ grant where one has to provide username and password of an admin user. These credentials will then be used to obtain a token that can be used for authentication.
 
-|Type|Key|Scope|Function|
-|---|---|---|---|---|
-|HTTP Body|username|Admin User|Identify admin user|
-|HTTP Body|password|Admin User|Authenticate admin user|
+| Type      | Key      | Scope      | Function                |
+| --------- | -------- | ---------- | ----------------------- |
+| HTTP Body | username | Admin User | Identify admin user     |
+| HTTP Body | password | Admin User | Authenticate admin user |
 
 Please check our [guide on authentication](https://docs.shopware.com/en/shopware-platform-dev-en/admin-api-guide/authentication) for the Admin API.
 
 After the build process, there is no connection required anymore, so it is advised to only these credentials when executing the `init` or `plugins` command:
 
 ```sh
-$ shopware-pwa init --ci --username [user] --password [pass]
-$ shopware-pwa plugins --ci --username [user] --password [pass]
+$ npx shopware-pwa/cli init --ci --username [user] --password [pass]
+$ npx shopware-pwa/cli plugins --ci --username [user] --password [pass]
 ```
 
 ## Context-Awareness <Badge text="new (0.2.0)" type="info"/>
@@ -81,7 +81,7 @@ As described above, `universal` applications may share the data between differen
 
 ### Composables
 
-To ensure, that the whole logic is connected, we now require that every composable usage needs to have th  `Vue` context as its first parameter. It's effortless and straightforward but ensures that all data is secured.
+To ensure, that the whole logic is connected, we now require that every composable usage needs to have th `Vue` context as its first parameter. It's effortless and straightforward but ensures that all data is secured.
 
 ```js
 import { useUser } from "@shopware-pwa/composables"
@@ -141,4 +141,4 @@ You should check all your imports for `@shopware-pwa/shopware-6-client` and add 
 
 If you'd like to learn more about context awareness and shared contexts between requests, refer to the Vue Server-Side-Renderer documentation.
 
- * [Vue Server-Side-Renderer](https://ssr.vuejs.org/)
+- [Vue Server-Side-Renderer](https://ssr.vuejs.org/)
