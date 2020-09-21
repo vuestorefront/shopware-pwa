@@ -1,0 +1,21 @@
+name: Check PR title
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: aslafy-z/conventional-pr-title-action@master
+        with:
+          success-state: PR title follows the specification.
+          failure-state: PR title does not follow the specification.
+          context-name: shopware-pwa-pr-title-check
+          preset: conventional-changelog-angular@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
