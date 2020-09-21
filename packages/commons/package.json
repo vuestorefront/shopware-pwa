@@ -4,7 +4,8 @@
   "description": "@shopware-pwa/commons",
   "license": "MIT",
   "files": [
-    "interfaces/*"
+    "interfaces/*",
+    "src/*"
   ],
   "publishConfig": {
     "access": "public"

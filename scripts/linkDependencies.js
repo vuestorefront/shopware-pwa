@@ -27,7 +27,7 @@ async function run() {
   });
   await execa("yarn", ["link", "@shopware-pwa/shopware-6-client"], {
     stdio: "inherit",
-    cwd: cliDir,
+    cwd: nuxtModuleDir,
   });
 
   /**
@@ -41,6 +41,10 @@ async function run() {
     stdio: "inherit",
     cwd: defaultThemeDir,
   });
+  await execa("yarn", ["link", "@shopware-pwa/composables"], {
+    stdio: "inherit",
+    cwd: nuxtModuleDir,
+  });
 
   /**
    * Link helpers
@@ -52,6 +56,10 @@ async function run() {
   await execa("yarn", ["link", "@shopware-pwa/helpers"], {
     stdio: "inherit",
     cwd: defaultThemeDir,
+  });
+  await execa("yarn", ["link", "@shopware-pwa/helpers"], {
+    stdio: "inherit",
+    cwd: nuxtModuleDir,
   });
 
   /**
@@ -73,6 +81,10 @@ async function run() {
     stdio: "inherit",
     cwd: composablesDir,
   });
+  await execa("yarn", ["link", "@shopware-pwa/commons"], {
+    stdio: "inherit",
+    cwd: nuxtModuleDir,
+  });
 
   /**
    * Link nuxt-module
@@ -90,9 +102,9 @@ async function run() {
     cwd: cliDir,
   });
 
-  await execa("yarn", ["link", "@shopware-pwa/nuxt-module"], {
+  await execa("yarn", ["link", "@shopware-pwa/cli"], {
     stdio: "inherit",
-    cwd: cliDir,
+    cwd: nuxtModuleDir,
   });
 
   /**
@@ -101,6 +113,10 @@ async function run() {
   await execa("yarn", ["link"], {
     stdio: "inherit",
     cwd: defaultThemeDir,
+  });
+  await execa("yarn", ["link", "@shopware-pwa/default-theme"], {
+    stdio: "inherit",
+    cwd: nuxtModuleDir,
   });
 
   /**
