@@ -52,7 +52,7 @@ module.exports = (toolbox: GluegunToolbox) => {
   };
 
   /**
-   * Remove unnecesarry Nuxt files
+   * Remove unnecessary Nuxt files
    * TODO: check generated files and add here ones which are not necessary
    */
   toolbox.removeDefaultNuxtFiles = async () => {

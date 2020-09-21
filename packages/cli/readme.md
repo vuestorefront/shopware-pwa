@@ -34,23 +34,17 @@ Now you have complete ShopwarePWA project running locally.
 
 ## Version update
 
-If you installed CLI globally, make sure that you have the latest version of CLI for Shopware PWA installed, you just need to reinstall the package using the same commands as for installation:
+We encourage developers to use the `npx` rather global npm/yarn packages - to have the latest version of CLI for Shopware PWA installed, so there is no update needed.
 
 ```bash
-yarn global add @shopware-pwa/cli
-```
-
-or
-
-```bash
-npm install -g @shopware-pwa/cli
+npx @shopware-pwa/cli <command_alias>
 ```
 
 ::: tip Canary version  
-If you want to update to `canary` version, just add this to update command. If you're using it please remember to update often as it's changing with master branch.
+If you want to update to `canary` version, just add this to your command.
 
 ```bash
-npm install -g @shopware-pwa/cli@canary
+npx @shopware-pwa/cli@canary <command_alias>
 ```
 
 :::
