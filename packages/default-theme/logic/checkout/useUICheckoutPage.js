@@ -13,6 +13,7 @@ export const useUICheckoutPage = (rootContext) => {
     "useUICheckoutPage"
   )
   const { isGuestOrder, createOrder } = useCheckout(rootContext)
+
   const currentStep = ref(
     isGuestOrder.value ? CHECKOUT_STEPS.PERSONAL_DETAILS : CHECKOUT_STEPS.REVIEW
   )

@@ -11,7 +11,7 @@
       subtitle="Choose your payment method"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <div class="form">
+    <div class="sw-form">
       <div class="form__element payment-methods">
         <SfRadio
           v-for="paymentMethod in paymentMethods"
@@ -21,7 +21,7 @@
           :value="paymentMethod.id"
           name="paymentMethod"
           :description="paymentMethod.description"
-          class="form__radio payment-method"
+          class="sw-form__radio payment-method"
         >
           <template #description="{description}">
             <div class="sf-radio__description">
@@ -35,7 +35,7 @@
                 >
                   <SwPluginSlot
                     :name="`checkout-payment-method-${paymentMethod.name}`"
-                    :slotContext="paymentMethod"
+                    :slot-context="paymentMethod"
                   />
                 </div>
               </transition>
@@ -45,19 +45,19 @@
       </div>
       <div class="form__action">
         <SwButton
-          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only"
+          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only sw-form__button"
           @click="$emit('click:back')"
         >
           Go back to Shipping
         </SwButton>
         <SwButton
-          class="sf-button--full-width form__action-button"
+          class="sf-button--full-width form__action-button sw-form__button"
           data-cy="review-order"
           @click="$emit('proceed')"
           >Review order</SwButton
         >
         <SwButton
-          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only"
+          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only sw-form__button"
           @click="$emit('click:back')"
         >
           Go back to Shipping
@@ -105,7 +105,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "@/assets/scss/variables";
+@import "@/assets/scss/forms";
+
 .title {
   --heading-padding: var(--spacer-base) 0;
   @include for-desktop {
@@ -113,53 +114,6 @@ export default {
     --heading-padding: var(--spacer-2xl) 0 var(--spacer-base) 0;
     &:last-of-type {
       --heading-padding: var(--spacer-xs) 0 var(--spacer-base) 0;
-    }
-  }
-}
-.form {
-  &__checkbox {
-    margin: var(--spacer-base) 0 var(--spacer-xl) 0;
-  }
-  &__action {
-    flex: 0 0 100%;
-    margin: var(--spacer-base) 0 0 0;
-  }
-  &__action-button {
-    --button-height: 3.25rem;
-  }
-  @include for-mobile {
-    &__checkbox {
-      --checkbox-font-family: var(--font-family-primary);
-      --checkbox-font-weight: var(--font-light);
-      --checkbox-font-size: var(--font-sm);
-    }
-  }
-  @include for-desktop {
-    margin: 0 var(--spacer-2xl) 0 0;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    &__action {
-      display: flex;
-    }
-    &__action-button {
-      &:first-child {
-        margin: 0 var(--spacer-lg) 0 0;
-      }
-    }
-    &__element {
-      margin: 0 0 var(--spacer-base) 0;
-      flex: 0 0 100%;
-      &--salutation {
-        flex: 1 1 25%;
-        padding-right: var(--spacer-xl);
-      }
-      &--half {
-        flex: 1 1 50%;
-        &-even {
-          padding: 0 0 0 var(--spacer-lg);
-        }
-      }
     }
   }
 }

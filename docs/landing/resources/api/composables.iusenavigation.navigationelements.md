@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-navigationElements: NavigationElement[];
+navigationElements: Ref<Readonly<NavigationElement[]>>;
 ```

@@ -1,107 +1,113 @@
 <template>
-  <div class="form" data-cy="form">
-    <SwInput
-      data-cy="first-name"
-      v-model="firstName"
-      label="First name"
-      :valid="!validations.firstName.$error"
-      error-message="This field is required"
-      name="firstName"
-      class="form__element form__element--half"
-      required
-    />
-    <SwInput
-      v-model="lastName"
-      :valid="!validations.lastName.$error"
-      error-message="This field is required"
-      label="Last name"
-      data-cy="last-name"
-      name="lastName"
-      class="form__element form__element--half form__element--half-even"
-      required
-    />
-    <SwInput
-      v-model="street"
-      :valid="!validations.street.$error"
-      error-message="This field is required"
-      label="Street name"
-      data-cy="street-name"
-      name="street"
-      class="form__element"
-      required
-    />
-    <SwInput
-      v-model="apartment"
-      :valid="!validations.apartment.$error"
-      error-message="This field is required"
-      label="House/Apartment number"
-      data-cy="apartment"
-      name="apartment"
-      class="form__element"
-      required
-    />
-    <SwInput
-      v-model="city"
-      :valid="!validations.city.$error"
-      error-message="This field is required"
-      label="City"
-      data-cy="city"
-      name="city"
-      class="form__element form__element--half"
-      required
-    />
-    <SwInput
-      v-model="state"
-      :valid="!validations.state.$error"
-      error-message="This field is required"
-      label="State/Province"
-      data-cy="state"
-      name="state"
-      class="form__element form__element--half form__element--half-even"
-      required
-    />
-    <SwInput
-      v-model="zipcode"
-      :valid="!validations.zipcode.$error"
-      error-message="This field is required"
-      label="Zip-code"
-      data-cy="zipcode"
-      name="zipcode"
-      class="form__element form__element--half"
-      required
-    />
-    <SfSelect
-      v-if="getCountries.length"
-      v-model="countryId"
-      :valid="!validations.countryId.$error"
-      error-message="This field is required"
-      label="Country"
-      data-cy="country"
-      class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
-      required
-    >
-      <SfSelectOption
-        v-for="countryOption in getCountries"
-        :key="countryOption.id"
-        :value="countryOption.id"
+  <div class="sw-form" data-cy="form">
+    <div class="inputs-group">
+      <SwInput
+        v-model="firstName"
+        data-cy="first-name"
+        label="First name"
+        :valid="!validations.firstName.$error"
+        error-message="This field is required"
+        name="firstName"
+        class="sw-form__input"
+        required
+      />
+      <SwInput
+        v-model="lastName"
+        :valid="!validations.lastName.$error"
+        error-message="This field is required"
+        label="Last name"
+        data-cy="last-name"
+        name="lastName"
+        class="sw-form__input"
+        required
+      />
+      <SwInput
+        v-model="street"
+        :valid="!validations.street.$error"
+        error-message="This field is required"
+        label="Street name"
+        data-cy="street-name"
+        name="street"
+        class="sw-form__input"
+        required
+      />
+    </div>
+    <div class="inputs-group">
+      <SwInput
+        v-model="apartment"
+        :valid="!validations.apartment.$error"
+        error-message="This field is required"
+        label="House/Apartment number"
+        data-cy="apartment"
+        name="apartment"
+        class="sw-form__input"
+        required
+      />
+      <SwInput
+        v-model="city"
+        :valid="!validations.city.$error"
+        error-message="This field is required"
+        label="City"
+        data-cy="city"
+        name="city"
+        class="sw-form__input"
+        required
+      />
+      <SwInput
+        v-model="state"
+        :valid="!validations.state.$error"
+        error-message="This field is required"
+        label="State/Province"
+        data-cy="state"
+        name="state"
+        class="sw-form__input"
+        required
+      />
+    </div>
+    <div class="inputs-group">
+      <SwInput
+        v-model="zipcode"
+        :valid="!validations.zipcode.$error"
+        error-message="This field is required"
+        label="Zip-code"
+        data-cy="zipcode"
+        name="zipcode"
+        class="sw-form__input"
+        required
+      />
+      <SfSelect
+        v-if="getCountries.length"
+        v-model="countryId"
+        :valid="!validations.countryId.$error"
+        error-message="This field is required"
+        label="Country"
+        data-cy="country"
+        class="sw-form__select sf-select--underlined"
+        required
       >
-        {{ countryOption.name }}
-      </SfSelectOption>
-    </SfSelect>
-    <SwInput
-      v-model="phoneNumber"
-      :valid="!validations.phoneNumber.$error"
-      error-message="This field is required"
-      label="Phone number"
-      data-cy="phone"
-      name="phone"
-      class="form__element"
-      required
-    />
+        <SfSelectOption
+          v-for="countryOption in getCountries"
+          :key="countryOption.id"
+          :value="countryOption.id"
+        >
+          {{ countryOption.name }}
+        </SfSelectOption>
+      </SfSelect>
+      <SwInput
+        v-model="phoneNumber"
+        :valid="!validations.phoneNumber.$error"
+        error-message="This field is required"
+        label="Phone number"
+        data-cy="phone"
+        name="phone"
+        class="sw-form__input"
+        required
+      />
+    </div>
   </div>
 </template>
 <script>
-import { SfHeading, SfSelect, SfRadio } from "@storefront-ui/vue"
+import { SfSelect } from "@storefront-ui/vue"
 import { validationMixin } from "vuelidate"
 import {
   useShippingStep,
@@ -113,18 +119,15 @@ import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 
 export default {
   name: "ShippingAddressGuestForm",
-  mixins: [validationMixin],
   components: {
-    SfHeading,
     SwInput,
     SfSelect,
-    SfRadio,
   },
+  mixins: [validationMixin],
   setup(props, { root }) {
     const {
       validations,
       setValidations,
-      validate,
       firstName,
       lastName,
       street,
@@ -136,7 +139,7 @@ export default {
       phoneNumber,
     } = useShippingStep(root)
     const { getCountries } = useCountries(root)
-    const { getShippingMethods, setShippingMethod } = useCheckout(root)
+    const { setShippingMethod } = useCheckout(root)
 
     const shippingMethods = computed(() => []) // await getShippingMethods()
 
@@ -167,7 +170,7 @@ export default {
   watch: {
     $v: {
       immediate: true,
-      handler: function () {
+      handler() {
         this.setValidations(this.$v)
       },
     },
@@ -178,54 +181,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "@/assets/scss/variables";
-.form {
-  &__group {
-    display: flex;
-    align-items: center;
-  }
-  &__action-button {
-    &:first-child {
-      --button-height: 4.0625rem;
-      margin: var(--spacer-sm) 0 0 0;
-    }
-    &--secondary {
-      margin: var(--spacer-base) 0;
-    }
-  }
-  &__button {
-    --button-width: 100%;
-  }
-  &__radio-group {
-    flex: 0 0 100%;
-  }
-  @include for-desktop {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    margin: 0 var(--spacer-2xl) 0 0;
-    &:last-of-type {
-      margin: 0 calc(var(--spacer-2xl) - var(--spacer-sm)) 0 0;
-    }
-    &__element {
-      margin: 0 0 var(--spacer-sm) 0;
-      flex: 0 0 100%;
-      &--half {
-        flex: 1 1 50%;
-        &-even {
-          padding: 0 0 0 var(--spacer-xl);
-        }
-      }
-    }
-    &__action {
-      flex: 0 0 100%;
-      display: flex;
-    }
-    &__button {
-      --button-width: auto;
-    }
-  }
-}
+@import "@/assets/scss/forms";
+
 .shipping {
   margin: 0 calc(var(--spacer-base) * -1);
   &__label {

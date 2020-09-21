@@ -33,6 +33,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       mode: "universal",
       target: "server",
       devTools: [],
+      gitUsername: "",
     };
     if (!isNuxtGenerated) {
       const nuxtGenerate = `npx --ignore-existing create-nuxt-app@3.2.0 --answers "${JSON.stringify(
@@ -169,7 +170,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     port: process.env.PORT || 3000,
     host: process.env.HOST || '0.0.0.0'
   },`,
-        after: "mode: 'universal',",
+        after: "export default {",
       });
     }
 
@@ -220,7 +221,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       await toolbox.patching.patch("nuxt.config.js", {
         insert: `
   telemetry: false,`,
-        after: "mode: 'universal',",
+        after: "export default {",
       });
     }
   };

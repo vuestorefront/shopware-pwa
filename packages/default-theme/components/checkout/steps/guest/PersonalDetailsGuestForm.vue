@@ -44,13 +44,11 @@
         :valid="!validations.email.$error"
         error-message="Proper email is required"
         name="email"
-        class="form__element"
+        class="sw-form__input"
         data-cy="proper-email"
       />
       <div class="info">
-        <p class="info__heading">
-          Enjoy these perks with your free account!
-        </p>
+        <p class="info__heading">Enjoy these perks with your free account!</p>
         <SfCharacteristic
           v-for="(characteristic, key) in characteristics"
           :key="key"
@@ -64,7 +62,7 @@
         v-model="createAccount"
         name="createAccount"
         label="I want to create an account"
-        class="form__checkbox"
+        class="sw-form__checkbox"
       />
       <transition name="fade">
         <SwInput
@@ -85,18 +83,18 @@
       </transition>
       <div class="form__action">
         <SwButton
-          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only"
+          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only sw-form__button"
           data-cy="go-back-to-shop-button"
           >Go Back to shop</SwButton
         >
         <SwButton
-          class="sf-button--full-width form__action-button"
+          class="sf-button--full-width form__action-button sw-form__button"
           data-cy="continue-to-shipping-button"
           @click="toShipping"
           >Continue to shipping</SwButton
         >
         <SwButton
-          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only"
+          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only sw-form__button"
           >Go back to shop</SwButton
         >
       </div>
@@ -104,14 +102,7 @@
   </div>
 </template>
 <script>
-import {
-  SfCheckbox,
-  SfHeading,
-  SfModal,
-  SfCharacteristic,
-  SfSelect,
-  SfProductOption,
-} from "@storefront-ui/vue"
+import { SfCheckbox, SfHeading, SfCharacteristic } from "@storefront-ui/vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
@@ -319,7 +310,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "@/assets/scss/variables";
+@import "@/assets/scss/forms";
 
 .sw-checkout {
   &__personal_info {
@@ -363,53 +354,7 @@ export default {
     --heading-padding: 0 0 var(--spacer-xl) 0;
   }
 }
-.form {
-  &__checkbox {
-    margin: var(--spacer-base) 0 var(--spacer-xl) 0;
-  }
-  &__action {
-    flex: 0 0 100%;
-    margin: var(--spacer-base) 0 0 0;
-  }
-  &__action-button {
-    --button-height: 3.25rem;
-  }
-  @include for-mobile {
-    &__checkbox {
-      --checkbox-font-family: var(--font-family-primary);
-      --checkbox-font-weight: var(--font-light);
-      --checkbox-font-size: var(--font-sm);
-    }
-  }
-  @include for-desktop {
-    margin: 0 var(--spacer-2xl) 0 0;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    &__action {
-      display: flex;
-    }
-    &__action-button {
-      &:first-child {
-        margin: 0 var(--spacer-lg) 0 0;
-      }
-    }
-    &__element {
-      margin: 0 0 var(--spacer-base) 0;
-      flex: 0 0 100%;
-      &--salutation {
-        flex: 1 1 25%;
-        padding-right: var(--spacer-xl);
-      }
-      &--half {
-        flex: 1 1 50%;
-        &-even {
-          padding: 0 0 0 var(--spacer-lg);
-        }
-      }
-    }
-  }
-}
+
 .info {
   margin: 0 0 var(--spacer-sm) 0;
   &__heading {
@@ -433,6 +378,14 @@ export default {
       margin: var(--spacer-sm) 0 0 0;
       flex: 0 0 50%;
     }
+  }
+}
+
+.form__action {
+  margin: var(--spacer-sm) 0;
+
+  .sf-button + .sf-button {
+    margin-top: var(--spacer-sm);
   }
 }
 </style>

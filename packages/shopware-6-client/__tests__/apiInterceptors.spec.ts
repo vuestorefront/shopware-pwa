@@ -192,5 +192,15 @@ describe("apiInterceptors", () => {
         expect(e.message).toBe("timeout of 5ms");
       }
     });
+    it("should recognize the Network error rejection in axios specific case (there is no internet connection - offline mode is on)", async () => {
+      try {
+        await errorInterceptor({ message: "Network Error" } as any);
+        // Fail test if above expression doesn't throw anything.
+        expect("didn't throw an error").toEqual("should throw an error");
+      } catch (e) {
+        expect(e.statusCode).toEqual(0);
+        expect(e.message).toBe("Network Error");
+      }
+    });
   });
 });

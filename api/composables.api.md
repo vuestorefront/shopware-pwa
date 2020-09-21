@@ -5,9 +5,11 @@
 ```ts
 
 import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
+import { ApplicationVueContext as ApplicationVueContext_2 } from '@shopware-pwa/composables';
 import { Association } from '@shopware-pwa/commons/interfaces/search/Association';
 import { BillingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
+import { ComputedRef } from '@vue/composition-api';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
@@ -43,6 +45,8 @@ export interface ApplicationVueContext extends VueConstructor {
     // (undocumented)
     $i18n?: any;
     // (undocumented)
+    $interceptors?: any;
+    // (undocumented)
     $router?: any;
     // (undocumented)
     $shopwareApiInstance?: ShopwareApiInstance;
@@ -54,6 +58,8 @@ export interface ApplicationVueContext extends VueConstructor {
     cookies?: any;
     // (undocumented)
     i18n?: any;
+    // (undocumented)
+    interceptors?: any;
     // (undocumented)
     router?: any;
     // (undocumented)
@@ -109,6 +115,7 @@ export function getApplicationContext(rootContext: ApplicationVueContext, key?: 
     i18n: any;
     cookies: any;
     shopwareDefaults: any;
+    interceptors: any;
     contextName: string;
 };
 
@@ -121,12 +128,23 @@ export function getDefaultApiParams(): {
 };
 
 // @beta
+export const INTERCEPTOR_KEYS: {
+    ADD_TO_CART: string;
+    ERROR: string;
+    USER_LOGOUT: string;
+};
+
+// @beta
 export interface IUseAddToCart {
     addToCart: () => Promise<void>;
     error: Ref<string>;
     getStock: Ref<number | null>;
     isInCart: Ref<boolean>;
     loading: Ref<boolean>;
+    onAddToCart: (fn: (params: {
+        product: Product;
+        quantity: Number;
+    }) => void) => void;
     quantity: Ref<number>;
 }
 
@@ -190,13 +208,20 @@ export interface IUseCheckout {
 }
 
 // @beta
+export interface IUseIntercept {
+    broadcast: (broadcastKey: string, value?: any) => void;
+    disconnect: (broadcastKey: string, method: Function) => void;
+    intercept: (broadcastKey: string, method: Function) => void;
+}
+
+// @beta
 export interface IUseNavigation {
     // (undocumented)
     fetchNavigationElements: (depth: number) => Promise<void>;
     // (undocumented)
     fetchRoutes: () => Promise<void>;
     // (undocumented)
-    navigationElements: NavigationElement[];
+    navigationElements: Ref<Readonly<NavigationElement[]>>;
     // (undocumented)
     routes: Ref<Readonly<any>>;
 }
@@ -259,6 +284,7 @@ export interface IUseUser {
         addressId?: string;
         type?: AddressType;
     }) => Promise<string | boolean>;
+    onLogout: (fn: () => void) => void;
     // (undocumented)
     orders: Ref<Order[] | null>;
     // (undocumented)
@@ -278,6 +304,18 @@ export interface IUseUser {
     // (undocumented)
     user: Ref<Customer | null>;
 }
+
+// @beta (undocumented)
+interface Notification_2 {
+    // (undocumented)
+    id?: number;
+    // (undocumented)
+    message: string;
+    // (undocumented)
+    type: "info" | "warning" | "success" | "danger";
+}
+
+export { Notification_2 as Notification }
 
 // @alpha (undocumented)
 export type Search = (path: string, associations?: any) => any;
@@ -338,7 +376,21 @@ export const useDefaults: (rootContext: ApplicationVueContext, defaultsKey: stri
 };
 
 // @beta
+export const useIntercept: (rootContext: ApplicationVueContext_2) => IUseIntercept;
+
+// @beta
 export const useNavigation: (rootContext: ApplicationVueContext) => IUseNavigation;
+
+// @beta (undocumented)
+export const useNotifications: (rootContext: ApplicationVueContext) => {
+    notifications: ComputedRef<Notification_2[]>;
+    removeOne: (id: number) => void;
+    removeAll: () => void;
+    pushInfo: (message: string, options?: any) => void;
+    pushWarning: (message: string, options?: any) => void;
+    pushError: (message: string, options?: any) => void;
+    pushSuccess: (message: string, options?: any) => void;
+};
 
 // @alpha (undocumented)
 export interface UseProduct<PRODUCT, SEARCH> {
