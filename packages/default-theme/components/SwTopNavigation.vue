@@ -78,18 +78,10 @@ export default {
           console.error("[SwTopNavigation]", e)
         }
       })
-
-      // fixes a watch issue - fetch the elements if watch wasn't fired
-      if (Array.isArray(navigationElements) && !navigationElements.length) {
-        try {
-          fetchNavigationElements(3)
-        } catch (e) {
-          console.error("[SwTopNavigation]", e)
-        }
-      }
     })
 
     return {
+      fetchNavigationElements,
       navigationElements,
       getCategoryUrl,
       currentCategoryName,
@@ -124,8 +116,20 @@ export default {
     },
   },
 
-  mounted() {
+  async mounted() {
     window.addEventListener("resize", this.countVisibleCategories)
+    // fixes a watch issue - fetch the elements if watch wasn't fired
+    if (
+      Array.isArray(this.navigationElements) &&
+      !this.navigationElements.length
+    ) {
+      try {
+        await this.fetchNavigationElements(3)
+      } catch (e) {
+        console.error("[SwTopNavigation]", e)
+      }
+    }
+    this.countVisibleCategories()
   },
 
   unmounted() {

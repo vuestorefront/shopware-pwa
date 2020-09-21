@@ -66,7 +66,18 @@ describe("Composables - useNavigation", () => {
           rootContextMock
         );
         await fetchNavigationElements(2);
-        expect(navigationElements).toHaveLength(3);
+        expect(navigationElements.value).toHaveLength(3);
+      });
+
+      it("should return an empty array for navigation if ther is no chilren", async () => {
+        mockedGetPage.getNavigation.mockResolvedValueOnce({
+          count: 0,
+        } as any);
+        const { navigationElements, fetchNavigationElements } = useNavigation(
+          rootContextMock
+        );
+        await fetchNavigationElements(2);
+        expect(navigationElements.value).toEqual([]);
       });
     });
   });

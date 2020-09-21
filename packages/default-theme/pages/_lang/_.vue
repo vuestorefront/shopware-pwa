@@ -25,7 +25,7 @@ export default {
   watchQuery: true,
   asyncData: async ({ params, app, error: errorView, query }) => {
     const { search, page, error } = useCms(app)
-    const { pushError } = useNotifications()
+    const { pushError } = useNotifications(app)
     let path = params.pathMatch
     const lang = params.lang
     if (lang && !languagesMap[lang]) {

@@ -41,6 +41,8 @@ So for example even if you overwritten SwButton as above you can still call them
 
 **FEATURE**: we introduced Interceptors functionality to listen on events across application. More [here](/landing/concepts/interceptor.html)
 
+**FEATURE**: you can use new `useNotifications` composable to manage notifications in your app; best combination is to use it with Interceptors functionality.
+
 ## Migrate version 0.2.x to 0.3.x
 
 All changes are documented in our [Changelog](https://github.com/DivanteLtd/shopware-pwa/blob/master/CHANGELOG.md)

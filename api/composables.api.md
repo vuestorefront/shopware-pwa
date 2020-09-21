@@ -221,7 +221,7 @@ export interface IUseNavigation {
     // (undocumented)
     fetchRoutes: () => Promise<void>;
     // (undocumented)
-    navigationElements: NavigationElement[];
+    navigationElements: Ref<Readonly<NavigationElement[]>>;
     // (undocumented)
     routes: Ref<Readonly<any>>;
 }
