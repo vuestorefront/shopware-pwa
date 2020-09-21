@@ -117,6 +117,10 @@ export async function runModule(
     options: {
       shopwareEndpoint: shopwarePwaConfig.shopwareEndpoint,
       shopwareAccessToken: shopwarePwaConfig.shopwareAccessToken,
+      shopwareApiClient: {
+        timeout: shopwarePwaConfig.shopwareApiClient?.timeout,
+        paginationLimit: shopwarePwaConfig.shopwareApiClient?.paginationLimit,
+      },
     },
   });
 

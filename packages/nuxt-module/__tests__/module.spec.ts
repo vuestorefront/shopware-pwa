@@ -113,6 +113,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
       options: {
         shopwareAccessToken: "mockedToken",
         shopwareEndpoint: "mockedEndpoint",
+        shopwareApiClient: {},
       },
       src: pathForApiClientPlugin,
     });
@@ -172,6 +173,38 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     expect(consoleErrorSpy).toBeCalledWith(
       "Please change your shopwareEndpoint in shopware-pwa.config.js to contain just domain, example: https://github.com/DivanteLtd/shopware-pwa#running-shopware-pwa-on-custom-shopware-instance"
     );
+  });
+
+  it("should have extra API client related config", async () => {
+    mockedUtils.loadConfig.mockResolvedValueOnce({
+      shopwareEndpoint:
+        "https://shopware-pwa.storefrontcloud.io/sales-channel-api/v1",
+      shopwareAccessToken: "mockedToken",
+      shopwareApiClient: {
+        timeout: 5,
+        paginationLimit: 30,
+      },
+    });
+    const pathForApiClientPlugin = path.join(
+      __dirname,
+      "..",
+      "plugins",
+      "api-client.js"
+    );
+    await runModule(moduleObject, {});
+    expect(moduleObject.addPlugin).toBeCalledWith({
+      fileName: "api-client.js",
+      options: {
+        shopwareAccessToken: "mockedToken",
+        shopwareEndpoint:
+          "https://shopware-pwa.storefrontcloud.io/sales-channel-api/v1",
+        shopwareApiClient: {
+          timeout: 5,
+          paginationLimit: 30,
+        },
+      },
+      src: pathForApiClientPlugin,
+    });
   });
 
   it("should add cookies plugin", async () => {

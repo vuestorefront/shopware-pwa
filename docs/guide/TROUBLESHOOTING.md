@@ -52,3 +52,13 @@ See: [Context-awareness](/landing/fundamentals/#context-awareness) section. It's
 You should check all your imports for @shopware-pwa/shopware-6-client and add apiInstance as the last parameter.
 
 See: [Context-awareness](/landing/fundamentals/#context-awareness) section. It's explained in details.
+
+### Issue: The API Client's timeout is too low. I'm getting HTTP 408 errors.
+
+- Edit _shopware-pwa.config.js_ file
+- Add entry:
+```js
+shopwareApiClient: {
+  timeout: 10000 // 10 seconds of axios timeout setting
+}
+```
