@@ -49,8 +49,8 @@ This token protects highly sensitive data and should never be persisted in other
 The Admin API is used to synchronise your PWA project with your Shopware 6 backend. This connection is only required during build time when running one of the following commands. The `shopware-pwa` CLI uses it to request resources from Shopware plugins and install them.
 
 ```sh
-$ shopware-pwa init 		# Initialize a new project
-$ shopware-pwa plugins 		# Refresh plugins from SW instance
+$ shopware-pwa init 		# (or shopware-pwa init) Initialize a new project
+$ shopware-pwa plugins 		# (or shopware-pwa init) Refresh plugins from SW instance
 ```
 
 The data is transmitted as a `.json` file containing plugin configurations and a `.zip` file containing plugin resources like `.js` or `.vue` files or other assets.
@@ -71,8 +71,8 @@ Please check our [guide on authentication](https://docs.shopware.com/en/shopware
 After the build process, there is no connection required anymore, so it is advised to only these credentials when executing the `init` or `plugins` command:
 
 ```sh
-$ shopware-pwa init --ci --username [user] --password [pass]
-$ shopware-pwa plugins --ci --username [user] --password [pass]
+$ npx shopware-pwa/cli init --ci --username [user] --password [pass]
+$ npx shopware-pwa/cli plugins --ci --username [user] --password [pass]
 ```
 
 ## Context-Awareness <Badge text="new (0.2.0)" type="info"/>

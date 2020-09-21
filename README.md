@@ -48,6 +48,9 @@ If you have any questions or ideas feel free to join our slack: https://vuestore
 
 ### Installation
 
+_This step may be skipped if the `npx` command is used._
+
+
 ```bash
 yarn global add @shopware-pwa/cli
 ```
@@ -79,6 +82,10 @@ cd ./my-shopware-pwa
 initialize project inside the directory
 
 ```bash
+npx @shopware-pwa/cli init
+```
+or, for CLI installed globally
+```bash
 shopware-pwa init
 ```
 
@@ -107,11 +114,14 @@ module.exports = {
 };
 ```
 
-3. run again `shopware-pwa init` (to refresh plugins from instance) and then `yarn dev`
+3. run again `npx @shopware-pwa/cli init` (to refresh plugins from instance) and then `yarn dev`
 
 Read full instruction in `CHEATSHEET.md` file.
 
 ### Version update
+
+::: tip Use always latest CLI package  
+Updating a package globally is not necessary if the `npx` command is being used.
 
 To be sure that you have the latest version of CLI for Shopware PWA installed, you just need to reinstall the package using the same commands as for installation:
 
@@ -138,6 +148,10 @@ npm install -g @shopware-pwa/cli@canary
 
 If you already have some Shopware PWA plugins installed (like [HelloCody](https://github.com/elkmod/SwagHelloCody) plugin example), then you can generate plugin files
 
+```bash
+npx @shopware-pwa/cli init
+```
+or, for CLI installed globally
 ```bash
 shopware-pwa init
 ```

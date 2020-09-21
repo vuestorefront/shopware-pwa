@@ -11,8 +11,8 @@ sidebar: false
 </center>
 
 ```bash
-yarn global add @shopware-pwa/cli && shopware-pwa init 		# install CLI & initialize project
-yarn dev 													# start dev server
+npx @shopware-pwa/cli init 		# Initialize project
+yarn dev 						# start dev server
 ```
 
 ---

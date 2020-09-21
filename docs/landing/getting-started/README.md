@@ -10,6 +10,9 @@ Set up shopware-pwa in less than 10 minutes.
 
 ### Installation
 
+::: tip Always updated  
+To avoid manualy updates - use `npx @shopware-pwa/cli` command instead. Then you can skip the installation process.
+
 This will install the showpare-pwa CLI tools and make them globally available.
 
 ```bash
@@ -42,6 +45,10 @@ cd ./my-shopware-pwa
 
 Initialize the project inside the directory by running
 
+```bash
+npx @shopware-pwa/cli init
+```
+or, for CLI installed globally
 ```bash
 shopware-pwa init
 ```

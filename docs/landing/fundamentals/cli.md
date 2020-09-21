@@ -2,7 +2,18 @@
 
 A command line interface for [Shopware PWA](https://github.com/DivanteLtd/shopware-pwa).
 
+::: tip Use always latest CLI package  
+To do so, use `npx` instead of `npm` or `yarn` installed package, like:
+```bash
+npx @shopware-pwa/cli <command>
+```
+or 
+```bash
+npx @shopware-pwa/cli@canary <command>
+```
+
 ## Installation
+If there's a need to have the package installed globaly, always remember to keep it updated.
 
 ```bash
 yarn global add @shopware-pwa/cli
@@ -34,7 +45,7 @@ cd ./my-shopware-pwa
 initialize project inside directory
 
 ```bash
-shopware-pwa init
+npx @shopware-pwa/cli init
 ```
 
 after this you're connected to our test shopware instance and ready to run project locally
@@ -48,7 +59,11 @@ Now you have complete ShopwarePWA project running locally.
 
 ## Version update
 
-To be sure that you have the latest version of CLI for Shopware PWA installed, you just need to reinstall the package using the same commands as for installation:
+::: tip Always updated  
+To avoid manualy updates - use `npx @shopware-pwa/cli` command instead.
+
+To be sure that you have the latest version of CLI for Shopware PWA installed.
+You just need to reinstall the package using the same commands as for installation:
 
 ```bash
 yarn global add @shopware-pwa/cli
