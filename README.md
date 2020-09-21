@@ -46,30 +46,6 @@ If you have any questions or ideas feel free to join our slack: https://vuestore
 
 ## Quickstart
 
-### Installation
-
-_This step may be skipped if the `npx` command is used._
-
-
-```bash
-yarn global add @shopware-pwa/cli
-```
-
-or
-
-```bash
-npm install -g @shopware-pwa/cli
-```
-
-::: tip Canary version  
-Currently, we're releasing a `canary` version per every push to `master` branch, so in order to have newest changes and fixes just install it like this:
-
-```bash
-npm install -g @shopware-pwa/cli@canary
-```
-
-:::
-
 ### Usage
 
 Create a directory for your project and enter it
@@ -83,10 +59,6 @@ initialize project inside the directory
 
 ```bash
 npx @shopware-pwa/cli init
-```
-or, for CLI installed globally
-```bash
-shopware-pwa init
 ```
 
 It will ask for the address to yous shopware instance, access token, and admin credentials to load plugins. Only the first two are required to start the instance, and default settings will point to our demo instance. Then you can just begin local development by typing:
@@ -118,32 +90,6 @@ module.exports = {
 
 Read full instruction in `CHEATSHEET.md` file.
 
-### Version update
-
-::: tip Use always latest CLI package  
-Updating a package globally is not necessary if the `npx` command is being used.
-
-To be sure that you have the latest version of CLI for Shopware PWA installed, you just need to reinstall the package using the same commands as for installation:
-
-```bash
-yarn global add @shopware-pwa/cli
-```
-
-or
-
-```bash
-npm install -g @shopware-pwa/cli
-```
-
-::: tip Canary version  
-If you want to update to `canary` version, just add this to update command. If you're using it please remember to update often as it's changing with master branch.
-
-```bash
-npm install -g @shopware-pwa/cli@canary
-```
-
-:::
-
 ### Running with plugins
 
 If you already have some Shopware PWA plugins installed (like [HelloCody](https://github.com/elkmod/SwagHelloCody) plugin example), then you can generate plugin files
@@ -151,7 +97,9 @@ If you already have some Shopware PWA plugins installed (like [HelloCody](https:
 ```bash
 npx @shopware-pwa/cli init
 ```
+
 or, for CLI installed globally
+
 ```bash
 shopware-pwa init
 ```

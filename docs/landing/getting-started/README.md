@@ -8,32 +8,6 @@ This guide will help you get started with shopware-pwa.
 
 Set up shopware-pwa in less than 10 minutes.
 
-### Installation
-
-::: tip Always updated  
-To avoid manualy updates - use `npx @shopware-pwa/cli` command instead. Then you can skip the installation process.
-
-This will install the showpare-pwa CLI tools and make them globally available.
-
-```bash
-yarn global add @shopware-pwa/cli
-```
-
-or
-
-```bash
-npm install -g @shopware-pwa/cli
-```
-
-::: details Canary version  
-Currently, we're releasing a `canary` version per every push to `master` branch, so in order to have newest changes and fixes just install it like this:
-
-```bash
-npm install -g @shopware-pwa/cli@canary
-```
-
-:::
-
 ### Create project
 
 Create a directory for your project and enter it
@@ -47,10 +21,6 @@ Initialize the project inside the directory by running
 
 ```bash
 npx @shopware-pwa/cli init
-```
-or, for CLI installed globally
-```bash
-shopware-pwa init
 ```
 
 It will ask for the address to your shopware instance, access token, and admin credentials to load plugins. Only the first two are required to start the instance, and default settings will point to our demo instance.
@@ -95,8 +65,8 @@ yarn dev
 
 What about...
 
- * Exploring the [directory structure](/landing/project/structure/) of the project.
- * Go [troubleshooting](/landing/resources/troubleshooting/) if you encounter any issues
- * [Reporting an issue](https://github.com/DivanteLtd/shopware-pwa/issues/new/choose) if you couldn't solve it
+- Exploring the [directory structure](/landing/project/structure/) of the project.
+- Go [troubleshooting](/landing/resources/troubleshooting/) if you encounter any issues
+- [Reporting an issue](https://github.com/DivanteLtd/shopware-pwa/issues/new/choose) if you couldn't solve it
 
 </center>
