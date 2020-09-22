@@ -95,7 +95,7 @@ module.exports = {
         break;
       case STAGES.LOCAL:
         await run(
-          `yarn add -D ${coreDevPackages
+          `yarn add -D ${localCoreDevPackages
             .map((dep) => `${dep}@canary`)
             .join(" ")}`
         );
