@@ -46,11 +46,13 @@ Please, remember to always during development have opened terminal with `yarn te
 
 ## Pull requests
 
-The Pull requests **title** must match the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) spec.
+* The Pull requests **title** must match the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) spec.
 If not, the PR will fail during the github action process.
 
-There is a Pull Request template, that contributors should follow. To merge a branch into master at least one core team member must accept the changes. All continuous integration checks must pass. Note that, only Shopware-PWA Core Team Members are allowed to accept pull requests.
+* In order to speed up the whole process, please **allow** us **to edit** your pull requests (you can mark a PR as editable during creating).
 
-If you face any problems during the implementation of the complex issue, feel free to implement just a part of it and ask for help in the comment. It's OK if you can only handle styling/tests/whatever. 
+* There is a Pull Request template, that contributors should follow. To merge a branch into master at least one core team member must accept the changes. All continuous integration checks must pass. Note that, only Shopware-PWA Core Team Members are allowed to accept pull requests.
 
-In case of any problems feel free to contact us in comments or our Slack channel. :)
+* If you face any problems during the implementation of the complex issue, feel free to implement just a part of it and ask for help in the comment. It's OK if you can only handle styling/tests/whatever. 
+
+* In case of any problems feel free to contact us in comments or our Slack channel. :)
