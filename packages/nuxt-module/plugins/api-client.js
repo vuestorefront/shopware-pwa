@@ -28,6 +28,7 @@ export default async ({ app }, inject) => {
     try {
       app.$cookies.set("sw-context-token", config.contextToken, {
         maxAge: 60 * 60 * 24 * 365,
+        SameSite: "Strict",
       });
       app.$cookies.set("sw-language-id", config.languageId, {
         maxAge: 60 * 60 * 24 * 365,
