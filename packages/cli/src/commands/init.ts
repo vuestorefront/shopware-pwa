@@ -68,14 +68,7 @@ module.exports = {
     );
 
     // Adding Shopware PWA core dependencies
-    const coreDevPackages = [
-      "@shopware-pwa/cli",
-      "@shopware-pwa/composables",
-      "@shopware-pwa/helpers",
-      "@shopware-pwa/shopware-6-client",
-      "@shopware-pwa/default-theme",
-      "@shopware-pwa/nuxt-module",
-    ];
+    const coreDevPackages = ["@shopware-pwa/nuxt-module"];
 
     try {
       // - unlink potential linked locally packages
