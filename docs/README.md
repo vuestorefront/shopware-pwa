@@ -11,8 +11,8 @@ sidebar: false
 </center>
 
 ```bash
-yarn global add @shopware-pwa/cli && shopware-pwa init 		# install CLI & initialize project
-yarn dev 													# start dev server
+npx @shopware-pwa/cli init 		# Initialize project
+yarn dev 						# start dev server
 ```
 
 ---
@@ -28,16 +28,19 @@ yarn dev 													# start dev server
 
 <div class="flex-container">
 
-<div class="md-50">	
+<div class="md-50">
 
 ### [Project](/landing/project/)
+
 Understand the goal and scope of this project
 
 ### [Getting started](/landing/getting-started/)
+
 Quickstart and finding your way around
 
 ### [Fundamentals](/landing/fundamentals/) <Badge text="new" type="info"/>
-Get to understand the core components of the application 
+
+Get to understand the core components of the application
 
 </div>
 
@@ -47,9 +50,11 @@ Get to understand the core components of the application
 Guides for functional concepts like CMS or Checkout
 
 ### [Operations](/landing/operations) <Badge text="new" type="info"/>
+
 Best practices, guidelines for setup, hosting and deployment
 
 ### [Resources](/landing/resources/)
+
 Roadmap, Package API references and related projects
 
 </div>

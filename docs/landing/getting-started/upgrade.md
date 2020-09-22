@@ -31,9 +31,9 @@ and it will import SwButton from theme or overwritten by you (created in `src/co
 So for example even if you overwritten SwButton as above you can still call theme SwButton like this:
 `import SwButton from "@theme/components/atoms/SwButton"`
 
-**MIGRATION STEP**: change import in `src/assets/main.scss` from `@import '~@shopware-pwa/default-theme/assets/scss/main';` to `@import '@theme/assets/scss/main';` - old import should still work though.
+**MIGRATION STEP**: change import in `src/assets/main.scss` from `@import '~@shopware-pwa/default-theme/assets/scss/main';` to `@import '@theme/assets/scss/main';`
 
-**MIGRATION STEP**: change import in `src/assets/variables.scss` from `@import '~@shopware-pwa/default-theme/assets/scss/variables';` to `@import '@theme/assets/scss/variables';` - old import should still work though.
+**MIGRATION STEP**: change import in `src/assets/variables.scss` from `@import '~@shopware-pwa/default-theme/assets/scss/variables';` to `@import '@theme/assets/scss/variables';`
 
 **REFACTOR(default-theme)**: `SwAddress` in `components/forms/SwAddress` has been renamed to `SwAddressForm` to avoid duplications with `SwAddress` in `components/SwAddress.vue`
 
