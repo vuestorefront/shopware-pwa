@@ -11,7 +11,7 @@ export function useCorePackages(
     const pkgPath = path.resolve(path.join("node_modules", packageName));
     const pkg = jetpack.read(path.join(pkgPath, "package.json"), "json");
 
-    if (pkg.module) {
+    if (pkg && pkg.module) {
       moduleObject.options.alias[pkg.name + "$"] = path.resolve(
         pkgPath,
         pkg.module
