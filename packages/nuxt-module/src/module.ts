@@ -10,7 +10,6 @@ import { extendCMS } from "./cms";
 import { extendLocales } from "./locales";
 import { useCorePackages } from "./packages";
 import { getAllFiles } from "./files";
-import { invokeBuildLogger } from "./logger";
 import {
   getTargetSourcePath,
   getBaseSourcePath,
@@ -47,8 +46,6 @@ export async function runModule(
 
   await useThemeAndProjectFiles({ TARGET_SOURCE, PROJECT_SOURCE, BASE_SOURCE });
 
-  /* istanbul ignore next */
-  invokeBuildLogger(moduleObject);
   const shopwarePwaConfig: ShopwarePwaConfigFile = await loadConfig(
     moduleObject
   );
