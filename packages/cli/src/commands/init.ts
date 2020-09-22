@@ -68,7 +68,8 @@ module.exports = {
     );
 
     // Adding Shopware PWA core dependencies
-    const coreDevPackages = [
+    const coreDevPackages = ["@shopware-pwa/nuxt-module"];
+    const localCoreDevPackages = [
       "@shopware-pwa/cli",
       "@shopware-pwa/composables",
       "@shopware-pwa/helpers",
@@ -79,7 +80,7 @@ module.exports = {
 
     try {
       // - unlink potential linked locally packages
-      await run(`yarn unlink ${coreDevPackages.join(" ")}`);
+      await run(`yarn unlink ${localCoreDevPackages.join(" ")}`);
     } catch (e) {
       // It's just for safety, unlink on fresh project will throw an error so we can catch it here
     }
@@ -94,12 +95,12 @@ module.exports = {
         break;
       case STAGES.LOCAL:
         await run(
-          `yarn add -D ${coreDevPackages
+          `yarn add -D ${localCoreDevPackages
             .map((dep) => `${dep}@canary`)
             .join(" ")}`
         );
-        await run(`npx yalc add -D ${coreDevPackages.join(" ")}`);
-        await run(`yarn link ${coreDevPackages.join(" ")}`);
+        await run(`npx yalc add -D ${localCoreDevPackages.join(" ")}`);
+        await run(`yarn link ${localCoreDevPackages.join(" ")}`);
         break;
       case STAGES.STABLE:
       default:
