@@ -35,6 +35,7 @@ import { SessionContext } from '@shopware-pwa/commons/interfaces/response/Sessio
 import { ShippingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 import { ShopwareApiInstance } from '@shopware-pwa/shopware-6-client';
+import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { VueConstructor } from 'vue';
 
@@ -46,6 +47,8 @@ export interface ApplicationVueContext extends VueConstructor {
     $i18n?: any;
     // (undocumented)
     $interceptors?: any;
+    // (undocumented)
+    $route?: any;
     // (undocumented)
     $router?: any;
     // (undocumented)
@@ -60,6 +63,8 @@ export interface ApplicationVueContext extends VueConstructor {
     i18n?: any;
     // (undocumented)
     interceptors?: any;
+    // (undocumented)
+    route?: any;
     // (undocumented)
     router?: any;
     // (undocumented)
@@ -112,6 +117,7 @@ export function getApplicationContext(rootContext: ApplicationVueContext, key?: 
     apiInstance: ShopwareApiInstance | undefined;
     vuexStore: any;
     router: any;
+    route: any;
     i18n: any;
     cookies: any;
     shopwareDefaults: any;
@@ -212,6 +218,12 @@ export interface IUseIntercept {
     broadcast: (broadcastKey: string, value?: any) => void;
     disconnect: (broadcastKey: string, method: Function) => void;
     intercept: (broadcastKey: string, method: Function) => void;
+}
+
+// @alpha (undocumented)
+export interface IUseListing {
+    // (undocumented)
+    [x: string]: any;
 }
 
 // @beta
@@ -373,10 +385,14 @@ export const useCurrency: (rootContext: ApplicationVueContext) => UseCurrency;
 export const useDefaults: (rootContext: ApplicationVueContext, defaultsKey: string) => {
     getIncludesConfig: () => Includes;
     getAssociationsConfig: () => Association[];
+    getDefaults: () => ShopwareSearchParams;
 };
 
 // @beta
 export const useIntercept: (rootContext: ApplicationVueContext_2) => IUseIntercept;
+
+// @alpha (undocumented)
+export const useListing: (rootContext: ApplicationVueContext_2, listingKey: string) => IUseListing;
 
 // @beta
 export const useNavigation: (rootContext: ApplicationVueContext) => IUseNavigation;
