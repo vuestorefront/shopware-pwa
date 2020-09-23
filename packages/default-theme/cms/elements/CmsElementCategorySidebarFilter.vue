@@ -7,7 +7,7 @@
         class="sf-button--text navbar__filters-button"
         @click="openFiltersSidebar"
       >
-        <SfIcon size="14px" icon="filter" style="margin-right: 10px;" />Filters
+        <SfIcon size="14px" icon="filter" style="margin-right: 10px" />Filters
       </SwButton>
       <div class="navbar__sort desktop-only">
         <span class="navbar__label">Sort by:</span>
@@ -21,7 +21,7 @@
             :key="option.key"
             :value="option.key"
             class="sort-by__option"
-            >{{ $t(option.snippet) }}</SfSelectOption
+            >{{ $t(option.label) }}</SfSelectOption
           >
         </SfSelect>
       </div>

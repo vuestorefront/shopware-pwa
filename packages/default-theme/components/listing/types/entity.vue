@@ -5,6 +5,7 @@
       'filters__filter--color': filter.name === 'color',
     }"
   >
+    <SfHeading class="filters__title" :level="4" :title="filter.label" />
     <SfFilter
       v-for="option in getOptions"
       :key="option.id"
@@ -23,11 +24,12 @@
   </div>
 </template>
 <script>
-import { SfFilter } from "@storefront-ui/vue"
+import { SfFilter, SfHeading } from "@storefront-ui/vue"
 
 export default {
   components: {
     SfFilter,
+    SfHeading,
   },
   props: {
     filter: {
@@ -49,6 +51,10 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
+
+::v-deep.sf-heading {
+  --heading-text-align: left;
+}
 
 .filters {
   &__filter {

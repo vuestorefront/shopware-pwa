@@ -1,6 +1,5 @@
 <template>
   <div v-if="getComponent">
-    <SfHeading class="filters__title" :level="4" :title="filter.label" />
     <component
       :is="getComponent"
       :filter="filter"
@@ -14,14 +13,13 @@
 </template>
 
 <script>
-import { SfFilter, SfHeading } from "@storefront-ui/vue"
+import { SfFilter } from "@storefront-ui/vue"
 import NoFilterFound from "@/components/listing/NoFilterFound"
 
 export default {
   name: "SwProductListingFilter",
   components: {
     SfFilter,
-    SfHeading,
   },
   props: {
     filter: {
@@ -45,7 +43,9 @@ export default {
     getComponent() {
       try {
         return () => ({
-          component: import("@/components/listing/types/" + this.filter.label),
+          component: import(
+            "@/components/listing/types/" + this.filter.label.toLowerCase()
+          ),
           error: NoFilterFound,
         })
       } catch (e) {
