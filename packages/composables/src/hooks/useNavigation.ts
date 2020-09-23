@@ -13,7 +13,7 @@ import { ApplicationVueContext } from "../appContext";
  */
 export interface IUseNavigation {
   routes: Ref<Readonly<any>>;
-  navigationElements: NavigationElement[];
+  navigationElements: Ref<Readonly<NavigationElement[]>>;
   fetchNavigationElements: (depth: number) => Promise<void>;
   fetchRoutes: () => Promise<void>;
 }
@@ -43,13 +43,14 @@ export const useNavigation = (
 
   const fetchNavigationElements = async (depth: number) => {
     const { children } = await getNavigation({ depth }, apiInstance);
-    localNavigation.navigationElements.length = 0;
-    localNavigation.navigationElements.push(...children);
+    sharedNavigation.navigationElements = children || [];
   };
+
+  const navigationElements = computed(() => localNavigation.navigationElements);
 
   return {
     routes,
-    navigationElements: localNavigation.navigationElements,
+    navigationElements,
     fetchNavigationElements,
     fetchRoutes,
   };

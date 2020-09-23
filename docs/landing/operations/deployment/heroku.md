@@ -5,7 +5,7 @@ To deploy your app to Heroku, you need to follow a few simple steps and you are 
 This guide assumes you have
 
  * [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed and configured
- * created a working local project with `shopware-pwa init`
+ * created a working local project with `npx @shopware-pwa/cli init` (or `shopware-pwa init` )
  * created a new application in your Heroku dashboard
 
 ## Heroku Setup
@@ -42,17 +42,17 @@ You can alternatively use npm if you specify a npm version instead.
 
 ## Build command
 
-Heroku automatically invokes our `build` script when we deploy, so we have to add the `shopware-pwa init` command to that step.
+Heroku automatically invokes our `build` script when we deploy, so we have to add the `npx @shopware-pwa/cli init` (or `shopware-pwa init`) command to that step.
 
 Replace your current `build` script inside your `package.json` with the following:
 
 :::warning IMPORTANT
-Make sure, the `@shopware-pwa/cli` version matches the version you've used to create your project.
+Make sure, the `@shopware-pwa/cli` version matches the version you've used to create your project, unless you are using `npx` command.
 :::
 
 ```json
 "scripts": {
-  "build": "shopware-pwa init --ci && nuxt build",
+  "build": "npx @shopware-pwa/cli init --ci && nuxt build",
   ...
 ```
 

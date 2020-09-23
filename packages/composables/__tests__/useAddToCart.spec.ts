@@ -15,6 +15,8 @@ import { useAddToCart } from "../src/logic/useAddToCart";
 describe("Composables - useAddToCart", () => {
   const stateCart: Ref<Object | null> = ref(null);
   const addProductMock = jest.fn(async () => {});
+  const pushErrorMock = jest.fn(() => {});
+  const pushSuccessMock = jest.fn(() => {});
   const cartItemsMock: Ref<any[]> = ref([]);
   const rootContextMock: any = {
     $store: {
@@ -26,14 +28,29 @@ describe("Composables - useAddToCart", () => {
     $shopwareApiInstance: jest.fn(),
   };
 
+  const interceptMock = jest.fn();
+  const broadcastMock = jest.fn();
+
   beforeEach(() => {
     jest.clearAllMocks();
     stateCart.value = null;
     cartItemsMock.value = [];
+    mockedComposables.useNotifications.mockImplementation(() => {
+      return {
+        pushError: pushErrorMock,
+        pushSuccess: pushSuccessMock,
+      } as any;
+    });
     mockedComposables.useCart.mockImplementation(() => {
       return {
         addProduct: addProductMock,
         cartItems: cartItemsMock,
+      } as any;
+    });
+    mockedComposables.useIntercept.mockImplementation(() => {
+      return {
+        broadcast: broadcastMock,
+        intercept: interceptMock,
       } as any;
     });
   });
@@ -130,6 +147,47 @@ describe("Composables - useAddToCart", () => {
         );
         expect(addProductMock).not.toBeCalled();
         expect(quantity.value).toEqual(4);
+      });
+
+      it("should broadcast message after success", async () => {
+        const { addToCart } = useAddToCart(rootContextMock, {
+          id: "qwe",
+        } as any);
+        await addToCart();
+        expect(broadcastMock).toBeCalledWith("addToCart", {
+          product: { id: "qwe" },
+          quantity: 1,
+        });
+      });
+
+      it("should broadcast error message in case of error", async () => {
+        addProductMock.mockRejectedValueOnce("Error message");
+
+        const { addToCart } = useAddToCart(rootContextMock, {
+          id: "qwe",
+        } as any);
+        await addToCart();
+        expect(broadcastMock).toBeCalledWith("error", {
+          methodName: "[useAddToCart][addToCart]",
+          inputParams: {
+            product: {
+              id: "qwe",
+            },
+            quantity: 1,
+          },
+          error: "Error message",
+        });
+      });
+    });
+
+    describe("onAddToCart", () => {
+      it("should add interceptor method", () => {
+        const { onAddToCart } = useAddToCart(rootContextMock, null as any);
+        onAddToCart(() => {});
+        expect(interceptMock).toHaveBeenCalledWith(
+          "addToCart",
+          expect.any(Function)
+        );
       });
     });
   });

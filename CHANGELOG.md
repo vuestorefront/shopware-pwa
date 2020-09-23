@@ -1,3 +1,49 @@
+# [0.4.0](https://github.com/DivanteLtd/shopware-pwa/compare/v0.3.1...v0.4.0) (2020-09-21)
+
+
+### Bug Fixes
+
+* **api-client:** add same product to cart duplicate entries ([#1051](https://github.com/DivanteLtd/shopware-pwa/issues/1051)) ([2bf210e](https://github.com/DivanteLtd/shopware-pwa/commit/2bf210eb68c3eeff1dcec6fcc940680ab152d397))
+* **cli:** url gets repeated twice if shopware plugins configuration return full path ([#1077](https://github.com/DivanteLtd/shopware-pwa/issues/1077)) ([c2c1457](https://github.com/DivanteLtd/shopware-pwa/commit/c2c14576a5eb5f3d1231fef9fa50927109f1dc8b))
+* **client:** allow to pass depth and buildTree parametes within getStoreNavigation ([#1033](https://github.com/DivanteLtd/shopware-pwa/issues/1033)) ([748e361](https://github.com/DivanteLtd/shopware-pwa/commit/748e361d592eef19e54cda7145b02ad82681ff0d))
+* **client:** removing cart item correctly ([#1107](https://github.com/DivanteLtd/shopware-pwa/issues/1107)) ([1e7d907](https://github.com/DivanteLtd/shopware-pwa/commit/1e7d907542410281e10ab93f715138e91680983e))
+* **cms:** href attribute in the linked text ([#1105](https://github.com/DivanteLtd/shopware-pwa/issues/1105)) ([8308bcd](https://github.com/DivanteLtd/shopware-pwa/commit/8308bcd134107a93fc98d4de221bac6a8ad653a4))
+* **cms:** image text blocks distinction [#1065](https://github.com/DivanteLtd/shopware-pwa/issues/1065) ([#1070](https://github.com/DivanteLtd/shopware-pwa/issues/1070)) ([e296bea](https://github.com/DivanteLtd/shopware-pwa/commit/e296bea203ea19d3d3a769e0625e0a954fa5b9ed))
+* **composables:** is in cart condition ([#1032](https://github.com/DivanteLtd/shopware-pwa/issues/1032)) ([37f7b8a](https://github.com/DivanteLtd/shopware-pwa/commit/37f7b8ae0a980b9f071a4d08391e14efb2811470))
+* **default-theme:** centered main product image on product page on mobile ([#1041](https://github.com/DivanteLtd/shopware-pwa/issues/1041)) ([c7b8e0b](https://github.com/DivanteLtd/shopware-pwa/commit/c7b8e0b3bd7dc31401fb3e4d821dee2315ec30f7))
+* **default-theme:** changed default scroll behavior ([#1026](https://github.com/DivanteLtd/shopware-pwa/issues/1026)) ([4968cb8](https://github.com/DivanteLtd/shopware-pwa/commit/4968cb8a41464e48aba9c0f32861e25a600f32ed))
+* **default-theme:** changed email input to email type ([#1106](https://github.com/DivanteLtd/shopware-pwa/issues/1106)) ([3d68b42](https://github.com/DivanteLtd/shopware-pwa/commit/3d68b422905f3cf40dbaff0cfdc51c1b1c33f8a8))
+* **default-theme:** color filter type depending on options format ([#1038](https://github.com/DivanteLtd/shopware-pwa/issues/1038)) ([acde710](https://github.com/DivanteLtd/shopware-pwa/commit/acde710d3bfac8c17bd7d4610960064978324493))
+* **default-theme:** display text next to image in block ([#1056](https://github.com/DivanteLtd/shopware-pwa/issues/1056)) ([30e422c](https://github.com/DivanteLtd/shopware-pwa/commit/30e422cfbfe5ad9362aeaa3abf26030cb13204b7))
+* **default-theme:** fix for scrolling page after closing cart ([#1082](https://github.com/DivanteLtd/shopware-pwa/issues/1082)) ([ab7a7bc](https://github.com/DivanteLtd/shopware-pwa/commit/ab7a7bc2bd53d70157466e08ba3e75bdb7aecf70))
+* **default-theme:** fixed scroll on products listing when pagnation is changed ([5f9bbc2](https://github.com/DivanteLtd/shopware-pwa/commit/5f9bbc2ce2a4a7b511f2e21e8ca1bccae7844b81))
+* **default-theme:** fixed some margins on shipping path ([#1104](https://github.com/DivanteLtd/shopware-pwa/issues/1104)) ([76d15d5](https://github.com/DivanteLtd/shopware-pwa/commit/76d15d5767954c7ffdeaaf6e7a45764b77bbc969))
+* **default-theme:** hide error notifications when the list is empty ([#1101](https://github.com/DivanteLtd/shopware-pwa/issues/1101)) ([537277d](https://github.com/DivanteLtd/shopware-pwa/commit/537277d6190dc86d551ee0a991608250909ebe83))
+* **default-theme:** refactored three columns, product boxes component ([#1036](https://github.com/DivanteLtd/shopware-pwa/issues/1036)) ([c6b6d7b](https://github.com/DivanteLtd/shopware-pwa/commit/c6b6d7b2b4444d12fc70c30590f38d418e019f79))
+
+
+### Features
+
+* notifications support [#90](https://github.com/DivanteLtd/shopware-pwa/issues/90) ([#1095](https://github.com/DivanteLtd/shopware-pwa/issues/1095)) ([f6d10a3](https://github.com/DivanteLtd/shopware-pwa/commit/f6d10a36db907c8a6c073e231325dd4a46ae2ae3))
+* **api-client:** added newsletter endpoints ([#1019](https://github.com/DivanteLtd/shopware-pwa/issues/1019)) ([d16049e](https://github.com/DivanteLtd/shopware-pwa/commit/d16049e392f3d8af4dd30a1a4d4a105c5d688adf))
+* **cli:** add debug option to yarn dev ([92c8601](https://github.com/DivanteLtd/shopware-pwa/commit/92c86015330c025a40e5e22c4c220097bdf27909))
+* **cms:** added thank you message in contact form ([#1060](https://github.com/DivanteLtd/shopware-pwa/issues/1060)) ([02aa506](https://github.com/DivanteLtd/shopware-pwa/commit/02aa5064ea4c3ede04d475e39eab2f146a668676))
+* **composables:** interceptor functionality for events across application ([#1103](https://github.com/DivanteLtd/shopware-pwa/issues/1103)) ([b315782](https://github.com/DivanteLtd/shopware-pwa/commit/b31578279af4b0d37cfd4427edcc0dd743391b75))
+* **default-theme:** add plugin slots in order details ([#1099](https://github.com/DivanteLtd/shopware-pwa/issues/1099)) ([054f870](https://github.com/DivanteLtd/shopware-pwa/commit/054f8700a48c02b6be8f7a20df7ba08e843c2893))
+* **default-theme:** added cookie bar ([#1102](https://github.com/DivanteLtd/shopware-pwa/issues/1102)) ([d7a0c03](https://github.com/DivanteLtd/shopware-pwa/commit/d7a0c03e06944c76e60a732bbc8cf2681e3c7018))
+* updated endpoints for Shopware 6.4 ([#1074](https://github.com/DivanteLtd/shopware-pwa/issues/1074)) ([b434335](https://github.com/DivanteLtd/shopware-pwa/commit/b4343352d86f7f22861bf071c6270d71205597bf))
+* **default-theme:** added custom form styles file ([#990](https://github.com/DivanteLtd/shopware-pwa/issues/990)) ([d7ed688](https://github.com/DivanteLtd/shopware-pwa/commit/d7ed6888dfa79eadba62b9ab624dc3939a75b230))
+* extending available filter api [#1043](https://github.com/DivanteLtd/shopware-pwa/issues/1043) ([#1068](https://github.com/DivanteLtd/shopware-pwa/issues/1068)) ([aa7c08b](https://github.com/DivanteLtd/shopware-pwa/commit/aa7c08b436622a5235b91d32f173e521a0ac43c4))
+* handle rating and shipping-free filter type ([#1080](https://github.com/DivanteLtd/shopware-pwa/issues/1080)) ([6eaaae8](https://github.com/DivanteLtd/shopware-pwa/commit/6eaaae8a688a29fdc050a75ba2be6b8e2866de88))
+* **cms:** created new block for forms ([#1046](https://github.com/DivanteLtd/shopware-pwa/issues/1046)) ([253f025](https://github.com/DivanteLtd/shopware-pwa/commit/253f0255637428ab1fc970d37ff3096826101aa3))
+* **cms:** newsletter component [#402](https://github.com/DivanteLtd/shopware-pwa/issues/402) ([#1039](https://github.com/DivanteLtd/shopware-pwa/issues/1039)) ([29b0a22](https://github.com/DivanteLtd/shopware-pwa/commit/29b0a223fb8a4b81990d57c8cb38742e420598d2))
+* **default-theme:** created and styled error list component ([d0e3b42](https://github.com/DivanteLtd/shopware-pwa/commit/d0e3b429404fa93470be1e533a68a266f349a1d8))
+* useDefaults composable with ability to extend defaults thru shopware-pwa config file ([#1049](https://github.com/DivanteLtd/shopware-pwa/issues/1049)) ([e50e1fb](https://github.com/DivanteLtd/shopware-pwa/commit/e50e1fbb8e90e004c3be1ac21ece9a7a485e8b32))
+* **helpers:** decrease product card images sizes ([#1037](https://github.com/DivanteLtd/shopware-pwa/issues/1037)) ([e58bcac](https://github.com/DivanteLtd/shopware-pwa/commit/e58bcac0a1d269d41199d1eb0bdf3addb7be0c72))
+* **workflow:** use esbuild to speed up development process ([#1025](https://github.com/DivanteLtd/shopware-pwa/issues/1025)) ([23db6e4](https://github.com/DivanteLtd/shopware-pwa/commit/23db6e4eb68ec3072e0ee6b3c2b88f8e6dcc833f))
+
+
+
 ## [0.3.1](https://github.com/DivanteLtd/shopware-pwa/compare/v0.3.0...v0.3.1) (2020-08-13)
 
 

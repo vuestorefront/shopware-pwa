@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../settings.scss";
+@import "@/cms/settings.scss";
 
 ::v-deep.cms-block-image-bubble-row {
   display: grid;

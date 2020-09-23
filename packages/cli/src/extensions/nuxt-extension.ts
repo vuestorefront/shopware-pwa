@@ -33,6 +33,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       mode: "universal",
       target: "server",
       devTools: [],
+      gitUsername: "",
     };
     if (!isNuxtGenerated) {
       const nuxtGenerate = `npx --ignore-existing create-nuxt-app@3.2.0 --answers "${JSON.stringify(
@@ -51,7 +52,7 @@ module.exports = (toolbox: GluegunToolbox) => {
   };
 
   /**
-   * Remove unnecesarry Nuxt files
+   * Remove unnecessary Nuxt files
    * TODO: check generated files and add here ones which are not necessary
    */
   toolbox.removeDefaultNuxtFiles = async () => {
@@ -108,13 +109,6 @@ module.exports = (toolbox: GluegunToolbox) => {
    * - dynamically get new versions from template
    */
   toolbox.updateNuxtPackageJson = async (stage) => {
-    const nuxtThemePackage = toolbox.filesystem.read(
-      path.join(toolbox.defaultThemeLocation, "package.json"),
-      "json"
-    );
-
-    if (!nuxtThemePackage) throw new Error("Theme package not found!");
-
     await toolbox.patching.update("package.json", (config) => {
       config.scripts.lint = "prettier --write '*.{js,vue}'";
       config.scripts.dev = "shopware-pwa dev";
@@ -169,7 +163,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     port: process.env.PORT || 3000,
     host: process.env.HOST || '0.0.0.0'
   },`,
-        after: "mode: 'universal',",
+        after: "export default {",
       });
     }
 
@@ -220,7 +214,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       await toolbox.patching.patch("nuxt.config.js", {
         insert: `
   telemetry: false,`,
-        after: "mode: 'universal',",
+        after: "export default {",
       });
     }
   };

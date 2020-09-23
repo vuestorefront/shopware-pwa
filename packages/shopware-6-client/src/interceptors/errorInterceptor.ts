@@ -26,6 +26,11 @@ const guessTheStatusCodeFromTheMessage = (message: string): number => {
     return 408;
   }
 
+  // offline mode exception
+  if (typeof message === "string" && message.startsWith("Network Error")) {
+    return 0;
+  }
+
   return 500;
 };
 
@@ -83,6 +88,5 @@ export async function errorInterceptor(
       : extractNotApiErrorMessage(error),
     statusCode: statusCode,
   };
-
   return Promise.reject(clientApiError);
 }

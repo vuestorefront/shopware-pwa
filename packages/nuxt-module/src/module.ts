@@ -9,7 +9,7 @@ import { loadConfig } from "./utils";
 import { extendCMS } from "./cms";
 import { extendLocales } from "./locales";
 import { useCorePackages } from "./packages";
-import { invokeBuildLogger } from "./logger";
+import { getAllFiles } from "./files";
 import {
   getTargetSourcePath,
   getBaseSourcePath,
@@ -46,8 +46,6 @@ export async function runModule(
 
   await useThemeAndProjectFiles({ TARGET_SOURCE, PROJECT_SOURCE, BASE_SOURCE });
 
-  /* istanbul ignore next */
-  invokeBuildLogger(moduleObject);
   const shopwarePwaConfig: ShopwarePwaConfigFile = await loadConfig(
     moduleObject
   );
@@ -64,37 +62,6 @@ export async function runModule(
       "Please change your shopwareEndpoint in shopware-pwa.config.js to contain just domain, example: https://github.com/DivanteLtd/shopware-pwa#running-shopware-pwa-on-custom-shopware-instance"
     );
   }
-
-  moduleObject.addPlugin({
-    fileName: "api-defaults.js",
-    src: path.join(__dirname, "..", "plugins", "api-defaults.js"),
-    options: {
-      apiDefaults: merge(
-        {},
-        getDefaultApiParams(),
-        shopwarePwaConfig.apiDefaults
-      ),
-    },
-  });
-
-  moduleObject.addPlugin({
-    fileName: "api-client.js",
-    src: path.join(__dirname, "..", "plugins", "api-client.js"),
-    options: {
-      shopwareEndpoint: shopwarePwaConfig.shopwareEndpoint,
-      shopwareAccessToken: shopwarePwaConfig.shopwareAccessToken,
-    },
-  });
-
-  const defaults = {
-    alias: "cookies",
-    parseJSON: true,
-  };
-  moduleObject.addPlugin({
-    src: path.join(__dirname, "..", "plugins", "cookie-universal-nuxt.js"),
-    fileName: "cookie-universal-nuxt.js",
-    options: Object.assign({}, defaults, moduleOptions),
-  });
 
   moduleObject.addPlugin({
     src: path.join(__dirname, "..", "plugins", "price-filter.js"),
@@ -126,6 +93,50 @@ export async function runModule(
     fileName: "entities-parser.ssr.js",
     mode: "server",
     options: {},
+  });
+
+  // Add plugins registered in theme
+  const pluginFiles = getAllFiles(
+    path.join(moduleObject.options.srcDir, "plugins")
+  ).filter((filePath) => /.+.(js)$/.test(filePath)); // get only js files
+  pluginFiles.forEach((pluginPath) => {
+    const pluginFilename = pluginPath.replace(/^.*[\\\/]/, "");
+    moduleObject.addPlugin({
+      src: pluginPath,
+      fileName: pluginFilename,
+      options: moduleOptions,
+    });
+  });
+
+  moduleObject.addPlugin({
+    fileName: "api-client.js",
+    src: path.join(__dirname, "..", "plugins", "api-client.js"),
+    options: {
+      shopwareEndpoint: shopwarePwaConfig.shopwareEndpoint,
+      shopwareAccessToken: shopwarePwaConfig.shopwareAccessToken,
+    },
+  });
+
+  moduleObject.addPlugin({
+    fileName: "api-defaults.js",
+    src: path.join(__dirname, "..", "plugins", "api-defaults.js"),
+    options: {
+      apiDefaults: merge(
+        {},
+        getDefaultApiParams(),
+        shopwarePwaConfig.apiDefaults
+      ),
+    },
+  });
+
+  const defaults = {
+    alias: "cookies",
+    parseJSON: true,
+  };
+  moduleObject.addPlugin({
+    src: path.join(__dirname, "..", "plugins", "cookie-universal-nuxt.js"),
+    fileName: "cookie-universal-nuxt.js",
+    options: Object.assign({}, defaults, moduleOptions),
   });
 
   moduleObject.addPlugin({

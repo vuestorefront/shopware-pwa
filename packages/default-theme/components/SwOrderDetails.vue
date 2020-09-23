@@ -18,9 +18,8 @@
               table__amount: tableHeader === 'Amount',
               table__price: tableHeader === 'Price',
             }"
+            >{{ tableHeader }}</SfTableHeader
           >
-            {{ tableHeader }}
-          </SfTableHeader>
         </SfTableHeading>
         <SwOrderDetailsItem
           v-for="item in order.lineItems"
@@ -38,18 +37,30 @@
         address-title="Billing address"
         class="content"
       />
-      <SwCheckoutMethod
-        v-if="paymentMethod"
-        :method="paymentMethod"
-        label="Payment method"
-        class="content"
-      />
-      <SwCheckoutMethod
-        v-if="shippingMethod"
-        :method="shippingMethod"
-        label="Shipping method"
-        class="content"
-      />
+
+      <SwPluginSlot
+        name="order-details-payment-method"
+        :slot-context="paymentMethod"
+      >
+        <SwCheckoutMethod
+          v-if="paymentMethod"
+          :method="paymentMethod"
+          label="Payment method"
+          class="content"
+        />
+      </SwPluginSlot>
+
+      <SwPluginSlot
+        name="order-details-shipping-method"
+        :slot-context="shippingMethod"
+      >
+        <SwCheckoutMethod
+          v-if="shippingMethod"
+          :method="shippingMethod"
+          label="Shipping method"
+          class="content"
+        />
+      </SwPluginSlot>
       <SfProperty name="Order status" :value="status" />
       <SfLoader
         :loading="isPaymentButtonLoading"
@@ -58,13 +69,10 @@
         <a v-if="paymentUrl" :href="paymentUrl">
           <SwButton
             class="sf-button sf-button--full-width pay-button color-danger"
+            >Pay for your order</SwButton
           >
-            Pay for your order
-          </SwButton>
         </a>
-        <template #loader>
-          Checking payment status...
-        </template>
+        <template #loader>Checking payment status...</template>
       </SfLoader>
     </div>
   </div>
@@ -86,11 +94,11 @@ import {
 } from "@shopware-pwa/shopware-6-client"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import { PAGE_ORDER_SUCCESS } from "@shopware-pwa/default-theme/helpers/pages"
-import SwOrderDetailsItem from "./SwOrderDetailsItem"
-import SwPersonalDetails from "./SwPersonalDetails"
-import SwAddress from "./SwAddress"
-import SwCheckoutMethod from "./SwCheckoutMethod"
-import SwTotals from "./SwTotals"
+import SwOrderDetailsItem from "@/components/SwOrderDetailsItem"
+import SwPersonalDetails from "@/components/SwPersonalDetails"
+import SwAddress from "@/components/SwAddress"
+import SwCheckoutMethod from "@/components/SwCheckoutMethod"
+import SwTotals from "@/components/SwTotals"
 
 export default {
   name: "SwOrderDetails",
@@ -105,6 +113,7 @@ export default {
     SwAddress,
     SwCheckoutMethod,
     SwTotals,
+    SwPluginSlot,
   },
   props: {
     orderId: {
