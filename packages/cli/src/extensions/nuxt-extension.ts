@@ -52,7 +52,7 @@ module.exports = (toolbox: GluegunToolbox) => {
   };
 
   /**
-   * Remove unnecesarry Nuxt files
+   * Remove unnecessary Nuxt files
    * TODO: check generated files and add here ones which are not necessary
    */
   toolbox.removeDefaultNuxtFiles = async () => {
@@ -109,13 +109,6 @@ module.exports = (toolbox: GluegunToolbox) => {
    * - dynamically get new versions from template
    */
   toolbox.updateNuxtPackageJson = async (stage) => {
-    const nuxtThemePackage = toolbox.filesystem.read(
-      path.join(toolbox.defaultThemeLocation, "package.json"),
-      "json"
-    );
-
-    if (!nuxtThemePackage) throw new Error("Theme package not found!");
-
     await toolbox.patching.update("package.json", (config) => {
       config.scripts.lint = "prettier --write '*.{js,vue}'";
       config.scripts.dev = "shopware-pwa dev";
