@@ -14,5 +14,5 @@ assignees: ""
 
 <!-- List things that have to be done before closing the issue -->
 
-- [ ] the [list of features](./docs/guide/FEATURELIST.md) is updated (if a feature is relevant)
+- [ ] the [list of features](docs/guide/FEATURELIST.md) is updated (if a feature is relevant)
 - [ ]
