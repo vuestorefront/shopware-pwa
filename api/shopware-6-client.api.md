@@ -380,6 +380,9 @@ export function removeCartItem(itemId: string, contextInstance?: ShopwareApiInst
 // @alpha
 export function resetPassword(params: CustomerResetPasswordParam, contextInstance?: ShopwareApiInstance): Promise<void>;
 
+// @beta
+export function searchProducts(criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
+
 // @beta (undocumented)
 export function sendContactForm(params: ContactFormData, contextInstance?: ShopwareApiInstance): Promise<void>;
 

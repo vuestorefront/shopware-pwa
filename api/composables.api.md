@@ -22,6 +22,7 @@ import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
 import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
+import { IUseListing as IUseListing_2 } from '@shopware-pwa/composables';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
 import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
@@ -101,6 +102,14 @@ export function createCheckoutStep({ stepNumber, stepFields, stepDataUpdated, }:
     stepFields: CheckoutStepFields;
     stepDataUpdated: (updatedData: CheckoutStepFields, guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>) => Partial<GuestOrderParams>;
 }): (rootContext: ApplicationVueContext) => CreateCheckoutStep;
+
+// @beta
+export function createListingComposable({ rootContext, searchMethod, searchDefaults, listingKey, }: {
+    rootContext: ApplicationVueContext_2;
+    searchMethod: (searchParams: Partial<ShopwareSearchParams>) => Promise<ProductListingResult>;
+    searchDefaults: ShopwareSearchParams;
+    listingKey: string;
+}): IUseListing;
 
 // @beta (undocumented)
 export interface CurrentPagination {
@@ -220,7 +229,7 @@ export interface IUseIntercept {
     intercept: (broadcastKey: string, method: Function) => void;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface IUseListing {
     // (undocumented)
     [x: string]: any;
@@ -391,8 +400,11 @@ export const useDefaults: (rootContext: ApplicationVueContext, defaultsKey: stri
 // @beta
 export const useIntercept: (rootContext: ApplicationVueContext_2) => IUseIntercept;
 
-// @alpha (undocumented)
-export const useListing: (rootContext: ApplicationVueContext_2, listingKey: string) => IUseListing;
+// @beta (undocumented)
+export const useListing: (rootContext: ApplicationVueContext_2, listingKey: useListingKey) => IUseListing_2;
+
+// @beta (undocumented)
+export type useListingKey = "productSearchListing" | "categoryListing";
 
 // @beta
 export const useNavigation: (rootContext: ApplicationVueContext) => IUseNavigation;

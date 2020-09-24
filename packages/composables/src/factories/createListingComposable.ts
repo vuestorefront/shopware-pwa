@@ -16,6 +16,12 @@ export interface IUseListing {
   [x: string]: any;
 }
 
+/**
+ * Factory to create your own listing. By default you can use useListing composable, which provides you predefined listings for category(cms) listing and product search listing.
+ * Using factory you can provide our own compatible search method and use it for example for creating listing of orders in my account.
+ *
+ * @beta
+ */
 export function createListingComposable({
   rootContext,
   searchMethod,

@@ -29,6 +29,7 @@
 |  [newsletterSubscribe(params, contextInstance)](./shopware-6-client.newslettersubscribe.md) | <b><i>(BETA)</i></b> |
 |  [newsletterUnsubscribe({ email, }, contextInstance)](./shopware-6-client.newsletterunsubscribe.md) | <b><i>(BETA)</i></b> |
 |  [removeCartItem(itemId, contextInstance)](./shopware-6-client.removecartitem.md) | <b><i>(BETA)</i></b> Deletes the cart line item by id.<!-- -->This method may be used for deleting "product" type item lines as well as "promotion" type item lines. |
+|  [searchProducts(criteria, contextInstance)](./shopware-6-client.searchproducts.md) | <b><i>(BETA)</i></b> Search for products based on criteria. From: Shopware 6.4 |
 |  [sendContactForm(params, contextInstance)](./shopware-6-client.sendcontactform.md) | <b><i>(BETA)</i></b> |
 
 ## Interfaces

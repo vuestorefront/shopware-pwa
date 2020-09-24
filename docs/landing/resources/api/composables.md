@@ -8,6 +8,7 @@
 
 |  Function | Description |
 |  --- | --- |
+|  [createListingComposable({ rootContext, searchMethod, searchDefaults, listingKey, })](./composables.createlistingcomposable.md) | <b><i>(BETA)</i></b> Factory to create your own listing. By default you can use useListing composable, which provides you predefined listings for category(cms) listing and product search listing. Using factory you can provide our own compatible search method and use it for example for creating listing of orders in my account. |
 |  [getApplicationContext(rootContext, key)](./composables.getapplicationcontext.md) | <b><i>(BETA)</i></b> |
 |  [getDefaultApiParams()](./composables.getdefaultapiparams.md) | <b><i>(BETA)</i></b> Returns default system API params |
 
@@ -21,6 +22,7 @@
 |  [IUseCart](./composables.iusecart.md) | <b><i>(BETA)</i></b> interface for [useCart](./composables.usecart.md) composable |
 |  [IUseCheckout](./composables.iusecheckout.md) | <b><i>(BETA)</i></b> interface for [useCheckout](./composables.usecheckout.md) composable |
 |  [IUseIntercept](./composables.iuseintercept.md) | <b><i>(BETA)</i></b> interface for [useIntercept](./composables.useintercept.md) composable |
+|  [IUseListing](./composables.iuselisting.md) | <b><i>(BETA)</i></b> |
 |  [IUseNavigation](./composables.iusenavigation.md) | <b><i>(BETA)</i></b> interface for [useNavigation](./composables.usenavigation.md) composable |
 |  [IUseSessionContext](./composables.iusesessioncontext.md) | <b><i>(BETA)</i></b> interface for [useSessionContext](./composables.usesessioncontext.md) composable |
 |  [IUseUser](./composables.iuseuser.md) | <b><i>(BETA)</i></b> interface for [useUser](./composables.useuser.md) composable |
@@ -36,9 +38,16 @@
 |  [useCheckout](./composables.usecheckout.md) | <b><i>(BETA)</i></b> Composable for Checkout management. Options - [IUseCheckout](./composables.iusecheckout.md) |
 |  [useDefaults](./composables.usedefaults.md) | <b><i>(BETA)</i></b> Returns default config depending on config key. It is used in composables, so defaultsKey is in most cases composable name (ex. <code>useDefaults(rootContext, &quot;useCms&quot;)</code>) |
 |  [useIntercept](./composables.useintercept.md) | <b><i>(BETA)</i></b> Allows to broadcast and intercept events across application. |
+|  [useListing](./composables.uselisting.md) | <b><i>(BETA)</i></b> |
 |  [useNavigation](./composables.usenavigation.md) | <b><i>(BETA)</i></b> Composable for navigation. Options - [IUseNavigation](./composables.iusenavigation.md) |
 |  [useNotifications](./composables.usenotifications.md) | <b><i>(BETA)</i></b> |
 |  [useSessionContext](./composables.usesessioncontext.md) | <b><i>(BETA)</i></b> Composable for session management. Options - [IUseSessionContext](./composables.iusesessioncontext.md) |
 |  [useUIState](./composables.useuistate.md) | <b><i>(BETA)</i></b> Simple state management for UI purposes. |
 |  [useUser](./composables.useuser.md) | <b><i>(BETA)</i></b> Composable for user management. Options - [IUseUser](./composables.iuseuser.md) |
+
+## Type Aliases
+
+|  Type Alias | Description |
+|  --- | --- |
+|  [useListingKey](./composables.uselistingkey.md) | <b><i>(BETA)</i></b> |
 
