@@ -1,4 +1,7 @@
-import { getCategoryProducts } from "@shopware-pwa/shopware-6-client";
+import {
+  getCategoryProducts,
+  searchProducts,
+} from "@shopware-pwa/shopware-6-client";
 import { getListingFilters } from "@shopware-pwa/helpers";
 
 import {
@@ -9,22 +12,27 @@ import {
 } from "@shopware-pwa/composables";
 import { computed, ref } from "@vue/composition-api";
 import merge from "lodash/merge";
-import { ShopwareParams } from "@shopware-pwa/shopware-6-client/src/helpers/searchConverter";
+import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
- * @alpha
+ * @beta
  */
 export interface IUseListing {
   [x: string]: any;
 }
 
 /**
- * @alpha
+ * @beta
+ */
+export type useListingKey = "productSearchListing" | "categoryListing";
+
+/**
+ * @beta
  */
 // useCmsListing
 export const useListing = (
   rootContext: ApplicationVueContext,
-  listingKey: string
+  listingKey: useListingKey
 ): IUseListing => {
   const { apiInstance, vuexStore, router } = getApplicationContext(
     rootContext,
@@ -52,7 +60,34 @@ export const useListing = (
     },
   });
 
-  const search = async (criteria: Partial<ShopwareParams>): Promise<void> => {
+  const initSearch = async (
+    criteria: Partial<ShopwareSearchParams>
+  ): Promise<void> => {
+    loading.value = true;
+    try {
+      const searchCriteria = merge({}, getDefaults(), criteria);
+
+      let result;
+      if (listingKey === "categoryListing") {
+        result = await getCategoryProducts(
+          categoryId.value,
+          searchCriteria,
+          apiInstance
+        );
+      } else {
+        result = await searchProducts(searchCriteria, apiInstance);
+      }
+      setInitialListing(result);
+    } catch (e) {
+      throw e;
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const search = async (
+    criteria: Partial<ShopwareSearchParams>
+  ): Promise<void> => {
     loading.value = true;
     try {
       // replace URL query params with currently selected criteria
@@ -66,11 +101,16 @@ export const useListing = (
 
       // prepare full criteria using defaults and currently selected criteria
       const searchCriteria = merge({}, getDefaults(), criteria);
-      const result = await getCategoryProducts(
-        categoryId.value,
-        searchCriteria,
-        apiInstance
-      );
+      let result;
+      if (listingKey === "categoryListing") {
+        result = await getCategoryProducts(
+          categoryId.value,
+          searchCriteria,
+          apiInstance
+        );
+      } else {
+        result = await searchProducts(searchCriteria, apiInstance);
+      }
       appliedListing.value = result;
     } catch (e) {
       throw e;
@@ -177,6 +217,7 @@ export const useListing = (
   return {
     getInitialListing,
     setInitialListing,
+    initSearch,
     search,
     getCurrentListing,
     getProducts,

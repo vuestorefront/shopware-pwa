@@ -8,6 +8,7 @@ import {
 } from "../helpers/searchConverter";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
 import { deprecationWarning } from "@shopware-pwa/commons";
+import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
  * @throws ClientApiError
@@ -64,6 +65,24 @@ export async function getSearchResults(
     {
       ...convertShopwareSearchCriteria(searchCriteria),
     }
+  );
+
+  return resp.data;
+}
+
+/**
+ * Search for products based on criteria.
+ * From: Shopware 6.4
+ *
+ * @beta
+ */
+export async function searchProducts(
+  criteria?: ShopwareSearchParams,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<ProductListingResult> {
+  const resp = await contextInstance.invoke.post(
+    `${getSearchEndpoint()}?search=${criteria?.query}`,
+    criteria
   );
 
   return resp.data;

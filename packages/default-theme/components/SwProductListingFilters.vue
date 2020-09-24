@@ -7,7 +7,7 @@
         class="sf-button--text navbar__filters-button"
         @click="isFilterSidebarOpen = true"
       >
-        <SfIcon size="14px" icon="filter" style="margin-right: 10px;" />Filters
+        <SfIcon size="14px" icon="filter" style="margin-right: 10px" />Filters
       </SwButton>
       <div class="navbar__sort desktop-only">
         <span class="navbar__label">Sort by:</span>
@@ -158,7 +158,7 @@ export default {
       root,
       "PRODUCT_LISTING_STATE"
     )
-    const { getTotal } = useListing(root, "products")
+    const { getTotal } = useListing(root, "categoryListing")
 
     return {
       getCategoryAvailableSorting,

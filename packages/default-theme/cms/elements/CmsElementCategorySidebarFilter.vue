@@ -136,7 +136,7 @@ export default {
       search,
       getCurrentFilters,
       getTotal,
-    } = useListing(root, "products")
+    } = useListing(root, "categoryListing")
 
     const { isOpen: isListView, switchState: switchToListView } = useUIState(
       root,
