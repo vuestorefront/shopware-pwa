@@ -53,7 +53,7 @@ export default {
     SwPluginSlot,
     SwLoginModal,
     SwNotifications,
-    SwOfflineMode
+    SwOfflineMode,
   },
 
   setup(props, { root }) {
