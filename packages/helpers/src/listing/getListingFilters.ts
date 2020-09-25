@@ -11,7 +11,7 @@ export interface ListingFilter {
 
 const getFilter = (code: string, aggregation: any): ListingFilter => {
   return {
-    label: aggregation?.translated?.name || code,
+    label: aggregation.translated?.name || code,
     code,
     ...aggregation,
   };

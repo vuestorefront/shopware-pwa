@@ -50,6 +50,16 @@ describe("Shopware helpers - getListingFilters", () => {
     ]);
   });
 
+  it("should not add aggregation if there is no entities in properties", () => {
+    const aggregation = {
+      properties: {
+        otherValue: true,
+      },
+    } as any;
+    const result = getListingFilters(aggregation);
+    expect(result).toEqual([]);
+  });
+
   it("should return transformed filter if manufacturer is resolved", () => {
     const aggregation = {
       manufacturer: {

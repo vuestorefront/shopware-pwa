@@ -114,7 +114,10 @@ export function createListingComposable({
       appliedListing.value = {
         ...getCurrentListing.value,
         page: result.page,
-        elements: [...getCurrentListing.value.elements, ...result.elements],
+        elements: [
+          ...(getCurrentListing.value.elements || []),
+          ...result.elements,
+        ],
       };
     } catch (e) {
       throw e;
@@ -128,13 +131,13 @@ export function createListingComposable({
   });
 
   const getProducts = computed(() => {
-    return getCurrentListing.value?.elements || [];
+    return getCurrentListing.value.elements || [];
   });
   const getTotal = computed(() => {
-    return getCurrentListing.value?.total || 0;
+    return getCurrentListing.value.total || 0;
   });
   const getLimit = computed(() => {
-    return getCurrentListing.value?.limit || searchDefaults?.limit || 10;
+    return getCurrentListing.value.limit || searchDefaults?.limit || 10;
   });
 
   const getTotalPagesCount = computed(() =>
@@ -142,12 +145,12 @@ export function createListingComposable({
   );
 
   const getOrderOptions = computed(() => {
-    const oldSortings = Object.values(getCurrentListing.value?.sortings || {}); // before Shopware 6.4
-    return getCurrentListing.value?.availableSortings || oldSortings;
+    const oldSortings = Object.values(getCurrentListing.value.sortings || {}); // before Shopware 6.4
+    return getCurrentListing.value.availableSortings || oldSortings;
   });
 
   const getCurrentSortingOrder = computed(
-    () => getCurrentListing.value?.sorting
+    () => getCurrentListing.value.sorting
   );
   const changeCurrentSortingOrder = async (order: string | string[]) => {
     const query = {
@@ -157,7 +160,7 @@ export function createListingComposable({
     await search(query);
   };
 
-  const getCurrentPage = computed(() => getCurrentListing.value?.page || 1);
+  const getCurrentPage = computed(() => getCurrentListing.value.page || 1);
   const changeCurrentPage = async (pageNumber: number | string) => {
     const query = {
       ...router.currentRoute.query,
@@ -167,7 +170,7 @@ export function createListingComposable({
   };
 
   const getAvailableFilters = computed(() => {
-    return getListingFilters(getCurrentListing.value?.aggregations);
+    return getListingFilters(getCurrentListing.value.aggregations);
   });
 
   const getCurrentFilters = computed(() => {

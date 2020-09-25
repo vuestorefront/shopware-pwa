@@ -81,7 +81,7 @@ export async function searchProducts(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<ProductListingResult> {
   const resp = await contextInstance.invoke.post(
-    `${getSearchEndpoint()}?search=${criteria?.query}`,
+    `${getSearchEndpoint()}?search=${criteria?.query || ""}`,
     criteria
   );
 
