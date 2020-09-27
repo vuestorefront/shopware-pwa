@@ -12,13 +12,18 @@ import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/Se
 
 /**
  * @throws ClientApiError
- * @beta
+ * @deprecated - please use searchSuggestedProducts instead
  */
 export async function getSuggestedResults(
   term: string,
   searchCriteria?: SearchCriteria,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<ProductListingResult> {
+  deprecationWarning({
+    methodName: "getSuggestedResults",
+    newMethodName: "searchSuggestedProducts",
+    packageName: "shopware-6-client",
+  });
   const resp = await contextInstance.invoke.post(
     `${getSuggestSearchEndpoint()}?search=${term}`,
     {
@@ -82,6 +87,24 @@ export async function searchProducts(
 ): Promise<ProductListingResult> {
   const resp = await contextInstance.invoke.post(
     `${getSearchEndpoint()}?search=${criteria?.query || ""}`,
+    criteria
+  );
+
+  return resp.data;
+}
+
+/**
+ * Search for suggested products based on criteria.
+ * From: Shopware 6.4
+ *
+ * @beta
+ */
+export async function searchSuggestedProducts(
+  criteria?: ShopwareSearchParams,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<ProductListingResult> {
+  const resp = await contextInstance.invoke.post(
+    `${getSuggestSearchEndpoint()}?search=${criteria?.query || ""}`,
     criteria
   );
 
