@@ -31,6 +31,7 @@ import {
   toggleFilter as toggleGenericFilter,
 } from "../internalHelpers/searchCriteria";
 import { deprecationWarning } from "@shopware-pwa/commons";
+
 /**
  * @deprecated please see useListing instead
  */
@@ -61,7 +62,7 @@ const selectedCriteria = Vue.observable({
 } as any);
 
 /**
- * @alpha
+ * @deprecated please see useListing instead
  */
 export const useProductListing = (
   rootContext: ApplicationVueContext,
