@@ -1,7 +1,7 @@
 <template>
   <div class="cms-element-product-listing">
     <SfLoader :loading="loading" class="cms-element-product-listing__loader" />
-    <div v-if="getProducts.length" class="cms-element-product-listing__wrapper">
+    <div v-if="getElements.length" class="cms-element-product-listing__wrapper">
       <transition-group
         tag="div"
         appear
@@ -11,7 +11,7 @@
       >
         <template v-if="!isListView">
           <SwProductCard
-            v-for="(product, i) in getProducts"
+            v-for="(product, i) in getElements"
             :key="product.id"
             class="cms-element-product-listing__product-card"
             :product="product"
@@ -20,7 +20,7 @@
         </template>
         <template v-else>
           <SwProductCardHorizontal
-            v-for="(product, i) in getProducts"
+            v-for="(product, i) in getElements"
             :key="product.id"
             class="cms-element-product-listing__product-card-horizontal"
             :product="product"
@@ -88,11 +88,7 @@ import SwProductCard from "@/components/SwProductCard"
 import SwButton from "@/components/atoms/SwButton"
 import SwProductCardHorizontal from "@/components/SwProductCardHorizontal"
 import { SfPagination, SfHeading, SfLoader } from "@storefront-ui/vue"
-import {
-  useProductListing,
-  useUIState,
-  useListing,
-} from "@shopware-pwa/composables"
+import { useUIState, useListing } from "@shopware-pwa/composables"
 import { computed, watch } from "@vue/composition-api"
 export default {
   name: "SwProductListing",
@@ -115,7 +111,7 @@ export default {
   },
   setup(props, { root }) {
     const {
-      getProducts,
+      getElements,
       setInitialListing,
       getCurrentPage,
       changeCurrentPage,
@@ -148,7 +144,7 @@ export default {
       getTotalPagesCount,
       loading,
       isListView,
-      getProducts,
+      getElements,
       getCurrentPage,
       loadMore,
       loadingMore,

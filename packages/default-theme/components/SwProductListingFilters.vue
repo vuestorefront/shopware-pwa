@@ -13,11 +13,11 @@
         <span class="navbar__label">Sort by:</span>
         <SfSelect
           v-model="currentSortingOrder"
-          :size="getOrderOptions.length"
+          :size="getSortingOrders.length"
           class="sort-by"
         >
           <SfSelectOption
-            v-for="option in getOrderOptions"
+            v-for="option in getSortingOrders"
             :key="option.key"
             :value="option.key"
             class="sort-by__option"
@@ -126,7 +126,7 @@ export default {
     const {
       getCurrentSortingOrder,
       changeCurrentSortingOrder,
-      getOrderOptions,
+      getSortingOrders,
       getAvailableFilters,
       search,
       getCurrentFilters,
@@ -154,7 +154,7 @@ export default {
       isListView,
       switchToListView,
       getAvailableFilters,
-      getOrderOptions,
+      getSortingOrders,
       currentSortingOrder,
       initSidebarFilters,
       sidebarSelectedFilters,

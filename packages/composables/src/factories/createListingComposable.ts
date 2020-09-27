@@ -1,19 +1,39 @@
-import { getListingFilters } from "@shopware-pwa/helpers";
+import { getListingFilters, ListingFilter } from "@shopware-pwa/helpers";
 
 import {
   ApplicationVueContext,
   getApplicationContext,
 } from "@shopware-pwa/composables";
-import { computed, ref } from "@vue/composition-api";
+import { computed, ComputedRef, ref } from "@vue/composition-api";
 import merge from "lodash/merge";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
 
 /**
+ * Listing interface, can be used to display category products, search products or any other Shopware search interface (ex. orders with pagination)
+ *
  * @beta
  */
-export interface IUseListing {
-  [x: string]: any;
+export interface IUseListing<ELEMENTS_TYPE> {
+  getInitialListing: ComputedRef<ProductListingResult>;
+  setInitialListing: (initialListing: Partial<ProductListingResult>) => void;
+  initSearch: (criteria: Partial<ShopwareSearchParams>) => Promise<void>;
+  search: (criteria: Partial<ShopwareSearchParams>) => Promise<void>;
+  loadMore: () => Promise<void>;
+  getCurrentListing: ComputedRef<ProductListingResult>;
+  getElements: ComputedRef<ELEMENTS_TYPE[]>;
+  getSortingOrders: ComputedRef<{ key: string; label: string }>;
+  getCurrentSortingOrder: ComputedRef<string>;
+  changeCurrentSortingOrder: (order: string | string[]) => Promise<void>;
+  getCurrentPage: ComputedRef<string | number>;
+  changeCurrentPage: (pageNumber?: number | string) => Promise<void>;
+  getTotal: ComputedRef<number>;
+  getTotalPagesCount: ComputedRef<number>;
+  getLimit: ComputedRef<number>;
+  getAvailableFilters: ComputedRef<ListingFilter[]>;
+  getCurrentFilters: ComputedRef<any>;
+  loading: ComputedRef<boolean>;
+  loadingMore: ComputedRef<boolean>;
 }
 
 /**
@@ -22,7 +42,7 @@ export interface IUseListing {
  *
  * @beta
  */
-export function createListingComposable({
+export function createListingComposable<ELEMENTS_TYPE>({
   rootContext,
   searchMethod,
   searchDefaults,
@@ -31,10 +51,10 @@ export function createListingComposable({
   rootContext: ApplicationVueContext;
   searchMethod: (
     searchParams: Partial<ShopwareSearchParams>
-  ) => Promise<ProductListingResult>; // TODO: add type for Shopware Listing Result
+  ) => Promise<ProductListingResult>;
   searchDefaults: ShopwareSearchParams;
   listingKey: string;
-}): IUseListing {
+}): IUseListing<ELEMENTS_TYPE> {
   const { vuexStore, router } = getApplicationContext(
     rootContext,
     "createListingComposable"
@@ -46,7 +66,7 @@ export function createListingComposable({
   const getInitialListing = computed(
     () => vuexStore.getters.getInitialListings[listingKey] || {}
   );
-  const setInitialListing = (initialListing: any) => {
+  const setInitialListing = (initialListing: ProductListingResult) => {
     vuexStore.commit("SET_INITIAL_LISTING", { listingKey, initialListing });
     appliedListing.value = null;
   };
@@ -130,7 +150,7 @@ export function createListingComposable({
     return appliedListing.value || getInitialListing.value;
   });
 
-  const getProducts = computed(() => {
+  const getElements = computed(() => {
     return getCurrentListing.value.elements || [];
   });
   const getTotal = computed(() => {
@@ -144,7 +164,7 @@ export function createListingComposable({
     Math.ceil(getTotal.value / getLimit.value)
   );
 
-  const getOrderOptions = computed(() => {
+  const getSortingOrders = computed(() => {
     const oldSortings = Object.values(getCurrentListing.value.sortings || {}); // before Shopware 6.4
     return getCurrentListing.value.availableSortings || oldSortings;
   });
@@ -201,8 +221,8 @@ export function createListingComposable({
     initSearch,
     search,
     getCurrentListing,
-    getProducts,
-    getOrderOptions,
+    getElements,
+    getSortingOrders,
     getCurrentSortingOrder,
     changeCurrentSortingOrder,
     getCurrentPage,

@@ -61,8 +61,8 @@ describe("Composables - createListingComposable", () => {
       initSearch: expect.anything(),
       search: expect.anything(),
       getCurrentListing: expect.anything(),
-      getProducts: expect.anything(),
-      getOrderOptions: expect.anything(),
+      getElements: expect.anything(),
+      getSortingOrders: expect.anything(),
       getCurrentSortingOrder: expect.anything(),
       changeCurrentSortingOrder: expect.anything(),
       getCurrentPage: expect.anything(),
@@ -157,28 +157,28 @@ describe("Composables - createListingComposable", () => {
     });
   });
 
-  describe("getProducts", () => {
+  describe("getElements", () => {
     it("should return an empty array when there is no currentListing", () => {
-      const { getProducts } = createListingComposable({
+      const { getElements } = createListingComposable({
         rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
       });
-      expect(getProducts.value).toEqual([]);
+      expect(getElements.value).toEqual([]);
     });
 
     it("should return elements from current listing", () => {
       vuexStoreMock.getters.getInitialListings = {
         testKey: { elements: [1, 2, 3] },
       };
-      const { getProducts } = createListingComposable({
+      const { getElements } = createListingComposable({
         rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
       });
-      expect(getProducts.value).toEqual([1, 2, 3]);
+      expect(getElements.value).toEqual([1, 2, 3]);
     });
   });
 
@@ -269,41 +269,41 @@ describe("Composables - createListingComposable", () => {
     });
   });
 
-  describe("getOrderOptions", () => {
+  describe("getSortingOrders", () => {
     it("should return empty object when there is no currentListing", () => {
-      const { getOrderOptions } = createListingComposable({
+      const { getSortingOrders } = createListingComposable({
         rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
       });
-      expect(getOrderOptions.value).toEqual([]);
+      expect(getSortingOrders.value).toEqual([]);
     });
 
     it("should return availableSortings from currentListing", () => {
       vuexStoreMock.getters.getInitialListings = {
         testKey: { availableSortings: [1, 2] },
       };
-      const { getOrderOptions } = createListingComposable({
+      const { getSortingOrders } = createListingComposable({
         rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
       });
-      expect(getOrderOptions.value).toEqual([1, 2]);
+      expect(getSortingOrders.value).toEqual([1, 2]);
     });
 
     it("should return olsSortings for shopware 6.3 configuration", () => {
       vuexStoreMock.getters.getInitialListings = {
         testKey: { sortings: { key1: 1, key2: 2 } },
       };
-      const { getOrderOptions } = createListingComposable({
+      const { getSortingOrders } = createListingComposable({
         rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
       });
-      expect(getOrderOptions.value).toEqual([1, 2]);
+      expect(getSortingOrders.value).toEqual([1, 2]);
     });
   });
 

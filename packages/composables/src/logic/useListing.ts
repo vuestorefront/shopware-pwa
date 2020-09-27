@@ -12,6 +12,7 @@ import {
   IUseListing,
 } from "@shopware-pwa/composables";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 
 /**
  * @beta
@@ -24,7 +25,7 @@ export type useListingKey = "productSearchListing" | "categoryListing";
 export const useListing = (
   rootContext: ApplicationVueContext,
   listingKey: useListingKey = "categoryListing"
-): IUseListing => {
+): IUseListing<Product> => {
   const { getDefaults } = useDefaults(rootContext, "useProductListing");
   const { apiInstance } = getApplicationContext(rootContext, "useListing");
 
@@ -40,7 +41,7 @@ export const useListing = (
     };
   }
 
-  return createListingComposable({
+  return createListingComposable<Product>({
     rootContext,
     listingKey,
     searchMethod,

@@ -4,7 +4,7 @@
       You didn't provide any term to be found
     </h3>
     <SfLoader v-else :loading="loading">
-      <div v-if="getProducts" class="search-page__main">
+      <div v-if="getElements" class="search-page__main">
         <h3>
           search results for
           <strong>{{ getSearchTerm }}</strong
@@ -47,7 +47,7 @@ export default {
     return {}
   },
   setup(props, { root }) {
-    const { getProducts, loading, getCurrentFilters } = useListing(
+    const { getElements, loading, getCurrentFilters } = useListing(
       root,
       "productSearchListing"
     )
@@ -56,7 +56,7 @@ export default {
 
     return {
       getSearchTerm,
-      getProducts,
+      getElements,
       loading,
     }
   },
