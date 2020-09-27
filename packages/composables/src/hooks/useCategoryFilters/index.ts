@@ -8,11 +8,17 @@ import {
   SwSorting,
 } from "@shopware-pwa/helpers";
 import { ApplicationVueContext } from "../../appContext";
+import { deprecationWarning } from "@shopware-pwa/commons";
 
 /**
- * @alpha
+ * @deprecated please see useListing instead
  */
 export const useCategoryFilters = (rootContext: ApplicationVueContext): any => {
+  deprecationWarning({
+    methodName: "useCategoryFilters",
+    newMethodName: "useListing",
+    packageName: "composables",
+  });
   getApplicationContext(rootContext, "useCategoryFilters");
   const { page } = useCms(rootContext);
 
