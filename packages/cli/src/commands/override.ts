@@ -57,15 +57,6 @@ module.exports = {
       toolbox.print.success(
         `Component overrided. You can edit it in ${copyTo}`
       );
-      const ua = require("universal-analytics");
-      const visitor = ua("UA-167979975-1");
-      visitor
-        .event(
-          "CLI",
-          "override-component",
-          answers.componentToOverride.replace("\\", "/")
-        )
-        .send();
     } catch (e) {
       toolbox.print.error(e.message);
     }

@@ -37,7 +37,6 @@
     "md5-hex": "^3.0.1",
     "request": "^2.88.2",
     "snyk": "^1.398.0",
-    "universal-analytics": "^0.4.23",
     "unzipper": "^0.10.11"
   },
   "devDependencies": {
