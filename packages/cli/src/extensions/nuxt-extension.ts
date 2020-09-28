@@ -167,6 +167,18 @@ module.exports = (toolbox: GluegunToolbox) => {
       });
     }
 
+    // Add shopware-pwa meta tag
+    const headSectionExist = await toolbox.patching.exists(
+      "nuxt.config.js",
+      `head: {`
+    );
+    if (headSectionExist) {
+      await toolbox.patching.patch("nuxt.config.js", {
+        insert: `\n { hid: 'project-type', name: 'project-type', content: 'shopware-pwa' },`,
+        after: "meta: [",
+      });
+    }
+
     // Add global SCSS file to config
     const isGlobalScssFileAdded = await toolbox.patching.exists(
       "nuxt.config.js",
