@@ -21,21 +21,30 @@
  	* Image
  	* Regular and special price
  	* Add to cart button
+ * View switch List/Card
  * Filter
  	* Properties
  	* Price
  	* Manufacturer
+ 	* Rating
  * Sorting
  	* Price
  	* Name
+ 	* Relevance
 
 ### Navigation
 
  * Menu
+ 	* Mega Menu for Desktop
+ 	* Accordion Menu for Mobile
  * User Account Icon
  * Search Bar
+ * Footer Navigation
 
 ### Search
+
+ * Search Bar
+ * Search result page with filters and sortings
 
 ### Content
 
@@ -85,6 +94,8 @@
 ### i18n
 
  * Currency switch
+ * Language switch
+ * Snippet synchronisation to and from Shopware
 
 ## Technical
 
@@ -95,6 +106,14 @@
  	* Product pages
 
 ### Plugin system
+
+ * Integration with [Showpare plugin system](/landing/concepts/plugins.html#plugins) for custom resources
+ * Plugin slots for custom content / components
+ * Override and add custom CMS sections, blocks and elements
+
+### Event Interceptor system
+
+ * [Event system](/landing/concepts/interceptor.html) with broadcast / intercept functionality
 
 ### Theme system
 
