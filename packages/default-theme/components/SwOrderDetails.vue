@@ -81,7 +81,7 @@
 <script>
 import { SfTable, SfProperty, SfHeading, SfLoader } from "@storefront-ui/vue"
 import { useUser, getApplicationContext } from "@shopware-pwa/composables"
-import { ref, onMounted, computed, watchEffect } from "@vue/composition-api"
+import { ref, onMounted, computed } from "@vue/composition-api"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import {
   getOrderPaymentMethodId,
@@ -118,6 +118,7 @@ export default {
   props: {
     orderId: {
       type: String,
+      default: "",
     },
   },
   data() {
@@ -228,10 +229,11 @@ export default {
   width: 60%;
   display: flex;
   flex-wrap: wrap;
+
   @include for-mobile {
     flex-direction: column;
-    width: 80%;
-    padding: var(--spacer-base);
+    width: 90%;
+    padding: var(--spacer-xs);
   }
 
   &__loader {
@@ -304,9 +306,11 @@ export default {
       text-align: right;
     }
   }
+
   &__description {
     flex: 2;
   }
+
   &__quantity {
     text-align: center;
     flex: 1;

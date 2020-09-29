@@ -65,4 +65,8 @@ export default {
     --table-row-box-shadow: none;
   }
 }
+
+.orders .orders__header {
+  font-weight: bold;
+}
 </style>
