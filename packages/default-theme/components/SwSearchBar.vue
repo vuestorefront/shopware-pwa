@@ -1,16 +1,18 @@
 <template>
   <div class="sw-search-bar">
     <SfSearchBar
+      v-model="typingQuery"
       :placeholder="$t('Search for products')"
       :aria-label="$t('Search for products')"
-      class="sf-header__search desktop-only"
-      v-model="typingQuery"
-      @keyup.native="performSuggestSearch"
+      class="sf-header__search"
+      data-cy="search-bar"
+      @keyup.native="searchbarQuery"
       @enter="performSearch"
       @focus="isSuggestBoxOpen = true"
-      data-cy="search-bar"
     />
+
     <SwSuggestSearch
+      v-if="!isMobile"
       :products="suggestResultProducts"
       :total-found="suggestResultTotal"
       :search-phrase="typingQuery"
@@ -22,9 +24,13 @@
 </template>
 
 <script>
-import { ref, reactive, onMounted, watch, computed } from "@vue/composition-api"
+import { ref, computed } from "@vue/composition-api"
 import { getSearchPageUrl } from "@shopware-pwa/default-theme/helpers"
 import { SfSearchBar } from "@storefront-ui/vue"
+import {
+  mapMobileObserver,
+  unMapMobileObserver,
+} from "@storefront-ui/vue/src/utilities/mobile-observer"
 import { useProductSearch } from "@shopware-pwa/composables"
 import { debounce } from "@shopware-pwa/helpers"
 import SwSuggestSearch from "@shopware-pwa/default-theme/components/SwSuggestSearch"
@@ -78,6 +84,17 @@ export default {
       performSuggestSearch,
     }
   },
+  computed: {
+    ...mapMobileObserver(),
+  },
+  watch: {
+    $route(to, from) {
+      this.isSuggestBoxOpen = false
+    },
+  },
+  beforeDestroy() {
+    unMapMobileObserver()
+  },
   methods: {
     performSearch() {
       if (this.typingQuery.length > 0) {
@@ -85,10 +102,11 @@ export default {
         this.$router.push(this.$i18n.path(getSearchPageUrl(this.typingQuery)))
       }
     },
-  },
-  watch: {
-    $route(to, from) {
-      this.isSuggestBoxOpen = false
+
+    searchbarQuery() {
+      if (!this.isMobile) {
+        this.performSuggestSearch()
+      }
     },
   },
 }
