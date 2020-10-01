@@ -8,10 +8,7 @@ import {
   getContextLanguageEndpoint,
   getContextSalutationEndpoint,
   getContextEndpoint,
-  getContextCountryItemEndpoint,
   getContextSalutationItemEndpoint,
-  getContextPaymentMethodDetailsEndpoint,
-  getContextShippingMethodDetailsEndpoint,
 } from "../endpoints";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
@@ -177,10 +174,15 @@ export async function getPaymentMethodDetails(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<PaymentMethod> {
   const resp = await contextInstance.invoke.get(
-    getContextPaymentMethodDetailsEndpoint(paymentId)
+    getContextPaymentMethodEndpoint(),
+    {
+      params: {
+        ids: paymentId,
+      },
+    }
   );
 
-  return resp.data.data;
+  return resp.data;
 }
 
 /**
@@ -220,10 +222,15 @@ export async function getShippingMethodDetails(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<ShippingMethod> {
   const resp = await contextInstance.invoke.get(
-    getContextShippingMethodDetailsEndpoint(shippingId)
+    getContextShippingMethodEndpoint(),
+    {
+      params: {
+        ids: shippingId,
+      },
+    }
   );
 
-  return resp.data.data;
+  return resp.data;
 }
 
 /**
@@ -248,10 +255,15 @@ export async function getUserCountry(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Country> {
   const { data } = await contextInstance.invoke.get(
-    getContextCountryItemEndpoint(countryId)
+    getContextCountryEndpoint(),
+    {
+      params: {
+        ids: countryId,
+      },
+    }
   );
 
-  return data;
+  return data?.[0];
 }
 /**
  * @throws ClientApiError
@@ -262,8 +274,12 @@ export async function getUserSalutation(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Salutation> {
   const { data } = await contextInstance.invoke.get(
-    getContextSalutationItemEndpoint(salutationId)
+    getContextSalutationEndpoint(),
+    {
+      params: {
+        ids: salutationId,
+      },
+    }
   );
-
-  return data;
+  return data?.[0];
 }

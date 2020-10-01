@@ -16,13 +16,13 @@ describe("ProductService - getProduct", () => {
   });
   it("should return chosen product", async () => {
     mockedGet.mockResolvedValueOnce({
-      data: { data: { id: "044a190a54ab4f06803909c3ee8063ef" } },
+      data: { id: "044a190a54ab4f06803909c3ee8063ef" },
     });
     const productId = "044a190a54ab4f06803909c3ee8063ef";
     const result = await getProduct(productId);
     expect(mockedGet).toBeCalledTimes(1);
     expect(mockedGet).toBeCalledWith(
-      "/sales-channel-api/v3/product/044a190a54ab4f06803909c3ee8063ef",
+      "/store-api/v4/product/044a190a54ab4f06803909c3ee8063ef",
       {
         params: null,
       }

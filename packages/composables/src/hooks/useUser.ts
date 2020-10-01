@@ -184,7 +184,8 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
 
   const loadAddresses = async (): Promise<void> => {
     try {
-      addresses.value = await getCustomerAddresses(apiInstance);
+      const { elements } = await getCustomerAddresses(apiInstance);
+      addresses.value = elements;
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
@@ -203,6 +204,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   const loadSalutation = async (salutationId: string): Promise<void> => {
     try {
       salutation.value = await getUserSalutation(salutationId, apiInstance);
+      console.warn("loadSalutation", salutationId, salutation.value);
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;

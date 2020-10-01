@@ -17,17 +17,15 @@ describe("ContextService - getShippingMethodDetails", () => {
   it("should return an object of specific shipping method details", async () => {
     mockedGet.mockResolvedValueOnce({
       data: {
-        data: {
-          id: "dhl",
-        },
+        id: "dhl",
       },
     });
 
     const result = await getShippingMethodDetails("dhl");
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith(
-      "/sales-channel-api/v3/shipping-method/dhl"
-    );
+    expect(mockedGet).toBeCalledWith("/store-api/v4/shipping-method", {
+      params: { ids: "dhl" },
+    });
     expect(result).toHaveProperty("id");
     expect(result.id).toBe("dhl");
   });

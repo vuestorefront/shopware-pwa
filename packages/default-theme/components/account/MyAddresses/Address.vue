@@ -84,25 +84,25 @@ export default {
   },
   computed: {
     firstName() {
-      return this.address.firstName
+      return this.address && this.address.firstName
     },
     lastName() {
-      return this.address.lastName
+      return this.address && this.address.lastName
     },
     street() {
-      return this.address.street
+      return this.address && this.address.street
     },
     city() {
-      return this.address.city
+      return this.address && this.address.city
     },
     zipcode() {
-      return this.address.zipcode
+      return this.address && this.address.zipcode
     },
     phone() {
-      return this.address.phoneNumber
+      return this.address && this.address.phoneNumber
     },
     country() {
-      return this.address.country && address.country.name
+      return this.address && this.address.country && this.address.country.name
     },
   },
 }

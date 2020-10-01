@@ -22,7 +22,9 @@ export const getProductsIds = async function (
   options?: any,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<SearchResult<string[]>> {
-  const resp = await contextInstance.invoke.post(getProductsIdsEndpoint());
+  const resp = await contextInstance.invoke.post(getProductsIdsEndpoint(), {
+    includes: { product: ["id"] },
+  });
   return resp.data;
 };
 
@@ -88,5 +90,5 @@ export async function getProduct(
       params,
     }
   );
-  return resp.data.data;
+  return resp.data;
 }

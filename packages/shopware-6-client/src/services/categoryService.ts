@@ -36,9 +36,11 @@ export async function getCategory(
   categoryId: string,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Category> {
-  const resp = await contextInstance.invoke.get(
-    getCategoryDetailsEndpoint(categoryId)
-  );
+  const resp = await contextInstance.invoke.get(getCategoryDetailsEndpoint(), {
+    params: {
+      ids: categoryId,
+    },
+  });
 
-  return resp.data.data;
+  return resp.data;
 }

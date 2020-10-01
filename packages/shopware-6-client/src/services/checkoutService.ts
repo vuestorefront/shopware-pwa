@@ -2,7 +2,6 @@ import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import {
   getCheckoutOrderEndpoint,
   getCheckoutGuestOrderEndpoint,
-  getOrderPaymentUrlEndpoint,
   getStoreOrderPaymentUrlEndpoint,
 } from "../endpoints";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
@@ -17,7 +16,7 @@ export async function createOrder(
 ): Promise<Order> {
   const resp = await contextInstance.invoke.post(getCheckoutOrderEndpoint());
 
-  return resp.data?.data;
+  return resp.data;
 }
 
 /**
@@ -38,7 +37,7 @@ export async function createGuestOrder(
     params
   );
 
-  return resp.data?.data;
+  return resp.data;
 }
 
 /**
@@ -63,8 +62,9 @@ export async function getOrderPaymentUrl(
   }
 
   const resp = await contextInstance.invoke.post(
-    getOrderPaymentUrlEndpoint(orderId),
+    getStoreOrderPaymentUrlEndpoint(),
     {
+      orderId,
       finishUrl,
     }
   );

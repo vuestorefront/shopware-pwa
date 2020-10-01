@@ -16,10 +16,10 @@ describe("CustomerService - register", () => {
   });
 
   it("should return object of addresses", async () => {
-    mockedGet.mockResolvedValueOnce({ data: { data: {} } });
+    mockedGet.mockResolvedValueOnce({ data: { elements: {} } });
     const result = await getCustomerAddresses();
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith(`/sales-channel-api/v3/customer/address`);
+    expect(mockedGet).toBeCalledWith(`/store-api/v4/account/list-address`);
     expect(result).toMatchObject({});
   });
 });

@@ -15,14 +15,14 @@ describe("ContextService - getUserCountry", () => {
     } as any;
   });
   it("should return user salutation object", async () => {
-    mockedGet.mockResolvedValueOnce({ data: { name: "Poland" } });
+    mockedGet.mockResolvedValueOnce({ data: [{ name: "Poland" }] });
 
     const countryId = "123123123";
     const result = await getUserCountry(countryId);
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith(
-      `/sales-channel-api/v3/country/${countryId}`
-    );
+    expect(mockedGet).toBeCalledWith("/store-api/v4/country", {
+      params: { ids: "123123123" },
+    });
     expect(result.name).toEqual("Poland");
   });
 });

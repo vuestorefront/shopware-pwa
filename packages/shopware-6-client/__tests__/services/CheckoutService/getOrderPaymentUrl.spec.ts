@@ -30,12 +30,10 @@ describe("CheckoutService getOrderPaymentUrl", () => {
 
     const result = await getOrderPaymentUrl({ orderId: "qwe" });
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith(
-      "/sales-channel-api/v3/checkout/order/qwe/pay",
-      {
-        finishUrl: undefined,
-      }
-    );
+    expect(mockedPost).toBeCalledWith("/store-api/v4/handle-payment", {
+      orderId: "qwe",
+      finishUrl: undefined,
+    });
     expect(result.paymentUrl).toEqual("/some/payment/url");
   });
 
@@ -51,11 +49,9 @@ describe("CheckoutService getOrderPaymentUrl", () => {
       finishUrl: "/finish/url",
     });
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith(
-      "/sales-channel-api/v3/checkout/order/qwe/pay",
-      {
-        finishUrl: "/finish/url",
-      }
-    );
+    expect(mockedPost).toBeCalledWith("/store-api/v4/handle-payment", {
+      orderId: "qwe",
+      finishUrl: "/finish/url",
+    });
   });
 });

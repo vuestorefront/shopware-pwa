@@ -1,8 +1,6 @@
 <template>
   <div class="sw-address">
-    <p class="message">
-      Keep your addresses and contact details updated.
-    </p>
+    <p class="message">Keep your addresses and contact details updated.</p>
     <SfAlert
       v-if="countriesError || userError"
       class="sw-personal-info__alert"

@@ -308,11 +308,13 @@ describe("Composables - useUser", () => {
 
     describe("loadAddresses", () => {
       it("should invoke client getCustomerAddresses method and assign given array to addresses ref", async () => {
-        mockedApiClient.getCustomerAddresses.mockResolvedValue([
-          {
-            id: "addressId-12345",
-          },
-        ] as any);
+        mockedApiClient.getCustomerAddresses.mockResolvedValue({
+          elements: [
+            {
+              id: "addressId-12345",
+            },
+          ],
+        } as any);
         const { addresses, loadAddresses, error } = useUser(rootContextMock);
         await loadAddresses();
         expect(mockedApiClient.getCustomerAddresses).toBeCalledTimes(1);

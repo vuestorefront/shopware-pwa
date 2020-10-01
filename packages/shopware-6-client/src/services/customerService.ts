@@ -1,16 +1,18 @@
 import {
   getCustomerEndpoint,
-  getCustomerAddressEndpoint,
   getCustomerUpdateEmailEndpoint,
   getCustomerRegisterEndpoint,
   getCustomerDetailsUpdateEndpoint,
   getCustomerUpdatePasswordEndpoint,
   getCustomerResetPasswordEndpoint,
-  getCustomerDefaultBillingAddressEndpoint,
-  getCustomerDefaultShippingAddressEndpoint,
+  getCustomerAddressSetDefaultShippingEndpoint,
+  getCustomerAddressSetDefaultBillingEndpoint,
   getCustomerLogoutEndpoint,
   getCustomerLoginEndpoint,
   getCustomerOrderEndpoint,
+  getCustomerAddressEndpoint,
+  getCustomerAddressDetailsEndpoint,
+  getCustomerAddressListEndpoint,
 } from "../endpoints";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
@@ -107,8 +109,10 @@ export async function getCustomer(
 export async function getCustomerAddresses(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<CustomerAddress[]> {
-  const resp = await contextInstance.invoke.get(getCustomerAddressEndpoint());
-  return resp.data.data;
+  const resp = await contextInstance.invoke.get(
+    getCustomerAddressListEndpoint()
+  );
+  return resp.data.elements;
 }
 
 /**
@@ -160,9 +164,14 @@ export async function getCustomerAddress(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<CustomerAddress> {
   const resp = await contextInstance.invoke.get(
-    getCustomerAddressEndpoint(addressId)
+    getCustomerAddressListEndpoint(),
+    {
+      params: {
+        ids: [addressId],
+      },
+    }
   );
-  return resp.data.data;
+  return resp.data;
 }
 
 /**
@@ -192,7 +201,9 @@ export async function deleteCustomerAddress(
   addressId: string,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<void> {
-  await contextInstance.invoke.delete(getCustomerAddressEndpoint(addressId));
+  await contextInstance.invoke.delete(
+    getCustomerAddressDetailsEndpoint(addressId)
+  );
 }
 
 /**
@@ -206,7 +217,7 @@ export async function setDefaultCustomerBillingAddress(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<string> {
   const response = await contextInstance.invoke.patch(
-    getCustomerDefaultBillingAddressEndpoint(addressId)
+    getCustomerAddressSetDefaultBillingEndpoint(addressId)
   );
   return response.data;
 }
@@ -222,7 +233,7 @@ export async function setDefaultCustomerShippingAddress(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<string> {
   const response = await contextInstance.invoke.patch(
-    getCustomerDefaultShippingAddressEndpoint(addressId)
+    getCustomerAddressSetDefaultShippingEndpoint(addressId)
   );
   return response.data;
 }

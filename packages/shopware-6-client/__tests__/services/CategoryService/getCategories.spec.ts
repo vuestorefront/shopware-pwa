@@ -21,7 +21,7 @@ describe("CategoryService - getCategories", () => {
 
     const result = await getCategories();
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/sales-channel-api/v3/category", {
+    expect(mockedPost).toBeCalledWith("/store-api/v4/category", {
       limit: 10,
     });
     expect(result.total).toEqual(22);

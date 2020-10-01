@@ -2,7 +2,7 @@
   <div class="sw-product-tabs">
     <SfTabs class="product-details__tabs" :open-tab="openTab">
       <slot>
-        <SfTab title="Properties">
+        <SfTab title="Properties" v-if="properties && properties.length">
           <div class="product-details__properties">
             <SfProperty
               v-for="property in properties"

@@ -39,7 +39,7 @@ describe("CartService - changeCartItemQuantity", () => {
     const result = await changeCartItemQuantity(lineItemId, 3);
     expect(mockedPatch).toBeCalledTimes(1);
     expect(mockedPatch).toBeCalledWith(
-      "/store-api/v3/checkout/cart/line-item",
+      "/store-api/v4/checkout/cart/line-item",
       { items: [{ quantity: 3, id: "geawq90a5dab4206843d0vc3sa8wefdf" }] }
     );
     expect(result.lineItems[0].quantity).toEqual(3);
@@ -57,7 +57,7 @@ describe("CartService - changeCartItemQuantity", () => {
     );
     expect(mockedPatch).toBeCalledTimes(1);
     expect(mockedPatch).toBeCalledWith(
-      "/store-api/v3/checkout/cart/line-item",
+      "/store-api/v4/checkout/cart/line-item",
       {
         items: [
           {
@@ -81,7 +81,7 @@ describe("CartService - changeCartItemQuantity", () => {
     );
     expect(mockedPatch).toBeCalledTimes(1);
     expect(mockedPatch).toBeCalledWith(
-      "/store-api/v3/checkout/cart/line-item",
+      "/store-api/v4/checkout/cart/line-item",
       {
         items: [
           {
@@ -103,7 +103,7 @@ describe("CartService - changeCartItemQuantity", () => {
     await changeCartItemQuantity(lineItemId);
     expect(mockedPatch).toBeCalledTimes(1);
     expect(mockedPatch).toBeCalledWith(
-      "/store-api/v3/checkout/cart/line-item",
+      "/store-api/v4/checkout/cart/line-item",
       { items: [{ quantity: 1, id: "geawq90a5dab4206843d0vc3sa8wefdf" }] }
     );
   });
