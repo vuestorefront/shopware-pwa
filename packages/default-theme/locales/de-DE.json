@@ -160,10 +160,11 @@
   "Your password": "Ihr Passwort",
   "Zip code is required": "Postleitzahl ist erforderlich",
   "Zip code": "Postleitzahl",
+  "brand-name": "Markenname",
   "for shopping with us!": "für Ihren Einkauf bei uns!",
   "or fill the details below:": "oder füllen Sie die untenstehenden Angaben aus:",
   "or try to log in again.": "oder versuchen Sie erneut, sich anzumelden.",
-  "privacy-info": "Bei Markenname legen wir großen Wert auf Fragen des Datenschutzes und verpflichten uns, die persönlichen Daten unserer Nutzer zu schützen. Erfahren Sie mehr darüber, wie wir Ihre persönlichen Daten pflegen und verwenden in der {0}.",
+  "privacy-info": "Bei {0} legen wir großen Wert auf Fragen des Datenschutzes und verpflichten uns, die persönlichen Daten unserer Nutzer zu schützen. Erfahren Sie mehr darüber, wie wir Ihre persönlichen Daten pflegen und verwenden in der {1}.",
   "privacy-link": "Datenschutzbestimmung",
   "send": "senden",
   "set as default": "als Standard festlegen"

@@ -154,6 +154,7 @@
   "Your password": "Your password",
   "Zip code": "Zip code",
   "Zip code is required": "Zip code is required",
+  "brand-name": "Brand name",
   "footer": {
     "description": "Made with ❤️ by {creator}"
   },
@@ -163,7 +164,7 @@
   "page": {
     "title": "Shopware PWA"
   },
-  "privacy-info": "At Brand name, we attach great importance to privacy issues and are committed to protecting the personal data of our users. Learn more about how we care and use your personal data in the {0}.",
+  "privacy-info": "At {0}, we attach great importance to privacy issues and are committed to protecting the personal data of our users. Learn more about how we care and use your personal data in the {1}.",
   "privacy-link": "Privacy Policy",
   "send": "send",
   "set as default": "set as default"

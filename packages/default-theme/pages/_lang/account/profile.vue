@@ -4,6 +4,7 @@
       <SwPersonalInfo />
       <p class="notice">
         <i18n path="privacy-info" tag="p">
+          {{ $t("brand-name") }}
           <a :href="url" target="_blank">
             {{ $t("privacy-link") }}
           </a>
@@ -12,7 +13,7 @@
     </SfTab>
     <SfTab :title="$t('Password change')">
       <SwPassword>
-        <template #message="{user}">
+        <template #message="{ user }">
           <p class="message">
             {{
               $t(
