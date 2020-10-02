@@ -50,10 +50,10 @@ describe("CLI extensions - plugins - buildPluginsTrace", () => {
     expect(toolbox.print.error).not.toHaveBeenCalled();
     expect(res).toEqual({
       "first-slot": [
-        "~/.shopware-pwa/pwa-bundles-assets/first-plugin/someComponent.vue",
+        "~~/.shopware-pwa/pwa-bundles-assets/first-plugin/someComponent.vue",
       ],
       "second-slot": [
-        "~/.shopware-pwa/pwa-bundles-assets/second-plugin/someOtherComponent.vue",
+        "~~/.shopware-pwa/pwa-bundles-assets/second-plugin/someOtherComponent.vue",
       ],
     });
   });
@@ -96,7 +96,7 @@ describe("CLI extensions - plugins - buildPluginsTrace", () => {
     expect(res).toEqual({
       "first-slot": [
         "some/provided/path/someComponent.vue",
-        "~/.shopware-pwa/pwa-bundles-assets/first-plugin/someComponent.vue",
+        "~~/.shopware-pwa/pwa-bundles-assets/first-plugin/someComponent.vue",
       ],
       "some-slot": ["some/component.vue"],
     });
@@ -122,7 +122,7 @@ describe("CLI extensions - plugins - buildPluginsTrace", () => {
     });
     expect(toolbox.print.error).not.toHaveBeenCalled();
     expect(res).toEqual({
-      "first-slot": ["~/some/root-path/first-plugin/someComponent.vue"],
+      "first-slot": ["~~/some/root-path/first-plugin/someComponent.vue"],
     });
   });
 

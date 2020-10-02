@@ -4,15 +4,15 @@
   </div>
 </template>
 <script>
-// <%- props.componentImports %>
+// Component Imports <%- props.componentImports %>
 
 export default {
   components: {
-    // <%= props.components %>
+    // Plugin Components <%= props.components %>
   },
   data() {
     return {};
-  }
+  },
 };
 </script>
 <style lang="scss" scoped></style>
