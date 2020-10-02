@@ -22,7 +22,7 @@
               :valid="!$v.firstName.$error"
               :error-message="$t('First name is required')"
               name="firstName"
-              :label="$t('First Name')"
+              :label="$t('First name')"
               class="sw-form__input"
               @blur="$v.firstName.$touch()"
             />
@@ -31,7 +31,7 @@
               :valid="!$v.lastName.$error"
               :error-message="$t('Last name is required')"
               name="lastName"
-              :label="$t('Last Name')"
+              :label="$t('Last name')"
               class="sw-form__input"
               @blur="$v.lastName.$touch()"
             />

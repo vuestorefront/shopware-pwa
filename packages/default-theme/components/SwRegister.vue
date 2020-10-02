@@ -33,7 +33,7 @@
         <SwInput
           v-model="firstName"
           name="first-name"
-          :label="$t('First Name')"
+          :label="$t('First name')"
           class="sw-form__input form__element form__element--small"
           :valid="!$v.firstName.$error"
           :error-message="$t('First name is required')"
@@ -43,7 +43,7 @@
         <SwInput
           v-model="lastName"
           name="last-name"
-          :label="$t('Last Name')"
+          :label="$t('Last name')"
           class="sw-form__input form__element form__element--small"
           :valid="!$v.lastName.$error"
           :error-message="$t('Last name is required')"
