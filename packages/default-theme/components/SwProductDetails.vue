@@ -1,5 +1,7 @@
 <template>
   <div class="sw-product-details">
+    <SwTipPopup />
+
     <div class="product-details__mobile-top">
       <SwProductHeading class="product-details__heading" :product="product" />
     </div>
@@ -85,6 +87,7 @@ import SwProductHeading from "@shopware-pwa/default-theme/components/SwProductHe
 import SwProductSelect from "@shopware-pwa/default-theme/components/SwProductSelect"
 import SwProductColors from "@shopware-pwa/default-theme/components/SwProductColors"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwTipPopup from "@shopware-pwa/default-theme/components/atoms/SwTipPopup"
 
 import SwProductTabs from "@shopware-pwa/default-theme/components/SwProductTabs"
 export default {
@@ -98,6 +101,7 @@ export default {
     SwProductTabs,
     SwProductColors,
     SwPluginSlot,
+    SwTipPopup,
   },
   props: {
     product: {
