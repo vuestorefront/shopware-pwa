@@ -3,7 +3,7 @@
     <SfHeading
       class="sw-order-details__header full-width"
       :level="3"
-      :title="`Order #${order.orderNumber}`"
+      :title="`${$t('Order no.')} ${order.orderNumber}`"
     />
     <div class="sw-order-details__totals">
       <SfTable class="sf-table--bordered table">
