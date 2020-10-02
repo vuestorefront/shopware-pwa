@@ -28,9 +28,11 @@ export default async ({ app }, inject) => {
     try {
       app.$cookies.set("sw-context-token", config.contextToken, {
         maxAge: 60 * 60 * 24 * 365,
+        sameSite: "Lax",
       });
       app.$cookies.set("sw-language-id", config.languageId, {
         maxAge: 60 * 60 * 24 * 365,
+        sameSite: "Lax",
       });
     } catch (e) {
       // Sometimes cookie is set on server after request is send, it can fail silently
