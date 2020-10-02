@@ -12,7 +12,7 @@
       <p class="log-in__info">or fill the details below:</p>
     </div>
     <SfHeading
-      title="1. Personal details"
+      :title="$t('1. Personal details')"
       class="sf-heading--left sf-heading--no-underline title"
     />
 
@@ -91,8 +91,9 @@
           class="sf-button--full-width form__action-button sw-form__button"
           data-cy="continue-to-shipping-button"
           @click="toShipping"
-          >Continue to shipping</SwButton
         >
+          {{ $t("Continue to shipping") }}
+        </SwButton>
         <SwButton
           class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only sw-form__button"
           >Go back to shop</SwButton

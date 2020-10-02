@@ -69,7 +69,7 @@
         v-model="zipcode"
         :valid="!validations.zipcode.$error"
         error-message="This field is required"
-        label="Zip-code"
+        :label="$t('Zip code')"
         data-cy="zipcode"
         name="zipcode"
         class="sw-form__input"

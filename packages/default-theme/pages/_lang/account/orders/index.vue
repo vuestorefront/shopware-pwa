@@ -1,13 +1,17 @@
 <template>
   <SfTabs :open-tab="1">
-    <SfTab title="My orders">
+    <SfTab :title="$t('My orders')">
       <p class="message">
-        Check the details and status of your orders in the online store. You can
-        also cancel your order or request a return.
+        {{
+          $t(
+            "Check the details and status of your orders in the online store. You can " +
+              "also cancel your order or request a return."
+          )
+        }}
       </p>
       <div v-if="orders && orders.length === 0" class="no-orders">
-        <p class="no-orders__title">You currently have no orders</p>
-        <p class="no-orders__content">Start shopping!</p>
+        <p class="no-orders__title">{{ $t("You currently have no orders") }}</p>
+        <p class="no-orders__content">{{ $t("Start shopping!") }}</p>
       </div>
       <SfTable v-else class="orders">
         <SfTableHeading>
@@ -36,7 +40,13 @@ export default {
   data() {
     return {
       listOrders: true,
-      tableHeaders: ["Order no.", "Total amount", "Order date", "Status", " "],
+      tableHeaders: [
+        this.$t("Order no."),
+        this.$t("Total amount"),
+        this.$t("Order date"),
+        this.$t("Status"),
+        " ",
+      ],
     }
   },
   setup(props, { root }) {

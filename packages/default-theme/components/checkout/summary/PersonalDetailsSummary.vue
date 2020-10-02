@@ -5,7 +5,7 @@
         class="sf-button--text review__edit"
         @click="$emit('click:edit', CHECKOUT_STEPS.PERSONAL_DETAILS)"
       >
-        Edit
+        {{ $t("Edit") }}
       </SwButton>
     </template>
   </SwPersonalDetails>

@@ -22,7 +22,7 @@
           <div class="bottom">
             <template v-if="component !== 'SwRegister'">
               <SfHeading
-                title="Don't have an account yet?"
+                :title="$t('Don\'t have an account yet?')"
                 :level="4"
                 class="bottom__heading"
               />

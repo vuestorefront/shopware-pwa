@@ -31,9 +31,9 @@
     </SfTableData>
 
     <SfTableData>
-      <SwButton class="sf-button--text" @click="viewOrder(order.id)"
-        >View details</SwButton
-      >
+      <SwButton class="sf-button--text" @click="viewOrder(order.id)">
+        {{ $t("View details") }}
+      </SwButton>
     </SfTableData>
   </SfTableRow>
 </template>

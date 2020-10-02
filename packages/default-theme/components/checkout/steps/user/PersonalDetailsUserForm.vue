@@ -3,7 +3,7 @@
     <SwPersonalInfo>
       <template #message>
         <SfHeading
-          title="1. Personal details"
+          :title="$t('1. Personal details')"
           :level="2"
           class="sf-heading--left sf-heading--no-underline title"
         />
@@ -13,7 +13,7 @@
       class="personal-details-user-form__proceed"
       @click="$emit('proceed')"
     >
-      Continue to shipping
+      {{ $t("Continue to shipping") }}
     </SwButton>
   </div>
 </template>

@@ -3,7 +3,7 @@
     <SfBottomNavigation data-cy="bottom-navigation">
       <nuxt-link aria-label="Go to Home Page" :to="$i18n.path('/')">
         <SfBottomNavigationItem
-          label="Home"
+          :label="$t('Home')"
           icon="home"
           icon-size="20px"
           data-cy="bottom-navigation-home"
@@ -12,7 +12,7 @@
       <SfBottomNavigationItem
         icon="menu"
         icon-size="20px"
-        label="Menu"
+        :label="$t('Menu')"
         class="menu-button"
         data-cy="bottom-navigation-menu"
         @click.self="toggleMobileNavigation"
@@ -35,7 +35,7 @@
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
         icon="profile"
-        label="My Account"
+        :label="$t('My Account')"
         class="menu-button"
         data-cy="bottom-navigation-account"
       >
@@ -62,7 +62,7 @@
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
-        label="Currency"
+        :label="$t('Currency')"
         class="menu-button"
         data-cy="bottom-navigation-currency"
       >
@@ -75,7 +75,7 @@
           v-if="!isSidebarOpen"
           key="openCart"
           icon="empty_cart"
-          label="Cart"
+          :label="$t('Cart')"
           class="sw-bottom-navigation__action-button"
           :is-floating="true"
           data-cy="bottom-navigation-cart"

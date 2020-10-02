@@ -12,10 +12,10 @@
       <SwInput
         v-model="email"
         name="email"
-        label="Your email"
+        :label="$t('Your email')"
         class="sw-form__input"
         :valid="!$v.email.$error"
-        error-message="Valid email is required"
+        :error-message="$t('Valid email is required')"
         data-cy="email-input"
         @blur="$v.email.$touch()"
       />
@@ -24,12 +24,16 @@
         data-cy="submit-reset-button"
         @click="invokeResetPassword"
       >
-        Resend password
+        {{ $t("Resend password") }}
       </SwButton>
     </div>
     <SfHeading
       v-if="emailSent"
-      title="You should receive a link in a few moments. Please open that link to reset your password."
+      :title="
+        $t(
+          'You should receive a link in a few moments. Please open that link to reset your password.'
+        )
+      "
       :level="5"
       class="bottom__heading"
     />
