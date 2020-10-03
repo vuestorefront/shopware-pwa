@@ -21,7 +21,7 @@
 |  [getResults(term, searchCriteria, contextInstance)](./shopware-6-client.getresults.md) | <b><i>(BETA)</i></b> |
 |  [getSearchResults(term, searchCriteria, contextInstance)](./shopware-6-client.getsearchresults.md) | <b><i>(BETA)</i></b> |
 |  [getStoreNavigation({ requestActiveId, requestRootId, depth, buildTree, searchCriteria, }, contextInstance)](./shopware-6-client.getstorenavigation.md) | <b><i>(BETA)</i></b> |
-|  [getSuggestedResults(term, searchCriteria, contextInstance)](./shopware-6-client.getsuggestedresults.md) | <b><i>(BETA)</i></b> |
+|  [getSuggestedResults(term, searchCriteria, contextInstance)](./shopware-6-client.getsuggestedresults.md) |  |
 |  [invokeGet({ address }, contextInstance)](./shopware-6-client.invokeget.md) | <b><i>(BETA)</i></b> Invoke custom GET request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
 |  [invokePost({ address, payload, }, contextInstance)](./shopware-6-client.invokepost.md) | <b><i>(BETA)</i></b> Invoke custom POST request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
 |  [login({ username, password }, contextInstance)](./shopware-6-client.login.md) | <b><i>(BETA)</i></b> Login user to shopware instance. |
@@ -30,6 +30,7 @@
 |  [newsletterUnsubscribe({ email, }, contextInstance)](./shopware-6-client.newsletterunsubscribe.md) | <b><i>(BETA)</i></b> |
 |  [removeCartItem(itemId, contextInstance)](./shopware-6-client.removecartitem.md) | <b><i>(BETA)</i></b> Deletes the cart line item by id.<!-- -->This method may be used for deleting "product" type item lines as well as "promotion" type item lines. |
 |  [searchProducts(criteria, contextInstance)](./shopware-6-client.searchproducts.md) | <b><i>(BETA)</i></b> Search for products based on criteria. From: Shopware 6.4 |
+|  [searchSuggestedProducts(criteria, contextInstance)](./shopware-6-client.searchsuggestedproducts.md) | <b><i>(BETA)</i></b> Search for suggested products based on criteria. From: Shopware 6.4 |
 |  [sendContactForm(params, contextInstance)](./shopware-6-client.sendcontactform.md) | <b><i>(BETA)</i></b> |
 
 ## Interfaces

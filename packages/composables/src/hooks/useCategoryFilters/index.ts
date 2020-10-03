@@ -11,6 +11,7 @@ import { ApplicationVueContext } from "../../appContext";
 import { deprecationWarning } from "@shopware-pwa/commons";
 
 /**
+ * @beta
  * @deprecated please see useListing instead
  */
 export const useCategoryFilters = (rootContext: ApplicationVueContext): any => {

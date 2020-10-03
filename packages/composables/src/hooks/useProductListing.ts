@@ -33,6 +33,7 @@ import {
 import { deprecationWarning } from "@shopware-pwa/commons";
 
 /**
+ * @beta
  * @deprecated please see useListing instead
  */
 export interface UseProductListing {
@@ -62,6 +63,7 @@ const selectedCriteria = Vue.observable({
 } as any);
 
 /**
+ * @beta
  * @deprecated please see useListing instead
  */
 export const useProductListing = (

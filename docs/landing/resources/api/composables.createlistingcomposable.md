@@ -12,12 +12,12 @@ Factory to create your own listing. By default you can use useListing composable
 <b>Signature:</b>
 
 ```typescript
-export declare function createListingComposable({ rootContext, searchMethod, searchDefaults, listingKey, }: {
+export declare function createListingComposable<ELEMENTS_TYPE>({ rootContext, searchMethod, searchDefaults, listingKey, }: {
     rootContext: ApplicationVueContext;
     searchMethod: (searchParams: Partial<ShopwareSearchParams>) => Promise<ProductListingResult>;
     searchDefaults: ShopwareSearchParams;
     listingKey: string;
-}): IUseListing;
+}): IUseListing<ELEMENTS_TYPE>;
 ```
 
 ## Parameters
@@ -28,5 +28,5 @@ export declare function createListingComposable({ rootContext, searchMethod, sea
 
 <b>Returns:</b>
 
-[IUseListing](./composables.iuselisting.md)
+[IUseListing](./composables.iuselisting.md)<!-- -->&lt;ELEMENTS\_TYPE&gt;
 

@@ -272,7 +272,9 @@ export function getStoreOrderPaymentUrl(orderId: string, contextInstance?: Shopw
     apiAlias: string;
 }>;
 
-// @beta (undocumented)
+// Warning: (ae-incompatible-release-tags) The symbol "getSuggestedResults" is marked as @public, but its signature references "ShopwareApiInstance" which is marked as @beta
+//
+// @public @deprecated (undocumented)
 export function getSuggestedResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
 // @alpha (undocumented)
@@ -382,6 +384,9 @@ export function resetPassword(params: CustomerResetPasswordParam, contextInstanc
 
 // @beta
 export function searchProducts(criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
+
+// @beta
+export function searchSuggestedProducts(criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
 // @beta (undocumented)
 export function sendContactForm(params: ContactFormData, contextInstance?: ShopwareApiInstance): Promise<void>;
