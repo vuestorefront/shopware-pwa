@@ -1,7 +1,7 @@
 name: Deploy PR Preview on Storefrontcloud
 env:
-  CANARY_SW6_INSTANCE: https://shopware6-demo.vuestorefront.io
-  CANARY_SW6_INSTANCE_TOKEN: SWSCVJJET0RQAXFNBMTDZTV1OQ
+  CANARY_SW6_INSTANCE: https://pwa-demo-api.shopware.com
+  CANARY_SW6_INSTANCE_TOKEN: SWSC40-LJTNO6COUEN7CJMXKLA
   INSTANCE_CODE: shopware-pwa-canary
 on:
   pull_request:
@@ -333,11 +333,6 @@ jobs:
             !test-project/.yalc.lock
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}
       - name: Create test project
-        env:
-          CANARY_SW6_INSTANCE: https://pwa-demo-api.shopware.com
-          CANARY_SW6_INSTANCE_TOKEN: SWSC40-LJTNO6COUEN7CJMXKLA
-          SHOPWARE_ADMIN_USER:
-          SHOPWARE_ADMIN_PASSWORD:
         run: |
           mkdir -p test-project
           cd ./test-project
