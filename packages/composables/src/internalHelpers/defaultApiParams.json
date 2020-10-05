@@ -124,6 +124,9 @@
       ]
     }
   },
+  "useProductQuickSearch": {
+    "limit": 10
+  },
   "useListing": {
     "limit": 10,
     "includes": {
