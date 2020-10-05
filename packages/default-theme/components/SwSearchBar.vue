@@ -42,13 +42,8 @@ export default {
     const isSuggestBoxOpen = ref(false)
 
     const performSuggestSearch = debounce((value) => {
-      // if (event && event.key === "Enter") {
-      //   return
-      // }
-      console.error("SEARCHING...", value)
       searchTerm.value = value
       if (searchTerm.value.length > 0) {
-        console.error("SEARCHING", searchTerm.value)
         search()
         isSuggestBoxOpen.value = true
       } else {
@@ -57,8 +52,6 @@ export default {
     }, 300)
 
     watch(typingQuery, () => {
-      // performSuggestSearch
-      // console.error("SUGGEST SEARCH", typingQuery.value)
       performSuggestSearch(typingQuery.value)
     })
 
@@ -71,7 +64,6 @@ export default {
   },
   methods: {
     performSearch() {
-      console.error("SEARCH PERFORMED")
       if (this.typingQuery.length > 0) {
         this.$router.push(this.$i18n.path(getSearchPageUrl(this.typingQuery)))
       }

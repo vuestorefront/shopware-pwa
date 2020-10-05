@@ -36,6 +36,6 @@ export interface IUseListing<ELEMENTS_TYPE>
 |  [loading](./composables.iuselisting.loading.md) | ComputedRef&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [loadingMore](./composables.iuselisting.loadingmore.md) | ComputedRef&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [loadMore](./composables.iuselisting.loadmore.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
-|  [search](./composables.iuselisting.search.md) | (criteria: Partial&lt;ShopwareSearchParams&gt;) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
+|  [search](./composables.iuselisting.search.md) | (criteria: Partial&lt;ShopwareSearchParams&gt;, options?: { preventRouteChange?: boolean; }) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [setInitialListing](./composables.iuselisting.setinitiallisting.md) | (initialListing: Partial&lt;ProductListingResult&gt;) =&gt; void | <b><i>(BETA)</i></b> |
 

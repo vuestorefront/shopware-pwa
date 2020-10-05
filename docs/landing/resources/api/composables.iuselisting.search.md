@@ -10,5 +10,7 @@
 <b>Signature:</b>
 
 ```typescript
-search: (criteria: Partial<ShopwareSearchParams>) => Promise<void>;
+search: (criteria: Partial<ShopwareSearchParams>, options?: {
+        preventRouteChange?: boolean;
+    }) => Promise<void>;
 ```

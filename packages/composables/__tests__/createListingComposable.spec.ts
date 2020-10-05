@@ -706,6 +706,39 @@ describe("Composables - createListingComposable", () => {
       expect(searchMethodMock).toBeCalledWith({ limit: 7 });
     });
 
+    it("should by default change route with passed criteria", async () => {
+      const { search } = createListingComposable({
+        rootContext: rootContextMock as any,
+        listingKey: "testKey",
+        searchDefaults: null as any,
+        searchMethod: searchMethodMock,
+      });
+      await search({ limit: 7 });
+      expect(routerReplaceValue).toEqual({ query: { limit: 7 } });
+    });
+
+    it("should change route when search options doesn't contains preventRouteChange flag", async () => {
+      const { search } = createListingComposable({
+        rootContext: rootContextMock as any,
+        listingKey: "testKey",
+        searchDefaults: null as any,
+        searchMethod: searchMethodMock,
+      });
+      await search({ limit: 7 }, {});
+      expect(routerReplaceValue).toEqual({ query: { limit: 7 } });
+    });
+
+    it("should not change route when search options contains preventRouteChange flag", async () => {
+      const { search } = createListingComposable({
+        rootContext: rootContextMock as any,
+        listingKey: "testKey",
+        searchDefaults: null as any,
+        searchMethod: searchMethodMock,
+      });
+      await search({ limit: 7 }, { preventRouteChange: true });
+      expect(routerReplaceValue).toBeNull();
+    });
+
     it("should show loading on searching", (resolve) => {
       const { search, loading } = createListingComposable({
         rootContext: rootContextMock as any,

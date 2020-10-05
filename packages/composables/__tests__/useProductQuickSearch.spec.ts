@@ -85,10 +85,13 @@ describe("Composables - useProductQuickSearch", () => {
     );
   });
 
-  it("should invoke search method inside createListingComposable", async () => {
+  it("should invoke search method inside createListingComposable with preventing route change", async () => {
     const { searchTerm, search } = useProductQuickSearch(rootContextMock);
     searchTerm.value = "someTerm";
     await search();
-    expect(factorySearchMethodMock).toBeCalledWith({ query: "someTerm" });
+    expect(factorySearchMethodMock).toBeCalledWith(
+      { query: "someTerm" },
+      { preventRouteChange: true }
+    );
   });
 });

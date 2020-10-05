@@ -169,8 +169,7 @@ export default {
   },
   methods: {
     async toggleFilterValue(filter) {
-      // TODO WIP - this logic needs to be taken care of by core with filters recognition
-      console.error("TOGGLE FILTER", filter)
+      // TODO: this logic needs to be taken care of by core with filters recognition - https://github.com/DivanteLtd/shopware-pwa/issues/1150
 
       if (["range", "max"].includes(filter.type)) {
         // if(filter.value) this.sidebarSelectedFilters[filter.code]

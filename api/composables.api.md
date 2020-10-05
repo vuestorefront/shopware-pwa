@@ -270,7 +270,9 @@ export interface IUseListing<ELEMENTS_TYPE> {
     // (undocumented)
     loadMore: () => Promise<void>;
     // (undocumented)
-    search: (criteria: Partial<ShopwareSearchParams>) => Promise<void>;
+    search: (criteria: Partial<ShopwareSearchParams>, options?: {
+        preventRouteChange?: boolean;
+    }) => Promise<void>;
     // (undocumented)
     setInitialListing: (initialListing: Partial<ProductListingResult>) => void;
 }
