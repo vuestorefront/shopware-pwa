@@ -2,6 +2,7 @@ import { ref, Ref, computed } from "@vue/composition-api";
 import {
   getCart,
   addProductToCart,
+  addPromotionCode,
   removeCartItem,
   changeCartItemQuantity,
 } from "@shopware-pwa/shopware-6-client";
@@ -12,6 +13,9 @@ import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/
 import { getApplicationContext } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../../appContext";
 
+const TYPE_PROMOTION = "promotion";
+const TYPE_PRODUCT = "product";
+
 /**
  * interface for {@link useCart} composable
  *
@@ -19,6 +23,8 @@ import { ApplicationVueContext } from "../../appContext";
  */
 export interface IUseCart {
   addProduct: ({ id, quantity }: { id: string; quantity?: number }) => void;
+  addPromotionCode: (promoCode: string) => void;
+  appliedPromotionCodes: Readonly<Ref<Readonly<LineItem[]>>>;
   cart: Readonly<Ref<Readonly<Cart>>>;
   cartItems: Readonly<Ref<Readonly<LineItem[]>>>;
   changeProductQuantity: ({
@@ -33,6 +39,7 @@ export interface IUseCart {
   loading: Readonly<Ref<Readonly<boolean>>>;
   refreshCart: () => void;
   removeProduct: ({ id }: Partial<Product>) => void;
+  removePromotionCode: (lineItem: Product) => void;
   totalPrice: Readonly<Ref<Readonly<number>>>;
   subtotal: Readonly<Ref<Readonly<number>>>;
 }
@@ -85,6 +92,21 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     vuexStore.commit("SET_CART", result);
   }
 
+  async function submitPromotionCode(promoCode: string) {
+    const result = await addPromotionCode(promoCode, apiInstance);
+    vuexStore.commit("SET_CART", result);
+  }
+
+  async function removePromotionCode(lineItem: Product) {
+    await removeProduct(lineItem);
+  }
+
+  const appliedPromotionCodes = computed(() => {
+    return cartItems.value.filter(
+      (cartItem) => cartItem.type === TYPE_PROMOTION
+    );
+  });
+
   const cart: Readonly<Ref<Readonly<Cart>>> = computed(() => {
     return vuexStore.getters.getCart;
   });
@@ -96,7 +118,7 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
   const count = computed(() => {
     return cartItems.value.reduce(
       (accumulator: number, lineItem: LineItem) =>
-        lineItem.type === "product"
+        lineItem.type === TYPE_PRODUCT
           ? lineItem.quantity + accumulator
           : accumulator,
       0
@@ -116,6 +138,8 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
 
   return {
     addProduct,
+    addPromotionCode: submitPromotionCode,
+    appliedPromotionCodes,
     cart,
     cartItems,
     changeProductQuantity,
@@ -124,6 +148,7 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     loading,
     refreshCart,
     removeProduct,
+    removePromotionCode,
     totalPrice,
     subtotal,
   };
