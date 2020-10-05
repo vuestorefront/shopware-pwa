@@ -27,6 +27,7 @@ import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCr
 import { SearchResult } from '@shopware-pwa/commons/interfaces/response/SearchResult';
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
+import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 
 // @beta @deprecated
@@ -175,8 +176,14 @@ export function getCategories(searchCriteria?: SearchCriteria, contextInstance?:
 // @alpha (undocumented)
 export function getCategory(categoryId: string, contextInstance?: ShopwareApiInstance): Promise<Category>;
 
+// @beta
+export const getCategoryProducts: (categoryId: string, criteria?: ShopwareSearchParams | undefined, contextInstance?: ShopwareApiInstance) => Promise<ProductListingResult>;
+
 // @alpha
 export const getCategoryProductsListing: (categoryId: string, searchCriteria?: SearchCriteria | undefined, contextInstance?: ShopwareApiInstance) => Promise<ProductListingResult>;
+
+// @alpha (undocumented)
+export function getCmsPage(path: string, criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<PageResolverResult<CmsPage>>;
 
 // @beta
 export function getCustomer(contextInstance?: ShopwareApiInstance): Promise<Customer | null>;
@@ -265,7 +272,7 @@ export function getStoreOrderPaymentUrl(orderId: string, contextInstance?: Shopw
     apiAlias: string;
 }>;
 
-// @beta (undocumented)
+// @alpha @deprecated (undocumented)
 export function getSuggestedResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
 // @alpha (undocumented)
@@ -372,6 +379,12 @@ export function removeCartItem(itemId: string, contextInstance?: ShopwareApiInst
 
 // @alpha
 export function resetPassword(params: CustomerResetPasswordParam, contextInstance?: ShopwareApiInstance): Promise<void>;
+
+// @beta
+export function searchProducts(criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
+
+// @beta
+export function searchSuggestedProducts(criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
 // @beta (undocumented)
 export function sendContactForm(params: ContactFormData, contextInstance?: ShopwareApiInstance): Promise<void>;

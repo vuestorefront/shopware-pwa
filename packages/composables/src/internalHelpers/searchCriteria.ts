@@ -27,7 +27,7 @@ export function appendSearchCriteriaToUrl(
     manufacturer: manufacturer,
     properties: properties,
   };
-  const combinedURL = stringify(query, {
+  const combinedURL = stringify(query as any, {
     arrayFormat: "separator",
     arrayFormatSeparator: "|",
     skipNull: true,
