@@ -86,7 +86,6 @@ describe("Helpers - getProductThumbnailUrl", () => {
     const coverUrl = getProductThumbnailUrl(argument);
     expect(coverUrl).toEqual("");
   });
-
   it("should return default value if product cover.media has no thumnbails in array", () => {
     const argument: any = {
       cover: {
