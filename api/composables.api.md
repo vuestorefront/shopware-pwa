@@ -22,7 +22,9 @@ import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
 import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
+import { IUseListing as IUseListing_2 } from '@shopware-pwa/composables';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
+import { ListingFilter } from '@shopware-pwa/helpers';
 import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
@@ -35,6 +37,8 @@ import { SessionContext } from '@shopware-pwa/commons/interfaces/response/Sessio
 import { ShippingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 import { ShopwareApiInstance } from '@shopware-pwa/shopware-6-client';
+import { ShopwareAssociation } from '@shopware-pwa/commons/interfaces/search/Association';
+import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { VueConstructor } from 'vue';
 
@@ -46,6 +50,8 @@ export interface ApplicationVueContext extends VueConstructor {
     $i18n?: any;
     // (undocumented)
     $interceptors?: any;
+    // (undocumented)
+    $route?: any;
     // (undocumented)
     $router?: any;
     // (undocumented)
@@ -60,6 +66,8 @@ export interface ApplicationVueContext extends VueConstructor {
     i18n?: any;
     // (undocumented)
     interceptors?: any;
+    // (undocumented)
+    route?: any;
     // (undocumented)
     router?: any;
     // (undocumented)
@@ -97,6 +105,14 @@ export function createCheckoutStep({ stepNumber, stepFields, stepDataUpdated, }:
     stepDataUpdated: (updatedData: CheckoutStepFields, guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>) => Partial<GuestOrderParams>;
 }): (rootContext: ApplicationVueContext) => CreateCheckoutStep;
 
+// @beta
+export function createListingComposable<ELEMENTS_TYPE>({ rootContext, searchMethod, searchDefaults, listingKey, }: {
+    rootContext: ApplicationVueContext_2;
+    searchMethod: (searchParams: Partial<ShopwareSearchParams>) => Promise<ProductListingResult>;
+    searchDefaults: ShopwareSearchParams;
+    listingKey: string;
+}): IUseListing<ELEMENTS_TYPE>;
+
 // @beta (undocumented)
 export interface CurrentPagination {
     // (undocumented)
@@ -112,6 +128,7 @@ export function getApplicationContext(rootContext: ApplicationVueContext, key?: 
     apiInstance: ShopwareApiInstance | undefined;
     vuexStore: any;
     router: any;
+    route: any;
     i18n: any;
     cookies: any;
     shopwareDefaults: any;
@@ -123,7 +140,7 @@ export function getApplicationContext(rootContext: ApplicationVueContext, key?: 
 export function getDefaultApiParams(): {
     [composableName: string]: {
         includes?: Includes;
-        associations?: Association[];
+        associations?: ShopwareAssociation;
     };
 };
 
@@ -215,6 +232,53 @@ export interface IUseIntercept {
 }
 
 // @beta
+export interface IUseListing<ELEMENTS_TYPE> {
+    // (undocumented)
+    changeCurrentPage: (pageNumber?: number | string) => Promise<void>;
+    // (undocumented)
+    changeCurrentSortingOrder: (order: string | string[]) => Promise<void>;
+    // (undocumented)
+    getAvailableFilters: ComputedRef<ListingFilter[]>;
+    // (undocumented)
+    getCurrentFilters: ComputedRef<any>;
+    // (undocumented)
+    getCurrentListing: ComputedRef<ProductListingResult>;
+    // (undocumented)
+    getCurrentPage: ComputedRef<string | number>;
+    // (undocumented)
+    getCurrentSortingOrder: ComputedRef<string>;
+    // (undocumented)
+    getElements: ComputedRef<ELEMENTS_TYPE[]>;
+    // (undocumented)
+    getInitialListing: ComputedRef<ProductListingResult>;
+    // (undocumented)
+    getLimit: ComputedRef<number>;
+    // (undocumented)
+    getSortingOrders: ComputedRef<{
+        key: string;
+        label: string;
+    }>;
+    // (undocumented)
+    getTotal: ComputedRef<number>;
+    // (undocumented)
+    getTotalPagesCount: ComputedRef<number>;
+    // (undocumented)
+    initSearch: (criteria: Partial<ShopwareSearchParams>) => Promise<void>;
+    // (undocumented)
+    loading: ComputedRef<boolean>;
+    // (undocumented)
+    loadingMore: ComputedRef<boolean>;
+    // (undocumented)
+    loadMore: () => Promise<void>;
+    // (undocumented)
+    search: (criteria: Partial<ShopwareSearchParams>, options?: {
+        preventRouteChange?: boolean;
+    }) => Promise<void>;
+    // (undocumented)
+    setInitialListing: (initialListing: Partial<ProductListingResult>) => void;
+}
+
+// @beta
 export interface IUseNavigation {
     // (undocumented)
     fetchNavigationElements: (depth: number) => Promise<void>;
@@ -224,6 +288,22 @@ export interface IUseNavigation {
     navigationElements: Ref<Readonly<NavigationElement[]>>;
     // (undocumented)
     routes: Ref<Readonly<any>>;
+}
+
+// @beta (undocumented)
+export interface IUseProductQuickSearch {
+    // (undocumented)
+    getProducts: ComputedRef<Product[]>;
+    // (undocumented)
+    getTotal: ComputedRef<number>;
+    // (undocumented)
+    loading: ComputedRef<boolean>;
+    // (undocumented)
+    loadMore: () => Promise<void>;
+    // (undocumented)
+    search: (additionalCriteria?: Partial<ShopwareSearchParams>) => Promise<void>;
+    // (undocumented)
+    searchTerm: Ref<string>;
 }
 
 // @beta
@@ -306,6 +386,9 @@ export interface IUseUser {
 }
 
 // @beta (undocumented)
+export type listingKey = "productSearchListing" | "categoryListing";
+
+// @beta (undocumented)
 interface Notification_2 {
     // (undocumented)
     id?: number;
@@ -326,7 +409,7 @@ export const useAddToCart: (rootContext: ApplicationVueContext, product: Product
 // @beta
 export const useCart: (rootContext: ApplicationVueContext) => IUseCart;
 
-// @alpha (undocumented)
+// @beta @deprecated (undocumented)
 export const useCategoryFilters: (rootContext: ApplicationVueContext) => any;
 
 // @beta
@@ -373,10 +456,14 @@ export const useCurrency: (rootContext: ApplicationVueContext) => UseCurrency;
 export const useDefaults: (rootContext: ApplicationVueContext, defaultsKey: string) => {
     getIncludesConfig: () => Includes;
     getAssociationsConfig: () => Association[];
+    getDefaults: () => ShopwareSearchParams;
 };
 
 // @beta
 export const useIntercept: (rootContext: ApplicationVueContext_2) => IUseIntercept;
+
+// @beta (undocumented)
+export const useListing: (rootContext: ApplicationVueContext_2, listingKey?: listingKey) => IUseListing_2<Product>;
 
 // @beta
 export const useNavigation: (rootContext: ApplicationVueContext) => IUseNavigation;
@@ -409,7 +496,7 @@ export interface UseProduct<PRODUCT, SEARCH> {
 // @alpha (undocumented)
 export const useProduct: (rootContext: ApplicationVueContext, loadedProduct?: any) => UseProduct<Product, Search>;
 
-// @alpha (undocumented)
+// @beta @deprecated (undocumented)
 export interface UseProductListing {
     // (undocumented)
     [x: string]: any;
@@ -419,10 +506,13 @@ export interface UseProductListing {
     loading: Ref<boolean>;
 }
 
-// @alpha (undocumented)
+// @beta @deprecated (undocumented)
 export const useProductListing: (rootContext: ApplicationVueContext, initialListing?: ProductListingResult | undefined) => UseProductListing;
 
-// @alpha (undocumented)
+// @beta (undocumented)
+export const useProductQuickSearch: (rootContext: ApplicationVueContext_2) => IUseProductQuickSearch;
+
+// @alpha @deprecated (undocumented)
 export interface UseProductSearch {
     // (undocumented)
     availableFilters: Readonly<Ref<any>>;
@@ -456,7 +546,7 @@ export interface UseProductSearch {
     toggleFilter: (filter: EqualsFilter | RangeFilter, forceSave: boolean) => void;
 }
 
-// @alpha (undocumented)
+// @alpha @deprecated (undocumented)
 export const useProductSearch: (rootContext: ApplicationVueContext) => UseProductSearch;
 
 // @alpha (undocumented)

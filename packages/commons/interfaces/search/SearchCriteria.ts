@@ -80,4 +80,5 @@ export interface ShopwareSearchParams {
   properties?: string | undefined | never[];
   manufacturer?: string | undefined | never[];
   includes?: Includes;
+  query?: string;
 }

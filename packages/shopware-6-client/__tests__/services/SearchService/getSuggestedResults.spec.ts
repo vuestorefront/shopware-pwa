@@ -5,6 +5,7 @@ jest.mock("../../../src/apiService");
 const mockedApiInstance = defaultInstance as jest.Mocked<
   typeof defaultInstance
 >;
+const consoleWarnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
 
 describe("SearchService - getSuggestedResults", () => {
   const mockedPost = jest.fn();
@@ -14,6 +15,17 @@ describe("SearchService - getSuggestedResults", () => {
       post: mockedPost,
     } as any;
   });
+
+  it("should display deprecation info on invocation", async () => {
+    mockedPost.mockResolvedValueOnce({
+      data: {},
+    });
+    await getSuggestedResults("some term");
+    expect(consoleWarnSpy).toBeCalledWith(
+      '[DEPRECATED][@shopware-pwa/shopware-6-client][getSuggestedResults] This method has been deprecated. Use "searchSuggestedProducts" instead.'
+    );
+  });
+
   it("should return ProductListingResult", async () => {
     mockedPost.mockResolvedValueOnce({
       data: { apiAlias: "product_listing" },
