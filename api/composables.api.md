@@ -172,6 +172,10 @@ export interface IUseCart {
         quantity?: number;
     }) => void;
     // (undocumented)
+    addPromotionCode: (promoCode: string) => void;
+    // (undocumented)
+    appliedPromotionCodes: Readonly<Ref<Readonly<LineItem[]>>>;
+    // (undocumented)
     cart: Readonly<Ref<Readonly<Cart>>>;
     // (undocumented)
     cartItems: Readonly<Ref<Readonly<LineItem[]>>>;
@@ -190,6 +194,8 @@ export interface IUseCart {
     refreshCart: () => void;
     // (undocumented)
     removeProduct: ({ id }: Partial<Product>) => void;
+    // (undocumented)
+    removePromotionCode: (lineItem: Product) => void;
     // (undocumented)
     subtotal: Readonly<Ref<Readonly<number>>>;
     // (undocumented)
