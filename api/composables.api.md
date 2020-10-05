@@ -37,6 +37,7 @@ import { SessionContext } from '@shopware-pwa/commons/interfaces/response/Sessio
 import { ShippingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 import { ShopwareApiInstance } from '@shopware-pwa/shopware-6-client';
+import { ShopwareAssociation } from '@shopware-pwa/commons/interfaces/search/Association';
 import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { VueConstructor } from 'vue';
@@ -139,7 +140,7 @@ export function getApplicationContext(rootContext: ApplicationVueContext, key?: 
 export function getDefaultApiParams(): {
     [composableName: string]: {
         includes?: Includes;
-        associations?: Association[];
+        associations?: ShopwareAssociation;
     };
 };
 

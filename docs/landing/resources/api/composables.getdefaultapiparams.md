@@ -15,11 +15,11 @@ Returns default system API params
 export declare function getDefaultApiParams(): {
     [composableName: string]: {
         includes?: Includes;
-        associations?: Association[];
+        associations?: ShopwareAssociation;
     };
 };
 ```
 <b>Returns:</b>
 
-{ \[composableName: string\]: { includes?: Includes; associations?: Association\[\]; }; }
+{ \[composableName: string\]: { includes?: Includes; associations?: ShopwareAssociation; }; }
 
