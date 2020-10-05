@@ -1,6 +1,6 @@
 <template>
   <transition name="sf-collapse-bottom">
-    <div v-if="show" class="sw-popup container">
+    <div v-if="show && isMobile" class="sw-popup container">
       <p class="text">
         TIP!
         <span class="strong">Press and hold item to drag them to the cart</span>
@@ -19,27 +19,46 @@
 
 <script>
 import { SfIcon } from "@storefront-ui/vue"
+import {
+  mapMobileObserver,
+  unMapMobileObserver,
+} from "@storefront-ui/vue/src/utilities/mobile-observer"
 
 export default {
   name: "SwTipPopup",
-
   components: {
     SfIcon,
   },
 
+  setup(props, { root }) {
+    return {
+      mapMobileObserver,
+      unMapMobileObserver,
+    }
+  },
   data() {
     return {
       show: false,
     }
   },
-
-  mounted() {
-    this.show = true
+  computed: {
+    ...mapMobileObserver(),
   },
 
+  beforeDestroy() {
+    unMapMobileObserver()
+  },
+  mounted() {
+    if (document.cookie.includes("productPageTip=accepted")) {
+      this.show = false
+    } else {
+      this.show = true
+    }
+  },
   methods: {
     closePopup() {
       this.show = false
+      document.cookie = "productPageTip=accepted"
     },
   },
 }
