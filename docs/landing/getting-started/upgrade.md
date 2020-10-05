@@ -16,6 +16,16 @@ We want Shopware PWA to be in sync with the latest endpoints of Shopware, to be 
 
 **MIGRATION STEP**: we simplified project upgrade process. Now you can remove `@shopware-pwa/*` dependencies repm your `package.json` file and leave only `@shopware-pwa/nuxt-module`. Thanks to this you change version only in a single place.
 
+**FEATURE**: new composable `useListing` has been created. It uses `createListingComposable` factory, which you can use as well is `useListing` won't be enough for your needs. It allows you to have listing for all types of listings from shopware, like products, orders etc. It supports SSR and returns composable with a common listing interface.
+
+**DEPRECATION**: composable `useCategoryFilters` is now deprecated - use `useListing` instead
+
+**DEPRECATION**: composable `useProductListing` is now deprecated - use `useListing` instead
+
+**DEPRECATION**: composable `useProductSearch` is now deprecated - use `useProductQuickSearch` instead
+
+**DEPRECATION**: API client method `getSuggestedResults` is now deprecated - use `searchSuggestedProducts` instead
+
 ## Migrate version 0.3.x to 0.4.x
 
 All changes are documented in our [Changelog](https://github.com/DivanteLtd/shopware-pwa/blob/master/CHANGELOG.md)

@@ -24,7 +24,7 @@ describe("ProductService - getCategoryProductsListing", () => {
     expect(
       mockedPost
     ).toBeCalledWith(
-      "/store-api/v3/product-listing/044a190a54ab4f06803909c3ee8063ef",
+      "/store-api/v4/product-listing/044a190a54ab4f06803909c3ee8063ef",
       { limit: 10 }
     );
     expect(result).toHaveProperty("elements");
@@ -41,7 +41,7 @@ describe("ProductService - getCategoryProductsListing", () => {
     expect(
       mockedPost
     ).toBeCalledWith(
-      "/store-api/v3/product-listing/044a190a54ab4f06803909c3ee8063ef",
+      "/store-api/v4/product-listing/044a190a54ab4f06803909c3ee8063ef",
       { order: "name-asc", limit: 10 }
     );
     expect(result).toHaveProperty("elements");

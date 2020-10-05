@@ -12,8 +12,10 @@ export interface ApplicationVueContext extends VueConstructor {
   shopwareApiInstance?: ShopwareApiInstance;
   $store?: any; // Vuex Store
   store?: any; // Vuex Store
+  $route?: any; // Vue router
   $router?: any; // Vue router
   router?: any; // Vue router
+  route?: any; // Vue router
   $i18n?: any; // Vue i18n plugin
   i18n?: any; // Vue i18n plugin
   $cookies?: any; // cookie-universal
@@ -54,6 +56,7 @@ export function getApplicationContext(
     apiInstance: context?.$shopwareApiInstance || context?.shopwareApiInstance,
     vuexStore: context?.$store || context?.store,
     router: context?.$router || context?.router,
+    route: context?.$route || context?.route,
     i18n: context?.$i18n || context?.i18n,
     cookies: context?.$cookies || context?.cookies,
     shopwareDefaults: context?.$shopwareDefaults || context?.shopwareDefaults,

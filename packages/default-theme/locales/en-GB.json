@@ -5,6 +5,13 @@
   "footer": {
     "description": "Made with ❤️ by {creator}"
   },
+  "filter": {
+    "sortByNameAscending": "Name, A-Z",
+    "sortByNameDescending": "Name, Z-A",
+    "sortByPriceAscending": "Price, ascending",
+    "sortByPriceDescending": "Price, descending",
+    "sortByScore": "Top results"
+  },
   "Empty bag": "Empty bag",
   "Go to cart": "Go to cart",
   "Go to checkout": "Go to checkout",

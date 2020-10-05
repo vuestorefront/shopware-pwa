@@ -1,5 +1,6 @@
 {
   "useCms": {
+    "limit": 10,
     "associations": [
       {
         "name": "manufacturer"
@@ -32,91 +33,85 @@
         ]
       },
       {
-      "name": "options",
-      "associations": [
-        {
-          "name": "group"
-        }
-      ]
-    }],
+        "name": "options",
+        "associations": [
+          {
+            "name": "group"
+          }
+        ]
+      }
+    ],
     "includes": {
-        "cms_page_slot": [
-          "id",
-          "type",
-          "slot",
-          "blockId",
-          "config",
-          "data",
-          "backgroundMediaMode",
-          "backgroundMedia"
+      "cms_page_slot": [
+        "id",
+        "type",
+        "slot",
+        "blockId",
+        "config",
+        "data",
+        "backgroundMediaMode",
+        "backgroundMedia"
       ],
       "cms_page_block": [
-          "slots",
-          "type",
-          "id",
-          "backgroundColor",
-          "backgroundMedia",
-          "sectionPosition",
-          "backgroundColor"
+        "slots",
+        "type",
+        "id",
+        "backgroundColor",
+        "backgroundMedia",
+        "sectionPosition"
       ],
       "cms_page_section": [
-          "id",
-          "backgroundMedia",
-          "blocks",
-          "type",
-          "sizingMode"
+        "id",
+        "backgroundMedia",
+        "blocks",
+        "type",
+        "sizingMode"
       ],
-      "cms_page": [
-          "id",
-          "name",
-          "sections",
-          "type",
-          "config"
-      ],
+      "cms_page": ["id", "name", "sections", "type", "config"],
       "product": [
-          "media",
-          "productReviews",
-          "children",
-          "name",
-          "ratingAverage",
-          "calculatedPrice",
-          "calculatedPrices",
-          "cover",
-          "parentId",
-          "id",
-          "translated",
-          "options",
-          "properties",
-          "manufacturer"
+        "media",
+        "productReviews",
+        "children",
+        "name",
+        "ratingAverage",
+        "calculatedPrice",
+        "calculatedPrices",
+        "cover",
+        "parentId",
+        "id",
+        "translated",
+        "options",
+        "properties",
+        "manufacturer"
       ],
-      "product_media": [
-          "media"
+      "product_media": ["media"],
+      "media": ["thumbnails", "width", "height", "url"],
+      "calculated_price": ["unitPrice", "quantity"],
+      "product_group_option": ["name", "id", "group", "translated"],
+      "product_group": ["id", "name", "options", "translated"],
+      "product_listing": [
+        "sorting",
+        "currentFilters",
+        "elements",
+        "page",
+        "limit",
+        "sortings",
+        "availableSortings",
+        "total",
+        "aggregations"
       ],
-      "media": [
-          "thumbnails",
-          "width",
-          "height",
-          "url"
-      ],
-      "calculated_price": [
-          "unitPrice",
-          "quantity"
-      ],
-      "product_group_option": [
-          "name",
-          "id",
-          "group",
-          "translated"
-      ],
-      "product_group": [
-          "id",
-          "name",
-          "options",
-          "translated"
+      "property_group": ["id", "translated", "options"],
+      "property_group_option": [
+        "name",
+        "translated",
+        "id",
+        "colorHexCode",
+        "media"
       ]
     }
   },
   "useProductListing": {
+    "limit": 10,
     "includes": {
       "product": [
         "name",
@@ -128,30 +123,46 @@
         "translated",
         "options"
       ],
-      "product_media": [
-          "media"
+      "product_media": ["media"],
+      "media": ["thumbnails", "width", "height", "url"],
+      "calculated_price": ["unitPrice", "quantity"],
+      "product_group_option": ["name", "id", "group", "translated"],
+      "product_group": ["id", "name", "options", "translated"],
+      "property_group": ["id", "translated", "options"],
+      "property_group_option": [
+        "name",
+        "translated",
+        "id",
+        "colorHexCode",
+        "media"
+      ]
+    }
+  },
+  "useListing": {
+    "limit": 10,
+    "includes": {
+      "product": [
+        "name",
+        "ratingAverage",
+        "calculatedPrice",
+        "calculatedPrices",
+        "cover",
+        "id",
+        "translated",
+        "options"
       ],
-      "media": [
-          "thumbnails",
-          "width",
-          "height",
-          "url"
-      ],
-      "calculated_price": [
-          "unitPrice",
-          "quantity"
-      ],
-      "product_group_option": [
-          "name",
-          "id",
-          "group",
-          "translated"
-      ],
-      "product_group": [
-          "id",
-          "name",
-          "options",
-          "translated"
+      "product_media": ["media"],
+      "media": ["thumbnails", "width", "height", "url"],
+      "calculated_price": ["unitPrice", "quantity"],
+      "product_group_option": ["name", "id", "group", "translated"],
+      "product_group": ["id", "name", "options", "translated"],
+      "property_group": ["id", "translated", "options"],
+      "property_group_option": [
+        "name",
+        "translated",
+        "id",
+        "colorHexCode",
+        "media"
       ]
     }
   },
@@ -192,7 +203,7 @@
             "name": "options",
             "associations": [
               {
-              "name": "group"
+                "name": "group"
               }
             ]
           }
@@ -217,28 +228,11 @@
         "seoUrls",
         "optionIds"
       ],
-      "product_media": [
-          "media"
-      ],
-      "media": [
-          "url"
-      ],
-      "calculated_price": [
-          "unitPrice",
-          "quantity"
-      ],
-      "product_group_option": [
-          "name",
-          "id",
-          "group",
-          "translated"
-      ],
-      "product_group": [
-          "id",
-          "name",
-          "options",
-          "translated"
-      ]
+      "product_media": ["media"],
+      "media": ["url"],
+      "calculated_price": ["unitPrice", "quantity"],
+      "product_group_option": ["name", "id", "group", "translated"],
+      "product_group": ["id", "name", "options", "translated"]
     }
   }
 }

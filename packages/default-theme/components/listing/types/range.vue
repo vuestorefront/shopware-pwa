@@ -1,25 +1,30 @@
 <template>
-  <div class="filter__range">
-    <SwInput
-      label="Min"
-      name="min"
-      class="filter__range-min"
-      type="number"
-      v-model="min"
-    />
-    <SwInput
-      label="Max"
-      name="max"
-      class="filter__range-max"
-      type="number"
-      v-model="max"
-    />
+  <div>
+    <SfHeading class="filters__title" :level="4" :title="filter.label" />
+    <div class="filter__range">
+      <SwInput
+        label="Min"
+        name="min"
+        class="filter__range-min"
+        type="number"
+        v-model="min"
+        @blur="minChanged"
+      />
+      <SwInput
+        label="Max"
+        name="max"
+        class="filter__range-max"
+        type="number"
+        v-model="max"
+        @blur="maxChanged"
+      />
+    </div>
   </div>
 </template>
 <script>
 import { computed, ref } from "@vue/composition-api"
 
-import { SfFilter } from "@storefront-ui/vue"
+import { SfFilter, SfHeading } from "@storefront-ui/vue"
 import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
 import { validationMixin } from "vuelidate"
 import { required, email } from "vuelidate/lib/validators"
@@ -28,6 +33,7 @@ export default {
   components: {
     SfFilter,
     SwInput,
+    SfHeading,
   },
   mixins: [validationMixin],
   props: {
@@ -39,38 +45,48 @@ export default {
       type: Array | Object,
       default: () => [],
     },
+    currentFilters: {
+      type: Object,
+      default: () => ({}),
+    },
   },
-  setup({ filter, selectedValues }, { emit }) {
-    const min = computed({
-      get: () => selectedValues.gt || filter.min,
-      set: (value) =>
-        emit("toggle-filter-value", {
-          type: "range",
-          parameters: {
-            gt: value,
-          },
-          field: filter.name,
-        }),
-    })
-    const max = computed({
-      get: () => selectedValues.lt || filter.max,
-      set: (value) =>
-        emit("toggle-filter-value", {
-          type: "range",
-          parameters: {
-            lt: value,
-          },
-          field: filter.name,
-        }),
-    })
+  setup({ filter, selectedValues, currentFilters }, { emit }) {
+    const minFilterCode = `min-${filter.code}`
+    const maxFilterCode = `max-${filter.code}`
+
+    const min = ref(currentFilters[minFilterCode])
+    const max = ref(currentFilters[maxFilterCode])
+
+    const minChanged = () => {
+      emit("toggle-filter-value", {
+        ...filter,
+        type: "range",
+        code: minFilterCode,
+        value: min.value,
+      })
+    }
+    const maxChanged = () => {
+      emit("toggle-filter-value", {
+        ...filter,
+        type: "range",
+        code: maxFilterCode,
+        value: max.value,
+      })
+    }
     return {
       min,
       max,
+      minChanged,
+      maxChanged,
     }
   },
 }
 </script>
 <style lang="scss" scoped>
+::v-deep.sf-heading {
+  --heading-text-align: left;
+}
+
 .filter {
   &__range {
     display: flex;
