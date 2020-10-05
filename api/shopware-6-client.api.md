@@ -272,9 +272,7 @@ export function getStoreOrderPaymentUrl(orderId: string, contextInstance?: Shopw
     apiAlias: string;
 }>;
 
-// Warning: (ae-incompatible-release-tags) The symbol "getSuggestedResults" is marked as @public, but its signature references "ShopwareApiInstance" which is marked as @beta
-//
-// @public @deprecated (undocumented)
+// @alpha @deprecated (undocumented)
 export function getSuggestedResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
 // @alpha (undocumented)

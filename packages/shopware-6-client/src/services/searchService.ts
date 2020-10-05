@@ -13,6 +13,7 @@ import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/Se
 /**
  * @throws ClientApiError
  * @deprecated - please use searchSuggestedProducts instead
+ * @alpha
  */
 export async function getSuggestedResults(
   term: string,
