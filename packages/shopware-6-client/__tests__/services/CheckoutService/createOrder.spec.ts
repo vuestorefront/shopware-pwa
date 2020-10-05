@@ -1,6 +1,5 @@
 import { createOrder, createGuestOrder } from "@shopware-pwa/shopware-6-client";
 import { defaultInstance } from "../../../src/apiService";
-import { GuestOrderParams } from "@shopware-pwa/commons/interfaces/request/GuestOrderParams";
 
 jest.mock("../../../src/apiService");
 const mockedApiInstance = defaultInstance as jest.Mocked<
@@ -38,28 +37,12 @@ describe("CheckoutService createOrder", () => {
     });
   });
   describe("createGuestOrder", () => {
-    const createGuestOrderData: GuestOrderParams = {
-      email: "some@email.com",
-      salutationId: "2bbb89dfa4664bc581e80b37eaa80fa7",
-      firstName: "Joe",
-      lastName: "Doe",
-      billingAddress: {
-        countryId: "0bbb89dfa4664bc581e80b37eaa80fb7",
-        salutationId: "2bbb89dfa4664bc581e80b37eaa80fa7",
-        street: "Shopstreet",
-        zipcode: "51-123",
-        city: "Wroclaw",
-      },
-    };
     it("should return undefined when there is no data property in the response", async () => {
       mockedPost.mockResolvedValueOnce({});
 
-      const result = await createGuestOrder(createGuestOrderData);
+      const result = await createGuestOrder(mockedApiInstance);
       expect(mockedPost).toBeCalledTimes(1);
-      expect(mockedPost).toBeCalledWith(
-        "/store-api/v4/checkout/order",
-        createGuestOrderData
-      );
+      expect(mockedPost).toBeCalledWith("/store-api/v4/checkout/order");
       expect(result).toBeUndefined();
     });
     it("should return newly added order object", async () => {
@@ -69,23 +52,20 @@ describe("CheckoutService createOrder", () => {
         },
       });
 
-      const result = await createGuestOrder(createGuestOrderData);
+      const result = await createGuestOrder(mockedApiInstance);
+      expect(mockedApiInstance.invoke.post).toBeCalledTimes(1);
       expect(mockedPost).toBeCalledTimes(1);
-      expect(mockedPost).toBeCalledWith(
-        "/store-api/v4/checkout/order",
-        createGuestOrderData
-      );
+      expect(mockedPost).toBeCalledWith("/store-api/v4/checkout/order");
       expect(result).toHaveProperty("id");
     });
 
-    it("should throws the error when email is not provided", async () => {
-      try {
-        await createGuestOrder(undefined as any);
-      } catch (e) {
-        expect(e.message).toBe(
-          "createGuestOrder method requires GuestOrderParams"
-        );
-      }
+    it("should use default istance if no other provided", async () => {
+      mockedPost.mockResolvedValueOnce({
+        data: {},
+      });
+
+      await createGuestOrder();
+      expect(defaultInstance.invoke.post).toBeCalledTimes(1);
     });
   });
 });

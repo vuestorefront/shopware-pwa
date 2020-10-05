@@ -36,7 +36,7 @@ describe("Composables - useCountries", () => {
       });
       it("should contain properly fetched countries", async () => {
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
-          data: [
+          elements: [
             {
               name: "Norway",
               active: true,
@@ -101,7 +101,7 @@ describe("Composables - useCountries", () => {
         );
         await fetchCountries();
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
-          data: [
+          elements: [
             {
               name: "Norway",
               active: true,
@@ -140,7 +140,7 @@ describe("Composables - useCountries", () => {
     describe("onMountedCallback", () => {
       it("should call fetch countries when getCountries is any empty list", async () => {
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
-          data: [
+          elements: [
             {
               name: "England",
               active: true,
@@ -162,7 +162,7 @@ describe("Composables - useCountries", () => {
         );
         await fetchCountries();
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
-          data: [
+          elements: [
             {
               name: "Norway",
               active: true,

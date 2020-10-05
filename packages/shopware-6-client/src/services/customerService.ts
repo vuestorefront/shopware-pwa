@@ -108,7 +108,9 @@ export async function getCustomer(
  */
 export async function getCustomerAddresses(
   contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<CustomerAddress[]> {
+): Promise<{
+  elements: CustomerAddress[];
+}> {
   const resp = await contextInstance.invoke.get(
     getCustomerAddressListEndpoint()
   );

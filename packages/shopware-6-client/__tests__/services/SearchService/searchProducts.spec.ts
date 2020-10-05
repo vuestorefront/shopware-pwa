@@ -25,7 +25,7 @@ describe("SearchService - searchProducts", () => {
     });
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      "/store-api/v3/search?search=searchTerm",
+      "/store-api/v4/search?search=searchTerm",
       {
         query: "searchTerm",
         limit: 10,
@@ -42,7 +42,7 @@ describe("SearchService - searchProducts", () => {
     const result = await searchProducts(undefined);
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      "/store-api/v3/search?search=",
+      "/store-api/v4/search?search=",
       undefined
     );
     expect(result).toHaveProperty("apiAlias");

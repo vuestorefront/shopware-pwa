@@ -264,6 +264,15 @@ describe("SearchConverter - convertSearchCriteria", () => {
       });
       expect(result?.sort).toEqual("-name");
     });
+    it("should use sort.field if there is no sort name", () => {
+      const result = convertSearchCriteria({
+        searchCriteria: {
+          sort: {} as any,
+        },
+        config,
+      });
+      expect(result?.order).toBeUndefined();
+    });
   });
   describe("filters", () => {
     describe("EQUALS filters", () => {

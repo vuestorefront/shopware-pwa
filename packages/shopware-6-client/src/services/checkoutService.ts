@@ -5,11 +5,10 @@ import {
   getStoreOrderPaymentUrlEndpoint,
 } from "../endpoints";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
-import { GuestOrderParams } from "@shopware-pwa/commons/interfaces/request/GuestOrderParams";
 
 /**
  * Creates an order for logged in users
- * @alpha
+ * @beta
  */
 export async function createOrder(
   contextInstance: ShopwareApiInstance = defaultInstance
@@ -22,19 +21,13 @@ export async function createOrder(
 /**
  * Creates an order for not logged in users
  * Should be used when the user is logged out, but has items in the cart
- * @alpha
+ * @beta
  */
 export async function createGuestOrder(
-  params: GuestOrderParams,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Order> {
-  if (!params) {
-    throw new Error("createGuestOrder method requires GuestOrderParams");
-  }
-
   const resp = await contextInstance.invoke.post(
-    getCheckoutGuestOrderEndpoint(),
-    params
+    getCheckoutGuestOrderEndpoint()
   );
 
   return resp.data;

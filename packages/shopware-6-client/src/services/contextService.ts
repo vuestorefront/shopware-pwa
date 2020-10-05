@@ -8,7 +8,6 @@ import {
   getContextLanguageEndpoint,
   getContextSalutationEndpoint,
   getContextEndpoint,
-  getContextSalutationItemEndpoint,
 } from "../endpoints";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";

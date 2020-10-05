@@ -18,17 +18,17 @@ describe("ProductService - getProducts", () => {
   });
   it("should return array of products (default amount of 10)", async () => {
     mockedPost.mockResolvedValueOnce({
-      data: { total: 3, data: [1, 2, 3] },
+      data: { total: 3, elements: [1, 2, 3] },
     });
 
     const result = await getProducts();
     expect(result.total).toEqual(3);
-    expect(result.data).toHaveLength(result.total);
+    expect(result.elements).toHaveLength(result.total);
     expect(mockedPost).toBeCalledTimes(1);
   });
   it("should invoke api with limit", async () => {
     mockedPost.mockResolvedValueOnce({
-      data: { total: 3, data: [1, 2, 3] },
+      data: { total: 3, elements: [1, 2, 3] },
     });
     const pagination = {
       page: 1,
@@ -43,7 +43,7 @@ describe("ProductService - getProducts", () => {
   });
   it("should invoke api with limit and sort", async () => {
     mockedPost.mockResolvedValueOnce({
-      data: { total: 3, data: [1, 2, 3] },
+      data: { total: 3, elements: [1, 2, 3] },
     });
     const pagination = {
       page: 1,
@@ -63,7 +63,7 @@ describe("ProductService - getProducts", () => {
   });
   it("should show deprecation info on this method", async () => {
     mockedPost.mockResolvedValueOnce({
-      data: { total: 3, data: [1, 2, 3] },
+      data: { total: 3, elements: [1, 2, 3] },
     });
     await getProducts();
     expect(consoleWarnSpy).toBeCalledWith(

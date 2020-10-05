@@ -100,10 +100,7 @@ export const useCheckout = (
   const createOrder = async () => {
     try {
       if (isGuestOrder.value) {
-        return await createGuestOrder(
-          orderData.guestOrderParams as GuestOrderParams,
-          apiInstance
-        );
+        return await createGuestOrder(apiInstance);
       } else {
         return await createApiOrder(apiInstance);
       }

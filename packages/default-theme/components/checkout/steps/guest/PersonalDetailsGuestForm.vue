@@ -124,6 +124,7 @@ import {
   useSalutations,
   useCountries,
   useUIState,
+  useNotifications,
 } from "@shopware-pwa/composables"
 import {
   usePersonalDetailsStep,
@@ -176,6 +177,8 @@ export default {
       "LOGIN_MODAL_STATE"
     )
 
+    const { pushError } = useNotifications(root)
+
     const {
       validations,
       setValidations,
@@ -222,12 +225,26 @@ export default {
       firstName,
       lastName,
       email,
+      pushError,
     }
   },
   computed: {
+    firstCountryId() {
+      return this.getCountries.length && this.getCountries.pop().id
+    },
+    storefrontUrl() {
+      return (
+        window &&
+        window.location &&
+        `${window.location.protocol}//${window.location.hostname}`
+      )
+    },
     useUserErrorMessages() {
       // all the 400 errors are in a raw format stright from the API - to be extracted easily depeding on needs.
-      return this.userError && this.getMessagesFromErrorsArray(this.userError)
+      return (
+        this.userError &&
+        this.getMessagesFromErrorsArray(this.userError.message)
+      )
     },
   },
   watch: {
@@ -289,7 +306,30 @@ export default {
         }
         this.$router.push(this.$i18n.path('/checkout?step="SHIPPING"'))
       } else {
-        return this.$emit("proceed")
+        const guestUser = {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          guest: true,
+          storefrontUrl: this.storefrontUrl,
+          salutationId: this.salutationId,
+          billingAddress: {
+            countryId: this.firstCountryId,
+            salutationId: this.salutationId,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            zipcode: "#####",
+            city: "#####",
+            street: "#####",
+          },
+        }
+        await this.registerUser(guestUser)
+
+        if (!this.userError) {
+          return this.$emit("proceed")
+        }
+
+        this.pushError(this.$t("Invalid personal info"))
       }
     },
   },

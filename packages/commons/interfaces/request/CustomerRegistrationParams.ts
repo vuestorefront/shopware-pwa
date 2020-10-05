@@ -5,11 +5,12 @@ import { BillingAddress } from "../models/checkout/customer/BillingAddress";
  * @alpha
  */
 export interface CustomerRegistrationParams {
-  salutationId: string;
+  salutationId?: string;
   firstName: string;
   lastName: string;
-  password: string;
+  password?: string;
   email: string;
+  guest?: boolean;
   title?: string;
   birthdayYear?: number;
   birthdayMonth?: number;

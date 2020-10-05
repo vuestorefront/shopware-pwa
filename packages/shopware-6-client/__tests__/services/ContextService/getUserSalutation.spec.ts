@@ -25,4 +25,11 @@ describe("ContextService - getUserCountry", () => {
     });
     expect(result.displayName).toEqual("Mrs.");
   });
+  it("should return undefined if the list is empty", async () => {
+    mockedGet.mockResolvedValueOnce({});
+
+    const salutationId = "123123123";
+    const result = await getUserSalutation(salutationId);
+    expect(result).toBeUndefined();
+  });
 });

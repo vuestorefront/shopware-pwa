@@ -16,11 +16,11 @@ describe("ProductService - getProductsIds", () => {
   });
   it("should return array of products' ids (default amount of 10)", async () => {
     mockedPost.mockResolvedValueOnce({
-      data: { total: 3, data: [1, 2, 3] },
+      data: { total: 3, elements: [1, 2, 3] },
     });
 
     const result = await getProductsIds();
     expect(result.total).toEqual(3);
-    expect(result.data).toHaveLength(result.total);
+    expect(result.elements).toHaveLength(result.total);
   });
 });

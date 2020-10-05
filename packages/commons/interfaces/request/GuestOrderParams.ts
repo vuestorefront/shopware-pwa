@@ -25,4 +25,5 @@ export interface GuestOrderParams {
   affiliateCode?: string;
   campaignCode?: string;
   phoneNumber?: string;
+  guest?: boolean;
 }

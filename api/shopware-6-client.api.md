@@ -192,7 +192,9 @@ export function getCustomer(contextInstance?: ShopwareApiInstance): Promise<Cust
 export function getCustomerAddress(addressId: string, contextInstance?: ShopwareApiInstance): Promise<CustomerAddress>;
 
 // @beta
-export function getCustomerAddresses(contextInstance?: ShopwareApiInstance): Promise<CustomerAddress[]>;
+export function getCustomerAddresses(contextInstance?: ShopwareApiInstance): Promise<{
+    elements: CustomerAddress[];
+}>;
 
 // @alpha
 export function getCustomerOrderDetails(orderId: string, contextInstance?: ShopwareApiInstance): Promise<Order | undefined>;

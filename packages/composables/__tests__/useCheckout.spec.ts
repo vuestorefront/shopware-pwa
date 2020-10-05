@@ -410,9 +410,6 @@ describe("Composables - useCheckout", () => {
           });
           await createOrder();
           expect(mockedApiClient.createGuestOrder).toHaveBeenCalledWith(
-            {
-              firstName: "John",
-            },
             rootContextMock.$shopwareApiInstance
           );
         });

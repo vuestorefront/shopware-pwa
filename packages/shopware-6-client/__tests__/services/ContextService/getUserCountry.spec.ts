@@ -25,4 +25,15 @@ describe("ContextService - getUserCountry", () => {
     });
     expect(result.name).toEqual("Poland");
   });
+  it("should return undefined if there is no list is empty", async () => {
+    mockedGet.mockResolvedValueOnce({} as any);
+
+    const countryId = "123123123";
+    const result = await getUserCountry(countryId);
+    expect(mockedGet).toBeCalledTimes(1);
+    expect(mockedGet).toBeCalledWith("/store-api/v4/country", {
+      params: { ids: "123123123" },
+    });
+    expect(result).toBeUndefined();
+  });
 });

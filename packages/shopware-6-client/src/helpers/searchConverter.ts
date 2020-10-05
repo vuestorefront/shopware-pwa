@@ -130,8 +130,11 @@ export const convertSearchCriteria = ({
         });
       } else {
         let order = sort.desc ? "desc" : "asc";
-        // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/834
-        params.order = sort.name || `${sort.field}-${order}`;
+        // will be removed once PR #1086 is done
+        /* istanbul ignore else */
+        if (sort.name || sort.field) {
+          params.order = sort.name || `${sort.field}-${order}`;
+        }
       }
     }
   }

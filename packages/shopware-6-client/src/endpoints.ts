@@ -83,7 +83,7 @@ export const getCheckoutGuestOrderEndpoint = () =>
 //   `/sales-channel-api/v3/checkout/guest-order/${orderId}`; // replace with `/store-api/v4/account/order` { ids: [ orderId ] }
 
 export const getCheckoutPromotionCodeEndpoint = (code: string) =>
-  `/sales-channel-api/v3/checkout/cart/code/${code}`; // replace with `/store-api/v4/checkout/cart/line-item` - see https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/cart?category=shopware-platform-dev-en/store-api-guide#promotion
+  `/sales-channel-api/v3/checkout/cart/code/${code}`; // replace with `/store-api/v4/checkout/cart/line-item` - see
 
 // context
 
