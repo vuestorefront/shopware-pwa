@@ -287,6 +287,22 @@ export interface IUseNavigation {
     routes: Ref<Readonly<any>>;
 }
 
+// @beta (undocumented)
+export interface IUseProductQuickSearch {
+    // (undocumented)
+    getProducts: ComputedRef<Product[]>;
+    // (undocumented)
+    getTotal: ComputedRef<number>;
+    // (undocumented)
+    loading: ComputedRef<boolean>;
+    // (undocumented)
+    loadMore: () => Promise<void>;
+    // (undocumented)
+    search: (additionalCriteria?: Partial<ShopwareSearchParams>) => Promise<void>;
+    // (undocumented)
+    searchTerm: Ref<string>;
+}
+
 // @beta
 export interface IUseSessionContext {
     // (undocumented)
@@ -489,6 +505,9 @@ export interface UseProductListing {
 
 // @beta @deprecated (undocumented)
 export const useProductListing: (rootContext: ApplicationVueContext, initialListing?: ProductListingResult | undefined) => UseProductListing;
+
+// @beta (undocumented)
+export const useProductQuickSearch: (rootContext: ApplicationVueContext_2) => IUseProductQuickSearch;
 
 // @alpha @deprecated (undocumented)
 export interface UseProductSearch {

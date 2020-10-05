@@ -19,5 +19,6 @@ export * from "./logic/useNotifications";
 export * from "./logic/useIntercept";
 export * from "./getDefaultApiParams";
 export * from "./logic/useListing";
+export * from "./logic/useProductQuickSearch";
 export * from "./factories/createListingComposable";
 export { getApplicationContext, ApplicationVueContext } from "./appContext";

@@ -18,7 +18,12 @@ export interface IUseListing<ELEMENTS_TYPE> {
   getInitialListing: ComputedRef<ProductListingResult>;
   setInitialListing: (initialListing: Partial<ProductListingResult>) => void;
   initSearch: (criteria: Partial<ShopwareSearchParams>) => Promise<void>;
-  search: (criteria: Partial<ShopwareSearchParams>) => Promise<void>;
+  search: (
+    criteria: Partial<ShopwareSearchParams>,
+    options?: {
+      preventRouteChange?: boolean;
+    }
+  ) => Promise<void>;
   loadMore: () => Promise<void>;
   getCurrentListing: ComputedRef<ProductListingResult>;
   getElements: ComputedRef<ELEMENTS_TYPE[]>;
@@ -97,18 +102,23 @@ export function createListingComposable<ELEMENTS_TYPE>({
   };
 
   const search = async (
-    criteria: Partial<ShopwareSearchParams>
+    criteria: Partial<ShopwareSearchParams>,
+    options?: {
+      preventRouteChange?: boolean;
+    }
   ): Promise<void> => {
     loading.value = true;
+    const changeRoute = options?.preventRouteChange !== true;
     try {
       // replace URL query params with currently selected criteria
-      router
-        .replace({
-          query: {
-            ...criteria,
-          },
-        })
-        .catch(() => {});
+      changeRoute &&
+        router
+          .replace({
+            query: {
+              ...criteria,
+            },
+          })
+          .catch(() => {});
 
       // prepare full criteria using defaults and currently selected criteria
       const searchCriteria = merge({}, searchDefaults, criteria);

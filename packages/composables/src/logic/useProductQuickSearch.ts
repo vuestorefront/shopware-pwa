@@ -54,7 +54,9 @@ export const useProductQuickSearch = (
       query: searchTerm.value,
       ...additionalCriteria,
     };
-    return listingComposable.search(searchCriteria);
+    return listingComposable.search(searchCriteria, {
+      preventRouteChange: true,
+    });
   };
 
   return {
