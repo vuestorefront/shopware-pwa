@@ -191,7 +191,7 @@ export default {
   },
 
   mounted() {
-    this.product.options.forEach((option) => {
+    this.product.options?.forEach((option) => {
       this.selected = Object.assign({}, this.selected, {
         [option.group.name]: option.id,
       })

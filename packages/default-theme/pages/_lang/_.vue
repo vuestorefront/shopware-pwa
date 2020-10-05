@@ -1,5 +1,5 @@
 <template>
-  <div :key="$route.fullPath">
+  <div :key="$route.path">
     <component :is="getComponent" :cms-page="cmsPage" :page="page" />
   </div>
 </template>
@@ -22,7 +22,10 @@ export function getComponentBy(resourceType) {
 export default {
   name: "DynamicRoute",
   components: {},
-  watchQuery: true,
+  watchQuery(newQuery, oldQuery) {
+    // Only execute component methods if currency changed
+    return newQuery.currencyId !== oldQuery.currencyId
+  },
   asyncData: async ({ params, app, error: errorView, query }) => {
     const { search, page, error } = useCms(app)
     const { pushError } = useNotifications(app)

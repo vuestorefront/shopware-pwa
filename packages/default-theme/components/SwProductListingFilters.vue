@@ -5,30 +5,30 @@
     <div class="sw-navbar navbar__main">
       <SwButton
         class="sf-button--text navbar__filters-button"
-        @click="isFilterSidebarOpen = true"
+        @click="openFiltersSidebar"
       >
-        <SfIcon size="14px" icon="filter" style="margin-right: 10px;" />Filters
+        <SfIcon size="14px" icon="filter" style="margin-right: 10px" />Filters
       </SwButton>
       <div class="navbar__sort desktop-only">
         <span class="navbar__label">Sort by:</span>
         <SfSelect
-          v-model="activeSorting"
-          :size="sortings.length"
+          v-model="currentSortingOrder"
+          :size="getSortingOrders.length"
           class="sort-by"
         >
           <SfSelectOption
-            v-for="(option, key) in sortings"
-            :key="key"
-            :value="option"
+            v-for="option in getSortingOrders"
+            :key="option.key"
+            :value="option.key"
             class="sort-by__option"
-            >{{ getSortingLabel(option) }}</SfSelectOption
+            >{{ $t(option.label) }}</SfSelectOption
           >
         </SfSelect>
       </div>
       <div class="navbar__counter">
         <span class="navbar__label desktop-only">Products found:</span>
-        <strong class="desktop-only">{{ totalFound }}</strong>
-        <span class="navbar__label mobile-only">{{ totalFound }} Items</span>
+        <strong class="desktop-only">{{ getTotal }}</strong>
+        <span class="navbar__label mobile-only">{{ getTotal }} Items</span>
       </div>
       <div class="navbar__view">
         <span class="navbar__view-label desktop-only">View</span>
@@ -60,26 +60,25 @@
         </SwButton>
       </div>
       <SfSidebar
-        v-if="filters"
         title="Filters"
         :visible="isFilterSidebarOpen"
-        @close="isFilterSidebarOpen = false"
+        class="filters-sidebar"
+        @close="closeFiltersSidebar"
       >
         <div class="filters">
           <SwProductListingFilter
+            class="filters__filter"
             :filter="filter"
-            v-for="filter in filters"
-            @toggle-filter-value="toggleFilterValue"
-            :selected-entity-filters="selectedEntityFilters"
-            :selected-filters="selectedFilters"
+            v-for="filter in getAvailableFilters"
+            :current-filters="sidebarSelectedFilters"
+            :selected-filters="sidebarSelectedFilters[filter.code]"
+            :selected-entity-filters="{}"
             :key="filter.name"
+            @toggle-filter-value="toggleFilterValue"
           />
         </div>
         <template #content-bottom>
           <div class="filters__buttons">
-            <SwButton class="sf-button--full-width" @click="submitFilters"
-              >Done</SwButton
-            >
             <SwButton
               class="sf-button--full-width filters__button-clear"
               @click="clearAllFilters()"
@@ -100,22 +99,14 @@ import {
   SfHeading,
   SfSidebar,
 } from "@storefront-ui/vue"
-import {
-  useCategoryFilters,
-  useProductListing,
-  useUIState,
-  useProductSearch,
-} from "@shopware-pwa/composables"
+import { computed, ref } from "@vue/composition-api"
 
-import { getSearchResults } from "@shopware-pwa/shopware-6-client"
-import { ref, computed, reactive } from "@vue/composition-api"
-import { getSortingLabel } from "@shopware-pwa/default-theme/helpers"
-import { getCategoryAvailableSorting } from "@shopware-pwa/helpers"
+import { useUIState, useListing } from "@shopware-pwa/composables"
 import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
 import SwProductListingFilter from "@shopware-pwa/default-theme/components/listing/SwProductListingFilter"
 
 export default {
-  name: "SwProductListingFilters",
+  name: "CmsElementCategorySidebarFilter",
   components: {
     SwButton,
     SfIcon,
@@ -126,47 +117,49 @@ export default {
     SwProductListingFilter,
   },
   props: {
-    listing: {
-      type: Object,
-      default: () => ({}),
-    },
-    filters: {
-      type: Array,
-      default: () => [],
-    },
-    selectedFilters: {
-      type: Array | Object,
-      default: () => [],
-    },
-    selectedEntityFilters: {
-      type: Array | Object,
-      default: () => [],
+    listingType: {
+      type: String,
+      default: "categoryListing",
     },
   },
-  setup({ listing }, { root, emit }) {
-    const availableSorting = ref(listing.sortings)
-    const selectedSortingField = ref(listing.sorting)
-    const sortings = computed(() =>
-      getCategoryAvailableSorting({ sorting: availableSorting.value })
-    )
-    const activeSorting = computed({
-      get: () => sortings.value.find((sorting) => sorting.active),
-      set: (sorting) => {
-        emit("change-sorting", sorting)
-      },
-    })
+  setup(props, { root }) {
+    const {
+      getCurrentSortingOrder,
+      changeCurrentSortingOrder,
+      getSortingOrders,
+      getAvailableFilters,
+      search,
+      getCurrentFilters,
+      getTotal,
+    } = useListing(root, props.listingType)
+
     const { isOpen: isListView, switchState: switchToListView } = useUIState(
       root,
       "PRODUCT_LISTING_STATE"
     )
 
+    const sidebarSelectedFilters = ref({})
+    const initSidebarFilters = () => {
+      sidebarSelectedFilters.value =
+        JSON.parse(JSON.stringify(getCurrentFilters.value)) || {}
+    }
+
+    const currentSortingOrder = computed({
+      get: () => getCurrentSortingOrder.value,
+      set: (order) => changeCurrentSortingOrder(order),
+    })
+
     return {
-      getCategoryAvailableSorting,
-      getSortingLabel,
-      activeSorting,
-      sortings,
+      search,
       isListView,
       switchToListView,
+      getAvailableFilters,
+      getSortingOrders,
+      currentSortingOrder,
+      initSidebarFilters,
+      sidebarSelectedFilters,
+      getTotal,
+      getCurrentFilters,
     }
   },
   data() {
@@ -174,25 +167,49 @@ export default {
       isFilterSidebarOpen: false,
     }
   },
-  computed: {
-    totalFound() {
-      return this.listing && this.listing.total
-    },
-    lazyLoad() {
-      return true
-    },
-  },
-
   methods: {
-    toggleFilterValue(value) {
-      this.$emit("toggle-filter-value", value)
+    async toggleFilterValue(filter) {
+      // TODO: this logic needs to be taken care of by core with filters recognition - https://github.com/DivanteLtd/shopware-pwa/issues/1150
+
+      if (["range", "max"].includes(filter.type)) {
+        // if(filter.value) this.sidebarSelectedFilters[filter.code]
+        this.sidebarSelectedFilters = Object.assign(
+          {},
+          {
+            ...this.sidebarSelectedFilters,
+            [filter.code]: filter.value ? filter.value : undefined,
+          }
+        )
+      } else {
+        let filterCopy = this.sidebarSelectedFilters[filter.code] || []
+        if (!Array.isArray(filterCopy)) filterCopy = [filterCopy]
+        const index = filterCopy.findIndex(
+          (element) => element === filter.value
+        )
+        if (index < 0) {
+          filterCopy.push(filter.value)
+        } else {
+          filterCopy.splice(index, 1)
+        }
+        this.sidebarSelectedFilters = Object.assign(
+          {},
+          {
+            ...this.sidebarSelectedFilters,
+            [filter.code]: filterCopy.length ? filterCopy : undefined,
+          }
+        )
+      }
+      this.search(this.sidebarSelectedFilters)
     },
     async clearAllFilters() {
-      this.$emit("reset-filters")
-      this.isFilterSidebarOpen = false
+      this.closeFiltersSidebar()
+      await this.search()
     },
-    async submitFilters() {
-      await this.$emit("submit-filters")
+    openFiltersSidebar() {
+      this.isFilterSidebarOpen = true
+      this.initSidebarFilters()
+    },
+    closeFiltersSidebar() {
       this.isFilterSidebarOpen = false
     },
   },
@@ -296,11 +313,11 @@ export default {
 
 .sort-by {
   flex: unset;
-  width: 190px;
-  padding: 0 10px;
   max-height: 40px;
-  --select-selected-padding: 0 var(--spacer-lg) 0 var(--spacer-2xs);
+  padding: 0 10px;
+  width: 190px;
   --select-margin: 0;
+  --select-selected-padding: 0 var(--spacer-lg) 0 var(--spacer-2xs);
 
   &--mobile {
     width: auto;
@@ -309,36 +326,12 @@ export default {
 }
 
 .filters {
-  &__title {
-    margin: calc(var(--spacer-base) * 3) 0 var(--spacer-base);
-    text-align: left;
-    &:first-child {
-      margin: 0 0 var(--spacer-base) 0;
-    }
-  }
   &__filter {
-    &--color {
-      display: flex;
-      flex-wrap: wrap;
-    }
+    padding: 1rem 0;
   }
-  &__item {
-    padding: var(--spacer-2xs) 0;
-    &--color {
-      width: auto;
-      margin: var(--spacer-xs) var(--spacer-xs) var(--spacer-xs) 0;
-    }
-  }
-  &__buttons {
-    margin: var(--spacer-base) 0 calc(var(--spacer-base) * 3) 0;
-    @include for-desktop {
-      margin: var(--spacer-xl) 0 0 0;
-    }
-  }
-  &__button-clear {
-    color: #a3a5ad;
-    margin-top: 10px;
-    background-color: var(--c-light);
-  }
+}
+.filters-sidebar {
+  --sidebar-z-index: 4;
+  --overlay-z-index: 4;
 }
 </style>

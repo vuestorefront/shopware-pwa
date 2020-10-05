@@ -9,7 +9,7 @@ import { ConfigChangedArgs } from "../src";
 import { random } from "faker";
 const consoleWarnSpy = jest.spyOn(console, "warn");
 
-const DEFAULT_ENDPOINT = "https://shopware6-demo.vuestorefront.io";
+const DEFAULT_ENDPOINT = "https://pwa-demo-api.shopware.com";
 const DEFAULT_TIMEOUT = 10000;
 
 describe("Settings", () => {
@@ -90,19 +90,19 @@ describe("Settings", () => {
 
     it("should have default config with empty invocation", () => {
       update();
-      expect(config.accessToken).toEqual("SWSCVJJET0RQAXFNBMTDZTV1OQ");
+      expect(config.accessToken).toEqual("SWSC40-LJTNO6COUEN7CJMXKLA");
       expect(config.contextToken).toEqual("");
     });
 
     it("should change defaultPaginationLimit", () => {
       update({ defaultPaginationLimit: 50 });
-      expect(config.accessToken).toEqual("SWSCVJJET0RQAXFNBMTDZTV1OQ");
+      expect(config.accessToken).toEqual("SWSC40-LJTNO6COUEN7CJMXKLA");
       expect(config.defaultPaginationLimit).toEqual(50);
     });
 
     it("should change default timeout", () => {
       update({ timeout: 50 });
-      expect(config.accessToken).toEqual("SWSCVJJET0RQAXFNBMTDZTV1OQ");
+      expect(config.accessToken).toEqual("SWSC40-LJTNO6COUEN7CJMXKLA");
       expect(config.timeout).toEqual(50);
     });
   });

@@ -1,128 +1,64 @@
 <template>
-  <div :key="$route.fullPath" class="search-page">
-    <h3 v-if="!searchQuery && startedSearching" class="search-page__warning">
+  <div class="search-page">
+    <h3 v-if="!getSearchTerm && !loading" class="search-page__warning">
       You didn't provide any term to be found
     </h3>
-    <SfLoader v-else :loading="loadingSearch || !startedSearching">
-      <div v-if="searchResult" class="search-page__main">
+    <SfLoader v-else :loading="loading">
+      <div v-if="getElements" class="search-page__main">
         <h3>
           search results for
-          <strong>{{ searchQuery }}</strong
+          <strong>{{ getSearchTerm }}</strong
           >:
         </h3>
-        <SwProductListingFilters
-          :listing="searchResult"
-          :selected-filters="selectedFilters"
-          :selected-entity-filters="selectedEntityFilters"
-          :filters="availableFilters"
-          @reset-filters="resetFiltersHandler"
-          @submit-filters="submitFilters"
-          @change-sorting="changeSorting"
-          @toggle-filter-value="toggleFilter"
-        />
-        <SwProductListing
-          :listing="searchResult"
-          :loading="loadingSearch"
-          :is-list-view="isListView"
-          @change-page="changePage"
-        />
+
+        <SwProductListingFilters listingType="productSearchListing" />
+        <SwProductListing listingType="productSearchListing" />
       </div>
-      <h3 class="search-page__warning" v-if="error">{{ error }}</h3>
     </SfLoader>
   </div>
 </template>
 <script>
 import { SfLoader } from "@storefront-ui/vue"
-import { useProductSearch, useUIState } from "@shopware-pwa/composables"
+import { useUIState, useListing } from "@shopware-pwa/composables"
 
-import { ref } from "@vue/composition-api"
-import SwProductListing from "@shopware-pwa/default-theme/components/SwProductListing"
-import SwProductListingFilters from "@shopware-pwa/default-theme/components/SwProductListingFilters"
+import { computed, ref } from "@vue/composition-api"
+import SwProductListing from "@/components/SwProductListing"
+import SwProductListingFilters from "@/components/SwProductListingFilters"
 
 export default {
   name: "SearchResultsPage",
-  watchQuery: true,
+  watchQuery: (newQuery, oldQuery) => {
+    return newQuery.query !== oldQuery.query
+  },
   components: {
     SfLoader,
     SwProductListing,
     SwProductListingFilters,
   },
-  setup(props, { root }) {
-    const {
-      search,
-      currentSearchTerm,
-      searchResult,
-      loadingSearch,
-      changePage,
-      changeSorting,
-      toggleFilter,
-      selectedFilters,
-      selectedEntityFilters,
-      availableFilters,
-      resetFilters,
-    } = useProductSearch(root)
+  asyncData: async ({ params, app, error: errorView, query }) => {
+    const { initSearch } = useListing(app, "productSearchListing")
 
-    const submitFilters = () => changePage(1)
-    const error = ref(null)
-
-    const searchQuery = ref(currentSearchTerm.value)
-    const startedSearching = ref(false)
-    const { isOpen: isListView } = useUIState(root, "PRODUCT_LISTING_STATE")
-
-    const invokeSearch = async () => {
-      searchQuery.value = root.$route.query.query
-      startedSearching.value = true
-      if (
-        searchQuery.value &&
-        searchQuery.value !== currentSearchTerm.value &&
-        !loadingSearch.value &&
-        process.client
-      ) {
-        try {
-          await search(searchQuery.value)
-        } catch (e) {
-          console.error("SearchResultsPage:watchEffect:search: " + e.message)
-          error.value =
-            "Something went wrong. Please try again or report a bug."
-        }
-      }
+    try {
+      await initSearch(query)
+    } catch (e) {
+      console.error("[search] Problem with initial search", e)
     }
+
+    return {}
+  },
+  setup(props, { root }) {
+    const { getElements, loading, getCurrentFilters } = useListing(
+      root,
+      "productSearchListing"
+    )
+
+    const getSearchTerm = computed(() => getCurrentFilters.value?.search)
 
     return {
-      searchResult,
-      searchQuery,
-      loadingSearch,
-      startedSearching,
-      changePage,
-      isListView,
-      changeSortingInternal: changeSorting,
-      toggleFilter,
-      selectedFilters,
-      selectedEntityFilters,
-      search,
-      submitFilters,
-      availableFilters,
-      resetFilters,
-      error,
-      invokeSearch,
+      getSearchTerm,
+      getElements,
+      loading,
     }
-  },
-  watch: {
-    $route: {
-      immediate: true,
-      handler() {
-        this.invokeSearch()
-      },
-    },
-  },
-  methods: {
-    changeSorting(sorting) {
-      this.changeSortingInternal(sorting)
-    },
-    async resetFiltersHandler() {
-      this.resetFilters()
-      await this.search(this.searchQuery)
-    },
   },
 }
 </script>

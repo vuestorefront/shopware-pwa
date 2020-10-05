@@ -100,6 +100,9 @@ export const getFilterSearchCriteria: (selectedFilters: any) => any[];
 // @beta (undocumented)
 export function getListingAvailableFilters(aggregations: Aggregations | undefined | null): UiCategoryFilter[];
 
+// @beta (undocumented)
+export function getListingFilters(aggregations: Aggregations | undefined | null): ListingFilter[];
+
 // @alpha
 export function getMessagesFromErrorsArray(errors: ShopwareError[]): string[];
 
@@ -191,6 +194,16 @@ export function getVariantOptionsLabel({ product, }?: {
 export function isProductSimple({ product, }?: {
     product?: Product;
 }): boolean;
+
+// @beta (undocumented)
+export interface ListingFilter {
+    // (undocumented)
+    [key: string]: any;
+    // (undocumented)
+    code: string;
+    // (undocumented)
+    label: string;
+}
 
 // @beta
 export function loadScript(src: string): Promise<void>;

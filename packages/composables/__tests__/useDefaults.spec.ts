@@ -102,4 +102,26 @@ describe("Composables - useDefaults", () => {
       );
     });
   });
+
+  describe("getDefaults", () => {
+    it("should return defaults for productListing", () => {
+      const { getDefaults } = useDefaults(rootContextMock, "useProductListing");
+      expect(getDefaults()).toEqual(
+        getDefaultApiParams()?.["useProductListing"]
+      );
+    });
+
+    it("should return empty object for unknown defauts", () => {
+      const { getDefaults } = useDefaults(rootContextMock, "someUnknownKey");
+      expect(getDefaults()).toEqual({});
+    });
+
+    it("should warn when accessing for non existing defaults", () => {
+      const { getDefaults } = useDefaults(rootContextMock, "someUnknownKey");
+      expect(getDefaults()).toEqual({});
+      expect(consoleWarnSpy).toBeCalledWith(
+        "[WARNING][@shopware-pwa/composables][useDefaults]: there is no defaults configuration for key: someUnknownKey"
+      );
+    });
+  });
 });
