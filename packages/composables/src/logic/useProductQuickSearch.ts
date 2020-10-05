@@ -16,7 +16,7 @@ import { ComputedRef, Ref, ref } from "@vue/composition-api";
 export interface IUseProductQuickSearch {
   searchTerm: Ref<string>;
   loading: ComputedRef<boolean>;
-  search: (additionalCriteria: Partial<ShopwareSearchParams>) => Promise<void>;
+  search: (additionalCriteria?: Partial<ShopwareSearchParams>) => Promise<void>;
   loadMore: () => Promise<void>;
   getProducts: ComputedRef<Product[]>;
   getTotal: ComputedRef<number>;
@@ -47,9 +47,12 @@ export const useProductQuickSearch = (
     searchDefaults: getDefaults(),
   });
 
-  const search = async () => {
+  const search = async (
+    additionalCriteria: Partial<ShopwareSearchParams> = {}
+  ) => {
     const searchCriteria = {
       query: searchTerm.value,
+      ...additionalCriteria,
     };
     return listingComposable.search(searchCriteria);
   };

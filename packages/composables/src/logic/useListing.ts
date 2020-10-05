@@ -26,7 +26,7 @@ export const useListing = (
   rootContext: ApplicationVueContext,
   listingKey: listingKey = "categoryListing"
 ): IUseListing<Product> => {
-  const { getDefaults } = useDefaults(rootContext, "useProductListing");
+  const { getDefaults } = useDefaults(rootContext, "useListing");
   const { apiInstance } = getApplicationContext(rootContext, "useListing");
 
   let searchMethod;
