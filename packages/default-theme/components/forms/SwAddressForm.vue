@@ -1,8 +1,6 @@
 <template>
   <div class="sw-address">
-    <p class="message">
-      Keep your addresses and contact details updated.
-    </p>
+    <p class="message">Keep your addresses and contact details updated.</p>
     <SfAlert
       v-if="countriesError || userError"
       class="sw-personal-info__alert"
@@ -158,8 +156,8 @@ import {
   useSalutations,
 } from "@shopware-pwa/composables"
 import { mapCountries, mapSalutations } from "@shopware-pwa/helpers"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
-import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
+import SwButton from "@/components/atoms/SwButton"
+import SwInput from "@/components/atoms/SwInput"
 
 export default {
   name: "SwAddressForm",

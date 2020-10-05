@@ -77,7 +77,7 @@
             :color="updated ? 'green-primary' : 'gray-primary'"
             size="14px"
             icon="check"
-            style="margin-left: 10px;"
+            style="margin-left: 10px"
           />
         </slot>
       </div>
@@ -97,9 +97,9 @@ import {
 import { SfIcon } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
 import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
-import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
-import SwErrorsList from "@shopware-pwa/default-theme/components/SwErrorsList"
+import SwButton from "@/components/atoms/SwButton"
+import SwInput from "@/components/atoms/SwInput"
+import SwErrorsList from "@/components/SwErrorsList"
 
 export default {
   name: "SwPersonalInfo",

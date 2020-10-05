@@ -14,7 +14,7 @@
 <script>
 import { computed, ref } from "@vue/composition-api"
 import { SfRating, SfIcon, SfHeading } from "@storefront-ui/vue"
-import SwRating from "@shopware-pwa/default-theme/components/atoms/SwRating"
+import SwRating from "@/components/atoms/SwRating"
 
 export default {
   components: {

@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import CmsElementImage from "@shopware-pwa/default-theme/cms/elements/CmsElementImage"
-import CmsElementText from "@shopware-pwa/default-theme/cms/elements/CmsElementText"
+import CmsElementImage from "@/cms/elements/CmsElementImage"
+import CmsElementText from "@/cms/elements/CmsElementText"
 
 const extractGalleryData = (slots, position) => {
   const image = slots.find((slot) => slot.slot === `${position}-image`)

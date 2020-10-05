@@ -27,7 +27,7 @@
 
 <script>
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import SwFooterNavigation from "@shopware-pwa/default-theme/components/organisms/SwFooterNavigation"
+import SwFooterNavigation from "@/components/organisms/SwFooterNavigation"
 
 export default {
   name: "SwFooter",

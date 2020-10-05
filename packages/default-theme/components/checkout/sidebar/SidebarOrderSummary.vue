@@ -56,7 +56,7 @@ import {
   SfCharacteristic,
 } from "@storefront-ui/vue"
 import { useCart } from "@shopware-pwa/composables"
-import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
+import SwInput from "@/components/atoms/SwInput"
 
 export default {
   name: "SidebarOrderSummary",

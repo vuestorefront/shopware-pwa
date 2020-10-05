@@ -1,7 +1,7 @@
 import Vue from "vue";
 import { provide } from "@vue/composition-api";
 import { useCurrency } from "@shopware-pwa/composables";
-import { formatPrice } from "@shopware-pwa/default-theme/helpers";
+import { formatPrice } from "@/helpers";
 
 export default ({ app }) => {
   app.setup = () => {

@@ -19,7 +19,7 @@
 </template>
 <script>
 import { SfSelect } from "@storefront-ui/vue"
-import { useLocales } from "@shopware-pwa/default-theme/logic/useLocales"
+import { useLocales } from "@/logic/useLocales"
 
 export default {
   name: "SwLanguageSwitcher",
