@@ -3,8 +3,12 @@
     <slot :user="user">
       <slot name="message">
         <p class="message">
-          Feel free to edit any of your details below so your account is always
-          up to date
+          {{
+            $t(
+              "Feel free to edit any of your details below so your account is always " +
+                "up to date"
+            )
+          }}
         </p>
       </slot>
 
@@ -16,18 +20,18 @@
             <SwInput
               v-model="firstName"
               :valid="!$v.firstName.$error"
-              error-message="First name is required"
+              :error-message="$t('First name is required')"
               name="firstName"
-              label="First Name"
+              :label="$t('First name')"
               class="sw-form__input"
               @blur="$v.firstName.$touch()"
             />
             <SwInput
               v-model="lastName"
               :valid="!$v.lastName.$error"
-              error-message="Last name is required"
+              :error-message="$t('Last name is required')"
               name="lastName"
-              label="Last Name"
+              :label="$t('Last name')"
               class="sw-form__input"
               @blur="$v.lastName.$touch()"
             />
@@ -35,9 +39,9 @@
           <SwInput
             v-model="email"
             :valid="!$v.email.$error"
-            error-message="Proper email is required"
+            :error-message="$t('Proper email is required')"
             name="email"
-            label="Your email"
+            :label="$t('Your email')"
             class="sw-form__input"
             @blur="$v.email.$touch()"
           />
@@ -45,10 +49,10 @@
             v-if="isEmailChanging"
             v-model="emailConfirmation"
             :valid="!$v.emailConfirmation.$error"
-            error-message="Must match first one"
+            :error-message="$t('Must match first one')"
             type="email"
             name="emailConfirmation"
-            label="Confirm e-mail"
+            :label="$t('Confirm e-mail')"
             class="sw-form__input"
             required
             @blur="$v.emailConfirmation.$touch()"
@@ -57,10 +61,10 @@
             v-if="isEmailChanging"
             v-model="password"
             :valid="!$v.password.$error"
-            error-message="Password cannot be empty"
+            :error-message="$t('Password cannot be empty')"
             type="password"
             name="password"
-            label="Your password"
+            :label="$t('Your password')"
             class="sw-form__input"
             required
             @blur="$v.password.$touch()"
@@ -70,7 +74,7 @@
             :disabled="$v.$invalid && !isEmailChanging && !isNameChanging"
             @click="invokeUpdate"
           >
-            Save Changes
+            {{ $t("Save Changes") }}
           </SwButton>
           <SfIcon
             v-if="isUpdating"

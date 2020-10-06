@@ -1,15 +1,19 @@
 <template>
   <div class="shipping-list">
     <SfTabs v-if="listAddresses" key="address-list">
-      <SfTab title="Shipping details">
+      <SfTab :title="$t('Shipping address')">
         <p class="message">
-          Manage all the shipping addresses you want (work place, home address
-          ...) This way you won't have to enter the shipping address manually
-          with each order.
+          {{
+            $t(
+              "Manage all the shipping addresses you want (work place, home address " +
+                "...) This way you won't have to enter the shipping address manually " +
+                "with each order."
+            )
+          }}
         </p>
         <SwAddressList @editAddress="editAddress" />
         <SwButton class="action-button" @click="changeAddress">
-          Add new address
+          {{ $t("Add new address") }}
         </SwButton>
       </SfTab>
     </SfTabs>

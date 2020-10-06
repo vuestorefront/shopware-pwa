@@ -14,9 +14,9 @@
       <SfSelect
         v-if="getMappedSalutations && getMappedSalutations.length > 0"
         v-model="salutation"
-        label="Salutation"
+        :label="$t('Salutation')"
         :valid="!$v.salutation.$error"
-        error-message="Salutation must be selected"
+        :error-message="$t('Salutation must be selected')"
         class="sf-select--underlined sw-form__input sw-form__select form__element"
         data-cy="salutation-select"
       >
@@ -33,30 +33,30 @@
         <SwInput
           v-model="firstName"
           name="first-name"
-          label="First Name"
+          :label="$t('First name')"
           class="sw-form__input form__element form__element--small"
           :valid="!$v.firstName.$error"
-          error-message="First name is required"
+          :error-message="$t('First name is required')"
           data-cy="first-name-input"
           @blur="$v.firstName.$touch()"
         />
         <SwInput
           v-model="lastName"
           name="last-name"
-          label="Last Name"
+          :label="$t('Last name')"
           class="sw-form__input form__element form__element--small"
           :valid="!$v.lastName.$error"
-          error-message="Last name is required"
+          :error-message="$t('Last name is required')"
           data-cy="last-name-input"
           @blur="$v.lastName.$touch()"
         />
         <SwInput
           v-model="email"
           name="email"
-          label="Your email"
+          :label="$t('Your email')"
           class="sw-form__input form__element form__element--small form__element"
           :valid="!$v.email.$error"
-          error-message="Proper email is required"
+          :error-message="$t('Proper email is required')"
           data-cy="email-input"
           @blur="$v.email.$touch()"
         />
@@ -64,11 +64,11 @@
       <SwInput
         v-model="password"
         name="password"
-        label="Password"
+        :label="$t('Password')"
         type="password"
         class="sw-form__input form__element"
         :valid="!$v.password.$error"
-        error-message="Minimum password length is 8 characters"
+        :error-message="$t('Minimum password length is 8 characters')"
         data-cy="password-input"
         @blur="$v.password.$touch()"
       />
@@ -76,30 +76,30 @@
         <SwInput
           v-model="street"
           name="street"
-          label="Street"
+          :label="$t('Street')"
           class="sw-form__input form__element form__element--small"
           :valid="!$v.street.$error"
-          error-message="Street is required"
+          :error-message="$t('Street is required')"
           data-cy="street-input"
           @blur="$v.street.$touch()"
         />
         <SwInput
           v-model="city"
           name="city"
-          label="City"
+          :label="$t('City')"
           class="sw-form__input form__element form__element--small"
           :valid="!$v.city.$error"
-          error-message="City is required"
+          :error-message="$t('City is required')"
           data-cy="city-input"
           @blur="$v.city.$touch()"
         />
         <SwInput
           v-model="zipcode"
           name="zipcode"
-          label="Zip Code"
+          :label="$t('Zip code')"
           class="sw-form__input form__element form__element--small"
           :valid="!$v.zipcode.$error"
-          error-message="Zipcode is required."
+          :error-message="$t('Zip code is required')"
           data-cy="zip-code-input"
           @blur="$v.zipcode.$touch()"
         />
@@ -107,10 +107,10 @@
       <SfSelect
         v-if="getMappedCountries && getMappedCountries.length > 0"
         v-model="country"
-        label="Country"
+        :label="$t('Country')"
         class="sf-select--underlined sw-form__input form__element"
         :valid="!$v.country.$error"
-        error-message="Country must be selected"
+        :error-message="$t('Country must be selected')"
         data-cy="country-select"
         @blur="$v.country.$touch()"
       >
@@ -129,7 +129,7 @@
         data-cy="submit-register-button"
         @click="invokeRegister"
       >
-        Create an account
+        {{ $t("Create an account") }}
       </SwButton>
     </div>
   </div>
