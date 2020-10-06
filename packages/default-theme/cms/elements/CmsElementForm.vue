@@ -16,14 +16,8 @@ export default {
   data() {
     return {
       map: {
-        newsletter: () =>
-          import(
-            "@shopware-pwa/default-theme/cms/elements/CmsElementNesletterForm"
-          ),
-        contact: () =>
-          import(
-            "@shopware-pwa/default-theme/cms/elements/CmsElementContactForm"
-          ),
+        newsletter: () => import("@/cms/elements/CmsElementNesletterForm"),
+        contact: () => import("@/cms/elements/CmsElementContactForm"),
       },
     }
   },

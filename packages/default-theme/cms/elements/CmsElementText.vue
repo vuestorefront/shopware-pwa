@@ -1,7 +1,7 @@
 <script>
 // import any extra components here
 import { SfLink } from "@storefront-ui/vue"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton"
 import { renderHtml } from "html-to-vue"
 
 export default {

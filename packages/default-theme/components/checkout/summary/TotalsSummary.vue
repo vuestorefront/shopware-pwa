@@ -15,28 +15,29 @@
         data-cy="go-back-to-payment"
         @click="$emit('click:back')"
       >
-        Go back to Payment
+        {{ $t("Go back to Payment") }}
       </SwButton>
       <SwButton
         :disabled="!cartItems.length"
         class="sf-button--full-width summary__action-button"
         data-cy="place-my-order"
         @click="$emit('proceed')"
-        >Place my order</SwButton
       >
+        {{ $t("Place my order") }}
+      </SwButton>
       <SwButton
         class="sf-button--full-width sf-button--text summary__action-button summary__action-button--secondary mobile-only"
         @click="$emit('click:back')"
       >
-        Go back to Payment
+        {{ $t("Go back to Payment") }}
       </SwButton>
     </div>
   </div>
 </template>
 <script>
 import { useCart } from "@shopware-pwa/composables"
-import SwTotals from "@shopware-pwa/default-theme/components/SwTotals"
-import helpers from "@shopware-pwa/default-theme/helpers"
+import SwTotals from "@/components/SwTotals"
+import helpers from "@/helpers"
 
 import {
   SfProperty,
@@ -44,7 +45,7 @@ import {
   SfHeading,
   SfNotification,
 } from "@storefront-ui/vue"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton"
 
 export default {
   name: "TotalsSummary",

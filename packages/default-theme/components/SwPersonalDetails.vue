@@ -1,7 +1,7 @@
 <template>
   <div class="sw-personal-details">
     <div class="sw-personal-details__content">
-      <h4 class="sw-personal-details__title">Personal details</h4>
+      <h4 class="sw-personal-details__title">{{ $t("Personal details") }}</h4>
       <p class="content">{{ firstName }} {{ lastName }}<br /></p>
       <p class="content">
         {{ email }}

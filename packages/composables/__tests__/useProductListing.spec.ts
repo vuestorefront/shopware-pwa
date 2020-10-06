@@ -19,6 +19,7 @@ import {
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
+const consoleWarnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
 
 describe("Composables - useProductListing", () => {
   const statePage: Ref<Object | null> = ref(null);
@@ -37,6 +38,14 @@ describe("Composables - useProductListing", () => {
     jest.resetAllMocks();
     statePage.value = null;
   });
+
+  it("should display deprecation info on invocation", () => {
+    useProductListing(rootContextMock);
+    expect(consoleWarnSpy).toBeCalledWith(
+      '[DEPRECATED][@shopware-pwa/composables][useCategoryFilters] This method has been deprecated. Use "useListing" instead.'
+    );
+  });
+
   describe("no reference to the products collection", () => {
     it("should have no value if search wasn't performed", async () => {
       const { products } = useProductListing(rootContextMock);

@@ -31,18 +31,18 @@
     </SfTableData>
 
     <SfTableData>
-      <SwButton class="sf-button--text" @click="viewOrder(order.id)"
-        >View details</SwButton
-      >
+      <SwButton class="sf-button--text" @click="viewOrder(order.id)">
+        {{ $t("View details") }}
+      </SwButton>
     </SfTableData>
   </SfTableRow>
 </template>
 <script>
 import { SfTable } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
-import SwOrderDetails from "@shopware-pwa/default-theme/components/SwOrderDetails"
-import { formatDate, formatPrice } from "@shopware-pwa/default-theme/helpers"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwOrderDetails from "@/components/SwOrderDetails"
+import { formatDate, formatPrice } from "@/helpers"
+import SwButton from "@/components/atoms/SwButton"
 
 export default {
   name: "Order",

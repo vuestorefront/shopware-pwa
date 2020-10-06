@@ -1,38 +1,35 @@
 <template>
   <div
-    v-if="filter.options && filter.options.length"
+    v-if="getOptions.length"
     :class="{
-      'filters__filter--color': filter.options.find(({ color }) => !!color),
+      'filters__filter--color': filter.name === 'color',
     }"
   >
+    <SfHeading class="filters__title" :level="4" :title="filter.label" />
     <SfFilter
-      v-for="option in filter.options"
-      :key="option.value"
-      :label="option.label"
-      :count="option.count"
-      :color="option.color"
-      :selected="
-        selectedValues &&
-        !!selectedValues.find((propertyId) => propertyId === option.value)
-      "
+      v-for="option in getOptions"
+      :key="option.id"
+      :label="option.translated.name"
+      :color="filter.code === 'color' ? option.name : null"
+      :selected="selectedValues && selectedValues.includes(option.id)"
       class="filters__item"
       :class="{ 'filters__item--color': option.color }"
       @change="
         $emit('toggle-filter-value', {
-          type: 'equals',
-          value: option.value,
-          field: filter.name,
+          ...filter,
+          value: option.id,
         })
       "
     />
   </div>
 </template>
 <script>
-import { SfFilter } from "@storefront-ui/vue"
+import { SfFilter, SfHeading } from "@storefront-ui/vue"
 
 export default {
   components: {
     SfFilter,
+    SfHeading,
   },
   props: {
     filter: {
@@ -44,11 +41,20 @@ export default {
       default: () => [],
     },
   },
+  computed: {
+    getOptions() {
+      return this.filter.entities || this.filter.options || []
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
+
+::v-deep.sf-heading {
+  --heading-text-align: left;
+}
 
 .filters {
   &__filter {

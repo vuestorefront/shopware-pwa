@@ -13,4 +13,7 @@ export interface PropertyGroup {
   options: PropertyGroupOption[] | null;
   translations: PropertyGroupOptionTranslation[] | null;
   customFields: CustomField[];
+  translated: {
+    [key: string]: any;
+  };
 }

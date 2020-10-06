@@ -1,7 +1,7 @@
 name: Publish & deploy canary version
 env:
-  CANARY_SW6_INSTANCE: https://shopware6-demo.vuestorefront.io
-  CANARY_SW6_INSTANCE_TOKEN: SWSCVJJET0RQAXFNBMTDZTV1OQ
+  CANARY_SW6_INSTANCE: https://pwa-demo-api.shopware.com
+  CANARY_SW6_INSTANCE_TOKEN: SWSC40-LJTNO6COUEN7CJMXKLA
   CANARY_URL: https://shopware-pwa-canary.storefrontcloud.io
   INSTANCE_CODE: shopware-pwa-canary
 on:

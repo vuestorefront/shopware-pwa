@@ -12,6 +12,8 @@ import {
   getDefaultApiParams,
 } from "@shopware-pwa/composables";
 
+const consoleWarnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+
 describe("Composables - useCategoryFilters", () => {
   const statePage: Ref<Object | null> = ref(null);
   const rootContextMock: any = {
@@ -27,6 +29,13 @@ describe("Composables - useCategoryFilters", () => {
   beforeEach(() => {
     jest.resetAllMocks();
     statePage.value = null;
+  });
+
+  it("should display deprecation info on invocation", () => {
+    useCategoryFilters(rootContextMock);
+    expect(consoleWarnSpy).toBeCalledWith(
+      '[DEPRECATED][@shopware-pwa/composables][useCategoryFilters] This method has been deprecated. Use "useListing" instead.'
+    );
   });
 
   describe("computed", () => {

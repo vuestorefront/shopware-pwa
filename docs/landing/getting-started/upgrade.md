@@ -16,6 +16,16 @@ We want Shopware PWA to be in sync with the latest endpoints of Shopware, to be 
 
 **MIGRATION STEP**: we simplified project upgrade process. Now you can remove `@shopware-pwa/*` dependencies repm your `package.json` file and leave only `@shopware-pwa/nuxt-module`. Thanks to this you change version only in a single place.
 
+**FEATURE**: new composable `useListing` has been created. It uses `createListingComposable` factory, which you can use as well is `useListing` won't be enough for your needs. It allows you to have listing for all types of listings from shopware, like products, orders etc. It supports SSR and returns composable with a common listing interface.
+
+**DEPRECATION**: composable `useCategoryFilters` is now deprecated - use `useListing` instead
+
+**DEPRECATION**: composable `useProductListing` is now deprecated - use `useListing` instead
+
+**DEPRECATION**: composable `useProductSearch` is now deprecated - use `useProductQuickSearch` instead
+
+**DEPRECATION**: API client method `getSuggestedResults` is now deprecated - use `searchSuggestedProducts` instead
+
 ## Migrate version 0.3.x to 0.4.x
 
 All changes are documented in our [Changelog](https://github.com/DivanteLtd/shopware-pwa/blob/master/CHANGELOG.md)
@@ -24,7 +34,7 @@ All changes are documented in our [Changelog](https://github.com/DivanteLtd/shop
 
 **BREAKING CHANGE**: we've made overriding store more simple. If you don't need a store just leave `store` directory empty or remove it. If you need to use it though, then create `src/store/indexjs` file and attach theme store.
 
-**FEATURE**: you can now safely use `@/components/COMPONENT_NAME.vue`instead of `@shopware-pwa/default-themee/components/COMPONENT_NAME.vue` inside your project. It's not a break - old aliases will stay the same.
+**FEATURE**: you can now safely use `@/components/COMPONENT_NAME.vue`instead of `@shopware-pwa/default-theme/components/COMPONENT_NAME.vue` inside your project. It's not a break - old aliases will stay the same.
 So for example instead of:
 `import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"`
 you can type

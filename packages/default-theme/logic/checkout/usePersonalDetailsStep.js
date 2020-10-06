@@ -1,6 +1,6 @@
 import { required } from "vuelidate/lib/validators"
 import { createCheckoutStep } from "@shopware-pwa/composables"
-import { CHECKOUT_STEPS } from "@shopware-pwa/default-theme/logic/checkout"
+import { CHECKOUT_STEPS } from "@/logic/checkout"
 
 export const usePersonalDetailsStep = createCheckoutStep({
   stepNumber: CHECKOUT_STEPS.PERSONAL_DETAILS,

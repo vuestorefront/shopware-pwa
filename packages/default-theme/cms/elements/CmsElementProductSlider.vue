@@ -12,7 +12,7 @@
 
 <script>
 import { SfSection, SfCarousel } from "@storefront-ui/vue"
-import SwProductCard from "@shopware-pwa/default-theme/components/SwProductCard"
+import SwProductCard from "@/components/SwProductCard"
 
 export default {
   name: "CmsElementProductSlider",

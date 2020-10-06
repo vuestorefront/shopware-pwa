@@ -6,6 +6,7 @@ jest.mock("@shopware-pwa/shopware-6-client");
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 import { SearchFilterType } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 const mockedApi = shopwareClient as jest.Mocked<typeof shopwareClient>;
+const consoleWarnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
 
 describe("Composables - useProductSearch", () => {
   const rootContextMock: any = {
@@ -14,6 +15,13 @@ describe("Composables - useProductSearch", () => {
   };
   beforeEach(() => {
     jest.resetAllMocks();
+  });
+
+  it("should display deprecation info on invocation", () => {
+    useProductSearch(rootContextMock);
+    expect(consoleWarnSpy).toBeCalledWith(
+      '[DEPRECATED][@shopware-pwa/composables][useProductSearch] This method has been deprecated. Use "useProductQuickSearch" instead.'
+    );
   });
 
   describe("initial values", () => {
