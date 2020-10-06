@@ -28,9 +28,9 @@
 import { computed } from "@vue/composition-api"
 import { SfContentPages } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
-import { PAGE_LOGIN } from "@shopware-pwa/default-theme/helpers/pages"
+import { PAGE_LOGIN } from "@/helpers/pages"
 
-import authMiddleware from "@shopware-pwa/default-theme/middleware/auth"
+import authMiddleware from "@/middleware/auth"
 
 export default {
   name: "AccountPage",
@@ -49,7 +49,7 @@ export default {
 
   data() {
     return {
-      activePage: "My profile",
+      activePage: this.$t("My profile"),
       allAddresses: [],
     }
   },
@@ -62,11 +62,11 @@ export default {
       return (this.user && this.user && this.user.activeShippingAddress) || {}
     },
   },
-  
+
   watch: {
     $route(to, from) {
       if (to.name === "account-profile") {
-        this.activePage = "My profile"
+        this.activePage = this.$t("My profile")
       }
     },
   },
@@ -78,16 +78,16 @@ export default {
   methods: {
     async updateActivePage(title) {
       switch (title) {
-        case "My profile":
+        case this.$t("My profile"):
           this.$router.push(this.$i18n.path("/account/profile"))
           break
-        case "My addresses":
+        case this.$t("My addresses"):
           this.$router.push(this.$i18n.path("/account/addresses"))
           break
-        case `Order history (${this.user && this.user.orderCount})`:
+        case this.$tc("Order history", this.ordersCount):
           this.$router.push(this.$i18n.path("/account/orders"))
           break
-        case "Logout":
+        case this.$t("Logout"):
           await this.logout()
           this.$router.push(this.$i18n.path(PAGE_LOGIN))
           break

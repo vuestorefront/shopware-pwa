@@ -1,9 +1,6 @@
 <template>
   <div class="error-page">
-    <SfImage
-      class="error-page__image"
-      :src="require('@shopware-pwa/default-theme/assets/error.svg')"
-    />
+    <SfImage class="error-page__image" :src="require('@/assets/error.svg')" />
     <SfHeading
       class="error-page__heading"
       :level="1"
@@ -33,7 +30,7 @@
 </template>
 <script>
 import { SfHeading, SfIcon, SfImage } from "@storefront-ui/vue"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton"
 
 const customMessageDictionary = {
   404: "We can't find what you are looking for. Are you lost?",

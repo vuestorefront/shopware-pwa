@@ -52,11 +52,11 @@
 <script>
 import { SfImage, SfSection } from "@storefront-ui/vue"
 import { useProduct } from "@shopware-pwa/composables"
-import SwGoBackArrow from "@shopware-pwa/default-theme/components/atoms/SwGoBackArrow"
-import SwProductGallery from "@shopware-pwa/default-theme/components/SwProductGallery"
-import SwProductDetails from "@shopware-pwa/default-theme/components/SwProductDetails"
-import SwProductCarousel from "@shopware-pwa/default-theme/components/SwProductCarousel"
-import SwProductAdvertisement from "@shopware-pwa/default-theme/components/SwProductAdvertisement"
+import SwGoBackArrow from "@/components/atoms/SwGoBackArrow"
+import SwProductGallery from "@/components/SwProductGallery"
+import SwProductDetails from "@/components/SwProductDetails"
+import SwProductCarousel from "@/components/SwProductCarousel"
+import SwProductAdvertisement from "@/components/SwProductAdvertisement"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {

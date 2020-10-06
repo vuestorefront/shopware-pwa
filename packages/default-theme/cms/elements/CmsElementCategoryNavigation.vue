@@ -11,7 +11,7 @@
           :key="accordion.id"
           :header="accordion.name"
         >
-          <template #header="{header, isOpen, accordionClick}">
+          <template #header="{ header, isOpen, accordionClick }">
             <div class="cms-element-category-navigation__menu-item">
               <nuxt-link :to="$i18n.path(getCategoryUrl(accordion))">
                 <SwButton
@@ -67,7 +67,7 @@ import {
 } from "@storefront-ui/vue"
 import { getNavigation } from "@shopware-pwa/shopware-6-client"
 import { useCms } from "@shopware-pwa/composables"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton"
 import { getCategoryUrl } from "@shopware-pwa/helpers"
 
 export default {
