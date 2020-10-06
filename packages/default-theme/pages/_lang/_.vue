@@ -1,5 +1,5 @@
 <template>
-  <div :key="$route.fullPath">
+  <div :key="$route.path">
     <component :is="getComponent" :cms-page="cmsPage" :page="page" />
   </div>
 </template>
@@ -8,10 +8,8 @@ import { useCms, useNotifications } from "@shopware-pwa/composables"
 import languagesMap from "sw-plugins/languages"
 
 const pagesMap = {
-  "frontend.navigation.page": () =>
-    import("@shopware-pwa/default-theme/components/views/CategoryView"),
-  "frontend.detail.page": () =>
-    import("@shopware-pwa/default-theme/components/views/ProductView"),
+  "frontend.navigation.page": () => import("@/components/views/CategoryView"),
+  "frontend.detail.page": () => import("@/components/views/ProductView"),
 }
 
 export function getComponentBy(resourceType) {
@@ -22,7 +20,10 @@ export function getComponentBy(resourceType) {
 export default {
   name: "DynamicRoute",
   components: {},
-  watchQuery: true,
+  watchQuery(newQuery, oldQuery) {
+    // Only execute component methods if currency changed
+    return newQuery.currencyId !== oldQuery.currencyId
+  },
   asyncData: async ({ params, app, error: errorView, query }) => {
     const { search, page, error } = useCms(app)
     const { pushError } = useNotifications(app)

@@ -19,8 +19,8 @@
 </template>
 <script>
 import { SfHeading } from "@storefront-ui/vue"
-import SwPersonalInfo from "@shopware-pwa/default-theme/components/forms/SwPersonalInfo"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwPersonalInfo from "@/components/forms/SwPersonalInfo"
+import SwButton from "@/components/atoms/SwButton"
 
 export default {
   name: "ShippingAddressUserForm",

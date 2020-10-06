@@ -42,6 +42,13 @@
   "Enter promo code": "Gutscheincode eingeben",
   "Faster checkout": "Schnellerer Checkout",
   "Feel free to edit any of your details below so your account is always up to date": "Sie können jederzeit Ihre Angaben unten bearbeiten, damit Ihr Kundenkonto immer auf dem neuesten Stand ist.",
+  "filter": {
+    "sortByNameAscending": "Name, A-Z",
+    "sortByNameDescending": "Name, Z-A",
+    "sortByPriceAscending": "Preis, aufsteigend",
+    "sortByPriceDescending": "Preis, absteigend",
+    "sortByScore": "Beste Ergebnisse"
+  },
   "First name is required": "Vorname ist erforderlich",
   "First name": "Vorname",
   "footer": {

@@ -52,7 +52,7 @@ import {
   SfIcon,
 } from "@storefront-ui/vue"
 import { clickOutside } from "@storefront-ui/vue/src/utilities/directives"
-import Button from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import Button from "@/components/atoms/SwButton"
 import {
   getProductMainImageUrl,
   getProductRegularPrice,

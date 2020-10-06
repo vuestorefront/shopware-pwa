@@ -40,7 +40,8 @@ run();
 
 async function run() {
   if (!targets.length) {
-    await buildAll(buildTargets);
+    const buildedCorrectly = await buildAll(buildTargets);
+    if (buildedCorrectly === false) process.exit(1);
     if (isCIRun) {
       for (let index = 0; index < allTargets.length; index++) {
         const pkgDir = path.resolve(`packages/${allTargets[index]}`);
@@ -60,7 +61,7 @@ async function run() {
 async function buildAll(targets) {
   for (const target of targets) {
     const result = await build(target);
-    if (result === false) return;
+    if (result === false) return false;
   }
   if (buildTypes) {
     console.log(

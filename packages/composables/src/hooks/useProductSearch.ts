@@ -30,6 +30,7 @@ import {
   toggleEntityFilter,
   toggleFilter as toggleGenericFilter,
 } from "../internalHelpers/searchCriteria";
+import { deprecationWarning } from "@shopware-pwa/commons";
 
 /**
  * @beta
@@ -42,6 +43,7 @@ export interface CurrentPagination {
 
 /**
  * @alpha
+ * @deprecated please see useProductQuickSearch instead
  */
 export interface UseProductSearch {
   loadingSearch: Readonly<Ref<boolean>>;
@@ -67,6 +69,7 @@ export interface UseProductSearch {
 
 /**
  * @alpha
+ * @deprecated please see useProductQuickSearch instead
  */
 export const useProductSearch = (
   rootContext: ApplicationVueContext
@@ -75,6 +78,11 @@ export const useProductSearch = (
     rootContext,
     "useProductSearch"
   );
+  deprecationWarning({
+    methodName: "useProductSearch",
+    newMethodName: "useProductQuickSearch",
+    packageName: "composables",
+  });
 
   const loadingSearch: Ref<boolean> = ref(false);
   const loadingSuggestions: Ref<boolean> = ref(false);

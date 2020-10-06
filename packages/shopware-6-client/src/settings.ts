@@ -11,8 +11,8 @@ export interface ClientSettings {
 }
 
 export const defaultConfig: ClientSettings = {
-  endpoint: "https://shopware6-demo.vuestorefront.io",
-  accessToken: "SWSCVJJET0RQAXFNBMTDZTV1OQ",
+  endpoint: "https://pwa-demo-api.shopware.com",
+  accessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
   contextToken: "",
   languageId: "",
   defaultPaginationLimit: 10,

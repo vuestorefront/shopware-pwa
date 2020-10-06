@@ -112,10 +112,10 @@ import { validationMixin } from "vuelidate"
 import {
   useShippingStep,
   useShippingStepValidationRules,
-} from "@shopware-pwa/default-theme/logic/checkout/useShippingStep"
+} from "@/logic/checkout/useShippingStep"
 import { useCountries, useCheckout } from "@shopware-pwa/composables"
 import { computed } from "@vue/composition-api"
-import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
+import SwInput from "@/components/atoms/SwInput"
 
 export default {
   name: "ShippingAddressGuestForm",

@@ -47,11 +47,11 @@
 </template>
 <script>
 import { SfHeading, SfCircleIcon, SfCharacteristic } from "@storefront-ui/vue"
-import PersonalDetailsSummary from "@shopware-pwa/default-theme/components/checkout/summary/PersonalDetailsSummary"
-import ShippingAddressSummary from "@shopware-pwa/default-theme/components/checkout/summary/ShippingAddressSummary"
-import BillingAddressSummary from "@shopware-pwa/default-theme/components/checkout/summary/BillingAddressSummary"
-import PaymentMethodSummary from "@shopware-pwa/default-theme/components/checkout/summary/PaymentMethodSummary"
-import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
+import PersonalDetailsSummary from "@/components/checkout/summary/PersonalDetailsSummary"
+import ShippingAddressSummary from "@/components/checkout/summary/ShippingAddressSummary"
+import BillingAddressSummary from "@/components/checkout/summary/BillingAddressSummary"
+import PaymentMethodSummary from "@/components/checkout/summary/PaymentMethodSummary"
+import SwInput from "@/components/atoms/SwInput"
 
 export default {
   name: "SidebarOrderReview",

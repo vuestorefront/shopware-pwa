@@ -62,12 +62,10 @@
 <script>
 import { SfHeading, SfModal, SfAlert } from "@storefront-ui/vue"
 import { useUser, useUIState } from "@shopware-pwa/composables"
-import SwLogin from "@shopware-pwa/default-theme/components/SwLogin"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
-const SwRegister = () =>
-  import("@shopware-pwa/default-theme/components/SwRegister")
-const SwResetPassword = () =>
-  import("@shopware-pwa/default-theme/components/SwResetPassword")
+import SwLogin from "@/components/SwLogin"
+import SwButton from "@/components/atoms/SwButton"
+const SwRegister = () => import("@/components/SwRegister")
+const SwResetPassword = () => import("@/components/SwResetPassword")
 
 export default {
   name: "SwLoginModal",

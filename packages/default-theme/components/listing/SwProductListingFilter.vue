@@ -1,9 +1,9 @@
 <template>
   <div v-if="getComponent">
-    <SfHeading class="filters__title" :level="4" :title="filter.name" />
     <component
       :is="getComponent"
       :filter="filter"
+      :current-filters="currentFilters"
       :selected-values="selectedValues"
       @toggle-filter-value="toggleFilterValue"
       :selected="selected"
@@ -13,22 +13,13 @@
 </template>
 
 <script>
-import { SfFilter, SfHeading } from "@storefront-ui/vue"
-
-const filterMap = {
-  entity: () =>
-    import(`@shopware-pwa/default-theme/components/listing/types/entity.vue`),
-  range: () =>
-    import(`@shopware-pwa/default-theme/components/listing/types/range.vue`),
-  max: () =>
-    import(`@shopware-pwa/default-theme/components/listing/types/max.vue`),
-}
+import { SfFilter } from "@storefront-ui/vue"
+import NoFilterFound from "@/components/listing/NoFilterFound"
 
 export default {
   name: "SwProductListingFilter",
   components: {
     SfFilter,
-    SfHeading,
   },
   props: {
     filter: {
@@ -43,28 +34,29 @@ export default {
       type: Array | Object,
       default: () => [],
     },
+    currentFilters: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   computed: {
     getComponent() {
-      if (!this.filter.type || !filterMap[this.filter.type]) {
-        return
-      }
-
       try {
-        return filterMap[this.filter.type]
+        return () => ({
+          component: import(
+            "@/components/listing/types/" + this.filter.label.toLowerCase()
+          ),
+          error: NoFilterFound,
+        })
       } catch (e) {
         console.error("SwProductListingFilter:getComponent", e)
       }
     },
     selectedValues() {
-      // filters may come with the different format depending on whether useProductListing or useProductSearch is used
-      return (
-        (this.filter.type === "entity" && this.selectedEntityFilters) ||
-        this.selectedFilters[this.filter.name]
-      )
+      return this.selectedFilters || []
     },
     selected() {
-      return this.selectedFilters[this.filter.name]
+      return this.selectedFilters[this.filter.code]
     },
   },
   methods: {

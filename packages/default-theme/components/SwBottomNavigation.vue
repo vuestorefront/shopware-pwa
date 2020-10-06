@@ -21,7 +21,7 @@
           <SfIcon
             icon="menu"
             size="20px"
-            style="width: 25px;"
+            style="width: 25px"
             @click="toggleMobileNavigation"
           />
           <!-- TODO: remove transition after animation fix in SFUI -->
@@ -116,11 +116,11 @@ import {
   SfMenuItem,
 } from "@storefront-ui/vue"
 import { useUIState, useUser, useCart } from "@shopware-pwa/composables"
-import SwCurrencySwitcher from "@shopware-pwa/default-theme/components/SwCurrencySwitcher"
+import SwCurrencySwitcher from "@/components/SwCurrencySwitcher"
 import { onMounted } from "@vue/composition-api"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
-import SwBottomMenu from "@shopware-pwa/default-theme/components/SwBottomMenu"
-import { PAGE_ACCOUNT } from "@shopware-pwa/default-theme/helpers/pages"
+import SwButton from "@/components/atoms/SwButton"
+import SwBottomMenu from "@/components/SwBottomMenu"
+import { PAGE_ACCOUNT } from "@/helpers/pages"
 import { getCategoryUrl } from "@shopware-pwa/helpers"
 
 export default {

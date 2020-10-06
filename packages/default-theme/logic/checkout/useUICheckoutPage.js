@@ -1,11 +1,11 @@
 import { ref, computed } from "@vue/composition-api"
-import { CHECKOUT_STEPS } from "@shopware-pwa/default-theme/logic/checkout/steps"
-import { getStepByNumber } from "@shopware-pwa/default-theme/logic/checkout/helpers"
+import { CHECKOUT_STEPS } from "@/logic/checkout/steps"
+import { getStepByNumber } from "@/logic/checkout/helpers"
 import { useCheckout, getApplicationContext } from "@shopware-pwa/composables"
-import { usePersonalDetailsStep } from "@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep"
-import { useShippingStep } from "@shopware-pwa/default-theme/logic/checkout/useShippingStep"
-import { usePaymentStep } from "@shopware-pwa/default-theme/logic/checkout/usePaymentStep"
-import { PAGE_ORDER_SUCCESS } from "@shopware-pwa/default-theme/helpers/pages"
+import { usePersonalDetailsStep } from "@/logic/checkout/usePersonalDetailsStep"
+import { useShippingStep } from "@/logic/checkout/useShippingStep"
+import { usePaymentStep } from "@/logic/checkout/usePaymentStep"
+import { PAGE_ORDER_SUCCESS } from "@/helpers/pages"
 
 export const useUICheckoutPage = (rootContext) => {
   const { router, i18n } = getApplicationContext(

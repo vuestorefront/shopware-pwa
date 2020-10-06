@@ -158,8 +158,8 @@ import {
   useSalutations,
 } from "@shopware-pwa/composables"
 import { mapCountries, mapSalutations } from "@shopware-pwa/helpers"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
-import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
+import SwButton from "@/components/atoms/SwButton"
+import SwInput from "@/components/atoms/SwInput"
 
 export default {
   name: "SwAddressForm",
