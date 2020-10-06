@@ -60,9 +60,9 @@
 import { SfList, SfDropdown, SfIcon } from "@storefront-ui/vue"
 import { useUser, useCart, useUIState } from "@shopware-pwa/composables"
 
-import { PAGE_ACCOUNT } from "@shopware-pwa/default-theme/helpers/pages"
+import { PAGE_ACCOUNT } from "@/helpers/pages"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton"
 
 export default {
   components: {

@@ -22,7 +22,7 @@
 
 <script>
 import { ref, reactive, onMounted, watch, computed } from "@vue/composition-api"
-import { getSearchPageUrl } from "@shopware-pwa/default-theme/helpers"
+import { getSearchPageUrl } from "@/helpers"
 import { SfSearchBar } from "@storefront-ui/vue"
 import { useProductQuickSearch } from "@shopware-pwa/composables"
 import { debounce } from "@shopware-pwa/helpers"

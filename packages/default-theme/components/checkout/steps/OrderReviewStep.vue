@@ -40,13 +40,13 @@
 </template>
 
 <script>
-import PersonalDetailsSummary from "@shopware-pwa/default-theme/components/checkout/summary/PersonalDetailsSummary"
-import ShippingAddressSummary from "@shopware-pwa/default-theme/components/checkout/summary/ShippingAddressSummary"
-import BillingAddressSummary from "@shopware-pwa/default-theme/components/checkout/summary/BillingAddressSummary"
-import PaymentMethodSummary from "@shopware-pwa/default-theme/components/checkout/summary/PaymentMethodSummary"
-import OrderItemsTable from "@shopware-pwa/default-theme/components/checkout/summary/OrderItemsTable"
-import TotalsSummary from "@shopware-pwa/default-theme/components/checkout/summary/TotalsSummary"
-import SwCartProduct from "@shopware-pwa/default-theme/components/SwCartProduct"
+import PersonalDetailsSummary from "@/components/checkout/summary/PersonalDetailsSummary"
+import ShippingAddressSummary from "@/components/checkout/summary/ShippingAddressSummary"
+import BillingAddressSummary from "@/components/checkout/summary/BillingAddressSummary"
+import PaymentMethodSummary from "@/components/checkout/summary/PaymentMethodSummary"
+import OrderItemsTable from "@/components/checkout/summary/OrderItemsTable"
+import TotalsSummary from "@/components/checkout/summary/TotalsSummary"
+import SwCartProduct from "@/components/SwCartProduct"
 
 import { SfHeading, SfAccordion } from "@storefront-ui/vue"
 import { useCart } from "@shopware-pwa/composables"

@@ -2,6 +2,7 @@ import { SearchFilter } from "./SearchFilter";
 
 /**
  * @beta
+ * @deprecated use ShopwareAssociation interface
  */
 export interface Association {
   /**

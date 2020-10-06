@@ -137,10 +137,7 @@ export function getApplicationContext(rootContext: ApplicationVueContext, key?: 
 
 // @beta
 export function getDefaultApiParams(): {
-    [composableName: string]: {
-        includes?: Includes;
-        associations?: Association[];
-    };
+    [composableName: string]: ShopwareSearchParams;
 };
 
 // @beta

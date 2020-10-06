@@ -24,7 +24,7 @@
           :description="shippingMethod.deliveryTime.translated.name"
           class="sw-form__radio shipping"
         >
-          <template #label="{label}">
+          <template #label="{ label }">
             <div class="sf-radio__label shipping__label">
               <div>{{ label }}</div>
               <div class="shipping__label-price">
@@ -32,7 +32,7 @@
               </div>
             </div>
           </template>
-          <template #description="{description}">
+          <template #description="{ description }">
             <div class="sf-radio__description shipping__description">
               <div class="shipping__delivery">
                 <p>{{ description }}</p>
@@ -76,14 +76,14 @@
 <script>
 import { SfHeading, SfRadio } from "@storefront-ui/vue"
 import { computed, onMounted } from "@vue/composition-api"
-import ShippingAddressGuestForm from "@shopware-pwa/default-theme/components/checkout/steps/guest/ShippingAddressGuestForm"
-import ShippingAddressUserForm from "@shopware-pwa/default-theme/components/checkout/steps/user/ShippingAddressUserForm"
+import ShippingAddressGuestForm from "@/components/checkout/steps/guest/ShippingAddressGuestForm"
+import ShippingAddressUserForm from "@/components/checkout/steps/user/ShippingAddressUserForm"
 import {
   useCheckout,
   useSessionContext,
   useCart,
 } from "@shopware-pwa/composables"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {

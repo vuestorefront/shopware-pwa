@@ -13,12 +13,8 @@
 import { computed, ref } from "@vue/composition-api"
 
 const maxMap = {
-  "shipping-free": () =>
-    import(
-      `@shopware-pwa/default-theme/components/listing/types/shipping-free.vue`
-    ),
-  rating: () =>
-    import(`@shopware-pwa/default-theme/components/listing/types/rating.vue`),
+  "shipping-free": () => import(`@/components/listing/types/shipping-free.vue`),
+  rating: () => import(`@/components/listing/types/rating.vue`),
 }
 
 export default {

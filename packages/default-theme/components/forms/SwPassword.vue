@@ -68,9 +68,9 @@ import { required, minLength, sameAs } from "vuelidate/lib/validators"
 import { computed } from "@vue/composition-api"
 import { useUser } from "@shopware-pwa/composables"
 import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
-import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
-import SwErrorsList from "@shopware-pwa/default-theme/components/SwErrorsList"
+import SwButton from "@/components/atoms/SwButton"
+import SwInput from "@/components/atoms/SwInput"
+import SwErrorsList from "@/components/SwErrorsList"
 
 export default {
   name: "SwPassword",

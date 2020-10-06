@@ -11,10 +11,10 @@
   </SwCheckoutMethod>
 </template>
 <script>
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton"
 import { useSessionContext } from "@shopware-pwa/composables"
 import { computed } from "@vue/composition-api"
-import SwCheckoutMethod from "@shopware-pwa/default-theme/components/SwCheckoutMethod"
+import SwCheckoutMethod from "@/components/SwCheckoutMethod"
 export default {
   name: "PaymentMethodSummary",
   components: {
