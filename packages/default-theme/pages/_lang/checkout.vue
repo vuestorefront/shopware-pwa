@@ -46,16 +46,13 @@
 </template>
 <script>
 import { SfSteps } from "@storefront-ui/vue"
-import SidebarOrderReview from "@shopware-pwa/default-theme/components/checkout/sidebar/SidebarOrderReview"
-import SidebarOrderSummary from "@shopware-pwa/default-theme/components/checkout/sidebar/SidebarOrderSummary"
-import PaymentStep from "@shopware-pwa/default-theme/components/checkout/steps/PaymentStep"
-import PersonalDetailsStep from "@shopware-pwa/default-theme/components/checkout/steps/PersonalDetailsStep"
-import ShippingStep from "@shopware-pwa/default-theme/components/checkout/steps/ShippingStep"
-import OrderReviewStep from "@shopware-pwa/default-theme/components/checkout/steps/OrderReviewStep"
-import {
-  CHECKOUT_STEPS,
-  useUICheckoutPage,
-} from "@shopware-pwa/default-theme/logic/checkout"
+import SidebarOrderReview from "@/components/checkout/sidebar/SidebarOrderReview"
+import SidebarOrderSummary from "@/components/checkout/sidebar/SidebarOrderSummary"
+import PaymentStep from "@/components/checkout/steps/PaymentStep"
+import PersonalDetailsStep from "@/components/checkout/steps/PersonalDetailsStep"
+import ShippingStep from "@/components/checkout/steps/ShippingStep"
+import OrderReviewStep from "@/components/checkout/steps/OrderReviewStep"
+import { CHECKOUT_STEPS, useUICheckoutPage } from "@/logic/checkout"
 
 export default {
   name: "CheckoutPage",

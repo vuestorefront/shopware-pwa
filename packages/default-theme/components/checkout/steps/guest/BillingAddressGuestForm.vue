@@ -121,9 +121,9 @@ import { validationMixin } from "vuelidate"
 import {
   usePaymentStep,
   usePaymentStepValidationRules,
-} from "@shopware-pwa/default-theme/logic/checkout/usePaymentStep"
+} from "@/logic/checkout/usePaymentStep"
 import { useCountries } from "@shopware-pwa/composables"
-import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
+import SwInput from "@/components/atoms/SwInput"
 
 export default {
   name: "BillingAddressGuestForm",

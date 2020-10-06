@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import SwAddressList from "@shopware-pwa/default-theme/components/SwAddressList.vue"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwAddressList from "@/components/SwAddressList.vue"
+import SwButton from "@/components/atoms/SwButton"
 import { SfTabs } from "@storefront-ui/vue"
 export default {
   name: "MyAddresses",

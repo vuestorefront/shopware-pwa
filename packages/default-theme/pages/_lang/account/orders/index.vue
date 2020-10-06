@@ -27,7 +27,7 @@
 <script>
 import { SfTabs, SfTable } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
-import Order from "@shopware-pwa/default-theme/components/account/orders/Order"
+import Order from "@/components/account/orders/Order"
 
 export default {
   name: "OrderHistory",

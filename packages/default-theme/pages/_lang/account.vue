@@ -28,9 +28,9 @@
 import { computed } from "@vue/composition-api"
 import { SfContentPages } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
-import { PAGE_LOGIN } from "@shopware-pwa/default-theme/helpers/pages"
+import { PAGE_LOGIN } from "@/helpers/pages"
 
-import authMiddleware from "@shopware-pwa/default-theme/middleware/auth"
+import authMiddleware from "@/middleware/auth"
 
 export default {
   name: "AccountPage",
@@ -62,7 +62,7 @@ export default {
       return (this.user && this.user && this.user.activeShippingAddress) || {}
     },
   },
-  
+
   watch: {
     $route(to, from) {
       if (to.name === "account-profile") {

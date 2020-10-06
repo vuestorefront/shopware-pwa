@@ -37,7 +37,6 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
     const searchCriteria = merge({}, getDefaults(), criteria);
 
     try {
-      console.warn("search page", searchCriteria);
       const result = await getCmsPage(path, searchCriteria, apiInstance);
       vuexStore.commit("SET_PAGE", result);
     } catch (e) {
