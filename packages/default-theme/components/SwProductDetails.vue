@@ -81,12 +81,12 @@ import {
   getProductReviews,
 } from "@shopware-pwa/helpers"
 import { useAddToCart } from "@shopware-pwa/composables"
-import SwProductHeading from "@shopware-pwa/default-theme/components/SwProductHeading"
-import SwProductSelect from "@shopware-pwa/default-theme/components/SwProductSelect"
-import SwProductColors from "@shopware-pwa/default-theme/components/SwProductColors"
+import SwProductHeading from "@/components/SwProductHeading"
+import SwProductSelect from "@/components/SwProductSelect"
+import SwProductColors from "@/components/SwProductColors"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
-import SwProductTabs from "@shopware-pwa/default-theme/components/SwProductTabs"
+import SwProductTabs from "@/components/SwProductTabs"
 export default {
   name: "SwProductDetails",
 

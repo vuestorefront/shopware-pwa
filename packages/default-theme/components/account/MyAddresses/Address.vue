@@ -24,7 +24,9 @@
         role="button"
         v-on:click="$emit('selectDefaultAddress', address.id, 'shipping')"
         :title="
-          isDefaultShipping ? 'Default shipping address' : 'set as default'
+          isDefaultShipping
+            ? $t('Default shipping address')
+            : $t('set as default')
         "
         :class="isDefaultShipping ? 'info' : null"
       />
@@ -34,7 +36,11 @@
         size="md"
         role="button"
         v-on:click="$emit('selectDefaultAddress', address.id, 'billing')"
-        :title="isDefaultBilling ? 'Default billing address' : 'set as default'"
+        :title="
+          isDefaultBilling
+            ? $t('Default billing address')
+            : $t('set as default')
+        "
         :class="isDefaultBilling ? 'info' : null"
       />
       <SfIcon
@@ -42,7 +48,7 @@
         :color="isDefaultBilling || isDefaultShipping ? 'grey' : 'pink-primary'"
         size="xs"
         role="button"
-        title="Delete"
+        :title="$t('Delete')"
         v-on:click="
           isDefaultBilling ||
             isDefaultShipping ||
@@ -55,7 +61,7 @@
         color="grey"
         size="xs"
         role="button"
-        title="Edit"
+        :title="$t('Edit')"
         v-on:click="$emit('editAddress', address.id)"
       />
     </div>

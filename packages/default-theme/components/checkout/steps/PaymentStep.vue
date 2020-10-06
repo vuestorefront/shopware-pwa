@@ -1,14 +1,14 @@
 <template>
   <div>
     <SfHeading
-      title="3. Payment"
+      :title="$t('3. Payment')"
       class="sf-heading--left sf-heading--no-underline title"
     />
     <BillingAddressGuestForm v-if="isGuestOrder" />
     <BillingAddressUserForm v-else />
     <SfHeading
-      title="Payment methods"
-      subtitle="Choose your payment method"
+      :title="$t('Payment methods')"
+      :subtitle="$t('Choose your payment method')"
       class="sf-heading--left sf-heading--no-underline title"
     />
     <div class="sw-form">
@@ -23,7 +23,7 @@
           :description="paymentMethod.description"
           class="sw-form__radio payment-method"
         >
-          <template #description="{description}">
+          <template #description="{ description }">
             <div class="sf-radio__description">
               <div class="payment_description">
                 <p>{{ description }}</p>
@@ -48,19 +48,20 @@
           class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only sw-form__button"
           @click="$emit('click:back')"
         >
-          Go back to Shipping
+          {{ $t("Go back to Shipping") }}
         </SwButton>
         <SwButton
           class="sf-button--full-width form__action-button sw-form__button"
           data-cy="review-order"
           @click="$emit('proceed')"
-          >Review order</SwButton
         >
+          {{ $t("Review order") }}
+        </SwButton>
         <SwButton
           class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only sw-form__button"
           @click="$emit('click:back')"
         >
-          Go back to Shipping
+          {{ $t("Go back to Shipping") }}
         </SwButton>
       </div>
     </div>
@@ -68,11 +69,11 @@
 </template>
 <script>
 import { SfHeading, SfRadio } from "@storefront-ui/vue"
-import BillingAddressGuestForm from "@shopware-pwa/default-theme/components/checkout/steps/guest/BillingAddressGuestForm"
-import BillingAddressUserForm from "@shopware-pwa/default-theme/components/checkout/steps/user/BillingAddressUserForm"
+import BillingAddressGuestForm from "@/components/checkout/steps/guest/BillingAddressGuestForm"
+import BillingAddressUserForm from "@/components/checkout/steps/user/BillingAddressUserForm"
 import { useCheckout, useSessionContext } from "@shopware-pwa/composables"
 import { onMounted, computed } from "@vue/composition-api"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {

@@ -13,13 +13,10 @@ Returns default system API params
 
 ```typescript
 export declare function getDefaultApiParams(): {
-    [composableName: string]: {
-        includes?: Includes;
-        associations?: ShopwareAssociation;
-    };
+    [composableName: string]: ShopwareSearchParams;
 };
 ```
 <b>Returns:</b>
 
-{ \[composableName: string\]: { includes?: Includes; associations?: ShopwareAssociation; }; }
+{ \[composableName: string\]: ShopwareSearchParams; }
 

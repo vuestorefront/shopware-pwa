@@ -17,7 +17,7 @@
 import { computed, ref } from "@vue/composition-api"
 
 import { SfFilter, SfCheckbox, SfHeading } from "@storefront-ui/vue"
-import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
+import SwInput from "@/components/atoms/SwInput"
 
 export default {
   name: "SwFilterShippingFree",

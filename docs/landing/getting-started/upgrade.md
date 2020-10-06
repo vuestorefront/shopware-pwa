@@ -34,7 +34,7 @@ All changes are documented in our [Changelog](https://github.com/DivanteLtd/shop
 
 **BREAKING CHANGE**: we've made overriding store more simple. If you don't need a store just leave `store` directory empty or remove it. If you need to use it though, then create `src/store/indexjs` file and attach theme store.
 
-**FEATURE**: you can now safely use `@/components/COMPONENT_NAME.vue`instead of `@shopware-pwa/default-themee/components/COMPONENT_NAME.vue` inside your project. It's not a break - old aliases will stay the same.
+**FEATURE**: you can now safely use `@/components/COMPONENT_NAME.vue`instead of `@shopware-pwa/default-theme/components/COMPONENT_NAME.vue` inside your project. It's not a break - old aliases will stay the same.
 So for example instead of:
 `import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"`
 you can type
