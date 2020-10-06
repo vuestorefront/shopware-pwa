@@ -11,7 +11,9 @@
 |  [addCartItemQuantity(itemId, quantity, contextInstance)](./shopware-6-client.addcartitemquantity.md) | <b><i>(BETA)</i></b> Increases the current quantity in specific cart line item by given quantity.<!-- -->Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 5. |
 |  [addProductToCart(productId, quantity, contextInstance)](./shopware-6-client.addproducttocart.md) | <b><i>(BETA)</i></b> Adds specific quantity of the product to the cart by productId. It creates a new cart line item.<!-- -->Warning: This method does not change the state of the cart in any way if productId already exists in a cart. For changing the quantity use addQuantityToCartLineItem() or changeCartLineItemQuantity() methods. |
 |  [changeCartItemQuantity(itemId, newQuantity, contextInstance)](./shopware-6-client.changecartitemquantity.md) | <b><i>(BETA)</i></b> Changes the current quantity in specific cart line item to given quantity.<!-- -->Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 2. |
+|  [createGuestOrder(contextInstance)](./shopware-6-client.createguestorder.md) | <b><i>(BETA)</i></b> Creates an order for not logged in users Should be used when the user is logged out, but has items in the cart |
 |  [createInstance(initialConfig)](./shopware-6-client.createinstance.md) | <b><i>(BETA)</i></b> |
+|  [createOrder(contextInstance)](./shopware-6-client.createorder.md) | <b><i>(BETA)</i></b> Creates an order for logged in users |
 |  [getCart(contextInstance)](./shopware-6-client.getcart.md) | <b><i>(BETA)</i></b> Gets the current cart for the sw-context-token. |
 |  [getCustomer(contextInstance)](./shopware-6-client.getcustomer.md) | <b><i>(BETA)</i></b> Get customer's object |
 |  [getCustomerAddresses(contextInstance)](./shopware-6-client.getcustomeraddresses.md) | <b><i>(BETA)</i></b> Get all customer's addresses |

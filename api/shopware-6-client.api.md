@@ -15,7 +15,6 @@ import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currenc
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { CustomerRegistrationParams } from '@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams';
-import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Language } from '@shopware-pwa/commons/interfaces/models/framework/language/Language';
 import { NavigationResponse } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
@@ -91,13 +90,13 @@ export interface ContactFormData {
 // @alpha
 export function createCustomerAddress(params: Partial<CustomerAddress>, contextInstance?: ShopwareApiInstance): Promise<string>;
 
-// @alpha
-export function createGuestOrder(params: GuestOrderParams, contextInstance?: ShopwareApiInstance): Promise<Order>;
+// @beta
+export function createGuestOrder(contextInstance?: ShopwareApiInstance): Promise<Order>;
 
 // @beta (undocumented)
 export function createInstance(initialConfig?: ClientSettings): ShopwareApiInstance;
 
-// @alpha
+// @beta
 export function createOrder(contextInstance?: ShopwareApiInstance): Promise<Order>;
 
 // @alpha (undocumented)
