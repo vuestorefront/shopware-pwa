@@ -11,7 +11,7 @@
     </SfTab>
     <SfTab title="Password change">
       <SwPassword>
-        <template #message="{user}">
+        <template #message="{ user }">
           <p class="message">
             If you want to change the password to access your account, enter the
             following information:<br />Your current email address is
@@ -25,8 +25,8 @@
 
 <script>
 import { SfTabs } from "@storefront-ui/vue"
-import SwPassword from "@shopware-pwa/default-theme/components/forms/SwPassword"
-import SwPersonalInfo from "@shopware-pwa/default-theme/components/forms/SwPersonalInfo"
+import SwPassword from "@/components/forms/SwPassword"
+import SwPersonalInfo from "@/components/forms/SwPersonalInfo"
 
 export default {
   name: "MyProfile",

@@ -7,7 +7,7 @@
 
 <script>
 import { SfHeading } from "@storefront-ui/vue"
-import SwOrderDetails from "@shopware-pwa/default-theme/components/SwOrderDetails"
+import SwOrderDetails from "@/components/SwOrderDetails"
 
 export default {
   components: { SfHeading, SwOrderDetails },

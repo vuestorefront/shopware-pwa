@@ -51,9 +51,9 @@
 <script>
 import { SfList, SfRadio, SfCheckbox, SfModal } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton"
 import { ref, onMounted } from "@vue/composition-api"
-import SwAddressForm from "@shopware-pwa/default-theme/components/forms/SwAddressForm.vue"
+import SwAddressForm from "@/components/forms/SwAddressForm.vue"
 
 export default {
   name: "ShippingAddressUserForm",

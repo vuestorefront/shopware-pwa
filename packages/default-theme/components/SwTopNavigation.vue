@@ -42,12 +42,12 @@
 <script>
 import { useNavigation, useUIState } from "@shopware-pwa/composables"
 
-import SwMegaMenu from "@shopware-pwa/default-theme/components/SwMegaMenu"
+import SwMegaMenu from "@/components/SwMegaMenu"
 import { ref, onMounted, watch } from "@vue/composition-api"
 import { getCategoryUrl } from "@shopware-pwa/helpers"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import { useLocales } from "@shopware-pwa/default-theme/logic"
-import SwTopNavigationShowMore from "@shopware-pwa/default-theme/components/SwTopNavigationShowMore"
+import { useLocales } from "@/logic"
+import SwTopNavigationShowMore from "@/components/SwTopNavigationShowMore"
 
 export default {
   components: {

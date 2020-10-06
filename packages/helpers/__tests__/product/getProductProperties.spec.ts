@@ -7,7 +7,9 @@ describe("Shopware helpers - getProductProperties", () => {
         {
           name: "12 mm",
           group: {
-            name: "length",
+            translated: {
+              name: "length",
+            },
           },
         },
         {
@@ -20,7 +22,9 @@ describe("Shopware helpers - getProductProperties", () => {
         {
           name: "wool",
           group: {
-            name: "fabric",
+            translated: {
+              name: "fabric",
+            },
           },
         },
       ],

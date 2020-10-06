@@ -92,8 +92,8 @@ import {
   getPaymentMethodDetails,
   getOrderPaymentUrl,
 } from "@shopware-pwa/shopware-6-client"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
-import { PAGE_ORDER_SUCCESS } from "@shopware-pwa/default-theme/helpers/pages"
+import SwButton from "@/components/atoms/SwButton"
+import { PAGE_ORDER_SUCCESS } from "@/helpers/pages"
 import SwOrderDetailsItem from "@/components/SwOrderDetailsItem"
 import SwPersonalDetails from "@/components/SwPersonalDetails"
 import SwAddress from "@/components/SwAddress"

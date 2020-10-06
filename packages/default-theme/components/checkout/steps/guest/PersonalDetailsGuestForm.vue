@@ -104,8 +104,8 @@
 <script>
 import { SfCheckbox, SfHeading, SfCharacteristic } from "@storefront-ui/vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
-import SwInput from "@shopware-pwa/default-theme/components/atoms/SwInput"
+import SwButton from "@/components/atoms/SwButton"
+import SwInput from "@/components/atoms/SwInput"
 
 import { validationMixin } from "vuelidate"
 import {
@@ -128,8 +128,8 @@ import {
 import {
   usePersonalDetailsStep,
   usePersonalDetailsStepValidationRules,
-} from "@shopware-pwa/default-theme/logic/checkout/usePersonalDetailsStep"
-import SwErrorsList from "@shopware-pwa/default-theme/components/SwErrorsList"
+} from "@/logic/checkout/usePersonalDetailsStep"
+import SwErrorsList from "@/components/SwErrorsList"
 
 export default {
   name: "PersonalDetailsGuestForm",
