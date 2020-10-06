@@ -41,7 +41,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     nuxt: { hook: jest.fn() },
     extendBuild: (method: Function): number => methods.push(method),
   };
-  let BASE_SOURCE = path.join("node_modules", "theme");
+  let THEME_SOURCE = path.join("node_modules", "theme");
   let PROJECT_SOURCE = "src";
   let TARGET_SOURCE = path.join(".shopware-pwa", "source");
   /**
@@ -79,7 +79,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     };
 
     consoleErrorSpy.mockImplementationOnce(() => {});
-    mockedTheme.getBaseSourcePath.mockReturnValue(BASE_SOURCE);
+    mockedTheme.getThemeSourcePath.mockReturnValue(THEME_SOURCE);
     mockedTheme.getTargetSourcePath.mockReturnValue(TARGET_SOURCE);
     mockedTheme.getProjectSourcePath.mockReturnValue(PROJECT_SOURCE);
     mockedChokidar.watch.mockReturnValue({ on: () => {} });
@@ -94,7 +94,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
   it("should invoke useThemeAndProjectFiles", async () => {
     await runModule(moduleObject, {});
     expect(mockedTheme.useThemeAndProjectFiles).toBeCalledWith({
-      BASE_SOURCE,
+      THEME_SOURCE,
       PROJECT_SOURCE,
       TARGET_SOURCE,
     });
@@ -282,10 +282,10 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
   it("should start watching files on development mode", async () => {
     moduleObject.options.dev = true;
     await runModule(moduleObject, {});
-    expect(mockedChokidar.watch).toBeCalledWith([BASE_SOURCE], {
+    expect(mockedChokidar.watch).toBeCalledWith([THEME_SOURCE], {
       followSymlinks: true,
       ignoreInitial: true,
-      ignored: path.join(BASE_SOURCE, "node_modules/**/*"),
+      ignored: path.join(THEME_SOURCE, "node_modules/**/*"),
     });
     expect(mockedChokidar.watch).toBeCalledWith(["src"], {
       ignoreInitial: true,
@@ -304,7 +304,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     expect(invocationList.length).toEqual(1);
     invocationList[0]("add", "some/filepath.vue");
     expect(mockedTheme.onThemeFilesChanged).toBeCalledWith({
-      BASE_SOURCE,
+      THEME_SOURCE,
       PROJECT_SOURCE,
       TARGET_SOURCE,
       event: "add",
@@ -329,7 +329,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     expect(invocationList.length).toEqual(1);
     invocationList[0]("add", "some/project/filepath.vue");
     expect(mockedTheme.onProjectFilesChanged).toBeCalledWith({
-      BASE_SOURCE,
+      THEME_SOURCE,
       PROJECT_SOURCE,
       TARGET_SOURCE,
       event: "add",

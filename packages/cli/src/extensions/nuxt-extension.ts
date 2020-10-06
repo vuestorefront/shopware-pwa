@@ -284,8 +284,8 @@ module.exports = (toolbox: GluegunToolbox) => {
     const dest = destination ? destination : folderName;
     const destinationExist = toolbox.filesystem.existsAsync(dest);
     if (destinationExist) return;
-    await toolbox.filesystem.copyAsync(
-      path.join(toolbox.defaultThemeLocation, folderName),
+    toolbox.filesystem.copyAsync(
+      path.join(toolbox.getThemePath(), folderName),
       dest,
       { overwrite: true }
     );
