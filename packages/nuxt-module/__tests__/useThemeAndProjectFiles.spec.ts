@@ -9,6 +9,7 @@ import {
 } from "../src/theme";
 import path from "path";
 import fse from "fs-extra";
+import { ShopwarePwaConfigFile } from "../src/interfaces";
 
 jest.mock("fs-extra");
 const mockedFse = fse as jest.Mocked<typeof fse>;
@@ -30,6 +31,12 @@ describe("nuxt-module - theme", () => {
     nuxt: jest.fn(),
   };
 
+  const mockedConfig: ShopwarePwaConfigFile = {
+    shopwareAccessToken: "qwe",
+    shopwareEndpoint: "http://localhost:3000/",
+    theme: "mocked-theme",
+  };
+
   beforeEach(() => {
     jest.resetAllMocks();
     moduleObject.options.rootDir = __dirname;
@@ -38,15 +45,11 @@ describe("nuxt-module - theme", () => {
       ".shopware-pwa",
       "source"
     );
-    THEME_SOURCE = path.join(
-      moduleObject.options.rootDir,
-      "node_modules",
-      "@shopware-pwa",
-      "default-theme"
-    );
+    THEME_SOURCE = path.join(moduleObject.options.rootDir, "mocked-theme");
     PROJECT_SOURCE = path.join(moduleObject.options.rootDir, "src");
     mockedFse.copy.mockResolvedValue(null as never);
     mockedFse.emptyDir.mockResolvedValue(null as never);
+    mockedFse.existsSync.mockReturnValue(true as never);
   });
 
   describe("useThemeAndProjectFiles", () => {
@@ -101,9 +104,22 @@ describe("nuxt-module - theme", () => {
       const path = getTargetSourcePath(moduleObject);
       expect(path).toEqual(TARGET_SOURCE);
     });
-    it("should get correct getThemeSourcePath", () => {
-      const path = getThemeSourcePath(moduleObject);
+    it("getThemeSourcePath should return theme path with direct import", () => {
+      const path = getThemeSourcePath(moduleObject, mockedConfig);
       expect(path).toEqual(THEME_SOURCE);
+    });
+    it("getThemeSourcePath whould return theme path with import from node_modules", () => {
+      mockedFse.existsSync.mockReturnValueOnce(false);
+      const sourcePath = getThemeSourcePath(moduleObject, mockedConfig);
+      expect(sourcePath).toEqual(
+        path.join(moduleObject.options.rootDir, "node_modules", "mocked-theme")
+      );
+    });
+    it("getThemeSourcePath should throw an error if theme not found", () => {
+      mockedFse.existsSync.mockReturnValue(false);
+      expect(() => getThemeSourcePath(moduleObject, mockedConfig)).toThrow(
+        `No theme found for "${THEME_SOURCE}". Please make sure that path is correct or theme is installed from NPM.`
+      );
     });
     it("should get correct getProjectSourcePath", () => {
       const path = getProjectSourcePath(moduleObject);

@@ -1,6 +1,7 @@
 import { extendCMS } from "../src/cms";
 import jetpack from "fs-jetpack";
 import path from "path";
+import { ShopwarePwaConfigFile } from "../src/interfaces";
 
 jest.mock("fs-jetpack");
 const mockedJetpack = jetpack as jest.Mocked<typeof jetpack>;
@@ -25,6 +26,11 @@ describe("nuxt-module - extendCMS", () => {
     addPlugin: jest.fn(),
     extendBuild: (method: Function): number => methods.push(method),
   };
+  const mockedConfig: ShopwarePwaConfigFile = {
+    shopwareAccessToken: "qwe",
+    shopwareEndpoint: "http://localhost:3000/",
+    theme: "mocked-theme",
+  };
   /**
    * To resolve extendBuild we need to invoke resolveBuilds after method
    * invocation to test real impact on webpack configuration
@@ -45,14 +51,14 @@ describe("nuxt-module - extendCMS", () => {
 
   it("should throw an exception when cmsNameMapper.js is not created", () => {
     mockedJetpack.exists.mockReturnValueOnce(false);
-    expect(() => extendCMS(moduleObject)).toThrow(
+    expect(() => extendCMS(moduleObject, mockedConfig)).toThrow(
       "[shopware-pwa] CMS module is not initialized properly, please run 'shopware-pwa init'"
     );
   });
 
   it("should add global alias for sw-cms", () => {
     mockedJetpack.list.mockReturnValueOnce([]);
-    extendCMS(moduleObject);
+    extendCMS(moduleObject, mockedConfig);
     resolveBuilds();
     expect(webpackConfig.resolve.alias).toEqual({
       [`sw-cms`]: path.join(__dirname, ".shopware-pwa", "sw-cms"),
@@ -61,7 +67,7 @@ describe("nuxt-module - extendCMS", () => {
 
   it("should add global alias for sw-cms if there are no cms files found", () => {
     mockedJetpack.list.mockReturnValueOnce(undefined);
-    extendCMS(moduleObject);
+    extendCMS(moduleObject, mockedConfig);
     resolveBuilds();
     expect(webpackConfig.resolve.alias).toEqual({
       [`sw-cms`]: path.join(__dirname, ".shopware-pwa", "sw-cms"),
@@ -74,17 +80,10 @@ describe("nuxt-module - extendCMS", () => {
       "otherFile.txt",
     ]);
 
-    extendCMS(moduleObject);
+    extendCMS(moduleObject, mockedConfig);
     resolveBuilds();
     expect(webpackConfig.resolve.alias["sw-cms/SomeComponent"]).toContain(
-      path.join(
-        __dirname,
-        "node_modules",
-        "@shopware-pwa",
-        "default-theme",
-        "cms",
-        "SomeComponent.vue"
-      )
+      path.join("mocked-theme", "cms", "SomeComponent.vue")
     );
   });
 });
