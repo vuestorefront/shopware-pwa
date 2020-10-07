@@ -25,6 +25,7 @@ export interface IUseUser
 |  [deleteAddress](./composables.iuseuser.deleteaddress.md) | (addressId: string) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [error](./composables.iuseuser.error.md) | Ref&lt;any&gt; | <b><i>(BETA)</i></b> |
 |  [getOrderDetails](./composables.iuseuser.getorderdetails.md) | (orderId: string) =&gt; Promise&lt;Order \| undefined&gt; | <b><i>(BETA)</i></b> |
+|  [isGuestLoggedIn](./composables.iuseuser.isguestloggedin.md) | Ref&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [isLoggedIn](./composables.iuseuser.isloggedin.md) | Ref&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [loadAddresses](./composables.iuseuser.loadaddresses.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [loadCountry](./composables.iuseuser.loadcountry.md) | (countryId: string) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |

@@ -337,6 +337,8 @@ export interface IUseUser {
     // (undocumented)
     getOrderDetails: (orderId: string) => Promise<Order | undefined>;
     // (undocumented)
+    isGuestLoggedIn: Ref<boolean>;
+    // (undocumented)
     isLoggedIn: Ref<boolean>;
     // (undocumented)
     loadAddresses: () => Promise<void>;
