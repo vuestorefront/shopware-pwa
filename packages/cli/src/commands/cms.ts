@@ -7,7 +7,9 @@ module.exports = {
   run: async (toolbox: GluegunToolbox) => {
     const path = require("path");
 
-    const mainCmsPath = path.join(toolbox.defaultThemeLocation, "cms");
+    toolbox.checkThemePath();
+
+    const mainCmsPath = path.join(toolbox.getThemePath(), "cms");
 
     const swCmsPath = path.join(".shopware-pwa", "sw-cms");
     const swPluginsPath = path.join(".shopware-pwa", "pwa-bundles-assets");

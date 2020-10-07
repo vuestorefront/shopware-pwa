@@ -43,6 +43,7 @@ export interface WebpackContext {
 export interface ShopwarePwaConfigFile {
   shopwareEndpoint: string;
   shopwareAccessToken: string;
+  theme: string;
   defaultLanguageCode?: string;
   apiDefaults?: {
     [composableName: string]: {
