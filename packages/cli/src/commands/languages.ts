@@ -13,6 +13,8 @@ module.exports = {
   hidden: true,
   run: async (toolbox: GluegunToolbox) => {
     const path = require("path");
+    toolbox.checkThemePath();
+
     const inputParameters = toolbox.inputParameters;
     const shopwarePwaPath = path.join(".shopware-pwa", "sw-plugins");
     const shopwarePwaLocalesPath = path.join(
@@ -21,10 +23,7 @@ module.exports = {
       "locales"
     );
 
-    const themeLanguagesDir = path.join(
-      toolbox.defaultThemeLocation,
-      "locales"
-    );
+    const themeLanguagesDir = path.join(toolbox.getThemePath(), "locales");
 
     /**
      * -> Create results map

@@ -56,16 +56,21 @@ describe("nuxt-module - utils", () => {
       expect(result).toEqual({
         shopwareAccessToken: "qweqwe",
         shopwareEndpoint: "https://instance.com",
+        theme: "@shopware-pwa/default-theme",
       });
     });
 
-    it("should return empty object when no config found", async () => {
+    it("should return default config object when no config found", async () => {
       mockedCosmiconfigPackage.cosmiconfig.mockReturnValueOnce({
         search: () => null,
       } as never);
       moduleObject.options.rootDir = `${__dirname}/files_tests`;
       const result = await loadConfig(moduleObject);
-      expect(result).toEqual({});
+      expect(result).toEqual({
+        shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
+        shopwareEndpoint: "https://pwa-demo-api.shopware.com",
+        theme: "@shopware-pwa/default-theme",
+      });
     });
   });
 });
