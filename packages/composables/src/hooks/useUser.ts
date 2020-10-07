@@ -55,6 +55,7 @@ export interface IUseUser {
   loading: Ref<boolean>;
   error: Ref<any>;
   isLoggedIn: Ref<boolean>;
+  isGuestLoggedIn: Ref<boolean>;
   country: Ref<Country | null>;
   salutation: Ref<Salutation | null>;
   refreshUser: () => Promise<void>;
@@ -136,6 +137,11 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     error.value = null;
     try {
       await apiRegister(params, apiInstance);
+      if (params.guest) {
+        vuexStore.commit("SET_USER", {
+          guest: true,
+        });
+      }
       return true;
     } catch (e) {
       const err: ClientApiError = e;
@@ -204,7 +210,6 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   const loadSalutation = async (salutationId: string): Promise<void> => {
     try {
       salutation.value = await getUserSalutation(salutationId, apiInstance);
-      console.warn("loadSalutation", salutationId, salutation.value);
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
@@ -317,7 +322,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   };
 
   const isLoggedIn = computed(() => !!user.value?.id);
-
+  const isGuestLoggedIn = computed(() => !!user.value?.guest);
   return {
     login,
     register,
@@ -325,6 +330,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     error,
     loading,
     isLoggedIn,
+    isGuestLoggedIn,
     refreshUser,
     logout,
     orders,

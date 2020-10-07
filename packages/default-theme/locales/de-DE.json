@@ -174,5 +174,7 @@
   "privacy-info": "Bei {0} legen wir großen Wert auf Fragen des Datenschutzes und verpflichten uns, die persönlichen Daten unserer Nutzer zu schützen. Erfahren Sie mehr darüber, wie wir Ihre persönlichen Daten pflegen und verwenden in der {1}.",
   "privacy-link": "Datenschutzbestimmung",
   "send": "senden",
-  "set as default": "als Standard festlegen"
+  "set as default": "als Standard festlegen",
+  "Hi": "Hallo",
+  "Hi, guest": "Hallo Gast"
 }

@@ -1,6 +1,7 @@
 <template>
   <SfTopBar class="sw-top-bar desktop-only" data-cy="top-bar">
     <template #right>
+      <SwGreeting />
       <SwCurrencySwitcher class="sf-header__currency" />
       <SwLanguageSwitcher />
     </template>
@@ -9,14 +10,18 @@
 
 <script>
 import { SfTopBar } from "@storefront-ui/vue"
+import { computed } from "@vue/composition-api"
+import { useUser } from "@shopware-pwa/composables"
 import SwCurrencySwitcher from "@/components/SwCurrencySwitcher"
 import SwLanguageSwitcher from "@/components/SwLanguageSwitcher"
+import SwGreeting from "@/components/SwGreeting"
 
 export default {
   components: {
     SfTopBar,
     SwCurrencySwitcher,
     SwLanguageSwitcher,
+    SwGreeting,
   },
 }
 </script>

@@ -6,7 +6,7 @@
         icon="profile"
         class="sf-header__icon sw-header__icon"
         :class="{
-          'sf-header__icon--is-active': isLoggedIn,
+          'sf-header__icon--is-active': isProfileActive,
         }"
         role="button"
         :aria-label="$t('Go to My Account')"
@@ -63,6 +63,7 @@ import { useUser, useCart, useUIState } from "@shopware-pwa/composables"
 import { PAGE_ACCOUNT } from "@/helpers/pages"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import SwButton from "@/components/atoms/SwButton"
+import { computed } from "@vue/composition-api"
 
 export default {
   components: {
@@ -73,7 +74,7 @@ export default {
     SwPluginSlot,
   },
   setup(props, { root }) {
-    const { isLoggedIn, logout } = useUser(root)
+    const { isLoggedIn, isGuestLoggedIn, logout } = useUser(root)
     const { count } = useCart(root)
     const { switchState: toggleSidebar } = useUIState(
       root,
@@ -88,8 +89,11 @@ export default {
       count,
       switchLoginModalState,
       toggleSidebar,
-      isLoggedIn,
       logout,
+      isLoggedIn,
+      isProfileActive: computed(
+        () => isLoggedIn.value && !isGuestLoggedIn.value
+      ),
     }
   },
   data() {

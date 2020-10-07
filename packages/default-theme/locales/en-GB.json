@@ -174,5 +174,7 @@
   "privacy-info": "At {0}, we attach great importance to privacy issues and are committed to protecting the personal data of our users. Learn more about how we care and use your personal data in the {1}.",
   "privacy-link": "Privacy Policy",
   "send": "send",
-  "set as default": "set as default"
+  "set as default": "set as default",
+  "Hi": "Hi",
+  "Hi, guest": "Hi, guest"
 }
