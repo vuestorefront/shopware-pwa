@@ -25,6 +25,7 @@ describe("nuxt-module - extendLocales", () => {
   const mockedConfig: ShopwarePwaConfigFile = {
     shopwareEndpoint: "mockedEndpoint",
     shopwareAccessToken: "mockedToken",
+    theme: "some-theme",
   };
 
   beforeEach(() => {

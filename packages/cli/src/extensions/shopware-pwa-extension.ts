@@ -3,6 +3,7 @@ import { GluegunToolbox } from "gluegun";
 const defaultConfig = {
   shopwareEndpoint: "https://pwa-demo-api.shopware.com",
   shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
+  theme: "@shopware-pwa/default-theme",
 };
 // add your CLI-specific functionality here, which will then be accessible
 // to your commands
@@ -13,7 +14,34 @@ module.exports = (toolbox: GluegunToolbox) => {
 
   toolbox.themeFolders = [".eslintrc.js"];
 
-  toolbox.defaultThemeLocation = `node_modules/@shopware-pwa/default-theme`;
+  /**
+   * Project theme can be placed in one of the places
+   * 1. direct relative path to project root folder ex. `./my-theme` directory and `theme: "my-theme"` setting in shopware-pwa.config.js
+   * 2. in node_modules directory, like base theme ex. `theme: "@shopware-pwa/default-theme"` setting in shopware-pwa.config.js
+   */
+  toolbox.getThemePath = () => {
+    const path = require("path");
+
+    const directPath = toolbox.config.theme;
+    const directPathExist = require("fs").existsSync(directPath);
+    if (directPathExist) return directPath;
+
+    const nodePackagePath = path.join("node_modules", toolbox.config.theme);
+    const nodePackagePathExist = require("fs").existsSync(nodePackagePath);
+    if (nodePackagePathExist) return nodePackagePath;
+
+    throw new Error(`No theme found for "${directPath}". Please make sure that path is correct or theme is installed from NPM.`);
+  };
+
+  toolbox.checkThemePath = () => {
+    try {
+      toolbox.getThemePath();
+    } catch (e) {
+      toolbox.print.error(e);
+      process.exit(1);
+    }
+  };
+
   // enable this if you want to read configuration in from
   // the current folder's package.json (in a "shopware-pwa" property),
   // shopware-pwa.config.json, etc.

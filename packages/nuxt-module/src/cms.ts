@@ -1,8 +1,15 @@
 import path from "path";
-import { NuxtModuleOptions, WebpackConfig } from "./interfaces";
+import {
+  NuxtModuleOptions,
+  ShopwarePwaConfigFile,
+  WebpackConfig,
+} from "./interfaces";
 import jetpack from "fs-jetpack";
 
-export function extendCMS(moduleObject: NuxtModuleOptions) {
+export function extendCMS(
+  moduleObject: NuxtModuleOptions,
+  shopwarePwaConfig: ShopwarePwaConfigFile
+) {
   // Throw error with instruction if CMS module is not prepared
   const cmsModuleExists = jetpack.exists(
     path.join(
@@ -20,15 +27,7 @@ export function extendCMS(moduleObject: NuxtModuleOptions) {
 
   // Get main cms vue files to create aliases for them
   const allThemeCmsFiles =
-    jetpack.list(
-      path.join(
-        moduleObject.options.rootDir,
-        "node_modules",
-        "@shopware-pwa",
-        "default-theme",
-        "cms"
-      )
-    ) || [];
+    jetpack.list(path.join(shopwarePwaConfig.theme, "cms")) || [];
   const cmsCatalogFiles = allThemeCmsFiles.filter((name) =>
     name.includes(".vue")
   );
@@ -43,10 +42,7 @@ export function extendCMS(moduleObject: NuxtModuleOptions) {
 
     cmsCatalogFiles.forEach((cmsFile) => {
       config.resolve.alias["sw-cms/" + cmsFile.replace(".vue", "")] = path.join(
-        moduleObject.options.rootDir,
-        "node_modules",
-        "@shopware-pwa",
-        "default-theme",
+        shopwarePwaConfig.theme,
         "cms",
         cmsFile
       );

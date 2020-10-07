@@ -1,17 +1,28 @@
 import path from "path";
-import { NuxtModuleOptions } from "./interfaces";
+import { NuxtModuleOptions, ShopwarePwaConfigFile } from "./interfaces";
 import fse from "fs-extra";
 
 export function getTargetSourcePath(moduleObject: NuxtModuleOptions) {
   return path.join(moduleObject.options.rootDir, ".shopware-pwa", "source");
 }
-export function getBaseSourcePath(moduleObject: NuxtModuleOptions) {
-  return path.join(
+
+export function getThemeSourcePath(
+  moduleObject: NuxtModuleOptions,
+  config: ShopwarePwaConfigFile
+) {
+  const directPath = path.join(moduleObject.options.rootDir, config.theme);
+  const directPathExist = fse.existsSync(directPath);
+  if (directPathExist) return directPath;
+
+  const nodePackagePath = path.join(
     moduleObject.options.rootDir,
     "node_modules",
-    "@shopware-pwa",
-    "default-theme"
+    config.theme
   );
+  const nodePackagePathExist = fse.existsSync(nodePackagePath);
+  if (nodePackagePathExist) return nodePackagePath;
+
+  throw `No theme found for "${directPath}". Please make sure that path is correct or theme is installed from NPM.`;
 }
 export function getProjectSourcePath(moduleObject: NuxtModuleOptions) {
   return path.join(moduleObject.options.rootDir, "src");
@@ -23,15 +34,15 @@ export function filterNodeModules(src: string, dest: string) {
 
 export async function useThemeAndProjectFiles({
   TARGET_SOURCE,
-  BASE_SOURCE,
+  THEME_SOURCE,
   PROJECT_SOURCE,
 }: {
   TARGET_SOURCE: string;
-  BASE_SOURCE: string;
+  THEME_SOURCE: string;
   PROJECT_SOURCE: string;
 }) {
   await fse.emptyDir(TARGET_SOURCE);
-  await fse.copy(BASE_SOURCE, TARGET_SOURCE, {
+  await fse.copy(THEME_SOURCE, TARGET_SOURCE, {
     dereference: true,
     filter: filterNodeModules,
   });
@@ -42,16 +53,16 @@ export async function onThemeFilesChanged({
   event,
   filePath,
   TARGET_SOURCE,
-  BASE_SOURCE,
+  THEME_SOURCE,
   PROJECT_SOURCE,
 }: {
   event: string;
   filePath: string;
   TARGET_SOURCE: string;
-  BASE_SOURCE: string;
+  THEME_SOURCE: string;
   PROJECT_SOURCE: string;
 }) {
-  const relativePath = filePath.replace(BASE_SOURCE, "");
+  const relativePath = filePath.replace(THEME_SOURCE, "");
   const projectFilePath = path.join(PROJECT_SOURCE, relativePath);
   const targetFilePath = path.join(TARGET_SOURCE, relativePath);
   const existInProject = await fse.pathExists(projectFilePath);
@@ -68,13 +79,13 @@ export async function onProjectFilesChanged({
   event,
   filePath,
   TARGET_SOURCE,
-  BASE_SOURCE,
+  THEME_SOURCE,
   PROJECT_SOURCE,
 }: {
   event: string;
   filePath: string;
   TARGET_SOURCE: string;
-  BASE_SOURCE: string;
+  THEME_SOURCE: string;
   PROJECT_SOURCE: string;
 }) {
   const relativePath = filePath.replace(PROJECT_SOURCE, "");
@@ -83,7 +94,7 @@ export async function onProjectFilesChanged({
     await fse.copy(filePath, targetFilePath);
   }
   if (event === "unlink") {
-    const baseThemeFilePath = path.join(BASE_SOURCE, relativePath);
+    const baseThemeFilePath = path.join(THEME_SOURCE, relativePath);
     const existInTheme = await fse.pathExists(baseThemeFilePath);
     if (existInTheme) {
       await fse.copy(baseThemeFilePath, targetFilePath);

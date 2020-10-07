@@ -34,6 +34,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       target: "server",
       devTools: [],
       gitUsername: "",
+      ci: "none",
     };
     if (!isNuxtGenerated) {
       const nuxtGenerate = `npx --ignore-existing create-nuxt-app@3.2.0 --answers "${JSON.stringify(
@@ -284,8 +285,8 @@ module.exports = (toolbox: GluegunToolbox) => {
     const dest = destination ? destination : folderName;
     const destinationExist = toolbox.filesystem.existsAsync(dest);
     if (destinationExist) return;
-    await toolbox.filesystem.copyAsync(
-      path.join(toolbox.defaultThemeLocation, folderName),
+    return toolbox.filesystem.copyAsync(
+      path.join(toolbox.getThemePath(), folderName),
       dest,
       { overwrite: true }
     );
