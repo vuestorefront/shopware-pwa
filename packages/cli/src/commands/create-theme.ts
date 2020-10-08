@@ -66,7 +66,7 @@ const command: GluegunCommand = {
 
     type ThemeSelectOptions =
       | "@shopware-pwa/default-theme"
-      | "@shopware-pwa/base"
+      | "@shopware-pwa/theme-base"
       | "custom"
       | "none";
 
@@ -76,7 +76,7 @@ const command: GluegunCommand = {
       message: "Which theme you'd like to extend:",
       choices: [
         "@shopware-pwa/default-theme",
-        "@shopware-pwa/base",
+        "@shopware-pwa/theme-base",
         "custom",
         "none",
       ],
