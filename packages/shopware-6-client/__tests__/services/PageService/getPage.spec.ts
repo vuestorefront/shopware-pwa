@@ -20,10 +20,14 @@ describe("PageService - getPage", () => {
     });
     const result = await getPage("Sports/Grocery-Garden");
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/store-api/v3/pwa/page", {
-      path: "Sports/Grocery-Garden",
-      limit: 10,
-    });
+    expect(mockedPost).toBeCalledWith(
+      "/store-api/v3/pwa/page",
+      {
+        path: "Sports/Grocery-Garden",
+        limit: 10,
+      },
+      { headers: { "sw-include-seo-urls": true } }
+    );
     expect(result).toHaveProperty("cmsPage");
     expect(result.cmsPage.id).toEqual("b218f861361042f3a58a2a9d1b3575b5");
   });

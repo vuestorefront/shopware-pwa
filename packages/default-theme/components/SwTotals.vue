@@ -1,25 +1,25 @@
 <template>
   <div class="sw-totals">
     <SfHeading
-      title="Totals"
+      :title="$t('Totals')"
       :level="2"
       class="sf-heading--left sf-heading--no-underline sw-totals__title mobile-only"
     />
     <div class="sw-totals__total">
       <SfProperty
-        name="Subtotal"
+        :name="$t('Subtotal')"
         :value="subtotal | price"
         class="sf-property--full-width sw-totals__property"
       >
       </SfProperty>
       <SfProperty
-        name="Shipping"
+        :name="$t('Shipping')"
         :value="shipping | price"
         class="sf-property--full-width sw-totals__property"
       >
       </SfProperty>
       <SfProperty
-        name="Total price"
+        :name="$t('Total price')"
         :value="total | price"
         class="sf-property--full-width sw-totals__property sw-totals__property-total"
       >

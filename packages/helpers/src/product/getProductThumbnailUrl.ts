@@ -1,5 +1,4 @@
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-
 /**
  * get the thumbnail image URL with the smallest width
  *

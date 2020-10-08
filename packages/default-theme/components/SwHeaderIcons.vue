@@ -27,7 +27,7 @@
               @click.native="isDropdownOpen = false"
               data-cy="my-account-link"
             >
-              My account
+              {{ $t("My account") }}
             </nuxt-link>
           </SfListItem>
           <SfListItem>
@@ -36,7 +36,7 @@
               @click="logoutUser()"
               data-cy="logout-button"
             >
-              Logout
+              {{ $t("Logout") }}
             </SwButton>
           </SfListItem>
         </SfList>

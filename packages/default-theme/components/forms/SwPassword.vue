@@ -3,8 +3,12 @@
     <slot>
       <slot name="message" :user="user">
         <p class="message">
-          If you want to change the password to access your account, enter the
-          following information:
+          {{
+            $t(
+              "If you want to change the password to access your account, enter the " +
+                "following information:"
+            )
+          }}
         </p>
       </slot>
 
@@ -16,10 +20,10 @@
             <SwInput
               v-model="password"
               :valid="!$v.password.$error"
-              error-message="Current password is required"
+              :error-message="$t('Current password is required')"
               type="password"
               name="currentPassword"
-              label="Current Password"
+              :label="$t('Current Password')"
               class="sw-form__input"
               required
               @blur="$v.password.$touch()"
@@ -28,10 +32,10 @@
               <SwInput
                 v-model="newPassword"
                 :valid="!$v.newPassword.$error"
-                error-message="This field is required"
+                :error-message="$t('This field is required')"
                 type="password"
                 name="newPassword"
-                label="New Password"
+                :label="$t('New Password')"
                 class="sw-form__input"
                 required
                 @blur="$v.newPassword.$touch()"
@@ -39,10 +43,10 @@
               <SwInput
                 v-model="newPasswordConfirm"
                 :valid="!$v.newPasswordConfirm.$error"
-                error-message="This filed must be same as new password"
+                :error-message="$t('This field must be same as new password')"
                 type="password"
                 name="repeatPassword"
-                label="Repeat Password"
+                :label="$t('Repeat Password')"
                 required
                 class="sw-form__input"
                 @blur="$v.newPasswordConfirm.$touch()"
@@ -53,7 +57,7 @@
               :disabled="$v.$invalid"
               @click="invokeUpdate"
             >
-              Update password
+              {{ $t("Update password") }}
             </SwButton>
           </div>
         </slot>

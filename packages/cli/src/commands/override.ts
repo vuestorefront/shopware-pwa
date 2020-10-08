@@ -32,7 +32,10 @@ module.exports = {
     "Allows you to override theme component. Component will appear in project ready to be edited.",
   run: async (toolbox: GluegunToolbox) => {
     const path = require("path");
-    const directoryPath = path.join(toolbox.defaultThemeLocation, "components");
+
+    toolbox.checkThemePath();
+
+    const directoryPath = path.join(toolbox.getThemePath(), "components");
 
     const componentsFullPaths = getAllFiles(directoryPath);
     const themeComponents = componentsFullPaths.map((path) =>
