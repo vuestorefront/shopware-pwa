@@ -67,8 +67,7 @@ const command: GluegunCommand = {
     type ThemeSelectOptions =
       | "@shopware-pwa/default-theme"
       | "@shopware-pwa/theme-base"
-      | "custom"
-      | "none";
+      | "custom";
 
     const baseThemeAnswers = await toolbox.prompt.ask({
       type: "select",
@@ -78,28 +77,22 @@ const command: GluegunCommand = {
         "@shopware-pwa/default-theme",
         "@shopware-pwa/theme-base",
         "custom",
-        "none",
       ],
       initial: 0,
     });
     const themeSelectOption: ThemeSelectOptions = baseThemeAnswers.baseThemeSelect as ThemeSelectOptions;
 
     let baseThemePackageName = "";
-    switch (themeSelectOption) {
-      case "custom":
-        const customThemeNameAnswer = await toolbox.prompt.ask({
-          type: "input",
-          name: "baseThemeName",
-          message: "Type the NPM package name of theme you'd like to extend:",
-          initial: "@shopware-pwa/default-theme",
-        });
-        baseThemePackageName = customThemeNameAnswer.baseThemeName;
-        break;
-      case "none": // no baseThemePackageName
-        break;
-      default:
-        baseThemePackageName = themeSelectOption;
-        break;
+    if (themeSelectOption === "custom") {
+      const customThemeNameAnswer = await toolbox.prompt.ask({
+        type: "input",
+        name: "baseThemeName",
+        message: "Type the NPM package name of theme you'd like to extend:",
+        initial: "@shopware-pwa/default-theme",
+      });
+      baseThemePackageName = customThemeNameAnswer.baseThemeName;
+    } else {
+      baseThemePackageName = themeSelectOption;
     }
 
     // create and update package.json
