@@ -46,5 +46,7 @@
   "Offline mode": "You are in offline mode now",
   "Online mode": "Welcome back online",
   "Enter promo code": "Enter promo code",
-  "Applied promo codes:": "Applied promo codes:"
+  "Applied promo codes:": "Applied promo codes:",
+  "Promotion code added successfully": "Promotion code added successfully",
+  "Promotion code does not exist": "Promotion code does not exist"
 }

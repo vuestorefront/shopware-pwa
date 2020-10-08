@@ -10,7 +10,10 @@ import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError
 import { Cart } from "@shopware-pwa/commons/interfaces/models/checkout/cart/Cart";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
-import { getApplicationContext } from "@shopware-pwa/composables";
+import {
+  getApplicationContext,
+  useNotifications,
+} from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../../appContext";
 
 const TYPE_PROMOTION = "promotion";
@@ -58,6 +61,8 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
 
+  const { pushSuccess, pushError } = useNotifications(rootContext);
+
   async function refreshCart(): Promise<void> {
     loading.value = true;
     try {
@@ -93,8 +98,26 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
   }
 
   async function submitPromotionCode(promoCode: string) {
-    const result = await addPromotionCode(promoCode, apiInstance);
-    vuexStore.commit("SET_CART", result);
+    try {
+      const result = await addPromotionCode(promoCode, apiInstance);
+      vuexStore.commit("SET_CART", result);
+
+      // It's strange that success also ends up as an error in the API response
+      const err = <any>Object.values(result.errors)[0];
+      switch (err.messageKey) {
+        case "promotion-discount-added":
+          pushSuccess(rootContext.$t("Promotion code added successfully"));
+          break;
+        case "promotion-not-found":
+          pushError(rootContext.$t("Promotion code does not exist"));
+          break;
+        default:
+          pushError(err.message.toString());
+      }
+    } catch (e) {
+      const err: ClientApiError = e;
+      error.value = err.message;
+    }
   }
 
   async function removePromotionCode(lineItem: Product) {
