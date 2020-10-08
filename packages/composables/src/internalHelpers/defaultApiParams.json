@@ -106,7 +106,8 @@
         "cover",
         "id",
         "translated",
-        "options"
+        "options",
+        "seoUrls"
       ],
       "product_media": ["media"],
       "media": ["thumbnails", "width", "height", "url"],

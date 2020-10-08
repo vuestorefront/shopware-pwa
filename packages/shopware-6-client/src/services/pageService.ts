@@ -48,13 +48,21 @@ export async function getPage(
   searchCriteria?: SearchCriteria,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<PageResolverResult<CmsPage>> {
-  const resp = await contextInstance.invoke.post(getPageResolverEndpoint(), {
-    path: path,
-    ...convertSearchCriteria({
-      searchCriteria,
-      config: contextInstance.config,
-    }),
-  });
+  const resp = await contextInstance.invoke.post(
+    getPageResolverEndpoint(),
+    {
+      path: path,
+      ...convertSearchCriteria({
+        searchCriteria,
+        config: contextInstance.config,
+      }),
+    },
+    {
+      headers: {
+        "sw-include-seo-urls": true,
+      },
+    }
+  );
 
   return resp.data;
 }
