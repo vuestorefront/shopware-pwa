@@ -42,7 +42,7 @@ export interface IUseCart {
   loading: Readonly<Ref<Readonly<boolean>>>;
   refreshCart: () => void;
   removeProduct: ({ id }: Partial<Product>) => void;
-  removePromotionCode: ({ id }: Partial<Product>) => void;
+  removePromotionCode: ({ id }: Partial<Product>) => Promise<void>;
   totalPrice: Readonly<Ref<Readonly<number>>>;
   subtotal: Readonly<Ref<Readonly<number>>>;
 }
