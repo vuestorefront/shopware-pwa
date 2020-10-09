@@ -1,5 +1,5 @@
 <template>
-  <SfTableRow class="order-view" :key="order.id">
+  <SfTableRow :key="order.id" class="order-view">
     <SfTableData>
       <template>
         {{ order.orderNumber }}
@@ -38,15 +38,12 @@
   </SfTableRow>
 </template>
 <script>
-import { SfTable } from "@storefront-ui/vue"
-import { useUser } from "@shopware-pwa/composables"
-import SwOrderDetails from "@/components/SwOrderDetails"
 import { formatDate, formatPrice } from "@/helpers"
 import SwButton from "@/components/atoms/SwButton"
 
 export default {
   name: "Order",
-  components: { SfTable, SwButton, SwOrderDetails },
+  components: { SwButton },
   props: {
     order: {
       type: Object,

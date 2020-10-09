@@ -123,6 +123,7 @@ export async function runModule(
     options: {
       shopwareEndpoint: shopwarePwaConfig.shopwareEndpoint,
       shopwareAccessToken: shopwarePwaConfig.shopwareAccessToken,
+      shopwareApiClient: shopwarePwaConfig.shopwareApiClient,
     },
   });
 

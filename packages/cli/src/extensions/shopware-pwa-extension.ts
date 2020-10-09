@@ -4,6 +4,9 @@ const defaultConfig = {
   shopwareEndpoint: "https://pwa-demo-api.shopware.com",
   shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
   theme: "@shopware-pwa/default-theme",
+  shopwareApiClient: {
+    timeout: 10000,
+  },
 };
 // add your CLI-specific functionality here, which will then be accessible
 // to your commands

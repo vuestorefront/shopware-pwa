@@ -40,11 +40,16 @@ export interface WebpackContext {
   isLegacy: boolean;
 }
 
+export interface ShopwareApiClientConfig {
+  timeout?: number;
+}
+
 export interface ShopwarePwaConfigFile {
   shopwareEndpoint: string;
   shopwareAccessToken: string;
   theme: string;
   defaultLanguageCode?: string;
+  shopwareApiClient?: ShopwareApiClientConfig;
   apiDefaults?: {
     [composableName: string]: {
       includes?: Includes;

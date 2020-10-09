@@ -186,6 +186,37 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     );
   });
 
+  it("should have extra API client related config", async () => {
+    mockedUtils.loadConfig.mockResolvedValueOnce({
+      shopwareEndpoint:
+        "https://shopware-pwa.storefrontcloud.io/sales-channel-api/v1",
+      shopwareAccessToken: "mockedToken",
+      theme: "@shopware-pwa/default-theme",
+      shopwareApiClient: {
+        timeout: 5,
+      },
+    });
+    const pathForApiClientPlugin = path.join(
+      __dirname,
+      "..",
+      "plugins",
+      "api-client.js"
+    );
+    await runModule(moduleObject, {});
+    expect(moduleObject.addPlugin).toBeCalledWith({
+      fileName: "api-client.js",
+      options: {
+        shopwareAccessToken: "mockedToken",
+        shopwareEndpoint:
+          "https://shopware-pwa.storefrontcloud.io/sales-channel-api/v1",
+        shopwareApiClient: {
+          timeout: 5,
+        },
+      },
+      src: pathForApiClientPlugin,
+    });
+  });
+
   it("should add cookies plugin", async () => {
     await runModule(moduleObject, {});
     expect(moduleObject.addPlugin).toBeCalled();
