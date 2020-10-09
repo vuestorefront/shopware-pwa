@@ -6,7 +6,7 @@
   "blocks": {
     "text-on-image": "CmsBlockTextOnImage",
     "sidebar-filter": "CmsBlockDefault",
-    "product-listing": "CmsBlockDefault",
+    "product-listing": "CmsBlockProductListing",
     "image-text": "CmsBlockImageText",
     "image": "CmsBlockDefault",
     "image-cover": "CmsBlockImageCover",

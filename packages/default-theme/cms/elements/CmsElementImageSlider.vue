@@ -14,9 +14,7 @@
           :to="$i18n.path(slide.url)"
           class="cms-element-image-slider__link"
         >
-          <SwButton class="sf-button">
-            See more
-          </SwButton>
+          <SwButton class="sf-button"> See more </SwButton>
         </nuxt-link>
       </template>
     </SfHeroItem>
@@ -25,7 +23,7 @@
 
 <script>
 import { SfHero } from "@storefront-ui/vue"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton"
 
 export default {
   name: "CmsElementImageSlider",

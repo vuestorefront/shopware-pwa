@@ -9,8 +9,8 @@
 
 <script>
 import { SfTopBar } from "@storefront-ui/vue"
-import SwCurrencySwitcher from "@shopware-pwa/default-theme/components/SwCurrencySwitcher"
-import SwLanguageSwitcher from "@shopware-pwa/default-theme/components/SwLanguageSwitcher"
+import SwCurrencySwitcher from "@/components/SwCurrencySwitcher"
+import SwLanguageSwitcher from "@/components/SwLanguageSwitcher"
 
 export default {
   components: {

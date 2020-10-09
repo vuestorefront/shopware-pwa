@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import SwAlert from "@shopware-pwa/default-theme/components/atoms/SwAlert"
+import SwAlert from "@/components/atoms/SwAlert"
 
 export default {
   name: "SwErrorsList",

@@ -1,23 +1,24 @@
 <template>
   <div :key="$route.fullPath" class="order-page">
     <SfHeading
-      title="Thank you"
-      subtitle="for shopping with us!"
+      :title="$t('Thank you')"
+      :subtitle="$t('for shopping with us!')"
       class="order-page__heading"
     />
     <SfDivider />
     <SwOrderDetails :order-id="orderId" />
     <SwButton @click="$router.push($i18n.path('/'))">
-      <SfIcon icon="chevron_left" color="white" size="20px" />Return to homepage
+      <SfIcon icon="chevron_left" color="white" size="20px" />
+      {{ $t("Return to homepage") }}
     </SwButton>
   </div>
 </template>
 <script>
 import { SfHeading, SfIcon, SfDivider } from "@storefront-ui/vue"
 import { computed } from "@vue/composition-api"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton"
 
-import SwOrderDetails from "@shopware-pwa/default-theme/components/SwOrderDetails"
+import SwOrderDetails from "@/components/SwOrderDetails"
 
 export default {
   name: "OrderPage",

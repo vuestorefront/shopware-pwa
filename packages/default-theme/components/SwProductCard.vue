@@ -74,8 +74,7 @@ export default {
     },
     getImageUrl() {
       return (
-        getProductThumbnailUrl(this.product) ||
-        require("@shopware-pwa/default-theme/assets/productB.jpg")
+        getProductThumbnailUrl(this.product) || require("@/assets/productB.jpg")
       )
     },
   },

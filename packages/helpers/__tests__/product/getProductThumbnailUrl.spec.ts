@@ -86,4 +86,16 @@ describe("Helpers - getProductThumbnailUrl", () => {
     const coverUrl = getProductThumbnailUrl(argument);
     expect(coverUrl).toEqual("");
   });
+  it("should return default value if product cover.media has no thumnbails in array", () => {
+    const argument: any = {
+      cover: {
+        media: {
+          url: "https://shopware-pwa.com/image.png",
+          thumbnails: [],
+        },
+      },
+    };
+    const coverUrl = getProductThumbnailUrl(argument);
+    expect(coverUrl).toEqual("https://shopware-pwa.com/image.png");
+  });
 });

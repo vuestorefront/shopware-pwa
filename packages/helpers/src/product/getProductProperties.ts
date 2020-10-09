@@ -8,7 +8,7 @@ export function getProductProperties({
   product,
 }: { product?: Product } = {}): UiProductProperty[] {
   const propertyList = product?.properties?.map((property) => ({
-    name: property.group?.name || "",
+    name: property.group?.translated?.name || "",
     value: property.name,
   }));
 

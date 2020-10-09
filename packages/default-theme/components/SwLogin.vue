@@ -12,24 +12,24 @@
       <SwInput
         v-model="email"
         name="email"
-        label="Your email"
+        :label="$t('Your email')"
         class="sw-form__input"
         type="email"
         :valid="!$v.email.$error"
         :disabled="isLoading"
-        error-message="Email is required"
+        :error-message="$t('Email is required')"
         data-cy="email-input"
         @blur="$v.email.$touch()"
       />
       <SwInput
         v-model="password"
         name="password"
-        label="Password"
+        :label="$t('Password')"
         type="password"
         class="sw-form__input"
         :valid="!$v.password.$error"
         :disabled="isLoading"
-        error-message="Password is required"
+        :error-message="$t('Password is required')"
         data-cy="password-input"
         @blur="$v.password.$touch()"
       />
@@ -40,7 +40,7 @@
           data-cy="submit-login-button"
           @click="invokeLogin"
         >
-          Log in
+          {{ $t("Log in") }}
         </SwButton>
       </SwPluginSlot>
     </div>

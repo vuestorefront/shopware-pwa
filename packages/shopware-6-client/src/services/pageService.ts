@@ -1,6 +1,9 @@
 import { getPageResolverEndpoint } from "../endpoints";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
-import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import {
+  SearchCriteria,
+  ShopwareSearchParams,
+} from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { CmsPage } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { Aggregation } from "@shopware-pwa/commons/interfaces/search/Aggregation";
@@ -45,12 +48,37 @@ export async function getPage(
   searchCriteria?: SearchCriteria,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<PageResolverResult<CmsPage>> {
+  const resp = await contextInstance.invoke.post(
+    getPageResolverEndpoint(),
+    {
+      path: path,
+      ...convertSearchCriteria({
+        searchCriteria,
+        config: contextInstance.config,
+      }),
+    },
+    {
+      headers: {
+        "sw-include-seo-urls": true,
+      },
+    }
+  );
+
+  return resp.data;
+}
+
+/**
+ * @throws ClientApiError
+ * @alpha
+ */
+export async function getCmsPage(
+  path: string,
+  criteria?: ShopwareSearchParams,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<PageResolverResult<CmsPage>> {
   const resp = await contextInstance.invoke.post(getPageResolverEndpoint(), {
     path: path,
-    ...convertSearchCriteria({
-      searchCriteria,
-      config: contextInstance.config,
-    }),
+    ...criteria,
   });
 
   return resp.data;

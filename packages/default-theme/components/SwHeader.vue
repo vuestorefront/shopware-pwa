@@ -32,13 +32,13 @@
 import { SfHeader, SfOverlay } from "@storefront-ui/vue"
 import { useUIState } from "@shopware-pwa/composables"
 
-import SwTopBar from "@shopware-pwa/default-theme/components/SwTopBar"
-import SwLogo from "@shopware-pwa/default-theme/components/SwLogo"
-import SwHeaderIcons from "@shopware-pwa/default-theme/components/SwHeaderIcons"
-import SwTopNavigation from "@shopware-pwa/default-theme/components/SwTopNavigation"
-import SwSearchBar from "@shopware-pwa/default-theme/components/SwSearchBar"
+import SwTopBar from "@/components/SwTopBar"
+import SwLogo from "@/components/SwLogo"
+import SwHeaderIcons from "@/components/SwHeaderIcons"
+import SwTopNavigation from "@/components/SwTopNavigation"
+import SwSearchBar from "@/components/SwSearchBar"
 
-import SwCookieBar from "@shopware-pwa/default-theme/components/gdpr/SwCookieBar"
+import SwCookieBar from "@/components/gdpr/SwCookieBar"
 
 export default {
   components: {

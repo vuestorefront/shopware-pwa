@@ -6,15 +6,14 @@
       :aria-label="$t('Search for products')"
       class="sf-header__search"
       data-cy="search-bar"
-      @keyup.native="searchbarQuery"
       @enter="performSearch"
       @focus="isSuggestBoxOpen = true"
     />
 
     <SwSuggestSearch
       v-if="!isMobile"
-      :products="suggestResultProducts"
-      :total-found="suggestResultTotal"
+      :products="getProducts"
+      :total-found="getTotal"
       :search-phrase="typingQuery"
       :is-open="isSuggestBoxOpen"
       @close="isSuggestBoxOpen = false"
@@ -24,16 +23,16 @@
 </template>
 
 <script>
-import { ref, computed } from "@vue/composition-api"
-import { getSearchPageUrl } from "@shopware-pwa/default-theme/helpers"
+import { ref, reactive, onMounted, computed } from "@vue/composition-api"
+import { getSearchPageUrl } from "@/helpers"
 import { SfSearchBar } from "@storefront-ui/vue"
+import { useProductQuickSearch } from "@shopware-pwa/composables"
 import {
   mapMobileObserver,
   unMapMobileObserver,
 } from "@storefront-ui/vue/src/utilities/mobile-observer"
-import { useProductSearch } from "@shopware-pwa/composables"
 import { debounce } from "@shopware-pwa/helpers"
-import SwSuggestSearch from "@shopware-pwa/default-theme/components/SwSuggestSearch"
+import SwSuggestSearch from "@/components/SwSuggestSearch"
 
 export default {
   components: {
@@ -41,30 +40,17 @@ export default {
     SwSuggestSearch,
   },
   setup(props, { root }) {
-    const {
-      currentSearchTerm,
-      search,
-      suggestSearch,
-      suggestionsResult,
-      resetFilters,
-    } = useProductSearch(root)
+    const { searchTerm, search, getProducts, getTotal } = useProductQuickSearch(
+      root
+    )
 
     const typingQuery = ref("")
     const isSuggestBoxOpen = ref(false)
-    const suggestResultProducts = computed(
-      () => suggestionsResult.value && suggestionsResult.value.elements
-    )
-    const suggestResultTotal = computed(
-      () => suggestionsResult.value && suggestionsResult.value.total
-    )
 
-    const performSuggestSearch = debounce((event) => {
-      if (event && event.key === "Enter") {
-        return
-      }
-      const searchTerm = event.target.value
-      if (typeof searchTerm === "string" && searchTerm.length > 0) {
-        suggestSearch(searchTerm)
+    const performSuggestSearch = debounce((value) => {
+      searchTerm.value = value
+      if (searchTerm.value.length > 0) {
+        search()
         isSuggestBoxOpen.value = true
       } else {
         isSuggestBoxOpen.value = false
@@ -72,16 +58,10 @@ export default {
     }, 300)
 
     return {
-      currentSearchTerm,
-      search,
-      suggestSearch,
-      suggestResultTotal,
-      suggestResultProducts,
+      getProducts,
+      getTotal,
       isSuggestBoxOpen,
-      getSearchPageUrl,
       typingQuery,
-      resetFilters,
-      performSuggestSearch,
     }
   },
   computed: {
@@ -91,6 +71,11 @@ export default {
     $route(to, from) {
       this.isSuggestBoxOpen = false
     },
+    typingQuery(value) {
+      if (!this.isMobile) {
+        performSuggestSearch(typingQuery.value)
+      }
+    },
   },
   beforeDestroy() {
     unMapMobileObserver()
@@ -98,14 +83,7 @@ export default {
   methods: {
     performSearch() {
       if (this.typingQuery.length > 0) {
-        this.resetFilters()
         this.$router.push(this.$i18n.path(getSearchPageUrl(this.typingQuery)))
-      }
-    },
-
-    searchbarQuery() {
-      if (!this.isMobile) {
-        this.performSuggestSearch()
       }
     },
   },

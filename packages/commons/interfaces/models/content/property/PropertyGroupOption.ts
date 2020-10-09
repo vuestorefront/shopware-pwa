@@ -22,4 +22,7 @@ export interface PropertyGroupOption {
   productOptions: Product[] | null;
   media: Media | null;
   customFields: CustomField[];
+  translated: {
+    [key: string]: any;
+  };
 }

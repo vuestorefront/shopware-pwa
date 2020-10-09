@@ -1,5 +1,6 @@
 <template>
   <div class="filter__max sf-review_">
+    <SfHeading class="filters__title" :level="4" :title="filter.label" />
     <div class="sf-review__rating">
       <SwRating
         :score="Number.parseInt(max)"
@@ -12,14 +13,15 @@
 </template>
 <script>
 import { computed, ref } from "@vue/composition-api"
-import { SfRating, SfIcon } from "@storefront-ui/vue"
-import SwRating from "@shopware-pwa/default-theme/components/atoms/SwRating"
+import { SfRating, SfIcon, SfHeading } from "@storefront-ui/vue"
+import SwRating from "@/components/atoms/SwRating"
 
 export default {
   components: {
     SfRating,
     SfIcon,
     SwRating,
+    SfHeading,
   },
   props: {
     filter: {
@@ -43,6 +45,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+::v-deep.sf-heading {
+  --heading-text-align: left;
+}
+
 .filter {
   &__range {
     display: flex;

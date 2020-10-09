@@ -139,7 +139,9 @@ module.exports = (toolbox: GluegunToolbox) => {
             pluginConfig.slots.forEach(
               async (slot: { name: string; file: string }) => {
                 if (!pluginsMap[slot.name]) pluginsMap[slot.name] = [];
-                pluginsMap[slot.name].push(`~/${pluginDirectory}/${slot.file}`);
+                pluginsMap[slot.name].push(
+                  `~~/${pluginDirectory}/${slot.file}`
+                );
               }
             );
           } else {
@@ -157,6 +159,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     for (let index = 0; index < pluginSlotNames.length; index++) {
       const pluginSlotName = pluginSlotNames[index];
       const slotComponents = pluginsTrace[pluginSlotName];
+
       if (slotComponents.length === 1) {
         finalMap[pluginSlotName] = slotComponents[0];
       } else {
@@ -194,7 +197,7 @@ module.exports = (toolbox: GluegunToolbox) => {
         );
         const components = slotComponents.reduce(
           (prev: string, current: string, index: number) => {
-            return `${prev}\n ${componentNames[index]},`;
+            return `${prev}\n    ${componentNames[index]},`;
           },
           ""
         );
