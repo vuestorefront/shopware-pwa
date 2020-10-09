@@ -57,6 +57,9 @@ describe("nuxt-module - utils", () => {
         shopwareAccessToken: "qweqwe",
         shopwareEndpoint: "https://instance.com",
         theme: "@shopware-pwa/default-theme",
+        shopwareApiClient: {
+          timeout: 10000,
+        },
       });
     });
 
@@ -70,6 +73,9 @@ describe("nuxt-module - utils", () => {
         shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
         shopwareEndpoint: "https://pwa-demo-api.shopware.com",
         theme: "@shopware-pwa/default-theme",
+        shopwareApiClient: {
+          timeout: 10000,
+        },
       });
     });
   });

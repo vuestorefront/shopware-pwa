@@ -4,6 +4,9 @@ const defaultConfig = {
   shopwareEndpoint: "https://pwa-demo-api.shopware.com",
   shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
   theme: "@shopware-pwa/default-theme",
+  shopwareApiClient: {
+    timeout: 10000,
+  },
 };
 // add your CLI-specific functionality here, which will then be accessible
 // to your commands
@@ -30,7 +33,9 @@ module.exports = (toolbox: GluegunToolbox) => {
     const nodePackagePathExist = require("fs").existsSync(nodePackagePath);
     if (nodePackagePathExist) return nodePackagePath;
 
-    throw new Error(`No theme found for "${directPath}". Please make sure that path is correct or theme is installed from NPM.`);
+    throw new Error(
+      `No theme found for "${directPath}". Please make sure that path is correct or theme is installed from NPM.`
+    );
   };
 
   toolbox.checkThemePath = () => {
