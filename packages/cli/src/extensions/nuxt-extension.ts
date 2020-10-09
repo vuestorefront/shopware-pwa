@@ -111,22 +111,25 @@ module.exports = (toolbox: GluegunToolbox) => {
    */
   toolbox.updateNuxtPackageJson = async (stage) => {
     await toolbox.patching.update("package.json", (config) => {
+      config.scripts = config.scripts || {};
       config.scripts.lint = "prettier --write '*.{js,vue}'";
       config.scripts.dev = "shopware-pwa dev";
       config.scripts.build = "shopware-pwa build";
 
       // update versions to canary
       if (stage === STAGES.CANARY) {
-        Object.keys(config.dependencies).forEach((dependencyName) => {
-          if (dependencyName.includes("@shopware-pwa")) {
-            config.dependencies[dependencyName] = "canary";
-          }
-        });
-        Object.keys(config.devDependencies).forEach((dependencyName) => {
-          if (dependencyName.includes("@shopware-pwa")) {
-            config.devDependencies[dependencyName] = "canary";
-          }
-        });
+        config.dependencies &&
+          Object.keys(config.dependencies).forEach((dependencyName) => {
+            if (dependencyName.includes("@shopware-pwa")) {
+              config.dependencies[dependencyName] = "canary";
+            }
+          });
+        config.devDependencies &&
+          Object.keys(config.devDependencies).forEach((dependencyName) => {
+            if (dependencyName.includes("@shopware-pwa")) {
+              config.devDependencies[dependencyName] = "canary";
+            }
+          });
       }
 
       delete config.engines;
