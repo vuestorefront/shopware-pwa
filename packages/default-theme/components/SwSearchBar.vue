@@ -62,6 +62,7 @@ export default {
       getTotal,
       isSuggestBoxOpen,
       typingQuery,
+      performSuggestSearch,
     }
   },
   computed: {
