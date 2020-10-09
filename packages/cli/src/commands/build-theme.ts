@@ -28,9 +28,7 @@ const command: GluegunCommand = {
           dereference: true,
           filter: (src: string, dest: string) => {
             return (
-              !dest.includes("node_modules") &&
-              !dest.includes("package.json") &&
-              !dest.includes(".snyk")
+              !dest.includes("node_modules") && !dest.includes("package.json")
             );
           },
         });

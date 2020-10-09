@@ -5,8 +5,7 @@
   "author": "patzick",
   "scripts": {
     "lint": "prettier --write './**/*.{js,vue}'",
-    "test": "jest",
-    "snyk-protect": "snyk protect"
+    "test": "jest"
   },
   "husky": {
     "hooks": {
@@ -27,8 +26,7 @@
     "nuxt": "^2.14.6",
     "sass-loader": "^10.0.2",
     "vue-i18n": "^8.22.0",
-    "vuelidate": "^0.7.5",
-    "snyk": "^1.410.2"
+    "vuelidate": "^0.7.5"
   },
   "devDependencies": {
     "@babel/runtime-corejs3": "^7.11.2",
@@ -51,6 +49,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "snyk": true
+  }
 }
