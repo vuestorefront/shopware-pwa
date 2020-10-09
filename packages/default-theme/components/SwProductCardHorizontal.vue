@@ -70,8 +70,7 @@ export default {
     },
     getImageUrl() {
       return (
-        getProductMainImageUrl(this.product) ||
-        require("@shopware-pwa/default-theme/assets/productB.jpg")
+        getProductMainImageUrl(this.product) || require("@/assets/productB.jpg")
       )
     },
   },

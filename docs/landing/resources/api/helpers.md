@@ -15,6 +15,7 @@
 |  Function | Description |
 |  --- | --- |
 |  [getListingAvailableFilters(aggregations)](./helpers.getlistingavailablefilters.md) | <b><i>(BETA)</i></b> |
+|  [getListingFilters(aggregations)](./helpers.getlistingfilters.md) | <b><i>(BETA)</i></b> |
 |  [getProductRegularPrice(product)](./helpers.getproductregularprice.md) | <b><i>(BETA)</i></b> Get the price for 1 unit of a product |
 |  [getProductThumbnailUrl(product)](./helpers.getproductthumbnailurl.md) | <b><i>(BETA)</i></b> get the thumbnail image URL with the smallest width |
 |  [getProductTierPrices(product)](./helpers.getproducttierprices.md) | <b><i>(BETA)</i></b> Get the prices depending on quantity added to cart. Tier prices can be set in <code>Advanced pricing</code> tab in <code>Product view</code> (admin panel) |
@@ -26,6 +27,7 @@
 
 |  Interface | Description |
 |  --- | --- |
+|  [ListingFilter](./helpers.listingfilter.md) | <b><i>(BETA)</i></b> |
 |  [StoreNavigationRoute](./helpers.storenavigationroute.md) | <b><i>(BETA)</i></b> |
 |  [TierPrice](./helpers.tierprice.md) | <b><i>(BETA)</i></b> |
 |  [UiCategoryFilter](./helpers.uicategoryfilter.md) | <b><i>(BETA)</i></b> |

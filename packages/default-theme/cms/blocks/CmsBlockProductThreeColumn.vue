@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import CmsElementProductCard from "@shopware-pwa/default-theme/cms/elements/CmsElementProductCard"
+import CmsElementProductCard from "@/cms/elements/CmsElementProductCard"
 
 export default {
   name: "CmsBlockProductThreeColumn",

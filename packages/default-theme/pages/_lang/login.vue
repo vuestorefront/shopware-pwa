@@ -11,9 +11,9 @@
 <script>
 import { SfHeading } from "@storefront-ui/vue"
 
-import SwLogin from "@shopware-pwa/default-theme/components/SwLogin"
-import { PAGE_ACCOUNT } from "@shopware-pwa/default-theme/helpers/pages"
-import authMiddleware from "@shopware-pwa/default-theme/middleware/auth"
+import SwLogin from "@/components/SwLogin"
+import { PAGE_ACCOUNT } from "@/helpers/pages"
+import authMiddleware from "@/middleware/auth"
 
 export default {
   name: "LoginPage",

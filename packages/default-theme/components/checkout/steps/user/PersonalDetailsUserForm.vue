@@ -3,7 +3,7 @@
     <SwPersonalInfo>
       <template #message>
         <SfHeading
-          title="1. Personal details"
+          :title="$t('1. Personal details')"
           :level="2"
           class="sf-heading--left sf-heading--no-underline title"
         />
@@ -13,14 +13,14 @@
       class="personal-details-user-form__proceed"
       @click="$emit('proceed')"
     >
-      Continue to shipping
+      {{ $t("Continue to shipping") }}
     </SwButton>
   </div>
 </template>
 <script>
 import { SfHeading } from "@storefront-ui/vue"
-import SwPersonalInfo from "@shopware-pwa/default-theme/components/forms/SwPersonalInfo"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwPersonalInfo from "@/components/forms/SwPersonalInfo"
+import SwButton from "@/components/atoms/SwButton"
 
 export default {
   name: "ShippingAddressUserForm",

@@ -8,7 +8,7 @@ export const getCategoryDetailsEndpoint = (categoryId: string) =>
 // product-listing
 
 export const getProductListingEndpoint = (categoryId: string) =>
-  `/store-api/v3/product-listing/${categoryId}`;
+  `/store-api/v4/product-listing/${categoryId}`;
 
 // product
 

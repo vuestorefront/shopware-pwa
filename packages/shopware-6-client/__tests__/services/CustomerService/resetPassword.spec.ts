@@ -74,7 +74,7 @@ describe("CustomerService - resetPassword", () => {
       "/store-api/v3/account/recovery-password",
       {
         email: credentials.email,
-        storefrontUrl: "https://shopware6-demo.vuestorefront.io",
+        storefrontUrl: "https://pwa-demo-api.shopware.com",
       }
     );
   });

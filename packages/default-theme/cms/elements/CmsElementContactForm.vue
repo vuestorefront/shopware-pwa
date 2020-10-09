@@ -146,9 +146,9 @@ import {
   getApplicationContext,
 } from "@shopware-pwa/composables"
 import { computed, ref } from "@vue/composition-api"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton"
 import { sendContactForm } from "@shopware-pwa/shopware-6-client"
-import SwErrorsList from "@shopware-pwa/default-theme/components/SwErrorsList"
+import SwErrorsList from "@/components/SwErrorsList"
 
 export default {
   name: "CmsElementContactForm",
