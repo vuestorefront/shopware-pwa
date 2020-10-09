@@ -22,14 +22,14 @@ module.exports = (toolbox: GluegunToolbox) => {
    * 1. direct relative path to project root folder ex. `./my-theme` directory and `theme: "my-theme"` setting in shopware-pwa.config.js
    * 2. in node_modules directory, like base theme ex. `theme: "@shopware-pwa/default-theme"` setting in shopware-pwa.config.js
    */
-  toolbox.getThemePath = () => {
+  toolbox.getThemePath = (themeName = toolbox.config.theme) => {
     const path = require("path");
 
-    const directPath = toolbox.config.theme;
+    const directPath = themeName;
     const directPathExist = require("fs").existsSync(directPath);
     if (directPathExist) return directPath;
 
-    const nodePackagePath = path.join("node_modules", toolbox.config.theme);
+    const nodePackagePath = path.join("node_modules", themeName);
     const nodePackagePathExist = require("fs").existsSync(nodePackagePath);
     if (nodePackagePathExist) return nodePackagePath;
 
