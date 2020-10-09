@@ -30,8 +30,11 @@ import {
   toggleEntityFilter,
   toggleFilter as toggleGenericFilter,
 } from "../internalHelpers/searchCriteria";
+import { deprecationWarning } from "@shopware-pwa/commons";
+
 /**
- * @alpha
+ * @beta
+ * @deprecated please see useListing instead
  */
 export interface UseProductListing {
   loading: Ref<boolean>;
@@ -60,12 +63,18 @@ const selectedCriteria = Vue.observable({
 } as any);
 
 /**
- * @alpha
+ * @beta
+ * @deprecated please see useListing instead
  */
 export const useProductListing = (
   rootContext: ApplicationVueContext,
   initialListing?: ProductListingResult
 ): UseProductListing => {
+  deprecationWarning({
+    methodName: "useProductListing",
+    newMethodName: "useListing",
+    packageName: "composables",
+  });
   const { apiInstance } = getApplicationContext(
     rootContext,
     "useProductListing"

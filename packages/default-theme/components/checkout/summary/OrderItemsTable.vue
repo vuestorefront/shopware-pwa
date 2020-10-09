@@ -1,7 +1,9 @@
 <template>
   <SfTable class="sf-table--bordered table">
     <SfTableHeading class="table__row">
-      <SfTableHeader class="table__header table__image">Item</SfTableHeader>
+      <SfTableHeader class="table__header table__image">
+        {{ $t("Item") }}
+      </SfTableHeader>
       <SfTableHeader
         v-for="tableHeader in tableHeaders"
         :key="tableHeader"
@@ -36,7 +38,11 @@ export default {
   },
   data() {
     return {
-      tableHeaders: ["Description", "Quantity", "Amount"],
+      tableHeaders: [
+        this.$t("Description"),
+        this.$t("Quantity"),
+        this.$t("Amount"),
+      ],
     }
   },
   setup(props, { root }) {

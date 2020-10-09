@@ -10,10 +10,9 @@ import { extendCMS } from "./cms";
 import { extendLocales } from "./locales";
 import { useCorePackages } from "./packages";
 import { getAllFiles } from "./files";
-import { invokeBuildLogger } from "./logger";
 import {
   getTargetSourcePath,
-  getBaseSourcePath,
+  getThemeSourcePath,
   getProjectSourcePath,
   useThemeAndProjectFiles,
   onThemeFilesChanged,
@@ -28,8 +27,22 @@ export async function runModule(
   moduleObject: NuxtModuleOptions,
   moduleOptions: {}
 ) {
+  const shopwarePwaConfig: ShopwarePwaConfigFile = await loadConfig(
+    moduleObject
+  );
+
+  if (!shopwarePwaConfig.shopwareAccessToken)
+    console.error("shopwareAccessToken in shopware-pwa.config.js is missing");
+  if (!shopwarePwaConfig.shopwareEndpoint)
+    console.error("shopwareEndpoint in shopware-pwa.config.js is missing");
+
   const TARGET_SOURCE: string = getTargetSourcePath(moduleObject);
-  const BASE_SOURCE: string = getBaseSourcePath(moduleObject);
+  const THEME_SOURCE: string = getThemeSourcePath(
+    moduleObject,
+    shopwarePwaConfig
+  );
+  console.info(`Using theme: ${shopwarePwaConfig.theme}`);
+  shopwarePwaConfig.theme = THEME_SOURCE;
   const PROJECT_SOURCE: string = getProjectSourcePath(moduleObject);
 
   // Change project source root to Target path
@@ -43,20 +56,13 @@ export async function runModule(
   moduleObject.options.alias["static"] = path.join(TARGET_SOURCE, "static");
 
   // theme resolve
-  moduleObject.options.alias["@theme"] = BASE_SOURCE;
+  moduleObject.options.alias["@theme"] = THEME_SOURCE;
 
-  await useThemeAndProjectFiles({ TARGET_SOURCE, PROJECT_SOURCE, BASE_SOURCE });
-
-  /* istanbul ignore next */
-  invokeBuildLogger(moduleObject);
-  const shopwarePwaConfig: ShopwarePwaConfigFile = await loadConfig(
-    moduleObject
-  );
-
-  if (!shopwarePwaConfig.shopwareAccessToken)
-    console.error("shopwareAccessToken in shopware-pwa.config.js is missing");
-  if (!shopwarePwaConfig.shopwareEndpoint)
-    console.error("shopwareEndpoint in shopware-pwa.config.js is missing");
+  await useThemeAndProjectFiles({
+    TARGET_SOURCE,
+    PROJECT_SOURCE,
+    THEME_SOURCE,
+  });
 
   // Warning about wrong API address
   // TODO: remove in 1.0
@@ -174,7 +180,7 @@ export async function runModule(
     }
   });
 
-  extendCMS(moduleObject);
+  extendCMS(moduleObject, shopwarePwaConfig);
 
   moduleObject.options.build = moduleObject.options.build || {};
   moduleObject.options.build.babel = moduleObject.options.build.babel || {};
@@ -212,7 +218,7 @@ export async function runModule(
 
   useCorePackages(moduleObject, corePackages);
 
-  // backward compatibility for defaullt-theme alias
+  // backward compatibility for default-theme alias
   moduleObject.options.alias["@shopware-pwa/default-theme"] = TARGET_SOURCE;
   moduleObject.options.build.transpile =
     moduleObject.options.build.transpile || [];
@@ -222,8 +228,8 @@ export async function runModule(
   if (moduleObject.options.dev) {
     // Observing theme
     chokidar
-      .watch([BASE_SOURCE], {
-        ignored: `${BASE_SOURCE}/node_modules/**/*`,
+      .watch([THEME_SOURCE], {
+        ignored: `${THEME_SOURCE}/node_modules/**/*`,
         ignoreInitial: true,
         followSymlinks: true,
       })
@@ -233,7 +239,7 @@ export async function runModule(
           filePath,
           TARGET_SOURCE,
           PROJECT_SOURCE,
-          BASE_SOURCE,
+          THEME_SOURCE,
         })
       );
 
@@ -248,7 +254,7 @@ export async function runModule(
           filePath,
           TARGET_SOURCE,
           PROJECT_SOURCE,
-          BASE_SOURCE,
+          THEME_SOURCE,
         })
       );
   }

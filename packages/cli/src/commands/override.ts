@@ -32,7 +32,10 @@ module.exports = {
     "Allows you to override theme component. Component will appear in project ready to be edited.",
   run: async (toolbox: GluegunToolbox) => {
     const path = require("path");
-    const directoryPath = path.join(toolbox.defaultThemeLocation, "components");
+
+    toolbox.checkThemePath();
+
+    const directoryPath = path.join(toolbox.getThemePath(), "components");
 
     const componentsFullPaths = getAllFiles(directoryPath);
     const themeComponents = componentsFullPaths.map((path) =>
@@ -57,15 +60,6 @@ module.exports = {
       toolbox.print.success(
         `Component overrided. You can edit it in ${copyTo}`
       );
-      const ua = require("universal-analytics");
-      const visitor = ua("UA-167979975-1");
-      visitor
-        .event(
-          "CLI",
-          "override-component",
-          answers.componentToOverride.replace("\\", "/")
-        )
-        .send();
     } catch (e) {
       toolbox.print.error(e.message);
     }

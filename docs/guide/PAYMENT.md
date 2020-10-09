@@ -36,7 +36,7 @@ That is the easy way, where we just place an order and the payment is processed 
 
 **Asynchronous payment**
 
-Asynchronous payments are not much harder, they only involve a redirect for the user. Often that's necessary if your payment provider has a login/confirmation dialog for their users. We then provide a returnUrl so the provider can return us to the confirmation page of our order once payment was completed.
+Asynchronous payments are not much harder, they only involve a redirect for the user. Often that's necessary if your payment provider has a login/confirmation dialog for their users. We then provide a `returnUrl` so the provider can return us to the confirmation page of our order once payment was completed.
 
 :::tip Go deeper
 If you want to know more about the backend logic of it, please check the Shopware documentation on [payment processing](https://docs.shopware.com/en/shopware-platform-dev-en/references-internals/core/checkout-process/payment) and [adding custom payment handlers](https://docs.shopware.com/en/shopware-platform-dev-en/how-to/payment-plugin).
@@ -46,12 +46,12 @@ In our PWA, we really want to rely only on the API to handle our payments. That'
 
 ### Place the order
 
-The base for a payment transaction is always the order. There is no transaction without an order. However, an order can be in an `open` payment state. You can place an order using the Sales Channel API Order endpoint which will return you the order entity once the order is completed.
+The base for a payment transaction is always the order. There is no transaction without an order. However, an order can be in an `open` payment state. You can place an order using the ***order*** endpoint of the Sales Channel API which will return the order entity once the order is completed.
 
 ```
 POST sales-channel-api/v3/checkout/order
 ```
-Respose:
+Response:
 ```json {7,11}
 {
     "data": {
@@ -83,7 +83,7 @@ The order that was created contains the following (and more) fields:
  * `amountTotal`, `orderDateTime`, `orderCustomer` - metadata
  * `stateMachineState` - the current state of the order
 
-Now we see, that the current state of the order is open. So we can initiate the payment.
+Now we see that the current state of the order is open. So we can initiate the payment.
 
 ### Initiate the payment
 
@@ -149,4 +149,4 @@ POST /store-api/v3/order/payment
 }
 ```
 
-Calling this endpoint will cause Shopware to cancel all existing payment transactions an create a single new transaction with the `open` state. Think of it like a "reset payment transactions" endpoint. Now that you've resetted the order payment, you can re-initiate the payment using the flow described [above](#initiate-the-payment)
+Calling this endpoint will cause Shopware to cancel all existing payment transactions and create a single new transaction with the `open` state. Think of it like a "reset payment transactions" endpoint. Now that you've resetted the order payment, you can re-initiate the payment using the flow described [above](#initiate-the-payment)

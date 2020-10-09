@@ -2,19 +2,20 @@ import {
   useThemeAndProjectFiles,
   filterNodeModules,
   getTargetSourcePath,
-  getBaseSourcePath,
+  getThemeSourcePath,
   getProjectSourcePath,
   onThemeFilesChanged,
   onProjectFilesChanged,
 } from "../src/theme";
 import path from "path";
 import fse from "fs-extra";
+import { ShopwarePwaConfigFile } from "../src/interfaces";
 
 jest.mock("fs-extra");
 const mockedFse = fse as jest.Mocked<typeof fse>;
 
 describe("nuxt-module - theme", () => {
-  let TARGET_SOURCE: string, BASE_SOURCE: string, PROJECT_SOURCE: string;
+  let TARGET_SOURCE: string, THEME_SOURCE: string, PROJECT_SOURCE: string;
 
   const moduleObject: any = {
     options: {
@@ -30,6 +31,12 @@ describe("nuxt-module - theme", () => {
     nuxt: jest.fn(),
   };
 
+  const mockedConfig: ShopwarePwaConfigFile = {
+    shopwareAccessToken: "qwe",
+    shopwareEndpoint: "http://localhost:3000/",
+    theme: "mocked-theme",
+  };
+
   beforeEach(() => {
     jest.resetAllMocks();
     moduleObject.options.rootDir = __dirname;
@@ -38,22 +45,18 @@ describe("nuxt-module - theme", () => {
       ".shopware-pwa",
       "source"
     );
-    BASE_SOURCE = path.join(
-      moduleObject.options.rootDir,
-      "node_modules",
-      "@shopware-pwa",
-      "default-theme"
-    );
+    THEME_SOURCE = path.join(moduleObject.options.rootDir, "mocked-theme");
     PROJECT_SOURCE = path.join(moduleObject.options.rootDir, "src");
     mockedFse.copy.mockResolvedValue(null as never);
     mockedFse.emptyDir.mockResolvedValue(null as never);
+    mockedFse.existsSync.mockReturnValue(true as never);
   });
 
   describe("useThemeAndProjectFiles", () => {
     it("should clean target dir before copying files", async () => {
       await useThemeAndProjectFiles({
         TARGET_SOURCE,
-        BASE_SOURCE,
+        THEME_SOURCE,
         PROJECT_SOURCE,
       });
       expect(mockedFse.emptyDir).toBeCalledWith(TARGET_SOURCE);
@@ -62,10 +65,10 @@ describe("nuxt-module - theme", () => {
     it("should copy base theme files to target directory", async () => {
       await useThemeAndProjectFiles({
         TARGET_SOURCE,
-        BASE_SOURCE,
+        THEME_SOURCE,
         PROJECT_SOURCE,
       });
-      expect(mockedFse.copy).toHaveBeenCalledWith(BASE_SOURCE, TARGET_SOURCE, {
+      expect(mockedFse.copy).toHaveBeenCalledWith(THEME_SOURCE, TARGET_SOURCE, {
         dereference: true,
         filter: filterNodeModules,
       });
@@ -74,7 +77,7 @@ describe("nuxt-module - theme", () => {
     it("should copy project files to target directory", async () => {
       await useThemeAndProjectFiles({
         TARGET_SOURCE,
-        BASE_SOURCE,
+        THEME_SOURCE,
         PROJECT_SOURCE,
       });
       expect(mockedFse.copy).toHaveBeenLastCalledWith(
@@ -101,9 +104,22 @@ describe("nuxt-module - theme", () => {
       const path = getTargetSourcePath(moduleObject);
       expect(path).toEqual(TARGET_SOURCE);
     });
-    it("should get correct getBaseSourcePath", () => {
-      const path = getBaseSourcePath(moduleObject);
-      expect(path).toEqual(BASE_SOURCE);
+    it("getThemeSourcePath should return theme path with direct import", () => {
+      const path = getThemeSourcePath(moduleObject, mockedConfig);
+      expect(path).toEqual(THEME_SOURCE);
+    });
+    it("getThemeSourcePath whould return theme path with import from node_modules", () => {
+      mockedFse.existsSync.mockReturnValueOnce(false);
+      const sourcePath = getThemeSourcePath(moduleObject, mockedConfig);
+      expect(sourcePath).toEqual(
+        path.join(moduleObject.options.rootDir, "node_modules", "mocked-theme")
+      );
+    });
+    it("getThemeSourcePath should throw an error if theme not found", () => {
+      mockedFse.existsSync.mockReturnValue(false);
+      expect(() => getThemeSourcePath(moduleObject, mockedConfig)).toThrow(
+        `No theme found for "${THEME_SOURCE}". Please make sure that path is correct or theme is installed from NPM.`
+      );
     });
     it("should get correct getProjectSourcePath", () => {
       const path = getProjectSourcePath(moduleObject);
@@ -116,9 +132,9 @@ describe("nuxt-module - theme", () => {
       mockedFse.pathExists.mockResolvedValueOnce(true as never);
       await onThemeFilesChanged({
         event: "add",
-        filePath: path.join(BASE_SOURCE, "testfile.vue"),
+        filePath: path.join(THEME_SOURCE, "testfile.vue"),
         TARGET_SOURCE,
-        BASE_SOURCE,
+        THEME_SOURCE,
         PROJECT_SOURCE,
       });
       expect(mockedFse.copy).not.toBeCalled();
@@ -129,9 +145,9 @@ describe("nuxt-module - theme", () => {
       mockedFse.pathExists.mockResolvedValueOnce(true as never);
       await onThemeFilesChanged({
         event: "change",
-        filePath: path.join(BASE_SOURCE, "testfile.vue"),
+        filePath: path.join(THEME_SOURCE, "testfile.vue"),
         TARGET_SOURCE,
-        BASE_SOURCE,
+        THEME_SOURCE,
         PROJECT_SOURCE,
       });
       expect(mockedFse.copy).not.toBeCalled();
@@ -142,9 +158,9 @@ describe("nuxt-module - theme", () => {
       mockedFse.pathExists.mockResolvedValueOnce(true as never);
       await onThemeFilesChanged({
         event: "unlink",
-        filePath: path.join(BASE_SOURCE, "testfile.vue"),
+        filePath: path.join(THEME_SOURCE, "testfile.vue"),
         TARGET_SOURCE,
-        BASE_SOURCE,
+        THEME_SOURCE,
         PROJECT_SOURCE,
       });
       expect(mockedFse.copy).not.toBeCalled();
@@ -155,13 +171,13 @@ describe("nuxt-module - theme", () => {
       mockedFse.pathExists.mockResolvedValueOnce(false as never);
       await onThemeFilesChanged({
         event: "add",
-        filePath: path.join(BASE_SOURCE, "testfile.vue"),
+        filePath: path.join(THEME_SOURCE, "testfile.vue"),
         TARGET_SOURCE,
-        BASE_SOURCE,
+        THEME_SOURCE,
         PROJECT_SOURCE,
       });
       expect(mockedFse.copy).toBeCalledWith(
-        path.join(BASE_SOURCE, "testfile.vue"),
+        path.join(THEME_SOURCE, "testfile.vue"),
         path.join(TARGET_SOURCE, "testfile.vue")
       );
       expect(mockedFse.remove).not.toBeCalled();
@@ -171,13 +187,13 @@ describe("nuxt-module - theme", () => {
       mockedFse.pathExists.mockResolvedValueOnce(false as never);
       await onThemeFilesChanged({
         event: "change",
-        filePath: path.join(BASE_SOURCE, "components", "testfile.vue"),
+        filePath: path.join(THEME_SOURCE, "components", "testfile.vue"),
         TARGET_SOURCE,
-        BASE_SOURCE,
+        THEME_SOURCE,
         PROJECT_SOURCE,
       });
       expect(mockedFse.copy).toBeCalledWith(
-        path.join(BASE_SOURCE, "components", "testfile.vue"),
+        path.join(THEME_SOURCE, "components", "testfile.vue"),
         path.join(TARGET_SOURCE, "components", "testfile.vue")
       );
       expect(mockedFse.remove).not.toBeCalled();
@@ -187,9 +203,9 @@ describe("nuxt-module - theme", () => {
       mockedFse.pathExists.mockResolvedValueOnce(false as never);
       await onThemeFilesChanged({
         event: "unlink",
-        filePath: path.join(BASE_SOURCE, "testfile.vue"),
+        filePath: path.join(THEME_SOURCE, "testfile.vue"),
         TARGET_SOURCE,
-        BASE_SOURCE,
+        THEME_SOURCE,
         PROJECT_SOURCE,
       });
       expect(mockedFse.copy).not.toBeCalled();
@@ -205,7 +221,7 @@ describe("nuxt-module - theme", () => {
         event: "add",
         filePath: path.join(PROJECT_SOURCE, "testfile.vue"),
         TARGET_SOURCE,
-        BASE_SOURCE,
+        THEME_SOURCE,
         PROJECT_SOURCE,
       });
       expect(mockedFse.copy).toBeCalledWith(
@@ -219,7 +235,7 @@ describe("nuxt-module - theme", () => {
         event: "change",
         filePath: path.join(PROJECT_SOURCE, "testfile.vue"),
         TARGET_SOURCE,
-        BASE_SOURCE,
+        THEME_SOURCE,
         PROJECT_SOURCE,
       });
       expect(mockedFse.copy).toBeCalledWith(
@@ -234,11 +250,11 @@ describe("nuxt-module - theme", () => {
         event: "unlink",
         filePath: path.join(PROJECT_SOURCE, "testfile.vue"),
         TARGET_SOURCE,
-        BASE_SOURCE,
+        THEME_SOURCE,
         PROJECT_SOURCE,
       });
       expect(mockedFse.copy).toBeCalledWith(
-        path.join(BASE_SOURCE, "testfile.vue"),
+        path.join(THEME_SOURCE, "testfile.vue"),
         path.join(TARGET_SOURCE, "testfile.vue")
       );
       expect(mockedFse.remove).not.toBeCalled();
@@ -249,7 +265,7 @@ describe("nuxt-module - theme", () => {
         event: "unlink",
         filePath: path.join(PROJECT_SOURCE, "testfile.vue"),
         TARGET_SOURCE,
-        BASE_SOURCE,
+        THEME_SOURCE,
         PROJECT_SOURCE,
       });
       expect(mockedFse.copy).not.toBeCalled();

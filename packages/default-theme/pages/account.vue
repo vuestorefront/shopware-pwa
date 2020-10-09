@@ -1,4 +1,4 @@
 <script>
-import Account from "@shopware-pwa/default-theme/pages/_lang/account"
+import Account from "@/pages/_lang/account"
 export default Account
 </script>

@@ -11,10 +11,23 @@ export function invokeRebuild(moduleObject: NuxtModuleOptions) {
   );
 }
 
+// TODO move to commons with shopware-pwa-extension.ts
+const defaultConfig = {
+  shopwareEndpoint: "https://pwa-demo-api.shopware.com",
+  shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
+  theme: "@shopware-pwa/default-theme",
+};
+
 export async function loadConfig(
   moduleObject: NuxtModuleOptions
 ): Promise<ShopwarePwaConfigFile> {
   const explorer = cosmiconfig("shopware-pwa");
   const result = await explorer.search();
-  return result?.config || {};
+  const loadedConfig = result?.config || {};
+  return {
+    // load default config
+    ...defaultConfig,
+    // overwrite by user config
+    ...loadedConfig,
+  };
 }

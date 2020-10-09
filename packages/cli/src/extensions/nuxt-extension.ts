@@ -34,6 +34,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       target: "server",
       devTools: [],
       gitUsername: "",
+      ci: "none",
     };
     if (!isNuxtGenerated) {
       const nuxtGenerate = `npx --ignore-existing create-nuxt-app@3.2.0 --answers "${JSON.stringify(
@@ -109,13 +110,6 @@ module.exports = (toolbox: GluegunToolbox) => {
    * - dynamically get new versions from template
    */
   toolbox.updateNuxtPackageJson = async (stage) => {
-    const nuxtThemePackage = toolbox.filesystem.read(
-      path.join(toolbox.defaultThemeLocation, "package.json"),
-      "json"
-    );
-
-    if (!nuxtThemePackage) throw new Error("Theme package not found!");
-
     await toolbox.patching.update("package.json", (config) => {
       config.scripts.lint = "prettier --write '*.{js,vue}'";
       config.scripts.dev = "shopware-pwa dev";
@@ -171,6 +165,18 @@ module.exports = (toolbox: GluegunToolbox) => {
     host: process.env.HOST || '0.0.0.0'
   },`,
         after: "export default {",
+      });
+    }
+
+    // Add shopware-pwa meta tag
+    const headSectionExist = await toolbox.patching.exists(
+      "nuxt.config.js",
+      `head: {`
+    );
+    if (headSectionExist) {
+      await toolbox.patching.patch("nuxt.config.js", {
+        insert: `\n { hid: 'project-type', name: 'project-type', content: 'shopware-pwa' },`,
+        after: "meta: [",
       });
     }
 
@@ -279,8 +285,8 @@ module.exports = (toolbox: GluegunToolbox) => {
     const dest = destination ? destination : folderName;
     const destinationExist = toolbox.filesystem.existsAsync(dest);
     if (destinationExist) return;
-    await toolbox.filesystem.copyAsync(
-      path.join(toolbox.defaultThemeLocation, folderName),
+    return toolbox.filesystem.copyAsync(
+      path.join(toolbox.getThemePath(), folderName),
       dest,
       { overwrite: true }
     );

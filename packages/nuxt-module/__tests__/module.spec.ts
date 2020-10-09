@@ -21,6 +21,7 @@ const mockedUtils = utils as jest.Mocked<typeof utils>;
 const mockedTheme = theme as jest.Mocked<typeof theme>;
 const mockedFiles = files as jest.Mocked<typeof files>;
 const consoleErrorSpy = jest.spyOn(console, "error");
+const consoleInfoSpy = jest.spyOn(console, "info");
 const mockedChokidar = chokidar as jest.Mocked<typeof chokidar>;
 const mockedFse = fse as jest.Mocked<typeof fse>;
 
@@ -41,7 +42,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     nuxt: { hook: jest.fn() },
     extendBuild: (method: Function): number => methods.push(method),
   };
-  let BASE_SOURCE = path.join("node_modules", "theme");
+  let THEME_SOURCE = path.join("node_modules", "theme-name");
   let PROJECT_SOURCE = "src";
   let TARGET_SOURCE = path.join(".shopware-pwa", "source");
   /**
@@ -57,6 +58,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     mockedUtils.loadConfig.mockResolvedValue({
       shopwareEndpoint: "mockedEndpoint",
       shopwareAccessToken: "mockedToken",
+      theme: "theme-name",
     });
     webpackConfig = {
       resolve: {
@@ -79,7 +81,8 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     };
 
     consoleErrorSpy.mockImplementationOnce(() => {});
-    mockedTheme.getBaseSourcePath.mockReturnValue(BASE_SOURCE);
+    consoleInfoSpy.mockImplementationOnce(() => {});
+    mockedTheme.getThemeSourcePath.mockReturnValue(THEME_SOURCE);
     mockedTheme.getTargetSourcePath.mockReturnValue(TARGET_SOURCE);
     mockedTheme.getProjectSourcePath.mockReturnValue(PROJECT_SOURCE);
     mockedChokidar.watch.mockReturnValue({ on: () => {} });
@@ -94,7 +97,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
   it("should invoke useThemeAndProjectFiles", async () => {
     await runModule(moduleObject, {});
     expect(mockedTheme.useThemeAndProjectFiles).toBeCalledWith({
-      BASE_SOURCE,
+      THEME_SOURCE,
       PROJECT_SOURCE,
       TARGET_SOURCE,
     });
@@ -164,10 +167,19 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     );
   });
 
+  it("should show info which theme is used from config", async () => {
+    mockedUtils.loadConfig.mockResolvedValueOnce({
+      theme: "my-theme-name",
+    } as ShopwarePwaConfigFile);
+    await runModule(moduleObject, {});
+    expect(consoleInfoSpy).toBeCalledWith("Using theme: my-theme-name");
+  });
+
   it("should show console error when shopwareEndpoint contains api endpoint instead of just domain", async () => {
     mockedUtils.loadConfig.mockResolvedValueOnce({
       shopwareEndpoint: "mockedEndpoint/sales-channel-api/v1",
       shopwareAccessToken: "mockedToken",
+      theme: "mocked-theme",
     });
     await runModule(moduleObject, {});
     expect(consoleErrorSpy).toBeCalledWith(
@@ -265,7 +277,11 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
 
   it("should invoke extendCMS", async () => {
     await runModule(moduleObject, {});
-    expect(cms.extendCMS).toBeCalledWith(moduleObject);
+    expect(cms.extendCMS).toBeCalledWith(moduleObject, {
+      shopwareAccessToken: "mockedToken",
+      shopwareEndpoint: "mockedEndpoint",
+      theme: THEME_SOURCE,
+    });
   });
 
   it("should invoke extendLocales", async () => {
@@ -273,6 +289,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     expect(locales.extendLocales).toBeCalledWith(moduleObject, {
       shopwareAccessToken: "mockedToken",
       shopwareEndpoint: "mockedEndpoint",
+      theme: THEME_SOURCE,
     });
   });
 
@@ -315,10 +332,10 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
   it("should start watching files on development mode", async () => {
     moduleObject.options.dev = true;
     await runModule(moduleObject, {});
-    expect(mockedChokidar.watch).toBeCalledWith([BASE_SOURCE], {
+    expect(mockedChokidar.watch).toBeCalledWith([THEME_SOURCE], {
       followSymlinks: true,
       ignoreInitial: true,
-      ignored: path.join(BASE_SOURCE, "node_modules/**/*"),
+      ignored: path.join(THEME_SOURCE, "node_modules/**/*"),
     });
     expect(mockedChokidar.watch).toBeCalledWith(["src"], {
       ignoreInitial: true,
@@ -331,13 +348,13 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     const onMock = jest
       .fn()
       .mockImplementation((name, fn) => invocationList.push(fn));
-    mockedChokidar.watch.mockReturnValueOnce({ on: onMock });
+    mockedChokidar.watch.mockReturnValueOnce({ on: onMock } as any);
     await runModule(moduleObject, {});
     expect(onMock).toBeCalledWith("all", expect.any(Function));
     expect(invocationList.length).toEqual(1);
     invocationList[0]("add", "some/filepath.vue");
     expect(mockedTheme.onThemeFilesChanged).toBeCalledWith({
-      BASE_SOURCE,
+      THEME_SOURCE,
       PROJECT_SOURCE,
       TARGET_SOURCE,
       event: "add",
@@ -353,16 +370,16 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     // first invocation is for onThemeFilesChanged
     mockedChokidar.watch.mockReturnValueOnce({
       on: () => {},
-    });
+    } as any);
     mockedChokidar.watch.mockReturnValueOnce({
       on: onMock,
-    });
+    } as any);
     await runModule(moduleObject, {});
     expect(onMock).toBeCalledWith("all", expect.any(Function));
     expect(invocationList.length).toEqual(1);
     invocationList[0]("add", "some/project/filepath.vue");
     expect(mockedTheme.onProjectFilesChanged).toBeCalledWith({
-      BASE_SOURCE,
+      THEME_SOURCE,
       PROJECT_SOURCE,
       TARGET_SOURCE,
       event: "add",

@@ -48,6 +48,7 @@ export interface ShopwareApiClientConfig {
 export interface ShopwarePwaConfigFile {
   shopwareEndpoint: string;
   shopwareAccessToken: string;
+  theme: string;
   defaultLanguageCode?: string;
   shopwareApiClient?: ShopwareApiClientConfig;
   apiDefaults?: {

@@ -38,7 +38,7 @@ describe("Composables - useCms", () => {
       listingConfiguration: {},
       apiAlias: "pwa_page_result",
     };
-    mockedGetPage.getPage.mockResolvedValueOnce(response);
+    mockedGetPage.getCmsPage.mockResolvedValueOnce(response);
     expect(page.value).toEqual(null);
     await search();
     expect(page.value).toBeTruthy();
@@ -49,7 +49,7 @@ describe("Composables - useCms", () => {
 
   it("should have failed on bad url settings", async () => {
     const { search, page, error } = useCms(rootContextMock);
-    mockedGetPage.getPage.mockRejectedValueOnce({
+    mockedGetPage.getCmsPage.mockRejectedValueOnce({
       message: "Something went wrong...",
     });
     expect(page.value).toEqual(null);
@@ -61,7 +61,7 @@ describe("Composables - useCms", () => {
 
   it("should performs search request with no or empty configuration for SearchCriteria", async () => {
     const { search, page, error } = useCms(rootContextMock);
-    mockedGetPage.getPage.mockRejectedValueOnce({
+    mockedGetPage.getCmsPage.mockRejectedValueOnce({
       message: "Something went wrong...",
     });
     expect(page.value).toEqual(null);
@@ -75,95 +75,84 @@ describe("Composables - useCms", () => {
     describe("search", () => {
       it("should performs search default pagination limit if not provided", async () => {
         const { search, page } = useCms(rootContextMock);
-        mockedGetPage.getPage.mockResolvedValueOnce({} as any);
+        let invocationCriteria: any = null;
+        mockedGetPage.getCmsPage.mockImplementationOnce(
+          async (path: string, searchCriteria, apiInstance): Promise<any> => {
+            invocationCriteria = searchCriteria;
+            return {};
+          }
+        );
         expect(page.value).toEqual(null);
         await search("");
-        expect(mockedGetPage.getPage).toBeCalledWith(
+        expect(mockedGetPage.getCmsPage).toBeCalledWith(
           "",
-          {
-            configuration: {
-              associations: getDefaultApiParams()?.["useCms"]?.associations,
-              includes: getDefaultApiParams()?.["useCms"]?.includes,
-            },
-            pagination: { limit: 10 },
-          },
+          expect.any(Object),
           rootContextMock.$shopwareApiInstance
         );
-      });
-
-      it("should perform search default pagination limit if wrong value", async () => {
-        const { search, page } = useCms(rootContextMock);
-        mockedGetPage.getPage.mockResolvedValueOnce({} as any);
-        expect(page.value).toEqual(null);
-        await search("", { pagination: "null" });
-        expect(mockedGetPage.getPage).toBeCalledWith(
-          "",
-          {
-            configuration: {
-              associations: getDefaultApiParams()?.["useCms"]?.associations,
-              includes: getDefaultApiParams()?.["useCms"]?.includes,
-            },
-            pagination: { limit: 10 },
-          },
-          rootContextMock.$shopwareApiInstance
-        );
+        expect(invocationCriteria?.limit).toEqual(10);
       });
 
       it("should performs search with pagination if provided", async () => {
         const { search, page } = useCms(rootContextMock);
-        mockedGetPage.getPage.mockResolvedValueOnce({} as any);
+        let invocationCriteria: any = null;
+        mockedGetPage.getCmsPage.mockImplementationOnce(
+          async (path: string, searchCriteria, apiInstance): Promise<any> => {
+            invocationCriteria = searchCriteria;
+            return {};
+          }
+        );
         expect(page.value).toEqual(null);
-        await search("", { pagination: { limit: 50 } });
-        expect(mockedGetPage.getPage).toBeCalledWith(
+        await search("", { limit: 50 });
+        expect(mockedGetPage.getCmsPage).toBeCalledWith(
           "",
-          {
-            configuration: {
-              associations: getDefaultApiParams()?.["useCms"]?.associations,
-              includes: getDefaultApiParams()?.["useCms"]?.includes,
-            },
-            pagination: { limit: 50 },
-          },
+          expect.any(Object),
           rootContextMock.$shopwareApiInstance
         );
+        expect(invocationCriteria?.limit).toEqual(50);
       });
 
       it("should provide default includes if not provided, but configuration exist", async () => {
         const { search, page } = useCms(rootContextMock);
-        mockedGetPage.getPage.mockResolvedValueOnce({} as any);
+        let invocationCriteria: any = null;
+        mockedGetPage.getCmsPage.mockImplementationOnce(
+          async (path: string, searchCriteria, apiInstance): Promise<any> => {
+            invocationCriteria = searchCriteria;
+            return {};
+          }
+        );
         expect(page.value).toEqual(null);
         await search("", {
           configuration: {},
         });
-        expect(mockedGetPage.getPage).toBeCalledWith(
+        expect(mockedGetPage.getCmsPage).toBeCalledWith(
           "",
-          {
-            configuration: {
-              associations: getDefaultApiParams()?.["useCms"]?.associations,
-              includes: getDefaultApiParams()?.["useCms"]?.includes,
-            },
-            pagination: { limit: 10 },
-          },
+          expect.any(Object),
           rootContextMock.$shopwareApiInstance
         );
+        expect(invocationCriteria?.includes).not.toBeFalsy();
       });
 
       it("should invoke search with custom includes", async () => {
+        // rootContextMock.$shopwareDefaults = {};
         const { search, page } = useCms(rootContextMock);
-        mockedGetPage.getPage.mockResolvedValueOnce({} as any);
+        let invocationCriteria: any = null;
+        mockedGetPage.getCmsPage.mockImplementationOnce(
+          async (path: string, searchCriteria, apiInstance): Promise<any> => {
+            invocationCriteria = searchCriteria;
+            return {};
+          }
+        );
         expect(page.value).toEqual(null);
         await search("", {
-          configuration: { includes: { product: ["name"] } },
+          includes: { product: ["someCustomField"] },
         });
-        expect(mockedGetPage.getPage).toBeCalledWith(
+        expect(mockedGetPage.getCmsPage).toBeCalledWith(
           "",
-          {
-            configuration: {
-              associations: getDefaultApiParams()?.["useCms"]?.associations,
-              includes: { product: ["name"] },
-            },
-            pagination: { limit: 10 },
-          },
+          expect.any(Object),
           rootContextMock.$shopwareApiInstance
+        );
+        expect(invocationCriteria?.includes?.product).toContain(
+          "someCustomField"
         );
       });
     });
@@ -179,7 +168,7 @@ describe("Composables - useCms", () => {
       listingConfiguration: {},
       apiAlias: "pwa_page_result",
     };
-    mockedGetPage.getPage.mockResolvedValueOnce(response);
+    mockedGetPage.getCmsPage.mockResolvedValueOnce(response);
     expect(categoryId.value).toBeNull();
     await search();
     expect(categoryId.value).toEqual("3f637f17cd9f4891a2d7625d19fb37c9");
@@ -187,7 +176,7 @@ describe("Composables - useCms", () => {
 
   describe("computed", () => {
     describe("getBreadcrumbsObject", () => {
-      it("should contain empty array when there aren't any available countries", async () => {
+      it("should return page breadcrumbs after search", async () => {
         const { getBreadcrumbsObject, search } = useCms(rootContextMock);
         const response: shopwareClient.PageResolverResult<any> = {
           breadcrumb: {
@@ -202,7 +191,7 @@ describe("Composables - useCms", () => {
           listingConfiguration: {},
           apiAlias: "pwa_page_result",
         };
-        mockedGetPage.getPage.mockResolvedValueOnce(response);
+        mockedGetPage.getCmsPage.mockResolvedValueOnce(response);
         expect(getBreadcrumbsObject.value).toEqual([]);
         await search();
         expect(getBreadcrumbsObject.value).toEqual({
