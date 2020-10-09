@@ -26,8 +26,8 @@ const TYPE_PRODUCT = "product";
  */
 export interface IUseCart {
   addProduct: ({ id, quantity }: { id: string; quantity?: number }) => void;
-  addPromotionCode: (promoCode: string) => void;
-  appliedPromotionCodes: Readonly<Ref<Readonly<LineItem[]>>>;
+  addPromotionCode: (promoCode: string) => Promise<void>;
+  appliedPromotionCodes: ComputedRef<LineItem[]>;
   cart: Readonly<Ref<Readonly<Cart>>>;
   cartItems: Readonly<Ref<Readonly<LineItem[]>>>;
   changeProductQuantity: ({
