@@ -42,7 +42,6 @@ export interface WebpackContext {
 
 export interface ShopwareApiClientConfig {
   timeout?: number;
-  paginationLimit?: number;
 }
 
 export interface ShopwarePwaConfigFile {

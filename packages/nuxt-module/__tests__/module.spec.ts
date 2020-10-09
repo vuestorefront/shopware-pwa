@@ -116,7 +116,6 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
       options: {
         shopwareAccessToken: "mockedToken",
         shopwareEndpoint: "mockedEndpoint",
-        shopwareApiClient: {},
       },
       src: pathForApiClientPlugin,
     });
@@ -192,9 +191,9 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
       shopwareEndpoint:
         "https://shopware-pwa.storefrontcloud.io/sales-channel-api/v1",
       shopwareAccessToken: "mockedToken",
+      theme: "@shopware-pwa/default-theme",
       shopwareApiClient: {
         timeout: 5,
-        paginationLimit: 30,
       },
     });
     const pathForApiClientPlugin = path.join(
@@ -212,7 +211,6 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
           "https://shopware-pwa.storefrontcloud.io/sales-channel-api/v1",
         shopwareApiClient: {
           timeout: 5,
-          paginationLimit: 30,
         },
       },
       src: pathForApiClientPlugin,

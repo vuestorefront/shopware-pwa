@@ -15,7 +15,6 @@ export default async ({ app }, inject) => {
     endpoint: "<%= options.shopwareEndpoint %>",
     accessToken: "<%= options.shopwareAccessToken %>",
     timeout: "<%= options.shopwareApiClient.timeout %>",
-    defaultPaginationLimit: "<%= options.shopwareApiClient.paginationLimit %>",
     contextToken,
     languageId,
   });

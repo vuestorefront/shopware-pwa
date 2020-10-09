@@ -54,7 +54,6 @@ module.exports = {
   shopwareAccessToken: "SWSCVJJET0RQAXFNBMTDZTV1OQ",
   shopwareApiClient: { // optional, allow to override the default settings
     timeout: 5000, // timeout limit in ms
-    paginationLimit: 15 // items per page
   }
 };
 ```
