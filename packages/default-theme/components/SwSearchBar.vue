@@ -73,7 +73,7 @@ export default {
     },
     typingQuery(value) {
       if (!this.isMobile) {
-        performSuggestSearch(typingQuery.value)
+        this.performSuggestSearch(value)
       }
     },
   },
