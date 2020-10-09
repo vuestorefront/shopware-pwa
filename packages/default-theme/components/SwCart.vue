@@ -85,9 +85,9 @@ import {
   SfImage,
 } from "@storefront-ui/vue"
 import { useCart, useUIState } from "@shopware-pwa/composables"
-import SwCartProduct from "@shopware-pwa/default-theme/components/SwCartProduct"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
-import { PAGE_CHECKOUT } from "@shopware-pwa/default-theme/helpers/pages"
+import SwCartProduct from "@/components/SwCartProduct"
+import SwButton from "@/components/atoms/SwButton"
+import { PAGE_CHECKOUT } from "@/helpers/pages"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import { computed, onMounted, ref } from "@vue/composition-api"
 

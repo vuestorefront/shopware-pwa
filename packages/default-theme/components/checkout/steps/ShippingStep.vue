@@ -1,14 +1,14 @@
 <template>
   <div>
     <SfHeading
-      title="2. Shipping"
+      :title="$t('2. Shipping')"
       :level="2"
       class="sf-heading--left sf-heading--no-underline title"
     />
     <ShippingAddressGuestForm v-if="isGuestOrder" />
     <ShippingAddressUserForm v-else />
     <SfHeading
-      title="Shipping methods"
+      :title="$t('Shipping methods')"
       :level="3"
       class="sf-heading--left sf-heading--no-underline title"
     />
@@ -24,7 +24,7 @@
           :description="shippingMethod.deliveryTime.translated.name"
           class="sw-form__radio shipping"
         >
-          <template #label="{label}">
+          <template #label="{ label }">
             <div class="sf-radio__label shipping__label">
               <div>{{ label }}</div>
               <div class="shipping__label-price">
@@ -32,7 +32,7 @@
               </div>
             </div>
           </template>
-          <template #description="{description}">
+          <template #description="{ description }">
             <div class="sf-radio__description shipping__description">
               <div class="shipping__delivery">
                 <p>{{ description }}</p>
@@ -56,19 +56,22 @@
         <SwButton
           class="form__action-button color-secondary desktop-only"
           @click="$emit('retreat')"
-          >Go Back to Personal details</SwButton
         >
+          {{ $t("Go back to Personal details") }}
+        </SwButton>
         <SwButton
           class="sf-button--full-width form__action-button sw-form__button"
           data-cy="continue-to-payment"
           @click="$emit('proceed')"
-          >Continue to payment</SwButton
         >
+          {{ $t("Continue to payment") }}
+        </SwButton>
         <SwButton
           class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only sw-form__button"
           @click="$emit('retreat')"
-          >Go back to Personal details</SwButton
         >
+          {{ $t("Go back to Personal details") }}
+        </SwButton>
       </div>
     </div>
   </div>
@@ -76,14 +79,14 @@
 <script>
 import { SfHeading, SfRadio } from "@storefront-ui/vue"
 import { computed, onMounted } from "@vue/composition-api"
-import ShippingAddressGuestForm from "@shopware-pwa/default-theme/components/checkout/steps/guest/ShippingAddressGuestForm"
-import ShippingAddressUserForm from "@shopware-pwa/default-theme/components/checkout/steps/user/ShippingAddressUserForm"
+import ShippingAddressGuestForm from "@/components/checkout/steps/guest/ShippingAddressGuestForm"
+import ShippingAddressUserForm from "@/components/checkout/steps/user/ShippingAddressUserForm"
 import {
   useCheckout,
   useSessionContext,
   useCart,
 } from "@shopware-pwa/composables"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {

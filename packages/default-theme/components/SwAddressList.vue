@@ -15,7 +15,7 @@
 </template>
 <script>
 import { useUser } from "@shopware-pwa/composables"
-import Address from "@shopware-pwa/default-theme/components/account/MyAddresses/Address.vue"
+import Address from "@/components/account/MyAddresses/Address.vue"
 
 export default {
   name: "MyAddresses",

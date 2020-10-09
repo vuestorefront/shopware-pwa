@@ -1,19 +1,19 @@
 <template>
-  <SwAddress :address="billingAddress" address-title="Billing address">
+  <SwAddress :address="billingAddress" :address-title="$t('Billing address')">
     <template #after-content>
       <SwButton
         class="sf-button--text review__edit"
         @click="$emit('click:edit', 2)"
       >
-        Edit
+        {{ $t("Edit") }}
       </SwButton>
     </template>
   </SwAddress>
 </template>
 <script>
 import { useCheckout } from "@shopware-pwa/composables"
-import SwAddress from "@shopware-pwa/default-theme/components/SwAddress"
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwAddress from "@/components/SwAddress"
+import SwButton from "@/components/atoms/SwButton"
 
 export default {
   name: "BillingAddressSummary",

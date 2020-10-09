@@ -1,20 +1,20 @@
 <template>
-  <SwCheckoutMethod :method="paymentMethod" label="Payment method">
+  <SwCheckoutMethod :method="paymentMethod" :label="$t('Payment method')">
     <template #after-content>
       <SwButton
         class="sf-button--text review__edit"
         @click="$emit('click:edit', 2)"
       >
-        Edit
+        {{ $t("Edit") }}
       </SwButton>
     </template>
   </SwCheckoutMethod>
 </template>
 <script>
-import SwButton from "@shopware-pwa/default-theme/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton"
 import { useSessionContext } from "@shopware-pwa/composables"
 import { computed } from "@vue/composition-api"
-import SwCheckoutMethod from "@shopware-pwa/default-theme/components/SwCheckoutMethod"
+import SwCheckoutMethod from "@/components/SwCheckoutMethod"
 export default {
   name: "PaymentMethodSummary",
   components: {

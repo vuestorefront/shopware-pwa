@@ -1,7 +1,7 @@
 <template>
   <div>
     <SfHeading
-      title="4. Order details"
+      :title="$t('4. Order details')"
       :level="2"
       class="sf-heading--left sf-heading--no-underline title"
     />
@@ -9,16 +9,16 @@
       <SfAccordionItem header="Personal Details">
         <PersonalDetailsSummary @click:edit="$emit('click:edit', 0)" />
       </SfAccordionItem>
-      <SfAccordionItem header="Shipping address">
+      <SfAccordionItem :header="$t('Shipping address')">
         <ShippingAddressSummary @click:edit="$emit('click:edit', 1)" />
       </SfAccordionItem>
-      <SfAccordionItem header="Billing address">
+      <SfAccordionItem :header="$t('Billing address')">
         <BillingAddressSummary @click:edit="$emit('click:edit', 2)" />
       </SfAccordionItem>
-      <SfAccordionItem header="Payment method">
+      <SfAccordionItem :header="$t('Payment method')">
         <PaymentMethodSummary @click:edit="$emit('click:edit', 2)" />
       </SfAccordionItem>
-      <SfAccordionItem header="Order details">
+      <SfAccordionItem :header="$t('Order details')">
         <transition name="fade">
           <div class="collected-product-list">
             <SwCartProduct
@@ -40,13 +40,13 @@
 </template>
 
 <script>
-import PersonalDetailsSummary from "@shopware-pwa/default-theme/components/checkout/summary/PersonalDetailsSummary"
-import ShippingAddressSummary from "@shopware-pwa/default-theme/components/checkout/summary/ShippingAddressSummary"
-import BillingAddressSummary from "@shopware-pwa/default-theme/components/checkout/summary/BillingAddressSummary"
-import PaymentMethodSummary from "@shopware-pwa/default-theme/components/checkout/summary/PaymentMethodSummary"
-import OrderItemsTable from "@shopware-pwa/default-theme/components/checkout/summary/OrderItemsTable"
-import TotalsSummary from "@shopware-pwa/default-theme/components/checkout/summary/TotalsSummary"
-import SwCartProduct from "@shopware-pwa/default-theme/components/SwCartProduct"
+import PersonalDetailsSummary from "@/components/checkout/summary/PersonalDetailsSummary"
+import ShippingAddressSummary from "@/components/checkout/summary/ShippingAddressSummary"
+import BillingAddressSummary from "@/components/checkout/summary/BillingAddressSummary"
+import PaymentMethodSummary from "@/components/checkout/summary/PaymentMethodSummary"
+import OrderItemsTable from "@/components/checkout/summary/OrderItemsTable"
+import TotalsSummary from "@/components/checkout/summary/TotalsSummary"
+import SwCartProduct from "@/components/SwCartProduct"
 
 import { SfHeading, SfAccordion } from "@storefront-ui/vue"
 import { useCart } from "@shopware-pwa/composables"

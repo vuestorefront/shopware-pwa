@@ -8,10 +8,8 @@ import { useCms, useNotifications } from "@shopware-pwa/composables"
 import languagesMap from "sw-plugins/languages"
 
 const pagesMap = {
-  "frontend.navigation.page": () =>
-    import("@shopware-pwa/default-theme/components/views/CategoryView"),
-  "frontend.detail.page": () =>
-    import("@shopware-pwa/default-theme/components/views/ProductView"),
+  "frontend.navigation.page": () => import("@/components/views/CategoryView"),
+  "frontend.detail.page": () => import("@/components/views/ProductView"),
 }
 
 export function getComponentBy(resourceType) {
