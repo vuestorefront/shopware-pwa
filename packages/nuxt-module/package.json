@@ -32,7 +32,6 @@
     "he": "^1.2.0",
     "lodash": "^4.17.20",
     "path": "^0.12.7",
-    "snyk": "^1.410.2",
     "vue": "^2.6.12",
     "vue-loader": "^15.9.3",
     "vue-meta": "^2.4.0",
@@ -49,9 +48,5 @@
     "formats": [
       "cjs"
     ]
-  },
-  "scripts": {
-    "snyk-protect": "snyk protect"
-  },
-  "snyk": true
+  }
 }
