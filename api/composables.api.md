@@ -143,6 +143,7 @@ export function getDefaultApiParams(): {
 // @beta
 export const INTERCEPTOR_KEYS: {
     ADD_TO_CART: string;
+    ADD_PROMOTION_CODE: string;
     ERROR: string;
     USER_LOGOUT: string;
 };
@@ -169,9 +170,9 @@ export interface IUseCart {
         quantity?: number;
     }) => void;
     // (undocumented)
-    addPromotionCode: (promoCode: string) => void;
+    addPromotionCode: (promoCode: string) => Promise<void>;
     // (undocumented)
-    appliedPromotionCodes: Readonly<Ref<Readonly<LineItem[]>>>;
+    appliedPromotionCodes: ComputedRef<LineItem[]>;
     // (undocumented)
     cart: Readonly<Ref<Readonly<Cart>>>;
     // (undocumented)
@@ -192,7 +193,7 @@ export interface IUseCart {
     // (undocumented)
     removeProduct: ({ id }: Partial<Product>) => void;
     // (undocumented)
-    removePromotionCode: (lineItem: Product) => void;
+    removePromotionCode: ({ id }: Partial<Product>) => Promise<void>;
     // (undocumented)
     subtotal: Readonly<Ref<Readonly<number>>>;
     // (undocumented)

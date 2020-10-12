@@ -1,4 +1,4 @@
-import { ref, Ref, computed } from "@vue/composition-api";
+import { ref, Ref, computed, ComputedRef } from "@vue/composition-api";
 import {
   getCart,
   addProductToCart,
@@ -7,17 +7,16 @@ import {
   changeCartItemQuantity,
 } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
+import { CartItemType } from "@shopware-pwa/commons/interfaces/cart/CartItemType";
 import { Cart } from "@shopware-pwa/commons/interfaces/models/checkout/cart/Cart";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
 import {
   getApplicationContext,
-  useNotifications,
+  INTERCEPTOR_KEYS,
+  useIntercept,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../../appContext";
-
-const TYPE_PROMOTION = "promotion";
-const TYPE_PRODUCT = "product";
 
 /**
  * interface for {@link useCart} composable
@@ -57,11 +56,10 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     rootContext,
     "useCart"
   );
+  const { broadcast } = useIntercept(rootContext);
 
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
-
-  const { pushSuccess, pushError } = useNotifications(rootContext);
 
   async function refreshCart(): Promise<void> {
     loading.value = true;
@@ -101,19 +99,10 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     try {
       const result = await addPromotionCode(promoCode, apiInstance);
       vuexStore.commit("SET_CART", result);
-
-      // It's strange that success also ends up as an error in the API response
-      const err = <any>Object.values(result.errors)[0];
-      switch (err.messageKey) {
-        case "promotion-discount-added":
-          pushSuccess(rootContext.$t("Promotion code added successfully"));
-          break;
-        case "promotion-not-found":
-          pushError(rootContext.$t("Promotion code does not exist"));
-          break;
-        default:
-          pushError(err.message.toString());
-      }
+      broadcast(INTERCEPTOR_KEYS.ADD_PROMOTION_CODE, {
+        result,
+        promoCode,
+      });
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
@@ -126,7 +115,7 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
 
   const appliedPromotionCodes = computed(() => {
     return cartItems.value.filter(
-      (cartItem) => cartItem.type === TYPE_PROMOTION
+      (cartItem) => cartItem.type === CartItemType.PROMOTION
     );
   });
 
@@ -141,7 +130,7 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
   const count = computed(() => {
     return cartItems.value.reduce(
       (accumulator: number, lineItem: LineItem) =>
-        lineItem.type === TYPE_PRODUCT
+        lineItem.type === CartItemType.PRODUCT
           ? lineItem.quantity + accumulator
           : accumulator,
       0
