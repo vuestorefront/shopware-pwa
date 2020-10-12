@@ -97,10 +97,8 @@ export default {
 
     return {
       availableLanguages,
-      currentLocale,
       changeLocale,
       availableCurrencies,
-      loadAvailableCurrencies,
       setCurrency,
     }
   },
