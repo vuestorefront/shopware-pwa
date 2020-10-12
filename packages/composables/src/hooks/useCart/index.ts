@@ -2,12 +2,11 @@ import { ref, Ref, computed, ComputedRef } from "@vue/composition-api";
 import {
   getCart,
   addProductToCart,
-  addPromotionCode,
+  addPromotionCode as apiAddPromotionCode,
   removeCartItem,
   changeCartItemQuantity,
 } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { CartItemType } from "@shopware-pwa/commons/interfaces/cart/CartItemType";
 import { Cart } from "@shopware-pwa/commons/interfaces/models/checkout/cart/Cart";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
@@ -17,6 +16,7 @@ import {
   useIntercept,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../../appContext";
+import { deprecationWarning } from "@shopware-pwa/commons";
 
 /**
  * interface for {@link useCart} composable
@@ -24,11 +24,17 @@ import { ApplicationVueContext } from "../../appContext";
  * @beta
  */
 export interface IUseCart {
-  addProduct: ({ id, quantity }: { id: string; quantity?: number }) => void;
-  addPromotionCode: (promoCode: string) => Promise<void>;
+  addProduct: ({
+    id,
+    quantity,
+  }: {
+    id: string;
+    quantity?: number;
+  }) => Promise<void>;
+  addPromotionCode: (promotionCode: string) => Promise<void>;
   appliedPromotionCodes: ComputedRef<LineItem[]>;
-  cart: Readonly<Ref<Readonly<Cart>>>;
-  cartItems: Readonly<Ref<Readonly<LineItem[]>>>;
+  cart: ComputedRef<Cart>;
+  cartItems: ComputedRef<LineItem[]>;
   changeProductQuantity: ({
     id,
     quantity,
@@ -36,14 +42,17 @@ export interface IUseCart {
     id: string;
     quantity: number;
   }) => void;
-  count: Readonly<Ref<Readonly<number>>>;
-  error: Readonly<Ref<Readonly<string>>>;
-  loading: Readonly<Ref<Readonly<boolean>>>;
+  count: ComputedRef<number>;
+  error: ComputedRef<string>;
+  loading: ComputedRef<boolean>;
   refreshCart: () => void;
+  removeItem: ({ id }: LineItem) => Promise<void>;
+  /**
+   * @deprecated use removeItem method instead
+   */
   removeProduct: ({ id }: Partial<Product>) => void;
-  removePromotionCode: ({ id }: Partial<Product>) => Promise<void>;
-  totalPrice: Readonly<Ref<Readonly<number>>>;
-  subtotal: Readonly<Ref<Readonly<number>>>;
+  totalPrice: ComputedRef<number>;
+  subtotal: ComputedRef<number>;
 }
 
 /**
@@ -85,9 +94,19 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     vuexStore.commit("SET_CART", result);
   }
 
-  async function removeProduct({ id }: Product) {
+  async function removeItem({ id }: LineItem) {
     const result = await removeCartItem(id, apiInstance);
     vuexStore.commit("SET_CART", result);
+  }
+
+  // TODO: remove in 1.0
+  async function removeProduct({ id }: Product) {
+    deprecationWarning({
+      methodName: "useCart",
+      newMethodName: "removeProduct",
+      packageName: "composables",
+    });
+    return removeItem({ id } as LineItem);
   }
 
   async function changeProductQuantity({ id, quantity }: any) {
@@ -95,13 +114,13 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     vuexStore.commit("SET_CART", result);
   }
 
-  async function submitPromotionCode(promoCode: string) {
+  async function addPromotionCode(promotionCode: string) {
     try {
-      const result = await addPromotionCode(promoCode, apiInstance);
+      const result = await apiAddPromotionCode(promotionCode, apiInstance);
       vuexStore.commit("SET_CART", result);
       broadcast(INTERCEPTOR_KEYS.ADD_PROMOTION_CODE, {
         result,
-        promoCode,
+        promotionCode,
       });
     } catch (e) {
       const err: ClientApiError = e;
@@ -109,17 +128,13 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     }
   }
 
-  async function removePromotionCode(lineItem: Product) {
-    await removeProduct(lineItem);
-  }
-
   const appliedPromotionCodes = computed(() => {
     return cartItems.value.filter(
-      (cartItem) => cartItem.type === CartItemType.PROMOTION
+      (cartItem: LineItem) => cartItem.type === "promotion"
     );
   });
 
-  const cart: Readonly<Ref<Readonly<Cart>>> = computed(() => {
+  const cart: ComputedRef<Cart> = computed(() => {
     return vuexStore.getters.getCart;
   });
 
@@ -130,7 +145,7 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
   const count = computed(() => {
     return cartItems.value.reduce(
       (accumulator: number, lineItem: LineItem) =>
-        lineItem.type === CartItemType.PRODUCT
+        lineItem.type === "product"
           ? lineItem.quantity + accumulator
           : accumulator,
       0
@@ -150,7 +165,7 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
 
   return {
     addProduct,
-    addPromotionCode: submitPromotionCode,
+    addPromotionCode,
     appliedPromotionCodes,
     cart,
     cartItems,
@@ -160,7 +175,7 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     loading,
     refreshCart,
     removeProduct,
-    removePromotionCode,
+    removeItem,
     totalPrice,
     subtotal,
   };

@@ -42,11 +42,9 @@ import { computed } from "@vue/composition-api"
 export default {
   name: "SwPromoCode",
   setup(props, { root }) {
-    const {
-      appliedPromotionCodes,
-      addPromotionCode,
-      removePromotionCode,
-    } = useCart(root)
+    const { appliedPromotionCodes, addPromotionCode, removeItem } = useCart(
+      root
+    )
 
     const showPromotionCodes = computed(
       () => appliedPromotionCodes.value.length > 0
@@ -55,7 +53,7 @@ export default {
     return {
       appliedPromotionCodes,
       addPromotionCode,
-      removePromotionCode,
+      removePromotionCode: removeItem,
       showPromotionCodes,
     }
   },
