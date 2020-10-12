@@ -25,7 +25,7 @@
           v-for="appliedPromotionCode in appliedPromotionCodes"
           :key="appliedPromotionCode.id"
           :code="appliedPromotionCode"
-          :remove-promotion-code="removePromotionCode"
+          @remove="removeItem(appliedPromotionCode)"
         />
       </ul>
     </div>
@@ -53,7 +53,7 @@ export default {
     return {
       appliedPromotionCodes,
       addPromotionCode,
-      removePromotionCode: removeItem,
+      removeItem,
       showPromotionCodes,
     }
   },

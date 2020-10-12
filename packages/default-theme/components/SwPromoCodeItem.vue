@@ -4,7 +4,7 @@
     <SfCircleIcon
       class="promo-code-item__remove"
       icon="cross"
-      @click="removePromotionCode(code)"
+      @click="$emit('remove', code)"
     />
   </li>
 </template>
@@ -20,9 +20,6 @@ export default {
   props: {
     code: {
       type: Object,
-    },
-    removePromotionCode: {
-      type: Function,
     },
   },
 }
