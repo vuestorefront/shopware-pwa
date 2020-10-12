@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-addPromotionCode: (promoCode: string) => Promise<void>;
+addPromotionCode: (promotionCode: string) => Promise<void>;
 ```

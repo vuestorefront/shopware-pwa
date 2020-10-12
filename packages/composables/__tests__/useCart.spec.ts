@@ -7,6 +7,7 @@ import VueCompositionApi, {
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
+import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
 import { useCart } from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 
@@ -251,11 +252,9 @@ describe("Composables - useCart", () => {
       });
     });
 
-    describe("removePromotionCode", () => {
+    describe("removeItem", () => {
       it("should remove promotion code from cart", async () => {
-        const { appliedPromotionCodes, removePromotionCode } = useCart(
-          rootContextMock
-        );
+        const { appliedPromotionCodes, removeItem } = useCart(rootContextMock);
         stateCart.value = {
           lineItems: [{ quantity: 1, type: "promotion" }],
         };
@@ -263,7 +262,7 @@ describe("Composables - useCart", () => {
         mockedShopwareClient.removeCartItem.mockResolvedValueOnce({
           lineItems: [],
         } as any);
-        await removePromotionCode({ id: "qwe" });
+        await removeItem({ id: "qwe" } as LineItem);
         expect(appliedPromotionCodes.value.length).toEqual(0);
       });
 

@@ -2,7 +2,7 @@ import { ref, Ref, computed, ComputedRef } from "@vue/composition-api";
 import {
   getCart,
   addProductToCart,
-  addPromotionCode as apiAddPromotionCode,
+  addPromotionCode,
   removeCartItem,
   changeCartItemQuantity,
 } from "@shopware-pwa/shopware-6-client";
@@ -114,18 +114,13 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     vuexStore.commit("SET_CART", result);
   }
 
-  async function addPromotionCode(promotionCode: string) {
-    try {
-      const result = await apiAddPromotionCode(promotionCode, apiInstance);
-      vuexStore.commit("SET_CART", result);
-      broadcast(INTERCEPTOR_KEYS.ADD_PROMOTION_CODE, {
-        result,
-        promotionCode,
-      });
-    } catch (e) {
-      const err: ClientApiError = e;
-      error.value = err.message;
-    }
+  async function sumbitPromotionCode(promotionCode: string) {
+    const result = await addPromotionCode(promotionCode, apiInstance);
+    vuexStore.commit("SET_CART", result);
+    broadcast(INTERCEPTOR_KEYS.ADD_PROMOTION_CODE, {
+      result,
+      promotionCode,
+    });
   }
 
   const appliedPromotionCodes = computed(() => {
@@ -165,7 +160,7 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
 
   return {
     addProduct,
-    addPromotionCode,
+    addPromotionCode: sumbitPromotionCode,
     appliedPromotionCodes,
     cart,
     cartItems,

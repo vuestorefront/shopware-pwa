@@ -165,39 +165,39 @@ export interface IUseAddToCart {
 // @beta
 export interface IUseCart {
     // (undocumented)
-    addProduct: ({ id, quantity }: {
+    addProduct: ({ id, quantity, }: {
         id: string;
         quantity?: number;
-    }) => void;
+    }) => Promise<void>;
     // (undocumented)
-    addPromotionCode: (promoCode: string) => Promise<void>;
+    addPromotionCode: (promotionCode: string) => Promise<void>;
     // (undocumented)
     appliedPromotionCodes: ComputedRef<LineItem[]>;
     // (undocumented)
-    cart: Readonly<Ref<Readonly<Cart>>>;
+    cart: ComputedRef<Cart>;
     // (undocumented)
-    cartItems: Readonly<Ref<Readonly<LineItem[]>>>;
+    cartItems: ComputedRef<LineItem[]>;
     // (undocumented)
     changeProductQuantity: ({ id, quantity, }: {
         id: string;
         quantity: number;
     }) => void;
     // (undocumented)
-    count: Readonly<Ref<Readonly<number>>>;
+    count: ComputedRef<number>;
     // (undocumented)
-    error: Readonly<Ref<Readonly<string>>>;
+    error: ComputedRef<string>;
     // (undocumented)
-    loading: Readonly<Ref<Readonly<boolean>>>;
+    loading: ComputedRef<boolean>;
     // (undocumented)
     refreshCart: () => void;
     // (undocumented)
+    removeItem: ({ id }: LineItem) => Promise<void>;
+    // @deprecated (undocumented)
     removeProduct: ({ id }: Partial<Product>) => void;
     // (undocumented)
-    removePromotionCode: ({ id }: Partial<Product>) => Promise<void>;
+    subtotal: ComputedRef<number>;
     // (undocumented)
-    subtotal: Readonly<Ref<Readonly<number>>>;
-    // (undocumented)
-    totalPrice: Readonly<Ref<Readonly<number>>>;
+    totalPrice: ComputedRef<number>;
 }
 
 // @beta
