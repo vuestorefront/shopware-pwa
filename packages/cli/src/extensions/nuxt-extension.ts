@@ -34,13 +34,21 @@ module.exports = (toolbox: GluegunToolbox) => {
       target: "server",
       devTools: [],
       gitUsername: "",
+      ci: "none",
     };
     if (!isNuxtGenerated) {
-      const nuxtGenerate = `npx --ignore-existing create-nuxt-app@3.2.0 --answers "${JSON.stringify(
+      const nuxtGenerate = `npx --ignore-existing create-nuxt-app --answers "${JSON.stringify(
         nuxtAnswers
       ).replace(/"/g, '\\"')}"`;
-      await run(nuxtGenerate);
+      const nuxtGenerateResponse = await run(nuxtGenerate);
       await toolbox.removeDefaultNuxtFiles();
+      if (!exists("nuxt.config.js")) {
+        spinner.fail(
+          "There is a problem with generating Nuxt project template: " +
+            nuxtGenerateResponse
+        );
+        process.exit(1);
+      }
       spinner.succeed();
       return true;
     } else {
@@ -117,22 +125,25 @@ module.exports = (toolbox: GluegunToolbox) => {
     if (!nuxtThemePackage) throw new Error("Theme package not found!");
 
     await toolbox.patching.update("package.json", (config) => {
+      config.scripts = config.scripts || {};
       config.scripts.lint = "prettier --write '*.{js,vue}'";
       config.scripts.dev = "shopware-pwa dev";
       config.scripts.build = "shopware-pwa build";
 
       // update versions to canary
       if (stage === STAGES.CANARY) {
-        Object.keys(config.dependencies).forEach((dependencyName) => {
-          if (dependencyName.includes("@shopware-pwa")) {
-            config.dependencies[dependencyName] = "canary";
-          }
-        });
-        Object.keys(config.devDependencies).forEach((dependencyName) => {
-          if (dependencyName.includes("@shopware-pwa")) {
-            config.devDependencies[dependencyName] = "canary";
-          }
-        });
+        config.dependencies &&
+          Object.keys(config.dependencies).forEach((dependencyName) => {
+            if (dependencyName.includes("@shopware-pwa")) {
+              config.dependencies[dependencyName] = "canary";
+            }
+          });
+        config.dependencies &&
+          Object.keys(config.devDependencies).forEach((dependencyName) => {
+            if (dependencyName.includes("@shopware-pwa")) {
+              config.devDependencies[dependencyName] = "canary";
+            }
+          });
       }
 
       delete config.engines;
