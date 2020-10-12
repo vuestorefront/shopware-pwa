@@ -62,7 +62,7 @@
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
-        :label="$t('Currency')"
+        :label="$t('More')"
         class="menu-button"
         data-cy="bottom-navigation-more"
         @click.self="toggleMoreActions"
