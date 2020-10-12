@@ -1,28 +1,28 @@
 <template>
   <div id="order-summary">
     <SfHeading
-      title="Totals"
+      :title="$t('Totals')"
       :level="3"
       class="sf-heading--left sf-heading--no-underline title"
     />
     <SfProperty
-      name="Products"
+      :name="$t('Products')"
       :value="count"
       class="sf-property--full-width sf-property--large property"
     />
     <SfProperty
-      name="Subtotal"
+      :name="$t('Subtotal')"
       :value="subtotal | price"
       class="sf-property--full-width sf-property--large property"
     />
     <SfProperty
-      name="Shipping"
+      :name="$t('Shipping')"
       :value="shippingMethod.price | price"
       class="sf-property--full-width sf-property--large property"
     />
     <SfDivider class="divider" />
     <SfProperty
-      name="Total"
+      :name="$t('Total')"
       :value="totalPrice | price"
       class="sf-property--full-width sf-property--large property"
     />
@@ -30,7 +30,7 @@
       <SwInput
         v-model="promoCode"
         name="promoCode"
-        label="Enter promo code"
+        :label="$t('Enter promo code')"
         class="sf-input--filled promo-code__input"
       />
       <SfCircleIcon class="promo-code__circle-icon" icon="check" />
@@ -88,19 +88,22 @@ export default {
       showPromoCode: false,
       characteristics: [
         {
-          title: "Safety",
-          description: "It carefully packaged with a personal touch",
+          title: this.$t("Safety"),
+          description: this.$t("It carefully packaged with a personal touch"),
           icon: "safety",
         },
         {
-          title: "Easy shipping",
-          description:
-            "You’ll receive dispatch confirmation and an arrival date",
+          title: this.$t("Easy shipping"),
+          description: this.$t(
+            "You'll receive dispatch confirmation and an arrival date"
+          ),
           icon: "shipping",
         },
         {
-          title: "Changed your mind?",
-          description: "Rest assured, we offer free returns within 30 days",
+          title: this.$t("Changed your mind?"),
+          description: this.$t(
+            "Rest assured, we offer free returns within 30 days"
+          ),
           icon: "return",
         },
       ],

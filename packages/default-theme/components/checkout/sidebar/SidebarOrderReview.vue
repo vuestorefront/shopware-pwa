@@ -1,7 +1,7 @@
 <template>
   <div class="review">
     <SfHeading
-      title="Order review"
+      :title="$t('Order review')"
       :level="3"
       class="sf-heading--left sf-heading--no-underline title"
     />
@@ -28,7 +28,7 @@
       <SwInput
         v-model="promoCode"
         name="promoCode"
-        label="Enter promo code"
+        :label="$t('Enter promo code')"
         class="sf-input--filled promo-code__input"
       />
       <SfCircleIcon class="promo-code__circle-icon" icon="check" />
@@ -70,19 +70,22 @@ export default {
       promoCode: "",
       characteristics: [
         {
-          title: "Safety",
-          description: "It carefully packaged with a personal touch",
+          title: this.$t("Safety"),
+          description: this.$t("It carefully packaged with a personal touch"),
           icon: "safety",
         },
         {
-          title: "Easy shipping",
-          description:
-            "You’ll receive dispatch confirmation and an arrival date",
+          title: this.$t("Easy shipping"),
+          description: this.$t(
+            "You'll receive dispatch confirmation and an arrival date"
+          ),
           icon: "shipping",
         },
         {
-          title: "Changed your mind?",
-          description: "Rest assured, we offer free returns within 30 days",
+          title: this.$t("Changed your mind?"),
+          description: this.$t(
+            "Rest assured, we offer free returns within 30 days"
+          ),
           icon: "return",
         },
       ],

@@ -3,7 +3,7 @@
     <SfHeading
       class="sw-order-details__header full-width"
       :level="3"
-      :title="`Order #${order.orderNumber}`"
+      :title="`${$t('Order no.')} ${order.orderNumber}`"
     />
     <div class="sw-order-details__totals">
       <SfTable class="sf-table--bordered table">
@@ -34,7 +34,7 @@
       <SwAddress
         v-if="billingAddress"
         :address="billingAddress"
-        address-title="Billing address"
+        :address-title="$t('Billing address')"
         class="content"
       />
 
@@ -45,7 +45,7 @@
         <SwCheckoutMethod
           v-if="paymentMethod"
           :method="paymentMethod"
-          label="Payment method"
+          :label="$t('Payment method')"
           class="content"
         />
       </SwPluginSlot>
@@ -57,11 +57,11 @@
         <SwCheckoutMethod
           v-if="shippingMethod"
           :method="shippingMethod"
-          label="Shipping method"
+          :label="$t('Shipping method')"
           class="content"
         />
       </SwPluginSlot>
-      <SfProperty name="Order status" :value="status" />
+      <SfProperty :name="$t('Order status')" :value="status" />
       <SfLoader
         :loading="isPaymentButtonLoading"
         class="sw-order-details__loader"
@@ -69,10 +69,11 @@
         <a v-if="paymentUrl" :href="paymentUrl">
           <SwButton
             class="sf-button sf-button--full-width pay-button color-danger"
-            >Pay for your order</SwButton
           >
+            {{ $t("Pay for your order") }}
+          </SwButton>
         </a>
-        <template #loader>Checking payment status...</template>
+        <template #loader>{{ $t("Checking payment status...") }}</template>
       </SfLoader>
     </div>
   </div>
@@ -81,7 +82,7 @@
 <script>
 import { SfTable, SfProperty, SfHeading, SfLoader } from "@storefront-ui/vue"
 import { useUser, getApplicationContext } from "@shopware-pwa/composables"
-import { ref, onMounted, computed, watchEffect } from "@vue/composition-api"
+import { ref, onMounted, computed } from "@vue/composition-api"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import {
   getOrderPaymentMethodId,
@@ -118,11 +119,17 @@ export default {
   props: {
     orderId: {
       type: String,
+      default: "",
     },
   },
   data() {
     return {
-      tableHeaders: ["Item", "Price", "Quantity", "Amount"],
+      tableHeaders: [
+        this.$t("Item"),
+        this.$t("Price"),
+        this.$t("Quantity"),
+        this.$t("Amount"),
+      ],
     }
   },
   // TODO: move this logic into separate service;
@@ -228,10 +235,11 @@ export default {
   width: 60%;
   display: flex;
   flex-wrap: wrap;
+
   @include for-mobile {
     flex-direction: column;
-    width: 80%;
-    padding: var(--spacer-base);
+    width: 90%;
+    padding: var(--spacer-xs);
   }
 
   &__loader {
@@ -304,9 +312,11 @@ export default {
       text-align: right;
     }
   }
+
   &__description {
     flex: 2;
   }
+
   &__quantity {
     text-align: center;
     flex: 1;

@@ -1,14 +1,14 @@
 <template>
   <div>
     <SfHeading
-      title="3. Payment"
+      :title="$t('3. Payment')"
       class="sf-heading--left sf-heading--no-underline title"
     />
     <BillingAddressGuestForm v-if="isGuestOrder" />
     <BillingAddressUserForm v-else />
     <SfHeading
-      title="Payment methods"
-      subtitle="Choose your payment method"
+      :title="$t('Payment methods')"
+      :subtitle="$t('Choose your payment method')"
       class="sf-heading--left sf-heading--no-underline title"
     />
     <div class="sw-form">
@@ -48,19 +48,20 @@
           class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only sw-form__button"
           @click="$emit('click:back')"
         >
-          Go back to Shipping
+          {{ $t("Go back to Shipping") }}
         </SwButton>
         <SwButton
           class="sf-button--full-width form__action-button sw-form__button"
           data-cy="review-order"
           @click="$emit('proceed')"
-          >Review order</SwButton
         >
+          {{ $t("Review order") }}
+        </SwButton>
         <SwButton
           class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only sw-form__button"
           @click="$emit('click:back')"
         >
-          Go back to Shipping
+          {{ $t("Go back to Shipping") }}
         </SwButton>
       </div>
     </div>

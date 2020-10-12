@@ -5,14 +5,17 @@
         <SwButton
           class="log-in__button color-secondary"
           @click="switchLoginModalState(true)"
-          >Log in to your account</SwButton
         >
+          {{ $t("Log in to your account") }}
+        </SwButton>
         <SwPluginSlot name="checkout-login-after" />
       </div>
-      <p class="log-in__info">or fill the details below:</p>
+      <p class="log-in__info">
+        {{ $t("or fill the details below:") }}
+      </p>
     </div>
     <SfHeading
-      title="1. Personal details"
+      :title="$t('1. Personal details')"
       class="sf-heading--left sf-heading--no-underline title"
     />
 
@@ -21,9 +24,9 @@
     <div class="form">
       <SwInput
         v-model="firstName"
-        label="First name"
+        :label="$t('First name')"
         :valid="!validations.firstName.$error"
-        error-message="First name is required"
+        :error-message="$t('First name is required')"
         name="firstName"
         class="form__element form__element--half"
         data-cy="first-name"
@@ -31,24 +34,26 @@
       />
       <SwInput
         v-model="lastName"
-        label="Last name"
+        :label="$t('Last name')"
         :valid="!validations.lastName.$error"
-        error-message="last name is required"
+        :error-message="$t('Last name is required')"
         name="lastName"
         class="form__element form__element--half form__element--half-even"
         data-cy="last-name"
       />
       <SwInput
         v-model="email"
-        label="Your email"
+        :label="$t('Your email')"
         :valid="!validations.email.$error"
-        error-message="Proper email is required"
+        :error-message="$t('Proper email is required')"
         name="email"
         class="sw-form__input"
         data-cy="proper-email"
       />
       <div class="info">
-        <p class="info__heading">Enjoy these perks with your free account!</p>
+        <p class="info__heading">
+          {{ $t("Enjoy these perks with your free account!") }}
+        </p>
         <SfCharacteristic
           v-for="(characteristic, key) in characteristics"
           :key="key"
@@ -61,7 +66,7 @@
       <SfCheckbox
         v-model="createAccount"
         name="createAccount"
-        label="I want to create an account"
+        :label="$t('I want to create an account')"
         class="sw-form__checkbox"
       />
       <transition name="fade">
@@ -69,13 +74,13 @@
           v-if="createAccount"
           v-model="password"
           type="password"
-          label="Create Password"
+          :label="$t('Create Password')"
           :valid="!validations.password.$error"
           :error-message="
             //handle two different situations - aligned with validation rules
-            (!validations.password.required && 'Password is required') ||
+            (!validations.password.required && $t('Password is required')) ||
             (!validations.password.minLength &&
-              'Password should have at least 8 characters') ||
+              $t('Password should have at least 8 characters')) ||
             ''
           "
           class="form__element"
@@ -85,18 +90,21 @@
         <SwButton
           class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only sw-form__button"
           data-cy="go-back-to-shop-button"
-          >Go Back to shop</SwButton
         >
+          {{ $t("Go Back to shop") }}
+        </SwButton>
         <SwButton
           class="sf-button--full-width form__action-button sw-form__button"
           data-cy="continue-to-shipping-button"
           @click="toShipping"
-          >Continue to shipping</SwButton
         >
+          {{ $t("Continue to shipping") }}
+        </SwButton>
         <SwButton
           class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only sw-form__button"
-          >Go back to shop</SwButton
         >
+          {{ $t("Go Back to shop") }}
+        </SwButton>
       </div>
     </div>
   </div>
@@ -163,10 +171,16 @@ export default {
       accountBenefits: false,
       isLoginModalOpen: false,
       characteristics: [
-        { description: "Faster checkout", icon: "clock" },
-        { description: "Full rewards program benefits", icon: "rewards" },
-        { description: "Earn credits with every purchase", icon: "credits" },
-        { description: "Manage your wishlist", icon: "heart" },
+        { description: this.$t("Faster checkout"), icon: "clock" },
+        {
+          description: this.$t("Full rewards program benefits"),
+          icon: "rewards",
+        },
+        {
+          description: this.$t("Earn credits with every purchase"),
+          icon: "credits",
+        },
+        { description: this.$t("Manage your wishlist"), icon: "heart" },
       ],
     }
   },

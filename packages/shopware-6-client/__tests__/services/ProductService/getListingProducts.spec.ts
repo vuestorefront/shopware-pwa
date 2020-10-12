@@ -21,11 +21,10 @@ describe("ProductService - getCategoryProductsListing", () => {
     const categoryId = "044a190a54ab4f06803909c3ee8063ef";
     const result = await getCategoryProductsListing(categoryId);
     expect(mockedPost).toBeCalledTimes(1);
-    expect(
-      mockedPost
-    ).toBeCalledWith(
+    expect(mockedPost).toBeCalledWith(
       "/store-api/v4/product-listing/044a190a54ab4f06803909c3ee8063ef",
-      { limit: 10 }
+      { limit: 10 },
+      { headers: { "sw-include-seo-urls": true } }
     );
     expect(result).toHaveProperty("elements");
   });
@@ -38,12 +37,12 @@ describe("ProductService - getCategoryProductsListing", () => {
       sort: { field: "name" },
     });
     expect(mockedPost).toBeCalledTimes(1);
-    expect(
-      mockedPost
-    ).toBeCalledWith(
+    expect(mockedPost).toBeCalledWith(
       "/store-api/v4/product-listing/044a190a54ab4f06803909c3ee8063ef",
-      { order: "name-asc", limit: 10 }
+      { order: "name-asc", limit: 10 },
+      { headers: { "sw-include-seo-urls": true } }
     );
+
     expect(result).toHaveProperty("elements");
   });
 });
