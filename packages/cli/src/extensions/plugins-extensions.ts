@@ -32,7 +32,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     );
   };
 
-  toolbox.fetchPluginsAuthToken = async (
+  toolbox.fetchAdminApiAuthToken = async (
     { shopwareEndpoint, username, password } = toolbox.inputParameters
   ) => {
     const authTokenResponse = await axios.post(
@@ -227,7 +227,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       return;
     }
     try {
-      const authToken = await toolbox.fetchPluginsAuthToken(
+      const authToken = await toolbox.fetchAdminApiAuthToken(
         toolbox.inputParameters
       );
       const buildArtifact = await toolbox.fetchPluginsBuildArtifact({

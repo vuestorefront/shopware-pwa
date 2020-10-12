@@ -30,7 +30,9 @@ module.exports = (toolbox: GluegunToolbox) => {
     const nodePackagePathExist = require("fs").existsSync(nodePackagePath);
     if (nodePackagePathExist) return nodePackagePath;
 
-    throw new Error(`No theme found for "${directPath}". Please make sure that path is correct or theme is installed from NPM.`);
+    throw new Error(
+      `No theme found for "${directPath}". Please make sure that path is correct or theme is installed from NPM.`
+    );
   };
 
   toolbox.checkThemePath = () => {

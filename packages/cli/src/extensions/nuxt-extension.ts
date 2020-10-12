@@ -230,6 +230,19 @@ module.exports = (toolbox: GluegunToolbox) => {
         after: "export default {",
       });
     }
+
+    // Add publicRuntimeConfig flag
+    const configPublicRuntimeConfig = await toolbox.patching.exists(
+      "nuxt.config.js",
+      `publicRuntimeConfig`
+    );
+    if (!configPublicRuntimeConfig) {
+      await toolbox.patching.patch("nuxt.config.js", {
+        insert: `
+          publicRuntimeConfig: {}`,
+        after: "export default {",
+      });
+    }
   };
 
   /**

@@ -45,6 +45,7 @@ export interface ShopwarePwaConfigFile {
   shopwareAccessToken: string;
   theme: string;
   defaultLanguageCode?: string;
+  doubleOptInGuestOrder?: boolean;
   apiDefaults?: {
     [composableName: string]: {
       includes?: Includes;

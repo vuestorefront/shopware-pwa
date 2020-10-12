@@ -14,13 +14,17 @@ export default {
     const { isLoggedIn, isGuestLoggedIn, user } = useUser(root)
 
     return {
-      isLoggedIn: computed(() => isGuestLoggedIn.value || isLoggedIn.value),
+      isLoggedIn: computed(
+        () =>
+          (isGuestLoggedIn && isGuestLoggedIn.value) ||
+          (isLoggedIn && isLoggedIn.value)
+      ),
       greeting: computed(() => {
-        if (isLoggedIn.value && user.value) {
+        if (isLoggedIn && isLoggedIn.value && user && user.value) {
           return `${root.$t("Hi")}, ${user.value.firstName}`
         }
 
-        if (isGuestLoggedIn.value) {
+        if (isGuestLoggedIn && isGuestLoggedIn.value) {
           return root.$t("Hi, guest")
         }
       }),

@@ -92,7 +92,11 @@ export default {
       logout,
       isLoggedIn,
       isProfileActive: computed(
-        () => isLoggedIn.value && !isGuestLoggedIn.value
+        () =>
+          isLoggedIn &&
+          isLoggedIn.value &&
+          isGuestLoggedIn &&
+          !isGuestLoggedIn.value
       ),
     }
   },
