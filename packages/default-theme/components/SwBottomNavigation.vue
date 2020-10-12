@@ -65,6 +65,7 @@
         label="More"
         class="menu-button"
         data-cy="bottom-navigation-more"
+        @click.self="toggleMoreActions"
       >
         <template #icon>
           <SfIcon
@@ -74,12 +75,11 @@
             @click="toggleMoreActions"
           />
 
-          <transition name="sf-collapse-bottom" mode="out-in">
-            <SwBottomMoreActions
-              v-if="moreActionsIsActive"
-              @close="moreActionsIsActive = false"
-            />
-          </transition>
+          <!-- TODO: Check / add transition after SFUI lib update to > 0.9.1 -->
+          <SwBottomMoreActions
+            v-if="moreActionsIsActive"
+            @close="moreActionsIsActive = false"
+          />
         </template>
       </SfBottomNavigationItem>
       <transition name="sf-collapse-bottom" mode="out-in">
@@ -219,6 +219,7 @@ export default {
     min-width: 2rem;
   }
 }
+
 .menu-button {
   position: relative;
 

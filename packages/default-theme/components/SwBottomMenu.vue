@@ -1,23 +1,24 @@
 <template>
   <SfBottomModal
     :is-open="true"
-    @click:close="$emit('close')"
     class="sw-bottom-menu"
+    @click:close="$emit('close')"
   >
-    <template #title>
+    <template>
       <div class="sw-bottom-menu__title" @click="goBack">
         <SfIcon
+          v-if="categoryBreadcrumbs.length"
           icon="chevron_left"
           class="icon sf-chevron_left"
           size="21px"
           view-box="0 0 24 12"
-          v-if="categoryBreadcrumbs.length"
         />
         {{ currentCategoryName }}
       </div>
     </template>
+
     <transition :name="menuTransitionName" mode="out-in">
-      <SfList class="mobile-nav-list" :key="categoryBreadcrumbs.length">
+      <SfList :key="categoryBreadcrumbs.length" class="mobile-nav-list">
         <SfListItem v-for="category in categoriesList" :key="category.name">
           <nuxt-link
             class="sf-header__link"
@@ -141,17 +142,13 @@ export default {
 .menu-slide-right-enter-active {
   transition: 0.25s;
 }
-.menu-slide-left-enter {
-  transform: translate(100%, 0);
-}
-.menu-slide-left-leave-to {
-  transform: translate(-100%, 0);
-}
-.menu-slide-right-enter {
-  transform: translate(-100%, 0);
-}
+.menu-slide-left-enter,
 .menu-slide-right-leave-to {
   transform: translate(100%, 0);
+}
+.menu-slide-left-leave-to,
+.menu-slide-right-enter {
+  transform: translate(-100%, 0);
 }
 
 .sw-bottom-menu {
