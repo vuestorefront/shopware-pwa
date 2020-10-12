@@ -1,3 +1,12 @@
+## [0.4.1](https://github.com/DivanteLtd/shopware-pwa/compare/v0.4.0...v0.4.1) (2020-10-12)
+
+
+### Bug Fixes
+
+* **cli:** project initialization problem ([#1171](https://github.com/DivanteLtd/shopware-pwa/issues/1171)) ([df8d861](https://github.com/DivanteLtd/shopware-pwa/commit/df8d861142ff0f903d26fe47354c277f1ce82678))
+
+
+
 # [0.4.0](https://github.com/DivanteLtd/shopware-pwa/compare/v0.3.1...v0.4.0) (2020-09-21)
 
 
