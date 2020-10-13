@@ -114,10 +114,6 @@ async function run() {
   /**
    * Link default-theme dir
    */
-  await execa("yarn", ["build"], {
-    stdio: "inherit",
-    cwd: defaultThemeDir,
-  });
   await execa("yarn", ["link"], {
     stdio: "inherit",
     cwd: defaultThemeDir,
