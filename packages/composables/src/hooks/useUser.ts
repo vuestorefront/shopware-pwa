@@ -3,6 +3,7 @@ import {
   login as apiLogin,
   logout as apiLogout,
   register as apiRegister,
+  cofirmAccount as apiConfirm,
   updatePassword as apiUpdatePassword,
   resetPassword as apiResetPassword,
   updateEmail as apiUpdateEmail,
@@ -49,6 +50,7 @@ export interface IUseUser {
     password?: string;
   }) => Promise<boolean>;
   register: ({}: CustomerRegistrationParams) => Promise<boolean>;
+  confirmAccount: ({ em, hash }: { em: string; hash: string }) => Promise<void>;
   user: Ref<Customer | null>;
   orders: Ref<Order[] | null>;
   addresses: Ref<CustomerAddress[] | null>;
@@ -172,6 +174,10 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     intercept(INTERCEPTOR_KEYS.USER_LOGOUT, fn);
 
   const refreshUser = async (): Promise<void> => {
+    if (user.value?.guest) {
+      return;
+    }
+
     try {
       const user = await getCustomer(apiInstance);
       vuexStore.commit("SET_USER", user);
@@ -321,11 +327,26 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     return true;
   };
 
+  /**
+   * @beta
+   */
+  const confirmAccount = async ({
+    em,
+    hash,
+  }: {
+    em: string;
+    hash: string;
+  }): Promise<void> => {
+    const customer = await apiConfirm({ em, hash });
+    vuexStore.commit("SET_USER", customer);
+  };
+
   const isLoggedIn = computed(() => !!user.value?.id);
   const isGuestLoggedIn = computed(() => !!user.value?.guest);
   return {
     login,
     register,
+    confirmAccount,
     user,
     error,
     loading,

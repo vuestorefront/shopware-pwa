@@ -60,6 +60,12 @@ export interface ClientSettings {
     timeout?: number;
 }
 
+// @beta
+export function cofirmAccount({ hash, em, }?: {
+    hash: string;
+    em: string;
+}, contextInstance?: ShopwareApiInstance): Promise<any>;
+
 // @beta (undocumented)
 export const config: ClientSettings;
 

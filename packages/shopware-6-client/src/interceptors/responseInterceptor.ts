@@ -10,6 +10,8 @@ export function createResponseInterceptor(
 ) {
   return function (response: AxiosResponse) {
     const contextToken = extractContextToken(response);
+    console.warn("response", contextToken);
+
     contextToken && update({ contextToken }, response.config);
     return response;
   };

@@ -20,12 +20,11 @@ export default {
           (isLoggedIn && isLoggedIn.value)
       ),
       greeting: computed(() => {
-        if (isLoggedIn && isLoggedIn.value && user && user.value) {
-          return `${root.$t("Hi")}, ${user.value.firstName}`
-        }
-
         if (isGuestLoggedIn && isGuestLoggedIn.value) {
           return root.$t("Hi, guest")
+        }
+        if (isLoggedIn && isLoggedIn.value && user && user.value) {
+          return `${root.$t("Hi")}, ${user.value.firstName}`
         }
       }),
     }

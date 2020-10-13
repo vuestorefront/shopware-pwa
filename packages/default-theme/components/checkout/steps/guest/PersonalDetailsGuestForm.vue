@@ -191,7 +191,11 @@ export default {
       "LOGIN_MODAL_STATE"
     )
 
-    const { pushError } = useNotifications(root)
+    const isDoubleOptInGuestOrder = computed(
+      () => root.$config.doubleOptInGuestOrder
+    )
+
+    const { pushError, pushInfo } = useNotifications(root)
     const {
       validations,
       setValidations,
@@ -239,6 +243,8 @@ export default {
       lastName,
       email,
       pushError,
+      pushInfo,
+      isDoubleOptInGuestOrder,
     }
   },
   computed: {
@@ -339,6 +345,17 @@ export default {
         await this.registerUser(guestUser)
 
         if (!this.userError) {
+          if (this.isDoubleOptInGuestOrder) {
+            this.pushInfo(
+              this.$t(
+                "Thank you for yout interest! You will receive a confirmation email shortly. Click on the link in it to confirm your email address."
+              ),
+              {
+                persistent: true,
+              }
+            )
+            return this.$router.push("/")
+          }
           return this.$emit("proceed")
         }
 

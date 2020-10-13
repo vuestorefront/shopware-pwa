@@ -21,6 +21,7 @@ export interface IUseUser
 |  --- | --- | --- |
 |  [addAddress](./composables.iuseuser.addaddress.md) | (params: Partial&lt;CustomerAddress&gt;) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [addresses](./composables.iuseuser.addresses.md) | Ref&lt;CustomerAddress\[\] \| null&gt; | <b><i>(BETA)</i></b> |
+|  [confirmAccount](./composables.iuseuser.confirmaccount.md) | ({ em, hash }: { em: string; hash: string; }) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [country](./composables.iuseuser.country.md) | Ref&lt;Country \| null&gt; | <b><i>(BETA)</i></b> |
 |  [deleteAddress](./composables.iuseuser.deleteaddress.md) | (addressId: string) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [error](./composables.iuseuser.error.md) | Ref&lt;any&gt; | <b><i>(BETA)</i></b> |

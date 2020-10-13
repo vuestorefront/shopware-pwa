@@ -27,7 +27,10 @@ export async function createGuestOrder(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Order> {
   const resp = await contextInstance.invoke.post(
-    getCheckoutGuestOrderEndpoint()
+    getCheckoutGuestOrderEndpoint(),
+    {
+      guest: true,
+    }
   );
 
   return resp.data;

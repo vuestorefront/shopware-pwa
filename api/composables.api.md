@@ -329,6 +329,11 @@ export interface IUseUser {
     // (undocumented)
     addresses: Ref<CustomerAddress[] | null>;
     // (undocumented)
+    confirmAccount: ({ em, hash }: {
+        em: string;
+        hash: string;
+    }) => Promise<void>;
+    // (undocumented)
     country: Ref<Country | null>;
     // (undocumented)
     deleteAddress: (addressId: string) => Promise<boolean>;

@@ -13,6 +13,7 @@ import {
   getCustomerAddressEndpoint,
   getCustomerAddressDetailsEndpoint,
   getCustomerAddressListEndpoint,
+  getCustomerConfirmationEndpoint,
 } from "../endpoints";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
@@ -333,4 +334,31 @@ export async function updateProfile(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<void> {
   await contextInstance.invoke.post(getCustomerDetailsUpdateEndpoint(), params);
+}
+
+/**
+ * Confirm account in double opt-in mode
+ *
+ * @throws ClientApiError
+ * @beta
+ */
+export async function cofirmAccount(
+  {
+    hash,
+    em,
+  }: {
+    hash: string;
+    em: string;
+  } = {} as any,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<any> {
+  const response = await contextInstance.invoke.post(
+    getCustomerConfirmationEndpoint(),
+    {
+      hash,
+      em,
+    }
+  );
+
+  return response.data;
 }

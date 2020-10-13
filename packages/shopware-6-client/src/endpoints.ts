@@ -44,6 +44,10 @@ export const getCustomerAddressSetDefaultBillingEndpoint = (
 export const getCustomerEndpoint = () => `/store-api/v4/account/customer`;
 export const getCustomerRegisterEndpoint = () =>
   `/store-api/v4/account/register`;
+
+export const getCustomerConfirmationEndpoint = () =>
+  `/store-api/v4/account/register-confirm`;
+
 export const getCustomerDetailsUpdateEndpoint = () =>
   `/store-api/v4/account/change-profile`;
 export const getCustomerDetailsEndpoint = (customerId: string) =>
