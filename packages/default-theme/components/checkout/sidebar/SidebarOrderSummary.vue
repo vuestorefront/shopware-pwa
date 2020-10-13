@@ -26,15 +26,7 @@
       :value="totalPrice | price"
       class="sf-property--full-width sf-property--large property"
     />
-    <div class="promo-code">
-      <SwInput
-        v-model="promoCode"
-        name="promoCode"
-        :label="$t('Enter promo code')"
-        class="sf-input--filled promo-code__input"
-      />
-      <SfCircleIcon class="promo-code__circle-icon" icon="check" />
-    </div>
+    <SwPromoCode class="promo-code" />
     <div class="characteristics">
       <SfCharacteristic
         v-for="characteristic in characteristics"
@@ -50,23 +42,21 @@
 <script>
 import {
   SfHeading,
-  SfCircleIcon,
   SfProperty,
   SfDivider,
   SfCharacteristic,
 } from "@storefront-ui/vue"
 import { useCart } from "@shopware-pwa/composables"
-import SwInput from "@/components/atoms/SwInput"
+import SwPromoCode from "@/components/SwPromoCode"
 
 export default {
   name: "SidebarOrderSummary",
   components: {
     SfHeading,
-    SfCircleIcon,
     SfProperty,
     SfDivider,
     SfCharacteristic,
-    SwInput,
+    SwPromoCode,
   },
   setup(props, { root }) {
     const { count, totalPrice, subtotal } = useCart(root)
@@ -84,8 +74,6 @@ export default {
   },
   data() {
     return {
-      promoCode: "",
-      showPromoCode: false,
       characteristics: [
         {
           title: this.$t("Safety"),
@@ -133,21 +121,6 @@ export default {
   margin: 0 0 0 var(--spacer-xs);
   &__item {
     margin: var(--spacer-base) 0;
-  }
-}
-.promo-code {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: var(--spacer-lg) 0 var(--spacer-base) 0;
-  &__circle-icon {
-    --button-size: 2rem;
-    --icon-size: 0.6875rem;
-  }
-  &__input {
-    --input-background: var(--c-white);
-    flex: 1;
-    margin: 0 var(--spacer-lg) 0 0;
   }
 }
 </style>

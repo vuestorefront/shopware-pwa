@@ -39,7 +39,6 @@
   "Empty bag": "Leere Tasche",
   "Encountered problems": "Probleme gestoßen:",
   "Enjoy these perks with your free account!": "Genießen Sie diese Vergünstigungen mit Ihrem kostenlosen Konto!",
-  "Enter promo code": "Gutscheincode eingeben",
   "Faster checkout": "Schnellerer Checkout",
   "Feel free to edit any of your details below so your account is always up to date": "Sie können jederzeit Ihre Angaben unten bearbeiten, damit Ihr Kundenkonto immer auf dem neuesten Stand ist.",
   "filter": {
@@ -174,5 +173,9 @@
   "privacy-info": "Bei {0} legen wir großen Wert auf Fragen des Datenschutzes und verpflichten uns, die persönlichen Daten unserer Nutzer zu schützen. Erfahren Sie mehr darüber, wie wir Ihre persönlichen Daten pflegen und verwenden in der {1}.",
   "privacy-link": "Datenschutzbestimmung",
   "send": "senden",
-  "set as default": "als Standard festlegen"
+  "set as default": "als Standard festlegen",
+  "Enter promo code": "Rabattcode eingeben",
+  "Applied promo codes:": "Angewandte Rabattcodes:",
+  "Promotion code added successfully": "Rabattcode wurde erfolgreich angewendet",
+  "Promotion code does not exist": "Rabattcode existiert nicht"
 }

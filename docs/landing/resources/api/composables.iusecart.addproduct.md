@@ -10,8 +10,8 @@
 <b>Signature:</b>
 
 ```typescript
-addProduct: ({ id, quantity }: {
+addProduct: ({ id, quantity, }: {
         id: string;
         quantity?: number;
-    }) => void;
+    }) => Promise<void>;
 ```

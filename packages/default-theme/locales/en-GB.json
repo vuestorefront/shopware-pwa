@@ -39,7 +39,6 @@
   "Empty bag": "Empty bag",
   "Encountered problems": "Encountered problems:",
   "Enjoy these perks with your free account!": "Enjoy these perks with your free account!",
-  "Enter promo code": "Enter promo code",
   "Faster checkout": "Faster checkout",
   "Feel free to edit any of your details below so your account is always up to date": "Feel free to edit any of your details below so your account is always up to date",
   "First name": "First name",
@@ -174,5 +173,9 @@
   "privacy-info": "At {0}, we attach great importance to privacy issues and are committed to protecting the personal data of our users. Learn more about how we care and use your personal data in the {1}.",
   "privacy-link": "Privacy Policy",
   "send": "send",
-  "set as default": "set as default"
+  "set as default": "set as default",
+  "Enter promo code": "Enter promo code",
+  "Applied promo codes:": "Applied promo codes:",
+  "Promotion code added successfully": "Promotion code added successfully",
+  "Promotion code does not exist": "Promotion code does not exist"
 }
