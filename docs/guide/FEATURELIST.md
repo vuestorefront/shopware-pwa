@@ -79,7 +79,7 @@ sidebar: auto
  * Go to Checkout button
 
 ### Checkout / Payment
-
+ * Add/Remove promotion codes
  * Select shipping address
  * Select billing address
  * Select payment & shipping method

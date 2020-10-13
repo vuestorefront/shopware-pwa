@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-loading: Readonly<Ref<Readonly<boolean>>>;
+loading: ComputedRef<boolean>;
 ```

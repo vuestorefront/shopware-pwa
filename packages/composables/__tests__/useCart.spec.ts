@@ -7,6 +7,7 @@ import VueCompositionApi, {
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
+import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
 import { useCart } from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 
@@ -139,6 +140,31 @@ describe("Composables - useCart", () => {
         expect(subtotal.value).toEqual(123);
       });
     });
+    describe("appliedPromotionCodes", () => {
+      it("should be empty array on not loaded cart", () => {
+        stateCart.value = null;
+        const { appliedPromotionCodes } = useCart(rootContextMock);
+        expect(appliedPromotionCodes.value).toEqual([]);
+      });
+
+      it("should return an array", () => {
+        stateCart.value = {};
+        const { appliedPromotionCodes } = useCart(rootContextMock);
+        expect(appliedPromotionCodes.value).toEqual([]);
+      });
+
+      it("should return only promotion items", () => {
+        stateCart.value = {
+          lineItems: [
+            { quantity: 2, type: "product" },
+            { quantity: 3, type: "product" },
+            { quantity: 1, type: "promotion" },
+          ],
+        };
+        const { appliedPromotionCodes } = useCart(rootContextMock);
+        expect(appliedPromotionCodes.value.length).toEqual(1);
+      });
+    });
   });
 
   describe("methods", () => {
@@ -199,6 +225,45 @@ describe("Composables - useCart", () => {
         } as any);
         await removeProduct({ id: "qwe" });
         expect(count.value).toEqual(0);
+      });
+
+      it("should invoke client with correct params", async () => {
+        const { removeProduct } = useCart(rootContextMock);
+        mockedShopwareClient.removeCartItem.mockResolvedValueOnce({} as any);
+        await removeProduct({ id: "qwe" });
+        expect(mockedShopwareClient.removeCartItem).toBeCalledWith(
+          "qwe",
+          rootContextMock.$shopwareApiInstance
+        );
+      });
+    });
+
+    describe("addPromotionCode", () => {
+      it("should add promotion code to cart", async () => {
+        const { appliedPromotionCodes, addPromotionCode } = useCart(
+          rootContextMock
+        );
+        expect(appliedPromotionCodes.value).toEqual([]);
+        mockedShopwareClient.addPromotionCode.mockResolvedValueOnce({
+          lineItems: [{ quantity: 1, type: "promotion" }],
+        } as any);
+        await addPromotionCode("test-code");
+        expect(appliedPromotionCodes.value.length).toEqual(1);
+      });
+    });
+
+    describe("removeItem", () => {
+      it("should remove promotion code from cart", async () => {
+        const { appliedPromotionCodes, removeItem } = useCart(rootContextMock);
+        stateCart.value = {
+          lineItems: [{ quantity: 1, type: "promotion" }],
+        };
+        expect(appliedPromotionCodes.value.length).toEqual(1);
+        mockedShopwareClient.removeCartItem.mockResolvedValueOnce({
+          lineItems: [],
+        } as any);
+        await removeItem({ id: "qwe" } as LineItem);
+        expect(appliedPromotionCodes.value.length).toEqual(0);
       });
 
       it("should invoke client with correct params", async () => {

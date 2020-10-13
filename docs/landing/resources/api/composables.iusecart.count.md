@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-count: Readonly<Ref<Readonly<number>>>;
+count: ComputedRef<number>;
 ```

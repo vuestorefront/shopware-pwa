@@ -1,7 +1,11 @@
 <template>
   <SfTableRow :key="product.id" class="table__row">
     <SfTableData class="table__image">
-      <SfImage :src="product.cover.url" data-cy="product-image" />
+      <SfImage
+        :src="product.cover.url"
+        data-cy="product-image"
+        v-if="product.type === 'product'"
+      />
     </SfTableData>
     <SfTableData class="table__description">
       <div class="product-title">{{ product.label }}</div>
@@ -9,6 +13,7 @@
     </SfTableData>
     <SfTableData class="table__data table__quantity" data-cy="table-quantity">
       <SfQuantitySelector
+        v-if="product.type === 'product'"
         v-model="quantity"
         class="sf-quantity-selector--secondary"
         data-cy="quantity"

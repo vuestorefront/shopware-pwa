@@ -143,6 +143,7 @@ export function getDefaultApiParams(): {
 // @beta
 export const INTERCEPTOR_KEYS: {
     ADD_TO_CART: string;
+    ADD_PROMOTION_CODE: string;
     ERROR: string;
     USER_LOGOUT: string;
 };
@@ -164,33 +165,39 @@ export interface IUseAddToCart {
 // @beta
 export interface IUseCart {
     // (undocumented)
-    addProduct: ({ id, quantity }: {
+    addProduct: ({ id, quantity, }: {
         id: string;
         quantity?: number;
-    }) => void;
+    }) => Promise<void>;
     // (undocumented)
-    cart: Readonly<Ref<Readonly<Cart>>>;
+    addPromotionCode: (promotionCode: string) => Promise<void>;
     // (undocumented)
-    cartItems: Readonly<Ref<Readonly<LineItem[]>>>;
+    appliedPromotionCodes: ComputedRef<LineItem[]>;
+    // (undocumented)
+    cart: ComputedRef<Cart>;
+    // (undocumented)
+    cartItems: ComputedRef<LineItem[]>;
     // (undocumented)
     changeProductQuantity: ({ id, quantity, }: {
         id: string;
         quantity: number;
     }) => void;
     // (undocumented)
-    count: Readonly<Ref<Readonly<number>>>;
+    count: ComputedRef<number>;
     // (undocumented)
-    error: Readonly<Ref<Readonly<string>>>;
+    error: ComputedRef<string>;
     // (undocumented)
-    loading: Readonly<Ref<Readonly<boolean>>>;
+    loading: ComputedRef<boolean>;
     // (undocumented)
     refreshCart: () => void;
     // (undocumented)
+    removeItem: ({ id }: LineItem) => Promise<void>;
+    // @deprecated (undocumented)
     removeProduct: ({ id }: Partial<Product>) => void;
     // (undocumented)
-    subtotal: Readonly<Ref<Readonly<number>>>;
+    subtotal: ComputedRef<number>;
     // (undocumented)
-    totalPrice: Readonly<Ref<Readonly<number>>>;
+    totalPrice: ComputedRef<number>;
 }
 
 // @beta

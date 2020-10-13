@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-cart: Readonly<Ref<Readonly<Cart>>>;
+cart: ComputedRef<Cart>;
 ```
