@@ -102,8 +102,8 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
   // TODO: remove in 1.0
   async function removeProduct({ id }: Product) {
     deprecationWarning({
-      methodName: "useCart",
-      newMethodName: "removeProduct",
+      methodName: "removeProduct",
+      newMethodName: "removeItem",
       packageName: "composables",
     });
     return removeItem({ id } as LineItem);
