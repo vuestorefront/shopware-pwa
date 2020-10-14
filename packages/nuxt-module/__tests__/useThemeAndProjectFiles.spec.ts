@@ -104,11 +104,31 @@ describe("nuxt-module - theme", () => {
       const path = getTargetSourcePath(moduleObject);
       expect(path).toEqual(TARGET_SOURCE);
     });
+    it("getThemeSourcePath should return theme path with direct import and dist folder inside", () => {
+      const themePath = getThemeSourcePath(moduleObject, mockedConfig);
+      expect(themePath).toEqual(path.join(THEME_SOURCE, "dist"));
+    });
     it("getThemeSourcePath should return theme path with direct import", () => {
-      const path = getThemeSourcePath(moduleObject, mockedConfig);
-      expect(path).toEqual(THEME_SOURCE);
+      mockedFse.existsSync.mockReturnValueOnce(false);
+      const themePath = getThemeSourcePath(moduleObject, mockedConfig);
+      expect(themePath).toEqual(THEME_SOURCE);
+    });
+    it("getThemeSourcePath whould return theme path with import from node_modules and dist folder inside", () => {
+      mockedFse.existsSync.mockReturnValueOnce(false);
+      mockedFse.existsSync.mockReturnValueOnce(false);
+      const sourcePath = getThemeSourcePath(moduleObject, mockedConfig);
+      expect(sourcePath).toEqual(
+        path.join(
+          moduleObject.options.rootDir,
+          "node_modules",
+          "mocked-theme",
+          "dist"
+        )
+      );
     });
     it("getThemeSourcePath whould return theme path with import from node_modules", () => {
+      mockedFse.existsSync.mockReturnValueOnce(false);
+      mockedFse.existsSync.mockReturnValueOnce(false);
       mockedFse.existsSync.mockReturnValueOnce(false);
       const sourcePath = getThemeSourcePath(moduleObject, mockedConfig);
       expect(sourcePath).toEqual(
