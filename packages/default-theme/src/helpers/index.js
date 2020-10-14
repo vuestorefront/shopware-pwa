@@ -1,5 +1,4 @@
 import dayjs from "dayjs"
-import currency from "currency.js"
 import { PAGE_SEARCH } from "./pages"
 
 const defaultFormatPriceOptions = {
@@ -10,7 +9,7 @@ const defaultFormatPriceOptions = {
   formatWithSymbol: true,
 }
 
-export { formatPrice } from "./formatPrice"
+export { formatPrice } from "@/helpers/formatPrice"
 
 export const getSortingLabel = (sorting) => {
   if (!sorting || !sorting.field) {

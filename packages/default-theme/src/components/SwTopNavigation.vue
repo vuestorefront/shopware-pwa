@@ -9,6 +9,7 @@
       @mouseover="changeCurrentCategory(category.name)"
       @mouseleave="changeCurrentCategory(null)"
       @keyup.tab="changeCurrentCategory(category.name)"
+      @click="changeCurrentCategory(null)"
     >
       <nuxt-link
         class="sf-header__link"
@@ -27,6 +28,7 @@
       @mouseover="changeCurrentCategory('categories')"
       @mouseleave="changeCurrentCategory(null)"
       @keyup.tab="changeCurrentCategory('categories')"
+      @click="changeCurrentCategory(null)"
     >
       <SwTopNavigationShowMore />
 
