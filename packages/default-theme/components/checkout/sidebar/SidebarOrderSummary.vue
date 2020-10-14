@@ -8,23 +8,23 @@
     <SfProperty
       :name="$t('Products')"
       :value="count"
-      class="sf-property--full-width sf-property--large property"
+      class="sf-property--full-width property"
     />
     <SfProperty
       :name="$t('Subtotal')"
       :value="subtotal | price"
-      class="sf-property--full-width sf-property--large property"
+      class="sf-property--full-width property"
     />
     <SfProperty
       :name="$t('Shipping')"
       :value="shippingMethod.price | price"
-      class="sf-property--full-width sf-property--large property"
+      class="sf-property--full-width property"
     />
     <SfDivider class="divider" />
     <SfProperty
       :name="$t('Total')"
       :value="totalPrice | price"
-      class="sf-property--full-width sf-property--large property"
+      class="sf-property--full-width property"
     />
     <SwPromoCode class="promo-code" />
     <div class="characteristics">
@@ -102,7 +102,12 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 .title {
-  --heading-title-margin: 0 0 var(--spacer-xl) 0;
+  --heading-title-margin: 0 0 var(--spacer-sm) 0;
+  --heading-title-font-weight: var(--font-bold);
+  @include for-desktop {
+    --heading-title-font-weight: var(--font-medium);
+    --heading-title-margin: 0 0 var(--spacer-xl) 0;
+  }
 }
 .total-items {
   display: flex;
@@ -111,7 +116,15 @@ export default {
   margin-bottom: var(--spacer-base);
 }
 .property {
-  margin: var(--spacer-base) 0;
+  margin: var(--spacer-sm) 0;
+  --property-name-font-size: var(--font-lg);
+  --property-value-font-size: var(--font-lg);
+  --property-value-font-weight: var(--font-semibold);
+  @include for-desktop {
+    margin: var(--spacer-base) 0;
+    --property-name-font-size: var(--font-xl);
+    --property-value-font-size: var(--font-xl);
+  }
 }
 .divider {
   --divider-border-color: var(--c-white);
