@@ -2,8 +2,15 @@
   "name": "@shopware-pwa/default-theme",
   "version": "0.4.2",
   "description": "Shopware PWA theme",
-  "author": "patzick",
+  "author": "patzick <13100280+patzick@users.noreply.github.com>",
+  "license": "MIT",
+  "baseTheme": "@shopware-pwa/theme-base",
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "build": "shopware-pwa build-theme",
+    "dev": "shopware-pwa dev-theme",
     "lint": "prettier --write './**/*.{js,vue}'",
     "test": "jest"
   },
@@ -15,11 +22,9 @@
   "lint-staged": {
     "*.{js,vue}": "prettier"
   },
-  "license": "MIT",
   "dependencies": {
     "@storefront-ui/vue": "0.7.18",
     "core-js": "^3.6.5",
-    "currency.js": "^2.0.3",
     "dayjs": "^1.9.1",
     "html-to-vue": "^1.2.1",
     "node-sass": "^4.14.1",
@@ -29,6 +34,8 @@
     "vuelidate": "^0.7.5"
   },
   "devDependencies": {
+    "@shopware-pwa/cli": "0.4.2",
+    "@shopware-pwa/theme-base": "0.4.2",
     "@babel/runtime-corejs3": "^7.11.2",
     "@nuxtjs/eslint-config": "^3.1.0",
     "@nuxtjs/eslint-module": "^3.0.0",
@@ -45,8 +52,5 @@
     "lint-staged": "^10.4.0",
     "prettier": "^2.1.2",
     "vue-jest": "^4.0.0-0"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

@@ -105,12 +105,11 @@ const command: GluegunCommand = {
       (config) => {
         config.baseTheme = baseThemePackageName;
 
-        config.private = true;
         config.scripts = config.scripts || {};
         config.scripts.build = "shopware-pwa build-theme";
         config.scripts.dev = "shopware-pwa dev-theme";
-        config.scripts.postinstall = "yarn build && cd ./dist && yarn link";
-        config.scripts.release = "yarn build && cd ./dist && yarn publish";
+
+        config.files = ["dist"];
         delete config.main;
         return config;
       }

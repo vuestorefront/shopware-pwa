@@ -25,9 +25,19 @@ module.exports = (toolbox: GluegunToolbox) => {
   toolbox.getThemePath = (themeName = toolbox.config.theme) => {
     const path = require("path");
 
+    const directDistPath = path.join(themeName, "dist");
+    const directDistPathExist = require("fs").existsSync(directDistPath);
+    if (directDistPathExist) return directDistPath;
+
     const directPath = themeName;
     const directPathExist = require("fs").existsSync(directPath);
     if (directPathExist) return directPath;
+
+    const nodePackageDistPath = path.join("node_modules", themeName, "dist");
+    const nodePackageDistPathExist = require("fs").existsSync(
+      nodePackageDistPath
+    );
+    if (nodePackageDistPathExist) return nodePackageDistPath;
 
     const nodePackagePath = path.join("node_modules", themeName);
     const nodePackagePathExist = require("fs").existsSync(nodePackagePath);
