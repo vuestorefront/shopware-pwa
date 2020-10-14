@@ -30,7 +30,7 @@
   "license": "MIT",
   "dependencies": {
     "@shopware-pwa/shopware-6-client": "0.4.2",
-    "chokidar": "^3.4.2",
+    "chokidar": "^3.4.3",
     "gluegun": "^4.4.0",
     "lodash": "^4.17.20",
     "md5-hex": "^3.0.1",

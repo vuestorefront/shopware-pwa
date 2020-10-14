@@ -24,7 +24,7 @@
     "@shopware-pwa/default-theme": "0.4.2",
     "@shopware-pwa/helpers": "0.4.2",
     "@shopware-pwa/shopware-6-client": "0.4.2",
-    "chokidar": "^3.4.2",
+    "chokidar": "^3.4.3",
     "cookie-universal": "^2.1.4",
     "cosmiconfig": "^7.0.0",
     "fs-extra": "^9.0.1",
