@@ -1,6 +1,6 @@
 # @shopware-pwa/default-theme
 
-> Shopware PWA theme
+> Shopware PWA default theme
 
 ## Build Setup
 
