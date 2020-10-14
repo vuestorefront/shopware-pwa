@@ -10,16 +10,7 @@ const defaultFormatPriceOptions = {
   formatWithSymbol: true,
 }
 
-export function formatPrice(price, options) {
-  if (typeof price !== "number") {
-    return
-  }
-
-  return currency(
-    price,
-    Object.assign(defaultFormatPriceOptions, options)
-  ).format()
-}
+export { formatPrice } from "./formatPrice"
 
 export const getSortingLabel = (sorting) => {
   if (!sorting || !sorting.field) {

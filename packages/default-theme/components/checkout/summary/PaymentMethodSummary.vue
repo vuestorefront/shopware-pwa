@@ -1,11 +1,11 @@
 <template>
-  <SwCheckoutMethod :method="paymentMethod" label="Payment method">
+  <SwCheckoutMethod :method="paymentMethod" :label="$t('Payment method')">
     <template #after-content>
       <SwButton
         class="sf-button--text review__edit"
         @click="$emit('click:edit', 2)"
       >
-        Edit
+        {{ $t("Edit") }}
       </SwButton>
     </template>
   </SwCheckoutMethod>

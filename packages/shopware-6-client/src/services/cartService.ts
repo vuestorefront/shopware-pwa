@@ -5,7 +5,7 @@ import {
 } from "../endpoints";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import { ContextTokenResponse } from "@shopware-pwa/commons/interfaces/response/SessionContext";
-import { CartItemType } from "@shopware-pwa/commons/interfaces/cart/CartItemType";
+import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
 
 /**
  * When no sw-context-token given then this method return an empty cart with the new sw-context-token.
@@ -53,17 +53,16 @@ export async function addProductToCart(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Cart> {
   const qty = quantity || 1;
+  const item: Partial<LineItem> = {
+    quantity: qty,
+    type: "product",
+    referencedId: productId,
+    id: productId,
+  };
   const resp = await contextInstance.invoke.post(
     getCheckoutCartLineItemEndpoint(),
     {
-      items: [
-        {
-          type: CartItemType.PRODUCT,
-          referencedId: productId,
-          quantity: qty,
-          id: productId,
-        },
-      ],
+      items: [item],
     }
   );
 
@@ -84,7 +83,7 @@ export async function addCartItemQuantity(
   quantity: number,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Cart> {
-  let params = { type: CartItemType.PRODUCT, quantity: quantity };
+  const params: Partial<LineItem> = { type: "product", quantity: quantity };
   const resp = await contextInstance.invoke.post(
     getCheckoutCartLineItemEndpoint() + "/" + itemId,
     params
@@ -153,15 +152,14 @@ export async function addPromotionCode(
   promotionCode: string,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Cart> {
+  const item: Partial<LineItem> = {
+    type: "promotion",
+    referencedId: promotionCode,
+  };
   const resp = await contextInstance.invoke.post(
     getCheckoutCartLineItemEndpoint(),
     {
-      items: [
-        {
-          type: CartItemType.PROMOTION,
-          referencedId: promotionCode,
-        },
-      ],
+      items: [item],
     }
   );
 

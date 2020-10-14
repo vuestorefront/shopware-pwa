@@ -16,6 +16,11 @@ export const INTERCEPTOR_KEYS = {
    */
   ADD_TO_CART: "addToCart",
   /**
+   * Broadcasted by useCart composable on successful submitPromotionCode method invocation.
+   * As a parameter passes used promotion code and response result.
+   */
+  ADD_PROMOTION_CODE: "addPromotionCode",
+  /**
    * Broadcasted through application in case of important error.
    * Can be used to connect to external service collectiong logs.
    * As a parameter passes:

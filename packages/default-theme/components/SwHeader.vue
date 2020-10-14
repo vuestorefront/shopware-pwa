@@ -8,7 +8,7 @@
 
     <SfHeader
       :title="$t('page.title')"
-      class="sw-header"
+      class="sw-header sf-header--has-mobile-search"
       :has-mobile-search="false"
       :is-sticky="false"
     >

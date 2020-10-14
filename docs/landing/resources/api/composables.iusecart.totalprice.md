@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-totalPrice: Readonly<Ref<Readonly<number>>>;
+totalPrice: ComputedRef<number>;
 ```

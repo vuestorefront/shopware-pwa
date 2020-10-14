@@ -3,7 +3,7 @@
     <SfBottomNavigation data-cy="bottom-navigation">
       <nuxt-link aria-label="Go to Home Page" :to="$i18n.path('/')">
         <SfBottomNavigationItem
-          label="Home"
+          :label="$t('Home')"
           icon="home"
           icon-size="20px"
           data-cy="bottom-navigation-home"
@@ -12,7 +12,7 @@
       <SfBottomNavigationItem
         icon="menu"
         icon-size="20px"
-        label="Menu"
+        :label="$t('Menu')"
         class="menu-button"
         data-cy="bottom-navigation-menu"
         @click.self="toggleMobileNavigation"
@@ -35,7 +35,7 @@
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
         icon="profile"
-        label="My Account"
+        :label="$t('My Account')"
         class="menu-button"
         data-cy="bottom-navigation-account"
       >
@@ -43,8 +43,8 @@
           <SfIcon icon="profile" size="20px" @click="userIconClick" />
           <SfBottomModal
             :is-open="userIconActive"
-            @click:close="userIconActive = false"
             class="sw-bottom-menu"
+            @click:close="userIconActive = false"
           >
             <SfList class="mobile-nav-list">
               <SfListItem>
@@ -62,12 +62,24 @@
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
-        label="Currency"
+        :label="$t('More')"
         class="menu-button"
-        data-cy="bottom-navigation-currency"
+        data-cy="bottom-navigation-more"
+        @click.self="toggleMoreActions"
       >
         <template #icon>
-          <SwCurrencySwitcher class="menu-button__currency" />
+          <SfIcon
+            icon="tiles"
+            size="20px"
+            class="more-actions"
+            @click="toggleMoreActions"
+          />
+
+          <!-- TODO: Check / add transition after SFUI lib update to > 0.9.1 -->
+          <SwBottomMoreActions
+            v-if="moreActionsIsActive"
+            @close="moreActionsIsActive = false"
+          />
         </template>
       </SfBottomNavigationItem>
       <transition name="sf-collapse-bottom" mode="out-in">
@@ -75,7 +87,7 @@
           v-if="!isSidebarOpen"
           key="openCart"
           icon="empty_cart"
-          label="Cart"
+          :label="$t('Cart')"
           class="sw-bottom-navigation__action-button"
           :is-floating="true"
           data-cy="bottom-navigation-cart"
@@ -116,12 +128,10 @@ import {
   SfMenuItem,
 } from "@storefront-ui/vue"
 import { useUIState, useUser, useCart } from "@shopware-pwa/composables"
-import SwCurrencySwitcher from "@/components/SwCurrencySwitcher"
-import { onMounted } from "@vue/composition-api"
-import SwButton from "@/components/atoms/SwButton"
 import SwBottomMenu from "@/components/SwBottomMenu"
 import { PAGE_ACCOUNT } from "@/helpers/pages"
 import { getCategoryUrl } from "@shopware-pwa/helpers"
+import SwBottomMoreActions from "@/components/SwBottomMoreActions"
 
 export default {
   name: "SwBottomNavigation",
@@ -130,16 +140,16 @@ export default {
     SfIcon,
     SfCircleIcon,
     SfBottomModal,
-    SwCurrencySwitcher,
-    SwButton,
     SwBottomMenu,
     SfList,
     SfMenuItem,
+    SwBottomMoreActions,
   },
   data() {
     return {
       mobileNavIsActive: false,
       userIconActive: false,
+      moreActionsIsActive: false,
     }
   },
   setup(props, { root }) {
@@ -161,14 +171,14 @@ export default {
       count,
     }
   },
-  watch: {
-    $route() {
-      this.userIconActive = false
-    },
-  },
   computed: {
     getPageAccount() {
       return PAGE_ACCOUNT
+    },
+  },
+  watch: {
+    $route() {
+      this.userIconActive = false
     },
   },
   methods: {
@@ -186,6 +196,9 @@ export default {
     },
     toggleMobileNavigation() {
       this.mobileNavIsActive = !this.mobileNavIsActive
+    },
+    toggleMoreActions() {
+      this.moreActionsIsActive = !this.moreActionsIsActive
     },
   },
 }
@@ -206,14 +219,9 @@ export default {
     min-width: 2rem;
   }
 }
+
 .menu-button {
   position: relative;
-
-  &__currency {
-    --select-padding: 0;
-    --select-height: 2rem;
-    --select-color: #afb0b6;
-  }
 
   &__select {
     --chevron-size: 0;
@@ -256,6 +264,10 @@ export default {
         left: 8px;
       }
     }
+  }
+
+  .more-actions {
+    margin-bottom: var(--spacer-xs);
   }
 }
 </style>

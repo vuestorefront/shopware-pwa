@@ -25,16 +25,26 @@ const target = args._.length
   : "shopware-6-client";
 const chokidar = require("chokidar");
 
-chokidar
-  .watch([path.join(__dirname, "..", "packages", target, "src")], {
-    ignoreInitial: true,
-  })
-  .on("all", async (event) => {
-    execa("yarn", ["build", target], {
-      stdio: "inherit",
-    });
-  });
+const packagePath = path.join(__dirname, "..", "packages", target);
+const pkg = require(path.join(packagePath, "package.json"));
 
-execa("yarn", ["build", target], {
-  stdio: "inherit",
-});
+if (pkg.scripts && pkg.scripts.dev) {
+  execa("yarn", ["dev"], {
+    stdio: "inherit",
+    cwd: packagePath,
+  });
+} else {
+  chokidar
+    .watch([path.join(packagePath, "src")], {
+      ignoreInitial: true,
+    })
+    .on("all", async (event) => {
+      execa("yarn", ["build", target], {
+        stdio: "inherit",
+      });
+    });
+
+  execa("yarn", ["build", target], {
+    stdio: "inherit",
+  });
+}

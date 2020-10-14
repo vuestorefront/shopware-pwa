@@ -1,11 +1,11 @@
 <template>
-  <SwAddress :address="billingAddress" address-title="Billing address">
+  <SwAddress :address="billingAddress" :address-title="$t('Billing address')">
     <template #after-content>
       <SwButton
         class="sf-button--text review__edit"
         @click="$emit('click:edit', 2)"
       >
-        Edit
+        {{ $t("Edit") }}
       </SwButton>
     </template>
   </SwAddress>

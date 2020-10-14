@@ -119,10 +119,14 @@ export default {
       () => isSidebarOpen.value && isComponentMounted.value
     )
 
+    const getCartProducts = computed(() => {
+      return cartItems.value.filter((cartItem) => cartItem.type === "product")
+    })
+
     return {
       isSidebarOpen: sidebarState,
       toggleSidebar,
-      cartItems,
+      cartItems: getCartProducts,
       count,
       totalPrice,
       removeProduct,

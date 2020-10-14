@@ -36,7 +36,7 @@
       class="sf-button color-secondary shipping-address-user-form__add-new"
       @click="isModalOpen = true"
     >
-      Add new
+      {{ $t("Add new") }}
     </SwButton>
     <SfModal
       class="sw-modal"

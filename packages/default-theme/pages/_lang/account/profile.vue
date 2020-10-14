@@ -1,20 +1,28 @@
 <template>
   <SfTabs :open-tab="1">
-    <SfTab title="Personal data">
+    <SfTab :title="$t('Personal data')">
       <SwPersonalInfo />
       <p class="notice">
-        At Brand name, we attach great importance to privacy issues and are
-        committed to protecting the personal data of our users. Learn more about
-        how we care and use your personal data in the
-        <a class="notice__link" href="">Privacy Policy.</a>
+        <i18n path="privacy-info" tag="p">
+          {{ $t("brand-name") }}
+          <a :href="url" target="_blank">
+            {{ $t("privacy-link") }}
+          </a>
+        </i18n>
       </p>
     </SfTab>
-    <SfTab title="Password change">
+    <SfTab :title="$t('Password change')">
       <SwPassword>
         <template #message="{ user }">
           <p class="message">
-            If you want to change the password to access your account, enter the
-            following information:<br />Your current email address is
+            {{
+              $t(
+                "If you want to change the password to access your account, enter the " +
+                  "following information:"
+              )
+            }}
+            <br />
+            {{ $t("Your current email address is") }}
             <span class="message__label">{{ user && user.email }}</span>
           </p>
         </template>
@@ -36,7 +44,9 @@ export default {
     SwPersonalInfo,
   },
   data() {
-    return {}
+    return {
+      url: "",
+    }
   },
 }
 </script>

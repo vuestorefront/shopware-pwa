@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-error: Readonly<Ref<Readonly<string>>>;
+error: ComputedRef<string>;
 ```

@@ -1,7 +1,7 @@
 <template>
   <div>
     <SfHeading
-      title="4. Order details"
+      :title="$t('4. Order details')"
       :level="2"
       class="sf-heading--left sf-heading--no-underline title"
     />
@@ -9,16 +9,16 @@
       <SfAccordionItem header="Personal Details">
         <PersonalDetailsSummary @click:edit="$emit('click:edit', 0)" />
       </SfAccordionItem>
-      <SfAccordionItem header="Shipping address">
+      <SfAccordionItem :header="$t('Shipping address')">
         <ShippingAddressSummary @click:edit="$emit('click:edit', 1)" />
       </SfAccordionItem>
-      <SfAccordionItem header="Billing address">
+      <SfAccordionItem :header="$t('Billing address')">
         <BillingAddressSummary @click:edit="$emit('click:edit', 2)" />
       </SfAccordionItem>
-      <SfAccordionItem header="Payment method">
+      <SfAccordionItem :header="$t('Payment method')">
         <PaymentMethodSummary @click:edit="$emit('click:edit', 2)" />
       </SfAccordionItem>
-      <SfAccordionItem header="Order details">
+      <SfAccordionItem :header="$t('Order details')">
         <transition name="fade">
           <div class="collected-product-list">
             <SwCartProduct

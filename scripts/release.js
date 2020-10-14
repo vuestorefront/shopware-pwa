@@ -216,11 +216,18 @@ async function publishPackage(pkgName, version, runIfNotDry) {
   if (skippedPackages.includes(pkgName)) {
     return;
   }
-  const pkgRoot = getPkgRoot(pkgName);
+  let pkgRoot = getPkgRoot(pkgName);
   const pkgPath = path.resolve(pkgRoot, "package.json");
   const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"));
   if (pkg.private) {
-    return;
+    // if package is private and has dist folder with package.json it tries to publish from dist folder
+    const pkgDistRoot = path.resolve(pkgRoot, "dist");
+    const pkgDistPath = path.resolve(pkgDistRoot, "package.json");
+    if (!fs.existsSync(pkgDistPath)) return;
+    const distPackage = JSON.parse(fs.readFileSync(pkgDistPath, "utf-8"));
+    if (distPackage.private) return;
+
+    pkgRoot = pkgDistRoot;
   }
 
   const releaseTag = isCanaryRelease ? "canary" : null;

@@ -1,6 +1,8 @@
 <template>
   <div class="sw-address">
-    <p class="message">Keep your addresses and contact details updated.</p>
+    <p class="message">
+      {{ $t("Keep your addresses and contact details updated.") }}
+    </p>
     <SfAlert
       v-if="countriesError || userError"
       class="sw-personal-info__alert"
@@ -12,8 +14,8 @@
         <SwInput
           v-model="form.firstName"
           name="firstName"
-          label="First Name"
-          error-message="First name is required"
+          :label="$t('First name')"
+          :error-message="$t('First name is required')"
           :valid="!$v.form.firstName.$error"
           required
           class="sw-form__input"
@@ -22,8 +24,8 @@
         <SwInput
           v-model="form.lastName"
           name="lastName"
-          label="Last Name"
-          error-message="Last name is required"
+          :label="$t('Last name')"
+          :error-message="$t('Last name is required')"
           :valid="!$v.form.lastName.$error"
           required
           class="sw-form__input"
@@ -33,12 +35,12 @@
       <div class="inputs-group">
         <SfSelect
           v-model="form.salutation"
-          label="Salutation"
-          error-message="Salutation must be selected"
+          :label="$t('Salutation')"
+          :error-message="$t('Salutation must be selected')"
           required
           :valid="!$v.form.salutation.$error"
           class="sf-select--underlined sw-form__select"
-          @blur="$v.form.salutaiton.$touch()"
+          @blur="$v.form.salutation.$touch()"
         >
           <SfSelectOption
             v-for="salutationOption in getMappedSalutations"
@@ -51,8 +53,8 @@
         <SwInput
           v-model="form.street"
           name="street"
-          label="Street Name"
-          error-message="Street name is required"
+          :label="$t('Street')"
+          :error-message="$t('Street is required')"
           :valid="!$v.form.street.$error"
           required
           class="sw-form__input"
@@ -62,8 +64,8 @@
       <SwInput
         v-model="form.apartment"
         name="apartment"
-        label="House/Apartment number"
-        error-message="Apartment is required"
+        :label="$t('House/Apartment number')"
+        :error-message="$t('Apartment is required')"
         :valid="!$v.form.apartment.$error"
         required
         class="form__element"
@@ -73,8 +75,8 @@
         <SwInput
           v-model="form.city"
           name="city"
-          label="City"
-          error-message="City is required"
+          :label="$t('City')"
+          :error-message="$t('City is required')"
           :valid="!$v.form.city.$error"
           required
           class="sw-form__input"
@@ -83,8 +85,8 @@
         <SwInput
           v-model="form.state"
           name="state"
-          label="State/Province"
-          error-message="State is required"
+          :label="$t('State/Province')"
+          :error-message="$t('State is required')"
           :valid="!$v.form.state.$error"
           required
           class="sw-form__input"
@@ -95,8 +97,8 @@
         <SwInput
           v-model="form.zipcode"
           name="zipcode"
-          label="Zip-code"
-          error-message="Zip code is required"
+          :label="$t('Zip code')"
+          :error-message="$t('Zip code is required')"
           :valid="!$v.form.zipcode.$error"
           required
           class="sw-form__input"
@@ -105,8 +107,8 @@
 
         <SfSelect
           v-model="form.country"
-          label="Country"
-          error-message="Country must be selected"
+          :label="$t('Country')"
+          :error-message="$t('Country must be selected')"
           :valid="!$v.form.country.$error"
           required
           class="sf-select--underlined sw-form__select"
@@ -124,8 +126,8 @@
       <SwInput
         v-model="form.phoneNumber"
         name="phoneNumber"
-        label="Phone number"
-        error-message="Wrong phone number"
+        :label="$t('Phone number')"
+        :error-message="$t('Wrong phone number')"
         :valid="!$v.form.phoneNumber.$error"
         required
         class="sw-form__input"
@@ -133,13 +135,13 @@
       />
 
       <SwButton class="sw-form__button" @click="updateAddress">
-        Update the address
+        {{ $t("Update the address") }}
       </SwButton>
       <SwButton
         class="sf-button--outline sw-form__button sw-form__button--back"
         @click="returnToAddresses"
       >
-        Back
+        {{ $t("Back") }}
       </SwButton>
     </div>
   </div>

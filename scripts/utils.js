@@ -14,10 +14,6 @@ const targets = (exports.targets = allTargets.filter((f) => {
   ) {
     return false;
   }
-  const pkg = require(`../packages/${f}/package.json`);
-  if (pkg.private && !pkg.buildOptions) {
-    return false;
-  }
   return true;
 }));
 
