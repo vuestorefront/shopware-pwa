@@ -6,7 +6,7 @@ import { getApplicationContext } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
 
 /**
- * @alpha
+ * @beta
  */
 export interface UseSalutations {
   mountedCallback: () => Promise<void>;
@@ -20,7 +20,7 @@ const sharedSalutations = Vue.observable({
 } as any);
 
 /**
- * @alpha
+ * @beta
  */
 export const useSalutations = (
   rootContext: ApplicationVueContext
