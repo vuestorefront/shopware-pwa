@@ -76,6 +76,12 @@ async function buildAll(targets) {
         )
       )
     );
+    if (!fs.existsSync("temp")) {
+      console.log(
+        chalk.bold(chalk.yellow(`No definition found in "temp" directory.`))
+      );
+      return;
+    }
     await execa(
       "api-documenter",
       ["markdown", "-i", "./temp", "-o", "./docs/landing/resources/api"],
