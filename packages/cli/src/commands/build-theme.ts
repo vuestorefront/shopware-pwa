@@ -4,7 +4,6 @@ const command: GluegunCommand = {
   name: "build-theme",
   description: "Build your theme for Shopware PWA projects.",
   run: async (toolbox) => {
-    const path = require("path");
     const fse = require("fs-extra");
     const buildingSpinner = toolbox.print.spin("Building theme...");
 
@@ -38,18 +37,9 @@ const command: GluegunCommand = {
       }
     }
 
-    await fse.copy("src", destinationDirectoryName);
-    await fse.copy(
-      "package.json",
-      path.join(destinationDirectoryName, "package.json")
-    );
-    await toolbox.patching.update(
-      path.join("dist", "package.json"),
-      (config) => {
-        delete config.private;
-        return config;
-      }
-    );
+    await toolbox.filesystem.copyAsync("src", destinationDirectoryName, {
+      overwrite: true,
+    });
     buildingSpinner.succeed("Theme built!");
   },
 };
