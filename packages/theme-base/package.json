@@ -6,6 +6,9 @@
   "files": [
     "dist"
   ],
+  "scripts": {
+    "build": "echo theme-base is built"
+  },
   "dependencies": {
     "currency.js": "^2.0.3"
   }
