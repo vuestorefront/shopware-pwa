@@ -307,6 +307,14 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     expect(moduleObject.options.build.babel.presets).toBeTruthy();
   });
 
+  it("should contain babel plugins to deal with es2020", async () => {
+    await runModule(moduleObject, {});
+    expect(moduleObject.options.build.babel.plugins).toEqual([
+      "@babel/plugin-proposal-optional-chaining",
+      "@babel/plugin-proposal-nullish-coalescing-operator",
+    ]);
+  });
+
   it("interfaces should return default empty object", () => {
     expect(InterfacesDefault).toEqual({});
   });
