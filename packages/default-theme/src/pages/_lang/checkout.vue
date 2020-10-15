@@ -26,7 +26,7 @@
           </SfStep>
         </SfSteps>
       </div>
-      <div class="checkout__aside desktop-only">
+      <div class="checkout__aside">
         <transition name="fade">
           <SidebarOrderSummary
             v-if="currentStep < CHECKOUT_STEPS.REVIEW"
@@ -116,7 +116,12 @@ export default {
       width: 100%;
       box-shadow: 0px 4px 11px rgba(var(--c-dark-base), 0.1);
       background: var(--c-light);
-      padding: var(--spacer-xl) calc(var(--spacer-lg) * 2);
+      padding: var(--spacer-sm);
+      box-sizing: border-box;
+      @include for-desktop {
+        box-sizing: content-box;
+        padding: var(--spacer-xl) calc(var(--spacer-lg) * 2);
+      }
     }
   }
 }
