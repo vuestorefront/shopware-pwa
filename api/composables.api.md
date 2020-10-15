@@ -403,7 +403,7 @@ interface Notification_2 {
 
 export { Notification_2 as Notification }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export type Search = (path: string, associations?: any) => any;
 
 // @beta
@@ -418,10 +418,10 @@ export const useCategoryFilters: (rootContext: ApplicationVueContext) => any;
 // @beta
 export const useCheckout: (rootContext: ApplicationVueContext) => IUseCheckout;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export const useCms: (rootContext: ApplicationVueContext) => any;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UseCountries {
     // (undocumented)
     error: Ref<any>;
@@ -433,10 +433,10 @@ export interface UseCountries {
     mountedCallback: () => Promise<void>;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export const useCountries: (rootContext: ApplicationVueContext) => UseCountries;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UseCurrency {
     // (undocumented)
     availableCurrencies: Readonly<Ref<readonly Currency[]>>;
@@ -452,7 +452,7 @@ export interface UseCurrency {
     setCurrency: (parameter: Partial<Currency>) => Promise<void>;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export const useCurrency: (rootContext: ApplicationVueContext) => UseCurrency;
 
 // @beta
@@ -482,7 +482,7 @@ export const useNotifications: (rootContext: ApplicationVueContext) => {
     pushSuccess: (message: string, options?: any) => void;
 };
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UseProduct<PRODUCT, SEARCH> {
     // (undocumented)
     [x: string]: any;
@@ -496,7 +496,7 @@ export interface UseProduct<PRODUCT, SEARCH> {
     search: SEARCH;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export const useProduct: (rootContext: ApplicationVueContext, loadedProduct?: any) => UseProduct<Product, Search>;
 
 // @beta @deprecated (undocumented)
@@ -552,7 +552,7 @@ export interface UseProductSearch {
 // @alpha @deprecated (undocumented)
 export const useProductSearch: (rootContext: ApplicationVueContext) => UseProductSearch;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UseSalutations {
     // (undocumented)
     error: Ref<any>;
@@ -564,7 +564,7 @@ export interface UseSalutations {
     mountedCallback: () => Promise<void>;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export const useSalutations: (rootContext: ApplicationVueContext) => UseSalutations;
 
 // @beta

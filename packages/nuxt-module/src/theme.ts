@@ -6,13 +6,34 @@ export function getTargetSourcePath(moduleObject: NuxtModuleOptions) {
   return path.join(moduleObject.options.rootDir, ".shopware-pwa", "source");
 }
 
+/**
+ * common code with shopware-pwa-extension.ts -  toolbox.getThemePath
+ * should be moved to commons
+ */
 export function getThemeSourcePath(
   moduleObject: NuxtModuleOptions,
   config: ShopwarePwaConfigFile
 ) {
+  const directDistPath = path.join(
+    moduleObject.options.rootDir,
+    config.theme,
+    "dist"
+  );
+  const directDistPathExist = fse.existsSync(directDistPath);
+  if (directDistPathExist) return directDistPath;
+
   const directPath = path.join(moduleObject.options.rootDir, config.theme);
   const directPathExist = fse.existsSync(directPath);
   if (directPathExist) return directPath;
+
+  const nodePackageDistPath = path.join(
+    moduleObject.options.rootDir,
+    "node_modules",
+    config.theme,
+    "dist"
+  );
+  const nodePackageDistPathExist = fse.existsSync(nodePackageDistPath);
+  if (nodePackageDistPathExist) return nodePackageDistPath;
 
   const nodePackagePath = path.join(
     moduleObject.options.rootDir,

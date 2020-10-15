@@ -69,6 +69,7 @@ module.exports = {
       "@shopware-pwa/shopware-6-client",
       "@shopware-pwa/default-theme",
       "@shopware-pwa/nuxt-module",
+      "@shopware-pwa/theme-base",
     ];
 
     try {

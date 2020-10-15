@@ -39,22 +39,27 @@ const buildAllMatching = args.all || args.a;
 run();
 
 async function run() {
-  if (!targets.length) {
-    const buildedCorrectly = await buildAll(buildTargets);
-    if (buildedCorrectly === false) process.exit(1);
-    if (isCIRun) {
-      for (let index = 0; index < allTargets.length; index++) {
-        const pkgDir = path.resolve(`packages/${allTargets[index]}`);
-        await execa("npx", ["yalc", "push"], {
-          stdio: "inherit",
-          cwd: pkgDir,
-        });
+  try {
+    if (!targets.length) {
+      const buildedCorrectly = await buildAll(buildTargets);
+      if (buildedCorrectly === false) process.exit(1);
+      if (isCIRun) {
+        for (let index = 0; index < allTargets.length; index++) {
+          const pkgDir = path.resolve(`packages/${allTargets[index]}`);
+          await execa("npx", ["yalc", "push"], {
+            stdio: "inherit",
+            cwd: pkgDir,
+          });
+        }
       }
+      checkAllSizes(buildTargets);
+    } else {
+      await buildAll(fuzzyMatchTarget(targets, buildAllMatching));
+      checkAllSizes(fuzzyMatchTarget(targets, buildAllMatching));
     }
-    checkAllSizes(buildTargets);
-  } else {
-    await buildAll(fuzzyMatchTarget(targets, buildAllMatching));
-    checkAllSizes(fuzzyMatchTarget(targets, buildAllMatching));
+  } catch (e) {
+    console.error("Build error", e);
+    process.exit(1);
   }
 }
 
@@ -71,6 +76,12 @@ async function buildAll(targets) {
         )
       )
     );
+    if (!fs.existsSync("temp")) {
+      console.log(
+        chalk.bold(chalk.yellow(`No definition found in "temp" directory.`))
+      );
+      return;
+    }
     await execa(
       "api-documenter",
       ["markdown", "-i", "./temp", "-o", "./docs/landing/resources/api"],
