@@ -10,7 +10,7 @@ const sharedCurrencyState = Vue.observable({
 } as any);
 
 /**
- * @alpha
+ * @beta
  */
 export interface UseCurrency {
   loadAvailableCurrencies: (options?: {
@@ -23,7 +23,7 @@ export interface UseCurrency {
 }
 
 /**
- * @alpha
+ * @beta
  */
 export const useCurrency = (
   rootContext: ApplicationVueContext

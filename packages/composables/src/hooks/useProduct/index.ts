@@ -9,7 +9,7 @@ const NO_PRODUCT_REFERENCE_ERROR =
   "Associations cannot be loaded for undefined product";
 
 /**
- * @alpha
+ * @beta
  */
 export interface UseProduct<PRODUCT, SEARCH> {
   product: Ref<PRODUCT>;
@@ -20,12 +20,12 @@ export interface UseProduct<PRODUCT, SEARCH> {
 }
 
 /**
- * @alpha
+ * @beta
  */
 export type Search = (path: string, associations?: any) => any;
 
 /**
- * @alpha
+ * @beta
  */
 export const useProduct = (
   rootContext: ApplicationVueContext,
