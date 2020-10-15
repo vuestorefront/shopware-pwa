@@ -1,7 +1,7 @@
 const fs = require("fs");
 const chalk = require("chalk");
 
-const ownBuildProcessPackages = ["default-theme", "commons"];
+const ownBuildProcessPackages = ["commons"];
 
 const allTargets = (exports.allTargets = fs
   .readdirSync("packages")

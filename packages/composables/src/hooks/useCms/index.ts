@@ -8,7 +8,7 @@ import { ApplicationVueContext } from "../../appContext";
 import merge from "lodash/merge";
 
 /**
- * @alpha
+ * @beta
  */
 export const useCms = (rootContext: ApplicationVueContext): any => {
   const { vuexStore, apiInstance } = getApplicationContext(
@@ -28,7 +28,7 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
   });
 
   /**
-   * @alpha
+   * @beta
    */
   const search = async (path: string, query?: any) => {
     loading.value = true;
