@@ -1,0 +1,16 @@
+{
+  "name": "@shopware-pwa/theme-base",
+  "version": "0.0.1",
+  "author": "patzick <13100280+patzick@users.noreply.github.com>",
+  "license": "MIT",
+  "baseTheme": "",
+  "scripts": {
+    "build": "shopware-pwa build-theme",
+    "dev": "shopware-pwa dev-theme",
+    "postinstall": "yarn build && cd ./dist && yarn link",
+    "release": "yarn build && cd ./dist && yarn publish"
+  },
+  "dependencies": {
+    "currency.js": "^2.0.3"
+  }
+}
