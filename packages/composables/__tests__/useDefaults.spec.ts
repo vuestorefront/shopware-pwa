@@ -111,7 +111,7 @@ describe("Composables - useDefaults", () => {
       );
     });
 
-    it("should return empty object for unknown defauts", () => {
+    it("should return empty object for unknown defaults", () => {
       const { getDefaults } = useDefaults(rootContextMock, "someUnknownKey");
       expect(getDefaults()).toEqual({});
     });

@@ -14,6 +14,8 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.11.0",
     "@nuxt/types": "^2.14.6",
     "@nuxt/typescript-build": "^2.0.3",
     "@nuxt/typescript-runtime": "^2.0.0",

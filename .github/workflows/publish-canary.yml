@@ -355,14 +355,14 @@ jobs:
           path: |
             packages/shopware-6-client/dist
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-shopware-6-client.outputs.package-hash }}
-      - name: Cache defaut-theme build
+      - name: Cache default-theme build
         uses: actions/cache@v2
         env:
-          cache-name: test-cache-defaut-theme-build
+          cache-name: test-cache-default-theme-build
         with:
           path: |
-            packages/defaut-theme/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-defaut-theme.outputs.package-hash }}
+            packages/default-theme/dist
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}-${{ needs.build-default-theme.outputs.package-hash }}
       - name: Cache node_modules
         uses: actions/cache@v2
         id: step-cache-node-modules
