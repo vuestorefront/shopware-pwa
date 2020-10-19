@@ -56,7 +56,7 @@ export default {
 
 .collected-product {
   --collected-product-actions-align-items: flex-end;
-  --collected-product-title-font-size: var(--font-base);
+  --collected-product-title-font-size: var(--font-size--base);
   margin: var(--spacer-base) 0;
 
   &__properties {

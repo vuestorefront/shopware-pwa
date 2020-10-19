@@ -5,7 +5,7 @@
       class="error-page__heading"
       :level="1"
       :title="`${code}`"
-      :subtitle="message"
+      :description="message"
     />
     <div class="error-page__actions">
       <SwButton
@@ -20,8 +20,8 @@
         />Return to homepage
       </SwButton>
       <SwButton
-        @click="$router.back()"
         class="sf-button--full-width sf-button--text error-page__actions-button"
+        @click="$router.back()"
       >
         Back
       </SwButton>
@@ -82,11 +82,11 @@ export default {
   &__heading {
     --heading-title-margin: var(--spacer-sm) 0;
     --heading-title-color: var(--c-primary);
-    --heading-subtitle-color: var(--c-secondary-variant);
-    --heading-subtitle-font-size: var(--font-base);
-    --heading-subtitle-margin: 0 var(--spacer-base);
-    --heading-subtitle-font-family: var(--font-family-primary);
-    --heading-title-font-weight: var(--font-semibold);
+    --heading-description-color: var(--c-secondary-variant);
+    --heading-description-font-size: var(--font-size--base);
+    --heading-description-margin: 0 var(--spacer-base);
+    --heading-description-font-family: var(--font-family--primary);
+    --heading-title-font-weight: var(--font-weight--semibold);
     @include for-desktop {
       --heading-title-font-size: 5rem;
     }

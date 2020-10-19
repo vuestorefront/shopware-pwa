@@ -119,7 +119,7 @@ export default {
   &__action-button {
     --button-height: 3.25rem;
     @include for-desktop {
-      --button-font-weight: var(--font-normal);
+      --button-font-weight: var(--font-weight--normal);
       &:first-child {
         margin: 0 var(--spacer-lg) 0 0;
       }
@@ -127,8 +127,8 @@ export default {
   }
   &__property {
     margin: 0 0 var(--spacer-sm) 0;
-    --property-value-font-weight: var(--font-semibold);
-    --property-value-font-size: var(--font-base);
+    --property-value-font-weight: var(--font-weight--semibold);
+    --property-value-font-size: var(--font-size--base);
     @include for-desktop {
       margin: 0 0 var(--spacer-sm) 0;
     }

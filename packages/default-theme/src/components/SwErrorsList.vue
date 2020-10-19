@@ -29,7 +29,7 @@ export default {
 <style lang="scss" scoped>
 .errors-list-component {
   color: var(--_c-red-primary);
-  font-size: var(--font-sm);
+  font-size: var(--font-size--sm);
 
   .list {
     margin-top: var(--spacer-xs);

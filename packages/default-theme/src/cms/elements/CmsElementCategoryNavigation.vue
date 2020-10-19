@@ -4,7 +4,7 @@
       <SfHeading :level="3" :title="navTitle" />
     </div>
     <div class="cms-element-category-navigation__menu">
-      <SfHeading subtitle="No subcategories" v-if="!navigation.length" />
+      <SfHeading description="No subcategories" v-if="!navigation.length" />
       <SfAccordion :show-chevron="true">
         <SfAccordionItem
           v-for="accordion in navigation"
@@ -120,7 +120,7 @@ export default {
 
 .cms-element-category-navigation {
   &__header {
-    --heading-title-font-weight: var(--font-light);
+    --heading-title-font-weight: var(--font-weight--light);
     --heading-title-font-size: var(--font-xl);
     flex: 0 0 15%;
     align-items: center;

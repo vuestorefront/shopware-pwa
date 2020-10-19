@@ -121,7 +121,7 @@
       <SfIcon size="21px" icon="heart_fill" />
       <SfHeading
         title="Thanks!"
-        subtitle="We'll contact you as soon as possible!"
+        description="We'll contact you as soon as possible!"
       />
     </div>
   </div>

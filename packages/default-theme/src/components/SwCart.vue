@@ -39,7 +39,7 @@
               :title="$t('Your cart is empty')"
               :level="2"
               class="empty-cart__heading"
-              :subtitle="$t('No items in cart')"
+              :description="$t('No items in cart')"
             />
           </div>
         </div>
@@ -158,8 +158,8 @@ export default {
 
 .sw-side-cart {
   --sidebar-z-index: 1;
-  --property-name-font-size: var(--font-lg);
-  --property-value-font-size: var(--font-lg);
+  --property-name-font-size: var(--font-size--lg);
+  --property-value-font-size: var(--font-size--lg);
   --sidebar-bottom: var(--bottom-navigation-height, 0);
   --overlay-z-index: 0;
   --sidebar-bottom-padding: var(--spacer-sm) var(--spacer-sm) var(--spacer-xl);
@@ -191,7 +191,7 @@ export default {
   }
   &__total-price {
     --price-font-size: var(--font-xl);
-    --price-font-weight: var(--font-semibold);
+    --price-font-weight: var(--font-weight--semibold);
     margin: 0 0 var(--spacer-base) 0;
   }
 }
@@ -199,10 +199,10 @@ export default {
   flex: 1;
 }
 .empty-cart {
-  --heading-subtitle-margin: 0 0 var(--spacer-xl) 0;
+  --heading-description-margin: 0 0 var(--spacer-xl) 0;
   --heading-title-margin: 0 0 var(--spacer-base) 0;
   --heading-title-color: var(--c-primary);
-  --heading-title-font-weight: var(--font-semibold);
+  --heading-title-font-weight: var(--font-weight--semibold);
   display: flex;
   flex: 1;
   align-items: center;

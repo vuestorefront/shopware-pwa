@@ -78,8 +78,8 @@ export default {
   }
   &__property {
     margin: 0 0 var(--spacer-sm) 0;
-    --property-value-font-weight: var(--font-semibold);
-    --property-value-font-size: var(--font-lg);
+    --property-value-font-weight: var(--font-weight--semibold);
+    --property-value-font-size: var(--font-size--lg);
     @include for-desktop {
       margin: 0 0 var(--spacer-sm) 0;
     }

@@ -91,7 +91,7 @@ export default {
   }
   &__quantity {
     text-align: center;
-    font-size: var(--font-lg);
+    font-size: var(--font-size--lg);
     & > * {
       --quantity-selector-width: 6rem;
       --quantity-selector-border-width: 0;

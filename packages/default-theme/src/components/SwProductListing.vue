@@ -68,8 +68,8 @@
       <div v-else-if="getCurrentPage < getTotalPagesCount" class="load-more">
         <SwButton
           class="sf-button--outline"
-          @click="loadMore"
           :disabled="loadingMore"
+          @click="loadMore"
         >
           load more...
         </SwButton>
@@ -78,18 +78,17 @@
     <SfHeading
       v-else
       title="No products found"
-      subtitle="let us look for them"
+      description="let us look for them"
     />
   </div>
 </template>
 
 <script>
 import SwProductCard from "@/components/SwProductCard"
-import SwButton from "@/components/atoms/SwButton"
 import SwProductCardHorizontal from "@/components/SwProductCardHorizontal"
 import { SfPagination, SfHeading, SfLoader } from "@storefront-ui/vue"
 import { useUIState, useListing } from "@shopware-pwa/composables"
-import { computed, watch } from "@vue/composition-api"
+import { watch } from "@vue/composition-api"
 export default {
   name: "SwProductListing",
   components: {

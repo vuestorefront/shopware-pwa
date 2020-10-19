@@ -242,14 +242,14 @@ export default {
     display: flex;
     align-items: center;
     padding: var(--spacer-sm);
-    font-size: var(--font-sm);
+    font-size: var(--font-size--sm);
     @include for-desktop {
       padding: var(--spacer-base) 0;
     }
   }
   &__title {
     padding: 0;
-    font-size: var(--font-lg);
+    font-size: var(--font-size--lg);
     line-height: 2.23;
   }
   &__filters-button {

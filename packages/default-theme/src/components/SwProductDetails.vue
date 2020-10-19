@@ -257,8 +257,8 @@ export default {
   }
   &__description {
     margin: var(--spacer-xl) 0;
-    font-family: var(--font-family-secondary);
-    font-size: var(--font-sm);
+    font-family: var(--font-family--secondary);
+    font-size: var(--font-size--sm);
   }
   &__heading {
     margin: var(--spacer-base) 0 0 0;
@@ -289,11 +289,11 @@ export default {
   }
   &__product-number {
     p {
-      font-size: var(--font-sm);
+      font-size: var(--font-size--sm);
       font-weight: bold;
 
       span {
-        font-weight: var(--font-light);
+        font-weight: var(--font-weight--light);
       }
     }
   }

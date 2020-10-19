@@ -7,9 +7,9 @@
   >
     <div class="sw-mega-menu__content">
       <div
-        class="sw-mega-menu__content-section"
         v-for="subcategory in category.children"
         :key="subcategory.name"
+        class="sw-mega-menu__content-section"
         data-cy="mega-menu-category"
       >
         <nuxt-link
@@ -18,7 +18,7 @@
         >
           <SfHeading
             :title="subcategory.name"
-            :subtitle="subcategory.description"
+            :description="subcategory.description"
             :level="4"
           />
         </nuxt-link>

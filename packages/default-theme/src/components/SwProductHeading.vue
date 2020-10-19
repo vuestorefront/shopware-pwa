@@ -142,7 +142,7 @@ export default {
   }
   &__sub-reviews {
     margin-left: 10px;
-    font-size: var(--font-xs);
+    font-size: var(--font-size--xs);
   }
 }
 </style>
