@@ -23,6 +23,7 @@
     "*.{js,vue}": "prettier"
   },
   "dependencies": {
+    "@shopware-pwa/theme-base": "0.4.2",
     "@storefront-ui/vue": "0.7.18",
     "core-js": "^3.6.5",
     "dayjs": "^1.9.3",
@@ -35,7 +36,6 @@
   },
   "devDependencies": {
     "@shopware-pwa/cli": "0.4.2",
-    "@shopware-pwa/theme-base": "0.4.2",
     "@babel/runtime-corejs3": "^7.11.2",
     "@nuxtjs/eslint-config": "^3.1.0",
     "@nuxtjs/eslint-module": "^3.0.0",
