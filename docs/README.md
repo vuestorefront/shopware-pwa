@@ -15,6 +15,13 @@ npx @shopware-pwa/cli init 		# Initialize project
 yarn dev 						# start dev server
 ```
 
+<center>
+The latest stable release (v0.4.2) is also available at:
+
+[![Edit shopware-pwa v0.4.2](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/busy-worker-d68et?fontsize=14&hidenavigation=1&theme=dark)
+
+</center>
+
 ---
 
 <center>
