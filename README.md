@@ -46,6 +46,12 @@ If you have any questions or ideas feel free to join our slack: https://vuestore
 
 ## Quickstart
 
+Before you start testing it locally, **try it out on CodeSandbox**
+_(including shopware-pwa CLI commands in embedded terminal)_
+
+[![Edit shopware-pwa v0.4.2](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/busy-worker-d68et?fontsize=14&hidenavigation=1&theme=dark)
+v0.4.2 (latest release)
+
 ### Usage
 
 Create a directory for your project and enter it
