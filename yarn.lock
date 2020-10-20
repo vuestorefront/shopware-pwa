@@ -2692,13 +2692,6 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@shopware-pwa/theme-base@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@shopware-pwa/theme-base/-/theme-base-0.0.1.tgz#0f837602d55e802539fe84269726cb3d738e6cdf"
-  integrity sha512-bLteVu1uCf6rPIN+eXO36fxBYZDerfeMsaALneByiB4X7+2qffAeHkjtawkdwWlfYDuvpcQRn2MHwGJb/OQAQg==
-  dependencies:
-    currency.js "^2.0.3"
-
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
