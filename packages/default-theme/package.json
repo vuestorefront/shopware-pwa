@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@shopware-pwa/theme-base": "0.4.2",
-    "@storefront-ui/vue": "0.7.18",
+    "@storefront-ui/vue": "0.9.0",
     "core-js": "^3.6.5",
     "dayjs": "^1.9.3",
     "html-to-vue": "^1.2.1",
