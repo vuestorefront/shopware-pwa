@@ -182,7 +182,7 @@ export const getCategoryProducts: (categoryId: string, criteria?: ShopwareSearch
 // @alpha
 export const getCategoryProductsListing: (categoryId: string, searchCriteria?: SearchCriteria | undefined, contextInstance?: ShopwareApiInstance) => Promise<ProductListingResult>;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function getCmsPage(path: string, criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<PageResolverResult<CmsPage>>;
 
 // @beta
