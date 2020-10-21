@@ -2,11 +2,13 @@
   <div class="sw-search-bar">
     <SfSearchBar
       v-model="typingQuery"
+      :icon="searchbarIcon"
       :placeholder="$t('Search for products')"
       :aria-label="$t('Search for products')"
       class="sf-header__search"
       data-cy="search-bar"
       @enter="performSearch"
+      @click="performSearch"
       @focus="isSuggestBoxOpen = true"
     />
 
@@ -23,7 +25,7 @@
 </template>
 
 <script>
-import { ref, reactive, onMounted, computed } from "@vue/composition-api"
+import { ref } from "@vue/composition-api"
 import { getSearchPageUrl } from "@/helpers"
 import { SfSearchBar } from "@storefront-ui/vue"
 import { useProductQuickSearch } from "@shopware-pwa/composables"
@@ -63,6 +65,7 @@ export default {
       isSuggestBoxOpen,
       typingQuery,
       performSuggestSearch,
+      searchbarIcon: { color: "#43464E", size: "1.25rem" },
     }
   },
   computed: {
