@@ -10,22 +10,22 @@
         }"
         role="button"
         :aria-label="$t('Go to My Account')"
-        @click="userIconClick"
         data-cy="login-icon"
+        @click="userIconClick"
       />
       <SfDropdown
         class="dropdown"
         :is-open="isDropdownOpen"
-        @click:close="isDropdownOpen = false"
         data-cy="account-dropdown"
+        @click:close="isDropdownOpen = false"
       >
         <SfList>
           <SfListItem>
             <nuxt-link
               class="sf-button sf-button--full-width sf-button--underlined color-primary"
               :to="getPageAccount"
-              @click.native="isDropdownOpen = false"
               data-cy="my-account-link"
+              @click.native="isDropdownOpen = false"
             >
               {{ $t("My account") }}
             </nuxt-link>
@@ -33,8 +33,8 @@
           <SfListItem>
             <SwButton
               class="sf-button sf-button--full-width sf-button--underlined color-primary dropdown__item"
-              @click="logoutUser()"
               data-cy="logout-button"
+              @click="logoutUser()"
             >
               {{ $t("Logout") }}
             </SwButton>
@@ -48,8 +48,8 @@
         class="sf-header__icon sw-header__icon"
         role="button"
         :aria-label="$t('Go to cart')"
-        @click="toggleSidebar"
         data-cy="cart-icon"
+        @click="toggleSidebar"
       />
       <SwPluginSlot name="top-header-icons-after" />
     </div>
@@ -119,6 +119,10 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 
+.dropdown ::v-deep .sf-dropdown__opener {
+  display: none;
+}
+
 .sw-header__icons {
   display: flex;
   justify-content: space-around;
@@ -126,12 +130,7 @@ export default {
 
   .dropdown {
     --dropdown-width: auto;
-    --dropdown-transform: translate(-10%, 100%);
-    &__item {
-      &:hover {
-        color: var(--c-link-hover);
-      }
-    }
+    --dropdown-transform: translate(-20%, 40px);
   }
 
   .sw-header__icon {

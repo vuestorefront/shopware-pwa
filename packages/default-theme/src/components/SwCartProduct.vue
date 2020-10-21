@@ -55,24 +55,12 @@ export default {
 @import "@/assets/scss/variables";
 
 .collected-product {
-  --collected-product-actions-align-items: flex-end;
-  --collected-product-title-font-size: var(--font-size--base);
+  --collected-product-actions-display: none;
+  --collected-product-configuration-display: flex;
   margin: var(--spacer-base) 0;
 
   &__properties {
     margin-top: var(--spacer-base);
-  }
-
-  &__actions {
-    align-items: flex-end;
-    display: flex;
-    flex-direction: column;
-    opacity: var(--cp-actions-opacity, 0);
-    transition: opacity 150ms ease-in-out;
-  }
-
-  &__actions-element {
-    margin-top: var(--spacer-xs);
   }
 
   @include for-desktop {
