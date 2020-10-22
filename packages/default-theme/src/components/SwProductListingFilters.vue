@@ -21,7 +21,7 @@
             :key="option.key"
             :value="option.key"
             class="sort-by__option"
-            >{{ $t(option.key) }}</SfSelectOption
+            >{{ $t(option.label) }}</SfSelectOption
           >
         </SfSelect>
       </div>
