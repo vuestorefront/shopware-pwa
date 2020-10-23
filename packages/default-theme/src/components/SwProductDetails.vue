@@ -1,6 +1,8 @@
 <template>
   <div class="sw-product-details">
-    <SwTipPopup />
+    <div v-if="isMobile">
+      <SwTipPopup />
+    </div>
 
     <div class="product-details__mobile-top">
       <SwProductHeading class="product-details__heading" :product="product" />
@@ -87,9 +89,16 @@ import SwProductHeading from "@/components/SwProductHeading"
 import SwProductSelect from "@/components/SwProductSelect"
 import SwProductColors from "@/components/SwProductColors"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import SwTipPopup from "@shopware-pwa/default-theme/components/atoms/SwTipPopup"
 
 import SwProductTabs from "@/components/SwProductTabs"
+
+import {
+  mapMobileObserver,
+  unMapMobileObserver,
+} from "@storefront-ui/vue/src/utilities/mobile-observer"
+
+const SwTipPopup = () => import("@/components/atoms/SwTipPopup")
+
 export default {
   name: "SwProductDetails",
 
@@ -124,10 +133,13 @@ export default {
     return {
       quantity,
       addToCart,
+      mapMobileObserver,
+      unMapMobileObserver,
     }
   },
 
   computed: {
+    ...mapMobileObserver(),
     description() {
       return (
         this.product &&
@@ -192,6 +204,10 @@ export default {
 
       this.$router.push(this.$i18n.path(url))
     },
+  },
+
+  beforeDestroy() {
+    unMapMobileObserver()
   },
 
   mounted() {
