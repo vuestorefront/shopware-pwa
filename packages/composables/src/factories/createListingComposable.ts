@@ -74,16 +74,18 @@ export function createListingComposable<ELEMENTS_TYPE>({
   const setInitialListing = async (initialListing: ProductListingResult) => {
     // TODO: remove before v0.6.0 release (SW v6.4.x).
     if (
-      initialListing.currentFilters.manufacturer ||
-      initialListing.currentFilters.properties
+      initialListing.currentFilters?.manufacturer ||
+      initialListing.currentFilters?.properties
     ) {
+      loading.value = true;
       const allFiltersResult = await searchMethod({});
       initialListing = Object.assign({}, initialListing, {
-        aggregations: allFiltersResult.aggregations,
+        aggregations: allFiltersResult?.aggregations,
       });
     }
     vuexStore.commit("SET_INITIAL_LISTING", { listingKey, initialListing });
     appliedListing.value = null;
+    loading.value = false;
   };
 
   // for internal usage, actual listing is computed from applied and initial listing
@@ -138,7 +140,7 @@ export function createListingComposable<ELEMENTS_TYPE>({
       if (searchCriteria.manufacturer || searchCriteria.properties) {
         const allFiltersResult = await searchMethod({});
         appliedListing.value = Object.assign({}, result, {
-          aggregations: allFiltersResult.aggregations,
+          aggregations: allFiltersResult?.aggregations,
         });
       } else {
         appliedListing.value = result;
@@ -218,16 +220,8 @@ export function createListingComposable<ELEMENTS_TYPE>({
     await search(query);
   };
 
-  const availableFilters = computed(() => {
-    return vuexStore.getters.getAppliedListings[listingKey]?.aggregations;
-  });
-
   const getAvailableFilters = computed(() => {
-    console.error("availableFilters.value", availableFilters.value);
-    return (
-      (availableFilters.value && getListingFilters(availableFilters.value)) ||
-      getListingFilters(getCurrentListing.value.aggregations)
-    );
+    return getListingFilters(getCurrentListing.value.aggregations);
   });
 
   const getCurrentFilters = computed(() => {
