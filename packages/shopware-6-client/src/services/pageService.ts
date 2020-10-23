@@ -48,21 +48,14 @@ export async function getPage(
   searchCriteria?: SearchCriteria,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<PageResolverResult<CmsPage>> {
-  const resp = await contextInstance.invoke.post(
-    getPageResolverEndpoint(),
-    {
-      path: path,
-      ...convertSearchCriteria({
-        searchCriteria,
-        config: contextInstance.config,
-      }),
-    },
-    {
-      headers: {
-        "sw-include-seo-urls": true,
-      },
-    }
-  );
+  contextInstance.defaults.headers["sw-include-seo-urls"] = true;
+  const resp = await contextInstance.invoke.post(getPageResolverEndpoint(), {
+    path: path,
+    ...convertSearchCriteria({
+      searchCriteria,
+      config: contextInstance.config,
+    }),
+  });
 
   return resp.data;
 }
@@ -76,18 +69,11 @@ export async function getCmsPage(
   criteria?: ShopwareSearchParams,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<PageResolverResult<CmsPage>> {
-  const resp = await contextInstance.invoke.post(
-    getPageResolverEndpoint(),
-    {
-      path: path,
-      ...criteria,
-    },
-    {
-      headers: {
-        "sw-include-seo-urls": true,
-      },
-    }
-  );
+  contextInstance.defaults.headers["sw-include-seo-urls"] = true;
+  const resp = await contextInstance.invoke.post(getPageResolverEndpoint(), {
+    path: path,
+    ...criteria,
+  });
 
   return resp.data;
 }
