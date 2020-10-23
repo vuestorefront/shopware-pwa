@@ -71,7 +71,17 @@ export function createListingComposable<ELEMENTS_TYPE>({
   const getInitialListing = computed(
     () => vuexStore.getters.getInitialListings[listingKey] || {}
   );
-  const setInitialListing = (initialListing: ProductListingResult) => {
+  const setInitialListing = async (initialListing: ProductListingResult) => {
+    // TODO: remove before v0.6.0 release (SW v6.4.x).
+    if (
+      initialListing.currentFilters.manufacturer ||
+      initialListing.currentFilters.properties
+    ) {
+      const allFiltersResult = await searchMethod({});
+      initialListing = Object.assign({}, initialListing, {
+        aggregations: allFiltersResult.aggregations,
+      });
+    }
     vuexStore.commit("SET_INITIAL_LISTING", { listingKey, initialListing });
     appliedListing.value = null;
   };
@@ -123,7 +133,16 @@ export function createListingComposable<ELEMENTS_TYPE>({
       // prepare full criteria using defaults and currently selected criteria
       const searchCriteria = merge({}, searchDefaults, criteria);
       const result = await searchMethod(searchCriteria);
-      appliedListing.value = result;
+
+      // TODO: remove before v0.6.0 release (SW v6.4.x).
+      if (searchCriteria.manufacturer || searchCriteria.properties) {
+        const allFiltersResult = await searchMethod({});
+        appliedListing.value = Object.assign({}, result, {
+          aggregations: allFiltersResult.aggregations,
+        });
+      } else {
+        appliedListing.value = result;
+      }
     } catch (e) {
       throw e;
     } finally {
@@ -199,8 +218,16 @@ export function createListingComposable<ELEMENTS_TYPE>({
     await search(query);
   };
 
+  const availableFilters = computed(() => {
+    return vuexStore.getters.getAppliedListings[listingKey]?.aggregations;
+  });
+
   const getAvailableFilters = computed(() => {
-    return getListingFilters(getCurrentListing.value.aggregations);
+    console.error("availableFilters.value", availableFilters.value);
+    return (
+      (availableFilters.value && getListingFilters(availableFilters.value)) ||
+      getListingFilters(getCurrentListing.value.aggregations)
+    );
   });
 
   const getCurrentFilters = computed(() => {
