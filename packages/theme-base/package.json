@@ -1,0 +1,15 @@
+{
+  "name": "@shopware-pwa/theme-base",
+  "version": "0.4.2",
+  "author": "patzick <13100280+patzick@users.noreply.github.com>",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "echo theme-base is built"
+  },
+  "dependencies": {
+    "currency.js": "^2.0.3"
+  }
+}

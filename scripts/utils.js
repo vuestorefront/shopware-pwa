@@ -1,7 +1,7 @@
 const fs = require("fs");
 const chalk = require("chalk");
 
-const ownBuildProcessPackages = ["default-theme", "commons"];
+const ownBuildProcessPackages = ["commons"];
 
 const allTargets = (exports.allTargets = fs
   .readdirSync("packages")
@@ -12,10 +12,6 @@ const targets = (exports.targets = allTargets.filter((f) => {
     !fs.statSync(`packages/${f}`).isDirectory() ||
     ownBuildProcessPackages.includes(f)
   ) {
-    return false;
-  }
-  const pkg = require(`../packages/${f}/package.json`);
-  if (pkg.private && !pkg.buildOptions) {
     return false;
   }
   return true;

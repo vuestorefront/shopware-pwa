@@ -19,15 +19,18 @@ export interface IUseCart
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [addProduct](./composables.iusecart.addproduct.md) | ({ id, quantity }: { id: string; quantity?: number; }) =&gt; void | <b><i>(BETA)</i></b> |
-|  [cart](./composables.iusecart.cart.md) | Readonly&lt;Ref&lt;Readonly&lt;Cart&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
-|  [cartItems](./composables.iusecart.cartitems.md) | Readonly&lt;Ref&lt;Readonly&lt;LineItem\[\]&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [addProduct](./composables.iusecart.addproduct.md) | ({ id, quantity, }: { id: string; quantity?: number; }) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
+|  [addPromotionCode](./composables.iusecart.addpromotioncode.md) | (promotionCode: string) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
+|  [appliedPromotionCodes](./composables.iusecart.appliedpromotioncodes.md) | ComputedRef&lt;LineItem\[\]&gt; | <b><i>(BETA)</i></b> |
+|  [cart](./composables.iusecart.cart.md) | ComputedRef&lt;Cart&gt; | <b><i>(BETA)</i></b> |
+|  [cartItems](./composables.iusecart.cartitems.md) | ComputedRef&lt;LineItem\[\]&gt; | <b><i>(BETA)</i></b> |
 |  [changeProductQuantity](./composables.iusecart.changeproductquantity.md) | ({ id, quantity, }: { id: string; quantity: number; }) =&gt; void | <b><i>(BETA)</i></b> |
-|  [count](./composables.iusecart.count.md) | Readonly&lt;Ref&lt;Readonly&lt;number&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
-|  [error](./composables.iusecart.error.md) | Readonly&lt;Ref&lt;Readonly&lt;string&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
-|  [loading](./composables.iusecart.loading.md) | Readonly&lt;Ref&lt;Readonly&lt;boolean&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [count](./composables.iusecart.count.md) | ComputedRef&lt;number&gt; | <b><i>(BETA)</i></b> |
+|  [error](./composables.iusecart.error.md) | ComputedRef&lt;string&gt; | <b><i>(BETA)</i></b> |
+|  [loading](./composables.iusecart.loading.md) | ComputedRef&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [refreshCart](./composables.iusecart.refreshcart.md) | () =&gt; void | <b><i>(BETA)</i></b> |
+|  [removeItem](./composables.iusecart.removeitem.md) | ({ id }: LineItem) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [removeProduct](./composables.iusecart.removeproduct.md) | ({ id }: Partial&lt;Product&gt;) =&gt; void | <b><i>(BETA)</i></b> |
-|  [subtotal](./composables.iusecart.subtotal.md) | Readonly&lt;Ref&lt;Readonly&lt;number&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
-|  [totalPrice](./composables.iusecart.totalprice.md) | Readonly&lt;Ref&lt;Readonly&lt;number&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [subtotal](./composables.iusecart.subtotal.md) | ComputedRef&lt;number&gt; | <b><i>(BETA)</i></b> |
+|  [totalPrice](./composables.iusecart.totalprice.md) | ComputedRef&lt;number&gt; | <b><i>(BETA)</i></b> |
 

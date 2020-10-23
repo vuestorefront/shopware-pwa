@@ -69,6 +69,7 @@ module.exports = {
       "@shopware-pwa/shopware-6-client",
       "@shopware-pwa/default-theme",
       "@shopware-pwa/nuxt-module",
+      "@shopware-pwa/theme-base",
     ];
 
     try {
@@ -98,7 +99,8 @@ module.exports = {
       case STAGES.STABLE:
       default:
         await run(
-          `yarn add -D ${coreDevPackages
+          // TODO: change to coreDevPackages before releasing 0.5.0 - https://github.com/DivanteLtd/shopware-pwa/issues/1168
+          `yarn add -D ${localCoreDevPackages
             .map((dep) => `${dep}@latest`)
             .join(" ")}`
         );

@@ -14,6 +14,7 @@ Keys used accross composables with the description of incommint parameters.
 ```typescript
 INTERCEPTOR_KEYS: {
     ADD_TO_CART: string;
+    ADD_PROMOTION_CODE: string;
     ERROR: string;
     USER_LOGOUT: string;
 }

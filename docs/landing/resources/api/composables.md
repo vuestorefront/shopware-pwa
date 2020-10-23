@@ -28,7 +28,11 @@
 |  [IUseSessionContext](./composables.iusesessioncontext.md) | <b><i>(BETA)</i></b> interface for [useSessionContext](./composables.usesessioncontext.md) composable |
 |  [IUseUser](./composables.iuseuser.md) | <b><i>(BETA)</i></b> interface for [useUser](./composables.useuser.md) composable |
 |  [Notification\_2](./composables.notification_2.md) | <b><i>(BETA)</i></b> |
+|  [UseCountries](./composables.usecountries.md) | <b><i>(BETA)</i></b> |
+|  [UseCurrency](./composables.usecurrency.md) | <b><i>(BETA)</i></b> |
+|  [UseProduct](./composables.useproduct.md) | <b><i>(BETA)</i></b> |
 |  [UseProductListing](./composables.useproductlisting.md) | <b><i>(BETA)</i></b> |
+|  [UseSalutations](./composables.usesalutations.md) | <b><i>(BETA)</i></b> |
 
 ## Variables
 
@@ -39,13 +43,18 @@
 |  [useCart](./composables.usecart.md) | <b><i>(BETA)</i></b> Composable for cart management. Options - [IUseCart](./composables.iusecart.md) |
 |  [useCategoryFilters](./composables.usecategoryfilters.md) | <b><i>(BETA)</i></b> |
 |  [useCheckout](./composables.usecheckout.md) | <b><i>(BETA)</i></b> Composable for Checkout management. Options - [IUseCheckout](./composables.iusecheckout.md) |
+|  [useCms](./composables.usecms.md) | <b><i>(BETA)</i></b> |
+|  [useCountries](./composables.usecountries.md) | <b><i>(BETA)</i></b> |
+|  [useCurrency](./composables.usecurrency.md) | <b><i>(BETA)</i></b> |
 |  [useDefaults](./composables.usedefaults.md) | <b><i>(BETA)</i></b> Returns default config depending on config key. It is used in composables, so defaultsKey is in most cases composable name (ex. <code>useDefaults(rootContext, &quot;useCms&quot;)</code>) |
 |  [useIntercept](./composables.useintercept.md) | <b><i>(BETA)</i></b> Allows to broadcast and intercept events across application. |
 |  [useListing](./composables.uselisting.md) | <b><i>(BETA)</i></b> |
 |  [useNavigation](./composables.usenavigation.md) | <b><i>(BETA)</i></b> Composable for navigation. Options - [IUseNavigation](./composables.iusenavigation.md) |
 |  [useNotifications](./composables.usenotifications.md) | <b><i>(BETA)</i></b> |
+|  [useProduct](./composables.useproduct.md) | <b><i>(BETA)</i></b> |
 |  [useProductListing](./composables.useproductlisting.md) | <b><i>(BETA)</i></b> |
 |  [useProductQuickSearch](./composables.useproductquicksearch.md) | <b><i>(BETA)</i></b> |
+|  [useSalutations](./composables.usesalutations.md) | <b><i>(BETA)</i></b> |
 |  [useSessionContext](./composables.usesessioncontext.md) | <b><i>(BETA)</i></b> Composable for session management. Options - [IUseSessionContext](./composables.iusesessioncontext.md) |
 |  [useUIState](./composables.useuistate.md) | <b><i>(BETA)</i></b> Simple state management for UI purposes. |
 |  [useUser](./composables.useuser.md) | <b><i>(BETA)</i></b> Composable for user management. Options - [IUseUser](./composables.iuseuser.md) |
@@ -55,4 +64,5 @@
 |  Type Alias | Description |
 |  --- | --- |
 |  [listingKey](./composables.listingkey.md) | <b><i>(BETA)</i></b> |
+|  [Search](./composables.search.md) | <b><i>(BETA)</i></b> |
 

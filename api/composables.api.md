@@ -137,15 +137,13 @@ export function getApplicationContext(rootContext: ApplicationVueContext, key?: 
 
 // @beta
 export function getDefaultApiParams(): {
-    [composableName: string]: {
-        includes?: Includes;
-        associations?: Association[];
-    };
+    [composableName: string]: ShopwareSearchParams;
 };
 
 // @beta
 export const INTERCEPTOR_KEYS: {
     ADD_TO_CART: string;
+    ADD_PROMOTION_CODE: string;
     ERROR: string;
     USER_LOGOUT: string;
 };
@@ -167,33 +165,39 @@ export interface IUseAddToCart {
 // @beta
 export interface IUseCart {
     // (undocumented)
-    addProduct: ({ id, quantity }: {
+    addProduct: ({ id, quantity, }: {
         id: string;
         quantity?: number;
-    }) => void;
+    }) => Promise<void>;
     // (undocumented)
-    cart: Readonly<Ref<Readonly<Cart>>>;
+    addPromotionCode: (promotionCode: string) => Promise<void>;
     // (undocumented)
-    cartItems: Readonly<Ref<Readonly<LineItem[]>>>;
+    appliedPromotionCodes: ComputedRef<LineItem[]>;
+    // (undocumented)
+    cart: ComputedRef<Cart>;
+    // (undocumented)
+    cartItems: ComputedRef<LineItem[]>;
     // (undocumented)
     changeProductQuantity: ({ id, quantity, }: {
         id: string;
         quantity: number;
     }) => void;
     // (undocumented)
-    count: Readonly<Ref<Readonly<number>>>;
+    count: ComputedRef<number>;
     // (undocumented)
-    error: Readonly<Ref<Readonly<string>>>;
+    error: ComputedRef<string>;
     // (undocumented)
-    loading: Readonly<Ref<Readonly<boolean>>>;
+    loading: ComputedRef<boolean>;
     // (undocumented)
     refreshCart: () => void;
     // (undocumented)
+    removeItem: ({ id }: LineItem) => Promise<void>;
+    // @deprecated (undocumented)
     removeProduct: ({ id }: Partial<Product>) => void;
     // (undocumented)
-    subtotal: Readonly<Ref<Readonly<number>>>;
+    subtotal: ComputedRef<number>;
     // (undocumented)
-    totalPrice: Readonly<Ref<Readonly<number>>>;
+    totalPrice: ComputedRef<number>;
 }
 
 // @beta
@@ -399,7 +403,7 @@ interface Notification_2 {
 
 export { Notification_2 as Notification }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export type Search = (path: string, associations?: any) => any;
 
 // @beta
@@ -414,10 +418,10 @@ export const useCategoryFilters: (rootContext: ApplicationVueContext) => any;
 // @beta
 export const useCheckout: (rootContext: ApplicationVueContext) => IUseCheckout;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export const useCms: (rootContext: ApplicationVueContext) => any;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UseCountries {
     // (undocumented)
     error: Ref<any>;
@@ -429,10 +433,10 @@ export interface UseCountries {
     mountedCallback: () => Promise<void>;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export const useCountries: (rootContext: ApplicationVueContext) => UseCountries;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UseCurrency {
     // (undocumented)
     availableCurrencies: Readonly<Ref<readonly Currency[]>>;
@@ -448,7 +452,7 @@ export interface UseCurrency {
     setCurrency: (parameter: Partial<Currency>) => Promise<void>;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export const useCurrency: (rootContext: ApplicationVueContext) => UseCurrency;
 
 // @beta
@@ -478,7 +482,7 @@ export const useNotifications: (rootContext: ApplicationVueContext) => {
     pushSuccess: (message: string, options?: any) => void;
 };
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UseProduct<PRODUCT, SEARCH> {
     // (undocumented)
     [x: string]: any;
@@ -492,7 +496,7 @@ export interface UseProduct<PRODUCT, SEARCH> {
     search: SEARCH;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export const useProduct: (rootContext: ApplicationVueContext, loadedProduct?: any) => UseProduct<Product, Search>;
 
 // @beta @deprecated (undocumented)
@@ -548,7 +552,7 @@ export interface UseProductSearch {
 // @alpha @deprecated (undocumented)
 export const useProductSearch: (rootContext: ApplicationVueContext) => UseProductSearch;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UseSalutations {
     // (undocumented)
     error: Ref<any>;
@@ -560,7 +564,7 @@ export interface UseSalutations {
     mountedCallback: () => Promise<void>;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export const useSalutations: (rootContext: ApplicationVueContext) => UseSalutations;
 
 // @beta

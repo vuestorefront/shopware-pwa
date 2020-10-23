@@ -6,14 +6,19 @@ import { PriceDefinitionInterface } from "../price/PriceDefinitionInterface";
 import { QuantityInformation } from "./QuantityInformation";
 
 /**
- * @alpha
+ * @beta
+ */
+export type LineItemType = "product" | "promotion" | "custom" | "credit";
+
+/**
+ * @beta
  */
 export interface LineItem {
   id: string;
   referencedId: string | null;
   label: string | null;
   quantity: number;
-  type: string;
+  type: LineItemType;
   payload: [];
   priceDefinition: PriceDefinitionInterface | null;
   price: CalculatedPrice | null;

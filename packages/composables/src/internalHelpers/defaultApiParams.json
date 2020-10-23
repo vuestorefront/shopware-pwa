@@ -1,46 +1,30 @@
 {
   "useCms": {
     "limit": 10,
-    "associations": [
-      {
-        "name": "manufacturer"
+    "associations": {
+      "manufacturer": {},
+      "properties": {
+        "associations": {
+          "group": {}
+        }
       },
-      {
-        "name": "properties",
-        "associations": [
-          {
-            "name": "group"
+      "media": {},
+      "productReviews": {},
+      "children": {
+        "associations": {
+          "options": {
+            "associations": {
+              "group": {}
+            }
           }
-        ]
+        }
       },
-      {
-        "name": "media"
-      },
-      {
-        "name": "productReviews"
-      },
-      {
-        "name": "children",
-        "associations": [
-          {
-            "name": "options",
-            "associations": [
-              {
-                "name": "group"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "options",
-        "associations": [
-          {
-            "name": "group"
-          }
-        ]
+      "options": {
+        "associations": {
+          "group": {}
+        }
       }
-    ],
+    },
     "includes": {
       "cms_page_slot": [
         "id",
@@ -82,7 +66,8 @@
         "translated",
         "options",
         "properties",
-        "manufacturer"
+        "manufacturer",
+        "seoUrls"
       ],
       "product_media": ["media"],
       "media": ["thumbnails", "width", "height", "url"],
@@ -106,7 +91,8 @@
         "translated",
         "id",
         "colorHexCode",
-        "media"
+        "media",
+        "group"
       ]
     }
   },
@@ -121,7 +107,8 @@
         "cover",
         "id",
         "translated",
-        "options"
+        "options",
+        "seoUrls"
       ],
       "product_media": ["media"],
       "media": ["thumbnails", "width", "height", "url"],
@@ -134,9 +121,13 @@
         "translated",
         "id",
         "colorHexCode",
-        "media"
+        "media",
+        "group"
       ]
     }
+  },
+  "useProductQuickSearch": {
+    "limit": 10
   },
   "useListing": {
     "limit": 10,
@@ -149,7 +140,8 @@
         "cover",
         "id",
         "translated",
-        "options"
+        "options",
+        "seoUrls"
       ],
       "product_media": ["media"],
       "media": ["thumbnails", "width", "height", "url"],
@@ -162,54 +154,38 @@
         "translated",
         "id",
         "colorHexCode",
-        "media"
+        "media",
+        "group"
       ]
     }
   },
   "useProduct": {
-    "associations": [
-      {
-        "name": "media"
+    "associations": {
+      "media": {},
+      "options": {
+        "associations": {
+          "group": {}
+        }
       },
-      {
-        "name": "options",
-        "associations": [
-          {
-            "name": "group"
+      "properties": {
+        "associations": {
+          "group": {}
+        }
+      },
+      "productReviews": {},
+      "manufacturer": {},
+
+      "children": {
+        "associations": {
+          "seoUrls": {},
+          "options": {
+            "associations": {
+              "group": {}
+            }
           }
-        ]
-      },
-      {
-        "name": "properties",
-        "associations": [
-          {
-            "name": "group"
-          }
-        ]
-      },
-      {
-        "name": "productReviews"
-      },
-      {
-        "name": "manufacturer"
-      },
-      {
-        "name": "children",
-        "associations": [
-          {
-            "name": "seoUrls"
-          },
-          {
-            "name": "options",
-            "associations": [
-              {
-                "name": "group"
-              }
-            ]
-          }
-        ]
+        }
       }
-    ],
+    },
     "includes": {
       "product": [
         "name",

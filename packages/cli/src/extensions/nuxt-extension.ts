@@ -34,6 +34,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       target: "server",
       devTools: [],
       gitUsername: "",
+      ci: "none",
     };
     if (!isNuxtGenerated) {
       const nuxtGenerate = `npx --ignore-existing create-nuxt-app@3.2.0 --answers "${JSON.stringify(
@@ -110,22 +111,25 @@ module.exports = (toolbox: GluegunToolbox) => {
    */
   toolbox.updateNuxtPackageJson = async (stage) => {
     await toolbox.patching.update("package.json", (config) => {
+      config.scripts = config.scripts || {};
       config.scripts.lint = "prettier --write '*.{js,vue}'";
       config.scripts.dev = "shopware-pwa dev";
       config.scripts.build = "shopware-pwa build";
 
       // update versions to canary
       if (stage === STAGES.CANARY) {
-        Object.keys(config.dependencies).forEach((dependencyName) => {
-          if (dependencyName.includes("@shopware-pwa")) {
-            config.dependencies[dependencyName] = "canary";
-          }
-        });
-        Object.keys(config.devDependencies).forEach((dependencyName) => {
-          if (dependencyName.includes("@shopware-pwa")) {
-            config.devDependencies[dependencyName] = "canary";
-          }
-        });
+        config.dependencies &&
+          Object.keys(config.dependencies).forEach((dependencyName) => {
+            if (dependencyName.includes("@shopware-pwa")) {
+              config.dependencies[dependencyName] = "canary";
+            }
+          });
+        config.devDependencies &&
+          Object.keys(config.devDependencies).forEach((dependencyName) => {
+            if (dependencyName.includes("@shopware-pwa")) {
+              config.devDependencies[dependencyName] = "canary";
+            }
+          });
       }
 
       delete config.engines;
@@ -284,8 +288,8 @@ module.exports = (toolbox: GluegunToolbox) => {
     const dest = destination ? destination : folderName;
     const destinationExist = toolbox.filesystem.existsAsync(dest);
     if (destinationExist) return;
-    await toolbox.filesystem.copyAsync(
-      path.join(toolbox.defaultThemeLocation, folderName),
+    return toolbox.filesystem.copyAsync(
+      path.join(toolbox.getThemePath(), folderName),
       dest,
       { overwrite: true }
     );

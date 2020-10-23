@@ -1,6 +1,5 @@
 import defaultApiParams from "./internalHelpers/defaultApiParams.json";
-import { Includes } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { Association } from "@shopware-pwa/commons/interfaces/search/Association";
+import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
  * Returns default system API params
@@ -8,10 +7,7 @@ import { Association } from "@shopware-pwa/commons/interfaces/search/Association
  * @beta
  */
 export function getDefaultApiParams(): {
-  [composableName: string]: {
-    includes?: Includes;
-    associations?: Association[];
-  };
+  [composableName: string]: ShopwareSearchParams;
 } {
   return defaultApiParams;
 }
