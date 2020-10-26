@@ -14,7 +14,10 @@ We want Shopware PWA to be in sync with the latest endpoints of Shopware, to be 
 
 ## Migrate version 0.4.x to 0.5.x - not released yet!
 
-**MIGRATION STEP**: we simplified project upgrade process. Now you can remove `@shopware-pwa/*` dependencies repm your `package.json` file and leave only `@shopware-pwa/nuxt-module`. Thanks to this you change version only in a single place.
+**MIGRATION STEPS**:
+
+- we simplified project upgrade process. Now you can remove `@shopware-pwa/*` dependencies repm your `package.json` file and leave only `@shopware-pwa/nuxt-module`. Thanks to this you change version only in a single place.
+- Vuex store definitions are inherited from packages/theme-base/dist/store/index.js, and if you need to customize, or you already have, it's necessary to put the `store/index.js` in theme directory you are currently working on (`packages/default-theme/src` by default).
 
 **FEATURE**: new composable `useListing` has been created. It uses `createListingComposable` factory, which you can use as well is `useListing` won't be enough for your needs. It allows you to have listing for all types of listings from shopware, like products, orders etc. It supports SSR and returns composable with a common listing interface.
 
