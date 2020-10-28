@@ -70,8 +70,8 @@ describe("nuxt-module - utils", () => {
       moduleObject.options.rootDir = `${__dirname}/files_tests`;
       const result = await loadConfig(moduleObject);
       expect(result).toEqual({
-        shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
-        shopwareEndpoint: "https://pwa-demo-api.shopware.com",
+        shopwareAccessToken: "SWSCVJJET0RQAXFNBMTDZTV1OQ",
+        shopwareEndpoint: "https://shopware6-demo.vuestorefront.io",
         theme: "@shopware-pwa/default-theme",
         shopwareApiClient: {
           timeout: 10000,
