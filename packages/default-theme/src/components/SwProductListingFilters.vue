@@ -203,7 +203,9 @@ export default {
     },
     async clearAllFilters() {
       this.closeFiltersSidebar()
-      await this.search()
+      this.search({
+        search: this.getCurrentFilters && this.getCurrentFilters.search,
+      })
     },
     openFiltersSidebar() {
       this.isFilterSidebarOpen = true
