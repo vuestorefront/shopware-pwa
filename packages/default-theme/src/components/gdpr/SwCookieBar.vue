@@ -6,7 +6,7 @@
       </div>
     </template>
     <template #right>
-      <SwButton class="btton" data-cy="accept-cookies" @click="acceptCookies">
+      <SwButton class="button" data-cy="accept-cookies" @click="acceptCookies">
         Got it!
       </SwButton>
     </template>
@@ -60,10 +60,9 @@ export default {
   color: var(--c-white);
   width: 100%;
 
-  .btton {
-    height: 40px;
-    transition: color 0.33s;
+  .button {
     margin-left: var(--spacer-base);
+    padding: var(--spacer-xs) var(--spacer-base);
   }
 }
 </style>
