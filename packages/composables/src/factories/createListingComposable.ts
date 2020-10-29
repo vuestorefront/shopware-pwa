@@ -72,13 +72,16 @@ export function createListingComposable<ELEMENTS_TYPE>({
     () => vuexStore.getters.getInitialListings[listingKey] || {}
   );
   const setInitialListing = async (initialListing: ProductListingResult) => {
-    // TODO: remove before v0.6.0 release (SW v6.4.x).
+    // note: only v6.3.x compatible
+    /* istanbul ignore next */
     if (
-      initialListing.currentFilters?.manufacturer ||
-      initialListing.currentFilters?.properties
+      initialListing?.currentFilters?.manufacturer?.length ||
+      initialListing?.currentFilters?.properties?.length
     ) {
       loading.value = true;
-      const allFiltersResult = await searchMethod({});
+      const allFiltersResult = await searchMethod({
+        query: initialListing.currentFilters.search || undefined,
+      });
       initialListing = Object.assign({}, initialListing, {
         aggregations: allFiltersResult?.aggregations,
       });
@@ -102,10 +105,8 @@ export function createListingComposable<ELEMENTS_TYPE>({
     loading.value = true;
     try {
       const searchCriteria = merge({}, searchDefaults, criteria);
-
       const result = await searchMethod(searchCriteria);
-
-      setInitialListing(result);
+      await setInitialListing(result);
     } catch (e) {
       throw e;
     } finally {
@@ -137,8 +138,13 @@ export function createListingComposable<ELEMENTS_TYPE>({
       const result = await searchMethod(searchCriteria);
 
       // TODO: remove before v0.6.0 release (SW v6.4.x).
-      if (searchCriteria.manufacturer || searchCriteria.properties) {
-        const allFiltersResult = await searchMethod({});
+      if (
+        searchCriteria.manufacturer?.length ||
+        searchCriteria.properties?.length
+      ) {
+        const allFiltersResult = await searchMethod({
+          query: searchCriteria.query,
+        });
         appliedListing.value = Object.assign({}, result, {
           aggregations: allFiltersResult?.aggregations,
         });

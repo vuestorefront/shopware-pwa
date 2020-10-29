@@ -196,7 +196,7 @@ describe("Composables - createListingComposable", () => {
       });
       await setInitialListing({
         currentFilters: {
-          manufacturer: {},
+          manufacturer: ["1234567"],
         },
       } as any);
       expect(searchMethodMock).toBeCalledWith({});
@@ -205,7 +205,7 @@ describe("Composables - createListingComposable", () => {
         initialListing: {
           aggregations: undefined,
           currentFilters: {
-            manufacturer: {},
+            manufacturer: ["1234567"],
           },
         },
       });

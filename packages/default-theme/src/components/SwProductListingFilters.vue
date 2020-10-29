@@ -204,7 +204,7 @@ export default {
     async clearAllFilters() {
       this.closeFiltersSidebar()
       this.search({
-        search: this.getCurrentFilters && this.getCurrentFilters.search,
+        query: this.getCurrentFilters && this.getCurrentFilters.search,
       })
     },
     openFiltersSidebar() {
