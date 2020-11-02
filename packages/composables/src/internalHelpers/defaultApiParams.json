@@ -67,7 +67,8 @@
         "options",
         "properties",
         "manufacturer",
-        "seoUrls"
+        "seoUrls",
+        "optionIds"
       ],
       "product_media": ["media"],
       "media": ["thumbnails", "width", "height", "url"],
