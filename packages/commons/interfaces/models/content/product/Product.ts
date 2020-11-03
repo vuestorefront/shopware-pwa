@@ -81,7 +81,7 @@ export interface Product {
   length: number | null;
   releaseDate: Date;
   categoryTree: [] | null;
-  optionIds?: [];
+  optionIds?: string[];
   propertyIds: [] | null;
   additionalText?: string | null;
   name: string | null;

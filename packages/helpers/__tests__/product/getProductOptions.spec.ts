@@ -13,6 +13,11 @@ describe("Shopware helpers - getProductOptions", () => {
               group: {
                 name: "color",
               },
+              productOptions: [
+                {
+                  optionIds: ["12345"],
+                },
+              ],
             },
             {
               id: "3858d1baf2544a379c92535ea3d2fe53",
@@ -20,6 +25,7 @@ describe("Shopware helpers - getProductOptions", () => {
               group: {
                 name: "color",
               },
+              productOptions: undefined,
             },
             {
               id: "3858d1baf2544a379c92535ea3d2fe52",
@@ -42,8 +48,61 @@ describe("Shopware helpers - getProductOptions", () => {
       product: productWithChildren,
     });
     expect(productOptions).toHaveProperty("color");
+    expect(productOptions["color"][0].matchingIds).toStrictEqual(["12345"]);
   });
 
+  it("should return no matching ids for given variant if there is no productOptions within variant option", () => {
+    const productWithChildren: any = {
+      children: [
+        {
+          id: "04095b39ef07472ebd7547800c40bfd4",
+          options: [
+            {
+              id: "3858d1baf2544a379c92535ea3d2fe53",
+              name: "blue",
+              group: {
+                name: "color",
+              },
+              productOptions: undefined,
+            },
+          ],
+        },
+      ],
+    };
+
+    const productOptions = getProductOptions({
+      product: productWithChildren,
+    });
+    expect(productOptions["color"][0].matchingIds).toStrictEqual([]);
+  });
+  it("should return no matching ids for given variant if there is no optionIds within product option", () => {
+    const productWithChildren: any = {
+      children: [
+        {
+          id: "04095b39ef07472ebd7547800c40bfd4",
+          options: [
+            {
+              id: "3858d1baf2544a379c92535ea3d2fe53",
+              name: "blue",
+              group: {
+                name: "color",
+              },
+              productOptions: [
+                {
+                  optionIds: undefined,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+
+    const productOptions = getProductOptions({
+      product: productWithChildren,
+    });
+    expect(productOptions["color"][0].matchingIds).toStrictEqual([]);
+  });
   it("should returns return an empty object if no children", () => {
     const productWithoutChildren: any = {};
 
