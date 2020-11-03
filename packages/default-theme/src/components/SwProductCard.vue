@@ -12,15 +12,16 @@
     class="sw-product-card"
     :show-add-to-cart-button="true"
     :is-added-to-cart="isInCart"
+    :wish-list-icon="false"
     @click:add-to-cart="addToCart"
-    :wishlistIcon="false"
+    @click:wishlist="addToWishlist"
   >
   </SfProductCard>
 </template>
 
 <script>
-import { SfProductCard, SfAddToCart } from "@storefront-ui/vue"
-import { useAddToCart } from "@shopware-pwa/composables"
+import { SfProductCard } from "@storefront-ui/vue"
+import { useAddToCart, useWishlist } from "@shopware-pwa/composables"
 import {
   getProductThumbnailUrl,
   getProductRegularPrice,
@@ -32,13 +33,15 @@ import {
 export default {
   components: {
     SfProductCard,
-    SfAddToCart,
   },
   setup({ product }, { root }) {
     const { addToCart, quantity, getStock, isInCart } = useAddToCart(
       root,
       product
     )
+    // const { isInWishlist, addToWishlist, removeFromWishlist, updateLocalStorage, clearWishlist } = useWishlist(
+    //   product.id
+    // )
     return {
       quantity,
       addToCart,
