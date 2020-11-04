@@ -10,97 +10,103 @@ sidebar: auto
 
 #### Detail Page
 
- * Product Metadata
- 	* Name / Title
- 	* Description
- 	* Regular and special price
- * Image gallery
- * Properties
-
+- Product Metadata
+  - Name / Title
+  - Description
+  - Regular and special price
+- Image gallery
+- Properties
 
 #### Listing
 
- * Product box
- 	* Title
- 	* Image
- 	* Regular and special price
- 	* Add to cart button
- * Filter
- 	* Properties
- 	* Price
- 	* Manufacturer
- * Sorting
- 	* Price
- 	* Name
+- Product box
+  - Title
+  - Image
+  - Regular and special price
+  - Add to cart button
+- Filter
+  - Properties
+  - Price
+  - Manufacturer
+- Sorting
+  - Price
+  - Name
 
 ### Navigation
 
- * Menu
- * User Account Icon
- * Search Bar
+- Menu
+- User Account Icon
+- Search Bar
 
 ### Search
 
+- Suggest search
+- Search result page
+
 ### Content
 
- * Supported page types
- 	* Listing pages
- 	* Shop pages
- 	* Landing pages
- * Sections
- 	* Default and sidebar
- * Blocks
- 	* All Shopware default blocks
- * Elements
- 	* All Shopware default elements
- * Hydration and field mappings
+- Supported page types
+  - Listing pages
+  - Shop pages
+  - Landing pages
+- Sections
+  - Default and sidebar
+- Blocks
+  - All Shopware default blocks
+- Elements
+  - All Shopware default elements
+- Hydration and field mappings
 
 ### User Management
 
- * Registration
- * Login
- * Personal data
- 	* Name
- 	* Title
- 	* Salutation
- * Address management
- 	* Create new 
- 	* Set default for shipping & billing
- * Order history
- 	* List
- * Logout
+- Registration
+- Login
+- Personal data
+  - Name
+  - Title
+  - Salutation
+- Address management
+  - Create new
+  - Set default for shipping & billing
+- Order history
+  - List
+- Logout
 
 ### Cart
 
- * Display cart (sidebar)
- * Product list
- * Total amount
- * Change quantity in cart
- * Go to Checkout button
+- Display cart (sidebar)
+- Product list
+- Total amount
+- Change quantity in cart
+- Go to Checkout button
 
 ### Checkout / Payment
- * Add/Remove promotion codes
- * Select shipping address
- * Select billing address
- * Select payment & shipping method
- * Review order
- * Place order
+
+- Add/Remove promotion codes
+- Select shipping address
+- Select billing address
+- Select payment & shipping method
+- Review order
+- Place order
 
 ### i18n
 
- * Currency switch
+- Currency switch
 
 ## Technical
 
 ### URLs
 
- * Pretty URLs
- 	* Category pages
- 	* Product pages
+- Pretty URLs
+  - Category pages
+  - Product pages
 
 ### Plugin system
 
 ### Theme system
+
+- Theme inheritance
+- Theme overriding
 
 ## Integrations
 
@@ -108,4 +114,4 @@ sidebar: auto
 
 #### PayPal Checkout
 
- * Standard PayPal Checkout (requires Shopware PayPal plugin)
+- Standard PayPal Checkout (requires Shopware PayPal plugin)

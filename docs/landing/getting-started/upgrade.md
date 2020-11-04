@@ -12,7 +12,7 @@ The supported API versions of Shopware 6 are v3 and v2. Generally speaking, each
 
 We want Shopware PWA to be in sync with the latest endpoints of Shopware, to be able to ship new features to you as soon as they are released within Shopware.
 
-## Migrate version 0.4.x to 0.5.x - not released yet!
+## Migrate version 0.4.x to 0.5.x
 
 **MIGRATION STEPS**:
 
