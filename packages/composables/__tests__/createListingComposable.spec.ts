@@ -106,14 +106,15 @@ describe("Composables - createListingComposable", () => {
   });
 
   describe("setInitialListing", () => {
-    it("should invoke store commit on invocation for initial and applied listing", () => {
+    it("should invoke store commit on invocation for initial and applied listing", async () => {
+      searchMethodMock.mockReturnValueOnce(() => {});
       const { setInitialListing } = createListingComposable({
         rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
       });
-      setInitialListing({ page: 5 });
+      await setInitialListing({ page: 5 });
       expect(vuexStoreMock.commit).toBeCalledWith("SET_INITIAL_LISTING", {
         listingKey: "testKey",
         initialListing: { page: 5 },
@@ -121,6 +122,92 @@ describe("Composables - createListingComposable", () => {
       expect(vuexStoreMock.commit).toBeCalledWith("SET_APPLIED_LISTING", {
         listingKey: "testKey",
         appliedListing: null,
+      });
+    });
+    it("should invoke set initial listing action with no aggregations if searchMethod's result is falsy", async () => {
+      searchMethodMock.mockReturnValueOnce(undefined);
+      const { setInitialListing } = createListingComposable({
+        rootContext: rootContextMock as any,
+        listingKey: "testKey",
+        searchDefaults: null as any,
+        searchMethod: searchMethodMock,
+      });
+      await setInitialListing({
+        currentFilters: {
+          manufacturer: {},
+        },
+      } as any);
+      expect(vuexStoreMock.commit).toBeCalledWith("SET_INITIAL_LISTING", {
+        listingKey: "testKey",
+        initialListing: {
+          aggregations: undefined,
+          currentFilters: {
+            manufacturer: {},
+          },
+        },
+      });
+    });
+    it("should invoke searchMethod for 2 times and store commit on invocation for initial and applied listing once currentFilters have applied filters", async () => {
+      searchMethodMock.mockReturnValue({
+        aggregations: "12345",
+      });
+      const { search } = createListingComposable({
+        rootContext: rootContextMock as any,
+        listingKey: "testKey",
+        searchDefaults: {
+          properties: "12221212122",
+        },
+        searchMethod: searchMethodMock,
+      });
+      await search({});
+      expect(searchMethodMock).toBeCalledTimes(2);
+      expect(vuexStoreMock.commit).toBeCalledWith("SET_APPLIED_LISTING", {
+        appliedListing: { aggregations: "12345" },
+        listingKey: "testKey",
+      });
+    });
+    it("should invoke searchMethod for 2 times and store commit on invocation for initial and applied listing once currentFilters have applied filters", async () => {
+      searchMethodMock.mockReturnValue(undefined);
+      const { search } = createListingComposable({
+        rootContext: rootContextMock as any,
+        listingKey: "testKey",
+        searchDefaults: {
+          properties: "12221212122",
+        },
+        searchMethod: searchMethodMock,
+      });
+      await search({});
+      expect(searchMethodMock).toBeCalledTimes(2);
+      expect(vuexStoreMock.commit).toBeCalledWith("SET_APPLIED_LISTING", {
+        appliedListing: { aggregations: undefined },
+        listingKey: "testKey",
+      });
+    });
+    it("should invoke searchMethod and store commit on invocation for initial and applied listing once currentFilters are not empty", async () => {
+      searchMethodMock.mockReturnValueOnce(() => {
+        aggregations: {
+        }
+      });
+      const { setInitialListing } = createListingComposable({
+        rootContext: rootContextMock as any,
+        listingKey: "testKey",
+        searchDefaults: null as any,
+        searchMethod: searchMethodMock,
+      });
+      await setInitialListing({
+        currentFilters: {
+          manufacturer: ["1234567"],
+        },
+      } as any);
+      expect(searchMethodMock).toBeCalledWith({});
+      expect(vuexStoreMock.commit).toBeCalledWith("SET_INITIAL_LISTING", {
+        listingKey: "testKey",
+        initialListing: {
+          aggregations: undefined,
+          currentFilters: {
+            manufacturer: ["1234567"],
+          },
+        },
       });
     });
   });
@@ -621,7 +708,7 @@ describe("Composables - createListingComposable", () => {
     });
 
     it("should invoke setInitialListing after search", async () => {
-      searchMethodMock.mockResolvedValueOnce({ limit: 77 });
+      searchMethodMock.mockResolvedValueOnce({ limit: 77, currentFilters: {} });
       const { initSearch } = createListingComposable({
         rootContext: rootContextMock as any,
         listingKey: "testKey",
@@ -629,13 +716,14 @@ describe("Composables - createListingComposable", () => {
         searchMethod: searchMethodMock,
       });
       await initSearch({ limit: 7 });
+      expect(vuexStoreMock.commit).toBeCalledTimes(2);
       expect(vuexStoreMock.commit).toBeCalledWith("SET_INITIAL_LISTING", {
-        initialListing: { limit: 77 },
+        initialListing: { currentFilters: {}, limit: 77 },
         listingKey: "testKey",
       });
     });
 
-    it("should show loading on searching", (resolve) => {
+    it("should show loading on searching", async (resolve) => {
       const { initSearch, loading } = createListingComposable({
         rootContext: rootContextMock as any,
         listingKey: "testKey",
@@ -643,7 +731,7 @@ describe("Composables - createListingComposable", () => {
         searchMethod: searchMethodMock,
       });
       expect(loading.value).toEqual(false);
-      initSearch({ limit: 5 }).then(() => {
+      await initSearch({ limit: 5 }).then(() => {
         expect(loading.value).toEqual(false);
         resolve();
       });

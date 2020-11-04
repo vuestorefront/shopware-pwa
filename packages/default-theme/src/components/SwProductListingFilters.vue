@@ -21,7 +21,7 @@
             :key="option.key"
             :value="option.key"
             class="sort-by__option"
-            >{{ $t(option.label) }}</SfSelectOption
+            >{{ $t(option.key) }}</SfSelectOption
           >
         </SfSelect>
       </div>
@@ -203,7 +203,9 @@ export default {
     },
     async clearAllFilters() {
       this.closeFiltersSidebar()
-      await this.search()
+      this.search({
+        query: this.getCurrentFilters && this.getCurrentFilters.search,
+      })
     },
     openFiltersSidebar() {
       this.isFilterSidebarOpen = true

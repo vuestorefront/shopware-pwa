@@ -71,9 +71,24 @@ export function createListingComposable<ELEMENTS_TYPE>({
   const getInitialListing = computed(
     () => vuexStore.getters.getInitialListings[listingKey] || {}
   );
-  const setInitialListing = (initialListing: ProductListingResult) => {
+  const setInitialListing = async (initialListing: ProductListingResult) => {
+    // note: only v6.3.x compatible
+    /* istanbul ignore next */
+    if (
+      initialListing?.currentFilters?.manufacturer?.length ||
+      initialListing?.currentFilters?.properties?.length
+    ) {
+      loading.value = true;
+      const allFiltersResult = await searchMethod({
+        query: initialListing.currentFilters.search || undefined,
+      });
+      initialListing = Object.assign({}, initialListing, {
+        aggregations: allFiltersResult?.aggregations,
+      });
+    }
     vuexStore.commit("SET_INITIAL_LISTING", { listingKey, initialListing });
     appliedListing.value = null;
+    loading.value = false;
   };
 
   // for internal usage, actual listing is computed from applied and initial listing
@@ -90,10 +105,8 @@ export function createListingComposable<ELEMENTS_TYPE>({
     loading.value = true;
     try {
       const searchCriteria = merge({}, searchDefaults, criteria);
-
       const result = await searchMethod(searchCriteria);
-
-      setInitialListing(result);
+      await setInitialListing(result);
     } catch (e) {
       throw e;
     } finally {
@@ -123,7 +136,21 @@ export function createListingComposable<ELEMENTS_TYPE>({
       // prepare full criteria using defaults and currently selected criteria
       const searchCriteria = merge({}, searchDefaults, criteria);
       const result = await searchMethod(searchCriteria);
-      appliedListing.value = result;
+
+      // TODO: remove before v0.6.0 release (SW v6.4.x).
+      if (
+        searchCriteria.manufacturer?.length ||
+        searchCriteria.properties?.length
+      ) {
+        const allFiltersResult = await searchMethod({
+          query: searchCriteria.query,
+        });
+        appliedListing.value = Object.assign({}, result, {
+          aggregations: allFiltersResult?.aggregations,
+        });
+      } else {
+        appliedListing.value = result;
+      }
     } catch (e) {
       throw e;
     } finally {
