@@ -149,7 +149,7 @@ export function getProductOptions({ product, }?: {
 export function getProductOptionsUrl({ product, options, }?: {
     product?: Product;
     options?: string[];
-}): string;
+}): string | undefined;
 
 // @alpha (undocumented)
 export function getProductProperties({ product, }?: {
@@ -189,6 +189,14 @@ export function getStoreNavigationRoutes(navigationElements: StoreNavigationElem
 export function getVariantOptionsLabel({ product, }?: {
     product?: Product;
 }): string | null;
+
+// Warning: (ae-incompatible-release-tags) The symbol "isOptionAvailableForSelectedOptions" is marked as @beta, but its signature references "UiProductOption" which is marked as @alpha
+// Warning: (ae-incompatible-release-tags) The symbol "isOptionAvailableForSelectedOptions" is marked as @beta, but its signature references "ProductOptions" which is marked as @alpha
+//
+// @beta
+export function isOptionAvailableForSelectedOptions(currentAttribute: string, selectedOptionId: string, { code: optionId }: UiProductOption | undefined, allOptions: ProductOptions, allSelectedOptions: {
+    [key: string]: string;
+}): boolean;
 
 // @beta (undocumented)
 export function isProductSimple({ product, }?: {
@@ -363,8 +371,6 @@ export interface UiMediaGalleryItemUrl {
 // @alpha (undocumented)
 export interface UiProductOption {
     // (undocumented)
-    [attribute: string]: string;
-    // (undocumented)
     attribute: string;
     // (undocumented)
     code: string;
@@ -372,6 +378,8 @@ export interface UiProductOption {
     color: string;
     // (undocumented)
     label: string;
+    // (undocumented)
+    matchingIds: string[];
     // (undocumented)
     value: string;
 }
