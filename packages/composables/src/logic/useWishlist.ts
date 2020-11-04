@@ -1,4 +1,5 @@
-import { ref, Ref, computed } from "@vue/composition-api";
+import Vue from "vue";
+import { ref, Ref, reactive, computed } from "@vue/composition-api";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 
 /**
@@ -7,72 +8,80 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
  */
 
 export interface IUseWishlist {
-  removeFromWishlist: (id: string) => Ref<void>;
-  clearWishlist: () => Ref<void>;
-  addToWishlist: (id: string) => Ref<void>;
-  updateLocalStorage: (arr: string[]) => Ref<void>;
-  isInWishlist: (id: string) => Ref<void>;
-  initWishlist: () => Ref<void>;
-  wishlist: Ref<string[]>;
-  id: Ref<string>;
-  isWishlist: Ref<string[]>;
+  removeItem: (id: string) => void;
+  clearWishlist: () => boolean;
+  addToWishlist: () => boolean;
+  updateStorage: () => boolean;
+  isInWishlist: () => boolean;
+  initWishlist: () => void;
+  items: Ref<string[]>;
 }
 
-export const useWishlist = (product: Product): IUseWishlist => {
-  let wishlist: Ref<string[]> = ref([]);
-  const id: Ref<string> = ref(product.id);
+const sharedWishlist = Vue.observable({
+  items: [],
+} as any);
+
+export const useWishlist = (product?: Product): IUseWishlist => {
+  const productId: Ref<string | undefined> = ref(product?.id);
   const error: Ref<any> = ref(null);
+  const localWishlist = reactive(sharedWishlist);
 
-  const initWishlist = (): Ref<string[]> => {
-    let wishlistExist = localStorage.getItem("savedWishlist");
-    wishlist = wishlistExist ? wishlistExist.split(",") : [];
-    return wishlist;
-  };
-
-  // it returns an array without removed product
-  const removeFromWishlist = (id: string): Ref<string[]> => {
-    wishlist = wishlist.filter(function (value, index, arr) {
-      return !id;
-    });
-    return wishlist;
-  };
-
-  // add product id to wishlist array and trigger to update localstorage
-  const addToWishlist = (id: string): Ref<string[]> => {
-    if (!product || !product.id) {
-      error.value =
-        "Product has to be passed as a composable argument and needs to have an id property.";
-      return;
-    } else {
-      wishlist = [...wishlist, id];
-      return wishlist;
+  const initWishlist = (): void => {
+    if (!sharedWishlist.items.length) {
+      sharedWishlist.items =
+        (localStorage && JSON.parse(localStorage.getItem("savedWishlist"))) ||
+        [];
     }
   };
 
-  // return true or false if product id is in wishlist array
-  const isInWishlist = (id: string): Ref<boolean> => {
-    const includeItem = wishlist.includes(id);
-    return includeItem;
+  // removes item from the list
+  const removeItem = (itemId: string): void => {
+    const id = productId.value || itemId;
+    if (!id) {
+      return;
+    }
+
+    sharedWishlist.items = sharedWishlist.items.filter(
+      (itemId) => itemId != id
+    );
   };
+
+  // add product id to wishlist array and trigger to update localstorage
+  const addToWishlist = (): boolean => {
+    if (!productId.value) {
+      return;
+    }
+
+    sharedWishlist.items.push(productId.value);
+  };
+
+  // return true or false if product id is in wishlist array
+  const isInWishlist = (): boolean =>
+    sharedWishlist.items.includes(productId.value);
 
   // remove all items from wishlist
-  const clearWishlist = (): Ref<string[]> => {
-    wishlist = [];
-    return wishlist;
+  const clearWishlist = (): boolean => {
+    sharedWishlist.items = [];
+
+    return true;
   };
 
+  const items = computed(() => localWishlist.items);
+
   // update wishlist in localstorage
-  const updateLocalStorage = (arr: string[]): Ref<string[]> => {
-    localStorage.setItem("savedWishlist", arr.toString());
-    return arr;
+  const updateStorage = (): boolean => {
+    localStorage.setItem("savedWishlist", items.value);
+
+    return true;
   };
 
   return {
     addToWishlist,
-    removeFromWishlist,
+    removeItem,
     isInWishlist,
-    updateLocalStorage,
+    updateStorage,
     clearWishlist,
     initWishlist,
+    items,
   };
 };
