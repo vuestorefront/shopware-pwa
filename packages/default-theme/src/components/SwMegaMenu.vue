@@ -7,9 +7,9 @@
   >
     <div class="sw-mega-menu__content">
       <div
-        class="sw-mega-menu__content-section"
         v-for="subcategory in category.children"
         :key="subcategory.name"
+        class="sw-mega-menu__content-section"
         data-cy="mega-menu-category"
       >
         <nuxt-link
@@ -100,6 +100,14 @@ export default {
             margin-top: 10px;
           }
         }
+      }
+
+      ::v-deep .sf-heading {
+        text-align: left;
+      }
+
+      .sf-header__link {
+        text-align: left;
       }
     }
 
