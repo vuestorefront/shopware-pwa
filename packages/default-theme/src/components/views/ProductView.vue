@@ -9,11 +9,23 @@
       </div>
     </div>
     <SwPluginSlot name="product-page-details-after" :slot-context="product" />
+
     <div class="products__recomendations">
       <div class="products-recomendations__section">
-        <SwProductCarousel />
+        <!-- <SwProductCarousel /> -->
+        <!-- <SfTabs
+          :open-tab="openTab"
+          :tab-max-content-height="tabMaxContentHeight"
+          :tab-show-text="tabShowText"
+          :tab-hide-text="tabHideText"
+        >
+          <SfTab v-for="tab in tabs" :key="tab.title" :title="tab.title">
+            {{ tab.content }}
+          </SfTab>
+        </SfTabs> -->
       </div>
     </div>
+
     <SfSection
       title-heading="Share Your Look"
       subtitle-heading="#YOURLOOK"
@@ -50,7 +62,7 @@
   </div>
 </template>
 <script>
-import { SfImage, SfSection } from "@storefront-ui/vue"
+import { SfImage, SfSection, SfTabs } from "@storefront-ui/vue"
 import { useProduct } from "@shopware-pwa/composables"
 import SwGoBackArrow from "@/components/atoms/SwGoBackArrow"
 import SwProductGallery from "@/components/SwProductGallery"
@@ -58,6 +70,7 @@ import SwProductDetails from "@/components/SwProductDetails"
 import SwProductCarousel from "@/components/SwProductCarousel"
 import SwProductAdvertisement from "@/components/SwProductAdvertisement"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import { getProductPage } from "@shopware-pwa/shopware-6-client"
 
 export default {
   name: "Product",
@@ -65,6 +78,7 @@ export default {
     SwGoBackArrow,
     SfImage,
     SfSection,
+    SfTabs,
     SwProductGallery,
     SwProductDetails,
     SwProductCarousel,
@@ -83,10 +97,13 @@ export default {
       relatedProducts: [],
       selectedSize: null,
       selectedColor: null,
+      crossSellings: {},
     }
   },
   computed: {
     product() {
+      console.log(this.page.product.id)
+      console.log(this.crossSellings)
       return this.productWithChildren
         ? this.productWithChildren.value
         : this.page.product
@@ -104,6 +121,40 @@ export default {
       await loadAssociations()
     } catch (e) {
       console.error("ProductView:mounted:loadAssociations", e)
+    }
+
+    try {
+      const urlPath = `detail/${
+        this.page.product.parentId || this.page.product.id
+      }`
+      const searchCriteria = {
+        configuration: {
+          includes: {
+            product: ["id", "crossSellings"],
+            product_cross_selling: ["assignedProducts", "name", "position"],
+            product_cross_selling_assigned_products: ["product"],
+          },
+          associations: {
+            crossSellings: {
+              associations: {
+                assignedProducts: {
+                  associations: {
+                    product: {},
+                  },
+                },
+              },
+            },
+          },
+        },
+      }
+      const result = await getProductPage(
+        urlPath,
+        searchCriteria,
+        this.$shopwareApiInstance
+      )
+      this.crossSellings = result
+    } catch (e) {
+      console.error("ProductView:mounted:getProductPage", e)
     }
   },
 }
