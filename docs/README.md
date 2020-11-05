@@ -16,9 +16,9 @@ yarn dev 						# start dev server
 ```
 
 <center>
-The latest stable release (v0.4.2) is also available at:
+The latest stable release (v0.5.0) is also available at:
 
-[![Edit shopware-pwa v0.4.2](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/busy-worker-d68et?fontsize=14&hidenavigation=1&theme=dark)
+[![Edit shopware-pwa v0.5.0](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/shopware-pwa-v050-zmr5p?file=/README.md)
 
 </center>
 

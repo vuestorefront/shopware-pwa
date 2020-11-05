@@ -99,8 +99,7 @@ module.exports = {
       case STAGES.STABLE:
       default:
         await run(
-          // TODO: change to coreDevPackages before releasing 0.5.0 - https://github.com/DivanteLtd/shopware-pwa/issues/1168
-          `yarn add -D ${localCoreDevPackages
+          `yarn add -D ${coreDevPackages
             .map((dep) => `${dep}@latest`)
             .join(" ")}`
         );
