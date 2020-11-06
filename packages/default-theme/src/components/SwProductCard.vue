@@ -12,9 +12,9 @@
     class="sw-product-card"
     :show-add-to-cart-button="true"
     :is-added-to-cart="isInCart"
-    :wish-list-icon="false"
+    :is-on-wishlist="isOnWishlist"
     @click:add-to-cart="addToCart"
-    @click:wishlist="addToWishlist"
+    @click:wishlist="addProductToWishlist"
   >
   </SfProductCard>
 </template>
@@ -39,14 +39,22 @@ export default {
       root,
       product
     )
-    // const { isInWishlist, addToWishlist, removeFromWishlist, updateLocalStorage, clearWishlist } = useWishlist(
-    //   product.id
-    // )
+    const {
+      isInWishlist,
+      addToWishlist,
+      removeFromWishlist,
+      clearWishlist,
+    } = useWishlist(product)
     return {
       quantity,
       addToCart,
       getStock,
       isInCart,
+      isInWishlist,
+      addToWishlist,
+      removeFromWishlist,
+      clearWishlist,
+      isOnWishlist: false,
     }
   },
   props: {
@@ -79,6 +87,12 @@ export default {
       return (
         getProductThumbnailUrl(this.product) || require("@/assets/productB.jpg")
       )
+    },
+  },
+  methods: {
+    addProductToWishlist() {
+      this.addToWishlist()
+      this.isOnWishlist = true
     },
   },
 }

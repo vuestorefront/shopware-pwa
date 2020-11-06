@@ -59,7 +59,6 @@ export default {
         this.$shopwareApiInstance
       )
       this.products = result.data
-      console.log(result.data)
     } catch (e) {
       console.error("SwProductCarousel:mounted:getProducts", e)
     }

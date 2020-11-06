@@ -388,6 +388,24 @@ export interface IUseUser {
     user: Ref<Customer | null>;
 }
 
+// @beta
+export interface IUseWishlist {
+    // (undocumented)
+    addToWishlist: () => boolean;
+    // (undocumented)
+    clearWishlist: () => boolean;
+    // (undocumented)
+    initWishlist: () => void;
+    // (undocumented)
+    isInWishlist: () => boolean;
+    // (undocumented)
+    items: Ref<string[]>;
+    // (undocumented)
+    removeItem: (id: string) => void;
+    // (undocumented)
+    updateStorage: () => boolean;
+}
+
 // @beta (undocumented)
 export type listingKey = "productSearchListing" | "categoryListing";
 
@@ -578,6 +596,9 @@ export const useUIState: (rootContext: ApplicationVueContext, stateName?: string
 
 // @beta
 export const useUser: (rootContext: ApplicationVueContext) => IUseUser;
+
+// @beta (undocumented)
+export const useWishlist: (product?: Product | undefined) => IUseWishlist;
 
 // @alpha (undocumented)
 export interface VuelidateValidation {
