@@ -241,7 +241,27 @@ export default {
   computed: {
     useUserErrorMessages() {
       // all the 400 errors are in a raw format stright from the API - to be extracted easily depeding on needs.
-      return this.userError && this.getMessagesFromErrorsArray(this.userError)
+      return (
+        this.userError &&
+        this.getMessagesFromErrorsArray(this.userError.message)
+      )
+    },
+    customer() {
+      return {
+        email: this.email,
+        password: this.password,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        salutationId: this.salutationId,
+        storefrontUrl:
+          window &&
+          window.location &&
+          `${window.location.protocol}//${window.location.hostname}`,
+        billingAddress: Object.assign({}, this.billingAddress, {
+          firstName: this.firstName,
+          lastName: this.lastName,
+        }),
+      }
     },
   },
   watch: {

@@ -182,6 +182,11 @@ export default {
   --c-link-hover: var(--_c-green-primary);
   --heading-title-font-line-height: 24px;
 
+  ::v-deep .sf-menu-item__label {
+    text-align: left;
+    width: 100%;
+  }
+
   .sw-overlay {
     --overlay-z-index: 1;
   }
@@ -190,9 +195,11 @@ export default {
     ::v-deep .sf-header {
       display: flex;
       justify-content: space-between;
+
       &__sticky-container {
         width: 100%;
       }
+
       &__navigation {
         flex: 0 0 calc(100% - 20rem);
       }
