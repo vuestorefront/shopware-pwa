@@ -10,19 +10,17 @@
     </div>
     <SwPluginSlot name="product-page-details-after" :slot-context="product" />
 
-    <div class="products__recomendations">
+    <div class="products__recomendations" v-if="crossSellCollection.length">
       <div class="products-recomendations__section">
-        <!-- <SwProductCarousel /> -->
-        <!-- <SfTabs
-          :open-tab="openTab"
-          :tab-max-content-height="tabMaxContentHeight"
-          :tab-show-text="tabShowText"
-          :tab-hide-text="tabHideText"
-        >
-          <SfTab v-for="tab in tabs" :key="tab.title" :title="tab.title">
-            {{ tab.content }}
+        <SfTabs :open-tab="1">
+          <SfTab
+            v-for="crossSell in crossSellCollection"
+            :key="crossSell.id"
+            :title="crossSell.translated.name"
+          >
+            <SwProductCarousel :products="crossSell.assignedProducts" />
           </SfTab>
-        </SfTabs> -->
+        </SfTabs>
       </div>
     </div>
 
@@ -93,68 +91,33 @@ export default {
   },
   data() {
     return {
-      productWithChildren: null,
-      relatedProducts: [],
+      productWithAssociations: null,
       selectedSize: null,
       selectedColor: null,
-      crossSellings: {},
     }
   },
   computed: {
     product() {
-      console.log(this.page.product.id)
-      console.log(this.crossSellings)
-      return this.productWithChildren
-        ? this.productWithChildren.value
+      return this.productWithAssociations
+        ? this.productWithAssociations.value
         : this.page.product
     },
+    crossSellCollection() {
+      return this.product.crossSellings || []
+    },
   },
-  // load children association from the parent - variants loading
+  // load children association from the parent - variants and cross sells loading
   async mounted() {
-    if (!this.page.product.parentId) {
-      return
-    }
+    // if (!this.page.product.parentId) {
+    //   return
+    // }
 
     try {
       const { loadAssociations, product } = useProduct(this, this.page.product)
-      this.productWithChildren = product
       await loadAssociations()
+      this.productWithAssociations = product
     } catch (e) {
       console.error("ProductView:mounted:loadAssociations", e)
-    }
-
-    try {
-      const urlPath = `detail/${
-        this.page.product.parentId || this.page.product.id
-      }`
-      const searchCriteria = {
-        configuration: {
-          includes: {
-            product: ["id", "crossSellings"],
-            product_cross_selling: ["assignedProducts", "name", "position"],
-            product_cross_selling_assigned_products: ["product"],
-          },
-          associations: {
-            crossSellings: {
-              associations: {
-                assignedProducts: {
-                  associations: {
-                    product: {},
-                  },
-                },
-              },
-            },
-          },
-        },
-      }
-      const result = await getProductPage(
-        urlPath,
-        searchCriteria,
-        this.$shopwareApiInstance
-      )
-      this.crossSellings = result
-    } catch (e) {
-      console.error("ProductView:mounted:getProductPage", e)
     }
   },
 }

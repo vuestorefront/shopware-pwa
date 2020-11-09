@@ -1,13 +1,12 @@
 <template>
   <div class="Sw-products-gallery">
-    <SfSection
-      v-if="products && products.length > 0"
-      class="section"
-      title-heading="You may also like"
-    >
+    <SfSection v-if="products && products.length > 0" class="section">
       <SfCarousel class="product-carousel" :settings="options">
         <SfCarouselItem v-for="product in products" :key="product.id">
-          <SwProductCard :product="product" class="product-carousel__product" />
+          <SwProductCard
+            :product="product.product"
+            class="product-carousel__product"
+          />
         </SfCarouselItem>
       </SfCarousel>
     </SfSection>
@@ -27,10 +26,13 @@ export default {
       type: String,
       default: "Match it",
     },
+    products: {
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
     return {
-      products: {},
       options: {
         breakpoints: {
           480: {
@@ -45,22 +47,6 @@ export default {
           },
         },
       },
-    }
-  },
-  async mounted() {
-    try {
-      const result = await getProducts(
-        {
-          pagination: {
-            page: 1,
-            limit: 10,
-          },
-        },
-        this.$shopwareApiInstance
-      )
-      this.products = result.data
-    } catch (e) {
-      console.error("SwProductCarousel:mounted:getProducts", e)
     }
   },
 }
