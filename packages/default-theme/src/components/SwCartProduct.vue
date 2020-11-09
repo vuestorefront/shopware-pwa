@@ -8,10 +8,20 @@
     class="collected-product"
     @click:remove="removeProduct(product)"
   >
+    <template #actions>
+      <div class="collected-product__configuration" v-if="options">
+        <SfProperty
+          v-for="option in options"
+          :key="`${option.group}-${option.option}`"
+          :name="option.group"
+          :value="option.option"
+        />
+      </div>
+    </template>
   </SfCollectedProduct>
 </template>
 <script>
-import { SfCollectedProduct } from "@storefront-ui/vue"
+import { SfCollectedProduct, SfProperty } from "@storefront-ui/vue"
 import { getProductMainImageUrl } from "@shopware-pwa/helpers"
 import { useCart } from "@shopware-pwa/composables"
 import { ref, watch, computed } from "@vue/composition-api"
@@ -19,6 +29,7 @@ import { ref, watch, computed } from "@vue/composition-api"
 export default {
   components: {
     SfCollectedProduct,
+    SfProperty,
   },
   props: {
     product: {
@@ -31,6 +42,9 @@ export default {
 
     const quantity = ref(props.product.quantity)
     const productImage = computed(() => getProductMainImageUrl(props.product))
+    const options = computed(
+      () => (props.product.payload && props.product.payload.options) || []
+    )
 
     watch(quantity, async (qty) => {
       // in future we may want to have debounce here
@@ -47,6 +61,7 @@ export default {
       productImage,
       removeProduct,
       quantity,
+      options,
     }
   },
 }
@@ -69,6 +84,15 @@ export default {
     flex-direction: column;
     opacity: var(--cp-actions-opacity, 0);
     transition: opacity 150ms ease-in-out;
+  }
+
+  &__configuration {
+    margin-top: var(--spacer-sm);
+    align-items: end;
+    align-self: baseline;
+    @include for-desktop {
+      flex-direction: row-reverse;
+    }
   }
 
   &__actions-element {
