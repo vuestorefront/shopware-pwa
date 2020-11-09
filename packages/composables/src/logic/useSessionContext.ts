@@ -9,7 +9,10 @@ import {
   setCurrentPaymentMethod,
 } from "@shopware-pwa/shopware-6-client";
 import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
-import { getApplicationContext } from "@shopware-pwa/composables";
+import {
+  getApplicationContext,
+  useNotifications,
+} from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
 /**
  * interface for {@link useSessionContext} composable
@@ -43,6 +46,7 @@ export const useSessionContext = (
     "useSessionContext"
   );
 
+  const { pushWarning } = useNotifications(rootContext);
   const sessionContext: Readonly<Ref<SessionContext>> = computed(() => {
     return (vuexStore.getters.getSessionContext as SessionContext) || null;
   });
@@ -51,6 +55,9 @@ export const useSessionContext = (
       const context = await getSessionContext(apiInstance);
       vuexStore.commit("SET_SESSION_CONTEXT", context);
     } catch (e) {
+      pushWarning(
+        "Unable to update the session. Some parts may not be working properly. Please try again later."
+      );
       console.error("[UseSessionContext][refreshSessionContext]", e);
     }
   };
