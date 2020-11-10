@@ -14,7 +14,7 @@
     :is-added-to-cart="isInCart"
     :is-on-wishlist="isInWishlist"
     @click:add-to-cart="addToCart"
-    @click:wishlist="updateWishlist"
+    @click:wishlist="toggleWishlistItem"
   >
   </SfProductCard>
 </template>
@@ -40,6 +40,7 @@ export default {
       product
     )
     const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist(
+      root,
       product
     )
     return {
@@ -47,8 +48,8 @@ export default {
       addToCart,
       getStock,
       isInCart,
-      addToWishlist,
-      removeFromWishlist,
+      toggleWishlistItem: () =>
+        isInWishlist.value ? removeFromWishlist(product.id) : addToWishlist(),
       isInWishlist,
     }
   },
@@ -82,15 +83,6 @@ export default {
       return (
         getProductThumbnailUrl(this.product) || require("@/assets/productB.jpg")
       )
-    },
-  },
-  methods: {
-    updateWishlist() {
-      if (!this.isInWishlist) {
-        this.addToWishlist()
-      } else {
-        this.removeFromWishlist()
-      }
     },
   },
 }
