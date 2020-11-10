@@ -12,9 +12,9 @@
     class="sw-product-card"
     :show-add-to-cart-button="true"
     :is-added-to-cart="isInCart"
-    :is-on-wishlist="isOnWishlist"
+    :is-on-wishlist="isInWishlist"
     @click:add-to-cart="addToCart"
-    @click:wishlist="addProductToWishlist"
+    @click:wishlist="updateWishlist"
   >
   </SfProductCard>
 </template>
@@ -39,22 +39,17 @@ export default {
       root,
       product
     )
-    const {
-      isInWishlist,
-      addToWishlist,
-      removeFromWishlist,
-      clearWishlist,
-    } = useWishlist(product)
+    const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist(
+      product
+    )
     return {
       quantity,
       addToCart,
       getStock,
       isInCart,
-      isInWishlist,
       addToWishlist,
       removeFromWishlist,
-      clearWishlist,
-      isOnWishlist: false,
+      isInWishlist,
     }
   },
   props: {
@@ -90,9 +85,12 @@ export default {
     },
   },
   methods: {
-    addProductToWishlist() {
-      this.addToWishlist()
-      this.isOnWishlist = true
+    updateWishlist() {
+      if (!this.isInWishlist) {
+        this.addToWishlist()
+      } else {
+        this.removeFromWishlist()
+      }
     },
   },
 }
