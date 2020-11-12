@@ -24,6 +24,7 @@
     "image-two-column": "CmsBlockImageTwoColumn",
     "product-slider": "CmsBlockDefault",
     "text": "CmsBlockDefault",
+    "text-hero": "CmsBlockDefault",
     "text-three-column": "CmsBlockTextThreeColumn",
     "product-three-column": "CmsBlockProductThreeColumn",
     "text-two-column": "CmsBlockTextTwoColumn",
