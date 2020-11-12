@@ -10,7 +10,7 @@
     </div>
     <SwPluginSlot name="product-page-details-after" :slot-context="product" />
 
-    <div class="products__recomendations" v-if="crossSellCollection.length">
+    <div v-if="crossSellCollection.length" class="products__recomendations">
       <div class="products-recomendations__section">
         <SfTabs :open-tab="1">
           <SfTab

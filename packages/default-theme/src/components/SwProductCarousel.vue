@@ -1,7 +1,7 @@
 <template>
-  <div class="Sw-products-gallery">
-    <SfSection v-if="products && products.length > 0" class="section">
-      <SfCarousel class="product-carousel" :settings="options">
+  <div class="sw-products-gallery">
+    <SfSection v-if="products && products.length > 4" class="section">
+      <SfCarousel class="product-carousel" :settings="options" :style="style">
         <SfCarouselItem v-for="product in products" :key="product.id">
           <SwProductCard
             :product="product.product"
@@ -9,6 +9,14 @@
           />
         </SfCarouselItem>
       </SfCarousel>
+    </SfSection>
+    <SfSection v-else class="section products-grid">
+      <div v-for="product in products" :key="product.id">
+        <SwProductCard
+          :product="product.product"
+          class="product-carousel__product"
+        />
+      </div>
     </SfSection>
   </div>
 </template>
@@ -34,18 +42,18 @@ export default {
   data() {
     return {
       options: {
+        gap: 0,
+        type: "carousel",
+        perView: 4,
+        rewind: true,
+        slidePerPage: true,
         breakpoints: {
-          480: {
-            perView: 2,
-            peek: {
-              before: 0,
-              after: 50,
-            },
-          },
-          1023: {
-            perView: 4,
-          },
+          480: { perView: 2, peek: { before: 0, after: 50 } },
+          1023: { perView: 4 },
         },
+      },
+      style: {
+        maxWidth: "1240px",
       },
     }
   },
@@ -62,13 +70,26 @@ export default {
   }
 }
 
-.product-carousel {
-  margin: 0 calc(var(--spacer-base) * -1) 0 0;
-  @include for-desktop {
-    margin: var(--spacer-base) 0;
-    --carousel-padding: var(--spacer-base);
-    --carousel-max-width: calc(100% - 13.5rem);
+.sw-products-gallery {
+  // max-width: 1024px;
+
+  .products-grid {
+    ::v-deep .sf-section__content {
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
+}
+
+.product-carousel {
+  // margin: 0 calc(var(--spacer-base) * -1) 0 0;
+
+  // @include for-desktop {
+  //   margin: var(--spacer-base) 0;
+  //   --carousel-padding: var(--spacer-base);
+  //   --carousel-max-width: calc(100% - 13.5rem);
+  // }
+
   &__product {
     @include for-mobile {
       max-width: unset;
