@@ -23,7 +23,6 @@
 
 <script>
 import { SfSection, SfCarousel } from "@storefront-ui/vue"
-import { getProducts } from "@shopware-pwa/shopware-6-client"
 import SwProductCard from "@/components/SwProductCard"
 
 export default {
@@ -67,8 +66,6 @@ export default {
 }
 
 .sw-products-gallery {
-  // max-width: 1024px;
-
   .products-grid {
     ::v-deep .sf-section__content {
       display: flex;
@@ -78,13 +75,13 @@ export default {
 }
 
 .product-carousel {
-  // margin: 0 calc(var(--spacer-base) * -1) 0 0;
+  margin: 0 calc(var(--spacer-base) * -1) 0 0;
 
-  // @include for-desktop {
-  //   margin: var(--spacer-base) 0;
-  //   --carousel-padding: var(--spacer-base);
-  //   --carousel-max-width: calc(100% - 13.5rem);
-  // }
+  @include for-desktop {
+    margin: var(--spacer-base) 0;
+    --carousel-padding: var(--spacer-base);
+    --carousel-max-width: calc(100% - 13.5rem);
+  }
 
   &__product {
     @include for-mobile {

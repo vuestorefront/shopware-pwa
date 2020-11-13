@@ -68,7 +68,6 @@ import SwProductDetails from "@/components/SwProductDetails"
 import SwProductCarousel from "@/components/SwProductCarousel"
 import SwProductAdvertisement from "@/components/SwProductAdvertisement"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import { getProductPage } from "@shopware-pwa/shopware-6-client"
 
 export default {
   name: "Product",
@@ -108,10 +107,6 @@ export default {
   },
   // load children association from the parent - variants and cross sells loading
   async mounted() {
-    // if (!this.page.product.parentId) {
-    //   return
-    // }
-
     try {
       const { loadAssociations, product } = useProduct(this, this.page.product)
       await loadAssociations()
