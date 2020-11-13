@@ -39,6 +39,30 @@ export interface SeoUrl {
   versionId: string | null;
 }
 
+export interface CrossSelling {
+  name: String;
+  position: number;
+  sortBy: string;
+  sortDirection: string;
+  limit: number;
+  active: boolean;
+  productId: string;
+  product: null | Product;
+  productStreamId: null | string;
+  type: string;
+  assignedProducts: Product[];
+  translations: any;
+  _uniqueIdentifier: string;
+  versionId: null | string;
+  translated: any;
+  createdAt: Date;
+  updatedAt: null | Date;
+  extensions: any;
+  id: string;
+  productVersionId: string;
+  apiAlias: string;
+}
+
 /**
  * @alpha
  */
@@ -118,4 +142,5 @@ export interface Product {
     name: string | null;
   };
   productMediaVersiond?: null;
+  crossSellings: CrossSelling[];
 }
