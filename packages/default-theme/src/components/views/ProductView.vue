@@ -127,6 +127,10 @@ export default {
 }
 
 .products__recomendations {
+  @include for-desktop {
+    margin-top: var(--spacer-xl);
+  }
+
   ::v-deep .sf-tabs__content {
     max-width: 100%;
   }
