@@ -131,6 +131,12 @@ export default {
   }
 }
 
+.products__recomendations {
+  ::v-deep .sf-tabs__content {
+    max-width: 100%;
+  }
+}
+
 #product {
   position: relative;
 

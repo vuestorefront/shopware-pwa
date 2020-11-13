@@ -48,12 +48,8 @@ export default {
         rewind: true,
         slidePerPage: true,
         breakpoints: {
-          480: { perView: 2, peek: { before: 0, after: 50 } },
-          1023: { perView: 4 },
+          1023: { perView: 2 },
         },
-      },
-      style: {
-        maxWidth: "1240px",
       },
     }
   },
