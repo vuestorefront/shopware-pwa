@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-isInWishlist: () => boolean;
+isInWishlist: Ref<boolean>;
 ```

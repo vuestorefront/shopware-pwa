@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-clearWishlist: () => boolean;
+clearWishlist: () => void;
 ```

@@ -19,11 +19,9 @@ export interface IUseWishlist
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [addToWishlist](./composables.iusewishlist.addtowishlist.md) | () =&gt; boolean | <b><i>(BETA)</i></b> |
-|  [clearWishlist](./composables.iusewishlist.clearwishlist.md) | () =&gt; boolean | <b><i>(BETA)</i></b> |
-|  [initWishlist](./composables.iusewishlist.initwishlist.md) | () =&gt; void | <b><i>(BETA)</i></b> |
-|  [isInWishlist](./composables.iusewishlist.isinwishlist.md) | () =&gt; boolean | <b><i>(BETA)</i></b> |
+|  [addToWishlist](./composables.iusewishlist.addtowishlist.md) | () =&gt; void | <b><i>(BETA)</i></b> |
+|  [clearWishlist](./composables.iusewishlist.clearwishlist.md) | () =&gt; void | <b><i>(BETA)</i></b> |
+|  [isInWishlist](./composables.iusewishlist.isinwishlist.md) | Ref&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [items](./composables.iusewishlist.items.md) | Ref&lt;string\[\]&gt; | <b><i>(BETA)</i></b> |
-|  [removeItem](./composables.iusewishlist.removeitem.md) | (id: string) =&gt; void | <b><i>(BETA)</i></b> |
-|  [updateStorage](./composables.iusewishlist.updatestorage.md) | () =&gt; boolean | <b><i>(BETA)</i></b> |
+|  [removeFromWishlist](./composables.iusewishlist.removefromwishlist.md) | (id: string) =&gt; void | <b><i>(BETA)</i></b> |
 

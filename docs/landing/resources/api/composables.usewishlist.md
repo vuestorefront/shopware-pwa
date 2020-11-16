@@ -11,5 +11,5 @@
 <b>Signature:</b>
 
 ```typescript
-useWishlist: (product?: Product | undefined) => IUseWishlist
+useWishlist: (rootContext: ApplicationVueContext, product?: Product | undefined) => IUseWishlist
 ```

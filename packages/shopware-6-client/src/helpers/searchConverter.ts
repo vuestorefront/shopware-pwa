@@ -35,6 +35,7 @@ export interface ShopwareParams {
   order?: string;
   sort?: string;
   term?: string;
+  ids?: string;
   filter?: (
     | NotFilter
     | MultiFilter
@@ -159,6 +160,10 @@ export const convertSearchCriteria = ({
 
   if (configuration?.includes) {
     params.includes = configuration.includes;
+  }
+
+  if (configuration?.ids) {
+    params.ids = configuration.ids.join("|");
   }
 
   // fulltext query (works for every entity so can be global)

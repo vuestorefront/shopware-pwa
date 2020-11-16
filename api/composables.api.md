@@ -391,19 +391,15 @@ export interface IUseUser {
 // @beta
 export interface IUseWishlist {
     // (undocumented)
-    addToWishlist: () => boolean;
+    addToWishlist: () => void;
     // (undocumented)
-    clearWishlist: () => boolean;
+    clearWishlist: () => void;
     // (undocumented)
-    initWishlist: () => void;
-    // (undocumented)
-    isInWishlist: () => boolean;
+    isInWishlist: Ref<boolean>;
     // (undocumented)
     items: Ref<string[]>;
     // (undocumented)
-    removeItem: (id: string) => void;
-    // (undocumented)
-    updateStorage: () => boolean;
+    removeFromWishlist: (id: string) => void;
 }
 
 // @beta (undocumented)
@@ -598,7 +594,7 @@ export const useUIState: (rootContext: ApplicationVueContext, stateName?: string
 export const useUser: (rootContext: ApplicationVueContext) => IUseUser;
 
 // @beta (undocumented)
-export const useWishlist: (product?: Product | undefined) => IUseWishlist;
+export const useWishlist: (rootContext: ApplicationVueContext, product?: Product | undefined) => IUseWishlist;
 
 // @alpha (undocumented)
 export interface VuelidateValidation {

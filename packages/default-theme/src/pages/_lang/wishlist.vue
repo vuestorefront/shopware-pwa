@@ -1,46 +1,47 @@
 <template>
   <div class="wishlistPage">
-    <div v-if="productsList.length">
-      <SwProductCard
-        v-for="product in productIds"
-        :key="product.id"
-        class=""
-        :product="product"
-      />
-    </div>
+    <SfLoader :loading="isLoading">
+      <div v-if="products.length">
+        <SwProductCard
+          v-for="product in products"
+          :key="product.id"
+          class=""
+          :product="product"
+        />
+      </div>
 
-    <div v-else class="no-results">
-      <SfImage class="image" :src="require('@/assets/hearts.svg')" />
+      <div v-else class="no-results">
+        <SfImage class="image" :src="require('@/assets/hearts.svg')" />
 
-      <SfHeading
-        :title="$t('No favourites yet')"
-        :level="2"
-        class="main-headline"
-      />
-      <SfHeading
-        :title="$t('Tap any heart next to a product to favorite.')"
-        :level="4"
-      />
-      <SfHeading :title="$t('We’ll save them for you here!')" :level="4" />
-    </div>
+        <SfHeading
+          :title="$t('No favourites yet')"
+          :level="2"
+          class="main-headline"
+        />
+        <SfHeading
+          :title="$t('Tap any heart next to a product to favorite.')"
+          :level="4"
+        />
+        <SfHeading :title="$t('We’ll save them for you here!')" :level="4" />
+      </div>
+    </SfLoader>
   </div>
 </template>
 
 <script>
-import { getProduct } from "@shopware-pwa/shopware-6-client"
+import { getProducts } from "@shopware-pwa/shopware-6-client"
 import { getApplicationContext, useWishlist } from "@shopware-pwa/composables"
 import SwProductCard from "@/components/SwProductCard"
-import { SfHeading, SfImage } from "@storefront-ui/vue"
-import { result } from "lodash"
-import { computed, onMounted } from "@vue/composition-api"
+import { SfHeading, SfImage, SfLoader } from "@storefront-ui/vue"
+import { onMounted, ref, watch } from "@vue/composition-api"
 
 export default {
   name: "Wishlist",
   components: {
-    getProduct,
     SwProductCard,
     SfHeading,
     SfImage,
+    SfLoader,
   },
   props: {
     product: {
@@ -48,33 +49,47 @@ export default {
       default: () => ({}),
     },
   },
-  data() {
-    return {
-      productIds: [],
-      products: [],
-    }
-  },
-
-  setup(product, { root }) {
-    const { removeFromWishlist, getFromStorage } = useWishlist(root, product)
+  setup({}, { root }) {
+    const { removeFromWishlist, items } = useWishlist(root)
     const { apiInstance } = getApplicationContext(root, "Wishlist")
 
-    this.productIds = getFromStorage()
+    const products = ref([])
+    const isLoading = ref(false)
 
-    console.log(this.productIds)
+    const loadProductsByItemIds = async (itemIds) => {
+      isLoading.value = true
+      try {
+        const result = await getProducts(
+          {
+            configuration: {
+              ids: items.value,
+            },
+          },
+          apiInstance
+        )
+        if (result) {
+          products.value = result
+        }
+      } catch (e) {
+        console.error(e)
+      }
+      isLoading.value = false
+    }
 
     onMounted(async () => {
-      try {
-        const result = await getProduct(this.productIds[0], null, apiInstance) //get first item from wishlist array only for tests
-        this.product.value = result
-        console.log(result)
-      } catch (e) {}
-      console.error(e)
+      loadProductsByItemIds(items.value)
+    })
+
+    watch(items, (items, prev) => {
+      if (items.length !== prev.length) {
+        products.value = products.value.filter(({ id }) => items.includes(id))
+      }
     })
 
     return {
       removeFromWishlist,
-      getFromStorage,
+      products,
+      isLoading,
     }
   },
 }
