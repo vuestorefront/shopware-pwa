@@ -46,13 +46,15 @@ export const useWishlist = (
     }
   };
 
-  try {
-    const currentWishlist = getFromStorage();
-    if (currentWishlist) {
-      sharedWishlist.items = currentWishlist;
+  if (!sharedWishlist.items.length) {
+    try {
+      const currentWishlist = getFromStorage();
+      if (currentWishlist) {
+        sharedWishlist.items = currentWishlist;
+      }
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error);
   }
 
   // removes item from the list
