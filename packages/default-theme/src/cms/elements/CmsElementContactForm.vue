@@ -110,7 +110,7 @@
         />
       </div>
 
-      <SwErrorsList :list="errorMessage" />
+      <SwErrorsList :list="errorMessages" />
 
       <SwButton class="send button">
         {{ $t("send") }}
@@ -181,7 +181,7 @@ export default {
         "I have read and agree with the data protection regulations."
     )
 
-    const errorMessage = ref("")
+    const errorMessages = ref([])
     const salutation = ref(null)
     const firstName = ref(null)
     const lastName = ref(null)
@@ -206,7 +206,7 @@ export default {
         )
         formSent.value = true
       } catch (e) {
-        errorMessage.value = getMessagesFromErrorsArray(e.message)
+        errorMessages.value = getMessagesFromErrorsArray(e.message)
       }
     }
     const checkbox = ref(false)
@@ -216,7 +216,7 @@ export default {
       salutationsError,
       getConfirmationText,
       sendForm,
-      errorMessage,
+      errorMessages,
       salutation,
       firstName,
       lastName,
@@ -230,12 +230,12 @@ export default {
   },
   methods: {
     async submit() {
-      this.errorMessage = ""
+      this.errorMessages = []
       this.$v.$touch()
       if (this.$v.$invalid) {
-        this.errorMessage = this.$t(
+        this.errorMessages = [this.$t(
           "Please fill form data and check regulations acceptance."
-        )
+        )]
         return
       }
 
