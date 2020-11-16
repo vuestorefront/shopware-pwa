@@ -16,7 +16,7 @@ import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/
  *
  * @throws ClientApiError
  *
- * @alpha
+ * @beta
  */
 export async function clearCart(
   contextInstance: ShopwareApiInstance = defaultInstance
@@ -146,7 +146,7 @@ export async function removeCartItem(
  * Promotion code is being added as separate cart item line.
  *
  * @throws ClientApiError
- * @alpha
+ * @beta
  */
 export async function addPromotionCode(
   promotionCode: string,

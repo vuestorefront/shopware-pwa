@@ -10,7 +10,7 @@ import { GuestOrderParams } from "@shopware-pwa/commons/interfaces/request/Guest
 
 /**
  * Creates an order for logged in users
- * @alpha
+ * @beta
  */
 export async function createOrder(
   contextInstance: ShopwareApiInstance = defaultInstance
@@ -23,7 +23,7 @@ export async function createOrder(
 /**
  * Creates an order for not logged in users
  * Should be used when the user is logged out, but has items in the cart
- * @alpha
+ * @beta
  */
 export async function createGuestOrder(
   params: GuestOrderParams,
@@ -73,7 +73,7 @@ export async function getOrderPaymentUrl(
 }
 
 /**
- * @alpha
+ * @beta
  */
 
 export async function getStoreOrderPaymentUrl(
