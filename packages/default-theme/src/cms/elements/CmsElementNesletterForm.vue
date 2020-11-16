@@ -48,7 +48,7 @@
           />
         </transition>
 
-        <SwErrorsList :list="errorMessage" />
+        <SwErrorsList :list="errorMessages" />
 
         <span>
           <SwButton
@@ -96,7 +96,7 @@ export default {
   },
   setup(props, { root }) {
     const { apiInstance } = getApplicationContext(root, "SwFooter")
-    const errorMessage = ref("")
+    const errorMessages = ref([])
     const email = ref(null)
     const formSent = ref(false)
     const sendForm = async () => {
@@ -114,20 +114,20 @@ export default {
         )
         formSent.value = true
       } catch (e) {
-        errorMessage.value = getMessagesFromErrorsArray(e.message)
+        errorMessages.value = getMessagesFromErrorsArray(e.message)
       }
     }
 
     return {
       email,
       sendForm,
-      errorMessage,
+      errorMessages,
       formSent,
     }
   },
   methods: {
     async submit() {
-      this.errorMessage = ""
+      this.errorMessages = []
       this.$v.$touch()
       if (this.$v.$invalid) {
         return
