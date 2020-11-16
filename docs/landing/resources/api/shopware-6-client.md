@@ -9,29 +9,65 @@
 |  Function | Description |
 |  --- | --- |
 |  [addCartItemQuantity(itemId, quantity, contextInstance)](./shopware-6-client.addcartitemquantity.md) | <b><i>(BETA)</i></b> Increases the current quantity in specific cart line item by given quantity.<!-- -->Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 5. |
+|  [addProductReview(productId, productReviewData, contextInstance)](./shopware-6-client.addproductreview.md) | <b><i>(BETA)</i></b> Add a review to specific product by its ID |
 |  [addProductToCart(productId, quantity, contextInstance)](./shopware-6-client.addproducttocart.md) | <b><i>(BETA)</i></b> Adds specific quantity of the product to the cart by productId. It creates a new cart line item.<!-- -->Warning: This method does not change the state of the cart in any way if productId already exists in a cart. For changing the quantity use addQuantityToCartLineItem() or changeCartLineItemQuantity() methods. |
+|  [addPromotionCode(promotionCode, contextInstance)](./shopware-6-client.addpromotioncode.md) | <b><i>(BETA)</i></b> Adds new promotion code to the cart by its code.<!-- -->Promotion code is being added as separate cart item line. |
 |  [changeCartItemQuantity(itemId, newQuantity, contextInstance)](./shopware-6-client.changecartitemquantity.md) | <b><i>(BETA)</i></b> Changes the current quantity in specific cart line item to given quantity.<!-- -->Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 2. |
+|  [clearCart(contextInstance)](./shopware-6-client.clearcart.md) | <b><i>(BETA)</i></b> When no sw-context-token given then this method return an empty cart with the new sw-context-token.<!-- -->When sw-context-token given then this method simply returns the current state of the cart.<!-- -->As the purpose of this method is not clear we recommend to use <code>getCart</code> method because its behaviour seems to be the same. |
+|  [createCustomerAddress(params, contextInstance)](./shopware-6-client.createcustomeraddress.md) | <b><i>(BETA)</i></b> Create an address and respond the new address's id |
+|  [createGuestOrder(params, contextInstance)](./shopware-6-client.createguestorder.md) | <b><i>(BETA)</i></b> Creates an order for not logged in users Should be used when the user is logged out, but has items in the cart |
 |  [createInstance(initialConfig)](./shopware-6-client.createinstance.md) | <b><i>(BETA)</i></b> |
+|  [createOrder(contextInstance)](./shopware-6-client.createorder.md) | <b><i>(BETA)</i></b> Creates an order for logged in users |
+|  [deleteCustomerAddress(addressId, contextInstance)](./shopware-6-client.deletecustomeraddress.md) | <b><i>(BETA)</i></b> Delete's the customer's address by id |
+|  [getAvailableCountries(contextInstance)](./shopware-6-client.getavailablecountries.md) | <b><i>(BETA)</i></b> Get all available countries |
+|  [getAvailableCurrencies(contextInstance)](./shopware-6-client.getavailablecurrencies.md) | <b><i>(BETA)</i></b> |
+|  [getAvailableLanguages(contextInstance)](./shopware-6-client.getavailablelanguages.md) | <b><i>(BETA)</i></b> |
+|  [getAvailablePaymentMethods(contextInstance)](./shopware-6-client.getavailablepaymentmethods.md) | <b><i>(BETA)</i></b> |
+|  [getAvailableSalutations(contextInstance)](./shopware-6-client.getavailablesalutations.md) | <b><i>(BETA)</i></b> Get all available salutations |
+|  [getAvailableShippingMethods(contextInstance)](./shopware-6-client.getavailableshippingmethods.md) | <b><i>(BETA)</i></b> |
 |  [getCart(contextInstance)](./shopware-6-client.getcart.md) | <b><i>(BETA)</i></b> Gets the current cart for the sw-context-token. |
 |  [getCmsPage(path, criteria, contextInstance)](./shopware-6-client.getcmspage.md) | <b><i>(BETA)</i></b> |
 |  [getCustomer(contextInstance)](./shopware-6-client.getcustomer.md) | <b><i>(BETA)</i></b> Get customer's object |
+|  [getCustomerAddress(addressId, contextInstance)](./shopware-6-client.getcustomeraddress.md) | <b><i>(BETA)</i></b> Get the customer's address by id |
 |  [getCustomerAddresses(contextInstance)](./shopware-6-client.getcustomeraddresses.md) | <b><i>(BETA)</i></b> Get all customer's addresses |
+|  [getCustomerOrderDetails(orderId, contextInstance)](./shopware-6-client.getcustomerorderdetails.md) | <b><i>(BETA)</i></b> Get order details |
 |  [getCustomerOrders(contextInstance)](./shopware-6-client.getcustomerorders.md) | <b><i>(BETA)</i></b> Get all customer's orders |
 |  [getOrderPaymentUrl({ orderId, finishUrl, }, contextInstance)](./shopware-6-client.getorderpaymenturl.md) | <b><i>(BETA)</i></b> Get payment address to redirect user after placing order. |
+|  [getPage(path, searchCriteria, contextInstance)](./shopware-6-client.getpage.md) | <b><i>(BETA)</i></b> |
+|  [getPaymentMethodDetails(paymentId, contextInstance)](./shopware-6-client.getpaymentmethoddetails.md) | <b><i>(BETA)</i></b> |
+|  [getProduct(productId, params, contextInstance)](./shopware-6-client.getproduct.md) | <b><i>(BETA)</i></b> Get the product with passed productId |
 |  [getProductPage(path, searchCriteria, contextInstance)](./shopware-6-client.getproductpage.md) | <b><i>(BETA)</i></b> |
 |  [getResults(term, searchCriteria, contextInstance)](./shopware-6-client.getresults.md) | <b><i>(BETA)</i></b> |
 |  [getSearchResults(term, searchCriteria, contextInstance)](./shopware-6-client.getsearchresults.md) | <b><i>(BETA)</i></b> |
+|  [getSessionContext(contextInstance)](./shopware-6-client.getsessioncontext.md) | <b><i>(BETA)</i></b> Loads session context, containing all session-related data. |
+|  [getShippingMethodDetails(shippingId, contextInstance)](./shopware-6-client.getshippingmethoddetails.md) | <b><i>(BETA)</i></b> |
 |  [getStoreNavigation({ requestActiveId, requestRootId, depth, buildTree, searchCriteria, }, contextInstance)](./shopware-6-client.getstorenavigation.md) | <b><i>(BETA)</i></b> |
+|  [getStoreOrderPaymentUrl(orderId, contextInstance)](./shopware-6-client.getstoreorderpaymenturl.md) | <b><i>(BETA)</i></b> |
+|  [getUserCountry(countryId, contextInstance)](./shopware-6-client.getusercountry.md) | <b><i>(BETA)</i></b> |
+|  [getUserSalutation(salutationId, contextInstance)](./shopware-6-client.getusersalutation.md) | <b><i>(BETA)</i></b> |
 |  [invokeGet({ address }, contextInstance)](./shopware-6-client.invokeget.md) | <b><i>(BETA)</i></b> Invoke custom GET request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
 |  [invokePost({ address, payload, }, contextInstance)](./shopware-6-client.invokepost.md) | <b><i>(BETA)</i></b> Invoke custom POST request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
 |  [login({ username, password }, contextInstance)](./shopware-6-client.login.md) | <b><i>(BETA)</i></b> Login user to shopware instance. |
 |  [logout(contextInstance)](./shopware-6-client.logout.md) | <b><i>(BETA)</i></b> End up the user session. |
 |  [newsletterSubscribe(params, contextInstance)](./shopware-6-client.newslettersubscribe.md) | <b><i>(BETA)</i></b> |
 |  [newsletterUnsubscribe({ email, }, contextInstance)](./shopware-6-client.newsletterunsubscribe.md) | <b><i>(BETA)</i></b> |
+|  [register(params, contextInstance)](./shopware-6-client.register.md) | <b><i>(BETA)</i></b> Register a customer |
 |  [removeCartItem(itemId, contextInstance)](./shopware-6-client.removecartitem.md) | <b><i>(BETA)</i></b> Deletes the cart line item by id.<!-- -->This method may be used for deleting "product" type item lines as well as "promotion" type item lines. |
+|  [resetPassword(params, contextInstance)](./shopware-6-client.resetpassword.md) | <b><i>(BETA)</i></b> Reset a customer's password |
 |  [searchProducts(criteria, contextInstance)](./shopware-6-client.searchproducts.md) | <b><i>(BETA)</i></b> Search for products based on criteria. From: Shopware 6.4 |
 |  [searchSuggestedProducts(criteria, contextInstance)](./shopware-6-client.searchsuggestedproducts.md) | <b><i>(BETA)</i></b> Search for suggested products based on criteria. From: Shopware 6.4 |
 |  [sendContactForm(params, contextInstance)](./shopware-6-client.sendcontactform.md) | <b><i>(BETA)</i></b> |
+|  [setCurrentBillingAddress(billingAddressId, contextInstance)](./shopware-6-client.setcurrentbillingaddress.md) | <b><i>(BETA)</i></b> Set the current session's billing address to correspoding to id |
+|  [setCurrentCurrency(newCurrencyID, contextInstance)](./shopware-6-client.setcurrentcurrency.md) | <b><i>(BETA)</i></b> |
+|  [setCurrentLanguage(newLanguageId, contextInstance)](./shopware-6-client.setcurrentlanguage.md) | <b><i>(BETA)</i></b> |
+|  [setCurrentPaymentMethod(newPaymentMethodId, contextInstance)](./shopware-6-client.setcurrentpaymentmethod.md) | <b><i>(BETA)</i></b> |
+|  [setCurrentShippingAddress(shippingAddressId, contextInstance)](./shopware-6-client.setcurrentshippingaddress.md) | <b><i>(BETA)</i></b> Set the current session's shipping address to correspoding to id |
+|  [setCurrentShippingMethod(newShippingMethodId, contextInstance)](./shopware-6-client.setcurrentshippingmethod.md) | <b><i>(BETA)</i></b> |
+|  [setDefaultCustomerBillingAddress(addressId, contextInstance)](./shopware-6-client.setdefaultcustomerbillingaddress.md) | <b><i>(BETA)</i></b> Set address as default |
+|  [setDefaultCustomerShippingAddress(addressId, contextInstance)](./shopware-6-client.setdefaultcustomershippingaddress.md) | <b><i>(BETA)</i></b> Set address as default |
+|  [updateEmail(params, contextInstance)](./shopware-6-client.updateemail.md) | <b><i>(BETA)</i></b> Update a customer's email |
+|  [updatePassword(params, contextInstance)](./shopware-6-client.updatepassword.md) | <b><i>(BETA)</i></b> Update a customer's password |
+|  [updateProfile(params, contextInstance)](./shopware-6-client.updateprofile.md) | <b><i>(BETA)</i></b> Update a customer's profile data |
 
 ## Interfaces
 
@@ -40,6 +76,11 @@
 |  [ClientSettings](./shopware-6-client.clientsettings.md) | <b><i>(BETA)</i></b> |
 |  [ConfigChangedArgs](./shopware-6-client.configchangedargs.md) | <b><i>(BETA)</i></b> |
 |  [ContactFormData](./shopware-6-client.contactformdata.md) | <b><i>(BETA)</i></b> |
+|  [CustomerRegisterResponse](./shopware-6-client.customerregisterresponse.md) | <b><i>(BETA)</i></b> |
+|  [CustomerResetPasswordParam](./shopware-6-client.customerresetpasswordparam.md) | <b><i>(BETA)</i></b> |
+|  [CustomerUpdateEmailParam](./shopware-6-client.customerupdateemailparam.md) | <b><i>(BETA)</i></b> |
+|  [CustomerUpdatePasswordParam](./shopware-6-client.customerupdatepasswordparam.md) | <b><i>(BETA)</i></b> |
+|  [CustomerUpdateProfileParam](./shopware-6-client.customerupdateprofileparam.md) | <b><i>(BETA)</i></b> |
 |  [GetStoreNavigationParams](./shopware-6-client.getstorenavigationparams.md) | <b><i>(BETA)</i></b> More about the navigation parameters: https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/navigation?category=shopware-platform-dev-en/store-api-guide |
 |  [NewsletterSubscribeData](./shopware-6-client.newslettersubscribedata.md) | <b><i>(BETA)</i></b> |
 |  [PageResolverProductResult](./shopware-6-client.pageresolverproductresult.md) | <b><i>(BETA)</i></b> |
@@ -52,6 +93,7 @@
 |  --- | --- |
 |  [config](./shopware-6-client.config.md) | <b><i>(BETA)</i></b> |
 |  [getCategoryProducts](./shopware-6-client.getcategoryproducts.md) | <b><i>(BETA)</i></b> Get default amount of products and listing configuration for given category |
+|  [getCategoryProductsListing](./shopware-6-client.getcategoryproductslisting.md) | <b><i>(BETA)</i></b> Get default amount of products and listing configuration for given category |
 |  [onConfigChange](./shopware-6-client.onconfigchange.md) | <b><i>(BETA)</i></b> |
 |  [setup](./shopware-6-client.setup.md) | <b><i>(BETA)</i></b> Setup configuration. Merge default values with provided in param. This method will override existing config. For config update invoke \*\*update\*\* method. |
 |  [update](./shopware-6-client.update.md) | <b><i>(BETA)</i></b> Update current configuration. This will change only provided values. |

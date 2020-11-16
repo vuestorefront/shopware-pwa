@@ -34,15 +34,22 @@ import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/
 export function addCartItemQuantity(itemId: string, quantity: number, contextInstance?: ShopwareApiInstance): Promise<Cart>;
 
 // @beta
+export function addProductReview(productId: string, productReviewData: {
+    title: string;
+    content: string;
+    points: number;
+}, contextInstance?: ShopwareApiInstance): Promise<void>;
+
+// @beta
 export function addProductToCart(productId: string, quantity?: number, contextInstance?: ShopwareApiInstance): Promise<Cart>;
 
-// @alpha
+// @beta
 export function addPromotionCode(promotionCode: string, contextInstance?: ShopwareApiInstance): Promise<Cart>;
 
 // @beta
 export function changeCartItemQuantity(itemId: string, newQuantity?: number, contextInstance?: ShopwareApiInstance): Promise<Cart>;
 
-// @alpha
+// @beta
 export function clearCart(contextInstance?: ShopwareApiInstance): Promise<ContextTokenResponse>;
 
 // @beta (undocumented)
@@ -88,25 +95,25 @@ export interface ContactFormData {
     subject: string;
 }
 
-// @alpha
+// @beta
 export function createCustomerAddress(params: Partial<CustomerAddress>, contextInstance?: ShopwareApiInstance): Promise<string>;
 
-// @alpha
+// @beta
 export function createGuestOrder(params: GuestOrderParams, contextInstance?: ShopwareApiInstance): Promise<Order>;
 
 // @beta (undocumented)
 export function createInstance(initialConfig?: ClientSettings): ShopwareApiInstance;
 
-// @alpha
+// @beta
 export function createOrder(contextInstance?: ShopwareApiInstance): Promise<Order>;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface CustomerRegisterResponse {
     // (undocumented)
     data: string;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface CustomerResetPasswordParam {
     // (undocumented)
     email: string;
@@ -114,7 +121,7 @@ export interface CustomerResetPasswordParam {
     storefrontUrl?: string;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface CustomerUpdateEmailParam {
     // (undocumented)
     email: string;
@@ -124,7 +131,7 @@ export interface CustomerUpdateEmailParam {
     password: string;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface CustomerUpdatePasswordParam {
     // (undocumented)
     newPassword: string;
@@ -134,7 +141,7 @@ export interface CustomerUpdatePasswordParam {
     password: string;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface CustomerUpdateProfileParam {
     // (undocumented)
     firstName: string;
@@ -146,25 +153,25 @@ export interface CustomerUpdateProfileParam {
     title: string | null;
 }
 
-// @alpha
+// @beta
 export function deleteCustomerAddress(addressId: string, contextInstance?: ShopwareApiInstance): Promise<void>;
 
-// @alpha
+// @beta
 export function getAvailableCountries(contextInstance?: ShopwareApiInstance): Promise<SearchResult<Country[]>>;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function getAvailableCurrencies(contextInstance?: ShopwareApiInstance): Promise<Currency[]>;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function getAvailableLanguages(contextInstance?: ShopwareApiInstance): Promise<Language[]>;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function getAvailablePaymentMethods(contextInstance?: ShopwareApiInstance): Promise<PaymentMethod[]>;
 
-// @alpha
+// @beta
 export function getAvailableSalutations(contextInstance?: ShopwareApiInstance): Promise<SearchResult<Salutation[]>>;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function getAvailableShippingMethods(contextInstance?: ShopwareApiInstance): Promise<ShippingMethod[]>;
 
 // @beta
@@ -179,7 +186,7 @@ export function getCategory(categoryId: string, contextInstance?: ShopwareApiIns
 // @beta
 export const getCategoryProducts: (categoryId: string, criteria?: ShopwareSearchParams | undefined, contextInstance?: ShopwareApiInstance) => Promise<ProductListingResult>;
 
-// @alpha
+// @beta
 export const getCategoryProductsListing: (categoryId: string, searchCriteria?: SearchCriteria | undefined, contextInstance?: ShopwareApiInstance) => Promise<ProductListingResult>;
 
 // @beta (undocumented)
@@ -188,13 +195,13 @@ export function getCmsPage(path: string, criteria?: ShopwareSearchParams, contex
 // @beta
 export function getCustomer(contextInstance?: ShopwareApiInstance): Promise<Customer | null>;
 
-// @alpha
+// @beta
 export function getCustomerAddress(addressId: string, contextInstance?: ShopwareApiInstance): Promise<CustomerAddress>;
 
 // @beta
 export function getCustomerAddresses(contextInstance?: ShopwareApiInstance): Promise<CustomerAddress[]>;
 
-// @alpha
+// @beta
 export function getCustomerOrderDetails(orderId: string, contextInstance?: ShopwareApiInstance): Promise<Order | undefined>;
 
 // @beta
@@ -219,13 +226,13 @@ export function getOrderPaymentUrl({ orderId, finishUrl, }: {
     paymentUrl: string;
 }>;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function getPage(path: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<PageResolverResult<CmsPage>>;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function getPaymentMethodDetails(paymentId: string, contextInstance?: ShopwareApiInstance): Promise<PaymentMethod>;
 
-// @alpha
+// @beta
 export function getProduct(productId: string, params?: any, contextInstance?: ShopwareApiInstance): Promise<Product>;
 
 // @beta (undocumented)
@@ -243,10 +250,10 @@ export function getResults(term: string, searchCriteria?: SearchCriteria, contex
 // @beta (undocumented)
 export function getSearchResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
-// @alpha
+// @beta
 export function getSessionContext(contextInstance?: ShopwareApiInstance): Promise<SessionContext>;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function getShippingMethodDetails(shippingId: string, contextInstance?: ShopwareApiInstance): Promise<ShippingMethod>;
 
 // @beta (undocumented)
@@ -266,7 +273,7 @@ export interface GetStoreNavigationParams {
     searchCriteria?: SearchCriteria;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function getStoreOrderPaymentUrl(orderId: string, contextInstance?: ShopwareApiInstance): Promise<{
     redirectResponse: unknown;
     apiAlias: string;
@@ -275,10 +282,10 @@ export function getStoreOrderPaymentUrl(orderId: string, contextInstance?: Shopw
 // @alpha @deprecated (undocumented)
 export function getSuggestedResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function getUserCountry(countryId: string, contextInstance?: ShopwareApiInstance): Promise<Country>;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function getUserSalutation(salutationId: string, contextInstance?: ShopwareApiInstance): Promise<Salutation>;
 
 // @beta
@@ -371,13 +378,13 @@ export interface PageResolverResult<T> {
     resourceType: string;
 }
 
-// @alpha
+// @beta
 export function register(params: CustomerRegistrationParams, contextInstance?: ShopwareApiInstance): Promise<CustomerRegisterResponse>;
 
 // @beta
 export function removeCartItem(itemId: string, contextInstance?: ShopwareApiInstance): Promise<Cart>;
 
-// @alpha
+// @beta
 export function resetPassword(params: CustomerResetPasswordParam, contextInstance?: ShopwareApiInstance): Promise<void>;
 
 // @beta
@@ -389,28 +396,28 @@ export function searchSuggestedProducts(criteria?: ShopwareSearchParams, context
 // @beta (undocumented)
 export function sendContactForm(params: ContactFormData, contextInstance?: ShopwareApiInstance): Promise<void>;
 
-// @alpha
+// @beta
 export function setCurrentBillingAddress(billingAddressId: string, contextInstance?: ShopwareApiInstance): Promise<ContextTokenResponse>;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function setCurrentCurrency(newCurrencyID: string, contextInstance?: ShopwareApiInstance): Promise<ContextTokenResponse>;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function setCurrentLanguage(newLanguageId: string, contextInstance?: ShopwareApiInstance): Promise<ContextTokenResponse>;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function setCurrentPaymentMethod(newPaymentMethodId: string, contextInstance?: ShopwareApiInstance): Promise<ContextTokenResponse>;
 
-// @alpha
+// @beta
 export function setCurrentShippingAddress(shippingAddressId: string, contextInstance?: ShopwareApiInstance): Promise<ContextTokenResponse>;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function setCurrentShippingMethod(newShippingMethodId: string, contextInstance?: ShopwareApiInstance): Promise<ContextTokenResponse>;
 
-// @alpha
+// @beta
 export function setDefaultCustomerBillingAddress(addressId: string, contextInstance?: ShopwareApiInstance): Promise<string>;
 
-// @alpha
+// @beta
 export function setDefaultCustomerShippingAddress(addressId: string, contextInstance?: ShopwareApiInstance): Promise<string>;
 
 // @beta
@@ -441,13 +448,13 @@ export interface ShopwareApiInstance {
 // @beta
 export const update: (config?: ClientSettings) => void;
 
-// @alpha
+// @beta
 export function updateEmail(params: CustomerUpdateEmailParam, contextInstance?: ShopwareApiInstance): Promise<void>;
 
-// @alpha
+// @beta
 export function updatePassword(params: CustomerUpdatePasswordParam, contextInstance?: ShopwareApiInstance): Promise<void>;
 
-// @alpha
+// @beta
 export function updateProfile(params: CustomerUpdateProfileParam, contextInstance?: ShopwareApiInstance): Promise<void>;
 
 

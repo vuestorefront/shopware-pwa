@@ -41,7 +41,7 @@ export interface PageResolverProductResult {
 
 /**
  * @throws ClientApiError
- * @alpha
+ * @beta
  */
 export async function getPage(
   path: string,
