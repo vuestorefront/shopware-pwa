@@ -2,7 +2,7 @@
   <div class="sw-product-tabs">
     <SfTabs class="product-details__tabs" :open-tab="openTab">
       <slot>
-        <SfTab title="Properties">
+        <SfTab v-if="properties && properties.length" title="Properties">
           <div class="product-details__properties">
             <SfProperty
               v-for="property in properties"
@@ -13,7 +13,19 @@
             />
           </div>
         </SfTab>
-        <SfTab v-if="reviews.length" title="Read reviews">
+
+        <SfTab v-if="manufacturer" title="Manufacturer">
+          <SfHeading
+            :title="manufacturer.name"
+            :level="3"
+            class="sf-heading--no-underline sf-heading--left"
+          />
+          <p v-if="manufacturer.description">
+            {{ manufacturer.description }}
+          </p>
+        </SfTab>
+        <SfTab title="Read reviews">
+          <SwAddProductReview :product-id="productId" />
           <SfReview
             v-for="review in reviews"
             :key="review.id"
@@ -25,16 +37,6 @@
             :max-rating="5"
           />
         </SfTab>
-        <SfTab v-if="manufacturer" title="Manufacturer">
-          <SfHeading
-            :title="manufacturer.name"
-            :level="3"
-            class="sf-heading--no-underline sf-heading--left"
-          />
-          <p v-if="manufacturer.description">
-            {{ manufacturer.description }}
-          </p>
-        </SfTab>
         <SwPluginSlot name="product-page-tab" />
       </slot>
     </SfTabs>
@@ -42,13 +44,30 @@
 </template>
 
 <script>
-import { SfTabs, SfHeading, SfReview, SfProperty } from "@storefront-ui/vue"
+import {
+  SfInput,
+  SfTabs,
+  SfHeading,
+  SfReview,
+  SfProperty,
+} from "@storefront-ui/vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
-
+import SwAddProductReview from "@/components/forms/SwAddProductReview"
 export default {
   name: "SwProductTabs",
-  components: { SfTabs, SfHeading, SfReview, SfProperty, SwPluginSlot },
+  components: {
+    SfTabs,
+    SfHeading,
+    SfReview,
+    SfProperty,
+    SwPluginSlot,
+    SwAddProductReview,
+  },
   props: {
+    productId: {
+      type: String,
+      required: true,
+    },
     openTab: {
       type: Number,
       default: 1,
