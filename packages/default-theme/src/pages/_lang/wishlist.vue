@@ -2,12 +2,15 @@
   <div class="wishlistPage">
     <SfLoader :loading="isLoading">
       <div v-if="products.length">
-        <SwProductCard
-          v-for="product in products"
-          :key="product.id"
-          class=""
-          :product="product"
-        />
+        <SfHeading :title="$t('Wishlist')" :level="3" />
+        <div class="wishlist-grid">
+          <SwProductCard
+            v-for="product in products"
+            :key="product.id"
+            class=""
+            :product="product"
+          />
+        </div>
       </div>
 
       <div v-else class="no-results">
@@ -96,7 +99,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/variables";
+
 .wishlistPage {
+  padding-top: var(--spacer-lg);
+
   .no-results {
     align-items: center;
     display: flex;
@@ -111,6 +118,20 @@ export default {
     .image {
       margin-bottom: var(--spacer-2xl);
       margin-top: var(--spacer-2xl);
+    }
+  }
+
+  .wishlist-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: var(--spacer-lg) auto 0;
+    max-width: 1366px;
+
+    .sw-product-card {
+      @include for-desktop {
+        margin: var(--spacer-base);
+      }
     }
   }
 }
