@@ -23,13 +23,14 @@ export function getProductOptions({
     }
 
     for (let option of variant.options) {
-      if (option.group?.name) {
-        if (!typeOptions.hasOwnProperty(option.group.name)) {
-          typeOptions[option.group.name] = [];
+      const groupName = option.group?.translated?.name || option.group?.name;
+      if (groupName) {
+        if (!typeOptions.hasOwnProperty(groupName)) {
+          typeOptions[groupName] = [];
         }
 
         if (
-          !typeOptions[option.group.name].find(
+          !typeOptions[groupName].find(
             (valueOption: any) => option.id == valueOption.code
           )
         ) {
@@ -39,10 +40,10 @@ export function getProductOptions({
               matchingOptionIds.push(...productOption.optionIds);
           });
 
-          typeOptions[option.group.name].push({
-            label: option.name,
+          typeOptions[groupName].push({
+            label: option.translated?.name || option.name,
             code: option.id,
-            value: option.name,
+            value: option.translated?.name || option.name,
             color: option.colorHexCode,
             matchingIds: matchingOptionIds,
           } as UiProductOption);

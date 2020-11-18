@@ -12,6 +12,12 @@ describe("Shopware helpers - getProductOptions", () => {
               name: "blue",
               group: {
                 name: "color",
+                translated: {
+                  name: "colour",
+                },
+              },
+              translated: {
+                name: "blau",
               },
               productOptions: [
                 {
@@ -24,6 +30,12 @@ describe("Shopware helpers - getProductOptions", () => {
               name: "blue",
               group: {
                 name: "color",
+                translated: {
+                  name: "colour",
+                },
+              },
+              translated: {
+                name: "blau",
               },
               productOptions: undefined,
             },
@@ -47,8 +59,8 @@ describe("Shopware helpers - getProductOptions", () => {
     const productOptions = getProductOptions({
       product: productWithChildren,
     });
-    expect(productOptions).toHaveProperty("color");
-    expect(productOptions["color"][0].matchingIds).toStrictEqual(["12345"]);
+    expect(productOptions).toHaveProperty("colour");
+    expect(productOptions["colour"][0].matchingIds).toStrictEqual(["12345"]);
   });
 
   it("should return no matching ids for given variant if there is no productOptions within variant option", () => {
