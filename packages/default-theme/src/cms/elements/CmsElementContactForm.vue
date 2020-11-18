@@ -233,9 +233,9 @@ export default {
       this.errorMessages = []
       this.$v.$touch()
       if (this.$v.$invalid) {
-        this.errorMessages = [this.$t(
-          "Please fill form data and check regulations acceptance."
-        )]
+        this.errorMessages = [
+          this.$t("Please fill form data and check regulations acceptance."),
+        ]
         return
       }
 

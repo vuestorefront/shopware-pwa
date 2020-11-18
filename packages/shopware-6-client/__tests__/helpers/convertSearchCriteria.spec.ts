@@ -427,6 +427,21 @@ describe("SearchConverter - convertSearchCriteria", () => {
     });
   });
   describe("configuration", () => {
+    describe("ids", () => {
+      it("should have ids params assigned if any provided", () => {
+        const result = convertSearchCriteria({
+          searchCriteria: {
+            configuration: {
+              ids: ["1234567890", "9876543210"],
+            },
+          },
+          apiType: ApiType.store,
+          config,
+        } as any);
+        expect(result).toHaveProperty("ids");
+        expect(result.ids).toBe("1234567890|9876543210");
+      });
+    });
     describe("displayParents", () => {
       it("should not return displayGroup grouped parameter and appropriate filter when displayParents switch is on", () => {
         const result = convertSearchCriteria({
