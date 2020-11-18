@@ -93,8 +93,8 @@
 |  --- | --- |
 |  [config](./shopware-6-client.config.md) | <b><i>(BETA)</i></b> |
 |  [getCategoryProducts](./shopware-6-client.getcategoryproducts.md) | <b><i>(BETA)</i></b> Get default amount of products and listing configuration for given category |
-|  [getProducts](./shopware-6-client.getproducts.md) | <b><i>(BETA)</i></b> Get default amount of products |
 |  [getCategoryProductsListing](./shopware-6-client.getcategoryproductslisting.md) | <b><i>(BETA)</i></b> Get default amount of products and listing configuration for given category |
+|  [getProducts](./shopware-6-client.getproducts.md) | <b><i>(BETA)</i></b> Get default amount of products |
 |  [onConfigChange](./shopware-6-client.onconfigchange.md) | <b><i>(BETA)</i></b> |
 |  [setup](./shopware-6-client.setup.md) | <b><i>(BETA)</i></b> Setup configuration. Merge default values with provided in param. This method will override existing config. For config update invoke \*\*update\*\* method. |
 |  [update](./shopware-6-client.update.md) | <b><i>(BETA)</i></b> Update current configuration. This will change only provided values. |

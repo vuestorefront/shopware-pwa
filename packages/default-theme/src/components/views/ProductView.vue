@@ -8,6 +8,7 @@
         <SwProductDetails :product="product" :page="page" />
       </div>
     </div>
+
     <SwPluginSlot name="product-page-details-after" :slot-context="product" />
 
     <div v-if="crossSellCollection.length" class="products__recomendations">
@@ -61,7 +62,7 @@
 </template>
 <script>
 import { SfImage, SfSection, SfTabs } from "@storefront-ui/vue"
-import { useProduct } from "@shopware-pwa/composables"
+import { useProduct, useUser, useUIState } from "@shopware-pwa/composables"
 import SwGoBackArrow from "@/components/atoms/SwGoBackArrow"
 import SwProductGallery from "@/components/SwProductGallery"
 import SwProductDetails from "@/components/SwProductDetails"
@@ -82,12 +83,27 @@ export default {
     SwProductAdvertisement,
     SwPluginSlot,
   },
+
+  setup(props, { root }) {
+    const { isLoggedIn } = useUser(root)
+    const { switchState: switchLoginModalState } = useUIState(
+      root,
+      "LOGIN_MODAL_STATE"
+    )
+
+    return {
+      isLoggedIn,
+      switchLoginModalState,
+    }
+  },
+
   props: {
     page: {
       type: Object,
       default: () => ({}),
     },
   },
+
   data() {
     return {
       productWithAssociations: null,
@@ -103,6 +119,12 @@ export default {
     },
     crossSellCollection() {
       return this.product.crossSellings || []
+    },
+    latestReviews() {
+      return this.reviewsList.slice(0, 3)
+    },
+    numberOfReviews() {
+      return this.reviewsList.length
     },
   },
   // load children association from the parent - variants and cross sells loading
@@ -172,6 +194,7 @@ export default {
     }
   }
 }
+
 .product {
   @include for-desktop {
     display: flex;
@@ -187,6 +210,7 @@ export default {
     }
   }
 }
+
 .product-page-back {
   left: 0.5rem;
   position: absolute;

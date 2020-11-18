@@ -65,6 +65,7 @@
       </div>
     </div>
     <SwProductTabs
+      :product-id="product.id"
       :properties="properties"
       :reviews="reviews"
       :manufacturer="manufacturer"
