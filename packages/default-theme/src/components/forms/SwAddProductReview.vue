@@ -1,11 +1,10 @@
 <template>
   <div class="sw-add-product-review">
     <div v-if="!wasReviewSent">
-      <SfHeading :title="$t('Leave a review!')" :level="3" class="headline" />
+      <SfHeading :title="$t('Leave a review!')" :level="3" />
       <SfHeading
         :title="$t('Share your experiences with other customers.')"
         :level="4"
-        class="headline"
       />
       <form
         v-if="isLoggedIn"
@@ -47,7 +46,7 @@
 
       <SwButton
         v-if="!isLoggedIn"
-        class="login button button-xs"
+        class="login button"
         @click="switchLoginModalState"
       >
         {{ $t("Log in") }}
@@ -57,7 +56,6 @@
       <SfHeading
         :title="$t('Your review has been sent. Thank you!')"
         :level="3"
-        class="headline"
       />
     </div>
     <SfDivider />
@@ -150,10 +148,6 @@ export default {
 .sw-add-product-review {
   width: 100%;
   max-width: 520px;
-
-  .headline {
-    margin-bottom: var(--spacer-xl);
-  }
 }
 
 .add-review-form {

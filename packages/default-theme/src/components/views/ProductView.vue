@@ -61,30 +61,14 @@
   </div>
 </template>
 <script>
-import {
-  SfImage,
-  SfSection,
-  SfTabs,
-  SfHeading,
-  SfInput,
-} from "@storefront-ui/vue"
-import {
-  useProduct,
-  useUser,
-  useUIState,
-  getApplicationContext,
-} from "@shopware-pwa/composables"
+import { SfImage, SfSection, SfTabs } from "@storefront-ui/vue"
+import { useProduct, useUser, useUIState } from "@shopware-pwa/composables"
 import SwGoBackArrow from "@/components/atoms/SwGoBackArrow"
-import SwRating from "@/components/atoms/SwRating"
 import SwProductGallery from "@/components/SwProductGallery"
 import SwProductDetails from "@/components/SwProductDetails"
 import SwProductCarousel from "@/components/SwProductCarousel"
 import SwProductAdvertisement from "@/components/SwProductAdvertisement"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import { validationMixin } from "vuelidate"
-import { required, minLength } from "vuelidate/lib/validators"
-import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
-import { ref } from "@vue/composition-api"
 
 export default {
   name: "Product",
@@ -98,9 +82,6 @@ export default {
     SwProductCarousel,
     SwProductAdvertisement,
     SwPluginSlot,
-    SfHeading,
-    SfInput,
-    SwRating,
   },
 
   setup(props, { root }) {
@@ -109,38 +90,13 @@ export default {
       root,
       "LOGIN_MODAL_STATE"
     )
-    const { apiInstance } = getApplicationContext(root, "SwFooter")
-    const errorMessages = ref([])
-    const title = ref(null)
-    const description = ref(null)
-    const stars = ref(null)
-    const formSent = ref(false)
-    const sendForm = async () => {
-      try {
-        await sendReview(
-          {
-            title: title.value,
-            description: description.value,
-            stars: stars.value,
-          },
-          apiInstance
-        )
-        formSent.value = true
-      } catch (e) {
-        errorMessages.value = getMessagesFromErrorsArray(e.message)
-      }
-    }
 
     return {
       isLoggedIn,
       switchLoginModalState,
-      sendForm,
-      errorMessages,
-      formSent,
     }
   },
 
-  mixins: [validationMixin],
   props: {
     page: {
       type: Object,
@@ -180,16 +136,6 @@ export default {
     } catch (e) {
       console.error("ProductView:mounted:loadAssociations", e)
     }
-  },
-  validations: {
-    title: {
-      required,
-      minLength: minLength(3),
-    },
-    desc: {
-      required,
-      minLength: minLength(50),
-    },
   },
 }
 </script>

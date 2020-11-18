@@ -25,17 +25,20 @@
           </p>
         </SfTab>
         <SfTab title="Read reviews">
-          <SwAddProductReview :product-id="productId" />
-          <SfReview
-            v-for="review in reviews"
-            :key="review.id"
-            class="product-details__review"
-            :author="review.author"
-            :date="review.date"
-            :message="review.message"
-            :rating="review.rating"
-            :max-rating="5"
-          />
+          <div class="reviews-list">
+            <SfReview
+              v-for="review in reviews"
+              :key="review.id"
+              class="product-details__review"
+              :author="review.author"
+              :date="review.date"
+              :message="review.message"
+              :rating="review.rating"
+              :max-rating="5"
+            />
+          </div>
+          <SfDivider />
+          <SwAddProductReview :product-id="productId" class="add-review" />
         </SfTab>
         <SwPluginSlot name="product-page-tab" />
       </slot>
@@ -44,7 +47,13 @@
 </template>
 
 <script>
-import { SfTabs, SfHeading, SfReview, SfProperty } from "@storefront-ui/vue"
+import {
+  SfTabs,
+  SfHeading,
+  SfReview,
+  SfProperty,
+  SfDivider,
+} from "@storefront-ui/vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import SwAddProductReview from "@/components/forms/SwAddProductReview"
 export default {
@@ -56,6 +65,7 @@ export default {
     SfProperty,
     SwPluginSlot,
     SwAddProductReview,
+    SfDivider,
   },
   props: {
     productId: {
@@ -108,5 +118,15 @@ export default {
       width: 100vw;
     }
   }
+}
+
+.add-review {
+  margin-top: var(--spacer-base);
+}
+
+.reviews-list {
+  margin-bottom: var(--spacer-xl);
+  max-height: 330px;
+  overflow-y: auto;
 }
 </style>
