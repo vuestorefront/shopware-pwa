@@ -10,22 +10,22 @@
         }"
         role="button"
         :aria-label="$t('Go to My Account')"
-        @click="userIconClick"
         data-cy="login-icon"
+        @click="userIconClick"
       />
       <SfDropdown
         class="dropdown"
         :is-open="isDropdownOpen"
-        @click:close="isDropdownOpen = false"
         data-cy="account-dropdown"
+        @click:close="isDropdownOpen = false"
       >
         <SfList>
           <SfListItem>
             <nuxt-link
               class="sf-button sf-button--full-width sf-button--underlined color-primary"
               :to="getPageAccount"
-              @click.native="isDropdownOpen = false"
               data-cy="my-account-link"
+              @click.native="isDropdownOpen = false"
             >
               {{ $t("My account") }}
             </nuxt-link>
@@ -33,8 +33,8 @@
           <SfListItem>
             <SwButton
               class="sf-button sf-button--full-width sf-button--underlined color-primary dropdown__item"
-              @click="logoutUser()"
               data-cy="logout-button"
+              @click="logoutUser()"
             >
               {{ $t("Logout") }}
             </SwButton>
@@ -42,14 +42,22 @@
         </SfList>
       </SfDropdown>
       <SfIcon
+        icon="heart"
+        class="sf-header__icon sw-header__icon"
+        role="button"
+        :aria-label="$t('Go to wishlist')"
+        data-cy="wishlist-icon"
+        @click="goToWishlist"
+      />
+      <SfIcon
         icon="empty_cart"
         :has-badge="count > 0"
         :badge-label="count.toString()"
         class="sf-header__icon sw-header__icon"
         role="button"
         :aria-label="$t('Go to cart')"
-        @click="toggleSidebar"
         data-cy="cart-icon"
+        @click="toggleSidebar"
       />
       <SwPluginSlot name="top-header-icons-after" />
     </div>
@@ -60,7 +68,7 @@
 import { SfList, SfDropdown, SfIcon } from "@storefront-ui/vue"
 import { useUser, useCart, useUIState } from "@shopware-pwa/composables"
 
-import { PAGE_ACCOUNT } from "@/helpers/pages"
+import { PAGE_ACCOUNT, PAGE_WISHLIST } from "@/helpers/pages"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import SwButton from "@/components/atoms/SwButton"
 
@@ -111,6 +119,9 @@ export default {
       await this.logout()
       this.isDropdownOpen = false
       this.$router.push(this.$i18n.path("/"))
+    },
+    goToWishlist() {
+      this.$router.push(this.$i18n.path(PAGE_WISHLIST))
     },
   },
 }

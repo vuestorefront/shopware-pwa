@@ -238,7 +238,7 @@ export function getProduct(productId: string, params?: any, contextInstance?: Sh
 // @beta (undocumented)
 export function getProductPage(path: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<PageResolverProductResult>;
 
-// @alpha @deprecated
+// @beta
 export const getProducts: (searchCriteria?: SearchCriteria | undefined, contextInstance?: ShopwareApiInstance) => Promise<SearchResult<Product[]>>;
 
 // @alpha

@@ -52,6 +52,7 @@ export interface SearchCriteria {
     aggregations?: Aggregation[];
     totalCountMode?: TotalCountMode;
     includes?: Includes;
+    ids?: string[];
   };
 }
 
