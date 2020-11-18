@@ -20,7 +20,7 @@
               {{ address.street }}<br />
               {{ address.zipcode }}<br />
               {{ address.city }}<br />
-              {{ address.country }}<br />
+              {{ address.country.name }}<br />
               {{ address.phoneNumber }}
             </p>
           </template>
