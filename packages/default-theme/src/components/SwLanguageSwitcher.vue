@@ -1,5 +1,9 @@
 <template>
-  <div class="sw-language-switcher" data-cy="language-switcher">
+  <div
+    v-if="availableLanguages.length > 1"
+    class="sw-language-switcher"
+    data-cy="language-switcher"
+  >
     <SfSelect
       :selected="currentLocale"
       :size="availableLanguages.length"

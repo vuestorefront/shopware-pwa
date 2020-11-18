@@ -5,4 +5,12 @@ describe("SearchConverter - convertAssociations", () => {
     const result = convertAssociations();
     expect(result).toBeUndefined();
   });
+  it("should return exact same object if any provided", () => {
+    const result = convertAssociations({
+      some: {},
+    });
+    expect(result).toStrictEqual({
+      some: {},
+    });
+  });
 });

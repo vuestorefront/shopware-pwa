@@ -15,7 +15,7 @@ export const getProductListingEndpoint = (categoryId: string) =>
 export const getProductEndpoint = () => `/sales-channel-api/v3/product`;
 
 export const getProductDetailsEndpoint = (productId: string) =>
-  `/sales-channel-api/v3/product/${productId}`; // replace with `/store-api/v4/product`
+  `/store-api/v3/product/${productId}`;
 
 export const getProductsIdsEndpoint = () =>
   `/sales-channel-api/v3/search-ids/product`; // replace with `/store-api/v4/product with { includes: [ product: [ id ] }`

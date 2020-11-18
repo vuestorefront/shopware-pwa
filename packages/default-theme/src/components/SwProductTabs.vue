@@ -73,6 +73,11 @@ export default {
 @import "@/assets/scss/variables";
 
 .product-details {
+  &__properties {
+    .sf-property {
+      margin-top: var(--spacer-xs);
+    }
+  }
   &__tabs {
     p {
       margin: 0;
