@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: "SwPersonalDetails",
+  name: "SwAddress",
   components: {},
   props: {
     addressTitle: {

@@ -201,7 +201,7 @@ export default {
       }
 
       &__navigation {
-        flex: 0 0 calc(100% - 20rem);
+        flex: 0 0 calc(100% - 22rem);
       }
     }
   }
