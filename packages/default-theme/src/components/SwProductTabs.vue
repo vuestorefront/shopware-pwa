@@ -44,13 +44,7 @@
 </template>
 
 <script>
-import {
-  SfInput,
-  SfTabs,
-  SfHeading,
-  SfReview,
-  SfProperty,
-} from "@storefront-ui/vue"
+import { SfTabs, SfHeading, SfReview, SfProperty } from "@storefront-ui/vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import SwAddProductReview from "@/components/forms/SwAddProductReview"
 export default {

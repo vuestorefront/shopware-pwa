@@ -30,10 +30,10 @@
           />
 
           <textarea
+            v-model="reviewContent"
             name="desc"
             class="description-field"
             placeholder="Write review"
-            v-model="reviewContent"
           >
           </textarea>
         </div>
@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { SfIcon, SfHeading, SfDivider } from "@storefront-ui/vue"
+import { SfHeading, SfDivider } from "@storefront-ui/vue"
 import { addProductReview } from "@shopware-pwa/shopware-6-client"
 import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
 import SwButton from "@/components/atoms/SwButton"
@@ -73,7 +73,6 @@ import SwInput from "@/components/atoms/SwInput"
 import SwErrorsList from "@/components/SwErrorsList"
 import { ref, computed } from "@vue/composition-api"
 import {
-  useProduct,
   useUser,
   useUIState,
   getApplicationContext,
@@ -85,7 +84,6 @@ export default {
     SwInput,
     SwButton,
     SwErrorsList,
-    SfIcon,
     SfHeading,
     SfDivider,
   },
