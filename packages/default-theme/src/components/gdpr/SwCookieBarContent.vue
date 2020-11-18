@@ -1,7 +1,7 @@
 <template>
   <div class="cookie-description">
     <p>
-      {{ $t("This site uses cookies. Read our cookies policy.") }}
+      This site uses cookies. Read our cookies policy.
 
       <!-- <SfLink class="link" :link="$i18n.path()">
         cookies policy.

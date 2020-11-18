@@ -9,9 +9,7 @@ export default async ({ app }) => {
   const { pushSuccess, pushError } = useNotifications(app)
   intercept(INTERCEPTOR_KEYS.ADD_TO_CART, function ({ product }) {
     pushSuccess(
-      app.i18n.t("{productName} has been added to cart.", {
-        productName: product?.translated?.name || product?.name,
-      })
+      `${product?.translated?.name || product?.name} has been added to cart.`
     )
   })
 
