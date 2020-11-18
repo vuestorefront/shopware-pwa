@@ -65,7 +65,7 @@ export default {
         const result = await getProducts(
           {
             configuration: {
-              ids: items.value,
+              ids: itemIds || items.value,
             },
           },
           apiInstance
@@ -80,6 +80,9 @@ export default {
     }
 
     onMounted(async () => {
+      if (!items.value.length) {
+        return
+      }
       loadProductsByItemIds(items.value)
     })
 
