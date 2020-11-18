@@ -45,18 +45,28 @@
 </template>
 <script>
 import { SfList, SfRadio, SfCheckbox } from "@storefront-ui/vue"
-import { useUser } from "@shopware-pwa/composables"
+import { useSessionContext, useUser } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton"
-import { ref } from "@vue/composition-api"
+import { ref, watch } from "@vue/composition-api"
 
 export default {
   name: "ShippingAddressUserForm",
   components: { SfList, SfRadio, SfCheckbox, SwButton },
   setup(props, { root }) {
-    const { addresses, loadAddresses, user } = useUser(root)
+    const { addresses, loadAddresses } = useUser(root)
     loadAddresses()
 
-    const selectedAddressId = ref(user.value.defaultBillingAddressId)
+    const { activeBillingAddress, setActiveBillingAddress } = useSessionContext(
+      root
+    )
+
+    const selectedAddressId = ref(activeBillingAddress.value.id)
+    watch(selectedAddressId, (value) => {
+      const selectedAddress = addresses.value.find(
+        (address) => address.id === value
+      )
+      setActiveBillingAddress(selectedAddress)
+    })
 
     return {
       addresses,

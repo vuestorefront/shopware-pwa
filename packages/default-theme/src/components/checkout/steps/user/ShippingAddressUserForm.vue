@@ -50,9 +50,9 @@
 </template>
 <script>
 import { SfList, SfRadio, SfCheckbox, SfModal } from "@storefront-ui/vue"
-import { useUser } from "@shopware-pwa/composables"
+import { useSessionContext, useUser } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton"
-import { ref, onMounted } from "@vue/composition-api"
+import { ref, watch } from "@vue/composition-api"
 import SwAddressForm from "@/components/forms/SwAddressForm.vue"
 
 export default {
@@ -62,7 +62,18 @@ export default {
     const { addresses, loadAddresses, user } = useUser(root)
     loadAddresses()
 
-    const selectedAddressId = ref(user.value.defaultShippingAddressId)
+    const {
+      activeShippingAddress,
+      setActiveShippingAddress,
+    } = useSessionContext(root)
+
+    const selectedAddressId = ref(activeShippingAddress.value.id)
+    watch(selectedAddressId, (value) => {
+      const selectedAddress = addresses.value.find(
+        (address) => address.id === value
+      )
+      setActiveShippingAddress(selectedAddress)
+    })
 
     const isModalOpen = ref(false)
 
