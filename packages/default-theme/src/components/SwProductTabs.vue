@@ -31,7 +31,7 @@
               :key="review.id"
               class="product-details__review"
               :author="review.author"
-              :date="review.date"
+              :date="dateFormat(review.date)"
               :message="review.message"
               :rating="review.rating"
               :max-rating="5"
@@ -61,6 +61,7 @@ import {
   SfProperty,
   SfDivider,
 } from "@storefront-ui/vue"
+import { formatDate } from "@/helpers"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import SwAddProductReview from "@/components/forms/SwAddProductReview"
 export default {
@@ -94,6 +95,11 @@ export default {
     manufacturer: {
       type: Object,
       default: () => ({}),
+    },
+  },
+  methods: {
+    dateFormat(date) {
+      return formatDate(date)
     },
   },
 }
