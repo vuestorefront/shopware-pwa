@@ -49,7 +49,7 @@ export const getProducts = async function (
  * Get default amount of products and listing configuration for given category
  *
  * @throws ClientApiError
- * @alpha
+ * @beta
  */
 export const getCategoryProductsListing = async function (
   categoryId: string,
@@ -94,7 +94,7 @@ export const getCategoryProducts = async function (
  * Get the product with passed productId
  *
  * @throws ClientApiError
- * @alpha
+ * @beta
  */
 export async function getProduct(
   productId: string,
@@ -108,4 +108,25 @@ export async function getProduct(
     }
   );
   return resp.data.data;
+}
+
+/**
+ * Add a review to specific product by its ID
+ *
+ * @throws ClientApiError
+ * @beta
+ */
+export async function addProductReview(
+  productId: string,
+  productReviewData: {
+    title: string;
+    content: string;
+    points: number;
+  },
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<void> {
+  contextInstance.invoke.post(
+    `${getProductDetailsEndpoint(productId)}/review`,
+    productReviewData
+  );
 }
