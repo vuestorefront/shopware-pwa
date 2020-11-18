@@ -147,7 +147,6 @@ export default {
 
 .sw-add-product-review {
   width: 100%;
-  max-width: 520px;
 }
 
 .add-review-form {

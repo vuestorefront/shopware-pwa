@@ -25,7 +25,7 @@
           </p>
         </SfTab>
         <SfTab title="Read reviews">
-          <div class="reviews-list">
+          <div v-if="reviews.length" class="reviews-list">
             <SfReview
               v-for="review in reviews"
               :key="review.id"
@@ -37,7 +37,14 @@
               :max-rating="5"
             />
           </div>
-          <SfDivider />
+          <div v-else>
+            <SfHeading
+              title="No comments yet"
+              :level="4"
+              class="sw-reviews-empty"
+            />
+            <SfDivider />
+          </div>
           <SwAddProductReview :product-id="productId" class="add-review" />
         </SfTab>
         <SwPluginSlot name="product-page-tab" />
@@ -128,5 +135,10 @@ export default {
   margin-bottom: var(--spacer-xl);
   max-height: 330px;
   overflow-y: auto;
+}
+
+.sw-reviews-empty {
+  text-align: center;
+  margin-bottom: var(--spacer-xl);
 }
 </style>
