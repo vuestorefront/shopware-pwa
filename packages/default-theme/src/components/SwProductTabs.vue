@@ -2,7 +2,7 @@
   <div class="sw-product-tabs">
     <SfTabs class="product-details__tabs" :open-tab="openTab">
       <slot>
-        <SfTab title="Properties">
+        <SfTab v-if="properties && properties.length" title="Properties">
           <div class="product-details__properties">
             <SfProperty
               v-for="property in properties"
@@ -13,18 +13,7 @@
             />
           </div>
         </SfTab>
-        <SfTab v-if="reviews.length" title="Read reviews">
-          <SfReview
-            v-for="review in reviews"
-            :key="review.id"
-            class="product-details__review"
-            :author="review.author"
-            :date="review.date"
-            :message="review.message"
-            :rating="review.rating"
-            :max-rating="5"
-          />
-        </SfTab>
+
         <SfTab v-if="manufacturer" title="Manufacturer">
           <SfHeading
             :title="manufacturer.name"
@@ -35,6 +24,29 @@
             {{ manufacturer.description }}
           </p>
         </SfTab>
+        <SfTab title="Read reviews">
+          <div v-if="reviews.length" class="reviews-list">
+            <SfReview
+              v-for="review in reviews"
+              :key="review.id"
+              class="product-details__review"
+              :author="review.author"
+              :date="dateFormat(review.date)"
+              :message="review.message"
+              :rating="review.rating"
+              :max-rating="5"
+            />
+          </div>
+          <div v-else>
+            <SfHeading
+              title="No comments yet"
+              :level="4"
+              class="sw-reviews-empty"
+            />
+            <SfDivider />
+          </div>
+          <SwAddProductReview :product-id="productId" class="add-review" />
+        </SfTab>
         <SwPluginSlot name="product-page-tab" />
       </slot>
     </SfTabs>
@@ -42,13 +54,32 @@
 </template>
 
 <script>
-import { SfTabs, SfHeading, SfReview, SfProperty } from "@storefront-ui/vue"
+import {
+  SfTabs,
+  SfHeading,
+  SfReview,
+  SfProperty,
+  SfDivider,
+} from "@storefront-ui/vue"
+import { formatDate } from "@/helpers"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
-
+import SwAddProductReview from "@/components/forms/SwAddProductReview"
 export default {
   name: "SwProductTabs",
-  components: { SfTabs, SfHeading, SfReview, SfProperty, SwPluginSlot },
+  components: {
+    SfTabs,
+    SfHeading,
+    SfReview,
+    SfProperty,
+    SwPluginSlot,
+    SwAddProductReview,
+    SfDivider,
+  },
   props: {
+    productId: {
+      type: String,
+      required: true,
+    },
     openTab: {
       type: Number,
       default: 1,
@@ -64,6 +95,11 @@ export default {
     manufacturer: {
       type: Object,
       default: () => ({}),
+    },
+  },
+  methods: {
+    dateFormat(date) {
+      return formatDate(date)
     },
   },
 }
@@ -95,5 +131,20 @@ export default {
       width: 100vw;
     }
   }
+}
+
+.add-review {
+  margin-top: var(--spacer-base);
+}
+
+.reviews-list {
+  margin-bottom: var(--spacer-xl);
+  max-height: 330px;
+  overflow-y: auto;
+}
+
+.sw-reviews-empty {
+  text-align: center;
+  margin-bottom: var(--spacer-xl);
 }
 </style>

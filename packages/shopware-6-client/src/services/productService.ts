@@ -125,7 +125,7 @@ export async function addProductReview(
   },
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<void> {
-  contextInstance.invoke.post(
+  await contextInstance.invoke.post(
     `${getProductDetailsEndpoint(productId)}/review`,
     productReviewData
   );

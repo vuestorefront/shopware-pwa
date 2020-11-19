@@ -67,7 +67,6 @@ export const useWishlist = (
     sharedWishlist.items = sharedWishlist.items.filter(
       (itemId: string) => itemId != id
     );
-    console.warn("current", sharedWishlist.items);
 
     updateStorage();
   };

@@ -10,9 +10,11 @@
  	* Name / Title
  	* Description
  	* Regular and special price
+	* Reviews
  * Image gallery
  * Properties
  * Cross sell producs
+ * Add a product review
 
 
 #### Listing
