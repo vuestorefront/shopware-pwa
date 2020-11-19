@@ -174,7 +174,21 @@
       },
       "productReviews": {},
       "manufacturer": {},
-
+      "crossSellings": {
+        "associations": {
+          "assignedProducts": {
+            "associations": {
+              "product": {
+                "associations": {
+                  "media": {},
+                  "cover": {},
+                  "seoUrls": {}
+                }
+              }
+            }
+          }
+        }
+      },
       "children": {
         "associations": {
           "seoUrls": {},
@@ -202,7 +216,8 @@
         "properties",
         "media",
         "seoUrls",
-        "optionIds"
+        "optionIds",
+        "crossSellings"
       ],
       "product_media": ["media"],
       "media": ["url"],

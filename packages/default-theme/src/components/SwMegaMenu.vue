@@ -101,6 +101,14 @@ export default {
           }
         }
       }
+
+      ::v-deep .sf-heading {
+        text-align: left;
+      }
+
+      .sf-header__link {
+        text-align: left;
+      }
     }
 
     .sf-heading {

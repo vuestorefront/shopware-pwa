@@ -1,6 +1,6 @@
 # Shopware PWA
 
-[![CircleCI](https://circleci.com/gh/DivanteLtd/shopware-pwa.svg?style=svg)](https://circleci.com/gh/DivanteLtd/shopware-pwa) [![Coverage Status](https://coveralls.io/repos/github/DivanteLtd/shopware-pwa/badge.svg?branch=master)](https://coveralls.io/github/DivanteLtd/shopware-pwa) [![Greenkeeper badge](https://badges.greenkeeper.io/DivanteLtd/shopware-pwa.svg)](https://greenkeeper.io/)
+[![CircleCI](https://circleci.com/gh/DivanteLtd/shopware-pwa.svg?style=svg)](https://circleci.com/gh/DivanteLtd/shopware-pwa) [![Coverage Status](https://coveralls.io/repos/github/DivanteLtd/shopware-pwa/badge.svg?branch=master)](https://coveralls.io/github/DivanteLtd/shopware-pwa) [![Snyk badge](https://snyk.io/test/github/DivanteLtd/shopware-pwa/badge.svg)](https://snyk.io/)
 
 <a href="https://shopware-pwa-docs.vuestorefront.io" target="_blank" rel=”noopener”>Documentation</a>
 
@@ -49,8 +49,8 @@ If you have any questions or ideas feel free to join our slack: https://vuestore
 Before you start testing it locally, **try it out on CodeSandbox**
 _(including shopware-pwa CLI commands in embedded terminal)_
 
-[![Edit shopware-pwa v0.4.2](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/busy-worker-d68et?fontsize=14&hidenavigation=1&theme=dark)
-v0.4.2 (latest release)
+[![Edit shopware-pwa v0.5.1](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/shopware-pwa-v050-zmr5p?file=/README.md)
+v0.5.1 (latest release)
 
 ### Usage
 

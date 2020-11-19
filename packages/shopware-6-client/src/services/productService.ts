@@ -13,7 +13,6 @@ import {
 import { SearchResult } from "@shopware-pwa/commons/interfaces/response/SearchResult";
 import { convertSearchCriteria, ApiType } from "../helpers/searchConverter";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
-import { deprecationWarning } from "@shopware-pwa/commons";
 
 /**
  * Get default amount of products' ids
@@ -32,31 +31,25 @@ export const getProductsIds = async function (
 /**
  * Get default amount of products
  *
- * @deprecated use {@link getCategoryProductsListing} method instead
  * @throws ClientApiError
- * @alpha
+ * @beta
  */
 export const getProducts = async function (
   searchCriteria?: SearchCriteria,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<SearchResult<Product[]>> {
-  deprecationWarning({
-    methodName: "getProducts",
-    newMethodName: "getCategoryProductsListing",
-    packageName: "shopware-6-client",
-  });
   const resp = await contextInstance.invoke.post(
     `${getProductEndpoint()}`,
     convertSearchCriteria({ searchCriteria, config: contextInstance.config })
   );
-  return resp.data;
+  return resp.data.data;
 };
 
 /**
  * Get default amount of products and listing configuration for given category
  *
  * @throws ClientApiError
- * @alpha
+ * @beta
  */
 export const getCategoryProductsListing = async function (
   categoryId: string,
@@ -101,7 +94,7 @@ export const getCategoryProducts = async function (
  * Get the product with passed productId
  *
  * @throws ClientApiError
- * @alpha
+ * @beta
  */
 export async function getProduct(
   productId: string,
@@ -115,4 +108,25 @@ export async function getProduct(
     }
   );
   return resp.data.data;
+}
+
+/**
+ * Add a review to specific product by its ID
+ *
+ * @throws ClientApiError
+ * @beta
+ */
+export async function addProductReview(
+  productId: string,
+  productReviewData: {
+    title: string;
+    content: string;
+    points: number;
+  },
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<void> {
+  await contextInstance.invoke.post(
+    `${getProductDetailsEndpoint(productId)}/review`,
+    productReviewData
+  );
 }

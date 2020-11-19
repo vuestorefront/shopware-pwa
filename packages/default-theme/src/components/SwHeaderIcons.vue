@@ -42,6 +42,14 @@
         </SfList>
       </SfDropdown>
       <SfIcon
+        icon="heart"
+        class="sf-header__icon sw-header__icon"
+        role="button"
+        :aria-label="$t('Go to wishlist')"
+        data-cy="wishlist-icon"
+        @click="goToWishlist"
+      />
+      <SfIcon
         icon="empty_cart"
         :has-badge="count > 0"
         :badge-label="count.toString()"
@@ -60,7 +68,7 @@
 import { SfList, SfDropdown, SfIcon } from "@storefront-ui/vue"
 import { useUser, useCart, useUIState } from "@shopware-pwa/composables"
 
-import { PAGE_ACCOUNT } from "@/helpers/pages"
+import { PAGE_ACCOUNT, PAGE_WISHLIST } from "@/helpers/pages"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import SwButton from "@/components/atoms/SwButton"
 
@@ -111,6 +119,9 @@ export default {
       await this.logout()
       this.isDropdownOpen = false
       this.$router.push(this.$i18n.path("/"))
+    },
+    goToWishlist() {
+      this.$router.push(this.$i18n.path(PAGE_WISHLIST))
     },
   },
 }

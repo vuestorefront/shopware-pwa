@@ -69,7 +69,6 @@
 </template>
 <script>
 import { SfIcon } from "@storefront-ui/vue"
-import { useUser } from "@shopware-pwa/composables"
 
 export default {
   name: "Address",
@@ -108,7 +107,7 @@ export default {
       return this.address.phoneNumber
     },
     country() {
-      return this.address.country && address.country.name
+      return this.address.country && this.address.country.name
     },
   },
 }

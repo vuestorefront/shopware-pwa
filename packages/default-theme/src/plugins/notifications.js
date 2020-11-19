@@ -15,8 +15,8 @@ export default async ({ app }) => {
 
   intercept(INTERCEPTOR_KEYS.ADD_PROMOTION_CODE, function ({ result }) {
     // It's strange that success also ends up as an error in the API response
-    if (result.errors?.length) {
-      const err = Object.values(result.errors)[0]
+    const err = Object.values(result.errors)[0]
+    if (err) {
       switch (err.messageKey) {
         case "promotion-discount-added":
           pushSuccess(app.i18n.t("Promotion code added successfully"))

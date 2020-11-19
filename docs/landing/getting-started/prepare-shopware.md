@@ -10,15 +10,17 @@ In order to make Shopware work with shopware-pwa you have to follow a few simple
 
 ## Compatibility Table
 
-We want Shopware PWA to be in sync with the latest endpoints of Shopware, to be able to ship new features to you as soon as they are released within Shopware. 
+We want Shopware PWA to be in sync with the latest endpoints of Shopware, to be able to ship new features to you as soon as they are released within Shopware.
 
 Here you may find a compatibility table for the Shopware API.
 
-| Shopware PWA version                                                | Shopware 6 version                                                                                                                 |
-| :------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------- |
-| 0.2.x                                                               | [![shopware-ver](https://img.shields.io/badge/version-6.2.3-red)](https://github.com/shopware/platform/releases/tag/v6.2.3)        |
-| 0.3.x (latest stable)                                               | [![shopware-ver](https://img.shields.io/badge/version-6.3.0.1-green)](https://github.com/shopware/platform/releases/tag/v6.3.0.1)  |
-| ![npm (tag)](https://img.shields.io/npm/v/@shopware-pwa/cli/canary) | [![shopware-ver](https://img.shields.io/badge/version-6.3.0.1-orange)](https://github.com/shopware/platform/releases/tag/v6.3.0.1) |
+| Shopware PWA version                                                | Shopware 6 version                                                                                                                |
+| :------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------- |
+| 0.2.x                                                               | [![shopware-ver](https://img.shields.io/badge/version-6.2.3-red)](https://github.com/shopware/platform/releases/tag/v6.2.3)       |
+| 0.3.x                                                               | [![shopware-ver](https://img.shields.io/badge/version-6.3.0.1-green)](https://github.com/shopware/platform/releases/tag/v6.3.0.1) |
+| 0.4.x                                                               | [![shopware-ver](https://img.shields.io/badge/version-6.3.0.1-green)](https://github.com/shopware/platform/releases/tag/v6.3.0.1) |
+| 0.5.x (latest stable)                                               | [![shopware-ver](https://img.shields.io/badge/version-6.3.2.1-green)](https://github.com/shopware/platform/releases/tag/v6.3.2.1) |
+| ![npm (tag)](https://img.shields.io/npm/v/@shopware-pwa/cli/canary) | [![shopware-ver](https://img.shields.io/badge/version-6.3.*-green)](https://github.com/shopware/platform/releases/tag/v6.3.2.1)   |
 
 Find more information on updating and versioning within our [Upgrade](/landing/getting-started/upgrade) section
 
@@ -52,7 +54,7 @@ An access token is usually associated with a "Sales Channel". These are defined 
 
 ![Admin login](./../assets/admin_panel.png)
 
-Once you are logged in, you can find the configured Sales Channels on the left side of your navigation bar. 
+Once you are logged in, you can find the configured Sales Channels on the left side of your navigation bar.
 
 Select the `Storefront` sales channel or any sales channel that you've configured manually and the scroll down to the `API access` section. Copy the API access key and you're good to continue with your PWA setup.
 
