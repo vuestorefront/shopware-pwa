@@ -36,6 +36,10 @@ export const INTERCEPTOR_KEYS = {
   USER_LOGOUT: "onUserLogout",
 };
 
+export interface IInterceptorCallbackFunction {
+  (payload: any, rootContext?: ApplicationVueContext): void;
+}
+
 /**
  * interface for {@link useIntercept} composable
  * @beta
@@ -48,11 +52,17 @@ export interface IUseIntercept {
   /**
    * Intercept broadcasted event
    */
-  intercept: (broadcastKey: string, method: Function) => void;
+  intercept: (
+    broadcastKey: string,
+    method: IInterceptorCallbackFunction
+  ) => void;
   /**
    * Stop listening on event
    */
-  disconnect: (broadcastKey: string, method: Function) => void;
+  disconnect: (
+    broadcastKey: string,
+    method: IInterceptorCallbackFunction
+  ) => void;
 }
 
 /**
@@ -65,21 +75,26 @@ export const useIntercept = (
 ): IUseIntercept => {
   const { interceptors } = getApplicationContext(rootContext, "useIntercept");
 
-  const localSunscribers: any[] = [];
+  const localSubscribers: any[] = [];
   const isVueInstance: boolean = !!getCurrentInstance();
 
   const broadcast = (broadcastKey: string, value?: any) => {
     if (interceptors[broadcastKey]?.length) {
-      interceptors[broadcastKey].forEach((broadcastMethod: Function) =>
-        broadcastMethod(value)
+      interceptors[
+        broadcastKey
+      ].forEach((broadcastMethod: IInterceptorCallbackFunction) =>
+        broadcastMethod(value, rootContext)
       );
     }
   };
 
-  const intercept = (broadcastKey: string, method: Function) => {
+  const intercept = (
+    broadcastKey: string,
+    method: IInterceptorCallbackFunction
+  ) => {
     if (!interceptors[broadcastKey]) interceptors[broadcastKey] = [];
     interceptors[broadcastKey].push(method);
-    isVueInstance && localSunscribers.push({ broadcastKey, method });
+    isVueInstance && localSubscribers.push({ broadcastKey, method });
   };
 
   const disconnect = (broadcastKey: string, method: Function) => {
@@ -92,7 +107,7 @@ export const useIntercept = (
   // Automatically clean listener if it was used in Vue component
   isVueInstance &&
     onUnmounted(() => {
-      localSunscribers.forEach(({ broadcastKey, method }) => {
+      localSubscribers.forEach(({ broadcastKey, method }) => {
         disconnect(broadcastKey, method);
       });
     });

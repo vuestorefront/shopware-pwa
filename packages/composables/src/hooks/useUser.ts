@@ -32,7 +32,11 @@ import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/req
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
-import { INTERCEPTOR_KEYS, useIntercept } from "@shopware-pwa/composables";
+import {
+  IInterceptorCallbackFunction,
+  INTERCEPTOR_KEYS,
+  useIntercept,
+} from "@shopware-pwa/composables";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
 /**
@@ -162,7 +166,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       await refreshUser();
     }
   };
-  const onLogout = (fn: Function) =>
+  const onLogout = (fn: IInterceptorCallbackFunction) =>
     intercept(INTERCEPTOR_KEYS.USER_LOGOUT, fn);
 
   const refreshUser = async (): Promise<void> => {
