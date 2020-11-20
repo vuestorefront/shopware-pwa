@@ -9,7 +9,9 @@ export const addToCartNotification = (
 ) => {
   const { pushSuccess } = useNotifications(rootContext);
   pushSuccess(
-    `${product?.translated?.name || product?.name} has been added to cart.`
+    rootContext.i18n.t("{productName} has been added to cart.", {
+      productName: product?.translated?.name || product?.name,
+    })
   );
 };
 
