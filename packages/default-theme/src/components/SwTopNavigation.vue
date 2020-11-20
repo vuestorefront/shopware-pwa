@@ -97,6 +97,10 @@ export default {
 
   computed: {
     visibleCategories() {
+      console.log(
+        "visible categories" +
+          this.navigationElements.slice(0, this.unwrappedElements)
+      )
       return this.navigationElements.slice(0, this.unwrappedElements)
     },
 
@@ -151,9 +155,10 @@ export default {
         navElements.forEach((element) => {
           if (element.offsetTop === 0) {
             visibleItemsCount += 1
-          }
-          if (element.offsetTop > 0) {
+            console.log("elementy widoczne " + element.offsetTop)
+          } else if (element.offsetTop > 0) {
             unvisibleItemsCount += 1
+            console.log("elementy NIEwidoczne " + element.offsetTop)
           }
         })
         if (unvisibleItemsCount >= 1) {
@@ -201,7 +206,7 @@ export default {
       }
 
       &__navigation {
-        flex: 0 0 calc(100% - 22rem);
+        flex: 0 0 calc(100% - 23rem);
       }
     }
   }

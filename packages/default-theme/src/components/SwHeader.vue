@@ -89,7 +89,7 @@ export default {
         width: 100%;
       }
       &__navigation {
-        flex: 0 0 calc(100% - 22rem);
+        flex: 0 0 calc(100% - 23rem);
       }
     }
   }
