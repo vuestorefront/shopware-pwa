@@ -10,18 +10,29 @@
     class="collected-product"
     @click:remove="removeProduct(product)"
   >
+    <template #actions>
+      <div class="collected-product__configuration" v-if="options">
+        <SfProperty
+          v-for="option in options"
+          :key="`${option.group}-${option.option}`"
+          :name="option.group"
+          :value="option.option"
+        />
+      </div>
+    </template>
   </SfCollectedProduct>
 </template>
 <script>
-import { SfCollectedProduct } from "@storefront-ui/vue"
 import { getProductMainImageUrl, getProductUrl } from "@shopware-pwa/helpers"
 import { getProduct } from "@shopware-pwa/shopware-6-client"
 import { useCart, getApplicationContext } from "@shopware-pwa/composables"
 import { ref, watch, computed, onMounted } from "@vue/composition-api"
+import { SfCollectedProduct, SfProperty } from "@storefront-ui/vue"
 
 export default {
   components: {
     SfCollectedProduct,
+    SfProperty,
   },
   props: {
     product: {
@@ -56,6 +67,10 @@ export default {
       productUrl.value = getProductUrl(response)
     })
 
+    const options = computed(
+      () => (props.product.payload && props.product.payload.options) || []
+    )
+
     watch(quantity, async (qty) => {
       // in future we may want to have debounce here
       if (qty === props.product.quantity) return
@@ -74,6 +89,7 @@ export default {
       regularPrice,
       specialPrice,
       productUrl,
+      options,
     }
   },
 }
@@ -104,6 +120,15 @@ export default {
     flex-direction: column;
     opacity: var(--cp-actions-opacity, 0);
     transition: opacity 150ms ease-in-out;
+  }
+
+  &__configuration {
+    margin-top: var(--spacer-sm);
+    align-items: end;
+    align-self: baseline;
+    @include for-desktop {
+      flex-direction: row-reverse;
+    }
   }
 
   &__actions-element {

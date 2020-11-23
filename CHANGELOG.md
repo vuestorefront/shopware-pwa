@@ -1,3 +1,16 @@
+## [0.5.1](https://github.com/DivanteLtd/shopware-pwa/compare/v0.5.0...v0.5.1) (2020-11-07)
+
+### Bug Fixes
+
+- **client:** missing product variants ([#1215](https://github.com/DivanteLtd/shopware-pwa/issues/1215)) ([fecdf93](https://github.com/DivanteLtd/shopware-pwa/commit/fecdf933862285437a449e34d84af652f7f9f500))
+- **composables:** notify the user in case of refresh session issue ([#1221](https://github.com/DivanteLtd/shopware-pwa/issues/1221)) ([112b845](https://github.com/DivanteLtd/shopware-pwa/commit/112b845f384c5b48b075af3fe830d631695eebe9))
+- **default-theme:** fixed navigations links alignment ([#1220](https://github.com/DivanteLtd/shopware-pwa/issues/1220)) ([aaea470](https://github.com/DivanteLtd/shopware-pwa/commit/aaea470924d38f01d77e88f1fa562f2f5198ae49))
+- **default-theme:** passing the customer entity during register on checkout ([#1223](https://github.com/DivanteLtd/shopware-pwa/issues/1223)) ([6981801](https://github.com/DivanteLtd/shopware-pwa/commit/6981801797a7130ec099441e887a6c21cd20ae3a))
+
+### Features
+
+- **default-theme:** show variant option in cart ([#1222](https://github.com/DivanteLtd/shopware-pwa/issues/1222)) ([247b674](https://github.com/DivanteLtd/shopware-pwa/commit/247b674b8b04f4638a73a065afcd497b7979c415))
+
 # [0.5.0](https://github.com/DivanteLtd/shopware-pwa/compare/v0.4.0...v0.5.0) (2020-10-30)
 
 ### Bug Fixes

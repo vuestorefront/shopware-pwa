@@ -8,12 +8,23 @@
         <SwProductDetails :product="product" :page="page" />
       </div>
     </div>
+
     <SwPluginSlot name="product-page-details-after" :slot-context="product" />
-    <div class="products__recomendations">
+
+    <div v-if="crossSellCollection.length" class="products__recomendations">
       <div class="products-recomendations__section">
-        <SwProductCarousel />
+        <SfTabs :open-tab="1">
+          <SfTab
+            v-for="crossSell in crossSellCollection"
+            :key="crossSell.id"
+            :title="crossSell.translated.name"
+          >
+            <SwProductCarousel :products="crossSell.assignedProducts" />
+          </SfTab>
+        </SfTabs>
       </div>
     </div>
+
     <SfSection
       title-heading="Share Your Look"
       subtitle-heading="#YOURLOOK"
@@ -50,8 +61,8 @@
   </div>
 </template>
 <script>
-import { SfImage, SfSection } from "@storefront-ui/vue"
-import { useProduct } from "@shopware-pwa/composables"
+import { SfImage, SfSection, SfTabs } from "@storefront-ui/vue"
+import { useProduct, useUser, useUIState } from "@shopware-pwa/composables"
 import SwGoBackArrow from "@/components/atoms/SwGoBackArrow"
 import SwProductGallery from "@/components/SwProductGallery"
 import SwProductDetails from "@/components/SwProductDetails"
@@ -65,43 +76,63 @@ export default {
     SwGoBackArrow,
     SfImage,
     SfSection,
+    SfTabs,
     SwProductGallery,
     SwProductDetails,
     SwProductCarousel,
     SwProductAdvertisement,
     SwPluginSlot,
   },
+
+  setup(props, { root }) {
+    const { isLoggedIn } = useUser(root)
+    const { switchState: switchLoginModalState } = useUIState(
+      root,
+      "LOGIN_MODAL_STATE"
+    )
+
+    return {
+      isLoggedIn,
+      switchLoginModalState,
+    }
+  },
+
   props: {
     page: {
       type: Object,
       default: () => ({}),
     },
   },
+
   data() {
     return {
-      productWithChildren: null,
-      relatedProducts: [],
+      productWithAssociations: null,
       selectedSize: null,
       selectedColor: null,
     }
   },
   computed: {
     product() {
-      return this.productWithChildren
-        ? this.productWithChildren.value
+      return this.productWithAssociations
+        ? this.productWithAssociations.value
         : this.page.product
     },
+    crossSellCollection() {
+      return this.product.crossSellings || []
+    },
+    latestReviews() {
+      return this.reviewsList.slice(0, 3)
+    },
+    numberOfReviews() {
+      return this.reviewsList.length
+    },
   },
-  // load children association from the parent - variants loading
+  // load children association from the parent - variants and cross sells loading
   async mounted() {
-    if (!this.page.product.parentId) {
-      return
-    }
-
     try {
       const { loadAssociations, product } = useProduct(this, this.page.product)
-      this.productWithChildren = product
       await loadAssociations()
+      this.productWithAssociations = product
     } catch (e) {
       console.error("ProductView:mounted:loadAssociations", e)
     }
@@ -114,6 +145,16 @@ export default {
 @mixin for-iOS {
   @supports (-webkit-overflow-scrolling: touch) {
     @content;
+  }
+}
+
+.products__recomendations {
+  @include for-desktop {
+    margin-top: var(--spacer-xl);
+  }
+
+  ::v-deep .sf-tabs__content {
+    max-width: 100%;
   }
 }
 
@@ -153,6 +194,7 @@ export default {
     }
   }
 }
+
 .product {
   @include for-desktop {
     display: flex;
@@ -168,6 +210,7 @@ export default {
     }
   }
 }
+
 .product-page-back {
   left: 0.5rem;
   position: absolute;

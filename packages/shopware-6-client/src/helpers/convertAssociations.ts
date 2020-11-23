@@ -4,8 +4,11 @@ import {
 } from "@shopware-pwa/commons/interfaces/search/Association";
 
 export function convertAssociations(
-  associations: Association[] = []
+  associations: Association[] | ShopwareAssociation = []
 ): ShopwareAssociation | undefined {
+  if (!Array.isArray(associations) && typeof associations === "object") {
+    return associations;
+  }
   if (!Array.isArray(associations) || !associations.length) return;
   let shopwareAssociations: ShopwareAssociation = {};
   associations.forEach((association) => {

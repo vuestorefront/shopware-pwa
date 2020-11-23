@@ -193,14 +193,19 @@ export default {
       mapSalutations(getSalutations.value)
     )
 
-    form.salutation = {
-      name: props.address.salutation && props.address.salutation.displayName,
-      id: props.address.salutation && props.address.salutation.id,
-    }
-    form.country = {
-      name: props.address.country && props.address.country.name,
-      id: props.address.country && props.address.country.id,
-    }
+    form.salutation = props.address.salutation
+      ? {
+          name:
+            props.address.salutation && props.address.salutation.displayName,
+          id: props.address.salutation && props.address.salutation.id,
+        }
+      : null
+    form.country = props.address.country
+      ? {
+          name: props.address.country && props.address.country.name,
+          id: props.address.country && props.address.country.id,
+        }
+      : null
 
     return {
       addAddress,

@@ -1,22 +1,28 @@
 <template>
-  <div class="Sw-products-gallery">
-    <SfSection
-      v-if="products && products.length > 0"
-      class="section"
-      title-heading="You may also like"
-    >
-      <SfCarousel class="product-carousel" :settings="options">
+  <div class="sw-products-gallery">
+    <SfSection v-if="products && products.length > 4" class="section">
+      <SfCarousel class="product-carousel" :settings="options" :style="style">
         <SfCarouselItem v-for="product in products" :key="product.id">
-          <SwProductCard :product="product" class="product-carousel__product" />
+          <SwProductCard
+            :product="product.product"
+            class="product-carousel__product"
+          />
         </SfCarouselItem>
       </SfCarousel>
+    </SfSection>
+    <SfSection v-else class="section products-grid">
+      <div v-for="product in products" :key="product.id">
+        <SwProductCard
+          :product="product.product"
+          class="product-carousel__product"
+        />
+      </div>
     </SfSection>
   </div>
 </template>
 
 <script>
 import { SfSection, SfCarousel } from "@storefront-ui/vue"
-import { getProducts } from "@shopware-pwa/shopware-6-client"
 import SwProductCard from "@/components/SwProductCard"
 
 export default {
@@ -27,40 +33,23 @@ export default {
       type: String,
       default: "Match it",
     },
+    products: {
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
     return {
-      products: {},
       options: {
+        gap: 0,
+        type: "carousel",
+        perView: 4,
+        rewind: true,
+        slidePerPage: true,
         breakpoints: {
-          480: {
-            perView: 2,
-            peek: {
-              before: 0,
-              after: 50,
-            },
-          },
-          1023: {
-            perView: 4,
-          },
+          1023: { perView: 2 },
         },
       },
-    }
-  },
-  async mounted() {
-    try {
-      const result = await getProducts(
-        {
-          pagination: {
-            page: 1,
-            limit: 10,
-          },
-        },
-        this.$shopwareApiInstance
-      )
-      this.products = result.data
-    } catch (e) {
-      console.error("SwProductCarousel:mounted:getProducts", e)
     }
   },
 }
@@ -76,13 +65,28 @@ export default {
   }
 }
 
+.sw-products-gallery {
+  .products-grid {
+    ::v-deep .sf-section__content {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+  .sf-section {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
 .product-carousel {
   margin: 0 calc(var(--spacer-base) * -1) 0 0;
+
   @include for-desktop {
     margin: var(--spacer-base) 0;
     --carousel-padding: var(--spacer-base);
     --carousel-max-width: calc(100% - 13.5rem);
   }
+
   &__product {
     @include for-mobile {
       max-width: unset;
