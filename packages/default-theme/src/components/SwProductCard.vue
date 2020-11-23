@@ -28,8 +28,8 @@ import {
   getProductUrl,
   getProductSpecialPrice,
   getProductName,
-  getProductCalculatedUnitPrice,
-  getProductCalculatedListPrice,
+  getProductCalculatedPrice,
+  getProductCalculatedListingPrice,
 } from "@shopware-pwa/helpers"
 
 export default {
@@ -71,14 +71,16 @@ export default {
     },
     getRegularPrice() {
       return (
-        getProductCalculatedListPrice(this.product) ||
-        getProductRegularPrice(this.product)
+        (this.tierPrices.length &&
+          this.tierPrices[0] &&
+          this.tierPrices[0].unitPrice) ||
+        getProductCalculatedListingPrice(this.product)
       )
     },
     getSpecialPrice() {
       return this.tierPrices.length
         ? undefined
-        : getProductCalculatedUnitPrice(this.product)
+        : getProductCalculatedPrice(this.product)
     },
     tierPrices() {
       return getProductTierPrices(this.product)

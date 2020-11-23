@@ -1,14 +1,17 @@
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 
 /**
- * Get the price for 1 unit of a product
+ * Get the calculated list price
  *
  * @returns (number|undefined)
  *
  * @beta
  */
-export function getProductCalculatedUnitPrice(
+export function getProductCalculatedListingPrice(
   product: Product
 ): number | undefined {
-  return product?.calculatedPrice?.unitPrice;
+  return (
+    product?.calculatedPrice?.listPrice?.price ||
+    product?.calculatedPrice?.unitPrice
+  );
 }

@@ -7,8 +7,8 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
  *
  * @beta
  */
-export function getProductCalculatedListPrice(
+export function getProductCalculatedPrice(
   product: Product
 ): number | undefined {
-  return product?.calculatedPrice?.listPrice?.price;
+  return product?.calculatedPrice?.unitPrice;
 }

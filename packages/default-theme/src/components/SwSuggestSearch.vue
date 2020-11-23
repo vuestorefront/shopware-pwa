@@ -27,9 +27,13 @@
             <span class="search-suggestions__product-title">
               {{ product.name }}
             </span>
-            <span class="search-suggestions__product-price">{{
-              getProductPrice(product) | price
-            }}</span>
+            <span class="search-suggestions__product-price">
+              <SfPrice
+                class="sw-price"
+                :regular="getProductRegularPrice(product) | price"
+                :special="getProductSpecialPrice(product) | price"
+              />
+            </span>
           </span>
         </SfLink>
       </div>
@@ -50,6 +54,7 @@ import {
   SfLink,
   SfImage,
   SfIcon,
+  SfPrice,
 } from "@storefront-ui/vue"
 import { clickOutside } from "@storefront-ui/vue/src/utilities/directives"
 import Button from "@/components/atoms/SwButton"
@@ -57,11 +62,21 @@ import {
   getProductMainImageUrl,
   getProductRegularPrice,
   getProductUrl,
-  getProductCalculatedListPrice,
+  getProductCalculatedListingPrice,
+  getProductCalculatedPrice,
+  getProductTierPrices,
 } from "@shopware-pwa/helpers"
 
 export default {
-  components: { SfDivider, SfHeading, SfLink, SfImage, SfIcon, Button },
+  components: {
+    SfDivider,
+    SfHeading,
+    SfLink,
+    SfImage,
+    SfIcon,
+    SfPrice,
+    Button,
+  },
   props: {
     isOpen: {
       type: Boolean,
@@ -96,11 +111,16 @@ export default {
     close() {
       this.$emit("close")
     },
-    getProductPrice(product) {
+    getProductRegularPrice(product) {
+      const tierPrices = getProductTierPrices(product)
       return (
-        getProductCalculatedListPrice(product) ||
-        getProductRegularPrice(product)
+        (tierPrices.length && tierPrices[0].unitPrice) ||
+        getProductCalculatedListingPrice(product)
       )
+    },
+    getProductSpecialPrice(product) {
+      const tierPrices = getProductTierPrices(product)
+      return tierPrices.length ? undefined : getProductCalculatedPrice(product)
     },
     getProducImageUrl(product) {
       return getProductMainImageUrl(product)

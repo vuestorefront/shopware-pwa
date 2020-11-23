@@ -5,7 +5,7 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
  * Advanced pricing can be set in `Advanced pricing` tab in `Product view` (admin panel)
  *
  *
- * @deprecated consider using getCalculatedListPrice or getProductCalculatedUnitPrice
+ * @deprecated consider using getCalculatedListingPrice or getProductCalculatedPrice
  * @returns (number|undefined)
  * @alpha
  */

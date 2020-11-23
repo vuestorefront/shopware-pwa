@@ -18,5 +18,5 @@ export * from "./isProductSimple";
 export * from "./getProductThumbnailUrl";
 export * from "./getProductPriceDiscount";
 export * from "./getProductPriceDiscountPercentage";
-export * from "./getProductCalculatedListPrice";
-export * from "./getProductCalculatedUnitPrice";
+export * from "./getProductCalculatedPrice";
+export * from "./getProductCalculatedListingPrice";
