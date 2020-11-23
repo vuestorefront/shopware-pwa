@@ -57,6 +57,7 @@ import {
   getProductMainImageUrl,
   getProductRegularPrice,
   getProductUrl,
+  getProductCalculatedListPrice,
 } from "@shopware-pwa/helpers"
 
 export default {
@@ -96,7 +97,10 @@ export default {
       this.$emit("close")
     },
     getProductPrice(product) {
-      return getProductRegularPrice(product)
+      return (
+        getProductCalculatedListPrice(product) ||
+        getProductRegularPrice(product)
+      )
     },
     getProducImageUrl(product) {
       return getProductMainImageUrl(product)

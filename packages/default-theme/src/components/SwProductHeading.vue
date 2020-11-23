@@ -54,6 +54,8 @@ import {
   getProductSpecialPrice,
   getProductTierPrices,
   getProductRatingAverage,
+  getProductCalculatedUnitPrice,
+  getProductCalculatedListPrice,
 } from "@shopware-pwa/helpers"
 
 import { SfBadge, SfHeading, SfPrice, SfRating } from "@storefront-ui/vue"
@@ -88,7 +90,10 @@ export default {
     },
 
     price() {
-      return getProductRegularPrice(this.product)
+      return (
+        getProductCalculatedListPrice(this.product) ||
+        getProductRegularPrice(this.product)
+      )
     },
 
     ratingAverage() {
@@ -104,7 +109,9 @@ export default {
     },
 
     special() {
-      return getProductSpecialPrice(this.product)
+      return this.tierPrices.length
+        ? undefined
+        : getProductCalculatedUnitPrice(this.product)
     },
 
     tierPrices() {
