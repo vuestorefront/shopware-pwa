@@ -9,7 +9,7 @@
 
 > Warning: This API is now obsolete.
 > 
-> consider using getCalculatedListPrice or getProductCalculatedUnitPrice
+> consider using getCalculatedListingPrice or getProductCalculatedPrice instead
 > 
 
 Get the price for 1 unit of a product

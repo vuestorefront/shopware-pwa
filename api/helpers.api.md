@@ -116,10 +116,10 @@ export function getOrderPaymentMethodId(order: Order): string | undefined;
 export function getOrderShippingMethodId(order: Order): string | undefined;
 
 // @beta
-export function getProductCalculatedListPrice(product: Product): number | undefined;
+export function getProductCalculatedListingPrice(product: Product): number | undefined;
 
 // @beta
-export function getProductCalculatedUnitPrice(product: Product): number | undefined;
+export function getProductCalculatedPrice(product: Product): number | undefined;
 
 // @alpha
 export function getProductFreeShipping(product?: Product): boolean;

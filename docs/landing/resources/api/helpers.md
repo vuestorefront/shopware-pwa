@@ -16,8 +16,8 @@
 |  --- | --- |
 |  [getListingAvailableFilters(aggregations)](./helpers.getlistingavailablefilters.md) | <b><i>(BETA)</i></b> |
 |  [getListingFilters(aggregations)](./helpers.getlistingfilters.md) | <b><i>(BETA)</i></b> |
-|  [getProductCalculatedListPrice(product)](./helpers.getproductcalculatedlistprice.md) | <b><i>(BETA)</i></b> Get the calculated list price |
-|  [getProductCalculatedUnitPrice(product)](./helpers.getproductcalculatedunitprice.md) | <b><i>(BETA)</i></b> Get the price for 1 unit of a product |
+|  [getProductCalculatedListingPrice(product)](./helpers.getproductcalculatedlistingprice.md) | <b><i>(BETA)</i></b> Get the calculated list price |
+|  [getProductCalculatedPrice(product)](./helpers.getproductcalculatedprice.md) | <b><i>(BETA)</i></b> Get the calculated list price |
 |  [getProductPriceDiscount(product)](./helpers.getproductpricediscount.md) | <b><i>(BETA)</i></b> Get value of price discount |
 |  [getProductPriceDiscountPercentage(product)](./helpers.getproductpricediscountpercentage.md) | <b><i>(BETA)</i></b> Get the percentage value of discount |
 |  [getProductRegularPrice(product)](./helpers.getproductregularprice.md) | <b><i>(BETA)</i></b> Get the price for 1 unit of a product |
