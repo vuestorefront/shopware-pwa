@@ -3336,20 +3336,6 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@shopware-pwa/cli@0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@shopware-pwa/cli/-/cli-0.5.1.tgz#4444dab2d889cbd60975a5c0367670cdd03de156"
-  integrity sha512-5dyir2HTBFWD7YYa4cOjnGUAMi0/MAIhl9k9TcNW411wCQLduZ1l987OP5NmL3immzJYqUFUyuB+a/cNeBtEzg==
-  dependencies:
-    "@shopware-pwa/shopware-6-client" "0.5.1"
-    chokidar "^3.4.3"
-    gluegun "^4.4.0"
-    lodash "^4.17.20"
-    md5-hex "^3.0.1"
-    request "^2.88.2"
-    unzipper "^0.10.11"
-    validate-npm-package-name "^3.0.0"
-
 "@shopware-pwa/cli@0.5.2":
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/@shopware-pwa/cli/-/cli-0.5.2.tgz#f75d4ee8e472dc013b95b78b3542e0f81d3936e8"
@@ -3364,48 +3350,10 @@
     unzipper "^0.10.11"
     validate-npm-package-name "^3.0.0"
 
-"@shopware-pwa/commons@0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@shopware-pwa/commons/-/commons-0.5.1.tgz#c2415e4f5e77d6eaae4f078f801590883c12f835"
-  integrity sha512-zlzNMqHfO5XSzlBtbmUC83cRd8o92IBbc4EsVrVwL4voyAuwkNtEM6ue41k4/QsrYkTpvJPo07LvVV3iF5YIqg==
-
-"@shopware-pwa/default-theme@0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@shopware-pwa/default-theme/-/default-theme-0.5.1.tgz#5ea79172df748a3102344668f4434aeaedc6211e"
-  integrity sha512-miESyyebbvliVVGJ/QI3EbN3sdFTnqDNzfyTP552s+S0aM9dCUP0g48ObFw5JDsvHsyCmCqKTJ1sMDo2xaCuPQ==
-  dependencies:
-    "@shopware-pwa/theme-base" "0.5.1"
-    "@storefront-ui/vue" "0.7.18"
-    core-js "^3.6.5"
-    dayjs "^1.9.3"
-    html-to-vue "^1.2.1"
-    node-sass "^4.14.1"
-    nuxt "^2.14.7"
-    sass-loader "^10.0.3"
-    vue-i18n "^8.22.0"
-    vuelidate "^0.7.5"
-
-"@shopware-pwa/helpers@0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@shopware-pwa/helpers/-/helpers-0.5.1.tgz#0a0419fa79becdf5c283b95000f43a6d3aeb02c1"
-  integrity sha512-G4aBEikNTrSk+5Gw9mhyxHiIiftWpSpdtXp+XTctqW0/ImD4C55mgnRQmasaAJzAynvA0yEw8MVdOPUGcAyWRQ==
-  dependencies:
-    query-string "^6.13.6"
-
-"@shopware-pwa/shopware-6-client@0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@shopware-pwa/shopware-6-client/-/shopware-6-client-0.5.1.tgz#3247b04a13199c5d03690847cb16b9f8afe062f4"
-  integrity sha512-eY0XG0MmJa7JoASNB7vraDILmqHgFkjIvKJTdDJQBPGB8B6v0Gg+rEU2VPB90bayIK7tTC+XD8dfvzACGnhJ4Q==
-  dependencies:
-    axios "^0.20.0"
-    query-string "^6.13.6"
-
-"@shopware-pwa/theme-base@0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@shopware-pwa/theme-base/-/theme-base-0.5.1.tgz#bf3e7f4b8f6e7cd663ff93506e49591d80cb1aaf"
-  integrity sha512-ezOpS+aVnKM9J0cvKK6O1ocs7+CLPW7eFdoGqsgvD46MkA4ZWo5YKO1n+abcga5gWVqQFQBnApJd8YelTfpF1Q==
-  dependencies:
-    currency.js "^2.0.3"
+"@shopware-pwa/commons@0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@shopware-pwa/commons/-/commons-0.5.2.tgz#46233c7e0c39629ef65689d469e198129701e833"
+  integrity sha512-jDvwmNHj8xiW9bQm0d9pCanm7RCbj2Z0ELgPaLXrGE0qSdncsxo6iSacYwpnsEpoj6IXame9tQ3u3wANl7GPsg==
 
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
@@ -4914,13 +4862,6 @@ axios@^0.19.0:
   integrity sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==
   dependencies:
     follow-redirects "1.5.10"
-
-axios@^0.20.0:
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.20.0.tgz#057ba30f04884694993a8cd07fa394cff11c50bd"
-  integrity sha512-ANA4rr2BDcmmAQLOKft2fufrtuvlqR+cXNNinUmvfeSNCOF98PZL+7M/v1zIdGo7OLjEA9J2gXJL+j4zGsl0bA==
-  dependencies:
-    follow-redirects "^1.10.0"
 
 axios@^0.21.0:
   version "0.21.0"
@@ -14495,7 +14436,7 @@ query-string@^5.0.1:
     object-assign "^4.1.0"
     strict-uri-encode "^1.0.0"
 
-query-string@^6.13.6, query-string@^6.13.7:
+query-string@^6.13.7:
   version "6.13.7"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.13.7.tgz#af53802ff6ed56f3345f92d40a056f93681026ee"
   integrity sha512-CsGs8ZYb39zu0WLkeOhe0NMePqgYdAuCqxOYKDR5LVCytDZYMGx3Bb+xypvQvPHVPijRXB0HZNFllCzHRe4gEA==
@@ -17436,11 +17377,6 @@ vue-hot-reload-api@^2.3.0:
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
   integrity sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==
 
-vue-i18n@^8.22.0:
-  version "8.22.2"
-  resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-8.22.2.tgz#58299a5a050e67b4f799d96fee7dd8bd269e0907"
-  integrity sha512-rb569fVJInPUgS/bbCxEQ9DrAoFTntuJvYoK4Fpk2VfNbA09WzdTKk57ppjz3S+ps9hW+p9H+2ASgMvojedkow==
-
 vue-i18n@^8.22.1:
   version "8.22.1"
   resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-8.22.1.tgz#b9dd098a17e1f5adb91bdf9611f0385310da7cb1"
@@ -17547,7 +17483,7 @@ vue@^2.6.10, vue@^2.6.12:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
   integrity sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg==
 
-vuelidate@^0.7.5, vuelidate@^0.7.6:
+vuelidate@^0.7.6:
   version "0.7.6"
   resolved "https://registry.yarnpkg.com/vuelidate/-/vuelidate-0.7.6.tgz#84100c13b943470660d0416642845cd2a1edf4b2"
   integrity sha512-suzIuet1jGcyZ4oUSW8J27R2tNrJ9cIfklAh63EbAkFjE380iv97BAiIeolRYoB9bF9usBXCu4BxftWN1Dkn3g==
