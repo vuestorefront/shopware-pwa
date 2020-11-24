@@ -141,6 +141,12 @@ export function getDefaultApiParams(): {
 };
 
 // @beta
+export interface IInterceptorCallbackFunction {
+    // (undocumented)
+    (payload: any, rootContext?: ApplicationVueContext_2): void;
+}
+
+// @beta
 export const INTERCEPTOR_KEYS: {
     ADD_TO_CART: string;
     ADD_PROMOTION_CODE: string;
@@ -230,8 +236,8 @@ export interface IUseCheckout {
 // @beta
 export interface IUseIntercept {
     broadcast: (broadcastKey: string, value?: any) => void;
-    disconnect: (broadcastKey: string, method: Function) => void;
-    intercept: (broadcastKey: string, method: Function) => void;
+    disconnect: (broadcastKey: string, method: IInterceptorCallbackFunction) => void;
+    intercept: (broadcastKey: string, method: IInterceptorCallbackFunction) => void;
 }
 
 // @beta

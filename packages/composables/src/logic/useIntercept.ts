@@ -36,6 +36,10 @@ export const INTERCEPTOR_KEYS = {
   USER_LOGOUT: "onUserLogout",
 };
 
+/**
+ * interface for the callback function of interceptors
+ * @beta
+ */
 export interface IInterceptorCallbackFunction {
   (payload: any, rootContext?: ApplicationVueContext): void;
 }
@@ -97,10 +101,14 @@ export const useIntercept = (
     isVueInstance && localSubscribers.push({ broadcastKey, method });
   };
 
-  const disconnect = (broadcastKey: string, method: Function) => {
+  const disconnect = (
+    broadcastKey: string,
+    method: IInterceptorCallbackFunction
+  ) => {
     interceptors[broadcastKey] =
       interceptors[broadcastKey]?.filter(
-        (subscribedMethod: Function) => subscribedMethod !== method
+        (subscribedMethod: IInterceptorCallbackFunction) =>
+          subscribedMethod !== method
       ) || [];
   };
 
