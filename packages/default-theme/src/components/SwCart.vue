@@ -23,6 +23,7 @@
                 v-for="product in cartItems"
                 :key="product.id"
                 :product="product"
+                :additionalItemsData="additionalItemsData"
               />
             </transition-group>
             <SwPluginSlot name="sidecart-products-after" />
@@ -84,12 +85,17 @@ import {
   SfHeading,
   SfImage,
 } from "@storefront-ui/vue"
-import { useCart, useUIState } from "@shopware-pwa/composables"
+import {
+  useCart,
+  useUIState,
+  getApplicationContext,
+} from "@shopware-pwa/composables"
+import { getProducts } from "@shopware-pwa/shopware-6-client"
 import SwCartProduct from "@/components/SwCartProduct"
 import SwButton from "@/components/atoms/SwButton"
 import { PAGE_CHECKOUT } from "@/helpers/pages"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import { computed, onMounted, ref } from "@vue/composition-api"
+import { computed, onMounted, ref, watch } from "@vue/composition-api"
 
 export default {
   name: "SwCart",
@@ -104,15 +110,51 @@ export default {
     SwButton,
   },
   setup(props, { root }) {
+    const { apiInstance } = getApplicationContext(root, "SwCart")
     const { cartItems, count, totalPrice, removeProduct } = useCart(root)
     const { isOpen: isSidebarOpen, switchState: toggleSidebar } = useUIState(
       root,
       "CART_SIDEBAR_STATE"
     )
-
+    const additionalItemsData = ref([])
+    // Load additional info: seoUrls
+    // TODO: move that logic into useCart composable or create global solution for "entity enrichment" maybe during adding to cart
+    // https://github.com/DivanteLtd/shopware-pwa/issues/1254
     // Component is lazy loaded so to allow animation on first load it needs to be done after it is mounted
     const isComponentMounted = ref(false)
-    onMounted(() => {
+
+    const loadAdditionalData = async (newItems, oldItems) => {
+      if (!cartItems.value.length || newItems.length <= oldItems.length) {
+        return
+      }
+      apiInstance.defaults.headers["sw-include-seo-urls"] = true
+      try {
+        const result = await getProducts(
+          {
+            configuration: {
+              ids: cartItems.value.map(({ referencedId }) => referencedId),
+              includes: {
+                product: ["id", "seoUrls"],
+                seo_url: ["seoPathInfo"],
+              },
+              associations: {
+                seoUrls: {},
+              },
+            },
+          },
+          apiInstance
+        )
+        additionalItemsData.value = result
+      } catch (error) {
+        console.error("[SwCart][setup][onMounted]", error)
+      }
+    }
+
+    watch(cartItems, (newItems, oldItems) => {
+      loadAdditionalData(newItems, oldItems)
+    })
+    onMounted(async () => {
+      await loadAdditionalData(1, 0)
       isComponentMounted.value = true
     })
     const sidebarState = computed(
@@ -130,6 +172,7 @@ export default {
       count,
       totalPrice,
       removeProduct,
+      additionalItemsData,
     }
   },
 

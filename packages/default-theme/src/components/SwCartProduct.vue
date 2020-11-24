@@ -24,7 +24,6 @@
 </template>
 <script>
 import { getProductMainImageUrl, getProductUrl } from "@shopware-pwa/helpers"
-import { getProduct } from "@shopware-pwa/shopware-6-client"
 import { useCart, getApplicationContext } from "@shopware-pwa/composables"
 import { ref, watch, computed, onMounted } from "@vue/composition-api"
 import { SfCollectedProduct, SfProperty } from "@storefront-ui/vue"
@@ -39,45 +38,45 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    additionalItemsData: {
+      type: Array,
+      default: () => [],
+    },
   },
-  setup(props, { root }) {
+  setup({ product, additionalItemsData }, { root }) {
     const { apiInstance } = getApplicationContext(root, "SwCartProduct")
     const { removeProduct, changeProductQuantity } = useCart(root)
-    const productUrl = ref("")
-    const quantity = ref(props.product.quantity)
-    const productImage = computed(() => getProductMainImageUrl(props.product))
+
+    // get the URL from async loaded product data - passed by the parent component
+    const productUrl = computed(() => {
+      const matchingProductAdditionalData = additionalItemsData.find(
+        ({ id }) => id === product.referencedId
+      )
+      return getProductUrl(matchingProductAdditionalData)
+    })
+    const quantity = ref(product.quantity)
+    const productImage = computed(() => getProductMainImageUrl(product))
     // it's not 1:1 to Product entity interface
     const regularPrice = computed(
       () =>
-        (props.product.price.listPrice &&
-          props.product.price.listPrice.price) ||
-        props.product.price.unitPrice
+        (product.price.listPrice && product.price.listPrice.price) ||
+        product.price.unitPrice
     )
     const specialPrice = computed(
-      () => props.product.price.listPrice && props.product.price.unitPrice
+      () => product.price.listPrice && product.price.unitPrice
     )
 
-    onMounted(async () => {
-      // async load of seoUrls only
-      const response = await getProduct(
-        `${props.product.id}?includes[product][]=seoUrls&includes[product][]=id&includes[seo_url][]=seoPathInfo&associations[seoUrls][]`,
-        null,
-        apiInstance
-      )
-      productUrl.value = getProductUrl(response)
-    })
-
     const options = computed(
-      () => (props.product.payload && props.product.payload.options) || []
+      () => (product.payload && product.payload.options) || []
     )
 
     watch(quantity, async (qty) => {
       // in future we may want to have debounce here
-      if (qty === props.product.quantity) return
-      await changeProductQuantity({ id: props.product.id, quantity: qty })
+      if (qty === product.quantity) return
+      await changeProductQuantity({ id: product.id, quantity: qty })
     })
     watch(
-      () => props.product.quantity,
+      () => product.quantity,
       (qty) => {
         quantity.value = qty
       }
