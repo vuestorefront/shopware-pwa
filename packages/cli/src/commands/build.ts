@@ -9,10 +9,15 @@ const command: GluegunCommand = {
       print: { info },
     } = toolbox;
 
-    info(`Starting Shopware PWA project building...`);
+    const devMode = !!toolbox.inputParameters.devMode;
+    info(
+      `Starting Shopware PWA project building (devMode: ${
+        devMode ? "enabled" : "disabled"
+      })...`
+    );
 
     // initial config invoke
-    await toolbox.plugins.invokeRefreshPlugins(true);
+    await toolbox.plugins.invokeRefreshPlugins(devMode);
     await toolbox.cms.invokeRefreshCMS();
     await toolbox.languages.invokeRefreshLanguages();
 
