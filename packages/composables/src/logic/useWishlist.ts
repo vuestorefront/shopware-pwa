@@ -40,13 +40,13 @@ export const useWishlist = (
       JSON.stringify(sharedWishlist.items)
     );
   };
-
+  /* istanbul ignore next */
   const getFromStorage = () => {
     if (typeof window != "undefined" && localStorage) {
       return JSON.parse(localStorage.getItem("sw-wishlist-items") ?? "[]");
     }
   };
-
+  /* istanbul ignore next */
   onMounted(() => {
     if (!sharedWishlist.items.length) {
       try {
@@ -96,7 +96,7 @@ export const useWishlist = (
     sharedWishlist.items = [];
   };
 
-  const items = computed(() => localWishlist.items || []);
+  const items = computed(() => localWishlist.items);
   const count = computed(() => items.value.length);
 
   return {
