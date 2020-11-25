@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { ref, Ref, reactive, computed } from "@vue/composition-api";
+import { ref, Ref, reactive, computed, onMounted } from "@vue/composition-api";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
@@ -14,6 +14,7 @@ export interface IUseWishlist {
   addToWishlist: () => void;
   isInWishlist: Ref<boolean>;
   items: Ref<string[]>;
+  count: Ref<number>;
 }
 
 const sharedWishlist = Vue.observable({
@@ -39,23 +40,25 @@ export const useWishlist = (
       JSON.stringify(sharedWishlist.items)
     );
   };
-
+  /* istanbul ignore next */
   const getFromStorage = () => {
     if (typeof window != "undefined" && localStorage) {
-      return JSON.parse(localStorage.getItem("sw-wishlist-items") ?? "");
+      return JSON.parse(localStorage.getItem("sw-wishlist-items") ?? "[]");
     }
   };
-
-  if (!sharedWishlist.items.length) {
-    try {
-      const currentWishlist = getFromStorage();
-      if (currentWishlist) {
-        sharedWishlist.items = currentWishlist;
+  /* istanbul ignore next */
+  onMounted(() => {
+    if (!sharedWishlist.items.length) {
+      try {
+        const currentWishlist = getFromStorage();
+        if (Array.isArray(currentWishlist) && currentWishlist.length) {
+          sharedWishlist.items = currentWishlist;
+        }
+      } catch (error) {
+        console.error("useWishlist:getFromStorage", error);
       }
-    } catch (error) {
-      console.log(error);
     }
-  }
+  });
 
   // removes item from the list
   const removeFromWishlist = (itemId: string): void => {
@@ -94,6 +97,7 @@ export const useWishlist = (
   };
 
   const items = computed(() => localWishlist.items);
+  const count = computed(() => items.value.length);
 
   return {
     addToWishlist,
@@ -101,5 +105,6 @@ export const useWishlist = (
     isInWishlist,
     clearWishlist,
     items,
+    count,
   };
 };
