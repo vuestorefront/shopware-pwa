@@ -65,6 +65,7 @@ import {
   getProductCalculatedListingPrice,
   getProductCalculatedPrice,
   getProductTierPrices,
+  getProductPriceDiscount,
 } from "@shopware-pwa/helpers"
 
 export default {
@@ -120,7 +121,9 @@ export default {
     },
     getProductSpecialPrice(product) {
       const tierPrices = getProductTierPrices(product)
-      return tierPrices.length ? undefined : getProductCalculatedPrice(product)
+      return tierPrices.length
+        ? undefined
+        : getProductPriceDiscount(product) && getProductCalculatedPrice(product)
     },
     getProducImageUrl(product) {
       return getProductMainImageUrl(product)
