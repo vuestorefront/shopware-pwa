@@ -395,6 +395,8 @@ export interface IUseWishlist {
     // (undocumented)
     clearWishlist: () => void;
     // (undocumented)
+    count: Ref<number>;
+    // (undocumented)
     isInWishlist: Ref<boolean>;
     // (undocumented)
     items: Ref<string[]>;

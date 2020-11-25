@@ -21,6 +21,7 @@ export interface IUseWishlist
 |  --- | --- | --- |
 |  [addToWishlist](./composables.iusewishlist.addtowishlist.md) | () =&gt; void | <b><i>(BETA)</i></b> |
 |  [clearWishlist](./composables.iusewishlist.clearwishlist.md) | () =&gt; void | <b><i>(BETA)</i></b> |
+|  [count](./composables.iusewishlist.count.md) | Ref&lt;number&gt; | <b><i>(BETA)</i></b> |
 |  [isInWishlist](./composables.iusewishlist.isinwishlist.md) | Ref&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [items](./composables.iusewishlist.items.md) | Ref&lt;string\[\]&gt; | <b><i>(BETA)</i></b> |
 |  [removeFromWishlist](./composables.iusewishlist.removefromwishlist.md) | (id: string) =&gt; void | <b><i>(BETA)</i></b> |
