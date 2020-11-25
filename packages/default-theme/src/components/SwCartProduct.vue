@@ -3,7 +3,9 @@
     v-model="quantity"
     :image="productImage"
     :title="product.label"
-    :regular-price="product.price.unitPrice | price"
+    :regular-price="regularPrice | price"
+    :special-price="specialPrice | price"
+    :link="productUrl"
     :stock="product.deliveryInformation.stock"
     class="collected-product"
     @click:remove="removeProduct(product)"
@@ -21,10 +23,10 @@
   </SfCollectedProduct>
 </template>
 <script>
+import { getProductMainImageUrl, getProductUrl } from "@shopware-pwa/helpers"
+import { useCart, getApplicationContext } from "@shopware-pwa/composables"
+import { ref, watch, computed, onMounted } from "@vue/composition-api"
 import { SfCollectedProduct, SfProperty } from "@storefront-ui/vue"
-import { getProductMainImageUrl } from "@shopware-pwa/helpers"
-import { useCart } from "@shopware-pwa/composables"
-import { ref, watch, computed } from "@vue/composition-api"
 
 export default {
   components: {
@@ -36,23 +38,45 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    additionalItemsData: {
+      type: Array,
+      default: () => [],
+    },
   },
-  setup(props, { root }) {
+  setup({ product, additionalItemsData }, { root }) {
+    const { apiInstance } = getApplicationContext(root, "SwCartProduct")
     const { removeProduct, changeProductQuantity } = useCart(root)
 
-    const quantity = ref(props.product.quantity)
-    const productImage = computed(() => getProductMainImageUrl(props.product))
+    // get the URL from async loaded product data - passed by the parent component
+    const productUrl = computed(() => {
+      const matchingProductAdditionalData = additionalItemsData.find(
+        ({ id }) => id === product.referencedId
+      )
+      return getProductUrl(matchingProductAdditionalData)
+    })
+    const quantity = ref(product.quantity)
+    const productImage = computed(() => getProductMainImageUrl(product))
+    // it's not 1:1 to Product entity interface
+    const regularPrice = computed(
+      () =>
+        (product.price.listPrice && product.price.listPrice.price) ||
+        product.price.unitPrice
+    )
+    const specialPrice = computed(
+      () => product.price.listPrice && product.price.unitPrice
+    )
+
     const options = computed(
-      () => (props.product.payload && props.product.payload.options) || []
+      () => (product.payload && product.payload.options) || []
     )
 
     watch(quantity, async (qty) => {
       // in future we may want to have debounce here
-      if (qty === props.product.quantity) return
-      await changeProductQuantity({ id: props.product.id, quantity: qty })
+      if (qty === product.quantity) return
+      await changeProductQuantity({ id: product.id, quantity: qty })
     })
     watch(
-      () => props.product.quantity,
+      () => product.quantity,
       (qty) => {
         quantity.value = qty
       }
@@ -61,6 +85,9 @@ export default {
       productImage,
       removeProduct,
       quantity,
+      regularPrice,
+      specialPrice,
+      productUrl,
       options,
     }
   },
@@ -76,6 +103,14 @@ export default {
 
   &__properties {
     margin-top: var(--spacer-base);
+  }
+
+  &__main {
+    .sf-price {
+      &__old {
+        font-size: var(--size-xs);
+      }
+    }
   }
 
   &__actions {
