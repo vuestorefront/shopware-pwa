@@ -15,6 +15,12 @@ export default async ({ app }, inject) => {
     endpoint: "<%= options.shopwareEndpoint %>",
     accessToken: "<%= options.shopwareAccessToken %>",
     timeout: "<%= options.shopwareApiClient.timeout %>",
+    auth: {
+      username:
+        "<%= options.shopwareApiClient.auth ? options.shopwareApiClient.auth.username : undefined %>",
+      password:
+        "<%=  options.shopwareApiClient.auth ? options.shopwareApiClient.auth.password : undefined %>",
+    },
     contextToken,
     languageId,
   });
