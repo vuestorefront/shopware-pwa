@@ -62,11 +62,22 @@ describe("Shopware helpers - mapCountries", () => {
           name: "Romania",
         },
       },
+      {
+        name: "Norway",
+        active: true,
+        id: "id2",
+        iso: "iso",
+        createdAt: "date",
+      },
     ];
     expect(mapCountries(countries)).toEqual([
       {
         name: "Romania",
         id: "id",
+      },
+      {
+        name: "Norway",
+        id: "id2",
       },
     ]);
   });

@@ -66,6 +66,12 @@ describe("Shopware helpers - navigation", () => {
                 path: "clothing/outdoor/",
               },
             },
+            {
+              name: "Indoor",
+              route: {
+                path: "clothing/indoor/",
+              },
+            },
           ],
         },
       ];
@@ -81,6 +87,11 @@ describe("Shopware helpers - navigation", () => {
               children: undefined,
               routeLabel: "Outdoor",
               routePath: "/clothing/outdoor/",
+            },
+            {
+              children: undefined,
+              routeLabel: "Indoor",
+              routePath: "/clothing/indoor/",
             },
           ],
         },
