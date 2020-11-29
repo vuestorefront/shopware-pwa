@@ -20,7 +20,7 @@ export function getNavigationRoutes(
       name: string;
       route: { path: string; resourceType: string };
     }) => ({
-      routeLabel: element.name,
+      routeLabel: element.translated.name,
       routePath:
         element.route.path.charAt(0) !== "/"
           ? `/${element.route.path}`

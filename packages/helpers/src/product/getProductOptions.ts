@@ -23,20 +23,20 @@ export function getProductOptions({
     }
 
     for (let option of variant.options) {
-      if (option.group?.name) {
-        if (!typeOptions.hasOwnProperty(option.group.name)) {
-          typeOptions[option.group.name] = [];
+      if (option.group?.translated.name) {
+        if (!typeOptions.hasOwnProperty(option.group.translated.name)) {
+          typeOptions[option.group.translated.name] = [];
         }
 
         if (
-          !typeOptions[option.group.name].find(
+          !typeOptions[option.group.translated.name].find(
             (valueOption: any) => option.id == valueOption.code
           )
         ) {
-          typeOptions[option.group.name].push({
-            label: option.name,
+          typeOptions[option.group.translated.name].push({
+            label: option.translated.name,
             code: option.id,
-            value: option.name,
+            value: option.translated.name,
             color: option.colorHexCode,
           } as UiProductOption);
         }

@@ -10,20 +10,35 @@ describe("Shopware helpers - getProductOptions", () => {
             {
               id: "3858d1baf2544a379c92535ea3d2fe53",
               name: "blue",
+              translated: {
+                name: "blue",
+              },
               group: {
                 name: "color",
+                translated: {
+                  name: "color",
+                },
               },
             },
             {
               id: "3858d1baf2544a379c92535ea3d2fe53",
               name: "blue",
+              translated: {
+                name: "blue",
+              },
               group: {
                 name: "color",
+                translated: {
+                  name: "color",
+                },
               },
             },
             {
               id: "3858d1baf2544a379c92535ea3d2fe52",
               name: "white",
+              translated: {
+                name: "white",
+              },
             },
           ],
         },

@@ -32,7 +32,7 @@ const extractEntityTypeFilter = (
   name,
   type: UiCategoryFilterType.entity,
   options: options.map((filterData: AggregationFilterEntityOption) => ({
-    label: filterData.translated.name,
+    label: filterData.translated?.name || filterData.name,
     value: filterData.id,
     // false when there's no color property is fine, UI accepts it
     color: filterData.colorHexCode,
@@ -60,7 +60,10 @@ export function getListingAvailableFilters(
         if (aggregationName === "properties") {
           for (const property of aggregation.entities) {
             transformedFilters.push(
-              extractEntityTypeFilter(property.name, property.options)
+              extractEntityTypeFilter(
+                property.translated?.name || property.name,
+                property.options
+              )
             );
           }
         } else {

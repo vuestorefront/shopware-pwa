@@ -8,6 +8,9 @@ describe("Shopware helpers - navigation", () => {
           route: {
             path: "/navigation/7d4c679c61d5aa387c80a6a45d75c117",
           },
+          translated: {
+            name: "Cloting",
+          },
           children: null,
         },
       ];
@@ -29,6 +32,9 @@ describe("Shopware helpers - navigation", () => {
           route: {
             path: "clothing/",
           },
+          translated: {
+            name: "Cloting",
+          },
           children: null,
         },
       ];
@@ -47,9 +53,15 @@ describe("Shopware helpers - navigation", () => {
           route: {
             path: "clothing/",
           },
+          translated: {
+            name: "Cloting",
+          },
           children: [
             {
               name: "Outdoor",
+              translated: {
+                name: "Outdoor",
+              },
               route: {
                 path: "clothing/outdoor/",
               },

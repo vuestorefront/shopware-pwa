@@ -62,13 +62,38 @@ describe("Shopware helpers - getListingAvailableFilters", () => {
         entities: [
           {
             name: "color",
+            translated: {
+              name: "farbe",
+            },
             options: [
               {
                 id: "white",
                 name: "white",
                 colorHexCode: "#fff",
+              },
+              {
+                id: "black",
+                name: "black",
+                colorHexCode: "#000",
                 translated: {
-                  name: "white",
+                  name: "schwarz",
+                },
+              },
+            ],
+          },
+          {
+            name: "size",
+
+            options: [
+              {
+                id: "xs",
+                name: "xs",
+              },
+              {
+                id: "xl",
+                name: "xl",
+                translated: {
+                  name: "xl",
                 },
               },
             ],
@@ -80,7 +105,7 @@ describe("Shopware helpers - getListingAvailableFilters", () => {
     const result = getListingAvailableFilters(aggregation);
     expect(result).toStrictEqual([
       {
-        name: "color",
+        name: "farbe",
         options: [
           {
             colorHexCode: "#fff",
@@ -88,8 +113,37 @@ describe("Shopware helpers - getListingAvailableFilters", () => {
             id: "white",
             label: "white",
             name: "white",
-            translated: { name: "white" },
             value: "white",
+          },
+          {
+            colorHexCode: "#000",
+            color: "#000",
+            id: "black",
+            label: "schwarz",
+            name: "black",
+            translated: { name: "schwarz" },
+            value: "black",
+          },
+        ],
+        type: "entity",
+      },
+      {
+        name: "size",
+        options: [
+          {
+            color: undefined,
+            id: "xs",
+            label: "xs",
+            name: "xs",
+            value: "xs",
+          },
+          {
+            color: undefined,
+            id: "xl",
+            label: "xl",
+            name: "xl",
+            translated: { name: "xl" },
+            value: "xl",
           },
         ],
         type: "entity",

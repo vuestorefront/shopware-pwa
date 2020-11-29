@@ -13,7 +13,7 @@ export interface Country {
   customFields: object | null;
   name: string | null;
   iso: string | null;
-  translated: object;
+  translated: any;
   updatedAt: string | null;
   versionId: string | null;
   id: string;

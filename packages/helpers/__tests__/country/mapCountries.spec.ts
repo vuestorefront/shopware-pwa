@@ -14,6 +14,9 @@ describe("Shopware helpers - mapCountries", () => {
         id: "id",
         iso: "iso",
         createdAt: "date",
+        translated: {
+          name: "Norway",
+        },
       },
       {
         name: "Romania",
@@ -21,6 +24,9 @@ describe("Shopware helpers - mapCountries", () => {
         id: "id",
         iso: "iso",
         createdAt: "date",
+        translated: {
+          name: "Romania",
+        },
       },
     ];
     expect(mapCountries(countries)).toEqual([
@@ -42,6 +48,9 @@ describe("Shopware helpers - mapCountries", () => {
         id: "id",
         iso: "iso",
         createdAt: "date",
+        translated: {
+          name: null,
+        },
       },
       {
         name: "Romania",
@@ -49,6 +58,9 @@ describe("Shopware helpers - mapCountries", () => {
         id: "id",
         iso: "iso",
         createdAt: "date",
+        translated: {
+          name: "Romania",
+        },
       },
     ];
     expect(mapCountries(countries)).toEqual([

@@ -9,7 +9,7 @@ export function getProductProperties({
 }: { product?: Product } = {}): UiProductProperty[] {
   const propertyList = product?.properties?.map((property) => ({
     name: property.group?.translated?.name || "",
-    value: property.name,
+    value: property.translated?.name || property.name,
   }));
 
   return propertyList || [];
