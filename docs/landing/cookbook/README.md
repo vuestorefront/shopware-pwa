@@ -215,6 +215,7 @@ module.exports = {
 ### How create a custom theme
 
 1. Being in project's root directory use a CLI command to generate the theme: `npx @shopware-pwa/cli@canary create-theme`
+
    ![create-theme command](../../assets/cli_create-theme.png)
 
 2. Choose the theme you would like to extend
@@ -240,7 +241,7 @@ module.exports = {
 
    ![using-own-theme](../../assets/yarn_dev_custom_theme.png)
 
-   > notice that there is a `Using theme` information above the Nuxt.js output.
+   > notice that there is a `Using theme` information above the Nuxt.js output - it points your custom theme now.
 
 ## How to install and register a nuxt plugin <a id="no7"></a>
 
@@ -266,4 +267,4 @@ export default {
 };
 ```
 
-3. Now the GTM module is enabled and ready to use, even in a dev mode
+3. Now the GTM module is enabled and ready to use
