@@ -32,7 +32,10 @@ describe("Composables - useIntercept", () => {
     const interceptedMethod = jest.fn();
     intercept("my-event", interceptedMethod);
     broadcast("my-event", { someParam: 123 });
-    expect(interceptedMethod).toHaveBeenCalledWith({ someParam: 123 });
+    expect(interceptedMethod).toHaveBeenCalledWith(
+      { someParam: 123 },
+      rootContextMock
+    );
   });
 
   it("should not intercept disconnected event interceptor", () => {
@@ -58,8 +61,14 @@ describe("Composables - useIntercept", () => {
     intercept("my-event", interceptedMethod);
     intercept("my-event", secondInterceptedMethod);
     broadcast("my-event", { someParam: 123 });
-    expect(interceptedMethod).toHaveBeenCalledWith({ someParam: 123 });
-    expect(secondInterceptedMethod).toHaveBeenCalledWith({ someParam: 123 });
+    expect(interceptedMethod).toHaveBeenCalledWith(
+      { someParam: 123 },
+      rootContextMock
+    );
+    expect(secondInterceptedMethod).toHaveBeenCalledWith(
+      { someParam: 123 },
+      rootContextMock
+    );
   });
 
   it("should not invoke any interceptor if there are no registered methods", () => {

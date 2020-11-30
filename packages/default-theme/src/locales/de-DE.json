@@ -177,5 +177,6 @@
   "Enter promo code": "Rabattcode eingeben",
   "Applied promo codes:": "Angewandte Rabattcodes:",
   "Promotion code added successfully": "Rabattcode wurde erfolgreich angewendet",
-  "Promotion code does not exist": "Rabattcode existiert nicht"
+  "Promotion code does not exist": "Rabattcode existiert nicht",
+  "{productName} has been added to cart.": "{productName} wurde dem Warenkorb hinzugefügt."
 }
