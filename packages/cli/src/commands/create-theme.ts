@@ -59,7 +59,7 @@ const command: GluegunCommand = {
 
     // generate .gitignore file
     await toolbox.template.generate({
-      template: `/themes/.gitignore`,
+      template: `themes/.gitignore`,
       target: path.join(dirPath, ".gitignore"),
       props: {},
     });

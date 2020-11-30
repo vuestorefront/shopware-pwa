@@ -16,7 +16,7 @@
 
 ---
 
-### 1. How to init a project for my ecommerce <a id="no1"></a>
+## 1. How to init a project for my ecommerce <a id="no1"></a>
 
 > Prepare your Shopware6 instance, first. To do so, check required steps [here](../../guide/CHEATSHEET.md) _(Shopware setup paragraph)_.
 
@@ -28,7 +28,7 @@
 3. That's it! Now you have a nuxt project with shopware-pwa installed.
    > You can work with the project in development mode: `yarn dev`, or when it's ready for production: `yarn build` to generate the production build.
 
-### 2. Can I build a docker image with shopware-pwa inside? <a id="no2"></a>
+## 2. Can I build a docker image with shopware-pwa inside? <a id="no2"></a>
 
 1. Init the project first, [see point #1](#no1)
 2. Build the project with command `yarn build` _(it's important, because the Dockerfile does not build a nuxt project at all - copy the files only)_
@@ -37,7 +37,7 @@
 5. After the build is done, you can run the image wherever you like: `docker run -p80:3000 shopware-pwa:1.0.0`
 6. The container has started the nuxt application, directs the traffic from port 80 to the 3000 inside the container.
 
-### 3. How to change the Shopware6 API credentials <a id="no3"></a>
+## 3. How to change the Shopware6 API credentials <a id="no3"></a>
 
 1. Edit `shopware-pwa.config.js` file, located in generated project's directory.
 
@@ -52,13 +52,13 @@ module.exports = {
 
 3. `yarn dev` or `yarn build` command will take the latest credentials of your config file.
 
-### 4. How to upgrade an existing project <a id="no4"></a>
+## 4. How to upgrade an existing project <a id="no4"></a>
 
 1. shopware-pwa is hidden under only one module named `@shopware-pwa/nuxt-module` with all its dependencies.
 2. You can upgrade the `package.json` directly, or just init the project once again with `npx @shopware-pwa/cli@canary init` command.
 3. After doing this, visit [Upgrade page](../getting-started/upgrade.md) for more information if there are some additional steps needed.
 
-### 5. How to customize default shopware-pwa look <a id="no5"></a>
+## 5. How to customize default shopware-pwa look <a id="no5"></a>
 
 > It's better to know what's hidden over the CMS in Shopware 6: visit [Shopping Experiences](../concepts/cms.md) because category pages, product listings are made of it.
 
@@ -95,7 +95,7 @@ In general, the generated project is a [Nuxtjs](https://nuxtjs.org/) project. Th
 
 **By default, everything you put into this structure can extend, or modify the _@shopware-pwa/default-theme_ [link to the package](https://www.npmjs.com/package/@shopware-pwa/default-theme).**
 
-### The most popular use cases
+## The most popular use cases
 
 1. I want to add a new tab in product details page. <a id="no51"></a>
 
@@ -191,6 +191,52 @@ In general, the generated project is a [Nuxtjs](https://nuxtjs.org/) project. Th
 
    - once the plugin is created, you need to reload the nuxt app to have it working in the project
 
-### 6. How to use/write your own theme <a id="no6"></a>
+## 6. How to use/write your own theme <a id="no6"></a>
 
-TODO
+> shopware-pwa enables to provide a theme by providing its code in `shopware-pwa.config.js` file, under the `theme` property.
+
+a sample config file _shopware-pwa.config.js_:
+
+```javascript
+module.exports = {
+  shopwareEndpoint: "http://localhost:8000",
+  shopwareAccessToken: "SWSCDM5YUNVUZ3ZRUHHBMGNVTG",
+  theme: "very-own-theme",
+};
+```
+
+### How a custom theme can be resolved by shopware-pwa:
+
+1. shopware-pwa looks for the local directory with corresponding name, as same as the theme provided in `shopware-pwa.config.js` sample above. So `<PROJECT_ROOT_DIR>/very-own-theme` will be checked if the compatible\* theme is located.
+
+2. shopware-pwa tries to resolve the package from npm, located in your `node_modules`, so if you already have a theme installed via npm or yarn in project's directory, you are able to use it.
+
+### How create a custom theme
+
+1. Being in project's root directory use a CLI command to generate the theme: `npx @shopware-pwa/cli@canary create-theme`
+   ![create-theme command](../../assets/cli_create-theme.png)
+
+2. Choose the theme you would like to extend
+3. The theme is created under the directory with name (code) that you provided in 1. step
+4. The `package.json` file contains the `baseTheme` value with the theme you extend. The files property contains only a `dist` directory (it's used during the build, and the files from dist are published as a package)
+
+#### There are two useful scripts as well:
+
+1.  `yarn dev` - executes `shopware-pwa dev-theme`
+
+    - watch for changes within custom theme's files, located in `src/` dir
+    - copies the theme files into `dist/` subdir from: base theme (if any provided) and `src/` directory
+    - thanks to this the package is always up to date and can be linked and used with HMR during the main project's build
+
+2.  `yarn build` - executes `shopware-pwa build-theme`
+    - copies the files from a pointed base theme and put it into the `dist/` copies the new files from `src/` and overwrite files in `dist/` if there are matching ones
+
+### How to use a custom theme
+
+1. Add an entry in `shopware-pwa.config.js` with the `theme` property
+2. `yarn dev` or `yarn build` depending on your needs
+3. The result of dev mode would be like this:
+
+   ![using-own-theme](../../assets/yarn_dev_custom_theme.png)
+
+   > notice that there is a `Using theme` information above the Nuxt.js output.
