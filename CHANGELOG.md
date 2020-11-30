@@ -1,3 +1,10 @@
+## [0.5.2](https://github.com/DivanteLtd/shopware-pwa/compare/v0.5.1...v0.5.2) (2020-11-24)
+
+### Bug Fixes
+
+- release version ([a00fb9f](https://github.com/DivanteLtd/shopware-pwa/commit/a00fb9f49504dbdf96cb2abab897e32e22fee131))
+- **helpers:** use translated names and labels ([#1243](https://github.com/DivanteLtd/shopware-pwa/issues/1243)) ([8537e36](https://github.com/DivanteLtd/shopware-pwa/commit/8537e36ea698f5dacc5056bc75c0087b474324a0))
+
 ## [0.5.1](https://github.com/DivanteLtd/shopware-pwa/compare/v0.5.0...v0.5.1) (2020-11-07)
 
 ### Bug Fixes

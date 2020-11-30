@@ -43,6 +43,8 @@
       </SfDropdown>
       <SfIcon
         icon="heart"
+        :has-badge="wishlistCount > 0"
+        :badge-label="wishlistCount.toString()"
         class="sf-header__icon sw-header__icon"
         role="button"
         :aria-label="$t('Go to wishlist')"
@@ -66,8 +68,12 @@
 
 <script>
 import { SfList, SfDropdown, SfIcon } from "@storefront-ui/vue"
-import { useUser, useCart, useUIState } from "@shopware-pwa/composables"
-
+import {
+  useUser,
+  useCart,
+  useUIState,
+  useWishlist,
+} from "@shopware-pwa/composables"
 import { PAGE_ACCOUNT, PAGE_WISHLIST } from "@/helpers/pages"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import SwButton from "@/components/atoms/SwButton"
@@ -83,6 +89,7 @@ export default {
   setup(props, { root }) {
     const { isLoggedIn, logout } = useUser(root)
     const { count } = useCart(root)
+    const { count: wishlistCount } = useWishlist(root)
     const { switchState: toggleSidebar } = useUIState(
       root,
       "CART_SIDEBAR_STATE"
@@ -98,6 +105,7 @@ export default {
       toggleSidebar,
       isLoggedIn,
       logout,
+      wishlistCount,
     }
   },
   data() {

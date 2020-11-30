@@ -3,6 +3,7 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 /**
  * Get the price for 1 unit of a product
  *
+ * @deprecated consider using getCalculatedListingPrice or getProductCalculatedPrice instead
  * @returns (number|undefined)
  *
  * @beta

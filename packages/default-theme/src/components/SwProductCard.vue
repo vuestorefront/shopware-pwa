@@ -25,9 +25,13 @@ import { useAddToCart, useWishlist } from "@shopware-pwa/composables"
 import {
   getProductThumbnailUrl,
   getProductRegularPrice,
+  getProductTierPrices,
   getProductUrl,
   getProductSpecialPrice,
   getProductName,
+  getProductCalculatedPrice,
+  getProductCalculatedListingPrice,
+  getProductPriceDiscount,
 } from "@shopware-pwa/helpers"
 
 export default {
@@ -74,10 +78,21 @@ export default {
       return this.$i18n.path(getProductUrl(this.product))
     },
     getRegularPrice() {
-      return getProductRegularPrice(this.product)
+      return (
+        (this.tierPrices.length &&
+          this.tierPrices[0] &&
+          this.tierPrices[0].unitPrice) ||
+        getProductCalculatedListingPrice(this.product)
+      )
     },
     getSpecialPrice() {
-      return getProductSpecialPrice(this.product)
+      return this.tierPrices.length
+        ? undefined
+        : getProductPriceDiscount(this.product) &&
+            getProductCalculatedPrice(this.product)
+    },
+    tierPrices() {
+      return getProductTierPrices(this.product)
     },
     getImageUrl() {
       return (

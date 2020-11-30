@@ -16,3 +16,7 @@ export * from "./getProductRatingAverage";
 export * from "./getVariantOptionsLabel";
 export * from "./isProductSimple";
 export * from "./getProductThumbnailUrl";
+export * from "./getProductPriceDiscount";
+export * from "./getProductPriceDiscountPercentage";
+export * from "./getProductCalculatedPrice";
+export * from "./getProductCalculatedListingPrice";
