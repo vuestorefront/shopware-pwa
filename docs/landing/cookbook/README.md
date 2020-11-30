@@ -74,7 +74,7 @@ src/ directory
 │       └── variables.scss  - control the general appearance by changing the predefined variables
 ├── components              - here go the components you need, overriden ones as well as the new one
 │   ├── README.md
-│   └── SwAddress.vue
+│   └── SwAddress.vue       - here the overriden SwAddress component is located
 ├── layouts
 │   └── README.md
 ├── middleware
