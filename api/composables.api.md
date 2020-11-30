@@ -141,6 +141,12 @@ export function getDefaultApiParams(): {
 };
 
 // @beta
+export interface IInterceptorCallbackFunction {
+    // (undocumented)
+    (payload: any, rootContext?: ApplicationVueContext_2): void;
+}
+
+// @beta
 export const INTERCEPTOR_KEYS: {
     ADD_TO_CART: string;
     ADD_PROMOTION_CODE: string;
@@ -230,8 +236,8 @@ export interface IUseCheckout {
 // @beta
 export interface IUseIntercept {
     broadcast: (broadcastKey: string, value?: any) => void;
-    disconnect: (broadcastKey: string, method: Function) => void;
-    intercept: (broadcastKey: string, method: Function) => void;
+    disconnect: (broadcastKey: string, method: IInterceptorCallbackFunction) => void;
+    intercept: (broadcastKey: string, method: IInterceptorCallbackFunction) => void;
 }
 
 // @beta
@@ -386,6 +392,22 @@ export interface IUseUser {
     updatePersonalInfo: (personals: CustomerUpdateProfileParam) => Promise<boolean>;
     // (undocumented)
     user: Ref<Customer | null>;
+}
+
+// @beta
+export interface IUseWishlist {
+    // (undocumented)
+    addToWishlist: () => void;
+    // (undocumented)
+    clearWishlist: () => void;
+    // (undocumented)
+    count: Ref<number>;
+    // (undocumented)
+    isInWishlist: Ref<boolean>;
+    // (undocumented)
+    items: Ref<string[]>;
+    // (undocumented)
+    removeFromWishlist: (id: string) => void;
 }
 
 // @beta (undocumented)
@@ -578,6 +600,9 @@ export const useUIState: (rootContext: ApplicationVueContext, stateName?: string
 
 // @beta
 export const useUser: (rootContext: ApplicationVueContext) => IUseUser;
+
+// @beta (undocumented)
+export const useWishlist: (rootContext: ApplicationVueContext, product?: Product | undefined) => IUseWishlist;
 
 // @alpha (undocumented)
 export interface VuelidateValidation {

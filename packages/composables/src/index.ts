@@ -21,4 +21,5 @@ export * from "./getDefaultApiParams";
 export * from "./logic/useListing";
 export * from "./logic/useProductQuickSearch";
 export * from "./factories/createListingComposable";
+export * from "./logic/useWishlist";
 export { getApplicationContext, ApplicationVueContext } from "./appContext";

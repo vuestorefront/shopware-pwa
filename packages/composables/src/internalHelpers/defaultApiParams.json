@@ -60,6 +60,7 @@
         "ratingAverage",
         "calculatedPrice",
         "calculatedPrices",
+        "calculatedListingPrice",
         "cover",
         "parentId",
         "id",
@@ -71,7 +72,7 @@
       ],
       "product_media": ["media"],
       "media": ["thumbnails", "width", "height", "url"],
-      "calculated_price": ["unitPrice", "quantity"],
+      "calculated_price": ["unitPrice", "quantity", "listPrice"],
       "product_group_option": ["name", "id", "group", "translated"],
       "product_group": ["id", "name", "options", "translated"],
       "product_listing": [
@@ -104,6 +105,7 @@
         "ratingAverage",
         "calculatedPrice",
         "calculatedPrices",
+        "calculatedListingPrice",
         "cover",
         "id",
         "translated",
@@ -112,7 +114,7 @@
       ],
       "product_media": ["media"],
       "media": ["thumbnails", "width", "height", "url"],
-      "calculated_price": ["unitPrice", "quantity"],
+      "calculated_price": ["unitPrice", "quantity", "listPrice"],
       "product_group_option": ["name", "id", "group", "translated"],
       "product_group": ["id", "name", "options", "translated"],
       "property_group": ["id", "translated", "options"],
@@ -127,7 +129,10 @@
     }
   },
   "useProductQuickSearch": {
-    "limit": 10
+    "limit": 10,
+    "includes": {
+      "calculated_price": ["unitPrice", "quantity", "listPrice"]
+    }
   },
   "useListing": {
     "limit": 10,
@@ -137,6 +142,7 @@
         "ratingAverage",
         "calculatedPrice",
         "calculatedPrices",
+        "calculatedListingPrice",
         "cover",
         "id",
         "translated",
@@ -145,7 +151,7 @@
       ],
       "product_media": ["media"],
       "media": ["thumbnails", "width", "height", "url"],
-      "calculated_price": ["unitPrice", "quantity"],
+      "calculated_price": ["unitPrice", "quantity", "listPrice"],
       "product_group_option": ["name", "id", "group", "translated"],
       "product_group": ["id", "name", "options", "translated"],
       "property_group": ["id", "translated", "options"],
@@ -206,6 +212,7 @@
         "ratingAverage",
         "calculatedPrice",
         "calculatedPrices",
+        "calculatedListingPrice",
         "cover",
         "id",
         "parentId",
@@ -221,7 +228,7 @@
       ],
       "product_media": ["media"],
       "media": ["url"],
-      "calculated_price": ["unitPrice", "quantity"],
+      "calculated_price": ["unitPrice", "quantity", "listPrice"],
       "product_group_option": ["name", "id", "group", "translated"],
       "product_group": ["id", "name", "options", "translated"]
     }

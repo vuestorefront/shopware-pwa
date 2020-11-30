@@ -24,6 +24,12 @@
               <SfIcon icon="marker" size="20px" @click="changeLanguage" />
             </template>
           </SfBottomNavigationItem>
+
+          <SfBottomNavigationItem label="Wishlist">
+            <template #icon>
+              <SfIcon icon="heart" size="20px" @click="goToWishlist" />
+            </template>
+          </SfBottomNavigationItem>
         </div>
 
         <div v-if="showLanguage">
@@ -65,6 +71,7 @@ import { SfBottomModal, SfIcon, SfList, SfMenuItem } from "@storefront-ui/vue"
 import { useLocales } from "@/logic/useLocales"
 import { useCurrency } from "@shopware-pwa/composables"
 import { onMounted } from "@vue/composition-api"
+import { PAGE_WISHLIST } from "@/helpers/pages"
 
 export default {
   name: "SwBottomMoreActions",
@@ -83,7 +90,7 @@ export default {
     }
   },
   setup(props, { root }) {
-    const { availableLanguages, currentLocale, changeLocale } = useLocales(root)
+    const { availableLanguages, changeLocale } = useLocales(root)
     const {
       setCurrency,
       loadAvailableCurrencies,
@@ -114,10 +121,15 @@ export default {
       this.showLanguage = true
       this.contentChanged = true
     },
+
     changeCurrency() {
       this.headline = "Choose Currency"
       this.showCurrency = true
       this.contentChanged = true
+    },
+
+    goToWishlist() {
+      this.$router.push(this.$i18n.path(PAGE_WISHLIST))
     },
   },
 }

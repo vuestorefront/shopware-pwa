@@ -12,30 +12,38 @@
     class="sw-product-card"
     :show-add-to-cart-button="true"
     :is-added-to-cart="isInCart"
+    :is-on-wishlist="isInWishlist"
     @click:add-to-cart="addToCart"
-    :wishlistIcon="false"
+    @click:wishlist="toggleWishlistItem"
   >
   </SfProductCard>
 </template>
 
 <script>
-import { SfProductCard, SfAddToCart } from "@storefront-ui/vue"
-import { useAddToCart } from "@shopware-pwa/composables"
+import { SfProductCard } from "@storefront-ui/vue"
+import { useAddToCart, useWishlist } from "@shopware-pwa/composables"
 import {
   getProductThumbnailUrl,
   getProductRegularPrice,
+  getProductTierPrices,
   getProductUrl,
   getProductSpecialPrice,
   getProductName,
+  getProductCalculatedPrice,
+  getProductCalculatedListingPrice,
+  getProductPriceDiscount,
 } from "@shopware-pwa/helpers"
 
 export default {
   components: {
     SfProductCard,
-    SfAddToCart,
   },
   setup({ product }, { root }) {
     const { addToCart, quantity, getStock, isInCart } = useAddToCart(
+      root,
+      product
+    )
+    const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist(
       root,
       product
     )
@@ -44,6 +52,9 @@ export default {
       addToCart,
       getStock,
       isInCart,
+      toggleWishlistItem: () =>
+        isInWishlist.value ? removeFromWishlist(product.id) : addToWishlist(),
+      isInWishlist,
     }
   },
   props: {
@@ -67,10 +78,21 @@ export default {
       return this.$i18n.path(getProductUrl(this.product))
     },
     getRegularPrice() {
-      return getProductRegularPrice(this.product)
+      return (
+        (this.tierPrices.length &&
+          this.tierPrices[0] &&
+          this.tierPrices[0].unitPrice) ||
+        getProductCalculatedListingPrice(this.product)
+      )
     },
     getSpecialPrice() {
-      return getProductSpecialPrice(this.product)
+      return this.tierPrices.length
+        ? undefined
+        : getProductPriceDiscount(this.product) &&
+            getProductCalculatedPrice(this.product)
+    },
+    tierPrices() {
+      return getProductTierPrices(this.product)
     },
     getImageUrl() {
       return (

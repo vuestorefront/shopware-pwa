@@ -10,8 +10,11 @@
  	* Name / Title
  	* Description
  	* Regular and special price
+	* Reviews
  * Image gallery
  * Properties
+ * Cross sell producs
+ * Add a product review
 
 
 #### Listing
@@ -21,6 +24,7 @@
  	* Image
  	* Regular and special price
  	* Add to cart button
+	* Add to wishlist button :heart:
  * Filter
  	* Properties
  	* Price
@@ -28,6 +32,8 @@
  * Sorting
  	* Price
  	* Name
+
+### Wishlist (based on local storage)
 
 ### Navigation
 

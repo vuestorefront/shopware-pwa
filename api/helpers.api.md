@@ -115,6 +115,12 @@ export function getOrderPaymentMethodId(order: Order): string | undefined;
 // @alpha
 export function getOrderShippingMethodId(order: Order): string | undefined;
 
+// @beta
+export function getProductCalculatedListingPrice(product: Product): number | undefined;
+
+// @beta
+export function getProductCalculatedPrice(product: Product): number | undefined;
+
 // @alpha
 export function getProductFreeShipping(product?: Product): boolean;
 
@@ -151,6 +157,12 @@ export function getProductOptionsUrl({ product, options, }?: {
     options?: string[];
 }): string;
 
+// @beta
+export function getProductPriceDiscount(product: Product): number | undefined;
+
+// @beta
+export function getProductPriceDiscountPercentage(product: Product): number | undefined;
+
 // @alpha (undocumented)
 export function getProductProperties({ product, }?: {
     product?: Product;
@@ -159,7 +171,7 @@ export function getProductProperties({ product, }?: {
 // @alpha
 export function getProductRatingAverage(product: Product): number | null;
 
-// @beta
+// @beta @deprecated
 export function getProductRegularPrice(product: Product): number | undefined;
 
 // @alpha (undocumented)
@@ -167,7 +179,7 @@ export function getProductReviews({ product, }?: {
     product?: Product;
 }): UiProductReview[];
 
-// @alpha
+// @alpha @deprecated
 export function getProductSpecialPrice(product: Product): number | undefined;
 
 // @beta
