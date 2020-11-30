@@ -4,6 +4,7 @@ import {
   useCart,
   INTERCEPTOR_KEYS,
   useIntercept,
+  IInterceptorCallbackFunction,
 } from "@shopware-pwa/composables";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
@@ -103,7 +104,7 @@ export const useAddToCart = (
     }
   };
 
-  const onAddToCart = (fn: Function) =>
+  const onAddToCart = (fn: IInterceptorCallbackFunction) =>
     intercept(INTERCEPTOR_KEYS.ADD_TO_CART, fn);
 
   const getStock = computed(() => product && product.stock);

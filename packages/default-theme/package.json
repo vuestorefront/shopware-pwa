@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/default-theme",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Shopware PWA theme",
   "author": "patzick <13100280+patzick@users.noreply.github.com>",
   "license": "MIT",
@@ -23,7 +23,7 @@
     "*.{js,vue}": "prettier"
   },
   "dependencies": {
-    "@shopware-pwa/theme-base": "0.5.1",
+    "@shopware-pwa/theme-base": "0.5.2",
     "@storefront-ui/vue": "0.7.18",
     "core-js": "^3.6.5",
     "dayjs": "^1.9.3",
@@ -35,7 +35,7 @@
     "vuelidate": "^0.7.6"
   },
   "devDependencies": {
-    "@shopware-pwa/cli": "0.5.1",
+    "@shopware-pwa/cli": "0.5.2",
     "@babel/runtime-corejs3": "^7.12.5",
     "@nuxtjs/eslint-config": "^3.1.0",
     "@nuxtjs/eslint-module": "^3.0.1",

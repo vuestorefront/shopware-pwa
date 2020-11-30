@@ -12,4 +12,10 @@ export interface CalculatedPrice {
   calculatedTaxes: CalculatedTax[];
   taxRules: TaxRule[];
   referencePrice: ReferencePrice;
+  listPrice: {
+    price: number;
+    discount: number;
+    percentage: number;
+    apiAlias: string;
+  };
 }

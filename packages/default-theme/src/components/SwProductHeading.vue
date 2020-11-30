@@ -9,10 +9,10 @@
     </slot>
 
     <div class="product-heading__sub">
-      <slot name="price" v-bind="{ price, special }">
+      <slot name="price" v-bind="{ regularPrice, specialPrice }">
         <SfPrice
-          :regular="price | price"
-          :special="special | price"
+          :regular="regularPrice | price"
+          :special="specialPrice | price"
           class="sf-price--big product-heading__sub-price"
         />
       </slot>
@@ -54,6 +54,9 @@ import {
   getProductSpecialPrice,
   getProductTierPrices,
   getProductRatingAverage,
+  getProductCalculatedListingPrice,
+  getProductCalculatedPrice,
+  getProductPriceDiscount,
 } from "@shopware-pwa/helpers"
 
 import { SfBadge, SfHeading, SfPrice, SfRating } from "@storefront-ui/vue"
@@ -86,11 +89,6 @@ export default {
           (this.product.translated && this.product.translated.name))
       )
     },
-
-    price() {
-      return getProductRegularPrice(this.product)
-    },
-
     ratingAverage() {
       return getProductRatingAverage(this.product)
     },
@@ -102,9 +100,19 @@ export default {
     shippingFree() {
       return getProductFreeShipping(this.product)
     },
-
-    special() {
-      return getProductSpecialPrice(this.product)
+    regularPrice() {
+      return (
+        (this.tierPrices.length &&
+          this.tierPrices[0] &&
+          this.tierPrices[0].unitPrice) ||
+        getProductCalculatedListingPrice(this.product)
+      )
+    },
+    specialPrice() {
+      return this.tierPrices.length
+        ? undefined
+        : getProductPriceDiscount(this.product) &&
+            getProductCalculatedPrice(this.product)
     },
 
     tierPrices() {
