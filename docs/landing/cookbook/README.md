@@ -13,6 +13,7 @@
    - [I want to add additional page, like `/instagram` to show some posts](#no52)
    - [I want to write my own plugin to disable the "Add to cart notifications" feature.](#no53)
 6. [How to use/write your own theme](#no6)
+7. [How to install and register a nuxt plugin](#no7)
 
 ---
 
@@ -193,7 +194,7 @@ In general, the generated project is a [Nuxtjs](https://nuxtjs.org/) project. Th
 
 ## 6. How to use/write your own theme <a id="no6"></a>
 
-> shopware-pwa enables to provide a theme by providing its code in `shopware-pwa.config.js` file, under the `theme` property.
+> shopware-pwa enables to provide a theme by providing its code-name in `shopware-pwa.config.js` file, under the `theme` property. The theme structure **MUST** be compatible with a nuxt project.
 
 a sample config file _shopware-pwa.config.js_:
 
@@ -240,3 +241,29 @@ module.exports = {
    ![using-own-theme](../../assets/yarn_dev_custom_theme.png)
 
    > notice that there is a `Using theme` information above the Nuxt.js output.
+
+## How to install and register a nuxt plugin <a id="no7"></a>
+
+The main project's config file is still a `nuxt.config.js`, so there is no problem to use it anyway.
+
+Let's try to install a [Google Tag Manager for Nuxt.js](https://www.npmjs.com/package/@nuxtjs/gtm), here's what we need (copied from package's readme):
+
+1. run `yarn add @nuxtjs/gtm` or `npm install @nuxtjs/gtm` inside the project
+2. Add @nuxtjs/gtm to the _modules_ section of `nuxt.config.js`
+
+```js
+export default {
+  modules: [
+    ...,
+    "@nuxtjs/gtm"
+  ],
+  gtm: {
+    id: "GTM-XXXXXXX",
+    enabled: true, // for dev
+    debug: true, // for dev,
+    pageTracking: true, // push route change event automatically
+  },
+};
+```
+
+3. Now the GTM module is enabled and ready to use, even in a dev mode
