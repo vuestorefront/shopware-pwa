@@ -207,7 +207,7 @@ module.exports = {
 
 ### How a custom theme can be resolved by shopware-pwa:
 
-1. shopware-pwa looks for the local directory with corresponding name, as same as the theme provided in `shopware-pwa.config.js` sample above. So `<PROJECT_ROOT_DIR>/very-own-theme` will be checked if the compatible\* theme is located.
+1. shopware-pwa looks for the local directory with corresponding name, as same as the theme provided in `shopware-pwa.config.js` sample above. So `<PROJECT_ROOT_DIR>/very-own-theme` will be checked if the compatible theme (the nuxt structure) is located.
 
 2. shopware-pwa tries to resolve the package from npm, located in your `node_modules`, so if you already have a theme installed via npm or yarn in project's directory, you are able to use it.
 
