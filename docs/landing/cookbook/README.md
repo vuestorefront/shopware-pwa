@@ -69,27 +69,21 @@ You can customize the default-theme by overriding the specific Vue components, o
 src/ directory
 .
 ├── assets
-│   ├── README.md
 │   └── scss
 │       ├── main.scss       - write your own styling
 │       └── variables.scss  - control the general appearance by changing the predefined variables
 ├── components              - here go the components you need, overriden ones as well as the new one
-│   ├── README.md
 │   └── SwAddress.vue       - here the overriden SwAddress component is located
 ├── layouts
-│   └── README.md
 ├── middleware
-│   └── README.md
 ├── pages
-│   └── README.md         - place a spacific pages here, override current ones
-├── plugins               - extend the project with a nuxt plugin
-│   └── README.md
+│                           - place a spacific pages here, override current ones
+├── plugins                 - extend the project with a nuxt plugin
 ├── static
 │   ├── favicon.ico
-│   ├── icon.png
-│   └── README.md
-└── store
-    └── README.md         - for vuex purposes
+│   └── icon.png
+└── store                   - for vuex purposes
+
 ```
 
 In general, the generated project is a [Nuxtjs](https://nuxtjs.org/) project. This is why the structure is the same, and the behavior of nuxt is kept. Thanks to this you can customize the generated project as much as you want without losing the fancy features that nuxtjs provides.
@@ -110,8 +104,7 @@ In general, the generated project is a [Nuxtjs](https://nuxtjs.org/) project. Th
 2. I want to add additional page, like `/instagram` that connects to the Shopware6 API to get and show some data <a id="no52"></a>
 
    - create `instagram.vue` file in `src/pages`
-   - implement a template
-   - implement a <script></script> which can have some logic
+   - implement a template, a `<script></script>` block which can have some logic, and style block maybe
    - utilize the `invokeGet, invokePost...` from `@shopware-pwa/shopware-6-client` package or any library (like `axios`) to make some requests you need
 
    It may look like:
@@ -174,7 +167,7 @@ In general, the generated project is a [Nuxtjs](https://nuxtjs.org/) project. Th
 3. I want to write my own plugin to disable the "Add to cart notifications" feature.<a id="no53"></a>
 
    - create `disable-notification.js` file in `src/plugins` directory
-   - the created file is treated like normal nuxt plugin witch an access to current context
+   - the created file is treated like normal nuxt plugin with an access to current context
 
    the plugin may look like this:
 
