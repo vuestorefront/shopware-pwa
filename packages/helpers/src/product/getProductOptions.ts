@@ -25,7 +25,7 @@ export function getProductOptions({
     for (let option of variant.options) {
       if (option.group?.translated.name) {
         if (!typeOptions.hasOwnProperty(option.group.translated.name)) {
-          typeOptions[option.group.translated.name] = [];
+          typeOptions[option.group.translated?.name] = [];
         }
 
         if (
@@ -34,9 +34,9 @@ export function getProductOptions({
           )
         ) {
           typeOptions[option.group.translated.name].push({
-            label: option.translated.name,
+            label: option.translated?.name,
             code: option.id,
-            value: option.translated.name,
+            value: option.translated?.name,
             color: option.colorHexCode,
           } as UiProductOption);
         }
