@@ -1,14 +1,4 @@
-export interface BillingAddress {
-  countryId: string;
-  salutationId: string;
-  street: string;
-  zipcode: string;
-  city: string;
-  title?: string;
-  additionalAddressLine1?: string;
-  additionalAddressLine2?: string;
-  phoneNumber?: string;
-}
+import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress";
 
 export interface ShippingAddress extends BillingAddress {
   firstName: string;
