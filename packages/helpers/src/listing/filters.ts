@@ -118,6 +118,7 @@ export interface SwSorting {
   active: boolean;
   field: string;
   order: string;
+  translated: any;
 }
 
 /**
@@ -130,7 +131,7 @@ export const getSortingSearchCriteria = (selectedSorting: SwSorting): Sort => {
 
   return {
     field: selectedSorting.field,
-    name: selectedSorting.name,
+    name: selectedSorting.translated?.name || selectedSorting.name,
     desc: selectedSorting.order === "desc",
   };
 };

@@ -17,7 +17,7 @@ export function getStoreNavigationRoutes(
   navigationElements: StoreNavigationElement[]
 ): StoreNavigationRoute[] {
   return navigationElements.map((element: StoreNavigationElement) => ({
-    routeLabel: element.name,
+    routeLabel: element.translated.name,
     isExternal: !!element.externalLink,
     routePath:
       element.externalLink ||

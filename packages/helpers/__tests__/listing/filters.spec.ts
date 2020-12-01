@@ -169,11 +169,15 @@ describe("Shopware helpers - getSortingSearchCriteria", () => {
   it("should return proper sorting object in descending order", () => {
     const result = getSortingSearchCriteria({
       field: "price",
+      translated: {
+        name: "price",
+      },
       order: "desc",
     } as any);
     expect(result).toEqual({
       field: "price",
       desc: true,
+      name: "price",
     });
   });
 });

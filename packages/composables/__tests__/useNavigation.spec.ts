@@ -36,10 +36,19 @@ describe("Composables - useNavigation", () => {
         mockedGetPage.getNavigation.mockResolvedValueOnce({
           count: 3,
           children: [
-            { name: "Clothin", route: { path: "clothing/" } },
-            { name: "Sports", route: { path: "sports/" } },
+            {
+              name: "Clothin",
+              translated: { name: "Clothin" },
+              route: { path: "clothing/" },
+            },
+            {
+              name: "Sports",
+              translated: { name: "Sports" },
+              route: { path: "sports/" },
+            },
             {
               name: "Accessories & Others",
+              translated: { name: "Accessories & Others" },
               route: { path: "accessories-others/" },
             },
           ],

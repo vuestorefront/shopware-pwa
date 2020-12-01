@@ -17,10 +17,11 @@ export function getNavigationRoutes(
   return navigationElements.map(
     (element: {
       children: SwNavigationElement[] | null;
+      translated: any;
       name: string;
       route: { path: string; resourceType: string };
     }) => ({
-      routeLabel: element.name,
+      routeLabel: element.translated?.name || element.name,
       routePath:
         element.route.path.charAt(0) !== "/"
           ? `/${element.route.path}`

@@ -17,7 +17,7 @@ export interface MappedCountry {
 export function mapCountries(countries: Country[]): MappedCountry[] {
   if (!countries?.length) return [];
   const mappedCountries = countries.map((country: Country) => ({
-    name: country.name,
+    name: country.translated?.name || country.name,
     id: country.id,
   }));
   return mappedCountries.filter((country: Country) => country.name !== null);

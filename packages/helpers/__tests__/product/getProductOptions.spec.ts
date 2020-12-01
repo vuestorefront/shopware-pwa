@@ -10,15 +10,31 @@ describe("Shopware helpers - getProductOptions", () => {
             {
               id: "3858d1baf2544a379c92535ea3d2fe53",
               name: "blue",
+              translated: {
+                name: "blue",
+              },
               group: {
                 name: "color",
               },
             },
             {
-              id: "3858d1baf2544a379c92535ea3d2fe53",
+              id: "3858d1baf2544a379c92535ea3d2fe54",
               name: "blue",
               group: {
                 name: "color",
+                translated: {
+                  name: "color",
+                },
+              },
+            },
+            {
+              id: "3858d1baf2544a379c92535ea3d2fe54",
+              name: "blue",
+              group: {
+                name: "color",
+                translated: {
+                  name: "color",
+                },
               },
             },
             {
@@ -42,6 +58,12 @@ describe("Shopware helpers - getProductOptions", () => {
       product: productWithChildren,
     });
     expect(productOptions).toHaveProperty("color");
+    expect(productOptions.color[0]).toStrictEqual({
+      code: "3858d1baf2544a379c92535ea3d2fe53",
+      color: undefined,
+      label: "blue",
+      value: "blue",
+    });
   });
 
   it("should returns return an empty object if no children", () => {
