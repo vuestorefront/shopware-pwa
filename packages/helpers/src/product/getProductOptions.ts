@@ -23,20 +23,22 @@ export function getProductOptions({
     }
 
     for (let option of variant.options) {
-      if (option.group?.translated.name) {
-        if (!typeOptions.hasOwnProperty(option.group.translated.name)) {
-          typeOptions[option.group.translated?.name] = [];
+      const optionGroupName =
+        option.group?.translated?.name || option.group?.name;
+      if (optionGroupName) {
+        if (!typeOptions.hasOwnProperty(optionGroupName)) {
+          typeOptions[optionGroupName] = [];
         }
 
         if (
-          !typeOptions[option.group.translated.name].find(
+          !typeOptions[optionGroupName].find(
             (valueOption: any) => option.id == valueOption.code
           )
         ) {
-          typeOptions[option.group.translated.name].push({
-            label: option.translated?.name,
+          typeOptions[optionGroupName].push({
+            label: option.translated?.name || option.name,
             code: option.id,
-            value: option.translated?.name,
+            value: option.translated?.name || option.name,
             color: option.colorHexCode,
           } as UiProductOption);
         }
