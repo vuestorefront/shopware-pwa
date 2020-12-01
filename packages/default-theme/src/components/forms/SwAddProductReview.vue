@@ -159,6 +159,7 @@ export default {
     &.send {
       width: 100%;
       margin-top: var(--spacer-xl);
+      background-color: var(--_c-gray-primary);
     }
   }
 
@@ -182,6 +183,7 @@ export default {
 }
 
 .login.button {
+  background-color: var(--_c-gray-primary);
   width: 100%;
   margin-top: var(--spacer-base);
 }
