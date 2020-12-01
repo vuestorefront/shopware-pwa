@@ -45,9 +45,13 @@ Understand the goal and scope of this project
 
 Quickstart and finding your way around
 
-### [Fundamentals](/landing/fundamentals/) <Badge text="new" type="info"/>
+### [Fundamentals](/landing/fundamentals/)
 
 Get to understand the core components of the application
+
+### [Cookbook](/landing/cookbook/) <Badge text="new" type="info"/> <small>not for contribution</small>
+
+See how to work with the project in specific cases
 
 </div>
 

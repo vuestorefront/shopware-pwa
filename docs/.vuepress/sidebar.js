@@ -23,6 +23,11 @@ module.exports = {
       children: ["/landing/fundamentals/cli", "/landing/fundamentals/security"],
     },
     {
+      path: "/landing/cookbook/",
+      title: "Cookbook",
+      collapsable: false,
+    },
+    {
       path: "/landing/concepts/",
       title: "Concepts",
       collapsable: false,
