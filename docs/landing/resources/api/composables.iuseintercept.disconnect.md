@@ -12,5 +12,5 @@ Stop listening on event
 <b>Signature:</b>
 
 ```typescript
-disconnect: (broadcastKey: string, method: Function) => void;
+disconnect: (broadcastKey: string, method: IInterceptorCallbackFunction) => void;
 ```

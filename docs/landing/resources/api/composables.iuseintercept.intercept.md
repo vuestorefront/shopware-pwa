@@ -12,5 +12,5 @@ Intercept broadcasted event
 <b>Signature:</b>
 
 ```typescript
-intercept: (broadcastKey: string, method: Function) => void;
+intercept: (broadcastKey: string, method: IInterceptorCallbackFunction) => void;
 ```
