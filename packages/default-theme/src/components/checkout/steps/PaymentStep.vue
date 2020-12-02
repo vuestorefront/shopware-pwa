@@ -34,7 +34,9 @@
                   class="shipping__info"
                 >
                   <SwPluginSlot
-                    :name="`checkout-payment-method-${paymentMethod.name}`"
+                    :name="`checkout-payment-method-${simplifyString(
+                      paymentMethod.name
+                    )}`"
                     :slot-context="paymentMethod"
                   />
                 </div>
@@ -75,6 +77,7 @@ import { useCheckout, useSessionContext } from "@shopware-pwa/composables"
 import { onMounted, computed } from "@vue/composition-api"
 import SwButton from "@/components/atoms/SwButton"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import { simplifyString } from "@/helpers"
 
 export default {
   name: "PaymentStep",
@@ -101,7 +104,7 @@ export default {
       await getPaymentMethods()
     })
 
-    return { isGuestOrder, paymentMethods, activePaymentMethod }
+    return { isGuestOrder, paymentMethods, activePaymentMethod, simplifyString }
   },
 }
 </script>
