@@ -7,10 +7,12 @@
         class="sf-button--text navbar__filters-button"
         @click="openFiltersSidebar"
       >
-        <SfIcon size="14px" icon="filter" style="margin-right: 10px" />Filters
+        <SfIcon size="14px" icon="filter" style="margin-right: 10px" />{{
+          $t("Filters")
+        }}
       </SwButton>
       <div class="navbar__sort desktop-only">
-        <span class="navbar__label">Sort by:</span>
+        <span class="navbar__label">{{ $t("Sort by") }}:</span>
         <SfSelect
           v-model="currentSortingOrder"
           :size="getSortingOrders.length"
@@ -26,12 +28,16 @@
         </SfSelect>
       </div>
       <div class="navbar__counter">
-        <span class="navbar__label desktop-only">Products found:</span>
+        <span class="navbar__label desktop-only"
+          >{{ $t("Products found") }}:</span
+        >
         <strong class="desktop-only">{{ getTotal }}</strong>
-        <span class="navbar__label mobile-only">{{ getTotal }} Items</span>
+        <span class="navbar__label mobile-only"
+          >{{ getTotal }} {{ $t("Items") }}:</span
+        >
       </div>
       <div class="navbar__view">
-        <span class="navbar__view-label desktop-only">View</span>
+        <span class="navbar__view-label desktop-only">{{ $t("View") }}</span>
         <SwButton
           class="sf-button--pure"
           aria-label="Change to grid view"

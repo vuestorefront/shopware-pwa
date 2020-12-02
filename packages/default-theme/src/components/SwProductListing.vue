@@ -72,14 +72,14 @@
           @click="loadMore"
           :disabled="loadingMore"
         >
-          load more...
+          {{ $t("load more") }}...
         </SwButton>
       </div>
     </div>
     <SfHeading
       v-else
-      title="No products found"
-      subtitle="let us look for them"
+      :title="$t('No products found')"
+      :subtitle="$t('let us look for them')"
     />
   </div>
 </template>

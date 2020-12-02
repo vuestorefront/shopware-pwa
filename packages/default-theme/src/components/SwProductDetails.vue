@@ -41,7 +41,7 @@
     </div>
     <div class="product-details__section">
       <SfAlert
-        message="Low in stock"
+        :message="$t('Low in stock')"
         type="warning"
         class="product-details__alert mobile-only"
       />
@@ -50,7 +50,13 @@
         :stock="stock"
         class="product-details__add-to-cart"
         @click="addToCart"
-      />
+      >
+        <template #add-to-cart-btn>
+          <SwButton class="sf-button--full-width" @click="addToCart">
+            {{ $t("Add To Cart") }}
+          </SwButton>
+        </template>
+      </SfAddToCart>
       <SwPluginSlot
         name="product-page-add-to-cart-button-after"
         :slot-context="product"
