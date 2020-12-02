@@ -35,6 +35,7 @@
         :current="getCurrentPage"
         :total="getTotalPagesCount"
         :visible="5"
+        pageParamName="p"
         @click="changePage"
       >
         <template #prev>
