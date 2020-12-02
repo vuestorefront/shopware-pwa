@@ -13,13 +13,19 @@
 
       <div class="content">
         <div v-if="!contentChanged" class="content-list">
-          <SfBottomNavigationItem label="Currency">
+          <SfBottomNavigationItem
+            v-if="availableCurrencies.length > 1"
+            label="Currency"
+          >
             <template #icon>
               <SfIcon icon="credits" size="20px" @click="changeCurrency" />
             </template>
           </SfBottomNavigationItem>
 
-          <SfBottomNavigationItem label="Language">
+          <SfBottomNavigationItem
+            v-if="availableLanguages.length > 1"
+            label="Language"
+          >
             <template #icon>
               <SfIcon icon="marker" size="20px" @click="changeLanguage" />
             </template>
