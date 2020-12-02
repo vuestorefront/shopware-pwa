@@ -24,6 +24,15 @@ export const getSortingLabel = (sorting) => {
   return label ? `${sorting.field} ${label}` : sorting.field
 }
 
+/**
+ * converts non-alphanumerical characters into dashes
+ * used for parsing slot codes from names
+ * @param {string} phrase
+ */
+export const simplifyString = (phrase) =>
+  (typeof phrase === "string" && phrase.replace(/[^a-zA-Z0-9]+/g, "-")) ||
+  phrase
+
 export const formatDate = (date, format = `DD-MM-YYYY HH:mm:ss`) =>
   dayjs(date).format(format)
 
