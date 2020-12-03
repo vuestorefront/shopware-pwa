@@ -290,6 +290,8 @@ export interface SwSorting {
     name: string;
     // (undocumented)
     order: string;
+    // (undocumented)
+    translated: any;
 }
 
 // @beta (undocumented)

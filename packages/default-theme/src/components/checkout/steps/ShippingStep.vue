@@ -43,7 +43,9 @@
                   class="shipping__info"
                 >
                   <SwPluginSlot
-                    :name="`checkout-shiping-method-${shippingMethod.name}`"
+                    :name="`checkout-shiping-method-${simplifyString(
+                      shippingMethod.name
+                    )}`"
                     :slot-context="shippingMethod"
                   />
                 </div>
@@ -87,6 +89,7 @@ import {
   useCart,
 } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton"
+import { simplifyString } from "@/helpers"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 export default {
@@ -105,7 +108,6 @@ export default {
     )
     const { shippingMethod, setShippingMethod } = useSessionContext(root)
     const { refreshCart } = useCart(root)
-
     const activeShippingMethod = computed({
       get: () => shippingMethod.value && shippingMethod.value.id,
       set: async (id) => {
@@ -118,7 +120,12 @@ export default {
       await getShippingMethods()
     })
 
-    return { isGuestOrder, shippingMethods, activeShippingMethod }
+    return {
+      isGuestOrder,
+      shippingMethods,
+      activeShippingMethod,
+      simplifyString,
+    }
   },
 }
 </script>

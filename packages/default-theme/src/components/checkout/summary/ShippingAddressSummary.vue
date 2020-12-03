@@ -3,6 +3,10 @@
     <template #before-content>
       <span class="content__label">{{ shippingMethod.name }}</span>
       <span class="content__label">{{ shippingMethod.deliveryTime.name }}</span>
+      <SwPluginSlot
+        :name="`summary-shiping-method-${simplifyString(shippingMethod.name)}`"
+        :slot-context="shippingMethod"
+      />
     </template>
     <template #after-content>
       <SwButton
@@ -18,12 +22,15 @@
 import SwButton from "@/components/atoms/SwButton"
 import { useSessionContext, useCheckout } from "@shopware-pwa/composables"
 import SwAddress from "@/components/SwAddress"
+import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import { simplifyString } from "@/helpers"
 
 export default {
   name: "ShippingAddressSummary",
   components: {
     SwAddress,
     SwButton,
+    SwPluginSlot,
   },
   setup(props, { root }) {
     const { shippingMethod, sessionContext } = useSessionContext(root)
@@ -32,6 +39,7 @@ export default {
       shippingMethod,
       sessionContext,
       shippingAddress,
+      simplifyString,
     }
   },
 }

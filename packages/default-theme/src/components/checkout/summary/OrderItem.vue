@@ -2,9 +2,9 @@
   <SfTableRow :key="product.id" class="table__row">
     <SfTableData class="table__image">
       <SfImage
-        :src="product.cover.url"
+        :src="product.cover && product.cover.url"
         data-cy="product-image"
-        v-if="product.type === 'product'"
+        v-if="product.cover && product.type === 'product'"
       />
     </SfTableData>
     <SfTableData class="table__description">

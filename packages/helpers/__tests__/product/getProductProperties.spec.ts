@@ -14,9 +14,15 @@ describe("Shopware helpers - getProductProperties", () => {
         },
         {
           name: "6 mm",
+          translated: {
+            name: "6 mm",
+          },
         },
         {
           name: "5 mm",
+          translated: {
+            name: "5 mm",
+          },
           group: {},
         },
         {

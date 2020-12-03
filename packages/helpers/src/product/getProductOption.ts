@@ -11,6 +11,9 @@ export function getProductOption({
   | PropertyGroupOption
   | undefined {
   return product?.options?.find(
-    (option) => option.group && option.group.name === attribute
+    (option) =>
+      option.group &&
+      option.group.translated &&
+      option.group.translated.name === attribute
   );
 }

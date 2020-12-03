@@ -23,6 +23,7 @@ export interface NavigationElement {
   count: number;
   level: number;
   extensions: any[];
+  translated: any;
 }
 
 /**

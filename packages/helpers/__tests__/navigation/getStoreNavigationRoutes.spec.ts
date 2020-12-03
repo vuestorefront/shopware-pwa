@@ -5,6 +5,9 @@ describe("Shopware helpers - navigation", () => {
       const SWNavigationResponse = [
         {
           name: "Shoes",
+          translated: {
+            name: "Shoes",
+          },
           externalLink: null,
           seoUrls: [],
           children: null,
@@ -26,6 +29,9 @@ describe("Shopware helpers - navigation", () => {
       const SWNavigationResponse = [
         {
           name: "Shoes",
+          translated: {
+            name: "Shoes",
+          },
           externalLink: null,
           children: null,
         },
@@ -46,6 +52,9 @@ describe("Shopware helpers - navigation", () => {
       const SWNavigationResponse = [
         {
           name: "Shoes",
+          translated: {
+            name: "Shoes",
+          },
           externalLink: null,
           seoUrls: [
             {
@@ -73,6 +82,9 @@ describe("Shopware helpers - navigation", () => {
       const SWNavigationResponse = [
         {
           name: "Shoes",
+          translated: {
+            name: "Shoes",
+          },
           externalLink: null,
           seoUrls: [
             {
@@ -83,6 +95,9 @@ describe("Shopware helpers - navigation", () => {
           children: [
             {
               name: "Sneakers",
+              translated: {
+                name: "Sneakers",
+              },
               externalLink: null,
               seoUrls: [
                 {
@@ -117,6 +132,9 @@ describe("Shopware helpers - navigation", () => {
       const SWNavigationResponse = [
         {
           name: "Divante",
+          translated: {
+            name: "Divante",
+          },
           externalLink: "https://divante.com",
           seoUrls: null,
           children: null,

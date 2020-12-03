@@ -8,6 +8,9 @@ describe("Shopware helpers - getProductOption", () => {
           name: "greencopper",
           group: {
             name: "color",
+            translated: {
+              name: "color",
+            },
           },
           id: "04095b39ef07472ebd7547800c40bfd4",
         },
@@ -15,6 +18,9 @@ describe("Shopware helpers - getProductOption", () => {
           name: "31",
           group: {
             name: "size",
+            translated: {
+              name: "size",
+            },
           },
           id: "06a7ed91305d47e1b7f3d6f7660c8316",
         },
