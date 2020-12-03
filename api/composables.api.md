@@ -7,7 +7,7 @@
 import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { ApplicationVueContext as ApplicationVueContext_2 } from '@shopware-pwa/composables';
 import { Association } from '@shopware-pwa/commons/interfaces/search/Association';
-import { BillingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
+import { BillingAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
 import { ComputedRef } from '@vue/composition-api';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
@@ -35,6 +35,7 @@ import { Ref } from '@vue/composition-api';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
 import { ShippingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
+import { ShippingAddress as ShippingAddress_2 } from '@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 import { ShopwareApiInstance } from '@shopware-pwa/shopware-6-client';
 import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
@@ -209,7 +210,7 @@ export interface IUseCart {
 // @beta
 export interface IUseCheckout {
     // (undocumented)
-    billingAddress: Readonly<Ref<BillingAddress | undefined>>;
+    billingAddress: Readonly<Ref<Partial<BillingAddress> | undefined>>;
     // (undocumented)
     createOrder: () => Promise<Order>;
     // (undocumented)
@@ -318,6 +319,10 @@ export interface IUseProductQuickSearch {
 // @beta
 export interface IUseSessionContext {
     // (undocumented)
+    activeBillingAddress: Readonly<Ref<BillingAddress | null>>;
+    // (undocumented)
+    activeShippingAddress: Readonly<Ref<ShippingAddress_2 | null>>;
+    // (undocumented)
     currency: Readonly<Ref<Currency | null>>;
     // (undocumented)
     paymentMethod: Readonly<Ref<PaymentMethod | null>>;
@@ -325,6 +330,10 @@ export interface IUseSessionContext {
     refreshSessionContext: () => Promise<void>;
     // (undocumented)
     sessionContext: Readonly<Ref<SessionContext | null>>;
+    // (undocumented)
+    setActiveBillingAddress: (address: Partial<BillingAddress>) => Promise<void>;
+    // (undocumented)
+    setActiveShippingAddress: (address: Partial<ShippingAddress_2>) => Promise<void>;
     // (undocumented)
     setCurrency: (currency: Partial<Currency>) => Promise<void>;
     // (undocumented)

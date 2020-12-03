@@ -6,7 +6,6 @@ import VueCompositionApi, {
   computed,
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
-// import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
 // Mock API client
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
@@ -94,6 +93,60 @@ describe("Composables - useSessionContext", () => {
         stateContext.value = { currency: { sign: "$$" } } as any;
         const { currency } = useSessionContext(rootContextMock);
         expect(currency.value).toEqual({ sign: "$$" });
+      });
+    });
+    describe("activeBillingAddress", () => {
+      it("should return activeBillingAddress from context", () => {
+        stateContext.value = {
+          customer: {
+            activeBillingAddress: {
+              id: "address-billing-id",
+            },
+          },
+        } as any;
+        const { activeBillingAddress } = useSessionContext(rootContextMock);
+        expect(activeBillingAddress.value).toStrictEqual({
+          id: "address-billing-id",
+        });
+      });
+      it("should not return activeBillingAddress from context if there is no customer", () => {
+        stateContext.value = {
+          customer: undefined,
+        } as any;
+        const { activeBillingAddress } = useSessionContext(rootContextMock);
+        expect(activeBillingAddress.value).toBeNull();
+      });
+      it("should not return activeBillingAddress from context if there is no context", () => {
+        stateContext.value = null as any;
+        const { activeBillingAddress } = useSessionContext(rootContextMock);
+        expect(activeBillingAddress.value).toBeNull();
+      });
+    });
+    describe("activeShippingAddress", () => {
+      it("should return activeShippingAddress from context", () => {
+        stateContext.value = {
+          customer: {
+            activeShippingAddress: {
+              id: "address-shipping-id",
+            },
+          },
+        } as any;
+        const { activeShippingAddress } = useSessionContext(rootContextMock);
+        expect(activeShippingAddress.value).toStrictEqual({
+          id: "address-shipping-id",
+        });
+      });
+      it("should not return activeShippingAddress from context if there is no customer", () => {
+        stateContext.value = {
+          customer: undefined,
+        } as any;
+        const { activeShippingAddress } = useSessionContext(rootContextMock);
+        expect(activeShippingAddress.value).toBeNull();
+      });
+      it("should not return activeShippingAddress from context if there is no context", () => {
+        stateContext.value = null as any;
+        const { activeShippingAddress } = useSessionContext(rootContextMock);
+        expect(activeShippingAddress.value).toBeNull();
       });
     });
   });
@@ -240,6 +293,41 @@ describe("Composables - useSessionContext", () => {
         const { setPaymentMethod } = useSessionContext(rootContextMock);
         await expect(setPaymentMethod(null as any)).rejects.toThrowError(
           "You need to provide payment method id in order to set payment method."
+        );
+      });
+    });
+
+    describe("setActiveShippingAddress", () => {
+      it("should invoke a proper method if address has an id", async () => {
+        const { setActiveShippingAddress } = useSessionContext(rootContextMock);
+        await setActiveShippingAddress({ id: "address-id" });
+        expect(mockedApiClient.setCurrentShippingAddress).toBeCalledWith(
+          "address-id",
+          rootContextMock.$shopwareApiInstance
+        );
+      });
+      it("should throw an exception if there is no address.id provided", async () => {
+        const { setActiveShippingAddress } = useSessionContext(rootContextMock);
+        await expect(
+          setActiveShippingAddress(null as any)
+        ).rejects.toThrowError(
+          "You need to provide address id in order to set the address."
+        );
+      });
+    });
+    describe("setActiveBillingAddress", () => {
+      it("should invoke a proper method if address has an id", async () => {
+        const { setActiveBillingAddress } = useSessionContext(rootContextMock);
+        await setActiveBillingAddress({ id: "address-id" });
+        expect(mockedApiClient.setCurrentBillingAddress).toBeCalledWith(
+          "address-id",
+          rootContextMock.$shopwareApiInstance
+        );
+      });
+      it("should throw an exception if there is no address.id provided", async () => {
+        const { setActiveBillingAddress } = useSessionContext(rootContextMock);
+        await expect(setActiveBillingAddress(null as any)).rejects.toThrowError(
+          "You need to provide address id in order to set the address."
         );
       });
     });
