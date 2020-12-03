@@ -10,7 +10,7 @@ export interface GuestOrderParams {
   salutationId: string;
   firstName: string;
   lastName: string;
-  billingAddress: BillingAddress;
+  billingAddress: Partial<BillingAddress>;
   shippingAddress?: ShippingAddress;
   affiliateCode?: string;
   campaignCode?: string;

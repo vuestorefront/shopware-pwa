@@ -117,9 +117,9 @@ export const useSessionContext = (
     () => sessionContext.value?.customer?.activeShippingAddress || null
   );
   const setActiveShippingAddress = async (
-    address: Partial<ShippingAddress> = {}
+    address: Partial<ShippingAddress>
   ) => {
-    if (!address.id) {
+    if (!address?.id) {
       throw new Error(
         "You need to provide address id in order to set the address."
       );
@@ -131,10 +131,8 @@ export const useSessionContext = (
   const activeBillingAddress = computed(
     () => sessionContext.value?.customer?.activeBillingAddress || null
   );
-  const setActiveBillingAddress = async (
-    address: Partial<BillingAddress> = {}
-  ) => {
-    if (!address.id) {
+  const setActiveBillingAddress = async (address: Partial<BillingAddress>) => {
+    if (!address?.id) {
       throw new Error(
         "You need to provide address id in order to set the address."
       );

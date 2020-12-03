@@ -40,7 +40,7 @@ export interface IUseCheckout {
   createOrder: () => Promise<Order>;
   updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
   shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
-  billingAddress: Readonly<Ref<BillingAddress | undefined>>;
+  billingAddress: Readonly<Ref<Partial<BillingAddress> | undefined>>;
 }
 
 const orderData: {
