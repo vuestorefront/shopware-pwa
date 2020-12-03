@@ -210,7 +210,7 @@ export interface IUseCart {
 // @beta
 export interface IUseCheckout {
     // (undocumented)
-    billingAddress: Readonly<Ref<BillingAddress | undefined>>;
+    billingAddress: Readonly<Ref<Partial<BillingAddress> | undefined>>;
     // (undocumented)
     createOrder: () => Promise<Order>;
     // (undocumented)

@@ -19,7 +19,7 @@ export interface IUseCheckout
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [billingAddress](./composables.iusecheckout.billingaddress.md) | Readonly&lt;Ref&lt;BillingAddress \| undefined&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [billingAddress](./composables.iusecheckout.billingaddress.md) | Readonly&lt;Ref&lt;Partial&lt;BillingAddress&gt; \| undefined&gt;&gt; | <b><i>(BETA)</i></b> |
 |  [createOrder](./composables.iusecheckout.createorder.md) | () =&gt; Promise&lt;Order&gt; | <b><i>(BETA)</i></b> |
 |  [getPaymentMethods](./composables.iusecheckout.getpaymentmethods.md) | (options?: { forceReload: boolean; }) =&gt; Promise&lt;Readonly&lt;Ref&lt;readonly PaymentMethod\[\]&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
 |  [getShippingMethods](./composables.iusecheckout.getshippingmethods.md) | (options?: { forceReload: boolean; }) =&gt; Promise&lt;Readonly&lt;Ref&lt;readonly ShippingMethod\[\]&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
