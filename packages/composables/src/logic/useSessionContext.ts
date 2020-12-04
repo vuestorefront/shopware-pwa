@@ -2,11 +2,15 @@ import { Ref, computed } from "@vue/composition-api";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
+import { ShippingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress";
+import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress";
 import {
   getSessionContext,
   setCurrentShippingMethod,
   setCurrentCurrency,
   setCurrentPaymentMethod,
+  setCurrentShippingAddress,
+  setCurrentBillingAddress,
 } from "@shopware-pwa/shopware-6-client";
 import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
 import {
@@ -31,6 +35,12 @@ export interface IUseSessionContext {
   setPaymentMethod: (paymentMethod: Partial<PaymentMethod>) => Promise<void>;
   currency: Readonly<Ref<Currency | null>>;
   setCurrency: (currency: Partial<Currency>) => Promise<void>;
+  activeShippingAddress: Readonly<Ref<ShippingAddress | null>>;
+  setActiveShippingAddress: (
+    address: Partial<ShippingAddress>
+  ) => Promise<void>;
+  activeBillingAddress: Readonly<Ref<BillingAddress | null>>;
+  setActiveBillingAddress: (address: Partial<BillingAddress>) => Promise<void>;
 }
 
 /**
@@ -103,6 +113,34 @@ export const useSessionContext = (
     refreshSessionContext();
   };
 
+  const activeShippingAddress = computed(
+    () => sessionContext.value?.customer?.activeShippingAddress || null
+  );
+  const setActiveShippingAddress = async (
+    address: Partial<ShippingAddress>
+  ) => {
+    if (!address?.id) {
+      throw new Error(
+        "You need to provide address id in order to set the address."
+      );
+    }
+    await setCurrentShippingAddress(address.id, apiInstance);
+    refreshSessionContext();
+  };
+
+  const activeBillingAddress = computed(
+    () => sessionContext.value?.customer?.activeBillingAddress || null
+  );
+  const setActiveBillingAddress = async (address: Partial<BillingAddress>) => {
+    if (!address?.id) {
+      throw new Error(
+        "You need to provide address id in order to set the address."
+      );
+    }
+    await setCurrentBillingAddress(address.id, apiInstance);
+    refreshSessionContext();
+  };
+
   return {
     sessionContext,
     refreshSessionContext,
@@ -112,5 +150,9 @@ export const useSessionContext = (
     setPaymentMethod,
     currency,
     setCurrency,
+    activeShippingAddress,
+    setActiveShippingAddress,
+    activeBillingAddress,
+    setActiveBillingAddress,
   };
 };
