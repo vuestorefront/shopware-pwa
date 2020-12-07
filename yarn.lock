@@ -3336,25 +3336,6 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@shopware-pwa/cli@0.5.2":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@shopware-pwa/cli/-/cli-0.5.2.tgz#f75d4ee8e472dc013b95b78b3542e0f81d3936e8"
-  integrity sha512-jQzvjQbZfadq/s1jBw30r3Dm5wM6AKGolMJiIaa1TYv9o+j/KFJGs416zq4idzTnqIOpD4yqd2stRjHBPoXxJw==
-  dependencies:
-    "@shopware-pwa/shopware-6-client" "0.5.2"
-    chokidar "^3.4.3"
-    gluegun "^4.4.0"
-    lodash "^4.17.20"
-    md5-hex "^3.0.1"
-    request "^2.88.2"
-    unzipper "^0.10.11"
-    validate-npm-package-name "^3.0.0"
-
-"@shopware-pwa/commons@0.5.2":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@shopware-pwa/commons/-/commons-0.5.2.tgz#46233c7e0c39629ef65689d469e198129701e833"
-  integrity sha512-jDvwmNHj8xiW9bQm0d9pCanm7RCbj2Z0ELgPaLXrGE0qSdncsxo6iSacYwpnsEpoj6IXame9tQ3u3wANl7GPsg==
-
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"

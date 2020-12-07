@@ -18,10 +18,11 @@ export interface ClientSettings
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [accessToken](./shopware-6-client.clientsettings.accesstoken.md) | string | <b><i>(BETA)</i></b> |
-|  [contextToken](./shopware-6-client.clientsettings.contexttoken.md) | string | <b><i>(BETA)</i></b> |
-|  [defaultPaginationLimit](./shopware-6-client.clientsettings.defaultpaginationlimit.md) | number | <b><i>(BETA)</i></b> |
-|  [endpoint](./shopware-6-client.clientsettings.endpoint.md) | string | <b><i>(BETA)</i></b> |
-|  [languageId](./shopware-6-client.clientsettings.languageid.md) | string | <b><i>(BETA)</i></b> |
-|  [timeout](./shopware-6-client.clientsettings.timeout.md) | number | <b><i>(BETA)</i></b> |
+|  [accessToken](./shopware-6-client.clientsettings.accesstoken.md) | string | <b><i>(BETA)</i></b> id specific for each sales channel |
+|  [auth](./shopware-6-client.clientsettings.auth.md) | { username: string; password: string; } | <b><i>(BETA)</i></b> credentials for HTTP basic auth |
+|  [contextToken](./shopware-6-client.clientsettings.contexttoken.md) | string | <b><i>(BETA)</i></b> session id (dynamic) |
+|  [defaultPaginationLimit](./shopware-6-client.clientsettings.defaultpaginationlimit.md) | number | <b><i>(BETA)</i></b> default amount of products shown on listings |
+|  [endpoint](./shopware-6-client.clientsettings.endpoint.md) | string | <b><i>(BETA)</i></b> shopware URL |
+|  [languageId](./shopware-6-client.clientsettings.languageid.md) | string | <b><i>(BETA)</i></b> id of current language |
+|  [timeout](./shopware-6-client.clientsettings.timeout.md) | number | <b><i>(BETA)</i></b> timeout limit (ms) |
 

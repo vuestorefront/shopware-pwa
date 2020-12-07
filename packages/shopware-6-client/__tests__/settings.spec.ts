@@ -9,7 +9,7 @@ import { ConfigChangedArgs } from "../src";
 import { random } from "faker";
 const consoleWarnSpy = jest.spyOn(console, "warn");
 
-const DEFAULT_ENDPOINT = "https://pwa-demo-api.shopware.com";
+const DEFAULT_ENDPOINT = "https://shopware6-demo.vuestorefront.io";
 const DEFAULT_TIMEOUT = 10000;
 
 describe("Settings", () => {
@@ -48,6 +48,20 @@ describe("Settings", () => {
   });
 
   describe("update", () => {
+    it("should have auth data after update", () => {
+      update({
+        auth: {
+          username: "some",
+          password: "pass",
+        },
+      });
+
+      expect(config.auth).toEqual({
+        username: "some",
+        password: "pass",
+      });
+    });
+
     it("should have contextToken after update", () => {
       update({ contextToken: "xxx" });
 
@@ -90,19 +104,19 @@ describe("Settings", () => {
 
     it("should have default config with empty invocation", () => {
       update();
-      expect(config.accessToken).toEqual("SWSC40-LJTNO6COUEN7CJMXKLA");
+      expect(config.accessToken).toEqual("SWSCVJJET0RQAXFNBMTDZTV1OQ");
       expect(config.contextToken).toEqual("");
     });
 
     it("should change defaultPaginationLimit", () => {
       update({ defaultPaginationLimit: 50 });
-      expect(config.accessToken).toEqual("SWSC40-LJTNO6COUEN7CJMXKLA");
+      expect(config.accessToken).toEqual("SWSCVJJET0RQAXFNBMTDZTV1OQ");
       expect(config.defaultPaginationLimit).toEqual(50);
     });
 
     it("should change default timeout", () => {
       update({ timeout: 50 });
-      expect(config.accessToken).toEqual("SWSC40-LJTNO6COUEN7CJMXKLA");
+      expect(config.accessToken).toEqual("SWSCVJJET0RQAXFNBMTDZTV1OQ");
       expect(config.timeout).toEqual(50);
     });
   });
