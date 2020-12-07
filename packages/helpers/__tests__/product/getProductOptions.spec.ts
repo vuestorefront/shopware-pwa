@@ -68,10 +68,11 @@ describe("Shopware helpers - getProductOptions", () => {
     });
     expect(productOptions).toHaveProperty("color");
     expect(productOptions.color[0]).toStrictEqual({
-      code: "3858d1baf2544a379c92535ea3d2fe53",
+      code: "3858d1baf2544a379c92535ea3d2fe54",
       color: undefined,
       label: "blue",
       value: "blue",
+      matchingIds: [],
     });
     expect(productOptions).toHaveProperty("colour");
     expect(productOptions["colour"][0].matchingIds).toStrictEqual(["12345"]);
