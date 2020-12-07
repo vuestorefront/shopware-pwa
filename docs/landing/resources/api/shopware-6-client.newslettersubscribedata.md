@@ -18,13 +18,13 @@ export interface NewsletterSubscribeData
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [city](./shopware-6-client.newslettersubscribedata.city.md) | string | <b><i>(BETA)</i></b> |
+|  [city?](./shopware-6-client.newslettersubscribedata.city.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [email](./shopware-6-client.newslettersubscribedata.email.md) | string | <b><i>(BETA)</i></b> |
-|  [firstName](./shopware-6-client.newslettersubscribedata.firstname.md) | string | <b><i>(BETA)</i></b> |
-|  [lastName](./shopware-6-client.newslettersubscribedata.lastname.md) | string | <b><i>(BETA)</i></b> |
+|  [firstName?](./shopware-6-client.newslettersubscribedata.firstname.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
+|  [lastName?](./shopware-6-client.newslettersubscribedata.lastname.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [option](./shopware-6-client.newslettersubscribedata.option.md) | string | <b><i>(BETA)</i></b> |
-|  [salutationId](./shopware-6-client.newslettersubscribedata.salutationid.md) | string | <b><i>(BETA)</i></b> |
+|  [salutationId?](./shopware-6-client.newslettersubscribedata.salutationid.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [storefrontUrl](./shopware-6-client.newslettersubscribedata.storefronturl.md) | string | <b><i>(BETA)</i></b> |
-|  [street](./shopware-6-client.newslettersubscribedata.street.md) | string | <b><i>(BETA)</i></b> |
-|  [zipCode](./shopware-6-client.newslettersubscribedata.zipcode.md) | string | <b><i>(BETA)</i></b> |
+|  [street?](./shopware-6-client.newslettersubscribedata.street.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
+|  [zipCode?](./shopware-6-client.newslettersubscribedata.zipcode.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 
