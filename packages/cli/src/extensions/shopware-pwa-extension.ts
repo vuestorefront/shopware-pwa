@@ -1,8 +1,8 @@
 import { GluegunToolbox } from "gluegun";
 
 const defaultConfig = {
-  shopwareEndpoint: "https://pwa-demo-api.shopware.com",
-  shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
+  shopwareEndpoint: "https://shopware6-demo.vuestorefront.io",
+  shopwareAccessToken: "SWSCVJJET0RQAXFNBMTDZTV1OQ",
   theme: "@shopware-pwa/default-theme",
   shopwareApiClient: {
     timeout: 10000,

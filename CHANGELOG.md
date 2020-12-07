@@ -18,7 +18,69 @@
 
 - **default-theme:** show variant option in cart ([#1222](https://github.com/DivanteLtd/shopware-pwa/issues/1222)) ([247b674](https://github.com/DivanteLtd/shopware-pwa/commit/247b674b8b04f4638a73a065afcd497b7979c415))
 
+### Bug Fixes
+
+* release version ([a00fb9f](https://github.com/DivanteLtd/shopware-pwa/commit/a00fb9f49504dbdf96cb2abab897e32e22fee131))
+* **helpers:** use translated names and labels ([#1243](https://github.com/DivanteLtd/shopware-pwa/issues/1243)) ([8537e36](https://github.com/DivanteLtd/shopware-pwa/commit/8537e36ea698f5dacc5056bc75c0087b474324a0))
+
+
+
+## [0.5.1](https://github.com/DivanteLtd/shopware-pwa/compare/v0.5.0...v0.5.1) (2020-11-07)
+
+
+### Bug Fixes
+
+* **client:** missing product variants ([#1215](https://github.com/DivanteLtd/shopware-pwa/issues/1215)) ([fecdf93](https://github.com/DivanteLtd/shopware-pwa/commit/fecdf933862285437a449e34d84af652f7f9f500))
+* **composables:** notify the user in case of refresh session issue ([#1221](https://github.com/DivanteLtd/shopware-pwa/issues/1221)) ([112b845](https://github.com/DivanteLtd/shopware-pwa/commit/112b845f384c5b48b075af3fe830d631695eebe9))
+* **default-theme:** fixed navigations links alignment ([#1220](https://github.com/DivanteLtd/shopware-pwa/issues/1220)) ([aaea470](https://github.com/DivanteLtd/shopware-pwa/commit/aaea470924d38f01d77e88f1fa562f2f5198ae49))
+* **default-theme:** passing the customer entity during register on checkout ([#1223](https://github.com/DivanteLtd/shopware-pwa/issues/1223)) ([6981801](https://github.com/DivanteLtd/shopware-pwa/commit/6981801797a7130ec099441e887a6c21cd20ae3a))
+
+
+### Features
+
+* **default-theme:** show variant option in cart ([#1222](https://github.com/DivanteLtd/shopware-pwa/issues/1222)) ([247b674](https://github.com/DivanteLtd/shopware-pwa/commit/247b674b8b04f4638a73a065afcd497b7979c415))
+
+
+
 # [0.5.0](https://github.com/DivanteLtd/shopware-pwa/compare/v0.4.0...v0.5.0) (2020-10-30)
+
+### Bug Fixes
+
+- **composables:** showing whole filters collection on SSR ([7b2a43e](https://github.com/DivanteLtd/shopware-pwa/commit/7b2a43e50c7c738812409b3daeb02b61a08ee975))
+- **default-theme:** clearFilters behavior for search results page ([#1208](https://github.com/DivanteLtd/shopware-pwa/issues/1208)) ([5cc8101](https://github.com/DivanteLtd/shopware-pwa/commit/5cc8101a48155d7356a8e795de0085d5b69b764f))
+- include seo urls within product entity ([#1193](https://github.com/DivanteLtd/shopware-pwa/issues/1193)) ([dd74d2e](https://github.com/DivanteLtd/shopware-pwa/commit/dd74d2e750333ce7113211bcf73f2e3cf9e03480))
+- promotion code notifications are displayed correctly ([#1183](https://github.com/DivanteLtd/shopware-pwa/issues/1183)) ([d870c5b](https://github.com/DivanteLtd/shopware-pwa/commit/d870c5bf160ec4cf3352f20936a2653d2d0ed4c2))
+- PWA plugin x v6.3 listing compatibility ([#1196](https://github.com/DivanteLtd/shopware-pwa/issues/1196)) ([5245038](https://github.com/DivanteLtd/shopware-pwa/commit/5245038a36df2ee6f8d50d1bd40443e23ffd9f6d))
+- set v6.3.2 instance as default ([b0e0b10](https://github.com/DivanteLtd/shopware-pwa/commit/b0e0b107c2f5bf909834620c114e7b4622888365))
+- **ci:** publishing canary version ([d7ed07e](https://github.com/DivanteLtd/shopware-pwa/commit/d7ed07e7853d294f3ee41de13b4e912a5c815319))
+- **cli:** error during project initialization ([#1169](https://github.com/DivanteLtd/shopware-pwa/issues/1169)) ([c8c47c0](https://github.com/DivanteLtd/shopware-pwa/commit/c8c47c00c9c05f37afe721ad8afe0139bee90069))
+- **cli:** importing local plugins relative to root instead of src root ([#1146](https://github.com/DivanteLtd/shopware-pwa/issues/1146)) ([60de63c](https://github.com/DivanteLtd/shopware-pwa/commit/60de63caae8bead42239824c996db84011aa9f3a))
+- **client:** page resolver ssr missing token ([#1199](https://github.com/DivanteLtd/shopware-pwa/issues/1199)) ([0afb47a](https://github.com/DivanteLtd/shopware-pwa/commit/0afb47a85c4f977b5442fdeb2e82f24cfdb64c27))
+- **composables:** simplify the associations in defaults params ([cfffc57](https://github.com/DivanteLtd/shopware-pwa/commit/cfffc579e2c959446f56ea215f0e375ae68b841e))
+- **default-theme:** add currency switcher on mobile ([#1165](https://github.com/DivanteLtd/shopware-pwa/issues/1165)) ([06d1476](https://github.com/DivanteLtd/shopware-pwa/commit/06d147610d7308dbcc9176734a7709d0e5f4bb2a))
+- **default-theme:** add SwOfflineMode to components export in default layout ([#1116](https://github.com/DivanteLtd/shopware-pwa/issues/1116)) ([e729c24](https://github.com/DivanteLtd/shopware-pwa/commit/e729c2407c09d7928719c0c8eeb01f7313524fba))
+- **default-theme:** closing megamenu after choose category ([#1174](https://github.com/DivanteLtd/shopware-pwa/issues/1174)) ([5c5819d](https://github.com/DivanteLtd/shopware-pwa/commit/5c5819d04cc6346495a61fb0d8029ddba58c6e02))
+- **default-theme:** fixed cookie accept button on safari ([#1197](https://github.com/DivanteLtd/shopware-pwa/issues/1197)) ([981c0c1](https://github.com/DivanteLtd/shopware-pwa/commit/981c0c1d13c07bd56831ed3162be495a45e54bb1))
+- **default-theme:** small lifting order and order history tables ([#1142](https://github.com/DivanteLtd/shopware-pwa/issues/1142)) ([bc90dcc](https://github.com/DivanteLtd/shopware-pwa/commit/bc90dccfdc7b4f54ea1f7affe8301f98523a8442))
+- **nuxt-module:** node v14 compatibility ([#1180](https://github.com/DivanteLtd/shopware-pwa/issues/1180)) ([86df833](https://github.com/DivanteLtd/shopware-pwa/commit/86df833dbff994eccfdff37127cb7ae1a1b47aa8))
+
+### Features
+
+- **cli:** canary instance update ([#1152](https://github.com/DivanteLtd/shopware-pwa/issues/1152)) ([57ba9e1](https://github.com/DivanteLtd/shopware-pwa/commit/57ba9e1a1b890b52119d80e26396c55847dd5d13))
+- **cli:** support for creating custom themes ([#1167](https://github.com/DivanteLtd/shopware-pwa/issues/1167)) ([09f516d](https://github.com/DivanteLtd/shopware-pwa/commit/09f516ddf8018909af9a147ba6c2cc10104962ed))
+- **default-theme:** added order summary section in checkout on mobile ([#1182](https://github.com/DivanteLtd/shopware-pwa/issues/1182)) ([e594ea5](https://github.com/DivanteLtd/shopware-pwa/commit/e594ea5603d9f75b0a393fcfc67ac0f5925fee44))
+- **default-theme:** added searchbar on mobile devices ([#1144](https://github.com/DivanteLtd/shopware-pwa/issues/1144)) ([20d048d](https://github.com/DivanteLtd/shopware-pwa/commit/20d048da618884ceca14b105d019b5b5c3ec882d))
+- **default-theme:** Added translation for customer account and checkout translation ([#1147](https://github.com/DivanteLtd/shopware-pwa/issues/1147)) ([f8a5faf](https://github.com/DivanteLtd/shopware-pwa/commit/f8a5fafa4f7fafefe54f7e09876c408204baf22c))
+- **default-theme:** promotion code functionality ([#1155](https://github.com/DivanteLtd/shopware-pwa/issues/1155)) ([66661f7](https://github.com/DivanteLtd/shopware-pwa/commit/66661f711d09127f0da13f656e4e79772fa9477d))
+- **helpers:** use pretty URLs for product page ([#1161](https://github.com/DivanteLtd/shopware-pwa/issues/1161)) ([bd6012c](https://github.com/DivanteLtd/shopware-pwa/commit/bd6012c09fe1de6a2a134e5fb48863e1987bd309))
+- **nuxt-extension:** added specific meta tag ([#1139](https://github.com/DivanteLtd/shopware-pwa/issues/1139)) ([eafd7c5](https://github.com/DivanteLtd/shopware-pwa/commit/eafd7c5ceec1db9e993da58d5f5143195f047fb4))
+- **nuxt-module:** added same site cookie attribute ([#1123](https://github.com/DivanteLtd/shopware-pwa/issues/1123)) ([8d2f3fb](https://github.com/DivanteLtd/shopware-pwa/commit/8d2f3fb0759a9971c586c9bc5f008c31cd85e604))
+- **nuxt-module:** enrich API client config with timeout ([#1119](https://github.com/DivanteLtd/shopware-pwa/issues/1119)) ([4d2a87a](https://github.com/DivanteLtd/shopware-pwa/commit/4d2a87a480bc9a187961b60e196b12d772b58d38))
+- **theme-base:** theme base package as a foundation for custom themes ([#1170](https://github.com/DivanteLtd/shopware-pwa/issues/1170)) ([e6922ff](https://github.com/DivanteLtd/shopware-pwa/commit/e6922fffb27a409409aaa508384d8842707918ca))
+- ability to use another theme ([#1163](https://github.com/DivanteLtd/shopware-pwa/issues/1163)) ([bbdd8f4](https://github.com/DivanteLtd/shopware-pwa/commit/bbdd8f4f53d38096fb7a38aa2beb25d7013ef6c0))
+- move dependencies into nuxt-module ([#1120](https://github.com/DivanteLtd/shopware-pwa/issues/1120)) ([6e52a2b](https://github.com/DivanteLtd/shopware-pwa/commit/6e52a2bd19b8d7a009440f2d8790a19aa685db52))
+
+## [0.4.2](https://github.com/DivanteLtd/shopware-pwa/compare/v0.4.1...v0.4.2) (2020-10-12)
 
 ### Bug Fixes
 

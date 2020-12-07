@@ -10,7 +10,7 @@ export function getProductOptionsUrl({
 }: {
   product?: Product;
   options?: string[];
-} = {}): string {
+} = {}): string | undefined {
   if (!product) return "";
   const variant =
     options &&
@@ -22,6 +22,6 @@ export function getProductOptionsUrl({
           variant.optionIds.every((optionId) => options.includes(optionId))
       )
       .shift();
-  const result = variant || product;
-  return getProductUrl(result);
+
+  return variant && getProductUrl(variant);
 }
