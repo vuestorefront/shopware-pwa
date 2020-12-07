@@ -210,7 +210,10 @@ export default {
         }
       : null
 
-    const { displayState, forceState } = useCountry(form?.country?.id, root)
+    const { displayState, forceState } = useCountry(
+      form?.country?.id,
+      getCountries
+    )
 
     return {
       addAddress,

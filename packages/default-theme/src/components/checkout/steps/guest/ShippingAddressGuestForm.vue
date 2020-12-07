@@ -158,7 +158,7 @@ export default {
 
     const { currentCountry, displayState, forceState } = useCountry(
       countryId,
-      root
+      getCountries
     )
 
     return {

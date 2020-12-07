@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-getCountries: Ref<Readonly<any>>;
+getCountries: Ref<Readonly<Country[]>>;
 ```
