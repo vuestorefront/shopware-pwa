@@ -95,9 +95,7 @@ describe("Shopware helpers - navigation", () => {
           children: [
             {
               name: "Sneakers",
-              translated: {
-                name: "Sneakers",
-              },
+              translated: undefined,
               externalLink: null,
               seoUrls: [
                 {
