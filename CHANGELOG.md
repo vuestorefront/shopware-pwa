@@ -1,3 +1,12 @@
+## [0.6.1](https://github.com/DivanteLtd/shopware-pwa/compare/v0.6.0...v0.6.1) (2020-12-08)
+
+
+### Bug Fixes
+
+* **helpers:** prevent double slashes in routes ([#1281](https://github.com/DivanteLtd/shopware-pwa/issues/1281)) ([e927f1b](https://github.com/DivanteLtd/shopware-pwa/commit/e927f1b6ebc8f4d3b6f65937d9f890e7c50d4f1b))
+
+
+
 # [0.6.0](https://github.com/DivanteLtd/shopware-pwa/compare/v0.4.0...v0.6.0) (2020-12-07)
 
 
