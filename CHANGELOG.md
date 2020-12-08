@@ -1,3 +1,32 @@
+# [0.6.0](https://github.com/DivanteLtd/shopware-pwa/compare/v0.5.2...v0.6.0) (2020-12-07)
+
+### Bug Fixes
+
+- **cli:** added devMode parameter instead of hardcoded value in build command ([#1251](https://github.com/DivanteLtd/shopware-pwa/issues/1251)) ([8d9492a](https://github.com/DivanteLtd/shopware-pwa/commit/8d9492a067a5b5decb782884dac82e5f254ed1dc))
+- **default-theme:** Customer address switch ([#1245](https://github.com/DivanteLtd/shopware-pwa/issues/1245)) ([1825135](https://github.com/DivanteLtd/shopware-pwa/commit/1825135966b2ca0c263ed437298a0b1a38238fef))
+- **default-theme:** display of country name in checkout forms ([#1242](https://github.com/DivanteLtd/shopware-pwa/issues/1242)) ([6487089](https://github.com/DivanteLtd/shopware-pwa/commit/6487089d934b8be5983590a2fb74495e2467973f))
+- **default-theme:** errors about displaying errors in NesletterForm ([#1232](https://github.com/DivanteLtd/shopware-pwa/issues/1232)) ([2f90777](https://github.com/DivanteLtd/shopware-pwa/commit/2f907779c19b374a6aa87828a2b3a274d2153138))
+- **default-theme:** hide language switcher if only one language ([#1211](https://github.com/DivanteLtd/shopware-pwa/issues/1211)) ([8727821](https://github.com/DivanteLtd/shopware-pwa/commit/872782191be055ab953a2ec9ec0fb42ea0762004))
+- **default-theme:** hide language switcherand currency switcher if onl ony available ([#1269](https://github.com/DivanteLtd/shopware-pwa/issues/1269)) ([b69cd39](https://github.com/DivanteLtd/shopware-pwa/commit/b69cd397e053096d1abf588bd44b235e5c1a6f7a))
+- **default-theme:** missing translation entries ([#1270](https://github.com/DivanteLtd/shopware-pwa/issues/1270)) ([2bce8fb](https://github.com/DivanteLtd/shopware-pwa/commit/2bce8fb96cb714bd72477c45a3dc2ccbbbaa99ab))
+- **default-theme:** myaccount address bug ([#1238](https://github.com/DivanteLtd/shopware-pwa/issues/1238)) ([e0cc143](https://github.com/DivanteLtd/shopware-pwa/commit/e0cc143bf5635225cf92af0a2c2f7a1223defc2d))
+- **default-theme:** Preselection of salutation and country in SwAddressForm ([#1240](https://github.com/DivanteLtd/shopware-pwa/issues/1240)) ([ddbebd7](https://github.com/DivanteLtd/shopware-pwa/commit/ddbebd7f1b7f0d64fa142e268270e77f0554bf6f))
+- **default-theme:** watch correct pagination param ([#1267](https://github.com/DivanteLtd/shopware-pwa/issues/1267)) ([920a8f1](https://github.com/DivanteLtd/shopware-pwa/commit/920a8f1a641a6becfb67ec86383525b3a7bf8ffb))
+- **docs:** remove obsolete info ([8bc8a71](https://github.com/DivanteLtd/shopware-pwa/commit/8bc8a712cc47fa3bf47b75d21500f659e9978733))
+- **helpers:** navigation name issue ([ccce898](https://github.com/DivanteLtd/shopware-pwa/commit/ccce89896c206137a50428d2a63971575be89746))
+
+### Features
+
+- **client:** add product review client's method ([#1233](https://github.com/DivanteLtd/shopware-pwa/issues/1233)) ([f6bda11](https://github.com/DivanteLtd/shopware-pwa/commit/f6bda1165b0df838c9085ad79c1392cc19ce2d9d))
+- **default-theme:** added cms text-hero block ([#1226](https://github.com/DivanteLtd/shopware-pwa/issues/1226)) ([e84883f](https://github.com/DivanteLtd/shopware-pwa/commit/e84883f0cdf6f1db36ca43a92b5db33889488a1d))
+- **default-theme:** new slots on checkout and slot name normalization ([#1268](https://github.com/DivanteLtd/shopware-pwa/issues/1268)) ([da925f9](https://github.com/DivanteLtd/shopware-pwa/commit/da925f98a9ccfd6b6d8817dd53dd1c3391357fba))
+- **helpers:** using translated name props ([#1262](https://github.com/DivanteLtd/shopware-pwa/issues/1262)) ([6dc6627](https://github.com/DivanteLtd/shopware-pwa/commit/6dc66274566fe269135182018753b843d16b07b7))
+- allow disconnect of existing interceptors ([#1249](https://github.com/DivanteLtd/shopware-pwa/issues/1249)) ([19bc146](https://github.com/DivanteLtd/shopware-pwa/commit/19bc1469648ca386509e56503dce866eb222c495))
+- **default-theme:** added reviews template to product page ([#1236](https://github.com/DivanteLtd/shopware-pwa/issues/1236)) ([3c715e4](https://github.com/DivanteLtd/shopware-pwa/commit/3c715e422073ea820b5180dc7f29b2f607bba399))
+- **default-theme:** related products on product details page ([#1224](https://github.com/DivanteLtd/shopware-pwa/issues/1224)) ([e286907](https://github.com/DivanteLtd/shopware-pwa/commit/e2869072138617aba7f989ed568daec194c720ba))
+- **default-theme:** show wish-list items qty in badge of header icon ([#1253](https://github.com/DivanteLtd/shopware-pwa/issues/1253)) ([4d4cc78](https://github.com/DivanteLtd/shopware-pwa/commit/4d4cc78a1892a0ab7ffa3f35d5499588863feb07))
+- **default-theme:** wishlist based on local storage ([#1218](https://github.com/DivanteLtd/shopware-pwa/issues/1218)) ([13554ef](https://github.com/DivanteLtd/shopware-pwa/commit/13554ef2f546e4bbd3c24eb853e31ca5f9636bd2))
+
 ## [0.5.2](https://github.com/DivanteLtd/shopware-pwa/compare/v0.5.1...v0.5.2) (2020-11-24)
 
 ### Bug Fixes
