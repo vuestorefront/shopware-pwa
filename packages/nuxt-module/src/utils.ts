@@ -13,8 +13,8 @@ export function invokeRebuild(moduleObject: NuxtModuleOptions) {
 
 // TODO move to commons with shopware-pwa-extension.ts
 const defaultConfig: ShopwarePwaConfigFile = {
-  shopwareEndpoint: "https://shopware6-demo.vuestorefront.io",
-  shopwareAccessToken: "SWSCVJJET0RQAXFNBMTDZTV1OQ",
+  shopwareEndpoint: "https://pwa-demo-api.shopware.com",
+  shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
   theme: "@shopware-pwa/default-theme",
   shopwareApiClient: {
     timeout: 10000,
