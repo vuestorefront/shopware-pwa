@@ -151,7 +151,10 @@ export const convertSearchCriteria = ({
   }
 
   if (configuration && configuration.associations) {
-    params.associations = convertAssociations(configuration.associations);
+    params.associations =
+      (Array.isArray(configuration.associations) &&
+        convertAssociations(configuration.associations)) ||
+      (configuration.associations as any);
   }
 
   if (configuration?.grouping) {
