@@ -6,4 +6,5 @@ import { Category } from "@shopware-pwa/commons/interfaces/models/content/catego
  * @alpha
  */
 export const getCategoryUrl = (category: Partial<Category>): string =>
+  (category?.route?.path?.charAt(0) === "/" && category.route.path) ||
   `/${category?.route?.path || ""}`;
