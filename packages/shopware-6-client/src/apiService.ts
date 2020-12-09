@@ -38,7 +38,14 @@ export function _createInstance(initialConfig: ClientSettings = {}) {
 
   function reloadConfiguration() {
     apiService.defaults.baseURL = clientConfig.endpoint;
-    apiService.defaults.timeout = clientConfig.timeout;
+    if (clientConfig.timeout) {
+      apiService.defaults.timeout =
+        (typeof clientConfig.timeout === "number" && clientConfig.timeout) ||
+        (typeof clientConfig.timeout === "string" &&
+          parseInt(clientConfig.timeout)) ||
+        0;
+    }
+
     apiService.defaults.headers.common["sw-access-key"] =
       clientConfig.accessToken;
     // convert SearchCriteria into query string
