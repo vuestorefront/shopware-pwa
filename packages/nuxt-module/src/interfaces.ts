@@ -40,16 +40,50 @@ export interface WebpackContext {
   isLegacy: boolean;
 }
 
+/**
+ * @beta
+ */
 export interface ShopwareApiClientConfig {
+  /**
+   * value of timeout limit for the requests (ms)
+   */
   timeout?: number;
+  /**
+   * credentials for HTTP basic auth
+   */
+  auth?: {
+    username: string;
+    password: string;
+  };
 }
 
+/**
+ * @beta
+ */
 export interface ShopwarePwaConfigFile {
+  /**
+   * Shopware6 URL
+   */
   shopwareEndpoint: string;
+  /**
+   * id specific for each sales channel
+   */
   shopwareAccessToken: string;
+  /**
+   * theme code: npm package name or local one (directory name)
+   */
   theme: string;
+  /**
+   * default locale used in application
+   */
   defaultLanguageCode?: string;
+  /**
+   * {ShopwareApiClientConfig}
+   */
   shopwareApiClient?: ShopwareApiClientConfig;
+  /**
+   * set of includes, associations depending on use context (see: useDefaults composable)
+   */
   apiDefaults?: {
     [composableName: string]: {
       includes?: Includes;

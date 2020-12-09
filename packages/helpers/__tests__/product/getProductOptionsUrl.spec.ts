@@ -6,13 +6,13 @@ describe("Shopware helpers - getProductOptionsUrl", () => {
     expect(result).toEqual("");
   });
 
-  it("should return product url when no options", () => {
+  it("should return undefined url when no options", () => {
     const result = getProductOptionsUrl({
       product: {
         id: "123321",
       },
     } as any);
-    expect(result).toEqual("/detail/123321");
+    expect(result).toBeUndefined();
   });
 
   it("should return product url when has no children", () => {
@@ -22,7 +22,7 @@ describe("Shopware helpers - getProductOptionsUrl", () => {
       },
       options: ["qwe", "ewq"],
     } as any);
-    expect(result).toEqual("/detail/123321");
+    expect(result).toBeUndefined();
   });
 
   it("should return product url when options don`t match", () => {
@@ -42,7 +42,7 @@ describe("Shopware helpers - getProductOptionsUrl", () => {
       },
       options: ["some", "other"],
     } as any);
-    expect(result).toEqual("/detail/123321");
+    expect(result).toBeUndefined();
   });
 
   it("should return variant url when options match", () => {

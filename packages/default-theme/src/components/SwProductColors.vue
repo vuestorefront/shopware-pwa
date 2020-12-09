@@ -2,7 +2,7 @@
   <div class="product-colors">
     <p class="product-colors__label">{{ label }}</p>
     <SfColor
-      v-for="(color, code) in colors"
+      v-for="(color, code) in availableColors"
       :key="code"
       :color="color.color"
       :aria-label="color.label"
@@ -15,6 +15,7 @@
 
 <script>
 import { SfColor } from "@storefront-ui/vue"
+import { isOptionAvailableForSelectedOptions as isOptionAvailable } from "@shopware-pwa/helpers"
 
 export default {
   name: "SwProductColors",
@@ -31,6 +32,32 @@ export default {
     colors: {
       type: Array,
       default: () => [],
+    },
+    allOptions: {
+      type: Object,
+      default: () => [],
+    },
+    allSelected: {
+      type: Object,
+      default: () => [],
+    },
+  },
+  computed: {
+    availableColors() {
+      return this.colors.filter((color) =>
+        this.isOptionAvailableForSelectedOptions(color)
+      )
+    },
+  },
+  methods: {
+    isOptionAvailableForSelectedOptions(option) {
+      return isOptionAvailable(
+        this.label,
+        this.value,
+        option,
+        this.allOptions,
+        this.allSelected
+      )
     },
   },
 }

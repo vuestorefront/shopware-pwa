@@ -37,6 +37,15 @@ export function _createInstance(initialConfig: ClientSettings = {}) {
   const apiService: AxiosInstance = axios.create();
 
   function reloadConfiguration() {
+    // settings for HTTP basic auth credentials
+    if (
+      clientConfig.auth &&
+      clientConfig.auth.username &&
+      clientConfig.auth.password
+    ) {
+      // apiService.defaults.withCredentials = true;
+      apiService.defaults.auth = clientConfig.auth;
+    }
     apiService.defaults.baseURL = clientConfig.endpoint;
     apiService.defaults.timeout = clientConfig.timeout;
     apiService.defaults.headers.common["sw-access-key"] =
