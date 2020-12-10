@@ -20,3 +20,4 @@ export * from "./getProductPriceDiscount";
 export * from "./getProductPriceDiscountPercentage";
 export * from "./getProductCalculatedPrice";
 export * from "./getProductCalculatedListingPrice";
+export * from "./isOptionAvailableForSelectedOptions";

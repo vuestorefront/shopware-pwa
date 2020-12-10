@@ -35,11 +35,17 @@ export function getProductOptions({
             (valueOption: any) => option.id == valueOption.code
           )
         ) {
+          let matchingOptionIds: string[] = [];
+          option.productOptions?.forEach((productOption) => {
+            productOption.optionIds?.length &&
+              matchingOptionIds.push(...productOption.optionIds);
+          });
           typeOptions[optionGroupName].push({
             label: option.translated?.name || option.name,
             code: option.id,
             value: option.translated?.name || option.name,
             color: option.colorHexCode,
+            matchingIds: matchingOptionIds,
           } as UiProductOption);
         }
       }
