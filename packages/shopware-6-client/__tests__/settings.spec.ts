@@ -116,8 +116,20 @@ describe("Settings", () => {
 
     it("should change default timeout", () => {
       update({ timeout: 50 });
-      expect(config.accessToken).toEqual("SWSC40-LJTNO6COUEN7CJMXKLA");
       expect(config.timeout).toEqual(50);
+      expect(defaultInstance.defaults.timeout).toBe(50);
+    });
+    it("should not change default timeout if it's falsy", () => {
+      update({ timeout: undefined });
+      expect(config.timeout).toBeUndefined();
+    });
+    it("should cast timeout to number if it's a string type", () => {
+      update({ timeout: "12345" as any });
+      expect(defaultInstance.defaults.timeout).toBe(12345);
+    });
+    it("should set the 0 timeout if casting does not work", () => {
+      update({ timeout: "-----------" as any });
+      expect(defaultInstance.defaults.timeout).toBe(0);
     });
   });
 
