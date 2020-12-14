@@ -8,7 +8,7 @@
     :link="productUrl"
     :stock="product.deliveryInformation.stock"
     class="collected-product"
-    @click:remove="removeProduct(product)"
+    @click:remove="removeProduct(s)"
   >
     <template #actions>
       <div class="collected-product__configuration" v-if="options">
