@@ -1,0 +1,23 @@
+{
+  "d670cafd5f1a40838e9105bf65cc17a4": {
+    "url": "/english",
+    "currencyId": "3713825056c8470c87cf681d4c4895f1",
+    "snippetSetId": "9d63f974c20844499f423fd0c127bac9",
+    "languageId": "2fbb5fe2e29a4d70aa5854ce7ce3e20b",
+    "languageName": "English"
+  },
+  "f1adfa654ff7421e925165401cde74cb": {
+    "url": "/",
+    "currencyId": "b7d2554b0ce847cd82f3ac9bd1c0dfca",
+    "snippetSetId": "f7106f2d30bb422a83024d793a8bec7a",
+    "languageId": "700e15722dad4bad943828a313b0e330",
+    "languageName": "Deutsch"
+  },
+  "357e3777ace6476d93bcd33bb207442a": {
+    "url": "/polska",
+    "currencyId": "cbe5b8fe3ab249eb84a135cd6c6e0bf0",
+    "snippetSetId": "408c9d6c32214419b131b061c3b61915",
+    "languageId": "e4b7a115c1814cf9bfc98308a72d19a3",
+    "languageName": "Polish"
+  }
+}
