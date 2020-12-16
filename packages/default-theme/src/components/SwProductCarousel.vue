@@ -40,6 +40,7 @@ export default {
   },
   data() {
     return {
+      style: {},
       options: {
         gap: 0,
         type: "carousel",
