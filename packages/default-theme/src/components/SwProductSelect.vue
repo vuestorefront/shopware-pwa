@@ -13,7 +13,7 @@
         :value="option.code"
       >
         <slot v-bind="option">
-          <SfProductOption :label="`${option.label} `" :color="option.color" />
+          <SfProductOption :label="`${option.label}`" :color="option.color" />
         </slot>
       </SfSelectOption>
     </SfSelect>

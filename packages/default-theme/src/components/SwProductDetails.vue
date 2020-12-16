@@ -7,24 +7,19 @@
     <SwPluginSlot name="product-page-description" :slot-context="product">
       <p class="product-details__description" v-html="description" />
     </SwPluginSlot>
-    <div class="product-details__section">
-      <div v-for="config in getAllProductOptionsTypes" :key="config.id">
-        <SwProductSelect
-          v-if="selected[config.translated.name]"
-          :value="selected[config.translated.name]"
-          :options="
-            config.options.map((option) => ({
-              label: option.translated.name || option.name,
-              code: option.id,
-              value: option.translated.name || option.name,
-              color: option.colorHexCode,
-            }))
-          "
-          :label="config.translated.name"
-          @change="handleChange(config.translated.name, $event)"
-        />
+    <SfLoader :loading="isLoadingOptions">
+      <div v-if="product.options.length" class="product-details__section">
+        <div v-for="config in getOptionGroups" :key="config.id">
+          <SwProductSelect
+            v-if="getSelectedOptions[config.translated.name]"
+            :value="getSelectedOptions[config.translated.name]"
+            :options="getProductOptions({ product: config })"
+            :label="config.translated.name"
+            @change="handleChange(config.translated.name, $event)"
+          />
+        </div>
       </div>
-    </div>
+    </SfLoader>
 
     <div class="product-details__section">
       <SfAlert
@@ -66,31 +61,27 @@
   </div>
 </template>
 <script>
-import { SfAlert, SfAddToCart } from "@storefront-ui/vue"
+import { SfAlert, SfAddToCart, SfLoader } from "@storefront-ui/vue"
 import {
-  getProductUrl,
   getProductNumber,
   getProductOptions,
-  getProductOptionsUrl,
   getProductProperties,
   getProductReviews,
 } from "@shopware-pwa/helpers"
-import { useAddToCart, getApplicationContext } from "@shopware-pwa/composables"
-import { invokePost, getProductEndpoint } from "@shopware-pwa/shopware-6-client"
-
+import { useAddToCart, useProductOptions } from "@shopware-pwa/composables"
 import SwProductHeading from "@/components/SwProductHeading"
 import SwProductSelect from "@/components/SwProductSelect"
 import SwProductColors from "@/components/SwProductColors"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 
 import SwProductTabs from "@/components/SwProductTabs"
-import { computed, onMounted, ref } from "@vue/composition-api"
+import { computed, onMounted } from "@vue/composition-api"
 export default {
   name: "SwProductDetails",
-
   components: {
     SfAlert,
     SfAddToCart,
+    SfLoader,
     SwProductHeading,
     SwProductSelect,
     SwProductTabs,
@@ -112,88 +103,29 @@ export default {
   },
   setup({ page, product }, { root }) {
     const { addToCart, quantity } = useAddToCart(root, page && page.product)
+    const {
+      isLoadingOptions,
+      handleChange,
+      getOptionGroups,
+      getSelectedOptions,
+    } = useProductOptions(root, product)
+
     const description = computed(
       () =>
         (product.translated && product.translated.description) ||
         product.description
     )
-    const selected = ref({})
     const properties = computed(() => getProductProperties({ product }))
     const manufacturer = computed(() => product.manufacturer)
     const stock = computed(() => product.stock)
     const reviews = computed(() => getProductReviews({ product }))
-    const parentProductId = computed(() => product.parentId)
-    const getAllProductOptionsTypes = computed(() => page.configurator || [])
-    const getAllProductOptions = computed(() =>
-      product.options.map((option) => ({
-        label: option.translated.name || option.name,
-        code: option.id,
-        value: option.translated.name || option.name,
-        color: option.colorHexCode,
-      }))
-    )
 
     onMounted(() => {
       product.options?.forEach((option) => {
-        selected.value[option?.group?.translated?.name] = option.id
+        getSelectedOptions.value[option?.group?.translated?.name] = option.id
       })
+      isLoadingOptions.value = false
     })
-    const handleChange = async (attribute, option) => {
-      selected.value = Object.assign({}, selected.value, {
-        [attribute]: option,
-      })
-      // look for variant with the selected options
-      const variantFound = await findVariantForSelectedOptions()
-      if (variantFound) {
-        return root.$router.push(getProductUrl(variantFound))
-      } else {
-        // if no product was found - reset other options and try to find a first matching product
-        const simpleOptionVariant = await findVariantForSelectedOptions({
-          option: option,
-        })
-        if (simpleOptionVariant) {
-          return root.$router.push(getProductUrl(simpleOptionVariant))
-        }
-      }
-    }
-    const findVariantForSelectedOptions = async (options) => {
-      const { apiInstance } = getApplicationContext(root, "SwProductDetails")
-      const filter = [
-        {
-          type: "equals",
-          field: "parentId",
-          value: parentProductId.value,
-        },
-        ...Object.values(options || selected.value).map((id) => ({
-          type: "equals",
-          field: "optionIds",
-          value: id,
-        })),
-      ]
-      try {
-        apiInstance.defaults.headers["sw-include-seo-urls"] = true
-        const response = await invokePost(
-          {
-            address: getProductEndpoint(),
-            payload: {
-              limit: 10,
-              filter,
-              includes: {
-                product: ["id", "translated", "productNumber", "seoUrls"],
-                seo_url: ["seoPathInfo"],
-              },
-              associations: {
-                seoUrls: {},
-              },
-            },
-          },
-          apiInstance
-        )
-        return response.data.data[0]
-      } catch (e) {
-        console.error("SwProductDetails:findVariantForSelectedOptions", e)
-      }
-    }
 
     return {
       stock,
@@ -204,16 +136,12 @@ export default {
       quantity,
       addToCart,
       getProductNumber,
-      getAllProductOptions,
-      getAllProductOptionsTypes,
-      selected,
+      getOptionGroups,
+      getSelectedOptions,
       handleChange,
+      isLoadingOptions,
+      getProductOptions,
     }
-  },
-  methods: {
-    toggleWishlist(index) {
-      this.products[index].isOnWishlist = !this.products[index].isOnWishlist
-    },
   },
 }
 </script>

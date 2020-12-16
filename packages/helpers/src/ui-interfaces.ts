@@ -15,16 +15,13 @@ export interface UiMediaGalleryItem {
 }
 
 /**
- * @alpha
+ * @beta
  */
 export interface UiProductOption {
   label: string;
   value: string;
   code: string;
-  attribute: string;
-  color: string;
-  matchingIds: string[];
-  // [attribute: string]: string;
+  color: string | null;
 }
 
 /**
