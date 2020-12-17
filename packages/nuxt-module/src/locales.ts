@@ -56,6 +56,8 @@ export function extendLocales(
       availableLocales: localeFromFiles,
     },
   });
+
+  /* Remove middleware instantiation here and use the same logic to apply new middleware */
   /* istanbul ignore next */
   moduleObject.options.router.middleware =
     moduleObject.options.router.middleware || [];

@@ -165,6 +165,8 @@ export async function runModule(
   // locales
   extendLocales(moduleObject, shopwarePwaConfig);
 
+  /* In here instantiate new routing */
+
   moduleObject.extendBuild((config: WebpackConfig, ctx: WebpackContext) => {
     const swPluginsDirectory = path.join(
       moduleObject.options.rootDir,

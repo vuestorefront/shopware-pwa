@@ -27,6 +27,7 @@ export default ({ app, store }) => {
   };
 };
 
+/* Replace this middleware with a domain-centered middleware */
 Middleware.i18n = function ({ isHMR, app, store, route, params, redirect }) {
   const defaultLocale = app.i18n.fallbackLocale;
   // If middleware is called from hot module replacement, ignore it
