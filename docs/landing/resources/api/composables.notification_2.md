@@ -18,7 +18,7 @@ export interface Notification
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [id](./composables.notification_2.id.md) | number | <b><i>(BETA)</i></b> |
+|  [id?](./composables.notification_2.id.md) | number | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [message](./composables.notification_2.message.md) | string | <b><i>(BETA)</i></b> |
 |  [type](./composables.notification_2.type.md) | "info" \| "warning" \| "success" \| "danger" | <b><i>(BETA)</i></b> |
 
