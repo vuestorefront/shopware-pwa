@@ -11,9 +11,9 @@ export function getProductOptions({
 } = {}): UiProductOption[] {
   return (
     product?.options?.map((option) => ({
-      label: option.translated.name || option.name,
+      label: option.translated?.name || option.name,
       code: option.id,
-      value: option.translated.name || option.name,
+      value: option.translated?.name || option.name,
       color: option.colorHexCode,
     })) || []
   );

@@ -3,7 +3,7 @@ import { ProductOptions } from "./getProductOptions";
 
 /**
  * Check if the current optionId is also present in matching option ids of other available variants.
- *
+ * @deprecated - the availability of the options is checked dynamically using API
  * @beta
  */
 export function isOptionAvailableForSelectedOptions(
@@ -32,7 +32,7 @@ export function isOptionAvailableForSelectedOptions(
   let matchingOptions = false;
   Object.entries(allSelectedOptions).forEach(([attribute, selectedId]) => {
     if (attribute !== currentAttribute) {
-      allOptions[attribute].forEach((otherOption) => {
+      allOptions[attribute].forEach((otherOption: any) => {
         // istanbul ignore next
         if (otherOption.code === selectedId) {
           matchingOptions = otherOption["matchingIds"].includes(optionId);
