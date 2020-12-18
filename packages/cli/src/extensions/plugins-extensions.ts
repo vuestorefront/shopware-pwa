@@ -98,7 +98,7 @@ module.exports = (toolbox: GluegunToolbox) => {
               ".shopware-pwa/pwa-bundles-assets.zip",
               body
             );
-            resolve();
+            resolve(true);
           }
         );
       });
