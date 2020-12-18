@@ -427,7 +427,7 @@ jobs:
       - name: Deploy on Storefrontcloud.io
         id: deploy
         uses: StorefrontCloud/storefrontcloud-preview-deploy@master
-        if: github.repository_owner	== 'DivanteLtd'
+        if: github.repository_owner	== 'vuestorefront'
         with:
           token: "${{ github.token }}"
           namespace: "${{env.INSTANCE_CODE}}"
