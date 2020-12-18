@@ -3,7 +3,6 @@
     <div class="product-details__mobile-top">
       <SwProductHeading class="product-details__heading" :product="product" />
     </div>
-
     <SwPluginSlot name="product-page-description" :slot-context="product">
       <p class="product-details__description" v-html="description" />
     </SwPluginSlot>
@@ -15,12 +14,13 @@
             :value="getSelectedOptions[config.translated.name]"
             :options="getProductOptions({ product: config })"
             :label="config.translated.name"
-            @change="handleChange(config.translated.name, $event)"
+            @change="
+              handleChange(config.translated.name, $event, onOptionChanged)
+            "
           />
         </div>
       </div>
     </SfLoader>
-
     <div class="product-details__section">
       <SfAlert
         :message="$t('Low in stock')"
@@ -68,13 +68,8 @@ import {
   getProductProperties,
   getProductReviews,
 } from "@shopware-pwa/helpers"
-import { useAddToCart, useProductOptions } from "@shopware-pwa/composables"
-import SwProductHeading from "@/components/SwProductHeading"
-import SwProductSelect from "@/components/SwProductSelect"
-import SwProductColors from "@/components/SwProductColors"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
-
-import SwProductTabs from "@/components/SwProductTabs"
+import { useAddToCart, useProductConfigurator } from "@shopware-pwa/composables"
+import { getProductUrl } from "@shopware-pwa/helpers"
 import { computed, onMounted } from "@vue/composition-api"
 export default {
   name: "SwProductDetails",
@@ -82,11 +77,11 @@ export default {
     SfAlert,
     SfAddToCart,
     SfLoader,
-    SwProductHeading,
-    SwProductSelect,
-    SwProductTabs,
-    SwProductColors,
-    SwPluginSlot,
+    SwProductHeading: () => import("@/components/SwProductHeading"),
+    SwProductSelect: () => import("@/components/SwProductSelect"),
+    SwProductTabs: () => import("@/components/SwProductTabs"),
+    SwProductColors: () => import("@/components/SwProductColors"),
+    SwPluginSlot: () => import("sw-plugins/SwPluginSlot"),
   },
   props: {
     product: {
@@ -108,7 +103,8 @@ export default {
       handleChange,
       getOptionGroups,
       getSelectedOptions,
-    } = useProductOptions(root, product)
+      findVariantForSelectedOptions,
+    } = useProductConfigurator(root, product)
 
     const description = computed(
       () =>
@@ -119,6 +115,24 @@ export default {
     const manufacturer = computed(() => product.manufacturer)
     const stock = computed(() => product.stock)
     const reviews = computed(() => getProductReviews({ product }))
+
+    // find the best matching variant for current options
+    // use it as a callback in handleChange -> onChangeHandled argument
+    const onOptionChanged = async () => {
+      // look for variant with the selected options and perform a redirect to the found product's URL
+      const variantFound = await findVariantForSelectedOptions()
+      if (variantFound) {
+        root.$router.push(getProductUrl(variantFound))
+      } else {
+        // if no product was found - reset other options and try to find a first matching product
+        const simpleOptionVariant = await findVariantForSelectedOptions({
+          option: option,
+        })
+        if (simpleOptionVariant) {
+          root.$router.push(getProductUrl(simpleOptionVariant))
+        }
+      }
+    }
 
     onMounted(() => {
       product.options?.forEach((option) => {
@@ -141,6 +155,7 @@ export default {
       handleChange,
       isLoadingOptions,
       getProductOptions,
+      onOptionChanged,
     }
   },
 }

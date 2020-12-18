@@ -2,19 +2,25 @@ import { ref, Ref, computed } from "@vue/composition-api";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { PropertyGroup } from "@shopware-pwa/commons/interfaces/models/content/property/PropertyGroup";
 import { useCms } from "@shopware-pwa/composables";
-import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
 import { invokePost, endpoints } from "@shopware-pwa/shopware-6-client";
-import { getProductUrl } from "@shopware-pwa/helpers";
 /**
- * interface for {@link useProductOptions} composable
+ * interface for {@link useProductConfigurator} composable
  * @beta
  */
-export interface IUseProductOptions {
+export interface IUseProductConfigurator {
   /**
    * Handler for action when the selected option is changed
    */
-  handleChange: (attribute: string, option: string) => Promise<void>;
+  handleChange: (
+    attribute: string,
+    option: string,
+    onChangeHandled?: Function
+  ) => Promise<void>;
+
+  findVariantForSelectedOptions: (options?: {
+    [key: string]: string;
+  }) => Promise<void>;
   /**
    * Indicates if the options are being (re)loaded
    */
@@ -38,24 +44,21 @@ export interface IUseProductOptions {
  * Product options - {@link IUseAddToCart}
  * @beta
  */
-export const useProductOptions = (
+export const useProductConfigurator = (
   rootContext: ApplicationVueContext,
   product: Product
-): IUseProductOptions => {
-  const { contextName } = getApplicationContext(
-    rootContext,
-    "useProductOptions"
-  );
+): IUseProductConfigurator => {
   const { page } = useCms(rootContext);
   const selected = ref({});
   const isLoadingOptions = ref(!!product.options?.length);
-
+  const parentProductId = computed(() => product.parentId);
+  const getOptionGroups = computed(() => page.value.configurator || []);
   const findVariantForSelectedOptions = async (options?: {
     [code: string]: string;
   }) => {
     const { apiInstance } = getApplicationContext(
       rootContext,
-      "useProductOptions"
+      "useProductConfigurator"
     );
     const filter = [
       {
@@ -77,7 +80,7 @@ export const useProductOptions = (
         {
           address: endpoints.getProductEndpoint(),
           payload: {
-            limit: 10,
+            limit: 1,
             filter,
             includes: {
               product: ["id", "translated", "productNumber", "seoUrls"],
@@ -90,42 +93,29 @@ export const useProductOptions = (
         },
         apiInstance
       );
-      return response.data.data[0];
+      return response.data?.data?.[0]; // return first matching product
     } catch (e) {
       console.error("SwProductDetails:findVariantForSelectedOptions", e);
     }
   };
 
   const handleChange = async (
-    attribute: string,
+    group: string,
     option: string,
-    onHandledChange?: Function
+    onChangeHandled?: Function
   ): Promise<void> => {
     selected.value = Object.assign({}, selected.value, {
-      [attribute]: option,
+      [group]: option,
     });
-    // look for variant with the selected options
-    const variantFound = await findVariantForSelectedOptions();
-    if (variantFound) {
-      (onHandledChange && onHandledChange()) ||
-        rootContext.$router.push(getProductUrl(variantFound));
-    } else {
-      // if no product was found - reset other options and try to find a first matching product
-      const simpleOptionVariant = await findVariantForSelectedOptions({
-        option: option,
-      });
-      if (simpleOptionVariant) {
-        (onHandledChange && onHandledChange()) ||
-          rootContext.$router.push(getProductUrl(simpleOptionVariant));
-      }
+    if (typeof onChangeHandled === "function") {
+      // run passed callback
+      await onChangeHandled();
     }
   };
 
-  const parentProductId = computed(() => product.parentId);
-  const getOptionGroups = computed(() => page.value.configurator || []);
-
   return {
     handleChange,
+    findVariantForSelectedOptions,
     isLoadingOptions,
     getOptionGroups,
     getSelectedOptions: selected,
