@@ -73,6 +73,7 @@ export const useProductConfigurator = (
       })),
     ];
     try {
+      /* istanbul ignore next */
       if (apiInstance) {
         apiInstance.defaults.headers["sw-include-seo-urls"] = true;
       }
@@ -93,7 +94,7 @@ export const useProductConfigurator = (
         },
         apiInstance
       );
-      return response.data?.data?.[0]; // return first matching product
+      return response?.data?.data?.[0]; // return first matching product
     } catch (e) {
       console.error("SwProductDetails:findVariantForSelectedOptions", e);
     }

@@ -1,5 +1,4 @@
 import { UiProductOption } from "../ui-interfaces";
-import { ProductOptions } from "./getProductOptions";
 
 /**
  * Check if the current optionId is also present in matching option ids of other available variants.
@@ -10,7 +9,7 @@ export function isOptionAvailableForSelectedOptions(
   currentAttribute: string,
   selectedOptionId: string,
   { code: optionId }: UiProductOption = {} as any,
-  allOptions: ProductOptions,
+  allOptions: any,
   allSelectedOptions: {
     [key: string]: string;
   }
