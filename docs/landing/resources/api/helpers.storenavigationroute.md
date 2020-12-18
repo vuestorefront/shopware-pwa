@@ -18,7 +18,7 @@ export interface StoreNavigationRoute
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [children](./helpers.storenavigationroute.children.md) | [StoreNavigationRoute](./helpers.storenavigationroute.md)<!-- -->\[\] \| null | <b><i>(BETA)</i></b> |
+|  [children?](./helpers.storenavigationroute.children.md) | [StoreNavigationRoute](./helpers.storenavigationroute.md)<!-- -->\[\] \| null | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [isExternal](./helpers.storenavigationroute.isexternal.md) | boolean | <b><i>(BETA)</i></b> |
 |  [routeLabel](./helpers.storenavigationroute.routelabel.md) | string | <b><i>(BETA)</i></b> |
 |  [routePath](./helpers.storenavigationroute.routepath.md) | string | <b><i>(BETA)</i></b> |

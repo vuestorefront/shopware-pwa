@@ -26,6 +26,8 @@
             "
             :colors="getAllProductOptions[productType]"
             :value="selected[productType]"
+            :allOptions="getAllProductOptions"
+            :allSelected="selected"
             :label="productType"
             @input="handleChange(productType, $event)"
           />
@@ -33,6 +35,8 @@
             v-else
             :value="selected[productType]"
             :options="getAllProductOptions[productType]"
+            :allOptions="getAllProductOptions"
+            :allSelected="selected"
             :label="productType"
             @change="handleChange(productType, $event)"
           />
@@ -193,7 +197,7 @@ export default {
         options,
       })
 
-      this.$router.push(this.$i18n.path(url))
+      url && this.$router.push(this.$i18n.path(url))
     },
   },
 

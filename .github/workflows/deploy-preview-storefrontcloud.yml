@@ -395,7 +395,7 @@ jobs:
           yarn build
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@2.19
-        if: github.repository_owner	== 'DivanteLtd'
+        if: github.repository_owner	== 'vuestorefront'
         with:
           name: shopware-pwa-storefrontcloud-io/vue-storefront:${{ github.sha }}
           registry: registry.storefrontcloud.io
@@ -404,7 +404,7 @@ jobs:
           workdir: ./test-project
           buildoptions: "--compress"
       - name: Add information about PR from forked repo
-        if: github.repository_owner	!= 'DivanteLtd'
+        if: github.repository_owner	!= 'vuestorefront'
         uses: mshick/add-pr-comment@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
@@ -427,7 +427,7 @@ jobs:
       - name: Deploy on Storefrontcloud.io
         id: deploy
         uses: StorefrontCloud/storefrontcloud-preview-deploy@master
-        if: github.repository_owner	== 'DivanteLtd'
+        if: github.repository_owner	== 'vuestorefront'
         with:
           token: "${{ github.token }}"
           namespace: "${{env.INSTANCE_CODE}}"

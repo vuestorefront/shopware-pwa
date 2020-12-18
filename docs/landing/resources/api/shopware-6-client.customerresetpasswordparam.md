@@ -19,5 +19,5 @@ export interface CustomerResetPasswordParam
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [email](./shopware-6-client.customerresetpasswordparam.email.md) | string | <b><i>(BETA)</i></b> |
-|  [storefrontUrl](./shopware-6-client.customerresetpasswordparam.storefronturl.md) | string | <b><i>(BETA)</i></b> |
+|  [storefrontUrl?](./shopware-6-client.customerresetpasswordparam.storefronturl.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 

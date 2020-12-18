@@ -14,6 +14,7 @@
         "associations": {
           "options": {
             "associations": {
+              "productOptions": {},
               "group": {}
             }
           }
@@ -21,6 +22,7 @@
       },
       "options": {
         "associations": {
+          "productOptions": {},
           "group": {}
         }
       }
@@ -68,7 +70,8 @@
         "options",
         "properties",
         "manufacturer",
-        "seoUrls"
+        "seoUrls",
+        "optionIds"
       ],
       "product_media": ["media"],
       "media": ["thumbnails", "width", "height", "url"],
@@ -170,7 +173,8 @@
       "media": {},
       "options": {
         "associations": {
-          "group": {}
+          "group": {},
+          "productOptions": {}
         }
       },
       "properties": {
@@ -200,6 +204,7 @@
           "seoUrls": {},
           "options": {
             "associations": {
+              "productOptions": {},
               "group": {}
             }
           }

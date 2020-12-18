@@ -20,4 +20,8 @@ describe("Shopware helpers - getCategoryUrl", () => {
     const result = getCategoryUrl({ route: { path: "some/path" } });
     expect(result).toEqual("/some/path");
   });
+  it("should return category path with one slash before, even if it's set already", () => {
+    const result = getCategoryUrl({ route: { path: "/some/path" } });
+    expect(result).toEqual("/some/path");
+  });
 });

@@ -23,7 +23,8 @@ export interface UiProductOption {
   code: string;
   attribute: string;
   color: string;
-  [attribute: string]: string;
+  matchingIds: string[];
+  // [attribute: string]: string;
 }
 
 /**

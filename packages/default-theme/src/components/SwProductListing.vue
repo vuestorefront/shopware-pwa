@@ -77,7 +77,7 @@
       </div>
     </div>
     <SfHeading
-      v-else
+      v-else-if="!loading && !getElements.length"
       :title="$t('No products found')"
       :subtitle="$t('let us look for them')"
     />
@@ -222,8 +222,10 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
   justify-content: center;
   position: relative;
   width: 100%;
+  min-height: var(--spacer-xl);
 
   &__loader {
+    margin-top: var(--spacer-sm);
     position: absolute;
     top: 50%;
     left: 50%;
