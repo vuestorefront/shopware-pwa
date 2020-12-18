@@ -3,7 +3,10 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 import { PropertyGroup } from "@shopware-pwa/commons/interfaces/models/content/property/PropertyGroup";
 import { useCms } from "@shopware-pwa/composables";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
-import { invokePost, endpoints } from "@shopware-pwa/shopware-6-client";
+import {
+  invokePost,
+  getProductEndpoint,
+} from "@shopware-pwa/shopware-6-client";
 /**
  * interface for {@link useProductConfigurator} composable
  * @beta
@@ -27,9 +30,6 @@ export interface IUseProductConfigurator {
   isLoadingOptions: Ref<boolean>;
   /**
    * Object of currently selected options
-   * e.g. {
-   *    color: "red-color-option-id"
-   * }
    */
   getSelectedOptions: Ref<{
     [key: string]: string;
@@ -79,7 +79,7 @@ export const useProductConfigurator = (
       }
       const response = await invokePost(
         {
-          address: endpoints.getProductEndpoint(),
+          address: getProductEndpoint(),
           payload: {
             limit: 1,
             filter,

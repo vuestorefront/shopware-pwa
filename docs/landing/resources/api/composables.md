@@ -25,6 +25,7 @@
 |  [IUseIntercept](./composables.iuseintercept.md) | <b><i>(BETA)</i></b> interface for [useIntercept](./composables.useintercept.md) composable |
 |  [IUseListing](./composables.iuselisting.md) | <b><i>(BETA)</i></b> Listing interface, can be used to display category products, search products or any other Shopware search interface (ex. orders with pagination) |
 |  [IUseNavigation](./composables.iusenavigation.md) | <b><i>(BETA)</i></b> interface for [useNavigation](./composables.usenavigation.md) composable |
+|  [IUseProductConfigurator](./composables.iuseproductconfigurator.md) | <b><i>(BETA)</i></b> interface for [useProductConfigurator](./composables.useproductconfigurator.md) composable |
 |  [IUseProductQuickSearch](./composables.iuseproductquicksearch.md) | <b><i>(BETA)</i></b> |
 |  [IUseSessionContext](./composables.iusesessioncontext.md) | <b><i>(BETA)</i></b> interface for [useSessionContext](./composables.usesessioncontext.md) composable |
 |  [IUseUser](./composables.iuseuser.md) | <b><i>(BETA)</i></b> interface for [useUser](./composables.useuser.md) composable |
@@ -54,6 +55,7 @@
 |  [useNavigation](./composables.usenavigation.md) | <b><i>(BETA)</i></b> Composable for navigation. Options - [IUseNavigation](./composables.iusenavigation.md) |
 |  [useNotifications](./composables.usenotifications.md) | <b><i>(BETA)</i></b> |
 |  [useProduct](./composables.useproduct.md) | <b><i>(BETA)</i></b> |
+|  [useProductConfigurator](./composables.useproductconfigurator.md) | <b><i>(BETA)</i></b> Product options - [IUseAddToCart](./composables.iuseaddtocart.md) |
 |  [useProductListing](./composables.useproductlisting.md) | <b><i>(BETA)</i></b> |
 |  [useProductQuickSearch](./composables.useproductquicksearch.md) | <b><i>(BETA)</i></b> |
 |  [useSalutations](./composables.usesalutations.md) | <b><i>(BETA)</i></b> |
