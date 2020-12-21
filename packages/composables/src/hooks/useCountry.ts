@@ -27,6 +27,7 @@ export const useCountry = (
   const displayState = computed(() => {
     // TODO: Currently only forceStateInRegistration can be configured in administration
     //  when displayStateInRegistration also is configurable, switch to displayStateInRegistration
+    // https://github.com/vuestorefront/shopware-pwa/issues/1294
     return currentCountry.value?.forceStateInRegistration ?? false;
   });
 
