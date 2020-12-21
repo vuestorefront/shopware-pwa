@@ -146,16 +146,16 @@ export function getProductOption({ product, attribute, }?: {
     attribute?: string;
 }): PropertyGroupOption | undefined;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function getProductOptions({ product, }?: {
     product?: Product;
-}): ProductOptions;
+}): UiProductOption[];
 
 // @alpha (undocumented)
 export function getProductOptionsUrl({ product, options, }?: {
     product?: Product;
     options?: string[];
-}): string;
+}): string | undefined;
 
 // @beta
 export function getProductPriceDiscount(product: Product): number | undefined;
@@ -201,6 +201,11 @@ export function getStoreNavigationRoutes(navigationElements: StoreNavigationElem
 export function getVariantOptionsLabel({ product, }?: {
     product?: Product;
 }): string | null;
+
+// @beta @deprecated
+export function isOptionAvailableForSelectedOptions(currentAttribute: string, selectedOptionId: string, { code: optionId }: UiProductOption | undefined, allOptions: any, allSelectedOptions: {
+    [key: string]: string;
+}): boolean;
 
 // @beta (undocumented)
 export function isProductSimple({ product, }?: {
@@ -252,12 +257,6 @@ export interface NavigationRoute {
 
 // @alpha (undocumented)
 export function parseUrlQuery(query: any): SearchCriteria;
-
-// @alpha (undocumented)
-export interface ProductOptions {
-    // (undocumented)
-    [attribute: string]: UiProductOption[];
-}
 
 // @alpha (undocumented)
 export interface Sorting {
@@ -374,16 +373,12 @@ export interface UiMediaGalleryItemUrl {
     url: string;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UiProductOption {
-    // (undocumented)
-    [attribute: string]: string;
-    // (undocumented)
-    attribute: string;
     // (undocumented)
     code: string;
     // (undocumented)
-    color: string;
+    color: string | null;
     // (undocumented)
     label: string;
     // (undocumented)

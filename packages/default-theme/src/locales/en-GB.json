@@ -196,5 +196,6 @@
   "We’ll save them for you here!": "We’ll save them for you here!",
   "No favourites yet": "No favourites yet",
   "Wishlist": "Wishlist",
-  "{productName} has been added to cart.": "{productName} has been added to cart."
+  "{productName} has been added to cart.": "{productName} has been added to cart.",
+  "There is no available product for selected options": "There is no available product for selected options"
 }
