@@ -15,7 +15,11 @@
             :options="getProductOptions({ product: config })"
             :label="config.translated.name"
             @change="
-              handleChange(config.translated.name, $event, onOptionChanged)
+              handleChange(
+                config.translated.name,
+                $event,
+                onOptionChanged($event)
+              )
             "
           />
         </div>
@@ -68,7 +72,11 @@ import {
   getProductProperties,
   getProductReviews,
 } from "@shopware-pwa/helpers"
-import { useAddToCart, useProductConfigurator } from "@shopware-pwa/composables"
+import {
+  useAddToCart,
+  useProductConfigurator,
+  useNotifications,
+} from "@shopware-pwa/composables"
 import { getProductUrl } from "@shopware-pwa/helpers"
 import { computed, onMounted } from "@vue/composition-api"
 export default {
@@ -98,6 +106,7 @@ export default {
   },
   setup({ page, product }, { root }) {
     const { addToCart, quantity } = useAddToCart(root, page && page.product)
+    const { pushInfo } = useNotifications(root)
     const {
       isLoadingOptions,
       handleChange,
@@ -118,7 +127,7 @@ export default {
 
     // find the best matching variant for current options
     // use it as a callback in handleChange -> onChangeHandled argument
-    const onOptionChanged = async () => {
+    const onOptionChanged = async (optionId) => {
       // look for variant with the selected options and perform a redirect to the found product's URL
       const variantFound = await findVariantForSelectedOptions()
       if (variantFound) {
@@ -126,10 +135,14 @@ export default {
       } else {
         // if no product was found - reset other options and try to find a first matching product
         const simpleOptionVariant = await findVariantForSelectedOptions({
-          option: option,
+          option: optionId,
         })
         if (simpleOptionVariant) {
           root.$router.push(getProductUrl(simpleOptionVariant))
+        } else {
+          pushInfo(
+            root.$t("There is no available product for selected options")
+          )
         }
       }
     }
