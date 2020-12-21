@@ -83,6 +83,7 @@
           @blur="$v.form.city.$touch()"
         />
         <SwInput
+          v-if="displayState"
           v-model="form.state"
           name="state"
           :label="$t('State/Province')"
@@ -90,6 +91,7 @@
           :valid="!$v.form.state.$error"
           required
           class="sw-form__input"
+          :required="forceState"
           @blur="$v.form.state.$touch()"
         />
       </div>
@@ -149,11 +151,12 @@
 
 <script>
 import { validationMixin } from "vuelidate"
-import { required } from "vuelidate/lib/validators"
+import { required, requiredIf } from "vuelidate/lib/validators"
 import { computed, reactive } from "@vue/composition-api"
 import { SfAlert, SfSelect } from "@storefront-ui/vue"
 import {
   useCountries,
+  useCountry,
   useUser,
   useSalutations,
 } from "@shopware-pwa/composables"
@@ -207,6 +210,11 @@ export default {
         }
       : null
 
+    const { displayState, forceState } = useCountry(
+      form?.country?.id,
+      getCountries
+    )
+
     return {
       addAddress,
       userError,
@@ -214,6 +222,8 @@ export default {
       getMappedCountries,
       getMappedSalutations,
       form,
+      displayState,
+      forceState,
     }
   },
   computed: {
@@ -278,7 +288,9 @@ export default {
         required,
       },
       state: {
-        required,
+        required: requiredIf(function () {
+          return this.form.country.forceStateInRegistration
+        }),
       },
       zipcode: {
         required,
