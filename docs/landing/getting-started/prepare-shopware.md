@@ -19,8 +19,8 @@ Here you may find a compatibility table for the Shopware API.
 | 0.2.x                                                               | [![shopware-ver](https://img.shields.io/badge/version-6.2.3-red)](https://github.com/shopware/platform/releases/tag/v6.2.3)       |
 | 0.3.x                                                               | [![shopware-ver](https://img.shields.io/badge/version-6.3.0.1-green)](https://github.com/shopware/platform/releases/tag/v6.3.0.1) |
 | 0.4.x                                                               | [![shopware-ver](https://img.shields.io/badge/version-6.3.0.1-green)](https://github.com/shopware/platform/releases/tag/v6.3.0.1) |
-| 0.5.x (latest stable)                                               | [![shopware-ver](https://img.shields.io/badge/version-6.3.2.1-green)](https://github.com/shopware/platform/releases/tag/v6.3.2.1) |
-| ![npm (tag)](https://img.shields.io/npm/v/@shopware-pwa/cli/canary) | [![shopware-ver](https://img.shields.io/badge/version-6.3.*-green)](https://github.com/shopware/platform/releases/tag/v6.3.2.1)   |
+| 0.6.x (latest stable)                                               | [![shopware-ver](https://img.shields.io/badge/version-6.3.2.1-green)](https://github.com/shopware/platform/releases/tag/v6.3.2.1) |
+| ![npm (tag)](https://img.shields.io/npm/v/@shopware-pwa/cli/canary) | [![shopware-ver](https://img.shields.io/badge/version-6.3.*-green)](https://github.com/shopware/platform/releases/tag/v6.3.2.1)  [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-2.0.0-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v2.0.0)  |
 
 Find more information on updating and versioning within our [Upgrade](/landing/getting-started/upgrade) section
 
