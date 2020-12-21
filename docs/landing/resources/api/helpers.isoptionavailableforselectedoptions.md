@@ -7,12 +7,17 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
+> Warning: This API is now obsolete.
+> 
+> - the availability of the options is checked dynamically using API
+> 
+
 Check if the current optionId is also present in matching option ids of other available variants.
 
 <b>Signature:</b>
 
 ```typescript
-export declare function isOptionAvailableForSelectedOptions(currentAttribute: string, selectedOptionId: string, { code: optionId }: UiProductOption | undefined, allOptions: ProductOptions, allSelectedOptions: {
+export declare function isOptionAvailableForSelectedOptions(currentAttribute: string, selectedOptionId: string, { code: optionId }: UiProductOption | undefined, allOptions: any, allSelectedOptions: {
     [key: string]: string;
 }): boolean;
 ```
@@ -23,8 +28,8 @@ export declare function isOptionAvailableForSelectedOptions(currentAttribute: st
 |  --- | --- | --- |
 |  currentAttribute | string |  |
 |  selectedOptionId | string |  |
-|  { code: optionId } | UiProductOption \| undefined |  |
-|  allOptions | ProductOptions |  |
+|  { code: optionId } | [UiProductOption](./helpers.uiproductoption.md) \| undefined |  |
+|  allOptions | any |  |
 |  allSelectedOptions | { \[key: string\]: string; } |  |
 
 <b>Returns:</b>

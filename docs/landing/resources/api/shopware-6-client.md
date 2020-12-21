@@ -92,9 +92,63 @@
 |  Variable | Description |
 |  --- | --- |
 |  [config](./shopware-6-client.config.md) | <b><i>(BETA)</i></b> |
+|  [getCategoryDetailsEndpoint](./shopware-6-client.getcategorydetailsendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCategoryEndpoint](./shopware-6-client.getcategoryendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCategoryProducts](./shopware-6-client.getcategoryproducts.md) | <b><i>(BETA)</i></b> Get default amount of products and listing configuration for given category |
 |  [getCategoryProductsListing](./shopware-6-client.getcategoryproductslisting.md) | <b><i>(BETA)</i></b> Get default amount of products and listing configuration for given category |
+|  [getCheckoutCartEndpoint](./shopware-6-client.getcheckoutcartendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCheckoutCartLineItemEndpoint](./shopware-6-client.getcheckoutcartlineitemendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCheckoutGuestOrderDetailsEndpoint](./shopware-6-client.getcheckoutguestorderdetailsendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCheckoutGuestOrderEndpoint](./shopware-6-client.getcheckoutguestorderendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCheckoutOrderEndpoint](./shopware-6-client.getcheckoutorderendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCheckoutOrderPayEndpoint](./shopware-6-client.getcheckoutorderpayendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCheckoutPromotionCodeEndpoint](./shopware-6-client.getcheckoutpromotioncodeendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getContactFormEndpoint](./shopware-6-client.getcontactformendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getContextCountryEndpoint](./shopware-6-client.getcontextcountryendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getContextCountryItemEndpoint](./shopware-6-client.getcontextcountryitemendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getContextCurrencyEndpoint](./shopware-6-client.getcontextcurrencyendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getContextEndpoint](./shopware-6-client.getcontextendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getContextLanguageEndpoint](./shopware-6-client.getcontextlanguageendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getContextPaymentMethodDetailsEndpoint](./shopware-6-client.getcontextpaymentmethoddetailsendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getContextPaymentMethodEndpoint](./shopware-6-client.getcontextpaymentmethodendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getContextSalutationEndpoint](./shopware-6-client.getcontextsalutationendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getContextSalutationItemEndpoint](./shopware-6-client.getcontextsalutationitemendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getContextShippingMethodDetailsEndpoint](./shopware-6-client.getcontextshippingmethoddetailsendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getContextShippingMethodEndpoint](./shopware-6-client.getcontextshippingmethodendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerAddressDetailsEndpoint](./shopware-6-client.getcustomeraddressdetailsendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerAddressEndpoint](./shopware-6-client.getcustomeraddressendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerAddressSetDefaultBillingEndpoint](./shopware-6-client.getcustomeraddresssetdefaultbillingendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerAddressSetDefaultShippingEndpoint](./shopware-6-client.getcustomeraddresssetdefaultshippingendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerDefaultBillingAddressEndpoint](./shopware-6-client.getcustomerdefaultbillingaddressendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerDefaultShippingAddressEndpoint](./shopware-6-client.getcustomerdefaultshippingaddressendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerDetailsEndpoint](./shopware-6-client.getcustomerdetailsendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerDetailsUpdateEndpoint](./shopware-6-client.getcustomerdetailsupdateendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerEndpoint](./shopware-6-client.getcustomerendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerLoginEndpoint](./shopware-6-client.getcustomerloginendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerLogoutEndpoint](./shopware-6-client.getcustomerlogoutendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerOrderDetailsEndpoint](./shopware-6-client.getcustomerorderdetailsendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerOrderEndpoint](./shopware-6-client.getcustomerorderendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerRegisterEndpoint](./shopware-6-client.getcustomerregisterendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerResetPasswordEndpoint](./shopware-6-client.getcustomerresetpasswordendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerUpdateEmailEndpoint](./shopware-6-client.getcustomerupdateemailendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerUpdatePasswordEndpoint](./shopware-6-client.getcustomerupdatepasswordendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getNavigationEndpoint](./shopware-6-client.getnavigationendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getNewsletterSubscribeEndpoint](./shopware-6-client.getnewslettersubscribeendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getNewsletterUnsubscribeEndpoint](./shopware-6-client.getnewsletterunsubscribeendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getOrderPaymentUrlEndpoint](./shopware-6-client.getorderpaymenturlendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getPageResolverEndpoint](./shopware-6-client.getpageresolverendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getProductDetailsEndpoint](./shopware-6-client.getproductdetailsendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getProductEndpoint](./shopware-6-client.getproductendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getProductListingEndpoint](./shopware-6-client.getproductlistingendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getProducts](./shopware-6-client.getproducts.md) | <b><i>(BETA)</i></b> Get default amount of products |
+|  [getProductsIdsEndpoint](./shopware-6-client.getproductsidsendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getSearchEndpoint](./shopware-6-client.getsearchendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getStoreNavigationEndpoint](./shopware-6-client.getstorenavigationendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getStoreNewsletterConfirmEndpoint](./shopware-6-client.getstorenewsletterconfirmendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getStoreNewsletterSubscribeEndpoint](./shopware-6-client.getstorenewslettersubscribeendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getStoreNewsletterUnsubscribeEndpoint](./shopware-6-client.getstorenewsletterunsubscribeendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getStoreOrderPaymentUrlEndpoint](./shopware-6-client.getstoreorderpaymenturlendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getSuggestSearchEndpoint](./shopware-6-client.getsuggestsearchendpoint.md) | <b><i>(BETA)</i></b> |
 |  [onConfigChange](./shopware-6-client.onconfigchange.md) | <b><i>(BETA)</i></b> |
 |  [setup](./shopware-6-client.setup.md) | <b><i>(BETA)</i></b> Setup configuration. Merge default values with provided in param. This method will override existing config. For config update invoke \*\*update\*\* method. |
 |  [update](./shopware-6-client.update.md) | <b><i>(BETA)</i></b> Update current configuration. This will change only provided values. |
