@@ -30,10 +30,15 @@ module.exports = (toolbox: GluegunToolbox) => {
             "snippetSetId",
             "currencyId",
           ],
-          language: ["id", "name"],
+          language: ["id", "name", "locale"],
+          locale: ["code"],
         },
         associations: {
-          language: {},
+          language: {
+            associations: {
+              locale: {},
+            },
+          },
         },
       },
       {
@@ -49,12 +54,14 @@ module.exports = (toolbox: GluegunToolbox) => {
   toolbox.domains.prepareDomainsMap = (domains, pwaHost: string) => {
     let domainsMap = {};
     domains.forEach((domain) => {
-      domainsMap[domain.id] = {
+      domainsMap[toolbox.domains.stripHost(domain.url, pwaHost)] = {
         url: toolbox.domains.stripHost(domain.url, pwaHost),
+        domainId: domain.id,
         currencyId: domain.currencyId,
         snippetSetId: domain.snippetSetId,
         languageId: domain.language.id,
         languageName: domain.language.name,
+        languageLocaleCode: domain.language.locale.code,
       };
     });
 

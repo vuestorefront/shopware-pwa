@@ -89,8 +89,6 @@ module.exports = {
 
     toolbox.filesystem.writeAsync(domainsFilePath, domainsMap);
 
-    toolbox.print.info(domainsMap);
-
     toolbox.print.info("Printed Domain Configuration");
   },
 };

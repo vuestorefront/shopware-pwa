@@ -3,7 +3,6 @@ import VueI18n from "vue-i18n";
 import Middleware from "./middleware";
 import languagesMap from "sw-plugins/languages";
 import domainsMap from "sw-plugins/domains";
-import { exit } from "process";
 
 const FALLBACK_DOMAIN = "/"; // Replace with configuration
 
