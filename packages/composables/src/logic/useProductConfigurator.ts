@@ -54,7 +54,9 @@ export const useProductConfigurator = (
   const parentProductId = computed(() => product.parentId);
   const getOptionGroups = computed(() => page.value.configurator || []);
   product.options?.forEach((option) => {
-    selected.value[option?.group?.translated?.name] = option.id;
+    if (option.group?.translated?.name) {
+      selected.value[option.group.translated.name] = option.id;
+    }
   });
 
   const findVariantForSelectedOptions = async (options?: {

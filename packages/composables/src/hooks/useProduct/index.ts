@@ -63,8 +63,6 @@ export const useProduct = (
     product.value = Object.assign({}, product.value, {
       crossSellings,
     });
-
-    console.warn("product.value", product.value);
   };
 
   const search = async (productId: string) => {

@@ -36,7 +36,38 @@ describe("Composables - useProductConfigurator", () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
-
+  describe("on init", () => {
+    it("should have selected options extracted from passed product", () => {
+      const { getSelectedOptions } = useProductConfigurator(rootContextMock, {
+        options: [
+          {
+            id: "12345",
+            group: {
+              translated: {
+                name: "color",
+              },
+            },
+          },
+        ],
+      } as any);
+      expect(getSelectedOptions.value).toStrictEqual({
+        color: "12345",
+      });
+    });
+    it("should not have selected options extracted from passed product if there are no required values", () => {
+      const { getSelectedOptions } = useProductConfigurator(rootContextMock, {
+        options: [
+          {
+            id: "12345",
+            group: {
+              translated: undefined,
+            },
+          },
+        ],
+      } as any);
+      expect(getSelectedOptions.value).toStrictEqual({});
+    });
+  });
   describe("methods", () => {
     describe("handleChange", () => {
       it("should assign new selected option for given group", () => {

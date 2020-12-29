@@ -93,15 +93,14 @@ describe("Composables - useProduct", () => {
       const responseLoadAssociations: any = {
         product: {
           id: "3f637f17cd9f4891a2d7625d19fb37c9",
-          children: [{ id: "child-id" }],
+          crossSellings: { id: "cross-id" },
         },
       };
       mockedAxios.getProductPage.mockResolvedValueOnce(
         responseLoadAssociations
       );
       await loadAssociations();
-      expect(product.value).toHaveProperty("children");
-      expect(product.value.children).toStrictEqual([{ id: "child-id" }]);
+      expect(product.value).toHaveProperty("crossSellings");
     });
     it("should have failed on empty product during loading associations", async () => {
       const { loadAssociations, error } = useProduct(rootContextMock);
