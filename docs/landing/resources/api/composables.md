@@ -32,6 +32,7 @@
 |  [IUseWishlist](./composables.iusewishlist.md) | <b><i>(BETA)</i></b> interface for [useWishlist](./composables.usewishlist.md) composable |
 |  [Notification\_2](./composables.notification_2.md) | <b><i>(BETA)</i></b> |
 |  [UseCountries](./composables.usecountries.md) | <b><i>(BETA)</i></b> |
+|  [UseCountry](./composables.usecountry.md) | <b><i>(BETA)</i></b> |
 |  [UseCurrency](./composables.usecurrency.md) | <b><i>(BETA)</i></b> |
 |  [UseProduct](./composables.useproduct.md) | <b><i>(BETA)</i></b> |
 |  [UseProductListing](./composables.useproductlisting.md) | <b><i>(BETA)</i></b> |
@@ -48,6 +49,7 @@
 |  [useCheckout](./composables.usecheckout.md) | <b><i>(BETA)</i></b> Composable for Checkout management. Options - [IUseCheckout](./composables.iusecheckout.md) |
 |  [useCms](./composables.usecms.md) | <b><i>(BETA)</i></b> |
 |  [useCountries](./composables.usecountries.md) | <b><i>(BETA)</i></b> |
+|  [useCountry](./composables.usecountry.md) | <b><i>(BETA)</i></b> |
 |  [useCurrency](./composables.usecurrency.md) | <b><i>(BETA)</i></b> |
 |  [useDefaults](./composables.usedefaults.md) | <b><i>(BETA)</i></b> Returns default config depending on config key. It is used in composables, so defaultsKey is in most cases composable name (ex. <code>useDefaults(rootContext, &quot;useCms&quot;)</code>) |
 |  [useIntercept](./composables.useintercept.md) | <b><i>(BETA)</i></b> Allows to broadcast and intercept events across application. |

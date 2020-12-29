@@ -4,13 +4,14 @@ import { getAvailableCountries } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { getApplicationContext } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
+import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 
 /**
  * @beta
  */
 export interface UseCountries {
   mountedCallback: () => Promise<void>;
-  getCountries: Ref<Readonly<any>>;
+  getCountries: Ref<Readonly<Country[]>>;
   fetchCountries: () => Promise<void>;
   error: Ref<any>;
 }

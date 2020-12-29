@@ -474,13 +474,26 @@ export interface UseCountries {
     // (undocumented)
     fetchCountries: () => Promise<void>;
     // (undocumented)
-    getCountries: Ref<Readonly<any>>;
+    getCountries: Ref<Readonly<Country[]>>;
     // (undocumented)
     mountedCallback: () => Promise<void>;
 }
 
 // @beta (undocumented)
 export const useCountries: (rootContext: ApplicationVueContext) => UseCountries;
+
+// @beta (undocumented)
+export interface UseCountry {
+    // (undocumented)
+    currentCountry: ComputedRef<Country | null>;
+    // (undocumented)
+    displayState: Readonly<Ref<boolean>>;
+    // (undocumented)
+    forceState: Readonly<Ref<boolean>>;
+}
+
+// @beta (undocumented)
+export const useCountry: (countryId: Ref<Readonly<string>>, countries: Ref<Readonly<Country[]>>) => UseCountry;
 
 // @beta (undocumented)
 export interface UseCurrency {
