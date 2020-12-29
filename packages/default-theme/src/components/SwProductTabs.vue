@@ -16,12 +16,12 @@
 
         <SfTab v-if="manufacturer" title="Manufacturer">
           <SfHeading
-            :title="manufacturer.name"
+            :title="manufacturer.translated.name"
             :level="3"
             class="sf-heading--no-underline sf-heading--left"
           />
-          <p v-if="manufacturer.description">
-            {{ manufacturer.description }}
+          <p v-if="manufacturer.translated.description">
+            {{ manufacturer.translated.description }}
           </p>
         </SfTab>
         <SfTab title="Read reviews">

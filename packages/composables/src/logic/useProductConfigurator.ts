@@ -49,10 +49,14 @@ export const useProductConfigurator = (
   product: Product
 ): IUseProductConfigurator => {
   const { page } = useCms(rootContext);
-  const selected = ref({});
+  const selected = ref({} as any);
   const isLoadingOptions = ref(!!product.options?.length);
   const parentProductId = computed(() => product.parentId);
   const getOptionGroups = computed(() => page.value.configurator || []);
+  product.options?.forEach((option) => {
+    selected.value[option?.group?.translated?.name] = option.id;
+  });
+
   const findVariantForSelectedOptions = async (options?: {
     [code: string]: string;
   }) => {

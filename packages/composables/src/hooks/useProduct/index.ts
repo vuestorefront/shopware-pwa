@@ -56,14 +56,15 @@ export const useProduct = (
     // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/911
     const urlPath = `detail/${product.value.parentId || product.value.id}`;
     const {
-      product: { children, crossSellings },
+      product: { crossSellings },
     } = await getProductPage(urlPath, searchCriteria, apiInstance);
 
     // load only children; other properties are loaded synchronously
     product.value = Object.assign({}, product.value, {
-      children,
       crossSellings,
     });
+
+    console.warn("product.value", product.value);
   };
 
   const search = async (productId: string) => {
