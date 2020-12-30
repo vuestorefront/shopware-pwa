@@ -7,7 +7,7 @@
       <p class="product-details__description" v-html="description" />
     </SwPluginSlot>
     <div
-      v-if="product.options && product.options.length"
+      v-if="product.optionIds && product.optionIds.length"
       class="product-details__section"
     >
       <div v-for="config in getOptionGroups" :key="config.id">

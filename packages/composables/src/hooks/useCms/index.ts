@@ -1,8 +1,13 @@
 import { ref, Ref, computed } from "@vue/composition-api";
-import { getCmsPage } from "@shopware-pwa/shopware-6-client";
+import {
+  getCmsPage,
+  PageResolverProductResult,
+  PageResolverResult,
+} from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { parseUrlQuery } from "@shopware-pwa/helpers";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
+import { CmsPage } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 import { getApplicationContext, useDefaults } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../../appContext";
 import merge from "lodash/merge";
@@ -19,7 +24,9 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
   const { getDefaults } = useDefaults(rootContext, "useCms");
   const error: Ref<any> = ref(null);
   const loading: Ref<boolean> = ref(false);
-  const page = computed(() => {
+  const page: Ref<Readonly<
+    PageResolverProductResult | PageResolverResult<CmsPage>
+  >> = computed(() => {
     return vuexStore.getters.getPage;
   });
   const categoryId = computed(() => {
@@ -47,14 +54,14 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
     }
   };
 
-  const getBreadcrumbsObject = computed(() => page.value?.breadcrumb || []);
-
   return {
     page,
     categoryId,
     loading,
     search,
     error,
-    getBreadcrumbsObject,
+    getBreadcrumbsObject: computed(
+      () => (page.value && (page.value as any).breadcrumb) || []
+    ),
   };
 };

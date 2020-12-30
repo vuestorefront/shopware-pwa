@@ -132,7 +132,7 @@ export function getProductMediaGallery({ product, }?: {
     product?: Product;
 }): UiMediaGalleryItem[];
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function getProductName({ product }?: {
     product?: Product;
 }): string | null;

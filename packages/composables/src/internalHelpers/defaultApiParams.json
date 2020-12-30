@@ -5,11 +5,6 @@
       "manufacturer": {},
       "media": {},
       "productReviews": {},
-      "options": {
-        "associations": {
-          "group": {}
-        }
-      },
         "crossSellings": {
           "associations": {
             "assignedProducts": {
@@ -70,7 +65,7 @@
         "parentId",
         "id",
         "translated",
-        "options",
+        "optionIds",
         "properties",
         "manufacturer",
         "seoUrls",
@@ -80,8 +75,8 @@
       "media": ["thumbnails", "width", "height", "url"],
       "media_thumbnail": ["url", "width", "height", "id"],
       "calculated_price": ["unitPrice", "quantity", "listPrice"],
-      "product_group_option": ["name", "id", "group", "translated"],
-      "product_group": ["id", "name", "translated"],
+      "product_group_option": ["id", "group", "translated"],
+      "product_group": ["id", "translated"],
       "product_listing": [
         "sorting",
         "currentFilters",
@@ -93,9 +88,8 @@
         "total",
         "aggregations"
       ],
-      "property_group": ["id", "translated", "name", "options"],
+      "property_group": ["id", "translated", "options"],
       "property_group_option": [
-        "name",
         "translated",
         "id",
         "colorHexCode",
@@ -127,7 +121,6 @@
       "product_group": ["id", "name", "options", "translated"],
       "property_group": ["id", "translated", "options"],
       "property_group_option": [
-        "name",
         "translated",
         "id",
         "colorHexCode",

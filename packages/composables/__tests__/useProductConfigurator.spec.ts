@@ -37,22 +37,54 @@ describe("Composables - useProductConfigurator", () => {
     jest.resetAllMocks();
   });
   describe("on init", () => {
-    it("should have selected options extracted from passed product", () => {
-      const { getSelectedOptions } = useProductConfigurator(rootContextMock, {
-        options: [
+    it("should have selected options extracted from optionIds and given configurator object", () => {
+      statePage.value = {
+        configurator: [
           {
-            id: "12345",
-            group: {
-              translated: {
-                name: "color",
-              },
+            translated: {
+              name: "color",
             },
+            options: [
+              {
+                id: "12345",
+              },
+            ],
           },
         ],
+      };
+      const { getSelectedOptions } = useProductConfigurator(rootContextMock, {
+        optionIds: ["12345"],
       } as any);
       expect(getSelectedOptions.value).toStrictEqual({
         color: "12345",
       });
+    });
+    it("should not have selected options extracted from optionIds and given configurator object if some values dont match", () => {
+      statePage.value = {
+        configurator: [
+          {
+            translated: {
+              name: "color",
+            },
+            options: [
+              {
+                id: "54321",
+              },
+            ],
+          },
+        ],
+      };
+      const { getSelectedOptions } = useProductConfigurator(rootContextMock, {
+        optionIds: ["12345"],
+      } as any);
+      expect(getSelectedOptions.value).toStrictEqual({});
+    });
+    it("should not have selected options if there is no configurator object", () => {
+      const { getSelectedOptions } = useProductConfigurator(
+        rootContextMock,
+        {} as any
+      );
+      expect(getSelectedOptions.value).toStrictEqual({});
     });
     it("should not have selected options extracted from passed product if there are no required values", () => {
       const { getSelectedOptions } = useProductConfigurator(rootContextMock, {

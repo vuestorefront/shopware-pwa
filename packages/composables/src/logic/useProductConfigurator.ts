@@ -53,9 +53,23 @@ export const useProductConfigurator = (
   const isLoadingOptions = ref(!!product.options?.length);
   const parentProductId = computed(() => product.parentId);
   const getOptionGroups = computed(() => page.value.configurator || []);
-  product.options?.forEach((option) => {
-    if (option.group?.translated?.name) {
-      selected.value[option.group.translated.name] = option.id;
+
+  const findGroupCodeForOption = (optionId: string) => {
+    const group = getOptionGroups.value.find((optionGroup: any) => {
+      const optionFound = optionGroup.options.find(
+        (option: any) => option.id === optionId
+      );
+      return !!optionFound;
+    });
+
+    return group?.translated?.name;
+  };
+
+  // create a group -> optionId map
+  product.optionIds?.forEach((optionId) => {
+    const optionGroupCode = findGroupCodeForOption(optionId);
+    if (optionGroupCode) {
+      selected.value[optionGroupCode] = optionId;
     }
   });
 
