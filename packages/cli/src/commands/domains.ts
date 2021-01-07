@@ -87,7 +87,7 @@ module.exports = {
 
     let domainsFilePath = path.join(shopwarePwaPath, "domains.json");
 
-    toolbox.filesystem.writeAsync(domainsFilePath, domainsMap);
+    await toolbox.filesystem.writeAsync(domainsFilePath, domainsMap);
 
     toolbox.print.info("Printed Domain Configuration");
   },

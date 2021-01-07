@@ -7,6 +7,8 @@ import {
 import path from "path";
 import { loadConfig } from "./utils";
 import { extendCMS } from "./cms";
+import { setupDomains } from "./domains";
+
 import { extendLocales } from "./locales";
 import { useCorePackages } from "./packages";
 import { getAllFiles } from "./files";
@@ -164,8 +166,16 @@ export async function runModule(
 
   // locales
   extendLocales(moduleObject, shopwarePwaConfig);
-
+  setupDomains(moduleObject, shopwarePwaConfig);
   /* In here instantiate new routing */
+  moduleObject.addPlugin({
+    fileName: "domain.js",
+    src: path.join(__dirname, "..", "plugins", "domain.js"),
+    options: {
+      pwaHost: shopwarePwaConfig.pwaHost,
+      fallbackDomain: shopwarePwaConfig.fallbackDomain || "/",
+    },
+  });
 
   moduleObject.extendBuild((config: WebpackConfig, ctx: WebpackContext) => {
     const swPluginsDirectory = path.join(
@@ -180,6 +190,7 @@ export async function runModule(
   });
 
   extendCMS(moduleObject, shopwarePwaConfig);
+  setupDomains(moduleObject, shopwarePwaConfig);
 
   moduleObject.options.build = moduleObject.options.build || {};
   moduleObject.options.build.babel = moduleObject.options.build.babel || {};

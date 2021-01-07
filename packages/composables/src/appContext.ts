@@ -1,6 +1,12 @@
 import { getCurrentInstance } from "@vue/composition-api";
 import { ShopwareApiInstance } from "@shopware-pwa/shopware-6-client";
 import { VueConstructor } from "vue";
+interface DomainsRouting {
+  availableDomains: any;
+  fallbackDomain: string;
+  pwaHost: string;
+  currentDomain: () => string;
+}
 
 /**
  * Applicatoin Context for Shopware PWA. It's an extended Vue instance.
@@ -10,6 +16,8 @@ import { VueConstructor } from "vue";
 export interface ApplicationVueContext extends VueConstructor {
   $shopwareApiInstance?: ShopwareApiInstance;
   shopwareApiInstance?: ShopwareApiInstance;
+  $domainsRouting: DomainsRouting;
+  domainsRouting: DomainsRouting;
   $store?: any; // Vuex Store
   store?: any; // Vuex Store
   $route?: any; // Vue router
