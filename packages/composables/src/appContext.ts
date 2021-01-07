@@ -69,6 +69,7 @@ export function getApplicationContext(
     cookies: context?.$cookies || context?.cookies,
     shopwareDefaults: context?.$shopwareDefaults || context?.shopwareDefaults,
     interceptors: context?.$interceptors || context?.interceptors || {},
+    domainsRouting: context?.$domainsRouting || context?.domainsRouting,
     contextName: key,
   };
 }

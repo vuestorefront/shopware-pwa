@@ -34,6 +34,7 @@ export async function setupDomains(
   moduleObject.nuxt.hook("build:extendRoutes", (routes) => {
     routes.forEach((route) => {
       if (!route.meta?.domainId) {
+        const [domain0, domainData0] = domainsEntries[0];
         const [domain1, domainData1] = domainsEntries[1];
         const [domain2, domainData2] = domainsEntries[2];
         console.warn("typeof", typeof domainData1);
@@ -51,6 +52,10 @@ export async function setupDomains(
           alias: undefined,
           name: route.name + "2",
           meta: domainData2,
+        });
+        domainsRoutes.push({
+          ...route,
+          meta: domainData0,
         });
       }
     });

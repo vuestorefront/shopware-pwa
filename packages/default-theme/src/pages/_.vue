@@ -27,9 +27,14 @@ export default {
   asyncData: async ({ params, app, error: errorView, query, route }) => {
     const { search, page, error } = useCms(app)
     const { pushError } = useNotifications(app)
-
     const searchResult = await search(
-      params.pathMatch.replace(route.meta.url, ""),
+      params.pathMatch.replace(
+        (app.$domainsRouting.getCurrentDomain() &&
+          app.$domainsRouting.getCurrentDomain().url !== "/" &&
+          app.$domainsRouting.getCurrentDomain().url) ||
+          "",
+        ""
+      ),
       query
     )
 
