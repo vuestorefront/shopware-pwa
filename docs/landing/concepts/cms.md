@@ -12,7 +12,7 @@ This is a guide to Shopware CMS and how it translates to Shopware PWA.
 
 After reading the full guide, you will understand how
 
-- CMS pages are organised in Showpare
+- CMS pages are organised in Shopware
 - the PWA resolves the page layout from an API response
 - to add custom blocks to extend the layout or make contributions
 
