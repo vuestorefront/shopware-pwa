@@ -5,25 +5,27 @@ import { getApplicationContext } from "@shopware-pwa/composables"
 export const useLocales = (rootContext) => {
   const { i18n, router } = getApplicationContext(rootContext, "useLocales")
 
+  // TODO: consider using availabeDomains config to list the languages
   const availableLanguages = computed(() => Object.values(languagesMap) || [])
+  // TODO: consider using locale code from current domains config
   const currentLocale = computed(() => i18n.locale)
 
   const changeLocale = async (localeCode) => {
-    console.info(
-      "rootContext.$domainsRouting.availableDomains",
-      rootContext.$domainsRouting.availableDomains
-    )
+    // look for current domain
     const domainForLocaleFound = rootContext.$domainsRouting.availableDomains.find(
       (domain) => domain.languageLocaleCode == localeCode
     )
-    const newUrl = rootContext.$route.fullPath.replace(
+    // remove domain
+    const cleanPath = rootContext.$route.fullPath.replace(
       rootContext.$domainsRouting.getCurrentDomain().url,
       ""
     )
-    const newUrl2 = `${
+    // build the new url based on current domain
+    const newUrl = `${
       domainForLocaleFound.url !== "/" ? `${domainForLocaleFound.url}` : ""
-    }/${newUrl}`
-    domainForLocaleFound && router.push(newUrl2)
+    }/${cleanPath}`
+
+    domainForLocaleFound && router.push(newUrl)
   }
 
   return {
