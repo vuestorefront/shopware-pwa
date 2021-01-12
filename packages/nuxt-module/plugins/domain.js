@@ -39,7 +39,6 @@ export default ({ app, route }, inject) => {
   };
 
   // set the domain for current route
-  console.info("set domain for ", domainFromRoute.value);
   domainsRouting.setCurrentDomain(domainFromRoute.value);
 
   // public plugin within the context
@@ -56,7 +55,7 @@ Middleware.domainsRouting = function ({ isHMR, app, store, route }) {
   // a route can have multiple metadata objects inside - find the one with domainId - it comes from compiled routes (domains nuxt-module)
   const domainConfig =
     Array.isArray(route.meta) && route.meta.find((data) => !!data.domainId);
-  console.info("middleware", domainConfig.url);
+
   if (domainConfig) {
     const { currencyId, languageId, languageLocaleCode } = domainConfig;
     app.domainsRouting.setCurrentDomain(domainConfig);

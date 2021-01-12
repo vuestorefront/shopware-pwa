@@ -1,11 +1,18 @@
 import { getCurrentInstance } from "@vue/composition-api";
 import { ShopwareApiInstance } from "@shopware-pwa/shopware-6-client";
 import { VueConstructor } from "vue";
-interface DomainsRouting {
+
+/**
+ * @beta
+ */
+export interface DomainsRouting {
   availableDomains: any;
-  fallbackDomain: string;
-  pwaHost: string;
-  currentDomain: () => string;
+  fallbackDomain: string | undefined;
+  fallbackLocale: string | undefined;
+  pwaHost: string | undefined;
+  getCurrentDomain: () => string;
+  setCurrentDomain: (domainData: any) => void;
+  getRouterUrl: (path: string) => string;
 }
 
 /**

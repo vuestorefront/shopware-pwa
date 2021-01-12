@@ -22,5 +22,4 @@ export * from "./logic/useListing";
 export * from "./logic/useProductQuickSearch";
 export * from "./factories/createListingComposable";
 export * from "./logic/useWishlist";
-export * from "./logic/useDomains";
 export { getApplicationContext, ApplicationVueContext } from "./appContext";

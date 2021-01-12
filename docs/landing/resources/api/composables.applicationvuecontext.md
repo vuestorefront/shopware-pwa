@@ -21,6 +21,7 @@ export interface ApplicationVueContext extends VueConstructor
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [$cookies](./composables.applicationvuecontext._cookies.md) | any | <b><i>(BETA)</i></b> |
+|  [$domainsRouting](./composables.applicationvuecontext._domainsrouting.md) | DomainsRouting | <b><i>(BETA)</i></b> |
 |  [$i18n](./composables.applicationvuecontext._i18n.md) | any | <b><i>(BETA)</i></b> |
 |  [$interceptors](./composables.applicationvuecontext._interceptors.md) | any | <b><i>(BETA)</i></b> |
 |  [$route](./composables.applicationvuecontext._route.md) | any | <b><i>(BETA)</i></b> |
@@ -29,6 +30,7 @@ export interface ApplicationVueContext extends VueConstructor
 |  [$shopwareDefaults](./composables.applicationvuecontext._shopwaredefaults.md) | any | <b><i>(BETA)</i></b> |
 |  [$store](./composables.applicationvuecontext._store.md) | any | <b><i>(BETA)</i></b> |
 |  [cookies](./composables.applicationvuecontext.cookies.md) | any | <b><i>(BETA)</i></b> |
+|  [domainsRouting](./composables.applicationvuecontext.domainsrouting.md) | DomainsRouting | <b><i>(BETA)</i></b> |
 |  [i18n](./composables.applicationvuecontext.i18n.md) | any | <b><i>(BETA)</i></b> |
 |  [interceptors](./composables.applicationvuecontext.interceptors.md) | any | <b><i>(BETA)</i></b> |
 |  [route](./composables.applicationvuecontext.route.md) | any | <b><i>(BETA)</i></b> |

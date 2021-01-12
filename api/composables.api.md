@@ -46,6 +46,10 @@ import { VueConstructor } from 'vue';
 export interface ApplicationVueContext extends VueConstructor {
     // (undocumented)
     $cookies?: any;
+    // Warning: (ae-forgotten-export) The symbol "DomainsRouting" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    $domainsRouting: DomainsRouting;
     // (undocumented)
     $i18n?: any;
     // (undocumented)
@@ -62,6 +66,8 @@ export interface ApplicationVueContext extends VueConstructor {
     $store?: any;
     // (undocumented)
     cookies?: any;
+    // (undocumented)
+    domainsRouting: DomainsRouting;
     // (undocumented)
     i18n?: any;
     // (undocumented)
@@ -133,6 +139,7 @@ export function getApplicationContext(rootContext: ApplicationVueContext, key?: 
     cookies: any;
     shopwareDefaults: any;
     interceptors: any;
+    domainsRouting: DomainsRouting;
     contextName: string;
 };
 

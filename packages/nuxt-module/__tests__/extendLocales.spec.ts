@@ -102,8 +102,8 @@ describe("nuxt-module - extendLocales", () => {
     });
   });
 
-  it("should add middleware to module", () => {
-    extendLocales(moduleObject, mockedConfig);
-    expect(moduleObject.options.router.middleware).toEqual(["i18n"]);
-  });
+  // it("should add middleware to module", () => {
+  //   extendLocales(moduleObject, mockedConfig);
+  //   expect(moduleObject.options.router.middleware).toEqual(["i18n"]);
+  // });
 });

@@ -5,7 +5,6 @@ import { useDomains } from "@shopware-pwa/composables";
 Vue.use(VueI18n);
 
 export default ({ app, store }) => {
-  const { currentDomain, availableDomains } = useDomains(app);
   // Set i18n instance on app
   // This way we can use it in middleware and pages asyncData/fetch
   app.i18n = new VueI18n({
