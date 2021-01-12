@@ -29,42 +29,34 @@ export async function setupDomains(
     )
   );
   let domainsRoutes = [];
-  const domainsEntries = Object.entries(JSON.parse(domainsConfigFile));
+  const domainsEntries = Object.values(JSON.parse(domainsConfigFile));
 
+  // hook in extendRoutes, when the routes.js and routes.json are being built - enrich them with available domains
   moduleObject.nuxt.hook("build:extendRoutes", (routes) => {
-    routes.forEach((route) => {
-      if (!route.meta?.domainId) {
-        const [domain0, domainData0] = domainsEntries[0];
-        const [domain1, domainData1] = domainsEntries[1];
-        const [domain2, domainData2] = domainsEntries[2];
-        console.warn("typeof", typeof domainData1);
-        domainsRoutes.push({
-          ...route,
-          path: `${domain1}${route.path}`,
-          alias: undefined,
-          name: route.name + "1",
-          meta: domainData1,
-        });
-
-        domainsRoutes.push({
-          ...route,
-          path: `${domain2}${route.path}`,
-          alias: undefined,
-          name: route.name + "2",
-          meta: domainData2,
-        });
-        domainsRoutes.push({
-          ...route,
-          meta: domainData0,
+    // reverse routes to set the global wildcard /* as a last one in the matching table
+    // to match always the custom ones first, the /* should be a path of the last chance (page resolver)
+    routes.reverse().forEach((route) => {
+      // skip route enrichment if there is domainId attached with other configuration
+      if (!route.meta?.domainId || !domainsEntries.length) {
+        domainsEntries.forEach((domainConfig) => {
+          // create own routes table, based on the nuxt one
+          domainsRoutes.push({
+            ...route, // not lose not domain related data
+            path: `${domainConfig.url !== "/" ? domainConfig.url : ""}${
+              route.path
+            }`, // prefix each route with available domain
+            name: `${route.name}_domainId_${domainConfig.domainId}`, // add unique name
+            meta: domainConfig, // store additional information about the route like language id for corresponding domain - used in middleware and plugin
+          });
         });
       }
     });
-    console.warn("domainsRoutes", domainsRoutes);
     if (domainsRoutes.length) {
-      routes.splice(0, routes.length, ...domainsRoutes);
+      routes.splice(0, routes.length, ...domainsRoutes); // force replace the new routes table
     }
   });
 
+  // register middleware programmatically
   moduleObject.options.router.middleware =
     moduleObject.options.router.middleware || [];
   /* istanbul ignore next */

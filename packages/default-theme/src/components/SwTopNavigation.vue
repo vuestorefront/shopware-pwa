@@ -13,7 +13,7 @@
     >
       <nuxt-link
         class="sf-header__link"
-        :to="$i18n.path(getCategoryUrl(category))"
+        :to="$domainsRouting.getRouteUrl(getCategoryUrl(category))"
         >{{ category.name }}</nuxt-link
       >
       <SwMegaMenu

@@ -22,7 +22,7 @@
         <SfListItem v-for="category in categoriesList" :key="category.name">
           <nuxt-link
             class="sf-header__link"
-            :to="$i18n.path(getCategoryUrl(category))"
+            :to="$domainsRouting.getRouteUrl(getCategoryUrl(category))"
             @click="toggleMobileNavigation"
           >
             {{ category.name }}
@@ -119,7 +119,7 @@ export default {
   methods: {
     async logoutUser() {
       await this.logout()
-      this.$router.push(this.$i18n.path("/"))
+      this.$router.push(this.$domainsRouting.getRouteUrl("/"))
     },
     goDeeper(name) {
       this.menuTransitionName = "menu-slide-left"

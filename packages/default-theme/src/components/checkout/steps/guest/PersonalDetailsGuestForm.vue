@@ -321,7 +321,9 @@ export default {
         if (!this.isLoggedIn) {
           return
         }
-        this.$router.push(this.$i18n.path('/checkout?step="SHIPPING"'))
+        this.$router.push(
+          this.$domainsRouting.getRouteUrl('/checkout?step="SHIPPING"')
+        )
       } else {
         return this.$emit("proceed")
       }

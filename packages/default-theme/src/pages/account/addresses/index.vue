@@ -52,10 +52,14 @@ export default {
   },
   methods: {
     changeAddress() {
-      this.$router.push(this.$i18n.path("/account/addresses/add"))
+      this.$router.push(
+        this.$domainsRouting.getRouteUrl("/account/addresses/add")
+      )
     },
     editAddress(addressId) {
-      this.$router.push(this.$i18n.path(`/account/addresses/add/${addressId}`))
+      this.$router.push(
+        this.$domainsRouting.getRouteUrl(`/account/addresses/add/${addressId}`)
+      )
     },
   },
 }
