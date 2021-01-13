@@ -25,7 +25,7 @@ export const useLocales = (rootContext) => {
       domainForLocaleFound.url !== "/" ? `${domainForLocaleFound.url}` : ""
     }/${cleanPath}`
 
-    domainForLocaleFound && router.push(newUrl)
+    domainForLocaleFound && router.push(newUrl.replace(/\/\/+/, "/"))
   }
 
   return {

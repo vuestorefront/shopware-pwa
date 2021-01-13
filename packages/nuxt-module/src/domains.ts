@@ -45,6 +45,16 @@ export async function setupDomains(
     JSON.parse(domainsConfigFile as string)
   );
 
+  const appendChildrenWithUniqueName = (routes, parentRoute = "", domainId) => {
+    return routes.map((route) => ({
+      ...route,
+      name: `${parentRoute}_${route.path}_${domainId}`,
+      children:
+        route.children &&
+        appendChildrenWithUniqueName(route.children, route.name, domainId),
+    }));
+  };
+
   /* istanbul ignore next */
   const enrichRoutes = (routes: NuxtRouteConfig[]) => {
     // reverse routes to set the global wildcard /* as a last one in the matching table
@@ -65,6 +75,13 @@ export async function setupDomains(
               }`, // prefix each route with available domain
               name: routeName, // add unique name
               meta: domainConfig, // store additional information about the route like language id for corresponding domain - used in middleware and plugin
+              children:
+                route.children &&
+                appendChildrenWithUniqueName(
+                  route.children,
+                  routeName,
+                  domainConfig.domainId
+                ),
             });
           }
         });
