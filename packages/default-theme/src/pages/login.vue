@@ -28,7 +28,7 @@ export default {
   computed: {},
   methods: {
     redirectToMyAccount() {
-      this.$router.push(this.$domainsRouting.getRouteUrl(PAGE_ACCOUNT))
+      this.$router.push(this.$routing.getUrl(PAGE_ACCOUNT))
     },
   },
 }

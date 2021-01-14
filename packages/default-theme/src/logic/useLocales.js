@@ -12,12 +12,12 @@ export const useLocales = (rootContext) => {
 
   const changeLocale = async (localeCode) => {
     // look for current domain
-    const domainForLocaleFound = rootContext.$domainsRouting.availableDomains.find(
+    const domainForLocaleFound = rootContext.$routing.availableDomains.find(
       (domain) => domain.languageLocaleCode == localeCode
     )
     // remove domain
     const cleanPath = rootContext.$route.fullPath.replace(
-      rootContext.$domainsRouting.getCurrentDomain().url,
+      rootContext.$routing.getCurrentDomain().url,
       ""
     )
     // build the new url based on current domain

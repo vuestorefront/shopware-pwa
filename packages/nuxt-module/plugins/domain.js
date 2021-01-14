@@ -17,7 +17,7 @@ export default ({ app, route }, inject) => {
     )
   );
 
-  const domainsRouting = {
+  const routing = {
     // list of available domains from "domains.json" - output of "domains" CLI command
     availableDomains: Object.values(domainsList),
     fallbackDomain: FALLBACK_DOMAIN,
@@ -32,22 +32,22 @@ export default ({ app, route }, inject) => {
       return currentDomainData.value || domainFromRoute.value;
     },
     // get route for current domain
-    getRouteUrl: (path) =>
+    getUrl: (path) =>
       currentDomainData.value
         ? `${currentDomainData.value.url}${path}`.replace(/^\/\/+/, "/")
         : path,
   };
 
   // set the domain for current route
-  domainsRouting.setCurrentDomain(domainFromRoute.value);
+  routing.setCurrentDomain(domainFromRoute.value);
 
   // public plugin within the context
-  app.domainsRouting = domainsRouting;
-  inject("domainsRouting", domainsRouting);
+  app.routing = routing;
+  inject("routing", routing);
 };
 
 // middleware to set languageId & currencyId for api client and i18n plugin
-Middleware.domainsRouting = function ({ isHMR, app, store, route }) {
+Middleware.routing = function ({ isHMR, app, store, route, redirect }) {
   if (isHMR) {
     return;
   }
@@ -56,13 +56,17 @@ Middleware.domainsRouting = function ({ isHMR, app, store, route }) {
   const domainConfig =
     Array.isArray(route.meta) && route.meta.find((data) => !!data.domainId);
 
-  if (domainConfig) {
-    const { currencyId, languageId, languageLocaleCode } = domainConfig;
-    app.domainsRouting.setCurrentDomain(domainConfig);
-    currencyId &&
-      languageId &&
-      app.$shopwareApiInstance.update({ currencyId, languageId });
-    languageLocaleCode && store.commit("SET_LANG", languageLocaleCode);
-    app.i18n.locale = languageLocaleCode;
+  // perform a redirection to the fallback domain if the current domain is not available
+  // for example: /Toys -> /germany/Toys if the "/" domain is not present
+  if (!domainConfig) {
+    return redirect(`${FALLBACK_DOMAIN}${route.path}`);
   }
+
+  const { currencyId, languageId, languageLocaleCode } = domainConfig;
+  app.routing.setCurrentDomain(domainConfig);
+  currencyId &&
+    languageId &&
+    app.$shopwareApiInstance.update({ currencyId, languageId });
+  languageLocaleCode && store.commit("SET_LANG", languageLocaleCode);
+  app.i18n.locale = languageLocaleCode;
 };

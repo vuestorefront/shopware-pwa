@@ -5,7 +5,7 @@ import { VueConstructor } from "vue";
 /**
  * @beta
  */
-export interface DomainsRouting {
+export interface routing {
   availableDomains: any;
   fallbackDomain: string | undefined;
   fallbackLocale: string | undefined;
@@ -23,8 +23,8 @@ export interface DomainsRouting {
 export interface ApplicationVueContext extends VueConstructor {
   $shopwareApiInstance?: ShopwareApiInstance;
   shopwareApiInstance?: ShopwareApiInstance;
-  $domainsRouting: DomainsRouting;
-  domainsRouting: DomainsRouting;
+  $routing: routing;
+  routing: routing;
   $store?: any; // Vuex Store
   store?: any; // Vuex Store
   $route?: any; // Vue router
@@ -76,7 +76,7 @@ export function getApplicationContext(
     cookies: context?.$cookies || context?.cookies,
     shopwareDefaults: context?.$shopwareDefaults || context?.shopwareDefaults,
     interceptors: context?.$interceptors || context?.interceptors || {},
-    domainsRouting: context?.$domainsRouting || context?.domainsRouting,
+    routing: context?.$routing || context?.routing,
     contextName: key,
   };
 }

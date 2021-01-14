@@ -14,15 +14,11 @@
         <SfListItem v-for="item in group.children" :key="item.routeLabel">
           <nuxt-link
             v-if="!item.isExternal"
-            :to="$domainsRouting.getRouteUrl(item.routePath)"
+            :to="$routing.getUrl(item.routePath)"
           >
             <SfMenuItem :label="item.routeLabel" />
           </nuxt-link>
-          <a
-            :href="$domainsRouting.getRouteUrl(item.routePath)"
-            target="_new"
-            v-else
-          >
+          <a :href="$routing.getUrl(item.routePath)" target="_new" v-else>
             <SfMenuItem :label="item.routeLabel" :title="item.routeLabel" />
           </a>
         </SfListItem>

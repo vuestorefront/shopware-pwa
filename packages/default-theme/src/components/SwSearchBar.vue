@@ -85,7 +85,7 @@ export default {
     performSearch() {
       if (this.typingQuery.length > 0) {
         this.$router.push(
-          this.$domainsRouting.getRouteUrl(getSearchPageUrl(this.typingQuery))
+          this.$routing.getUrl(getSearchPageUrl(this.typingQuery))
         )
       }
     },

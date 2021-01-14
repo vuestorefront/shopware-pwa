@@ -11,28 +11,20 @@ export async function setupDomains(
   moduleObject: NuxtModuleOptions,
   shopwarePwaConfig: ShopwarePwaConfigFile | undefined
 ) {
-  const domainsConfigExists = jetpack.exists(
-    path.join(
-      moduleObject.options.rootDir,
-      ".shopware-pwa",
-      "sw-plugins",
-      "domains.json"
-    )
+  const domainConfigPath = path.join(
+    moduleObject.options.rootDir,
+    ".shopware-pwa",
+    "sw-plugins",
+    "domains.json"
   );
+  const domainsConfigExists = jetpack.exists(domainConfigPath);
   if (!domainsConfigExists) {
     throw new Error(
       "[shopware-pwa] Domains config is not initialized properly, please run 'shopware-pwa init'"
     );
   }
 
-  const domainsConfigFile = await jetpack.readAsync(
-    path.join(
-      moduleObject.options.rootDir,
-      ".shopware-pwa",
-      "sw-plugins",
-      "domains.json"
-    )
-  );
+  const domainsConfigFile = await jetpack.readAsync(domainConfigPath);
 
   if (!domainsConfigFile) {
     throw new Error(
@@ -107,5 +99,5 @@ export async function setupDomains(
       moduleObject.options.router.middleware,
     ];
   }
-  moduleObject.options.router.middleware.push("domainsRouting");
+  moduleObject.options.router.middleware.push("routing");
 }

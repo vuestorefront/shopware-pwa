@@ -135,7 +135,7 @@ export default {
     },
 
     goToWishlist() {
-      this.$router.push(this.$domainsRouting.getRouteUrl(PAGE_WISHLIST))
+      this.$router.push(this.$routing.getUrl(PAGE_WISHLIST))
     },
   },
 }

@@ -1,10 +1,7 @@
 <template>
   <div class="sw-bottom-navigation">
     <SfBottomNavigation data-cy="bottom-navigation">
-      <nuxt-link
-        aria-label="Go to Home Page"
-        :to="$domainsRouting.getRouteUrl('/')"
-      >
+      <nuxt-link aria-label="Go to Home Page" :to="$routing.getUrl('/')">
         <SfBottomNavigationItem
           :label="$t('Home')"
           icon="home"
@@ -191,11 +188,11 @@ export default {
       } else this.toggleModal()
     },
     goToMyAccount() {
-      this.$router.push(this.$domainsRouting.getRouteUrl(PAGE_ACCOUNT))
+      this.$router.push(this.$routing.getUrl(PAGE_ACCOUNT))
     },
     async logoutUser() {
       await this.logout()
-      this.$router.push(this.$domainsRouting.getRouteUrl("/"))
+      this.$router.push(this.$routing.getUrl("/"))
     },
     toggleMobileNavigation() {
       this.mobileNavIsActive = !this.mobileNavIsActive

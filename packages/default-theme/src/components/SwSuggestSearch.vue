@@ -14,7 +14,7 @@
           class="search-suggestions__product"
           v-for="product in products.slice(0, 5)"
           :key="product.id"
-          :link="$domainsRouting.getRouteUrl(getProductRouterLink(product))"
+          :link="$routing.getUrl(getProductRouterLink(product))"
         >
           <SfImage
             :src="getProducImageUrl(product)"
@@ -107,7 +107,7 @@ export default {
   },
   methods: {
     getProductRouterLink(product) {
-      return this.$domainsRouting.getRouteUrl(getProductUrl(product))
+      return this.$routing.getUrl(getProductUrl(product))
     },
     close() {
       this.$emit("close")

@@ -254,7 +254,7 @@ export default {
       this.returnToAddresses()
     },
     returnToAddresses() {
-      this.$router.push(this.$domainsRouting.getRouteUrl("/account/addresses"))
+      this.$router.push(this.$routing.getUrl("/account/addresses"))
     },
   },
   validations: {

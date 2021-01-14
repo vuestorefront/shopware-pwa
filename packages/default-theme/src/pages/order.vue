@@ -7,7 +7,7 @@
     />
     <SfDivider />
     <SwOrderDetails :order-id="orderId" />
-    <SwButton @click="$router.push($domainsRouting.getRouteUrl('/'))">
+    <SwButton @click="$router.push($routing.getUrl('/'))">
       <SfIcon icon="chevron_left" color="white" size="20px" />
       {{ $t("Return to homepage") }}
     </SwButton>

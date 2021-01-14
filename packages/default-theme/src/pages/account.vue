@@ -79,21 +79,17 @@ export default {
     async updateActivePage(title) {
       switch (title) {
         case this.$t("My profile"):
-          this.$router.push(
-            this.$domainsRouting.getRouteUrl("/account/profile")
-          )
+          this.$router.push(this.$routing.getUrl("/account/profile"))
           break
         case this.$t("My addresses"):
-          this.$router.push(
-            this.$domainsRouting.getRouteUrl("/account/addresses")
-          )
+          this.$router.push(this.$routing.getUrl("/account/addresses"))
           break
         case this.$tc("Order history", this.ordersCount):
-          this.$router.push(this.$domainsRouting.getRouteUrl("/account/orders"))
+          this.$router.push(this.$routing.getUrl("/account/orders"))
           break
         case this.$t("Logout"):
           await this.logout()
-          this.$router.push(this.$domainsRouting.getRouteUrl(PAGE_LOGIN))
+          this.$router.push(this.$routing.getUrl(PAGE_LOGIN))
           break
       }
       this.activePage = title

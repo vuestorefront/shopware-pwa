@@ -61,7 +61,7 @@ describe("nuxt-module - setupDomains", () => {
     }
     `);
     await setupDomains(moduleObject, mockedConfig);
-    expect(moduleObject.options.router.middleware).toEqual(["domainsRouting"]);
+    expect(moduleObject.options.router.middleware).toEqual(["routing"]);
   });
 
   it("should trigger 'build:extendRoutes' hook", async () => {

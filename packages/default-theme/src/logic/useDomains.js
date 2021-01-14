@@ -9,7 +9,6 @@ export const useDomains = (rootContext) => {
   const currentLocale = computed(() => i18n.locale)
 
   const changeDomain = async (domainId) => {
-    console.warn(domainId)
     if (localeCode === i18n.locale) return
     if (localeCode === i18n.fallbackLocale) {
       router.push(rootContext.$route.fullPath.replace(/^\/[^\/]+/, ""))

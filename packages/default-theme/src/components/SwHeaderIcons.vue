@@ -115,7 +115,7 @@ export default {
   },
   computed: {
     getPageAccount() {
-      return this.$domainsRouting.getRouteUrl(PAGE_ACCOUNT)
+      return this.$routing.getUrl(PAGE_ACCOUNT)
     },
   },
   methods: {
@@ -126,10 +126,10 @@ export default {
     async logoutUser() {
       await this.logout()
       this.isDropdownOpen = false
-      this.$router.push(this.$domainsRouting.getRouteUrl("/"))
+      this.$router.push(this.$routing.getUrl("/"))
     },
     goToWishlist() {
-      this.$router.push(this.$domainsRouting.getRouteUrl(PAGE_WISHLIST))
+      this.$router.push(this.$routing.getUrl(PAGE_WISHLIST))
     },
   },
 }

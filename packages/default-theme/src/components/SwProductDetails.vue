@@ -197,7 +197,7 @@ export default {
         options,
       })
 
-      url && this.$router.push(this.$domainsRouting.getRouteUrl(url))
+      url && this.$router.push(this.$routing.getUrl(url))
     },
   },
 
