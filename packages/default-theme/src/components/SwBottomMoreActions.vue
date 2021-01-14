@@ -96,7 +96,7 @@ export default {
     }
   },
   setup(props, { root }) {
-    const { availableLanguages, changeLocale } = useLocales(root)
+    const { availableLanguages, changeLocale } = useDomains(root)
     const {
       setCurrency,
       loadAvailableCurrencies,

@@ -10,10 +10,10 @@ Vue.use(VueCompositionAPI);
 const currentDomainData = ref();
 // register domains based routing and configuration
 export default ({ app, route }, inject) => {
-  const routeDomain = computed(() => route.meta?.[0]?.url);
-  const domainFromRoute = computed(() =>
+  const routeDomainUrl = computed(() => route.meta?.[0]?.url);
+  const routeDomain = computed(() =>
     Object.values(domainsList).find(
-      (domain) => domain.url === routeDomain.value
+      (domain) => domain.url === routeDomainUrl.value
     )
   );
 
@@ -29,7 +29,7 @@ export default ({ app, route }, inject) => {
     },
     // get current domain's configuration
     getCurrentDomain: () => {
-      return currentDomainData.value || domainFromRoute.value;
+      return currentDomainData.value || routeDomain.value;
     },
     // get route for current domain
     getUrl: (path) =>
@@ -39,7 +39,7 @@ export default ({ app, route }, inject) => {
   };
 
   // set the domain for current route
-  routing.setCurrentDomain(domainFromRoute.value);
+  routing.setCurrentDomain(routeDomain.value);
 
   // public plugin within the context
   app.routing = routing;
@@ -62,11 +62,9 @@ Middleware.routing = function ({ isHMR, app, store, route, redirect }) {
     return redirect(`${FALLBACK_DOMAIN}${route.path}`);
   }
 
-  const { currencyId, languageId, languageLocaleCode } = domainConfig;
+  const { languageId, languageLocaleCode } = domainConfig;
   app.routing.setCurrentDomain(domainConfig);
-  currencyId &&
-    languageId &&
-    app.$shopwareApiInstance.update({ currencyId, languageId });
+  languageId && app.$shopwareApiInstance.update({ languageId });
   languageLocaleCode && store.commit("SET_LANG", languageLocaleCode);
   app.i18n.locale = languageLocaleCode;
 };

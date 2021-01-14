@@ -1,25 +1,39 @@
 import { computed } from "@vue/composition-api"
-import domains from "sw-plugins/domains"
 import { getApplicationContext } from "@shopware-pwa/composables"
 
 export const useDomains = (rootContext) => {
-  const { i18n, router } = getApplicationContext(rootContext, "useDomains")
+  const { router, routing } = getApplicationContext(rootContext, "useDomains")
 
-  const availableLanguages = computed(() => Object.values(domains) || [])
-  const currentLocale = computed(() => i18n.locale)
+  const availableDomains = computed(() => routing.availableDomains || [])
+  const currentDomainId = computed(() => routing.getCurrentDomain().domainId)
 
   const changeDomain = async (domainId) => {
-    if (localeCode === i18n.locale) return
-    if (localeCode === i18n.fallbackLocale) {
-      router.push(rootContext.$route.fullPath.replace(/^\/[^\/]+/, ""))
-    } else {
-      router.push(`/${localeCode}${rootContext.$route.fullPath}`)
+    if (domainId === currentDomainId.value) return
+
+    const domainForLocaleFound = routing.availableDomains.find(
+      (domain) => domain.domainId == domainId
+    )
+
+    if (!domainForLocaleFound) {
+      return
     }
+
+    // remove domain
+    const cleanPath = rootContext.$route.fullPath.replace(
+      routing.getCurrentDomain().url,
+      ""
+    )
+    // build the new url based on current domain
+    const newUrl = `${
+      domainForLocaleFound.url !== "/" ? `${domainForLocaleFound.url}` : ""
+    }/${cleanPath}`
+
+    domainForLocaleFound && router.push(newUrl.replace(/\/\/+/, "/"))
   }
 
   return {
-    availableLanguages,
-    changeLocale,
-    currentLocale,
+    availableDomains,
+    currentDomainId,
+    changeDomain,
   }
 }
