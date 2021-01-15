@@ -37,7 +37,12 @@ export async function setupDomains(
     JSON.parse(domainsConfigFile as string)
   );
 
-  const appendChildrenWithUniqueName = (routes, parentRoute = "", domainId) => {
+  /* istanbul ignore next */
+  const appendChildrenWithUniqueName = (
+    routes: NuxtRouteConfig[],
+    parentRoute: string = "",
+    domainId: string
+  ): NuxtRouteConfig[] => {
     return routes.map((route) => ({
       ...route,
       name: `${parentRoute}_${route.path}_${domainId}`,
@@ -85,7 +90,9 @@ export async function setupDomains(
   };
 
   // hook in extendRoutes, when the routes.js and routes.json are being built - enrich them with available domains and corresponding metadata
+  /* istanbul ignore next */
   moduleObject.nuxt.hook("build:extendRoutes", (routes: NuxtRouteConfig[]) =>
+    /* istanbul ignore next */
     enrichRoutes(routes)
   );
 
