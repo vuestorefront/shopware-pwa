@@ -1,5 +1,6 @@
 import Middleware from "./middleware";
 import VueCompositionAPI, { computed, ref } from "@vue/composition-api";
+import { useSessionContext } from "@shopware-pwa/composables";
 import Vue from "vue";
 const FALLBACK_DOMAIN = "<%= options.fallbackDomain %>";
 const FALLBACK_LOCALE = "<%= options.fallbackLocale %>";
@@ -47,7 +48,7 @@ export default ({ app, route }, inject) => {
 };
 
 // middleware to set languageId & currencyId for api client and i18n plugin
-Middleware.routing = function ({ isHMR, app, store, route, redirect }) {
+Middleware.routing = function ({ isHMR, app, store, from, route, redirect }) {
   if (isHMR) {
     return;
   }
@@ -62,6 +63,19 @@ Middleware.routing = function ({ isHMR, app, store, route, redirect }) {
     return redirect(`${FALLBACK_DOMAIN}${route.path}`);
   }
 
+  // set default currency for the current domain
+  const { setCurrency, currency } = useSessionContext(app);
+  let currencyId = route.query.currencyId || currency.value.id;
+  // force change the currencyId to default one for changed domain
+  const fromDomain =
+    from &&
+    Array.isArray(from.meta) &&
+    from.meta.find((data) => !!data.domainId);
+  if (fromDomain && fromDomain.domainId !== domainConfig.domainId) {
+    currencyId = domainConfig.currencyId;
+  }
+
+  setCurrency({ id: currencyId });
   const { languageId, languageLocaleCode } = domainConfig;
   app.routing.setCurrentDomain(domainConfig);
   languageId && app.$shopwareApiInstance.update({ languageId });
