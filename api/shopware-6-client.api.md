@@ -249,6 +249,12 @@ export function getResults(term: string, searchCriteria?: SearchCriteria, contex
 export function getSearchResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
 // @beta
+export function getSeoUrls(entityId: string, languageId?: string, contextInstance?: ShopwareApiInstance): Promise<{
+    apiAlias: string;
+    seoPathInfo: string;
+}[]>;
+
+// @beta
 export function getSessionContext(contextInstance?: ShopwareApiInstance): Promise<SessionContext>;
 
 // @beta (undocumented)
