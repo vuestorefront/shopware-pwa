@@ -97,3 +97,38 @@ export async function getProductPage(
 
   return resp.data;
 }
+
+/**
+ * Returns an array of SEO URLs for given entity
+ * Can be used for other languages as well by providing the languageId
+ *
+ * @beta
+ */
+export async function getSeoUrls(
+  entityId: string,
+  languageId?: string,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<
+  {
+    apiAlias: string;
+    seoPathInfo: string;
+  }[]
+> {
+  if (languageId) {
+    contextInstance.defaults.headers["sw-language-id"] = languageId;
+  }
+  const resp = await contextInstance.invoke.post("/store-api/v3/seo-url", {
+    filter: [
+      {
+        type: "equals",
+        field: "foreignKey",
+        value: entityId,
+      },
+    ],
+    includes: {
+      seo_url: ["seoPathInfo"],
+    },
+  });
+
+  return resp.data;
+}

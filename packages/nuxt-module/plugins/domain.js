@@ -59,13 +59,21 @@ Middleware.routing = function ({ isHMR, app, store, from, route, redirect }) {
 
   // perform a redirection to the fallback domain if the current domain is not available
   // for example: /Toys -> /germany/Toys if the "/" domain is not present
-  if (!domainConfig) {
-    return redirect(`${FALLBACK_DOMAIN}${route.path}`);
+  if (!domainConfig && app.routing.availableDomains.length) {
+    const fallbackDomainFound = app.routing.availableDomains.find(
+      ({ url }) => url === FALLBACK_DOMAIN
+    );
+    // if the fallback domain does not match - use the first available instead
+    const fallbackDomainPrefix =
+      (fallbackDomainFound && fallbackDomainFound.url) ||
+      app.routing.availableDomains.pop().url;
+    return redirect(`${fallbackDomainPrefix}${route.path}`);
   }
 
   // set default currency for the current domain
   const { setCurrency, currency } = useSessionContext(app);
-  let currencyId = route.query.currencyId || currency.value.id;
+  let currencyId =
+    route.query.currencyId || (currency.value && currency.value.id);
   // force change the currencyId to default one for changed domain
   const fromDomain =
     from &&

@@ -16,7 +16,7 @@ export interface Routing {
 }
 
 /**
- * Applicatoin Context for Shopware PWA. It's an extended Vue instance.
+ * Application Context for Shopware PWA. It's an extended Vue instance.
  *
  * @beta
  */
