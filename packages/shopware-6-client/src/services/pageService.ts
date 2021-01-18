@@ -4,40 +4,13 @@ import {
   SearchCriteria,
   ShopwareSearchParams,
 } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { CmsPage } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { Aggregation } from "@shopware-pwa/commons/interfaces/search/Aggregation";
+import {
+  PageResolverResult,
+  PageResolverProductResult,
+  CmsPage,
+} from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
 import { convertSearchCriteria } from "../helpers/searchConverter";
-
-/**
- * @beta
- */
-export interface PageResolverResult<T> {
-  cmsPage: T;
-  breadcrumb: {
-    [id: string]: {
-      name: string;
-      path: string;
-    };
-  };
-  listingConfiguration: any;
-  resourceType: string;
-  resourceIdentifier: string;
-  apiAlias: string;
-}
-
-/**
- * @beta
- */
-export interface PageResolverProductResult {
-  product: Partial<Product>;
-  aggregations: Aggregation[];
-  resourceType: string;
-  resourceIdentifier: string;
-  cannonicalPathInfo: string;
-  apiAlias: string;
-}
 
 /**
  * @throws ClientApiError

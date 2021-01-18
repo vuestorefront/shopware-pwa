@@ -84,8 +84,6 @@
 |  [CustomerUpdateProfileParam](./shopware-6-client.customerupdateprofileparam.md) | <b><i>(BETA)</i></b> |
 |  [GetStoreNavigationParams](./shopware-6-client.getstorenavigationparams.md) | <b><i>(BETA)</i></b> More about the navigation parameters: https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/navigation?category=shopware-platform-dev-en/store-api-guide |
 |  [NewsletterSubscribeData](./shopware-6-client.newslettersubscribedata.md) | <b><i>(BETA)</i></b> |
-|  [PageResolverProductResult](./shopware-6-client.pageresolverproductresult.md) | <b><i>(BETA)</i></b> |
-|  [PageResolverResult](./shopware-6-client.pageresolverresult.md) | <b><i>(BETA)</i></b> |
 |  [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) | <b><i>(BETA)</i></b> |
 
 ## Variables
