@@ -30,11 +30,11 @@ export const useDomains = (rootContext) => {
     if (isRouteStatic()) {
       path += getCurrentPathWithoutDomain()
     } else {
-      const { entityId, page } = useCms(rootContext)
+      const { categoryId, page } = useCms(rootContext)
       try {
         // find the correspoding URL for current page if it comes from page resolver - dynamically generated
         const seoResponse = await getSeoUrls(
-          entityId.value,
+          categoryId.value,
           domain.languageId,
           apiInstance
         )
