@@ -62,6 +62,13 @@ module.exports = {
     // Get Auth Token for API
     let authToken;
     try {
+      console.info(
+        "inputParameters",
+        username,
+        pwaHost,
+        inputParameters.shopwareEndpoint
+      );
+      toolbox.print.info(`${username}/${inputParameters.shopwareEndpoint}`);
       authToken = await toolbox.fetchPluginsAuthToken(toolbox.inputParameters);
     } catch (error) {
       if (error.response.status === 401) {

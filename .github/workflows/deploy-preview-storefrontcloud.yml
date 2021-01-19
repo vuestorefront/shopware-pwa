@@ -2,7 +2,7 @@ name: Deploy PR Preview on Storefrontcloud
 env:
   CANARY_SW6_INSTANCE: https://pwa-demo-api.shopware.com
   CANARY_SW6_INSTANCE_TOKEN: SWSC40-LJTNO6COUEN7CJMXKLA
-  PWA_HOST: http://shopware-pwa-canary.storefrontcloud.io
+  PWA_HOST: https://shopware-pwa-canary.storefrontcloud.io
   INSTANCE_CODE: shopware-pwa-canary
 on:
   pull_request:
