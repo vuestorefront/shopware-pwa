@@ -393,6 +393,7 @@ jobs:
       - name: Build test project
         run: |
           cd ./test-project
+          ../packages/cli/bin/shopware-pwa domains --username=${{ secrets.SHOPWARE_ADMIN_USER }} --password=${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --pwaHost=${{ env.PWA_HOST }} --ci 
           yarn build
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@2.19
