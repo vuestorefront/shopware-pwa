@@ -2,7 +2,7 @@ import Middleware from "./middleware";
 import VueCompositionAPI, { computed, ref } from "@vue/composition-api";
 import { useSessionContext } from "@shopware-pwa/composables";
 import Vue from "vue";
-const FALLBACK_DOMAIN = "<%= options.fallbackDomain %>";
+const FALLBACK_DOMAIN = "<%= options.fallbackDomain %>" || "/";
 const FALLBACK_LOCALE = "<%= options.fallbackLocale %>";
 const PWA_HOST = "<%= options.pwaHost %>";
 const domainsList = require("sw-plugins/domains");
