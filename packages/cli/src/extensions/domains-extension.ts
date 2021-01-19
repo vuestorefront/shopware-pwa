@@ -48,7 +48,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       }
     );
 
-    return fetchDomainsResponse.data.data;
+    return fetchDomainsResponse?.data?.data;
   };
 
   toolbox.domains.prepareDomainsMap = (domains, pwaHost: string) => {
