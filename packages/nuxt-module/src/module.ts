@@ -166,16 +166,6 @@ export async function runModule(
 
   // locales
   extendLocales(moduleObject, shopwarePwaConfig);
-  setupDomains(moduleObject, shopwarePwaConfig);
-  /* In here instantiate new routing */
-  moduleObject.addPlugin({
-    fileName: "domain.js",
-    src: path.join(__dirname, "..", "plugins", "domain.js"),
-    options: {
-      pwaHost: shopwarePwaConfig.pwaHost,
-      fallbackDomain: shopwarePwaConfig.fallbackDomain || "/",
-    },
-  });
 
   moduleObject.extendBuild((config: WebpackConfig, ctx: WebpackContext) => {
     const swPluginsDirectory = path.join(
@@ -190,6 +180,8 @@ export async function runModule(
   });
 
   extendCMS(moduleObject, shopwarePwaConfig);
+
+  /* In here instantiate new routing */
   setupDomains(moduleObject, shopwarePwaConfig);
 
   moduleObject.options.build = moduleObject.options.build || {};

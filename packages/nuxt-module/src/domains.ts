@@ -9,7 +9,7 @@ import jetpack from "fs-jetpack";
 
 export async function setupDomains(
   moduleObject: NuxtModuleOptions,
-  shopwarePwaConfig: ShopwarePwaConfigFile | undefined
+  shopwarePwaConfig: ShopwarePwaConfigFile
 ) {
   const domainConfigPath = path.join(
     moduleObject.options.rootDir,
@@ -95,6 +95,15 @@ export async function setupDomains(
     /* istanbul ignore next */
     enrichRoutes(routes)
   );
+  /* istanbul ignore next */
+  moduleObject.addPlugin({
+    fileName: "domain.js",
+    src: path.join(__dirname, "..", "plugins", "domain.js"),
+    options: {
+      pwaHost: shopwarePwaConfig.pwaHost,
+      fallbackDomain: shopwarePwaConfig.fallbackDomain || "/",
+    },
+  });
 
   // register middleware programmatically
   /* istanbul ignore next */
