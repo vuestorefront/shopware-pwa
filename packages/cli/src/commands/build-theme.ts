@@ -4,6 +4,7 @@ const command: GluegunCommand = {
   name: "build-theme",
   description: "Build your theme for Shopware PWA projects.",
   run: async (toolbox) => {
+    const path = require("path");
     const fse = require("fs-extra");
     const buildingSpinner = toolbox.print.spin("Building theme...");
 
@@ -31,6 +32,31 @@ const command: GluegunCommand = {
             );
           },
         });
+
+        // Get locales from baseTheme
+        const resultLocalesMap = {};
+        const baseThemeLocalesMap = await toolbox.languages.getLocalesMap(
+          path.join(themePath, "locales")
+        );
+        await toolbox.languages.mergeLocalesMap(
+          resultLocalesMap,
+          baseThemeLocalesMap
+        );
+
+        // Get locales from local theme and merge theme with those from baseTheme
+        const localThemeLocalesMap = await toolbox.languages.getLocalesMap(
+          "locales"
+        );
+        await toolbox.languages.mergeLocalesMap(
+          resultLocalesMap,
+          localThemeLocalesMap
+        );
+
+        // Write the merged locales to the dist folder.
+        await toolbox.languages.writeLanguages(
+          resultLocalesMap,
+          path.join(destinationDirectoryName, "locales")
+        );
       } catch (e) {
         buildingSpinner.fail(e.message);
         process.exit(1);
