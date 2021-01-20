@@ -5,20 +5,20 @@
       "manufacturer": {},
       "media": {},
       "productReviews": {},
-        "crossSellings": {
-          "associations": {
-            "assignedProducts": {
-              "associations": {
-                "product": {
-                  "associations": {
-                    "media": {},
-                    "cover": {},
-                    "seoUrls": {}
-                  }
+      "crossSellings": {
+        "associations": {
+          "assignedProducts": {
+            "associations": {
+              "product": {
+                "associations": {
+                  "media": {},
+                  "cover": {},
+                  "seoUrls": {}
                 }
               }
             }
           }
+        }
       },
       "properties": {
         "associations": {
