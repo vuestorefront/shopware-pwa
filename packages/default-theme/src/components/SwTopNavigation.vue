@@ -13,7 +13,7 @@
     >
       <nuxt-link
         class="sf-header__link"
-        :to="$i18n.path(getCategoryUrl(category))"
+        :to="$routing.getUrl(getCategoryUrl(category))"
         >{{ category.name }}</nuxt-link
       >
       <SwMegaMenu
@@ -48,7 +48,7 @@ import SwMegaMenu from "@/components/SwMegaMenu"
 import { ref, onMounted, watch } from "@vue/composition-api"
 import { getCategoryUrl } from "@shopware-pwa/helpers"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import { useLocales } from "@/logic"
+import { useDomains } from "@/logic"
 import SwTopNavigationShowMore from "@/components/SwTopNavigationShowMore"
 
 export default {
@@ -63,7 +63,7 @@ export default {
       "MEGA_MENU_OVERLAY_STATE"
     )
     const { fetchNavigationElements, navigationElements } = useNavigation(root)
-    const { currentLocale } = useLocales(root)
+    const { currentDomainId } = useDomains(root)
 
     const currentCategoryName = ref(null)
 
@@ -73,7 +73,7 @@ export default {
     }
 
     onMounted(async () => {
-      await watch(currentLocale, async () => {
+      await watch(currentDomainId, async () => {
         try {
           await fetchNavigationElements(3)
         } catch (e) {

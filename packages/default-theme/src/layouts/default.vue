@@ -77,9 +77,9 @@ export default {
       const breadcrumbs = Object.values(getBreadcrumbsObject.value).map(
         (breadcrumb) => ({
           text: breadcrumb.name,
-          link: root.$i18n.path(breadcrumb.path),
+          link: root.$routing.getUrl(breadcrumb.path),
           route: {
-            link: root.$i18n.path(breadcrumb.path),
+            link: root.$routing.getUrl(breadcrumb.path),
           },
         })
       )
@@ -87,9 +87,9 @@ export default {
       if (breadcrumbs.length > 0) {
         breadcrumbs.unshift({
           text: root.$t("Home"),
-          link: root.$i18n.path("/"),
+          link: root.$routing.getUrl("/"),
           route: {
-            link: root.$i18n.path("/"),
+            link: root.$routing.getUrl("/"),
           },
         })
       }
@@ -107,7 +107,7 @@ export default {
 
   methods: {
     redirectTo(route) {
-      return this.$router.push(this.$i18n.path(route.link))
+      return this.$router.push(this.$routing.getUrl(route.link))
     },
   },
 }

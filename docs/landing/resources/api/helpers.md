@@ -14,6 +14,7 @@
 
 |  Function | Description |
 |  --- | --- |
+|  [getCmsTechnicalPath(page)](./helpers.getcmstechnicalpath.md) | <b><i>(BETA)</i></b> |
 |  [getListingAvailableFilters(aggregations)](./helpers.getlistingavailablefilters.md) | <b><i>(BETA)</i></b> |
 |  [getListingFilters(aggregations)](./helpers.getlistingfilters.md) | <b><i>(BETA)</i></b> |
 |  [getProductCalculatedListingPrice(product)](./helpers.getproductcalculatedlistingprice.md) | <b><i>(BETA)</i></b> Get the calculated list price |

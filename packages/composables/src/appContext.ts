@@ -9,15 +9,28 @@ interface DomainsRouting {
 }
 
 /**
- * Applicatoin Context for Shopware PWA. It's an extended Vue instance.
+ * @beta
+ */
+export interface Routing {
+  availableDomains: any;
+  fallbackDomain: string | undefined;
+  fallbackLocale: string | undefined;
+  pwaHost: string | undefined;
+  getCurrentDomain: () => string;
+  setCurrentDomain: (domainData: any) => void;
+  getRouterUrl: (path: string) => string;
+}
+
+/**
+ * Application Context for Shopware PWA. It's an extended Vue instance.
  *
  * @beta
  */
 export interface ApplicationVueContext extends VueConstructor {
   $shopwareApiInstance?: ShopwareApiInstance;
   shopwareApiInstance?: ShopwareApiInstance;
-  $domainsRouting: DomainsRouting;
-  domainsRouting: DomainsRouting;
+  $routing: Routing;
+  routing: Routing;
   $store?: any; // Vuex Store
   store?: any; // Vuex Store
   $route?: any; // Vue router
@@ -69,7 +82,7 @@ export function getApplicationContext(
     cookies: context?.$cookies || context?.cookies,
     shopwareDefaults: context?.$shopwareDefaults || context?.shopwareDefaults,
     interceptors: context?.$interceptors || context?.interceptors || {},
-    domainsRouting: context?.$domainsRouting || context?.domainsRouting,
+    routing: context?.$routing || context?.routing,
     contextName: key,
   };
 }

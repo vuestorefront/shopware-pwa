@@ -116,7 +116,6 @@ export default {
     const submitForm = async () => {
       isSending.value = true
       try {
-        console.warn("submiting", reviewRequestData.value)
         await addProductReview(productId, reviewRequestData.value, apiInstance)
         wasReviewSent.value = true
       } catch (error) {

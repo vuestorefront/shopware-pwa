@@ -27,16 +27,7 @@ export default {
   asyncData: async ({ params, app, error: errorView, query, route }) => {
     const { search, page, error } = useCms(app)
     const { pushError } = useNotifications(app)
-    const searchResult = await search(
-      params.pathMatch.replace(
-        (app.$domainsRouting.getCurrentDomain() &&
-          app.$domainsRouting.getCurrentDomain().url !== "/" &&
-          app.$domainsRouting.getCurrentDomain().url) ||
-          "",
-        ""
-      ),
-      query
-    )
+    const searchResult = await search(params.pathMatch, query)
 
     // direct user to the error page (keep http status code - so do not redirect)
     if (error.value) {
