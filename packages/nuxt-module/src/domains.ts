@@ -57,12 +57,11 @@ export async function setupDomains(
     // reverse routes to set the global wildcard /* as a last one in the matching table
     // to match always the custom ones first, the /* should be a path of the last chance (page resolver)
     // flip an array if the first element is wildard for all other routes /*
-    let routesOrdered = routes;
     if (routes[0].name.startsWith("all")) {
-      routesOrdered = routes.reverse();
+      routes.reverse();
     }
 
-    routesOrdered.forEach((route) => {
+    routes.forEach((route) => {
       // skip route enrichment if there is domainId attached with other configuration
       if (!route.meta?.domainId || !domainsEntries.length) {
         domainsEntries.forEach((domainConfig) => {
