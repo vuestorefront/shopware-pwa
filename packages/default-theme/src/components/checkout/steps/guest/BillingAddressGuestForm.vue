@@ -62,6 +62,7 @@
           required
         />
         <SwInput
+          v-if="displayState"
           v-model="state"
           :valid="!validations.state.$error"
           :error-message="$t('This field is required')"
@@ -69,7 +70,7 @@
           data-cy="state"
           name="state"
           class="sw-form__input"
-          required
+          :required="forceState"
         />
       </div>
       <div class="inputs-group">
@@ -118,11 +119,12 @@
 <script>
 import { SfSelect, SfCheckbox } from "@storefront-ui/vue"
 import { validationMixin } from "vuelidate"
+import { requiredIf } from "vuelidate/lib/validators"
 import {
   usePaymentStep,
   usePaymentStepValidationRules,
 } from "@/logic/checkout/usePaymentStep"
-import { useCountries } from "@shopware-pwa/composables"
+import { useCountries, useCountry } from "@shopware-pwa/composables"
 import SwInput from "@/components/atoms/SwInput"
 
 export default {
@@ -150,6 +152,10 @@ export default {
     } = usePaymentStep(root)
 
     const { getCountries } = useCountries(root)
+    const { currentCountry, displayState, forceState } = useCountry(
+      countryId,
+      getCountries
+    )
 
     return {
       validations,
@@ -165,6 +171,9 @@ export default {
       phoneNumber,
       differentThanShipping,
       getCountries,
+      currentCountry,
+      displayState,
+      forceState,
     }
   },
   watch: {
@@ -177,6 +186,11 @@ export default {
   },
   validations: {
     ...usePaymentStepValidationRules,
+    state: {
+      required: requiredIf(function () {
+        return this?.currentCountry?.forceStateInRegistration
+      }),
+    },
   },
 }
 </script>

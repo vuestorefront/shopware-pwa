@@ -25,12 +25,14 @@
 |  [IUseIntercept](./composables.iuseintercept.md) | <b><i>(BETA)</i></b> interface for [useIntercept](./composables.useintercept.md) composable |
 |  [IUseListing](./composables.iuselisting.md) | <b><i>(BETA)</i></b> Listing interface, can be used to display category products, search products or any other Shopware search interface (ex. orders with pagination) |
 |  [IUseNavigation](./composables.iusenavigation.md) | <b><i>(BETA)</i></b> interface for [useNavigation](./composables.usenavigation.md) composable |
+|  [IUseProductConfigurator](./composables.iuseproductconfigurator.md) | <b><i>(BETA)</i></b> interface for [useProductConfigurator](./composables.useproductconfigurator.md) composable |
 |  [IUseProductQuickSearch](./composables.iuseproductquicksearch.md) | <b><i>(BETA)</i></b> |
 |  [IUseSessionContext](./composables.iusesessioncontext.md) | <b><i>(BETA)</i></b> interface for [useSessionContext](./composables.usesessioncontext.md) composable |
 |  [IUseUser](./composables.iuseuser.md) | <b><i>(BETA)</i></b> interface for [useUser](./composables.useuser.md) composable |
 |  [IUseWishlist](./composables.iusewishlist.md) | <b><i>(BETA)</i></b> interface for [useWishlist](./composables.usewishlist.md) composable |
 |  [Notification\_2](./composables.notification_2.md) | <b><i>(BETA)</i></b> |
 |  [UseCountries](./composables.usecountries.md) | <b><i>(BETA)</i></b> |
+|  [UseCountry](./composables.usecountry.md) | <b><i>(BETA)</i></b> |
 |  [UseCurrency](./composables.usecurrency.md) | <b><i>(BETA)</i></b> |
 |  [UseProduct](./composables.useproduct.md) | <b><i>(BETA)</i></b> |
 |  [UseProductListing](./composables.useproductlisting.md) | <b><i>(BETA)</i></b> |
@@ -47,6 +49,7 @@
 |  [useCheckout](./composables.usecheckout.md) | <b><i>(BETA)</i></b> Composable for Checkout management. Options - [IUseCheckout](./composables.iusecheckout.md) |
 |  [useCms](./composables.usecms.md) | <b><i>(BETA)</i></b> |
 |  [useCountries](./composables.usecountries.md) | <b><i>(BETA)</i></b> |
+|  [useCountry](./composables.usecountry.md) | <b><i>(BETA)</i></b> |
 |  [useCurrency](./composables.usecurrency.md) | <b><i>(BETA)</i></b> |
 |  [useDefaults](./composables.usedefaults.md) | <b><i>(BETA)</i></b> Returns default config depending on config key. It is used in composables, so defaultsKey is in most cases composable name (ex. <code>useDefaults(rootContext, &quot;useCms&quot;)</code>) |
 |  [useIntercept](./composables.useintercept.md) | <b><i>(BETA)</i></b> Allows to broadcast and intercept events across application. |
@@ -54,6 +57,7 @@
 |  [useNavigation](./composables.usenavigation.md) | <b><i>(BETA)</i></b> Composable for navigation. Options - [IUseNavigation](./composables.iusenavigation.md) |
 |  [useNotifications](./composables.usenotifications.md) | <b><i>(BETA)</i></b> |
 |  [useProduct](./composables.useproduct.md) | <b><i>(BETA)</i></b> |
+|  [useProductConfigurator](./composables.useproductconfigurator.md) | <b><i>(BETA)</i></b> Product options - [IUseAddToCart](./composables.iuseaddtocart.md) |
 |  [useProductListing](./composables.useproductlisting.md) | <b><i>(BETA)</i></b> |
 |  [useProductQuickSearch](./composables.useproductquicksearch.md) | <b><i>(BETA)</i></b> |
 |  [useSalutations](./composables.usesalutations.md) | <b><i>(BETA)</i></b> |

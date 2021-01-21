@@ -1,46 +1,29 @@
 <template>
-  <div class="sw-product-details">
+  <div class="sw-product-details" v-if="product">
     <div class="product-details__mobile-top">
       <SwProductHeading class="product-details__heading" :product="product" />
     </div>
-
     <SwPluginSlot name="product-page-description" :slot-context="product">
       <p class="product-details__description" v-html="description" />
     </SwPluginSlot>
-
-    <!-- <div class="product-details__action">
-      <button v-if="sizes.length > 0" class="sf-action">Size guide</button>
-    </div>-->
     <div
-      class="product-details-wrapper"
-      :class="{ 'product-details-wrapper__loaded': hasChildren }"
+      v-if="product.optionIds && product.optionIds.length"
+      class="product-details__section"
     >
-      <div v-if="hasChildren" class="product-details__section">
-        <div
-          v-for="productType in getAllProductOptionsTypes"
-          :key="productType"
-        >
-          <SwProductColors
-            v-if="
-              getAllProductOptions[productType].find(({ color }) => !!color)
-            "
-            :colors="getAllProductOptions[productType]"
-            :value="selected[productType]"
-            :allOptions="getAllProductOptions"
-            :allSelected="selected"
-            :label="productType"
-            @input="handleChange(productType, $event)"
-          />
-          <SwProductSelect
-            v-else
-            :value="selected[productType]"
-            :options="getAllProductOptions[productType]"
-            :allOptions="getAllProductOptions"
-            :allSelected="selected"
-            :label="productType"
-            @change="handleChange(productType, $event)"
-          />
-        </div>
+      <div v-for="config in getOptionGroups" :key="config.id">
+        <SwProductSelect
+          v-if="getSelectedOptions[config.translated.name]"
+          :value="getSelectedOptions[config.translated.name]"
+          :options="getProductOptions({ product: config })"
+          :label="config.translated.name"
+          @change="
+            handleChange(
+              config.translated.name,
+              $event,
+              onOptionChanged($event)
+            )
+          "
+        />
       </div>
     </div>
     <div class="product-details__section">
@@ -83,142 +66,101 @@
   </div>
 </template>
 <script>
-import { SfAlert, SfAddToCart } from "@storefront-ui/vue"
+import { SfAlert, SfAddToCart, SfLoader } from "@storefront-ui/vue"
 import {
   getProductNumber,
   getProductOptions,
-  getProductOptionsUrl,
   getProductProperties,
   getProductReviews,
 } from "@shopware-pwa/helpers"
-import { useAddToCart } from "@shopware-pwa/composables"
-import SwProductHeading from "@/components/SwProductHeading"
-import SwProductSelect from "@/components/SwProductSelect"
-import SwProductColors from "@/components/SwProductColors"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
-
-import SwProductTabs from "@/components/SwProductTabs"
+import {
+  useAddToCart,
+  useProductConfigurator,
+  useNotifications,
+} from "@shopware-pwa/composables"
+import { getProductUrl } from "@shopware-pwa/helpers"
+import { computed, onMounted, watch } from "@vue/composition-api"
 export default {
   name: "SwProductDetails",
-
   components: {
     SfAlert,
     SfAddToCart,
-    SwProductHeading,
-    SwProductSelect,
-    SwProductTabs,
-    SwProductColors,
-    SwPluginSlot,
+    SfLoader,
+    SwProductHeading: () => import("@/components/SwProductHeading"),
+    SwProductSelect: () => import("@/components/SwProductSelect"),
+    SwProductTabs: () => import("@/components/SwProductTabs"),
+    SwProductColors: () => import("@/components/SwProductColors"),
+    SwPluginSlot: () => import("sw-plugins/SwPluginSlot"),
   },
   props: {
     product: {
       type: Object,
-      default: () => ({}),
-    },
-    page: {
-      type: Object,
-      default: () => ({}),
     },
   },
-  data() {
-    return {
-      selected: {},
+  setup({ page, product }, { root }) {
+    const { addToCart, quantity } = useAddToCart(root, product)
+    const { pushInfo } = useNotifications(root)
+    const {
+      isLoadingOptions,
+      handleChange,
+      getOptionGroups,
+      getSelectedOptions,
+      findVariantForSelectedOptions,
+    } = useProductConfigurator(root, product)
+
+    const description = computed(
+      () =>
+        (product.translated && product.translated.description) ||
+        product.description
+    )
+    const properties = computed(
+      () => product.properties && getProductProperties({ product })
+    )
+    const manufacturer = computed(() => product.manufacturer)
+    const stock = computed(() => product.stock)
+    const reviews = computed(() => getProductReviews({ product }))
+
+    // find the best matching variant for current options
+    // use it as a callback in handleChange -> onChangeHandled argument
+    const onOptionChanged = async (optionId) => {
+      // get always the newest options - getSelectedOptions is obsolete for a moment - this is why watch is used
+      watch(getSelectedOptions, async (options, prevOptions) => {
+        // look for variant with the selected options and perform a redirect to the found product's URL
+        const variantFound = await findVariantForSelectedOptions(options)
+        if (variantFound) {
+          root.$router.push(getProductUrl(variantFound))
+        } else {
+          // if no product was found - reset other options and try to find a first matching product
+          const simpleOptionVariant = await findVariantForSelectedOptions({
+            option: optionId,
+          })
+          if (simpleOptionVariant) {
+            root.$router.push(getProductUrl(simpleOptionVariant))
+          } else {
+            pushInfo(
+              root.$t("There is no available product for selected options")
+            )
+          }
+        }
+      })
     }
-  },
-  setup({ page }, { root }) {
-    const { addToCart, quantity } = useAddToCart(root, page && page.product)
 
     return {
+      stock,
+      reviews,
+      manufacturer,
+      properties,
+      description,
       quantity,
       addToCart,
+      getProductNumber,
+      getOptionGroups,
+      getSelectedOptions,
+      handleChange,
+      isLoadingOptions,
+      getProductOptions,
+      onOptionChanged,
     }
-  },
-
-  computed: {
-    description() {
-      return (
-        this.product &&
-        (this.product.description ||
-          (this.product.translated && this.product.translated.description))
-      )
-    },
-    hasChildren() {
-      return (
-        this.product && this.product.children && this.product.children.length
-      )
-    },
-
-    properties() {
-      return getProductProperties({ product: this.product })
-    },
-
-    // TODO: move to helpers
-    getAllProductOptions() {
-      const options = getProductOptions({
-        product: this.product,
-      })
-      return options
-    },
-
-    getAllProductOptionsTypes() {
-      return this.getAllProductOptions && Object.keys(this.getAllProductOptions)
-    },
-
-    manufacturer() {
-      return this.product && this.product.manufacturer
-    },
-    reviews() {
-      return getProductReviews({ product: this.product })
-    },
-
-    stock() {
-      return this.product && this.product.stock
-    },
-
-    selectedOptions() {
-      return this.selected
-    },
-  },
-  watch: {
-    selectedOptions(selected, selectedOld) {
-      if (
-        Object.keys(this.getAllProductOptions).length !==
-        Object.keys(selected).length
-      ) {
-        return
-      }
-
-      const options = []
-      for (const attribute of Object.keys(selected)) {
-        options.push(selected[attribute])
-      }
-      const url = getProductOptionsUrl({
-        product: this.product,
-        options,
-      })
-
-      url && this.$router.push(this.$routing.getUrl(url))
-    },
-  },
-
-  mounted() {
-    this.product.options?.forEach((option) => {
-      this.selected = Object.assign({}, this.selected, {
-        [option.group.name]: option.id,
-      })
-    })
-  },
-
-  methods: {
-    toggleWishlist(index) {
-      this.products[index].isOnWishlist = !this.products[index].isOnWishlist
-    },
-
-    handleChange(attribute, option) {
-      this.selected = Object.assign({}, this.selected, { [attribute]: option })
-    },
-
-    getProductNumber,
   },
 }
 </script>

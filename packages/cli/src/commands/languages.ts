@@ -80,21 +80,10 @@ module.exports = {
       localProjectLocalesMap
     );
 
-    await toolbox.filesystem.removeAsync(shopwarePwaLocalesPath);
-
-    // -> Save result map
-    const languageFileNames = Object.keys(resultLocalesMap);
-    for (let index = 0; index < languageFileNames.length; index++) {
-      const currentLocaleFileName = languageFileNames[index];
-      const currentLocaleFilePath = path.join(
-        shopwarePwaLocalesPath,
-        currentLocaleFileName
-      );
-      await toolbox.filesystem.writeAsync(
-        currentLocaleFilePath,
-        resultLocalesMap[currentLocaleFileName]
-      );
-    }
+    await toolbox.languages.writeLanguages(
+      resultLocalesMap,
+      shopwarePwaLocalesPath
+    );
 
     const isLocalReload = !!toolbox.parameters.options.local;
     // reload language files from shopware instance

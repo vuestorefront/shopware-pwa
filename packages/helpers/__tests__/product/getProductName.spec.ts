@@ -12,6 +12,30 @@ describe("Shopware helpers - getProductName", () => {
     expect(label).toBeNull();
   });
 
+  it("should return translated name if it's possible", () => {
+    const argument: any = {
+      product: {
+        name: "not translated name",
+        translated: {
+          name: "translated name",
+        },
+      },
+    };
+    const label = getProductName(argument);
+    expect(label).toBe("translated name");
+  });
+
+  it("should return name if translated one does not exist", () => {
+    const argument: any = {
+      product: {
+        name: "not translated name",
+        translated: undefined,
+      },
+    };
+    const label = getProductName(argument);
+    expect(label).toBe("not translated name");
+  });
+
   it("should return translated name if the base one does not exist", () => {
     const argument: any = {
       product: {
@@ -23,25 +47,5 @@ describe("Shopware helpers - getProductName", () => {
     };
     const productName = getProductName(argument);
     expect(productName).toBe("Existing");
-  });
-  it("should return name enriched with variant label if options are included", () => {
-    const argument: any = {
-      product: {
-        name: "T-Shirt",
-        translated: {
-          name: "Pullover",
-        },
-        options: [
-          {
-            name: "XL",
-          },
-          {
-            name: "yellow",
-          },
-        ],
-      },
-    };
-    const productName = getProductName(argument);
-    expect(productName).toBe("Pullover - XL yellow");
   });
 });

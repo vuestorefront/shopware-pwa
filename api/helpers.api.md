@@ -137,7 +137,7 @@ export function getProductMediaGallery({ product, }?: {
     product?: Product;
 }): UiMediaGalleryItem[];
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function getProductName({ product }?: {
     product?: Product;
 }): string | null;
@@ -151,10 +151,10 @@ export function getProductOption({ product, attribute, }?: {
     attribute?: string;
 }): PropertyGroupOption | undefined;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function getProductOptions({ product, }?: {
     product?: Product;
-}): ProductOptions;
+}): UiProductOption[];
 
 // @alpha (undocumented)
 export function getProductOptionsUrl({ product, options, }?: {
@@ -207,11 +207,8 @@ export function getVariantOptionsLabel({ product, }?: {
     product?: Product;
 }): string | null;
 
-// Warning: (ae-incompatible-release-tags) The symbol "isOptionAvailableForSelectedOptions" is marked as @beta, but its signature references "UiProductOption" which is marked as @alpha
-// Warning: (ae-incompatible-release-tags) The symbol "isOptionAvailableForSelectedOptions" is marked as @beta, but its signature references "ProductOptions" which is marked as @alpha
-//
-// @beta
-export function isOptionAvailableForSelectedOptions(currentAttribute: string, selectedOptionId: string, { code: optionId }: UiProductOption | undefined, allOptions: ProductOptions, allSelectedOptions: {
+// @beta @deprecated
+export function isOptionAvailableForSelectedOptions(currentAttribute: string, selectedOptionId: string, { code: optionId }: UiProductOption | undefined, allOptions: any, allSelectedOptions: {
     [key: string]: string;
 }): boolean;
 
@@ -265,12 +262,6 @@ export interface NavigationRoute {
 
 // @alpha (undocumented)
 export function parseUrlQuery(query: any): SearchCriteria;
-
-// @alpha (undocumented)
-export interface ProductOptions {
-    // (undocumented)
-    [attribute: string]: UiProductOption[];
-}
 
 // @alpha (undocumented)
 export interface Sorting {
@@ -387,18 +378,14 @@ export interface UiMediaGalleryItemUrl {
     url: string;
 }
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export interface UiProductOption {
-    // (undocumented)
-    attribute: string;
     // (undocumented)
     code: string;
     // (undocumented)
-    color: string;
+    color: string | null;
     // (undocumented)
     label: string;
-    // (undocumented)
-    matchingIds: string[];
     // (undocumented)
     value: string;
 }
