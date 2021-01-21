@@ -49,10 +49,30 @@ export const useProductConfigurator = (
   product: Product
 ): IUseProductConfigurator => {
   const { page } = useCms(rootContext);
-  const selected = ref({});
+  const selected = ref({} as any);
   const isLoadingOptions = ref(!!product.options?.length);
   const parentProductId = computed(() => product.parentId);
   const getOptionGroups = computed(() => page.value.configurator || []);
+
+  const findGroupCodeForOption = (optionId: string) => {
+    const group = getOptionGroups.value.find((optionGroup: any) => {
+      const optionFound = optionGroup.options.find(
+        (option: any) => option.id === optionId
+      );
+      return !!optionFound;
+    });
+
+    return group?.translated?.name;
+  };
+
+  // create a group -> optionId map
+  product.optionIds?.forEach((optionId) => {
+    const optionGroupCode = findGroupCodeForOption(optionId);
+    if (optionGroupCode) {
+      selected.value[optionGroupCode] = optionId;
+    }
+  });
+
   const findVariantForSelectedOptions = async (options?: {
     [code: string]: string;
   }) => {

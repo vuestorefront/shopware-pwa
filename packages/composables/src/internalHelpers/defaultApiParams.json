@@ -3,26 +3,25 @@
     "limit": 10,
     "associations": {
       "manufacturer": {},
-      "properties": {
-        "associations": {
-          "group": {}
-        }
-      },
       "media": {},
       "productReviews": {},
-      "children": {
+      "crossSellings": {
         "associations": {
-          "options": {
+          "assignedProducts": {
             "associations": {
-              "productOptions": {},
-              "group": {}
+              "product": {
+                "associations": {
+                  "media": {},
+                  "cover": {},
+                  "seoUrls": {}
+                }
+              }
             }
           }
         }
       },
-      "options": {
+      "properties": {
         "associations": {
-          "productOptions": {},
           "group": {}
         }
       }
@@ -57,7 +56,6 @@
       "product": [
         "media",
         "productReviews",
-        "children",
         "name",
         "ratingAverage",
         "calculatedPrice",
@@ -67,17 +65,18 @@
         "parentId",
         "id",
         "translated",
-        "options",
+        "optionIds",
         "properties",
         "manufacturer",
         "seoUrls",
-        "optionIds"
+        "crossSellings"
       ],
       "product_media": ["media"],
       "media": ["thumbnails", "width", "height", "url"],
+      "media_thumbnail": ["url", "width", "height", "id"],
       "calculated_price": ["unitPrice", "quantity", "listPrice"],
-      "product_group_option": ["name", "id", "group", "translated"],
-      "product_group": ["id", "name", "options", "translated"],
+      "product_group_option": ["id", "group", "translated"],
+      "product_group": ["id", "translated"],
       "product_listing": [
         "sorting",
         "currentFilters",
@@ -91,13 +90,13 @@
       ],
       "property_group": ["id", "translated", "options"],
       "property_group_option": [
-        "name",
         "translated",
         "id",
         "colorHexCode",
         "media",
         "group"
-      ]
+      ],
+      "product_manufacturer": ["translated", "link"]
     }
   },
   "useProductListing": {
@@ -122,7 +121,6 @@
       "product_group": ["id", "name", "options", "translated"],
       "property_group": ["id", "translated", "options"],
       "property_group_option": [
-        "name",
         "translated",
         "id",
         "colorHexCode",
@@ -170,20 +168,6 @@
   },
   "useProduct": {
     "associations": {
-      "media": {},
-      "options": {
-        "associations": {
-          "group": {},
-          "productOptions": {}
-        }
-      },
-      "properties": {
-        "associations": {
-          "group": {}
-        }
-      },
-      "productReviews": {},
-      "manufacturer": {},
       "crossSellings": {
         "associations": {
           "assignedProducts": {
@@ -195,17 +179,6 @@
                   "seoUrls": {}
                 }
               }
-            }
-          }
-        }
-      },
-      "children": {
-        "associations": {
-          "seoUrls": {},
-          "options": {
-            "associations": {
-              "productOptions": {},
-              "group": {}
             }
           }
         }
@@ -222,20 +195,16 @@
         "id",
         "parentId",
         "translated",
-        "options",
-        "children",
-        "manufacturer",
-        "properties",
         "media",
         "seoUrls",
-        "optionIds",
         "crossSellings"
       ],
       "product_media": ["media"],
       "media": ["url"],
+      "media_thumbnail": ["url", "width", "height", "id"],
       "calculated_price": ["unitPrice", "quantity", "listPrice"],
       "product_group_option": ["name", "id", "group", "translated"],
-      "product_group": ["id", "name", "options", "translated"]
+      "product_group": ["id", "name", "translated"]
     }
   }
 }

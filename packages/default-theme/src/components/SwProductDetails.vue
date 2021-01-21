@@ -1,30 +1,31 @@
 <template>
-  <div class="sw-product-details">
+  <div class="sw-product-details" v-if="product">
     <div class="product-details__mobile-top">
       <SwProductHeading class="product-details__heading" :product="product" />
     </div>
     <SwPluginSlot name="product-page-description" :slot-context="product">
       <p class="product-details__description" v-html="description" />
     </SwPluginSlot>
-    <SfLoader :loading="isLoadingOptions">
-      <div v-if="product.options.length" class="product-details__section">
-        <div v-for="config in getOptionGroups" :key="config.id">
-          <SwProductSelect
-            v-if="getSelectedOptions[config.translated.name]"
-            :value="getSelectedOptions[config.translated.name]"
-            :options="getProductOptions({ product: config })"
-            :label="config.translated.name"
-            @change="
-              handleChange(
-                config.translated.name,
-                $event,
-                onOptionChanged($event)
-              )
-            "
-          />
-        </div>
+    <div
+      v-if="product.optionIds && product.optionIds.length"
+      class="product-details__section"
+    >
+      <div v-for="config in getOptionGroups" :key="config.id">
+        <SwProductSelect
+          v-if="getSelectedOptions[config.translated.name]"
+          :value="getSelectedOptions[config.translated.name]"
+          :options="getProductOptions({ product: config })"
+          :label="config.translated.name"
+          @change="
+            handleChange(
+              config.translated.name,
+              $event,
+              onOptionChanged($event)
+            )
+          "
+        />
       </div>
-    </SfLoader>
+    </div>
     <div class="product-details__section">
       <SfAlert
         :message="$t('Low in stock')"
@@ -78,7 +79,7 @@ import {
   useNotifications,
 } from "@shopware-pwa/composables"
 import { getProductUrl } from "@shopware-pwa/helpers"
-import { computed, onMounted } from "@vue/composition-api"
+import { computed, onMounted, watch } from "@vue/composition-api"
 export default {
   name: "SwProductDetails",
   components: {
@@ -94,18 +95,10 @@ export default {
   props: {
     product: {
       type: Object,
-      default: () => ({}),
     },
-    page: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
-  data() {
-    return {}
   },
   setup({ page, product }, { root }) {
-    const { addToCart, quantity } = useAddToCart(root, page && page.product)
+    const { addToCart, quantity } = useAddToCart(root, product)
     const { pushInfo } = useNotifications(root)
     const {
       isLoadingOptions,
@@ -120,7 +113,9 @@ export default {
         (product.translated && product.translated.description) ||
         product.description
     )
-    const properties = computed(() => getProductProperties({ product }))
+    const properties = computed(
+      () => product.properties && getProductProperties({ product })
+    )
     const manufacturer = computed(() => product.manufacturer)
     const stock = computed(() => product.stock)
     const reviews = computed(() => getProductReviews({ product }))
@@ -128,31 +123,27 @@ export default {
     // find the best matching variant for current options
     // use it as a callback in handleChange -> onChangeHandled argument
     const onOptionChanged = async (optionId) => {
-      // look for variant with the selected options and perform a redirect to the found product's URL
-      const variantFound = await findVariantForSelectedOptions()
-      if (variantFound) {
-        root.$router.push(getProductUrl(variantFound))
-      } else {
-        // if no product was found - reset other options and try to find a first matching product
-        const simpleOptionVariant = await findVariantForSelectedOptions({
-          option: optionId,
-        })
-        if (simpleOptionVariant) {
-          root.$router.push(getProductUrl(simpleOptionVariant))
+      // get always the newest options - getSelectedOptions is obsolete for a moment - this is why watch is used
+      watch(getSelectedOptions, async (options, prevOptions) => {
+        // look for variant with the selected options and perform a redirect to the found product's URL
+        const variantFound = await findVariantForSelectedOptions(options)
+        if (variantFound) {
+          root.$router.push(getProductUrl(variantFound))
         } else {
-          pushInfo(
-            root.$t("There is no available product for selected options")
-          )
+          // if no product was found - reset other options and try to find a first matching product
+          const simpleOptionVariant = await findVariantForSelectedOptions({
+            option: optionId,
+          })
+          if (simpleOptionVariant) {
+            root.$router.push(getProductUrl(simpleOptionVariant))
+          } else {
+            pushInfo(
+              root.$t("There is no available product for selected options")
+            )
+          }
         }
-      }
-    }
-
-    onMounted(() => {
-      product.options?.forEach((option) => {
-        getSelectedOptions.value[option?.group?.translated?.name] = option.id
       })
-      isLoadingOptions.value = false
-    })
+    }
 
     return {
       stock,
