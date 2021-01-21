@@ -197,7 +197,7 @@ export default {
         options,
       })
 
-      url && this.$router.push(this.$i18n.path(url))
+      url && this.$router.push(this.$routing.getUrl(url))
     },
   },
 

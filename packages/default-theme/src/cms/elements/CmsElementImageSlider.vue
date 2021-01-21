@@ -11,7 +11,7 @@
         ToDo move nuxt-link to SwLink when https://github.com/DivanteLtd/shopware-pwa/pull/901 merge -->
 
         <nuxt-link
-          :to="$i18n.path(slide.url)"
+          :to="$routing.getUrl(slide.url)"
           class="cms-element-image-slider__link"
         >
           <SwButton class="sf-button"> See more </SwButton>

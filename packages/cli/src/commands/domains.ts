@@ -86,9 +86,11 @@ module.exports = {
     );
 
     let domainsFilePath = path.join(shopwarePwaPath, "domains.json");
-
-    toolbox.filesystem.writeAsync(domainsFilePath, domainsMap);
-
-    toolbox.print.info("Printed Domain Configuration");
+    try {
+      await toolbox.filesystem.writeAsync(domainsFilePath, domainsMap);
+      toolbox.print.success("Shopware domains refreshed");
+    } catch (error) {
+      toolbox.print.error("Unable to save a domains.json.");
+    }
   },
 };

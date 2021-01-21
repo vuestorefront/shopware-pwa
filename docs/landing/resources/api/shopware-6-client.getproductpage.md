@@ -23,7 +23,7 @@ export declare function getProductPage(path: string, searchCriteria?: SearchCrit
 
 <b>Returns:</b>
 
-Promise&lt;[PageResolverProductResult](./shopware-6-client.pageresolverproductresult.md)<!-- -->&gt;
+Promise&lt;PageResolverProductResult&gt;
 
 ## Exceptions
 

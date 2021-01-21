@@ -88,6 +88,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     shopwareAccessToken:
       toolbox.parameters.options.shopwareAccessToken ||
       toolbox.config.shopwareAccessToken,
+    pwaHost: toolbox.parameters.options.pwaHost || toolbox.config.pwaHost,
     username:
       toolbox.parameters.options.username || toolbox.parameters.options.u,
     password:

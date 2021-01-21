@@ -1,4 +1,9 @@
+<template>
+  <nuxt-child />
+</template>
+
 <script>
-import Addresses from "@/pages/_lang/account/addresses"
-export default Addresses
+export default {
+  name: "UserAddresses",
+}
 </script>
