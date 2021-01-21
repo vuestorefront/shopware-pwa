@@ -97,7 +97,7 @@ export default {
       type: Object,
     },
   },
-  setup({ page, product }, { root }) {
+  setup({ product }, { root }) {
     const { addToCart, quantity } = useAddToCart(root, product)
     const { pushInfo } = useNotifications(root)
     const {

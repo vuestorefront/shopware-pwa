@@ -27,6 +27,6 @@ export default async function ({ route, redirect, app }) {
     isLoggedIn &&
     !isLoggedIn.value
   ) {
-    //redirect(PAGE_LOGIN)
+    redirect(PAGE_LOGIN)
   }
 }
