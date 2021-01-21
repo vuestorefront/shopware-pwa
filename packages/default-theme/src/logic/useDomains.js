@@ -11,7 +11,7 @@ import { getCmsTechnicalPath } from "@shopware-pwa/helpers"
 const PAGE_RESOLVER_ROUTE_PREFIX = "all_"
 
 export const useDomains = (rootContext) => {
-  const { router, routing, route, apiInstance } = getApplicationContext(
+  const { router, routing, apiInstance } = getApplicationContext(
     rootContext,
     "useDomains"
   )
@@ -30,6 +30,8 @@ export const useDomains = (rootContext) => {
     if (isRouteStatic()) {
       path += getCurrentPathWithoutDomain()
     } else {
+      // categoryId name is misleading - in fact it's related to "resourceIdentifier" within the page resolver's response.
+      // will be replaced within TODO: https://github.com/vuestorefront/shopware-pwa/issues/1308
       const { categoryId, page } = useCms(rootContext)
       try {
         // find the correspoding URL for current page if it comes from page resolver - dynamically generated

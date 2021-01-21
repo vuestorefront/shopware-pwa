@@ -22,6 +22,8 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
   const page = computed(() => {
     return vuexStore.getters.getPage;
   });
+  // TODO: rename it to something more obvious, or just leav as resourceIdentifier
+  // TODO: https://github.com/vuestorefront/shopware-pwa/issues/1308
   const categoryId = computed(() => {
     // each cms page is in relation one-to-one with categoryId (resourceIdentifier)
     return page.value && page.value.resourceIdentifier;
