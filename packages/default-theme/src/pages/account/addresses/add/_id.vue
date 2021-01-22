@@ -1,8 +1,6 @@
 <template>
   <div class="addresses-add">
-    <div v-if="address !== ''">
-      <SwAddressForm :address="address" />
-    </div>
+    <SwAddressForm v-if="address" :address="address" />
   </div>
 </template>
 
