@@ -11,23 +11,26 @@ import { getCmsTechnicalPath } from "@shopware-pwa/helpers"
 const PAGE_RESOLVER_ROUTE_PREFIX = "all_"
 
 export const useDomains = (rootContext) => {
-  const { router, routing, apiInstance } = getApplicationContext(
+  const { route, router, routing, apiInstance } = getApplicationContext(
     rootContext,
     "useDomains"
   )
 
   const availableDomains = computed(() => routing.availableDomains || [])
-  const currentDomainId = computed(() => routing.getCurrentDomain().domainId)
-  const trimDomain = (url) => url.replace(routing.getCurrentDomain().url, "")
-  const getCurrentPathWithoutDomain = () =>
-    trimDomain(rootContext.$route.fullPath)
+  const currentDomainId = computed(
+    () => routing.getCurrentDomain.value.domainId
+  )
+  const trimDomain = (url) =>
+    url.replace(routing.getCurrentDomain.value.url, "")
+  const getCurrentPathWithoutDomain = () => trimDomain(route.fullPath)
 
-  const isRouteStatic = () =>
-    !rootContext.$route.name.startsWith(PAGE_RESOLVER_ROUTE_PREFIX)
+  const isRouteStatic = computed(
+    () => !route.name.startsWith(PAGE_RESOLVER_ROUTE_PREFIX)
+  )
   const getNewDomainUrl = async (domain) => {
     let url = `${domain.url !== "/" ? `${domain.url}` : ""}`
     let path = ""
-    if (isRouteStatic()) {
+    if (isRouteStatic.value) {
       path += getCurrentPathWithoutDomain()
     } else {
       // categoryId name is misleading - in fact it's related to "resourceIdentifier" within the page resolver's response.

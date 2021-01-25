@@ -77,6 +77,6 @@ module.exports = (toolbox: GluegunToolbox) => {
   toolbox.domains.stripHost = (absolutePath: string, pwaHost: string) => {
     let path = absolutePath.replace(pwaHost, "");
 
-    return path.indexOf("/") >= 0 ? path : `/${path}`;
+    return path.startsWith("/") ? path : `/${path}`;
   };
 };

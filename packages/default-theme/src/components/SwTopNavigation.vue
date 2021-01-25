@@ -3,22 +3,25 @@
     <SwPluginSlot name="sw-top-navigation-before" />
     <div
       v-for="category in visibleCategories"
-      :key="category.name"
+      :key="category.translated.name"
       class="sf-header-navigation-item sf-header__link"
       data-cy="top-navigation-item"
-      @mouseover="changeCurrentCategory(category.name)"
+      @mouseover="changeCurrentCategory(category.translated.name)"
       @mouseleave="changeCurrentCategory(null)"
-      @keyup.tab="changeCurrentCategory(category.name)"
+      @keyup.tab="changeCurrentCategory(category.translated.name)"
       @click="changeCurrentCategory(null)"
     >
       <nuxt-link
         class="sf-header__link"
         :to="$routing.getUrl(getCategoryUrl(category))"
-        >{{ category.name }}</nuxt-link
+        >{{ category.translated.name }}</nuxt-link
       >
       <SwMegaMenu
         :category="category"
-        :visible="currentCategoryName && category.name === currentCategoryName"
+        :visible="
+          currentCategoryName &&
+          category.translated.name === currentCategoryName
+        "
       />
     </div>
 

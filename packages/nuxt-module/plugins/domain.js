@@ -29,9 +29,9 @@ export default ({ app, route }, inject) => {
       currentDomainData.value = domainData;
     },
     // get current domain's configuration
-    getCurrentDomain: () => {
-      return currentDomainData.value || routeDomain.value;
-    },
+    getCurrentDomain: computed(
+      () => currentDomainData.value || routeDomain.value
+    ),
     // get route for current domain
     getUrl: (path) =>
       currentDomainData.value
