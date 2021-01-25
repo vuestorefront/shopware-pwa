@@ -84,7 +84,7 @@ export function getCategoryAvailableSorting({ sorting, }?: {
     sorting?: Sorting;
 }): UiCategorySorting[];
 
-// @alpha
+// @beta
 export const getCategoryUrl: (category: Partial<Category>) => string;
 
 // @alpha (undocumented)

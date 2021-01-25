@@ -43,3 +43,9 @@
 |  [UiCategoryRangeFilterOption](./helpers.uicategoryrangefilteroption.md) | <b><i>(BETA)</i></b> |
 |  [UiProductOption](./helpers.uiproductoption.md) | <b><i>(BETA)</i></b> |
 
+## Variables
+
+|  Variable | Description |
+|  --- | --- |
+|  [getCategoryUrl](./helpers.getcategoryurl.md) | <b><i>(BETA)</i></b> Get URL for category. |
+
