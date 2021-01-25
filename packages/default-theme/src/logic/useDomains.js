@@ -23,6 +23,10 @@ export const useDomains = (rootContext) => {
   const trimDomain = (url) =>
     url.replace(routing.getCurrentDomain.value.url, "")
   const getCurrentPathWithoutDomain = () => trimDomain(route.fullPath)
+  const isHomePage = () => {
+    const currentPath = getCurrentPathWithoutDomain()
+    return currentPath === "/" || currentPath == ""
+  }
 
   const isRouteStatic = computed(
     () => !route.name.startsWith(PAGE_RESOLVER_ROUTE_PREFIX)
@@ -46,7 +50,8 @@ export const useDomains = (rootContext) => {
         if (seoResponse.length && seoResponse[0].seoPathInfo) {
           path += seoResponse[0].seoPathInfo
         } else {
-          path += getCmsTechnicalPath(page.value)
+          // prevent using the technical URL of a root category stick to homepage "/"
+          path += !isHomePage() ? getCmsTechnicalPath(page.value) : ""
         }
       } catch (error) {
         const { pushWarning } = useNotifications(rootContext)
