@@ -22,15 +22,16 @@ export const useDomains = (rootContext) => {
   )
   const trimDomain = (url) =>
     url.replace(routing.getCurrentDomain.value.url, "")
-  const getCurrentPathWithoutDomain = () => trimDomain(route.fullPath)
+  const getCurrentPathWithoutDomain = () =>
+    trimDomain(rootContext.$route.fullPath)
   const isHomePage = () => {
     const currentPath = getCurrentPathWithoutDomain()
-    return currentPath === "/" || currentPath == ""
+    return currentPath === "/" || currentPath === ""
   }
 
-  const isRouteStatic = computed(
-    () => !route.name.startsWith(PAGE_RESOLVER_ROUTE_PREFIX)
-  )
+  const isRouteStatic = computed(() => {
+    return !rootContext.$route.name.startsWith(PAGE_RESOLVER_ROUTE_PREFIX)
+  })
   const getNewDomainUrl = async (domain) => {
     let url = `${domain.url !== "/" ? `${domain.url}` : ""}`
     let path = ""
