@@ -37,18 +37,32 @@ export async function setupDomains(
     JSON.parse(domainsConfigFile as string)
   );
 
+  /**
+   * if one of children routes has a default name like "" - do not set the name of a parent
+   */
+  /* istanbul ignore next */
+  const dontUseNamedRoute = (route: NuxtRouteConfig) => {
+    return route?.children?.find(
+      (childRoute: NuxtRouteConfig) => childRoute.path == ""
+    );
+  };
+
   /* istanbul ignore next */
   const appendChildrenWithUniqueName = (
     routes: NuxtRouteConfig[],
-    parentRoute: string = "",
+    parentRoute: any,
     domainId: string
   ): NuxtRouteConfig[] => {
     return routes.map((route) => ({
       ...route,
-      name: `${parentRoute}_${route.path}_${domainId}`,
+      name: dontUseNamedRoute(route)
+        ? ""
+        : `${parentRoute.path}_${
+            route.path !== "" ? route.path : "_"
+          }_${domainId}`,
       children:
         route.children &&
-        appendChildrenWithUniqueName(route.children, route.name, domainId),
+        appendChildrenWithUniqueName(route.children, route, domainId),
     }));
   };
 
@@ -65,7 +79,9 @@ export async function setupDomains(
       // skip route enrichment if there is domainId attached with other configuration
       if (!route.meta?.domainId || !domainsEntries.length) {
         domainsEntries.forEach((domainConfig) => {
-          const routeName = `${route.name}_domainId_${domainConfig.domainId}`;
+          const routeName = dontUseNamedRoute(route)
+            ? ""
+            : `${route.name}_${route.path}_domainId_${domainConfig.domainId}`;
           // create own routes table, based on the nuxt one
           if (
             !domainsRoutes.find((routeData) => routeData.name === routeName)
@@ -81,7 +97,7 @@ export async function setupDomains(
                 route.children &&
                 appendChildrenWithUniqueName(
                   route.children,
-                  routeName,
+                  `${domainConfig.domainId}_${route.name}`,
                   domainConfig.domainId
                 ),
             });
