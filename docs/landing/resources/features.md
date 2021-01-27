@@ -15,6 +15,7 @@
  * Properties
  * Cross sell producs
  * Add a product review
+ * Variant configurator
 
 
 #### Listing
@@ -42,6 +43,9 @@
  * Search Bar
 
 ### Search
+
+ * Search preview
+ * Search result page with filters
 
 ### Content
 
@@ -90,7 +94,9 @@
 
 ### i18n
 
- * Currency switch
+ * Multiple domains (pre-configure routes, language, name and currency)
+ * Multiple currencies
+ * Multiple languages
 
 ## Technical
 
@@ -101,6 +107,8 @@
  	* Product pages
 
 ### Plugin system
+
+ * Custom plugin components mounted into theme
 
 ### Theme system
 
