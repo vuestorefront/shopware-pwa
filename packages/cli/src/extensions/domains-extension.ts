@@ -63,6 +63,7 @@ module.exports = (toolbox: GluegunToolbox) => {
           snippetSetId: domain.snippetSetId,
           languageId: domain.language.id,
           languageName: domain.language.name,
+          languageLabel: domain.language.name,
           languageLocaleCode: domain.language.locale.code,
         };
       });

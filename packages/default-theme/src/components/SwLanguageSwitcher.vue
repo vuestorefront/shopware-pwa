@@ -16,7 +16,7 @@
         :key="domain.domainId"
         :value="domain.domainId"
         data-cy="language-switcher-option"
-        >{{ domain.languageName }}</SfSelectOption
+        >{{ domain.languageLabel }}</SfSelectOption
       >
     </SfSelect>
   </div>

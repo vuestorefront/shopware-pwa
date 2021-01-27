@@ -46,7 +46,7 @@
               :value="domain.domainId"
             >
               <SfMenuItem
-                :label="domain.languageName"
+                :label="domain.languageLabel"
                 @click="changeDomain(domain.domainId), $emit('close')"
               />
             </SfListItem>
