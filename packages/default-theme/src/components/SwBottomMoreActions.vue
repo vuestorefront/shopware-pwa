@@ -23,7 +23,7 @@
           </SfBottomNavigationItem>
 
           <SfBottomNavigationItem
-            v-if="availableLanguages.length > 1"
+            v-if="availableDomains.length > 1"
             label="Language"
           >
             <template #icon>
@@ -41,13 +41,13 @@
         <div v-if="showLanguage">
           <SfList>
             <SfListItem
-              v-for="language in availableLanguages"
-              :key="language.code"
-              :value="language.code"
+              v-for="domain in availableDomains"
+              :key="domain.domainId"
+              :value="domain.domainId"
             >
               <SfMenuItem
-                :label="language.name"
-                @click="changeLocale(language.code), $emit('close')"
+                :label="domain.languageLabel"
+                @click="changeDomain(domain.domainId), $emit('close')"
               />
             </SfListItem>
           </SfList>
@@ -74,7 +74,7 @@
 
 <script>
 import { SfBottomModal, SfIcon, SfList, SfMenuItem } from "@storefront-ui/vue"
-import { useLocales } from "@/logic/useLocales"
+import { useDomains } from "@/logic"
 import { useCurrency } from "@shopware-pwa/composables"
 import { onMounted } from "@vue/composition-api"
 import { PAGE_WISHLIST } from "@/helpers/pages"
@@ -96,7 +96,7 @@ export default {
     }
   },
   setup(props, { root }) {
-    const { availableLanguages, changeLocale } = useLocales(root)
+    const { availableDomains, changeDomain } = useDomains(root)
     const {
       setCurrency,
       loadAvailableCurrencies,
@@ -109,8 +109,8 @@ export default {
     })
 
     return {
-      availableLanguages,
-      changeLocale,
+      availableDomains,
+      changeDomain,
       availableCurrencies,
       setCurrency,
     }
@@ -135,7 +135,7 @@ export default {
     },
 
     goToWishlist() {
-      this.$router.push(this.$i18n.path(PAGE_WISHLIST))
+      this.$router.push(this.$routing.getUrl(PAGE_WISHLIST))
     },
   },
 }

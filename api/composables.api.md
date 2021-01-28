@@ -55,6 +55,10 @@ export interface ApplicationVueContext extends VueConstructor {
     $route?: any;
     // (undocumented)
     $router?: any;
+    // Warning: (ae-forgotten-export) The symbol "Routing" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    $routing: Routing;
     // (undocumented)
     $shopwareApiInstance?: ShopwareApiInstance;
     // (undocumented)
@@ -71,6 +75,8 @@ export interface ApplicationVueContext extends VueConstructor {
     route?: any;
     // (undocumented)
     router?: any;
+    // (undocumented)
+    routing: Routing;
     // (undocumented)
     shopwareApiInstance?: ShopwareApiInstance;
     // (undocumented)
@@ -134,6 +140,7 @@ export function getApplicationContext(rootContext: ApplicationVueContext, key?: 
     cookies: any;
     shopwareDefaults: any;
     interceptors: any;
+    routing: Routing;
     contextName: string;
 };
 

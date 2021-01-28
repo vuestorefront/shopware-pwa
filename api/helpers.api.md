@@ -12,6 +12,8 @@ import { CmsSlot } from '@shopware-pwa/commons/interfaces/models/content/cms/Cms
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
+import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { PropertyGroupOption } from '@shopware-pwa/commons/interfaces/models/content/property/PropertyGroupOption';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
@@ -82,7 +84,7 @@ export function getCategoryAvailableSorting({ sorting, }?: {
     sorting?: Sorting;
 }): UiCategorySorting[];
 
-// @alpha
+// @beta
 export const getCategoryUrl: (category: Partial<Category>) => string;
 
 // @alpha (undocumented)
@@ -93,6 +95,9 @@ export function getCmsLinkTarget(content?: CmsSlot): String;
 
 // @alpha (undocumented)
 export function getCmsSections(content: CmsPage): CmsSection[];
+
+// @beta (undocumented)
+export function getCmsTechnicalPath(page: PageResolverResult<CmsPage> | PageResolverProductResult): string | undefined;
 
 // @alpha (undocumented)
 export const getFilterSearchCriteria: (selectedFilters: any) => any[];

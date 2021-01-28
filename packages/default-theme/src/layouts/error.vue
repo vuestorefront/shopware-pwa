@@ -10,7 +10,7 @@
     <div class="error-page__actions">
       <SwButton
         class="error-page__actions-button"
-        @click="$router.push($i18n.path('/'))"
+        @click="$router.push($routing.getUrl('/'))"
       >
         <SfIcon
           class="error-page__actions-button-icon"

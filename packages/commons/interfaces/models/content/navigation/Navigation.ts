@@ -70,7 +70,7 @@ export interface StoreNavigationElement {
   childCount: number;
   displayNestedProducts: boolean;
   parent: StoreNavigationElement;
-  children: null | any[];
+  children: null | StoreNavigationElement[];
   translations: any;
   media: Media | null;
   products: null | Product[];

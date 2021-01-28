@@ -206,5 +206,21 @@
       "product_group_option": ["name", "id", "group", "translated"],
       "product_group": ["id", "name", "translated"]
     }
+  },
+  "useNavigation": {
+    "associations": {
+      "seoUrls": {}
+    },
+    "includes": {
+      "category": [
+        "seoUrls",
+        "externalLink",
+        "name",
+        "id",
+        "children",
+        "translated"
+      ],
+      "seo_url": ["pathInfo", "seoPathInfo"]
+    }
   }
 }

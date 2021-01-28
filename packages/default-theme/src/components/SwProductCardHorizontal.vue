@@ -60,7 +60,7 @@ export default {
     },
     // should be replaced with prettyUrl attribute when pretty urls are included in product entity
     getRouterLink() {
-      return this.$i18n.path(getProductUrl(this.product))
+      return this.$routing.getUrl(getProductUrl(this.product))
     },
     getRegularPrice() {
       return getProductRegularPrice(this.product)

@@ -84,7 +84,9 @@ export default {
   methods: {
     performSearch() {
       if (this.typingQuery.length > 0) {
-        this.$router.push(this.$i18n.path(getSearchPageUrl(this.typingQuery)))
+        this.$router.push(
+          this.$routing.getUrl(getSearchPageUrl(this.typingQuery))
+        )
       }
     },
   },

@@ -1,9 +1,8 @@
 import Vue from "vue";
 import { reactive, computed, Ref } from "@vue/composition-api";
-import { getNavigation } from "@shopware-pwa/shopware-6-client";
-import { getNavigationRoutes } from "@shopware-pwa/helpers";
+import { getStoreNavigation } from "@shopware-pwa/shopware-6-client";
 import { NavigationElement } from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
-import { getApplicationContext } from "@shopware-pwa/composables";
+import { useDefaults, getApplicationContext } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
 
 /**
@@ -34,16 +33,42 @@ export const useNavigation = (
 
   const localNavigation = reactive(sharedNavigation);
   const routes = computed(() => localNavigation.routes);
-
+  const { getIncludesConfig, getAssociationsConfig } = useDefaults(
+    rootContext,
+    "useNavigation"
+  );
+  const getNavigationParams = (params?: any) => {
+    return Object.assign(
+      {},
+      {
+        requestActiveId: "main-navigation",
+        requestRootId: "main-navigation",
+        searchCriteria: {
+          configuration: {
+            includes: getIncludesConfig(),
+            associations: getAssociationsConfig(),
+          },
+        },
+      },
+      params
+    );
+  };
   const fetchRoutes = async (params?: any): Promise<void> => {
-    const { children } = await getNavigation(params, apiInstance);
-    if (typeof children === "undefined") return;
-    sharedNavigation.routes = getNavigationRoutes(children);
+    const navigationResponse = await getStoreNavigation(
+      getNavigationParams(params),
+      apiInstance
+    );
+    sharedNavigation.routes = navigationResponse;
   };
 
   const fetchNavigationElements = async (depth: number) => {
-    const { children } = await getNavigation({ depth }, apiInstance);
-    sharedNavigation.navigationElements = children || [];
+    const navigationResponse = await getStoreNavigation(
+      getNavigationParams({
+        depth,
+      }),
+      apiInstance
+    );
+    sharedNavigation.navigationElements = navigationResponse || [];
   };
 
   const navigationElements = computed(() => localNavigation.navigationElements);

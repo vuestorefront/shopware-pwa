@@ -56,14 +56,4 @@ export function extendLocales(
       availableLocales: localeFromFiles,
     },
   });
-  /* istanbul ignore next */
-  moduleObject.options.router.middleware =
-    moduleObject.options.router.middleware || [];
-  /* istanbul ignore next */
-  if (typeof moduleObject?.options?.router?.middleware === "string") {
-    moduleObject.options.router.middleware = [
-      moduleObject.options.router.middleware,
-    ];
-  }
-  moduleObject.options.router.middleware.push("i18n");
 }

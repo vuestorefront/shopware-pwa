@@ -4,7 +4,6 @@
 
 ```ts
 
-import { Aggregation } from '@shopware-pwa/commons/interfaces/search/Aggregation';
 import { AxiosInstance } from 'axios';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
 import { Category } from '@shopware-pwa/commons/interfaces/models/content/category/Category';
@@ -19,6 +18,8 @@ import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/Guest
 import { Language } from '@shopware-pwa/commons/interfaces/models/framework/language/Language';
 import { NavigationResponse } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
+import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { ProductListingResult } from '@shopware-pwa/commons/interfaces/response/ProductListingResult';
@@ -393,6 +394,12 @@ export const getSearchEndpoint: () => string;
 export function getSearchResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
 // @beta
+export function getSeoUrls(entityId: string, languageId?: string, contextInstance?: ShopwareApiInstance): Promise<{
+    apiAlias: string;
+    seoPathInfo: string;
+}[]>;
+
+// @beta
 export function getSessionContext(contextInstance?: ShopwareApiInstance): Promise<SessionContext>;
 
 // @beta (undocumented)
@@ -500,43 +507,6 @@ export function newsletterUnsubscribe({ email, }: {
 
 // @beta (undocumented)
 export const onConfigChange: (fn: (context: ConfigChangedArgs) => void) => void;
-
-// @beta (undocumented)
-export interface PageResolverProductResult {
-    // (undocumented)
-    aggregations: Aggregation[];
-    // (undocumented)
-    apiAlias: string;
-    // (undocumented)
-    cannonicalPathInfo: string;
-    // (undocumented)
-    product: Partial<Product>;
-    // (undocumented)
-    resourceIdentifier: string;
-    // (undocumented)
-    resourceType: string;
-}
-
-// @beta (undocumented)
-export interface PageResolverResult<T> {
-    // (undocumented)
-    apiAlias: string;
-    // (undocumented)
-    breadcrumb: {
-        [id: string]: {
-            name: string;
-            path: string;
-        };
-    };
-    // (undocumented)
-    cmsPage: T;
-    // (undocumented)
-    listingConfiguration: any;
-    // (undocumented)
-    resourceIdentifier: string;
-    // (undocumented)
-    resourceType: string;
-}
 
 // @beta
 export function register(params: CustomerRegistrationParams, contextInstance?: ShopwareApiInstance): Promise<CustomerRegisterResponse>;

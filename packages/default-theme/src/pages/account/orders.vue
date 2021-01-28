@@ -1,4 +1,9 @@
+<template>
+  <nuxt-child />
+</template>
+
 <script>
-import Orders from "@/pages/_lang/account/orders"
-export default Orders
+export default {
+  name: "OrderHistory",
+}
 </script>

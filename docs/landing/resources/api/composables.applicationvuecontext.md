@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Applicatoin Context for Shopware PWA. It's an extended Vue instance.
+Application Context for Shopware PWA. It's an extended Vue instance.
 
 <b>Signature:</b>
 
@@ -25,6 +25,7 @@ export interface ApplicationVueContext extends VueConstructor
 |  [$interceptors?](./composables.applicationvuecontext._interceptors.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [$route?](./composables.applicationvuecontext._route.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [$router?](./composables.applicationvuecontext._router.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
+|  [$routing](./composables.applicationvuecontext._routing.md) | Routing | <b><i>(BETA)</i></b> |
 |  [$shopwareApiInstance?](./composables.applicationvuecontext._shopwareapiinstance.md) | ShopwareApiInstance | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [$shopwareDefaults?](./composables.applicationvuecontext._shopwaredefaults.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [$store?](./composables.applicationvuecontext._store.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
@@ -33,6 +34,7 @@ export interface ApplicationVueContext extends VueConstructor
 |  [interceptors?](./composables.applicationvuecontext.interceptors.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [route?](./composables.applicationvuecontext.route.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [router?](./composables.applicationvuecontext.router.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
+|  [routing](./composables.applicationvuecontext.routing.md) | Routing | <b><i>(BETA)</i></b> |
 |  [shopwareApiInstance?](./composables.applicationvuecontext.shopwareapiinstance.md) | ShopwareApiInstance | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [shopwareDefaults?](./composables.applicationvuecontext.shopwaredefaults.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [store?](./composables.applicationvuecontext.store.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
