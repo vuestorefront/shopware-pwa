@@ -1,5 +1,7 @@
 FROM node:14.15.3-alpine
 
+ENV NODE_ENV production
+
 RUN mkdir /app
 COPY --chown=node:node . /app
 
