@@ -1,4 +1,10 @@
-# Operations <Badge text="new" type="info"/>
+# Operations
+
+## Migration guides & release notes <Badge text="new" type="info"/>
+
+Migration guides and notes for specific release.
+
+[→ Migration guides](./migrations/)
 
 ## Hosting
 
