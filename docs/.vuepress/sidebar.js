@@ -44,6 +44,7 @@ module.exports = {
       title: "Operations",
       collapsable: false,
       children: [
+        "/landing/operations/migrations/",
         "/landing/operations/hosting/",
         "/landing/operations/deployment/",
       ],

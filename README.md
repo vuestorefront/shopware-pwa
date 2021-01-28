@@ -64,7 +64,7 @@ cd ./my-shopware-pwa
 initialize project inside the directory
 
 ```bash
-npx @shopware-pwa/cli init
+npx @shopware-pwa/cli@canary init
 ```
 
 It will ask for the address to yous shopware instance, access token, and admin credentials to load plugins. Only the first two are required to start the instance, and default settings will point to our demo instance. Then you can just begin local development by typing:
@@ -92,7 +92,7 @@ module.exports = {
 };
 ```
 
-3. run again `npx @shopware-pwa/cli init` (to refresh plugins from instance) and then `yarn dev`
+3. run again `npx @shopware-pwa/cli@canary init` (to refresh plugins from instance) and then `yarn dev`
 
 Read full instruction in `CHEATSHEET.md` file.
 
@@ -101,7 +101,7 @@ Read full instruction in `CHEATSHEET.md` file.
 If you already have some Shopware PWA plugins installed (like [HelloCody](https://github.com/elkmod/SwagHelloCody) plugin example), then you can generate plugin files
 
 ```bash
-npx @shopware-pwa/cli init
+npx @shopware-pwa/cli@canary init
 ```
 
 or, for CLI installed globally

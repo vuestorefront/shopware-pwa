@@ -9,7 +9,7 @@ Instead of installation we recommend to use `npx` to ensure, that you always use
 ```bash
 mkdir my-shopware-pwa
 cd ./my-shopware-pwa
-npx @shopware-pwa/cli init
+npx @shopware-pwa/cli@canary init
 ```
 
 ::: tip Canary version  
