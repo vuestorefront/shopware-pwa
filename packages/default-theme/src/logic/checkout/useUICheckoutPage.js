@@ -8,7 +8,7 @@ import { usePaymentStep } from "@/logic/checkout/usePaymentStep"
 import { PAGE_ORDER_SUCCESS } from "@/helpers/pages"
 
 export const useUICheckoutPage = (rootContext) => {
-  const { router, i18n } = getApplicationContext(
+  const { router, routing } = getApplicationContext(
     rootContext,
     "useUICheckoutPage"
   )
@@ -87,7 +87,7 @@ export const useUICheckoutPage = (rootContext) => {
       nextStepNumber > CHECKOUT_STEPS.REVIEW
     ) {
       const order = await createOrder()
-      router.push(i18n.path(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`))
+      router.push(routing.getUrl(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`))
     } else {
       const nextStep = getStepByNumber(nextStepNumber)
       if (stepsStatus.value[nextStep].available) {

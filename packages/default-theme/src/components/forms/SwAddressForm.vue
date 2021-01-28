@@ -53,7 +53,7 @@
         <SwInput
           v-model="form.street"
           name="street"
-          :label="$t('Street')"
+          :label="$t('Street and house number')"
           :error-message="$t('Street is required')"
           :valid="!$v.form.street.$error"
           required
@@ -61,16 +61,7 @@
           @blur="$v.form.street.$touch()"
         />
       </div>
-      <SwInput
-        v-model="form.apartment"
-        name="apartment"
-        :label="$t('House/Apartment number')"
-        :error-message="$t('Apartment is required')"
-        :valid="!$v.form.apartment.$error"
-        required
-        class="form__element"
-        @blur="$v.form.apartment.$touch()"
-      />
+
       <div class="inputs-group">
         <SwInput
           v-model="form.city"
@@ -89,7 +80,6 @@
           :label="$t('State/Province')"
           :error-message="$t('State is required')"
           :valid="!$v.form.state.$error"
-          required
           class="sw-form__input"
           :required="forceState"
           @blur="$v.form.state.$touch()"
@@ -178,7 +168,6 @@ export default {
         country: null,
         zipcode: "",
         street: "",
-        apartment: "",
         city: "",
         phoneNumber: "",
       }),
@@ -234,7 +223,6 @@ export default {
         salutation,
         zipcode,
         street,
-        apartment,
         city,
         country,
         phoneNumber,
@@ -247,7 +235,6 @@ export default {
         salutationId: salutation.id,
         zipcode,
         street,
-        apartment,
         city,
         countryId: country.id,
         phoneNumber,
@@ -279,9 +266,6 @@ export default {
         required,
       },
       street: {
-        required,
-      },
-      apartment: {
         required,
       },
       city: {
