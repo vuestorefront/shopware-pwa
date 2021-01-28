@@ -16,12 +16,37 @@ describe("Shopware helpers - getCategoryUrl", () => {
     expect(result).toEqual("/");
   });
 
-  it("should return category route path", () => {
-    const result = getCategoryUrl({ route: { path: "some/path" } });
-    expect(result).toEqual("/some/path");
+  it("should return technical URL if there is no pretty URL available", () => {
+    const result = getCategoryUrl({ id: "123456" });
+    expect(result).toEqual("/navigation/123456");
   });
-  it("should return category path with one slash before, even if it's set already", () => {
-    const result = getCategoryUrl({ route: { path: "/some/path" } });
-    expect(result).toEqual("/some/path");
+  it("should return technical URL if there is no pretty seoUrls is undefined", () => {
+    const result = getCategoryUrl({ id: "123456", seoUrls: undefined });
+    expect(result).toEqual("/navigation/123456");
+  });
+  it("should return technical URL if seoPathInfo is undefined", () => {
+    const result = getCategoryUrl({
+      id: "123456",
+      seoUrls: [{ seoPathInfo: undefined }],
+    } as any);
+    expect(result).toEqual("/navigation/123456");
+  });
+  it("should return seo URL prefixed with slash if path is without it", () => {
+    const result = getCategoryUrl({
+      id: "123456",
+      seoUrls: [{ seoPathInfo: "test-page" }],
+    } as any);
+    expect(result).toEqual("/test-page");
+  });
+  it("should return technical URL if category is nullish", () => {
+    const result = getCategoryUrl(null as any);
+    expect(result).toEqual("/");
+  });
+
+  it("should return external link if any exists", () => {
+    const result = getCategoryUrl({
+      externalLink: "https://shopware.com",
+    } as any);
+    expect(result).toEqual("https://shopware.com");
   });
 });

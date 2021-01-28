@@ -23,7 +23,7 @@ export declare function getPage(path: string, searchCriteria?: SearchCriteria, c
 
 <b>Returns:</b>
 
-Promise&lt;[PageResolverResult](./shopware-6-client.pageresolverresult.md)<!-- -->&lt;CmsPage&gt;&gt;
+Promise&lt;PageResolverResult&lt;CmsPage&gt;&gt;
 
 ## Exceptions
 

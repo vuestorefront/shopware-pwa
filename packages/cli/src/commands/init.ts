@@ -124,6 +124,7 @@ module.exports = {
     await toolbox.runtime.run(`cms`);
     await toolbox.createCmsTemplate(); // generate template for user CMS folder
     await toolbox.runtime.run(`languages`, inputParameters);
+    await toolbox.runtime.run(`domains`, inputParameters);
 
     const updateDependenciesSpinner = spin("Updating dependencies");
     // Loading additional packages

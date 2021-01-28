@@ -19,19 +19,22 @@
 
     <transition :name="menuTransitionName" mode="out-in">
       <SfList :key="categoryBreadcrumbs.length" class="mobile-nav-list">
-        <SfListItem v-for="category in categoriesList" :key="category.name">
+        <SfListItem
+          v-for="category in categoriesList"
+          :key="category.translated.name"
+        >
           <nuxt-link
             class="sf-header__link"
-            :to="$i18n.path(getCategoryUrl(category))"
+            :to="$routing.getUrl(getCategoryUrl(category))"
             @click="toggleMobileNavigation"
           >
-            {{ category.name }}
+            {{ category.translated.name }}
           </nuxt-link>
 
           <div
             v-if="category.children && category.children.length"
             class="sw-bottom-menu__subcategory"
-            @click="goDeeper(category.name)"
+            @click="goDeeper(category.translated.name)"
           >
             <SfIcon
               icon="chevron_right"
@@ -119,7 +122,7 @@ export default {
   methods: {
     async logoutUser() {
       await this.logout()
-      this.$router.push(this.$i18n.path("/"))
+      this.$router.push(this.$routing.getUrl("/"))
     },
     goDeeper(name) {
       this.menuTransitionName = "menu-slide-left"

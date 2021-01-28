@@ -42,4 +42,9 @@ export interface Category extends Entity {
   route?: {
     path?: string;
   };
+  seoUrls: {
+    apiAlias: string;
+    pathInfo: string;
+    seoPathInfo: string;
+  }[];
 }

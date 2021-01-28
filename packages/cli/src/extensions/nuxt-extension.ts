@@ -240,7 +240,7 @@ module.exports = (toolbox: GluegunToolbox) => {
    * - api-client.js
    */
   toolbox.generateTemplateFiles = async (
-    { shopwareEndpoint, shopwareAccessToken } = toolbox.inputParameters
+    { shopwareEndpoint, shopwareAccessToken, pwaHost } = toolbox.inputParameters
   ) => {
     const isConfigGenerated = exists("shopware-pwa.config.js");
     if (!isConfigGenerated) {
@@ -250,6 +250,7 @@ module.exports = (toolbox: GluegunToolbox) => {
         props: {
           shopwareEndpoint,
           shopwareAccessToken,
+          pwaHost,
         },
       });
     }

@@ -62,6 +62,14 @@ export interface ShopwareApiClientConfig {
  */
 export interface ShopwarePwaConfigFile {
   /**
+   * shopware-pwa host URL
+   */
+  pwaHost?: string;
+  /**
+   * default domain prefix
+   */
+  fallbackDomain?: string;
+  /**
    * Shopware6 URL
    */
   shopwareEndpoint: string;
@@ -90,6 +98,19 @@ export interface ShopwarePwaConfigFile {
       associations?: Association[];
     };
   };
+}
+
+/**
+ * @beta
+ */
+export interface DomainConfig {
+  url: string;
+  domainId: string;
+  currencyId: string;
+  snippetSetId: string;
+  languageId: string;
+  languageName: string;
+  languageLocaleCode: string;
 }
 
 export default {};
