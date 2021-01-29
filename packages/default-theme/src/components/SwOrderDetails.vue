@@ -169,7 +169,7 @@ export default {
   // TODO: move this logic into separate service;
   // details: https://github.com/DivanteLtd/shopware-pwa/issues/781
   setup({ orderId, preventRedirect }, { root }) {
-    const { apiInstance } = getApplicationContext(root, "myComponent")
+    const { apiInstance } = getApplicationContext(root, "SwOrderDetails")
     const { getOrderDetails, loading, error: userError } = useUser(root)
     const order = ref(null)
     const paymentMethod = computed(
