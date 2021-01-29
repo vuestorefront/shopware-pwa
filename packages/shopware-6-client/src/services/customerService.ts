@@ -144,7 +144,7 @@ export async function getCustomerOrderDetails(
 
   const resp = await contextInstance.invoke.get(getCustomerOrderEndpoint(), {
     // TODO: move into plain Object after https://github.com/DivanteLtd/shopware-pwa/issues/911 is merged
-    params: `filter[id]=${orderId}&associations[lineItems][]&associations[addresses][]&associations[transactions][]&associations[deliveries][]`,
+    params: `filter[id]=${orderId}&associations[lineItems][]&associations[addresses][]&associations[transactions][associations][paymentMethod][]&associations[deliveries][associations][shippingMethod][]`,
   });
   return resp.data.orders?.elements?.[0];
 }

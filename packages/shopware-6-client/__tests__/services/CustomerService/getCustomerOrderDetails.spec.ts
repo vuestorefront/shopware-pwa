@@ -55,7 +55,7 @@ describe("CustomerService - getCustomerOrderDetails", () => {
     expect(mockedGet).toBeCalledTimes(1);
     expect(mockedGet).toBeCalledWith("/store-api/v3/order", {
       params:
-        "filter[id]=12345-ab&associations[lineItems][]&associations[addresses][]&associations[transactions][]&associations[deliveries][]",
+        "filter[id]=12345-ab&associations[lineItems][]&associations[addresses][]&associations[transactions][associations][paymentMethod][]&associations[deliveries][associations][shippingMethod][]",
     });
     expect(result).toMatchObject({
       id: "12345-ab",
