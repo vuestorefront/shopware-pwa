@@ -8,7 +8,6 @@ export const useShippingStep = createCheckoutStep({
     firstName: null,
     lastName: null,
     street: null,
-    apartment: null,
     city: null,
     state: null,
     zipcode: null,
@@ -37,9 +36,6 @@ export const useShippingStepValidationRules = {
     required,
   },
   street: {
-    required,
-  },
-  apartment: {
     required,
   },
   city: {
