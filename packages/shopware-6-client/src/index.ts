@@ -1,45 +1,38 @@
-import { defaultInstance, ConfigChangedArgs } from "./apiService";
-import { ClientSettings } from "./settings";
-export { ClientSettings } from "./settings";
-export {
-  createInstance,
-  ConfigChangedArgs,
-  ShopwareApiInstance,
-} from "./apiService";
+import * as innerClient from "./index.inner";
+export * from "./index.inner";
 
-export * from "./services/categoryService";
-export * from "./services/productService";
-export * from "./services/customerService";
-export * from "./services/contextService";
-export * from "./services/cartService";
-export * from "./services/navigationService";
-export * from "./services/pageService";
-export * from "./services/checkoutService";
-export * from "./services/pluginService";
-export * from "./services/searchService";
-export * from "./services/formsService";
-export * from "./endpoints";
+import { openDB } from "idb";
 
-/**
- * @beta
- */
-export const config: ClientSettings = defaultInstance.config;
-/**
- * Setup configuration. Merge default values with provided in param.
- * This method will override existing config. For config update invoke **update** method.
- * @beta
- */
-export const setup: (config?: ClientSettings) => void = defaultInstance.setup;
+import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
+import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { defaultInstance, ShopwareApiInstance } from "./apiService";
 
-/**
- * Update current configuration. This will change only provided values.
- * @beta
- */
-export const update: (config?: ClientSettings) => void = defaultInstance.update;
+import { parseCriteria } from "./offline/criteria/queryParser";
 
-/**
- * @beta
- */
-export const onConfigChange: (
-  fn: (context: ConfigChangedArgs) => void
-) => void = defaultInstance.onConfigChange;
+export async function searchProducts(
+  criteria?: ShopwareSearchParams,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<ProductListingResult> {
+  if (typeof window !== "undefined" && window.indexedDB) {
+    let db = await openDB("shopware_pwa_data", 1);
+
+    let readProducts = db.transaction("product");
+
+    let elements = await readProducts.store.getAll();
+
+    let productResult: ProductListingResult = await parseCriteria(
+      elements,
+      criteria
+    );
+
+    if (productResult.total > 0) {
+      return productResult;
+    }
+  }
+
+  const resp = await innerClient.searchProducts(criteria, contextInstance);
+
+  /** End Offline Querying PoC */
+
+  return resp;
+}
