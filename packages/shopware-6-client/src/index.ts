@@ -9,6 +9,7 @@ import { defaultInstance, ShopwareApiInstance } from "./apiService";
 
 import { parseCriteria } from "./offline/criteria/queryParser";
 
+/* Should be extracted into a separate module, expects products to be present in the local store already */
 export async function searchProducts(
   criteria?: ShopwareSearchParams,
   contextInstance: ShopwareApiInstance = defaultInstance
@@ -20,6 +21,7 @@ export async function searchProducts(
 
     let elements = await readProducts.store.getAll();
 
+    /* This is where the magic happens */
     let productResult: ProductListingResult = await parseCriteria(
       elements,
       criteria
@@ -30,9 +32,10 @@ export async function searchProducts(
     }
   }
 
+  /* Fall back to API */
   const resp = await innerClient.searchProducts(criteria, contextInstance);
 
-  /** End Offline Querying PoC */
+  /* End Offline Querying PoC */
 
   return resp;
 }

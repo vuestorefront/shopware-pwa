@@ -13,13 +13,16 @@ const parseCriteria = async function (
 ): Promise<ProductListingResult> {
   console.time("parseCriteria");
 
+  /* Init empty result set */
   let elements: Array<Product> = [];
   if (typeof criteria !== "undefined" && criteria.query) {
+    /* Parse search term */
     elements = _parseSearchTerm(criteria?.query, allElements);
   }
 
   console.timeEnd("parseCriteria");
 
+  /* Mock ProductListingResult */
   return {
     apiAlias: "product_listing",
     total: elements.length,
@@ -35,6 +38,7 @@ const parseCriteria = async function (
   };
 };
 
+/* Simple method for filtering */
 const _parseSearchTerm = function (
   term: string,
   elements: Array<Product>
