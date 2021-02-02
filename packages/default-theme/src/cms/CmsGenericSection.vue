@@ -1,5 +1,10 @@
 <template>
-  <component :is="getComponent" :content="content" :style="slotStyles" />
+  <component
+    :is="getComponent"
+    :content="content"
+    :style="slotStyles"
+    :class="cmsClass"
+  />
 </template>
 
 <script>
@@ -17,13 +22,25 @@ export default {
     getComponent() {
       return getCmsSectionComponent(this.content)
     },
-    backgroundMediaMode() {
-      return this.content.backgroundMediaMode
+    cmsClass() {
+      return this.content?.cssClass
     },
     slotStyles() {
-      const { backgroundMedia } = this.content
+      const {
+        backgroundColor,
+        backgroundMedia,
+        marginBottom,
+        marginLeft,
+        marginRight,
+        marginTop,
+      } = this.content
       return {
+        backgroundColor,
         backgroundImage: backgroundMedia ? `url(${backgroundMedia.url})` : null,
+        marginBottom,
+        marginLeft,
+        marginRight,
+        marginTop,
       }
     },
   },

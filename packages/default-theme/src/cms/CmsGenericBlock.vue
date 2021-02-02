@@ -27,13 +27,22 @@ export default {
     cmsClass() {
       return this.content?.cssClass
     },
-    backgroundMediaMode() {
-      return this.content.backgroundMediaMode
-    },
     slotStyles() {
-      const { backgroundMedia } = this.content
+      const {
+        backgroundColor,
+        backgroundMedia,
+        marginBottom,
+        marginLeft,
+        marginRight,
+        marginTop,
+      } = this.content
       return {
+        backgroundColor,
         backgroundImage: backgroundMedia ? `url(${backgroundMedia.url})` : null,
+        marginBottom,
+        marginLeft,
+        marginRight,
+        marginTop,
       }
     },
   },
