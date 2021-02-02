@@ -1,12 +1,12 @@
 <template>
   <div class="search-page">
     <h3 v-if="!getSearchTerm && !loading" class="search-page__warning">
-      You didn't provide any term to be found
+      {{ this.$t("You didn't provide any term to be found") }}
     </h3>
     <SfLoader v-else :loading="loading">
       <div v-if="getElements" class="search-page__main">
         <h3>
-          search results for
+          {{ this.$t("search results for") }}
           <strong>{{ getSearchTerm }}</strong
           >:
         </h3>
