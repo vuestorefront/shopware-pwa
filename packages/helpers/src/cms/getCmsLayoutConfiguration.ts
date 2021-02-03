@@ -29,11 +29,11 @@ export function getCmsLayoutConfiguration(
     } as any;
   }
   return {
-    cssClasses: content?.cssClass,
+    cssClasses: content.cssClass,
     layoutStyles: {
-      backgroundColor: content?.backgroundColor,
-      backgroundImage: content?.backgroundMedia
-        ? `url(${content?.backgroundMedia.url})`
+      backgroundColor: content.backgroundColor,
+      backgroundImage: content.backgroundMedia
+        ? `url(${content.backgroundMedia.url})`
         : null,
       marginBottom: (content as any).marginBottom,
       marginLeft: (content as any).marginLeft,
