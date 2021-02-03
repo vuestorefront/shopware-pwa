@@ -2,14 +2,15 @@
   <component
     :is="getComponent"
     :content="content"
-    :style="slotStyles"
+    :style="cmsStyles"
     :class="cmsClass"
   />
 </template>
 
 <script>
 import { getCmsSectionComponent } from "sw-cms/cmsNameMapper"
-
+import { getCmsLayoutConfiguration } from "@shopware-pwa/helpers"
+import { computed } from "@vue/composition-api"
 export default {
   name: "CmsGenericSection",
   props: {
@@ -18,31 +19,17 @@ export default {
       default: () => ({}),
     },
   },
-  computed: {
-    getComponent() {
-      return getCmsSectionComponent(this.content)
-    },
-    cmsClass() {
-      return this.content?.cssClass
-    },
-    slotStyles() {
-      const {
-        backgroundColor,
-        backgroundMedia,
-        marginBottom,
-        marginLeft,
-        marginRight,
-        marginTop,
-      } = this.content
-      return {
-        backgroundColor,
-        backgroundImage: backgroundMedia ? `url(${backgroundMedia.url})` : null,
-        marginBottom,
-        marginLeft,
-        marginRight,
-        marginTop,
-      }
-    },
+  setup({ content }, {}) {
+    const { cssClasses, layoutStyles } = getCmsLayoutConfiguration(content)
+    const cmsClass = computed(() => cssClasses)
+    const cmsStyles = computed(() => layoutStyles)
+    const getComponent = computed(() => getCmsSectionComponent(content))
+
+    return {
+      getComponent,
+      cmsClass,
+      cmsStyles,
+    }
   },
 }
 </script>
