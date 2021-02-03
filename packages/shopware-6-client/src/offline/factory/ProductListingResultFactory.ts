@@ -3,18 +3,20 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 
 const createProductListingResult = function (
   elements: Array<Product>,
-  criteria
+  total: number,
+  limit: number,
+  page: number
 ): ProductListingResult {
   return {
     apiAlias: "product_listing",
-    total: elements.length,
+    total: total,
     elements,
     sorting: "score",
     sortings: [],
-    limit: 10,
-    page: 1,
+    limit,
+    page,
     currentFilters: {
-      search: criteria?.query || "",
+      search: "",
     },
     aggregations: {},
   };

@@ -10,6 +10,8 @@ const buildFilters = function (
   criteria: ShopwareSearchParams,
   filters: Array<FilterInterface> = []
 ): Array<FilterInterface> {
+  console.log(criteria);
+
   filters.push(new TermFilter(criteria?.query || ""));
   // filters.push(new RangeFilter('ratingAverage', { gt: 3 }))
   // filters.push(new EqualsFilter('id', 'c6a351be9ad54596b1062196f7fd7240'))

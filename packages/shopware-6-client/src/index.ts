@@ -1,79 +1,20 @@
-import * as innerClient from "./index.inner";
 export * from "./index.inner";
 
-import { IDBPDatabase, openDB } from "idb";
+// Explicitly import offline overrides and alias them
 
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { defaultInstance, ShopwareApiInstance } from "./apiService";
+// Product Listing
+import { getCategoryProducts as offlineGetCategoryProducts } from "./offline-services/productService";
 
-import { handleRequest } from "./offline/criteria/RequestCriteriaHandler";
+const getCategoryProducts = offlineGetCategoryProducts;
 
-/* Should be extracted into a separate module, expects products to be present in the local store already */
-export async function searchProducts(
-  criteria?: ShopwareSearchParams,
-  contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<ProductListingResult> {
-  if (typeof window !== "undefined" && window.indexedDB) {
-    let db: IDBPDatabase<Product> = await openDB("shopware_pwa_data", 1);
+// Product Search
+import {
+  searchProducts as offlineSearchProducts,
+  searchSuggestedProducts as offlineSearchSuggestedProducts,
+} from "./offline-services/searchService";
 
-    let readProducts = db.transaction("product");
+const searchProducts = offlineSearchProducts;
+const searchSuggestedProducts = offlineSearchSuggestedProducts;
 
-    let elements = await readProducts.store.getAll();
-
-    /* This is where the magic happens */
-    let productResult: ProductListingResult = await handleRequest(
-      elements,
-      criteria
-    );
-
-    if (productResult.total > 0) {
-      return productResult;
-    }
-  }
-
-  /* Fall back to API */
-  const resp = await innerClient.searchProducts(criteria, contextInstance);
-
-  /* End Offline Querying PoC */
-
-  return resp;
-}
-
-/**
- * Search for suggested products based on criteria.
- * From: Shopware 6.4
- *
- * @beta
- */
-export async function searchSuggestedProducts(
-  criteria?: ShopwareSearchParams,
-  contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<ProductListingResult> {
-  if (typeof window !== "undefined" && window.indexedDB) {
-    let db: IDBPDatabase<Product> = await openDB("shopware_pwa_data", 1);
-
-    let readProducts = db.transaction("product");
-
-    let elements = await readProducts.store.getAll();
-
-    /* This is where the magic happens */
-    let productResult: ProductListingResult = await handleRequest(
-      elements,
-      criteria
-    );
-
-    if (productResult.total > 0) {
-      return productResult;
-    }
-  }
-
-  /* Fall back to API */
-  const resp = await innerClient.searchSuggestedProducts(
-    criteria,
-    contextInstance
-  );
-
-  return resp;
-}
+// Re-export them with original name, because local modules have priority in bundler
+export { searchProducts, searchSuggestedProducts, getCategoryProducts };
