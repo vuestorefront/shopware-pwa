@@ -70,6 +70,10 @@ export const INTERCEPTOR_KEYS = {
    * - customer object
    */
   USER_LOGIN: "onUserLogin",
+  /**
+   * Broadcasted after user is successfully registered.
+   */
+  USER_REGISTER: "onUserRegister",
 };
 
 /**
