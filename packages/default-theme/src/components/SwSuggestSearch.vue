@@ -14,7 +14,7 @@
           class="search-suggestions__product"
           v-for="product in products.slice(0, 5)"
           :key="product.id"
-          :link="$i18n.path(getProductRouterLink(product))"
+          :link="$routing.getUrl(getProductUrl(product))"
         >
           <SfImage
             :src="getProducImageUrl(product)"
@@ -25,7 +25,7 @@
           />
           <span>
             <span class="search-suggestions__product-title">
-              {{ product.name }}
+              {{ product.translated.name }}
             </span>
             <span class="search-suggestions__product-price">
               <SfPrice
@@ -96,6 +96,11 @@ export default {
       default: 0,
     },
   },
+  setup() {
+    return {
+      getProductUrl,
+    }
+  },
   directives: { clickOutside },
   computed: {
     title() {
@@ -106,9 +111,6 @@ export default {
     },
   },
   methods: {
-    getProductRouterLink(product) {
-      return this.$i18n.path(getProductUrl(product))
-    },
     close() {
       this.$emit("close")
     },

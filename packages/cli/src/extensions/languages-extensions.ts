@@ -74,4 +74,32 @@ module.exports = (toolbox: GluegunToolbox) => {
     await toolbox?.runtime?.run(`languages`, { local: isLocal });
     runningRefreshLanguages = false;
   };
+
+  /**
+   * Writes given language data to files in a given destination.
+   * @param languagesMap
+   * @param destinationDirectoryName
+   */
+  toolbox.languages.writeLanguages = async (
+    languagesMap,
+    destinationDirectoryName
+  ) => {
+    const path = require("path");
+    // remove old files from folder
+    await toolbox.filesystem.removeAsync(destinationDirectoryName);
+
+    // write new files
+    const languageFileNames = Object.keys(languagesMap);
+    for (let index = 0; index < languageFileNames.length; index++) {
+      const currentLocaleFileName = languageFileNames[index];
+      const currentLocaleFilePath = path.join(
+        destinationDirectoryName,
+        currentLocaleFileName
+      );
+      await toolbox.filesystem.writeAsync(
+        currentLocaleFilePath,
+        languagesMap[currentLocaleFileName]
+      );
+    }
+  };
 };

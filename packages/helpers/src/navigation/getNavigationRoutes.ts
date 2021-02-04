@@ -14,6 +14,7 @@ export interface NavigationRoute {
 export function getNavigationRoutes(
   navigationElements: SwNavigationElement[]
 ): NavigationRoute[] {
+  console.warn("navigationElements", navigationElements);
   return navigationElements.map(
     (element: {
       children: SwNavigationElement[] | null;

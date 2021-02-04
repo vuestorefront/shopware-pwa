@@ -1,23 +1,23 @@
 <template>
   <SfMegaMenu
     :visible="visible"
-    :title="category.name"
+    :title="category.translated.name"
     class="sw-mega-menu"
     data-cy="mega-menu"
   >
     <div class="sw-mega-menu__content">
       <div
         v-for="subcategory in category.children"
-        :key="subcategory.name"
+        :key="subcategory.translated.name"
         class="sw-mega-menu__content-section"
         data-cy="mega-menu-category"
       >
         <nuxt-link
           class="sf-header__link"
-          :to="$i18n.path(getCategoryUrl(subcategory))"
+          :to="$routing.getUrl(getCategoryUrl(subcategory))"
         >
           <SfHeading
-            :title="subcategory.name"
+            :title="subcategory.translated.name"
             :subtitle="subcategory.description"
             :level="4"
           />
@@ -26,9 +26,9 @@
           <SfListItem v-for="child in subcategory.children" :key="child.label">
             <nuxt-link
               class="sf-header__link"
-              :to="$i18n.path(getCategoryUrl(child))"
+              :to="$routing.getUrl(getCategoryUrl(child))"
             >
-              <SfMenuItem class="sw-menu-item" :label="child.name" />
+              <SfMenuItem class="sw-menu-item" :label="child.translated.name" />
             </nuxt-link>
           </SfListItem>
         </SfList>

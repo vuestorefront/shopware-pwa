@@ -1,11 +1,51 @@
 import { CustomField } from "../../common/CustomField";
 import { Category } from "../category/Category";
+import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import { Aggregation } from "@shopware-pwa/commons/interfaces/search/Aggregation";
+
+/**
+ * @beta
+ */
+export enum PageType {
+  PRODUCT_DETAIL_PAGE = "frontend.detail.page",
+  NAVIGATION_PAGE = "frontend.navigation.page",
+}
+
+/**
+ * @beta
+ */
+export interface PageResolverResult<T> {
+  cmsPage: T;
+  breadcrumb: {
+    [id: string]: {
+      name: string;
+      path: string;
+    };
+  };
+  listingConfiguration: any;
+  resourceType: PageType;
+  resourceIdentifier: string;
+  apiAlias: string;
+}
+
+/**
+ * @beta
+ */
+export interface PageResolverProductResult {
+  product: Partial<Product>;
+  aggregations: Aggregation[];
+  resourceType: PageType;
+  resourceIdentifier: string;
+  cannonicalPathInfo: string;
+  apiAlias: string;
+}
 
 export enum CmsPageType {
   DEFAULT = "default",
   PRODUCT_LISTING = "product_list",
   LANDING_PAGE = "landingpage",
 }
+
 /**
  * @alpha
  */

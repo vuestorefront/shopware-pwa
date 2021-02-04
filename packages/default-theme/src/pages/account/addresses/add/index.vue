@@ -1,4 +1,29 @@
+<template>
+  <div class="addresses-add">
+    <SwAddressForm />
+  </div>
+</template>
+
 <script>
-import Add from "@/pages/_lang/account/addresses/add/index"
-export default Add
+import SwAddressForm from "@/components/forms/SwAddressForm.vue"
+
+export default {
+  components: { SwAddressForm },
+  data() {
+    return {}
+  },
+}
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/scss/variables";
+
+.addresses-add {
+  box-sizing: border-box;
+  width: 100%;
+
+  @include for-mobile {
+    padding: var(--spacer-sm);
+  }
+}
+</style>

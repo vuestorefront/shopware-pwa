@@ -53,7 +53,7 @@
         <SwInput
           v-model="form.street"
           name="street"
-          :label="$t('Street')"
+          :label="$t('Street and house number')"
           :error-message="$t('Street is required')"
           :valid="!$v.form.street.$error"
           required
@@ -61,16 +61,7 @@
           @blur="$v.form.street.$touch()"
         />
       </div>
-      <SwInput
-        v-model="form.apartment"
-        name="apartment"
-        :label="$t('House/Apartment number')"
-        :error-message="$t('Apartment is required')"
-        :valid="!$v.form.apartment.$error"
-        required
-        class="form__element"
-        @blur="$v.form.apartment.$touch()"
-      />
+
       <div class="inputs-group">
         <SwInput
           v-model="form.city"
@@ -83,13 +74,14 @@
           @blur="$v.form.city.$touch()"
         />
         <SwInput
+          v-if="displayState"
           v-model="form.state"
           name="state"
           :label="$t('State/Province')"
           :error-message="$t('State is required')"
           :valid="!$v.form.state.$error"
-          required
           class="sw-form__input"
+          :required="forceState"
           @blur="$v.form.state.$touch()"
         />
       </div>
@@ -149,11 +141,12 @@
 
 <script>
 import { validationMixin } from "vuelidate"
-import { required } from "vuelidate/lib/validators"
+import { required, requiredIf } from "vuelidate/lib/validators"
 import { computed, reactive } from "@vue/composition-api"
 import { SfAlert, SfSelect } from "@storefront-ui/vue"
 import {
   useCountries,
+  useCountry,
   useUser,
   useSalutations,
 } from "@shopware-pwa/composables"
@@ -175,7 +168,6 @@ export default {
         country: null,
         zipcode: "",
         street: "",
-        apartment: "",
         city: "",
         phoneNumber: "",
       }),
@@ -207,6 +199,11 @@ export default {
         }
       : null
 
+    const { displayState, forceState } = useCountry(
+      form?.country?.id,
+      getCountries
+    )
+
     return {
       addAddress,
       userError,
@@ -214,6 +211,8 @@ export default {
       getMappedCountries,
       getMappedSalutations,
       form,
+      displayState,
+      forceState,
     }
   },
   computed: {
@@ -224,7 +223,6 @@ export default {
         salutation,
         zipcode,
         street,
-        apartment,
         city,
         country,
         phoneNumber,
@@ -237,7 +235,6 @@ export default {
         salutationId: salutation.id,
         zipcode,
         street,
-        apartment,
         city,
         countryId: country.id,
         phoneNumber,
@@ -254,7 +251,7 @@ export default {
       this.returnToAddresses()
     },
     returnToAddresses() {
-      this.$router.push(this.$i18n.path("/account/addresses"))
+      this.$router.push(this.$routing.getUrl("/account/addresses"))
     },
   },
   validations: {
@@ -271,14 +268,13 @@ export default {
       street: {
         required,
       },
-      apartment: {
-        required,
-      },
       city: {
         required,
       },
       state: {
-        required,
+        required: requiredIf(function () {
+          return this.form.country.forceStateInRegistration
+        }),
       },
       zipcode: {
         required,

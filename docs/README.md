@@ -11,12 +11,12 @@ sidebar: false
 </center>
 
 ```bash
-npx @shopware-pwa/cli init 		# Initialize project
-yarn dev 						# start dev server
+npx @shopware-pwa/cli@canary init 		# Initialize project
+yarn dev 								# start dev server
 ```
 
 <center>
-The latest stable release (v0.5.x) is also available at:
+The v0.5.x of shopware-pwa is also available to play on at:
 
 [![Edit shopware-pwa v0.5.x](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/shopware-pwa-v050-zmr5p?file=/README.md)
 
@@ -24,14 +24,6 @@ The latest stable release (v0.5.x) is also available at:
 
 ---
 
-<center>
-
-:::tip Watch our talk on Shopware PWA
-
-[📺 Shopware PWA for Developers](https://www.youtube.com/watch?v=VVfreCzDDKM) from June, 19th (EN).
-:::
-
-</center>
 
 <div class="flex-container">
 
@@ -62,7 +54,7 @@ Guides for functional concepts like CMS or Checkout
 
 ### [Operations](/landing/operations) <Badge text="new" type="info"/>
 
-Best practices, guidelines for setup, hosting and deployment
+Best practices, release notes, migration guides, guidelines for setup, hosting and deployment
 
 ### [Resources](/landing/resources/)
 

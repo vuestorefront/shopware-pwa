@@ -18,6 +18,7 @@ export * from "./services/checkoutService";
 export * from "./services/pluginService";
 export * from "./services/searchService";
 export * from "./services/formsService";
+export * from "./endpoints";
 
 /**
  * @beta

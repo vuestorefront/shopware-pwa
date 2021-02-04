@@ -5,7 +5,7 @@
     <div class="product">
       <SwProductGallery :product="product" class="product__gallery" />
       <div class="product__description">
-        <SwProductDetails :product="product" :page="page" />
+        <SwProductDetails :product="product" />
       </div>
     </div>
 
@@ -69,6 +69,7 @@ import SwProductDetails from "@/components/SwProductDetails"
 import SwProductCarousel from "@/components/SwProductCarousel"
 import SwProductAdvertisement from "@/components/SwProductAdvertisement"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import { computed, onMounted, ref } from "@vue/composition-api"
 
 export default {
   name: "Product",
@@ -83,58 +84,27 @@ export default {
     SwProductAdvertisement,
     SwPluginSlot,
   },
-
-  setup(props, { root }) {
-    const { isLoggedIn } = useUser(root)
-    const { switchState: switchLoginModalState } = useUIState(
-      root,
-      "LOGIN_MODAL_STATE"
-    )
-
-    return {
-      isLoggedIn,
-      switchLoginModalState,
-    }
-  },
-
   props: {
     page: {
       type: Object,
       default: () => ({}),
     },
   },
-
-  data() {
+  setup({ page }, { root }) {
+    const { isLoggedIn } = useUser(root)
+    const { switchState: switchLoginModalState } = useUIState(
+      root,
+      "LOGIN_MODAL_STATE"
+    )
+    const product = computed(() => page.product)
+    const crossSellCollection = computed(
+      () => product.value.crossSellings || []
+    )
     return {
-      productWithAssociations: null,
-      selectedSize: null,
-      selectedColor: null,
-    }
-  },
-  computed: {
-    product() {
-      return this.productWithAssociations
-        ? this.productWithAssociations.value
-        : this.page.product
-    },
-    crossSellCollection() {
-      return this.product.crossSellings || []
-    },
-    latestReviews() {
-      return this.reviewsList.slice(0, 3)
-    },
-    numberOfReviews() {
-      return this.reviewsList.length
-    },
-  },
-  // load children association from the parent - variants and cross sells loading
-  async mounted() {
-    try {
-      const { loadAssociations, product } = useProduct(this, this.page.product)
-      await loadAssociations()
-      this.productWithAssociations = product
-    } catch (e) {
-      console.error("ProductView:mounted:loadAssociations", e)
+      isLoggedIn,
+      switchLoginModalState,
+      crossSellCollection,
+      product,
     }
   },
 }

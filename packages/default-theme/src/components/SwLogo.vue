@@ -1,6 +1,6 @@
 <template>
   <nuxt-link
-    :to="$i18n.path('/')"
+    :to="$routing.getUrl('/')"
     class="sf-header__logo"
     data-cy="header-logo"
   >

@@ -21,25 +21,15 @@
         class="sw-form__input"
         required
       />
+    </div>
+    <div class="inputs-group">
       <SwInput
         v-model="street"
         :valid="!validations.street.$error"
         :error-message="$t('This field is required')"
-        :label="$t('Street')"
+        :label="$t('Street and house number')"
         data-cy="street-name"
         name="street"
-        class="sw-form__input"
-        required
-      />
-    </div>
-    <div class="inputs-group">
-      <SwInput
-        v-model="apartment"
-        :valid="!validations.apartment.$error"
-        :error-message="$t('This field is required')"
-        :label="$t('House/Apartment number')"
-        data-cy="apartment"
-        name="apartment"
         class="sw-form__input"
         required
       />
@@ -54,6 +44,7 @@
         required
       />
       <SwInput
+        v-if="displayState"
         v-model="state"
         :valid="!validations.state.$error"
         :error-message="$t('This field is required')"
@@ -61,7 +52,7 @@
         data-cy="state"
         name="state"
         class="sw-form__input"
-        required
+        :required="forceState"
       />
     </div>
     <div class="inputs-group">
@@ -109,11 +100,16 @@
 <script>
 import { SfSelect } from "@storefront-ui/vue"
 import { validationMixin } from "vuelidate"
+import { requiredIf } from "vuelidate/lib/validators"
 import {
   useShippingStep,
   useShippingStepValidationRules,
 } from "@/logic/checkout/useShippingStep"
-import { useCountries, useCheckout } from "@shopware-pwa/composables"
+import {
+  useCountries,
+  useCheckout,
+  useCountry,
+} from "@shopware-pwa/composables"
 import { computed } from "@vue/composition-api"
 import SwInput from "@/components/atoms/SwInput"
 
@@ -131,7 +127,6 @@ export default {
       firstName,
       lastName,
       street,
-      apartment,
       city,
       state,
       zipcode,
@@ -150,13 +145,17 @@ export default {
       },
     })
 
+    const { currentCountry, displayState, forceState } = useCountry(
+      countryId,
+      getCountries
+    )
+
     return {
       validations,
       setValidations,
       firstName,
       lastName,
       street,
-      apartment,
       city,
       state,
       zipcode,
@@ -165,6 +164,9 @@ export default {
       getCountries,
       shippingMethods,
       shippingMethod,
+      currentCountry,
+      displayState,
+      forceState,
     }
   },
   watch: {
@@ -177,6 +179,11 @@ export default {
   },
   validations: {
     ...useShippingStepValidationRules,
+    state: {
+      required: requiredIf(function () {
+        return this?.currentCountry?.forceStateInRegistration
+      }),
+    },
   },
 }
 </script>

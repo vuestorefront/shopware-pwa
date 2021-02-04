@@ -14,10 +14,13 @@
 
 |  Function | Description |
 |  --- | --- |
+|  [getCmsTechnicalPath(page)](./helpers.getcmstechnicalpath.md) | <b><i>(BETA)</i></b> |
 |  [getListingAvailableFilters(aggregations)](./helpers.getlistingavailablefilters.md) | <b><i>(BETA)</i></b> |
 |  [getListingFilters(aggregations)](./helpers.getlistingfilters.md) | <b><i>(BETA)</i></b> |
 |  [getProductCalculatedListingPrice(product)](./helpers.getproductcalculatedlistingprice.md) | <b><i>(BETA)</i></b> Get the calculated list price |
 |  [getProductCalculatedPrice(product)](./helpers.getproductcalculatedprice.md) | <b><i>(BETA)</i></b> Get the calculated list price |
+|  [getProductName({ product })](./helpers.getproductname.md) | <b><i>(BETA)</i></b> |
+|  [getProductOptions({ product, })](./helpers.getproductoptions.md) | <b><i>(BETA)</i></b> |
 |  [getProductPriceDiscount(product)](./helpers.getproductpricediscount.md) | <b><i>(BETA)</i></b> Get value of price discount |
 |  [getProductPriceDiscountPercentage(product)](./helpers.getproductpricediscountpercentage.md) | <b><i>(BETA)</i></b> Get the percentage value of discount |
 |  [getProductRegularPrice(product)](./helpers.getproductregularprice.md) | <b><i>(BETA)</i></b> Get the price for 1 unit of a product |
@@ -38,4 +41,11 @@
 |  [UiCategoryFilter](./helpers.uicategoryfilter.md) | <b><i>(BETA)</i></b> |
 |  [UiCategoryFilterOption](./helpers.uicategoryfilteroption.md) | <b><i>(BETA)</i></b> |
 |  [UiCategoryRangeFilterOption](./helpers.uicategoryrangefilteroption.md) | <b><i>(BETA)</i></b> |
+|  [UiProductOption](./helpers.uiproductoption.md) | <b><i>(BETA)</i></b> |
+
+## Variables
+
+|  Variable | Description |
+|  --- | --- |
+|  [getCategoryUrl](./helpers.getcategoryurl.md) | <b><i>(BETA)</i></b> Get URL for category. |
 

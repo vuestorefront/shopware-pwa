@@ -20,7 +20,7 @@ cd ./my-shopware-pwa
 Initialize the project inside the directory by running
 
 ```bash
-npx @shopware-pwa/cli init
+npx @shopware-pwa/cli@canary init
 ```
 
 It will ask for the address to your shopware instance, access token, and admin credentials to load plugins. Only the first two are required to start the instance, and default settings will point to our demo instance.
