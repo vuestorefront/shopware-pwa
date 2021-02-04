@@ -74,6 +74,22 @@ describe("Composables - useUser", () => {
   });
 
   describe("methods", () => {
+    describe("onUserLogin", () => {
+      it("should invoke an intercept function on onUserLogin event", async () => {
+        const { onUserLogin } = useUser(rootContextMock);
+        const callback = jest.fn();
+        await onUserLogin(callback);
+        expect(interceptMock).toBeCalledTimes(1);
+      });
+    });
+    describe("onUserRegister", () => {
+      it("should invoke an intercept function on onUserRegister event", async () => {
+        const { onUserRegister } = useUser(rootContextMock);
+        const callback = jest.fn();
+        await onUserRegister(callback);
+        expect(interceptMock).toBeCalledTimes(1);
+      });
+    });
     describe("onLogout", () => {
       it("should invoke an intercept function on onLogout event", async () => {
         const { onLogout } = useUser(rootContextMock);
@@ -154,7 +170,7 @@ describe("Composables - useUser", () => {
         mockedApiClient.login.mockResolvedValueOnce({
           "sw-context-token": "qweqwe",
         } as any);
-        mockedApiClient.getCustomer.mockResolvedValueOnce({
+        mockedApiClient.getCustomer.mockResolvedValue({
           id: "123",
         } as any);
         const { isLoggedIn, error, login } = useUser(rootContextMock);
