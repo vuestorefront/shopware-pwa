@@ -1,5 +1,14 @@
 import { useNotifications } from "@shopware-pwa/composables"
 
+export const addToWishlistNotification = (params, rootContext) => {
+  const { pushSuccess } = useNotifications(rootContext)
+  pushSuccess(
+    rootContext.$t(
+      `${params?.product?.translated?.name} has been added to wishlist.`
+    )
+  )
+}
+
 export const addToCartNotification = (product, rootContext) => {
   const { pushSuccess } = useNotifications(rootContext)
   pushSuccess(
