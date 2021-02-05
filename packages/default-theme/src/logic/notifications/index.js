@@ -9,17 +9,18 @@ export const addToCartNotification = (product, rootContext) => {
   )
 }
 
-export const addPromotionCodeNotification = (result, rootContext) => {
+export const addPromotionCodeNotification = (payload, rootContext) => {
   const { pushSuccess, pushError } = useNotifications(rootContext)
+  const { result } = payload
   // It's strange that success also ends up as an error in the API response
   const err = Object.values(result.errors)[0]
   if (err) {
     switch (err.messageKey) {
       case "promotion-discount-added":
-        pushSuccess(rootContext.i18n.t("Promotion code added successfully"))
+        pushSuccess(rootContext.$t("Promotion code added successfully"))
         break
       case "promotion-not-found":
-        pushError(rootContext.i18n.t("Promotion code does not exist"))
+        pushError(rootContext.$t("Promotion code does not exist"))
         break
       default:
         pushError(err.message.toString())
