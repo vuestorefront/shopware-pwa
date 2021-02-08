@@ -1,5 +1,10 @@
 <template>
-  <div ref="navigation" class="sw-top-navigation" data-cy="top-navigation">
+  <div
+    ref="navigation"
+    class="sw-top-navigation"
+    data-cy="top-navigation"
+    v-if="visibleCategories.length"
+  >
     <SwPluginSlot name="sw-top-navigation-before" />
     <div
       v-for="category in visibleCategories"
@@ -17,9 +22,11 @@
         >{{ category.translated.name }}</nuxt-link
       >
       <SwMegaMenu
+        v-if="category.children && category.children.length"
         :category="category"
         :visible="
           currentCategoryName &&
+          category.translated &&
           category.translated.name === currentCategoryName
         "
       />

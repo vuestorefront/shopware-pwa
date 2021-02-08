@@ -4,7 +4,7 @@
       <SfHeading :level="3" :title="navTitle" />
     </div>
     <div class="cms-element-category-navigation__menu">
-      <SfHeading subtitle="No subcategories" v-if="!navigation.length" />
+      <SfHeading :subtitle="$t('No subcategories')" v-if="!navigation.length" />
       <SfAccordion :show-chevron="true">
         <SfAccordionItem
           v-for="accordion in navigation"
@@ -48,7 +48,7 @@
               v-if="accordion.route && accordion.name"
               :to="$routing.getUrl(getCategoryUrl(accordion))"
             >
-              See {{ accordion.name }}
+              {{ $t("See") }} {{ accordion.name }}
             </nuxt-link>
           </template>
         </SfAccordionItem>
