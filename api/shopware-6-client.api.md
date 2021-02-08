@@ -297,7 +297,7 @@ export const getCustomerLoginEndpoint: () => string;
 export const getCustomerLogoutEndpoint: () => string;
 
 // @beta
-export function getCustomerOrderDetails(orderId: string, contextInstance?: ShopwareApiInstance): Promise<Order | undefined>;
+export function getCustomerOrderDetails(orderId: string, contextInstance?: ShopwareApiInstance, additionalQueryParams?: string): Promise<Order | undefined>;
 
 // @beta (undocumented)
 export const getCustomerOrderDetailsEndpoint: (orderId: string) => string;
