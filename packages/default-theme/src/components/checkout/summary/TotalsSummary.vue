@@ -5,8 +5,8 @@
       <SfNotification
         :visible="true"
         type="info"
-        title="You can't place the order"
-        message="Your cart is empty."
+        :title="$t('You can\'t place the order')"
+        :message="$t('Your cart is empty.')"
       />
     </div>
     <div class="summary__action">

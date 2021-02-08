@@ -66,23 +66,50 @@
         :loading="isPaymentButtonLoading"
         class="sw-order-details__loader"
       >
-        <a v-if="paymentUrl" :href="paymentUrl">
-          <SwButton
-            class="sf-button sf-button--full-width pay-button color-danger"
-          >
-            {{ $t("Pay for your order") }}
-          </SwButton>
-        </a>
         <template #loader>{{ $t("Checking payment status...") }}</template>
+        <div v-if="paymentUrl">
+          <SfModal
+            v-if="!preventRedirect"
+            class="sw-modal"
+            title="Add address"
+            :visible="isModalOpen"
+            @close="isModalOpen = false"
+          >
+            <SfCharacteristic
+              sizeIcon="xl"
+              icon="credits"
+              :title="$t('Payment in 5 seconds...')"
+              :description="
+                $t(
+                  'You will be redirected to the payment gateway in 5 seconds...'
+                )
+              "
+            />
+          </SfModal>
+          <a v-if="preventRedirect" :href="paymentUrl">
+            <SwButton
+              class="sf-button sf-button--full-width pay-button color-danger"
+            >
+              {{ $t("Pay for your order") }}
+            </SwButton>
+          </a>
+        </div>
       </SfLoader>
     </div>
   </div>
 </template>
 
 <script>
-import { SfTable, SfProperty, SfHeading, SfLoader } from "@storefront-ui/vue"
+import {
+  SfTable,
+  SfProperty,
+  SfHeading,
+  SfLoader,
+  SfCharacteristic,
+  SfModal,
+} from "@storefront-ui/vue"
 import { useUser, getApplicationContext } from "@shopware-pwa/composables"
-import { ref, onMounted, computed } from "@vue/composition-api"
+import { ref, onMounted, computed, watch } from "@vue/composition-api"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
 import {
   getOrderPaymentMethodId,
@@ -115,11 +142,18 @@ export default {
     SwCheckoutMethod,
     SwTotals,
     SwPluginSlot,
+    SfCharacteristic,
+    SfModal,
   },
   props: {
     orderId: {
       type: String,
       default: "",
+    },
+    // redirect to the payment gateway automatically if order is not paid
+    preventRedirect: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
@@ -134,14 +168,19 @@ export default {
   },
   // TODO: move this logic into separate service;
   // details: https://github.com/DivanteLtd/shopware-pwa/issues/781
-  setup({ orderId }, { root }) {
-    const { apiInstance } = getApplicationContext(root, "myComponent")
+  setup({ orderId, preventRedirect }, { root }) {
+    const { apiInstance } = getApplicationContext(root, "SwOrderDetails")
     const { getOrderDetails, loading, error: userError } = useUser(root)
     const order = ref(null)
-    const paymentMethod = ref(null)
-    const shippingMethod = ref(null)
+    const paymentMethod = computed(
+      () => order.value?.transactions?.[0]?.paymentMethod
+    )
+    const shippingMethod = computed(
+      () => order.value?.deliveries?.[0]?.shippingMethod
+    )
     const paymentUrl = ref(null)
     const isPaymentButtonLoading = ref(false)
+    const isModalOpen = ref(false)
 
     const personalDetails = computed(
       () =>
@@ -167,12 +206,7 @@ export default {
           ({ id }) => id == order.value.shippingAddressId
         )
     )
-    const paymentMethodId = computed(
-      () => order.value && getOrderPaymentMethodId(order.value)
-    )
-    const shippingMethodId = computed(
-      () => order.value && getOrderShippingMethodId(order.value)
-    )
+
     const shippingCosts = computed(
       () => order.value && order.value.shippingCosts.totalPrice
     )
@@ -188,14 +222,6 @@ export default {
       try {
         isPaymentButtonLoading.value = true
         order.value = await getOrderDetails(orderId)
-        paymentMethod.value = await getPaymentMethodDetails(
-          paymentMethodId.value,
-          apiInstance
-        )
-        shippingMethod.value = await getShippingMethodDetails(
-          shippingMethodId.value,
-          apiInstance
-        )
         const resp = await getOrderPaymentUrl(
           {
             orderId,
@@ -206,6 +232,15 @@ export default {
         paymentUrl.value = resp.paymentUrl
       } catch (e) {}
       isPaymentButtonLoading.value = false
+    })
+
+    watch(paymentUrl, (paymentUrl, prevPaymentUrl) => {
+      if (paymentUrl && window && !preventRedirect) {
+        isModalOpen.value = true
+        setTimeout(() => {
+          window.location.href = paymentUrl
+        }, 5000)
+      }
     })
 
     return {
@@ -222,6 +257,7 @@ export default {
       status,
       paymentUrl,
       isPaymentButtonLoading,
+      isModalOpen,
     }
   },
 }

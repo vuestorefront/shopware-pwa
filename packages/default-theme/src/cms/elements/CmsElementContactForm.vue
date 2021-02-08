@@ -9,9 +9,9 @@
       <SfSelect
         v-if="getMappedSalutations && getMappedSalutations.length > 0"
         v-model="salutation"
-        label="Salutation"
+        :label="$t('Salutation')"
         :valid="!$v.salutation.$error"
-        error-message="Salutation must be selected"
+        :error-message="$t('Salutation must be selected')"
         data-cy="salutation-select"
       >
         <SfSelectOption
@@ -28,9 +28,9 @@
         <SfInput
           v-model="firstName"
           type="text"
-          label="First name"
+          :label="$t('First name')"
           name="firstname"
-          error-message="First name is required"
+          :error-message="$t('First name is required')"
           :disabled="false"
           :valid="!$v.firstName.$error"
           class="small input"
@@ -40,9 +40,9 @@
         <SfInput
           v-model="lastName"
           type="text"
-          label="Last name"
+          :label="$t('Last name')"
           name="lastname"
-          error-message="Last name is required"
+          :error-message="$t('Last name is required')"
           :disabled="false"
           :valid="!$v.lastName.$error"
           class="small input"
@@ -54,9 +54,9 @@
         <SfInput
           v-model="email"
           type="text"
-          label="Email address"
+          :label="$t('Email address')"
           name="email"
-          error-message="Email is required"
+          :error-message="$t('Email is required')"
           :disabled="false"
           :valid="!$v.email.$error"
           class="small input"
@@ -65,9 +65,9 @@
         <SfInput
           v-model="phone"
           type="text"
-          label="Phone number"
+          :label="$t('Phone number')"
           name="phone"
-          error-message="Enter valid phone number"
+          :error-message="$t('Enter valid phone number')"
           :disabled="false"
           :valid="!$v.phone.$error"
           @blur="$v.phone.$touch()"
@@ -78,9 +78,9 @@
         <SfInput
           v-model="subject"
           type="text"
-          label="Subject line"
+          :label="$t('Subject line')"
           name="subject"
-          error-message="Subject is required"
+          :error-message="$t('Subject is required')"
           :disabled="false"
           :valid="!$v.subject.$error"
           @blur="$v.subject.$touch()"
@@ -90,9 +90,9 @@
         <SfInput
           v-model="message"
           type="text"
-          label="Your message"
+          :label="$t('Your message')"
           name="message"
-          error-message="Message is required"
+          :error-message="$t('Message is required')"
           :disabled="false"
           :valid="!$v.message.$error"
           @blur="$v.message.$touch()"
@@ -105,7 +105,7 @@
           name="checkbox"
           :label="getConfirmationText"
           :valid="!$v.checkbox.$error"
-          error-message="Required"
+          :error-message="$t('Required')"
           @blur="$v.checkbox.$touch()"
         />
       </div>
@@ -120,8 +120,8 @@
     <div v-if="formSent" class="thanks-message">
       <SfIcon size="21px" icon="heart_fill" />
       <SfHeading
-        title="Thanks!"
-        subtitle="We'll contact you as soon as possible!"
+        :title="$t('Thanks!')"
+        :subtitle="$t('We\'ll contact you as soon as possible!')"
       />
     </div>
   </div>
@@ -178,7 +178,7 @@ export default {
     const getConfirmationText = computed(
       () =>
         props?.content?.config?.confirmationText?.value ||
-        "I have read and agree with the data protection regulations."
+        root.$t("I have read and agree with the data protection regulations.")
     )
 
     const errorMessages = ref([])
