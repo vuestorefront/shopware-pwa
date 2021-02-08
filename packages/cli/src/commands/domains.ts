@@ -23,6 +23,14 @@ module.exports = {
     const isCIrun = inputParameters.ci;
 
     if (!isCIrun) {
+      toolbox.print.info(`
+Synchronize the domain's related config from backend (in order to build a domains.json file)`);
+      toolbox.print.info(
+        toolbox.print.colors.bold(`
+do not answer [press enter] if you want to use default values for ${toolbox.defaultInitConfig.shopwareEndpoint} hostname for contribution purposes.
+`)
+      );
+
       const shopwareUsernameQuestion = !inputParameters.username && {
         type: "input",
         name: "username",
@@ -53,10 +61,19 @@ module.exports = {
     const { username, password, pwaHost } = inputParameters;
 
     if (!username || !password) {
-      toolbox.print.error(
-        "Please provide your admin credentials using the --username and --password options."
-      );
-      return;
+      if (
+        toolbox.defaultInitConfig.shopwareEndpoint ===
+        inputParameters.shopwareEndpoint
+      ) {
+        toolbox.print.warning(
+          "You didn't provide credentials for fetching domains. Default credentials will be used instead."
+        );
+      } else {
+        toolbox.print.error(
+          "Please provide your admin credentials using the --username and --password options or answering the questions."
+        );
+        return;
+      }
     }
 
     // Get Auth Token for API
@@ -82,7 +99,12 @@ module.exports = {
 
     const domainsMap = toolbox.domains.prepareDomainsMap(
       domains,
-      toolbox.domains.stripTrailingSlash(pwaHost)
+      toolbox.domains.stripTrailingSlash(
+        (typeof pwaHost === "string" &&
+          pwaHost === "" &&
+          toolbox.defaultInitConfig.shopwareEndpoint) ||
+          pwaHost
+      )
     );
 
     let domainsFilePath = path.join(shopwarePwaPath, "domains.json");

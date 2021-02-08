@@ -53,7 +53,8 @@
         class="product-details__product-number"
       >
         <p>
-          Product number: <span>{{ getProductNumber(product) }}</span>
+          {{ $t("Product number") }}:
+          <span>{{ getProductNumber(product) }}</span>
         </p>
       </div>
     </div>

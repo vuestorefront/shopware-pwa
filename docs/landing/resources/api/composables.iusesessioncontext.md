@@ -26,6 +26,9 @@ SessionContext contain all related data like user, currency, country, shippingMe
 |  [activeBillingAddress](./composables.iusesessioncontext.activebillingaddress.md) | Readonly&lt;Ref&lt;BillingAddress \| null&gt;&gt; | <b><i>(BETA)</i></b> |
 |  [activeShippingAddress](./composables.iusesessioncontext.activeshippingaddress.md) | Readonly&lt;Ref&lt;ShippingAddress \| null&gt;&gt; | <b><i>(BETA)</i></b> |
 |  [currency](./composables.iusesessioncontext.currency.md) | Readonly&lt;Ref&lt;Currency \| null&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [onCurrencyChange](./composables.iusesessioncontext.oncurrencychange.md) | (fn: (params: { currency: Currency; }) =&gt; void) =&gt; void | <b><i>(BETA)</i></b> |
+|  [onPaymentMethodChange](./composables.iusesessioncontext.onpaymentmethodchange.md) | (fn: (params: { paymentMethod: PaymentMethod; }) =&gt; void) =&gt; void | <b><i>(BETA)</i></b> |
+|  [onShippingMethodChange](./composables.iusesessioncontext.onshippingmethodchange.md) | (fn: (params: { shippingMethod: ShippingMethod; }) =&gt; void) =&gt; void | <b><i>(BETA)</i></b> |
 |  [paymentMethod](./composables.iusesessioncontext.paymentmethod.md) | Readonly&lt;Ref&lt;PaymentMethod \| null&gt;&gt; | <b><i>(BETA)</i></b> |
 |  [refreshSessionContext](./composables.iusesessioncontext.refreshsessioncontext.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [sessionContext](./composables.iusesessioncontext.sessioncontext.md) | Readonly&lt;Ref&lt;SessionContext \| null&gt;&gt; | <b><i>(BETA)</i></b> |
