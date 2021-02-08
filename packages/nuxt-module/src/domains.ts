@@ -18,9 +18,14 @@ export async function setupDomains(
     "domains.json"
   );
   const domainsConfigExists = jetpack.exists(domainConfigPath);
+  /* istanbul ignore next */
   if (!domainsConfigExists) {
-    throw new Error(
-      "[shopware-pwa] Domains config is not initialized properly, please run 'shopware-pwa init'"
+    // save an empty domains.json for further config.
+    /* istanbul ignore next */
+    await jetpack.writeAsync(domainConfigPath, "{}");
+    /* istanbul ignore next */
+    console.warn(
+      "[shopware-pwa] Domains config is not initialized properly, please run 'shopware-pwa init' or 'shopware-pwa domains' command again."
     );
   }
 

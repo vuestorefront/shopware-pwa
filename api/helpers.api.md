@@ -6,6 +6,7 @@
 
 import { Aggregations } from '@shopware-pwa/commons/interfaces/search/Aggregations';
 import { Category } from '@shopware-pwa/commons/interfaces/models/content/category/Category';
+import { CmsBlock } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsBlock';
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { CmsSection } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { CmsSlot } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
@@ -86,6 +87,9 @@ export function getCategoryAvailableSorting({ sorting, }?: {
 
 // @beta
 export const getCategoryUrl: (category: Partial<Category>) => string;
+
+// @beta (undocumented)
+export function getCmsLayoutConfiguration(content: CmsBlock | CmsSection): LayoutConfiguration;
 
 // @alpha (undocumented)
 export function getCmsLink(content?: CmsSlot): String;
@@ -216,6 +220,21 @@ export function isOptionAvailableForSelectedOptions(currentAttribute: string, se
 export function isProductSimple({ product, }?: {
     product?: Product;
 }): boolean;
+
+// @beta (undocumented)
+export interface LayoutConfiguration {
+    // (undocumented)
+    cssClasses: string | null;
+    // (undocumented)
+    layoutStyles: {
+        backgroundColor: string | null;
+        backgroundImage: string | null;
+        marginBottom?: string | null | undefined;
+        marginLeft?: string | null | undefined;
+        marginRight?: string | null | undefined;
+        marginTop?: string | null | undefined;
+    };
+}
 
 // @beta (undocumented)
 export interface ListingFilter {

@@ -7,11 +7,15 @@
     >
       <SfHeading
         :title="
-          !formSent ? 'Subscribe to Newsletter' : 'Subscribed to Newsletter!'
+          !formSent
+            ? $t('Subscribe to Newsletter')
+            : $t('Subscribed to Newsletter!')
         "
         :subtitle="
           !formSent
-            ? 'Be aware of upcoming sales and events. Receive gifts and special offers!'
+            ? $t(
+                'Be aware of upcoming sales and events. Receive gifts and special offers!'
+              )
             : ''
         "
       />
@@ -40,8 +44,8 @@
             v-model="email"
             type="email"
             name="email"
-            label="Email address"
-            error-message="Please enter a valid email address"
+            :label="$t('Email address')"
+            :error-message="$t('Please enter a valid email address')"
             :valid="!$v.email.$error"
             class="email small input"
             @blur="$v.email.$touch()"

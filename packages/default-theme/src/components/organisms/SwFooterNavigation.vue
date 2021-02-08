@@ -67,6 +67,7 @@ export default {
                     "seoUrls",
                     "externalLink",
                     "name",
+                    "translated",
                     "id",
                     "children",
                   ],

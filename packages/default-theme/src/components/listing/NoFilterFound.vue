@@ -2,11 +2,11 @@
   <SfAlert type="danger">
     <template #message>
       <span class="sf-alert__message">
-        Filter
+        {{ $t("Filter") }}
         <b>
           {{ filter.label }}
         </b>
-        is not implemented! Please add new filter to
+        {{ $t("is not implemented! Please add new filter to") }}
         `src/components/listing/types/{{ filter.label }}.vue`
       </span>
     </template>
