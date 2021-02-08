@@ -129,21 +129,21 @@ export interface CmsBlock {
 }
 
 /**
- * @alpha
+ * @beta
  */
 export enum SectionType {
   DEFAULT = "default",
 }
 
 /**
- * @alpha
+ * @beta
  */
 export enum SizingMode {
   BOXED = "boxed",
 }
 
 /**
- * @alpha
+ * @beta
  */
 export enum MobileBehavior {
   BOXED = "boxed",
@@ -151,14 +151,14 @@ export enum MobileBehavior {
 }
 
 /**
- * @alpha
+ * @beta
  */
 export enum BackgroundMediaMode {
   COVER = "cover",
 }
 
 /**
- * @alpha
+ * @beta
  */
 export interface CmsSection {
   type: SectionType;

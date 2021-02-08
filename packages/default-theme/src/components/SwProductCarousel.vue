@@ -31,7 +31,7 @@ export default {
   props: {
     titleHeading: {
       type: String,
-      default: "Match it",
+      default: this.$t("Match it"),
     },
     products: {
       type: Array,
