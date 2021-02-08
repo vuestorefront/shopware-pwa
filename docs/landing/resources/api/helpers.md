@@ -14,6 +14,7 @@
 
 |  Function | Description |
 |  --- | --- |
+|  [getCmsLayoutConfiguration(content)](./helpers.getcmslayoutconfiguration.md) | <b><i>(BETA)</i></b> |
 |  [getCmsTechnicalPath(page)](./helpers.getcmstechnicalpath.md) | <b><i>(BETA)</i></b> |
 |  [getListingAvailableFilters(aggregations)](./helpers.getlistingavailablefilters.md) | <b><i>(BETA)</i></b> |
 |  [getListingFilters(aggregations)](./helpers.getlistingfilters.md) | <b><i>(BETA)</i></b> |
@@ -35,6 +36,7 @@
 
 |  Interface | Description |
 |  --- | --- |
+|  [LayoutConfiguration](./helpers.layoutconfiguration.md) | <b><i>(BETA)</i></b> |
 |  [ListingFilter](./helpers.listingfilter.md) | <b><i>(BETA)</i></b> |
 |  [StoreNavigationRoute](./helpers.storenavigationroute.md) | <b><i>(BETA)</i></b> |
 |  [TierPrice](./helpers.tierprice.md) | <b><i>(BETA)</i></b> |

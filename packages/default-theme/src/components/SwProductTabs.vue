@@ -2,7 +2,7 @@
   <div class="sw-product-tabs">
     <SfTabs class="product-details__tabs" :open-tab="openTab">
       <slot>
-        <SfTab v-if="properties && properties.length" title="Properties">
+        <SfTab v-if="properties && properties.length" :title="$t('Properties')">
           <div class="product-details__properties">
             <SfProperty
               v-for="property in properties"
@@ -14,7 +14,7 @@
           </div>
         </SfTab>
 
-        <SfTab v-if="manufacturer" title="Manufacturer">
+        <SfTab v-if="manufacturer" :title="$t('Manufacturer')">
           <SfHeading
             :title="manufacturer.translated.name"
             :level="3"
@@ -24,7 +24,7 @@
             {{ manufacturer.translated.description }}
           </p>
         </SfTab>
-        <SfTab title="Read reviews">
+        <SfTab :title="$t('Read reviews')">
           <div v-if="reviews.length" class="reviews-list">
             <SfReview
               v-for="review in reviews"
@@ -38,7 +38,7 @@
           </div>
           <div v-else>
             <SfHeading
-              title="No comments yet"
+              :title="$t('No comments yet')"
               :level="4"
               class="sw-reviews-empty"
             />

@@ -1,7 +1,7 @@
 <template>
   <SfMegaMenu
     :visible="visible"
-    :title="category.translated.name"
+    :title="(category.translated && category.translated.name) || category.name"
     class="sw-mega-menu"
     data-cy="mega-menu"
   >

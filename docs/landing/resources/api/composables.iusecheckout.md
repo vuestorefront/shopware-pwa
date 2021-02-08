@@ -25,6 +25,7 @@ export interface IUseCheckout
 |  [getShippingMethods](./composables.iusecheckout.getshippingmethods.md) | (options?: { forceReload: boolean; }) =&gt; Promise&lt;Readonly&lt;Ref&lt;readonly ShippingMethod\[\]&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
 |  [guestOrderParams](./composables.iusecheckout.guestorderparams.md) | Ref&lt;Readonly&lt;Partial&lt;GuestOrderParams&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
 |  [isGuestOrder](./composables.iusecheckout.isguestorder.md) | Readonly&lt;Ref&lt;boolean&gt;&gt; | <b><i>(BETA)</i></b> Flag isGuestOrder is true when user is not logged in |
+|  [onOrderPlace](./composables.iusecheckout.onorderplace.md) | (fn: (params: { order: Order; }) =&gt; void) =&gt; void | <b><i>(BETA)</i></b> |
 |  [paymentMethods](./composables.iusecheckout.paymentmethods.md) | Readonly&lt;Ref&lt;readonly PaymentMethod\[\]&gt;&gt; | <b><i>(BETA)</i></b> |
 |  [shippingAddress](./composables.iusecheckout.shippingaddress.md) | Readonly&lt;Ref&lt;ShippingAddress \| undefined&gt;&gt; | <b><i>(BETA)</i></b> |
 |  [shippingMethods](./composables.iusecheckout.shippingmethods.md) | Readonly&lt;Ref&lt;readonly ShippingMethod\[\]&gt;&gt; | <b><i>(BETA)</i></b> |
