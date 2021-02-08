@@ -4,12 +4,24 @@ import Vue from "vue";
 import VueCompositionApi, * as vueComp from "@vue/composition-api";
 (vueComp.onMounted as any) = jest.fn();
 Vue.use(VueCompositionApi);
-import { useWishlist } from "@shopware-pwa/composables";
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+import { useWishlist } from "../src/logic/useWishlist";
 
 describe("Composables - useWishlist", () => {
   const rootContextMock: any = {
     $shopwareApiInstance: jest.fn(),
   };
+  const broadcastMock = jest.fn();
+  const interceptMock = jest.fn();
+
+  mockedComposables.useIntercept.mockImplementation(() => {
+    return {
+      broadcast: broadcastMock,
+      intercept: interceptMock,
+    } as any;
+  });
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -113,6 +125,16 @@ describe("Composables - useWishlist", () => {
       it("should invoke onMounted callback on composable init", () => {
         useWishlist(rootContextMock);
         expect(vueComp.onMounted).toBeCalled();
+      });
+    });
+    describe("onAddToWishlist", () => {
+      it("should add interceptor method", () => {
+        const { onAddToWishlist } = useWishlist(rootContextMock, null as any);
+        onAddToWishlist(() => {});
+        expect(interceptMock).toHaveBeenCalledWith(
+          "addToWishlist",
+          expect.any(Function)
+        );
       });
     });
   });
