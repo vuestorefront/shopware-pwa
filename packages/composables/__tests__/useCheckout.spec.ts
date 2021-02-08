@@ -34,7 +34,8 @@ describe("Composables - useCheckout", () => {
     },
     $shopwareApiInstance: jest.fn(),
   };
-
+  const interceptMock = jest.fn();
+  const broadcastMock = jest.fn();
   const refreshCartMock = jest.fn(async () => {});
   beforeEach(() => {
     jest.resetAllMocks();
@@ -55,6 +56,12 @@ describe("Composables - useCheckout", () => {
     mockedComposables.useSessionContext.mockImplementation(() => {
       return {
         sessionContext: sessionContextMock,
+      } as any;
+    });
+    mockedComposables.useIntercept.mockImplementation(() => {
+      return {
+        broadcast: broadcastMock,
+        intercept: interceptMock,
       } as any;
     });
     stateContext.value = null;
@@ -375,12 +382,11 @@ describe("Composables - useCheckout", () => {
           await expect(createOrder()).rejects.toEqual({
             message: "some error",
           });
-          expect(consoleErrorSpy).toBeCalledWith(
-            "[useCheckout][createOrder] isGuest:false",
-            {
-              message: "some error",
-            }
-          );
+          expect(broadcastMock).toBeCalledWith("error", {
+            error: { message: "some error" },
+            inputParams: {},
+            methodName: "[useCheckout][createOrder]",
+          });
         });
       });
 
@@ -425,13 +431,22 @@ describe("Composables - useCheckout", () => {
           await expect(createOrder()).rejects.toEqual({
             message: "some guest error",
           });
-          expect(consoleErrorSpy).toBeCalledWith(
-            "[useCheckout][createOrder] isGuest:true",
-            {
-              message: "some guest error",
-            }
-          );
+          expect(broadcastMock).toBeCalledWith("error", {
+            error: { message: "some guest error" },
+            inputParams: {},
+            methodName: "[useCheckout][createOrder]",
+          });
         });
+      });
+    });
+    describe("onOrderPlace", () => {
+      it("should add interceptor method", () => {
+        const { onOrderPlace } = useCheckout(rootContextMock);
+        onOrderPlace(() => {});
+        expect(interceptMock).toHaveBeenCalledWith(
+          "onOrderPlace",
+          expect.any(Function)
+        );
       });
     });
   });

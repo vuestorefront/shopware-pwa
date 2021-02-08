@@ -14,27 +14,53 @@ jest.mock("@shopware-pwa/shopware-6-client");
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 const consoleErrorSpy = jest.spyOn(console, "error");
 
-import { useSessionContext } from "@shopware-pwa/composables";
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+
+import { useSessionContext } from "../src/logic/useSessionContext";
 import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
 
 describe("Composables - useSessionContext", () => {
   const stateContext: Ref<Partial<SessionContext> | null> = ref(null);
-  const rootContextMock: any = {
-    $store: {
-      getters: reactive({
-        getSessionContext: computed(() => stateContext.value),
-      }),
-      commit: (name: string, value: SessionContext) => {
-        stateContext.value = value;
-      },
+  const vuexStore = {
+    getters: reactive({
+      getSessionContext: computed(() => stateContext.value),
+    }),
+    commit: (name: string, value: SessionContext) => {
+      stateContext.value = value;
     },
-    $shopwareApiInstance: jest.fn(),
   };
+  const apiMock = jest.fn();
+  const rootContextMock: any = {
+    $store: vuexStore,
+    vuexStore: vuexStore,
+    $shopwareApiInstance: apiMock,
+    apiInstance: apiMock,
+  };
+  const interceptMock = jest.fn();
+  const broadcastMock = jest.fn();
 
   beforeEach(() => {
     jest.resetAllMocks();
     stateContext.value = null;
     consoleErrorSpy.mockImplementationOnce(() => {});
+    mockedComposables.useIntercept.mockImplementation(() => {
+      return {
+        broadcast: broadcastMock,
+        intercept: interceptMock,
+      } as any;
+    });
+    mockedComposables.useNotifications.mockImplementation(() => {
+      return {
+        pushWarning: jest.fn(),
+        pushSuccess: jest.fn(),
+        pushError: jest.fn(),
+      } as any;
+    });
+    mockedComposables.getApplicationContext.mockImplementation(() => {
+      return rootContextMock as any;
+    });
   });
 
   describe("computed", () => {
@@ -317,6 +343,7 @@ describe("Composables - useSessionContext", () => {
     });
     describe("setActiveBillingAddress", () => {
       it("should invoke a proper method if address has an id", async () => {
+        mockedApiClient.getSessionContext.mockResolvedValueOnce({} as any);
         const { setActiveBillingAddress } = useSessionContext(rootContextMock);
         await setActiveBillingAddress({ id: "address-id" });
         expect(mockedApiClient.setCurrentBillingAddress).toBeCalledWith(
@@ -328,6 +355,36 @@ describe("Composables - useSessionContext", () => {
         const { setActiveBillingAddress } = useSessionContext(rootContextMock);
         await expect(setActiveBillingAddress(null as any)).rejects.toThrowError(
           "You need to provide address id in order to set the address."
+        );
+      });
+    });
+    describe("onCurrencyChange", () => {
+      it("should add interceptor method", () => {
+        const { onCurrencyChange } = useSessionContext(rootContextMock);
+        onCurrencyChange(() => {});
+        expect(interceptMock).toHaveBeenCalledWith(
+          "onCurrencyChange",
+          expect.any(Function)
+        );
+      });
+    });
+    describe("onShippingMethodChange", () => {
+      it("should add interceptor method", () => {
+        const { onShippingMethodChange } = useSessionContext(rootContextMock);
+        onShippingMethodChange(() => {});
+        expect(interceptMock).toHaveBeenCalledWith(
+          "onShippingMethodChange",
+          expect.any(Function)
+        );
+      });
+    });
+    describe("onPaymentMethodChange", () => {
+      it("should add interceptor method", () => {
+        const { onPaymentMethodChange } = useSessionContext(rootContextMock);
+        onPaymentMethodChange(() => {});
+        expect(interceptMock).toHaveBeenCalledWith(
+          "onPaymentMethodChange",
+          expect.any(Function)
         );
       });
     });

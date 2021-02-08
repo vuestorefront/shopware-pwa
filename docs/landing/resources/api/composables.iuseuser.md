@@ -35,6 +35,8 @@ export interface IUseUser
 |  [logout](./composables.iuseuser.logout.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [markAddressAsDefault](./composables.iuseuser.markaddressasdefault.md) | ({ addressId, type, }: { addressId?: string; type?: AddressType; }) =&gt; Promise&lt;string \| boolean&gt; | <b><i>(BETA)</i></b> |
 |  [onLogout](./composables.iuseuser.onlogout.md) | (fn: () =&gt; void) =&gt; void | <b><i>(BETA)</i></b> React on user logout |
+|  [onUserLogin](./composables.iuseuser.onuserlogin.md) | (fn: (params: { customer: Customer; }) =&gt; void) =&gt; void | <b><i>(BETA)</i></b> |
+|  [onUserRegister](./composables.iuseuser.onuserregister.md) | (fn: () =&gt; void) =&gt; void | <b><i>(BETA)</i></b> |
 |  [orders](./composables.iuseuser.orders.md) | Ref&lt;Order\[\] \| null&gt; | <b><i>(BETA)</i></b> |
 |  [refreshUser](./composables.iuseuser.refreshuser.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [register](./composables.iuseuser.register.md) | ({}: CustomerRegistrationParams) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
