@@ -20,7 +20,7 @@ export default ({ app, route }, inject) => {
 
   const routing = {
     // list of available domains from "domains.json" - output of "domains" CLI command
-    availableDomains: Object.values(domainsList),
+    availableDomains: (domainsList && Object.values(domainsList)) || {},
     fallbackDomain: FALLBACK_DOMAIN,
     fallbackLocale: FALLBACK_LOCALE,
     pwaHost: PWA_HOST,
@@ -33,10 +33,14 @@ export default ({ app, route }, inject) => {
       () => currentDomainData.value || routeDomain.value
     ),
     // get route for current domain
-    getUrl: (path) =>
-      currentDomainData.value
+    getUrl: (path) => {
+      if (!path) {
+        return "";
+      }
+      return currentDomainData.value
         ? `${currentDomainData.value.url}${path}`.replace(/^\/\/+/, "/")
-        : path,
+        : path;
+    },
   };
 
   // set the domain for current route
@@ -83,6 +87,9 @@ Middleware.routing = function ({ isHMR, app, store, from, route, redirect }) {
     currencyId = domainConfig.currencyId;
   }
 
+  if (!domainConfig) {
+    return;
+  }
   setCurrency({ id: currencyId });
   const { languageId, languageLocaleCode } = domainConfig;
   app.routing.setCurrentDomain(domainConfig);

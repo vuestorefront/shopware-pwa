@@ -35,17 +35,38 @@ module.exports = (toolbox: GluegunToolbox) => {
   toolbox.fetchPluginsAuthToken = async (
     { shopwareEndpoint, username, password } = toolbox.inputParameters
   ) => {
-    const authTokenResponse = await axios.post(
-      `${shopwareEndpoint}/api/oauth/token`,
-      {
-        client_id: "administration",
-        grant_type: "password",
-        scopes: "write",
-        username,
-        password,
+    let authTokenResponse;
+    if (
+      !username &&
+      !password &&
+      shopwareEndpoint === toolbox.defaultInitConfig?.shopwareEndpoint
+    ) {
+      try {
+        authTokenResponse = await axios.post(
+          `${shopwareEndpoint}/api/oauth/token`,
+          {
+            grant_type: "client_credentials",
+            client_id: toolbox.defaultInitConfig.INSTANCE_READ_API_KEY,
+            client_secret: toolbox.defaultInitConfig.INSTANCE_READ_API_SECRET,
+          }
+        );
+      } catch (error) {
+        console.warn("error", error);
       }
-    );
-    return authTokenResponse.data.access_token;
+    } else {
+      authTokenResponse = await axios.post(
+        `${shopwareEndpoint}/api/oauth/token`,
+        {
+          client_id: "administration",
+          grant_type: "password",
+          scopes: "write",
+          username,
+          password,
+        }
+      );
+    }
+
+    return authTokenResponse?.data?.access_token;
   };
 
   toolbox.fetchPluginsBuildArtifact = async ({
