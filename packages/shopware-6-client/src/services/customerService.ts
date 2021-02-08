@@ -136,7 +136,8 @@ export async function getCustomerOrders(
  */
 export async function getCustomerOrderDetails(
   orderId: string,
-  contextInstance: ShopwareApiInstance = defaultInstance
+  contextInstance: ShopwareApiInstance = defaultInstance,
+  additionalQueryParams?: string
 ): Promise<Order | undefined> {
   if (!orderId) {
     return;
@@ -144,7 +145,9 @@ export async function getCustomerOrderDetails(
 
   const resp = await contextInstance.invoke.get(getCustomerOrderEndpoint(), {
     // TODO: move into plain Object after https://github.com/DivanteLtd/shopware-pwa/issues/911 is merged
-    params: `filter[id]=${orderId}&associations[lineItems][]&associations[addresses][]&associations[transactions][]&associations[deliveries][]`,
+    params: additionalQueryParams
+      ? `filter[id]=${orderId}&${additionalQueryParams}`
+      : `sort=-transactions.createdAt&limit=1&filter[id]=${orderId}&associations[lineItems][]&associations[addresses][]&associations[transactions][associations][paymentMethod][]&associations[deliveries][associations][shippingMethod][]`,
   });
   return resp.data.orders?.elements?.[0];
 }

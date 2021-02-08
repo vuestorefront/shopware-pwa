@@ -91,6 +91,8 @@ export interface IUseUser {
    * React on user logout
    */
   onLogout: (fn: () => void) => void;
+  onUserLogin: (fn: (params: { customer: Customer }) => void) => void;
+  onUserRegister: (fn: () => void) => void;
 }
 
 /**
@@ -122,10 +124,19 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     error.value = null;
     try {
       await apiLogin({ username, password }, apiInstance);
+      await refreshUser();
+      broadcast(INTERCEPTOR_KEYS.USER_LOGIN, {
+        user: user.value,
+      });
       return true;
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
+      broadcast(INTERCEPTOR_KEYS.ERROR, {
+        methodName: `[${contextName}][login]`,
+        inputParams: {},
+        error: err,
+      });
       return false;
     } finally {
       loading.value = false;
@@ -140,10 +151,16 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     error.value = null;
     try {
       await apiRegister(params, apiInstance);
+      broadcast(INTERCEPTOR_KEYS.USER_REGISTER);
       return true;
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err;
+      broadcast(INTERCEPTOR_KEYS.ERROR, {
+        methodName: `[${contextName}][register]`,
+        inputParams: {},
+        error: err,
+      });
       return false;
     } finally {
       loading.value = false;
@@ -153,6 +170,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   const logout = async (): Promise<void> => {
     try {
       await apiLogout(apiInstance);
+      console.warn("logout");
       broadcast(INTERCEPTOR_KEYS.USER_LOGOUT);
     } catch (e) {
       const err: ClientApiError = e;
@@ -168,6 +186,12 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   };
   const onLogout = (fn: IInterceptorCallbackFunction) =>
     intercept(INTERCEPTOR_KEYS.USER_LOGOUT, fn);
+
+  const onUserLogin = (fn: IInterceptorCallbackFunction) =>
+    intercept(INTERCEPTOR_KEYS.USER_LOGIN, fn);
+
+  const onUserRegister = (fn: IInterceptorCallbackFunction) =>
+    intercept(INTERCEPTOR_KEYS.USER_REGISTER, fn);
 
   const refreshUser = async (): Promise<void> => {
     try {
@@ -346,5 +370,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     loadCountry,
     country,
     onLogout,
+    onUserLogin,
+    onUserRegister,
   };
 };
