@@ -22,9 +22,9 @@
           <SwInput
             v-model="reviewTitle"
             type="text"
-            label="Title"
+            :label="$t('Title')"
             name="title"
-            error-message="Title is required"
+            :error-message="$t('Title is required')"
             class="small input"
           />
 
@@ -32,7 +32,7 @@
             v-model="reviewContent"
             name="desc"
             class="description-field"
-            placeholder="Write review"
+            :placeholder="$t('Write review')"
           >
           </textarea>
         </div>
