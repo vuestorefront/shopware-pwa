@@ -118,6 +118,9 @@ export default {
       return {
         children: this.navigationElements.slice(this.unwrappedElements),
         name: "categories",
+        translated: {
+          name: "categories",
+        },
       }
     },
   },
