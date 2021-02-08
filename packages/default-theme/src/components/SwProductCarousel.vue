@@ -29,10 +29,6 @@ export default {
   name: "SwProductCarousel",
   components: { SfSection, SfCarousel, SwProductCard },
   props: {
-    titleHeading: {
-      type: String,
-      default: this.$t("Match it"),
-    },
     products: {
       type: Array,
       default: () => [],
