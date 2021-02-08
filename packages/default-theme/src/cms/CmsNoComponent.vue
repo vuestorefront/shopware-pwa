@@ -5,7 +5,7 @@
         <b>
           {{ elementType }}<i> {{ getElementType }} </i>
         </b>
-        is not implemented yet!
+        {{ $t("is not implemented yet!") }}
       </span>
     </template>
   </SfAlert>

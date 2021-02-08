@@ -6,7 +6,7 @@
       class="order-page__heading"
     />
     <SfDivider />
-    <SwOrderDetails :order-id="orderId" />
+    <SwOrderDetails :prevent-redirect="false" :order-id="orderId" />
     <SwButton @click="$router.push($routing.getUrl('/'))">
       <SfIcon icon="chevron_left" color="white" size="20px" />
       {{ $t("Return to homepage") }}
