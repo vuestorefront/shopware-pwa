@@ -9,7 +9,6 @@ export const usePaymentStep = createCheckoutStep({
     firstName: null,
     lastName: null,
     street: null,
-    apartment: null,
     city: null,
     state: null,
     zipcode: null,
@@ -37,11 +36,6 @@ export const usePaymentStepValidationRules = {
     }),
   },
   street: {
-    required: requiredIf(function (instance) {
-      return instance.differentThanShipping
-    }),
-  },
-  apartment: {
     required: requiredIf(function (instance) {
       return instance.differentThanShipping
     }),

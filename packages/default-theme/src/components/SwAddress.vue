@@ -4,7 +4,7 @@
       <h4 class="sw-address__title">{{ addressTitle }}</h4>
       <slot name="before-content" />
       <p class="content">
-        {{ street }} {{ apartment }}, {{ zipcode }}<br />
+        {{ street }}, {{ zipcode }}<br />
         {{ city }}
       </p>
       <p v-if="phoneNumber" class="content">
@@ -42,9 +42,6 @@ export default {
     },
     city() {
       return this.address.city
-    },
-    apartment() {
-      return this.address.apartment
     },
     phoneNumber() {
       return this.address.phoneNumber

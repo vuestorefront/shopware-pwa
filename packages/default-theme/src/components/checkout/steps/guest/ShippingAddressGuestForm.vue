@@ -21,25 +21,15 @@
         class="sw-form__input"
         required
       />
+    </div>
+    <div class="inputs-group">
       <SwInput
         v-model="street"
         :valid="!validations.street.$error"
         :error-message="$t('This field is required')"
-        :label="$t('Street')"
+        :label="$t('Street and house number')"
         data-cy="street-name"
         name="street"
-        class="sw-form__input"
-        required
-      />
-    </div>
-    <div class="inputs-group">
-      <SwInput
-        v-model="apartment"
-        :valid="!validations.apartment.$error"
-        :error-message="$t('This field is required')"
-        :label="$t('House/Apartment number')"
-        data-cy="apartment"
-        name="apartment"
         class="sw-form__input"
         required
       />
@@ -137,7 +127,6 @@ export default {
       firstName,
       lastName,
       street,
-      apartment,
       city,
       state,
       zipcode,
@@ -167,7 +156,6 @@ export default {
       firstName,
       lastName,
       street,
-      apartment,
       city,
       state,
       zipcode,
