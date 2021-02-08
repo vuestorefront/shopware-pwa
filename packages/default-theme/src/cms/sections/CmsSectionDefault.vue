@@ -1,7 +1,8 @@
 <template>
   <div
     class="sw-default-section"
-    :class="{ 'sw-default-section--boxed': isSizingModeBoxed }"
+    :style="sectionStyles"
+    :class="{ 'sw-default-section--boxed': isSizingModeBoxed, ...cmsClass }"
   >
     <CmsGenericBlock
       v-for="cmsBlock in getBlocks"
@@ -29,8 +30,29 @@ export default {
     getBlocks() {
       return this.content.blocks || []
     },
+    cmsClass() {
+      return this.content?.cssClass
+    },
     isSizingModeBoxed() {
       return this.content.sizingMode === "boxed"
+    },
+    sectionStyles() {
+      const {
+        backgroundColor,
+        backgroundMedia,
+        marginBottom,
+        marginLeft,
+        marginRight,
+        marginTop,
+      } = this.content
+      return {
+        backgroundColor,
+        backgroundImage: backgroundMedia ? `url(${backgroundMedia.url})` : null,
+        marginBottom,
+        marginLeft,
+        marginRight,
+        marginTop,
+      }
     },
   },
 }
