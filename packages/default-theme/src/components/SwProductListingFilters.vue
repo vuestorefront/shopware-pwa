@@ -66,7 +66,7 @@
         </SwButton>
       </div>
       <SfSidebar
-        title="Filters"
+        :title="$t('Filters')"
         :visible="isFilterSidebarOpen"
         class="filters-sidebar"
         @close="closeFiltersSidebar"
@@ -88,7 +88,7 @@
             <SwButton
               class="sf-button--full-width filters__button-clear"
               @click="clearAllFilters()"
-              >Clear all</SwButton
+              >{{ $t("Clear all") }}</SwButton
             >
           </div>
         </template>
