@@ -217,6 +217,8 @@ export interface IUseCart {
     // @deprecated (undocumented)
     removeProduct: ({ id }: Partial<Product>) => void;
     // (undocumented)
+    shippingTotal: ComputedRef<number>;
+    // (undocumented)
     subtotal: ComputedRef<number>;
     // (undocumented)
     totalPrice: ComputedRef<number>;

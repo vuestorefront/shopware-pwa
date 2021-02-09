@@ -155,7 +155,8 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
   });
 
   const shippingTotal = computed(() => {
-    const shippingTotal = cart?.value?.deliveries[0]?.shippingCosts?.totalPrice;
+    const shippingTotal =
+      cart.value?.deliveries?.[0]?.shippingCosts?.totalPrice;
     return shippingTotal || 0;
   });
 
