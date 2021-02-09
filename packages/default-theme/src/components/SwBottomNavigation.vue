@@ -1,7 +1,7 @@
 <template>
   <div class="sw-bottom-navigation">
     <SfBottomNavigation data-cy="bottom-navigation">
-      <nuxt-link aria-label="Go to Home Page" :to="$i18n.path('/')">
+      <nuxt-link aria-label="Go to Home Page" :to="$routing.getUrl('/')">
         <SfBottomNavigationItem
           :label="$t('Home')"
           icon="home"
@@ -49,13 +49,17 @@
             <SfList class="mobile-nav-list">
               <SfListItem>
                 <SfMenuItem
-                  label="My Account"
+                  :label="$t('My Account')"
                   :icon="null"
                   @click="goToMyAccount"
                 />
               </SfListItem>
               <SfListItem>
-                <SfMenuItem label="Logout" :icon="null" @click="logoutUser" />
+                <SfMenuItem
+                  :label="$t('Logout')"
+                  :icon="null"
+                  @click="logoutUser"
+                />
               </SfListItem>
             </SfList>
           </SfBottomModal>
@@ -106,7 +110,7 @@
           v-else
           key="closeCart"
           icon="cross"
-          label="Close"
+          :label="$t('Close')"
           class="sw-bottom-navigation__action-button"
           :is-floating="true"
           data-cy="bottom-navigation-close"
@@ -188,11 +192,11 @@ export default {
       } else this.toggleModal()
     },
     goToMyAccount() {
-      this.$router.push(this.$i18n.path(PAGE_ACCOUNT))
+      this.$router.push(this.$routing.getUrl(PAGE_ACCOUNT))
     },
     async logoutUser() {
       await this.logout()
-      this.$router.push(this.$i18n.path("/"))
+      this.$router.push(this.$routing.getUrl("/"))
     },
     toggleMobileNavigation() {
       this.mobileNavIsActive = !this.mobileNavIsActive

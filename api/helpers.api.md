@@ -6,12 +6,15 @@
 
 import { Aggregations } from '@shopware-pwa/commons/interfaces/search/Aggregations';
 import { Category } from '@shopware-pwa/commons/interfaces/models/content/category/Category';
+import { CmsBlock } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsBlock';
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { CmsSection } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { CmsSlot } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
+import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { PropertyGroupOption } from '@shopware-pwa/commons/interfaces/models/content/property/PropertyGroupOption';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
@@ -82,8 +85,11 @@ export function getCategoryAvailableSorting({ sorting, }?: {
     sorting?: Sorting;
 }): UiCategorySorting[];
 
-// @alpha
+// @beta
 export const getCategoryUrl: (category: Partial<Category>) => string;
+
+// @beta (undocumented)
+export function getCmsLayoutConfiguration(content: CmsBlock | CmsSection): LayoutConfiguration;
 
 // @alpha (undocumented)
 export function getCmsLink(content?: CmsSlot): String;
@@ -93,6 +99,9 @@ export function getCmsLinkTarget(content?: CmsSlot): String;
 
 // @alpha (undocumented)
 export function getCmsSections(content: CmsPage): CmsSection[];
+
+// @beta (undocumented)
+export function getCmsTechnicalPath(page: PageResolverResult<CmsPage> | PageResolverProductResult): string | undefined;
 
 // @alpha (undocumented)
 export const getFilterSearchCriteria: (selectedFilters: any) => any[];
@@ -211,6 +220,21 @@ export function isOptionAvailableForSelectedOptions(currentAttribute: string, se
 export function isProductSimple({ product, }?: {
     product?: Product;
 }): boolean;
+
+// @beta (undocumented)
+export interface LayoutConfiguration {
+    // (undocumented)
+    cssClasses: string | null;
+    // (undocumented)
+    layoutStyles: {
+        backgroundColor: string | null;
+        backgroundImage: string | null;
+        marginBottom?: string | null | undefined;
+        marginLeft?: string | null | undefined;
+        marginRight?: string | null | undefined;
+        marginTop?: string | null | undefined;
+    };
+}
 
 // @beta (undocumented)
 export interface ListingFilter {

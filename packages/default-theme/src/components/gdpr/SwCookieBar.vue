@@ -7,7 +7,7 @@
     </template>
     <template #right>
       <SwButton class="button" data-cy="accept-cookies" @click="acceptCookies">
-        Got it!
+        {{ $t("Got it!") }}
       </SwButton>
     </template>
   </SfTopBar>

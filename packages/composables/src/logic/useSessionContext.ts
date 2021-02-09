@@ -4,6 +4,7 @@ import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
 import { ShippingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress";
 import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress";
+
 import {
   getSessionContext,
   setCurrentShippingMethod,
@@ -16,6 +17,9 @@ import { SessionContext } from "@shopware-pwa/commons/interfaces/response/Sessio
 import {
   getApplicationContext,
   useNotifications,
+  INTERCEPTOR_KEYS,
+  useIntercept,
+  IInterceptorCallbackFunction,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
 /**
@@ -41,6 +45,14 @@ export interface IUseSessionContext {
   ) => Promise<void>;
   activeBillingAddress: Readonly<Ref<BillingAddress | null>>;
   setActiveBillingAddress: (address: Partial<BillingAddress>) => Promise<void>;
+  // events for interceptors
+  onCurrencyChange: (fn: (params: { currency: Currency }) => void) => void;
+  onPaymentMethodChange: (
+    fn: (params: { paymentMethod: PaymentMethod }) => void
+  ) => void;
+  onShippingMethodChange: (
+    fn: (params: { shippingMethod: ShippingMethod }) => void
+  ) => void;
 }
 
 /**
@@ -55,6 +67,13 @@ export const useSessionContext = (
     rootContext,
     "useSessionContext"
   );
+  const { broadcast, intercept } = useIntercept(rootContext);
+  const onCurrencyChange = (fn: IInterceptorCallbackFunction) =>
+    intercept(INTERCEPTOR_KEYS.SESSION_SET_CURRENCY, fn);
+  const onPaymentMethodChange = (fn: IInterceptorCallbackFunction) =>
+    intercept(INTERCEPTOR_KEYS.SESSION_SET_PAYMENT_METHOD, fn);
+  const onShippingMethodChange = (fn: IInterceptorCallbackFunction) =>
+    intercept(INTERCEPTOR_KEYS.SESSION_SET_SHIPPING_METHOD, fn);
 
   const { pushWarning } = useNotifications(rootContext);
   const sessionContext: Readonly<Ref<SessionContext>> = computed(() => {
@@ -85,6 +104,9 @@ export const useSessionContext = (
     }
     await setCurrentShippingMethod(shippingMethod.id, apiInstance);
     await refreshSessionContext();
+    broadcast(INTERCEPTOR_KEYS.SESSION_SET_SHIPPING_METHOD, {
+      shippingMethod,
+    });
   };
 
   const paymentMethod = computed(
@@ -100,6 +122,9 @@ export const useSessionContext = (
     }
     await setCurrentPaymentMethod(paymentMethod.id, apiInstance);
     await refreshSessionContext();
+    broadcast(INTERCEPTOR_KEYS.SESSION_SET_PAYMENT_METHOD, {
+      paymentMethod,
+    });
   };
 
   const currency = computed(() => sessionContext.value?.currency || null);
@@ -110,7 +135,10 @@ export const useSessionContext = (
       );
     }
     await setCurrentCurrency(currency.id, apiInstance);
-    refreshSessionContext();
+    await refreshSessionContext();
+    broadcast(INTERCEPTOR_KEYS.SESSION_SET_CURRENCY, {
+      currency,
+    });
   };
 
   const activeShippingAddress = computed(
@@ -154,5 +182,9 @@ export const useSessionContext = (
     setActiveShippingAddress,
     activeBillingAddress,
     setActiveBillingAddress,
+    // interceptors
+    onCurrencyChange,
+    onPaymentMethodChange,
+    onShippingMethodChange,
   };
 };

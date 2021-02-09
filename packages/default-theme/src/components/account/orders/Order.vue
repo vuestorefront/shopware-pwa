@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     viewOrder(orderId) {
-      this.$router.push(this.$i18n.path(`/account/orders/${orderId}`))
+      this.$router.push(this.$routing.getUrl(`/account/orders/${orderId}`))
     },
     formatDate(date) {
       return formatDate(date)

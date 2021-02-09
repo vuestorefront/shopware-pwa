@@ -221,6 +221,28 @@ module.exports = (toolbox: GluegunToolbox) => {
       await toolbox.patching.append(".gitignore", "/static");
     }
 
+    // Add chokidar flag
+    const configChokidarFlag = await toolbox.patching.exists(
+      "nuxt.config.js",
+      `CHOKIDAR_USEPOLLING`
+    );
+    if (!configChokidarFlag) {
+      const configEnvSection = await toolbox.patching.exists(
+        "nuxt.config.js",
+        "env:"
+      );
+      await toolbox.patching.patch("nuxt.config.js", {
+        insert: !configEnvSection
+          ? `
+  env: {
+    CHOKIDAR_USEPOLLING: process.env.NODE_ENV == "production" ? 0 : 1,
+  },`
+          : `
+    CHOKIDAR_USEPOLLING: process.env.NODE_ENV == "production" ? 0 : 1,`,
+        after: !configEnvSection ? "export default {" : "env: {",
+      });
+    }
+
     // Add telemetry flag
     const configTelemetryFlag = await toolbox.patching.exists(
       "nuxt.config.js",
@@ -240,7 +262,7 @@ module.exports = (toolbox: GluegunToolbox) => {
    * - api-client.js
    */
   toolbox.generateTemplateFiles = async (
-    { shopwareEndpoint, shopwareAccessToken } = toolbox.inputParameters
+    { shopwareEndpoint, shopwareAccessToken, pwaHost } = toolbox.inputParameters
   ) => {
     const isConfigGenerated = exists("shopware-pwa.config.js");
     if (!isConfigGenerated) {
@@ -250,6 +272,7 @@ module.exports = (toolbox: GluegunToolbox) => {
         props: {
           shopwareEndpoint,
           shopwareAccessToken,
+          pwaHost,
         },
       });
     }

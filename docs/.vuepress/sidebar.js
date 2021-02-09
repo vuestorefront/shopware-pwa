@@ -11,10 +11,7 @@ module.exports = {
       path: "/landing/getting-started/",
       title: "Getting Started",
       collapsable: false,
-      children: [
-        "/landing/getting-started/prepare-shopware",
-        "/landing/getting-started/upgrade",
-      ],
+      children: ["/landing/getting-started/prepare-shopware"],
     },
     {
       path: "/landing/fundamentals/",
@@ -44,6 +41,7 @@ module.exports = {
       title: "Operations",
       collapsable: false,
       children: [
+        "/landing/operations/migrations/",
         "/landing/operations/hosting/",
         "/landing/operations/deployment/",
       ],

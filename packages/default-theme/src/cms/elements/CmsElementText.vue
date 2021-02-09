@@ -1,9 +1,9 @@
+38
 <script>
 // import any extra components here
 import { SfLink } from "@storefront-ui/vue"
 import SwButton from "@/components/atoms/SwButton"
-import { renderHtml } from "html-to-vue"
-
+import { renderHtml, getOptionsFromNode } from "html-to-vue"
 export default {
   name: "CmsElementText",
   functional: true,
@@ -29,10 +29,7 @@ export default {
             return createElement(
               SfLink,
               {
-                class: node.attrs?.class,
-                attrs: {
-                  target: node.attrs?.target,
-                },
+                ...getOptionsFromNode(node),
                 props: {
                   link: node.attrs?.href,
                 },

@@ -1,8 +1,9 @@
-FROM node:12.16.1-alpine
-ENV DEBUG=nuxt:*
+FROM node:14.15.3-alpine
+
+ENV NODE_ENV production
+
 RUN mkdir /app
-COPY . /app
-RUN chown -R node:node /app
+COPY --chown=node:node . /app
 
 WORKDIR /app
 USER node

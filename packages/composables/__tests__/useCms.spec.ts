@@ -6,6 +6,7 @@ import VueCompositionApi, {
   Ref,
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
+import { PageResolverResult } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
 import { useCms, getDefaultApiParams } from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
@@ -30,14 +31,14 @@ describe("Composables - useCms", () => {
   });
   it("should have value", async () => {
     const { search, page } = useCms(rootContextMock);
-    const response: shopwareClient.PageResolverResult<any> = {
+    const response: PageResolverResult<any> = {
       breadcrumb: {},
       cmsPage: { name: "super category", type: "product_list" },
       resourceIdentifier: "3f637f17cd9f4891a2d7625d19fb37c9",
       resourceType: "frontend.navigation.page",
       listingConfiguration: {},
       apiAlias: "pwa_page_result",
-    };
+    } as any;
     mockedGetPage.getCmsPage.mockResolvedValueOnce(response);
     expect(page.value).toEqual(null);
     await search();
@@ -160,14 +161,14 @@ describe("Composables - useCms", () => {
 
   it("should return activeCategoryId if it's included within the page object", async () => {
     const { categoryId, search } = useCms(rootContextMock);
-    const response: shopwareClient.PageResolverResult<any> = {
+    const response: PageResolverResult<any> = {
       breadcrumb: {},
       cmsPage: { name: "super category", type: "product_list" },
       resourceIdentifier: "3f637f17cd9f4891a2d7625d19fb37c9",
       resourceType: "frontend.navigation.page",
       listingConfiguration: {},
       apiAlias: "pwa_page_result",
-    };
+    } as any;
     mockedGetPage.getCmsPage.mockResolvedValueOnce(response);
     expect(categoryId.value).toBeNull();
     await search();
@@ -178,7 +179,7 @@ describe("Composables - useCms", () => {
     describe("getBreadcrumbsObject", () => {
       it("should return page breadcrumbs after search", async () => {
         const { getBreadcrumbsObject, search } = useCms(rootContextMock);
-        const response: shopwareClient.PageResolverResult<any> = {
+        const response: PageResolverResult<any> = {
           breadcrumb: {
             qwe: {
               name: "Some Category",
@@ -190,7 +191,7 @@ describe("Composables - useCms", () => {
           resourceType: "frontend.navigation.page",
           listingConfiguration: {},
           apiAlias: "pwa_page_result",
-        };
+        } as any;
         mockedGetPage.getCmsPage.mockResolvedValueOnce(response);
         expect(getBreadcrumbsObject.value).toEqual([]);
         await search();

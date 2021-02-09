@@ -4,7 +4,7 @@
       <SfHeading :level="3" :title="navTitle" />
     </div>
     <div class="cms-element-category-navigation__menu">
-      <SfHeading subtitle="No subcategories" v-if="!navigation.length" />
+      <SfHeading :subtitle="$t('No subcategories')" v-if="!navigation.length" />
       <SfAccordion :show-chevron="true">
         <SfAccordionItem
           v-for="accordion in navigation"
@@ -13,7 +13,7 @@
         >
           <template #header="{ header, isOpen, accordionClick }">
             <div class="cms-element-category-navigation__menu-item">
-              <nuxt-link :to="$i18n.path(getCategoryUrl(accordion))">
+              <nuxt-link :to="$routing.getUrl(getCategoryUrl(accordion))">
                 <SwButton
                   :aria-pressed="isOpen.toString()"
                   :aria-expanded="isOpen.toString()"
@@ -36,7 +36,7 @@
               <SfListItem v-for="item in accordion.children" :key="item.id">
                 <nuxt-link
                   v-if="item.route && item.name"
-                  :to="$i18n.path(getCategoryUrl(item))"
+                  :to="$routing.getUrl(getCategoryUrl(item))"
                 >
                   <SfMenuItem :label="item.name" />
                 </nuxt-link>
@@ -46,9 +46,9 @@
           <template v-else>
             <nuxt-link
               v-if="accordion.route && accordion.name"
-              :to="$i18n.path(getCategoryUrl(accordion))"
+              :to="$routing.getUrl(getCategoryUrl(accordion))"
             >
-              See {{ accordion.name }}
+              {{ $t("See") }} {{ accordion.name }}
             </nuxt-link>
           </template>
         </SfAccordionItem>

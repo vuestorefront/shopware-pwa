@@ -7,6 +7,8 @@ import {
 import path from "path";
 import { loadConfig } from "./utils";
 import { extendCMS } from "./cms";
+import { setupDomains } from "./domains";
+
 import { extendLocales } from "./locales";
 import { useCorePackages } from "./packages";
 import { getAllFiles } from "./files";
@@ -178,6 +180,8 @@ export async function runModule(
   });
 
   extendCMS(moduleObject, shopwarePwaConfig);
+  /* In here instantiate new routing */
+  setupDomains(moduleObject, shopwarePwaConfig);
 
   moduleObject.options.build = moduleObject.options.build || {};
   moduleObject.options.build.babel = moduleObject.options.build.babel || {};

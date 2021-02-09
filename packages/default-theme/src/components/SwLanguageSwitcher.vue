@@ -1,29 +1,29 @@
 <template>
   <div
-    v-if="availableLanguages.length > 1"
+    v-if="availableDomains.length > 1"
     class="sw-language-switcher"
     data-cy="language-switcher"
   >
     <SfSelect
-      :selected="currentLocale"
-      :size="availableLanguages.length"
+      :selected="currentDomainId"
+      :size="availableDomains.length"
       class="sw-language-switcher__select sf-select--no-chevron"
       data-cy="language-switcher-select"
-      @change="changeLocale"
+      @change="changeDomain"
     >
       <SfSelectOption
-        v-for="language in availableLanguages"
-        :key="language.code"
-        :value="language.code"
+        v-for="domain in availableDomains"
+        :key="domain.domainId"
+        :value="domain.domainId"
         data-cy="language-switcher-option"
-        >{{ language.name }}</SfSelectOption
+        >{{ domain.languageLabel }}</SfSelectOption
       >
     </SfSelect>
   </div>
 </template>
 <script>
 import { SfSelect } from "@storefront-ui/vue"
-import { useLocales } from "@/logic/useLocales"
+import { useDomains } from "@/logic/useDomains"
 
 export default {
   name: "SwLanguageSwitcher",
@@ -33,11 +33,11 @@ export default {
   },
 
   setup(props, { root }) {
-    const { availableLanguages, currentLocale, changeLocale } = useLocales(root)
+    const { availableDomains, currentDomainId, changeDomain } = useDomains(root)
     return {
-      availableLanguages,
-      currentLocale,
-      changeLocale,
+      availableDomains,
+      currentDomainId,
+      changeDomain,
     }
   },
 }

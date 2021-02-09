@@ -53,7 +53,8 @@
         class="product-details__product-number"
       >
         <p>
-          Product number: <span>{{ getProductNumber(product) }}</span>
+          {{ $t("Product number") }}:
+          <span>{{ getProductNumber(product) }}</span>
         </p>
       </div>
     </div>
@@ -97,7 +98,7 @@ export default {
       type: Object,
     },
   },
-  setup({ page, product }, { root }) {
+  setup({ product }, { root }) {
     const { addToCart, quantity } = useAddToCart(root, product)
     const { pushInfo } = useNotifications(root)
     const {

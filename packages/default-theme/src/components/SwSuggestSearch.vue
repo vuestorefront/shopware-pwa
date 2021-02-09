@@ -14,7 +14,7 @@
           class="search-suggestions__product"
           v-for="product in products.slice(0, 5)"
           :key="product.id"
-          :link="$i18n.path(getProductRouterLink(product))"
+          :link="$routing.getUrl(getProductUrl(product))"
         >
           <SfImage
             :src="getProducImageUrl(product)"
@@ -25,7 +25,7 @@
           />
           <span>
             <span class="search-suggestions__product-title">
-              {{ product.name }}
+              {{ product.translated.name }}
             </span>
             <span class="search-suggestions__product-price">
               <SfPrice
@@ -42,7 +42,7 @@
       v-if="isShowMoreAvailable"
       class="sf-button--secondary sf-button--full-width"
       @click="$emit('search')"
-      >See more</Button
+      >{{ $t("See more") }}</Button
     >
   </div>
 </template>
@@ -96,19 +96,21 @@ export default {
       default: 0,
     },
   },
+  setup() {
+    return {
+      getProductUrl,
+    }
+  },
   directives: { clickOutside },
   computed: {
     title() {
-      return `${this.searchPhrase} (${this.totalFound} found)`
+      return `${this.searchPhrase} (${this.totalFound} ${this.$t("found")})`
     },
     isShowMoreAvailable() {
       return this.totalFound > 5
     },
   },
   methods: {
-    getProductRouterLink(product) {
-      return this.$i18n.path(getProductUrl(product))
-    },
     close() {
       this.$emit("close")
     },
