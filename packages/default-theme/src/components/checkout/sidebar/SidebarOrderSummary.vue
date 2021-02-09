@@ -17,7 +17,7 @@
     />
     <SfProperty
       :name="$t('Shipping')"
-      :value="shippingMethod.price | price"
+      :value="shippingTotal | price"
       class="sf-property--full-width property"
     />
     <SfDivider class="divider" />
@@ -59,17 +59,13 @@ export default {
     SwPromoCode,
   },
   setup(props, { root }) {
-    const { count, totalPrice, subtotal } = useCart(root)
+    const { count, subtotal, shippingTotal, totalPrice } = useCart(root)
 
-    // TODO: use useSessionContext
-    const shippingMethod = {
-      price: "TODO: add price",
-    }
     return {
       count,
-      totalPrice,
       subtotal,
-      shippingMethod,
+      shippingTotal,
+      totalPrice,
     }
   },
   data() {
