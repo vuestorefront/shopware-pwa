@@ -1,3 +1,44 @@
+# [0.7.0](https://github.com/vuestorefront/shopware-pwa/compare/v0.6.1...v0.7.0) (2021-02-09)
+
+### Important info
+[Follow the migration guide and release notes](https://shopware-pwa-docs.vuestorefront.io/landing/operations/migrations/0.6.x_to_0.7.x.html) for this release.
+### Bug Fixes
+
+* **cli:** create-theme template ([#1307](https://github.com/vuestorefront/shopware-pwa/issues/1307)) ([abddd02](https://github.com/vuestorefront/shopware-pwa/commit/abddd02a980aa159e5aca3ee5563bf3448c63e7f))
+* **cli:** locales from base and custom theme now get merged when building custom theme ([#1292](https://github.com/vuestorefront/shopware-pwa/issues/1292)) ([83adce4](https://github.com/vuestorefront/shopware-pwa/commit/83adce41fd55cf0afc7b95f4d77b9f114a224aa2))
+* **client:** prevent passing timeout as a string value ([#1283](https://github.com/vuestorefront/shopware-pwa/issues/1283)) ([705eed9](https://github.com/vuestorefront/shopware-pwa/commit/705eed9e792f904419c36a6f64ec8f1628e6268c))
+* **default-theme:** added shipping cost to order summary ([#1357](https://github.com/vuestorefront/shopware-pwa/issues/1357)) ([927a3b2](https://github.com/vuestorefront/shopware-pwa/commit/927a3b25d0e85ace04896648449fa94fd6849a1c))
+* **default-theme:** added translations for footer navigation and locales for polish and italian ([#1346](https://github.com/vuestorefront/shopware-pwa/issues/1346)) ([aafd2ec](https://github.com/vuestorefront/shopware-pwa/commit/aafd2eca24bd82dd677c573129aac2c6229f699c))
+* **default-theme:** adding translated value to show more navigation item to prevent fatal error ([#1349](https://github.com/vuestorefront/shopware-pwa/issues/1349)) ([4b6e397](https://github.com/vuestorefront/shopware-pwa/commit/4b6e3978da6cb01af5aa10c998dacdf5f9ce9d89))
+* **default-theme:** fix missing customer address right after user logs in  ([#1351](https://github.com/vuestorefront/shopware-pwa/issues/1351)) ([d2eac7a](https://github.com/vuestorefront/shopware-pwa/commit/d2eac7a058a121d7d332f7b31d964d526f9fd425))
+* **default-theme:** hide megamenu for single category ([#1337](https://github.com/vuestorefront/shopware-pwa/issues/1337)) ([0a38b05](https://github.com/vuestorefront/shopware-pwa/commit/0a38b056019f50315beb6274919eaf1b46d52581))
+* **default-theme:** incorrect usage of $t ([b997740](https://github.com/vuestorefront/shopware-pwa/commit/b997740b38dfc75c7970fcb8428e1908014c005f))
+* **default-theme:** inline style on SSR ([#1338](https://github.com/vuestorefront/shopware-pwa/issues/1338)) ([c839bbf](https://github.com/vuestorefront/shopware-pwa/commit/c839bbf4288ff3e7928b21a6b828b772512db13c))
+* **docs:** node version in setup cheatsheet ([#1356](https://github.com/vuestorefront/shopware-pwa/issues/1356)) ([bca2ace](https://github.com/vuestorefront/shopware-pwa/commit/bca2ace85423ac56b4baa67059926e0f15d9fa96))
+* **helpers:** get name fallback if there is no translation ([#1279](https://github.com/vuestorefront/shopware-pwa/issues/1279)) ([2bb3575](https://github.com/vuestorefront/shopware-pwa/commit/2bb3575281f1a42e04a237bb34ce1f5ac65c4318))
+* **helpers:** prevent double slashes in routes ([#1281](https://github.com/vuestorefront/shopware-pwa/issues/1281)) ([60e8270](https://github.com/vuestorefront/shopware-pwa/commit/60e8270960d7703e052add738c708f147c1e7bb6))
+* **nuxt-module:** proper i18n plugin injection ([#1334](https://github.com/vuestorefront/shopware-pwa/issues/1334)) ([8732d38](https://github.com/vuestorefront/shopware-pwa/commit/8732d386cfa73eac80380b87c0256ec769f5baee))
+* **nuxt-module:** setting root path for cookies ([#1350](https://github.com/vuestorefront/shopware-pwa/issues/1350)) ([dcdcdd9](https://github.com/vuestorefront/shopware-pwa/commit/dcdcdd9b74b09b878f6914e8466975190ab03236))
+* sync domains flow ([#1347](https://github.com/vuestorefront/shopware-pwa/issues/1347)) ([f074fc5](https://github.com/vuestorefront/shopware-pwa/commit/f074fc567dffe519056660c45c32579bf0cdc275))
+* **test:** navigation coverage ([fc38a10](https://github.com/vuestorefront/shopware-pwa/commit/fc38a105d4e302abd94458146a1a92a9b6aacee5))
+
+
+### Features
+
+* **cli:** set defaul pwaHost for default project init ([a1ed11c](https://github.com/vuestorefront/shopware-pwa/commit/a1ed11c2944f051671af6bbe5ba9b407f2b17dcf))
+* **composables:** more interceptors ([#1342](https://github.com/vuestorefront/shopware-pwa/issues/1342)) ([44b9ffe](https://github.com/vuestorefront/shopware-pwa/commit/44b9ffe296c2d1b77a4af4f4ae27d1f84fe537f8))
+* **default-theme:** accept styles coming from shopping experiences ([#1335](https://github.com/vuestorefront/shopware-pwa/issues/1335)) ([2d96f38](https://github.com/vuestorefront/shopware-pwa/commit/2d96f380f83b956c0c65d8a2b8444ef6abf8e627))
+* **default-theme:** cannonical path redirection ([#1316](https://github.com/vuestorefront/shopware-pwa/issues/1316)) ([5f9e201](https://github.com/vuestorefront/shopware-pwa/commit/5f9e2012e19afa290313aa4b589ec4a3d907ac8f))
+* **default-theme:** dynamic visibility of country state selection ([#1282](https://github.com/vuestorefront/shopware-pwa/issues/1282)) ([8cbbe55](https://github.com/vuestorefront/shopware-pwa/commit/8cbbe553e688635793d58dc7b8cd883b6a3c6012))
+* **default-theme:** few translations ([#1354](https://github.com/vuestorefront/shopware-pwa/issues/1354)) ([163c90c](https://github.com/vuestorefront/shopware-pwa/commit/163c90cbe62ecbc4d6e743e172f3819ef4e15fc3))
+* **default-theme:** Image ordering in product gallery ([#1340](https://github.com/vuestorefront/shopware-pwa/issues/1340)) ([d3b0967](https://github.com/vuestorefront/shopware-pwa/commit/d3b0967ce53abf9de0a2463a10f12f5ab1b60059))
+* **default-theme:** remove apartment number from forms ([#1315](https://github.com/vuestorefront/shopware-pwa/issues/1315)) ([577ac54](https://github.com/vuestorefront/shopware-pwa/commit/577ac5410992637b8e062e3fa828ac69a081d5c7))
+* **default-theme:** translate static strings ([#1333](https://github.com/vuestorefront/shopware-pwa/issues/1333)) ([a68ba9e](https://github.com/vuestorefront/shopware-pwa/commit/a68ba9e2dc56945628add0aac9f422919f7943ab))
+* **nuxt-module:** add CHOKIDAR_USEPOLLING flag for development ([#1322](https://github.com/vuestorefront/shopware-pwa/issues/1322)) ([293cf0f](https://github.com/vuestorefront/shopware-pwa/commit/293cf0f78d0a009d17fd6f5933920f1b43087daa))
+* domain handling ([#1295](https://github.com/vuestorefront/shopware-pwa/issues/1295)) ([e4cc033](https://github.com/vuestorefront/shopware-pwa/commit/e4cc0331811f478bc2eed8ee094ef394fe4cceda)), closes [#1301](https://github.com/vuestorefront/shopware-pwa/issues/1301)
+
+
+
 # [0.6.0](https://github.com/DivanteLtd/shopware-pwa/compare/v0.5.2...v0.6.0) (2020-12-07)
 
 ### Bug Fixes
