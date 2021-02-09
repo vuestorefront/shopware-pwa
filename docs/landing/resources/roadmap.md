@@ -13,16 +13,20 @@ To get more low-level task specific information please go to:
 * :blue_heart: Shopware PWA feature
 * :green_heart: Storefront UI dependency
 
-## 2019 Q4
+## 2019
+
+### Q4
 
 * :blue_heart: Start of the project in September / October 2019 :)
 
-## 2020 Q1
+## 2020
+
+### Q1
 
 * :blue_heart: Critical Path of Customer Journey
 * :blue_heart: Shopware PWA Developer's Preview Release
 
-## 2020 Q2 
+### Q2 
 
 * :blue_heart: Internal Checkout - possibility to place a guest order and user order with default addresses
 * :blue_heart: Refactor of CMS structure, possibility to extend and override CMS from plugins and project
@@ -43,15 +47,30 @@ To get more low-level task specific information please go to:
 * :blue_heart: Asynchronous Payments Flow (support for any kind of Payment Providers plugins)
 * :blue_heart: Shopware PWA Beta Release 
 
-## 2020 Q3
+### Q3
 
 * :blue_heart: i18n in plugins
 * :blue_heart: Custom theming with sample theme
 * :blue_heart: CMS forms elements
 * :green_heart: CMS embedded video (YouTube, Vimeo)
-* :blue_heart: to be announced
 
-## 2020 Q4
+### Q4
 
 * :blue_heart: Shopping Experiences Page Preview with Storefront UI components
-* :blue_heart: to be announced
+* Improvements for domain, currency & payment handling
+* Improvements for variant handling
+
+## 2021
+
+### Q1
+
+* :blue_heart: Increase interceptor coverage
+* :blue_heart: Generalize payment method support / integrations
+* :blue_heart: Prepare shopping experiences for product detail pages
+* :blue_heart: Offline catalog browsing concept
+* :blue_heart: Bugfixes and test coverage
+
+### Q2
+
+* :blue_heart: B2B focused Theme
+* :blue_heart: First stable release
