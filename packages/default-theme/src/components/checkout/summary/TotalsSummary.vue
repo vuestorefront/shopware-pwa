@@ -1,6 +1,6 @@
 <template>
   <div class="summary">
-    <SwTotals :total="total" :subtotal="subtotal" />
+    <SwTotals :total="total" :subtotal="subtotal" :shipping="shippingTotal" />
     <div class="notification" v-if="!cartItems.length">
       <SfNotification
         :visible="true"
@@ -68,6 +68,7 @@ export default {
       subtotal,
       totalPrice,
       removeProduct,
+      shippingTotal,
       refreshCart,
     } = useCart(root)
     return {
@@ -75,6 +76,7 @@ export default {
       refreshCart,
       subtotal,
       total: totalPrice,
+      shippingTotal,
       removeProduct,
     }
   },
