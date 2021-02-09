@@ -15,7 +15,7 @@ There will be a more streamlined, interactive development setup, but for now we'
 ### Prerequisites
 
 - `shopware/platform` running within either `shopware/development` or `shopware/production`
-- `node@^10` installed
+- `node@^12` installed
 - `yarn` package manager installed
 
 ### Installation steps
