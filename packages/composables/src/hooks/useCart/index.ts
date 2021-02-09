@@ -52,6 +52,7 @@ export interface IUseCart {
    */
   removeProduct: ({ id }: Partial<Product>) => void;
   totalPrice: ComputedRef<number>;
+  shippingTotal: ComputedRef<number>;
   subtotal: ComputedRef<number>;
 }
 
@@ -153,6 +154,12 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     return cartPrice || 0;
   });
 
+  const shippingTotal = computed(() => {
+    const shippingTotal =
+      cart.value?.deliveries?.[0]?.shippingCosts?.totalPrice;
+    return shippingTotal || 0;
+  });
+
   const subtotal = computed(() => {
     const cartPrice = cart.value?.price?.positionPrice;
     return cartPrice || 0;
@@ -172,6 +179,7 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     removeProduct,
     removeItem,
     totalPrice,
+    shippingTotal,
     subtotal,
   };
 };
