@@ -197,5 +197,10 @@
   "No favourites yet": "Nie ma jeszcze ulubionych",
   "Wishlist": "Wishlist",
   "{productName} has been added to cart.": "{productName} został dodany do koszyka.",
-  "There is no available product for selected options": "Nie ma dostępnego produktu dla wybranych opcji"
+  "There is no available product for selected options": "Nie ma dostępnego produktu dla wybranych opcji",
+  "Leave a review!": "Zostaw komentarz",
+  "Share your experiences with other customers.": "Podziel się swoimi wrażeniami z innymi.",
+  "No comments yet": "Nie ma jeszcze żadnych komentarzy",
+  "We can't find what you are looking for. Are you lost?": "Nie odnaleźliśmy tego, czego czukasz. Zgubiłeś się?",
+  "No subcategories": "Brak podkategorii"
 }
