@@ -10,6 +10,7 @@ export interface NavigationRoute {
 
 /**
  * @alpha
+ * @deprecated
  */
 export function getNavigationRoutes(
   navigationElements: SwNavigationElement[]

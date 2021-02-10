@@ -6,7 +6,18 @@ import { useDefaults, getApplicationContext } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
 
 /**
+ * Complements https://github.com/shopware/platform/blob/master/src/Core/Content/Category/SalesChannel/NavigationRoute.php#L302
+ */
+const enum NAVIGATION_ALIAS {
+  MAIN = "main-navigation",
+  SERVICE = "service-navigation",
+  FOOTER = "footer-navigation",
+}
+
+/**
  * interface for {@link useNavigation} composable
+ *
+ * Provides state for two navigation trees: Footer and Main Navigation
  *
  * @beta
  */
@@ -14,10 +25,20 @@ export interface IUseNavigation {
   routes: Ref<Readonly<any>>;
   navigationElements: Ref<Readonly<NavigationElement[]>>;
   fetchNavigationElements: (depth: number) => Promise<void>;
+  mainNavigationRoutes: Ref<Readonly<any>>;
+  mainNavigationElements: Ref<Readonly<NavigationElement[]>>;
+  fetchMainNavigationElements: (depth: number) => Promise<void>;
+  footerNavigationElements: Ref<Readonly<NavigationElement[]>>;
+  fetchFooterNavigationElements: (depth: number) => Promise<void>;
   fetchRoutes: () => Promise<void>;
 }
 
-const sharedNavigation = Vue.observable({
+const sharedMainNavigation = Vue.observable({
+  routes: null,
+  navigationElements: [],
+} as any);
+
+const sharedFooterNavigation = Vue.observable({
   routes: null,
   navigationElements: [],
 } as any);
@@ -31,18 +52,46 @@ export const useNavigation = (
 ): IUseNavigation => {
   const { apiInstance } = getApplicationContext(rootContext, "useNavigation");
 
-  const localNavigation = reactive(sharedNavigation);
-  const routes = computed(() => localNavigation.routes);
   const { getIncludesConfig, getAssociationsConfig } = useDefaults(
     rootContext,
     "useNavigation"
   );
-  const getNavigationParams = (params?: any) => {
+
+  // Main Navigation (alias: main-navigation)
+  const localMainNavigation = reactive(sharedMainNavigation);
+  const mainNavigationElements = computed(
+    () => localMainNavigation.navigationElements
+  );
+  const mainNavigationRoutes = computed(() => localMainNavigation.routes);
+
+  /**
+   * @deprecated
+   */
+  const routes = mainNavigationRoutes;
+
+  /**
+   * @deprecated
+   */
+  const navigationElements = mainNavigationElements;
+
+  // Main Navigation (alias: footer-navigation)
+  const localFooterNavigation = reactive(sharedFooterNavigation);
+  const footerNavigationElements = computed(
+    () => localFooterNavigation.navigationElements
+  );
+
+  /**
+   * Merges navigation parameters with default navigation parameters (stateless)
+   */
+  const getNavigationParams = (
+    params?: any,
+    rootAlias: string = NAVIGATION_ALIAS.MAIN
+  ) => {
     return Object.assign(
       {},
       {
-        requestActiveId: "main-navigation",
-        requestRootId: "main-navigation",
+        requestActiveId: rootAlias,
+        requestRootId: rootAlias,
         searchCriteria: {
           configuration: {
             includes: getIncludesConfig(),
@@ -53,30 +102,72 @@ export const useNavigation = (
       params
     );
   };
+
+  /**
+   * @deprecated
+   * Fetches navigation routes
+   */
   const fetchRoutes = async (params?: any): Promise<void> => {
     const navigationResponse = await getStoreNavigation(
       getNavigationParams(params),
       apiInstance
     );
-    sharedNavigation.routes = navigationResponse;
+    sharedMainNavigation.routes = navigationResponse;
   };
 
-  const fetchNavigationElements = async (depth: number) => {
+  /**
+   * Fetches navigation elements
+   */
+  const fetchNavigationElements = async (
+    navigationReference: any,
+    depth: number,
+    rootAlias: string = NAVIGATION_ALIAS.MAIN
+  ) => {
     const navigationResponse = await getStoreNavigation(
-      getNavigationParams({
-        depth,
-      }),
+      getNavigationParams(
+        {
+          depth,
+        },
+        rootAlias
+      ),
       apiInstance
     );
-    sharedNavigation.navigationElements = navigationResponse || [];
+
+    navigationReference.navigationElements = navigationResponse || [];
   };
 
-  const navigationElements = computed(() => localNavigation.navigationElements);
+  /**
+   * Fetches main navigation elements
+   */
+  const fetchMainNavigationElements = async (depth: number): Promise<void> => {
+    fetchNavigationElements(sharedMainNavigation, depth);
+  };
+
+  /**
+   * @deprecated
+   */
+  const oldFetchNavigationElements = fetchMainNavigationElements;
+
+  /**
+   * Fetches footer navigation elements
+   */
+  const fetchFooterNavigationElements = async (depth: number) => {
+    fetchNavigationElements(
+      sharedFooterNavigation,
+      depth,
+      NAVIGATION_ALIAS.FOOTER
+    );
+  };
 
   return {
     routes,
     navigationElements,
-    fetchNavigationElements,
+    fetchNavigationElements: oldFetchNavigationElements,
+    mainNavigationRoutes,
+    mainNavigationElements,
+    fetchMainNavigationElements,
+    footerNavigationElements,
+    fetchFooterNavigationElements,
     fetchRoutes,
   };
 };

@@ -12,6 +12,7 @@ export interface StoreNavigationRoute {
 
 /**
  * @beta
+ * @deprecated
  */
 export function getStoreNavigationRoutes(
   navigationElements: StoreNavigationElement[]
