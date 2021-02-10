@@ -1,3 +1,7 @@
+## [0.7.1](https://github.com/vuestorefront/shopware-pwa/compare/v0.7.0...v0.7.1) (2021-02-10)
+
+
+
 # [0.7.0](https://github.com/vuestorefront/shopware-pwa/compare/v0.4.0...v0.7.0) (2021-02-09)
 
 
