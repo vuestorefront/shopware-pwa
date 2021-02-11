@@ -2055,7 +2055,7 @@
     npmlog "^4.1.2"
     write-file-atomic "^2.3.0"
 
-"@microsoft/api-documenter@^7.12.7":
+"@microsoft/api-documenter@^7.9.32":
   version "7.12.7"
   resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.12.7.tgz#7b1742999bc083a237f78e658b3351e92012b3f7"
   integrity sha512-GD3Z52yzDz8ZN3efB0mL2ogXLoL/I/cpoZmwLm8KiXL6o5g9K25fQ7HrFt4fvk9XTvcYX/EvZw4TBjrWz7cj5A==
@@ -2076,7 +2076,7 @@
     "@microsoft/tsdoc" "0.12.24"
     "@rushstack/node-core-library" "3.36.0"
 
-"@microsoft/api-extractor@^7.13.1":
+"@microsoft/api-extractor@^7.11.4":
   version "7.13.1"
   resolved "https://registry.yarnpkg.com/@microsoft/api-extractor/-/api-extractor-7.13.1.tgz#0ed26ac18ccda075553e9fbe26dce4104d8d042f"
   integrity sha512-mnWb5Vuyn/JnjC359HfsRmLDM4/vzyKcJuxQr5Cg/apbkMHuTB1hQrqA8zBda4N+MJZ5ET2BPsrKaUX1qhz8jw==
