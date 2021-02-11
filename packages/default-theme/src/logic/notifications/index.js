@@ -9,11 +9,11 @@ export const addToWishlistNotification = (params, rootContext) => {
   )
 }
 
-export const addToCartNotification = (product, rootContext) => {
+export const addToCartNotification = (params, rootContext) => {
   const { pushSuccess } = useNotifications(rootContext)
   pushSuccess(
     rootContext.$t("{productName} has been added to cart.", {
-      productName: payload?.product?.translated?.name || payload?.product?.name,
+      productName: params?.product?.translated?.name || payload?.product?.name,
     })
   )
 }
