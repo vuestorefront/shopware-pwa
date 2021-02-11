@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/cli",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Shopware PWA CLI",
   "types": "build/types/types.d.ts",
   "bin": {

@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/default-theme",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Shopware PWA theme",
   "author": "patzick <13100280+patzick@users.noreply.github.com>",
   "license": "MIT",
