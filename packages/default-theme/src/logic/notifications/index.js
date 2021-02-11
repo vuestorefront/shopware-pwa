@@ -13,7 +13,7 @@ export const addToCartNotification = (params, rootContext) => {
   const { pushSuccess } = useNotifications(rootContext)
   pushSuccess(
     rootContext.$t("{productName} has been added to cart.", {
-      productName: params?.product?.translated?.name || payload?.product?.name,
+      productName: params?.product?.translated?.name || params?.product?.name,
     })
   )
 }
