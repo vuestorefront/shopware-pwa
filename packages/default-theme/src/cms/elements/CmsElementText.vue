@@ -1,4 +1,3 @@
-38
 <script>
 // import any extra components here
 import { SfLink } from "@storefront-ui/vue"
