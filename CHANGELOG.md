@@ -1,4 +1,4 @@
-# [0.7.0](https://github.com/vuestorefront/shopware-pwa/compare/v0.6.1...v0.7.0) (2021-02-09)
+# [0.7.1](https://github.com/vuestorefront/shopware-pwa/compare/v0.6.1...v0.7.1) (2021-02-10)
 
 ### Important info
 [Follow the migration guide and release notes](https://shopware-pwa-docs.vuestorefront.io/landing/operations/migrations/0.6.x_to_0.7.x.html) for this release.
