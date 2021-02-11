@@ -7,6 +7,7 @@ on:
 env:
   RELEASE_URL: https://shopware-pwa.storefrontcloud.io
   INSTANCE_CODE: shopware-pwa
+  PWA_HOST: https://pwa.swstage.store
 
 jobs:
   build:
@@ -21,7 +22,7 @@ jobs:
         run: |
           mkdir test-project
           cd ./test-project
-          npx @shopware-pwa/cli@latest init --u --pwaHost="https://pwa.swstage.store" --ci --devMode
+          npx @shopware-pwa/cli@latest init --pwaHost=${{ env.PWA_HOST }} --ci --devMode
           yarn build
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@2.14
