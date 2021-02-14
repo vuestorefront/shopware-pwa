@@ -144,6 +144,7 @@ import {
   useUser,
   useCountries,
   useSalutations,
+  useSessionContext,
 } from "@shopware-pwa/composables"
 import {
   mapCountries,
@@ -172,6 +173,7 @@ export default {
     }
   },
   setup(props, { root }) {
+    const { refreshSessionContext } = useSessionContext(root)
     const { login, register, loading, error: userError } = useUser(root)
     const { getCountries, error: countriesError } = useCountries(root)
     const { getSalutations, error: salutationsError } = useSalutations(root)
@@ -193,6 +195,7 @@ export default {
       salutationsError,
       getMappedSalutations,
       userErrorMessages,
+      refreshSessionContext,
     }
   },
   computed: {
@@ -264,6 +267,7 @@ export default {
           username: this.email,
           password: this.password,
         })
+        this.refreshSessionContext()
         this.$emit("success")
       }
     },
