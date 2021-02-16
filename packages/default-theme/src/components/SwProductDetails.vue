@@ -87,6 +87,7 @@ export default {
     SfAlert,
     SfAddToCart,
     SfLoader,
+    SwButton: () => import("@/components/atoms/SwButton"),
     SwProductHeading: () => import("@/components/SwProductHeading"),
     SwProductSelect: () => import("@/components/SwProductSelect"),
     SwProductTabs: () => import("@/components/SwProductTabs"),
