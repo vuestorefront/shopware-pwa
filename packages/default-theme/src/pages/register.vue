@@ -24,7 +24,6 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 #register {
-  height: 65vh;
   margin-bottom: 10vh;
   flex-direction: column;
   align-items: center;
