@@ -34,10 +34,7 @@ export default {
     justify-content: center;
   }
   .register__component {
-    width: 100%;
-    @include for-desktop {
-      max-width: 450px;
-    }
+    max-width: var(--full-mode-max-width);
   }
 }
 </style>
