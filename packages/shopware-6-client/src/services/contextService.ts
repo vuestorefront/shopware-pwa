@@ -159,10 +159,14 @@ export async function getAvailableSalutations(
  * @beta
  */
 export async function getAvailablePaymentMethods(
-  contextInstance: ShopwareApiInstance = defaultInstance
+  contextInstance: ShopwareApiInstance = defaultInstance,
+  params: any = {}
 ): Promise<PaymentMethod[]> {
   const resp = await contextInstance.invoke.get(
-    getContextPaymentMethodEndpoint()
+    getContextPaymentMethodEndpoint(),
+    {
+      params, // passing it as a last parameter won't cause a BC - to consider
+    }
   );
 
   return resp.data;
@@ -202,10 +206,14 @@ export async function setCurrentPaymentMethod(
  * @beta
  */
 export async function getAvailableShippingMethods(
-  contextInstance: ShopwareApiInstance = defaultInstance
+  contextInstance: ShopwareApiInstance = defaultInstance,
+  params: any = {} // passing it as a last parameter won't cause a BC - to consider
 ): Promise<ShippingMethod[]> {
   const resp = await contextInstance.invoke.get(
-    getContextShippingMethodEndpoint()
+    getContextShippingMethodEndpoint(),
+    {
+      params,
+    }
   );
 
   return resp.data;
