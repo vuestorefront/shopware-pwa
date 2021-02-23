@@ -207,5 +207,14 @@
   "Name Z-A": "nome Z-A",
   "Price ascending": "prezzo crescente",
   "Price descending": "prezzo decrescente",
-  "Topseller": "TOP seller"
+  "Topseller": "TOP seller",
+  "manufacturer": "Produttore",
+  "price":"Prezzo",
+  "rating":"valutazione",
+  "shipping-free":"Spedizione gratuita",
+  "length":"Lunghezza",
+  "size": "Taglia",
+  "textile":"Tessile",
+  "width":"Larghezza",
+  "Clear all": "Cancella tutto"
 }

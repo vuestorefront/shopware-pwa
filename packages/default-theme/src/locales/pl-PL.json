@@ -207,6 +207,14 @@
   "Name Z-A": "Nazwy Z-A",
   "Price ascending": "Ceny rosnąco",
   "Price descending": "Ceny malejąco",
-  "Topseller": "TOP seller"
-
+  "Topseller": "TOP seller",
+  "manufacturer": "Producent",
+  "price":"Cena",
+  "rating":"Ocena",
+  "shipping-free":"Darmowa dostawa",
+  "length":"Długość",
+  "size": "Rozmiar",
+  "textile":"Materiał",
+  "width":"Szerokość",
+  "Clear all": "Wyczyść filtry"
 }

@@ -208,5 +208,14 @@
   "Name Z-A": "Name Z-A",
   "Price ascending": "Price ascending",
   "Price descending": "Price descending",
-  "Topseller": "TOP seller"
+  "Topseller": "TOP seller",
+  "manufacturer": "Manufacturer",
+  "price":"Price",
+  "rating":"Rating",
+  "shipping-free":"Free shipping",
+  "length":"Length",
+  "size": "Size",
+  "textile":"Textile",
+  "width":"Width",
+  "Clear all": "Clear all"
 }
