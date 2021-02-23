@@ -1,6 +1,5 @@
 import Vue from "vue";
 
-// Mock Vue Composition API onMounted method
 import VueCompositionApi, {
   reactive,
   ref,
