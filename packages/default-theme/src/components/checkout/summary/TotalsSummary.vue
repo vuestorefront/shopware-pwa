@@ -11,7 +11,7 @@
     </div>
     <div class="summary__action">
       <SwButton
-        class="sf-button--full-width summary__action-button summary__action-button--secondary color-secondary desktop-only"
+        class="sf-button--full-width summary__action-button summary__action-button--secondary color-secondary sw-form__button"
         data-cy="go-back-to-payment"
         @click="$emit('click:back')"
       >
@@ -19,17 +19,11 @@
       </SwButton>
       <SwButton
         :disabled="!cartItems.length"
-        class="sf-button--full-width summary__action-button"
+        class="sf-button--full-width summary__action-button sw-form__button"
         data-cy="place-my-order"
         @click="$emit('proceed')"
       >
         {{ $t("Place my order") }}
-      </SwButton>
-      <SwButton
-        class="sf-button--full-width sf-button--text summary__action-button summary__action-button--secondary mobile-only"
-        @click="$emit('click:back')"
-      >
-        {{ $t("Go back to Payment") }}
       </SwButton>
     </div>
   </div>
@@ -112,21 +106,23 @@ export default {
   }
   &__action {
     padding: var(--spacer-base);
-    flex: 0 0 100%;
+    width: 90%;
     margin: var(--spacer-base) 0 0 0;
-    @include for-desktop {
-      display: flex;
-    }
-  }
-  &__action-button {
-    --button-height: 3.25rem;
-    @include for-desktop {
-      --button-font-weight: var(--font-normal);
-      &:first-child {
-        margin: 0 var(--spacer-lg) 0 0;
+    display: table;
+
+    button {
+      display: table-cell;
+      width: 100%;
+      @include for-desktop {
+        width: 50%;
+      }
+
+      &:last-child {
+        margin-top: var(--spacer-base);
       }
     }
   }
+
   &__property {
     margin: 0 0 var(--spacer-sm) 0;
     --property-value-font-weight: var(--font-semibold);

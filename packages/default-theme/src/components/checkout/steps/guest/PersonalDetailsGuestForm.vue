@@ -86,24 +86,19 @@
           class="form__element"
         />
       </transition>
-      <div class="form__action">
+      <div class="sw-form__action">
         <SwButton
-          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only sw-form__button"
+          class="form__action-button color-secondary sw-form__button"
           data-cy="go-back-to-shop-button"
         >
           {{ $t("Go Back to shop") }}
         </SwButton>
         <SwButton
-          class="sf-button--full-width form__action-button sw-form__button"
+          class="form__action-button sw-form__button"
           data-cy="continue-to-shipping-button"
           @click="toShipping"
         >
           {{ $t("Continue to shipping") }}
-        </SwButton>
-        <SwButton
-          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only sw-form__button"
-        >
-          {{ $t("Go Back to shop") }}
         </SwButton>
       </div>
     </div>
@@ -415,11 +410,23 @@ export default {
   }
 }
 
-.form__action {
-  margin: var(--spacer-sm) 0;
+.sw-form {
+  &__action {
+    width: 100%;
+    margin-top: var(--spacer-xl);
+    display: table;
 
-  .sf-button + .sf-button {
-    margin-top: var(--spacer-sm);
+    button {
+      display: table-cell;
+      width: 100%;
+      @include for-desktop {
+        width: 50%;
+      }
+
+      &:last-child {
+        margin-top: var(--spacer-base);
+      }
+    }
   }
 }
 </style>
