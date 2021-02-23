@@ -13,6 +13,7 @@ import { CmsSlot } from '@shopware-pwa/commons/interfaces/models/content/cms/Cms
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
+import { PageBreadcrumb } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
@@ -22,6 +23,18 @@ import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCr
 import { ShopwareError } from '@shopware-pwa/commons/interfaces/errors/ApiError';
 import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
+
+// @beta (undocumented)
+export interface Breadcrumb {
+    // (undocumented)
+    link: string;
+    // (undocumented)
+    route: {
+        link: string;
+    };
+    // (undocumented)
+    text: string;
+}
 
 // @alpha (undocumented)
 export interface CategoryFilterEntityValue {
@@ -74,6 +87,15 @@ export interface Filter {
         values: CategoryFilterRangeValues | CategoryFilterEntityValues | CategoryFilterTermValue[];
     };
 }
+
+// @beta (undocumented)
+export function getBreadcrumbs(breadcrumbsObject: PageBreadcrumb, generateUrlFunc?: Function): {
+    text: string;
+    link: any;
+    route: {
+        link: any;
+    };
+}[];
 
 // @alpha (undocumented)
 export function getCategoryAvailableFilters({ filters, }?: {

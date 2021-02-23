@@ -11,5 +11,12 @@
 <b>Signature:</b>
 
 ```typescript
-useCms: (rootContext: ApplicationVueContext) => any
+useCms: (rootContext: ApplicationVueContext) => {
+    page: Ref<Readonly<PageResolverProductResult | PageResolverResult<CmsPage>>>;
+    categoryId: ComputedRef<string>;
+    loading: Ref<boolean>;
+    search: (path: string, query?: any) => Promise<void>;
+    error: Ref<any>;
+    getBreadcrumbsObject: ComputedRef<PageBreadcrumb>;
+}
 ```

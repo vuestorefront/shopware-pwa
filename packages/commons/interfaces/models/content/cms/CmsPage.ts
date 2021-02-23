@@ -14,14 +14,19 @@ export enum PageType {
 /**
  * @beta
  */
+export interface PageBreadcrumb {
+  [id: string]: {
+    name: string;
+    path: string;
+  };
+}
+
+/**
+ * @beta
+ */
 export interface PageResolverResult<T> {
   cmsPage: T;
-  breadcrumb: {
-    [id: string]: {
-      name: string;
-      path: string;
-    };
-  };
+  breadcrumb: PageBreadcrumb;
   listingConfiguration: any;
   resourceType: PageType;
   resourceIdentifier: string;

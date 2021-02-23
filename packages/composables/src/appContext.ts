@@ -12,7 +12,7 @@ export interface Routing {
   pwaHost: string | undefined;
   getCurrentDomain: ComputedRef<string>;
   setCurrentDomain: (domainData: any) => void;
-  getRouterUrl: (path: string) => string;
+  getUrl: (path: string) => string;
 }
 
 /**

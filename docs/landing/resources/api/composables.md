@@ -44,6 +44,7 @@
 |  --- | --- |
 |  [INTERCEPTOR\_KEYS](./composables.interceptor_keys.md) | <b><i>(BETA)</i></b> Keys used accross composables with the description of incommint parameters. |
 |  [useAddToCart](./composables.useaddtocart.md) | <b><i>(BETA)</i></b> Add product to cart. Options - [IUseAddToCart](./composables.iuseaddtocart.md) |
+|  [useBreadcrumbs](./composables.usebreadcrumbs.md) | <b><i>(BETA)</i></b> |
 |  [useCart](./composables.usecart.md) | <b><i>(BETA)</i></b> Composable for cart management. Options - [IUseCart](./composables.iusecart.md) |
 |  [useCategoryFilters](./composables.usecategoryfilters.md) | <b><i>(BETA)</i></b> |
 |  [useCheckout](./composables.usecheckout.md) | <b><i>(BETA)</i></b> Composable for Checkout management. Options - [IUseCheckout](./composables.iusecheckout.md) |

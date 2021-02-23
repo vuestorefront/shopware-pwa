@@ -6,7 +6,6 @@
     <SwHeader />
 
     <SwPluginSlot name="top-header-after" />
-
     <SwPluginSlot name="breadcrumbs" :slot-context="getBreadcrumbs">
       <SfBreadcrumbs
         v-show="getBreadcrumbs.length > 0"
@@ -36,7 +35,7 @@ import SwHeader from "@/components/SwHeader"
 import SwBottomNavigation from "@/components/SwBottomNavigation"
 import SwFooter from "@/components/SwFooter"
 import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import { useCms, useUIState } from "@shopware-pwa/composables"
+import { useBreadcrumbs, useUIState } from "@shopware-pwa/composables"
 import { computed, ref, watchEffect } from "@vue/composition-api"
 import SwLoginModal from "@/components/modals/SwLoginModal"
 import SwNotifications from "@/components/SwNotifications"
@@ -56,8 +55,8 @@ export default {
     SwOfflineMode,
   },
 
-  setup(props, { root }) {
-    const { getBreadcrumbsObject } = useCms(root)
+  setup({}, { root }) {
+    const { breadcrumbs: SwBreadcrumbs } = useBreadcrumbs(root)
     const { isOpen: isSidebarOpen } = useUIState(root, "CART_SIDEBAR_STATE")
     const {
       isOpen: isLoginModalOpen,
@@ -74,16 +73,7 @@ export default {
     })
 
     const getBreadcrumbs = computed(() => {
-      const breadcrumbs = Object.values(getBreadcrumbsObject.value).map(
-        (breadcrumb) => ({
-          text: breadcrumb.name,
-          link: root.$routing.getUrl(breadcrumb.path),
-          route: {
-            link: root.$routing.getUrl(breadcrumb.path),
-          },
-        })
-      )
-
+      let breadcrumbs = SwBreadcrumbs.value
       if (breadcrumbs.length > 0) {
         breadcrumbs.unshift({
           text: root.$t("Home"),
@@ -104,7 +94,7 @@ export default {
       switchLoginModalState,
     }
   },
-
+  middleware: ["pages"],
   methods: {
     redirectTo(route) {
       return this.$router.push(this.$routing.getUrl(route.link))

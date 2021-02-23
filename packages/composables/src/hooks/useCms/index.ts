@@ -1,4 +1,4 @@
-import { ref, Ref, computed } from "@vue/composition-api";
+import { ref, Ref, computed, ComputedRef } from "@vue/composition-api";
 import { getCmsPage } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { parseUrlQuery } from "@shopware-pwa/helpers";
@@ -11,11 +11,21 @@ import {
 import { getApplicationContext, useDefaults } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../../appContext";
 import merge from "lodash/merge";
+import { PageBreadcrumb } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
 /**
  * @beta
  */
-export const useCms = (rootContext: ApplicationVueContext): any => {
+export const useCms = (
+  rootContext: ApplicationVueContext
+): {
+  page: Ref<Readonly<PageResolverProductResult | PageResolverResult<CmsPage>>>;
+  categoryId: ComputedRef<string>;
+  loading: Ref<boolean>;
+  search: (path: string, query?: any) => Promise<void>;
+  error: Ref<any>;
+  getBreadcrumbsObject: ComputedRef<PageBreadcrumb>;
+} => {
   const { vuexStore, apiInstance } = getApplicationContext(
     rootContext,
     "useCms"
@@ -24,9 +34,9 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
   const { getDefaults } = useDefaults(rootContext, "useCms");
   const error: Ref<any> = ref(null);
   const loading: Ref<boolean> = ref(false);
-  const page: Ref<Readonly<
-    PageResolverProductResult | PageResolverResult<CmsPage>
-  >> = computed(() => {
+  const page: Ref<
+    Readonly<PageResolverProductResult | PageResolverResult<CmsPage>>
+  > = computed(() => {
     return vuexStore.getters.getPage;
   });
   // TODO: rename it to something more obvious, or just leav as resourceIdentifier
@@ -39,7 +49,7 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
   /**
    * @beta
    */
-  const search = async (path: string, query?: any) => {
+  const search = async (path: string, query?: any): Promise<void> => {
     loading.value = true;
 
     const criteria: SearchCriteria = parseUrlQuery(query);
@@ -63,7 +73,7 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
     search,
     error,
     getBreadcrumbsObject: computed(
-      () => (page.value && (page.value as any).breadcrumb) || []
+      () => (page.value && (page.value as any).breadcrumb) || {}
     ),
   };
 };

@@ -53,6 +53,9 @@ import PersonalDetailsStep from "@/components/checkout/steps/PersonalDetailsStep
 import ShippingStep from "@/components/checkout/steps/ShippingStep"
 import OrderReviewStep from "@/components/checkout/steps/OrderReviewStep"
 import { CHECKOUT_STEPS, useUICheckoutPage } from "@/logic/checkout"
+import { PAGE_CHECKOUT } from "@/helpers/pages"
+import { useBreadcrumbs } from "@shopware-pwa/composables"
+import { onBeforeUnmount } from "@vue/composition-api"
 
 export default {
   name: "CheckoutPage",
@@ -65,9 +68,16 @@ export default {
     SidebarOrderSummary,
     SidebarOrderReview,
   },
-  setup(props, { root }) {
+  setup({}, { root }) {
     const { currentStep, nextStep } = useUICheckoutPage(root)
+    const { setBreadcrumbs } = useBreadcrumbs(root)
 
+    setBreadcrumbs([
+      {
+        text: root.$t("Checkout"),
+        link: root.$routing.getUrl(PAGE_CHECKOUT),
+      },
+    ])
     return {
       currentStep,
       nextStep,

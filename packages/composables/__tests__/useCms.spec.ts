@@ -41,7 +41,7 @@ describe("Composables - useCms", () => {
     } as any;
     mockedGetPage.getCmsPage.mockResolvedValueOnce(response);
     expect(page.value).toEqual(null);
-    await search();
+    await search(undefined as any);
     expect(page.value).toBeTruthy();
     expect(page.value.resourceIdentifier).toEqual(
       "3f637f17cd9f4891a2d7625d19fb37c9"
@@ -54,7 +54,7 @@ describe("Composables - useCms", () => {
       message: "Something went wrong...",
     });
     expect(page.value).toEqual(null);
-    await search();
+    await search(undefined as any);
     expect(page.value).toEqual(null);
     expect(error.value).toBeTruthy();
     expect(error.value).toStrictEqual({ message: "Something went wrong..." });
@@ -171,7 +171,7 @@ describe("Composables - useCms", () => {
     } as any;
     mockedGetPage.getCmsPage.mockResolvedValueOnce(response);
     expect(categoryId.value).toBeNull();
-    await search();
+    await search(undefined as any);
     expect(categoryId.value).toEqual("3f637f17cd9f4891a2d7625d19fb37c9");
   });
 
@@ -193,8 +193,8 @@ describe("Composables - useCms", () => {
           apiAlias: "pwa_page_result",
         } as any;
         mockedGetPage.getCmsPage.mockResolvedValueOnce(response);
-        expect(getBreadcrumbsObject.value).toEqual([]);
-        await search();
+        expect(getBreadcrumbsObject.value).toEqual({});
+        await search(undefined as any);
         expect(getBreadcrumbsObject.value).toEqual({
           qwe: {
             name: "Some Category",

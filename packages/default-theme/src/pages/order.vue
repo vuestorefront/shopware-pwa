@@ -16,8 +16,8 @@
 <script>
 import { SfHeading, SfIcon, SfDivider } from "@storefront-ui/vue"
 import { computed } from "@vue/composition-api"
+import { useBreadcrumbs } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton"
-
 import SwOrderDetails from "@/components/SwOrderDetails"
 
 export default {
@@ -32,7 +32,15 @@ export default {
   data() {
     return {}
   },
-  setup(params, { root }) {
+  setup({}, { root }) {
+    const { setBreadcrumbs } = useBreadcrumbs(root)
+    setBreadcrumbs([
+      {
+        text: root.$t("Thank you"),
+        link: "/",
+      },
+    ])
+
     const orderId = computed(() => root.$route.query.orderId)
 
     return {
