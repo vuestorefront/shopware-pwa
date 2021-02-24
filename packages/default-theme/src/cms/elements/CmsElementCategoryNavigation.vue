@@ -9,7 +9,7 @@
         <SfAccordionItem
           v-for="accordion in navigation"
           :key="accordion.id"
-          :header="accordion.name"
+          :header="accordion.translated.name"
         >
           <template #header="{ header, isOpen, accordionClick }">
             <div class="cms-element-category-navigation__menu-item">
@@ -35,20 +35,20 @@
             <SfList>
               <SfListItem v-for="item in accordion.children" :key="item.id">
                 <nuxt-link
-                  v-if="item.route && item.name"
+                  v-if="item.route && item.translated.name"
                   :to="$routing.getUrl(getCategoryUrl(item))"
                 >
-                  <SfMenuItem :label="item.name" />
+                  <SfMenuItem :label="item.translated.name" />
                 </nuxt-link>
               </SfListItem>
             </SfList>
           </template>
           <template v-else>
             <nuxt-link
-              v-if="accordion.route && accordion.name"
+              v-if="accordion.route && accordion.translated.name"
               :to="$routing.getUrl(getCategoryUrl(accordion))"
             >
-              {{ $t("See") }} {{ accordion.name }}
+              {{ $t("See") }} {{ accordion.translated.name }}
             </nuxt-link>
           </template>
         </SfAccordionItem>
@@ -65,8 +65,10 @@ import {
   SfHeading,
   SfChevron,
 } from "@storefront-ui/vue"
-import { getNavigation } from "@shopware-pwa/shopware-6-client"
-import { useCms } from "@shopware-pwa/composables"
+import { getStoreNavigation } from "@shopware-pwa/shopware-6-client"
+import { useCms, getApplicationContext } from "@shopware-pwa/composables"
+import { ref, computed, onMounted } from "@vue/composition-api"
+
 import SwButton from "@/components/atoms/SwButton"
 import { getCategoryUrl } from "@shopware-pwa/helpers"
 
@@ -86,31 +88,35 @@ export default {
       default: () => ({}),
     },
   },
-  setup(props, { root }) {
-    const { categoryId } = useCms(root)
-
-    return { categoryId, getCategoryUrl }
-  },
-  data() {
-    return {
-      navTitle: "Subcategories",
-      navigationElements: [],
-    }
-  },
-  computed: {
-    navigation() {
-      return this.navigationElements
-    },
-  },
-  async mounted() {
-    const { children } = await getNavigation(
-      {
-        depth: 2,
-        rootNode: this.categoryId,
-      },
-      this.$shopwareApiInstance
+  setup({}, { root }) {
+    const { apiInstance } = getApplicationContext(
+      root,
+      "CmsElementCategoryNavigation"
     )
-    this.navigationElements = children
+    const { categoryId } = useCms(root)
+    const navTitle = ref(root.$t("Subcategories"))
+    const navigationElements = ref([])
+    const navigation = computed(() => navigationElements.value)
+
+    onMounted(async () => {
+      try {
+        const response = await getStoreNavigation(
+          {
+            requestActiveId: categoryId.value,
+            requestRootId: categoryId.value,
+          },
+          apiInstance
+        )
+        navigationElements.value = response
+      } catch (error) {
+        console.warn(
+          "CmsElementCategoryNavigation:onMounted:getStoreNavigation",
+          error
+        )
+      }
+    })
+
+    return { navTitle, navigation, getCategoryUrl }
   },
 }
 </script>
