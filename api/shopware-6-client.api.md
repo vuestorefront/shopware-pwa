@@ -165,13 +165,13 @@ export function getAvailableCurrencies(contextInstance?: ShopwareApiInstance): P
 export function getAvailableLanguages(contextInstance?: ShopwareApiInstance): Promise<Language[]>;
 
 // @beta (undocumented)
-export function getAvailablePaymentMethods(contextInstance?: ShopwareApiInstance): Promise<PaymentMethod[]>;
+export function getAvailablePaymentMethods(contextInstance?: ShopwareApiInstance, params?: any): Promise<PaymentMethod[]>;
 
 // @beta
 export function getAvailableSalutations(contextInstance?: ShopwareApiInstance): Promise<SearchResult<Salutation[]>>;
 
 // @beta (undocumented)
-export function getAvailableShippingMethods(contextInstance?: ShopwareApiInstance): Promise<ShippingMethod[]>;
+export function getAvailableShippingMethods(contextInstance?: ShopwareApiInstance, params?: any): Promise<ShippingMethod[]>;
 
 // @beta
 export function getCart(contextInstance?: ShopwareApiInstance): Promise<Cart>;
