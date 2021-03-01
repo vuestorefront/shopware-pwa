@@ -101,9 +101,9 @@ import {
 import { SfIcon } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
 import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
-import SwButton from "@/components/atoms/SwButton"
-import SwInput from "@/components/atoms/SwInput"
-import SwErrorsList from "@/components/SwErrorsList"
+import SwButton from "@/components/atoms/SwButton.vue"
+import SwInput from "@/components/atoms/SwInput.vue"
+import SwErrorsList from "@/components/SwErrorsList.vue"
 
 export default {
   name: "SwPersonalInfo",

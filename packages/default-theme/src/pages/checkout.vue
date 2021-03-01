@@ -46,12 +46,12 @@
 </template>
 <script>
 import { SfSteps } from "@storefront-ui/vue"
-import SidebarOrderReview from "@/components/checkout/sidebar/SidebarOrderReview"
-import SidebarOrderSummary from "@/components/checkout/sidebar/SidebarOrderSummary"
-import PaymentStep from "@/components/checkout/steps/PaymentStep"
-import PersonalDetailsStep from "@/components/checkout/steps/PersonalDetailsStep"
-import ShippingStep from "@/components/checkout/steps/ShippingStep"
-import OrderReviewStep from "@/components/checkout/steps/OrderReviewStep"
+import SidebarOrderReview from "@/components/checkout/sidebar/SidebarOrderReview.vue"
+import SidebarOrderSummary from "@/components/checkout/sidebar/SidebarOrderSummary.vue"
+import PaymentStep from "@/components/checkout/steps/PaymentStep.vue"
+import PersonalDetailsStep from "@/components/checkout/steps/PersonalDetailsStep.vue"
+import ShippingStep from "@/components/checkout/steps/ShippingStep.vue"
+import OrderReviewStep from "@/components/checkout/steps/OrderReviewStep.vue"
 import { CHECKOUT_STEPS, useUICheckoutPage } from "@/logic/checkout"
 
 export default {

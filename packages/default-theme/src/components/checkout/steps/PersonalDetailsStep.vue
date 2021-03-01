@@ -7,8 +7,8 @@
 <script>
 import { useCheckout } from "@shopware-pwa/composables"
 
-import PersonalDetailsGuestForm from "@/components/checkout/steps/guest/PersonalDetailsGuestForm"
-import PersonalDetailsUserForm from "@/components/checkout/steps/user/PersonalDetailsUserForm"
+import PersonalDetailsGuestForm from "@/components/checkout/steps/guest/PersonalDetailsGuestForm.vue"
+import PersonalDetailsUserForm from "@/components/checkout/steps/user/PersonalDetailsUserForm.vue"
 
 export default {
   name: "PersonalDetailsStep",

@@ -111,7 +111,7 @@ import {
   useCountry,
 } from "@shopware-pwa/composables"
 import { computed } from "@vue/composition-api"
-import SwInput from "@/components/atoms/SwInput"
+import SwInput from "@/components/atoms/SwInput.vue"
 
 export default {
   name: "ShippingAddressGuestForm",

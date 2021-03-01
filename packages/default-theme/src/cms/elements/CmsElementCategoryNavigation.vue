@@ -69,7 +69,7 @@ import { getStoreNavigation } from "@shopware-pwa/shopware-6-client"
 import { useCms, getApplicationContext } from "@shopware-pwa/composables"
 import { ref, computed, onMounted } from "@vue/composition-api"
 
-import SwButton from "@/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton.vue"
 import { getCategoryUrl } from "@shopware-pwa/helpers"
 
 export default {

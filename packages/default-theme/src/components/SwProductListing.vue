@@ -85,8 +85,8 @@
 </template>
 
 <script>
-import SwProductCard from "@/components/SwProductCard"
-import SwProductCardHorizontal from "@/components/SwProductCardHorizontal"
+import SwProductCard from "@/components/SwProductCard.vue"
+import SwProductCardHorizontal from "@/components/SwProductCardHorizontal.vue"
 import { SfPagination, SfHeading, SfLoader } from "@storefront-ui/vue"
 import { useUIState, useListing } from "@shopware-pwa/composables"
 import { watch } from "@vue/composition-api"

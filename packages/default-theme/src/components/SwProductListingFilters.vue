@@ -108,8 +108,8 @@ import {
 import { computed, ref } from "@vue/composition-api"
 
 import { useUIState, useListing } from "@shopware-pwa/composables"
-import SwButton from "@/components/atoms/SwButton"
-import SwProductListingFilter from "@/components/listing/SwProductListingFilter"
+import SwButton from "@/components/atoms/SwButton.vue"
+import SwProductListingFilter from "@/components/listing/SwProductListingFilter.vue"
 
 export default {
   name: "CmsElementCategorySidebarFilter",

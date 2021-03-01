@@ -132,10 +132,10 @@ import {
   SfMenuItem,
 } from "@storefront-ui/vue"
 import { useUIState, useUser, useCart } from "@shopware-pwa/composables"
-import SwBottomMenu from "@/components/SwBottomMenu"
+import SwBottomMenu from "@/components/SwBottomMenu.vue"
 import { PAGE_ACCOUNT } from "@/helpers/pages"
 import { getCategoryUrl } from "@shopware-pwa/helpers"
-import SwBottomMoreActions from "@/components/SwBottomMoreActions"
+import SwBottomMoreActions from "@/components/SwBottomMoreActions.vue"
 
 export default {
   name: "SwBottomNavigation",

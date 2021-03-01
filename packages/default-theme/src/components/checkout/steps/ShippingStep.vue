@@ -75,16 +75,16 @@
 <script>
 import { SfHeading, SfRadio } from "@storefront-ui/vue"
 import { computed, onMounted } from "@vue/composition-api"
-import ShippingAddressGuestForm from "@/components/checkout/steps/guest/ShippingAddressGuestForm"
-import ShippingAddressUserForm from "@/components/checkout/steps/user/ShippingAddressUserForm"
+import ShippingAddressGuestForm from "@/components/checkout/steps/guest/ShippingAddressGuestForm.vue"
+import ShippingAddressUserForm from "@/components/checkout/steps/user/ShippingAddressUserForm.vue"
 import {
   useCheckout,
   useSessionContext,
   useCart,
 } from "@shopware-pwa/composables"
-import SwButton from "@/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton.vue"
 import { simplifyString } from "@/helpers"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 
 export default {
   name: "ShippingStep",

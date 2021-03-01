@@ -12,8 +12,8 @@
 </template>
 <script>
 import { useCheckout } from "@shopware-pwa/composables"
-import SwAddress from "@/components/SwAddress"
-import SwButton from "@/components/atoms/SwButton"
+import SwAddress from "@/components/SwAddress.vue"
+import SwButton from "@/components/atoms/SwButton.vue"
 
 export default {
   name: "BillingAddressSummary",

@@ -57,7 +57,7 @@ import {
   SfPrice,
 } from "@storefront-ui/vue"
 import { clickOutside } from "@storefront-ui/vue/src/utilities/directives"
-import Button from "@/components/atoms/SwButton"
+import Button from "@/components/atoms/SwButton.vue"
 import {
   getProductMainImageUrl,
   getProductRegularPrice,

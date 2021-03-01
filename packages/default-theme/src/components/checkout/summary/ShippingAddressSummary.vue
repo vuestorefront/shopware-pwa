@@ -19,10 +19,10 @@
   </SwAddress>
 </template>
 <script>
-import SwButton from "@/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton.vue"
 import { useSessionContext, useCheckout } from "@shopware-pwa/composables"
-import SwAddress from "@/components/SwAddress"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwAddress from "@/components/SwAddress.vue"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { simplifyString } from "@/helpers"
 
 export default {

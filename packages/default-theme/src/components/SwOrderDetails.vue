@@ -110,7 +110,7 @@ import {
 } from "@storefront-ui/vue"
 import { useUser, getApplicationContext } from "@shopware-pwa/composables"
 import { ref, onMounted, computed, watch } from "@vue/composition-api"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import {
   getOrderPaymentMethodId,
   getOrderShippingMethodId,
@@ -120,13 +120,13 @@ import {
   getPaymentMethodDetails,
   getOrderPaymentUrl,
 } from "@shopware-pwa/shopware-6-client"
-import SwButton from "@/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton.vue"
 import { PAGE_ORDER_SUCCESS } from "@/helpers/pages"
-import SwOrderDetailsItem from "@/components/SwOrderDetailsItem"
-import SwPersonalDetails from "@/components/SwPersonalDetails"
-import SwAddress from "@/components/SwAddress"
-import SwCheckoutMethod from "@/components/SwCheckoutMethod"
-import SwTotals from "@/components/SwTotals"
+import SwOrderDetailsItem from "@/components/SwOrderDetailsItem.vue"
+import SwPersonalDetails from "@/components/SwPersonalDetails.vue"
+import SwAddress from "@/components/SwAddress.vue"
+import SwCheckoutMethod from "@/components/SwCheckoutMethod.vue"
+import SwTotals from "@/components/SwTotals.vue"
 
 export default {
   name: "SwOrderDetails",
