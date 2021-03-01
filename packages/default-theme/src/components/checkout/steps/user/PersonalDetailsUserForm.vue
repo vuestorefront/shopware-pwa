@@ -10,7 +10,7 @@
       </template>
     </SwPersonalInfo>
     <SwButton
-      class="personal-details-user-form__proceed"
+      class="personal-details-user-form__proceed sf-button--full-width"
       @click="$emit('proceed')"
     >
       {{ $t("Continue to shipping") }}
