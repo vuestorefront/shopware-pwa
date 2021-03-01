@@ -207,7 +207,7 @@
   "Name Z-A": "Nazwy Z-A",
   "Price ascending": "Ceny rosnąco",
   "Price descending": "Ceny malejąco",
-  "Topseller": "TOP seller",
+  "Topseller": "Najczęściej kupowane",
   "manufacturer": "Producent",
   "price":"Cena",
   "rating":"Ocena",
@@ -216,5 +216,6 @@
   "size": "Rozmiar",
   "textile":"Materiał",
   "width":"Szerokość",
-  "Clear all": "Wyczyść filtry"
+  "Clear all": "Wyczyść filtry",
+  "Subcategories": "Podkategorie"
 }
