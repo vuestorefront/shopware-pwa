@@ -1,6 +1,6 @@
 <template>
   <div class="filter__max sf-review_">
-    <SfHeading class="filters__title" :level="4" :title="filter.label" />
+    <SfHeading class="filters__title" :level="4" :title="$t(filter.label)" />
     <div class="sf-review__rating">
       <SwRating
         :score="Number.parseInt(max)"

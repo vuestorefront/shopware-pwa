@@ -1,6 +1,6 @@
 <template>
   <div class="filter__max">
-    <SfHeading class="filters__title" :level="4" :title="filter.label" />
+    <SfHeading class="filters__title" :level="4" :title="$t(filter.label)" />
     <SfCheckbox
       v-model="selected"
       @change="
