@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import CmsPage from "sw-cms/CmsPage.vue"
+import CmsPage from "sw-cms/CmsPage"
 
 export default {
   name: "CategoryView",
