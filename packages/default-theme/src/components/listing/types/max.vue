@@ -13,8 +13,8 @@
 import { computed, ref } from "@vue/composition-api"
 
 const maxMap = {
-  "shipping-free": () => import(`@/components/listing/types/shipping-free.vue`),.vue"
-  rating: () => import(`@/components/listing/types/rating.vue`),.vue"
+  "shipping-free": () => import(`@/components/listing/types/shipping-free.vue`),
+  rating: () => import(`@/components/listing/types/rating.vue`),
 }
 
 export default {
