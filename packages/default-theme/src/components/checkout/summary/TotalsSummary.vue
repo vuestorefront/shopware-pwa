@@ -30,8 +30,7 @@
 </template>
 <script>
 import { useCart } from "@shopware-pwa/composables"
-import SwTotals from "@/components/SwTotals"
-import helpers from "@/helpers"
+import SwTotals from "@/components/SwTotals.vue"
 
 import {
   SfProperty,
@@ -39,7 +38,7 @@ import {
   SfHeading,
   SfNotification,
 } from "@storefront-ui/vue"
-import SwButton from "@/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton.vue"
 
 export default {
   name: "TotalsSummary",

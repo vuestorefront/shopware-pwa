@@ -14,7 +14,7 @@
 
 <script>
 import { SfFilter } from "@storefront-ui/vue"
-import NoFilterFound from "@/components/listing/NoFilterFound"
+import NoFilterFound from "@/components/listing/NoFilterFound.vue"
 import { simplifyString } from "@/helpers"
 
 export default {
@@ -52,7 +52,7 @@ export default {
       }
     },
     filterCode() {
-      return simplifyString(this.filter.label.toLowerCase())
+      return simplifyString(this.filter.label.toLowerCase(".vue"))
     },
     selectedValues() {
       return this.selectedFilters || []

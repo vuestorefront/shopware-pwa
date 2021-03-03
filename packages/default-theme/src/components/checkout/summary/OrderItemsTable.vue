@@ -19,7 +19,7 @@
 </template>
 <script>
 import { useCart } from "@shopware-pwa/composables"
-import OrderItem from "@/components/checkout/summary/OrderItem"
+import OrderItem from "@/components/checkout/summary/OrderItem.vue"
 
 import {
   SfTable,

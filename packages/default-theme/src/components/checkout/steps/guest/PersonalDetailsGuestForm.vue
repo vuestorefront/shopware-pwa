@@ -106,9 +106,9 @@
 </template>
 <script>
 import { SfCheckbox, SfHeading, SfCharacteristic } from "@storefront-ui/vue"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import SwButton from "@/components/atoms/SwButton"
-import SwInput from "@/components/atoms/SwInput"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
+import SwButton from "@/components/atoms/SwButton.vue"
+import SwInput from "@/components/atoms/SwInput.vue"
 
 import { validationMixin } from "vuelidate"
 import {
@@ -132,7 +132,7 @@ import {
   usePersonalDetailsStep,
   usePersonalDetailsStepValidationRules,
 } from "@/logic/checkout/usePersonalDetailsStep"
-import SwErrorsList from "@/components/SwErrorsList"
+import SwErrorsList from "@/components/SwErrorsList.vue"
 
 export default {
   name: "PersonalDetailsGuestForm",

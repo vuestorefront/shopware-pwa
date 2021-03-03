@@ -54,12 +54,12 @@
 <script>
 import { useNavigation, useUIState } from "@shopware-pwa/composables"
 
-import SwMegaMenu from "@/components/SwMegaMenu"
+import SwMegaMenu from "@/components/SwMegaMenu.vue"
 import { ref, onMounted, watch } from "@vue/composition-api"
 import { getCategoryUrl } from "@shopware-pwa/helpers"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { useDomains } from "@/logic"
-import SwTopNavigationShowMore from "@/components/SwTopNavigationShowMore"
+import SwTopNavigationShowMore from "@/components/SwTopNavigationShowMore.vue"
 
 export default {
   components: {

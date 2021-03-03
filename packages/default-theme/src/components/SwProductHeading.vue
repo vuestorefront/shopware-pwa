@@ -61,7 +61,7 @@ import {
 
 import { SfBadge, SfHeading, SfPrice, SfRating } from "@storefront-ui/vue"
 
-import SwTierPrices from "@/components/SwTierPrices"
+import SwTierPrices from "@/components/SwTierPrices.vue"
 
 export default {
   name: "SwProductHeading",

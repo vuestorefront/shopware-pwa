@@ -150,9 +150,9 @@ import {
   mapSalutations,
   getMessagesFromErrorsArray,
 } from "@shopware-pwa/helpers"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import SwButton from "@/components/atoms/SwButton"
-import SwInput from "@/components/atoms/SwInput"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
+import SwButton from "@/components/atoms/SwButton.vue"
+import SwInput from "@/components/atoms/SwInput.vue"
 
 export default {
   name: "SwResetPassword",

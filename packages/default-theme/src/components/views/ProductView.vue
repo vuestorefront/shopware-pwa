@@ -63,12 +63,12 @@
 <script>
 import { SfImage, SfSection, SfTabs } from "@storefront-ui/vue"
 import { useProduct, useUser, useUIState } from "@shopware-pwa/composables"
-import SwGoBackArrow from "@/components/atoms/SwGoBackArrow"
-import SwProductGallery from "@/components/SwProductGallery"
-import SwProductDetails from "@/components/SwProductDetails"
-import SwProductCarousel from "@/components/SwProductCarousel"
-import SwProductAdvertisement from "@/components/SwProductAdvertisement"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwGoBackArrow from "@/components/atoms/SwGoBackArrow.vue"
+import SwProductGallery from "@/components/SwProductGallery.vue"
+import SwProductDetails from "@/components/SwProductDetails.vue"
+import SwProductCarousel from "@/components/SwProductCarousel.vue"
+import SwProductAdvertisement from "@/components/SwProductAdvertisement.vue"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { computed, onMounted, ref } from "@vue/composition-api"
 
 export default {

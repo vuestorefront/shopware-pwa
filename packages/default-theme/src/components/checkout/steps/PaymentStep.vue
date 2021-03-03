@@ -65,12 +65,12 @@
 </template>
 <script>
 import { SfHeading, SfRadio } from "@storefront-ui/vue"
-import BillingAddressGuestForm from "@/components/checkout/steps/guest/BillingAddressGuestForm"
-import BillingAddressUserForm from "@/components/checkout/steps/user/BillingAddressUserForm"
+import BillingAddressGuestForm from "@/components/checkout/steps/guest/BillingAddressGuestForm.vue"
+import BillingAddressUserForm from "@/components/checkout/steps/user/BillingAddressUserForm.vue"
 import { useCheckout, useSessionContext } from "@shopware-pwa/composables"
 import { onMounted, computed } from "@vue/composition-api"
-import SwButton from "@/components/atoms/SwButton"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwButton from "@/components/atoms/SwButton.vue"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { simplifyString } from "@/helpers"
 
 export default {

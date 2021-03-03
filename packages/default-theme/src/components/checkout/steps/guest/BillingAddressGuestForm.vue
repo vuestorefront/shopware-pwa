@@ -115,7 +115,7 @@ import {
   usePaymentStepValidationRules,
 } from "@/logic/checkout/usePaymentStep"
 import { useCountries, useCountry } from "@shopware-pwa/composables"
-import SwInput from "@/components/atoms/SwInput"
+import SwInput from "@/components/atoms/SwInput.vue"
 
 export default {
   name: "BillingAddressGuestForm",

@@ -26,7 +26,7 @@
 <script>
 import { getCmsLink, getCmsLinkTarget } from "@shopware-pwa/helpers"
 import { SfImage } from "@storefront-ui/vue"
-import SwLink from "@/components/atoms/SwLink"
+import SwLink from "@/components/atoms/SwLink.vue"
 
 export default {
   name: "CmsElementImage",

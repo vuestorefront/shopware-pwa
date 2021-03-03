@@ -1,7 +1,7 @@
 <script>
 // import any extra components here
 import { SfLink } from "@storefront-ui/vue"
-import SwButton from "@/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton.vue"
 import { renderHtml, getOptionsFromNode } from "html-to-vue"
 export default {
   name: "CmsElementText",
