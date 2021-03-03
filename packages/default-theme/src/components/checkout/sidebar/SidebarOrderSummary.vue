@@ -47,7 +47,7 @@ import {
   SfCharacteristic,
 } from "@storefront-ui/vue"
 import { useCart } from "@shopware-pwa/composables"
-import SwPromoCode from "@/components/SwPromoCode"
+import SwPromoCode from "@/components/SwPromoCode.vue"
 
 export default {
   name: "SidebarOrderSummary",

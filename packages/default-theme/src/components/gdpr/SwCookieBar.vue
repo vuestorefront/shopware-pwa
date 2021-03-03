@@ -15,8 +15,9 @@
 
 <script>
 import { SfTopBar } from "@storefront-ui/vue"
-import SwButton from "@/components/atoms/SwButton"
-const SwCookieBarContent = () => import("@/components/gdpr/SwCookieBarContent")
+import SwButton from "@/components/atoms/SwButton.vue"
+const SwCookieBarContent = () =>
+  import("@/components/gdpr/SwCookieBarContent.vue")
 
 export default {
   name: "SwCookieBar",

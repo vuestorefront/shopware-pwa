@@ -4,12 +4,12 @@
   </div>
 </template>
 <script>
-import { useCms, useNotifications, useDomains } from "@shopware-pwa/composables"
-import languagesMap from "sw-plugins/languages"
+import { useCms, useNotifications } from "@shopware-pwa/composables"
 
 const pagesMap = {
-  "frontend.navigation.page": () => import("@/components/views/CategoryView"),
-  "frontend.detail.page": () => import("@/components/views/ProductView"),
+  "frontend.navigation.page": () =>
+    import("@/components/views/CategoryView.vue"),
+  "frontend.detail.page": () => import("@/components/views/ProductView.vue"),
 }
 
 export function getComponentBy(resourceType) {

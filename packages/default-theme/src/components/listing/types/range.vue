@@ -25,7 +25,7 @@
 import { computed, ref } from "@vue/composition-api"
 
 import { SfFilter, SfHeading } from "@storefront-ui/vue"
-import SwInput from "@/components/atoms/SwInput"
+import SwInput from "@/components/atoms/SwInput.vue"
 import { validationMixin } from "vuelidate"
 import { required, email } from "vuelidate/lib/validators"
 

@@ -2,7 +2,7 @@
   <entity v-bind="{ ...$props, ...$attrs }" v-on="$listeners" />
 </template>
 <script>
-import Entity from "@/components/listing/types/entity"
+import Entity from "@/components/listing/types/entity.vue"
 
 export default {
   components: {

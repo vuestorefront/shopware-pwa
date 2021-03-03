@@ -22,8 +22,8 @@ import { SfLoader } from "@storefront-ui/vue"
 import { useUIState, useListing } from "@shopware-pwa/composables"
 
 import { computed, ref } from "@vue/composition-api"
-import SwProductListing from "@/components/SwProductListing"
-import SwProductListingFilters from "@/components/SwProductListingFilters"
+import SwProductListing from "@/components/SwProductListing.vue"
+import SwProductListingFilters from "@/components/SwProductListingFilters.vue"
 
 export default {
   name: "SearchResultsPage",

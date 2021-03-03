@@ -2,7 +2,7 @@
   <Range v-bind="{ ...$props, ...$attrs }" v-on="$listeners" />
 </template>
 <script>
-import Range from "@/components/listing/types/range"
+import Range from "@/components/listing/types/range.vue"
 
 export default {
   components: {
