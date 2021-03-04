@@ -16,9 +16,9 @@
 <script>
 import { SfHeading, SfIcon, SfDivider } from "@storefront-ui/vue"
 import { computed } from "@vue/composition-api"
-import SwButton from "@/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton.vue"
 
-import SwOrderDetails from "@/components/SwOrderDetails"
+import SwOrderDetails from "@/components/SwOrderDetails.vue"
 
 export default {
   name: "OrderPage",

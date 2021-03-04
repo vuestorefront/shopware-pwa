@@ -75,8 +75,8 @@ import {
   useWishlist,
 } from "@shopware-pwa/composables"
 import { PAGE_ACCOUNT, PAGE_WISHLIST } from "@/helpers/pages"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import SwButton from "@/components/atoms/SwButton"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
+import SwButton from "@/components/atoms/SwButton.vue"
 
 export default {
   components: {

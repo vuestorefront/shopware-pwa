@@ -45,9 +45,9 @@
           </template>
         </SfRadio>
       </div>
-      <div class="form__action">
+      <div class="sw-form__action">
         <SwButton
-          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary desktop-only sw-form__button"
+          class="sf-button--full-width form__action-button form__action-button--secondary color-secondary sw-form__button"
           @click="$emit('click:back')"
         >
           {{ $t("Go back to Shipping") }}
@@ -59,24 +59,18 @@
         >
           {{ $t("Review order") }}
         </SwButton>
-        <SwButton
-          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only sw-form__button"
-          @click="$emit('click:back')"
-        >
-          {{ $t("Go back to Shipping") }}
-        </SwButton>
       </div>
     </div>
   </div>
 </template>
 <script>
 import { SfHeading, SfRadio } from "@storefront-ui/vue"
-import BillingAddressGuestForm from "@/components/checkout/steps/guest/BillingAddressGuestForm"
-import BillingAddressUserForm from "@/components/checkout/steps/user/BillingAddressUserForm"
+import BillingAddressGuestForm from "@/components/checkout/steps/guest/BillingAddressGuestForm.vue"
+import BillingAddressUserForm from "@/components/checkout/steps/user/BillingAddressUserForm.vue"
 import { useCheckout, useSessionContext } from "@shopware-pwa/composables"
 import { onMounted, computed } from "@vue/composition-api"
-import SwButton from "@/components/atoms/SwButton"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwButton from "@/components/atoms/SwButton.vue"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { simplifyString } from "@/helpers"
 
 export default {
@@ -110,7 +104,21 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/forms";
+.sw-form {
+  &__action {
+    width: 100%;
+    margin-top: var(--spacer-xl);
+    display: table;
 
+    button {
+      display: table-cell;
+      width: 100%;
+      @include for-desktop {
+        width: 50%;
+      }
+    }
+  }
+}
 .title {
   --heading-padding: var(--spacer-base) 0;
   @include for-desktop {

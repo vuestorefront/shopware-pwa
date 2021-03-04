@@ -5,7 +5,7 @@
       'filters__filter--color': filter.name === 'color',
     }"
   >
-    <SfHeading class="filters__title" :level="4" :title="filter.label" />
+    <SfHeading class="filters__title" :level="4" :title="$t(filter.label)" />
     <SfFilter
       v-for="option in getOptions"
       :key="option.id"

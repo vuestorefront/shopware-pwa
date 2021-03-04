@@ -16,9 +16,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: "12.x"
+          node-version: "14"
       - name: Cache node_modules
         uses: actions/cache@v2
         id: step-cache-node-modules
@@ -44,9 +44,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: "12.x"
+          node-version: "14"
       - name: Check hash for directory packages/cli
         id: folder-hash-step-cli
         run: |
@@ -88,9 +88,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: "12.x"
+          node-version: "14"
       - name: Check hash for directory packages/composables
         id: folder-hash-step-composables
         run: |
@@ -131,9 +131,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: "12.x"
+          node-version: "14"
       - name: Check hash for directory packages/helpers
         id: folder-hash-step-helpers
         run: |
@@ -174,9 +174,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: "12.x"
+          node-version: "14"
       - name: Check hash for directory packages/nuxt-module
         id: folder-hash-step-nuxt-module
         run: |
@@ -217,9 +217,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: "12.x"
+          node-version: "14"
       - name: Check hash for directory packages/shopware-6-client
         id: folder-hash-step-shopware-6-client
         run: |
@@ -260,9 +260,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: "12.x"
+          node-version: "14"
       - name: Check hash for directory packages/default-theme
         id: folder-hash-step-default-theme
         run: |
@@ -311,9 +311,9 @@ jobs:
         with:
           fetch-depth: 0
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: "12.x"
+          node-version: "14"
           registry-url: https://registry.npmjs.org/
       - name: Cache cli build
         uses: actions/cache@v2

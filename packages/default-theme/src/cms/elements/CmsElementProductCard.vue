@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import SwProductCard from "@/components/SwProductCard"
+import SwProductCard from "@/components/SwProductCard.vue"
 
 export default {
   components: {

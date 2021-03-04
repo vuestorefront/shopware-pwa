@@ -1,6 +1,6 @@
 # Shopware PWA
 
-[![CircleCI](https://circleci.com/gh/DivanteLtd/shopware-pwa.svg?style=svg)](https://circleci.com/gh/DivanteLtd/shopware-pwa) [![Coverage Status](https://coveralls.io/repos/github/DivanteLtd/shopware-pwa/badge.svg?branch=master)](https://coveralls.io/github/DivanteLtd/shopware-pwa) [![Snyk badge](https://snyk.io/test/github/DivanteLtd/shopware-pwa/badge.svg)](https://snyk.io/)
+[![CircleCI](https://circleci.com/gh/vuestorefront/shopware-pwa.svg?style=svg)](https://circleci.com/gh/DivanteLtd/shopware-pwa) [![Coverage Status](https://coveralls.io/repos/github/DivanteLtd/shopware-pwa/badge.svg?branch=master)](https://coveralls.io/github/DivanteLtd/shopware-pwa) [![Snyk badge](https://snyk.io/test/github/DivanteLtd/shopware-pwa/badge.svg)](https://snyk.io/)
 
 <a href="https://shopware-pwa-docs.vuestorefront.io" target="_blank" rel=”noopener”>Documentation</a>
 

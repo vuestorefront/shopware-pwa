@@ -9,6 +9,7 @@ const defaultConfig = {
   shopwareEndpoint: "https://pwa.swstage.store",
   shopwareAccessToken: "SWSCD1BWSUFUQVDHUEPHATRPTW",
   theme: "@shopware-pwa/default-theme",
+  pwaHost: "https://pwa.swstage.store",
   shopwareApiClient: {
     timeout: 10000,
   },
