@@ -23,7 +23,7 @@ export const useDomains = (rootContext) => {
   )
   const trimDomain = (url) =>
     url.replace(
-      routing.getCurrentDomain.value ? routing.getCurrentDomain.value?.url : "",
+      routing.getCurrentDomain.value ? routing.getCurrentDomain.value.url : "",
       ""
     )
   const getCurrentPathWithoutDomain = () =>
