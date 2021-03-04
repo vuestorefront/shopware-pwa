@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import SwFooterNavigation from "@/components/organisms/SwFooterNavigation"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
+import SwFooterNavigation from "@/components/organisms/SwFooterNavigation.vue"
 
 export default {
   name: "SwFooter",

@@ -33,8 +33,8 @@
 
 <script>
 import { SfTabs } from "@storefront-ui/vue"
-import SwPassword from "@/components/forms/SwPassword"
-import SwPersonalInfo from "@/components/forms/SwPersonalInfo"
+import SwPassword from "@/components/forms/SwPassword.vue"
+import SwPersonalInfo from "@/components/forms/SwPersonalInfo.vue"
 
 export default {
   name: "MyProfile",

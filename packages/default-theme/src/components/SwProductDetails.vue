@@ -87,12 +87,12 @@ export default {
     SfAlert,
     SfAddToCart,
     SfLoader,
-    SwButton: () => import("@/components/atoms/SwButton"),
-    SwProductHeading: () => import("@/components/SwProductHeading"),
-    SwProductSelect: () => import("@/components/SwProductSelect"),
-    SwProductTabs: () => import("@/components/SwProductTabs"),
-    SwProductColors: () => import("@/components/SwProductColors"),
-    SwPluginSlot: () => import("sw-plugins/SwPluginSlot"),
+    SwButton: () => import("@/components/atoms/SwButton.vue"),
+    SwProductHeading: () => import("@/components/SwProductHeading.vue"),
+    SwProductSelect: () => import("@/components/SwProductSelect.vue"),
+    SwProductTabs: () => import("@/components/SwProductTabs.vue"),
+    SwProductColors: () => import("@/components/SwProductColors.vue"),
+    SwPluginSlot: () => import("sw-plugins/SwPluginSlot.vue"),
   },
   props: {
     product: {
