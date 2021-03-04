@@ -10,7 +10,9 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getAvailableShippingMethods(contextInstance?: ShopwareApiInstance, params?: any): Promise<ShippingMethod[]>;
+export declare function getAvailableShippingMethods(contextInstance?: ShopwareApiInstance, params?: {
+    onlyAvailable?: boolean;
+}): Promise<ShippingMethod[]>;
 ```
 
 ## Parameters
@@ -18,7 +20,7 @@ export declare function getAvailableShippingMethods(contextInstance?: ShopwareAp
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
-|  params | any |  |
+|  params | { onlyAvailable?: boolean; } |  |
 
 <b>Returns:</b>
 
