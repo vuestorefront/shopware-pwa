@@ -33,9 +33,9 @@
 </template>
 
 <script>
-import SwInput from "@/components/atoms/SwInput"
+import SwInput from "@/components/atoms/SwInput.vue"
 import { SfCircleIcon, SfHeading } from "@storefront-ui/vue"
-import SwPromoCodeItem from "@/components/SwPromoCodeItem"
+import SwPromoCodeItem from "@/components/SwPromoCodeItem.vue"
 import { useCart } from "@shopware-pwa/composables"
 import { computed } from "@vue/composition-api"
 

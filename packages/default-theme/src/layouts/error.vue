@@ -30,7 +30,7 @@
 </template>
 <script>
 import { SfHeading, SfIcon, SfImage } from "@storefront-ui/vue"
-import SwButton from "@/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton.vue"
 
 const customMessageDictionary = {
   404: "We can't find what you are looking for. Are you lost?",

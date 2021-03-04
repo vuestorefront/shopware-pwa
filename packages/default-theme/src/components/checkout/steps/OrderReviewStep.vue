@@ -40,13 +40,13 @@
 </template>
 
 <script>
-import PersonalDetailsSummary from "@/components/checkout/summary/PersonalDetailsSummary"
-import ShippingAddressSummary from "@/components/checkout/summary/ShippingAddressSummary"
-import BillingAddressSummary from "@/components/checkout/summary/BillingAddressSummary"
-import PaymentMethodSummary from "@/components/checkout/summary/PaymentMethodSummary"
-import OrderItemsTable from "@/components/checkout/summary/OrderItemsTable"
-import TotalsSummary from "@/components/checkout/summary/TotalsSummary"
-import SwCartProduct from "@/components/SwCartProduct"
+import PersonalDetailsSummary from "@/components/checkout/summary/PersonalDetailsSummary.vue"
+import ShippingAddressSummary from "@/components/checkout/summary/ShippingAddressSummary.vue"
+import BillingAddressSummary from "@/components/checkout/summary/BillingAddressSummary.vue"
+import PaymentMethodSummary from "@/components/checkout/summary/PaymentMethodSummary.vue"
+import OrderItemsTable from "@/components/checkout/summary/OrderItemsTable.vue"
+import TotalsSummary from "@/components/checkout/summary/TotalsSummary.vue"
+import SwCartProduct from "@/components/SwCartProduct.vue"
 
 import { SfHeading, SfAccordion } from "@storefront-ui/vue"
 import { useCart } from "@shopware-pwa/composables"

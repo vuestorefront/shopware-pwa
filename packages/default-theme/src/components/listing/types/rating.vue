@@ -1,6 +1,6 @@
 <template>
   <div class="filter__max sf-review_">
-    <SfHeading class="filters__title" :level="4" :title="filter.label" />
+    <SfHeading class="filters__title" :level="4" :title="$t(filter.label)" />
     <div class="sf-review__rating">
       <SwRating
         :score="Number.parseInt(max)"
@@ -14,7 +14,7 @@
 <script>
 import { computed, ref } from "@vue/composition-api"
 import { SfRating, SfIcon, SfHeading } from "@storefront-ui/vue"
-import SwRating from "@/components/atoms/SwRating"
+import SwRating from "@/components/atoms/SwRating.vue"
 
 export default {
   components: {

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import SwProductListing from "@/components/SwProductListing"
+import SwProductListing from "@/components/SwProductListing.vue"
 
 export default {
   name: "CmsElementProductListing",

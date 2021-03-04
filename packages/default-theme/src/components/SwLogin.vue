@@ -52,9 +52,9 @@ import { SfAlert } from "@storefront-ui/vue"
 import { validationMixin } from "vuelidate"
 import { required, email } from "vuelidate/lib/validators"
 import { useUser, useSessionContext } from "@shopware-pwa/composables"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import SwButton from "@/components/atoms/SwButton"
-import SwInput from "@/components/atoms/SwInput"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
+import SwButton from "@/components/atoms/SwButton.vue"
+import SwInput from "@/components/atoms/SwInput.vue"
 
 export default {
   name: "SwLogin",

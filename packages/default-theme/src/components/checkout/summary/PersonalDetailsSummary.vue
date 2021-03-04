@@ -11,12 +11,12 @@
   </SwPersonalDetails>
 </template>
 <script>
-import SwButton from "@/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton.vue"
 import { usePersonalDetailsStep } from "@/logic/checkout/usePersonalDetailsStep"
 import { CHECKOUT_STEPS } from "@/logic/checkout"
 import { useCheckout, useUser } from "@shopware-pwa/composables"
 import { computed } from "@vue/composition-api"
-import SwPersonalDetails from "@/components/SwPersonalDetails"
+import SwPersonalDetails from "@/components/SwPersonalDetails.vue"
 
 export default {
   name: "PersonalDetailsSummary",
