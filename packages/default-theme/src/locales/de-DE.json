@@ -192,6 +192,7 @@
   "Promotion code added successfully": "Rabattcode wurde erfolgreich angewendet",
   "Promotion code does not exist": "Rabattcode existiert nicht",
   "{productName} has been added to cart.": "{productName} wurde dem Warenkorb hinzugefügt.",
+  "{productName} has been added to wishlist.": "{productName} wurde zur Wunschliste hinzugefügt.",
   "There is no available product for selected options": "Für ausgewählte Optionen ist kein Produkt verfügbar",
   "Leave a review!": "Hinterlassen Sie eine Bewertung!",
   "Share your experiences with other customers.": "Teilen Sie Ihre Erfahrungen mit anderen Kunden.",
