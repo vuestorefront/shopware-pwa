@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "query-string": "^6.14.0"
+    "query-string": "^6.14.1"
   },
   "devDependencies": {
     "@types/query-string": "^6.3.0"

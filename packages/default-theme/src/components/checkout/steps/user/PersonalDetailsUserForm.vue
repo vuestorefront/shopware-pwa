@@ -10,7 +10,7 @@
       </template>
     </SwPersonalInfo>
     <SwButton
-      class="personal-details-user-form__proceed"
+      class="personal-details-user-form__proceed sf-button--full-width"
       @click="$emit('proceed')"
     >
       {{ $t("Continue to shipping") }}
@@ -19,8 +19,8 @@
 </template>
 <script>
 import { SfHeading } from "@storefront-ui/vue"
-import SwPersonalInfo from "@/components/forms/SwPersonalInfo"
-import SwButton from "@/components/atoms/SwButton"
+import SwPersonalInfo from "@/components/forms/SwPersonalInfo.vue"
+import SwButton from "@/components/atoms/SwButton.vue"
 
 export default {
   name: "ShippingAddressUserForm",

@@ -28,7 +28,7 @@
 
 <script>
 import SwAddressList from "@/components/SwAddressList.vue"
-import SwButton from "@/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton.vue"
 import { SfTabs } from "@storefront-ui/vue"
 export default {
   name: "MyAddresses",

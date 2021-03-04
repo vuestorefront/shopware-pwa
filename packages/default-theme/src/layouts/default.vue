@@ -32,16 +32,16 @@
 
 <script>
 import { SfBreadcrumbs } from "@storefront-ui/vue"
-import SwHeader from "@/components/SwHeader"
-import SwBottomNavigation from "@/components/SwBottomNavigation"
-import SwFooter from "@/components/SwFooter"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwHeader from "@/components/SwHeader.vue"
+import SwBottomNavigation from "@/components/SwBottomNavigation.vue"
+import SwFooter from "@/components/SwFooter.vue"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { useCms, useUIState } from "@shopware-pwa/composables"
 import { computed, ref, watchEffect } from "@vue/composition-api"
-import SwLoginModal from "@/components/modals/SwLoginModal"
-import SwNotifications from "@/components/SwNotifications"
-import SwOfflineMode from "@/components/SwOfflineMode"
-const SwCart = () => import("@/components/SwCart")
+import SwLoginModal from "@/components/modals/SwLoginModal.vue"
+import SwNotifications from "@/components/SwNotifications.vue"
+import SwOfflineMode from "@/components/SwOfflineMode.vue"
+const SwCart = () => import("@/components/SwCart.vue")
 
 export default {
   components: {

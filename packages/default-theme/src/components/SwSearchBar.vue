@@ -32,7 +32,7 @@ import {
   unMapMobileObserver,
 } from "@storefront-ui/vue/src/utilities/mobile-observer"
 import { debounce } from "@shopware-pwa/helpers"
-const SwSuggestSearch = () => import("@/components/SwSuggestSearch")
+const SwSuggestSearch = () => import("@/components/SwSuggestSearch.vue")
 
 export default {
   components: {
