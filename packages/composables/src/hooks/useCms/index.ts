@@ -24,9 +24,9 @@ export const useCms = (rootContext: ApplicationVueContext): any => {
   const { getDefaults } = useDefaults(rootContext, "useCms");
   const error: Ref<any> = ref(null);
   const loading: Ref<boolean> = ref(false);
-  const page: Ref<Readonly<
-    PageResolverProductResult | PageResolverResult<CmsPage>
-  >> = computed(() => {
+  const page: Ref<
+    Readonly<PageResolverProductResult | PageResolverResult<CmsPage>>
+  > = computed(() => {
     return vuexStore.getters.getPage;
   });
   // TODO: rename it to something more obvious, or just leav as resourceIdentifier
