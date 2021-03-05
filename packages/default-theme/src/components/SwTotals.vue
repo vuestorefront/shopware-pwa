@@ -31,7 +31,7 @@
 <script>
 import { SfProperty, SfHeading } from "@storefront-ui/vue"
 
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 
 export default {
   name: "SwTotals",

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import SwProductListingFilters from "@/components/SwProductListingFilters"
+import SwProductListingFilters from "@/components/SwProductListingFilters.vue"
 
 export default {
   name: "CmsElementCategorySidebarFilter",

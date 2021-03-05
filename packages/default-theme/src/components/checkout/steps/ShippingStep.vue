@@ -54,25 +54,19 @@
           </template>
         </SfRadio>
       </div>
-      <div class="form__action">
+      <div class="sw-form__action">
         <SwButton
-          class="form__action-button color-secondary desktop-only"
+          class="sw-form__action-button color-secondary"
           @click="$emit('retreat')"
         >
           {{ $t("Go back to Personal details") }}
         </SwButton>
         <SwButton
-          class="sf-button--full-width form__action-button sw-form__button"
+          class="sw-form__action-button sw-form__button"
           data-cy="continue-to-payment"
           @click="$emit('proceed')"
         >
           {{ $t("Continue to payment") }}
-        </SwButton>
-        <SwButton
-          class="sf-button--full-width sf-button--text form__action-button form__action-button--secondary mobile-only sw-form__button"
-          @click="$emit('retreat')"
-        >
-          {{ $t("Go back to Personal details") }}
         </SwButton>
       </div>
     </div>
@@ -81,16 +75,16 @@
 <script>
 import { SfHeading, SfRadio } from "@storefront-ui/vue"
 import { computed, onMounted } from "@vue/composition-api"
-import ShippingAddressGuestForm from "@/components/checkout/steps/guest/ShippingAddressGuestForm"
-import ShippingAddressUserForm from "@/components/checkout/steps/user/ShippingAddressUserForm"
+import ShippingAddressGuestForm from "@/components/checkout/steps/guest/ShippingAddressGuestForm.vue"
+import ShippingAddressUserForm from "@/components/checkout/steps/user/ShippingAddressUserForm.vue"
 import {
   useCheckout,
   useSessionContext,
   useCart,
 } from "@shopware-pwa/composables"
-import SwButton from "@/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton.vue"
 import { simplifyString } from "@/helpers"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 
 export default {
   name: "ShippingStep",
@@ -131,6 +125,20 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/forms";
+
+.sw-form {
+  &__action {
+    display: table;
+
+    button {
+      display: table-cell;
+      width: 100%;
+      @include for-desktop {
+        width: 50%;
+      }
+    }
+  }
+}
 
 .title {
   --heading-padding: var(--spacer-base) 0;

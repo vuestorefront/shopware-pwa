@@ -23,7 +23,7 @@
 
 <script>
 import { SfHero } from "@storefront-ui/vue"
-import SwButton from "@/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton.vue"
 
 export default {
   name: "CmsElementImageSlider",

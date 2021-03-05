@@ -11,7 +11,7 @@
 <script>
 import { SfHeading } from "@storefront-ui/vue"
 
-import SwLogin from "@/components/SwLogin"
+import SwLogin from "@/components/SwLogin.vue"
 import { PAGE_ACCOUNT } from "@/helpers/pages"
 import authMiddleware from "@/middleware/auth"
 

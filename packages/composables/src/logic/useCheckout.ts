@@ -94,7 +94,10 @@ export const useCheckout = (
   ) => {
     if (shippingMethods.value.length && !forceReload) return shippingMethods;
     const shippingMethodsResponse = await getAvailableShippingMethods(
-      apiInstance
+      apiInstance,
+      {
+        onlyAvailable: true, // depending on the context, some of them can be hidden due to applied rules describing whether a method can be available
+      }
     );
     orderData.shippingMethods = shippingMethodsResponse || [];
     return shippingMethods;
@@ -105,7 +108,10 @@ export const useCheckout = (
   ) => {
     if (paymentMethods.value.length && !forceReload) return paymentMethods;
     const paymentMethodsResponse = await getAvailablePaymentMethods(
-      apiInstance
+      apiInstance,
+      {
+        onlyAvailable: true, // depending on the context, some of them can be hidden due to applied rules describing whether a method can be available
+      }
     );
     orderData.paymentMethods = paymentMethodsResponse || [];
     return paymentMethods;

@@ -1,6 +1,6 @@
 <template>
   <div class="filter__max">
-    <SfHeading class="filters__title" :level="4" :title="filter.label" />
+    <SfHeading class="filters__title" :level="4" :title="$t(filter.label)" />
     <SfCheckbox
       v-model="selected"
       @change="
@@ -17,7 +17,7 @@
 import { computed, ref } from "@vue/composition-api"
 
 import { SfFilter, SfCheckbox, SfHeading } from "@storefront-ui/vue"
-import SwInput from "@/components/atoms/SwInput"
+import SwInput from "@/components/atoms/SwInput.vue"
 
 export default {
   name: "SwFilterShippingFree",

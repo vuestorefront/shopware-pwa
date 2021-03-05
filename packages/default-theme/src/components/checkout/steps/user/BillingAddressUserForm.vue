@@ -46,7 +46,7 @@
 <script>
 import { SfList, SfRadio, SfCheckbox } from "@storefront-ui/vue"
 import { useSessionContext, useUser } from "@shopware-pwa/composables"
-import SwButton from "@/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton.vue"
 import { ref, watch } from "@vue/composition-api"
 
 export default {

@@ -91,10 +91,10 @@ import {
   getApplicationContext,
 } from "@shopware-pwa/composables"
 import { getProducts } from "@shopware-pwa/shopware-6-client"
-import SwCartProduct from "@/components/SwCartProduct"
-import SwButton from "@/components/atoms/SwButton"
+import SwCartProduct from "@/components/SwCartProduct.vue"
+import SwButton from "@/components/atoms/SwButton.vue"
 import { PAGE_CHECKOUT } from "@/helpers/pages"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { computed, onMounted, ref, watch } from "@vue/composition-api"
 
 export default {

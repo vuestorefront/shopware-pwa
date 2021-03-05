@@ -22,9 +22,9 @@
 |  [getAvailableCountries(contextInstance)](./shopware-6-client.getavailablecountries.md) | <b><i>(BETA)</i></b> Get all available countries |
 |  [getAvailableCurrencies(contextInstance)](./shopware-6-client.getavailablecurrencies.md) | <b><i>(BETA)</i></b> |
 |  [getAvailableLanguages(contextInstance)](./shopware-6-client.getavailablelanguages.md) | <b><i>(BETA)</i></b> |
-|  [getAvailablePaymentMethods(contextInstance)](./shopware-6-client.getavailablepaymentmethods.md) | <b><i>(BETA)</i></b> |
+|  [getAvailablePaymentMethods(contextInstance, params)](./shopware-6-client.getavailablepaymentmethods.md) | <b><i>(BETA)</i></b> |
 |  [getAvailableSalutations(contextInstance)](./shopware-6-client.getavailablesalutations.md) | <b><i>(BETA)</i></b> Get all available salutations |
-|  [getAvailableShippingMethods(contextInstance)](./shopware-6-client.getavailableshippingmethods.md) | <b><i>(BETA)</i></b> |
+|  [getAvailableShippingMethods(contextInstance, params)](./shopware-6-client.getavailableshippingmethods.md) | <b><i>(BETA)</i></b> |
 |  [getCart(contextInstance)](./shopware-6-client.getcart.md) | <b><i>(BETA)</i></b> Gets the current cart for the sw-context-token. |
 |  [getCmsPage(path, criteria, contextInstance)](./shopware-6-client.getcmspage.md) | <b><i>(BETA)</i></b> |
 |  [getCustomer(contextInstance)](./shopware-6-client.getcustomer.md) | <b><i>(BETA)</i></b> Get customer's object |
