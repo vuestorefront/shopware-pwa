@@ -7,11 +7,15 @@
     >
       <SfHeading
         :title="
-          !formSent ? 'Subscribe to Newsletter' : 'Subscribed to Newsletter!'
+          !formSent
+            ? $t('Subscribe to Newsletter')
+            : $t('Subscribed to Newsletter!')
         "
         :subtitle="
           !formSent
-            ? 'Be aware of upcoming sales and events. Receive gifts and special offers!'
+            ? $t(
+                'Be aware of upcoming sales and events. Receive gifts and special offers!'
+              )
             : ''
         "
       />
@@ -40,8 +44,8 @@
             v-model="email"
             type="email"
             name="email"
-            label="Email address"
-            error-message="Please enter a valid email address"
+            :label="$t('Email address')"
+            :error-message="$t('Please enter a valid email address')"
             :valid="!$v.email.$error"
             class="email small input"
             @blur="$v.email.$touch()"
@@ -67,12 +71,12 @@
 import { SfInput, SfHeading } from "@storefront-ui/vue"
 import { validationMixin } from "vuelidate"
 import { required, email } from "vuelidate/lib/validators"
-import SwButton from "@/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton.vue"
 import { newsletterSubscribe } from "@shopware-pwa/shopware-6-client"
 import { ref } from "@vue/composition-api"
 import { getApplicationContext } from "@shopware-pwa/composables"
 import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
-import SwErrorsList from "@/components/SwErrorsList"
+import SwErrorsList from "@/components/SwErrorsList.vue"
 
 export default {
   name: "CmsElementNewsletterForm",

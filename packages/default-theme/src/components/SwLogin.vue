@@ -51,10 +51,10 @@
 import { SfAlert } from "@storefront-ui/vue"
 import { validationMixin } from "vuelidate"
 import { required, email } from "vuelidate/lib/validators"
-import { useUser } from "@shopware-pwa/composables"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import SwButton from "@/components/atoms/SwButton"
-import SwInput from "@/components/atoms/SwInput"
+import { useUser, useSessionContext } from "@shopware-pwa/composables"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
+import SwButton from "@/components/atoms/SwButton.vue"
+import SwInput from "@/components/atoms/SwInput.vue"
 
 export default {
   name: "SwLogin",
@@ -68,10 +68,12 @@ export default {
   },
   setup(props, { root }) {
     const { login, loading, error: userError } = useUser(root)
+    const { refreshSessionContext } = useSessionContext(root)
     return {
       clientLogin: login,
       isLoading: loading,
       userError,
+      refreshSessionContext,
     }
   },
   validations: {
@@ -93,7 +95,10 @@ export default {
         username: this.email,
         password: this.password,
       })
-      if (loggedIn) this.$emit("success")
+      if (loggedIn) {
+        this.$emit("success")
+        this.refreshSessionContext()
+      }
     },
   },
 }

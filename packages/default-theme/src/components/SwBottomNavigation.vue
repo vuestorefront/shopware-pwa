@@ -49,13 +49,17 @@
             <SfList class="mobile-nav-list">
               <SfListItem>
                 <SfMenuItem
-                  label="My Account"
+                  :label="$t('My Account')"
                   :icon="null"
                   @click="goToMyAccount"
                 />
               </SfListItem>
               <SfListItem>
-                <SfMenuItem label="Logout" :icon="null" @click="logoutUser" />
+                <SfMenuItem
+                  :label="$t('Logout')"
+                  :icon="null"
+                  @click="logoutUser"
+                />
               </SfListItem>
             </SfList>
           </SfBottomModal>
@@ -106,7 +110,7 @@
           v-else
           key="closeCart"
           icon="cross"
-          label="Close"
+          :label="$t('Close')"
           class="sw-bottom-navigation__action-button"
           :is-floating="true"
           data-cy="bottom-navigation-close"
@@ -128,10 +132,10 @@ import {
   SfMenuItem,
 } from "@storefront-ui/vue"
 import { useUIState, useUser, useCart } from "@shopware-pwa/composables"
-import SwBottomMenu from "@/components/SwBottomMenu"
+import SwBottomMenu from "@/components/SwBottomMenu.vue"
 import { PAGE_ACCOUNT } from "@/helpers/pages"
 import { getCategoryUrl } from "@shopware-pwa/helpers"
-import SwBottomMoreActions from "@/components/SwBottomMoreActions"
+import SwBottomMoreActions from "@/components/SwBottomMoreActions.vue"
 
 export default {
   name: "SwBottomNavigation",

@@ -2,12 +2,12 @@
   <SfAlert type="danger">
     <template #message>
       <span class="sf-alert__message">
-        Filter
+        {{ $t("Filter") }}
         <b>
-          {{ filter.label }}
+          {{ filterLabel }}
         </b>
-        is not implemented! Please add new filter to
-        `src/components/listing/types/{{ filter.label }}.vue`
+        {{ $t("is not implemented! Please add new filter to") }}
+        `src/components/listing/types/{{ filterCode }}.vue`
       </span>
     </template>
   </SfAlert>
@@ -15,19 +15,25 @@
 
 <script>
 import { SfAlert } from "@storefront-ui/vue"
+import { simplifyString } from "@/helpers"
 
 export default {
   components: {
     SfAlert,
   },
   name: "NoFilterFound",
-  data() {
-    return {}
-  },
   props: {
     filter: {
       type: Object,
       default: () => ({}),
+    },
+  },
+  computed: {
+    filterLabel() {
+      return this.filter.label
+    },
+    filterCode() {
+      return simplifyString(this.filter.label)
     },
   },
 }

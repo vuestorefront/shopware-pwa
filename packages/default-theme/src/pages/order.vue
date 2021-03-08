@@ -6,7 +6,7 @@
       class="order-page__heading"
     />
     <SfDivider />
-    <SwOrderDetails :order-id="orderId" />
+    <SwOrderDetails :prevent-redirect="false" :order-id="orderId" />
     <SwButton @click="$router.push($routing.getUrl('/'))">
       <SfIcon icon="chevron_left" color="white" size="20px" />
       {{ $t("Return to homepage") }}
@@ -16,9 +16,9 @@
 <script>
 import { SfHeading, SfIcon, SfDivider } from "@storefront-ui/vue"
 import { computed } from "@vue/composition-api"
-import SwButton from "@/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton.vue"
 
-import SwOrderDetails from "@/components/SwOrderDetails"
+import SwOrderDetails from "@/components/SwOrderDetails.vue"
 
 export default {
   name: "OrderPage",

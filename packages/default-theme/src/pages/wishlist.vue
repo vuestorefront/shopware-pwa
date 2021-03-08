@@ -34,7 +34,7 @@
 <script>
 import { getProducts } from "@shopware-pwa/shopware-6-client"
 import { getApplicationContext, useWishlist } from "@shopware-pwa/composables"
-import SwProductCard from "@/components/SwProductCard"
+import SwProductCard from "@/components/SwProductCard.vue"
 import { SfHeading, SfImage, SfLoader } from "@storefront-ui/vue"
 import { onMounted, ref, watch } from "@vue/composition-api"
 

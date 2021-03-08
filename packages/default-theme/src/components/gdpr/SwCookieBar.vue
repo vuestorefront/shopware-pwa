@@ -7,7 +7,7 @@
     </template>
     <template #right>
       <SwButton class="button" data-cy="accept-cookies" @click="acceptCookies">
-        Got it!
+        {{ $t("Got it!") }}
       </SwButton>
     </template>
   </SfTopBar>
@@ -15,8 +15,9 @@
 
 <script>
 import { SfTopBar } from "@storefront-ui/vue"
-import SwButton from "@/components/atoms/SwButton"
-const SwCookieBarContent = () => import("@/components/gdpr/SwCookieBarContent")
+import SwButton from "@/components/atoms/SwButton.vue"
+const SwCookieBarContent = () =>
+  import("@/components/gdpr/SwCookieBarContent.vue")
 
 export default {
   name: "SwCookieBar",

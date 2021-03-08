@@ -2,6 +2,11 @@ import Vue from "vue";
 import { ref, Ref, reactive, computed, onMounted } from "@vue/composition-api";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import {
+  INTERCEPTOR_KEYS,
+  useIntercept,
+  IInterceptorCallbackFunction,
+} from "@shopware-pwa/composables";
 
 /**
  * interface for {@link useWishlist} composable
@@ -12,6 +17,7 @@ export interface IUseWishlist {
   removeFromWishlist: (id: string) => void;
   clearWishlist: () => void;
   addToWishlist: () => void;
+  onAddToWishlist: (fn: (params: { product: Product }) => void) => void;
   isInWishlist: Ref<boolean>;
   items: Ref<string[]>;
   count: Ref<number>;
@@ -29,9 +35,12 @@ export const useWishlist = (
   rootContext: ApplicationVueContext,
   product?: Product
 ): IUseWishlist => {
+  const { broadcast, intercept } = useIntercept(rootContext);
   getApplicationContext(rootContext, "useNotifications");
   const localWishlist = reactive(sharedWishlist);
   const productId: Ref<string | undefined> = ref(product?.id);
+  const onAddToWishlist = (fn: IInterceptorCallbackFunction) =>
+    intercept(INTERCEPTOR_KEYS.ADD_TO_WISHLIST, fn);
 
   // update wishlist in localstorage
   const updateStorage = (): void => {
@@ -83,6 +92,9 @@ export const useWishlist = (
     if (!sharedWishlist.items.includes(productId.value)) {
       sharedWishlist.items.push(productId.value);
       updateStorage();
+      broadcast(INTERCEPTOR_KEYS.ADD_TO_WISHLIST, {
+        product,
+      });
     }
   };
 
@@ -106,5 +118,6 @@ export const useWishlist = (
     clearWishlist,
     items,
     count,
+    onAddToWishlist,
   };
 };

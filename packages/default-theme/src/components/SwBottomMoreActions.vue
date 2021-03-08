@@ -123,13 +123,13 @@ export default {
   },
   methods: {
     changeLanguage() {
-      this.headline = "Choose Language"
+      this.headline = this.$t("Choose Language")
       this.showLanguage = true
       this.contentChanged = true
     },
 
     changeCurrency() {
-      this.headline = "Choose Currency"
+      this.headline = this.$t("Choose Currency")
       this.showCurrency = true
       this.contentChanged = true
     },

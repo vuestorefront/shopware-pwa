@@ -5,7 +5,7 @@
       class="error-page__heading"
       :level="1"
       :title="`${code}`"
-      :subtitle="message"
+      :subtitle="$t(message)"
     />
     <div class="error-page__actions">
       <SwButton
@@ -17,7 +17,7 @@
           icon="chevron_left"
           color="white"
           size="20px"
-        />Return to homepage
+        />{{ $t("Return to homepage") }}
       </SwButton>
       <SwButton
         @click="$router.back()"
@@ -30,7 +30,7 @@
 </template>
 <script>
 import { SfHeading, SfIcon, SfImage } from "@storefront-ui/vue"
-import SwButton from "@/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton.vue"
 
 const customMessageDictionary = {
   404: "We can't find what you are looking for. Are you lost?",

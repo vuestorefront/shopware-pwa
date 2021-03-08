@@ -1,8 +1,9 @@
 import Vue from "vue";
 import { Ref, computed, reactive } from "@vue/composition-api";
-import { useUser, useCart } from "@shopware-pwa/composables";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
+import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
+
 import {
   GuestOrderParams,
   ShippingAddress,
@@ -14,7 +15,14 @@ import {
   createGuestOrder,
   createOrder as createApiOrder,
 } from "@shopware-pwa/shopware-6-client";
-import { useSessionContext } from "@shopware-pwa/composables";
+import {
+  useUser,
+  useCart,
+  useSessionContext,
+  INTERCEPTOR_KEYS,
+  useIntercept,
+  IInterceptorCallbackFunction,
+} from "@shopware-pwa/composables";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
 import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress";
 
@@ -41,6 +49,7 @@ export interface IUseCheckout {
   updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
   shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
   billingAddress: Readonly<Ref<Partial<BillingAddress> | undefined>>;
+  onOrderPlace: (fn: (params: { order: Order }) => void) => void;
 }
 
 const orderData: {
@@ -61,8 +70,11 @@ const orderData: {
 export const useCheckout = (
   rootContext: ApplicationVueContext
 ): IUseCheckout => {
-  const { apiInstance } = getApplicationContext(rootContext, "useCheckout");
-
+  const { apiInstance, contextName } = getApplicationContext(
+    rootContext,
+    "useCheckout"
+  );
+  const { broadcast, intercept } = useIntercept(rootContext);
   const { isLoggedIn } = useUser(rootContext);
   const { refreshCart } = useCart(rootContext);
   const { sessionContext } = useSessionContext(rootContext);
@@ -74,13 +86,18 @@ export const useCheckout = (
     () => orderData.paymentMethods
   );
   const localOrderData = reactive(orderData);
+  const onOrderPlace = (fn: IInterceptorCallbackFunction) =>
+    intercept(INTERCEPTOR_KEYS.ORDER_PLACE, fn);
 
   const getShippingMethods = async (
     { forceReload } = { forceReload: false }
   ) => {
     if (shippingMethods.value.length && !forceReload) return shippingMethods;
     const shippingMethodsResponse = await getAvailableShippingMethods(
-      apiInstance
+      apiInstance,
+      {
+        onlyAvailable: true, // depending on the context, some of them can be hidden due to applied rules describing whether a method can be available
+      }
     );
     orderData.shippingMethods = shippingMethodsResponse || [];
     return shippingMethods;
@@ -91,7 +108,10 @@ export const useCheckout = (
   ) => {
     if (paymentMethods.value.length && !forceReload) return paymentMethods;
     const paymentMethodsResponse = await getAvailablePaymentMethods(
-      apiInstance
+      apiInstance,
+      {
+        onlyAvailable: true, // depending on the context, some of them can be hidden due to applied rules describing whether a method can be available
+      }
     );
     orderData.paymentMethods = paymentMethodsResponse || [];
     return paymentMethods;
@@ -99,20 +119,28 @@ export const useCheckout = (
 
   const createOrder = async () => {
     try {
+      let order;
       if (isGuestOrder.value) {
-        return await createGuestOrder(
+        order = await createGuestOrder(
           orderData.guestOrderParams as GuestOrderParams,
           apiInstance
         );
       } else {
-        return await createApiOrder(apiInstance);
+        order = await createApiOrder(apiInstance);
       }
+      broadcast(INTERCEPTOR_KEYS.ORDER_PLACE, {
+        order,
+      });
+
+      return order;
     } catch (e) {
-      console.error(
-        "[useCheckout][createOrder] isGuest:" + isGuestOrder.value,
-        e
-      );
-      throw e;
+      const err: ClientApiError = e;
+      broadcast(INTERCEPTOR_KEYS.ERROR, {
+        methodName: `[${contextName}][createOrder]`,
+        inputParams: {},
+        error: err,
+      });
+      throw err;
     } finally {
       await refreshCart();
     }
@@ -146,5 +174,6 @@ export const useCheckout = (
     updateGuestOrderParams,
     shippingAddress,
     billingAddress,
+    onOrderPlace,
   };
 };

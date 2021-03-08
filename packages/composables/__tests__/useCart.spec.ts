@@ -42,6 +42,44 @@ describe("Composables - useCart", () => {
     stateUser.value = null;
   });
   describe("computed", () => {
+    describe("shippingTotal", () => {
+      it("should return default value 0 (zero) if cart is empty", () => {
+        stateCart.value = undefined as any;
+        const { shippingTotal } = useCart(rootContextMock);
+        expect(shippingTotal.value).toBe(0);
+      });
+      it("should return default value 0 (zero) if there is no delivery in cart", () => {
+        stateCart.value = {
+          deliveries: undefined,
+        };
+        const { shippingTotal } = useCart(rootContextMock);
+        expect(shippingTotal.value).toBe(0);
+      });
+      it("should return default value 0 (zero) if shipping costs are empty", () => {
+        stateCart.value = {
+          deliveries: [
+            {
+              shippingCosts: undefined,
+            },
+          ],
+        };
+        const { shippingTotal } = useCart(rootContextMock);
+        expect(shippingTotal.value).toBe(0);
+      });
+      it("should return total price from shipping cost of the first delivery from cart", () => {
+        stateCart.value = {
+          deliveries: [
+            {
+              shippingCosts: {
+                totalPrice: 199.5,
+              },
+            },
+          ],
+        };
+        const { shippingTotal } = useCart(rootContextMock);
+        expect(shippingTotal.value).toBe(199.5);
+      });
+    });
     describe("cart", () => {
       it("should be null on not loaded cart", () => {
         stateCart.value = null;

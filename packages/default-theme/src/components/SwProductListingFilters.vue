@@ -23,7 +23,7 @@
             :key="option.key"
             :value="option.key"
             class="sort-by__option"
-            >{{ $t(option.key) }}</SfSelectOption
+            >{{ $t(option.translated.label) }}</SfSelectOption
           >
         </SfSelect>
       </div>
@@ -66,7 +66,7 @@
         </SwButton>
       </div>
       <SfSidebar
-        title="Filters"
+        :title="$t('Filters')"
         :visible="isFilterSidebarOpen"
         class="filters-sidebar"
         @close="closeFiltersSidebar"
@@ -88,7 +88,7 @@
             <SwButton
               class="sf-button--full-width filters__button-clear"
               @click="clearAllFilters()"
-              >Clear all</SwButton
+              >{{ $t("Clear all") }}</SwButton
             >
           </div>
         </template>
@@ -108,8 +108,8 @@ import {
 import { computed, ref } from "@vue/composition-api"
 
 import { useUIState, useListing } from "@shopware-pwa/composables"
-import SwButton from "@/components/atoms/SwButton"
-import SwProductListingFilter from "@/components/listing/SwProductListingFilter"
+import SwButton from "@/components/atoms/SwButton.vue"
+import SwProductListingFilter from "@/components/listing/SwProductListingFilter.vue"
 
 export default {
   name: "CmsElementCategorySidebarFilter",

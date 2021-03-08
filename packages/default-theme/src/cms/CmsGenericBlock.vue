@@ -2,13 +2,15 @@
   <component
     :is="getComponent"
     :content="content"
-    :style="slotStyles"
+    :style="cmsStyles"
     :class="cmsClass"
   />
 </template>
 
 <script>
 import { getCmsBlockComponent } from "sw-cms/cmsNameMapper"
+import { getCmsLayoutConfiguration } from "@shopware-pwa/helpers"
+import { computed } from "@vue/composition-api"
 
 export default {
   name: "CmsGenericBlock",
@@ -19,23 +21,17 @@ export default {
       default: () => ({}),
     },
   },
+  setup({ content }, {}) {
+    const { cssClasses, layoutStyles } = getCmsLayoutConfiguration(content)
+    const cmsClass = computed(() => cssClasses)
+    const cmsStyles = computed(() => layoutStyles)
+    const getComponent = computed(() => getCmsBlockComponent(content))
 
-  computed: {
-    getComponent() {
-      return getCmsBlockComponent(this.content)
-    },
-    cmsClass() {
-      return this.content?.cssClass
-    },
-    backgroundMediaMode() {
-      return this.content.backgroundMediaMode
-    },
-    slotStyles() {
-      const { backgroundMedia } = this.content
-      return {
-        backgroundImage: backgroundMedia ? `url(${backgroundMedia.url})` : null,
-      }
-    },
+    return {
+      getComponent,
+      cmsClass,
+      cmsStyles,
+    }
   },
 }
 </script>

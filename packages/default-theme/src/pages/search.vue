@@ -1,12 +1,12 @@
 <template>
   <div class="search-page">
     <h3 v-if="!getSearchTerm && !loading" class="search-page__warning">
-      You didn't provide any term to be found
+      {{ this.$t("You didn't provide any term to be found") }}
     </h3>
     <SfLoader v-else :loading="loading">
       <div v-if="getElements" class="search-page__main">
         <h3>
-          search results for
+          {{ this.$t("search results for") }}
           <strong>{{ getSearchTerm }}</strong
           >:
         </h3>
@@ -22,8 +22,8 @@ import { SfLoader } from "@storefront-ui/vue"
 import { useUIState, useListing } from "@shopware-pwa/composables"
 
 import { computed, ref } from "@vue/composition-api"
-import SwProductListing from "@/components/SwProductListing"
-import SwProductListingFilters from "@/components/SwProductListingFilters"
+import SwProductListing from "@/components/SwProductListing.vue"
+import SwProductListingFilters from "@/components/SwProductListingFilters.vue"
 
 export default {
   name: "SearchResultsPage",

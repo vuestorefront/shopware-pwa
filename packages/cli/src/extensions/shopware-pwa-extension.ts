@@ -1,9 +1,15 @@
 import { GluegunToolbox } from "gluegun";
-
+/**
+ * read keys for contribution purposes - it's being used during the project initialization
+ */
+const INSTANCE_READ_API_KEY = "SWIACLLVSWNJQZKYRUDJYJHIWA";
+const INSTANCE_READ_API_SECRET =
+  "S0FMSjU4R3VFZ1Bkdjc1RGlhcE52MkNZbU1LVkhENHRFU1NxNjE";
 const defaultConfig = {
-  shopwareEndpoint: "https://pwa-demo-api.shopware.com",
-  shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
+  shopwareEndpoint: "https://pwa.swstage.store",
+  shopwareAccessToken: "SWSCD1BWSUFUQVDHUEPHATRPTW",
   theme: "@shopware-pwa/default-theme",
+  pwaHost: "https://pwa.swstage.store",
   shopwareApiClient: {
     timeout: 10000,
   },
@@ -14,7 +20,11 @@ module.exports = (toolbox: GluegunToolbox) => {
   toolbox.foo = () => {
     toolbox.print.info("called foo extension");
   };
-
+  toolbox.defaultInitConfig = {
+    ...defaultConfig,
+    INSTANCE_READ_API_KEY,
+    INSTANCE_READ_API_SECRET,
+  };
   toolbox.themeFolders = [".eslintrc.js"];
 
   /**

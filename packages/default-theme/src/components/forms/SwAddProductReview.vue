@@ -22,9 +22,9 @@
           <SwInput
             v-model="reviewTitle"
             type="text"
-            label="Title"
+            :label="$t('Title')"
             name="title"
-            error-message="Title is required"
+            :error-message="$t('Title is required')"
             class="small input"
           />
 
@@ -32,7 +32,7 @@
             v-model="reviewContent"
             name="desc"
             class="description-field"
-            placeholder="Write review"
+            :placeholder="$t('Write review')"
           >
           </textarea>
         </div>
@@ -66,9 +66,9 @@
 import { SfHeading, SfDivider } from "@storefront-ui/vue"
 import { addProductReview } from "@shopware-pwa/shopware-6-client"
 import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
-import SwButton from "@/components/atoms/SwButton"
-import SwInput from "@/components/atoms/SwInput"
-import SwErrorsList from "@/components/SwErrorsList"
+import SwButton from "@/components/atoms/SwButton.vue"
+import SwInput from "@/components/atoms/SwInput.vue"
+import SwErrorsList from "@/components/SwErrorsList.vue"
 import { ref, computed } from "@vue/composition-api"
 import {
   useUser,

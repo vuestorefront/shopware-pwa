@@ -21,7 +21,7 @@
         <div v-if="reviews.length" class="product-heading__sub-rating">
           <SfRating :score="ratingAverage" :max="5" />
           <div class="product-heading__sub-reviews desktop-only">
-            Read all {{ reviews.length }} review
+            {{ $t("Read all") }} {{ reviews.length }} review
           </div>
           <div class="product-heading__sub-reviews mobile-only">
             ({{ reviews.length }})
@@ -35,7 +35,7 @@
         v-if="shippingFree"
         class="sf-badge--number product-heading__shipping-badge"
       >
-        Free shipping
+        {{ $t("Free shipping") }}
       </SfBadge>
     </slot>
 
@@ -61,7 +61,7 @@ import {
 
 import { SfBadge, SfHeading, SfPrice, SfRating } from "@storefront-ui/vue"
 
-import SwTierPrices from "@/components/SwTierPrices"
+import SwTierPrices from "@/components/SwTierPrices.vue"
 
 export default {
   name: "SwProductHeading",

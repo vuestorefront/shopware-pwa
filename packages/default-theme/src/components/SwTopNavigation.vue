@@ -1,5 +1,10 @@
 <template>
-  <div ref="navigation" class="sw-top-navigation" data-cy="top-navigation">
+  <div
+    ref="navigation"
+    class="sw-top-navigation"
+    data-cy="top-navigation"
+    v-if="visibleCategories.length"
+  >
     <SwPluginSlot name="sw-top-navigation-before" />
     <div
       v-for="category in visibleCategories"
@@ -17,9 +22,11 @@
         >{{ category.translated.name }}</nuxt-link
       >
       <SwMegaMenu
+        v-if="category.children && category.children.length"
         :category="category"
         :visible="
           currentCategoryName &&
+          category.translated &&
           category.translated.name === currentCategoryName
         "
       />
@@ -47,12 +54,12 @@
 <script>
 import { useNavigation, useUIState } from "@shopware-pwa/composables"
 
-import SwMegaMenu from "@/components/SwMegaMenu"
+import SwMegaMenu from "@/components/SwMegaMenu.vue"
 import { ref, onMounted, watch } from "@vue/composition-api"
 import { getCategoryUrl } from "@shopware-pwa/helpers"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { useDomains } from "@/logic"
-import SwTopNavigationShowMore from "@/components/SwTopNavigationShowMore"
+import SwTopNavigationShowMore from "@/components/SwTopNavigationShowMore.vue"
 
 export default {
   components: {
@@ -111,6 +118,9 @@ export default {
       return {
         children: this.navigationElements.slice(this.unwrappedElements),
         name: "categories",
+        translated: {
+          name: "categories",
+        },
       }
     },
   },

@@ -158,9 +158,16 @@ export interface IInterceptorCallbackFunction {
 // @beta
 export const INTERCEPTOR_KEYS: {
     ADD_TO_CART: string;
+    ADD_TO_WISHLIST: string;
     ADD_PROMOTION_CODE: string;
     ERROR: string;
+    ORDER_PLACE: string;
+    SESSION_SET_CURRENCY: string;
+    SESSION_SET_PAYMENT_METHOD: string;
+    SESSION_SET_SHIPPING_METHOD: string;
     USER_LOGOUT: string;
+    USER_LOGIN: string;
+    USER_REGISTER: string;
 };
 
 // @beta
@@ -210,6 +217,8 @@ export interface IUseCart {
     // @deprecated (undocumented)
     removeProduct: ({ id }: Partial<Product>) => void;
     // (undocumented)
+    shippingTotal: ComputedRef<number>;
+    // (undocumented)
     subtotal: ComputedRef<number>;
     // (undocumented)
     totalPrice: ComputedRef<number>;
@@ -232,6 +241,10 @@ export interface IUseCheckout {
     // (undocumented)
     guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>;
     isGuestOrder: Readonly<Ref<boolean>>;
+    // (undocumented)
+    onOrderPlace: (fn: (params: {
+        order: Order;
+    }) => void) => void;
     // (undocumented)
     paymentMethods: Readonly<Ref<readonly PaymentMethod[]>>;
     // (undocumented)
@@ -347,6 +360,18 @@ export interface IUseSessionContext {
     // (undocumented)
     currency: Readonly<Ref<Currency | null>>;
     // (undocumented)
+    onCurrencyChange: (fn: (params: {
+        currency: Currency;
+    }) => void) => void;
+    // (undocumented)
+    onPaymentMethodChange: (fn: (params: {
+        paymentMethod: PaymentMethod;
+    }) => void) => void;
+    // (undocumented)
+    onShippingMethodChange: (fn: (params: {
+        shippingMethod: ShippingMethod;
+    }) => void) => void;
+    // (undocumented)
     paymentMethod: Readonly<Ref<PaymentMethod | null>>;
     // (undocumented)
     refreshSessionContext: () => Promise<void>;
@@ -406,6 +431,12 @@ export interface IUseUser {
     }) => Promise<string | boolean>;
     onLogout: (fn: () => void) => void;
     // (undocumented)
+    onUserLogin: (fn: (params: {
+        customer: Customer;
+    }) => void) => void;
+    // (undocumented)
+    onUserRegister: (fn: () => void) => void;
+    // (undocumented)
     orders: Ref<Order[] | null>;
     // (undocumented)
     refreshUser: () => Promise<void>;
@@ -437,6 +468,10 @@ export interface IUseWishlist {
     isInWishlist: Ref<boolean>;
     // (undocumented)
     items: Ref<string[]>;
+    // (undocumented)
+    onAddToWishlist: (fn: (params: {
+        product: Product;
+    }) => void) => void;
     // (undocumented)
     removeFromWishlist: (id: string) => void;
 }

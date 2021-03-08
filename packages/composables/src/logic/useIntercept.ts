@@ -16,6 +16,12 @@ export const INTERCEPTOR_KEYS = {
    */
   ADD_TO_CART: "addToCart",
   /**
+   * Broadcasted by useWishlist composable on successful addToWishlist method invocation.
+   * As a parameter passes:
+   * - product object
+   */
+  ADD_TO_WISHLIST: "addToWishlist",
+  /**
    * Broadcasted by useCart composable on successful submitPromotionCode method invocation.
    * As a parameter passes used promotion code and response result.
    */
@@ -30,10 +36,44 @@ export const INTERCEPTOR_KEYS = {
    */
   ERROR: "error",
   /**
+   * Broadcasted by useCheckout, createOrder method.
+   * As a parameter passes:
+   * - order object
+   */
+  ORDER_PLACE: "onOrderPlace",
+  /**
+   * Broadcasted by useSessionContext, setCurrency method.
+   * As a parameter passes:
+   * - currency object
+   */
+  SESSION_SET_CURRENCY: "onCurrencyChange",
+  /**
+   * Broadcasted by useSessionContext, setPaymentMethod method.
+   * As a parameter passes:
+   * - payment method object
+   */
+  SESSION_SET_PAYMENT_METHOD: "onPaymentMethodChange",
+  /**
+   * Broadcasted by useSessionContext, setShippingMethod method.
+   * As a parameter passes:
+   * - shipping method object
+   */
+  SESSION_SET_SHIPPING_METHOD: "onShippingMethodChange",
+  /**
    * Broadcasted after user is logged out.
    * Contains no params.
    */
   USER_LOGOUT: "onUserLogout",
+  /**
+   * Broadcasted after user is logged in.
+   * As a parameter passes:
+   * - customer object
+   */
+  USER_LOGIN: "onUserLogin",
+  /**
+   * Broadcasted after user is successfully registered.
+   */
+  USER_REGISTER: "onUserRegister",
 };
 
 /**

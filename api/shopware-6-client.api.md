@@ -165,13 +165,17 @@ export function getAvailableCurrencies(contextInstance?: ShopwareApiInstance): P
 export function getAvailableLanguages(contextInstance?: ShopwareApiInstance): Promise<Language[]>;
 
 // @beta (undocumented)
-export function getAvailablePaymentMethods(contextInstance?: ShopwareApiInstance): Promise<PaymentMethod[]>;
+export function getAvailablePaymentMethods(contextInstance?: ShopwareApiInstance, params?: {
+    onlyAvailable?: boolean;
+}): Promise<PaymentMethod[]>;
 
 // @beta
 export function getAvailableSalutations(contextInstance?: ShopwareApiInstance): Promise<SearchResult<Salutation[]>>;
 
 // @beta (undocumented)
-export function getAvailableShippingMethods(contextInstance?: ShopwareApiInstance): Promise<ShippingMethod[]>;
+export function getAvailableShippingMethods(contextInstance?: ShopwareApiInstance, params?: {
+    onlyAvailable?: boolean;
+}): Promise<ShippingMethod[]>;
 
 // @beta
 export function getCart(contextInstance?: ShopwareApiInstance): Promise<Cart>;
@@ -297,7 +301,7 @@ export const getCustomerLoginEndpoint: () => string;
 export const getCustomerLogoutEndpoint: () => string;
 
 // @beta
-export function getCustomerOrderDetails(orderId: string, contextInstance?: ShopwareApiInstance): Promise<Order | undefined>;
+export function getCustomerOrderDetails(orderId: string, contextInstance?: ShopwareApiInstance, additionalQueryParams?: string): Promise<Order | undefined>;
 
 // @beta (undocumented)
 export const getCustomerOrderDetailsEndpoint: (orderId: string) => string;

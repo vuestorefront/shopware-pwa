@@ -42,7 +42,7 @@
       v-if="isShowMoreAvailable"
       class="sf-button--secondary sf-button--full-width"
       @click="$emit('search')"
-      >See more</Button
+      >{{ $t("See more") }}</Button
     >
   </div>
 </template>
@@ -57,7 +57,7 @@ import {
   SfPrice,
 } from "@storefront-ui/vue"
 import { clickOutside } from "@storefront-ui/vue/src/utilities/directives"
-import Button from "@/components/atoms/SwButton"
+import Button from "@/components/atoms/SwButton.vue"
 import {
   getProductMainImageUrl,
   getProductRegularPrice,
@@ -104,7 +104,7 @@ export default {
   directives: { clickOutside },
   computed: {
     title() {
-      return `${this.searchPhrase} (${this.totalFound} found)`
+      return `${this.searchPhrase} (${this.totalFound} ${this.$t("found")})`
     },
     isShowMoreAvailable() {
       return this.totalFound > 5

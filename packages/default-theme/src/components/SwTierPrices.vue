@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       showTable: false,
-      tableHeaders: ["Quantity", "Unit price"],
+      tableHeaders: [this.$t("Quantity"), this.$t("Unit price")],
     }
   },
   mounted() {
