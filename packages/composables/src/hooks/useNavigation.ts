@@ -41,10 +41,12 @@ export interface IUseNavigation {
  * Composable for navigation. Options - {@link IUseNavigation}
  *
  * @example
+ * ```
  * // get main navigation
  * useNavigation( root )
  * // get footer navigation
  * useNavigation( root, { type: "footer-navigation" } )
+ * ```
  *
  * @beta
  */

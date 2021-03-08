@@ -11,7 +11,6 @@ import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/Cms
 import { CmsSection } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { CmsSlot } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
-import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
@@ -115,9 +114,6 @@ export function getListingFilters(aggregations: Aggregations | undefined | null)
 // @alpha
 export function getMessagesFromErrorsArray(errors: ShopwareError[]): string[];
 
-// @alpha (undocumented)
-export function getNavigationRoutes(navigationElements: NavigationElement[]): NavigationRoute[];
-
 // @alpha
 export function getOrderPaymentMethodId(order: Order): string | undefined;
 
@@ -203,13 +199,16 @@ export function getProductUrl(product: Product | null): string;
 // @alpha (undocumented)
 export const getSortingSearchCriteria: (selectedSorting: SwSorting) => Sort;
 
-// @beta (undocumented)
+// @beta @deprecated (undocumented)
 export function getStoreNavigationRoutes(navigationElements: StoreNavigationElement[]): StoreNavigationRoute[];
 
 // @alpha (undocumented)
 export function getVariantOptionsLabel({ product, }?: {
     product?: Product;
 }): string | null;
+
+// @beta (undocumented)
+export const isLinkCategory: (category: Partial<Category>) => boolean;
 
 // @beta @deprecated
 export function isOptionAvailableForSelectedOptions(currentAttribute: string, selectedOptionId: string, { code: optionId }: UiProductOption | undefined, allOptions: any, allSelectedOptions: {
@@ -270,14 +269,6 @@ export interface MappedSalutation {
 
 // @alpha
 export function mapSalutations(salutations: Salutation[]): MappedSalutation[];
-
-// @alpha (undocumented)
-export interface NavigationRoute {
-    // (undocumented)
-    routeLabel: string;
-    // (undocumented)
-    routePath: string;
-}
 
 // @alpha (undocumented)
 export function parseUrlQuery(query: any): SearchCriteria;
