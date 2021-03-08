@@ -1,54 +1,60 @@
 import Vue from "vue";
-import { reactive, computed, Ref } from "@vue/composition-api";
+import { reactive, computed, ComputedRef } from "@vue/composition-api";
 import { getStoreNavigation } from "@shopware-pwa/shopware-6-client";
-import { NavigationElement } from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
+import {
+  StoreNavigationElement,
+  StoreNavigationType,
+} from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
 import { useDefaults, getApplicationContext } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
 
-/**
- * Complements https://github.com/shopware/platform/blob/master/src/Core/Content/Category/SalesChannel/NavigationRoute.php#L302
- */
-const enum NAVIGATION_ALIAS {
-  MAIN = "main-navigation",
-  SERVICE = "service-navigation",
-  FOOTER = "footer-navigation",
-}
+// we store navigation elements by StoreNavigationType
+const sharedNavigation = Vue.observable({
+  "main-navigation": [],
+  "footer-navigation": [],
+  "service-navigation": [],
+} as {
+  [key in StoreNavigationType]: StoreNavigationElement[];
+});
 
 /**
  * interface for {@link useNavigation} composable
  *
- * Provides state for two navigation trees: Footer and Main Navigation
+ * Provides state for navigation trees depending on navigation type.
  *
  * @beta
  */
 export interface IUseNavigation {
-  routes: Ref<Readonly<any>>;
-  navigationElements: Ref<Readonly<NavigationElement[]>>;
+  navigationElements: ComputedRef<StoreNavigationElement[]>;
+  /**
+   * @deprecated use loadNavigationElements instead. Remove after v0.8
+   */
   fetchNavigationElements: (depth: number) => Promise<void>;
-  mainNavigationRoutes: Ref<Readonly<any>>;
-  mainNavigationElements: Ref<Readonly<NavigationElement[]>>;
-  fetchMainNavigationElements: (depth: number) => Promise<void>;
-  footerNavigationElements: Ref<Readonly<NavigationElement[]>>;
-  fetchFooterNavigationElements: (depth: number) => Promise<void>;
-  fetchRoutes: () => Promise<void>;
+
+  /**
+   * Load navigation elements
+   */
+  loadNavigationElements: (params: { depth: number }) => Promise<void>;
 }
-
-const sharedMainNavigation = Vue.observable({
-  routes: null,
-  navigationElements: [],
-} as any);
-
-const sharedFooterNavigation = Vue.observable({
-  routes: null,
-  navigationElements: [],
-} as any);
 
 /**
  * Composable for navigation. Options - {@link IUseNavigation}
+ *
+ * @example
+ * // get main navigation
+ * useNavigation( root )
+ * // get footer navigation
+ * useNavigation( root, { type: "footer-navigation" } )
+ *
  * @beta
  */
 export const useNavigation = (
-  rootContext: ApplicationVueContext
+  rootContext: ApplicationVueContext,
+  params: {
+    type: StoreNavigationType;
+  } = {
+    type: "main-navigation",
+  }
 ): IUseNavigation => {
   const { apiInstance } = getApplicationContext(rootContext, "useNavigation");
 
@@ -57,117 +63,33 @@ export const useNavigation = (
     "useNavigation"
   );
 
-  // Main Navigation (alias: main-navigation)
-  const localMainNavigation = reactive(sharedMainNavigation);
-  const mainNavigationElements = computed(
-    () => localMainNavigation.navigationElements
-  );
-  const mainNavigationRoutes = computed(() => localMainNavigation.routes);
+  const localNavigation = reactive(sharedNavigation);
+  const navigationElements = computed(() => localNavigation[params.type]);
 
-  /**
-   * @deprecated
-   */
-  const routes = mainNavigationRoutes;
-
-  /**
-   * @deprecated
-   */
-  const navigationElements = mainNavigationElements;
-
-  // Main Navigation (alias: footer-navigation)
-  const localFooterNavigation = reactive(sharedFooterNavigation);
-  const footerNavigationElements = computed(
-    () => localFooterNavigation.navigationElements
-  );
-
-  /**
-   * Merges navigation parameters with default navigation parameters (stateless)
-   */
-  const getNavigationParams = (
-    params?: any,
-    rootAlias: string = NAVIGATION_ALIAS.MAIN
-  ) => {
-    return Object.assign(
-      {},
+  const loadNavigationElements = async ({ depth }: { depth: number }) => {
+    sharedNavigation[params.type] = [];
+    const navigationResponse = await getStoreNavigation(
       {
-        requestActiveId: rootAlias,
-        requestRootId: rootAlias,
+        requestActiveId: params.type,
+        requestRootId: params.type,
         searchCriteria: {
           configuration: {
             includes: getIncludesConfig(),
             associations: getAssociationsConfig(),
           },
         },
+        depth,
       },
-      params
-    );
-  };
-
-  /**
-   * @deprecated
-   * Fetches navigation routes
-   */
-  const fetchRoutes = async (params?: any): Promise<void> => {
-    const navigationResponse = await getStoreNavigation(
-      getNavigationParams(params),
-      apiInstance
-    );
-    sharedMainNavigation.routes = navigationResponse;
-  };
-
-  /**
-   * Fetches navigation elements
-   */
-  const fetchNavigationElements = async (
-    navigationReference: any,
-    depth: number,
-    rootAlias: string = NAVIGATION_ALIAS.MAIN
-  ) => {
-    const navigationResponse = await getStoreNavigation(
-      getNavigationParams(
-        {
-          depth,
-        },
-        rootAlias
-      ),
       apiInstance
     );
 
-    navigationReference.navigationElements = navigationResponse || [];
-  };
-
-  /**
-   * Fetches main navigation elements
-   */
-  const fetchMainNavigationElements = async (depth: number): Promise<void> => {
-    fetchNavigationElements(sharedMainNavigation, depth);
-  };
-
-  /**
-   * @deprecated
-   */
-  const oldFetchNavigationElements = fetchMainNavigationElements;
-
-  /**
-   * Fetches footer navigation elements
-   */
-  const fetchFooterNavigationElements = async (depth: number) => {
-    fetchNavigationElements(
-      sharedFooterNavigation,
-      depth,
-      NAVIGATION_ALIAS.FOOTER
-    );
+    sharedNavigation[params.type] = navigationResponse || [];
   };
 
   return {
-    routes,
     navigationElements,
-    fetchNavigationElements: oldFetchNavigationElements,
-    mainNavigationRoutes,
-    mainNavigationElements,
-    fetchMainNavigationElements,
-    footerNavigationElements,
-    fetchFooterNavigationElements,
-    fetchRoutes,
+    fetchNavigationElements: (depth: number) =>
+      loadNavigationElements({ depth }),
+    loadNavigationElements,
   };
 };

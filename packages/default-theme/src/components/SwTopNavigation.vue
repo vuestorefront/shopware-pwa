@@ -81,10 +81,7 @@ export default {
       root,
       "MEGA_MENU_OVERLAY_STATE"
     )
-    const {
-      fetchMainNavigationElements,
-      mainNavigationElements,
-    } = useNavigation(root)
+    const { loadNavigationElements, navigationElements } = useNavigation(root)
 
     const { currentDomainId } = useDomains(root)
 
@@ -98,7 +95,7 @@ export default {
     onMounted(async () => {
       await watch(currentDomainId, async () => {
         try {
-          await fetchMainNavigationElements(3)
+          await loadNavigationElements({ depth: 3 })
         } catch (e) {
           console.error("[SwTopNavigation]", e)
         }
@@ -106,8 +103,8 @@ export default {
     })
 
     return {
-      fetchMainNavigationElements,
-      mainNavigationElements,
+      loadNavigationElements,
+      navigationElements,
       getCategoryUrl,
       isLinkCategory,
       currentCategoryName,
@@ -121,18 +118,16 @@ export default {
 
   computed: {
     visibleCategories() {
-      return this.mainNavigationElements.slice(0, this.unwrappedElements)
+      return this.navigationElements.slice(0, this.unwrappedElements)
     },
 
     unvisibleCategories() {
-      if (
-        this.mainNavigationElements.slice(this.unwrappedElements).length === 0
-      ) {
+      if (this.navigationElements.slice(this.unwrappedElements).length === 0) {
         return undefined
       }
 
       return {
-        children: this.mainNavigationElements.slice(this.unwrappedElements),
+        children: this.navigationElements.slice(this.unwrappedElements),
         name: "categories",
         translated: {
           name: "categories",
@@ -142,7 +137,7 @@ export default {
   },
 
   watch: {
-    mainNavigationElements() {
+    navigationElements() {
       this.countVisibleCategories()
     },
   },
@@ -151,11 +146,11 @@ export default {
     window.addEventListener("resize", this.countVisibleCategories)
     // fixes a watch issue - fetch the elements if watch wasn't fired
     if (
-      Array.isArray(this.mainNavigationElements) &&
-      !this.mainNavigationElements.length
+      Array.isArray(this.navigationElements) &&
+      !this.navigationElements.length
     ) {
       try {
-        await this.fetchMainNavigationElements(3)
+        await this.loadNavigationElements({ depth: 3 })
       } catch (e) {
         console.error("[SwTopNavigation]", e)
       }
@@ -169,7 +164,7 @@ export default {
 
   methods: {
     countVisibleCategories() {
-      this.unwrappedElements = this.mainNavigationElements.length
+      this.unwrappedElements = this.navigationElements.length
 
       this.$nextTick(() => {
         const nav = this.$refs.navigation

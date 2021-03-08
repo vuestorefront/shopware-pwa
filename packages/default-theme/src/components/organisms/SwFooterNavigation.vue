@@ -1,12 +1,12 @@
 <template>
   <SfFooter
-    v-if="footerNavigationElements && footerNavigationElements.length"
+    v-if="navigationElements && navigationElements.length"
     :column="column"
     :multiple="true"
     :open="open"
   >
     <SfFooterColumn
-      v-for="category in footerNavigationElements"
+      v-for="category in navigationElements"
       :key="category.id"
       :title="category.translated.name"
     >
@@ -62,35 +62,35 @@ export default {
     SfMenuItem,
   },
   setup({}, { root }) {
-    const {
-      fetchFooterNavigationElements,
-      footerNavigationElements,
-    } = useNavigation(root)
+    const { loadNavigationElements, navigationElements } = useNavigation(root, {
+      type: "footer-navigation",
+    })
+    const isLoadingFooterData = ref(false)
 
     const { currentDomainId } = useDomains(root)
 
     const column = ref(4)
 
     const open = computed(() => {
-      if (!footerNavigationElements.value) {
+      if (!navigationElements.value) {
         return []
       }
       const names = []
-      extractCategoryNames(footerNavigationElements.value, names)
+      extractCategoryNames(navigationElements.value, names)
       return names
     })
 
     watch(currentDomainId, async () => {
       try {
-        await fetchFooterNavigationElements(2)
+        await loadNavigationElements({ depth: 2 })
       } catch (e) {
         console.error("[SwFooterNavigation]", e)
       }
     })
 
     return {
-      fetchFooterNavigationElements,
-      footerNavigationElements,
+      loadNavigationElements,
+      navigationElements,
       getCategoryUrl,
       isLinkCategory,
       column,
@@ -100,7 +100,7 @@ export default {
 
   async mounted() {
     try {
-      await this.fetchFooterNavigationElements(2)
+      await this.loadNavigationElements({ depth: 2 })
     } catch (e) {
       console.error("[SwFooterNavigation]", e)
     }

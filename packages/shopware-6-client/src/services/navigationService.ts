@@ -6,6 +6,7 @@ import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import {
   NavigationResponse,
   StoreNavigationElement,
+  StoreNavigationType,
 } from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { convertSearchCriteria, ApiType } from "../helpers/searchConverter";
@@ -23,11 +24,8 @@ export interface GetNavigationParams {
  * @beta
  */
 export interface GetStoreNavigationParams {
-  requestActiveId:
-    | "main-navigation"
-    | "service-navigation"
-    | "footer-navigation";
-  requestRootId: "main-navigation" | "service-navigation" | "footer-navigation";
+  requestActiveId: StoreNavigationType;
+  requestRootId: StoreNavigationType;
   depth?: number;
   buildTree?: boolean;
   searchCriteria?: SearchCriteria;
