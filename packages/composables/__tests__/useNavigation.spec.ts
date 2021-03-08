@@ -38,47 +38,15 @@ describe("Composables - useNavigation", () => {
     jest.clearAllMocks();
   });
   describe("computed", () => {
-    describe("routes", () => {
-      it("should get null when routeNames are not fetched", () => {
-        const { routes } = useNavigation(rootContextMock);
-        expect(routes.value).toBe(null);
+    describe("navigationElements", () => {
+      it("should get empty array when navigationElements are not fetched", () => {
+        const { navigationElements } = useNavigation(rootContextMock);
+        expect(navigationElements.value).toEqual([]);
       });
     });
   });
 
   describe("methods", () => {
-    describe("fetchRoutes", () => {
-      it("should routes set to null when navigation data are not fetched", async () => {
-        mockedGetPage.getStoreNavigation.mockResolvedValueOnce(
-          undefined as any
-        );
-        const { routes, fetchRoutes } = useNavigation(rootContextMock);
-        await fetchRoutes();
-        expect(routes.value).toBeUndefined();
-      });
-      it("should fetch routes correcly", async () => {
-        mockedGetPage.getStoreNavigation.mockResolvedValueOnce([
-          {
-            name: "Clothin",
-            translated: { name: "Clothin" },
-            route: { path: "clothing/" },
-          },
-          {
-            name: "Sports",
-            translated: { name: "Sports" },
-            route: { path: "sports/" },
-          },
-          {
-            name: "Accessories & Others",
-            translated: { name: "Accessories & Others" },
-            route: { path: "accessories-others/" },
-          },
-        ] as any);
-        const { routes, fetchRoutes } = useNavigation(rootContextMock);
-        await fetchRoutes();
-        expect(routes.value).toHaveLength(3);
-      });
-    });
     describe("fetchNavigationElements", () => {
       it("should fetch navigation elements correcly", async () => {
         mockedGetPage.getStoreNavigation.mockResolvedValueOnce([

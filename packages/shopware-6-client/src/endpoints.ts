@@ -279,10 +279,7 @@ export const getNewsletterUnsubscribeEndpoint = () => `/newsletter/unsubscribe`;
  * @beta
  */
 export const getPageResolverEndpoint = () => `/store-api/v3/pwa/page`;
-/**
- * @beta
- */
-export const getNavigationEndpoint = () => `/store-api/v3/pwa/navigation`;
+
 /**
  * @beta
  */

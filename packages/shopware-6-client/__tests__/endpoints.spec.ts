@@ -31,7 +31,6 @@ import {
   getStoreNewsletterConfirmEndpoint,
   getStoreNewsletterUnsubscribeEndpoint,
   getProductsIdsEndpoint,
-  getNavigationEndpoint,
   getStoreNavigationEndpoint,
   getCustomerOrderDetailsEndpoint,
   getContextCountryItemEndpoint,
@@ -278,13 +277,6 @@ describe("endpoints", () => {
     it("should return Shopware newsletter unsubscribe endpoint", async () => {
       const result = getNewsletterUnsubscribeEndpoint();
       expect(result).toEqual("/newsletter/unsubscribe");
-    });
-  });
-
-  describe("getNavigationEndpoint", () => {
-    it("should return navigation endpoint", async () => {
-      const result = getNavigationEndpoint();
-      expect(result).toEqual("/store-api/v3/pwa/navigation");
     });
   });
 
