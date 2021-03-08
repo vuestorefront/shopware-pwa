@@ -79,7 +79,7 @@ describe("Shopware helpers - getCategoryUrl", () => {
 
 describe("isLinkCategory", () => {
   it("should return false when no category provided", () => {
-    const result = isLinkCategory();
+    const result = isLinkCategory(null as any);
     expect(result).toBe(false);
   });
 
