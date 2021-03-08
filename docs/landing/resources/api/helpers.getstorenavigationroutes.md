@@ -9,6 +9,7 @@
 
 > Warning: This API is now obsolete.
 > 
+> use getCategoryUrl instead. Will be removed after v0.8
 > 
 
 <b>Signature:</b>
