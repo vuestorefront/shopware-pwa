@@ -1,4 +1,4 @@
-import { ref, Ref, computed, ComputedRef } from "@vue/composition-api";
+import { ref, Ref, computed, ComputedRef, watch } from "@vue/composition-api";
 import { getCmsPage } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { parseUrlQuery } from "@shopware-pwa/helpers";
@@ -8,7 +8,11 @@ import {
   PageResolverProductResult,
   PageResolverResult,
 } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
-import { getApplicationContext, useDefaults } from "@shopware-pwa/composables";
+import {
+  getApplicationContext,
+  useDefaults,
+  useBreadcrumbs,
+} from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../../appContext";
 import merge from "lodash/merge";
 import { PageBreadcrumb } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
@@ -16,7 +20,7 @@ import { PageBreadcrumb } from "@shopware-pwa/commons/interfaces/models/content/
 /**
  * @beta
  */
-export const useCms = (
+export function useCms(
   rootContext: ApplicationVueContext
 ): {
   page: Ref<Readonly<PageResolverProductResult | PageResolverResult<CmsPage>>>;
@@ -25,18 +29,17 @@ export const useCms = (
   search: (path: string, query?: any) => Promise<void>;
   error: Ref<any>;
   getBreadcrumbsObject: ComputedRef<PageBreadcrumb>;
-} => {
+} {
   const { vuexStore, apiInstance } = getApplicationContext(
     rootContext,
     "useCms"
   );
 
   const { getDefaults } = useDefaults(rootContext, "useCms");
+  const { setBreadcrumbs } = useBreadcrumbs(rootContext);
   const error: Ref<any> = ref(null);
   const loading: Ref<boolean> = ref(false);
-  const page: Ref<
-    Readonly<PageResolverProductResult | PageResolverResult<CmsPage>>
-  > = computed(() => {
+  const page: ComputedRef<PageResolverResult<CmsPage>> = computed(() => {
     return vuexStore.getters.getPage;
   });
   // TODO: rename it to something more obvious, or just leav as resourceIdentifier
@@ -45,6 +48,14 @@ export const useCms = (
     // each cms page is in relation one-to-one with categoryId (resourceIdentifier)
     return page.value && page.value.resourceIdentifier;
   });
+
+  watch(
+    page,
+    (pageValue) => {
+      setBreadcrumbs(Object.values(pageValue?.breadcrumb || []));
+    },
+    { immediate: true }
+  );
 
   /**
    * @beta
@@ -76,4 +87,4 @@ export const useCms = (
       () => (page.value && (page.value as any).breadcrumb) || {}
     ),
   };
-};
+}

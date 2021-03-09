@@ -12,12 +12,12 @@ export default {
 
     setBreadcrumbs([
       {
-        text: root.$t("My Account"),
-        link: root.$routing.getUrl(PAGE_ACCOUNT),
+        name: root.$t("My Account"),
+        path: PAGE_ACCOUNT,
       },
       {
-        text: root.$t("My orders"),
-        link: root.$routing.getUrl(PAGE_ACCOUNT) + "/orders",
+        name: root.$t("My orders"),
+        path: PAGE_ACCOUNT + "/orders",
       },
     ])
   },

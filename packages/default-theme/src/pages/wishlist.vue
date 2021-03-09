@@ -68,8 +68,8 @@ export default {
 
     setBreadcrumbs([
       {
-        text: root.$t("Wishlist"),
-        link: root.$routing.getUrl(PAGE_WISHLIST),
+        name: root.$t("Wishlist"),
+        path: PAGE_WISHLIST,
       },
     ])
 

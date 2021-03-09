@@ -74,8 +74,8 @@ export default {
 
     setBreadcrumbs([
       {
-        text: root.$t("Checkout"),
-        link: root.$routing.getUrl(PAGE_CHECKOUT),
+        name: root.$t("Checkout"),
+        path: PAGE_CHECKOUT,
       },
     ])
     return {

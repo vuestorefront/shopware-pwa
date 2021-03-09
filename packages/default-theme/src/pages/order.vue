@@ -36,8 +36,8 @@ export default {
     const { setBreadcrumbs } = useBreadcrumbs(root)
     setBreadcrumbs([
       {
-        text: root.$t("Thank you"),
-        link: "/",
+        name: root.$t("Thank you"),
+        path: "/",
       },
     ])
 

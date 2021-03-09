@@ -14,11 +14,16 @@ export enum PageType {
 /**
  * @beta
  */
+export interface Breadcrumb {
+  name: string;
+  path: string;
+}
+
+/**
+ * @beta
+ */
 export interface PageBreadcrumb {
-  [id: string]: {
-    name: string;
-    path: string;
-  };
+  [id: string]: Breadcrumb;
 }
 
 /**

@@ -1,49 +1,56 @@
 import Vue from "vue";
 import { computed, ComputedRef, reactive } from "@vue/composition-api";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
-import { useCms } from "@shopware-pwa/composables";
-import { getBreadcrumbs, Breadcrumb } from "@shopware-pwa/helpers";
+import { Breadcrumb } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
 const sharedBreadcrumbs = Vue.observable({
-  list: null,
+  list: [],
 } as {
-  list: Breadcrumb[] | null;
+  list: Breadcrumb[];
 });
 
 /**
+ * Composable for displaying and setting breadcrumbs for page.
+ *
  * @beta
  */
-export const useBreadcrumbs = (
+export function useBreadcrumbs(
   rootContext: ApplicationVueContext
 ): {
   breadcrumbs: ComputedRef<Breadcrumb[]>;
   setBreadcrumbs: (breadcrumbs: Breadcrumb[]) => void;
   clear: () => void;
-} => {
-  getApplicationContext(rootContext, "useBreadcrumbs");
-  const { getBreadcrumbsObject } = useCms(rootContext);
+} {
+  const { i18n } = getApplicationContext(rootContext, "useBreadcrumbs");
   let localBreadcrumbs = reactive(sharedBreadcrumbs);
 
   /**
    * Reset the breadcrumbs collection
    */
   const clear = () => {
-    sharedBreadcrumbs.list = null;
+    sharedBreadcrumbs.list = [];
   };
   /**
-   * Set breadcrumbs manually
+   * Set breadcrumbs
    */
-  const setBreadcrumbs = (breadcrumbs: Breadcrumb[]) => {
-    sharedBreadcrumbs.list = breadcrumbs;
+  const setBreadcrumbs = (breadcrumbs: Breadcrumb[]): void => {
+    sharedBreadcrumbs.list = breadcrumbs || [];
   };
 
   return {
     clear,
     setBreadcrumbs,
-    breadcrumbs: computed(
-      () =>
-        (Array.isArray(localBreadcrumbs.list) && localBreadcrumbs.list) ||
-        getBreadcrumbs(getBreadcrumbsObject.value, rootContext.$routing.getUrl)
-    ),
+    /**
+     * List of current breadcrumbs
+     */
+    breadcrumbs: computed(() => {
+      return [
+        {
+          name: i18n.t("Home"),
+          path: "/",
+        },
+        ...localBreadcrumbs.list,
+      ];
+    }),
   };
-};
+}

@@ -56,7 +56,7 @@ export default {
   },
 
   setup({}, { root }) {
-    const { breadcrumbs: SwBreadcrumbs } = useBreadcrumbs(root)
+    const { breadcrumbs } = useBreadcrumbs(root)
     const { isOpen: isSidebarOpen } = useUIState(root, "CART_SIDEBAR_STATE")
     const {
       isOpen: isLoginModalOpen,
@@ -73,18 +73,13 @@ export default {
     })
 
     const getBreadcrumbs = computed(() => {
-      let breadcrumbs = SwBreadcrumbs.value
-      if (breadcrumbs.length > 0) {
-        breadcrumbs.unshift({
-          text: root.$t("Home"),
-          link: root.$routing.getUrl("/"),
-          route: {
-            link: root.$routing.getUrl("/"),
-          },
-        })
-      }
-
-      return breadcrumbs
+      return breadcrumbs.value.map((breadcrumb) => {
+        return {
+          // map to SFUI type
+          text: breadcrumb.name,
+          link: root.$routing.getUrl(breadcrumb.path),
+        }
+      })
     })
 
     return {

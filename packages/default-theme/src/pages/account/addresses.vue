@@ -13,12 +13,12 @@ export default {
     const { setBreadcrumbs } = useBreadcrumbs(root)
     setBreadcrumbs([
       {
-        text: root.$t("My Account"),
-        link: root.$routing.getUrl(PAGE_ACCOUNT),
+        name: root.$t("My Account"),
+        path: PAGE_ACCOUNT,
       },
       {
-        text: root.$t("My addresses"),
-        link: root.$routing.getUrl(PAGE_ACCOUNT) + "/addresses",
+        name: root.$t("My addresses"),
+        path: PAGE_ACCOUNT + "/addresses",
       },
     ])
   },

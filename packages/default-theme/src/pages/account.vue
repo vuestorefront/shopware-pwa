@@ -46,8 +46,8 @@ export default {
     const { setBreadcrumbs } = useBreadcrumbs(root)
     setBreadcrumbs([
       {
-        text: root.$t("My Account"),
-        link: root.$routing.getUrl(PAGE_ACCOUNT),
+        name: root.$t("My Account"),
+        path: PAGE_ACCOUNT,
       },
     ])
     const ordersCount = computed(() => user.value && user.value.orderCount)
