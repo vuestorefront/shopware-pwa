@@ -14,7 +14,6 @@
 
 |  Function | Description |
 |  --- | --- |
-|  [getBreadcrumbs(breadcrumbsObject, generateUrlFunc)](./helpers.getbreadcrumbs.md) | <b><i>(BETA)</i></b> |
 |  [getCmsLayoutConfiguration(content)](./helpers.getcmslayoutconfiguration.md) | <b><i>(BETA)</i></b> |
 |  [getCmsTechnicalPath(page)](./helpers.getcmstechnicalpath.md) | <b><i>(BETA)</i></b> |
 |  [getListingAvailableFilters(aggregations)](./helpers.getlistingavailablefilters.md) | <b><i>(BETA)</i></b> |
@@ -37,7 +36,6 @@
 
 |  Interface | Description |
 |  --- | --- |
-|  [Breadcrumb](./helpers.breadcrumb.md) | <b><i>(BETA)</i></b> |
 |  [LayoutConfiguration](./helpers.layoutconfiguration.md) | <b><i>(BETA)</i></b> |
 |  [ListingFilter](./helpers.listingfilter.md) | <b><i>(BETA)</i></b> |
 |  [StoreNavigationRoute](./helpers.storenavigationroute.md) | <b><i>(BETA)</i></b> |

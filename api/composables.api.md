@@ -8,7 +8,7 @@ import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/cu
 import { ApplicationVueContext as ApplicationVueContext_2 } from '@shopware-pwa/composables';
 import { Association } from '@shopware-pwa/commons/interfaces/search/Association';
 import { BillingAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress';
-import { Breadcrumb } from '@shopware-pwa/helpers';
+import { Breadcrumb } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { ComputedRef } from '@vue/composition-api';
@@ -502,8 +502,8 @@ export type Search = (path: string, associations?: any) => any;
 // @beta
 export const useAddToCart: (rootContext: ApplicationVueContext, product: Product) => IUseAddToCart;
 
-// @beta (undocumented)
-export const useBreadcrumbs: (rootContext: ApplicationVueContext) => {
+// @beta
+export function useBreadcrumbs(rootContext: ApplicationVueContext): {
     breadcrumbs: ComputedRef<Breadcrumb[]>;
     setBreadcrumbs: (breadcrumbs: Breadcrumb[]) => void;
     clear: () => void;
@@ -519,7 +519,7 @@ export const useCategoryFilters: (rootContext: ApplicationVueContext) => any;
 export const useCheckout: (rootContext: ApplicationVueContext) => IUseCheckout;
 
 // @beta (undocumented)
-export const useCms: (rootContext: ApplicationVueContext) => {
+export function useCms(rootContext: ApplicationVueContext): {
     page: Ref<Readonly<PageResolverProductResult | PageResolverResult<CmsPage>>>;
     categoryId: ComputedRef<string>;
     loading: Ref<boolean>;

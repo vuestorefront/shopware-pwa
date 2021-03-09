@@ -2,18 +2,30 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useBreadcrumbs](./composables.usebreadcrumbs.md)
 
-## useBreadcrumbs variable
+## useBreadcrumbs() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
+Composable for displaying and setting breadcrumbs for page.
 
 <b>Signature:</b>
 
 ```typescript
-useBreadcrumbs: (rootContext: ApplicationVueContext) => {
+export declare function useBreadcrumbs(rootContext: ApplicationVueContext): {
     breadcrumbs: ComputedRef<Breadcrumb[]>;
     setBreadcrumbs: (breadcrumbs: Breadcrumb[]) => void;
     clear: () => void;
-}
+};
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
+
+<b>Returns:</b>
+
+{ breadcrumbs: ComputedRef&lt;Breadcrumb\[\]&gt;; setBreadcrumbs: (breadcrumbs: Breadcrumb\[\]) =&gt; void; clear: () =&gt; void; }
+
