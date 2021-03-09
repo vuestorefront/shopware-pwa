@@ -39,7 +39,7 @@
 </template>
 <script>
 import { formatDate, formatPrice } from "@/helpers"
-import SwButton from "@/components/atoms/SwButton"
+import SwButton from "@/components/atoms/SwButton.vue"
 
 export default {
   name: "Order",

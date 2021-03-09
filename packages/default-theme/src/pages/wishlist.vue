@@ -38,7 +38,7 @@ import {
   useWishlist,
   useBreadcrumbs,
 } from "@shopware-pwa/composables"
-import SwProductCard from "@/components/SwProductCard"
+import SwProductCard from "@/components/SwProductCard.vue"
 import { SfHeading, SfImage, SfLoader } from "@storefront-ui/vue"
 import { onMounted, ref, watch } from "@vue/composition-api"
 import { PAGE_WISHLIST } from "@/helpers/pages"

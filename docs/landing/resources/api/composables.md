@@ -24,7 +24,7 @@
 |  [IUseCheckout](./composables.iusecheckout.md) | <b><i>(BETA)</i></b> interface for [useCheckout](./composables.usecheckout.md) composable |
 |  [IUseIntercept](./composables.iuseintercept.md) | <b><i>(BETA)</i></b> interface for [useIntercept](./composables.useintercept.md) composable |
 |  [IUseListing](./composables.iuselisting.md) | <b><i>(BETA)</i></b> Listing interface, can be used to display category products, search products or any other Shopware search interface (ex. orders with pagination) |
-|  [IUseNavigation](./composables.iusenavigation.md) | <b><i>(BETA)</i></b> interface for [useNavigation](./composables.usenavigation.md) composable |
+|  [IUseNavigation](./composables.iusenavigation.md) | <b><i>(BETA)</i></b> interface for [useNavigation](./composables.usenavigation.md) composable<!-- -->Provides state for navigation trees depending on navigation type. |
 |  [IUseProductConfigurator](./composables.iuseproductconfigurator.md) | <b><i>(BETA)</i></b> interface for [useProductConfigurator](./composables.useproductconfigurator.md) composable |
 |  [IUseProductQuickSearch](./composables.iuseproductquicksearch.md) | <b><i>(BETA)</i></b> |
 |  [IUseSessionContext](./composables.iusesessioncontext.md) | <b><i>(BETA)</i></b> interface for [useSessionContext](./composables.usesessioncontext.md) composable |

@@ -7,7 +7,14 @@ import { CategoryTranslation } from "./CategoryTranslation";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * Source: https://github.com/shopware/platform/blob/master/src/Core/Content/Category/CategoryDefinition.php#L50
+ *
+ * @beta
+ */
+export type CategoryType = "page" | "link" | "folder";
+
+/**
+ * @beta
  */
 export interface Category extends Entity {
   parentId: string | null;
@@ -33,7 +40,7 @@ export interface Category extends Entity {
   slotConfig: [] | null;
   externalLink: string | null;
   visible: boolean;
-  type: string;
+  type: CategoryType;
   description: string;
   id: string;
   parentVersionId: string;
@@ -47,4 +54,10 @@ export interface Category extends Entity {
     pathInfo: string;
     seoPathInfo: string;
   }[];
+
+  translated: {
+    breadcrumb: string[];
+    description: string;
+    externalLink: string;
+  };
 }

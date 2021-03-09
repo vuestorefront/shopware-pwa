@@ -10,7 +10,9 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getAvailablePaymentMethods(contextInstance?: ShopwareApiInstance): Promise<PaymentMethod[]>;
+export declare function getAvailablePaymentMethods(contextInstance?: ShopwareApiInstance, params?: {
+    onlyAvailable?: boolean;
+}): Promise<PaymentMethod[]>;
 ```
 
 ## Parameters
@@ -18,6 +20,7 @@ export declare function getAvailablePaymentMethods(contextInstance?: ShopwareApi
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
+|  params | { onlyAvailable?: boolean; } |  |
 
 <b>Returns:</b>
 

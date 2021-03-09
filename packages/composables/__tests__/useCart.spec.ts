@@ -275,7 +275,21 @@ describe("Composables - useCart", () => {
         );
       });
     });
-
+    describe("submitPromotionCode", () => {
+      it("should execute the addPromotionCode method if promotion code is not falsy", async () => {
+        const { addPromotionCode } = useCart(rootContextMock);
+        await addPromotionCode("PROMO-CODE-123!");
+        mockedShopwareClient.addPromotionCode.mockResolvedValueOnce({
+          lineItems: [{ quantity: 1, type: "promotion" }],
+        } as any);
+        expect(mockedShopwareClient.addPromotionCode).toBeCalledTimes(1);
+      });
+      it("should not execute the addPromotionCode method if promotion code is undefined or null", async () => {
+        const { addPromotionCode } = useCart(rootContextMock);
+        await addPromotionCode(undefined as any);
+        expect(mockedShopwareClient.addPromotionCode).toBeCalledTimes(0);
+      });
+    });
     describe("addPromotionCode", () => {
       it("should add promotion code to cart", async () => {
         const { appliedPromotionCodes, addPromotionCode } = useCart(

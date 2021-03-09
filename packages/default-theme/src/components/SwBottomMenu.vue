@@ -74,12 +74,12 @@ export default {
       root,
       "CART_SIDEBAR_STATE"
     )
-    const { fetchNavigationElements, navigationElements } = useNavigation(root)
+    const { loadNavigationElements, navigationElements } = useNavigation(root)
     const { switchState: toggleModal } = useUIState(root, "LOGIN_MODAL_STATE")
 
     onMounted(async () => {
       try {
-        await fetchNavigationElements(3)
+        await loadNavigationElements({ depth: 3 })
       } catch (e) {
         console.error("[SwBottomMenu]", e)
       }

@@ -61,8 +61,8 @@ import {
   SfDivider,
 } from "@storefront-ui/vue"
 import { formatDate } from "@/helpers"
-import SwPluginSlot from "sw-plugins/SwPluginSlot"
-import SwAddProductReview from "@/components/forms/SwAddProductReview"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
+import SwAddProductReview from "@/components/forms/SwAddProductReview.vue"
 export default {
   name: "SwProductTabs",
   components: {

@@ -35,8 +35,8 @@
 import { SfTabs } from "@storefront-ui/vue"
 import { useBreadcrumbs } from "@shopware-pwa/composables"
 import { PAGE_ACCOUNT } from "@/helpers/pages"
-import SwPassword from "@/components/forms/SwPassword"
-import SwPersonalInfo from "@/components/forms/SwPersonalInfo"
+import SwPassword from "@/components/forms/SwPassword.vue"
+import SwPersonalInfo from "@/components/forms/SwPersonalInfo.vue"
 
 export default {
   name: "MyProfile",

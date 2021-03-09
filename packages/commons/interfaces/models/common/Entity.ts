@@ -4,12 +4,12 @@
  * It provides the following fields: _uniqueIdentifier:string, versionId:string, translated[], createdAt:Date|null, updatedat:Date|null.
  */
 /**
- * @alpha
+ * @beta
  */
 export interface Entity {
   _uniqueIdentifier: string;
   versionId: string;
-  translated: [];
+  translated: any;
   createdAt: Date | null;
   updatedAt: Date | null;
 }

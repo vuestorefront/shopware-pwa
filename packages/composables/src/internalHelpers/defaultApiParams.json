@@ -347,7 +347,8 @@
         "name",
         "id",
         "children",
-        "translated"
+        "translated",
+        "type"
       ],
       "seo_url": [
         "pathInfo",

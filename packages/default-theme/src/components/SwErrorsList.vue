@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import SwAlert from "@/components/atoms/SwAlert"
+import SwAlert from "@/components/atoms/SwAlert.vue"
 
 export default {
   name: "SwErrorsList",

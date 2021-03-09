@@ -1,26 +1,38 @@
 <template>
   <SfFooter
+    v-if="navigationElements && navigationElements.length"
     :column="column"
     :multiple="true"
     :open="open"
-    v-if="navigationLinks && navigationLinks.length"
   >
     <SfFooterColumn
-      v-for="group in navigationLinks"
-      :key="group.routeLabel"
-      :title="group.routeLabel"
+      v-for="category in navigationElements"
+      :key="category.id"
+      :title="category.translated.name"
     >
-      <SfList v-if="group.children && group.children.length">
-        <SfListItem v-for="item in group.children" :key="item.routeLabel">
-          <nuxt-link
-            v-if="!item.isExternal"
-            :to="$routing.getUrl(item.routePath)"
+      <SfList v-if="category.children">
+        <SfListItem
+          v-for="childCategory in category.children"
+          :key="childCategory.id"
+        >
+          <a
+            v-if="isLinkCategory(childCategory)"
+            class="sf-header__link"
+            :href="getCategoryUrl(childCategory)"
+            target="_blank"
           >
-            <SfMenuItem :label="item.routeLabel" />
-          </nuxt-link>
-          <a :href="$routing.getUrl(item.routePath)" target="_new" v-else>
-            <SfMenuItem :label="item.routeLabel" :title="item.routeLabel" />
+            <SfMenuItem :label="childCategory.translated.name" />
           </a>
+          <nuxt-link
+            v-else
+            class="sf-header__link"
+            :to="$routing.getUrl(getCategoryUrl(childCategory))"
+          >
+            <SfMenuItem
+              :label="childCategory.translated.name"
+              :title="childCategory.translated.name"
+            />
+          </nuxt-link>
         </SfListItem>
       </SfList>
     </SfFooterColumn>
@@ -28,80 +40,66 @@
 </template>
 <script>
 import { SfFooter, SfList, SfMenuItem } from "@storefront-ui/vue"
-import { getStoreNavigation } from "@shopware-pwa/shopware-6-client"
-import { onMounted, ref, computed } from "@vue/composition-api"
-import { getApplicationContext } from "@shopware-pwa/composables"
-import { getStoreNavigationRoutes } from "@shopware-pwa/helpers"
+import { ref, watch, computed, onMounted } from "@vue/composition-api"
+import { getCategoryUrl, isLinkCategory } from "@shopware-pwa/helpers"
+import { useNavigation } from "@shopware-pwa/composables"
+import { useDomains } from "@/logic"
 
-function extractLinksLabels(navigationLinks, aggregation = []) {
-  for (const link of navigationLinks) {
-    aggregation.push(link.routeLabel)
-    if (link.children && link.children.length) {
-      extractLinksLabels(link.children, aggregation)
+function extractCategoryNames(categories, aggregation = []) {
+  for (const category of categories) {
+    aggregation.push(category.translated.name)
+    if (category.children && category.children.length) {
+      extractCategoryNames(category.children, aggregation)
     }
   }
 }
 
 export default {
+  name: "SwFooterNavigation",
   components: {
     SfFooter,
     SfList,
     SfMenuItem,
   },
-  name: "SwFooterNavigation",
   setup({}, { root }) {
-    const { apiInstance } = getApplicationContext(root, "SwFooter")
-    const navigationLinks = ref([])
+    const { loadNavigationElements, navigationElements } = useNavigation(root, {
+      type: "footer-navigation",
+    })
+    const isLoadingFooterData = ref(false)
+
+    const { currentDomainId } = useDomains(root)
+
     const column = ref(4)
 
-    onMounted(async () => {
-      try {
-        const navigationResponse = await getStoreNavigation(
-          {
-            requestActiveId: "footer-navigation",
-            requestRootId: "footer-navigation",
-            searchCriteria: {
-              configuration: {
-                includes: {
-                  category: [
-                    "seoUrls",
-                    "externalLink",
-                    "name",
-                    "translated",
-                    "id",
-                    "children",
-                  ],
-                  seo_url: ["pathInfo", "seoPathInfo"],
-                },
-                associations: [
-                  {
-                    name: "seoUrls",
-                  },
-                ],
-              },
-            },
-          },
-          apiInstance
-        )
-        navigationLinks.value = getStoreNavigationRoutes(navigationResponse)
-      } catch (e) {
-        console.error("SwFooterNavigation:setup:onMounted", e)
-      }
-    })
-
     const open = computed(() => {
-      if (!navigationLinks.value) {
+      if (!navigationElements.value) {
         return []
       }
-      const labels = []
-      extractLinksLabels(navigationLinks.value, labels)
-      return labels
+      const names = []
+      extractCategoryNames(navigationElements.value, names)
+      return names
+    })
+
+    onMounted(async () => {
+      await watch(
+        currentDomainId,
+        async () => {
+          try {
+            await loadNavigationElements({ depth: 2 })
+          } catch (e) {
+            console.error("[SwFooterNavigation]", e)
+          }
+        },
+        { immediate: true }
+      )
     })
 
     return {
-      navigationLinks,
-      open,
+      navigationElements,
+      getCategoryUrl,
+      isLinkCategory,
       column,
+      open,
     }
   },
 }

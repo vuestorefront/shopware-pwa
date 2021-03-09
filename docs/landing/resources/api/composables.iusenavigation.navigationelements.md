@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-navigationElements: Ref<Readonly<NavigationElement[]>>;
+navigationElements: ComputedRef<StoreNavigationElement[]>;
 ```

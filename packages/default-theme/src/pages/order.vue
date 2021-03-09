@@ -17,8 +17,8 @@
 import { SfHeading, SfIcon, SfDivider } from "@storefront-ui/vue"
 import { computed } from "@vue/composition-api"
 import { useBreadcrumbs } from "@shopware-pwa/composables"
-import SwButton from "@/components/atoms/SwButton"
-import SwOrderDetails from "@/components/SwOrderDetails"
+import SwButton from "@/components/atoms/SwButton.vue"
+import SwOrderDetails from "@/components/SwOrderDetails.vue"
 
 export default {
   name: "OrderPage",

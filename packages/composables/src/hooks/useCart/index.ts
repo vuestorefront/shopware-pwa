@@ -115,13 +115,15 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     vuexStore.commit("SET_CART", result);
   }
 
-  async function sumbitPromotionCode(promotionCode: string) {
-    const result = await addPromotionCode(promotionCode, apiInstance);
-    vuexStore.commit("SET_CART", result);
-    broadcast(INTERCEPTOR_KEYS.ADD_PROMOTION_CODE, {
-      result,
-      promotionCode,
-    });
+  async function submitPromotionCode(promotionCode: string) {
+    if (promotionCode) {
+      const result = await addPromotionCode(promotionCode, apiInstance);
+      vuexStore.commit("SET_CART", result);
+      broadcast(INTERCEPTOR_KEYS.ADD_PROMOTION_CODE, {
+        result,
+        promotionCode,
+      });
+    }
   }
 
   const appliedPromotionCodes = computed(() => {
@@ -167,7 +169,7 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
 
   return {
     addProduct,
-    addPromotionCode: sumbitPromotionCode,
+    addPromotionCode: submitPromotionCode,
     appliedPromotionCodes,
     cart,
     cartItems,
