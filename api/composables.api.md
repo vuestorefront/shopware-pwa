@@ -503,7 +503,9 @@ export type Search = (path: string, associations?: any) => any;
 export const useAddToCart: (rootContext: ApplicationVueContext, product: Product) => IUseAddToCart;
 
 // @beta
-export function useBreadcrumbs(rootContext: ApplicationVueContext): {
+export function useBreadcrumbs(rootContext: ApplicationVueContext, params?: {
+    hideHomeLink: boolean;
+}): {
     breadcrumbs: ComputedRef<Breadcrumb[]>;
     setBreadcrumbs: (breadcrumbs: Breadcrumb[]) => void;
     clear: () => void;

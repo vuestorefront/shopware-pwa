@@ -7,7 +7,7 @@ import VueCompositionApi, {
   Ref,
 } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
-import { useBreadcrumbs } from "../src/logic/useBreadcrumbs";
+import { useCms, useBreadcrumbs } from "@shopware-pwa/composables";
 
 describe("Composables - useBreadcrumbs", () => {
   const statePage: Ref<Object | null> = ref(null);
@@ -20,6 +20,9 @@ describe("Composables - useBreadcrumbs", () => {
     },
     $shopwareApiInstance: jest.fn(),
     shopwareDefaults: jest.fn(),
+    i18n: {
+      t: (text: string) => text,
+    },
     $routing: jest.fn(),
   };
   beforeEach(() => {
@@ -35,8 +38,8 @@ describe("Composables - useBreadcrumbs", () => {
         );
         setBreadcrumbs([
           {
-            text: "My account",
-            link: "/account",
+            name: "My account",
+            path: "/account",
           } as any,
         ]);
         clear();
@@ -59,33 +62,89 @@ describe("Composables - useBreadcrumbs", () => {
             },
           },
         };
+        useCms(rootContextMock);
         const { breadcrumbs } = useBreadcrumbs(rootContextMock);
         expect(breadcrumbs.value).toStrictEqual([
           {
-            link: "Clothes/",
-            route: {
-              link: "Clothes/",
-            },
-            text: "Clothes",
+            name: "Home",
+            path: "/",
+          },
+          {
+            path: "Clothes/",
+            name: "Clothes",
           },
         ]);
       });
-      it("should return local breadcrumbs with default one pointing Home if there are any assigned", () => {
+
+      it("should return breadcrumbs object without Home link from cms page if any available", () => {
+        statePage.value = {
+          breadcrumb: {
+            "breadcrumb-id": {
+              name: "Clothes",
+              path: "Clothes/",
+            },
+          },
+        };
+        useCms(rootContextMock);
+        const { breadcrumbs } = useBreadcrumbs(rootContextMock, {
+          hideHomeLink: true,
+        });
+        expect(breadcrumbs.value).toStrictEqual([
+          {
+            path: "Clothes/",
+            name: "Clothes",
+          },
+        ]);
+      });
+      it("should return local breadcrumbs with default one pointing Home link if there are any assigned", () => {
         const { setBreadcrumbs, breadcrumbs } = useBreadcrumbs(rootContextMock);
         setBreadcrumbs([
           {
-            text: "My account",
-            link: "/account",
-          } as any,
+            name: "My account",
+            path: "/account",
+          },
         ]);
 
         expect(breadcrumbs.value).toStrictEqual([
           {
-            link: "/account",
-            text: "My account",
+            path: "/",
+            name: "Home",
+          },
+          {
+            path: "/account",
+            name: "My account",
           },
         ]);
       });
+
+      it("should return local breadcrumbs without Home link if there are any assigned", () => {
+        const { setBreadcrumbs, breadcrumbs } = useBreadcrumbs(
+          rootContextMock,
+          { hideHomeLink: true }
+        );
+        setBreadcrumbs([
+          {
+            name: "My account",
+            path: "/account",
+          },
+        ]);
+
+        expect(breadcrumbs.value).toStrictEqual([
+          {
+            path: "/account",
+            name: "My account",
+          },
+        ]);
+      });
+    });
+
+    it("should set an empty array if no value set", () => {
+      const { setBreadcrumbs, breadcrumbs } = useBreadcrumbs(rootContextMock, {
+        hideHomeLink: true,
+      });
+      setBreadcrumbs(null as any);
+
+      expect(breadcrumbs.value).toStrictEqual([]);
     });
   });
 });

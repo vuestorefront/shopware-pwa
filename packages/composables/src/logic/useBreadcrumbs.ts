@@ -15,7 +15,15 @@ const sharedBreadcrumbs = Vue.observable({
  * @beta
  */
 export function useBreadcrumbs(
-  rootContext: ApplicationVueContext
+  rootContext: ApplicationVueContext,
+  params?: {
+    /**
+     * Define if you want to show/hide link to Home in breadcrumbs.
+     *
+     * By default we show Home link.
+     */
+    hideHomeLink: boolean;
+  }
 ): {
   breadcrumbs: ComputedRef<Breadcrumb[]>;
   setBreadcrumbs: (breadcrumbs: Breadcrumb[]) => void;
@@ -44,6 +52,8 @@ export function useBreadcrumbs(
      * List of current breadcrumbs
      */
     breadcrumbs: computed(() => {
+      if (!!params?.hideHomeLink || !localBreadcrumbs.list.length)
+        return localBreadcrumbs.list;
       return [
         {
           name: i18n.t("Home"),
