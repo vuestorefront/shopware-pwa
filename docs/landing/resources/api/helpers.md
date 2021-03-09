@@ -50,4 +50,5 @@
 |  Variable | Description |
 |  --- | --- |
 |  [getCategoryUrl](./helpers.getcategoryurl.md) | <b><i>(BETA)</i></b> Get URL for category. |
+|  [isLinkCategory](./helpers.islinkcategory.md) | <b><i>(BETA)</i></b> |
 

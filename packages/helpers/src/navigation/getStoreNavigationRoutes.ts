@@ -12,6 +12,7 @@ export interface StoreNavigationRoute {
 
 /**
  * @beta
+ * @deprecated use getCategoryUrl instead. Will be removed after v0.8
  */
 export function getStoreNavigationRoutes(
   navigationElements: StoreNavigationElement[]

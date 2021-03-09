@@ -16,7 +16,6 @@ import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkou
 import { CustomerRegistrationParams } from '@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Language } from '@shopware-pwa/commons/interfaces/models/framework/language/Language';
-import { NavigationResponse } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
@@ -30,6 +29,7 @@ import { SessionContext } from '@shopware-pwa/commons/interfaces/response/Sessio
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
+import { StoreNavigationType } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 
 // @beta @deprecated
 export function addCartItemQuantity(itemId: string, quantity: number, contextInstance?: ShopwareApiInstance): Promise<Cart>;
@@ -325,12 +325,6 @@ export const getCustomerUpdateEmailEndpoint: () => string;
 export const getCustomerUpdatePasswordEndpoint: () => string;
 
 // @alpha (undocumented)
-export function getNavigation(params: GetNavigationParams, contextInstance?: ShopwareApiInstance): Promise<NavigationResponse>;
-
-// @beta (undocumented)
-export const getNavigationEndpoint: () => string;
-
-// @alpha (undocumented)
 export interface GetNavigationParams {
     // (undocumented)
     depth: number;
@@ -422,9 +416,9 @@ export interface GetStoreNavigationParams {
     // (undocumented)
     depth?: number;
     // (undocumented)
-    requestActiveId: "main-navigation" | "service-navigation" | "footer-navigation";
+    requestActiveId: StoreNavigationType;
     // (undocumented)
-    requestRootId: "main-navigation" | "service-navigation" | "footer-navigation";
+    requestRootId: StoreNavigationType;
     // (undocumented)
     searchCriteria?: SearchCriteria;
 }

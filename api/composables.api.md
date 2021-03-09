@@ -25,7 +25,6 @@ import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria
 import { IUseListing as IUseListing_2 } from '@shopware-pwa/composables';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
 import { ListingFilter } from '@shopware-pwa/helpers';
-import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
@@ -41,6 +40,8 @@ import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout
 import { ShopwareApiInstance } from '@shopware-pwa/shopware-6-client';
 import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
+import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
+import { StoreNavigationType } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { VueConstructor } from 'vue';
 
 // @beta
@@ -311,14 +312,13 @@ export interface IUseListing<ELEMENTS_TYPE> {
 
 // @beta
 export interface IUseNavigation {
-    // (undocumented)
+    // @deprecated (undocumented)
     fetchNavigationElements: (depth: number) => Promise<void>;
+    loadNavigationElements: (params: {
+        depth: number;
+    }) => Promise<void>;
     // (undocumented)
-    fetchRoutes: () => Promise<void>;
-    // (undocumented)
-    navigationElements: Ref<Readonly<NavigationElement[]>>;
-    // (undocumented)
-    routes: Ref<Readonly<any>>;
+    navigationElements: ComputedRef<StoreNavigationElement[]>;
 }
 
 // @beta
@@ -570,7 +570,9 @@ export const useIntercept: (rootContext: ApplicationVueContext_2) => IUseInterce
 export const useListing: (rootContext: ApplicationVueContext_2, listingKey?: listingKey) => IUseListing_2<Product>;
 
 // @beta
-export const useNavigation: (rootContext: ApplicationVueContext) => IUseNavigation;
+export const useNavigation: (rootContext: ApplicationVueContext, params?: {
+    type: StoreNavigationType;
+}) => IUseNavigation;
 
 // @beta (undocumented)
 export const useNotifications: (rootContext: ApplicationVueContext) => {

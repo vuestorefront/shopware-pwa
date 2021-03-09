@@ -16,7 +16,16 @@
       @keyup.tab="changeCurrentCategory(category.translated.name)"
       @click="changeCurrentCategory(null)"
     >
+      <a
+        v-if="isLinkCategory(category)"
+        class="sf-header__link"
+        :href="getCategoryUrl(category)"
+        target="_blank"
+      >
+        {{ category.translated.name }}
+      </a>
       <nuxt-link
+        v-else
         class="sf-header__link"
         :to="$routing.getUrl(getCategoryUrl(category))"
         >{{ category.translated.name }}</nuxt-link
@@ -56,7 +65,7 @@ import { useNavigation, useUIState } from "@shopware-pwa/composables"
 
 import SwMegaMenu from "@/components/SwMegaMenu.vue"
 import { ref, onMounted, watch } from "@vue/composition-api"
-import { getCategoryUrl } from "@shopware-pwa/helpers"
+import { getCategoryUrl, isLinkCategory } from "@shopware-pwa/helpers"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { useDomains } from "@/logic"
 import SwTopNavigationShowMore from "@/components/SwTopNavigationShowMore.vue"
@@ -72,7 +81,8 @@ export default {
       root,
       "MEGA_MENU_OVERLAY_STATE"
     )
-    const { fetchNavigationElements, navigationElements } = useNavigation(root)
+    const { loadNavigationElements, navigationElements } = useNavigation(root)
+
     const { currentDomainId } = useDomains(root)
 
     const currentCategoryName = ref(null)
@@ -83,19 +93,23 @@ export default {
     }
 
     onMounted(async () => {
-      await watch(currentDomainId, async () => {
-        try {
-          await fetchNavigationElements(3)
-        } catch (e) {
-          console.error("[SwTopNavigation]", e)
-        }
-      })
+      await watch(
+        currentDomainId,
+        async () => {
+          try {
+            await loadNavigationElements({ depth: 3 })
+          } catch (e) {
+            console.error("[SwTopNavigation]", e)
+          }
+        },
+        { immediate: true }
+      )
     })
 
     return {
-      fetchNavigationElements,
       navigationElements,
       getCategoryUrl,
+      isLinkCategory,
       currentCategoryName,
       changeCurrentCategory,
     }
@@ -133,17 +147,6 @@ export default {
 
   async mounted() {
     window.addEventListener("resize", this.countVisibleCategories)
-    // fixes a watch issue - fetch the elements if watch wasn't fired
-    if (
-      Array.isArray(this.navigationElements) &&
-      !this.navigationElements.length
-    ) {
-      try {
-        await this.fetchNavigationElements(3)
-      } catch (e) {
-        console.error("[SwTopNavigation]", e)
-      }
-    }
     this.countVisibleCategories()
   },
 
@@ -157,7 +160,8 @@ export default {
 
       this.$nextTick(() => {
         const nav = this.$refs.navigation
-        const navElements = nav.querySelectorAll(".sf-header-navigation-item")
+        const navElements =
+          nav?.querySelectorAll(".sf-header-navigation-item") || []
         let visibleItemsCount = 0
         let unvisibleItemsCount = 0
 

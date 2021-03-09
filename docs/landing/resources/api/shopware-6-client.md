@@ -131,7 +131,6 @@
 |  [getCustomerResetPasswordEndpoint](./shopware-6-client.getcustomerresetpasswordendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerUpdateEmailEndpoint](./shopware-6-client.getcustomerupdateemailendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerUpdatePasswordEndpoint](./shopware-6-client.getcustomerupdatepasswordendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getNavigationEndpoint](./shopware-6-client.getnavigationendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getNewsletterSubscribeEndpoint](./shopware-6-client.getnewslettersubscribeendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getNewsletterUnsubscribeEndpoint](./shopware-6-client.getnewsletterunsubscribeendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getOrderPaymentUrlEndpoint](./shopware-6-client.getorderpaymenturlendpoint.md) | <b><i>(BETA)</i></b> |

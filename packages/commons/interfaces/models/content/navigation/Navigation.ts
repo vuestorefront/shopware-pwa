@@ -2,29 +2,16 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 import { Media } from "@shopware-pwa/commons/interfaces/models/content/media/Media";
 
 /**
- * @alpha
+ * Navigation type to display on page.
+ *
+ * Source: https://github.com/shopware/platform/blob/trunk/src/Core/Content/Category/SalesChannel/NavigationRoute.php#L285
+ *
+ * @beta
  */
-export interface NavigationResponse {
-  count: number;
-  children: NavigationElement[];
-}
-
-/**
- * @alpha
- */
-export interface NavigationElement {
-  id: string;
-  name: string;
-  route: {
-    path: string;
-    resourceType: string;
-  };
-  children: NavigationElement[] | null;
-  count: number;
-  level: number;
-  extensions: any[];
-  translated: any;
-}
+export type StoreNavigationType =
+  | "main-navigation"
+  | "footer-navigation"
+  | "service-navigation";
 
 /**
  * @beta

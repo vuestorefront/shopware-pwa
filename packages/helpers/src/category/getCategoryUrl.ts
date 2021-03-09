@@ -6,16 +6,24 @@ import { Category } from "@shopware-pwa/commons/interfaces/models/content/catego
  * @beta
  */
 export const getCategoryUrl = (category: Partial<Category>): string => {
-  if (!category?.externalLink && !category?.seoUrls?.length && !category?.id) {
-    return "/";
+  if (!category) return "/";
+  switch (category.type) {
+    case "link":
+      return category.translated?.externalLink || category.externalLink || "/";
+    case "folder":
+      return "/";
+    default:
+      return category.seoUrls?.[0]?.seoPathInfo
+        ? `/${category.seoUrls[0].seoPathInfo}`
+        : category.id
+        ? `/navigation/${category.id}`
+        : "/";
   }
-
-  const categoryUrl =
-    category.seoUrls?.[0]?.seoPathInfo || `/navigation/${category.id}`;
-
-  return (
-    category.externalLink ||
-    (categoryUrl.charAt(0) === "/" && categoryUrl) ||
-    `/${categoryUrl}`
-  );
 };
+
+/**
+ *
+ * @beta
+ */
+export const isLinkCategory = (category: Partial<Category>): boolean =>
+  category?.type === "link";

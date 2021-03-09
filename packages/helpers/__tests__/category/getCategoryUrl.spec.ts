@@ -1,4 +1,5 @@
-import { getCategoryUrl } from "@shopware-pwa/helpers";
+import { Category } from "@shopware-pwa/commons/interfaces/models/content/category/Category";
+import { getCategoryUrl, isLinkCategory } from "@shopware-pwa/helpers";
 
 describe("Shopware helpers - getCategoryUrl", () => {
   it("should return root path if there is no category", () => {
@@ -46,7 +47,47 @@ describe("Shopware helpers - getCategoryUrl", () => {
   it("should return external link if any exists", () => {
     const result = getCategoryUrl({
       externalLink: "https://shopware.com",
-    } as any);
+      type: "link",
+    } as Category);
     expect(result).toEqual("https://shopware.com");
+  });
+
+  it("should return external link from translated object first", () => {
+    const result = getCategoryUrl({
+      externalLink: "https://shopware.com",
+      type: "link",
+      translated: { externalLink: "https://translated.shopware.com" },
+    } as Category);
+    expect(result).toEqual("https://translated.shopware.com");
+  });
+
+  it("should return default url when there is no external link", () => {
+    const result = getCategoryUrl({
+      type: "link",
+    } as Category);
+    expect(result).toEqual("/");
+  });
+
+  it("should return default url when category type is folder", () => {
+    const result = getCategoryUrl({
+      id: "123",
+      type: "folder",
+    } as Category);
+    expect(result).toEqual("/");
+  });
+});
+
+describe("isLinkCategory", () => {
+  it("should return false when no category provided", () => {
+    const result = isLinkCategory(null as any);
+    expect(result).toBe(false);
+  });
+
+  it("should return false when no category provided", () => {
+    const result = isLinkCategory({
+      id: "123",
+      type: "link",
+    } as Category);
+    expect(result).toBe(true);
   });
 });
