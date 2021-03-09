@@ -93,17 +93,20 @@ export default {
     }
 
     onMounted(async () => {
-      await watch(currentDomainId, async () => {
-        try {
-          await loadNavigationElements({ depth: 3 })
-        } catch (e) {
-          console.error("[SwTopNavigation]", e)
-        }
-      })
+      await watch(
+        currentDomainId,
+        async () => {
+          try {
+            await loadNavigationElements({ depth: 3 })
+          } catch (e) {
+            console.error("[SwTopNavigation]", e)
+          }
+        },
+        { immediate: true }
+      )
     })
 
     return {
-      loadNavigationElements,
       navigationElements,
       getCategoryUrl,
       isLinkCategory,
@@ -144,17 +147,6 @@ export default {
 
   async mounted() {
     window.addEventListener("resize", this.countVisibleCategories)
-    // fixes a watch issue - fetch the elements if watch wasn't fired
-    if (
-      Array.isArray(this.navigationElements) &&
-      !this.navigationElements.length
-    ) {
-      try {
-        await this.loadNavigationElements({ depth: 3 })
-      } catch (e) {
-        console.error("[SwTopNavigation]", e)
-      }
-    }
     this.countVisibleCategories()
   },
 

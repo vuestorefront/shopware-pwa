@@ -40,7 +40,7 @@
 </template>
 <script>
 import { SfFooter, SfList, SfMenuItem } from "@storefront-ui/vue"
-import { ref, watch, computed } from "@vue/composition-api"
+import { ref, watch, computed, onMounted } from "@vue/composition-api"
 import { getCategoryUrl, isLinkCategory } from "@shopware-pwa/helpers"
 import { useNavigation } from "@shopware-pwa/composables"
 import { useDomains } from "@/logic"
@@ -80,29 +80,26 @@ export default {
       return names
     })
 
-    watch(currentDomainId, async () => {
-      try {
-        await loadNavigationElements({ depth: 2 })
-      } catch (e) {
-        console.error("[SwFooterNavigation]", e)
-      }
+    onMounted(async () => {
+      await watch(
+        currentDomainId,
+        async () => {
+          try {
+            await loadNavigationElements({ depth: 2 })
+          } catch (e) {
+            console.error("[SwFooterNavigation]", e)
+          }
+        },
+        { immediate: true }
+      )
     })
 
     return {
-      loadNavigationElements,
       navigationElements,
       getCategoryUrl,
       isLinkCategory,
       column,
       open,
-    }
-  },
-
-  async mounted() {
-    try {
-      await this.loadNavigationElements({ depth: 2 })
-    } catch (e) {
-      console.error("[SwFooterNavigation]", e)
     }
   },
 }

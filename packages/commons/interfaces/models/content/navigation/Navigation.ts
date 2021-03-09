@@ -9,13 +9,7 @@ import { Media } from "@shopware-pwa/commons/interfaces/models/content/media/Med
  * @beta
  */
 export type StoreNavigationType =
-  /**
-   * something impornat
-   */
   | "main-navigation"
-  /**
-   * test comment 2
-   */
   | "footer-navigation"
   | "service-navigation";
 

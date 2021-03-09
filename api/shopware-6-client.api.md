@@ -180,8 +180,6 @@ export function getAvailableShippingMethods(contextInstance?: ShopwareApiInstanc
 // @beta
 export function getCart(contextInstance?: ShopwareApiInstance): Promise<Cart>;
 
-// Warning: (ae-unresolved-link) The @link reference could not be resolved: The package "@shopware-pwa/shopware-6-client" does not have an export "getNavigation"
-//
 // @alpha @deprecated (undocumented)
 export function getCategories(searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<SearchResult<Category[]>>;
 

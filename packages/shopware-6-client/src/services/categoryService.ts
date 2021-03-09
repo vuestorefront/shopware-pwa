@@ -7,7 +7,7 @@ import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCr
 import { deprecationWarning } from "@shopware-pwa/commons";
 
 /**
- * @deprecated use {@link getNavigation} method instead
+ * @deprecated use {@link getStoreNavigation} method instead
  * @throws ClientApiError
  * @alpha
  */
