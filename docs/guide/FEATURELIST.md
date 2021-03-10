@@ -100,6 +100,7 @@ sidebar: auto
 - Pretty URLs
   - Category pages
   - Product pages
+- Breadcrumbs management
 
 ### Plugin system
 

@@ -25,7 +25,7 @@ export const addPromotionCodeNotification = (payload, rootContext) => {
   if (!result.errors || !result.errors.length) {
     return pushSuccess(rootContext.$t("Promotion code added successfully"))
   }
-  
+
   const err = Object.values(result.errors)[0]
   if (err) {
     switch (err.messageKey) {

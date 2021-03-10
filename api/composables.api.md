@@ -8,7 +8,9 @@ import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/cu
 import { ApplicationVueContext as ApplicationVueContext_2 } from '@shopware-pwa/composables';
 import { Association } from '@shopware-pwa/commons/interfaces/search/Association';
 import { BillingAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress';
+import { Breadcrumb } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
+import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { ComputedRef } from '@vue/composition-api';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
@@ -26,6 +28,9 @@ import { IUseListing as IUseListing_2 } from '@shopware-pwa/composables';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
 import { ListingFilter } from '@shopware-pwa/helpers';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
+import { PageBreadcrumb } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { ProductListingResult } from '@shopware-pwa/commons/interfaces/response/ProductListingResult';
@@ -498,6 +503,15 @@ export type Search = (path: string, associations?: any) => any;
 export const useAddToCart: (rootContext: ApplicationVueContext, product: Product) => IUseAddToCart;
 
 // @beta
+export function useBreadcrumbs(rootContext: ApplicationVueContext, params?: {
+    hideHomeLink: boolean;
+}): {
+    breadcrumbs: ComputedRef<Breadcrumb[]>;
+    setBreadcrumbs: (breadcrumbs: Breadcrumb[]) => void;
+    clear: () => void;
+};
+
+// @beta
 export const useCart: (rootContext: ApplicationVueContext) => IUseCart;
 
 // @beta @deprecated (undocumented)
@@ -507,7 +521,14 @@ export const useCategoryFilters: (rootContext: ApplicationVueContext) => any;
 export const useCheckout: (rootContext: ApplicationVueContext) => IUseCheckout;
 
 // @beta (undocumented)
-export const useCms: (rootContext: ApplicationVueContext) => any;
+export function useCms(rootContext: ApplicationVueContext): {
+    page: Ref<Readonly<PageResolverProductResult | PageResolverResult<CmsPage>>>;
+    categoryId: ComputedRef<string>;
+    loading: Ref<boolean>;
+    search: (path: string, query?: any) => Promise<void>;
+    error: Ref<any>;
+    getBreadcrumbsObject: ComputedRef<PageBreadcrumb>;
+};
 
 // @beta (undocumented)
 export interface UseCountries {
