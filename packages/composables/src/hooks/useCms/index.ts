@@ -28,6 +28,9 @@ export function useCms(
   loading: Ref<boolean>;
   search: (path: string, query?: any) => Promise<void>;
   error: Ref<any>;
+  /**
+   * @deprecated use useBreadcrumbs instead. Remove after v0.8
+   */
   getBreadcrumbsObject: ComputedRef<PageBreadcrumb>;
 } {
   const { vuexStore, apiInstance } = getApplicationContext(
@@ -83,6 +86,9 @@ export function useCms(
     loading,
     search,
     error,
+    /**
+     * @deprecated use useBreadcrumbs instead. Remove after v0.8
+     */
     getBreadcrumbsObject: computed(
       () => (page.value && (page.value as any).breadcrumb) || {}
     ),
