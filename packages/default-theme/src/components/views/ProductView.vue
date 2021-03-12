@@ -15,11 +15,11 @@
       <div class="products-recomendations__section">
         <SfTabs :open-tab="1">
           <SfTab
-            v-for="crossSell in crossSellCollection"
-            :key="crossSell.id"
-            :title="crossSell.translated.name"
+            v-for="crossSellItem in crossSellCollection"
+            :key="crossSellItem.crossSelling.id"
+            :title="crossSellItem.crossSelling.translated.name"
           >
-            <SwProductCarousel :products="crossSell.assignedProducts" />
+            <SwProductCarousel :products="crossSellItem.products" />
           </SfTab>
         </SfTabs>
       </div>
@@ -62,7 +62,7 @@
 </template>
 <script>
 import { SfImage, SfSection, SfTabs } from "@storefront-ui/vue"
-import { useProduct, useUser, useUIState } from "@shopware-pwa/composables"
+import { useProduct, useUser, useUIState, useProductAssociation, useDefaults } from "@shopware-pwa/composables"
 import SwGoBackArrow from "@/components/atoms/SwGoBackArrow.vue"
 import SwProductGallery from "@/components/SwProductGallery.vue"
 import SwProductDetails from "@/components/SwProductDetails.vue"
@@ -96,10 +96,22 @@ export default {
       root,
       "LOGIN_MODAL_STATE"
     )
+    const { getIncludesConfig } = useDefaults(root, 'useProductListing')
     const product = computed(() => page.product)
-    const crossSellCollection = computed(
-      () => product.value.crossSellings || []
-    )
+
+    const { fetch: fetchCrossSells, getAssociations: crossSellCollection } = useProductAssociation(root, product.value, "cross-selling");
+    onMounted(() => fetchCrossSells({
+      params: {
+        "associations": {
+          "product": {
+            "associations": {
+              "seoUrls": {}
+            }
+          }
+        },
+        "includes": getIncludesConfig()
+      }
+    }))
     return {
       isLoggedIn,
       switchLoginModalState,
