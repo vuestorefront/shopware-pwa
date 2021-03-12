@@ -1,5 +1,5 @@
 import { GluegunCommand } from "gluegun";
-import validatePackageName from "validate-npm-package-name";
+import * as validatePackageName from "validate-npm-package-name";
 
 const command: GluegunCommand = {
   name: "create-theme",
