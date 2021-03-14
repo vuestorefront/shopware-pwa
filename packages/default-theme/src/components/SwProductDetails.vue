@@ -39,7 +39,11 @@
         @click="addToCart"
       >
         <template #add-to-cart-btn>
-          <SwButton class="sf-button--full-width" @click="addToCart">
+          <SwButton
+            class="sf-button--full-width"
+            @click="addToCart"
+            data-cy="button-addToCart"
+          >
             {{ $t("Add To Cart") }}
           </SwButton>
         </template>
