@@ -40,7 +40,7 @@
     </SwButton>
     <SfModal
       class="sw-modal"
-      title="Add address"
+      :title="$t('Add address')"
       :visible="isModalOpen"
       @close="isModalOpen = false"
     >
