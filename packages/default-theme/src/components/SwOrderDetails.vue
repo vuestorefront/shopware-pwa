@@ -71,7 +71,7 @@
           <SfModal
             v-if="!preventRedirect"
             class="sw-modal"
-            title="Add address"
+            :title="$t('Add address')"
             :visible="isModalOpen"
             @close="isModalOpen = false"
           >
