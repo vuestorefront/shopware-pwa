@@ -19,7 +19,7 @@
     "dev:nuxt-module": "yarn dev nuxt-module",
     "dev:debug": "node --inspect scripts/dev.js",
     "build": "node scripts/build.js",
-    "postinstall": "node scripts/linkDependencies.js && lerna link",
+    "postinstall": "node scripts/linkDependencies.js && lerna link && husky install",
     "lint": "prettier --write --parser typescript \"packages/**/*.ts\"",
     "test": "jest",
     "test:e2e": "jest --e2e=true --runInBand",
