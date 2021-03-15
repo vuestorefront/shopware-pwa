@@ -39,7 +39,11 @@
         @click="addToCart"
       >
         <template #add-to-cart-btn>
-          <SwButton class="sf-button--full-width" @click="addToCart">
+          <SwButton
+            class="sf-button--full-width"
+            @click="addToCart"
+            data-cy="button-addToCart"
+          >
             {{ $t("Add To Cart") }}
           </SwButton>
         </template>
@@ -81,6 +85,8 @@ import {
 } from "@shopware-pwa/composables"
 import { getProductUrl } from "@shopware-pwa/helpers"
 import { computed, onMounted, watch } from "@vue/composition-api"
+import SwButton from "@/components/atoms/SwButton"
+
 export default {
   name: "SwProductDetails",
   components: {
@@ -92,6 +98,7 @@ export default {
     SwProductTabs: () => import("@/components/SwProductTabs"),
     SwProductColors: () => import("@/components/SwProductColors"),
     SwPluginSlot: () => import("sw-plugins/SwPluginSlot"),
+    SwButton,
   },
   props: {
     product: {
