@@ -1,3 +1,13 @@
+## [0.7.2](https://github.com/DivanteLtd/shopware-pwa/compare/v0.7.1...v0.7.2) (2021-03-15)
+
+
+### Bug Fixes
+
+* **default-theme:** missing add to cart button import ([3348251](https://github.com/DivanteLtd/shopware-pwa/commit/33482513def59e63fd44c2bb05ac3b8e8409a411))
+* **default-theme:** optional chaining compatibility ([#1366](https://github.com/DivanteLtd/shopware-pwa/issues/1366)) ([a9b2853](https://github.com/DivanteLtd/shopware-pwa/commit/a9b2853373b0f1da8446c391e29f02b0cee123cc))
+
+
+
 ## [0.7.1](https://github.com/vuestorefront/shopware-pwa/compare/v0.7.0...v0.7.1) (2021-02-10)
 
 
