@@ -19,7 +19,7 @@
       class="sf-heading--left sf-heading--no-underline title"
     />
 
-    <SwErrorsList :list="useUserErrorMessages" />
+    <SwErrorsList v-if="useUserErrorMessages" :list="useUserErrorMessages" />
 
     <div class="form">
       <SwInput
@@ -132,7 +132,7 @@ import {
   usePersonalDetailsStep,
   usePersonalDetailsStepValidationRules,
 } from "@/logic/checkout/usePersonalDetailsStep"
-import SwErrorsList from "@/components/SwErrorsList.vue"
+const SwErrorsList = () => import("@/components/SwErrorsList.vue")
 
 export default {
   name: "PersonalDetailsGuestForm",
