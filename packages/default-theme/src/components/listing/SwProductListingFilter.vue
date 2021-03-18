@@ -52,7 +52,7 @@ export default {
       }
     },
     filterCode() {
-      return simplifyString(this.filter.label.toLowerCase(".vue"))
+      return simplifyString(this.filter.label.toLowerCase())
     },
     selectedValues() {
       return this.selectedFilters || []
