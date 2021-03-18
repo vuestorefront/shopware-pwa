@@ -19,7 +19,7 @@
     "declarationMap": true,
     "jsx": "preserve",
     "lib": ["esnext", "dom"],
-    "types": ["node", "cypress"],
+    "types": ["jest", "node"],
     "rootDir": ".",
     "paths": {
       "@shopware-pwa/shopware-6-client": ["packages/shopware-6-client/src"],
@@ -34,7 +34,6 @@
     "packages/global.d.ts",
     "packages/*/src",
     "packages/*/__tests__",
-    "packages/*/__e2e__",
     "node_modules/@shopware-pwa"
   ]
 }

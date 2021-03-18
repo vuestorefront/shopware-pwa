@@ -1,3 +1,4 @@
+/// <reference types="Cypress" />
 describe("Shopping happy path", () => {
   beforeEach(() => {
     cy.intercept(
