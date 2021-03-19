@@ -44,7 +44,7 @@ export default {
     getComponent() {
       try {
         return () => ({
-          component: import(`@/components/listing/types/${this.filterCode}`),
+          component: import(`@/components/listing/types/${this.filterCode}.vue`),
           error: NoFilterFound,
         })
       } catch (e) {
