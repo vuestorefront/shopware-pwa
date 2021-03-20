@@ -1,4 +1,6 @@
 name: E2E Cypress tests
+env:
+  CYPRESS_VERSION: 6.8.0
 
 on:
   push:
@@ -21,17 +23,22 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "14"
-      # - name: Cache node_modules
-      #   if: steps.step-cache-build.outputs.cache-hit != 'true'
-      #   uses: actions/cache@v2
-      #   env:
-      #     cache-name: cache-node-modules-test
-      #   with:
-      #     path: |
-      #       node_modules
-      #       packages/*/node_modules
-      #       /home/runner/.cache/Cypress
-      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}2
+      - name: Cache node_modules for cypress
+        id: step-cache-node-modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-cypress
+        with:
+          path: |
+            node_modules
+            /home/runner/.cache/Cypress
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ env.CYPRESS_VERSION }}
+      - name: yarn init dependencies
+        if: steps.step-cache-node-modules.outputs.cache-hit != 'true'
+        run: |
+          rm ./package.json
+          yarn init --yes
+          yarn add -W cypress@${{ env.CYPRESS_VERSION }}
       - name: get preview url
         id: get-preview-url
         uses: patzick/action-get-comment-url@main
@@ -39,11 +46,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           pattern: shopware-pwa-canary successfully deployed
       - name: yarn test e2e
-        # yarn add cypress@6 -W
         run: |
-          rm ./package.json
-          yarn init --yes
-          yarn add cypress@6 -W
           yarn cypress run --config baseUrl=${{ steps.get-preview-url.outputs.comment_url }}
         env:
           CI: true
