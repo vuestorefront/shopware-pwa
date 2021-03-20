@@ -1,19 +1,21 @@
 name: E2E Cypress tests
 env:
   CYPRESS_VERSION: 6.8.0
+  LABEL_RUNNING: e2e-running
+  LABEL_SUCCESS: e2e-passed
+  LABEL_FAIL: e2e-failed
 
 on:
   push:
     branches:
-      # - e2e
       - master
-  pull_request: # temp for tests
-    types: [opened, synchronize]
+  pull_request:
+    types: [labeled]
 
 jobs:
-
   test:
     name: Cypress tests
+    if: (github.event.label.name == '${{ env.LABEL_RUNNING }}') || (github.event_name == 'push')
     runs-on: ubuntu-latest
 
     steps:
@@ -50,3 +52,24 @@ jobs:
           yarn cypress run --config baseUrl=${{ steps.get-preview-url.outputs.comment_url }}
         env:
           CI: true
+      # Take care of labels
+      - name: remove running label
+        uses: buildsville/add-remove-label@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          label: ${{ env.LABEL_RUNNING }}
+          type: remove
+      - name: add fail label if failed
+        if: failure()
+        uses: buildsville/add-remove-label@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          label: ${{ env.LABEL_FAIL }}
+          type: add
+      - name: add success label if tests passed
+        if: success()
+        uses: buildsville/add-remove-label@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          label: ${{ env.LABEL_SUCCESS }}
+          type: add
