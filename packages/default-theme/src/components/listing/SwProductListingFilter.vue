@@ -44,7 +44,7 @@ export default {
     getComponent() {
       try {
         return () => ({
-          component: import(`@/components/listing/types/${this.filterCode}`),
+          component: import(`@/components/listing/types/${this.filterCode}.vue`),
           error: NoFilterFound,
         })
       } catch (e) {
@@ -52,7 +52,7 @@ export default {
       }
     },
     filterCode() {
-      return simplifyString(this.filter.label.toLowerCase(".vue"))
+      return simplifyString(this.filter.label.toLowerCase())
     },
     selectedValues() {
       return this.selectedFilters || []
