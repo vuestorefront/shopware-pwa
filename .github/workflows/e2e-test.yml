@@ -1,7 +1,6 @@
 name: E2E Cypress tests
 env:
   CYPRESS_VERSION: 6.8.0
-  LABEL_RUNNING: e2e-running
   LABEL_SUCCESS: e2e-passed
   LABEL_FAIL: e2e-failed
 
@@ -15,7 +14,7 @@ on:
 jobs:
   test:
     name: Cypress tests
-    if: (github.event.label.name == '${{ env.LABEL_RUNNING }}') || (github.event_name == 'push')
+    if: github.event.label.name == 'e2e-running' || github.event_name == 'push'
     runs-on: ubuntu-latest
 
     steps:
