@@ -10,7 +10,7 @@ on:
     types: [labeled]
   workflow_dispatch:
     inputs:
-      page:
+      page_url:
         description: 'Url of the instance you want to check'     
         required: false
         default: 'https://shopware-pwa-canary.storefrontcloud.io/'
@@ -65,7 +65,7 @@ jobs:
           pattern: shopware-pwa-canary successfully deployed
       - name: yarn test e2e
         run: |
-          yarn cypress run --config baseUrl=${{ steps.get-preview-url.outputs.comment_url }}
+          yarn cypress run --config baseUrl=${{ github.event.inputs.page_url || steps.get-preview-url.outputs.comment_url }}
         env:
           CI: true
       # Take care of labels
