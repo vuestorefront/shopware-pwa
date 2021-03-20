@@ -21,17 +21,17 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "14"
-      - name: Cache node_modules
-        if: steps.step-cache-build.outputs.cache-hit != 'true'
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules-test
-        with:
-          path: |
-            node_modules
-            packages/*/node_modules
-            /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}2
+      # - name: Cache node_modules
+      #   if: steps.step-cache-build.outputs.cache-hit != 'true'
+      #   uses: actions/cache@v2
+      #   env:
+      #     cache-name: cache-node-modules-test
+      #   with:
+      #     path: |
+      #       node_modules
+      #       packages/*/node_modules
+      #       /home/runner/.cache/Cypress
+      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}2
       - name: get preview url
         id: get-preview-url
         uses: patzick/action-get-comment-url@main
@@ -40,7 +40,7 @@ jobs:
           pattern: shopware-pwa-canary successfully deployed
       - name: yarn test e2e
         run: |
-          yarn --frozen-lockfile
+          yarn add cypress@6
           yarn test:cypress --config baseUrl=${{ steps.get-preview-url.outputs.comment_url }}
         env:
           CI: true
