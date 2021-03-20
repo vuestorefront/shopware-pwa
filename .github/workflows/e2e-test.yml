@@ -32,9 +32,15 @@ jobs:
             packages/*/node_modules
             /home/runner/.cache/Cypress
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}2
+      - name: get preview url
+        id: get-preview-url
+        uses: patzick/action-get-comment-url@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: shopware-pwa-canary successfully deployed
       - name: yarn test e2e
         run: |
           yarn --frozen-lockfile
-          yarn test:cypress --config baseUrl=https://shopware-pwa-canary.storefrontcloud.io/
+          yarn test:cypress --config baseUrl=${{ steps.get-preview-url.outputs.comment_url }}
         env:
           CI: true

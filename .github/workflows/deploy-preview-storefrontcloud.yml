@@ -466,10 +466,4 @@ jobs:
           description: Unfortunately, the instance hasn't been updated.
           state: "failure"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-      - name: Check Cypress E2E
-        if: success()
-        run: |
-          yarn test:cypress --config baseUrl=${{ steps.deploy.outputs.preview_url }}
-        env:
-          CI: true
 
