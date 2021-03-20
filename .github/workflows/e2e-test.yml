@@ -1,30 +1,29 @@
-name: E2E API tests
+name: E2E Cypress tests
 
 on:
   push:
     branches:
-      - e2e
-#       - master
-#   pull_request:
-#     types: [opened, synchronize]
+      # - e2e
+      - master
+  pull_request: # temp for tests
+    types: [opened, synchronize]
 
 jobs:
   test:
+    name: Cypress tests
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [10.x]
-
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "14"
       - name: yarn test e2e
         run: |
+          npm i -g yarn
           yarn
-          yarn test:e2e
+          yarn test:cypress --config baseUrl=https://shopware-pwa-canary.storefrontcloud.io/
         env:
           CI: true
