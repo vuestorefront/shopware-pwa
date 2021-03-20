@@ -1,6 +1,7 @@
 name: E2E Cypress tests
 env:
   CYPRESS_VERSION: 6.8.0
+  LABEL_RUNNING: e2e-running
   LABEL_SUCCESS: e2e-passed
   LABEL_FAIL: e2e-failed
 
