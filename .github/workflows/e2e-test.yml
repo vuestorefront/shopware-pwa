@@ -12,7 +12,6 @@ jobs:
 
   test:
     name: Cypress tests
-    needs: init
     runs-on: ubuntu-latest
 
     steps:
