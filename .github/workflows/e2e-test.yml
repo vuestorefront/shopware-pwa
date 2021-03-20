@@ -40,7 +40,7 @@ jobs:
           pattern: shopware-pwa-canary successfully deployed
       - name: yarn test e2e
         run: |
-          yarn add cypress@6
+          yarn add cypress@6 -W
           yarn test:cypress --config baseUrl=${{ steps.get-preview-url.outputs.comment_url }}
         env:
           CI: true
