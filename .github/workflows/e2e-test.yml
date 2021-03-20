@@ -24,6 +24,19 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "14"
+      # Clear labels for e2e results
+      - name: remove e2e fail label
+        uses: buildsville/add-remove-label@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          label: ${{ env.LABEL_FAIL }}
+          type: remove
+      - name: remove e2e success label
+        uses: buildsville/add-remove-label@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          label: ${{ env.LABEL_SUCCESS }}
+          type: remove
       - name: Cache node_modules for cypress
         id: step-cache-node-modules
         uses: actions/cache@v2
@@ -53,6 +66,7 @@ jobs:
           CI: true
       # Take care of labels
       - name: remove running label
+        if: failure() || success()
         uses: buildsville/add-remove-label@v1
         with:
           token: ${{secrets.GITHUB_TOKEN}}
