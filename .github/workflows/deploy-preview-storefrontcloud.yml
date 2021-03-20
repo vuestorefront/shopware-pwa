@@ -28,7 +28,6 @@ jobs:
           path: |
             node_modules
             packages/*/node_modules
-            /home/runner/.cache/Cypress
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
       - name: Install dependencies
         if: steps.step-cache-node-modules.outputs.cache-hit != 'true'
@@ -72,7 +71,6 @@ jobs:
           path: |
             node_modules
             packages/*/node_modules
-            /home/runner/.cache/Cypress
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
       - name: Build CLI
         if: steps.step-cache-build.outputs.cache-hit != 'true'
@@ -117,7 +115,6 @@ jobs:
           path: |
             node_modules
             packages/*/node_modules
-            /home/runner/.cache/Cypress
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
       - name: Build Composables
         if: steps.step-cache-build.outputs.cache-hit != 'true'
@@ -161,7 +158,6 @@ jobs:
           path: |
             node_modules
             packages/*/node_modules
-            /home/runner/.cache/Cypress
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
       - name: Build helpers
         if: steps.step-cache-build.outputs.cache-hit != 'true'
@@ -205,7 +201,6 @@ jobs:
           path: |
             node_modules
             packages/*/node_modules
-            /home/runner/.cache/Cypress
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
       - name: Build nuxt-module
         if: steps.step-cache-build.outputs.cache-hit != 'true'
@@ -249,7 +244,6 @@ jobs:
           path: |
             node_modules
             packages/*/node_modules
-            /home/runner/.cache/Cypress
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
       - name: Build shopware-6-client
         if: steps.step-cache-build.outputs.cache-hit != 'true'
@@ -293,7 +287,6 @@ jobs:
           path: |
             node_modules
             packages/*/node_modules
-            /home/runner/.cache/Cypress
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
       - name: Build default-theme
         if: steps.step-cache-build.outputs.cache-hit != 'true'
@@ -376,7 +369,6 @@ jobs:
           path: |
             node_modules
             packages/*/node_modules
-            /home/runner/.cache/Cypress
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
       - name: Link packages
         run: |
