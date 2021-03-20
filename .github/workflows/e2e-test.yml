@@ -62,7 +62,7 @@ jobs:
         uses: patzick/action-get-comment-url@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: shopware-pwa-canary successfully deployed
+          platform: StorefrontCloud
       - name: yarn test e2e
         run: |
           yarn cypress run --config baseUrl=${{ github.event.inputs.page_url || steps.get-preview-url.outputs.comment_url }}
