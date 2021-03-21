@@ -59,7 +59,7 @@ jobs:
           yarn add -W cypress@${{ env.CYPRESS_VERSION }}
       - name: get preview url
         id: get-preview-url
-        uses: patzick/action-get-comment-url@main
+        uses: patzick/action-get-comment-url@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           platform: StorefrontCloud
