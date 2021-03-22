@@ -1,4 +1,4 @@
-# Shopware 6 + shopware-pwa stack locally
+# Local environment
 
 ## Default setup
 
@@ -103,7 +103,7 @@ Let's assume that you want to contribute a shopware-pwa project and you do have 
     
     There are two possible scenarios: contribution & regular project. Depending on what you want, the paths you need go through are a little bit different.
 
-    6.1. Contributor
+    6.1. Contributor <a id="contributor"></a>
 
     - Fork a repo and clone it locally
         ```bash
@@ -126,6 +126,18 @@ Let's assume that you want to contribute a shopware-pwa project and you do have 
         };
 
         ```
+    :::warning There are some useful commands to make development work easy: 
+        yarn dev:<package name*>
+
+    for example: `yarn dev composables`
+
+    * **package name** can be one of: _client, composables, helpers, nuxt-module_ and allows to HMR related packages that are used internally.
+
+    `default-theme` package is an exception - you need to go to `src/packages/default-theme` and then run `yarn dev` to see the changes in real time. 
+
+    :::
+
+
     > The next (7.) point shows how to get required data from local Shopware 6 instance.
 
     6.2. Regular project
@@ -190,5 +202,3 @@ Let's assume that you want to contribute a shopware-pwa project and you do have 
     ```bash
     yarn dev
     ```
-
-    Works? perfect.
