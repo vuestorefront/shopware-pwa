@@ -48,6 +48,7 @@ import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { StoreNavigationType } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { VueConstructor } from 'vue';
+import { WritableComputedRef } from '@vue/composition-api';
 
 // @beta
 export interface ApplicationVueContext extends VueConstructor {
@@ -58,6 +59,8 @@ export interface ApplicationVueContext extends VueConstructor {
     // (undocumented)
     $interceptors?: any;
     // (undocumented)
+    $isServer?: any;
+    // (undocumented)
     $route?: any;
     // (undocumented)
     $router?: any;
@@ -65,6 +68,8 @@ export interface ApplicationVueContext extends VueConstructor {
     //
     // (undocumented)
     $routing: Routing;
+    // (undocumented)
+    $sharedStore?: any;
     // (undocumented)
     $shopwareApiInstance?: ShopwareApiInstance;
     // (undocumented)
@@ -78,11 +83,15 @@ export interface ApplicationVueContext extends VueConstructor {
     // (undocumented)
     interceptors?: any;
     // (undocumented)
+    isServer?: any;
+    // (undocumented)
     route?: any;
     // (undocumented)
     router?: any;
     // (undocumented)
     routing: Routing;
+    // (undocumented)
+    sharedStore?: any;
     // (undocumented)
     shopwareApiInstance?: ShopwareApiInstance;
     // (undocumented)
@@ -147,6 +156,8 @@ export function getApplicationContext(rootContext: ApplicationVueContext, key?: 
     shopwareDefaults: any;
     interceptors: any;
     routing: Routing;
+    sharedStore: any;
+    isServer: boolean;
     contextName: string;
 };
 
@@ -323,7 +334,7 @@ export interface IUseNavigation {
         depth: number;
     }) => Promise<void>;
     // (undocumented)
-    navigationElements: ComputedRef<StoreNavigationElement[]>;
+    navigationElements: ComputedRef<StoreNavigationElement[] | undefined>;
 }
 
 // @beta
@@ -696,6 +707,12 @@ export const useSalutations: (rootContext: ApplicationVueContext) => UseSalutati
 
 // @beta
 export const useSessionContext: (rootContext: ApplicationVueContext) => IUseSessionContext;
+
+// @alpha
+export function useSharedState(rootContext: ApplicationVueContext): {
+    sharedRef: <T>(uniqueKey: string) => WritableComputedRef<T>;
+    preloadRef: (refObject: Ref<unknown>, callback: (refObject: Ref<unknown>) => Promise<void>) => void;
+};
 
 // @beta
 export const useUIState: (rootContext: ApplicationVueContext, stateName?: string | undefined) => {
