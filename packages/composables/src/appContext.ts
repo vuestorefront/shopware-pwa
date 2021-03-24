@@ -39,6 +39,10 @@ export interface ApplicationVueContext extends VueConstructor {
   $shopwareDefaults?: any; // defaults for API
   $interceptors?: any;
   interceptors?: any;
+  $sharedStore?: any;
+  sharedStore?: any;
+  $isServer?: any;
+  isServer?: any;
 }
 
 function checkAppContext(
@@ -77,6 +81,8 @@ export function getApplicationContext(
     shopwareDefaults: context?.$shopwareDefaults || context?.shopwareDefaults,
     interceptors: context?.$interceptors || context?.interceptors || {},
     routing: context?.$routing || context?.routing,
+    sharedStore: context?.$sharedStore || context?.sharedStore,
+    isServer: !!(context?.$isServer || context.isServer),
     contextName: key,
   };
 }
