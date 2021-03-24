@@ -32,10 +32,12 @@ export default {
     }
   },
   mounted() {
-    const res = localStorage.getItem("gdpr-cookie-notification-accepted")
-    if (res !== "true") {
-      this.displayCookieBar = true
-    }
+    setTimeout(() => {
+      const res = localStorage.getItem("gdpr-cookie-notification-accepted")
+      if (res !== "true") {
+        this.displayCookieBar = true
+      }
+    }, 5000)
   },
 
   methods: {
