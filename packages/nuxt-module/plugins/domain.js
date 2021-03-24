@@ -77,7 +77,9 @@ Middleware.routing = function ({ isHMR, app, store, from, route, redirect }) {
   // set default currency for the current domain
   const { setCurrency, currency } = useSessionContext(app);
   let currencyId =
-    route.query.currencyId || (currency.value && currency.value.id);
+    route.query.currencyId ||
+    (currency.value && currency.value.id) ||
+    domainConfig.currencyId;
   // force change the currencyId to default one for changed domain
   const fromDomain =
     from &&
@@ -90,7 +92,7 @@ Middleware.routing = function ({ isHMR, app, store, from, route, redirect }) {
   if (!domainConfig) {
     return;
   }
-  setCurrency({ id: currencyId });
+  currencyId && setCurrency({ id: currencyId });
   const { languageId, languageLocaleCode } = domainConfig;
   app.routing.setCurrentDomain(domainConfig);
   languageId && app.$shopwareApiInstance.update({ languageId });
