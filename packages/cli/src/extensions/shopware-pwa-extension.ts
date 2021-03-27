@@ -1,4 +1,6 @@
 import { GluegunToolbox } from "gluegun";
+import axios from "axios";
+import { minor } from "semver";
 /**
  * read keys for contribution purposes - it's being used during the project initialization
  */
@@ -17,6 +19,40 @@ const defaultConfig = {
 // add your CLI-specific functionality here, which will then be accessible
 // to your commands
 module.exports = (toolbox: GluegunToolbox) => {
+  toolbox.shopware = {};
+
+  /**
+   * Returns list of available versions, should return current stable, previous stable, canary and local.
+   * Example:
+   * ^0.7.2
+   * ^0.6.1
+   * canary
+   * local
+   */
+  toolbox.shopware.getPwaVersions = async function () {
+    const gitHubReleasesResponse = await axios.get(
+      `https://api.github.com/repos/vuestorefront/shopware-pwa/releases`
+    );
+
+    const SHOW_NUMBER_OF_STABLE_VERSIONS = 2;
+    const versions = [];
+    const groups = [];
+    gitHubReleasesResponse.data.forEach((releaseInfo) => {
+      const version = toolbox.semver.clean(releaseInfo.tag_name);
+      // TODO: group by MAJOR after v1.0 release
+      const versionGroup = minor(version);
+      if (
+        !groups.includes(versionGroup) &&
+        groups.length < SHOW_NUMBER_OF_STABLE_VERSIONS
+      ) {
+        groups.push(versionGroup);
+        versions.push(`^${version}`);
+      }
+    });
+    versions.push("canary");
+    versions.push("local");
+    return versions;
+  };
   toolbox.foo = () => {
     toolbox.print.info("called foo extension");
   };
