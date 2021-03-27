@@ -1,9 +1,4 @@
 import { GluegunToolbox } from "gluegun";
-import {
-  setup,
-  onConfigChange,
-  getAvailableLanguages,
-} from "@shopware-pwa/shopware-6-client";
 
 /**
  * 1. get theme locales
@@ -93,18 +88,19 @@ module.exports = {
     const isLocalReload = !!toolbox.parameters.options.local;
     // reload language files from shopware instance
     if (!isLocalReload) {
+      const apiClient = require("@shopware-pwa/shopware-6-client");
       const languagesMap = {};
 
       try {
-        setup({
+        apiClient.setup({
           endpoint: inputParameters.shopwareEndpoint,
           accessToken: inputParameters.shopwareAccessToken,
         });
-        onConfigChange(() => {
+        apiClient.onConfigChange(() => {
           // nothing to do for now
         });
 
-        const langs: any = await getAvailableLanguages();
+        const langs: any = await apiClient.getAvailableLanguages();
         langs.forEach((lang) => {
           const language = {
             id: lang.id,
