@@ -162,7 +162,6 @@ module.exports = (toolbox: GluegunToolbox) => {
 
   /**
    * Generates template files using ejs.
-   * - api-client.js
    */
   toolbox.generateTemplateFiles = async (
     { shopwareEndpoint, shopwareAccessToken, pwaHost } = toolbox.inputParameters
@@ -177,35 +176,6 @@ module.exports = (toolbox: GluegunToolbox) => {
           shopwareAccessToken,
           pwaHost,
         },
-      });
-    }
-
-    const isDockerfileGenerated = exists("Dockerfile");
-    if (!isDockerfileGenerated) {
-      await toolbox.template.generate({
-        template: "Dockerfile",
-        target: `Dockerfile`,
-        props: {},
-      });
-    }
-
-    const isMainScssFileCreated = exists("./src/assets/scss/main.scss");
-    if (!isMainScssFileCreated) {
-      await toolbox.template.generate({
-        template: "main.scss",
-        target: `./src/assets/scss/main.scss`,
-        props: {},
-      });
-    }
-
-    const isVariablesScssFileCreated = exists(
-      "./src/assets/scss/variables.scss"
-    );
-    if (!isVariablesScssFileCreated) {
-      await toolbox.template.generate({
-        template: "variables.scss",
-        target: `./src/assets/scss/variables.scss`,
-        props: {},
       });
     }
   };

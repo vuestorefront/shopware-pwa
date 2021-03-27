@@ -130,7 +130,6 @@ module.exports = {
     await toolbox.createPluginsTemplate();
     await toolbox.runtime.run(`plugins`, inputParameters);
     await toolbox.runtime.run(`cms`);
-    await toolbox.createCmsTemplate(); // generate template for user CMS folder
     await toolbox.runtime.run(`languages`, inputParameters);
     await toolbox.runtime.run(`domains`, inputParameters);
 
