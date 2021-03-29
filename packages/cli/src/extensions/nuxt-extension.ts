@@ -29,6 +29,12 @@ module.exports = (toolbox: GluegunToolbox) => {
       await toolbox.filesystem.copyAsync(projectTemplatePath, ".", {
         overwrite: true,
       });
+
+      // Rename missed .gitignore file
+      const gitIgnoreExists = await toolbox.filesystem.existsAsync("gitignore");
+      if (gitIgnoreExists) {
+        await toolbox.filesystem.moveAsync("gitignore", ".gitignore");
+      }
       spinner.succeed();
       return true;
     } else {
