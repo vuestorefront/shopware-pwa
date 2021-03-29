@@ -1,5 +1,4 @@
 import { GluegunToolbox } from "gluegun";
-import { STAGES } from "../stages";
 
 module.exports = {
   name: "init",
@@ -20,6 +19,8 @@ module.exports = {
       warning(`You're running CLI in development mode!`);
     }
 
+    const availablePwaVersions = await toolbox.shopware.getPwaVersions();
+
     if (!isCIrun) {
       const shopwareEndpointQuestion = {
         type: "input",
@@ -37,7 +38,7 @@ module.exports = {
         type: "select",
         name: "stage",
         message: "Which version you'd like to use:",
-        choices: Object.values(STAGES),
+        choices: availablePwaVersions,
         initial: inputParameters.stage,
       };
 
@@ -49,12 +50,11 @@ module.exports = {
       Object.assign(inputParameters, answers);
     }
 
-    const newProjectGenerated: boolean = await toolbox.generateNuxtProject();
-    await toolbox.moveDefaultNuxtFoldersToSrc(newProjectGenerated);
+    await toolbox.generateNuxtProject();
 
-    let stage = inputParameters.stage || STAGES.STABLE;
-    if (inputParameters.stage === "canary") stage = STAGES.CANARY;
-    if (inputParameters.stage === "local") stage = STAGES.LOCAL;
+    const defaultVersion = availablePwaVersions[0];
+    let stage = inputParameters.stage || defaultVersion;
+    if (inputParameters.stage === "stable") stage = defaultVersion;
 
     const updateConfigSpinner = spin(
       "Updating configuration for option: " + stage
@@ -79,35 +79,43 @@ module.exports = {
       // It's just for safety, unlink on fresh project will throw an error so we can catch it here
     }
 
-    switch (stage) {
-      case STAGES.CANARY:
-        await run(
-          `yarn add -D ${coreDevPackages
-            .map((dep) => `${dep}@canary`)
-            .join(" ")}`
-        );
-        break;
-      case STAGES.LOCAL:
-        await run(
-          `yarn add -D ${localCoreDevPackages
-            .map((dep) => `${dep}@canary`)
-            .join(" ")}`
-        );
-        await run(`npx yalc add -D ${localCoreDevPackages.join(" ")}`);
-        await run(`yarn link ${localCoreDevPackages.join(" ")}`);
-        break;
-      case STAGES.STABLE:
-      default:
-        await run(
-          `yarn add -D ${coreDevPackages
-            .map((dep) => `${dep}@latest`)
-            .join(" ")}`
-        );
-        break;
+    await toolbox.patching.update("package.json", (config) => {
+      const sortPackageJson = require("sort-package-json");
+      config.dependencies = config.dependencies || {};
+      config.devDependencies = config.devDependencies || {};
+
+      // remove all @shopware-pwa packages
+      const shopwarePwaPackageNames = Object.keys({
+        ...config.dependencies,
+        ...config.devDependencies,
+      }).filter((name) => name.includes("@shopware-pwa"));
+      shopwarePwaPackageNames.forEach((packageName) => {
+        delete config.dependencies[packageName];
+        delete config.devDependencies[packageName];
+      });
+
+      if (stage !== "local") {
+        // add dependencies with version
+        coreDevPackages.forEach((packageName) => {
+          config.devDependencies[packageName] = stage;
+        });
+      } else {
+        // add local dependencies and link them
+        localCoreDevPackages.forEach((packageName) => {
+          config.devDependencies[packageName] = defaultVersion;
+        });
+      }
+
+      return sortPackageJson(config);
+    });
+
+    if (stage === "local") {
+      await run(`npx yalc add -D ${localCoreDevPackages.join(" ")}`);
+      await run(`yarn link ${localCoreDevPackages.join(" ")}`);
     }
 
-    await toolbox.updateNuxtPackageJson(stage);
     await toolbox.updateNuxtConfigFile();
+    await run("yarn --check-files");
     updateConfigSpinner.succeed();
 
     const generateFilesSpinner = spin("Generating project files");
@@ -122,13 +130,11 @@ module.exports = {
     await toolbox.createPluginsTemplate();
     await toolbox.runtime.run(`plugins`, inputParameters);
     await toolbox.runtime.run(`cms`);
-    await toolbox.createCmsTemplate(); // generate template for user CMS folder
     await toolbox.runtime.run(`languages`, inputParameters);
     await toolbox.runtime.run(`domains`, inputParameters);
 
     const updateDependenciesSpinner = spin("Updating dependencies");
     // Loading additional packages
-    await run(`npx sort-package-json`);
     await run(`yarn`);
     updateDependenciesSpinner.succeed();
 

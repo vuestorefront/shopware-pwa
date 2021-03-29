@@ -1,10 +1,9 @@
 import { GluegunToolbox } from "gluegun";
-import { STAGES } from "../stages";
+import { join } from "path";
 const path = require("path");
 
 module.exports = (toolbox: GluegunToolbox) => {
   const {
-    system: { run },
     print: { spin },
     filesystem: { exists },
   } = toolbox;
@@ -19,29 +18,17 @@ module.exports = (toolbox: GluegunToolbox) => {
   toolbox.generateNuxtProject = async () => {
     const spinner = spin("Preparing Nuxt project");
     const isNuxtGenerated = exists("nuxt.config.js");
-    const nuxtAnswers = {
-      name: "shopware-pwa-project",
-      description: "shopware-pwa-project description",
-      author: "Vue Storefront",
-      pm: "yarn",
-      ui: "none",
-      language: "js",
-      server: "none",
-      features: ["axios", "pwa"],
-      linter: ["prettier", "lintStaged"],
-      test: "jest",
-      mode: "universal",
-      target: "server",
-      devTools: [],
-      gitUsername: "",
-      ci: "none",
-    };
     if (!isNuxtGenerated) {
-      const nuxtGenerate = `npx --ignore-existing create-nuxt-app@3.2.0 --answers "${JSON.stringify(
-        nuxtAnswers
-      ).replace(/"/g, '\\"')}"`;
-      await run(nuxtGenerate);
-      await toolbox.removeDefaultNuxtFiles();
+      const baseDirectory = toolbox.plugin && toolbox.plugin.directory;
+      let templateDirectory = `${baseDirectory}/templates`;
+
+      if (!toolbox.filesystem.isDirectory(templateDirectory)) {
+        templateDirectory = `${baseDirectory}/build/templates`;
+      }
+      const projectTemplatePath = join(templateDirectory, "project-template");
+      await toolbox.filesystem.copyAsync(projectTemplatePath, ".", {
+        overwrite: true,
+      });
       spinner.succeed();
       return true;
     } else {
@@ -53,92 +40,8 @@ module.exports = (toolbox: GluegunToolbox) => {
   };
 
   /**
-   * Remove unnecessary Nuxt files
-   * TODO: check generated files and add here ones which are not necessary
-   */
-  toolbox.removeDefaultNuxtFiles = async () => {
-    return Promise.all([
-      toolbox.filesystem.removeAsync(path.join("pages", "index.vue")),
-      toolbox.filesystem.removeAsync(path.join("components", "Logo.vue")),
-      toolbox.filesystem.removeAsync(path.join("layouts", "default.vue")),
-    ]);
-  };
-
-  /**
-   * Change structure of project, by moving all Nuxt related folders to `src`
-   */
-  toolbox.moveDefaultNuxtFoldersToSrc = async (
-    newProjectGenerated: boolean
-  ) => {
-    const foldersToMove = [
-      "assets",
-      "components",
-      "layouts",
-      "middleware",
-      "pages",
-      "plugins",
-      "static",
-      "store",
-    ];
-    return Promise.all(
-      foldersToMove.map(async (folderName: string) => {
-        const destinationDirectory: string = path.join("src", folderName);
-        const existSrc = await toolbox.filesystem.existsAsync(folderName);
-        const existDestination = await toolbox.filesystem.existsAsync(
-          destinationDirectory
-        );
-        if (existSrc && !existDestination) {
-          await toolbox.filesystem.moveAsync(folderName, destinationDirectory);
-          if (!newProjectGenerated) {
-            toolbox.print.success(
-              `Directory "${folderName}" has been migrated to "${destinationDirectory}"`
-            );
-          }
-        } else if (existSrc && existDestination) {
-          toolbox.print.error(
-            `Couldn't automatically migrate directory "${folderName}" to "${destinationDirectory}". Please do manual migration and remove ${folderName} from the root directory.`
-          );
-        }
-      })
-    );
-  };
-
-  /**
-   * Updates package.json with versions.
-   * TODO:
-   * - uncomment packages which are already published
-   * - dynamically get new versions from template
-   */
-  toolbox.updateNuxtPackageJson = async (stage) => {
-    await toolbox.patching.update("package.json", (config) => {
-      config.scripts = config.scripts || {};
-      config.scripts.lint = "prettier --write '*.{js,vue}'";
-      config.scripts.dev = "shopware-pwa dev";
-      config.scripts.build = "shopware-pwa build";
-
-      // update versions to canary
-      if (stage === STAGES.CANARY) {
-        config.dependencies &&
-          Object.keys(config.dependencies).forEach((dependencyName) => {
-            if (dependencyName.includes("@shopware-pwa")) {
-              config.dependencies[dependencyName] = "canary";
-            }
-          });
-        config.devDependencies &&
-          Object.keys(config.devDependencies).forEach((dependencyName) => {
-            if (dependencyName.includes("@shopware-pwa")) {
-              config.devDependencies[dependencyName] = "canary";
-            }
-          });
-      }
-
-      delete config.engines;
-      return config;
-    });
-  };
-
-  /**
    * Updates nuxt.config.js with configuration for Shopwre PWA
+   * TODO: we can remove this method after: https://github.com/vuestorefront/shopware-pwa/issues/1403
    */
   toolbox.updateNuxtConfigFile = async () => {
     // Add buildModules
@@ -259,7 +162,6 @@ module.exports = (toolbox: GluegunToolbox) => {
 
   /**
    * Generates template files using ejs.
-   * - api-client.js
    */
   toolbox.generateTemplateFiles = async (
     { shopwareEndpoint, shopwareAccessToken, pwaHost } = toolbox.inputParameters
@@ -274,35 +176,6 @@ module.exports = (toolbox: GluegunToolbox) => {
           shopwareAccessToken,
           pwaHost,
         },
-      });
-    }
-
-    const isDockerfileGenerated = exists("Dockerfile");
-    if (!isDockerfileGenerated) {
-      await toolbox.template.generate({
-        template: "Dockerfile",
-        target: `Dockerfile`,
-        props: {},
-      });
-    }
-
-    const isMainScssFileCreated = exists("./src/assets/scss/main.scss");
-    if (!isMainScssFileCreated) {
-      await toolbox.template.generate({
-        template: "main.scss",
-        target: `./src/assets/scss/main.scss`,
-        props: {},
-      });
-    }
-
-    const isVariablesScssFileCreated = exists(
-      "./src/assets/scss/variables.scss"
-    );
-    if (!isVariablesScssFileCreated) {
-      await toolbox.template.generate({
-        template: "variables.scss",
-        target: `./src/assets/scss/variables.scss`,
-        props: {},
       });
     }
   };
