@@ -45,20 +45,18 @@ Let's assume that you want to contribute a shopware-pwa project and you do have 
 2. Create a `docker-compose.yml` file somewhere, containing following content:
     ```yml
     version: "3"
-
     services:
-            
         shopware:
-        image: dockware/play:latest
-        container_name: shopware
-        ports:
-            - "80:80"
-        networks:
-            - web
+            image: dockware/play:latest
+            container_name: shopware
+            ports:
+                - "80:80"
+            networks:
+                - web
             
     networks:
-    web:
-        external: false
+        web:
+            external: false
     ```
     > NOTE: It's possible to use only one command and nothing more (`docker run --rm -p 80:80 dockware/play:latest
 `), but the storage for database and the code (including installed plugins) aren't persisted and **will disappear** when the container is stopped. More details for such option [here](https://docs.dockware.io/use-dockware/first-run).
