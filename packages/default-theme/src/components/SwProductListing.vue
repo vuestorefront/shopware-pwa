@@ -85,11 +85,13 @@
 </template>
 
 <script>
-import SwProductCard from "@/components/SwProductCard.vue"
-import SwProductCardHorizontal from "@/components/SwProductCardHorizontal.vue"
 import { SfPagination, SfHeading, SfLoader } from "@storefront-ui/vue"
 import { useUIState, useListing } from "@shopware-pwa/composables"
 import { watch } from "@vue/composition-api"
+const SwProductCard = () => import("@/components/SwProductCard.vue")
+const SwProductCardHorizontal = () =>
+  import("@/components/SwProductCardHorizontal.vue")
+
 export default {
   name: "SwProductListing",
   components: {

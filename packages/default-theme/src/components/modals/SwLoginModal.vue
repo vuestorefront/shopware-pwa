@@ -62,8 +62,8 @@
 <script>
 import { SfHeading, SfModal, SfAlert } from "@storefront-ui/vue"
 import { useUser, useUIState } from "@shopware-pwa/composables"
-import SwLogin from "@/components/SwLogin.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
+const SwLogin = () => import("@/components/SwLogin.vue")
 const SwRegister = () => import("@/components/SwRegister.vue")
 const SwResetPassword = () => import("@/components/SwResetPassword.vue")
 
@@ -103,7 +103,7 @@ export default {
   data() {
     return {
       key: "modal-opened",
-      component: "SwLogin",
+      component: "",
     }
   },
   computed: {

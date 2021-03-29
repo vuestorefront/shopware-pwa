@@ -271,12 +271,13 @@ module.exports = (toolbox: GluegunToolbox) => {
       await toolbox.loadPluginsAssetFile(buildArtifact);
       await toolbox.unzipPluginsAssetsFile();
     } catch (e) {
-      if (e?.response?.status === 401) {
+      if (e?.response?.status === 401 || e?.response?.status === 403) {
         toolbox.print.error(
           `You provided bad cridentials for your shopware instance: ${toolbox.inputParameters.shopwareEndpoint} - plugins will not be added`
         );
       } else {
         toolbox.print.error(`UNEXPECTED ERROR ${e?.response ? e.response : e}`);
+        console.error(e);
       }
       return;
     }

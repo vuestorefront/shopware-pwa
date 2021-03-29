@@ -19,7 +19,7 @@
     </SfTabs>
 
     <SfTabs v-else>
-      <SfTab title="Add address">
+      <SfTab :title="$t('Add address')">
         <nuxt-child />
       </SfTab>
     </SfTabs>
