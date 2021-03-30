@@ -4,14 +4,14 @@ module.exports = {
     {
       path: "/landing/project/",
       title: "Project",
-      collapsable: false,
-      children: ["/landing/project/contribution"],
+      collapsable: true,
+      children: [],
     },
     {
       path: "/landing/getting-started/",
       title: "Getting Started",
       collapsable: false,
-      children: ["/landing/getting-started/prepare-shopware"],
+      children: ["/landing/getting-started/prepare-shopware", "/landing/project/contribution", "/landing/getting-started/local-environment"],
     },
     {
       path: "/landing/fundamentals/",

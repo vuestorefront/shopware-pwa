@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@shopware-pwa/cli": "0.7.2",
-    "@babel/runtime-corejs3": "^7.13.9",
+    "@babel/runtime-corejs3": "^7.13.10",
     "@nuxtjs/eslint-config": "^5.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@vue/composition-api": "^1.0.0-rc.3",

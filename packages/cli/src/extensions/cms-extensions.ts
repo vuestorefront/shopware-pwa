@@ -42,34 +42,4 @@ module.exports = (toolbox: GluegunToolbox) => {
 
     merge(cmsComponentsMap, readedMap);
   };
-
-  toolbox.createCmsTemplate = async (directoryPath = "cms") => {
-    const cmsMapFileName = "cmsMap.json";
-    const cmsReadmeFile = "readme.md";
-    // create folders structure
-    await toolbox.filesystem.dirAsync(directoryPath);
-    await toolbox.filesystem.dirAsync(join(directoryPath, "sections"));
-    await toolbox.filesystem.dirAsync(join(directoryPath, "blocks"));
-    await toolbox.filesystem.dirAsync(join(directoryPath, "elements"));
-    const cmsMapConfigExists = await toolbox.filesystem.existsAsync(
-      join(directoryPath, cmsMapFileName)
-    );
-    if (!cmsMapConfigExists) {
-      await toolbox.template.generate({
-        template: "/cms/" + cmsMapFileName,
-        target: "cms/" + cmsMapFileName,
-        props: {},
-      });
-    }
-    const cmsReadmeExists = await toolbox.filesystem.existsAsync(
-      join(directoryPath, cmsReadmeFile)
-    );
-    if (!cmsReadmeExists) {
-      await toolbox.template.generate({
-        template: "/cms/" + cmsReadmeFile,
-        target: "cms/" + cmsReadmeFile,
-        props: {},
-      });
-    }
-  };
 };
