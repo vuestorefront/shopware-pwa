@@ -8,10 +8,10 @@ const INSTANCE_READ_API_KEY = "SWIACLLVSWNJQZKYRUDJYJHIWA";
 const INSTANCE_READ_API_SECRET =
   "S0FMSjU4R3VFZ1Bkdjc1RGlhcE52MkNZbU1LVkhENHRFU1NxNjE";
 const defaultConfig = {
-  shopwareEndpoint: "https://pwa.swstage.store",
-  shopwareAccessToken: "SWSCD1BWSUFUQVDHUEPHATRPTW",
+  shopwareEndpoint: "https://pwa-demo-api.shopware.com/prev/",
+  shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
   theme: "@shopware-pwa/default-theme",
-  pwaHost: "https://pwa.swstage.store",
+  pwaHost: "https://pwa-demo-api.shopware.com/prev/",
   shopwareApiClient: {
     timeout: 10000,
   },

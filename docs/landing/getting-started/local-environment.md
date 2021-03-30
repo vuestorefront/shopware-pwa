@@ -118,9 +118,9 @@ Let's assume that you want to contribute a shopware-pwa project and you do have 
     - After that, go to `test-project` subfolder and **edit** `shopware-pwa.config.js` file which may look like by default:
         ```js
         module.exports = {
-            shopwareEndpoint: "https://pwa.swstage.store",
-            shopwareAccessToken: "SWSCD1BWSUFUQVDHUEPHATRPTW",
-            pwaHost: "https://pwa.swstage.store",
+            shopwareEndpoint: "https://pwa-demo-api.shopware.com/prev/",
+            shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
+            pwaHost: "https://pwa-demo-api.shopware.com/prev/",
         };
 
         ```
@@ -155,9 +155,9 @@ Let's assume that you want to contribute a shopware-pwa project and you do have 
 
     ```js
 
-    shopwareEndpoint: "https://pwa.swstage.store",
-    shopwareAccessToken: "SWSCD1BWSUFUQVDHUEPHATRPTW",
-    pwaHost: "https://pwa.swstage.store",
+    shopwareEndpoint: "https://pwa-demo-api.shopware.com/prev/",
+    shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
+    pwaHost: "https://pwa-demo-api.shopware.com/prev/",
     
     ```
 
