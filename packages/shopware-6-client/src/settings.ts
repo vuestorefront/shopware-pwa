@@ -36,7 +36,7 @@ export interface ClientSettings {
 }
 
 export const defaultConfig: ClientSettings = {
-  endpoint: "https://pwa-demo-api.shopware.com",
+  endpoint: "https://pwa-demo-api.shopware.com/prev/",
   accessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
   contextToken: "",
   languageId: "",
