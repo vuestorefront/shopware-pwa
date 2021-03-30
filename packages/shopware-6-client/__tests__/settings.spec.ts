@@ -9,7 +9,7 @@ import { ConfigChangedArgs } from "../src";
 import { random } from "faker";
 const consoleWarnSpy = jest.spyOn(console, "warn");
 
-const DEFAULT_ENDPOINT = "https://pwa-demo-api.shopware.com";
+const DEFAULT_ENDPOINT = "https://pwa-demo-api.shopware.com/prev/";
 const DEFAULT_TIMEOUT = 10000;
 
 describe("Settings", () => {
