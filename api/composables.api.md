@@ -711,7 +711,7 @@ export const useSessionContext: (rootContext: ApplicationVueContext) => IUseSess
 // @alpha
 export function useSharedState(rootContext: ApplicationVueContext): {
     sharedRef: <T>(uniqueKey: string) => WritableComputedRef<T>;
-    preloadRef: (refObject: Ref<unknown>, callback: (refObject: Ref<unknown>) => Promise<void>) => void;
+    preloadRef: (refObject: Ref<unknown>, callback: () => Promise<void>) => void;
 };
 
 // @beta

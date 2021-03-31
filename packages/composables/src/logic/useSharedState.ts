@@ -73,17 +73,14 @@ export function useSharedState(rootContext: ApplicationVueContext) {
    *
    * @alpha
    */
-  function preloadRef(
-    refObject: Ref<unknown>,
-    callback: (refObject: Ref<unknown>) => Promise<void>
-  ) {
+  function preloadRef(refObject: Ref<unknown>, callback: () => Promise<void>) {
     if (!refObject.value) {
       if (isServer) {
         onServerPrefetch(async () => {
-          await callback(refObject);
+          await callback();
         });
       } else {
-        callback(refObject);
+        callback();
       }
     }
   }

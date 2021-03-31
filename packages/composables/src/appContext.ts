@@ -82,7 +82,7 @@ export function getApplicationContext(
     interceptors: context?.$interceptors || context?.interceptors || {},
     routing: context?.$routing || context?.routing,
     sharedStore: context?.$sharedStore || context?.sharedStore,
-    isServer: !!(context?.$isServer || context.isServer),
+    isServer: !!(context?.$isServer || context?.isServer),
     contextName: key,
   };
 }
