@@ -74,6 +74,10 @@ Middleware.routing = function ({ isHMR, app, store, from, route, redirect }) {
     return redirect(`${fallbackDomainPrefix}${route.path}`);
   }
 
+  if (!domainConfig) {
+    return;
+  }
+
   // set default currency for the current domain
   const { setCurrency, currency } = useSessionContext(app);
   let currencyId =
@@ -89,9 +93,6 @@ Middleware.routing = function ({ isHMR, app, store, from, route, redirect }) {
     currencyId = domainConfig.currencyId;
   }
 
-  if (!domainConfig) {
-    return;
-  }
   currencyId && setCurrency({ id: currencyId });
   const { languageId, languageLocaleCode } = domainConfig;
   app.routing.setCurrentDomain(domainConfig);
