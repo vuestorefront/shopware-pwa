@@ -8,7 +8,7 @@ on:
 env:
   RELEASE_URL: https://shopware-pwa.storefrontcloud.io
   INSTANCE_CODE: shopware-pwa
-  PWA_HOST: https://pwa.swstage.store
+  PWA_HOST: https://pwa-demo-api.shopware.com/prev/
 
 jobs:
   build:
