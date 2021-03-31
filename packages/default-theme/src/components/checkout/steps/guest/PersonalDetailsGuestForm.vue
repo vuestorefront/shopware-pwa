@@ -46,9 +46,8 @@
         :label="$t('Your email')"
         :valid="!validations.email.$error"
         :error-message="$t('Proper email is required')"
-        name="email"
-        class="sw-form__input"
-        data-cy="proper-email"
+        name="registrationEmail"
+        data-cy="registration-email"
       />
       <div class="info">
         <p class="info__heading">
