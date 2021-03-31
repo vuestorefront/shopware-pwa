@@ -19,7 +19,7 @@ describe("Shopping happy path", () => {
 
     cy.get("input[data-cy=first-name]").type("John");
     cy.get("input[data-cy=last-name]").type("Doe");
-    cy.get("input[data-cy=proper-email]").type("jd@example.com");
+    cy.get("input[data-cy=registration-email]").type("jd@example.com");
     cy.get("[data-cy=continue-to-shipping-button]").click();
 
     cy.get("input[data-cy=first-name]").type("John");
@@ -70,7 +70,7 @@ describe("Shopping happy path", () => {
 
     cy.get("input[data-cy=first-name]").type("John");
     cy.get("input[data-cy=last-name]").type("Doe");
-    cy.get("input[data-cy=proper-email]").type("jd@example.com");
+    cy.get("input[data-cy=registration-email]").type("jd@example.com");
     cy.get("[data-cy=continue-to-shipping-button]").click();
 
     cy.get("input[data-cy=first-name]").type("John");
