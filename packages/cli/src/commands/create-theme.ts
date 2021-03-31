@@ -7,6 +7,11 @@ const command: GluegunCommand = {
   run: async (toolbox) => {
     const path = require("path");
     const execa = require("execa");
+
+    if (!toolbox.isProduction) {
+      toolbox.print.warning(`You're running CLI in development mode!`);
+    }
+
     toolbox.print.info(`Creating new theme project...`);
 
     const themeNameAnswers = await toolbox.prompt.ask({
@@ -59,7 +64,7 @@ const command: GluegunCommand = {
 
     // generate .gitignore file
     await toolbox.template.generate({
-      template: `/themes/.gitignore`,
+      template: `/themes/gitignore`,
       target: path.join(dirPath, ".gitignore"),
       props: {},
     });
