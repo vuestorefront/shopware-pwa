@@ -47,6 +47,7 @@ export default {
     manifest: {
       lang: 'en',
     },
+    offlineStrategy: 'StaleWhileRevalidate',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
