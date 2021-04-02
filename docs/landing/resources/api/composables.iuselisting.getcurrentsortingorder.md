@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-getCurrentSortingOrder: ComputedRef<string>;
+getCurrentSortingOrder: ComputedRef<string | undefined>;
 ```

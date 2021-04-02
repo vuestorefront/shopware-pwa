@@ -15,6 +15,10 @@ export interface Routing {
   getUrl: (path: string) => string;
 }
 
+interface Process extends NodeJS.Process {
+  server: boolean;
+}
+
 /**
  * Application Context for Shopware PWA. It's an extended Vue instance.
  *
@@ -91,7 +95,11 @@ export function getApplicationContext(
     routing: context?.$routing || context?.routing,
     sharedStore: context?.$sharedStore || context?.sharedStore,
     instanceStore: context?.$instanceStore || context?.instanceStore,
-    isServer: !!(context?.$isServer || context?.isServer || process.server),
+    isServer: !!(
+      context?.$isServer ||
+      context?.isServer ||
+      (process as Process)?.server
+    ),
     contextName: key,
   };
 }

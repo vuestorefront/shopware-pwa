@@ -22,6 +22,7 @@ export declare function getApplicationContext(rootContext: ApplicationVueContext
     interceptors: any;
     routing: Routing;
     sharedStore: any;
+    instanceStore: any;
     isServer: boolean;
     contextName: string;
 };
@@ -36,5 +37,5 @@ export declare function getApplicationContext(rootContext: ApplicationVueContext
 
 <b>Returns:</b>
 
-{ apiInstance: ShopwareApiInstance \| undefined; vuexStore: any; router: any; route: any; i18n: any; cookies: any; shopwareDefaults: any; interceptors: any; routing: Routing; sharedStore: any; isServer: boolean; contextName: string; }
+{ apiInstance: ShopwareApiInstance \| undefined; vuexStore: any; router: any; route: any; i18n: any; cookies: any; shopwareDefaults: any; interceptors: any; routing: Routing; sharedStore: any; instanceStore: any; isServer: boolean; contextName: string; }
 

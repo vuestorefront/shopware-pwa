@@ -27,6 +27,7 @@ import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria
 import { IUseListing as IUseListing_2 } from '@shopware-pwa/composables';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
 import { ListingFilter } from '@shopware-pwa/helpers';
+import { ListingResult } from '@shopware-pwa/commons/interfaces/response/ListingResult';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { PageBreadcrumb } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
@@ -57,6 +58,8 @@ export interface ApplicationVueContext extends VueConstructor {
     // (undocumented)
     $i18n?: any;
     // (undocumented)
+    $instanceStore?: any;
+    // (undocumented)
     $interceptors?: any;
     // (undocumented)
     $isServer?: any;
@@ -80,6 +83,8 @@ export interface ApplicationVueContext extends VueConstructor {
     cookies?: any;
     // (undocumented)
     i18n?: any;
+    // (undocumented)
+    instanceStore?: any;
     // (undocumented)
     interceptors?: any;
     // (undocumented)
@@ -130,7 +135,7 @@ export function createCheckoutStep({ stepNumber, stepFields, stepDataUpdated, }:
 // @beta
 export function createListingComposable<ELEMENTS_TYPE>({ rootContext, searchMethod, searchDefaults, listingKey, }: {
     rootContext: ApplicationVueContext_2;
-    searchMethod: (searchParams: Partial<ShopwareSearchParams>) => Promise<ProductListingResult>;
+    searchMethod: (searchParams: Partial<ShopwareSearchParams>) => Promise<ListingResult<ELEMENTS_TYPE>>;
     searchDefaults: ShopwareSearchParams;
     listingKey: string;
 }): IUseListing<ELEMENTS_TYPE>;
@@ -157,6 +162,7 @@ export function getApplicationContext(rootContext: ApplicationVueContext, key?: 
     interceptors: any;
     routing: Routing;
     sharedStore: any;
+    instanceStore: any;
     isServer: boolean;
     contextName: string;
 };
@@ -213,7 +219,7 @@ export interface IUseCart {
     // (undocumented)
     appliedPromotionCodes: ComputedRef<LineItem[]>;
     // (undocumented)
-    cart: ComputedRef<Cart>;
+    cart: ComputedRef<Cart | null>;
     // (undocumented)
     cartItems: ComputedRef<LineItem[]>;
     // (undocumented)
@@ -290,19 +296,19 @@ export interface IUseListing<ELEMENTS_TYPE> {
     // (undocumented)
     getCurrentFilters: ComputedRef<any>;
     // (undocumented)
-    getCurrentListing: ComputedRef<ProductListingResult>;
+    getCurrentListing: ComputedRef<Partial<ListingResult<ELEMENTS_TYPE>> | null>;
     // (undocumented)
     getCurrentPage: ComputedRef<string | number>;
     // (undocumented)
-    getCurrentSortingOrder: ComputedRef<string>;
+    getCurrentSortingOrder: ComputedRef<string | undefined>;
     // (undocumented)
     getElements: ComputedRef<ELEMENTS_TYPE[]>;
     // (undocumented)
-    getInitialListing: ComputedRef<ProductListingResult>;
+    getInitialListing: ComputedRef<ListingResult<ELEMENTS_TYPE> | null>;
     // (undocumented)
     getLimit: ComputedRef<number>;
     // (undocumented)
-    getSortingOrders: ComputedRef<{
+    getSortingOrders: ComputedRef<Sort[] | {
         key: string;
         label: string;
     }>;
@@ -323,7 +329,7 @@ export interface IUseListing<ELEMENTS_TYPE> {
         preventRouteChange?: boolean;
     }) => Promise<void>;
     // (undocumented)
-    setInitialListing: (initialListing: Partial<ProductListingResult>) => void;
+    setInitialListing: (initialListing: Partial<ListingResult<ELEMENTS_TYPE>>) => void;
 }
 
 // @beta
@@ -392,7 +398,7 @@ export interface IUseSessionContext {
     // (undocumented)
     refreshSessionContext: () => Promise<void>;
     // (undocumented)
-    sessionContext: Readonly<Ref<SessionContext | null>>;
+    sessionContext: ComputedRef<SessionContext | null>;
     // (undocumented)
     setActiveBillingAddress: (address: Partial<BillingAddress>) => Promise<void>;
     // (undocumented)
@@ -469,7 +475,7 @@ export interface IUseUser {
     // (undocumented)
     updatePersonalInfo: (personals: CustomerUpdateProfileParam) => Promise<boolean>;
     // (undocumented)
-    user: Ref<Customer | null>;
+    user: ComputedRef<Partial<Customer> | null>;
 }
 
 // @beta
@@ -533,8 +539,8 @@ export const useCheckout: (rootContext: ApplicationVueContext) => IUseCheckout;
 
 // @beta (undocumented)
 export function useCms(rootContext: ApplicationVueContext): {
-    page: Ref<Readonly<PageResolverProductResult | PageResolverResult<CmsPage>>>;
-    categoryId: ComputedRef<string>;
+    page: ComputedRef<PageResolverProductResult | PageResolverResult<CmsPage> | null>;
+    categoryId: ComputedRef<string | null>;
     loading: Ref<boolean>;
     search: (path: string, query?: any) => Promise<void>;
     error: Ref<any>;
@@ -711,7 +717,7 @@ export const useSessionContext: (rootContext: ApplicationVueContext) => IUseSess
 // @alpha
 export function useSharedState(rootContext: ApplicationVueContext): {
     sharedRef: <T>(uniqueKey: string) => WritableComputedRef<T>;
-    preloadRef: (refObject: Ref<unknown>, callback: () => Promise<void>) => void;
+    preloadRef: (refObject: Ref<unknown>, callback: () => Promise<void>) => Promise<void>;
 };
 
 // @beta

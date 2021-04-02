@@ -189,6 +189,12 @@ export const useProductListing = (
     if (typeof history !== "undefined")
       history.replaceState({}, null as any, location.pathname + "?" + search);
 
+    if (!categoryId.value) {
+      throw new Error(
+        "[useProductListing][search] Search category id does not exist."
+      );
+    }
+
     productListingResult.value = await getCategoryProductsListing(
       categoryId.value,
       searchCriteria,
@@ -204,6 +210,11 @@ export const useProductListing = (
         productListingResult.value.aggregations
       );
     } else {
+      if (!categoryId.value) {
+        throw new Error(
+          "[useProductListing][search] Search category id does not exist."
+        );
+      }
       // get the aggregations without narrowing down the results, so another api call is needed (using post-aggregation may fix it)
       const productListingBaseResult = await getCategoryProductsListing(
         categoryId.value,
