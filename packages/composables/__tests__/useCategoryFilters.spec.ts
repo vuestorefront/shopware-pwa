@@ -1,34 +1,36 @@
 import Vue from "vue";
-import VueCompositionApi, {
-  reactive,
-  ref,
-  computed,
-  Ref,
-} from "@vue/composition-api";
+import VueCompositionApi, { ref, Ref } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
-import {
-  useCategoryFilters,
-  getDefaultApiParams,
-} from "@shopware-pwa/composables";
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+
+import { useCategoryFilters } from "../src/hooks/useCategoryFilters";
 
 const consoleWarnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
 
 describe("Composables - useCategoryFilters", () => {
   const statePage: Ref<Object | null> = ref(null);
   const rootContextMock: any = {
-    $store: {
-      getters: reactive({ getPage: computed(() => statePage.value) }),
-      commit: (name: string, value: any) => {
-        statePage.value = value;
-      },
-    },
     $shopwareApiInstance: jest.fn(),
-    $shopwareDefaults: getDefaultApiParams(),
   };
   beforeEach(() => {
     jest.resetAllMocks();
     statePage.value = null;
+
+    mockedComposables.getApplicationContext.mockImplementation(() => {
+      return {
+        apiInstance: rootContextMock.$shopwareApiInstance,
+        contextName: "useCategoryFilters",
+      } as any;
+    });
+
+    mockedComposables.useCms.mockImplementation(() => {
+      return {
+        page: statePage,
+      } as any;
+    });
   });
 
   it("should display deprecation info on invocation", () => {

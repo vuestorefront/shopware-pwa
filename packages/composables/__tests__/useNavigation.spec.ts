@@ -38,7 +38,6 @@ describe("Composables - useNavigation", () => {
   });
 
   const rootContextMock: any = {
-    $store: jest.fn(),
     $shopwareApiInstance: jest.fn(),
   };
 

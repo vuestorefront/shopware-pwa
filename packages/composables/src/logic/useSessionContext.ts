@@ -71,7 +71,7 @@ export const useSessionContext = (
   const { broadcast, intercept } = useIntercept(rootContext);
 
   const { sharedRef } = useSharedState(rootContext);
-  const storeSessionContext = sharedRef<SessionContext | null>(
+  const storeSessionContext = sharedRef<SessionContext>(
     `useSessionContext-sessionContext`
   );
 
@@ -83,9 +83,7 @@ export const useSessionContext = (
     intercept(INTERCEPTOR_KEYS.SESSION_SET_SHIPPING_METHOD, fn);
 
   const { pushWarning } = useNotifications(rootContext);
-  const sessionContext: ComputedRef<SessionContext | null> = computed(
-    () => storeSessionContext.value
-  );
+  const sessionContext = computed(() => storeSessionContext.value);
   const refreshSessionContext = async () => {
     try {
       const context = await getSessionContext(apiInstance);

@@ -276,7 +276,7 @@ export async function runModule(
       const sourceDir = path.join(TARGET_SOURCE, "static");
       const destinationDir = path.join(builder.options.rootDir, "static");
       await fse.copy(sourceDir, destinationDir);
-      console.log(
+      console.info(
         "Moved static files to root directory static folder. Make sure your static files are placed inside `src/static` directory."
       );
     });

@@ -173,7 +173,6 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   const logout = async (): Promise<void> => {
     try {
       await apiLogout(apiInstance);
-      console.warn("logout");
       broadcast(INTERCEPTOR_KEYS.USER_LOGOUT);
     } catch (e) {
       const err: ClientApiError = e;
@@ -202,7 +201,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       storeUser.value = user || {};
     } catch (e) {
       storeUser.value = {};
-      console.error("useUser:refreshUser:getCustomer", e);
+      console.error("[useUser][refreshUser]", e);
     }
   };
 

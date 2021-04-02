@@ -7,7 +7,6 @@ Vue.use(VueCompositionApi);
 
 describe("Composables - useSharedState", () => {
   const rootContextMock: any = {
-    $store: jest.fn(),
     $shopwareApiInstance: jest.fn(),
   };
 
@@ -43,7 +42,7 @@ describe("Composables - useSharedState", () => {
       it("should modify value from rootContext", () => {
         const { sharedRef } = useSharedState(rootContextMock);
         const result = sharedRef("unique-key");
-        expect(result.value).toBeUndefined();
+        expect(result.value).toBeNull();
         result.value = "my local change";
         expect(rootContextMock.$sharedStore["unique-key"]).toEqual(
           "my local change"
@@ -54,7 +53,7 @@ describe("Composables - useSharedState", () => {
         const { sharedRef } = useSharedState(rootContextMock);
         const result = sharedRef("test-ssr-preserve-key");
         const result2 = sharedRef("test-ssr-preserve-key");
-        expect(result.value).toBeUndefined();
+        expect(result.value).toBeNull();
 
         result.value = "changed value";
         expect(result2.value).toEqual("changed value");
@@ -66,6 +65,9 @@ describe("Composables - useSharedState", () => {
 
     describe("preloadRef", () => {
       it("should invoke onServerPrefetch method when ref value is not set", async () => {
+        mockedCompositionAPI.getCurrentInstance = jest
+          .fn()
+          .mockImplementationOnce(() => true as any);
         const someValue = vueComp.ref();
         const { preloadRef } = useSharedState(rootContextMock);
         preloadRef(someValue, async () => {
@@ -109,7 +111,7 @@ describe("Composables - useSharedState", () => {
       it("should not modify value from rootContext in CSR", () => {
         const { sharedRef } = useSharedState(rootContextMock);
         const result = sharedRef("test-modify-key");
-        expect(result.value).toBeUndefined();
+        expect(result.value).toBeNull();
         result.value = "my local change";
         expect(result.value).toEqual("my local change");
         expect(rootContextMock.$sharedStore["test-modify-key"]).toBeUndefined();

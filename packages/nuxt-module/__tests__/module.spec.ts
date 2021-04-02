@@ -409,6 +409,9 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     const fromPath = path.join(TARGET_SOURCE, "static");
     const toPath = path.join(moduleObject.options.rootDir, "static");
     expect(mockedFse.copy).toBeCalledWith(fromPath, toPath);
+    expect(consoleInfoSpy).toBeCalledWith(
+      "Moved static files to root directory static folder. Make sure your static files are placed inside `src/static` directory."
+    );
   });
 
   it("should add plugins registered in theme - js files only", async () => {

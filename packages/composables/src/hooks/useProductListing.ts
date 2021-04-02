@@ -22,9 +22,9 @@ import {
   useCms,
   useCategoryFilters,
   getApplicationContext,
+  useDefaults,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
-import { useDefaults } from "../logic/useDefaults";
 
 import {
   toggleEntityFilter,
@@ -68,7 +68,7 @@ const selectedCriteria = Vue.observable({
  */
 export const useProductListing = (
   rootContext: ApplicationVueContext,
-  initialListing?: ProductListingResult
+  initialListing?: Partial<ProductListingResult>
 ): UseProductListing => {
   deprecationWarning({
     methodName: "useProductListing",
@@ -207,7 +207,7 @@ export const useProductListing = (
     // base response has always all the aggregations
     if (isBaseRequest()) {
       sharedListing.availableFilters = getListingAvailableFilters(
-        productListingResult.value.aggregations
+        productListingResult.value?.aggregations
       );
     } else {
       if (!categoryId.value) {
@@ -222,7 +222,7 @@ export const useProductListing = (
         apiInstance
       );
       sharedListing.availableFilters = getListingAvailableFilters(
-        productListingBaseResult.aggregations
+        productListingBaseResult?.aggregations
       );
     }
 

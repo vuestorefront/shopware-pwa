@@ -73,12 +73,12 @@ export function createListingComposable<ELEMENTS_TYPE>({
   const loadingMore = ref(false);
 
   const { sharedRef } = useSharedState(rootContext);
-  const _storeInitialListing = sharedRef<ListingResult<ELEMENTS_TYPE> | null>(
+  const _storeInitialListing = sharedRef<ListingResult<ELEMENTS_TYPE>>(
     `${contextName}-initialListing-${listingKey}`
   );
-  const _storeAppliedListing = sharedRef<Partial<
-    ListingResult<ELEMENTS_TYPE>
-  > | null>(`${contextName}-appliedListing-${listingKey}`);
+  const _storeAppliedListing = sharedRef<Partial<ListingResult<ELEMENTS_TYPE>>>(
+    `${contextName}-appliedListing-${listingKey}`
+  );
 
   const getInitialListing = computed(() => _storeInitialListing.value);
   const setInitialListing = async (

@@ -1,23 +1,12 @@
 import Vue from "vue";
 
-import VueCompositionApi, {
-  reactive,
-  ref,
-  computed,
-  Ref,
-} from "@vue/composition-api";
+import VueCompositionApi from "@vue/composition-api";
 Vue.use(VueCompositionApi);
-import { useCms, useBreadcrumbs } from "@shopware-pwa/composables";
+
+import { useBreadcrumbs } from "../src/logic/useBreadcrumbs";
 
 describe("Composables - useBreadcrumbs", () => {
-  const statePage: Ref<Object | null> = ref(null);
   const rootContextMock: any = {
-    $store: {
-      getters: reactive({ getPage: computed(() => statePage.value) }),
-      commit: (name: string, value: any) => {
-        statePage.value = value;
-      },
-    },
     $shopwareApiInstance: jest.fn(),
     shopwareDefaults: jest.fn(),
     i18n: {
@@ -27,7 +16,6 @@ describe("Composables - useBreadcrumbs", () => {
   };
   beforeEach(() => {
     jest.resetAllMocks();
-    statePage.value = null;
   });
 
   describe("methods", () => {
@@ -54,16 +42,13 @@ describe("Composables - useBreadcrumbs", () => {
         expect(breadcrumbs.value).toStrictEqual([]);
       });
       it("should return breadcrumbs object from cms page if any available", () => {
-        statePage.value = {
-          breadcrumb: {
-            "breadcrumb-id": {
-              name: "Clothes",
-              path: "Clothes/",
-            },
+        const { breadcrumbs, setBreadcrumbs } = useBreadcrumbs(rootContextMock);
+        setBreadcrumbs([
+          {
+            name: "Clothes",
+            path: "Clothes/",
           },
-        };
-        useCms(rootContextMock);
-        const { breadcrumbs } = useBreadcrumbs(rootContextMock);
+        ]);
         expect(breadcrumbs.value).toStrictEqual([
           {
             name: "Home",
@@ -77,18 +62,18 @@ describe("Composables - useBreadcrumbs", () => {
       });
 
       it("should return breadcrumbs object without Home link from cms page if any available", () => {
-        statePage.value = {
-          breadcrumb: {
-            "breadcrumb-id": {
-              name: "Clothes",
-              path: "Clothes/",
-            },
+        const { breadcrumbs, setBreadcrumbs } = useBreadcrumbs(
+          rootContextMock,
+          {
+            hideHomeLink: true,
+          }
+        );
+        setBreadcrumbs([
+          {
+            name: "Clothes",
+            path: "Clothes/",
           },
-        };
-        useCms(rootContextMock);
-        const { breadcrumbs } = useBreadcrumbs(rootContextMock, {
-          hideHomeLink: true,
-        });
+        ]);
         expect(breadcrumbs.value).toStrictEqual([
           {
             path: "Clothes/",

@@ -1,17 +1,19 @@
 import Vue from "vue";
-import VueCompositionApi, { computed } from "@vue/composition-api";
+import VueCompositionApi, { computed, ref } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
-import {
-  createCheckoutStep,
-  VuelidateValidation,
-} from "@shopware-pwa/composables";
+import { VuelidateValidation } from "@shopware-pwa/composables";
+
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+
+import { createCheckoutStep } from "../src/factories/createCheckoutStep";
 
 const getCookie = jest.fn();
 const setCookie = jest.fn();
 
 const rootContextMock: any = {
-  $store: jest.fn(),
   $shopwareApiInstance: jest.fn(),
   $cookies: {
     get: getCookie,
@@ -22,6 +24,13 @@ const rootContextMock: any = {
 describe("Composables - createCheckoutStep", () => {
   beforeEach(() => {
     jest.resetAllMocks();
+
+    mockedComposables.useCheckout.mockImplementation(() => {
+      return {
+        guestOrderParams: ref({}),
+        updateGuestOrderParams: jest.fn(),
+      } as any;
+    });
   });
 
   it("should create checkout step composable with initial values", () => {

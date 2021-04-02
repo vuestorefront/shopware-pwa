@@ -34,18 +34,18 @@ export function useSharedState(rootContext: ApplicationVueContext) {
    *
    * @alpha
    */
-  function sharedRef<T>(uniqueKey: string): WritableComputedRef<T> {
+  function sharedRef<T>(uniqueKey: string): WritableComputedRef<T | null> {
     if (!isServer && !localSharedState[uniqueKey]) {
       localSharedState[uniqueKey] = ref(sharedStore[uniqueKey]);
     }
 
-    const sharedRef: Ref<T> = isServer
+    const sharedRef: Ref<T | null> = isServer
       ? toRef(sharedStore, uniqueKey)
       : localSharedState[uniqueKey];
 
     return computed({
       get: () => {
-        return sharedRef.value;
+        return sharedRef.value || null;
       },
       set: (val) => {
         sharedRef.value = val;

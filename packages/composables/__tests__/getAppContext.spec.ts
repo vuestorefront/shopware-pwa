@@ -3,7 +3,6 @@ const consoleWarnSpy = jest.spyOn(console, "warn");
 
 describe("Shopware composables - getAppContext", () => {
   const rootContextMock: any = {
-    $store: jest.fn(),
     $shopwareApiInstance: jest.fn(),
   };
 

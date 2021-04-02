@@ -1,10 +1,5 @@
 import Vue from "vue";
-import VueCompositionApi, {
-  Ref,
-  ref,
-  reactive,
-  computed,
-} from "@vue/composition-api";
+import VueCompositionApi, { Ref, ref } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
@@ -17,17 +12,12 @@ import * as Composables from "@shopware-pwa/composables";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 
+const consoleErrorSpy = jest.spyOn(console, "error");
+
 import { useUser } from "../src/hooks/useUser";
 describe("Composables - useUser", () => {
-  console.error = jest.fn();
   const stateUser: Ref<Object | null> = ref(null);
   const rootContextMock: any = {
-    $store: {
-      getters: reactive({ getUser: computed(() => stateUser.value) }),
-      commit: (name: string, value: any) => {
-        stateUser.value = value;
-      },
-    },
     $shopwareApiInstance: jest.fn(),
   };
 
@@ -43,6 +33,14 @@ describe("Composables - useUser", () => {
         intercept: interceptMock,
       } as any;
     });
+
+    mockedComposables.useSharedState.mockImplementation(() => {
+      return {
+        sharedRef: () => stateUser,
+      } as any;
+    });
+
+    consoleErrorSpy.mockImplementationOnce(() => {});
   });
 
   describe("computed", () => {
@@ -100,11 +98,12 @@ describe("Composables - useUser", () => {
       });
     });
     describe("refreshUser", () => {
-      it("should get an empty customer when user is not logged in", async () => {
+      it("should set empty object customer when user is not logged in and false for loggedIn flag", async () => {
         mockedApiClient.getCustomer.mockResolvedValueOnce(null);
-        const { user, refreshUser } = useUser(rootContextMock);
+        const { user, refreshUser, isLoggedIn } = useUser(rootContextMock);
         await refreshUser();
-        expect(user.value).toEqual(null);
+        expect(user.value).toEqual({});
+        expect(isLoggedIn.value).toEqual(false);
       });
 
       it("should get a customer when user is logged in", async () => {
@@ -115,14 +114,18 @@ describe("Composables - useUser", () => {
         await refreshUser();
         expect(user.value).toEqual({ id: "123" });
       });
-      it("should not set user on getCustomer request's rejection", async () => {
+      it("should set empty user on getCustomer request's rejection", async () => {
         mockedApiClient.getCustomer.mockRejectedValueOnce({
           message: "Some error",
         } as any);
-        const { user, refreshUser } = useUser(rootContextMock);
+        const { user, refreshUser, isLoggedIn } = useUser(rootContextMock);
         await refreshUser();
-        expect(user.value).toBeNull();
-        expect(stateUser.value).toBeNull();
+        expect(user.value).toEqual({});
+        expect(stateUser.value).toEqual({});
+        expect(isLoggedIn.value).toEqual(false);
+        expect(consoleErrorSpy).toBeCalledWith("[useUser][refreshUser]", {
+          message: "Some error",
+        });
       });
     });
     describe("login", () => {
