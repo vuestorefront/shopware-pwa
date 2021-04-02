@@ -2,6 +2,7 @@ import { getApplicationContext } from "@shopware-pwa/composables";
 import {
   computed,
   onServerPrefetch,
+  getCurrentInstance,
   Ref,
   ref,
   toRef,
@@ -73,14 +74,21 @@ export function useSharedState(rootContext: ApplicationVueContext) {
    *
    * @alpha
    */
-  function preloadRef(refObject: Ref<unknown>, callback: () => Promise<void>) {
+  async function preloadRef(
+    refObject: Ref<unknown>,
+    callback: () => Promise<void>
+  ) {
     if (!refObject.value) {
       if (isServer) {
-        onServerPrefetch(async () => {
+        if (getCurrentInstance()) {
+          onServerPrefetch(async () => {
+            await callback();
+          });
+        } else {
           await callback();
-        });
+        }
       } else {
-        callback();
+        await callback();
       }
     }
   }

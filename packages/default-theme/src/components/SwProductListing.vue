@@ -89,6 +89,7 @@ import { SfPagination, SfHeading, SfLoader } from "@storefront-ui/vue"
 import { useUIState, useListing } from "@shopware-pwa/composables"
 import { watch } from "@vue/composition-api"
 const SwProductCard = () => import("@/components/SwProductCard.vue")
+const SwButton = () => import("@/components/atoms/SwButton.vue")
 const SwProductCardHorizontal = () =>
   import("@/components/SwProductCardHorizontal.vue")
 
@@ -100,6 +101,7 @@ export default {
     SfPagination,
     SfHeading,
     SfLoader,
+    SwButton,
   },
   props: {
     initialListing: {

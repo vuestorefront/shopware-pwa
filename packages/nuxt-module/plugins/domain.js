@@ -97,6 +97,5 @@ Middleware.routing = function ({ isHMR, app, store, from, route, redirect }) {
   const { languageId, languageLocaleCode } = domainConfig;
   app.routing.setCurrentDomain(domainConfig);
   languageId && app.$shopwareApiInstance.update({ languageId });
-  languageLocaleCode && store.commit("SET_LANG", languageLocaleCode);
   app.i18n.locale = languageLocaleCode;
 };

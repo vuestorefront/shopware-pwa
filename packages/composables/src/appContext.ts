@@ -41,6 +41,8 @@ export interface ApplicationVueContext extends VueConstructor {
   interceptors?: any;
   $sharedStore?: any;
   sharedStore?: any;
+  $instanceStore?: any;
+  instanceStore?: any;
   $isServer?: any;
   isServer?: any;
 }
@@ -55,6 +57,12 @@ function checkAppContext(
         `[SECURITY][${key}] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/security.html#context-awareness`
       );
     return false;
+  }
+  if (rootContext?.$store || rootContext?.store) {
+    process.env.NODE_ENV !== "production" &&
+      console.warn(
+        `[PERFORMANCE][${key}] Vuex store detected. Remove "store" directory and useSharedState instead.`
+      );
   }
   return true;
 }
@@ -82,7 +90,8 @@ export function getApplicationContext(
     interceptors: context?.$interceptors || context?.interceptors || {},
     routing: context?.$routing || context?.routing,
     sharedStore: context?.$sharedStore || context?.sharedStore,
-    isServer: !!(context?.$isServer || context?.isServer),
+    instanceStore: context?.$instanceStore || context?.instanceStore,
+    isServer: !!(context?.$isServer || context?.isServer || process.server),
     contextName: key,
   };
 }

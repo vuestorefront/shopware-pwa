@@ -43,6 +43,7 @@ export interface PageResolverResult<T> {
  */
 export interface PageResolverProductResult {
   product: Partial<Product>;
+  breadcrumb: PageBreadcrumb;
   aggregations: Aggregation[];
   resourceType: PageType;
   resourceIdentifier: string;
