@@ -50,8 +50,7 @@ export async function runModule(
   // Change project source root to Target path
   moduleObject.options.srcDir = TARGET_SOURCE;
   moduleObject.options.store = false; // disable store generation
-  moduleObject.options?.features?.store &&
-    (moduleObject.options.features.store = false);
+  moduleObject.options.features.store = false;
   // resolve project src aliases
   moduleObject.options.alias = moduleObject.options.alias || {};
   moduleObject.options.alias["~"] = TARGET_SOURCE;

@@ -340,7 +340,7 @@ export interface IUseNavigation {
         depth: number;
     }) => Promise<void>;
     // (undocumented)
-    navigationElements: ComputedRef<StoreNavigationElement[] | undefined>;
+    navigationElements: ComputedRef<StoreNavigationElement[] | null>;
 }
 
 // @beta
@@ -654,7 +654,7 @@ export interface UseProductListing {
 }
 
 // @beta @deprecated (undocumented)
-export const useProductListing: (rootContext: ApplicationVueContext, initialListing?: ProductListingResult | undefined) => UseProductListing;
+export const useProductListing: (rootContext: ApplicationVueContext, initialListing?: Partial<ProductListingResult> | undefined) => UseProductListing;
 
 // @beta (undocumented)
 export const useProductQuickSearch: (rootContext: ApplicationVueContext_2) => IUseProductQuickSearch;
@@ -716,7 +716,7 @@ export const useSessionContext: (rootContext: ApplicationVueContext) => IUseSess
 
 // @alpha
 export function useSharedState(rootContext: ApplicationVueContext): {
-    sharedRef: <T>(uniqueKey: string) => WritableComputedRef<T>;
+    sharedRef: <T>(uniqueKey: string) => WritableComputedRef<T | null>;
     preloadRef: (refObject: Ref<unknown>, callback: () => Promise<void>) => Promise<void>;
 };
 

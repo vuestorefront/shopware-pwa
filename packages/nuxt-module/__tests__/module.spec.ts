@@ -35,6 +35,9 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
       router: {
         middleware: [],
       },
+      features: {
+        store: null,
+      },
     },
     addLayout: jest.fn(),
     extendRoutes: jest.fn(),

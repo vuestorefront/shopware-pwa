@@ -62,7 +62,7 @@ function checkAppContext(
       );
     return false;
   }
-  if (rootContext?.$store || rootContext?.store) {
+  if (rootContext.$store || rootContext.store) {
     process.env.NODE_ENV !== "production" &&
       console.warn(
         `[PERFORMANCE][${key}] Vuex store detected. Remove "store" directory and useSharedState instead.`
@@ -98,6 +98,7 @@ export function getApplicationContext(
     isServer: !!(
       context?.$isServer ||
       context?.isServer ||
+      /* istanbul ignore next */
       (process as Process)?.server
     ),
     contextName: key,

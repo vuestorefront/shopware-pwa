@@ -79,17 +79,13 @@ export function useSharedState(rootContext: ApplicationVueContext) {
     callback: () => Promise<void>
   ) {
     if (!refObject.value) {
-      if (isServer) {
-        if (getCurrentInstance()) {
-          onServerPrefetch(async () => {
-            await callback();
-          });
-        } else {
+      if (isServer && getCurrentInstance()) {
+        onServerPrefetch(async () => {
           await callback();
-        }
-      } else {
-        await callback();
+        });
+        return;
       }
+      await callback();
     }
   }
 

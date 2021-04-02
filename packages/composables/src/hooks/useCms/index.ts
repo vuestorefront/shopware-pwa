@@ -43,7 +43,7 @@ export function useCms(
 
   const { sharedRef } = useSharedState(rootContext);
   const _storePage = sharedRef<
-    PageResolverProductResult | PageResolverResult<CmsPage> | null
+    PageResolverProductResult | PageResolverResult<CmsPage>
   >(`${contextName}-page`);
 
   const { getDefaults } = useDefaults(rootContext, "useCms");

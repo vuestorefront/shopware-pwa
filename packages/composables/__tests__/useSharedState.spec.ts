@@ -81,6 +81,21 @@ describe("Composables - useSharedState", () => {
         expect(someValue.value).toEqual("new value");
       });
 
+      it("should not invoke onServerPrefetch method when ref value is not set, instead just invoke callback", async () => {
+        mockedCompositionAPI.getCurrentInstance = jest
+          .fn()
+          .mockImplementationOnce(() => false as any);
+        const someValue = vueComp.ref();
+        const { preloadRef } = useSharedState(rootContextMock);
+        await preloadRef(someValue, async () => {
+          someValue.value = "new value";
+        });
+        expect(mockedCompositionAPI.onServerPrefetch).not.toBeCalled();
+        expect(serverPrefetchMethods.length).toEqual(0);
+
+        expect(someValue.value).toEqual("new value");
+      });
+
       it("should not invoke onServerPrefetch method when ref value is set", async () => {
         const someValue = vueComp.ref("initial value");
         const { preloadRef } = useSharedState(rootContextMock);

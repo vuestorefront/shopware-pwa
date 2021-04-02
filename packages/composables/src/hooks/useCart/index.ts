@@ -73,7 +73,7 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
   const error: Ref<any> = ref(null);
 
   const { sharedRef } = useSharedState(rootContext);
-  const _storeCart = sharedRef<Cart | null>(`${contextName}-cart`);
+  const _storeCart = sharedRef<Cart>(`${contextName}-cart`);
 
   async function refreshCart(): Promise<void> {
     loading.value = true;

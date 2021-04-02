@@ -207,14 +207,9 @@ export const useProductListing = (
     // base response has always all the aggregations
     if (isBaseRequest()) {
       sharedListing.availableFilters = getListingAvailableFilters(
-        productListingResult.value?.aggregations
+        productListingResult.value.aggregations
       );
     } else {
-      if (!categoryId.value) {
-        throw new Error(
-          "[useProductListing][search] Search category id does not exist."
-        );
-      }
       // get the aggregations without narrowing down the results, so another api call is needed (using post-aggregation may fix it)
       const productListingBaseResult = await getCategoryProductsListing(
         categoryId.value,

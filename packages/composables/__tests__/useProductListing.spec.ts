@@ -208,6 +208,16 @@ describe("Composables - useProductListing", () => {
       expect(loading.value).toBe(false);
     });
 
+    it("should throw an error when categoryId is not set", async () => {
+      categoryIdMock.value = null;
+      const { search } = useProductListing(rootContextMock, {
+        elements: [{ product: "1" }],
+      } as any);
+      await expect(search()).rejects.toThrow(
+        "[useProductListing][search] Search category id does not exist."
+      );
+    });
+
     it("should not make another call if previous request was basic", async () => {
       mockedApiClient.getCategoryProductsListing.mockResolvedValue({
         currentFilters: {

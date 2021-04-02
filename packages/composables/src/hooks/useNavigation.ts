@@ -19,7 +19,7 @@ import { ApplicationVueContext } from "../appContext";
  * @beta
  */
 export interface IUseNavigation {
-  navigationElements: ComputedRef<StoreNavigationElement[] | undefined>;
+  navigationElements: ComputedRef<StoreNavigationElement[] | null>;
   /**
    * @deprecated use loadNavigationElements instead. Remove after v0.8
    */
@@ -60,7 +60,7 @@ export const useNavigation = (
     "useNavigation"
   );
 
-  const sharedElements = sharedRef<StoreNavigationElement[] | undefined>(
+  const sharedElements = sharedRef<StoreNavigationElement[]>(
     `useNavigation-${params.type}`
   );
   const navigationElements = computed(() => sharedElements.value);

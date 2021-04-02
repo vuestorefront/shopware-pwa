@@ -109,7 +109,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   const { broadcast, intercept } = useIntercept(rootContext);
 
   const { sharedRef } = useSharedState(rootContext);
-  const storeUser = sharedRef<Partial<Customer> | null>(`${contextName}-user`);
+  const storeUser = sharedRef<Partial<Customer>>(`${contextName}-user`);
 
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
