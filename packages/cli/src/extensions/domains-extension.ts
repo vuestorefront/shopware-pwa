@@ -73,10 +73,6 @@ module.exports = (toolbox: GluegunToolbox) => {
     return domainsMap;
   };
 
-  toolbox.domains.stripTrailingSlash = (host) => {
-    return host?.replace(/\/$/, "");
-  };
-
   toolbox.domains.stripHost = (absolutePath: string, pwaHost: string) => {
     let path = absolutePath.replace(pwaHost, "");
 

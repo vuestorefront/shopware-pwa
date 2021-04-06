@@ -99,7 +99,7 @@ do not answer [press enter] if you want to use default values for ${toolbox.defa
 
     const domainsMap = toolbox.domains.prepareDomainsMap(
       domains,
-      toolbox.domains.stripTrailingSlash(
+      toolbox.normalizeBaseUrl(
         (typeof pwaHost === "string" &&
           pwaHost === "" &&
           toolbox.defaultInitConfig.shopwareEndpoint) ||
