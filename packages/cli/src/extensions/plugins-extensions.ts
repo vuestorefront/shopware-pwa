@@ -35,15 +35,18 @@ module.exports = (toolbox: GluegunToolbox) => {
   toolbox.fetchPluginsAuthToken = async (
     { shopwareEndpoint, username, password } = toolbox.inputParameters
   ) => {
+    const normalizedShopwareEndpoint = toolbox.normalizeBaseUrl(
+      shopwareEndpoint
+    );
     let authTokenResponse;
     if (
       !username &&
       !password &&
-      shopwareEndpoint === toolbox.defaultInitConfig?.shopwareEndpoint
+      normalizedShopwareEndpoint === toolbox.defaultInitConfig?.shopwareEndpoint
     ) {
       try {
         authTokenResponse = await axios.post(
-          `${shopwareEndpoint}/api/oauth/token`,
+          `${normalizedShopwareEndpoint}/api/oauth/token`,
           {
             grant_type: "client_credentials",
             client_id: toolbox.defaultInitConfig.INSTANCE_READ_API_KEY,
@@ -55,7 +58,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       }
     } else {
       authTokenResponse = await axios.post(
-        `${shopwareEndpoint}/api/oauth/token`,
+        `${normalizedShopwareEndpoint}/api/oauth/token`,
         {
           client_id: "administration",
           grant_type: "password",
@@ -77,7 +80,9 @@ module.exports = (toolbox: GluegunToolbox) => {
     authToken: string;
   }) => {
     const pluginsConfigRsponse = await axios.post(
-      `${shopwareEndpoint}/api/v3/_action/pwa/dump-bundles`,
+      `${toolbox.normalizeBaseUrl(
+        shopwareEndpoint
+      )}/api/v3/_action/pwa/dump-bundles`,
       null,
       {
         headers: {
@@ -89,21 +94,29 @@ module.exports = (toolbox: GluegunToolbox) => {
   };
 
   toolbox.fetchPluginsConfig = async ({ config }: { config: string }) => {
-    const endpoint = toolbox.inputParameters.shopwareEndpoint;
+    const endpoint = toolbox.normalizeBaseUrl(
+      toolbox.inputParameters.shopwareEndpoint
+    );
     const url =
       config.indexOf(endpoint) >= 0
         ? config
-        : `${toolbox.inputParameters.shopwareEndpoint}/${config}`;
+        : `${toolbox.normalizeBaseUrl(
+            toolbox.inputParameters.shopwareEndpoint
+          )}/${config}`;
     const pluginsConfigResponse = await axios.get(url);
     return pluginsConfigResponse.data;
   };
 
   toolbox.loadPluginsAssetFile = async ({ asset }: { asset: string }) => {
-    const endpoint = toolbox.inputParameters.shopwareEndpoint;
+    const endpoint = toolbox.normalizeBaseUrl(
+      toolbox.inputParameters.shopwareEndpoint
+    );
     const fileUrl =
       asset.indexOf(endpoint) >= 0
         ? asset
-        : `${toolbox.inputParameters.shopwareEndpoint}/${asset}`;
+        : `${toolbox.normalizeBaseUrl(
+            toolbox.inputParameters.shopwareEndpoint
+          )}/${asset}`;
 
     const request = require("request");
     const loadFile = function () {
