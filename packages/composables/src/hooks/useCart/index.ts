@@ -1,4 +1,4 @@
-import { ref, Ref, computed, ComputedRef } from "@vue/composition-api";
+import { ref, Ref, computed, ComputedRef, watch } from "@vue/composition-api";
 import {
   getCart,
   addProductToCart,
@@ -7,7 +7,10 @@ import {
   changeCartItemQuantity,
 } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { Cart } from "@shopware-pwa/commons/interfaces/models/checkout/cart/Cart";
+import {
+  Cart,
+  CartError,
+} from "@shopware-pwa/commons/interfaces/models/checkout/cart/Cart";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
 import {
@@ -55,6 +58,7 @@ export interface IUseCart {
   totalPrice: ComputedRef<number>;
   shippingTotal: ComputedRef<number>;
   subtotal: ComputedRef<number>;
+  cartErrors: ComputedRef<CartError[] | any[]>;
 }
 
 /**
@@ -169,6 +173,19 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     return cartPrice || 0;
   });
 
+  const cartErrors: ComputedRef<CartError[]> = computed(
+    () => (cart.value?.errors && Object.values(cart.value?.errors)) || []
+  );
+
+  watch(
+    cartErrors,
+    (newErrors, prevErrors) => {
+      console.warn("prev", prevErrors);
+      console.warn("new", newErrors);
+    },
+    { immediate: true }
+  );
+
   return {
     addProduct,
     addPromotionCode: submitPromotionCode,
@@ -185,5 +202,6 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     totalPrice,
     shippingTotal,
     subtotal,
+    cartErrors,
   };
 };

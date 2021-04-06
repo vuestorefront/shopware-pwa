@@ -10,6 +10,7 @@ import { Association } from '@shopware-pwa/commons/interfaces/search/Association
 import { BillingAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress';
 import { Breadcrumb } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
+import { CartError } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { ComputedRef } from '@vue/composition-api';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
@@ -220,6 +221,8 @@ export interface IUseCart {
     appliedPromotionCodes: ComputedRef<LineItem[]>;
     // (undocumented)
     cart: ComputedRef<Cart | null>;
+    // (undocumented)
+    cartErrors: ComputedRef<CartError[] | any[]>;
     // (undocumented)
     cartItems: ComputedRef<LineItem[]>;
     // (undocumented)
