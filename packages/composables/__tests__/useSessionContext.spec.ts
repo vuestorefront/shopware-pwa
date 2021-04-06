@@ -1,10 +1,5 @@
 import Vue from "vue";
-import VueCompositionApi, {
-  Ref,
-  ref,
-  reactive,
-  computed,
-} from "@vue/composition-api";
+import VueCompositionApi, { Ref, ref } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
 // Mock API client
@@ -23,18 +18,9 @@ import { SessionContext } from "@shopware-pwa/commons/interfaces/response/Sessio
 
 describe("Composables - useSessionContext", () => {
   const stateContext: Ref<Partial<SessionContext> | null> = ref(null);
-  const vuexStore = {
-    getters: reactive({
-      getSessionContext: computed(() => stateContext.value),
-    }),
-    commit: (name: string, value: SessionContext) => {
-      stateContext.value = value;
-    },
-  };
+
   const apiMock = jest.fn();
   const rootContextMock: any = {
-    $store: vuexStore,
-    vuexStore: vuexStore,
     $shopwareApiInstance: apiMock,
     apiInstance: apiMock,
   };
@@ -60,6 +46,11 @@ describe("Composables - useSessionContext", () => {
     });
     mockedComposables.getApplicationContext.mockImplementation(() => {
       return rootContextMock as any;
+    });
+    mockedComposables.useSharedState.mockImplementation(() => {
+      return {
+        sharedRef: () => stateContext,
+      } as any;
     });
   });
 

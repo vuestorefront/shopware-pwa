@@ -15,5 +15,5 @@
 <b>Signature:</b>
 
 ```typescript
-useProductListing: (rootContext: ApplicationVueContext, initialListing?: ProductListingResult | undefined) => UseProductListing
+useProductListing: (rootContext: ApplicationVueContext, initialListing?: Partial<ProductListingResult> | undefined) => UseProductListing
 ```

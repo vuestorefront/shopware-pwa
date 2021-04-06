@@ -14,7 +14,6 @@ import { useSalutations } from "@shopware-pwa/composables";
 
 describe("Composables - useSalutations", () => {
   const rootContextMock: any = {
-    $store: jest.fn(),
     $shopwareApiInstance: jest.fn(),
   };
 

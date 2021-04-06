@@ -7,10 +7,12 @@ import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 import { SearchFilterType } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 const mockedApi = shopwareClient as jest.Mocked<typeof shopwareClient>;
 const consoleWarnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+const consoleErrorSpy = jest
+  .spyOn(console, "error")
+  .mockImplementation(() => {});
 
 describe("Composables - useProductSearch", () => {
   const rootContextMock: any = {
-    $store: jest.fn(),
     $shopwareApiInstance: jest.fn(),
   };
   beforeEach(() => {
@@ -88,6 +90,12 @@ describe("Composables - useProductSearch", () => {
       } as any);
 
       await suggestSearch("lucky search");
+      expect(consoleErrorSpy).toBeCalledWith(
+        "[useProductSearch][suggestSearch]",
+        {
+          message: "Something went wrong",
+        }
+      );
     });
   });
   describe("search", () => {

@@ -1,10 +1,5 @@
 import Vue from "vue";
-import VueCompositionApi, {
-  Ref,
-  reactive,
-  computed,
-  ref,
-} from "@vue/composition-api";
+import VueCompositionApi, { Ref, ref } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
 import * as Composables from "@shopware-pwa/composables";
@@ -19,12 +14,6 @@ describe("Composables - useAddToCart", () => {
   const pushSuccessMock = jest.fn(() => {});
   const cartItemsMock: Ref<any[]> = ref([]);
   const rootContextMock: any = {
-    $store: {
-      getters: reactive({ getCart: computed(() => stateCart.value) }),
-      commit: (name: string, value: any) => {
-        stateCart.value = value;
-      },
-    },
     $shopwareApiInstance: jest.fn(),
   };
 

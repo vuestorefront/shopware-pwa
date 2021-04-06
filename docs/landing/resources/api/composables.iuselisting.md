@@ -23,13 +23,13 @@ export interface IUseListing<ELEMENTS_TYPE>
 |  [changeCurrentSortingOrder](./composables.iuselisting.changecurrentsortingorder.md) | (order: string \| string\[\]) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [getAvailableFilters](./composables.iuselisting.getavailablefilters.md) | ComputedRef&lt;ListingFilter\[\]&gt; | <b><i>(BETA)</i></b> |
 |  [getCurrentFilters](./composables.iuselisting.getcurrentfilters.md) | ComputedRef&lt;any&gt; | <b><i>(BETA)</i></b> |
-|  [getCurrentListing](./composables.iuselisting.getcurrentlisting.md) | ComputedRef&lt;ProductListingResult&gt; | <b><i>(BETA)</i></b> |
+|  [getCurrentListing](./composables.iuselisting.getcurrentlisting.md) | ComputedRef&lt;Partial&lt;ListingResult&lt;ELEMENTS\_TYPE&gt;&gt; \| null&gt; | <b><i>(BETA)</i></b> |
 |  [getCurrentPage](./composables.iuselisting.getcurrentpage.md) | ComputedRef&lt;string \| number&gt; | <b><i>(BETA)</i></b> |
-|  [getCurrentSortingOrder](./composables.iuselisting.getcurrentsortingorder.md) | ComputedRef&lt;string&gt; | <b><i>(BETA)</i></b> |
+|  [getCurrentSortingOrder](./composables.iuselisting.getcurrentsortingorder.md) | ComputedRef&lt;string \| undefined&gt; | <b><i>(BETA)</i></b> |
 |  [getElements](./composables.iuselisting.getelements.md) | ComputedRef&lt;ELEMENTS\_TYPE\[\]&gt; | <b><i>(BETA)</i></b> |
-|  [getInitialListing](./composables.iuselisting.getinitiallisting.md) | ComputedRef&lt;ProductListingResult&gt; | <b><i>(BETA)</i></b> |
+|  [getInitialListing](./composables.iuselisting.getinitiallisting.md) | ComputedRef&lt;ListingResult&lt;ELEMENTS\_TYPE&gt; \| null&gt; | <b><i>(BETA)</i></b> |
 |  [getLimit](./composables.iuselisting.getlimit.md) | ComputedRef&lt;number&gt; | <b><i>(BETA)</i></b> |
-|  [getSortingOrders](./composables.iuselisting.getsortingorders.md) | ComputedRef&lt;{ key: string; label: string; }&gt; | <b><i>(BETA)</i></b> |
+|  [getSortingOrders](./composables.iuselisting.getsortingorders.md) | ComputedRef&lt;Sort\[\] \| { key: string; label: string; }&gt; | <b><i>(BETA)</i></b> |
 |  [getTotal](./composables.iuselisting.gettotal.md) | ComputedRef&lt;number&gt; | <b><i>(BETA)</i></b> |
 |  [getTotalPagesCount](./composables.iuselisting.gettotalpagescount.md) | ComputedRef&lt;number&gt; | <b><i>(BETA)</i></b> |
 |  [initSearch](./composables.iuselisting.initsearch.md) | (criteria: Partial&lt;ShopwareSearchParams&gt;) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
@@ -37,5 +37,5 @@ export interface IUseListing<ELEMENTS_TYPE>
 |  [loadingMore](./composables.iuselisting.loadingmore.md) | ComputedRef&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [loadMore](./composables.iuselisting.loadmore.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [search](./composables.iuselisting.search.md) | (criteria: Partial&lt;ShopwareSearchParams&gt;, options?: { preventRouteChange?: boolean; }) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
-|  [setInitialListing](./composables.iuselisting.setinitiallisting.md) | (initialListing: Partial&lt;ProductListingResult&gt;) =&gt; void | <b><i>(BETA)</i></b> |
+|  [setInitialListing](./composables.iuselisting.setinitiallisting.md) | (initialListing: Partial&lt;ListingResult&lt;ELEMENTS\_TYPE&gt;&gt;) =&gt; void | <b><i>(BETA)</i></b> |
 

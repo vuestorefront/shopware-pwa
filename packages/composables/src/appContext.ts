@@ -15,6 +15,10 @@ export interface Routing {
   getUrl: (path: string) => string;
 }
 
+interface Process extends NodeJS.Process {
+  server: boolean;
+}
+
 /**
  * Application Context for Shopware PWA. It's an extended Vue instance.
  *
@@ -39,6 +43,12 @@ export interface ApplicationVueContext extends VueConstructor {
   $shopwareDefaults?: any; // defaults for API
   $interceptors?: any;
   interceptors?: any;
+  $sharedStore?: any;
+  sharedStore?: any;
+  $instanceStore?: any;
+  instanceStore?: any;
+  $isServer?: any;
+  isServer?: any;
 }
 
 function checkAppContext(
@@ -51,6 +61,12 @@ function checkAppContext(
         `[SECURITY][${key}] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/security.html#context-awareness`
       );
     return false;
+  }
+  if (rootContext.$store || rootContext.store) {
+    process.env.NODE_ENV !== "production" &&
+      console.warn(
+        `[PERFORMANCE][${key}] Vuex store detected. Remove "store" directory and useSharedState instead.`
+      );
   }
   return true;
 }
@@ -77,6 +93,14 @@ export function getApplicationContext(
     shopwareDefaults: context?.$shopwareDefaults || context?.shopwareDefaults,
     interceptors: context?.$interceptors || context?.interceptors || {},
     routing: context?.$routing || context?.routing,
+    sharedStore: context?.$sharedStore || context?.sharedStore,
+    instanceStore: context?.$instanceStore || context?.instanceStore,
+    isServer: !!(
+      context?.$isServer ||
+      context?.isServer ||
+      /* istanbul ignore next */
+      (process as Process)?.server
+    ),
     contextName: key,
   };
 }

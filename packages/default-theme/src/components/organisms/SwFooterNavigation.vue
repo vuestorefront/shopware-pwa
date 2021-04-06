@@ -40,9 +40,9 @@
 </template>
 <script>
 import { SfFooter, SfList, SfMenuItem } from "@storefront-ui/vue"
-import { ref, watch, computed, onMounted } from "@vue/composition-api"
+import { ref, watch, computed } from "@vue/composition-api"
 import { getCategoryUrl, isLinkCategory } from "@shopware-pwa/helpers"
-import { useNavigation } from "@shopware-pwa/composables"
+import { useNavigation, useSharedState } from "@shopware-pwa/composables"
 import { useDomains } from "@/logic"
 
 function extractCategoryNames(categories, aggregation = []) {
@@ -80,18 +80,12 @@ export default {
       return names
     })
 
-    onMounted(async () => {
-      await watch(
-        currentDomainId,
-        async () => {
-          try {
-            await loadNavigationElements({ depth: 2 })
-          } catch (e) {
-            console.error("[SwFooterNavigation]", e)
-          }
-        },
-        { immediate: true }
-      )
+    const { preloadRef } = useSharedState(root)
+    preloadRef(navigationElements, async () => {
+      await loadNavigationElements({ depth: 2 })
+    })
+    watch(currentDomainId, async () => {
+      await loadNavigationElements({ depth: 2 })
     })
 
     return {

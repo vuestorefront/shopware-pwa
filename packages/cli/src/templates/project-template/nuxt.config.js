@@ -47,6 +47,9 @@ export default {
     manifest: {
       lang: 'en',
     },
+    workbox: {
+      offlineStrategy: 'StaleWhileRevalidate',
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

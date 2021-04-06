@@ -22,19 +22,25 @@ export interface ApplicationVueContext extends VueConstructor
 |  --- | --- | --- |
 |  [$cookies?](./composables.applicationvuecontext._cookies.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [$i18n?](./composables.applicationvuecontext._i18n.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
+|  [$instanceStore?](./composables.applicationvuecontext._instancestore.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [$interceptors?](./composables.applicationvuecontext._interceptors.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
+|  [$isServer?](./composables.applicationvuecontext._isserver.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [$route?](./composables.applicationvuecontext._route.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [$router?](./composables.applicationvuecontext._router.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [$routing](./composables.applicationvuecontext._routing.md) | Routing | <b><i>(BETA)</i></b> |
+|  [$sharedStore?](./composables.applicationvuecontext._sharedstore.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [$shopwareApiInstance?](./composables.applicationvuecontext._shopwareapiinstance.md) | ShopwareApiInstance | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [$shopwareDefaults?](./composables.applicationvuecontext._shopwaredefaults.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [$store?](./composables.applicationvuecontext._store.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [cookies?](./composables.applicationvuecontext.cookies.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [i18n?](./composables.applicationvuecontext.i18n.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
+|  [instanceStore?](./composables.applicationvuecontext.instancestore.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [interceptors?](./composables.applicationvuecontext.interceptors.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
+|  [isServer?](./composables.applicationvuecontext.isserver.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [route?](./composables.applicationvuecontext.route.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [router?](./composables.applicationvuecontext.router.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [routing](./composables.applicationvuecontext.routing.md) | Routing | <b><i>(BETA)</i></b> |
+|  [sharedStore?](./composables.applicationvuecontext.sharedstore.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [shopwareApiInstance?](./composables.applicationvuecontext.shopwareapiinstance.md) | ShopwareApiInstance | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [shopwareDefaults?](./composables.applicationvuecontext.shopwaredefaults.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [store?](./composables.applicationvuecontext.store.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |

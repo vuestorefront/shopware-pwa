@@ -11,7 +11,6 @@ const mockedAxios = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 describe("Composables - useProduct", () => {
   const rootContextMock: any = {
-    $store: jest.fn(),
     $shopwareApiInstance: jest.fn(),
     $shopwareDefaults: getDefaultApiParams(),
   };

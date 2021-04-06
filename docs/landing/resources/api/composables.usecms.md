@@ -12,8 +12,8 @@
 
 ```typescript
 export declare function useCms(rootContext: ApplicationVueContext): {
-    page: Ref<Readonly<PageResolverProductResult | PageResolverResult<CmsPage>>>;
-    categoryId: ComputedRef<string>;
+    page: ComputedRef<PageResolverProductResult | PageResolverResult<CmsPage> | null>;
+    categoryId: ComputedRef<string | null>;
     loading: Ref<boolean>;
     search: (path: string, query?: any) => Promise<void>;
     error: Ref<any>;
@@ -29,5 +29,5 @@ export declare function useCms(rootContext: ApplicationVueContext): {
 
 <b>Returns:</b>
 
-{ page: Ref&lt;Readonly&lt;PageResolverProductResult \| PageResolverResult&lt;CmsPage&gt;&gt;&gt;; categoryId: ComputedRef&lt;string&gt;; loading: Ref&lt;boolean&gt;; search: (path: string, query?: any) =&gt; Promise&lt;void&gt;; error: Ref&lt;any&gt;; getBreadcrumbsObject: ComputedRef&lt;PageBreadcrumb&gt;; }
+{ page: ComputedRef&lt;PageResolverProductResult \| PageResolverResult&lt;CmsPage&gt; \| null&gt;; categoryId: ComputedRef&lt;string \| null&gt;; loading: Ref&lt;boolean&gt;; search: (path: string, query?: any) =&gt; Promise&lt;void&gt;; error: Ref&lt;any&gt;; getBreadcrumbsObject: ComputedRef&lt;PageBreadcrumb&gt;; }
 

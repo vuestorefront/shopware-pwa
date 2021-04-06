@@ -14,7 +14,7 @@ Factory to create your own listing. By default you can use useListing composable
 ```typescript
 export declare function createListingComposable<ELEMENTS_TYPE>({ rootContext, searchMethod, searchDefaults, listingKey, }: {
     rootContext: ApplicationVueContext;
-    searchMethod: (searchParams: Partial<ShopwareSearchParams>) => Promise<ProductListingResult>;
+    searchMethod: (searchParams: Partial<ShopwareSearchParams>) => Promise<ListingResult<ELEMENTS_TYPE>>;
     searchDefaults: ShopwareSearchParams;
     listingKey: string;
 }): IUseListing<ELEMENTS_TYPE>;
@@ -24,7 +24,7 @@ export declare function createListingComposable<ELEMENTS_TYPE>({ rootContext, se
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { rootContext, searchMethod, searchDefaults, listingKey, } | { rootContext: [ApplicationVueContext](./composables.applicationvuecontext.md)<!-- -->; searchMethod: (searchParams: Partial&lt;ShopwareSearchParams&gt;) =&gt; Promise&lt;ProductListingResult&gt;; searchDefaults: ShopwareSearchParams; listingKey: string; } |  |
+|  { rootContext, searchMethod, searchDefaults, listingKey, } | { rootContext: [ApplicationVueContext](./composables.applicationvuecontext.md)<!-- -->; searchMethod: (searchParams: Partial&lt;ShopwareSearchParams&gt;) =&gt; Promise&lt;ListingResult&lt;ELEMENTS\_TYPE&gt;&gt;; searchDefaults: ShopwareSearchParams; listingKey: string; } |  |
 
 <b>Returns:</b>
 

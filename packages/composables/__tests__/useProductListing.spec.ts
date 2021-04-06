@@ -1,15 +1,6 @@
 import Vue from "vue";
-import VueCompositionApi, {
-  reactive,
-  ref,
-  computed,
-  Ref,
-} from "@vue/composition-api";
+import VueCompositionApi, { ref, Ref } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
-import {
-  useProductListing,
-  getDefaultApiParams,
-} from "@shopware-pwa/composables";
 
 jest.mock("@shopware-pwa/shopware-6-client");
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
@@ -21,28 +12,54 @@ import {
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 const consoleWarnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
 
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+
+import { useProductListing } from "../src/hooks/useProductListing";
+
 describe("Composables - useProductListing", () => {
-  const statePage: Ref<Object | null> = ref(null);
+  const categoryIdMock: Ref<Object | null> = ref(null);
   const rootContextMock: any = {
-    $store: {
-      getters: reactive({ getPage: computed(() => statePage.value) }),
-      commit: (name: string, value: any) => {
-        statePage.value = value;
-      },
-    },
     $shopwareApiInstance: jest.fn(),
-    $shopwareDefaults: getDefaultApiParams(),
   };
 
   beforeEach(() => {
     jest.resetAllMocks();
-    statePage.value = null;
+    categoryIdMock.value = "someCategory";
+
+    mockedComposables.getApplicationContext.mockImplementation(() => {
+      return {
+        apiInstance: rootContextMock.$shopwareApiInstance,
+        contextName: "useProductListing",
+      } as any;
+    });
+
+    mockedComposables.useDefaults.mockImplementation(() => {
+      return {
+        getDefaults: { limit: 10 },
+        getIncludesConfig: jest.fn(),
+        getAssociationsConfig: jest.fn(),
+      } as any;
+    });
+
+    mockedComposables.useCms.mockImplementation(() => {
+      return {
+        categoryId: categoryIdMock,
+      } as any;
+    });
+
+    mockedComposables.useCategoryFilters.mockImplementation(() => {
+      return {
+        activeSorting: ref(),
+      } as any;
+    });
   });
 
   it("should display deprecation info on invocation", () => {
     useProductListing(rootContextMock);
     expect(consoleWarnSpy).toBeCalledWith(
-      '[DEPRECATED][@shopware-pwa/composables][useCategoryFilters] This method has been deprecated. Use "useListing" instead.'
+      '[DEPRECATED][@shopware-pwa/composables][useProductListing] This method has been deprecated. Use "useListing" instead.'
     );
   });
 
@@ -191,6 +208,16 @@ describe("Composables - useProductListing", () => {
       expect(loading.value).toBe(false);
     });
 
+    it("should throw an error when categoryId is not set", async () => {
+      categoryIdMock.value = null;
+      const { search } = useProductListing(rootContextMock, {
+        elements: [{ product: "1" }],
+      } as any);
+      await expect(search()).rejects.toThrow(
+        "[useProductListing][search] Search category id does not exist."
+      );
+    });
+
     it("should not make another call if previous request was basic", async () => {
       mockedApiClient.getCategoryProductsListing.mockResolvedValue({
         currentFilters: {
@@ -270,9 +297,7 @@ describe("Composables - useProductListing", () => {
     });
 
     it("should search with no categoryId passed by page resolver", async () => {
-      statePage.value = {
-        resourceIdentifier: "123456",
-      };
+      categoryIdMock.value = "123456";
       const { categoryId } = useProductListing(rootContextMock);
 
       expect(categoryId.value).toStrictEqual("123456");
