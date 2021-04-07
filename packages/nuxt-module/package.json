@@ -16,10 +16,10 @@
   "dependencies": {
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.13.8",
     "@babel/plugin-proposal-optional-chaining": "^7.13.12",
-    "@nuxt/types": "^2.15.4",
+    "@nuxt/types": "^2.15.3",
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxt/typescript-runtime": "^2.1.0",
-    "@nuxt/utils": "^2.15.4",
+    "@nuxt/utils": "^2.15.3",
     "@shopware-pwa/cli": "0.7.2",
     "@shopware-pwa/commons": "0.7.2",
     "@shopware-pwa/composables": "0.7.2",

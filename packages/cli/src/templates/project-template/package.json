@@ -13,8 +13,8 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.1",
     "@nuxtjs/pwa": "^3.3.5",
-    "core-js": "^3.10.0",
-    "nuxt": "^2.15.4"
+    "core-js": "^3.9.1",
+    "nuxt": "^2.15.3"
   },
   "devDependencies": {
     "@shopware-pwa/nuxt-module": "latest",
@@ -25,6 +25,6 @@
     "eslint-plugin-prettier": "^3.3.1",
     "jest": "^26.6.3",
     "prettier": "^2.2.1",
-    "vue-jest": "^3.0.7"
+    "vue-jest": "^3.0.4"
   }
 }
