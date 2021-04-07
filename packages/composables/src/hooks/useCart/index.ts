@@ -1,4 +1,4 @@
-import { ref, Ref, computed, ComputedRef, watch } from "@vue/composition-api";
+import { ref, Ref, computed, ComputedRef } from "@vue/composition-api";
 import {
   getCart,
   addProductToCart,
@@ -9,7 +9,7 @@ import {
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import {
   Cart,
-  CartError,
+  EntityError,
 } from "@shopware-pwa/commons/interfaces/models/checkout/cart/Cart";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
@@ -20,6 +20,7 @@ import {
   useSharedState,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../../appContext";
+import { broadcastErrors } from "../../internalHelpers/errorHandler";
 import { deprecationWarning } from "@shopware-pwa/commons";
 
 /**
@@ -58,7 +59,7 @@ export interface IUseCart {
   totalPrice: ComputedRef<number>;
   shippingTotal: ComputedRef<number>;
   subtotal: ComputedRef<number>;
-  cartErrors: ComputedRef<CartError[] | any[]>;
+  cartErrors: ComputedRef<EntityError[] | any[]>;
 }
 
 /**
@@ -99,8 +100,22 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     id: string;
     quantity?: number;
   }) {
-    const result = await addProductToCart(id, quantity, apiInstance);
-    _storeCart.value = result;
+    const addToCartResult = await addProductToCart(id, quantity, apiInstance);
+
+    // start-move the logic to external function
+    const cartErrorsKeys = Object.keys(_storeCart.value?.errors || {});
+    const addToCartErrorsKeys = Object.keys(addToCartResult?.errors || {});
+    const upcomingErrorsKeys = addToCartErrorsKeys.filter(
+      (addToCartKey) => !cartErrorsKeys.includes(addToCartKey)
+    );
+    const entityErrors: EntityError[] = Object.values(
+      addToCartResult.errors
+    ).filter((entityError) => upcomingErrorsKeys.includes(entityError.key));
+
+    broadcastErrors(entityErrors, `[${contextName}][addProduct]`, rootContext);
+    // end-move
+
+    _storeCart.value = addToCartResult;
   }
 
   async function removeItem({ id }: LineItem) {
@@ -173,17 +188,8 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     return cartPrice || 0;
   });
 
-  const cartErrors: ComputedRef<CartError[]> = computed(
+  const cartErrors: ComputedRef<EntityError[]> = computed(
     () => (cart.value?.errors && Object.values(cart.value?.errors)) || []
-  );
-
-  watch(
-    cartErrors,
-    (newErrors, prevErrors) => {
-      console.warn("prev", prevErrors);
-      console.warn("new", newErrors);
-    },
-    { immediate: true }
   );
 
   return {
