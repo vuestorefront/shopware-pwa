@@ -5,7 +5,6 @@ import { useNotifications } from "@shopware-pwa/composables";
 
 describe("Composables - useNotifications", () => {
   const rootContextMock: any = {
-    $store: jest.fn(),
     $shopwareApiInstance: jest.fn(),
   };
 

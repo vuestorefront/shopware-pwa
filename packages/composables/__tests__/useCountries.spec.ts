@@ -15,7 +15,6 @@ import { useCountries } from "@shopware-pwa/composables";
 
 describe("Composables - useCountries", () => {
   const rootContextMock: any = {
-    $store: jest.fn(),
     $shopwareApiInstance: jest.fn(),
   };
 

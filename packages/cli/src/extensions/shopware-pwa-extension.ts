@@ -8,10 +8,10 @@ const INSTANCE_READ_API_KEY = "SWIACLLVSWNJQZKYRUDJYJHIWA";
 const INSTANCE_READ_API_SECRET =
   "S0FMSjU4R3VFZ1Bkdjc1RGlhcE52MkNZbU1LVkhENHRFU1NxNjE";
 const defaultConfig = {
-  shopwareEndpoint: "https://pwa-demo-api.shopware.com/prev/",
+  shopwareEndpoint: "https://pwa-demo-api.shopware.com/prev",
   shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
   theme: "@shopware-pwa/default-theme",
-  pwaHost: "https://pwa-demo-api.shopware.com/prev/",
+  pwaHost: "https://pwa-demo-api.shopware.com/prev",
   shopwareApiClient: {
     timeout: 10000,
   },
@@ -142,5 +142,16 @@ module.exports = (toolbox: GluegunToolbox) => {
     devMode: toolbox.parameters.options.devMode,
     ci: toolbox.parameters.options.ci,
     stage: toolbox.parameters.options.stage,
+  };
+
+  /**
+   * Returns normalized base URL
+   *
+   * - trims ending slash
+   * @param { string } baseUrl
+   * @returns { string }
+   */
+  toolbox.normalizeBaseUrl = (baseUrl: string): string => {
+    return toolbox.strings.trimEnd(baseUrl, "/");
   };
 };

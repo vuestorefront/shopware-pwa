@@ -3,11 +3,13 @@ import { getListingFilters, ListingFilter } from "@shopware-pwa/helpers";
 import {
   ApplicationVueContext,
   getApplicationContext,
+  useSharedState,
 } from "@shopware-pwa/composables";
 import { computed, ComputedRef, ref } from "@vue/composition-api";
 import merge from "lodash/merge";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
+import { ListingResult } from "@shopware-pwa/commons/interfaces/response/ListingResult";
+import { Sort } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
  * Listing interface, can be used to display category products, search products or any other Shopware search interface (ex. orders with pagination)
@@ -15,8 +17,10 @@ import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/
  * @beta
  */
 export interface IUseListing<ELEMENTS_TYPE> {
-  getInitialListing: ComputedRef<ProductListingResult>;
-  setInitialListing: (initialListing: Partial<ProductListingResult>) => void;
+  getInitialListing: ComputedRef<ListingResult<ELEMENTS_TYPE> | null>;
+  setInitialListing: (
+    initialListing: Partial<ListingResult<ELEMENTS_TYPE>>
+  ) => void;
   initSearch: (criteria: Partial<ShopwareSearchParams>) => Promise<void>;
   search: (
     criteria: Partial<ShopwareSearchParams>,
@@ -25,10 +29,10 @@ export interface IUseListing<ELEMENTS_TYPE> {
     }
   ) => Promise<void>;
   loadMore: () => Promise<void>;
-  getCurrentListing: ComputedRef<ProductListingResult>;
+  getCurrentListing: ComputedRef<Partial<ListingResult<ELEMENTS_TYPE>> | null>;
   getElements: ComputedRef<ELEMENTS_TYPE[]>;
-  getSortingOrders: ComputedRef<{ key: string; label: string }>;
-  getCurrentSortingOrder: ComputedRef<string>;
+  getSortingOrders: ComputedRef<Sort[] | { key: string; label: string }>;
+  getCurrentSortingOrder: ComputedRef<string | undefined>;
   changeCurrentSortingOrder: (order: string | string[]) => Promise<void>;
   getCurrentPage: ComputedRef<string | number>;
   changeCurrentPage: (pageNumber?: number | string) => Promise<void>;
@@ -56,11 +60,11 @@ export function createListingComposable<ELEMENTS_TYPE>({
   rootContext: ApplicationVueContext;
   searchMethod: (
     searchParams: Partial<ShopwareSearchParams>
-  ) => Promise<ProductListingResult>;
+  ) => Promise<ListingResult<ELEMENTS_TYPE>>;
   searchDefaults: ShopwareSearchParams;
   listingKey: string;
 }): IUseListing<ELEMENTS_TYPE> {
-  const { vuexStore, router } = getApplicationContext(
+  const { router, contextName } = getApplicationContext(
     rootContext,
     "createListingComposable"
   );
@@ -68,10 +72,18 @@ export function createListingComposable<ELEMENTS_TYPE>({
   const loading = ref(false);
   const loadingMore = ref(false);
 
-  const getInitialListing = computed(
-    () => vuexStore.getters.getInitialListings[listingKey] || {}
+  const { sharedRef } = useSharedState(rootContext);
+  const _storeInitialListing = sharedRef<ListingResult<ELEMENTS_TYPE>>(
+    `${contextName}-initialListing-${listingKey}`
   );
-  const setInitialListing = async (initialListing: ProductListingResult) => {
+  const _storeAppliedListing = sharedRef<Partial<ListingResult<ELEMENTS_TYPE>>>(
+    `${contextName}-appliedListing-${listingKey}`
+  );
+
+  const getInitialListing = computed(() => _storeInitialListing.value);
+  const setInitialListing = async (
+    initialListing: ListingResult<ELEMENTS_TYPE>
+  ) => {
     // note: only v6.3.x compatible
     /* istanbul ignore next */
     if (
@@ -86,18 +98,10 @@ export function createListingComposable<ELEMENTS_TYPE>({
         aggregations: allFiltersResult?.aggregations,
       });
     }
-    vuexStore.commit("SET_INITIAL_LISTING", { listingKey, initialListing });
-    appliedListing.value = null;
+    _storeInitialListing.value = initialListing;
+    _storeAppliedListing.value = null;
     loading.value = false;
   };
-
-  // for internal usage, actual listing is computed from applied and initial listing
-  const appliedListing = computed({
-    get: () => vuexStore.getters.getAppliedListings[listingKey],
-    set: (appliedListing) => {
-      vuexStore.commit("SET_APPLIED_LISTING", { listingKey, appliedListing });
-    },
-  });
 
   const initSearch = async (
     criteria: Partial<ShopwareSearchParams>
@@ -145,11 +149,11 @@ export function createListingComposable<ELEMENTS_TYPE>({
         const allFiltersResult = await searchMethod({
           query: searchCriteria.query,
         });
-        appliedListing.value = Object.assign({}, result, {
+        _storeAppliedListing.value = Object.assign({}, result, {
           aggregations: allFiltersResult?.aggregations,
         });
       } else {
-        appliedListing.value = result;
+        _storeAppliedListing.value = result;
       }
     } catch (e) {
       throw e;
@@ -168,11 +172,11 @@ export function createListingComposable<ELEMENTS_TYPE>({
 
       const searchCriteria = merge({}, searchDefaults, query);
       const result = await searchMethod(searchCriteria);
-      appliedListing.value = {
+      _storeAppliedListing.value = {
         ...getCurrentListing.value,
         page: result.page,
         elements: [
-          ...(getCurrentListing.value.elements || []),
+          ...(getCurrentListing.value?.elements || []),
           ...result.elements,
         ],
       };
@@ -184,17 +188,17 @@ export function createListingComposable<ELEMENTS_TYPE>({
   };
 
   const getCurrentListing = computed(() => {
-    return appliedListing.value || getInitialListing.value;
+    return _storeAppliedListing.value || getInitialListing.value;
   });
 
   const getElements = computed(() => {
-    return getCurrentListing.value.elements || [];
+    return getCurrentListing.value?.elements || [];
   });
   const getTotal = computed(() => {
-    return getCurrentListing.value.total || 0;
+    return getCurrentListing.value?.total || 0;
   });
   const getLimit = computed(() => {
-    return getCurrentListing.value.limit || searchDefaults?.limit || 10;
+    return getCurrentListing.value?.limit || searchDefaults?.limit || 10;
   });
 
   const getTotalPagesCount = computed(() =>
@@ -202,12 +206,12 @@ export function createListingComposable<ELEMENTS_TYPE>({
   );
 
   const getSortingOrders = computed(() => {
-    const oldSortings = Object.values(getCurrentListing.value.sortings || {}); // before Shopware 6.4
-    return getCurrentListing.value.availableSortings || oldSortings;
+    const oldSortings = Object.values(getCurrentListing.value?.sortings || {}); // before Shopware 6.4
+    return getCurrentListing.value?.availableSortings || oldSortings;
   });
 
   const getCurrentSortingOrder = computed(
-    () => getCurrentListing.value.sorting
+    () => getCurrentListing.value?.sorting
   );
   const changeCurrentSortingOrder = async (order: string | string[]) => {
     const query = {
@@ -217,7 +221,7 @@ export function createListingComposable<ELEMENTS_TYPE>({
     await search(query);
   };
 
-  const getCurrentPage = computed(() => getCurrentListing.value.page || 1);
+  const getCurrentPage = computed(() => getCurrentListing.value?.page || 1);
   const changeCurrentPage = async (pageNumber: number | string) => {
     const query = {
       ...router.currentRoute.query,
@@ -227,13 +231,13 @@ export function createListingComposable<ELEMENTS_TYPE>({
   };
 
   const getAvailableFilters = computed(() => {
-    return getListingFilters(getCurrentListing.value.aggregations);
+    return getListingFilters(getCurrentListing.value?.aggregations);
   });
 
   const getCurrentFilters = computed(() => {
     const currentFiltersResult: any = {};
     const currentFilters = {
-      ...getCurrentListing.value.currentFilters,
+      ...getCurrentListing.value?.currentFilters,
       ...router.currentRoute.query,
     };
     Object.keys(currentFilters).forEach((objectKey) => {

@@ -1,14 +1,13 @@
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { Sort } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { Aggregations } from "@shopware-pwa/commons/interfaces/search/Aggregations";
 
-export interface ProductListingResult {
+export interface ListingResult<T> {
   /**
    * apiAlias - determines the entity name that can be used within "includes" functionality (added in store-api)
    */
   apiAlias: string;
   total: number;
-  elements: Product[];
+  elements: T[];
   sorting: string;
   page: number;
   limit: number;

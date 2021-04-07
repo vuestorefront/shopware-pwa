@@ -15,6 +15,7 @@ describe("Composables - useListing", () => {
   const rootContextMock: any = {
     $shopwareApiInstance: jest.fn(),
   };
+  const mockedCategoryId = ref();
 
   let returnedSearchMethod: any = null;
   const apiInstanceMock = jest.fn();
@@ -22,6 +23,7 @@ describe("Composables - useListing", () => {
   beforeEach(() => {
     jest.resetAllMocks();
     returnedSearchMethod = null;
+    mockedCategoryId.value = "321";
     mockedComposables.createListingComposable = jest
       .fn()
       .mockImplementation(({ searchMethod }) => {
@@ -43,7 +45,7 @@ describe("Composables - useListing", () => {
     });
     mockedComposables.useCms.mockImplementation(() => {
       return {
-        categoryId: ref("321"),
+        categoryId: mockedCategoryId,
       } as any;
     });
   });
@@ -70,6 +72,15 @@ describe("Composables - useListing", () => {
       "321",
       { limit: 8 },
       apiInstanceMock
+    );
+  });
+
+  it("should throw an error inside search method, when categoryId is not provided", async () => {
+    mockedCategoryId.value = null;
+    useListing(rootContextMock, "categoryListing");
+    expect(returnedSearchMethod).toBeTruthy();
+    await expect(returnedSearchMethod({ limit: 8 })).rejects.toThrow(
+      "[useListing][search] Search category id does not exist."
     );
   });
 

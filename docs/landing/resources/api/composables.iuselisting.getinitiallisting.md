@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-getInitialListing: ComputedRef<ProductListingResult>;
+getInitialListing: ComputedRef<ListingResult<ELEMENTS_TYPE> | null>;
 ```

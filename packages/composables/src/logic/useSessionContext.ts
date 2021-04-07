@@ -1,4 +1,4 @@
-import { Ref, computed } from "@vue/composition-api";
+import { Ref, computed, ComputedRef } from "@vue/composition-api";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
@@ -20,6 +20,7 @@ import {
   INTERCEPTOR_KEYS,
   useIntercept,
   IInterceptorCallbackFunction,
+  useSharedState,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
 /**
@@ -31,7 +32,7 @@ import { ApplicationVueContext } from "../appContext";
  * @beta
  */
 export interface IUseSessionContext {
-  sessionContext: Readonly<Ref<SessionContext | null>>;
+  sessionContext: ComputedRef<SessionContext | null>;
   refreshSessionContext: () => Promise<void>;
   shippingMethod: Readonly<Ref<ShippingMethod | null>>;
   setShippingMethod: (shippingMethod: Partial<ShippingMethod>) => Promise<void>;
@@ -63,11 +64,17 @@ export interface IUseSessionContext {
 export const useSessionContext = (
   rootContext: ApplicationVueContext
 ): IUseSessionContext => {
-  const { vuexStore, apiInstance } = getApplicationContext(
+  const { apiInstance } = getApplicationContext(
     rootContext,
     "useSessionContext"
   );
   const { broadcast, intercept } = useIntercept(rootContext);
+
+  const { sharedRef } = useSharedState(rootContext);
+  const storeSessionContext = sharedRef<SessionContext>(
+    `useSessionContext-sessionContext`
+  );
+
   const onCurrencyChange = (fn: IInterceptorCallbackFunction) =>
     intercept(INTERCEPTOR_KEYS.SESSION_SET_CURRENCY, fn);
   const onPaymentMethodChange = (fn: IInterceptorCallbackFunction) =>
@@ -76,13 +83,11 @@ export const useSessionContext = (
     intercept(INTERCEPTOR_KEYS.SESSION_SET_SHIPPING_METHOD, fn);
 
   const { pushWarning } = useNotifications(rootContext);
-  const sessionContext: Readonly<Ref<SessionContext>> = computed(() => {
-    return (vuexStore.getters.getSessionContext as SessionContext) || null;
-  });
+  const sessionContext = computed(() => storeSessionContext.value);
   const refreshSessionContext = async () => {
     try {
       const context = await getSessionContext(apiInstance);
-      vuexStore.commit("SET_SESSION_CONTEXT", context);
+      storeSessionContext.value = context;
     } catch (e) {
       pushWarning(
         "Unable to update the session. Some parts may not be working properly. Please try again later."

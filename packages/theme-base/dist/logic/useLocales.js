@@ -6,10 +6,7 @@ import { getApplicationContext } from "@shopware-pwa/composables";
  * @deprecated - in case changing a language - use `useDomains` instead
  */
 export const useLocales = (rootContext) => {
-  const { i18n, router } = getApplicationContext(
-    rootContext,
-    "useUICheckoutPage"
-  );
+  const { i18n, router } = getApplicationContext(rootContext, "useLocales");
 
   const availableLanguages = computed(() => Object.values(languagesMap) || []);
   const currentLocale = computed(() => i18n.locale);

@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-cart: ComputedRef<Cart>;
+cart: ComputedRef<Cart | null>;
 ```

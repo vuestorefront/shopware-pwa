@@ -13,7 +13,9 @@ module.exports = (toolbox: GluegunToolbox) => {
     salesChannelAccessKey: string
   ) => {
     const fetchDomainsResponse = await axios.post(
-      `${shopwareEndpoint}/api/v3/search/sales-channel-domain`,
+      `${toolbox.normalizeBaseUrl(
+        shopwareEndpoint
+      )}/api/v3/search/sales-channel-domain`,
       {
         filter: [
           {
@@ -69,10 +71,6 @@ module.exports = (toolbox: GluegunToolbox) => {
       });
 
     return domainsMap;
-  };
-
-  toolbox.domains.stripTrailingSlash = (host) => {
-    return host?.replace(/\/$/, "");
   };
 
   toolbox.domains.stripHost = (absolutePath: string, pwaHost: string) => {

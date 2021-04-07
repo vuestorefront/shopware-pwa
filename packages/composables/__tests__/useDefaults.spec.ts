@@ -7,7 +7,6 @@ const consoleWarnSpy = jest.spyOn(console, "warn");
 
 describe("Composables - useDefaults", () => {
   const rootContextMock: any = {
-    $store: jest.fn(),
     $shopwareApiInstance: jest.fn(),
     $shopwareDefaults: getDefaultApiParams(),
   };

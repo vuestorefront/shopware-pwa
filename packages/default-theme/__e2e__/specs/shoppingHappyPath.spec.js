@@ -1,11 +1,8 @@
 describe("Shopping happy path", () => {
   beforeEach(() => {
-    cy.intercept(
-      "POST",
-      "/store-api/v3/navigation/main-navigation/main-navigation"
-    ).as("getMainNavigation");
+    cy.intercept("GET", "/store-api/v3/currency").as("getCurrencies");
     cy.visit("/");
-    cy.wait("@getMainNavigation");
+    cy.wait("@getCurrencies");
   });
   it("[DESKTOP]: checkout as guest user", () => {
     cy.get("[data-cy=search-bar]").click();

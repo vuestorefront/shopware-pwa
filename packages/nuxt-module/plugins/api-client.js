@@ -1,5 +1,11 @@
 import { createInstance } from "@shopware-pwa/shopware-6-client";
-import { useUser, useCart, useSessionContext } from "@shopware-pwa/composables";
+import {
+  useUser,
+  useCart,
+  useSessionContext,
+  useSharedState,
+} from "@shopware-pwa/composables";
+import { reactive } from "@vue/composition-api";
 
 export default async ({ app }, inject) => {
   if (!app.$cookies) {
@@ -25,6 +31,16 @@ export default async ({ app }, inject) => {
     languageId,
   });
 
+  if (process.server) {
+    const sharedStore = reactive({});
+    app.context.ssrContext.nuxt.sharedStore = sharedStore;
+    inject("sharedStore", sharedStore);
+  } else {
+    // Client side
+    const sharedStore = reactive(window.__NUXT__.sharedStore || {});
+    inject("sharedStore", sharedStore);
+  }
+
   inject("shopwareApiInstance", instance);
   inject("interceptors", {}); // functionality for useIntercept composable
 
@@ -48,9 +64,17 @@ export default async ({ app }, inject) => {
     }
   });
 
-  const { refreshSessionContext } = useSessionContext(app);
-  const { refreshUser } = useUser(app);
-  const { refreshCart } = useCart(app);
-
-  await Promise.all([refreshSessionContext(), refreshUser(), refreshCart()]);
+  const { preloadRef } = useSharedState(app);
+  const { sessionContext, refreshSessionContext } = useSessionContext(app);
+  preloadRef(sessionContext, async () => {
+    await refreshSessionContext();
+  });
+  const { refreshUser, user } = useUser(app);
+  preloadRef(user, async () => {
+    await refreshUser();
+  });
+  const { refreshCart, cart } = useCart(app);
+  preloadRef(cart, async () => {
+    await refreshCart();
+  });
 };

@@ -37,6 +37,11 @@ export const useListing = (
   } else {
     const { categoryId } = useCms(rootContext);
     searchMethod = async (searchCriteria: Partial<ShopwareSearchParams>) => {
+      if (!categoryId.value) {
+        throw new Error(
+          "[useListing][search] Search category id does not exist."
+        );
+      }
       return getCategoryProducts(categoryId.value, searchCriteria, apiInstance);
     };
   }

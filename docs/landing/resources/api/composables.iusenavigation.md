@@ -23,5 +23,5 @@ export interface IUseNavigation
 |  --- | --- | --- |
 |  [fetchNavigationElements](./composables.iusenavigation.fetchnavigationelements.md) | (depth: number) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [loadNavigationElements](./composables.iusenavigation.loadnavigationelements.md) | (params: { depth: number; }) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> Load navigation elements |
-|  [navigationElements](./composables.iusenavigation.navigationelements.md) | ComputedRef&lt;StoreNavigationElement\[\]&gt; | <b><i>(BETA)</i></b> |
+|  [navigationElements](./composables.iusenavigation.navigationelements.md) | ComputedRef&lt;StoreNavigationElement\[\] \| null&gt; | <b><i>(BETA)</i></b> |
 

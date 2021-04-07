@@ -66,9 +66,6 @@
 import { SfHeading, SfDivider } from "@storefront-ui/vue"
 import { addProductReview } from "@shopware-pwa/shopware-6-client"
 import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
-import SwButton from "@/components/atoms/SwButton.vue"
-import SwInput from "@/components/atoms/SwInput.vue"
-import SwErrorsList from "@/components/SwErrorsList.vue"
 import { ref, computed } from "@vue/composition-api"
 import {
   useUser,
@@ -79,11 +76,12 @@ import {
 export default {
   name: "SwAddProductReview",
   components: {
-    SwInput,
-    SwButton,
-    SwErrorsList,
     SfHeading,
     SfDivider,
+    SwInput: () => import("@/components/atoms/SwInput.vue"),
+    SwButton: () => import("@/components/atoms/SwButton.vue"),
+    SwErrorsList: () => import("@/components/SwErrorsList.vue"),
+    SwRating: () => import("@/components/atoms/SwRating.vue"),
   },
   props: {
     productId: {

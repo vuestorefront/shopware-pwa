@@ -61,10 +61,15 @@
 </template>
 
 <script>
-import { useNavigation, useUIState } from "@shopware-pwa/composables"
+import {
+  useNavigation,
+  useSharedState,
+  useSSR,
+  useUIState,
+} from "@shopware-pwa/composables"
 
 import SwMegaMenu from "@/components/SwMegaMenu.vue"
-import { ref, onMounted, watch } from "@vue/composition-api"
+import { ref, watch, onServerPrefetch, computed } from "@vue/composition-api"
 import { getCategoryUrl, isLinkCategory } from "@shopware-pwa/helpers"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { useDomains } from "@/logic"
@@ -92,22 +97,17 @@ export default {
       switchOverlay(!!currentCategoryName.value)
     }
 
-    onMounted(async () => {
-      await watch(
-        currentDomainId,
-        async () => {
-          try {
-            await loadNavigationElements({ depth: 3 })
-          } catch (e) {
-            console.error("[SwTopNavigation]", e)
-          }
-        },
-        { immediate: true }
-      )
+    const { preloadRef } = useSharedState(root)
+    preloadRef(navigationElements, async () => {
+      await loadNavigationElements({ depth: 3 })
+    })
+
+    watch(currentDomainId, async () => {
+      await loadNavigationElements({ depth: 3 })
     })
 
     return {
-      navigationElements,
+      navigationElements: computed(() => navigationElements.value || []),
       getCategoryUrl,
       isLinkCategory,
       currentCategoryName,
@@ -116,7 +116,7 @@ export default {
   },
 
   data() {
-    return { unwrappedElements: 0 }
+    return { unwrappedElements: 4 }
   },
 
   computed: {
@@ -198,6 +198,7 @@ export default {
   --heading-title-font-weight: 500;
   --c-link-hover: var(--_c-green-primary);
   --heading-title-font-line-height: 24px;
+  max-height: 100px;
 
   ::v-deep .sf-menu-item__label {
     text-align: left;
