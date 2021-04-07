@@ -27,6 +27,18 @@ module.exports = {
         name: "shopwareEndpoint",
         message: "Shopware instance address:",
         initial: inputParameters.shopwareEndpoint,
+        result: (url: string) => toolbox.normalizeBaseUrl(url),
+        validate: (url: string) => {
+          try {
+            // tslint:disable-next-line
+            new URL(url);
+            return true;
+          } catch (error) {
+            warning(error.message);
+          }
+
+          return false;
+        },
       };
       const shopwareAccessTokenQuestion = {
         type: "input",
