@@ -39,35 +39,36 @@ module.exports = (toolbox: GluegunToolbox) => {
       shopwareEndpoint
     );
     let authTokenResponse;
-    if (
-      !username &&
-      !password &&
-      normalizedShopwareEndpoint === toolbox.defaultInitConfig?.shopwareEndpoint
-    ) {
-      try {
-        authTokenResponse = await axios.post(
-          `${normalizedShopwareEndpoint}/api/oauth/token`,
-          {
-            grant_type: "client_credentials",
-            client_id: toolbox.defaultInitConfig.INSTANCE_READ_API_KEY,
-            client_secret: toolbox.defaultInitConfig.INSTANCE_READ_API_SECRET,
-          }
-        );
-      } catch (error) {
-        console.warn("error", error);
+    // Temporary turn off automatic credentials
+    // if (
+    //   !username &&
+    //   !password &&
+    //   normalizedShopwareEndpoint === toolbox.defaultInitConfig?.shopwareEndpoint
+    // ) {
+    //   try {
+    //     authTokenResponse = await axios.post(
+    //       `${normalizedShopwareEndpoint}/api/oauth/token`,
+    //       {
+    //         grant_type: "client_credentials",
+    //         client_id: toolbox.defaultInitConfig.INSTANCE_READ_API_KEY,
+    //         client_secret: toolbox.defaultInitConfig.INSTANCE_READ_API_SECRET,
+    //       }
+    //     );
+    //   } catch (error) {
+    //     console.warn("error", error);
+    //   }
+    // } else {
+    authTokenResponse = await axios.post(
+      `${normalizedShopwareEndpoint}/api/oauth/token`,
+      {
+        client_id: "administration",
+        grant_type: "password",
+        scopes: "write",
+        username,
+        password,
       }
-    } else {
-      authTokenResponse = await axios.post(
-        `${normalizedShopwareEndpoint}/api/oauth/token`,
-        {
-          client_id: "administration",
-          grant_type: "password",
-          scopes: "write",
-          username,
-          password,
-        }
-      );
-    }
+    );
+    // }
 
     return authTokenResponse?.data?.access_token;
   };
