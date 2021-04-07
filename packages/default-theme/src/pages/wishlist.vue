@@ -33,10 +33,15 @@
 
 <script>
 import { getProducts } from "@shopware-pwa/shopware-6-client"
-import { getApplicationContext, useWishlist } from "@shopware-pwa/composables"
+import {
+  getApplicationContext,
+  useWishlist,
+  useBreadcrumbs,
+} from "@shopware-pwa/composables"
 import SwProductCard from "@/components/SwProductCard.vue"
 import { SfHeading, SfImage, SfLoader } from "@storefront-ui/vue"
 import { onMounted, ref, watch } from "@vue/composition-api"
+import { PAGE_WISHLIST } from "@/helpers/pages"
 
 export default {
   name: "Wishlist",
@@ -46,6 +51,7 @@ export default {
     SfImage,
     SfLoader,
   },
+
   props: {
     product: {
       type: Object,
@@ -54,10 +60,18 @@ export default {
   },
   setup({}, { root }) {
     const { removeFromWishlist, items } = useWishlist(root)
+    const { setBreadcrumbs } = useBreadcrumbs(root)
     const { apiInstance } = getApplicationContext(root, "Wishlist")
 
     const products = ref([])
     const isLoading = ref(false)
+
+    setBreadcrumbs([
+      {
+        name: root.$t("Wishlist"),
+        path: PAGE_WISHLIST,
+      },
+    ])
 
     const loadProductsByItemIds = async (itemIds) => {
       isLoading.value = true

@@ -7,7 +7,7 @@ jobs:
   build:
     working_directory: ~/shopware-pwa
     docker:
-      - image: circleci/node:12.16.1
+      - image: circleci/node:14.16.0
     steps:
       - checkout
       - restore_cache:

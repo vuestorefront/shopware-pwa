@@ -14,14 +14,24 @@ export enum PageType {
 /**
  * @beta
  */
+export interface Breadcrumb {
+  name: string;
+  path: string;
+}
+
+/**
+ * @beta
+ */
+export interface PageBreadcrumb {
+  [id: string]: Breadcrumb;
+}
+
+/**
+ * @beta
+ */
 export interface PageResolverResult<T> {
   cmsPage: T;
-  breadcrumb: {
-    [id: string]: {
-      name: string;
-      path: string;
-    };
-  };
+  breadcrumb: PageBreadcrumb;
   listingConfiguration: any;
   resourceType: PageType;
   resourceIdentifier: string;
@@ -33,6 +43,7 @@ export interface PageResolverResult<T> {
  */
 export interface PageResolverProductResult {
   product: Partial<Product>;
+  breadcrumb: PageBreadcrumb;
   aggregations: Aggregation[];
   resourceType: PageType;
   resourceIdentifier: string;

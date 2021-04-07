@@ -12,5 +12,19 @@ Composable for navigation. Options - [IUseNavigation](./composables.iusenavigati
 <b>Signature:</b>
 
 ```typescript
-useNavigation: (rootContext: ApplicationVueContext) => IUseNavigation
+useNavigation: (rootContext: ApplicationVueContext, params?: {
+    type: StoreNavigationType;
+}) => IUseNavigation
 ```
+
+## Example
+
+
+```
+// get main navigation
+useNavigation( root )
+// get footer navigation
+useNavigation( root, { type: "footer-navigation" } )
+
+```
+

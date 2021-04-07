@@ -1,6 +1,6 @@
 <template>
   <SwAddress :address="shippingAddress" :address-title="$t('Shipping details')">
-    <template #before-content>
+    <template #before-content v-if="shippingMethod">
       <span class="content__label">{{ shippingMethod.name }}</span>
       <span class="content__label">{{ shippingMethod.deliveryTime.name }}</span>
       <SwPluginSlot

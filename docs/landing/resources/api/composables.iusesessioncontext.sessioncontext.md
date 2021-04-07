@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-sessionContext: Readonly<Ref<SessionContext | null>>;
+sessionContext: ComputedRef<SessionContext | null>;
 ```

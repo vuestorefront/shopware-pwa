@@ -24,30 +24,30 @@ export const useCategoryFilters = (rootContext: ApplicationVueContext): any => {
   const { page } = useCms(rootContext);
 
   const activeFilters = computed(() => {
-    if (!page || !page.value || !page.value.listingConfiguration) {
+    if (!page || !page.value || !(page.value as any).listingConfiguration) {
       return [];
     }
 
-    return page.value.listingConfiguration.activeFilters;
+    return (page.value as any).listingConfiguration.activeFilters;
   });
 
   const availableFilters = computed((): UiCategoryFilter[] | any => {
-    if (!page || !page.value || !page.value.listingConfiguration) {
+    if (!page || !page.value || !(page.value as any).listingConfiguration) {
       return [];
     }
 
     return getCategoryAvailableFilters({
-      filters: page.value.listingConfiguration.availableFilters,
+      filters: (page.value as any).listingConfiguration.availableFilters,
     });
   });
 
   const availableSorting = computed((): UiCategorySorting[] | any => {
-    if (!page || !page.value || !page.value.listingConfiguration) {
+    if (!page || !page.value || !(page.value as any).listingConfiguration) {
       return [];
     }
 
     return getCategoryAvailableSorting({
-      sorting: page.value.listingConfiguration.availableSortings,
+      sorting: (page.value as any).listingConfiguration.availableSortings,
     });
   });
 

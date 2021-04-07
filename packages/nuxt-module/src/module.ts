@@ -49,7 +49,8 @@ export async function runModule(
 
   // Change project source root to Target path
   moduleObject.options.srcDir = TARGET_SOURCE;
-  moduleObject.options.store = true; // enable store generation
+  moduleObject.options.store = false; // disable store generation
+  moduleObject.options.features.store = false;
   // resolve project src aliases
   moduleObject.options.alias = moduleObject.options.alias || {};
   moduleObject.options.alias["~"] = TARGET_SOURCE;
@@ -274,7 +275,7 @@ export async function runModule(
       const sourceDir = path.join(TARGET_SOURCE, "static");
       const destinationDir = path.join(builder.options.rootDir, "static");
       await fse.copy(sourceDir, destinationDir);
-      console.log(
+      console.info(
         "Moved static files to root directory static folder. Make sure your static files are placed inside `src/static` directory."
       );
     });

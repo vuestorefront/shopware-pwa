@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-requestActiveId: "main-navigation" | "service-navigation" | "footer-navigation";
+requestActiveId: StoreNavigationType;
 ```

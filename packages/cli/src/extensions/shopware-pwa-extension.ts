@@ -1,4 +1,6 @@
 import { GluegunToolbox } from "gluegun";
+import axios from "axios";
+import { minor } from "semver";
 /**
  * read keys for contribution purposes - it's being used during the project initialization
  */
@@ -6,10 +8,10 @@ const INSTANCE_READ_API_KEY = "SWIACLLVSWNJQZKYRUDJYJHIWA";
 const INSTANCE_READ_API_SECRET =
   "S0FMSjU4R3VFZ1Bkdjc1RGlhcE52MkNZbU1LVkhENHRFU1NxNjE";
 const defaultConfig = {
-  shopwareEndpoint: "https://pwa.swstage.store",
-  shopwareAccessToken: "SWSCD1BWSUFUQVDHUEPHATRPTW",
+  shopwareEndpoint: "https://pwa-demo-api.shopware.com/prev",
+  shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
   theme: "@shopware-pwa/default-theme",
-  pwaHost: "https://pwa.swstage.store",
+  pwaHost: "https://pwa-demo-api.shopware.com/prev",
   shopwareApiClient: {
     timeout: 10000,
   },
@@ -17,6 +19,40 @@ const defaultConfig = {
 // add your CLI-specific functionality here, which will then be accessible
 // to your commands
 module.exports = (toolbox: GluegunToolbox) => {
+  toolbox.shopware = {};
+
+  /**
+   * Returns list of available versions, should return current stable, previous stable, canary and local.
+   * Example:
+   * ^0.7.2
+   * ^0.6.1
+   * canary
+   * local
+   */
+  toolbox.shopware.getPwaVersions = async function () {
+    const gitHubReleasesResponse = await axios.get(
+      `https://api.github.com/repos/vuestorefront/shopware-pwa/releases`
+    );
+
+    const SHOW_NUMBER_OF_STABLE_VERSIONS = 2;
+    const versions = [];
+    const groups = [];
+    gitHubReleasesResponse.data.forEach((releaseInfo) => {
+      const version = toolbox.semver.clean(releaseInfo.tag_name);
+      // TODO: group by MAJOR after v1.0 release
+      const versionGroup = minor(version);
+      if (
+        !groups.includes(versionGroup) &&
+        groups.length < SHOW_NUMBER_OF_STABLE_VERSIONS
+      ) {
+        groups.push(versionGroup);
+        versions.push(`^${version}`);
+      }
+    });
+    versions.push("canary");
+    versions.push("local");
+    return versions;
+  };
   toolbox.foo = () => {
     toolbox.print.info("called foo extension");
   };
@@ -106,5 +142,16 @@ module.exports = (toolbox: GluegunToolbox) => {
     devMode: toolbox.parameters.options.devMode,
     ci: toolbox.parameters.options.ci,
     stage: toolbox.parameters.options.stage,
+  };
+
+  /**
+   * Returns normalized base URL
+   *
+   * - trims ending slash
+   * @param { string } baseUrl
+   * @returns { string }
+   */
+  toolbox.normalizeBaseUrl = (baseUrl: string): string => {
+    return toolbox.strings.trimEnd(baseUrl, "/");
   };
 };

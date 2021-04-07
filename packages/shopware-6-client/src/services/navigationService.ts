@@ -1,11 +1,8 @@
-import {
-  getNavigationEndpoint,
-  getStoreNavigationEndpoint,
-} from "../endpoints";
+import { getStoreNavigationEndpoint } from "../endpoints";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import {
-  NavigationResponse,
   StoreNavigationElement,
+  StoreNavigationType,
 } from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { convertSearchCriteria, ApiType } from "../helpers/searchConverter";
@@ -23,30 +20,11 @@ export interface GetNavigationParams {
  * @beta
  */
 export interface GetStoreNavigationParams {
-  requestActiveId:
-    | "main-navigation"
-    | "service-navigation"
-    | "footer-navigation";
-  requestRootId: "main-navigation" | "service-navigation" | "footer-navigation";
+  requestActiveId: StoreNavigationType;
+  requestRootId: StoreNavigationType;
   depth?: number;
   buildTree?: boolean;
   searchCriteria?: SearchCriteria;
-}
-
-/**
- * @throws ClientApiError
- * @alpha
- */
-export async function getNavigation(
-  params: GetNavigationParams,
-  contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<NavigationResponse> {
-  const resp = await contextInstance.invoke.post(
-    getNavigationEndpoint(),
-    params
-  );
-
-  return resp.data;
 }
 
 /**

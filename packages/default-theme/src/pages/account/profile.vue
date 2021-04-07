@@ -33,6 +33,8 @@
 
 <script>
 import { SfTabs } from "@storefront-ui/vue"
+import { useBreadcrumbs } from "@shopware-pwa/composables"
+import { PAGE_ACCOUNT } from "@/helpers/pages"
 import SwPassword from "@/components/forms/SwPassword.vue"
 import SwPersonalInfo from "@/components/forms/SwPersonalInfo.vue"
 
@@ -42,6 +44,20 @@ export default {
     SfTabs,
     SwPassword,
     SwPersonalInfo,
+  },
+  setup({}, { root }) {
+    const { setBreadcrumbs } = useBreadcrumbs(root)
+
+    setBreadcrumbs([
+      {
+        name: root.$t("My Account"),
+        path: PAGE_ACCOUNT,
+      },
+      {
+        name: root.$t("My profile"),
+        path: PAGE_ACCOUNT,
+      },
+    ])
   },
   data() {
     return {

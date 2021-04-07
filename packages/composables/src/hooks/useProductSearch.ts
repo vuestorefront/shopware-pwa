@@ -126,7 +126,7 @@ export const useProductSearch = (
       );
       suggestionsResult.value = suggestedProductListing;
     } catch (e) {
-      console.error("useProductSearch:suggestSearch", e);
+      console.error("[useProductSearch][suggestSearch]", e);
     } finally {
       loadingSuggestions.value = false;
     }

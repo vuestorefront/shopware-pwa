@@ -45,5 +45,5 @@ export interface IUseUser
 |  [updateEmail](./composables.iuseuser.updateemail.md) | (updateEmailData: CustomerUpdateEmailParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [updatePassword](./composables.iuseuser.updatepassword.md) | (updatePasswordData: CustomerUpdatePasswordParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [updatePersonalInfo](./composables.iuseuser.updatepersonalinfo.md) | (personals: CustomerUpdateProfileParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
-|  [user](./composables.iuseuser.user.md) | Ref&lt;Customer \| null&gt; | <b><i>(BETA)</i></b> |
+|  [user](./composables.iuseuser.user.md) | ComputedRef&lt;Partial&lt;Customer&gt; \| null&gt; | <b><i>(BETA)</i></b> |
 

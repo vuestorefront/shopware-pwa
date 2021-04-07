@@ -13,6 +13,7 @@ export interface ProductListingResult {
   page: number;
   limit: number;
   sortings: Sort[];
+  availableSortings: Sort[];
   aggregations: Aggregations;
   currentFilters: {
     manufacturer: string[];

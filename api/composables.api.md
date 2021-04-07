@@ -8,7 +8,9 @@ import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/cu
 import { ApplicationVueContext as ApplicationVueContext_2 } from '@shopware-pwa/composables';
 import { Association } from '@shopware-pwa/commons/interfaces/search/Association';
 import { BillingAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress';
+import { Breadcrumb } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
+import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { ComputedRef } from '@vue/composition-api';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
@@ -25,8 +27,11 @@ import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria
 import { IUseListing as IUseListing_2 } from '@shopware-pwa/composables';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
 import { ListingFilter } from '@shopware-pwa/helpers';
-import { NavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
+import { ListingResult } from '@shopware-pwa/commons/interfaces/response/ListingResult';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
+import { PageBreadcrumb } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { ProductListingResult } from '@shopware-pwa/commons/interfaces/response/ProductListingResult';
@@ -41,7 +46,10 @@ import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout
 import { ShopwareApiInstance } from '@shopware-pwa/shopware-6-client';
 import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
+import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
+import { StoreNavigationType } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { VueConstructor } from 'vue';
+import { WritableComputedRef } from '@vue/composition-api';
 
 // @beta
 export interface ApplicationVueContext extends VueConstructor {
@@ -50,7 +58,11 @@ export interface ApplicationVueContext extends VueConstructor {
     // (undocumented)
     $i18n?: any;
     // (undocumented)
+    $instanceStore?: any;
+    // (undocumented)
     $interceptors?: any;
+    // (undocumented)
+    $isServer?: any;
     // (undocumented)
     $route?: any;
     // (undocumented)
@@ -59,6 +71,8 @@ export interface ApplicationVueContext extends VueConstructor {
     //
     // (undocumented)
     $routing: Routing;
+    // (undocumented)
+    $sharedStore?: any;
     // (undocumented)
     $shopwareApiInstance?: ShopwareApiInstance;
     // (undocumented)
@@ -70,13 +84,19 @@ export interface ApplicationVueContext extends VueConstructor {
     // (undocumented)
     i18n?: any;
     // (undocumented)
+    instanceStore?: any;
+    // (undocumented)
     interceptors?: any;
+    // (undocumented)
+    isServer?: any;
     // (undocumented)
     route?: any;
     // (undocumented)
     router?: any;
     // (undocumented)
     routing: Routing;
+    // (undocumented)
+    sharedStore?: any;
     // (undocumented)
     shopwareApiInstance?: ShopwareApiInstance;
     // (undocumented)
@@ -115,7 +135,7 @@ export function createCheckoutStep({ stepNumber, stepFields, stepDataUpdated, }:
 // @beta
 export function createListingComposable<ELEMENTS_TYPE>({ rootContext, searchMethod, searchDefaults, listingKey, }: {
     rootContext: ApplicationVueContext_2;
-    searchMethod: (searchParams: Partial<ShopwareSearchParams>) => Promise<ProductListingResult>;
+    searchMethod: (searchParams: Partial<ShopwareSearchParams>) => Promise<ListingResult<ELEMENTS_TYPE>>;
     searchDefaults: ShopwareSearchParams;
     listingKey: string;
 }): IUseListing<ELEMENTS_TYPE>;
@@ -141,6 +161,9 @@ export function getApplicationContext(rootContext: ApplicationVueContext, key?: 
     shopwareDefaults: any;
     interceptors: any;
     routing: Routing;
+    sharedStore: any;
+    instanceStore: any;
+    isServer: boolean;
     contextName: string;
 };
 
@@ -196,7 +219,7 @@ export interface IUseCart {
     // (undocumented)
     appliedPromotionCodes: ComputedRef<LineItem[]>;
     // (undocumented)
-    cart: ComputedRef<Cart>;
+    cart: ComputedRef<Cart | null>;
     // (undocumented)
     cartItems: ComputedRef<LineItem[]>;
     // (undocumented)
@@ -273,19 +296,19 @@ export interface IUseListing<ELEMENTS_TYPE> {
     // (undocumented)
     getCurrentFilters: ComputedRef<any>;
     // (undocumented)
-    getCurrentListing: ComputedRef<ProductListingResult>;
+    getCurrentListing: ComputedRef<Partial<ListingResult<ELEMENTS_TYPE>> | null>;
     // (undocumented)
     getCurrentPage: ComputedRef<string | number>;
     // (undocumented)
-    getCurrentSortingOrder: ComputedRef<string>;
+    getCurrentSortingOrder: ComputedRef<string | undefined>;
     // (undocumented)
     getElements: ComputedRef<ELEMENTS_TYPE[]>;
     // (undocumented)
-    getInitialListing: ComputedRef<ProductListingResult>;
+    getInitialListing: ComputedRef<ListingResult<ELEMENTS_TYPE> | null>;
     // (undocumented)
     getLimit: ComputedRef<number>;
     // (undocumented)
-    getSortingOrders: ComputedRef<{
+    getSortingOrders: ComputedRef<Sort[] | {
         key: string;
         label: string;
     }>;
@@ -306,19 +329,18 @@ export interface IUseListing<ELEMENTS_TYPE> {
         preventRouteChange?: boolean;
     }) => Promise<void>;
     // (undocumented)
-    setInitialListing: (initialListing: Partial<ProductListingResult>) => void;
+    setInitialListing: (initialListing: Partial<ListingResult<ELEMENTS_TYPE>>) => void;
 }
 
 // @beta
 export interface IUseNavigation {
-    // (undocumented)
+    // @deprecated (undocumented)
     fetchNavigationElements: (depth: number) => Promise<void>;
+    loadNavigationElements: (params: {
+        depth: number;
+    }) => Promise<void>;
     // (undocumented)
-    fetchRoutes: () => Promise<void>;
-    // (undocumented)
-    navigationElements: Ref<Readonly<NavigationElement[]>>;
-    // (undocumented)
-    routes: Ref<Readonly<any>>;
+    navigationElements: ComputedRef<StoreNavigationElement[] | null>;
 }
 
 // @beta
@@ -376,7 +398,7 @@ export interface IUseSessionContext {
     // (undocumented)
     refreshSessionContext: () => Promise<void>;
     // (undocumented)
-    sessionContext: Readonly<Ref<SessionContext | null>>;
+    sessionContext: ComputedRef<SessionContext | null>;
     // (undocumented)
     setActiveBillingAddress: (address: Partial<BillingAddress>) => Promise<void>;
     // (undocumented)
@@ -453,7 +475,7 @@ export interface IUseUser {
     // (undocumented)
     updatePersonalInfo: (personals: CustomerUpdateProfileParam) => Promise<boolean>;
     // (undocumented)
-    user: Ref<Customer | null>;
+    user: ComputedRef<Partial<Customer> | null>;
 }
 
 // @beta
@@ -498,6 +520,15 @@ export type Search = (path: string, associations?: any) => any;
 export const useAddToCart: (rootContext: ApplicationVueContext, product: Product) => IUseAddToCart;
 
 // @beta
+export function useBreadcrumbs(rootContext: ApplicationVueContext, params?: {
+    hideHomeLink: boolean;
+}): {
+    breadcrumbs: ComputedRef<Breadcrumb[]>;
+    setBreadcrumbs: (breadcrumbs: Breadcrumb[]) => void;
+    clear: () => void;
+};
+
+// @beta
 export const useCart: (rootContext: ApplicationVueContext) => IUseCart;
 
 // @beta @deprecated (undocumented)
@@ -507,7 +538,14 @@ export const useCategoryFilters: (rootContext: ApplicationVueContext) => any;
 export const useCheckout: (rootContext: ApplicationVueContext) => IUseCheckout;
 
 // @beta (undocumented)
-export const useCms: (rootContext: ApplicationVueContext) => any;
+export function useCms(rootContext: ApplicationVueContext): {
+    page: ComputedRef<PageResolverProductResult | PageResolverResult<CmsPage> | null>;
+    categoryId: ComputedRef<string | null>;
+    loading: Ref<boolean>;
+    search: (path: string, query?: any) => Promise<void>;
+    error: Ref<any>;
+    getBreadcrumbsObject: ComputedRef<PageBreadcrumb>;
+};
 
 // @beta (undocumented)
 export interface UseCountries {
@@ -570,7 +608,9 @@ export const useIntercept: (rootContext: ApplicationVueContext_2) => IUseInterce
 export const useListing: (rootContext: ApplicationVueContext_2, listingKey?: listingKey) => IUseListing_2<Product>;
 
 // @beta
-export const useNavigation: (rootContext: ApplicationVueContext) => IUseNavigation;
+export const useNavigation: (rootContext: ApplicationVueContext, params?: {
+    type: StoreNavigationType;
+}) => IUseNavigation;
 
 // @beta (undocumented)
 export const useNotifications: (rootContext: ApplicationVueContext) => {
@@ -614,7 +654,7 @@ export interface UseProductListing {
 }
 
 // @beta @deprecated (undocumented)
-export const useProductListing: (rootContext: ApplicationVueContext, initialListing?: ProductListingResult | undefined) => UseProductListing;
+export const useProductListing: (rootContext: ApplicationVueContext, initialListing?: Partial<ProductListingResult> | undefined) => UseProductListing;
 
 // @beta (undocumented)
 export const useProductQuickSearch: (rootContext: ApplicationVueContext_2) => IUseProductQuickSearch;
@@ -673,6 +713,12 @@ export const useSalutations: (rootContext: ApplicationVueContext) => UseSalutati
 
 // @beta
 export const useSessionContext: (rootContext: ApplicationVueContext) => IUseSessionContext;
+
+// @alpha
+export function useSharedState(rootContext: ApplicationVueContext): {
+    sharedRef: <T>(uniqueKey: string) => WritableComputedRef<T | null>;
+    preloadRef: (refObject: Ref<unknown>, callback: () => Promise<void>) => Promise<void>;
+};
 
 // @beta
 export const useUIState: (rootContext: ApplicationVueContext, stateName?: string | undefined) => {

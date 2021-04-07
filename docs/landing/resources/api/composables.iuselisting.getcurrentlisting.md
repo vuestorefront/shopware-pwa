@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-getCurrentListing: ComputedRef<ProductListingResult>;
+getCurrentListing: ComputedRef<Partial<ListingResult<ELEMENTS_TYPE>> | null>;
 ```

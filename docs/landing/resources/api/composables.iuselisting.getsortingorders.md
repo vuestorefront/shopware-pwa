@@ -10,7 +10,7 @@
 <b>Signature:</b>
 
 ```typescript
-getSortingOrders: ComputedRef<{
+getSortingOrders: ComputedRef<Sort[] | {
         key: string;
         label: string;
     }>;

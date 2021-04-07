@@ -11,7 +11,7 @@
       />
       <SwInput
         v-model="email"
-        name="email"
+        name="loginEmail"
         :label="$t('Your email')"
         class="sw-form__input"
         type="email"
@@ -23,7 +23,7 @@
       />
       <SwInput
         v-model="password"
-        name="password"
+        name="loginPassword"
         :label="$t('Password')"
         type="password"
         class="sw-form__input"

@@ -1,45 +1,52 @@
 import Vue from "vue";
-import VueCompositionApi, {
-  reactive,
-  ref,
-  computed,
-  Ref,
-} from "@vue/composition-api";
+import VueCompositionApi, { ref, Ref } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
 import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
-import { useCart } from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedShopwareClient = shopwareClient as jest.Mocked<
   typeof shopwareClient
 >;
+const consoleWarnSpy = jest.spyOn(console, "warn");
+
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+
+import { useCart } from "../src/hooks/useCart";
 
 describe("Composables - useCart", () => {
   const stateCart: Ref<Object | null> = ref(null);
-  const stateUser: Ref<Object | null> = ref(null);
   const rootContextMock: any = {
-    $store: {
-      getters: reactive({
-        getCart: computed(() => stateCart.value),
-        getUser: computed(() => stateUser.value),
-      }),
-      commit: (name: string, value: any) => {
-        if (name === "SET_CART") {
-          stateCart.value = value;
-        }
-        if (name === "SET_USER") {
-          stateUser.value = value;
-        }
-      },
-    },
     $shopwareApiInstance: jest.fn(),
   };
+  const interceptMock = jest.fn();
+  const broadcastMock = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
     stateCart.value = null;
-    stateUser.value = null;
+    consoleWarnSpy.mockImplementationOnce(() => {});
+
+    mockedComposables.getApplicationContext.mockImplementation(() => {
+      return {
+        apiInstance: rootContextMock.$shopwareApiInstance,
+        contextName: "useCart",
+      } as any;
+    });
+    mockedComposables.useSharedState.mockImplementation(() => {
+      return {
+        sharedRef: () => stateCart,
+      } as any;
+    });
+
+    mockedComposables.useIntercept.mockImplementation(() => {
+      return {
+        broadcast: broadcastMock,
+        intercept: interceptMock,
+      } as any;
+    });
   });
   describe("computed", () => {
     describe("shippingTotal", () => {
@@ -274,8 +281,37 @@ describe("Composables - useCart", () => {
           rootContextMock.$shopwareApiInstance
         );
       });
-    });
 
+      it("should display deprecation message", async () => {
+        const { count, removeProduct } = useCart(rootContextMock);
+        stateCart.value = {
+          lineItems: [{ quantity: 3, type: "product" }],
+        };
+        expect(count.value).toEqual(3);
+        mockedShopwareClient.removeCartItem.mockResolvedValueOnce({
+          lineItems: [],
+        } as any);
+        await removeProduct({ id: "qwe" });
+        expect(consoleWarnSpy).toBeCalledWith(
+          '[DEPRECATED][@shopware-pwa/composables][removeProduct] This method has been deprecated. Use "removeItem" instead.'
+        );
+      });
+    });
+    describe("submitPromotionCode", () => {
+      it("should execute the addPromotionCode method if promotion code is not falsy", async () => {
+        const { addPromotionCode } = useCart(rootContextMock);
+        await addPromotionCode("PROMO-CODE-123!");
+        mockedShopwareClient.addPromotionCode.mockResolvedValueOnce({
+          lineItems: [{ quantity: 1, type: "promotion" }],
+        } as any);
+        expect(mockedShopwareClient.addPromotionCode).toBeCalledTimes(1);
+      });
+      it("should not execute the addPromotionCode method if promotion code is undefined or null", async () => {
+        const { addPromotionCode } = useCart(rootContextMock);
+        await addPromotionCode(undefined as any);
+        expect(mockedShopwareClient.addPromotionCode).toBeCalledTimes(0);
+      });
+    });
     describe("addPromotionCode", () => {
       it("should add promotion code to cart", async () => {
         const { appliedPromotionCodes, addPromotionCode } = useCart(

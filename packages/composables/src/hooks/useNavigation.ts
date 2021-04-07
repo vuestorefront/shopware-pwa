@@ -1,82 +1,98 @@
-import Vue from "vue";
-import { reactive, computed, Ref } from "@vue/composition-api";
+import { computed, ComputedRef } from "@vue/composition-api";
 import { getStoreNavigation } from "@shopware-pwa/shopware-6-client";
-import { NavigationElement } from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
-import { useDefaults, getApplicationContext } from "@shopware-pwa/composables";
+import {
+  StoreNavigationElement,
+  StoreNavigationType,
+} from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
+import {
+  useDefaults,
+  getApplicationContext,
+  useSharedState,
+} from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
 
 /**
  * interface for {@link useNavigation} composable
  *
+ * Provides state for navigation trees depending on navigation type.
+ *
  * @beta
  */
 export interface IUseNavigation {
-  routes: Ref<Readonly<any>>;
-  navigationElements: Ref<Readonly<NavigationElement[]>>;
+  navigationElements: ComputedRef<StoreNavigationElement[] | null>;
+  /**
+   * @deprecated use loadNavigationElements instead. Remove after v0.8
+   */
   fetchNavigationElements: (depth: number) => Promise<void>;
-  fetchRoutes: () => Promise<void>;
-}
 
-const sharedNavigation = Vue.observable({
-  routes: null,
-  navigationElements: [],
-} as any);
+  /**
+   * Load navigation elements
+   */
+  loadNavigationElements: (params: { depth: number }) => Promise<void>;
+}
 
 /**
  * Composable for navigation. Options - {@link IUseNavigation}
+ *
+ * @example
+ * ```
+ * // get main navigation
+ * useNavigation( root )
+ * // get footer navigation
+ * useNavigation( root, { type: "footer-navigation" } )
+ * ```
+ *
  * @beta
  */
 export const useNavigation = (
-  rootContext: ApplicationVueContext
+  rootContext: ApplicationVueContext,
+  params: {
+    type: StoreNavigationType;
+  } = {
+    type: "main-navigation",
+  }
 ): IUseNavigation => {
   const { apiInstance } = getApplicationContext(rootContext, "useNavigation");
+  const { sharedRef } = useSharedState(rootContext);
 
-  const localNavigation = reactive(sharedNavigation);
-  const routes = computed(() => localNavigation.routes);
   const { getIncludesConfig, getAssociationsConfig } = useDefaults(
     rootContext,
     "useNavigation"
   );
-  const getNavigationParams = (params?: any) => {
-    return Object.assign(
-      {},
-      {
-        requestActiveId: "main-navigation",
-        requestRootId: "main-navigation",
-        searchCriteria: {
-          configuration: {
-            includes: getIncludesConfig(),
-            associations: getAssociationsConfig(),
+
+  const sharedElements = sharedRef<StoreNavigationElement[]>(
+    `useNavigation-${params.type}`
+  );
+  const navigationElements = computed(() => sharedElements.value);
+
+  const loadNavigationElements = async ({ depth }: { depth: number }) => {
+    try {
+      const navigationResponse = await getStoreNavigation(
+        {
+          requestActiveId: params.type,
+          requestRootId: params.type,
+          searchCriteria: {
+            configuration: {
+              includes: getIncludesConfig(),
+              associations: getAssociationsConfig(),
+            },
           },
+          depth,
         },
-      },
-      params
-    );
-  };
-  const fetchRoutes = async (params?: any): Promise<void> => {
-    const navigationResponse = await getStoreNavigation(
-      getNavigationParams(params),
-      apiInstance
-    );
-    sharedNavigation.routes = navigationResponse;
-  };
+        apiInstance
+      );
 
-  const fetchNavigationElements = async (depth: number) => {
-    const navigationResponse = await getStoreNavigation(
-      getNavigationParams({
-        depth,
-      }),
-      apiInstance
-    );
-    sharedNavigation.navigationElements = navigationResponse || [];
+      sharedElements.value = navigationResponse || [];
+    } catch (e) {
+      sharedElements.value = [];
+      console.error("[useNavigation][loadNavigationElements]", e);
+    }
   };
-
-  const navigationElements = computed(() => localNavigation.navigationElements);
 
   return {
-    routes,
     navigationElements,
-    fetchNavigationElements,
-    fetchRoutes,
+    fetchNavigationElements: (depth: number) =>
+      loadNavigationElements({ depth }),
+    loadNavigationElements,
   };
 };

@@ -3,11 +3,12 @@ on:
   push:
     tags:
       - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
+  workflow_dispatch:
 
 env:
   RELEASE_URL: https://shopware-pwa.storefrontcloud.io
   INSTANCE_CODE: shopware-pwa
-  PWA_HOST: https://pwa.swstage.store
+  PWA_HOST: https://pwa-demo-api.shopware.com/prev/
 
 jobs:
   build:

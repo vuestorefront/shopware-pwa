@@ -1,40 +1,36 @@
 import Vue from "vue";
-import VueCompositionApi, {
-  reactive,
-  ref,
-  computed,
-  Ref,
-} from "@vue/composition-api";
+import VueCompositionApi, { ref, Ref } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
-import {
-  useProductConfigurator,
-  getDefaultApiParams,
-} from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedAxios = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+
+import { useProductConfigurator } from "../src/logic/useProductConfigurator";
+
 describe("Composables - useProductConfigurator", () => {
   const statePage: Ref<Object | null> = ref(null);
   const rootContextMock: any = {
-    $store: {
-      getters: reactive({ getPage: computed(() => statePage.value) }),
-      commit: (name: string, value: any) => {
-        statePage.value = value;
-      },
-    },
     $shopwareApiInstance: {
       defaults: {
         headers: {},
       },
       invokePost: jest.fn(),
     },
-    $shopwareDefaults: getDefaultApiParams(),
   };
   beforeEach(() => {
     jest.resetAllMocks();
+
+    mockedComposables.useCms.mockImplementation(() => {
+      return {
+        page: statePage,
+      } as any;
+    });
   });
   describe("on init", () => {
     it("should have selected options extracted from optionIds and given configurator object", () => {

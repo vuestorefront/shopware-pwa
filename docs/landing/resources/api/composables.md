@@ -11,6 +11,8 @@
 |  [createListingComposable({ rootContext, searchMethod, searchDefaults, listingKey, })](./composables.createlistingcomposable.md) | <b><i>(BETA)</i></b> Factory to create your own listing. By default you can use useListing composable, which provides you predefined listings for category(cms) listing and product search listing. Using factory you can provide our own compatible search method and use it for example for creating listing of orders in my account. |
 |  [getApplicationContext(rootContext, key)](./composables.getapplicationcontext.md) | <b><i>(BETA)</i></b> |
 |  [getDefaultApiParams()](./composables.getdefaultapiparams.md) | <b><i>(BETA)</i></b> Returns default system API params |
+|  [useBreadcrumbs(rootContext, params)](./composables.usebreadcrumbs.md) | <b><i>(BETA)</i></b> Composable for displaying and setting breadcrumbs for page. |
+|  [useCms(rootContext)](./composables.usecms.md) | <b><i>(BETA)</i></b> |
 
 ## Interfaces
 
@@ -24,7 +26,7 @@
 |  [IUseCheckout](./composables.iusecheckout.md) | <b><i>(BETA)</i></b> interface for [useCheckout](./composables.usecheckout.md) composable |
 |  [IUseIntercept](./composables.iuseintercept.md) | <b><i>(BETA)</i></b> interface for [useIntercept](./composables.useintercept.md) composable |
 |  [IUseListing](./composables.iuselisting.md) | <b><i>(BETA)</i></b> Listing interface, can be used to display category products, search products or any other Shopware search interface (ex. orders with pagination) |
-|  [IUseNavigation](./composables.iusenavigation.md) | <b><i>(BETA)</i></b> interface for [useNavigation](./composables.usenavigation.md) composable |
+|  [IUseNavigation](./composables.iusenavigation.md) | <b><i>(BETA)</i></b> interface for [useNavigation](./composables.usenavigation.md) composable<!-- -->Provides state for navigation trees depending on navigation type. |
 |  [IUseProductConfigurator](./composables.iuseproductconfigurator.md) | <b><i>(BETA)</i></b> interface for [useProductConfigurator](./composables.useproductconfigurator.md) composable |
 |  [IUseProductQuickSearch](./composables.iuseproductquicksearch.md) | <b><i>(BETA)</i></b> |
 |  [IUseSessionContext](./composables.iusesessioncontext.md) | <b><i>(BETA)</i></b> interface for [useSessionContext](./composables.usesessioncontext.md) composable |
@@ -47,7 +49,6 @@
 |  [useCart](./composables.usecart.md) | <b><i>(BETA)</i></b> Composable for cart management. Options - [IUseCart](./composables.iusecart.md) |
 |  [useCategoryFilters](./composables.usecategoryfilters.md) | <b><i>(BETA)</i></b> |
 |  [useCheckout](./composables.usecheckout.md) | <b><i>(BETA)</i></b> Composable for Checkout management. Options - [IUseCheckout](./composables.iusecheckout.md) |
-|  [useCms](./composables.usecms.md) | <b><i>(BETA)</i></b> |
 |  [useCountries](./composables.usecountries.md) | <b><i>(BETA)</i></b> |
 |  [useCountry](./composables.usecountry.md) | <b><i>(BETA)</i></b> |
 |  [useCurrency](./composables.usecurrency.md) | <b><i>(BETA)</i></b> |

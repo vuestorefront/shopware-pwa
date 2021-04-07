@@ -1,33 +1,55 @@
 import Vue from "vue";
-import VueCompositionApi, {
-  reactive,
-  ref,
-  computed,
-  Ref,
-} from "@vue/composition-api";
+import VueCompositionApi, { ref, Ref } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 import { PageResolverResult } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
-import { useCms, getDefaultApiParams } from "@shopware-pwa/composables";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedGetPage = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+
+import { useCms } from "../src/hooks/useCms";
 describe("Composables - useCms", () => {
   const statePage: Ref<Object | null> = ref(null);
   const rootContextMock: any = {
-    $store: {
-      getters: reactive({ getPage: computed(() => statePage.value) }),
-      commit: (name: string, value: any) => {
-        statePage.value = value;
-      },
-    },
     $shopwareApiInstance: jest.fn(),
-    $shopwareDefaults: getDefaultApiParams(),
   };
+
+  const setBreadcrumbsMock = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
     statePage.value = null;
+
+    mockedComposables.getApplicationContext.mockImplementation(() => {
+      return {
+        apiInstance: rootContextMock.$shopwareApiInstance,
+        contextName: "useCms",
+      } as any;
+    });
+
+    const getDefaultsMock = jest.fn().mockImplementation(() => {
+      return { limit: 10, includes: ["name"] };
+    });
+    mockedComposables.useDefaults.mockImplementation(() => {
+      return {
+        getDefaults: getDefaultsMock,
+      } as any;
+    });
+
+    mockedComposables.useBreadcrumbs.mockImplementation(() => {
+      return {
+        setBreadcrumbs: setBreadcrumbsMock,
+      } as any;
+    });
+
+    mockedComposables.useSharedState.mockImplementation(() => {
+      return {
+        sharedRef: () => statePage,
+      } as any;
+    });
   });
   it("should have value", async () => {
     const { search, page } = useCms(rootContextMock);
@@ -41,9 +63,9 @@ describe("Composables - useCms", () => {
     } as any;
     mockedGetPage.getCmsPage.mockResolvedValueOnce(response);
     expect(page.value).toEqual(null);
-    await search();
+    await search(undefined as any);
     expect(page.value).toBeTruthy();
-    expect(page.value.resourceIdentifier).toEqual(
+    expect(page.value?.resourceIdentifier).toEqual(
       "3f637f17cd9f4891a2d7625d19fb37c9"
     );
   });
@@ -54,7 +76,7 @@ describe("Composables - useCms", () => {
       message: "Something went wrong...",
     });
     expect(page.value).toEqual(null);
-    await search();
+    await search(undefined as any);
     expect(page.value).toEqual(null);
     expect(error.value).toBeTruthy();
     expect(error.value).toStrictEqual({ message: "Something went wrong..." });
@@ -171,7 +193,7 @@ describe("Composables - useCms", () => {
     } as any;
     mockedGetPage.getCmsPage.mockResolvedValueOnce(response);
     expect(categoryId.value).toBeNull();
-    await search();
+    await search(undefined as any);
     expect(categoryId.value).toEqual("3f637f17cd9f4891a2d7625d19fb37c9");
   });
 
@@ -193,8 +215,8 @@ describe("Composables - useCms", () => {
           apiAlias: "pwa_page_result",
         } as any;
         mockedGetPage.getCmsPage.mockResolvedValueOnce(response);
-        expect(getBreadcrumbsObject.value).toEqual([]);
-        await search();
+        expect(getBreadcrumbsObject.value).toEqual({});
+        await search(undefined as any);
         expect(getBreadcrumbsObject.value).toEqual({
           qwe: {
             name: "Some Category",

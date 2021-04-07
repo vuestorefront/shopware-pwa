@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-user: Ref<Customer | null>;
+user: ComputedRef<Partial<Customer> | null>;
 ```
