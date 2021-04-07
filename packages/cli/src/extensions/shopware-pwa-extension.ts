@@ -143,4 +143,15 @@ module.exports = (toolbox: GluegunToolbox) => {
     ci: toolbox.parameters.options.ci,
     stage: toolbox.parameters.options.stage,
   };
+
+  /**
+   * Returns normalized base URL
+   *
+   * - trims ending slash
+   * @param { string } baseUrl
+   * @returns { string }
+   */
+  toolbox.normalizeBaseUrl = (baseUrl: string): string => {
+    return toolbox.strings.trimEnd(baseUrl, "/");
+  };
 };

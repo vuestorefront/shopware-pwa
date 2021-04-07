@@ -82,7 +82,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     snippetSetIdentifier: string
   ) => {
     const fetchSnippetsResponse = await axios.post(
-      `${shopwareEndpoint}/api/v3/search/snippet`,
+      `${toolbox.normalizeBaseUrl(shopwareEndpoint)}/api/v3/search/snippet`,
       {
         filter: [
           {
@@ -136,7 +136,7 @@ module.exports = (toolbox: GluegunToolbox) => {
 
     try {
       await axios.post(
-        `${shopwareEndpoint}/api/v3/_action/sync`,
+        `${toolbox.normalizeBaseUrl(shopwareEndpoint)}/api/v3/_action/sync`,
         [
           {
             action: "upsert",
@@ -177,7 +177,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     authToken: string
   ) => {
     const snippetSetsResponse = await axios.post(
-      `${shopwareEndpoint}/api/v3/search/snippet-set`,
+      `${toolbox.normalizeBaseUrl(shopwareEndpoint)}/api/v3/search/snippet-set`,
       {
         filter: [
           {

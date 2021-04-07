@@ -35,36 +35,40 @@ module.exports = (toolbox: GluegunToolbox) => {
   toolbox.fetchPluginsAuthToken = async (
     { shopwareEndpoint, username, password } = toolbox.inputParameters
   ) => {
+    const normalizedShopwareEndpoint = toolbox.normalizeBaseUrl(
+      shopwareEndpoint
+    );
     let authTokenResponse;
-    if (
-      !username &&
-      !password &&
-      shopwareEndpoint === toolbox.defaultInitConfig?.shopwareEndpoint
-    ) {
-      try {
-        authTokenResponse = await axios.post(
-          `${shopwareEndpoint}/api/oauth/token`,
-          {
-            grant_type: "client_credentials",
-            client_id: toolbox.defaultInitConfig.INSTANCE_READ_API_KEY,
-            client_secret: toolbox.defaultInitConfig.INSTANCE_READ_API_SECRET,
-          }
-        );
-      } catch (error) {
-        console.warn("error", error);
+    // Temporary turn off automatic credentials
+    // if (
+    //   !username &&
+    //   !password &&
+    //   normalizedShopwareEndpoint === toolbox.defaultInitConfig?.shopwareEndpoint
+    // ) {
+    //   try {
+    //     authTokenResponse = await axios.post(
+    //       `${normalizedShopwareEndpoint}/api/oauth/token`,
+    //       {
+    //         grant_type: "client_credentials",
+    //         client_id: toolbox.defaultInitConfig.INSTANCE_READ_API_KEY,
+    //         client_secret: toolbox.defaultInitConfig.INSTANCE_READ_API_SECRET,
+    //       }
+    //     );
+    //   } catch (error) {
+    //     console.warn("error", error);
+    //   }
+    // } else {
+    authTokenResponse = await axios.post(
+      `${normalizedShopwareEndpoint}/api/oauth/token`,
+      {
+        client_id: "administration",
+        grant_type: "password",
+        scopes: "write",
+        username,
+        password,
       }
-    } else {
-      authTokenResponse = await axios.post(
-        `${shopwareEndpoint}/api/oauth/token`,
-        {
-          client_id: "administration",
-          grant_type: "password",
-          scopes: "write",
-          username,
-          password,
-        }
-      );
-    }
+    );
+    // }
 
     return authTokenResponse?.data?.access_token;
   };
@@ -77,7 +81,9 @@ module.exports = (toolbox: GluegunToolbox) => {
     authToken: string;
   }) => {
     const pluginsConfigRsponse = await axios.post(
-      `${shopwareEndpoint}/api/v3/_action/pwa/dump-bundles`,
+      `${toolbox.normalizeBaseUrl(
+        shopwareEndpoint
+      )}/api/v3/_action/pwa/dump-bundles`,
       null,
       {
         headers: {
@@ -89,21 +95,29 @@ module.exports = (toolbox: GluegunToolbox) => {
   };
 
   toolbox.fetchPluginsConfig = async ({ config }: { config: string }) => {
-    const endpoint = toolbox.inputParameters.shopwareEndpoint;
+    const endpoint = toolbox.normalizeBaseUrl(
+      toolbox.inputParameters.shopwareEndpoint
+    );
     const url =
       config.indexOf(endpoint) >= 0
         ? config
-        : `${toolbox.inputParameters.shopwareEndpoint}/${config}`;
+        : `${toolbox.normalizeBaseUrl(
+            toolbox.inputParameters.shopwareEndpoint
+          )}/${config}`;
     const pluginsConfigResponse = await axios.get(url);
     return pluginsConfigResponse.data;
   };
 
   toolbox.loadPluginsAssetFile = async ({ asset }: { asset: string }) => {
-    const endpoint = toolbox.inputParameters.shopwareEndpoint;
+    const endpoint = toolbox.normalizeBaseUrl(
+      toolbox.inputParameters.shopwareEndpoint
+    );
     const fileUrl =
       asset.indexOf(endpoint) >= 0
         ? asset
-        : `${toolbox.inputParameters.shopwareEndpoint}/${asset}`;
+        : `${toolbox.normalizeBaseUrl(
+            toolbox.inputParameters.shopwareEndpoint
+          )}/${asset}`;
 
     const request = require("request");
     const loadFile = function () {
