@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import CmsGenericSection from "sw-cms/CmsGenericSection"
+import CmsGenericSection from "sw-cms/CmsGenericSection";
 
 export default {
   components: {
@@ -23,10 +23,10 @@ export default {
   },
   computed: {
     cmsSections() {
-      return this.content?.sections || []
+      return this.content?.sections || [];
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped></style>
