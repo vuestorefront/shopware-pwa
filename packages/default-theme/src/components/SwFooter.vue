@@ -82,7 +82,6 @@ export default {
 
   &__bottom-navigation {
     margin-bottom: var(--spacer-sm);
-    width: 100%;
   }
 }
 </style>

@@ -192,11 +192,11 @@ export default {
       width: 100%;
 
       .name {
-        font-weight: bolder;
+        font-weight: var(--font-weight--semibold);
       }
 
       .icon {
-        font-weight: bolder;
+        font-weight: var(--font-weight--semibold);
         left: 0;
         position: absolute;
         top: 50%;

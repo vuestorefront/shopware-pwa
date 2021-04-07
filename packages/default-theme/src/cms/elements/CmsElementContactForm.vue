@@ -8,6 +8,7 @@
     >
       <SfSelect
         v-if="getMappedSalutations && getMappedSalutations.length > 0"
+        class="select"
         v-model="salutation"
         :label="$t('Salutation')"
         :valid="!$v.salutation.$error"
@@ -17,7 +18,7 @@
         <SfSelectOption
           v-for="salutationOption in getMappedSalutations"
           :key="salutationOption.id"
-          :value="salutationOption"
+          :value="salutationOption.id"
           data-cy="salutation-option"
         >
           {{ salutationOption.name }}
@@ -121,7 +122,7 @@
       <SfIcon size="21px" icon="heart_fill" />
       <SfHeading
         :title="$t('Thanks!')"
-        :subtitle="$t('We\'ll contact you as soon as possible!')"
+        :description="$t('We\'ll contact you as soon as possible!')"
       />
     </div>
   </div>
@@ -316,5 +317,13 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.select {
+  ::v-deep .sf-select__dropdown {
+    font-size: var(--font-size--lg);
+    font-family: var(--font-family--secondary);
+    color: var(--c-text);
+  }
 }
 </style>

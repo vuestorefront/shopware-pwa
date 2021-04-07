@@ -18,7 +18,7 @@
         >
           <SfHeading
             :title="subcategory.translated.name"
-            :subtitle="subcategory.description"
+            :description="subcategory.description"
             :level="4"
           />
         </nuxt-link>

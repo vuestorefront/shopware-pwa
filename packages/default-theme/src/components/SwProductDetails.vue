@@ -6,6 +6,7 @@
     <SwPluginSlot name="product-page-description" :slot-context="product">
       <p class="product-details__description" v-html="description" />
     </SwPluginSlot>
+    <div>{{ product.optionIds }}</div>
     <div
       v-if="product.optionIds && product.optionIds.length"
       class="product-details__section"
@@ -30,7 +31,7 @@
       <SfAlert
         :message="$t('Low in stock')"
         type="warning"
-        class="product-details__alert mobile-only"
+        class="product-details__alert smartphone-only"
       />
       <SfAddToCart
         v-model="quantity"
@@ -219,8 +220,8 @@ export default {
   }
   &__description {
     margin: var(--spacer-xl) 0;
-    font-family: var(--font-family-secondary);
-    font-size: var(--font-sm);
+    font-family: var(--font-family--secondary);
+    font-size: var(--font-size--sm);
   }
   &__heading {
     margin: var(--spacer-base) 0 0 0;
@@ -251,11 +252,11 @@ export default {
   }
   &__product-number {
     p {
-      font-size: var(--font-sm);
+      font-size: var(--font-size--sm);
       font-weight: bold;
 
       span {
-        font-weight: var(--font-light);
+        font-weight: var(--font-size--light);
       }
     }
   }

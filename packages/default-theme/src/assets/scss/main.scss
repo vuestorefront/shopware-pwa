@@ -20,41 +20,41 @@ a {
 
 /*Header styles*/
 h1 {
-  font-family: var(--font-family-secondary);
+  font-family: var(--font-family--secondary);
   font-size: var(--h1-font-size);
-  font-weight: var(--h1-font-weight);
+  font-weight: var(--font-weight--bold);
   line-height: 1.6;
   margin: 0;
 }
 
 h2 {
-  font-family: var(--font-family-secondary);
+  font-family: var(--font-family--secondary);
   font-size: var(--h2-font-size);
-  font-weight: var(--h2-font-weight);
+  font-weight: var(--font-weight--normal);
   line-height: 1.6;
   margin: 0;
 }
 
 h3 {
-  font-family: var(--font-family-secondary);
+  font-family: var(--font-family--secondary);
   font-size: var(--h3-font-size);
-  font-weight: var(--h3-font-weight);
+  font-weight: var(--font-weight--semibold);
   line-height: 1.6;
   margin: 0;
 }
 
 h4 {
-  font-family: var(--font-family-secondary);
+  font-family: var(--font-family--secondary);
   font-size: var(--h4-font-size);
-  font-weight: var(--h4-font-weight);
+  font-weight: var(--font-weight--medium);
   line-height: 1.6;
   margin: 0;
 }
 
 h5 {
-  font-family: var(--font-family-secondary);
+  font-family: var(--font-family--secondary);
   font-size: var(--h5-font-size);
-  font-weight: var(--h5-font-weight);
+  font-weight: var(--font-weight--normal);
   line-height: 1.6;
   margin: 0;
 }
@@ -63,9 +63,9 @@ body {
   padding: 0;
   margin: 0;
   min-height: 100vh;
-  font-family: var(--font-family-primary);
-  font-weight: var(--font-light);
-  font-size: var(--font-size-base);
+  font-family: var(--font-family--primary);
+  font-weight: var(--font-weight--normal);
+  font-size: var(--font-size--base);
   line-height: 1.6;
 }
 

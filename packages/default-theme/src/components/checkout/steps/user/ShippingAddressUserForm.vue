@@ -146,7 +146,7 @@ export default {
     padding: 0;
     margin: 0;
   }
-  &.sf-radio--is-active {
+  &.sf-radio .is-active {
     border-color: var(--c-primary);
   }
 }

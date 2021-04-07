@@ -5,11 +5,11 @@
     data-cy="language-switcher"
   >
     <SfSelect
-      :selected="currentDomainId"
+      :value="currentDomainId"
       :size="availableDomains.length"
       class="sw-language-switcher__select sf-select--no-chevron"
       data-cy="language-switcher-select"
-      @change="changeDomain"
+      @input="changeDomain"
     >
       <SfSelectOption
         v-for="domain in availableDomains"
@@ -53,8 +53,9 @@ export default {
   max-height: var(--top-bar-height, 2.5rem);
   text-align: center;
 
-  .sf-select {
+  ::v-deep .sf-select__dropdown {
     cursor: pointer;
+    background: var(--c-light);
   }
 }
 </style>

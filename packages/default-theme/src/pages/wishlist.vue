@@ -14,7 +14,11 @@
       </div>
 
       <div v-else class="no-results">
-        <SfImage class="image" :src="require('@/assets/hearts.svg')" />
+        <SfImage
+          class="image"
+          :src="require('@/assets/hearts.svg')"
+          alt="wishlist-heart"
+        />
 
         <SfHeading
           :title="$t('No favourites yet')"
@@ -135,6 +139,10 @@ export default {
     .image {
       margin-bottom: var(--spacer-2xl);
       margin-top: var(--spacer-2xl);
+      --image-width: 200px;
+      @include for-desktop {
+        --image-width: 300px;
+      }
     }
   }
 

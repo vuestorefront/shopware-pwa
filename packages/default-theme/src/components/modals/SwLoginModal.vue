@@ -44,7 +44,7 @@
               {{ $t("or try to log in again.") }}
             </SwButton>
           </div>
-          <div class="mobile-only bottom bottom__close">
+          <div class="smartphone-only bottom bottom__close">
             <SwButton
               class="sf-button sf-select__cancel sf-button--full-width close-button"
               @click="toggleModal()"

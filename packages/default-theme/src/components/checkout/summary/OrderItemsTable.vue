@@ -60,6 +60,9 @@ export default {
   color: var(--c-text-muted);
 }
 .table {
+  ::v-deep .sf-image {
+    --image-width: 5.125rem;
+  }
   margin: 0 0 var(--spacer-base) 0;
   &__row {
     justify-content: space-between;
@@ -79,7 +82,6 @@ export default {
       flex: 0 0 20rem;
     }
     &__image {
-      --image-width: 5.125rem;
       text-align: left;
       margin: 0 var(--spacer-lg) 0 0;
     }

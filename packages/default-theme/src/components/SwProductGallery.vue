@@ -2,7 +2,7 @@
   <div class="sw-product-gallery gallery">
     <div v-if="mediaGallery.length > 0" class="gallery__mobile">
       <slot name="mobile-galery" v-bind="mediaGallery">
-        <SfGallery class="gallery-mobile" :images="mediaGallery" />
+        <SfGallery class="gallery-mobile" :images="mediaGallery" :current="1" />
       </slot>
     </div>
   </div>
@@ -31,6 +31,10 @@ export default {
 
 <style lang="scss" scoped>
 .gallery__mobile .sf-gallery {
+  ::v-deep .sf-image:not(.sf-image-loaded) {
+    opacity: 0;
+    position: relative;
+  }
   align-items: center;
 }
 

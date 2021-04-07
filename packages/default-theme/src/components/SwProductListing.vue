@@ -79,7 +79,7 @@
     <SfHeading
       v-else-if="!loading && !getElements.length"
       :title="$t('No products found')"
-      :subtitle="$t('let us look for them')"
+      :description="$t('let us look for them')"
     />
   </div>
 </template>

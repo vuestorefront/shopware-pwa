@@ -9,7 +9,7 @@
       :src="imgUrl"
       :title="title"
       :alt="alt"
-      :lazy="lazyLoad"
+      :loading="lazyLoad"
       class="cms-element-image"
     />
   </SwLink>
@@ -18,7 +18,7 @@
     :src="imgUrl"
     :title="title"
     :alt="alt"
-    :lazy="lazyLoad"
+    :loading="lazyLoad"
     class="cms-element-image"
   />
 </template>

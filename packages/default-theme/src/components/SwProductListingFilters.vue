@@ -32,7 +32,7 @@
           >{{ $t("Products found") }}:</span
         >
         <strong class="desktop-only">{{ getTotal }}</strong>
-        <span class="navbar__label mobile-only"
+        <span class="navbar__label smartphone-only"
           >{{ getTotal }} {{ $t("Items") }}:</span
         >
       </div>
@@ -230,7 +230,6 @@ export default {
 .navbar {
   position: relative;
   display: flex;
-  width: 100%;
   border-bottom: 1px solid var(--c-light);
 
   @include for-desktop {
@@ -250,14 +249,14 @@ export default {
     display: flex;
     align-items: center;
     padding: var(--spacer-sm);
-    font-size: var(--font-sm);
+    font-size: var(--font-size--sm);
     @include for-desktop {
       padding: var(--spacer-base) 0;
     }
   }
   &__title {
     padding: 0;
-    font-size: var(--font-lg);
+    font-size: var(--font-size--lg);
     line-height: 2.23;
   }
   &__filters-button {

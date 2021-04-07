@@ -123,11 +123,11 @@ export default {
   &__content {
     flex: 1;
     color: var(--c-text);
-    font-size: var(--font-xs);
+    font-size: var(--font-size--xs);
     font-weight: 300;
     line-height: 1.6;
     @include for-desktop {
-      font-size: var(--font-sm);
+      font-size: var(--font-size--sm);
     }
   }
   &__actions {
@@ -169,7 +169,7 @@ export default {
     }
   }
   &__client-name {
-    font-size: var(--font-base);
+    font-size: var(--font-size--base);
     font-weight: 500;
   }
 }

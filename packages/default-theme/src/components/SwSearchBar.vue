@@ -98,6 +98,7 @@ export default {
 
 ::v-deep .sf-search-bar {
   --search-bar-width: 100%;
+  --search-bar-font-size: var(--font-size--sm);
 }
 
 .sw-search-bar {

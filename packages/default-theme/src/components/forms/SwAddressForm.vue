@@ -40,7 +40,7 @@
           <SfSelectOption
             v-for="salutationOption in getMappedSalutations"
             :key="salutationOption.id"
-            :value="salutationOption"
+            :value="salutationOption.id"
           >
             {{ salutationOption.name }}
           </SfSelectOption>
@@ -104,7 +104,7 @@
           <SfSelectOption
             v-for="countryOption in getMappedCountries"
             :key="countryOption.id"
-            :value="countryOption"
+            :value="countryOption.id"
           >
             {{ countryOption.name }}
           </SfSelectOption>

@@ -98,9 +98,8 @@ export default {
 
 .collected-product {
   --collected-product-actions-align-items: flex-end;
-  --collected-product-title-font-size: var(--font-base);
+  --collected-product-title-font-size: var(--font-size--base);
   margin: var(--spacer-base) 0;
-
   &__properties {
     margin-top: var(--spacer-base);
   }
@@ -108,7 +107,7 @@ export default {
   &__main {
     .sf-price {
       &__old {
-        font-size: var(--size-xs);
+        font-size: var(--size-size--xs);
       }
     }
   }
