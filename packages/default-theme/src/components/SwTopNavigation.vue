@@ -189,6 +189,7 @@ export default {
 @import "@/assets/scss/variables";
 
 .sw-top-navigation {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   --search-bar-width: 100%;
@@ -196,7 +197,7 @@ export default {
   --header-navigation-item-margin: 0 1rem 0 0;
   --heading-title-font-size: 16px;
   --heading-title-font-weight: 500;
-  --c-link-hover: var(--_c-green-primary);
+  --c-link-hover: var(--c-primary);
   --heading-title-font-line-height: 24px;
   max-height: 100px;
 
@@ -210,6 +211,11 @@ export default {
   }
 
   @include for-desktop {
+    ::v-deep .sf-header-navigation-item {
+      margin: 0 1rem 0 0;
+      font-size: var(--font-size--base);
+      font-weight: var(--font-weight--medium);
+    }
     ::v-deep .sf-header {
       display: flex;
       justify-content: space-between;

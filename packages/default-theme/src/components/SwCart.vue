@@ -227,9 +227,12 @@ export default {
   display: flex;
   flex-direction: column;
   &__total-items {
+    display: none;
     margin: var(--spacer-xs) 0;
     @include for-desktop {
+      display: block;
       margin: var(--spacer-xl) 0 var(--spacer-lg) 0;
+      --property-name-font-weight: var(--font-weight--medium);
     }
   }
   &__total-price {
@@ -243,7 +246,7 @@ export default {
 }
 .empty-cart {
   --heading-description-margin: 0 0 var(--spacer-xl) 0;
-  --heading-title-margin: 0 0 var(--spacer-base) 0;
+  --heading-title-margin: var(--spacer-base) 0;
   --heading-title-color: var(--c-primary);
   --heading-title-font-weight: var(--font-weight--semibold);
   display: flex;

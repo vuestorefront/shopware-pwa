@@ -2,7 +2,7 @@
   <div class="sf-header__icons desktop-only">
     <div class="sw-header__icons">
       <SwPluginSlot name="top-header-icons-before" />
-      <div class="account-icon">
+      <div class="account-icon" @mouseleave="closeDropdown">
         <SwButton
           class="sf-button--pure sw-nav-button"
           data-cy="login-icon"
@@ -118,6 +118,10 @@ export default {
     },
   },
   methods: {
+    closeDropdown() {
+      if (!this.isDropdownOpen) return
+      this.isDropdownOpen = false
+    },
     userIconClick() {
       if (this.isLoggedIn) this.isDropdownOpen = !this.isDropdownOpen
       else this.switchLoginModalState(true)

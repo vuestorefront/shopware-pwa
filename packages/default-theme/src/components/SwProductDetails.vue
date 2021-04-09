@@ -6,7 +6,6 @@
     <SwPluginSlot name="product-page-description" :slot-context="product">
       <p class="product-details__description" v-html="description" />
     </SwPluginSlot>
-    <div>{{ product.optionIds }}</div>
     <div
       v-if="product.optionIds && product.optionIds.length"
       class="product-details__section"
