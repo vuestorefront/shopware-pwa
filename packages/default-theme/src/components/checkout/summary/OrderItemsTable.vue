@@ -24,7 +24,6 @@ import OrderItem from "@/components/checkout/summary/OrderItem.vue"
 import {
   SfTable,
   SfCheckbox,
-  SfImage,
   SfIcon,
   SfPrice,
   SfQuantitySelector,
