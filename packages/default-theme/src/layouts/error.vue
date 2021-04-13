@@ -98,6 +98,7 @@ export default {
   &__image {
     --image-width: 10rem;
     min-height: 10rem;
+    margin-top: var(--spacer-2xl);
     @include for-desktop {
       --image-width: 18rem;
       min-height: 18rem;

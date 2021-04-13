@@ -5,7 +5,7 @@
     </h3>
     <SfLoader v-else :loading="loading">
       <div v-if="getElements" class="search-page__main">
-        <h3>
+        <h3 class="search-page__heading">
           {{ this.$t("search results for") }}
           <strong>{{ getSearchTerm }}</strong
           >:
@@ -88,9 +88,9 @@ export default {
     }
   }
 
-  h3 {
+  &__heading {
     text-align: center;
-    margin-bottom: var(--spacer-base);
+    margin: var(--spacer-xl) auto;
   }
 }
 </style>

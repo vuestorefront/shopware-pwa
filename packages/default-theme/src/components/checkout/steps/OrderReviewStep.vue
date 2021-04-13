@@ -119,7 +119,7 @@ export default {
   }
 }
 .collected-product-list {
-  padding: 0 var(--spacer-sm);
+  padding: var(--spacer-sm);
 }
 .property {
   margin: 0 0 var(--spacer-xs) 0;

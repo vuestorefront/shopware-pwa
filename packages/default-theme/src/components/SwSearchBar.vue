@@ -7,7 +7,6 @@
       class="sf-header__search"
       data-cy="search-bar"
       @enter="performSearch"
-      @focus="isSuggestBoxOpen = true"
     />
 
     <SwSuggestSearch

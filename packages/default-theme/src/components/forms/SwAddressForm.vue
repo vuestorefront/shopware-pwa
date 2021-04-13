@@ -34,7 +34,7 @@
           :error-message="$t('Salutation must be selected')"
           required
           :valid="!$v.address.salutation.$error"
-          class="sf-select--underlined sw-form__select sw-form__input sf-input--has-text"
+          class="sf-select--underlined sw-form__select sw-form__input sf-input--has-text select"
           @blur="$v.address.salutation.$touch()"
         >
           <SfSelectOption
@@ -98,7 +98,7 @@
           :error-message="$t('Country must be selected')"
           :valid="!$v.address.country.$error"
           required
-          class="sf-select--underlined sw-form__select"
+          class="sf-select--underlined sw-form__input sw-form__select select"
           @blur="$v.address.country.$touch()"
         >
           <SfSelectOption
@@ -302,4 +302,16 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/forms";
+
+.select {
+  ::v-deep .sf-select__dropdown {
+    font-size: var(--font-size--lg);
+    font-family: var(--font-family--secondary);
+    color: var(--c-text);
+  }
+  ::v-deep .sf-select__dropdown {
+    margin: var(--spacer-2xs) 0 0;
+    padding-bottom: 4px;
+  }
+}
 </style>

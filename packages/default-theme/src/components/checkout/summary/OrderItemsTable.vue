@@ -79,11 +79,10 @@ export default {
     }
     &__description {
       text-align: left;
-      flex: 0 0 20rem;
+      flex: 0 0 21.5rem;
     }
     &__image {
       text-align: left;
-      margin: 0 var(--spacer-lg) 0 0;
     }
   }
 }

@@ -130,17 +130,23 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    --heading-title-font-weight: var(--font-weight--normal);
+    --heading-title-font-size: var(--font-size--base);
 
     .main-headline {
       --heading-title-color: var(--c-primary);
+      --heading-title-font-size: var(--h2-font-size);
+      --heading-title-font-weight: var(--font-weight--semibold);
       margin-bottom: var(--spacer-xl);
     }
 
     .image {
-      margin-bottom: var(--spacer-2xl);
-      margin-top: var(--spacer-2xl);
+      margin-bottom: var(--spacer-xl);
+      margin-top: var(--spacer-xl);
       --image-width: 200px;
       @include for-desktop {
+        margin-bottom: var(--spacer-2xl);
+        margin-top: var(--spacer-2xl);
         --image-width: 300px;
       }
     }
