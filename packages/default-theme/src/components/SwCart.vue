@@ -31,7 +31,7 @@
         </div>
         <div v-else key="empty-cart" class="empty-cart">
           <div class="empty-cart__banner">
-            <SfImage
+            <SwImage
               :alt="$t('Empty bag')"
               class="empty-cart__image"
               :src="require('@storefront-ui/shared/icons/empty_cart.svg')"
@@ -78,13 +78,7 @@
   </div>
 </template>
 <script>
-import {
-  SfSidebar,
-  SfProperty,
-  SfPrice,
-  SfHeading,
-  SfImage,
-} from "@storefront-ui/vue"
+import { SfSidebar, SfProperty, SfPrice, SfHeading } from "@storefront-ui/vue"
 import {
   useCart,
   useUIState,
@@ -96,13 +90,14 @@ import SwButton from "@/components/atoms/SwButton.vue"
 import { PAGE_CHECKOUT } from "@/helpers/pages"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { computed, onMounted, ref, watch } from "@vue/composition-api"
+import SwImage from "@/components/atoms/SwImage.vue"
 
 export default {
   name: "SwCart",
   components: {
     SfSidebar,
     SfHeading,
-    SfImage,
+    SwImage,
     SfProperty,
     SfPrice,
     SwCartProduct,

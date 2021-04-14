@@ -1,6 +1,6 @@
 <template>
   <div class="error-page">
-    <SfImage class="error-page__image" :src="require('@/assets/error.svg')" />
+    <SwImage class="error-page__image" :src="require('@/assets/error.svg')" />
     <SfHeading
       class="error-page__heading"
       :level="1"
@@ -29,8 +29,9 @@
   </div>
 </template>
 <script>
-import { SfHeading, SfIcon, SfImage } from "@storefront-ui/vue"
+import { SfHeading, SfIcon } from "@storefront-ui/vue"
 import SwButton from "@/components/atoms/SwButton.vue"
+import SwImage from "@/components/atoms/SwImage.vue"
 
 const customMessageDictionary = {
   404: "We can't find what you are looking for. Are you lost?",
@@ -47,7 +48,7 @@ export default {
   components: {
     SfHeading,
     SwButton,
-    SfImage,
+    SwImage,
     SfIcon,
   },
   props: {

@@ -16,7 +16,7 @@
           :key="product.id"
           :link="$routing.getUrl(getProductUrl(product))"
         >
-          <SfImage
+          <SwImage
             :src="getProducImageUrl(product)"
             :alt="product.label"
             class="search-suggestions__product-image"
@@ -52,7 +52,6 @@ import {
   SfDivider,
   SfHeading,
   SfLink,
-  SfImage,
   SfIcon,
   SfPrice,
 } from "@storefront-ui/vue"
@@ -67,6 +66,7 @@ import {
   getProductTierPrices,
   getProductPriceDiscount,
 } from "@shopware-pwa/helpers"
+import SwImage from "@/components/atoms/SwImage.vue"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
 
 export default {
@@ -74,7 +74,7 @@ export default {
     SfDivider,
     SfHeading,
     SfLink,
-    SfImage,
+    SwImage,
     SfIcon,
     SfPrice,
     Button,

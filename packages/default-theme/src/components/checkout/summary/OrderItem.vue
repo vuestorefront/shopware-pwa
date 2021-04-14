@@ -1,8 +1,8 @@
 <template>
   <SfTableRow :key="product.id" class="table__row">
     <SfTableData class="table__image">
-      <SfImage
-        :src="product.cover && product.cover.url"
+      <SwImage
+        :src="getImageUrl(product)"
         data-cy="product-image"
         v-if="product.cover && product.type === 'product'"
       />
@@ -34,18 +34,19 @@ import { ref, watch, computed } from "@vue/composition-api"
 import {
   SfTable,
   SfCheckbox,
-  SfImage,
   SfIcon,
   SfPrice,
   SfQuantitySelector,
 } from "@storefront-ui/vue"
+import SwImage from "@/components/atoms/SwImage.vue"
+import getResizedImage from "@/helpers/images/getResizedImage.js"
 
 export default {
   name: "OrderItem",
   components: {
     SfTable,
     SfCheckbox,
-    SfImage,
+    SwImage,
     SfIcon,
     SfPrice,
     SfQuantitySelector,
@@ -64,9 +65,15 @@ export default {
       if (qty === props.product.quantity) return
       await changeProductQuantity({ id: props.product.id, quantity: qty })
     })
+
+    function getImageUrl(product) {
+      return getResizedImage(product?.cover?.url, { width: 140, height: 200 })
+    }
+
     return {
       removeProduct,
       quantity,
+      getImageUrl,
     }
   },
 }

@@ -14,7 +14,7 @@
       </div>
 
       <div v-else class="no-results">
-        <SfImage class="image" :src="require('@/assets/hearts.svg')" />
+        <SwImage class="image" :src="require('@/assets/hearts.svg')" />
 
         <SfHeading
           :title="$t('No favourites yet')"
@@ -39,16 +39,17 @@ import {
   useBreadcrumbs,
 } from "@shopware-pwa/composables"
 import SwProductCard from "@/components/SwProductCard.vue"
-import { SfHeading, SfImage, SfLoader } from "@storefront-ui/vue"
+import { SfHeading, SfLoader } from "@storefront-ui/vue"
 import { onMounted, ref, watch } from "@vue/composition-api"
 import { PAGE_WISHLIST } from "@/helpers/pages"
+import SwImage from "@/components/atoms/SwImage.vue"
 
 export default {
   name: "Wishlist",
   components: {
     SwProductCard,
     SfHeading,
-    SfImage,
+    SwImage,
     SfLoader,
   },
 
