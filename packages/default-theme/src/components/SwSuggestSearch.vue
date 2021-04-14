@@ -67,7 +67,7 @@ import {
   getProductTierPrices,
   getProductPriceDiscount,
 } from "@shopware-pwa/helpers"
-import { getResizedImage } from "@/helpers/images"
+import getResizedImage from "@/helpers/images/getResizedImage.js"
 
 export default {
   components: {

@@ -27,7 +27,7 @@
 import { getCmsLink, getCmsLinkTarget } from "@shopware-pwa/helpers"
 import SwLink from "@/components/atoms/SwLink.vue"
 import SwImage from "@/components/atoms/SwImage.vue"
-import { getResizedImage } from "@/helpers/images"
+import getResizedImage from "@/helpers/images/getResizedImage.js"
 
 export default {
   name: "CmsElementImage",

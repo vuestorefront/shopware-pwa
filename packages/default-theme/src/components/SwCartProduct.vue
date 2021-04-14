@@ -27,7 +27,7 @@ import { getProductMainImageUrl, getProductUrl } from "@shopware-pwa/helpers"
 import { useCart, getApplicationContext } from "@shopware-pwa/composables"
 import { ref, watch, computed, onMounted } from "@vue/composition-api"
 import { SfCollectedProduct, SfProperty } from "@storefront-ui/vue"
-import { getResizedImage } from "@/helpers/images"
+import getResizedImage from "@/helpers/images/getResizedImage.js"
 
 export default {
   components: {
