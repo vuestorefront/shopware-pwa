@@ -27,6 +27,7 @@ import { getProductMainImageUrl, getProductUrl } from "@shopware-pwa/helpers"
 import { useCart, getApplicationContext } from "@shopware-pwa/composables"
 import { ref, watch, computed, onMounted } from "@vue/composition-api"
 import { SfCollectedProduct, SfProperty } from "@storefront-ui/vue"
+import { getResizedImage } from "@/helpers/images"
 
 export default {
   components: {
@@ -55,7 +56,12 @@ export default {
       return getProductUrl(matchingProductAdditionalData)
     })
     const quantity = ref(product.quantity)
-    const productImage = computed(() => getProductMainImageUrl(product))
+    const productImage = computed(() =>
+      getResizedImage(getProductMainImageUrl(product), {
+        width: 140,
+        height: 200,
+      })
+    )
     // it's not 1:1 to Product entity interface
     const regularPrice = computed(
       () =>

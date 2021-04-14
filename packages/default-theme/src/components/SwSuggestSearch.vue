@@ -67,6 +67,7 @@ import {
   getProductTierPrices,
   getProductPriceDiscount,
 } from "@shopware-pwa/helpers"
+import { getResizedImage } from "@/helpers/images"
 
 export default {
   components: {
@@ -128,7 +129,10 @@ export default {
         : getProductPriceDiscount(product) && getProductCalculatedPrice(product)
     },
     getProducImageUrl(product) {
-      return getProductMainImageUrl(product)
+      return getResizedImage(getProductMainImageUrl(product), {
+        width: 90,
+        height: 90,
+      })
     },
   },
 }

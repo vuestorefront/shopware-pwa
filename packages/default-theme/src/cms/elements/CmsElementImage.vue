@@ -5,7 +5,7 @@
     :target="target"
     class="cms-element-image__link"
   >
-    <SfImage
+    <SwImage
       :src="imgUrl"
       :title="title"
       :alt="alt"
@@ -13,7 +13,7 @@
       class="cms-element-image"
     />
   </SwLink>
-  <SfImage
+  <SwImage
     v-else
     :src="imgUrl"
     :title="title"
@@ -25,14 +25,15 @@
 
 <script>
 import { getCmsLink, getCmsLinkTarget } from "@shopware-pwa/helpers"
-import { SfImage } from "@storefront-ui/vue"
 import SwLink from "@/components/atoms/SwLink.vue"
+import SwImage from "@/components/atoms/SwImage.vue"
+import { getResizedImage } from "@/helpers/images"
 
 export default {
   name: "CmsElementImage",
 
   components: {
-    SfImage,
+    SwImage,
     SwLink,
   },
 
@@ -53,7 +54,7 @@ export default {
     },
 
     imgUrl() {
-      return this.getMedia && this.getMedia.url
+      return getResizedImage(this.getMedia && this.getMedia.url)
     },
 
     lazyLoad() {
@@ -79,6 +80,7 @@ export default {
 @import "@/cms/settings.scss";
 
 .cms-element-image {
-  height: 100%;
+  --image-width: 100%;
+  width: 100%;
 }
 </style>
