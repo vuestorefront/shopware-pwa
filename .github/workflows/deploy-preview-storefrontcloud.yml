@@ -390,11 +390,11 @@ jobs:
           mkdir -p test-project
           cd ./test-project
           ../packages/cli/bin/shopware-pwa init --shopwareEndpoint=${{ env.CANARY_SW6_INSTANCE }} --shopwareAccessToken=${{ env.CANARY_SW6_INSTANCE_TOKEN }} --username=${{ secrets.SHOPWARE_ADMIN_USER }} --password=${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --pwaHost=${{ env.PWA_HOST }} --ci --devMode --stage local
-          rsync -rv --exclude=node_modules ../packages/ ./node_modules/@shopware-pwa
       - name: Build test project
         run: |
           cd ./test-project
           yarn build
+          rsync -rv --exclude=node_modules ../packages/ ./node_modules/@shopware-pwa
           ls -la ./node_modules/@shopware-pwa
           ls -la ./node_modules/@shopware-pwa/nuxt-module
           ls -la ./node_modules/@shopware-pwa/nuxt-module/dist
