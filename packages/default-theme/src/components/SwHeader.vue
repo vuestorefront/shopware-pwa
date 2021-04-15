@@ -6,7 +6,7 @@
 
     <SwTopBar />
 
-    <SfHeader
+    <!-- <SfHeader
       :title="$t('page.title')"
       class="sw-header sf-header--has-mobile-search"
       :has-mobile-search="false"
@@ -24,7 +24,7 @@
       <template #header-icons>
         <SwHeaderIcons />
       </template>
-    </SfHeader>
+    </SfHeader> -->
   </div>
 </template>
 
