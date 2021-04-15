@@ -371,17 +371,17 @@ jobs:
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       # Step to speed up project init
-      - name: Cache test-project
-        uses: actions/cache@v2
-        env:
-          cache-name: test-cache-test-project
-        with:
-          path: |
-            test-project
-            !test-project/.shopware-pwa
-            !test-project/.yalc
-            !test-project/.yalc.lock
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}--${{ needs.build-nuxt-module.outputs.package-hash }}
+      # - name: Cache test-project
+      #   uses: actions/cache@v2
+      #   env:
+      #     cache-name: test-cache-test-project
+      #   with:
+      #     path: |
+      #       test-project
+      #       !test-project/.shopware-pwa
+      #       !test-project/.yalc
+      #       !test-project/.yalc.lock
+      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}--${{ needs.build-nuxt-module.outputs.package-hash }}
       - name: Link packages
         run: |
           yarn --frozen-lockfile
