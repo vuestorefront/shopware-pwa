@@ -14,5 +14,4 @@ const ShopwarePWAModule: Module<{}> = async function (moduleOptions: {}) {
 /* istanbul ignore next */
 export default ShopwarePWAModule;
 
-/* istanbul ignore next */
 export { extendNuxtConfig } from "./config";

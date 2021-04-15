@@ -1,17 +1,18 @@
+import { NuxtConfig } from "@nuxt/types";
 import { isArray, mergeWith } from "lodash";
 
-function customizer(objValue, srcValue) {
+function customizer(objValue: Object, srcValue: unknown) {
   if (isArray(objValue)) {
     return objValue.concat(srcValue);
   }
 }
 
-const defaultConfig = {
+const defaultConfig: NuxtConfig = {
   telemetry: false,
   env: {
-    CHOKIDAR_USEPOLLING: process.env.NODE_ENV == "production" ? 0 : 1,
+    CHOKIDAR_USEPOLLING: process.env.NODE_ENV == "production" ? "0" : "1",
     EXPERIMENTAL_IMAGE_PROCESSING_SERVER:
-      process.env.EXPERIMENTAL_IMAGE_PROCESSING_SERVER,
+      process.env.EXPERIMENTAL_IMAGE_PROCESSING_SERVER || "",
   },
   server: {
     port: process.env.PORT || 3000,
@@ -67,8 +68,8 @@ const defaultConfig = {
   build: {},
 };
 
-const configs = [defaultConfig];
-export function extendNuxtConfig(config) {
+const configs: NuxtConfig[] = [defaultConfig];
+export function extendNuxtConfig(config: NuxtConfig) {
   configs.push(config);
   return configs.reduce((prev, next) => mergeWith(prev, next, customizer));
 }
