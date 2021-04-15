@@ -188,6 +188,7 @@ export default {
 
 .select {
   margin-top: 0.75rem;
+  padding: var(--spacer-sm) 0;
   ::v-deep .sf-select__dropdown {
     font-size: var(--font-size--lg);
     font-family: var(--font-family--secondary);
