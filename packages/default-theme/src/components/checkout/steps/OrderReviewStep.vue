@@ -96,7 +96,7 @@ export default {
 }
 .accordion {
   --accordion-item-content-padding: 0;
-  --collected-product-padding: 0;
+  --collected-product-padding: 0 0 var(--spacer-2xs) 0;
   --heading-padding: 0;
   position: relative;
   left: 50%;

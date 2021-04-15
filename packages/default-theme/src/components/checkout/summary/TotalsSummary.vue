@@ -11,7 +11,7 @@
     </div>
     <div class="summary__action">
       <SwButton
-        class="sf-button--full-width summary__action-button summary__action-button--secondary color-secondary sw-form__button"
+        class="summary__action-button summary__action-button--secondary color-secondary sw-form__button"
         data-cy="go-back-to-payment"
         @click="$emit('click:back')"
       >
@@ -19,7 +19,7 @@
       </SwButton>
       <SwButton
         :disabled="!cartItems.length"
-        class="sf-button--full-width summary__action-button sw-form__button"
+        class="summary__action-button sw-form__button"
         data-cy="place-my-order"
         @click="$emit('proceed')"
       >
@@ -79,7 +79,6 @@ export default {
 @import "@/assets/scss/variables";
 
 .summary {
-  margin: 0 calc(var(--spacer-base) * -1);
   &__group {
     padding: var(--spacer-base) var(--spacer-xl);
     background-color: var(--c-light);

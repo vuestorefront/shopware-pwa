@@ -33,4 +33,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+::v-deep .sf-banner__title {
+  margin-bottom: var(--spacer-xl);
+}
+</style>

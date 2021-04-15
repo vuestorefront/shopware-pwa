@@ -58,6 +58,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import "@/assets/scss/variables";
+
 .product-price {
   white-space: nowrap;
 }
@@ -91,6 +93,7 @@ export default {
   }
 }
 ::v-deep .product-price {
+  --price-regular-font-size: var(--font-size--base);
   & > * {
     flex: 1;
   }

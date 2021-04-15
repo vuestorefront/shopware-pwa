@@ -30,10 +30,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/variables";
+
 .gallery__mobile .sf-gallery {
   ::v-deep .sf-image:not(.sf-image-loaded) {
     opacity: 0;
     position: relative;
+  }
+  ::v-deep .sf-gallery__stage {
+    @include for-mobile {
+      max-width: 100%;
+    }
   }
   align-items: center;
 }

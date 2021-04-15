@@ -10,7 +10,7 @@
     class="collected-product"
     @click:remove="removeProduct(product)"
   >
-    <template #actions>
+    <template #configuration>
       <div class="collected-product__configuration" v-if="options">
         <SfProperty
           v-for="option in options"
@@ -97,6 +97,7 @@ export default {
 @import "@/assets/scss/variables";
 
 .collected-product {
+  min-height: 12.5rem;
   --collected-product-actions-display: none;
   --collected-product-configuration-display: flex;
   ::v-deep .sf-price {
