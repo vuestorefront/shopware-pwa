@@ -67,5 +67,11 @@ Object {
     "port": 3000,
   },
   "telemetry": false,
+  "vue": Object {
+    "config": Object {
+      "devtools": true,
+      "productionTip": false,
+    },
+  },
 }
 `;

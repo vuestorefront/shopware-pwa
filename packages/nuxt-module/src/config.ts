@@ -8,6 +8,12 @@ function customizer(objValue: Object, srcValue: unknown) {
 }
 
 const defaultConfig: NuxtConfig = {
+  vue: {
+    config: {
+      productionTip: false,
+      devtools: true,
+    },
+  },
   telemetry: false,
   env: {
     CHOKIDAR_USEPOLLING: process.env.NODE_ENV == "production" ? "0" : "1",
