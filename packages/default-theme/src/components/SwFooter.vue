@@ -1,28 +1,5 @@
 <template>
-  <div class="sw-footer" data-cy="main-footer">
-    <slot class="sw-footer__content" name="content" v-bind="column">
-      <div class="sw-footer__signature">
-        <SwPluginSlot name="footer-content">
-          <SwFooterNavigation class="sw-footer__bottom-navigation" />
-          <i18n path="footer.description" :tag="false">
-            <template #creator>
-              <a
-                href="https://www.shopware.com/en/products/shopware-pwa/"
-                class="sw-footer__link"
-                >shopware AG</a
-              >
-              &
-              <a
-                href="https://www.vuestorefront.io/shopware"
-                class="sw-footer__link"
-                >Vue Storefront</a
-              >
-            </template>
-          </i18n>
-        </SwPluginSlot>
-      </div>
-    </slot>
-  </div>
+  <div class="sw-footer" data-cy="main-footer"></div>
 </template>
 
 <script>
