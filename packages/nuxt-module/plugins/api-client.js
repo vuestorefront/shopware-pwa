@@ -67,14 +67,26 @@ export default async ({ app }, inject) => {
   const { preloadRef } = useSharedState(app);
   const { sessionContext, refreshSessionContext } = useSessionContext(app);
   preloadRef(sessionContext, async () => {
-    await refreshSessionContext();
+    try {
+      await refreshSessionContext();
+    } catch (e) {
+      console.error("[plugin][api-client][refreshSessionContext]", e);
+    }
   });
   const { refreshUser, user } = useUser(app);
   preloadRef(user, async () => {
-    await refreshUser();
+    try {
+      await refreshUser();
+    } catch (e) {
+      console.error("[plugin][api-client][refreshUser]", e);
+    }
   });
   const { refreshCart, cart } = useCart(app);
   preloadRef(cart, async () => {
-    await refreshCart();
+    try {
+      await refreshCart();
+    } catch (e) {
+      console.error("[plugin][api-client][refreshCart]", e);
+    }
   });
 };
