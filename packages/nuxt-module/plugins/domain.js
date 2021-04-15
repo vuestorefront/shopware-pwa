@@ -93,9 +93,13 @@ Middleware.routing = function ({ isHMR, app, store, from, route, redirect }) {
     currencyId = domainConfig.currencyId;
   }
 
-  currencyId && setCurrency({ id: currencyId });
+  const currencyPromise = setCurrency({ id: currencyId });
   const { languageId, languageLocaleCode } = domainConfig;
   app.routing.setCurrentDomain(domainConfig);
   languageId && app.$shopwareApiInstance.update({ languageId });
   app.i18n.locale = languageLocaleCode;
+
+  Promise.all([currencyPromise]).catch((e) => {
+    console.error("[MIDDLEWARE][DOMAINS]", e);
+  });
 };
