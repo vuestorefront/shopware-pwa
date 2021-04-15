@@ -5,7 +5,7 @@
     data-cy="top-navigation"
     v-if="visibleCategories.length"
   >
-    <SwPluginSlot name="sw-top-navigation-before" />
+    <!-- <SwPluginSlot name="sw-top-navigation-before" /> -->
     <div
       v-for="category in visibleCategories"
       :key="category.translated.name"
@@ -56,7 +56,7 @@
         :visible="currentCategoryName && 'categories' === currentCategoryName"
       />
     </div>
-    <SwPluginSlot name="sw-top-navigation-after" />
+    <!-- <SwPluginSlot name="sw-top-navigation-after" /> -->
   </div>
 </template>
 
