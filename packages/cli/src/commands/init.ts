@@ -109,12 +109,12 @@ module.exports = {
       if (stage !== "local") {
         // add dependencies with version
         coreDevPackages.forEach((packageName) => {
-          config.devDependencies[packageName] = stage;
+          config.dependencies[packageName] = stage;
         });
       } else {
         // add local dependencies and link them
         localCoreDevPackages.forEach((packageName) => {
-          config.devDependencies[packageName] = defaultVersion;
+          config.dependencies[packageName] = defaultVersion;
         });
       }
 
@@ -122,7 +122,7 @@ module.exports = {
     });
 
     if (stage === "local") {
-      await run(`npx yalc add -D ${localCoreDevPackages.join(" ")}`);
+      await run(`npx yalc add ${localCoreDevPackages.join(" ")}`);
       await run(`yarn link ${localCoreDevPackages.join(" ")}`);
     }
 
