@@ -3,6 +3,7 @@
   "version": "0.7.2",
   "description": "@shopware-pwa/nuxt-module",
   "main": "dist/nuxt-module.cjs.js",
+  "module": "dist/nuxt-module.esm.js",
   "files": [
     "dist",
     "plugins/*"
@@ -48,6 +49,7 @@
   "buildOptions": {
     "name": "nuxt-module",
     "formats": [
+      "esm",
       "cjs"
     ]
   }
