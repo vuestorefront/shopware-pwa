@@ -23,7 +23,7 @@ jobs:
         uses: actions/cache@v2
         id: step-cache-node-modules
         env:
-          cache-name: tcache-node-modules-test
+          cache-name: ttcache-node-modules-test
         with:
           path: |
             node_modules
@@ -33,6 +33,7 @@ jobs:
         if: steps.step-cache-node-modules.outputs.cache-hit != 'true'
         run: |
           yarn --frozen-lockfile
+          cat ./packages/cli/src/templates/project-template/nuxt.config.js
 
   build-cli:
     name: Build CLI
@@ -57,7 +58,7 @@ jobs:
         id: step-cache-build
         uses: actions/cache@v2
         env:
-          cache-name: ttest-cache-cli-build
+          cache-name: tttest-cache-cli-build
         with:
           path: |
             packages/cli/build
@@ -66,7 +67,7 @@ jobs:
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
-          cache-name: tcache-node-modules-test
+          cache-name: ttcache-node-modules-test
         with:
           path: |
             node_modules
@@ -101,7 +102,7 @@ jobs:
         id: step-cache-build
         uses: actions/cache@v2
         env:
-          cache-name: ttest-cache-composables-build
+          cache-name: tttest-cache-composables-build
         with:
           path: |
             packages/composables/dist
@@ -110,7 +111,7 @@ jobs:
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
-          cache-name: tcache-node-modules-test
+          cache-name: ttcache-node-modules-test
         with:
           path: |
             node_modules
@@ -144,7 +145,7 @@ jobs:
         id: step-cache-build
         uses: actions/cache@v2
         env:
-          cache-name: ttest-cache-helpers-build
+          cache-name: tttest-cache-helpers-build
         with:
           path: |
             packages/helpers/dist
@@ -153,7 +154,7 @@ jobs:
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
-          cache-name: tcache-node-modules-test
+          cache-name: ttcache-node-modules-test
         with:
           path: |
             node_modules
@@ -187,7 +188,7 @@ jobs:
         id: step-cache-build
         uses: actions/cache@v2
         env:
-          cache-name: ttest-cache-nuxt-module-build
+          cache-name: tttest-cache-nuxt-module-build
         with:
           path: |
             packages/nuxt-module/dist
@@ -196,7 +197,7 @@ jobs:
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
-          cache-name: tcache-node-modules-test
+          cache-name: ttcache-node-modules-test
         with:
           path: |
             node_modules
@@ -206,6 +207,7 @@ jobs:
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
           yarn build nuxt-module --ci
+          cat ./packages/nuxt-module/dist/nuxt-module.cjs.js
 
   build-shopware-6-client:
     name: Build shopware-6-client package
@@ -230,7 +232,7 @@ jobs:
         id: step-cache-build
         uses: actions/cache@v2
         env:
-          cache-name: ttest-cache-shopware-6-client-build
+          cache-name: tttest-cache-shopware-6-client-build
         with:
           path: |
             packages/shopware-6-client/dist
@@ -239,7 +241,7 @@ jobs:
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
-          cache-name: tcache-node-modules-test
+          cache-name: ttcache-node-modules-test
         with:
           path: |
             node_modules
@@ -273,7 +275,7 @@ jobs:
         id: step-cache-build
         uses: actions/cache@v2
         env:
-          cache-name: ttest-cache-default-theme-build
+          cache-name: tttest-cache-default-theme-build
         with:
           path: |
             packages/default-theme/dist
@@ -282,7 +284,7 @@ jobs:
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
-          cache-name: tcache-node-modules-test
+          cache-name: ttcache-node-modules-test
         with:
           path: |
             node_modules
@@ -315,7 +317,7 @@ jobs:
       - name: Cache cli build
         uses: actions/cache@v2
         env:
-          cache-name: ttest-cache-cli-build
+          cache-name: tttest-cache-cli-build
         with:
           path: |
             packages/cli/build
@@ -323,7 +325,7 @@ jobs:
       - name: Cache composables build
         uses: actions/cache@v2
         env:
-          cache-name: ttest-cache-composables-build
+          cache-name: tttest-cache-composables-build
         with:
           path: |
             packages/composables/dist
@@ -331,7 +333,7 @@ jobs:
       - name: Cache helpers build
         uses: actions/cache@v2
         env:
-          cache-name: ttest-cache-helpers-build
+          cache-name: tttest-cache-helpers-build
         with:
           path: |
             packages/helpers/dist
@@ -339,7 +341,7 @@ jobs:
       - name: Cache nuxt-module build
         uses: actions/cache@v2
         env:
-          cache-name: ttest-cache-nuxt-module-build
+          cache-name: tttest-cache-nuxt-module-build
         with:
           path: |
             packages/nuxt-module/dist
@@ -347,7 +349,7 @@ jobs:
       - name: Cache shopware-6-client build
         uses: actions/cache@v2
         env:
-          cache-name: ttest-cache-shopware-6-client-build
+          cache-name: tttest-cache-shopware-6-client-build
         with:
           path: |
             packages/shopware-6-client/dist
@@ -355,7 +357,7 @@ jobs:
       - name: Cache default-theme build
         uses: actions/cache@v2
         env:
-          cache-name: ttest-cache-default-theme-build
+          cache-name: tttest-cache-default-theme-build
         with:
           path: |
             packages/default-theme/dist
@@ -364,7 +366,7 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@v2
         env:
-          cache-name: tcache-node-modules-test
+          cache-name: ttcache-node-modules-test
         with:
           path: |
             node_modules
@@ -377,7 +379,7 @@ jobs:
       # - name: Cache test-project
       #   uses: actions/cache@v2
       #   env:
-      #     cache-name: ttest-cache-test-project
+      #     cache-name: tttest-cache-test-project
       #   with:
       #     path: |
       #       test-project
