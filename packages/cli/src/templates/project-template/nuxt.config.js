@@ -2,6 +2,8 @@ export default {
   telemetry: false,
   env: {
     CHOKIDAR_USEPOLLING: process.env.NODE_ENV == 'production' ? 0 : 1,
+    EXPERIMENTAL_IMAGE_PROCESSING_SERVER:
+      process.env.EXPERIMENTAL_IMAGE_PROCESSING_SERVER || '',
   },
   server: {
     port: process.env.PORT || 3000,
