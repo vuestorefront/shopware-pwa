@@ -17,7 +17,7 @@
       @click="changeCurrentCategory(null)"
     >
       <a
-        v-if="isLinkCategory(category)"
+        v-show="isLinkCategory(category)"
         class="sf-header__link"
         :href="getCategoryUrl(category)"
         target="_blank"
@@ -25,13 +25,13 @@
         {{ category.translated.name }}
       </a>
       <nuxt-link
-        v-else
+        v-show="!isLinkCategory(category)"
         class="sf-header__link"
         :to="$routing.getUrl(getCategoryUrl(category))"
         >{{ category.translated.name }}</nuxt-link
       >
       <SwMegaMenu
-        v-if="category.children && category.children.length"
+        v-show="category.children && category.children.length"
         :category="category"
         :visible="
           currentCategoryName &&
