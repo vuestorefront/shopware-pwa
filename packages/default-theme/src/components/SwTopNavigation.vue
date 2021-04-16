@@ -3,9 +3,9 @@
     ref="navigation"
     class="sw-top-navigation"
     data-cy="top-navigation"
-    v-show="visibleCategories.length"
+    v-if="visibleCategories.length"
   >
-    <!-- <SwPluginSlot name="sw-top-navigation-before" /> -->
+    <SwPluginSlot name="sw-top-navigation-before" />
     <div
       v-for="category in visibleCategories"
       :key="category.translated.name"
@@ -17,7 +17,7 @@
       @click="changeCurrentCategory(null)"
     >
       <a
-        v-show="isLinkCategory(category)"
+        v-if="isLinkCategory(category)"
         class="sf-header__link"
         :href="getCategoryUrl(category)"
         target="_blank"
@@ -25,13 +25,13 @@
         {{ category.translated.name }}
       </a>
       <nuxt-link
-        v-show="!isLinkCategory(category)"
+        v-else
         class="sf-header__link"
         :to="$routing.getUrl(getCategoryUrl(category))"
         >{{ category.translated.name }}</nuxt-link
       >
       <SwMegaMenu
-        v-show="category.children && category.children.length"
+        v-if="category.children && category.children.length"
         :category="category"
         :visible="
           currentCategoryName &&
@@ -42,7 +42,7 @@
     </div>
 
     <div
-      v-show="unvisibleCategories"
+      v-if="unvisibleCategories"
       class="sf-header-navigation-item sf-header__link"
       @mouseover="changeCurrentCategory('categories')"
       @mouseleave="changeCurrentCategory(null)"
