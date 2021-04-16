@@ -24,6 +24,7 @@ The v0.5.x of shopware-pwa is also available to play on at:
 
 ---
 
+
 <div class="flex-container">
 
 <div class="md-50">
@@ -53,7 +54,7 @@ Guides for functional concepts like CMS or Checkout
 
 ### [Operations](/landing/operations) <Badge text="new" type="info"/>
 
-Best practices, release notes, [migration guides](/landing/operations/migrations/), guidelines for setup, hosting and deployment
+Best practices, release notes, migration guides, guidelines for setup, hosting and deployment
 
 ### [Resources](/landing/resources/)
 

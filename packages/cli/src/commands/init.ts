@@ -126,6 +126,7 @@ module.exports = {
       await run(`yarn link ${localCoreDevPackages.join(" ")}`);
     }
 
+    await toolbox.updateNuxtConfigFile();
     await run("yarn --check-files");
     updateConfigSpinner.succeed();
 
