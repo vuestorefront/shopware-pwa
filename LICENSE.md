@@ -1,4 +1,4 @@
-The MIT License (MIT)
+The MIT License (MIT) TEST
 
 Copyright (c) 2018 GitHub, Inc. and contributors
 
