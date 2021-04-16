@@ -28,7 +28,7 @@ export default function getResizedImage(
     url += `&h=${height}`
   }
   if (quality) {
-    url += `&w=${quality}`
+    url += `&q=${quality}`
   }
 
   return url
