@@ -12,6 +12,4 @@ const ShopwarePWAModule: Module<{}> = async function (moduleOptions: {}) {
 };
 
 /* istanbul ignore next */
-export default ShopwarePWAModule;
-
-export { extendNuxtConfig } from "./config";
+module.exports = ShopwarePWAModule;

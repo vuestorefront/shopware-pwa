@@ -370,21 +370,21 @@ jobs:
             node_modules
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
-      # Step to speed up project init
-      # - name: Cache test-project
-      #   uses: actions/cache@v2
-      #   env:
-      #     cache-name: test-cache-test-project
-      #   with:
-      #     path: |
-      #       test-project
-      #       !test-project/.shopware-pwa
-      #       !test-project/.yalc
-      #       !test-project/.yalc.lock
-      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}--${{ needs.build-nuxt-module.outputs.package-hash }}
       - name: Link packages
         run: |
           yarn --frozen-lockfile
+      # Step to speed up project init
+      - name: Cache test-project
+        uses: actions/cache@v2
+        env:
+          cache-name: test-cache-test-project
+        with:
+          path: |
+            test-project
+            !test-project/.shopware-pwa
+            !test-project/.yalc
+            !test-project/.yalc.lock
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}
       - name: Create a project
         run: |
           mkdir -p test-project
@@ -394,11 +394,6 @@ jobs:
         run: |
           cd ./test-project
           yarn build
-          rsync -rv --exclude=node_modules ../packages/ ./node_modules/@shopware-pwa
-          ls -la ./node_modules/@shopware-pwa
-          ls -la ./node_modules/@shopware-pwa/nuxt-module
-          ls -la ./node_modules/@shopware-pwa/nuxt-module/dist
-          cat ./node_modules/@shopware-pwa/nuxt-module/dist/nuxt-module.cjs.js
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@2.19
         if: github.repository_owner	== 'vuestorefront'
@@ -463,4 +458,3 @@ jobs:
           description: Unfortunately, the instance hasn't been updated.
           state: "failure"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-

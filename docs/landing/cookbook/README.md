@@ -246,9 +246,7 @@ Let's try to install a [Google Tag Manager for Nuxt.js](https://www.npmjs.com/pa
 2. Add @nuxtjs/gtm to the _modules_ section of `nuxt.config.js`
 
 ```js
-import { extendNuxtConfig } from '@shopware-pwa/nuxt-module'
-
-export default extendNuxtConfig({
+export default {
   modules: [
     ...,
     "@nuxtjs/gtm"
@@ -259,7 +257,7 @@ export default extendNuxtConfig({
     debug: true, // for dev,
     pageTracking: true, // push route change event automatically
   },
-});
+};
 ```
 
 3. Now the GTM module is enabled and ready to use
