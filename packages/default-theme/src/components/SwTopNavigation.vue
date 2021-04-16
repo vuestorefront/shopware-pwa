@@ -42,7 +42,7 @@
     </div>
 
     <div
-      v-if="unvisibleCategories"
+      v-show="unvisibleCategories"
       class="sf-header-navigation-item sf-header__link"
       @mouseover="changeCurrentCategory('categories')"
       @mouseleave="changeCurrentCategory(null)"
@@ -56,7 +56,7 @@
         :visible="currentCategoryName && 'categories' === currentCategoryName"
       />
     </div>
-    <!-- <SwPluginSlot name="sw-top-navigation-after" /> -->
+    <SwPluginSlot name="sw-top-navigation-after" />
   </div>
 </template>
 
