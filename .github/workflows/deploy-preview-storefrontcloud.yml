@@ -1,7 +1,5 @@
 name: Deploy PR Preview on Storefrontcloud
 env:
-  CANARY_SW6_INSTANCE: https://pwa-demo-api.shopware.com/prev/
-  CANARY_SW6_INSTANCE_TOKEN: SWSC40-LJTNO6COUEN7CJMXKLA
   PWA_HOST: https://shopware-pwa-canary.storefrontcloud.io
   INSTANCE_CODE: shopware-pwa-canary
 on:
@@ -389,7 +387,7 @@ jobs:
         run: |
           mkdir -p test-project
           cd ./test-project
-          ../packages/cli/bin/shopware-pwa init --shopwareEndpoint=${{ env.CANARY_SW6_INSTANCE }} --shopwareAccessToken=${{ env.CANARY_SW6_INSTANCE_TOKEN }} --username=${{ secrets.SHOPWARE_ADMIN_USER }} --password=${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --pwaHost=${{ env.PWA_HOST }} --ci --devMode --stage local
+          ../packages/cli/bin/shopware-pwa init --username=${{ secrets.SHOPWARE_ADMIN_USER }} --password=${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --pwaHost=${{ env.PWA_HOST }} --ci --devMode --stage local
       - name: Build test project
         run: |
           cd ./test-project
