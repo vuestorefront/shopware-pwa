@@ -7,9 +7,10 @@ import {
 import { defaultInstance, _createInstance } from "../src/apiService";
 import { ConfigChangedArgs } from "../src";
 import { random } from "faker";
+import { defaultPwaConfigFile } from "@shopware-pwa/commons";
 const consoleWarnSpy = jest.spyOn(console, "warn");
 
-const DEFAULT_ENDPOINT = "https://pwa-demo-api.shopware.com/prev/";
+const DEFAULT_ENDPOINT = defaultPwaConfigFile.shopwareEndpoint;
 const DEFAULT_TIMEOUT = 10000;
 
 describe("Settings", () => {
