@@ -60,7 +60,7 @@ export default {
       root
     )
 
-    const selectedAddressId = ref(activeBillingAddress.value.id)
+    const selectedAddressId = ref(activeBillingAddress.value?.id)
     watch(selectedAddressId, (value) => {
       const selectedAddress = addresses.value.find(
         (address) => address.id === value
