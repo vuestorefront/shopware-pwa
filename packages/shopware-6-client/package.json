@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "lodash": "^4.17.21",
     "query-string": "^6.14.1"
   },
   "devDependencies": {
