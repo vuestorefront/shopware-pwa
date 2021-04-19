@@ -107,7 +107,6 @@ export default {
 .sw-form {
   &__action {
     width: 100%;
-    margin-top: var(--spacer-xl);
     display: table;
 
     button {

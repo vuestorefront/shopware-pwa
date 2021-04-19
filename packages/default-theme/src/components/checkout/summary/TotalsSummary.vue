@@ -103,8 +103,6 @@ export default {
     }
   }
   &__action {
-    padding: var(--spacer-base);
-    width: 90%;
     margin: var(--spacer-base) 0 0 0;
     display: table;
 
