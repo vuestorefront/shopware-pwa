@@ -41,7 +41,7 @@ export const INTERCEPTOR_KEYS = {
    * As a parameter passes:
    * - methodName - string - method where error occured
    * - inputParams - Object - input params of the method
-   * - warning - Object - error object with specific message, like {CartError} object
+   * - warning - Object - error object with specific message, like CartError object
    */
   WARNING: "warning",
   /**
@@ -50,7 +50,7 @@ export const INTERCEPTOR_KEYS = {
    * As a parameter passes:
    * - methodName - string - method where error occured
    * - inputParams - Object - input params of the method
-   * - notice - Object - error object with specific message, like {CartError} object
+   * - notice - Object - error object with specific message, like CartError object
    */
   NOTICE: "notice",
   /**

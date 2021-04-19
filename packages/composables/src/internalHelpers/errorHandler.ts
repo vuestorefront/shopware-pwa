@@ -3,19 +3,20 @@ import {
   ErrorLevel,
 } from "@shopware-pwa/commons/interfaces/models/common/EntityError";
 
-import { INTERCEPTOR_KEYS } from "@shopware-pwa/composables";
+import { INTERCEPTOR_KEYS, useIntercept } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
-import { useIntercept } from "../logic/useIntercept";
 
 /**
- *
  * @beta
  */
 export const broadcastErrors = (
   errors: EntityError[],
   methodName: string,
   rootContext: ApplicationVueContext
-): any => {
+): void => {
+  if (!Array.isArray(errors) || !errors.length || !methodName || !rootContext) {
+    return;
+  }
   const { broadcast } = useIntercept(rootContext);
 
   errors.forEach((error) => {

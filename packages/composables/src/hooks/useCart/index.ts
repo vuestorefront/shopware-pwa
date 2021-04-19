@@ -7,10 +7,9 @@ import {
   changeCartItemQuantity,
 } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import {
-  Cart,
-  EntityError,
-} from "@shopware-pwa/commons/interfaces/models/checkout/cart/Cart";
+import { Cart } from "@shopware-pwa/commons/interfaces/models/checkout/cart/Cart";
+import { EntityError } from "@shopware-pwa/commons/interfaces/models/common/EntityError";
+
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
 import {
@@ -84,6 +83,7 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     loading.value = true;
     try {
       const result = await getCart(apiInstance);
+      broadcastUpcomingErrors(result);
       _storeCart.value = result;
     } catch (e) {
       const err: ClientApiError = e;
@@ -101,25 +101,13 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     quantity?: number;
   }) {
     const addToCartResult = await addProductToCart(id, quantity, apiInstance);
-
-    // start-move the logic to external function
-    const cartErrorsKeys = Object.keys(_storeCart.value?.errors || {});
-    const addToCartErrorsKeys = Object.keys(addToCartResult?.errors || {});
-    const upcomingErrorsKeys = addToCartErrorsKeys.filter(
-      (addToCartKey) => !cartErrorsKeys.includes(addToCartKey)
-    );
-    const entityErrors: EntityError[] = Object.values(
-      addToCartResult.errors
-    ).filter((entityError) => upcomingErrorsKeys.includes(entityError.key));
-
-    broadcastErrors(entityErrors, `[${contextName}][addProduct]`, rootContext);
-    // end-move
-
+    broadcastUpcomingErrors(addToCartResult);
     _storeCart.value = addToCartResult;
   }
 
   async function removeItem({ id }: LineItem) {
     const result = await removeCartItem(id, apiInstance);
+    broadcastUpcomingErrors(result);
     _storeCart.value = result;
   }
 
@@ -135,17 +123,44 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
 
   async function changeProductQuantity({ id, quantity }: any) {
     const result = await changeCartItemQuantity(id, quantity, apiInstance);
+    broadcastUpcomingErrors(result);
     _storeCart.value = result;
   }
 
   async function submitPromotionCode(promotionCode: string) {
     if (promotionCode) {
       const result = await addPromotionCode(promotionCode, apiInstance);
+      ``;
       _storeCart.value = result;
       broadcast(INTERCEPTOR_KEYS.ADD_PROMOTION_CODE, {
         result,
         promotionCode,
       });
+    }
+  }
+
+  function broadcastUpcomingErrors(cartResult: Cart): void {
+    if (!cartResult) {
+      return;
+    }
+
+    try {
+      const cartErrorsKeys = Object.keys(_storeCart.value?.errors || {});
+      const cartResultErrorKeys = Object.keys(cartResult.errors || {});
+      const upcomingErrorsKeys = cartResultErrorKeys.filter(
+        (resultErrorKey) => !cartErrorsKeys.includes(resultErrorKey)
+      );
+      const entityErrors: EntityError[] = Object.values(
+        cartResult.errors || {}
+      ).filter((entityError) => upcomingErrorsKeys.includes(entityError.key));
+
+      broadcastErrors(
+        entityErrors,
+        `[${contextName}][addProduct]`,
+        rootContext
+      );
+    } catch (error) {
+      console.error("[useCart][broadcastUpcomingErrors]", error);
     }
   }
 
@@ -189,7 +204,7 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
   });
 
   const cartErrors: ComputedRef<EntityError[]> = computed(
-    () => (cart.value?.errors && Object.values(cart.value?.errors)) || []
+    () => (cart.value?.errors && Object.values(cart.value.errors)) || []
   );
 
   return {

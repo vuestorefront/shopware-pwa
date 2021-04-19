@@ -10,7 +10,6 @@ import { Association } from '@shopware-pwa/commons/interfaces/search/Association
 import { BillingAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress';
 import { Breadcrumb } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
-import { CartError } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { ComputedRef } from '@vue/composition-api';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
@@ -22,6 +21,7 @@ import { CustomerResetPasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
+import { EntityError } from '@shopware-pwa/commons/interfaces/models/common/EntityError';
 import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
@@ -185,6 +185,8 @@ export const INTERCEPTOR_KEYS: {
     ADD_TO_WISHLIST: string;
     ADD_PROMOTION_CODE: string;
     ERROR: string;
+    WARNING: string;
+    NOTICE: string;
     ORDER_PLACE: string;
     SESSION_SET_CURRENCY: string;
     SESSION_SET_PAYMENT_METHOD: string;
@@ -222,7 +224,7 @@ export interface IUseCart {
     // (undocumented)
     cart: ComputedRef<Cart | null>;
     // (undocumented)
-    cartErrors: ComputedRef<CartError[] | any[]>;
+    cartErrors: ComputedRef<EntityError[] | any[]>;
     // (undocumented)
     cartItems: ComputedRef<LineItem[]>;
     // (undocumented)
