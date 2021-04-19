@@ -1,6 +1,6 @@
 import { setupDomains } from "../src/domains";
-import { ShopwarePwaConfigFile } from "../src/interfaces";
 import jetpack from "fs-jetpack";
+import { ShopwarePwaConfigFile } from "@shopware-pwa/commons";
 
 jest.mock("fs-jetpack");
 const mockedJetpack = jetpack as jest.Mocked<typeof jetpack>;

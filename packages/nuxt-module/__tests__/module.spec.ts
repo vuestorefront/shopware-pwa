@@ -1,4 +1,4 @@
-import InterfacesDefault, { ShopwarePwaConfigFile } from "../src/interfaces";
+import InterfacesDefault from "../src/interfaces";
 import { runModule } from "../src/module";
 import path from "path";
 import * as utils from "../src/utils";
@@ -9,6 +9,7 @@ import * as theme from "../src/theme";
 import * as files from "../src/files";
 import chokidar from "chokidar";
 import fse from "fs-extra";
+import { ShopwarePwaConfigFile } from "@shopware-pwa/commons";
 jest.mock("../src/utils");
 jest.mock("../src/cms");
 jest.mock("../src/locales");

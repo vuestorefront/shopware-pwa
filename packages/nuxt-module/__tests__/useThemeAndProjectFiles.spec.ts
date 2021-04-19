@@ -9,7 +9,7 @@ import {
 } from "../src/theme";
 import path from "path";
 import fse from "fs-extra";
-import { ShopwarePwaConfigFile } from "../src/interfaces";
+import { ShopwarePwaConfigFile } from "@shopware-pwa/commons";
 
 jest.mock("fs-extra");
 const mockedFse = fse as jest.Mocked<typeof fse>;
