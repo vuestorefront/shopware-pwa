@@ -140,21 +140,7 @@ export function createListingComposable<ELEMENTS_TYPE>({
       // prepare full criteria using defaults and currently selected criteria
       const searchCriteria = merge({}, searchDefaults, criteria);
       const result = await searchMethod(searchCriteria);
-
-      // TODO: remove before v0.6.0 release (SW v6.4.x).
-      if (
-        searchCriteria.manufacturer?.length ||
-        searchCriteria.properties?.length
-      ) {
-        const allFiltersResult = await searchMethod({
-          query: searchCriteria.query,
-        });
-        _storeAppliedListing.value = Object.assign({}, result, {
-          aggregations: allFiltersResult?.aggregations,
-        });
-      } else {
-        _storeAppliedListing.value = result;
-      }
+      _storeAppliedListing.value = result;
     } catch (e) {
       throw e;
     } finally {
