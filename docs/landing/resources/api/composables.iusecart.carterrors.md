@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-cartErrors: ComputedRef<EntityError[] | any[]>;
+cartErrors: ComputedRef<EntityError[]>;
 ```

@@ -224,7 +224,7 @@ export interface IUseCart {
     // (undocumented)
     cart: ComputedRef<Cart | null>;
     // (undocumented)
-    cartErrors: ComputedRef<EntityError[] | any[]>;
+    cartErrors: ComputedRef<EntityError[]>;
     // (undocumented)
     cartItems: ComputedRef<LineItem[]>;
     // (undocumented)

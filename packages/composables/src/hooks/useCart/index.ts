@@ -58,7 +58,7 @@ export interface IUseCart {
   totalPrice: ComputedRef<number>;
   shippingTotal: ComputedRef<number>;
   subtotal: ComputedRef<number>;
-  cartErrors: ComputedRef<EntityError[] | any[]>;
+  cartErrors: ComputedRef<EntityError[]>;
 }
 
 /**
@@ -154,11 +154,7 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
         cartResult.errors || {}
       ).filter((entityError) => upcomingErrorsKeys.includes(entityError.key));
 
-      broadcastErrors(
-        entityErrors,
-        `[${contextName}][addProduct]`,
-        rootContext
-      );
+      broadcastErrors(entityErrors, `[${contextName}][cartError]`, rootContext);
     } catch (error) {
       console.error("[useCart][broadcastUpcomingErrors]", error);
     }
