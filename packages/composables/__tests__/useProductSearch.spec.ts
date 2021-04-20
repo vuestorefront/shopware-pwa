@@ -99,30 +99,6 @@ describe("Composables - useProductSearch", () => {
     });
   });
   describe("search", () => {
-    it("should make a second call for full collection of aggregations if it's not a basic search", async () => {
-      mockedApi.getSearchResults.mockResolvedValue({
-        currentFilters: {
-          manufacturer: ["divante"],
-        },
-        aggregations: {
-          manufacturer: {
-            entities: [
-              {
-                translated: {
-                  name: "DivanteLtd",
-                },
-                id: "123456",
-              },
-            ],
-          },
-        },
-      } as any);
-
-      const { search } = useProductSearch(rootContextMock);
-      await search("some string");
-      expect(mockedApi.getSearchResults).toBeCalledTimes(2);
-    });
-
     it("should set available filters if it's a base search with aggregations for whole collection", async () => {
       mockedApi.getSearchResults.mockResolvedValueOnce({
         page: 4,

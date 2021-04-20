@@ -64,7 +64,6 @@ export interface UseProductSearch {
     forceSave: boolean
   ) => void;
   resetFilters: () => void;
-  // isBaseSearch: () => boolean;
 }
 
 /**
@@ -102,10 +101,7 @@ export const useProductSearch = (
     pagination: {},
     sort: {},
   });
-  /* istanbul ignore next */
-  const isBaseSearch = () =>
-    !searchResult.value?.currentFilters?.manufacturer?.length &&
-    !searchResult.value?.currentFilters?.properties?.length;
+
   const aggregations: Readonly<Ref<Aggregations | null>> = computed(
     () => searchResult.value && searchResult.value.aggregations
   );
@@ -193,18 +189,7 @@ export const useProductSearch = (
       searchResult.value = null;
       const result = await getSearchResults(term, searchCriteria, apiInstance);
       searchResult.value = result;
-      // set the base aggregations as default for the listing on first call
-      if (isBaseSearch()) {
-        availableFilters.value = getListingAvailableFilters(aggregations.value);
-      } else {
-        // make the second call for entire collection of available filters
-        const result = await getSearchResults(term, {
-          pagination: { limit: 1 },
-        });
-        availableFilters.value = getListingAvailableFilters(
-          result.aggregations
-        );
-      }
+      availableFilters.value = getListingAvailableFilters(aggregations.value);
     } catch (e) {
       throw e;
     } finally {

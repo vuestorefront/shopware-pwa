@@ -23,6 +23,7 @@ export interface IUseCart
 |  [addPromotionCode](./composables.iusecart.addpromotioncode.md) | (promotionCode: string) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [appliedPromotionCodes](./composables.iusecart.appliedpromotioncodes.md) | ComputedRef&lt;LineItem\[\]&gt; | <b><i>(BETA)</i></b> |
 |  [cart](./composables.iusecart.cart.md) | ComputedRef&lt;Cart \| null&gt; | <b><i>(BETA)</i></b> |
+|  [cartErrors](./composables.iusecart.carterrors.md) | ComputedRef&lt;EntityError\[\]&gt; | <b><i>(BETA)</i></b> |
 |  [cartItems](./composables.iusecart.cartitems.md) | ComputedRef&lt;LineItem\[\]&gt; | <b><i>(BETA)</i></b> |
 |  [changeProductQuantity](./composables.iusecart.changeproductquantity.md) | ({ id, quantity, }: { id: string; quantity: number; }) =&gt; void | <b><i>(BETA)</i></b> |
 |  [count](./composables.iusecart.count.md) | ComputedRef&lt;number&gt; | <b><i>(BETA)</i></b> |

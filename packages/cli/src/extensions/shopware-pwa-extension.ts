@@ -1,21 +1,18 @@
 import { GluegunToolbox } from "gluegun";
 import axios from "axios";
 import { minor } from "semver";
+import {
+  defaultPwaConfigFile,
+  ShopwarePwaConfigFile,
+} from "@shopware-pwa/commons";
+
 /**
  * read keys for contribution purposes - it's being used during the project initialization
  */
 const INSTANCE_READ_API_KEY = "SWIACLLVSWNJQZKYRUDJYJHIWA";
 const INSTANCE_READ_API_SECRET =
   "S0FMSjU4R3VFZ1Bkdjc1RGlhcE52MkNZbU1LVkhENHRFU1NxNjE";
-const defaultConfig = {
-  shopwareEndpoint: "https://pwa-demo-api.shopware.com/prev",
-  shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
-  theme: "@shopware-pwa/default-theme",
-  pwaHost: "https://pwa-demo-api.shopware.com/prev",
-  shopwareApiClient: {
-    timeout: 10000,
-  },
-};
+
 // add your CLI-specific functionality here, which will then be accessible
 // to your commands
 module.exports = (toolbox: GluegunToolbox) => {
@@ -53,11 +50,9 @@ module.exports = (toolbox: GluegunToolbox) => {
     versions.push("local");
     return versions;
   };
-  toolbox.foo = () => {
-    toolbox.print.info("called foo extension");
-  };
+
   toolbox.defaultInitConfig = {
-    ...defaultConfig,
+    ...defaultPwaConfigFile,
     INSTANCE_READ_API_KEY,
     INSTANCE_READ_API_SECRET,
   };
@@ -109,7 +104,7 @@ module.exports = (toolbox: GluegunToolbox) => {
   toolbox.config = {
     ...toolbox.config,
     // load default config
-    ...defaultConfig,
+    ...defaultPwaConfigFile,
     // load config file from generated project
     ...toolbox.config.loadConfig("shopware-pwa", process.cwd()),
   };
@@ -142,6 +137,24 @@ module.exports = (toolbox: GluegunToolbox) => {
     devMode: toolbox.parameters.options.devMode,
     ci: toolbox.parameters.options.ci,
     stage: toolbox.parameters.options.stage,
+  };
+
+  toolbox.reloadInputParameters = function ({
+    shopwareEndpoint,
+    shopwareAccessToken,
+  }: Partial<ShopwarePwaConfigFile> = {}) {
+    toolbox.inputParameters.shopwareEndpoint =
+      toolbox.parameters.options.shopwareEndpoint ||
+      shopwareEndpoint ||
+      toolbox.config.shopwareEndpoint;
+    toolbox.inputParameters.shopwareAccessToken =
+      toolbox.parameters.options.shopwareAccessToken ||
+      shopwareAccessToken ||
+      toolbox.config.shopwareAccessToken;
+    toolbox.inputParameters.pwaHost =
+      toolbox.parameters.options.pwaHost ||
+      shopwareEndpoint ||
+      toolbox.config.pwaHost;
   };
 
   /**
