@@ -1,3 +1,43 @@
+# [0.8.0](https://github.com/DivanteLtd/shopware-pwa/compare/v0.7.2...v0.8.0) (2021-04-20)
+
+
+### Bug Fixes
+
+* **cli:** normalize baseURL ([#1417](https://github.com/DivanteLtd/shopware-pwa/issues/1417)) ([558de39](https://github.com/DivanteLtd/shopware-pwa/commit/558de3912f8e688bea33462fc30f1483c3d00b60))
+* **cli:** theme creation gitignore file ([#1410](https://github.com/DivanteLtd/shopware-pwa/issues/1410)) ([7619707](https://github.com/DivanteLtd/shopware-pwa/commit/7619707d3972b5f541973082bdc9f2ed0d530228))
+* **default-theme:** add missing component import ([#1418](https://github.com/DivanteLtd/shopware-pwa/issues/1418)) ([947a0db](https://github.com/DivanteLtd/shopware-pwa/commit/947a0dba774487e04423c96412407866f5ea4e68))
+* **default-theme:** coupon code submission no longer results in error ([#1345](https://github.com/DivanteLtd/shopware-pwa/issues/1345)) ([780759d](https://github.com/DivanteLtd/shopware-pwa/commit/780759d0aa560ccc2fefd84e40eaee974c54515e))
+* **default-theme:** duplicated email field id on checkout ([#1401](https://github.com/DivanteLtd/shopware-pwa/issues/1401)) ([f9f112b](https://github.com/DivanteLtd/shopware-pwa/commit/f9f112ba49fdddb231463386a9c884143ad4751d))
+* update demo api addresses ([#1409](https://github.com/DivanteLtd/shopware-pwa/issues/1409)) ([2211496](https://github.com/DivanteLtd/shopware-pwa/commit/22114961a2d6cdeb6f569f548dcca0fcd1cfde3a))
+* **default-theme:** missing customer address right after user registration ([#1365](https://github.com/DivanteLtd/shopware-pwa/issues/1365)) ([4ec6ecf](https://github.com/DivanteLtd/shopware-pwa/commit/4ec6ecf3c4f9f31f58adf4d15ac61d3de170b9d2))
+* **default-theme:** missing navigation items and its urls ([#1383](https://github.com/DivanteLtd/shopware-pwa/issues/1383)) ([2344b75](https://github.com/DivanteLtd/shopware-pwa/commit/2344b755e4b620774efc438cc20252dbc672afe1))
+* **default-theme:** reload footer on domain change ([#1359](https://github.com/DivanteLtd/shopware-pwa/issues/1359)) ([999dc85](https://github.com/DivanteLtd/shopware-pwa/commit/999dc856a54fbc7634e83d4c0d5e770f12c35df8))
+* **default-theme:** remove unneeded parameter ([#1397](https://github.com/DivanteLtd/shopware-pwa/issues/1397)) ([fd66977](https://github.com/DivanteLtd/shopware-pwa/commit/fd6697790d74dd11181e61f320b6068c66a3a83f)), closes [#1385](https://github.com/DivanteLtd/shopware-pwa/issues/1385)
+* **default-theme:** removed typo on file start ([1ee1d50](https://github.com/DivanteLtd/shopware-pwa/commit/1ee1d506045d089e7e13430e0c2dadcadccccfc1))
+* **docs:** typo in 0.6.x_to_0.7.x.md ([65920e1](https://github.com/DivanteLtd/shopware-pwa/commit/65920e1f1c964ec09f4b24cf279776bf8eae51bf))
+
+
+### Features
+
+* **composables:** provide useProductAssociations for getting associations ([#1392](https://github.com/DivanteLtd/shopware-pwa/issues/1392)) ([54f705d](https://github.com/DivanteLtd/shopware-pwa/commit/54f705d9eb5efa01aadfaf113f8300280ec5b7ad))
+* add tests for critical path ([#1396](https://github.com/DivanteLtd/shopware-pwa/issues/1396)) ([39f1662](https://github.com/DivanteLtd/shopware-pwa/commit/39f166250062224fd982ce8a6632836360a15a14))
+* cart errors handling ([#1422](https://github.com/DivanteLtd/shopware-pwa/issues/1422)) ([90dc4c0](https://github.com/DivanteLtd/shopware-pwa/commit/90dc4c001ff6ac73c97e28811f7f909743c3af71))
+* **composables:** add onlyAvailable parameter ([#1378](https://github.com/DivanteLtd/shopware-pwa/issues/1378)) ([f0b8016](https://github.com/DivanteLtd/shopware-pwa/commit/f0b80163f508a6230f161287594694e4ae076c97))
+* **composables:** breadcrumbs handling using useBreadcrumbs ([#1380](https://github.com/DivanteLtd/shopware-pwa/issues/1380)) ([2686602](https://github.com/DivanteLtd/shopware-pwa/commit/2686602ee57b104090e423cd88a03b4fb441da57))
+* **default-theme:** add missing 'Add address' translation ([#1394](https://github.com/DivanteLtd/shopware-pwa/issues/1394)) ([a46be48](https://github.com/DivanteLtd/shopware-pwa/commit/a46be489e6749c88d71adce4c723325ae55a42ce))
+* **default-theme:** adjust buttons in checkout ([#1382](https://github.com/DivanteLtd/shopware-pwa/issues/1382)) ([3e21170](https://github.com/DivanteLtd/shopware-pwa/commit/3e211708d0e92039d18e17329028d86f9a80fcff))
+* **default-theme:** create an account page ([#1377](https://github.com/DivanteLtd/shopware-pwa/issues/1377)) ([ca00f17](https://github.com/DivanteLtd/shopware-pwa/commit/ca00f173756b92efb4835835e479d5aded810701))
+* **default-theme:** slugify filter type filename ([#1387](https://github.com/DivanteLtd/shopware-pwa/issues/1387)) ([d6dcf32](https://github.com/DivanteLtd/shopware-pwa/commit/d6dcf32129abfb7bd730efcad2c27d8d6c075b04))
+* **default-theme:** translate sorting options in product listing ([#1381](https://github.com/DivanteLtd/shopware-pwa/issues/1381)) ([7cb5338](https://github.com/DivanteLtd/shopware-pwa/commit/7cb53384495b20b397ddbf1e5727e863d4c1f686))
+
+
+### Reverts
+
+* Revert "feat(nuxt-module)!:  extend nuxt config (#1428)" (#1431) ([52ea463](https://github.com/DivanteLtd/shopware-pwa/commit/52ea463787dfccbb7ddb9a9466ee9dde898adaee)), closes [#1428](https://github.com/DivanteLtd/shopware-pwa/issues/1428) [#1431](https://github.com/DivanteLtd/shopware-pwa/issues/1431)
+* Revert "chore: update dependencies (#1413)" (#1420) ([46ee7f9](https://github.com/DivanteLtd/shopware-pwa/commit/46ee7f9a3cf157bde57abb8a9678f63171e51e69)), closes [#1413](https://github.com/DivanteLtd/shopware-pwa/issues/1413) [#1420](https://github.com/DivanteLtd/shopware-pwa/issues/1420)
+
+
+
 ## [0.7.2](https://github.com/DivanteLtd/shopware-pwa/compare/v0.7.1...v0.7.2) (2021-03-15)
 
 ### Bug Fixes
