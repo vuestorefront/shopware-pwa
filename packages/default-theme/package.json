@@ -35,7 +35,7 @@
     "vuelidate": "^0.7.6"
   },
   "devDependencies": {
-    "@shopware-pwa/cli": "0.7.2",
+    "@shopware-pwa/cli": "0.8.0",
     "@babel/runtime-corejs3": "^7.13.10",
     "@nuxtjs/eslint-config": "^5.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
