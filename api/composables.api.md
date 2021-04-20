@@ -22,6 +22,7 @@ import { CustomerResetPasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
+import { EntityError } from '@shopware-pwa/commons/interfaces/models/common/EntityError';
 import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
@@ -185,6 +186,8 @@ export const INTERCEPTOR_KEYS: {
     ADD_TO_WISHLIST: string;
     ADD_PROMOTION_CODE: string;
     ERROR: string;
+    WARNING: string;
+    NOTICE: string;
     ORDER_PLACE: string;
     SESSION_SET_CURRENCY: string;
     SESSION_SET_PAYMENT_METHOD: string;
@@ -221,6 +224,8 @@ export interface IUseCart {
     appliedPromotionCodes: ComputedRef<LineItem[]>;
     // (undocumented)
     cart: ComputedRef<Cart | null>;
+    // (undocumented)
+    cartErrors: ComputedRef<EntityError[]>;
     // (undocumented)
     cartItems: ComputedRef<LineItem[]>;
     // (undocumented)
