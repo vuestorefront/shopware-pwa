@@ -289,6 +289,7 @@ jobs:
       - name: Build default-theme
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
+          yarn
           yarn build default-theme --ci
 
   create-test-project:
