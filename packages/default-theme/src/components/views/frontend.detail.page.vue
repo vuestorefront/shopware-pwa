@@ -106,7 +106,7 @@ export default {
     const product = computed(() => page.product)
 
     const {
-      fetch: fetchCrossSells,
+      fetchAssociations: fetchCrossSells,
       getAssociations: crossSellCollection,
     } = useProductAssociation(root, product.value, "cross-selling")
     onMounted(() =>

@@ -19,7 +19,7 @@ export interface IUseProductAssociation
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [fetch](./composables.iuseproductassociation.fetch.md) | (params: { params: unknown; method: "post" \| "get"; }) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> Start fetching resources |
+|  [fetchAssociations](./composables.iuseproductassociation.fetchassociations.md) | (params: { params: unknown; method: "post" \| "get"; }) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> Start fetching resources |
 |  [getAssociations](./composables.iuseproductassociation.getassociations.md) | ComputedRef&lt;CrossSelling\[\] \| \[\]&gt; | <b><i>(BETA)</i></b> |
 |  [isLoading](./composables.iuseproductassociation.isloading.md) | Ref&lt;boolean&gt; | <b><i>(BETA)</i></b> If it's fetching - indicator |
 

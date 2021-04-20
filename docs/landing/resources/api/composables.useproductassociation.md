@@ -32,9 +32,9 @@ export declare function useProductAssociation(rootContext: ApplicationVueContext
 Example of possibilities:
 
 ```ts
-const { loading, fetch, getAssociations } = useProductAssociation(root, product, "cross-selling")
+const { loading, fetchAssociations, getAssociations } = useProductAssociation(root, product, "cross-selling")
 if (!getAssociations.value) {
-   await fetch()
+   await fetchAssociations()
 }
 
 ```

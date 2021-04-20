@@ -19,7 +19,10 @@ export interface IUseProductAssociation {
   /**
    * Start fetching resources
    */
-  fetch: (params: { params: unknown; method: "post" | "get" }) => Promise<void>;
+  fetchAssociations: (params: {
+    params: unknown;
+    method: "post" | "get";
+  }) => Promise<void>;
   /**
    * If it's fetching - indicator
    */
@@ -35,9 +38,9 @@ export interface IUseProductAssociation {
  * Example of possibilities:
  *
  * ```ts
- * const { loading, fetch, getAssociations } = useProductAssociation(root, product, "cross-selling")
+ * const { loading, fetchAssociations, getAssociations } = useProductAssociation(root, product, "cross-selling")
  * if (!getAssociations.value) {
- *    await fetch()
+ *    await fetchAssociations()
  * }
  * ```
  * @beta
@@ -57,7 +60,10 @@ export function useProductAssociation(
     params?: unknown;
     method?: "post" | "get";
   }
-  const fetch = async ({ method, params }: FetchAssociationsParams = {}) => {
+  const fetchAssociations = async ({
+    method,
+    params,
+  }: FetchAssociationsParams = {}) => {
     isLoading.value = true;
     try {
       if (method && method === "get") {
@@ -84,7 +90,10 @@ export function useProductAssociation(
 
       associations.value = response?.data;
     } catch (error) {
-      console.error("[useProductAssociation][fetch][error]:", error);
+      console.error(
+        "[useProductAssociation][fetchAssociations][error]:",
+        error
+      );
     } finally {
       isLoading.value = false;
     }
@@ -93,6 +102,6 @@ export function useProductAssociation(
   return {
     isLoading,
     getAssociations: computed(() => associations.value || []),
-    fetch,
+    fetchAssociations,
   };
 }

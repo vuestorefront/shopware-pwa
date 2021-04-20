@@ -50,19 +50,19 @@ describe("Composables - useProductAssociation", () => {
     });
   });
   describe("methods", () => {
-    describe("fetch", () => {
+    describe("fetchAssociations", () => {
       it("should catch the error on apiClient rejection", async () => {
         mockedAxios.invokePost.mockRejectedValueOnce(
           new Error("An error occured")
         );
-        const { fetch } = useProductAssociation(
+        const { fetchAssociations } = useProductAssociation(
           rootContextMock,
           { id: "product-id" } as any,
           "cross-selling"
         );
-        await fetch(undefined as any);
+        await fetchAssociations(undefined as any);
         expect(consoleErrorSpy).toBeCalledWith(
-          `[useProductAssociation][fetch][error]:`,
+          `[useProductAssociation][fetchAssociations][error]:`,
           expect.any(Error)
         );
       });
@@ -72,12 +72,12 @@ describe("Composables - useProductAssociation", () => {
             associatedProducts: [],
           },
         });
-        const { fetch, getAssociations } = useProductAssociation(
+        const { fetchAssociations, getAssociations } = useProductAssociation(
           rootContextMock,
           { id: "product-id" } as any,
           "cross-selling"
         );
-        await fetch(undefined as any);
+        await fetchAssociations(undefined as any);
         expect(mockedAxios.invokePost).toBeCalledWith(
           {
             address: "/product/v4/product-id/cross-selling",
@@ -94,31 +94,31 @@ describe("Composables - useProductAssociation", () => {
       });
       it("should not set incoming associations if response does not match for POST", async () => {
         mockedAxios.invokePost.mockResolvedValueOnce(undefined);
-        const { fetch, getAssociations } = useProductAssociation(
+        const { fetchAssociations, getAssociations } = useProductAssociation(
           rootContextMock,
           { id: "product-id" } as any,
           "cross-selling"
         );
-        await fetch(undefined as any);
+        await fetchAssociations(undefined as any);
         expect(getAssociations.value).toStrictEqual([]);
       });
       it("should set incoming associations if response matches for GET", async () => {
         mockedAxios.invokeGet.mockResolvedValueOnce({ data: 12345 });
-        const { fetch, getAssociations } = useProductAssociation(
+        const { fetchAssociations, getAssociations } = useProductAssociation(
           rootContextMock,
           { id: "product-id" } as any,
           "cross-selling"
         );
-        await fetch({ method: "get" } as any);
+        await fetchAssociations({ method: "get" } as any);
         expect(getAssociations.value).toStrictEqual(12345);
       });
       it("should invoke GET request  for given association within a product endpoint", async () => {
-        const { fetch } = useProductAssociation(
+        const { fetchAssociations } = useProductAssociation(
           rootContextMock,
           { id: "product-id" } as any,
           "cross-selling"
         );
-        await fetch({ method: "get" } as any);
+        await fetchAssociations({ method: "get" } as any);
         expect(mockedAxios.invokeGet).toBeCalledWith(
           {
             address: "/product/v4/product-id/cross-selling",
@@ -132,12 +132,15 @@ describe("Composables - useProductAssociation", () => {
         );
       });
       it("should invoke GET request for given association within a product endpoint - including params", async () => {
-        const { fetch } = useProductAssociation(
+        const { fetchAssociations } = useProductAssociation(
           rootContextMock,
           { id: "product-id" } as any,
           "cross-selling"
         );
-        await fetch({ method: "get", params: "?someParam=true" } as any);
+        await fetchAssociations({
+          method: "get",
+          params: "?someParam=true",
+        } as any);
         expect(mockedAxios.invokeGet).toBeCalledWith(
           {
             address: "/product/v4/product-id/cross-selling?someParam=true",

@@ -346,7 +346,7 @@ export interface IUseNavigation {
 
 // @beta
 export interface IUseProductAssociation {
-    fetch: (params: {
+    fetchAssociations: (params: {
         params: unknown;
         method: "post" | "get";
     }) => Promise<void>;
