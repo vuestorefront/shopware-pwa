@@ -21,7 +21,6 @@
     "@nuxt/typescript-runtime": "^2.1.0",
     "@nuxt/utils": "^2.15.3",
     "@shopware-pwa/cli": "0.8.0",
-    "@shopware-pwa/commons": "0.8.0",
     "@shopware-pwa/composables": "0.8.0",
     "@shopware-pwa/default-theme": "0.8.0",
     "@shopware-pwa/helpers": "0.8.0",
