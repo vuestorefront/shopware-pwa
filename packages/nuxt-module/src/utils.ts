@@ -1,6 +1,10 @@
 import jetpack from "fs-jetpack";
-import { NuxtModuleOptions, ShopwarePwaConfigFile } from "./interfaces";
+import { NuxtModuleOptions } from "./interfaces";
 import { cosmiconfig } from "cosmiconfig";
+import {
+  getDefaultConfigFile,
+  ShopwarePwaConfigFile,
+} from "@shopware-pwa/commons";
 
 // TODO: find a nuxt trigger which do the same
 export function invokeRebuild(moduleObject: NuxtModuleOptions) {
@@ -11,20 +15,11 @@ export function invokeRebuild(moduleObject: NuxtModuleOptions) {
   );
 }
 
-// TODO move to commons with shopware-pwa-extension.ts
-const defaultConfig: ShopwarePwaConfigFile = {
-  shopwareEndpoint: "https://pwa-demo-api.shopware.com",
-  shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
-  theme: "@shopware-pwa/default-theme",
-  shopwareApiClient: {
-    timeout: 10000,
-  },
-};
-
 export async function loadConfig(
   moduleObject: NuxtModuleOptions
 ): Promise<ShopwarePwaConfigFile> {
   const explorer = cosmiconfig("shopware-pwa");
+  const defaultConfig = await getDefaultConfigFile();
   const result = await explorer.search();
   const loadedConfig = result?.config || {};
   return {

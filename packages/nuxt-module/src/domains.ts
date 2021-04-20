@@ -1,11 +1,8 @@
 import path from "path";
-import {
-  NuxtModuleOptions,
-  ShopwarePwaConfigFile,
-  DomainConfig,
-} from "./interfaces";
+import { NuxtModuleOptions, DomainConfig } from "./interfaces";
 import { NuxtRouteConfig } from "@nuxt/types/config/router";
 import jetpack from "fs-jetpack";
+import { ShopwarePwaConfigFile } from "@shopware-pwa/commons";
 
 export async function setupDomains(
   moduleObject: NuxtModuleOptions,

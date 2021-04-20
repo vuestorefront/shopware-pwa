@@ -1,7 +1,7 @@
 import { extendCMS } from "../src/cms";
 import jetpack from "fs-jetpack";
 import path from "path";
-import { ShopwarePwaConfigFile } from "../src/interfaces";
+import { ShopwarePwaConfigFile } from "@shopware-pwa/commons";
 
 jest.mock("fs-jetpack");
 const mockedJetpack = jetpack as jest.Mocked<typeof jetpack>;
