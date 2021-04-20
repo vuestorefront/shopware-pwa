@@ -2,6 +2,7 @@ import { getCustomerResetPasswordEndpoint } from "../../../src/endpoints";
 import { defaultInstance } from "../../../src/apiService";
 import { internet } from "faker";
 import { resetPassword, config } from "@shopware-pwa/shopware-6-client";
+import { defaultPwaConfigFile } from "@shopware-pwa/commons";
 
 const DEFAULT_ENDPOINT = "https://shopware-2.vuestorefront.io";
 const email = internet.email("John", "Doe");
@@ -74,7 +75,7 @@ describe("CustomerService - resetPassword", () => {
       "/store-api/v3/account/recovery-password",
       {
         email: credentials.email,
-        storefrontUrl: "https://pwa-demo-api.shopware.com/prev/",
+        storefrontUrl: defaultPwaConfigFile.shopwareEndpoint,
       }
     );
   });

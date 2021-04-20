@@ -127,7 +127,6 @@ export default {
       if (!cartItems.value.length || newItems.length <= oldItems.length) {
         return
       }
-      apiInstance.defaults.headers["sw-include-seo-urls"] = true
       try {
         const result = await getProducts(
           {

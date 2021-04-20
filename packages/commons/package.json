@@ -8,5 +8,8 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.21"
   }
 }

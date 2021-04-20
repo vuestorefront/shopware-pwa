@@ -1,6 +1,7 @@
 import path from "path";
-import { NuxtModuleOptions, ShopwarePwaConfigFile } from "./interfaces";
+import { NuxtModuleOptions } from "./interfaces";
 import jetpack from "fs-jetpack";
+import { ShopwarePwaConfigFile } from "@shopware-pwa/commons";
 
 export function extendLocales(
   moduleObject: NuxtModuleOptions,

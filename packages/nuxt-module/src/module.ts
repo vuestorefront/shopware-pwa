@@ -1,9 +1,4 @@
-import {
-  NuxtModuleOptions,
-  WebpackConfig,
-  WebpackContext,
-  ShopwarePwaConfigFile,
-} from "./interfaces";
+import { NuxtModuleOptions, WebpackConfig, WebpackContext } from "./interfaces";
 import path from "path";
 import { loadConfig } from "./utils";
 import { extendCMS } from "./cms";
@@ -24,6 +19,7 @@ import chokidar from "chokidar";
 import { getDefaultApiParams } from "@shopware-pwa/composables";
 import merge from "lodash/merge";
 import fse from "fs-extra";
+import { ShopwarePwaConfigFile } from "@shopware-pwa/commons";
 
 export async function runModule(
   moduleObject: NuxtModuleOptions,
