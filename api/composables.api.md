@@ -13,6 +13,7 @@ import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { ComputedRef } from '@vue/composition-api';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
+import { CrossSelling } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
@@ -344,6 +345,17 @@ export interface IUseNavigation {
 }
 
 // @beta
+export interface IUseProductAssociation {
+    fetch: (params: {
+        params: unknown;
+        method: "post" | "get";
+    }) => Promise<void>;
+    // (undocumented)
+    getAssociations: ComputedRef<CrossSelling[] | []>;
+    isLoading: Ref<boolean>;
+}
+
+// @beta
 export interface IUseProductConfigurator {
     // (undocumented)
     findVariantForSelectedOptions: (options?: {
@@ -639,6 +651,9 @@ export interface UseProduct<PRODUCT, SEARCH> {
 
 // @beta (undocumented)
 export const useProduct: (rootContext: ApplicationVueContext, loadedProduct?: any) => UseProduct<Product, Search>;
+
+// @beta
+export function useProductAssociation(rootContext: ApplicationVueContext, product: Product, association: "cross-selling" | "reviews"): IUseProductAssociation;
 
 // @beta
 export const useProductConfigurator: (rootContext: ApplicationVueContext, product: Product) => IUseProductConfigurator;
