@@ -3,18 +3,12 @@ import {
   Product,
   CrossSelling,
 } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-// import {
-//   useCart,
-//   INTERCEPTOR_KEYS,
-//   useIntercept,
-//   IInterceptorCallbackFunction,
-// } from "@shopware-pwa/composables";
+
 import {
   invokeGet,
   invokePost,
   getProductDetailsEndpoint,
 } from "@shopware-pwa/shopware-6-client";
-// import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
 /**
@@ -59,25 +53,19 @@ export function useProductAssociation(
   );
   const isLoading = ref(false);
   const associations = ref([]);
-  const fetch = async ({
-    params,
-    method,
-  }: {
+  interface FetchAssociationsParams {
     params?: unknown;
     method?: "post" | "get";
-  } = {}) => {
+  }
+  const fetch = async ({ method, params }: FetchAssociationsParams = {}) => {
     isLoading.value = true;
     try {
-      if (apiInstance) {
-        apiInstance.defaults.headers["sw-include-seo-urls"] = true;
-      }
-
       if (method && method === "get") {
         const response = await invokeGet(
           {
-            address: `${getProductDetailsEndpoint(
-              product.id
-            )}/${association}${params}`,
+            address: `${getProductDetailsEndpoint(product.id)}/${association}${
+              params ? params : ""
+            }`,
           },
           apiInstance
         );
@@ -96,7 +84,7 @@ export function useProductAssociation(
 
       associations.value = response?.data;
     } catch (error) {
-      console.warn("[useProductAssociation][fetch][error]:", error);
+      console.error("[useProductAssociation][fetch][error]:", error);
     } finally {
       isLoading.value = false;
     }
