@@ -19,7 +19,6 @@ export interface ClientSettings
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [accessToken?](./shopware-6-client.clientsettings.accesstoken.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> id specific for each sales channel |
-|  [auth?](./shopware-6-client.clientsettings.auth.md) | { username: string; password: string; } | <b><i>(BETA)</i></b> <i>(Optional)</i> credentials for HTTP basic auth |
 |  [contextToken?](./shopware-6-client.clientsettings.contexttoken.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> session id (dynamic) |
 |  [defaultPaginationLimit?](./shopware-6-client.clientsettings.defaultpaginationlimit.md) | number | <b><i>(BETA)</i></b> <i>(Optional)</i> default amount of products shown on listings |
 |  [endpoint?](./shopware-6-client.clientsettings.endpoint.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> shopware URL |

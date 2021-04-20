@@ -13,6 +13,7 @@ import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { ComputedRef } from '@vue/composition-api';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
+import { CrossSelling } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
@@ -21,6 +22,7 @@ import { CustomerResetPasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
+import { EntityError } from '@shopware-pwa/commons/interfaces/models/common/EntityError';
 import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
@@ -184,6 +186,8 @@ export const INTERCEPTOR_KEYS: {
     ADD_TO_WISHLIST: string;
     ADD_PROMOTION_CODE: string;
     ERROR: string;
+    WARNING: string;
+    NOTICE: string;
     ORDER_PLACE: string;
     SESSION_SET_CURRENCY: string;
     SESSION_SET_PAYMENT_METHOD: string;
@@ -220,6 +224,8 @@ export interface IUseCart {
     appliedPromotionCodes: ComputedRef<LineItem[]>;
     // (undocumented)
     cart: ComputedRef<Cart | null>;
+    // (undocumented)
+    cartErrors: ComputedRef<EntityError[]>;
     // (undocumented)
     cartItems: ComputedRef<LineItem[]>;
     // (undocumented)
@@ -341,6 +347,17 @@ export interface IUseNavigation {
     }) => Promise<void>;
     // (undocumented)
     navigationElements: ComputedRef<StoreNavigationElement[] | null>;
+}
+
+// @beta
+export interface IUseProductAssociations {
+    isLoading: ComputedRef<boolean>;
+    loadAssociations: (params: {
+        params: unknown;
+        method: "post" | "get";
+    }) => Promise<void>;
+    // (undocumented)
+    productAssociations: ComputedRef<CrossSelling[]>;
 }
 
 // @beta
@@ -639,6 +656,9 @@ export interface UseProduct<PRODUCT, SEARCH> {
 
 // @beta (undocumented)
 export const useProduct: (rootContext: ApplicationVueContext, loadedProduct?: any) => UseProduct<Product, Search>;
+
+// @beta
+export function useProductAssociations(rootContext: ApplicationVueContext, product: Product, association: "cross-selling" | "reviews"): IUseProductAssociations;
 
 // @beta
 export const useProductConfigurator: (rootContext: ApplicationVueContext, product: Product) => IUseProductConfigurator;
