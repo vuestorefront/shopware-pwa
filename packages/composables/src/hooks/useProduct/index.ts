@@ -53,7 +53,6 @@ export const useProduct = (
       },
     };
 
-    // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/911
     const urlPath = `detail/${product.value.parentId || product.value.id}`;
     const {
       product: { crossSellings },

@@ -48,20 +48,6 @@ describe("Settings", () => {
   });
 
   describe("update", () => {
-    it("should have auth data after update", () => {
-      update({
-        auth: {
-          username: "some",
-          password: "pass",
-        },
-      });
-
-      expect(config.auth).toEqual({
-        username: "some",
-        password: "pass",
-      });
-    });
-
     it("should have contextToken after update", () => {
       update({ contextToken: "xxx" });
 
