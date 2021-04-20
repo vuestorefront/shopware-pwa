@@ -350,14 +350,14 @@ export interface IUseNavigation {
 }
 
 // @beta
-export interface IUseProductAssociation {
-    fetchAssociations: (params: {
+export interface IUseProductAssociations {
+    isLoading: ComputedRef<boolean>;
+    loadAssociations: (params: {
         params: unknown;
         method: "post" | "get";
     }) => Promise<void>;
     // (undocumented)
-    getAssociations: ComputedRef<CrossSelling[] | []>;
-    isLoading: Ref<boolean>;
+    productAssociations: ComputedRef<CrossSelling[]>;
 }
 
 // @beta
@@ -658,7 +658,7 @@ export interface UseProduct<PRODUCT, SEARCH> {
 export const useProduct: (rootContext: ApplicationVueContext, loadedProduct?: any) => UseProduct<Product, Search>;
 
 // @beta
-export function useProductAssociation(rootContext: ApplicationVueContext, product: Product, association: "cross-selling" | "reviews"): IUseProductAssociation;
+export function useProductAssociations(rootContext: ApplicationVueContext, product: Product, association: "cross-selling" | "reviews"): IUseProductAssociations;
 
 // @beta
 export const useProductConfigurator: (rootContext: ApplicationVueContext, product: Product) => IUseProductConfigurator;

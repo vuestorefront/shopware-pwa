@@ -1,4 +1,4 @@
-import { ref, Ref, computed, ComputedRef } from "@vue/composition-api";
+import { ref, computed, ComputedRef } from "@vue/composition-api";
 import {
   Product,
   CrossSelling,
@@ -12,58 +12,58 @@ import {
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
 /**
- * interface for {@link IUseProductAssociation} composable
+ * interface for {@link IUseProductAssociations} composable
  * @beta
  */
-export interface IUseProductAssociation {
+export interface IUseProductAssociations {
   /**
-   * Start fetching resources
+   * Start loading resources
    */
-  fetchAssociations: (params: {
+  loadAssociations: (params: {
     params: unknown;
     method: "post" | "get";
   }) => Promise<void>;
   /**
-   * If it's fetching - indicator
+   * If it's loading - indicator
    */
-  isLoading: Ref<boolean>;
+  isLoading: ComputedRef<boolean>;
 
-  getAssociations: ComputedRef<CrossSelling[] | []>;
+  productAssociations: ComputedRef<CrossSelling[]>;
 }
 
 /**
- * Get product association entity. Options - {@link IUseProductAssociation}
+ * Get product association entity. Options - {@link IUseProductAssociations}
  *
  * @example
  * Example of possibilities:
  *
  * ```ts
- * const { loading, fetchAssociations, getAssociations } = useProductAssociation(root, product, "cross-selling")
- * if (!getAssociations.value) {
- *    await fetchAssociations()
+ * const { loading, loadAssociations, productAssociations } = useProductAssociation(root, product, "cross-selling")
+ * if (!productAssociations.value) {
+ *    await loadAssociations()
  * }
  * ```
  * @beta
  */
-export function useProductAssociation(
+export function useProductAssociations(
   rootContext: ApplicationVueContext,
   product: Product,
   association: "cross-selling" | "reviews"
-): IUseProductAssociation {
+): IUseProductAssociations {
   const { apiInstance } = getApplicationContext(
     rootContext,
-    "useProductAssociation"
+    "useProductAssociations"
   );
   const isLoading = ref(false);
   const associations = ref([]);
-  interface FetchAssociationsParams {
+  interface loadAssociationsParams {
     params?: unknown;
     method?: "post" | "get";
   }
-  const fetchAssociations = async ({
+  const loadAssociations = async ({
     method,
     params,
-  }: FetchAssociationsParams = {}) => {
+  }: loadAssociationsParams = {}) => {
     isLoading.value = true;
     try {
       if (method && method === "get") {
@@ -91,7 +91,7 @@ export function useProductAssociation(
       associations.value = response?.data;
     } catch (error) {
       console.error(
-        "[useProductAssociation][fetchAssociations][error]:",
+        "[useProductAssociations][loadAssociations][error]:",
         error
       );
     } finally {
@@ -100,8 +100,8 @@ export function useProductAssociation(
   };
 
   return {
-    isLoading,
-    getAssociations: computed(() => associations.value || []),
-    fetchAssociations,
+    isLoading: computed(() => isLoading.value),
+    productAssociations: computed(() => associations.value || []),
+    loadAssociations,
   };
 }

@@ -5,13 +5,13 @@ Vue.use(VueCompositionApi);
 import * as Composables from "@shopware-pwa/composables";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
-import { useProductAssociation } from "../src/logic/useProductAssociation";
+import { useProductAssociations } from "../src/logic/useProductAssociations";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedAxios = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
-describe("Composables - useProductAssociation", () => {
+describe("Composables - useProductAssociations", () => {
   const consoleErrorSpy = jest.spyOn(console, "error");
   const mockedInvokePost = jest.fn();
   const mockedInvokeGet = jest.fn();
@@ -34,35 +34,35 @@ describe("Composables - useProductAssociation", () => {
     mockedComposables.getApplicationContext.mockImplementation(() => {
       return {
         apiInstance: rootContextMock.$shopwareApiInstance,
-        contextName: "useProductAssociation",
+        contextName: "useProductAssociations",
       } as any;
     });
   });
   describe("on init", () => {
     it("should have empty (array) associations computed property and isLoading to false", () => {
-      const { getAssociations, isLoading } = useProductAssociation(
+      const { productAssociations, isLoading } = useProductAssociations(
         rootContextMock,
         { id: "product-id" } as any,
         "cross-selling"
       );
       expect(isLoading.value).toBeFalsy();
-      expect(getAssociations.value).toStrictEqual([]);
+      expect(productAssociations.value).toStrictEqual([]);
     });
   });
   describe("methods", () => {
-    describe("fetchAssociations", () => {
+    describe("loadAssociations", () => {
       it("should catch the error on apiClient rejection", async () => {
         mockedAxios.invokePost.mockRejectedValueOnce(
           new Error("An error occured")
         );
-        const { fetchAssociations } = useProductAssociation(
+        const { loadAssociations } = useProductAssociations(
           rootContextMock,
           { id: "product-id" } as any,
           "cross-selling"
         );
-        await fetchAssociations(undefined as any);
+        await loadAssociations(undefined as any);
         expect(consoleErrorSpy).toBeCalledWith(
-          `[useProductAssociation][fetchAssociations][error]:`,
+          `[useProductAssociations][loadAssociations][error]:`,
           expect.any(Error)
         );
       });
@@ -72,12 +72,15 @@ describe("Composables - useProductAssociation", () => {
             associatedProducts: [],
           },
         });
-        const { fetchAssociations, getAssociations } = useProductAssociation(
+        const {
+          loadAssociations,
+          productAssociations,
+        } = useProductAssociations(
           rootContextMock,
           { id: "product-id" } as any,
           "cross-selling"
         );
-        await fetchAssociations(undefined as any);
+        await loadAssociations(undefined as any);
         expect(mockedAxios.invokePost).toBeCalledWith(
           {
             address: "/product/v4/product-id/cross-selling",
@@ -90,35 +93,43 @@ describe("Composables - useProductAssociation", () => {
           }
         );
 
-        expect(getAssociations.value).toStrictEqual({ associatedProducts: [] });
+        expect(productAssociations.value).toStrictEqual({
+          associatedProducts: [],
+        });
       });
       it("should not set incoming associations if response does not match for POST", async () => {
         mockedAxios.invokePost.mockResolvedValueOnce(undefined);
-        const { fetchAssociations, getAssociations } = useProductAssociation(
+        const {
+          loadAssociations,
+          productAssociations,
+        } = useProductAssociations(
           rootContextMock,
           { id: "product-id" } as any,
           "cross-selling"
         );
-        await fetchAssociations(undefined as any);
-        expect(getAssociations.value).toStrictEqual([]);
+        await loadAssociations(undefined as any);
+        expect(productAssociations.value).toStrictEqual([]);
       });
       it("should set incoming associations if response matches for GET", async () => {
         mockedAxios.invokeGet.mockResolvedValueOnce({ data: 12345 });
-        const { fetchAssociations, getAssociations } = useProductAssociation(
+        const {
+          loadAssociations,
+          productAssociations,
+        } = useProductAssociations(
           rootContextMock,
           { id: "product-id" } as any,
           "cross-selling"
         );
-        await fetchAssociations({ method: "get" } as any);
-        expect(getAssociations.value).toStrictEqual(12345);
+        await loadAssociations({ method: "get" } as any);
+        expect(productAssociations.value).toStrictEqual(12345);
       });
       it("should invoke GET request  for given association within a product endpoint", async () => {
-        const { fetchAssociations } = useProductAssociation(
+        const { loadAssociations } = useProductAssociations(
           rootContextMock,
           { id: "product-id" } as any,
           "cross-selling"
         );
-        await fetchAssociations({ method: "get" } as any);
+        await loadAssociations({ method: "get" } as any);
         expect(mockedAxios.invokeGet).toBeCalledWith(
           {
             address: "/product/v4/product-id/cross-selling",
@@ -132,12 +143,12 @@ describe("Composables - useProductAssociation", () => {
         );
       });
       it("should invoke GET request for given association within a product endpoint - including params", async () => {
-        const { fetchAssociations } = useProductAssociation(
+        const { loadAssociations } = useProductAssociations(
           rootContextMock,
           { id: "product-id" } as any,
           "cross-selling"
         );
-        await fetchAssociations({
+        await loadAssociations({
           method: "get",
           params: "?someParam=true",
         } as any);

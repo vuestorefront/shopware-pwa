@@ -66,7 +66,7 @@ import {
   useProduct,
   useUser,
   useUIState,
-  useProductAssociation,
+  useProductAssociations,
   useDefaults,
 } from "@shopware-pwa/composables"
 import SwGoBackArrow from "@/components/atoms/SwGoBackArrow.vue"
@@ -106,11 +106,11 @@ export default {
     const product = computed(() => page.product)
 
     const {
-      fetchAssociations: fetchCrossSells,
-      getAssociations: crossSellCollection,
-    } = useProductAssociation(root, product.value, "cross-selling")
+      loadAssociations: loadCrossSells,
+      productAssociations: crossSellCollection,
+    } = useProductAssociations(root, product.value, "cross-selling")
     onMounted(() =>
-      fetchCrossSells({
+      loadCrossSells({
         params: {
           associations: {
             product: {
