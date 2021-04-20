@@ -1,3 +1,12 @@
+## [0.8.1](https://github.com/DivanteLtd/shopware-pwa/compare/v0.8.0...v0.8.1) (2021-04-20)
+
+
+### Bug Fixes
+
+* dependencies to commons package and release script ([#1441](https://github.com/DivanteLtd/shopware-pwa/issues/1441)) ([7de22f3](https://github.com/DivanteLtd/shopware-pwa/commit/7de22f31ddcc2d45b7e814b8f4b073a072ddb579))
+
+
+
 # [0.8.0](https://github.com/DivanteLtd/shopware-pwa/compare/v0.7.2...v0.8.0) (2021-04-20)
 
 
