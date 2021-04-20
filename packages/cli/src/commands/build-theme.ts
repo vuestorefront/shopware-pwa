@@ -6,6 +6,10 @@ const command: GluegunCommand = {
   run: async (toolbox) => {
     const path = require("path");
     const fse = require("fs-extra");
+    if (!toolbox.isProduction) {
+      toolbox.print.warning(`You're running CLI in development mode!`);
+    }
+
     const buildingSpinner = toolbox.print.spin("Building theme...");
 
     const destinationDirectoryName = "dist";
