@@ -72,7 +72,7 @@ import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { computed, onMounted, ref } from "@vue/composition-api"
 
 export default {
-  name: "Product",
+  name: "ProductPage",
   components: {
     SwGoBackArrow,
     SfImage,

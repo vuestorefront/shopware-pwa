@@ -54,6 +54,10 @@ async function run() {
     stdio: "inherit",
     cwd: defaultThemeDir,
   });
+  await execa("yarn", ["link", "@shopware-pwa/helpers"], {
+    stdio: "inherit",
+    cwd: composablesDir,
+  });
 
   /**
    * Link commons
