@@ -18,10 +18,14 @@ export const useDomains = (rootContext) => {
 
   const availableDomains = computed(() => routing.availableDomains || [])
   const currentDomainId = computed(
-    () => routing.getCurrentDomain.value?.domainId
+    () =>
+      routing.getCurrentDomain.value && routing.getCurrentDomain.value.domainId
   )
   const trimDomain = (url) =>
-    url.replace(routing.getCurrentDomain.value?.url, "")
+    url.replace(
+      routing.getCurrentDomain.value ? routing.getCurrentDomain.value.url : "",
+      ""
+    )
   const getCurrentPathWithoutDomain = () =>
     trimDomain(rootContext.$route.fullPath)
   const isHomePage = () => {

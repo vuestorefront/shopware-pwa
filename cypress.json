@@ -1,7 +1,14 @@
 {
-    "baseUrl": "http://localhost:3000/",
-    "integrationFolder":"packages\\default-theme\\__e2e__\\integration",
-    "fixturesFolder":"packages\\default-theme\\__e2e__\\fixtures",
-    "pluginsFile":"packages\\default-theme\\__e2e__\\plugins",
-    "supportFile":"packages\\default-theme\\__e2e__\\support"
+  "baseUrl": "http://localhost:3000/",
+  "integrationFolder": "packages/default-theme/__e2e__/specs",
+  "fixturesFolder": "packages/default-theme/__e2e__/fixtures",
+  "pluginsFile": "packages/default-theme/__e2e__/plugins",
+  "supportFile": "packages/default-theme/__e2e__/support",
+  "viewportWidth": 1920,
+  "viewportHeight": 1080,
+  "defaultCommandTimeout": 10000,
+  "retries": {
+    "runMode": 3,
+    "openMode": 0
+  }
 }

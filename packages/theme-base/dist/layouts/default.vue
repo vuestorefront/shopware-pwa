@@ -4,6 +4,7 @@
       Welcome in your Blank Shopware PWA template. It is a base for your own
       theme.
     </h1>
+    <code> To replace this component create `layouts/default.vue` file. </code>
     <nuxt />
   </div>
 </template>

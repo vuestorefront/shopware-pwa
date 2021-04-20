@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-setInitialListing: (initialListing: Partial<ProductListingResult>) => void;
+setInitialListing: (initialListing: Partial<ListingResult<ELEMENTS_TYPE>>) => void;
 ```

@@ -22,9 +22,9 @@ import {
   useCms,
   useCategoryFilters,
   getApplicationContext,
+  useDefaults,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
-import { useDefaults } from "../logic/useDefaults";
 
 import {
   toggleEntityFilter,
@@ -68,7 +68,7 @@ const selectedCriteria = Vue.observable({
  */
 export const useProductListing = (
   rootContext: ApplicationVueContext,
-  initialListing?: ProductListingResult
+  initialListing?: Partial<ProductListingResult>
 ): UseProductListing => {
   deprecationWarning({
     methodName: "useProductListing",
@@ -189,6 +189,12 @@ export const useProductListing = (
     if (typeof history !== "undefined")
       history.replaceState({}, null as any, location.pathname + "?" + search);
 
+    if (!categoryId.value) {
+      throw new Error(
+        "[useProductListing][search] Search category id does not exist."
+      );
+    }
+
     productListingResult.value = await getCategoryProductsListing(
       categoryId.value,
       searchCriteria,
@@ -211,7 +217,7 @@ export const useProductListing = (
         apiInstance
       );
       sharedListing.availableFilters = getListingAvailableFilters(
-        productListingBaseResult.aggregations
+        productListingBaseResult?.aggregations
       );
     }
 

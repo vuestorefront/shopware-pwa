@@ -74,10 +74,16 @@ Middleware.routing = function ({ isHMR, app, store, from, route, redirect }) {
     return redirect(`${fallbackDomainPrefix}${route.path}`);
   }
 
+  if (!domainConfig) {
+    return;
+  }
+
   // set default currency for the current domain
   const { setCurrency, currency } = useSessionContext(app);
   let currencyId =
-    route.query.currencyId || (currency.value && currency.value.id);
+    route.query.currencyId ||
+    (currency.value && currency.value.id) ||
+    domainConfig.currencyId;
   // force change the currencyId to default one for changed domain
   const fromDomain =
     from &&
@@ -87,13 +93,9 @@ Middleware.routing = function ({ isHMR, app, store, from, route, redirect }) {
     currencyId = domainConfig.currencyId;
   }
 
-  if (!domainConfig) {
-    return;
-  }
-  setCurrency({ id: currencyId });
+  currencyId && setCurrency({ id: currencyId });
   const { languageId, languageLocaleCode } = domainConfig;
   app.routing.setCurrentDomain(domainConfig);
   languageId && app.$shopwareApiInstance.update({ languageId });
-  languageLocaleCode && store.commit("SET_LANG", languageLocaleCode);
   app.i18n.locale = languageLocaleCode;
 };

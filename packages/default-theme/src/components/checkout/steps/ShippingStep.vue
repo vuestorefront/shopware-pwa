@@ -39,7 +39,9 @@
               </div>
               <transition name="sf-fade">
                 <div
-                  v-if="activeShippingMethod === shippingMethod.id"
+                  v-if="
+                    shippingMethod && activeShippingMethod === shippingMethod.id
+                  "
                   class="shipping__info"
                 >
                   <SwPluginSlot

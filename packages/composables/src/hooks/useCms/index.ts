@@ -12,6 +12,7 @@ import {
   getApplicationContext,
   useDefaults,
   useBreadcrumbs,
+  useSharedState,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../../appContext";
 import merge from "lodash/merge";
@@ -23,8 +24,10 @@ import { PageBreadcrumb } from "@shopware-pwa/commons/interfaces/models/content/
 export function useCms(
   rootContext: ApplicationVueContext
 ): {
-  page: Ref<Readonly<PageResolverProductResult | PageResolverResult<CmsPage>>>;
-  categoryId: ComputedRef<string>;
+  page: ComputedRef<
+    PageResolverProductResult | PageResolverResult<CmsPage> | null
+  >;
+  categoryId: ComputedRef<string | null>;
   loading: Ref<boolean>;
   search: (path: string, query?: any) => Promise<void>;
   error: Ref<any>;
@@ -33,18 +36,21 @@ export function useCms(
    */
   getBreadcrumbsObject: ComputedRef<PageBreadcrumb>;
 } {
-  const { vuexStore, apiInstance } = getApplicationContext(
+  const { apiInstance, contextName } = getApplicationContext(
     rootContext,
     "useCms"
   );
+
+  const { sharedRef } = useSharedState(rootContext);
+  const _storePage = sharedRef<
+    PageResolverProductResult | PageResolverResult<CmsPage>
+  >(`${contextName}-page`);
 
   const { getDefaults } = useDefaults(rootContext, "useCms");
   const { setBreadcrumbs } = useBreadcrumbs(rootContext);
   const error: Ref<any> = ref(null);
   const loading: Ref<boolean> = ref(false);
-  const page: ComputedRef<PageResolverResult<CmsPage>> = computed(() => {
-    return vuexStore.getters.getPage;
-  });
+  const page = computed(() => _storePage.value);
   // TODO: rename it to something more obvious, or just leav as resourceIdentifier
   // TODO: https://github.com/vuestorefront/shopware-pwa/issues/1308
   const categoryId = computed(() => {
@@ -71,7 +77,7 @@ export function useCms(
 
     try {
       const result = await getCmsPage(path, searchCriteria, apiInstance);
-      vuexStore.commit("SET_PAGE", result);
+      _storePage.value = result;
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err;

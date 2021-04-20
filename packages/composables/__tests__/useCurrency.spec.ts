@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueCompostionApi from "@vue/composition-api";
-import { Ref, ref, reactive, computed } from "@vue/composition-api";
+import { Ref, ref } from "@vue/composition-api";
 import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
@@ -23,14 +23,6 @@ describe("Composables - useCurrency", () => {
   const setCurrencyContextMock = jest.fn(async () => {});
   const refreshCartMock = jest.fn(async () => {});
   const rootContextMock: any = {
-    $store: {
-      getters: reactive({
-        getSessionContext: computed(() => stateContext.value),
-      }),
-      commit: (name: string, value: SessionContext) => {
-        stateContext.value = value;
-      },
-    },
     $shopwareApiInstance: jest.fn(),
   };
 

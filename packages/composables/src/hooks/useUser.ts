@@ -1,4 +1,4 @@
-import { ref, Ref, computed } from "@vue/composition-api";
+import { ref, Ref, computed, ComputedRef } from "@vue/composition-api";
 import {
   login as apiLogin,
   logout as apiLogout,
@@ -36,6 +36,7 @@ import {
   IInterceptorCallbackFunction,
   INTERCEPTOR_KEYS,
   useIntercept,
+  useSharedState,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
@@ -53,7 +54,7 @@ export interface IUseUser {
     password?: string;
   }) => Promise<boolean>;
   register: ({}: CustomerRegistrationParams) => Promise<boolean>;
-  user: Ref<Customer | null>;
+  user: ComputedRef<Partial<Customer> | null>;
   orders: Ref<Order[] | null>;
   addresses: Ref<CustomerAddress[] | null>;
   loading: Ref<boolean>;
@@ -101,20 +102,22 @@ export interface IUseUser {
  * @beta
  */
 export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
-  const { contextName, vuexStore, apiInstance } = getApplicationContext(
+  const { contextName, apiInstance } = getApplicationContext(
     rootContext,
     "useUser"
   );
   const { broadcast, intercept } = useIntercept(rootContext);
+
+  const { sharedRef } = useSharedState(rootContext);
+  const storeUser = sharedRef<Partial<Customer>>(`${contextName}-user`);
+
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
   const orders: Ref<Order[] | null> = ref(null);
   const addresses: Ref<CustomerAddress[] | null> = ref(null);
   const country: Ref<Country | null> = ref(null);
   const salutation: Ref<Salutation | null> = ref(null);
-  const user: any = computed(() => {
-    return vuexStore.getters.getUser;
-  });
+  const user = computed(() => storeUser.value);
 
   const login = async ({
     username,
@@ -170,7 +173,6 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   const logout = async (): Promise<void> => {
     try {
       await apiLogout(apiInstance);
-      console.warn("logout");
       broadcast(INTERCEPTOR_KEYS.USER_LOGOUT);
     } catch (e) {
       const err: ClientApiError = e;
@@ -196,9 +198,10 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   const refreshUser = async (): Promise<void> => {
     try {
       const user = await getCustomer(apiInstance);
-      vuexStore.commit("SET_USER", user);
+      storeUser.value = user || {};
     } catch (e) {
-      console.error("useUser:refreshUser:getCustomer", e);
+      storeUser.value = {};
+      console.error("[useUser][refreshUser]", e);
     }
   };
 

@@ -1,10 +1,5 @@
 import Vue from "vue";
-import VueCompositionApi, {
-  ref,
-  Ref,
-  reactive,
-  computed,
-} from "@vue/composition-api";
+import VueCompositionApi, { ref, Ref } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
 // // Mock API client
@@ -24,14 +19,6 @@ describe("Composables - useCheckout", () => {
   const stateContext: Ref<Partial<SessionContext> | null> = ref(null);
   const sessionContextMock: Ref<Partial<SessionContext> | null> = ref(null);
   const rootContextMock: any = {
-    $store: {
-      getters: reactive({
-        getSessionContext: computed(() => stateContext.value),
-      }),
-      commit: (name: string, value: SessionContext) => {
-        stateContext.value = value;
-      },
-    },
     $shopwareApiInstance: jest.fn(),
   };
   const interceptMock = jest.fn();

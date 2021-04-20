@@ -8,7 +8,6 @@ Vue.use(VueCompositionApi);
 describe("Composables - useIntercept", () => {
   let registeredInterceptors: any = {};
   const rootContextMock: any = {
-    $store: jest.fn(),
     $shopwareApiInstance: jest.fn(),
     $interceptors: registeredInterceptors,
   };

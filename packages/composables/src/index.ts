@@ -26,4 +26,5 @@ export * from "./hooks/useCountry";
 export * from "./logic/useProductConfigurator";
 export * from "./logic/useBreadcrumbs";
 export * from "./logic/useProductAssociation";
+export * from "./logic/useSharedState";
 export { getApplicationContext, ApplicationVueContext } from "./appContext";
