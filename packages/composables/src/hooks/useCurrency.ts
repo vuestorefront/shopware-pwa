@@ -49,8 +49,8 @@ export const useCurrency = (
     forceReload: boolean;
   }): Promise<void> => {
     if (!options?.forceReload && localState.availableCurrencies.length) return;
-    const currencies = await getAvailableCurrencies(apiInstance);
-    sharedCurrencyState.availableCurrencies = currencies;
+    const { elements } = await getAvailableCurrencies(apiInstance);
+    sharedCurrencyState.availableCurrencies = elements;
   };
 
   const setCurrency = async (currency: Partial<Currency>): Promise<void> => {
