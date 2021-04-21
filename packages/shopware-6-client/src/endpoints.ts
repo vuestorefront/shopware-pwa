@@ -207,17 +207,17 @@ export const getContextEndpoint = () => `/store-api/context`;
 /**
  * @beta
  */
-export const getContextCurrencyEndpoint = () => `/store-api/v3/currency`;
+export const getContextCurrencyEndpoint = () => `/store-api/currency`;
 
 /**
  * @beta
  */
-export const getContextLanguageEndpoint = () => `/store-api/v3/language`;
+export const getContextLanguageEndpoint = () => `/store-api/language`;
 
 /**
  * @beta
  */
-export const getContextCountryEndpoint = () => `/sales-channel-api/v3/country`; // replace with `/store-api/v4/country`
+export const getContextCountryEndpoint = () => `/store-api/country`;
 
 /**
  * @beta
@@ -229,7 +229,7 @@ export const getContextCountryItemEndpoint = (countryId: string): string =>
  * @beta
  */
 export const getContextPaymentMethodEndpoint = () =>
-  `/store-api/v3/payment-method`;
+  `/store-api/payment-method`;
 
 /**
  * @beta
