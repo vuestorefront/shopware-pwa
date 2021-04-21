@@ -202,7 +202,7 @@ export const getCheckoutPromotionCodeEndpoint = (code: string) =>
 /**
  * @beta
  */
-export const getContextEndpoint = () => `/store-api/v3/context`;
+export const getContextEndpoint = () => `/store-api/context`;
 
 /**
  * @beta
