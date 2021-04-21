@@ -207,7 +207,7 @@ export const getContextEndpoint = () => `/store-api/v3/context`;
 /**
  * @beta
  */
-export const getContextCurrencyEndpoint = () => `/store-api/v3/currency`;
+export const getContextCurrencyEndpoint = () => `/store-api/currency`;
 
 /**
  * @beta
