@@ -394,7 +394,7 @@ jobs:
           cd ./test-project
           yarn build
           cd ..
-          yarn build --ci
+          node ./scripts/yalcPushPackages.js
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@2.19
         if: github.repository_owner	== 'vuestorefront'
@@ -459,4 +459,3 @@ jobs:
           description: Unfortunately, the instance hasn't been updated.
           state: "failure"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-
