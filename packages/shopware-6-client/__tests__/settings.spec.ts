@@ -7,9 +7,10 @@ import {
 import { defaultInstance, _createInstance } from "../src/apiService";
 import { ConfigChangedArgs } from "../src";
 import { random } from "faker";
+import { defaultPwaConfigFile } from "@shopware-pwa/commons";
 const consoleWarnSpy = jest.spyOn(console, "warn");
 
-const DEFAULT_ENDPOINT = "https://pwa-demo-api.shopware.com/prev/";
+const DEFAULT_ENDPOINT = defaultPwaConfigFile.shopwareEndpoint;
 const DEFAULT_TIMEOUT = 10000;
 
 describe("Settings", () => {
@@ -48,20 +49,6 @@ describe("Settings", () => {
   });
 
   describe("update", () => {
-    it("should have auth data after update", () => {
-      update({
-        auth: {
-          username: "some",
-          password: "pass",
-        },
-      });
-
-      expect(config.auth).toEqual({
-        username: "some",
-        password: "pass",
-      });
-    });
-
     it("should have contextToken after update", () => {
       update({ contextToken: "xxx" });
 

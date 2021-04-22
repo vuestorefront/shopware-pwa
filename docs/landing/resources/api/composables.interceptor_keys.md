@@ -17,6 +17,8 @@ INTERCEPTOR_KEYS: {
     ADD_TO_WISHLIST: string;
     ADD_PROMOTION_CODE: string;
     ERROR: string;
+    WARNING: string;
+    NOTICE: string;
     ORDER_PLACE: string;
     SESSION_SET_CURRENCY: string;
     SESSION_SET_PAYMENT_METHOD: string;

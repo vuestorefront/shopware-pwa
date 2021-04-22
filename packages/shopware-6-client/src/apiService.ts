@@ -37,15 +37,6 @@ export function _createInstance(initialConfig: ClientSettings = {}) {
   const apiService: AxiosInstance = axios.create();
 
   function reloadConfiguration() {
-    // settings for HTTP basic auth credentials
-    if (
-      clientConfig.auth &&
-      clientConfig.auth.username &&
-      clientConfig.auth.password
-    ) {
-      // apiService.defaults.withCredentials = true;
-      apiService.defaults.auth = clientConfig.auth;
-    }
     apiService.defaults.baseURL = clientConfig.endpoint;
     if (clientConfig.timeout) {
       apiService.defaults.timeout =
@@ -54,7 +45,7 @@ export function _createInstance(initialConfig: ClientSettings = {}) {
           parseInt(clientConfig.timeout)) ||
         0;
     }
-
+    apiService.defaults.headers.common["sw-include-seo-urls"] = true;
     apiService.defaults.headers.common["sw-access-key"] =
       clientConfig.accessToken;
     // convert SearchCriteria into query string

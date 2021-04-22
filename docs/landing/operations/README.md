@@ -1,6 +1,6 @@
 # Operations
 
-## Migration guides & release notes <Badge text="new" type="info"/>
+## Migration guides & release notes
 
 Migration guides and notes for specific release.
 
