@@ -20,11 +20,7 @@ const chalk = require("chalk");
 const execa = require("execa");
 const { gzipSync } = require("zlib");
 const { compress } = require("brotli");
-const {
-  targets: buildTargets,
-  allTargets,
-  fuzzyMatchTarget,
-} = require("./utils");
+const { targets: buildTargets, fuzzyMatchTarget } = require("./utils");
 const { build: esBuild } = require("esbuild");
 
 const args = require("minimist")(process.argv.slice(2));
@@ -44,13 +40,10 @@ async function run() {
       const buildedCorrectly = await buildAll(buildTargets);
       if (buildedCorrectly === false) process.exit(1);
       if (isCIRun) {
-        for (let index = 0; index < allTargets.length; index++) {
-          const pkgDir = path.resolve(`packages/${allTargets[index]}`);
-          await execa("npx", ["yalc", "push"], {
-            stdio: "inherit",
-            cwd: pkgDir,
-          });
-        }
+        await execa("node", ["yalcPushPackages.js"], {
+          stdio: "inherit",
+          cwd: __dirname,
+        });
       }
       checkAllSizes(buildTargets);
     } else {
