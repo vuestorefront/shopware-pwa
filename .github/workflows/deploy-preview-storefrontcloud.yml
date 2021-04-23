@@ -395,6 +395,7 @@ jobs:
           yarn build
           cd ..
           node ./scripts/yalcPushPackages.js
+          node ./scripts/yalcLinkTestProject.js
           ls -la ./test-project
           cat ./test-project/package.json
       - name: Build and publish docker image
