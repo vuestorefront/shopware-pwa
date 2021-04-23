@@ -5,4 +5,10 @@ export default extendNuxtConfig({
     title: 'shopware-pwa-project',
     meta: [{ hid: 'description', name: 'description', content: '' }],
   },
+  vue: {
+    config: {
+      productionTip: false,
+      devtools: true,
+    },
+  },
 })
