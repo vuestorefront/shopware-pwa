@@ -395,6 +395,8 @@ jobs:
           yarn build
           cd ..
           node ./scripts/yalcPushPackages.js
+          ls -la ./test-project
+          cat ./test-project/package.json
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@2.19
         if: github.repository_owner	== 'vuestorefront'
