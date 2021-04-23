@@ -8,10 +8,6 @@ import {
   getContextLanguageEndpoint,
   getContextSalutationEndpoint,
   getContextEndpoint,
-  getContextCountryItemEndpoint,
-  getContextSalutationItemEndpoint,
-  getContextPaymentMethodDetailsEndpoint,
-  getContextShippingMethodDetailsEndpoint,
 } from "../endpoints";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
@@ -48,8 +44,8 @@ async function updateContext(
 export async function getSessionContext(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<SessionContext> {
-  const resp = await contextInstance.invoke.get(getContextEndpoint());
-  return resp.data;
+  const { data } = await contextInstance.invoke.get(getContextEndpoint());
+  return data;
 }
 
 /**
@@ -83,9 +79,11 @@ export function setCurrentBillingAddress(
 export async function getAvailableCurrencies(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<EntityResult<"currency", Currency[]>> {
-  const resp = await contextInstance.invoke.get(getContextCurrencyEndpoint());
+  const { data } = await contextInstance.invoke.get(
+    getContextCurrencyEndpoint()
+  );
 
-  return resp.data;
+  return data;
 }
 
 /**
@@ -109,9 +107,11 @@ export async function setCurrentCurrency(
 export async function getAvailableLanguages(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<EntityResult<"language", Language[]>> {
-  const resp = await contextInstance.invoke.get(getContextLanguageEndpoint());
+  const { data } = await contextInstance.invoke.get(
+    getContextLanguageEndpoint()
+  );
 
-  return resp.data;
+  return data;
 }
 
 /**
@@ -137,8 +137,10 @@ export async function setCurrentLanguage(
 export async function getAvailableCountries(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<EntityResult<"country", Country[]>> {
-  const resp = await contextInstance.invoke.get(getContextCountryEndpoint());
-  return resp.data;
+  const { data } = await contextInstance.invoke.get(
+    getContextCountryEndpoint()
+  );
+  return data;
 }
 
 /**
@@ -180,11 +182,16 @@ export async function getPaymentMethodDetails(
   paymentId: string,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<PaymentMethod> {
-  const resp = await contextInstance.invoke.get(
-    getContextPaymentMethodDetailsEndpoint(paymentId)
+  const { data } = await contextInstance.invoke.get(
+    getContextPaymentMethodEndpoint(),
+    {
+      params: {
+        "filter[id]": paymentId,
+      },
+    }
   );
 
-  return resp.data.data;
+  return data?.elements?.[0];
 }
 
 /**
@@ -227,11 +234,16 @@ export async function getShippingMethodDetails(
   shippingId: string,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<ShippingMethod> {
-  const resp = await contextInstance.invoke.get(
-    getContextShippingMethodDetailsEndpoint(shippingId)
+  const { data } = await contextInstance.invoke.get(
+    getContextShippingMethodEndpoint(),
+    {
+      params: {
+        "filter[id]": shippingId,
+      },
+    }
   );
 
-  return resp.data.data;
+  return data?.elements?.[0];
 }
 
 /**
@@ -256,11 +268,17 @@ export async function getUserCountry(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Country> {
   const { data } = await contextInstance.invoke.get(
-    getContextCountryItemEndpoint(countryId)
+    getContextCountryEndpoint(),
+    {
+      params: {
+        "filter[id]": countryId,
+      },
+    }
   );
 
-  return data;
+  return data?.elements?.[0];
 }
+
 /**
  * @throws ClientApiError
  * @beta
@@ -270,8 +288,13 @@ export async function getUserSalutation(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Salutation> {
   const { data } = await contextInstance.invoke.get(
-    getContextSalutationItemEndpoint(salutationId)
+    getContextSalutationEndpoint(),
+    {
+      params: {
+        "filter[id]": salutationId,
+      },
+    }
   );
 
-  return data;
+  return data?.elements?.[0];
 }

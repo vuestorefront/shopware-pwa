@@ -222,46 +222,19 @@ export const getContextCountryEndpoint = () => `/store-api/country`;
 /**
  * @beta
  */
-export const getContextCountryItemEndpoint = (countryId: string): string =>
-  `/sales-channel-api/v3/country/${countryId}`; // replace with `/store-api/v4/country` { ids: [ countryId ] }
-
-/**
- * @beta
- */
 export const getContextPaymentMethodEndpoint = () =>
   `/store-api/payment-method`;
 
 /**
  * @beta
  */
-export const getContextPaymentMethodDetailsEndpoint = (
-  paymentId: string
-): string => `/sales-channel-api/v3/payment-method/${paymentId}`; // replace with `/store-api/v4/payment-method` { ids: [ paymentId ] }
-
-/**
- * @beta
- */
 export const getContextShippingMethodEndpoint = () =>
-  `/store-api/v3/shipping-method`;
+  `/store-api/shipping-method`;
 
 /**
  * @beta
  */
-export const getContextShippingMethodDetailsEndpoint = (
-  shippingId: string
-): string => `/sales-channel-api/v3/shipping-method/${shippingId}`; // replace with `/store-api/v4/shipping-method` { ids: [ shippingId ] }
-
-/**
- * @beta
- */
-export const getContextSalutationEndpoint = () => `/store-api/v3/salutation`;
-
-/**
- * @beta
- */
-export const getContextSalutationItemEndpoint = (
-  salutationId: string
-): string => `/store-api/v3/salutation/${salutationId}`;
+export const getContextSalutationEndpoint = () => `/store-api/salutation`;
 
 // newsletter
 
