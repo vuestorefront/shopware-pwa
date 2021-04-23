@@ -4,7 +4,7 @@
       <SfCarousel class="product-carousel" :settings="options" :style="style">
         <SfCarouselItem v-for="product in products" :key="product.id">
           <SwProductCard
-            :product="product.product"
+            :product="product"
             class="product-carousel__product"
           />
         </SfCarouselItem>
@@ -13,7 +13,7 @@
     <SfSection v-else class="section products-grid">
       <div v-for="product in products" :key="product.id">
         <SwProductCard
-          :product="product.product"
+          :product="product"
           class="product-carousel__product"
         />
       </div>

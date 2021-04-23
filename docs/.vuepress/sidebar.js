@@ -11,7 +11,11 @@ module.exports = {
       path: "/landing/getting-started/",
       title: "Getting Started",
       collapsable: false,
-      children: ["/landing/getting-started/prepare-shopware", "/landing/project/contribution", "/landing/getting-started/local-environment"],
+      children: [
+        "/landing/getting-started/prepare-shopware",
+        "/landing/project/contribution",
+        "/landing/getting-started/local-environment",
+      ],
     },
     {
       path: "/landing/fundamentals/",

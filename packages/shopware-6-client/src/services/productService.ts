@@ -62,12 +62,7 @@ export const getCategoryProductsListing = async function (
       searchCriteria,
       apiType: ApiType.store,
       config: contextInstance.config,
-    }),
-    {
-      headers: {
-        "sw-include-seo-urls": true,
-      },
-    }
+    })
   );
   return resp.data;
 };

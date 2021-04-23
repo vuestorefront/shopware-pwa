@@ -67,7 +67,7 @@ export default {
       setActiveShippingAddress,
     } = useSessionContext(root)
 
-    const selectedAddressId = ref(activeShippingAddress.value.id)
+    const selectedAddressId = ref(activeShippingAddress.value?.id)
     watch(selectedAddressId, (value) => {
       const selectedAddress = addresses.value.find(
         (address) => address.id === value

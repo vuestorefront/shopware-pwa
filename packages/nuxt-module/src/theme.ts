@@ -1,6 +1,7 @@
 import path from "path";
-import { NuxtModuleOptions, ShopwarePwaConfigFile } from "./interfaces";
+import { NuxtModuleOptions } from "./interfaces";
 import fse from "fs-extra";
+import { ShopwarePwaConfigFile } from "@shopware-pwa/commons";
 
 export function getTargetSourcePath(moduleObject: NuxtModuleOptions) {
   return path.join(moduleObject.options.rootDir, ".shopware-pwa", "source");

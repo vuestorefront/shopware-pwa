@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/commons",
-  "version": "0.7.2",
+  "version": "0.8.1",
   "description": "@shopware-pwa/commons",
   "license": "MIT",
   "files": [
@@ -8,5 +8,8 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.21"
   }
 }

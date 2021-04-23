@@ -56,10 +56,6 @@ export function clearCart(contextInstance?: ShopwareApiInstance): Promise<Contex
 // @beta (undocumented)
 export interface ClientSettings {
     accessToken?: string;
-    auth?: {
-        username: string;
-        password: string;
-    };
     contextToken?: string;
     defaultPaginationLimit?: number;
     endpoint?: string;
