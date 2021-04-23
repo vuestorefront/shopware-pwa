@@ -1,6 +1,6 @@
 <template>
   <SfFooter
-    v-if="navigationElements && navigationElements.length"
+    v-show="navigationElements && navigationElements.length"
     :column="column"
     :multiple="true"
     :open="open"
@@ -10,13 +10,13 @@
       :key="category.id"
       :title="category.translated.name"
     >
-      <SfList v-if="category.children">
+      <SfList v-show="category.children">
         <SfListItem
           v-for="childCategory in category.children"
           :key="childCategory.id"
         >
           <a
-            v-if="isLinkCategory(childCategory)"
+            v-show="isLinkCategory(childCategory)"
             class="sf-header__link"
             :href="getCategoryUrl(childCategory)"
             target="_blank"
@@ -24,7 +24,7 @@
             <SfMenuItem :label="childCategory.translated.name" />
           </a>
           <nuxt-link
-            v-else
+            v-show="!isLinkCategory(childCategory)"
             class="sf-header__link"
             :to="$routing.getUrl(getCategoryUrl(childCategory))"
           >
