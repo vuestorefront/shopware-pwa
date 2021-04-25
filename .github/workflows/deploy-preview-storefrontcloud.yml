@@ -398,6 +398,7 @@ jobs:
           node ./scripts/yalcLinkTestProject.js
           ls -la ./test-project
           cat ./test-project/package.json
+          ls -la ./test-project/node_modules/@shopware-pwa
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@2.19
         if: github.repository_owner	== 'vuestorefront'
