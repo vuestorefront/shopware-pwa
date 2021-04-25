@@ -68,7 +68,7 @@ const defaultConfig: NuxtConfig = {
 };
 
 const configs: NuxtConfig[] = [defaultConfig];
-export function extendNuxtConfig(config: NuxtConfig) {
+export default function extendNuxtConfig(config: NuxtConfig) {
   configs.push(config);
   return configs.reduce((prev, next) => mergeWith(prev, next, customizer));
 }
