@@ -369,9 +369,9 @@ jobs:
             node_modules
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
-      # - name: Link packages
-      #   run: |
-      #     yarn --frozen-lockfile
+      - name: Link packages
+        run: |
+          yarn --frozen-lockfile
       # Step to speed up project init
       - name: Cache test-project
         uses: actions/cache@v2
