@@ -369,9 +369,9 @@ jobs:
             node_modules
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
-      - name: Link packages
-        run: |
-          yarn --frozen-lockfile
+      # - name: Link packages
+      #   run: |
+      #     yarn --frozen-lockfile
       # Step to speed up project init
       - name: Cache test-project
         uses: actions/cache@v2
@@ -391,11 +391,12 @@ jobs:
           ../packages/cli/bin/shopware-pwa init --username=${{ secrets.SHOPWARE_ADMIN_USER }} --password=${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --pwaHost=${{ env.PWA_HOST }} --ci --devMode --stage local
       - name: Build test project
         run: |
-          cd ./test-project
-          yarn build
-          cd ..
           node ./scripts/yalcPushPackages.js
           node ./scripts/yalcLinkTestProject.js
+          cd ./test-project
+          yarn
+          yarn build
+          cd ..
           ls -la ./test-project
           cat ./test-project/package.json
           ls -la ./test-project/node_modules/@shopware-pwa
