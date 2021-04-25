@@ -9,8 +9,7 @@
   },
   "files": [
     "dist",
-    "plugins/*",
-    "extendNuxtConfig.js"
+    "plugins/*"
   ],
   "sideEffects": true,
   "repository": {

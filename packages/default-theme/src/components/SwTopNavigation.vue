@@ -25,7 +25,7 @@
         {{ category.translated.name }}
       </a>
       <nuxt-link
-        v-if="!isLinkCategory(category)"
+        v-else
         class="sf-header__link"
         :to="$routing.getUrl(getCategoryUrl(category))"
         >{{ category.translated.name }}</nuxt-link
