@@ -5,7 +5,7 @@
   "main": "dist/nuxt-module.cjs.js",
   "exports": {
     ".": "./dist/nuxt-module.cjs.js",
-    "./config": "./extendNuxtConfig.js"
+    "./config": "./dist/extendNuxtConfig.cjs.js"
   },
   "files": [
     "dist",
@@ -53,6 +53,9 @@
     "name": "nuxt-module",
     "formats": [
       "cjs"
+    ],
+    "additionalEntrypoints": [
+      "extendNuxtConfig"
     ]
   }
 }

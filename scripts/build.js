@@ -83,7 +83,12 @@ async function buildAll(targets) {
   }
 }
 
-async function runBuild({ target, packageJson, format = "esm" }) {
+async function runBuild({
+  target,
+  packageJson,
+  format = "esm",
+  additionalEntrypoints = [],
+}) {
   const buildTarget = format === "esm" ? "es2020" : "es2015";
 
   try {
@@ -97,6 +102,27 @@ async function runBuild({ target, packageJson, format = "esm" }) {
       target: buildTarget,
       format,
     });
+    if (additionalEntrypoints.length) {
+      const promisses = additionalEntrypoints.map((entrypoint) => {
+        return esBuild({
+          entryPoints: [
+            path.join("packages", target, "src", `${entrypoint}.ts`),
+          ],
+          outfile: path.join(
+            "packages",
+            target,
+            "dist",
+            `${entrypoint}.${format}.js`
+          ),
+          minify: false,
+          bundle: true,
+          external,
+          target: buildTarget,
+          format,
+        });
+      });
+      await Promise.all(promisses);
+    }
     return true;
   } catch (e) {
     console.error("Error building " + target, e);
@@ -107,12 +133,17 @@ async function runBuild({ target, packageJson, format = "esm" }) {
 async function buildPackage(target, packageJson) {
   const formats =
     (packageJson.buildOptions && packageJson.buildOptions.formats) || [];
+  const additionalEntrypoints =
+    (packageJson.buildOptions &&
+      packageJson.buildOptions.additionalEntrypoints) ||
+    [];
   const results = await Promise.all(
     formats.map((format) => {
       return runBuild({
         target,
         packageJson,
         format,
+        additionalEntrypoints,
       });
     })
   );
