@@ -42,7 +42,7 @@ Object {
         "name": "description",
       },
     ],
-    "title": "shopware-pwa-project",
+    "title": "Shopware PWA",
   },
   "modules": Array [
     "@nuxtjs/axios",

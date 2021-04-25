@@ -20,7 +20,7 @@ const defaultConfig: NuxtConfig = {
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "shopware-pwa-project",
+    title: "Shopware PWA",
     meta: [
       { hid: "project-type", name: "project-type", content: "shopware-pwa" },
       { charset: "utf-8" },

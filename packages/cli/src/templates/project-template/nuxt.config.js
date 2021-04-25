@@ -2,13 +2,7 @@ import extendNuxtConfig from '@shopware-pwa/nuxt-module/config'
 
 export default extendNuxtConfig({
   head: {
-    title: 'shopware-pwa-project',
+    title: 'Shopware PWA',
     meta: [{ hid: 'description', name: 'description', content: '' }],
-  },
-  vue: {
-    config: {
-      productionTip: false,
-      devtools: true,
-    },
   },
 })
