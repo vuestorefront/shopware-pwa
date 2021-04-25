@@ -1,4 +1,4 @@
-import { extendNuxtConfig } from '@shopware-pwa/nuxt-module'
+import extendNuxtConfig from '@shopware-pwa/nuxt-module/config'
 
 export default extendNuxtConfig({
   head: {
