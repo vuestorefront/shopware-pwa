@@ -20,6 +20,7 @@ describe("nuxt-module - extendNuxtConfig", () => {
       buildModules: ["some-new-module"],
     });
     expect(result.buildModules).toEqual([
+      "@nuxt/typescript-build",
       "@shopware-pwa/nuxt-module",
       "some-new-module",
     ]);
