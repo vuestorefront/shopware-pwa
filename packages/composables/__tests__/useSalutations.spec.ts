@@ -36,20 +36,22 @@ describe("Composables - useSalutations", () => {
         const { getSalutations, fetchSalutations } = useSalutations(
           rootContextMock
         );
-        mockedApiClient.getAvailableSalutations.mockReturnValueOnce([
-          {
-            displayName: "Mr.",
-            id: "id",
-            salutationKey: "salutatonKey",
-            letterName: "Dear Mr.",
-          },
-          {
-            displayName: "Mrs.",
-            id: "id",
-            salutationKey: "salutatonKey",
-            letterName: "Dear Mrs.",
-          },
-        ] as any);
+        mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
+          elements: [
+            {
+              displayName: "Mr.",
+              id: "id",
+              salutationKey: "salutatonKey",
+              letterName: "Dear Mr.",
+            },
+            {
+              displayName: "Mrs.",
+              id: "id",
+              salutationKey: "salutatonKey",
+              letterName: "Dear Mrs.",
+            },
+          ],
+        } as any);
         await fetchSalutations();
 
         expect(getSalutations.value).toEqual([
@@ -93,29 +95,31 @@ describe("Composables - useSalutations", () => {
         jest.resetAllMocks();
       });
       it("should call fetcSalutations when getSalutations is an empty list", async () => {
-        mockedApiClient.getAvailableSalutations.mockReturnValueOnce(
-          null as any
-        );
+        mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
+          elements: null,
+        } as any);
         const {
           mountedCallback,
           getSalutations,
           fetchSalutations,
         } = useSalutations(rootContextMock);
         await fetchSalutations();
-        mockedApiClient.getAvailableSalutations.mockReturnValueOnce([
-          {
-            displayName: "Mr.",
-            id: "id",
-            salutationKey: "salutatonKey",
-            letterName: "Dear Mr.",
-          },
-          {
-            displayName: "Mrs.",
-            id: "id",
-            salutationKey: "salutatonKey",
-            letterName: "Dear Mrs.",
-          },
-        ] as any);
+        mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
+          elements: [
+            {
+              displayName: "Mr.",
+              id: "id",
+              salutationKey: "salutatonKey",
+              letterName: "Dear Mr.",
+            },
+            {
+              displayName: "Mrs.",
+              id: "id",
+              salutationKey: "salutatonKey",
+              letterName: "Dear Mrs.",
+            },
+          ],
+        } as any);
         await mountedCallback();
         expect(getSalutations.value).toEqual([
           {
@@ -133,40 +137,44 @@ describe("Composables - useSalutations", () => {
         ]);
       });
       it("should not call fetch salutations when getSalutations is not an empty list", async () => {
-        mockedApiClient.getAvailableSalutations.mockReturnValueOnce([
-          {
-            displayName: "Not specified",
-            id: "id",
-            salutationKey: "salutatonKey",
-            letterName: "Dear Mr./Mrs.",
-          },
-          {
-            displayName: "Mrs.",
-            id: "id",
-            salutationKey: "salutatonKey",
-            letterName: "Dear Mrs.",
-          },
-        ] as any);
+        mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
+          elements: [
+            {
+              displayName: "Not specified",
+              id: "id",
+              salutationKey: "salutatonKey",
+              letterName: "Dear Mr./Mrs.",
+            },
+            {
+              displayName: "Mrs.",
+              id: "id",
+              salutationKey: "salutatonKey",
+              letterName: "Dear Mrs.",
+            },
+          ],
+        } as any);
         const {
           mountedCallback,
           getSalutations,
           fetchSalutations,
         } = useSalutations(rootContextMock);
         await fetchSalutations();
-        mockedApiClient.getAvailableSalutations.mockReturnValueOnce([
-          {
-            displayName: "Mr.",
-            id: "id",
-            salutationKey: "salutatonKey",
-            letterName: "Dear Mr.",
-          },
-          {
-            displayName: "Mrs.",
-            id: "id",
-            salutationKey: "salutatonKey",
-            letterName: "Dear Mrs.",
-          },
-        ] as any);
+        mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
+          elements: [
+            {
+              displayName: "Mr.",
+              id: "id",
+              salutationKey: "salutatonKey",
+              letterName: "Dear Mr.",
+            },
+            {
+              displayName: "Mrs.",
+              id: "id",
+              salutationKey: "salutatonKey",
+              letterName: "Dear Mrs.",
+            },
+          ],
+        } as any);
         await mountedCallback();
         // do not replace if salutations are loaded already
         expect(getSalutations.value).toEqual([

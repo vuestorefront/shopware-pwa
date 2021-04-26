@@ -83,11 +83,13 @@ describe("Composables - useCurrency", () => {
       });
 
       it("should return fetched array of currencies", async () => {
-        mockedApiClient.getAvailableCurrencies.mockResolvedValueOnce([
-          {
-            iso: "EUR",
-          },
-        ] as any);
+        mockedApiClient.getAvailableCurrencies.mockResolvedValueOnce({
+          elements: [
+            {
+              iso: "EUR",
+            },
+          ],
+        } as any);
 
         const { loadAvailableCurrencies, availableCurrencies } = useCurrency(
           rootContextMock
@@ -116,11 +118,13 @@ describe("Composables - useCurrency", () => {
       });
 
       it("should not call apiClient:getAvailableCurrencies second time if values are fetched", async () => {
-        mockedApiClient.getAvailableCurrencies.mockResolvedValueOnce([
-          {
-            iso: "EUR",
-          },
-        ] as any);
+        mockedApiClient.getAvailableCurrencies.mockResolvedValueOnce({
+          elements: [
+            {
+              iso: "EUR",
+            },
+          ],
+        } as any);
 
         const { loadAvailableCurrencies } = useCurrency(rootContextMock);
         await loadAvailableCurrencies();
@@ -129,11 +133,13 @@ describe("Composables - useCurrency", () => {
       });
 
       it("should call apiClient:getAvailableCurrencies second if forceReload flag is used", async () => {
-        mockedApiClient.getAvailableCurrencies.mockResolvedValueOnce([
-          {
-            iso: "EUR",
-          },
-        ] as any);
+        mockedApiClient.getAvailableCurrencies.mockResolvedValueOnce({
+          elements: [
+            {
+              iso: "EUR",
+            },
+          ],
+        } as any);
 
         const { loadAvailableCurrencies } = useCurrency(rootContextMock);
         await loadAvailableCurrencies();

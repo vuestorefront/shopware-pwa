@@ -93,10 +93,10 @@ export const useCheckout = (
     { forceReload } = { forceReload: false }
   ) => {
     if (shippingMethods.value.length && !forceReload) return shippingMethods;
-    const { elements } = await getAvailableShippingMethods(apiInstance, {
+    const response = await getAvailableShippingMethods(apiInstance, {
       onlyAvailable: true, // depending on the context, some of them can be hidden due to applied rules describing whether a method can be available
     });
-    orderData.shippingMethods = elements || [];
+    orderData.shippingMethods = response?.elements || [];
     return shippingMethods;
   };
 
@@ -104,10 +104,10 @@ export const useCheckout = (
     { forceReload } = { forceReload: false }
   ) => {
     if (paymentMethods.value.length && !forceReload) return paymentMethods;
-    const { elements } = await getAvailablePaymentMethods(apiInstance, {
+    const response = await getAvailablePaymentMethods(apiInstance, {
       onlyAvailable: true, // depending on the context, some of them can be hidden due to applied rules describing whether a method can be available
     });
-    orderData.paymentMethods = elements || [];
+    orderData.paymentMethods = response?.elements || [];
     return paymentMethods;
   };
 
