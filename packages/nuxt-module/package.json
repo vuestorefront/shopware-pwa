@@ -3,6 +3,10 @@
   "version": "0.8.1",
   "description": "@shopware-pwa/nuxt-module",
   "main": "dist/nuxt-module.cjs.js",
+  "exports": {
+    ".": "./dist/nuxt-module.cjs.js",
+    "./config": "./dist/extendNuxtConfig.cjs.js"
+  },
   "files": [
     "dist",
     "plugins/*"
@@ -48,6 +52,9 @@
     "name": "nuxt-module",
     "formats": [
       "cjs"
+    ],
+    "additionalEntrypoints": [
+      "extendNuxtConfig"
     ]
   }
 }
