@@ -64,17 +64,12 @@ export default async ({ app }, inject) => {
     }
   });
 
-  const { preloadRef } = useSharedState(app);
-  const { sessionContext, refreshSessionContext } = useSessionContext(app);
-  preloadRef(sessionContext, async () => {
-    await refreshSessionContext();
-  });
-  const { refreshUser, user } = useUser(app);
-  preloadRef(user, async () => {
-    await refreshUser();
-  });
-  const { refreshCart, cart } = useCart(app);
-  preloadRef(cart, async () => {
-    await refreshCart();
-  });
+  if (process.client) {
+    const { refreshSessionContext } = useSessionContext(app);
+    refreshSessionContext();
+    const { refreshUser } = useUser(app);
+    refreshUser();
+    const { refreshCart } = useCart(app);
+    refreshCart();
+  }
 };
