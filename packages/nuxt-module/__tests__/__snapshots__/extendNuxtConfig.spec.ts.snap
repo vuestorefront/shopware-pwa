@@ -5,6 +5,7 @@ Object {
   "axios": Object {},
   "build": Object {},
   "buildModules": Array [
+    "@nuxt/typescript-build",
     "@shopware-pwa/nuxt-module",
   ],
   "components": false,
