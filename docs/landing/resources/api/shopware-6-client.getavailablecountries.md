@@ -12,7 +12,7 @@ Get all available countries
 <b>Signature:</b>
 
 ```typescript
-export declare function getAvailableCountries(contextInstance?: ShopwareApiInstance): Promise<SearchResult<Country[]>>;
+export declare function getAvailableCountries(contextInstance?: ShopwareApiInstance): Promise<EntityResult<"country", Country[]>>;
 ```
 
 ## Parameters
@@ -23,7 +23,7 @@ export declare function getAvailableCountries(contextInstance?: ShopwareApiInsta
 
 <b>Returns:</b>
 
-Promise&lt;SearchResult&lt;Country\[\]&gt;&gt;
+Promise&lt;EntityResult&lt;"country", Country\[\]&gt;&gt;
 
 ## Exceptions
 
