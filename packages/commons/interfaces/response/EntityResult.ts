@@ -1,3 +1,6 @@
+/**
+ * @beta
+ */
 export interface EntityResult<ENTITY, ENTITY_TYPE> {
   entity: ENTITY;
   total: number;
