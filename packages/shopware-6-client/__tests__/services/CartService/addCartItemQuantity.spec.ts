@@ -39,7 +39,7 @@ describe("CartService - addCartItemQuantity", () => {
     const result = await addCartItemQuantity(lineItemId, 3);
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      `/store-api/v3/checkout/cart/line-item/3a64e872ca404522a2c5d43ebc751e6b`,
+      `/store-api/checkout/cart/line-item/3a64e872ca404522a2c5d43ebc751e6b`,
       {
         type: "product",
         quantity: 3,
@@ -60,7 +60,7 @@ describe("CartService - addCartItemQuantity", () => {
     );
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      "/store-api/v3/checkout/cart/line-item/someNonExistingLineItemId",
+      "/store-api/checkout/cart/line-item/someNonExistingLineItemId",
       {
         quantity: 1,
         type: "product",
@@ -80,7 +80,7 @@ describe("CartService - addCartItemQuantity", () => {
     );
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      `/store-api/v3/checkout/cart/line-item/someNonExistingLineItemId`,
+      `/store-api/checkout/cart/line-item/someNonExistingLineItemId`,
       {
         quantity: -2,
         type: "product",
@@ -97,12 +97,9 @@ describe("CartService - addCartItemQuantity", () => {
       "404: Not Found"
     );
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith(
-      "/store-api/v3/checkout/cart/line-item/",
-      {
-        quantity: 2,
-        type: "product",
-      }
-    );
+    expect(mockedPost).toBeCalledWith("/store-api/checkout/cart/line-item/", {
+      quantity: 2,
+      type: "product",
+    });
   });
 });
