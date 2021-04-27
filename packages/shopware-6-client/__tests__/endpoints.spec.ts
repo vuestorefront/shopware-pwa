@@ -196,7 +196,7 @@ describe("endpoints", () => {
   describe("getCheckoutOrderEndpoint", () => {
     it("should return Shopware checkout-order endpoint", async () => {
       const result = getCheckoutOrderEndpoint();
-      expect(result).toEqual("/sales-channel-api/v3/checkout/order");
+      expect(result).toEqual("/store-api/checkout/order");
     });
   });
 

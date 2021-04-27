@@ -21,21 +21,19 @@ describe("CheckoutService createOrder", () => {
 
       const result = await createOrder();
       expect(mockedPost).toBeCalledTimes(1);
-      expect(mockedPost).toBeCalledWith("/sales-channel-api/v3/checkout/order");
+      expect(mockedPost).toBeCalledWith("/store-api/checkout/order");
       expect(result).toBeUndefined();
     });
     it("should return newly added order object", async () => {
       mockedPost.mockResolvedValueOnce({
         data: {
-          data: {
-            id: "new-order-id",
-          },
+          id: "new-order-id",
         },
       });
 
       const result = await createOrder();
       expect(mockedPost).toBeCalledTimes(1);
-      expect(mockedPost).toBeCalledWith("/sales-channel-api/v3/checkout/order");
+      expect(mockedPost).toBeCalledWith("/store-api/checkout/order");
       expect(result).toHaveProperty("id");
     });
   });

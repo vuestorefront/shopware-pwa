@@ -170,8 +170,7 @@ export const getCheckoutCartLineItemEndpoint = () =>
 /**
  * @beta
  */
-export const getCheckoutOrderEndpoint = () =>
-  `/sales-channel-api/v3/checkout/order`; // replace with `/store-api/v3/account/order`
+export const getCheckoutOrderEndpoint = () => `/store-api/checkout/order`;
 
 /**
  * @beta

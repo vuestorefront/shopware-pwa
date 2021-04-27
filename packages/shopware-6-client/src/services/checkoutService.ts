@@ -17,7 +17,7 @@ export async function createOrder(
 ): Promise<Order> {
   const resp = await contextInstance.invoke.post(getCheckoutOrderEndpoint());
 
-  return resp.data?.data;
+  return resp.data;
 }
 
 /**
