@@ -33,4 +33,12 @@ describe("ContextService - getShippingMethodDetails", () => {
     expect(result).toHaveProperty("id");
     expect(result.id).toBe("dhl");
   });
+  it("should return undefined if the response does not contain specific data", async () => {
+    mockedGet.mockResolvedValueOnce({
+      data: undefined,
+    });
+
+    const result = await getShippingMethodDetails("dhl");
+    expect(result).toBeUndefined();
+  });
 });

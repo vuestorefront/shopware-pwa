@@ -102,6 +102,30 @@ describe("Composables - useCurrency", () => {
         ]);
       });
 
+      it("should not override an empty currencies if the response does not have any", async () => {
+        mockedApiClient.getAvailableCurrencies.mockResolvedValueOnce({
+          elements: [
+            {
+              iso: "EUR",
+            },
+          ],
+        } as any);
+
+        const { loadAvailableCurrencies, availableCurrencies } = useCurrency(
+          rootContextMock
+        );
+        await loadAvailableCurrencies();
+        mockedApiClient.getAvailableCurrencies.mockResolvedValueOnce(
+          undefined as any
+        );
+        await loadAvailableCurrencies();
+        expect(availableCurrencies.value).toEqual([
+          {
+            iso: "EUR",
+          },
+        ]);
+      });
+
       it("should return array with current currenry inside, when no currencies loaded", async () => {
         mockedCurrentCurrency.value = { symbol: "$$$" } as any;
         const { availableCurrencies } = useCurrency(rootContextMock);

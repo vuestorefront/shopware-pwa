@@ -27,4 +27,12 @@ describe("ContextService - getUserCountry", () => {
     });
     expect(result.displayName).toEqual("Mrs.");
   });
+  it("should not return user salutation object if the response does not contain any data", async () => {
+    mockedGet.mockResolvedValueOnce({
+      data: undefined,
+    });
+
+    const result = await getUserSalutation("12345");
+    expect(result).toBeUndefined();
+  });
 });
