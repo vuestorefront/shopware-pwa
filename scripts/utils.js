@@ -1,15 +1,18 @@
 const fs = require("fs");
 const chalk = require("chalk");
+const path = require("path");
 
 const ownBuildProcessPackages = ["commons"];
 
+const packagesDir = path.join(__dirname, "..", "packages");
+
 const allTargets = (exports.allTargets = fs
-  .readdirSync("packages")
-  .filter((f) => !!fs.statSync(`packages/${f}`).isDirectory()));
+  .readdirSync(packagesDir)
+  .filter((f) => !!fs.statSync(path.join(packagesDir, f)).isDirectory()));
 
 const targets = (exports.targets = allTargets.filter((f) => {
   if (
-    !fs.statSync(`packages/${f}`).isDirectory() ||
+    !fs.statSync(path.join(packagesDir, f)).isDirectory() ||
     ownBuildProcessPackages.includes(f)
   ) {
     return false;

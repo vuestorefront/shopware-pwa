@@ -150,7 +150,7 @@ export default {
     this.countVisibleCategories()
   },
 
-  unmounted() {
+  beforeDestroy() {
     window.removeEventListener("resize", this.countVisibleCategories)
   },
 
