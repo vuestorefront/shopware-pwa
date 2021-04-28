@@ -30,7 +30,7 @@ describe("ContextService - setCurrentCurrency", () => {
       const result = await setCurrentCurrency(newCurrencyId);
 
       expect(mockedPatch).toBeCalledTimes(1);
-      expect(mockedPatch).toBeCalledWith("/store-api/v3/context", {
+      expect(mockedPatch).toBeCalledWith("/store-api/context", {
         currencyId: "45f96f681f9d4834b29e9e15df3a7149",
       });
 
@@ -53,7 +53,7 @@ describe("ContextService - setCurrentCurrency", () => {
       const result = await setCurrentCurrency(newCurrencyId);
 
       expect(mockedPatch).toBeCalledTimes(1);
-      expect(mockedPatch).toBeCalledWith("/store-api/v3/context", {
+      expect(mockedPatch).toBeCalledWith("/store-api/context", {
         currencyId: "45f96f681f9d4834b29e9e15df3a7149",
       });
 

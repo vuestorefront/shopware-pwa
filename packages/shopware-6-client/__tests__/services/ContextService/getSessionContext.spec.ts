@@ -1,6 +1,5 @@
 import { defaultInstance } from "../../../src/apiService";
 import { getSessionContext } from "@shopware-pwa/shopware-6-client";
-import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
 
 jest.mock("../../../src/apiService");
 const mockedApiInstance = defaultInstance as jest.Mocked<
@@ -18,9 +17,9 @@ describe("ContextService - getSessionContext", () => {
   it("should return sessionContext", async () => {
     mockedGet.mockResolvedValueOnce({ data: { token: "qwerty" } });
 
-    const result: SessionContext = await getSessionContext();
+    const result = await getSessionContext();
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith("/store-api/v3/context");
+    expect(mockedGet).toBeCalledWith("/store-api/context");
     expect(result.token).toEqual("qwerty");
   });
 });
