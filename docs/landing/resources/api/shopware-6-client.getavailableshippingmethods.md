@@ -12,7 +12,7 @@
 ```typescript
 export declare function getAvailableShippingMethods(contextInstance?: ShopwareApiInstance, params?: {
     onlyAvailable?: boolean;
-}): Promise<ShippingMethod[]>;
+}): Promise<EntityResult<"shipping_method", ShippingMethod[]>>;
 ```
 
 ## Parameters
@@ -24,7 +24,7 @@ export declare function getAvailableShippingMethods(contextInstance?: ShopwareAp
 
 <b>Returns:</b>
 
-Promise&lt;ShippingMethod\[\]&gt;
+Promise&lt;EntityResult&lt;"shipping\_method", ShippingMethod\[\]&gt;&gt;
 
 ## Exceptions
 

@@ -104,15 +104,11 @@
 |  [getCheckoutPromotionCodeEndpoint](./shopware-6-client.getcheckoutpromotioncodeendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContactFormEndpoint](./shopware-6-client.getcontactformendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContextCountryEndpoint](./shopware-6-client.getcontextcountryendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getContextCountryItemEndpoint](./shopware-6-client.getcontextcountryitemendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContextCurrencyEndpoint](./shopware-6-client.getcontextcurrencyendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContextEndpoint](./shopware-6-client.getcontextendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContextLanguageEndpoint](./shopware-6-client.getcontextlanguageendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getContextPaymentMethodDetailsEndpoint](./shopware-6-client.getcontextpaymentmethoddetailsendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContextPaymentMethodEndpoint](./shopware-6-client.getcontextpaymentmethodendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContextSalutationEndpoint](./shopware-6-client.getcontextsalutationendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getContextSalutationItemEndpoint](./shopware-6-client.getcontextsalutationitemendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getContextShippingMethodDetailsEndpoint](./shopware-6-client.getcontextshippingmethoddetailsendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContextShippingMethodEndpoint](./shopware-6-client.getcontextshippingmethodendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerAddressDetailsEndpoint](./shopware-6-client.getcustomeraddressdetailsendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerAddressEndpoint](./shopware-6-client.getcustomeraddressendpoint.md) | <b><i>(BETA)</i></b> |

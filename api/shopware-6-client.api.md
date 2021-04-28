@@ -14,6 +14,7 @@ import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currenc
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { CustomerRegistrationParams } from '@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams';
+import { EntityResult } from '@shopware-pwa/commons/interfaces/response/EntityResult';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Language } from '@shopware-pwa/commons/interfaces/models/framework/language/Language';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
@@ -152,26 +153,26 @@ export interface CustomerUpdateProfileParam {
 export function deleteCustomerAddress(addressId: string, contextInstance?: ShopwareApiInstance): Promise<void>;
 
 // @beta
-export function getAvailableCountries(contextInstance?: ShopwareApiInstance): Promise<SearchResult<Country[]>>;
+export function getAvailableCountries(contextInstance?: ShopwareApiInstance): Promise<EntityResult<"country", Country[]>>;
 
 // @beta (undocumented)
-export function getAvailableCurrencies(contextInstance?: ShopwareApiInstance): Promise<Currency[]>;
+export function getAvailableCurrencies(contextInstance?: ShopwareApiInstance): Promise<EntityResult<"currency", Currency[]>>;
 
 // @beta (undocumented)
-export function getAvailableLanguages(contextInstance?: ShopwareApiInstance): Promise<Language[]>;
+export function getAvailableLanguages(contextInstance?: ShopwareApiInstance): Promise<EntityResult<"language", Language[]>>;
 
 // @beta (undocumented)
 export function getAvailablePaymentMethods(contextInstance?: ShopwareApiInstance, params?: {
     onlyAvailable?: boolean;
-}): Promise<PaymentMethod[]>;
+}): Promise<EntityResult<"payment_method", PaymentMethod[]>>;
 
 // @beta
-export function getAvailableSalutations(contextInstance?: ShopwareApiInstance): Promise<SearchResult<Salutation[]>>;
+export function getAvailableSalutations(contextInstance?: ShopwareApiInstance): Promise<EntityResult<"salutation", Salutation[]>>;
 
 // @beta (undocumented)
 export function getAvailableShippingMethods(contextInstance?: ShopwareApiInstance, params?: {
     onlyAvailable?: boolean;
-}): Promise<ShippingMethod[]>;
+}): Promise<EntityResult<"shipping_method", ShippingMethod[]>>;
 
 // @beta
 export function getCart(contextInstance?: ShopwareApiInstance): Promise<Cart>;
@@ -225,9 +226,6 @@ export const getContactFormEndpoint: () => string;
 export const getContextCountryEndpoint: () => string;
 
 // @beta (undocumented)
-export const getContextCountryItemEndpoint: (countryId: string) => string;
-
-// @beta (undocumented)
 export const getContextCurrencyEndpoint: () => string;
 
 // @beta (undocumented)
@@ -237,19 +235,10 @@ export const getContextEndpoint: () => string;
 export const getContextLanguageEndpoint: () => string;
 
 // @beta (undocumented)
-export const getContextPaymentMethodDetailsEndpoint: (paymentId: string) => string;
-
-// @beta (undocumented)
 export const getContextPaymentMethodEndpoint: () => string;
 
 // @beta (undocumented)
 export const getContextSalutationEndpoint: () => string;
-
-// @beta (undocumented)
-export const getContextSalutationItemEndpoint: (salutationId: string) => string;
-
-// @beta (undocumented)
-export const getContextShippingMethodDetailsEndpoint: (shippingId: string) => string;
 
 // @beta (undocumented)
 export const getContextShippingMethodEndpoint: () => string;
