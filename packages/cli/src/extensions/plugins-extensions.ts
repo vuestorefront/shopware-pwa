@@ -173,7 +173,7 @@ module.exports = (toolbox: GluegunToolbox) => {
             "json"
           );
           if (pluginConfig) {
-            pluginConfig.slots.forEach(
+            pluginConfig?.slots?.forEach(
               async (slot: { name: string; file: string }) => {
                 if (!pluginsMap[slot.name]) pluginsMap[slot.name] = [];
                 pluginsMap[slot.name].push(

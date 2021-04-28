@@ -66,12 +66,12 @@ export async function useThemeAndProjectFiles({
   await fse.emptyDir(TARGET_SOURCE);
   // Get layouts generated via plugins
   const layoutsPath = path.join(TARGET_SOURCE, "..", "sw-plugins", "layouts");
-  const layoutsExist = fse.pathExists(layoutsPath);
+  const layoutsExist = await fse.pathExists(layoutsPath);
   layoutsExist &&
     (await fse.copy(layoutsPath, path.join(TARGET_SOURCE, "layouts")));
   // Get pages generated via plugins
   const pagesPath = path.join(TARGET_SOURCE, "..", "sw-plugins", "pages");
-  const pagesExist = fse.pathExists(pagesPath);
+  const pagesExist = await fse.pathExists(pagesPath);
   pagesExist && (await fse.copy(pagesPath, path.join(TARGET_SOURCE, "pages")));
   // Get theme files
   await fse.copy(THEME_SOURCE, TARGET_SOURCE, {
