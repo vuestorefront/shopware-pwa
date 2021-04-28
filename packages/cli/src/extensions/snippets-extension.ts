@@ -82,7 +82,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     snippetSetIdentifier: string
   ) => {
     const fetchSnippetsResponse = await axios.post(
-      `${toolbox.normalizeBaseUrl(shopwareEndpoint)}/api/v3/search/snippet`,
+      `${toolbox.normalizeBaseUrl(shopwareEndpoint)}/api/search/snippet`,
       {
         filter: [
           {
@@ -136,7 +136,7 @@ module.exports = (toolbox: GluegunToolbox) => {
 
     try {
       await axios.post(
-        `${toolbox.normalizeBaseUrl(shopwareEndpoint)}/api/v3/_action/sync`,
+        `${toolbox.normalizeBaseUrl(shopwareEndpoint)}/api/_action/sync`,
         [
           {
             action: "upsert",
@@ -152,7 +152,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       );
 
       toolbox.print.success(
-        `Exported ${payload.length} snippets to '${shopwareEndpoint}/api/v3/_action/sync'`
+        `Exported ${payload.length} snippets to '${shopwareEndpoint}/api/_action/sync'`
       );
     } catch (error) {
       toolbox.print.error(
@@ -177,7 +177,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     authToken: string
   ) => {
     const snippetSetsResponse = await axios.post(
-      `${toolbox.normalizeBaseUrl(shopwareEndpoint)}/api/v3/search/snippet-set`,
+      `${toolbox.normalizeBaseUrl(shopwareEndpoint)}/api/search/snippet-set`,
       {
         filter: [
           {
