@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { Ref, computed, reactive } from "@vue/composition-api";
+import { Ref, computed } from "@vue/composition-api";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
@@ -12,11 +12,9 @@ import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Or
 import {
   getAvailableShippingMethods,
   getAvailablePaymentMethods,
-  createGuestOrder,
   createOrder as createApiOrder,
 } from "@shopware-pwa/shopware-6-client";
 import {
-  useUser,
   useCart,
   useSessionContext,
   INTERCEPTOR_KEYS,
@@ -32,11 +30,6 @@ import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout
  * @beta
  */
 export interface IUseCheckout {
-  /**
-   * Flag isGuestOrder is true when user is not logged in
-   */
-  isGuestOrder: Readonly<Ref<boolean>>;
-  guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>;
   getShippingMethods: (options?: {
     forceReload: boolean;
   }) => Promise<Readonly<Ref<readonly ShippingMethod[]>>>;
@@ -46,7 +39,6 @@ export interface IUseCheckout {
   }) => Promise<Readonly<Ref<readonly PaymentMethod[]>>>;
   paymentMethods: Readonly<Ref<readonly PaymentMethod[]>>;
   createOrder: () => Promise<Order>;
-  updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
   shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
   billingAddress: Readonly<Ref<Partial<BillingAddress> | undefined>>;
   onOrderPlace: (fn: (params: { order: Order }) => void) => void;
@@ -75,7 +67,6 @@ export const useCheckout = (
     "useCheckout"
   );
   const { broadcast, intercept } = useIntercept(rootContext);
-  const { isLoggedIn } = useUser(rootContext);
   const { refreshCart } = useCart(rootContext);
   const { sessionContext } = useSessionContext(rootContext);
 
@@ -85,7 +76,6 @@ export const useCheckout = (
   const paymentMethods: Readonly<Ref<readonly PaymentMethod[]>> = computed(
     () => orderData.paymentMethods
   );
-  const localOrderData = reactive(orderData);
   const onOrderPlace = (fn: IInterceptorCallbackFunction) =>
     intercept(INTERCEPTOR_KEYS.ORDER_PLACE, fn);
 
@@ -119,15 +109,8 @@ export const useCheckout = (
 
   const createOrder = async () => {
     try {
-      let order;
-      if (isGuestOrder.value) {
-        order = await createGuestOrder(
-          orderData.guestOrderParams as GuestOrderParams,
-          apiInstance
-        );
-      } else {
-        order = await createApiOrder(apiInstance);
-      }
+      const order = await createApiOrder(apiInstance);
+
       broadcast(INTERCEPTOR_KEYS.ORDER_PLACE, {
         order,
       });
@@ -145,33 +128,20 @@ export const useCheckout = (
       await refreshCart();
     }
   };
-  const isGuestOrder = computed(() => !isLoggedIn.value);
 
-  const guestOrderParams = computed(() => localOrderData.guestOrderParams);
-  const updateGuestOrderParams = (params: Partial<GuestOrderParams>): void => {
-    orderData.guestOrderParams = { ...orderData.guestOrderParams, ...params };
-  };
-
-  const shippingAddress = computed(() =>
-    isGuestOrder.value
-      ? guestOrderParams.value.shippingAddress
-      : sessionContext.value?.shippingLocation?.address
+  const shippingAddress = computed(
+    () => sessionContext.value?.shippingLocation?.address
   );
-  const billingAddress = computed(() =>
-    isGuestOrder.value
-      ? guestOrderParams.value.billingAddress
-      : sessionContext.value?.customer?.activeBillingAddress
+  const billingAddress = computed(
+    () => sessionContext.value?.customer?.activeBillingAddress
   );
 
   return {
-    isGuestOrder,
     getPaymentMethods,
     paymentMethods,
     getShippingMethods,
     shippingMethods,
     createOrder,
-    guestOrderParams,
-    updateGuestOrderParams,
     shippingAddress,
     billingAddress,
     onOrderPlace,

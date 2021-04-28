@@ -24,7 +24,6 @@ import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
 import { EntityError } from '@shopware-pwa/commons/interfaces/models/common/EntityError';
 import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
-import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { IUseListing as IUseListing_2 } from '@shopware-pwa/composables';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
@@ -128,10 +127,10 @@ export interface CreateCheckoutStep {
 }
 
 // @alpha (undocumented)
-export function createCheckoutStep({ stepNumber, stepFields, stepDataUpdated, }: {
+export function createCheckoutStep({ stepNumber, stepFields, }: {
     stepNumber: number;
     stepFields: CheckoutStepFields;
-    stepDataUpdated: (updatedData: CheckoutStepFields, guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>) => Partial<GuestOrderParams>;
+    stepDataUpdated: (updatedData: CheckoutStepFields) => Partial<any>;
 }): (rootContext: ApplicationVueContext) => CreateCheckoutStep;
 
 // @beta
@@ -268,9 +267,6 @@ export interface IUseCheckout {
         forceReload: boolean;
     }) => Promise<Readonly<Ref<readonly ShippingMethod[]>>>;
     // (undocumented)
-    guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>;
-    isGuestOrder: Readonly<Ref<boolean>>;
-    // (undocumented)
     onOrderPlace: (fn: (params: {
         order: Order;
     }) => void) => void;
@@ -280,8 +276,6 @@ export interface IUseCheckout {
     shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
     // (undocumented)
     shippingMethods: Readonly<Ref<readonly ShippingMethod[]>>;
-    // (undocumented)
-    updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
 }
 
 // @beta

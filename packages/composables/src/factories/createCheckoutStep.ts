@@ -6,8 +6,7 @@ import {
   toRefs,
   Ref,
 } from "@vue/composition-api";
-import { useCheckout, getApplicationContext } from "@shopware-pwa/composables";
-import { GuestOrderParams } from "@shopware-pwa/commons/interfaces/request/GuestOrderParams";
+import { getApplicationContext } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
 
 /**
@@ -42,14 +41,10 @@ export interface CreateCheckoutStep {
 export function createCheckoutStep({
   stepNumber,
   stepFields,
-  stepDataUpdated,
 }: {
   stepNumber: number;
   stepFields: CheckoutStepFields;
-  stepDataUpdated: (
-    updatedData: CheckoutStepFields,
-    guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>
-  ) => Partial<GuestOrderParams>;
+  stepDataUpdated: (updatedData: CheckoutStepFields) => Partial<any>;
 }) {
   const stepData = reactive({
     ...stepFields,
@@ -63,9 +58,6 @@ export function createCheckoutStep({
   return (rootContext: ApplicationVueContext): CreateCheckoutStep => {
     getApplicationContext(rootContext, "checkoutStep");
     const stepDataCache: Ref<{ isValid: boolean } | null> = ref(null);
-    const { guestOrderParams, updateGuestOrderParams } = useCheckout(
-      rootContext
-    );
 
     const validations = computed(() => sharedCache.$v);
     const isValid = computed(() => {
@@ -89,16 +81,12 @@ export function createCheckoutStep({
         rootContext.$cookies.set("sw-checkout-" + stepNumber, value, {
           maxAge: 60 * 15, // 15 min to complete checkout,
         });
-        if (stepDataUpdated)
-          updateGuestOrderParams(stepDataUpdated(value, guestOrderParams));
       } else {
         if (!stepDataCache.value) {
           stepDataCache.value =
             rootContext.$cookies.get("sw-checkout-" + stepNumber) || {};
           Object.assign(stepData, stepDataCache.value);
         }
-        if (stepDataUpdated)
-          updateGuestOrderParams(stepDataUpdated(value, guestOrderParams));
       }
     });
 
