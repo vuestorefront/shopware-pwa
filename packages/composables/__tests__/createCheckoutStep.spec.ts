@@ -1,5 +1,5 @@
 import Vue from "vue";
-import VueCompositionApi, { computed, ref } from "@vue/composition-api";
+import VueCompositionApi, { ref } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
 import { VuelidateValidation } from "@shopware-pwa/composables";
@@ -65,32 +65,6 @@ describe("Composables - createCheckoutStep", () => {
     expect(initialData.someField).toEqual("qwe");
   });
 
-  it("should call stepDataUpdated on field update", async () => {
-    const initialData = {
-      someField: "qwe eee",
-    };
-    const guestOrderParamsValue = computed(() => ({}));
-    const stepDataUpdatedMock = jest.fn();
-    const stepComposable = createCheckoutStep({
-      stepNumber: 2,
-      stepFields: initialData,
-      stepDataUpdated: stepDataUpdatedMock,
-    });
-    const { someField } = stepComposable(rootContextMock);
-    someField.value = "qwerty";
-
-    await Vue.nextTick();
-
-    expect(stepDataUpdatedMock).toHaveBeenCalledWith(
-      {
-        isValid: false,
-        someField: "qwerty",
-      },
-      guestOrderParamsValue
-    );
-    expect(stepDataUpdatedMock).toHaveBeenCalledTimes(2);
-  });
-
   it("should override field existing value with cached from cookie", async () => {
     const initialData = {
       someField: "qwe",
@@ -99,7 +73,6 @@ describe("Composables - createCheckoutStep", () => {
       someField: "eeeh",
       isValid: true,
     });
-    const guestOrderParamsValue = computed(() => ({}));
     const stepDataUpdatedMock = jest.fn();
     const stepComposable = createCheckoutStep({
       stepNumber: 2,
@@ -110,21 +83,6 @@ describe("Composables - createCheckoutStep", () => {
     someField.value = "qwerty";
     await Vue.nextTick();
     expect(getCookie).toHaveBeenCalledWith("sw-checkout-2");
-    expect(stepDataUpdatedMock).toHaveBeenCalledWith(
-      {
-        isValid: false,
-        someField: "qwerty",
-      },
-      guestOrderParamsValue
-    );
-    expect(stepDataUpdatedMock).toHaveBeenCalledWith(
-      {
-        isValid: true,
-        someField: "eeeh",
-      },
-      guestOrderParamsValue
-    );
-    expect(stepDataUpdatedMock).toHaveBeenCalledTimes(2);
     expect(someField.value).toEqual("eeeh");
   });
 
