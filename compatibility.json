@@ -1,5 +1,5 @@
 {
-  "shopwareApiVersion": "6.3",
+  "shopwareApiVersion": "6.4",
   "instances": {
     "6.3": {
       "domain": "https://pwa-demo-api.shopware.com/prev/",

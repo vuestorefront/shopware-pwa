@@ -15,7 +15,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     const fetchDomainsResponse = await axios.post(
       `${toolbox.normalizeBaseUrl(
         shopwareEndpoint
-      )}/api/v3/search/sales-channel-domain`,
+      )}/api/search/sales-channel-domain`,
       {
         filter: [
           {
