@@ -1,13 +1,9 @@
 import Vue from "vue";
 import { Ref, computed } from "@vue/composition-api";
+import { ShippingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-
-import {
-  GuestOrderParams,
-  ShippingAddress,
-} from "@shopware-pwa/commons/interfaces/request/GuestOrderParams";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import {
   getAvailableShippingMethods,
@@ -45,11 +41,9 @@ export interface IUseCheckout {
 }
 
 const orderData: {
-  guestOrderParams: Partial<GuestOrderParams>;
   shippingMethods: ShippingMethod[];
   paymentMethods: PaymentMethod[];
 } = Vue.observable({
-  guestOrderParams: {},
   shippingMethods: [],
   paymentMethods: [],
 });
