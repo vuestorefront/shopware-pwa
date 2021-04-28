@@ -72,29 +72,6 @@ export async function addProductToCart(
 }
 
 /**
- * Increases the current quantity in specific cart line item by given quantity.
- *
- * Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 5.
- *
- * @deprecated This method is redundand and will not be supported. Use {@link changeCartItemQuantity} instead.
- * @throws ClientApiError
- * @beta
- */
-export async function addCartItemQuantity(
-  itemId: string,
-  quantity: number,
-  contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<Cart> {
-  const params: Partial<LineItem> = { type: "product", quantity: quantity };
-  const resp = await contextInstance.invoke.post(
-    getCheckoutCartLineItemEndpoint() + "/" + itemId,
-    params
-  );
-
-  return resp.data;
-}
-
-/**
  * Changes the current quantity in specific cart line item to given quantity.
  *
  * Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 2.

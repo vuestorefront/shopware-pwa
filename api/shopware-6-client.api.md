@@ -32,9 +32,6 @@ import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces/search/Se
 import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { StoreNavigationType } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 
-// @beta @deprecated
-export function addCartItemQuantity(itemId: string, quantity: number, contextInstance?: ShopwareApiInstance): Promise<Cart>;
-
 // @beta
 export function addProductReview(productId: string, productReviewData: {
     title: string;
