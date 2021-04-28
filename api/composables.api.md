@@ -41,8 +41,7 @@ import { RangeFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilte
 import { Ref } from '@vue/composition-api';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
-import { ShippingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
-import { ShippingAddress as ShippingAddress_2 } from '@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress';
+import { ShippingAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 import { ShopwareApiInstance } from '@shopware-pwa/shopware-6-client';
 import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
@@ -389,7 +388,7 @@ export interface IUseSessionContext {
     // (undocumented)
     activeBillingAddress: Readonly<Ref<BillingAddress | null>>;
     // (undocumented)
-    activeShippingAddress: Readonly<Ref<ShippingAddress_2 | null>>;
+    activeShippingAddress: Readonly<Ref<ShippingAddress | null>>;
     // (undocumented)
     currency: Readonly<Ref<Currency | null>>;
     // (undocumented)
@@ -413,7 +412,7 @@ export interface IUseSessionContext {
     // (undocumented)
     setActiveBillingAddress: (address: Partial<BillingAddress>) => Promise<void>;
     // (undocumented)
-    setActiveShippingAddress: (address: Partial<ShippingAddress_2>) => Promise<void>;
+    setActiveShippingAddress: (address: Partial<ShippingAddress>) => Promise<void>;
     // (undocumented)
     setCurrency: (currency: Partial<Currency>) => Promise<void>;
     // (undocumented)

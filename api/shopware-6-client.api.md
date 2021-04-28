@@ -197,12 +197,6 @@ export const getCheckoutCartEndpoint: () => string;
 export const getCheckoutCartLineItemEndpoint: () => string;
 
 // @beta (undocumented)
-export const getCheckoutGuestOrderDetailsEndpoint: (orderId: string) => string;
-
-// @beta (undocumented)
-export const getCheckoutGuestOrderEndpoint: () => string;
-
-// @beta (undocumented)
 export const getCheckoutOrderEndpoint: () => string;
 
 // @beta (undocumented)

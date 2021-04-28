@@ -175,20 +175,8 @@ export const getCheckoutOrderEndpoint = () => `/store-api/checkout/order`;
 /**
  * @beta
  */
-export const getCheckoutGuestOrderEndpoint = () =>
-  `/sales-channel-api/v3/checkout/guest-order`; // replace with `/store-api/v4/checkout/register` { guest: true } (to obtain logged in context token) followed by `/store-api/v4/checkout/order`
-
-/**
- * @beta
- */
 export const getCheckoutOrderPayEndpoint = (orderId: string) =>
   `/sales-channel-api/v3/checkout/order/${orderId}/pay`; // replace with `/store-api/v4/handle-payment` { orderId: orderId }
-
-/**
- * @beta
- */
-export const getCheckoutGuestOrderDetailsEndpoint = (orderId: string) =>
-  `/sales-channel-api/v3/checkout/guest-order/${orderId}`; // replace with `/store-api/v3/account/order` { ids: [ orderId ] }
 
 /**
  * @beta
@@ -300,7 +288,7 @@ export const getContactFormEndpoint = () => `/store-api/v3/contact-form`;
  * @beta
  */
 export const getStoreOrderPaymentUrlEndpoint = () =>
-  `/store-api/v3/handle-payment`;
+  `/store-api/handle-payment`;
 
 /**
  * @beta

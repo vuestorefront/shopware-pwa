@@ -96,8 +96,6 @@
 |  [getCategoryProductsListing](./shopware-6-client.getcategoryproductslisting.md) | <b><i>(BETA)</i></b> Get default amount of products and listing configuration for given category |
 |  [getCheckoutCartEndpoint](./shopware-6-client.getcheckoutcartendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCheckoutCartLineItemEndpoint](./shopware-6-client.getcheckoutcartlineitemendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCheckoutGuestOrderDetailsEndpoint](./shopware-6-client.getcheckoutguestorderdetailsendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCheckoutGuestOrderEndpoint](./shopware-6-client.getcheckoutguestorderendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCheckoutOrderEndpoint](./shopware-6-client.getcheckoutorderendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCheckoutOrderPayEndpoint](./shopware-6-client.getcheckoutorderpayendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCheckoutPromotionCodeEndpoint](./shopware-6-client.getcheckoutpromotioncodeendpoint.md) | <b><i>(BETA)</i></b> |
