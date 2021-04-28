@@ -159,13 +159,13 @@ export const getCustomerResetPasswordEndpoint = () =>
 /**
  * @beta
  */
-export const getCheckoutCartEndpoint = () => `/store-api/v3/checkout/cart`;
+export const getCheckoutCartEndpoint = () => `/store-api/checkout/cart`;
 
 /**
  * @beta
  */
 export const getCheckoutCartLineItemEndpoint = () =>
-  `/store-api/v3/checkout/cart/line-item`;
+  `/store-api/checkout/cart/line-item`;
 
 /**
  * @beta
@@ -195,7 +195,7 @@ export const getCheckoutGuestOrderDetailsEndpoint = (orderId: string) =>
  * @beta
  */
 export const getCheckoutPromotionCodeEndpoint = (code: string) =>
-  `/sales-channel-api/v3/checkout/cart/code/${code}`; // replace with `/store-api/v3/checkout/cart/line-item` - see https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/cart?category=shopware-platform-dev-en/store-api-guide#promotion
+  `/sales-channel-api/v3/checkout/cart/code/${code}`; // replace with `/store-api/checkout/cart/line-item` - see https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/cart?category=shopware-platform-dev-en/store-api-guide#promotion
 
 // context
 

@@ -37,7 +37,7 @@ describe("CartService - addPromotionCode", () => {
 
     const result = await addPromotionCode(promotionCode);
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/store-api/v3/checkout/cart/line-item", {
+    expect(mockedPost).toBeCalledWith("/store-api/checkout/cart/line-item", {
       items: [
         { referencedId: "3a64e872ca404522a2c5d43ebc751e6b", type: "promotion" },
       ],
@@ -52,7 +52,7 @@ describe("CartService - addPromotionCode", () => {
 
     expect(addPromotionCode(promotionCode)).rejects.toThrow("404: Not Found");
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/store-api/v3/checkout/cart/line-item", {
+    expect(mockedPost).toBeCalledWith("/store-api/checkout/cart/line-item", {
       items: [{ referencedId: "", type: "promotion" }],
     });
   });

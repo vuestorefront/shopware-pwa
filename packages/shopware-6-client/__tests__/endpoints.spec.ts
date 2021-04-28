@@ -171,14 +171,14 @@ describe("endpoints", () => {
   describe("getCheckoutCartEndpoint", () => {
     it("should return Shopware checkout-cart endpoint", async () => {
       const result = getCheckoutCartEndpoint();
-      expect(result).toEqual("/store-api/v3/checkout/cart");
+      expect(result).toEqual("/store-api/checkout/cart");
     });
   });
 
   describe("getCheckoutCartLineItemEndpoint", () => {
     it("should return Shopware checkout-cart-lineItem endpoint", async () => {
       const result = getCheckoutCartLineItemEndpoint();
-      expect(result).toEqual("/store-api/v3/checkout/cart/line-item");
+      expect(result).toEqual("/store-api/checkout/cart/line-item");
     });
   });
 

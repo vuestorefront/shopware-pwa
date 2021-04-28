@@ -46,7 +46,7 @@ describe("CartService - addProductToCart", () => {
 
     const result = await addProductToCart(productId, 1);
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/store-api/v3/checkout/cart/line-item", {
+    expect(mockedPost).toBeCalledWith("/store-api/checkout/cart/line-item", {
       items: [
         {
           quantity: 1,
@@ -70,7 +70,7 @@ describe("CartService - addProductToCart", () => {
     );
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      "/store-api/v3/checkout/cart/line-item",
+      "/store-api/checkout/cart/line-item",
 
       {
         items: [
@@ -92,7 +92,7 @@ describe("CartService - addProductToCart", () => {
 
     expect(addProductToCart(productId, 2)).rejects.toThrow("404: Not Found");
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/store-api/v3/checkout/cart/line-item", {
+    expect(mockedPost).toBeCalledWith("/store-api/checkout/cart/line-item", {
       items: [
         {
           referencedId: "",
@@ -114,7 +114,7 @@ describe("CartService - addProductToCart", () => {
     });
     await addProductToCart("qwe", 0);
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/store-api/v3/checkout/cart/line-item", {
+    expect(mockedPost).toBeCalledWith("/store-api/checkout/cart/line-item", {
       items: [
         {
           quantity: 1,
