@@ -1,16 +1,16 @@
 import Middleware from "./middleware";
-import VueCompositionAPI, { computed, ref } from "@vue/composition-api";
-import { useSessionContext } from "@shopware-pwa/composables";
-import Vue from "vue";
+import { computed } from "@vue/composition-api";
+import { useSessionContext, useSharedState } from "@shopware-pwa/composables";
 const FALLBACK_DOMAIN = "<%= options.fallbackDomain %>" || "/";
 const FALLBACK_LOCALE = "<%= options.fallbackLocale %>";
 const PWA_HOST = "<%= options.pwaHost %>";
 const domainsList = require("sw-plugins/domains");
-Vue.use(VueCompositionAPI);
 
-const currentDomainData = ref();
 // register domains based routing and configuration
 export default ({ app, route }, inject) => {
+  const { sharedRef } = useSharedState(app);
+  const currentDomainData = sharedRef("sw-current-domain");
+
   const routeDomainUrl = computed(() => route.meta?.[0]?.url);
   const routeDomain = computed(() =>
     Object.values(domainsList).find(
