@@ -71,6 +71,9 @@ export async function runModule(
     );
   }
 
+  /* In here instantiate new routing */
+  await setupDomains(moduleObject, shopwarePwaConfig);
+
   moduleObject.addPlugin({
     src: path.join(__dirname, "..", "plugins", "price-filter.js"),
     fileName: "price-filter.js",
@@ -115,6 +118,9 @@ export async function runModule(
       options: moduleOptions,
     });
   });
+
+  // locales
+  extendLocales(moduleObject, shopwarePwaConfig);
 
   moduleObject.addPlugin({
     fileName: "api-client.js",
@@ -161,9 +167,6 @@ export async function runModule(
     );
   });
 
-  // locales
-  extendLocales(moduleObject, shopwarePwaConfig);
-
   moduleObject.extendBuild((config: WebpackConfig, ctx: WebpackContext) => {
     const swPluginsDirectory = path.join(
       moduleObject.options.rootDir,
@@ -177,8 +180,6 @@ export async function runModule(
   });
 
   extendCMS(moduleObject, shopwarePwaConfig);
-  /* In here instantiate new routing */
-  setupDomains(moduleObject, shopwarePwaConfig);
 
   moduleObject.options.build = moduleObject.options.build || {};
   moduleObject.options.build.babel = moduleObject.options.build.babel || {};
