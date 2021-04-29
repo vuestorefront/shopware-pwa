@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-option: string;
+option: "direct" | "subscribe" | "confirmSubscribe" | "unsubscribe";
 ```

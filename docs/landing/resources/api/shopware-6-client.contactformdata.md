@@ -22,6 +22,7 @@ export interface ContactFormData
 |  [email](./shopware-6-client.contactformdata.email.md) | string | <b><i>(BETA)</i></b> |
 |  [firstName](./shopware-6-client.contactformdata.firstname.md) | string | <b><i>(BETA)</i></b> |
 |  [lastName](./shopware-6-client.contactformdata.lastname.md) | string | <b><i>(BETA)</i></b> |
+|  [navigationId?](./shopware-6-client.contactformdata.navigationid.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [phone?](./shopware-6-client.contactformdata.phone.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [salutationId](./shopware-6-client.contactformdata.salutationid.md) | string | <b><i>(BETA)</i></b> |
 |  [subject](./shopware-6-client.contactformdata.subject.md) | string | <b><i>(BETA)</i></b> |
