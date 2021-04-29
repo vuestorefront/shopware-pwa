@@ -373,6 +373,9 @@ export const getSearchEndpoint: () => string;
 // @beta (undocumented)
 export function getSearchResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
+// @beta (undocumented)
+export const getSeoUrlEndpoint: () => string;
+
 // @beta
 export function getSeoUrls(entityId: string, languageId?: string, contextInstance?: ShopwareApiInstance): Promise<{
     apiAlias: string;

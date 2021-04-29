@@ -251,7 +251,12 @@ export const getNewsletterUnsubscribeEndpoint = () => `/newsletter/unsubscribe`;
 /**
  * @beta
  */
-export const getPageResolverEndpoint = () => `/store-api/v3/pwa/page`;
+export const getPageResolverEndpoint = () => `/store-api/pwa/page`;
+
+/**
+ * @beta
+ */
+export const getSeoUrlEndpoint = () => "/store-api/seo-url";
 
 /**
  * @beta

@@ -136,6 +136,7 @@
 |  [getProducts](./shopware-6-client.getproducts.md) | <b><i>(BETA)</i></b> Get default amount of products |
 |  [getProductsIdsEndpoint](./shopware-6-client.getproductsidsendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getSearchEndpoint](./shopware-6-client.getsearchendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getSeoUrlEndpoint](./shopware-6-client.getseourlendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getStoreNavigationEndpoint](./shopware-6-client.getstorenavigationendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getStoreNewsletterConfirmEndpoint](./shopware-6-client.getstorenewsletterconfirmendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getStoreNewsletterSubscribeEndpoint](./shopware-6-client.getstorenewslettersubscribeendpoint.md) | <b><i>(BETA)</i></b> |
