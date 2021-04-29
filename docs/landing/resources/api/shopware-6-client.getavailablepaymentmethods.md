@@ -12,7 +12,7 @@
 ```typescript
 export declare function getAvailablePaymentMethods(contextInstance?: ShopwareApiInstance, params?: {
     onlyAvailable?: boolean;
-}): Promise<PaymentMethod[]>;
+}): Promise<EntityResult<"payment_method", PaymentMethod[]>>;
 ```
 
 ## Parameters
@@ -24,7 +24,7 @@ export declare function getAvailablePaymentMethods(contextInstance?: ShopwareApi
 
 <b>Returns:</b>
 
-Promise&lt;PaymentMethod\[\]&gt;
+Promise&lt;EntityResult&lt;"payment\_method", PaymentMethod\[\]&gt;&gt;
 
 ## Exceptions
 

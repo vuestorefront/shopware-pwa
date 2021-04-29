@@ -17,18 +17,28 @@ describe("ContextService - getPaymentMethodDetails", () => {
   it("should return an object of specific payment method details", async () => {
     mockedGet.mockResolvedValueOnce({
       data: {
-        data: {
-          id: "paypal",
-        },
+        elements: [
+          {
+            id: "paypal",
+          },
+        ],
       },
     });
 
     const result = await getPaymentMethodDetails("paypal");
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith(
-      "/sales-channel-api/v3/payment-method/paypal"
-    );
+    expect(mockedGet).toBeCalledWith("/store-api/payment-method", {
+      params: { "filter[id]": "paypal" },
+    });
     expect(result).toHaveProperty("id");
-    expect(result.id).toBe("paypal");
+  });
+  it("should return undefined if the response does not contain specific data", async () => {
+    mockedGet.mockResolvedValueOnce({
+      data: undefined,
+    });
+
+    const result = await getPaymentMethodDetails("paypal");
+
+    expect(result).toBeUndefined();
   });
 });

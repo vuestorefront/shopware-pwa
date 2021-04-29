@@ -159,13 +159,13 @@ export const getCustomerResetPasswordEndpoint = () =>
 /**
  * @beta
  */
-export const getCheckoutCartEndpoint = () => `/store-api/v3/checkout/cart`;
+export const getCheckoutCartEndpoint = () => `/store-api/checkout/cart`;
 
 /**
  * @beta
  */
 export const getCheckoutCartLineItemEndpoint = () =>
-  `/store-api/v3/checkout/cart/line-item`;
+  `/store-api/checkout/cart/line-item`;
 
 /**
  * @beta
@@ -182,73 +182,46 @@ export const getCheckoutOrderPayEndpoint = (orderId: string) =>
  * @beta
  */
 export const getCheckoutPromotionCodeEndpoint = (code: string) =>
-  `/sales-channel-api/v3/checkout/cart/code/${code}`; // replace with `/store-api/v3/checkout/cart/line-item` - see https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/cart?category=shopware-platform-dev-en/store-api-guide#promotion
+  `/sales-channel-api/v3/checkout/cart/code/${code}`; // replace with `/store-api/checkout/cart/line-item` - see https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/cart?category=shopware-platform-dev-en/store-api-guide#promotion
 
 // context
 
 /**
  * @beta
  */
-export const getContextEndpoint = () => `/store-api/v3/context`;
+export const getContextEndpoint = () => `/store-api/context`;
 
 /**
  * @beta
  */
-export const getContextCurrencyEndpoint = () => `/store-api/v3/currency`;
+export const getContextCurrencyEndpoint = () => `/store-api/currency`;
 
 /**
  * @beta
  */
-export const getContextLanguageEndpoint = () => `/store-api/v3/language`;
+export const getContextLanguageEndpoint = () => `/store-api/language`;
 
 /**
  * @beta
  */
-export const getContextCountryEndpoint = () => `/sales-channel-api/v3/country`; // replace with `/store-api/v4/country`
-
-/**
- * @beta
- */
-export const getContextCountryItemEndpoint = (countryId: string): string =>
-  `/sales-channel-api/v3/country/${countryId}`; // replace with `/store-api/v4/country` { ids: [ countryId ] }
+export const getContextCountryEndpoint = () => `/store-api/country`;
 
 /**
  * @beta
  */
 export const getContextPaymentMethodEndpoint = () =>
-  `/store-api/v3/payment-method`;
-
-/**
- * @beta
- */
-export const getContextPaymentMethodDetailsEndpoint = (
-  paymentId: string
-): string => `/sales-channel-api/v3/payment-method/${paymentId}`; // replace with `/store-api/v4/payment-method` { ids: [ paymentId ] }
+  `/store-api/payment-method`;
 
 /**
  * @beta
  */
 export const getContextShippingMethodEndpoint = () =>
-  `/store-api/v3/shipping-method`;
+  `/store-api/shipping-method`;
 
 /**
  * @beta
  */
-export const getContextShippingMethodDetailsEndpoint = (
-  shippingId: string
-): string => `/sales-channel-api/v3/shipping-method/${shippingId}`; // replace with `/store-api/v4/shipping-method` { ids: [ shippingId ] }
-
-/**
- * @beta
- */
-export const getContextSalutationEndpoint = () => `/store-api/v3/salutation`;
-
-/**
- * @beta
- */
-export const getContextSalutationItemEndpoint = (
-  salutationId: string
-): string => `/store-api/v3/salutation/${salutationId}`;
+export const getContextSalutationEndpoint = () => `/store-api/salutation`;
 
 // newsletter
 

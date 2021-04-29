@@ -31,8 +31,6 @@ import {
   getProductsIdsEndpoint,
   getStoreNavigationEndpoint,
   getCustomerOrderDetailsEndpoint,
-  getContextCountryItemEndpoint,
-  getContextSalutationItemEndpoint,
   getOrderPaymentUrlEndpoint,
   getStoreOrderPaymentUrlEndpoint,
   getContactFormEndpoint,
@@ -43,8 +41,6 @@ const sampleCategoryId = "03dfd5badd3d43bd8a345ef660761e09";
 const sampleAddressId = "324af469318f46b68e0fe69d77ef15fb";
 const sampleCustomerId = "8b67c1fbb718487db750651430023298";
 const sampleOrderId = "27356105cf9b4484b96143881c37bbcb";
-const sampleCountryId = "27356105cf9b4484b96143881c37bbcb";
-const sampleSalutationId = "27356105cf9b4484b96143881c37bbcb";
 
 describe("endpoints", () => {
   describe("getProductEndpoint", () => {
@@ -173,14 +169,14 @@ describe("endpoints", () => {
   describe("getCheckoutCartEndpoint", () => {
     it("should return Shopware checkout-cart endpoint", async () => {
       const result = getCheckoutCartEndpoint();
-      expect(result).toEqual("/store-api/v3/checkout/cart");
+      expect(result).toEqual("/store-api/checkout/cart");
     });
   });
 
   describe("getCheckoutCartLineItemEndpoint", () => {
     it("should return Shopware checkout-cart-lineItem endpoint", async () => {
       const result = getCheckoutCartLineItemEndpoint();
-      expect(result).toEqual("/store-api/v3/checkout/cart/line-item");
+      expect(result).toEqual("/store-api/checkout/cart/line-item");
     });
   });
 
@@ -210,41 +206,41 @@ describe("endpoints", () => {
   describe("getContextCurrencyEndpoint", () => {
     it("should return Shopware currency endpoint", async () => {
       const result = getContextCurrencyEndpoint();
-      expect(result).toEqual("/store-api/v3/currency");
+      expect(result).toEqual("/store-api/currency");
     });
   });
 
   describe("getContextLanguageEndpoint", () => {
     it("should return Shopware language endpoint", async () => {
       const result = getContextLanguageEndpoint();
-      expect(result).toEqual("/store-api/v3/language");
+      expect(result).toEqual("/store-api/language");
     });
   });
 
   describe("getContextCountryEndpoint", () => {
     it("should return Shopware country endpoint", async () => {
       const result = getContextCountryEndpoint();
-      expect(result).toEqual("/sales-channel-api/v3/country");
+      expect(result).toEqual("/store-api/country");
     });
   });
 
   describe("getContextPaymentMethodEndpoint", () => {
     it("should return Shopware payment method endpoint", async () => {
       const result = getContextPaymentMethodEndpoint();
-      expect(result).toEqual("/store-api/v3/payment-method");
+      expect(result).toEqual("/store-api/payment-method");
     });
   });
   describe("getContextShippingMethodEndpoint", () => {
     it("should return Shopware shipping method endpoint", async () => {
       const result = getContextShippingMethodEndpoint();
-      expect(result).toEqual("/store-api/v3/shipping-method");
+      expect(result).toEqual("/store-api/shipping-method");
     });
   });
 
   describe("getContextSalutationEndpoint", () => {
     it("should return Shopware salutation endpoint", async () => {
       const result = getContextSalutationEndpoint();
-      expect(result).toEqual("/store-api/v3/salutation");
+      expect(result).toEqual("/store-api/salutation");
     });
   });
 
@@ -271,22 +267,6 @@ describe("endpoints", () => {
       expect(result).toEqual(
         "/store-api/v3/navigation/footer-navigation/footer-navigation"
       );
-    });
-  });
-
-  describe("getContextCountryItemEndpoint", () => {
-    it("should return country item endpoint", async () => {
-      const result = getContextCountryItemEndpoint(sampleCountryId);
-      expect(result).toEqual(
-        `/sales-channel-api/v3/country/${sampleCountryId}`
-      );
-    });
-  });
-
-  describe("getContextSalutationItemEndpoint", () => {
-    it("should return salutation item endpoint", async () => {
-      const result = getContextSalutationItemEndpoint(sampleSalutationId);
-      expect(result).toEqual(`/store-api/v3/salutation/${sampleSalutationId}`);
     });
   });
 

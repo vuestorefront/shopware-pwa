@@ -19,7 +19,7 @@ describe("ContextService - getAvailableLanguages", () => {
 
     const result = await getAvailableLanguages();
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith("/store-api/v3/language");
+    expect(mockedGet).toBeCalledWith("/store-api/language");
     expect(result).toEqual([{ id: 2, code: "en" }]);
   });
 });
