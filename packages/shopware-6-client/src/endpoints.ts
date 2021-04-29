@@ -17,20 +17,20 @@ export const getCategoryDetailsEndpoint = (categoryId: string) =>
  * @beta
  */
 export const getProductListingEndpoint = (categoryId: string) =>
-  `/store-api/v4/product-listing/${categoryId}`;
+  `/store-api/product-listing/${categoryId}`;
 
 // product
 
 /**
  * @beta
  */
-export const getProductEndpoint = () => `/sales-channel-api/v3/product`;
+export const getProductEndpoint = () => `/store-api/product`;
 
 /**
  * @beta
  */
 export const getProductDetailsEndpoint = (productId: string) =>
-  `/store-api/v3/product/${productId}`;
+  `/store-api/product/${productId}`;
 
 /**
  * @beta

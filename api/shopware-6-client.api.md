@@ -23,6 +23,7 @@ import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/cont
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { ProductListingResult } from '@shopware-pwa/commons/interfaces/response/ProductListingResult';
+import { ProductResponse } from '@shopware-pwa/commons/interfaces/response/ProductResult';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { SearchResult } from '@shopware-pwa/commons/interfaces/response/SearchResult';
@@ -341,7 +342,7 @@ export const getPageResolverEndpoint: () => string;
 export function getPaymentMethodDetails(paymentId: string, contextInstance?: ShopwareApiInstance): Promise<PaymentMethod>;
 
 // @beta
-export function getProduct(productId: string, params?: any, contextInstance?: ShopwareApiInstance): Promise<Product>;
+export function getProduct(productId: string, params?: any, contextInstance?: ShopwareApiInstance): Promise<ProductResponse>;
 
 // @beta (undocumented)
 export const getProductDetailsEndpoint: (productId: string) => string;
@@ -356,9 +357,9 @@ export const getProductListingEndpoint: (categoryId: string) => string;
 export function getProductPage(path: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<PageResolverProductResult>;
 
 // @beta
-export const getProducts: (searchCriteria?: SearchCriteria | undefined, contextInstance?: ShopwareApiInstance) => Promise<SearchResult<Product[]>>;
+export const getProducts: (searchCriteria?: SearchCriteria | undefined, contextInstance?: ShopwareApiInstance) => Promise<EntityResult<"product", Product[]>>;
 
-// @alpha
+// @alpha @deprecated
 export const getProductsIds: (options?: any, contextInstance?: ShopwareApiInstance) => Promise<SearchResult<string[]>>;
 
 // @beta (undocumented)

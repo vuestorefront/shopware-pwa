@@ -18,12 +18,12 @@ describe("ProductService - getProducts", () => {
   });
   it("should return array of products (default amount of 10)", async () => {
     mockedPost.mockResolvedValueOnce({
-      data: { data: { total: 3, data: [1, 2, 3] } },
+      data: { total: 3, elements: [1, 2, 3] },
     });
 
     const result = await getProducts();
     expect(result.total).toEqual(3);
-    expect(result.data).toHaveLength(result.total);
+    expect(result?.elements).toHaveLength(3);
     expect(mockedPost).toBeCalledTimes(1);
   });
   it("should invoke api with limit", async () => {
@@ -36,7 +36,7 @@ describe("ProductService - getProducts", () => {
     };
     await getProducts({ pagination });
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/sales-channel-api/v3/product", {
+    expect(mockedPost).toBeCalledWith("/store-api/product", {
       limit: 5,
       page: 1,
     });
@@ -55,7 +55,7 @@ describe("ProductService - getProducts", () => {
     };
     await getProducts({ pagination, sort });
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/sales-channel-api/v3/product", {
+    expect(mockedPost).toBeCalledWith("/store-api/product", {
       limit: 75,
       page: 1,
       sort: "-name",
