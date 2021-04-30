@@ -71,19 +71,16 @@ describe("CustomerService - resetPassword", () => {
     await resetPassword({
       email: credentials.email,
     });
-    expect(mockedPost).toBeCalledWith(
-      "/store-api/v3/account/recovery-password",
-      {
-        email: credentials.email,
-        storefrontUrl: defaultPwaConfigFile.shopwareEndpoint,
-      }
-    );
+    expect(mockedPost).toBeCalledWith("/store-api/account/recovery-password", {
+      email: credentials.email,
+      storefrontUrl: defaultPwaConfigFile.shopwareEndpoint,
+    });
   });
 
   it("should invokde post method with null if params are not provided", async () => {
     await resetPassword(null as any);
     expect(mockedPost).toBeCalledWith(
-      "/store-api/v3/account/recovery-password",
+      "/store-api/account/recovery-password",
       null
     );
   });

@@ -127,7 +127,7 @@ describe("endpoints", () => {
   describe("getCustomerEndpoint", () => {
     it("should return Shopware customer endpoint", async () => {
       const result = getCustomerEndpoint();
-      expect(result).toEqual("/store-api/v3/account/customer");
+      expect(result).toEqual("/store-api/account/customer");
     });
   });
 
@@ -141,14 +141,14 @@ describe("endpoints", () => {
   describe("getCustomerLoginEndpoint", () => {
     it("should return Shopware customer login endpoint", async () => {
       const result = getCustomerLoginEndpoint();
-      expect(result).toEqual("/store-api/v3/account/login");
+      expect(result).toEqual("/store-api/account/login");
     });
   });
 
   describe("getCustomerLogoutEndpoint", () => {
     it("should return Shopware customer logout endpoint", async () => {
       const result = getCustomerLogoutEndpoint();
-      expect(result).toEqual("/store-api/v3/account/logout");
+      expect(result).toEqual("/store-api/account/logout");
     });
   });
 

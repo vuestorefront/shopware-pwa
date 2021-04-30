@@ -98,17 +98,16 @@ export const getCustomerAddressSetDefaultBillingEndpoint = (
 /**
  * @beta
  */
-export const getCustomerEndpoint = () => `/store-api/v3/account/customer`;
+export const getCustomerEndpoint = () => `/store-api/account/customer`;
 /**
  * @beta
  */
-export const getCustomerRegisterEndpoint = () =>
-  `/store-api/v3/account/register`;
+export const getCustomerRegisterEndpoint = () => `/store-api/account/register`;
 /**
  * @beta
  */
 export const getCustomerDetailsUpdateEndpoint = () =>
-  `/store-api/v3/account/change-profile`;
+  `/store-api/account/change-profile`;
 /**
  * @beta
  */
@@ -118,41 +117,35 @@ export const getCustomerDetailsEndpoint = (customerId: string) =>
 /**
  * @beta
  */
-export const getCustomerLoginEndpoint = () => `/store-api/v3/account/login`;
+export const getCustomerLoginEndpoint = () => `/store-api/account/login`;
 
 /**
  * @beta
  */
-export const getCustomerLogoutEndpoint = () => `/store-api/v3/account/logout`;
+export const getCustomerLogoutEndpoint = () => `/store-api/account/logout`;
 
 /**
  * @beta
  */
-export const getCustomerOrderEndpoint = () => `/store-api/v3/order`;
-
-/**
- * @beta
- */
-export const getCustomerOrderDetailsEndpoint = (orderId: string) =>
-  `/sales-channel-api/v3/checkout/guest-order/${orderId}`;
+export const getCustomerOrderEndpoint = () => `/store-api/order`;
 
 /**
  * @beta
  */
 export const getCustomerUpdateEmailEndpoint = () =>
-  `/store-api/v3/account/change-email`;
+  `/store-api/account/change-email`;
 
 /**
  * @beta
  */
 export const getCustomerUpdatePasswordEndpoint = () =>
-  `/store-api/v3/account/change-password`;
+  `/store-api/account/change-password`;
 
 /**
  * @beta
  */
 export const getCustomerResetPasswordEndpoint = () =>
-  `/store-api/v3/account/recovery-password`;
+  `/store-api/account/recovery-password`;
 
 // checkout
 
@@ -171,7 +164,7 @@ export const getCheckoutCartLineItemEndpoint = () =>
  * @beta
  */
 export const getCheckoutOrderEndpoint = () =>
-  `/sales-channel-api/v3/checkout/order`; // replace with `/store-api/v3/account/order`
+  `/sales-channel-api/v3/checkout/order`; // replace with `/store-api/account/order`
 
 /**
  * @beta
@@ -189,7 +182,7 @@ export const getCheckoutOrderPayEndpoint = (orderId: string) =>
  * @beta
  */
 export const getCheckoutGuestOrderDetailsEndpoint = (orderId: string) =>
-  `/sales-channel-api/v3/checkout/guest-order/${orderId}`; // replace with `/store-api/v3/account/order` { ids: [ orderId ] }
+  `/sales-channel-api/v3/checkout/guest-order/${orderId}`; // replace with `/store-api/account/order` { ids: [ orderId ] }
 
 /**
  * @beta
