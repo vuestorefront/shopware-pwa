@@ -205,13 +205,13 @@ In this case, it shows a random plugin but it could be as well another promotion
 
 ## Add pages and layouts in plugin <Badge text="from v0.9" type="info"/>
 
-Adding custom pages and layouts is very similar to injecting into the project slot.
+Adding custom pages and layouts is very similar to injecting into the project slot. Under the hood, it uses the same mechanism.
 
 :::warning Important!
 Custom plugins and pages will be added **only** if the theme and project don't have them. You **cannot** overwrite existing layouts and pages through the plugin.
 :::
 
-first, we'll create new layout, let's call it `myCustomLayout.vue`, call look like this:
+first, we'll create new layout, let's call it `myCustomLayout.vue`, it can look like this:
 
 ```vue
 <template>
@@ -235,9 +235,11 @@ now, we can create a new page, let's call it `myCustomPage.vue`. It should read 
 
 :::tip Tip
 In order to create advanced pages read [Nuxt docs](https://nuxtjs.org/docs/2.x/directory-structure/pages) about pages and dynamic pages.
+
+**REMEMBER**: The plugin page is not the same component as the Nuxt page. You don't have access to asyncData hook. You can set layout via config (see below) and do everything through `setup` method, so there should not be any missing features here for you.
 :::
 
-```vue {11}
+```vue
 <template>
   <div>
     <p>Custom PLUGIN page with route id: {{ id }}</p>
@@ -246,11 +248,13 @@ In order to create advanced pages read [Nuxt docs](https://nuxtjs.org/docs/2.x/d
 </template>
 
 <script>
+import { computed } from "@vue/composition-api";
+
 export default {
   name: "MyPluginSuperPage",
-  layout: "myCoolLayout", // that's how can use our custom layout, you can skip this field to use default theme layout
-  async asyncData({ params }) {
-    const id = params.id;
+  setup(props, { root }) {
+    const id = computed(() => root.$route.params.id);
+
     return { id };
   },
 };
@@ -259,7 +263,7 @@ export default {
 
 so now we just need to add our new creations to our plugin's `config.json` file:
 
-```json {8-11}
+```json {8-15}
 {
   "slots": [
     {
@@ -267,10 +271,14 @@ so now we just need to add our new creations to our plugin's `config.json` file:
       "file": "myLocalPlugin.vue"
     }
   ],
-  "customs": {
-    "layouts": [{ "name": "myCoolLayout", "file": "myCustomLayout.vue" }],
-    "pages": [{ "path": "our-custom-route/_id", "file": "myCustomPage.vue" }]
-  },
+  "layouts": [{ "name": "myCoolLayout", "file": "myCustomLayout.vue" }],
+  "pages": [
+    {
+      "path": "our-custom-route/_id",
+      "file": "myCustomPage.vue",
+      "layout": "myCoolLayout" // that's how can use our custom layout, you can skip this field to use default theme layout
+    }
+  ],
   "settings": {}
 }
 ```

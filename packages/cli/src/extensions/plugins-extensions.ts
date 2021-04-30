@@ -151,6 +151,13 @@ module.exports = (toolbox: GluegunToolbox) => {
     });
   };
 
+  interface PluginConfig {
+    slots: Array<{ name: string; file: string }>;
+    layouts: Array<{ name: string; file: string }>;
+    pages: Array<{ path: string; file: string }>;
+    settings: unknown;
+  }
+
   toolbox.buildPluginsTrace = async ({
     pluginsConfig,
     rootDirectory,
@@ -168,7 +175,7 @@ module.exports = (toolbox: GluegunToolbox) => {
         const pluginDirectory = `${pluginsRootDirectory}/${pluginName}`;
         const pluginDirExist = toolbox.filesystem.exists(pluginDirectory);
         if (pluginDirExist) {
-          const pluginConfig = toolbox.filesystem.read(
+          const pluginConfig: PluginConfig = toolbox.filesystem.read(
             `${pluginDirectory}/config.json`,
             "json"
           );
@@ -182,42 +189,65 @@ module.exports = (toolbox: GluegunToolbox) => {
               }
             );
             // Custom layouts
-            if (pluginConfig?.customs?.layouts?.length) {
-              pluginConfig.customs.layouts.forEach(
-                async (layoutConfig: { name: string; file: string }) => {
-                  // 1. copy layout into sw-plugins, this is used on server start and build
-                  await toolbox.filesystem.copyAsync(
-                    join(pluginDirectory, layoutConfig.file),
-                    `.shopware-pwa/sw-plugins/layouts/${layoutConfig.name}.vue`,
-                    { overwrite: true }
-                  );
-                  // 2. copy directly into source folder, this is used for runtime development
-                  await toolbox.filesystem.copyAsync(
-                    join(pluginDirectory, layoutConfig.file),
-                    `.shopware-pwa/source/layouts/${layoutConfig.name}.vue`,
-                    { overwrite: true }
-                  );
+            if (pluginConfig?.layouts?.length) {
+              pluginConfig.layouts.forEach(async (layoutConfig) => {
+                const slotName = `sw-layouts-${layoutConfig.name}`;
+                if (!pluginsMap[slotName]) pluginsMap[slotName] = [];
+                pluginsMap[slotName].push(
+                  `~~/${pluginDirectory}/${layoutConfig.file}`
+                );
+                const runtimeLayoutExist = await toolbox.filesystem.existsAsync(
+                  `.shopware-pwa/source/pages/${layoutConfig.name}.vue`
+                );
+                if (!runtimeLayoutExist) {
+                  await toolbox.template.generate({
+                    template: `/plugins/PluginSlotTemplate.vue`,
+                    target: `.shopware-pwa/source/layouts/${layoutConfig.name}.vue`,
+                    props: {
+                      slotName,
+                    },
+                  });
                 }
-              );
+                await toolbox.template.generate({
+                  template: `/plugins/PluginSlotTemplate.vue`,
+                  target: `.shopware-pwa/sw-plugins/layouts/${layoutConfig.name}.vue`,
+                  props: {
+                    slotName,
+                  },
+                });
+              });
             }
             // Custom pages
-            if (pluginConfig?.customs?.pages?.length) {
-              pluginConfig.customs.pages.forEach(
-                async (pageConfig: { path: string; file: string }) => {
-                  // 1. copy page into sw-plugins, this is used on server start and build
-                  await toolbox.filesystem.copyAsync(
-                    join(pluginDirectory, pageConfig.file),
-                    `.shopware-pwa/sw-plugins/pages/${pageConfig.path}.vue`,
-                    { overwrite: true }
-                  );
-                  // 2. copy directly into source folder, this is used for runtime development
-                  await toolbox.filesystem.copyAsync(
-                    join(pluginDirectory, pageConfig.file),
-                    `.shopware-pwa/source/pages/${pageConfig.path}.vue`,
-                    { overwrite: true }
-                  );
+            if (pluginConfig?.pages?.length) {
+              pluginConfig.pages.forEach(async (pageConfig) => {
+                const { file, path, ...params } = pageConfig;
+                const slotName = `sw-pages-${pageConfig.path}`;
+                if (!pluginsMap[slotName]) pluginsMap[slotName] = [];
+                pluginsMap[slotName].push(
+                  `~~/${pluginDirectory}/${pageConfig.file}`
+                );
+                const runtimePageExist = await toolbox.filesystem.existsAsync(
+                  `.shopware-pwa/source/pages/${pageConfig.path}.vue`
+                );
+                if (!runtimePageExist) {
+                  await toolbox.template.generate({
+                    template: `/plugins/PluginSlotTemplate.vue`,
+                    target: `.shopware-pwa/source/pages/${pageConfig.path}.vue`,
+                    props: {
+                      slotName,
+                      params,
+                    },
+                  });
                 }
-              );
+                await toolbox.template.generate({
+                  template: `/plugins/PluginSlotTemplate.vue`,
+                  target: `.shopware-pwa/sw-plugins/pages/${pageConfig.path}.vue`,
+                  props: {
+                    slotName,
+                    params,
+                  },
+                });
+              });
             }
           } else {
             toolbox.print.error(`Plugin ${pluginName} has no config file!`);
