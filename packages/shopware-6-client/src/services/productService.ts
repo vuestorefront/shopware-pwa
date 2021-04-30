@@ -52,7 +52,7 @@ export const getProducts = async function (
 
 /**
  * Get default amount of products and listing configuration for given category
- *
+ * @deprecated use getCategoryProducts instead
  * @throws ClientApiError
  * @beta
  */

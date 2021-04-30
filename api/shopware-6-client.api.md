@@ -190,7 +190,7 @@ export const getCategoryEndpoint: () => string;
 // @beta
 export const getCategoryProducts: (categoryId: string, criteria?: ShopwareSearchParams | undefined, contextInstance?: ShopwareApiInstance) => Promise<ProductListingResult>;
 
-// @beta
+// @beta @deprecated
 export const getCategoryProductsListing: (categoryId: string, searchCriteria?: SearchCriteria | undefined, contextInstance?: ShopwareApiInstance) => Promise<ProductListingResult>;
 
 // @beta (undocumented)
