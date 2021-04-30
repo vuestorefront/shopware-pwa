@@ -20,7 +20,6 @@
 |  Interface | Description |
 |  --- | --- |
 |  [ApplicationVueContext](./composables.applicationvuecontext.md) | <b><i>(BETA)</i></b> Application Context for Shopware PWA. It's an extended Vue instance. |
-|  [CurrentPagination](./composables.currentpagination.md) | <b><i>(BETA)</i></b> |
 |  [IInterceptorCallbackFunction](./composables.iinterceptorcallbackfunction.md) | <b><i>(BETA)</i></b> interface for the callback function of interceptors |
 |  [IUseAddToCart](./composables.iuseaddtocart.md) | <b><i>(BETA)</i></b> interface for [useAddToCart](./composables.useaddtocart.md) composable |
 |  [IUseCart](./composables.iusecart.md) | <b><i>(BETA)</i></b> interface for [useCart](./composables.usecart.md) composable |

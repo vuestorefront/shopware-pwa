@@ -23,7 +23,6 @@ import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
 import { EntityError } from '@shopware-pwa/commons/interfaces/models/common/EntityError';
-import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { IUseListing as IUseListing_2 } from '@shopware-pwa/composables';
@@ -38,7 +37,6 @@ import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { ProductListingResult } from '@shopware-pwa/commons/interfaces/response/ProductListingResult';
 import { PropertyGroup } from '@shopware-pwa/commons/interfaces/models/content/property/PropertyGroup';
-import { RangeFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { Ref } from '@vue/composition-api';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
@@ -141,16 +139,6 @@ export function createListingComposable<ELEMENTS_TYPE>({ rootContext, searchMeth
     searchDefaults: ShopwareSearchParams;
     listingKey: string;
 }): IUseListing<ELEMENTS_TYPE>;
-
-// @beta (undocumented)
-export interface CurrentPagination {
-    // (undocumented)
-    currentPage: number | undefined;
-    // (undocumented)
-    perPage: number | undefined;
-    // (undocumented)
-    total: number | undefined;
-}
 
 // @beta (undocumented)
 export function getApplicationContext(rootContext: ApplicationVueContext, key?: string): {
@@ -678,43 +666,6 @@ export const useProductListing: (rootContext: ApplicationVueContext, initialList
 
 // @beta (undocumented)
 export const useProductQuickSearch: (rootContext: ApplicationVueContext_2) => IUseProductQuickSearch;
-
-// @alpha @deprecated (undocumented)
-export interface UseProductSearch {
-    // (undocumented)
-    availableFilters: Readonly<Ref<any>>;
-    // (undocumented)
-    changePage: (page: number) => Promise<void>;
-    // (undocumented)
-    changeSorting: (sorting: Sort) => void;
-    // (undocumented)
-    currentPagination: Ref<CurrentPagination | undefined>;
-    // (undocumented)
-    currentSearchTerm: Readonly<Ref<string>>;
-    // (undocumented)
-    loadingSearch: Readonly<Ref<boolean>>;
-    // (undocumented)
-    loadingSuggestions: Readonly<Ref<boolean>>;
-    // (undocumented)
-    resetFilters: () => void;
-    // (undocumented)
-    search: (term: string) => Promise<void>;
-    // (undocumented)
-    searchResult: Readonly<Ref<ProductListingResult | null>>;
-    // (undocumented)
-    selectedEntityFilters: Readonly<Ref<any>>;
-    // (undocumented)
-    selectedFilters: Readonly<Ref<any>>;
-    // (undocumented)
-    suggestionsResult: Readonly<Ref<ProductListingResult | null>>;
-    // (undocumented)
-    suggestSearch: (term: string) => Promise<void>;
-    // (undocumented)
-    toggleFilter: (filter: EqualsFilter | RangeFilter, forceSave: boolean) => void;
-}
-
-// @alpha @deprecated (undocumented)
-export const useProductSearch: (rootContext: ApplicationVueContext) => UseProductSearch;
 
 // @beta (undocumented)
 export interface UseSalutations {

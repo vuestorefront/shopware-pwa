@@ -364,13 +364,10 @@ export const getProductsIds: (options?: any, contextInstance?: ShopwareApiInstan
 // @beta (undocumented)
 export const getProductsIdsEndpoint: () => string;
 
-// @beta @deprecated (undocumented)
-export function getResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
-
 // @beta (undocumented)
 export const getSearchEndpoint: () => string;
 
-// @beta (undocumented)
+// @beta @deprecated (undocumented)
 export function getSearchResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
 // @beta
@@ -422,9 +419,6 @@ export function getStoreOrderPaymentUrl(orderId: string, contextInstance?: Shopw
 
 // @beta (undocumented)
 export const getStoreOrderPaymentUrlEndpoint: () => string;
-
-// @alpha @deprecated (undocumented)
-export function getSuggestedResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
 // @beta (undocumented)
 export const getSuggestSearchEndpoint: () => string;
