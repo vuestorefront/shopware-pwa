@@ -42,7 +42,7 @@
               size="21px"
               view-box="0 0 24 12"
             />
-            ({{ category.children.length }})
+            ({{ category.count }})
           </div>
         </SfListItem>
       </SfList>

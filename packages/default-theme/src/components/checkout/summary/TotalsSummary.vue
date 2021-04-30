@@ -104,17 +104,17 @@ export default {
   }
   &__action {
     margin: var(--spacer-base) 0 0 0;
-    display: flex;
-    flex-wrap: wrap;
+    display: table;
+
     button {
+      display: table-cell;
       width: 100%;
       @include for-desktop {
         width: 50%;
       }
+
       &:last-child {
-        @include for-mobile {
-          margin-top: var(--spacer-base);
-        }
+        margin-top: var(--spacer-base);
       }
     }
   }

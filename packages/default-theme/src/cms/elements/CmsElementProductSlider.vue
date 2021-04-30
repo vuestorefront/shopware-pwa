@@ -2,11 +2,7 @@
   <div class="cms-element-product-slider">
     <SfSection :title-heading="title" class="section">
       <SfCarousel class="product-carousel" :settings="options">
-        <SfCarouselItem
-          v-for="product in products"
-          :key="product.id"
-          class="product-carousel__item"
-        >
+        <SfCarouselItem v-for="product in products" :key="product.id">
           <SwProductCard :product="product" class="product-carousel__product" />
         </SfCarouselItem>
       </SfCarousel>
@@ -46,18 +42,16 @@ export default {
   data() {
     return {
       options: {
-        peek: 16,
         breakpoints: {
           480: {
             perView: 2,
             peek: {
               before: 0,
-              after: 4,
+              after: 50,
             },
           },
           1023: {
             perView: 4,
-            peek: 0,
           },
         },
       },
@@ -69,13 +63,19 @@ export default {
 <style lang="scss" scoped>
 @import "@/cms/settings.scss";
 
+.cms-element-product-slider {
+  width: 100%;
+}
 .product-carousel {
-  margin: 0 calc(var(--spacer-sm) * -1) 0 0;
   @include for-desktop {
-    margin: 0;
+    text-align: center;
+    text-align: -moz-center;
+    text-align: -webkit-center;
   }
-  &__item {
-    margin: 1.9375rem 0 2.4375rem 0;
+  &__product {
+    @include for-mobile {
+      max-width: unset;
+    }
   }
 }
 </style>

@@ -45,7 +45,7 @@ export default {
 
   computed: {
     alt() {
-      return (this.getMedia && this.getMedia.alt) || " "
+      return this.getMedia && this.getMedia.alt
     },
 
     getMedia() {
@@ -57,7 +57,7 @@ export default {
     },
 
     lazyLoad() {
-      return "lazy"
+      return true
     },
 
     link() {
@@ -79,6 +79,6 @@ export default {
 @import "@/cms/settings.scss";
 
 .cms-element-image {
-  --image-width: 100%;
+  height: 100%;
 }
 </style>

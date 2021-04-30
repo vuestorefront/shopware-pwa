@@ -56,8 +56,11 @@ export default {
   &__text {
     margin: var(--spacer-sm);
     flex: 1;
-    --image-height: 340px;
-    --image-width: 100%;
+    & img {
+      height: 340px;
+      object-fit: cover;
+      width: 100%;
+    }
   }
 
   @include for-desktop {

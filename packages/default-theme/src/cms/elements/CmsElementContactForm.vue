@@ -8,7 +8,7 @@
     >
       <SfSelect
         v-if="getMappedSalutations && getMappedSalutations.length > 0"
-        class="select sf-select--underlined"
+        class="select"
         v-model="salutation"
         :label="$t('Salutation')"
         :valid="!$v.salutation.$error"
@@ -303,7 +303,7 @@ export default {
 
   .button {
     &.send {
-      margin-left: auto;
+      float: right;
     }
   }
 }
@@ -320,7 +320,6 @@ export default {
 }
 
 .select {
-  margin-right: var(--spacer-sm);
   ::v-deep .sf-select__dropdown {
     font-size: var(--font-size--lg);
     font-family: var(--font-family--secondary);

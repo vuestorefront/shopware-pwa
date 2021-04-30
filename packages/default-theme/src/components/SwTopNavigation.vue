@@ -166,10 +166,10 @@ export default {
         let unvisibleItemsCount = 0
 
         navElements.forEach((element) => {
-          if (element.offsetTop <= 27) {
+          if (element.offsetTop === 0) {
             visibleItemsCount += 1
           }
-          if (element.offsetTop > 27) {
+          if (element.offsetTop > 0) {
             unvisibleItemsCount += 1
           }
         })
@@ -189,6 +189,7 @@ export default {
 @import "@/assets/scss/variables";
 
 .sw-top-navigation {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   --search-bar-width: 100%;

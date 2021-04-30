@@ -97,7 +97,6 @@ export default {
 
 .sw-header {
   background-color: var(--c-white);
-  position: relative;
 
   &__icons {
     display: flex;
