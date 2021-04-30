@@ -16,7 +16,7 @@ it will show us available slots on the theme, and you can click on any of them t
 
 ![theme-slots](./../../assets/theme-slots.png)
 
-### Local plugin
+## Local plugin
 
 Let's create `cool-promotion-plugin`, which can display our special product under the top header.
 We're creating following files inside your project.
@@ -170,7 +170,7 @@ so we achieved this:
 
 ![local-plugin-2](./../../assets/local-plugin-2.png)
 
-### Nesting plugins
+## Nesting plugins
 
 Okay, but what if we have two or more plugins for our `top-header-after` slot?
 Always the newest installed plugin in shopware instance is on top. But local plugins are over them. The easiest way is to picture that. On shopware instance, we have our HelloCody plugin, which displays random quotes. It injects into `top-header-after` slot as well. So we overrode that.
@@ -202,3 +202,87 @@ So this allows our installed plugin to show up and present itself.
 ![local-plugin-3](./../../assets/local-plugin-3.png)
 
 In this case, it shows a random plugin but it could be as well another promotion plugin. You always decide where to show slot with another plugin if exists. There are a lot more use cases. Like social login button - you're doing plugin for Facebook, but others may do plugins for Google, GitHub etc.
+
+## Add pages and layouts in plugin <Badge text="from v0.9" type="info"/>
+
+Adding custom pages and layouts is very similar to injecting into the project slot. Under the hood, it uses the same mechanism.
+
+:::warning Important!
+Custom plugins and pages will be added **only** if the theme and project don't have them. You **cannot** overwrite existing layouts and pages through the plugin.
+:::
+
+first, we'll create new layout, let's call it `myCustomLayout.vue`, it can look like this:
+
+```vue
+<template>
+  <div>
+    <h1>Hey! This is layout from the plugin.</h1>
+    <nuxt />
+  </div>
+</template>
+
+<script>
+export default {
+  name: "MyCoolCustomLayout",
+  setup(props, { root }) {
+    return {};
+  },
+};
+</script>
+```
+
+now, we can create a new page, let's call it `myCustomPage.vue`. It should read the `id` param from the URL and display it. We plan to add this page under: `/our-custom-route/_id` path.
+
+:::tip Tip
+In order to create advanced pages read [Nuxt docs](https://nuxtjs.org/docs/2.x/directory-structure/pages) about pages and dynamic pages.
+
+**REMEMBER**: The plugin page is not the same component as the Nuxt page. You don't have access to asyncData hook. You can set layout via config (see below) and do everything through `setup` method, so there should not be any missing features here for you.
+:::
+
+```vue
+<template>
+  <div>
+    <p>Custom PLUGIN page with route id: {{ id }}</p>
+    <nuxt />
+  </div>
+</template>
+
+<script>
+import { computed } from "@vue/composition-api";
+
+export default {
+  name: "MyPluginSuperPage",
+  setup(props, { root }) {
+    const id = computed(() => root.$route.params.id);
+
+    return { id };
+  },
+};
+</script>
+```
+
+so now we just need to add our new creations to our plugin's `config.json` file:
+
+```json {8-15}
+{
+  "slots": [
+    {
+      "name": "top-header-after",
+      "file": "myLocalPlugin.vue"
+    }
+  ],
+  "layouts": [{ "name": "myCoolLayout", "file": "myCustomLayout.vue" }],
+  "pages": [
+    {
+      "path": "our-custom-route/_id",
+      "file": "myCustomPage.vue",
+      "layout": "myCoolLayout" // that's how can use our custom layout, you can skip this field to use default theme layout
+    }
+  ],
+  "settings": {}
+}
+```
+
+so now, visiting `/our-custom-route/magic-id` you should see:
+
+![custom-plugin-pages-and-layouts](./../assets/plugins-custom-layouts-and-pages.png)
