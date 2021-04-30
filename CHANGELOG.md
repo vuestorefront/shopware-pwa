@@ -1,3 +1,12 @@
+## [0.8.2](https://github.com/DivanteLtd/shopware-pwa/compare/v0.8.1...v0.8.2) (2021-04-30)
+
+
+### Bug Fixes
+
+* default language settings ([#1458](https://github.com/DivanteLtd/shopware-pwa/issues/1458)) ([d332005](https://github.com/DivanteLtd/shopware-pwa/commit/d332005265a9d611ce8be472e8abc1ad6b3fa8ce))
+
+
+
 ## [0.8.1](https://github.com/DivanteLtd/shopware-pwa/compare/v0.8.0...v0.8.1) (2021-04-20)
 
 
