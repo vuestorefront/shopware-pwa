@@ -23,4 +23,4 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           body: |
-            Please refer to [CHANGELOG.md](${{ env.REPO_URL }}/blob/master/CHANGELOG.md) for details.
+            Please refer to [CHANGELOG.md](${{ env.REPO_URL }}/blob/compatibility/6.3/CHANGELOG.md) for details.
