@@ -190,17 +190,17 @@ module.exports = (toolbox: GluegunToolbox) => {
             );
             // Custom layouts
             if (pluginConfig?.layouts?.length) {
-              pluginConfig.layouts.forEach(async (layoutConfig) => {
+              pluginConfig.layouts.forEach((layoutConfig) => {
                 const slotName = `sw-layouts-${layoutConfig.name}`;
                 if (!pluginsMap[slotName]) pluginsMap[slotName] = [];
                 pluginsMap[slotName].push(
                   `~~/${pluginDirectory}/${layoutConfig.file}`
                 );
-                const runtimeLayoutExist = await toolbox.filesystem.existsAsync(
-                  `.shopware-pwa/source/pages/${layoutConfig.name}.vue`
+                const runtimeLayoutExist = toolbox.filesystem.exists(
+                  `.shopware-pwa/source/layouts/${layoutConfig.name}.vue`
                 );
                 if (!runtimeLayoutExist) {
-                  await toolbox.template.generate({
+                  toolbox.template.generate({
                     template: `/plugins/PluginSlotTemplate.vue`,
                     target: `.shopware-pwa/source/layouts/${layoutConfig.name}.vue`,
                     props: {
@@ -208,7 +208,7 @@ module.exports = (toolbox: GluegunToolbox) => {
                     },
                   });
                 }
-                await toolbox.template.generate({
+                toolbox.template.generate({
                   template: `/plugins/PluginSlotTemplate.vue`,
                   target: `.shopware-pwa/sw-plugins/layouts/${layoutConfig.name}.vue`,
                   props: {
@@ -219,18 +219,18 @@ module.exports = (toolbox: GluegunToolbox) => {
             }
             // Custom pages
             if (pluginConfig?.pages?.length) {
-              pluginConfig.pages.forEach(async (pageConfig) => {
+              pluginConfig.pages.forEach((pageConfig) => {
                 const { file, path, ...params } = pageConfig;
                 const slotName = `sw-pages-${pageConfig.path}`;
                 if (!pluginsMap[slotName]) pluginsMap[slotName] = [];
                 pluginsMap[slotName].push(
                   `~~/${pluginDirectory}/${pageConfig.file}`
                 );
-                const runtimePageExist = await toolbox.filesystem.existsAsync(
+                const runtimePageExist = toolbox.filesystem.exists(
                   `.shopware-pwa/source/pages/${pageConfig.path}.vue`
                 );
                 if (!runtimePageExist) {
-                  await toolbox.template.generate({
+                  toolbox.template.generate({
                     template: `/plugins/PluginSlotTemplate.vue`,
                     target: `.shopware-pwa/source/pages/${pageConfig.path}.vue`,
                     props: {
@@ -239,7 +239,7 @@ module.exports = (toolbox: GluegunToolbox) => {
                     },
                   });
                 }
-                await toolbox.template.generate({
+                toolbox.template.generate({
                   template: `/plugins/PluginSlotTemplate.vue`,
                   target: `.shopware-pwa/sw-plugins/pages/${pageConfig.path}.vue`,
                   props: {
