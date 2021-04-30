@@ -20,7 +20,7 @@
         <SfList v-if="isDropdownOpen" class="sw-dropdown">
           <SfListItem>
             <nuxt-link
-              class="sf-button sf-button--full-width sf-button--underlined color-primary sw-dropdown__item"
+              class="sf-button sf-button--full-width sf-button--underlined sw-dropdown__item"
               :to="getPageAccount"
               data-cy="my-account-link"
               @click.native="isDropdownOpen = false"
@@ -30,7 +30,7 @@
           </SfListItem>
           <SfListItem>
             <SwButton
-              class="sf-button sf-button--full-width sf-button--underlined color-primary sw-dropdown__item"
+              class="sf-button sf-button--full-width sf-button--underlined sw-dropdown__item"
               data-cy="logout-button"
               @click="logoutUser()"
             >
@@ -159,6 +159,7 @@ export default {
       --button-padding: var(--spacer-sm);
     }
     &__item {
+      background: var(--c-white);
       &:hover {
         color: var(--c-link-hover);
       }
