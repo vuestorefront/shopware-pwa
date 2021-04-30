@@ -281,7 +281,7 @@ describe("endpoints", () => {
         "footer-navigation"
       );
       expect(result).toEqual(
-        "/store-api/v3/navigation/footer-navigation/footer-navigation"
+        "/store-api/navigation/footer-navigation/footer-navigation"
       );
     });
   });
