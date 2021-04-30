@@ -109,6 +109,18 @@ describe("composables searchCriteria", () => {
       );
       expect(searchCriteria.properties).toStrictEqual(["blue", "black"]);
     });
+    it("should append the search criteria params", () => {
+      const searchCriteria: any = {};
+      appendQueryParamsToSearchCriteria(
+        { query: "test", sort: "-name" },
+        searchCriteria
+      );
+      expect(searchCriteria.sort).toStrictEqual({
+        field: "",
+        name: "-name",
+        order: "name",
+      });
+    });
   });
 
   describe("resetSearchCriteria", () => {

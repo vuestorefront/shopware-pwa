@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { stringify } from "query-string";
 import {
   ListingQueryParams,
@@ -10,6 +12,9 @@ import {
   SearchFilterType,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 
+/**
+ * @deprecated this method is no longer supported
+ */
 export function appendSearchCriteriaToUrl(
   searchCriteria: SearchCriteria,
   searchTerm: string
@@ -43,6 +48,9 @@ export function appendSearchCriteriaToUrl(
   }
 }
 
+/**
+ * @deprecated this method is no longer supported
+ */
 export function appendQueryParamsToSearchCriteria(
   params: ListingQueryParams,
   searchCriteria: SearchCriteria
@@ -73,6 +81,9 @@ export function appendQueryParamsToSearchCriteria(
     [];
 }
 
+/**
+ * @deprecated this method is no longer supported
+ */
 export const resetSearchCriteria = (
   searchCriteria: Partial<SearchCriteria>
 ) => {
@@ -101,8 +112,7 @@ interface ShopwareParamsInternal {
 }
 
 /**
- * TODO: https://github.com/DivanteLtd/shopware-pwa/issues/841
- * TODO: https://github.com/DivanteLtd/shopware-pwa/issues/840
+ * @deprecated this method is no longer supported
  */
 export const toggleEntityFilter = (
   filter: EqualsFilter, // TODO: handle range filter case as well
@@ -147,6 +157,7 @@ export const toggleEntityFilter = (
 };
 
 /**
+ * @deprecated this method is no longer supported
  * TODO: https://github.com/DivanteLtd/shopware-pwa/issues/841
  * TODO: https://github.com/DivanteLtd/shopware-pwa/issues/840
  * @beta
