@@ -1,4 +1,4 @@
-import { getPageResolverEndpoint } from "../endpoints";
+import { getPageResolverEndpoint, getSeoUrlEndpoint } from "../endpoints";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import {
   SearchCriteria,
@@ -88,7 +88,7 @@ export async function getSeoUrls(
   if (languageId) {
     contextInstance.defaults.headers["sw-language-id"] = languageId;
   }
-  const resp = await contextInstance.invoke.post("/store-api/v3/seo-url", {
+  const resp = await contextInstance.invoke.post(getSeoUrlEndpoint(), {
     filter: [
       {
         type: "equals",

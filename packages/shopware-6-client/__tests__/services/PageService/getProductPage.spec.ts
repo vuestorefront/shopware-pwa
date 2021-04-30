@@ -22,7 +22,7 @@ describe("PageService - getProductPage", () => {
       "detail/b218f861361042f3a58a2a9d1b3575b5"
     );
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/store-api/v3/pwa/page", {
+    expect(mockedPost).toBeCalledWith("/store-api/pwa/page", {
       path: "detail/b218f861361042f3a58a2a9d1b3575b5",
       limit: 10,
     });
