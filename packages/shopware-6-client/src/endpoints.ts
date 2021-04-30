@@ -259,7 +259,7 @@ export const getPageResolverEndpoint = () => `/store-api/v3/pwa/page`;
 export const getStoreNavigationEndpoint = (
   requestActiveId: string,
   requestRootId: string
-) => `/store-api/v3/navigation/${requestActiveId}/${requestRootId}`;
+) => `/store-api/navigation/${requestActiveId}/${requestRootId}`;
 /**
  * @beta
  */

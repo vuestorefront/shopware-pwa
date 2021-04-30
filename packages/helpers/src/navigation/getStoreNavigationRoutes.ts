@@ -5,7 +5,7 @@ import { StoreNavigationElement } from "@shopware-pwa/commons/interfaces/models/
  */
 export interface StoreNavigationRoute {
   routeLabel: string;
-  routePath: string;
+  routePath: string | undefined;
   isExternal: boolean;
   children?: StoreNavigationRoute[] | null;
 }
