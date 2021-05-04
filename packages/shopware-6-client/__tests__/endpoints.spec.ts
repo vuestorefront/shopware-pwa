@@ -67,16 +67,14 @@ describe("endpoints", () => {
   describe("getCategoryEndpoint", () => {
     it("should return Shopware category endpoint", async () => {
       const result = getCategoryEndpoint();
-      expect(result).toEqual("/sales-channel-api/v3/category");
+      expect(result).toEqual("/store-api/category");
     });
   });
 
   describe("getCategoryDetailsEndpoint", () => {
     it("should return Shopware category details endpoint", async () => {
       const result = getCategoryDetailsEndpoint(sampleCategoryId);
-      expect(result).toEqual(
-        "/sales-channel-api/v3/category/" + sampleCategoryId
-      );
+      expect(result).toEqual("/store-api/category/" + sampleCategoryId);
     });
   });
 

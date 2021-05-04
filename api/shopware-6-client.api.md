@@ -173,10 +173,10 @@ export function getAvailableShippingMethods(contextInstance?: ShopwareApiInstanc
 // @beta
 export function getCart(contextInstance?: ShopwareApiInstance): Promise<Cart>;
 
-// @alpha @deprecated (undocumented)
-export function getCategories(searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<SearchResult<Category[]>>;
+// @beta (undocumented)
+export function getCategories(searchCriteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<EntityResult<"category", Category[]>>;
 
-// @alpha (undocumented)
+// @beta (undocumented)
 export function getCategory(categoryId: string, contextInstance?: ShopwareApiInstance): Promise<Category>;
 
 // @beta (undocumented)

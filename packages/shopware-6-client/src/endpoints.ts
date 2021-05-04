@@ -3,13 +3,13 @@
 /**
  * @beta
  */
-export const getCategoryEndpoint = () => `/sales-channel-api/v3/category`; // will become `/store-api/v4/category`
+export const getCategoryEndpoint = () => `/store-api/category`;
 
 /**
  * @beta
  */
 export const getCategoryDetailsEndpoint = (categoryId: string) =>
-  `/sales-channel-api/v3/category/${categoryId}`; // replace with `/store-api/v4/category with { ids: [ categoryId ] }`
+  `/store-api/category/${categoryId}`;
 
 // product-listing
 
