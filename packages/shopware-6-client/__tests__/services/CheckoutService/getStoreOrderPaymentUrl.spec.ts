@@ -17,7 +17,7 @@ describe("CheckoutService - getStoreOrderPaymentUrl", () => {
     mockedGet.mockResolvedValueOnce({ data: {} });
     await getStoreOrderPaymentUrl("cd1a64c7166f42fa88b212b81e611d57");
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toHaveBeenCalledWith("/store-api/v3/handle-payment", {
+    expect(mockedGet).toHaveBeenCalledWith("/store-api/handle-payment", {
       params: { orderId: "cd1a64c7166f42fa88b212b81e611d57" },
     });
   });

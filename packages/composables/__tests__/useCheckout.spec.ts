@@ -56,43 +56,7 @@ describe("Composables - useCheckout", () => {
   });
 
   describe("computed", () => {
-    describe("isGuestOrder", () => {
-      it("should show false if user is logged in", () => {
-        isLoggedIn.value = true;
-        const { isGuestOrder } = useCheckout(rootContextMock);
-        expect(isGuestOrder.value).toBe(false);
-      });
-
-      it("should show true it user is not logged in", () => {
-        isLoggedIn.value = false;
-        const { isGuestOrder } = useCheckout(rootContextMock);
-        expect(isGuestOrder.value).toBe(true);
-      });
-    });
-
-    describe("guestOrderParams", () => {
-      it("should return an empty object when prams are not set", () => {
-        const { guestOrderParams } = useCheckout(rootContextMock);
-        expect(guestOrderParams.value).toEqual({});
-      });
-    });
-
     describe("shippingAddress", () => {
-      it("should return guest order address if is guest order", () => {
-        const { shippingAddress, updateGuestOrderParams } = useCheckout(
-          rootContextMock
-        );
-        updateGuestOrderParams({
-          shippingAddress: {
-            street: "first street",
-          },
-        } as any);
-        expect(shippingAddress.value).toEqual({ street: "first street" });
-        updateGuestOrderParams({
-          shippingAddress: undefined,
-        } as any);
-      });
-
       it("should undefined when guest address is not set", () => {
         const { shippingAddress } = useCheckout(rootContextMock);
         expect(shippingAddress.value).toBeUndefined();
@@ -127,36 +91,6 @@ describe("Composables - useCheckout", () => {
     });
 
     describe("billingAddress", () => {
-      it("should return guest order address if is guest order", () => {
-        const { billingAddress, updateGuestOrderParams } = useCheckout(
-          rootContextMock
-        );
-        updateGuestOrderParams({
-          billingAddress: {
-            street: "third street",
-          },
-        } as any);
-        expect(billingAddress.value).toEqual({ street: "third street" });
-        updateGuestOrderParams({
-          billingAddress: undefined,
-        } as any);
-      });
-
-      it("should return undefined when guest billing address is not set", () => {
-        const { billingAddress, updateGuestOrderParams } = useCheckout(
-          rootContextMock
-        );
-        updateGuestOrderParams({
-          billingAddress: {
-            street: "third street",
-          },
-        } as any);
-        expect(billingAddress.value).toEqual({ street: "third street" });
-        updateGuestOrderParams({
-          billingAddress: undefined,
-        } as any);
-      });
-
       it("should return address in case of user order", async () => {
         isLoggedIn.value = true;
         sessionContextMock.value = {
@@ -379,55 +313,6 @@ describe("Composables - useCheckout", () => {
           });
           expect(broadcastMock).toBeCalledWith("error", {
             error: { message: "some error" },
-            inputParams: {},
-            methodName: "[useCheckout][createOrder]",
-          });
-        });
-      });
-
-      describe("for guest", () => {
-        beforeEach(() => {
-          isLoggedIn.value = false;
-        });
-        it("should invoke createGuestOrder API method if user is a guest", async () => {
-          mockedApiClient.createGuestOrder.mockResolvedValueOnce({
-            id: "newOrderId",
-          } as any);
-          const { createOrder } = useCheckout(rootContextMock);
-          const result = await createOrder();
-          expect(mockedApiClient.createGuestOrder).toHaveBeenCalled();
-          expect(result).toEqual({ id: "newOrderId" });
-        });
-
-        it("should add guestOrderParams to guest order", async () => {
-          mockedApiClient.createGuestOrder.mockResolvedValueOnce({
-            id: "newOrderId",
-          } as any);
-          const { createOrder, updateGuestOrderParams } = useCheckout(
-            rootContextMock
-          );
-          updateGuestOrderParams({
-            firstName: "John",
-          });
-          await createOrder();
-          expect(mockedApiClient.createGuestOrder).toHaveBeenCalledWith(
-            {
-              firstName: "John",
-            },
-            rootContextMock.$shopwareApiInstance
-          );
-        });
-
-        it("should throw an error if guest api rejects", async () => {
-          mockedApiClient.createGuestOrder.mockRejectedValueOnce({
-            message: "some guest error",
-          } as any);
-          const { createOrder } = useCheckout(rootContextMock);
-          await expect(createOrder()).rejects.toEqual({
-            message: "some guest error",
-          });
-          expect(broadcastMock).toBeCalledWith("error", {
-            error: { message: "some guest error" },
             inputParams: {},
             methodName: "[useCheckout][createOrder]",
           });

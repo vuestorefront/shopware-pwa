@@ -16,8 +16,6 @@ import {
   getCheckoutCartLineItemEndpoint,
   getCheckoutPromotionCodeEndpoint,
   getCheckoutOrderEndpoint,
-  getCheckoutGuestOrderEndpoint,
-  getCheckoutGuestOrderDetailsEndpoint,
   getCheckoutOrderPayEndpoint,
   getContextCurrencyEndpoint,
   getContextLanguageEndpoint,
@@ -192,23 +190,7 @@ describe("endpoints", () => {
   describe("getCheckoutOrderEndpoint", () => {
     it("should return Shopware checkout-order endpoint", async () => {
       const result = getCheckoutOrderEndpoint();
-      expect(result).toEqual("/sales-channel-api/v3/checkout/order");
-    });
-  });
-
-  describe("getCheckoutGuestOrderEndpoint", () => {
-    it("should return Shopware checkout-guestOrder endpoint", async () => {
-      const result = getCheckoutGuestOrderEndpoint();
-      expect(result).toEqual("/sales-channel-api/v3/checkout/guest-order");
-    });
-  });
-
-  describe("getCheckoutGuestOrderDetailsEndpoint", () => {
-    it("should return Shopware checkout-guestOrder-details endpoint", async () => {
-      const result = getCheckoutGuestOrderDetailsEndpoint(sampleOrderId);
-      expect(result).toEqual(
-        "/sales-channel-api/v3/checkout/guest-order/" + sampleOrderId
-      );
+      expect(result).toEqual("/store-api/checkout/order");
     });
   });
 
@@ -301,7 +283,7 @@ describe("endpoints", () => {
   describe("getStoreOrderPaymentUrlEndpoint", () => {
     it("should return handle payment method url endpoint", async () => {
       const result = getStoreOrderPaymentUrlEndpoint();
-      expect(result).toEqual(`/store-api/v3/handle-payment`);
+      expect(result).toEqual(`/store-api/handle-payment`);
     });
   });
 

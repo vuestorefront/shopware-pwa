@@ -15,7 +15,6 @@ import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/custo
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { CustomerRegistrationParams } from '@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams';
 import { EntityResult } from '@shopware-pwa/commons/interfaces/response/EntityResult';
-import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
 import { Language } from '@shopware-pwa/commons/interfaces/models/framework/language/Language';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
@@ -90,9 +89,6 @@ export interface ContactFormData {
 
 // @beta
 export function createCustomerAddress(params: Partial<CustomerAddress>, contextInstance?: ShopwareApiInstance): Promise<string>;
-
-// @beta
-export function createGuestOrder(params: GuestOrderParams, contextInstance?: ShopwareApiInstance): Promise<Order>;
 
 // @beta (undocumented)
 export function createInstance(initialConfig?: ClientSettings): ShopwareApiInstance;
@@ -197,12 +193,6 @@ export const getCheckoutCartEndpoint: () => string;
 
 // @beta (undocumented)
 export const getCheckoutCartLineItemEndpoint: () => string;
-
-// @beta (undocumented)
-export const getCheckoutGuestOrderDetailsEndpoint: (orderId: string) => string;
-
-// @beta (undocumented)
-export const getCheckoutGuestOrderEndpoint: () => string;
 
 // @beta (undocumented)
 export const getCheckoutOrderEndpoint: () => string;

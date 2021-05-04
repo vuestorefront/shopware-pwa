@@ -14,7 +14,6 @@
 |  [changeCartItemQuantity(itemId, newQuantity, contextInstance)](./shopware-6-client.changecartitemquantity.md) | <b><i>(BETA)</i></b> Changes the current quantity in specific cart line item to given quantity.<!-- -->Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 2. |
 |  [clearCart(contextInstance)](./shopware-6-client.clearcart.md) | <b><i>(BETA)</i></b> When no sw-context-token given then this method return an empty cart with the new sw-context-token.<!-- -->When sw-context-token given then this method simply returns the current state of the cart.<!-- -->As the purpose of this method is not clear we recommend to use <code>getCart</code> method because its behaviour seems to be the same. |
 |  [createCustomerAddress(params, contextInstance)](./shopware-6-client.createcustomeraddress.md) | <b><i>(BETA)</i></b> Create an address and respond the new address's id |
-|  [createGuestOrder(params, contextInstance)](./shopware-6-client.createguestorder.md) | <b><i>(BETA)</i></b> Creates an order for not logged in users Should be used when the user is logged out, but has items in the cart |
 |  [createInstance(initialConfig)](./shopware-6-client.createinstance.md) | <b><i>(BETA)</i></b> |
 |  [createOrder(contextInstance)](./shopware-6-client.createorder.md) | <b><i>(BETA)</i></b> Creates an order for logged in users |
 |  [deleteCustomerAddress(addressId, contextInstance)](./shopware-6-client.deletecustomeraddress.md) | <b><i>(BETA)</i></b> Delete's the customer's address by id |
@@ -96,8 +95,6 @@
 |  [getCategoryProductsListing](./shopware-6-client.getcategoryproductslisting.md) | <b><i>(BETA)</i></b> Get default amount of products and listing configuration for given category |
 |  [getCheckoutCartEndpoint](./shopware-6-client.getcheckoutcartendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCheckoutCartLineItemEndpoint](./shopware-6-client.getcheckoutcartlineitemendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCheckoutGuestOrderDetailsEndpoint](./shopware-6-client.getcheckoutguestorderdetailsendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCheckoutGuestOrderEndpoint](./shopware-6-client.getcheckoutguestorderendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCheckoutOrderEndpoint](./shopware-6-client.getcheckoutorderendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCheckoutOrderPayEndpoint](./shopware-6-client.getcheckoutorderpayendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCheckoutPromotionCodeEndpoint](./shopware-6-client.getcheckoutpromotioncodeendpoint.md) | <b><i>(BETA)</i></b> |
