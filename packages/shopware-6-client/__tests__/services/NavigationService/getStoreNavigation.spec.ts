@@ -32,7 +32,7 @@ describe("NavigationService - getStoreNavigation", () => {
     expect(
       mockedPost
     ).toBeCalledWith(
-      "/store-api/v3/navigation/footer-navigation/footer-navigation",
+      "/store-api/navigation/footer-navigation/footer-navigation",
       { limit: 10, buildTree: false, depth: 5 }
     );
     expect(result).toStrictEqual([{ id: "footer-navigation" }]);
