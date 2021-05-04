@@ -261,7 +261,7 @@ export const getOrderPaymentUrlEndpoint = (orderId: string): string =>
 /**
  * @beta
  */
-export const getContactFormEndpoint = () => `/store-api/v3/contact-form`;
+export const getContactFormEndpoint = () => `/store-api/contact-form`;
 /**
  * @beta
  */
@@ -272,16 +272,16 @@ export const getStoreOrderPaymentUrlEndpoint = () =>
  * @beta
  */
 export const getStoreNewsletterSubscribeEndpoint = () =>
-  `/store-api/v3/newsletter/subscribe`;
+  `/store-api/newsletter/subscribe`;
 
 /**
  * @beta
  */
 export const getStoreNewsletterConfirmEndpoint = () =>
-  `/store-api/v3/newsletter/confirm`;
+  `/store-api/newsletter/confirm`;
 
 /**
  * @beta
  */
 export const getStoreNewsletterUnsubscribeEndpoint = () =>
-  `/store-api/v3/newsletter/unsubscribe`;
+  `/store-api/newsletter/unsubscribe`;

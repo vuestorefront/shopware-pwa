@@ -25,7 +25,7 @@ describe("FormService - sendContactForm", () => {
       comment: "Please do not reply for this email.",
     });
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/store-api/v3/contact-form", {
+    expect(mockedPost).toBeCalledWith("/store-api/contact-form", {
       salutationId: "2a69a6c523034b108a3bc292ef4c8891",
       firstName: "John",
       lastName: "Doe",
@@ -40,6 +40,6 @@ describe("FormService - sendContactForm", () => {
     mockedPost.mockRejectedValueOnce(new Error("400"));
     expect(sendContactForm({} as any)).rejects.toThrowError("400");
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/store-api/v3/contact-form", {});
+    expect(mockedPost).toBeCalledWith("/store-api/contact-form", {});
   });
 });

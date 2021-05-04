@@ -16,6 +16,7 @@ export interface ContactFormData {
   phone?: string;
   subject: string;
   comment: string;
+  navigationId?: string;
 }
 
 /**
@@ -39,7 +40,7 @@ export interface NewsletterSubscribeData {
   street?: string;
   city?: string;
   zipCode?: string;
-  option: string;
+  option: "direct" | "subscribe" | "confirmSubscribe" | "unsubscribe";
   storefrontUrl: string;
 }
 /**
@@ -51,7 +52,7 @@ export async function newsletterSubscribe(
 ): Promise<void> {
   await contextInstance.invoke.post(
     getStoreNewsletterSubscribeEndpoint(),
-    params
+    Object.assign({}, { option: "subscribe" }, params)
   );
 }
 

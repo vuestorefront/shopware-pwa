@@ -290,28 +290,28 @@ describe("endpoints", () => {
   describe("getContactFormEndpoint", () => {
     it("should return contact form url endpoint", async () => {
       const result = getContactFormEndpoint();
-      expect(result).toEqual(`/store-api/v3/contact-form`);
+      expect(result).toEqual(`/store-api/contact-form`);
     });
   });
 
   describe("getStoreNewsletterSubscribeEndpoint", () => {
     it("should return Shopware newsletter subscribe URL endpoint", async () => {
       const result = getStoreNewsletterSubscribeEndpoint();
-      expect(result).toEqual("/store-api/v3/newsletter/subscribe");
+      expect(result).toEqual("/store-api/newsletter/subscribe");
     });
   });
 
   describe("getStoreNewsletterConfirmEndpoint", () => {
     it("should return Shopware newsletter confirm URL endpoint", async () => {
       const result = getStoreNewsletterConfirmEndpoint();
-      expect(result).toEqual("/store-api/v3/newsletter/confirm");
+      expect(result).toEqual("/store-api/newsletter/confirm");
     });
   });
 
   describe("getStoreNewsletterUnsubscribeEndpoint", () => {
     it("should return Shopware newsletter unsubscribe URL endpoint", async () => {
       const result = getStoreNewsletterUnsubscribeEndpoint();
-      expect(result).toEqual("/store-api/v3/newsletter/unsubscribe");
+      expect(result).toEqual("/store-api/newsletter/unsubscribe");
     });
   });
 });

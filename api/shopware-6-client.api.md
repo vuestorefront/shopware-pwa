@@ -80,6 +80,8 @@ export interface ContactFormData {
     // (undocumented)
     lastName: string;
     // (undocumented)
+    navigationId?: string;
+    // (undocumented)
     phone?: string;
     // (undocumented)
     salutationId: string;
@@ -462,7 +464,7 @@ export interface NewsletterSubscribeData {
     // (undocumented)
     lastName?: string;
     // (undocumented)
-    option: string;
+    option: "direct" | "subscribe" | "confirmSubscribe" | "unsubscribe";
     // (undocumented)
     salutationId?: string;
     // (undocumented)
