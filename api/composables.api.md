@@ -23,8 +23,6 @@ import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
 import { EntityError } from '@shopware-pwa/commons/interfaces/models/common/EntityError';
-import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
-import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { IUseListing as IUseListing_2 } from '@shopware-pwa/composables';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
@@ -36,7 +34,6 @@ import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/mode
 import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
-import { ProductListingResult } from '@shopware-pwa/commons/interfaces/response/ProductListingResult';
 import { PropertyGroup } from '@shopware-pwa/commons/interfaces/models/content/property/PropertyGroup';
 import { Ref } from '@vue/composition-api';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';

@@ -313,14 +313,6 @@ export const getNewsletterSubscribeEndpoint: () => string;
 // @beta (undocumented)
 export const getNewsletterUnsubscribeEndpoint: () => string;
 
-// @beta
-export function getOrderPaymentUrl({ orderId, finishUrl, }: {
-    orderId: string;
-    finishUrl?: string;
-}, contextInstance?: ShopwareApiInstance): Promise<{
-    paymentUrl: string;
-}>;
-
 // @beta (undocumented)
 export const getOrderPaymentUrlEndpoint: (orderId: string) => string;
 
@@ -408,8 +400,8 @@ export const getStoreNewsletterSubscribeEndpoint: () => string;
 export const getStoreNewsletterUnsubscribeEndpoint: () => string;
 
 // @beta (undocumented)
-export function getStoreOrderPaymentUrl(orderId: string, contextInstance?: ShopwareApiInstance): Promise<{
-    redirectResponse: unknown;
+export function getStoreOrderPaymentUrl(orderId: string, finishUrl?: string, errorUrl?: string, contextInstance?: ShopwareApiInstance): Promise<{
+    redirectUrl: string | null;
     apiAlias: string;
 }>;
 
