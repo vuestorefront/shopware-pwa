@@ -656,19 +656,6 @@ export function useProductAssociations(rootContext: ApplicationVueContext, produ
 // @beta
 export const useProductConfigurator: (rootContext: ApplicationVueContext, product: Product) => IUseProductConfigurator;
 
-// @beta @deprecated (undocumented)
-export interface UseProductListing {
-    // (undocumented)
-    [x: string]: any;
-    // (undocumented)
-    error: Ref<any>;
-    // (undocumented)
-    loading: Ref<boolean>;
-}
-
-// @beta @deprecated (undocumented)
-export const useProductListing: (rootContext: ApplicationVueContext, initialListing?: Partial<ProductListingResult> | undefined) => UseProductListing;
-
 // @beta (undocumented)
 export const useProductQuickSearch: (rootContext: ApplicationVueContext_2) => IUseProductQuickSearch;
 
