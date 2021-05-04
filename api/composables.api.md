@@ -24,6 +24,7 @@ import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
 import { EntityError } from '@shopware-pwa/commons/interfaces/models/common/EntityError';
 import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
+import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { IUseListing as IUseListing_2 } from '@shopware-pwa/composables';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
@@ -40,8 +41,7 @@ import { PropertyGroup } from '@shopware-pwa/commons/interfaces/models/content/p
 import { Ref } from '@vue/composition-api';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
-import { ShippingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
-import { ShippingAddress as ShippingAddress_2 } from '@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress';
+import { ShippingAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 import { ShopwareApiInstance } from '@shopware-pwa/shopware-6-client';
 import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
@@ -126,10 +126,10 @@ export interface CreateCheckoutStep {
 }
 
 // @alpha (undocumented)
-export function createCheckoutStep({ stepNumber, stepFields, stepDataUpdated, }: {
+export function createCheckoutStep({ stepNumber, stepFields, }: {
     stepNumber: number;
     stepFields: CheckoutStepFields;
-    stepDataUpdated: (updatedData: CheckoutStepFields, guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>) => Partial<GuestOrderParams>;
+    stepDataUpdated: (updatedData: CheckoutStepFields) => Partial<any>;
 }): (rootContext: ApplicationVueContext) => CreateCheckoutStep;
 
 // @beta
@@ -256,9 +256,6 @@ export interface IUseCheckout {
         forceReload: boolean;
     }) => Promise<Readonly<Ref<readonly ShippingMethod[]>>>;
     // (undocumented)
-    guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>;
-    isGuestOrder: Readonly<Ref<boolean>>;
-    // (undocumented)
     onOrderPlace: (fn: (params: {
         order: Order;
     }) => void) => void;
@@ -268,8 +265,6 @@ export interface IUseCheckout {
     shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
     // (undocumented)
     shippingMethods: Readonly<Ref<readonly ShippingMethod[]>>;
-    // (undocumented)
-    updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
 }
 
 // @beta
@@ -383,7 +378,7 @@ export interface IUseSessionContext {
     // (undocumented)
     activeBillingAddress: Readonly<Ref<BillingAddress | null>>;
     // (undocumented)
-    activeShippingAddress: Readonly<Ref<ShippingAddress_2 | null>>;
+    activeShippingAddress: Readonly<Ref<ShippingAddress | null>>;
     // (undocumented)
     currency: Readonly<Ref<Currency | null>>;
     // (undocumented)
@@ -407,7 +402,7 @@ export interface IUseSessionContext {
     // (undocumented)
     setActiveBillingAddress: (address: Partial<BillingAddress>) => Promise<void>;
     // (undocumented)
-    setActiveShippingAddress: (address: Partial<ShippingAddress_2>) => Promise<void>;
+    setActiveShippingAddress: (address: Partial<ShippingAddress>) => Promise<void>;
     // (undocumented)
     setCurrency: (currency: Partial<Currency>) => Promise<void>;
     // (undocumented)
@@ -650,19 +645,6 @@ export function useProductAssociations(rootContext: ApplicationVueContext, produ
 
 // @beta
 export const useProductConfigurator: (rootContext: ApplicationVueContext, product: Product) => IUseProductConfigurator;
-
-// @beta @deprecated (undocumented)
-export interface UseProductListing {
-    // (undocumented)
-    [x: string]: any;
-    // (undocumented)
-    error: Ref<any>;
-    // (undocumented)
-    loading: Ref<boolean>;
-}
-
-// @beta @deprecated (undocumented)
-export const useProductListing: (rootContext: ApplicationVueContext, initialListing?: Partial<ProductListingResult> | undefined) => UseProductListing;
 
 // @beta (undocumented)
 export const useProductQuickSearch: (rootContext: ApplicationVueContext_2) => IUseProductQuickSearch;

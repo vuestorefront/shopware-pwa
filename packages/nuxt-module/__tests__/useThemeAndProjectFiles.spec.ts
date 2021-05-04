@@ -85,6 +85,55 @@ describe("nuxt-module - theme", () => {
         TARGET_SOURCE
       );
     });
+
+    describe("plugin pages and layouts", () => {
+      const PLUGINS_CACHE_DIR = path.join(
+        __dirname,
+        ".shopware-pwa",
+        "sw-plugins"
+      );
+      it("should check if layouts and pages exists in plugins cache", async () => {
+        await useThemeAndProjectFiles({
+          TARGET_SOURCE,
+          THEME_SOURCE,
+          PROJECT_SOURCE,
+        });
+        expect(mockedFse.pathExists).toBeCalledWith(
+          path.join(PLUGINS_CACHE_DIR, "layouts")
+        );
+        expect(mockedFse.pathExists).toBeCalledWith(
+          path.join(PLUGINS_CACHE_DIR, "pages")
+        );
+      });
+
+      it("should not copy layouts nor pages if plugins cache folder does not exist", async () => {
+        mockedFse.pathExists.mockResolvedValue(false as never);
+        await useThemeAndProjectFiles({
+          TARGET_SOURCE,
+          THEME_SOURCE,
+          PROJECT_SOURCE,
+        });
+        expect(mockedFse.copy).toBeCalledTimes(2);
+      });
+
+      it("should copy layouts and pages from plugins cache", async () => {
+        mockedFse.pathExists.mockResolvedValue(true as never);
+        await useThemeAndProjectFiles({
+          TARGET_SOURCE,
+          THEME_SOURCE,
+          PROJECT_SOURCE,
+        });
+        expect(mockedFse.copy).toBeCalledTimes(4);
+        expect(mockedFse.copy).toBeCalledWith(
+          path.join(PLUGINS_CACHE_DIR, "layouts"),
+          path.join(PLUGINS_CACHE_DIR, "..", "source", "layouts")
+        );
+        expect(mockedFse.copy).toBeCalledWith(
+          path.join(PLUGINS_CACHE_DIR, "pages"),
+          path.join(PLUGINS_CACHE_DIR, "..", "source", "pages")
+        );
+      });
+    });
   });
 
   describe("filterNodeModules", () => {

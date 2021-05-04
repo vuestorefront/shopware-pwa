@@ -400,8 +400,10 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
   it("should copy target static directory to project root directory after production build", async () => {
     moduleObject.options.dev = false;
     const afterBuildMethods: any[] = [];
-    moduleObject.nuxt.hook.mockImplementationOnce(
-      (hookName: string, method: Function) => afterBuildMethods.push(method)
+    moduleObject.nuxt.hook.mockImplementation(
+      (hookName: string, method: Function) => {
+        hookName === "build:done" && afterBuildMethods.push(method);
+      }
     );
     await runModule(moduleObject, {});
     expect(moduleObject.nuxt.hook).toBeCalledWith(

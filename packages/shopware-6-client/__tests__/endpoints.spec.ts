@@ -16,8 +16,6 @@ import {
   getCheckoutCartLineItemEndpoint,
   getCheckoutPromotionCodeEndpoint,
   getCheckoutOrderEndpoint,
-  getCheckoutGuestOrderEndpoint,
-  getCheckoutGuestOrderDetailsEndpoint,
   getCheckoutOrderPayEndpoint,
   getContextCurrencyEndpoint,
   getContextLanguageEndpoint,
@@ -48,14 +46,14 @@ describe("endpoints", () => {
   describe("getProductEndpoint", () => {
     it("should return Shopware product endpoint", async () => {
       const result = getProductEndpoint();
-      expect(result).toEqual("/sales-channel-api/v3/product");
+      expect(result).toEqual("/store-api/product");
     });
   });
 
   describe("getProductDetailsEndpoint", () => {
     it("should return Shopware product details endpoint", async () => {
       const result = getProductDetailsEndpoint(sampleProductId);
-      expect(result).toEqual("/store-api/v3/product/" + sampleProductId);
+      expect(result).toEqual("/store-api/product/" + sampleProductId);
     });
   });
 
@@ -69,16 +67,14 @@ describe("endpoints", () => {
   describe("getCategoryEndpoint", () => {
     it("should return Shopware category endpoint", async () => {
       const result = getCategoryEndpoint();
-      expect(result).toEqual("/sales-channel-api/v3/category");
+      expect(result).toEqual("/store-api/category");
     });
   });
 
   describe("getCategoryDetailsEndpoint", () => {
     it("should return Shopware category details endpoint", async () => {
       const result = getCategoryDetailsEndpoint(sampleCategoryId);
-      expect(result).toEqual(
-        "/sales-channel-api/v3/category/" + sampleCategoryId
-      );
+      expect(result).toEqual("/store-api/category/" + sampleCategoryId);
     });
   });
 
@@ -192,23 +188,7 @@ describe("endpoints", () => {
   describe("getCheckoutOrderEndpoint", () => {
     it("should return Shopware checkout-order endpoint", async () => {
       const result = getCheckoutOrderEndpoint();
-      expect(result).toEqual("/sales-channel-api/v3/checkout/order");
-    });
-  });
-
-  describe("getCheckoutGuestOrderEndpoint", () => {
-    it("should return Shopware checkout-guestOrder endpoint", async () => {
-      const result = getCheckoutGuestOrderEndpoint();
-      expect(result).toEqual("/sales-channel-api/v3/checkout/guest-order");
-    });
-  });
-
-  describe("getCheckoutGuestOrderDetailsEndpoint", () => {
-    it("should return Shopware checkout-guestOrder-details endpoint", async () => {
-      const result = getCheckoutGuestOrderDetailsEndpoint(sampleOrderId);
-      expect(result).toEqual(
-        "/sales-channel-api/v3/checkout/guest-order/" + sampleOrderId
-      );
+      expect(result).toEqual("/store-api/checkout/order");
     });
   });
 
@@ -301,35 +281,35 @@ describe("endpoints", () => {
   describe("getStoreOrderPaymentUrlEndpoint", () => {
     it("should return handle payment method url endpoint", async () => {
       const result = getStoreOrderPaymentUrlEndpoint();
-      expect(result).toEqual(`/store-api/v3/handle-payment`);
+      expect(result).toEqual(`/store-api/handle-payment`);
     });
   });
 
   describe("getContactFormEndpoint", () => {
     it("should return contact form url endpoint", async () => {
       const result = getContactFormEndpoint();
-      expect(result).toEqual(`/store-api/v3/contact-form`);
+      expect(result).toEqual(`/store-api/contact-form`);
     });
   });
 
   describe("getStoreNewsletterSubscribeEndpoint", () => {
     it("should return Shopware newsletter subscribe URL endpoint", async () => {
       const result = getStoreNewsletterSubscribeEndpoint();
-      expect(result).toEqual("/store-api/v3/newsletter/subscribe");
+      expect(result).toEqual("/store-api/newsletter/subscribe");
     });
   });
 
   describe("getStoreNewsletterConfirmEndpoint", () => {
     it("should return Shopware newsletter confirm URL endpoint", async () => {
       const result = getStoreNewsletterConfirmEndpoint();
-      expect(result).toEqual("/store-api/v3/newsletter/confirm");
+      expect(result).toEqual("/store-api/newsletter/confirm");
     });
   });
 
   describe("getStoreNewsletterUnsubscribeEndpoint", () => {
     it("should return Shopware newsletter unsubscribe URL endpoint", async () => {
       const result = getStoreNewsletterUnsubscribeEndpoint();
-      expect(result).toEqual("/store-api/v3/newsletter/unsubscribe");
+      expect(result).toEqual("/store-api/newsletter/unsubscribe");
     });
   });
 });
