@@ -29,10 +29,21 @@ describe("Composables - useProduct", () => {
   });
 
   describe("search", () => {
+    it("should not have product under value if response search does not contain product property", async () => {
+      const { search, product } = useProduct(rootContextMock);
+      const response: any = undefined;
+
+      mockedAxios.getProduct.mockResolvedValueOnce(response);
+      expect(product.value).toBeUndefined();
+      await search("3f637f17cd9f4891a2d7625d19fb37c9");
+      expect(product.value).toBeUndefined();
+    });
     it("should have product under value if search was triggered", async () => {
       const { search, product } = useProduct(rootContextMock);
       const response: any = {
-        id: "3f637f17cd9f4891a2d7625d19fb37c9",
+        product: {
+          id: "3f637f17cd9f4891a2d7625d19fb37c9",
+        },
       };
       mockedAxios.getProduct.mockResolvedValueOnce(response);
       expect(product.value).toBeUndefined();
@@ -46,7 +57,9 @@ describe("Composables - useProduct", () => {
       };
       const { search, product } = useProduct(rootContextMock, passedProduct);
       const response: any = {
-        id: "3f637f17cd9f4891a2d7625d19fb37c9",
+        product: {
+          id: "3f637f17cd9f4891a2d7625d19fb37c9",
+        },
       };
       mockedAxios.getProduct.mockResolvedValueOnce(response);
       expect(product.value).toBeTruthy();

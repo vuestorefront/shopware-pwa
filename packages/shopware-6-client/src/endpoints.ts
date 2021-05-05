@@ -3,13 +3,13 @@
 /**
  * @beta
  */
-export const getCategoryEndpoint = () => `/sales-channel-api/v3/category`; // will become `/store-api/v4/category`
+export const getCategoryEndpoint = () => `/store-api/category`;
 
 /**
  * @beta
  */
 export const getCategoryDetailsEndpoint = (categoryId: string) =>
-  `/sales-channel-api/v3/category/${categoryId}`; // replace with `/store-api/v4/category with { ids: [ categoryId ] }`
+  `/store-api/category/${categoryId}`;
 
 // product-listing
 
@@ -17,20 +17,20 @@ export const getCategoryDetailsEndpoint = (categoryId: string) =>
  * @beta
  */
 export const getProductListingEndpoint = (categoryId: string) =>
-  `/store-api/v4/product-listing/${categoryId}`;
+  `/store-api/product-listing/${categoryId}`;
 
 // product
 
 /**
  * @beta
  */
-export const getProductEndpoint = () => `/sales-channel-api/v3/product`;
+export const getProductEndpoint = () => `/store-api/product`;
 
 /**
  * @beta
  */
 export const getProductDetailsEndpoint = (productId: string) =>
-  `/store-api/v3/product/${productId}`;
+  `/store-api/product/${productId}`;
 
 /**
  * @beta
@@ -164,13 +164,7 @@ export const getCheckoutCartLineItemEndpoint = () =>
  * @beta
  */
 export const getCheckoutOrderEndpoint = () =>
-  `/sales-channel-api/v3/checkout/order`; // replace with `/store-api/account/order`
-
-/**
- * @beta
- */
-export const getCheckoutGuestOrderEndpoint = () =>
-  `/sales-channel-api/v3/checkout/guest-order`; // replace with `/store-api/v4/checkout/register` { guest: true } (to obtain logged in context token) followed by `/store-api/v4/checkout/order`
+  `/sales-channel-api/v3/checkout/order`;
 
 /**
  * @beta
@@ -267,27 +261,27 @@ export const getOrderPaymentUrlEndpoint = (orderId: string): string =>
 /**
  * @beta
  */
-export const getContactFormEndpoint = () => `/store-api/v3/contact-form`;
+export const getContactFormEndpoint = () => `/store-api/contact-form`;
 /**
  * @beta
  */
 export const getStoreOrderPaymentUrlEndpoint = () =>
-  `/store-api/v3/handle-payment`;
+  `/store-api/handle-payment`;
 
 /**
  * @beta
  */
 export const getStoreNewsletterSubscribeEndpoint = () =>
-  `/store-api/v3/newsletter/subscribe`;
+  `/store-api/newsletter/subscribe`;
 
 /**
  * @beta
  */
 export const getStoreNewsletterConfirmEndpoint = () =>
-  `/store-api/v3/newsletter/confirm`;
+  `/store-api/newsletter/confirm`;
 
 /**
  * @beta
  */
 export const getStoreNewsletterUnsubscribeEndpoint = () =>
-  `/store-api/v3/newsletter/unsubscribe`;
+  `/store-api/newsletter/unsubscribe`;

@@ -7,27 +7,26 @@ const mockedApiInstance = defaultInstance as jest.Mocked<
 >;
 
 describe("ProductService - getProduct", () => {
-  const mockedGet = jest.fn();
+  const mockedPost = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
     mockedApiInstance.invoke = {
-      get: mockedGet,
+      post: mockedPost,
     } as any;
   });
   it("should return chosen product", async () => {
-    mockedGet.mockResolvedValueOnce({
-      data: { data: { id: "044a190a54ab4f06803909c3ee8063ef" } },
+    mockedPost.mockResolvedValueOnce({
+      data: { product: { id: "044a190a54ab4f06803909c3ee8063ef" } },
     });
     const productId = "044a190a54ab4f06803909c3ee8063ef";
     const result = await getProduct(productId);
-    expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith(
-      "/store-api/v3/product/044a190a54ab4f06803909c3ee8063ef",
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith(
+      "/store-api/product/044a190a54ab4f06803909c3ee8063ef",
       {
         params: null,
       }
     );
-    expect(result).toHaveProperty("id");
-    expect(result.id).toEqual(productId);
+    expect(result.product?.id).toEqual(productId);
   });
 });

@@ -21,17 +21,7 @@ describe("CategoryService - getCategories", () => {
 
     const result = await getCategories();
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/sales-channel-api/v3/category", {
-      limit: 10,
-    });
+    expect(mockedPost).toBeCalledWith("/store-api/category", undefined);
     expect(result.total).toEqual(22);
-  });
-
-  it("should show deprecation info on this method", async () => {
-    mockedPost.mockResolvedValueOnce({ data: { total: 22 } });
-    await getCategories();
-    expect(consoleWarnSpy).toBeCalledWith(
-      '[DEPRECATED][@shopware-pwa/shopware-6-client][getCategories] This method has been deprecated. Use "getNavigation" instead.'
-    );
   });
 });

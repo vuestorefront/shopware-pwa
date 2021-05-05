@@ -11,7 +11,6 @@ export * from "./hooks/useNavigation";
 export * from "./hooks/useSalutations";
 export * from "./hooks/useCountries";
 export * from "./hooks/useUser";
-export * from "./hooks/useProductListing";
 export * from "./hooks/useProductSearch";
 export * from "./factories/createCheckoutStep";
 export * from "./logic/useDefaults";
