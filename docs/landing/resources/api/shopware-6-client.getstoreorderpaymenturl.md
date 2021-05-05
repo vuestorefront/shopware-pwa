@@ -7,12 +7,11 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-
 <b>Signature:</b>
 
 ```typescript
-export declare function getStoreOrderPaymentUrl(orderId: string, contextInstance?: ShopwareApiInstance): Promise<{
-    redirectResponse: unknown;
+export declare function getStoreOrderPaymentUrl(orderId: string, finishUrl?: string, errorUrl?: string, contextInstance?: ShopwareApiInstance): Promise<{
+    redirectUrl: string | null;
     apiAlias: string;
 }>;
 ```
@@ -21,10 +20,12 @@ export declare function getStoreOrderPaymentUrl(orderId: string, contextInstance
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  orderId | string |  |
+|  orderId | string | Id of an order |
+|  finishUrl | string | URL where the customer is redirected to after payment is done |
+|  errorUrl | string | URL where the customer is redirected to after payment fails |
 |  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 <b>Returns:</b>
 
-Promise&lt;{ redirectResponse: unknown; apiAlias: string; }&gt;
+Promise&lt;{ redirectUrl: string \| null; apiAlias: string; }&gt;
 

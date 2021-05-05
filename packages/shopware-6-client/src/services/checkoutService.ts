@@ -18,9 +18,9 @@ export async function createOrder(
 }
 
 /**
- * @param {string} orderId - Id of an order
- * @param {string} finishUrl - URL where the customer is redirected to after payment is done
- * @param {string} errorUrl - URL where the customer is redirected to after payment fails
+ * @param orderId - Id of an order
+ * @param finishUrl - URL where the customer is redirected to after payment is done
+ * @param errorUrl - URL where the customer is redirected to after payment fails
  * @beta
  */
 export async function getStoreOrderPaymentUrl(

@@ -43,12 +43,12 @@ export const getProductsIdsEndpoint = () =>
 /**
  * @beta
  */
-export const getSuggestSearchEndpoint = () => `/store-api/v3/search-suggest`;
+export const getSuggestSearchEndpoint = () => `/store-api/search-suggest`;
 
 /**
  * @beta
  */
-export const getSearchEndpoint = () => `/store-api/v3/search`;
+export const getSearchEndpoint = () => `/store-api/search`;
 
 // customer
 

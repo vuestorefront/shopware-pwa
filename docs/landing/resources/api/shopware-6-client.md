@@ -32,18 +32,16 @@
 |  [getCustomerAddresses(contextInstance)](./shopware-6-client.getcustomeraddresses.md) | <b><i>(BETA)</i></b> Get all customer's addresses |
 |  [getCustomerOrderDetails(orderId, contextInstance, additionalQueryParams)](./shopware-6-client.getcustomerorderdetails.md) | <b><i>(BETA)</i></b> Get order details |
 |  [getCustomerOrders(contextInstance)](./shopware-6-client.getcustomerorders.md) | <b><i>(BETA)</i></b> Get all customer's orders |
-|  [getOrderPaymentUrl({ orderId, finishUrl, }, contextInstance)](./shopware-6-client.getorderpaymenturl.md) | <b><i>(BETA)</i></b> Get payment address to redirect user after placing order. |
 |  [getPage(path, searchCriteria, contextInstance)](./shopware-6-client.getpage.md) | <b><i>(BETA)</i></b> |
 |  [getPaymentMethodDetails(paymentId, contextInstance)](./shopware-6-client.getpaymentmethoddetails.md) | <b><i>(BETA)</i></b> |
 |  [getProduct(productId, params, contextInstance)](./shopware-6-client.getproduct.md) | <b><i>(BETA)</i></b> Get the product with passed productId |
 |  [getProductPage(path, searchCriteria, contextInstance)](./shopware-6-client.getproductpage.md) | <b><i>(BETA)</i></b> |
-|  [getResults(term, searchCriteria, contextInstance)](./shopware-6-client.getresults.md) | <b><i>(BETA)</i></b> |
 |  [getSearchResults(term, searchCriteria, contextInstance)](./shopware-6-client.getsearchresults.md) | <b><i>(BETA)</i></b> |
 |  [getSeoUrls(entityId, languageId, contextInstance)](./shopware-6-client.getseourls.md) | <b><i>(BETA)</i></b> Returns an array of SEO URLs for given entity Can be used for other languages as well by providing the languageId |
 |  [getSessionContext(contextInstance)](./shopware-6-client.getsessioncontext.md) | <b><i>(BETA)</i></b> Loads session context, containing all session-related data. |
 |  [getShippingMethodDetails(shippingId, contextInstance)](./shopware-6-client.getshippingmethoddetails.md) | <b><i>(BETA)</i></b> |
 |  [getStoreNavigation({ requestActiveId, requestRootId, depth, buildTree, searchCriteria, }, contextInstance)](./shopware-6-client.getstorenavigation.md) | <b><i>(BETA)</i></b> |
-|  [getStoreOrderPaymentUrl(orderId, contextInstance)](./shopware-6-client.getstoreorderpaymenturl.md) | <b><i>(BETA)</i></b> |
+|  [getStoreOrderPaymentUrl(orderId, finishUrl, errorUrl, contextInstance)](./shopware-6-client.getstoreorderpaymenturl.md) | <b><i>(BETA)</i></b> |
 |  [getUserCountry(countryId, contextInstance)](./shopware-6-client.getusercountry.md) | <b><i>(BETA)</i></b> |
 |  [getUserSalutation(salutationId, contextInstance)](./shopware-6-client.getusersalutation.md) | <b><i>(BETA)</i></b> |
 |  [invokeGet({ address }, contextInstance)](./shopware-6-client.invokeget.md) | <b><i>(BETA)</i></b> Invoke custom GET request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
