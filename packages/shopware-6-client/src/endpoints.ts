@@ -57,11 +57,11 @@ export const getSearchEndpoint = () => `/store-api/search`;
  */
 export const getCustomerAddressEndpoint = (addressId?: string) =>
   addressId
-    ? `/sales-channel-api/v3/customer/address/${addressId}` // replace with `/store-api/v4/account/list-address` with { ids: [ addressid ] )
-    : "/sales-channel-api/v3/customer/address"; // replace with `/store-api/v4/account/list-address`
+    ? `/store-api/account/address/${addressId}`
+    : "/store-api/account/list-address";
 
 const getCustomerDefaultAddressEndpoint = (type: string, addressId: string) =>
-  `/sales-channel-api/v3/customer/address/${addressId}/default-${type}`; // replace with `/store-api/v4/context` { includes: { customer: defaultBillingAddress|defaultShipingAddress } }
+  `/store-api/account/address/default-${type}/${addressId}`;
 
 /**
  * @beta

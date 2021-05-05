@@ -215,7 +215,8 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
 
   const loadAddresses = async (): Promise<void> => {
     try {
-      addresses.value = await getCustomerAddresses(apiInstance);
+      const response = await getCustomerAddresses(apiInstance);
+      addresses.value = response?.elements;
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
