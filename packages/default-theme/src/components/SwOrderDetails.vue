@@ -118,7 +118,7 @@ import {
 import {
   getShippingMethodDetails,
   getPaymentMethodDetails,
-  getOrderPaymentUrl,
+  getStoreOrderPaymentUrl,
 } from "@shopware-pwa/shopware-6-client"
 import SwButton from "@/components/atoms/SwButton.vue"
 import { PAGE_ORDER_SUCCESS } from "@/helpers/pages"
@@ -222,14 +222,14 @@ export default {
       try {
         isPaymentButtonLoading.value = true
         order.value = await getOrderDetails(orderId)
-        const resp = await getOrderPaymentUrl(
+        const resp = await getStoreOrderPaymentUrl(
           {
             orderId,
             finishUrl: `${window.location.origin}${PAGE_ORDER_SUCCESS}?orderId=${orderId}`,
           },
           apiInstance
         )
-        paymentUrl.value = resp.paymentUrl
+        paymentUrl.value = resp.redirectUrl
       } catch (e) {}
       isPaymentButtonLoading.value = false
     })
