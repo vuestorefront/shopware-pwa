@@ -59,7 +59,6 @@ export default {
       selectedBilling,
       selectedShipping,
       addresses,
-      markAddressAsDefault,
       deleteAddress,
     }
   },
