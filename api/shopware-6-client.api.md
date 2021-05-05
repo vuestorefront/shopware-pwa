@@ -313,14 +313,6 @@ export const getNewsletterSubscribeEndpoint: () => string;
 // @beta (undocumented)
 export const getNewsletterUnsubscribeEndpoint: () => string;
 
-// @beta
-export function getOrderPaymentUrl({ orderId, finishUrl, }: {
-    orderId: string;
-    finishUrl?: string;
-}, contextInstance?: ShopwareApiInstance): Promise<{
-    paymentUrl: string;
-}>;
-
 // @beta (undocumented)
 export const getOrderPaymentUrlEndpoint: (orderId: string) => string;
 
@@ -357,13 +349,10 @@ export const getProductsIds: (options?: any, contextInstance?: ShopwareApiInstan
 // @beta (undocumented)
 export const getProductsIdsEndpoint: () => string;
 
-// @beta @deprecated (undocumented)
-export function getResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
-
 // @beta (undocumented)
 export const getSearchEndpoint: () => string;
 
-// @beta (undocumented)
+// @beta @deprecated (undocumented)
 export function getSearchResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
 // @beta (undocumented)
@@ -411,16 +400,13 @@ export const getStoreNewsletterSubscribeEndpoint: () => string;
 export const getStoreNewsletterUnsubscribeEndpoint: () => string;
 
 // @beta (undocumented)
-export function getStoreOrderPaymentUrl(orderId: string, contextInstance?: ShopwareApiInstance): Promise<{
-    redirectResponse: unknown;
+export function getStoreOrderPaymentUrl(orderId: string, finishUrl?: string, errorUrl?: string, contextInstance?: ShopwareApiInstance): Promise<{
+    redirectUrl: string | null;
     apiAlias: string;
 }>;
 
 // @beta (undocumented)
 export const getStoreOrderPaymentUrlEndpoint: () => string;
-
-// @alpha @deprecated (undocumented)
-export function getSuggestedResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
 // @beta (undocumented)
 export const getSuggestSearchEndpoint: () => string;
