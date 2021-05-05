@@ -30,7 +30,6 @@ import {
   getStoreNewsletterUnsubscribeEndpoint,
   getProductsIdsEndpoint,
   getStoreNavigationEndpoint,
-  getCustomerOrderDetailsEndpoint,
   getOrderPaymentUrlEndpoint,
   getStoreOrderPaymentUrlEndpoint,
   getContactFormEndpoint,
@@ -81,7 +80,7 @@ describe("endpoints", () => {
   describe("getCustomerAddressEndpoint", () => {
     it("should return Shopware address endpoint", async () => {
       const result = getCustomerAddressEndpoint();
-      expect(result).toEqual("/sales-channel-api/v3/customer/address");
+      expect(result).toEqual("/store-api/account/list-address");
     });
   });
 
@@ -151,16 +150,7 @@ describe("endpoints", () => {
   describe("getCustomerOrderEndpoint", () => {
     it("should return Shopware customer order endpoint", async () => {
       const result = getCustomerOrderEndpoint();
-      expect(result).toEqual("/store-api/v3/order");
-    });
-  });
-
-  describe("getCustomerOrderDetailsEndpoint", () => {
-    it("should return Shopware customer order details endpoint", async () => {
-      const result = getCustomerOrderDetailsEndpoint("12345-ab");
-      expect(result).toEqual(
-        "/sales-channel-api/v3/checkout/guest-order/12345-ab"
-      );
+      expect(result).toEqual("/store-api/order");
     });
   });
 

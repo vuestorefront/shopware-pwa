@@ -1,4 +1,3 @@
-import { getCustomerAddressSetDefaultShippingEndpoint } from "../../../src/endpoints";
 import { defaultInstance } from "../../../src/apiService";
 import { setDefaultCustomerShippingAddress } from "@shopware-pwa/shopware-6-client";
 
@@ -25,7 +24,7 @@ describe("CustomerService - setDefaultCustomerShippingAddress", () => {
     );
     expect(mockedPatch).toBeCalledTimes(1);
     expect(mockedPatch).toBeCalledWith(
-      getCustomerAddressSetDefaultShippingEndpoint("1234")
+      "/store-api/account/address/default-shipping/1234"
     );
   });
 
@@ -35,7 +34,7 @@ describe("CustomerService - setDefaultCustomerShippingAddress", () => {
     expect(result).toBe("12345");
     expect(mockedPatch).toBeCalledTimes(1);
     expect(mockedPatch).toBeCalledWith(
-      getCustomerAddressSetDefaultShippingEndpoint("12345")
+      "/store-api/account/address/default-shipping/12345"
     );
   });
 });
