@@ -4,7 +4,7 @@
       {{ $t("Keep your addresses and contact details updated.") }}
     </p>
     <SwErrorsList :list="formErrors" />
-    <div class="sw-form">
+    <div class="sw-form" v-if="address">
       <div class="inputs-group">
         <SwInput
           v-model="address.firstName"
