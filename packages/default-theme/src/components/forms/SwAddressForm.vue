@@ -122,7 +122,7 @@
       />
 
       <SwButton class="sw-form__button" @click="updateAddress">
-        {{ $t("Update the address") }}
+        {{ existingAddress ? $t("Update the address") : $t("Add the address") }}
       </SwButton>
       <SwButton
         class="sf-button--outline sw-form__button sw-form__button--back"
@@ -177,7 +177,7 @@ export default {
   setup({ address }, { root }) {
     const { pushError, pushSuccess } = useNotifications(root)
     const { getSalutations } = useSalutations(root)
-    const { addAddress, error: userError } = useUser(root)
+    const { addAddress, updateAddress, error: userError } = useUser(root)
     const { getCountries, error: countriesError } = useCountries(root)
     // simplify entities
     const getMappedCountries = computed(() => mapCountries(getCountries.value))
@@ -195,6 +195,7 @@ export default {
         (country) => country.id === address.countryId
       )
     )
+    const existingAddress = computed(() => !!address?.id)
     // compute selected id
     const selectedCountryId = computed(
       () =>
@@ -228,7 +229,10 @@ export default {
     }))
 
     // try to save an address
-    const saveAddress = () => addAddress(getAddressModel.value)
+    const saveAddress = () =>
+      existingAddress.value
+        ? updateAddress(getAddressModel.value)
+        : addAddress(getAddressModel.value)
 
     return {
       addAddress,
@@ -242,6 +246,7 @@ export default {
       pushError,
       pushSuccess,
       formErrors,
+      existingAddress,
     }
   },
   methods: {

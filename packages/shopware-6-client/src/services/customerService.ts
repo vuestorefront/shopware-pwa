@@ -11,6 +11,7 @@ import {
   getCustomerLogoutEndpoint,
   getCustomerLoginEndpoint,
   getCustomerOrderEndpoint,
+  getCustomerAddAddressEndpoint,
 } from "../endpoints";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
@@ -178,9 +179,26 @@ export async function getCustomerAddress(
 export async function createCustomerAddress(
   params: Partial<CustomerAddress>,
   contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<string> {
+): Promise<CustomerAddress> {
   const resp = await contextInstance.invoke.post(
-    getCustomerAddressEndpoint(),
+    getCustomerAddAddressEndpoint(),
+    params
+  );
+  return resp.data;
+}
+
+/**
+ * Update an address for specific ID
+ *
+ * @throws ClientApiError
+ * @beta
+ */
+export async function updateCustomerAddress(
+  params: Partial<CustomerAddress>,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<CustomerAddress> {
+  const resp = await contextInstance.invoke.patch(
+    getCustomerAddressEndpoint(params.id),
     params
   );
   return resp.data;

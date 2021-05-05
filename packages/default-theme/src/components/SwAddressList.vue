@@ -1,5 +1,5 @@
 <template>
-  <div class="shipping-list">
+  <div class="shipping-list" v-if="addresses">
     <Address
       v-for="address in addresses"
       :key="address.id"

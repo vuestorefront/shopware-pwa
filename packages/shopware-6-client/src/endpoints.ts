@@ -51,6 +51,10 @@ export const getSuggestSearchEndpoint = () => `/store-api/search-suggest`;
 export const getSearchEndpoint = () => `/store-api/search`;
 
 // customer
+/**
+ * @beta
+ */
+export const getCustomerAddAddressEndpoint = () => `/store-api/account/address`;
 
 /**
  * @beta
