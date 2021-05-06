@@ -392,9 +392,6 @@ jobs:
       - name: Build test project
         run: |
           cd ./test-project
-          yarn
-          ls -la ./node_modules
-          cat ./node_modules/@shopware-pwa/default-theme/package.json
           yarn build
           cd ..
           node ./scripts/yalcPushPackages.js
