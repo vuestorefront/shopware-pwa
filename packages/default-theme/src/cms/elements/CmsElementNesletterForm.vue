@@ -69,8 +69,8 @@
 
 <script>
 import { SfInput, SfHeading } from "@storefront-ui/vue"
-import { validationMixin } from "vuelidate"
-import { required, email } from "vuelidate/lib/validators"
+import useVuelidate from "@vuelidate/core"
+import { required, email } from "@vuelidate/validators"
 import SwButton from "@/components/atoms/SwButton.vue"
 import { newsletterSubscribe } from "@shopware-pwa/shopware-6-client"
 import { ref } from "@vue/composition-api"
@@ -86,7 +86,6 @@ export default {
     SfHeading,
     SwErrorsList,
   },
-  mixins: [validationMixin],
   props: {
     content: {
       type: Object,
@@ -127,6 +126,7 @@ export default {
       sendForm,
       errorMessages,
       formSent,
+      $v: useVuelidate(),
     }
   },
   methods: {

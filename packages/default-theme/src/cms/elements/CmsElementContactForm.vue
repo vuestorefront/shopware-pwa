@@ -136,8 +136,8 @@ import {
   SfIcon,
   SfHeading,
 } from "@storefront-ui/vue"
-import { validationMixin } from "vuelidate"
-import { required, email, minLength } from "vuelidate/lib/validators"
+import useVuelidate from "@vuelidate/core"
+import { required, email, minLength } from "@vuelidate/validators"
 import {
   mapSalutations,
   getMessagesFromErrorsArray,
@@ -162,7 +162,6 @@ export default {
     SfIcon,
     SfHeading,
   },
-  mixins: [validationMixin],
   props: {
     content: {
       type: Object,
@@ -227,6 +226,7 @@ export default {
       message,
       checkbox,
       formSent,
+      $v: useVuelidate(),
     }
   },
   methods: {

@@ -138,8 +138,8 @@
 <script>
 import { computed } from "@vue/composition-api"
 import { SfAlert, SfSelect } from "@storefront-ui/vue"
-import { validationMixin } from "vuelidate"
-import { required, email, minLength } from "vuelidate/lib/validators"
+import useVuelidate from "@vuelidate/core"
+import { required, email, minLength } from "@vuelidate/validators"
 import {
   useUser,
   useCountries,
@@ -158,7 +158,6 @@ import SwInput from "@/components/atoms/SwInput.vue"
 export default {
   name: "SwResetPassword",
   components: { SwButton, SwInput, SfAlert, SfSelect, SwPluginSlot },
-  mixins: [validationMixin],
   data() {
     return {
       firstName: "",
@@ -196,6 +195,7 @@ export default {
       getMappedSalutations,
       userErrorMessages,
       refreshSessionContext,
+      $v: useVuelidate(),
     }
   },
   computed: {

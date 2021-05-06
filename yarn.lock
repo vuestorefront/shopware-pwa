@@ -923,7 +923,7 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@commitlint/cli@^12.0.1":
+"@commitlint/cli@^12.1.1":
   version "12.1.1"
   resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-12.1.1.tgz#740370e557a8a17f415052821cdd5276ecb0ab98"
   integrity sha512-SB67/s6VJ50seoPx/Sr2gj1fMzKrx+udgarecGdr8h43ah+M2e22gjQJ7xHv5KwyPQ+6ug1YOMCL34ubT4zupQ==
@@ -939,7 +939,7 @@
     resolve-global "1.0.0"
     yargs "^16.2.0"
 
-"@commitlint/config-conventional@^12.0.1":
+"@commitlint/config-conventional@^12.1.1":
   version "12.1.1"
   resolved "https://registry.yarnpkg.com/@commitlint/config-conventional/-/config-conventional-12.1.1.tgz#73dd3b1a7912138420d248f334f15c94c250bc9e"
   integrity sha512-15CqbXMsQiEb0qbzjEHe2OkzaXPYSp7RxaS6KoSVk/4W0QiigquavQ+M0huBZze92h0lMS6Pxoq4AJ5CQ3D+iQ==
@@ -3406,6 +3406,20 @@
     dom-event-types "^1.0.0"
     lodash "^4.17.15"
     pretty "^2.0.0"
+
+"@vuelidate/core@^2.0.0-alpha.16":
+  version "2.0.0-alpha.16"
+  resolved "https://registry.yarnpkg.com/@vuelidate/core/-/core-2.0.0-alpha.16.tgz#1e4018015a8159a98956bfce6bad2348948156e9"
+  integrity sha512-qMIZSttG663YMPh9MMXK4xwjr9QY8tfylSkUyIbEvfTmWFRauSOEE68fZrWCz5vYL3QIR5je8bRgjXCA6r1xAA==
+  dependencies:
+    vue-demi "^0.6.0"
+
+"@vuelidate/validators@^2.0.0-alpha.13":
+  version "2.0.0-alpha.13"
+  resolved "https://registry.yarnpkg.com/@vuelidate/validators/-/validators-2.0.0-alpha.13.tgz#9d7137f90a70bb96302da2a1cb221576ca143e1c"
+  integrity sha512-VC6hW/S0pzaanskgFN+XItTrqaVP6MIPIUAx+urhtUnZxCRXUm8e2gRbRLCWm+f4mXbcOKySmJMTlUcvTFS+yQ==
+  dependencies:
+    vue-demi "^0.6.0"
 
 "@vuepress/core@1.8.2":
   version "1.8.2"
@@ -14617,10 +14631,17 @@ semver@7.0.0:
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.0.0.tgz#5f3ca35761e47e05b206c6daff2cf814f0316b8e"
   integrity sha512-+GB6zVA9LWh6zovYQLALHwv5rb2PHGlJi3lfiqIHxR0uuwCgefcOJc59v9fv1w8GbStwxuuqqAjI9NMAOOgq1A==
 
-semver@7.3.5, semver@7.x, semver@^7.0.0, semver@^7.1.1, semver@^7.1.3, semver@^7.2.1, semver@^7.3.2, semver@^7.3.4, semver@^7.3.5, semver@~7.3.0:
+semver@7.3.5, semver@^7.1.1, semver@^7.1.3, semver@^7.3.5:
   version "7.3.5"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.5.tgz#0b621c879348d8998e4b0e4be94b3f12e6018ef7"
   integrity sha512-PoeGJYh8HK4BTO/a9Tf6ZG3veo/A7ZVsYrSA6J8ny9nb3B1VrpkuN+z9OE5wfE5p6H4LchYZsegiQgbJD94ZFQ==
+  dependencies:
+    lru-cache "^6.0.0"
+
+semver@7.x, semver@^7.0.0, semver@^7.2.1, semver@^7.3.2, semver@^7.3.4, semver@~7.3.0:
+  version "7.3.4"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.4.tgz#27aaa7d2e4ca76452f98d3add093a72c943edc97"
+  integrity sha512-tCfb2WLjqFAtXn4KEdxIhalnRtoKFN7nAwj0B3ZXCbQloV2tq5eDbcTmT68JJD3nRJq24/XgxtQKFIpQdtvmVw==
   dependencies:
     lru-cache "^6.0.0"
 
@@ -16622,6 +16643,11 @@ vue-client-only@^2.0.0:
   resolved "https://registry.yarnpkg.com/vue-client-only/-/vue-client-only-2.0.0.tgz#ddad8d675ee02c761a14229f0e440e219de1da1c"
   integrity sha512-arhk1wtWAfLsJyxGMoEYhoBowM87/i6HLSG2LH/03Yog6i2d9JEN1peMP0Ceis+/n9DxdenGYZZTxbPPJyHciA==
 
+vue-demi@^0.6.0:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.6.2.tgz#ed9633eaa69b7409cc6e8328e8a6c3d31ab39319"
+  integrity sha512-4KfwxbqsZcDz7UryD11oHa6FLK9Gzx4MIwAEcP37IbUdXuF6DHg2w9L5Zv5t+FNqsuAjEQ2NnGVIZ3u71y435Q==
+
 vue-drag-drop@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/vue-drag-drop/-/vue-drag-drop-1.1.4.tgz#6e94aeb10304b91d651614b7307d0b90f0227e89"
@@ -16739,11 +16765,6 @@ vue@^2.6.10, vue@^2.6.12:
   version "2.6.12"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
   integrity sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg==
-
-vuelidate@^0.7.6:
-  version "0.7.6"
-  resolved "https://registry.yarnpkg.com/vuelidate/-/vuelidate-0.7.6.tgz#84100c13b943470660d0416642845cd2a1edf4b2"
-  integrity sha512-suzIuet1jGcyZ4oUSW8J27R2tNrJ9cIfklAh63EbAkFjE380iv97BAiIeolRYoB9bF9usBXCu4BxftWN1Dkn3g==
 
 vuepress-html-webpack-plugin@^3.2.0:
   version "3.2.0"
