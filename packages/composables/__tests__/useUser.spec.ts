@@ -285,7 +285,32 @@ describe("Composables - useUser", () => {
         expect(orderDetails).toBe(orderResponse);
       });
     });
-
+    describe("updateAddress", () => {
+      it("should invoke an endpoint to update an address and return true on success", async () => {
+        mockedApiClient.updateCustomerAddress.mockResolvedValueOnce(
+          "ok" as any
+        );
+        const { updateAddress } = useUser(rootContextMock);
+        const response = await updateAddress({
+          id: "some-address-id",
+          city: "Wrocław",
+        });
+        expect(mockedApiClient.updateCustomerAddress).toBeCalledTimes(1);
+        expect(response).toBe(true);
+      });
+      it("should invoke an endpoint to update an address and return false on fail", async () => {
+        mockedApiClient.updateCustomerAddress.mockRejectedValueOnce(
+          new Error("not ok")
+        );
+        const { updateAddress } = useUser(rootContextMock);
+        const response = await updateAddress({
+          id: "some-address-id",
+          city: "Wrocław",
+        });
+        expect(mockedApiClient.updateCustomerAddress).toBeCalledTimes(1);
+        expect(response).toBe(false);
+      });
+    });
     describe("addAddress", () => {
       it("should add address", async () => {
         mockedApiClient.createCustomerAddress.mockResolvedValueOnce(
@@ -345,6 +370,17 @@ describe("Composables - useUser", () => {
             id: "addressId-12345",
           },
         ]);
+      });
+
+      it("should invoke client getCustomerAddresses method and assign undefined on falsy response", async () => {
+        mockedApiClient.getCustomerAddresses.mockResolvedValue(
+          undefined as any
+        );
+        const { addresses, loadAddresses, error } = useUser(rootContextMock);
+        await loadAddresses();
+        expect(mockedApiClient.getCustomerAddresses).toBeCalledTimes(1);
+        expect(error.value).toBeFalsy();
+        expect(addresses.value).toBeUndefined();
       });
 
       it("should invoke client getCustomerAddresses method and assign error message if client request is rejected", async () => {

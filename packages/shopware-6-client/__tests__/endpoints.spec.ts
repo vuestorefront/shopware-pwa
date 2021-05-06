@@ -4,9 +4,6 @@ import {
   getCategoryEndpoint,
   getCategoryDetailsEndpoint,
   getCustomerAddressEndpoint,
-  getCustomerAddressDetailsEndpoint,
-  getCustomerAddressSetDefaultShippingEndpoint,
-  getCustomerAddressSetDefaultBillingEndpoint,
   getCustomerEndpoint,
   getCustomerDetailsEndpoint,
   getCustomerLoginEndpoint,
@@ -14,9 +11,7 @@ import {
   getCustomerOrderEndpoint,
   getCheckoutCartEndpoint,
   getCheckoutCartLineItemEndpoint,
-  getCheckoutPromotionCodeEndpoint,
   getCheckoutOrderEndpoint,
-  getCheckoutOrderPayEndpoint,
   getContextCurrencyEndpoint,
   getContextLanguageEndpoint,
   getContextCountryEndpoint,
@@ -37,9 +32,7 @@ import {
 
 const sampleProductId = "eea0f69ec02d44f7a4224272b3d99478";
 const sampleCategoryId = "03dfd5badd3d43bd8a345ef660761e09";
-const sampleAddressId = "324af469318f46b68e0fe69d77ef15fb";
 const sampleCustomerId = "8b67c1fbb718487db750651430023298";
-const sampleOrderId = "27356105cf9b4484b96143881c37bbcb";
 
 describe("endpoints", () => {
   describe("getProductEndpoint", () => {
@@ -81,41 +74,6 @@ describe("endpoints", () => {
     it("should return Shopware address endpoint", async () => {
       const result = getCustomerAddressEndpoint();
       expect(result).toEqual("/store-api/account/list-address");
-    });
-  });
-
-  describe("getCustomerAddressDetailsEndpoint", () => {
-    it("should return Shopware address details endpoint", async () => {
-      const result = getCustomerAddressDetailsEndpoint(sampleAddressId);
-      expect(result).toEqual(
-        "/sales-channel-api/v3/customer/address/" + sampleAddressId
-      );
-    });
-  });
-
-  describe("getCustomerAddressSetDefaultShippingEndpoint", () => {
-    it("should return Shopware set default shipping address endpoint", async () => {
-      const result = getCustomerAddressSetDefaultShippingEndpoint(
-        sampleAddressId
-      );
-      expect(result).toEqual(
-        "/sales-channel-api/v3/customer/address/" +
-          sampleAddressId +
-          "/default-shipping"
-      );
-    });
-  });
-
-  describe("getCustomerAddressSetDefaultBillingEndpoint", () => {
-    it("should return Shopware set default billing address endpoint", async () => {
-      const result = getCustomerAddressSetDefaultBillingEndpoint(
-        sampleAddressId
-      );
-      expect(result).toEqual(
-        "/sales-channel-api/v3/customer/address/" +
-          sampleAddressId +
-          "/default-billing"
-      );
     });
   });
 
@@ -168,26 +126,10 @@ describe("endpoints", () => {
     });
   });
 
-  describe("getCheckoutPromotionCodeEndpoint", () => {
-    it("should return Shopware checkout-cart-promotion-code endpoint", async () => {
-      const result = getCheckoutPromotionCodeEndpoint("xyz");
-      expect(result).toEqual("/sales-channel-api/v3/checkout/cart/code/xyz");
-    });
-  });
-
   describe("getCheckoutOrderEndpoint", () => {
     it("should return Shopware checkout-order endpoint", async () => {
       const result = getCheckoutOrderEndpoint();
       expect(result).toEqual("/store-api/checkout/order");
-    });
-  });
-
-  describe("getCheckoutOrderPayEndpoint", () => {
-    it("should return Shopware checkout-order-pay endpoint", async () => {
-      const result = getCheckoutOrderPayEndpoint(sampleOrderId);
-      expect(result).toEqual(
-        "/sales-channel-api/v3/checkout/order/" + sampleOrderId + "/pay"
-      );
     });
   });
 

@@ -82,26 +82,6 @@ export const getCustomerDefaultShippingAddressEndpoint = (addressId: string) =>
 /**
  * @beta
  */
-export const getCustomerAddressDetailsEndpoint = (addressId: string) =>
-  `/sales-channel-api/v3/customer/address/${addressId}`; // replace with `/store-api/v4/account/list-address` { ids: [ addressId  }
-
-/**
- * @beta
- */
-export const getCustomerAddressSetDefaultShippingEndpoint = (
-  addressId: string
-) => `/sales-channel-api/v3/customer/address/${addressId}/default-shipping`; // replace with `/store-api/v4/account/address/default-shipping/{addressId}`
-
-/**
- * @beta
- */
-export const getCustomerAddressSetDefaultBillingEndpoint = (
-  addressId: string
-) => `/sales-channel-api/v3/customer/address/${addressId}/default-billing`; // replace with `/store-api/v4/account/address/default-billing/{addressId}`
-
-/**
- * @beta
- */
 export const getCustomerEndpoint = () => `/store-api/account/customer`;
 /**
  * @beta
@@ -168,24 +148,6 @@ export const getCheckoutCartLineItemEndpoint = () =>
  * @beta
  */
 export const getCheckoutOrderEndpoint = () => `/store-api/checkout/order`;
-
-/**
- * @beta
- */
-export const getCheckoutOrderPayEndpoint = (orderId: string) =>
-  `/sales-channel-api/v3/checkout/order/${orderId}/pay`; // replace with `/store-api/v4/handle-payment` { orderId: orderId }
-
-/**
- * @beta
- */
-export const getCheckoutGuestOrderDetailsEndpoint = (orderId: string) =>
-  `/sales-channel-api/v3/checkout/guest-order/${orderId}`; // replace with `/store-api/account/order` { ids: [ orderId ] }
-
-/**
- * @beta
- */
-export const getCheckoutPromotionCodeEndpoint = (code: string) =>
-  `/sales-channel-api/v3/checkout/cart/code/${code}`; // replace with `/store-api/checkout/cart/line-item` - see https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/cart?category=shopware-platform-dev-en/store-api-guide#promotion
 
 // context
 
