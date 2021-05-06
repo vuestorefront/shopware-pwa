@@ -3,7 +3,18 @@
 exports[`nuxt-module - extendNuxtConfig should return default config 1`] = `
 Object {
   "axios": Object {},
-  "build": Object {},
+  "build": Object {
+    "babel": Object {
+      "plugins": Array [
+        Array [
+          "@babel/plugin-proposal-private-methods",
+          Object {
+            "loose": true,
+          },
+        ],
+      ],
+    },
+  },
   "buildModules": Array [
     "@nuxt/typescript-build",
     "@shopware-pwa/nuxt-module",

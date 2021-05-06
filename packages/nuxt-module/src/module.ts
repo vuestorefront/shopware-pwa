@@ -202,14 +202,6 @@ export async function runModule(
     ];
   };
 
-  // Fix optional chaining until resolved Nuxt issue: https://github.com/nuxt/nuxt.js/issues/7722
-  // same fix with nullish coalescing and other Babel loader issues can be resolved here by adding
-  // package to dependencies and loading plugin here
-  moduleObject.options.build.babel.plugins = [
-    "@babel/plugin-proposal-optional-chaining",
-    "@babel/plugin-proposal-nullish-coalescing-operator",
-  ];
-
   moduleObject.options.build.filenames =
     moduleObject.options.build.filenames || {};
   moduleObject.options.build.filenames.chunk = ({ isDev }) =>
