@@ -1,6 +1,6 @@
 <template>
   <div class="sw-product-gallery gallery">
-    <div v-if="mediaGallery.length > 0" class="gallery__mobile">
+    <div v-show="mediaGallery.length > 0" class="gallery__mobile">
       <slot name="mobile-galery" v-bind="mediaGallery">
         <SfGallery class="gallery-mobile" :images="mediaGallery" :current="1" />
       </slot>
