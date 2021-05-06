@@ -116,6 +116,7 @@ import {
 } from "@/logic/checkout/usePaymentStep"
 import { useCountries, useCountry } from "@shopware-pwa/composables"
 import SwInput from "@/components/atoms/SwInput.vue"
+import { onMounted } from "vue-demi"
 
 export default {
   name: "BillingAddressGuestForm",
@@ -140,7 +141,10 @@ export default {
       phoneNumber,
       differentThanShipping,
     } = usePaymentStep(root)
-    setValidations($v)
+
+    onMounted(() => {
+      setValidations($v)
+    })
 
     const { getCountries } = useCountries(root)
     const { currentCountry, displayState, forceState } = useCountry(
