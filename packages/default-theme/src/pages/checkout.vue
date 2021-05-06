@@ -1,8 +1,19 @@
 <template>
   <div id="checkout" :key="$route.fullPath">
     <div class="checkout">
-      <div class="checkout__main">
-        <SfSteps :active="currentStep" @change="nextStep($event)">
+      <div v-if="!isLoggedIn" class="checkout__main">
+        <SwRegistrationForm />
+        <!-- <SwErrorsList :list="formErrors" />
+        <RegistrationDetails />
+        <Sw2AddressForm />
+        <SfCheckbox
+          v-model="isBillingAddressDifferent"
+          name="isBillingAddressDifferent"
+          :label="$t('Shipping and billing address do not match.')"
+          class="sw-form__checkbox"
+        />
+        <Sw2AddressForm v-if="isBillingAddressDifferent" /> -->
+        <!-- <SfSteps :active="currentStep" @change="nextStep($event)">
           <SfStep :name="$t('Personal Details')">
             <PersonalDetailsStep @proceed="nextStep()" />
           </SfStep>
@@ -24,10 +35,25 @@
               @proceed="nextStep()"
             />
           </SfStep>
-        </SfSteps>
+        </SfSteps> -->
+        <!-- <SwButton
+          class="sf-button--outline sw-form__button"
+          @click="registerUser"
+        >
+          {{ $t("Continue") }}
+        </SwButton> -->
+      </div>
+      <div v-else class="checkout__main">
+        <h2>now we're talking</h2>
+        <!-- <SwButton
+          class="sf-button--outline sw-form__button"
+          @click="registerUser"
+        >
+          {{ $t("Continue") }}
+        </SwButton> -->
       </div>
       <div class="checkout__aside">
-        <transition name="fade">
+        <!-- <transition name="fade">
           <SidebarOrderSummary
             v-if="currentStep < CHECKOUT_STEPS.REVIEW"
             key="order-summary"
@@ -39,12 +65,12 @@
             class="checkout__aside-order"
             @click:edit="nextStep($event)"
           />
-        </transition>
+        </transition> -->
       </div>
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { SfSteps } from "@storefront-ui/vue"
 import SidebarOrderReview from "@/components/checkout/sidebar/SidebarOrderReview.vue"
 import SidebarOrderSummary from "@/components/checkout/sidebar/SidebarOrderSummary.vue"
@@ -52,14 +78,24 @@ import PaymentStep from "@/components/checkout/steps/PaymentStep.vue"
 import PersonalDetailsStep from "@/components/checkout/steps/PersonalDetailsStep.vue"
 import ShippingStep from "@/components/checkout/steps/ShippingStep.vue"
 import OrderReviewStep from "@/components/checkout/steps/OrderReviewStep.vue"
-import { CHECKOUT_STEPS, useUICheckoutPage } from "@/logic/checkout"
+import { CHECKOUT_STEPS } from "@/logic/checkout"
 import { PAGE_CHECKOUT } from "@/helpers/pages"
-import { useBreadcrumbs } from "@shopware-pwa/composables"
-import { onBeforeUnmount } from "@vue/composition-api"
+import { useBreadcrumbs, useUser } from "@shopware-pwa/composables"
+import SwRegistrationForm from "@/components/forms/SwRegistrationForm.vue"
+import { SfCheckbox } from "@storefront-ui/vue"
+import { ref, computed } from "@vue/composition-api"
+import SwButton from "@/components/atoms/SwButton.vue"
+import SwErrorsList from "@/components/SwErrorsList.vue"
 
 export default {
   name: "CheckoutPage",
   components: {
+    RegistrationDetails,
+    Sw2AddressForm,
+    SfCheckbox,
+    SwButton,
+    SwErrorsList,
+    SwRegistrationForm,
     SfSteps,
     PersonalDetailsStep,
     ShippingStep,
@@ -69,8 +105,37 @@ export default {
     SidebarOrderReview,
   },
   setup({}, { root }) {
-    const { currentStep, nextStep } = useUICheckoutPage(root)
+    // const { currentStep, nextStep } = useUICheckoutPage(root)
     const { setBreadcrumbs } = useBreadcrumbs(root)
+    const { register, errors, isLoggedIn } = useUser(root)
+    const isBillingAddressDifferent = ref(false)
+    const formErrors = computed(() => errors.register)
+
+    function nextStep(val) {
+      console.error("NEXT STEP", val)
+    }
+
+    async function registerUser(val) {
+      const resp = await register({
+        firstName: "test",
+        lastName: "test",
+        email: "mkucmus+test@gmail.com",
+        password: null,
+        guest: true,
+        salutationId: "76fd5475cb9f48d8bb77d27e68ea9873",
+        storefrontUrl: "http://localhost",
+        billingAddress: {
+          firstName: "test",
+          salutationId: "76fd5475cb9f48d8bb77d27e68ea9873",
+          lastName: "test",
+          city: "433434",
+          street: "433434",
+          zipcode: "r434343",
+          countryId: "e7b324e8e2d84bdab78727d1935fba23",
+        },
+      })
+      console.error("RESP", resp)
+    }
 
     setBreadcrumbs([
       {
@@ -79,9 +144,13 @@ export default {
       },
     ])
     return {
-      currentStep,
+      // currentStep,
       nextStep,
       CHECKOUT_STEPS,
+      isBillingAddressDifferent,
+      registerUser,
+      formErrors,
+      isLoggedIn,
     }
   },
   watch: {

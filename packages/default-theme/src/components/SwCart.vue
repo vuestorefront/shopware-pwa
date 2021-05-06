@@ -143,7 +143,7 @@ export default {
           },
           apiInstance
         )
-        additionalItemsData.value = result
+        additionalItemsData.value = result.elements
       } catch (error) {
         console.error("[SwCart][setup][onMounted]", error)
       }
