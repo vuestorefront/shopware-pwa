@@ -60,7 +60,7 @@
     </div>
   </div>
   <div v-else>
-    <CmsPage :content="page.cmsPage" />
+    <CmsPage :content="cmsPage" />
   </div>
 </template>
 <script>
