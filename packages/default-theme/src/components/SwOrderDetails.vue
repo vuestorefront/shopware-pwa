@@ -38,6 +38,13 @@
         class="content"
       />
 
+      <SwAddress
+        v-if="shippingAddress"
+        :address="shippingAddress"
+        :address-title="$t('Shipping address')"
+        class="content"
+      />
+
       <SwPluginSlot
         name="order-details-payment-method"
         :slot-context="paymentMethod"
@@ -199,12 +206,7 @@ export default {
         )
     )
     const shippingAddress = computed(
-      () =>
-        order.value &&
-        order.value.addresses &&
-        order.value.addresses.find(
-          ({ id }) => id == order.value.shippingAddressId
-        )
+      () => order.value?.deliveries?.[0]?.shippingOrderAddress
     )
 
     const shippingCosts = computed(
@@ -249,6 +251,7 @@ export default {
       order,
       personalDetails,
       billingAddress,
+      shippingAddress,
       paymentMethod,
       shippingMethod,
       shippingCosts,
