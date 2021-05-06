@@ -28,7 +28,11 @@
     "text-three-column": "CmsBlockTextThreeColumn",
     "product-three-column": "CmsBlockProductThreeColumn",
     "text-two-column": "CmsBlockTextTwoColumn",
-    "form": "CmsBlockForms"
+    "form": "CmsBlockForms",
+    "product-heading": "CmsBlockDefault",
+    "gallery-buybox": "CmsBlockDefault",
+    "product-description-reviews": "CmsBlockDefault",
+    "cross-selling": "CmsBlockDefault"
   },
   "elements": {
     "product-box": "CmsElementProductCard",
@@ -41,6 +45,9 @@
     "product-listing": "CmsElementProductListing",
     "category-navigation": "CmsElementCategoryNavigation",
     "sidebar-filter": "CmsElementCategorySidebarFilter",
-    "form": "CmsElementForm"
+    "form": "CmsElementForm",
+    "product-name": "CmsElementText",
+    "manufacturer-logo": "CmsElementImage",
+    "cross-selling": "CmsElementText"
   }
 }

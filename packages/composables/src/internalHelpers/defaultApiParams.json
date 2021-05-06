@@ -2,7 +2,11 @@
   "useCms": {
     "limit": 10,
     "associations": {
-      "manufacturer": {},
+      "manufacturer": {
+        "associations": {
+          "media": {}
+        }
+      },
       "media": {
         "sort": [
           {

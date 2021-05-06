@@ -1,5 +1,5 @@
 <template>
-  <div v-if="product" id="product">
+  <div v-if="!cmsPage" id="product">
     <SwPluginSlot name="product-page-details-before" :slot-context="product" />
     <SwGoBackArrow class="product-page-back" />
     <div class="product">
@@ -59,8 +59,12 @@
       <SwProductAdvertisement />
     </div>
   </div>
+  <div v-else>
+    <CmsPage :content="page.cmsPage" />
+  </div>
 </template>
 <script>
+import CmsPage from "sw-cms/CmsPage"
 import { SfImage, SfSection, SfTabs } from "@storefront-ui/vue"
 import {
   useProduct,
@@ -80,6 +84,7 @@ import { computed, onMounted, ref } from "@vue/composition-api"
 export default {
   name: "ProductPage",
   components: {
+    CmsPage,
     SwGoBackArrow,
     SfImage,
     SfSection,
@@ -104,7 +109,7 @@ export default {
     )
     const { getIncludesConfig } = useDefaults(root, "useProductListing")
     const product = computed(() => page.product)
-
+    const cmsPage = computed(() => page.cmsPage)
     const {
       loadAssociations: loadCrossSells,
       productAssociations: crossSellCollection,
@@ -113,11 +118,7 @@ export default {
       loadCrossSells({
         params: {
           associations: {
-            product: {
-              associations: {
-                seoUrls: {},
-              },
-            },
+            seoUrls: {},
           },
           includes: getIncludesConfig(),
         },
@@ -128,6 +129,7 @@ export default {
       switchLoginModalState,
       crossSellCollection,
       product,
+      cmsPage,
     }
   },
 }
