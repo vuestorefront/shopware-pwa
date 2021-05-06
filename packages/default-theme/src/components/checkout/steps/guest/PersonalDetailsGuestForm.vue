@@ -109,13 +109,8 @@ import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 
-import { validationMixin } from "vuelidate"
-import {
-  required,
-  requiredIf,
-  email,
-  minLength,
-} from "vuelidate/lib/validators"
+import useVuelidate from "@vuelidate/core"
+import { required, requiredIf, email, minLength } from "@vuelidate/validators"
 import { computed } from "@vue/composition-api"
 import {
   mapSalutations,
@@ -144,7 +139,6 @@ export default {
     SwErrorsList,
     SwPluginSlot,
   },
-  mixins: [validationMixin],
   props: {
     order: {
       type: Object,
@@ -183,6 +177,7 @@ export default {
       root,
       "LOGIN_MODAL_STATE"
     )
+    const $v = useVuelidate()
 
     const {
       validations,
@@ -193,6 +188,7 @@ export default {
       lastName,
       email,
     } = usePersonalDetailsStep(root)
+    setValidations($v)
 
     const {
       register: registerUser,
@@ -224,12 +220,12 @@ export default {
       getMessagesFromErrorsArray,
       switchLoginModalState,
       validations,
-      setValidations,
       validate,
       salutationId,
       firstName,
       lastName,
       email,
+      $v: useVuelidate(),
     }
   },
   computed: {
@@ -269,12 +265,6 @@ export default {
     //     this.billingAddress.salutationId = value
     //   }
     // },
-    $v: {
-      immediate: true,
-      handler() {
-        this.setValidations(this.$v)
-      },
-    },
   },
   async mounted() {
     // hack to register user without picking up the country (minimal registration)

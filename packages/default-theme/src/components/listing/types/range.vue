@@ -26,8 +26,8 @@ import { computed, ref } from "@vue/composition-api"
 
 import { SfFilter, SfHeading } from "@storefront-ui/vue"
 import SwInput from "@/components/atoms/SwInput.vue"
-import { validationMixin } from "vuelidate"
-import { required, email } from "vuelidate/lib/validators"
+import useVuelidate from "@vuelidate/core"
+import { required, email } from "@vuelidate/validators"
 
 export default {
   components: {
@@ -35,7 +35,6 @@ export default {
     SwInput,
     SfHeading,
   },
-  mixins: [validationMixin],
   props: {
     filter: {
       type: Object,
@@ -78,6 +77,7 @@ export default {
       max,
       minChanged,
       maxChanged,
+      $v: useVuelidate(),
     }
   },
 }
