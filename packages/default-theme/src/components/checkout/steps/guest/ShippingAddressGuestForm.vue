@@ -120,6 +120,7 @@ export default {
     SfSelect,
   },
   setup(props, { root }) {
+    const $v = useVuelidate()
     const {
       validations,
       setValidations,
@@ -132,6 +133,7 @@ export default {
       countryId,
       phoneNumber,
     } = useShippingStep(root)
+    setValidations($v)
     const { getCountries } = useCountries(root)
     const { setShippingMethod } = useCheckout(root)
 
@@ -151,7 +153,6 @@ export default {
 
     return {
       validations,
-      setValidations,
       firstName,
       lastName,
       street,
@@ -166,16 +167,7 @@ export default {
       currentCountry,
       displayState,
       forceState,
-      $v: useVuelidate(),
     }
-  },
-  watch: {
-    $v: {
-      immediate: true,
-      handler() {
-        this.setValidations(this.$v)
-      },
-    },
   },
   validations: {
     ...useShippingStepValidationRules,

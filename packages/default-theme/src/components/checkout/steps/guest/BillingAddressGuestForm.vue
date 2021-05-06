@@ -125,6 +125,8 @@ export default {
     SfCheckbox,
   },
   setup(props, { root }) {
+    const $v = useVuelidate()
+
     const {
       validations,
       setValidations,
@@ -138,6 +140,7 @@ export default {
       phoneNumber,
       differentThanShipping,
     } = usePaymentStep(root)
+    setValidations($v)
 
     const { getCountries } = useCountries(root)
     const { currentCountry, displayState, forceState } = useCountry(
@@ -147,7 +150,6 @@ export default {
 
     return {
       validations,
-      setValidations,
       firstName,
       lastName,
       street,
@@ -161,16 +163,7 @@ export default {
       currentCountry,
       displayState,
       forceState,
-      $v: useVuelidate(),
     }
-  },
-  watch: {
-    $v: {
-      immediate: true,
-      handler() {
-        this.setValidations(this.$v)
-      },
-    },
   },
   validations: {
     ...usePaymentStepValidationRules,

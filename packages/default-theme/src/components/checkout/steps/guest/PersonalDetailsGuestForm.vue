@@ -177,6 +177,7 @@ export default {
       root,
       "LOGIN_MODAL_STATE"
     )
+    const $v = useVuelidate()
 
     const {
       validations,
@@ -187,6 +188,7 @@ export default {
       lastName,
       email,
     } = usePersonalDetailsStep(root)
+    setValidations($v)
 
     const {
       register: registerUser,
@@ -218,7 +220,6 @@ export default {
       getMessagesFromErrorsArray,
       switchLoginModalState,
       validations,
-      setValidations,
       validate,
       salutationId,
       firstName,
@@ -264,12 +265,6 @@ export default {
     //     this.billingAddress.salutationId = value
     //   }
     // },
-    $v: {
-      immediate: true,
-      handler() {
-        this.setValidations(this.$v)
-      },
-    },
   },
   async mounted() {
     // hack to register user without picking up the country (minimal registration)
