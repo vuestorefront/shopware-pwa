@@ -1,4 +1,11 @@
-import { ref, Ref, computed, ComputedRef } from "@vue/composition-api";
+import {
+  ref,
+  Ref,
+  UnwrapRef,
+  computed,
+  ComputedRef,
+  reactive,
+} from "@vue/composition-api";
 import {
   login as apiLogin,
   logout as apiLogout,
@@ -113,6 +120,13 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
 
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
+  const errors: UnwrapRef<{
+    login: string;
+    register: string[];
+  }> = reactive({
+    login: "",
+    register: [],
+  });
   const orders: Ref<Order[] | null> = ref(null);
   const addresses: Ref<CustomerAddress[] | null> = ref(null);
   const country: Ref<Country | null> = ref(null);
@@ -151,14 +165,15 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     params: CustomerRegistrationParams
   ): Promise<boolean> => {
     loading.value = true;
-    error.value = null;
+    errors.register = [];
     try {
-      await apiRegister(params, apiInstance);
+      const userObject = await apiRegister(params, apiInstance);
       broadcast(INTERCEPTOR_KEYS.USER_REGISTER);
+      storeUser.value = (userObject as any) || {}; // TODO change returning tyoe to customer
       return true;
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err;
+      errors.register = [err.message as string];
       broadcast(INTERCEPTOR_KEYS.ERROR, {
         methodName: `[${contextName}][register]`,
         inputParams: {},
@@ -372,6 +387,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     salutation,
     loadCountry,
     country,
+    errors,
     onLogout,
     onUserLogin,
     onUserRegister,

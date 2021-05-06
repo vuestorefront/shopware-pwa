@@ -102,8 +102,7 @@ export const getCustomerEndpoint = () => `/store-api/v3/account/customer`;
 /**
  * @beta
  */
-export const getCustomerRegisterEndpoint = () =>
-  `/store-api/v3/account/register`;
+export const getCustomerRegisterEndpoint = () => `/store-api/account/register`;
 /**
  * @beta
  */
