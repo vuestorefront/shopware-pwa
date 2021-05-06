@@ -99,8 +99,8 @@
 </template>
 <script>
 import { SfSelect } from "@storefront-ui/vue"
-import { validationMixin } from "vuelidate"
-import { requiredIf } from "vuelidate/lib/validators"
+import useVuelidate from "@vuelidate/core"
+import { requiredIf } from "@vuelidate/validators"
 import {
   useShippingStep,
   useShippingStepValidationRules,
@@ -119,7 +119,6 @@ export default {
     SwInput,
     SfSelect,
   },
-  mixins: [validationMixin],
   setup(props, { root }) {
     const {
       validations,
@@ -167,6 +166,7 @@ export default {
       currentCountry,
       displayState,
       forceState,
+      $v: useVuelidate(),
     }
   },
   watch: {

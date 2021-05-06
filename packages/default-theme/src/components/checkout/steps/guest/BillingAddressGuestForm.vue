@@ -108,8 +108,8 @@
 </template>
 <script>
 import { SfSelect, SfCheckbox } from "@storefront-ui/vue"
-import { validationMixin } from "vuelidate"
-import { requiredIf } from "vuelidate/lib/validators"
+import useVuelidate from "@vuelidate/core"
+import { requiredIf } from "@vuelidate/validators"
 import {
   usePaymentStep,
   usePaymentStepValidationRules,
@@ -124,7 +124,6 @@ export default {
     SfSelect,
     SfCheckbox,
   },
-  mixins: [validationMixin],
   setup(props, { root }) {
     const {
       validations,
@@ -162,6 +161,7 @@ export default {
       currentCountry,
       displayState,
       forceState,
+      $v: useVuelidate(),
     }
   },
   watch: {

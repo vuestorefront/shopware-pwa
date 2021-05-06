@@ -109,13 +109,8 @@ import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 
-import { validationMixin } from "vuelidate"
-import {
-  required,
-  requiredIf,
-  email,
-  minLength,
-} from "vuelidate/lib/validators"
+import useVuelidate from "@vuelidate/core"
+import { required, requiredIf, email, minLength } from "@vuelidate/validators"
 import { computed } from "@vue/composition-api"
 import {
   mapSalutations,
@@ -144,7 +139,6 @@ export default {
     SwErrorsList,
     SwPluginSlot,
   },
-  mixins: [validationMixin],
   props: {
     order: {
       type: Object,
@@ -230,6 +224,7 @@ export default {
       firstName,
       lastName,
       email,
+      $v: useVuelidate(),
     }
   },
   computed: {
