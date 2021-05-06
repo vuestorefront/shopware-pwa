@@ -64,6 +64,7 @@
 |  [setCurrentShippingMethod(newShippingMethodId, contextInstance)](./shopware-6-client.setcurrentshippingmethod.md) | <b><i>(BETA)</i></b> |
 |  [setDefaultCustomerBillingAddress(addressId, contextInstance)](./shopware-6-client.setdefaultcustomerbillingaddress.md) | <b><i>(BETA)</i></b> Set address as default |
 |  [setDefaultCustomerShippingAddress(addressId, contextInstance)](./shopware-6-client.setdefaultcustomershippingaddress.md) | <b><i>(BETA)</i></b> Set address as default |
+|  [updateCustomerAddress(params, contextInstance)](./shopware-6-client.updatecustomeraddress.md) | <b><i>(BETA)</i></b> Update an address for specific ID |
 |  [updateEmail(params, contextInstance)](./shopware-6-client.updateemail.md) | <b><i>(BETA)</i></b> Update a customer's email |
 |  [updatePassword(params, contextInstance)](./shopware-6-client.updatepassword.md) | <b><i>(BETA)</i></b> Update a customer's password |
 |  [updateProfile(params, contextInstance)](./shopware-6-client.updateprofile.md) | <b><i>(BETA)</i></b> Update a customer's profile data |
@@ -96,8 +97,6 @@
 |  [getCheckoutCartEndpoint](./shopware-6-client.getcheckoutcartendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCheckoutCartLineItemEndpoint](./shopware-6-client.getcheckoutcartlineitemendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCheckoutOrderEndpoint](./shopware-6-client.getcheckoutorderendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCheckoutOrderPayEndpoint](./shopware-6-client.getcheckoutorderpayendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCheckoutPromotionCodeEndpoint](./shopware-6-client.getcheckoutpromotioncodeendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContactFormEndpoint](./shopware-6-client.getcontactformendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContextCountryEndpoint](./shopware-6-client.getcontextcountryendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContextCurrencyEndpoint](./shopware-6-client.getcontextcurrencyendpoint.md) | <b><i>(BETA)</i></b> |
@@ -106,10 +105,8 @@
 |  [getContextPaymentMethodEndpoint](./shopware-6-client.getcontextpaymentmethodendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContextSalutationEndpoint](./shopware-6-client.getcontextsalutationendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContextShippingMethodEndpoint](./shopware-6-client.getcontextshippingmethodendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCustomerAddressDetailsEndpoint](./shopware-6-client.getcustomeraddressdetailsendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerAddAddressEndpoint](./shopware-6-client.getcustomeraddaddressendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerAddressEndpoint](./shopware-6-client.getcustomeraddressendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCustomerAddressSetDefaultBillingEndpoint](./shopware-6-client.getcustomeraddresssetdefaultbillingendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCustomerAddressSetDefaultShippingEndpoint](./shopware-6-client.getcustomeraddresssetdefaultshippingendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerDefaultBillingAddressEndpoint](./shopware-6-client.getcustomerdefaultbillingaddressendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerDefaultShippingAddressEndpoint](./shopware-6-client.getcustomerdefaultshippingaddressendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerDetailsEndpoint](./shopware-6-client.getcustomerdetailsendpoint.md) | <b><i>(BETA)</i></b> |
@@ -117,7 +114,6 @@
 |  [getCustomerEndpoint](./shopware-6-client.getcustomerendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerLoginEndpoint](./shopware-6-client.getcustomerloginendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerLogoutEndpoint](./shopware-6-client.getcustomerlogoutendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCustomerOrderDetailsEndpoint](./shopware-6-client.getcustomerorderdetailsendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerOrderEndpoint](./shopware-6-client.getcustomerorderendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerRegisterEndpoint](./shopware-6-client.getcustomerregisterendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerResetPasswordEndpoint](./shopware-6-client.getcustomerresetpasswordendpoint.md) | <b><i>(BETA)</i></b> |
