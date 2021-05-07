@@ -81,7 +81,7 @@
           :error-message="$t('This field is required')"
           :label="$t('Country')"
           data-cy="country"
-          class="sw-form__select sf-select--underlined"
+          class="sw-form__select sf-select--underlined select"
           required
         >
           <SfSelectOption
@@ -182,4 +182,14 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/forms";
+
+.select {
+  margin-top: 0.75rem;
+  padding: var(--spacer-sm) 0;
+  ::v-deep .sf-select__dropdown {
+    font-size: var(--font-size--lg);
+    font-family: var(--font-family--secondary);
+    color: var(--c-text);
+  }
+}
 </style>

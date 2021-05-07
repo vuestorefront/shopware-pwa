@@ -11,7 +11,7 @@
           $t("Filters")
         }}
       </SwButton>
-      <div class="navbar__sort desktop-only">
+      <div class="navbar__sort desktop-only" v-if="isMounted">
         <span class="navbar__label">{{ $t("Sort by") }}:</span>
         <SfSelect
           v-model="currentSortingOrder"
@@ -32,7 +32,7 @@
           >{{ $t("Products found") }}:</span
         >
         <strong class="desktop-only">{{ getTotal }}</strong>
-        <span class="navbar__label mobile-only"
+        <span class="navbar__label smartphone-only"
           >{{ getTotal }} {{ $t("Items") }}:</span
         >
       </div>
@@ -105,14 +105,14 @@ import {
   SfHeading,
   SfSidebar,
 } from "@storefront-ui/vue"
-import { computed, ref } from "@vue/composition-api"
+import { computed, onMounted, ref } from "@vue/composition-api"
 
 import { useUIState, useListing } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwProductListingFilter from "@/components/listing/SwProductListingFilter.vue"
 
 export default {
-  name: "CmsElementCategorySidebarFilter",
+  name: "SwProductListingFilters",
   components: {
     SwButton,
     SfIcon,
@@ -144,6 +144,11 @@ export default {
       "PRODUCT_LISTING_STATE"
     )
 
+    const isMounted = ref(false)
+    onMounted(() => {
+      isMounted.value = true
+    })
+
     const sidebarSelectedFilters = ref({})
     const initSidebarFilters = () => {
       sidebarSelectedFilters.value =
@@ -166,6 +171,7 @@ export default {
       sidebarSelectedFilters,
       getTotal,
       getCurrentFilters,
+      isMounted,
     }
   },
   data() {
@@ -230,7 +236,6 @@ export default {
 .navbar {
   position: relative;
   display: flex;
-  width: 100%;
   border-bottom: 1px solid var(--c-light);
 
   @include for-desktop {
@@ -250,48 +255,43 @@ export default {
     display: flex;
     align-items: center;
     padding: var(--spacer-sm);
-    font-size: var(--font-sm);
+    font-size: var(--font-size--sm);
     @include for-desktop {
       padding: var(--spacer-base) 0;
     }
   }
   &__title {
     padding: 0;
-    font-size: var(--font-lg);
+    font-size: var(--font-size--lg);
     line-height: 2.23;
   }
   &__filters-button {
     display: flex;
     align-items: center;
-    margin: 0;
-    padding: 0;
-    background: transparent;
-    color: inherit;
-    font-size: inherit;
-    font-weight: 500;
+    --button-font-size: var(--font-size--base);
+    --button-text-decoration: none;
+    --button-color: var(--c-link);
+    --button-font-weight: var(--font-weight--normal);
+    margin: 0 var(--spacer-xl);
     @include for-mobile {
-      order: 1;
-    }
-    @include for-desktop {
-      margin: 0 0 0 var(--spacer-xl);
-      font-weight: 400;
-      text-transform: none;
+      --button-font-weight: var(--font-weight--medium);
+      order: 2;
+      margin: 0;
     }
     svg {
-      fill: var(--c-dark);
-      @include for-desktop {
-        fill: var(--c-gray-variant);
-      }
-    }
-    &:hover {
-      color: var(--c-primary);
-      svg {
-        fill: var(--c-primary);
-      }
+      fill: var(--c-text-muted);
+      transition: fill 150ms ease;
     }
   }
   &__label {
-    color: var(--c-gray-variant);
+    font-family: var(--font-family--secondary);
+    font-weight: var(--font-weight--normal);
+    font-size: var(--font-size--base);
+    color: var(--c-text-muted);
+    @include for-desktop {
+      color: var(--c-link);
+      margin: 0 var(--spacer-2xs) 0 0;
+    }
   }
   &__sort {
     display: flex;
@@ -309,27 +309,38 @@ export default {
     display: flex;
     align-items: center;
     margin: 0 var(--spacer-xl);
+    font-family: var(--font-family--secondary);
+    font-weight: var(--font-weight--normal);
+    font-size: var(--font-size--base);
+    color: var(--c-link);
     &-icon {
       margin: 11px;
     }
     @include for-mobile {
       margin: 0;
       order: -1;
+      color: var(--c-text-muted);
     }
   }
 }
 
 .sort-by {
-  flex: unset;
-  max-height: 40px;
-  padding: 0 10px;
-  width: 190px;
-  --select-margin: 0;
+  --select-width: 150px;
+  --select-padding: 0;
+  --select-height: auto;
   --select-selected-padding: 0 var(--spacer-lg) 0 var(--spacer-2xs);
-
-  &--mobile {
-    width: auto;
-    padding-right: 0px;
+  --select-margin: 0;
+  --select-option-font-size: var(--font-size-sm);
+  --select-error-message-height: 0;
+  ::v-deep .sf-select__dropdown {
+    font-size: var(--font-size-base);
+    font-family: var(--font-family--secondary);
+    font-weight: var(--font-weight--light);
+    margin: 2px 0 0;
+    padding: 4px;
+  }
+  ::v-deep .sf-select__placeholder {
+    --select-option-font-size: var(--font-size-sm);
   }
 }
 

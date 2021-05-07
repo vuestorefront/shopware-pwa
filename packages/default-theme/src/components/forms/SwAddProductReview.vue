@@ -46,7 +46,7 @@
 
       <SwButton
         v-if="!isLoggedIn"
-        class="login button"
+        class="login button color"
         @click="switchLoginModalState"
       >
         {{ $t("Log in") }}
@@ -167,7 +167,7 @@ export default {
   .description-field {
     border: 1px solid var(--c-light);
     box-sizing: border-box;
-    font-size: var(--font-lg);
+    font-size: var(--font-size--lg);
     margin-top: var(--spacer-base);
     min-height: 200px;
     padding: var(--spacer-base);
@@ -183,6 +183,9 @@ export default {
   background-color: var(--_c-gray-primary);
   width: 100%;
   margin-top: var(--spacer-base);
+  &:active {
+    background: var(--c-link);
+  }
 }
 
 .sw-rating {

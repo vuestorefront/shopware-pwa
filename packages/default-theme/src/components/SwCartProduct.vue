@@ -10,7 +10,7 @@
     class="collected-product"
     @click:remove="removeProduct(product)"
   >
-    <template #actions>
+    <template #configuration>
       <div class="collected-product__configuration" v-if="options">
         <SfProperty
           v-for="option in options"
@@ -97,47 +97,15 @@ export default {
 @import "@/assets/scss/variables";
 
 .collected-product {
-  --collected-product-actions-align-items: flex-end;
-  --collected-product-title-font-size: var(--font-base);
-  margin: var(--spacer-base) 0;
-
-  &__properties {
-    margin-top: var(--spacer-base);
+  min-height: 12.5rem;
+  --collected-product-actions-display: none;
+  --collected-product-configuration-display: flex;
+  ::v-deep .sf-price {
+    margin-bottom: var(--spacer-base);
   }
-
-  &__main {
-    .sf-price {
-      &__old {
-        font-size: var(--size-xs);
-      }
-    }
-  }
-
-  &__actions {
-    align-items: flex-end;
-    display: flex;
-    flex-direction: column;
-    opacity: var(--cp-actions-opacity, 0);
-    transition: opacity 150ms ease-in-out;
-  }
-
-  &__configuration {
-    margin-top: var(--spacer-sm);
-    align-items: end;
-    align-self: baseline;
-    @include for-desktop {
-      flex-direction: row-reverse;
-    }
-  }
-
-  &__actions-element {
-    margin-top: var(--spacer-xs);
-  }
-
-  @include for-desktop {
-    &:hover {
-      --cp-actions-opacity: 1;
-    }
+  @include for-mobile {
+    --property-name-font-size: var(--font-size--base);
+    --property-value-font-size: var(--font-size--base);
   }
 }
 </style>

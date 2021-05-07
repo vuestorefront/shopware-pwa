@@ -33,13 +33,13 @@ export default {
   margin: var(--spacer-sm);
 
   &__title {
-    font-size: var(--font-sm);
+    font-size: var(--font-size--sm);
     margin-bottom: var(--spacer-xs);
     color: var(--c-text);
   }
 
   &__content {
-    font-size: var(--font-xs);
+    font-size: var(--font-size--xs);
     color: var(--c-text-muted);
     margin-bottom: var(--spacer-sm);
   }

@@ -5,7 +5,7 @@
       :level="2"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <SfAccordion open="Personal Details" class="accordion mobile-only">
+    <SfAccordion open="Personal Details" class="accordion smartphone-only">
       <SfAccordionItem header="Personal Details">
         <PersonalDetailsSummary @click:edit="$emit('click:edit', 0)" />
       </SfAccordionItem>
@@ -96,7 +96,7 @@ export default {
 }
 .accordion {
   --accordion-item-content-padding: 0;
-  --collected-product-padding: 0;
+  --collected-product-padding: 0 0 var(--spacer-2xs) 0;
   --heading-padding: 0;
   position: relative;
   left: 50%;
@@ -119,11 +119,11 @@ export default {
   }
 }
 .collected-product-list {
-  padding: 0 var(--spacer-sm);
+  padding: var(--spacer-sm);
 }
 .property {
   margin: 0 0 var(--spacer-xs) 0;
-  font-size: var(--font-sm);
+  font-size: var(--font-size--sm);
   line-height: 1.6;
   &__name {
     color: var(--c-text-muted);
@@ -132,7 +132,7 @@ export default {
 .content {
   margin: 0 0 var(--spacer-base) 0;
   color: var(--c-text);
-  font-size: var(--font-xs);
+  font-size: var(--font-size--xs);
   font-weight: 300;
   line-height: 1.6;
   &:last-child {
