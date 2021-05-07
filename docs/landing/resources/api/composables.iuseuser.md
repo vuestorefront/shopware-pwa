@@ -42,6 +42,7 @@ export interface IUseUser
 |  [register](./composables.iuseuser.register.md) | ({}: CustomerRegistrationParams) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [resetPassword](./composables.iuseuser.resetpassword.md) | (resetPasswordData: CustomerResetPasswordParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [salutation](./composables.iuseuser.salutation.md) | Ref&lt;Salutation \| null&gt; | <b><i>(BETA)</i></b> |
+|  [updateAddress](./composables.iuseuser.updateaddress.md) | (params: Partial&lt;CustomerAddress&gt;) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [updateEmail](./composables.iuseuser.updateemail.md) | (updateEmailData: CustomerUpdateEmailParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [updatePassword](./composables.iuseuser.updatepassword.md) | (updatePasswordData: CustomerUpdatePasswordParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [updatePersonalInfo](./composables.iuseuser.updatepersonalinfo.md) | (personals: CustomerUpdateProfileParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |

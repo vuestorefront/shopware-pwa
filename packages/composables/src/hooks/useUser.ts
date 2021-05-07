@@ -21,6 +21,7 @@ import {
   CustomerUpdatePasswordParam,
   CustomerUpdateEmailParam,
   CustomerResetPasswordParam,
+  updateCustomerAddress,
 } from "@shopware-pwa/shopware-6-client";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
@@ -70,6 +71,7 @@ export interface IUseUser {
   loadCountry: (countryId: string) => Promise<void>;
   loadSalutation: (salutationId: string) => Promise<void>;
   addAddress: (params: Partial<CustomerAddress>) => Promise<boolean>;
+  updateAddress: (params: Partial<CustomerAddress>) => Promise<boolean>;
   deleteAddress: (addressId: string) => Promise<boolean>;
   updatePersonalInfo: (
     personals: CustomerUpdateProfileParam
@@ -215,7 +217,8 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
 
   const loadAddresses = async (): Promise<void> => {
     try {
-      addresses.value = await getCustomerAddresses(apiInstance);
+      const response = await getCustomerAddresses(apiInstance);
+      addresses.value = response?.elements;
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
@@ -270,6 +273,19 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     }
 
     return true;
+  };
+
+  const updateAddress = async (
+    params: Partial<CustomerAddress>
+  ): Promise<boolean> => {
+    try {
+      await updateCustomerAddress(params, apiInstance);
+      return true;
+    } catch (e) {
+      const err: ClientApiError = e;
+      error.value = err.message;
+      return false;
+    }
   };
 
   const addAddress = async (
@@ -367,6 +383,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     updatePassword,
     resetPassword,
     addAddress,
+    updateAddress,
     deleteAddress,
     loadSalutation,
     salutation,

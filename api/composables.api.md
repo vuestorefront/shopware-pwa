@@ -466,6 +466,8 @@ export interface IUseUser {
     // (undocumented)
     salutation: Ref<Salutation | null>;
     // (undocumented)
+    updateAddress: (params: Partial<CustomerAddress>) => Promise<boolean>;
+    // (undocumented)
     updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
     // (undocumented)
     updatePassword: (updatePasswordData: CustomerUpdatePasswordParam) => Promise<boolean>;

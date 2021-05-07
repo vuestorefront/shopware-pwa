@@ -28,8 +28,7 @@
 import { computed } from "@vue/composition-api"
 import { SfContentPages } from "@storefront-ui/vue"
 import { useUser, useBreadcrumbs } from "@shopware-pwa/composables"
-import { PAGE_ACCOUNT } from "@/helpers/pages"
-
+import { PAGE_ACCOUNT, PAGE_LOGIN } from "@/helpers/pages"
 import authMiddleware from "@/middleware/auth"
 
 export default {

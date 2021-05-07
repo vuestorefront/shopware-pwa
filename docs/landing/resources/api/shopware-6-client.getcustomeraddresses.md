@@ -12,7 +12,7 @@ Get all customer's addresses
 <b>Signature:</b>
 
 ```typescript
-export declare function getCustomerAddresses(contextInstance?: ShopwareApiInstance): Promise<CustomerAddress[]>;
+export declare function getCustomerAddresses(contextInstance?: ShopwareApiInstance): Promise<EntityResult<"customer_address", CustomerAddress[]>>;
 ```
 
 ## Parameters
@@ -23,7 +23,7 @@ export declare function getCustomerAddresses(contextInstance?: ShopwareApiInstan
 
 <b>Returns:</b>
 
-Promise&lt;CustomerAddress\[\]&gt;
+Promise&lt;EntityResult&lt;"customer\_address", CustomerAddress\[\]&gt;&gt;
 
 ## Exceptions
 
