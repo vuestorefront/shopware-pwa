@@ -38,11 +38,11 @@
         </SfLink>
       </div>
     </div>
-    <Button
+    <SwButton
       v-if="isShowMoreAvailable"
       class="sf-button--secondary sf-button--full-width"
       @click="$emit('search')"
-      >{{ $t("See more") }}</Button
+      >{{ $t("See more") }}</SwButton
     >
   </div>
 </template>
@@ -57,7 +57,7 @@ import {
   SfPrice,
 } from "@storefront-ui/vue"
 import { clickOutside } from "@storefront-ui/vue/src/utilities/directives"
-import Button from "@/components/atoms/SwButton.vue"
+import SwButton from "@/components/atoms/SwButton.vue"
 import {
   getProductMainImageUrl,
   getProductRegularPrice,
@@ -76,7 +76,7 @@ export default {
     SfImage,
     SfIcon,
     SfPrice,
-    Button,
+    SwButton,
   },
   props: {
     isOpen: {
