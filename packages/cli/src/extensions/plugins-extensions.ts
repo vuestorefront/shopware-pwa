@@ -151,6 +151,13 @@ module.exports = (toolbox: GluegunToolbox) => {
     });
   };
 
+  interface PluginConfig {
+    slots: Array<{ name: string; file: string }>;
+    layouts: Array<{ name: string; file: string }>;
+    pages: Array<{ path: string; file: string }>;
+    settings: unknown;
+  }
+
   toolbox.buildPluginsTrace = async ({
     pluginsConfig,
     rootDirectory,
@@ -161,17 +168,19 @@ module.exports = (toolbox: GluegunToolbox) => {
     const pluginsMap = Object.assign({}, pluginsTrace);
     if (pluginsConfig) {
       const pluginNames = Object.keys(pluginsConfig);
+      await toolbox.filesystem.removeAsync(".shopware-pwa/sw-plugins/pages");
+      await toolbox.filesystem.removeAsync(".shopware-pwa/sw-plugins/layouts");
       pluginNames.forEach((pluginName) => {
         if (!pluginsConfig[pluginName]) return;
         const pluginDirectory = `${pluginsRootDirectory}/${pluginName}`;
         const pluginDirExist = toolbox.filesystem.exists(pluginDirectory);
         if (pluginDirExist) {
-          const pluginConfig = toolbox.filesystem.read(
+          const pluginConfig: PluginConfig = toolbox.filesystem.read(
             `${pluginDirectory}/config.json`,
             "json"
           );
           if (pluginConfig) {
-            pluginConfig.slots.forEach(
+            pluginConfig?.slots?.forEach(
               async (slot: { name: string; file: string }) => {
                 if (!pluginsMap[slot.name]) pluginsMap[slot.name] = [];
                 pluginsMap[slot.name].push(
@@ -179,6 +188,67 @@ module.exports = (toolbox: GluegunToolbox) => {
                 );
               }
             );
+            // Custom layouts
+            if (pluginConfig?.layouts?.length) {
+              pluginConfig.layouts.forEach(async (layoutConfig) => {
+                const slotName = `sw-layouts-${layoutConfig.name}`;
+                if (!pluginsMap[slotName]) pluginsMap[slotName] = [];
+                pluginsMap[slotName].push(
+                  `~~/${pluginDirectory}/${layoutConfig.file}`
+                );
+                const runtimeLayoutExist = toolbox.filesystem.exists(
+                  `.shopware-pwa/source/layouts/${layoutConfig.name}.vue`
+                );
+                if (!runtimeLayoutExist) {
+                  await toolbox.template.generate({
+                    template: `/plugins/PluginSlotTemplate.vue`,
+                    target: `.shopware-pwa/source/layouts/${layoutConfig.name}.vue`,
+                    props: {
+                      slotName,
+                    },
+                  });
+                }
+                await toolbox.template.generate({
+                  template: `/plugins/PluginSlotTemplate.vue`,
+                  target: `.shopware-pwa/sw-plugins/layouts/${layoutConfig.name}.vue`,
+                  props: {
+                    slotName,
+                  },
+                });
+              });
+            }
+            // Custom pages
+            if (pluginConfig?.pages?.length) {
+              pluginConfig.pages.forEach(async (pageConfig) => {
+                const { file, path, ...params } = pageConfig;
+                const slotName = `sw-pages-${pageConfig.path}`;
+                if (!pluginsMap[slotName]) pluginsMap[slotName] = [];
+                pluginsMap[slotName].push(
+                  `~~/${pluginDirectory}/${pageConfig.file}`
+                );
+                const runtimePageExist = toolbox.filesystem.exists(
+                  `.shopware-pwa/source/pages/${pageConfig.path}.vue`
+                );
+                if (!runtimePageExist) {
+                  await toolbox.template.generate({
+                    template: `/plugins/PluginSlotTemplate.vue`,
+                    target: `.shopware-pwa/source/pages/${pageConfig.path}.vue`,
+                    props: {
+                      slotName,
+                      params,
+                    },
+                  });
+                }
+                await toolbox.template.generate({
+                  template: `/plugins/PluginSlotTemplate.vue`,
+                  target: `.shopware-pwa/sw-plugins/pages/${pageConfig.path}.vue`,
+                  props: {
+                    slotName,
+                    params,
+                  },
+                });
+              });
+            }
           } else {
             toolbox.print.error(`Plugin ${pluginName} has no config file!`);
           }

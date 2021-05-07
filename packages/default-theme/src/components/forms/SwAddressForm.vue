@@ -135,8 +135,8 @@
 </template>
 
 <script>
-import { validationMixin } from "vuelidate"
-import { required, requiredIf } from "vuelidate/lib/validators"
+import useVuelidate from "@vuelidate/core"
+import { required, requiredIf } from "@vuelidate/validators"
 import { computed, reactive, ref } from "@vue/composition-api"
 import { SfAlert, SfSelect } from "@storefront-ui/vue"
 import {
@@ -158,7 +158,6 @@ import SwErrorsList from "@/components/SwErrorsList.vue"
 export default {
   name: "SwAddressForm",
   components: { SfAlert, SwInput, SwButton, SfSelect, SwErrorsList },
-  mixins: [validationMixin],
   props: {
     address: {
       type: Object,
@@ -242,6 +241,7 @@ export default {
       pushError,
       pushSuccess,
       formErrors,
+      $v: useVuelidate(),
     }
   },
   methods: {

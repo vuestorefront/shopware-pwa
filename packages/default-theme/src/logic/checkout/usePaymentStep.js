@@ -1,4 +1,4 @@
-import { requiredIf } from "vuelidate/lib/validators"
+import { requiredIf } from "@vuelidate/validators"
 import { createCheckoutStep } from "@shopware-pwa/composables"
 import { CHECKOUT_STEPS } from "@/logic/checkout"
 
@@ -26,43 +26,43 @@ export const usePaymentStep = createCheckoutStep({
 
 export const usePaymentStepValidationRules = {
   firstName: {
-    required: requiredIf(function (instance) {
-      return instance.differentThanShipping
+    required: requiredIf(function () {
+      return this.differentThanShipping
     }),
   },
   lastName: {
-    required: requiredIf(function (instance) {
-      return instance.differentThanShipping
+    required: requiredIf(function () {
+      return this.differentThanShipping
     }),
   },
   street: {
-    required: requiredIf(function (instance) {
-      return instance.differentThanShipping
+    required: requiredIf(function () {
+      return this.differentThanShipping
     }),
   },
   city: {
-    required: requiredIf(function (instance) {
-      return instance.differentThanShipping
+    required: requiredIf(function () {
+      return this.differentThanShipping
     }),
   },
   state: {
-    required: requiredIf(function (instance) {
-      return instance.differentThanShipping
+    required: requiredIf(function () {
+      return this.differentThanShipping
     }),
   },
   zipcode: {
-    required: requiredIf(function (instance) {
-      return instance.differentThanShipping
+    required: requiredIf(function () {
+      return this.differentThanShipping
     }),
   },
   countryId: {
-    required: requiredIf(function (instance) {
-      return instance.differentThanShipping
+    required: requiredIf(function () {
+      return this.differentThanShipping
     }),
   },
   phoneNumber: {
-    required: requiredIf(function (instance) {
-      return instance.differentThanShipping
+    required: requiredIf(function () {
+      return this.differentThanShipping
     }),
   },
 }

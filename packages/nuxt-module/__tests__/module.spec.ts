@@ -311,14 +311,6 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     expect(moduleObject.options.build.babel.presets).toBeTruthy();
   });
 
-  it("should contain babel plugins to deal with es2020", async () => {
-    await runModule(moduleObject, {});
-    expect(moduleObject.options.build.babel.plugins).toEqual([
-      "@babel/plugin-proposal-optional-chaining",
-      "@babel/plugin-proposal-nullish-coalescing-operator",
-    ]);
-  });
-
   it("interfaces should return default empty object", () => {
     expect(InterfacesDefault).toEqual({});
   });
@@ -400,8 +392,10 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
   it("should copy target static directory to project root directory after production build", async () => {
     moduleObject.options.dev = false;
     const afterBuildMethods: any[] = [];
-    moduleObject.nuxt.hook.mockImplementationOnce(
-      (hookName: string, method: Function) => afterBuildMethods.push(method)
+    moduleObject.nuxt.hook.mockImplementation(
+      (hookName: string, method: Function) => {
+        hookName === "build:done" && afterBuildMethods.push(method);
+      }
     );
     await runModule(moduleObject, {});
     expect(moduleObject.nuxt.hook).toBeCalledWith(
