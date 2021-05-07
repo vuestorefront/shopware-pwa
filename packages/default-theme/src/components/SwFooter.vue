@@ -81,8 +81,8 @@ export default {
   }
 
   &__bottom-navigation {
+    border-top: var(--c-primary) solid 4px;
     margin-bottom: var(--spacer-sm);
-    width: 100%;
   }
 }
 </style>

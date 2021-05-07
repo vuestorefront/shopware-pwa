@@ -28,23 +28,23 @@
         />
       </div>
       <div class="inputs-group">
-        <SfSelect
+        <SfComponentSelect
           v-model="address.salutation.value"
           :label="$t('Salutation')"
           :error-message="$t('Salutation must be selected')"
           required
           :valid="!$v.address.salutation.$error"
-          class="sf-select--underlined sw-form__select sw-form__input sf-input--has-text"
+          class="sf-select--underlined sw-form__input sf-input--has-text sf-component-select--underlined"
           @blur="$v.address.salutation.$touch()"
         >
-          <SfSelectOption
+          <SfComponentSelectOption
             v-for="salutationOption in getMappedSalutations"
             :key="salutationOption.id"
             :value="salutationOption"
           >
             {{ salutationOption.name }}
-          </SfSelectOption>
-        </SfSelect>
+          </SfComponentSelectOption>
+        </SfComponentSelect>
         <SwInput
           v-model="address.street"
           name="street"
@@ -92,23 +92,23 @@
           @blur="$v.address.zipcode.$touch()"
         />
 
-        <SfSelect
+        <SfComponentSelect
           v-model="address.country.value"
           :label="$t('Country')"
           :error-message="$t('Country must be selected')"
           :valid="!$v.address.country.$error"
           required
-          class="sf-select--underlined sw-form__select"
+          class="sf-select--underlined sw-form__input sf-component-select--underlined"
           @blur="$v.address.country.$touch()"
         >
-          <SfSelectOption
+          <SfComponentSelectOption
             v-for="countryOption in getMappedCountries"
             :key="countryOption.id"
             :value="countryOption"
           >
             {{ countryOption.name }}
-          </SfSelectOption>
-        </SfSelect>
+          </SfComponentSelectOption>
+        </SfComponentSelect>
       </div>
       <SwInput
         v-model="address.phoneNumber"
@@ -135,10 +135,10 @@
 </template>
 
 <script>
-import { validationMixin } from "vuelidate"
-import { required, requiredIf } from "vuelidate/lib/validators"
+import useVuelidate from "@vuelidate/core"
+import { required, requiredIf } from "@vuelidate/validators"
 import { computed, reactive, ref } from "@vue/composition-api"
-import { SfAlert, SfSelect } from "@storefront-ui/vue"
+import { SfAlert, SfComponentSelect } from "@storefront-ui/vue"
 import {
   useCountries,
   useCountry,
@@ -157,8 +157,7 @@ import SwErrorsList from "@/components/SwErrorsList.vue"
 
 export default {
   name: "SwAddressForm",
-  components: { SfAlert, SwInput, SwButton, SfSelect, SwErrorsList },
-  mixins: [validationMixin],
+  components: { SfAlert, SwInput, SwButton, SfComponentSelect, SwErrorsList },
   props: {
     address: {
       type: Object,
@@ -242,6 +241,7 @@ export default {
       pushError,
       pushSuccess,
       formErrors,
+      $v: useVuelidate(),
     }
   },
   methods: {

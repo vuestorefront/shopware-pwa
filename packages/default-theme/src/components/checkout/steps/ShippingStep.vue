@@ -131,7 +131,7 @@ export default {
 .sw-form {
   &__action {
     display: table;
-
+    margin-top: var(--spacer-sm);
     button {
       display: table-cell;
       width: 100%;
@@ -160,7 +160,7 @@ export default {
     justify-content: flex-start;
     align-items: flex-end;
     &-price {
-      font-size: var(--font-lg);
+      font-size: var(--font-size--lg);
       @include for-mobile {
         order: -1;
         margin: 0 var(--spacer-xs) 0 0;

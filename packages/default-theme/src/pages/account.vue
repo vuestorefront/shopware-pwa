@@ -123,7 +123,9 @@ export default {
   }
   &__content {
     @include for-mobile {
-      --content-pages-sidebar-category-title-font-weight: var(--font-normal);
+      --content-pages-sidebar-category-title-font-weight: var(
+        --font-weight--normal
+      );
       --content-pages-sidebar-category-title-margin: var(--spacer-sm)
         var(--spacer-sm) var(--spacer-sm) var(--spacer-base);
     }
@@ -132,7 +134,7 @@ export default {
       --content-pages-sidebar-category-title-margin: var(--spacer-xl) 0 0 0;
       --content-pages-sidebar-padding: var(--spacer-xl);
       --content-pages-content-padding: var(--spacer-xl);
-      --content-pages-sidebar-title-font-weight: var(--font-normal);
+      --content-pages-sidebar-title-font-weight: var(--font-weight--normal);
     }
   }
 }

@@ -18,7 +18,7 @@
         >
           <SfHeading
             :title="subcategory.translated.name"
-            :subtitle="subcategory.description"
+            :description="subcategory.description"
             :level="4"
           />
         </nuxt-link>
@@ -66,7 +66,6 @@ export default {
   left: 0;
   position: absolute;
   top: 100%;
-  width: 100%;
 
   .sf-header__link:hover {
     --heading-title-color: var(--_c-green-primary);
