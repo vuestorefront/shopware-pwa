@@ -229,14 +229,8 @@
 </template>
 
 <script lang="ts">
-// TODO: create smaller components for this form after vuelidate upgrade: https://github.com/vuestorefront/shopware-pwa/issues/1472
-import { validationMixin } from "vuelidate"
-import {
-  required,
-  requiredIf,
-  email,
-  minLength,
-} from "vuelidate/lib/validators"
+import useVuelidate from "@vuelidate/core"
+import { required, requiredIf, email, minLength } from "@vuelidate/validators"
 import { computed, reactive, Ref, ref, watch } from "@vue/composition-api"
 import { SfAlert, SfSelect, SfCheckbox } from "@storefront-ui/vue"
 import {
@@ -264,7 +258,6 @@ export default {
     SwErrorsList,
     SfCheckbox,
   },
-  mixins: [validationMixin],
   data() {
     return {
       firstName: "",
@@ -361,6 +354,7 @@ export default {
       alternativePhoneNumber,
       registerUser,
       cancel,
+      $v: useVuelidate(),
     }
   },
   validations: {
@@ -375,7 +369,7 @@ export default {
       email,
     },
     password: {
-      required: requiredIf(function (password) {
+      required: requiredIf(function () {
         return !this.doNotCreateAccount
       }),
       minLength: minLength(8),

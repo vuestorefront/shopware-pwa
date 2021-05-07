@@ -90,8 +90,6 @@ import SwErrorsList from "@/components/SwErrorsList.vue"
 export default {
   name: "CheckoutPage",
   components: {
-    RegistrationDetails,
-    Sw2AddressForm,
     SfCheckbox,
     SwButton,
     SwErrorsList,
