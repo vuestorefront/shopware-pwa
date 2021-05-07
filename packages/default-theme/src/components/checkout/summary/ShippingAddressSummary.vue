@@ -58,12 +58,12 @@ export default {
     }
   }
   &__title {
-    font-size: var(--font-sm);
+    font-size: var(--font-size--sm);
     margin-bottom: var(--spacer-sm);
     color: var(--c-text);
   }
   &__content {
-    font-size: var(--font-xs);
+    font-size: var(--font-size--xs);
   }
 }
 .content {

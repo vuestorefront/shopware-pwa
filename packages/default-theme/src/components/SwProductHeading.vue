@@ -23,7 +23,7 @@
           <div class="product-heading__sub-reviews desktop-only">
             {{ $t("Read all") }} {{ reviews.length }} review
           </div>
-          <div class="product-heading__sub-reviews mobile-only">
+          <div class="product-heading__sub-reviews smartphone-only">
             ({{ reviews.length }})
           </div>
         </div>
@@ -150,7 +150,7 @@ export default {
   }
   &__sub-reviews {
     margin-left: 10px;
-    font-size: var(--font-xs);
+    font-size: var(--font-size--xs);
   }
 }
 </style>

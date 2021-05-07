@@ -28,10 +28,7 @@
             class="sf-header__link"
             :to="$routing.getUrl(getCategoryUrl(childCategory))"
           >
-            <SfMenuItem
-              :label="childCategory.translated.name"
-              :title="childCategory.translated.name"
-            />
+            <SfMenuItem :label="childCategory.translated.name" />
           </nuxt-link>
         </SfListItem>
       </SfList>

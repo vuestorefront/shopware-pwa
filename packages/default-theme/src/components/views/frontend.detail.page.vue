@@ -33,24 +33,36 @@
       <div class="images-grid">
         <div class="images-grid__row">
           <div class="images-grid__col">
-            <SfImage src="/img/imageA.png">katherina_trn</SfImage>
+            <SfImage src="/img/imageA.png" alt="katherina_trn"
+              >katherina_trn</SfImage
+            >
           </div>
           <div class="images-grid__col">
-            <SfImage src="/img/imageB.png">katherina_trn</SfImage>
+            <SfImage src="/img/imageB.png" alt="katherina_trn"
+              >katherina_trn</SfImage
+            >
           </div>
           <div class="images-grid__col">
-            <SfImage src="/img/imageC.png">katherina_trn</SfImage>
+            <SfImage src="/img/imageC.png" alt="katherina_trn"
+              >katherina_trn</SfImage
+            >
           </div>
         </div>
         <div class="images-grid__row">
           <div class="images-grid__col">
-            <SfImage src="/img/imageC.png">katherina_trn</SfImage>
+            <SfImage src="/img/imageC.png" alt="katherina_trn"
+              >katherina_trn</SfImage
+            >
           </div>
           <div class="images-grid__col">
-            <SfImage src="/img/imageD.png">katherina_trn</SfImage>
+            <SfImage src="/img/imageD.png" alt="katherina_trn"
+              >katherina_trn</SfImage
+            >
           </div>
           <div class="images-grid__col">
-            <SfImage src="/img/imageA.png">katherina_trn</SfImage>
+            <SfImage src="/img/imageA.png" alt="katherina_trn"
+              >katherina_trn</SfImage
+            >
           </div>
         </div>
       </div>
@@ -168,6 +180,9 @@ export default {
 }
 
 .images-grid {
+  ::v-deep .sf-image {
+    max-width: 100%;
+  }
   &__row {
     display: flex;
     & + & {

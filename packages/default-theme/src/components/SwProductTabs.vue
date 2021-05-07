@@ -107,6 +107,10 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 
+.sw-product-tabs {
+  word-break: break-all;
+}
+
 .product-details {
   &__properties {
     .sf-property {

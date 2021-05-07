@@ -332,6 +332,9 @@ export default {
 }
 
 .table {
+  @include for-mobile {
+    max-width: 95%;
+  }
   &__row {
     flex-wrap: nowrap;
 

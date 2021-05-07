@@ -67,8 +67,8 @@
 </template>
 
 <script>
-import { validationMixin } from "vuelidate"
-import { required, minLength, sameAs } from "vuelidate/lib/validators"
+import useVuelidate from "@vuelidate/core"
+import { required, minLength, sameAs } from "@vuelidate/validators"
 import { computed } from "@vue/composition-api"
 import { useUser } from "@shopware-pwa/composables"
 import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
@@ -79,7 +79,6 @@ import SwErrorsList from "@/components/SwErrorsList.vue"
 export default {
   name: "SwPassword",
   components: { SwInput, SwButton, SwErrorsList },
-  mixins: [validationMixin],
   props: {},
   setup(props, { root }) {
     const { user, error: userError, updatePassword, refreshUser } = useUser(
@@ -94,6 +93,7 @@ export default {
       updatePassword,
       user,
       userErrorMessages,
+      $v: useVuelidate(),
     }
   },
   data() {

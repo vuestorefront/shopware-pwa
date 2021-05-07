@@ -90,14 +90,14 @@
 </template>
 
 <script>
-import { validationMixin } from "vuelidate"
+import useVuelidate from "@vuelidate/core"
 import {
   required,
   email,
   requiredIf,
   minLength,
   sameAs,
-} from "vuelidate/lib/validators"
+} from "@vuelidate/validators"
 import { SfIcon } from "@storefront-ui/vue"
 import { useUser } from "@shopware-pwa/composables"
 import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
@@ -113,7 +113,6 @@ export default {
     SwErrorsList,
     SfIcon,
   },
-  mixins: [validationMixin],
   setup(props, { root }) {
     const {
       user,
@@ -129,6 +128,7 @@ export default {
       user,
       updateEmail,
       userError,
+      $v: useVuelidate(),
     }
   },
   data() {

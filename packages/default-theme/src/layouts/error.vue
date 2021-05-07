@@ -1,11 +1,15 @@
 <template>
   <div class="error-page">
-    <SfImage class="error-page__image" :src="require('@/assets/error.svg')" />
+    <SfImage
+      class="error-page__image"
+      :src="require('@/assets/error.svg')"
+      alt="leaves"
+    />
     <SfHeading
       class="error-page__heading"
       :level="1"
       :title="`${code}`"
-      :subtitle="$t(message)"
+      :description="$t(message)"
     />
     <div class="error-page__actions">
       <SwButton
@@ -82,11 +86,11 @@ export default {
   &__heading {
     --heading-title-margin: var(--spacer-sm) 0;
     --heading-title-color: var(--c-primary);
-    --heading-subtitle-color: var(--c-secondary-variant);
-    --heading-subtitle-font-size: var(--font-base);
-    --heading-subtitle-margin: 0 var(--spacer-base);
-    --heading-subtitle-font-family: var(--font-family-primary);
-    --heading-title-font-weight: var(--font-semibold);
+    --heading-description-color: var(--c-secondary-variant);
+    --heading-description-font-size: var(--font-size--base);
+    --heading-description-margin: 0 var(--spacer-base);
+    --heading-description-font-family: var(--font-family--primary);
+    --heading-title-font-weight: var(--font-weight--semibold);
     @include for-desktop {
       --heading-title-font-size: 5rem;
     }
@@ -94,6 +98,7 @@ export default {
   &__image {
     --image-width: 10rem;
     min-height: 10rem;
+    margin-top: var(--spacer-2xl);
     @include for-desktop {
       --image-width: 18rem;
       min-height: 18rem;

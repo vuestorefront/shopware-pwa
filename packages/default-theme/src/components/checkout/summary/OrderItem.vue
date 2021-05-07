@@ -3,6 +3,7 @@
     <SfTableData class="table__image">
       <SfImage
         :src="product.cover && product.cover.url"
+        :alt="product.label"
         data-cy="product-image"
         v-if="product.cover && product.type === 'product'"
       />
@@ -90,8 +91,10 @@ export default {
     }
   }
   &__quantity {
-    text-align: center;
-    font-size: var(--font-lg);
+    display: flex;
+    justify-content: center;
+    padding-left: 20px;
+    font-size: var(--font-size--lg);
     & > * {
       --quantity-selector-width: 6rem;
       --quantity-selector-border-width: 0;
