@@ -11,7 +11,7 @@
     </div>
     <div class="summary__action">
       <SwButton
-        class="sf-button--full-width summary__action-button summary__action-button--secondary color-secondary sw-form__button"
+        class="summary__action-button summary__action-button--secondary color-secondary sw-form__button"
         data-cy="go-back-to-payment"
         @click="$emit('click:back')"
       >
@@ -19,7 +19,7 @@
       </SwButton>
       <SwButton
         :disabled="!cartItems.length"
-        class="sf-button--full-width summary__action-button sw-form__button"
+        class="summary__action-button sw-form__button"
         data-cy="place-my-order"
         @click="$emit('proceed')"
       >
@@ -79,7 +79,6 @@ export default {
 @import "@/assets/scss/variables";
 
 .summary {
-  margin: 0 calc(var(--spacer-base) * -1);
   &__group {
     padding: var(--spacer-base) var(--spacer-xl);
     background-color: var(--c-light);
@@ -104,28 +103,28 @@ export default {
     }
   }
   &__action {
-    padding: var(--spacer-base);
-    width: 90%;
     margin: var(--spacer-base) 0 0 0;
-    display: table;
+    display: flex;
+    flex-wrap: wrap;
 
     button {
-      display: table-cell;
       width: 100%;
       @include for-desktop {
         width: 50%;
       }
 
       &:last-child {
-        margin-top: var(--spacer-base);
+        @include for-mobile {
+          margin-top: var(--spacer-base);
+        }
       }
     }
   }
 
   &__property {
     margin: 0 0 var(--spacer-sm) 0;
-    --property-value-font-weight: var(--font-semibold);
-    --property-value-font-size: var(--font-base);
+    --property-value-font-weight: var(--font-weight--semibold);
+    --property-value-font-size: var(--font-size--base);
     @include for-desktop {
       margin: 0 0 var(--spacer-sm) 0;
     }

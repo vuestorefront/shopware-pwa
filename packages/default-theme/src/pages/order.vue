@@ -2,7 +2,7 @@
   <div :key="$route.fullPath" class="order-page">
     <SfHeading
       :title="$t('Thank you')"
-      :subtitle="$t('for shopping with us!')"
+      :description="$t('for shopping with us!')"
       class="order-page__heading"
     />
     <SfDivider />

@@ -73,7 +73,7 @@
         :error-message="$t('This field is required')"
         :label="$t('Country')"
         data-cy="country"
-        class="sw-form__select sf-select--underlined"
+        class="sw-form__select sf-select--underlined select"
         required
       >
         <SfSelectOption
@@ -99,8 +99,8 @@
 </template>
 <script>
 import { SfSelect } from "@storefront-ui/vue"
-import { validationMixin } from "vuelidate"
-import { requiredIf } from "vuelidate/lib/validators"
+import useVuelidate from "@vuelidate/core"
+import { requiredIf } from "@vuelidate/validators"
 import {
   useShippingStep,
   useShippingStepValidationRules,
@@ -119,8 +119,8 @@ export default {
     SwInput,
     SfSelect,
   },
-  mixins: [validationMixin],
   setup(props, { root }) {
+    const $v = useVuelidate()
     const {
       validations,
       setValidations,
@@ -133,6 +133,7 @@ export default {
       countryId,
       phoneNumber,
     } = useShippingStep(root)
+    setValidations($v)
     const { getCountries } = useCountries(root)
     const { setShippingMethod } = useCheckout(root)
 
@@ -152,7 +153,6 @@ export default {
 
     return {
       validations,
-      setValidations,
       firstName,
       lastName,
       street,
@@ -168,14 +168,6 @@ export default {
       displayState,
       forceState,
     }
-  },
-  watch: {
-    $v: {
-      immediate: true,
-      handler() {
-        this.setValidations(this.$v)
-      },
-    },
   },
   validations: {
     ...useShippingStepValidationRules,
@@ -219,6 +211,16 @@ export default {
   }
   &__info {
     margin-top: var(--spacer-xs);
+  }
+}
+
+.select {
+  margin-top: 0.75rem;
+  padding: var(--spacer-sm) 0;
+  ::v-deep .sf-select__dropdown {
+    font-size: var(--font-size--lg);
+    font-family: var(--font-family--secondary);
+    color: var(--c-text);
   }
 }
 </style>

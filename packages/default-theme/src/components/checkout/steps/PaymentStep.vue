@@ -8,7 +8,7 @@
     <BillingAddressUserForm v-else />
     <SfHeading
       :title="$t('Payment methods')"
-      :subtitle="$t('Choose your payment method')"
+      :description="$t('Choose your payment method')"
       class="sf-heading--left sf-heading--no-underline title"
     />
     <div class="sw-form">
@@ -107,7 +107,6 @@ export default {
 .sw-form {
   &__action {
     width: 100%;
-    margin-top: var(--spacer-xl);
     display: table;
 
     button {

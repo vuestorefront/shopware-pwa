@@ -6,8 +6,7 @@
       :aria-label="$t('Search for products')"
       class="sf-header__search"
       data-cy="search-bar"
-      @enter="performSearch"
-      @focus="isSuggestBoxOpen = true"
+      @keydown.enter="performSearch"
     />
 
     <SwSuggestSearch
@@ -98,6 +97,7 @@ export default {
 
 ::v-deep .sf-search-bar {
   --search-bar-width: 100%;
+  --search-bar-font-size: var(--font-size--sm);
 }
 
 .sw-search-bar {

@@ -24,7 +24,7 @@ export default {
 
   .link {
     margin-left: var(--spacer-xs);
-    font-size: var(--font-xs);
+    font-size: var(--font-size--xs);
     color: var(--c-white);
   }
 }

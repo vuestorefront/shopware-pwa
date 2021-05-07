@@ -58,7 +58,7 @@
           :key="key"
           :description="characteristic.description"
           :icon="characteristic.icon"
-          size-icon="0.75rem"
+          size-icon="1.5rem"
           class="info__characteristic"
         />
       </div>
@@ -109,13 +109,8 @@ import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 
-import { validationMixin } from "vuelidate"
-import {
-  required,
-  requiredIf,
-  email,
-  minLength,
-} from "vuelidate/lib/validators"
+import useVuelidate from "@vuelidate/core"
+import { required, requiredIf, email, minLength } from "@vuelidate/validators"
 import { computed } from "@vue/composition-api"
 import {
   mapSalutations,
@@ -144,7 +139,6 @@ export default {
     SwErrorsList,
     SwPluginSlot,
   },
-  mixins: [validationMixin],
   props: {
     order: {
       type: Object,
@@ -183,6 +177,7 @@ export default {
       root,
       "LOGIN_MODAL_STATE"
     )
+    const $v = useVuelidate()
 
     const {
       validations,
@@ -193,6 +188,7 @@ export default {
       lastName,
       email,
     } = usePersonalDetailsStep(root)
+    setValidations($v)
 
     const {
       register: registerUser,
@@ -224,12 +220,12 @@ export default {
       getMessagesFromErrorsArray,
       switchLoginModalState,
       validations,
-      setValidations,
       validate,
       salutationId,
       firstName,
       lastName,
       email,
+      $v: useVuelidate(),
     }
   },
   computed: {
@@ -269,12 +265,6 @@ export default {
     //     this.billingAddress.salutationId = value
     //   }
     // },
-    $v: {
-      immediate: true,
-      handler() {
-        this.setValidations(this.$v)
-      },
-    },
   },
   async mounted() {
     // hack to register user without picking up the country (minimal registration)
@@ -351,14 +341,14 @@ export default {
   &__info {
     margin: var(--spacer-lg) 0;
     color: var(--c-dark-variant);
-    font: var(--font-light) var(--font-base) / 1.6 var(--font-family-primary);
+    font: var(--font-weight--light) var(--font-size--base) / 1.6
+      var(--font-family--secondary);
     @include for-desktop {
-      font-weight: var(--font-normal);
-      font-size: var(--font-sm);
+      font-weight: var(--font-weight--normal);
     }
   }
   &__button {
-    --button-font-weight: var(--font-normal);
+    --button-font-weight: var(--font-weight--normal);
     width: 100%;
 
     @include for-desktop {
@@ -384,13 +374,13 @@ export default {
 }
 
 .info {
-  margin: 0 0 var(--spacer-sm) 0;
+  margin: var(--spacer-xl) 0;
   &__heading {
-    font-family: var(--font-family-primary);
-    font-weight: var(--font-light);
+    font-family: var(--font-family--primary);
+    font-weight: var(--font-weight--light);
   }
   &__characteristic {
-    --characteristic-description-font-size: var(--font-xs);
+    --characteristic-description-font-size: var(--font-size--base);
     margin: 0 0 var(--spacer-sm) var(--spacer-2xs);
   }
   @include for-desktop {
@@ -399,7 +389,7 @@ export default {
     flex-wrap: wrap;
     &__heading {
       margin: 0 0 var(--spacer-sm) 0;
-      font-size: var(--font-xs);
+      font-size: var(--font-size--base);
       flex: 0 0 100%;
     }
     &__characteristic {
