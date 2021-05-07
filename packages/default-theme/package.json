@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@shopware-pwa/theme-base": "0.8.1",
-    "@storefront-ui/vue": "0.7.18",
+    "@storefront-ui/vue": "0.10.5",
     "@vuelidate/core": "^2.0.0-alpha.16",
     "@vuelidate/validators": "^2.0.0-alpha.13",
     "core-js": "^3.9.1",

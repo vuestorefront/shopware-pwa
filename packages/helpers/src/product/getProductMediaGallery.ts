@@ -25,6 +25,7 @@ export function getProductMediaGallery({
           icon: { url: smallThumb ? smallThumb.url : media.media.url },
           mobile: { url: normalThumb ? normalThumb.url : media.media.url },
           desktop: { url: bigThumb ? bigThumb.url : media.media.url },
+          alt: product.name || " ",
         };
       })
     : [];

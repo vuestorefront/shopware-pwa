@@ -2,17 +2,10 @@
   <div class="sw-product-advertisement">
     <SfBanner
       title="Download our application to your mobile"
+      subtitle="Fashion to Take Away"
       image="/img/bannerD.png"
       class="banner-application sf-banner--left sf-banner--center desktop-only"
     >
-      <template #subtitle>
-        <div class="banner-application__subtitle">Fashion to Take Away</div>
-      </template>
-      <template #title>
-        <h1 class="banner-application__title">
-          Download our application to your&nbsp;mobile
-        </h1>
-      </template>
       <template #call-to-action>
         <div>
           <img
@@ -40,4 +33,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+::v-deep .sf-banner__title {
+  margin-bottom: var(--spacer-xl);
+}
+</style>

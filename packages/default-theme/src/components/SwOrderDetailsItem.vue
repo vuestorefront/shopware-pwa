@@ -58,6 +58,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import "@/assets/scss/variables";
+
 .product-price {
   white-space: nowrap;
 }
@@ -71,7 +73,7 @@ export default {
   &__data {
     order: unset;
     flex: 1;
-    --price-regular-font-weight: var(--font-normal);
+    --price-regular-font-weight: var(--font-weight--normal);
   }
   &__description {
     padding-right: var(--spacer-sm);
@@ -84,13 +86,14 @@ export default {
   }
   &__quantity {
     text-align: center;
-    font-size: var(--font-lg);
+    font-size: var(--font-size--lg);
   }
   &__amount {
     text-align: right;
   }
 }
 ::v-deep .product-price {
+  --price-regular-font-size: var(--font-size--base);
   & > * {
     flex: 1;
   }

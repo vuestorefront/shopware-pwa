@@ -11,7 +11,7 @@
             ? $t('Subscribe to Newsletter')
             : $t('Subscribed to Newsletter!')
         "
-        :subtitle="
+        :description="
           !formSent
             ? $t(
                 'Be aware of upcoming sales and events. Receive gifts and special offers!'
@@ -154,7 +154,7 @@ export default {
 
 .cms-element-sign-to-newsletter {
   --heading-title-color: var(--c-white);
-  --heading-subtitle-color: var(--c-white);
+  --heading-description-color: var(--c-white);
 
   align-items: center;
   background-color: rgba($color: #000000, $alpha: 0.7);
