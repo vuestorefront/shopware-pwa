@@ -15,6 +15,10 @@ jest.mock("@shopware-pwa/commons", () => ({
   __esModule: true,
   default: "commons",
   warning: jest.fn(),
+  defaultPwaConfigFile: {
+    shopwareEndpoint: "http://localhost:3131",
+    shopwareAccessToken: "qwerty1",
+  },
 }));
 
 import { warning } from "@shopware-pwa/commons";

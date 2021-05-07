@@ -8,7 +8,7 @@ Shopware PWA comes with a command line interace `shopware-pwa` with useful funct
 
 → [CLI](./cli)
 
-## Security <Badge text="new" type="info"/>
+## Security
 
 It is critical to understand which authentication mechanisms are utilized to make sure that your application is safe. Read this to see how Shopware PWA handles this regarding the usage of APIs.
 

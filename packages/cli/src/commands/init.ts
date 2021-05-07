@@ -1,3 +1,4 @@
+import { getDefaultConfigFile } from "@shopware-pwa/commons";
 import { GluegunToolbox } from "gluegun";
 
 module.exports = {
@@ -20,6 +21,12 @@ module.exports = {
     }
 
     const availablePwaVersions = await toolbox.shopware.getPwaVersions();
+
+    const currentSetup = await getDefaultConfigFile();
+    toolbox.reloadInputParameters({
+      shopwareEndpoint: currentSetup.shopwareEndpoint,
+      shopwareAccessToken: currentSetup.shopwareAccessToken,
+    });
 
     if (!isCIrun) {
       const shopwareEndpointQuestion = {
@@ -126,7 +133,6 @@ module.exports = {
       await run(`yarn link ${localCoreDevPackages.join(" ")}`);
     }
 
-    await toolbox.updateNuxtConfigFile();
     await run("yarn --check-files");
     updateConfigSpinner.succeed();
 

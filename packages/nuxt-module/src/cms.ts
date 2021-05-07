@@ -1,10 +1,7 @@
 import path from "path";
-import {
-  NuxtModuleOptions,
-  ShopwarePwaConfigFile,
-  WebpackConfig,
-} from "./interfaces";
+import { NuxtModuleOptions, WebpackConfig } from "./interfaces";
 import jetpack from "fs-jetpack";
+import { ShopwarePwaConfigFile } from "@shopware-pwa/commons";
 
 export function extendCMS(
   moduleObject: NuxtModuleOptions,

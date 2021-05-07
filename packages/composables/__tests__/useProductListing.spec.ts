@@ -434,26 +434,6 @@ describe("Composables - useProductListing", () => {
           },
         ]);
       });
-      it("should make another call if the response is narrowed down", async () => {
-        mockedApiClient.getCategoryProductsListing.mockResolvedValue({
-          aggregations: {
-            color: {
-              elements: [],
-            },
-          },
-          currentFilters: {
-            manufacturer: [{ name: "shopware ag" }],
-            properties: [{ name: "color" }],
-          },
-        } as any);
-
-        const { availableFilters, search } = useProductListing(
-          rootContextMock as any
-        );
-        await search();
-        expect(mockedApiClient.getCategoryProductsListing).toBeCalledTimes(2);
-        expect(availableFilters.value).toStrictEqual([]);
-      });
     });
   });
 });

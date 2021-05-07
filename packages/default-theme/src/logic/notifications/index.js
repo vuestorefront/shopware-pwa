@@ -1,5 +1,10 @@
 import { useNotifications } from "@shopware-pwa/composables"
 
+export const warningNotification = ({ warning }, rootContext) => {
+  const { pushWarning } = useNotifications(rootContext)
+  pushWarning(warning.message)
+}
+
 export const addToWishlistNotification = (payload, rootContext) => {
   const { pushSuccess } = useNotifications(rootContext)
   pushSuccess(
