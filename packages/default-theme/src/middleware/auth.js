@@ -19,8 +19,12 @@ export default async function ({ route, redirect, app }) {
   if (route.name === LOGIN_ROUTE_NAME) {
     await logout()
   }
-
-  await refreshUser()
+  try {
+    await refreshUser()
+  } catch (error) {
+    // potential error is not crucial for end-user
+    // 403 after logoout should be silenced
+  }
 
   if (
     PAGES_FOR_LOGGED_IN_ONLY.includes(route.name) &&

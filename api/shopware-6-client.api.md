@@ -91,7 +91,7 @@ export interface ContactFormData {
 }
 
 // @beta
-export function createCustomerAddress(params: Partial<CustomerAddress>, contextInstance?: ShopwareApiInstance): Promise<string>;
+export function createCustomerAddress(params: Partial<CustomerAddress>, contextInstance?: ShopwareApiInstance): Promise<CustomerAddress>;
 
 // @beta (undocumented)
 export function createInstance(initialConfig?: ClientSettings): ShopwareApiInstance;
@@ -201,12 +201,6 @@ export const getCheckoutCartLineItemEndpoint: () => string;
 export const getCheckoutOrderEndpoint: () => string;
 
 // @beta (undocumented)
-export const getCheckoutOrderPayEndpoint: (orderId: string) => string;
-
-// @beta (undocumented)
-export const getCheckoutPromotionCodeEndpoint: (code: string) => string;
-
-// @beta (undocumented)
 export function getCmsPage(path: string, criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<PageResolverResult<CmsPage>>;
 
 // @beta (undocumented)
@@ -236,23 +230,17 @@ export const getContextShippingMethodEndpoint: () => string;
 // @beta
 export function getCustomer(contextInstance?: ShopwareApiInstance): Promise<Customer | null>;
 
+// @beta (undocumented)
+export const getCustomerAddAddressEndpoint: () => string;
+
 // @beta
 export function getCustomerAddress(addressId: string, contextInstance?: ShopwareApiInstance): Promise<CustomerAddress>;
-
-// @beta (undocumented)
-export const getCustomerAddressDetailsEndpoint: (addressId: string) => string;
 
 // @beta (undocumented)
 export const getCustomerAddressEndpoint: (addressId?: string | undefined) => string;
 
 // @beta
-export function getCustomerAddresses(contextInstance?: ShopwareApiInstance): Promise<CustomerAddress[]>;
-
-// @beta (undocumented)
-export const getCustomerAddressSetDefaultBillingEndpoint: (addressId: string) => string;
-
-// @beta (undocumented)
-export const getCustomerAddressSetDefaultShippingEndpoint: (addressId: string) => string;
+export function getCustomerAddresses(contextInstance?: ShopwareApiInstance): Promise<EntityResult<"customer_address", CustomerAddress[]>>;
 
 // @beta (undocumented)
 export const getCustomerDefaultBillingAddressEndpoint: (addressId: string) => string;
@@ -277,9 +265,6 @@ export const getCustomerLogoutEndpoint: () => string;
 
 // @beta
 export function getCustomerOrderDetails(orderId: string, contextInstance?: ShopwareApiInstance, additionalQueryParams?: string): Promise<Order | undefined>;
-
-// @beta (undocumented)
-export const getCustomerOrderDetailsEndpoint: (orderId: string) => string;
 
 // @beta (undocumented)
 export const getCustomerOrderEndpoint: () => string;
@@ -539,6 +524,9 @@ export interface ShopwareApiInstance {
 
 // @beta
 export const update: (config?: ClientSettings) => void;
+
+// @beta
+export function updateCustomerAddress(params: Partial<CustomerAddress>, contextInstance?: ShopwareApiInstance): Promise<CustomerAddress>;
 
 // @beta
 export function updateEmail(params: CustomerUpdateEmailParam, contextInstance?: ShopwareApiInstance): Promise<void>;

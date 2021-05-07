@@ -29,7 +29,7 @@ describe("CustomerService - getCustomerOrderDetails", () => {
       undefined,
       "associations[transactions][]&sort=-id"
     );
-    expect(mockedGet).toBeCalledWith("/store-api/v3/order", {
+    expect(mockedGet).toBeCalledWith("/store-api/order", {
       params: "filter[id]=12345&associations[transactions][]&sort=-id",
     });
   });
@@ -66,7 +66,7 @@ describe("CustomerService - getCustomerOrderDetails", () => {
     });
     const result = await getCustomerOrderDetails("12345-ab");
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith("/store-api/v3/order", {
+    expect(mockedGet).toBeCalledWith("/store-api/order", {
       params:
         "sort=-transactions.createdAt&limit=1&filter[id]=12345-ab&associations[lineItems][]&associations[addresses][]&associations[transactions][associations][paymentMethod][]&associations[deliveries][associations][shippingMethod][]",
     });
