@@ -34,6 +34,18 @@ Object {
         "rel": "icon",
         "type": "image/x-icon",
       },
+      Object {
+        "as": "style",
+        "href": "https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700%7CRoboto:300,300i,400,400i,500,700&display=swap",
+        "rel": "preload",
+      },
+      Object {
+        "href": "https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700%7CRoboto:300,300i,400,400i,500,700&display=swap",
+        "media": "print",
+        "once": true,
+        "onload": "this.media='all'",
+        "rel": "stylesheet",
+      },
     ],
     "meta": Array [
       Object {

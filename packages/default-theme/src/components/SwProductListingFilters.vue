@@ -11,7 +11,7 @@
           $t("Filters")
         }}
       </SwButton>
-      <div class="navbar__sort desktop-only">
+      <div class="navbar__sort desktop-only" v-if="isMounted">
         <span class="navbar__label">{{ $t("Sort by") }}:</span>
         <SfSelect
           v-model="currentSortingOrder"
@@ -105,14 +105,14 @@ import {
   SfHeading,
   SfSidebar,
 } from "@storefront-ui/vue"
-import { computed, ref } from "@vue/composition-api"
+import { computed, onMounted, ref } from "@vue/composition-api"
 
 import { useUIState, useListing } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwProductListingFilter from "@/components/listing/SwProductListingFilter.vue"
 
 export default {
-  name: "CmsElementCategorySidebarFilter",
+  name: "SwProductListingFilters",
   components: {
     SwButton,
     SfIcon,
@@ -144,6 +144,11 @@ export default {
       "PRODUCT_LISTING_STATE"
     )
 
+    const isMounted = ref(false)
+    onMounted(() => {
+      isMounted.value = true
+    })
+
     const sidebarSelectedFilters = ref({})
     const initSidebarFilters = () => {
       sidebarSelectedFilters.value =
@@ -166,6 +171,7 @@ export default {
       sidebarSelectedFilters,
       getTotal,
       getCurrentFilters,
+      isMounted,
     }
   },
   data() {

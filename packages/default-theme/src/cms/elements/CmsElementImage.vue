@@ -53,7 +53,8 @@ export default {
     },
 
     imgUrl() {
-      return this.getMedia && this.getMedia.url
+      const url = this.getMedia && this.getMedia.url
+      return url || ""
     },
 
     lazyLoad() {
