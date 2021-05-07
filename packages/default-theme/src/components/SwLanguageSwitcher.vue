@@ -6,7 +6,6 @@
   >
     <SfSelect
       :value="currentDomainId"
-      :size="availableDomains.length"
       class="sw-language-switcher__select sf-select--no-chevron"
       data-cy="language-switcher-select"
       @input="changeDomain"
@@ -53,9 +52,12 @@ export default {
   max-height: var(--top-bar-height, 2.5rem);
   text-align: center;
 
-  ::v-deep .sf-select__dropdown {
-    cursor: pointer;
-    background: var(--c-light);
+  .sf-select {
+    max-height: 28px;
+    ::v-deep .sf-select__dropdown {
+      cursor: pointer;
+      background: var(--c-light);
+    }
   }
 }
 </style>

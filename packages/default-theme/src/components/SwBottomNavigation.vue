@@ -276,6 +276,7 @@ export default {
 .cart-badge {
   position: absolute;
   top: -50%;
-  right: 5%;
+  right: 100;
+  transform: translate(110%, -25%);
 }
 </style>

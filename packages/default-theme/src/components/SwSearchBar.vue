@@ -6,7 +6,7 @@
       :aria-label="$t('Search for products')"
       class="sf-header__search"
       data-cy="search-bar"
-      @enter="performSearch"
+      @keydown.enter="performSearch"
     />
 
     <SwSuggestSearch

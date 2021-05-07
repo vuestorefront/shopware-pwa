@@ -8,7 +8,7 @@
     <SfSelect
       v-model="activeCurrency"
       :size="availableCurrencies.length"
-      class="sw-currency__select sf-select--no-chevron"
+      class="sw-currency__select"
       data-cy="currency-switcher-select"
       @click="loadAvailableCurrencies"
     >
@@ -71,13 +71,24 @@ export default {
 .sw-currency {
   --select-margin: 0;
   --select-padding: 0;
+  --select-width: 28px;
   --select-selected-justify-content: center;
   --select-selected-padding: 0 var(--spacer-xs);
   text-align: center;
+  max-height: 28px;
 
   .sf-select {
-    cursor: pointer;
-    max-height: var(--top-bar-height, 2.5rem);
+    ::v-deep select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      text-indent: 1px;
+      text-overflow: "";
+      border-radius: 100%;
+      cursor: pointer;
+    }
+    ::v-deep .sf-select__dropdown {
+      padding-left: 9px;
+    }
   }
 }
 </style>
