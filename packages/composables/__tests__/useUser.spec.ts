@@ -192,19 +192,19 @@ describe("Composables - useUser", () => {
         mockedApiClient.register.mockRejectedValueOnce(
           new Error("Provide requested information to create user account")
         );
-        const { isLoggedIn, error, register } = useUser(rootContextMock);
+        const { isLoggedIn, errors, register } = useUser(rootContextMock);
         const result = await register(undefined as any);
         expect(result).toEqual(false);
         expect(isLoggedIn.value).toBeFalsy();
-        expect(error.value.message).toEqual(
-          "Provide requested information to create user account"
-        );
+        expect(errors.register).toEqual([
+          "Provide requested information to create user account",
+        ]);
       });
       it("should register user successfully", async () => {
         mockedApiClient.register.mockResolvedValueOnce({
           data: "mockedData",
         });
-        const { error, register } = useUser(rootContextMock);
+        const { errors, register } = useUser(rootContextMock);
         const result = await register({
           firstName: "qwe",
           lastName: "lastName",
@@ -219,7 +219,7 @@ describe("Composables - useUser", () => {
           },
         });
         expect(result).toBeTruthy();
-        expect(error.value).toBeNull();
+        expect(errors.register).toEqual([]);
       });
     });
 

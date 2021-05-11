@@ -18,7 +18,7 @@ export interface CustomerRegistrationParams {
   /**
    * If set, will create a guest customer. Guest customers can re-use an email address and don't need a password.
    */
-  guest: boolean;
+  guest?: boolean;
   email: string;
   title?: string;
   birthdayYear?: number;

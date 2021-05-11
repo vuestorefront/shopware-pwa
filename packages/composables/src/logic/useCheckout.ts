@@ -15,10 +15,10 @@ import {
   INTERCEPTOR_KEYS,
   useIntercept,
   IInterceptorCallbackFunction,
+  useSharedState,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
 import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress";
-import { useSharedState } from "./useSharedState";
 
 /**
  * interface for {@link useCheckout} composable

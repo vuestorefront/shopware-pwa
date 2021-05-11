@@ -1,5 +1,5 @@
 import Vue from "vue";
-import VueCompositionApi, { ref, Ref } from "@vue/composition-api";
+import VueCompositionApi, { ref, Ref, reactive } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 
 // // Mock API client
@@ -13,6 +13,8 @@ import * as Composables from "@shopware-pwa/composables";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 import { useCheckout } from "../src/logic/useCheckout";
+import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
+import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
 
 describe("Composables - useCheckout", () => {
   let isLoggedIn = ref(false);
@@ -24,10 +26,14 @@ describe("Composables - useCheckout", () => {
   const interceptMock = jest.fn();
   const broadcastMock = jest.fn();
   const refreshCartMock = jest.fn(async () => {});
+  const stateShippingMethods: Ref<ShippingMethod[]> = ref([]);
+  const stateBillingMethods: Ref<PaymentMethod[]> = ref([]);
+
   beforeEach(() => {
     jest.resetAllMocks();
     isLoggedIn.value = false;
     sessionContextMock.value = null;
+    rootContextMock.$sharedStore = reactive({});
 
     mockedComposables.useUser.mockImplementation(() => {
       return {
@@ -51,6 +57,16 @@ describe("Composables - useCheckout", () => {
         intercept: interceptMock,
       } as any;
     });
+    mockedComposables.useSharedState.mockImplementation(() => {
+      return {
+        sharedRef: (name: string) => {
+          if (name === "useCheckout-ShippingMethods")
+            return stateShippingMethods;
+          return stateBillingMethods;
+        },
+      } as any;
+    });
+
     stateContext.value = null;
     consoleErrorSpy.mockImplementationOnce(() => {});
   });
