@@ -7,7 +7,7 @@ jobs:
   build:
     working_directory: ~/shopware-pwa
     docker:
-      - image: circleci/node:14.16.0
+      - image: circleci/node:15.14.0
     steps:
       - checkout
       - restore_cache:
@@ -21,7 +21,7 @@ jobs:
             - ./node_modules
       - run:
           name: test
-          command: yarn test:coverage --w 2
+          command: yarn test:coverage --runInBand
       - coveralls/upload
   # test:
   #   executor: win/default
