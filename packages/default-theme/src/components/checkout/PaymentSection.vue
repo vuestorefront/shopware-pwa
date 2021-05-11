@@ -5,7 +5,7 @@
       :description="$t('Choose your payment method')"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <BillingAddressUserForm />
+    <BillingAddressUserForm v-if="!isGuestSession" />
     <div class="sw-form">
       <div class="form__element payment-methods">
         <SfRadio
@@ -45,9 +45,12 @@
 </template>
 <script>
 import { SfHeading, SfRadio } from "@storefront-ui/vue"
-import BillingAddressGuestForm from "@/components/checkout/steps/guest/BillingAddressGuestForm.vue"
-import BillingAddressUserForm from "@/components/checkout/steps/user/BillingAddressUserForm.vue"
-import { useCheckout, useSessionContext } from "@shopware-pwa/composables"
+import BillingAddressUserForm from "@/components/forms/BillingAddressUserForm.vue"
+import {
+  useCheckout,
+  useSessionContext,
+  useUser,
+} from "@shopware-pwa/composables"
 import { onMounted, computed } from "@vue/composition-api"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
@@ -59,13 +62,13 @@ export default {
     SfHeading,
     SwButton,
     SfRadio,
-    BillingAddressGuestForm,
     BillingAddressUserForm,
     SwPluginSlot,
   },
   setup(props, { root }) {
     const { getPaymentMethods, paymentMethods } = useCheckout(root)
     const { paymentMethod, setPaymentMethod } = useSessionContext(root)
+    const { isGuestSession } = useUser(root)
 
     const activePaymentMethod = computed({
       get: () => paymentMethod.value && paymentMethod.value.id,
@@ -76,7 +79,12 @@ export default {
       await getPaymentMethods()
     })
 
-    return { paymentMethods, activePaymentMethod, simplifyString }
+    return {
+      paymentMethods,
+      activePaymentMethod,
+      simplifyString,
+      isGuestSession,
+    }
   },
 }
 </script>

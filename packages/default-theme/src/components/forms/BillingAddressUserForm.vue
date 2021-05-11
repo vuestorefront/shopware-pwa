@@ -46,7 +46,7 @@ import SwButton from "@/components/atoms/SwButton.vue"
 import { ref, watch } from "@vue/composition-api"
 
 export default {
-  name: "ShippingAddressUserForm",
+  name: "BillingAddressUserForm",
   components: { SfList, SfRadio, SfCheckbox, SwButton, SfAddressPicker },
   setup(props, { root }) {
     const { addresses, loadAddresses } = useUser(root)

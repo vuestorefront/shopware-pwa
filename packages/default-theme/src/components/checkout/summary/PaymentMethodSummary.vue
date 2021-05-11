@@ -1,17 +1,17 @@
 <template>
   <SwCheckoutMethod :method="paymentMethod" :label="$t('Payment method')">
-    <template #after-content>
+    <!-- <template #after-content>
       <SwButton
         class="sf-button--text review__edit"
         @click="$emit('click:edit', 2)"
       >
         {{ $t("Edit") }}
       </SwButton>
-    </template>
+    </template> -->
   </SwCheckoutMethod>
 </template>
-<script>
-import SwButton from "@/components/atoms/SwButton.vue"
+<script lang="ts">
+// import SwButton from "@/components/atoms/SwButton.vue"
 import { useSessionContext } from "@shopware-pwa/composables"
 import { computed } from "@vue/composition-api"
 import SwCheckoutMethod from "@/components/SwCheckoutMethod.vue"
@@ -19,7 +19,7 @@ export default {
   name: "PaymentMethodSummary",
   components: {
     SwCheckoutMethod,
-    SwButton,
+    // SwButton,
   },
   setup(props, { root }) {
     const { sessionContext } = useSessionContext(root)
@@ -31,30 +31,4 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-@import "@/assets/scss/variables";
-.review {
-  &__item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: var(--spacer-base);
-    padding: var(--spacer-sm);
-    @include for-desktop {
-      padding: 0;
-    }
-  }
-  &__title {
-    font-size: var(--font-size--sm);
-    margin-bottom: var(--spacer-sm);
-    color: var(--c-text);
-  }
-  &__content {
-    font-size: var(--font-size--xs);
-  }
-}
-.content {
-  margin: 0;
-  color: var(--c-text-muted);
-}
-</style>
+<style lang="scss" scoped></style>

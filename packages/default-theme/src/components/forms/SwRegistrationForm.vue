@@ -47,6 +47,7 @@
             v-if="!doNotCreateAccount"
             v-model="password"
             type="password"
+            name="registrationPassword"
             :label="$t('Create Password')"
             :valid="!$v.password.$error"
             :error-message="

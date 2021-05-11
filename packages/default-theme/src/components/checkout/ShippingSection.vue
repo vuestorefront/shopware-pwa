@@ -2,10 +2,10 @@
   <div>
     <SfHeading
       :title="$t('Shipping methods')"
-      :level="3"
+      :description="$t('Choose your shipping method')"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <ShippingAddressUserForm />
+    <ShippingAddressUserForm v-if="!isGuestSession" />
     <div class="sw-form">
       <div class="sw-form__radio-group">
         <SfRadio
@@ -56,11 +56,12 @@
 <script>
 import { SfHeading, SfRadio } from "@storefront-ui/vue"
 import { computed, onMounted } from "@vue/composition-api"
-import ShippingAddressUserForm from "@/components/checkout/steps/user/ShippingAddressUserForm.vue"
+import ShippingAddressUserForm from "@/components/forms/ShippingAddressUserForm.vue"
 import {
   useCheckout,
   useSessionContext,
   useCart,
+  useUser,
 } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import { simplifyString } from "@/helpers"
@@ -78,6 +79,7 @@ export default {
   setup(props, { root }) {
     const { getShippingMethods, shippingMethods } = useCheckout(root)
     const { shippingMethod, setShippingMethod } = useSessionContext(root)
+    const { isGuestSession } = useUser(root)
     const { refreshCart } = useCart(root)
     const activeShippingMethod = computed({
       get: () => shippingMethod.value && shippingMethod.value.id,
@@ -95,6 +97,7 @@ export default {
       shippingMethods,
       activeShippingMethod,
       simplifyString,
+      isGuestSession,
     }
   },
 }

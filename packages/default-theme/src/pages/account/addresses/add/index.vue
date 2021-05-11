@@ -1,6 +1,6 @@
 <template>
   <div class="addresses-add">
-    <SwAddressForm />
+    <SwAddressForm @success="returnToAddresses" @cancel="returnToAddresses" />
   </div>
 </template>
 
@@ -11,6 +11,11 @@ export default {
   components: { SwAddressForm },
   data() {
     return {}
+  },
+  methods: {
+    returnToAddresses() {
+      this.$router.push(this.$routing.getUrl("/account/addresses"))
+    },
   },
 }
 </script>

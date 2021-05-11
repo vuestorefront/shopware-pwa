@@ -71,7 +71,9 @@ export interface IUseUser {
     login: string;
     register: string[];
   }>;
-  isLoggedIn: Ref<boolean>;
+  isLoggedIn: ComputedRef<boolean>;
+  isCustomerSession: ComputedRef<boolean>;
+  isGuestSession: ComputedRef<boolean>;
   country: Ref<Country | null>;
   salutation: Ref<Salutation | null>;
   refreshUser: () => Promise<void>;
@@ -381,6 +383,12 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   };
 
   const isLoggedIn = computed(() => !!user.value?.id);
+  const isCustomerSession = computed(
+    () => isLoggedIn.value && !user.value?.guest
+  );
+  const isGuestSession = computed(
+    () => isLoggedIn.value && !!user.value?.guest
+  );
 
   return {
     login,
@@ -389,6 +397,8 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     error,
     loading,
     isLoggedIn,
+    isCustomerSession,
+    isGuestSession,
     refreshUser,
     logout,
     orders,

@@ -1,11 +1,28 @@
 <template>
   <div class="checkout" :key="$route.fullPath">
-    <div v-if="!isLoggedIn" class="checkout__main">
-      <SwRegistrationForm :allowGuestRegistration="true" />
-    </div>
-    <div v-else class="checkout__main">
-      <CheckoutSummary />
-      <div class="checkout__main__action">
+    <div class="checkout__main">
+      <div class="log-in" v-if="!isLoggedIn">
+        <div class="log-in__buttons-container">
+          <SwButton
+            class="log-in__button color-secondary"
+            @click="switchLoginModalState(true)"
+          >
+            {{ $t("Log in to your account") }}
+          </SwButton>
+          <SwPluginSlot name="checkout-login-after" />
+        </div>
+        <p class="log-in__info">
+          {{ $t("or fill the details below:") }}
+        </p>
+      </div>
+      <SfHeading
+        v-if="!isLoggedIn"
+        :title="$t('Personal details')"
+        class="sf-heading--left sf-heading--no-underline title"
+      />
+      <SwRegistrationForm v-if="!isLoggedIn" :allowGuestRegistration="true" />
+      <CheckoutSummary v-if="isLoggedIn" />
+      <div v-if="isLoggedIn" class="checkout__main__action">
         <SwButton
           class="summary__action-button summary__action-button--secondary color-secondary sw-form__button"
           data-cy="go-back-to-payment"
@@ -44,9 +61,17 @@ import SidebarOrderReview from "@/components/checkout/sidebar/SidebarOrderReview
 import SidebarOrderSummary from "@/components/checkout/sidebar/SidebarOrderSummary.vue"
 import CheckoutSummary from "@/components/checkout/CheckoutSummary.vue"
 import { PAGE_CHECKOUT, PAGE_ORDER_SUCCESS } from "@/helpers/pages"
-import { useBreadcrumbs, useCheckout, useUser } from "@shopware-pwa/composables"
+import {
+  useBreadcrumbs,
+  useCheckout,
+  useUIState,
+  useUser,
+} from "@shopware-pwa/composables"
 import SwRegistrationForm from "@/components/forms/SwRegistrationForm.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
+import { SfHeading } from "@storefront-ui/vue"
+
 export default {
   name: "CheckoutPage",
   components: {
@@ -55,6 +80,8 @@ export default {
     CheckoutSummary,
     SidebarOrderSummary,
     SidebarOrderReview,
+    SwPluginSlot,
+    SfHeading,
   },
   setup({}, { root }) {
     const { setBreadcrumbs } = useBreadcrumbs(root)
@@ -79,11 +106,17 @@ export default {
       },
     ])
 
+    const { switchState: switchLoginModalState } = useUIState(
+      root,
+      "LOGIN_MODAL_STATE"
+    )
+
     return {
       isLoggedIn,
       createOrder,
       loadings,
       goToShop,
+      switchLoginModalState,
     }
   },
 }

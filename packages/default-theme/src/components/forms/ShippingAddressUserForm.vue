@@ -35,7 +35,10 @@
       :visible="isModalOpen"
       @close="isModalOpen = false"
     >
-      <SwAddressForm />
+      <SwAddressForm
+        @success="isModalOpen = false"
+        @cancel="isModalOpen = false"
+      />
     </SfModal>
   </div>
 </template>
