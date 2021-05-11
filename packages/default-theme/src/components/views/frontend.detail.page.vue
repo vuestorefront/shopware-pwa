@@ -125,11 +125,7 @@ export default {
       loadCrossSells({
         params: {
           associations: {
-            product: {
-              associations: {
-                seoUrls: {},
-              },
-            },
+            seoUrls: {},
           },
           includes: getIncludesConfig(),
         },
