@@ -45,6 +45,7 @@ export interface IUseSessionContext {
   ) => Promise<void>;
   activeBillingAddress: Readonly<Ref<BillingAddress | null>>;
   setActiveBillingAddress: (address: Partial<BillingAddress>) => Promise<void>;
+  countryId: ComputedRef<string | undefined>;
   // events for interceptors
   onCurrencyChange: (fn: (params: { currency: Currency }) => void) => void;
   onPaymentMethodChange: (

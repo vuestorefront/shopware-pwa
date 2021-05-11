@@ -38,6 +38,9 @@ export interface IUseCheckout {
   shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
   billingAddress: Readonly<Ref<Partial<BillingAddress> | undefined>>;
   onOrderPlace: (fn: (params: { order: Order }) => void) => void;
+  loadings: UnwrapRef<{
+    createOrder: boolean;
+  }>;
 }
 
 /**
