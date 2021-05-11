@@ -1,11 +1,11 @@
 <template>
   <div>
-    <BillingAddressUserForm />
     <SfHeading
       :title="$t('Payment methods')"
       :description="$t('Choose your payment method')"
       class="sf-heading--left sf-heading--no-underline title"
     />
+    <BillingAddressUserForm />
     <div class="sw-form">
       <div class="form__element payment-methods">
         <SfRadio
@@ -54,7 +54,7 @@ import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { simplifyString } from "@/helpers"
 
 export default {
-  name: "PaymentStep",
+  name: "PaymentSection",
   components: {
     SfHeading,
     SwButton,

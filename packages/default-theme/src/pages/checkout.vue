@@ -1,138 +1,75 @@
 <template>
-  <div id="checkout" :key="$route.fullPath">
-    <div class="checkout">
-      <div v-if="!isLoggedIn" class="checkout__main">
-        <SwRegistrationForm />
-        <!-- <SwErrorsList :list="formErrors" />
-        <RegistrationDetails />
-        <Sw2AddressForm />
-        <SfCheckbox
-          v-model="isBillingAddressDifferent"
-          name="isBillingAddressDifferent"
-          :label="$t('Shipping and billing address do not match.')"
-          class="sw-form__checkbox"
+  <div class="checkout" :key="$route.fullPath">
+    <div v-if="!isLoggedIn" class="checkout__main">
+      <SwRegistrationForm :allowGuestRegistration="true" />
+    </div>
+    <div v-else class="checkout__main">
+      <CheckoutSummary />
+      <div class="checkout__main__action">
+        <SwButton
+          class="summary__action-button summary__action-button--secondary color-secondary sw-form__button"
+          data-cy="go-back-to-payment"
+          @click="goToShop"
+        >
+          {{ $t("Go Back to shop") }}
+        </SwButton>
+        <SwButton
+          :disabled="loadings.createOrder"
+          class="summary__action-button sw-form__button"
+          data-cy="place-my-order"
+          @click="createOrder"
+        >
+          {{ $t("Place my order") }}
+        </SwButton>
+      </div>
+    </div>
+    <div class="checkout__aside">
+      <transition name="fade">
+        <SidebarOrderSummary
+          v-if="!isLoggedIn"
+          key="order-summary"
+          class="checkout__aside-order"
         />
-        <Sw2AddressForm v-if="isBillingAddressDifferent" /> -->
-        <!-- <SfSteps :active="currentStep" @change="nextStep($event)">
-          <SfStep :name="$t('Personal Details')">
-            <PersonalDetailsStep @proceed="nextStep()" />
-          </SfStep>
-          <SfStep :name="$t('Shipping')">
-            <ShippingStep
-              @retreat="nextStep(currentStep - 1)"
-              @proceed="nextStep()"
-            />
-          </SfStep>
-          <SfStep :name="$t('Payment')">
-            <PaymentStep
-              @click:back="nextStep(currentStep - 1)"
-              @proceed="nextStep()"
-            />
-          </SfStep>
-          <SfStep :name="$t('Review')">
-            <OrderReviewStep
-              @click:back="nextStep(currentStep - 1)"
-              @proceed="nextStep()"
-            />
-          </SfStep>
-        </SfSteps> -->
-        <!-- <SwButton
-          class="sf-button--outline sw-form__button"
-          @click="registerUser"
-        >
-          {{ $t("Continue") }}
-        </SwButton> -->
-      </div>
-      <div v-else class="checkout__main">
-        <h2>now we're talking</h2>
-        <!-- <SwButton
-          class="sf-button--outline sw-form__button"
-          @click="registerUser"
-        >
-          {{ $t("Continue") }}
-        </SwButton> -->
-      </div>
-      <div class="checkout__aside">
-        <!-- <transition name="fade">
-          <SidebarOrderSummary
-            v-if="currentStep < CHECKOUT_STEPS.REVIEW"
-            key="order-summary"
-            class="checkout__aside-order"
-          />
-          <SidebarOrderReview
-            v-else
-            key="order-review"
-            class="checkout__aside-order"
-            @click:edit="nextStep($event)"
-          />
-        </transition> -->
-      </div>
+        <SidebarOrderReview
+          v-else
+          key="order-review"
+          class="checkout__aside-order"
+        />
+      </transition>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { SfSteps } from "@storefront-ui/vue"
 import SidebarOrderReview from "@/components/checkout/sidebar/SidebarOrderReview.vue"
 import SidebarOrderSummary from "@/components/checkout/sidebar/SidebarOrderSummary.vue"
-import PaymentStep from "@/components/checkout/steps/PaymentStep.vue"
-import PersonalDetailsStep from "@/components/checkout/steps/PersonalDetailsStep.vue"
-import ShippingStep from "@/components/checkout/steps/ShippingStep.vue"
-import OrderReviewStep from "@/components/checkout/steps/OrderReviewStep.vue"
-import { CHECKOUT_STEPS } from "@/logic/checkout"
-import { PAGE_CHECKOUT } from "@/helpers/pages"
-import { useBreadcrumbs, useUser } from "@shopware-pwa/composables"
+import CheckoutSummary from "@/components/checkout/CheckoutSummary.vue"
+import { PAGE_CHECKOUT, PAGE_ORDER_SUCCESS } from "@/helpers/pages"
+import { useBreadcrumbs, useCheckout, useUser } from "@shopware-pwa/composables"
 import SwRegistrationForm from "@/components/forms/SwRegistrationForm.vue"
-import { SfCheckbox } from "@storefront-ui/vue"
-import { ref, computed } from "@vue/composition-api"
 import SwButton from "@/components/atoms/SwButton.vue"
-import SwErrorsList from "@/components/SwErrorsList.vue"
-
 export default {
   name: "CheckoutPage",
   components: {
-    SfCheckbox,
     SwButton,
-    SwErrorsList,
     SwRegistrationForm,
-    SfSteps,
-    PersonalDetailsStep,
-    ShippingStep,
-    PaymentStep,
-    OrderReviewStep,
+    CheckoutSummary,
     SidebarOrderSummary,
     SidebarOrderReview,
   },
   setup({}, { root }) {
-    // const { currentStep, nextStep } = useUICheckoutPage(root)
     const { setBreadcrumbs } = useBreadcrumbs(root)
-    const { register, errors, isLoggedIn } = useUser(root)
-    const isBillingAddressDifferent = ref(false)
-    const formErrors = computed(() => errors.register)
+    const { isLoggedIn } = useUser(root)
+    const { createOrder: invokeCreateOrder, loadings } = useCheckout(root)
 
-    function nextStep(val) {
-      console.error("NEXT STEP", val)
+    async function createOrder() {
+      const order = await invokeCreateOrder()
+      root.$router.push(
+        root.$routing.getUrl(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`)
+      )
     }
 
-    async function registerUser(val) {
-      const resp = await register({
-        firstName: "test",
-        lastName: "test",
-        email: "mkucmus+test@gmail.com",
-        password: null,
-        guest: true,
-        salutationId: "76fd5475cb9f48d8bb77d27e68ea9873",
-        storefrontUrl: "http://localhost",
-        billingAddress: {
-          firstName: "test",
-          salutationId: "76fd5475cb9f48d8bb77d27e68ea9873",
-          lastName: "test",
-          city: "433434",
-          street: "433434",
-          zipcode: "r434343",
-          countryId: "e7b324e8e2d84bdab78727d1935fba23",
-        },
-      })
-      console.error("RESP", resp)
+    function goToShop() {
+      root.$routing.getUrl("/")
     }
 
     setBreadcrumbs([
@@ -141,47 +78,49 @@ export default {
         path: PAGE_CHECKOUT,
       },
     ])
+
     return {
-      // currentStep,
-      nextStep,
-      CHECKOUT_STEPS,
-      isBillingAddressDifferent,
-      registerUser,
-      formErrors,
       isLoggedIn,
+      createOrder,
+      loadings,
+      goToShop,
     }
-  },
-  watch: {
-    $route: {
-      immediate: true,
-      handler() {
-        const stepName = this.$route.query.step
-        if (stepName) this.nextStep(CHECKOUT_STEPS[stepName])
-      },
-    },
   },
 }
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 
-#checkout {
+.checkout {
   @include for-desktop {
     max-width: 1272px;
     margin: 0 auto;
     padding: 0 var(--spacer-base);
-  }
-}
-.checkout {
-  --steps-content-padding: 0 var(--spacer-sm);
-  @include for-desktop {
-    --steps-content-padding: 0;
     display: flex;
   }
   &__main {
     @include for-desktop {
       flex: 1;
       padding: var(--spacer-lg) 0 0 0;
+    }
+
+    &__action {
+      margin: var(--spacer-base) 0 0 0;
+      display: flex;
+      flex-wrap: wrap;
+
+      button {
+        width: 100%;
+        @include for-desktop {
+          width: 50%;
+        }
+
+        &:last-child {
+          @include for-mobile {
+            margin-top: var(--spacer-base);
+          }
+        }
+      }
     }
   }
   &__aside {

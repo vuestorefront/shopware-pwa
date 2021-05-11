@@ -16,7 +16,6 @@ import {
 import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
 import {
   getApplicationContext,
-  useNotifications,
   INTERCEPTOR_KEYS,
   useIntercept,
   IInterceptorCallbackFunction,
@@ -82,16 +81,12 @@ export const useSessionContext = (
   const onShippingMethodChange = (fn: IInterceptorCallbackFunction) =>
     intercept(INTERCEPTOR_KEYS.SESSION_SET_SHIPPING_METHOD, fn);
 
-  const { pushWarning } = useNotifications(rootContext);
   const sessionContext = computed(() => storeSessionContext.value);
   const refreshSessionContext = async () => {
     try {
       const context = await getSessionContext(apiInstance);
       storeSessionContext.value = context;
     } catch (e) {
-      pushWarning(
-        "Unable to update the session. Some parts may not be working properly. Please try again later."
-      );
       console.error("[UseSessionContext][refreshSessionContext]", e);
     }
   };
@@ -174,6 +169,10 @@ export const useSessionContext = (
     refreshSessionContext();
   };
 
+  const countryId = computed(
+    () => sessionContext.value?.salesChannel?.countryId
+  );
+
   return {
     sessionContext,
     refreshSessionContext,
@@ -187,6 +186,7 @@ export const useSessionContext = (
     setActiveShippingAddress,
     activeBillingAddress,
     setActiveBillingAddress,
+    countryId,
     // interceptors
     onCurrencyChange,
     onPaymentMethodChange,

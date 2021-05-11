@@ -1,6 +1,7 @@
 <template>
-  <div class="sw-registration-form">
+  <div class="sw-registration-form" @keyup.enter="invokeRegister">
     <SwErrorsList :list="formErrors" />
+    <SwPluginSlot name="registration-form-before" />
     <div class="sw-form">
       <div class="inputs-group">
         <SwInput
@@ -25,6 +26,7 @@
         />
       </div>
       <SfCheckbox
+        v-if="allowGuestRegistration"
         v-model="doNotCreateAccount"
         name="doNotCreateAccount"
         :label="$t('Do not create a customer account.')"
@@ -96,6 +98,7 @@
         name="isDifferentShippingAddress"
         :label="$t('Shipping and billing address do not match.')"
         class="sw-form__input form__element form__element--small"
+        @blur="$v.$reset()"
       />
 
       <!-- TODO: create smaller components for this form after vuelidate upgrade: https://github.com/vuestorefront/shopware-pwa/issues/1472 -->
@@ -142,7 +145,7 @@
           </SfSelect> -->
           <SwInput
             v-model="alternativeStreet"
-            name="street"
+            name="alternativeStreet"
             :label="$t('Street and house number')"
             :error-message="$t('Street is required')"
             :valid="!$v.alternativeStreet.$error"
@@ -153,7 +156,7 @@
 
           <SwInput
             v-model="alternativeZipcode"
-            name="zipcode"
+            name="alternativeZipcode"
             :label="$t('Zip code')"
             :error-message="$t('Zip code is required')"
             :valid="!$v.alternativeZipcode.$error"
@@ -164,7 +167,7 @@
 
           <SwInput
             v-model="alternativeCity"
-            name="city"
+            name="alternativeCity"
             :label="$t('City')"
             :error-message="$t('City is required')"
             :valid="!$v.alternativeCity.$error"
@@ -172,32 +175,21 @@
             class="sw-form__input"
             @blur="$v.alternativeCity.$touch()"
           />
-          <!-- <SwInput
-            v-if="displayState"
-            v-model="address.state"
-            name="state"
-            :label="$t('State/Province')"
-            :error-message="$t('State is required')"
-            :valid="!$v.address.state.$error"
-            class="sw-form__input"
-            :required="forceState"
-            @blur="$v.address.state.$touch()"
-          /> -->
         </div>
         <div class="inputs-group">
           <SfSelect
-            v-model="alternativeCountry.value"
+            v-model="alternativeCountryId"
             :label="$t('Country')"
             :error-message="$t('Country must be selected')"
-            :valid="!$v.alternativeCountry.$error"
+            :valid="!$v.alternativeCountryId.$error"
             required
-            class="sf-select--underlined sw-form__select"
-            @blur="$v.alternativeCountry.$touch()"
+            class="sf-select--underlined sw-form__select sw-form__input"
+            @blur="$v.alternativeCountryId.$touch()"
           >
             <SfSelectOption
               v-for="countryOption in getMappedCountries"
               :key="countryOption.id"
-              :value="countryOption"
+              :value="countryOption.id"
             >
               {{ countryOption.name }}
             </SfSelectOption>
@@ -205,7 +197,7 @@
         </div>
         <SwInput
           v-model="alternativePhoneNumber"
-          name="phoneNumber"
+          name="alternativePhoneNumber"
           :label="$t('Phone number')"
           :error-message="$t('Wrong phone number')"
           :valid="!$v.alternativePhoneNumber.$error"
@@ -215,23 +207,26 @@
         />
       </div>
 
-      <SwButton class="sw-form__button" @click="registerUser">
-        {{ $t("Continue") }}
+      <SwButton class="sw-form__button" @click="invokeRegister">
+        {{ buttonText || $t("Continue") }}
       </SwButton>
-      <SwButton
-        class="sf-button--outline sw-form__button sw-form__button--back"
-        @click="cancel"
-      >
-        {{ $t("Back") }}
-      </SwButton>
+
+      <SwPluginSlot name="registration-form-after" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import useVuelidate from "@vuelidate/core"
+import { useVuelidate } from "@vuelidate/core"
 import { required, requiredIf, email, minLength } from "@vuelidate/validators"
-import { computed, reactive, Ref, ref, watch } from "@vue/composition-api"
+import {
+  computed,
+  reactive,
+  Ref,
+  ref,
+  toRefs,
+  watch,
+} from "@vue/composition-api"
 import { SfAlert, SfSelect, SfCheckbox } from "@storefront-ui/vue"
 import {
   useCountries,
@@ -247,6 +242,7 @@ import {
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 import SwErrorsList from "@/components/SwErrorsList.vue"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 
 export default {
   name: "SwRegistrationForm",
@@ -257,80 +253,162 @@ export default {
     SfSelect,
     SwErrorsList,
     SfCheckbox,
+    SwPluginSlot,
   },
-  data() {
-    return {
-      firstName: "",
-      lastName: "",
-      email: "",
-      salutation: null,
-      country: null,
-      street: "",
-      city: "",
-      zipcode: "",
-    }
+  props: {
+    allowGuestRegistration: {
+      type: Boolean,
+      default: false,
+    },
+    buttonText: {
+      type: String,
+    },
   },
-  setup({ address }, { root }) {
+  setup(props, { root, emit }) {
     const { refreshSessionContext } = useSessionContext(root)
+    const { countryId } = useSessionContext(root)
     const { login, register, loading, error: userError, errors } = useUser(root)
     const { getCountries, error: countriesError } = useCountries(root)
     const { getSalutations, error: salutationsError } = useSalutations(root)
     const formErrors = computed(() => errors.register)
 
+    const state = reactive({
+      firstName: "",
+      lastName: "",
+      email: "",
+      salutation: null,
+      countryId: countryId.value,
+      street: "",
+      city: "",
+      zipcode: "",
+      password: "",
+      alternativeFirstName: "",
+      alternativeLastName: "",
+      alternativeCountryId: countryId.value,
+      alternativeStreet: "",
+      alternativeCity: "",
+      alternativeZipcode: "",
+      alternativePhoneNumber: "",
+    })
+
     // form data
     const doNotCreateAccount: Ref<boolean> = ref(false)
     const isDifferentShippingAddress: Ref<boolean> = ref(false)
-    const password: Ref<string> = ref("")
-    // alternative address
-    const alternativeFirstName: Ref<string> = ref("")
-    const alternativeLastName: Ref<string> = ref("")
-    const alternativeEmail: Ref<string> = ref("")
-    // const alternativeSalutation: Ref<string> = ref("")
-    const alternativeCountry: Ref<string> = ref("")
-    const alternativeStreet: Ref<string> = ref("")
-    const alternativeCity: Ref<string> = ref("")
-    const alternativeZipcode: Ref<string> = ref("")
-    const alternativePhoneNumber: Ref<string> = ref("")
 
     const getMappedCountries = computed(() => mapCountries(getCountries.value))
     const getMappedSalutations = computed(() =>
       mapSalutations(getSalutations.value)
     )
+    const getDefaultSalutationId = computed(
+      () =>
+        getSalutations.value?.find(
+          (salutation) => salutation.salutationKey === "not_specified"
+        )?.id
+    )
+
     const userErrorMessages = computed(() =>
       getMessagesFromErrorsArray(userError.value && userError.value.message)
     )
 
     watch(doNotCreateAccount, () => {
-      if (!!doNotCreateAccount.value) password.value = ""
+      if (!!doNotCreateAccount.value) state.password = ""
     })
 
-    async function registerUser(val) {
-      const resp = await register({
-        firstName: "test",
-        lastName: "test",
-        email: "mkucmus+test@gmail.com",
-        password: null,
-        guest: true,
-        salutationId: "76fd5475cb9f48d8bb77d27e68ea9873",
-        storefrontUrl: "http://localhost",
+    async function invokeRegister() {
+      $v.value.$reset()
+      const isFormCorrect = await $v.value.$validate()
+      if (!isFormCorrect) {
+        return
+      }
+
+      const isSuccess = await register({
+        firstName: state.firstName,
+        lastName: state.lastName,
+        email: state.email,
+        password: state.password,
+        guest: doNotCreateAccount.value,
+        salutationId: getDefaultSalutationId.value,
+        storefrontUrl: root.$routing.pwaHost,
         billingAddress: {
-          firstName: "test",
-          salutationId: "76fd5475cb9f48d8bb77d27e68ea9873",
-          lastName: "test",
-          city: "433434",
-          street: "433434",
-          zipcode: "r434343",
-          countryId: "e7b324e8e2d84bdab78727d1935fba23",
+          firstName: state.firstName,
+          salutationId: getDefaultSalutationId.value,
+          lastName: state.lastName,
+          city: state.city,
+          street: state.street,
+          zipcode: state.zipcode,
+          countryId: state.countryId,
         },
       })
-      console.error("RESP", resp)
+      isSuccess && emit("success")
     }
 
-    function cancel() {
-      console.error("cancel")
+    const rules = {
+      firstName: {
+        required,
+      },
+      lastName: {
+        required,
+      },
+      email: {
+        required,
+        email,
+      },
+      password: {
+        required: requiredIf(function () {
+          return !doNotCreateAccount.value
+        }),
+        minLength: minLength(8),
+      },
+      street: {
+        required,
+      },
+      zipcode: {
+        required,
+      },
+      city: {
+        required,
+      },
+      alternativeFirstName: {
+        required: requiredIf(function () {
+          return !!isDifferentShippingAddress.value
+        }),
+      },
+      alternativeLastName: {
+        required: requiredIf(function () {
+          return !!isDifferentShippingAddress.value
+        }),
+      },
+      alternativeStreet: {
+        required: requiredIf(function () {
+          return !!isDifferentShippingAddress.value
+        }),
+      },
+      alternativeZipcode: {
+        required: requiredIf(function () {
+          return !!isDifferentShippingAddress.value
+        }),
+      },
+      alternativeCity: {
+        required: requiredIf(function () {
+          return !!isDifferentShippingAddress.value
+        }),
+      },
+      alternativeCountryId: {
+        required: requiredIf(function () {
+          return !!isDifferentShippingAddress.value
+        }),
+      },
+      alternativePhoneNumber: {
+        required: requiredIf(function () {
+          return !!isDifferentShippingAddress.value
+        }),
+      },
     }
+
+    const $v = useVuelidate(rules, state)
 
     return {
+      ...toRefs(state),
       clientLogin: login,
       clientRegister: register,
       isLoading: loading,
@@ -342,107 +420,11 @@ export default {
       refreshSessionContext,
       formErrors,
       doNotCreateAccount,
-      password,
       isDifferentShippingAddress,
-      alternativeFirstName,
-      alternativeLastName,
-      alternativeEmail,
-      alternativeStreet,
-      alternativeZipcode,
-      alternativeCity,
-      alternativeCountry,
-      alternativePhoneNumber,
-      registerUser,
-      cancel,
-      $v: useVuelidate(),
+      getDefaultSalutationId,
+      invokeRegister,
+      $v,
     }
-  },
-  validations: {
-    firstName: {
-      required,
-    },
-    lastName: {
-      required,
-    },
-    email: {
-      required,
-      email,
-    },
-    password: {
-      required: requiredIf(function () {
-        return !this.doNotCreateAccount
-      }),
-      minLength: minLength(8),
-    },
-    street: {
-      required,
-    },
-    zipcode: {
-      required,
-    },
-    city: {
-      required,
-    },
-    alternativeFirstName: {
-      required: requiredIf(function () {
-        return !!this.isDifferentShippingAddress
-      }),
-    },
-    alternativeLastName: {
-      required: requiredIf(function () {
-        return !!this.isDifferentShippingAddress
-      }),
-    },
-    alternativeEmail: {
-      required: requiredIf(function () {
-        return !!this.isDifferentShippingAddress
-      }),
-    },
-    alternativeStreet: {
-      required: requiredIf(function () {
-        return !!this.isDifferentShippingAddress
-      }),
-    },
-    alternativeZipcode: {
-      required: requiredIf(function () {
-        return !!this.isDifferentShippingAddress
-      }),
-    },
-    alternativeCity: {
-      required: requiredIf(function () {
-        return !!this.isDifferentShippingAddress
-      }),
-    },
-    alternativeCountry: {
-      required: requiredIf(function () {
-        return !!this.isDifferentShippingAddress
-      }),
-    },
-    alternativePhoneNumber: {
-      required: requiredIf(function () {
-        return !!this.isDifferentShippingAddress
-      }),
-    },
-  },
-  methods: {
-    async invokeRegister() {
-      this.$v.$touch()
-      if (this.$v.$invalid) {
-        return
-      }
-      console.error("INVOKE API REGISTER")
-      // const registeredIn = await this.clientRegister(
-      //   this.mapCustomerInformations
-      // )
-      // if (registeredIn) {
-      //   await this.clientLogin({
-      //     username: this.email,
-      //     password: this.password,
-      //   })
-      //   this.refreshSessionContext()
-      //   this.$emit("success")
-      // }
-    },
   },
 }
 </script>

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <ShippingAddressUserForm />
     <SfHeading
       :title="$t('Shipping methods')"
       :level="3"
       class="sf-heading--left sf-heading--no-underline title"
     />
+    <ShippingAddressUserForm />
     <div class="sw-form">
       <div class="sw-form__radio-group">
         <SfRadio
@@ -67,7 +67,7 @@ import { simplifyString } from "@/helpers"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 
 export default {
-  name: "ShippingStep",
+  name: "ShippingSection",
   components: {
     SfHeading,
     SwButton,

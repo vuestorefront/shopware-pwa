@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ShippingStep />
-    <PaymentStep />
+    <ShippingSection />
+    <PaymentSection />
     <SfHeading
       :title="$t('Order details')"
       :level="2"
@@ -49,8 +49,8 @@ import PaymentMethodSummary from "@/components/checkout/summary/PaymentMethodSum
 import OrderItemsTable from "@/components/checkout/summary/OrderItemsTable.vue"
 import TotalsSummary from "@/components/checkout/summary/TotalsSummary.vue"
 import SwCartProduct from "@/components/SwCartProduct.vue"
-import ShippingStep from "@/components/checkout/steps/ShippingStep.vue"
-import PaymentStep from "@/components/checkout/steps/PaymentStep.vue"
+import ShippingSection from "@/components/checkout/ShippingSection.vue"
+import PaymentSection from "@/components/checkout/PaymentSection.vue"
 
 import { SfHeading, SfAccordion } from "@storefront-ui/vue"
 import { useCart } from "@shopware-pwa/composables"
@@ -67,8 +67,8 @@ export default {
     OrderItemsTable,
     TotalsSummary,
     SwCartProduct,
-    ShippingStep,
-    PaymentStep,
+    ShippingSection,
+    PaymentSection,
   },
   setup(props, { root }) {
     const { cartItems, removeProduct } = useCart(root)

@@ -67,6 +67,10 @@ export interface IUseUser {
   addresses: Ref<CustomerAddress[] | null>;
   loading: Ref<boolean>;
   error: Ref<any>;
+  errors: UnwrapRef<{
+    login: string;
+    register: string[];
+  }>;
   isLoggedIn: Ref<boolean>;
   country: Ref<Country | null>;
   salutation: Ref<Salutation | null>;
