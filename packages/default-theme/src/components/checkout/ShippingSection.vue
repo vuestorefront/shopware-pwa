@@ -9,7 +9,7 @@
     <div class="sw-form">
       <div class="sw-form__radio-group">
         <SfLoader :loading="isLoading">
-          <div class="sw-shipping-loader">
+          <div class="shipping-methods__container">
             <SfRadio
               v-for="shippingMethod in shippingMethods"
               :key="shippingMethod.id"

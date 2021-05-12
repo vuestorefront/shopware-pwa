@@ -8,50 +8,54 @@
     <BillingAddressUserForm v-if="!isGuestSession" />
     <div class="sw-form">
       <div class="form__element payment-methods">
-        <SfRadio
-          v-for="paymentMethod in paymentMethods"
-          :key="paymentMethod.id"
-          v-model="activePaymentMethod"
-          :label="paymentMethod.name"
-          :value="paymentMethod.id"
-          name="paymentMethod"
-          :description="paymentMethod.description"
-          class="sw-form__radio payment-method"
-        >
-          <template #description="{ description }">
-            <div class="sf-radio__description">
-              <div class="payment_description">
-                <p>{{ description }}</p>
-              </div>
-              <transition name="sf-fade">
-                <div
-                  v-if="activePaymentMethod === paymentMethod.id"
-                  class="shipping__info"
-                >
-                  <SwPluginSlot
-                    :name="`checkout-payment-method-${simplifyString(
-                      paymentMethod.name
-                    )}`"
-                    :slot-context="paymentMethod"
-                  />
+        <SfLoader :loading="isLoading">
+          <div class="payment-methods__container">
+            <SfRadio
+              v-for="paymentMethod in paymentMethods"
+              :key="paymentMethod.id"
+              v-model="activePaymentMethod"
+              :label="paymentMethod.name"
+              :value="paymentMethod.id"
+              name="paymentMethod"
+              :description="paymentMethod.description"
+              class="sw-form__radio payment-method"
+            >
+              <template #description="{ description }">
+                <div class="sf-radio__description">
+                  <div class="payment_description">
+                    <p>{{ description }}</p>
+                  </div>
+                  <transition name="sf-fade">
+                    <div
+                      v-if="activePaymentMethod === paymentMethod.id"
+                      class="shipping__info"
+                    >
+                      <SwPluginSlot
+                        :name="`checkout-payment-method-${simplifyString(
+                          paymentMethod.name
+                        )}`"
+                        :slot-context="paymentMethod"
+                      />
+                    </div>
+                  </transition>
                 </div>
-              </transition>
-            </div>
-          </template>
-        </SfRadio>
+              </template>
+            </SfRadio>
+          </div>
+        </SfLoader>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { SfHeading, SfRadio } from "@storefront-ui/vue"
+import { SfHeading, SfRadio, SfLoader } from "@storefront-ui/vue"
 import BillingAddressUserForm from "@/components/forms/BillingAddressUserForm.vue"
 import {
   useCheckout,
   useSessionContext,
   useUser,
 } from "@shopware-pwa/composables"
-import { onMounted, computed } from "@vue/composition-api"
+import { computed, onMounted, ref } from "@vue/composition-api"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { simplifyString } from "@/helpers"
@@ -64,19 +68,22 @@ export default {
     SfRadio,
     BillingAddressUserForm,
     SwPluginSlot,
+    SfLoader,
   },
   setup(props, { root }) {
     const { getPaymentMethods, paymentMethods } = useCheckout(root)
     const { paymentMethod, setPaymentMethod } = useSessionContext(root)
     const { isGuestSession } = useUser(root)
-
+    const isLoading = ref(false)
     const activePaymentMethod = computed({
       get: () => paymentMethod.value && paymentMethod.value.id,
       set: async (id) => await setPaymentMethod({ id }),
     })
 
     onMounted(async () => {
+      isLoading.value = true
       await getPaymentMethods()
+      isLoading.value = false
     })
 
     return {
@@ -84,6 +91,7 @@ export default {
       activePaymentMethod,
       simplifyString,
       isGuestSession,
+      isLoading,
     }
   },
 }
