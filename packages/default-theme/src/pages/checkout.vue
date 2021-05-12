@@ -96,7 +96,7 @@ export default {
     }
 
     function goToShop() {
-      root.$routing.getUrl("/")
+      root.$router.push(root.$routing.getUrl("/"))
     }
 
     setBreadcrumbs([
