@@ -8,54 +8,59 @@
     <ShippingAddressUserForm v-if="!isGuestSession" />
     <div class="sw-form">
       <div class="sw-form__radio-group">
-        <SfRadio
-          v-for="shippingMethod in shippingMethods"
-          :key="shippingMethod.id"
-          v-model="activeShippingMethod"
-          :label="shippingMethod.translated.name"
-          :value="shippingMethod.id"
-          name="shippingMethod"
-          :description="shippingMethod.deliveryTime.translated.name"
-          class="sw-form__radio shipping"
-        >
-          <template #label="{ label }">
-            <div class="sf-radio__label shipping__label">
-              <div>{{ label }}</div>
-              <div class="shipping__label-price">
-                {{ shippingMethod.price }}
-              </div>
-            </div>
-          </template>
-          <template #description="{ description }">
-            <div class="sf-radio__description shipping__description">
-              <div class="shipping__delivery">
-                <p>{{ description }}</p>
-              </div>
-              <transition name="sf-fade">
-                <div
-                  v-if="
-                    shippingMethod && activeShippingMethod === shippingMethod.id
-                  "
-                  class="shipping__info"
-                >
-                  <SwPluginSlot
-                    :name="`checkout-shiping-method-${simplifyString(
-                      shippingMethod.name
-                    )}`"
-                    :slot-context="shippingMethod"
-                  />
+        <SfLoader :loading="isLoading">
+          <div class="sw-shipping-loader">
+            <SfRadio
+              v-for="shippingMethod in shippingMethods"
+              :key="shippingMethod.id"
+              v-model="activeShippingMethod"
+              :label="shippingMethod.translated.name"
+              :value="shippingMethod.id"
+              name="shippingMethod"
+              :description="shippingMethod.deliveryTime.translated.name"
+              class="sw-form__radio shipping"
+            >
+              <template #label="{ label }">
+                <div class="sf-radio__label shipping__label">
+                  <div>{{ label }}</div>
+                  <div class="shipping__label-price">
+                    {{ shippingMethod.price }}
+                  </div>
                 </div>
-              </transition>
-            </div>
-          </template>
-        </SfRadio>
+              </template>
+              <template #description="{ description }">
+                <div class="sf-radio__description shipping__description">
+                  <div class="shipping__delivery">
+                    <p>{{ description }}</p>
+                  </div>
+                  <transition name="sf-fade">
+                    <div
+                      v-if="
+                        shippingMethod &&
+                        activeShippingMethod === shippingMethod.id
+                      "
+                      class="shipping__info"
+                    >
+                      <SwPluginSlot
+                        :name="`checkout-shiping-method-${simplifyString(
+                          shippingMethod.name
+                        )}`"
+                        :slot-context="shippingMethod"
+                      />
+                    </div>
+                  </transition>
+                </div>
+              </template>
+            </SfRadio>
+          </div>
+        </SfLoader>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { SfHeading, SfRadio } from "@storefront-ui/vue"
-import { computed, onMounted } from "@vue/composition-api"
+import { SfHeading, SfRadio, SfLoader } from "@storefront-ui/vue"
+import { computed, onMounted, ref } from "@vue/composition-api"
 import ShippingAddressUserForm from "@/components/forms/ShippingAddressUserForm.vue"
 import {
   useCheckout,
@@ -75,12 +80,14 @@ export default {
     SfRadio,
     ShippingAddressUserForm,
     SwPluginSlot,
+    SfLoader,
   },
   setup(props, { root }) {
     const { getShippingMethods, shippingMethods } = useCheckout(root)
     const { shippingMethod, setShippingMethod } = useSessionContext(root)
     const { isGuestSession } = useUser(root)
     const { refreshCart } = useCart(root)
+    const isLoading = ref(false)
     const activeShippingMethod = computed({
       get: () => shippingMethod.value && shippingMethod.value.id,
       set: async (id) => {
@@ -90,7 +97,9 @@ export default {
     })
 
     onMounted(async () => {
+      isLoading.value = true
       await getShippingMethods()
+      isLoading.value = false
     })
 
     return {
@@ -98,6 +107,7 @@ export default {
       activeShippingMethod,
       simplifyString,
       isGuestSession,
+      isLoading,
     }
   },
 }
