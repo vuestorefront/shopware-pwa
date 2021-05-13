@@ -255,7 +255,7 @@ export default {
       if (this.$v.$invalid) {
         return
       }
-      await this.saveAddress()
+      const addressId = await this.saveAddress()
       if (this.userError) {
         return this.pushError(
           this.$t("Your address couldn't be updated due to some errors")
@@ -263,7 +263,7 @@ export default {
       }
 
       this.pushSuccess(this.$t("Your address has been updated"))
-      this.$emit("success")
+      this.$emit("success", addressId)
     },
   },
   validations: {
