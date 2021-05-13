@@ -393,7 +393,7 @@ export interface IUseSessionContext {
 // @beta
 export interface IUseUser {
     // (undocumented)
-    addAddress: (params: Partial<CustomerAddress>) => Promise<boolean>;
+    addAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
     // (undocumented)
     addresses: Ref<CustomerAddress[] | null>;
     // (undocumented)
@@ -455,7 +455,7 @@ export interface IUseUser {
     // (undocumented)
     salutation: Ref<Salutation | null>;
     // (undocumented)
-    updateAddress: (params: Partial<CustomerAddress>) => Promise<boolean>;
+    updateAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
     // (undocumented)
     updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
     // (undocumented)

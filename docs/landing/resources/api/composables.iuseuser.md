@@ -19,7 +19,7 @@ export interface IUseUser
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [addAddress](./composables.iuseuser.addaddress.md) | (params: Partial&lt;CustomerAddress&gt;) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
+|  [addAddress](./composables.iuseuser.addaddress.md) | (params: Partial&lt;CustomerAddress&gt;) =&gt; Promise&lt;string \| undefined&gt; | <b><i>(BETA)</i></b> |
 |  [addresses](./composables.iuseuser.addresses.md) | Ref&lt;CustomerAddress\[\] \| null&gt; | <b><i>(BETA)</i></b> |
 |  [country](./composables.iuseuser.country.md) | Ref&lt;Country \| null&gt; | <b><i>(BETA)</i></b> |
 |  [deleteAddress](./composables.iuseuser.deleteaddress.md) | (addressId: string) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
@@ -45,7 +45,7 @@ export interface IUseUser
 |  [register](./composables.iuseuser.register.md) | ({}: CustomerRegistrationParams) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [resetPassword](./composables.iuseuser.resetpassword.md) | (resetPasswordData: CustomerResetPasswordParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [salutation](./composables.iuseuser.salutation.md) | Ref&lt;Salutation \| null&gt; | <b><i>(BETA)</i></b> |
-|  [updateAddress](./composables.iuseuser.updateaddress.md) | (params: Partial&lt;CustomerAddress&gt;) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
+|  [updateAddress](./composables.iuseuser.updateaddress.md) | (params: Partial&lt;CustomerAddress&gt;) =&gt; Promise&lt;string \| undefined&gt; | <b><i>(BETA)</i></b> |
 |  [updateEmail](./composables.iuseuser.updateemail.md) | (updateEmailData: CustomerUpdateEmailParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [updatePassword](./composables.iuseuser.updatepassword.md) | (updatePasswordData: CustomerUpdatePasswordParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [updatePersonalInfo](./composables.iuseuser.updatepersonalinfo.md) | (personals: CustomerUpdateProfileParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
