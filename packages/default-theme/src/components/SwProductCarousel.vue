@@ -3,19 +3,13 @@
     <SfSection v-if="products && products.length > 4" class="section">
       <SfCarousel class="product-carousel" :settings="options" :style="style">
         <SfCarouselItem v-for="product in products" :key="product.id">
-          <SwProductCard
-            :product="product"
-            class="product-carousel__product"
-          />
+          <SwProductCard :product="product" class="product-carousel__product" />
         </SfCarouselItem>
       </SfCarousel>
     </SfSection>
     <SfSection v-else class="section products-grid">
       <div v-for="product in products" :key="product.id">
-        <SwProductCard
-          :product="product"
-          class="product-carousel__product"
-        />
+        <SwProductCard :product="product" class="product-carousel__product" />
       </div>
     </SfSection>
   </div>
