@@ -83,8 +83,10 @@ export interface IUseUser {
   loadAddresses: () => Promise<void>;
   loadCountry: (countryId: string) => Promise<void>;
   loadSalutation: (salutationId: string) => Promise<void>;
-  addAddress: (params: Partial<CustomerAddress>) => Promise<boolean>;
-  updateAddress: (params: Partial<CustomerAddress>) => Promise<boolean>;
+  addAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
+  updateAddress: (
+    params: Partial<CustomerAddress>
+  ) => Promise<string | undefined>;
   deleteAddress: (addressId: string) => Promise<boolean>;
   updatePersonalInfo: (
     personals: CustomerUpdateProfileParam
@@ -298,27 +300,25 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
 
   const updateAddress = async (
     params: Partial<CustomerAddress>
-  ): Promise<boolean> => {
+  ): Promise<string | undefined> => {
     try {
-      await updateCustomerAddress(params, apiInstance);
-      return true;
+      const { id } = await updateCustomerAddress(params, apiInstance);
+      return id;
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
-      return false;
     }
   };
 
   const addAddress = async (
     params: Partial<CustomerAddress>
-  ): Promise<boolean> => {
+  ): Promise<string | undefined> => {
     try {
-      await createCustomerAddress(params, apiInstance);
-      return true;
+      const { id } = await createCustomerAddress(params, apiInstance);
+      return id;
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
-      return false;
     }
   };
 
@@ -384,11 +384,9 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
 
   const isLoggedIn = computed(() => !!user.value?.id);
   const isCustomerSession = computed(
-    () => isLoggedIn.value && !user.value?.guest
+    () => !!user.value?.id && !user.value.guest
   );
-  const isGuestSession = computed(
-    () => isLoggedIn.value && !!user.value?.guest
-  );
+  const isGuestSession = computed(() => !!user.value?.guest);
 
   return {
     login,
