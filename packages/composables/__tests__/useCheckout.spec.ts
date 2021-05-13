@@ -173,6 +173,13 @@ describe("Composables - useCheckout", () => {
         expect(result.value).toEqual([]);
       });
 
+      it("should return an empty array if response data elements are undefined", async () => {
+        stateShippingMethods.value = undefined as any;
+        const { getShippingMethods } = useCheckout(rootContextMock);
+        const result = await getShippingMethods();
+        expect(result.value).toEqual([]);
+      });
+
       it("should throw an error if there is a problem with fetching the data", async () => {
         mockedApiClient.getAvailableShippingMethods.mockRejectedValueOnce({
           message: "Some error",
@@ -294,6 +301,13 @@ describe("Composables - useCheckout", () => {
         ]);
 
         expect(mockedApiClient.getAvailablePaymentMethods).toBeCalledTimes(1);
+      });
+
+      it("should return an empty array if response data elements are undefined", async () => {
+        stateBillingMethods.value = undefined as any;
+        const { getPaymentMethods } = useCheckout(rootContextMock);
+        const result = await getPaymentMethods();
+        expect(result.value).toEqual([]);
       });
     });
     describe("createOrder", () => {
