@@ -1,19 +1,21 @@
 <template>
-  <div class="cms-page">
+  <SwPluginSlot name="cms-page" :slot-context="cmsSections">
     <CmsGenericSection
       :content="cmsSection"
       v-for="cmsSection in cmsSections"
       :key="cmsSection.id"
     />
-  </div>
+  </SwPluginSlot>
 </template>
 
 <script>
 import CmsGenericSection from "sw-cms/CmsGenericSection";
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue";
 
 export default {
   components: {
     CmsGenericSection,
+    SwPluginSlot,
   },
   props: {
     content: {
