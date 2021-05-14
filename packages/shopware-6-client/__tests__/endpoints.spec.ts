@@ -5,7 +5,6 @@ import {
   getCategoryDetailsEndpoint,
   getCustomerAddressEndpoint,
   getCustomerEndpoint,
-  getCustomerDetailsEndpoint,
   getCustomerLoginEndpoint,
   getCustomerLogoutEndpoint,
   getCustomerOrderEndpoint,
@@ -23,16 +22,13 @@ import {
   getStoreNewsletterSubscribeEndpoint,
   getStoreNewsletterConfirmEndpoint,
   getStoreNewsletterUnsubscribeEndpoint,
-  getProductsIdsEndpoint,
   getStoreNavigationEndpoint,
-  getOrderPaymentUrlEndpoint,
   getStoreOrderPaymentUrlEndpoint,
   getContactFormEndpoint,
 } from "../src/endpoints";
 
 const sampleProductId = "eea0f69ec02d44f7a4224272b3d99478";
 const sampleCategoryId = "03dfd5badd3d43bd8a345ef660761e09";
-const sampleCustomerId = "8b67c1fbb718487db750651430023298";
 
 describe("endpoints", () => {
   describe("getProductEndpoint", () => {
@@ -46,13 +42,6 @@ describe("endpoints", () => {
     it("should return Shopware product details endpoint", async () => {
       const result = getProductDetailsEndpoint(sampleProductId);
       expect(result).toEqual("/store-api/product/" + sampleProductId);
-    });
-  });
-
-  describe("getProductsIdsEndpoint", () => {
-    it("should return Shopware product details endpoint", async () => {
-      const result = getProductsIdsEndpoint();
-      expect(result).toEqual("/sales-channel-api/v3/search-ids/product");
     });
   });
 
@@ -81,13 +70,6 @@ describe("endpoints", () => {
     it("should return Shopware customer endpoint", async () => {
       const result = getCustomerEndpoint();
       expect(result).toEqual("/store-api/account/customer");
-    });
-  });
-
-  describe("getCustomerDetailsEndpoint", () => {
-    it("should return Shopware customer details endpoint", async () => {
-      const result = getCustomerDetailsEndpoint(sampleCustomerId);
-      expect(result).toEqual("/store-api/v3/customer/" + sampleCustomerId);
     });
   });
 
@@ -196,16 +178,6 @@ describe("endpoints", () => {
       );
       expect(result).toEqual(
         "/store-api/navigation/footer-navigation/footer-navigation"
-      );
-    });
-  });
-
-  describe("getOrderPaymentUrlEndpoint", () => {
-    it("should return order pyment url endpoint", async () => {
-      const orderId = "123321";
-      const result = getOrderPaymentUrlEndpoint(orderId);
-      expect(result).toEqual(
-        `/sales-channel-api/v3/checkout/order/${orderId}/pay`
       );
     });
   });
