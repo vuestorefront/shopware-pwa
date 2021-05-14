@@ -11,19 +11,7 @@
 
     <SwPluginSlot name="product-page-details-after" :slot-context="product" />
 
-    <div v-if="crossSellCollection.length" class="products__recomendations">
-      <div class="products-recomendations__section">
-        <SfTabs :open-tab="1">
-          <SfTab
-            v-for="crossSellItem in crossSellCollection"
-            :key="crossSellItem.crossSelling.id"
-            :title="crossSellItem.crossSelling.translated.name"
-          >
-            <SwProductCarousel :products="crossSellItem.products" />
-          </SfTab>
-        </SfTabs>
-      </div>
-    </div>
+    <SwProductCrossSells :product="product" />
 
     <div class="product__advertisement">
       <SwProductAdvertisement />
@@ -36,19 +24,13 @@
 <script>
 import CmsPage from "sw-cms/CmsPage"
 import { SfTabs } from "@storefront-ui/vue"
-import {
-  useProduct,
-  useUser,
-  useUIState,
-  useProductAssociations,
-  useDefaults,
-} from "@shopware-pwa/composables"
+import { useProduct, useUser, useUIState } from "@shopware-pwa/composables"
 import SwGoBackArrow from "@/components/atoms/SwGoBackArrow.vue"
 import SwProductGallery from "@/components/SwProductGallery.vue"
 import SwProductDetails from "@/components/SwProductDetails.vue"
-import SwProductCarousel from "@/components/SwProductCarousel.vue"
 import SwProductAdvertisement from "@/components/SwProductAdvertisement.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
+import SwProductCrossSells from "@/components/organisms/SwProductCrossSells.vue"
 import { computed, onMounted, ref } from "@vue/composition-api"
 
 export default {
@@ -59,9 +41,9 @@ export default {
     SfTabs,
     SwProductGallery,
     SwProductDetails,
-    SwProductCarousel,
     SwProductAdvertisement,
     SwPluginSlot,
+    SwProductCrossSells,
   },
   props: {
     page: {
@@ -75,27 +57,12 @@ export default {
       root,
       "LOGIN_MODAL_STATE"
     )
-    const { getIncludesConfig } = useDefaults(root, "useProductListing")
     const product = computed(() => page.product)
     const cmsPage = computed(() => page.cmsPage)
-    const {
-      loadAssociations: loadCrossSells,
-      productAssociations: crossSellCollection,
-    } = useProductAssociations(root, product.value, "cross-selling")
-    onMounted(() =>
-      loadCrossSells({
-        params: {
-          associations: {
-            seoUrls: {},
-          },
-          includes: getIncludesConfig(),
-        },
-      })
-    )
+
     return {
       isLoggedIn,
       switchLoginModalState,
-      crossSellCollection,
       product,
       cmsPage,
     }
@@ -108,16 +75,6 @@ export default {
 @mixin for-iOS {
   @supports (-webkit-overflow-scrolling: touch) {
     @content;
-  }
-}
-
-.products__recomendations {
-  @include for-desktop {
-    margin-top: var(--spacer-xl);
-  }
-
-  ::v-deep .sf-tabs__content {
-    max-width: 100%;
   }
 }
 
