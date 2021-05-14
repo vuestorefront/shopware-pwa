@@ -31,5 +31,5 @@ export default function getResizedImage(
     url += `&q=${quality}`
   }
 
-  return url
+  return url || ""
 }

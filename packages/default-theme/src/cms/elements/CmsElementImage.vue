@@ -1,26 +1,28 @@
 <template>
-  <SwLink
-    v-if="link"
-    :link="link"
-    :target="target"
-    class="cms-element-image__link"
-  >
+  <div v-if="imgUrl">
+    <SwLink
+      v-if="link"
+      :link="link"
+      :target="target"
+      class="cms-element-image__link"
+    >
+      <SwImage
+        :src="imgUrl"
+        :title="title"
+        :alt="alt"
+        :loading="lazyLoad"
+        class="cms-element-image"
+      />
+    </SwLink>
     <SwImage
+      v-else
       :src="imgUrl"
       :title="title"
       :alt="alt"
       :loading="lazyLoad"
       class="cms-element-image"
     />
-  </SwLink>
-  <SwImage
-    v-else
-    :src="imgUrl"
-    :title="title"
-    :alt="alt"
-    :loading="lazyLoad"
-    class="cms-element-image"
-  />
+  </div>
 </template>
 
 <script>

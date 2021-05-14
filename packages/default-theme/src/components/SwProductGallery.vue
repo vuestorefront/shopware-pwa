@@ -40,6 +40,7 @@ export default {
             icon: {
               url: getResizedImage(element.icon?.url, { width, height }),
             },
+            alt: element.alt || "gallery image",
           }
         }
       )

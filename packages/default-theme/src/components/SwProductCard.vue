@@ -106,5 +106,6 @@ export default {
 <style lang="scss" scoped>
 .sw-product-card {
   width: 100%;
+  padding: 0.3rem;
 }
 </style>
