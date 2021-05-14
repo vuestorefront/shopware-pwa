@@ -129,12 +129,8 @@ export default {
       }
 
       .cms-element-image {
-        img {
-          @include for-desktop {
-            height: 320px;
-            object-fit: cover;
-          }
-        }
+        --image-height: 320px;
+        --image-width: 100%;
       }
 
       &--text {

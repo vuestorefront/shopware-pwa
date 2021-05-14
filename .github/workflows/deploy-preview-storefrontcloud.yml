@@ -1,7 +1,5 @@
 name: Deploy PR Preview on Storefrontcloud
 env:
-  CANARY_SW6_INSTANCE: https://pwa-demo-api.shopware.com/prev/
-  CANARY_SW6_INSTANCE_TOKEN: SWSC40-LJTNO6COUEN7CJMXKLA
   PWA_HOST: https://shopware-pwa-canary.storefrontcloud.io
   INSTANCE_CODE: shopware-pwa-canary
   EXPERIMENTAL_IMAGE_PROCESSING_SERVER: https://test-shopware-pwa-images.vercel.app/api/image
@@ -292,6 +290,7 @@ jobs:
       - name: Build default-theme
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
+          node scripts/linkDependencies.js && yarn lerna link
           yarn build default-theme --ci
 
   create-test-project:
@@ -373,7 +372,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Link packages
         run: |
-          yarn --frozen-lockfile
+          node ./scripts/linkDependencies.js
       # Step to speed up project init
       - name: Cache test-project
         uses: actions/cache@v2
@@ -390,11 +389,14 @@ jobs:
         run: |
           mkdir -p test-project
           cd ./test-project
-          ../packages/cli/bin/shopware-pwa init --shopwareEndpoint=${{ env.CANARY_SW6_INSTANCE }} --shopwareAccessToken=${{ env.CANARY_SW6_INSTANCE_TOKEN }} --username=${{ secrets.SHOPWARE_ADMIN_USER }} --password=${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --pwaHost=${{ env.PWA_HOST }} --ci --devMode --stage local
+          ../packages/cli/bin/shopware-pwa init --username=${{ secrets.SHOPWARE_ADMIN_USER }} --password=${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --pwaHost=${{ env.PWA_HOST }} --ci --devMode --stage local
       - name: Build test project
         run: |
           cd ./test-project
           yarn build
+          cd ..
+          node ./scripts/yalcPushPackages.js
+          node ./scripts/yalcLinkTestProject.js
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@2.19
         if: github.repository_owner	== 'vuestorefront'

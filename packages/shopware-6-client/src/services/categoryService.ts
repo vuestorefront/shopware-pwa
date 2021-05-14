@@ -1,28 +1,20 @@
 import { Category } from "@shopware-pwa/commons/interfaces/models/content/category/Category";
 import { getCategoryEndpoint, getCategoryDetailsEndpoint } from "../endpoints";
-import { convertSearchCriteria } from "../helpers/searchConverter";
-import { SearchResult } from "@shopware-pwa/commons/interfaces/response/SearchResult";
+import { EntityResult } from "@shopware-pwa/commons/interfaces/response/EntityResult";
+import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
-import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { deprecationWarning } from "@shopware-pwa/commons";
 
 /**
- * @deprecated use {@link getStoreNavigation} method instead
  * @throws ClientApiError
- * @alpha
+ * @beta
  */
 export async function getCategories(
-  searchCriteria?: SearchCriteria,
+  searchCriteria?: ShopwareSearchParams,
   contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<SearchResult<Category[]>> {
-  deprecationWarning({
-    methodName: "getCategories",
-    newMethodName: "getNavigation",
-    packageName: "shopware-6-client",
-  });
+): Promise<EntityResult<"category", Category[]>> {
   const resp = await contextInstance.invoke.post(
     getCategoryEndpoint(),
-    convertSearchCriteria({ searchCriteria, config: contextInstance.config })
+    searchCriteria
   );
 
   return resp.data;
@@ -30,7 +22,7 @@ export async function getCategories(
 
 /**
  * @throws ClientApiError
- * @alpha
+ * @beta
  */
 export async function getCategory(
   categoryId: string,
@@ -40,5 +32,5 @@ export async function getCategory(
     getCategoryDetailsEndpoint(categoryId)
   );
 
-  return resp.data.data;
+  return resp.data;
 }

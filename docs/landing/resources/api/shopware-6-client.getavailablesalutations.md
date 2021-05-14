@@ -12,7 +12,7 @@ Get all available salutations
 <b>Signature:</b>
 
 ```typescript
-export declare function getAvailableSalutations(contextInstance?: ShopwareApiInstance): Promise<SearchResult<Salutation[]>>;
+export declare function getAvailableSalutations(contextInstance?: ShopwareApiInstance): Promise<EntityResult<"salutation", Salutation[]>>;
 ```
 
 ## Parameters
@@ -23,7 +23,7 @@ export declare function getAvailableSalutations(contextInstance?: ShopwareApiIns
 
 <b>Returns:</b>
 
-Promise&lt;SearchResult&lt;Salutation\[\]&gt;&gt;
+Promise&lt;EntityResult&lt;"salutation", Salutation\[\]&gt;&gt;
 
 ## Exceptions
 

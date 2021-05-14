@@ -1,8 +1,4 @@
 {
-  "1. Personal details": "1. Dane osobowe",
-  "2. Shipping": "2. Wysyłka",
-  "3. Payment": "3. Płatność",
-  "4. Order details": "4. Szczegóły zamówienia",
   "Add new": "Dodaj nowy",
   "Add new address": "Dodaj nowy adres",
   "Add To Cart": "Dodaj do koszyka",
@@ -47,9 +43,6 @@
   "Forgotten password?": "Zapomniałeś hasła?",
   "Full rewards program benefits": "Pełne korzyści z programu nagród",
   "Go Back to shop": "Powrót do sklepu",
-  "Go back to Payment": "Powrót do płatności",
-  "Go back to Personal details": "Powrót do danych osobowych",
-  "Go back to Shipping": "Powrót do Wysyłki",
   "Go to My Account": "Przejdź do Moje konto",
   "Go to cart": "Przejdź do koszyka",
   "Go to checkout": "Przejdź do kasy",

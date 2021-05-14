@@ -36,6 +36,24 @@ export const INTERCEPTOR_KEYS = {
    */
   ERROR: "error",
   /**
+   * Broadcasted through application in case of relevant warning.
+   * Can be used to inform end-user about current request's problems.
+   * As a parameter passes:
+   * - methodName - string - method where error occured
+   * - inputParams - Object - input params of the method
+   * - warning - Object - error object with specific message, like CartError object
+   */
+  WARNING: "warning",
+  /**
+   * Broadcasted through application in case of relevant notice message.
+   * Can be used to inform end-user about current request's problems.
+   * As a parameter passes:
+   * - methodName - string - method where error occured
+   * - inputParams - Object - input params of the method
+   * - notice - Object - error object with specific message, like CartError object
+   */
+  NOTICE: "notice",
+  /**
    * Broadcasted by useCheckout, createOrder method.
    * As a parameter passes:
    * - order object

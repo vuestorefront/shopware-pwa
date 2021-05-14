@@ -20,7 +20,7 @@ describe("CustomerService - getCustomer", () => {
     });
     const result: any = await getCustomer();
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith("/store-api/v3/account/customer", {
+    expect(mockedGet).toBeCalledWith("/store-api/account/customer", {
       params: "associations[salutation][]",
     });
     expect(result).not.toBeNull();
@@ -33,7 +33,7 @@ describe("CustomerService - getCustomer", () => {
     });
     const result = await getCustomer();
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith("/store-api/v3/account/customer", {
+    expect(mockedGet).toBeCalledWith("/store-api/account/customer", {
       params: "associations[salutation][]",
     });
     expect(result).toBeNull();
@@ -49,7 +49,7 @@ describe("CustomerService - getCustomer", () => {
       "Unexpected getCustomerResponse."
     );
     expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith("/store-api/v3/account/customer", {
+    expect(mockedGet).toBeCalledWith("/store-api/account/customer", {
       params: "associations[salutation][]",
     });
   });

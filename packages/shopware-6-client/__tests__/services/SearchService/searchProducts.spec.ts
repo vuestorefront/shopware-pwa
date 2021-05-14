@@ -24,14 +24,11 @@ describe("SearchService - searchProducts", () => {
       p: 1,
     });
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith(
-      "/store-api/v3/search?search=searchTerm",
-      {
-        query: "searchTerm",
-        limit: 10,
-        p: 1,
-      }
-    );
+    expect(mockedPost).toBeCalledWith("/store-api/search?search=searchTerm", {
+      query: "searchTerm",
+      limit: 10,
+      p: 1,
+    });
     expect(result).toHaveProperty("apiAlias");
   });
 
@@ -41,10 +38,7 @@ describe("SearchService - searchProducts", () => {
     });
     const result = await searchProducts(undefined);
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith(
-      "/store-api/v3/search?search=",
-      undefined
-    );
+    expect(mockedPost).toBeCalledWith("/store-api/search?search=", undefined);
     expect(result).toHaveProperty("apiAlias");
   });
 });

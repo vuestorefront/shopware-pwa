@@ -13,13 +13,13 @@
 |  [getDefaultApiParams()](./composables.getdefaultapiparams.md) | <b><i>(BETA)</i></b> Returns default system API params |
 |  [useBreadcrumbs(rootContext, params)](./composables.usebreadcrumbs.md) | <b><i>(BETA)</i></b> Composable for displaying and setting breadcrumbs for page. |
 |  [useCms(rootContext)](./composables.usecms.md) | <b><i>(BETA)</i></b> |
+|  [useProductAssociations(rootContext, product, association)](./composables.useproductassociations.md) | <b><i>(BETA)</i></b> Get product association entity. Options - [IUseProductAssociations](./composables.iuseproductassociations.md) |
 
 ## Interfaces
 
 |  Interface | Description |
 |  --- | --- |
 |  [ApplicationVueContext](./composables.applicationvuecontext.md) | <b><i>(BETA)</i></b> Application Context for Shopware PWA. It's an extended Vue instance. |
-|  [CurrentPagination](./composables.currentpagination.md) | <b><i>(BETA)</i></b> |
 |  [IInterceptorCallbackFunction](./composables.iinterceptorcallbackfunction.md) | <b><i>(BETA)</i></b> interface for the callback function of interceptors |
 |  [IUseAddToCart](./composables.iuseaddtocart.md) | <b><i>(BETA)</i></b> interface for [useAddToCart](./composables.useaddtocart.md) composable |
 |  [IUseCart](./composables.iusecart.md) | <b><i>(BETA)</i></b> interface for [useCart](./composables.usecart.md) composable |
@@ -27,6 +27,7 @@
 |  [IUseIntercept](./composables.iuseintercept.md) | <b><i>(BETA)</i></b> interface for [useIntercept](./composables.useintercept.md) composable |
 |  [IUseListing](./composables.iuselisting.md) | <b><i>(BETA)</i></b> Listing interface, can be used to display category products, search products or any other Shopware search interface (ex. orders with pagination) |
 |  [IUseNavigation](./composables.iusenavigation.md) | <b><i>(BETA)</i></b> interface for [useNavigation](./composables.usenavigation.md) composable<!-- -->Provides state for navigation trees depending on navigation type. |
+|  [IUseProductAssociations](./composables.iuseproductassociations.md) | <b><i>(BETA)</i></b> interface for [IUseProductAssociations](./composables.iuseproductassociations.md) composable |
 |  [IUseProductConfigurator](./composables.iuseproductconfigurator.md) | <b><i>(BETA)</i></b> interface for [useProductConfigurator](./composables.useproductconfigurator.md) composable |
 |  [IUseProductQuickSearch](./composables.iuseproductquicksearch.md) | <b><i>(BETA)</i></b> |
 |  [IUseSessionContext](./composables.iusesessioncontext.md) | <b><i>(BETA)</i></b> interface for [useSessionContext](./composables.usesessioncontext.md) composable |
@@ -37,7 +38,6 @@
 |  [UseCountry](./composables.usecountry.md) | <b><i>(BETA)</i></b> |
 |  [UseCurrency](./composables.usecurrency.md) | <b><i>(BETA)</i></b> |
 |  [UseProduct](./composables.useproduct.md) | <b><i>(BETA)</i></b> |
-|  [UseProductListing](./composables.useproductlisting.md) | <b><i>(BETA)</i></b> |
 |  [UseSalutations](./composables.usesalutations.md) | <b><i>(BETA)</i></b> |
 
 ## Variables
@@ -59,7 +59,6 @@
 |  [useNotifications](./composables.usenotifications.md) | <b><i>(BETA)</i></b> |
 |  [useProduct](./composables.useproduct.md) | <b><i>(BETA)</i></b> |
 |  [useProductConfigurator](./composables.useproductconfigurator.md) | <b><i>(BETA)</i></b> Product options - [IUseAddToCart](./composables.iuseaddtocart.md) |
-|  [useProductListing](./composables.useproductlisting.md) | <b><i>(BETA)</i></b> |
 |  [useProductQuickSearch](./composables.useproductquicksearch.md) | <b><i>(BETA)</i></b> |
 |  [useSalutations](./composables.usesalutations.md) | <b><i>(BETA)</i></b> |
 |  [useSessionContext](./composables.usesessioncontext.md) | <b><i>(BETA)</i></b> Composable for session management. Options - [IUseSessionContext](./composables.iusesessioncontext.md) |

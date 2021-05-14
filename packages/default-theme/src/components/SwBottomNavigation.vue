@@ -98,12 +98,10 @@
           @click="toggleSidebar(true)"
         >
           <template #icon>
-            <SfCircleIcon
-              aria-label="Go to Cart"
-              icon="empty_cart"
-              :has-badge="count > 0"
-              :badge-label="count.toString()"
-            />
+            <SfCircleIcon aria-label="Go to Cart" icon="empty_cart" />
+            <SfBadge v-if="count > 0" class="sf-badge--number cart-badge">{{
+              count
+            }}</SfBadge>
           </template>
         </SfBottomNavigationItem>
         <SfBottomNavigationItem
@@ -130,8 +128,10 @@ import {
   SfBottomModal,
   SfList,
   SfMenuItem,
+  SfBadge,
 } from "@storefront-ui/vue"
 import { useUIState, useUser, useCart } from "@shopware-pwa/composables"
+import { computed } from "@vue/composition-api"
 import { PAGE_ACCOUNT } from "@/helpers/pages"
 import { getCategoryUrl } from "@shopware-pwa/helpers"
 const SwBottomMenu = () => import("@/components/SwBottomMenu.vue")
@@ -148,6 +148,7 @@ export default {
     SfList,
     SfMenuItem,
     SwBottomMoreActions,
+    SfBadge,
   },
   data() {
     return {
@@ -162,17 +163,20 @@ export default {
       "CART_SIDEBAR_STATE"
     )
     const { switchState: toggleModal } = useUIState(root, "LOGIN_MODAL_STATE")
-    const { isLoggedIn, logout } = useUser(root)
+    const { isLoggedIn, isGuestSession, logout } = useUser(root)
     const { count } = useCart(root)
+    const isMyAccountActive = computed(
+      () => isLoggedIn.value && !isGuestSession.value
+    )
 
     return {
-      isLoggedIn,
       logout,
       getCategoryUrl,
       isSidebarOpen,
       toggleSidebar,
       toggleModal,
       count,
+      isMyAccountActive,
     }
   },
   computed: {
@@ -187,7 +191,7 @@ export default {
   },
   methods: {
     userIconClick() {
-      if (this.isLoggedIn) {
+      if (this.isMyAccountActive) {
         this.userIconActive = true
       } else this.toggleModal()
     },
@@ -218,7 +222,6 @@ export default {
 
 .sw-bottom-navigation {
   align-items: center;
-
   &__action-button {
     min-width: 2rem;
   }
@@ -273,5 +276,11 @@ export default {
   .more-actions {
     margin-bottom: var(--spacer-xs);
   }
+}
+.cart-badge {
+  position: absolute;
+  top: -50%;
+  right: 100;
+  transform: translate(110%, -25%);
 }
 </style>

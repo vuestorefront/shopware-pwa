@@ -2,6 +2,7 @@ import { getCustomerResetPasswordEndpoint } from "../../../src/endpoints";
 import { defaultInstance } from "../../../src/apiService";
 import { internet } from "faker";
 import { resetPassword, config } from "@shopware-pwa/shopware-6-client";
+import { defaultPwaConfigFile } from "@shopware-pwa/commons";
 
 const DEFAULT_ENDPOINT = "https://shopware-2.vuestorefront.io";
 const email = internet.email("John", "Doe");
@@ -70,19 +71,16 @@ describe("CustomerService - resetPassword", () => {
     await resetPassword({
       email: credentials.email,
     });
-    expect(mockedPost).toBeCalledWith(
-      "/store-api/v3/account/recovery-password",
-      {
-        email: credentials.email,
-        storefrontUrl: "https://pwa-demo-api.shopware.com/prev/",
-      }
-    );
+    expect(mockedPost).toBeCalledWith("/store-api/account/recovery-password", {
+      email: credentials.email,
+      storefrontUrl: defaultPwaConfigFile.shopwareEndpoint,
+    });
   });
 
   it("should invokde post method with null if params are not provided", async () => {
     await resetPassword(null as any);
     expect(mockedPost).toBeCalledWith(
-      "/store-api/v3/account/recovery-password",
+      "/store-api/account/recovery-password",
       null
     );
   });

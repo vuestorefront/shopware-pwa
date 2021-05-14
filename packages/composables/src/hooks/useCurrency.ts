@@ -39,7 +39,10 @@ export const useCurrency = (
   );
   const currencySymbol = computed(() => currency.value?.symbol || "");
   const availableCurrencies = computed(() => {
-    if (localState.availableCurrencies.length) {
+    if (
+      Array.isArray(localState.availableCurrencies) &&
+      localState.availableCurrencies.length
+    ) {
       return localState.availableCurrencies as Currency[];
     }
     return currency.value ? [currency.value] : [];
@@ -48,9 +51,14 @@ export const useCurrency = (
   const loadAvailableCurrencies = async (options?: {
     forceReload: boolean;
   }): Promise<void> => {
-    if (!options?.forceReload && localState.availableCurrencies.length) return;
-    const currencies = await getAvailableCurrencies(apiInstance);
-    sharedCurrencyState.availableCurrencies = currencies;
+    if (
+      !options?.forceReload &&
+      Array.isArray(localState.availableCurrencies) &&
+      localState.availableCurrencies.length
+    )
+      return;
+    const response = await getAvailableCurrencies(apiInstance);
+    sharedCurrencyState.availableCurrencies = response?.elements;
   };
 
   const setCurrency = async (currency: Partial<Currency>): Promise<void> => {

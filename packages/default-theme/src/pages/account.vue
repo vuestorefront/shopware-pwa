@@ -28,8 +28,7 @@
 import { computed } from "@vue/composition-api"
 import { SfContentPages } from "@storefront-ui/vue"
 import { useUser, useBreadcrumbs } from "@shopware-pwa/composables"
-import { PAGE_ACCOUNT } from "@/helpers/pages"
-
+import { PAGE_ACCOUNT, PAGE_LOGIN } from "@/helpers/pages"
 import authMiddleware from "@/middleware/auth"
 
 export default {
@@ -123,7 +122,9 @@ export default {
   }
   &__content {
     @include for-mobile {
-      --content-pages-sidebar-category-title-font-weight: var(--font-normal);
+      --content-pages-sidebar-category-title-font-weight: var(
+        --font-weight--normal
+      );
       --content-pages-sidebar-category-title-margin: var(--spacer-sm)
         var(--spacer-sm) var(--spacer-sm) var(--spacer-base);
     }
@@ -132,7 +133,7 @@ export default {
       --content-pages-sidebar-category-title-margin: var(--spacer-xl) 0 0 0;
       --content-pages-sidebar-padding: var(--spacer-xl);
       --content-pages-content-padding: var(--spacer-xl);
-      --content-pages-sidebar-title-font-weight: var(--font-normal);
+      --content-pages-sidebar-title-font-weight: var(--font-weight--normal);
     }
   }
 }

@@ -1,7 +1,7 @@
 import { extendLocales } from "../src/locales";
-import { ShopwarePwaConfigFile } from "../src/interfaces";
 import jetpack from "fs-jetpack";
 import path from "path";
+import { ShopwarePwaConfigFile } from "@shopware-pwa/commons";
 
 jest.mock("fs-jetpack");
 const mockedJetpack = jetpack as jest.Mocked<typeof jetpack>;

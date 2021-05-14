@@ -4,12 +4,17 @@ describe("CLI extensions - plugins - buildPluginsTrace", () => {
     filesystem: {
       exists: jest.fn(),
       read: jest.fn(),
+      removeAsync: jest.fn(),
+      copyAsync: jest.fn(),
     },
     print: {
       error: jest.fn(),
     },
     runtime: {
       run: jest.fn(),
+    },
+    template: {
+      generate: jest.fn(),
     },
   };
   beforeAll(() => {
@@ -128,14 +133,6 @@ describe("CLI extensions - plugins - buildPluginsTrace", () => {
 
   it("should not add plugin trace if config has false flag", async () => {
     toolbox.filesystem.exists.mockReturnValue("dir");
-    toolbox.filesystem.read.mockReturnValueOnce({
-      slots: [
-        {
-          name: "first-slot",
-          file: "someComponent.vue",
-        },
-      ],
-    });
     const pluginsConfig = {
       "first-plugin": false,
     };
@@ -144,5 +141,83 @@ describe("CLI extensions - plugins - buildPluginsTrace", () => {
     });
     expect(toolbox.print.error).not.toHaveBeenCalled();
     expect(res).toEqual({});
+    expect(toolbox.filesystem.read).not.toBeCalled();
+  });
+
+  describe("custom pages and layouts", () => {
+    it("should clear plugins layouts and pages cache", async () => {
+      const pluginsConfig = {
+        "first-plugin": false,
+      };
+      await toolbox.buildPluginsTrace({
+        pluginsConfig,
+      });
+      expect(toolbox.filesystem.removeAsync).toBeCalledWith(
+        ".shopware-pwa/sw-plugins/pages"
+      );
+      expect(toolbox.filesystem.removeAsync).toBeCalledWith(
+        ".shopware-pwa/sw-plugins/layouts"
+      );
+    });
+
+    it("should add plugin layouts to cache and runtime directory", async () => {
+      toolbox.filesystem.exists.mockReturnValueOnce("dir");
+      toolbox.filesystem.exists.mockReturnValueOnce(false);
+      toolbox.filesystem.read.mockReturnValueOnce({
+        layouts: [{ name: "myCoolLayout", file: "myCustomLayout.vue" }],
+      });
+      toolbox.template.generate.mockImplementation(async () => {});
+      const pluginsConfig = {
+        "first-plugin": {},
+      };
+      const result = await toolbox.buildPluginsTrace({
+        pluginsConfig,
+      });
+      expect(result).toEqual({
+        "sw-layouts-myCoolLayout": [
+          "~~/.shopware-pwa/pwa-bundles-assets/first-plugin/myCustomLayout.vue",
+        ],
+      });
+      expect(toolbox.template.generate).toBeCalledWith({
+        props: { slotName: "sw-layouts-myCoolLayout" },
+        target: ".shopware-pwa/source/layouts/myCoolLayout.vue",
+        template: "/plugins/PluginSlotTemplate.vue",
+      });
+      expect(toolbox.template.generate).toBeCalledWith({
+        props: { slotName: "sw-layouts-myCoolLayout" },
+        target: ".shopware-pwa/sw-plugins/layouts/myCoolLayout.vue",
+        template: "/plugins/PluginSlotTemplate.vue",
+      });
+    });
+
+    it("should add plugin pages to cache and runtime directory", async () => {
+      toolbox.filesystem.exists.mockReturnValueOnce("dir");
+      toolbox.filesystem.exists.mockReturnValueOnce(false);
+      toolbox.filesystem.read.mockReturnValueOnce({
+        pages: [{ path: "our-custom-route/_id", file: "myCustomPage.vue" }],
+      });
+      toolbox.template.generate.mockImplementation(async () => {});
+      const pluginsConfig = {
+        "first-plugin": {},
+      };
+      const result = await toolbox.buildPluginsTrace({
+        pluginsConfig,
+      });
+      expect(result).toEqual({
+        "sw-pages-our-custom-route/_id": [
+          "~~/.shopware-pwa/pwa-bundles-assets/first-plugin/myCustomPage.vue",
+        ],
+      });
+      expect(toolbox.template.generate).toBeCalledWith({
+        props: { params: {}, slotName: "sw-pages-our-custom-route/_id" },
+        target: ".shopware-pwa/source/pages/our-custom-route/_id.vue",
+        template: "/plugins/PluginSlotTemplate.vue",
+      });
+      expect(toolbox.template.generate).toBeCalledWith({
+        props: { params: {}, slotName: "sw-pages-our-custom-route/_id" },
+        target: ".shopware-pwa/sw-plugins/pages/our-custom-route/_id.vue",
+        template: "/plugins/PluginSlotTemplate.vue",
+      });
+    });
   });
 });

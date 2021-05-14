@@ -1,9 +1,4 @@
-import {
-  NuxtModuleOptions,
-  WebpackConfig,
-  WebpackContext,
-  ShopwarePwaConfigFile,
-} from "./interfaces";
+import { NuxtModuleOptions, WebpackConfig, WebpackContext } from "./interfaces";
 import path from "path";
 import { loadConfig } from "./utils";
 import { extendCMS } from "./cms";
@@ -24,6 +19,7 @@ import chokidar from "chokidar";
 import { getDefaultApiParams } from "@shopware-pwa/composables";
 import merge from "lodash/merge";
 import fse from "fs-extra";
+import { ShopwarePwaConfigFile } from "@shopware-pwa/commons";
 
 export async function runModule(
   moduleObject: NuxtModuleOptions,
@@ -75,6 +71,9 @@ export async function runModule(
     );
   }
 
+  /* In here instantiate new routing */
+  await setupDomains(moduleObject, shopwarePwaConfig);
+
   moduleObject.addPlugin({
     src: path.join(__dirname, "..", "plugins", "price-filter.js"),
     fileName: "price-filter.js",
@@ -119,6 +118,9 @@ export async function runModule(
       options: moduleOptions,
     });
   });
+
+  // locales
+  extendLocales(moduleObject, shopwarePwaConfig);
 
   moduleObject.addPlugin({
     fileName: "api-client.js",
@@ -165,9 +167,6 @@ export async function runModule(
     );
   });
 
-  // locales
-  extendLocales(moduleObject, shopwarePwaConfig);
-
   moduleObject.extendBuild((config: WebpackConfig, ctx: WebpackContext) => {
     const swPluginsDirectory = path.join(
       moduleObject.options.rootDir,
@@ -181,8 +180,6 @@ export async function runModule(
   });
 
   extendCMS(moduleObject, shopwarePwaConfig);
-  /* In here instantiate new routing */
-  setupDomains(moduleObject, shopwarePwaConfig);
 
   moduleObject.options.build = moduleObject.options.build || {};
   moduleObject.options.build.babel = moduleObject.options.build.babel || {};
@@ -204,14 +201,6 @@ export async function runModule(
       ],
     ];
   };
-
-  // Fix optional chaining until resolved Nuxt issue: https://github.com/nuxt/nuxt.js/issues/7722
-  // same fix with nullish coalescing and other Babel loader issues can be resolved here by adding
-  // package to dependencies and loading plugin here
-  moduleObject.options.build.babel.plugins = [
-    "@babel/plugin-proposal-optional-chaining",
-    "@babel/plugin-proposal-nullish-coalescing-operator",
-  ];
 
   moduleObject.options.build.filenames =
     moduleObject.options.build.filenames || {};

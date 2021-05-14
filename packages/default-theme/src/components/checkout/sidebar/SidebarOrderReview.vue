@@ -30,8 +30,28 @@
         name="promoCode"
         :label="$t('Enter promo code')"
         class="sf-input--filled promo-code__input"
+        @keyup.enter="addPromotionCode(promoCode)"
       />
-      <SfCircleIcon class="promo-code__circle-icon" icon="check" />
+      <SfCircleIcon
+        class="promo-code__circle-icon"
+        icon="check"
+        @click="addPromotionCode(promoCode)"
+      />
+    </div>
+    <div v-if="showPromotionCodes" class="applied-codes">
+      <SfHeading
+        :title="$t('Applied promo codes:')"
+        :level="4"
+        class="sf-heading--left sf-heading--no-underline title"
+      />
+      <ul class="applied-codes__list">
+        <SwPromoCodeItem
+          v-for="appliedPromotionCode in appliedPromotionCodes"
+          :key="appliedPromotionCode.id"
+          :code="appliedPromotionCode"
+          @remove="removeItem(appliedPromotionCode)"
+        />
+      </ul>
     </div>
     <div class="characteristics">
       <SfCharacteristic
@@ -47,10 +67,13 @@
 </template>
 <script>
 import { SfHeading, SfCircleIcon, SfCharacteristic } from "@storefront-ui/vue"
+import { computed } from "@vue/composition-api"
+import { useCart } from "@shopware-pwa/composables"
 import PersonalDetailsSummary from "@/components/checkout/summary/PersonalDetailsSummary.vue"
 import ShippingAddressSummary from "@/components/checkout/summary/ShippingAddressSummary.vue"
 import BillingAddressSummary from "@/components/checkout/summary/BillingAddressSummary.vue"
 import PaymentMethodSummary from "@/components/checkout/summary/PaymentMethodSummary.vue"
+import SwPromoCodeItem from "@/components/SwPromoCodeItem.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 
 export default {
@@ -64,6 +87,7 @@ export default {
     ShippingAddressSummary,
     BillingAddressSummary,
     PaymentMethodSummary,
+    SwPromoCodeItem,
   },
   data() {
     return {
@@ -89,6 +113,22 @@ export default {
           icon: "return",
         },
       ],
+    }
+  },
+  setup(_, { root }) {
+    const { appliedPromotionCodes, addPromotionCode, removeItem } = useCart(
+      root
+    )
+
+    const showPromotionCodes = computed(
+      () => appliedPromotionCodes.value?.length > 0
+    )
+
+    return {
+      addPromotionCode,
+      showPromotionCodes,
+      appliedPromotionCodes,
+      removeItem,
     }
   },
 }
@@ -131,6 +171,17 @@ export default {
     --input-background: var(--c-white);
     flex: 1;
     margin: 0 var(--spacer-lg) 0 0;
+  }
+}
+.applied-codes {
+  margin-bottom: var(--spacer-xl);
+  &__list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .title {
+    margin-bottom: var(--spacer-xs);
   }
 }
 </style>

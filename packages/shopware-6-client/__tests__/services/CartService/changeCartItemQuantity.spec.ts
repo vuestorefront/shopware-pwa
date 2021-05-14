@@ -38,10 +38,9 @@ describe("CartService - changeCartItemQuantity", () => {
 
     const result = await changeCartItemQuantity(lineItemId, 3);
     expect(mockedPatch).toBeCalledTimes(1);
-    expect(mockedPatch).toBeCalledWith(
-      "/store-api/v3/checkout/cart/line-item",
-      { items: [{ quantity: 3, id: "geawq90a5dab4206843d0vc3sa8wefdf" }] }
-    );
+    expect(mockedPatch).toBeCalledWith("/store-api/checkout/cart/line-item", {
+      items: [{ quantity: 3, id: "geawq90a5dab4206843d0vc3sa8wefdf" }],
+    });
     expect(result.lineItems[0].quantity).toEqual(3);
   });
 
@@ -56,17 +55,14 @@ describe("CartService - changeCartItemQuantity", () => {
       "400: CHECKOUT__CART_LINEITEM_NOT_FOUND"
     );
     expect(mockedPatch).toBeCalledTimes(1);
-    expect(mockedPatch).toBeCalledWith(
-      "/store-api/v3/checkout/cart/line-item",
-      {
-        items: [
-          {
-            quantity: 1,
-            id: "someNonExistingLineItemId",
-          },
-        ],
-      }
-    );
+    expect(mockedPatch).toBeCalledWith("/store-api/checkout/cart/line-item", {
+      items: [
+        {
+          quantity: 1,
+          id: "someNonExistingLineItemId",
+        },
+      ],
+    });
   });
 
   it("should throw unhandled 400 error when negative quantity given", async () => {
@@ -80,17 +76,14 @@ describe("CartService - changeCartItemQuantity", () => {
       "400: CHECKOUT__CART_INVALID_LINEITEM_QUANTITY"
     );
     expect(mockedPatch).toBeCalledTimes(1);
-    expect(mockedPatch).toBeCalledWith(
-      "/store-api/v3/checkout/cart/line-item",
-      {
-        items: [
-          {
-            id: "geawq90a5dab4206843d0vc3sa8wefdf",
-            quantity: -2,
-          },
-        ],
-      }
-    );
+    expect(mockedPatch).toBeCalledWith("/store-api/checkout/cart/line-item", {
+      items: [
+        {
+          id: "geawq90a5dab4206843d0vc3sa8wefdf",
+          quantity: -2,
+        },
+      ],
+    });
   });
 
   it("should call api with default value of quantity", async () => {
@@ -102,9 +95,8 @@ describe("CartService - changeCartItemQuantity", () => {
 
     await changeCartItemQuantity(lineItemId);
     expect(mockedPatch).toBeCalledTimes(1);
-    expect(mockedPatch).toBeCalledWith(
-      "/store-api/v3/checkout/cart/line-item",
-      { items: [{ quantity: 1, id: "geawq90a5dab4206843d0vc3sa8wefdf" }] }
-    );
+    expect(mockedPatch).toBeCalledWith("/store-api/checkout/cart/line-item", {
+      items: [{ quantity: 1, id: "geawq90a5dab4206843d0vc3sa8wefdf" }],
+    });
   });
 });

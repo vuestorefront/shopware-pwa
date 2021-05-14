@@ -53,7 +53,6 @@ export const useProduct = (
       },
     };
 
-    // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/911
     const urlPath = `detail/${product.value.parentId || product.value.id}`;
     const {
       product: { crossSellings },
@@ -69,7 +68,7 @@ export const useProduct = (
     loading.value = true;
     try {
       const result = await getProduct(productId, null, apiInstance);
-      product.value = result;
+      product.value = result?.product;
       return result;
     } catch (e) {
       const err: ClientApiError = e;

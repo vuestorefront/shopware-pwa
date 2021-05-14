@@ -7,8 +7,6 @@
     :regular-price="getRegularPrice | price"
     :max-rating="5"
     :score-rating="getProductRating"
-    :image-width="700"
-    :image-height="1000"
     :is-on-wishlist="false"
     :link="getRouterLink"
     class="sw-product-card-horizontal"

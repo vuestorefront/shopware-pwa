@@ -8,6 +8,8 @@ import {
 } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { Cart } from "@shopware-pwa/commons/interfaces/models/checkout/cart/Cart";
+import { EntityError } from "@shopware-pwa/commons/interfaces/models/common/EntityError";
+
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
 import {
@@ -17,6 +19,7 @@ import {
   useSharedState,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../../appContext";
+import { broadcastErrors } from "../../internalHelpers/errorHandler";
 import { deprecationWarning } from "@shopware-pwa/commons";
 
 /**
@@ -55,6 +58,7 @@ export interface IUseCart {
   totalPrice: ComputedRef<number>;
   shippingTotal: ComputedRef<number>;
   subtotal: ComputedRef<number>;
+  cartErrors: ComputedRef<EntityError[]>;
 }
 
 /**
@@ -79,6 +83,7 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     loading.value = true;
     try {
       const result = await getCart(apiInstance);
+      broadcastUpcomingErrors(result);
       _storeCart.value = result;
     } catch (e) {
       const err: ClientApiError = e;
@@ -95,12 +100,14 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     id: string;
     quantity?: number;
   }) {
-    const result = await addProductToCart(id, quantity, apiInstance);
-    _storeCart.value = result;
+    const addToCartResult = await addProductToCart(id, quantity, apiInstance);
+    broadcastUpcomingErrors(addToCartResult);
+    _storeCart.value = addToCartResult;
   }
 
   async function removeItem({ id }: LineItem) {
     const result = await removeCartItem(id, apiInstance);
+    broadcastUpcomingErrors(result);
     _storeCart.value = result;
   }
 
@@ -116,17 +123,40 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
 
   async function changeProductQuantity({ id, quantity }: any) {
     const result = await changeCartItemQuantity(id, quantity, apiInstance);
+    broadcastUpcomingErrors(result);
     _storeCart.value = result;
   }
 
   async function submitPromotionCode(promotionCode: string) {
     if (promotionCode) {
       const result = await addPromotionCode(promotionCode, apiInstance);
+      ``;
       _storeCart.value = result;
       broadcast(INTERCEPTOR_KEYS.ADD_PROMOTION_CODE, {
         result,
         promotionCode,
       });
+    }
+  }
+
+  function broadcastUpcomingErrors(cartResult: Cart): void {
+    if (!cartResult) {
+      return;
+    }
+
+    try {
+      const cartErrorsKeys = Object.keys(_storeCart.value?.errors || {});
+      const cartResultErrorKeys = Object.keys(cartResult.errors || {});
+      const upcomingErrorsKeys = cartResultErrorKeys.filter(
+        (resultErrorKey) => !cartErrorsKeys.includes(resultErrorKey)
+      );
+      const entityErrors: EntityError[] = Object.values(
+        cartResult.errors || {}
+      ).filter((entityError) => upcomingErrorsKeys.includes(entityError.key));
+
+      broadcastErrors(entityErrors, `[${contextName}][cartError]`, rootContext);
+    } catch (error) {
+      console.error("[useCart][broadcastUpcomingErrors]", error);
     }
   }
 
@@ -169,6 +199,10 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     return cartPrice || 0;
   });
 
+  const cartErrors: ComputedRef<EntityError[]> = computed(
+    () => (cart.value?.errors && Object.values(cart.value.errors)) || []
+  );
+
   return {
     addProduct,
     addPromotionCode: submitPromotionCode,
@@ -185,5 +219,6 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     totalPrice,
     shippingTotal,
     subtotal,
+    cartErrors,
   };
 };

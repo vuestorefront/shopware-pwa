@@ -43,12 +43,12 @@ export default {
 
   &__title {
     color: var(--c-text);
-    font-size: var(--font-sm);
+    font-size: var(--font-size--sm);
     margin-bottom: var(--spacer-sm);
   }
 
   &__content {
-    font-size: var(--font-xs);
+    font-size: var(--font-size--xs);
   }
 }
 

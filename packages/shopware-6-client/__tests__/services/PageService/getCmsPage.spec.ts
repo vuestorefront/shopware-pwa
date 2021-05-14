@@ -20,7 +20,7 @@ describe("PageService - getCmsPage", () => {
     });
     const result = await getCmsPage("Sports/Grocery-Garden");
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/store-api/v3/pwa/page", {
+    expect(mockedPost).toBeCalledWith("/store-api/pwa/page", {
       path: "Sports/Grocery-Garden",
     });
     expect(result).toHaveProperty("cmsPage");
@@ -36,7 +36,7 @@ describe("PageService - getCmsPage", () => {
       limit: 3,
     });
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/store-api/v3/pwa/page", {
+    expect(mockedPost).toBeCalledWith("/store-api/pwa/page", {
       path: "Sports/Grocery-Garden",
       p: 2,
       limit: 3,

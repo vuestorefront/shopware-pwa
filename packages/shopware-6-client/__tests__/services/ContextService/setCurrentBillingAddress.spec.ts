@@ -33,7 +33,7 @@ describe("ContextService - setCurrentBillingAddress", () => {
       const result = await setCurrentBillingAddress(newBillingAddressId);
 
       expect(mockedPatch).toBeCalledTimes(1);
-      expect(mockedPatch).toBeCalledWith("/store-api/v3/context", {
+      expect(mockedPatch).toBeCalledWith("/store-api/context", {
         billingAddressId: "45f96f681f9d4834b29e9e15df3a7149",
       });
 
@@ -55,7 +55,7 @@ describe("ContextService - setCurrentBillingAddress", () => {
 
       const result = await setCurrentBillingAddress(newBillingAddressId);
       expect(mockedPatch).toBeCalledTimes(1);
-      expect(mockedPatch).toBeCalledWith("/store-api/v3/context", {
+      expect(mockedPatch).toBeCalledWith("/store-api/context", {
         billingAddressId: "45f96f681f9d4834b29e9e15df3a7149",
       });
 

@@ -100,8 +100,10 @@ module.exports = {
           // nothing to do for now
         });
 
-        const langs: any = await apiClient.getAvailableLanguages();
-        langs.forEach((lang) => {
+        const response: any = await apiClient.invokeGet({
+          address: "/store-api/language",
+        });
+        response.data?.elements.forEach((lang) => {
           const language = {
             id: lang.id,
             code: lang.translationCode.code,

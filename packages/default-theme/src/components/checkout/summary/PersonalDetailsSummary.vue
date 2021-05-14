@@ -1,20 +1,18 @@
 <template>
   <SwPersonalDetails :personal-details="personalDetails">
-    <template #after-content>
+    <!-- <template #after-content>
       <SwButton
         class="sf-button--text review__edit"
-        @click="$emit('click:edit', CHECKOUT_STEPS.PERSONAL_DETAILS)"
+        @click=""
       >
         {{ $t("Edit") }}
       </SwButton>
-    </template>
+    </template> -->
   </SwPersonalDetails>
 </template>
-<script>
-import SwButton from "@/components/atoms/SwButton.vue"
-import { usePersonalDetailsStep } from "@/logic/checkout/usePersonalDetailsStep"
-import { CHECKOUT_STEPS } from "@/logic/checkout"
-import { useCheckout, useUser } from "@shopware-pwa/composables"
+<script lang="ts">
+// import SwButton from "@/components/atoms/SwButton.vue"
+import { useUser } from "@shopware-pwa/composables"
 import { computed } from "@vue/composition-api"
 import SwPersonalDetails from "@/components/SwPersonalDetails.vue"
 
@@ -22,20 +20,17 @@ export default {
   name: "PersonalDetailsSummary",
   components: {
     SwPersonalDetails,
-    SwButton,
+    // SwButton,
   },
   setup(props, { root }) {
-    const { firstName, lastName, email } = usePersonalDetailsStep(root)
-    const { isGuestOrder } = useCheckout(root)
     const { user } = useUser(root)
 
     return {
       personalDetails: computed(() => ({
-        firstName: isGuestOrder.value ? firstName.value : user.value.firstName,
-        lastName: isGuestOrder.value ? lastName.value : user.value.lastName,
-        email: isGuestOrder.value ? email.value : user.value.email,
+        firstName: user.value?.firstName,
+        lastName: user.value?.lastName,
+        email: user.value?.email,
       })),
-      CHECKOUT_STEPS,
     }
   },
 }
@@ -54,12 +49,12 @@ export default {
     }
   }
   &__title {
-    font-size: var(--font-sm);
+    font-size: var(--font-size--sm);
     margin-bottom: var(--spacer-sm);
     color: var(--c-text);
   }
   &__content {
-    font-size: var(--font-xs);
+    font-size: var(--font-size--xs);
   }
 }
 .content {

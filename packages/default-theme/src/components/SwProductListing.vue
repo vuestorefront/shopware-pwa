@@ -79,7 +79,7 @@
     <SfHeading
       v-else-if="!loading && !getElements.length"
       :title="$t('No products found')"
-      :subtitle="$t('let us look for them')"
+      :description="$t('let us look for them')"
     />
   </div>
 </template>
@@ -225,7 +225,6 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
   display: flex;
   justify-content: center;
   position: relative;
-  width: 100%;
   min-height: var(--spacer-xl);
 
   &__loader {
@@ -244,7 +243,6 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 0 var(--spacer-xs);
     @include for-desktop {
       padding: 0 var(--spacer-sm);
     }
@@ -255,6 +253,7 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
     width: 100%;
     flex-flow: row wrap;
     transition: filter 0.1s ease-in;
+    margin-top: var(--spacer-sm);
     &--blur {
       filter: blur(10px);
     }
@@ -262,6 +261,7 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
 
   ::v-deep &__product-card {
     flex: 1 0 50%;
+    --product-card-padding: var(--spacer-xs);
     padding: var(--spacer-xs);
 
     @include for-phone {
@@ -298,6 +298,12 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
     flex: 0 0 100%;
     @include for-desktop-small {
       margin: var(--spacer-sm) 0;
+    }
+    @include for-mobile {
+      ::v-deep .sf-image {
+        --image-width: 5.3125rem;
+        --image-height: auto;
+      }
     }
   }
   &__pagination {

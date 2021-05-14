@@ -30,7 +30,7 @@ describe("ProductService - addProductReview", () => {
     );
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      "/store-api/v3/product/044a190a54ab4f06803909c3ee8063ef/review",
+      "/store-api/product/044a190a54ab4f06803909c3ee8063ef/review",
       reviewData
     );
     expect(result).toBeUndefined();

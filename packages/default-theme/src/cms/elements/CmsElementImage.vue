@@ -9,7 +9,7 @@
       :src="imgUrl"
       :title="title"
       :alt="alt"
-      :lazy="lazyLoad"
+      :loading="lazyLoad"
       class="cms-element-image"
     />
   </SwLink>
@@ -18,7 +18,7 @@
     :src="imgUrl"
     :title="title"
     :alt="alt"
-    :lazy="lazyLoad"
+    :loading="lazyLoad"
     class="cms-element-image"
   />
 </template>
@@ -46,7 +46,7 @@ export default {
 
   computed: {
     alt() {
-      return this.getMedia && this.getMedia.alt
+      return (this.getMedia && this.getMedia.alt) || " "
     },
 
     getMedia() {
@@ -58,7 +58,7 @@ export default {
     },
 
     lazyLoad() {
-      return true
+      return "lazy"
     },
 
     link() {

@@ -1,5 +1,5 @@
 import { CustomField } from "../../common/CustomField";
-import { Category } from "../category/Category";
+import { Category } from "@shopware-pwa/commons/interfaces/models/content/category/Category";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { Aggregation } from "@shopware-pwa/commons/interfaces/search/Aggregation";
 
@@ -61,6 +61,7 @@ export enum CmsPageType {
  * @alpha
  */
 export interface CmsPage {
+  category: Category;
   type: CmsPageType;
   name: string;
   customFields: CustomField[] | null;

@@ -13,6 +13,7 @@ import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { ComputedRef } from '@vue/composition-api';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
+import { CrossSelling } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
@@ -21,8 +22,7 @@ import { CustomerResetPasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
-import { EqualsFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
-import { GuestOrderParams } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
+import { EntityError } from '@shopware-pwa/commons/interfaces/models/common/EntityError';
 import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { IUseListing as IUseListing_2 } from '@shopware-pwa/composables';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
@@ -34,20 +34,18 @@ import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/mode
 import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
-import { ProductListingResult } from '@shopware-pwa/commons/interfaces/response/ProductListingResult';
 import { PropertyGroup } from '@shopware-pwa/commons/interfaces/models/content/property/PropertyGroup';
-import { RangeFilter } from '@shopware-pwa/commons/interfaces/search/SearchFilter';
 import { Ref } from '@vue/composition-api';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
-import { ShippingAddress } from '@shopware-pwa/commons/interfaces/request/GuestOrderParams';
-import { ShippingAddress as ShippingAddress_2 } from '@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress';
+import { ShippingAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 import { ShopwareApiInstance } from '@shopware-pwa/shopware-6-client';
 import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { StoreNavigationType } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
+import { UnwrapRef } from '@vue/composition-api';
 import { VueConstructor } from 'vue';
 import { WritableComputedRef } from '@vue/composition-api';
 
@@ -105,33 +103,6 @@ export interface ApplicationVueContext extends VueConstructor {
     store?: any;
 }
 
-// @alpha (undocumented)
-export interface CheckoutStepFields {
-    // (undocumented)
-    [property: string]: unknown;
-}
-
-// @alpha (undocumented)
-export interface CreateCheckoutStep {
-    // (undocumented)
-    [property: string]: any;
-    // (undocumented)
-    isValid: Readonly<Ref<boolean>>;
-    // (undocumented)
-    setValidations: ($v: VuelidateValidation) => void;
-    // (undocumented)
-    validate: () => void;
-    // (undocumented)
-    validations: Readonly<Ref<Readonly<VuelidateValidation> | null>>;
-}
-
-// @alpha (undocumented)
-export function createCheckoutStep({ stepNumber, stepFields, stepDataUpdated, }: {
-    stepNumber: number;
-    stepFields: CheckoutStepFields;
-    stepDataUpdated: (updatedData: CheckoutStepFields, guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>) => Partial<GuestOrderParams>;
-}): (rootContext: ApplicationVueContext) => CreateCheckoutStep;
-
 // @beta
 export function createListingComposable<ELEMENTS_TYPE>({ rootContext, searchMethod, searchDefaults, listingKey, }: {
     rootContext: ApplicationVueContext_2;
@@ -139,16 +110,6 @@ export function createListingComposable<ELEMENTS_TYPE>({ rootContext, searchMeth
     searchDefaults: ShopwareSearchParams;
     listingKey: string;
 }): IUseListing<ELEMENTS_TYPE>;
-
-// @beta (undocumented)
-export interface CurrentPagination {
-    // (undocumented)
-    currentPage: number | undefined;
-    // (undocumented)
-    perPage: number | undefined;
-    // (undocumented)
-    total: number | undefined;
-}
 
 // @beta (undocumented)
 export function getApplicationContext(rootContext: ApplicationVueContext, key?: string): {
@@ -184,6 +145,8 @@ export const INTERCEPTOR_KEYS: {
     ADD_TO_WISHLIST: string;
     ADD_PROMOTION_CODE: string;
     ERROR: string;
+    WARNING: string;
+    NOTICE: string;
     ORDER_PLACE: string;
     SESSION_SET_CURRENCY: string;
     SESSION_SET_PAYMENT_METHOD: string;
@@ -220,6 +183,8 @@ export interface IUseCart {
     appliedPromotionCodes: ComputedRef<LineItem[]>;
     // (undocumented)
     cart: ComputedRef<Cart | null>;
+    // (undocumented)
+    cartErrors: ComputedRef<EntityError[]>;
     // (undocumented)
     cartItems: ComputedRef<LineItem[]>;
     // (undocumented)
@@ -262,8 +227,9 @@ export interface IUseCheckout {
         forceReload: boolean;
     }) => Promise<Readonly<Ref<readonly ShippingMethod[]>>>;
     // (undocumented)
-    guestOrderParams: Ref<Readonly<Partial<GuestOrderParams>>>;
-    isGuestOrder: Readonly<Ref<boolean>>;
+    loadings: UnwrapRef<{
+        createOrder: boolean;
+    }>;
     // (undocumented)
     onOrderPlace: (fn: (params: {
         order: Order;
@@ -274,8 +240,6 @@ export interface IUseCheckout {
     shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
     // (undocumented)
     shippingMethods: Readonly<Ref<readonly ShippingMethod[]>>;
-    // (undocumented)
-    updateGuestOrderParams: (params: Partial<GuestOrderParams>) => void;
 }
 
 // @beta
@@ -344,6 +308,17 @@ export interface IUseNavigation {
 }
 
 // @beta
+export interface IUseProductAssociations {
+    isLoading: ComputedRef<boolean>;
+    loadAssociations: (params: {
+        params: unknown;
+        method: "post" | "get";
+    }) => Promise<void>;
+    // (undocumented)
+    productAssociations: ComputedRef<CrossSelling[]>;
+}
+
+// @beta
 export interface IUseProductConfigurator {
     // (undocumented)
     findVariantForSelectedOptions: (options?: {
@@ -378,7 +353,9 @@ export interface IUseSessionContext {
     // (undocumented)
     activeBillingAddress: Readonly<Ref<BillingAddress | null>>;
     // (undocumented)
-    activeShippingAddress: Readonly<Ref<ShippingAddress_2 | null>>;
+    activeShippingAddress: Readonly<Ref<ShippingAddress | null>>;
+    // (undocumented)
+    countryId: ComputedRef<string | undefined>;
     // (undocumented)
     currency: Readonly<Ref<Currency | null>>;
     // (undocumented)
@@ -402,7 +379,7 @@ export interface IUseSessionContext {
     // (undocumented)
     setActiveBillingAddress: (address: Partial<BillingAddress>) => Promise<void>;
     // (undocumented)
-    setActiveShippingAddress: (address: Partial<ShippingAddress_2>) => Promise<void>;
+    setActiveShippingAddress: (address: Partial<ShippingAddress>) => Promise<void>;
     // (undocumented)
     setCurrency: (currency: Partial<Currency>) => Promise<void>;
     // (undocumented)
@@ -416,7 +393,7 @@ export interface IUseSessionContext {
 // @beta
 export interface IUseUser {
     // (undocumented)
-    addAddress: (params: Partial<CustomerAddress>) => Promise<boolean>;
+    addAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
     // (undocumented)
     addresses: Ref<CustomerAddress[] | null>;
     // (undocumented)
@@ -426,9 +403,18 @@ export interface IUseUser {
     // (undocumented)
     error: Ref<any>;
     // (undocumented)
+    errors: UnwrapRef<{
+        login: string;
+        register: string[];
+    }>;
+    // (undocumented)
     getOrderDetails: (orderId: string) => Promise<Order | undefined>;
     // (undocumented)
-    isLoggedIn: Ref<boolean>;
+    isCustomerSession: ComputedRef<boolean>;
+    // (undocumented)
+    isGuestSession: ComputedRef<boolean>;
+    // (undocumented)
+    isLoggedIn: ComputedRef<boolean>;
     // (undocumented)
     loadAddresses: () => Promise<void>;
     // (undocumented)
@@ -468,6 +454,8 @@ export interface IUseUser {
     resetPassword: (resetPasswordData: CustomerResetPasswordParam) => Promise<boolean>;
     // (undocumented)
     salutation: Ref<Salutation | null>;
+    // (undocumented)
+    updateAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
     // (undocumented)
     updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
     // (undocumented)
@@ -641,60 +629,13 @@ export interface UseProduct<PRODUCT, SEARCH> {
 export const useProduct: (rootContext: ApplicationVueContext, loadedProduct?: any) => UseProduct<Product, Search>;
 
 // @beta
+export function useProductAssociations(rootContext: ApplicationVueContext, product: Product, association: "cross-selling" | "reviews"): IUseProductAssociations;
+
+// @beta
 export const useProductConfigurator: (rootContext: ApplicationVueContext, product: Product) => IUseProductConfigurator;
-
-// @beta @deprecated (undocumented)
-export interface UseProductListing {
-    // (undocumented)
-    [x: string]: any;
-    // (undocumented)
-    error: Ref<any>;
-    // (undocumented)
-    loading: Ref<boolean>;
-}
-
-// @beta @deprecated (undocumented)
-export const useProductListing: (rootContext: ApplicationVueContext, initialListing?: Partial<ProductListingResult> | undefined) => UseProductListing;
 
 // @beta (undocumented)
 export const useProductQuickSearch: (rootContext: ApplicationVueContext_2) => IUseProductQuickSearch;
-
-// @alpha @deprecated (undocumented)
-export interface UseProductSearch {
-    // (undocumented)
-    availableFilters: Readonly<Ref<any>>;
-    // (undocumented)
-    changePage: (page: number) => Promise<void>;
-    // (undocumented)
-    changeSorting: (sorting: Sort) => void;
-    // (undocumented)
-    currentPagination: Ref<CurrentPagination | undefined>;
-    // (undocumented)
-    currentSearchTerm: Readonly<Ref<string>>;
-    // (undocumented)
-    loadingSearch: Readonly<Ref<boolean>>;
-    // (undocumented)
-    loadingSuggestions: Readonly<Ref<boolean>>;
-    // (undocumented)
-    resetFilters: () => void;
-    // (undocumented)
-    search: (term: string) => Promise<void>;
-    // (undocumented)
-    searchResult: Readonly<Ref<ProductListingResult | null>>;
-    // (undocumented)
-    selectedEntityFilters: Readonly<Ref<any>>;
-    // (undocumented)
-    selectedFilters: Readonly<Ref<any>>;
-    // (undocumented)
-    suggestionsResult: Readonly<Ref<ProductListingResult | null>>;
-    // (undocumented)
-    suggestSearch: (term: string) => Promise<void>;
-    // (undocumented)
-    toggleFilter: (filter: EqualsFilter | RangeFilter, forceSave: boolean) => void;
-}
-
-// @alpha @deprecated (undocumented)
-export const useProductSearch: (rootContext: ApplicationVueContext) => UseProductSearch;
 
 // @beta (undocumented)
 export interface UseSalutations {
@@ -731,14 +672,6 @@ export const useUser: (rootContext: ApplicationVueContext) => IUseUser;
 
 // @beta (undocumented)
 export const useWishlist: (rootContext: ApplicationVueContext, product?: Product | undefined) => IUseWishlist;
-
-// @alpha (undocumented)
-export interface VuelidateValidation {
-    // (undocumented)
-    $invalid: boolean;
-    // (undocumented)
-    $touch: () => void;
-}
 
 
 // (No @packageDocumentation comment for this package)

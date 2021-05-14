@@ -67,6 +67,7 @@ export const convertShopwareSearchCriteria = (
 };
 
 /**
+ * TODO: refactor https://github.com/vuestorefront/shopware-pwa/issues/1460
  * @deprecated - since SW 6.2 the listing filters will be formatted as convertShopwareSearchCriteria method does
  * @param apiType - depending on api type, the output should be different (especially sorting and filters part)
  **/
