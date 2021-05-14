@@ -45,6 +45,7 @@ import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces/search/Se
 import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { StoreNavigationType } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
+import { UnwrapRef } from '@vue/composition-api';
 import { VueConstructor } from 'vue';
 import { WritableComputedRef } from '@vue/composition-api';
 
@@ -101,33 +102,6 @@ export interface ApplicationVueContext extends VueConstructor {
     // (undocumented)
     store?: any;
 }
-
-// @alpha (undocumented)
-export interface CheckoutStepFields {
-    // (undocumented)
-    [property: string]: unknown;
-}
-
-// @alpha (undocumented)
-export interface CreateCheckoutStep {
-    // (undocumented)
-    [property: string]: any;
-    // (undocumented)
-    isValid: Readonly<Ref<boolean>>;
-    // (undocumented)
-    setValidations: ($v: VuelidateValidation) => void;
-    // (undocumented)
-    validate: () => void;
-    // (undocumented)
-    validations: Readonly<Ref<Readonly<VuelidateValidation> | null>>;
-}
-
-// @alpha (undocumented)
-export function createCheckoutStep({ stepNumber, stepFields, }: {
-    stepNumber: number;
-    stepFields: CheckoutStepFields;
-    stepDataUpdated: (updatedData: CheckoutStepFields) => Partial<any>;
-}): (rootContext: ApplicationVueContext) => CreateCheckoutStep;
 
 // @beta
 export function createListingComposable<ELEMENTS_TYPE>({ rootContext, searchMethod, searchDefaults, listingKey, }: {
@@ -253,6 +227,10 @@ export interface IUseCheckout {
         forceReload: boolean;
     }) => Promise<Readonly<Ref<readonly ShippingMethod[]>>>;
     // (undocumented)
+    loadings: UnwrapRef<{
+        createOrder: boolean;
+    }>;
+    // (undocumented)
     onOrderPlace: (fn: (params: {
         order: Order;
     }) => void) => void;
@@ -377,6 +355,8 @@ export interface IUseSessionContext {
     // (undocumented)
     activeShippingAddress: Readonly<Ref<ShippingAddress | null>>;
     // (undocumented)
+    countryId: ComputedRef<string | undefined>;
+    // (undocumented)
     currency: Readonly<Ref<Currency | null>>;
     // (undocumented)
     onCurrencyChange: (fn: (params: {
@@ -413,7 +393,7 @@ export interface IUseSessionContext {
 // @beta
 export interface IUseUser {
     // (undocumented)
-    addAddress: (params: Partial<CustomerAddress>) => Promise<boolean>;
+    addAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
     // (undocumented)
     addresses: Ref<CustomerAddress[] | null>;
     // (undocumented)
@@ -423,9 +403,18 @@ export interface IUseUser {
     // (undocumented)
     error: Ref<any>;
     // (undocumented)
+    errors: UnwrapRef<{
+        login: string;
+        register: string[];
+    }>;
+    // (undocumented)
     getOrderDetails: (orderId: string) => Promise<Order | undefined>;
     // (undocumented)
-    isLoggedIn: Ref<boolean>;
+    isCustomerSession: ComputedRef<boolean>;
+    // (undocumented)
+    isGuestSession: ComputedRef<boolean>;
+    // (undocumented)
+    isLoggedIn: ComputedRef<boolean>;
     // (undocumented)
     loadAddresses: () => Promise<void>;
     // (undocumented)
@@ -466,7 +455,7 @@ export interface IUseUser {
     // (undocumented)
     salutation: Ref<Salutation | null>;
     // (undocumented)
-    updateAddress: (params: Partial<CustomerAddress>) => Promise<boolean>;
+    updateAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
     // (undocumented)
     updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
     // (undocumented)
@@ -683,14 +672,6 @@ export const useUser: (rootContext: ApplicationVueContext) => IUseUser;
 
 // @beta (undocumented)
 export const useWishlist: (rootContext: ApplicationVueContext, product?: Product | undefined) => IUseWishlist;
-
-// @alpha (undocumented)
-export interface VuelidateValidation {
-    // (undocumented)
-    $invalid: boolean;
-    // (undocumented)
-    $touch: () => void;
-}
 
 
 // (No @packageDocumentation comment for this package)

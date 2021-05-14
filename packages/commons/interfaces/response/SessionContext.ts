@@ -23,6 +23,7 @@ export interface SessionContext {
   salesChannel: {
     id: string;
     name: string;
+    countryId: string;
   };
   taxRules: {
     id: string;

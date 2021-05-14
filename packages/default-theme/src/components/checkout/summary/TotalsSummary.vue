@@ -9,44 +9,17 @@
         :message="$t('Your cart is empty')"
       />
     </div>
-    <div class="summary__action">
-      <SwButton
-        class="summary__action-button summary__action-button--secondary color-secondary sw-form__button"
-        data-cy="go-back-to-payment"
-        @click="$emit('click:back')"
-      >
-        {{ $t("Go back to Payment") }}
-      </SwButton>
-      <SwButton
-        :disabled="!cartItems.length"
-        class="summary__action-button sw-form__button"
-        data-cy="place-my-order"
-        @click="$emit('proceed')"
-      >
-        {{ $t("Place my order") }}
-      </SwButton>
-    </div>
   </div>
 </template>
 <script>
 import { useCart } from "@shopware-pwa/composables"
 import SwTotals from "@/components/SwTotals.vue"
 
-import {
-  SfProperty,
-  SfCheckbox,
-  SfHeading,
-  SfNotification,
-} from "@storefront-ui/vue"
-import SwButton from "@/components/atoms/SwButton.vue"
+import { SfNotification } from "@storefront-ui/vue"
 
 export default {
   name: "TotalsSummary",
   components: {
-    SfProperty,
-    SfHeading,
-    SfCheckbox,
-    SwButton,
     SfNotification,
     SwTotals,
   },
@@ -56,21 +29,12 @@ export default {
     }
   },
   setup(props, { root }) {
-    const {
-      cartItems,
-      subtotal,
-      totalPrice,
-      removeProduct,
-      shippingTotal,
-      refreshCart,
-    } = useCart(root)
+    const { cartItems, subtotal, totalPrice, shippingTotal } = useCart(root)
     return {
       cartItems,
-      refreshCart,
       subtotal,
       total: totalPrice,
       shippingTotal,
-      removeProduct,
     }
   },
 }
@@ -100,24 +64,6 @@ export default {
     @include for-desktop {
       padding: 0;
       flex: 0 0 100%;
-    }
-  }
-  &__action {
-    margin: var(--spacer-base) 0 0 0;
-    display: flex;
-    flex-wrap: wrap;
-
-    button {
-      width: 100%;
-      @include for-desktop {
-        width: 50%;
-      }
-
-      &:last-child {
-        @include for-mobile {
-          margin-top: var(--spacer-base);
-        }
-      }
     }
   }
 

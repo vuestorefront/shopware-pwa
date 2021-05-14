@@ -19,13 +19,16 @@ export interface IUseUser
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [addAddress](./composables.iuseuser.addaddress.md) | (params: Partial&lt;CustomerAddress&gt;) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
+|  [addAddress](./composables.iuseuser.addaddress.md) | (params: Partial&lt;CustomerAddress&gt;) =&gt; Promise&lt;string \| undefined&gt; | <b><i>(BETA)</i></b> |
 |  [addresses](./composables.iuseuser.addresses.md) | Ref&lt;CustomerAddress\[\] \| null&gt; | <b><i>(BETA)</i></b> |
 |  [country](./composables.iuseuser.country.md) | Ref&lt;Country \| null&gt; | <b><i>(BETA)</i></b> |
 |  [deleteAddress](./composables.iuseuser.deleteaddress.md) | (addressId: string) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [error](./composables.iuseuser.error.md) | Ref&lt;any&gt; | <b><i>(BETA)</i></b> |
+|  [errors](./composables.iuseuser.errors.md) | UnwrapRef&lt;{ login: string; register: string\[\]; }&gt; | <b><i>(BETA)</i></b> |
 |  [getOrderDetails](./composables.iuseuser.getorderdetails.md) | (orderId: string) =&gt; Promise&lt;Order \| undefined&gt; | <b><i>(BETA)</i></b> |
-|  [isLoggedIn](./composables.iuseuser.isloggedin.md) | Ref&lt;boolean&gt; | <b><i>(BETA)</i></b> |
+|  [isCustomerSession](./composables.iuseuser.iscustomersession.md) | ComputedRef&lt;boolean&gt; | <b><i>(BETA)</i></b> |
+|  [isGuestSession](./composables.iuseuser.isguestsession.md) | ComputedRef&lt;boolean&gt; | <b><i>(BETA)</i></b> |
+|  [isLoggedIn](./composables.iuseuser.isloggedin.md) | ComputedRef&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [loadAddresses](./composables.iuseuser.loadaddresses.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [loadCountry](./composables.iuseuser.loadcountry.md) | (countryId: string) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [loading](./composables.iuseuser.loading.md) | Ref&lt;boolean&gt; | <b><i>(BETA)</i></b> |
@@ -42,7 +45,7 @@ export interface IUseUser
 |  [register](./composables.iuseuser.register.md) | ({}: CustomerRegistrationParams) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [resetPassword](./composables.iuseuser.resetpassword.md) | (resetPasswordData: CustomerResetPasswordParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [salutation](./composables.iuseuser.salutation.md) | Ref&lt;Salutation \| null&gt; | <b><i>(BETA)</i></b> |
-|  [updateAddress](./composables.iuseuser.updateaddress.md) | (params: Partial&lt;CustomerAddress&gt;) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
+|  [updateAddress](./composables.iuseuser.updateaddress.md) | (params: Partial&lt;CustomerAddress&gt;) =&gt; Promise&lt;string \| undefined&gt; | <b><i>(BETA)</i></b> |
 |  [updateEmail](./composables.iuseuser.updateemail.md) | (updateEmailData: CustomerUpdateEmailParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [updatePassword](./composables.iuseuser.updatepassword.md) | (updatePasswordData: CustomerUpdatePasswordParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [updatePersonalInfo](./composables.iuseuser.updatepersonalinfo.md) | (personals: CustomerUpdateProfileParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |

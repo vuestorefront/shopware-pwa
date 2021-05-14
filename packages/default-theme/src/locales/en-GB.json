@@ -1,8 +1,4 @@
 {
-  "1. Personal details": "1. Personal details",
-  "2. Shipping": "2. Shipping",
-  "3. Payment": "3. Payment",
-  "4. Order details": "4. Order details",
   "Add new": "Add new",
   "Add new address": "Add new address",
   "Add To Cart": "Add To Cart",
@@ -47,9 +43,6 @@
   "Forgotten password?": "Forgotten password?",
   "Full rewards program benefits": "Full rewards program benefits",
   "Go Back to shop": "Go Back to shop",
-  "Go back to Payment": "Go back to Payment",
-  "Go back to Personal details": "Go back to Personal details",
-  "Go back to Shipping": "Go back to Shipping",
   "Go to My Account": "Go to My Account",
   "Go to cart": "Go to cart",
   "Go to checkout": "Go to checkout",

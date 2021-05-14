@@ -1,6 +1,12 @@
 <template>
   <div class="addresses-add">
-    <SwAddressForm v-if="address" :key="address.id" :address="address" />
+    <SwAddressForm
+      v-if="address"
+      :key="address.id"
+      :address="address"
+      @success="returnToAddresses"
+      @cancel="returnToAddresses"
+    />
   </div>
 </template>
 
@@ -47,6 +53,11 @@ export default {
         salutation: this.salutation && this.salutation.data,
       }
     }
+  },
+  methods: {
+    returnToAddresses() {
+      this.$router.push(this.$routing.getUrl("/account/addresses"))
+    },
   },
 }
 </script>
