@@ -213,5 +213,8 @@
   "width":"Width",
   "Clear all": "Clear all",
   "Subcategories": "Subcategories",
-  "Add address": "Add address"
+  "Add address": "Add address",
+  "Congratulations! Your email has been confirmed.": "Congratulations! Your email has been confirmed.",
+  "Your email hasn't been confirmed. Please try again." : "Your email hasn't been confirmed. Please try again.",
+  "Newsletter subscription": "Newsletter subscription"
 }
