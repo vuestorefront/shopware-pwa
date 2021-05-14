@@ -249,9 +249,6 @@ export const getCustomerDefaultBillingAddressEndpoint: (addressId: string) => st
 export const getCustomerDefaultShippingAddressEndpoint: (addressId: string) => string;
 
 // @beta (undocumented)
-export const getCustomerDetailsEndpoint: (customerId: string) => string;
-
-// @beta (undocumented)
 export const getCustomerDetailsUpdateEndpoint: () => string;
 
 // @beta (undocumented)
@@ -299,9 +296,6 @@ export const getNewsletterSubscribeEndpoint: () => string;
 export const getNewsletterUnsubscribeEndpoint: () => string;
 
 // @beta (undocumented)
-export const getOrderPaymentUrlEndpoint: (orderId: string) => string;
-
-// @beta (undocumented)
 export function getPage(path: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<PageResolverResult<CmsPage>>;
 
 // @beta (undocumented)
@@ -330,9 +324,6 @@ export const getProducts: (searchCriteria?: SearchCriteria | undefined, contextI
 
 // @alpha @deprecated
 export const getProductsIds: (options?: any, contextInstance?: ShopwareApiInstance) => Promise<SearchResult<string[]>>;
-
-// @beta (undocumented)
-export const getProductsIdsEndpoint: () => string;
 
 // @beta (undocumented)
 export const getSearchEndpoint: () => string;

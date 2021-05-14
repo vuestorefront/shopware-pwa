@@ -8,6 +8,7 @@ on:
 env:
   RELEASE_URL: https://shopware-pwa.storefrontcloud.io
   INSTANCE_CODE: shopware-pwa
+  EXPERIMENTAL_IMAGE_PROCESSING_SERVER: https://test-shopware-pwa-images.vercel.app/api/image
 
 jobs:
   build:

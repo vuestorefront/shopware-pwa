@@ -32,12 +32,6 @@ export const getProductEndpoint = () => `/store-api/product`;
 export const getProductDetailsEndpoint = (productId: string) =>
   `/store-api/product/${productId}`;
 
-/**
- * @beta
- */
-export const getProductsIdsEndpoint = () =>
-  `/sales-channel-api/v3/search-ids/product`; // replace with `/store-api/v4/product with { includes: [ product: [ id ] }`
-
 // search
 
 /**
@@ -92,11 +86,6 @@ export const getCustomerRegisterEndpoint = () => `/store-api/account/register`;
  */
 export const getCustomerDetailsUpdateEndpoint = () =>
   `/store-api/account/change-profile`;
-/**
- * @beta
- */
-export const getCustomerDetailsEndpoint = (customerId: string) =>
-  `/store-api/v3/customer/${customerId}`;
 
 /**
  * @beta
@@ -217,11 +206,6 @@ export const getStoreNavigationEndpoint = (
   requestActiveId: string,
   requestRootId: string
 ) => `/store-api/navigation/${requestActiveId}/${requestRootId}`;
-/**
- * @beta
- */
-export const getOrderPaymentUrlEndpoint = (orderId: string): string =>
-  `/sales-channel-api/v3/checkout/order/${orderId}/pay`; // replace with `/store-api/v4/handle-payment` { orderId: orderId }
 
 /**
  * @beta
