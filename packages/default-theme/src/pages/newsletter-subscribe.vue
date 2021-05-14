@@ -1,6 +1,6 @@
 <template>
   <div class="sw-newsletter-subscribe">
-    <SfHeading :level="2" title="Newsletter subscription" />
+    <SfHeading :level="2" :title="$t('Newsletter subscription')" />
     <SfLoader :loading="isLoading">
       <div>
         <SfNotification
