@@ -1,19 +1,23 @@
 <template>
-  <component
-    :is="getComponent"
-    :content="content"
-    :class="cmsClass"
-    :style="cmsStyles"
-  />
+  <SwPluginSlot name="cms-generic-element" :slot-context="content">
+    <component
+      :is="getComponent"
+      :content="content"
+      :class="cmsClass"
+      :style="cmsStyles"
+    />
+  </SwPluginSlot>
 </template>
 
 <script>
 import { getCmsElementComponent } from "sw-cms/cmsNameMapper";
 import { getCmsLayoutConfiguration } from "@shopware-pwa/helpers";
 import { computed } from "@vue/composition-api";
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue";
 
 export default {
   name: "CmsGenericElement",
+  components: { SwPluginSlot },
   props: {
     content: {
       type: Object,
