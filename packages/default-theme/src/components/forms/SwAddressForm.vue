@@ -126,7 +126,7 @@
       </SwButton>
       <SwButton
         class="sf-button--outline sw-form__button sw-form__button--back"
-        @click="returnToAddresses"
+        @click="$emit('cancel')"
       >
         {{ $t("Back") }}
       </SwButton>
@@ -255,7 +255,7 @@ export default {
       if (this.$v.$invalid) {
         return
       }
-      await this.saveAddress()
+      const addressId = await this.saveAddress()
       if (this.userError) {
         return this.pushError(
           this.$t("Your address couldn't be updated due to some errors")
@@ -263,10 +263,7 @@ export default {
       }
 
       this.pushSuccess(this.$t("Your address has been updated"))
-      this.returnToAddresses()
-    },
-    returnToAddresses() {
-      this.$router.push(this.$routing.getUrl("/account/addresses"))
+      this.$emit("success", addressId)
     },
   },
   validations: {

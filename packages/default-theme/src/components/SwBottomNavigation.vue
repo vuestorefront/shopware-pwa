@@ -131,6 +131,7 @@ import {
   SfBadge,
 } from "@storefront-ui/vue"
 import { useUIState, useUser, useCart } from "@shopware-pwa/composables"
+import { computed } from "@vue/composition-api"
 import { PAGE_ACCOUNT } from "@/helpers/pages"
 import { getCategoryUrl } from "@shopware-pwa/helpers"
 const SwBottomMenu = () => import("@/components/SwBottomMenu.vue")
@@ -162,17 +163,20 @@ export default {
       "CART_SIDEBAR_STATE"
     )
     const { switchState: toggleModal } = useUIState(root, "LOGIN_MODAL_STATE")
-    const { isLoggedIn, logout } = useUser(root)
+    const { isLoggedIn, isGuestSession, logout } = useUser(root)
     const { count } = useCart(root)
+    const isMyAccountActive = computed(
+      () => isLoggedIn.value && !isGuestSession.value
+    )
 
     return {
-      isLoggedIn,
       logout,
       getCategoryUrl,
       isSidebarOpen,
       toggleSidebar,
       toggleModal,
       count,
+      isMyAccountActive,
     }
   },
   computed: {
@@ -187,7 +191,7 @@ export default {
   },
   methods: {
     userIconClick() {
-      if (this.isLoggedIn) {
+      if (this.isMyAccountActive) {
         this.userIconActive = true
       } else this.toggleModal()
     },

@@ -35,7 +35,10 @@
       :visible="isModalOpen"
       @close="isModalOpen = false"
     >
-      <SwAddressForm />
+      <SwAddressForm
+        @success="onAddressSuccessSave"
+        @cancel="isModalOpen = false"
+      />
     </SfModal>
   </div>
 </template>
@@ -68,6 +71,7 @@ export default {
     loadAddresses()
 
     const {
+      refreshSessionContext,
       activeShippingAddress,
       setActiveShippingAddress,
     } = useSessionContext(root)
@@ -82,15 +86,22 @@ export default {
 
     const isModalOpen = ref(false)
 
+    const onAddressSuccessSave = async (addressId) => {
+      isModalOpen.value = false
+      await setActiveShippingAddress({ id: addressId })
+      await loadAddresses()
+      selectedAddressId.value = addressId
+    }
+
     return {
       addresses,
       loadAddresses,
       user,
       selectedAddressId,
       isModalOpen,
+      onAddressSuccessSave,
     }
   },
-  async mounted() {},
 }
 </script>
 <style lang="scss" scoped>

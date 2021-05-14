@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div class="sw-checkout-summary">
+    <ShippingSection class="sw-checkout-summary__shipping" />
+    <PaymentSection class="sw-checkout-summary__payment" />
     <SfHeading
-      :title="$t('4. Order details')"
+      :title="$t('Order details')"
       :level="2"
       class="sf-heading--left sf-heading--no-underline title"
     />
@@ -47,12 +49,14 @@ import PaymentMethodSummary from "@/components/checkout/summary/PaymentMethodSum
 import OrderItemsTable from "@/components/checkout/summary/OrderItemsTable.vue"
 import TotalsSummary from "@/components/checkout/summary/TotalsSummary.vue"
 import SwCartProduct from "@/components/SwCartProduct.vue"
+import ShippingSection from "@/components/checkout/ShippingSection.vue"
+import PaymentSection from "@/components/checkout/PaymentSection.vue"
 
 import { SfHeading, SfAccordion } from "@storefront-ui/vue"
 import { useCart } from "@shopware-pwa/composables"
 
 export default {
-  name: "OrderReviewStep",
+  name: "CheckoutSummary",
   components: {
     SfHeading,
     SfAccordion,
@@ -63,6 +67,8 @@ export default {
     OrderItemsTable,
     TotalsSummary,
     SwCartProduct,
+    ShippingSection,
+    PaymentSection,
   },
   setup(props, { root }) {
     const { cartItems, removeProduct } = useCart(root)
@@ -87,6 +93,13 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 
+.sw-checkout-summary {
+  padding: 0 var(--spacer-base) 0 var(--spacer-base);
+  @include for-desktop {
+    padding: 0;
+  }
+}
+
 .title {
   --heading-padding: var(--spacer-base) 0;
   @include for-desktop {
@@ -99,11 +112,7 @@ export default {
   --collected-product-padding: 0 0 var(--spacer-2xs) 0;
   --heading-padding: 0;
   position: relative;
-  left: 50%;
-  right: 50%;
-  width: 100vw;
-  margin-left: -50vw;
-  margin-right: -50vw;
+  width: 90vw;
   &__item {
     position: relative;
   }

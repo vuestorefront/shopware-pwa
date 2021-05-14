@@ -11,7 +11,7 @@
           <SfIcon
             class="sf-header__icon sw-header__icon"
             :class="{
-              'sf-header__icon is-active': isLoggedIn,
+              'sf-header__icon is-active': isMyAccountActive,
             }"
             icon="profile"
             size="1.625rem"
@@ -72,6 +72,7 @@ import {
   useUIState,
   useWishlist,
 } from "@shopware-pwa/composables"
+import { computed } from "@vue/composition-api"
 import { PAGE_ACCOUNT, PAGE_WISHLIST } from "@/helpers/pages"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
@@ -86,7 +87,7 @@ export default {
     SfBadge,
   },
   setup(props, { root }) {
-    const { isLoggedIn, logout } = useUser(root)
+    const { isLoggedIn, isGuestSession, logout } = useUser(root)
     const { count } = useCart(root)
     const { count: wishlistCount } = useWishlist(root)
     const { switchState: toggleSidebar } = useUIState(
@@ -97,14 +98,17 @@ export default {
       root,
       "LOGIN_MODAL_STATE"
     )
+    const isMyAccountActive = computed(
+      () => isLoggedIn.value && !isGuestSession.value
+    )
 
     return {
       count,
       switchLoginModalState,
       toggleSidebar,
-      isLoggedIn,
       logout,
       wishlistCount,
+      isMyAccountActive,
     }
   },
   data() {
@@ -123,7 +127,7 @@ export default {
       this.isDropdownOpen = false
     },
     userIconClick() {
-      if (this.isLoggedIn) this.isDropdownOpen = !this.isDropdownOpen
+      if (this.isMyAccountActive) this.isDropdownOpen = !this.isDropdownOpen
       else this.switchLoginModalState(true)
     },
     async logoutUser() {

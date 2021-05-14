@@ -1,5 +1,4 @@
-import Vue from "vue";
-import { Ref, computed } from "@vue/composition-api";
+import { Ref, computed, UnwrapRef, reactive } from "@vue/composition-api";
 import { ShippingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
@@ -16,6 +15,7 @@ import {
   INTERCEPTOR_KEYS,
   useIntercept,
   IInterceptorCallbackFunction,
+  useSharedState,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
 import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress";
@@ -38,15 +38,10 @@ export interface IUseCheckout {
   shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
   billingAddress: Readonly<Ref<Partial<BillingAddress> | undefined>>;
   onOrderPlace: (fn: (params: { order: Order }) => void) => void;
+  loadings: UnwrapRef<{
+    createOrder: boolean;
+  }>;
 }
-
-const orderData: {
-  shippingMethods: ShippingMethod[];
-  paymentMethods: PaymentMethod[];
-} = Vue.observable({
-  shippingMethods: [],
-  paymentMethods: [],
-});
 
 /**
  * Composable for Checkout management. Options - {@link IUseCheckout}
@@ -63,13 +58,21 @@ export const useCheckout = (
   const { broadcast, intercept } = useIntercept(rootContext);
   const { refreshCart } = useCart(rootContext);
   const { sessionContext } = useSessionContext(rootContext);
+  const { sharedRef } = useSharedState(rootContext);
+  const storeShippingMethods = sharedRef<ShippingMethod[]>(
+    `${contextName}-ShippingMethods`
+  );
+  const storePaymentMethods = sharedRef<PaymentMethod[]>(
+    `${contextName}-PaymentMethods`
+  );
+  const loadings: UnwrapRef<{
+    createOrder: boolean;
+  }> = reactive({
+    createOrder: false,
+  });
 
-  const shippingMethods: Readonly<Ref<readonly ShippingMethod[]>> = computed(
-    () => orderData.shippingMethods
-  );
-  const paymentMethods: Readonly<Ref<readonly PaymentMethod[]>> = computed(
-    () => orderData.paymentMethods
-  );
+  const shippingMethods = computed(() => storeShippingMethods.value || []);
+  const paymentMethods = computed(() => storePaymentMethods.value || []);
   const onOrderPlace = (fn: IInterceptorCallbackFunction) =>
     intercept(INTERCEPTOR_KEYS.ORDER_PLACE, fn);
 
@@ -80,7 +83,7 @@ export const useCheckout = (
     const response = await getAvailableShippingMethods(apiInstance, {
       onlyAvailable: true, // depending on the context, some of them can be hidden due to applied rules describing whether a method can be available
     });
-    orderData.shippingMethods = response?.elements || [];
+    storeShippingMethods.value = response?.elements || [];
     return shippingMethods;
   };
 
@@ -91,12 +94,13 @@ export const useCheckout = (
     const response = await getAvailablePaymentMethods(apiInstance, {
       onlyAvailable: true, // depending on the context, some of them can be hidden due to applied rules describing whether a method can be available
     });
-    orderData.paymentMethods = response?.elements || [];
+    storePaymentMethods.value = response?.elements || [];
     return paymentMethods;
   };
 
   const createOrder = async () => {
     try {
+      loadings.createOrder = true;
       const order = await createApiOrder(apiInstance);
 
       broadcast(INTERCEPTOR_KEYS.ORDER_PLACE, {
@@ -113,6 +117,7 @@ export const useCheckout = (
       });
       throw err;
     } finally {
+      loadings.createOrder = false;
       await refreshCart();
     }
   };
@@ -133,5 +138,6 @@ export const useCheckout = (
     shippingAddress,
     billingAddress,
     onOrderPlace,
+    loadings,
   };
 };

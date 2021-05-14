@@ -8,18 +8,18 @@
         :slot-context="shippingMethod"
       />
     </template>
-    <template #after-content>
+    <!-- <template #after-content>
       <SwButton
         class="sf-button--text review__edit"
         @click="$emit('click:edit', 1)"
       >
         {{ $t("Edit") }}
       </SwButton>
-    </template>
+    </template> -->
   </SwAddress>
 </template>
-<script>
-import SwButton from "@/components/atoms/SwButton.vue"
+<script lang="ts">
+// import SwButton from "@/components/atoms/SwButton.vue"
 import { useSessionContext, useCheckout } from "@shopware-pwa/composables"
 import SwAddress from "@/components/SwAddress.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
@@ -29,7 +29,7 @@ export default {
   name: "ShippingAddressSummary",
   components: {
     SwAddress,
-    SwButton,
+    // SwButton,
     SwPluginSlot,
   },
   setup(props, { root }) {
@@ -44,30 +44,4 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-@import "@/assets/scss/variables";
-.review {
-  &__item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: var(--spacer-base);
-    padding: var(--spacer-sm);
-    @include for-desktop {
-      padding: 0;
-    }
-  }
-  &__title {
-    font-size: var(--font-size--sm);
-    margin-bottom: var(--spacer-sm);
-    color: var(--c-text);
-  }
-  &__content {
-    font-size: var(--font-size--xs);
-  }
-}
-.content {
-  margin: 0;
-  color: var(--c-text-muted);
-}
-</style>
+<style lang="scss" scoped></style>

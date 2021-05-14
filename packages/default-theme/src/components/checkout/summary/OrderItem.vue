@@ -5,8 +5,11 @@
         :src="product.cover && product.cover.url"
         :alt="product.label"
         data-cy="product-image"
-        v-if="product.cover && product.type === 'product'"
+        v-if="product.cover && product.type === 'product' && !isPromotion"
       />
+      <div v-if="isPromotion" class="table__image--caption">
+        {{ $t("Promotion code") }}
+      </div>
     </SfTableData>
     <SfTableData class="table__description">
       <div class="product-title">{{ product.label }}</div>
@@ -57,17 +60,20 @@ export default {
       default: () => ({}),
     },
   },
-  setup(props, { root }) {
+  setup({ product }, { root }) {
     const { removeProduct, changeProductQuantity } = useCart(root)
 
-    const quantity = ref(props.product.quantity)
+    const quantity = ref(product.quantity)
+    const isPromotion = computed(() => product?.type === "promotion")
+
     watch(quantity, async (qty) => {
-      if (qty === props.product.quantity) return
-      await changeProductQuantity({ id: props.product.id, quantity: qty })
+      if (qty === product.quantity) return
+      await changeProductQuantity({ id: product.id, quantity: qty })
     })
     return {
       removeProduct,
       quantity,
+      isPromotion,
     }
   },
 }
@@ -102,6 +108,12 @@ export default {
   }
   &__amount {
     text-align: right;
+  }
+
+  &__image {
+    &--caption {
+      font-size: 0.75em;
+    }
   }
 }
 ::v-deep .product-price {

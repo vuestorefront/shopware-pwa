@@ -22,20 +22,29 @@
       v-model="generateInvoice"
       label="I want to generate invoice for the company"
       class="billing-address-user-form__invoice"
-    />
-    <SfCheckbox
-      v-model="useAsDefaultAddress"
-      label="Use this address as my default one"
-      class="billing-address-user-form__default"
-    /> -->
-    <!-- <SwButton
-      class="sf-button color-secondary billing-address-user-form__add-new"
-      >Add new</SwButton
-    > -->
+    />-->
+    <SwButton
+      class="sf-button color-secondary shipping-address-user-form__add-new"
+      @click="isModalOpen = true"
+    >
+      {{ $t("Add new") }}
+    </SwButton>
+    <SfModal
+      class="sw-modal"
+      :title="$t('Add address')"
+      :visible="isModalOpen"
+      @close="isModalOpen = false"
+    >
+      <SwAddressForm
+        @success="onAddressSuccessSave"
+        @cancel="isModalOpen = false"
+      />
+    </SfModal>
   </div>
 </template>
 <script>
 import {
+  SfModal,
   SfList,
   SfRadio,
   SfCheckbox,
@@ -44,10 +53,19 @@ import {
 import { useSessionContext, useUser } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import { ref, watch } from "@vue/composition-api"
+import SwAddressForm from "@/components/forms/SwAddressForm.vue"
 
 export default {
-  name: "ShippingAddressUserForm",
-  components: { SfList, SfRadio, SfCheckbox, SwButton, SfAddressPicker },
+  name: "BillingAddressUserForm",
+  components: {
+    SfModal,
+    SfList,
+    SfRadio,
+    SfCheckbox,
+    SwButton,
+    SfAddressPicker,
+    SwAddressForm,
+  },
   setup(props, { root }) {
     const { addresses, loadAddresses } = useUser(root)
     loadAddresses()
@@ -64,10 +82,20 @@ export default {
       setActiveBillingAddress(selectedAddress)
     })
 
+    const isModalOpen = ref(false)
+    const onAddressSuccessSave = async (addressId) => {
+      isModalOpen.value = false
+      await setActiveBillingAddress({ id: addressId })
+      await loadAddresses()
+      selectedAddressId.value = addressId
+    }
+
     return {
       addresses,
       loadAddresses,
       selectedAddressId,
+      isModalOpen,
+      onAddressSuccessSave,
     }
   },
 }

@@ -69,6 +69,37 @@ describe("Composables - useUser", () => {
         expect(isLoggedIn.value).toEqual(true);
       });
     });
+    describe("isCustomerSession", () => {
+      it("should return false when user is not a guest", () => {
+        stateUser.value = { id: "111", guest: true };
+        const { isCustomerSession } = useUser(rootContextMock);
+        expect(isCustomerSession.value).toEqual(false);
+      });
+      it("should return true if there is no user data in state", () => {
+        stateUser.value = null;
+        const { isCustomerSession } = useUser(rootContextMock);
+        expect(isCustomerSession.value).toEqual(false);
+      });
+    });
+    describe("isGuestSession", () => {
+      it("should return true if user has a data and it's a guest", () => {
+        stateUser.value = { id: "111", guest: true };
+        const { isGuestSession } = useUser(rootContextMock);
+        expect(isGuestSession.value).toEqual(true);
+      });
+
+      it("should return false if user has a data and it's not a guest", () => {
+        stateUser.value = { id: "111", guest: false };
+        const { isGuestSession } = useUser(rootContextMock);
+        expect(isGuestSession.value).toEqual(false);
+      });
+
+      it("should return false if user is not logged in (have no customer data in state)", () => {
+        stateUser.value = null;
+        const { isGuestSession } = useUser(rootContextMock);
+        expect(isGuestSession.value).toEqual(false);
+      });
+    });
   });
 
   describe("methods", () => {
@@ -192,19 +223,19 @@ describe("Composables - useUser", () => {
         mockedApiClient.register.mockRejectedValueOnce(
           new Error("Provide requested information to create user account")
         );
-        const { isLoggedIn, error, register } = useUser(rootContextMock);
+        const { isLoggedIn, errors, register } = useUser(rootContextMock);
         const result = await register(undefined as any);
         expect(result).toEqual(false);
         expect(isLoggedIn.value).toBeFalsy();
-        expect(error.value.message).toEqual(
-          "Provide requested information to create user account"
-        );
+        expect(errors.register).toEqual([
+          "Provide requested information to create user account",
+        ]);
       });
       it("should register user successfully", async () => {
         mockedApiClient.register.mockResolvedValueOnce({
           data: "mockedData",
         });
-        const { error, register } = useUser(rootContextMock);
+        const { errors, register } = useUser(rootContextMock);
         const result = await register({
           firstName: "qwe",
           lastName: "lastName",
@@ -219,7 +250,13 @@ describe("Composables - useUser", () => {
           },
         });
         expect(result).toBeTruthy();
-        expect(error.value).toBeNull();
+        expect(errors.register).toEqual([]);
+      });
+      it("should register user successfully and set empty object on unknown response", async () => {
+        mockedApiClient.register.mockResolvedValueOnce(undefined as any);
+        const { register, user } = useUser(rootContextMock);
+        await register({} as any);
+        expect(user.value).toStrictEqual({});
       });
     });
 
@@ -287,16 +324,16 @@ describe("Composables - useUser", () => {
     });
     describe("updateAddress", () => {
       it("should invoke an endpoint to update an address and return true on success", async () => {
-        mockedApiClient.updateCustomerAddress.mockResolvedValueOnce(
-          "ok" as any
-        );
+        mockedApiClient.updateCustomerAddress.mockResolvedValueOnce({
+          id: "updated-id",
+        } as any);
         const { updateAddress } = useUser(rootContextMock);
         const response = await updateAddress({
           id: "some-address-id",
           city: "Wrocław",
         });
         expect(mockedApiClient.updateCustomerAddress).toBeCalledTimes(1);
-        expect(response).toBe(true);
+        expect(response).toBe("updated-id");
       });
       it("should invoke an endpoint to update an address and return false on fail", async () => {
         mockedApiClient.updateCustomerAddress.mockRejectedValueOnce(
@@ -308,18 +345,18 @@ describe("Composables - useUser", () => {
           city: "Wrocław",
         });
         expect(mockedApiClient.updateCustomerAddress).toBeCalledTimes(1);
-        expect(response).toBe(false);
+        expect(response).toBeUndefined();
       });
     });
     describe("addAddress", () => {
       it("should add address", async () => {
-        mockedApiClient.createCustomerAddress.mockResolvedValueOnce(
-          "ok" as any
-        );
+        mockedApiClient.createCustomerAddress.mockResolvedValueOnce({
+          id: "added-id",
+        } as any);
         const { addAddress } = useUser(rootContextMock);
         const response = await addAddress({ city: "Wrocław" });
         expect(mockedApiClient.createCustomerAddress).toBeCalledTimes(1);
-        expect(response).toBe(true);
+        expect(response).toBe("added-id");
       });
       it("should not add empty address", async () => {
         mockedApiClient.createCustomerAddress.mockRejectedValueOnce({
@@ -328,7 +365,7 @@ describe("Composables - useUser", () => {
         const { addAddress, error } = useUser(rootContextMock);
         const response = await addAddress(null as any);
         expect(mockedApiClient.createCustomerAddress).toBeCalledTimes(1);
-        expect(response).toBe(false);
+        expect(response).toBeUndefined();
         expect(error.value).toEqual("There is no address provided");
       });
     });

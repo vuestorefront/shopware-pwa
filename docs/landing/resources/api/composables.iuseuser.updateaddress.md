@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-updateAddress: (params: Partial<CustomerAddress>) => Promise<boolean>;
+updateAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
 ```
