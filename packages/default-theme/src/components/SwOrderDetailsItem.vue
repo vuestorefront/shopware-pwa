@@ -19,7 +19,6 @@
 import {
   SfTable,
   SfCheckbox,
-  SfImage,
   SfIcon,
   SfPrice,
   SfQuantitySelector,
@@ -30,7 +29,6 @@ export default {
   components: {
     SfTable,
     SfCheckbox,
-    SfImage,
     SfIcon,
     SfPrice,
     SfQuantitySelector,

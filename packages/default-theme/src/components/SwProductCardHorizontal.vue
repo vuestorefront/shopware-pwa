@@ -25,6 +25,7 @@ import {
   getProductSpecialPrice,
   getProductName,
 } from "@shopware-pwa/helpers"
+import getResizedImage from "@/helpers/images/getResizedImage.js"
 
 export default {
   components: { SfProductCardHorizontal },
@@ -67,9 +68,10 @@ export default {
       return getProductSpecialPrice(this.product)
     },
     getImageUrl() {
-      return (
-        getProductMainImageUrl(this.product) || require("@/assets/productB.jpg")
-      )
+      return getResizedImage(getProductMainImageUrl(this.product), {
+        width: 140,
+        height: 200,
+      })
     },
   },
   methods: {

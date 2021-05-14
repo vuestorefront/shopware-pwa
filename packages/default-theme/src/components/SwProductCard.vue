@@ -24,15 +24,14 @@ import { SfProductCard } from "@storefront-ui/vue"
 import { useAddToCart, useWishlist } from "@shopware-pwa/composables"
 import {
   getProductThumbnailUrl,
-  getProductRegularPrice,
   getProductTierPrices,
   getProductUrl,
-  getProductSpecialPrice,
   getProductName,
   getProductCalculatedPrice,
   getProductCalculatedListingPrice,
   getProductPriceDiscount,
 } from "@shopware-pwa/helpers"
+import getResizedImage from "@/helpers/images/getResizedImage.js"
 
 export default {
   components: {
@@ -95,10 +94,18 @@ export default {
       return getProductTierPrices(this.product)
     },
     getImageUrl() {
-      return (
-        getProductThumbnailUrl(this.product) || require("@/assets/productB.jpg")
-      )
+      return getResizedImage(getProductThumbnailUrl(this.product), {
+        width: 280,
+        height: 400,
+      })
     },
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.sw-product-card {
+  width: 100%;
+  padding: 0.3rem;
+}
+</style>

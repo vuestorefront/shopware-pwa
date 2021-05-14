@@ -117,6 +117,11 @@ export default {
       margin-top: var(--spacer-xs);
     }
   }
+
+  &__review {
+    word-break: break-all;
+  }
+
   &__tabs {
     p {
       margin: 0;
