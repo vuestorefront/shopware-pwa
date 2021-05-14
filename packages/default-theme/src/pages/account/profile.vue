@@ -71,9 +71,8 @@ export default {
 @import "@/assets/scss/variables";
 
 .notice {
-  max-width: 31rem;
   margin: var(--spacer-base) 0 0 0;
-  font-size: var(--font-2xs);
+  font-size: var(--font-size--xs);
   &__link {
     color: var(--c-primary);
     text-decoration: none;

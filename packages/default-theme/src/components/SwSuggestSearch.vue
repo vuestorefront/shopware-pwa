@@ -16,9 +16,9 @@
           :key="product.id"
           :link="$routing.getUrl(getProductUrl(product))"
         >
-          <SfImage
+          <SwImage
             :src="getProducImageUrl(product)"
-            :alt="product.label"
+            :alt="product.translated.name"
             class="search-suggestions__product-image"
             width="90"
             height="90"
@@ -38,11 +38,11 @@
         </SfLink>
       </div>
     </div>
-    <Button
+    <SwButton
       v-if="isShowMoreAvailable"
       class="sf-button--secondary sf-button--full-width"
       @click="$emit('search')"
-      >{{ $t("See more") }}</Button
+      >{{ $t("See more") }}</SwButton
     >
   </div>
 </template>
@@ -52,12 +52,11 @@ import {
   SfDivider,
   SfHeading,
   SfLink,
-  SfImage,
   SfIcon,
   SfPrice,
 } from "@storefront-ui/vue"
 import { clickOutside } from "@storefront-ui/vue/src/utilities/directives"
-import Button from "@/components/atoms/SwButton.vue"
+import SwButton from "@/components/atoms/SwButton.vue"
 import {
   getProductMainImageUrl,
   getProductRegularPrice,
@@ -67,16 +66,18 @@ import {
   getProductTierPrices,
   getProductPriceDiscount,
 } from "@shopware-pwa/helpers"
+import SwImage from "@/components/atoms/SwImage.vue"
+import getResizedImage from "@/helpers/images/getResizedImage.js"
 
 export default {
   components: {
     SfDivider,
     SfHeading,
     SfLink,
-    SfImage,
+    SwImage,
     SfIcon,
     SfPrice,
-    Button,
+    SwButton,
   },
   props: {
     isOpen: {
@@ -128,7 +129,10 @@ export default {
         : getProductPriceDiscount(product) && getProductCalculatedPrice(product)
     },
     getProducImageUrl(product) {
-      return getProductMainImageUrl(product)
+      return getResizedImage(getProductMainImageUrl(product), {
+        width: 90,
+        height: 90,
+      })
     },
   },
 }
@@ -152,7 +156,7 @@ export default {
         background: transparent;
         border: none;
         color: var(--c-info);
-        font-size: var(--font-xs);
+        font-size: var(--font-size--xs);
         padding: 0;
         text-decoration: underline;
       }
@@ -168,14 +172,14 @@ export default {
       margin-bottom: var(--spacer-xs);
       padding: 0;
       ::v-deep .sf-heading__title {
-        --heading-title-font-size: var(--font-sm);
+        --heading-title-font-size: var(--font-size--sm);
       }
     }
   }
   &__product {
     border-bottom: 1px solid var(--c-light);
     display: flex;
-    font-family: var(--font-family-primary);
+    font-family: var(--font-family--primary);
     margin-top: var(--spacer-xs);
     padding-bottom: var(--spacer-xs);
     text-decoration: none;
@@ -187,13 +191,13 @@ export default {
     }
     &-title {
       display: block;
-      font-size: var(--font-sm);
+      font-size: var(--font-size--sm);
       padding-bottom: var(--spacer-xs);
       text-decoration: none;
     }
     &-price {
       color: var(--c-primary);
-      font-size: var(--font-base);
+      font-size: var(--font-size--base);
     }
   }
 }

@@ -1,4 +1,11 @@
-import { ref, Ref, computed, ComputedRef } from "@vue/composition-api";
+import {
+  ref,
+  Ref,
+  UnwrapRef,
+  computed,
+  ComputedRef,
+  reactive,
+} from "@vue/composition-api";
 import {
   login as apiLogin,
   logout as apiLogout,
@@ -21,6 +28,7 @@ import {
   CustomerUpdatePasswordParam,
   CustomerUpdateEmailParam,
   CustomerResetPasswordParam,
+  updateCustomerAddress,
 } from "@shopware-pwa/shopware-6-client";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
@@ -59,7 +67,13 @@ export interface IUseUser {
   addresses: Ref<CustomerAddress[] | null>;
   loading: Ref<boolean>;
   error: Ref<any>;
-  isLoggedIn: Ref<boolean>;
+  errors: UnwrapRef<{
+    login: string;
+    register: string[];
+  }>;
+  isLoggedIn: ComputedRef<boolean>;
+  isCustomerSession: ComputedRef<boolean>;
+  isGuestSession: ComputedRef<boolean>;
   country: Ref<Country | null>;
   salutation: Ref<Salutation | null>;
   refreshUser: () => Promise<void>;
@@ -69,7 +83,10 @@ export interface IUseUser {
   loadAddresses: () => Promise<void>;
   loadCountry: (countryId: string) => Promise<void>;
   loadSalutation: (salutationId: string) => Promise<void>;
-  addAddress: (params: Partial<CustomerAddress>) => Promise<boolean>;
+  addAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
+  updateAddress: (
+    params: Partial<CustomerAddress>
+  ) => Promise<string | undefined>;
   deleteAddress: (addressId: string) => Promise<boolean>;
   updatePersonalInfo: (
     personals: CustomerUpdateProfileParam
@@ -113,6 +130,13 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
 
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
+  const errors: UnwrapRef<{
+    login: string;
+    register: string[];
+  }> = reactive({
+    login: "",
+    register: [],
+  });
   const orders: Ref<Order[] | null> = ref(null);
   const addresses: Ref<CustomerAddress[] | null> = ref(null);
   const country: Ref<Country | null> = ref(null);
@@ -151,14 +175,15 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     params: CustomerRegistrationParams
   ): Promise<boolean> => {
     loading.value = true;
-    error.value = null;
+    errors.register = [];
     try {
-      await apiRegister(params, apiInstance);
+      const userObject = await apiRegister(params, apiInstance);
       broadcast(INTERCEPTOR_KEYS.USER_REGISTER);
+      storeUser.value = (userObject as any) || {}; // TODO change returning tyoe to customer
       return true;
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err;
+      errors.register = [err.message as string];
       broadcast(INTERCEPTOR_KEYS.ERROR, {
         methodName: `[${contextName}][register]`,
         inputParams: {},
@@ -215,7 +240,8 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
 
   const loadAddresses = async (): Promise<void> => {
     try {
-      addresses.value = await getCustomerAddresses(apiInstance);
+      const response = await getCustomerAddresses(apiInstance);
+      addresses.value = response?.elements;
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
@@ -272,16 +298,27 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     return true;
   };
 
-  const addAddress = async (
+  const updateAddress = async (
     params: Partial<CustomerAddress>
-  ): Promise<boolean> => {
+  ): Promise<string | undefined> => {
     try {
-      await createCustomerAddress(params, apiInstance);
-      return true;
+      const { id } = await updateCustomerAddress(params, apiInstance);
+      return id;
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
-      return false;
+    }
+  };
+
+  const addAddress = async (
+    params: Partial<CustomerAddress>
+  ): Promise<string | undefined> => {
+    try {
+      const { id } = await createCustomerAddress(params, apiInstance);
+      return id;
+    } catch (e) {
+      const err: ClientApiError = e;
+      error.value = err.message;
     }
   };
 
@@ -346,6 +383,10 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   };
 
   const isLoggedIn = computed(() => !!user.value?.id);
+  const isCustomerSession = computed(
+    () => !!user.value?.id && !user.value.guest
+  );
+  const isGuestSession = computed(() => !!user.value?.guest);
 
   return {
     login,
@@ -354,6 +395,8 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     error,
     loading,
     isLoggedIn,
+    isCustomerSession,
+    isGuestSession,
     refreshUser,
     logout,
     orders,
@@ -367,11 +410,13 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     updatePassword,
     resetPassword,
     addAddress,
+    updateAddress,
     deleteAddress,
     loadSalutation,
     salutation,
     loadCountry,
     country,
+    errors,
     onLogout,
     onUserLogin,
     onUserRegister,

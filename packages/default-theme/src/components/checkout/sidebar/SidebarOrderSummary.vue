@@ -99,9 +99,9 @@ export default {
 @import "@/assets/scss/variables";
 .title {
   --heading-title-margin: 0 0 var(--spacer-sm) 0;
-  --heading-title-font-weight: var(--font-bold);
+  --heading-title-font-weight: var(--font-weight--bold);
   @include for-desktop {
-    --heading-title-font-weight: var(--font-medium);
+    --heading-title-font-weight: var(--font-weight--medium);
     --heading-title-margin: 0 0 var(--spacer-xl) 0;
   }
 }
@@ -113,13 +113,13 @@ export default {
 }
 .property {
   margin: var(--spacer-sm) 0;
-  --property-name-font-size: var(--font-lg);
-  --property-value-font-size: var(--font-lg);
-  --property-value-font-weight: var(--font-semibold);
+  --property-name-font-size: var(--font-size--lg);
+  --property-value-font-size: var(--font-size--lg);
+  --property-value-font-weight: var(--font-weight--semibold);
   @include for-desktop {
     margin: var(--spacer-base) 0;
-    --property-name-font-size: var(--font-xl);
-    --property-value-font-size: var(--font-xl);
+    --property-name-font-size: var(--font-size--xl);
+    --property-value-font-size: var(--font-size--xl);
   }
 }
 .divider {

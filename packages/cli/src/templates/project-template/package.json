@@ -18,7 +18,10 @@
   },
   "devDependencies": {
     "@shopware-pwa/nuxt-module": "latest",
+    "@storefront-ui/vue": "0.10.5",
     "@vue/test-utils": "^1.1.4",
+    "@vuelidate/core": "^2.0.0-alpha.16",
+    "@vuelidate/validators": "^2.0.0-alpha.13",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^26.6.3",
     "eslint-config-prettier": "^8.3.0",

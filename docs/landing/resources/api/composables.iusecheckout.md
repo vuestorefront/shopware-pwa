@@ -23,6 +23,7 @@ export interface IUseCheckout
 |  [createOrder](./composables.iusecheckout.createorder.md) | () =&gt; Promise&lt;Order&gt; | <b><i>(BETA)</i></b> |
 |  [getPaymentMethods](./composables.iusecheckout.getpaymentmethods.md) | (options?: { forceReload: boolean; }) =&gt; Promise&lt;Readonly&lt;Ref&lt;readonly PaymentMethod\[\]&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
 |  [getShippingMethods](./composables.iusecheckout.getshippingmethods.md) | (options?: { forceReload: boolean; }) =&gt; Promise&lt;Readonly&lt;Ref&lt;readonly ShippingMethod\[\]&gt;&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [loadings](./composables.iusecheckout.loadings.md) | UnwrapRef&lt;{ createOrder: boolean; }&gt; | <b><i>(BETA)</i></b> |
 |  [onOrderPlace](./composables.iusecheckout.onorderplace.md) | (fn: (params: { order: Order; }) =&gt; void) =&gt; void | <b><i>(BETA)</i></b> |
 |  [paymentMethods](./composables.iusecheckout.paymentmethods.md) | Readonly&lt;Ref&lt;readonly PaymentMethod\[\]&gt;&gt; | <b><i>(BETA)</i></b> |
 |  [shippingAddress](./composables.iusecheckout.shippingaddress.md) | Readonly&lt;Ref&lt;ShippingAddress \| undefined&gt;&gt; | <b><i>(BETA)</i></b> |

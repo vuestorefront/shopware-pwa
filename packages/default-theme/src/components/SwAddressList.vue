@@ -1,5 +1,5 @@
 <template>
-  <div class="shipping-list">
+  <div class="shipping-list" v-if="addresses">
     <Address
       v-for="address in addresses"
       :key="address.id"
@@ -9,11 +9,12 @@
       class="shipping-list__address"
       @selectDefaultAddress="selectDefaultAddress"
       @deleteAddress="deleteAddress"
-      @editAddress="editAddress"
+      @editAddress="$emit('editAddress', address.id)"
     />
   </div>
 </template>
 <script>
+import { onMounted, computed, ref } from "@vue/composition-api"
 import { useUser } from "@shopware-pwa/composables"
 import Address from "@/components/account/MyAddresses/Address.vue"
 
@@ -22,56 +23,44 @@ export default {
   components: {
     Address,
   },
-  props: {},
-  data() {
-    return {
-      selectedBilling: this.defaultBillingAddressId,
-      selectedShipping: this.defaultShippingAddressId,
-    }
-  },
-  setup(props, { root }) {
+  setup(_, { root }) {
     const {
       user,
       addresses,
       loadAddresses,
       markAddressAsDefault,
       refreshUser,
-      deleteAddress,
+      deleteAddress: deleteCustomerAddress,
     } = useUser(root)
+
     loadAddresses()
-    return {
-      defaultBillingAddressId: user.value.defaultBillingAddressId,
-      defaultShippingAddressId: user.value.defaultShippingAddressId,
-      deleteCustomerAddress: deleteAddress,
-      addresses,
-      loadAddresses,
-      markAddressAsDefault,
-      refreshUser,
+    const selectedBilling = computed(() => user.value?.defaultBillingAddressId)
+    const selectedShipping = computed(
+      () => user.value?.defaultShippingAddressId
+    )
+
+    const selectDefaultAddress = async (addressId, type) => {
+      await markAddressAsDefault({ addressId, type })
+      await refreshUser()
+      await loadAddresses()
     }
-  },
-  computed: {},
-  async mounted() {
-    await this.loadAddresses()
-  },
-  methods: {
-    async selectDefaultAddress(addressId, type) {
-      await this.markAddressAsDefault({ addressId, type })
-      switch (type) {
-        case "shipping":
-          this.selectedShipping = addressId
-          break
-        case "billing":
-          this.selectedBilling = addressId
-      }
-      await this.loadAddresses()
-    },
-    async deleteAddress(addressId) {
-      await this.deleteCustomerAddress(addressId)
-      await this.loadAddresses()
-    },
-    editAddress(addressId) {
-      this.$emit("editAddress", addressId)
-    },
+
+    const deleteAddress = async (addressId) => {
+      await deleteCustomerAddress(addressId)
+      await loadAddresses()
+    }
+
+    onMounted(() => {
+      loadAddresses()
+    })
+
+    return {
+      selectDefaultAddress,
+      selectedBilling,
+      selectedShipping,
+      addresses,
+      deleteAddress,
+    }
   },
 }
 </script>

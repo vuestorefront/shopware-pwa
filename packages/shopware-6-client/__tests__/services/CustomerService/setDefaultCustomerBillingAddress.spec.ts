@@ -1,4 +1,3 @@
-import { getCustomerAddressSetDefaultBillingEndpoint } from "../../../src/endpoints";
 import { defaultInstance } from "../../../src/apiService";
 import { setDefaultCustomerBillingAddress } from "@shopware-pwa/shopware-6-client";
 
@@ -25,7 +24,7 @@ describe("CustomerService - updateDefaultCustomerBillingAddress", () => {
     );
     expect(mockedPatch).toBeCalledTimes(1);
     expect(mockedPatch).toBeCalledWith(
-      getCustomerAddressSetDefaultBillingEndpoint("1234")
+      "/store-api/account/address/default-billing/1234"
     );
   });
 
@@ -35,7 +34,7 @@ describe("CustomerService - updateDefaultCustomerBillingAddress", () => {
     expect(result).toBe("12345");
     expect(mockedPatch).toBeCalledTimes(1);
     expect(mockedPatch).toBeCalledWith(
-      getCustomerAddressSetDefaultBillingEndpoint("12345")
+      "/store-api/account/address/default-billing/12345"
     );
   });
 });

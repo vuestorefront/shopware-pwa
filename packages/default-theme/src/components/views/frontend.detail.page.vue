@@ -25,36 +25,6 @@
       </div>
     </div>
 
-    <SfSection
-      title-heading="Share Your Look"
-      subtitle-heading="#YOURLOOK"
-      class="section"
-    >
-      <div class="images-grid">
-        <div class="images-grid__row">
-          <div class="images-grid__col">
-            <SfImage src="/img/imageA.png">katherina_trn</SfImage>
-          </div>
-          <div class="images-grid__col">
-            <SfImage src="/img/imageB.png">katherina_trn</SfImage>
-          </div>
-          <div class="images-grid__col">
-            <SfImage src="/img/imageC.png">katherina_trn</SfImage>
-          </div>
-        </div>
-        <div class="images-grid__row">
-          <div class="images-grid__col">
-            <SfImage src="/img/imageC.png">katherina_trn</SfImage>
-          </div>
-          <div class="images-grid__col">
-            <SfImage src="/img/imageD.png">katherina_trn</SfImage>
-          </div>
-          <div class="images-grid__col">
-            <SfImage src="/img/imageA.png">katherina_trn</SfImage>
-          </div>
-        </div>
-      </div>
-    </SfSection>
     <div class="product__advertisement">
       <SwProductAdvertisement />
     </div>
@@ -65,7 +35,7 @@
 </template>
 <script>
 import CmsPage from "sw-cms/CmsPage"
-import { SfImage, SfSection, SfTabs } from "@storefront-ui/vue"
+import { SfTabs } from "@storefront-ui/vue"
 import {
   useProduct,
   useUser,
@@ -86,8 +56,6 @@ export default {
   components: {
     CmsPage,
     SwGoBackArrow,
-    SfImage,
-    SfSection,
     SfTabs,
     SwProductGallery,
     SwProductDetails,
@@ -170,6 +138,9 @@ export default {
 }
 
 .images-grid {
+  ::v-deep .sf-image {
+    max-width: 100%;
+  }
   &__row {
     display: flex;
     & + & {
@@ -203,6 +174,10 @@ export default {
     @include for-desktop {
       margin-left: calc(var(--spacer-base) * 3);
     }
+  }
+
+  &__advertisement {
+    margin-top: var(--spacer-2xl, 3rem);
   }
 }
 

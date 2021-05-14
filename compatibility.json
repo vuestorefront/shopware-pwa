@@ -6,7 +6,7 @@
       "apiKey": "SWSC40-LJTNO6COUEN7CJMXKLA"
     },
     "6.4": {
-      "domain": "https://pwa-demo-api.shopware.com/major/",
+      "domain": "https://pwa-demo-api.shopware.com/trunk/",
       "apiKey": "SWSC40-LJTNO6COUEN7CJMXKLA"
     },
     "canary": {

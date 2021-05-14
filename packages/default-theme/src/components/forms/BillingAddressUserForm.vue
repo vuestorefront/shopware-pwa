@@ -6,52 +6,66 @@
         :key="address._uniqueIdentifier"
         class="billing-address-user-form__list-item"
       >
-        <SfRadio
-          v-model="selectedAddressId"
-          :value="address._uniqueIdentifier"
-          class="billing-address-user-form__address address"
-        >
-          <template #checkmark>
-            <div class="sf-radio__checkmark address__checkmark" />
-          </template>
-          <template #label>
-            <p class="address__details">
-              {{ address.firstName }} {{ address.lastName }}<br />
-              {{ address.street }}<br />
-              {{ address.zipcode }}<br />
-              {{ address.city }}<br />
-              {{ address.country.name }}<br />
-              {{ address.phoneNumber }}
-            </p>
-          </template>
-        </SfRadio>
+        <SfAddressPicker v-model="selectedAddressId">
+          <SfAddress :name="address._uniqueIdentifier">
+            <span>{{ address.firstName }} {{ address.lastName }}</span>
+            <span>{{ address.street }}</span>
+            <span>{{ address.zipcode }}</span>
+            <span>{{ address.city }}</span>
+            <span>{{ address.country.name }}</span>
+            <span>{{ address.phoneNumber }}</span>
+          </SfAddress>
+        </SfAddressPicker>
       </SfListItem>
     </SfList>
     <!-- <SfCheckbox
       v-model="generateInvoice"
       label="I want to generate invoice for the company"
       class="billing-address-user-form__invoice"
-    />
-    <SfCheckbox
-      v-model="useAsDefaultAddress"
-      label="Use this address as my default one"
-      class="billing-address-user-form__default"
-    /> -->
-    <!-- <SwButton
-      class="sf-button color-secondary billing-address-user-form__add-new"
-      >Add new</SwButton
-    > -->
+    />-->
+    <SwButton
+      class="sf-button color-secondary shipping-address-user-form__add-new"
+      @click="isModalOpen = true"
+    >
+      {{ $t("Add new") }}
+    </SwButton>
+    <SfModal
+      class="sw-modal"
+      :title="$t('Add address')"
+      :visible="isModalOpen"
+      @close="isModalOpen = false"
+    >
+      <SwAddressForm
+        @success="onAddressSuccessSave"
+        @cancel="isModalOpen = false"
+      />
+    </SfModal>
   </div>
 </template>
 <script>
-import { SfList, SfRadio, SfCheckbox } from "@storefront-ui/vue"
+import {
+  SfModal,
+  SfList,
+  SfRadio,
+  SfCheckbox,
+  SfAddressPicker,
+} from "@storefront-ui/vue"
 import { useSessionContext, useUser } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import { ref, watch } from "@vue/composition-api"
+import SwAddressForm from "@/components/forms/SwAddressForm.vue"
 
 export default {
-  name: "ShippingAddressUserForm",
-  components: { SfList, SfRadio, SfCheckbox, SwButton },
+  name: "BillingAddressUserForm",
+  components: {
+    SfModal,
+    SfList,
+    SfRadio,
+    SfCheckbox,
+    SwButton,
+    SfAddressPicker,
+    SwAddressForm,
+  },
   setup(props, { root }) {
     const { addresses, loadAddresses } = useUser(root)
     loadAddresses()
@@ -68,10 +82,20 @@ export default {
       setActiveBillingAddress(selectedAddress)
     })
 
+    const isModalOpen = ref(false)
+    const onAddressSuccessSave = async (addressId) => {
+      isModalOpen.value = false
+      await setActiveBillingAddress({ id: addressId })
+      await loadAddresses()
+      selectedAddressId.value = addressId
+    }
+
     return {
       addresses,
       loadAddresses,
       selectedAddressId,
+      isModalOpen,
+      onAddressSuccessSave,
     }
   },
 }
@@ -84,6 +108,7 @@ export default {
     margin: 0 0 var(--spacer-xl) 0;
     @include for-desktop {
       display: flex;
+      flex-wrap: wrap;
     }
   }
   &__list-item {
@@ -92,8 +117,8 @@ export default {
       margin: 0;
     }
     @include for-desktop {
-      flex: 0 1 50%;
-      margin: 0 var(--spacer-base) 0 0;
+      flex: 0 1;
+      margin: 0 var(--spacer-base) var(--spacer-base) 0;
       &:last-child {
         margin: 0;
       }
@@ -134,7 +159,7 @@ export default {
     padding: 0;
     margin: 0;
   }
-  &.sf-radio--is-active {
+  &.sf-radio .is-active {
     border-color: var(--c-primary);
   }
 }

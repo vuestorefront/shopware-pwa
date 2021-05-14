@@ -51,17 +51,21 @@ export const getSuggestSearchEndpoint = () => `/store-api/search-suggest`;
 export const getSearchEndpoint = () => `/store-api/search`;
 
 // customer
+/**
+ * @beta
+ */
+export const getCustomerAddAddressEndpoint = () => `/store-api/account/address`;
 
 /**
  * @beta
  */
 export const getCustomerAddressEndpoint = (addressId?: string) =>
   addressId
-    ? `/sales-channel-api/v3/customer/address/${addressId}` // replace with `/store-api/v4/account/list-address` with { ids: [ addressid ] )
-    : "/sales-channel-api/v3/customer/address"; // replace with `/store-api/v4/account/list-address`
+    ? `/store-api/account/address/${addressId}`
+    : "/store-api/account/list-address";
 
 const getCustomerDefaultAddressEndpoint = (type: string, addressId: string) =>
-  `/sales-channel-api/v3/customer/address/${addressId}/default-${type}`; // replace with `/store-api/v4/context` { includes: { customer: defaultBillingAddress|defaultShipingAddress } }
+  `/store-api/account/address/default-${type}/${addressId}`;
 
 /**
  * @beta
@@ -78,37 +82,16 @@ export const getCustomerDefaultShippingAddressEndpoint = (addressId: string) =>
 /**
  * @beta
  */
-export const getCustomerAddressDetailsEndpoint = (addressId: string) =>
-  `/sales-channel-api/v3/customer/address/${addressId}`; // replace with `/store-api/v4/account/list-address` { ids: [ addressId  }
-
+export const getCustomerEndpoint = () => `/store-api/account/customer`;
 /**
  * @beta
  */
-export const getCustomerAddressSetDefaultShippingEndpoint = (
-  addressId: string
-) => `/sales-channel-api/v3/customer/address/${addressId}/default-shipping`; // replace with `/store-api/v4/account/address/default-shipping/{addressId}`
-
-/**
- * @beta
- */
-export const getCustomerAddressSetDefaultBillingEndpoint = (
-  addressId: string
-) => `/sales-channel-api/v3/customer/address/${addressId}/default-billing`; // replace with `/store-api/v4/account/address/default-billing/{addressId}`
-
-/**
- * @beta
- */
-export const getCustomerEndpoint = () => `/store-api/v3/account/customer`;
-/**
- * @beta
- */
-export const getCustomerRegisterEndpoint = () =>
-  `/store-api/v3/account/register`;
+export const getCustomerRegisterEndpoint = () => `/store-api/account/register`;
 /**
  * @beta
  */
 export const getCustomerDetailsUpdateEndpoint = () =>
-  `/store-api/v3/account/change-profile`;
+  `/store-api/account/change-profile`;
 /**
  * @beta
  */
@@ -118,41 +101,35 @@ export const getCustomerDetailsEndpoint = (customerId: string) =>
 /**
  * @beta
  */
-export const getCustomerLoginEndpoint = () => `/store-api/v3/account/login`;
+export const getCustomerLoginEndpoint = () => `/store-api/account/login`;
 
 /**
  * @beta
  */
-export const getCustomerLogoutEndpoint = () => `/store-api/v3/account/logout`;
+export const getCustomerLogoutEndpoint = () => `/store-api/account/logout`;
 
 /**
  * @beta
  */
-export const getCustomerOrderEndpoint = () => `/store-api/v3/order`;
-
-/**
- * @beta
- */
-export const getCustomerOrderDetailsEndpoint = (orderId: string) =>
-  `/sales-channel-api/v3/checkout/guest-order/${orderId}`;
+export const getCustomerOrderEndpoint = () => `/store-api/order`;
 
 /**
  * @beta
  */
 export const getCustomerUpdateEmailEndpoint = () =>
-  `/store-api/v3/account/change-email`;
+  `/store-api/account/change-email`;
 
 /**
  * @beta
  */
 export const getCustomerUpdatePasswordEndpoint = () =>
-  `/store-api/v3/account/change-password`;
+  `/store-api/account/change-password`;
 
 /**
  * @beta
  */
 export const getCustomerResetPasswordEndpoint = () =>
-  `/store-api/v3/account/recovery-password`;
+  `/store-api/account/recovery-password`;
 
 // checkout
 
@@ -171,18 +148,6 @@ export const getCheckoutCartLineItemEndpoint = () =>
  * @beta
  */
 export const getCheckoutOrderEndpoint = () => `/store-api/checkout/order`;
-
-/**
- * @beta
- */
-export const getCheckoutOrderPayEndpoint = (orderId: string) =>
-  `/sales-channel-api/v3/checkout/order/${orderId}/pay`; // replace with `/store-api/v4/handle-payment` { orderId: orderId }
-
-/**
- * @beta
- */
-export const getCheckoutPromotionCodeEndpoint = (code: string) =>
-  `/sales-channel-api/v3/checkout/cart/code/${code}`; // replace with `/store-api/checkout/cart/line-item` - see https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/cart?category=shopware-platform-dev-en/store-api-guide#promotion
 
 // context
 

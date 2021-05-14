@@ -112,11 +112,13 @@
       "product_group_option": [
         "id",
         "group",
-        "translated"
+        "translated",
+        "name"
       ],
       "product_group": [
         "id",
-        "translated"
+        "translated",
+        "name"
       ],
       "product_listing": [
         "sorting",
@@ -132,10 +134,12 @@
       "property_group": [
         "id",
         "translated",
-        "options"
+        "options",
+        "name"
       ],
       "property_group_option": [
         "translated",
+        "name",
         "id",
         "colorHexCode",
         "media",
@@ -143,7 +147,8 @@
       ],
       "product_manufacturer": [
         "translated",
-        "link"
+        "link",
+        "name"
       ]
     }
   },
@@ -195,6 +200,7 @@
       ],
       "property_group_option": [
         "translated",
+        "name",
         "id",
         "colorHexCode",
         "media",

@@ -96,6 +96,7 @@ export default {
 }
 
 .sw-header {
+  position: relative;
   background-color: var(--c-white);
 
   &__icons {

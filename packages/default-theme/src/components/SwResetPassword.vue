@@ -42,8 +42,8 @@
 
 <script>
 import { SfAlert, SfHeading } from "@storefront-ui/vue"
-import { validationMixin } from "vuelidate"
-import { required, email } from "vuelidate/lib/validators"
+import useVuelidate from "@vuelidate/core"
+import { required, email } from "@vuelidate/validators"
 import { useUser } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
@@ -51,7 +51,6 @@ import SwInput from "@/components/atoms/SwInput.vue"
 export default {
   name: "SwResetPassword",
   components: { SwButton, SwInput, SfAlert, SfHeading },
-  mixins: [validationMixin],
   data() {
     return {
       email: "",
@@ -64,6 +63,7 @@ export default {
     return {
       resetPassword,
       userError,
+      $v: useVuelidate(),
     }
   },
   validations: {

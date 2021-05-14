@@ -6,25 +6,16 @@
         :key="address._uniqueIdentifier"
         class="shipping-address-user-form__list-item"
       >
-        <SfRadio
-          v-model="selectedAddressId"
-          :value="address._uniqueIdentifier"
-          class="shipping-address-user-form__address address"
-        >
-          <template #checkmark>
-            <div class="sf-radio__checkmark address__checkmark" />
-          </template>
-          <template #label>
-            <p class="address__details">
-              {{ address.firstName }} {{ address.lastName }}<br />
-              {{ address.street }}<br />
-              {{ address.zipcode }}<br />
-              {{ address.city }}<br />
-              {{ address.country.name }}<br />
-              {{ address.phoneNumber }}
-            </p>
-          </template>
-        </SfRadio>
+        <SfAddressPicker v-model="selectedAddressId">
+          <SfAddress :name="address._uniqueIdentifier">
+            <span>{{ address.firstName }} {{ address.lastName }}</span>
+            <span>{{ address.street }}</span>
+            <span>{{ address.zipcode }}</span>
+            <span>{{ address.city }}</span>
+            <span>{{ address.country.name }}</span>
+            <span>{{ address.phoneNumber }}</span>
+          </SfAddress>
+        </SfAddressPicker>
       </SfListItem>
     </SfList>
     <!-- <SfCheckbox
@@ -44,12 +35,21 @@
       :visible="isModalOpen"
       @close="isModalOpen = false"
     >
-      <SwAddressForm />
+      <SwAddressForm
+        @success="onAddressSuccessSave"
+        @cancel="isModalOpen = false"
+      />
     </SfModal>
   </div>
 </template>
 <script>
-import { SfList, SfRadio, SfCheckbox, SfModal } from "@storefront-ui/vue"
+import {
+  SfList,
+  SfRadio,
+  SfCheckbox,
+  SfModal,
+  SfAddressPicker,
+} from "@storefront-ui/vue"
 import { useSessionContext, useUser } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import { ref, watch } from "@vue/composition-api"
@@ -57,12 +57,21 @@ import SwAddressForm from "@/components/forms/SwAddressForm.vue"
 
 export default {
   name: "ShippingAddressUserForm",
-  components: { SfList, SfRadio, SfCheckbox, SwButton, SfModal, SwAddressForm },
+  components: {
+    SfList,
+    SfRadio,
+    SfCheckbox,
+    SwButton,
+    SfModal,
+    SfAddressPicker,
+    SwAddressForm,
+  },
   setup(props, { root }) {
     const { addresses, loadAddresses, user } = useUser(root)
     loadAddresses()
 
     const {
+      refreshSessionContext,
       activeShippingAddress,
       setActiveShippingAddress,
     } = useSessionContext(root)
@@ -77,15 +86,22 @@ export default {
 
     const isModalOpen = ref(false)
 
+    const onAddressSuccessSave = async (addressId) => {
+      isModalOpen.value = false
+      await setActiveShippingAddress({ id: addressId })
+      await loadAddresses()
+      selectedAddressId.value = addressId
+    }
+
     return {
       addresses,
       loadAddresses,
       user,
       selectedAddressId,
       isModalOpen,
+      onAddressSuccessSave,
     }
   },
-  async mounted() {},
 }
 </script>
 <style lang="scss" scoped>
@@ -96,6 +112,7 @@ export default {
     margin: 0 0 var(--spacer-xl) 0;
     @include for-desktop {
       display: flex;
+      flex-wrap: wrap;
     }
   }
   &__list-item {
@@ -104,8 +121,8 @@ export default {
       margin: 0;
     }
     @include for-desktop {
-      flex: 0 1 50%;
-      margin: 0 var(--spacer-base) 0 0;
+      flex: 0 1;
+      margin: 0 var(--spacer-base) var(--spacer-base) 0;
       &:last-child {
         margin: 0;
       }
@@ -146,7 +163,7 @@ export default {
     padding: 0;
     margin: 0;
   }
-  &.sf-radio--is-active {
+  &.sf-radio .is-active {
     border-color: var(--c-primary);
   }
 }
