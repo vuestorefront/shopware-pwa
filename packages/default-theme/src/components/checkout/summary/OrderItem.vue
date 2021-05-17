@@ -37,7 +37,6 @@ import { useCart } from "@shopware-pwa/composables"
 import { ref, watch, computed } from "@vue/composition-api"
 import {
   SfTable,
-  SfCheckbox,
   SfIcon,
   SfPrice,
   SfQuantitySelector,
@@ -49,7 +48,6 @@ export default {
   name: "OrderItem",
   components: {
     SfTable,
-    SfCheckbox,
     SwImage,
     SfIcon,
     SfPrice,

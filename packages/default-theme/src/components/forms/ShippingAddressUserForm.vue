@@ -18,7 +18,7 @@
         </SfAddressPicker>
       </SfListItem>
     </SfList>
-    <!-- <SfCheckbox
+    <!-- <SwCheckbox
       v-model="useAsDefaultAddress"
       label="Use this address as my default one"
       class="shipping-address-user-form__default"
@@ -43,24 +43,19 @@
   </div>
 </template>
 <script>
-import {
-  SfList,
-  SfRadio,
-  SfCheckbox,
-  SfModal,
-  SfAddressPicker,
-} from "@storefront-ui/vue"
+import { SfList, SfRadio, SfModal, SfAddressPicker } from "@storefront-ui/vue"
 import { useSessionContext, useUser } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import { ref, watch } from "@vue/composition-api"
 import SwAddressForm from "@/components/forms/SwAddressForm.vue"
+// import SwCheckbox from '@/components/atoms/SwCheckbox.vue'
 
 export default {
   name: "ShippingAddressUserForm",
   components: {
     SfList,
     SfRadio,
-    SfCheckbox,
+    // SwCheckbox,
     SwButton,
     SfModal,
     SfAddressPicker,
