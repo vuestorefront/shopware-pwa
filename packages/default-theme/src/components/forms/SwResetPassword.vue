@@ -5,7 +5,6 @@
         <div class="form">
           <div class="inputs-group">
             <SwInput
-              id=""
               v-model.trim="$v.newPassword.$model"
               :valid="!$v.newPassword.$error"
               :error-message="$t('This field is required')"
