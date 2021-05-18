@@ -32,13 +32,8 @@
 
           <SwButton
             class="sw-reset-password__button sw-form__button"
-            :disabled="$v.$invalid"
-            @click="
-              $emit('reset', {
-                newPassword,
-                newPasswordConfirm,
-              })
-            "
+            :disabled="$v.$error"
+            @click="invokeReset"
           >
             {{ $t("Set new password") }}
           </SwButton>
@@ -52,15 +47,13 @@
 import { useVuelidate } from "@vuelidate/core"
 import { required, minLength, sameAs } from "@vuelidate/validators"
 import { computed, ref } from "@vue/composition-api"
-import { useUser } from "@shopware-pwa/composables"
-import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 
 export default {
-  name: "SwResetPassword",
+  name: "SwResetPasswordForm",
   components: { SwInput, SwButton },
-  setup(_, { root }) {
+  setup(_, { root, emit }) {
     const newPassword = ref("")
     const newPasswordConfirm = ref("")
 
@@ -75,10 +68,25 @@ export default {
       },
     }))
 
+    const $v = useVuelidate(rules, { newPassword, newPasswordConfirm })
+
+    async function invokeReset() {
+      $v.value.$reset()
+      const isFormCorrect = await $v.value.$validate()
+      if (!isFormCorrect) {
+        return
+      }
+      emit("reset", {
+        newPassword: newPassword.value,
+        newPasswordConfirm: newPasswordConfirm.value,
+      })
+    }
+
     return {
-      $v: useVuelidate(rules, { newPassword, newPasswordConfirm }),
+      $v,
       newPassword,
       newPasswordConfirm,
+      invokeReset,
     }
   },
 }

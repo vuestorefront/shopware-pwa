@@ -12,6 +12,7 @@ import {
   getCustomerLoginEndpoint,
   getCustomerOrderEndpoint,
   getCustomerAddAddressEndpoint,
+  getConfirmPasswordResetEndpoint,
 } from "../endpoints";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
@@ -319,6 +320,24 @@ export async function resetPassword(
   }
 
   await contextInstance.invoke.post(getCustomerResetPasswordEndpoint(), params);
+}
+
+/**
+ * Confirm a customer's password reset. Set new password for account.
+ *
+ * @throws ClientApiError
+ * @beta
+ */
+export async function confirmPasswordReset(
+  params: {
+    newPassword: string;
+    newPasswordConfirm: string;
+    hash: string;
+    [key: string]: unknown; // additional params
+  },
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<void> {
+  await contextInstance.invoke.post(getConfirmPasswordResetEndpoint(), params);
 }
 
 /**

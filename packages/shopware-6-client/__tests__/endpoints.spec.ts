@@ -25,7 +25,7 @@ import {
   getStoreNavigationEndpoint,
   getStoreOrderPaymentUrlEndpoint,
   getContactFormEndpoint,
-  getCustomerResetPasswordConfirm,
+  getConfirmPasswordResetEndpoint,
 } from "../src/endpoints";
 
 const sampleProductId = "eea0f69ec02d44f7a4224272b3d99478";
@@ -217,9 +217,9 @@ describe("endpoints", () => {
       expect(result).toEqual("/store-api/newsletter/unsubscribe");
     });
   });
-  describe("getCustomerResetPasswordConfirm", () => {
+  describe("getConfirmPasswordResetEndpoint", () => {
     it("should return correct endpoint for reset password confirmation action", () => {
-      const result = getCustomerResetPasswordConfirm();
+      const result = getConfirmPasswordResetEndpoint();
       expect(result).toBe("/store-api/account/recovery-password-confirm");
     });
   });

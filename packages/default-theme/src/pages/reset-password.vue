@@ -3,7 +3,7 @@
     <SfHeading :level="2" :title="$t('Reset password')" />
     <div class="sw-reset-password-confirm__form">
       <SwErrorsList :list="errors" />
-      <SwResetPassword v-if="!success" @reset="sendNewPassword" />
+      <SwResetPasswordForm v-if="!success" @reset="sendNewPassword" />
       <SfHeading
         v-else
         :level="3"
@@ -20,16 +20,15 @@
   </div>
 </template>
 <script>
-import { ref, onMounted } from "@vue/composition-api"
-import {
-  invokePost,
-  getCustomerResetPasswordConfirm,
-} from "@shopware-pwa/shopware-6-client"
+import { ref } from "@vue/composition-api"
+import { confirmPasswordReset } from "@shopware-pwa/shopware-6-client"
 import {
   getApplicationContext,
   useBreadcrumbs,
 } from "@shopware-pwa/composables"
 import { SfLoader, SfHeading, SfNotification, SfIcon } from "@storefront-ui/vue"
+import SwResetPasswordForm from "@/components/forms/SwResetPasswordForm.vue"
+
 export default {
   name: "ResetPassword",
   components: {
@@ -38,7 +37,7 @@ export default {
     SfNotification,
     SfIcon,
     SwButton: () => import("@/components/atoms/SwButton.vue"),
-    SwResetPassword: () => import("@/components/forms/SwResetPassword.vue"),
+    SwResetPasswordForm,
     SwErrorsList: () => import("@/components/SwErrorsList.vue"),
   },
   setup(_, { root }) {
@@ -61,14 +60,11 @@ export default {
 
     const sendNewPassword = async ({ newPassword, newPasswordConfirm }) => {
       try {
-        const result = await invokePost(
+        await confirmPasswordReset(
           {
-            address: getCustomerResetPasswordConfirm(),
-            payload: {
-              newPassword,
-              newPasswordConfirm,
-              hash,
-            },
+            newPassword,
+            newPasswordConfirm,
+            hash,
           },
           apiInstance
         )
