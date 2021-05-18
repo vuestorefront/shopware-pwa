@@ -291,6 +291,9 @@ so now, visiting `/our-custom-route/magic-id` you should see:
 
 When you're developing a payment or shipping plugin and you need custom validation - we got you!
 
+Since the very cool validation library called [vuelidate](https://vuelidate.js.org/) is used, our life is simpler. 
+Several built-in validaton rules are at hand, and writing a custom rule should not be a big deal as well (see how to do it [here](https://vuelidate-next.netlify.app/custom_validators.html)).
+
 So let's say we want to enable the "Cash on delivery" method only when the customer is over 18 years old.
 
 ![plugins-validation-1](./../assets/plugins-validation-1.png)
