@@ -49,16 +49,16 @@ export default {
       default: () => ({}),
     },
   },
-  setup({ filter, selectedValues, currentFilters }, { emit }) {
-    const minFilterCode = `min-${filter.code}`
-    const maxFilterCode = `max-${filter.code}`
+  setup(props, { emit }) {
+    const minFilterCode = `min-${props.filter.code}`
+    const maxFilterCode = `max-${props.filter.code}`
 
-    const min = ref(currentFilters[minFilterCode])
-    const max = ref(currentFilters[maxFilterCode])
+    const min = ref(props.currentFilters[minFilterCode])
+    const max = ref(props.currentFilters[maxFilterCode])
 
     const minChanged = () => {
       emit("toggle-filter-value", {
-        ...filter,
+        ...props.filter,
         type: "range",
         code: minFilterCode,
         value: min.value,
@@ -66,7 +66,7 @@ export default {
     }
     const maxChanged = () => {
       emit("toggle-filter-value", {
-        ...filter,
+        ...props.filter,
         type: "range",
         code: maxFilterCode,
         value: max.value,

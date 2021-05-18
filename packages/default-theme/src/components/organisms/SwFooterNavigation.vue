@@ -58,7 +58,7 @@ export default {
     SfList,
     SfMenuItem,
   },
-  setup({}, { root }) {
+  setup(props, { root }) {
     const { loadNavigationElements, navigationElements } = useNavigation(root, {
       type: "footer-navigation",
     })

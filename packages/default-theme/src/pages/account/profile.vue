@@ -45,7 +45,7 @@ export default {
     SwPassword,
     SwPersonalInfo,
   },
-  setup({}, { root }) {
+  setup(props, { root }) {
     const { setBreadcrumbs } = useBreadcrumbs(root)
 
     setBreadcrumbs([

@@ -4,7 +4,7 @@ import { useNotifications } from "@shopware-pwa/composables"
 import { computed, watch } from "@vue/composition-api"
 export default {
   name: "SwOfflineMode",
-  setup({}, { root }) {
+  setup(props, { root }) {
     const { pushError, pushInfo } = useNotifications(root)
     const isOffline = computed(() => root.isOffline)
     watch(

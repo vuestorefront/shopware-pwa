@@ -70,6 +70,13 @@ export interface ConfigChangedArgs {
     config: ClientSettings;
 }
 
+// @beta
+export function confirmPasswordReset(params: {
+    newPassword: string;
+    hash: string;
+    [key: string]: unknown;
+}, contextInstance?: ShopwareApiInstance): Promise<void>;
+
 // @beta (undocumented)
 export interface ContactFormData {
     // (undocumented)
@@ -202,6 +209,9 @@ export const getCheckoutOrderEndpoint: () => string;
 
 // @beta (undocumented)
 export function getCmsPage(path: string, criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<PageResolverResult<CmsPage>>;
+
+// @beta (undocumented)
+export const getConfirmPasswordResetEndpoint: () => string;
 
 // @beta (undocumented)
 export const getContactFormEndpoint: () => string;

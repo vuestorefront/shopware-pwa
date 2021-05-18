@@ -1,6 +1,6 @@
 <template>
   <div v-if="Array.isArray(list) && list.length" class="errors-list-component">
-    <SwAlert :message="$t('Encountered problems:')" type="danger" />
+    <SwAlert :message="`${$t('Encountered problems')}:`" type="danger" />
 
     <ul class="list">
       <li v-for="message in list" :key="message" class="item">{{ message }}</li>

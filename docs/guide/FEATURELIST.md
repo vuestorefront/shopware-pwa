@@ -72,6 +72,7 @@ sidebar: auto
   - List
 - Logout
 - Newsletter subscription & confirmation
+- Reset password
 
 ### Cart
 

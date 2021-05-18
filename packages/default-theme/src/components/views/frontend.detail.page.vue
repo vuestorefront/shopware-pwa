@@ -64,14 +64,14 @@ export default {
       default: () => ({}),
     },
   },
-  setup({ page }, { root }) {
+  setup(props, { root }) {
     const { isLoggedIn } = useUser(root)
     const { switchState: switchLoginModalState } = useUIState(
       root,
       "LOGIN_MODAL_STATE"
     )
     const { getIncludesConfig } = useDefaults(root, "useProductListing")
-    const product = computed(() => page.product)
+    const product = computed(() => props.page.product)
 
     const {
       loadAssociations: loadCrossSells,

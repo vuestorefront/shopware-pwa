@@ -89,7 +89,7 @@ export default {
       required: true,
     },
   },
-  setup({ productId }, { root }) {
+  setup(props, { root }) {
     const { isLoggedIn } = useUser(root)
     const { apiInstance } = getApplicationContext(root, "SwAddProductReview")
     const { switchState: switchLoginModalState } = useUIState(
@@ -114,7 +114,11 @@ export default {
     const submitForm = async () => {
       isSending.value = true
       try {
-        await addProductReview(productId, reviewRequestData.value, apiInstance)
+        await addProductReview(
+          props.productId,
+          reviewRequestData.value,
+          apiInstance
+        )
         wasReviewSent.value = true
       } catch (error) {
         console.error("[SwAddProductReview][submitForm]: ", error)
