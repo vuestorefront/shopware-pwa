@@ -18,7 +18,6 @@
 <script>
 import {
   SfTable,
-  SfCheckbox,
   SfIcon,
   SfPrice,
   SfQuantitySelector,
@@ -28,7 +27,6 @@ export default {
   name: "OrderItem",
   components: {
     SfTable,
-    SfCheckbox,
     SfIcon,
     SfPrice,
     SfQuantitySelector,

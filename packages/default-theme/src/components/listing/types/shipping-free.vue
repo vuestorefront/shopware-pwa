@@ -1,7 +1,7 @@
 <template>
   <div class="filter__max">
     <SfHeading class="filters__title" :level="4" :title="$t(filter.label)" />
-    <SfCheckbox
+    <SwCheckbox
       v-model="selected"
       @change="
         $emit('toggle-filter-value', {
@@ -16,15 +16,16 @@
 <script>
 import { computed, ref } from "@vue/composition-api"
 
-import { SfFilter, SfCheckbox, SfHeading } from "@storefront-ui/vue"
+import { SfFilter, SfHeading } from "@storefront-ui/vue"
 import SwInput from "@/components/atoms/SwInput.vue"
+import SwCheckbox from "@/components/atoms/SwCheckbox.vue"
 
 export default {
   name: "SwFilterShippingFree",
   components: {
     SfFilter,
     SwInput,
-    SfCheckbox,
+    SwCheckbox,
     SfHeading,
   },
   data() {
