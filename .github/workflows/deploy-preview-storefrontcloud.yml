@@ -3,6 +3,7 @@ env:
   PWA_HOST: https://shopware-pwa-canary.storefrontcloud.io
   INSTANCE_CODE: shopware-pwa-canary
   EXPERIMENTAL_IMAGE_PROCESSING_SERVER: https://test-shopware-pwa-images.vercel.app/api/image
+  NUXT_ENV_EXPERIMENTAL_IMAGE_PROCESSING_SERVER: https://test-shopware-pwa-images.vercel.app/api/image
 on:
   pull_request:
     types: [opened, synchronize]
