@@ -22,9 +22,23 @@
       />
       <SwRegistrationForm v-if="!isLoggedIn" :allowGuestRegistration="true" />
       <CheckoutSummary v-if="isLoggedIn" />
+      <SwAlert
+        v-if="isLoggedIn && $v.$errors.length"
+        :message="$t('Please fill form data correctly to complete the order.')"
+        type="danger"
+      />
+      <div v-if="isLoggedIn">
+        <p v-for="error of $v.$errors" :key="error.$uid">
+          <SwAlert :message="error.$message" type="danger" />
+        </p>
+      </div>
       <div v-if="isLoggedIn" class="checkout__main__action">
         <SwButton
-          class="summary__action-button summary__action-button--secondary color-secondary sw-form__button"
+          class="
+            summary__action-button summary__action-button--secondary
+            color-secondary
+            sw-form__button
+          "
           data-cy="go-back-to-payment"
           @click="goToShop"
         >
@@ -71,6 +85,8 @@ import SwRegistrationForm from "@/components/forms/SwRegistrationForm.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { SfHeading } from "@storefront-ui/vue"
+import { useVuelidate } from "@vuelidate/core"
+import SwAlert from "@/components/atoms/SwAlert.vue"
 
 export default {
   name: "CheckoutPage",
@@ -82,6 +98,7 @@ export default {
     SidebarOrderReview,
     SwPluginSlot,
     SfHeading,
+    SwAlert,
   },
   setup({}, { root }) {
     const { setBreadcrumbs } = useBreadcrumbs(root)
@@ -89,6 +106,11 @@ export default {
     const { createOrder: invokeCreateOrder, loadings } = useCheckout(root)
 
     async function createOrder() {
+      $v.value.$reset()
+      const isFormCorrect = await $v.value.$validate()
+      if (!isFormCorrect) {
+        return
+      }
       const order = await invokeCreateOrder()
       root.$router.push(
         root.$routing.getUrl(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`)
@@ -111,12 +133,15 @@ export default {
       "LOGIN_MODAL_STATE"
     )
 
+    const $v = useVuelidate()
+
     return {
       isLoggedIn,
       createOrder,
       loadings,
       goToShop,
       switchLoginModalState,
+      $v,
     }
   },
 }
