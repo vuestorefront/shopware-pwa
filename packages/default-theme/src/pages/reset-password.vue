@@ -40,7 +40,7 @@ export default {
     SwResetPasswordForm,
     SwErrorsList: () => import("@/components/SwErrorsList.vue"),
   },
-  setup(_, { root }) {
+  setup(props, { root }) {
     const { setBreadcrumbs } = useBreadcrumbs(root)
     setBreadcrumbs([
       {

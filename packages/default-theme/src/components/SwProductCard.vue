@@ -32,19 +32,21 @@ import {
   getProductPriceDiscount,
 } from "@shopware-pwa/helpers"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
+import { toRefs } from "@vue/composition-api"
 
 export default {
   components: {
     SfProductCard,
   },
-  setup({ product }, { root }) {
+  setup(props, { root }) {
+    const { product } = toRefs(props)
     const { addToCart, quantity, getStock, isInCart } = useAddToCart(
       root,
-      product
+      product.value
     )
     const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist(
       root,
-      product
+      product.value
     )
     return {
       quantity,
@@ -52,7 +54,9 @@ export default {
       getStock,
       isInCart,
       toggleWishlistItem: () =>
-        isInWishlist.value ? removeFromWishlist(product.id) : addToWishlist(),
+        isInWishlist.value
+          ? removeFromWishlist(product.value.id)
+          : addToWishlist(),
       isInWishlist,
     }
   },

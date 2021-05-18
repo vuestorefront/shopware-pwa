@@ -53,7 +53,7 @@ import SwInput from "@/components/atoms/SwInput.vue"
 export default {
   name: "SwResetPasswordForm",
   components: { SwInput, SwButton },
-  setup(_, { root, emit }) {
+  setup(props, { root, emit }) {
     const newPassword = ref("")
     const newPasswordConfirm = ref("")
 

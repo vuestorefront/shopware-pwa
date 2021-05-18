@@ -34,7 +34,12 @@
           :error-message="$t('Salutation must be selected')"
           required
           :valid="!$v.address.salutation.$error"
-          class="sf-select--underlined sw-form__input sf-input--has-text sf-component-select--underlined"
+          class="
+            sf-select--underlined
+            sw-form__input
+            sf-input--has-text
+            sf-component-select--underlined
+          "
           @blur="$v.address.salutation.$touch()"
         >
           <SfComponentSelectOption
@@ -98,7 +103,11 @@
           :error-message="$t('Country must be selected')"
           :valid="!$v.address.country.$error"
           required
-          class="sf-select--underlined sw-form__input sf-component-select--underlined"
+          class="
+            sf-select--underlined
+            sw-form__input
+            sf-component-select--underlined
+          "
           @blur="$v.address.country.$touch()"
         >
           <SfComponentSelectOption
@@ -173,7 +182,7 @@ export default {
       }),
     },
   },
-  setup({ address }, { root }) {
+  setup(props, { root }) {
     const { pushError, pushSuccess } = useNotifications(root)
     const { getSalutations } = useSalutations(root)
     const { addAddress, updateAddress, error: userError } = useUser(root)
@@ -184,26 +193,27 @@ export default {
       mapSalutations(getSalutations.value)
     )
     // append a model
-    address.salutation = ref(
+    props.address.salutation = ref(
       getMappedSalutations.value.find(
-        (salutation) => salutation.id === address.salutationId
+        (salutation) => salutation.id === props.address.salutationId
       )
     )
-    address.country = ref(
+    props.address.country = ref(
       getMappedCountries.value.find(
-        (country) => country.id === address.countryId
+        (country) => country.id === props.address.countryId
       )
     )
-    const existingAddress = computed(() => !!address?.id)
+    const existingAddress = computed(() => !!props.address?.id)
     // compute selected id
     const selectedCountryId = computed(
       () =>
-        (address.country.value && address.country.value.id) || address.countryId
+        (props.address.country.value && props.address.country.value.id) ||
+        props.address.countryId
     )
     const selectedSalutationId = computed(
       () =>
-        (address.salutation.value && address.salutation.value.id) ||
-        address.salutationId
+        (props.address.salutation.value && props.address.salutation.value.id) ||
+        props.address.salutationId
     )
     // check whether state is required
     const { displayState, forceState } = useCountry(
@@ -216,13 +226,13 @@ export default {
 
     // address model ready to be sent to API
     const getAddressModel = computed(() => ({
-      id: address._uniqueIdentifier,
-      firstName: address.firstName,
-      lastName: address.lastName,
-      zipcode: address.zipcode,
-      street: address.street,
-      city: address.city,
-      phoneNumber: address.phoneNumber,
+      id: props.address._uniqueIdentifier,
+      firstName: props.address.firstName,
+      lastName: props.address.lastName,
+      zipcode: props.address.zipcode,
+      street: props.address.street,
+      city: props.address.city,
+      phoneNumber: props.address.phoneNumber,
       countryId: selectedCountryId.value,
       salutationId: selectedSalutationId.value,
     }))

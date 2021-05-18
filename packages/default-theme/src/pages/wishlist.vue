@@ -62,7 +62,7 @@ export default {
       default: () => ({}),
     },
   },
-  setup({}, { root }) {
+  setup(props, { root }) {
     const { removeFromWishlist, items } = useWishlist(root)
     const { setBreadcrumbs } = useBreadcrumbs(root)
     const { apiInstance } = getApplicationContext(root, "Wishlist")
