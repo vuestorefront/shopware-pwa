@@ -2,7 +2,7 @@ import {
   createResponseInterceptor,
   errorInterceptor,
 } from "../src/interceptors";
-import { random } from "faker";
+import { datatype } from "faker";
 
 describe("apiInterceptors", () => {
   beforeEach(() => {
@@ -10,7 +10,7 @@ describe("apiInterceptors", () => {
   });
   describe("createResponseInterceptor", () => {
     it("should update contextToken after any request", async () => {
-      const contextToken = random.uuid();
+      const contextToken = datatype.uuid();
       const updateMethod = jest.fn();
       const responseInterceptor = createResponseInterceptor(updateMethod);
       responseInterceptor({
@@ -24,7 +24,7 @@ describe("apiInterceptors", () => {
     });
 
     it("should get contextToken from response, not header, if there is one", () => {
-      const contextToken = random.uuid();
+      const contextToken = datatype.uuid();
       const updateMethod = jest.fn();
       const responseInterceptor = createResponseInterceptor(updateMethod);
       responseInterceptor({
