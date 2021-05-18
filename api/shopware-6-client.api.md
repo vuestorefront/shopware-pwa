@@ -73,7 +73,6 @@ export interface ConfigChangedArgs {
 // @beta
 export function confirmPasswordReset(params: {
     newPassword: string;
-    newPasswordConfirm: string;
     hash: string;
     [key: string]: unknown;
 }, contextInstance?: ShopwareApiInstance): Promise<void>;

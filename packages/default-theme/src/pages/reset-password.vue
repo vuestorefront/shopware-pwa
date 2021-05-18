@@ -58,12 +58,11 @@ export default {
     const success = ref(false)
     const errors = ref([])
 
-    const sendNewPassword = async ({ newPassword, newPasswordConfirm }) => {
+    const sendNewPassword = async ({ newPassword }) => {
       try {
         await confirmPasswordReset(
           {
             newPassword,
-            newPasswordConfirm,
             hash,
           },
           apiInstance

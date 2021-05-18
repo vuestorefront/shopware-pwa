@@ -331,13 +331,16 @@ export async function resetPassword(
 export async function confirmPasswordReset(
   params: {
     newPassword: string;
-    newPasswordConfirm: string;
     hash: string;
     [key: string]: unknown; // additional params
   },
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<void> {
-  await contextInstance.invoke.post(getConfirmPasswordResetEndpoint(), params);
+  if (!params) return;
+  await contextInstance.invoke.post(getConfirmPasswordResetEndpoint(), {
+    newPasswordConfirm: params.newPassword,
+    ...params,
+  });
 }
 
 /**

@@ -14,7 +14,6 @@ Confirm a customer's password reset. Set new password for account.
 ```typescript
 export declare function confirmPasswordReset(params: {
     newPassword: string;
-    newPasswordConfirm: string;
     hash: string;
     [key: string]: unknown;
 }, contextInstance?: ShopwareApiInstance): Promise<void>;
@@ -24,7 +23,7 @@ export declare function confirmPasswordReset(params: {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  params | { newPassword: string; newPasswordConfirm: string; hash: string; \[key: string\]: unknown; } |  |
+|  params | { newPassword: string; hash: string; \[key: string\]: unknown; } |  |
 |  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 <b>Returns:</b>
