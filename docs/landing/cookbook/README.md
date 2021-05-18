@@ -128,7 +128,7 @@ In general, the generated project is a [Nuxtjs](https://nuxtjs.org/) project. Th
 
     export default {
       name: "SwInstagramPage",
-      setup({}, { root }) {
+      setup(props, { root }) {
         // get the configured api client
         const { apiInstance } = getApplicationContext(root, "SwInstagramPage")
         const posts = ref([]);
@@ -246,12 +246,10 @@ Let's try to install a [Google Tag Manager for Nuxt.js](https://www.npmjs.com/pa
 2. Add @nuxtjs/gtm to the _modules_ section of `nuxt.config.js`
 
 ```js
-import extendNuxtConfig from '@shopware-pwa/nuxt-module/config'
+import extendNuxtConfig from "@shopware-pwa/nuxt-module/config";
 
 export default extendNuxtConfig({
-  modules: [
-    "@nuxtjs/gtm"
-  ],
+  modules: ["@nuxtjs/gtm"],
   gtm: {
     id: "GTM-XXXXXXX",
     enabled: true, // for dev

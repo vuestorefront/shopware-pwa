@@ -13,6 +13,7 @@
 |  [addPromotionCode(promotionCode, contextInstance)](./shopware-6-client.addpromotioncode.md) | <b><i>(BETA)</i></b> Adds new promotion code to the cart by its code.<!-- -->Promotion code is being added as separate cart item line. |
 |  [changeCartItemQuantity(itemId, newQuantity, contextInstance)](./shopware-6-client.changecartitemquantity.md) | <b><i>(BETA)</i></b> Changes the current quantity in specific cart line item to given quantity.<!-- -->Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 2. |
 |  [clearCart(contextInstance)](./shopware-6-client.clearcart.md) | <b><i>(BETA)</i></b> When no sw-context-token given then this method return an empty cart with the new sw-context-token.<!-- -->When sw-context-token given then this method simply returns the current state of the cart.<!-- -->As the purpose of this method is not clear we recommend to use <code>getCart</code> method because its behaviour seems to be the same. |
+|  [confirmPasswordReset(params, contextInstance)](./shopware-6-client.confirmpasswordreset.md) | <b><i>(BETA)</i></b> Confirm a customer's password reset. Set new password for account. |
 |  [createCustomerAddress(params, contextInstance)](./shopware-6-client.createcustomeraddress.md) | <b><i>(BETA)</i></b> Create an address and respond the new address's id |
 |  [createInstance(initialConfig)](./shopware-6-client.createinstance.md) | <b><i>(BETA)</i></b> |
 |  [createOrder(contextInstance)](./shopware-6-client.createorder.md) | <b><i>(BETA)</i></b> Creates an order for logged in users |
@@ -97,6 +98,7 @@
 |  [getCheckoutCartEndpoint](./shopware-6-client.getcheckoutcartendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCheckoutCartLineItemEndpoint](./shopware-6-client.getcheckoutcartlineitemendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCheckoutOrderEndpoint](./shopware-6-client.getcheckoutorderendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getConfirmPasswordResetEndpoint](./shopware-6-client.getconfirmpasswordresetendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContactFormEndpoint](./shopware-6-client.getcontactformendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContextCountryEndpoint](./shopware-6-client.getcontextcountryendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContextCurrencyEndpoint](./shopware-6-client.getcontextcurrencyendpoint.md) | <b><i>(BETA)</i></b> |

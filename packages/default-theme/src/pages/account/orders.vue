@@ -7,7 +7,7 @@ import { useUser, useBreadcrumbs } from "@shopware-pwa/composables"
 import { PAGE_ACCOUNT } from "@/helpers/pages"
 export default {
   name: "OrderHistory",
-  setup({}, { root }) {
+  setup(props, { root }) {
     const { setBreadcrumbs } = useBreadcrumbs(root)
 
     setBreadcrumbs([

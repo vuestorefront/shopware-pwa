@@ -55,13 +55,11 @@ export default {
     SwOfflineMode,
   },
 
-  setup({}, { root }) {
+  setup(props, { root }) {
     const { breadcrumbs } = useBreadcrumbs(root)
     const { isOpen: isSidebarOpen } = useUIState(root, "CART_SIDEBAR_STATE")
-    const {
-      isOpen: isLoginModalOpen,
-      switchState: switchLoginModalState,
-    } = useUIState(root, "LOGIN_MODAL_STATE")
+    const { isOpen: isLoginModalOpen, switchState: switchLoginModalState } =
+      useUIState(root, "LOGIN_MODAL_STATE")
 
     // Load cart component only when needed
     const loadSidebarComponent = ref(isSidebarOpen.value)

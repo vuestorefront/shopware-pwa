@@ -215,5 +215,8 @@
   "Add address": "Dodaj adres",
   "Congratulations! Your email has been confirmed.": "Gratulacje! Twój email został zapisany.",
   "Your email hasn't been confirmed. Please try again." : "Nie mogliśmy potwierdzić Twojego email-a. Spróbuj ponownie.",
-  "Newsletter subscription": "Zapis do newslettera"
+  "Newsletter subscription": "Zapis do newslettera",
+  "Great! Your new password has been set.": "Świetnie! Ustawiłeś swoje nowe hasło.",
+  "Reset password": "Resetowanie hasła",
+  "Set new password": "Ustaw nowe hasło"
 }

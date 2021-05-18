@@ -34,7 +34,7 @@
 </template>
 <script>
 import { useCart } from "@shopware-pwa/composables"
-import { ref, watch, computed } from "@vue/composition-api"
+import { ref, watch, computed, toRefs } from "@vue/composition-api"
 import {
   SfTable,
   SfIcon,
@@ -59,15 +59,16 @@ export default {
       default: () => ({}),
     },
   },
-  setup({ product }, { root }) {
+  setup(props, { root }) {
+    const { product } = toRefs(props)
     const { removeProduct, changeProductQuantity } = useCart(root)
 
-    const quantity = ref(product.quantity)
+    const quantity = ref(product.value.quantity)
     const isPromotion = computed(() => product?.type === "promotion")
 
     watch(quantity, async (qty) => {
-      if (qty === product.quantity) return
-      await changeProductQuantity({ id: product.id, quantity: qty })
+      if (qty === product.value.quantity) return
+      await changeProductQuantity({ id: product.value.id, quantity: qty })
     })
 
     function getImageUrl(product) {

@@ -23,7 +23,7 @@ export default {
   components: {
     Address,
   },
-  setup(_, { root }) {
+  setup(props, { root }) {
     const {
       user,
       addresses,
