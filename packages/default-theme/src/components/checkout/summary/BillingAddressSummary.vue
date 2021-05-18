@@ -1,25 +1,25 @@
 <template>
   <SwAddress :address="billingAddress" :address-title="$t('Billing address')">
-    <template #after-content>
+    <!-- <template #after-content>
       <SwButton
         class="sf-button--text review__edit"
         @click="$emit('click:edit', 2)"
       >
         {{ $t("Edit") }}
       </SwButton>
-    </template>
+    </template> -->
   </SwAddress>
 </template>
-<script>
+<script lang="ts">
 import { useCheckout } from "@shopware-pwa/composables"
 import SwAddress from "@/components/SwAddress.vue"
-import SwButton from "@/components/atoms/SwButton.vue"
+// import SwButton from "@/components/atoms/SwButton.vue"
 
 export default {
   name: "BillingAddressSummary",
   components: {
     SwAddress,
-    SwButton,
+    // SwButton,
   },
   setup(props, { root }) {
     const { billingAddress } = useCheckout(root)
@@ -29,30 +29,4 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-@import "@/assets/scss/variables";
-.review {
-  &__item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: var(--spacer-base);
-    padding: var(--spacer-sm);
-    @include for-desktop {
-      padding: 0;
-    }
-  }
-  &__title {
-    font-size: var(--font-size--sm);
-    margin-bottom: var(--spacer-sm);
-    color: var(--c-text);
-  }
-  &__content {
-    font-size: var(--font-size--xs);
-  }
-}
-.content {
-  margin: 0;
-  color: var(--c-text-muted);
-}
-</style>
+<style lang="scss" scoped></style>

@@ -1,8 +1,4 @@
 {
-  "1. Personal details": "1. Persönliche Daten",
-  "2. Shipping": "2. Versand",
-  "3. Payment": "Zahlung",
-  "4. Order details": "4. Bestellung prüfen",
   "Add new address": "Neue Adresse hinzufügen",
   "Add new": "Neu hinzufügen",
   "Amount": "Betrag",
@@ -57,9 +53,6 @@
   "Forgotten password?": "Passwort vergessen?",
   "Full rewards program benefits": "Alle Vorteile des Rewards-Programms",
   "Go Back to shop": "Zurück zum Shop",
-  "Go back to Payment": "Zurück zur Zahlung",
-  "Go back to Personal details": "Zurück zu Persönliche Daten",
-  "Go back to Shipping": "Zurück zum Versand",
   "Go to My Account": "Zum Einkaufskorb gehen",
   "Go to cart": "Go to cart",
   "Go to checkout": "Zum Checkout gehen",
@@ -214,5 +207,8 @@
   "width":"Breite",
   "Clear all": "Alles löschen",
   "Subcategories": "Unterkategorien",
-  "Add address": "Adresse hinzufügen"
+  "Add address": "Adresse hinzufügen",
+  "Congratulations! Your email has been confirmed.": "Herzliche Glückwünsche! Deine Email wurde bestätigt.",
+  "Your email hasn't been confirmed. Please try again." : "Ihre E-Mail wurde nicht bestätigt. Bitte versuche es erneut.",
+  "Newsletter subscription": "Newsletter-Abonnement"
 }

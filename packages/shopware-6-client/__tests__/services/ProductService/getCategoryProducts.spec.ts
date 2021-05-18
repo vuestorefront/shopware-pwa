@@ -22,7 +22,7 @@ describe("ProductService - getCategoryProducts", () => {
     const result = await getCategoryProducts(categoryId);
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      "/store-api/v4/product-listing/044a190a54ab4f06803909c3ee8063ef",
+      "/store-api/product-listing/044a190a54ab4f06803909c3ee8063ef",
       undefined
     );
     expect(result).toHaveProperty("elements");
@@ -39,7 +39,7 @@ describe("ProductService - getCategoryProducts", () => {
     expect(
       mockedPost
     ).toBeCalledWith(
-      "/store-api/v4/product-listing/044a190a54ab4f06803909c3ee8063ef",
+      "/store-api/product-listing/044a190a54ab4f06803909c3ee8063ef",
       { limit: 10 }
     );
     expect(result).toHaveProperty("elements");

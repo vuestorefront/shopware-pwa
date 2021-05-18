@@ -180,4 +180,16 @@ describe("Shopware helpers - getSortingSearchCriteria", () => {
       name: "price",
     });
   });
+  it("should return sorting with name translated from fallback property", () => {
+    const result = getSortingSearchCriteria({
+      field: "price",
+      name: "price",
+      order: "desc",
+    } as any);
+    expect(result).toEqual({
+      field: "price",
+      desc: true,
+      name: "price",
+    });
+  });
 });

@@ -22,7 +22,7 @@ describe("FormService - newsletterSubscribe", () => {
       storefrontUrl: "https://shopware6-demo.vuestorefront.io",
     });
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/store-api/v3/newsletter/subscribe", {
+    expect(mockedPost).toBeCalledWith("/store-api/newsletter/subscribe", {
       email: "john@doe.com",
       option: "subscribe",
       storefrontUrl: "https://shopware6-demo.vuestorefront.io",
@@ -32,6 +32,8 @@ describe("FormService - newsletterSubscribe", () => {
   it("should throw an error when data is incorrect", async () => {
     mockedPost.mockRejectedValueOnce(new Error("400"));
     expect(newsletterSubscribe({} as any)).rejects.toThrowError("400");
-    expect(mockedPost).toBeCalledWith("/store-api/v3/newsletter/subscribe", {});
+    expect(mockedPost).toBeCalledWith("/store-api/newsletter/subscribe", {
+      option: "subscribe",
+    });
   });
 });

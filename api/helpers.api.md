@@ -291,7 +291,7 @@ export interface StoreNavigationRoute {
     // (undocumented)
     routeLabel: string;
     // (undocumented)
-    routePath: string;
+    routePath: string | undefined;
 }
 
 // @alpha (undocumented)

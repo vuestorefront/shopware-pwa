@@ -23,8 +23,6 @@ import OrderItem from "@/components/checkout/summary/OrderItem.vue"
 
 import {
   SfTable,
-  SfCheckbox,
-  SfImage,
   SfIcon,
   SfPrice,
   SfQuantitySelector,
@@ -33,7 +31,6 @@ export default {
   name: "OrderItemsTable",
   components: {
     SfTable,
-    SfCheckbox,
     OrderItem,
   },
   data() {

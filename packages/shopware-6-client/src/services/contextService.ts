@@ -8,17 +8,13 @@ import {
   getContextLanguageEndpoint,
   getContextSalutationEndpoint,
   getContextEndpoint,
-  getContextCountryItemEndpoint,
-  getContextSalutationItemEndpoint,
-  getContextPaymentMethodDetailsEndpoint,
-  getContextShippingMethodDetailsEndpoint,
 } from "../endpoints";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
 import { Language } from "@shopware-pwa/commons/interfaces/models/framework/language/Language";
 import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
-import { SearchResult } from "@shopware-pwa/commons/interfaces/response/SearchResult";
+import { EntityResult } from "@shopware-pwa/commons/interfaces/response/EntityResult";
 import { UpdateContextParams } from "@shopware-pwa/commons/interfaces/request/UpdateContextParams";
 import {
   ContextTokenResponse,
@@ -48,8 +44,8 @@ async function updateContext(
 export async function getSessionContext(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<SessionContext> {
-  const resp = await contextInstance.invoke.get(getContextEndpoint());
-  return resp.data;
+  const { data } = await contextInstance.invoke.get(getContextEndpoint());
+  return data;
 }
 
 /**
@@ -82,10 +78,12 @@ export function setCurrentBillingAddress(
  */
 export async function getAvailableCurrencies(
   contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<Currency[]> {
-  const resp = await contextInstance.invoke.get(getContextCurrencyEndpoint());
+): Promise<EntityResult<"currency", Currency[]>> {
+  const { data } = await contextInstance.invoke.get(
+    getContextCurrencyEndpoint()
+  );
 
-  return resp.data;
+  return data;
 }
 
 /**
@@ -108,10 +106,12 @@ export async function setCurrentCurrency(
  */
 export async function getAvailableLanguages(
   contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<Language[]> {
-  const resp = await contextInstance.invoke.get(getContextLanguageEndpoint());
+): Promise<EntityResult<"language", Language[]>> {
+  const { data } = await contextInstance.invoke.get(
+    getContextLanguageEndpoint()
+  );
 
-  return resp.data;
+  return data;
 }
 
 /**
@@ -136,9 +136,11 @@ export async function setCurrentLanguage(
  */
 export async function getAvailableCountries(
   contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<SearchResult<Country[]>> {
-  const resp = await contextInstance.invoke.get(getContextCountryEndpoint());
-  return resp.data;
+): Promise<EntityResult<"country", Country[]>> {
+  const { data } = await contextInstance.invoke.get(
+    getContextCountryEndpoint()
+  );
+  return data;
 }
 
 /**
@@ -149,7 +151,7 @@ export async function getAvailableCountries(
  */
 export async function getAvailableSalutations(
   contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<SearchResult<Salutation[]>> {
+): Promise<EntityResult<"salutation", Salutation[]>> {
   const resp = await contextInstance.invoke.get(getContextSalutationEndpoint());
   return resp.data;
 }
@@ -161,7 +163,7 @@ export async function getAvailableSalutations(
 export async function getAvailablePaymentMethods(
   contextInstance: ShopwareApiInstance = defaultInstance,
   params: { onlyAvailable?: boolean } = {}
-): Promise<PaymentMethod[]> {
+): Promise<EntityResult<"payment_method", PaymentMethod[]>> {
   const resp = await contextInstance.invoke.get(
     getContextPaymentMethodEndpoint(),
     {
@@ -180,11 +182,16 @@ export async function getPaymentMethodDetails(
   paymentId: string,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<PaymentMethod> {
-  const resp = await contextInstance.invoke.get(
-    getContextPaymentMethodDetailsEndpoint(paymentId)
+  const { data } = await contextInstance.invoke.get(
+    getContextPaymentMethodEndpoint(),
+    {
+      params: {
+        "filter[id]": paymentId,
+      },
+    }
   );
 
-  return resp.data.data;
+  return data?.elements?.[0];
 }
 
 /**
@@ -208,7 +215,7 @@ export async function setCurrentPaymentMethod(
 export async function getAvailableShippingMethods(
   contextInstance: ShopwareApiInstance = defaultInstance,
   params: { onlyAvailable?: boolean } = {}
-): Promise<ShippingMethod[]> {
+): Promise<EntityResult<"shipping_method", ShippingMethod[]>> {
   const resp = await contextInstance.invoke.get(
     getContextShippingMethodEndpoint(),
     {
@@ -227,11 +234,16 @@ export async function getShippingMethodDetails(
   shippingId: string,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<ShippingMethod> {
-  const resp = await contextInstance.invoke.get(
-    getContextShippingMethodDetailsEndpoint(shippingId)
+  const { data } = await contextInstance.invoke.get(
+    getContextShippingMethodEndpoint(),
+    {
+      params: {
+        "filter[id]": shippingId,
+      },
+    }
   );
 
-  return resp.data.data;
+  return data?.elements?.[0];
 }
 
 /**
@@ -256,11 +268,17 @@ export async function getUserCountry(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Country> {
   const { data } = await contextInstance.invoke.get(
-    getContextCountryItemEndpoint(countryId)
+    getContextCountryEndpoint(),
+    {
+      params: {
+        "filter[id]": countryId,
+      },
+    }
   );
 
-  return data;
+  return data?.elements?.[0];
 }
+
 /**
  * @throws ClientApiError
  * @beta
@@ -270,8 +288,13 @@ export async function getUserSalutation(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Salutation> {
   const { data } = await contextInstance.invoke.get(
-    getContextSalutationItemEndpoint(salutationId)
+    getContextSalutationEndpoint(),
+    {
+      params: {
+        "filter[id]": salutationId,
+      },
+    }
   );
 
-  return data;
+  return data?.elements?.[0];
 }

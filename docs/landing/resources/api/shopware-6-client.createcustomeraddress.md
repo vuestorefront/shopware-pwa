@@ -12,7 +12,7 @@ Create an address and respond the new address's id
 <b>Signature:</b>
 
 ```typescript
-export declare function createCustomerAddress(params: Partial<CustomerAddress>, contextInstance?: ShopwareApiInstance): Promise<string>;
+export declare function createCustomerAddress(params: Partial<CustomerAddress>, contextInstance?: ShopwareApiInstance): Promise<CustomerAddress>;
 ```
 
 ## Parameters
@@ -24,7 +24,7 @@ export declare function createCustomerAddress(params: Partial<CustomerAddress>, 
 
 <b>Returns:</b>
 
-Promise&lt;string&gt;
+Promise&lt;CustomerAddress&gt;
 
 ## Exceptions
 

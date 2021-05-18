@@ -32,8 +32,8 @@ export const useCountries = (
 
   const fetchCountries = async (): Promise<void> => {
     try {
-      const fetchCountries = await getAvailableCountries(apiInstance);
-      sharedCountries.countries = fetchCountries.data;
+      const { elements } = await getAvailableCountries(apiInstance);
+      sharedCountries.countries = elements;
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;

@@ -40,6 +40,8 @@ export async function getCart(
 }
 
 /**
+ * TODO: https://github.com/vuestorefront/shopware-pwa/issues/1449
+ *
  * Adds specific quantity of the product to the cart by productId. It creates a new cart line item.
  *
  * Warning: This method does not change the state of the cart in any way if productId already exists in a cart. For changing the quantity use addQuantityToCartLineItem() or changeCartLineItemQuantity() methods.
@@ -64,29 +66,6 @@ export async function addProductToCart(
     {
       items: [item],
     }
-  );
-
-  return resp.data;
-}
-
-/**
- * Increases the current quantity in specific cart line item by given quantity.
- *
- * Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 5.
- *
- * @deprecated This method is redundand and will not be supported. Use {@link changeCartItemQuantity} instead.
- * @throws ClientApiError
- * @beta
- */
-export async function addCartItemQuantity(
-  itemId: string,
-  quantity: number,
-  contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<Cart> {
-  const params: Partial<LineItem> = { type: "product", quantity: quantity };
-  const resp = await contextInstance.invoke.post(
-    getCheckoutCartLineItemEndpoint() + "/" + itemId,
-    params
   );
 
   return resp.data;

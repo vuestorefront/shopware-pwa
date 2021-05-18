@@ -4,7 +4,7 @@
       {{ $t("Keep your addresses and contact details updated.") }}
     </p>
     <SwErrorsList :list="formErrors" />
-    <div class="sw-form">
+    <div class="sw-form" v-if="address">
       <div class="inputs-group">
         <SwInput
           v-model="address.firstName"
@@ -122,11 +122,11 @@
       />
 
       <SwButton class="sw-form__button" @click="updateAddress">
-        {{ $t("Update the address") }}
+        {{ existingAddress ? $t("Update the address") : $t("Add the address") }}
       </SwButton>
       <SwButton
         class="sf-button--outline sw-form__button sw-form__button--back"
-        @click="returnToAddresses"
+        @click="$emit('cancel')"
       >
         {{ $t("Back") }}
       </SwButton>
@@ -176,7 +176,7 @@ export default {
   setup({ address }, { root }) {
     const { pushError, pushSuccess } = useNotifications(root)
     const { getSalutations } = useSalutations(root)
-    const { addAddress, error: userError } = useUser(root)
+    const { addAddress, updateAddress, error: userError } = useUser(root)
     const { getCountries, error: countriesError } = useCountries(root)
     // simplify entities
     const getMappedCountries = computed(() => mapCountries(getCountries.value))
@@ -194,6 +194,7 @@ export default {
         (country) => country.id === address.countryId
       )
     )
+    const existingAddress = computed(() => !!address?.id)
     // compute selected id
     const selectedCountryId = computed(
       () =>
@@ -227,7 +228,10 @@ export default {
     }))
 
     // try to save an address
-    const saveAddress = () => addAddress(getAddressModel.value)
+    const saveAddress = () =>
+      existingAddress.value
+        ? updateAddress(getAddressModel.value)
+        : addAddress(getAddressModel.value)
 
     return {
       addAddress,
@@ -241,6 +245,7 @@ export default {
       pushError,
       pushSuccess,
       formErrors,
+      existingAddress,
       $v: useVuelidate(),
     }
   },
@@ -250,7 +255,7 @@ export default {
       if (this.$v.$invalid) {
         return
       }
-      await this.saveAddress()
+      const addressId = await this.saveAddress()
       if (this.userError) {
         return this.pushError(
           this.$t("Your address couldn't be updated due to some errors")
@@ -258,10 +263,7 @@ export default {
       }
 
       this.pushSuccess(this.$t("Your address has been updated"))
-      this.returnToAddresses()
-    },
-    returnToAddresses() {
-      this.$router.push(this.$routing.getUrl("/account/addresses"))
+      this.$emit("success", addressId)
     },
   },
   validations: {

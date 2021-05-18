@@ -20,7 +20,6 @@
 |  Interface | Description |
 |  --- | --- |
 |  [ApplicationVueContext](./composables.applicationvuecontext.md) | <b><i>(BETA)</i></b> Application Context for Shopware PWA. It's an extended Vue instance. |
-|  [CurrentPagination](./composables.currentpagination.md) | <b><i>(BETA)</i></b> |
 |  [IInterceptorCallbackFunction](./composables.iinterceptorcallbackfunction.md) | <b><i>(BETA)</i></b> interface for the callback function of interceptors |
 |  [IUseAddToCart](./composables.iuseaddtocart.md) | <b><i>(BETA)</i></b> interface for [useAddToCart](./composables.useaddtocart.md) composable |
 |  [IUseCart](./composables.iusecart.md) | <b><i>(BETA)</i></b> interface for [useCart](./composables.usecart.md) composable |
@@ -39,7 +38,6 @@
 |  [UseCountry](./composables.usecountry.md) | <b><i>(BETA)</i></b> |
 |  [UseCurrency](./composables.usecurrency.md) | <b><i>(BETA)</i></b> |
 |  [UseProduct](./composables.useproduct.md) | <b><i>(BETA)</i></b> |
-|  [UseProductListing](./composables.useproductlisting.md) | <b><i>(BETA)</i></b> |
 |  [UseSalutations](./composables.usesalutations.md) | <b><i>(BETA)</i></b> |
 
 ## Variables
@@ -61,7 +59,6 @@
 |  [useNotifications](./composables.usenotifications.md) | <b><i>(BETA)</i></b> |
 |  [useProduct](./composables.useproduct.md) | <b><i>(BETA)</i></b> |
 |  [useProductConfigurator](./composables.useproductconfigurator.md) | <b><i>(BETA)</i></b> Product options - [IUseAddToCart](./composables.iuseaddtocart.md) |
-|  [useProductListing](./composables.useproductlisting.md) | <b><i>(BETA)</i></b> |
 |  [useProductQuickSearch](./composables.useproductquicksearch.md) | <b><i>(BETA)</i></b> |
 |  [useSalutations](./composables.usesalutations.md) | <b><i>(BETA)</i></b> |
 |  [useSessionContext](./composables.usesessioncontext.md) | <b><i>(BETA)</i></b> Composable for session management. Options - [IUseSessionContext](./composables.iusesessioncontext.md) |

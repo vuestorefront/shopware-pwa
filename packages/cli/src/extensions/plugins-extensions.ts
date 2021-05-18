@@ -83,7 +83,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     const pluginsConfigRsponse = await axios.post(
       `${toolbox.normalizeBaseUrl(
         shopwareEndpoint
-      )}/api/v3/_action/pwa/dump-bundles`,
+      )}/api/_action/pwa/dump-bundles`,
       null,
       {
         headers: {

@@ -286,3 +286,126 @@ so now we just need to add our new creations to our plugin's `config.json` file:
 so now, visiting `/our-custom-route/magic-id` you should see:
 
 ![custom-plugin-pages-and-layouts](./../assets/plugins-custom-layouts-and-pages.png)
+
+## Checkout plugins validation (payment, shipping) <Badge text="from v0.9" type="info"/>
+
+When you're developing a payment or shipping plugin and you need custom validation - we got you!
+
+Since the very cool validation library called [vuelidate](https://vuelidate.js.org/) is used, our life is simpler. 
+Several built-in validaton rules are at hand, and writing a custom rule should not be a big deal as well (see how to do it [here](https://vuelidate-next.netlify.app/custom_validators.html)).
+
+So let's say we want to enable the "Cash on delivery" method only when the customer is over 18 years old.
+
+![plugins-validation-1](./../assets/plugins-validation-1.png)
+
+The first thing we need to know is a Plugin slot name, where we want to inject our component. We can see in Vue devtools when is the slot name for this specific payment method:
+![plugins-validation-2](./../assets/plugins-validation-2.png)
+![plugins-validation-3](./../assets/plugins-validation-3.png)
+
+so now we know that we want to inject our plugin in the `checkout-payment-method-Cash-on-delivery` slot.
+For simplification, we'll do it in our local plugin. Let's enable our example local plugin - change `sw-plugins/local-plugins.json` file to
+
+```json
+{
+  "my-local-plugin": true
+}
+```
+
+now let's go into this plugin config, and we can declare slot component (`sw-plugins/my-local-plugin/config.json`):
+
+```json{7-10}
+{
+  "slots": [
+    {
+      "name": "top-header-after",
+      "file": "myLocalPlugin.vue"
+    },
+    {
+      "name": "checkout-payment-method-Cash-on-delivery",
+      "file": "myCashOnDelivery.vue"
+    }
+  ],
+  "settings": {}
+}
+```
+
+and we need to create a Vue component (`sw-plugins/my-local-plugin/myCashOnDelivery.vue`):
+
+```vue
+<template>
+  <div>
+    <p>{{ $t("To use this payment method you must be over 18.") }}</p>
+  </div>
+</template>
+<script>
+export default {
+  name: "myCashOnDelivery",
+};
+</script>
+```
+
+so now we have information displayed with payment method:
+![plugins-validation-4](./../assets/plugins-validation-4.png)
+
+so now, let's edit our `sw-plugins/my-local-plugin/myCashOnDelivery.vue` and add validation logic:
+
+```vue
+<template>
+  <div>
+    <p>{{ $t("To use this payment method you must be over 18.") }}</p>
+    <SwCheckbox
+      v-model="isOverEighteen"
+      name="isOverEighteen"
+      :label="$t('I am over 18 years old.')"
+      :valid="!$v.isOverEighteen.$error"
+      :error-message="getErrorMessage"
+    />
+  </div>
+</template>
+<script>
+import SwCheckbox from "@/components/atoms/SwCheckbox.vue";
+import { useVuelidate } from "@vuelidate/core";
+import { helpers } from "@vuelidate/validators";
+
+export default {
+  name: "myCashOnDelivery",
+  components: {
+    SwCheckbox,
+  },
+  data() {
+    return {
+      isOverEighteen: false,
+    };
+  },
+  setup() {
+    return {
+      $v: useVuelidate(),
+    };
+  },
+  computed: {
+    getErrorMessage() {
+      return this.$v.isOverEighteen.$errors?.length
+        ? this.$v.isOverEighteen.$errors[0].$message
+        : "";
+    },
+  },
+  validations: {
+    isOverEighteen: {
+      mustBeCool: {
+        $validator: (value) => value === true,
+        $message: "You must be over 18 to pay with Cash on delivery",
+      },
+    },
+  },
+};
+</script>
+```
+
+The validation message should be very clear. As it will also be displayed with Checkout error messages. "This field is required" may be confusing.
+
+So now we have:
+![plugins-validation-5](./../assets/plugins-validation-5.png)
+
+and after "Place my order" click:
+
+![plugins-validation-6](./../assets/plugins-validation-6.png)

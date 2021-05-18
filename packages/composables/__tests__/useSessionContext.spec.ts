@@ -55,6 +55,23 @@ describe("Composables - useSessionContext", () => {
   });
 
   describe("computed", () => {
+    describe("countryId", () => {
+      it("should return default sales channel's country id", () => {
+        stateContext.value = {
+          salesChannel: {
+            countryId: "some-country-id",
+          },
+        } as any;
+        const { countryId } = useSessionContext(rootContextMock);
+        expect(countryId.value).toBe("some-country-id");
+      });
+
+      it("should return undefined if there's no sales channel's country id", () => {
+        stateContext.value = undefined as any;
+        const { countryId } = useSessionContext(rootContextMock);
+        expect(countryId.value).toBeUndefined();
+      });
+    });
     describe("sessionContext", () => {
       it("should return null when no session context", () => {
         const { sessionContext } = useSessionContext(rootContextMock);

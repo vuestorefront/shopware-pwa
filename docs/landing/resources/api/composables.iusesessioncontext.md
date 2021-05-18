@@ -25,6 +25,7 @@ SessionContext contain all related data like user, currency, country, shippingMe
 |  --- | --- | --- |
 |  [activeBillingAddress](./composables.iusesessioncontext.activebillingaddress.md) | Readonly&lt;Ref&lt;BillingAddress \| null&gt;&gt; | <b><i>(BETA)</i></b> |
 |  [activeShippingAddress](./composables.iusesessioncontext.activeshippingaddress.md) | Readonly&lt;Ref&lt;ShippingAddress \| null&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [countryId](./composables.iusesessioncontext.countryid.md) | ComputedRef&lt;string \| undefined&gt; | <b><i>(BETA)</i></b> |
 |  [currency](./composables.iusesessioncontext.currency.md) | Readonly&lt;Ref&lt;Currency \| null&gt;&gt; | <b><i>(BETA)</i></b> |
 |  [onCurrencyChange](./composables.iusesessioncontext.oncurrencychange.md) | (fn: (params: { currency: Currency; }) =&gt; void) =&gt; void | <b><i>(BETA)</i></b> |
 |  [onPaymentMethodChange](./composables.iusesessioncontext.onpaymentmethodchange.md) | (fn: (params: { paymentMethod: PaymentMethod; }) =&gt; void) =&gt; void | <b><i>(BETA)</i></b> |

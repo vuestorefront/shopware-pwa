@@ -71,6 +71,7 @@ sidebar: auto
 - Order history
   - List
 - Logout
+- Newsletter subscription & confirmation
 
 ### Cart
 

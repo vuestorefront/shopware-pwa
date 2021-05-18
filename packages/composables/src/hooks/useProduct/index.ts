@@ -68,7 +68,7 @@ export const useProduct = (
     loading.value = true;
     try {
       const result = await getProduct(productId, null, apiInstance);
-      product.value = result;
+      product.value = result?.product;
       return result;
     } catch (e) {
       const err: ClientApiError = e;

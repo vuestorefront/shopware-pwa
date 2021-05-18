@@ -1,7 +1,6 @@
 import {
   getProductEndpoint,
   getProductDetailsEndpoint,
-  getProductsIdsEndpoint,
   getProductListingEndpoint,
 } from "../endpoints";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
@@ -11,11 +10,16 @@ import {
   ShopwareSearchParams,
 } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { SearchResult } from "@shopware-pwa/commons/interfaces/response/SearchResult";
+import { ProductResponse } from "@shopware-pwa/commons/interfaces/response/ProductResult";
+import { EntityResult } from "@shopware-pwa/commons/interfaces/response/EntityResult";
+
 import { convertSearchCriteria, ApiType } from "../helpers/searchConverter";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
 
 /**
  * Get default amount of products' ids
+ *
+ * @deprecated method is no longer supported
  *
  * @throws ClientApiError
  * @alpha
@@ -24,7 +28,9 @@ export const getProductsIds = async function (
   options?: any,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<SearchResult<string[]>> {
-  const resp = await contextInstance.invoke.post(getProductsIdsEndpoint());
+  const resp = await contextInstance.invoke.post(getProductEndpoint(), {
+    includes: [{ product: ["id"] }],
+  });
   return resp.data;
 };
 
@@ -37,17 +43,17 @@ export const getProductsIds = async function (
 export const getProducts = async function (
   searchCriteria?: SearchCriteria,
   contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<SearchResult<Product[]>> {
+): Promise<EntityResult<"product", Product[]>> {
   const resp = await contextInstance.invoke.post(
     `${getProductEndpoint()}`,
     convertSearchCriteria({ searchCriteria, config: contextInstance.config })
   );
-  return resp.data.data;
+  return resp.data;
 };
 
 /**
  * Get default amount of products and listing configuration for given category
- *
+ * @deprecated use getCategoryProducts instead
  * @throws ClientApiError
  * @beta
  */
@@ -95,14 +101,14 @@ export async function getProduct(
   productId: string,
   params: any = null,
   contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<Product> {
-  const resp = await contextInstance.invoke.get(
+): Promise<ProductResponse> {
+  const resp = await contextInstance.invoke.post(
     getProductDetailsEndpoint(productId),
     {
       params,
     }
   );
-  return resp.data.data;
+  return resp.data;
 }
 
 /**

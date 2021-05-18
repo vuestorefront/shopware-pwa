@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-isLoggedIn: Ref<boolean>;
+isLoggedIn: ComputedRef<boolean>;
 ```

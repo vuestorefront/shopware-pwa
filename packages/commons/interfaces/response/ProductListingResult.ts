@@ -15,6 +15,7 @@ export interface ProductListingResult {
   sortings: Sort[];
   availableSortings: Sort[];
   aggregations: Aggregations;
+  entity: string;
   currentFilters: {
     manufacturer: string[];
     properties: string[];
