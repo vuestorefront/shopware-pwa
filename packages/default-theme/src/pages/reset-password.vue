@@ -74,7 +74,6 @@ export default {
         )
         success.value = true
       } catch (error) {
-        success.value = true
         errors.value = [error.message]
       }
     }
