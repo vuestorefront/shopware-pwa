@@ -101,7 +101,7 @@
       </div>
 
       <div class="input-group">
-        <SfCheckbox
+        <SwCheckbox
           v-model="checkbox"
           name="checkbox"
           :label="getConfirmationText"
@@ -129,13 +129,7 @@
 </template>
 
 <script>
-import {
-  SfSelect,
-  SfInput,
-  SfCheckbox,
-  SfIcon,
-  SfHeading,
-} from "@storefront-ui/vue"
+import { SfSelect, SfInput, SfIcon, SfHeading } from "@storefront-ui/vue"
 import useVuelidate from "@vuelidate/core"
 import { required, email, minLength } from "@vuelidate/validators"
 import {
@@ -150,13 +144,14 @@ import { computed, ref } from "@vue/composition-api"
 import SwButton from "@/components/atoms/SwButton.vue"
 import { sendContactForm } from "@shopware-pwa/shopware-6-client"
 import SwErrorsList from "@/components/SwErrorsList.vue"
+import SwCheckbox from "@/components/atoms/SwCheckbox.vue"
 
 export default {
   name: "CmsElementContactForm",
   components: {
     SfSelect,
     SfInput,
-    SfCheckbox,
+    SwCheckbox,
     SwButton,
     SwErrorsList,
     SfIcon,
