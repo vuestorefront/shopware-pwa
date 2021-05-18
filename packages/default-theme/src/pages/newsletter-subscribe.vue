@@ -43,7 +43,7 @@ export default {
     SfIcon,
     SwButton: () => import("@/components/atoms/SwButton.vue"),
   },
-  setup(_, { root }) {
+  setup(props, { root }) {
     const { setBreadcrumbs } = useBreadcrumbs(root)
     setBreadcrumbs([
       {
