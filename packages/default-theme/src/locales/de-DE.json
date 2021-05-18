@@ -207,5 +207,8 @@
   "width":"Breite",
   "Clear all": "Alles löschen",
   "Subcategories": "Unterkategorien",
-  "Add address": "Adresse hinzufügen"
+  "Add address": "Adresse hinzufügen",
+  "Congratulations! Your email has been confirmed.": "Herzliche Glückwünsche! Deine Email wurde bestätigt.",
+  "Your email hasn't been confirmed. Please try again." : "Ihre E-Mail wurde nicht bestätigt. Bitte versuche es erneut.",
+  "Newsletter subscription": "Newsletter-Abonnement"
 }
