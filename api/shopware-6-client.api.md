@@ -273,6 +273,9 @@ export function getCustomerOrders(contextInstance?: ShopwareApiInstance): Promis
 export const getCustomerRegisterEndpoint: () => string;
 
 // @beta (undocumented)
+export const getCustomerResetPasswordConfirm: () => string;
+
+// @beta (undocumented)
 export const getCustomerResetPasswordEndpoint: () => string;
 
 // @beta (undocumented)

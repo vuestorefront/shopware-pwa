@@ -115,6 +115,7 @@
 |  [getCustomerLogoutEndpoint](./shopware-6-client.getcustomerlogoutendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerOrderEndpoint](./shopware-6-client.getcustomerorderendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerRegisterEndpoint](./shopware-6-client.getcustomerregisterendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerResetPasswordConfirm](./shopware-6-client.getcustomerresetpasswordconfirm.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerResetPasswordEndpoint](./shopware-6-client.getcustomerresetpasswordendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerUpdateEmailEndpoint](./shopware-6-client.getcustomerupdateemailendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerUpdatePasswordEndpoint](./shopware-6-client.getcustomerupdatepasswordendpoint.md) | <b><i>(BETA)</i></b> |
