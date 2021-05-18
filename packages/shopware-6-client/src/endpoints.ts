@@ -120,6 +120,12 @@ export const getCustomerUpdatePasswordEndpoint = () =>
 export const getCustomerResetPasswordEndpoint = () =>
   `/store-api/account/recovery-password`;
 
+/**
+ * @beta
+ */
+export const getConfirmPasswordResetEndpoint = () =>
+  `/store-api/account/recovery-password-confirm`;
+
 // checkout
 
 /**

@@ -100,7 +100,7 @@ export default {
     SfHeading,
     SwAlert,
   },
-  setup({}, { root }) {
+  setup(props, { root }) {
     const { setBreadcrumbs } = useBreadcrumbs(root)
     const { isLoggedIn } = useUser(root)
     const { createOrder: invokeCreateOrder, loadings } = useCheckout(root)

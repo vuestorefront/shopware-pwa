@@ -91,7 +91,7 @@ export default {
       default: () => ({}),
     },
   },
-  setup({}, { root }) {
+  setup(props, { root }) {
     const { apiInstance } = getApplicationContext(
       root,
       "CmsElementCategoryNavigation"

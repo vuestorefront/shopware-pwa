@@ -19,14 +19,9 @@ export default {
   components: {
     SfNotification,
   },
-  setup({}, { root }) {
-    const {
-      notifications,
-      pushInfo,
-      pushError,
-      pushWarning,
-      removeOne,
-    } = useNotifications(root)
+  setup(props, { root }) {
+    const { notifications, pushInfo, pushError, pushWarning, removeOne } =
+      useNotifications(root)
 
     return {
       notifications,

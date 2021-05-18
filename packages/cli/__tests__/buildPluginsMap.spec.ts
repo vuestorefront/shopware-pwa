@@ -56,8 +56,7 @@ describe("CLI extensions - plugins - buildPluginsMap", () => {
       template: "/plugins/GenericPlugin.vue",
       target: ".shopware-pwa/sw-plugins/first-slot.vue",
       props: {
-        body:
-          "--> <firstSlot3><firstSlot2><firstSlot1></firstSlot1></firstSlot2></firstSlot3> <!--",
+        body: "--> <firstSlot3><firstSlot2><firstSlot1></firstSlot1></firstSlot2></firstSlot3> <!--",
         componentImports:
           "\nimport firstSlot1 from 'path/to/someComponent.vue'\nimport firstSlot2 from 'path/to/someOtherComponent.vue'\nimport firstSlot3 from 'path/to/otherComponent.vue'",
         components: "\n    firstSlot1,\n    firstSlot2,\n    firstSlot3,",

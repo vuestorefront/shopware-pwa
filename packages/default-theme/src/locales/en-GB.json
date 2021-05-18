@@ -216,5 +216,8 @@
   "Add address": "Add address",
   "Congratulations! Your email has been confirmed.": "Congratulations! Your email has been confirmed.",
   "Your email hasn't been confirmed. Please try again." : "Your email hasn't been confirmed. Please try again.",
-  "Newsletter subscription": "Newsletter subscription"
+  "Newsletter subscription": "Newsletter subscription",
+  "Great! Your new password has been set.": "Great! Your new password has been set.",
+  "Reset password": "Reset password",
+  "Set new password": "Set new password"
 }

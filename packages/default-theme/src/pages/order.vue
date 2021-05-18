@@ -32,7 +32,7 @@ export default {
   data() {
     return {}
   },
-  setup({}, { root }) {
+  setup(props, { root }) {
     const { setBreadcrumbs } = useBreadcrumbs(root)
     setBreadcrumbs([
       {

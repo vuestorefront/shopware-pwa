@@ -25,6 +25,7 @@ import {
   getStoreNavigationEndpoint,
   getStoreOrderPaymentUrlEndpoint,
   getContactFormEndpoint,
+  getConfirmPasswordResetEndpoint,
 } from "../src/endpoints";
 
 const sampleProductId = "eea0f69ec02d44f7a4224272b3d99478";
@@ -214,6 +215,12 @@ describe("endpoints", () => {
     it("should return Shopware newsletter unsubscribe URL endpoint", async () => {
       const result = getStoreNewsletterUnsubscribeEndpoint();
       expect(result).toEqual("/store-api/newsletter/unsubscribe");
+    });
+  });
+  describe("getConfirmPasswordResetEndpoint", () => {
+    it("should return correct endpoint for reset password confirmation action", () => {
+      const result = getConfirmPasswordResetEndpoint();
+      expect(result).toBe("/store-api/account/recovery-password-confirm");
     });
   });
 });
