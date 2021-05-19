@@ -118,7 +118,7 @@ import CheckoutSummary from "@/components/checkout/CheckoutSummary.vue"
 import {
   PAGE_CHECKOUT,
   PAGE_ORDER_SUCCESS,
-  PAGE_ORDER_FAILURE,
+  PAGE_ORDER_PAYMENT_FAILURE,
 } from "@/helpers/pages"
 import {
   useBreadcrumbs,
@@ -174,10 +174,14 @@ export default {
       const handledPaymentResponse = await handlePayment(
         order.id,
         // pass finishUrl as a success page (used only in async payment flow)
-        root.$routing.getUrl(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`),
+        root.$routing.getAbsoluteUrl(
+          `${PAGE_ORDER_SUCCESS}?orderId=${order.id}`
+        ),
         // pass errorUrl as a failure page when the payment isn't done successfully
         // (used only in async payment flow)
-        root.$routing.getUrl(`${PAGE_ORDER_FAILURE}?orderId=${order.id}`),
+        root.$routing.getAbsoluteUrl(
+          `${PAGE_ORDER_PAYMENT_FAILURE}?orderId=${order.id}`
+        ),
         apiInstance
       )
       // extract redirectUrl from handle-payment's response
