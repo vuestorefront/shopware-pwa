@@ -34,7 +34,7 @@
   "Edit": "Edit",
   "Email is required": "Email is required",
   "Empty bag": "Empty bag",
-  "Encountered problems": "Encountered problems:",
+  "Encountered problems": "Encountered problems",
   "Enjoy these perks with your free account!": "Enjoy these perks with your free account!",
   "Faster checkout": "Faster checkout",
   "Feel free to edit any of your details below so your account is always up to date": "Feel free to edit any of your details below so your account is always up to date",
@@ -219,5 +219,9 @@
   "Newsletter subscription": "Newsletter subscription",
   "Great! Your new password has been set.": "Great! Your new password has been set.",
   "Reset password": "Reset password",
-  "Set new password": "Set new password"
+  "Set new password": "Set new password",
+  "An error occred during checking the payment status. Please try again later.":"An error occred during checking the payment status. Please try again later.",
+  "Your order is being created.": "Your order is being created.",
+  "Please wait...": "Please wait...",
+  "Your order cannot be placed. Please try again later.": "Your order cannot be placed. Please try again later."
 }

@@ -272,7 +272,16 @@ export default {
     const { login, register, loading, error: userError, errors } = useUser(root)
     const { getCountries, error: countriesError } = useCountries(root)
     const { getSalutations, error: salutationsError } = useSalutations(root)
-    const formErrors = computed(() => errors.register)
+    // temporary fix for accessing the errors in right format
+    // TODO: https://github.com/vuestorefront/shopware-pwa/issues/1498
+    const formErrors = computed(() =>
+      getMessagesFromErrorsArray(
+        (Array.isArray(errors.register) &&
+          errors.register.length &&
+          errors.register[0]) ||
+          ([] as any)
+      )
+    )
 
     const state = reactive({
       firstName: "",
@@ -338,7 +347,7 @@ export default {
           city: state.city,
           street: state.street,
           zipcode: state.zipcode,
-          countryId: state.countryId,
+          countryId: state.countryId || countryId.value,
         },
       })
       isSuccess && emit("success")
