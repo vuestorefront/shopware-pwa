@@ -34,6 +34,7 @@
           <p v-for="error of $v.$errors" :key="error.$uid">
             <SwAlert :message="error.$message" type="danger" />
           </p>
+          <SwErrorsList :list="errorMessages" />
         </div>
         <div v-if="isLoggedIn" class="checkout__main__action">
           <SwButton
@@ -115,6 +116,8 @@
 import SidebarOrderReview from "@/components/checkout/sidebar/SidebarOrderReview.vue"
 import SidebarOrderSummary from "@/components/checkout/sidebar/SidebarOrderSummary.vue"
 import CheckoutSummary from "@/components/checkout/CheckoutSummary.vue"
+import SwErrorsList from "@/components/SwErrorsList.vue"
+
 import {
   PAGE_CHECKOUT,
   PAGE_ORDER_SUCCESS,
@@ -148,6 +151,7 @@ export default {
     SfHeading,
     SwAlert,
     SfLoader,
+    SwErrorsList,
   },
   setup(props, { root }) {
     const isLoading = ref(false)
@@ -155,6 +159,7 @@ export default {
     const { isLoggedIn } = useUser(root)
     const { createOrder: invokeCreateOrder, loadings } = useCheckout(root)
     const { apiInstance } = getApplicationContext(root)
+    const errorMessages = ref([])
     const getRedirectUrl = (handlePaymentResponse: {
       apiAlias: string
       redirectUrl: string | null
@@ -168,32 +173,39 @@ export default {
       // The steps from https://github.com/vuestorefront/shopware-pwa/issues/1419 are followed
       // turn on the loader
       isLoading.value = true
-      // 1. place an order
-      const order = await invokeCreateOrder()
-      // 2. call handle-payment endpoint for further actions
-      const handledPaymentResponse = await handlePayment(
-        order.id,
-        // pass finishUrl as a success page (used only in async payment flow)
-        root.$routing.getAbsoluteUrl(
-          `${PAGE_ORDER_SUCCESS}?orderId=${order.id}`
-        ),
-        // pass errorUrl as a failure page when the payment isn't done successfully
-        // (used only in async payment flow)
-        root.$routing.getAbsoluteUrl(
-          `${PAGE_ORDER_PAYMENT_FAILURE}?orderId=${order.id}`
-        ),
-        apiInstance
-      )
-      // extract redirectUrl from handle-payment's response
-      const redirectUrl = getRedirectUrl(handledPaymentResponse)
-      if (!redirectUrl) {
-        // redirect to the success page if there is no redirectUrl in ther response
-        return root.$router.push(
-          root.$routing.getUrl(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`)
+      try {
+        // 1. place an order
+        const order = await invokeCreateOrder()
+        // 2. call handle-payment endpoint for further actions
+        const handledPaymentResponse = await handlePayment(
+          order.id,
+          // pass finishUrl as a success page (used only in async payment flow)
+          root.$routing.getAbsoluteUrl(
+            `${PAGE_ORDER_SUCCESS}?orderId=${order.id}`
+          ),
+          // pass errorUrl as a failure page when the payment isn't done successfully
+          // (used only in async payment flow)
+          root.$routing.getAbsoluteUrl(
+            `${PAGE_ORDER_PAYMENT_FAILURE}?orderId=${order.id}`
+          ),
+          apiInstance
         )
+        // extract redirectUrl from handle-payment's response
+        const redirectUrl = getRedirectUrl(handledPaymentResponse)
+        if (!redirectUrl) {
+          // redirect to the success page if there is no redirectUrl in ther response
+          return root.$router.push(
+            root.$routing.getUrl(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`)
+          )
+        }
+        // perform a redirection to the external payment gateway
+        window.location.href = redirectUrl
+      } catch (error) {
+        // TODO
+        errorMessages.value = error.message
+      } finally {
+        isLoading.value = false
       }
-      // perform a redirection to the external payment gateway
-      window.location.href = redirectUrl
     }
 
     function goToShop() {
@@ -222,6 +234,7 @@ export default {
       switchLoginModalState,
       $v,
       isLoading,
+      errorMessages,
     }
   },
 }
