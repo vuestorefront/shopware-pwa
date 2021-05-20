@@ -219,5 +219,6 @@
   "Newsletter subscription": "Newsletter subscription",
   "Great! Your new password has been set.": "Great! Your new password has been set.",
   "Reset password": "Reset password",
-  "Set new password": "Set new password"
+  "Set new password": "Set new password",
+  "An error occred during checking the payment status. Please try again later.":"An error occred during checking the payment status. Please try again later."
 }

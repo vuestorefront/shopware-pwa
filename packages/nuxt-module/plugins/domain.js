@@ -43,8 +43,8 @@ export default ({ app, route }, inject) => {
       if (!path) {
         return "";
       }
-      return getCurrentDomain.value
-        ? `${getCurrentDomain.value.url}${path}`.replace(/^\/\/+/, "/")
+      return getNormalizedDomainPath.value
+        ? `${getNormalizedDomainPath.value}${path}`.replace(/^\/\/+/, "/")
         : path;
     },
     getAbsoluteUrl: (path) =>
@@ -60,7 +60,7 @@ export default ({ app, route }, inject) => {
 };
 
 // middleware to set languageId & currencyId for api client and i18n plugin
-Middleware.routing = function ({ isHMR, app, store, from, route, redirect }) {
+Middleware.routing = function ({ isHMR, app, from, route, redirect }) {
   if (isHMR) {
     return;
   }

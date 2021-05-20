@@ -218,5 +218,6 @@
   "Newsletter subscription": "Zapis do newslettera",
   "Great! Your new password has been set.": "Świetnie! Ustawiłeś swoje nowe hasło.",
   "Reset password": "Resetowanie hasła",
-  "Set new password": "Ustaw nowe hasło"
+  "Set new password": "Ustaw nowe hasło",
+  "An error occred during checking the payment status. Please try again later.":"Wystąpił błąd podczas sprawdzania statusu płatności. Spróbuj ponownie później."
 }
