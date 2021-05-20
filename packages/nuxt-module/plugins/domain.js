@@ -23,7 +23,9 @@ export default ({ app, route }, inject) => {
   );
 
   const getNormalizedDomainPath = computed(() =>
-    getCurrentDomain.value.url !== "/" ? getCurrentDomain.value.url : ""
+    getCurrentDomain.value && getCurrentDomain.value?.url !== "/"
+      ? getCurrentDomain.value?.url
+      : ""
   );
 
   const routing = {
