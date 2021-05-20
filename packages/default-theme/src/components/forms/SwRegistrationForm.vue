@@ -347,7 +347,7 @@ export default {
           city: state.city,
           street: state.street,
           zipcode: state.zipcode,
-          countryId: state.countryId,
+          countryId: state.countryId || countryId.value,
         },
       })
       isSuccess && emit("success")

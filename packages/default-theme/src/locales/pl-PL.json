@@ -34,7 +34,7 @@
   "Edit": "Edytuj",
   "Email is required": "Wymagany jest e-mail",
   "Empty bag": "Pusta torba",
-  "Encountered problems": "Napotkane problemy:",
+  "Encountered problems": "Napotkane problemy",
   "Enjoy these perks with your free account!": "Korzystaj z tych udogodnień dzięki darmowemu kontu!",
   "Faster checkout": "Szybsza kasa",
   "Feel free to edit any of your details below so your account is always up to date": "Nie krępuj się edytować swoich danych poniżej, aby Twoje konto było zawsze aktualne",
@@ -218,5 +218,9 @@
   "Newsletter subscription": "Zapis do newslettera",
   "Great! Your new password has been set.": "Świetnie! Ustawiłeś swoje nowe hasło.",
   "Reset password": "Resetowanie hasła",
-  "Set new password": "Ustaw nowe hasło"
+  "Set new password": "Ustaw nowe hasło",
+  "An error occred during checking the payment status. Please try again later.":"Wystąpił błąd podczas sprawdzania statusu płatności. Spróbuj ponownie później.",
+  "Your order is being created.": "Trwa składanie Twojego zamówienia.",
+  "Please wait...": "To zajmie tylko chwilę...",
+  "Your order cannot be placed. Please try again later.": "Zamówienie nie może zostać złożone. Spróbuj ponownie za chwilę."
 }
