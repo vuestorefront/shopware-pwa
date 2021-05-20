@@ -65,8 +65,9 @@ export default {
     const { addresses, loadAddresses } = useUser(root)
     loadAddresses()
 
-    const { activeBillingAddress, setActiveBillingAddress } =
-      useSessionContext(root)
+    const { activeBillingAddress, setActiveBillingAddress } = useSessionContext(
+      root
+    )
 
     const selectedAddressId = ref(activeBillingAddress.value?.id)
     watch(selectedAddressId, (value) => {
