@@ -1,5 +1,5 @@
 <template>
-  <SfLoader :loading="isLoading">
+  <SfLoader :loading="isLoadingPaymentMethod">
     <div class="checkout" :key="$route.fullPath">
       <div class="checkout__main">
         <div class="log-in" v-if="!isLoggedIn">
@@ -141,6 +141,7 @@ import SwAlert from "@/components/atoms/SwAlert.vue"
 
 export default {
   name: "CheckoutPage",
+  layout: "checkoutLayout",
   components: {
     SwButton,
     SwRegistrationForm,
@@ -154,7 +155,7 @@ export default {
     SwErrorsList,
   },
   setup(props, { root }) {
-    const isLoading = ref(false)
+    const isLoadingPaymentMethod = ref(false)
     const { setBreadcrumbs } = useBreadcrumbs(root)
     const { isLoggedIn } = useUser(root)
     const { createOrder: invokeCreateOrder, loadings } = useCheckout(root)
@@ -172,7 +173,7 @@ export default {
       }
       // The steps from https://github.com/vuestorefront/shopware-pwa/issues/1419 are followed
       // turn on the loader
-      isLoading.value = true
+      isLoadingPaymentMethod.value = true
       try {
         // 1. place an order
         const order = await invokeCreateOrder()
@@ -203,8 +204,7 @@ export default {
       } catch (error) {
         // TODO
         errorMessages.value = error.message
-      } finally {
-        isLoading.value = false
+        isLoadingPaymentMethod.value = false
       }
     }
 
@@ -233,7 +233,7 @@ export default {
       goToShop,
       switchLoginModalState,
       $v,
-      isLoading,
+      isLoadingPaymentMethod,
       errorMessages,
     }
   },
