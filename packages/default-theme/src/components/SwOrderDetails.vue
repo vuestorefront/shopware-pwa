@@ -220,7 +220,6 @@ export default {
           ),
           apiInstance
         )
-        const test = 10 / f
         paymentUrl.value = resp.redirectUrl
       } catch (e) {
         pushWarning(
