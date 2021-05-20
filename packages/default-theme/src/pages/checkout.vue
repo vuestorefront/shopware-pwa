@@ -79,7 +79,7 @@
             <SfHeading
               :level="3"
               :title="$t('Your order is being created.')"
-              :description="$t('Please wait few seconds...')"
+              :description="$t('Please wait...')"
             />
             <svg
               class="sf-loader__spinner"

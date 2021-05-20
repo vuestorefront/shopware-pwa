@@ -219,5 +219,7 @@
   "Great! Your new password has been set.": "Grande! La tua nuova password è stata impostata.",
   "Reset password": "Resetta la password",
   "Set new password": "Impostare una nuova password",
-  "An error occred during checking the payment status. Please try again later.":"Si è verificato un errore durante la verifica dello stato del pagamento. Per favore riprova più tardi."
+  "An error occred during checking the payment status. Please try again later.":"Si è verificato un errore durante la verifica dello stato del pagamento. Per favore riprova più tardi.",
+  "Your order is being created.": "Il tuo ordine è in fase di creazione",
+  "Please wait...": "Attendere prego..."
 }
