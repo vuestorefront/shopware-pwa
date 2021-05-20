@@ -203,7 +203,9 @@ export default {
         window.location.href = redirectUrl
       } catch (error) {
         // TODO
-        errorMessages.value = error.message
+        errorMessages.value = [
+          root.$t("Your order cannot be placed. Please try again later."),
+        ]
         isLoadingPaymentMethod.value = false
       }
     }

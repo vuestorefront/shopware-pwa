@@ -34,7 +34,7 @@
   "Edit": "Modifica",
   "Email is required": "L'e-mail è necessaria",
   "Empty bag": "Borsa vuota",
-  "Encountered problems": "Problemi incontrati:",
+  "Encountered problems": "Problemi incontrati",
   "Enjoy these perks with your free account!": "Goditi questi vantaggi con il tuo account gratuito!",
   "Faster checkout": "Pagamento più veloce",
   "Feel free to edit any of your details below so your account is always up to date": "Sentiti libero di modificare i tuoi dati qui sotto in modo che il tuo account sia sempre aggiornato",
@@ -221,5 +221,6 @@
   "Set new password": "Impostare una nuova password",
   "An error occred during checking the payment status. Please try again later.":"Si è verificato un errore durante la verifica dello stato del pagamento. Per favore riprova più tardi.",
   "Your order is being created.": "Il tuo ordine è in fase di creazione",
-  "Please wait...": "Attendere prego..."
+  "Please wait...": "Attendere prego...",
+  "Your order cannot be placed. Please try again later.": "Il tuo ordine non può essere effettuato. Per favore riprova più tardi."
 }
