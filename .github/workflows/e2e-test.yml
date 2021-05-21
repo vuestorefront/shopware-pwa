@@ -42,6 +42,7 @@ jobs:
 
   test:
     name: Cypress tests
+    needs: init
     if: github.event.label.name == 'e2e-running' || github.event_name == 'push'
     runs-on: ubuntu-latest
 
