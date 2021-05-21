@@ -67,14 +67,13 @@ jobs:
           label: ${{ env.LABEL_SUCCESS }}
           type: remove
       - name: Cache node_modules
-        if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
           cache-name: cache-cypress-node-modules-test
         with:
           path: |
             node_modules
-            packages/*/node_modules
+            /home/runner/.cache/Cypress
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: get preview url
         id: get-preview-url
