@@ -25,7 +25,7 @@
   "dependencies": {
     "@shopware-pwa/helpers": "0.8.1",
     "@shopware-pwa/shopware-6-client": "0.8.1",
-    "@vue/composition-api": "^1.0.0-rc.8",
+    "@vue/composition-api": "^1.0.0-rc.9",
     "axios": "^0.21.1",
     "cookie-universal": "^2.1.4",
     "query-string": "^7.0.0",
