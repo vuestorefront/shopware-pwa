@@ -53,7 +53,7 @@ Cypress.Commands.add(
     password = "shopware",
   } = {}) => {
     cy.intercept({
-      url: "/store-api/account/customer",
+      url: "*/store-api/account/customer*",
     }).as("invokeLogin");
 
     cy.get('[data-cy="login-icon"]').click();
