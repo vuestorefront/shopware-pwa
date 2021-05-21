@@ -215,6 +215,13 @@ module.exports = {
 3. The theme is created under the directory with name (code) that you provided in 1. step
 4. The `package.json` file contains the `baseTheme` value with the theme you extend. The files property contains only a `dist` directory (it's used during the build, and the files from dist are published as a package)
 
+::: important
+Please remember that the custom theme should be built before any usage. 
+That means that before starting a nuxt application, the custom theme should be prepared by using:
+`yarn dev` or `yarn build` - to be sure, please check if `dist/` directory isn't empty in your custom theme.
+:::
+
+
 #### There are two useful scripts as well:
 
 1.  `yarn dev` - executes `shopware-pwa dev-theme`
