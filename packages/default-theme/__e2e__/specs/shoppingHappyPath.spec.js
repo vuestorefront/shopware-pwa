@@ -15,14 +15,7 @@ describe("Shopping happy path", () => {
     cy.get('[data-cy="cart-icon"] > .sf-badge').click();
     cy.get("[data-cy=goToCheckout-button]").click();
 
-    cy.get("input[data-cy=first-name-input]").type("John");
-    cy.get("input[data-cy=last-name-input]").type("Doe");
-    cy.get("input[data-cy=registration-email-input]").type("jd@example.com");
-    cy.get("[data-cy=guest-registration-checkbox] input").check();
-    cy.get("input[data-cy=street-input]").type("Street");
-    cy.get("input[data-cy=zip-code-input]").type("55-555");
-    cy.get("input[data-cy=city-input]").type("City");
-    cy.get("[data-cy=register-button]").click();
+    cy.fillAndExecuteRegistrationForm();
 
     cy.get("[data-cy=checkout-payment-method-Cash-on-delivery] input").click();
 
@@ -59,14 +52,7 @@ describe("Shopping happy path", () => {
     cy.get('[data-cy="bottom-navigation-cart"]').click();
     cy.get("[data-cy=goToCheckout-button]").click();
 
-    cy.get("input[data-cy=first-name-input]").type("John");
-    cy.get("input[data-cy=last-name-input]").type("Doe");
-    cy.get("input[data-cy=registration-email-input]").type("jd@example.com");
-    cy.get("[data-cy=guest-registration-checkbox] input").check();
-    cy.get("input[data-cy=street-input]").type("Street");
-    cy.get("input[data-cy=zip-code-input]").type("55-555");
-    cy.get("input[data-cy=city-input]").type("City");
-    cy.get("[data-cy=register-button]").click();
+    cy.fillAndExecuteRegistrationForm();
 
     cy.get("[data-cy=checkout-payment-method-Cash-on-delivery] input").click();
 
