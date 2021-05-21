@@ -29,11 +29,11 @@ jobs:
         uses: actions/cache@v2
         id: step-cache-node-modules
         env:
-          cache-name: cache-node-modules-test
+          cache-name: cache-cypress-node-modules-test
         with:
           path: |
             node_modules
-            packages/*/node_modules
+            /home/runner/.cache/Cypress
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Install dependencies
         if: steps.step-cache-node-modules.outputs.cache-hit != 'true'
@@ -69,7 +69,7 @@ jobs:
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
-          cache-name: cache-node-modules-test
+          cache-name: cache-cypress-node-modules-test
         with:
           path: |
             node_modules
