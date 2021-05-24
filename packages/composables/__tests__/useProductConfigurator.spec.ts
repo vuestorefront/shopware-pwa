@@ -1,7 +1,3 @@
-import Vue from "vue";
-import VueCompositionApi, { ref, Ref } from "@vue/composition-api";
-Vue.use(VueCompositionApi);
-
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 
 jest.mock("@shopware-pwa/shopware-6-client");
@@ -12,6 +8,7 @@ jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 
 import { useProductConfigurator } from "../src/logic/useProductConfigurator";
+import { Ref, ref } from "vue-demi";
 
 describe("Composables - useProductConfigurator", () => {
   const statePage: Ref<Object | null> = ref(null);
@@ -123,12 +120,10 @@ describe("Composables - useProductConfigurator", () => {
       consoleErrorSpy.mockImplementation(() => {});
       it("should log error in console.error output", async () => {
         mockedAxios.invokePost.mockRejectedValueOnce("Something went wrong");
-        const {
-          findVariantForSelectedOptions,
-          handleChange,
-        } = useProductConfigurator(rootContextMock, {
-          parentId: "some-parent-id",
-        } as any);
+        const { findVariantForSelectedOptions, handleChange } =
+          useProductConfigurator(rootContextMock, {
+            parentId: "some-parent-id",
+          } as any);
 
         handleChange("color", "blue");
         await findVariantForSelectedOptions();
@@ -193,12 +188,10 @@ describe("Composables - useProductConfigurator", () => {
             ],
           },
         });
-        const {
-          findVariantForSelectedOptions,
-          handleChange,
-        } = useProductConfigurator(rootContextMock, {
-          parentId: "some-parent-id",
-        } as any);
+        const { findVariantForSelectedOptions, handleChange } =
+          useProductConfigurator(rootContextMock, {
+            parentId: "some-parent-id",
+          } as any);
 
         handleChange("color", "blue");
 

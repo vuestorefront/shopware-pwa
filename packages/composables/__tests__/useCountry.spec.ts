@@ -1,11 +1,5 @@
-import Vue from "vue";
-
-// Mock Vue Composition API onMounted method
-import VueCompositionApi from "@vue/composition-api";
-Vue.use(VueCompositionApi);
-
+import { ref } from "vue-demi";
 import { useCountry } from "@shopware-pwa/composables";
-import { ref } from "@vue/composition-api";
 
 const countryMock = {
   active: true,

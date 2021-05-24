@@ -1,6 +1,3 @@
-import Vue from "vue";
-import VueCompositionApi from "@vue/composition-api";
-Vue.use(VueCompositionApi);
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
 import { useProduct, getDefaultApiParams } from "@shopware-pwa/composables";
@@ -79,8 +76,8 @@ describe("Composables - useProduct", () => {
       mockedAxios.getProductPage.mockResolvedValueOnce({} as any);
       const { loadAssociations } = useProduct(rootContextMock, loadedProduct);
       const includesParams = getDefaultApiParams()?.["useProduct"]?.includes;
-      const associationsParams = getDefaultApiParams()?.["useProduct"]
-        ?.associations;
+      const associationsParams =
+        getDefaultApiParams()?.["useProduct"]?.associations;
       loadAssociations({} as any);
       expect(mockedAxios.getProductPage).toBeCalledWith(
         "detail/1c3e927309014a67a07f3bb574f9e804",

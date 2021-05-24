@@ -1,24 +1,37 @@
-import Vue from "vue";
-
 // Mock Vue Composition API onMounted method
-import VueCompostionApi, * as vueComp from "@vue/composition-api";
-Vue.use(VueCompostionApi);
-(vueComp.onMounted as any) = jest.fn();
+import vueComp, { ref } from "vue-demi";
+const mockedCompositionAPI = vueComp as jest.Mocked<typeof vueComp>;
+
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 
 // Mock API client
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
-import { useSalutations } from "@shopware-pwa/composables";
+import { useSalutations } from "../src/hooks/useSalutations";
 
 describe("Composables - useSalutations", () => {
   const rootContextMock: any = {
     $shopwareApiInstance: jest.fn(),
   };
+  const stateSharedRef = ref();
+  mockedCompositionAPI.getCurrentInstance = jest.fn();
+  mockedCompositionAPI.onMounted = jest.fn();
 
   beforeEach(() => {
     jest.resetAllMocks();
+    stateSharedRef.value = null;
+
+    mockedCompositionAPI.getCurrentInstance.mockReturnValue(rootContextMock);
+
+    mockedComposables.useSharedState.mockImplementation(() => {
+      return {
+        sharedRef: () => stateSharedRef,
+      } as any;
+    });
   });
   describe("computed", () => {
     describe("getMappedSalutations", () => {
@@ -26,16 +39,14 @@ describe("Composables - useSalutations", () => {
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce(
           null as any
         );
-        const { getSalutations, fetchSalutations } = useSalutations(
-          rootContextMock
-        );
+        const { getSalutations, fetchSalutations } =
+          useSalutations(rootContextMock);
         await fetchSalutations();
         expect(getSalutations.value).toEqual([]);
       });
       it("should contain properly fetched salutations", async () => {
-        const { getSalutations, fetchSalutations } = useSalutations(
-          rootContextMock
-        );
+        const { getSalutations, fetchSalutations } =
+          useSalutations(rootContextMock);
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
           elements: [
             {
@@ -91,18 +102,12 @@ describe("Composables - useSalutations", () => {
       });
     });
     describe("onMountedCallback", () => {
-      beforeEach(() => {
-        jest.resetAllMocks();
-      });
-      it("should call fetcSalutations when getSalutations is an empty list", async () => {
+      it("should call fetchSalutations when getSalutations is an empty list", async () => {
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
           elements: null,
         } as any);
-        const {
-          mountedCallback,
-          getSalutations,
-          fetchSalutations,
-        } = useSalutations(rootContextMock);
+        const { mountedCallback, getSalutations, fetchSalutations } =
+          useSalutations(rootContextMock);
         await fetchSalutations();
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
           elements: [
@@ -153,11 +158,8 @@ describe("Composables - useSalutations", () => {
             },
           ],
         } as any);
-        const {
-          mountedCallback,
-          getSalutations,
-          fetchSalutations,
-        } = useSalutations(rootContextMock);
+        const { mountedCallback, getSalutations, fetchSalutations } =
+          useSalutations(rootContextMock);
         await fetchSalutations();
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
           elements: [

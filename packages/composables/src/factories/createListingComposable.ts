@@ -5,7 +5,7 @@ import {
   getApplicationContext,
   useSharedState,
 } from "@shopware-pwa/composables";
-import { computed, ComputedRef, ref } from "@vue/composition-api";
+import { computed, ComputedRef, ref } from "vue-demi";
 import merge from "lodash/merge";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { ListingResult } from "@shopware-pwa/commons/interfaces/response/ListingResult";

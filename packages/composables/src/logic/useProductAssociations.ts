@@ -1,4 +1,4 @@
-import { ref, computed, ComputedRef } from "@vue/composition-api";
+import { ref, computed, ComputedRef } from "vue-demi";
 import {
   Product,
   CrossSelling,

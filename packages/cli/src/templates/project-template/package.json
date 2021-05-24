@@ -11,6 +11,7 @@
     "lint": "prettier --write '*.{js,vue}'"
   },
   "dependencies": {
+    "@vue/composition-api": "^1.0.0-rc.9",
     "@nuxtjs/axios": "^5.13.4",
     "@nuxtjs/pwa": "^3.3.5",
     "core-js": "^3.12.1",

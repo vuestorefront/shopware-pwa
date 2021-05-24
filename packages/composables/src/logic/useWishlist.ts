@@ -1,11 +1,12 @@
-import Vue from "vue";
-import { ref, Ref, reactive, computed, onMounted } from "@vue/composition-api";
+import { ref, Ref, computed, onMounted } from "vue-demi";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import { ApplicationVueContext } from "../appContext";
 import {
   INTERCEPTOR_KEYS,
   useIntercept,
   IInterceptorCallbackFunction,
+  getApplicationContext,
+  useSharedState,
 } from "@shopware-pwa/composables";
 
 /**
@@ -23,10 +24,6 @@ export interface IUseWishlist {
   count: Ref<number>;
 }
 
-const sharedWishlist = Vue.observable({
-  items: [],
-} as any);
-
 /**
  *
  * @beta
@@ -37,7 +34,11 @@ export const useWishlist = (
 ): IUseWishlist => {
   const { broadcast, intercept } = useIntercept(rootContext);
   getApplicationContext(rootContext, "useNotifications");
-  const localWishlist = reactive(sharedWishlist);
+  const { sharedRef } = useSharedState(rootContext);
+  const _wishlistItems: Ref<string[] | null> = sharedRef(
+    "sw-useWishlist-items"
+  );
+
   const productId: Ref<string | undefined> = ref(product?.id);
   const onAddToWishlist = (fn: IInterceptorCallbackFunction) =>
     intercept(INTERCEPTOR_KEYS.ADD_TO_WISHLIST, fn);
@@ -46,7 +47,7 @@ export const useWishlist = (
   const updateStorage = (): void => {
     localStorage.setItem(
       "sw-wishlist-items",
-      JSON.stringify(sharedWishlist.items)
+      JSON.stringify(_wishlistItems.value)
     );
   };
   /* istanbul ignore next */
@@ -57,11 +58,11 @@ export const useWishlist = (
   };
   /* istanbul ignore next */
   onMounted(() => {
-    if (!sharedWishlist.items.length) {
+    if (!_wishlistItems.value?.length) {
       try {
         const currentWishlist = getFromStorage();
         if (Array.isArray(currentWishlist) && currentWishlist.length) {
-          sharedWishlist.items = currentWishlist;
+          _wishlistItems.value = currentWishlist || [];
         }
       } catch (error) {
         console.error("useWishlist:getFromStorage", error);
@@ -76,9 +77,8 @@ export const useWishlist = (
       return;
     }
 
-    sharedWishlist.items = sharedWishlist.items.filter(
-      (itemId: string) => itemId != id
-    );
+    _wishlistItems.value =
+      _wishlistItems.value?.filter((itemId: string) => itemId != id) || [];
 
     updateStorage();
   };
@@ -88,9 +88,10 @@ export const useWishlist = (
     if (!productId.value) {
       return;
     }
+    _wishlistItems.value = _wishlistItems.value || [];
 
-    if (!sharedWishlist.items.includes(productId.value)) {
-      sharedWishlist.items.push(productId.value);
+    if (!_wishlistItems.value.includes(productId.value)) {
+      _wishlistItems.value.push(productId.value);
       updateStorage();
       broadcast(INTERCEPTOR_KEYS.ADD_TO_WISHLIST, {
         product,
@@ -100,15 +101,18 @@ export const useWishlist = (
 
   // return true or false if product id is in wishlist array
   const isInWishlist = computed(() => {
-    return localWishlist.items.includes(productId.value);
+    return !!(
+      productId.value && _wishlistItems.value?.includes(productId.value)
+    );
   });
 
   // remove all items from wishlist
   const clearWishlist = () => {
-    sharedWishlist.items = [];
+    _wishlistItems.value = [];
+    updateStorage();
   };
 
-  const items = computed(() => localWishlist.items);
+  const items = computed(() => _wishlistItems.value || []);
   const count = computed(() => items.value.length);
 
   return {

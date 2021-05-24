@@ -1,21 +1,25 @@
-import Vue from "vue";
-import VueCompositionApi, * as vueComp from "@vue/composition-api";
-import { useSharedState } from "@shopware-pwa/composables";
-const mockedCompositionAPI = vueComp as jest.Mocked<typeof vueComp>;
+import { useSharedState } from "../src/logic/useSharedState";
 
-Vue.use(VueCompositionApi);
+import vueComp, { ref, reactive } from "vue-demi";
+const mockedCompositionAPI = vueComp as jest.Mocked<typeof vueComp>;
 
 describe("Composables - useSharedState", () => {
   const rootContextMock: any = {
     $shopwareApiInstance: jest.fn(),
   };
+  mockedCompositionAPI.getCurrentInstance = jest.fn();
 
   let serverPrefetchMethods: any[] = [];
   beforeEach(() => {
     jest.resetAllMocks();
-    rootContextMock.$sharedStore = vueComp.reactive({});
+    rootContextMock.$sharedStore = reactive({});
     rootContextMock.$isServer = false;
     serverPrefetchMethods = [];
+
+    mockedCompositionAPI.getCurrentInstance.mockImplementation(
+      () => rootContextMock
+    );
+
     mockedCompositionAPI.onServerPrefetch = jest
       .fn()
       .mockImplementation((callback) => serverPrefetchMethods.push(callback));
@@ -65,10 +69,7 @@ describe("Composables - useSharedState", () => {
 
     describe("preloadRef", () => {
       it("should invoke onServerPrefetch method when ref value is not set", async () => {
-        mockedCompositionAPI.getCurrentInstance = jest
-          .fn()
-          .mockImplementationOnce(() => true as any);
-        const someValue = vueComp.ref();
+        const someValue = ref();
         const { preloadRef } = useSharedState(rootContextMock);
         preloadRef(someValue, async () => {
           someValue.value = "new value";
@@ -85,7 +86,7 @@ describe("Composables - useSharedState", () => {
         mockedCompositionAPI.getCurrentInstance = jest
           .fn()
           .mockImplementationOnce(() => false as any);
-        const someValue = vueComp.ref();
+        const someValue = ref();
         const { preloadRef } = useSharedState(rootContextMock);
         await preloadRef(someValue, async () => {
           someValue.value = "new value";
@@ -97,7 +98,7 @@ describe("Composables - useSharedState", () => {
       });
 
       it("should not invoke onServerPrefetch method when ref value is set", async () => {
-        const someValue = vueComp.ref("initial value");
+        const someValue = ref("initial value");
         const { preloadRef } = useSharedState(rootContextMock);
         preloadRef(someValue, async () => {
           someValue.value = "new value";
@@ -146,7 +147,7 @@ describe("Composables - useSharedState", () => {
 
     describe("preloadRef", () => {
       it("should invoke callback method when ref value is not set", async () => {
-        const someValue = vueComp.ref();
+        const someValue = ref();
         const { preloadRef } = useSharedState(rootContextMock);
         preloadRef(someValue, async () => {
           someValue.value = "new value";
@@ -157,7 +158,7 @@ describe("Composables - useSharedState", () => {
       });
 
       it("should not invoke onServerPrefetch method when ref value is set", async () => {
-        const someValue = vueComp.ref("initial value");
+        const someValue = ref("initial value");
         const { preloadRef } = useSharedState(rootContextMock);
         preloadRef(someValue, async () => {
           someValue.value = "new value";

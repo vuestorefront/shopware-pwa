@@ -1,4 +1,4 @@
-import { computed, ComputedRef } from "@vue/composition-api";
+import { computed, ComputedRef } from "vue-demi";
 import { getStoreNavigation } from "@shopware-pwa/shopware-6-client";
 import {
   StoreNavigationElement,

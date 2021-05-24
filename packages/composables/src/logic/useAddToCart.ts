@@ -1,4 +1,4 @@
-import { ref, Ref, computed } from "@vue/composition-api";
+import { ref, Ref, computed } from "vue-demi";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import {
   useCart,

@@ -1,6 +1,4 @@
-import Vue from "vue";
-import VueCompositionApi, { ref, Ref } from "@vue/composition-api";
-Vue.use(VueCompositionApi);
+import { ref, Ref } from "vue-demi";
 import { PageResolverResult } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";

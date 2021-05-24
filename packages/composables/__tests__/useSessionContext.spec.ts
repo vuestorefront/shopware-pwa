@@ -1,7 +1,4 @@
-import Vue from "vue";
-import VueCompositionApi, { Ref, ref } from "@vue/composition-api";
-Vue.use(VueCompositionApi);
-
+import { Ref, ref } from "vue-demi";
 // Mock API client
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 jest.mock("@shopware-pwa/shopware-6-client");
@@ -225,9 +222,8 @@ describe("Composables - useSessionContext", () => {
           mockedApiClient.getSessionContext.mockResolvedValueOnce({
             token: "qwe",
           } as any);
-          const { sessionContext, refreshSessionContext } = useSessionContext(
-            rootContextMock
-          );
+          const { sessionContext, refreshSessionContext } =
+            useSessionContext(rootContextMock);
           await refreshSessionContext();
           expect(sessionContext.value).toEqual({ token: "qwe" });
         });
@@ -236,9 +232,8 @@ describe("Composables - useSessionContext", () => {
           mockedApiClient.getSessionContext.mockRejectedValueOnce({
             message: "Some error",
           } as any);
-          const { sessionContext, refreshSessionContext } = useSessionContext(
-            rootContextMock
-          );
+          const { sessionContext, refreshSessionContext } =
+            useSessionContext(rootContextMock);
           await refreshSessionContext();
           expect(sessionContext.value).toBeNull();
           expect(stateContext.value).toBeNull();
