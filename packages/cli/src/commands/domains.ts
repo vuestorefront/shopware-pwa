@@ -1,7 +1,4 @@
 import { GluegunToolbox } from "gluegun";
-import axios from "axios";
-const DEFAULT_API_INSTANCE_DOMAINS_SOURCE =
-  "https://gist.githubusercontent.com/mkucmus/51aea54148684f886f8ad0649c95dff6/raw/domains.json";
 
 module.exports = {
   name: "domains",
@@ -113,11 +110,10 @@ Synchronize the domain's related config from backend (in order to build a domain
         defaultShopwarePwaApiEndpoint === pwaConfig.shopwareEndpoint
       ) {
         toolbox.print.warning("Loading default domains.json file.");
-        const defaultDomainsJsonResponse = await axios.get(
-          DEFAULT_API_INSTANCE_DOMAINS_SOURCE
-        );
-        if (defaultDomainsJsonResponse.data) {
-          domainsMap = defaultDomainsJsonResponse.data;
+        const defaultDomainsMap =
+          await toolbox.domains.getDefaultDemoDomainsJson();
+        if (defaultDomainsMap) {
+          domainsMap = defaultDomainsMap;
         }
       }
       await toolbox.filesystem.writeAsync(domainsFilePath, domainsMap);
