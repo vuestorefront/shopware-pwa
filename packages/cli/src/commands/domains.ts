@@ -1,4 +1,7 @@
 import { GluegunToolbox } from "gluegun";
+import axios from "axios";
+const DEFAULT_API_INSTANCE_DOMAINS_SOURCE =
+  "https://gist.githubusercontent.com/mkucmus/51aea54148684f886f8ad0649c95dff6/raw/domains.json";
 
 module.exports = {
   name: "domains",
@@ -87,7 +90,7 @@ Synchronize the domain's related config from backend (in order to build a domain
       inputParameters.shopwareAccessToken
     );
 
-    const domainsMap = toolbox.domains.prepareDomainsMap(
+    let domainsMap = toolbox.domains.prepareDomainsMap(
       domains,
       toolbox.normalizeBaseUrl(
         (typeof pwaHost === "string" &&
@@ -99,6 +102,24 @@ Synchronize the domain's related config from backend (in order to build a domain
 
     let domainsFilePath = path.join(shopwarePwaPath, "domains.json");
     try {
+      const pwaConfig = require("shopware-pwa.config.js");
+      const defaultShopwarePwaApiEndpoint = toolbox.normalizeBaseUrl(
+        toolbox.defaultInitConfig.shopwareEndpoint
+      );
+      // if the provided pwaHost value equals the default shopware api instance (fallback) and the domains are still blank - load default domains.json file from gist.
+      if (
+        pwaConfig &&
+        !Object.keys(domainsMap).length &&
+        defaultShopwarePwaApiEndpoint === pwaConfig.shopwareEndpoint
+      ) {
+        toolbox.print.warning("Loading default domains.json file.");
+        const defaultDomainsJsonResponse = await axios.get(
+          DEFAULT_API_INSTANCE_DOMAINS_SOURCE
+        );
+        if (defaultDomainsJsonResponse.data) {
+          domainsMap = defaultDomainsJsonResponse.data;
+        }
+      }
       await toolbox.filesystem.writeAsync(domainsFilePath, domainsMap);
       toolbox.print.success("Shopware domains refreshed");
     } catch (error) {
