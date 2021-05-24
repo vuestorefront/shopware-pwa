@@ -3,8 +3,8 @@
     v-model="quantity"
     :title="getName"
     :image="getImageUrl"
-    :special-price="getSpecialPrice | price"
-    :regular-price="getRegularPrice | price"
+    :special-price="filterPrice(getSpecialPrice)"
+    :regular-price="filterPrice(getRegularPrice)"
     :max-rating="5"
     :score-rating="getProductRating"
     :is-on-wishlist="false"
@@ -26,6 +26,7 @@ import {
   getProductName,
 } from "@shopware-pwa/helpers"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
+import { usePriceFilter } from "@/logic/usePriceFilter.js"
 
 export default {
   components: { SfProductCardHorizontal },
@@ -39,6 +40,7 @@ export default {
       addToCart,
       getStock,
       isInCart,
+      filterPrice: usePriceFilter(),
     }
   },
   props: {

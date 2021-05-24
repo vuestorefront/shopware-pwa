@@ -12,18 +12,18 @@
     />
     <SfProperty
       :name="$t('Subtotal')"
-      :value="subtotal | price"
+      :value="filterPrice(subtotal)"
       class="sf-property--full-width property"
     />
     <SfProperty
       :name="$t('Shipping')"
-      :value="shippingTotal | price"
+      :value="filterPrice(shippingTotal)"
       class="sf-property--full-width property"
     />
     <SfDivider class="divider" />
     <SfProperty
       :name="$t('Total')"
-      :value="totalPrice | price"
+      :value="filterPrice(totalPrice)"
       class="sf-property--full-width property"
     />
     <SwPromoCode class="promo-code" />
@@ -48,6 +48,7 @@ import {
 } from "@storefront-ui/vue"
 import { useCart } from "@shopware-pwa/composables"
 import SwPromoCode from "@/components/SwPromoCode.vue"
+import { usePriceFilter } from "@/logic/usePriceFilter.js"
 
 export default {
   name: "SidebarOrderSummary",
@@ -66,6 +67,7 @@ export default {
       subtotal,
       shippingTotal,
       totalPrice,
+      filterPrice: usePriceFilter(),
     }
   },
   data() {

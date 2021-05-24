@@ -89,7 +89,7 @@ export default {
           apiInstance
         )
         if (result) {
-          products.value = result
+          products.value = result.elements
         }
       } catch (e) {
         console.error(e)

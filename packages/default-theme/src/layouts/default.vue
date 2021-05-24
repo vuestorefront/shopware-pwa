@@ -54,6 +54,7 @@ export default {
     SwNotifications,
     SwOfflineMode,
   },
+  name: "DefaultLayout",
 
   setup(props, { root }) {
     const { breadcrumbs } = useBreadcrumbs(root)

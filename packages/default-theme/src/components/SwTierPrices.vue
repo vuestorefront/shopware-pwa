@@ -18,7 +18,7 @@
         {{ price.label }}
       </SfTableData>
       <SfTableData>
-        {{ price.unitPrice | price }}
+        {{ filterPrice(price.unitPrice) }}
       </SfTableData>
     </SfTableRow>
   </SfTable>
@@ -26,6 +26,7 @@
 
 <script>
 import { SfTable } from "@storefront-ui/vue"
+import { usePriceFilter } from "@/logic/usePriceFilter.js"
 
 export default {
   components: {
@@ -40,6 +41,11 @@ export default {
     return {
       showTable: false,
       tableHeaders: [this.$t("Quantity"), this.$t("Unit price")],
+    }
+  },
+  setup() {
+    return {
+      filterPrice: usePriceFilter(),
     }
   },
   mounted() {

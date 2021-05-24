@@ -26,7 +26,7 @@
     </SfTableData>
     <SfTableData class="table__data table__amount">
       <SfPrice
-        :regular="product.price.totalPrice | price"
+        :regular="filterPrice(product.price.totalPrice)"
         class="product-price"
       />
     </SfTableData>
@@ -43,6 +43,7 @@ import {
 } from "@storefront-ui/vue"
 import SwImage from "@/components/atoms/SwImage.vue"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
+import { usePriceFilter } from "@/logic/usePriceFilter.js"
 
 export default {
   name: "OrderItem",
@@ -80,6 +81,7 @@ export default {
       quantity,
       getImageUrl,
       isPromotion,
+      filterPrice: usePriceFilter(),
     }
   },
 }

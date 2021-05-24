@@ -2,8 +2,8 @@
   <SfProductCard
     :title="getName"
     :image="getImageUrl"
-    :special-price="getSpecialPrice | price"
-    :regular-price="getRegularPrice | price"
+    :special-price="formatPrice(getSpecialPrice)"
+    :regular-price="formatPrice(getRegularPrice)"
     :max-rating="5"
     :score-rating="getProductRating"
     :image-width="700"
@@ -33,6 +33,7 @@ import {
 } from "@shopware-pwa/helpers"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
 import { toRefs } from "@vue/composition-api"
+import { usePriceFilter } from "@/logic/usePriceFilter.js"
 
 export default {
   components: {
@@ -58,6 +59,7 @@ export default {
           ? removeFromWishlist(product.value.id)
           : addToWishlist(),
       isInWishlist,
+      formatPrice: usePriceFilter(),
     }
   },
   props: {

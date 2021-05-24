@@ -1,11 +1,6 @@
 import { createInstance } from "@shopware-pwa/shopware-6-client";
-import {
-  useUser,
-  useCart,
-  useSessionContext,
-  useSharedState,
-} from "@shopware-pwa/composables";
-import { reactive } from "@vue/composition-api";
+import { useUser, useCart, useSessionContext } from "@shopware-pwa/composables";
+import { reactive } from "vue-demi";
 
 export default async ({ app }, inject) => {
   if (!app.$cookies) {
@@ -64,12 +59,20 @@ export default async ({ app }, inject) => {
     }
   });
 
-  if (process.client) {
-    const { refreshSessionContext } = useSessionContext(app);
-    refreshSessionContext();
-    const { refreshUser } = useUser(app);
-    refreshUser();
-    const { refreshCart } = useCart(app);
-    refreshCart();
-  }
+  const { setup } = app;
+  app.setup = function (...args) {
+    let result = {};
+    if (setup instanceof Function) {
+      result = setup(...args) || {};
+    }
+    if (process.client) {
+      const { refreshSessionContext } = useSessionContext();
+      refreshSessionContext();
+      const { refreshUser } = useUser(app);
+      refreshUser();
+      const { refreshCart } = useCart(app);
+      refreshCart();
+    }
+    return result;
+  };
 };

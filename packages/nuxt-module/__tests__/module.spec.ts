@@ -43,7 +43,12 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     addLayout: jest.fn(),
     extendRoutes: jest.fn(),
     addPlugin: jest.fn(),
-    nuxt: { hook: jest.fn() },
+    nuxt: {
+      hook: jest.fn(),
+      resolver: {
+        resolveModule: jest.fn(),
+      },
+    },
     extendBuild: (method: Function): number => methods.push(method),
   };
   let THEME_SOURCE = path.join("node_modules", "theme-name");
