@@ -23,7 +23,7 @@ import {
   getStoreNewsletterConfirmEndpoint,
   getStoreNewsletterUnsubscribeEndpoint,
   getStoreNavigationEndpoint,
-  getStoreOrderPaymentUrlEndpoint,
+  handlePaymentEndpoint,
   getContactFormEndpoint,
   getConfirmPasswordResetEndpoint,
 } from "../src/endpoints";
@@ -183,9 +183,9 @@ describe("endpoints", () => {
     });
   });
 
-  describe("getStoreOrderPaymentUrlEndpoint", () => {
+  describe("handlePaymentEndpoint", () => {
     it("should return handle payment method url endpoint", async () => {
-      const result = getStoreOrderPaymentUrlEndpoint();
+      const result = handlePaymentEndpoint();
       expect(result).toEqual(`/store-api/handle-payment`);
     });
   });

@@ -131,7 +131,7 @@ import {
   getApplicationContext,
 } from "@shopware-pwa/composables"
 import { ref } from "@vue/composition-api"
-import { getStoreOrderPaymentUrl as handlePayment } from "@shopware-pwa/shopware-6-client"
+import { handlePayment } from "@shopware-pwa/shopware-6-client"
 import SwRegistrationForm from "@/components/forms/SwRegistrationForm.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"

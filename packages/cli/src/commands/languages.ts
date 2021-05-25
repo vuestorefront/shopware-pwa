@@ -57,12 +57,11 @@ module.exports = {
     const localPluginsConfig = await toolbox.plugins.getPluginsConfig({
       localPlugins: true,
     });
-    const localPluginsLocalesPaths = await toolbox.languages.getPluginsLocalesPaths(
-      {
+    const localPluginsLocalesPaths =
+      await toolbox.languages.getPluginsLocalesPaths({
         pluginsConfig: localPluginsConfig,
         rootDirectory: "sw-plugins",
-      }
-    );
+      });
     for (let index = 0; index < localPluginsLocalesPaths.length; index++) {
       const localePath = localPluginsLocalesPaths[index];
       const localeMap = await toolbox.languages.getLocalesMap(localePath);
