@@ -220,8 +220,7 @@ export const getContactFormEndpoint = () => `/store-api/contact-form`;
 /**
  * @beta
  */
-export const getStoreOrderPaymentUrlEndpoint = () =>
-  `/store-api/handle-payment`;
+export const handlePaymentEndpoint = () => `/store-api/handle-payment`;
 
 /**
  * @beta

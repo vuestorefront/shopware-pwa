@@ -386,15 +386,6 @@ export const getStoreNewsletterSubscribeEndpoint: () => string;
 export const getStoreNewsletterUnsubscribeEndpoint: () => string;
 
 // @beta (undocumented)
-export function getStoreOrderPaymentUrl(orderId: string, finishUrl?: string, errorUrl?: string, contextInstance?: ShopwareApiInstance): Promise<{
-    redirectUrl: string | null;
-    apiAlias: string;
-}>;
-
-// @beta (undocumented)
-export const getStoreOrderPaymentUrlEndpoint: () => string;
-
-// @beta (undocumented)
 export const getSuggestSearchEndpoint: () => string;
 
 // @beta (undocumented)
@@ -402,6 +393,15 @@ export function getUserCountry(countryId: string, contextInstance?: ShopwareApiI
 
 // @beta (undocumented)
 export function getUserSalutation(salutationId: string, contextInstance?: ShopwareApiInstance): Promise<Salutation>;
+
+// @beta (undocumented)
+export function handlePayment(orderId: string, finishUrl?: string, errorUrl?: string, contextInstance?: ShopwareApiInstance): Promise<{
+    redirectUrl: string | null;
+    apiAlias: string;
+}>;
+
+// @beta (undocumented)
+export const handlePaymentEndpoint: () => string;
 
 // @beta
 export function invokeGet({ address }: {
