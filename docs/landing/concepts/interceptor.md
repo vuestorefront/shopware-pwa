@@ -8,6 +8,8 @@ It allows you to safely broadcast and intercept system events, and add your own 
 :::tip Useful info
 
 All system events can be found in `INTERCEPTOR_KEYS` constant, you'll find it by importing it from composables package `import { INTERCEPTOR_KEYS } from "@shopware-pwa/composables"`
+
+The `INTERCEPTOR_KEYS` interface is available [here](../resources/api/composables.interceptor_keys).
 :::
 
 ## Usage examples
