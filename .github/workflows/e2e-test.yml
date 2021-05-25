@@ -1,6 +1,5 @@
 name: E2E Cypress tests
 env:
-  CYPRESS_VERSION: 6.8.0
   LABEL_RUNNING: e2e-running
   LABEL_SUCCESS: e2e-passed
   LABEL_FAIL: e2e-failed
@@ -11,13 +10,39 @@ on:
   workflow_dispatch:
     inputs:
       page_url:
-        description: 'Url of the instance you want to check'     
+        description: "Url of the instance you want to check"
         required: false
-        default: 'https://shopware-pwa-canary.storefrontcloud.io/'
+        default: "https://shopware-pwa-canary.storefrontcloud.io/"
 
 jobs:
+  init:
+    name: Init dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        id: step-cache-node-modules
+        env:
+          cache-name: cache-cypress-node-modules-test
+        with:
+          path: |
+            node_modules
+            /home/runner/.cache/Cypress
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
+      - name: Install dependencies
+        if: steps.step-cache-node-modules.outputs.cache-hit != 'true'
+        run: |
+          yarn --frozen-lockfile
+
   test:
     name: Cypress tests
+    needs: init
     if: github.event.label.name == 'e2e-running' || github.event_name == 'push'
     runs-on: ubuntu-latest
 
@@ -41,22 +66,15 @@ jobs:
           token: ${{secrets.GITHUB_TOKEN}}
           label: ${{ env.LABEL_SUCCESS }}
           type: remove
-      - name: Cache node_modules for cypress
-        id: step-cache-node-modules
+      - name: Cache node_modules
         uses: actions/cache@v2
         env:
-          cache-name: cache-cypress
+          cache-name: cache-cypress-node-modules-test
         with:
           path: |
             node_modules
             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ env.CYPRESS_VERSION }}
-      - name: yarn init dependencies
-        if: steps.step-cache-node-modules.outputs.cache-hit != 'true'
-        run: |
-          rm ./package.json
-          yarn init --yes
-          yarn add -W cypress@${{ env.CYPRESS_VERSION }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: get preview url
         id: get-preview-url
         uses: patzick/action-get-comment-url@v1

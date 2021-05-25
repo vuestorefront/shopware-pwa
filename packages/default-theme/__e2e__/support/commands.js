@@ -24,6 +24,7 @@
 // -- This will overwrite an existing command --
 
 // const { createPartiallyEmittedExpression } = require("typescript")
+import faker from "faker";
 
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
@@ -53,7 +54,7 @@ Cypress.Commands.add(
     password = "shopware",
   } = {}) => {
     cy.intercept({
-      url: "/store-api/account/customer",
+      url: "*/store-api/account/customer*",
     }).as("invokeLogin");
 
     cy.get('[data-cy="login-icon"]').click();
@@ -64,3 +65,22 @@ Cypress.Commands.add(
     cy.wait("@invokeLogin").its("response.statusCode").should("eq", 200);
   }
 );
+
+Cypress.Commands.add("fillAndExecuteRegistrationForm", ({ email } = {}) => {
+  cy.intercept({
+    url: "*/store-api/account/register",
+  }).as("invokeRegistration");
+
+  cy.get("input[data-cy=first-name-input]").type(faker.name.firstName());
+  cy.get("input[data-cy=last-name-input]").type(faker.name.lastName());
+  cy.get("input[data-cy=registration-email-input]").type(
+    email || faker.internet.email()
+  );
+  cy.get("[data-cy=guest-registration-checkbox] input").check();
+  cy.get("input[data-cy=street-input]").type(faker.address.streetName());
+  cy.get("input[data-cy=zip-code-input]").type(faker.address.zipCode());
+  cy.get("input[data-cy=city-input]").type(faker.address.cityName());
+  cy.get("[data-cy=register-button]").click();
+
+  cy.wait("@invokeRegistration").its("response.statusCode").should("eq", 200);
+});
