@@ -1,12 +1,6 @@
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
-import {
-  getCheckoutOrderEndpoint,
-  getCheckoutGuestOrderEndpoint,
-  getOrderPaymentUrlEndpoint,
-  getStoreOrderPaymentUrlEndpoint,
-} from "../endpoints";
+import { getCheckoutOrderEndpoint, handlePaymentEndpoint } from "../endpoints";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
-import { GuestOrderParams } from "@shopware-pwa/commons/interfaces/request/GuestOrderParams";
 
 /**
  * Creates an order for logged in users
@@ -17,84 +11,31 @@ export async function createOrder(
 ): Promise<Order> {
   const resp = await contextInstance.invoke.post(getCheckoutOrderEndpoint());
 
-  return resp.data?.data;
-}
-
-/**
- * Creates an order for not logged in users
- * Should be used when the user is logged out, but has items in the cart
- * @beta
- */
-export async function createGuestOrder(
-  params: GuestOrderParams,
-  contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<Order> {
-  if (!params) {
-    throw new Error("createGuestOrder method requires GuestOrderParams");
-  }
-
-  const resp = await contextInstance.invoke.post(
-    getCheckoutGuestOrderEndpoint(),
-    params
-  );
-
-  return resp.data?.data;
-}
-
-/**
- * Get payment address to redirect user after placing order.
- * @throws ClientApiError
- * @beta
- */
-export async function getOrderPaymentUrl(
-  {
-    orderId,
-    finishUrl,
-  }: {
-    // mandatory param from placed order
-    orderId: string;
-    // address for redirection after successful payment
-    finishUrl?: string;
-  },
-  contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<{ paymentUrl: string }> {
-  if (!orderId) {
-    throw new Error("getOrderPaymentUrl method requires orderId");
-  }
-
-  const resp = await contextInstance.invoke.post(
-    getOrderPaymentUrlEndpoint(orderId),
-    {
-      finishUrl,
-    }
-  );
-
   return resp.data;
 }
 
 /**
+ * @param orderId - Id of an order
+ * @param finishUrl - URL where the customer is redirected to after payment is done
+ * @param errorUrl - URL where the customer is redirected to after payment fails
  * @beta
  */
-
-export async function getStoreOrderPaymentUrl(
+export async function handlePayment(
   orderId: string,
-
+  finishUrl?: string,
+  errorUrl?: string,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<{
-  /** TODO:  Discover what is hidden under unknown property https://github.com/DivanteLtd/shopware-pwa/issues/999 */
-  redirectResponse: unknown;
+  redirectUrl: string | null;
   apiAlias: string;
 }> {
   if (!orderId) {
-    throw new Error("getStoreOrderPaymentUrl method requires orderId");
+    throw new Error("handlePayment method requires orderId");
   }
 
-  const resp = await contextInstance.invoke.get(
-    getStoreOrderPaymentUrlEndpoint(),
-    {
-      params: { orderId },
-    }
-  );
+  const resp = await contextInstance.invoke.get(handlePaymentEndpoint(), {
+    params: { orderId, finishUrl, errorUrl },
+  });
 
   return resp.data;
 }

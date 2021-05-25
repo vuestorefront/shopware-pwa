@@ -93,7 +93,7 @@ export default {
     },
     manufacturer: {
       type: Object,
-      default: () => ({}),
+      default: null,
     },
   },
   methods: {
@@ -107,12 +107,21 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 
+.sw-product-tabs {
+  word-break: break-all;
+}
+
 .product-details {
   &__properties {
     .sf-property {
       margin-top: var(--spacer-xs);
     }
   }
+
+  &__review {
+    word-break: break-all;
+  }
+
   &__tabs {
     p {
       margin: 0;

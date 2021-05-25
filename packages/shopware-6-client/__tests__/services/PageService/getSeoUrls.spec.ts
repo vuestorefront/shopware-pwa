@@ -20,7 +20,7 @@ describe("PageService - getSeoUrls", () => {
     });
     const result = await getSeoUrls("3223232321112257");
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith("/store-api/v3/seo-url", {
+    expect(mockedPost).toBeCalledWith("/store-api/seo-url", {
       filter: [
         {
           field: "foreignKey",
@@ -43,7 +43,7 @@ describe("PageService - getSeoUrls", () => {
     expect(mockedApiInstance.defaults.headers["sw-language-id"]).toBe(
       "someLanguageId"
     );
-    expect(mockedPost).toBeCalledWith("/store-api/v3/seo-url", {
+    expect(mockedPost).toBeCalledWith("/store-api/seo-url", {
       filter: [
         {
           field: "foreignKey",

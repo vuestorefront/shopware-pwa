@@ -8,6 +8,7 @@
     >
       <SfSelect
         v-if="getMappedSalutations && getMappedSalutations.length > 0"
+        class="select sf-select--underlined"
         v-model="salutation"
         :label="$t('Salutation')"
         :valid="!$v.salutation.$error"
@@ -17,7 +18,7 @@
         <SfSelectOption
           v-for="salutationOption in getMappedSalutations"
           :key="salutationOption.id"
-          :value="salutationOption"
+          :value="salutationOption.id"
           data-cy="salutation-option"
         >
           {{ salutationOption.name }}
@@ -100,7 +101,7 @@
       </div>
 
       <div class="input-group">
-        <SfCheckbox
+        <SwCheckbox
           v-model="checkbox"
           name="checkbox"
           :label="getConfirmationText"
@@ -121,20 +122,14 @@
       <SfIcon size="21px" icon="heart_fill" />
       <SfHeading
         :title="$t('Thanks!')"
-        :subtitle="$t('We\'ll contact you as soon as possible!')"
+        :description="$t('We\'ll contact you as soon as possible!')"
       />
     </div>
   </div>
 </template>
 
 <script>
-import {
-  SfSelect,
-  SfInput,
-  SfCheckbox,
-  SfIcon,
-  SfHeading,
-} from "@storefront-ui/vue"
+import { SfSelect, SfInput, SfIcon, SfHeading } from "@storefront-ui/vue"
 import useVuelidate from "@vuelidate/core"
 import { required, email, minLength } from "@vuelidate/validators"
 import {
@@ -149,13 +144,14 @@ import { computed, ref } from "@vue/composition-api"
 import SwButton from "@/components/atoms/SwButton.vue"
 import { sendContactForm } from "@shopware-pwa/shopware-6-client"
 import SwErrorsList from "@/components/SwErrorsList.vue"
+import SwCheckbox from "@/components/atoms/SwCheckbox.vue"
 
 export default {
   name: "CmsElementContactForm",
   components: {
     SfSelect,
     SfInput,
-    SfCheckbox,
+    SwCheckbox,
     SwButton,
     SwErrorsList,
     SfIcon,
@@ -302,7 +298,7 @@ export default {
 
   .button {
     &.send {
-      float: right;
+      margin-left: auto;
     }
   }
 }
@@ -316,5 +312,14 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.select {
+  margin-right: var(--spacer-sm);
+  ::v-deep .sf-select__dropdown {
+    font-size: var(--font-size--lg);
+    font-family: var(--font-family--secondary);
+    color: var(--c-text);
+  }
 }
 </style>

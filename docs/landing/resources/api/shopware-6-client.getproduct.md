@@ -12,7 +12,7 @@ Get the product with passed productId
 <b>Signature:</b>
 
 ```typescript
-export declare function getProduct(productId: string, params?: any, contextInstance?: ShopwareApiInstance): Promise<Product>;
+export declare function getProduct(productId: string, params?: any, contextInstance?: ShopwareApiInstance): Promise<ProductResponse>;
 ```
 
 ## Parameters
@@ -25,7 +25,7 @@ export declare function getProduct(productId: string, params?: any, contextInsta
 
 <b>Returns:</b>
 
-Promise&lt;Product&gt;
+Promise&lt;ProductResponse&gt;
 
 ## Exceptions
 

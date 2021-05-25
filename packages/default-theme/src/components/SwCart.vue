@@ -31,7 +31,7 @@
         </div>
         <div v-else key="empty-cart" class="empty-cart">
           <div class="empty-cart__banner">
-            <SfImage
+            <SwImage
               :alt="$t('Empty bag')"
               class="empty-cart__image"
               :src="require('@storefront-ui/shared/icons/empty_cart.svg')"
@@ -40,7 +40,7 @@
               :title="$t('Your cart is empty')"
               :level="2"
               class="empty-cart__heading"
-              :subtitle="$t('No items in cart')"
+              :description="$t('No items in cart')"
             />
           </div>
         </div>
@@ -78,13 +78,7 @@
   </div>
 </template>
 <script>
-import {
-  SfSidebar,
-  SfProperty,
-  SfPrice,
-  SfHeading,
-  SfImage,
-} from "@storefront-ui/vue"
+import { SfSidebar, SfProperty, SfPrice, SfHeading } from "@storefront-ui/vue"
 import {
   useCart,
   useUIState,
@@ -96,13 +90,14 @@ import SwButton from "@/components/atoms/SwButton.vue"
 import { PAGE_CHECKOUT } from "@/helpers/pages"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { computed, onMounted, ref, watch } from "@vue/composition-api"
+import SwImage from "@/components/atoms/SwImage.vue"
 
 export default {
   name: "SwCart",
   components: {
     SfSidebar,
     SfHeading,
-    SfImage,
+    SwImage,
     SfProperty,
     SfPrice,
     SwCartProduct,
@@ -143,7 +138,7 @@ export default {
           },
           apiInstance
         )
-        additionalItemsData.value = result
+        additionalItemsData.value = result.elements
       } catch (error) {
         console.error("[SwCart][setup][onMounted]", error)
       }
@@ -200,8 +195,8 @@ export default {
 
 .sw-side-cart {
   --sidebar-z-index: 1;
-  --property-name-font-size: var(--font-lg);
-  --property-value-font-size: var(--font-lg);
+  --property-name-font-size: var(--font-size--lg);
+  --property-value-font-size: var(--font-size--lg);
   --sidebar-bottom: var(--bottom-navigation-height, 0);
   --overlay-z-index: 0;
   --sidebar-bottom-padding: var(--spacer-sm) var(--spacer-sm) var(--spacer-xl);
@@ -226,14 +221,17 @@ export default {
   display: flex;
   flex-direction: column;
   &__total-items {
+    display: none;
     margin: var(--spacer-xs) 0;
     @include for-desktop {
+      display: block;
       margin: var(--spacer-xl) 0 var(--spacer-lg) 0;
+      --property-name-font-weight: var(--font-weight--medium);
     }
   }
   &__total-price {
-    --price-font-size: var(--font-xl);
-    --price-font-weight: var(--font-semibold);
+    --price-font-size: var(--font-size--xl);
+    --price-font-weight: var(--font-weight--semibold);
     margin: 0 0 var(--spacer-base) 0;
   }
 }
@@ -241,10 +239,10 @@ export default {
   flex: 1;
 }
 .empty-cart {
-  --heading-subtitle-margin: 0 0 var(--spacer-xl) 0;
-  --heading-title-margin: 0 0 var(--spacer-base) 0;
+  --heading-description-margin: 0 0 var(--spacer-xl) 0;
+  --heading-title-margin: var(--spacer-base) 0;
   --heading-title-color: var(--c-primary);
-  --heading-title-font-weight: var(--font-semibold);
+  --heading-title-font-weight: var(--font-weight--semibold);
   display: flex;
   flex: 1;
   align-items: center;

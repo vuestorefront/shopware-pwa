@@ -17,17 +17,15 @@ describe("CategoryService - getCategory", () => {
   it("should return chosen category - without associated products by default", async () => {
     mockedGet.mockResolvedValueOnce({
       data: {
-        data: {
-          id: "3a64e872ca404522a2c5d43ebc751e6b",
-          products: null,
-        },
+        id: "3a64e872ca404522a2c5d43ebc751e6b",
+        products: null,
       },
     });
     const categoryId = "3a64e872ca404522a2c5d43ebc751e6b";
     const result = await getCategory(categoryId);
     expect(mockedGet).toBeCalledTimes(1);
     expect(mockedGet).toBeCalledWith(
-      "/sales-channel-api/v3/category/3a64e872ca404522a2c5d43ebc751e6b"
+      "/store-api/category/3a64e872ca404522a2c5d43ebc751e6b"
     );
     expect(result).toHaveProperty("id");
     expect(result.id).toEqual(categoryId);

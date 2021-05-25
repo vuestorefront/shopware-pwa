@@ -16,7 +16,6 @@ import {
 import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
 import {
   getApplicationContext,
-  useNotifications,
   INTERCEPTOR_KEYS,
   useIntercept,
   IInterceptorCallbackFunction,
@@ -46,6 +45,7 @@ export interface IUseSessionContext {
   ) => Promise<void>;
   activeBillingAddress: Readonly<Ref<BillingAddress | null>>;
   setActiveBillingAddress: (address: Partial<BillingAddress>) => Promise<void>;
+  countryId: ComputedRef<string | undefined>;
   // events for interceptors
   onCurrencyChange: (fn: (params: { currency: Currency }) => void) => void;
   onPaymentMethodChange: (
@@ -82,16 +82,12 @@ export const useSessionContext = (
   const onShippingMethodChange = (fn: IInterceptorCallbackFunction) =>
     intercept(INTERCEPTOR_KEYS.SESSION_SET_SHIPPING_METHOD, fn);
 
-  const { pushWarning } = useNotifications(rootContext);
   const sessionContext = computed(() => storeSessionContext.value);
   const refreshSessionContext = async () => {
     try {
       const context = await getSessionContext(apiInstance);
       storeSessionContext.value = context;
     } catch (e) {
-      pushWarning(
-        "Unable to update the session. Some parts may not be working properly. Please try again later."
-      );
       console.error("[UseSessionContext][refreshSessionContext]", e);
     }
   };
@@ -135,9 +131,11 @@ export const useSessionContext = (
   const currency = computed(() => sessionContext.value?.currency || null);
   const setCurrency = async (currency: Partial<Currency> = {}) => {
     if (!currency.id) {
-      throw new Error(
-        "You need to provide currency id in order to set currency."
+      console.error(
+        "You need to provide currency id in order to set currency.",
+        currency
       );
+      return;
     }
     await setCurrentCurrency(currency.id, apiInstance);
     await refreshSessionContext();
@@ -174,6 +172,10 @@ export const useSessionContext = (
     refreshSessionContext();
   };
 
+  const countryId = computed(
+    () => sessionContext.value?.salesChannel?.countryId
+  );
+
   return {
     sessionContext,
     refreshSessionContext,
@@ -187,6 +189,7 @@ export const useSessionContext = (
     setActiveShippingAddress,
     activeBillingAddress,
     setActiveBillingAddress,
+    countryId,
     // interceptors
     onCurrencyChange,
     onPaymentMethodChange,

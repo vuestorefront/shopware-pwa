@@ -3,13 +3,13 @@
 /**
  * @beta
  */
-export const getCategoryEndpoint = () => `/sales-channel-api/v3/category`; // will become `/store-api/v4/category`
+export const getCategoryEndpoint = () => `/store-api/category`;
 
 /**
  * @beta
  */
 export const getCategoryDetailsEndpoint = (categoryId: string) =>
-  `/sales-channel-api/v3/category/${categoryId}`; // replace with `/store-api/v4/category with { ids: [ categoryId ] }`
+  `/store-api/category/${categoryId}`;
 
 // product-listing
 
@@ -17,51 +17,49 @@ export const getCategoryDetailsEndpoint = (categoryId: string) =>
  * @beta
  */
 export const getProductListingEndpoint = (categoryId: string) =>
-  `/store-api/v4/product-listing/${categoryId}`;
+  `/store-api/product-listing/${categoryId}`;
 
 // product
 
 /**
  * @beta
  */
-export const getProductEndpoint = () => `/sales-channel-api/v3/product`;
+export const getProductEndpoint = () => `/store-api/product`;
 
 /**
  * @beta
  */
 export const getProductDetailsEndpoint = (productId: string) =>
-  `/store-api/v3/product/${productId}`;
-
-/**
- * @beta
- */
-export const getProductsIdsEndpoint = () =>
-  `/sales-channel-api/v3/search-ids/product`; // replace with `/store-api/v4/product with { includes: [ product: [ id ] }`
+  `/store-api/product/${productId}`;
 
 // search
 
 /**
  * @beta
  */
-export const getSuggestSearchEndpoint = () => `/store-api/v3/search-suggest`;
+export const getSuggestSearchEndpoint = () => `/store-api/search-suggest`;
 
 /**
  * @beta
  */
-export const getSearchEndpoint = () => `/store-api/v3/search`;
+export const getSearchEndpoint = () => `/store-api/search`;
 
 // customer
+/**
+ * @beta
+ */
+export const getCustomerAddAddressEndpoint = () => `/store-api/account/address`;
 
 /**
  * @beta
  */
 export const getCustomerAddressEndpoint = (addressId?: string) =>
   addressId
-    ? `/sales-channel-api/v3/customer/address/${addressId}` // replace with `/store-api/v4/account/list-address` with { ids: [ addressid ] )
-    : "/sales-channel-api/v3/customer/address"; // replace with `/store-api/v4/account/list-address`
+    ? `/store-api/account/address/${addressId}`
+    : "/store-api/account/list-address";
 
 const getCustomerDefaultAddressEndpoint = (type: string, addressId: string) =>
-  `/sales-channel-api/v3/customer/address/${addressId}/default-${type}`; // replace with `/store-api/v4/context` { includes: { customer: defaultBillingAddress|defaultShipingAddress } }
+  `/store-api/account/address/default-${type}/${addressId}`;
 
 /**
  * @beta
@@ -78,190 +76,112 @@ export const getCustomerDefaultShippingAddressEndpoint = (addressId: string) =>
 /**
  * @beta
  */
-export const getCustomerAddressDetailsEndpoint = (addressId: string) =>
-  `/sales-channel-api/v3/customer/address/${addressId}`; // replace with `/store-api/v4/account/list-address` { ids: [ addressId  }
-
+export const getCustomerEndpoint = () => `/store-api/account/customer`;
 /**
  * @beta
  */
-export const getCustomerAddressSetDefaultShippingEndpoint = (
-  addressId: string
-) => `/sales-channel-api/v3/customer/address/${addressId}/default-shipping`; // replace with `/store-api/v4/account/address/default-shipping/{addressId}`
-
-/**
- * @beta
- */
-export const getCustomerAddressSetDefaultBillingEndpoint = (
-  addressId: string
-) => `/sales-channel-api/v3/customer/address/${addressId}/default-billing`; // replace with `/store-api/v4/account/address/default-billing/{addressId}`
-
-/**
- * @beta
- */
-export const getCustomerEndpoint = () => `/store-api/v3/account/customer`;
-/**
- * @beta
- */
-export const getCustomerRegisterEndpoint = () =>
-  `/store-api/v3/account/register`;
+export const getCustomerRegisterEndpoint = () => `/store-api/account/register`;
 /**
  * @beta
  */
 export const getCustomerDetailsUpdateEndpoint = () =>
-  `/store-api/v3/account/change-profile`;
-/**
- * @beta
- */
-export const getCustomerDetailsEndpoint = (customerId: string) =>
-  `/store-api/v3/customer/${customerId}`;
+  `/store-api/account/change-profile`;
 
 /**
  * @beta
  */
-export const getCustomerLoginEndpoint = () => `/store-api/v3/account/login`;
+export const getCustomerLoginEndpoint = () => `/store-api/account/login`;
 
 /**
  * @beta
  */
-export const getCustomerLogoutEndpoint = () => `/store-api/v3/account/logout`;
+export const getCustomerLogoutEndpoint = () => `/store-api/account/logout`;
 
 /**
  * @beta
  */
-export const getCustomerOrderEndpoint = () => `/store-api/v3/order`;
-
-/**
- * @beta
- */
-export const getCustomerOrderDetailsEndpoint = (orderId: string) =>
-  `/sales-channel-api/v3/checkout/guest-order/${orderId}`;
+export const getCustomerOrderEndpoint = () => `/store-api/order`;
 
 /**
  * @beta
  */
 export const getCustomerUpdateEmailEndpoint = () =>
-  `/store-api/v3/account/change-email`;
+  `/store-api/account/change-email`;
 
 /**
  * @beta
  */
 export const getCustomerUpdatePasswordEndpoint = () =>
-  `/store-api/v3/account/change-password`;
+  `/store-api/account/change-password`;
 
 /**
  * @beta
  */
 export const getCustomerResetPasswordEndpoint = () =>
-  `/store-api/v3/account/recovery-password`;
+  `/store-api/account/recovery-password`;
+
+/**
+ * @beta
+ */
+export const getConfirmPasswordResetEndpoint = () =>
+  `/store-api/account/recovery-password-confirm`;
 
 // checkout
 
 /**
  * @beta
  */
-export const getCheckoutCartEndpoint = () => `/store-api/v3/checkout/cart`;
+export const getCheckoutCartEndpoint = () => `/store-api/checkout/cart`;
 
 /**
  * @beta
  */
 export const getCheckoutCartLineItemEndpoint = () =>
-  `/store-api/v3/checkout/cart/line-item`;
+  `/store-api/checkout/cart/line-item`;
 
 /**
  * @beta
  */
-export const getCheckoutOrderEndpoint = () =>
-  `/sales-channel-api/v3/checkout/order`; // replace with `/store-api/v3/account/order`
-
-/**
- * @beta
- */
-export const getCheckoutGuestOrderEndpoint = () =>
-  `/sales-channel-api/v3/checkout/guest-order`; // replace with `/store-api/v4/checkout/register` { guest: true } (to obtain logged in context token) followed by `/store-api/v4/checkout/order`
-
-/**
- * @beta
- */
-export const getCheckoutOrderPayEndpoint = (orderId: string) =>
-  `/sales-channel-api/v3/checkout/order/${orderId}/pay`; // replace with `/store-api/v4/handle-payment` { orderId: orderId }
-
-/**
- * @beta
- */
-export const getCheckoutGuestOrderDetailsEndpoint = (orderId: string) =>
-  `/sales-channel-api/v3/checkout/guest-order/${orderId}`; // replace with `/store-api/v3/account/order` { ids: [ orderId ] }
-
-/**
- * @beta
- */
-export const getCheckoutPromotionCodeEndpoint = (code: string) =>
-  `/sales-channel-api/v3/checkout/cart/code/${code}`; // replace with `/store-api/v3/checkout/cart/line-item` - see https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/cart?category=shopware-platform-dev-en/store-api-guide#promotion
+export const getCheckoutOrderEndpoint = () => `/store-api/checkout/order`;
 
 // context
 
 /**
  * @beta
  */
-export const getContextEndpoint = () => `/store-api/v3/context`;
+export const getContextEndpoint = () => `/store-api/context`;
 
 /**
  * @beta
  */
-export const getContextCurrencyEndpoint = () => `/store-api/v3/currency`;
+export const getContextCurrencyEndpoint = () => `/store-api/currency`;
 
 /**
  * @beta
  */
-export const getContextLanguageEndpoint = () => `/store-api/v3/language`;
+export const getContextLanguageEndpoint = () => `/store-api/language`;
 
 /**
  * @beta
  */
-export const getContextCountryEndpoint = () => `/sales-channel-api/v3/country`; // replace with `/store-api/v4/country`
-
-/**
- * @beta
- */
-export const getContextCountryItemEndpoint = (countryId: string): string =>
-  `/sales-channel-api/v3/country/${countryId}`; // replace with `/store-api/v4/country` { ids: [ countryId ] }
+export const getContextCountryEndpoint = () => `/store-api/country`;
 
 /**
  * @beta
  */
 export const getContextPaymentMethodEndpoint = () =>
-  `/store-api/v3/payment-method`;
-
-/**
- * @beta
- */
-export const getContextPaymentMethodDetailsEndpoint = (
-  paymentId: string
-): string => `/sales-channel-api/v3/payment-method/${paymentId}`; // replace with `/store-api/v4/payment-method` { ids: [ paymentId ] }
+  `/store-api/payment-method`;
 
 /**
  * @beta
  */
 export const getContextShippingMethodEndpoint = () =>
-  `/store-api/v3/shipping-method`;
+  `/store-api/shipping-method`;
 
 /**
  * @beta
  */
-export const getContextShippingMethodDetailsEndpoint = (
-  shippingId: string
-): string => `/sales-channel-api/v3/shipping-method/${shippingId}`; // replace with `/store-api/v4/shipping-method` { ids: [ shippingId ] }
-
-/**
- * @beta
- */
-export const getContextSalutationEndpoint = () => `/store-api/v3/salutation`;
-
-/**
- * @beta
- */
-export const getContextSalutationItemEndpoint = (
-  salutationId: string
-): string => `/store-api/v3/salutation/${salutationId}`;
+export const getContextSalutationEndpoint = () => `/store-api/salutation`;
 
 // newsletter
 
@@ -278,7 +198,12 @@ export const getNewsletterUnsubscribeEndpoint = () => `/newsletter/unsubscribe`;
 /**
  * @beta
  */
-export const getPageResolverEndpoint = () => `/store-api/v3/pwa/page`;
+export const getPageResolverEndpoint = () => `/store-api/pwa/page`;
+
+/**
+ * @beta
+ */
+export const getSeoUrlEndpoint = () => "/store-api/seo-url";
 
 /**
  * @beta
@@ -286,37 +211,31 @@ export const getPageResolverEndpoint = () => `/store-api/v3/pwa/page`;
 export const getStoreNavigationEndpoint = (
   requestActiveId: string,
   requestRootId: string
-) => `/store-api/v3/navigation/${requestActiveId}/${requestRootId}`;
-/**
- * @beta
- */
-export const getOrderPaymentUrlEndpoint = (orderId: string): string =>
-  `/sales-channel-api/v3/checkout/order/${orderId}/pay`; // replace with `/store-api/v4/handle-payment` { orderId: orderId }
+) => `/store-api/navigation/${requestActiveId}/${requestRootId}`;
 
 /**
  * @beta
  */
-export const getContactFormEndpoint = () => `/store-api/v3/contact-form`;
+export const getContactFormEndpoint = () => `/store-api/contact-form`;
 /**
  * @beta
  */
-export const getStoreOrderPaymentUrlEndpoint = () =>
-  `/store-api/v3/handle-payment`;
+export const handlePaymentEndpoint = () => `/store-api/handle-payment`;
 
 /**
  * @beta
  */
 export const getStoreNewsletterSubscribeEndpoint = () =>
-  `/store-api/v3/newsletter/subscribe`;
+  `/store-api/newsletter/subscribe`;
 
 /**
  * @beta
  */
 export const getStoreNewsletterConfirmEndpoint = () =>
-  `/store-api/v3/newsletter/confirm`;
+  `/store-api/newsletter/confirm`;
 
 /**
  * @beta
  */
 export const getStoreNewsletterUnsubscribeEndpoint = () =>
-  `/store-api/v3/newsletter/unsubscribe`;
+  `/store-api/newsletter/unsubscribe`;

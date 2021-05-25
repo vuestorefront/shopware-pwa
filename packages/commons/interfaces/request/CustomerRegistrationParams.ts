@@ -2,13 +2,23 @@ import { ShippingAddress } from "../models/checkout/customer/ShippingAddress";
 import { BillingAddress } from "../models/checkout/customer/BillingAddress";
 
 /**
- * @alpha
+ *
+ * docs: https://shopware.stoplight.io/docs/store-api/storeapi.json/paths/~1account~1register/post
+ *
+ * @beta
  */
 export interface CustomerRegistrationParams {
   salutationId: string;
   firstName: string;
   lastName: string;
-  password: string;
+  /**
+   * Password for the customer. Required, unless `guest` is `true`
+   */
+  password?: string;
+  /**
+   * If set, will create a guest customer. Guest customers can re-use an email address and don't need a password.
+   */
+  guest?: boolean;
   email: string;
   title?: string;
   birthdayYear?: number;

@@ -21,9 +21,9 @@ function getAllFiles(dirPath, arrayOfFiles = [], excludeHidden = true) {
 
 async function runBuild(packageJson) {
   try {
-    const files = getAllFiles(
-      path.join(__dirname, "..", "src")
-    ).filter((filePath) => filePath.endsWith(".ts"));
+    const files = getAllFiles(path.join(__dirname, "..", "src")).filter(
+      (filePath) => filePath.endsWith(".ts")
+    );
     const external = Object.keys(packageJson.dependencies);
     await esBuild({
       entryPoints: files,

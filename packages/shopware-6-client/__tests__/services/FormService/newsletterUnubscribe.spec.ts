@@ -18,7 +18,7 @@ describe("FormService - newsletterUnsubscribe", () => {
     await newsletterUnsubscribe({ email: "john@doe.com" });
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith(
-      "/store-api/v3/newsletter/unsubscribe",
+      "/store-api/newsletter/unsubscribe",
       "john@doe.com"
     );
   });
@@ -26,9 +26,6 @@ describe("FormService - newsletterUnsubscribe", () => {
   it("should throw an error when data is incorrect", async () => {
     mockedPost.mockRejectedValueOnce(new Error("500"));
     expect(newsletterUnsubscribe({ email: "" })).rejects.toThrowError("500");
-    expect(mockedPost).toBeCalledWith(
-      "/store-api/v3/newsletter/unsubscribe",
-      ""
-    );
+    expect(mockedPost).toBeCalledWith("/store-api/newsletter/unsubscribe", "");
   });
 });

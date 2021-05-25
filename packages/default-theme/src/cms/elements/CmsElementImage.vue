@@ -1,38 +1,41 @@
 <template>
-  <SwLink
-    v-if="link"
-    :link="link"
-    :target="target"
-    class="cms-element-image__link"
-  >
-    <SfImage
+  <div v-if="imgUrl">
+    <SwLink
+      v-if="link"
+      :link="link"
+      :target="target"
+      class="cms-element-image__link"
+    >
+      <SwImage
+        :src="imgUrl"
+        :title="title"
+        :alt="alt"
+        :loading="lazyLoad"
+        class="cms-element-image"
+      />
+    </SwLink>
+    <SwImage
+      v-else
       :src="imgUrl"
       :title="title"
       :alt="alt"
-      :lazy="lazyLoad"
+      :loading="lazyLoad"
       class="cms-element-image"
     />
-  </SwLink>
-  <SfImage
-    v-else
-    :src="imgUrl"
-    :title="title"
-    :alt="alt"
-    :lazy="lazyLoad"
-    class="cms-element-image"
-  />
+  </div>
 </template>
 
 <script>
 import { getCmsLink, getCmsLinkTarget } from "@shopware-pwa/helpers"
-import { SfImage } from "@storefront-ui/vue"
 import SwLink from "@/components/atoms/SwLink.vue"
+import SwImage from "@/components/atoms/SwImage.vue"
+import getResizedImage from "@/helpers/images/getResizedImage.js"
 
 export default {
   name: "CmsElementImage",
 
   components: {
-    SfImage,
+    SwImage,
     SwLink,
   },
 
@@ -45,7 +48,7 @@ export default {
 
   computed: {
     alt() {
-      return this.getMedia && this.getMedia.alt
+      return (this.getMedia && this.getMedia.alt) || " "
     },
 
     getMedia() {
@@ -53,11 +56,11 @@ export default {
     },
 
     imgUrl() {
-      return this.getMedia && this.getMedia.url
+      return getResizedImage(this.getMedia && this.getMedia.url)
     },
 
     lazyLoad() {
-      return true
+      return "lazy"
     },
 
     link() {
@@ -79,6 +82,7 @@ export default {
 @import "@/cms/settings.scss";
 
 .cms-element-image {
-  height: 100%;
+  --image-width: 100%;
+  width: 100%;
 }
 </style>

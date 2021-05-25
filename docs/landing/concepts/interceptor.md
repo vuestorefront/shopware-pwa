@@ -8,6 +8,8 @@ It allows you to safely broadcast and intercept system events, and add your own 
 :::tip Useful info
 
 All system events can be found in `INTERCEPTOR_KEYS` constant, you'll find it by importing it from composables package `import { INTERCEPTOR_KEYS } from "@shopware-pwa/composables"`
+
+The `INTERCEPTOR_KEYS` interface is available [here](../resources/api/composables.interceptor_keys).
 :::
 
 ## Usage examples
@@ -20,12 +22,12 @@ It introduces a new type of methods `onXXX`, in our case it's `onAddToCart`
 so when you'd like to react on that event:
 
 ```js
-  setup({ product }, { root }) {
+  setup(props, { root }) {
     const {
       onAddToCart,
-    } = useAddToCart(root, product)
+    } = useAddToCart(root, props.product)
 
-    onAddToCart(({product, quantity}) => {
+    onAddToCart(({props.product, quantity}) => {
       // here you can show notification, or send GTM event
     })
 
@@ -39,10 +41,10 @@ Remember, that when you listen on the event in component, then you listen to it 
 :::
 
 ```js
-  setup({ product }, { root }) {
+  setup(props, { root }) {
     const {
       addToCart
-    } = useAddToCart(root, product)
+    } = useAddToCart(root, props.product)
 
     const yourAddToCartWrapper = async () => {
       await addToCart()

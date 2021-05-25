@@ -2,27 +2,25 @@
   <div class="sf-header__icons desktop-only">
     <div class="sw-header__icons">
       <SwPluginSlot name="top-header-icons-before" />
-      <SfIcon
-        icon="profile"
-        class="sf-header__icon sw-header__icon"
-        :class="{
-          'sf-header__icon--is-active': isLoggedIn,
-        }"
-        role="button"
-        :aria-label="$t('Go to My Account')"
-        data-cy="login-icon"
-        @click="userIconClick"
-      />
-      <SfDropdown
-        class="dropdown"
-        :is-open="isDropdownOpen"
-        data-cy="account-dropdown"
-        @click:close="isDropdownOpen = false"
-      >
-        <SfList>
+      <div class="account-icon" @mouseleave="closeDropdown">
+        <SwButton
+          class="sf-button--pure sw-nav-button"
+          data-cy="login-icon"
+          @click="userIconClick"
+        >
+          <SfIcon
+            class="sf-header__icon sw-header__icon"
+            :class="{
+              'sf-header__icon is-active': isMyAccountActive,
+            }"
+            icon="profile"
+            size="1.625rem"
+          />
+        </SwButton>
+        <SfList v-if="isDropdownOpen" class="sw-dropdown">
           <SfListItem>
             <nuxt-link
-              class="sf-button sf-button--full-width sf-button--underlined color-primary"
+              class="sf-button sf-button--full-width sf-button--underlined sw-dropdown__item"
               :to="getPageAccount"
               data-cy="my-account-link"
               @click.native="isDropdownOpen = false"
@@ -32,7 +30,7 @@
           </SfListItem>
           <SfListItem>
             <SwButton
-              class="sf-button sf-button--full-width sf-button--underlined color-primary dropdown__item"
+              class="sf-button sf-button--full-width sf-button--underlined sw-dropdown__item"
               data-cy="logout-button"
               @click="logoutUser()"
             >
@@ -40,40 +38,41 @@
             </SwButton>
           </SfListItem>
         </SfList>
-      </SfDropdown>
-      <SfIcon
-        icon="heart"
-        :has-badge="wishlistCount > 0"
-        :badge-label="wishlistCount.toString()"
-        class="sf-header__icon sw-header__icon"
-        role="button"
-        :aria-label="$t('Go to wishlist')"
+      </div>
+      <SwButton
+        class="sf-button--pure sw-nav-button"
         data-cy="wishlist-icon"
         @click="goToWishlist"
-      />
-      <SfIcon
-        icon="empty_cart"
-        :has-badge="count > 0"
-        :badge-label="count.toString()"
-        class="sf-header__icon sw-header__icon"
-        role="button"
-        :aria-label="$t('Go to cart')"
+      >
+        <SfIcon class="sw-header__icon" icon="heart" size="1.625rem" />
+        <SfBadge v-if="wishlistCount > 0" class="sf-badge--number cart-badge">{{
+          wishlistCount
+        }}</SfBadge>
+      </SwButton>
+      <SwButton
+        class="sf-button--pure sw-nav-button"
         data-cy="cart-icon"
-        @click="toggleSidebar"
-      />
+        @click.capture="toggleSidebar"
+      >
+        <SfIcon class="sw-header__icon" icon="empty_cart" size="1.625rem" />
+        <SfBadge v-if="count > 0" class="sf-badge--number cart-badge">{{
+          count
+        }}</SfBadge>
+      </SwButton>
       <SwPluginSlot name="top-header-icons-after" />
     </div>
   </div>
 </template>
 
 <script>
-import { SfList, SfDropdown, SfIcon } from "@storefront-ui/vue"
+import { SfList, SfDropdown, SfIcon, SfBadge } from "@storefront-ui/vue"
 import {
   useUser,
   useCart,
   useUIState,
   useWishlist,
 } from "@shopware-pwa/composables"
+import { computed } from "@vue/composition-api"
 import { PAGE_ACCOUNT, PAGE_WISHLIST } from "@/helpers/pages"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
@@ -85,9 +84,10 @@ export default {
     SfIcon,
     SwButton,
     SwPluginSlot,
+    SfBadge,
   },
   setup(props, { root }) {
-    const { isLoggedIn, logout } = useUser(root)
+    const { isLoggedIn, isGuestSession, logout } = useUser(root)
     const { count } = useCart(root)
     const { count: wishlistCount } = useWishlist(root)
     const { switchState: toggleSidebar } = useUIState(
@@ -98,14 +98,17 @@ export default {
       root,
       "LOGIN_MODAL_STATE"
     )
+    const isMyAccountActive = computed(
+      () => isLoggedIn.value && !isGuestSession.value
+    )
 
     return {
       count,
       switchLoginModalState,
       toggleSidebar,
-      isLoggedIn,
       logout,
       wishlistCount,
+      isMyAccountActive,
     }
   },
   data() {
@@ -119,8 +122,12 @@ export default {
     },
   },
   methods: {
+    closeDropdown() {
+      if (!this.isDropdownOpen) return
+      this.isDropdownOpen = false
+    },
     userIconClick() {
-      if (this.isLoggedIn) this.isDropdownOpen = !this.isDropdownOpen
+      if (this.isMyAccountActive) this.isDropdownOpen = !this.isDropdownOpen
       else this.switchLoginModalState(true)
     },
     async logoutUser() {
@@ -143,19 +150,32 @@ export default {
   justify-content: space-around;
   margin-left: 1rem;
 
-  .dropdown {
-    --dropdown-width: auto;
-    --dropdown-transform: translate(-10%, 100%);
+  .account-icon {
+    position: relative;
+  }
+  .sw-dropdown {
+    --button-font-size: var(--font-size--xs);
+    position: absolute;
+    top: 100%;
+    left: -70%;
+    border: 2px var(--c-light) solid;
+    .sf-button {
+      --button-padding: var(--spacer-sm);
+    }
     &__item {
+      background: var(--c-white);
       &:hover {
         color: var(--c-link-hover);
       }
     }
   }
-
-  .sw-header__icon {
-    cursor: pointer;
-    margin: 0 10px;
+  .sw-nav-button {
+    padding: 10px;
   }
+}
+.cart-badge {
+  position: absolute;
+  bottom: 55%;
+  left: 50%;
 }
 </style>

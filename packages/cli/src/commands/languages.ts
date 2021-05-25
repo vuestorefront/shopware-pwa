@@ -57,12 +57,11 @@ module.exports = {
     const localPluginsConfig = await toolbox.plugins.getPluginsConfig({
       localPlugins: true,
     });
-    const localPluginsLocalesPaths = await toolbox.languages.getPluginsLocalesPaths(
-      {
+    const localPluginsLocalesPaths =
+      await toolbox.languages.getPluginsLocalesPaths({
         pluginsConfig: localPluginsConfig,
         rootDirectory: "sw-plugins",
-      }
-    );
+      });
     for (let index = 0; index < localPluginsLocalesPaths.length; index++) {
       const localePath = localPluginsLocalesPaths[index];
       const localeMap = await toolbox.languages.getLocalesMap(localePath);
@@ -100,8 +99,10 @@ module.exports = {
           // nothing to do for now
         });
 
-        const langs: any = await apiClient.getAvailableLanguages();
-        langs.forEach((lang) => {
+        const response: any = await apiClient.invokeGet({
+          address: "/store-api/language",
+        });
+        response.data?.elements.forEach((lang) => {
           const language = {
             id: lang.id,
             code: lang.translationCode.code,

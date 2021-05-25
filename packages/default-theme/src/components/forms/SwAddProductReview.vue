@@ -46,7 +46,7 @@
 
       <SwButton
         v-if="!isLoggedIn"
-        class="login button"
+        class="login button color"
         @click="switchLoginModalState"
       >
         {{ $t("Log in") }}
@@ -89,7 +89,7 @@ export default {
       required: true,
     },
   },
-  setup({ productId }, { root }) {
+  setup(props, { root }) {
     const { isLoggedIn } = useUser(root)
     const { apiInstance } = getApplicationContext(root, "SwAddProductReview")
     const { switchState: switchLoginModalState } = useUIState(
@@ -114,7 +114,11 @@ export default {
     const submitForm = async () => {
       isSending.value = true
       try {
-        await addProductReview(productId, reviewRequestData.value, apiInstance)
+        await addProductReview(
+          props.productId,
+          reviewRequestData.value,
+          apiInstance
+        )
         wasReviewSent.value = true
       } catch (error) {
         console.error("[SwAddProductReview][submitForm]: ", error)
@@ -167,7 +171,7 @@ export default {
   .description-field {
     border: 1px solid var(--c-light);
     box-sizing: border-box;
-    font-size: var(--font-lg);
+    font-size: var(--font-size--lg);
     margin-top: var(--spacer-base);
     min-height: 200px;
     padding: var(--spacer-base);
@@ -183,6 +187,9 @@ export default {
   background-color: var(--_c-gray-primary);
   width: 100%;
   margin-top: var(--spacer-base);
+  &:active {
+    background: var(--c-link);
+  }
 }
 
 .sw-rating {

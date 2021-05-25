@@ -11,6 +11,8 @@ import {
   getCustomerLogoutEndpoint,
   getCustomerLoginEndpoint,
   getCustomerOrderEndpoint,
+  getCustomerAddAddressEndpoint,
+  getConfirmPasswordResetEndpoint,
 } from "../endpoints";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
@@ -18,6 +20,7 @@ import { CustomerAddress } from "@shopware-pwa/commons/interfaces/models/checkou
 import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams";
 import { ContextTokenResponse } from "@shopware-pwa/commons/interfaces/response/SessionContext";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
+import { EntityResult } from "@shopware-pwa/commons/interfaces/response/EntityResult";
 
 /**
  * @beta
@@ -106,9 +109,9 @@ export async function getCustomer(
  */
 export async function getCustomerAddresses(
   contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<CustomerAddress[]> {
+): Promise<EntityResult<"customer_address", CustomerAddress[]>> {
   const resp = await contextInstance.invoke.get(getCustomerAddressEndpoint());
-  return resp.data.data;
+  return resp.data;
 }
 
 /**
@@ -177,9 +180,26 @@ export async function getCustomerAddress(
 export async function createCustomerAddress(
   params: Partial<CustomerAddress>,
   contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<string> {
+): Promise<CustomerAddress> {
   const resp = await contextInstance.invoke.post(
-    getCustomerAddressEndpoint(),
+    getCustomerAddAddressEndpoint(),
+    params
+  );
+  return resp.data;
+}
+
+/**
+ * Update an address for specific ID
+ *
+ * @throws ClientApiError
+ * @beta
+ */
+export async function updateCustomerAddress(
+  params: Partial<CustomerAddress>,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<CustomerAddress> {
+  const resp = await contextInstance.invoke.patch(
+    getCustomerAddressEndpoint(params.id),
     params
   );
   return resp.data;
@@ -300,6 +320,27 @@ export async function resetPassword(
   }
 
   await contextInstance.invoke.post(getCustomerResetPasswordEndpoint(), params);
+}
+
+/**
+ * Confirm a customer's password reset. Set new password for account.
+ *
+ * @throws ClientApiError
+ * @beta
+ */
+export async function confirmPasswordReset(
+  params: {
+    newPassword: string;
+    hash: string;
+    [key: string]: unknown; // additional params
+  },
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<void> {
+  if (!params) return;
+  await contextInstance.invoke.post(getConfirmPasswordResetEndpoint(), {
+    newPasswordConfirm: params.newPassword,
+    ...params,
+  });
 }
 
 /**

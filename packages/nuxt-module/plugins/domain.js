@@ -18,6 +18,16 @@ export default ({ app, route }, inject) => {
     )
   );
 
+  const getCurrentDomain = computed(
+    () => currentDomainData.value || routeDomain.value
+  );
+
+  const getNormalizedDomainPath = computed(() =>
+    getCurrentDomain.value && getCurrentDomain.value?.url !== "/"
+      ? getCurrentDomain.value?.url
+      : ""
+  );
+
   const routing = {
     // list of available domains from "domains.json" - output of "domains" CLI command
     availableDomains: (domainsList && Object.values(domainsList)) || {},
@@ -29,18 +39,18 @@ export default ({ app, route }, inject) => {
       currentDomainData.value = domainData;
     },
     // get current domain's configuration
-    getCurrentDomain: computed(
-      () => currentDomainData.value || routeDomain.value
-    ),
+    getCurrentDomain,
     // get route for current domain
     getUrl: (path) => {
       if (!path) {
         return "";
       }
-      return currentDomainData.value
-        ? `${currentDomainData.value.url}${path}`.replace(/^\/\/+/, "/")
+      return getNormalizedDomainPath.value
+        ? `${getNormalizedDomainPath.value}${path}`.replace(/^\/\/+/, "/")
         : path;
     },
+    getAbsoluteUrl: (path) =>
+      `${PWA_HOST}${getNormalizedDomainPath.value}${path}`,
   };
 
   // set the domain for current route
@@ -52,7 +62,7 @@ export default ({ app, route }, inject) => {
 };
 
 // middleware to set languageId & currencyId for api client and i18n plugin
-Middleware.routing = function ({ isHMR, app, store, from, route, redirect }) {
+Middleware.routing = function ({ isHMR, app, from, route, redirect }) {
   if (isHMR) {
     return;
   }
@@ -93,9 +103,13 @@ Middleware.routing = function ({ isHMR, app, store, from, route, redirect }) {
     currencyId = domainConfig.currencyId;
   }
 
-  currencyId && setCurrency({ id: currencyId });
+  const currencyPromise = setCurrency({ id: currencyId });
   const { languageId, languageLocaleCode } = domainConfig;
   app.routing.setCurrentDomain(domainConfig);
   languageId && app.$shopwareApiInstance.update({ languageId });
   app.i18n.locale = languageLocaleCode;
+
+  Promise.all([currencyPromise]).catch((e) => {
+    console.error("[MIDDLEWARE][DOMAINS]", e);
+  });
 };

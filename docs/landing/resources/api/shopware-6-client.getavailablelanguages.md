@@ -10,7 +10,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getAvailableLanguages(contextInstance?: ShopwareApiInstance): Promise<Language[]>;
+export declare function getAvailableLanguages(contextInstance?: ShopwareApiInstance): Promise<EntityResult<"language", Language[]>>;
 ```
 
 ## Parameters
@@ -21,7 +21,7 @@ export declare function getAvailableLanguages(contextInstance?: ShopwareApiInsta
 
 <b>Returns:</b>
 
-Promise&lt;Language\[\]&gt;
+Promise&lt;EntityResult&lt;"language", Language\[\]&gt;&gt;
 
 ## Exceptions
 

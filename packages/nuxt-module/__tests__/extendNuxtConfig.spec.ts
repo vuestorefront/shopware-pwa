@@ -1,9 +1,9 @@
 import extendNuxtConfig from "../src/extendNuxtConfig";
 
 describe("nuxt-module - extendNuxtConfig", () => {
-  it("should return default config", () => {
+  it("should return default config keys", () => {
     const result = extendNuxtConfig({});
-    expect(result).toMatchSnapshot();
+    expect(Object.keys(result)).toMatchSnapshot();
   });
 
   it("should overwrite server port", () => {

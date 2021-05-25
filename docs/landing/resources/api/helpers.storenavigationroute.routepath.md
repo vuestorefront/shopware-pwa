@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-routePath: string;
+routePath: string | undefined;
 ```

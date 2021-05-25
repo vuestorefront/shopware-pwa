@@ -71,6 +71,8 @@ sidebar: auto
 - Order history
   - List
 - Logout
+- Newsletter subscription & confirmation
+- Reset password
 
 ### Cart
 

@@ -24,28 +24,29 @@ import { SfProductCard } from "@storefront-ui/vue"
 import { useAddToCart, useWishlist } from "@shopware-pwa/composables"
 import {
   getProductThumbnailUrl,
-  getProductRegularPrice,
   getProductTierPrices,
   getProductUrl,
-  getProductSpecialPrice,
   getProductName,
   getProductCalculatedPrice,
   getProductCalculatedListingPrice,
   getProductPriceDiscount,
 } from "@shopware-pwa/helpers"
+import getResizedImage from "@/helpers/images/getResizedImage.js"
+import { toRefs } from "@vue/composition-api"
 
 export default {
   components: {
     SfProductCard,
   },
-  setup({ product }, { root }) {
+  setup(props, { root }) {
+    const { product } = toRefs(props)
     const { addToCart, quantity, getStock, isInCart } = useAddToCart(
       root,
-      product
+      product.value
     )
     const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist(
       root,
-      product
+      product.value
     )
     return {
       quantity,
@@ -53,7 +54,9 @@ export default {
       getStock,
       isInCart,
       toggleWishlistItem: () =>
-        isInWishlist.value ? removeFromWishlist(product.id) : addToWishlist(),
+        isInWishlist.value
+          ? removeFromWishlist(product.value.id)
+          : addToWishlist(),
       isInWishlist,
     }
   },
@@ -95,10 +98,18 @@ export default {
       return getProductTierPrices(this.product)
     },
     getImageUrl() {
-      return (
-        getProductThumbnailUrl(this.product) || require("@/assets/productB.jpg")
-      )
+      return getResizedImage(getProductThumbnailUrl(this.product), {
+        width: 280,
+        height: 400,
+      })
     },
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.sw-product-card {
+  width: 100%;
+  padding: 0.3rem;
+}
+</style>
