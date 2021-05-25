@@ -1,90 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nuxt-module - extendNuxtConfig should return default config 1`] = `
-Object {
-  "axios": Object {},
-  "build": Object {
-    "babel": Object {
-      "plugins": Array [
-        Array [
-          "@babel/plugin-proposal-private-methods",
-          Object {
-            "loose": true,
-          },
-        ],
-      ],
-    },
-  },
-  "buildModules": Array [
-    "@nuxt/typescript-build",
-    "@shopware-pwa/nuxt-module",
-  ],
-  "components": false,
-  "css": Array [
-    "~assets/scss/main.scss",
-  ],
-  "env": Object {
-    "CHOKIDAR_USEPOLLING": "1",
-    "EXPERIMENTAL_IMAGE_PROCESSING_SERVER": "",
-  },
-  "head": Object {
-    "link": Array [
-      Object {
-        "href": "/favicon.ico",
-        "rel": "icon",
-        "type": "image/x-icon",
-      },
-      Object {
-        "as": "style",
-        "href": "https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700%7CRoboto:300,300i,400,400i,500,700&display=swap",
-        "rel": "preload",
-      },
-      Object {
-        "href": "https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700%7CRoboto:300,300i,400,400i,500,700&display=swap",
-        "media": "print",
-        "once": true,
-        "onload": "this.media='all'",
-        "rel": "stylesheet",
-      },
-    ],
-    "meta": Array [
-      Object {
-        "content": "shopware-pwa",
-        "hid": "project-type",
-        "name": "project-type",
-      },
-      Object {
-        "charset": "utf-8",
-      },
-      Object {
-        "content": "width=device-width, initial-scale=1",
-        "name": "viewport",
-      },
-      Object {
-        "content": "",
-        "hid": "description",
-        "name": "description",
-      },
-    ],
-    "title": "Shopware PWA",
-  },
-  "modules": Array [
-    "@nuxtjs/axios",
-    "@nuxtjs/pwa",
-  ],
-  "plugins": Array [],
-  "pwa": Object {
-    "manifest": Object {
-      "lang": "en",
-    },
-    "workbox": Object {
-      "offlineStrategy": "StaleWhileRevalidate",
-    },
-  },
-  "server": Object {
-    "host": "0.0.0.0",
-    "port": 3000,
-  },
-  "telemetry": false,
-}
+exports[`nuxt-module - extendNuxtConfig should return default config keys 1`] = `
+Array [
+  "telemetry",
+  "env",
+  "server",
+  "head",
+  "css",
+  "plugins",
+  "components",
+  "buildModules",
+  "modules",
+  "axios",
+  "pwa",
+  "build",
+]
 `;

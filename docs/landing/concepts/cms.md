@@ -23,7 +23,7 @@ In this guide I will assume you have a general knowledge of
 
 ## Structure
 
-So let's start easy, by taking a look at the page structure as returned from the `/store-api/v3/pwa/page` endpoint which is provided by the **SwagShopwarePwa** plugin. The snippet below doesn't resemble the exact response, it rather illustrates its structure.
+So let's start easy, by taking a look at the page structure as returned from the `/store-api/pwa/page` endpoint which is provided by the **SwagShopwarePwa** plugin. The snippet below doesn't resemble the exact response, it rather illustrates its structure.
 
 ```js
 {
@@ -47,7 +47,7 @@ Let's go through these structural components step by step, before we discuss the
 
 ![Storefront](./../../assets/storefront.png)
 
-We do this in a top-down manner, starting from the biggest element or the *tree root*:
+We do this in a top-down manner, starting from the biggest element or the _tree root_:
 
 ### Page
 
@@ -56,7 +56,7 @@ A page serves as a wrapper and contains all content information as well as a `ty
 - Category / Listing page
 - Shop page
 - Static page
-- (at some point we will support CMS for *Product pages* as well)
+- (at some point we will support CMS for _Product pages_ as well)
 
 ### Section
 
@@ -171,7 +171,7 @@ Naming convention dictates the `cms/[section|element|block]/[component-type].vue
 
 ### Resolving
 
-Remember the API response when requesting a CMS page on the [`store-api/v3/pwa/page`](#block) endpoint from further above? It provides a `type` parameter for every section, block and element like `"text-hero"` or `"product-listing"`. Now we need to translate this to our components. It's no more than a mapping in the `cmsMap.json` file within your `cms` directory. The CMS resolving will take care of the rest.
+Remember the API response when requesting a CMS page on the [`store-api/pwa/page`](#block) endpoint from further above? It provides a `type` parameter for every section, block and element like `"text-hero"` or `"product-listing"`. Now we need to translate this to our components. It's no more than a mapping in the `cmsMap.json` file within your `cms` directory. The CMS resolving will take care of the rest.
 
 :::details cmsMap.json
 
@@ -446,8 +446,8 @@ Finally we have our desired effect:
 
 And that's it. This set of rules applies for sections, blocks and elements.
 
-
 ## Performance
+
 The Shopware6 API returns all data that you may need, and even more. This is why an `includes` parameter was invented - [Read more at _Includes_ chapter here](https://docs.shopware.com/en/shopware-platform-dev-en/admin-api-guide/reading-entities).
 
 In order to make the response payload smaller, aligned with our needs - the `includes` parameter is being used.

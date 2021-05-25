@@ -75,25 +75,7 @@
       >
         <template #loader>{{ $t("Checking payment status...") }}</template>
         <div v-if="paymentUrl">
-          <SfModal
-            v-if="!preventRedirect"
-            class="sw-modal"
-            :title="$t('Add address')"
-            :visible="isModalOpen"
-            @close="isModalOpen = false"
-          >
-            <SfCharacteristic
-              sizeIcon="xl"
-              icon="credits"
-              :title="$t('Payment in 5 seconds...')"
-              :description="
-                $t(
-                  'You will be redirected to the payment gateway in 5 seconds...'
-                )
-              "
-            />
-          </SfModal>
-          <a v-if="preventRedirect" :href="paymentUrl">
+          <a :href="paymentUrl">
             <SwButton
               class="sf-button sf-button--full-width pay-button color-danger"
             >
@@ -115,7 +97,11 @@ import {
   SfCharacteristic,
   SfModal,
 } from "@storefront-ui/vue"
-import { useUser, getApplicationContext } from "@shopware-pwa/composables"
+import {
+  useNotifications,
+  useUser,
+  getApplicationContext,
+} from "@shopware-pwa/composables"
 import { ref, onMounted, computed, watch } from "@vue/composition-api"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import {
@@ -128,12 +114,12 @@ import {
   getStoreOrderPaymentUrl,
 } from "@shopware-pwa/shopware-6-client"
 import SwButton from "@/components/atoms/SwButton.vue"
-import { PAGE_ORDER_SUCCESS } from "@/helpers/pages"
 import SwOrderDetailsItem from "@/components/SwOrderDetailsItem.vue"
 import SwPersonalDetails from "@/components/SwPersonalDetails.vue"
 import SwAddress from "@/components/SwAddress.vue"
 import SwCheckoutMethod from "@/components/SwCheckoutMethod.vue"
 import SwTotals from "@/components/SwTotals.vue"
+import { PAGE_ORDER_SUCCESS, PAGE_ORDER_PAYMENT_FAILURE } from "@/helpers/pages"
 
 export default {
   name: "SwOrderDetails",
@@ -175,9 +161,10 @@ export default {
   },
   // TODO: move this logic into separate service;
   // details: https://github.com/DivanteLtd/shopware-pwa/issues/781
-  setup({ orderId, preventRedirect }, { root }) {
+  setup({ orderId }, { root }) {
     const { apiInstance } = getApplicationContext(root, "SwOrderDetails")
     const { getOrderDetails, loading, error: userError } = useUser(root)
+    const { pushWarning } = useNotifications(root)
     const order = ref(null)
     const paymentMethod = computed(
       () => order.value?.transactions?.[0]?.paymentMethod
@@ -187,7 +174,6 @@ export default {
     )
     const paymentUrl = ref(null)
     const isPaymentButtonLoading = ref(false)
-    const isModalOpen = ref(false)
 
     const personalDetails = computed(
       () =>
@@ -225,28 +211,27 @@ export default {
         isPaymentButtonLoading.value = true
         order.value = await getOrderDetails(orderId)
         const resp = await getStoreOrderPaymentUrl(
-          {
-            orderId,
-            finishUrl: `${window.location.origin}${PAGE_ORDER_SUCCESS}?orderId=${orderId}`,
-          },
+          orderId,
+          root.$routing.getAbsoluteUrl(
+            `${PAGE_ORDER_SUCCESS}?orderId=${orderId}`
+          ),
+          root.$routing.getAbsoluteUrl(
+            `${PAGE_ORDER_PAYMENT_FAILURE}?orderId=${orderId}`
+          ),
           apiInstance
         )
         paymentUrl.value = resp.redirectUrl
-      } catch (e) {}
+      } catch (e) {
+        pushWarning(
+          root.$t(
+            "An error occred during checking the payment status. Please try again later."
+          )
+        )
+      }
       isPaymentButtonLoading.value = false
     })
 
-    watch(paymentUrl, (paymentUrl, prevPaymentUrl) => {
-      if (paymentUrl && window && !preventRedirect) {
-        isModalOpen.value = true
-        setTimeout(() => {
-          window.location.href = paymentUrl
-        }, 5000)
-      }
-    })
-
     return {
-      isLoading: loading,
       userError,
       order,
       personalDetails,
@@ -260,7 +245,6 @@ export default {
       status,
       paymentUrl,
       isPaymentButtonLoading,
-      isModalOpen,
     }
   },
 }
@@ -283,7 +267,6 @@ export default {
 
   &__loader {
     margin-top: var(--spacer-base);
-    height: 3rem;
   }
 
   &__header {

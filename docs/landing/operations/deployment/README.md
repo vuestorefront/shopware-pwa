@@ -6,7 +6,7 @@ This section handles the process of bringing your application from source code t
 
 Guides for specific hosting platforms with step-by-step instruction for your setup.
 
- * Deploy on [Heroku](./heroku/)
+- Deploy on [Heroku](./heroku/)
 
 ## Build process
 
@@ -37,7 +37,7 @@ All artifacts of that step are placed in the `.shopware-pwa` directory.
 If you want to restrict requests by the build server for your API, make sure to exclude these routes:
 
 1. Obtain Admin API authentication token `/api/oauth/token`
-2. Fetch plugin assets `/api/v3/_action/pwa/dump-bundles`
+2. Fetch plugin assets `/api/_action/pwa/dump-bundles`
 
 Step 2. will return two file links, one will be a .zip file containing all the resources from your plugins, the other one will be a .json file containing your plugins configuration (as made in the admin interface). Make sure, that these files are accessible by your build server.
 :::
@@ -50,9 +50,9 @@ $ yarn build
 
 This command will let Nuxt.js generate the minified sources and assets of your application, such as
 
- * Client application
- * Application Server for SSR
- * Code partials for pre-fetching
+- Client application
+- Application Server for SSR
+- Code partials for pre-fetching
 
 and place it in the `.nuxt` directory.
 
@@ -70,13 +70,13 @@ Instead you can also set them in your `nuxt.config.js`
 export default {
   server: {
     port: 8000,
-    host: '0.0.0.0'
+    host: "0.0.0.0",
   },
   /* more config */
- }
+};
 ```
 
 ## More on that
 
- * [Nuxt.js Docs on Commands & Deployment](https://nuxtjs.org/guide/commands)
- * [Prepare Shopware instance](http://localhost:8080/landing/getting-started/prepare-shopware.html)
+- [Nuxt.js Docs on Commands & Deployment](https://nuxtjs.org/guide/commands)
+- [Prepare Shopware instance](http://localhost:8080/landing/getting-started/prepare-shopware.html)

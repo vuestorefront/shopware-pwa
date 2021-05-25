@@ -75,9 +75,8 @@ module.exports = (toolbox: GluegunToolbox) => {
     if (directPathExist) return directPath;
 
     const nodePackageDistPath = path.join("node_modules", themeName, "dist");
-    const nodePackageDistPathExist = require("fs").existsSync(
-      nodePackageDistPath
-    );
+    const nodePackageDistPathExist =
+      require("fs").existsSync(nodePackageDistPath);
     if (nodePackageDistPathExist) return nodePackageDistPath;
 
     const nodePackagePath = path.join("node_modules", themeName);
@@ -145,16 +144,16 @@ module.exports = (toolbox: GluegunToolbox) => {
   }: Partial<ShopwarePwaConfigFile> = {}) {
     toolbox.inputParameters.shopwareEndpoint =
       toolbox.parameters.options.shopwareEndpoint ||
-      shopwareEndpoint ||
-      toolbox.config.shopwareEndpoint;
+      toolbox.config.shopwareEndpoint ||
+      shopwareEndpoint;
     toolbox.inputParameters.shopwareAccessToken =
       toolbox.parameters.options.shopwareAccessToken ||
-      shopwareAccessToken ||
-      toolbox.config.shopwareAccessToken;
+      toolbox.config.shopwareAccessToken ||
+      shopwareAccessToken;
     toolbox.inputParameters.pwaHost =
       toolbox.parameters.options.pwaHost ||
-      shopwareEndpoint ||
-      toolbox.config.pwaHost;
+      toolbox.config.pwaHost ||
+      shopwareEndpoint;
   };
 
   /**

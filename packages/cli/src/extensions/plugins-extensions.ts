@@ -35,9 +35,8 @@ module.exports = (toolbox: GluegunToolbox) => {
   toolbox.fetchPluginsAuthToken = async (
     { shopwareEndpoint, username, password } = toolbox.inputParameters
   ) => {
-    const normalizedShopwareEndpoint = toolbox.normalizeBaseUrl(
-      shopwareEndpoint
-    );
+    const normalizedShopwareEndpoint =
+      toolbox.normalizeBaseUrl(shopwareEndpoint);
     let authTokenResponse;
     // Temporary turn off automatic credentials
     // if (
@@ -83,7 +82,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     const pluginsConfigRsponse = await axios.post(
       `${toolbox.normalizeBaseUrl(
         shopwareEndpoint
-      )}/api/v3/_action/pwa/dump-bundles`,
+      )}/api/_action/pwa/dump-bundles`,
       null,
       {
         headers: {

@@ -12,11 +12,11 @@ However, at this point, some payment related API calls are not included in the c
 
 After a customer has finished browsing, they head to the checkout to do the following things:
 
- * Review their order
- * Set desired payment method
- * Select shipping method
- * Place the order
- * Do the payment
+- Review their order
+- Set desired payment method
+- Select shipping method
+- Place the order
+- Do the payment
 
 In this guide we are going to focus on the last step mentioned - **Payment**.
 
@@ -47,7 +47,9 @@ The base for a payment transaction is always the order. There is no transaction 
 ```
 POST sales-channel-api/v3/checkout/order
 ```
+
 Respose:
+
 ```json {7,11}
 {
     "data": {
@@ -66,6 +68,7 @@ Respose:
 ```
 
 or using [**@shopware-pwa/shopware-6-client**](https://www.npmjs.com/package/@shopware-pwa/shopware-6-client)
+
 ```
 import { createOrder } from "@shopware-pwa/shopware-6-client"
 
@@ -74,10 +77,10 @@ const response: Promise<Order> = createOrder()
 
 The order that was created contains the following (and more) fields:
 
- * `orderNumber` - identification used for internal/accounting purposes (no technical relevance)
- * `id` - technical identifier
- * `amountTotal`, `orderDateTime`, `orderCustomer` - metadata
- * `stateMachineState` - the current state of the order
+- `orderNumber` - identification used for internal/accounting purposes (no technical relevance)
+- `id` - technical identifier
+- `amountTotal`, `orderDateTime`, `orderCustomer` - metadata
+- `stateMachineState` - the current state of the order
 
 Now we see, that the current state of the order is open. So we can initiate the payment.
 
@@ -85,10 +88,10 @@ Now we see, that the current state of the order is open. So we can initiate the 
 
 We can initiate the payment by calling the **handle-payment** endpoint for the order.
 
-
 Request:
+
 ```json
-POST store-api/v3/handle-payment
+POST store-api/handle-payment
 
 {
     "orderId": "4139ce0f86fb47ff872a1ec88378f5d1",
@@ -98,6 +101,7 @@ POST store-api/v3/handle-payment
 ```
 
 or using [**@shopware-pwa/shopware-6-client**](https://www.npmjs.com/package/@shopware-pwa/shopware-6-client)
+
 ```
 import { getOrderPaymentUrl } from "@shopware-pwa/shopware-6-client"
 
@@ -107,23 +111,22 @@ const response: Promise<{ paymentUrl: string }> = getOrderPaymentUrl({
   })
 ```
 
-
 :::details Want to know what's happening in detail?
 
-This endpoint will internally handle the payment of your order by calling an associated payment handler which is defined through the payment method persisted with the order. 
+This endpoint will internally handle the payment of your order by calling an associated payment handler which is defined through the payment method persisted with the order.
 
 For example for an asynchronous checkout (like with PayPal), Shopware will create a JWT (JSON web token) containing transaction-related information including:
 
- * transaction identifier
- * payment method identifier
- * finish page URL
- * error page URL
+- transaction identifier
+- payment method identifier
+- finish page URL
+- error page URL
 
 All this information will be assembled into a return URL for the external payment provider containing the token as a parameter `_sw_payment_token`. Together with this return URL, Shopware will redirect your call to the external payment endpoint to let it conduct the payment.
 
-After the payment has been conducted (or if it has been cancelled), the payment provider will redirect the user back to the API, calling the return URL given provided before. 
+After the payment has been conducted (or if it has been cancelled), the payment provider will redirect the user back to the API, calling the return URL given provided before.
 
-The endpoint called in this return URL is  `/payment/finalize-transaction`. This method will internally decrypt the JWT (which is still contained in the `_sw_payment_token` parameter) and route the user depending on the outcome of the payment according to your `finishUrl` and `errorUrl`.
+The endpoint called in this return URL is `/payment/finalize-transaction`. This method will internally decrypt the JWT (which is still contained in the `_sw_payment_token` parameter) and route the user depending on the outcome of the payment according to your `finishUrl` and `errorUrl`.
 :::
 
 After this call, the user will be conducted through the external payment flow until they are redirected back to the URLs given by you depending on whether the payment was successful or not.
@@ -139,6 +142,7 @@ Shopware provides a way to modify existing orders (i.e. change the selected paym
 In order to alter the payment method for your order, call the **order payment** endpoint.
 
 Request:
+
 ```json
 POST store-api/v3/order/payment
 

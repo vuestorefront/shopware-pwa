@@ -29,10 +29,10 @@ import getResizedImage from "@/helpers/images/getResizedImage.js"
 
 export default {
   components: { SfProductCardHorizontal },
-  setup({ product }, { root }) {
+  setup(props, { root }) {
     const { addToCart, quantity, getStock, isInCart } = useAddToCart(
       root,
-      product
+      props.product
     )
     return {
       quantity,

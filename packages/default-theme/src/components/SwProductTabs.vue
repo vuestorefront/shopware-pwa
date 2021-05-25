@@ -93,7 +93,7 @@ export default {
     },
     manufacturer: {
       type: Object,
-      default: () => ({}),
+      default: null,
     },
   },
   methods: {

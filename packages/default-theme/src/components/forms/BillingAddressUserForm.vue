@@ -18,7 +18,7 @@
         </SfAddressPicker>
       </SfListItem>
     </SfList>
-    <!-- <SfCheckbox
+    <!-- <SwCheckbox
       v-model="generateInvoice"
       label="I want to generate invoice for the company"
       class="billing-address-user-form__invoice"
@@ -43,17 +43,12 @@
   </div>
 </template>
 <script>
-import {
-  SfModal,
-  SfList,
-  SfRadio,
-  SfCheckbox,
-  SfAddressPicker,
-} from "@storefront-ui/vue"
+import { SfModal, SfList, SfRadio, SfAddressPicker } from "@storefront-ui/vue"
 import { useSessionContext, useUser } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import { ref, watch } from "@vue/composition-api"
 import SwAddressForm from "@/components/forms/SwAddressForm.vue"
+// import SwCheckbox from '@/components/atoms/SwCheckbox.vue'
 
 export default {
   name: "BillingAddressUserForm",
@@ -61,7 +56,7 @@ export default {
     SfModal,
     SfList,
     SfRadio,
-    SfCheckbox,
+    // SwCheckbox,
     SwButton,
     SfAddressPicker,
     SwAddressForm,
@@ -70,9 +65,8 @@ export default {
     const { addresses, loadAddresses } = useUser(root)
     loadAddresses()
 
-    const { activeBillingAddress, setActiveBillingAddress } = useSessionContext(
-      root
-    )
+    const { activeBillingAddress, setActiveBillingAddress } =
+      useSessionContext(root)
 
     const selectedAddressId = ref(activeBillingAddress.value?.id)
     watch(selectedAddressId, (value) => {

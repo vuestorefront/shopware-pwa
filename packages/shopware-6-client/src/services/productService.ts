@@ -1,7 +1,6 @@
 import {
   getProductEndpoint,
   getProductDetailsEndpoint,
-  getProductsIdsEndpoint,
   getProductListingEndpoint,
 } from "../endpoints";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
@@ -29,7 +28,9 @@ export const getProductsIds = async function (
   options?: any,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<SearchResult<string[]>> {
-  const resp = await contextInstance.invoke.post(getProductsIdsEndpoint());
+  const resp = await contextInstance.invoke.post(getProductEndpoint(), {
+    includes: [{ product: ["id"] }],
+  });
   return resp.data;
 };
 

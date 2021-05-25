@@ -115,10 +115,9 @@ export default {
       ],
     }
   },
-  setup(_, { root }) {
-    const { appliedPromotionCodes, addPromotionCode, removeItem } = useCart(
-      root
-    )
+  setup(props, { root }) {
+    const { appliedPromotionCodes, addPromotionCode, removeItem } =
+      useCart(root)
 
     const showPromotionCodes = computed(
       () => appliedPromotionCodes.value?.length > 0

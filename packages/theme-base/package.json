@@ -10,6 +10,6 @@
     "build": "echo theme-base is built"
   },
   "dependencies": {
-    "currency.js": "^2.0.3"
+    "currency.js": "^2.0.4"
   }
 }

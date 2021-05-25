@@ -183,6 +183,8 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       return true;
     } catch (e) {
       const err: ClientApiError = e;
+      // temporary workaround - get rid of such hacks in the future
+      // TODO: https://github.com/vuestorefront/shopware-pwa/issues/1498
       errors.register = [err.message as string];
       broadcast(INTERCEPTOR_KEYS.ERROR, {
         methodName: `[${contextName}][register]`,

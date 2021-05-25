@@ -25,7 +25,7 @@
           @blur="$v.lastName.$touch()"
         />
       </div>
-      <SfCheckbox
+      <SwCheckbox
         v-if="allowGuestRegistration"
         v-model="doNotCreateAccount"
         name="doNotCreateAccount"
@@ -94,7 +94,7 @@
           @blur="$v.city.$touch()"
         />
       </div>
-      <SfCheckbox
+      <SwCheckbox
         v-model="isDifferentShippingAddress"
         name="isDifferentShippingAddress"
         :label="$t('Shipping and billing address do not match.')"
@@ -228,7 +228,7 @@ import {
   toRefs,
   watch,
 } from "@vue/composition-api"
-import { SfAlert, SfSelect, SfCheckbox } from "@storefront-ui/vue"
+import { SfAlert, SfSelect } from "@storefront-ui/vue"
 import {
   useCountries,
   useSalutations,
@@ -244,6 +244,7 @@ import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 import SwErrorsList from "@/components/SwErrorsList.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
+import SwCheckbox from "@/components/atoms/SwCheckbox.vue"
 
 export default {
   name: "SwRegistrationForm",
@@ -253,7 +254,7 @@ export default {
     SwButton,
     SfSelect,
     SwErrorsList,
-    SfCheckbox,
+    SwCheckbox,
     SwPluginSlot,
   },
   props: {
@@ -271,7 +272,16 @@ export default {
     const { login, register, loading, error: userError, errors } = useUser(root)
     const { getCountries, error: countriesError } = useCountries(root)
     const { getSalutations, error: salutationsError } = useSalutations(root)
-    const formErrors = computed(() => errors.register)
+    // temporary fix for accessing the errors in right format
+    // TODO: https://github.com/vuestorefront/shopware-pwa/issues/1498
+    const formErrors = computed(() =>
+      getMessagesFromErrorsArray(
+        (Array.isArray(errors.register) &&
+          errors.register.length &&
+          errors.register[0]) ||
+          ([] as any)
+      )
+    )
 
     const state = reactive({
       firstName: "",
@@ -337,7 +347,7 @@ export default {
           city: state.city,
           street: state.street,
           zipcode: state.zipcode,
-          countryId: state.countryId,
+          countryId: state.countryId || countryId.value,
         },
       })
       isSuccess && emit("success")

@@ -1,5 +1,7 @@
 import { GluegunToolbox } from "gluegun";
 import axios from "axios";
+const DEFAULT_API_INSTANCE_DOMAINS_SOURCE =
+  "https://gist.githubusercontent.com/mkucmus/51aea54148684f886f8ad0649c95dff6/raw/domains.json";
 
 module.exports = (toolbox: GluegunToolbox) => {
   toolbox.domains = {};
@@ -77,5 +79,13 @@ module.exports = (toolbox: GluegunToolbox) => {
     let path = absolutePath.replace(pwaHost, "");
 
     return path.startsWith("/") ? path : `/${path}`;
+  };
+
+  toolbox.domains.getDefaultDemoDomainsJson = async () => {
+    const defaultDomainsJsonResponse = await axios.get(
+      DEFAULT_API_INSTANCE_DOMAINS_SOURCE
+    );
+
+    return defaultDomainsJsonResponse.data;
   };
 };
