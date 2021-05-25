@@ -31,6 +31,7 @@
         name="doNotCreateAccount"
         :label="$t('Do not create a customer account.')"
         class="sw-form__input form__element form__element--small"
+        data-cy="guest-registration-checkbox"
       />
       <div class="inputs-group">
         <SwInput
@@ -39,7 +40,7 @@
           :valid="!$v.email.$error"
           :error-message="$t('Proper email is required')"
           name="registrationEmail"
-          data-cy="email-input"
+          data-cy="registration-email-input"
           class="sw-form__input form__element form__element--small"
         />
         <transition name="fade">
@@ -208,7 +209,11 @@
         />
       </div>
 
-      <SwButton class="sw-form__button" @click="invokeRegister">
+      <SwButton
+        class="sw-form__button"
+        @click="invokeRegister"
+        data-cy="register-button"
+      >
         {{ buttonText || $t("Continue") }}
       </SwButton>
 

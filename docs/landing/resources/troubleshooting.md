@@ -50,3 +50,22 @@ See: [Context-awareness](/landing/fundamentals/security.html#context-awareness) 
 You should check all your imports for @shopware-pwa/shopware-6-client and add apiInstance as the last parameter.
 
 See: [Context-awareness](/landing/fundamentals/security.html#context-awareness) section. It's explained in details.
+
+### Issue: The API Client's timeout is too low. I'm getting HTTP 408 errors.
+
+- Edit _shopware-pwa.config.js_ file
+- Add entry:
+```js
+shopwareApiClient: {
+  timeout: 10000 // 10 seconds of axios timeout setting
+}
+```
+
+### Issue: There is no language available in language switcher
+
+::: tip
+Learn [the details](../cookbook/#how-to-add-another-language) how to set the new language properly.
+:::
+
+- Check if there are entries in `.shopware-pwa/sw-plugins/domains.json`.
+- If not, run `npx @shopware-pwa/cli@canary domains` command.

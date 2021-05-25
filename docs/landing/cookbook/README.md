@@ -14,6 +14,7 @@
    - [I want to write my own plugin to disable the "Add to cart notifications" feature.](#no53)
 6. [How to use/write your own theme](#no6)
 7. [How to install and register a nuxt plugin](#no7)
+8. [How to add another language](#no8)
 
 ---
 
@@ -215,7 +216,7 @@ module.exports = {
 3. The theme is created under the directory with name (code) that you provided in 1. step
 4. The `package.json` file contains the `baseTheme` value with the theme you extend. The files property contains only a `dist` directory (it's used during the build, and the files from dist are published as a package)
 
-::: important
+::: warning
 Please remember that the custom theme should be built before any usage. 
 That means that before starting a nuxt application, the custom theme should be prepared by using:
 `yarn dev` or `yarn build` - to be sure, please check if `dist/` directory isn't empty in your custom theme.
@@ -267,3 +268,33 @@ export default extendNuxtConfig({
 ```
 
 3. Now the GTM module is enabled and ready to use
+
+## How to add another language <a id="no8"></a>
+
+::: tip
+Before you start, [learn the details](../operations/migrations/0.6.x_to_0.7.x.md#domain-route-handling) regarding the mechanism itself.
+:::
+
+### Things that should be done in admin panel
+1. In admin panel, go to _Sales Channel_ (used by PWA) >  _Domains_ tab
+2. Add domain. **It's important** that the URL should match the one used in your `shopware-pwa.config.js` under the `pwaHost`. 
+    
+    Add a distinctive suffix pointing to language (or general config) you want to use. It may be `/de-DE`, `/en` or whatsoever like `/my/very/formal/english/site`, so the whole entry would be like:
+  `https://my-shopware-pwa.com/my/very/formal/english/site`
+
+3. Pick the other settings for your domain like language, currency.
+4. Save the domain and the sales channel afterwards. 
+
+### Things that should be done in shopware-pwa app
+1. Go to project's root directory.
+2. Run `npx @shopware-pwa/cli@canary domains`.
+3. Pass the credentials for your admin credentials.
+4. In the end the _Shopware domains refreshed_ notice should be displayed.
+5. the `.shopware-pwa/sw-plugins/domains.json` should contain the previously created.domain as an another entry.
+6. Run a nuxt.js application again.
+
+### FAQ
+How to change the language switcher's label (visible in top navigation bar)?
+- go to `.shopware-pwa/sw-plugins/domains.json` and edit a chosen `languageLabel` property.
+
+TODO
