@@ -85,7 +85,8 @@ const command: GluegunCommand = {
       ],
       initial: 0,
     });
-    const themeSelectOption: ThemeSelectOptions = baseThemeAnswers.baseThemeSelect as ThemeSelectOptions;
+    const themeSelectOption: ThemeSelectOptions =
+      baseThemeAnswers.baseThemeSelect as ThemeSelectOptions;
 
     let baseThemePackageName = "";
     if (themeSelectOption === "custom") {

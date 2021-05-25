@@ -35,9 +35,8 @@ module.exports = (toolbox: GluegunToolbox) => {
   toolbox.fetchPluginsAuthToken = async (
     { shopwareEndpoint, username, password } = toolbox.inputParameters
   ) => {
-    const normalizedShopwareEndpoint = toolbox.normalizeBaseUrl(
-      shopwareEndpoint
-    );
+    const normalizedShopwareEndpoint =
+      toolbox.normalizeBaseUrl(shopwareEndpoint);
     let authTokenResponse;
     // Temporary turn off automatic credentials
     // if (

@@ -111,7 +111,7 @@ import {
 import {
   getShippingMethodDetails,
   getPaymentMethodDetails,
-  getStoreOrderPaymentUrl,
+  handlePayment,
 } from "@shopware-pwa/shopware-6-client"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwOrderDetailsItem from "@/components/SwOrderDetailsItem.vue"
@@ -210,7 +210,7 @@ export default {
       try {
         isPaymentButtonLoading.value = true
         order.value = await getOrderDetails(orderId)
-        const resp = await getStoreOrderPaymentUrl(
+        const resp = await handlePayment(
           orderId,
           root.$routing.getAbsoluteUrl(
             `${PAGE_ORDER_SUCCESS}?orderId=${orderId}`

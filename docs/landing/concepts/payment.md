@@ -103,11 +103,12 @@ POST store-api/handle-payment
 or using [**@shopware-pwa/shopware-6-client**](https://www.npmjs.com/package/@shopware-pwa/shopware-6-client)
 
 ```
-import { getOrderPaymentUrl } from "@shopware-pwa/shopware-6-client"
+import { handlePayment } from "@shopware-pwa/shopware-6-client"
 
-const response: Promise<{ paymentUrl: string }> = getOrderPaymentUrl({
+const response: Promise<{ paymentUrl: string }> = handlePayment({
     orderId,
     finishUrl,
+    errorUrl
   })
 ```
 

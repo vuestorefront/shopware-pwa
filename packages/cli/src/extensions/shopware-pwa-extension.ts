@@ -75,9 +75,8 @@ module.exports = (toolbox: GluegunToolbox) => {
     if (directPathExist) return directPath;
 
     const nodePackageDistPath = path.join("node_modules", themeName, "dist");
-    const nodePackageDistPathExist = require("fs").existsSync(
-      nodePackageDistPath
-    );
+    const nodePackageDistPathExist =
+      require("fs").existsSync(nodePackageDistPath);
     if (nodePackageDistPathExist) return nodePackageDistPath;
 
     const nodePackagePath = path.join("node_modules", themeName);
