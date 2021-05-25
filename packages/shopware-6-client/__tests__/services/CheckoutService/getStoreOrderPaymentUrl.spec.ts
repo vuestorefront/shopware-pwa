@@ -1,10 +1,10 @@
-import { getStoreOrderPaymentUrl } from "@shopware-pwa/shopware-6-client";
+import { handlePayment } from "@shopware-pwa/shopware-6-client";
 import { defaultInstance } from "../../../src/apiService";
 
 jest.mock("../../../src/apiService");
 const mockApiInstance = defaultInstance as jest.Mocked<typeof defaultInstance>;
 
-describe("CheckoutService - getStoreOrderPaymentUrl", () => {
+describe("CheckoutService - handlePayment", () => {
   const mockedGet = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
@@ -15,7 +15,7 @@ describe("CheckoutService - getStoreOrderPaymentUrl", () => {
 
   it("should invoke correct API endpoint with given parameters", async () => {
     mockedGet.mockResolvedValueOnce({ data: {} });
-    await getStoreOrderPaymentUrl("cd1a64c7166f42fa88b212b81e611d57");
+    await handlePayment("cd1a64c7166f42fa88b212b81e611d57");
     expect(mockedGet).toBeCalledTimes(1);
     expect(mockedGet).toHaveBeenCalledWith("/store-api/handle-payment", {
       params: { orderId: "cd1a64c7166f42fa88b212b81e611d57" },
@@ -24,8 +24,8 @@ describe("CheckoutService - getStoreOrderPaymentUrl", () => {
 
   it("should throw an error when data is incorrect", async () => {
     mockedGet.mockRejectedValueOnce(new Error("404"));
-    expect(getStoreOrderPaymentUrl(null as any)).rejects.toThrowError(
-      "getStoreOrderPaymentUrl method requires orderId"
+    expect(handlePayment(null as any)).rejects.toThrowError(
+      "handlePayment method requires orderId"
     );
     expect(mockedGet).not.toBeCalled();
   });
@@ -37,9 +37,7 @@ describe("CheckoutService - getStoreOrderPaymentUrl", () => {
         apiAlias: "array_struct",
       },
     });
-    const result = await getStoreOrderPaymentUrl(
-      "cd1a64c7166f42fa88b212b81e611d57"
-    );
+    const result = await handlePayment("cd1a64c7166f42fa88b212b81e611d57");
     expect(result).toEqual({
       redirectResponse: null,
       apiAlias: "array_struct",

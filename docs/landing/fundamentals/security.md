@@ -119,7 +119,7 @@ Similar to `composables`, the API client instance should be created for every re
 import {
   getShippingMethodDetails,
   getPaymentMethodDetails,
-  getOrderPaymentUrl,
+  handlePayment,
 } from "@shopware-pwa/shopware-6-client"
 import { getApplicationContext } from "@shopware-pwa/composables"
 
