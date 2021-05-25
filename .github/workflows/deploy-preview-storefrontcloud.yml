@@ -392,9 +392,9 @@ jobs:
           ../packages/cli/bin/shopware-pwa init --username=${{ secrets.SHOPWARE_ADMIN_USER }} --password=${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --pwaHost=${{ env.PWA_HOST }} --ci --devMode --stage local
       - name: Build test project
         run: |
-          cd ./test-project
           node ./scripts/yalcPushPackages.js
           node ./scripts/yalcLinkTestProject.js
+          cd ./test-project
           yarn
           yarn build
       - name: Build and publish docker image
