@@ -1,9 +1,12 @@
 <template>
-  <CmsGenericElement
-    v-if="getContent"
-    :content="getContent"
-    class="cms-block-default"
-  />
+  <div>
+    <CmsGenericElement
+      v-for="slot in getSlots"
+      :key="slot.id"
+      :content="slot"
+      class="cms-block-default"
+    />
+  </div>
 </template>
 
 <script>
@@ -26,9 +29,6 @@ export default {
   computed: {
     getSlots() {
       return this.content.slots || []
-    },
-    getContent() {
-      return this.getSlots.length && this.getSlots[0]
     },
   },
 }
