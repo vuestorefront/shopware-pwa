@@ -69,7 +69,7 @@ export default {
     const rawHtml = context.props.content?.data?.content
     return (
       (rawHtml && renderHtml(rawHtml, config, h, context)) ||
-      renderHtml("<h3>not implemented</h3>", config, h, context)
+      renderHtml("<div></div>", config, h, context)
     )
   },
 }
