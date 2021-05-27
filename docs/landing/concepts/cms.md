@@ -56,7 +56,7 @@ A page serves as a wrapper and contains all content information as well as a `ty
 - Category / Listing page
 - Shop page
 - Static page
-- (at some point we will support CMS for _Product pages_ as well)
+- Product page <Badge text="from v0.9" type="info"/>
 
 ### Section
 

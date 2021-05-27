@@ -46,7 +46,7 @@ export default {
             )
           },
           renderer(node, children, createElement) {
-            const _class = node.attrs?.class
+            const _class = node?.attrs?.class
               .replace("btn-secondary", "color-secondary")
               .replace("btn-primary", "color-primary")
             return createElement(
@@ -67,7 +67,10 @@ export default {
       },
     }
     const rawHtml = context.props.content?.data?.content
-    return renderHtml(rawHtml, config, h, context)
+    return (
+      (rawHtml && renderHtml(rawHtml, config, h, context)) ||
+      renderHtml("<div></div>", config, h, context)
+    )
   },
 }
 </script>
