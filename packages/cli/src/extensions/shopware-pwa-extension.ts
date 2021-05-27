@@ -115,6 +115,10 @@ module.exports = (toolbox: GluegunToolbox) => {
   const devMode = require("fs").existsSync(`${__dirname}/../../src`);
   toolbox.isProduction = !devMode || process.argv.includes("--compiled-build");
 
+  toolbox.isDefaultDemoData = () =>
+    toolbox.normalizeBaseUrl(toolbox.defaultInitConfig.shopwareEndpoint) ===
+    toolbox.normalizeBaseUrl(toolbox.config.shopwareEndpoint);
+
   /**
    * inputs for commands
    * - most important are params passed to CLI
