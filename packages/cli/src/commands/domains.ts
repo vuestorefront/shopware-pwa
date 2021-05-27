@@ -99,15 +99,13 @@ Synchronize the domain's related config from backend (in order to build a domain
 
     let domainsFilePath = path.join(shopwarePwaPath, "domains.json");
     try {
-      const pwaConfig = require("shopware-pwa.config.js");
       const defaultShopwarePwaApiEndpoint = toolbox.normalizeBaseUrl(
         toolbox.defaultInitConfig.shopwareEndpoint
       );
       // if the provided pwaHost value equals the default shopware api instance (fallback) and the domains are still blank - load default domains.json file from gist.
       if (
-        pwaConfig &&
         !Object.keys(domainsMap).length &&
-        defaultShopwarePwaApiEndpoint === pwaConfig.shopwareEndpoint
+        defaultShopwarePwaApiEndpoint === toolbox.config.shopwareEndpoint
       ) {
         toolbox.print.warning("Loading default domains.json file.");
         const defaultDomainsMap =
