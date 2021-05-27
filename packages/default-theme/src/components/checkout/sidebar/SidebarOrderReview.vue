@@ -5,27 +5,29 @@
       :level="3"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <SwCartProduct
-      v-for="(product, index) in cartItems"
-      :key="index"
-      :product="product"
-      v-model="product.qty"
-    />
-    <PersonalDetailsSummary
+    <div class="review__products">
+      <SwCartProduct
+        v-for="(product, index) in cartItems"
+        :key="index"
+        :product="product"
+        v-model="product.qty"
+      />
+    </div>
+    <!-- <PersonalDetailsSummary
       class="content"
       data-cy="name"
       @click:edit="$emit('click:edit', 0)"
-    />
-    <ShippingAddressSummary
+    /> -->
+    <!-- <ShippingAddressSummary
       class="content"
       data-cy="shipping"
       @click:edit="$emit('click:edit', 1)"
-    />
-    <BillingAddressSummary
+    /> -->
+    <!-- <BillingAddressSummary
       class="content"
       data-cy="billing"
       @click:edit="$emit('click:edit', 2)"
-    />
+    /> -->
     <PaymentMethodSummary
       class="content"
       @click:edit="$emit('click:edit', 3)"
@@ -148,15 +150,21 @@ export default {
 .review {
   box-sizing: border-box;
   width: 100%;
-  background-color: #f1f2f3;
+  background: var(--c-light);
   padding: var(--spacer-xl);
   margin-bottom: var(--spacer-base);
+  @include for-desktop {
+    padding: var(--spacer-lg);
+  }
   &:last-child {
     margin-bottom: 0;
   }
+  &__products {
+    background: var(--c-white);
+  }
 }
 .title {
-  margin-bottom: var(--spacer-xl);
+  margin-bottom: var(--spacer-sm);
 }
 .content {
   margin: 0 0 var(--spacer-base) 0;

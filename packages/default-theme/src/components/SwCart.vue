@@ -50,7 +50,10 @@
           <div v-if="count">
             <SfProperty
               :name="$t('Total price')"
-              class="sf-property--full-width sf-property--large my-cart__total-price"
+              class="
+                sf-property--full-width sf-property--large
+                my-cart__total-price
+              "
             >
               <template #value>
                 <SfPrice :regular="totalPrice | price" class="sf-price--big" />
@@ -200,7 +203,6 @@ export default {
   --sidebar-bottom: var(--bottom-navigation-height, 0);
   --overlay-z-index: 0;
   --sidebar-bottom-padding: var(--spacer-sm) var(--spacer-sm) var(--spacer-xl);
-
   & > * {
     --sidebar-content-padding: 0 var(--spacer-xs) var(--spacer-xs)
       var(--spacer-xs);
@@ -225,7 +227,7 @@ export default {
     margin: var(--spacer-xs) 0;
     @include for-desktop {
       display: block;
-      margin: var(--spacer-xl) 0 var(--spacer-lg) 0;
+      margin: var(--spacer-sm) 0;
       --property-name-font-weight: var(--font-weight--medium);
     }
   }

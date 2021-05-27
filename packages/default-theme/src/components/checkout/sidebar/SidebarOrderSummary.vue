@@ -1,5 +1,5 @@
 <template>
-  <div id="order-summary">
+  <div class="order-summary">
     <SfHeading
       :title="$t('Totals')"
       :level="3"
@@ -27,25 +27,10 @@
       class="sf-property--full-width property"
     />
     <SwPromoCode class="promo-code" />
-    <div class="characteristics">
-      <SfCharacteristic
-        v-for="characteristic in characteristics"
-        :key="characteristic.title"
-        :title="characteristic.title"
-        :description="characteristic.description"
-        :icon="characteristic.icon"
-        class="characteristics__item"
-      />
-    </div>
   </div>
 </template>
 <script>
-import {
-  SfHeading,
-  SfProperty,
-  SfDivider,
-  SfCharacteristic,
-} from "@storefront-ui/vue"
+import { SfHeading, SfProperty, SfDivider } from "@storefront-ui/vue"
 import { useCart } from "@shopware-pwa/composables"
 import SwPromoCode from "@/components/SwPromoCode.vue"
 
@@ -55,7 +40,6 @@ export default {
     SfHeading,
     SfProperty,
     SfDivider,
-    SfCharacteristic,
     SwPromoCode,
   },
   setup(props, { root }) {
@@ -68,35 +52,21 @@ export default {
       totalPrice,
     }
   },
-  data() {
-    return {
-      characteristics: [
-        {
-          title: this.$t("Safety"),
-          description: this.$t("It carefully packaged with a personal touch"),
-          icon: "safety",
-        },
-        {
-          title: this.$t("Easy shipping"),
-          description: this.$t(
-            "You'll receive dispatch confirmation and an arrival date"
-          ),
-          icon: "shipping",
-        },
-        {
-          title: this.$t("Changed your mind?"),
-          description: this.$t(
-            "Rest assured, we offer free returns within 30 days"
-          ),
-          icon: "return",
-        },
-      ],
-    }
-  },
 }
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
+.order-summary {
+  width: 100%;
+  background: var(--c-light);
+  padding: var(--spacer-sm);
+  box-sizing: border-box;
+  margin-bottom: var(--spacer-base);
+  @include for-desktop {
+    padding: var(--spacer-lg);
+  }
+}
+
 .title {
   --heading-title-margin: 0 0 var(--spacer-sm) 0;
   --heading-title-font-weight: var(--font-weight--bold);

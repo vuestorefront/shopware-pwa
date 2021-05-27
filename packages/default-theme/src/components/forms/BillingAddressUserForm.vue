@@ -11,7 +11,7 @@
     <AddressManager
       v-model="selectedAddressId"
       :addresses="addresses"
-      :active-address="activeShippingAddress"
+      :active-address="activeBillingAddress"
     />
   </div>
 </template>
@@ -53,6 +53,7 @@ export default {
       loadAddresses,
       selectedAddressId,
       onAddressSuccessSave,
+      activeBillingAddress,
     }
   },
 }
@@ -61,16 +62,12 @@ export default {
 @import "@/assets/scss/variables";
 .billing-address-user-form {
   margin: 0 0 var(--spacer-xl) 0;
-}
-&__title {
-  --heading-padding: var(--spacer-base) 0;
-  --heading-description-margin: 0;
+  &__title {
+    --heading-padding: 0 0 var(--spacer-base) 0;
+    --heading-description-margin: 0;
 
-  @include for-desktop {
-    --heading-title-font-size: var(--h3-font-size);
-    --heading-padding: var(--spacer-lg) 0 var(--spacer-base) 0;
-    &:last-of-type {
-      --heading-padding: var(--spacer-xs) 0 var(--spacer-base) 0;
+    @include for-desktop {
+      --heading-title-font-size: var(--h3-font-size);
     }
   }
 }

@@ -237,15 +237,6 @@ export default {
       flex: 0 0 26.8125rem;
       margin: 0 0 0 var(--spacer-xl);
     }
-    &-order {
-      width: 100%;
-      background: var(--c-light);
-      padding: var(--spacer-sm);
-      box-sizing: border-box;
-      @include for-desktop {
-        padding: var(--spacer-xl);
-      }
-    }
   }
 }
 

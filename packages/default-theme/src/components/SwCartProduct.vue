@@ -137,7 +137,22 @@ export default {
   min-height: 12.5rem;
   --collected-product-actions-display: none;
   --collected-product-configuration-display: flex;
-  --collected-product-padding: 0;
+  --collected-product-padding: var(--spacer-xs);
+  --collected-product-background: var(--c-white);
+  &.sf-collected-product {
+    --collected-product-remove-text-display: block;
+    --collected-product-remove-opacity: 1;
+    --collected-product-remove-circle-icon-display: none;
+    --collected-product-remove-right: var(--spacer-xs);
+    --collected-product-remove-bottom: var(--spacer-sm);
+    &::after {
+      display: none;
+    }
+  }
+  &:hover {
+    z-index: unset;
+    box-shadow: unset;
+  }
   ::v-deep .sf-price {
     margin-bottom: var(--spacer-base);
   }

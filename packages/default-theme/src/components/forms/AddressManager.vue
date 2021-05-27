@@ -1,24 +1,24 @@
 <template>
   <div class="shipping-address-user-form">
-    <SfAddressPicker>
-      <SfAddress>
-        <span>{{ activeAddress.firstName }} {{ activeAddress.lastName }}</span>
-        <span>{{ activeAddress.street }}</span>
-        <span>{{ activeAddress.zipcode }}</span>
-        <span>{{ activeAddress.city }}</span>
-        <span>{{ activeAddress.country.name }}</span>
-        <span>{{ activeAddress.phoneNumber }}</span>
-      </SfAddress>
-    </SfAddressPicker>
-    <SwButton
-      class="sf-button color-secondary shipping-address-user-form__add-new"
-      @click="
-        isModalOpen = true
-        isEditModeOpen = true
-      "
-    >
-      {{ $t("Edit") }}
-    </SwButton>
+    <div class="shipping-address-user-form__address">
+      <div>
+        <!-- <span>{{ activeAddress.firstName }} {{ activeAddress.lastName }}</span> -->
+        <!-- <span>{{ activeAddress.street }}</span> -->
+        <p>{{ activeAddress.zipcode }}</p>
+        <p>{{ activeAddress.city }}</p>
+        <p>{{ activeAddress.country.name }}</p>
+        <p>{{ activeAddress.phoneNumber }}</p>
+      </div>
+      <SwButton
+        class="sf-button sf-button--small shipping-address-user-form__add-new"
+        @click="
+          isModalOpen = true
+          isEditModeOpen = true
+        "
+      >
+        {{ $t("Edit") }}
+      </SwButton>
+    </div>
     <!-- <SwCheckbox
       v-model="useAsDefaultAddress"
       label="Use this address as my default one"
@@ -37,7 +37,10 @@
             :key="address._uniqueIdentifier"
             class="shipping-address-user-form__list-item"
           >
-            <SfAddressPicker v-model="selectedAddressId">
+            <SfAddressPicker
+              :value="value"
+              @input="$emit('input', event.target.value)"
+            >
               <SfAddress :name="address._uniqueIdentifier">
                 <span>{{ address.firstName }} {{ address.lastName }}</span>
                 <span>{{ address.street }}</span>
@@ -92,9 +95,21 @@ export default {
       type: Array,
       default: [],
     },
+    value: {
+      type: String,
+    },
     activeAddress: {
       type: Object,
-      default: () => ({}),
+      default: () => ({
+        firstName: "",
+        lastName: "",
+        street: "",
+        zipcode: "",
+        country: {
+          name: "",
+        },
+        phoneNumber: "",
+      }),
     },
   },
   setup(props, { root, emit }) {
@@ -123,6 +138,16 @@ export default {
     @include for-desktop {
       display: flex;
       flex-wrap: wrap;
+    }
+  }
+  &__address {
+    display: flex;
+    border: 1px solid var(--c-primary);
+    padding: var(--spacer-sm);
+    justify-content: space-between;
+    align-items: center;
+    p {
+      margin: 0;
     }
   }
   &__list-item {
