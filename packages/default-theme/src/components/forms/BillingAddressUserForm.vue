@@ -3,75 +3,29 @@
     <SfHeading
       :title="$t('Billing address')"
       :description="$t('Choose your billing address')"
-      class="sf-heading--left sf-heading--no-underline title"
+      class="
+        sf-heading--left sf-heading--no-underline
+        billing-address-user-form__title
+      "
     />
-    <SfList class="billing-address-user-form__list">
-      <SfListItem
-        v-for="address in addresses"
-        :key="address._uniqueIdentifier"
-        class="billing-address-user-form__list-item"
-      >
-        <SfAddressPicker v-model="selectedAddressId">
-          <SfAddress :name="address._uniqueIdentifier">
-            <span>{{ address.firstName }} {{ address.lastName }}</span>
-            <span>{{ address.street }}</span>
-            <span>{{ address.zipcode }}</span>
-            <span>{{ address.city }}</span>
-            <span>{{ address.country.name }}</span>
-            <span>{{ address.phoneNumber }}</span>
-          </SfAddress>
-        </SfAddressPicker>
-      </SfListItem>
-    </SfList>
-    <!-- <SwCheckbox
-      v-model="generateInvoice"
-      label="I want to generate invoice for the company"
-      class="billing-address-user-form__invoice"
-    />-->
-    <SwButton
-      class="sf-button color-secondary shipping-address-user-form__add-new"
-      @click="isModalOpen = true"
-    >
-      {{ $t("Add new") }}
-    </SwButton>
-    <SfModal
-      class="sw-modal"
-      :title="$t('Add address')"
-      :visible="isModalOpen"
-      @close="isModalOpen = false"
-    >
-      <SwAddressForm
-        @success="onAddressSuccessSave"
-        @cancel="isModalOpen = false"
-      />
-    </SfModal>
+    <AddressManager
+      v-model="selectedAddressId"
+      :addresses="addresses"
+      :active-address="activeShippingAddress"
+    />
   </div>
 </template>
 <script>
-import {
-  SfHeading,
-  SfModal,
-  SfList,
-  SfRadio,
-  SfAddressPicker,
-} from "@storefront-ui/vue"
+import { SfHeading } from "@storefront-ui/vue"
 import { useSessionContext, useUser } from "@shopware-pwa/composables"
-import SwButton from "@/components/atoms/SwButton.vue"
 import { ref, watch } from "@vue/composition-api"
-import SwAddressForm from "@/components/forms/SwAddressForm.vue"
-// import SwCheckbox from '@/components/atoms/SwCheckbox.vue'
+import AddressManager from "@/components/forms/AddressManager.vue"
 
 export default {
   name: "BillingAddressUserForm",
   components: {
-    SfModal,
-    SfList,
-    SfRadio,
-    // SwCheckbox,
+    AddressManager,
     SfHeading,
-    SwButton,
-    SfAddressPicker,
-    SwAddressForm,
   },
   setup(props, { root }) {
     const { addresses, loadAddresses } = useUser(root)
@@ -88,9 +42,7 @@ export default {
       setActiveBillingAddress(selectedAddress)
     })
 
-    const isModalOpen = ref(false)
     const onAddressSuccessSave = async (addressId) => {
-      isModalOpen.value = false
       await setActiveBillingAddress({ id: addressId })
       await loadAddresses()
       selectedAddressId.value = addressId
@@ -100,7 +52,6 @@ export default {
       addresses,
       loadAddresses,
       selectedAddressId,
-      isModalOpen,
       onAddressSuccessSave,
     }
   },
@@ -110,39 +61,8 @@ export default {
 @import "@/assets/scss/variables";
 .billing-address-user-form {
   margin: 0 0 var(--spacer-xl) 0;
-  &__list {
-    margin: 0 0 var(--spacer-xl) 0;
-    @include for-desktop {
-      display: flex;
-      flex-wrap: wrap;
-    }
-  }
-  &__list-item {
-    margin: 0 0 var(--spacer-base) 0;
-    &:last-child {
-      margin: 0;
-    }
-    @include for-desktop {
-      flex: 0 1;
-      margin: 0 var(--spacer-base) var(--spacer-base) 0;
-      &:last-child {
-        margin: 0;
-      }
-    }
-  }
-  &__invoice {
-    margin: 0 0 var(--spacer-base) 0;
-  }
-  &__default {
-    margin: 0 0 var(--spacer-xl) 0;
-  }
-  &__add-new {
-    @include for-mobile {
-      --button-width: 100%;
-    }
-  }
 }
-.title {
+&__title {
   --heading-padding: var(--spacer-base) 0;
   --heading-description-margin: 0;
 
@@ -152,33 +72,6 @@ export default {
     &:last-of-type {
       --heading-padding: var(--spacer-xs) 0 var(--spacer-base) 0;
     }
-  }
-}
-.address {
-  --radio-container-padding: var(--spacer-sm) var(--spacer-base);
-  --radio-background: transparent;
-  --radio-checkmark-border-color: transparent;
-  --radio-content-margin: 0;
-  position: relative;
-  border: 1px solid var(--c-dark-variant);
-  transition: border-color 150ms ease-in-out;
-  @include for-desktop {
-    border-color: transparent;
-  }
-  &:hover {
-    border-color: var(--c-primary);
-  }
-  &__checkmark {
-    position: absolute;
-    top: var(--spacer-xs);
-    right: var(--spacer-xs);
-  }
-  &__details {
-    padding: 0;
-    margin: 0;
-  }
-  &.sf-radio .is-active {
-    border-color: var(--c-primary);
   }
 }
 </style>

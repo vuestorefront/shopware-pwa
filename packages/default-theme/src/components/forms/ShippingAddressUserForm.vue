@@ -3,7 +3,10 @@
     <SfHeading
       :title="$t('Shipping address')"
       :description="$t('Choose your shipping address')"
-      class="sf-heading--left sf-heading--no-underline title"
+      class="
+        sf-heading--left sf-heading--no-underline
+        shipping-address-user-form__title
+      "
     />
     <AddressManager
       v-model="selectedAddressId"
@@ -16,7 +19,6 @@
 import { SfHeading } from "@storefront-ui/vue"
 import { useSessionContext, useUser } from "@shopware-pwa/composables"
 import { ref, watch } from "@vue/composition-api"
-// import SwAddressForm from "@/components/forms/SwAddressForm.vue"
 import AddressManager from "@/components/forms/AddressManager.vue"
 
 export default {
@@ -43,11 +45,7 @@ export default {
       setActiveShippingAddress(selectedAddress)
     })
 
-    const isModalOpen = ref(false)
-    const isEditModeOpen = ref(false)
-
     const onAddressSuccessSave = async (addressId) => {
-      isModalOpen.value = false
       await setActiveShippingAddress({ id: addressId })
       await loadAddresses()
       selectedAddressId.value = addressId
@@ -58,10 +56,8 @@ export default {
       loadAddresses,
       user,
       selectedAddressId,
-      isModalOpen,
       onAddressSuccessSave,
       activeShippingAddress,
-      isEditModeOpen,
     }
   },
 }
@@ -70,8 +66,7 @@ export default {
 @import "@/assets/scss/variables";
 .shipping-address-user-form {
   margin: 0 0 var(--spacer-xl) 0;
-
-  .title {
+  &__title {
     --heading-padding: var(--spacer-base) 0;
     --heading-description-margin: 0;
 
