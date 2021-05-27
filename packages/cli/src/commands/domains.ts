@@ -120,6 +120,7 @@ Synchronize the domain's related config from backend (in order to build a domain
       toolbox.print.success("Shopware domains refreshed");
     } catch (error) {
       toolbox.print.error("Unable to save a domains.json.");
+      console.error(error);
     }
   },
 };
