@@ -57,10 +57,13 @@ export default {
 }
 
 .sw-products-gallery {
+  min-height: 450px;
+
   .products-grid {
     ::v-deep .sf-section__content {
       display: flex;
       flex-wrap: wrap;
+      margin-top: 0;
     }
   }
   .sf-section {
