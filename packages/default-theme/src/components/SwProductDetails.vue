@@ -3,9 +3,6 @@
     <div class="product-details__mobile-top">
       <SwProductHeading class="product-details__heading" :product="product" />
     </div>
-    <SwPluginSlot name="product-page-description" :slot-context="product">
-      <p class="product-details__description" v-html="description" />
-    </SwPluginSlot>
     <div
       v-if="product.optionIds && product.optionIds.length"
       class="product-details__section"
@@ -62,22 +59,11 @@
         </p>
       </div>
     </div>
-    <SwProductTabs
-      :product-id="product.id"
-      :properties="properties"
-      :reviews="reviews"
-      :manufacturer="manufacturer"
-    />
   </div>
 </template>
 <script>
 import { SfAlert, SfAddToCart, SfLoader } from "@storefront-ui/vue"
-import {
-  getProductNumber,
-  getProductOptions,
-  getProductProperties,
-  getProductReviews,
-} from "@shopware-pwa/helpers"
+import { getProductNumber, getProductOptions } from "@shopware-pwa/helpers"
 import {
   useAddToCart,
   useProductConfigurator,
@@ -86,6 +72,7 @@ import {
 import { getProductUrl } from "@shopware-pwa/helpers"
 import { computed, onMounted, watch } from "@vue/composition-api"
 import SwButton from "@/components/atoms/SwButton.vue"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 
 export default {
   name: "SwProductDetails",
@@ -96,9 +83,7 @@ export default {
     SwButton: () => import("@/components/atoms/SwButton.vue"),
     SwProductHeading: () => import("@/components/SwProductHeading.vue"),
     SwProductSelect: () => import("@/components/SwProductSelect.vue"),
-    SwProductTabs: () => import("@/components/SwProductTabs.vue"),
-    SwProductColors: () => import("@/components/SwProductColors.vue"),
-    SwPluginSlot: () => import("sw-plugins/SwPluginSlot.vue"),
+    SwPluginSlot,
     SwButton,
   },
   props: {
@@ -122,12 +107,8 @@ export default {
         (product.translated && product.translated.description) ||
         product.description
     )
-    const properties = computed(
-      () => product.properties && getProductProperties({ product })
-    )
-    const manufacturer = computed(() => product.manufacturer)
+
     const stock = computed(() => product.stock)
-    const reviews = computed(() => getProductReviews({ product }))
 
     // find the best matching variant for current options
     // use it as a callback in handleChange -> onChangeHandled argument
@@ -156,9 +137,6 @@ export default {
 
     return {
       stock,
-      reviews,
-      manufacturer,
-      properties,
       description,
       quantity,
       addToCart,
