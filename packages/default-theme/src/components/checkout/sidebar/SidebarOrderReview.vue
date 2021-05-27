@@ -1,9 +1,15 @@
 <template>
   <div class="review">
     <SfHeading
-      :title="$t('Order review')"
+      :title="$t('Order details')"
       :level="3"
       class="sf-heading--left sf-heading--no-underline title"
+    />
+    <SwCartProduct
+      v-for="(product, index) in cartItems"
+      :key="index"
+      :product="product"
+      v-model="product.qty"
     />
     <PersonalDetailsSummary
       class="content"
@@ -24,6 +30,7 @@
       class="content"
       @click:edit="$emit('click:edit', 3)"
     />
+    <TotalsSummary />
     <div class="promo-code">
       <SwInput
         v-model="promoCode"
@@ -53,28 +60,38 @@
         />
       </ul>
     </div>
-    <div class="characteristics">
-      <SfCharacteristic
-        v-for="characteristic in characteristics"
-        :key="characteristic.title"
-        :title="characteristic.title"
-        :description="characteristic.description"
-        :icon="characteristic.icon"
-        class="characteristics__item"
-      />
+    <div v-if="isLoggedIn" class="actions">
+      <SwButton
+        class="actions__button color-secondary"
+        data-cy="go-back-to-payment"
+        @click="goToShop"
+      >
+        {{ $t("Go Back to shop") }}
+      </SwButton>
+      <SwButton
+        :disabled="loadings.createOrder"
+        class="actions__button"
+        data-cy="place-my-order"
+        @click="createOrder"
+      >
+        {{ $t("Place my order") }}
+      </SwButton>
     </div>
   </div>
 </template>
 <script>
-import { SfHeading, SfCircleIcon, SfCharacteristic } from "@storefront-ui/vue"
+import { SfHeading, SfCircleIcon } from "@storefront-ui/vue"
 import { computed } from "@vue/composition-api"
-import { useCart } from "@shopware-pwa/composables"
+import { useCart, useUser, useCheckout } from "@shopware-pwa/composables"
 import PersonalDetailsSummary from "@/components/checkout/summary/PersonalDetailsSummary.vue"
 import ShippingAddressSummary from "@/components/checkout/summary/ShippingAddressSummary.vue"
 import BillingAddressSummary from "@/components/checkout/summary/BillingAddressSummary.vue"
 import PaymentMethodSummary from "@/components/checkout/summary/PaymentMethodSummary.vue"
 import SwPromoCodeItem from "@/components/SwPromoCodeItem.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
+import SwButton from "@/components/atoms/SwButton.vue"
+import TotalsSummary from "@/components/checkout/summary/TotalsSummary.vue"
+import SwCartProduct from "@/components/SwCartProduct.vue"
 
 export default {
   name: "SidebarOrderReview",
@@ -82,52 +99,45 @@ export default {
     SfHeading,
     SwInput,
     SfCircleIcon,
-    SfCharacteristic,
     PersonalDetailsSummary,
     ShippingAddressSummary,
     BillingAddressSummary,
     PaymentMethodSummary,
     SwPromoCodeItem,
+    SwButton,
+    TotalsSummary,
+    SwCartProduct,
   },
   data() {
     return {
       promoCode: "",
-      characteristics: [
-        {
-          title: this.$t("Safety"),
-          description: this.$t("It carefully packaged with a personal touch"),
-          icon: "safety",
-        },
-        {
-          title: this.$t("Easy shipping"),
-          description: this.$t(
-            "You'll receive dispatch confirmation and an arrival date"
-          ),
-          icon: "shipping",
-        },
-        {
-          title: this.$t("Changed your mind?"),
-          description: this.$t(
-            "Rest assured, we offer free returns within 30 days"
-          ),
-          icon: "return",
-        },
-      ],
     }
   },
   setup(props, { root }) {
+    const { isLoggedIn } = useUser(root)
+    const { createOrder, loadings } = useCheckout(root)
+    const { cartItems, removeProduct } = useCart(root)
+
     const { appliedPromotionCodes, addPromotionCode, removeItem } =
       useCart(root)
 
     const showPromotionCodes = computed(
       () => appliedPromotionCodes.value?.length > 0
     )
+    function goToShop() {
+      root.$router.push(root.$routing.getUrl("/"))
+    }
 
     return {
       addPromotionCode,
       showPromotionCodes,
       appliedPromotionCodes,
       removeItem,
+      isLoggedIn,
+      loadings,
+      createOrder,
+      goToShop,
+      cartItems,
     }
   },
 }
@@ -151,12 +161,6 @@ export default {
 .content {
   margin: 0 0 var(--spacer-base) 0;
 }
-.characteristics {
-  margin: 0 0 0 var(--spacer-xs);
-  &__item {
-    margin: var(--spacer-base) 0;
-  }
-}
 .promo-code {
   display: flex;
   justify-content: space-between;
@@ -170,6 +174,17 @@ export default {
     --input-background: var(--c-white);
     flex: 1;
     margin: 0 var(--spacer-lg) 0 0;
+  }
+}
+.actions {
+  @include for-mobile {
+    margin-bottom: var(--spacer-2xl);
+  }
+  button {
+    width: 100%;
+    &:last-child {
+      margin-top: var(--spacer-base);
+    }
   }
 }
 .applied-codes {

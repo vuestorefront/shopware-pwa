@@ -1,5 +1,10 @@
 <template>
   <div class="billing-address-user-form">
+    <SfHeading
+      :title="$t('Billing address')"
+      :description="$t('Choose your billing address')"
+      class="sf-heading--left sf-heading--no-underline title"
+    />
     <SfList class="billing-address-user-form__list">
       <SfListItem
         v-for="address in addresses"
@@ -43,7 +48,13 @@
   </div>
 </template>
 <script>
-import { SfModal, SfList, SfRadio, SfAddressPicker } from "@storefront-ui/vue"
+import {
+  SfHeading,
+  SfModal,
+  SfList,
+  SfRadio,
+  SfAddressPicker,
+} from "@storefront-ui/vue"
 import { useSessionContext, useUser } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import { ref, watch } from "@vue/composition-api"
@@ -57,6 +68,7 @@ export default {
     SfList,
     SfRadio,
     // SwCheckbox,
+    SfHeading,
     SwButton,
     SfAddressPicker,
     SwAddressForm,
@@ -65,9 +77,8 @@ export default {
     const { addresses, loadAddresses } = useUser(root)
     loadAddresses()
 
-    const { activeBillingAddress, setActiveBillingAddress } = useSessionContext(
-      root
-    )
+    const { activeBillingAddress, setActiveBillingAddress } =
+      useSessionContext(root)
 
     const selectedAddressId = ref(activeBillingAddress.value?.id)
     watch(selectedAddressId, (value) => {
@@ -128,6 +139,18 @@ export default {
   &__add-new {
     @include for-mobile {
       --button-width: 100%;
+    }
+  }
+}
+.title {
+  --heading-padding: var(--spacer-base) 0;
+  --heading-description-margin: 0;
+
+  @include for-desktop {
+    --heading-title-font-size: var(--h3-font-size);
+    --heading-padding: var(--spacer-lg) 0 var(--spacer-base) 0;
+    &:last-of-type {
+      --heading-padding: var(--spacer-xs) 0 var(--spacer-base) 0;
     }
   }
 }

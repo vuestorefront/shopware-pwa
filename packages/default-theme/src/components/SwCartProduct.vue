@@ -137,8 +137,12 @@ export default {
   min-height: 12.5rem;
   --collected-product-actions-display: none;
   --collected-product-configuration-display: flex;
+  --collected-product-padding: 0;
   ::v-deep .sf-price {
     margin-bottom: var(--spacer-base);
+  }
+  ::v-deep .sf-quantity-selector {
+    --quantity-selector-background: var(--c-white);
   }
   @include for-mobile {
     --property-name-font-size: var(--font-size--base);
