@@ -2,12 +2,16 @@
   <div v-if="!cmsPage" id="product">
     <SwPluginSlot name="product-page-details-before" :slot-context="product" />
     <SwGoBackArrow class="product-page-back" />
-    <div class="product">
-      <SwProductGallery :product="product" class="product__gallery" />
-      <div class="product__description">
+    <div class="sw-product-buy-box" v-if="product">
+      <SwProductGallery
+        :product="product"
+        class="sw-product-buy-box__gallery"
+      />
+      <div class="sw-product-buy-box__description">
         <SwProductDetails :product="product" />
       </div>
     </div>
+    <CmsElementProductDescriptionReviews />
 
     <SwPluginSlot name="product-page-details-after" :slot-context="product" />
 
@@ -23,27 +27,29 @@
 </template>
 <script>
 import CmsPage from "sw-cms/CmsPage"
-import { SfTabs } from "@storefront-ui/vue"
-import { useProduct, useUser, useUIState } from "@shopware-pwa/composables"
+import { useUser, useUIState, useDefaults } from "@shopware-pwa/composables"
 import SwGoBackArrow from "@/components/atoms/SwGoBackArrow.vue"
-import SwProductGallery from "@/components/SwProductGallery.vue"
-import SwProductDetails from "@/components/SwProductDetails.vue"
 import SwProductAdvertisement from "@/components/SwProductAdvertisement.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
-import SwProductCrossSells from "@/components/organisms/SwProductCrossSells.vue"
 import { computed, onMounted, ref } from "@vue/composition-api"
+const SwProductGallery = () => import("@/components/SwProductGallery.vue")
+const SwProductDetails = () => import("@/components/SwProductDetails.vue")
+const SwProductCrossSells = () =>
+  import("@/components/organisms/SwProductCrossSells.vue")
+const CmsElementProductDescriptionReviews = () =>
+  import("@/cms/elements/CmsElementProductDescriptionReviews.vue")
 
 export default {
   name: "ProductPage",
   components: {
     CmsPage,
     SwGoBackArrow,
-    SfTabs,
     SwProductGallery,
     SwProductDetails,
     SwProductAdvertisement,
     SwPluginSlot,
     SwProductCrossSells,
+    CmsElementProductDescriptionReviews,
   },
   props: {
     page: {
@@ -144,5 +150,21 @@ export default {
   position: absolute;
   top: 1.5rem;
   z-index: 4;
+}
+
+.sw-product-buy-box {
+  @include for-desktop {
+    display: flex;
+  }
+  &__gallery,
+  &__description {
+    flex: 1;
+  }
+  &__description {
+    padding: 0 var(--spacer-sm);
+    @include for-desktop {
+      margin-left: calc(var(--spacer-base) * 3);
+    }
+  }
 }
 </style>

@@ -30,7 +30,7 @@
     "text-two-column": "CmsBlockTextTwoColumn",
     "form": "CmsBlockForms",
     "product-heading": "CmsBlockDefault",
-    "gallery-buybox": "CmsBlockDefault",
+    "gallery-buybox": "CmsBlockSplitView",
     "product-description-reviews": "CmsBlockDefault",
     "cross-selling": "CmsBlockDefault"
   },
@@ -38,6 +38,7 @@
     "product-box": "CmsElementProductCard",
     "product-slider": "CmsElementProductSlider",
     "image": "CmsElementImage",
+    "image-gallery": "CmsElementImageGallery",
     "image-slider": "CmsElementImageSlider",
     "text": "CmsElementText",
     "vimeo-video": "CmsElementVideoVimeo",
@@ -48,6 +49,8 @@
     "form": "CmsElementForm",
     "product-name": "CmsElementText",
     "manufacturer-logo": "CmsElementImage",
-    "cross-selling": "CmsElementText"
+    "buy-box": "CmsElementBuyBox",
+    "product-description-reviews": "CmsElementProductDescriptionReviews",
+    "cross-selling": "CmsElementProductCrossSelling"
   }
 }

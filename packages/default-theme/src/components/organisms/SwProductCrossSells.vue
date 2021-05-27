@@ -16,13 +16,7 @@
   </div>
 </template>
 <script>
-import {
-  SfFooter,
-  SfList,
-  SfTabs,
-  SfMenuItem,
-  SfLoader,
-} from "@storefront-ui/vue"
+import { SfTabs, SfLoader } from "@storefront-ui/vue"
 import { ref, watch, computed, onMounted } from "@vue/composition-api"
 import { useProductAssociations, useDefaults } from "@shopware-pwa/composables"
 
@@ -37,16 +31,28 @@ export default {
     product: {
       type: Object,
       default: () => ({}),
-      required: true,
+    },
+    crossSellings: {
+      type: Array,
     },
   },
-  setup({ product }, { root }) {
+  setup(props, { root }) {
+    const isLoading = ref(false)
+    if (props.crossSellings) {
+      const crossSellCollection = computed(() => props.crossSellings || [])
+      return {
+        crossSellCollection,
+        isLoading,
+      }
+    }
+
+    // Load product associations otherwise
     const { getIncludesConfig } = useDefaults(root, "useProductListing")
     const {
       loadAssociations: loadCrossSells,
       productAssociations: crossSellCollection,
-    } = useProductAssociations(root, product, "cross-selling")
-    const isLoading = ref(false)
+    } = useProductAssociations(root, props.product, "cross-selling")
+
     onMounted(async () => {
       isLoading.value = true
 
