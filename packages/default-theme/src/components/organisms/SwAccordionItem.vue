@@ -68,7 +68,6 @@ export default {
 </script>
 <style lang="scss">
 @import "@/assets/scss/variables";
-@import "@/assets/scss/helpers";
 
 .sw-accordion-item {
   will-change: height;
@@ -81,23 +80,15 @@ export default {
     color: var(--accordion-item-header-color);
     transition: color 150ms ease-in-out;
     width: 100%;
-    @include border(
-      --accordion-item-header-border,
-      0 0 1px 0,
-      solid,
-      var(--c-light)
+    border: solid var(--c-light);
+    border-width: var(--accordion-item-header-border, 0 0 1px 0);
+    font-size: var(--accordion-item-header-font-size, var(--font-size--base));
+    font-weight: var(
+      --accordion-item-header-font-weight,
+      var(--font-weight--medium)
     );
-    font-size: var(--font-size--base);
-    font-weight: var(--font-weight--medium);
     line-height: 1.4;
     font-family: var(--font-family--secondary);
-    @include font(
-      --accordion-item-header-font,
-      var(--font-weight--medium),
-      var(--font-size--base),
-      1.4,
-      var(--font-family--secondary)
-    );
     &.is-open {
       border-width: 0;
       --accordion-item-header-color: var(--c-primary);
@@ -110,22 +101,15 @@ export default {
       var(--spacer-base) var(--spacer-sm)
     );
     color: var(--accordion-item-content-color, var(--c-text));
-    border-width: 1px 0;
-    border-style: solid;
-    border-color: var(--c-light);
-    @include border(
-      --accordion-item-content-border,
-      1px 0,
-      solid,
-      var(--c-light)
+    border-width: var(--accordion-item-content-border, 1px 0);
+    border: solid var(--c-light);
+    font-size: var(--accordion-item-content-font-size, var(--font-size--base));
+    font-weight: var(
+      --accordion-item-content-font-weight,
+      var(--font-weight--light)
     );
-    @include font(
-      --accordion-item-content-font,
-      var(--font-weight--light),
-      var(--font-size--base),
-      1.6,
-      var(--font-family--primary)
-    );
+    line-height: 1.6;
+    font-family: var(--font-family--primary);
   }
   &__chevron {
     display: var(--accordion-item-chevron-display, none);
