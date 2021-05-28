@@ -55,7 +55,7 @@ Synchronize the domain's related config from backend (in order to build a domain
 
     const { username, password, pwaHost } = inputParameters;
 
-    if (!username || !password) {
+    if ((!username || !password) && !toolbox.isDefaultDemoData()) {
       toolbox.print.error(
         "Please provide your admin credentials using the --username and --password options or answering the questions."
       );
@@ -67,46 +67,50 @@ Synchronize the domain's related config from backend (in order to build a domain
     try {
       authToken = await toolbox.fetchPluginsAuthToken(toolbox.inputParameters);
     } catch (error) {
-      if (error.response.status === 401) {
+      if (!toolbox.isDefaultDemoData()) {
+        if (error.response.status === 401) {
+          toolbox.print.error(
+            "Invalid credentials, aborting domain import. Please try again. This synchronization is required."
+          );
+          return -1;
+        }
         toolbox.print.error(
-          "Invalid credentials, aborting domain import. Please try again. This synchronization is required."
+          `Error during API authentication: ${error.response.status} (${error.response.statusText})
+          Please try again. This synchronization is required.
+          `
         );
         return -1;
       }
-      toolbox.print.error(
-        `Error during API authentication: ${error.response.status} (${error.response.statusText})
-        Please try again. This synchronization is required.
-        `
-      );
-      return -1;
     }
 
-    const domains = await toolbox.domains.fetchDomainsForSalesChannel(
-      inputParameters.shopwareEndpoint,
-      authToken,
-      inputParameters.shopwareAccessToken
-    );
+    let domainsMap = {};
 
-    let domainsMap = toolbox.domains.prepareDomainsMap(
-      domains,
-      toolbox.normalizeBaseUrl(
-        (typeof pwaHost === "string" &&
-          pwaHost === "" &&
-          toolbox.defaultInitConfig.shopwareEndpoint) ||
-          pwaHost
-      )
-    );
+    try {
+      const domains = await toolbox.domains.fetchDomainsForSalesChannel(
+        inputParameters.shopwareEndpoint,
+        authToken,
+        inputParameters.shopwareAccessToken
+      );
+
+      domainsMap = toolbox.domains.prepareDomainsMap(
+        domains,
+        toolbox.normalizeBaseUrl(
+          (typeof pwaHost === "string" &&
+            pwaHost === "" &&
+            toolbox.defaultInitConfig.shopwareEndpoint) ||
+            pwaHost
+        )
+      );
+    } catch (error) {
+      if (!toolbox.isDefaultDemoData()) {
+        console.error(error);
+      }
+    }
 
     let domainsFilePath = path.join(shopwarePwaPath, "domains.json");
     try {
-      const defaultShopwarePwaApiEndpoint = toolbox.normalizeBaseUrl(
-        toolbox.defaultInitConfig.shopwareEndpoint
-      );
       // if the provided pwaHost value equals the default shopware api instance (fallback) and the domains are still blank - load default domains.json file from gist.
-      if (
-        !Object.keys(domainsMap).length &&
-        defaultShopwarePwaApiEndpoint === toolbox.config.shopwareEndpoint
-      ) {
+      if (!Object.keys(domainsMap).length && toolbox.isDefaultDemoData()) {
         toolbox.print.warning("Loading default domains.json file.");
         const defaultDomainsMap =
           await toolbox.domains.getDefaultDemoDomainsJson();
