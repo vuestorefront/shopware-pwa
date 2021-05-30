@@ -209,14 +209,6 @@
         />
       </div>
 
-      <SwButton
-        class="sw-form__button"
-        @click="invokeRegister"
-        data-cy="register-button"
-      >
-        {{ buttonText || $t("Continue") }}
-      </SwButton>
-
       <SwPluginSlot name="registration-form-after" />
     </div>
   </div>
@@ -245,7 +237,6 @@ import {
   mapSalutations,
   getMessagesFromErrorsArray,
 } from "@shopware-pwa/helpers"
-import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 import SwErrorsList from "@/components/SwErrorsList.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
@@ -256,7 +247,6 @@ export default {
   components: {
     SfAlert,
     SwInput,
-    SwButton,
     SfSelect,
     SwErrorsList,
     SwCheckbox,

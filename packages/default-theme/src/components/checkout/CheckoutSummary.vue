@@ -1,25 +1,19 @@
 <template>
   <div class="sw-checkout-summary">
-    <!-- <SfHeading
-      :title="$t('Order details')"
-      :level="2"
-      class="sf-heading--left sf-heading--no-underline title"
-    /> -->
-    <!-- <OrderItemsTable class="desktop-only" /> -->
-    <ShippingAddressUserForm v-if="!isGuestSession" />
-    <BillingAddressUserForm v-if="!isGuestSession" />
+    <div class="sw-checkout-summary__addresses">
+      <ShippingAddressManager
+        class="sw-checkout-summary__addresses-wrapper"
+        v-if="!isGuestSession"
+      />
+      <BillingAddressManager
+        class="sw-checkout-summary__addresses-wrapper"
+        v-if="!isGuestSession"
+      />
+    </div>
     <!-- <PaymentMethodSummary @click:edit="$emit('click:edit', 2)" /> -->
     <PaymentSection class="sw-checkout-summary__payment" />
     <!-- <PaymentMethodSummary @click:edit="$emit('click:edit', 2)" /> -->
     <ShippingSection class="sw-checkout-summary__shipping" />
-    <div class="collected-product-list smartphone-only">
-      <SwCartProduct
-        v-for="(product, index) in cartItems"
-        :key="index"
-        :product="product"
-        v-model="product.qty"
-      />
-    </div>
   </div>
 </template>
 
@@ -28,29 +22,23 @@ import PersonalDetailsSummary from "@/components/checkout/summary/PersonalDetail
 import ShippingAddressSummary from "@/components/checkout/summary/ShippingAddressSummary.vue"
 import BillingAddressSummary from "@/components/checkout/summary/BillingAddressSummary.vue"
 import PaymentMethodSummary from "@/components/checkout/summary/PaymentMethodSummary.vue"
-import OrderItemsTable from "@/components/checkout/summary/OrderItemsTable.vue"
-import SwCartProduct from "@/components/SwCartProduct.vue"
 import ShippingSection from "@/components/checkout/ShippingSection.vue"
 import PaymentSection from "@/components/checkout/PaymentSection.vue"
-import BillingAddressUserForm from "@/components/forms/BillingAddressUserForm.vue"
-import ShippingAddressUserForm from "@/components/forms/ShippingAddressUserForm.vue"
-import { SfHeading } from "@storefront-ui/vue"
+import BillingAddressManager from "@/components/forms/BillingAddressManager.vue"
+import ShippingAddressManager from "@/components/forms/ShippingAddressManager.vue"
 import { useCart, useUser } from "@shopware-pwa/composables"
 
 export default {
   name: "CheckoutSummary",
   components: {
-    SfHeading,
     PersonalDetailsSummary,
     ShippingAddressSummary,
     BillingAddressSummary,
     PaymentMethodSummary,
-    OrderItemsTable,
-    SwCartProduct,
     ShippingSection,
     PaymentSection,
-    BillingAddressUserForm,
-    ShippingAddressUserForm,
+    BillingAddressManager,
+    ShippingAddressManager,
   },
   setup(props, { root }) {
     const { cartItems, removeProduct } = useCart(root)
@@ -80,6 +68,16 @@ export default {
   padding: 0 var(--spacer-base) 0 var(--spacer-base);
   @include for-desktop {
     padding: 0;
+  }
+  &__addresses {
+    @include for-desktop {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      &-wrapper {
+        width: 48%;
+      }
+    }
   }
 }
 

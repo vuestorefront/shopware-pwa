@@ -1,15 +1,22 @@
 <template>
   <div class="review">
     <SfHeading
-      :title="$t('Order details')"
+      :title="$t('Order review')"
       :level="3"
       class="sf-heading--left sf-heading--no-underline title"
+    />
+    <SfProperty
+      :name="$t('Products')"
+      :value="count"
+      class="sf-property--full-width property"
     />
     <div class="review__products">
       <SwCartProduct
         v-for="(product, index) in cartItems"
+        class="sw-collected-product--small"
         :key="index"
         :product="product"
+        hidden-remove-button
         v-model="product.qty"
       />
     </div>
@@ -28,40 +35,12 @@
       data-cy="billing"
       @click:edit="$emit('click:edit', 2)"
     /> -->
-    <PaymentMethodSummary
+    <!-- <PaymentMethodSummary
       class="content"
       @click:edit="$emit('click:edit', 3)"
-    />
+    /> -->
     <TotalsSummary />
-    <div class="promo-code">
-      <SwInput
-        v-model="promoCode"
-        name="promoCode"
-        :label="$t('Enter promo code')"
-        class="sf-input--filled promo-code__input"
-        @keyup.enter="addPromotionCode(promoCode)"
-      />
-      <SfCircleIcon
-        class="promo-code__circle-icon"
-        icon="check"
-        @click="addPromotionCode(promoCode)"
-      />
-    </div>
-    <div v-if="showPromotionCodes" class="applied-codes">
-      <SfHeading
-        :title="$t('Applied promo codes:')"
-        :level="4"
-        class="sf-heading--left sf-heading--no-underline title"
-      />
-      <ul class="applied-codes__list">
-        <SwPromoCodeItem
-          v-for="appliedPromotionCode in appliedPromotionCodes"
-          :key="appliedPromotionCode.id"
-          :code="appliedPromotionCode"
-          @remove="removeItem(appliedPromotionCode)"
-        />
-      </ul>
-    </div>
+    <SwPromoCode class="promo-code" />
     <div v-if="isLoggedIn" class="actions">
       <SwButton
         class="actions__button color-secondary"
@@ -82,18 +61,18 @@
   </div>
 </template>
 <script>
-import { SfHeading, SfCircleIcon } from "@storefront-ui/vue"
+import { SfHeading, SfCircleIcon, SfProperty } from "@storefront-ui/vue"
 import { computed } from "@vue/composition-api"
 import { useCart, useUser, useCheckout } from "@shopware-pwa/composables"
 import PersonalDetailsSummary from "@/components/checkout/summary/PersonalDetailsSummary.vue"
 import ShippingAddressSummary from "@/components/checkout/summary/ShippingAddressSummary.vue"
 import BillingAddressSummary from "@/components/checkout/summary/BillingAddressSummary.vue"
 import PaymentMethodSummary from "@/components/checkout/summary/PaymentMethodSummary.vue"
-import SwPromoCodeItem from "@/components/SwPromoCodeItem.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
 import TotalsSummary from "@/components/checkout/summary/TotalsSummary.vue"
 import SwCartProduct from "@/components/SwCartProduct.vue"
+import SwPromoCode from "@/components/SwPromoCode.vue"
 
 export default {
   name: "SidebarOrderReview",
@@ -105,10 +84,11 @@ export default {
     ShippingAddressSummary,
     BillingAddressSummary,
     PaymentMethodSummary,
-    SwPromoCodeItem,
+    SwPromoCode,
     SwButton,
     TotalsSummary,
     SwCartProduct,
+    SfProperty,
   },
   data() {
     return {
@@ -118,7 +98,7 @@ export default {
   setup(props, { root }) {
     const { isLoggedIn } = useUser(root)
     const { createOrder, loadings } = useCheckout(root)
-    const { cartItems, removeProduct } = useCart(root)
+    const { count, cartItems, removeProduct } = useCart(root)
 
     const { appliedPromotionCodes, addPromotionCode, removeItem } =
       useCart(root)
@@ -140,6 +120,7 @@ export default {
       createOrder,
       goToShop,
       cartItems,
+      count,
     }
   },
 }
@@ -153,14 +134,14 @@ export default {
   background: var(--c-light);
   padding: var(--spacer-xl);
   margin-bottom: var(--spacer-base);
+  &__products {
+    margin: var(--spacer-base) 0;
+  }
   @include for-desktop {
     padding: var(--spacer-lg);
   }
   &:last-child {
     margin-bottom: 0;
-  }
-  &__products {
-    background: var(--c-white);
   }
 }
 .title {
@@ -168,21 +149,6 @@ export default {
 }
 .content {
   margin: 0 0 var(--spacer-base) 0;
-}
-.promo-code {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: var(--spacer-lg) 0 var(--spacer-base) 0;
-  &__circle-icon {
-    --button-size: 2rem;
-    --icon-size: 0.6875rem;
-  }
-  &__input {
-    --input-background: var(--c-white);
-    flex: 1;
-    margin: 0 var(--spacer-lg) 0 0;
-  }
 }
 .actions {
   @include for-mobile {
@@ -193,17 +159,6 @@ export default {
     &:last-child {
       margin-top: var(--spacer-base);
     }
-  }
-}
-.applied-codes {
-  margin-bottom: var(--spacer-xl);
-  &__list {
-    list-style: none;
-    padding: 0;
-  }
-
-  .title {
-    margin-bottom: var(--spacer-xs);
   }
 }
 </style>

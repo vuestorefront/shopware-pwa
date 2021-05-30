@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="shipping-section">
     <SfHeading
       :title="$t('Shipping methods')"
       :description="$t('Choose your shipping method')"
@@ -60,7 +60,6 @@
 <script>
 import { SfHeading, SfRadio, SfLoader } from "@storefront-ui/vue"
 import { computed, onMounted, ref } from "@vue/composition-api"
-// import ShippingAddressUserForm from "@/components/forms/ShippingAddressUserForm.vue"
 import {
   useCheckout,
   useSessionContext,
@@ -112,7 +111,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/forms";
-
+.shipping-section {
+  margin-bottom: var(--spacer-lg);
+}
 .sw-form {
   &__action {
     display: table;
@@ -142,10 +143,6 @@ export default {
 
 .shipping {
   --radio-container-padding: var(--spacer-sm);
-  ::v-deep .sf-radio__content {
-    display: flex;
-    align-items: center;
-  }
   &__label {
     display: flex;
     justify-content: flex-start;
@@ -160,9 +157,6 @@ export default {
   }
   &__delivery {
     color: var(--c-text-muted);
-    p {
-      margin: 0 0 var(--spacer-xs) var(--spacer-xs);
-    }
   }
   &__action {
     @include for-mobile {

@@ -1,7 +1,7 @@
 <template>
   <div class="order-summary">
     <SfHeading
-      :title="$t('Totals')"
+      :title="$t('Order summary')"
       :level="3"
       class="sf-heading--left sf-heading--no-underline title"
     />
@@ -10,29 +10,33 @@
       :value="count"
       class="sf-property--full-width property"
     />
-    <SfProperty
-      :name="$t('Subtotal')"
-      :value="subtotal | price"
-      class="sf-property--full-width property"
-    />
-    <SfProperty
-      :name="$t('Shipping')"
-      :value="shippingTotal | price"
-      class="sf-property--full-width property"
-    />
-    <SfDivider class="divider" />
-    <SfProperty
-      :name="$t('Total')"
-      :value="totalPrice | price"
-      class="sf-property--full-width property"
-    />
+    <div class="collected-product-list">
+      <SwCartProduct
+        v-for="(product, index) in cartItems"
+        :key="index"
+        class="sw-collected-product--small"
+        hidden-remove-button
+        :product="product"
+        v-model="product.qty"
+      />
+    </div>
+    <TotalsSummary />
     <SwPromoCode class="promo-code" />
+    <SwButton
+      class="sw-form__button sf-button--full-width"
+      data-cy="register-button"
+    >
+      {{ buttonText || $t("Continue") }}
+    </SwButton>
   </div>
 </template>
 <script>
 import { SfHeading, SfProperty, SfDivider } from "@storefront-ui/vue"
 import { useCart } from "@shopware-pwa/composables"
 import SwPromoCode from "@/components/SwPromoCode.vue"
+import SwButton from "@/components/atoms/SwButton.vue"
+import SwCartProduct from "@/components/SwCartProduct.vue"
+import TotalsSummary from "@/components/checkout/summary/TotalsSummary.vue"
 
 export default {
   name: "SidebarOrderSummary",
@@ -41,15 +45,20 @@ export default {
     SfProperty,
     SfDivider,
     SwPromoCode,
+    SwButton,
+    SwCartProduct,
+    TotalsSummary,
   },
   setup(props, { root }) {
-    const { count, subtotal, shippingTotal, totalPrice } = useCart(root)
+    const { cartItems, count, subtotal, shippingTotal, totalPrice } =
+      useCart(root)
 
     return {
       count,
       subtotal,
       shippingTotal,
       totalPrice,
+      cartItems,
     }
   },
 }
@@ -90,16 +99,6 @@ export default {
     margin: var(--spacer-base) 0;
     --property-name-font-size: var(--font-size--xl);
     --property-value-font-size: var(--font-size--xl);
-  }
-}
-.divider {
-  --divider-border-color: var(--c-white);
-  --divider-margin: calc(var(--spacer-base) * 2) 0 0 0;
-}
-.characteristics {
-  margin: 0 0 0 var(--spacer-xs);
-  &__item {
-    margin: var(--spacer-base) 0;
   }
 }
 </style>

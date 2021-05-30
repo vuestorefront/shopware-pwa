@@ -42,9 +42,8 @@ import { computed } from "@vue/composition-api"
 export default {
   name: "SwPromoCode",
   setup(props, { root }) {
-    const { appliedPromotionCodes, addPromotionCode, removeItem } = useCart(
-      root
-    )
+    const { appliedPromotionCodes, addPromotionCode, removeItem } =
+      useCart(root)
 
     const showPromotionCodes = computed(
       () => appliedPromotionCodes.value.length > 0
@@ -83,7 +82,6 @@ export default {
 
     .promo-code__circle-icon {
       --button-size: 2rem;
-      --icon-size: 0.6875rem;
     }
 
     .promo-code__input {

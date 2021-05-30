@@ -1,17 +1,17 @@
 <template>
-  <div class="billing-address-user-form">
+  <div class="shipping-address-manager">
     <SfHeading
-      :title="$t('Billing address')"
-      :description="$t('Choose your billing address')"
+      :title="$t('Shipping address')"
+      :description="$t('Choose your shipping address')"
       class="
         sf-heading--left sf-heading--no-underline
-        billing-address-user-form__title
+        shipping-address-manager__title
       "
     />
     <AddressManager
       v-model="selectedAddressId"
       :addresses="addresses"
-      :active-address="activeBillingAddress"
+      :active-address="activeShippingAddress"
     />
   </div>
 </template>
@@ -22,28 +22,31 @@ import { ref, watch } from "@vue/composition-api"
 import AddressManager from "@/components/forms/AddressManager.vue"
 
 export default {
-  name: "BillingAddressUserForm",
+  name: "ShippingAddressManager",
   components: {
     AddressManager,
     SfHeading,
   },
   setup(props, { root }) {
-    const { addresses, loadAddresses } = useUser(root)
+    const { addresses, loadAddresses, user } = useUser(root)
     loadAddresses()
 
-    const { activeBillingAddress, setActiveBillingAddress } =
-      useSessionContext(root)
+    const {
+      refreshSessionContext,
+      activeShippingAddress,
+      setActiveShippingAddress,
+    } = useSessionContext(root)
 
-    const selectedAddressId = ref(activeBillingAddress.value?.id)
+    const selectedAddressId = ref(activeShippingAddress.value?.id)
     watch(selectedAddressId, (value) => {
       const selectedAddress = addresses.value.find(
         (address) => address.id === value
       )
-      setActiveBillingAddress(selectedAddress)
+      setActiveShippingAddress(selectedAddress)
     })
 
     const onAddressSuccessSave = async (addressId) => {
-      await setActiveBillingAddress({ id: addressId })
+      await setActiveShippingAddress({ id: addressId })
       await loadAddresses()
       selectedAddressId.value = addressId
     }
@@ -51,17 +54,17 @@ export default {
     return {
       addresses,
       loadAddresses,
+      user,
       selectedAddressId,
       onAddressSuccessSave,
-      activeBillingAddress,
+      activeShippingAddress,
     }
   },
 }
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
-.billing-address-user-form {
-  margin: 0 0 var(--spacer-xl) 0;
+.shipping-address-manager {
   &__title {
     --heading-padding: 0 0 var(--spacer-base) 0;
     --heading-description-margin: 0;

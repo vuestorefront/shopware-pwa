@@ -2,8 +2,8 @@
   <div class="shipping-address-user-form">
     <div class="shipping-address-user-form__address">
       <div>
-        <!-- <span>{{ activeAddress.firstName }} {{ activeAddress.lastName }}</span> -->
-        <!-- <span>{{ activeAddress.street }}</span> -->
+        <span>{{ activeAddress.firstName }} {{ activeAddress.lastName }}</span>
+        <span>{{ activeAddress.street }}</span>
         <p>{{ activeAddress.zipcode }}</p>
         <p>{{ activeAddress.city }}</p>
         <p>{{ activeAddress.country.name }}</p>
@@ -26,10 +26,15 @@
     /> -->
     <SfModal
       class="sw-modal"
-      :title="$t('Edit address address')"
+      :title="$t('Edit address')"
       :visible="isModalOpen"
       @close="isModalOpen = false"
     >
+      <SfHeading
+        :title="$t('Edit address')"
+        class="title desktop-only"
+        :level="4"
+      />
       <div v-if="isEditModeOpen">
         <SfList class="shipping-address-user-form__list">
           <SfListItem
@@ -72,7 +77,13 @@
 </template>
 
 <script>
-import { SfList, SfRadio, SfModal, SfAddressPicker } from "@storefront-ui/vue"
+import {
+  SfList,
+  SfHeading,
+  SfRadio,
+  SfModal,
+  SfAddressPicker,
+} from "@storefront-ui/vue"
 import { useSessionContext, useUser } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import { ref, watch } from "@vue/composition-api"
@@ -80,7 +91,7 @@ import SwAddressForm from "@/components/forms/SwAddressForm.vue"
 // import SwCheckbox from '@/components/atoms/SwCheckbox.vue'
 
 export default {
-  name: "ShippingAddressUserForm",
+  name: "AddressManager",
   components: {
     SfList,
     SfRadio,
@@ -89,6 +100,7 @@ export default {
     SfModal,
     SfAddressPicker,
     SwAddressForm,
+    SfHeading,
   },
   props: {
     addresses: {
@@ -132,7 +144,6 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 .shipping-address-user-form {
-  margin: 0 0 var(--spacer-xl) 0;
   &__list {
     margin: 0 0 var(--spacer-xl) 0;
     @include for-desktop {
@@ -169,22 +180,13 @@ export default {
   &__default {
     margin: 0 0 var(--spacer-xl) 0;
   }
-  &__add-new {
-    @include for-mobile {
-      --button-width: 100%;
-    }
-  }
 }
 .title {
-  --heading-padding: var(--spacer-base) 0;
   --heading-description-margin: 0;
 
   @include for-desktop {
+    --heading-padding: var(--spacer-sm) 0;
     --heading-title-font-size: var(--h3-font-size);
-    --heading-padding: var(--spacer-lg) 0 var(--spacer-base) 0;
-    &:last-of-type {
-      --heading-padding: var(--spacer-xs) 0 var(--spacer-base) 0;
-    }
   }
 }
 .address {

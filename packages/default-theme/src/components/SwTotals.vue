@@ -1,10 +1,5 @@
 <template>
   <div class="sw-totals">
-    <SfHeading
-      :title="$t('Totals')"
-      :level="2"
-      class="sf-heading--left sf-heading--no-underline sw-totals__title"
-    />
     <div class="sw-totals__total">
       <SfProperty
         :name="$t('Subtotal')"
@@ -18,6 +13,7 @@
         class="sf-property--full-width sw-totals__property"
       >
       </SfProperty>
+      <SfDivider class="divider" />
       <SfProperty
         :name="$t('Total price')"
         :value="total | price"
@@ -32,7 +28,7 @@
 </template>
 
 <script>
-import { SfProperty, SfHeading } from "@storefront-ui/vue"
+import { SfProperty, SfDivider } from "@storefront-ui/vue"
 
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 
@@ -41,7 +37,7 @@ export default {
   components: {
     SwPluginSlot,
     SfProperty,
-    SfHeading,
+    SfDivider,
   },
   props: {
     subtotal: {
@@ -87,5 +83,9 @@ export default {
       border-color: var(--c-light);
     }
   }
+}
+.divider {
+  --divider-border-color: var(--c-white);
+  --divider-margin: var(--spacer-base) 0 0 0;
 }
 </style>
