@@ -1,7 +1,7 @@
 <template>
   <div class="summary">
     <SwTotals :total="total" :subtotal="subtotal" :shipping="shippingTotal" />
-    <div class="notification" v-if="!cartItems.length">
+    <div class="notification" v-if="!cartItems.length && !!cart">
       <SfNotification
         :visible="true"
         type="info"
@@ -29,12 +29,14 @@ export default {
     }
   },
   setup(props, { root }) {
-    const { cartItems, subtotal, totalPrice, shippingTotal } = useCart(root)
+    const { cartItems, subtotal, totalPrice, shippingTotal, cart } =
+      useCart(root)
     return {
       cartItems,
       subtotal,
       total: totalPrice,
       shippingTotal,
+      cart,
     }
   },
 }

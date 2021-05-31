@@ -9,9 +9,10 @@
       "
     />
     <AddressManager
-      v-model="selectedAddressId"
       :addresses="addresses"
       :active-address="activeShippingAddress"
+      @change="changeActiveAddress"
+      @added="changeAndLoad"
     />
   </div>
 </template>
@@ -28,7 +29,7 @@ export default {
     SfHeading,
   },
   setup(props, { root }) {
-    const { addresses, loadAddresses, user } = useUser(root)
+    const { addresses, loadAddresses } = useUser(root)
     loadAddresses()
 
     const {
@@ -37,26 +38,19 @@ export default {
       setActiveShippingAddress,
     } = useSessionContext(root)
 
-    const selectedAddressId = ref(activeShippingAddress.value?.id)
-    watch(selectedAddressId, (value) => {
-      const selectedAddress = addresses.value.find(
-        (address) => address.id === value
-      )
-      setActiveShippingAddress(selectedAddress)
-    })
-
-    const onAddressSuccessSave = async (addressId) => {
+    const changeActiveAddress = async (addressId) => {
       await setActiveShippingAddress({ id: addressId })
-      await loadAddresses()
-      selectedAddressId.value = addressId
+    }
+
+    const changeAndLoad = async (addressId) => {
+      setActiveShippingAddress({ id: addressId })
+      loadAddresses()
     }
 
     return {
       addresses,
-      loadAddresses,
-      user,
-      selectedAddressId,
-      onAddressSuccessSave,
+      changeAndLoad,
+      changeActiveAddress,
       activeShippingAddress,
     }
   },

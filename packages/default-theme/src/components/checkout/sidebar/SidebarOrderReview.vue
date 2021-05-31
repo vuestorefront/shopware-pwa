@@ -20,54 +20,14 @@
         v-model="product.qty"
       />
     </div>
-    <!-- <PersonalDetailsSummary
-      class="content"
-      data-cy="name"
-      @click:edit="$emit('click:edit', 0)"
-    /> -->
-    <!-- <ShippingAddressSummary
-      class="content"
-      data-cy="shipping"
-      @click:edit="$emit('click:edit', 1)"
-    /> -->
-    <!-- <BillingAddressSummary
-      class="content"
-      data-cy="billing"
-      @click:edit="$emit('click:edit', 2)"
-    /> -->
-    <!-- <PaymentMethodSummary
-      class="content"
-      @click:edit="$emit('click:edit', 3)"
-    /> -->
     <TotalsSummary />
     <SwPromoCode class="promo-code" />
-    <div v-if="isLoggedIn" class="actions">
-      <SwButton
-        class="actions__button color-secondary"
-        data-cy="go-back-to-payment"
-        @click="goToShop"
-      >
-        {{ $t("Go Back to shop") }}
-      </SwButton>
-      <SwButton
-        :disabled="loadings.createOrder"
-        class="actions__button"
-        data-cy="place-my-order"
-        @click="createOrder"
-      >
-        {{ $t("Place my order") }}
-      </SwButton>
-    </div>
   </div>
 </template>
 <script>
 import { SfHeading, SfCircleIcon, SfProperty } from "@storefront-ui/vue"
 import { computed } from "@vue/composition-api"
-import { useCart, useUser, useCheckout } from "@shopware-pwa/composables"
-import PersonalDetailsSummary from "@/components/checkout/summary/PersonalDetailsSummary.vue"
-import ShippingAddressSummary from "@/components/checkout/summary/ShippingAddressSummary.vue"
-import BillingAddressSummary from "@/components/checkout/summary/BillingAddressSummary.vue"
-import PaymentMethodSummary from "@/components/checkout/summary/PaymentMethodSummary.vue"
+import { useCart, useCheckout } from "@shopware-pwa/composables"
 import SwInput from "@/components/atoms/SwInput.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
 import TotalsSummary from "@/components/checkout/summary/TotalsSummary.vue"
@@ -80,10 +40,6 @@ export default {
     SfHeading,
     SwInput,
     SfCircleIcon,
-    PersonalDetailsSummary,
-    ShippingAddressSummary,
-    BillingAddressSummary,
-    PaymentMethodSummary,
     SwPromoCode,
     SwButton,
     TotalsSummary,
@@ -96,7 +52,6 @@ export default {
     }
   },
   setup(props, { root }) {
-    const { isLoggedIn } = useUser(root)
     const { createOrder, loadings } = useCheckout(root)
     const { count, cartItems, removeProduct } = useCart(root)
 
@@ -115,7 +70,6 @@ export default {
       showPromotionCodes,
       appliedPromotionCodes,
       removeItem,
-      isLoggedIn,
       loadings,
       createOrder,
       goToShop,

@@ -22,12 +22,6 @@
     </div>
     <TotalsSummary />
     <SwPromoCode class="promo-code" />
-    <SwButton
-      class="sw-form__button sf-button--full-width"
-      data-cy="register-button"
-    >
-      {{ buttonText || $t("Continue") }}
-    </SwButton>
   </div>
 </template>
 <script>

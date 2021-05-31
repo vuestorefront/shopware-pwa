@@ -36,6 +36,27 @@
           </p>
           <SwErrorsList :list="errorMessages" />
         </div>
+        <div v-if="isLoggedIn" class="checkout__main__action">
+          <SwButton
+            class="
+              summary__action-button summary__action-button--secondary
+              color-secondary
+              sw-form__button
+            "
+            data-cy="go-back-to-payment"
+            @click="goToShop"
+          >
+            {{ $t("Go Back to shop") }}
+          </SwButton>
+          <SwButton
+            :disabled="loadings.createOrder"
+            class="summary__action-button sw-form__button"
+            data-cy="place-my-order"
+            @click="createOrder"
+          >
+            {{ $t("Place my order") }}
+          </SwButton>
+        </div>
       </div>
       <div class="checkout__aside">
         <transition name="fade">
@@ -189,6 +210,10 @@ export default {
       }
     }
 
+    function goToShop() {
+      root.$router.push(root.$routing.getUrl("/"))
+    }
+
     setBreadcrumbs([
       {
         name: root.$t("Checkout"),
@@ -207,6 +232,7 @@ export default {
       isLoggedIn,
       createOrder,
       loadings,
+      goToShop,
       switchLoginModalState,
       $v,
       isLoadingPaymentMethod,
@@ -229,6 +255,23 @@ export default {
     @include for-desktop {
       flex: 1;
       padding: var(--spacer-lg) 0 0 0;
+    }
+
+    &__action {
+      margin: var(--spacer-base) 0 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      button {
+        width: 100%;
+        @include for-desktop {
+          width: 50%;
+        }
+        &:last-child {
+          @include for-mobile {
+            margin-top: var(--spacer-base);
+          }
+        }
+      }
     }
   }
   &__aside {

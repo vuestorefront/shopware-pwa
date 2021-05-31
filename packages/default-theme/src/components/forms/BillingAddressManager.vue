@@ -9,9 +9,10 @@
       "
     />
     <AddressManager
-      v-model="selectedAddressId"
       :addresses="addresses"
       :active-address="activeBillingAddress"
+      @change="changeActiveAddress"
+      @added="changeAndLoad"
     />
   </div>
 </template>
@@ -34,26 +35,20 @@ export default {
     const { activeBillingAddress, setActiveBillingAddress } =
       useSessionContext(root)
 
-    const selectedAddressId = ref(activeBillingAddress.value?.id)
-    watch(selectedAddressId, (value) => {
-      const selectedAddress = addresses.value.find(
-        (address) => address.id === value
-      )
-      setActiveBillingAddress(selectedAddress)
-    })
-
-    const onAddressSuccessSave = async (addressId) => {
+    const changeActiveAddress = async (addressId) => {
       await setActiveBillingAddress({ id: addressId })
-      await loadAddresses()
-      selectedAddressId.value = addressId
+    }
+
+    const changeAndLoad = async (addressId) => {
+      setActiveBillingAddress({ id: addressId })
+      loadAddresses()
     }
 
     return {
       addresses,
-      loadAddresses,
-      selectedAddressId,
-      onAddressSuccessSave,
       activeBillingAddress,
+      changeActiveAddress,
+      changeAndLoad,
     }
   },
 }

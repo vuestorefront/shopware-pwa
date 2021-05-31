@@ -1,6 +1,6 @@
 <template>
   <div class="shipping-address-user-form">
-    <div class="shipping-address-user-form__address">
+    <div class="shipping-address-user-form__address" v-if="activeAddress">
       <div>
         <span>{{ activeAddress.firstName }} {{ activeAddress.lastName }}</span>
         <span>{{ activeAddress.street }}</span>
@@ -43,8 +43,8 @@
             class="shipping-address-user-form__list-item"
           >
             <SfAddressPicker
-              :value="value"
-              @input="$emit('input', event.target.value)"
+              :selected="activeAddress.id"
+              @change="onAddressChange"
             >
               <SfAddress :name="address._uniqueIdentifier">
                 <span>{{ address.firstName }} {{ address.lastName }}</span>
@@ -107,21 +107,9 @@ export default {
       type: Array,
       default: [],
     },
-    value: {
-      type: String,
-    },
     activeAddress: {
       type: Object,
-      default: () => ({
-        firstName: "",
-        lastName: "",
-        street: "",
-        zipcode: "",
-        country: {
-          name: "",
-        },
-        phoneNumber: "",
-      }),
+      default: null,
     },
   },
   setup(props, { root, emit }) {
@@ -130,13 +118,18 @@ export default {
 
     const onAddressSave = (addressId) => {
       isModalOpen.value = false
-      emit("onAddressSave", addressId)
+      emit("added", addressId)
+    }
+
+    function onAddressChange(value) {
+      emit("change", value)
     }
 
     return {
       isModalOpen,
       onAddressSave,
       isEditModeOpen,
+      onAddressChange,
     }
   },
 }

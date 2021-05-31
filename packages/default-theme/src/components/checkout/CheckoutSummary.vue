@@ -18,9 +18,6 @@
 </template>
 
 <script>
-import PersonalDetailsSummary from "@/components/checkout/summary/PersonalDetailsSummary.vue"
-import ShippingAddressSummary from "@/components/checkout/summary/ShippingAddressSummary.vue"
-import BillingAddressSummary from "@/components/checkout/summary/BillingAddressSummary.vue"
 import PaymentMethodSummary from "@/components/checkout/summary/PaymentMethodSummary.vue"
 import ShippingSection from "@/components/checkout/ShippingSection.vue"
 import PaymentSection from "@/components/checkout/PaymentSection.vue"
@@ -31,9 +28,6 @@ import { useCart, useUser } from "@shopware-pwa/composables"
 export default {
   name: "CheckoutSummary",
   components: {
-    PersonalDetailsSummary,
-    ShippingAddressSummary,
-    BillingAddressSummary,
     PaymentMethodSummary,
     ShippingSection,
     PaymentSection,

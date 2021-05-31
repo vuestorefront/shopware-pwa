@@ -6,22 +6,22 @@
       <div class="inputs-group">
         <SwInput
           v-model="firstName"
-          name="first-name"
+          name="registration-first-name"
           :label="$t('First name')"
           class="sw-form__input form__element form__element--small"
           :valid="!$v.firstName.$error"
           :error-message="$t('First name is required')"
-          data-cy="first-name-input"
+          data-cy="registration-first-name-input"
           @blur="$v.firstName.$touch()"
         />
         <SwInput
           v-model="lastName"
-          name="last-name"
+          name="registration-last-name"
           :label="$t('Last name')"
           class="sw-form__input form__element form__element--small"
           :valid="!$v.lastName.$error"
           :error-message="$t('Last name is required')"
-          data-cy="last-name-input"
+          data-cy="registration-last-name-input"
           @blur="$v.lastName.$touch()"
         />
       </div>
@@ -58,7 +58,7 @@
                 $t('Password should have at least 8 characters')) ||
               ''
             "
-            data-cy="password-input"
+            data-cy="registration-password-input"
             class="sw-form__input form__element form__element--small"
           />
         </transition>
@@ -66,32 +66,32 @@
       <div class="inputs-group">
         <SwInput
           v-model="street"
-          name="street"
+          name="registration-street"
           :label="$t('Street')"
           class="sw-form__input form__element form__element--small"
           :valid="!$v.street.$error"
           :error-message="$t('Street is required')"
-          data-cy="street-input"
+          data-cy="registration-street-input"
           @blur="$v.street.$touch()"
         />
         <SwInput
           v-model="zipcode"
-          name="zipcode"
+          name="registration-zipcode"
           :label="$t('Zip code')"
           class="sw-form__input form__element form__element--small"
           :valid="!$v.zipcode.$error"
           :error-message="$t('Zip code is required')"
-          data-cy="zip-code-input"
+          data-cy="registration-zipcode-input"
           @blur="$v.zipcode.$touch()"
         />
         <SwInput
           v-model="city"
-          name="city"
+          name="registration-city"
           :label="$t('City')"
           class="sw-form__input form__element form__element--small"
           :valid="!$v.city.$error"
           :error-message="$t('City is required')"
-          data-cy="city-input"
+          data-cy="registration-city-input"
           @blur="$v.city.$touch()"
         />
       </div>
@@ -209,6 +209,14 @@
         />
       </div>
 
+      <SwButton
+        class="sw-form__button"
+        @click="invokeRegister"
+        data-cy="register-button"
+      >
+        {{ buttonText || $t("Continue") }}
+      </SwButton>
+
       <SwPluginSlot name="registration-form-after" />
     </div>
   </div>
@@ -237,6 +245,7 @@ import {
   mapSalutations,
   getMessagesFromErrorsArray,
 } from "@shopware-pwa/helpers"
+import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 import SwErrorsList from "@/components/SwErrorsList.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
@@ -247,6 +256,7 @@ export default {
   components: {
     SfAlert,
     SwInput,
+    SwButton,
     SfSelect,
     SwErrorsList,
     SwCheckbox,
