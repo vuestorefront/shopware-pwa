@@ -177,6 +177,8 @@ module.exports = (toolbox: GluegunToolbox) => {
    */
 
   toolbox.checkApiCompatibility = async () => {
+    const checkingSpinner = toolbox.print.spin("Checking the provided API...");
+
     try {
       await axios.post(
         `${toolbox.normalizeBaseUrl(
@@ -191,9 +193,10 @@ module.exports = (toolbox: GluegunToolbox) => {
           },
         }
       );
-      toolbox.print.success("✓ PWA plugin installed");
+      checkingSpinner.succeed("PWA plugin is installed");
       return;
     } catch (error) {
+      checkingSpinner.stop();
       toolbox.print.error(
         "✘ PWA plugin is probably not installed yet.\n- Check if your Shopware6 API is reachable\n- Visit https://github.com/elkmod/SwagShopwarePwa for more information."
       );
