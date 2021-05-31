@@ -22,6 +22,13 @@
     </div>
     <TotalsSummary />
     <SwPromoCode class="promo-code" />
+    <SwButton
+      class="sw-form__button sf-button--full-width"
+      @click="$emit('create-account')"
+      data-cy="register-button"
+    >
+      {{ $t("Continue") }}
+    </SwButton>
   </div>
 </template>
 <script>
@@ -77,12 +84,6 @@ export default {
     --heading-title-font-weight: var(--font-weight--medium);
     --heading-title-margin: 0 0 var(--spacer-xl) 0;
   }
-}
-.total-items {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--spacer-base);
 }
 .property {
   margin: var(--spacer-sm) 0;

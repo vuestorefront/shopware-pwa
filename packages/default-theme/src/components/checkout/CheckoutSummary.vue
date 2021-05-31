@@ -2,7 +2,7 @@
   <div class="sw-checkout-summary">
     <div class="sw-checkout-summary__addresses" v-if="!isGuestSession">
       <SwAddressManager
-        :titleText="$t('Shipping address')"
+        :title-text="$t('Shipping address')"
         class="sw-checkout-summary__addresses-wrapper"
         :addresses="addresses"
         :active-address="activeShippingAddress"
@@ -10,7 +10,7 @@
         @added="addedActiveShippingAddress"
       />
       <SwAddressManager
-        :titleText="$t('Billing address')"
+        :title-text="$t('Billing address')"
         class="sw-checkout-summary__addresses-wrapper"
         :addresses="addresses"
         :active-address="activeBillingAddress"
@@ -96,51 +96,22 @@ export default {
 @import "@/assets/scss/variables";
 
 .sw-checkout-summary {
-  padding: 0 var(--spacer-base) 0 var(--spacer-base);
-  @include for-desktop {
-    padding: 0;
-  }
   &__addresses {
+    @include for-mobile {
+      &-wrapper {
+        &:last-child {
+          margin-top: var(--spacer-base);
+        }
+      }
+    }
     @include for-desktop {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       &-wrapper {
         width: 48%;
       }
     }
-  }
-}
-
-.title {
-  --heading-padding: var(--spacer-sm) 0;
-  @include for-desktop {
-    --heading-padding: 0 0 var(--spacer-sm) 0;
-    --heading-title-font-size: var(--h3-font-size);
-  }
-}
-.collected-product-list {
-  padding: var(--spacer-sm);
-}
-.property {
-  margin: 0 0 var(--spacer-xs) 0;
-  font-size: var(--font-size--sm);
-  line-height: 1.6;
-  &__name {
-    color: var(--c-text-muted);
-  }
-}
-.content {
-  margin: 0 0 var(--spacer-base) 0;
-  color: var(--c-text);
-  font-size: var(--font-size--xs);
-  font-weight: 300;
-  line-height: 1.6;
-  &:last-child {
-    margin: 0;
-  }
-  &__label {
-    font-weight: 400;
   }
 }
 </style>

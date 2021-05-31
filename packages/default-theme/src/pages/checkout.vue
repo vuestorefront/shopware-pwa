@@ -21,7 +21,12 @@
           :title="$t('Personal details')"
           class="sf-heading--left sf-heading--no-underline title"
         />
-        <SwRegistrationForm v-if="!isLoggedIn" :allowGuestRegistration="true" />
+        <SwRegistrationForm
+          v-if="!isLoggedIn"
+          v-model="registrationFormData"
+          @invokeRegister="invokeRegister"
+          allow-guest-registration
+        />
         <CheckoutSummary v-if="isLoggedIn" />
         <SwAlert
           v-if="isLoggedIn && $v.$errors.length"
@@ -36,27 +41,6 @@
           </p>
           <SwErrorsList :list="errorMessages" />
         </div>
-        <div v-if="isLoggedIn" class="checkout__main__action">
-          <SwButton
-            class="
-              summary__action-button summary__action-button--secondary
-              color-secondary
-              sw-form__button
-            "
-            data-cy="go-back-to-payment"
-            @click="goToShop"
-          >
-            {{ $t("Go Back to shop") }}
-          </SwButton>
-          <SwButton
-            :disabled="loadings.createOrder"
-            class="summary__action-button sw-form__button"
-            data-cy="place-my-order"
-            @click="createOrder"
-          >
-            {{ $t("Place my order") }}
-          </SwButton>
-        </div>
       </div>
       <div class="checkout__aside">
         <transition name="fade">
@@ -64,11 +48,13 @@
             v-if="!isLoggedIn"
             key="order-summary"
             class="checkout__aside-order"
+            @create-account="invokeRegister"
           />
           <SidebarOrderReview
             v-else
             key="order-review"
             class="checkout__aside-order"
+            @create-order="createOrder"
           />
         </transition>
       </div>
@@ -157,10 +143,21 @@ export default {
   setup(props, { root }) {
     const isLoadingPaymentMethod = ref(false)
     const { setBreadcrumbs } = useBreadcrumbs(root)
-    const { isLoggedIn } = useUser(root)
+    const { isLoggedIn, register } = useUser(root)
     const { createOrder: invokeCreateOrder, loadings } = useCheckout(root)
     const { apiInstance } = getApplicationContext(root)
     const errorMessages = ref([])
+
+    const registrationFormData = ref()
+    async function invokeRegister() {
+      $v.value.$reset()
+      const isFormCorrect = await $v.value.$validate()
+      if (!isFormCorrect) {
+        return
+      }
+      await register(registrationFormData.value)
+    }
+
     const getRedirectUrl = (handlePaymentResponse: {
       apiAlias: string
       redirectUrl: string | null
@@ -230,6 +227,8 @@ export default {
 
     return {
       isLoggedIn,
+      registrationFormData,
+      invokeRegister,
       createOrder,
       loadings,
       goToShop,
@@ -252,6 +251,7 @@ export default {
     display: flex;
   }
   &__main {
+    padding: 0 var(--spacer-sm);
     @include for-desktop {
       flex: 1;
       padding: var(--spacer-lg) 0 0 0;

@@ -22,6 +22,23 @@
     </div>
     <TotalsSummary />
     <SwPromoCode class="promo-code" />
+    <div class="actions">
+      <SwButton
+        class="actions__button color-secondary sw-form__button"
+        data-cy="go-back-to-payment"
+        @click="goToShop"
+      >
+        {{ $t("Go Back to shop") }}
+      </SwButton>
+      <SwButton
+        :disabled="loadings.createOrder"
+        class="actions__button sw-form__button"
+        data-cy="place-my-order"
+        @click="$emit('create-order')"
+      >
+        {{ $t("Place my order") }}
+      </SwButton>
+    </div>
   </div>
 </template>
 <script>
@@ -86,7 +103,7 @@ export default {
   box-sizing: border-box;
   width: 100%;
   background: var(--c-light);
-  padding: var(--spacer-xl);
+  padding: var(--spacer-base);
   margin-bottom: var(--spacer-base);
   &__products {
     margin: var(--spacer-base) 0;
@@ -100,9 +117,6 @@ export default {
 }
 .title {
   margin-bottom: var(--spacer-sm);
-}
-.content {
-  margin: 0 0 var(--spacer-base) 0;
 }
 .actions {
   @include for-mobile {

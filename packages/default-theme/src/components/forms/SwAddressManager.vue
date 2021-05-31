@@ -1,14 +1,11 @@
 <template>
-  <div class="address-manager-user-form">
+  <div class="address-manager">
     <SfHeading
       :title="titleText || $t('Shipping address')"
       :description="subtitleText || $t('Choose address')"
-      class="
-        sf-heading--left sf-heading--no-underline
-        address-manager-user-form__title
-      "
+      class="sf-heading--left sf-heading--no-underline address-manager__title"
     />
-    <div class="address-manager-user-form__address" v-if="activeAddress">
+    <div class="address-manager__address" v-if="activeAddress">
       <div>
         <span>{{ activeAddress.firstName }} {{ activeAddress.lastName }}</span>
         <span>{{ activeAddress.street }}</span>
@@ -18,7 +15,7 @@
         <p>{{ activeAddress.phoneNumber }}</p>
       </div>
       <SwButton
-        class="sf-button sf-button--small address-manager-user-form__add-new"
+        class="sf-button sf-button--small address-manager__add-new"
         @click="
           isModalOpen = true
           isEditModeOpen = true
@@ -30,7 +27,7 @@
     <!-- <SwCheckbox
       v-model="useAsDefaultAddress"
       label="Use this address as my default one"
-      class="address-manager-user-form__default"
+      class="address-manager__default"
     /> -->
     <SfModal
       class="sw-modal"
@@ -44,11 +41,11 @@
         :level="4"
       />
       <div v-if="isEditModeOpen">
-        <SfList class="address-manager-user-form__list">
+        <SfList class="address-manager__list">
           <SfListItem
             v-for="address in addresses"
             :key="address._uniqueIdentifier"
-            class="address-manager-user-form__list-item"
+            class="address-manager__list-item"
           >
             <SfAddressPicker
               :selected="activeAddress.id"
@@ -66,7 +63,7 @@
           </SfListItem>
         </SfList>
         <SwButton
-          class="sf-button color-secondary address-manager-user-form__add-new"
+          class="sf-button color-secondary address-manager__add-new"
           @click="
             isModalOpen = true
             isEditModeOpen = false
@@ -152,7 +149,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
-.address-manager-user-form {
+.address-manager {
   &__list {
     margin: 0 0 var(--spacer-xl) 0;
     @include for-desktop {
@@ -172,6 +169,9 @@ export default {
   }
   &__list-item {
     margin: 0 0 var(--spacer-base) 0;
+    ::v-deep .sf-address__icon {
+      --icon-size: inherit;
+    }
     &:last-child {
       margin: 0;
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-registration-form" @keyup.enter="invokeRegister">
+  <div class="sw-registration-form" @keyup.enter="$emit('invokeRegister')">
     <SwErrorsList :list="formErrors" />
     <SwPluginSlot name="registration-form-before" />
     <div class="sw-form">
@@ -53,8 +53,8 @@
             :valid="!$v.password.$error"
             :error-message="
               //handle two different situations - aligned with validation rules
-              (!$v.password.required && $t('Password is required')) ||
-              (!$v.password.minLength &&
+              ($v.password.required.$invalid && $t('Password is required')) ||
+              ($v.password.minLength.$invalid &&
                 $t('Password should have at least 8 characters')) ||
               ''
             "
@@ -209,14 +209,6 @@
         />
       </div>
 
-      <SwButton
-        class="sw-form__button"
-        @click="invokeRegister"
-        data-cy="register-button"
-      >
-        {{ buttonText || $t("Continue") }}
-      </SwButton>
-
       <SwPluginSlot name="registration-form-after" />
     </div>
   </div>
@@ -245,7 +237,6 @@ import {
   mapSalutations,
   getMessagesFromErrorsArray,
 } from "@shopware-pwa/helpers"
-import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 import SwErrorsList from "@/components/SwErrorsList.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
@@ -256,7 +247,6 @@ export default {
   components: {
     SfAlert,
     SwInput,
-    SwButton,
     SfSelect,
     SwErrorsList,
     SwCheckbox,
@@ -267,8 +257,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    buttonText: {
-      type: String,
+    value: {
+      type: Object,
+      default: () => ({}),
     },
   },
   setup(props, { root, emit }) {
@@ -307,6 +298,27 @@ export default {
       alternativePhoneNumber: "",
     })
 
+    const ourResultValue = computed(() => {
+      return {
+        firstName: state.firstName,
+        lastName: state.lastName,
+        email: state.email,
+        password: state.password,
+        guest: doNotCreateAccount.value,
+        salutationId: getDefaultSalutationId.value,
+        storefrontUrl: root.$routing.pwaHost,
+        billingAddress: {
+          firstName: state.firstName,
+          salutationId: getDefaultSalutationId.value,
+          lastName: state.lastName,
+          city: state.city,
+          street: state.street,
+          zipcode: state.zipcode,
+          countryId: state.countryId || countryId.value,
+        },
+      }
+    })
+
     // form data
     const doNotCreateAccount: Ref<boolean> = ref(false)
     const isDifferentShippingAddress: Ref<boolean> = ref(false)
@@ -330,33 +342,9 @@ export default {
       if (!!doNotCreateAccount.value) state.password = ""
     })
 
-    async function invokeRegister() {
-      $v.value.$reset()
-      const isFormCorrect = await $v.value.$validate()
-      if (!isFormCorrect) {
-        return
-      }
-
-      const isSuccess = await register({
-        firstName: state.firstName,
-        lastName: state.lastName,
-        email: state.email,
-        password: state.password,
-        guest: doNotCreateAccount.value,
-        salutationId: getDefaultSalutationId.value,
-        storefrontUrl: root.$routing.pwaHost,
-        billingAddress: {
-          firstName: state.firstName,
-          salutationId: getDefaultSalutationId.value,
-          lastName: state.lastName,
-          city: state.city,
-          street: state.street,
-          zipcode: state.zipcode,
-          countryId: state.countryId || countryId.value,
-        },
-      })
-      isSuccess && emit("success")
-    }
+    watch(ourResultValue, () => {
+      emit("input", ourResultValue.value)
+    })
 
     const rules = {
       firstName: {
@@ -438,8 +426,8 @@ export default {
       doNotCreateAccount,
       isDifferentShippingAddress,
       getDefaultSalutationId,
-      invokeRegister,
       $v,
+      ourResultValue,
     }
   },
 }

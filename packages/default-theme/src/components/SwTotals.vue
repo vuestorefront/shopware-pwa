@@ -74,14 +74,10 @@ export default {
   }
 
   &__property-total {
-    border-top: 2px solid var(--c-white);
     --property-name-font-weight: var(--font-weight--bold);
     --property-name-font-size: var(--font-size--lg);
     --property-value-font-size: 1.125rem;
     margin: var(--spacer-base) 0 0 0;
-    @include for-desktop {
-      border-color: var(--c-light);
-    }
   }
 }
 .divider {

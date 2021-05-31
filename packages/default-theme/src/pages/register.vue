@@ -5,7 +5,10 @@
       :level="3"
       :title="$t('Create an account')"
     />
-    <SwRegister class="register__component" />
+    <SwRegister
+      class="register__component"
+      @success="$router.push($routing.getUrl('/'))"
+    />
   </div>
 </template>
 <script>

@@ -177,6 +177,9 @@ export default {
       var(--c-white)
     );
   }
+  ::v-deep .sf-collected-product__quantity-wrapper {
+    z-index: initial;
+  }
   @include for-mobile {
     --property-name-font-size: var(--font-size--base);
     --property-value-font-size: var(--font-size--base);
