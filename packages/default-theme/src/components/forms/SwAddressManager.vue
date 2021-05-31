@@ -1,6 +1,14 @@
 <template>
-  <div class="shipping-address-user-form">
-    <div class="shipping-address-user-form__address" v-if="activeAddress">
+  <div class="address-manager-user-form">
+    <SfHeading
+      :title="titleText || $t('Shipping address')"
+      :description="subtitleText || $t('Choose address')"
+      class="
+        sf-heading--left sf-heading--no-underline
+        address-manager-user-form__title
+      "
+    />
+    <div class="address-manager-user-form__address" v-if="activeAddress">
       <div>
         <span>{{ activeAddress.firstName }} {{ activeAddress.lastName }}</span>
         <span>{{ activeAddress.street }}</span>
@@ -10,7 +18,7 @@
         <p>{{ activeAddress.phoneNumber }}</p>
       </div>
       <SwButton
-        class="sf-button sf-button--small shipping-address-user-form__add-new"
+        class="sf-button sf-button--small address-manager-user-form__add-new"
         @click="
           isModalOpen = true
           isEditModeOpen = true
@@ -22,7 +30,7 @@
     <!-- <SwCheckbox
       v-model="useAsDefaultAddress"
       label="Use this address as my default one"
-      class="shipping-address-user-form__default"
+      class="address-manager-user-form__default"
     /> -->
     <SfModal
       class="sw-modal"
@@ -36,11 +44,11 @@
         :level="4"
       />
       <div v-if="isEditModeOpen">
-        <SfList class="shipping-address-user-form__list">
+        <SfList class="address-manager-user-form__list">
           <SfListItem
             v-for="address in addresses"
             :key="address._uniqueIdentifier"
-            class="shipping-address-user-form__list-item"
+            class="address-manager-user-form__list-item"
           >
             <SfAddressPicker
               :selected="activeAddress.id"
@@ -58,7 +66,7 @@
           </SfListItem>
         </SfList>
         <SwButton
-          class="sf-button color-secondary shipping-address-user-form__add-new"
+          class="sf-button color-secondary address-manager-user-form__add-new"
           @click="
             isModalOpen = true
             isEditModeOpen = false
@@ -111,6 +119,14 @@ export default {
       type: Object,
       default: null,
     },
+    titleText: {
+      type: String,
+      default: null,
+    },
+    subtitleText: {
+      type: String,
+      default: null,
+    },
   },
   setup(props, { root, emit }) {
     const isModalOpen = ref(false)
@@ -136,7 +152,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
-.shipping-address-user-form {
+.address-manager-user-form {
   &__list {
     margin: 0 0 var(--spacer-xl) 0;
     @include for-desktop {
@@ -172,6 +188,14 @@ export default {
   }
   &__default {
     margin: 0 0 var(--spacer-xl) 0;
+  }
+  &__title {
+    --heading-padding: 0 0 var(--spacer-base) 0;
+    --heading-description-margin: 0;
+
+    @include for-desktop {
+      --heading-title-font-size: var(--h3-font-size);
+    }
   }
 }
 .title {

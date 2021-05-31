@@ -1,18 +1,24 @@
 <template>
   <div class="sw-checkout-summary">
-    <div class="sw-checkout-summary__addresses">
-      <SwShippingAddressManager
+    <div class="sw-checkout-summary__addresses" v-if="!isGuestSession">
+      <SwAddressManager
+        :titleText="$t('Shipping address')"
         class="sw-checkout-summary__addresses-wrapper"
-        v-if="!isGuestSession"
+        :addresses="addresses"
+        :active-address="activeShippingAddress"
+        @change="changeActiveShippingAddress"
+        @added="addedActiveShippingAddress"
       />
-      <SwBillingAddressManager
+      <SwAddressManager
+        :titleText="$t('Billing address')"
         class="sw-checkout-summary__addresses-wrapper"
-        v-if="!isGuestSession"
+        :addresses="addresses"
+        :active-address="activeBillingAddress"
+        @change="changeActiveBillingAddress"
+        @added="addedActiveBillingAddress"
       />
     </div>
-    <!-- <PaymentMethodSummary @click:edit="$emit('click:edit', 2)" /> -->
     <PaymentSection class="sw-checkout-summary__payment" />
-    <!-- <PaymentMethodSummary @click:edit="$emit('click:edit', 2)" /> -->
     <ShippingSection class="sw-checkout-summary__shipping" />
   </div>
 </template>
@@ -21,9 +27,8 @@
 import PaymentMethodSummary from "@/components/checkout/summary/PaymentMethodSummary.vue"
 import ShippingSection from "@/components/checkout/ShippingSection.vue"
 import PaymentSection from "@/components/checkout/PaymentSection.vue"
-import SwBillingAddressManager from "@/components/forms/SwBillingAddressManager.vue"
-import SwShippingAddressManager from "@/components/forms/SwShippingAddressManager.vue"
-import { useCart, useUser } from "@shopware-pwa/composables"
+import SwAddressManager from "@/components/forms/SwAddressManager.vue"
+import { useCart, useSessionContext, useUser } from "@shopware-pwa/composables"
 
 export default {
   name: "CheckoutSummary",
@@ -31,13 +36,45 @@ export default {
     PaymentMethodSummary,
     ShippingSection,
     PaymentSection,
-    SwBillingAddressManager,
-    SwShippingAddressManager,
+    SwAddressManager,
   },
   setup(props, { root }) {
-    const { cartItems, removeProduct } = useCart(root)
-    const { isGuestSession } = useUser(root)
-    return { cartItems, removeProduct, isGuestSession }
+    const { isGuestSession, addresses, loadAddresses } = useUser(root)
+    loadAddresses()
+
+    const {
+      activeShippingAddress,
+      setActiveShippingAddress,
+      activeBillingAddress,
+      setActiveBillingAddress,
+    } = useSessionContext(root)
+
+    const changeActiveShippingAddress = async (addressId) => {
+      await setActiveShippingAddress({ id: addressId })
+    }
+    const addedActiveShippingAddress = async (addressId) => {
+      setActiveShippingAddress({ id: addressId })
+      loadAddresses()
+    }
+
+    const changeActiveBillingAddress = async (addressId) => {
+      await setActiveBillingAddress({ id: addressId })
+    }
+    const addedActiveBillingAddress = async (addressId) => {
+      setActiveBillingAddress({ id: addressId })
+      loadAddresses()
+    }
+
+    return {
+      isGuestSession,
+      addresses,
+      activeShippingAddress,
+      changeActiveShippingAddress,
+      addedActiveShippingAddress,
+      activeBillingAddress,
+      changeActiveBillingAddress,
+      addedActiveBillingAddress,
+    }
   },
   computed: {
     shipping() {
