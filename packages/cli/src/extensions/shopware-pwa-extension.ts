@@ -173,6 +173,7 @@ module.exports = (toolbox: GluegunToolbox) => {
 
   /**
    * Checks if provided API has PWA extension installed
+   * by making a request to the page resolver
    */
 
   toolbox.checkApiCompatibility = async () => {
