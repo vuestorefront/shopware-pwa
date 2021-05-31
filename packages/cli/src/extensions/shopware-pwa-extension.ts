@@ -198,7 +198,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     } catch (error) {
       checkingSpinner.stop();
       toolbox.print.error(
-        "✘ PWA plugin is probably not installed yet.\n- Check if your Shopware6 API is reachable\n- Visit https://github.com/elkmod/SwagShopwarePwa for more information."
+        "✘ PWA plugin is probably not installed yet on your Shopware 6 instance.\n- Check if your Shopware6 API is reachable\n- Visit https://github.com/elkmod/SwagShopwarePwa for more information."
       );
     }
   };
