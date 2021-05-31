@@ -69,6 +69,7 @@ module.exports = {
       Object.assign(inputParameters, answers);
     }
 
+    await toolbox.checkApiCompatibility();
     await toolbox.generateNuxtProject();
 
     const defaultVersion = availablePwaVersions[0];

@@ -170,4 +170,32 @@ module.exports = (toolbox: GluegunToolbox) => {
   toolbox.normalizeBaseUrl = (baseUrl: string): string => {
     return toolbox.strings.trimEnd(baseUrl, "/");
   };
+
+  /**
+   * Checks if provided API has PWA extension installed
+   */
+
+  toolbox.checkApiCompatibility = async () => {
+    try {
+      await axios.post(
+        `${toolbox.normalizeBaseUrl(
+          toolbox.config.shopwareEndpoint
+        )}/store-api/pwa/page`,
+        {
+          path: "/",
+        },
+        {
+          headers: {
+            "sw-access-key": toolbox.config.shopwareAccessToken,
+          },
+        }
+      );
+      toolbox.print.success("✓ PWA plugin installed");
+      return;
+    } catch (error) {
+      toolbox.print.error(
+        "✘ PWA plugin is probably not installed yet.\n- Check if your Shopware6 API is reachable\n- Visit https://github.com/elkmod/SwagShopwarePwa for more information."
+      );
+    }
+  };
 };
