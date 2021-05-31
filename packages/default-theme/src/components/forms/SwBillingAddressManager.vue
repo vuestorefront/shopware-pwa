@@ -8,7 +8,7 @@
         billing-address-manager__title
       "
     />
-    <AddressManager
+    <SwAddressManager
       :addresses="addresses"
       :active-address="activeBillingAddress"
       @change="changeActiveAddress"
@@ -20,12 +20,12 @@
 import { SfHeading } from "@storefront-ui/vue"
 import { useSessionContext, useUser } from "@shopware-pwa/composables"
 import { ref, watch } from "@vue/composition-api"
-import AddressManager from "@/components/forms/AddressManager.vue"
+import SwAddressManager from "@/components/forms/SwAddressManager.vue"
 
 export default {
-  name: "BillingAddressManager",
+  name: "SwBillingAddressManager",
   components: {
-    AddressManager,
+    SwAddressManager,
     SfHeading,
   },
   setup(props, { root }) {

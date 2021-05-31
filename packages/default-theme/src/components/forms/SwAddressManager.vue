@@ -91,7 +91,7 @@ import SwAddressForm from "@/components/forms/SwAddressForm.vue"
 // import SwCheckbox from '@/components/atoms/SwCheckbox.vue'
 
 export default {
-  name: "AddressManager",
+  name: "SwAddressManager",
   components: {
     SfList,
     SfRadio,

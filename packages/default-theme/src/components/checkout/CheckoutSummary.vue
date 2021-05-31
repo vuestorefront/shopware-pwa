@@ -1,11 +1,11 @@
 <template>
   <div class="sw-checkout-summary">
     <div class="sw-checkout-summary__addresses">
-      <ShippingAddressManager
+      <SwShippingAddressManager
         class="sw-checkout-summary__addresses-wrapper"
         v-if="!isGuestSession"
       />
-      <BillingAddressManager
+      <SwBillingAddressManager
         class="sw-checkout-summary__addresses-wrapper"
         v-if="!isGuestSession"
       />
@@ -21,8 +21,8 @@
 import PaymentMethodSummary from "@/components/checkout/summary/PaymentMethodSummary.vue"
 import ShippingSection from "@/components/checkout/ShippingSection.vue"
 import PaymentSection from "@/components/checkout/PaymentSection.vue"
-import BillingAddressManager from "@/components/forms/BillingAddressManager.vue"
-import ShippingAddressManager from "@/components/forms/ShippingAddressManager.vue"
+import SwBillingAddressManager from "@/components/forms/SwBillingAddressManager.vue"
+import SwShippingAddressManager from "@/components/forms/SwShippingAddressManager.vue"
 import { useCart, useUser } from "@shopware-pwa/composables"
 
 export default {
@@ -31,8 +31,8 @@ export default {
     PaymentMethodSummary,
     ShippingSection,
     PaymentSection,
-    BillingAddressManager,
-    ShippingAddressManager,
+    SwBillingAddressManager,
+    SwShippingAddressManager,
   },
   setup(props, { root }) {
     const { cartItems, removeProduct } = useCart(root)
