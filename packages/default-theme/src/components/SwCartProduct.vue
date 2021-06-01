@@ -202,6 +202,7 @@ export default {
 
   &__caption {
     text-align: center;
+    line-height: 1rem;
   }
 
   &.promotion::v-deep {
