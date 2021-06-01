@@ -8,7 +8,7 @@
     <div class="address-manager__address" v-if="activeAddress">
       <div>
         <span>{{ activeAddress.firstName }} {{ activeAddress.lastName }}</span>
-        <span>{{ activeAddress.street }}</span>
+        <p>{{ activeAddress.street }}</p>
         <p>{{ activeAddress.zipcode }} {{ activeAddress.city }}</p>
         <p>{{ activeAddress.country.name }}</p>
         <p>{{ activeAddress.phoneNumber }}</p>
@@ -51,7 +51,7 @@
           >
             <SfAddress :name="address._uniqueIdentifier">
               <span>{{ address.firstName }} {{ address.lastName }}</span>
-              <span>{{ address.street }}</span>
+              <p>{{ address.street }}</p>
               <span>{{ address.zipcode }} {{ address.city }}</span>
               <span>{{ address.country.name }}</span>
               <span>{{ address.phoneNumber }}</span>

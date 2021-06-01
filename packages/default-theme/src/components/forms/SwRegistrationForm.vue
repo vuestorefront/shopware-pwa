@@ -285,6 +285,10 @@ export default {
     const { getCountries, error: countriesError } = useCountries(root)
     const { getSalutations, error: salutationsError } = useSalutations(root)
 
+    // form data
+    const doNotCreateAccount: Ref<boolean> = ref(false)
+    const isDifferentShippingAddress: Ref<boolean> = ref(false)
+
     const state = reactive({
       firstName: "",
       lastName: "",
@@ -308,6 +312,15 @@ export default {
     })
 
     const ourResultValue = computed(() => {
+      const shippingAddress = {
+        firstName: state.alternativeFirstName,
+        salutationId: getDefaultSalutationId.value,
+        lastName: state.alternativeLastName,
+        city: state.alternativeCity,
+        street: state.alternativeStreet,
+        zipcode: state.alternativeZipcode,
+        countryId: state.alternativeCountryId || countryId.value,
+      }
       return {
         firstName: state.firstName,
         lastName: state.lastName,
@@ -325,12 +338,9 @@ export default {
           zipcode: state.zipcode,
           countryId: state.countryId || countryId.value,
         },
+        ...(isDifferentShippingAddress.value && { shippingAddress }),
       }
     })
-
-    // form data
-    const doNotCreateAccount: Ref<boolean> = ref(false)
-    const isDifferentShippingAddress: Ref<boolean> = ref(false)
 
     const getMappedCountries = computed(() => mapCountries(getCountries.value))
     const getMappedSalutations = computed(() =>

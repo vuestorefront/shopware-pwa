@@ -45,6 +45,7 @@ import {
   INTERCEPTOR_KEYS,
   useIntercept,
   useSharedState,
+  useSessionContext,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
@@ -124,6 +125,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     "useUser"
   );
   const { broadcast, intercept } = useIntercept(rootContext);
+  const { refreshSessionContext } = useSessionContext(rootContext);
 
   const { sharedRef } = useSharedState(rootContext);
   const storeUser = sharedRef<Partial<Customer>>(`${contextName}-user`);
@@ -183,6 +185,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       const userObject = await apiRegister(params, apiInstance);
       broadcast(INTERCEPTOR_KEYS.USER_REGISTER);
       storeUser.value = (userObject as any) || {}; // TODO change returning tyoe to customer
+      refreshSessionContext();
       return true;
     } catch (e) {
       const err: ClientApiError = e;
