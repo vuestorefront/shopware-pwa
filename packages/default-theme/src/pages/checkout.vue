@@ -21,6 +21,7 @@
           :title="$t('Personal details')"
           class="sf-heading--left sf-heading--no-underline title"
         />
+        <SwErrorsList :list="registrationFormErrors" />
         <SwRegistrationForm
           v-if="!isLoggedIn"
           v-model="registrationFormData"
@@ -116,7 +117,8 @@ import {
   useUser,
   getApplicationContext,
 } from "@shopware-pwa/composables"
-import { ref } from "@vue/composition-api"
+import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
+import { computed, ref } from "@vue/composition-api"
 import { handlePayment } from "@shopware-pwa/shopware-6-client"
 import SwRegistrationForm from "@/components/forms/SwRegistrationForm.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
@@ -143,7 +145,7 @@ export default {
   setup(props, { root }) {
     const isLoadingPaymentMethod = ref(false)
     const { setBreadcrumbs } = useBreadcrumbs(root)
-    const { isLoggedIn, register } = useUser(root)
+    const { isLoggedIn, register, errors } = useUser(root)
     const { createOrder: invokeCreateOrder, loadings } = useCheckout(root)
     const { apiInstance } = getApplicationContext(root)
     const errorMessages = ref([])
@@ -157,6 +159,16 @@ export default {
       }
       await register(registrationFormData.value)
     }
+    // temporary fix for accessing the errors in right format
+    // TODO: https://github.com/vuestorefront/shopware-pwa/issues/1498
+    const registrationFormErrors = computed(() =>
+      getMessagesFromErrorsArray(
+        (Array.isArray(errors.register) &&
+          errors.register.length &&
+          errors.register[0]) ||
+          ([] as any)
+      )
+    )
 
     const getRedirectUrl = (handlePaymentResponse: {
       apiAlias: string
@@ -236,6 +248,7 @@ export default {
       $v,
       isLoadingPaymentMethod,
       errorMessages,
+      registrationFormErrors,
     }
   },
 }

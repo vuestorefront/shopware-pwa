@@ -9,8 +9,7 @@
       <div>
         <span>{{ activeAddress.firstName }} {{ activeAddress.lastName }}</span>
         <span>{{ activeAddress.street }}</span>
-        <p>{{ activeAddress.zipcode }}</p>
-        <p>{{ activeAddress.city }}</p>
+        <p>{{ activeAddress.zipcode }} {{ activeAddress.city }}</p>
         <p>{{ activeAddress.country.name }}</p>
         <p>{{ activeAddress.phoneNumber }}</p>
       </div>
@@ -40,28 +39,25 @@
         class="title desktop-only"
         :level="4"
       />
-      <div v-if="isEditModeOpen">
-        <SfList class="address-manager__list">
-          <SfListItem
-            v-for="address in addresses"
-            :key="address._uniqueIdentifier"
-            class="address-manager__list-item"
+      <div v-if="isEditModeOpen" class="address-manager__list">
+        <div
+          v-for="address in addresses"
+          :key="address._uniqueIdentifier"
+          class="address-manager__list-item"
+        >
+          <SfAddressPicker
+            :selected="activeAddress.id"
+            @change="onAddressChange"
           >
-            <SfAddressPicker
-              :selected="activeAddress.id"
-              @change="onAddressChange"
-            >
-              <SfAddress :name="address._uniqueIdentifier">
-                <span>{{ address.firstName }} {{ address.lastName }}</span>
-                <span>{{ address.street }}</span>
-                <span>{{ address.zipcode }}</span>
-                <span>{{ address.city }}</span>
-                <span>{{ address.country.name }}</span>
-                <span>{{ address.phoneNumber }}</span>
-              </SfAddress>
-            </SfAddressPicker>
-          </SfListItem>
-        </SfList>
+            <SfAddress :name="address._uniqueIdentifier">
+              <span>{{ address.firstName }} {{ address.lastName }}</span>
+              <span>{{ address.street }}</span>
+              <span>{{ address.zipcode }} {{ address.city }}</span>
+              <span>{{ address.country.name }}</span>
+              <span>{{ address.phoneNumber }}</span>
+            </SfAddress>
+          </SfAddressPicker>
+        </div>
         <SwButton
           class="sf-button color-secondary address-manager__add-new"
           @click="
@@ -83,7 +79,6 @@
 
 <script>
 import {
-  SfList,
   SfHeading,
   SfRadio,
   SfModal,
@@ -98,7 +93,6 @@ import SwAddressForm from "@/components/forms/SwAddressForm.vue"
 export default {
   name: "SwAddressManager",
   components: {
-    SfList,
     SfRadio,
     // SwCheckbox,
     SwButton,

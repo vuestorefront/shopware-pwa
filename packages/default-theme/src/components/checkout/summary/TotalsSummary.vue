@@ -1,27 +1,21 @@
 <template>
   <div class="summary">
-    <SwTotals :total="total" :subtotal="subtotal" :shipping="shippingTotal" />
-    <div class="notification" v-if="!cartItems.length && !!cart">
-      <SfNotification
-        :visible="true"
-        type="info"
-        :title="$t('You can not place the order')"
-        :message="$t('Your cart is empty')"
-      />
+    <div class="summary-notification" v-if="!cartItems.length && !!cart">
+      <SwAlert :message="$t('Your cart is empty')" type="danger" />
     </div>
+    <SwTotals :total="total" :subtotal="subtotal" :shipping="shippingTotal" />
   </div>
 </template>
 <script>
 import { useCart } from "@shopware-pwa/composables"
 import SwTotals from "@/components/SwTotals.vue"
-
-import { SfNotification } from "@storefront-ui/vue"
+import SwAlert from "@/components/atoms/SwAlert.vue"
 
 export default {
   name: "TotalsSummary",
   components: {
-    SfNotification,
     SwTotals,
+    SwAlert,
   },
   data() {
     return {
@@ -41,3 +35,8 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.summary-notification {
+  margin: 1rem 0;
+}
+</style>

@@ -1,6 +1,5 @@
 <template>
   <div class="sw-registration-form" @keyup.enter="$emit('invokeRegister')">
-    <SwErrorsList :list="formErrors" />
     <SwPluginSlot name="registration-form-before" />
     <div class="sw-form">
       <div class="inputs-group">
@@ -94,6 +93,25 @@
           data-cy="registration-city-input"
           @blur="$v.city.$touch()"
         />
+      </div>
+      <div class="inputs-group">
+        <SfSelect
+          v-model="countryId"
+          :label="$t('Country')"
+          :error-message="$t('Country must be selected')"
+          :valid="!$v.countryId.$error"
+          required
+          class="sf-select--underlined sw-form__select sw-form__input"
+          @blur="$v.countryId.$touch()"
+        >
+          <SfSelectOption
+            v-for="countryOption in getMappedCountries"
+            :key="countryOption.id"
+            :value="countryOption.id"
+          >
+            {{ countryOption.name }}
+          </SfSelectOption>
+        </SfSelect>
       </div>
       <SwCheckbox
         v-model="isDifferentShippingAddress"
@@ -238,7 +256,6 @@ import {
   getMessagesFromErrorsArray,
 } from "@shopware-pwa/helpers"
 import SwInput from "@/components/atoms/SwInput.vue"
-import SwErrorsList from "@/components/SwErrorsList.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import SwCheckbox from "@/components/atoms/SwCheckbox.vue"
 
@@ -248,7 +265,6 @@ export default {
     SfAlert,
     SwInput,
     SfSelect,
-    SwErrorsList,
     SwCheckbox,
     SwPluginSlot,
   },
@@ -265,19 +281,9 @@ export default {
   setup(props, { root, emit }) {
     const { refreshSessionContext } = useSessionContext(root)
     const { countryId } = useSessionContext(root)
-    const { login, register, loading, error: userError, errors } = useUser(root)
+    const { login, loading } = useUser(root)
     const { getCountries, error: countriesError } = useCountries(root)
     const { getSalutations, error: salutationsError } = useSalutations(root)
-    // temporary fix for accessing the errors in right format
-    // TODO: https://github.com/vuestorefront/shopware-pwa/issues/1498
-    const formErrors = computed(() =>
-      getMessagesFromErrorsArray(
-        (Array.isArray(errors.register) &&
-          errors.register.length &&
-          errors.register[0]) ||
-          ([] as any)
-      )
-    )
 
     const state = reactive({
       firstName: "",
@@ -296,6 +302,9 @@ export default {
       alternativeCity: "",
       alternativeZipcode: "",
       alternativePhoneNumber: "",
+    })
+    watch(countryId, () => {
+      state.countryId = countryId.value
     })
 
     const ourResultValue = computed(() => {
@@ -334,10 +343,6 @@ export default {
         )?.id
     )
 
-    const userErrorMessages = computed(() =>
-      getMessagesFromErrorsArray(userError.value && userError.value.message)
-    )
-
     watch(doNotCreateAccount, () => {
       if (!!doNotCreateAccount.value) state.password = ""
     })
@@ -370,6 +375,9 @@ export default {
         required,
       },
       city: {
+        required,
+      },
+      countryId: {
         required,
       },
       alternativeFirstName: {
@@ -414,15 +422,12 @@ export default {
     return {
       ...toRefs(state),
       clientLogin: login,
-      clientRegister: register,
       isLoading: loading,
       countriesError,
       getMappedCountries,
       salutationsError,
       getMappedSalutations,
-      userErrorMessages,
       refreshSessionContext,
-      formErrors,
       doNotCreateAccount,
       isDifferentShippingAddress,
       getDefaultSalutationId,

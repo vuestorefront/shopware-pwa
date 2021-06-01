@@ -18,6 +18,10 @@
         @added="addedActiveBillingAddress"
       />
     </div>
+    <SwAlert
+      v-else
+      message="Address management for Guest Order will be provided soon. Currently it's not supported yet."
+    ></SwAlert>
     <PaymentSection class="sw-checkout-summary__payment" />
     <ShippingSection class="sw-checkout-summary__shipping" />
   </div>
@@ -29,6 +33,7 @@ import ShippingSection from "@/components/checkout/ShippingSection.vue"
 import PaymentSection from "@/components/checkout/PaymentSection.vue"
 import SwAddressManager from "@/components/forms/SwAddressManager.vue"
 import { useCart, useSessionContext, useUser } from "@shopware-pwa/composables"
+import SwAlert from "@shopware-pwa/default-theme/components/atoms/SwAlert.vue"
 
 export default {
   name: "CheckoutSummary",
@@ -37,6 +42,7 @@ export default {
     ShippingSection,
     PaymentSection,
     SwAddressManager,
+    SwAlert,
   },
   setup(props, { root }) {
     const { isGuestSession, addresses, loadAddresses } = useUser(root)
