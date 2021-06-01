@@ -1,5 +1,5 @@
 <template>
-  <SfLoader :loading="isLoadingPaymentMethod">
+  <SfLoader :loading="isCreatingOrder">
     <div class="checkout" :key="$route.fullPath">
       <div class="checkout__main">
         <div class="log-in" v-if="!isLoggedIn">
@@ -143,7 +143,7 @@ export default {
     SwErrorsList,
   },
   setup(props, { root }) {
-    const isLoadingPaymentMethod = ref(false)
+    const isCreatingOrder = ref(false)
     const { setBreadcrumbs } = useBreadcrumbs(root)
     const { isLoggedIn, register, errors } = useUser(root)
     const { createOrder: invokeCreateOrder, loadings } = useCheckout(root)
@@ -182,7 +182,7 @@ export default {
       }
       // The steps from https://github.com/vuestorefront/shopware-pwa/issues/1419 are followed
       // turn on the loader
-      isLoadingPaymentMethod.value = true
+      isCreatingOrder.value = true
       try {
         // 1. place an order
         const order = await invokeCreateOrder()
@@ -215,7 +215,7 @@ export default {
         errorMessages.value = [
           root.$t("Your order cannot be placed. Please try again later."),
         ]
-        isLoadingPaymentMethod.value = false
+        isCreatingOrder.value = false
       }
     }
 
@@ -246,7 +246,7 @@ export default {
       goToShop,
       switchLoginModalState,
       $v,
-      isLoadingPaymentMethod,
+      isCreatingOrder,
       errorMessages,
       registrationFormErrors,
     }
