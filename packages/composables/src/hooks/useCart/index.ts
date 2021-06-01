@@ -130,7 +130,7 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
   async function submitPromotionCode(promotionCode: string) {
     if (promotionCode) {
       const result = await addPromotionCode(promotionCode, apiInstance);
-      ``;
+      broadcastUpcomingErrors(result);
       _storeCart.value = result;
       broadcast(INTERCEPTOR_KEYS.ADD_PROMOTION_CODE, {
         result,

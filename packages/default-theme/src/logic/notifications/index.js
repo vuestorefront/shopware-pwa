@@ -25,13 +25,15 @@ export const addToCartNotification = (payload, rootContext) => {
 
 export const addPromotionCodeNotification = (payload, rootContext) => {
   const { pushSuccess, pushError } = useNotifications(rootContext)
-  const { result } = payload
+  const { result, promotionCode } = payload
 
-  if (!result.errors || !result.errors.length) {
+  if (!result.errors || !Object.keys(result.errors).length) {
     return pushSuccess(rootContext.$t("Promotion code added successfully"))
   }
 
-  const err = Object.values(result.errors)[0]
+  const err = Object.values(result.errors).find(
+    (error) => promotionCode === error.promotionCode
+  )
   if (err) {
     switch (err.messageKey) {
       case "promotion-not-found":
