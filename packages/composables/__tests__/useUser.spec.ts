@@ -23,6 +23,7 @@ describe("Composables - useUser", () => {
 
   const interceptMock = jest.fn();
   const broadcastMock = jest.fn();
+  const refreshSessionContextMock = jest.fn();
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -31,6 +32,12 @@ describe("Composables - useUser", () => {
       return {
         broadcast: broadcastMock,
         intercept: interceptMock,
+      } as any;
+    });
+
+    mockedComposables.useSessionContext.mockImplementation(() => {
+      return {
+        refreshSessionContext: refreshSessionContextMock,
       } as any;
     });
 
@@ -257,6 +264,13 @@ describe("Composables - useUser", () => {
         const { register, user } = useUser(rootContextMock);
         await register({} as any);
         expect(user.value).toStrictEqual({});
+      });
+
+      it("should refresh session context after user registration", async () => {
+        mockedApiClient.register.mockResolvedValueOnce(undefined as any);
+        const { register } = useUser(rootContextMock);
+        await register({} as any);
+        expect(refreshSessionContextMock).toBeCalled();
       });
     });
 

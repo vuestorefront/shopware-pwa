@@ -222,5 +222,6 @@
   "An error occred during checking the payment status. Please try again later.":"Si è verificato un errore durante la verifica dello stato del pagamento. Per favore riprova più tardi.",
   "Your order is being created.": "Il tuo ordine è in fase di creazione",
   "Please wait...": "Attendere prego...",
-  "Your order cannot be placed. Please try again later.": "Il tuo ordine non può essere effettuato. Per favore riprova più tardi."
+  "Your order cannot be placed. Please try again later.": "Il tuo ordine non può essere effettuato. Per favore riprova più tardi.",
+  "The order was not paid.":"L'ordine non è stato pagato."
 }

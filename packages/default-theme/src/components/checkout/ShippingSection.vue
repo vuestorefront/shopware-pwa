@@ -1,11 +1,10 @@
 <template>
-  <div>
+  <div class="shipping-section">
     <SfHeading
       :title="$t('Shipping methods')"
       :description="$t('Choose your shipping method')"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <ShippingAddressUserForm v-if="!isGuestSession" />
     <div class="sw-form">
       <div class="sw-form__radio-group">
         <SfLoader :loading="isLoading">
@@ -61,7 +60,6 @@
 <script>
 import { SfHeading, SfRadio, SfLoader } from "@storefront-ui/vue"
 import { computed, onMounted, ref } from "@vue/composition-api"
-import ShippingAddressUserForm from "@/components/forms/ShippingAddressUserForm.vue"
 import {
   useCheckout,
   useSessionContext,
@@ -78,7 +76,6 @@ export default {
     SfHeading,
     SwButton,
     SfRadio,
-    ShippingAddressUserForm,
     SwPluginSlot,
     SfLoader,
   },
@@ -114,7 +111,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/forms";
-
+.shipping-section {
+  margin-bottom: var(--spacer-lg);
+}
 .sw-form {
   &__action {
     display: table;
@@ -131,9 +130,11 @@ export default {
 
 .title {
   --heading-padding: var(--spacer-base) 0;
+  --heading-description-margin: 0;
+
   @include for-desktop {
     --heading-title-font-size: var(--h3-font-size);
-    --heading-padding: var(--spacer-2xl) 0 var(--spacer-base) 0;
+    --heading-padding: var(--spacer-lg) 0 var(--spacer-base) 0;
     &:last-of-type {
       --heading-padding: var(--spacer-xs) 0 var(--spacer-base) 0;
     }
@@ -156,8 +157,6 @@ export default {
   }
   &__delivery {
     color: var(--c-text-muted);
-    display: flex;
-    margin: 0 0 var(--spacer-xs) 0;
   }
   &__action {
     @include for-mobile {

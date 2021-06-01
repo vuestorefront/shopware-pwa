@@ -27,6 +27,11 @@
           :product="item"
         />
       </SfTable>
+      <SfHeading
+        :title="$t('Totals')"
+        :level="2"
+        class="sf-heading--left sf-heading--no-underline sw-totals__title"
+      />
       <SwTotals :shipping="shippingCosts" :total="total" :subtotal="subtotal" />
     </div>
     <div class="sw-order-details__addresses">

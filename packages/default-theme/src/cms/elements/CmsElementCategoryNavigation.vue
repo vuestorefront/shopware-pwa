@@ -8,8 +8,8 @@
         :description="$t('No subcategories')"
         v-if="!navigation.length"
       />
-      <SfAccordion :show-chevron="true">
-        <SfAccordionItem
+      <SwAccordion :show-chevron="true">
+        <SwAccordionItem
           v-for="accordion in navigation"
           :key="accordion.id"
           :header="accordion.translated.name"
@@ -54,30 +54,24 @@
               {{ $t("See") }} {{ accordion.translated.name }}
             </nuxt-link>
           </template>
-        </SfAccordionItem>
-      </SfAccordion>
+        </SwAccordionItem>
+      </SwAccordion>
     </div>
   </div>
 </template>
 
 <script>
-import {
-  SfList,
-  SfAccordion,
-  SfMenuItem,
-  SfHeading,
-  SfChevron,
-} from "@storefront-ui/vue"
+import { SfList, SfMenuItem, SfHeading, SfChevron } from "@storefront-ui/vue"
 import { getStoreNavigation } from "@shopware-pwa/shopware-6-client"
 import { useCms, getApplicationContext } from "@shopware-pwa/composables"
 import { ref, computed, onMounted } from "@vue/composition-api"
-
 import SwButton from "@/components/atoms/SwButton.vue"
+import SwAccordion from "@/components/organisms/SwAccordion.vue"
 import { getCategoryUrl } from "@shopware-pwa/helpers"
 
 export default {
   components: {
-    SfAccordion,
+    SwAccordion,
     SfList,
     SfMenuItem,
     SfHeading,
