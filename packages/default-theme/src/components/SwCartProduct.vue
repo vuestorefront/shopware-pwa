@@ -7,12 +7,15 @@
     :special-price="specialPrice | price"
     :link="productUrl"
     :stock="stock"
-    class="collected-product"
-    :class="{ promotion: isPromotion }"
+    class="sw-collected-product"
+    :class="{
+      promotion: isPromotion,
+      'sw-collected-product--hidden-remove-btn': hiddenRemoveButton,
+    }"
     @click:remove="removeProduct(product)"
   >
     <template #configuration>
-      <div class="collected-product__configuration" v-if="options">
+      <div class="sw-collected-product__configuration" v-if="options">
         <SfProperty
           v-for="option in options"
           :key="`${option.group}-${option.option}`"
@@ -26,7 +29,8 @@
         v-if="!isPromotion"
         :src="productImage"
         :alt="product.label"
-        style="--image-width: 140px; --image-height: 200px"
+        :width="140"
+        :height="200"
       />
       <div v-else>
         <svg
@@ -40,7 +44,9 @@
             style="height: 100%"
           ></path>
         </svg>
-        <div class="collected-product__caption">{{ $t("Promotion code") }}</div>
+        <div class="sw-collected-product__caption">
+          {{ $t("Promotion code") }}
+        </div>
       </div>
     </template>
   </SfCollectedProduct>
@@ -67,6 +73,10 @@ export default {
     additionalItemsData: {
       type: Array,
       default: () => [],
+    },
+    hiddenRemoveButton: {
+      type: Boolean,
+      default: false,
     },
   },
   setup({ product, additionalItemsData }, { root }) {
@@ -133,20 +143,66 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
 
-.collected-product {
+.sw-collected-product {
   min-height: 12.5rem;
+  margin-bottom: var(--spacer-sm);
+  --collected-product-width: 100%;
   --collected-product-actions-display: none;
   --collected-product-configuration-display: flex;
+  --collected-product-padding: var(--spacer-xs);
+  --collected-product-background: var(--c-white);
+  &.sf-collected-product {
+    --collected-product-remove-text-display: var(
+      --sw-collected-product-remove-btn-display,
+      block
+    );
+    --collected-product-remove-opacity: 1;
+    --collected-product-remove-circle-icon-display: none;
+    --collected-product-remove-right: var(--spacer-xs);
+    --collected-product-remove-bottom: var(--spacer-sm);
+    &::after {
+      display: none;
+    }
+  }
+  &:hover {
+    z-index: unset;
+    box-shadow: unset;
+  }
   ::v-deep .sf-price {
     margin-bottom: var(--spacer-base);
+  }
+  ::v-deep .sf-quantity-selector {
+    --quantity-selector-background: var(
+      --collected-product-quantity-background,
+      var(--c-white)
+    );
+  }
+  ::v-deep .sf-collected-product__quantity-wrapper {
+    z-index: initial;
   }
   @include for-mobile {
     --property-name-font-size: var(--font-size--base);
     --property-value-font-size: var(--font-size--base);
   }
+  &--hidden-remove-btn {
+    --sw-collected-product-remove-btn-display: none;
+  }
+  &--small {
+    min-height: 8rem;
+    --collected-product-quantity-background: var(--c-light);
+    ::v-deep .sf-collected-product__aside {
+      position: initial;
+      flex: 0 0 5rem;
+    }
+    ::v-deep .sf-image {
+      --image-height: 8rem;
+      --image-width: 5rem;
+    }
+  }
 
   &__caption {
     text-align: center;
+    line-height: 1rem;
   }
 
   &.promotion::v-deep {

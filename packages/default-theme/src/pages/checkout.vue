@@ -1,5 +1,5 @@
 <template>
-  <SfLoader :loading="isLoadingPaymentMethod">
+  <SfLoader :loading="isCreatingOrder">
     <div class="checkout" :key="$route.fullPath">
       <div class="checkout__main">
         <div class="log-in" v-if="!isLoggedIn">
@@ -21,7 +21,13 @@
           :title="$t('Personal details')"
           class="sf-heading--left sf-heading--no-underline title"
         />
-        <SwRegistrationForm v-if="!isLoggedIn" :allowGuestRegistration="true" />
+        <SwErrorsList :list="registrationFormErrors" />
+        <SwRegistrationForm
+          v-if="!isLoggedIn"
+          v-model="registrationFormData"
+          @invokeRegister="invokeRegister"
+          allow-guest-registration
+        />
         <CheckoutSummary v-if="isLoggedIn" />
         <SwAlert
           v-if="isLoggedIn && $v.$errors.length"
@@ -36,27 +42,6 @@
           </p>
           <SwErrorsList :list="errorMessages" />
         </div>
-        <div v-if="isLoggedIn" class="checkout__main__action">
-          <SwButton
-            class="
-              summary__action-button summary__action-button--secondary
-              color-secondary
-              sw-form__button
-            "
-            data-cy="go-back-to-payment"
-            @click="goToShop"
-          >
-            {{ $t("Go Back to shop") }}
-          </SwButton>
-          <SwButton
-            :disabled="loadings.createOrder"
-            class="summary__action-button sw-form__button"
-            data-cy="place-my-order"
-            @click="createOrder"
-          >
-            {{ $t("Place my order") }}
-          </SwButton>
-        </div>
       </div>
       <div class="checkout__aside">
         <transition name="fade">
@@ -64,11 +49,13 @@
             v-if="!isLoggedIn"
             key="order-summary"
             class="checkout__aside-order"
+            @create-account="invokeRegister"
           />
           <SidebarOrderReview
             v-else
             key="order-review"
             class="checkout__aside-order"
+            @create-order="createOrder"
           />
         </transition>
       </div>
@@ -130,7 +117,8 @@ import {
   useUser,
   getApplicationContext,
 } from "@shopware-pwa/composables"
-import { ref } from "@vue/composition-api"
+import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
+import { computed, ref } from "@vue/composition-api"
 import { handlePayment } from "@shopware-pwa/shopware-6-client"
 import SwRegistrationForm from "@/components/forms/SwRegistrationForm.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
@@ -155,12 +143,33 @@ export default {
     SwErrorsList,
   },
   setup(props, { root }) {
-    const isLoadingPaymentMethod = ref(false)
+    const isCreatingOrder = ref(false)
     const { setBreadcrumbs } = useBreadcrumbs(root)
-    const { isLoggedIn } = useUser(root)
+    const { isLoggedIn, register, errors } = useUser(root)
     const { createOrder: invokeCreateOrder, loadings } = useCheckout(root)
     const { apiInstance } = getApplicationContext(root)
     const errorMessages = ref([])
+
+    const registrationFormData = ref()
+    async function invokeRegister() {
+      $v.value.$reset()
+      const isFormCorrect = await $v.value.$validate()
+      if (!isFormCorrect) {
+        return
+      }
+      await register(registrationFormData.value)
+    }
+    // temporary fix for accessing the errors in right format
+    // TODO: https://github.com/vuestorefront/shopware-pwa/issues/1498
+    const registrationFormErrors = computed(() =>
+      getMessagesFromErrorsArray(
+        (Array.isArray(errors.register) &&
+          errors.register.length &&
+          errors.register[0]) ||
+          ([] as any)
+      )
+    )
+
     const getRedirectUrl = (handlePaymentResponse: {
       apiAlias: string
       redirectUrl: string | null
@@ -173,7 +182,7 @@ export default {
       }
       // The steps from https://github.com/vuestorefront/shopware-pwa/issues/1419 are followed
       // turn on the loader
-      isLoadingPaymentMethod.value = true
+      isCreatingOrder.value = true
       try {
         // 1. place an order
         const order = await invokeCreateOrder()
@@ -206,7 +215,7 @@ export default {
         errorMessages.value = [
           root.$t("Your order cannot be placed. Please try again later."),
         ]
-        isLoadingPaymentMethod.value = false
+        isCreatingOrder.value = false
       }
     }
 
@@ -230,13 +239,16 @@ export default {
 
     return {
       isLoggedIn,
+      registrationFormData,
+      invokeRegister,
       createOrder,
       loadings,
       goToShop,
       switchLoginModalState,
       $v,
-      isLoadingPaymentMethod,
+      isCreatingOrder,
       errorMessages,
+      registrationFormErrors,
     }
   },
 }
@@ -252,6 +264,7 @@ export default {
     display: flex;
   }
   &__main {
+    padding: 0 var(--spacer-sm);
     @include for-desktop {
       flex: 1;
       padding: var(--spacer-lg) 0 0 0;
@@ -261,13 +274,11 @@ export default {
       margin: var(--spacer-base) 0 0 0;
       display: flex;
       flex-wrap: wrap;
-
       button {
         width: 100%;
         @include for-desktop {
           width: 50%;
         }
-
         &:last-child {
           @include for-mobile {
             margin-top: var(--spacer-base);
@@ -281,16 +292,6 @@ export default {
     @include for-desktop {
       flex: 0 0 26.8125rem;
       margin: 0 0 0 var(--spacer-xl);
-    }
-    &-order {
-      width: 100%;
-      background: var(--c-light);
-      padding: var(--spacer-sm);
-      box-sizing: border-box;
-      @include for-desktop {
-        box-sizing: content-box;
-        padding: var(--spacer-xl);
-      }
     }
   }
 }

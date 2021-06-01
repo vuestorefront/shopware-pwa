@@ -1,7 +1,7 @@
 <template>
-  <div id="order-summary">
+  <div class="order-summary">
     <SfHeading
-      :title="$t('Totals')"
+      :title="$t('Order summary')"
       :level="3"
       class="sf-heading--left sf-heading--no-underline title"
     />
@@ -10,44 +10,34 @@
       :value="count"
       class="sf-property--full-width property"
     />
-    <SfProperty
-      :name="$t('Subtotal')"
-      :value="subtotal | price"
-      class="sf-property--full-width property"
-    />
-    <SfProperty
-      :name="$t('Shipping')"
-      :value="shippingTotal | price"
-      class="sf-property--full-width property"
-    />
-    <SfDivider class="divider" />
-    <SfProperty
-      :name="$t('Total')"
-      :value="totalPrice | price"
-      class="sf-property--full-width property"
-    />
-    <SwPromoCode class="promo-code" />
-    <div class="characteristics">
-      <SfCharacteristic
-        v-for="characteristic in characteristics"
-        :key="characteristic.title"
-        :title="characteristic.title"
-        :description="characteristic.description"
-        :icon="characteristic.icon"
-        class="characteristics__item"
+    <div class="collected-product-list">
+      <SwCartProduct
+        v-for="(product, index) in cartItems"
+        :key="index"
+        class="sw-collected-product--small"
+        hidden-remove-button
+        :product="product"
+        v-model="product.qty"
       />
     </div>
+    <TotalsSummary />
+    <SwPromoCode class="promo-code" />
+    <SwButton
+      class="sw-form__button sf-button--full-width"
+      @click="$emit('create-account')"
+      data-cy="register-button"
+    >
+      {{ $t("Continue") }}
+    </SwButton>
   </div>
 </template>
 <script>
-import {
-  SfHeading,
-  SfProperty,
-  SfDivider,
-  SfCharacteristic,
-} from "@storefront-ui/vue"
+import { SfHeading, SfProperty, SfDivider } from "@storefront-ui/vue"
 import { useCart } from "@shopware-pwa/composables"
 import SwPromoCode from "@/components/SwPromoCode.vue"
+import SwButton from "@/components/atoms/SwButton.vue"
+import SwCartProduct from "@/components/SwCartProduct.vue"
+import TotalsSummary from "@/components/checkout/summary/TotalsSummary.vue"
 
 export default {
   name: "SidebarOrderSummary",
@@ -55,48 +45,38 @@ export default {
     SfHeading,
     SfProperty,
     SfDivider,
-    SfCharacteristic,
     SwPromoCode,
+    SwButton,
+    SwCartProduct,
+    TotalsSummary,
   },
   setup(props, { root }) {
-    const { count, subtotal, shippingTotal, totalPrice } = useCart(root)
+    const { cartItems, count, subtotal, shippingTotal, totalPrice } =
+      useCart(root)
 
     return {
       count,
       subtotal,
       shippingTotal,
       totalPrice,
-    }
-  },
-  data() {
-    return {
-      characteristics: [
-        {
-          title: this.$t("Safety"),
-          description: this.$t("It carefully packaged with a personal touch"),
-          icon: "safety",
-        },
-        {
-          title: this.$t("Easy shipping"),
-          description: this.$t(
-            "You'll receive dispatch confirmation and an arrival date"
-          ),
-          icon: "shipping",
-        },
-        {
-          title: this.$t("Changed your mind?"),
-          description: this.$t(
-            "Rest assured, we offer free returns within 30 days"
-          ),
-          icon: "return",
-        },
-      ],
+      cartItems,
     }
   },
 }
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
+.order-summary {
+  width: 100%;
+  background: var(--c-light);
+  padding: var(--spacer-sm);
+  box-sizing: border-box;
+  margin-bottom: var(--spacer-base);
+  @include for-desktop {
+    padding: var(--spacer-lg);
+  }
+}
+
 .title {
   --heading-title-margin: 0 0 var(--spacer-sm) 0;
   --heading-title-font-weight: var(--font-weight--bold);
@@ -104,12 +84,6 @@ export default {
     --heading-title-font-weight: var(--font-weight--medium);
     --heading-title-margin: 0 0 var(--spacer-xl) 0;
   }
-}
-.total-items {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--spacer-base);
 }
 .property {
   margin: var(--spacer-sm) 0;
@@ -120,16 +94,6 @@ export default {
     margin: var(--spacer-base) 0;
     --property-name-font-size: var(--font-size--xl);
     --property-value-font-size: var(--font-size--xl);
-  }
-}
-.divider {
-  --divider-border-color: var(--c-white);
-  --divider-margin: calc(var(--spacer-base) * 2) 0 0 0;
-}
-.characteristics {
-  margin: 0 0 0 var(--spacer-xs);
-  &__item {
-    margin: var(--spacer-base) 0;
   }
 }
 </style>

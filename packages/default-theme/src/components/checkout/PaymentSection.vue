@@ -5,7 +5,6 @@
       :description="$t('Choose your payment method')"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <BillingAddressUserForm v-if="!isGuestSession" />
     <div class="sw-form">
       <div class="form__element payment-methods">
         <SfLoader :loading="isLoading">
@@ -52,7 +51,6 @@
 </template>
 <script>
 import { SfHeading, SfRadio, SfLoader } from "@storefront-ui/vue"
-import BillingAddressUserForm from "@/components/forms/BillingAddressUserForm.vue"
 import {
   useCheckout,
   useSessionContext,
@@ -69,14 +67,12 @@ export default {
     SfHeading,
     SwButton,
     SfRadio,
-    BillingAddressUserForm,
     SwPluginSlot,
     SfLoader,
   },
   setup(props, { root }) {
     const { getPaymentMethods, paymentMethods } = useCheckout(root)
     const { paymentMethod, setPaymentMethod } = useSessionContext(root)
-    const { isGuestSession } = useUser(root)
     const isLoading = ref(false)
     const activePaymentMethod = computed({
       get: () => paymentMethod.value && paymentMethod.value.id,
@@ -93,7 +89,6 @@ export default {
       paymentMethods,
       activePaymentMethod,
       simplifyString,
-      isGuestSession,
       isLoading,
     }
   },
@@ -117,9 +112,10 @@ export default {
 }
 .title {
   --heading-padding: var(--spacer-base) 0;
+  --heading-description-margin: 0;
   @include for-desktop {
     --heading-title-font-size: var(--h3-font-size);
-    --heading-padding: var(--spacer-2xl) 0 var(--spacer-base) 0;
+    --heading-padding: var(--spacer-lg) 0 var(--spacer-base) 0;
     &:last-of-type {
       --heading-padding: var(--spacer-xs) 0 var(--spacer-base) 0;
     }
