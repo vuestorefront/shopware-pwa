@@ -112,6 +112,14 @@ export async function setupDomains(
       // force the path of last change to be last one in the routes list
       wildCardIndexFound &&
         domainsRoutes.push(domainsRoutes.splice(wildCardIndexFound, 1)[0]);
+
+      // search for case like /:3000/* and move it to the end of the list
+      const paramsIndex = domainsRoutes.findIndex((v) =>
+        /\/:.*\/\*/.test(v.path)
+      );
+      paramsIndex &&
+        domainsRoutes.push(domainsRoutes.splice(paramsIndex, 1)[0]);
+
       routes.splice(0, routes.length, ...domainsRoutes); // force replace the new routes table
     }
   };
