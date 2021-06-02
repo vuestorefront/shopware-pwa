@@ -46,6 +46,7 @@ import {
   useIntercept,
   useSharedState,
   useSessionContext,
+  useCart,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
@@ -126,6 +127,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   );
   const { broadcast, intercept } = useIntercept(rootContext);
   const { refreshSessionContext } = useSessionContext(rootContext);
+  const { refreshCart } = useCart(rootContext);
 
   const { sharedRef } = useSharedState(rootContext);
   const storeUser = sharedRef<Partial<Customer>>(`${contextName}-user`);
@@ -173,6 +175,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     } finally {
       loading.value = false;
       await refreshUser();
+      await refreshCart();
     }
   };
 
@@ -217,6 +220,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       });
     } finally {
       await refreshUser();
+      await refreshCart();
     }
   };
   const onLogout = (fn: IInterceptorCallbackFunction) =>
