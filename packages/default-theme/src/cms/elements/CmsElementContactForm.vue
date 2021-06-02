@@ -9,9 +9,9 @@
       <SfSelect
         v-if="getMappedSalutations && getMappedSalutations.length > 0"
         class="select sf-select--underlined"
-        v-model="salutation"
+        v-model="salutationId"
         :label="$t('Salutation')"
-        :valid="!$v.salutation.$error"
+        :valid="!$v.salutationId.$error"
         :error-message="$t('Salutation must be selected')"
         data-cy="salutation-select"
       >
@@ -55,9 +55,9 @@
         <SfInput
           v-model="email"
           type="text"
-          :label="$t('Email address')"
+          :label="$t('Your email')"
           name="email"
-          :error-message="$t('Email is required')"
+          :error-message="$t('Proper email is required')"
           :disabled="false"
           :valid="!$v.email.$error"
           class="small input"
@@ -68,7 +68,7 @@
           type="text"
           :label="$t('Phone number')"
           name="phone"
-          :error-message="$t('Enter valid phone number')"
+          :error-message="$t('Wrong phone number')"
           :disabled="false"
           :valid="!$v.phone.$error"
           @blur="$v.phone.$touch()"
@@ -79,9 +79,9 @@
         <SfInput
           v-model="subject"
           type="text"
-          :label="$t('Subject line')"
+          :label="$t('Subject')"
           name="subject"
-          :error-message="$t('Subject is required')"
+          :error-message="$t('This field is required')"
           :disabled="false"
           :valid="!$v.subject.$error"
           @blur="$v.subject.$touch()"
@@ -89,14 +89,14 @@
       </div>
       <div class="input-group">
         <SfInput
-          v-model="message"
+          v-model="comment"
           type="text"
           :label="$t('Your message')"
           name="message"
-          :error-message="$t('Message is required')"
+          :error-message="$t('This field is required')"
           :disabled="false"
-          :valid="!$v.message.$error"
-          @blur="$v.message.$touch()"
+          :valid="!$v.comment.$error"
+          @blur="$v.comment.$touch()"
         />
       </div>
 
@@ -106,7 +106,7 @@
           name="checkbox"
           :label="getConfirmationText"
           :valid="!$v.checkbox.$error"
-          :error-message="$t('Required')"
+          :error-message="$t('This field is required')"
           @blur="$v.checkbox.$touch()"
         />
       </div>
@@ -139,8 +139,9 @@ import {
 import {
   useSalutations,
   getApplicationContext,
+  useCms,
 } from "@shopware-pwa/composables"
-import { computed, ref } from "@vue/composition-api"
+import { computed, reactive, ref, toRefs } from "@vue/composition-api"
 import SwButton from "@/components/atoms/SwButton.vue"
 import { sendContactForm } from "@shopware-pwa/shopware-6-client"
 import SwErrorsList from "@/components/SwErrorsList.vue"
@@ -166,6 +167,7 @@ export default {
   setup(props, { root }) {
     const { apiInstance } = getApplicationContext(root, "SwFooter")
     const { getSalutations, error: salutationsError } = useSalutations(root)
+    const { categoryId } = useCms(root)
     const getMappedSalutations = computed(() =>
       mapSalutations(getSalutations.value)
     )
@@ -176,26 +178,25 @@ export default {
         root.$t("I have read and agree with the data protection regulations.")
     )
 
+    const state = reactive({
+      salutationId: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      subject: "",
+      comment: "",
+      phone: "",
+      checkbox: false,
+    })
+
     const errorMessages = ref([])
-    const salutation = ref(null)
-    const firstName = ref(null)
-    const lastName = ref(null)
-    const email = ref(null)
-    const phone = ref(null)
-    const subject = ref(null)
-    const message = ref(null)
     const formSent = ref(false)
     const sendForm = async () => {
       try {
         await sendContactForm(
           {
-            salutationId: salutation.value?.id,
-            firstName: firstName.value,
-            lastName: lastName.value,
-            email: email.value,
-            subject: subject.value,
-            comment: message.value,
-            phone: phone.value,
+            ...state,
+            navigationId: categoryId.value,
           },
           apiInstance
         )
@@ -204,7 +205,42 @@ export default {
         errorMessages.value = getMessagesFromErrorsArray(e.message)
       }
     }
-    const checkbox = ref(false)
+
+    const rules = {
+      email: {
+        required,
+        email,
+      },
+      firstName: {
+        required,
+        minLength: minLength(3),
+      },
+      lastName: {
+        required,
+        minLength: minLength(3),
+      },
+      salutationId: {
+        required,
+      },
+      phone: {
+        required,
+        minLength: minLength(3),
+      },
+      subject: {
+        required,
+        minLength: minLength(3),
+      },
+      comment: {
+        required,
+        minLength: minLength(10),
+      },
+      checkbox: {
+        required,
+        isTrue: (value) => value === true,
+      },
+    }
+
+    const $v = useVuelidate(rules, state)
 
     return {
       getMappedSalutations,
@@ -212,16 +248,10 @@ export default {
       getConfirmationText,
       sendForm,
       errorMessages,
-      salutation,
-      firstName,
-      lastName,
-      email,
-      phone,
-      subject,
-      message,
-      checkbox,
+      categoryId,
       formSent,
-      $v: useVuelidate(),
+      $v,
+      ...toRefs(state),
     }
   },
   methods: {
@@ -236,39 +266,6 @@ export default {
       }
 
       await this.sendForm()
-    },
-  },
-  validations: {
-    email: {
-      required,
-      email,
-    },
-    firstName: {
-      required,
-      minLength: minLength(3),
-    },
-    lastName: {
-      required,
-      minLength: minLength(3),
-    },
-    salutation: {
-      required,
-    },
-    phone: {
-      required,
-      minLength: minLength(3),
-    },
-    subject: {
-      required,
-      minLength: minLength(3),
-    },
-    message: {
-      required,
-      minLength: minLength(10),
-    },
-    checkbox: {
-      required,
-      isTrue: (value) => value === true,
     },
   },
 }
