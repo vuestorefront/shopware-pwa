@@ -348,9 +348,8 @@ describe("Composables - useCart", () => {
     });
     describe("addPromotionCode", () => {
       it("should add promotion code to cart", async () => {
-        const { appliedPromotionCodes, addPromotionCode } = useCart(
-          rootContextMock
-        );
+        const { appliedPromotionCodes, addPromotionCode } =
+          useCart(rootContextMock);
         expect(appliedPromotionCodes.value).toEqual([]);
         mockedShopwareClient.addPromotionCode.mockResolvedValueOnce({
           lineItems: [{ quantity: 1, type: "promotion" }],
