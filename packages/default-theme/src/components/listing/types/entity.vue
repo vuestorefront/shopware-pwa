@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="getOptions.length"
+    v-show="getOptions.length"
     :class="{
       'filters__filter--color': filter.name === 'color',
     }"
