@@ -20,7 +20,11 @@
           value: option.id,
         })
       "
-    />
+    >
+      <template #label>
+        <div class="filters__label">{{ option.translated.name }}</div>
+      </template>
+    </SfFilter>
   </div>
 </template>
 <script>
@@ -62,6 +66,10 @@ export default {
       display: flex;
       flex-wrap: wrap;
     }
+  }
+
+  &__label {
+    margin-left: 0.8rem;
   }
 
   .sf-filter {
