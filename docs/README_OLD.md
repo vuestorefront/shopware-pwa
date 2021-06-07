@@ -4,9 +4,9 @@
 
 [![See video demo!](https://divante.com/github/shopware-pwa/shopware-pwa-miniature.png)](https://youtu.be/t2JJgvvxMG8)
 
-## Join the community on Slack
+## Join the community on Discord
 
-If you have any questions or ideas feel free to join our slack: https://vuestorefront.slack.com via [invitation link](http://slack.vuestorefront.io/).
+If you have any questions or ideas feel free to join our discord: https://discord.vuestorefront.io.
 
 ## Introduction to Shopware-PWA
 

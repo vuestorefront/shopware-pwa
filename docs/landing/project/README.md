@@ -41,9 +41,9 @@ This new generation of frontend applications is also often referred to as *JAMst
 
 The project is maintained by a shared core team of Shopware and Vue Storefront experts. The roadmap is obviously closely coupled to the roadmap of the Shopware platform core, but contributions and specific community wishes are just as important to us.
 
-All core maintainers of the project are active and approachable in our slack channel.
+All core maintainers of the project are active and approachable in our discord channel.
 
-If you have any questions or ideas feel free to [join our slack](http://slack.vuestorefront.io/).
+If you have any questions or ideas feel free to [join our discord](https://discord.vuestorefront.io).
 
 ![Core team](./../../assets/core_team.jpeg)
 

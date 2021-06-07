@@ -6,6 +6,7 @@ The only Official Progressive Web App for <a href="https://github.com/shopware/p
 
 &nbsp;
 
+
 ### Supported versions of Shopware 6
 | Shopware PWA version                                                | Shopware 6 version                                                                                                                |
 | :------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------- |
@@ -14,6 +15,14 @@ The only Official Progressive Web App for <a href="https://github.com/shopware/p
 
 &nbsp;
 
+### Documentation
+
+See the [official documentation](https://shopware-pwa-docs.vuestorefront.io) to get started.
+
+You can find there: fundamentials, concepts, migration guides, cookbook, troubleshooting and many many more.
+
+
+&nbsp;
 
 ### About Shopware:
 
@@ -35,21 +44,19 @@ PS: Check [StorefrontUI](https://github.com/DivanteLtd/storefront-ui/) - our UI 
         </a>
       </td>
       <td align="left" valign="top">
-        Try out our open demo and if you like it <strong> first give us some star on Github ★</strong> and then contact us on <a href="http://slack.vuestorefront.io/">#shopware-pwa channel @ Vue Storefront Official Slack</a> or via contributors@vuestorefront.io. <br /><br /> This demo site is connected to <a href="https://github.com/shopware/platform">Shopware 6</a>. <br />
+        Try out our open demo and if you like it <strong> first give us some star on Github ★</strong> and then contact us on <a href="https://discord.vuestorefront.io">#shopware-pwa channel @ Vue Storefront Official Discord</a> or via contributors@vuestorefront.io. <br /><br /> This demo site is connected to <a href="https://github.com/shopware/platform">Shopware 6</a>. <br />
       </td>
     </tr>
   </tbody>
 </table>
 
-See [the documentation](https://shopware-pwa-docs.netlify.com/#introduction-to-shopware-pwa) to get started.
-
 ## Video demo
 
 [![See video demo!](https://divante.com/github/shopware-pwa/shopware-pwa-miniature.png)](https://youtu.be/t2JJgvvxMG8)
 
-## Join the community on Slack
+## Join the community on Discord
 
-If you have any questions or ideas feel free to join our slack: https://vuestorefront.slack.com via [invitation link](http://slack.vuestorefront.io/)
+If you have any questions or ideas feel free to join our discord: https://discord.vuestorefront.io
 
 ## Quickstart
 
@@ -130,11 +137,6 @@ You can test changes directly in ignored test-project directory or make changes 
 
 A more advanced development guide will be available soon.
 
----
-
-## Troubleshooting
-
-Common issues with solutions are kept in [troubleshooting](./TROUBLESHOOTING.md) page.
 
 ---
 

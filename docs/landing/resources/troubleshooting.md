@@ -31,7 +31,7 @@ try updating it using `npm -g install @shopware-pwa/cli@canary --force` and re-r
 
 You can override theme component easily by typing `yarn shopware-pwa override` and picking component to override.
 :::warning
-Please remember, that overriding component means you no longer use theme component so you'll have no updates for overrided components. If you feel that you need to override couple of components to accomplish some effect maybe we can help you upgrading theme to allow you to override just one component to have this. Feel free to ask your questions on slack or create an issue for that.
+Please remember, that overriding component means you no longer use theme component so you'll have no updates for overrided components. If you feel that you need to override couple of components to accomplish some effect maybe we can help you upgrading theme to allow you to override just one component to have this. Feel free to ask your questions on discord or create an issue for that.
 :::
 
 Here's how overriding component looks like:
