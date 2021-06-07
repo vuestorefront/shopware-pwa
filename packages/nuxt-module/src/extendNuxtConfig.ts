@@ -9,6 +9,12 @@ function customizer(objValue: Object, srcValue: unknown) {
 
 const defaultConfig: NuxtConfig = {
   telemetry: false,
+  // TODO: temp settings to debug filters
+  vue: {
+    config: {
+      devtools: true,
+    },
+  },
   env: {
     CHOKIDAR_USEPOLLING: process.env.NODE_ENV == "production" ? "0" : "1",
     EXPERIMENTAL_IMAGE_PROCESSING_SERVER:
@@ -31,14 +37,12 @@ const defaultConfig: NuxtConfig = {
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       {
         rel: "preload",
-        href:
-          "https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700%7CRoboto:300,300i,400,400i,500,700&display=swap",
+        href: "https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700%7CRoboto:300,300i,400,400i,500,700&display=swap",
         as: "style",
       },
       {
         rel: "stylesheet",
-        href:
-          "https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700%7CRoboto:300,300i,400,400i,500,700&display=swap",
+        href: "https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700%7CRoboto:300,300i,400,400i,500,700&display=swap",
         media: "print",
         onload: "this.media='all'",
         once: true,
