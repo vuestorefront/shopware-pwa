@@ -1,3 +1,52 @@
+# [0.9.0](https://github.com/DivanteLtd/shopware-pwa/compare/v0.8.1...v0.9.0) (2021-06-07)
+
+
+### Bug Fixes
+
+* **cli:** access config ([#1518](https://github.com/DivanteLtd/shopware-pwa/issues/1518)) ([e91dfe4](https://github.com/DivanteLtd/shopware-pwa/commit/e91dfe47df1a14350bda25f08ffa01099974ed32))
+* **cli:** config file has priority over default settings ([#1510](https://github.com/DivanteLtd/shopware-pwa/issues/1510)) ([2c54102](https://github.com/DivanteLtd/shopware-pwa/commit/2c54102dd7315d4f834c4c1a3cf7248ae37dc6f7))
+* **cms:** contact form navigation id ([#1526](https://github.com/DivanteLtd/shopware-pwa/issues/1526)) ([12a3c6d](https://github.com/DivanteLtd/shopware-pwa/commit/12a3c6d4c9c3a054e71c289b54bd63a1e2fd7b91))
+* **composables:** refresh cart after login/logout ([#1528](https://github.com/DivanteLtd/shopware-pwa/issues/1528)) ([926d003](https://github.com/DivanteLtd/shopware-pwa/commit/926d0038d8ff0b2b9a57189ae852c0a4cbfeac20))
+* **default-theme:** colors filter ([3e95de1](https://github.com/DivanteLtd/shopware-pwa/commit/3e95de15776f436cf5dcb417ad4dd8d693a05e15))
+* **default-theme:** hide next link in pagination ([#1525](https://github.com/DivanteLtd/shopware-pwa/issues/1525)) ([63cefec](https://github.com/DivanteLtd/shopware-pwa/commit/63cefec5d2f92533be0573046fcf201ac59935d2))
+* **default-theme:** login page validation causing SSR error ([#1529](https://github.com/DivanteLtd/shopware-pwa/issues/1529)) ([ce7b676](https://github.com/DivanteLtd/shopware-pwa/commit/ce7b676df7c4cac2561721a28f7ec4e8594d1fdb))
+* **default-theme:** missing options label ([#1527](https://github.com/DivanteLtd/shopware-pwa/issues/1527)) ([c775a4d](https://github.com/DivanteLtd/shopware-pwa/commit/c775a4dce1761ed38b2ba78d889c4c3b91511b75))
+* **default-theme:** naming convention of SwButton in SwSuggestSearch Component  ([7bde2a0](https://github.com/DivanteLtd/shopware-pwa/commit/7bde2a0b40f089b607289aeb67f68883794a5c46))
+* **default-theme:** prevent unexpected error after registering on checkout ([#1438](https://github.com/DivanteLtd/shopware-pwa/issues/1438)) ([eaa435b](https://github.com/DivanteLtd/shopware-pwa/commit/eaa435baa5aa603ed8c2796b37cbe01b819b7720))
+* **default-theme:** show errors from API in right format ([#1499](https://github.com/DivanteLtd/shopware-pwa/issues/1499)) ([0fa8898](https://github.com/DivanteLtd/shopware-pwa/commit/0fa889851b613b27323372bd8a52073cda2dce43))
+* **default-theme:** usage of correct lifecycle hook in SwTopNavigation.vue ([#1444](https://github.com/DivanteLtd/shopware-pwa/issues/1444)) ([e4bfcac](https://github.com/DivanteLtd/shopware-pwa/commit/e4bfcacf852d41954c1a74f117e8cc9c9715eff8))
+* **nuxt-module:** sort routes with localhost and port domains ([#1524](https://github.com/DivanteLtd/shopware-pwa/issues/1524)) ([7fd6044](https://github.com/DivanteLtd/shopware-pwa/commit/7fd60445cfdc6cc199ff1ddf3e96b155acad1da0))
+* default language settings ([#1458](https://github.com/DivanteLtd/shopware-pwa/issues/1458)) ([#1459](https://github.com/DivanteLtd/shopware-pwa/issues/1459)) ([140def5](https://github.com/DivanteLtd/shopware-pwa/commit/140def53f0c76d5eef802ee2561887a2de19cdce))
+* promotion code handling ([#1522](https://github.com/DivanteLtd/shopware-pwa/issues/1522)) ([acaefeb](https://github.com/DivanteLtd/shopware-pwa/commit/acaefebeb1ddb77a6da96b57452c42b427f12a29))
+
+
+### Features
+
+* **cli:** additional info while domains sync ([#1439](https://github.com/DivanteLtd/shopware-pwa/issues/1439)) ([4d3dd7e](https://github.com/DivanteLtd/shopware-pwa/commit/4d3dd7ec89879e1029afc35f8cd2dc3444670d08))
+* **cli:** check API access on init ([#1521](https://github.com/DivanteLtd/shopware-pwa/issues/1521)) ([dec701b](https://github.com/DivanteLtd/shopware-pwa/commit/dec701b15f5d76be38f2045fac7effd271e0e8a5))
+* **cli:** v6.4 compatibility for CLI requests ([#1455](https://github.com/DivanteLtd/shopware-pwa/issues/1455)) ([76a88e6](https://github.com/DivanteLtd/shopware-pwa/commit/76a88e6f8b83ac4cbdb43c28daf398f73671db7e))
+* **client:** category service ([#1466](https://github.com/DivanteLtd/shopware-pwa/issues/1466)) ([7eee960](https://github.com/DivanteLtd/shopware-pwa/commit/7eee9606915eda7b675fa53de979d34f1091f628))
+* **client:** checkout service ([#1452](https://github.com/DivanteLtd/shopware-pwa/issues/1452)) ([02a901a](https://github.com/DivanteLtd/shopware-pwa/commit/02a901a4d9aedfff1694f68bcc1fd0870a3c6160))
+* **client:** customer service ([#1473](https://github.com/DivanteLtd/shopware-pwa/issues/1473)) ([313e14f](https://github.com/DivanteLtd/shopware-pwa/commit/313e14fad6e820a7faf75a6a1aabedf772a86ddb))
+* **client:** product service ([#1465](https://github.com/DivanteLtd/shopware-pwa/issues/1465)) ([a10806a](https://github.com/DivanteLtd/shopware-pwa/commit/a10806ac622f03e3c0a86b9b532b0bc1ede00e86))
+* **client:** search service ([#1467](https://github.com/DivanteLtd/shopware-pwa/issues/1467)) ([33074fd](https://github.com/DivanteLtd/shopware-pwa/commit/33074fd846e97a84a0f1c159827fd925ccc03932))
+* **client:** v6.4 cart service ([#1450](https://github.com/DivanteLtd/shopware-pwa/issues/1450)) ([88781fe](https://github.com/DivanteLtd/shopware-pwa/commit/88781fe2a8c4c755f1e0746e77c6ea8be4ff990c))
+* **client:** v6.4 forms service ([#1464](https://github.com/DivanteLtd/shopware-pwa/issues/1464)) ([f8f3a9f](https://github.com/DivanteLtd/shopware-pwa/commit/f8f3a9fac1557c435f69a94067af4a2caed2f22e))
+* **client:** v6.4 navigation service ([#1462](https://github.com/DivanteLtd/shopware-pwa/issues/1462)) ([5ae7320](https://github.com/DivanteLtd/shopware-pwa/commit/5ae7320d4b029bdfcacf19a267f88d89a1dfc623))
+* **client:** v6.4 page resolver service ([#1461](https://github.com/DivanteLtd/shopware-pwa/issues/1461)) ([d3ee8ca](https://github.com/DivanteLtd/shopware-pwa/commit/d3ee8cab4070e28593f9d9af16337c7e24d76c0b))
+* **default-theme:** checkout plugins order validation ([#1492](https://github.com/DivanteLtd/shopware-pwa/issues/1492)) ([47a5543](https://github.com/DivanteLtd/shopware-pwa/commit/47a554304c3d88edb28df97b3d1a1d217ac2f561))
+* **default-theme:** new checkout flow ([#1502](https://github.com/DivanteLtd/shopware-pwa/issues/1502)) ([c2b93dd](https://github.com/DivanteLtd/shopware-pwa/commit/c2b93dda31960af7be36cacc4a5692366f6670d8))
+* **default-theme:** newsletter confirm page ([#1491](https://github.com/DivanteLtd/shopware-pwa/issues/1491)) ([e0b55a2](https://github.com/DivanteLtd/shopware-pwa/commit/e0b55a2c6933cd0c37d280375da56c543b605c58))
+* **default-theme:** PDP built with shopping experience ([#1476](https://github.com/DivanteLtd/shopware-pwa/issues/1476)) ([2733715](https://github.com/DivanteLtd/shopware-pwa/commit/273371544d64f98abe93935ad3d03df8b42b6726))
+* **default-theme:** reset password confirm page ([#1494](https://github.com/DivanteLtd/shopware-pwa/issues/1494)) ([071e6e9](https://github.com/DivanteLtd/shopware-pwa/commit/071e6e9e13c26564dd01de1543c997956fa269dc))
+* image sizing PoC ([#1427](https://github.com/DivanteLtd/shopware-pwa/issues/1427)) ([c812545](https://github.com/DivanteLtd/shopware-pwa/commit/c81254590d1942f660bb3e16e88f27d344944ac6))
+* **nuxt-module:** extendNuxtConfig in nuxt.config.js ([#1443](https://github.com/DivanteLtd/shopware-pwa/issues/1443)) ([99cd3f1](https://github.com/DivanteLtd/shopware-pwa/commit/99cd3f1beff45f0b4b9e3d97c31d808883c8dba2))
+* **plugins:** custom layouts and pages from the plugin ([#1457](https://github.com/DivanteLtd/shopware-pwa/issues/1457)) ([2031cc4](https://github.com/DivanteLtd/shopware-pwa/commit/2031cc493e6bcfec52c441143e5e7b9aa372ad48))
+* **theme-base:** plugin slots for cms pages, sections, blocks and elements ([#1487](https://github.com/DivanteLtd/shopware-pwa/issues/1487)) ([27f1e39](https://github.com/DivanteLtd/shopware-pwa/commit/27f1e3992a272040f5676a572b5f5a308f142603))
+* native TypeScript support in components, plugins, theme and project ([#1447](https://github.com/DivanteLtd/shopware-pwa/issues/1447)) ([2e44656](https://github.com/DivanteLtd/shopware-pwa/commit/2e446560bb8b7e5c2754f004d7b2618aa67c1aea))
+
+
+
 ## [0.8.1](https://github.com/DivanteLtd/shopware-pwa/compare/v0.8.0...v0.8.1) (2021-04-20)
 
 
