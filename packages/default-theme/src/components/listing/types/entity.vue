@@ -6,15 +6,16 @@
     }"
   >
     <SfHeading class="filters__title" :level="4" :title="$t(filter.label)" />
-    <SfFilter
+    <SfCheckbox
       v-for="option in getOptions"
       :key="option.id"
-      :label="option.translated.name"
-      :color="filter.code === 'color' ? option.name : null"
+      class="sf-filter"
+      :class="{
+        'is-active': selectedValues && selectedValues.includes(option.id),
+        'is-color': false,
+      }"
+      :name="option.translated.name"
       :selected="selectedValues && selectedValues.includes(option.id)"
-      class="filters__item"
-      :class="{ 'filters__item--color': option.color }"
-      :count="option.translated.name"
       @change="
         $emit('toggle-filter-value', {
           ...filter,
@@ -23,18 +24,18 @@
       "
     >
       <template #label>
-        <div class="filters__label">-> {{ option.translated.name }}</div>
+        <div class="sf-filter__label">{{ option.translated.name }}</div>
       </template>
-    </SfFilter>
+    </SfCheckbox>
   </div>
 </template>
 <script>
-import { SfFilter, SfHeading } from "@storefront-ui/vue"
+import { SfHeading, SfCheckbox } from "@storefront-ui/vue"
 
 export default {
   components: {
-    SfFilter,
     SfHeading,
+    SfCheckbox,
   },
   name: "SwEntityFilter",
   props: {
