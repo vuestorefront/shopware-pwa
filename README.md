@@ -56,8 +56,8 @@ If you have any questions or ideas feel free to join our slack: https://vuestore
 Before you start testing it locally, **try it out on CodeSandbox**
 _(including shopware-pwa CLI commands in embedded terminal)_
 
-[![Edit shopware-pwa v0.5.x](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/shopware-pwa-v050-zmr5p?file=/README.md)
-v0.5.x
+[![Edit shopware-pwa v0.9.x](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/shopware-pwa-v09x-gp02u?file=/README.md)
+v0.9.x
 
 ### Usage
 
