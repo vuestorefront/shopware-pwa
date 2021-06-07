@@ -6,6 +6,7 @@ The only Official Progressive Web App for <a href="https://github.com/shopware/p
 
 &nbsp;
 
+
 ### Supported versions of Shopware 6
 | Shopware PWA version                                                | Shopware 6 version                                                                                                                |
 | :------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------- |
@@ -14,6 +15,14 @@ The only Official Progressive Web App for <a href="https://github.com/shopware/p
 
 &nbsp;
 
+### Documentation
+
+See the [official documentation](https://shopware-pwa-docs.vuestorefront.io) to get started.
+
+You can find there: fundamentials, concepts, migration guides, cookbook, troubleshooting and many many more.
+
+
+&nbsp;
 
 ### About Shopware:
 
@@ -40,8 +49,6 @@ PS: Check [StorefrontUI](https://github.com/DivanteLtd/storefront-ui/) - our UI 
     </tr>
   </tbody>
 </table>
-
-See [the documentation](https://shopware-pwa-docs.netlify.com/#introduction-to-shopware-pwa) to get started.
 
 ## Video demo
 
@@ -130,11 +137,6 @@ You can test changes directly in ignored test-project directory or make changes 
 
 A more advanced development guide will be available soon.
 
----
-
-## Troubleshooting
-
-Common issues with solutions are kept in [troubleshooting](./TROUBLESHOOTING.md) page.
 
 ---
 
