@@ -17,7 +17,7 @@ To find community tasks [click here](https://github.com/DivanteLtd/shopware-pwa/
 is:open is:issue -label:"Shopware Task" -label:"Core Team"
 ```
 
-After choosing the task, you can solve the problem and create a pull request (PR). Feature requests should be discussed on our Slack channel (please see the link in [README.md](https://github.com/DivanteLtd/shopware-pwa)). After the discussion, please create the issue describing your request.
+After choosing the task, you can solve the problem and create a pull request (PR). Feature requests should be discussed on our Discord channel (please see the link in [README.md](https://github.com/DivanteLtd/shopware-pwa)). After the discussion, please create the issue describing your request.
 
 **Github Project Broad is intended only for core developers.**
 
@@ -77,6 +77,6 @@ yarn cypress open --config baseUrl=https://shopware-pwa-canary.storefrontcloud.i
 
 - If you face any problems during the implementation of the complex issue, feel free to implement just a part of it and ask for help in the comment. It's OK if you can only handle styling/tests/whatever.
 
-- In case of any problems feel free to contact us in comments or our Slack channel. :)
+- In case of any problems feel free to contact us in comments or our Discord channel. :)
 
 - After PR preview is generated we can add `e2e-running` label. It will fire GitHub Action with Cypress tests. After this action `e2e-running` label will be automatically removed, and instead there will be `e2e-passed` or `e2e-failed` label. In case of failure check locally by firing `yarn cypress open`.
