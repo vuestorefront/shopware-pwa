@@ -9,10 +9,9 @@ function customizer(objValue: Object, srcValue: unknown) {
 
 const defaultConfig: NuxtConfig = {
   telemetry: false,
-  // TODO: temp settings to debug filters
   vue: {
     config: {
-      devtools: true,
+      devtools: process.env.ENABLE_DEVTOOLS === "true",
     },
   },
   env: {
