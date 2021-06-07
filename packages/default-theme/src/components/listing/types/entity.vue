@@ -14,6 +14,7 @@
       :selected="selectedValues && selectedValues.includes(option.id)"
       class="filters__item"
       :class="{ 'filters__item--color': option.color }"
+      :count="option.translated.name"
       @change="
         $emit('toggle-filter-value', {
           ...filter,
@@ -22,7 +23,7 @@
       "
     >
       <template #label>
-        <div class="filters__label">{{ option.translated.name }}</div>
+        <div class="filters__label">-> {{ option.translated.name }}</div>
       </template>
     </SfFilter>
   </div>
