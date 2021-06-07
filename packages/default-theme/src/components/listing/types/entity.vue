@@ -1,6 +1,6 @@
 <template>
   <div
-    v-show="getOptions.length"
+    v-if="getOptions.length"
     :class="{
       'filters__filter--color': filter.name === 'color',
     }"
@@ -35,6 +35,7 @@ export default {
     SfFilter,
     SfHeading,
   },
+  name: "SwEntityFilter",
   props: {
     filter: {
       type: Object,
