@@ -1,7 +1,6 @@
 ## Migration guide
 
-- [0.8.x to 0.9.x](./0.8.x_to_0.9.x) <Badge text="canary" type="warning"/>
-- [0.7.x to 0.8.x](./0.7.x_to_0.8.x) <Badge text="new" type="info"/>
+- [0.8.x to 0.9.x](./0.8.x_to_0.9.x) <Badge text="new" type="info"/>
 - [0.6.x to 0.7.x](./0.6.x_to_0.7.x)
 - [0.4.x to 0.5.x](./0.4.x_to_0.5.x)
 - [0.3.x to 0.4.x](./0.3.x_to_0.4.x)
