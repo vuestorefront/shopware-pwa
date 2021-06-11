@@ -66,18 +66,15 @@ export default {
   }
   @include for-desktop {
     &__header {
-      text-align: center;
-      &:last-child {
-        text-align: right;
+      text-align: right;
+      &:first-child {
+        max-width: 100px;
       }
     }
     &__data {
       text-align: center;
     }
-    &__description {
-      text-align: left;
-      flex: 0 0 21.5rem;
-    }
+    &__description,
     &__image {
       text-align: left;
     }

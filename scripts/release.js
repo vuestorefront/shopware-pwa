@@ -257,4 +257,5 @@ async function publishPackage(pkgName, version, runIfNotDry) {
 
 main().catch((err) => {
   console.error(err);
+  process.exit(1);
 });

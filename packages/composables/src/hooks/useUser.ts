@@ -45,6 +45,8 @@ import {
   INTERCEPTOR_KEYS,
   useIntercept,
   useSharedState,
+  useSessionContext,
+  useCart,
 } from "@shopware-pwa/composables";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
@@ -124,9 +126,14 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     "useUser"
   );
   const { broadcast, intercept } = useIntercept(rootContext);
+  const { refreshSessionContext } = useSessionContext(rootContext);
+  const { refreshCart } = useCart(rootContext);
 
   const { sharedRef } = useSharedState(rootContext);
   const storeUser = sharedRef<Partial<Customer>>(`${contextName}-user`);
+  const storeAddresses = sharedRef<CustomerAddress[]>(
+    `${contextName}-addresses`
+  );
 
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
@@ -138,7 +145,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     register: [],
   });
   const orders: Ref<Order[] | null> = ref(null);
-  const addresses: Ref<CustomerAddress[] | null> = ref(null);
+  const addresses = computed(() => storeAddresses.value);
   const country: Ref<Country | null> = ref(null);
   const salutation: Ref<Salutation | null> = ref(null);
   const user = computed(() => storeUser.value);
@@ -168,6 +175,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     } finally {
       loading.value = false;
       await refreshUser();
+      await refreshCart();
     }
   };
 
@@ -180,6 +188,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       const userObject = await apiRegister(params, apiInstance);
       broadcast(INTERCEPTOR_KEYS.USER_REGISTER);
       storeUser.value = (userObject as any) || {}; // TODO change returning tyoe to customer
+      refreshSessionContext();
       return true;
     } catch (e) {
       const err: ClientApiError = e;
@@ -211,6 +220,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       });
     } finally {
       await refreshUser();
+      await refreshCart();
     }
   };
   const onLogout = (fn: IInterceptorCallbackFunction) =>
@@ -243,7 +253,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   const loadAddresses = async (): Promise<void> => {
     try {
       const response = await getCustomerAddresses(apiInstance);
-      addresses.value = response?.elements;
+      storeAddresses.value = response?.elements;
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;

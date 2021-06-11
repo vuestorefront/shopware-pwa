@@ -1,27 +1,26 @@
 <template>
-  <div class="sw-registration-form" @keyup.enter="invokeRegister">
-    <SwErrorsList :list="formErrors" />
+  <div class="sw-registration-form" @keyup.enter="$emit('invokeRegister')">
     <SwPluginSlot name="registration-form-before" />
     <div class="sw-form">
       <div class="inputs-group">
         <SwInput
           v-model="firstName"
-          name="first-name"
+          name="registration-first-name"
           :label="$t('First name')"
           class="sw-form__input form__element form__element--small"
           :valid="!$v.firstName.$error"
           :error-message="$t('First name is required')"
-          data-cy="first-name-input"
+          data-cy="registration-first-name-input"
           @blur="$v.firstName.$touch()"
         />
         <SwInput
           v-model="lastName"
-          name="last-name"
+          name="registration-last-name"
           :label="$t('Last name')"
           class="sw-form__input form__element form__element--small"
           :valid="!$v.lastName.$error"
           :error-message="$t('Last name is required')"
-          data-cy="last-name-input"
+          data-cy="registration-last-name-input"
           @blur="$v.lastName.$touch()"
         />
       </div>
@@ -53,12 +52,12 @@
             :valid="!$v.password.$error"
             :error-message="
               //handle two different situations - aligned with validation rules
-              (!$v.password.required && $t('Password is required')) ||
-              (!$v.password.minLength &&
+              ($v.password.required.$invalid && $t('Password is required')) ||
+              ($v.password.minLength.$invalid &&
                 $t('Password should have at least 8 characters')) ||
               ''
             "
-            data-cy="password-input"
+            data-cy="registration-password-input"
             class="sw-form__input form__element form__element--small"
           />
         </transition>
@@ -66,34 +65,53 @@
       <div class="inputs-group">
         <SwInput
           v-model="street"
-          name="street"
+          name="registration-street"
           :label="$t('Street')"
           class="sw-form__input form__element form__element--small"
           :valid="!$v.street.$error"
           :error-message="$t('Street is required')"
-          data-cy="street-input"
+          data-cy="registration-street-input"
           @blur="$v.street.$touch()"
         />
         <SwInput
           v-model="zipcode"
-          name="zipcode"
+          name="registration-zipcode"
           :label="$t('Zip code')"
           class="sw-form__input form__element form__element--small"
           :valid="!$v.zipcode.$error"
           :error-message="$t('Zip code is required')"
-          data-cy="zip-code-input"
+          data-cy="registration-zipcode-input"
           @blur="$v.zipcode.$touch()"
         />
         <SwInput
           v-model="city"
-          name="city"
+          name="registration-city"
           :label="$t('City')"
           class="sw-form__input form__element form__element--small"
           :valid="!$v.city.$error"
           :error-message="$t('City is required')"
-          data-cy="city-input"
+          data-cy="registration-city-input"
           @blur="$v.city.$touch()"
         />
+      </div>
+      <div class="inputs-group">
+        <SfSelect
+          v-model="countryId"
+          :label="$t('Country')"
+          :error-message="$t('Country must be selected')"
+          :valid="!$v.countryId.$error"
+          required
+          class="sf-select--underlined sw-form__select sw-form__input"
+          @blur="$v.countryId.$touch()"
+        >
+          <SfSelectOption
+            v-for="countryOption in getMappedCountries"
+            :key="countryOption.id"
+            :value="countryOption.id"
+          >
+            {{ countryOption.name }}
+          </SfSelectOption>
+        </SfSelect>
       </div>
       <SwCheckbox
         v-model="isDifferentShippingAddress"
@@ -209,14 +227,6 @@
         />
       </div>
 
-      <SwButton
-        class="sw-form__button"
-        @click="invokeRegister"
-        data-cy="register-button"
-      >
-        {{ buttonText || $t("Continue") }}
-      </SwButton>
-
       <SwPluginSlot name="registration-form-after" />
     </div>
   </div>
@@ -245,9 +255,7 @@ import {
   mapSalutations,
   getMessagesFromErrorsArray,
 } from "@shopware-pwa/helpers"
-import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
-import SwErrorsList from "@/components/SwErrorsList.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import SwCheckbox from "@/components/atoms/SwCheckbox.vue"
 
@@ -256,9 +264,7 @@ export default {
   components: {
     SfAlert,
     SwInput,
-    SwButton,
     SfSelect,
-    SwErrorsList,
     SwCheckbox,
     SwPluginSlot,
   },
@@ -267,26 +273,21 @@ export default {
       type: Boolean,
       default: false,
     },
-    buttonText: {
-      type: String,
+    value: {
+      type: Object,
+      default: () => ({}),
     },
   },
   setup(props, { root, emit }) {
     const { refreshSessionContext } = useSessionContext(root)
     const { countryId } = useSessionContext(root)
-    const { login, register, loading, error: userError, errors } = useUser(root)
+    const { login, loading } = useUser(root)
     const { getCountries, error: countriesError } = useCountries(root)
     const { getSalutations, error: salutationsError } = useSalutations(root)
-    // temporary fix for accessing the errors in right format
-    // TODO: https://github.com/vuestorefront/shopware-pwa/issues/1498
-    const formErrors = computed(() =>
-      getMessagesFromErrorsArray(
-        (Array.isArray(errors.register) &&
-          errors.register.length &&
-          errors.register[0]) ||
-          ([] as any)
-      )
-    )
+
+    // form data
+    const doNotCreateAccount: Ref<boolean> = ref(false)
+    const isDifferentShippingAddress: Ref<boolean> = ref(false)
 
     const state = reactive({
       firstName: "",
@@ -306,38 +307,21 @@ export default {
       alternativeZipcode: "",
       alternativePhoneNumber: "",
     })
-
-    // form data
-    const doNotCreateAccount: Ref<boolean> = ref(false)
-    const isDifferentShippingAddress: Ref<boolean> = ref(false)
-
-    const getMappedCountries = computed(() => mapCountries(getCountries.value))
-    const getMappedSalutations = computed(() =>
-      mapSalutations(getSalutations.value)
-    )
-    const getDefaultSalutationId = computed(
-      () =>
-        getSalutations.value?.find(
-          (salutation) => salutation.salutationKey === "not_specified"
-        )?.id
-    )
-
-    const userErrorMessages = computed(() =>
-      getMessagesFromErrorsArray(userError.value && userError.value.message)
-    )
-
-    watch(doNotCreateAccount, () => {
-      if (!!doNotCreateAccount.value) state.password = ""
+    watch(countryId, () => {
+      state.countryId = countryId.value
     })
 
-    async function invokeRegister() {
-      $v.value.$reset()
-      const isFormCorrect = await $v.value.$validate()
-      if (!isFormCorrect) {
-        return
+    const ourResultValue = computed(() => {
+      const shippingAddress = {
+        firstName: state.alternativeFirstName,
+        salutationId: getDefaultSalutationId.value,
+        lastName: state.alternativeLastName,
+        city: state.alternativeCity,
+        street: state.alternativeStreet,
+        zipcode: state.alternativeZipcode,
+        countryId: state.alternativeCountryId || countryId.value,
       }
-
-      const isSuccess = await register({
+      return {
         firstName: state.firstName,
         lastName: state.lastName,
         email: state.email,
@@ -354,9 +338,28 @@ export default {
           zipcode: state.zipcode,
           countryId: state.countryId || countryId.value,
         },
-      })
-      isSuccess && emit("success")
-    }
+        ...(isDifferentShippingAddress.value && { shippingAddress }),
+      }
+    })
+
+    const getMappedCountries = computed(() => mapCountries(getCountries.value))
+    const getMappedSalutations = computed(() =>
+      mapSalutations(getSalutations.value)
+    )
+    const getDefaultSalutationId = computed(
+      () =>
+        getSalutations.value?.find(
+          (salutation) => salutation.salutationKey === "not_specified"
+        )?.id
+    )
+
+    watch(doNotCreateAccount, () => {
+      if (!!doNotCreateAccount.value) state.password = ""
+    })
+
+    watch(ourResultValue, () => {
+      emit("input", ourResultValue.value)
+    })
 
     const rules = {
       firstName: {
@@ -382,6 +385,9 @@ export default {
         required,
       },
       city: {
+        required,
+      },
+      countryId: {
         required,
       },
       alternativeFirstName: {
@@ -426,20 +432,17 @@ export default {
     return {
       ...toRefs(state),
       clientLogin: login,
-      clientRegister: register,
       isLoading: loading,
       countriesError,
       getMappedCountries,
       salutationsError,
       getMappedSalutations,
-      userErrorMessages,
       refreshSessionContext,
-      formErrors,
       doNotCreateAccount,
       isDifferentShippingAddress,
       getDefaultSalutationId,
-      invokeRegister,
       $v,
+      ourResultValue,
     }
   },
 }

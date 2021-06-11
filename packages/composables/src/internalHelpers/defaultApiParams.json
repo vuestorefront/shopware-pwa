@@ -2,7 +2,11 @@
   "useCms": {
     "limit": 10,
     "associations": {
-      "manufacturer": {},
+      "manufacturer": {
+        "associations": {
+          "media": {}
+        }
+      },
       "media": {
         "sort": [
           {
@@ -60,17 +64,12 @@
         "type",
         "sizingMode"
       ],
-      "cms_page": [
-        "id",
-        "name",
-        "sections",
-        "type",
-        "config"
-      ],
+      "cms_page": ["id", "name", "sections", "type", "config"],
       "product": [
         "media",
         "productReviews",
         "name",
+        "description",
         "ratingAverage",
         "calculatedPrice",
         "calculatedPrices",
@@ -85,37 +84,12 @@
         "seoUrls",
         "crossSellings"
       ],
-      "product_media": [
-        "media"
-      ],
-      "media": [
-        "thumbnails",
-        "width",
-        "height",
-        "url"
-      ],
-      "media_thumbnail": [
-        "url",
-        "width",
-        "height",
-        "id"
-      ],
-      "calculated_price": [
-        "unitPrice",
-        "quantity",
-        "listPrice"
-      ],
-      "product_group_option": [
-        "id",
-        "group",
-        "translated",
-        "name"
-      ],
-      "product_group": [
-        "id",
-        "translated",
-        "name"
-      ],
+      "product_media": ["media"],
+      "media": ["thumbnails", "width", "height", "url"],
+      "media_thumbnail": ["url", "width", "height", "id"],
+      "calculated_price": ["unitPrice", "quantity", "listPrice"],
+      "product_group_option": ["id", "group", "translated", "name"],
+      "product_group": ["id", "translated", "name"],
       "product_listing": [
         "sorting",
         "currentFilters",
@@ -127,12 +101,7 @@
         "total",
         "aggregations"
       ],
-      "property_group": [
-        "id",
-        "translated",
-        "options",
-        "name"
-      ],
+      "property_group": ["id", "translated", "options", "name"],
       "property_group_option": [
         "translated",
         "name",
@@ -141,11 +110,7 @@
         "media",
         "group"
       ],
-      "product_manufacturer": [
-        "translated",
-        "link",
-        "name"
-      ]
+      "product_manufacturer": ["translated", "link", "name"]
     }
   },
   "useProductListing": {
@@ -163,37 +128,12 @@
         "options",
         "seoUrls"
       ],
-      "product_media": [
-        "media"
-      ],
-      "media": [
-        "thumbnails",
-        "width",
-        "height",
-        "url"
-      ],
-      "calculated_price": [
-        "unitPrice",
-        "quantity",
-        "listPrice"
-      ],
-      "product_group_option": [
-        "name",
-        "id",
-        "group",
-        "translated"
-      ],
-      "product_group": [
-        "id",
-        "name",
-        "options",
-        "translated"
-      ],
-      "property_group": [
-        "id",
-        "translated",
-        "options"
-      ],
+      "product_media": ["media"],
+      "media": ["thumbnails", "width", "height", "url"],
+      "calculated_price": ["unitPrice", "quantity", "listPrice"],
+      "product_group_option": ["name", "id", "group", "translated"],
+      "product_group": ["id", "name", "options", "translated"],
+      "property_group": ["id", "translated", "options"],
       "property_group_option": [
         "translated",
         "name",
@@ -207,11 +147,7 @@
   "useProductQuickSearch": {
     "limit": 10,
     "includes": {
-      "calculated_price": [
-        "unitPrice",
-        "quantity",
-        "listPrice"
-      ]
+      "calculated_price": ["unitPrice", "quantity", "listPrice"]
     }
   },
   "useListing": {
@@ -229,37 +165,12 @@
         "options",
         "seoUrls"
       ],
-      "product_media": [
-        "media"
-      ],
-      "media": [
-        "thumbnails",
-        "width",
-        "height",
-        "url"
-      ],
-      "calculated_price": [
-        "unitPrice",
-        "quantity",
-        "listPrice"
-      ],
-      "product_group_option": [
-        "name",
-        "id",
-        "group",
-        "translated"
-      ],
-      "product_group": [
-        "id",
-        "name",
-        "options",
-        "translated"
-      ],
-      "property_group": [
-        "id",
-        "translated",
-        "options"
-      ],
+      "product_media": ["media"],
+      "media": ["thumbnails", "width", "height", "url"],
+      "calculated_price": ["unitPrice", "quantity", "listPrice"],
+      "product_group_option": ["name", "id", "group", "translated"],
+      "product_group": ["id", "name", "options", "translated"],
+      "property_group": ["id", "translated", "options"],
       "property_group_option": [
         "name",
         "translated",
@@ -312,34 +223,12 @@
         "seoUrls",
         "crossSellings"
       ],
-      "product_media": [
-        "media"
-      ],
-      "media": [
-        "url"
-      ],
-      "media_thumbnail": [
-        "url",
-        "width",
-        "height",
-        "id"
-      ],
-      "calculated_price": [
-        "unitPrice",
-        "quantity",
-        "listPrice"
-      ],
-      "product_group_option": [
-        "name",
-        "id",
-        "group",
-        "translated"
-      ],
-      "product_group": [
-        "id",
-        "name",
-        "translated"
-      ]
+      "product_media": ["media"],
+      "media": ["url"],
+      "media_thumbnail": ["url", "width", "height", "id"],
+      "calculated_price": ["unitPrice", "quantity", "listPrice"],
+      "product_group_option": ["name", "id", "group", "translated"],
+      "product_group": ["id", "name", "translated"]
     }
   },
   "useNavigation": {
@@ -356,10 +245,7 @@
         "translated",
         "type"
       ],
-      "seo_url": [
-        "pathInfo",
-        "seoPathInfo"
-      ]
+      "seo_url": ["pathInfo", "seoPathInfo"]
     }
   }
 }

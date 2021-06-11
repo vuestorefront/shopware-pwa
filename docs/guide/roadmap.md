@@ -6,7 +6,7 @@ sidebar: auto
 
 Very soon, we will put our roadmap in GitHub Milestones so you may use that to track the progress of the project. All the GitHub Milestones will be linked at the month / quarter chapters below.
 
-Following roadmap does not include plugins, which may be delivered in parallel to the core Shopware PWA product. If you want to request some plugin or develop one on your own, please go to [Plugins Documentation](https://shopware-pwa-docs.vuestorefront.io/guide/plugins.html) and contact us on [#shopware-pwa @ Vue Storefront Slack](http://slack.vuestorefront.io/).
+Following roadmap does not include plugins, which may be delivered in parallel to the core Shopware PWA product. If you want to request some plugin or develop one on your own, please go to [Plugins Documentation](https://shopware-pwa-docs.vuestorefront.io/guide/plugins.html) and contact us on [#shopware-pwa @ Vue Storefront Discord](https://discord.vuestorefront.io).
 
 To get more low-level task specific information please go to: 
 * https://github.com/DivanteLtd/shopware-pwa/milestone/7

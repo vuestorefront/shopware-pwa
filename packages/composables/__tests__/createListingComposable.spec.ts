@@ -161,6 +161,37 @@ describe("Composables - createListingComposable", () => {
         },
       });
     });
+
+    it("should invoke searchMethod for 2 times and change shared listing on invocation for initial and applied listing once currentFilters have applied filters", async () => {
+      searchMethodMock.mockReturnValue({
+        aggregations: "12345",
+      });
+      const { search } = createListingComposable({
+        rootContext: rootContextMock as any,
+        listingKey: "testKey",
+        searchDefaults: {
+          properties: "12221212122",
+        },
+        searchMethod: searchMethodMock,
+      });
+      await search({});
+      expect(searchMethodMock).toBeCalledTimes(2);
+      expect(mockedAppliedListing.value).toEqual({ aggregations: "12345" });
+    });
+    it("should invoke searchMethod for 2 times and change shared listing on invocation for initial and applied listing once currentFilters have applied filters", async () => {
+      searchMethodMock.mockReturnValue(undefined);
+      const { search } = createListingComposable({
+        rootContext: rootContextMock as any,
+        listingKey: "testKey",
+        searchDefaults: {
+          properties: "12221212122",
+        },
+        searchMethod: searchMethodMock,
+      });
+      await search({});
+      expect(searchMethodMock).toBeCalledTimes(2);
+      expect(mockedAppliedListing.value).toEqual({ aggregations: undefined });
+    });
   });
 
   describe("getCurrentListing", () => {
