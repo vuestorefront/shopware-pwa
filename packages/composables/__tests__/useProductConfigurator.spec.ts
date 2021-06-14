@@ -123,12 +123,10 @@ describe("Composables - useProductConfigurator", () => {
       consoleErrorSpy.mockImplementation(() => {});
       it("should log error in console.error output", async () => {
         mockedAxios.invokePost.mockRejectedValueOnce("Something went wrong");
-        const {
-          findVariantForSelectedOptions,
-          handleChange,
-        } = useProductConfigurator(rootContextMock, {
-          parentId: "some-parent-id",
-        } as any);
+        const { findVariantForSelectedOptions, handleChange } =
+          useProductConfigurator(rootContextMock, {
+            parentId: "some-parent-id",
+          } as any);
 
         handleChange("color", "blue");
         await findVariantForSelectedOptions();
@@ -186,19 +184,17 @@ describe("Composables - useProductConfigurator", () => {
       it("should invoke invokePost method once on variant found", async () => {
         mockedAxios.invokePost.mockResolvedValue({
           data: {
-            data: [
+            elements: [
               {
                 id: "variant-id",
               },
             ],
           },
         });
-        const {
-          findVariantForSelectedOptions,
-          handleChange,
-        } = useProductConfigurator(rootContextMock, {
-          parentId: "some-parent-id",
-        } as any);
+        const { findVariantForSelectedOptions, handleChange } =
+          useProductConfigurator(rootContextMock, {
+            parentId: "some-parent-id",
+          } as any);
 
         handleChange("color", "blue");
 
