@@ -25,11 +25,11 @@
   "dependencies": {
     "@shopware-pwa/helpers": "0.9.0",
     "@shopware-pwa/shopware-6-client": "0.9.0",
-    "@vue/composition-api": "^1.0.0-rc.9",
+    "@vue/composition-api": "^1.0.0-rc.11",
     "axios": "^0.21.1",
-    "cookie-universal": "^2.1.4",
+    "cookie-universal": "^2.1.5",
     "query-string": "^7.0.0",
-    "vue": "^2.6.12",
+    "vue": "^2.6.14",
     "lodash": "^4.17.21"
   },
   "publishConfig": {
