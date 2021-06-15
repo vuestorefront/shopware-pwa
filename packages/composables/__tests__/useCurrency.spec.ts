@@ -91,9 +91,8 @@ describe("Composables - useCurrency", () => {
           ],
         } as any);
 
-        const { loadAvailableCurrencies, availableCurrencies } = useCurrency(
-          rootContextMock
-        );
+        const { loadAvailableCurrencies, availableCurrencies } =
+          useCurrency(rootContextMock);
         await loadAvailableCurrencies();
         expect(availableCurrencies.value).toEqual([
           {
@@ -111,9 +110,8 @@ describe("Composables - useCurrency", () => {
           ],
         } as any);
 
-        const { loadAvailableCurrencies, availableCurrencies } = useCurrency(
-          rootContextMock
-        );
+        const { loadAvailableCurrencies, availableCurrencies } =
+          useCurrency(rootContextMock);
         await loadAvailableCurrencies();
         mockedApiClient.getAvailableCurrencies.mockResolvedValueOnce(
           undefined as any

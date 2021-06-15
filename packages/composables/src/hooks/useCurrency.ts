@@ -30,13 +30,11 @@ export const useCurrency = (
 ): UseCurrency => {
   const { apiInstance } = getApplicationContext(rootContext, "useCurrency");
 
-  const { currency, setCurrency: setContextCurrency } = useSessionContext(
-    rootContext
-  );
+  const { currency, setCurrency: setContextCurrency } =
+    useSessionContext(rootContext);
   const { refreshCart } = useCart(rootContext);
-  const localState: { availableCurrencies: Currency[] } = reactive(
-    sharedCurrencyState
-  );
+  const localState: { availableCurrencies: Currency[] } =
+    reactive(sharedCurrencyState);
   const currencySymbol = computed(() => currency.value?.symbol || "");
   const availableCurrencies = computed(() => {
     if (

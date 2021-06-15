@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import Vue from "vue";
 import VueCompositionApi, { Ref, ref } from "@vue/composition-api";
 Vue.use(VueCompositionApi);
@@ -700,7 +703,7 @@ describe("Composables - createListingComposable", () => {
       });
     });
 
-    it("should show loading on searching", async (resolve) => {
+    it("should show loading on searching", (resolve) => {
       const { initSearch, loading } = createListingComposable({
         rootContext: rootContextMock as any,
         listingKey: "testKey",
@@ -708,7 +711,7 @@ describe("Composables - createListingComposable", () => {
         searchMethod: searchMethodMock,
       });
       expect(loading.value).toEqual(false);
-      await initSearch({ limit: 5 }).then(() => {
+      initSearch({ limit: 5 }).then(() => {
         expect(loading.value).toEqual(false);
         resolve();
       });
