@@ -21,9 +21,7 @@ import { PageBreadcrumb } from "@shopware-pwa/commons/interfaces/models/content/
 /**
  * @beta
  */
-export function useCms(
-  rootContext: ApplicationVueContext
-): {
+export function useCms(rootContext: ApplicationVueContext): {
   page: ComputedRef<
     PageResolverProductResult | PageResolverResult<CmsPage> | null
   >;

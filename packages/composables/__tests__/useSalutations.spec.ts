@@ -26,16 +26,14 @@ describe("Composables - useSalutations", () => {
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce(
           null as any
         );
-        const { getSalutations, fetchSalutations } = useSalutations(
-          rootContextMock
-        );
+        const { getSalutations, fetchSalutations } =
+          useSalutations(rootContextMock);
         await fetchSalutations();
         expect(getSalutations.value).toEqual([]);
       });
       it("should contain properly fetched salutations", async () => {
-        const { getSalutations, fetchSalutations } = useSalutations(
-          rootContextMock
-        );
+        const { getSalutations, fetchSalutations } =
+          useSalutations(rootContextMock);
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
           elements: [
             {
@@ -98,11 +96,8 @@ describe("Composables - useSalutations", () => {
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
           elements: null,
         } as any);
-        const {
-          mountedCallback,
-          getSalutations,
-          fetchSalutations,
-        } = useSalutations(rootContextMock);
+        const { mountedCallback, getSalutations, fetchSalutations } =
+          useSalutations(rootContextMock);
         await fetchSalutations();
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
           elements: [
@@ -153,11 +148,8 @@ describe("Composables - useSalutations", () => {
             },
           ],
         } as any);
-        const {
-          mountedCallback,
-          getSalutations,
-          fetchSalutations,
-        } = useSalutations(rootContextMock);
+        const { mountedCallback, getSalutations, fetchSalutations } =
+          useSalutations(rootContextMock);
         await fetchSalutations();
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
           elements: [

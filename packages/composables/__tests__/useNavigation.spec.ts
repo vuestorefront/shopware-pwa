@@ -66,9 +66,8 @@ describe("Composables - useNavigation", () => {
           },
         ] as any);
 
-        const { navigationElements, loadNavigationElements } = useNavigation(
-          rootContextMock
-        );
+        const { navigationElements, loadNavigationElements } =
+          useNavigation(rootContextMock);
         await loadNavigationElements({ depth: 2 });
         expect(navigationElements.value).toHaveLength(3);
       });
@@ -83,18 +82,16 @@ describe("Composables - useNavigation", () => {
           },
         ] as any);
 
-        const { navigationElements, fetchNavigationElements } = useNavigation(
-          rootContextMock
-        );
+        const { navigationElements, fetchNavigationElements } =
+          useNavigation(rootContextMock);
         await fetchNavigationElements(2);
         expect(navigationElements.value).toHaveLength(3);
       });
 
       it("should return an empty array for navigation if ther is no children", async () => {
         mockedGetPage.getStoreNavigation.mockResolvedValueOnce([] as any);
-        const { navigationElements, loadNavigationElements } = useNavigation(
-          rootContextMock
-        );
+        const { navigationElements, loadNavigationElements } =
+          useNavigation(rootContextMock);
         await loadNavigationElements({ depth: 2 });
         expect(navigationElements.value).toEqual([]);
       });
@@ -103,18 +100,16 @@ describe("Composables - useNavigation", () => {
         mockedGetPage.getStoreNavigation.mockResolvedValueOnce(
           undefined as any
         );
-        const { navigationElements, loadNavigationElements } = useNavigation(
-          rootContextMock
-        );
+        const { navigationElements, loadNavigationElements } =
+          useNavigation(rootContextMock);
         await loadNavigationElements({ depth: 2 });
         expect(navigationElements.value).toEqual([]);
       });
 
       it("should assign empty array for navigation if the response throws an error", async () => {
         mockedGetPage.getStoreNavigation.mockRejectedValueOnce("some error");
-        const { navigationElements, loadNavigationElements } = useNavigation(
-          rootContextMock
-        );
+        const { navigationElements, loadNavigationElements } =
+          useNavigation(rootContextMock);
         await loadNavigationElements({ depth: 2 });
         expect(navigationElements.value).toEqual([]);
         expect(consoleErrorSpy).toBeCalledWith(

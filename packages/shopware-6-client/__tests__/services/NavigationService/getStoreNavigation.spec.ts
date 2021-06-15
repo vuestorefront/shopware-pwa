@@ -29,9 +29,7 @@ describe("NavigationService - getStoreNavigation", () => {
       buildTree: false,
     });
     expect(mockedPost).toBeCalledTimes(1);
-    expect(
-      mockedPost
-    ).toBeCalledWith(
+    expect(mockedPost).toBeCalledWith(
       "/store-api/navigation/footer-navigation/footer-navigation",
       { limit: 10, buildTree: false, depth: 5 }
     );

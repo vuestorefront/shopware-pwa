@@ -95,9 +95,8 @@ describe("Composables - useCountries", () => {
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
           data: null,
         } as any);
-        const { fetchCountries, mountedCallback, getCountries } = useCountries(
-          rootContextMock
-        );
+        const { fetchCountries, mountedCallback, getCountries } =
+          useCountries(rootContextMock);
         await fetchCountries();
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
           elements: [
@@ -156,9 +155,8 @@ describe("Composables - useCountries", () => {
             },
           ],
         } as any);
-        const { fetchCountries, mountedCallback, getCountries } = useCountries(
-          rootContextMock
-        );
+        const { fetchCountries, mountedCallback, getCountries } =
+          useCountries(rootContextMock);
         await fetchCountries();
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
           elements: [

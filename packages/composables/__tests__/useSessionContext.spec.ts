@@ -225,9 +225,8 @@ describe("Composables - useSessionContext", () => {
           mockedApiClient.getSessionContext.mockResolvedValueOnce({
             token: "qwe",
           } as any);
-          const { sessionContext, refreshSessionContext } = useSessionContext(
-            rootContextMock
-          );
+          const { sessionContext, refreshSessionContext } =
+            useSessionContext(rootContextMock);
           await refreshSessionContext();
           expect(sessionContext.value).toEqual({ token: "qwe" });
         });
@@ -236,9 +235,8 @@ describe("Composables - useSessionContext", () => {
           mockedApiClient.getSessionContext.mockRejectedValueOnce({
             message: "Some error",
           } as any);
-          const { sessionContext, refreshSessionContext } = useSessionContext(
-            rootContextMock
-          );
+          const { sessionContext, refreshSessionContext } =
+            useSessionContext(rootContextMock);
           await refreshSessionContext();
           expect(sessionContext.value).toBeNull();
           expect(stateContext.value).toBeNull();
