@@ -21,9 +21,8 @@ describe("Composables - useBreadcrumbs", () => {
   describe("methods", () => {
     describe("clear", () => {
       it("should clear the local list of breadcrumbs after invokation of clear method", () => {
-        const { clear, setBreadcrumbs, breadcrumbs } = useBreadcrumbs(
-          rootContextMock
-        );
+        const { clear, setBreadcrumbs, breadcrumbs } =
+          useBreadcrumbs(rootContextMock);
         setBreadcrumbs([
           {
             name: "My account",

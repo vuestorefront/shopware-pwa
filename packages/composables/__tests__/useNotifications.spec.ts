@@ -63,9 +63,8 @@ describe("Composables - useNotifications", () => {
 
   describe("removeAll", () => {
     it("should reset the notifications list", () => {
-      const { pushError, notifications, removeAll } = useNotifications(
-        rootContextMock
-      );
+      const { pushError, notifications, removeAll } =
+        useNotifications(rootContextMock);
       pushError("An error occured");
       expect(notifications.value).toHaveLength(1);
       removeAll();
@@ -75,9 +74,8 @@ describe("Composables - useNotifications", () => {
   describe("removeOne", () => {
     it("should remove a notification by its ID", () => {
       jest.spyOn(Date.prototype, "getTime").mockReturnValue(1600081318135);
-      const { pushError, notifications, removeOne } = useNotifications(
-        rootContextMock
-      );
+      const { pushError, notifications, removeOne } =
+        useNotifications(rootContextMock);
       pushError("An error occured");
       expect(notifications.value).toHaveLength(1);
       removeOne(1600081318135);

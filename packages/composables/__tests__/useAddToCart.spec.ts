@@ -66,6 +66,30 @@ describe("Composables - useAddToCart", () => {
       });
     });
 
+    describe("getAvailableStock", () => {
+      it("should return null when no product", () => {
+        const { getAvailableStock } = useAddToCart(
+          rootContextMock,
+          null as any
+        );
+        expect(getAvailableStock.value).toBeNull();
+      });
+
+      it("should return null when no product available stock", () => {
+        const { getAvailableStock } = useAddToCart(rootContextMock, {
+          availableStock: null,
+        } as any);
+        expect(getAvailableStock.value).toBeNull();
+      });
+
+      it("should return a proper product available stock", () => {
+        const { getAvailableStock } = useAddToCart(rootContextMock, {
+          availableStock: 21,
+        } as any);
+        expect(getAvailableStock.value).toEqual(21);
+      });
+    });
+
     describe("isInCart", () => {
       it("should show that product is in cart", () => {
         cartItemsMock.value = [{ referencedId: "qwe" }];

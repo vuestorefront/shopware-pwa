@@ -142,10 +142,9 @@ export const useIntercept = (
 
   const broadcast = (broadcastKey: string, value?: any) => {
     if (interceptors[broadcastKey]?.length) {
-      interceptors[
-        broadcastKey
-      ].forEach((broadcastMethod: IInterceptorCallbackFunction) =>
-        broadcastMethod(value, rootContext)
+      interceptors[broadcastKey].forEach(
+        (broadcastMethod: IInterceptorCallbackFunction) =>
+          broadcastMethod(value, rootContext)
       );
     }
   };
