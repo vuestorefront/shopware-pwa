@@ -29,8 +29,7 @@ describe("Helpers - getProductMainImageUrl", () => {
   it("Should take the url from the media object first", () => {
     const product: any = {
       cover: {
-        url:
-          "https://shopware.test/media/8a/fd/cb/1572351035/msh06-gray_main_1.jpg",
+        url: "https://shopware.test/media/8a/fd/cb/1572351035/msh06-gray_main_1.jpg",
         media: {
           url: mediaUrl,
         },

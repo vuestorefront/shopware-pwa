@@ -82,7 +82,8 @@
         "properties",
         "manufacturer",
         "seoUrls",
-        "crossSellings"
+        "crossSellings",
+        "stock"
       ],
       "product_media": ["media"],
       "media": ["thumbnails", "width", "height", "url"],

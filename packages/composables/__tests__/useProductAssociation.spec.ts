@@ -72,14 +72,12 @@ describe("Composables - useProductAssociations", () => {
             associatedProducts: [],
           },
         });
-        const {
-          loadAssociations,
-          productAssociations,
-        } = useProductAssociations(
-          rootContextMock,
-          { id: "product-id" } as any,
-          "cross-selling"
-        );
+        const { loadAssociations, productAssociations } =
+          useProductAssociations(
+            rootContextMock,
+            { id: "product-id" } as any,
+            "cross-selling"
+          );
         await loadAssociations(undefined as any);
         expect(mockedAxios.invokePost).toBeCalledWith(
           {
@@ -99,27 +97,23 @@ describe("Composables - useProductAssociations", () => {
       });
       it("should not set incoming associations if response does not match for POST", async () => {
         mockedAxios.invokePost.mockResolvedValueOnce(undefined);
-        const {
-          loadAssociations,
-          productAssociations,
-        } = useProductAssociations(
-          rootContextMock,
-          { id: "product-id" } as any,
-          "cross-selling"
-        );
+        const { loadAssociations, productAssociations } =
+          useProductAssociations(
+            rootContextMock,
+            { id: "product-id" } as any,
+            "cross-selling"
+          );
         await loadAssociations(undefined as any);
         expect(productAssociations.value).toStrictEqual([]);
       });
       it("should set incoming associations if response matches for GET", async () => {
         mockedAxios.invokeGet.mockResolvedValueOnce({ data: 12345 });
-        const {
-          loadAssociations,
-          productAssociations,
-        } = useProductAssociations(
-          rootContextMock,
-          { id: "product-id" } as any,
-          "cross-selling"
-        );
+        const { loadAssociations, productAssociations } =
+          useProductAssociations(
+            rootContextMock,
+            { id: "product-id" } as any,
+            "cross-selling"
+          );
         await loadAssociations({ method: "get" } as any);
         expect(productAssociations.value).toStrictEqual(12345);
       });
