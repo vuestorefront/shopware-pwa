@@ -230,5 +230,12 @@
   "I have read and agree with the data protection regulations.": "I have read and agree with the data protection regulations.",
   "Read reviews": "Read reviews",
   "Write review": "Write review",
-  "Add review": "Add review"
+  "Add review": "Add review",
+  "Do not create a customer account": "Do not create a customer account",
+  "Use alternative shipping address": "Use alternative shipping address",
+  "Continue": "Continue",
+  "Choose your shipping method": "Choose your shipping method",
+  "Logged in as": "Logged in as {0}",
+  "Guest session": "Guest session",
+  "Login / Register": "Login / Register"
 }

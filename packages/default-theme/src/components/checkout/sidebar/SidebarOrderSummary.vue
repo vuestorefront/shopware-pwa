@@ -72,6 +72,7 @@ export default {
   padding: var(--spacer-sm);
   box-sizing: border-box;
   margin-bottom: var(--spacer-base);
+  padding-bottom: 100px;
   @include for-desktop {
     padding: var(--spacer-lg);
   }
