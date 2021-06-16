@@ -115,10 +115,11 @@ import {
   useCheckout,
   useUIState,
   useUser,
+  useCart,
   getApplicationContext,
 } from "@shopware-pwa/composables"
 import { getMessagesFromErrorsArray } from "@shopware-pwa/helpers"
-import { computed, ref } from "@vue/composition-api"
+import { computed, ref, watch } from "@vue/composition-api"
 import { handlePayment } from "@shopware-pwa/shopware-6-client"
 import SwRegistrationForm from "@/components/forms/SwRegistrationForm.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
@@ -148,6 +149,7 @@ export default {
     const { isLoggedIn, register, errors } = useUser(root)
     const { createOrder: invokeCreateOrder, loadings } = useCheckout(root)
     const { apiInstance } = getApplicationContext(root)
+    const { refreshCart } = useCart(root)
     const errorMessages = ref([])
 
     const registrationFormData = ref()
@@ -219,6 +221,10 @@ export default {
       }
     }
 
+    watch(isLoggedIn, () => {
+      refreshCart()
+    })
+
     function goToShop() {
       root.$router.push(root.$routing.getUrl("/"))
     }
@@ -235,7 +241,7 @@ export default {
       "LOGIN_MODAL_STATE"
     )
 
-    const $v = useVuelidate()
+    const $v = useVuelidate() as any // until vuelidate fix types
 
     return {
       isLoggedIn,

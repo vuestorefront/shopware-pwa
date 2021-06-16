@@ -52,11 +52,12 @@
 <script>
 import { SfHeading, SfRadio, SfLoader } from "@storefront-ui/vue"
 import {
+  useCart,
   useCheckout,
   useSessionContext,
   useUser,
 } from "@shopware-pwa/composables"
-import { computed, onMounted, ref } from "@vue/composition-api"
+import { computed, onMounted, ref, watch } from "@vue/composition-api"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { simplifyString } from "@/helpers"
@@ -73,6 +74,7 @@ export default {
   setup(props, { root }) {
     const { getPaymentMethods, paymentMethods } = useCheckout(root)
     const { paymentMethod, setPaymentMethod } = useSessionContext(root)
+    const { refreshCart } = useCart(root)
     const isLoading = ref(false)
     const activePaymentMethod = computed({
       get: () => paymentMethod.value && paymentMethod.value.id,
@@ -83,6 +85,10 @@ export default {
       isLoading.value = true
       await getPaymentMethods()
       isLoading.value = false
+    })
+
+    watch(paymentMethod, () => {
+      refreshCart()
     })
 
     return {

@@ -36,9 +36,7 @@ describe("ProductService - getCategoryProducts", () => {
       limit: 10,
     });
     expect(mockedPost).toBeCalledTimes(1);
-    expect(
-      mockedPost
-    ).toBeCalledWith(
+    expect(mockedPost).toBeCalledWith(
       "/store-api/product-listing/044a190a54ab4f06803909c3ee8063ef",
       { limit: 10 }
     );

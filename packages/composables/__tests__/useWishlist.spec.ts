@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import Vue from "vue";
 
 // Mock Vue Composition API onMounted method

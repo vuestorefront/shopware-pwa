@@ -35,6 +35,10 @@ export interface IUseAddToCart {
    */
   getStock: Ref<number | null>;
   /**
+   * Returns product count in available stock
+   */
+  getAvailableStock: Ref<number | null>;
+  /**
    * Flag if product is already in cart
    */
   isInCart: Ref<boolean>;
@@ -109,6 +113,8 @@ export const useAddToCart = (
 
   const getStock = computed(() => product && product.stock);
 
+  const getAvailableStock = computed(() => product && product.availableStock);
+
   const isInCart = computed(
     (): boolean =>
       product &&
@@ -121,6 +127,7 @@ export const useAddToCart = (
     error,
     loading,
     getStock,
+    getAvailableStock,
     isInCart,
     onAddToCart,
   };

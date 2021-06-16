@@ -157,6 +157,7 @@ export default {
     padding: var(--spacer-sm);
     justify-content: space-between;
     align-items: center;
+    min-height: 160px;
     p {
       margin: 0;
     }

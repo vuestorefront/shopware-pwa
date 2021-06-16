@@ -11,7 +11,9 @@ const defaultConfig: NuxtConfig = {
   telemetry: false,
   vue: {
     config: {
-      devtools: process.env.ENABLE_DEVTOOLS === "true",
+      devtools:
+        process.env.ENABLE_DEVTOOLS === "true" ||
+        process.env.NODE_ENV !== "production",
     },
   },
   env: {

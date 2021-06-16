@@ -79,8 +79,8 @@ describe("Composables - useProduct", () => {
       mockedAxios.getProductPage.mockResolvedValueOnce({} as any);
       const { loadAssociations } = useProduct(rootContextMock, loadedProduct);
       const includesParams = getDefaultApiParams()?.["useProduct"]?.includes;
-      const associationsParams = getDefaultApiParams()?.["useProduct"]
-        ?.associations;
+      const associationsParams =
+        getDefaultApiParams()?.["useProduct"]?.associations;
       loadAssociations({} as any);
       expect(mockedAxios.getProductPage).toBeCalledWith(
         "detail/1c3e927309014a67a07f3bb574f9e804",
