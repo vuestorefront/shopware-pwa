@@ -3,6 +3,28 @@
     <SwPluginSlot name="registration-form-before" />
     <div class="sw-form">
       <div class="inputs-group">
+        <SfSelect
+          v-model="salutationId"
+          :label="$t('Salutation')"
+          :error-message="$t('Salutation must be selected')"
+          :valid="!$v.salutationId.$error"
+          class="
+            sf-select--underlined
+            sw-form__select sw-form__input
+            sf-input--has-text
+          "
+          @blur="$v.salutationId.$touch()"
+        >
+          <SfSelectOption
+            v-for="salutationOption in getMappedSalutations"
+            :key="salutationOption.id"
+            :value="salutationOption.id"
+          >
+            {{ salutationOption.name }}
+          </SfSelectOption>
+        </SfSelect>
+      </div>
+      <div class="inputs-group">
         <SwInput
           v-model="firstName"
           name="registration-first-name"
@@ -124,6 +146,29 @@
       <!-- TODO: create smaller components for this form after vuelidate upgrade: https://github.com/vuestorefront/shopware-pwa/issues/1472 -->
       <div class="sw-form" v-if="isDifferentShippingAddress">
         <div class="inputs-group">
+          <SfSelect
+            v-model="alternativeSalutationId"
+            :label="$t('Salutation')"
+            :error-message="$t('Salutation must be selected')"
+            required
+            :valid="!$v.alternativeSalutationId.$error"
+            class="
+              sf-select--underlined
+              sw-form__select sw-form__input
+              sf-input--has-text
+            "
+            @blur="$v.alternativeSalutationId.$touch()"
+          >
+            <SfSelectOption
+              v-for="salutationOption in getMappedSalutations"
+              :key="salutationOption.id"
+              :value="salutationOption.id"
+            >
+              {{ salutationOption.name }}
+            </SfSelectOption>
+          </SfSelect>
+        </div>
+        <div class="inputs-group">
           <SwInput
             v-model="alternativeFirstName"
             name="firstName"
@@ -146,23 +191,6 @@
           />
         </div>
         <div class="inputs-group">
-          <!-- <SfSelect
-            v-model="address.salutation"
-            :label="$t('Salutation')"
-            :error-message="$t('Salutation must be selected')"
-            required
-            :valid="!$v.address.salutation.$error"
-            class="sf-select--underlined sw-form__select sw-form__input sf-input--has-text"
-            @blur="$v.address.salutation.$touch()"
-          >
-            <SfSelectOption
-              v-for="salutationOption in getMappedSalutations"
-              :key="salutationOption.id"
-              :value="salutationOption"
-            >
-              {{ salutationOption.name }}
-            </SfSelectOption>
-          </SfSelect> -->
           <SwInput
             v-model="alternativeStreet"
             name="alternativeStreet"
@@ -250,11 +278,7 @@ import {
   useSessionContext,
   useUser,
 } from "@shopware-pwa/composables"
-import {
-  mapCountries,
-  mapSalutations,
-  getMessagesFromErrorsArray,
-} from "@shopware-pwa/helpers"
+import { mapCountries, mapSalutations } from "@shopware-pwa/helpers"
 import SwInput from "@/components/atoms/SwInput.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import SwCheckbox from "@/components/atoms/SwCheckbox.vue"
@@ -293,12 +317,13 @@ export default {
       firstName: "",
       lastName: "",
       email: "",
-      salutation: null,
+      salutationId: null,
       countryId: countryId.value,
       street: "",
       city: "",
       zipcode: "",
       password: "",
+      alternativeSalutationId: null,
       alternativeFirstName: "",
       alternativeLastName: "",
       alternativeCountryId: countryId.value,
@@ -314,7 +339,8 @@ export default {
     const ourResultValue = computed(() => {
       const shippingAddress = {
         firstName: state.alternativeFirstName,
-        salutationId: getDefaultSalutationId.value,
+        salutationId:
+          state.alternativeSalutationId || getDefaultSalutationId.value,
         lastName: state.alternativeLastName,
         city: state.alternativeCity,
         street: state.alternativeStreet,
@@ -327,11 +353,11 @@ export default {
         email: state.email,
         password: state.password,
         guest: doNotCreateAccount.value,
-        salutationId: getDefaultSalutationId.value,
+        salutationId: state.salutationId || getDefaultSalutationId.value,
         storefrontUrl: root.$routing.pwaHost,
         billingAddress: {
           firstName: state.firstName,
-          salutationId: getDefaultSalutationId.value,
+          salutationId: state.salutationId || getDefaultSalutationId.value,
           lastName: state.lastName,
           city: state.city,
           street: state.street,
@@ -352,6 +378,14 @@ export default {
           (salutation) => salutation.salutationKey === "not_specified"
         )?.id
     )
+    watch(
+      getDefaultSalutationId,
+      () => {
+        state.salutationId = getDefaultSalutationId.value
+        state.alternativeSalutationId = getDefaultSalutationId.value
+      },
+      { immediate: true }
+    )
 
     watch(doNotCreateAccount, () => {
       if (!!doNotCreateAccount.value) state.password = ""
@@ -362,6 +396,7 @@ export default {
     })
 
     const rules = {
+      salutationId: {},
       firstName: {
         required,
       },
@@ -390,6 +425,7 @@ export default {
       countryId: {
         required,
       },
+      alternativeSalutationId: {},
       alternativeFirstName: {
         required: requiredIf(function () {
           return !!isDifferentShippingAddress.value
