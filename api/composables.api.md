@@ -160,6 +160,7 @@ export const INTERCEPTOR_KEYS: {
 export interface IUseAddToCart {
     addToCart: () => Promise<void>;
     error: Ref<string>;
+    getAvailableStock: Ref<number | null>;
     getStock: Ref<number | null>;
     isInCart: Ref<boolean>;
     loading: Ref<boolean>;
