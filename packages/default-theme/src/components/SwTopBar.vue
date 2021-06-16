@@ -3,6 +3,13 @@
     <template #right>
       <SwCurrencySwitcher class="sf-header__currency" />
       <SwLanguageSwitcher />
+      <div v-if="isLoggedIn" class="sw-logged-info">
+        <span v-if="isGuestSession"> {{ $t("Guest session") }} </span>
+        <span v-else> {{ $t("Logged in as", [user.firstName]) }} </span>
+        <SwButton @click="logout" class="sf-button--text">
+          {{ $t("Logout") }}
+        </SwButton>
+      </div>
     </template>
   </SfTopBar>
 </template>
@@ -11,12 +18,25 @@
 import { SfTopBar } from "@storefront-ui/vue"
 import SwCurrencySwitcher from "@/components/SwCurrencySwitcher.vue"
 import SwLanguageSwitcher from "@/components/SwLanguageSwitcher.vue"
+import { useUser } from "@shopware-pwa/composables"
+import SwButton from "@/components/atoms/SwButton.vue"
 
 export default {
   components: {
     SfTopBar,
     SwCurrencySwitcher,
     SwLanguageSwitcher,
+    SwButton,
+  },
+  setup(props, { root }) {
+    const { isGuestSession, isLoggedIn, logout, user } = useUser(root)
+
+    return {
+      isGuestSession,
+      isLoggedIn,
+      logout,
+      user,
+    }
   },
 }
 </script>
@@ -54,6 +74,17 @@ export default {
     &__icon {
       --icon-size: 1.25rem;
     }
+  }
+}
+
+.sw-logged-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 2rem;
+
+  span {
+    margin-right: 1rem;
   }
 }
 </style>

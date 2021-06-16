@@ -50,7 +50,7 @@
         v-if="allowGuestRegistration"
         v-model="doNotCreateAccount"
         name="doNotCreateAccount"
-        :label="$t('Do not create a customer account.')"
+        :label="$t('Do not create a customer account')"
         class="sw-form__input form__element form__element--small"
         data-cy="guest-registration-checkbox"
       />

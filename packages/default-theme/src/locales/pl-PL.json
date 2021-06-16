@@ -229,5 +229,12 @@
   "I have read and agree with the data protection regulations.": "Przeczytałem i akceptuję politykę prywatności.",
   "Read reviews": "Przeczytaj recenzje",
   "Write review": "napisz recenzję",
-  "Add review": "Dodaj recenzję"
+  "Add review": "Dodaj recenzję",
+  "Do not create a customer account": "Nie tworze konta, zamawiam jako gość",
+  "Use alternative shipping address": "Inny adres dostawy",
+  "Continue": "Kontynuuj",
+  "Choose your shipping method": "Wybierz metodę dostawy",
+  "Logged in as": "Zalogowany jako {0}",
+  "Guest session": "Sesja gościa",
+  "Login / Register": "Logowanie / Rejestracja"
 }

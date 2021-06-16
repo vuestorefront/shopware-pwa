@@ -225,8 +225,11 @@
   "Read reviews": "Bewertungen lesen",
   "Write review": "Bewertung schreiben",
   "Add review": "Bewertung hinzufügen",
-  "Do not create a customer account.": "Keinen Kundenaccount erstellen.",
+  "Do not create a customer account": "Keinen Kundenaccount erstellen.",
   "Use alternative shipping address": "Alternative Versandadresse verwenden",
   "Continue": "Weiter",
-  "Choose your shipping method": "Wählen Sie Ihre Versandart"
+  "Choose your shipping method": "Wählen Sie Ihre Versandart",
+  "Logged in as": "Angemeldet als {0}",
+  "Guest session": "Gastsitzung",
+  "Login / Register": "Anmelden / Registrieren"
 }
