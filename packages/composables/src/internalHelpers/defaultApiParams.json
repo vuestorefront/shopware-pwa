@@ -83,6 +83,8 @@
         "manufacturer",
         "seoUrls",
         "crossSellings",
+        "availableStock",
+        "customFields",
         "stock"
       ],
       "product_media": ["media"],
@@ -222,7 +224,9 @@
         "translated",
         "media",
         "seoUrls",
-        "crossSellings"
+        "crossSellings",
+        "availableStock",
+        "customFields"
       ],
       "product_media": ["media"],
       "media": ["url"],

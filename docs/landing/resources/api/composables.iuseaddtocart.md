@@ -21,6 +21,7 @@ export interface IUseAddToCart
 |  --- | --- | --- |
 |  [addToCart](./composables.iuseaddtocart.addtocart.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> Add to cart method |
 |  [error](./composables.iuseaddtocart.error.md) | Ref&lt;string&gt; | <b><i>(BETA)</i></b> Error message when adding to cart was not successful |
+|  [getAvailableStock](./composables.iuseaddtocart.getavailablestock.md) | Ref&lt;number \| null&gt; | <b><i>(BETA)</i></b> Returns product count in available stock |
 |  [getStock](./composables.iuseaddtocart.getstock.md) | Ref&lt;number \| null&gt; | <b><i>(BETA)</i></b> Returns product count in stock |
 |  [isInCart](./composables.iuseaddtocart.isincart.md) | Ref&lt;boolean&gt; | <b><i>(BETA)</i></b> Flag if product is already in cart |
 |  [loading](./composables.iuseaddtocart.loading.md) | Ref&lt;boolean&gt; | <b><i>(BETA)</i></b> Adding to cart is in progress |
