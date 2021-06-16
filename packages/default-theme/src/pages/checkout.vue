@@ -235,7 +235,7 @@ export default {
       "LOGIN_MODAL_STATE"
     )
 
-    const $v = useVuelidate()
+    const $v = useVuelidate() as any // until vuelidate fix types
 
     return {
       isLoggedIn,

@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { debounce } from "@shopware-pwa/helpers";
 
 describe("Shopware helpers - debounce", () => {

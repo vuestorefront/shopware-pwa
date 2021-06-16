@@ -84,7 +84,8 @@
         "seoUrls",
         "crossSellings",
         "availableStock",
-        "customFields"
+        "customFields",
+        "stock"
       ],
       "product_media": ["media"],
       "media": ["thumbnails", "width", "height", "url"],
