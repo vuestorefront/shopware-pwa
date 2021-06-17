@@ -1,4 +1,9 @@
-import { Ref, computed, UnwrapRef, reactive } from "@vue/composition-api";
+import {
+  computed,
+  UnwrapRef,
+  reactive,
+  ComputedRef,
+} from "@vue/composition-api";
 import { ShippingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
@@ -28,15 +33,15 @@ import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout
 export interface IUseCheckout {
   getShippingMethods: (options?: {
     forceReload: boolean;
-  }) => Promise<Readonly<Ref<readonly ShippingMethod[]>>>;
-  shippingMethods: Readonly<Ref<readonly ShippingMethod[]>>;
+  }) => Promise<ComputedRef<ShippingMethod[]>>;
+  shippingMethods: ComputedRef<ShippingMethod[]>;
   getPaymentMethods: (options?: {
     forceReload: boolean;
-  }) => Promise<Readonly<Ref<readonly PaymentMethod[]>>>;
-  paymentMethods: Readonly<Ref<readonly PaymentMethod[]>>;
+  }) => Promise<ComputedRef<PaymentMethod[]>>;
+  paymentMethods: ComputedRef<PaymentMethod[]>;
   createOrder: () => Promise<Order>;
-  shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
-  billingAddress: Readonly<Ref<Partial<BillingAddress> | undefined>>;
+  shippingAddress: ComputedRef<ShippingAddress | undefined>;
+  billingAddress: ComputedRef<Partial<BillingAddress> | undefined>;
   onOrderPlace: (fn: (params: { order: Order }) => void) => void;
   loadings: UnwrapRef<{
     createOrder: boolean;

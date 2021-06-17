@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
+shippingAddress: ComputedRef<ShippingAddress | undefined>;
 ```

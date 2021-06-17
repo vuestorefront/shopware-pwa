@@ -11,5 +11,5 @@
 <b>Signature:</b>
 
 ```typescript
-useCountry: (countryId: Ref<Readonly<string>>, countries: Ref<Readonly<Country[]>>) => UseCountry
+useCountry: (countryId: ComputedRef<string>, countries: ComputedRef<Country[]>) => UseCountry
 ```

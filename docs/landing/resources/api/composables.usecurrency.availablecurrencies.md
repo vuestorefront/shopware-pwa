@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-availableCurrencies: Readonly<Ref<readonly Currency[]>>;
+availableCurrencies: ComputedRef<Currency[]>;
 ```

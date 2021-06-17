@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { reactive, computed, Ref } from "@vue/composition-api";
+import { reactive, computed, ComputedRef } from "@vue/composition-api";
 import { getAvailableCurrencies } from "@shopware-pwa/shopware-6-client";
 import { useSessionContext, useCart } from "@shopware-pwa/composables";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
@@ -17,9 +17,9 @@ export interface UseCurrency {
     forceReload: boolean;
   }) => Promise<void>;
   setCurrency: (parameter: Partial<Currency>) => Promise<void>;
-  availableCurrencies: Readonly<Ref<readonly Currency[]>>;
-  currency: Readonly<Ref<Currency | null>>;
-  currencySymbol: Ref<Readonly<string>>;
+  availableCurrencies: ComputedRef<Currency[]>;
+  currency: ComputedRef<Currency | null>;
+  currencySymbol: ComputedRef<string>;
 }
 
 /**

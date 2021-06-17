@@ -1,4 +1,4 @@
-import { Ref, computed, ComputedRef } from "@vue/composition-api";
+import { computed, ComputedRef } from "@vue/composition-api";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
@@ -33,17 +33,17 @@ import { ApplicationVueContext } from "../appContext";
 export interface IUseSessionContext {
   sessionContext: ComputedRef<SessionContext | null>;
   refreshSessionContext: () => Promise<void>;
-  shippingMethod: Readonly<Ref<ShippingMethod | null>>;
+  shippingMethod: ComputedRef<ShippingMethod | null>;
   setShippingMethod: (shippingMethod: Partial<ShippingMethod>) => Promise<void>;
-  paymentMethod: Readonly<Ref<PaymentMethod | null>>;
+  paymentMethod: ComputedRef<PaymentMethod | null>;
   setPaymentMethod: (paymentMethod: Partial<PaymentMethod>) => Promise<void>;
-  currency: Readonly<Ref<Currency | null>>;
+  currency: ComputedRef<Currency | null>;
   setCurrency: (currency: Partial<Currency>) => Promise<void>;
-  activeShippingAddress: Readonly<Ref<ShippingAddress | null>>;
+  activeShippingAddress: ComputedRef<ShippingAddress | null>;
   setActiveShippingAddress: (
     address: Partial<ShippingAddress>
   ) => Promise<void>;
-  activeBillingAddress: Readonly<Ref<BillingAddress | null>>;
+  activeBillingAddress: ComputedRef<BillingAddress | null>;
   setActiveBillingAddress: (address: Partial<BillingAddress>) => Promise<void>;
   countryId: ComputedRef<string | undefined>;
   // events for interceptors

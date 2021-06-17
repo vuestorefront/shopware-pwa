@@ -1,4 +1,4 @@
-import { computed, ComputedRef, Ref } from "@vue/composition-api";
+import { computed, ComputedRef } from "@vue/composition-api";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 
 /**
@@ -6,16 +6,16 @@ import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/
  */
 export interface UseCountry {
   currentCountry: ComputedRef<Country | null>;
-  displayState: Readonly<Ref<boolean>>;
-  forceState: Readonly<Ref<boolean>>;
+  displayState: ComputedRef<boolean>;
+  forceState: ComputedRef<boolean>;
 }
 
 /**
  * @beta
  */
 export const useCountry = (
-  countryId: Ref<Readonly<string>>,
-  countries: Ref<Readonly<Country[]>>
+  countryId: ComputedRef<string>,
+  countries: ComputedRef<Country[]>
 ): UseCountry => {
   const currentCountry = computed(() => {
     if (!countryId.value) return null;

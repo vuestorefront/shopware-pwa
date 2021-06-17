@@ -1,16 +1,24 @@
 import Vue from "vue";
-import { Ref, ref, computed, reactive, onMounted } from "@vue/composition-api";
+import {
+  Ref,
+  ref,
+  computed,
+  reactive,
+  onMounted,
+  ComputedRef,
+} from "@vue/composition-api";
 import { getAvailableSalutations } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { getApplicationContext } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
+import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
 
 /**
  * @beta
  */
 export interface UseSalutations {
   mountedCallback: () => Promise<void>;
-  getSalutations: Ref<Readonly<any>>;
+  getSalutations: ComputedRef<Salutation[]>;
   fetchSalutations: () => Promise<void>;
   error: Ref<any>;
 }

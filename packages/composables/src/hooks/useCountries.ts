@@ -1,5 +1,12 @@
 import Vue from "vue";
-import { computed, Ref, ref, reactive, onMounted } from "@vue/composition-api";
+import {
+  computed,
+  Ref,
+  ref,
+  reactive,
+  onMounted,
+  ComputedRef,
+} from "@vue/composition-api";
 import { getAvailableCountries } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { getApplicationContext } from "@shopware-pwa/composables";
@@ -11,7 +18,7 @@ import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/
  */
 export interface UseCountries {
   mountedCallback: () => Promise<void>;
-  getCountries: Ref<Readonly<Country[]>>;
+  getCountries: ComputedRef<Country[]>;
   fetchCountries: () => Promise<void>;
   error: Ref<any>;
 }

@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-currencySymbol: Ref<Readonly<string>>;
+currencySymbol: ComputedRef<string>;
 ```
