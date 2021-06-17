@@ -6,6 +6,10 @@ env:
 on:
   pull_request:
     types: [opened, synchronize]
+    paths-ignore:
+      - "*.md"
+      - ".github/**"
+      - "docs/**"
 
 jobs:
   init:
