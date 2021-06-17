@@ -1,3 +1,28 @@
+## [0.9.1](https://github.com/DivanteLtd/shopware-pwa/compare/v0.9.0...v0.9.1) (2021-06-17)
+
+
+### Bug Fixes
+
+* **cli:** corrected prettierrc to mirror default-theme ([#1563](https://github.com/DivanteLtd/shopware-pwa/issues/1563)) ([c971563](https://github.com/DivanteLtd/shopware-pwa/commit/c971563e2f861fc3a6812d9f18683eec90d36004))
+* **cli:** typescript aliases and type checks in project template ([#1546](https://github.com/DivanteLtd/shopware-pwa/issues/1546)) ([fd22dfe](https://github.com/DivanteLtd/shopware-pwa/commit/fd22dfe7b2448072fd6fa3d9c6c413b8389a9766))
+* **compopsables:** proper type for computed ref in readonly refs ([#1566](https://github.com/DivanteLtd/shopware-pwa/issues/1566)) ([4316833](https://github.com/DivanteLtd/shopware-pwa/commit/4316833c85593e32bbc6fa627e9b0d0ea710956a))
+* **composables:** find product variant ([#1545](https://github.com/DivanteLtd/shopware-pwa/issues/1545)) ([bea7bd6](https://github.com/DivanteLtd/shopware-pwa/commit/bea7bd624fc2f3d06db90eb0e03cba20fd44039f))
+* **composables:** product available stock information ([#1551](https://github.com/DivanteLtd/shopware-pwa/issues/1551)) ([5c64d35](https://github.com/DivanteLtd/shopware-pwa/commit/5c64d350cde880205064276bced776c29afbe424))
+* **composables:** product stock includes param ([#1550](https://github.com/DivanteLtd/shopware-pwa/issues/1550)) ([9b76757](https://github.com/DivanteLtd/shopware-pwa/commit/9b767573e6de38539e2331dcd4b381d31db38657))
+* **default-theme:** auth middleware based on route names allowing to show account page ([#1564](https://github.com/DivanteLtd/shopware-pwa/issues/1564)) ([e2fc62b](https://github.com/DivanteLtd/shopware-pwa/commit/e2fc62b141e65a8e22d0f3e79ac0ee840922987b))
+* **default-theme:** refresh cart on changes during checkout ([#1559](https://github.com/DivanteLtd/shopware-pwa/issues/1559)) ([fe600af](https://github.com/DivanteLtd/shopware-pwa/commit/fe600af82dcbeb678474d2c363d80a9fed06c9aa))
+* **default-theme:** salutation in user registration form ([#1557](https://github.com/DivanteLtd/shopware-pwa/issues/1557)) ([dff03be](https://github.com/DivanteLtd/shopware-pwa/commit/dff03befb7016aa795b7c5f35eff4fbeeefe1764))
+* **default-theme:** ts error in checkout (vuelidate) ([#1556](https://github.com/DivanteLtd/shopware-pwa/issues/1556)) ([1f8c631](https://github.com/DivanteLtd/shopware-pwa/commit/1f8c6315e4a4510a0fee62f52e363773d899d4ce))
+* **nuxt-module:** revert devtools in non-production mode ([#1558](https://github.com/DivanteLtd/shopware-pwa/issues/1558)) ([ab14b1a](https://github.com/DivanteLtd/shopware-pwa/commit/ab14b1ad502f6a6b738667f507c548a994d3d854))
+
+
+### Features
+
+* **default-theme:** guest session address management and logout possibility ([#1562](https://github.com/DivanteLtd/shopware-pwa/issues/1562)) ([c1b4d77](https://github.com/DivanteLtd/shopware-pwa/commit/c1b4d779080e5dd8344e9fdc0bd1c7ad7d9f4965))
+* **default-theme:** updated german translations ([#1543](https://github.com/DivanteLtd/shopware-pwa/issues/1543)) ([b6c379d](https://github.com/DivanteLtd/shopware-pwa/commit/b6c379d2b01d3dcf42fe84b5520ef4c486abe2c5))
+
+
+
 # [0.9.0](https://github.com/DivanteLtd/shopware-pwa/compare/v0.8.1...v0.9.0) (2021-06-07)
 
 
