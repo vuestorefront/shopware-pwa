@@ -27,7 +27,7 @@ export interface ApplicationVueContext extends VueConstructor
 |  [$isServer?](./composables.applicationvuecontext._isserver.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [$route?](./composables.applicationvuecontext._route.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [$router?](./composables.applicationvuecontext._router.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
-|  [$routing](./composables.applicationvuecontext._routing.md) | Routing | <b><i>(BETA)</i></b> |
+|  [$routing](./composables.applicationvuecontext._routing.md) | [Routing](./composables.routing.md) | <b><i>(BETA)</i></b> |
 |  [$sharedStore?](./composables.applicationvuecontext._sharedstore.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [$shopwareApiInstance?](./composables.applicationvuecontext._shopwareapiinstance.md) | ShopwareApiInstance | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [$shopwareDefaults?](./composables.applicationvuecontext._shopwaredefaults.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
@@ -39,7 +39,7 @@ export interface ApplicationVueContext extends VueConstructor
 |  [isServer?](./composables.applicationvuecontext.isserver.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [route?](./composables.applicationvuecontext.route.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [router?](./composables.applicationvuecontext.router.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
-|  [routing](./composables.applicationvuecontext.routing.md) | Routing | <b><i>(BETA)</i></b> |
+|  [routing](./composables.applicationvuecontext.routing.md) | [Routing](./composables.routing.md) | <b><i>(BETA)</i></b> |
 |  [sharedStore?](./composables.applicationvuecontext.sharedstore.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [shopwareApiInstance?](./composables.applicationvuecontext.shopwareapiinstance.md) | ShopwareApiInstance | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [shopwareDefaults?](./composables.applicationvuecontext.shopwaredefaults.md) | any | <b><i>(BETA)</i></b> <i>(Optional)</i> |

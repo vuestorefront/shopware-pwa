@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-forceState: Readonly<Ref<boolean>>;
+forceState: ComputedRef<boolean>;
 ```

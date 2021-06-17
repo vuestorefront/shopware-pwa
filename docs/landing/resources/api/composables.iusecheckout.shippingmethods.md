@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-shippingMethods: Readonly<Ref<readonly ShippingMethod[]>>;
+shippingMethods: ComputedRef<ShippingMethod[]>;
 ```

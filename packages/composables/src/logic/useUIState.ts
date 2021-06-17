@@ -1,5 +1,11 @@
 import Vue from "vue";
-import { computed, reactive, ref, Ref } from "@vue/composition-api";
+import {
+  computed,
+  ComputedRef,
+  reactive,
+  ref,
+  Ref,
+} from "@vue/composition-api";
 import { getApplicationContext } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../appContext";
 
@@ -41,7 +47,7 @@ const sharedUIState: any = {};
 export const useUIState = (
   rootContext: ApplicationVueContext,
   stateName?: string
-): { isOpen: Readonly<Ref<boolean>>; switchState: (to?: boolean) => void } => {
+): { isOpen: ComputedRef<boolean>; switchState: (to?: boolean) => void } => {
   getApplicationContext(rootContext, "useUIState");
   if (stateName && !sharedUIState[stateName]) {
     sharedUIState[stateName] = Vue.observable({ state: false } as any);

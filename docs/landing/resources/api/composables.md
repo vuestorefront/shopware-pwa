@@ -34,6 +34,7 @@
 |  [IUseUser](./composables.iuseuser.md) | <b><i>(BETA)</i></b> interface for [useUser](./composables.useuser.md) composable |
 |  [IUseWishlist](./composables.iusewishlist.md) | <b><i>(BETA)</i></b> interface for [useWishlist](./composables.usewishlist.md) composable |
 |  [Notification\_2](./composables.notification_2.md) | <b><i>(BETA)</i></b> |
+|  [Routing](./composables.routing.md) | <b><i>(BETA)</i></b> |
 |  [UseCountries](./composables.usecountries.md) | <b><i>(BETA)</i></b> |
 |  [UseCountry](./composables.usecountry.md) | <b><i>(BETA)</i></b> |
 |  [UseCurrency](./composables.usecurrency.md) | <b><i>(BETA)</i></b> |

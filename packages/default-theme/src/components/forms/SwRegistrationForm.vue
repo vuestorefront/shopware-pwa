@@ -331,7 +331,7 @@ export default {
       alternativeCity: "",
       alternativeZipcode: "",
       alternativePhoneNumber: "",
-    })
+    } as any)
     watch(countryId, () => {
       state.countryId = countryId.value
     })

@@ -65,8 +65,6 @@ export interface ApplicationVueContext extends VueConstructor {
     $route?: any;
     // (undocumented)
     $router?: any;
-    // Warning: (ae-forgotten-export) The symbol "Routing" needs to be exported by the entry point index.d.ts
-    //
     // (undocumented)
     $routing: Routing;
     // (undocumented)
@@ -216,17 +214,17 @@ export interface IUseCart {
 // @beta
 export interface IUseCheckout {
     // (undocumented)
-    billingAddress: Readonly<Ref<Partial<BillingAddress> | undefined>>;
+    billingAddress: ComputedRef<Partial<BillingAddress> | undefined>;
     // (undocumented)
     createOrder: () => Promise<Order>;
     // (undocumented)
     getPaymentMethods: (options?: {
         forceReload: boolean;
-    }) => Promise<Readonly<Ref<readonly PaymentMethod[]>>>;
+    }) => Promise<ComputedRef<PaymentMethod[]>>;
     // (undocumented)
     getShippingMethods: (options?: {
         forceReload: boolean;
-    }) => Promise<Readonly<Ref<readonly ShippingMethod[]>>>;
+    }) => Promise<ComputedRef<ShippingMethod[]>>;
     // (undocumented)
     loadings: UnwrapRef<{
         createOrder: boolean;
@@ -236,11 +234,11 @@ export interface IUseCheckout {
         order: Order;
     }) => void) => void;
     // (undocumented)
-    paymentMethods: Readonly<Ref<readonly PaymentMethod[]>>;
+    paymentMethods: ComputedRef<PaymentMethod[]>;
     // (undocumented)
-    shippingAddress: Readonly<Ref<ShippingAddress | undefined>>;
+    shippingAddress: ComputedRef<ShippingAddress | undefined>;
     // (undocumented)
-    shippingMethods: Readonly<Ref<readonly ShippingMethod[]>>;
+    shippingMethods: ComputedRef<ShippingMethod[]>;
 }
 
 // @beta
@@ -352,13 +350,13 @@ export interface IUseProductQuickSearch {
 // @beta
 export interface IUseSessionContext {
     // (undocumented)
-    activeBillingAddress: Readonly<Ref<BillingAddress | null>>;
+    activeBillingAddress: ComputedRef<BillingAddress | null>;
     // (undocumented)
-    activeShippingAddress: Readonly<Ref<ShippingAddress | null>>;
+    activeShippingAddress: ComputedRef<ShippingAddress | null>;
     // (undocumented)
     countryId: ComputedRef<string | undefined>;
     // (undocumented)
-    currency: Readonly<Ref<Currency | null>>;
+    currency: ComputedRef<Currency | null>;
     // (undocumented)
     onCurrencyChange: (fn: (params: {
         currency: Currency;
@@ -372,7 +370,7 @@ export interface IUseSessionContext {
         shippingMethod: ShippingMethod;
     }) => void) => void;
     // (undocumented)
-    paymentMethod: Readonly<Ref<PaymentMethod | null>>;
+    paymentMethod: ComputedRef<PaymentMethod | null>;
     // (undocumented)
     refreshSessionContext: () => Promise<void>;
     // (undocumented)
@@ -388,7 +386,7 @@ export interface IUseSessionContext {
     // (undocumented)
     setShippingMethod: (shippingMethod: Partial<ShippingMethod>) => Promise<void>;
     // (undocumented)
-    shippingMethod: Readonly<Ref<ShippingMethod | null>>;
+    shippingMethod: ComputedRef<ShippingMethod | null>;
 }
 
 // @beta
@@ -503,6 +501,24 @@ interface Notification_2 {
 export { Notification_2 as Notification }
 
 // @beta (undocumented)
+export interface Routing {
+    // (undocumented)
+    availableDomains: any;
+    // (undocumented)
+    fallbackDomain: string | undefined;
+    // (undocumented)
+    fallbackLocale: string | undefined;
+    // (undocumented)
+    getCurrentDomain: ComputedRef<string>;
+    // (undocumented)
+    getUrl: (path: string) => string;
+    // (undocumented)
+    pwaHost: string | undefined;
+    // (undocumented)
+    setCurrentDomain: (domainData: any) => void;
+}
+
+// @beta (undocumented)
 export type Search = (path: string, associations?: any) => any;
 
 // @beta
@@ -543,7 +559,7 @@ export interface UseCountries {
     // (undocumented)
     fetchCountries: () => Promise<void>;
     // (undocumented)
-    getCountries: Ref<Readonly<Country[]>>;
+    getCountries: ComputedRef<Country[]>;
     // (undocumented)
     mountedCallback: () => Promise<void>;
 }
@@ -556,22 +572,22 @@ export interface UseCountry {
     // (undocumented)
     currentCountry: ComputedRef<Country | null>;
     // (undocumented)
-    displayState: Readonly<Ref<boolean>>;
+    displayState: ComputedRef<boolean>;
     // (undocumented)
-    forceState: Readonly<Ref<boolean>>;
+    forceState: ComputedRef<boolean>;
 }
 
 // @beta (undocumented)
-export const useCountry: (countryId: Ref<Readonly<string>>, countries: Ref<Readonly<Country[]>>) => UseCountry;
+export const useCountry: (countryId: ComputedRef<string>, countries: ComputedRef<Country[]>) => UseCountry;
 
 // @beta (undocumented)
 export interface UseCurrency {
     // (undocumented)
-    availableCurrencies: Readonly<Ref<readonly Currency[]>>;
+    availableCurrencies: ComputedRef<Currency[]>;
     // (undocumented)
-    currency: Readonly<Ref<Currency | null>>;
+    currency: ComputedRef<Currency | null>;
     // (undocumented)
-    currencySymbol: Ref<Readonly<string>>;
+    currencySymbol: ComputedRef<string>;
     // (undocumented)
     loadAvailableCurrencies: (options?: {
         forceReload: boolean;
@@ -645,7 +661,7 @@ export interface UseSalutations {
     // (undocumented)
     fetchSalutations: () => Promise<void>;
     // (undocumented)
-    getSalutations: Ref<Readonly<any>>;
+    getSalutations: ComputedRef<Salutation[]>;
     // (undocumented)
     mountedCallback: () => Promise<void>;
 }
@@ -664,7 +680,7 @@ export function useSharedState(rootContext: ApplicationVueContext): {
 
 // @beta
 export const useUIState: (rootContext: ApplicationVueContext, stateName?: string | undefined) => {
-    isOpen: Readonly<Ref<boolean>>;
+    isOpen: ComputedRef<boolean>;
     switchState: (to?: boolean | undefined) => void;
 };
 

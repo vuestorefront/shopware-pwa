@@ -23,14 +23,14 @@ SessionContext contain all related data like user, currency, country, shippingMe
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [activeBillingAddress](./composables.iusesessioncontext.activebillingaddress.md) | Readonly&lt;Ref&lt;BillingAddress \| null&gt;&gt; | <b><i>(BETA)</i></b> |
-|  [activeShippingAddress](./composables.iusesessioncontext.activeshippingaddress.md) | Readonly&lt;Ref&lt;ShippingAddress \| null&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [activeBillingAddress](./composables.iusesessioncontext.activebillingaddress.md) | ComputedRef&lt;BillingAddress \| null&gt; | <b><i>(BETA)</i></b> |
+|  [activeShippingAddress](./composables.iusesessioncontext.activeshippingaddress.md) | ComputedRef&lt;ShippingAddress \| null&gt; | <b><i>(BETA)</i></b> |
 |  [countryId](./composables.iusesessioncontext.countryid.md) | ComputedRef&lt;string \| undefined&gt; | <b><i>(BETA)</i></b> |
-|  [currency](./composables.iusesessioncontext.currency.md) | Readonly&lt;Ref&lt;Currency \| null&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [currency](./composables.iusesessioncontext.currency.md) | ComputedRef&lt;Currency \| null&gt; | <b><i>(BETA)</i></b> |
 |  [onCurrencyChange](./composables.iusesessioncontext.oncurrencychange.md) | (fn: (params: { currency: Currency; }) =&gt; void) =&gt; void | <b><i>(BETA)</i></b> |
 |  [onPaymentMethodChange](./composables.iusesessioncontext.onpaymentmethodchange.md) | (fn: (params: { paymentMethod: PaymentMethod; }) =&gt; void) =&gt; void | <b><i>(BETA)</i></b> |
 |  [onShippingMethodChange](./composables.iusesessioncontext.onshippingmethodchange.md) | (fn: (params: { shippingMethod: ShippingMethod; }) =&gt; void) =&gt; void | <b><i>(BETA)</i></b> |
-|  [paymentMethod](./composables.iusesessioncontext.paymentmethod.md) | Readonly&lt;Ref&lt;PaymentMethod \| null&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [paymentMethod](./composables.iusesessioncontext.paymentmethod.md) | ComputedRef&lt;PaymentMethod \| null&gt; | <b><i>(BETA)</i></b> |
 |  [refreshSessionContext](./composables.iusesessioncontext.refreshsessioncontext.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [sessionContext](./composables.iusesessioncontext.sessioncontext.md) | ComputedRef&lt;SessionContext \| null&gt; | <b><i>(BETA)</i></b> |
 |  [setActiveBillingAddress](./composables.iusesessioncontext.setactivebillingaddress.md) | (address: Partial&lt;BillingAddress&gt;) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
@@ -38,5 +38,5 @@ SessionContext contain all related data like user, currency, country, shippingMe
 |  [setCurrency](./composables.iusesessioncontext.setcurrency.md) | (currency: Partial&lt;Currency&gt;) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [setPaymentMethod](./composables.iusesessioncontext.setpaymentmethod.md) | (paymentMethod: Partial&lt;PaymentMethod&gt;) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [setShippingMethod](./composables.iusesessioncontext.setshippingmethod.md) | (shippingMethod: Partial&lt;ShippingMethod&gt;) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
-|  [shippingMethod](./composables.iusesessioncontext.shippingmethod.md) | Readonly&lt;Ref&lt;ShippingMethod \| null&gt;&gt; | <b><i>(BETA)</i></b> |
+|  [shippingMethod](./composables.iusesessioncontext.shippingmethod.md) | ComputedRef&lt;ShippingMethod \| null&gt; | <b><i>(BETA)</i></b> |
 

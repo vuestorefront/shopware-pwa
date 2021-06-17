@@ -12,5 +12,5 @@
 ```typescript
 getShippingMethods: (options?: {
         forceReload: boolean;
-    }) => Promise<Readonly<Ref<readonly ShippingMethod[]>>>;
+    }) => Promise<ComputedRef<ShippingMethod[]>>;
 ```
