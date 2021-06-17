@@ -31,12 +31,12 @@
     "dayjs": "^1.10.5",
     "node-sass": "^6.0.0",
     "html-to-vue": "^1.4.0",
-    "nuxt": "^2.15.6",
+    "nuxt": "^2.15.7",
     "sass-loader": "^10.0.3",
     "vue-i18n": "^8.24.4"
   },
   "devDependencies": {
-    "@babel/runtime-corejs3": "^7.14.5",
+    "@babel/runtime-corejs3": "^7.14.6",
     "@nuxtjs/eslint-config": "^6.0.1",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@shopware-pwa/cli": "0.9.1",
