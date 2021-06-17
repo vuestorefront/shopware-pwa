@@ -3,6 +3,7 @@
 exports[`nuxt-module - extendNuxtConfig should return default config keys 1`] = `
 Array [
   "telemetry",
+  "vue",
   "env",
   "server",
   "head",

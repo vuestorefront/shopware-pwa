@@ -181,7 +181,7 @@ describe("Composables - useProductConfigurator", () => {
       it("should invoke invokePost method once on variant found", async () => {
         mockedAxios.invokePost.mockResolvedValue({
           data: {
-            data: [
+            elements: [
               {
                 id: "variant-id",
               },

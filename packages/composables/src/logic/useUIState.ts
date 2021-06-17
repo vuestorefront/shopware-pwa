@@ -1,4 +1,4 @@
-import { computed, ref, Ref } from "vue-demi";
+import { computed, ComputedRef, ref, Ref } from "vue-demi";
 import { useSharedState } from "@shopware-pwa/composables";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
@@ -38,7 +38,7 @@ import { ApplicationVueContext, getApplicationContext } from "../appContext";
 export const useUIState = (
   rootContext: ApplicationVueContext,
   stateName?: string
-): { isOpen: Readonly<Ref<boolean>>; switchState: (to?: boolean) => void } => {
+): { isOpen: ComputedRef<boolean>; switchState: (to?: boolean) => void } => {
   getApplicationContext(rootContext, "useUIState");
   const { sharedRef } = useSharedState(rootContext);
   const _sharedState = sharedRef(`sw-useUIState-${stateName}`);

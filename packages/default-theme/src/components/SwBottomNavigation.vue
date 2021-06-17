@@ -35,7 +35,7 @@
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
         icon="profile"
-        :label="$t('My Account')"
+        :label="userIconDescription"
         class="menu-button"
         data-cy="bottom-navigation-account"
       >
@@ -47,7 +47,7 @@
             @click:close="userIconActive = false"
           >
             <SfList class="mobile-nav-list">
-              <SfListItem>
+              <SfListItem v-if="!isGuestSession">
                 <SfMenuItem
                   :label="$t('My Account')"
                   :icon="null"
@@ -165,9 +165,13 @@ export default {
     const { switchState: toggleModal } = useUIState(root, "LOGIN_MODAL_STATE")
     const { isLoggedIn, isGuestSession, logout } = useUser(root)
     const { count } = useCart(root)
-    const isMyAccountActive = computed(
-      () => isLoggedIn.value && !isGuestSession.value
-    )
+    const isMyAccountActive = computed(() => isLoggedIn.value)
+
+    const userIconDescription = computed(() => {
+      if (!isLoggedIn.value) return root.$t("Login / Register")
+      if (isGuestSession.value) return root.$t("Guest session")
+      return root.$t(`My Account`)
+    })
 
     return {
       logout,
@@ -177,6 +181,8 @@ export default {
       toggleModal,
       count,
       isMyAccountActive,
+      isGuestSession,
+      userIconDescription,
     }
   },
   computed: {
@@ -199,6 +205,7 @@ export default {
       this.$router.push(this.$routing.getUrl(PAGE_ACCOUNT))
     },
     async logoutUser() {
+      this.userIconActive = false
       await this.logout()
       this.$router.push(this.$routing.getUrl("/"))
     },

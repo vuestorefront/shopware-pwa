@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 // Mock Vue Composition API onMounted method
 import vueComp, { ref } from "vue-demi";
 (vueComp.onMounted as any) = jest.fn();

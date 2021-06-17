@@ -1,4 +1,4 @@
-import { computed, Ref } from "vue-demi";
+import { computed, Ref, ComputedRef } from "vue-demi";
 import { getAvailableCurrencies } from "@shopware-pwa/shopware-6-client";
 import {
   useSessionContext,
@@ -16,9 +16,9 @@ export interface UseCurrency {
     forceReload: boolean;
   }) => Promise<void>;
   setCurrency: (parameter: Partial<Currency>) => Promise<void>;
-  availableCurrencies: Readonly<Ref<readonly Currency[]>>;
-  currency: Readonly<Ref<Currency | null>>;
-  currencySymbol: Ref<Readonly<string>>;
+  availableCurrencies: ComputedRef<Currency[]>;
+  currency: ComputedRef<Currency | null>;
+  currencySymbol: ComputedRef<string>;
 }
 
 /**

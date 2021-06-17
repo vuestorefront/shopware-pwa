@@ -13,7 +13,7 @@ Simple state management for UI purposes.
 
 ```typescript
 useUIState: (rootContext: ApplicationVueContext, stateName?: string | undefined) => {
-    isOpen: Readonly<Ref<boolean>>;
+    isOpen: ComputedRef<boolean>;
     switchState: (to?: boolean | undefined) => void;
 }
 ```

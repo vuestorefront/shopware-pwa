@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-paymentMethods: Readonly<Ref<readonly PaymentMethod[]>>;
+paymentMethods: ComputedRef<PaymentMethod[]>;
 ```

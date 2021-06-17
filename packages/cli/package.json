@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/cli",
-  "version": "0.8.1",
+  "version": "0.9.1",
   "description": "Shopware PWA CLI",
   "types": "build/types/types.d.ts",
   "bin": {
@@ -29,8 +29,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@shopware-pwa/shopware-6-client": "0.8.1",
-    "chokidar": "^3.5.1",
+    "@shopware-pwa/shopware-6-client": "0.9.1",
+    "chokidar": "^3.5.2",
     "gluegun": "^4.6.1",
     "md5-hex": "^4.0.0",
     "request": "^2.88.2",
@@ -40,16 +40,16 @@
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@types/node": "^14.14.37",
-    "jest": "^26.6.3",
+    "jest": "^27.0.4",
     "lodash": "^4.17.21",
-    "prettier": "^2.3.0",
+    "prettier": "^2.3.1",
     "sort-package-json": "^1.50.0",
-    "ts-jest": "^26.5.6",
+    "ts-jest": "^27.0.3",
     "ts-node": "^9.1.1",
     "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0",
     "tslint-config-standard": "^9.0.0",
-    "typescript": "^4.2.4"
+    "typescript": "^4.3.3"
   },
   "jest": {
     "preset": "ts-jest",

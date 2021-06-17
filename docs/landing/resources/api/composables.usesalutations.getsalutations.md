@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-getSalutations: Ref<Readonly<any>>;
+getSalutations: ComputedRef<Salutation[]>;
 ```

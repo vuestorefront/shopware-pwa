@@ -21,6 +21,8 @@ describe("Composables - useUser", () => {
 
   const interceptMock = jest.fn();
   const broadcastMock = jest.fn();
+  const refreshSessionContextMock = jest.fn();
+  const refreshCartMock = jest.fn();
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -32,9 +34,21 @@ describe("Composables - useUser", () => {
       } as any;
     });
 
+    mockedComposables.useSessionContext.mockImplementation(() => {
+      return {
+        refreshSessionContext: refreshSessionContextMock,
+      } as any;
+    });
+
     mockedComposables.useSharedState.mockImplementation(() => {
       return {
         sharedRef: () => stateUser,
+      } as any;
+    });
+
+    mockedComposables.useCart.mockImplementation(() => {
+      return {
+        refreshCart: refreshCartMock,
       } as any;
     });
 
@@ -214,6 +228,21 @@ describe("Composables - useUser", () => {
         expect(isLoggedIn.value).toBeTruthy();
         expect(error.value).toBeFalsy();
       });
+
+      it("should refresh cart after login", async () => {
+        mockedApiClient.login.mockResolvedValueOnce({
+          "sw-context-token": "qweqwe",
+        } as any);
+        mockedApiClient.getCustomer.mockResolvedValue({
+          id: "123",
+        } as any);
+        const { login } = useUser(rootContextMock);
+        await login({
+          username: "qwe@qwe.com",
+          password: "correctPassword",
+        });
+        expect(refreshCartMock).toBeCalled();
+      });
     });
 
     describe("register", () => {
@@ -256,6 +285,13 @@ describe("Composables - useUser", () => {
         await register({} as any);
         expect(user.value).toStrictEqual({});
       });
+
+      it("should refresh session context after user registration", async () => {
+        mockedApiClient.register.mockResolvedValueOnce(undefined as any);
+        const { register } = useUser(rootContextMock);
+        await register({} as any);
+        expect(refreshSessionContextMock).toBeCalled();
+      });
     });
 
     describe("logout", () => {
@@ -270,6 +306,17 @@ describe("Composables - useUser", () => {
         await logout();
         expect(isLoggedIn.value).toBeFalsy();
         expect(error.value).toBeFalsy();
+      });
+
+      it("should refresh cart after logout", async () => {
+        stateUser.value = { id: "111" };
+        mockedApiClient.logout.mockResolvedValueOnce({
+          "sw-context-token": "qweqwe",
+        } as any);
+        mockedApiClient.getCustomer.mockResolvedValueOnce(null as any);
+        const { logout } = useUser(rootContextMock);
+        await logout();
+        expect(refreshCartMock).toBeCalled();
       });
 
       it("should show an error when user is not logged out", async () => {

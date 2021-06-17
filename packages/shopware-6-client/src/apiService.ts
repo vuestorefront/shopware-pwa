@@ -122,14 +122,8 @@ export function _createInstance(initialConfig: ClientSettings = {}) {
 export function createInstance(
   initialConfig: ClientSettings = {}
 ): ShopwareApiInstance {
-  const {
-    onConfigChange,
-    config,
-    setup,
-    update,
-    invoke,
-    defaults,
-  } = _createInstance(initialConfig);
+  const { onConfigChange, config, setup, update, invoke, defaults } =
+    _createInstance(initialConfig);
 
   return {
     onConfigChange,

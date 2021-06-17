@@ -96,7 +96,6 @@ export default {
 .table {
   &__description {
     text-align: left;
-    flex: 0 0 20rem;
   }
   &__data {
     text-align: center;
@@ -106,8 +105,9 @@ export default {
   }
   &__quantity {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     padding-left: 20px;
+    --quantity-selector-height: 2rem;
     font-size: var(--font-size--lg);
     & > * {
       --quantity-selector-width: 6rem;
@@ -119,6 +119,7 @@ export default {
   }
 
   &__image {
+    max-width: 100px;
     &--caption {
       font-size: 0.75em;
     }

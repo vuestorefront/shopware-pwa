@@ -55,35 +55,40 @@ import { useUser, useSessionContext } from "@shopware-pwa/composables"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
+import { reactive, toRefs } from "@vue/composition-api"
 
 export default {
   name: "SwLogin",
   components: { SwButton, SwInput, SfAlert, SwPluginSlot },
-  data() {
-    return {
-      email: "",
-      password: "",
-    }
-  },
   setup(props, { root }) {
     const { login, loading, error: userError } = useUser(root)
     const { refreshSessionContext } = useSessionContext(root)
+
+    const state = reactive({
+      email: "",
+      password: "",
+    })
+
+    const rules = {
+      email: {
+        required,
+        email,
+      },
+      password: {
+        required,
+      },
+    }
+
+    const $v = useVuelidate(rules, state)
+
     return {
       clientLogin: login,
       isLoading: loading,
       userError,
       refreshSessionContext,
-      $v: useVuelidate(),
+      $v,
+      ...toRefs(state),
     }
-  },
-  validations: {
-    email: {
-      required,
-      email,
-    },
-    password: {
-      required,
-    },
   },
   methods: {
     async invokeLogin() {

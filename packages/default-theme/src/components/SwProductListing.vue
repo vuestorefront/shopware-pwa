@@ -59,6 +59,7 @@
         </template>
         <template #next>
           <span
+            :class="{ 'next-disabled': getCurrentPage === getTotalPagesCount }"
             class="cms-element-product-listing__pagination__number"
             @click="changePage(getCurrentPage + 1)"
           >
@@ -139,6 +140,9 @@ export default {
     const { isOpen: isListView } = useUIState(root, "PRODUCT_LISTING_STATE")
 
     const changePage = async (pageNumber) => {
+      if (pageNumber > getTotalPagesCount.value) {
+        return
+      }
       window.scrollTo(0, 0)
       await changeCurrentPage(pageNumber)
     }
@@ -317,6 +321,10 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
     &__number {
       margin: 0 5px;
       cursor: pointer;
+    }
+
+    .next-disabled {
+      display: none;
     }
   }
   &__slide-enter {

@@ -22,9 +22,9 @@
           <SwInput
             v-model="reviewTitle"
             type="text"
-            :label="$t('Title')"
+            :label="$t('Subject')"
             name="title"
-            :error-message="$t('Title is required')"
+            :error-message="$t('This field is required')"
             class="small input"
           />
 

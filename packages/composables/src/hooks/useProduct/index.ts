@@ -54,13 +54,11 @@ export const useProduct = (
     };
 
     const urlPath = `detail/${product.value.parentId || product.value.id}`;
-    const {
-      product: { crossSellings },
-    } = await getProductPage(urlPath, searchCriteria, apiInstance);
+    const result = await getProductPage(urlPath, searchCriteria, apiInstance);
 
     // load only children; other properties are loaded synchronously
     product.value = Object.assign({}, product.value, {
-      crossSellings,
+      crossSellings: result.product?.crossSellings,
     });
   };
 

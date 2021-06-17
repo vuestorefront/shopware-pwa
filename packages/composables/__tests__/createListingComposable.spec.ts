@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { Ref, ref } from "vue-demi";
 
 import { createListingComposable } from "../src/factories/createListingComposable";
@@ -158,6 +161,37 @@ describe("Composables - createListingComposable", () => {
           manufacturer: ["1234567"],
         },
       });
+    });
+
+    it("should invoke searchMethod for 2 times and change shared listing on invocation for initial and applied listing once currentFilters have applied filters", async () => {
+      searchMethodMock.mockReturnValue({
+        aggregations: "12345",
+      });
+      const { search } = createListingComposable({
+        rootContext: rootContextMock as any,
+        listingKey: "testKey",
+        searchDefaults: {
+          properties: "12221212122",
+        },
+        searchMethod: searchMethodMock,
+      });
+      await search({});
+      expect(searchMethodMock).toBeCalledTimes(2);
+      expect(mockedAppliedListing.value).toEqual({ aggregations: "12345" });
+    });
+    it("should invoke searchMethod for 2 times and change shared listing on invocation for initial and applied listing once currentFilters have applied filters", async () => {
+      searchMethodMock.mockReturnValue(undefined);
+      const { search } = createListingComposable({
+        rootContext: rootContextMock as any,
+        listingKey: "testKey",
+        searchDefaults: {
+          properties: "12221212122",
+        },
+        searchMethod: searchMethodMock,
+      });
+      await search({});
+      expect(searchMethodMock).toBeCalledTimes(2);
+      expect(mockedAppliedListing.value).toEqual({ aggregations: undefined });
     });
   });
 
@@ -667,7 +701,7 @@ describe("Composables - createListingComposable", () => {
       });
     });
 
-    it("should show loading on searching", async (resolve) => {
+    it("should show loading on searching", (resolve) => {
       const { initSearch, loading } = createListingComposable({
         rootContext: rootContextMock as any,
         listingKey: "testKey",
@@ -675,7 +709,7 @@ describe("Composables - createListingComposable", () => {
         searchMethod: searchMethodMock,
       });
       expect(loading.value).toEqual(false);
-      await initSearch({ limit: 5 }).then(() => {
+      initSearch({ limit: 5 }).then(() => {
         expect(loading.value).toEqual(false);
         resolve();
       });

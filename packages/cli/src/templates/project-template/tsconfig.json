@@ -9,10 +9,14 @@
     "sourceMap": true,
     "strict": true,
     "noEmit": true,
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
     "baseUrl": ".",
     "paths": {
       "~/*": ["./*"],
-      "@/*": ["./.shopware-pwa/source/*"]
+      "@/*": ["./.shopware-pwa/source/*"],
+      "sw-plugins/*": ["./.shopware-pwa/sw-plugins/*"]
     },
     "types": ["@types/node", "@nuxt/types"]
   },

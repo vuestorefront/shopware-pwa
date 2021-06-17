@@ -166,7 +166,13 @@ import SwErrorsList from "@/components/SwErrorsList.vue"
 
 export default {
   name: "SwAddressForm",
-  components: { SfAlert, SwInput, SwButton, SfComponentSelect, SwErrorsList },
+  components: {
+    SfAlert,
+    SwInput,
+    SwButton,
+    SfComponentSelect,
+    SwErrorsList,
+  },
   props: {
     address: {
       type: Object,
@@ -256,13 +262,14 @@ export default {
       pushSuccess,
       formErrors,
       existingAddress,
-      $v: useVuelidate(),
+      $v: useVuelidate({ $scope: "addressForm", $stopPropagation: true }),
     }
   },
   methods: {
     async updateAddress() {
-      this.$v.$touch()
-      if (this.$v.$invalid) {
+      this.$v.$reset()
+      const isFormCorrect = await this.$v.$validate()
+      if (!isFormCorrect) {
         return
       }
       const addressId = await this.saveAddress()
@@ -293,11 +300,11 @@ export default {
       city: {
         required,
       },
-      state: {
-        required: requiredIf(function () {
-          return this.forceState
-        }),
-      },
+      // state: {
+      //   required: requiredIf(function () {
+      //     return this.forceState
+      //   }),
+      // },
       zipcode: {
         required,
       },

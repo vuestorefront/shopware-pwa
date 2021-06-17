@@ -140,7 +140,16 @@ export function createListingComposable<ELEMENTS_TYPE>({
       // prepare full criteria using defaults and currently selected criteria
       const searchCriteria = merge({}, searchDefaults, criteria);
       const result = await searchMethod(searchCriteria);
-      _storeAppliedListing.value = result;
+      // TODO: investigate why filters are not complete
+      const allFiltersResult = await searchMethod({
+        query: searchCriteria.query,
+        includes: { product_listing: ["aggregations"] },
+      });
+      _storeAppliedListing.value = Object.assign({}, result, {
+        aggregations: allFiltersResult?.aggregations,
+      });
+      // final result should be:
+      // _storeAppliedListing.value = result;
     } catch (e) {
       throw e;
     } finally {
