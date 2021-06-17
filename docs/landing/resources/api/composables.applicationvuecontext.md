@@ -5,6 +5,7 @@
 ## ApplicationVueContext type
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
+> 
 
 Application Context for Shopware PWA. It's an extended Vue instance.
 
@@ -12,29 +13,31 @@ Application Context for Shopware PWA. It's an extended Vue instance.
 
 ```typescript
 export declare type ApplicationVueContext = ComponentInstance & {
-  $shopwareApiInstance?: ShopwareApiInstance;
-  shopwareApiInstance?: ShopwareApiInstance;
-  $routing: Routing;
-  routing: Routing;
-  $store?: any;
-  store?: any;
-  $route?: any;
-  $router?: any;
-  router?: any;
-  route?: any;
-  $i18n?: any;
-  i18n?: any;
-  $cookies?: any;
-  cookies?: any;
-  shopwareDefaults?: any;
-  $shopwareDefaults?: any;
-  $interceptors?: any;
-  interceptors?: any;
-  $sharedStore?: any;
-  sharedStore?: any;
-  $instanceStore?: any;
-  instanceStore?: any;
-  $isServer?: any;
-  isServer?: any;
+    $shopwareApiInstance?: ShopwareApiInstance;
+    shopwareApiInstance?: ShopwareApiInstance;
+    $routing: Routing;
+    routing: Routing;
+    $store?: any;
+    store?: any;
+    $route?: any;
+    $router?: any;
+    router?: any;
+    route?: any;
+    $i18n?: any;
+    i18n?: any;
+    $cookies?: any;
+    cookies?: any;
+    shopwareDefaults?: any;
+    $shopwareDefaults?: any;
+    $interceptors?: any;
+    interceptors?: any;
+    $sharedStore?: any;
+    sharedStore?: any;
+    $instanceStore?: any;
+    instanceStore?: any;
+    $isServer?: any;
+    isServer?: any;
 };
 ```
+<b>References:</b> [Routing](./composables.routing.md)
+
