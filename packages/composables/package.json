@@ -28,7 +28,7 @@
     "axios": "^0.21.1",
     "cookie-universal": "^2.1.5",
     "query-string": "^7.0.0",
-    "vue-demi": "^0.9.0",
+    "vue-demi": "^0.9.1",
     "lodash": "^4.17.21"
   },
   "peerDependencies": {
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "vue": "^2.6.14",
-    "@vue/composition-api": "^1.0.0-rc.11"
+    "@vue/composition-api": "^1.0.0-rc.12"
   },
   "publishConfig": {
     "access": "public"
