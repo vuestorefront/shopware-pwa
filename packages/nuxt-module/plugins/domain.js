@@ -1,5 +1,5 @@
 import Middleware from "./middleware";
-import { computed } from "@vue/composition-api";
+import { computed } from "vue-demi";
 import { useSessionContext, useSharedState } from "@shopware-pwa/composables";
 const FALLBACK_DOMAIN = "<%= options.fallbackDomain %>" || "/";
 const FALLBACK_LOCALE = "<%= options.fallbackLocale %>";
