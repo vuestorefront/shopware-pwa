@@ -1,7 +1,4 @@
-import Vue from "vue";
-import VueCompositionApi, { Ref, ref } from "@vue/composition-api";
-Vue.use(VueCompositionApi);
-
+import { Ref, ref } from "vue-demi";
 // Mock API client
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 jest.mock("@shopware-pwa/shopware-6-client");

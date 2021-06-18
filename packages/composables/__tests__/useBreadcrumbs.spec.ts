@@ -1,9 +1,9 @@
-import Vue from "vue";
-
-import VueCompositionApi from "@vue/composition-api";
-Vue.use(VueCompositionApi);
-
+import { ref, Ref } from "vue-demi";
 import { useBreadcrumbs } from "../src/logic/useBreadcrumbs";
+import * as Composables from "@shopware-pwa/composables";
+import { Breadcrumb } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 
 describe("Composables - useBreadcrumbs", () => {
   const rootContextMock: any = {
@@ -14,8 +14,17 @@ describe("Composables - useBreadcrumbs", () => {
     },
     $routing: jest.fn(),
   };
+  const stateSharedRef: Ref<Breadcrumb[] | null> = ref(null);
+
   beforeEach(() => {
     jest.resetAllMocks();
+    stateSharedRef.value = null;
+
+    mockedComposables.useSharedState.mockImplementation(() => {
+      return {
+        sharedRef: () => stateSharedRef,
+      } as any;
+    });
   });
 
   describe("methods", () => {

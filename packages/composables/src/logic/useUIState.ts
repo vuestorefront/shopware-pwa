@@ -1,15 +1,6 @@
-import Vue from "vue";
-import {
-  computed,
-  ComputedRef,
-  reactive,
-  ref,
-  Ref,
-} from "@vue/composition-api";
-import { getApplicationContext } from "@shopware-pwa/composables";
-import { ApplicationVueContext } from "../appContext";
-
-const sharedUIState: any = {};
+import { computed, ComputedRef, ref, Ref } from "vue-demi";
+import { useSharedState } from "@shopware-pwa/composables";
+import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
 /**
  * Simple state management for UI purposes.
@@ -49,20 +40,18 @@ export const useUIState = (
   stateName?: string
 ): { isOpen: ComputedRef<boolean>; switchState: (to?: boolean) => void } => {
   getApplicationContext(rootContext, "useUIState");
-  if (stateName && !sharedUIState[stateName]) {
-    sharedUIState[stateName] = Vue.observable({ state: false } as any);
-  }
-  const localMappedState: { state: boolean } | undefined =
-    stateName && reactive(sharedUIState[stateName]);
+  const { sharedRef } = useSharedState(rootContext);
+  const _sharedState = sharedRef(`sw-useUIState-${stateName}`);
   const localState: Ref<boolean> = ref(false);
 
-  const isOpen = computed(() => localMappedState?.state || localState.value);
+  const isOpen = computed(() =>
+    stateName ? !!_sharedState.value : !!localState.value
+  );
 
   function switchState(to?: boolean) {
     if (stateName) {
-      const stateToChange =
-        to !== undefined ? !!to : !sharedUIState[stateName].state;
-      sharedUIState[stateName].state = stateToChange;
+      const stateToChange = to !== undefined ? !!to : !_sharedState.value;
+      _sharedState.value = stateToChange;
     } else {
       const stateToChange = to !== undefined ? !!to : !localState.value;
       localState.value = stateToChange;

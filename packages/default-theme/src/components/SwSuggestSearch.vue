@@ -30,8 +30,8 @@
             <span class="search-suggestions__product-price">
               <SfPrice
                 class="sw-price"
-                :regular="getProductRegularPrice(product) | price"
-                :special="getProductSpecialPrice(product) | price"
+                :regular="filterPrice(getProductRegularPrice(product))"
+                :special="filterPrice(getProductSpecialPrice(product))"
               />
             </span>
           </span>
@@ -68,6 +68,7 @@ import {
 } from "@shopware-pwa/helpers"
 import SwImage from "@/components/atoms/SwImage.vue"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
+import { usePriceFilter } from "@/logic/usePriceFilter.js"
 
 export default {
   components: {
@@ -100,6 +101,7 @@ export default {
   setup() {
     return {
       getProductUrl,
+      filterPrice: usePriceFilter(),
     }
   },
   directives: { clickOutside },

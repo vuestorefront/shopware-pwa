@@ -24,3 +24,5 @@ jobs:
           tag_name: ${{ github.ref }}
           body: |
             Please refer to [CHANGELOG.md](${{ env.REPO_URL }}/blob/master/CHANGELOG.md) for details.
+
+            Migration guides and changes between versions can be found here: https://shopware-pwa-docs.vuestorefront.io/landing/operations/migrations/

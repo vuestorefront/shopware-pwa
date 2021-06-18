@@ -1,4 +1,4 @@
-import { computed, ComputedRef } from "@vue/composition-api";
+import { computed, ComputedRef } from "vue-demi";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 
 /**

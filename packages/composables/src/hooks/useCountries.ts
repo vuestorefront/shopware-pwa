@@ -1,16 +1,8 @@
-import Vue from "vue";
-import {
-  computed,
-  Ref,
-  ref,
-  reactive,
-  onMounted,
-  ComputedRef,
-} from "@vue/composition-api";
+import { computed, Ref, ref, onMounted, ComputedRef } from "vue-demi";
 import { getAvailableCountries } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { getApplicationContext } from "@shopware-pwa/composables";
-import { ApplicationVueContext } from "../appContext";
+import { useSharedState } from "@shopware-pwa/composables";
+import { ApplicationVueContext, getApplicationContext } from "../appContext";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 
 /**
@@ -23,10 +15,6 @@ export interface UseCountries {
   error: Ref<any>;
 }
 
-const sharedCountries = Vue.observable({
-  countries: null,
-} as any);
-
 /**
  * @beta
  */
@@ -34,13 +22,16 @@ export const useCountries = (
   rootContext: ApplicationVueContext
 ): UseCountries => {
   const { apiInstance } = getApplicationContext(rootContext, "useCountries");
-  const localCountries = reactive(sharedCountries);
+  const { sharedRef } = useSharedState(rootContext);
+  const _sharedCountried: Ref<Country[] | null> = sharedRef(
+    "sw-useCountries-countries"
+  );
   const error: Ref<any> = ref(null);
 
   const fetchCountries = async (): Promise<void> => {
     try {
       const { elements } = await getAvailableCountries(apiInstance);
-      sharedCountries.countries = elements;
+      _sharedCountried.value = elements;
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
@@ -48,11 +39,11 @@ export const useCountries = (
   };
 
   const getCountries = computed(() => {
-    return localCountries.countries ?? [];
+    return _sharedCountried.value ?? [];
   });
 
   const mountedCallback = async () => {
-    if (!sharedCountries.countries) {
+    if (!_sharedCountried.value) {
       await fetchCountries();
     }
   };

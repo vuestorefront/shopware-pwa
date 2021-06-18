@@ -1,9 +1,4 @@
-import {
-  computed,
-  UnwrapRef,
-  reactive,
-  ComputedRef,
-} from "@vue/composition-api";
+import { computed, UnwrapRef, reactive, ComputedRef } from "vue-demi";
 import { ShippingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";

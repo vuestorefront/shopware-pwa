@@ -1,16 +1,8 @@
-import Vue from "vue";
-import {
-  Ref,
-  ref,
-  computed,
-  reactive,
-  onMounted,
-  ComputedRef,
-} from "@vue/composition-api";
+import { Ref, ref, computed, onMounted, ComputedRef } from "vue-demi";
 import { getAvailableSalutations } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { getApplicationContext } from "@shopware-pwa/composables";
-import { ApplicationVueContext } from "../appContext";
+import { useSharedState } from "@shopware-pwa/composables";
+import { ApplicationVueContext, getApplicationContext } from "../appContext";
 import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
 
 /**
@@ -23,10 +15,6 @@ export interface UseSalutations {
   error: Ref<any>;
 }
 
-const sharedSalutations = Vue.observable({
-  salutations: null,
-} as any);
-
 /**
  * @beta
  */
@@ -34,14 +22,17 @@ export const useSalutations = (
   rootContext: ApplicationVueContext
 ): UseSalutations => {
   const { apiInstance } = getApplicationContext(rootContext, "useSalutations");
+  const { sharedRef } = useSharedState(rootContext);
+  const _salutations: Ref<Salutation[] | null> = sharedRef(
+    "sw-useSalutations-salutations"
+  );
 
-  const localSalutations = reactive(sharedSalutations);
   const error: Ref<any> = ref(null);
 
   const fetchSalutations = async (): Promise<void> => {
     try {
       const { elements } = await getAvailableSalutations(apiInstance);
-      sharedSalutations.salutations = elements;
+      _salutations.value = elements;
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.message;
@@ -50,13 +41,13 @@ export const useSalutations = (
 
   // created separate function for testing proposes
   const mountedCallback = async () => {
-    if (!sharedSalutations.salutations) {
+    if (!_salutations.value) {
       await fetchSalutations();
     }
   };
 
   const getSalutations = computed(() => {
-    return localSalutations.salutations ?? [];
+    return _salutations.value || [];
   });
 
   onMounted(mountedCallback);

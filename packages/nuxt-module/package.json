@@ -37,13 +37,11 @@
     "he": "^1.2.0",
     "lodash": "^4.17.21",
     "path": "^0.12.7",
-    "vue": "^2.6.14",
     "vue-loader": "^15.9.7",
     "vue-meta": "^2.4.0",
     "vue-router": "^3.5.1",
     "vue-server-renderer": "^2.6.14",
-    "vue-template-compiler": "^2.6.14",
-    "vuex": "^3.6.2"
+    "vue-template-compiler": "^2.6.14"
   },
   "publishConfig": {
     "access": "public"

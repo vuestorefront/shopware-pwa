@@ -1,7 +1,3 @@
-import Vue from "vue";
-import VueCompositionApi from "@vue/composition-api";
-Vue.use(VueCompositionApi);
-
 import * as Composables from "@shopware-pwa/composables";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;

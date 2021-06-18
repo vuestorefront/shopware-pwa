@@ -1,6 +1,4 @@
-import Vue from "vue";
-import VueCompositionApi, { Ref, ref } from "@vue/composition-api";
-Vue.use(VueCompositionApi);
+import { Ref, ref } from "vue-demi";
 
 import * as Composables from "@shopware-pwa/composables";
 jest.mock("@shopware-pwa/composables");

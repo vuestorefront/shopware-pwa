@@ -8,7 +8,7 @@ import {
 } from "@shopware-pwa/composables";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { ComputedRef, Ref, ref } from "@vue/composition-api";
+import { ComputedRef, Ref, ref } from "vue-demi";
 
 /**
  * @beta

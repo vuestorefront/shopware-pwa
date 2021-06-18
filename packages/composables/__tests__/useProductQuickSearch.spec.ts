@@ -1,7 +1,4 @@
-import Vue from "vue";
-import VueCompositionApi, { ref } from "@vue/composition-api";
-Vue.use(VueCompositionApi);
-
+import { ref } from "vue-demi";
 import { useProductQuickSearch } from "../src/logic/useProductQuickSearch";
 
 import * as Composables from "@shopware-pwa/composables";

@@ -396,11 +396,11 @@ jobs:
           ../packages/cli/bin/shopware-pwa init --username=${{ secrets.SHOPWARE_ADMIN_USER }} --password=${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --pwaHost=${{ env.PWA_HOST }} --ci --devMode --stage local
       - name: Build test project
         run: |
-          cd ./test-project
-          yarn build
-          cd ..
           node ./scripts/yalcPushPackages.js
           node ./scripts/yalcLinkTestProject.js
+          cd ./test-project
+          yarn
+          yarn build
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@2.19
         if: github.repository_owner	== 'vuestorefront'

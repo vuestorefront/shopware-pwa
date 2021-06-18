@@ -1,9 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import Vue from "vue";
-import VueCompositionApi, { Ref, ref } from "@vue/composition-api";
-Vue.use(VueCompositionApi);
+import { Ref, ref } from "vue-demi";
 
 import { createListingComposable } from "../src/factories/createListingComposable";
 

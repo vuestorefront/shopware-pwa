@@ -1,4 +1,4 @@
-import { computed, ComputedRef } from "@vue/composition-api";
+import { computed, ComputedRef } from "vue-demi";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";

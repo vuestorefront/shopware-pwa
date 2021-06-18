@@ -1,13 +1,12 @@
-import Vue from "vue";
-import { reactive, computed, ComputedRef } from "@vue/composition-api";
+import { computed, Ref, ComputedRef } from "vue-demi";
 import { getAvailableCurrencies } from "@shopware-pwa/shopware-6-client";
-import { useSessionContext, useCart } from "@shopware-pwa/composables";
+import {
+  useSessionContext,
+  useCart,
+  useSharedState,
+} from "@shopware-pwa/composables";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
-
-const sharedCurrencyState = Vue.observable({
-  availableCurrencies: [],
-} as any);
 
 /**
  * @beta
@@ -29,19 +28,18 @@ export const useCurrency = (
   rootContext: ApplicationVueContext
 ): UseCurrency => {
   const { apiInstance } = getApplicationContext(rootContext, "useCurrency");
+  const { sharedRef } = useSharedState(rootContext);
+  const _availableCurrencies: Ref<Currency[] | null> = sharedRef(
+    "sw-useCurrency-availableCurrencies"
+  );
 
   const { currency, setCurrency: setContextCurrency } =
     useSessionContext(rootContext);
   const { refreshCart } = useCart(rootContext);
-  const localState: { availableCurrencies: Currency[] } =
-    reactive(sharedCurrencyState);
   const currencySymbol = computed(() => currency.value?.symbol || "");
   const availableCurrencies = computed(() => {
-    if (
-      Array.isArray(localState.availableCurrencies) &&
-      localState.availableCurrencies.length
-    ) {
-      return localState.availableCurrencies as Currency[];
+    if (_availableCurrencies.value?.length) {
+      return _availableCurrencies.value;
     }
     return currency.value ? [currency.value] : [];
   });
@@ -49,14 +47,9 @@ export const useCurrency = (
   const loadAvailableCurrencies = async (options?: {
     forceReload: boolean;
   }): Promise<void> => {
-    if (
-      !options?.forceReload &&
-      Array.isArray(localState.availableCurrencies) &&
-      localState.availableCurrencies.length
-    )
-      return;
+    if (!options?.forceReload && _availableCurrencies.value?.length) return;
     const response = await getAvailableCurrencies(apiInstance);
-    sharedCurrencyState.availableCurrencies = response?.elements;
+    _availableCurrencies.value = response?.elements;
   };
 
   const setCurrency = async (currency: Partial<Currency>): Promise<void> => {

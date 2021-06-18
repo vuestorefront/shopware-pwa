@@ -1,8 +1,4 @@
-import Vue from "vue";
-import VueCompositionApi from "@vue/composition-api";
 import { useDefaults, getDefaultApiParams } from "@shopware-pwa/composables";
-
-Vue.use(VueCompositionApi);
 const consoleWarnSpy = jest.spyOn(console, "warn");
 
 describe("Composables - useDefaults", () => {

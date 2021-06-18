@@ -1,6 +1,4 @@
-import Vue from "vue";
-import VueCompositionApi, { ref, Ref } from "@vue/composition-api";
-Vue.use(VueCompositionApi);
+import { ref, Ref } from "vue-demi";
 
 import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";

@@ -11,7 +11,8 @@ import { BillingAddress } from '@shopware-pwa/commons/interfaces/models/checkout
 import { Breadcrumb } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
-import { ComputedRef } from '@vue/composition-api';
+import { ComponentInstance } from 'vue-demi';
+import { ComputedRef } from 'vue-demi';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { CrossSelling } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
@@ -35,7 +36,7 @@ import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/cont
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { PropertyGroup } from '@shopware-pwa/commons/interfaces/models/content/property/PropertyGroup';
-import { Ref } from '@vue/composition-api';
+import { Ref } from 'vue-demi';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
 import { ShippingAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress';
@@ -45,61 +46,36 @@ import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces/search/Se
 import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { StoreNavigationType } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
-import { UnwrapRef } from '@vue/composition-api';
-import { VueConstructor } from 'vue';
-import { WritableComputedRef } from '@vue/composition-api';
+import { UnwrapRef } from 'vue-demi';
+import { WritableComputedRef } from 'vue-demi';
 
 // @beta
-export interface ApplicationVueContext extends VueConstructor {
-    // (undocumented)
-    $cookies?: any;
-    // (undocumented)
-    $i18n?: any;
-    // (undocumented)
-    $instanceStore?: any;
-    // (undocumented)
-    $interceptors?: any;
-    // (undocumented)
-    $isServer?: any;
-    // (undocumented)
-    $route?: any;
-    // (undocumented)
-    $router?: any;
-    // (undocumented)
-    $routing: Routing;
-    // (undocumented)
-    $sharedStore?: any;
-    // (undocumented)
+export type ApplicationVueContext = ComponentInstance & {
     $shopwareApiInstance?: ShopwareApiInstance;
-    // (undocumented)
-    $shopwareDefaults?: any;
-    // (undocumented)
-    $store?: any;
-    // (undocumented)
-    cookies?: any;
-    // (undocumented)
-    i18n?: any;
-    // (undocumented)
-    instanceStore?: any;
-    // (undocumented)
-    interceptors?: any;
-    // (undocumented)
-    isServer?: any;
-    // (undocumented)
-    route?: any;
-    // (undocumented)
-    router?: any;
-    // (undocumented)
-    routing: Routing;
-    // (undocumented)
-    sharedStore?: any;
-    // (undocumented)
     shopwareApiInstance?: ShopwareApiInstance;
-    // (undocumented)
-    shopwareDefaults?: any;
-    // (undocumented)
+    $routing: Routing;
+    routing: Routing;
+    $store?: any;
     store?: any;
-}
+    $route?: any;
+    $router?: any;
+    router?: any;
+    route?: any;
+    $i18n?: any;
+    i18n?: any;
+    $cookies?: any;
+    cookies?: any;
+    shopwareDefaults?: any;
+    $shopwareDefaults?: any;
+    $interceptors?: any;
+    interceptors?: any;
+    $sharedStore?: any;
+    sharedStore?: any;
+    $instanceStore?: any;
+    instanceStore?: any;
+    $isServer?: any;
+    isServer?: any;
+};
 
 // @beta
 export function createListingComposable<ELEMENTS_TYPE>({ rootContext, searchMethod, searchDefaults, listingKey, }: {
