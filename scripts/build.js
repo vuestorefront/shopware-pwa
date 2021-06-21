@@ -92,7 +92,9 @@ async function runBuild({
   const buildTarget = format === "esm" ? "es2020" : "es2015";
 
   try {
-    const external = Object.keys(packageJson.dependencies);
+    const dependencies = Object.keys(packageJson.dependencies || {});
+    const peerDependencies = Object.keys(packageJson.peerDependencies || {});
+    const external = [...dependencies, ...peerDependencies];
     await esBuild({
       entryPoints: [path.join("packages", target, "src", "index.ts")],
       outfile: path.join("packages", target, "dist", `${target}.${format}.js`),
@@ -204,9 +206,8 @@ async function build(target) {
     const { Extractor, ExtractorConfig } = require("@microsoft/api-extractor");
 
     const extractorConfigPath = path.resolve(pkgDir, `api-extractor.json`);
-    const extractorConfig = ExtractorConfig.loadFileAndPrepare(
-      extractorConfigPath
-    );
+    const extractorConfig =
+      ExtractorConfig.loadFileAndPrepare(extractorConfigPath);
     const result = Extractor.invoke(extractorConfig, {
       localBuild: !isCIRun,
       showVerboseMessages: true,

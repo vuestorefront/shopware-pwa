@@ -1,18 +1,16 @@
-import Vue from "vue";
-import { computed, reactive } from "@vue/composition-api";
+import { computed } from "vue-demi";
+import { useSharedState } from "@shopware-pwa/composables";
 
 const allowDevMode = "true" === "<%= props.allowDevMode %>";
 
-const sharedState = Vue.observable({
-  slotsAreVisible: false,
-});
-
 export const usePlugins = (rootContext) => {
-  const localState = reactive(sharedState);
+  const { sharedRef } = useSharedState(rootContext);
+  const visibleDevSlots = sharedRef("sw-usePlugins-visibleDevSlots");
+
   const showPluginSlots = computed({
-    get: () => localState.slotsAreVisible,
+    get: () => !!visibleDevSlots.value,
     set: (value) => {
-      if (allowDevMode) localState.slotsAreVisible = value;
+      if (allowDevMode) visibleDevSlots.value = value;
     },
   });
 

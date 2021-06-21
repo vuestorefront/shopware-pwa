@@ -1,10 +1,7 @@
-import Vue from "vue";
-import VueCompostionApi from "@vue/composition-api";
-import { Ref, ref } from "@vue/composition-api";
+import { Ref, ref } from "vue-demi";
 import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
-Vue.use(VueCompostionApi);
 
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
@@ -25,11 +22,13 @@ describe("Composables - useCurrency", () => {
   const rootContextMock: any = {
     $shopwareApiInstance: jest.fn(),
   };
+  const stateSharedRef = ref();
 
   beforeEach(async () => {
     jest.resetAllMocks();
     stateContext.value = null;
     mockedCurrentCurrency.value = null;
+    stateSharedRef.value = null;
     mockedComposables.useSessionContext.mockImplementation(() => {
       return {
         refreshSessionContext: refreshSessionContextMock,
@@ -42,7 +41,15 @@ describe("Composables - useCurrency", () => {
         refreshCart: refreshCartMock,
       } as any;
     });
-    mockedApiClient.getAvailableCurrencies.mockResolvedValue([] as any);
+    mockedApiClient.getAvailableCurrencies.mockResolvedValue({
+      elements: [],
+    } as any);
+
+    mockedComposables.useSharedState.mockImplementation(() => {
+      return {
+        sharedRef: () => stateSharedRef,
+      } as any;
+    });
   });
 
   afterEach(async () => {

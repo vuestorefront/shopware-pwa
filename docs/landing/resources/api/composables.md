@@ -19,7 +19,6 @@
 
 |  Interface | Description |
 |  --- | --- |
-|  [ApplicationVueContext](./composables.applicationvuecontext.md) | <b><i>(BETA)</i></b> Application Context for Shopware PWA. It's an extended Vue instance. |
 |  [IInterceptorCallbackFunction](./composables.iinterceptorcallbackfunction.md) | <b><i>(BETA)</i></b> interface for the callback function of interceptors |
 |  [IUseAddToCart](./composables.iuseaddtocart.md) | <b><i>(BETA)</i></b> interface for [useAddToCart](./composables.useaddtocart.md) composable |
 |  [IUseCart](./composables.iusecart.md) | <b><i>(BETA)</i></b> interface for [useCart](./composables.usecart.md) composable |
@@ -34,6 +33,7 @@
 |  [IUseUser](./composables.iuseuser.md) | <b><i>(BETA)</i></b> interface for [useUser](./composables.useuser.md) composable |
 |  [IUseWishlist](./composables.iusewishlist.md) | <b><i>(BETA)</i></b> interface for [useWishlist](./composables.usewishlist.md) composable |
 |  [Notification\_2](./composables.notification_2.md) | <b><i>(BETA)</i></b> |
+|  [Routing](./composables.routing.md) | <b><i>(BETA)</i></b> |
 |  [UseCountries](./composables.usecountries.md) | <b><i>(BETA)</i></b> |
 |  [UseCountry](./composables.usecountry.md) | <b><i>(BETA)</i></b> |
 |  [UseCurrency](./composables.usecurrency.md) | <b><i>(BETA)</i></b> |
@@ -70,6 +70,7 @@
 
 |  Type Alias | Description |
 |  --- | --- |
+|  [ApplicationVueContext](./composables.applicationvuecontext.md) | <b><i>(BETA)</i></b> Application Context for Shopware PWA. It's an extended Vue instance. |
 |  [listingKey](./composables.listingkey.md) | <b><i>(BETA)</i></b> |
 |  [Search](./composables.search.md) | <b><i>(BETA)</i></b> |
 

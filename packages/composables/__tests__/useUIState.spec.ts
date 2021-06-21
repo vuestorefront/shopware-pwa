@@ -1,15 +1,25 @@
-import Vue from "vue";
-import VueCompositionApi from "@vue/composition-api";
-Vue.use(VueCompositionApi);
-import { useUIState } from "@shopware-pwa/composables";
+import { ref } from "vue-demi";
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+
+import { useUIState } from "../src/logic/useUIState";
 
 describe("Composables - useUIState", () => {
   const rootContextMock: any = {
     $shopwareApiInstance: jest.fn(),
   };
+  const stateSharedRef = ref();
 
   beforeEach(() => {
     jest.resetAllMocks();
+    stateSharedRef.value = false;
+
+    mockedComposables.useSharedState.mockImplementation(() => {
+      return {
+        sharedRef: () => stateSharedRef,
+      } as any;
+    });
   });
   describe("local state", () => {
     it("should have isOpen state false by default", () => {
@@ -61,7 +71,7 @@ describe("Composables - useUIState", () => {
       expect(isOpen2.value).toEqual(true);
     });
 
-    it("should change shared instande to desired state", () => {
+    it("should change shared instance to desired state", () => {
       const { isOpen, switchState } = useUIState(
         rootContextMock,
         "some-test-key3"

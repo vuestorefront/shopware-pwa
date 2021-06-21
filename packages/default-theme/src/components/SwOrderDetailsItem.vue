@@ -5,13 +5,13 @@
       <div class="product-sku">{{ product.productNumber }}</div>
     </SfTableData>
     <SfTableData class="table__data table__price">
-      <SfPrice :regular="getUnitPrice | price" class="product-price" />
+      <SfPrice :regular="filterPrice(getUnitPrice)" class="product-price" />
     </SfTableData>
     <SfTableData class="table__data table__quantity">
       {{ getQuantity }}
     </SfTableData>
     <SfTableData class="table__data table__amount">
-      <SfPrice :regular="getTotalPrice | price" class="product-price" />
+      <SfPrice :regular="filterPrice(getTotalPrice)" class="product-price" />
     </SfTableData>
   </SfTableRow>
 </template>
@@ -22,6 +22,7 @@ import {
   SfPrice,
   SfQuantitySelector,
 } from "@storefront-ui/vue"
+import { usePriceFilter } from "@/logic/usePriceFilter.js"
 
 export default {
   name: "OrderItem",
@@ -37,15 +38,19 @@ export default {
       default: () => ({}),
     },
   },
+  setup(props) {
+    const getUnitPrice = computed(() => props.product.unitPrice)
+    const getTotalPrice = computed(() => props.product.totalPrice)
+
+    return {
+      getUnitPrice,
+      getTotalPrice,
+      filterPrice: usePriceFilter(),
+    }
+  },
   computed: {
     getName() {
       return this.product.label
-    },
-    getUnitPrice() {
-      return this.product.unitPrice
-    },
-    getTotalPrice() {
-      return this.product.totalPrice
     },
     getQuantity() {
       return this.product.quantity

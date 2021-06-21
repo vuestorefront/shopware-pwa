@@ -1,6 +1,4 @@
-import Vue from "vue";
-import VueCompositionApi, { ref, Ref, reactive } from "@vue/composition-api";
-Vue.use(VueCompositionApi);
+import { ref, Ref, reactive } from "vue-demi";
 
 // // Mock API client
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
@@ -117,7 +115,6 @@ describe("Composables - useCheckout", () => {
           },
         } as any;
         const { billingAddress } = useCheckout(rootContextMock);
-        await Vue.nextTick();
         expect(billingAddress.value).toEqual({ street: "some street" });
       });
 

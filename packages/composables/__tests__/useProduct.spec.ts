@@ -1,6 +1,3 @@
-import Vue from "vue";
-import VueCompositionApi from "@vue/composition-api";
-Vue.use(VueCompositionApi);
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
 import { useProduct, getDefaultApiParams } from "@shopware-pwa/composables";

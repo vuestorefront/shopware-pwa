@@ -1,6 +1,6 @@
-import Vue from "vue";
-import { computed, reactive, ComputedRef } from "@vue/composition-api";
+import { computed, ComputedRef, Ref } from "vue-demi";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import { useSharedState } from "@shopware-pwa/composables";
 
 /**
  * @beta
@@ -10,12 +10,6 @@ export interface Notification {
   message: string;
   id?: number;
 }
-
-const sharedNotifications = Vue.observable({
-  list: [],
-} as {
-  list: Notification[];
-});
 
 /**
  * @beta
@@ -32,23 +26,23 @@ export const useNotifications = (
   pushSuccess: (message: string, options?: any) => void;
 } => {
   getApplicationContext(rootContext, "useNotifications");
-  const localNotifications = reactive(sharedNotifications);
+  const { sharedRef } = useSharedState(rootContext);
+  const _notifications: Ref<Notification[] | null> = sharedRef(
+    "sw-useNotifications-notifications"
+  );
 
   /**
    * Remove a specific notification by ID
    */
   const removeOne = (notificationId: number) => {
-    const filteredNotifications = sharedNotifications.list.filter(
-      ({ id }) => id !== notificationId
-    );
-
-    sharedNotifications.list = filteredNotifications;
+    _notifications.value =
+      _notifications.value?.filter(({ id }) => id !== notificationId) || [];
   };
 
   /**
    * Reset the notification list
    */
-  const removeAll = () => (sharedNotifications.list = []);
+  const removeAll = () => (_notifications.value = []);
 
   const geterateId = () => new Date().getTime();
 
@@ -62,9 +56,10 @@ export const useNotifications = (
   ) => {
     const timeout = options.timeout || 2500;
     const persistent = !!options.persistent;
+    _notifications.value = _notifications.value || [];
 
     const messageId = geterateId();
-    sharedNotifications.list.push({
+    _notifications.value.push({
       id: messageId,
       type: options.type,
       message,
@@ -87,6 +82,6 @@ export const useNotifications = (
       pushNotification(message, { ...options, type: "warning" }),
     pushError: (message: string, options = {}) =>
       pushNotification(message, { ...options, type: "danger" }),
-    notifications: computed(() => localNotifications.list),
+    notifications: computed(() => _notifications.value || []),
   };
 };

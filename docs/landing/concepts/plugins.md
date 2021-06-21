@@ -106,7 +106,7 @@ Let's put some logic there, and we're getting the cheapest product and displayin
       v-if="product"
       class="cool-promotion-plugin__link"
     >
-      <h3>{{ getName }} in special price! {{ getPrice | price }}</h3>
+      <h3>{{ getName }} in special price! {{ filterPrice(getPrice) }}</h3>
     </nuxt-link>
   </div>
 </template>
@@ -117,37 +117,41 @@ import {
   getProductRegularPrice,
   getProductUrl,
 } from "@shopware-pwa/helpers";
+import { ref, onMounted, computed } from "@vue/composition-api";
+import { usePriceFilter } from "@/logic/usePriceFilter.js";
 
 export default {
   name: "CoolPromotionPlugin",
-  data() {
-    return {
-      product: null,
-    };
-  },
-  async mounted() {
-    // let's get the cheapest product
-    const productsResult = await getProducts({
-      sort: {
-        field: "price",
-        desc: false,
-      },
-      pagination: {
-        limit: 1,
-      },
+  setup() {
+    const product = ref(null);
+
+    onMounted(async () => {
+      // let's get the cheapest product
+      const productsResult = await getProducts({
+        sort: {
+          field: "price",
+          desc: false,
+        },
+        pagination: {
+          limit: 1,
+        },
+      });
+      product.value = productsResult.data[0];
     });
-    this.product = productsResult.data[0];
-  },
-  computed: {
-    getName() {
-      return getProductName({ product: this.product });
-    },
-    getProductLink() {
-      return getProductUrl(this.product);
-    },
-    getPrice() {
-      return getProductRegularPrice({ product: this.product });
-    },
+
+    const getName = computed(() => getProductName({ product: product.value }));
+    const getProductLink = computed(() => getProductUrl(product.value));
+    const getPrice = computed(() =>
+      getProductRegularPrice({ product: product.value })
+    );
+
+    return {
+      product,
+      getName,
+      getProductLink,
+      getPrice,
+      filterPrice: usePriceFilter(),
+    };
   },
 };
 </script>
@@ -190,7 +194,7 @@ Okay, so how we can allow other plugins to display as well if we're in `top-head
       v-if="product"
       class="cool-promotion-plugin__link"
     >
-      <h3>{{ getName }} in special price! {{ getPrice | price }}</h3>
+      <h3>{{ getName }} in special price! {{ getPrice }}</h3>
     </nuxt-link>
     <slot />
   </div>
@@ -291,7 +295,7 @@ so now, visiting `/our-custom-route/magic-id` you should see:
 
 When you're developing a payment or shipping plugin and you need custom validation - we got you!
 
-Since the very cool validation library called [vuelidate](https://vuelidate.js.org/) is used, our life is simpler. 
+Since the very cool validation library called [vuelidate](https://vuelidate.js.org/) is used, our life is simpler.
 Several built-in validaton rules are at hand, and writing a custom rule should not be a big deal as well (see how to do it [here](https://vuelidate-next.netlify.app/custom_validators.html)).
 
 So let's say we want to enable the "Cash on delivery" method only when the customer is over 18 years old.

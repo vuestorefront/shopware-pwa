@@ -1,4 +1,4 @@
-import { ref, Ref, computed, ComputedRef } from "@vue/composition-api";
+import { ref, Ref, computed, ComputedRef } from "vue-demi";
 import {
   getCart,
   addProductToCart,

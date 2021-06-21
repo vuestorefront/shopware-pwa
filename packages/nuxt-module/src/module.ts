@@ -75,12 +75,6 @@ export async function runModule(
   await setupDomains(moduleObject, shopwarePwaConfig);
 
   moduleObject.addPlugin({
-    src: path.join(__dirname, "..", "plugins", "price-filter.js"),
-    fileName: "price-filter.js",
-    options: moduleOptions,
-  });
-
-  moduleObject.addPlugin({
     src: path.join(
       __dirname,
       "..",
@@ -161,11 +155,10 @@ export async function runModule(
   });
 
   // fixes problem with multiple composition-api instances
-  moduleObject.extendBuild((config: WebpackConfig) => {
-    config.resolve.alias["@vue/composition-api"] = path.resolve(
-      "node_modules/@vue/composition-api"
+  moduleObject.options.alias["@vue/composition-api"] =
+    moduleObject.nuxt.resolver.resolveModule(
+      "@vue/composition-api/dist/vue-composition-api.esm.js"
     );
-  });
 
   moduleObject.extendBuild((config: WebpackConfig, ctx: WebpackContext) => {
     const swPluginsDirectory = path.join(

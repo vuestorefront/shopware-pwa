@@ -3,8 +3,8 @@
     v-model="quantity"
     :image="productImage"
     :title="product.label"
-    :regular-price="regularPrice | price"
-    :special-price="specialPrice | price"
+    :regular-price="filterPrice(regularPrice)"
+    :special-price="filterPrice(specialPrice)"
     :link="productUrl"
     :stock="stock"
     class="sw-collected-product"
@@ -58,6 +58,7 @@ import { ref, watch, computed, onMounted } from "@vue/composition-api"
 import { SfCollectedProduct, SfProperty } from "@storefront-ui/vue"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
 import SwImage from "@/components/atoms/SwImage.vue"
+import { usePriceFilter } from "@/logic/usePriceFilter.js"
 
 export default {
   components: {
@@ -136,6 +137,7 @@ export default {
       options,
       stock,
       isPromotion,
+      filterPrice: usePriceFilter(),
     }
   },
 }

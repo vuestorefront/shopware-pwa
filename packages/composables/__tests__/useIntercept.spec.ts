@@ -1,9 +1,7 @@
-import Vue from "vue";
-import VueCompositionApi, * as vueComp from "@vue/composition-api";
-import { useIntercept } from "@shopware-pwa/composables";
+import vueComp from "vue-demi";
 const mockedCompositionAPI = vueComp as jest.Mocked<typeof vueComp>;
 
-Vue.use(VueCompositionApi);
+import { useIntercept } from "../src/logic/useIntercept";
 
 describe("Composables - useIntercept", () => {
   let registeredInterceptors: any = {};
@@ -18,6 +16,8 @@ describe("Composables - useIntercept", () => {
     jest.resetAllMocks();
     registeredInterceptors = {};
     rootContextMock.$interceptors = registeredInterceptors;
+
+    mockedCompositionAPI.getCurrentInstance.mockReturnValue(rootContextMock);
   });
 
   it("should register new interceptor", () => {
@@ -91,7 +91,6 @@ describe("Composables - useIntercept", () => {
 
   it("should disconnect interceptor when it's registered in component which is unmounted", () => {
     const unmountedFunctions: any[] = [];
-    mockedCompositionAPI.getCurrentInstance.mockReturnValueOnce({} as any);
     mockedCompositionAPI.onUnmounted.mockImplementationOnce((fn) =>
       unmountedFunctions.push(fn)
     );

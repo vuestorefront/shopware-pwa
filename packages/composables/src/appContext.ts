@@ -1,6 +1,5 @@
-import { ComputedRef, getCurrentInstance } from "@vue/composition-api";
+import { ComputedRef, getCurrentInstance, ComponentInstance } from "vue-demi";
 import { ShopwareApiInstance } from "@shopware-pwa/shopware-6-client";
-import { VueConstructor } from "vue";
 
 /**
  * @beta
@@ -24,7 +23,7 @@ interface Process extends NodeJS.Process {
  *
  * @beta
  */
-export interface ApplicationVueContext extends VueConstructor {
+export type ApplicationVueContext = ComponentInstance & {
   $shopwareApiInstance?: ShopwareApiInstance;
   shopwareApiInstance?: ShopwareApiInstance;
   $routing: Routing;
@@ -49,7 +48,7 @@ export interface ApplicationVueContext extends VueConstructor {
   instanceStore?: any;
   $isServer?: any;
   isServer?: any;
-}
+};
 
 function checkAppContext(
   key: string,
@@ -79,9 +78,10 @@ export function getApplicationContext(
   rootContext: ApplicationVueContext,
   key: string = "getApplicationContext"
 ) {
-  let context = rootContext;
-  if (!checkAppContext(key, rootContext)) {
-    context = getCurrentInstance() as any;
+  let context =
+    (getCurrentInstance()?.proxy as ApplicationVueContext) || rootContext;
+  if (!checkAppContext(key, context)) {
+    console.error(`[${key}] No Vue instance detected!`);
   }
   return {
     apiInstance: context?.$shopwareApiInstance || context?.shopwareApiInstance,

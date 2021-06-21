@@ -1,16 +1,14 @@
 /**
  * @jest-environment jsdom
  */
-import Vue from "vue";
-
 // Mock Vue Composition API onMounted method
-import VueCompositionApi, * as vueComp from "@vue/composition-api";
+import vueComp, { ref } from "vue-demi";
 (vueComp.onMounted as any) = jest.fn();
-Vue.use(VueCompositionApi);
 import * as Composables from "@shopware-pwa/composables";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 import { useWishlist } from "../src/logic/useWishlist";
+import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 
 describe("Composables - useWishlist", () => {
   const rootContextMock: any = {
@@ -18,6 +16,7 @@ describe("Composables - useWishlist", () => {
   };
   const broadcastMock = jest.fn();
   const interceptMock = jest.fn();
+  const stateSharedRef = ref();
 
   mockedComposables.useIntercept.mockImplementation(() => {
     return {
@@ -25,8 +24,17 @@ describe("Composables - useWishlist", () => {
       intercept: interceptMock,
     } as any;
   });
+
+  mockedComposables.useSharedState.mockImplementation(() => {
+    return {
+      sharedRef: () => stateSharedRef,
+    } as any;
+  });
+
   beforeEach(() => {
     jest.clearAllMocks();
+
+    stateSharedRef.value = null;
   });
 
   describe("computed", () => {
@@ -37,6 +45,13 @@ describe("Composables - useWishlist", () => {
     });
     it("should return false if the provided product does not exist or isn't in wishlist yet", () => {
       const { isInWishlist } = useWishlist(rootContextMock);
+      expect(isInWishlist.value).toBe(false);
+    });
+
+    it("should return false if the provided product isn't in wishlist", () => {
+      const { isInWishlist } = useWishlist(rootContextMock, {
+        id: "qwerty",
+      } as Product);
       expect(isInWishlist.value).toBe(false);
     });
   });
@@ -64,6 +79,19 @@ describe("Composables - useWishlist", () => {
         addToWishlist();
 
         expect(isInWishlist.value).toBe(false);
+      });
+
+      it("should add to wishlist current product only once", () => {
+        const { addToWishlist, items, isInWishlist } = useWishlist(
+          rootContextMock,
+          product as any
+        );
+        addToWishlist();
+        addToWishlist();
+
+        expect(items.value[0]).toBe("some-id");
+        expect(isInWishlist.value).toBe(true);
+        expect(stateSharedRef.value).toEqual(["some-id"]);
       });
     });
     describe("removeFromWishlist", () => {
@@ -97,6 +125,16 @@ describe("Composables - useWishlist", () => {
         addToWishlist();
 
         removeFromWishlist(undefined as any);
+        expect(isInWishlist.value).toBe(false);
+      });
+
+      it("should do nothing when product is not inside wishlist", () => {
+        const { isInWishlist, removeFromWishlist } = useWishlist(
+          rootContextMock,
+          product as any
+        );
+
+        removeFromWishlist(product.id);
         expect(isInWishlist.value).toBe(false);
       });
       it("should remove an item without providing its id directly", () => {

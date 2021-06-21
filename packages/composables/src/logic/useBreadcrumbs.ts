@@ -1,13 +1,7 @@
-import Vue from "vue";
-import { computed, ComputedRef, reactive } from "@vue/composition-api";
+import { computed, ComputedRef, Ref } from "vue-demi";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
 import { Breadcrumb } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
-
-const sharedBreadcrumbs = Vue.observable({
-  list: [],
-} as {
-  list: Breadcrumb[];
-});
+import { useSharedState } from "@shopware-pwa/composables";
 
 /**
  * Composable for displaying and setting breadcrumbs for page.
@@ -30,19 +24,23 @@ export function useBreadcrumbs(
   clear: () => void;
 } {
   const { i18n } = getApplicationContext(rootContext, "useBreadcrumbs");
-  let localBreadcrumbs = reactive(sharedBreadcrumbs);
+  const { sharedRef } = useSharedState(rootContext);
+
+  const _sharedBreadcrumbs: Ref<Breadcrumb[] | null> = sharedRef(
+    "sw-useBreadcrumbs-breadcrumbs"
+  );
 
   /**
    * Reset the breadcrumbs collection
    */
   const clear = () => {
-    sharedBreadcrumbs.list = [];
+    _sharedBreadcrumbs.value = [];
   };
   /**
    * Set breadcrumbs
    */
   const setBreadcrumbs = (breadcrumbs: Breadcrumb[]): void => {
-    sharedBreadcrumbs.list = breadcrumbs || [];
+    _sharedBreadcrumbs.value = breadcrumbs || [];
   };
 
   return {
@@ -52,14 +50,14 @@ export function useBreadcrumbs(
      * List of current breadcrumbs
      */
     breadcrumbs: computed(() => {
-      if (!!params?.hideHomeLink || !localBreadcrumbs.list.length)
-        return localBreadcrumbs.list;
+      if (!!params?.hideHomeLink || !_sharedBreadcrumbs.value?.length)
+        return _sharedBreadcrumbs.value || [];
       return [
         {
           name: i18n.t("Home"),
           path: "/",
         },
-        ...localBreadcrumbs.list,
+        ..._sharedBreadcrumbs.value,
       ];
     }),
   };

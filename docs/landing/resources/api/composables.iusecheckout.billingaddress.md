@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-billingAddress: Readonly<Ref<Partial<BillingAddress> | undefined>>;
+billingAddress: ComputedRef<Partial<BillingAddress> | undefined>;
 ```

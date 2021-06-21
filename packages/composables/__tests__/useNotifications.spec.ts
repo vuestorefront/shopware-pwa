@@ -1,17 +1,25 @@
-import Vue from "vue";
-import VueCompositionApi from "@vue/composition-api";
-Vue.use(VueCompositionApi);
-import { useNotifications } from "@shopware-pwa/composables";
+import { ref } from "vue-demi";
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+
+import { useNotifications } from "../src/logic/useNotifications";
 
 describe("Composables - useNotifications", () => {
   const rootContextMock: any = {
     $shopwareApiInstance: jest.fn(),
   };
+  const stateSharedRef = ref();
 
   beforeEach(() => {
-    const { removeAll } = useNotifications(rootContextMock);
-    removeAll();
     jest.resetAllMocks();
+    stateSharedRef.value = null;
+
+    mockedComposables.useSharedState.mockImplementation(() => {
+      return {
+        sharedRef: () => stateSharedRef,
+      } as any;
+    });
   });
   describe("pushNotifications", () => {
     it("should not remove a notification with persistant option after timout", () => {
@@ -88,6 +96,13 @@ describe("Composables - useNotifications", () => {
       pushError("An error occured", { persistent: false });
       expect(notifications.value).toHaveLength(1);
       jest.runOnlyPendingTimers();
+      expect(notifications.value).toHaveLength(0);
+    });
+
+    it("should do nothing on not existing notification removal", () => {
+      const { removeOne, notifications } = useNotifications(rootContextMock);
+      expect(notifications.value).toHaveLength(0);
+      removeOne(1600081318135);
       expect(notifications.value).toHaveLength(0);
     });
   });

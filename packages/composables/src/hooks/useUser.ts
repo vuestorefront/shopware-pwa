@@ -1,11 +1,4 @@
-import {
-  ref,
-  Ref,
-  UnwrapRef,
-  computed,
-  ComputedRef,
-  reactive,
-} from "@vue/composition-api";
+import { ref, Ref, UnwrapRef, computed, ComputedRef, reactive } from "vue-demi";
 import {
   login as apiLogin,
   logout as apiLogout,

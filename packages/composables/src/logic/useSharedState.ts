@@ -1,4 +1,3 @@
-import { getApplicationContext } from "@shopware-pwa/composables";
 import {
   computed,
   onServerPrefetch,
@@ -7,8 +6,8 @@ import {
   ref,
   toRef,
   WritableComputedRef,
-} from "@vue/composition-api";
-import { ApplicationVueContext } from "../appContext";
+} from "vue-demi";
+import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
 const localSharedState: {
   [key: string]: Ref<any>;

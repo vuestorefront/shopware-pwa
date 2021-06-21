@@ -11,8 +11,8 @@
     <div class="product-heading__sub">
       <slot name="price" v-bind="{ regularPrice, specialPrice }">
         <SfPrice
-          :regular="regularPrice | price"
-          :special="specialPrice | price"
+          :regular="filterPrice(regularPrice)"
+          :special="filterPrice(specialPrice)"
           class="sf-price--big product-heading__sub-price"
         />
       </slot>
@@ -62,6 +62,7 @@ import {
 import { SfBadge, SfHeading, SfPrice, SfRating } from "@storefront-ui/vue"
 
 import SwTierPrices from "@/components/SwTierPrices.vue"
+import { usePriceFilter } from "@/logic/usePriceFilter.js"
 
 export default {
   name: "SwProductHeading",
@@ -79,6 +80,11 @@ export default {
       required: true,
       type: Object,
     },
+  },
+  setup() {
+    return {
+      filterPrice: usePriceFilter(),
+    }
   },
 
   computed: {

@@ -1,5 +1,5 @@
 import Middleware from "./middleware";
-import { computed } from "@vue/composition-api";
+import { computed } from "vue-demi";
 import { useSessionContext, useSharedState } from "@shopware-pwa/composables";
 const FALLBACK_DOMAIN = "<%= options.fallbackDomain %>" || "/";
 const FALLBACK_LOCALE = "<%= options.fallbackLocale %>";
@@ -88,28 +88,36 @@ Middleware.routing = function ({ isHMR, app, from, route, redirect }) {
     return;
   }
 
-  // set default currency for the current domain
-  const { setCurrency, currency } = useSessionContext(app);
-  let currencyId =
-    route.query.currencyId ||
-    (currency.value && currency.value.id) ||
-    domainConfig.currencyId;
-  // force change the currencyId to default one for changed domain
-  const fromDomain =
-    from &&
-    Array.isArray(from.meta) &&
-    from.meta.find((data) => !!data.domainId);
-  if (fromDomain && fromDomain.domainId !== domainConfig.domainId) {
-    currencyId = domainConfig.currencyId;
-  }
+  const { setup } = app;
+  app.setup = function (...args) {
+    let result = {};
+    if (setup instanceof Function) {
+      result = setup(...args) || {};
+    }
+    // set default currency for the current domain
+    const { setCurrency, currency } = useSessionContext();
+    let currencyId =
+      route.query.currencyId ||
+      (currency.value && currency.value.id) ||
+      domainConfig.currencyId;
+    // force change the currencyId to default one for changed domain
+    const fromDomain =
+      from &&
+      Array.isArray(from.meta) &&
+      from.meta.find((data) => !!data.domainId);
+    if (fromDomain && fromDomain.domainId !== domainConfig.domainId) {
+      currencyId = domainConfig.currencyId;
+    }
 
-  const currencyPromise = setCurrency({ id: currencyId });
-  const { languageId, languageLocaleCode } = domainConfig;
-  app.routing.setCurrentDomain(domainConfig);
-  languageId && app.$shopwareApiInstance.update({ languageId });
-  app.i18n.locale = languageLocaleCode;
+    const currencyPromise = setCurrency({ id: currencyId });
+    const { languageId, languageLocaleCode } = domainConfig;
+    app.routing.setCurrentDomain(domainConfig);
+    languageId && app.$shopwareApiInstance.update({ languageId });
+    app.i18n.locale = languageLocaleCode;
 
-  Promise.all([currencyPromise]).catch((e) => {
-    console.error("[MIDDLEWARE][DOMAINS]", e);
-  });
+    Promise.all([currencyPromise]).catch((e) => {
+      console.error("[MIDDLEWARE][DOMAINS]", e);
+    });
+    return result;
+  };
 };

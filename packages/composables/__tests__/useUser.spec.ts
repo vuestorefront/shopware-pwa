@@ -1,6 +1,4 @@
-import Vue from "vue";
-import VueCompositionApi, { Ref, ref } from "@vue/composition-api";
-Vue.use(VueCompositionApi);
+import { Ref, ref } from "vue-demi";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
 // Mock API client

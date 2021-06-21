@@ -12,5 +12,5 @@
 ```typescript
 getPaymentMethods: (options?: {
         forceReload: boolean;
-    }) => Promise<Readonly<Ref<readonly PaymentMethod[]>>>;
+    }) => Promise<ComputedRef<PaymentMethod[]>>;
 ```

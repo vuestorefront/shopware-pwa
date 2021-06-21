@@ -1,8 +1,5 @@
-import Vue from "vue";
-
 // Mock Vue Composition API onMounted method
-import VueCompostionApi, * as vueComp from "@vue/composition-api";
-Vue.use(VueCompostionApi);
+import vueComp, { ref } from "vue-demi";
 (vueComp.onMounted as any) = jest.fn();
 
 // Mock API client
@@ -10,16 +7,26 @@ import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
-import { useCountries } from "@shopware-pwa/composables";
-(useCountries as any).onMounted = jest.fn();
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+
+import { useCountries } from "../src/hooks/useCountries";
 
 describe("Composables - useCountries", () => {
   const rootContextMock: any = {
     $shopwareApiInstance: jest.fn(),
   };
+  const stateSharedRef = ref();
 
   beforeEach(() => {
     jest.resetAllMocks();
+
+    mockedComposables.useSharedState.mockImplementation(() => {
+      return {
+        sharedRef: () => stateSharedRef,
+      } as any;
+    });
   });
 
   describe("refs", () => {});

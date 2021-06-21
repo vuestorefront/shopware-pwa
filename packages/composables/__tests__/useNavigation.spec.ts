@@ -1,7 +1,4 @@
-import Vue from "vue";
-import VueCompositionApi from "@vue/composition-api";
-import { ref } from "@vue/composition-api";
-Vue.use(VueCompositionApi);
+import { ref } from "vue-demi";
 import { useNavigation } from "../src/hooks/useNavigation";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 jest.mock("@shopware-pwa/shopware-6-client");

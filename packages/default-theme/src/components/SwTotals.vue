@@ -3,20 +3,20 @@
     <div class="sw-totals__total">
       <SfProperty
         :name="$t('Subtotal')"
-        :value="subtotal | price"
+        :value="filterPrice(subtotal)"
         class="sf-property--full-width sw-totals__property"
       >
       </SfProperty>
       <SfProperty
         :name="$t('Shipping')"
-        :value="shipping | price"
+        :value="filterPrice(shipping)"
         class="sf-property--full-width sw-totals__property"
       >
       </SfProperty>
       <SfDivider class="divider" />
       <SfProperty
         :name="$t('Total price')"
-        :value="total | price"
+        :value="filterPrice(total)"
         class="
           sf-property--full-width
           sw-totals__property sw-totals__property-total
@@ -31,6 +31,7 @@
 import { SfProperty, SfDivider } from "@storefront-ui/vue"
 
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
+import { usePriceFilter } from "@/logic/usePriceFilter.js"
 
 export default {
   name: "SwTotals",
@@ -52,6 +53,11 @@ export default {
       type: Number,
       default: 0,
     },
+  },
+  setup() {
+    return {
+      filterPrice: usePriceFilter(),
+    }
   },
 }
 </script>

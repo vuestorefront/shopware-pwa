@@ -1,4 +1,4 @@
-import { ref, Ref, computed, ComputedRef, watch } from "@vue/composition-api";
+import { ref, Ref, computed, ComputedRef, watch } from "vue-demi";
 import { getCmsPage } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { parseUrlQuery } from "@shopware-pwa/helpers";

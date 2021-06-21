@@ -56,7 +56,10 @@
               "
             >
               <template #value>
-                <SfPrice :regular="totalPrice | price" class="sf-price--big" />
+                <SfPrice
+                  :regular="filterPrice(totalPrice)"
+                  class="sf-price--big"
+                />
               </template>
             </SfProperty>
             <SwButton
@@ -94,6 +97,7 @@ import { PAGE_CHECKOUT } from "@/helpers/pages"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { computed, onMounted, ref, watch } from "@vue/composition-api"
 import SwImage from "@/components/atoms/SwImage.vue"
+import { usePriceFilter } from "@/logic/usePriceFilter.js"
 
 export default {
   name: "SwCart",
@@ -170,6 +174,7 @@ export default {
       totalPrice,
       removeProduct,
       additionalItemsData,
+      filterPrice: usePriceFilter(),
     }
   },
 

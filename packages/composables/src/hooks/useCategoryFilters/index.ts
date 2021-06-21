@@ -1,4 +1,4 @@
-import { computed } from "@vue/composition-api";
+import { computed } from "vue-demi";
 import { useCms, getApplicationContext } from "@shopware-pwa/composables";
 import {
   getCategoryAvailableFilters,
