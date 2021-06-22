@@ -23,7 +23,9 @@ export const useDomains = (rootContext) => {
   )
   const trimDomain = (url) =>
     url.replace(
-      routing.getCurrentDomain.value ? routing.getCurrentDomain.value.url : "",
+      routing.getCurrentDomain.value
+        ? routing.getCurrentDomain.value.pathPrefix
+        : "",
       ""
     )
   const getCurrentPathWithoutDomain = () =>
@@ -37,7 +39,7 @@ export const useDomains = (rootContext) => {
     return !rootContext.$route.name.startsWith(PAGE_RESOLVER_ROUTE_PREFIX)
   })
   const getNewDomainUrl = async (domain) => {
-    let url = `${domain.url !== "/" ? `${domain.url}` : ""}`
+    let url = `${domain.pathPrefix !== "/" ? `${domain.pathPrefix}` : ""}`
     let path = ""
     if (isRouteStatic.value) {
       path += getCurrentPathWithoutDomain()
@@ -52,8 +54,11 @@ export const useDomains = (rootContext) => {
           domain.languageId,
           apiInstance
         )
-        if (seoResponse.length && seoResponse[0].seoPathInfo) {
-          path += seoResponse[0].seoPathInfo
+        if (
+          seoResponse.elements.length &&
+          seoResponse.elements[0].seoPathInfo
+        ) {
+          path += seoResponse.elements[0].seoPathInfo
         } else {
           // prevent using the technical URL of a root category stick to homepage "/"
           path += !isHomePage() ? getCmsTechnicalPath(page.value) : ""

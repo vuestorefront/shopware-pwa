@@ -43,6 +43,8 @@ export interface WebpackContext {
  */
 export interface DomainConfig {
   url: string;
+  origin: string;
+  pathPrefix: string;
   domainId: string;
   currencyId: string;
   snippetSetId: string;

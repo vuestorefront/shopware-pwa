@@ -4,17 +4,20 @@ import { useSessionContext, useSharedState } from "@shopware-pwa/composables";
 const FALLBACK_DOMAIN = "<%= options.fallbackDomain %>" || "/";
 const FALLBACK_LOCALE = "<%= options.fallbackLocale %>";
 const PWA_HOST = "<%= options.pwaHost %>";
-const domainsList = require("sw-plugins/domains");
+const domains = require("sw-plugins/domains");
+const domainsList = Object.values(domains).filter(({ url }) =>
+  url.startsWith(PWA_HOST)
+);
 
 // register domains based routing and configuration
 export default ({ app, route }, inject) => {
   const { sharedRef } = useSharedState(app);
   const currentDomainData = sharedRef("sw-current-domain");
 
-  const routeDomainUrl = computed(() => route.meta?.[0]?.url);
+  const routeDomainUrl = computed(() => route.meta?.[0]?.pathPrefix);
   const routeDomain = computed(() =>
     Object.values(domainsList).find(
-      (domain) => domain.url === routeDomainUrl.value
+      (domain) => domain.pathPrefix === routeDomainUrl.value
     )
   );
 
@@ -23,8 +26,8 @@ export default ({ app, route }, inject) => {
   );
 
   const getNormalizedDomainPath = computed(() =>
-    getCurrentDomain.value && getCurrentDomain.value?.url !== "/"
-      ? getCurrentDomain.value?.url
+    getCurrentDomain.value && getCurrentDomain.value?.pathPrefix !== "/"
+      ? getCurrentDomain.value?.pathPrefix
       : ""
   );
 
@@ -75,12 +78,12 @@ Middleware.routing = function ({ isHMR, app, from, route, redirect }) {
   // for example: /Toys -> /germany/Toys if the "/" domain is not present
   if (!domainConfig && app.routing.availableDomains.length) {
     const fallbackDomainFound = app.routing.availableDomains.find(
-      ({ url }) => url === FALLBACK_DOMAIN
+      ({ pathPrefix }) => pathPrefix === FALLBACK_DOMAIN
     );
     // if the fallback domain does not match - use the first available instead
     const fallbackDomainPrefix =
-      (fallbackDomainFound && fallbackDomainFound.url) ||
-      app.routing.availableDomains.pop().url;
+      (fallbackDomainFound && fallbackDomainFound.pathPrefix) ||
+      app.routing.availableDomains.pop().pathPrefix;
     return redirect(`${fallbackDomainPrefix}${route.path}`);
   }
 

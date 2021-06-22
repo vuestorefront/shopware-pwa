@@ -57,20 +57,21 @@ module.exports = (toolbox: GluegunToolbox) => {
 
   toolbox.domains.prepareDomainsMap = (domains, pwaHost: string) => {
     let domainsMap = {};
-    domains
-      .filter(({ url }) => url.startsWith(pwaHost)) // use only the domains configured for PWA host - pwaHost must match the hostname of an URL
-      .forEach((domain) => {
-        domainsMap[toolbox.domains.stripHost(domain.url, pwaHost)] = {
-          url: toolbox.domains.stripHost(domain.url, pwaHost),
-          domainId: domain.id,
-          currencyId: domain.currencyId,
-          snippetSetId: domain.snippetSetId,
-          languageId: domain.language.id,
-          languageName: domain.language.name,
-          languageLabel: domain.language.name,
-          languageLocaleCode: domain.language.locale.code,
-        };
-      });
+    domains.forEach((domain) => {
+      const url = new URL(domain.url);
+      domainsMap[domain.url] = {
+        url: domain.url,
+        origin: url.origin,
+        pathPrefix: url.pathname,
+        domainId: domain.id,
+        currencyId: domain.currencyId,
+        snippetSetId: domain.snippetSetId,
+        languageId: domain.language.id,
+        languageName: domain.language.name,
+        languageLabel: domain.language.name,
+        languageLocaleCode: domain.language.locale.code,
+      };
+    });
 
     return domainsMap;
   };
