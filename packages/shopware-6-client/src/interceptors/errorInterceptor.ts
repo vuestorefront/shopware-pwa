@@ -83,7 +83,7 @@ export async function errorInterceptor(
   // Do something with response error
   const statusCode = extractApiErrorStatusCode(error);
   const clientApiError: ClientApiError = {
-    message: API_ERROR_CODES.includes(statusCode)
+    messages: API_ERROR_CODES.includes(statusCode)
       ? extractApiErrorMessage(error)
       : extractNotApiErrorMessage(error),
     statusCode: statusCode,

@@ -63,8 +63,8 @@ export interface IUseUser {
   loading: Ref<boolean>;
   error: Ref<any>;
   errors: UnwrapRef<{
-    login: string;
-    register: string[];
+    login: ClientApiError;
+    register: ClientApiError;
   }>;
   isLoggedIn: ComputedRef<boolean>;
   isCustomerSession: ComputedRef<boolean>;
@@ -131,8 +131,8 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
   const errors: UnwrapRef<{
-    login: string;
-    register: string[];
+    login: ShopwareError[];
+    register: ShopwareError[];
   }> = reactive({
     login: "",
     register: [],
@@ -158,7 +158,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       return true;
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err.message;
+      error.value = err.messages;
       broadcast(INTERCEPTOR_KEYS.ERROR, {
         methodName: `[${contextName}][login]`,
         inputParams: {},
@@ -187,7 +187,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       const err: ClientApiError = e;
       // temporary workaround - get rid of such hacks in the future
       // TODO: https://github.com/vuestorefront/shopware-pwa/issues/1498
-      errors.register = [err.message as string];
+      errors.register = err.messages;
       broadcast(INTERCEPTOR_KEYS.ERROR, {
         methodName: `[${contextName}][register]`,
         inputParams: {},
@@ -205,7 +205,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       broadcast(INTERCEPTOR_KEYS.USER_LOGOUT);
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err.message;
+      error.value = err.messages;
       broadcast(INTERCEPTOR_KEYS.ERROR, {
         methodName: `[${contextName}][logout]`,
         inputParams: {},

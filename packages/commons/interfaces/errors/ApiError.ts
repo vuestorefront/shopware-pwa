@@ -25,6 +25,6 @@ export interface ShopwareApiError extends AxiosError {
  * @alpha
  */
 export interface ClientApiError {
-  message: string | ShopwareError[];
+  messages: ShopwareError[];
   statusCode: number;
 }
