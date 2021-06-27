@@ -62,6 +62,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       domainsMap[domain.url] = {
         url: domain.url,
         origin: url.origin,
+        host: url.hostname,
         pathPrefix: url.pathname,
         domainId: domain.id,
         currencyId: domain.currencyId,

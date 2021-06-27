@@ -88,6 +88,7 @@ export const useDomains = (rootContext) => {
       return
     }
 
+    // routing.setCurrentDomain(domainFound);
     router.push(await getNewDomainUrl(domainFound))
   }
 

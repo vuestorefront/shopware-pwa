@@ -82,9 +82,7 @@ export async function setupDomains(
       if (!route.meta?.domainId || !domainsEntries.length) {
         domainsEntries
           .filter(({ url }) =>
-            url.startsWith(
-              shopwarePwaConfig.pwaHost || shopwarePwaConfig.shopwareEndpoint
-            )
+            shopwarePwaConfig.shopwareDomainsAllowList?.includes(url)
           )
           .forEach((domainConfig) => {
             const routeName = dontUseNamedRoute(route)
@@ -96,9 +94,10 @@ export async function setupDomains(
             ) {
               domainsRoutes.push({
                 ...route, // not lose not domain related data
+                // TODO: load path configured in page component
                 path: `${
                   domainConfig.pathPrefix !== "/" ? domainConfig.pathPrefix : ""
-                }${route.path}`, // prefix each route with available domain
+                }${route.path}`, // prefix each route with pathPrefix if available for this domain config
                 name: routeName, // add unique name
                 meta: domainConfig, // store additional information about the route like language id for corresponding domain - used in middleware and plugin
                 children:
@@ -128,6 +127,7 @@ export async function setupDomains(
 
       routes.splice(0, routes.length, ...domainsRoutes); // force replace the new routes table
     }
+    console.log("ROUTES", routes);
   };
 
   // hook in extendRoutes, when the routes.js and routes.json are being built - enrich them with available domains and corresponding metadata
@@ -142,6 +142,7 @@ export async function setupDomains(
     src: path.join(__dirname, "..", "plugins", "domain.js"),
     options: {
       pwaHost: shopwarePwaConfig.pwaHost,
+      shopwareDomainsAllowList: shopwarePwaConfig.shopwareDomainsAllowList,
       fallbackDomain: shopwarePwaConfig.fallbackDomain || "/",
     },
   });

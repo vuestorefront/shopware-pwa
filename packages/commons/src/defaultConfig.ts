@@ -30,6 +30,10 @@ export interface ShopwarePwaConfigFile {
    */
   pwaHost?: string;
   /**
+   * list of allowed domains for this pwa instance from saleschannel configuration
+   */
+  shopwareDomainsAllowList?: string[];
+  /**
    * default domain prefix
    */
   fallbackDomain?: string;

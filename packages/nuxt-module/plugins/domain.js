@@ -1,16 +1,18 @@
 import Middleware from "./middleware";
 import { computed } from "vue-demi";
 import { useSessionContext, useSharedState } from "@shopware-pwa/composables";
+
 const FALLBACK_DOMAIN = "<%= options.fallbackDomain %>" || "/";
 const FALLBACK_LOCALE = "<%= options.fallbackLocale %>";
 const PWA_HOST = "<%= options.pwaHost %>";
+const SHOPWARE_DOMAINS_ALLOW_LIST = "<%= options.shopwareDomainsAllowList %>";
 const domains = require("sw-plugins/domains");
 const domainsList = Object.values(domains).filter(({ url }) =>
-  url.startsWith(PWA_HOST)
+  SHOPWARE_DOMAINS_ALLOW_LIST?.includes(url)
 );
 
 // register domains based routing and configuration
-export default ({ app, route }, inject) => {
+export default ({ app, route, req }, inject) => {
   const { sharedRef } = useSharedState(app);
   const currentDomainData = sharedRef("sw-current-domain");
 
@@ -30,6 +32,30 @@ export default ({ app, route }, inject) => {
       ? getCurrentDomain.value?.pathPrefix
       : ""
   );
+
+  const getDomainConfigFromRequest = (req) => {
+    let hostname;
+    let pathname;
+
+    if (process.client) {
+      hostname = window.location.hostname;
+      pathname = window.location.pathname;
+    } else {
+      const detectedHost = req.headers["x-forwarded-host"] || req.headers.host;
+      hostname = Array.isArray(detectedHost) ? detectedHost[0] : detectedHost;
+      pathname = req.originalUrl;
+    }
+
+    if (hostname) {
+      const matchingDomainConfig = domainsList.find(
+        (domain) => domain.host === hostname
+      );
+
+      console.log("MATCHING", matchingDomainConfig);
+
+      if (matchingDomainConfig) return matchingDomainConfig;
+    }
+  };
 
   const routing = {
     // list of available domains from "domains.json" - output of "domains" CLI command
@@ -52,12 +78,14 @@ export default ({ app, route }, inject) => {
         ? `${getNormalizedDomainPath.value}${path}`.replace(/^\/\/+/, "/")
         : path;
     },
-    getAbsoluteUrl: (path) =>
-      `${PWA_HOST}${getNormalizedDomainPath.value}${path}`,
+    // get absolute url for current domain
+    getAbsoluteUrl: (path) => {
+      return `${currentDomainData.value.url}${path}`;
+    },
   };
 
-  // set the domain for current route
-  routing.setCurrentDomain(routeDomain.value);
+  const currentDomainConfig = getDomainConfigFromRequest(req);
+  routing.setCurrentDomain(currentDomainConfig);
 
   // public plugin within the context
   app.routing = routing;
