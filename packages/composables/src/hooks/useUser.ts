@@ -30,7 +30,10 @@ import {
   AddressType,
 } from "@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress";
 import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams";
-import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
+import {
+  ClientApiError,
+  ShopwareError,
+} from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
 import {
@@ -63,8 +66,8 @@ export interface IUseUser {
   loading: Ref<boolean>;
   error: Ref<any>;
   errors: UnwrapRef<{
-    login: ClientApiError;
-    register: ClientApiError;
+    login: ShopwareError[];
+    register: ShopwareError[];
   }>;
   isLoggedIn: ComputedRef<boolean>;
   isCustomerSession: ComputedRef<boolean>;
@@ -134,7 +137,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     login: ShopwareError[];
     register: ShopwareError[];
   }> = reactive({
-    login: "",
+    login: [],
     register: [],
   });
   const orders: Ref<Order[] | null> = ref(null);
@@ -249,7 +252,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       storeAddresses.value = response?.elements;
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err.message;
+      error.value = err.messages;
     }
   };
 
@@ -258,7 +261,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       country.value = await getUserCountry(userId, apiInstance);
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err.message;
+      error.value = err.messages;
     }
   };
 
@@ -267,7 +270,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       salutation.value = await getUserSalutation(salutationId, apiInstance);
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err.message;
+      error.value = err.messages;
     }
   };
 
@@ -296,7 +299,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       await refreshUser();
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err.message;
+      error.value = err.messages;
       return false;
     }
 
@@ -311,7 +314,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       return id;
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err.message;
+      error.value = err.messages;
     }
   };
 
@@ -323,7 +326,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       return id;
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err.message;
+      error.value = err.messages;
     }
   };
 
@@ -333,7 +336,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       return true;
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err.message;
+      error.value = err.messages;
     }
 
     return false;

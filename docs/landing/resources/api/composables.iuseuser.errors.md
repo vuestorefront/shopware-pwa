@@ -11,7 +11,7 @@
 
 ```typescript
 errors: UnwrapRef<{
-        login: string;
-        register: string[];
+        login: ShopwareError[];
+        register: ShopwareError[];
     }>;
 ```

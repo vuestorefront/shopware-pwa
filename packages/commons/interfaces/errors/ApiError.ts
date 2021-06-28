@@ -1,7 +1,7 @@
 import { AxiosResponse, AxiosError } from "axios";
 
 /**
- * @alpha
+ * @beta
  */
 export interface ShopwareError {
   status: string;

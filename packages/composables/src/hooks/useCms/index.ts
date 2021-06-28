@@ -78,7 +78,7 @@ export function useCms(rootContext: ApplicationVueContext): {
       _storePage.value = result;
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err;
+      error.value = err.messages;
     } finally {
       loading.value = false;
     }

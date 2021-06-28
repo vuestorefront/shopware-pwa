@@ -4,7 +4,11 @@
   </div>
 </template>
 <script>
-import { useCms, useNotifications } from "@shopware-pwa/composables";
+import {
+  useCms,
+  useIntercept,
+  useNotifications,
+} from "@shopware-pwa/composables";
 
 export default {
   name: "DynamicRoute",
@@ -16,6 +20,7 @@ export default {
   asyncData: async ({ params, app, error: errorView, query, redirect }) => {
     const { search, page, error } = useCms(app);
     const { pushError } = useNotifications(app);
+    const { broadcast, INTERCEPTOR_KEYS } = useIntercept(app);
     const searchResult = await search(params.pathMatch, query);
 
     // direct user to the error page (keep http status code - so do not redirect)
@@ -23,8 +28,8 @@ export default {
       if (error.value.statusCode === 404) {
         errorView(error.value);
       } else {
-        // show the error other than 404 in SwNotifications
-        pushError(error.value.message);
+        // broadcast the error other than 404 in SwNotifications
+        broadcast(INTERCEPTOR_KEYS.error, error.value);
       }
     }
 
