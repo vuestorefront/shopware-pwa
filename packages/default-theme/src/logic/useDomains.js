@@ -11,7 +11,7 @@ import { getCmsTechnicalPath } from "@shopware-pwa/helpers"
 const PAGE_RESOLVER_ROUTE_PREFIX = "all_"
 
 export const useDomains = (rootContext) => {
-  const { route, router, routing, apiInstance } = getApplicationContext(
+  const { router, routing, apiInstance } = getApplicationContext(
     rootContext,
     "useDomains"
   )
@@ -52,8 +52,8 @@ export const useDomains = (rootContext) => {
           domain.languageId,
           apiInstance
         )
-        if (seoResponse.length && seoResponse[0].seoPathInfo) {
-          path += seoResponse[0].seoPathInfo
+        if (seoResponse.total > 0 && seoResponse.elements[0].seoPathInfo) {
+          path += seoResponse.elements[0].seoPathInfo
         } else {
           // prevent using the technical URL of a root category stick to homepage "/"
           path += !isHomePage() ? getCmsTechnicalPath(page.value) : ""
