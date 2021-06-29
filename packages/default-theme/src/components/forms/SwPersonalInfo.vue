@@ -115,7 +115,7 @@ export default {
   setup(props, { root }) {
     const {
       user,
-      error: userError,
+      errors: userError,
       updatePersonalInfo,
       refreshUser,
       updateEmail,
@@ -150,7 +150,7 @@ export default {
   },
   computed: {
     getErrorMessage() {
-      return this.userError
+      return this.userError.updateEmail
     },
     isEmailChanging() {
       return this.email !== (this.user && this.user.email)

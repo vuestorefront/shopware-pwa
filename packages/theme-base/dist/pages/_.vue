@@ -8,6 +8,7 @@ import {
   useCms,
   useIntercept,
   useNotifications,
+  INTERCEPTOR_KEYS,
 } from "@shopware-pwa/composables";
 
 export default {
@@ -20,7 +21,8 @@ export default {
   asyncData: async ({ params, app, error: errorView, query, redirect }) => {
     const { search, page, error } = useCms(app);
     const { pushError } = useNotifications(app);
-    const { broadcast, INTERCEPTOR_KEYS } = useIntercept(app);
+    const { broadcast } = useIntercept(app);
+
     const searchResult = await search(params.pathMatch, query);
 
     // direct user to the error page (keep http status code - so do not redirect)

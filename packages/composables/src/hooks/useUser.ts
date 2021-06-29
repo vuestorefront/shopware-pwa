@@ -136,9 +136,15 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   const errors: UnwrapRef<{
     login: ShopwareError[];
     register: ShopwareError[];
+    resetPassword: ShopwareError[];
+    updatePassword: ShopwareError[];
+    updateEmail: ShopwareError[];
   }> = reactive({
     login: [],
     register: [],
+    resetPassword: [],
+    updatePassword: [],
+    updateEmail: [],
   });
   const orders: Ref<Order[] | null> = ref(null);
   const addresses = computed(() => storeAddresses.value);
@@ -152,6 +158,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   }: { username?: string; password?: string } = {}): Promise<boolean> => {
     loading.value = true;
     error.value = null;
+    errors.login = [] as any;
     try {
       await apiLogin({ username, password }, apiInstance);
       await refreshUser();
@@ -161,7 +168,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       return true;
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err.messages;
+      errors.login = err.messages;
       broadcast(INTERCEPTOR_KEYS.ERROR, {
         methodName: `[${contextName}][login]`,
         inputParams: {},
@@ -358,9 +365,10 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     updatePasswordData: CustomerUpdatePasswordParam
   ): Promise<boolean> => {
     try {
+      errors.updatePassword = [];
       await apiUpdatePassword(updatePasswordData, apiInstance);
     } catch (e) {
-      error.value = e;
+      errors.updatePassword = e.messages;
       return false;
     }
     return true;
@@ -372,7 +380,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     try {
       await apiResetPassword(resetPasswordData, apiInstance);
     } catch (e) {
-      error.value = e;
+      errors.resetPassword = e.messages;
       return false;
     }
     return true;
@@ -384,7 +392,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     try {
       await apiUpdateEmail(updateEmailData, apiInstance);
     } catch (e) {
-      error.value = e;
+      errors.updateEmail = e.messages;
       return false;
     }
     return true;

@@ -32,7 +32,9 @@
               <SwInput
                 v-model="newPassword"
                 :valid="!$v.newPassword.$error"
-                :error-message="$t('This field is required')"
+                :error-message="
+                  $t('This field is required and should be at leas 8 long')
+                "
                 type="password"
                 name="newPassword"
                 :label="$t('New Password')"
@@ -74,34 +76,49 @@ import { useUser } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 import SwErrorsList from "@/components/SwErrorsList.vue"
+import { toRefs, reactive } from "@vue/composition-api"
 
 export default {
   name: "SwPassword",
   components: { SwInput, SwButton, SwErrorsList },
   props: {},
   setup(props, { root }) {
-    const {
-      user,
-      error: userError,
-      updatePassword,
-      refreshUser,
-    } = useUser(root)
-    const userErrorMessages = computed(() => userError.value)
+    const { user, errors, updatePassword, refreshUser } = useUser(root)
+    const userErrorMessages = computed(() => errors.updatePassword || [])
+
+    const state = reactive({
+      password: "",
+      newPassword: "",
+      newPasswordConfirm: "",
+      email: user.value.email,
+    })
+
+    const refs = toRefs(state)
+
+    const rules = {
+      password: {
+        required,
+        minLenght: minLength(8),
+      },
+      newPassword: {
+        required,
+        minLength: minLength(8),
+      },
+      newPasswordConfirm: {
+        required,
+        sameAsNewPassword: sameAs(refs.newPassword),
+      },
+    }
+
+    const $v = useVuelidate(rules, state)
 
     return {
       refreshUser,
       updatePassword,
       user,
       userErrorMessages,
-      $v: useVuelidate(),
-    }
-  },
-  data() {
-    return {
-      password: "",
-      newPassword: "",
-      newPasswordConfirm: "",
-      email: this.user && this.user.email,
+      $v,
+      ...refs,
     }
   },
   methods: {
@@ -112,20 +129,6 @@ export default {
         newPasswordConfirm: this.newPasswordConfirm,
       })
       await this.refreshUser()
-    },
-  },
-  validations: {
-    password: {
-      required,
-      minLenght: minLength(8),
-    },
-    newPassword: {
-      required,
-      minLength: minLength(8),
-    },
-    newPasswordConfirm: {
-      required,
-      sameAsNewPassword: sameAs("newPassword"),
     },
   },
 }
