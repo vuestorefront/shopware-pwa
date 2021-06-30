@@ -59,7 +59,8 @@ export function useCms(rootContext: ApplicationVueContext): {
   watch(
     page,
     (pageValue) => {
-      setBreadcrumbs(Object.values(pageValue?.breadcrumb || []));
+      pageValue?.breadcrumb &&
+        setBreadcrumbs(Object.values(pageValue.breadcrumb));
     },
     { immediate: true }
   );
