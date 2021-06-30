@@ -68,6 +68,9 @@ export interface IUseUser {
   errors: UnwrapRef<{
     login: ShopwareError[];
     register: ShopwareError[];
+    resetPassword: ShopwareError[];
+    updatePassword: ShopwareError[];
+    updateEmail: ShopwareError[];
   }>;
   isLoggedIn: ComputedRef<boolean>;
   isCustomerSession: ComputedRef<boolean>;
