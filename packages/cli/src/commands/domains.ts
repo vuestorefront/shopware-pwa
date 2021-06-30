@@ -30,12 +30,16 @@ Synchronize the domain's related config from backend (in order to build a domain
         type: "input",
         name: "username",
         message: "Shopware admin username:",
+        initial: process.env.ADMIN_USER,
+        footer: process.env.ADMIN_USER && "username is taken from .env",
       };
 
       const shopwarePasswordQuestion = !inputParameters.password && {
         type: "password",
         name: "password",
         message: "Shopware admin password:",
+        initial: process.env.ADMIN_PASSWORD,
+        footer: process.env.ADMIN_PASSWORD && "password from .env is hidden",
       };
 
       const shopwarePwaHostQuestions = !inputParameters.pwaHost && {
