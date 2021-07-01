@@ -96,6 +96,9 @@ async function runBuild({
     const peerDependencies = Object.keys(packageJson.peerDependencies || {});
     const external = [...dependencies, ...peerDependencies];
     await esBuild({
+      define: {
+        "process.env.NODE_ENV": '"production"',
+      },
       entryPoints: [path.join("packages", target, "src", "index.ts")],
       outfile: path.join("packages", target, "dist", `${target}.${format}.js`),
       minify: false,
@@ -121,6 +124,9 @@ async function runBuild({
           external,
           target: buildTarget,
           format,
+          define: {
+            "process.env.NODE_ENV": '"production"',
+          },
         });
       });
       await Promise.all(promisses);
@@ -162,7 +168,13 @@ async function build(target) {
 
   // run custom package build if there is one
   if (pkg.scripts && pkg.scripts.build) {
-    await execa("yarn", ["build"], { stdio: "inherit", cwd: pkgDir });
+    await execa("yarn", ["build"], {
+      stdio: "inherit",
+      cwd: pkgDir,
+      env: {
+        NODE_ENV: "production",
+      },
+    });
     return;
   }
 
