@@ -97,7 +97,10 @@ async function runBuild({
     const external = [...dependencies, ...peerDependencies];
     await esBuild({
       define: {
-        "process.env.NODE_ENV": '"production"',
+        "process.env.NODE_ENV":
+          process.env.NODE_ENV === "development"
+            ? '"development"'
+            : '"production"',
       },
       entryPoints: [path.join("packages", target, "src", "index.ts")],
       outfile: path.join("packages", target, "dist", `${target}.${format}.js`),
@@ -125,7 +128,10 @@ async function runBuild({
           target: buildTarget,
           format,
           define: {
-            "process.env.NODE_ENV": '"production"',
+            "process.env.NODE_ENV":
+              process.env.NODE_ENV === "development"
+                ? '"development"'
+                : '"production"',
           },
         });
       });
@@ -171,9 +177,6 @@ async function build(target) {
     await execa("yarn", ["build"], {
       stdio: "inherit",
       cwd: pkgDir,
-      env: {
-        NODE_ENV: "production",
-      },
     });
     return;
   }

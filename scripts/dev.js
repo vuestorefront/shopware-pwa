@@ -41,10 +41,16 @@ if (pkg.scripts && pkg.scripts.dev) {
     .on("all", async (event) => {
       execa("yarn", ["build", target], {
         stdio: "inherit",
+        env: {
+          NODE_ENV: "development",
+        },
       });
     });
 
   execa("yarn", ["build", target], {
     stdio: "inherit",
+    env: {
+      NODE_ENV: "development",
+    },
   });
 }
