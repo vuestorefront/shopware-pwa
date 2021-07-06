@@ -91,17 +91,17 @@ async function runBuild({
 }) {
   const buildTarget = format === "esm" ? "es2020" : "es2015";
 
+  const define = {
+    "process.env.NODE_ENV":
+      process.env.NODE_ENV === "development" ? '"development"' : '"production"',
+  };
+
   try {
     const dependencies = Object.keys(packageJson.dependencies || {});
     const peerDependencies = Object.keys(packageJson.peerDependencies || {});
     const external = [...dependencies, ...peerDependencies];
     await esBuild({
-      define: {
-        "process.env.NODE_ENV":
-          process.env.NODE_ENV === "development"
-            ? '"development"'
-            : '"production"',
-      },
+      define,
       entryPoints: [path.join("packages", target, "src", "index.ts")],
       outfile: path.join("packages", target, "dist", `${target}.${format}.js`),
       minify: false,
@@ -127,12 +127,7 @@ async function runBuild({
           external,
           target: buildTarget,
           format,
-          define: {
-            "process.env.NODE_ENV":
-              process.env.NODE_ENV === "development"
-                ? '"development"'
-                : '"production"',
-          },
+          define,
         });
       });
       await Promise.all(promisses);
