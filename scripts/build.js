@@ -90,18 +90,13 @@ async function runBuild({
   additionalEntrypoints = [],
 }) {
   const buildTarget = format === "esm" ? "es2020" : "es2015";
-
-  const define = {
-    "process.env.NODE_ENV":
-      process.env.NODE_ENV === "development" ? '"development"' : '"production"',
-  };
+  const platform = format === "cjs" ? "node" : "neutral";
 
   try {
     const dependencies = Object.keys(packageJson.dependencies || {});
     const peerDependencies = Object.keys(packageJson.peerDependencies || {});
     const external = [...dependencies, ...peerDependencies];
     await esBuild({
-      define,
       entryPoints: [path.join("packages", target, "src", "index.ts")],
       outfile: path.join("packages", target, "dist", `${target}.${format}.js`),
       minify: false,
@@ -109,6 +104,7 @@ async function runBuild({
       external,
       target: buildTarget,
       format,
+      platform,
     });
     if (additionalEntrypoints.length) {
       const promisses = additionalEntrypoints.map((entrypoint) => {
@@ -127,7 +123,7 @@ async function runBuild({
           external,
           target: buildTarget,
           format,
-          define,
+          platform,
         });
       });
       await Promise.all(promisses);
