@@ -56,11 +56,12 @@ jobs:
       - name: Test
         run: |
           echo ${{github.event.pull_request.head.ref}}
+          echo ${{github.event.pull_request.head}}
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+          branch: ${{ github.event.pull_request.head.ref }}
       # - name: add fail label if failed
       #   if: failure()
       #   uses: buildsville/add-remove-label@v1
