@@ -53,10 +53,6 @@ jobs:
       #     token: ${{secrets.GITHUB_TOKEN}}
       #     label: ${{ env.LABEL_ACTIVATE }}
       #     type: remove
-      - name: Test
-        run: |
-          echo ${{github.event.pull_request.head.ref}}
-          echo ${{toJSON(github.event.pull_request.head)}}
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
