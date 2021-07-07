@@ -55,7 +55,7 @@ jobs:
       #     type: remove
       - name: Pull changes
         run: |
-          git pull
+          git pull remote ${{ github.event.pull_request.head.ref }}
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
