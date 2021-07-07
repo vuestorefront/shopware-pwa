@@ -40,7 +40,7 @@ jobs:
   #         yarn --frozen-lockfile
 
   copy:
-    name: Copy forked branch to main repo
+    name: Copy forked branch
     if: github.event.label.name == 'copy-forked-branch'
     runs-on: ubuntu-latest
 
