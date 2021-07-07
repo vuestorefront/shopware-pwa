@@ -41,7 +41,7 @@ jobs:
 
   copy:
     name: Copy forked branch
-    if: github.event.label.name == 'copy-forked-branch'
+    # if: github.event.label.name == 'copy-forked-branch'
     runs-on: ubuntu-latest
 
     steps:
