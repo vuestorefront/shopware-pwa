@@ -53,6 +53,9 @@ jobs:
       #     token: ${{secrets.GITHUB_TOKEN}}
       #     label: ${{ env.LABEL_ACTIVATE }}
       #     type: remove
+      - name: Pull changes
+        run: |
+          git pull
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
