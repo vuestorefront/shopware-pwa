@@ -1,0 +1,73 @@
+name: Copy forked branch
+env:
+  LABEL_ACTIVATE: copy-forked-branch
+
+on:
+  pull_request:
+    types: [labeled]
+  # workflow_dispatch:
+  #   inputs:
+  #     page_url:
+  #       description: "Url of the instance you want to check"
+  #       required: false
+  #       default: "https://shopware-pwa-canary.storefrontcloud.io/"
+
+jobs:
+  # init:
+  #   name: Init dependencies
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+  #     - name: Setup node
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: "14"
+  #     - name: Cache node_modules
+  #       uses: actions/cache@v2
+  #       id: step-cache-node-modules
+  #       env:
+  #         cache-name: cache-cypress-node-modules-test
+  #       with:
+  #         path: |
+  #           node_modules
+  #           /home/runner/.cache/Cypress
+  #         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
+  #     - name: Install dependencies
+  #       if: steps.step-cache-node-modules.outputs.cache-hit != 'true'
+  #       run: |
+  #         yarn --frozen-lockfile
+
+  copy:
+    name: Copy forked branch to main repo
+    if: github.event.label.name == 'copy-forked-branch'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: remove label
+        uses: buildsville/add-remove-label@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          label: ${{ env.LABEL_ACTIVATE }}
+          type: remove
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+      # - name: add fail label if failed
+      #   if: failure()
+      #   uses: buildsville/add-remove-label@v1
+      #   with:
+      #     token: ${{secrets.GITHUB_TOKEN}}
+      #     label: ${{ env.LABEL_FAIL }}
+      #     type: add
+      # - name: add success label if tests passed
+      #   if: success()
+      #   uses: buildsville/add-remove-label@v1
+      #   with:
+      #     token: ${{secrets.GITHUB_TOKEN}}
+      #     label: ${{ env.LABEL_SUCCESS }}
+      #     type: add
