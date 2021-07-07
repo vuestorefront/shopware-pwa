@@ -1,0 +1,30 @@
+name: Copy forked branch
+env:
+  LABEL_ACTIVATE: copy-forked-branch
+
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  copy:
+    name: Init
+    if: github.event.label.name == 'copy-forked-branch'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: remove label
+        uses: buildsville/add-remove-label@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          label: ${{ env.LABEL_ACTIVATE }}
+          type: remove
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.event.pull_request.head.ref }}
+          force: true
