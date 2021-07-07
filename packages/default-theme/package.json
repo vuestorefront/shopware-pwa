@@ -25,19 +25,19 @@
   "dependencies": {
     "@shopware-pwa/theme-base": "0.9.1",
     "@storefront-ui/vue": "0.10.5",
-    "@vuelidate/core": "^2.0.0-alpha.19",
-    "@vuelidate/validators": "^2.0.0-alpha.17",
-    "dayjs": "^1.10.5",
-    "node-sass": "^6.0.0",
+    "@vuelidate/core": "^2.0.0-alpha.21",
+    "@vuelidate/validators": "^2.0.0-alpha.18",
+    "dayjs": "^1.10.6",
+    "node-sass": "^6.0.1",
     "html-to-vue": "^1.4.0",
     "sass-loader": "^10.0.3",
-    "vue-i18n": "^8.24.4"
+    "vue-i18n": "^8.24.5"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.0.0-rc.9",
     "vue": "^2.0.0 || >=3.0.0-rc.0",
-    "nuxt": "^2.15.1",
-    "core-js": "^3.14.0"
+    "nuxt": "^2.15.7",
+    "core-js": "^3.15.2"
   },
   "peerDependenciesMeta": {
     "@vue/composition-api": {
@@ -45,23 +45,23 @@
     }
   },
   "devDependencies": {
-    "@babel/runtime-corejs3": "^7.14.6",
+    "@babel/runtime-corejs3": "^7.14.7",
     "@nuxtjs/eslint-config": "^6.0.1",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@shopware-pwa/cli": "0.9.1",
     "@vue/composition-api": "^1.0.0-rc.12",
     "@vue/test-utils": "^1.2.1",
     "babel-eslint": "^10.1.0",
-    "babel-jest": "^27.0.2",
-    "eslint": "^7.28.0",
+    "babel-jest": "^27.0.6",
+    "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-nuxt": ">=2.0.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "husky": "^6.0.0",
-    "jest": "^27.0.4",
+    "husky": "^7.0.1",
+    "jest": "^27.0.6",
     "lint-staged": "^11.0.0",
     "lodash": "^4.17.21",
-    "prettier": "^2.3.1",
+    "prettier": "^2.3.2",
     "vue-jest": "^4.0.0-0"
   }
 }
