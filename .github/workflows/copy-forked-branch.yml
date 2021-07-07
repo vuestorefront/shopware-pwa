@@ -4,7 +4,8 @@ env:
 
 on:
   pull_request:
-    types: [labeled]
+    types: [opened, synchronize, labeled]
+    # types: [labeled]
   # workflow_dispatch:
   #   inputs:
   #     page_url:
@@ -52,6 +53,9 @@ jobs:
           token: ${{secrets.GITHUB_TOKEN}}
           label: ${{ env.LABEL_ACTIVATE }}
           type: remove
+      - name: Test
+        run: |
+          echo ${{github.ref}}
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
