@@ -56,7 +56,7 @@ jobs:
       - name: Test
         run: |
           echo ${{github.event.pull_request.head.ref}}
-          echo ${{JSON.stringify(github.event.pull_request.head)}}
+          echo ${{parseJSON(github.event.pull_request.head)}}
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
