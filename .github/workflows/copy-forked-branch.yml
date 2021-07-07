@@ -4,7 +4,7 @@ env:
 
 on:
   pull_request:
-    types: [opened, synchronize, labeled]
+    types: [labeled]
     # types: [labeled]
   # workflow_dispatch:
   #   inputs:
@@ -41,19 +41,19 @@ jobs:
 
   copy:
     name: Copy forked branch
-    # if: github.event.label.name == 'copy-forked-branch'
+    if: github.event.label.name == 'copy-forked-branch'
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # - name: remove label
-      #   uses: buildsville/add-remove-label@v1
-      #   with:
-      #     token: ${{secrets.GITHUB_TOKEN}}
-      #     label: ${{ env.LABEL_ACTIVATE }}
-      #     type: remove
+      - name: remove label
+        uses: buildsville/add-remove-label@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          label: ${{ env.LABEL_ACTIVATE }}
+          type: remove
       # - name: Pull changes
       #   run: |
       #     git pull ${{ github.event.pull_request.head.ref }}
