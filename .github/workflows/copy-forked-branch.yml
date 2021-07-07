@@ -47,8 +47,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
       # - name: remove label
       #   uses: buildsville/add-remove-label@v1
@@ -56,14 +54,15 @@ jobs:
       #     token: ${{secrets.GITHUB_TOKEN}}
       #     label: ${{ env.LABEL_ACTIVATE }}
       #     type: remove
-      - name: Pull changes
-        run: |
-          git pull ${{ github.event.pull_request.head.ref }}
+      # - name: Pull changes
+      #   run: |
+      #     git pull ${{ github.event.pull_request.head.ref }}
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.event.pull_request.head.ref }}
+          force: true
       # - name: add fail label if failed
       #   if: failure()
       #   uses: buildsville/add-remove-label@v1
