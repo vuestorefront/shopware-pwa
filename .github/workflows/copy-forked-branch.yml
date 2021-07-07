@@ -47,12 +47,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: remove label
-        uses: buildsville/add-remove-label@v1
-        with:
-          token: ${{secrets.GITHUB_TOKEN}}
-          label: ${{ env.LABEL_ACTIVATE }}
-          type: remove
+      # - name: remove label
+      #   uses: buildsville/add-remove-label@v1
+      #   with:
+      #     token: ${{secrets.GITHUB_TOKEN}}
+      #     label: ${{ env.LABEL_ACTIVATE }}
+      #     type: remove
       - name: Test
         run: |
           echo ${{github.ref}}
