@@ -47,11 +47,27 @@ export default ({ app, route, req }, inject) => {
     }
 
     if (hostname) {
-      const matchingDomainConfig = domainsList.find(
-        (domain) => domain.host === hostname
-      );
+      // first check the domains with prefix path as they are more specific than ones with just a hostname
+      let matchingDomainConfig = domainsList
+        .filter((domain) => domain.pathPrefix !== "/")
+        .find((domain) => {
+          const pathnameWithTrailingSlash = pathname + "/";
+          /* add trailing slash also to the comparison to be completely safe
+           * example: pathPrefix "/en" would otherwise also match /endless
+           */
+          const pathPrefixPartOfPathname = pathnameWithTrailingSlash.startsWith(
+            domain.pathPrefix + "/"
+          );
+          return pathPrefixPartOfPathname && domain.host === hostname;
+        });
 
-      console.log("MATCHING", matchingDomainConfig);
+      if (matchingDomainConfig) return matchingDomainConfig;
+      // if there wasn't a match already, check the domains that only have a hostname
+      matchingDomainConfig = domainsList
+        .filter((domain) => domain.pathPrefix === "/")
+        .find((domain) => {
+          return domain.host === hostname;
+        });
 
       if (matchingDomainConfig) return matchingDomainConfig;
     }

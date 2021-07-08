@@ -127,7 +127,6 @@ export async function setupDomains(
 
       routes.splice(0, routes.length, ...domainsRoutes); // force replace the new routes table
     }
-    console.log("ROUTES", routes);
   };
 
   // hook in extendRoutes, when the routes.js and routes.json are being built - enrich them with available domains and corresponding metadata
