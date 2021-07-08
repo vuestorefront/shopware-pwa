@@ -648,9 +648,9 @@ export const useSalutations: (rootContext: ApplicationVueContext) => UseSalutati
 // @beta
 export const useSessionContext: (rootContext: ApplicationVueContext) => IUseSessionContext;
 
-// @alpha
+// @beta
 export function useSharedState(rootContext: ApplicationVueContext): {
-    sharedRef: <T>(uniqueKey: string) => WritableComputedRef<T | null>;
+    sharedRef: <T>(uniqueKey: string, defaultValue?: T | undefined) => WritableComputedRef<T | null>;
     preloadRef: (refObject: Ref<unknown>, callback: () => Promise<void>) => Promise<void>;
 };
 
