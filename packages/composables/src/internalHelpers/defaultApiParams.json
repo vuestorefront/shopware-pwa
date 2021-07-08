@@ -136,7 +136,7 @@
       "calculated_price": ["unitPrice", "quantity", "listPrice"],
       "product_group_option": ["name", "id", "group", "translated"],
       "product_group": ["id", "name", "options", "translated"],
-      "property_group": ["id", "translated", "options"],
+      "property_group": ["id", "translated", "options", "name"],
       "property_group_option": [
         "translated",
         "name",
@@ -173,7 +173,7 @@
       "calculated_price": ["unitPrice", "quantity", "listPrice"],
       "product_group_option": ["name", "id", "group", "translated"],
       "product_group": ["id", "name", "options", "translated"],
-      "property_group": ["id", "translated", "options"],
+      "property_group": ["id", "translated", "options", "name"],
       "property_group_option": [
         "name",
         "translated",
