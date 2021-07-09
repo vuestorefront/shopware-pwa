@@ -33,7 +33,9 @@
                 v-model="newPassword"
                 :valid="!$v.newPassword.$error"
                 :error-message="
-                  $t('This field is required and should be at leas 8 long')
+                  $t(
+                    'This field is required and should be at least 8 characters long'
+                  )
                 "
                 type="password"
                 name="newPassword"
