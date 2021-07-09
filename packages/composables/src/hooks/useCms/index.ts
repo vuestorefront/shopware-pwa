@@ -1,4 +1,4 @@
-import { ref, Ref, computed, ComputedRef, watch } from "vue-demi";
+import { Ref, computed, ComputedRef, watch } from "vue-demi";
 import { getCmsPage } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { parseUrlQuery } from "@shopware-pwa/helpers";
@@ -26,7 +26,7 @@ export function useCms(rootContext: ApplicationVueContext): {
     PageResolverProductResult | PageResolverResult<CmsPage> | null
   >;
   categoryId: ComputedRef<string | null>;
-  searchPathKey: ComputedRef<string | null>;
+  currentSearchPathKey: ComputedRef<string | null>;
   loading: Ref<boolean>;
   search: (path: string, query?: any) => Promise<void>;
   error: Ref<any>;
@@ -41,7 +41,7 @@ export function useCms(rootContext: ApplicationVueContext): {
   );
 
   const { sharedRef } = useSharedState(rootContext);
-  const _searchPath = sharedRef(`${contextName}-searchPath`, "");
+  const _searchPath = sharedRef<string>(`${contextName}-searchPath`);
   const _cmsError = sharedRef<any>(`${contextName}-cmsError`, null);
   const _cmsLoading = sharedRef(`${contextName}-cmsLoading`, false);
 
@@ -56,7 +56,7 @@ export function useCms(rootContext: ApplicationVueContext): {
   // TODO: https://github.com/vuestorefront/shopware-pwa/issues/1308
   const categoryId = computed(() => {
     // each cms page is in relation one-to-one with categoryId (resourceIdentifier)
-    return page.value && page.value.resourceIdentifier;
+    return page.value?.resourceIdentifier || null;
   });
 
   watch(
@@ -96,7 +96,7 @@ export function useCms(rootContext: ApplicationVueContext): {
     categoryId,
     loading: computed(() => _cmsLoading.value || false),
     search,
-    searchPathKey: computed(() => _searchPath.value),
+    currentSearchPathKey: computed(() => _searchPath.value),
     error: computed(() => _cmsError.value),
     /**
      * @deprecated use useBreadcrumbs instead. Remove after v0.8

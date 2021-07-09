@@ -9,8 +9,8 @@ export default async function ({ app, route }) {
   const { clear } = useBreadcrumbs(app)
   clear()
 
-  const { search, searchPathKey } = useCms(app)
-  if (route.path !== searchPathKey.value) {
+  const { search, currentSearchPathKey } = useCms(app)
+  if (route.path !== currentSearchPathKey.value) {
     await search(route.path, route.query)
   }
 }

@@ -34,6 +34,7 @@ export async function runModule(
   if (!shopwarePwaConfig.shopwareEndpoint)
     console.error("shopwareEndpoint in shopware-pwa.config.js is missing");
 
+  moduleObject.options.alias = moduleObject.options.alias || {};
   // fixes problem with multiple composition-api instances
   moduleObject.options.alias["@vue/composition-api"] =
     moduleObject.nuxt.resolver.resolveModule(
@@ -54,7 +55,6 @@ export async function runModule(
   moduleObject.options.store = false; // disable store generation
   moduleObject.options.features.store = false;
   // resolve project src aliases
-  moduleObject.options.alias = moduleObject.options.alias || {};
   moduleObject.options.alias["~"] = TARGET_SOURCE;
   moduleObject.options.alias["@"] = TARGET_SOURCE;
   moduleObject.options.alias["assets"] = path.join(TARGET_SOURCE, "assets");
