@@ -34,6 +34,12 @@ export async function runModule(
   if (!shopwarePwaConfig.shopwareEndpoint)
     console.error("shopwareEndpoint in shopware-pwa.config.js is missing");
 
+  // fixes problem with multiple composition-api instances
+  moduleObject.options.alias["@vue/composition-api"] =
+    moduleObject.nuxt.resolver.resolveModule(
+      "@vue/composition-api/dist/vue-composition-api.esm.js"
+    );
+
   const TARGET_SOURCE: string = getTargetSourcePath(moduleObject);
   const THEME_SOURCE: string = getThemeSourcePath(
     moduleObject,
@@ -154,12 +160,6 @@ export async function runModule(
     options: moduleOptions,
   });
 
-  // fixes problem with multiple composition-api instances
-  moduleObject.options.alias["@vue/composition-api"] =
-    moduleObject.nuxt.resolver.resolveModule(
-      "@vue/composition-api/dist/vue-composition-api.esm.js"
-    );
-
   moduleObject.extendBuild((config: WebpackConfig, ctx: WebpackContext) => {
     const swPluginsDirectory = path.join(
       moduleObject.options.rootDir,
@@ -174,6 +174,7 @@ export async function runModule(
 
   extendCMS(moduleObject, shopwarePwaConfig);
 
+  // TODO: start - remove this, only for default-theme
   moduleObject.options.build = moduleObject.options.build || {};
   moduleObject.options.build.babel = moduleObject.options.build.babel || {};
   /* istanbul ignore next */
@@ -215,6 +216,8 @@ export async function runModule(
   moduleObject.options.build.transpile =
     moduleObject.options.build.transpile || [];
   moduleObject.options.build.transpile.push("@shopware-pwa/default-theme");
+
+  // TODO: --- END
 
   // Watching files in development mode
   if (moduleObject.options.dev) {
