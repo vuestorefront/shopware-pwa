@@ -31,6 +31,7 @@
   "dependencies": {
     "@shopware-pwa/shopware-6-client": "0.9.1",
     "chokidar": "^3.5.2",
+    "dotenv": "^10.0.0",
     "gluegun": "^4.6.1",
     "md5-hex": "^4.0.0",
     "request": "^2.88.2",
