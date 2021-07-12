@@ -1,4 +1,4 @@
-import { ref, Ref, computed, ComputedRef, watch } from "vue-demi";
+import { Ref, computed, ComputedRef, watch } from "vue-demi";
 import { getCmsPage } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { parseUrlQuery } from "@shopware-pwa/helpers";
@@ -26,6 +26,7 @@ export function useCms(rootContext: ApplicationVueContext): {
     PageResolverProductResult | PageResolverResult<CmsPage> | null
   >;
   categoryId: ComputedRef<string | null>;
+  currentSearchPathKey: ComputedRef<string | null>;
   loading: Ref<boolean>;
   search: (path: string, query?: any) => Promise<void>;
   error: Ref<any>;
@@ -40,20 +41,22 @@ export function useCms(rootContext: ApplicationVueContext): {
   );
 
   const { sharedRef } = useSharedState(rootContext);
+  const _searchPath = sharedRef<string>(`${contextName}-searchPath`);
+  const _cmsError = sharedRef<any>(`${contextName}-cmsError`, null);
+  const _cmsLoading = sharedRef(`${contextName}-cmsLoading`, false);
+
   const _storePage = sharedRef<
     PageResolverProductResult | PageResolverResult<CmsPage>
   >(`${contextName}-page`);
 
   const { getDefaults } = useDefaults(rootContext, "useCms");
   const { setBreadcrumbs } = useBreadcrumbs(rootContext);
-  const error: Ref<any> = ref(null);
-  const loading: Ref<boolean> = ref(false);
   const page = computed(() => _storePage.value);
   // TODO: rename it to something more obvious, or just leav as resourceIdentifier
   // TODO: https://github.com/vuestorefront/shopware-pwa/issues/1308
   const categoryId = computed(() => {
     // each cms page is in relation one-to-one with categoryId (resourceIdentifier)
-    return page.value && page.value.resourceIdentifier;
+    return page.value?.resourceIdentifier || null;
   });
 
   watch(
@@ -69,7 +72,9 @@ export function useCms(rootContext: ApplicationVueContext): {
    * @beta
    */
   const search = async (path: string, query?: any): Promise<void> => {
-    loading.value = true;
+    _cmsLoading.value = true;
+    _cmsError.value = null;
+    _searchPath.value = path;
 
     const criteria: SearchCriteria = parseUrlQuery(query);
     const searchCriteria = merge({}, getDefaults(), criteria);
@@ -79,18 +84,20 @@ export function useCms(rootContext: ApplicationVueContext): {
       _storePage.value = result;
     } catch (e) {
       const err: ClientApiError = e;
-      error.value = err;
+      _cmsError.value = err;
+      _storePage.value = null;
     } finally {
-      loading.value = false;
+      _cmsLoading.value = false;
     }
   };
 
   return {
     page,
     categoryId,
-    loading,
+    loading: computed(() => _cmsLoading.value || false),
     search,
-    error,
+    currentSearchPathKey: computed(() => _searchPath.value),
+    error: computed(() => _cmsError.value),
     /**
      * @deprecated use useBreadcrumbs instead. Remove after v0.8
      */

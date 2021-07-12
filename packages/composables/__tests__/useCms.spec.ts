@@ -12,6 +12,9 @@ const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 import { useCms } from "../src/hooks/useCms";
 describe("Composables - useCms", () => {
   const statePage: Ref<Object | null> = ref(null);
+  const stateLoading: Ref<boolean | null> = ref(false);
+  const stateError: Ref<Object | null> = ref(null);
+  const stateSearchPath: Ref<string | null> = ref(null);
   const rootContextMock: any = {
     $shopwareApiInstance: jest.fn(),
   };
@@ -20,6 +23,9 @@ describe("Composables - useCms", () => {
   beforeEach(() => {
     jest.resetAllMocks();
     statePage.value = null;
+    stateLoading.value = null;
+    stateError.value = null;
+    stateSearchPath.value = null;
 
     mockedComposables.getApplicationContext.mockImplementation(() => {
       return {
@@ -45,7 +51,12 @@ describe("Composables - useCms", () => {
 
     mockedComposables.useSharedState.mockImplementation(() => {
       return {
-        sharedRef: () => statePage,
+        sharedRef: (contextName: string) => {
+          if (contextName === "useCms-cmsError") return stateError;
+          if (contextName === "useCms-cmsLoading") return stateLoading;
+          if (contextName === "useCms-searchPath") return stateSearchPath;
+          return statePage;
+        },
       } as any;
     });
   });
@@ -177,6 +188,13 @@ describe("Composables - useCms", () => {
         );
       });
     });
+
+    it("should set currentSearchPathKey on search invocation", async () => {
+      const { search, currentSearchPathKey } = useCms(rootContextMock);
+      expect(currentSearchPathKey.value).toBeNull();
+      await search("/some/path");
+      expect(currentSearchPathKey.value).toEqual("/some/path");
+    });
   });
 
   it("should return activeCategoryId if it's included within the page object", async () => {
@@ -196,6 +214,18 @@ describe("Composables - useCms", () => {
   });
 
   describe("computed", () => {
+    describe("loading", () => {
+      it("should show default loading state", () => {
+        const { loading } = useCms(rootContextMock);
+        expect(loading.value).toEqual(false);
+      });
+
+      it("should show default loading state", () => {
+        const { loading } = useCms(rootContextMock);
+        stateLoading.value = true;
+        expect(loading.value).toEqual(true);
+      });
+    });
     describe("getBreadcrumbsObject", () => {
       it("should return page breadcrumbs after search", async () => {
         const { getBreadcrumbsObject, search } = useCms(rootContextMock);

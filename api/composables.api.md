@@ -522,6 +522,7 @@ export const useCheckout: (rootContext: ApplicationVueContext) => IUseCheckout;
 export function useCms(rootContext: ApplicationVueContext): {
     page: ComputedRef<PageResolverProductResult | PageResolverResult<CmsPage> | null>;
     categoryId: ComputedRef<string | null>;
+    currentSearchPathKey: ComputedRef<string | null>;
     loading: Ref<boolean>;
     search: (path: string, query?: any) => Promise<void>;
     error: Ref<any>;
