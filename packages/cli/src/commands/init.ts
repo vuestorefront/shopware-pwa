@@ -61,6 +61,7 @@ module.exports = {
     }
 
     await toolbox.checkApiCompatibility();
+    await toolbox.generateNuxtProject();
 
     const packageJson = require(path.join("..", "..", "package.json"));
     const currentVersion = `^${packageJson.version}`;
