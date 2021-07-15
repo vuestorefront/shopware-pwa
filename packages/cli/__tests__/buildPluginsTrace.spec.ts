@@ -145,21 +145,6 @@ describe("CLI extensions - plugins - buildPluginsTrace", () => {
   });
 
   describe("custom pages and layouts", () => {
-    it("should clear plugins layouts and pages cache", async () => {
-      const pluginsConfig = {
-        "first-plugin": false,
-      };
-      await toolbox.buildPluginsTrace({
-        pluginsConfig,
-      });
-      expect(toolbox.filesystem.removeAsync).toBeCalledWith(
-        ".shopware-pwa/sw-plugins/pages"
-      );
-      expect(toolbox.filesystem.removeAsync).toBeCalledWith(
-        ".shopware-pwa/sw-plugins/layouts"
-      );
-    });
-
     it("should add plugin layouts to cache and runtime directory", async () => {
       toolbox.filesystem.exists.mockReturnValueOnce("dir");
       toolbox.filesystem.exists.mockReturnValueOnce(false);

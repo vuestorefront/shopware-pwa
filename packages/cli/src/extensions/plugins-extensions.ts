@@ -167,8 +167,6 @@ module.exports = (toolbox: GluegunToolbox) => {
     const pluginsMap = Object.assign({}, pluginsTrace);
     if (pluginsConfig) {
       const pluginNames = Object.keys(pluginsConfig);
-      await toolbox.filesystem.removeAsync(".shopware-pwa/sw-plugins/pages");
-      await toolbox.filesystem.removeAsync(".shopware-pwa/sw-plugins/layouts");
       pluginNames.forEach((pluginName) => {
         if (!pluginsConfig[pluginName]) return;
         const pluginDirectory = `${pluginsRootDirectory}/${pluginName}`;
