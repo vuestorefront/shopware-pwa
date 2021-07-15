@@ -75,6 +75,9 @@ module.exports = {
       props: {},
     });
 
+    await toolbox.filesystem.removeAsync(".shopware-pwa/sw-plugins/pages");
+    await toolbox.filesystem.removeAsync(".shopware-pwa/sw-plugins/layouts");
+
     const pluginsConfig = await toolbox.plugins.getPluginsConfig();
     const shopwarePluginsTrace = await toolbox.buildPluginsTrace({
       pluginsConfig,
