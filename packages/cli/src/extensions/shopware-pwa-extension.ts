@@ -1,6 +1,5 @@
 import { GluegunToolbox } from "gluegun";
 import axios from "axios";
-import { minor } from "semver";
 import {
   defaultPwaConfigFile,
   ShopwarePwaConfigFile,
@@ -17,39 +16,6 @@ const INSTANCE_READ_API_SECRET =
 // to your commands
 module.exports = (toolbox: GluegunToolbox) => {
   toolbox.shopware = {};
-
-  /**
-   * Returns list of available versions, should return current stable, previous stable, canary and local.
-   * Example:
-   * ^0.7.2
-   * ^0.6.1
-   * canary
-   * local
-   */
-  toolbox.shopware.getPwaVersions = async function () {
-    const gitHubReleasesResponse = await axios.get(
-      `https://api.github.com/repos/vuestorefront/shopware-pwa/releases`
-    );
-
-    const SHOW_NUMBER_OF_STABLE_VERSIONS = 2;
-    const versions = [];
-    const groups = [];
-    gitHubReleasesResponse.data.forEach((releaseInfo) => {
-      const version = toolbox.semver.clean(releaseInfo.tag_name);
-      // TODO: group by MAJOR after v1.0 release
-      const versionGroup = minor(version);
-      if (
-        !groups.includes(versionGroup) &&
-        groups.length < SHOW_NUMBER_OF_STABLE_VERSIONS
-      ) {
-        groups.push(versionGroup);
-        versions.push(`^${version}`);
-      }
-    });
-    versions.push("canary");
-    versions.push("local");
-    return versions;
-  };
 
   toolbox.defaultInitConfig = {
     ...defaultPwaConfigFile,
@@ -134,9 +100,13 @@ module.exports = (toolbox: GluegunToolbox) => {
       toolbox.config.shopwareAccessToken,
     pwaHost: toolbox.parameters.options.pwaHost || toolbox.config.pwaHost,
     username:
-      toolbox.parameters.options.username || toolbox.parameters.options.u,
+      toolbox.parameters.options.username ||
+      toolbox.parameters.options.u ||
+      process.env.ADMIN_USER,
     password:
-      toolbox.parameters.options.password || toolbox.parameters.options.p,
+      toolbox.parameters.options.password ||
+      toolbox.parameters.options.p ||
+      process.env.ADMIN_PASSWORD,
     devMode: toolbox.parameters.options.devMode,
     ci: toolbox.parameters.options.ci,
     stage: toolbox.parameters.options.stage,
