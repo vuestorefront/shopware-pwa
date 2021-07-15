@@ -172,4 +172,42 @@ module.exports = (toolbox: GluegunToolbox) => {
       );
     }
   };
+
+  toolbox.auth ??= {};
+
+  let authTokenCache: string = "";
+  toolbox.auth.getAuthToken = async (
+    { shopwareEndpoint, username, password } = toolbox.inputParameters
+  ) => {
+    if (authTokenCache) return authTokenCache;
+
+    try {
+      const normalizedShopwareEndpoint =
+        toolbox.normalizeBaseUrl(shopwareEndpoint);
+      const authTokenResponse = await axios.post(
+        `${normalizedShopwareEndpoint}/api/oauth/token`,
+        {
+          client_id: "administration",
+          grant_type: "password",
+          scopes: "write",
+          username,
+          password,
+        }
+      );
+
+      authTokenCache = authTokenResponse?.data?.access_token;
+      return authTokenCache;
+    } catch (error) {
+      if (!toolbox.isDefaultDemoData()) {
+        if (error.response.status === 401) {
+          toolbox.print.error(
+            "Invalid credentials, aborting domain import. Please try again. This synchronization is required."
+          );
+        }
+        toolbox.print.error(
+          `Error during API authentication: ${error.response.status} (${error.response.statusText}).`
+        );
+      }
+    }
+  };
 };
