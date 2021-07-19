@@ -115,7 +115,7 @@ broadcast(INTERCEPTOR_KEYS.ERROR, {
 );
 ```
 
-Example of how to deal with broadcasted errors. The example below shows how to listen for ERROR type event within `useIntercept` functionality and do something about it.
+Example of how to deal with broadcasted errors. The example of a [nuxt plugin](https://nuxtjs.org/docs/2.x/directory-structure/plugins) below shows how to listen for ERROR type event within `useIntercept` functionality and do something about it. In this case, plugin subscribes the events for `INTERCEPTOR_KEYS.ERROR` key and pushes errors to the external logs server using UDP.
 
 ```js
 import { useIntercept, INTERCEPTOR_KEYS } from "@shopware-pwa/composables"
