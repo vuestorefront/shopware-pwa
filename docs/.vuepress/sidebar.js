@@ -15,6 +15,7 @@ module.exports = {
         "/landing/getting-started/prepare-shopware",
         "/landing/project/contribution",
         "/landing/getting-started/local-environment",
+        "/landing/getting-started/env-variables",
       ],
     },
     {

@@ -65,6 +65,43 @@ describe("Composables - useSharedState", () => {
           "changed value"
         );
       });
+
+      it("should set default value for ref", () => {
+        const { sharedRef } = useSharedState(rootContextMock);
+        const result = sharedRef("unique-key", "some default value");
+        const result2 = sharedRef("unique-key");
+        expect(result.value).toEqual("some default value");
+        expect(result2.value).toEqual("some default value");
+      });
+
+      it("should set default value for first ref", () => {
+        const { sharedRef } = useSharedState(rootContextMock);
+        const result = sharedRef("unique-key");
+        const result2 = sharedRef("unique-key", "other default value");
+        expect(result.value).toEqual("other default value");
+        expect(result2.value).toEqual("other default value");
+      });
+
+      it("should not overwrite value with default value", () => {
+        rootContextMock.$sharedStore["unique-key"] = "test value";
+        const { sharedRef } = useSharedState(rootContextMock);
+        const result = sharedRef("unique-key", "some default value");
+        expect(result.value).toEqual("test value");
+      });
+
+      it("should not overwrite numeric value", () => {
+        rootContextMock.$sharedStore["unique-key"] = 0;
+        const { sharedRef } = useSharedState(rootContextMock);
+        const result = sharedRef("unique-key", "some default value");
+        expect(result.value).toEqual(0);
+      });
+
+      it("should not overwrite boolean value", () => {
+        rootContextMock.$sharedStore["unique-key"] = false;
+        const { sharedRef } = useSharedState(rootContextMock);
+        const result = sharedRef("unique-key", "some default value");
+        expect(result.value).toEqual(false);
+      });
     });
 
     describe("preloadRef", () => {

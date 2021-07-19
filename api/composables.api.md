@@ -526,6 +526,7 @@ export const useCheckout: (rootContext: ApplicationVueContext) => IUseCheckout;
 export function useCms(rootContext: ApplicationVueContext): {
     page: ComputedRef<PageResolverProductResult | PageResolverResult<CmsPage> | null>;
     categoryId: ComputedRef<string | null>;
+    currentSearchPathKey: ComputedRef<string | null>;
     loading: Ref<boolean>;
     search: (path: string, query?: any) => Promise<void>;
     error: Ref<any>;
@@ -652,9 +653,9 @@ export const useSalutations: (rootContext: ApplicationVueContext) => UseSalutati
 // @beta
 export const useSessionContext: (rootContext: ApplicationVueContext) => IUseSessionContext;
 
-// @alpha
+// @beta
 export function useSharedState(rootContext: ApplicationVueContext): {
-    sharedRef: <T>(uniqueKey: string) => WritableComputedRef<T | null>;
+    sharedRef: <T>(uniqueKey: string, defaultValue?: T | undefined) => WritableComputedRef<T | null>;
     preloadRef: (refObject: Ref<unknown>, callback: () => Promise<void>) => Promise<void>;
 };
 
