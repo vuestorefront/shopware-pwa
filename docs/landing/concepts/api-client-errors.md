@@ -115,7 +115,7 @@ broadcast(INTERCEPTOR_KEYS.ERROR, {
 );
 ```
 
-Example of how to deal with broadcasted errors. The example below shows how to listen for ERROR type event withing `useIntercept` and do something about it.
+Example of how to deal with broadcasted errors. The example below shows how to listen for ERROR type event within `useIntercept` functionality and do something about it.
 
 ```js
 import { useIntercept, INTERCEPTOR_KEYS } from "@shopware-pwa/composables"
