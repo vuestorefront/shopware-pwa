@@ -8,6 +8,7 @@
 
 |  Function | Description |
 |  --- | --- |
+|  [addCartItems(items, contextInstance)](./shopware-6-client.addcartitems.md) | <b><i>(BETA)</i></b> Adds multiple items to the cart. Accepts every type of cart item. |
 |  [addProductReview(productId, productReviewData, contextInstance)](./shopware-6-client.addproductreview.md) | <b><i>(BETA)</i></b> Add a review to specific product by its ID |
 |  [addProductToCart(productId, quantity, contextInstance)](./shopware-6-client.addproducttocart.md) | <b><i>(BETA)</i></b> TODO: https://github.com/vuestorefront/shopware-pwa/issues/1449<!-- -->Adds specific quantity of the product to the cart by productId. It creates a new cart line item.<!-- -->Warning: This method does not change the state of the cart in any way if productId already exists in a cart. For changing the quantity use addQuantityToCartLineItem() or changeCartLineItemQuantity() methods. |
 |  [addPromotionCode(promotionCode, contextInstance)](./shopware-6-client.addpromotioncode.md) | <b><i>(BETA)</i></b> Adds new promotion code to the cart by its code.<!-- -->Promotion code is being added as separate cart item line. |
