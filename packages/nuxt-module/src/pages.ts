@@ -1,7 +1,7 @@
 import path from "path";
-import { getAllFiles } from "./files";
 import { sortRoutes, createRoutes } from "@nuxt/utils";
 import { NuxtModuleOptions } from "./interfaces";
+import { getAllFiles } from "@shopware-pwa/commons/node";
 
 export function overrideRoutes(
   moduleObject: any,

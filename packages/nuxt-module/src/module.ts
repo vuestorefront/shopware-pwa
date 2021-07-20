@@ -6,7 +6,6 @@ import { setupDomains } from "./domains";
 
 import { extendLocales } from "./locales";
 import { useCorePackages } from "./packages";
-import { getAllFiles } from "./files";
 import {
   getTargetSourcePath,
   getThemeSourcePath,
@@ -20,6 +19,7 @@ import { getDefaultApiParams } from "@shopware-pwa/composables";
 import merge from "lodash/merge";
 import fse from "fs-extra";
 import { ShopwarePwaConfigFile } from "@shopware-pwa/commons";
+import { getAllFiles } from "@shopware-pwa/commons/node";
 
 export async function runModule(
   moduleObject: NuxtModuleOptions,
