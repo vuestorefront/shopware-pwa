@@ -50,6 +50,9 @@ export function useOrderDetails(
   errors: UnwrapRef<{
     [key: string]: ShopwareError[];
   }>;
+  loaders: UnwrapRef<{
+    [key: string]: boolean;
+  }>;
   loadOrderDetails: () => void;
   handlePayment: () => void;
 } {
@@ -65,6 +68,13 @@ export function useOrderDetails(
   }> = reactive({
     loadOrderDetails: [],
     handlePayment: [],
+  });
+  const loaders: UnwrapRef<{
+    loadOrderDetails: boolean;
+    handlePayment: boolean;
+  }> = reactive({
+    loadOrderDetails: false,
+    handlePayment: false,
   });
   const orderId = order?.id;
 
@@ -102,15 +112,18 @@ export function useOrderDetails(
   const status = computed(() => _sharedOrder.value?.stateMachineState.name);
 
   const loadOrderDetails = async () => {
+    loaders.loadOrderDetails = true;
     try {
       _sharedOrder.value = await getCustomerOrderDetails(orderId, apiInstance);
     } catch (e) {
       const error: ClientApiError = e;
       errors.loadOrderDetails = error.messages;
     }
+    loaders.loadOrderDetails = false;
   };
 
   const handlePayment = async () => {
+    loaders.handlePayment = true;
     try {
       const resp = await apiHandlePayment(
         orderId,
@@ -126,6 +139,7 @@ export function useOrderDetails(
       const error: ClientApiError = e;
       errors.handlePayment = error.messages;
     }
+    loaders.handlePayment = false;
   };
 
   return {
@@ -142,6 +156,7 @@ export function useOrderDetails(
     shippingMethod,
     paymentMethod,
     errors,
+    loaders,
     loadOrderDetails,
     handlePayment,
   };
