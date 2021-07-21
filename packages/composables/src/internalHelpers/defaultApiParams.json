@@ -252,5 +252,26 @@
       ],
       "seo_url": ["pathInfo", "seoPathInfo"]
     }
+  },
+  "useOrderDetails": {
+    "limit": 1,
+    "sort":"-transactions.createdAt",
+    "includes": {
+      "calculated_price": ["unitPrice", "quantity", "listPrice"]
+    },
+    "associations": {
+      "lineItems": {},
+      "address": {},
+      "transactions": {
+        "associations": {
+          "paymentMethod": {}
+        }
+      },
+      "deliveries": {
+        "associations": {
+          "shippingMethod": {}
+        }
+      }
+    }
   }
 }

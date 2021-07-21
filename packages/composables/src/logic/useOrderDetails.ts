@@ -1,6 +1,6 @@
 import { computed, ComputedRef, reactive, Ref, ref, UnwrapRef } from "vue-demi";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
-import { useSharedState } from "@shopware-pwa/composables";
+import { useSharedState, useDefaults } from "@shopware-pwa/composables";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress";
 import { ShippingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress";
@@ -11,13 +11,9 @@ import {
   ShopwareError,
 } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import {
-  getCustomerOrderDetails,
+  getOrderDetails,
   handlePayment as apiHandlePayment,
 } from "@shopware-pwa/shopware-6-client";
-import {
-  PAGE_ORDER_SUCCESS,
-  PAGE_ORDER_PAYMENT_FAILURE,
-} from "@/helpers/pages";
 
 /**
  * Composable for managing an existing order.
@@ -54,12 +50,13 @@ export function useOrderDetails(
     [key: string]: boolean;
   }>;
   loadOrderDetails: () => void;
-  handlePayment: () => void;
+  handlePayment: (successUrl?: string, errorUrl?: string) => void;
 } {
   const { apiInstance, routing } = getApplicationContext(
     rootContext,
     "useOrderDetails"
   );
+  const { getDefaults } = useDefaults(rootContext, "useOrderDetails");
   const { sharedRef } = useSharedState(rootContext);
   const _sharedOrder = sharedRef("sw-useOrderDetails-order", order);
   const errors: UnwrapRef<{
@@ -114,7 +111,11 @@ export function useOrderDetails(
   const loadOrderDetails = async () => {
     loaders.loadOrderDetails = true;
     try {
-      _sharedOrder.value = await getCustomerOrderDetails(orderId, apiInstance);
+      _sharedOrder.value = await getOrderDetails(
+        orderId,
+        getDefaults(),
+        apiInstance
+      );
     } catch (e) {
       const error: ClientApiError = e;
       errors.loadOrderDetails = error.messages;
@@ -122,15 +123,13 @@ export function useOrderDetails(
     loaders.loadOrderDetails = false;
   };
 
-  const handlePayment = async () => {
+  const handlePayment = async (successUrl?: string, errorUrl?: string) => {
     loaders.handlePayment = true;
     try {
       const resp = await apiHandlePayment(
         orderId,
-        routing.getAbsoluteUrl(`${PAGE_ORDER_SUCCESS}?orderId=${orderId}`),
-        routing.getAbsoluteUrl(
-          `${PAGE_ORDER_PAYMENT_FAILURE}?orderId=${orderId}`
-        ),
+        successUrl,
+        errorUrl,
         apiInstance
       );
 

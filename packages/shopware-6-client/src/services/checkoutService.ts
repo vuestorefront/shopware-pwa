@@ -1,5 +1,9 @@
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
-import { getCheckoutOrderEndpoint, handlePaymentEndpoint } from "../endpoints";
+import {
+  getCheckoutOrderEndpoint,
+  handlePaymentEndpoint,
+  getCustomerOrderEndpoint,
+} from "../endpoints";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 
 /**
@@ -38,4 +42,21 @@ export async function handlePayment(
   });
 
   return resp.data;
+}
+
+/**
+ * Get order details
+ *
+ * @throws ClientApiError
+ * @beta
+ */
+export async function getOrderDetails(
+  orderId: string,
+  params?: Object,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<Order | undefined> {
+  const resp = await contextInstance.invoke.post(getCustomerOrderEndpoint(), {
+    params: Object.assign({}, params, { "filter[id]": orderId }),
+  });
+  return resp.data.orders?.elements?.[0];
 }
