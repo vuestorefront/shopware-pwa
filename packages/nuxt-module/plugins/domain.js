@@ -1,14 +1,13 @@
 import Middleware from "./middleware";
 import { computed } from "vue-demi";
 import { useSessionContext, useSharedState } from "@shopware-pwa/composables";
-
 const FALLBACK_DOMAIN = "<%= options.fallbackDomain %>" || "/";
 const FALLBACK_LOCALE = "<%= options.fallbackLocale %>";
 const PWA_HOST = "<%= options.pwaHost %>";
 const SHOPWARE_DOMAINS_ALLOW_LIST = "<%= options.shopwareDomainsAllowList %>";
 const domains = require("sw-plugins/domains");
-const domainsList = Object.values(domains).filter(({ url }) =>
-  SHOPWARE_DOMAINS_ALLOW_LIST?.includes(url)
+const domainsList = Object.values(domains).filter(
+  ({ url }) => SHOPWARE_DOMAINS_ALLOW_LIST?.includes(url) // TODO: possibly problematic with prefix paths
 );
 
 // register domains based routing and configuration
@@ -133,6 +132,13 @@ Middleware.routing = function ({ isHMR, app, from, route, redirect }) {
 
   if (!domainConfig) {
     return;
+  }
+
+  if (process.client) {
+    const { languageId, languageLocaleCode } = domainConfig;
+    app.routing.setCurrentDomain(domainConfig);
+    languageId && app.$shopwareApiInstance.update({ languageId });
+    app.i18n.locale = languageLocaleCode;
   }
 
   const { setup } = app;
