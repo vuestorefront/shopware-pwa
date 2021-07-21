@@ -104,6 +104,7 @@ import {
 } from "@storefront-ui/vue"
 import {
   useNotifications,
+  useOrderDetails,
   useUser,
   getApplicationContext,
 } from "@shopware-pwa/composables"
@@ -164,76 +165,30 @@ export default {
       ],
     }
   },
-  // TODO: move this logic into separate service;
-  // details: https://github.com/DivanteLtd/shopware-pwa/issues/781
   setup({ orderId }, { root }) {
-    const { apiInstance } = getApplicationContext(root, "SwOrderDetails")
     const { getOrderDetails, loading, error: userError } = useUser(root)
     const { pushWarning } = useNotifications(root)
-    const order = ref(null)
-    const paymentMethod = computed(
-      () => order.value?.transactions?.[0]?.paymentMethod
-    )
-    const shippingMethod = computed(
-      () => order.value?.deliveries?.[0]?.shippingMethod
-    )
-    const paymentUrl = ref(null)
-    const isPaymentButtonLoading = ref(false)
-
-    const personalDetails = computed(
-      () =>
-        order.value && {
-          email: order.value.orderCustomer.email,
-          firstName: order.value.orderCustomer.firstName,
-          lastName: order.value.orderCustomer.lastName,
-        }
-    )
-    const billingAddress = computed(
-      () =>
-        order.value &&
-        order.value.addresses &&
-        order.value.addresses.find(
-          ({ id }) => id == order.value.billingAddressId
-        )
-    )
-    const shippingAddress = computed(
-      () => order.value?.deliveries?.[0]?.shippingOrderAddress
-    )
-
-    const shippingCosts = computed(
-      () => order.value && order.value.shippingCosts.totalPrice
-    )
-    const subtotal = computed(
-      () => order.value && order.value.price.positionPrice
-    )
-    const total = computed(() => order.value && order.value.price.totalPrice)
-    const status = computed(
-      () => order.value && order.value.stateMachineState.name
-    )
+    const {
+      order,
+      status,
+      total,
+      subtotal,
+      shippingCosts,
+      shippingAddress,
+      billingAddress,
+      personalDetails,
+      isPaymentButtonLoading,
+      paymentUrl,
+      shippingMethod,
+      paymentMethod,
+      loaders,
+      loadOrderDetails,
+      handlePayment,
+    } = useOrderDetails(root, { id: orderId })
 
     onMounted(async () => {
-      try {
-        isPaymentButtonLoading.value = true
-        order.value = await getOrderDetails(orderId)
-        const resp = await handlePayment(
-          orderId,
-          root.$routing.getAbsoluteUrl(
-            `${PAGE_ORDER_SUCCESS}?orderId=${orderId}`
-          ),
-          root.$routing.getAbsoluteUrl(
-            `${PAGE_ORDER_PAYMENT_FAILURE}?orderId=${orderId}`
-          ),
-          apiInstance
-        )
-        paymentUrl.value = resp.redirectUrl
-      } catch (e) {
-        pushWarning(
-          root.$t(
-            "An error occred during checking the payment status. Please try again later."
-          )
-        )
-      }
-      isPaymentButtonLoading.value = false
+      await loadOrderDetails()
+      await handlePayment()
     })
 
     return {
@@ -249,7 +204,7 @@ export default {
       total,
       status,
       paymentUrl,
-      isPaymentButtonLoading,
+      isPaymentButtonLoading: computed(() => loaders.loadOrderDetails),
     }
   },
 }

@@ -39,7 +39,6 @@ export function useOrderDetails(
       }
     | undefined
   >;
-  isPaymentButtonLoading: Ref<boolean>;
   paymentUrl: Ref<null | string>;
   shippingMethod: ComputedRef<ShippingMethod | undefined | null>;
   paymentMethod: ComputedRef<PaymentMethod | undefined | null>;
@@ -52,10 +51,7 @@ export function useOrderDetails(
   loadOrderDetails: () => void;
   handlePayment: (successUrl?: string, errorUrl?: string) => void;
 } {
-  const { apiInstance, routing } = getApplicationContext(
-    rootContext,
-    "useOrderDetails"
-  );
+  const { apiInstance } = getApplicationContext(rootContext, "useOrderDetails");
   const { getDefaults } = useDefaults(rootContext, "useOrderDetails");
   const { sharedRef } = useSharedState(rootContext);
   const _sharedOrder = sharedRef("sw-useOrderDetails-order", order);
@@ -82,15 +78,15 @@ export function useOrderDetails(
     () => _sharedOrder.value?.deliveries?.[0]?.shippingMethod
   );
   const paymentUrl = ref(null);
-  const isPaymentButtonLoading = ref(false);
 
   const personalDetails = computed(
     () =>
-      _sharedOrder.value?.orderCustomer && {
-        email: _sharedOrder.value?.orderCustomer.email,
-        firstName: _sharedOrder.value?.orderCustomer.firstName,
-        lastName: _sharedOrder.value?.orderCustomer.lastName,
-      }
+      (_sharedOrder.value?.orderCustomer && {
+        email: _sharedOrder.value?.orderCustomer?.email,
+        firstName: _sharedOrder.value?.orderCustomer?.firstName,
+        lastName: _sharedOrder.value?.orderCustomer?.lastName,
+      }) ||
+      {}
   );
   const billingAddress = computed(() =>
     _sharedOrder.value?.addresses?.find(
@@ -98,15 +94,15 @@ export function useOrderDetails(
     )
   );
   const shippingAddress = computed(
-    () => _sharedOrder.value?.deliveries?.[0]?.location.address
+    () => _sharedOrder.value?.deliveries?.[0]?.location?.address
   );
 
   const shippingCosts = computed(
-    () => _sharedOrder.value?.shippingCosts.totalPrice
+    () => _sharedOrder.value?.shippingCosts?.totalPrice
   );
-  const subtotal = computed(() => _sharedOrder.value?.price.positionPrice);
-  const total = computed(() => _sharedOrder.value?.price.totalPrice);
-  const status = computed(() => _sharedOrder.value?.stateMachineState.name);
+  const subtotal = computed(() => _sharedOrder.value?.price?.positionPrice);
+  const total = computed(() => _sharedOrder.value?.price?.totalPrice);
+  const status = computed(() => _sharedOrder.value?.stateMachineState?.name);
 
   const loadOrderDetails = async () => {
     loaders.loadOrderDetails = true;
@@ -150,7 +146,6 @@ export function useOrderDetails(
     shippingAddress,
     billingAddress,
     personalDetails,
-    isPaymentButtonLoading,
     paymentUrl,
     shippingMethod,
     paymentMethod,

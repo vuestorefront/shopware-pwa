@@ -261,7 +261,7 @@
     },
     "associations": {
       "lineItems": {},
-      "address": {},
+      "addresses": {},
       "transactions": {
         "associations": {
           "paymentMethod": {}

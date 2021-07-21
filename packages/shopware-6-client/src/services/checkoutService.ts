@@ -5,6 +5,7 @@ import {
   getCustomerOrderEndpoint,
 } from "../endpoints";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
+import { SearchFilterType } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 
 /**
  * Creates an order for logged in users
@@ -55,8 +56,18 @@ export async function getOrderDetails(
   params?: Object,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Order | undefined> {
-  const resp = await contextInstance.invoke.post(getCustomerOrderEndpoint(), {
-    params: Object.assign({}, params, { "filter[id]": orderId }),
-  });
+  const resp = await contextInstance.invoke.post(
+    getCustomerOrderEndpoint(),
+    Object.assign({}, params, {
+      filter: [
+        {
+          // filter order's collection by given id
+          type: SearchFilterType.EQUALS,
+          field: "id",
+          value: orderId,
+        },
+      ],
+    })
+  );
   return resp.data.orders?.elements?.[0];
 }
