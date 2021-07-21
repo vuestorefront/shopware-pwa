@@ -1,96 +1,105 @@
 <template>
-  <div v-if="order" class="sw-order-details">
-    <SfHeading
-      class="sw-order-details__header full-width"
-      :level="3"
-      :title="`${$t('Order no.')} ${order.orderNumber}`"
-    />
-    <div class="sw-order-details__totals">
-      <SfTable class="sf-table--bordered table">
-        <SfTableHeading class="table__row">
-          <SfTableHeader
-            v-for="tableHeader in tableHeaders"
-            :key="tableHeader"
-            class="table__header"
-            :class="{
-              table__description: tableHeader === 'Item',
-              table__quantity: tableHeader === 'Quantity',
-              table__amount: tableHeader === 'Amount',
-              table__price: tableHeader === 'Price',
-            }"
-            >{{ tableHeader }}</SfTableHeader
-          >
-        </SfTableHeading>
-        <SwOrderDetailsItem
-          v-for="item in order.lineItems"
-          :key="item.id"
-          :product="item"
-        />
-      </SfTable>
+  <SfLoader :loading="isOrderDetailsLoading" class="sw-order-details-loader">
+    <div v-if="order" class="sw-order-details">
       <SfHeading
-        :title="$t('Totals')"
-        :level="2"
-        class="sf-heading--left sf-heading--no-underline sw-totals__title"
+        class="sw-order-details__header full-width"
+        :level="3"
+        :title="`${$t('Order no.')} ${order.orderNumber}`"
       />
-      <SwTotals :shipping="shippingCosts" :total="total" :subtotal="subtotal" />
-    </div>
-    <div class="sw-order-details__addresses">
-      <SwPersonalDetails :personal-details="personalDetails" class="content" />
-      <SwAddress
-        v-if="billingAddress"
-        :address="billingAddress"
-        :address-title="$t('Billing address')"
-        class="content"
-      />
-
-      <SwAddress
-        v-if="shippingAddress"
-        :address="shippingAddress"
-        :address-title="$t('Shipping address')"
-        class="content"
-      />
-
-      <SwPluginSlot
-        name="order-details-payment-method"
-        :slot-context="paymentMethod"
-      >
-        <SwCheckoutMethod
-          v-if="paymentMethod"
-          :method="paymentMethod"
-          :label="$t('Payment method')"
-          class="content"
-        />
-      </SwPluginSlot>
-
-      <SwPluginSlot
-        name="order-details-shipping-method"
-        :slot-context="shippingMethod"
-      >
-        <SwCheckoutMethod
-          v-if="shippingMethod"
-          :method="shippingMethod"
-          :label="$t('Shipping method')"
-          class="content"
-        />
-      </SwPluginSlot>
-      <SfProperty :name="$t('Order status')" :value="status" />
-      <SfLoader
-        :loading="isPaymentButtonLoading"
-        class="sw-order-details__loader"
-      >
-        <template #loader>{{ $t("Checking payment status...") }}</template>
-        <div v-if="paymentUrl">
-          <a :href="paymentUrl">
-            <SwButton
-              class="sf-button sf-button--full-width pay-button color-danger"
+      <div class="sw-order-details__totals">
+        <SfTable class="sf-table--bordered table">
+          <SfTableHeading class="table__row">
+            <SfTableHeader
+              v-for="tableHeader in tableHeaders"
+              :key="tableHeader"
+              class="table__header"
+              :class="{
+                table__description: tableHeader === 'Item',
+                table__quantity: tableHeader === 'Quantity',
+                table__amount: tableHeader === 'Amount',
+                table__price: tableHeader === 'Price',
+              }"
+              >{{ tableHeader }}</SfTableHeader
             >
-              {{ $t("Pay for your order") }}
-            </SwButton>
-          </a>
-        </div>
-      </SfLoader>
+          </SfTableHeading>
+          <SwOrderDetailsItem
+            v-for="item in order.lineItems"
+            :key="item.id"
+            :product="item"
+          />
+        </SfTable>
+        <SfHeading
+          :title="$t('Totals')"
+          :level="2"
+          class="sf-heading--left sf-heading--no-underline sw-totals__title"
+        />
+        <SwTotals
+          :shipping="shippingCosts"
+          :total="total"
+          :subtotal="subtotal"
+        />
+      </div>
+      <div class="sw-order-details__addresses">
+        <SwPersonalDetails
+          :personal-details="personalDetails"
+          class="content"
+        />
+        <SwAddress
+          v-if="billingAddress"
+          :address="billingAddress"
+          :address-title="$t('Billing address')"
+          class="content"
+        />
+
+        <SwAddress
+          v-if="shippingAddress"
+          :address="shippingAddress"
+          :address-title="$t('Shipping address')"
+          class="content"
+        />
+
+        <SwPluginSlot
+          name="order-details-payment-method"
+          :slot-context="paymentMethod"
+        >
+          <SwCheckoutMethod
+            v-if="paymentMethod"
+            :method="paymentMethod"
+            :label="$t('Payment method')"
+            class="content"
+          />
+        </SwPluginSlot>
+
+        <SwPluginSlot
+          name="order-details-shipping-method"
+          :slot-context="shippingMethod"
+        >
+          <SwCheckoutMethod
+            v-if="shippingMethod"
+            :method="shippingMethod"
+            :label="$t('Shipping method')"
+            class="content"
+          />
+        </SwPluginSlot>
+        <SfProperty :name="$t('Order status')" :value="status" />
+        <SfLoader
+          :loading="isPaymentButtonLoading"
+          class="sw-order-details__loader"
+        >
+          <template #loader>{{ $t("Checking payment status...") }}</template>
+          <div v-if="paymentUrl">
+            <a :href="paymentUrl">
+              <SwButton
+                class="sf-button sf-button--full-width pay-button color-danger"
+              >
+                {{ $t("Pay for your order") }}
+              </SwButton>
+            </a>
+          </div>
+        </SfLoader>
+      </div>
     </div>
-  </div>
+  </SfLoader>
 </template>
 
 <script>
@@ -105,7 +114,6 @@ import {
 import {
   useNotifications,
   useOrderDetails,
-  useUser,
   getApplicationContext,
 } from "@shopware-pwa/composables"
 import { ref, onMounted, computed, watch } from "@vue/composition-api"
@@ -166,7 +174,6 @@ export default {
     }
   },
   setup({ orderId }, { root }) {
-    const { getOrderDetails, loading, error: userError } = useUser(root)
     const { pushWarning } = useNotifications(root)
     const {
       order,
@@ -186,13 +193,12 @@ export default {
       handlePayment,
     } = useOrderDetails(root, { id: orderId })
 
-    onMounted(async () => {
-      await loadOrderDetails()
-      await handlePayment()
+    onMounted(() => {
+      loadOrderDetails()
+      handlePayment()
     })
 
     return {
-      userError,
       order,
       personalDetails,
       billingAddress,
@@ -204,7 +210,8 @@ export default {
       total,
       status,
       paymentUrl,
-      isPaymentButtonLoading: computed(() => loaders.loadOrderDetails),
+      isPaymentButtonLoading: computed(() => loaders.handlePayment),
+      isOrderDetailsLoading: computed(() => loaders.loadOrderDetails),
     }
   },
 }
@@ -212,10 +219,11 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
-
+.sw-order-details-loader {
+  max-width: 70vw;
+}
 .sw-order-details {
   padding: 1rem;
-  width: 60%;
   display: flex;
   flex-wrap: wrap;
 
