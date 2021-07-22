@@ -11,6 +11,8 @@ import {
   ShopwareError,
 } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import {
+  cancelOrder,
+  changeOrderPaymentMethod,
   getOrderDetails,
   handlePayment as apiHandlePayment,
 } from "@shopware-pwa/shopware-6-client";
@@ -31,14 +33,11 @@ export function useOrderDetails(
   shippingCosts: ComputedRef<number | undefined>;
   shippingAddress: ComputedRef<ShippingAddress | undefined>;
   billingAddress: ComputedRef<BillingAddress | undefined>;
-  personalDetails: ComputedRef<
-    | {
-        email: string;
-        firstName: string;
-        lastName: string;
-      }
-    | undefined
-  >;
+  personalDetails: ComputedRef<{
+    email: string | undefined;
+    firstName: string | undefined;
+    lastName: string | undefined;
+  }>;
   paymentUrl: Ref<null | string>;
   shippingMethod: ComputedRef<ShippingMethod | undefined | null>;
   paymentMethod: ComputedRef<PaymentMethod | undefined | null>;
@@ -50,6 +49,8 @@ export function useOrderDetails(
   }>;
   loadOrderDetails: () => void;
   handlePayment: (successUrl?: string, errorUrl?: string) => void;
+  cancel: () => Promise<void>;
+  changePaymentMethod: (paymentMethodId: string) => Promise<void>;
 } {
   const { apiInstance } = getApplicationContext(rootContext, "useOrderDetails");
   const { getDefaults } = useDefaults(rootContext, "useOrderDetails");
@@ -58,9 +59,13 @@ export function useOrderDetails(
   const errors: UnwrapRef<{
     loadOrderDetails: ShopwareError[];
     handlePayment: ShopwareError[];
+    cancel: ShopwareError[];
+    changePaymentMethod: ShopwareError[];
   }> = reactive({
     loadOrderDetails: [],
     handlePayment: [],
+    cancel: [],
+    changePaymentMethod: [],
   });
   const loaders: UnwrapRef<{
     loadOrderDetails: boolean;
@@ -79,15 +84,11 @@ export function useOrderDetails(
   );
   const paymentUrl = ref(null);
 
-  const personalDetails = computed(
-    () =>
-      (_sharedOrder.value?.orderCustomer && {
-        email: _sharedOrder.value?.orderCustomer?.email,
-        firstName: _sharedOrder.value?.orderCustomer?.firstName,
-        lastName: _sharedOrder.value?.orderCustomer?.lastName,
-      }) ||
-      {}
-  );
+  const personalDetails = computed(() => ({
+    email: _sharedOrder.value?.orderCustomer?.email,
+    firstName: _sharedOrder.value?.orderCustomer?.firstName,
+    lastName: _sharedOrder.value?.orderCustomer?.lastName,
+  }));
   const billingAddress = computed(() =>
     _sharedOrder.value?.addresses?.find(
       ({ id }) => id == _sharedOrder.value?.billingAddressId
@@ -137,6 +138,17 @@ export function useOrderDetails(
     loaders.handlePayment = false;
   };
 
+  const cancel = async (): Promise<void> => {
+    await cancelOrder(orderId, apiInstance);
+    await loadOrderDetails();
+  };
+  const changePaymentMethod = async (
+    paymentMethodId: string
+  ): Promise<void> => {
+    await changeOrderPaymentMethod(orderId, paymentMethodId, apiInstance);
+    await loadOrderDetails();
+  };
+
   return {
     order: computed(() => _sharedOrder.value),
     status,
@@ -153,5 +165,7 @@ export function useOrderDetails(
     loaders,
     loadOrderDetails,
     handlePayment,
+    cancel,
+    changePaymentMethod,
   };
 }

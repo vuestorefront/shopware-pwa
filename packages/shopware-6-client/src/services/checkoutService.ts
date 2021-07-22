@@ -3,8 +3,11 @@ import {
   getCheckoutOrderEndpoint,
   handlePaymentEndpoint,
   getCustomerOrderEndpoint,
+  getCancelOrderEndpoint,
+  getChangeOrderPaymentMethodEndpoint,
 } from "../endpoints";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
+import { OrderState } from "@shopware-pwa/commons/interfaces/models/checkout/order/OrderState";
 import { SearchFilterType } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 
 /**
@@ -70,4 +73,44 @@ export async function getOrderDetails(
     })
   );
   return resp.data.orders?.elements?.[0];
+}
+
+/**
+ * Cancel an order
+ *
+ * @throws ClientApiError
+ * @beta
+ */
+export async function cancelOrder(
+  orderId: string,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<OrderState> {
+  const resp = await contextInstance.invoke.post(getCancelOrderEndpoint(), {
+    orderId,
+  });
+  return resp.data;
+}
+
+/**
+ * Change payment method for given order
+ *
+ * @throws ClientApiError
+ * @beta
+ */
+export async function changeOrderPaymentMethod(
+  orderId: string,
+  paymentMethodId: string,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<{
+  apiAlias: string;
+  success: boolean;
+}> {
+  const resp = await contextInstance.invoke.post(
+    getChangeOrderPaymentMethodEndpoint(),
+    {
+      orderId,
+      paymentMethodId,
+    }
+  );
+  return resp.data;
 }

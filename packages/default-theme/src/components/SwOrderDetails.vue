@@ -39,7 +39,7 @@
           :subtotal="subtotal"
         />
       </div>
-      <div class="sw-order-details__addresses">
+      <div class="sw-order-details__sidebar">
         <SwPersonalDetails
           :personal-details="personalDetails"
           class="content"
@@ -82,21 +82,47 @@
           />
         </SwPluginSlot>
         <SfProperty :name="$t('Order status')" :value="status" />
-        <SfLoader
-          :loading="isPaymentButtonLoading"
-          class="sw-order-details__loader"
-        >
-          <template #loader>{{ $t("Checking payment status...") }}</template>
-          <div v-if="paymentUrl">
-            <a :href="paymentUrl">
-              <SwButton
-                class="sf-button sf-button--full-width pay-button color-danger"
-              >
-                {{ $t("Pay for your order") }}
-              </SwButton>
-            </a>
-          </div>
-        </SfLoader>
+
+        <div class="sw-order-details__sidebar--actions">
+          <h4 class="sw-order-details__title">{{ $t("Actions") }}</h4>
+          <SfLoader
+            :loading="isPaymentButtonLoading"
+            class="sw-order-details__loader"
+          >
+            <template #loader>{{ $t("Checking payment status...") }}</template>
+            <div v-if="true">
+              <a :href="paymentUrl">
+                <SwButton
+                  class="sf-button sf-button--full-width pay-button color-info"
+                >
+                  {{ $t("Pay for your order") }}
+                </SwButton>
+              </a>
+            </div>
+          </SfLoader>
+          <SwButton
+            class="
+              sf-button sf-button--underlined sf-button--full-width
+              pay-button
+              color-danger
+            "
+            @click="cancelModalVisible = true"
+          >
+            {{ $t("Cancel the order") }}
+          </SwButton>
+          <SfBottomModal
+            :title="$t('Your order will be canceled')"
+            :is-open="cancelModalVisible"
+          >
+            <SfHeading :description="$t('Please, confirm')" />
+            <SwButton class="sf-button">
+              {{ $t("Yes, I wan't to cancel my order") }}
+            </SwButton>
+            <SwButton class="sf-button color-danger">
+              {{ $t("No") }}
+            </SwButton>
+          </SfBottomModal>
+        </div>
       </div>
     </div>
   </SfLoader>
@@ -109,7 +135,8 @@ import {
   SfHeading,
   SfLoader,
   SfCharacteristic,
-  SfModal,
+  SfBottomModal,
+  SfDivider,
 } from "@storefront-ui/vue"
 import {
   useNotifications,
@@ -150,7 +177,8 @@ export default {
     SwTotals,
     SwPluginSlot,
     SfCharacteristic,
-    SfModal,
+    SfBottomModal,
+    SfDivider,
   },
   props: {
     orderId: {
@@ -193,6 +221,10 @@ export default {
       handlePayment,
     } = useOrderDetails(root, { id: orderId })
 
+    const cancelModalVisible = ref(false)
+
+    const cancelOrder = () => {}
+
     onMounted(() => {
       loadOrderDetails()
       handlePayment()
@@ -212,6 +244,7 @@ export default {
       paymentUrl,
       isPaymentButtonLoading: computed(() => loaders.handlePayment),
       isOrderDetailsLoading: computed(() => loaders.loadOrderDetails),
+      cancelModalVisible,
     }
   },
 }
@@ -234,6 +267,7 @@ export default {
   }
 
   &__loader {
+    height: auto;
     margin-top: var(--spacer-base);
   }
 
@@ -241,6 +275,14 @@ export default {
     text-align: left;
     width: 100%;
     margin: 0 0 var(--spacer-base) 0;
+  }
+
+  &__title {
+    text-align: center;
+    margin-top: var(--spacer-base);
+    color: var(--c-text);
+    font-size: var(--font-size--sm);
+    margin-bottom: var(--spacer-sm);
   }
 
   &__totals {
@@ -261,9 +303,9 @@ export default {
     }
   }
 
-  &__addresses {
+  &__sidebar {
     flex: 1;
-    box-sizing: border-box;
+    //box-sizing: border-box;
     width: 100%;
     background-color: #f1f2f3;
     padding: var(--spacer-xl);
