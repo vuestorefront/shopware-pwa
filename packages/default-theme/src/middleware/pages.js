@@ -11,7 +11,7 @@ export default async function ({ app, route, redirect }) {
 
   const { search, currentSearchPathKey, page } = useCms(app)
   if (route.path !== currentSearchPathKey.value) {
-    await search(route.path, route.query)
+    await search(route.params.pathMatch, route.query)
     // redirect to the cannnical URL if current path does not match the canonical one
     if (page.value && route.path !== page.value.canonicalPathInfo) {
       return redirect(app.$routing.getUrl(page.value.canonicalPathInfo))
