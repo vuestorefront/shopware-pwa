@@ -16,6 +16,7 @@ import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkou
 import { CustomerRegistrationParams } from '@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams';
 import { EntityResult } from '@shopware-pwa/commons/interfaces/response/EntityResult';
 import { Language } from '@shopware-pwa/commons/interfaces/models/framework/language/Language';
+import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
@@ -31,6 +32,9 @@ import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout
 import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 import { StoreNavigationType } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
+
+// @beta
+export function addCartItems(items: Partial<LineItem>[], contextInstance?: ShopwareApiInstance): Promise<any>;
 
 // @beta
 export function addProductReview(productId: string, productReviewData: {

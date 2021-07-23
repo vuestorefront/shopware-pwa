@@ -144,3 +144,24 @@ export async function addPromotionCode(
 
   return resp.data;
 }
+
+/**
+ * Adds multiple items to the cart.
+ * Accepts every type of cart item.
+ *
+ * @throws ClientApiError
+ * @beta
+ */
+export async function addCartItems(
+  items: Partial<LineItem>[],
+  contextInstance: ShopwareApiInstance = defaultInstance
+) {
+  const resp = await contextInstance.invoke.post(
+    getCheckoutCartLineItemEndpoint(),
+    {
+      items,
+    }
+  );
+
+  return resp.data;
+}
