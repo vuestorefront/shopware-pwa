@@ -86,7 +86,7 @@ export function useOrderDetails(
   const shippingMethod = computed(
     () => _sharedOrder.value?.deliveries?.[0]?.shippingMethod
   );
-  const paymentUrl = ref(null);
+  const paymentUrl = ref();
 
   const personalDetails = computed(() => ({
     email: _sharedOrder.value?.orderCustomer?.email,
@@ -112,11 +112,12 @@ export function useOrderDetails(
   const loadOrderDetails = async () => {
     loaders.loadOrderDetails = true;
     try {
-      _sharedOrder.value = await getOrderDetails(
+      const orderDetailsResponse = await getOrderDetails(
         orderId,
         getDefaults(),
         apiInstance
       );
+      _sharedOrder.value = orderDetailsResponse ?? null;
     } catch (e) {
       const error: ClientApiError = e;
       errors.loadOrderDetails = error.messages;
@@ -134,7 +135,7 @@ export function useOrderDetails(
         apiInstance
       );
 
-      paymentUrl.value = resp.redirectUrl;
+      paymentUrl.value = resp?.redirectUrl;
     } catch (e) {
       const error: ClientApiError = e;
       errors.handlePayment = error.messages;
