@@ -70,9 +70,13 @@ export function useOrderDetails(
   const loaders: UnwrapRef<{
     loadOrderDetails: boolean;
     handlePayment: boolean;
+    cancel: boolean;
+    changePaymentMethod: boolean;
   }> = reactive({
     loadOrderDetails: false,
     handlePayment: false,
+    cancel: false,
+    changePaymentMethod: false,
   });
   const orderId = order?.id;
 
@@ -139,13 +143,27 @@ export function useOrderDetails(
   };
 
   const cancel = async (): Promise<void> => {
-    await cancelOrder(orderId, apiInstance);
+    loaders.cancel = true;
+    try {
+      await cancelOrder(orderId, apiInstance);
+    } catch (error) {
+      errors.cancel = error.messages;
+    }
+    loaders.cancel = false;
     await loadOrderDetails();
   };
   const changePaymentMethod = async (
     paymentMethodId: string
   ): Promise<void> => {
-    await changeOrderPaymentMethod(orderId, paymentMethodId, apiInstance);
+    loaders.changePaymentMethod = true;
+    try {
+      await changeOrderPaymentMethod(orderId, paymentMethodId, apiInstance);
+    } catch (error) {
+      errors.changePaymentMethod = error.messages;
+    }
+
+    loaders.changePaymentMethod = false;
+
     await loadOrderDetails();
   };
 

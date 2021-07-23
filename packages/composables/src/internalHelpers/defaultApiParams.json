@@ -255,7 +255,6 @@
   },
   "useOrderDetails": {
     "limit": 1,
-    "sort":"-transactions.createdAt",
     "includes": {
       "calculated_price": ["unitPrice", "quantity", "listPrice"]
     },
@@ -263,6 +262,7 @@
       "lineItems": {},
       "addresses": {},
       "transactions": {
+        "sort": "-createdAt",
         "associations": {
           "paymentMethod": {}
         }

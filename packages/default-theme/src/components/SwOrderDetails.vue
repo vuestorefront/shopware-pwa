@@ -83,14 +83,17 @@
         </SwPluginSlot>
         <SfProperty :name="$t('Order status')" :value="status" />
 
-        <div class="sw-order-details__sidebar--actions">
+        <div
+          class="sw-order-details__sidebar--actions"
+          v-if="!isOrderCancelled"
+        >
           <h4 class="sw-order-details__title">{{ $t("Actions") }}</h4>
           <SfLoader
             :loading="isPaymentButtonLoading"
             class="sw-order-details__loader"
           >
             <template #loader>{{ $t("Checking payment status...") }}</template>
-            <div v-if="true">
+            <div v-if="paymentUrl">
               <a :href="paymentUrl">
                 <SwButton
                   class="sf-button sf-button--full-width pay-button color-info"
@@ -100,6 +103,7 @@
               </a>
             </div>
           </SfLoader>
+          <!--- CANCEL ORDER -->
           <SwButton
             class="
               sf-button sf-button--underlined sf-button--full-width
@@ -111,16 +115,74 @@
             {{ $t("Cancel the order") }}
           </SwButton>
           <SfBottomModal
+            class="sw-order-details-modal sw-cancel-order-modal"
             :title="$t('Your order will be canceled')"
             :is-open="cancelModalVisible"
+            @click:close="cancelModalVisible = false"
           >
-            <SfHeading :description="$t('Please, confirm')" />
-            <SwButton class="sf-button">
-              {{ $t("Yes, I wan't to cancel my order") }}
-            </SwButton>
-            <SwButton class="sf-button color-danger">
-              {{ $t("No") }}
-            </SwButton>
+            <div class="center-content sw-cancel-order-modal__actions">
+              <SwButton @click="cancelOrder" class="sf-button color-secondary">
+                {{
+                  cancelLoader
+                    ? $t("In progress...")
+                    : $t("Yes, cancel the order")
+                }}
+              </SwButton>
+              <SwButton
+                @click="cancelModalVisible = false"
+                :disabled="cancelLoader"
+                class="sf-button color-light"
+              >
+                {{ $t("No, thanks") }}
+              </SwButton>
+            </div>
+          </SfBottomModal>
+          <!--- CHANGE PAYMENT METHOD -->
+          <SwButton
+            class="
+              sf-button sf-button--underlined sf-button--full-width
+              pay-button
+              color-danger
+            "
+            @click="openChangePaymentMethodModal"
+          >
+            {{ $t("Change payment method") }}
+          </SwButton>
+          <SfBottomModal
+            class="sw-change-payment-method-modal"
+            :title="$t('Choose a new payment method')"
+            :is-open="changePaymentMethodModalVisible"
+            @click:close="changePaymentMethodModalVisible = false"
+          >
+            <div class="center-content sw-order-details-modal__actions">
+              <SfSelect
+                class="payment-methods-select"
+                v-model="selectedPaymentMethod"
+              >
+                <SfSelectOption
+                  v-for="option in availablePaymentMethods"
+                  :key="option.id"
+                  :value="option.id"
+                >
+                  {{ option.name }}
+                  <span
+                    class="payment-methods-select__current"
+                    v-if="paymentMethod.id === option.id"
+                    >({{ $t("current") }})</span
+                  >
+                </SfSelectOption>
+              </SfSelect>
+              <SwButton
+                @click="changePaymentMethod"
+                class="sf-button color-secondary"
+              >
+                {{
+                  isChangePaymentMethodLoading
+                    ? $t("In progress...")
+                    : $t("Apply")
+                }}
+              </SwButton>
+            </div>
           </SfBottomModal>
         </div>
       </div>
@@ -137,8 +199,10 @@ import {
   SfCharacteristic,
   SfBottomModal,
   SfDivider,
+  SfSelect,
 } from "@storefront-ui/vue"
 import {
+  useCheckout,
   useNotifications,
   useOrderDetails,
   getApplicationContext,
@@ -179,6 +243,7 @@ export default {
     SfCharacteristic,
     SfBottomModal,
     SfDivider,
+    SfSelect,
   },
   props: {
     orderId: {
@@ -202,6 +267,7 @@ export default {
     }
   },
   setup({ orderId }, { root }) {
+    const { getPaymentMethods } = useCheckout(root)
     const { pushWarning } = useNotifications(root)
     const {
       order,
@@ -219,11 +285,38 @@ export default {
       loaders,
       loadOrderDetails,
       handlePayment,
+      cancel,
+      changePaymentMethod: doChangePaymentMethod,
     } = useOrderDetails(root, { id: orderId })
 
     const cancelModalVisible = ref(false)
+    const changePaymentMethodModalVisible = ref(false)
+    const selectedPaymentMethod = ref(paymentMethod.value?.id)
+    const availablePaymentMethods = ref([])
 
-    const cancelOrder = () => {}
+    const cancelOrder = async () => {
+      await cancel()
+      cancelModalVisible.value = false
+    }
+
+    const openChangePaymentMethodModal = async () => {
+      availablePaymentMethods.value = (await getPaymentMethods())?.value
+      changePaymentMethodModalVisible.value = true
+    }
+
+    const changePaymentMethod = async () => {
+      await doChangePaymentMethod(selectedPaymentMethod.value)
+      await handlePayment()
+      changePaymentMethodModalVisible.value = false
+    }
+
+    const isOrderCancelled = computed(
+      () => order.value?.stateMachineState?.technicalName === "cancelled"
+    )
+    const cancelLoader = computed(() => loaders.cancel)
+    const changePaymentMethodLoader = computed(
+      () => loaders.changePaymentMethod
+    )
 
     onMounted(() => {
       loadOrderDetails()
@@ -244,7 +337,16 @@ export default {
       paymentUrl,
       isPaymentButtonLoading: computed(() => loaders.handlePayment),
       isOrderDetailsLoading: computed(() => loaders.loadOrderDetails),
+      isChangePaymentMethodLoading: computed(() => loaders.changePaymentMethod),
+      cancelLoader,
       cancelModalVisible,
+      cancelOrder,
+      isOrderCancelled,
+      changePaymentMethod,
+      openChangePaymentMethodModal,
+      changePaymentMethodModalVisible,
+      selectedPaymentMethod,
+      availablePaymentMethods,
     }
   },
 }
@@ -372,5 +474,34 @@ export default {
   display: flex;
   margin-top: var(--spacer-base);
   margin-bottom: 0;
+}
+
+.center-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sw-cancel-order-modal {
+  &__actions {
+    :first-child {
+      margin-right: var(--spacer-xs);
+    }
+  }
+}
+
+.sw-change-payment-method-modal {
+  .sw-order-details-modal__actions {
+    flex-direction: column;
+  }
+
+  .payment-methods-select {
+    &__current {
+      font-size: 0.8rem;
+    }
+    .sf-select__label {
+      font-size: 2rem;
+    }
+  }
 }
 </style>
