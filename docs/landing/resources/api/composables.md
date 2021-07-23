@@ -13,6 +13,7 @@
 |  [getDefaultApiParams()](./composables.getdefaultapiparams.md) | <b><i>(BETA)</i></b> Returns default system API params |
 |  [useBreadcrumbs(rootContext, params)](./composables.usebreadcrumbs.md) | <b><i>(BETA)</i></b> Composable for displaying and setting breadcrumbs for page. |
 |  [useCms(rootContext)](./composables.usecms.md) | <b><i>(BETA)</i></b> |
+|  [useOrderDetails(rootContext, order)](./composables.useorderdetails.md) | <b><i>(BETA)</i></b> Composable for managing an existing order. |
 |  [useProductAssociations(rootContext, product, association)](./composables.useproductassociations.md) | <b><i>(BETA)</i></b> Get product association entity. Options - [IUseProductAssociations](./composables.iuseproductassociations.md) |
 |  [useSharedState(rootContext)](./composables.usesharedstate.md) | <b><i>(BETA)</i></b> Replacement for Vuex. Composable, which enables you to use shared state in your application. State is shared both on server and client side. |
 

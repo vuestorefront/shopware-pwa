@@ -609,6 +609,35 @@ export const useNotifications: (rootContext: ApplicationVueContext) => {
     pushSuccess: (message: string, options?: any) => void;
 };
 
+// @beta
+export function useOrderDetails(rootContext: ApplicationVueContext, order: Order): {
+    order: ComputedRef<Order | undefined | null>;
+    status: ComputedRef<string | undefined>;
+    total: ComputedRef<number | undefined>;
+    subtotal: ComputedRef<number | undefined>;
+    shippingCosts: ComputedRef<number | undefined>;
+    shippingAddress: ComputedRef<ShippingAddress | undefined>;
+    billingAddress: ComputedRef<BillingAddress | undefined>;
+    personalDetails: ComputedRef<{
+        email: string | undefined;
+        firstName: string | undefined;
+        lastName: string | undefined;
+    }>;
+    paymentUrl: Ref<null | string>;
+    shippingMethod: ComputedRef<ShippingMethod | undefined | null>;
+    paymentMethod: ComputedRef<PaymentMethod | undefined | null>;
+    errors: UnwrapRef<{
+        [key: string]: ShopwareError[];
+    }>;
+    loaders: UnwrapRef<{
+        [key: string]: boolean;
+    }>;
+    loadOrderDetails: () => void;
+    handlePayment: (successUrl?: string, errorUrl?: string) => void;
+    cancel: () => Promise<void>;
+    changePaymentMethod: (paymentMethodId: string) => Promise<void>;
+};
+
 // @beta (undocumented)
 export interface UseProduct<PRODUCT, SEARCH> {
     // (undocumented)

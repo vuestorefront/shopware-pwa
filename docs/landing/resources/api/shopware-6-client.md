@@ -12,7 +12,9 @@
 |  [addProductReview(productId, productReviewData, contextInstance)](./shopware-6-client.addproductreview.md) | <b><i>(BETA)</i></b> Add a review to specific product by its ID |
 |  [addProductToCart(productId, quantity, contextInstance)](./shopware-6-client.addproducttocart.md) | <b><i>(BETA)</i></b> TODO: https://github.com/vuestorefront/shopware-pwa/issues/1449<!-- -->Adds specific quantity of the product to the cart by productId. It creates a new cart line item.<!-- -->Warning: This method does not change the state of the cart in any way if productId already exists in a cart. For changing the quantity use addQuantityToCartLineItem() or changeCartLineItemQuantity() methods. |
 |  [addPromotionCode(promotionCode, contextInstance)](./shopware-6-client.addpromotioncode.md) | <b><i>(BETA)</i></b> Adds new promotion code to the cart by its code.<!-- -->Promotion code is being added as separate cart item line. |
+|  [cancelOrder(orderId, contextInstance)](./shopware-6-client.cancelorder.md) | <b><i>(BETA)</i></b> Cancel an order |
 |  [changeCartItemQuantity(itemId, newQuantity, contextInstance)](./shopware-6-client.changecartitemquantity.md) | <b><i>(BETA)</i></b> Changes the current quantity in specific cart line item to given quantity.<!-- -->Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 2. |
+|  [changeOrderPaymentMethod(orderId, paymentMethodId, contextInstance)](./shopware-6-client.changeorderpaymentmethod.md) | <b><i>(BETA)</i></b> Change payment method for given order |
 |  [clearCart(contextInstance)](./shopware-6-client.clearcart.md) | <b><i>(BETA)</i></b> When no sw-context-token given then this method return an empty cart with the new sw-context-token.<!-- -->When sw-context-token given then this method simply returns the current state of the cart.<!-- -->As the purpose of this method is not clear we recommend to use <code>getCart</code> method because its behaviour seems to be the same. |
 |  [confirmPasswordReset(params, contextInstance)](./shopware-6-client.confirmpasswordreset.md) | <b><i>(BETA)</i></b> Confirm a customer's password reset. Set new password for account. |
 |  [createCustomerAddress(params, contextInstance)](./shopware-6-client.createcustomeraddress.md) | <b><i>(BETA)</i></b> Create an address and respond the new address's id |
@@ -32,8 +34,9 @@
 |  [getCustomer(contextInstance)](./shopware-6-client.getcustomer.md) | <b><i>(BETA)</i></b> Get customer's object |
 |  [getCustomerAddress(addressId, contextInstance)](./shopware-6-client.getcustomeraddress.md) | <b><i>(BETA)</i></b> Get the customer's address by id |
 |  [getCustomerAddresses(contextInstance)](./shopware-6-client.getcustomeraddresses.md) | <b><i>(BETA)</i></b> Get all customer's addresses |
-|  [getCustomerOrderDetails(orderId, contextInstance, additionalQueryParams)](./shopware-6-client.getcustomerorderdetails.md) | <b><i>(BETA)</i></b> Get order details |
+|  [getCustomerOrderDetails(orderId, contextInstance, additionalQueryParams)](./shopware-6-client.getcustomerorderdetails.md) | Get order details |
 |  [getCustomerOrders(contextInstance)](./shopware-6-client.getcustomerorders.md) | <b><i>(BETA)</i></b> Get all customer's orders |
+|  [getOrderDetails(orderId, params, contextInstance)](./shopware-6-client.getorderdetails.md) | <b><i>(BETA)</i></b> Get order details |
 |  [getPage(path, searchCriteria, contextInstance)](./shopware-6-client.getpage.md) | <b><i>(BETA)</i></b> |
 |  [getPaymentMethodDetails(paymentId, contextInstance)](./shopware-6-client.getpaymentmethoddetails.md) | <b><i>(BETA)</i></b> |
 |  [getProduct(productId, params, contextInstance)](./shopware-6-client.getproduct.md) | <b><i>(BETA)</i></b> Get the product with passed productId |
@@ -92,10 +95,12 @@
 |  Variable | Description |
 |  --- | --- |
 |  [config](./shopware-6-client.config.md) | <b><i>(BETA)</i></b> |
+|  [getCancelOrderEndpoint](./shopware-6-client.getcancelorderendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCategoryDetailsEndpoint](./shopware-6-client.getcategorydetailsendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCategoryEndpoint](./shopware-6-client.getcategoryendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCategoryProducts](./shopware-6-client.getcategoryproducts.md) | <b><i>(BETA)</i></b> Get default amount of products and listing configuration for given category |
 |  [getCategoryProductsListing](./shopware-6-client.getcategoryproductslisting.md) | <b><i>(BETA)</i></b> Get default amount of products and listing configuration for given category |
+|  [getChangeOrderPaymentMethodEndpoint](./shopware-6-client.getchangeorderpaymentmethodendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCheckoutCartEndpoint](./shopware-6-client.getcheckoutcartendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCheckoutCartLineItemEndpoint](./shopware-6-client.getcheckoutcartlineitemendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCheckoutOrderEndpoint](./shopware-6-client.getcheckoutorderendpoint.md) | <b><i>(BETA)</i></b> |
