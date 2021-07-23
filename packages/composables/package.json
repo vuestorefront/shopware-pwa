@@ -27,8 +27,8 @@
     "@shopware-pwa/shopware-6-client": "0.9.1",
     "axios": "^0.21.1",
     "cookie-universal": "^2.1.5",
-    "query-string": "^7.0.0",
-    "vue-demi": "^0.9.1",
+    "query-string": "^7.0.1",
+    "vue-demi": "^0.10.0",
     "lodash": "^4.17.21"
   },
   "peerDependencies": {

@@ -165,7 +165,9 @@ describe("Composables - createListingComposable", () => {
 
     it("should invoke searchMethod for 2 times and change shared listing on invocation for initial and applied listing once currentFilters have applied filters", async () => {
       searchMethodMock.mockReturnValue({
-        aggregations: "12345",
+        aggregations: {
+          properties: ["12345"],
+        },
       });
       const { search } = createListingComposable({
         rootContext: rootContextMock as any,
@@ -177,7 +179,11 @@ describe("Composables - createListingComposable", () => {
       });
       await search({});
       expect(searchMethodMock).toBeCalledTimes(2);
-      expect(mockedAppliedListing.value).toEqual({ aggregations: "12345" });
+      expect(mockedAppliedListing.value).toEqual({
+        aggregations: {
+          properties: ["12345"],
+        },
+      });
     });
     it("should invoke searchMethod for 2 times and change shared listing on invocation for initial and applied listing once currentFilters have applied filters", async () => {
       searchMethodMock.mockReturnValue(undefined);
@@ -191,7 +197,7 @@ describe("Composables - createListingComposable", () => {
       });
       await search({});
       expect(searchMethodMock).toBeCalledTimes(2);
-      expect(mockedAppliedListing.value).toEqual({ aggregations: undefined });
+      expect(mockedAppliedListing.value).toEqual({ aggregations: {} });
     });
   });
 
@@ -753,7 +759,10 @@ describe("Composables - createListingComposable", () => {
         searchMethod: searchMethodMock,
       });
       await search({ limit: 7 });
-      expect(mockedAppliedListing.value).toEqual({ limit: 77 });
+      expect(mockedAppliedListing.value).toEqual({
+        limit: 77,
+        aggregations: {},
+      });
     });
 
     it("should silently fail if router throws error", async () => {

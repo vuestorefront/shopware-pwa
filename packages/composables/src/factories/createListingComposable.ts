@@ -146,7 +146,11 @@ export function createListingComposable<ELEMENTS_TYPE>({
         includes: { product_listing: ["aggregations"] },
       });
       _storeAppliedListing.value = Object.assign({}, result, {
-        aggregations: allFiltersResult?.aggregations,
+        aggregations: Object.assign(
+          {},
+          result?.aggregations,
+          allFiltersResult?.aggregations
+        ),
       });
       // final result should be:
       // _storeAppliedListing.value = result;

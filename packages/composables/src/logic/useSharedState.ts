@@ -17,7 +17,7 @@ const localSharedState: {
  * Replacement for Vuex. Composable, which enables you to use shared state in your application.
  * State is shared both on server and client side.
  *
- * @alpha
+ * @beta
  */
 export function useSharedState(rootContext: ApplicationVueContext) {
   const { sharedStore, isServer } = getApplicationContext(
@@ -31,9 +31,12 @@ export function useSharedState(rootContext: ApplicationVueContext) {
    * `uniqueKey` is used to identify value after sending it from the server.
    * You can use the same key to reach this value, but setting the same keys on different values will cause values override.
    *
-   * @alpha
+   * @beta
    */
-  function sharedRef<T>(uniqueKey: string): WritableComputedRef<T | null> {
+  function sharedRef<T>(
+    uniqueKey: string,
+    defaultValue?: T
+  ): WritableComputedRef<T | null> {
     if (!isServer && !localSharedState[uniqueKey]) {
       localSharedState[uniqueKey] = ref(sharedStore[uniqueKey]);
     }
@@ -42,9 +45,16 @@ export function useSharedState(rootContext: ApplicationVueContext) {
       ? toRef(sharedStore, uniqueKey)
       : localSharedState[uniqueKey];
 
+    if (
+      (sharedRef.value === null || typeof sharedRef.value === "undefined") &&
+      defaultValue
+    ) {
+      sharedRef.value = defaultValue;
+    }
+
     return computed({
       get: () => {
-        return sharedRef.value || null;
+        return sharedRef.value ?? null;
       },
       set: (val) => {
         sharedRef.value = val;

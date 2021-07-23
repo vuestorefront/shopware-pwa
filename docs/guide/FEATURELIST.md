@@ -118,3 +118,8 @@ sidebar: auto
 #### PayPal Checkout
 
 - Standard PayPal Checkout (requires Shopware PayPal plugin)
+
+
+### Other
+
+- Project's .env support for environment variables

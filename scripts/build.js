@@ -90,6 +90,7 @@ async function runBuild({
   additionalEntrypoints = [],
 }) {
   const buildTarget = format === "esm" ? "es2020" : "es2015";
+  const platform = format === "cjs" ? "node" : "neutral";
 
   try {
     const dependencies = Object.keys(packageJson.dependencies || {});
@@ -103,6 +104,7 @@ async function runBuild({
       external,
       target: buildTarget,
       format,
+      platform,
     });
     if (additionalEntrypoints.length) {
       const promisses = additionalEntrypoints.map((entrypoint) => {
@@ -121,6 +123,7 @@ async function runBuild({
           external,
           target: buildTarget,
           format,
+          platform,
         });
       });
       await Promise.all(promisses);
@@ -162,7 +165,10 @@ async function build(target) {
 
   // run custom package build if there is one
   if (pkg.scripts && pkg.scripts.build) {
-    await execa("yarn", ["build"], { stdio: "inherit", cwd: pkgDir });
+    await execa("yarn", ["build"], {
+      stdio: "inherit",
+      cwd: pkgDir,
+    });
     return;
   }
 
