@@ -36,6 +36,7 @@ const defaultConfig: NuxtConfig = {
     ],
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      // TODO: remove this, only for default-theme
       {
         rel: "preload",
         href: "https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700%7CRoboto:300,300i,400,400i,500,700&display=swap",
@@ -52,7 +53,9 @@ const defaultConfig: NuxtConfig = {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
+  // TODO: remove this, only for default-theme
   css: ["~assets/scss/main.scss"],
+  // css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],

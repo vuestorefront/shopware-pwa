@@ -32,46 +32,6 @@ module.exports = (toolbox: GluegunToolbox) => {
     );
   };
 
-  toolbox.fetchPluginsAuthToken = async (
-    { shopwareEndpoint, username, password } = toolbox.inputParameters
-  ) => {
-    const normalizedShopwareEndpoint =
-      toolbox.normalizeBaseUrl(shopwareEndpoint);
-    let authTokenResponse;
-    // Temporary turn off automatic credentials
-    // if (
-    //   !username &&
-    //   !password &&
-    //   normalizedShopwareEndpoint === toolbox.defaultInitConfig?.shopwareEndpoint
-    // ) {
-    //   try {
-    //     authTokenResponse = await axios.post(
-    //       `${normalizedShopwareEndpoint}/api/oauth/token`,
-    //       {
-    //         grant_type: "client_credentials",
-    //         client_id: toolbox.defaultInitConfig.INSTANCE_READ_API_KEY,
-    //         client_secret: toolbox.defaultInitConfig.INSTANCE_READ_API_SECRET,
-    //       }
-    //     );
-    //   } catch (error) {
-    //     console.warn("error", error);
-    //   }
-    // } else {
-    authTokenResponse = await axios.post(
-      `${normalizedShopwareEndpoint}/api/oauth/token`,
-      {
-        client_id: "administration",
-        grant_type: "password",
-        scopes: "write",
-        username,
-        password,
-      }
-    );
-    // }
-
-    return authTokenResponse?.data?.access_token;
-  };
-
   toolbox.fetchPluginsBuildArtifact = async ({
     shopwareEndpoint,
     authToken,
@@ -167,8 +127,6 @@ module.exports = (toolbox: GluegunToolbox) => {
     const pluginsMap = Object.assign({}, pluginsTrace);
     if (pluginsConfig) {
       const pluginNames = Object.keys(pluginsConfig);
-      await toolbox.filesystem.removeAsync(".shopware-pwa/sw-plugins/pages");
-      await toolbox.filesystem.removeAsync(".shopware-pwa/sw-plugins/layouts");
       pluginNames.forEach((pluginName) => {
         if (!pluginsConfig[pluginName]) return;
         const pluginDirectory = `${pluginsRootDirectory}/${pluginName}`;
@@ -321,19 +279,23 @@ module.exports = (toolbox: GluegunToolbox) => {
   };
 
   toolbox.loadPluginsAssets = async () => {
+    const FETCH_ERROR_MESSAGE =
+      "Plugin settings are not fetched from shopware instance.";
+
     if (
       !toolbox.inputParameters.username ||
       !toolbox.inputParameters.password
     ) {
-      toolbox.print.warning(
-        "Plugin settings are not fetched from shopware instance."
-      );
+      toolbox.print.warning(FETCH_ERROR_MESSAGE);
       return;
     }
     try {
-      const authToken = await toolbox.fetchPluginsAuthToken(
-        toolbox.inputParameters
-      );
+      const authToken = await toolbox.auth.getAuthToken();
+      if (!authToken) {
+        toolbox.print.error(FETCH_ERROR_MESSAGE);
+        return;
+      }
+
       const buildArtifact = await toolbox.fetchPluginsBuildArtifact({
         ...toolbox.inputParameters,
         authToken,

@@ -15,6 +15,7 @@ module.exports = {
         "/landing/getting-started/prepare-shopware",
         "/landing/project/contribution",
         "/landing/getting-started/local-environment",
+        "/landing/getting-started/env-variables",
       ],
     },
     {
@@ -38,6 +39,7 @@ module.exports = {
         "/landing/concepts/payment",
         "/landing/concepts/snippets",
         "/landing/concepts/interceptor",
+        "/landing/concepts/api-client-errors",
       ],
     },
     {

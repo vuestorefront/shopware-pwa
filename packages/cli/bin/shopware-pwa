@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+require('dotenv').config()
 
 /* tslint:disable */
 // check if we're running in dev mode

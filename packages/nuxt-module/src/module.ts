@@ -6,7 +6,6 @@ import { setupDomains } from "./domains";
 
 import { extendLocales } from "./locales";
 import { useCorePackages } from "./packages";
-import { getAllFiles } from "./files";
 import {
   getTargetSourcePath,
   getThemeSourcePath,
@@ -20,6 +19,7 @@ import { getDefaultApiParams } from "@shopware-pwa/composables";
 import merge from "lodash/merge";
 import fse from "fs-extra";
 import { ShopwarePwaConfigFile } from "@shopware-pwa/commons";
+import { getAllFiles } from "@shopware-pwa/commons/node";
 
 export async function runModule(
   moduleObject: NuxtModuleOptions,
@@ -33,6 +33,13 @@ export async function runModule(
     console.error("shopwareAccessToken in shopware-pwa.config.js is missing");
   if (!shopwarePwaConfig.shopwareEndpoint)
     console.error("shopwareEndpoint in shopware-pwa.config.js is missing");
+
+  moduleObject.options.alias = moduleObject.options.alias || {};
+  // fixes problem with multiple composition-api instances
+  moduleObject.options.alias["@vue/composition-api"] =
+    moduleObject.nuxt.resolver.resolveModule(
+      "@vue/composition-api/dist/vue-composition-api.esm.js"
+    );
 
   const TARGET_SOURCE: string = getTargetSourcePath(moduleObject);
   const THEME_SOURCE: string = getThemeSourcePath(
@@ -48,7 +55,6 @@ export async function runModule(
   moduleObject.options.store = false; // disable store generation
   moduleObject.options.features.store = false;
   // resolve project src aliases
-  moduleObject.options.alias = moduleObject.options.alias || {};
   moduleObject.options.alias["~"] = TARGET_SOURCE;
   moduleObject.options.alias["@"] = TARGET_SOURCE;
   moduleObject.options.alias["assets"] = path.join(TARGET_SOURCE, "assets");
@@ -154,12 +160,6 @@ export async function runModule(
     options: moduleOptions,
   });
 
-  // fixes problem with multiple composition-api instances
-  moduleObject.options.alias["@vue/composition-api"] =
-    moduleObject.nuxt.resolver.resolveModule(
-      "@vue/composition-api/dist/vue-composition-api.esm.js"
-    );
-
   moduleObject.extendBuild((config: WebpackConfig, ctx: WebpackContext) => {
     const swPluginsDirectory = path.join(
       moduleObject.options.rootDir,
@@ -174,6 +174,7 @@ export async function runModule(
 
   extendCMS(moduleObject, shopwarePwaConfig);
 
+  // TODO: start - remove this, only for default-theme
   moduleObject.options.build = moduleObject.options.build || {};
   moduleObject.options.build.babel = moduleObject.options.build.babel || {};
   /* istanbul ignore next */
@@ -215,6 +216,8 @@ export async function runModule(
   moduleObject.options.build.transpile =
     moduleObject.options.build.transpile || [];
   moduleObject.options.build.transpile.push("@shopware-pwa/default-theme");
+
+  // TODO: --- END
 
   // Watching files in development mode
   if (moduleObject.options.dev) {

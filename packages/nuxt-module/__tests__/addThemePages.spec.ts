@@ -1,8 +1,8 @@
 import { addThemePages } from "../src/pages";
-import * as files from "../src/files";
 import path from "path";
+import * as files from "@shopware-pwa/commons/node";
 
-jest.mock("../src/files");
+jest.mock("@shopware-pwa/commons/node");
 const mockedFiles = files as jest.Mocked<typeof files>;
 const { getAllFiles } = mockedFiles;
 

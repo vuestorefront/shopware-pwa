@@ -30,12 +30,16 @@ Synchronize the domain's related config from backend (in order to build a domain
         type: "input",
         name: "username",
         message: "Shopware admin username:",
+        initial: process.env.ADMIN_USER,
+        footer: process.env.ADMIN_USER && "username is taken from .env",
       };
 
       const shopwarePasswordQuestion = !inputParameters.password && {
         type: "password",
         name: "password",
         message: "Shopware admin password:",
+        initial: process.env.ADMIN_PASSWORD,
+        footer: process.env.ADMIN_PASSWORD && "password from .env is hidden",
       };
 
       const shopwarePwaHostQuestions = !inputParameters.pwaHost && {
@@ -63,24 +67,12 @@ Synchronize the domain's related config from backend (in order to build a domain
     }
 
     // Get Auth Token for API
-    let authToken;
-    try {
-      authToken = await toolbox.fetchPluginsAuthToken(toolbox.inputParameters);
-    } catch (error) {
-      if (!toolbox.isDefaultDemoData()) {
-        if (error.response.status === 401) {
-          toolbox.print.error(
-            "Invalid credentials, aborting domain import. Please try again. This synchronization is required."
-          );
-          return -1;
-        }
-        toolbox.print.error(
-          `Error during API authentication: ${error.response.status} (${error.response.statusText})
-          Please try again. This synchronization is required.
-          `
-        );
-        return -1;
-      }
+    const authToken = await toolbox.auth.getAuthToken();
+    if (!authToken) {
+      toolbox.print.error(
+        `Please try again. This synchronization is required.`
+      );
+      return -1;
     }
 
     let domainsMap = {};
