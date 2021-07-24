@@ -113,64 +113,31 @@ Middleware.routing = function ({ isHMR, app, from, route, redirect }) {
     return;
   }
 
-  // a route can have multiple metadata objects inside - find the one with domainId - it comes from compiled routes (domains nuxt-module)
-  const domainConfig =
+  // Wenn der Origin gewechselt wird, dann geht es immer über den Server --> currentDomain ist immer bereits richtig gesetzt
+  // Wenn nur der Path gewechselt wird, kann die entsprechende Domain-Config aus der Route geladen werden.
+  // D.h. Routen mit Prefix-Path sollten das meta-Objekt haben, Routen ohne Prefix-Path sollten das nicht gesetzt haben
+  // Für Routen mit Prefix-Path muss dann die DomainConfig gewechselt werden, wenn sie ungleich der aktuellen ist.
+  //Was nicht erlaubt ist: unterschiedliche Origins mit den gleichen Pfaden TODO: Dokumentation
+
+  let domainConfig =
     Array.isArray(route.meta) && route.meta.find((data) => !!data.domainId);
-
-  // perform a redirection to the fallback domain if the current domain is not available
-  // for example: /Toys -> /germany/Toys if the "/" domain is not present
-  if (!domainConfig && app.routing.availableDomains.length) {
-    const fallbackDomainFound = app.routing.availableDomains.find(
-      ({ pathPrefix }) => pathPrefix === FALLBACK_DOMAIN
-    );
-    // if the fallback domain does not match - use the first available instead
-    const fallbackDomainPrefix =
-      (fallbackDomainFound && fallbackDomainFound.pathPrefix) ||
-      app.routing.availableDomains.pop().pathPrefix;
-    return redirect(`${fallbackDomainPrefix}${route.path}`);
-  }
-
   if (!domainConfig) {
-    return;
-  }
-
-  if (process.client) {
-    const { languageId, languageLocaleCode } = domainConfig;
-    app.routing.setCurrentDomain(domainConfig);
-    languageId && app.$shopwareApiInstance.update({ languageId });
-    app.i18n.locale = languageLocaleCode;
-  }
-
-  const { setup } = app;
-  app.setup = function (...args) {
-    let result = {};
-    if (setup instanceof Function) {
-      result = setup(...args) || {};
+    domainConfig = app.routing.getCurrentDomain.value;
+    if (process.client) {
+      const currentOrigin = location.origin;
+      const currentDomain = app.routing.availableDomains.find(
+        (data) => data.origin === currentOrigin && data.pathPrefix === "/"
+      );
+      domainConfig = currentDomain;
     }
-    // set default currency for the current domain
-    const { setCurrency, currency } = useSessionContext();
-    let currencyId =
-      route.query.currencyId ||
-      (currency.value && currency.value.id) ||
-      domainConfig.currencyId;
-    // force change the currencyId to default one for changed domain
-    const fromDomain =
-      from &&
-      Array.isArray(from.meta) &&
-      from.meta.find((data) => !!data.domainId);
-    if (fromDomain && fromDomain.domainId !== domainConfig.domainId) {
-      currencyId = domainConfig.currencyId;
-    }
-
-    const currencyPromise = setCurrency({ id: currencyId });
+  }
+  if (process.server || domainConfig.domainId !== from?.meta[0].domainId) {
+    // Route mit Prefix Path
     const { languageId, languageLocaleCode } = domainConfig;
     app.routing.setCurrentDomain(domainConfig);
     languageId && app.$shopwareApiInstance.update({ languageId });
     app.i18n.locale = languageLocaleCode;
 
-    Promise.all([currencyPromise]).catch((e) => {
-      console.error("[MIDDLEWARE][DOMAINS]", e);
-    });
-    return result;
-  };
+    //TODO: Currency Switch
+  }
 };

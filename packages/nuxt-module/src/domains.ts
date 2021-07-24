@@ -99,7 +99,7 @@ export async function setupDomains(
                   domainConfig.pathPrefix !== "/" ? domainConfig.pathPrefix : ""
                 }${route.path}`, // prefix each route with pathPrefix if available for this domain config
                 name: routeName, // add unique name
-                meta: domainConfig, // store additional information about the route like language id for corresponding domain - used in middleware and plugin
+                meta: domainConfig.pathPrefix !== "/" ? domainConfig : [], // store additional information about the route like language id for corresponding domain - used in middleware and plugin
                 children:
                   route.children &&
                   appendChildrenWithUniqueName(
