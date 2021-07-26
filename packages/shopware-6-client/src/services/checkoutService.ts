@@ -72,7 +72,7 @@ export async function getOrderDetails(
       ],
     })
   );
-  return resp.data.orders?.elements?.[0];
+  return resp.data?.orders?.elements?.[0];
 }
 
 /**
