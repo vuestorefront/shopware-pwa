@@ -130,7 +130,7 @@ export async function getCustomerOrders(
 
 /**
  * Get order details
- *
+ * @beta
  * @throws ClientApiError
  * @deprecated use getOrderDetails method instead
  */
