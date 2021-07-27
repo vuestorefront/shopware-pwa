@@ -157,7 +157,7 @@ export function useOrderDetails(
     loaders.cancel = true;
     try {
       const response = await cancelOrder(orderId, apiInstance);
-      broadcast(INTERCEPTOR_KEYS.ORDER_DETAILS_LOADED, response);
+      broadcast(INTERCEPTOR_KEYS.ORDER_CANCELLED, response);
     } catch (error) {
       errors.cancel = error.messages;
       broadcast(INTERCEPTOR_KEYS.ERROR, error);
@@ -171,7 +171,7 @@ export function useOrderDetails(
     loaders.changePaymentMethod = true;
     try {
       await changeOrderPaymentMethod(orderId, paymentMethodId, apiInstance);
-      broadcast(INTERCEPTOR_KEYS.ORDER_HANDLE_PAYMENT, order);
+      broadcast(INTERCEPTOR_KEYS.ORDER_PAYMENT_METHOD_CHANGED, order);
     } catch (error) {
       errors.changePaymentMethod = error.messages;
       broadcast(INTERCEPTOR_KEYS.ERROR, error);
