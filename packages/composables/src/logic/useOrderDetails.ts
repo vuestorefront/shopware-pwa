@@ -115,6 +115,10 @@ export function useOrderDetails(
   const total = computed(() => _sharedOrder.value?.price?.totalPrice);
   const status = computed(() => _sharedOrder.value?.stateMachineState?.name);
 
+  /**
+   * Get order object including additional associations.
+   * useDefaults describes what order object should look like.
+   */
   const loadOrderDetails = async () => {
     loaders.loadOrderDetails = true;
     try {
@@ -133,6 +137,11 @@ export function useOrderDetails(
     loaders.loadOrderDetails = false;
   };
 
+  /**
+   * Handle payment for existing error.
+   *
+   * Pass custom success and error URLs (optionally).
+   */
   const handlePayment = async (successUrl?: string, errorUrl?: string) => {
     loaders.handlePayment = true;
     try {
@@ -153,6 +162,10 @@ export function useOrderDetails(
     loaders.handlePayment = false;
   };
 
+  /**
+   * Cancel an order.
+   * Action cannot be reverted.
+   */
   const cancel = async (): Promise<void> => {
     loaders.cancel = true;
     try {
