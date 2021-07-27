@@ -12,9 +12,7 @@ const mockedAxios = shopwareClient as jest.Mocked<typeof shopwareClient>;
 describe("Composables - useOrderDetails", () => {
   const stateOrderDetails: Ref<Object | null> = ref(null);
 
-  const consoleErrorSpy = jest.spyOn(console, "error");
   const mockedInvokePost = jest.fn();
-  const mockedInvokeGet = jest.fn();
   const rootContextMock: any = {
     shopwareDefaults: {},
     $shopwareApiInstance: {
@@ -22,7 +20,6 @@ describe("Composables - useOrderDetails", () => {
         headers: {},
       },
       invokePost: mockedInvokePost,
-      invokeGet: mockedInvokeGet,
     },
   };
 
@@ -33,7 +30,6 @@ describe("Composables - useOrderDetails", () => {
         sharedRef: () => stateOrderDetails,
       } as any;
     });
-    consoleErrorSpy.mockImplementationOnce(() => {});
     mockedAxios.getProductDetailsEndpoint.mockReturnValue(
       "/product/v4/product-id"
     );
