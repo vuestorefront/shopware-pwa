@@ -36,6 +36,11 @@ export async function runModule(
 
   moduleObject.options.alias = moduleObject.options.alias || {};
   // fixes problem with multiple composition-api instances
+  moduleObject.options.alias[
+    "@vue/composition-api/dist/vue-composition-api.esm.js"
+  ] = moduleObject.nuxt.resolver.resolveModule(
+    "@vue/composition-api/dist/vue-composition-api.esm.js"
+  );
   moduleObject.options.alias["@vue/composition-api"] =
     moduleObject.nuxt.resolver.resolveModule(
       "@vue/composition-api/dist/vue-composition-api.esm.js"
