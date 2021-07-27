@@ -123,6 +123,10 @@ export const INTERCEPTOR_KEYS: {
     WARNING: string;
     NOTICE: string;
     ORDER_PLACE: string;
+    ORDER_PAYMENT_METHOD_CHANGED: string;
+    ORDER_CANCELLED: string;
+    ORDER_DETAILS_LOADED: string;
+    ORDER_HANDLE_PAYMENT: string;
     SESSION_SET_CURRENCY: string;
     SESSION_SET_PAYMENT_METHOD: string;
     SESSION_SET_SHIPPING_METHOD: string;
