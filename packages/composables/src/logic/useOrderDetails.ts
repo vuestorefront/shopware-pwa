@@ -95,7 +95,7 @@ export function useOrderDetails(
   }));
   const billingAddress = computed(() =>
     _sharedOrder.value?.addresses?.find(
-      ({ id }) => id == _sharedOrder.value?.billingAddressId
+      ({ id }) => id === (_sharedOrder.value as Order).billingAddressId
     )
   );
   const shippingAddress = computed(

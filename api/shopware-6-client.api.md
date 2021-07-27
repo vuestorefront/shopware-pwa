@@ -290,9 +290,7 @@ export const getCustomerLoginEndpoint: () => string;
 // @beta (undocumented)
 export const getCustomerLogoutEndpoint: () => string;
 
-// Warning: (ae-incompatible-release-tags) The symbol "getCustomerOrderDetails" is marked as @public, but its signature references "ShopwareApiInstance" which is marked as @beta
-//
-// @public @deprecated
+// @beta @deprecated
 export function getCustomerOrderDetails(orderId: string, contextInstance?: ShopwareApiInstance, additionalQueryParams?: string): Promise<Order | undefined>;
 
 // @beta (undocumented)
