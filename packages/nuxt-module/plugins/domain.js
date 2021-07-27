@@ -1,6 +1,7 @@
 import Middleware from "./middleware";
 import { computed } from "vue-demi";
 import { useSessionContext, useSharedState } from "@shopware-pwa/composables";
+
 const FALLBACK_DOMAIN = "<%= options.fallbackDomain %>" || "/";
 const FALLBACK_LOCALE = "<%= options.fallbackLocale %>";
 const PWA_HOST = "<%= options.pwaHost %>";
@@ -112,32 +113,50 @@ Middleware.routing = function ({ isHMR, app, from, route, redirect }) {
   if (isHMR) {
     return;
   }
+  /*
+   If the origin gets changed, this is always a initial request to the server.
+   The currentDomain then is already set correctly by the plugin (see line 103).
 
-  // Wenn der Origin gewechselt wird, dann geht es immer über den Server --> currentDomain ist immer bereits richtig gesetzt
-  // Wenn nur der Path gewechselt wird, kann die entsprechende Domain-Config aus der Route geladen werden.
-  // D.h. Routen mit Prefix-Path sollten das meta-Objekt haben, Routen ohne Prefix-Path sollten das nicht gesetzt haben
-  // Für Routen mit Prefix-Path muss dann die DomainConfig gewechselt werden, wenn sie ungleich der aktuellen ist.
-  //Was nicht erlaubt ist: unterschiedliche Origins mit den gleichen Pfaden TODO: Dokumentation
+   If the prefixPath gets changed, the corresponding domain-config can be detected from the route.
+   The detected domain config from the new route has to be compared with the current one, if they don't match, the
+   current domain config has to be changed to the config detected from the route
+
+   Only routes with prefixPath have to have the domainConfig added in the meta-object
+   Edgecase that is currently not supported: domains with the same prefixPath on different origins, because during route-building,
+   only the domainConfig from the last origin gets added to the meta-object
+   */
 
   let domainConfig =
     Array.isArray(route.meta) && route.meta.find((data) => !!data.domainId);
   if (!domainConfig) {
-    domainConfig = app.routing.getCurrentDomain.value;
+    // If domainConfig is not set, this means that the route has no prefixPath and has to be loaded seperately
     if (process.client) {
+      // During client-side navigation the domain config can be manually loaded through the location origin.
       const currentOrigin = location.origin;
-      const currentDomain = app.routing.availableDomains.find(
+      domainConfig = app.routing.availableDomains.find(
         (data) => data.origin === currentOrigin && data.pathPrefix === "/"
       );
-      domainConfig = currentDomain;
+    } else {
+      // Server-side, the currentDomain then is already set correctly by the plugin (see line 103).
+      domainConfig = app.routing.getCurrentDomain.value;
     }
   }
+
   if (process.server || domainConfig.domainId !== from?.meta[0].domainId) {
-    // Route mit Prefix Path
-    const { languageId, languageLocaleCode } = domainConfig;
+    /*
+     This only runs:
+      - on initial request on the server (also change of origin)
+      - on change of prefixPath
+     */
+    const { languageId, languageLocaleCode, currencyId } = domainConfig;
     app.routing.setCurrentDomain(domainConfig);
     languageId && app.$shopwareApiInstance.update({ languageId });
     app.i18n.locale = languageLocaleCode;
 
-    //TODO: Currency Switch
+    const { setCurrency } = useSessionContext(app);
+    const currencyPromise = setCurrency({ id: currencyId });
+    Promise.all([currencyPromise]).catch((e) => {
+      console.error("[MIDDLEWARE][DOMAINS]", e);
+    });
   }
 };
