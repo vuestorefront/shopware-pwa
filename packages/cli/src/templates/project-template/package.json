@@ -11,7 +11,7 @@
     "lint": "prettier --write '*.{js,vue}'"
   },
   "dependencies": {
-    "@vue/composition-api": "^1.0.0-rc.13",
+    "@vue/composition-api": "^1.0.4",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/pwa": "^3.3.5",
     "core-js": "^3.15.2",
@@ -20,7 +20,7 @@
   "devDependencies": {
     "@shopware-pwa/nuxt-module": "latest",
     "@storefront-ui/vue": "0.10.5",
-    "@vue/test-utils": "^1.2.1",
+    "@vue/test-utils": "^1.2.2",
     "@vuelidate/core": "^2.0.0-alpha.21",
     "@vuelidate/validators": "^2.0.0-alpha.18",
     "babel-core": "7.0.0-bridge.0",
