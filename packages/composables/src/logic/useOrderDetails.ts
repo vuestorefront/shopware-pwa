@@ -1,6 +1,10 @@
 import { computed, ComputedRef, reactive, Ref, ref, UnwrapRef } from "vue-demi";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
-import { useSharedState, useDefaults } from "@shopware-pwa/composables";
+import {
+  useSharedState,
+  useDefaults,
+  INTERCEPTOR_KEYS,
+} from "@shopware-pwa/composables";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress";
 import { ShippingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress";
@@ -16,6 +20,7 @@ import {
   getOrderDetails,
   handlePayment as apiHandlePayment,
 } from "@shopware-pwa/shopware-6-client";
+import { useIntercept } from "./useIntercept";
 
 /**
  * Composable for managing an existing order.
@@ -54,6 +59,7 @@ export function useOrderDetails(
 } {
   const { apiInstance } = getApplicationContext(rootContext, "useOrderDetails");
   const { getDefaults } = useDefaults(rootContext, "useOrderDetails");
+  const { broadcast } = useIntercept(rootContext);
   const { sharedRef } = useSharedState(rootContext);
   const _sharedOrder = sharedRef("sw-useOrderDetails-order", order);
   const errors: UnwrapRef<{
@@ -118,9 +124,11 @@ export function useOrderDetails(
         apiInstance
       );
       _sharedOrder.value = orderDetailsResponse ?? null;
+      broadcast(INTERCEPTOR_KEYS.ORDER_DETAILS_LOADED, _sharedOrder.value);
     } catch (e) {
       const error: ClientApiError = e;
       errors.loadOrderDetails = error.messages;
+      broadcast(INTERCEPTOR_KEYS.ERROR, error);
     }
     loaders.loadOrderDetails = false;
   };
@@ -136,9 +144,11 @@ export function useOrderDetails(
       );
 
       paymentUrl.value = resp?.redirectUrl;
+      broadcast(INTERCEPTOR_KEYS.ORDER_HANDLE_PAYMENT, resp);
     } catch (e) {
       const error: ClientApiError = e;
       errors.handlePayment = error.messages;
+      broadcast(INTERCEPTOR_KEYS.ERROR, error);
     }
     loaders.handlePayment = false;
   };
@@ -146,9 +156,11 @@ export function useOrderDetails(
   const cancel = async (): Promise<void> => {
     loaders.cancel = true;
     try {
-      await cancelOrder(orderId, apiInstance);
+      const response = await cancelOrder(orderId, apiInstance);
+      broadcast(INTERCEPTOR_KEYS.ORDER_DETAILS_LOADED, response);
     } catch (error) {
       errors.cancel = error.messages;
+      broadcast(INTERCEPTOR_KEYS.ERROR, error);
     }
     loaders.cancel = false;
     await loadOrderDetails();
@@ -159,8 +171,10 @@ export function useOrderDetails(
     loaders.changePaymentMethod = true;
     try {
       await changeOrderPaymentMethod(orderId, paymentMethodId, apiInstance);
+      broadcast(INTERCEPTOR_KEYS.ORDER_HANDLE_PAYMENT, order);
     } catch (error) {
       errors.changePaymentMethod = error.messages;
+      broadcast(INTERCEPTOR_KEYS.ERROR, error);
     }
 
     loaders.changePaymentMethod = false;

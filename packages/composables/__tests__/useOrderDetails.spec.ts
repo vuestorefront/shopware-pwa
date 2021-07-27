@@ -185,10 +185,6 @@ describe("Composables - useOrderDetails", () => {
       } as any);
       expect(billingAddress.value).toStrictEqual({ id: "billing-address-id" });
     });
-    // it("should have no billingAddress extracted from order object because billingAddressId does not match", () => {
-    //   const { billingAddress } = useOrderDetails(rootContextMock, {id: "some-order-id"} as any)
-    //   expect(billingAddress.value).toBeUndefined();
-    // })
     it("should have proper personalDetails extracted from order object", () => {
       const { personalDetails } = useOrderDetails(rootContextMock, {
         id: "some-order-id",
