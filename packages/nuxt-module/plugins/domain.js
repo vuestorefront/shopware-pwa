@@ -114,17 +114,17 @@ Middleware.routing = function ({ isHMR, app, from, route, redirect }) {
     return;
   }
   /*
-   If the origin gets changed, this is always a initial request to the server.
-   The currentDomain then is already set correctly by the plugin (see line 103).
+     If the origin gets changed, this is always a initial request to the server.
+     The currentDomain then is already set correctly by the plugin (see line 103).
 
-   If the prefixPath gets changed, the corresponding domain-config can be detected from the route.
-   The detected domain config from the new route has to be compared with the current one, if they don't match, the
-   current domain config has to be changed to the config detected from the route
+     If the prefixPath gets changed, the corresponding domain-config can be detected from the route.
+     The detected domain config from the new route has to be compared with the current one, if they don't match, the
+     current domain config has to be changed to the config detected from the route
 
-   Only routes with prefixPath have to have the domainConfig added in the meta-object
-   Edgecase that is currently not supported: domains with the same prefixPath on different origins, because during route-building,
-   only the domainConfig from the last origin gets added to the meta-object
-   */
+     Only routes with prefixPath have to have the domainConfig added in the meta-object
+     Edgecase that is currently not supported: domains with the same prefixPath on different origins, because during route-building,
+     only the domainConfig from the last origin gets added to the meta-object
+     */
 
   let domainConfig =
     Array.isArray(route.meta) && route.meta.find((data) => !!data.domainId);
@@ -142,12 +142,30 @@ Middleware.routing = function ({ isHMR, app, from, route, redirect }) {
     }
   }
 
-  if (process.server || domainConfig.domainId !== from?.meta[0].domainId) {
+  let fromDomainConfig = from?.meta.find((metaEntry) => !!metaEntry.domainId);
+  if (!fromDomainConfig) {
+    // If fromDomainConfig is not set, this means that the from-route had no prefixPath and has to be loaded seperately
+    if (process.client) {
+      // During client-side navigation the domain config can be manually loaded through the location origin,
+      // because the origin is still the same
+      const currentOrigin = location.origin;
+      fromDomainConfig = app.routing.availableDomains.find(
+        (data) => data.origin === currentOrigin && data.pathPrefix === "/"
+      );
+    }
+    // Note: There is no need to determine the fromDomainConfig on the server side request, so there is no else-case here
+    // This is because on the initial request the following has to run nevertheless
+  }
+
+  if (
+    process.server ||
+    (fromDomainConfig && domainConfig.domainId !== fromDomainConfig.domainId)
+  ) {
     /*
-     This only runs:
-      - on initial request on the server (also change of origin)
-      - on change of prefixPath
-     */
+         This only runs:
+          - on initial request on the server (also change of origin)
+          - on change of prefixPath
+         */
     const { languageId, languageLocaleCode, currencyId } = domainConfig;
     app.routing.setCurrentDomain(domainConfig);
     languageId && app.$shopwareApiInstance.update({ languageId });
