@@ -15,6 +15,7 @@
 6. [How to use/write your own theme](#no6)
 7. [How to install and register a nuxt plugin](#no7)
 8. [How to add another language](#no8)
+9. [Overwrite API defaults](#no9)
 
 ---
 
@@ -217,11 +218,10 @@ module.exports = {
 4. The `package.json` file contains the `baseTheme` value with the theme you extend. The files property contains only a `dist` directory (it's used during the build, and the files from dist are published as a package)
 
 ::: warning
-Please remember that the custom theme should be built before any usage. 
+Please remember that the custom theme should be built before any usage.
 That means that before starting a nuxt application, the custom theme should be prepared by using:
 `yarn dev` or `yarn build` - to be sure, please check if `dist/` directory isn't empty in your custom theme.
 :::
-
 
 #### There are two useful scripts as well:
 
@@ -276,16 +276,18 @@ Before you start, [learn the details](../operations/migrations/0.6.x_to_0.7.x.md
 :::
 
 ### Things that should be done in admin panel
-1. In admin panel, go to _Sales Channel_ (used by PWA) >  _Domains_ tab
-2. Add domain. **It's important** that the URL should match the one used in your `shopware-pwa.config.js` under the `pwaHost`. 
-    
-    Add a distinctive suffix pointing to language (or general config) you want to use. It may be `/de-DE`, `/en` or whatsoever like `/my/very/formal/english/site`, so the whole entry would be like:
-  `https://my-shopware-pwa.com/my/very/formal/english/site`
+
+1. In admin panel, go to _Sales Channel_ (used by PWA) > _Domains_ tab
+2. Add domain. **It's important** that the URL should match the one used in your `shopware-pwa.config.js` under the `pwaHost`.
+
+   Add a distinctive suffix pointing to language (or general config) you want to use. It may be `/de-DE`, `/en` or whatsoever like `/my/very/formal/english/site`, so the whole entry would be like:
+   `https://my-shopware-pwa.com/my/very/formal/english/site`
 
 3. Pick the other settings for your domain like language, currency.
-4. Save the domain and the sales channel afterwards. 
+4. Save the domain and the sales channel afterwards.
 
 ### Things that should be done in shopware-pwa app
+
 1. Go to project's root directory.
 2. Run `npx @shopware-pwa/cli@canary domains`.
 3. Pass the credentials for your admin credentials.
@@ -294,7 +296,75 @@ Before you start, [learn the details](../operations/migrations/0.6.x_to_0.7.x.md
 6. Run a nuxt.js application again.
 
 ### FAQ
+
 How to change the language switcher's label (visible in top navigation bar)?
+
 - go to `.shopware-pwa/sw-plugins/domains.json` and edit a chosen `languageLabel` property.
 
-TODO
+## Overwrite API defaults <a id="no9"></a>
+
+You can have full control over API defaults ued by composables.
+
+First you need to add import inside `shopware-pwa.config.js` file.
+
+```js
+const defaultsConfigBuilder =
+  require("@shopware-pwa/nuxt-module/api-defaults").default;
+```
+
+Now we could have many abilities to edit the config, I'll leave the API with examples
+
+#### Adding new value
+
+```js
+// merge object (including arrays), in this case add one value to array
+defaultsConfigBuilder().add("useCms.includes.cms_page_slot",  "someCustomValue")
+
+// result for defaultsConfigBuilder().get("useCms.includes.cms_page_slot")
+[
+  'id',
+  'type',
+  'slot',
+  'blockId',
+  'config',
+  'data',
+  'backgroundMediaMode',
+  'backgroundMedia',
+  'someCustomValue',
+]
+```
+
+#### Removing value
+
+```js
+// merge object (including arrays), in this case add one value to array
+defaultsConfigBuilder().remove("useCms.includes.cms_page_slot",  "type")
+
+// result for defaultsConfigBuilder().get("useCms.includes.cms_page_slot")
+[
+  'id',
+  'slot',
+  'blockId',
+  'config',
+  'data',
+  'backgroundMediaMode',
+  'backgroundMedia',
+]
+```
+
+#### Replacing value
+
+```js
+defaultsConfigBuilder().replace("useCms.includes.cms_page_slot", [
+  "id",
+  "myValue",
+]);
+// another examples
+defaultsConfigBuilder().replace("useCms", { limit: 3 }); // replace whole useCms setting
+defaultsConfigBuilder().replace("useCms.limit", 5);
+```
+
+### Implementation details for some cases
+
+- `add` would replace value if it's not an object or array, for example with `limit` property
+- you could chain methods like `defaultsConfigBuilder().add(...).remove(...).add(...)`

@@ -36,6 +36,11 @@ export async function runModule(
 
   moduleObject.options.alias = moduleObject.options.alias || {};
   // fixes problem with multiple composition-api instances
+  moduleObject.options.alias[
+    "@vue/composition-api/dist/vue-composition-api.esm.js"
+  ] = moduleObject.nuxt.resolver.resolveModule(
+    "@vue/composition-api/dist/vue-composition-api.esm.js"
+  );
   moduleObject.options.alias["@vue/composition-api"] =
     moduleObject.nuxt.resolver.resolveModule(
       "@vue/composition-api/dist/vue-composition-api.esm.js"
@@ -137,15 +142,19 @@ export async function runModule(
     },
   });
 
+  let config = merge({}, getDefaultApiParams(), shopwarePwaConfig.apiDefaults);
+  try {
+    const defaultsConfigBuilder =
+      require("@shopware-pwa/nuxt-module/api-defaults").default;
+    config = defaultsConfigBuilder().get();
+  } catch (e) {
+    console.error("Cannot resolve API defaults config", e);
+  }
   moduleObject.addPlugin({
     fileName: "api-defaults.js",
     src: path.join(__dirname, "..", "plugins", "api-defaults.js"),
     options: {
-      apiDefaults: merge(
-        {},
-        getDefaultApiParams(),
-        shopwarePwaConfig.apiDefaults
-      ),
+      apiDefaults: config,
     },
   });
 
