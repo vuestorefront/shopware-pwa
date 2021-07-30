@@ -7,10 +7,7 @@ module.exports = {
   shopware-pwa domains will fetch the domain configuration from your Shopware Store based on the shopwareAccessKey provided
   within your shopware-pwa.config.js.
 
-  You also need to provide a PWA host in order to resolve the domains correctly. It will strip out the host name from your
-  absolute domains, so the application can work with relative paths.
-
-  Eventually, the paths will be stored in you .shopware-pwa/sw-plguins/domains.json file, ready to be parsed.
+  Eventually, the configuration will be stored in you .shopware-pwa/sw-plguins/domains.json file, ready to be parsed.
   `,
   run: async (toolbox: GluegunToolbox) => {
     const inputParameters = toolbox.inputParameters;
@@ -42,22 +39,15 @@ Synchronize the domain's related config from backend (in order to build a domain
         footer: process.env.ADMIN_PASSWORD && "password from .env is hidden",
       };
 
-      const shopwarePwaHostQuestions = !inputParameters.pwaHost && {
-        type: "input",
-        name: "pwaHost",
-        message: "Shopware PWA Host (used to resolve the relative domains):",
-      };
-
       const answers = await toolbox.prompt.ask([
         shopwareUsernameQuestion,
         shopwarePasswordQuestion,
-        shopwarePwaHostQuestions,
       ]);
 
       Object.assign(inputParameters, answers);
     }
 
-    const { username, password, pwaHost } = inputParameters;
+    const { username, password } = inputParameters;
 
     if ((!username || !password) && !toolbox.isDefaultDemoData()) {
       toolbox.print.error(
@@ -84,15 +74,7 @@ Synchronize the domain's related config from backend (in order to build a domain
         inputParameters.shopwareAccessToken
       );
 
-      domainsMap = toolbox.domains.prepareDomainsMap(
-        domains,
-        toolbox.normalizeBaseUrl(
-          (typeof pwaHost === "string" &&
-            pwaHost === "" &&
-            toolbox.defaultInitConfig.shopwareEndpoint) ||
-            pwaHost
-        )
-      );
+      domainsMap = toolbox.domains.prepareDomainsMap(domains);
     } catch (error) {
       if (!toolbox.isDefaultDemoData()) {
         console.error(error);

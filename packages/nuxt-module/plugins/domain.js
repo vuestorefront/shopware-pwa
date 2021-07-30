@@ -4,7 +4,6 @@ import { useSessionContext, useSharedState } from "@shopware-pwa/composables";
 
 const FALLBACK_DOMAIN = "<%= options.fallbackDomain %>" || "/";
 const FALLBACK_LOCALE = "<%= options.fallbackLocale %>";
-const PWA_HOST = "<%= options.pwaHost %>";
 const SHOPWARE_DOMAINS_ALLOW_LIST = "<%= options.shopwareDomainsAllowList %>";
 const domains = require("sw-plugins/domains");
 const domainsList = Object.values(domains).filter(
@@ -78,7 +77,6 @@ export default ({ app, route, req }, inject) => {
     availableDomains: (domainsList && Object.values(domainsList)) || {},
     fallbackDomain: FALLBACK_DOMAIN,
     fallbackLocale: FALLBACK_LOCALE,
-    pwaHost: PWA_HOST,
     // set current domain's configuration
     setCurrentDomain: (domainData) => {
       currentDomainData.value = domainData;

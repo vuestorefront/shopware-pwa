@@ -49,7 +49,11 @@ module.exports = (toolbox: GluegunToolbox) => {
    * Generates template files using ejs.
    */
   toolbox.generateTemplateFiles = async (
-    { shopwareEndpoint, shopwareAccessToken, pwaHost } = toolbox.inputParameters
+    {
+      shopwareEndpoint,
+      shopwareAccessToken,
+      shopwareDomainsAllowList,
+    } = toolbox.inputParameters
   ) => {
     const isConfigGenerated = exists("shopware-pwa.config.js");
     if (!isConfigGenerated) {
@@ -59,7 +63,7 @@ module.exports = (toolbox: GluegunToolbox) => {
         props: {
           shopwareEndpoint,
           shopwareAccessToken,
-          pwaHost,
+          shopwareDomainsAllowList,
         },
       });
     }

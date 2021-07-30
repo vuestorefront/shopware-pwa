@@ -354,7 +354,7 @@ export default {
         password: state.password,
         guest: doNotCreateAccount.value,
         salutationId: state.salutationId || getDefaultSalutationId.value,
-        storefrontUrl: root.$routing.pwaHost,
+        storefrontUrl: root.$routing.getCurrentDomain.value.url,
         billingAddress: {
           firstName: state.firstName,
           salutationId: state.salutationId || getDefaultSalutationId.value,

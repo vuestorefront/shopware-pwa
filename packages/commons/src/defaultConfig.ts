@@ -26,10 +26,6 @@ export interface ShopwareApiClientConfig {
  */
 export interface ShopwarePwaConfigFile {
   /**
-   * shopware-pwa host URL
-   */
-  pwaHost?: string;
-  /**
    * list of allowed domains for this pwa instance from saleschannel configuration
    */
   shopwareDomainsAllowList?: string[];

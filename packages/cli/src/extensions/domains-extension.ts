@@ -55,7 +55,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     return fetchDomainsResponse?.data?.data;
   };
 
-  toolbox.domains.prepareDomainsMap = (domains, pwaHost: string) => {
+  toolbox.domains.prepareDomainsMap = (domains) => {
     let domainsMap = {};
     domains.forEach((domain) => {
       const url = new URL(domain.url);
@@ -75,12 +75,6 @@ module.exports = (toolbox: GluegunToolbox) => {
     });
 
     return domainsMap;
-  };
-
-  toolbox.domains.stripHost = (absolutePath: string, pwaHost: string) => {
-    let path = absolutePath.replace(pwaHost, "");
-
-    return path.startsWith("/") ? path : `/${path}`;
   };
 
   toolbox.domains.getDefaultDemoDomainsJson = async () => {

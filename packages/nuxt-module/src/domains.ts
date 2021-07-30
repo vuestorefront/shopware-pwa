@@ -140,7 +140,6 @@ export async function setupDomains(
     fileName: "domain.js",
     src: path.join(__dirname, "..", "plugins", "domain.js"),
     options: {
-      pwaHost: shopwarePwaConfig.pwaHost,
       shopwareDomainsAllowList: shopwarePwaConfig.shopwareDomainsAllowList,
       fallbackDomain: shopwarePwaConfig.fallbackDomain || "/",
     },

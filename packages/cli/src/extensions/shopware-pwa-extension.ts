@@ -98,7 +98,9 @@ module.exports = (toolbox: GluegunToolbox) => {
     shopwareAccessToken:
       toolbox.parameters.options.shopwareAccessToken ||
       toolbox.config.shopwareAccessToken,
-    pwaHost: toolbox.parameters.options.pwaHost || toolbox.config.pwaHost,
+    shopwareDomainsAllowList: toolbox.parameters.options
+      .shopwareDomainsAllowList ||
+      toolbox.config.shopwareDomainsAllowList || [toolbox.config.pwaHost], // TODO: remove fallback to pwaHost in next version
     username:
       toolbox.parameters.options.username ||
       toolbox.parameters.options.u ||
@@ -124,10 +126,9 @@ module.exports = (toolbox: GluegunToolbox) => {
       toolbox.parameters.options.shopwareAccessToken ||
       toolbox.config.shopwareAccessToken ||
       shopwareAccessToken;
-    toolbox.inputParameters.pwaHost =
-      toolbox.parameters.options.pwaHost ||
-      toolbox.config.pwaHost ||
-      shopwareEndpoint;
+    toolbox.inputParameters.shopwareDomainsAllowList = toolbox.parameters
+      .options.shopwareDomainsAllowList ||
+      toolbox.config.shopwareDomainsAllowList || [shopwareEndpoint];
   };
 
   /**

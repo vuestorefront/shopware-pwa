@@ -493,8 +493,6 @@ export interface Routing {
     // (undocumented)
     getUrl: (path: string) => string;
     // (undocumented)
-    pwaHost: string | undefined;
-    // (undocumented)
     setCurrentDomain: (domainData: any) => void;
 }
 
