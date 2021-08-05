@@ -21,24 +21,19 @@ useDefaults: (rootContext: ApplicationVueContext, defaultsKey: string) => {
 
 ## Remarks
 
-To extend defaults you need to add configuration to `shopware-pwa.config.js` file. Let's say we want to have a product manufacturer, media associations and listing limit on CMS pages. We need to add to configuration file:
+To extend defaults you need to add configuration to `shopware-pwa.config.js` file. Let's say we want to add product new\_option field and change listing limit on CMS pages. We need to add to configuration file:
 
 ```js
 // inside shopware-pwa.config.js
+const defaultsConfigBuilder =
+  require("@shopware-pwa/nuxt-module/api-defaults").default
+`
+defaultsConfigBuilder()
+  .replace("useCms.limit", 8) // change default listing limit to 8
+  .add("useCms.includes.product", "new_option") // add product new_option to returned fields
 
 module.exports = {
-  // ... other settings
-  apiDefaults: {
-   useCms: {
-     limit: 8,
-     includes: {
-       product: ["manufacturer"]
-     },
-     associations: [
-       { name: "media" }
-     ]
-   },
-  },
+  // ... your standard Shopware PWA settings
 }
 
 ```

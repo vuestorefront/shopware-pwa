@@ -1,8 +1,7 @@
-import { Includes } from "../interfaces/search/SearchCriteria";
-import { Association } from "../interfaces/search/Association";
 import compatibilityTable from "../../../compatibility.json";
 import merge from "lodash/merge";
 import axios from "axios";
+import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
  * @beta
@@ -19,6 +18,13 @@ export interface ShopwareApiClientConfig {
     username: string;
     password: string;
   };
+}
+
+/**
+ * @beta
+ */
+export interface ApiDefaults {
+  [composableName: string]: ShopwareSearchParams;
 }
 
 /**
@@ -55,13 +61,10 @@ export interface ShopwarePwaConfigFile {
   shopwareApiClient?: ShopwareApiClientConfig;
   /**
    * set of includes, associations depending on use context (see: useDefaults composable)
+   *
+   * @deprecated use defaultsConfigBuilder instead
    */
-  apiDefaults?: {
-    [composableName: string]: {
-      includes?: Includes;
-      associations?: Association[];
-    };
-  };
+  apiDefaults?: ApiDefaults;
 }
 
 export interface CompatibilityTable {
