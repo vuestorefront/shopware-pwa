@@ -60,6 +60,12 @@
                   :icon="null"
                   @click="logoutUser"
                 />
+                <SfMenuItem
+                  v-if="isGuestSession"
+                  :label="$t('Log in')"
+                  :icon="null"
+                  @click="toggleModal"
+                />
               </SfListItem>
             </SfList>
           </SfBottomModal>
@@ -165,10 +171,9 @@ export default {
     const { switchState: toggleModal } = useUIState(root, "LOGIN_MODAL_STATE")
     const { isLoggedIn, isGuestSession, logout } = useUser(root)
     const { count } = useCart(root)
-    const canLogIn = computed(() => !isLoggedIn.value || isGuestSession.value)
-    const isMyAccountActive = computed(() => !canLogIn.value)
+    const isMyAccountActive = computed(() => isLoggedIn.value)
     const userIconDescription = computed(() => {
-      if (canLogIn.value) return root.$t("Login / Register")
+      if (!isLoggedIn.value) return root.$t("Login / Register")
       if (isGuestSession.value) return root.$t("Guest session")
       return root.$t(`My Account`)
     })
