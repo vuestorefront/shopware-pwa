@@ -1,3 +1,12 @@
+## [0.8.3](https://github.com/DivanteLtd/shopware-pwa/compare/v0.8.2...v0.8.3) (2021-08-05)
+
+
+### Bug Fixes
+
+* **composables:** backport memory leak in the page middleware ([b744c02](https://github.com/DivanteLtd/shopware-pwa/commit/b744c024e75154fdf15f524b2913b2fcb25a13c3))
+
+
+
 ## [0.8.2](https://github.com/DivanteLtd/shopware-pwa/compare/v0.8.1...v0.8.2) (2021-04-30)
 
 
