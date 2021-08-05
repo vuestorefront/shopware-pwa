@@ -165,10 +165,10 @@ export default {
     const { switchState: toggleModal } = useUIState(root, "LOGIN_MODAL_STATE")
     const { isLoggedIn, isGuestSession, logout } = useUser(root)
     const { count } = useCart(root)
-    const canLogIn = computed(() => isLoggedIn.value && !isGuestSession.value)
-    const isMyAccountActive = computed(() => canLogIn.value)
+    const canLogIn = computed(() => !isLoggedIn.value || isGuestSession.value)
+    const isMyAccountActive = computed(() => !canLogIn.value)
     const userIconDescription = computed(() => {
-      if (!canLogIn.value) return root.$t("Login / Register")
+      if (canLogIn.value) return root.$t("Login / Register")
       if (isGuestSession.value) return root.$t("Guest session")
       return root.$t(`My Account`)
     })
