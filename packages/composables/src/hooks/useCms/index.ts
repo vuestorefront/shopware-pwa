@@ -1,4 +1,4 @@
-import { ref, Ref, computed, ComputedRef, watch } from "@vue/composition-api";
+import { ref, Ref, computed, ComputedRef } from "@vue/composition-api";
 import { getCmsPage } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { parseUrlQuery } from "@shopware-pwa/helpers";
@@ -56,14 +56,6 @@ export function useCms(rootContext: ApplicationVueContext): {
     return page.value && page.value.resourceIdentifier;
   });
 
-  watch(
-    page,
-    (pageValue) => {
-      setBreadcrumbs(Object.values(pageValue?.breadcrumb || []));
-    },
-    { immediate: true }
-  );
-
   /**
    * @beta
    */
@@ -76,6 +68,7 @@ export function useCms(rootContext: ApplicationVueContext): {
     try {
       const result = await getCmsPage(path, searchCriteria, apiInstance);
       _storePage.value = result;
+      result?.breadcrumb && setBreadcrumbs(Object.values(result.breadcrumb));
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err;
