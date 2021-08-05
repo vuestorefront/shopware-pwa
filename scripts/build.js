@@ -88,9 +88,10 @@ async function runBuild({
   packageJson,
   format = "esm",
   additionalEntrypoints = [],
+  platform,
 }) {
   const buildTarget = format === "esm" ? "es2020" : "es2015";
-  const platform = format === "cjs" ? "node" : "neutral";
+  const platformTarget = platform || format === "cjs" ? "node" : "neutral";
 
   try {
     const dependencies = Object.keys(packageJson.dependencies || {});
@@ -104,7 +105,7 @@ async function runBuild({
       external,
       target: buildTarget,
       format,
-      platform,
+      platform: platformTarget,
     });
     if (additionalEntrypoints.length) {
       const promisses = additionalEntrypoints.map((entrypoint) => {
@@ -149,6 +150,7 @@ async function buildPackage(target, packageJson) {
         packageJson,
         format,
         additionalEntrypoints,
+        platform: packageJson.buildOptions && packageJson.buildOptions.platform,
       });
     })
   );

@@ -5,7 +5,8 @@
   "main": "dist/nuxt-module.cjs.js",
   "exports": {
     ".": "./dist/nuxt-module.cjs.js",
-    "./config": "./dist/extendNuxtConfig.cjs.js"
+    "./config": "./dist/extendNuxtConfig.cjs.js",
+    "./api-defaults": "./dist/defaultsConfigBuilder.cjs.js"
   },
   "files": [
     "dist",
@@ -48,11 +49,14 @@
   },
   "buildOptions": {
     "name": "nuxt-module",
+    "platform": "node",
     "formats": [
-      "cjs"
+      "cjs",
+      "esm"
     ],
     "additionalEntrypoints": [
-      "extendNuxtConfig"
+      "extendNuxtConfig",
+      "defaultsConfigBuilder"
     ]
   }
 }

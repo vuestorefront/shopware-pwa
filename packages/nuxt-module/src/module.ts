@@ -137,15 +137,19 @@ export async function runModule(
     },
   });
 
+  let config = merge({}, getDefaultApiParams(), shopwarePwaConfig.apiDefaults);
+  try {
+    const defaultsConfigBuilder =
+      require("@shopware-pwa/nuxt-module/api-defaults").default;
+    config = defaultsConfigBuilder().get();
+  } catch (e) {
+    console.error("Cannot resolve API defaults config", e);
+  }
   moduleObject.addPlugin({
     fileName: "api-defaults.js",
     src: path.join(__dirname, "..", "plugins", "api-defaults.js"),
     options: {
-      apiDefaults: merge(
-        {},
-        getDefaultApiParams(),
-        shopwarePwaConfig.apiDefaults
-      ),
+      apiDefaults: config,
     },
   });
 

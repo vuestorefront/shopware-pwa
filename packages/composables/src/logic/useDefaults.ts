@@ -12,23 +12,18 @@ import { warning } from "@shopware-pwa/commons";
  *
  * @remarks
  * To extend defaults you need to add configuration to `shopware-pwa.config.js` file.
- * Let's say we want to have a product manufacturer, media associations and listing limit on CMS pages. We need to add to configuration file:
+ * Let's say we want to add product new_option field and change listing limit on CMS pages. We need to add to configuration file:
  * ```js
  * // inside shopware-pwa.config.js
+ * const defaultsConfigBuilder =
+ *   require("@shopware-pwa/nuxt-module/api-defaults").default
+ *`
+ * defaultsConfigBuilder()
+ *   .replace("useCms.limit", 8) // change default listing limit to 8
+ *   .add("useCms.includes.product", "new_option") // add product new_option to returned fields
  *
  * module.exports = {
- *   // ... other settings
- *   apiDefaults: {
- *    useCms: {
- *      limit: 8,
- *      includes: {
- *        product: ["manufacturer"]
- *      },
- *      associations: [
- *        { name: "media" }
- *      ]
- *    },
- *   },
+ *   // ... your standard Shopware PWA settings
  * }
  * ```
  * We need to remember the structure of includes and associations. You can read more about this {@link https://docs.shopware.com/en/shopware-platform-dev-en/admin-api-guide/reading-entities?category=shopware-platform-dev-en/admin-api-guide#parameter-overview | in shopware docs}.
