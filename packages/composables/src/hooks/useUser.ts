@@ -93,9 +93,15 @@ export interface IUseUser {
     personals: CustomerUpdateProfileParam
   ) => Promise<boolean>;
   updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
+  /**
+   * @deprecated use updatePassword from useCustomerPassword composable
+   */
   updatePassword: (
     updatePasswordData: CustomerUpdatePasswordParam
   ) => Promise<boolean>;
+  /**
+   * @deprecated use resetPassword from useCustomerPassword composable
+   */
   resetPassword: (
     resetPasswordData: CustomerResetPasswordParam
   ) => Promise<boolean>;
@@ -364,6 +370,9 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     return true;
   };
 
+  /**
+   * @deprecated use updatePassword from useCustomerPassword composable
+   */
   const updatePassword = async (
     updatePasswordData: CustomerUpdatePasswordParam
   ): Promise<boolean> => {
@@ -377,6 +386,9 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     return true;
   };
 
+  /**
+   * @deprecated use resetPassword from useCustomerPassword composable
+   */
   const resetPassword = async (
     resetPasswordData: CustomerResetPasswordParam
   ): Promise<boolean> => {
