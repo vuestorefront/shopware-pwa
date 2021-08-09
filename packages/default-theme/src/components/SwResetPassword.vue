@@ -44,7 +44,7 @@
 import { SfAlert, SfHeading } from "@storefront-ui/vue"
 import useVuelidate from "@vuelidate/core"
 import { required, email } from "@vuelidate/validators"
-import { useUser } from "@shopware-pwa/composables"
+import { useCustomerPassword } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 import SwErrorsList from "@/components/SwErrorsList.vue"
@@ -60,7 +60,7 @@ export default {
     }
   },
   setup(props, { root }) {
-    const { resetPassword, errors } = useUser(root)
+    const { resetPassword, errors } = useCustomerPassword(root)
     return {
       resetPassword,
       $v: useVuelidate(),
