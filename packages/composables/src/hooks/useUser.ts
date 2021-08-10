@@ -61,6 +61,9 @@ export interface IUseUser {
   }) => Promise<boolean>;
   register: ({}: CustomerRegistrationParams) => Promise<boolean>;
   user: ComputedRef<Partial<Customer> | null>;
+  /**
+   * @deprecated use orders from {@link useCustomerOrders} composable
+   */
   orders: Ref<Order[] | null>;
   /**
    * @deprecated use addresses computed from {@link useCustomerAddresses} composable
@@ -82,6 +85,9 @@ export interface IUseUser {
   salutation: Ref<Salutation | null>;
   refreshUser: () => Promise<void>;
   logout: () => Promise<void>;
+  /**
+   * @deprecated use loadOrders method from {@link useCustomerOrders} composable
+   */
   loadOrders: () => Promise<void>;
   getOrderDetails: (orderId: string) => Promise<Order | undefined>;
   /**
@@ -173,6 +179,9 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     updatePassword: [],
     updateEmail: [],
   });
+  /**
+   * @deprecated use orders from {@link useCustomerOrders} composable
+   */
   const orders: Ref<Order[] | null> = ref(null);
   const addresses = computed(() => storeAddresses.value);
   const country: Ref<Country | null> = ref(null);
@@ -271,9 +280,11 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
       console.error("[useUser][refreshUser]", e);
     }
   };
-
+  /**
+   * @deprecated use loadOrders method from {@link useCustomerOrders} composable
+   */
   const loadOrders = async (): Promise<void> => {
-    const fetchedOrders = await getCustomerOrders(apiInstance);
+    const fetchedOrders = await getCustomerOrders({}, apiInstance);
     orders.value = fetchedOrders;
   };
 

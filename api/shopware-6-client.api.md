@@ -281,7 +281,7 @@ export function getCustomerOrderDetails(orderId: string, contextInstance?: Shopw
 export const getCustomerOrderEndpoint: () => string;
 
 // @beta
-export function getCustomerOrders(contextInstance?: ShopwareApiInstance): Promise<Order[]>;
+export function getCustomerOrders(parameters?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<Order[]>;
 
 // @beta (undocumented)
 export const getCustomerRegisterEndpoint: () => string;

@@ -253,10 +253,13 @@
       "seo_url": ["pathInfo", "seoPathInfo"]
     }
   },
+  "useCustomerOrders": {
+    "sort": "-createdAt",
+    "associations": {},
+    "includes": {}
+  },
   "useCustomerAddresses": {
-    "associations": {
-    },
-    "includes": {
-    }
+    "associations": {},
+    "includes": {}
   }
 }

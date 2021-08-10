@@ -246,6 +246,18 @@ export interface IUseCustomerAddresses {
 }
 
 // @beta
+export interface IUseCustomerOrders {
+    // (undocumented)
+    errors: UnwrapRef<{
+        loadOrders: ShopwareError[];
+    }>;
+    // (undocumented)
+    loadOrders: () => Promise<void>;
+    // (undocumented)
+    orders: Ref<Order[] | null>;
+}
+
+// @beta
 export interface IUseCustomerPassword {
     // (undocumented)
     errors: UnwrapRef<{
@@ -440,7 +452,7 @@ export interface IUseUser {
     loadCountry: (countryId: string) => Promise<void>;
     // (undocumented)
     loading: Ref<boolean>;
-    // (undocumented)
+    // @deprecated (undocumented)
     loadOrders: () => Promise<void>;
     // (undocumented)
     loadSalutation: (salutationId: string) => Promise<void>;
@@ -463,7 +475,7 @@ export interface IUseUser {
     }) => void) => void;
     // (undocumented)
     onUserRegister: (fn: () => void) => void;
-    // (undocumented)
+    // @deprecated (undocumented)
     orders: Ref<Order[] | null>;
     // (undocumented)
     refreshUser: () => Promise<void>;
@@ -621,6 +633,9 @@ export const useCurrency: (rootContext: ApplicationVueContext) => UseCurrency;
 
 // @beta
 export function useCustomerAddresses(rootContext: ApplicationVueContext): IUseCustomerAddresses;
+
+// @beta
+export const useCustomerOrders: (rootContext: ApplicationVueContext) => IUseCustomerOrders;
 
 // @beta
 export function useCustomerPassword(rootContext: ApplicationVueContext): IUseCustomerPassword;
