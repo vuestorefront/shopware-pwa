@@ -15,7 +15,7 @@
 </template>
 <script>
 import { onMounted, computed, ref } from "@vue/composition-api"
-import { useUser } from "@shopware-pwa/composables"
+import { useCustomerAddresses, useUser } from "@shopware-pwa/composables"
 import Address from "@/components/account/MyAddresses/Address.vue"
 
 export default {
@@ -25,13 +25,13 @@ export default {
   },
   setup(props, { root }) {
     const {
-      user,
       addresses,
       loadAddresses,
       markAddressAsDefault,
-      refreshUser,
       deleteAddress: deleteCustomerAddress,
-    } = useUser(root)
+    } = useCustomerAddresses(root)
+
+    const { user, refreshUser } = useUser(root)
 
     loadAddresses()
     const selectedBilling = computed(() => user.value?.defaultBillingAddressId)

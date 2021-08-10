@@ -273,5 +273,14 @@
         }
       }
     }
+  },
+  "useCustomerOrders": {
+    "sort": "-createdAt",
+    "associations": {},
+    "includes": {}
+  },
+  "useCustomerAddresses": {
+    "associations": {},
+    "includes": {}
   }
 }

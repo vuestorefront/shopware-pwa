@@ -30,7 +30,7 @@
 </template>
 <script>
 import { SfTabs, SfTable } from "@storefront-ui/vue"
-import { useUser } from "@shopware-pwa/composables"
+import { useCustomerOrders } from "@shopware-pwa/composables"
 import Order from "@/components/account/orders/Order.vue"
 
 export default {
@@ -50,7 +50,7 @@ export default {
     }
   },
   setup(props, { root }) {
-    const { orders, loadOrders } = useUser(root)
+    const { orders, loadOrders } = useCustomerOrders(root)
     loadOrders()
     return {
       orders,
