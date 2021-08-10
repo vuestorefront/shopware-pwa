@@ -395,13 +395,13 @@ export interface IUseSessionContext {
 
 // @beta
 export interface IUseUser {
-    // (undocumented)
+    // @deprecated (undocumented)
     addAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
-    // (undocumented)
+    // @deprecated (undocumented)
     addresses: Ref<CustomerAddress[] | null>;
     // (undocumented)
     country: Ref<Country | null>;
-    // (undocumented)
+    // @deprecated (undocumented)
     deleteAddress: (addressId: string) => Promise<boolean>;
     // (undocumented)
     error: Ref<any>;
@@ -421,7 +421,7 @@ export interface IUseUser {
     isGuestSession: ComputedRef<boolean>;
     // (undocumented)
     isLoggedIn: ComputedRef<boolean>;
-    // (undocumented)
+    // @deprecated (undocumented)
     loadAddresses: () => Promise<void>;
     // (undocumented)
     loadCountry: (countryId: string) => Promise<void>;
@@ -438,7 +438,7 @@ export interface IUseUser {
     }) => Promise<boolean>;
     // (undocumented)
     logout: () => Promise<void>;
-    // (undocumented)
+    // @deprecated (undocumented)
     markAddressAsDefault: ({ addressId, type, }: {
         addressId?: string;
         type?: AddressType;
@@ -460,7 +460,7 @@ export interface IUseUser {
     resetPassword: (resetPasswordData: CustomerResetPasswordParam) => Promise<boolean>;
     // (undocumented)
     salutation: Ref<Salutation | null>;
-    // (undocumented)
+    // @deprecated (undocumented)
     updateAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
     // (undocumented)
     updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
