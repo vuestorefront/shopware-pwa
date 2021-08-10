@@ -7,16 +7,16 @@ const mockedApiInstance = defaultInstance as jest.Mocked<
 >;
 
 describe("CustomerService - getCustomerOrders", () => {
-  const mockedGet = jest.fn();
+  const mockedPost = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
     mockedApiInstance.invoke = {
-      get: mockedGet,
+      post: mockedPost,
     } as any;
   });
 
   it("should return empty array if no elements are in the response", async () => {
-    mockedGet.mockResolvedValueOnce({
+    mockedPost.mockResolvedValueOnce({
       data: {
         elements: null,
       },
@@ -26,7 +26,7 @@ describe("CustomerService - getCustomerOrders", () => {
   });
 
   it("should return array of orders", async () => {
-    mockedGet.mockResolvedValueOnce({
+    mockedPost.mockResolvedValueOnce({
       data: {
         orders: {
           elements: [
@@ -41,10 +41,8 @@ describe("CustomerService - getCustomerOrders", () => {
       },
     });
     const result = await getCustomerOrders();
-    expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith("/store-api/order", {
-      params: { sort: "-createdAt" },
-    });
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith("/store-api/order", {});
     expect(result).toMatchObject([
       {
         orderNumber: "1234",
