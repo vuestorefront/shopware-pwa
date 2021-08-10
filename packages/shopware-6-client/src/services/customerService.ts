@@ -21,6 +21,7 @@ import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/req
 import { ContextTokenResponse } from "@shopware-pwa/commons/interfaces/response/SessionContext";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import { EntityResult } from "@shopware-pwa/commons/interfaces/response/EntityResult";
+import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
  * @beta
@@ -118,13 +119,13 @@ export async function getCustomerAddresses(
  * @beta
  */
 export async function getCustomerOrders(
+  parameters: ShopwareSearchParams = {},
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Order[]> {
-  const resp = await contextInstance.invoke.get(getCustomerOrderEndpoint(), {
-    params: {
-      sort: "-createdAt",
-    },
-  });
+  const resp = await contextInstance.invoke.post(
+    getCustomerOrderEndpoint(),
+    parameters
+  );
   return resp.data.orders?.elements || [];
 }
 
