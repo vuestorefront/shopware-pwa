@@ -13,6 +13,7 @@
 |  [getDefaultApiParams()](./composables.getdefaultapiparams.md) | <b><i>(BETA)</i></b> Returns default system API params |
 |  [useBreadcrumbs(rootContext, params)](./composables.usebreadcrumbs.md) | <b><i>(BETA)</i></b> Composable for displaying and setting breadcrumbs for page. |
 |  [useCms(rootContext)](./composables.usecms.md) | <b><i>(BETA)</i></b> |
+|  [useCustomerPassword(rootContext)](./composables.usecustomerpassword.md) | <b><i>(BETA)</i></b> Composable for customer password management. Options - [IUseCustomerPassword](./composables.iusecustomerpassword.md) |
 |  [useProductAssociations(rootContext, product, association)](./composables.useproductassociations.md) | <b><i>(BETA)</i></b> Get product association entity. Options - [IUseProductAssociations](./composables.iuseproductassociations.md) |
 |  [useSharedState(rootContext)](./composables.usesharedstate.md) | <b><i>(BETA)</i></b> Replacement for Vuex. Composable, which enables you to use shared state in your application. State is shared both on server and client side. |
 
@@ -24,6 +25,7 @@
 |  [IUseAddToCart](./composables.iuseaddtocart.md) | <b><i>(BETA)</i></b> interface for [useAddToCart](./composables.useaddtocart.md) composable |
 |  [IUseCart](./composables.iusecart.md) | <b><i>(BETA)</i></b> interface for [useCart](./composables.usecart.md) composable |
 |  [IUseCheckout](./composables.iusecheckout.md) | <b><i>(BETA)</i></b> interface for [useCheckout](./composables.usecheckout.md) composable |
+|  [IUseCustomerPassword](./composables.iusecustomerpassword.md) | <b><i>(BETA)</i></b> interface for [useCustomerPassword()](./composables.usecustomerpassword.md) composable |
 |  [IUseIntercept](./composables.iuseintercept.md) | <b><i>(BETA)</i></b> interface for [useIntercept](./composables.useintercept.md) composable |
 |  [IUseListing](./composables.iuselisting.md) | <b><i>(BETA)</i></b> Listing interface, can be used to display category products, search products or any other Shopware search interface (ex. orders with pagination) |
 |  [IUseNavigation](./composables.iusenavigation.md) | <b><i>(BETA)</i></b> interface for [useNavigation](./composables.usenavigation.md) composable<!-- -->Provides state for navigation trees depending on navigation type. |

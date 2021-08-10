@@ -219,6 +219,19 @@ export interface IUseCheckout {
 }
 
 // @beta
+export interface IUseCustomerPassword {
+    // (undocumented)
+    errors: UnwrapRef<{
+        resetPassword: ShopwareError[];
+        updatePassword: ShopwareError[];
+    }>;
+    // (undocumented)
+    resetPassword: (resetPasswordData: CustomerResetPasswordParam) => Promise<boolean>;
+    // (undocumented)
+    updatePassword: (updatePasswordData: CustomerUpdatePasswordParam) => Promise<boolean>;
+}
+
+// @beta
 export interface IUseIntercept {
     broadcast: (broadcastKey: string, value?: any) => void;
     disconnect: (broadcastKey: string, method: IInterceptorCallbackFunction) => void;
@@ -429,7 +442,7 @@ export interface IUseUser {
     refreshUser: () => Promise<void>;
     // (undocumented)
     register: ({}: CustomerRegistrationParams) => Promise<boolean>;
-    // (undocumented)
+    // @deprecated (undocumented)
     resetPassword: (resetPasswordData: CustomerResetPasswordParam) => Promise<boolean>;
     // (undocumented)
     salutation: Ref<Salutation | null>;
@@ -437,7 +450,7 @@ export interface IUseUser {
     updateAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
     // (undocumented)
     updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
-    // (undocumented)
+    // @deprecated (undocumented)
     updatePassword: (updatePasswordData: CustomerUpdatePasswordParam) => Promise<boolean>;
     // (undocumented)
     updatePersonalInfo: (personals: CustomerUpdateProfileParam) => Promise<boolean>;
@@ -477,7 +490,6 @@ interface Notification_2 {
     // (undocumented)
     type: "info" | "warning" | "success" | "danger";
 }
-
 export { Notification_2 as Notification }
 
 // @beta (undocumented)
@@ -581,6 +593,9 @@ export interface UseCurrency {
 export const useCurrency: (rootContext: ApplicationVueContext) => UseCurrency;
 
 // @beta
+export function useCustomerPassword(rootContext: ApplicationVueContext): IUseCustomerPassword;
+
+// @beta
 export const useDefaults: (rootContext: ApplicationVueContext, defaultsKey: string) => {
     getIncludesConfig: () => Includes;
     getAssociationsConfig: () => Association[];
@@ -670,7 +685,6 @@ export const useUser: (rootContext: ApplicationVueContext) => IUseUser;
 
 // @beta (undocumented)
 export const useWishlist: (rootContext: ApplicationVueContext, product?: Product | undefined) => IUseWishlist;
-
 
 // (No @packageDocumentation comment for this package)
 
