@@ -31,7 +31,7 @@
 |  [getCmsPage(path, criteria, contextInstance)](./shopware-6-client.getcmspage.md) | <b><i>(BETA)</i></b> |
 |  [getCustomer(contextInstance)](./shopware-6-client.getcustomer.md) | <b><i>(BETA)</i></b> Get customer's object |
 |  [getCustomerAddress(addressId, contextInstance)](./shopware-6-client.getcustomeraddress.md) | <b><i>(BETA)</i></b> Get the customer's address by id |
-|  [getCustomerAddresses(contextInstance)](./shopware-6-client.getcustomeraddresses.md) | <b><i>(BETA)</i></b> Get all customer's addresses |
+|  [getCustomerAddresses(parameters, contextInstance)](./shopware-6-client.getcustomeraddresses.md) | <b><i>(BETA)</i></b> Get all customer's addresses |
 |  [getCustomerOrderDetails(orderId, contextInstance, additionalQueryParams)](./shopware-6-client.getcustomerorderdetails.md) | <b><i>(BETA)</i></b> Get order details |
 |  [getCustomerOrders(contextInstance)](./shopware-6-client.getcustomerorders.md) | <b><i>(BETA)</i></b> Get all customer's orders |
 |  [getPage(path, searchCriteria, contextInstance)](./shopware-6-client.getpage.md) | <b><i>(BETA)</i></b> |

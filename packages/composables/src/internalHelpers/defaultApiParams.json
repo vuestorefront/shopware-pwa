@@ -252,5 +252,11 @@
       ],
       "seo_url": ["pathInfo", "seoPathInfo"]
     }
+  },
+  "useCustomerAddresses": {
+    "associations": {
+    },
+    "includes": {
+    }
   }
 }
