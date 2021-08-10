@@ -1,4 +1,4 @@
-import { UnwrapRef, computed, reactive } from "vue-demi";
+import { Ref, UnwrapRef, computed, reactive } from "vue-demi";
 import {
   getCustomerAddresses,
   setDefaultCustomerBillingAddress,
@@ -15,18 +15,28 @@ import {
   ClientApiError,
   ShopwareError,
 } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { useSharedState, useUser } from "@shopware-pwa/composables";
+import {
+  useSharedState,
+  useUser,
+  useDefaults,
+} from "@shopware-pwa/composables";
 import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
- * interface for {@link useCustomerAddress} composable
+ * interface for {@link useCustomerAddresses} composable
  *
  * @beta
  */
-export interface IUseCustomerAddress {
+export interface IUseCustomerAddresses {
   errors: UnwrapRef<{
     markAddressAsDefault: ShopwareError[];
+    loadAddresses: ShopwareError[];
+    addAddress: ShopwareError[];
+    updateAddress: ShopwareError[];
+    deleteAddress: ShopwareError[];
   }>;
+  addresses: Ref<CustomerAddress[] | null>;
   loadAddresses: () => Promise<void>;
   addAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
   updateAddress: (
@@ -43,17 +53,18 @@ export interface IUseCustomerAddress {
 }
 
 /**
- * Composable for user's addresses management. Options - {@link IUseCustomerAddress}
+ * Composable for user's addresses management. Options - {@link IUseCustomerAddresses}
  *
  * @beta
  */
-export function useCustomerAddress(
+export function useCustomerAddresses(
   rootContext: ApplicationVueContext
-): IUseCustomerAddress {
+): IUseCustomerAddresses {
   const { contextName, apiInstance } = getApplicationContext(
     rootContext,
-    "useCustomerAddress"
+    "useCustomerAddresses"
   );
+  const { getDefaults } = useDefaults(rootContext, "useCustomerAddresses");
 
   const { refreshUser } = useUser(rootContext);
 
@@ -76,6 +87,10 @@ export function useCustomerAddress(
     loadAddresses: [],
   });
   const addresses = computed(() => storeAddresses.value);
+
+  /**
+   * Set address as default
+   */
   const markAddressAsDefault = async ({
     addressId,
     type,
@@ -108,6 +123,10 @@ export function useCustomerAddress(
     return true;
   };
 
+  /**
+   * Edit address
+   * @returns
+   */
   const updateAddress = async (
     params: Partial<CustomerAddress>
   ): Promise<string | undefined> => {
@@ -120,6 +139,9 @@ export function useCustomerAddress(
     }
   };
 
+  /**
+   * Add new address
+   */
   const addAddress = async (
     params: Partial<CustomerAddress>
   ): Promise<string | undefined> => {
@@ -132,6 +154,9 @@ export function useCustomerAddress(
     }
   };
 
+  /**
+   * Delete an address
+   */
   const deleteAddress = async (addressId: string): Promise<boolean> => {
     try {
       await deleteCustomerAddress(addressId, apiInstance);
@@ -144,9 +169,17 @@ export function useCustomerAddress(
     return false;
   };
 
-  const loadAddresses = async (): Promise<void> => {
+  /**
+   * Fetch addresses
+   */
+  const loadAddresses = async (
+    params: ShopwareSearchParams = {}
+  ): Promise<void> => {
     try {
-      const response = await getCustomerAddresses(apiInstance);
+      const response = await getCustomerAddresses(
+        Object.assign({}, getDefaults(), params),
+        apiInstance
+      );
       storeAddresses.value = response?.elements;
     } catch (e) {
       const err: ClientApiError = e;

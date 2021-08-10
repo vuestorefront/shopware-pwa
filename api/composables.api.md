@@ -219,6 +219,33 @@ export interface IUseCheckout {
 }
 
 // @beta
+export interface IUseCustomerAddresses {
+    // (undocumented)
+    addAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
+    // (undocumented)
+    addresses: Ref<CustomerAddress[] | null>;
+    // (undocumented)
+    deleteAddress: (addressId: string) => Promise<boolean>;
+    // (undocumented)
+    errors: UnwrapRef<{
+        markAddressAsDefault: ShopwareError[];
+        loadAddresses: ShopwareError[];
+        addAddress: ShopwareError[];
+        updateAddress: ShopwareError[];
+        deleteAddress: ShopwareError[];
+    }>;
+    // (undocumented)
+    loadAddresses: () => Promise<void>;
+    // (undocumented)
+    markAddressAsDefault: ({ addressId, type, }: {
+        addressId?: string;
+        type?: AddressType;
+    }) => Promise<string | boolean>;
+    // (undocumented)
+    updateAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
+}
+
+// @beta
 export interface IUseIntercept {
     broadcast: (broadcastKey: string, value?: any) => void;
     disconnect: (broadcastKey: string, method: IInterceptorCallbackFunction) => void;
@@ -477,7 +504,6 @@ interface Notification_2 {
     // (undocumented)
     type: "info" | "warning" | "success" | "danger";
 }
-
 export { Notification_2 as Notification }
 
 // @beta (undocumented)
@@ -581,6 +607,9 @@ export interface UseCurrency {
 export const useCurrency: (rootContext: ApplicationVueContext) => UseCurrency;
 
 // @beta
+export function useCustomerAddresses(rootContext: ApplicationVueContext): IUseCustomerAddresses;
+
+// @beta
 export const useDefaults: (rootContext: ApplicationVueContext, defaultsKey: string) => {
     getIncludesConfig: () => Includes;
     getAssociationsConfig: () => Association[];
@@ -670,7 +699,6 @@ export const useUser: (rootContext: ApplicationVueContext) => IUseUser;
 
 // @beta (undocumented)
 export const useWishlist: (rootContext: ApplicationVueContext, product?: Product | undefined) => IUseWishlist;
-
 
 // (No @packageDocumentation comment for this package)
 
