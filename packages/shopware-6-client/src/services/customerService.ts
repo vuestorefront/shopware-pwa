@@ -106,9 +106,13 @@ export async function getCustomer(
  * @beta
  */
 export async function getCustomerAddresses(
+  parameters: ShopwareSearchParams = {},
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<EntityResult<"customer_address", CustomerAddress[]>> {
-  const resp = await contextInstance.invoke.get(getCustomerAddressEndpoint());
+  const resp = await contextInstance.invoke.post(
+    getCustomerAddressEndpoint(),
+    parameters
+  );
   return resp.data;
 }
 

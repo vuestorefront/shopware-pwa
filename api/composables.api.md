@@ -219,6 +219,33 @@ export interface IUseCheckout {
 }
 
 // @beta
+export interface IUseCustomerAddresses {
+    // (undocumented)
+    addAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
+    // (undocumented)
+    addresses: Ref<CustomerAddress[] | null>;
+    // (undocumented)
+    deleteAddress: (addressId: string) => Promise<boolean>;
+    // (undocumented)
+    errors: UnwrapRef<{
+        markAddressAsDefault: ShopwareError[];
+        loadAddresses: ShopwareError[];
+        addAddress: ShopwareError[];
+        updateAddress: ShopwareError[];
+        deleteAddress: ShopwareError[];
+    }>;
+    // (undocumented)
+    loadAddresses: () => Promise<void>;
+    // (undocumented)
+    markAddressAsDefault: ({ addressId, type, }: {
+        addressId?: string;
+        type?: AddressType;
+    }) => Promise<string | boolean>;
+    // (undocumented)
+    updateAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
+}
+
+// @beta
 export interface IUseCustomerOrders {
     // (undocumented)
     errors: UnwrapRef<{
@@ -228,6 +255,19 @@ export interface IUseCustomerOrders {
     loadOrders: () => Promise<void>;
     // (undocumented)
     orders: Ref<Order[] | null>;
+}
+
+// @beta
+export interface IUseCustomerPassword {
+    // (undocumented)
+    errors: UnwrapRef<{
+        resetPassword: ShopwareError[];
+        updatePassword: ShopwareError[];
+    }>;
+    // (undocumented)
+    resetPassword: (resetPasswordData: CustomerResetPasswordParam) => Promise<boolean>;
+    // (undocumented)
+    updatePassword: (updatePasswordData: CustomerUpdatePasswordParam) => Promise<boolean>;
 }
 
 // @beta
@@ -380,13 +420,13 @@ export interface IUseSessionContext {
 
 // @beta
 export interface IUseUser {
-    // (undocumented)
+    // @deprecated (undocumented)
     addAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
-    // (undocumented)
+    // @deprecated (undocumented)
     addresses: Ref<CustomerAddress[] | null>;
     // (undocumented)
     country: Ref<Country | null>;
-    // (undocumented)
+    // @deprecated (undocumented)
     deleteAddress: (addressId: string) => Promise<boolean>;
     // (undocumented)
     error: Ref<any>;
@@ -406,7 +446,7 @@ export interface IUseUser {
     isGuestSession: ComputedRef<boolean>;
     // (undocumented)
     isLoggedIn: ComputedRef<boolean>;
-    // (undocumented)
+    // @deprecated (undocumented)
     loadAddresses: () => Promise<void>;
     // (undocumented)
     loadCountry: (countryId: string) => Promise<void>;
@@ -423,7 +463,7 @@ export interface IUseUser {
     }) => Promise<boolean>;
     // (undocumented)
     logout: () => Promise<void>;
-    // (undocumented)
+    // @deprecated (undocumented)
     markAddressAsDefault: ({ addressId, type, }: {
         addressId?: string;
         type?: AddressType;
@@ -441,15 +481,15 @@ export interface IUseUser {
     refreshUser: () => Promise<void>;
     // (undocumented)
     register: ({}: CustomerRegistrationParams) => Promise<boolean>;
-    // (undocumented)
+    // @deprecated (undocumented)
     resetPassword: (resetPasswordData: CustomerResetPasswordParam) => Promise<boolean>;
     // (undocumented)
     salutation: Ref<Salutation | null>;
-    // (undocumented)
+    // @deprecated (undocumented)
     updateAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
     // (undocumented)
     updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
-    // (undocumented)
+    // @deprecated (undocumented)
     updatePassword: (updatePasswordData: CustomerUpdatePasswordParam) => Promise<boolean>;
     // (undocumented)
     updatePersonalInfo: (personals: CustomerUpdateProfileParam) => Promise<boolean>;
@@ -592,7 +632,13 @@ export interface UseCurrency {
 export const useCurrency: (rootContext: ApplicationVueContext) => UseCurrency;
 
 // @beta
+export function useCustomerAddresses(rootContext: ApplicationVueContext): IUseCustomerAddresses;
+
+// @beta
 export const useCustomerOrders: (rootContext: ApplicationVueContext) => IUseCustomerOrders;
+
+// @beta
+export function useCustomerPassword(rootContext: ApplicationVueContext): IUseCustomerPassword;
 
 // @beta
 export const useDefaults: (rootContext: ApplicationVueContext, defaultsKey: string) => {

@@ -254,7 +254,7 @@ export function getCustomerAddress(addressId: string, contextInstance?: Shopware
 export const getCustomerAddressEndpoint: (addressId?: string | undefined) => string;
 
 // @beta
-export function getCustomerAddresses(contextInstance?: ShopwareApiInstance): Promise<EntityResult<"customer_address", CustomerAddress[]>>;
+export function getCustomerAddresses(parameters?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<EntityResult<"customer_address", CustomerAddress[]>>;
 
 // @beta (undocumented)
 export const getCustomerDefaultBillingAddressEndpoint: (addressId: string) => string;
