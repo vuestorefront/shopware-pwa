@@ -62,6 +62,9 @@ export interface IUseUser {
   register: ({}: CustomerRegistrationParams) => Promise<boolean>;
   user: ComputedRef<Partial<Customer> | null>;
   orders: Ref<Order[] | null>;
+  /**
+   * @deprecated use addresses computed from {@link useCustomerAddresses} composable
+   */
   addresses: Ref<CustomerAddress[] | null>;
   loading: Ref<boolean>;
   error: Ref<any>;
@@ -81,13 +84,25 @@ export interface IUseUser {
   logout: () => Promise<void>;
   loadOrders: () => Promise<void>;
   getOrderDetails: (orderId: string) => Promise<Order | undefined>;
+  /**
+   * @deprecated use loadAddresses method from {@link useCustomerAddresses} composable
+   */
   loadAddresses: () => Promise<void>;
   loadCountry: (countryId: string) => Promise<void>;
   loadSalutation: (salutationId: string) => Promise<void>;
+  /**
+   * @deprecated use addAddress method from {@link useCustomerAddresses} composable
+   */
   addAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
+  /**
+   * @deprecated use updateAddress method from {@link useCustomerAddresses} composable
+   */
   updateAddress: (
     params: Partial<CustomerAddress>
   ) => Promise<string | undefined>;
+  /**
+   * @deprecated use deleteAddress method from {@link useCustomerAddresses} composable
+   */
   deleteAddress: (addressId: string) => Promise<boolean>;
   updatePersonalInfo: (
     personals: CustomerUpdateProfileParam
@@ -99,6 +114,9 @@ export interface IUseUser {
   resetPassword: (
     resetPasswordData: CustomerResetPasswordParam
   ) => Promise<boolean>;
+  /**
+   * @deprecated use loadAddresses method from {@link useCustomerAddresses} composable
+   */
   markAddressAsDefault: ({
     addressId,
     type,
