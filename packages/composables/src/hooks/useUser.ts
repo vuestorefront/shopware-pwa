@@ -260,7 +260,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
    * @deprecated use loadOrders method from {@link useCustomerOrders} composable
    */
   const loadOrders = async (): Promise<void> => {
-    const fetchedOrders = await getCustomerOrders(apiInstance);
+    const fetchedOrders = await getCustomerOrders({}, apiInstance);
     orders.value = fetchedOrders;
   };
 

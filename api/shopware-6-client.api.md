@@ -281,7 +281,7 @@ export function getCustomerOrderDetails(orderId: string, contextInstance?: Shopw
 export const getCustomerOrderEndpoint: () => string;
 
 // @beta
-export function getCustomerOrders(contextInstance?: ShopwareApiInstance): Promise<Order[]>;
+export function getCustomerOrders(parameters?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<Order[]>;
 
 // @beta (undocumented)
 export const getCustomerRegisterEndpoint: () => string;
@@ -541,7 +541,6 @@ export function updatePassword(params: CustomerUpdatePasswordParam, contextInsta
 
 // @beta
 export function updateProfile(params: CustomerUpdateProfileParam, contextInstance?: ShopwareApiInstance): Promise<void>;
-
 
 // (No @packageDocumentation comment for this package)
 

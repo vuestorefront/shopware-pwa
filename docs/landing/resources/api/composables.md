@@ -24,6 +24,7 @@
 |  [IUseAddToCart](./composables.iuseaddtocart.md) | <b><i>(BETA)</i></b> interface for [useAddToCart](./composables.useaddtocart.md) composable |
 |  [IUseCart](./composables.iusecart.md) | <b><i>(BETA)</i></b> interface for [useCart](./composables.usecart.md) composable |
 |  [IUseCheckout](./composables.iusecheckout.md) | <b><i>(BETA)</i></b> interface for [useCheckout](./composables.usecheckout.md) composable |
+|  [IUseCustomerOrders](./composables.iusecustomerorders.md) | <b><i>(BETA)</i></b> interface for [useCustomerOrders](./composables.usecustomerorders.md) composable |
 |  [IUseIntercept](./composables.iuseintercept.md) | <b><i>(BETA)</i></b> interface for [useIntercept](./composables.useintercept.md) composable |
 |  [IUseListing](./composables.iuselisting.md) | <b><i>(BETA)</i></b> Listing interface, can be used to display category products, search products or any other Shopware search interface (ex. orders with pagination) |
 |  [IUseNavigation](./composables.iusenavigation.md) | <b><i>(BETA)</i></b> interface for [useNavigation](./composables.usenavigation.md) composable<!-- -->Provides state for navigation trees depending on navigation type. |
@@ -53,6 +54,7 @@
 |  [useCountries](./composables.usecountries.md) | <b><i>(BETA)</i></b> |
 |  [useCountry](./composables.usecountry.md) | <b><i>(BETA)</i></b> |
 |  [useCurrency](./composables.usecurrency.md) | <b><i>(BETA)</i></b> |
+|  [useCustomerOrders](./composables.usecustomerorders.md) | <b><i>(BETA)</i></b> Composable for listing customer orders. Options - [IUseCustomerOrders](./composables.iusecustomerorders.md) |
 |  [useDefaults](./composables.usedefaults.md) | <b><i>(BETA)</i></b> Returns default config depending on config key. It is used in composables, so defaultsKey is in most cases composable name (ex. <code>useDefaults(rootContext, &quot;useCms&quot;)</code>) |
 |  [useIntercept](./composables.useintercept.md) | <b><i>(BETA)</i></b> Allows to broadcast and intercept events across application. |
 |  [useListing](./composables.uselisting.md) | <b><i>(BETA)</i></b> |

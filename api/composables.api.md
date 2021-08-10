@@ -219,6 +219,18 @@ export interface IUseCheckout {
 }
 
 // @beta
+export interface IUseCustomerOrders {
+    // (undocumented)
+    errors: UnwrapRef<{
+        loadOrders: ShopwareError[];
+    }>;
+    // (undocumented)
+    loadOrders: () => Promise<void>;
+    // (undocumented)
+    orders: Ref<Order[] | null>;
+}
+
+// @beta
 export interface IUseIntercept {
     broadcast: (broadcastKey: string, value?: any) => void;
     disconnect: (broadcastKey: string, method: IInterceptorCallbackFunction) => void;
@@ -400,7 +412,7 @@ export interface IUseUser {
     loadCountry: (countryId: string) => Promise<void>;
     // (undocumented)
     loading: Ref<boolean>;
-    // (undocumented)
+    // @deprecated (undocumented)
     loadOrders: () => Promise<void>;
     // (undocumented)
     loadSalutation: (salutationId: string) => Promise<void>;
@@ -423,7 +435,7 @@ export interface IUseUser {
     }) => void) => void;
     // (undocumented)
     onUserRegister: (fn: () => void) => void;
-    // (undocumented)
+    // @deprecated (undocumented)
     orders: Ref<Order[] | null>;
     // (undocumented)
     refreshUser: () => Promise<void>;
@@ -477,7 +489,6 @@ interface Notification_2 {
     // (undocumented)
     type: "info" | "warning" | "success" | "danger";
 }
-
 export { Notification_2 as Notification }
 
 // @beta (undocumented)
@@ -581,6 +592,9 @@ export interface UseCurrency {
 export const useCurrency: (rootContext: ApplicationVueContext) => UseCurrency;
 
 // @beta
+export const useCustomerOrders: (rootContext: ApplicationVueContext) => IUseCustomerOrders;
+
+// @beta
 export const useDefaults: (rootContext: ApplicationVueContext, defaultsKey: string) => {
     getIncludesConfig: () => Includes;
     getAssociationsConfig: () => Association[];
@@ -670,7 +684,6 @@ export const useUser: (rootContext: ApplicationVueContext) => IUseUser;
 
 // @beta (undocumented)
 export const useWishlist: (rootContext: ApplicationVueContext, product?: Product | undefined) => IUseWishlist;
-
 
 // (No @packageDocumentation comment for this package)
 
