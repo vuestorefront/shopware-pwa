@@ -6,20 +6,20 @@ const mockedApiInstance = defaultInstance as jest.Mocked<
   typeof defaultInstance
 >;
 
-describe("CustomerService - register", () => {
-  const mockedGet = jest.fn();
+describe("CustomerService - getCustomerAddresses", () => {
+  const mockedPost = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
     mockedApiInstance.invoke = {
-      get: mockedGet,
+      post: mockedPost,
     } as any;
   });
 
   it("should return object of addresses", async () => {
-    mockedGet.mockResolvedValueOnce({ data: { data: {} } });
+    mockedPost.mockResolvedValueOnce({ data: { data: {} } });
     const result = await getCustomerAddresses();
-    expect(mockedGet).toBeCalledTimes(1);
-    expect(mockedGet).toBeCalledWith(`/store-api/account/list-address`);
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith(`/store-api/account/list-address`, {});
     expect(result).toMatchObject({});
   });
 });
