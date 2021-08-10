@@ -11,6 +11,7 @@ export * from "./hooks/useNavigation";
 export * from "./hooks/useSalutations";
 export * from "./hooks/useCountries";
 export * from "./hooks/useUser";
+export * from "./hooks/useCustomerPassword";
 export * from "./hooks/useCustomerAddresses";
 export * from "./logic/useDefaults";
 export * from "./logic/useNotifications";

@@ -246,6 +246,19 @@ export interface IUseCustomerAddresses {
 }
 
 // @beta
+export interface IUseCustomerPassword {
+    // (undocumented)
+    errors: UnwrapRef<{
+        resetPassword: ShopwareError[];
+        updatePassword: ShopwareError[];
+    }>;
+    // (undocumented)
+    resetPassword: (resetPasswordData: CustomerResetPasswordParam) => Promise<boolean>;
+    // (undocumented)
+    updatePassword: (updatePasswordData: CustomerUpdatePasswordParam) => Promise<boolean>;
+}
+
+// @beta
 export interface IUseIntercept {
     broadcast: (broadcastKey: string, value?: any) => void;
     disconnect: (broadcastKey: string, method: IInterceptorCallbackFunction) => void;
@@ -456,7 +469,7 @@ export interface IUseUser {
     refreshUser: () => Promise<void>;
     // (undocumented)
     register: ({}: CustomerRegistrationParams) => Promise<boolean>;
-    // (undocumented)
+    // @deprecated (undocumented)
     resetPassword: (resetPasswordData: CustomerResetPasswordParam) => Promise<boolean>;
     // (undocumented)
     salutation: Ref<Salutation | null>;
@@ -464,7 +477,7 @@ export interface IUseUser {
     updateAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
     // (undocumented)
     updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
-    // (undocumented)
+    // @deprecated (undocumented)
     updatePassword: (updatePasswordData: CustomerUpdatePasswordParam) => Promise<boolean>;
     // (undocumented)
     updatePersonalInfo: (personals: CustomerUpdateProfileParam) => Promise<boolean>;
@@ -608,6 +621,9 @@ export const useCurrency: (rootContext: ApplicationVueContext) => UseCurrency;
 
 // @beta
 export function useCustomerAddresses(rootContext: ApplicationVueContext): IUseCustomerAddresses;
+
+// @beta
+export function useCustomerPassword(rootContext: ApplicationVueContext): IUseCustomerPassword;
 
 // @beta
 export const useDefaults: (rootContext: ApplicationVueContext, defaultsKey: string) => {
