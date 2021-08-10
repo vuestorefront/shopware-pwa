@@ -276,7 +276,9 @@ export default function defaultsConfigBuilder() {
      */
     add: (key: string, config: unknown) => {
       const property = get(finalConfig, key);
-      if (Array.isArray(property) && !Array.isArray(config)) {
+      if (!property) {
+        set(finalConfig, key, config);
+      } else if (Array.isArray(property) && !Array.isArray(config)) {
         mergeWith(property, [config], _customizer);
       } else {
         mergeWith(property, config, _customizer);

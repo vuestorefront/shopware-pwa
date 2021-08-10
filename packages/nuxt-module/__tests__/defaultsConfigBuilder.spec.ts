@@ -52,6 +52,17 @@ describe("nuxt-module - defaultsConfigBuilder", () => {
         associations: { media: {}, something: {} },
       });
     });
+
+    it("should add new key to config", () => {
+      const result = defaultsConfigBuilder()
+        .add("myNewKey", {
+          someConfig: 123,
+        })
+        .get();
+      expect(result.myNewKey).toEqual({
+        someConfig: 123,
+      });
+    });
   });
 
   describe("replace", () => {
