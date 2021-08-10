@@ -27,7 +27,11 @@
 <script>
 import { computed } from "@vue/composition-api"
 import { SfContentPages } from "@storefront-ui/vue"
-import { useUser, useBreadcrumbs } from "@shopware-pwa/composables"
+import {
+  useUser,
+  useBreadcrumbs,
+  useCustomerOrders,
+} from "@shopware-pwa/composables"
 import { PAGE_ACCOUNT, PAGE_LOGIN } from "@/helpers/pages"
 import authMiddleware from "@/middleware/auth"
 
@@ -41,7 +45,8 @@ export default {
   middleware: authMiddleware,
 
   setup(props, { root }) {
-    const { logout, user, loadOrders, orders } = useUser(root)
+    const { logout, user } = useUser(root)
+    const { loadOrders, orders } = useCustomerOrders(root)
     const { setBreadcrumbs } = useBreadcrumbs(root)
     setBreadcrumbs([
       {
