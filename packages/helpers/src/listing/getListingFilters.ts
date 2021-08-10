@@ -6,6 +6,7 @@ import { Aggregations } from "@shopware-pwa/commons/interfaces/search/Aggregatio
 export interface ListingFilter {
   label: string;
   code: string;
+  type?: "range" | "max";
   [key: string]: any;
 }
 
