@@ -27,6 +27,7 @@ export * from "./logic/useProductConfigurator";
 export * from "./logic/useBreadcrumbs";
 export * from "./logic/useProductAssociations";
 export * from "./logic/useSharedState";
+export * from "./logic/useOrderDetails";
 export {
   getApplicationContext,
   ApplicationVueContext,

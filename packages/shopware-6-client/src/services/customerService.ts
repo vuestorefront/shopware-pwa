@@ -137,9 +137,9 @@ export async function getCustomerOrders(
 
 /**
  * Get order details
- *
- * @throws ClientApiError
  * @beta
+ * @throws ClientApiError
+ * @deprecated use getOrderDetails method instead
  */
 export async function getCustomerOrderDetails(
   orderId: string,

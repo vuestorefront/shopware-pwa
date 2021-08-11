@@ -15,6 +15,7 @@
 |  [useCms(rootContext)](./composables.usecms.md) | <b><i>(BETA)</i></b> |
 |  [useCustomerAddresses(rootContext)](./composables.usecustomeraddresses.md) | <b><i>(BETA)</i></b> Composable for user's addresses management. Options - [IUseCustomerAddresses](./composables.iusecustomeraddresses.md) |
 |  [useCustomerPassword(rootContext)](./composables.usecustomerpassword.md) | <b><i>(BETA)</i></b> Composable for customer password management. Options - [IUseCustomerPassword](./composables.iusecustomerpassword.md) |
+|  [useOrderDetails(rootContext, order)](./composables.useorderdetails.md) | <b><i>(BETA)</i></b> Composable for managing an existing order. |
 |  [useProductAssociations(rootContext, product, association)](./composables.useproductassociations.md) | <b><i>(BETA)</i></b> Get product association entity. Options - [IUseProductAssociations](./composables.iuseproductassociations.md) |
 |  [useSharedState(rootContext)](./composables.usesharedstate.md) | <b><i>(BETA)</i></b> Replacement for Vuex. Composable, which enables you to use shared state in your application. State is shared both on server and client side. |
 

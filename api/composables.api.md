@@ -123,6 +123,10 @@ export const INTERCEPTOR_KEYS: {
     WARNING: string;
     NOTICE: string;
     ORDER_PLACE: string;
+    ORDER_PAYMENT_METHOD_CHANGED: string;
+    ORDER_CANCELLED: string;
+    ORDER_DETAILS_LOADED: string;
+    ORDER_HANDLE_PAYMENT: string;
     SESSION_SET_CURRENCY: string;
     SESSION_SET_PAYMENT_METHOD: string;
     SESSION_SET_SHIPPING_METHOD: string;
@@ -667,6 +671,35 @@ export const useNotifications: (rootContext: ApplicationVueContext) => {
     pushWarning: (message: string, options?: any) => void;
     pushError: (message: string, options?: any) => void;
     pushSuccess: (message: string, options?: any) => void;
+};
+
+// @beta
+export function useOrderDetails(rootContext: ApplicationVueContext, order: Order): {
+    order: ComputedRef<Order | undefined | null>;
+    status: ComputedRef<string | undefined>;
+    total: ComputedRef<number | undefined>;
+    subtotal: ComputedRef<number | undefined>;
+    shippingCosts: ComputedRef<number | undefined>;
+    shippingAddress: ComputedRef<ShippingAddress | undefined>;
+    billingAddress: ComputedRef<BillingAddress | undefined>;
+    personalDetails: ComputedRef<{
+        email: string | undefined;
+        firstName: string | undefined;
+        lastName: string | undefined;
+    }>;
+    paymentUrl: Ref<null | string>;
+    shippingMethod: ComputedRef<ShippingMethod | undefined | null>;
+    paymentMethod: ComputedRef<PaymentMethod | undefined | null>;
+    errors: UnwrapRef<{
+        [key: string]: ShopwareError[];
+    }>;
+    loaders: UnwrapRef<{
+        [key: string]: boolean;
+    }>;
+    loadOrderDetails: () => void;
+    handlePayment: (successUrl?: string, errorUrl?: string) => void;
+    cancel: () => Promise<void>;
+    changePaymentMethod: (paymentMethodId: string) => Promise<void>;
 };
 
 // @beta (undocumented)
