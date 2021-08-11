@@ -237,5 +237,13 @@
   "Choose your shipping method": "Choose your shipping method",
   "Logged in as": "Logged in as {0}",
   "Guest session": "Guest session",
-  "Login / Register": "Login / Register"
+  "Login / Register": "Login / Register",
+  "Cancel the order": "Cancel the order",
+  "In progress...": "In progress...",
+  "Yes, cancel the order": "Yes, cancel the order",
+  "No, thanks": "No, thanks",
+  "Change payment method": "Change payment method",
+  "Choose a new payment method": "Choose a new payment method",
+  "Apply": "Apply",
+  "Your order will be canceled": "Your order will be canceled"
 }

@@ -253,6 +253,27 @@
       "seo_url": ["pathInfo", "seoPathInfo"]
     }
   },
+  "useOrderDetails": {
+    "limit": 1,
+    "includes": {
+      "calculated_price": ["unitPrice", "quantity", "listPrice"]
+    },
+    "associations": {
+      "lineItems": {},
+      "addresses": {},
+      "transactions": {
+        "sort": "-createdAt",
+        "associations": {
+          "paymentMethod": {}
+        }
+      },
+      "deliveries": {
+        "associations": {
+          "shippingMethod": {}
+        }
+      }
+    }
+  },
   "useCustomerOrders": {
     "sort": "-createdAt",
     "associations": {},
