@@ -227,7 +227,7 @@ export interface IUseCustomerAddresses {
     // (undocumented)
     addAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
     // (undocumented)
-    addresses: Ref<CustomerAddress[] | null>;
+    addresses: ComputedRef<CustomerAddress[]>;
     // (undocumented)
     deleteAddress: (addressId: string) => Promise<boolean>;
     // (undocumented)

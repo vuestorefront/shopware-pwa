@@ -17,6 +17,7 @@ describe("Composables - useUser", () => {
   const stateUser: Ref<Object | null> = ref(null);
   const rootContextMock: any = {
     $shopwareApiInstance: jest.fn(),
+    $shopwareDefaults: {},
   };
 
   const interceptMock = jest.fn();
