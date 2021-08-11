@@ -12,13 +12,14 @@ Get customer's object
 <b>Signature:</b>
 
 ```typescript
-export declare function getCustomer(contextInstance?: ShopwareApiInstance): Promise<Customer | null>;
+export declare function getCustomer(parameters?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<Customer | null>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
+|  parameters | ShopwareSearchParams |  |
 |  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 <b>Returns:</b>

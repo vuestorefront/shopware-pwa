@@ -242,7 +242,7 @@ export const getContextSalutationEndpoint: () => string;
 export const getContextShippingMethodEndpoint: () => string;
 
 // @beta
-export function getCustomer(contextInstance?: ShopwareApiInstance): Promise<Customer | null>;
+export function getCustomer(parameters?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<Customer | null>;
 
 // @beta (undocumented)
 export const getCustomerAddAddressEndpoint: () => string;
