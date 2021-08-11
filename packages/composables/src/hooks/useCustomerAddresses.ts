@@ -1,4 +1,4 @@
-import { Ref, UnwrapRef, computed, reactive } from "vue-demi";
+import { ComputedRef, UnwrapRef, computed, reactive } from "vue-demi";
 import {
   getCustomerAddresses,
   setDefaultCustomerBillingAddress,
@@ -36,7 +36,7 @@ export interface IUseCustomerAddresses {
     updateAddress: ShopwareError[];
     deleteAddress: ShopwareError[];
   }>;
-  addresses: Ref<CustomerAddress[] | null>;
+  addresses: ComputedRef<CustomerAddress[]>;
   loadAddresses: () => Promise<void>;
   addAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
   updateAddress: (
@@ -70,7 +70,8 @@ export function useCustomerAddresses(
 
   const { sharedRef } = useSharedState(rootContext);
   const storeAddresses = sharedRef<CustomerAddress[]>(
-    `${contextName}-addresses`
+    `${contextName}-addresses`,
+    []
   );
 
   const errors: UnwrapRef<{
@@ -86,7 +87,7 @@ export function useCustomerAddresses(
     deleteAddress: [],
     loadAddresses: [],
   });
-  const addresses = computed(() => storeAddresses.value);
+  const addresses = computed(() => storeAddresses.value || []);
 
   /**
    * Set address as default
@@ -180,7 +181,7 @@ export function useCustomerAddresses(
         Object.assign({}, getDefaults(), params),
         apiInstance
       );
-      storeAddresses.value = response?.elements;
+      storeAddresses.value = response.elements;
     } catch (e) {
       const err: ClientApiError = e;
       errors.loadAddresses = err.messages;

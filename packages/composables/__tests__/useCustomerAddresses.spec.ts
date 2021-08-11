@@ -141,8 +141,8 @@ describe("Composables - useCustomerAddresses", () => {
           useCustomerAddresses(rootContextMock);
         await loadAddresses();
         expect(mockedApiClient.getCustomerAddresses).toBeCalledTimes(1);
-        expect(errors.loadAddresses).toStrictEqual([]);
-        expect(addresses.value).toBeUndefined();
+        expect(errors.loadAddresses).toBeUndefined();
+        expect(addresses.value).toStrictEqual([]);
       });
 
       it("should invoke client getCustomerAddresses method and assign error message if client request is rejected", async () => {
