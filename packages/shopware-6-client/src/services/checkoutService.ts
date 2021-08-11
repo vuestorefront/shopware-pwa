@@ -9,6 +9,7 @@ import {
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import { OrderState } from "@shopware-pwa/commons/interfaces/models/checkout/order/OrderState";
 import { SearchFilterType } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
+import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
  * Creates an order for logged in users
@@ -56,7 +57,7 @@ export async function handlePayment(
  */
 export async function getOrderDetails(
   orderId: string,
-  params?: Object,
+  params?: ShopwareSearchParams,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Order | undefined> {
   const resp = await contextInstance.invoke.post(

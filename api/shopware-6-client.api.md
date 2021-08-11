@@ -326,7 +326,7 @@ export const getNewsletterSubscribeEndpoint: () => string;
 export const getNewsletterUnsubscribeEndpoint: () => string;
 
 // @beta
-export function getOrderDetails(orderId: string, params?: Object, contextInstance?: ShopwareApiInstance): Promise<Order | undefined>;
+export function getOrderDetails(orderId: string, params?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<Order | undefined>;
 
 // @beta (undocumented)
 export function getPage(path: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<PageResolverResult<CmsPage>>;

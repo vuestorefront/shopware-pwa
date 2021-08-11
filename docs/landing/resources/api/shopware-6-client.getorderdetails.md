@@ -12,7 +12,7 @@ Get order details
 <b>Signature:</b>
 
 ```typescript
-export declare function getOrderDetails(orderId: string, params?: Object, contextInstance?: ShopwareApiInstance): Promise<Order | undefined>;
+export declare function getOrderDetails(orderId: string, params?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<Order | undefined>;
 ```
 
 ## Parameters
@@ -20,7 +20,7 @@ export declare function getOrderDetails(orderId: string, params?: Object, contex
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  orderId | string |  |
-|  params | Object |  |
+|  params | ShopwareSearchParams |  |
 |  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 <b>Returns:</b>
