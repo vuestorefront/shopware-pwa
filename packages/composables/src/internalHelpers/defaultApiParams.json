@@ -256,10 +256,37 @@
   "useCustomerOrders": {
     "sort": "-createdAt",
     "associations": {},
-    "includes": {}
+    "includes": {
+      "order": ["id", "orderNumber", "amountTotal", "orderDateTime", "stateMachineState", "translated"],
+      "state_machine_state": ["id", "technicalName", "name", "translated"]
+  }
   },
   "useCustomerAddresses": {
-    "associations": {},
-    "includes": {}
+    "associations": {
+      "salutation": {}
+    },
+    "includes": {
+      "customer_address": [
+          "firstName",
+          "lastName",
+          "city",
+          "zipcode",
+          "country",
+          "id",
+          "phoneNumber",
+          "state",
+          "salutation"
+      ],
+      "country": [
+          "name",
+          "id"
+      ],
+      "salutation": [
+          "salutationKey",
+          "displayName",
+          "translated",
+          "id"
+      ]
+    }
   }
 }

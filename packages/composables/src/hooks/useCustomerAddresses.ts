@@ -64,7 +64,7 @@ export function useCustomerAddresses(
     rootContext,
     "useCustomerAddresses"
   );
-  const { getDefaults } = useDefaults(rootContext, "useCustomerAddresses");
+  const { getDefaults } = useDefaults(rootContext, contextName);
 
   const { refreshUser } = useUser(rootContext);
 
@@ -177,6 +177,7 @@ export function useCustomerAddresses(
     params: ShopwareSearchParams = {}
   ): Promise<void> => {
     try {
+      console.warn("loadAddresses", getDefaults());
       const response = await getCustomerAddresses(
         Object.assign({}, getDefaults(), params),
         apiInstance
