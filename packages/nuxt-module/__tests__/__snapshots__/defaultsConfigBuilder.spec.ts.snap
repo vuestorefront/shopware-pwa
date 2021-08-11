@@ -8,5 +8,9 @@ Array [
   "useListing",
   "useProduct",
   "useNavigation",
+  "useOrderDetails",
+  "useCustomerOrders",
+  "useCustomerAddresses",
+  "useUser",
 ]
 `;
