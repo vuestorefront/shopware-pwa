@@ -288,5 +288,14 @@
           "id"
       ]
     }
+  },
+  "useUser": {
+    "associations": {
+      "salutation": {},
+      "addresses": {}
+    },
+    "includes": {
+      "customer": ["id", "salutation", "firstName", "lastName", "email", "guest", "addresses"]
+    }
   }
 }
