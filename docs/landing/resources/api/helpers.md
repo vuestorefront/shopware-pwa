@@ -31,6 +31,7 @@
 |  [isOptionAvailableForSelectedOptions(currentAttribute, selectedOptionId, { code: optionId }, allOptions, allSelectedOptions)](./helpers.isoptionavailableforselectedoptions.md) | <b><i>(BETA)</i></b> Check if the current optionId is also present in matching option ids of other available variants. |
 |  [isProductSimple({ product, })](./helpers.isproductsimple.md) | <b><i>(BETA)</i></b> |
 |  [loadScript(src)](./helpers.loadscript.md) | <b><i>(BETA)</i></b> Helper for plugins to load external scripts for plugins |
+|  [toggleSearchFilter(currentFilters, filter)](./helpers.togglesearchfilter.md) | <b><i>(BETA)</i></b> It creates new selected filters object based on the filter existence |
 
 ## Interfaces
 

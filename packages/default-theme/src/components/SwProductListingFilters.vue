@@ -1,6 +1,11 @@
 <template>
   <div
-    class="cms-element-category-navigation-sidebar-filter sw-navbar navbar section"
+    class="
+      cms-element-category-navigation-sidebar-filter
+      sw-navbar
+      navbar
+      section
+    "
   >
     <div class="sw-navbar navbar__main">
       <SwButton
@@ -110,6 +115,7 @@ import { computed, onMounted, ref } from "@vue/composition-api"
 import { useUIState, useListing } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwProductListingFilter from "@/components/listing/SwProductListingFilter.vue"
+import { toggleSearchFilter } from "@shopware-pwa/helpers"
 
 export default {
   name: "SwProductListingFilters",
@@ -181,36 +187,11 @@ export default {
   },
   methods: {
     async toggleFilterValue(filter) {
-      // TODO: this logic needs to be taken care of by core with filters recognition - https://github.com/DivanteLtd/shopware-pwa/issues/1150
+      this.sidebarSelectedFilters = toggleSearchFilter(
+        this.sidebarSelectedFilters,
+        filter
+      )
 
-      if (["range", "max"].includes(filter.type)) {
-        // if(filter.value) this.sidebarSelectedFilters[filter.code]
-        this.sidebarSelectedFilters = Object.assign(
-          {},
-          {
-            ...this.sidebarSelectedFilters,
-            [filter.code]: filter.value ? filter.value : undefined,
-          }
-        )
-      } else {
-        let filterCopy = this.sidebarSelectedFilters[filter.code] || []
-        if (!Array.isArray(filterCopy)) filterCopy = [filterCopy]
-        const index = filterCopy.findIndex(
-          (element) => element === filter.value
-        )
-        if (index < 0) {
-          filterCopy.push(filter.value)
-        } else {
-          filterCopy.splice(index, 1)
-        }
-        this.sidebarSelectedFilters = Object.assign(
-          {},
-          {
-            ...this.sidebarSelectedFilters,
-            [filter.code]: filterCopy.length ? filterCopy : undefined,
-          }
-        )
-      }
       this.search(this.sidebarSelectedFilters)
     },
     async clearAllFilters() {
