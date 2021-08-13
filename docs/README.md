@@ -11,7 +11,7 @@ sidebar: false
 </center>
 
 ```bash
-npx @shopware-pwa/cli@canary init 		# Initialize project
+npx @shopware-pwa/cli init 		# Initialize project
 yarn dev 								# start dev server
 ```
 
@@ -23,7 +23,6 @@ The v0.9.x of shopware-pwa is also available to play on at:
 </center>
 
 ---
-
 
 <div class="flex-container">
 

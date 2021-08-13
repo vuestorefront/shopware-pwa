@@ -28,7 +28,12 @@ import PaymentMethodSummary from "@/components/checkout/summary/PaymentMethodSum
 import ShippingSection from "@/components/checkout/ShippingSection.vue"
 import PaymentSection from "@/components/checkout/PaymentSection.vue"
 import SwAddressManager from "@/components/forms/SwAddressManager.vue"
-import { useCart, useSessionContext, useUser } from "@shopware-pwa/composables"
+import {
+  useCart,
+  useCustomerAddresses,
+  useSessionContext,
+  useUser,
+} from "@shopware-pwa/composables"
 
 export default {
   name: "CheckoutSummary",
@@ -39,7 +44,7 @@ export default {
     SwAddressManager,
   },
   setup(props, { root }) {
-    const { addresses, loadAddresses } = useUser(root)
+    const { addresses, loadAddresses } = useCustomerAddresses(root)
     loadAddresses()
 
     const {

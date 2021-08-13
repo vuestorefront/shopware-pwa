@@ -74,7 +74,7 @@
 import useVuelidate from "@vuelidate/core"
 import { required, minLength, sameAs } from "@vuelidate/validators"
 import { computed } from "@vue/composition-api"
-import { useUser } from "@shopware-pwa/composables"
+import { useCustomerPassword, useUser } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 import SwErrorsList from "@/components/SwErrorsList.vue"
@@ -85,7 +85,8 @@ export default {
   components: { SwInput, SwButton, SwErrorsList },
   props: {},
   setup(props, { root }) {
-    const { user, errors, updatePassword, refreshUser } = useUser(root)
+    const { updatePassword, errors } = useCustomerPassword(root)
+    const { user, refreshUser } = useUser(root)
     const userErrorMessages = computed(() => errors.updatePassword || [])
 
     const state = reactive({

@@ -20,4 +20,5 @@ export interface ListingFilter
 |  --- | --- | --- |
 |  [code](./helpers.listingfilter.code.md) | string | <b><i>(BETA)</i></b> |
 |  [label](./helpers.listingfilter.label.md) | string | <b><i>(BETA)</i></b> |
+|  [type?](./helpers.listingfilter.type.md) | "range" \| "max" | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 

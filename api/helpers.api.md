@@ -243,6 +243,8 @@ export interface ListingFilter {
     code: string;
     // (undocumented)
     label: string;
+    // (undocumented)
+    type?: "range" | "max";
 }
 
 // @beta
@@ -317,6 +319,9 @@ export interface TierPrice {
     // (undocumented)
     unitPrice: number;
 }
+
+// @beta
+export function toggleSearchFilter(currentFilters: any, filter: ListingFilter): any;
 
 // @beta (undocumented)
 export interface UiCategoryFilter {
@@ -421,7 +426,6 @@ export interface UiProductReview {
     // (undocumented)
     rating: number | null;
 }
-
 
 // (No @packageDocumentation comment for this package)
 

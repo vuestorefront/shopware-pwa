@@ -21,6 +21,7 @@ import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/req
 import { ContextTokenResponse } from "@shopware-pwa/commons/interfaces/response/SessionContext";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import { EntityResult } from "@shopware-pwa/commons/interfaces/response/EntityResult";
+import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
  * @beta
@@ -84,13 +85,15 @@ export async function logout(
  * @beta
  */
 export async function getCustomer(
+  parameters: ShopwareSearchParams = {},
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Customer | null> {
   try {
     // TODO: implement generic parameter converter for GET query string; related issue #568
-    const resp = await contextInstance.invoke.get(`${getCustomerEndpoint()}`, {
-      params: "associations[salutation][]",
-    });
+    const resp = await contextInstance.invoke.post(
+      getCustomerEndpoint(),
+      parameters
+    );
     return resp.data;
   } catch (e) {
     if (e.statusCode === 403) return null;
@@ -105,9 +108,13 @@ export async function getCustomer(
  * @beta
  */
 export async function getCustomerAddresses(
+  parameters: ShopwareSearchParams = {},
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<EntityResult<"customer_address", CustomerAddress[]>> {
-  const resp = await contextInstance.invoke.get(getCustomerAddressEndpoint());
+  const resp = await contextInstance.invoke.post(
+    getCustomerAddressEndpoint(),
+    parameters
+  );
   return resp.data;
 }
 
@@ -118,21 +125,21 @@ export async function getCustomerAddresses(
  * @beta
  */
 export async function getCustomerOrders(
+  parameters: ShopwareSearchParams = {},
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Order[]> {
-  const resp = await contextInstance.invoke.get(getCustomerOrderEndpoint(), {
-    params: {
-      sort: "-createdAt",
-    },
-  });
+  const resp = await contextInstance.invoke.post(
+    getCustomerOrderEndpoint(),
+    parameters
+  );
   return resp.data.orders?.elements || [];
 }
 
 /**
  * Get order details
- *
- * @throws ClientApiError
  * @beta
+ * @throws ClientApiError
+ * @deprecated use getOrderDetails method instead
  */
 export async function getCustomerOrderDetails(
   orderId: string,
