@@ -10,4 +10,4 @@ export const PAGE_WISHLIST = "/wishlist"
  * @param {vue-router Route} route
  * @returns
  */
-export const isStaticPage = (route) => !route?.name?.startsWith("all_")
+export const isStaticPage = (route) => !route?.name?.startsWith("all")
