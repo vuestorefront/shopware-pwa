@@ -46,6 +46,14 @@ export async function runModule(
       "@vue/composition-api/dist/vue-composition-api.esm.js"
     );
 
+  moduleObject.options.alias["vue"] =
+    moduleObject.options.alias["vue"] ||
+    (moduleObject.options.dev
+      ? moduleObject.nuxt.resolver.resolveModule("vue/dist/vue.common.dev.js")
+      : moduleObject.nuxt.resolver.resolveModule(
+          "vue/dist/vue.runtime.esm.js"
+        ));
+
   const TARGET_SOURCE: string = getTargetSourcePath(moduleObject);
   const THEME_SOURCE: string = getThemeSourcePath(
     moduleObject,
