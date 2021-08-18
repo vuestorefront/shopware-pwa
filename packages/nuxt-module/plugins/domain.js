@@ -95,5 +95,7 @@ Middleware.routing = function ({ isHMR, app, from, route, redirect }) {
   if (app.i18n) {
     app.i18n.locale = languageLocaleCode;
   }
-  setCurrency({ id: domainConfig.currencyId });
+  setCurrency({ id: domainConfig.currencyId }).catch((error) =>
+    console.error("Cannot set the currency for given id", error)
+  );
 };
