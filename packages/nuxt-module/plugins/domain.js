@@ -84,40 +84,16 @@ Middleware.routing = function ({ isHMR, app, from, route, redirect }) {
     return redirect(`${fallbackDomainPrefix}${route.path}`);
   }
 
-  if (!domainConfig) {
+  if (!domainConfig || !domainConfig.languageId || !domainConfig.currencyId) {
     return;
   }
 
-  const { setup } = app;
-  app.setup = function (...args) {
-    let result = {};
-    if (setup instanceof Function) {
-      result = setup(...args) || {};
-    }
-    // set default currency for the current domain
-    const { setCurrency, currency } = useSessionContext();
-    let currencyId =
-      route.query.currencyId ||
-      (currency.value && currency.value.id) ||
-      domainConfig.currencyId;
-    // force change the currencyId to default one for changed domain
-    const fromDomain =
-      from &&
-      Array.isArray(from.meta) &&
-      from.meta.find((data) => !!data.domainId);
-    if (fromDomain && fromDomain.domainId !== domainConfig.domainId) {
-      currencyId = domainConfig.currencyId;
-    }
-
-    const currencyPromise = setCurrency({ id: currencyId });
-    const { languageId, languageLocaleCode } = domainConfig;
-    app.routing.setCurrentDomain(domainConfig);
-    languageId && app.$shopwareApiInstance.update({ languageId });
+  const { languageId, languageLocaleCode } = domainConfig;
+  app.$routing?.setCurrentDomain(domainConfig);
+  app.$shopwareApiInstance?.update({ languageId });
+  const { setCurrency } = useSessionContext(app);
+  if (app.i18n) {
     app.i18n.locale = languageLocaleCode;
-
-    Promise.all([currencyPromise]).catch((e) => {
-      console.error("[MIDDLEWARE][DOMAINS]", e);
-    });
-    return result;
-  };
+  }
+  setCurrency({ id: domainConfig.currencyId });
 };
