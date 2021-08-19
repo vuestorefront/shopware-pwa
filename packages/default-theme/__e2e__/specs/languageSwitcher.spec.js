@@ -42,4 +42,34 @@ describe("Language switcher", () => {
       .should("have.length", domains.length)
       .should("be.visible");
   });
+
+  it("[DESKTOP]: language switcher's changes current route and invokes an update of currentDomain and i18n setup", () => {
+    if (domains.length <= 1) {
+      return;
+    }
+    cy.location("pathname").should("not.eq", `${domains[1].url}/`);
+    cy.window()
+      .its("$nuxt")
+      .its("$routing")
+      .its("getCurrentDomain")
+      .its("value")
+      .its("languageLocaleCode")
+      .should("not.eq", domains[1].languageLocaleCode);
+    cy.get("[data-cy=language-switcher-select]")
+      .find("select")
+      .select(domains[1].languageLabel);
+    cy.location("pathname").should("eq", `${domains[1].url}/`);
+    cy.window()
+      .its("$nuxt")
+      .its("$routing")
+      .its("getCurrentDomain")
+      .its("value")
+      .its("languageLocaleCode")
+      .should("eq", domains[1].languageLocaleCode);
+    cy.window()
+      .its("$nuxt")
+      .its("$i18n")
+      .its("locale")
+      .should("eq", domains[1].languageLocaleCode);
+  });
 });
