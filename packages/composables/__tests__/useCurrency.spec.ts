@@ -12,6 +12,7 @@ import * as Composables from "@shopware-pwa/composables";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 import { useCurrency } from "../src/hooks/useCurrency";
+import { prepareRootContextMock } from "./contextRunner";
 
 describe("Composables - useCurrency", () => {
   const stateContext: Ref<Partial<SessionContext> | null> = ref(null);
@@ -19,9 +20,7 @@ describe("Composables - useCurrency", () => {
   const refreshSessionContextMock = jest.fn(async () => {});
   const setCurrencyContextMock = jest.fn(async () => {});
   const refreshCartMock = jest.fn(async () => {});
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-  };
+  const rootContextMock = prepareRootContextMock();
   const stateSharedRef = ref();
 
   beforeEach(async () => {
@@ -50,6 +49,12 @@ describe("Composables - useCurrency", () => {
         sharedRef: () => stateSharedRef,
       } as any;
     });
+
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
   });
 
   afterEach(async () => {

@@ -90,10 +90,11 @@ describe("Composables - useIntercept", () => {
   });
 
   it("should disconnect interceptor when it's registered in component which is unmounted", () => {
-    const unmountedFunctions: any[] = [];
-    mockedCompositionAPI.onUnmounted.mockImplementationOnce((fn) =>
-      unmountedFunctions.push(fn)
-    );
+    const unmountedFunctions: Array<Function> = [];
+    mockedCompositionAPI.onUnmounted.mockImplementationOnce((fn) => {
+      unmountedFunctions.push(fn);
+      return fn;
+    });
     const { intercept, broadcast } = useIntercept(rootContextMock);
     const interceptedMethod = jest.fn();
     intercept("my-event", interceptedMethod);

@@ -9,7 +9,10 @@ import {
   ClientApiError,
   ShopwareError,
 } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import {
+  ApplicationVueContext,
+  getApplicationContext,
+} from "@shopware-pwa/composables";
 
 /**
  * interface for {@link useCustomerPassword} composable

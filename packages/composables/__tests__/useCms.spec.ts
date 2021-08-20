@@ -10,14 +10,13 @@ jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 
 import { useCms } from "../src/hooks/useCms";
+import { prepareRootContextMock } from "./contextRunner";
 describe("Composables - useCms", () => {
   const statePage: Ref<Object | null> = ref(null);
   const stateLoading: Ref<boolean | null> = ref(false);
   const stateError: Ref<Object | null> = ref(null);
   const stateSearchPath: Ref<string | null> = ref(null);
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-  };
+  const rootContextMock = prepareRootContextMock();
 
   const setBreadcrumbsMock = jest.fn();
   beforeEach(() => {
@@ -26,13 +25,6 @@ describe("Composables - useCms", () => {
     stateLoading.value = null;
     stateError.value = null;
     stateSearchPath.value = null;
-
-    mockedComposables.getApplicationContext.mockImplementation(() => {
-      return {
-        apiInstance: rootContextMock.$shopwareApiInstance,
-        contextName: "useCms",
-      } as any;
-    });
 
     const getDefaultsMock = jest.fn().mockImplementation(() => {
       return { limit: 10, includes: ["name"] };
@@ -59,9 +51,14 @@ describe("Composables - useCms", () => {
         },
       } as any;
     });
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
   });
   it("should have value", async () => {
-    const { search, page } = useCms(rootContextMock);
+    const { search, page } = useCms();
     const response: PageResolverResult<any> = {
       breadcrumb: {},
       cmsPage: { name: "super category", type: "product_list" },
@@ -80,7 +77,7 @@ describe("Composables - useCms", () => {
   });
 
   it("should have failed on bad url settings", async () => {
-    const { search, page, error } = useCms(rootContextMock);
+    const { search, page, error } = useCms();
     mockedGetPage.getCmsPage.mockRejectedValueOnce({
       message: "Something went wrong...",
     });
@@ -92,7 +89,7 @@ describe("Composables - useCms", () => {
   });
 
   it("should performs search request with no or empty configuration for SearchCriteria", async () => {
-    const { search, page, error } = useCms(rootContextMock);
+    const { search, page, error } = useCms();
     mockedGetPage.getCmsPage.mockRejectedValueOnce({
       message: "Something went wrong...",
     });
@@ -106,7 +103,7 @@ describe("Composables - useCms", () => {
   describe("methods", () => {
     describe("search", () => {
       it("should performs search default pagination limit if not provided", async () => {
-        const { search, page } = useCms(rootContextMock);
+        const { search, page } = useCms();
         let invocationCriteria: any = null;
         mockedGetPage.getCmsPage.mockImplementationOnce(
           async (path: string, searchCriteria, apiInstance): Promise<any> => {
@@ -119,13 +116,13 @@ describe("Composables - useCms", () => {
         expect(mockedGetPage.getCmsPage).toBeCalledWith(
           "",
           expect.any(Object),
-          rootContextMock.$shopwareApiInstance
+          rootContextMock.apiInstance
         );
         expect(invocationCriteria?.limit).toEqual(10);
       });
 
       it("should performs search with pagination if provided", async () => {
-        const { search, page } = useCms(rootContextMock);
+        const { search, page } = useCms();
         let invocationCriteria: any = null;
         mockedGetPage.getCmsPage.mockImplementationOnce(
           async (path: string, searchCriteria, apiInstance): Promise<any> => {
@@ -138,13 +135,13 @@ describe("Composables - useCms", () => {
         expect(mockedGetPage.getCmsPage).toBeCalledWith(
           "",
           expect.any(Object),
-          rootContextMock.$shopwareApiInstance
+          rootContextMock.apiInstance
         );
         expect(invocationCriteria?.limit).toEqual(50);
       });
 
       it("should provide default includes if not provided, but configuration exist", async () => {
-        const { search, page } = useCms(rootContextMock);
+        const { search, page } = useCms();
         let invocationCriteria: any = null;
         mockedGetPage.getCmsPage.mockImplementationOnce(
           async (path: string, searchCriteria, apiInstance): Promise<any> => {
@@ -159,14 +156,14 @@ describe("Composables - useCms", () => {
         expect(mockedGetPage.getCmsPage).toBeCalledWith(
           "",
           expect.any(Object),
-          rootContextMock.$shopwareApiInstance
+          rootContextMock.apiInstance
         );
         expect(invocationCriteria?.includes).not.toBeFalsy();
       });
 
       it("should invoke search with custom includes", async () => {
         // rootContextMock.$shopwareDefaults = {};
-        const { search, page } = useCms(rootContextMock);
+        const { search, page } = useCms();
         let invocationCriteria: any = null;
         mockedGetPage.getCmsPage.mockImplementationOnce(
           async (path: string, searchCriteria, apiInstance): Promise<any> => {
@@ -181,7 +178,7 @@ describe("Composables - useCms", () => {
         expect(mockedGetPage.getCmsPage).toBeCalledWith(
           "",
           expect.any(Object),
-          rootContextMock.$shopwareApiInstance
+          rootContextMock.apiInstance
         );
         expect(invocationCriteria?.includes?.product).toContain(
           "someCustomField"
@@ -190,7 +187,7 @@ describe("Composables - useCms", () => {
     });
 
     it("should set currentSearchPathKey on search invocation", async () => {
-      const { search, currentSearchPathKey } = useCms(rootContextMock);
+      const { search, currentSearchPathKey } = useCms();
       expect(currentSearchPathKey.value).toBeNull();
       await search("/some/path");
       expect(currentSearchPathKey.value).toEqual("/some/path");
@@ -198,7 +195,7 @@ describe("Composables - useCms", () => {
   });
 
   it("should return activeCategoryId if it's included within the page object", async () => {
-    const { categoryId, search } = useCms(rootContextMock);
+    const { categoryId, search } = useCms();
     const response: PageResolverResult<any> = {
       breadcrumb: {},
       cmsPage: { name: "super category", type: "product_list" },
@@ -216,19 +213,19 @@ describe("Composables - useCms", () => {
   describe("computed", () => {
     describe("loading", () => {
       it("should show default loading state", () => {
-        const { loading } = useCms(rootContextMock);
+        const { loading } = useCms();
         expect(loading.value).toEqual(false);
       });
 
       it("should show default loading state", () => {
-        const { loading } = useCms(rootContextMock);
+        const { loading } = useCms();
         stateLoading.value = true;
         expect(loading.value).toEqual(true);
       });
     });
     describe("getBreadcrumbsObject", () => {
       it("should return page breadcrumbs after search", async () => {
-        const { getBreadcrumbsObject, search } = useCms(rootContextMock);
+        const { getBreadcrumbsObject, search } = useCms();
         const response: PageResolverResult<any> = {
           breadcrumb: {
             qwe: {

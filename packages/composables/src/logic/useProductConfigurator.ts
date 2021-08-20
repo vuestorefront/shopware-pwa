@@ -1,8 +1,11 @@
 import { ref, Ref, computed } from "vue-demi";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { PropertyGroup } from "@shopware-pwa/commons/interfaces/models/content/property/PropertyGroup";
-import { useCms } from "@shopware-pwa/composables";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import {
+  useCms,
+  ApplicationVueContext,
+  getApplicationContext,
+} from "@shopware-pwa/composables";
 import {
   invokePost,
   getProductEndpoint,

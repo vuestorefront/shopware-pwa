@@ -6,11 +6,12 @@ import { Ref, ref } from "vue-demi";
 import { createListingComposable } from "../src/factories/createListingComposable";
 
 import * as Composables from "@shopware-pwa/composables";
+import { prepareRootContextMock } from "./contextRunner";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 
 describe("Composables - createListingComposable", () => {
-  const rootContextMock = jest.fn();
+  const rootContextMock = prepareRootContextMock();
   const searchMethodMock = jest.fn();
 
   const mockedInitialListing: Ref<any> = ref(null);
@@ -37,12 +38,7 @@ describe("Composables - createListingComposable", () => {
     routerReplaceValue = null;
     routerMock.currentRoute.query = {};
     routerReplaceCatch = null;
-    mockedComposables.getApplicationContext.mockImplementation(() => {
-      return {
-        router: routerMock,
-        contextName: "createListingComposable",
-      } as any;
-    });
+    rootContextMock.router = routerMock;
     mockedComposables.useSharedState.mockImplementation(() => {
       return {
         sharedRef: (key: string) => {
@@ -51,6 +47,11 @@ describe("Composables - createListingComposable", () => {
         },
       } as any;
     });
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
   });
 
   it("should return composable with all values", () => {

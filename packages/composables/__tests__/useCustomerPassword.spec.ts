@@ -11,11 +11,10 @@ const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 const consoleErrorSpy = jest.spyOn(console, "error");
 
 import { useCustomerPassword } from "../src/hooks/useCustomerPassword";
+import { prepareRootContextMock } from "./contextRunner";
 describe("Composables - useCustomerPassword", () => {
   const stateUser: Ref<Object | null> = ref(null);
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-  };
+  const rootContextMock = prepareRootContextMock();
 
   const refreshSessionContextMock = jest.fn();
 
@@ -27,6 +26,12 @@ describe("Composables - useCustomerPassword", () => {
         refreshSessionContext: refreshSessionContextMock,
       } as any;
     });
+
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
 
     consoleErrorSpy.mockImplementationOnce(() => {});
   });

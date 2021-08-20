@@ -1,7 +1,11 @@
 import { computed, ComputedRef, Ref, inject } from "vue-demi";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
 import { Breadcrumb } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
-import { useSharedState, useVueContext } from "@shopware-pwa/composables";
+import {
+  useSharedState,
+  useVueContext,
+  getApplicationContext,
+  ApplicationVueContext,
+} from "@shopware-pwa/composables";
 
 /**
  * Composable for displaying and setting breadcrumbs for page.

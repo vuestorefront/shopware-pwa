@@ -13,7 +13,7 @@ import { Ref, ref } from "vue-demi";
 describe("Composables - useProductConfigurator", () => {
   const statePage: Ref<Object | null> = ref(null);
   const rootContextMock: any = {
-    $shopwareApiInstance: {
+    apiInstance: {
       defaults: {
         headers: {},
       },
@@ -28,6 +28,12 @@ describe("Composables - useProductConfigurator", () => {
         page: statePage,
       } as any;
     });
+
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
   });
   describe("on init", () => {
     it("should have selected options extracted from optionIds and given configurator object", () => {

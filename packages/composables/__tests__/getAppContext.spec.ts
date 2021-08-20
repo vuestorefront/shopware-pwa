@@ -1,5 +1,6 @@
 import { getApplicationContext } from "@shopware-pwa/composables";
 const consoleWarnSpy = jest.spyOn(console, "warn");
+const consoleErrorSpy = jest.spyOn(console, "error");
 
 describe("Shopware composables - getAppContext", () => {
   const rootContextMock: any = {
@@ -9,11 +10,13 @@ describe("Shopware composables - getAppContext", () => {
   beforeEach(() => {
     jest.resetAllMocks();
     consoleWarnSpy.mockImplementationOnce(() => {});
+    consoleErrorSpy.mockImplementationOnce(() => {});
   });
 
   it("should return applicationContext with apiInstance", () => {
-    const result = getApplicationContext(rootContextMock, "test1");
+    const result = getApplicationContext(rootContextMock, "test3");
     expect(result.apiInstance).toBe(rootContextMock.$shopwareApiInstance);
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
   });
 
   it("should return alternative shopwareApiInstance from context", () => {
@@ -63,19 +66,25 @@ describe("Shopware composables - getAppContext", () => {
   it("should return getCurrentInstance if rootContext is not provided", () => {
     const result = getApplicationContext(null as any, "test1");
     expect(result.apiInstance).toBe(undefined);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "[test1] No Vue instance detected!"
+    );
   });
 
   it("should show console warning when rootContext is not provided", () => {
-    getApplicationContext(null as any, "test1");
+    getApplicationContext(null as any, "test2");
     expect(consoleWarnSpy).toBeCalledWith(
-      "[SECURITY][test1] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/security.html#context-awareness"
+      "[SECURITY][test2] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/security.html#context-awareness"
     );
   });
 
   it("should show console warning if rootContext doesn't contain apiInstance", () => {
-    getApplicationContext({} as any, "test2");
+    getApplicationContext({} as any, "test3");
     expect(consoleWarnSpy).toBeCalledWith(
-      "[SECURITY][test2] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/security.html#context-awareness"
+      "[SECURITY][test3] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/security.html#context-awareness"
+    );
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "[test3] No Vue instance detected!"
     );
   });
 

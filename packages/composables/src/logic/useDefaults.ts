@@ -1,4 +1,7 @@
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import {
+  ApplicationVueContext,
+  getApplicationContext,
+} from "@shopware-pwa/composables";
 import {
   Includes,
   ShopwareSearchParams,
