@@ -4,8 +4,9 @@ import {
   ApplicationVueContext,
   getApplicationContext,
   useSharedState,
+  useVueContext,
 } from "@shopware-pwa/composables";
-import { computed, ComputedRef, ref } from "vue-demi";
+import { computed, ComputedRef, inject, ref } from "vue-demi";
 import merge from "lodash/merge";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { ListingResult } from "@shopware-pwa/commons/interfaces/response/ListingResult";
@@ -64,20 +65,27 @@ export function createListingComposable<ELEMENTS_TYPE>({
   searchDefaults: ShopwareSearchParams;
   listingKey: string;
 }): IUseListing<ELEMENTS_TYPE> {
-  const { router, contextName } = getApplicationContext(
-    rootContext,
-    "createListingComposable"
-  );
+  const COMPOSABLE_NAME = "createListingComposable";
+  const contextName = COMPOSABLE_NAME;
+
+  const { router } = getApplicationContext(rootContext, contextName);
+
+  // Handle CMS context to be able to show different breadcrumbs for different CMS pages.
+  const { isVueComponent } = useVueContext();
+  const cmsContext = isVueComponent && inject("swCmsContext", null);
+  const cacheKey = cmsContext
+    ? `${contextName}(cms-${cmsContext})`
+    : contextName;
 
   const loading = ref(false);
   const loadingMore = ref(false);
 
-  const { sharedRef } = useSharedState(rootContext);
+  const { sharedRef } = useSharedState();
   const _storeInitialListing = sharedRef<ListingResult<ELEMENTS_TYPE>>(
-    `${contextName}-initialListing-${listingKey}`
+    `${cacheKey}-initialListing-${listingKey}`
   );
   const _storeAppliedListing = sharedRef<Partial<ListingResult<ELEMENTS_TYPE>>>(
-    `${contextName}-appliedListing-${listingKey}`
+    `${cacheKey}-appliedListing-${listingKey}`
   );
 
   const getInitialListing = computed(() => _storeInitialListing.value);
@@ -125,7 +133,7 @@ export function createListingComposable<ELEMENTS_TYPE>({
     }
   ): Promise<void> => {
     loading.value = true;
-    const changeRoute = options?.preventRouteChange !== true;
+    const changeRoute = options?.preventRouteChange !== true && !cmsContext;
     try {
       // replace URL query params with currently selected criteria
       changeRoute &&

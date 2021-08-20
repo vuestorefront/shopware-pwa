@@ -31,7 +31,7 @@ import { warning } from "@shopware-pwa/commons";
  * @beta
  */
 export const useDefaults = (
-  rootContext: ApplicationVueContext,
+  rootContext: ApplicationVueContext | null | undefined,
   defaultsKey: string
 ): {
   getIncludesConfig: () => Includes;

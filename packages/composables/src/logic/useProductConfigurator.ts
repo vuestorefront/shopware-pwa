@@ -48,12 +48,12 @@ export const useProductConfigurator = (
   rootContext: ApplicationVueContext,
   product: Product
 ): IUseProductConfigurator => {
-  const { page } = useCms(rootContext);
+  const { page } = useCms();
   const selected = ref({} as any);
   const isLoadingOptions = ref(!!product.options?.length);
   const parentProductId = computed(() => product.parentId);
   const getOptionGroups = computed(
-    () => (page.value as any).configurator || []
+    () => (page.value as any)?.configurator || []
   );
 
   const findGroupCodeForOption = (optionId: string) => {

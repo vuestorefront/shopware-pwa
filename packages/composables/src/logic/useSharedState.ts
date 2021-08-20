@@ -6,8 +6,14 @@ import {
   ref,
   toRef,
   WritableComputedRef,
+  provide,
+  inject,
 } from "vue-demi";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import {
+  ApplicationVueContext,
+  getApplicationContext,
+  useVueContext,
+} from "@shopware-pwa/composables";
 
 const localSharedState: {
   [key: string]: Ref<any>;
@@ -19,11 +25,16 @@ const localSharedState: {
  *
  * @beta
  */
-export function useSharedState(rootContext: ApplicationVueContext) {
-  const { sharedStore, isServer } = getApplicationContext(
-    rootContext,
-    "useSharedState"
-  );
+export function useSharedState(rootContext?: ApplicationVueContext) {
+  const COMPOSABLE_NAME = "useSharedState";
+  const contextName = COMPOSABLE_NAME;
+
+  const { sharedStore, isServer } = getApplicationContext(null, contextName);
+
+  if (!sharedStore)
+    throw new Error(
+      `[${COMPOSABLE_NAME}] sharedStore is not injected into Vue instance`
+    );
 
   /**
    * Extends Ref type to share it server->client and globally in client side.
