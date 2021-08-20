@@ -293,6 +293,16 @@ describe("Composables - useProductConfigurator", () => {
         );
         expect(getOptionGroups.value).toStrictEqual([]);
       });
+
+      it("should contain empty array if the page value is empty", () => {
+        statePage.value = null;
+
+        const { getOptionGroups } = useProductConfigurator(
+          rootContextMock,
+          {} as any
+        );
+        expect(getOptionGroups.value).toStrictEqual([]);
+      });
     });
   });
 });

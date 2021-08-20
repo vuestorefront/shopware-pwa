@@ -9,6 +9,9 @@ import * as Composables from "@shopware-pwa/composables";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 
+import vueComp from "vue-demi";
+const mockedCompositionAPI = vueComp as jest.Mocked<typeof vueComp>;
+
 import { useCms } from "../src/hooks/useCms";
 import { prepareRootContextMock } from "./contextRunner";
 describe("Composables - useCms", () => {
@@ -17,6 +20,7 @@ describe("Composables - useCms", () => {
   const stateError: Ref<Object | null> = ref(null);
   const stateSearchPath: Ref<string | null> = ref(null);
   const rootContextMock = prepareRootContextMock();
+  let cmsContextName = "";
 
   const setBreadcrumbsMock = jest.fn();
   beforeEach(() => {
@@ -44,6 +48,8 @@ describe("Composables - useCms", () => {
     mockedComposables.useSharedState.mockImplementation(() => {
       return {
         sharedRef: (contextName: string) => {
+          const contextIndex = contextName.lastIndexOf("-");
+          cmsContextName = contextName.substring(0, contextIndex);
           if (contextName === "useCms-cmsError") return stateError;
           if (contextName === "useCms-cmsLoading") return stateLoading;
           if (contextName === "useCms-searchPath") return stateSearchPath;
@@ -98,6 +104,50 @@ describe("Composables - useCms", () => {
     expect(page.value).toEqual(null);
     expect(error.value).toBeTruthy();
     expect(error.value).toStrictEqual({ message: "Something went wrong..." });
+  });
+
+  it("should use default cmsContext", () => {
+    useCms();
+    expect(cmsContextName).toEqual("useCms");
+  });
+
+  it("should use defined cmsContext", () => {
+    useCms({ cmsContextName: "myContext" });
+    expect(cmsContextName).toEqual("useCms(cms-myContext)");
+  });
+
+  it("should not invoke provide/inject with CMS context if it is not the component instance", () => {
+    mockedCompositionAPI.provide = jest.fn();
+    mockedCompositionAPI.inject = jest.fn();
+    useCms({ cmsContextName: "myContext" });
+    expect(mockedCompositionAPI.provide).not.toHaveBeenCalled();
+    expect(mockedCompositionAPI.inject).not.toHaveBeenCalled();
+  });
+
+  it("should invoke provide with CMS context if it is the component instance", () => {
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: true,
+      isVueScope: true,
+    });
+    mockedCompositionAPI.provide = jest.fn();
+    mockedCompositionAPI.inject = jest.fn();
+    useCms({ cmsContextName: "myContext" });
+    expect(mockedCompositionAPI.provide).toHaveBeenCalledWith(
+      "swCmsContext",
+      "myContext"
+    );
+    expect(mockedCompositionAPI.inject).not.toHaveBeenCalled();
+  });
+
+  it("should invoke inject with CMS context in vue component", () => {
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: true,
+      isVueScope: true,
+    });
+    mockedCompositionAPI.provide = jest.fn();
+    mockedCompositionAPI.inject = jest.fn();
+    useCms();
+    expect(mockedCompositionAPI.inject).toBeCalledWith("swCmsContext", null);
   });
 
   describe("methods", () => {
@@ -208,6 +258,45 @@ describe("Composables - useCms", () => {
     expect(categoryId.value).toBeNull();
     await search(undefined as any);
     expect(categoryId.value).toEqual("3f637f17cd9f4891a2d7625d19fb37c9");
+  });
+
+  it("should return resourceIdentifier if it's included within the page object", async () => {
+    const { resourceIdentifier, search } = useCms();
+    const response: PageResolverResult<any> = {
+      breadcrumb: {},
+      cmsPage: { name: "super category", type: "product_list" },
+      resourceIdentifier: "3f637f17cd9f4891a2d7625d19fb37c9",
+      resourceType: "frontend.navigation.page",
+      listingConfiguration: {},
+      apiAlias: "pwa_page_result",
+    } as any;
+    mockedGetPage.getCmsPage.mockResolvedValueOnce(response);
+    expect(resourceIdentifier.value).toBeNull();
+    await search(undefined as any);
+    expect(resourceIdentifier.value).toEqual(
+      "3f637f17cd9f4891a2d7625d19fb37c9"
+    );
+  });
+
+  it("should return resourceType from the page object", async () => {
+    const { resourceType, search } = useCms();
+    const response: PageResolverResult<any> = {
+      breadcrumb: {},
+      cmsPage: { name: "super category", type: "product_list" },
+      resourceIdentifier: "3f637f17cd9f4891a2d7625d19fb37c9",
+      resourceType: "frontend.navigation.page",
+      listingConfiguration: {},
+      apiAlias: "pwa_page_result",
+    } as any;
+    mockedGetPage.getCmsPage.mockResolvedValueOnce(response);
+    expect(resourceType.value).toBeNull();
+    await search(undefined as any);
+    expect(resourceType.value).toEqual("frontend.navigation.page");
+  });
+
+  it("should return resourceType as null if page object does not exist", async () => {
+    const { resourceType } = useCms();
+    expect(resourceType.value).toBeNull();
   });
 
   describe("computed", () => {

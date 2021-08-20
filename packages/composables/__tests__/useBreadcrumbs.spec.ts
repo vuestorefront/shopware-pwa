@@ -6,9 +6,14 @@ import { prepareRootContextMock } from "./contextRunner";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 
+import vueComp from "vue-demi";
+const mockedCompositionAPI = vueComp as jest.Mocked<typeof vueComp>;
+
 describe("Composables - useBreadcrumbs", () => {
   const rootContextMock: any = prepareRootContextMock();
   const stateSharedRef: Ref<Breadcrumb[] | null> = ref(null);
+
+  let cmsContextName: string = "";
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -16,7 +21,10 @@ describe("Composables - useBreadcrumbs", () => {
 
     mockedComposables.useSharedState.mockImplementation(() => {
       return {
-        sharedRef: () => stateSharedRef,
+        sharedRef: (contextName: string) => {
+          cmsContextName = contextName;
+          return stateSharedRef;
+        },
       } as any;
     });
     mockedComposables.useVueContext.mockReturnValue({
@@ -24,6 +32,25 @@ describe("Composables - useBreadcrumbs", () => {
       isVueScope: true,
     });
     mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
+  });
+
+  it("should use default cmsContext", () => {
+    useBreadcrumbs();
+    expect(cmsContextName).toEqual("useBreadcrumbs-breadcrumbs");
+  });
+
+  it("should use defined cmsContext", () => {
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: true,
+      isVueScope: true,
+    });
+    mockedCompositionAPI.inject = jest
+      .fn()
+      .mockReturnValue("myInjectedContext");
+    useBreadcrumbs();
+    expect(cmsContextName).toEqual(
+      "useBreadcrumbs(cms-myInjectedContext)-breadcrumbs"
+    );
   });
 
   describe("methods", () => {

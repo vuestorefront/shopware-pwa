@@ -34,6 +34,15 @@ describe("Composables - useSharedState", () => {
     expect(Object.keys(result)).toEqual(["sharedRef", "preloadRef"]);
   });
 
+  it("should throw an error when sharedStore is not injected into Vue instance", () => {
+    mockedComposables.getApplicationContext.mockReturnValue({
+      apiInstance: rootContextMock.apiInstance,
+    } as any);
+    expect(() => useSharedState()).toThrow(
+      "[useSharedState] sharedStore is not injected into Vue instance"
+    );
+  });
+
   describe("SSR context", () => {
     beforeEach(() => {
       rootContextMock.isServer = true;
