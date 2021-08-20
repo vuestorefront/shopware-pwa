@@ -90,7 +90,8 @@ export function getApplicationContext(
     console.error(`[${key}] No Vue instance detected!`);
   }
   return {
-    apiInstance: context?.$shopwareApiInstance || context?.shopwareApiInstance,
+    apiInstance: (context?.$shopwareApiInstance ||
+      context?.shopwareApiInstance) as ShopwareApiInstance | undefined,
     vuexStore: context?.$store || context?.store,
     router: context?.$router || context?.router,
     route: context?.$route || context?.route,

@@ -74,8 +74,9 @@ export function useCms(options?: {
   const { getDefaults } = useDefaults(null, COMPOSABLE_NAME);
   const { setBreadcrumbs } = useBreadcrumbs();
   const page = computed(() => _storePage.value);
-  // TODO: rename it to something more obvious, or just leav as resourceIdentifier
-  // TODO: https://github.com/vuestorefront/shopware-pwa/issues/1308
+  /**
+   * @deprecated - use resourceIdentifier computed property instead
+   */
   const categoryId = computed(() => {
     // each cms page is in relation one-to-one with categoryId (resourceIdentifier)
     return page.value?.resourceIdentifier || null;

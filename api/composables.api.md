@@ -11,6 +11,7 @@ import { BillingAddress } from '@shopware-pwa/commons/interfaces/models/checkout
 import { Breadcrumb } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { CmsPageType } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { ComponentInstance } from 'vue-demi';
 import { ComputedRef } from 'vue-demi';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
@@ -86,8 +87,11 @@ export function createListingComposable<ELEMENTS_TYPE>({ rootContext, searchMeth
     listingKey: string;
 }): IUseListing<ELEMENTS_TYPE>;
 
+// @alpha
+export function extendScopeContext(scope: any, app: any): void;
+
 // @beta (undocumented)
-export function getApplicationContext(rootContext: ApplicationVueContext, key?: string): {
+export function getApplicationContext(rootContext: ApplicationVueContext | undefined | null, key?: string): {
     apiInstance: ShopwareApiInstance | undefined;
     vuexStore: any;
     router: any;
@@ -96,9 +100,8 @@ export function getApplicationContext(rootContext: ApplicationVueContext, key?: 
     cookies: any;
     shopwareDefaults: any;
     interceptors: any;
-    routing: Routing;
+    routing: any;
     sharedStore: any;
-    instanceStore: any;
     isServer: boolean;
     contextName: string;
 };
@@ -560,7 +563,7 @@ export type Search = (path: string, associations?: any) => any;
 export const useAddToCart: (rootContext: ApplicationVueContext, product: Product) => IUseAddToCart;
 
 // @beta
-export function useBreadcrumbs(rootContext: ApplicationVueContext, params?: {
+export function useBreadcrumbs(rootContext?: ApplicationVueContext | null | undefined, params?: {
     hideHomeLink: boolean;
 }): {
     breadcrumbs: ComputedRef<Breadcrumb[]>;
@@ -572,15 +575,19 @@ export function useBreadcrumbs(rootContext: ApplicationVueContext, params?: {
 export const useCart: (rootContext: ApplicationVueContext) => IUseCart;
 
 // @beta @deprecated (undocumented)
-export const useCategoryFilters: (rootContext: ApplicationVueContext) => any;
+export const useCategoryFilters: (rootContext: ApplicationVueContext_2) => any;
 
 // @beta
 export const useCheckout: (rootContext: ApplicationVueContext) => IUseCheckout;
 
 // @beta (undocumented)
-export function useCms(rootContext: ApplicationVueContext): {
+export function useCms(options?: {
+    cmsContextName?: string;
+}): {
     page: ComputedRef<PageResolverProductResult | PageResolverResult<CmsPage> | null>;
     categoryId: ComputedRef<string | null>;
+    resourceType: ComputedRef<CmsPageType | null>;
+    resourceIdentifier: ComputedRef<string | null>;
     currentSearchPathKey: ComputedRef<string | null>;
     loading: Ref<boolean>;
     search: (path: string, query?: any) => Promise<void>;
@@ -645,7 +652,7 @@ export const useCustomerOrders: (rootContext: ApplicationVueContext) => IUseCust
 export function useCustomerPassword(rootContext: ApplicationVueContext): IUseCustomerPassword;
 
 // @beta
-export const useDefaults: (rootContext: ApplicationVueContext, defaultsKey: string) => {
+export const useDefaults: (rootContext: ApplicationVueContext | null | undefined, defaultsKey: string) => {
     getIncludesConfig: () => Includes;
     getAssociationsConfig: () => Association[];
     getDefaults: () => ShopwareSearchParams;
@@ -747,7 +754,7 @@ export const useSalutations: (rootContext: ApplicationVueContext) => UseSalutati
 export const useSessionContext: (rootContext: ApplicationVueContext) => IUseSessionContext;
 
 // @beta
-export function useSharedState(rootContext: ApplicationVueContext): {
+export function useSharedState(rootContext?: ApplicationVueContext_2): {
     sharedRef: <T>(uniqueKey: string, defaultValue?: T | undefined) => WritableComputedRef<T | null>;
     preloadRef: (refObject: Ref<unknown>, callback: () => Promise<void>) => Promise<void>;
 };
@@ -760,6 +767,12 @@ export const useUIState: (rootContext: ApplicationVueContext, stateName?: string
 
 // @beta
 export const useUser: (rootContext: ApplicationVueContext) => IUseUser;
+
+// @alpha
+export function useVueContext(): {
+    isVueComponent: boolean;
+    isVueScope: boolean;
+};
 
 // @beta (undocumented)
 export const useWishlist: (rootContext: ApplicationVueContext, product?: Product | undefined) => IUseWishlist;

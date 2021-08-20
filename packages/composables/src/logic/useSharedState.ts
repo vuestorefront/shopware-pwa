@@ -6,13 +6,10 @@ import {
   ref,
   toRef,
   WritableComputedRef,
-  provide,
-  inject,
 } from "vue-demi";
 import {
   ApplicationVueContext,
   getApplicationContext,
-  useVueContext,
 } from "@shopware-pwa/composables";
 
 const localSharedState: {

@@ -1,6 +1,6 @@
 import { getCurrentInstance, getCurrentScope } from "vue-demi";
 
-function _getFromProperty(object: Object, name: string) {
+function _getFromProperty(object: { [key: string]: unknown }, name: string) {
   return object[`$${name}`] || object[name];
 }
 
