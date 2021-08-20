@@ -560,10 +560,10 @@ export interface Routing {
 export type Search = (path: string, associations?: any) => any;
 
 // @beta
-export const useAddToCart: (rootContext: ApplicationVueContext, product: Product) => IUseAddToCart;
+export const useAddToCart: (rootContext: ApplicationVueContext_2, product: Product) => IUseAddToCart;
 
 // @beta
-export function useBreadcrumbs(rootContext?: ApplicationVueContext | null | undefined, params?: {
+export function useBreadcrumbs(rootContext?: ApplicationVueContext_2 | null | undefined, params?: {
     hideHomeLink: boolean;
 }): {
     breadcrumbs: ComputedRef<Breadcrumb[]>;
@@ -578,7 +578,7 @@ export const useCart: (rootContext: ApplicationVueContext) => IUseCart;
 export const useCategoryFilters: (rootContext: ApplicationVueContext_2) => any;
 
 // @beta
-export const useCheckout: (rootContext: ApplicationVueContext) => IUseCheckout;
+export const useCheckout: (rootContext: ApplicationVueContext_2) => IUseCheckout;
 
 // @beta (undocumented)
 export function useCms(options?: {
@@ -608,7 +608,7 @@ export interface UseCountries {
 }
 
 // @beta (undocumented)
-export const useCountries: (rootContext: ApplicationVueContext) => UseCountries;
+export const useCountries: (rootContext: ApplicationVueContext_2) => UseCountries;
 
 // @beta (undocumented)
 export interface UseCountry {
@@ -640,19 +640,19 @@ export interface UseCurrency {
 }
 
 // @beta (undocumented)
-export const useCurrency: (rootContext: ApplicationVueContext) => UseCurrency;
+export const useCurrency: (rootContext: ApplicationVueContext_2) => UseCurrency;
 
 // @beta
-export function useCustomerAddresses(rootContext: ApplicationVueContext): IUseCustomerAddresses;
+export function useCustomerAddresses(rootContext: ApplicationVueContext_2): IUseCustomerAddresses;
 
 // @beta
-export const useCustomerOrders: (rootContext: ApplicationVueContext) => IUseCustomerOrders;
+export const useCustomerOrders: (rootContext: ApplicationVueContext_2) => IUseCustomerOrders;
 
 // @beta
-export function useCustomerPassword(rootContext: ApplicationVueContext): IUseCustomerPassword;
+export function useCustomerPassword(rootContext: ApplicationVueContext_2): IUseCustomerPassword;
 
 // @beta
-export const useDefaults: (rootContext: ApplicationVueContext | null | undefined, defaultsKey: string) => {
+export const useDefaults: (rootContext: ApplicationVueContext_2 | null | undefined, defaultsKey: string) => {
     getIncludesConfig: () => Includes;
     getAssociationsConfig: () => Association[];
     getDefaults: () => ShopwareSearchParams;
@@ -665,12 +665,12 @@ export const useIntercept: (rootContext: ApplicationVueContext_2) => IUseInterce
 export const useListing: (rootContext: ApplicationVueContext_2, listingKey?: listingKey) => IUseListing_2<Product>;
 
 // @beta
-export const useNavigation: (rootContext: ApplicationVueContext, params?: {
+export const useNavigation: (rootContext: ApplicationVueContext_2, params?: {
     type: StoreNavigationType;
 }) => IUseNavigation;
 
 // @beta (undocumented)
-export const useNotifications: (rootContext: ApplicationVueContext) => {
+export const useNotifications: (rootContext: ApplicationVueContext_2) => {
     notifications: ComputedRef<Notification_2[]>;
     removeOne: (id: number) => void;
     removeAll: () => void;
@@ -681,7 +681,7 @@ export const useNotifications: (rootContext: ApplicationVueContext) => {
 };
 
 // @beta
-export function useOrderDetails(rootContext: ApplicationVueContext, order: Order): {
+export function useOrderDetails(rootContext: ApplicationVueContext_2, order: Order): {
     order: ComputedRef<Order | undefined | null>;
     status: ComputedRef<string | undefined>;
     total: ComputedRef<number | undefined>;
@@ -727,10 +727,10 @@ export interface UseProduct<PRODUCT, SEARCH> {
 export const useProduct: (rootContext: ApplicationVueContext, loadedProduct?: any) => UseProduct<Product, Search>;
 
 // @beta
-export function useProductAssociations(rootContext: ApplicationVueContext, product: Product, association: "cross-selling" | "reviews"): IUseProductAssociations;
+export function useProductAssociations(rootContext: ApplicationVueContext_2, product: Product, association: "cross-selling" | "reviews"): IUseProductAssociations;
 
 // @beta
-export const useProductConfigurator: (rootContext: ApplicationVueContext, product: Product) => IUseProductConfigurator;
+export const useProductConfigurator: (rootContext: ApplicationVueContext_2, product: Product) => IUseProductConfigurator;
 
 // @beta (undocumented)
 export const useProductQuickSearch: (rootContext: ApplicationVueContext_2) => IUseProductQuickSearch;
@@ -748,10 +748,10 @@ export interface UseSalutations {
 }
 
 // @beta (undocumented)
-export const useSalutations: (rootContext: ApplicationVueContext) => UseSalutations;
+export const useSalutations: (rootContext: ApplicationVueContext_2) => UseSalutations;
 
 // @beta
-export const useSessionContext: (rootContext: ApplicationVueContext) => IUseSessionContext;
+export const useSessionContext: (rootContext: ApplicationVueContext_2) => IUseSessionContext;
 
 // @beta
 export function useSharedState(rootContext?: ApplicationVueContext_2): {
@@ -760,13 +760,13 @@ export function useSharedState(rootContext?: ApplicationVueContext_2): {
 };
 
 // @beta
-export const useUIState: (rootContext: ApplicationVueContext, stateName?: string | undefined) => {
+export const useUIState: (rootContext: ApplicationVueContext_2, stateName?: string | undefined) => {
     isOpen: ComputedRef<boolean>;
     switchState: (to?: boolean | undefined) => void;
 };
 
 // @beta
-export const useUser: (rootContext: ApplicationVueContext) => IUseUser;
+export const useUser: (rootContext: ApplicationVueContext_2) => IUseUser;
 
 // @alpha
 export function useVueContext(): {
@@ -775,7 +775,7 @@ export function useVueContext(): {
 };
 
 // @beta (undocumented)
-export const useWishlist: (rootContext: ApplicationVueContext, product?: Product | undefined) => IUseWishlist;
+export const useWishlist: (rootContext: ApplicationVueContext_2, product?: Product | undefined) => IUseWishlist;
 
 // (No @packageDocumentation comment for this package)
 
