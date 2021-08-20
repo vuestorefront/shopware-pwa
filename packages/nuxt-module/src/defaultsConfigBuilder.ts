@@ -44,10 +44,10 @@ export default function defaultsConfigBuilder() {
         if (Array.isArray(property)) {
           const newValue = property.filter((item) => item !== value);
           set(finalConfig, key, newValue);
+          return defaultsConfigBuilder();
         }
-      } else {
-        set(finalConfig, key, undefined);
       }
+      set(finalConfig, key, undefined);
       return defaultsConfigBuilder();
     },
     /**
