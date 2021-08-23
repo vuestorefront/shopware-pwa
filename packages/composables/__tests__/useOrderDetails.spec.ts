@@ -2,9 +2,9 @@ import * as Composables from "@shopware-pwa/composables";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 import { useOrderDetails } from "../src/logic/useOrderDetails";
-import { useDefaults } from "../src/logic/useDefaults";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 import { ref, Ref } from "@vue/composition-api";
+import { prepareRootContextMock } from "./contextRunner";
 
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedAxios = shopwareClient as jest.Mocked<typeof shopwareClient>;
@@ -12,16 +12,8 @@ const mockedAxios = shopwareClient as jest.Mocked<typeof shopwareClient>;
 describe("Composables - useOrderDetails", () => {
   const stateOrderDetails: Ref<Object | null> = ref(null);
 
-  const mockedInvokePost = jest.fn();
-  const rootContextMock: any = {
-    shopwareDefaults: {},
-    $shopwareApiInstance: {
-      defaults: {
-        headers: {},
-      },
-      invokePost: mockedInvokePost,
-    },
-  };
+  const mockedBroadcast = jest.fn();
+  const rootContextMock = prepareRootContextMock();
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -33,19 +25,19 @@ describe("Composables - useOrderDetails", () => {
     mockedAxios.getProductDetailsEndpoint.mockReturnValue(
       "/product/v4/product-id"
     );
-    mockedComposables.useDefaults.mockImplementation(() => {
-      return useDefaults(rootContextMock, "useOrderDetails");
-    });
+    mockedComposables.useDefaults.mockReturnValue({
+      getDefaults: () => ({}),
+    } as any);
 
-    mockedComposables.getApplicationContext.mockImplementation(() => {
-      return {
-        apiInstance: rootContextMock.$shopwareApiInstance,
-        contextName: "useOrderDetails",
-        $shopwareDefaults: {
-          useOrderDetails: {},
-        },
-      } as any;
+    mockedComposables.useIntercept.mockReturnValue({
+      broadcast: mockedBroadcast,
+    } as any);
+
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
     });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
   });
   describe("on init", () => {
     it("should export exact the same order and other properties as undefined or default", () => {
@@ -236,7 +228,7 @@ describe("Composables - useOrderDetails", () => {
         expect(mockedAxios.getOrderDetails).toBeCalledWith(
           "some-order-id",
           expect.any(Object),
-          expect.any(Object)
+          rootContextMock.apiInstance
         );
         expect(mockedAxios.getOrderDetails).toBeCalledTimes(1);
         expect(errors.loadOrderDetails).toBe("Some error");
@@ -293,7 +285,7 @@ describe("Composables - useOrderDetails", () => {
           "some-order-id",
           "https://success-url",
           "https://failure-url",
-          expect.any(Object)
+          rootContextMock.apiInstance
         );
         expect(mockedAxios.handlePayment).toBeCalledTimes(1);
         expect(paymentUrl.value).toBe("https://external-payment-url");
@@ -328,7 +320,7 @@ describe("Composables - useOrderDetails", () => {
         await cancel();
         expect(mockedAxios.cancelOrder).toBeCalledWith(
           "some-order-id",
-          expect.any(Object)
+          rootContextMock.apiInstance
         );
         expect(mockedAxios.cancelOrder).toBeCalledTimes(1);
       });
@@ -353,7 +345,7 @@ describe("Composables - useOrderDetails", () => {
         expect(mockedAxios.changeOrderPaymentMethod).toBeCalledWith(
           "some-order-id",
           "new-payment-method-id",
-          expect.any(Object)
+          rootContextMock.apiInstance
         );
         expect(mockedAxios.changeOrderPaymentMethod).toBeCalledTimes(1);
       });

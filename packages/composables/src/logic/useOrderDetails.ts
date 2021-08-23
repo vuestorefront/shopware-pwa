@@ -1,9 +1,11 @@
 import { computed, ComputedRef, reactive, Ref, ref, UnwrapRef } from "vue-demi";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
 import {
   useSharedState,
   useDefaults,
   INTERCEPTOR_KEYS,
+  ApplicationVueContext,
+  getApplicationContext,
+  useIntercept,
 } from "@shopware-pwa/composables";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress";
@@ -20,7 +22,6 @@ import {
   getOrderDetails,
   handlePayment as apiHandlePayment,
 } from "@shopware-pwa/shopware-6-client";
-import { useIntercept } from "./useIntercept";
 
 /**
  * Composable for managing an existing order.

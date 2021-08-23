@@ -21,8 +21,8 @@ export default {
     },
   },
 
-  setup(props, { root }) {
-    const { page } = useCms(root)
+  setup(props) {
+    const { page } = useCms()
 
     return {
       product: computed(() => page.value?.product),

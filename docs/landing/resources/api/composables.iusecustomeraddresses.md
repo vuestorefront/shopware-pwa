@@ -20,7 +20,7 @@ export interface IUseCustomerAddresses
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [addAddress](./composables.iusecustomeraddresses.addaddress.md) | (params: Partial&lt;CustomerAddress&gt;) =&gt; Promise&lt;string \| undefined&gt; | <b><i>(BETA)</i></b> |
-|  [addresses](./composables.iusecustomeraddresses.addresses.md) | Ref&lt;CustomerAddress\[\] \| null&gt; | <b><i>(BETA)</i></b> |
+|  [addresses](./composables.iusecustomeraddresses.addresses.md) | ComputedRef&lt;CustomerAddress\[\]&gt; | <b><i>(BETA)</i></b> |
 |  [deleteAddress](./composables.iusecustomeraddresses.deleteaddress.md) | (addressId: string) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [errors](./composables.iusecustomeraddresses.errors.md) | UnwrapRef&lt;{ markAddressAsDefault: ShopwareError\[\]; loadAddresses: ShopwareError\[\]; addAddress: ShopwareError\[\]; updateAddress: ShopwareError\[\]; deleteAddress: ShopwareError\[\]; }&gt; | <b><i>(BETA)</i></b> |
 |  [loadAddresses](./composables.iusecustomeraddresses.loadaddresses.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |

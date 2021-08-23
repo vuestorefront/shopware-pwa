@@ -12,11 +12,10 @@ jest.mock("@shopware-pwa/shopware-6-client");
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 import { useSalutations } from "../src/hooks/useSalutations";
+import { prepareRootContextMock } from "./contextRunner";
 
 describe("Composables - useSalutations", () => {
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-  };
+  const rootContextMock = prepareRootContextMock();
   const stateSharedRef = ref();
   mockedCompositionAPI.getCurrentInstance = jest.fn();
   mockedCompositionAPI.onMounted = jest.fn();
@@ -32,6 +31,12 @@ describe("Composables - useSalutations", () => {
         sharedRef: () => stateSharedRef,
       } as any;
     });
+
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
   });
   describe("computed", () => {
     describe("getMappedSalutations", () => {

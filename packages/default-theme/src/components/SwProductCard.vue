@@ -113,5 +113,9 @@ export default {
 .sw-product-card {
   width: 100%;
   padding: 0.3rem;
+
+  ::v-deep .sf-product-card__image-wrapper {
+    min-height: 50px;
+  }
 }
 </style>

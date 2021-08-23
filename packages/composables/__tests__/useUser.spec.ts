@@ -13,11 +13,10 @@ const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 const consoleErrorSpy = jest.spyOn(console, "error");
 
 import { useUser } from "../src/hooks/useUser";
+import { prepareRootContextMock } from "./contextRunner";
 describe("Composables - useUser", () => {
   const stateUser: Ref<Object | null> = ref(null);
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-  };
+  const rootContextMock = prepareRootContextMock();
 
   const interceptMock = jest.fn();
   const broadcastMock = jest.fn();
@@ -51,6 +50,18 @@ describe("Composables - useUser", () => {
         refreshCart: refreshCartMock,
       } as any;
     });
+
+    mockedComposables.useDefaults.mockImplementation(() => {
+      return {
+        getDefaults: () => {},
+      } as any;
+    });
+
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
 
     consoleErrorSpy.mockImplementationOnce(() => {});
   });
