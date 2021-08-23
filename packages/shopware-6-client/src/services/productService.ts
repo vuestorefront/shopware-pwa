@@ -104,9 +104,7 @@ export async function getProduct(
 ): Promise<ProductResponse> {
   const resp = await contextInstance.invoke.post(
     getProductDetailsEndpoint(productId),
-    {
-      params,
-    }
+    params
   );
   return resp.data;
 }
