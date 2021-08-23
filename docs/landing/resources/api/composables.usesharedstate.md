@@ -12,7 +12,7 @@ Replacement for Vuex. Composable, which enables you to use shared state in your 
 <b>Signature:</b>
 
 ```typescript
-export declare function useSharedState(rootContext: ApplicationVueContext): {
+export declare function useSharedState(rootContext?: ApplicationVueContext): {
     sharedRef: <T>(uniqueKey: string, defaultValue?: T | undefined) => WritableComputedRef<T | null>;
     preloadRef: (refObject: Ref<unknown>, callback: () => Promise<void>) => Promise<void>;
 };

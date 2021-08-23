@@ -4,12 +4,22 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 import { Aggregation } from "@shopware-pwa/commons/interfaces/search/Aggregation";
 
 /**
- * @beta
+ * @deprecated use CmsPageType instead
  */
 export enum PageType {
   PRODUCT_DETAIL_PAGE = "frontend.detail.page",
   NAVIGATION_PAGE = "frontend.navigation.page",
 }
+
+/**
+ * Cms page resource type
+ *
+ * @beta
+ */
+export type CmsPageType =
+  | "frontend.navigation.page"
+  | "frontend.landing.page"
+  | "frontend.detail.page";
 
 /**
  * @beta
@@ -33,7 +43,7 @@ export interface PageResolverResult<T> {
   cmsPage: T;
   breadcrumb: PageBreadcrumb;
   listingConfiguration: any;
-  resourceType: PageType;
+  resourceType: CmsPageType;
   resourceIdentifier: string;
   apiAlias: string;
 }
@@ -45,16 +55,10 @@ export interface PageResolverProductResult {
   product: Partial<Product>;
   breadcrumb: PageBreadcrumb;
   aggregations: Aggregation[];
-  resourceType: PageType;
+  resourceType: CmsPageType;
   resourceIdentifier: string;
   cannonicalPathInfo: string;
   apiAlias: string;
-}
-
-export enum CmsPageType {
-  DEFAULT = "default",
-  PRODUCT_LISTING = "product_list",
-  LANDING_PAGE = "landingpage",
 }
 
 /**

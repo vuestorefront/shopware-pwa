@@ -1,8 +1,11 @@
 import { computed, Ref, ref, onMounted, ComputedRef } from "vue-demi";
 import { getAvailableCountries } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { useSharedState } from "@shopware-pwa/composables";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import {
+  useSharedState,
+  ApplicationVueContext,
+  getApplicationContext,
+} from "@shopware-pwa/composables";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 
 /**

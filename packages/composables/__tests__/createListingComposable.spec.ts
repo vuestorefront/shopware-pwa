@@ -6,11 +6,15 @@ import { Ref, ref } from "vue-demi";
 import { createListingComposable } from "../src/factories/createListingComposable";
 
 import * as Composables from "@shopware-pwa/composables";
+import { prepareRootContextMock } from "./contextRunner";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 
+import vueComp from "vue-demi";
+const mockedCompositionAPI = vueComp as jest.Mocked<typeof vueComp>;
+
 describe("Composables - createListingComposable", () => {
-  const rootContextMock = jest.fn();
+  const rootContextMock = prepareRootContextMock();
   const searchMethodMock = jest.fn();
 
   const mockedInitialListing: Ref<any> = ref(null);
@@ -18,6 +22,9 @@ describe("Composables - createListingComposable", () => {
 
   let routerReplaceValue: any = null;
   let routerReplaceCatch: any = null;
+
+  let cmsContextName = "";
+
   const routerMock = {
     replace: (param: any) => {
       routerReplaceValue = param;
@@ -37,20 +44,42 @@ describe("Composables - createListingComposable", () => {
     routerReplaceValue = null;
     routerMock.currentRoute.query = {};
     routerReplaceCatch = null;
-    mockedComposables.getApplicationContext.mockImplementation(() => {
-      return {
-        router: routerMock,
-        contextName: "createListingComposable",
-      } as any;
-    });
+    rootContextMock.router = routerMock;
     mockedComposables.useSharedState.mockImplementation(() => {
       return {
-        sharedRef: (key: string) => {
-          if (key.includes("initialListing")) return mockedInitialListing;
-          if (key.includes("appliedListing")) return mockedAppliedListing;
+        sharedRef: (contextName: string) => {
+          cmsContextName = contextName;
+          if (contextName.includes("initialListing"))
+            return mockedInitialListing;
+          if (contextName.includes("appliedListing"))
+            return mockedAppliedListing;
         },
       } as any;
     });
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
+  });
+
+  it("should use default cmsContext", () => {
+    createListingComposable({} as any);
+    expect(cmsContextName).not.toContain("createListingComposable(cms-");
+  });
+
+  it("should use defined cmsContext", () => {
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: true,
+      isVueScope: true,
+    });
+    mockedCompositionAPI.inject = jest
+      .fn()
+      .mockReturnValue("myInjectedContext");
+    createListingComposable({} as any);
+    expect(cmsContextName).toContain(
+      "createListingComposable(cms-myInjectedContext)"
+    );
   });
 
   it("should return composable with all values", () => {

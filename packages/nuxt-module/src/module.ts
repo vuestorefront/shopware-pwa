@@ -147,8 +147,10 @@ export async function runModule(
 
   let config = merge({}, getDefaultApiParams(), shopwarePwaConfig.apiDefaults);
   try {
+    /* istanbul ignore next */
     const defaultsConfigBuilder =
       require("@shopware-pwa/nuxt-module/api-defaults").default;
+    /* istanbul ignore next */
     config = defaultsConfigBuilder().get();
   } catch (e) {
     console.error("Cannot resolve API defaults config", e);

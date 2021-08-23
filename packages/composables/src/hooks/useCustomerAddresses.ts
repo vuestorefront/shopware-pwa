@@ -19,8 +19,9 @@ import {
   useSharedState,
   useUser,
   useDefaults,
+  getApplicationContext,
+  ApplicationVueContext,
 } from "@shopware-pwa/composables";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
@@ -177,7 +178,6 @@ export function useCustomerAddresses(
     params: ShopwareSearchParams = {}
   ): Promise<void> => {
     try {
-      console.warn("loadAddresses", getDefaults());
       const response = await getCustomerAddresses(
         Object.assign({}, getDefaults(), params),
         apiInstance

@@ -12,7 +12,7 @@
 |  [getApplicationContext(rootContext, key)](./composables.getapplicationcontext.md) | <b><i>(BETA)</i></b> |
 |  [getDefaultApiParams()](./composables.getdefaultapiparams.md) | <b><i>(BETA)</i></b> Returns default system API params |
 |  [useBreadcrumbs(rootContext, params)](./composables.usebreadcrumbs.md) | <b><i>(BETA)</i></b> Composable for displaying and setting breadcrumbs for page. |
-|  [useCms(rootContext)](./composables.usecms.md) | <b><i>(BETA)</i></b> |
+|  [useCms(options)](./composables.usecms.md) | <b><i>(BETA)</i></b> |
 |  [useCustomerAddresses(rootContext)](./composables.usecustomeraddresses.md) | <b><i>(BETA)</i></b> Composable for user's addresses management. Options - [IUseCustomerAddresses](./composables.iusecustomeraddresses.md) |
 |  [useCustomerPassword(rootContext)](./composables.usecustomerpassword.md) | <b><i>(BETA)</i></b> Composable for customer password management. Options - [IUseCustomerPassword](./composables.iusecustomerpassword.md) |
 |  [useOrderDetails(rootContext, order)](./composables.useorderdetails.md) | <b><i>(BETA)</i></b> Composable for managing an existing order. |

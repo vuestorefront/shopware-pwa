@@ -15,5 +15,6 @@ Array [
   "axios",
   "pwa",
   "build",
+  "render",
 ]
 `;

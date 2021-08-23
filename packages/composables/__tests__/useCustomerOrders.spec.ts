@@ -10,10 +10,9 @@ const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 const consoleErrorSpy = jest.spyOn(console, "error");
 
 import { useCustomerOrders } from "../src/hooks/useCustomerOrders";
+import { prepareRootContextMock } from "./contextRunner";
 describe("Composables - useCustomerOrders", () => {
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-  };
+  const rootContextMock = prepareRootContextMock();
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -23,6 +22,12 @@ describe("Composables - useCustomerOrders", () => {
         getDefaults: () => {},
       } as any;
     });
+
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
 
     consoleErrorSpy.mockImplementationOnce(() => {});
   });

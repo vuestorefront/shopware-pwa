@@ -25,8 +25,8 @@ export default {
       default: () => ({}),
     },
   },
-  setup(props, { root }) {
-    const { page } = useCms(root)
+  setup(props) {
+    const { page } = useCms()
     const product = computed(() => page.value?.product)
 
     const reviews = computed(() =>

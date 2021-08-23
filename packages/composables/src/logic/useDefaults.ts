@@ -1,4 +1,7 @@
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import {
+  ApplicationVueContext,
+  getApplicationContext,
+} from "@shopware-pwa/composables";
 import {
   Includes,
   ShopwareSearchParams,
@@ -31,7 +34,7 @@ import { warning } from "@shopware-pwa/commons";
  * @beta
  */
 export const useDefaults = (
-  rootContext: ApplicationVueContext,
+  rootContext: ApplicationVueContext | null | undefined,
   defaultsKey: string
 ): {
   getIncludesConfig: () => Includes;
