@@ -85,13 +85,15 @@ export async function logout(
  * @beta
  */
 export async function getCustomer(
+  parameters: ShopwareSearchParams = {},
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Customer | null> {
   try {
     // TODO: implement generic parameter converter for GET query string; related issue #568
-    const resp = await contextInstance.invoke.get(`${getCustomerEndpoint()}`, {
-      params: "associations[salutation][]",
-    });
+    const resp = await contextInstance.invoke.post(
+      getCustomerEndpoint(),
+      parameters
+    );
     return resp.data;
   } catch (e) {
     if (e.statusCode === 403) return null;
@@ -135,9 +137,9 @@ export async function getCustomerOrders(
 
 /**
  * Get order details
- *
- * @throws ClientApiError
  * @beta
+ * @throws ClientApiError
+ * @deprecated use getOrderDetails method instead
  */
 export async function getCustomerOrderDetails(
   orderId: string,

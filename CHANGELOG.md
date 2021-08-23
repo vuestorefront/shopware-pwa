@@ -1,3 +1,37 @@
+# [0.10.0](https://github.com/DivanteLtd/shopware-pwa/compare/v0.9.1...v0.10.0) (2021-08-12)
+
+
+### Bug Fixes
+
+* **cli:** plugins pages clearing on the runtime ([#1598](https://github.com/DivanteLtd/shopware-pwa/issues/1598)) ([9c5bd13](https://github.com/DivanteLtd/shopware-pwa/commit/9c5bd139709b773d4f302c5d533ee57c145f3f7c))
+* **composables:** avoid clearing breadcrumbs ([#1581](https://github.com/DivanteLtd/shopware-pwa/issues/1581)) ([9e5f573](https://github.com/DivanteLtd/shopware-pwa/commit/9e5f573d2b69f430ed71564afc2129d8aa6805bb))
+* **composables:** memory leak in the page middleware ([#1611](https://github.com/DivanteLtd/shopware-pwa/issues/1611)) ([48e5728](https://github.com/DivanteLtd/shopware-pwa/commit/48e57288b20db7b7574407a2a3d216325077dabf))
+* **composables:** missing aggregation on product listing ([#1572](https://github.com/DivanteLtd/shopware-pwa/issues/1572)) ([4007c96](https://github.com/DivanteLtd/shopware-pwa/commit/4007c96b1aedd55e4d3319d909d9fafc96ded4cd))
+* **default-theme:** allow guest customer to log in on mobile ([#1614](https://github.com/DivanteLtd/shopware-pwa/issues/1614)) ([a64b67e](https://github.com/DivanteLtd/shopware-pwa/commit/a64b67e61bac59e95f75fc00e5d8a7477f8bcb70))
+* **default-theme:** correct access to seo urls response elements ([#1576](https://github.com/DivanteLtd/shopware-pwa/issues/1576)) ([41bb7af](https://github.com/DivanteLtd/shopware-pwa/commit/41bb7af9030f7fe144bc9282caeae0a5e6643d06))
+* **default-theme:** prevent from calling page resolver on static pages ([#1617](https://github.com/DivanteLtd/shopware-pwa/issues/1617)) ([afc66eb](https://github.com/DivanteLtd/shopware-pwa/commit/afc66ebed6938d1353fb57e711ebc8b52e5e9b17))
+* **default-theme:** revert destructuring of props in SwCartProduct ([#1618](https://github.com/DivanteLtd/shopware-pwa/issues/1618)) ([f44d780](https://github.com/DivanteLtd/shopware-pwa/commit/f44d7806c20f76215095fd760b13abda02608978))
+* **nuxt-module:** ability to add new config key for defaults ([#1619](https://github.com/DivanteLtd/shopware-pwa/issues/1619)) ([b99915e](https://github.com/DivanteLtd/shopware-pwa/commit/b99915e0c9c22adb242cff77d2b3374f25f4236b))
+* use env from parent process ([#1583](https://github.com/DivanteLtd/shopware-pwa/issues/1583)) ([ae2548f](https://github.com/DivanteLtd/shopware-pwa/commit/ae2548f67a84de4a2d3f53ab833241f715450753))
+
+
+### Features
+
+* **cli:** dot env support and template ([#1580](https://github.com/DivanteLtd/shopware-pwa/issues/1580)) ([aa44c77](https://github.com/DivanteLtd/shopware-pwa/commit/aa44c77e2e6ee41ef1943e5eac6d08f84d19a68e))
+* **cli:** use current package version on project init ([#1597](https://github.com/DivanteLtd/shopware-pwa/issues/1597)) ([ed564b5](https://github.com/DivanteLtd/shopware-pwa/commit/ed564b5d842bb5ede15cd8db91cadeafd9705c6b))
+* **client:** allow to add multiple cart items ([#1599](https://github.com/DivanteLtd/shopware-pwa/issues/1599)) ([9318e98](https://github.com/DivanteLtd/shopware-pwa/commit/9318e987788b84dce06968bd59511426bcff0d19))
+* **composables:** sharedRef with default value ([#1591](https://github.com/DivanteLtd/shopware-pwa/issues/1591)) ([cea3b15](https://github.com/DivanteLtd/shopware-pwa/commit/cea3b159423e9340371c0d37c784f302b42f4b1a))
+* **composables:** useOrderDetails as order manager ([#1603](https://github.com/DivanteLtd/shopware-pwa/issues/1603)) ([f94f686](https://github.com/DivanteLtd/shopware-pwa/commit/f94f6868f494c525fce1004d8e842086673eb705))
+* **composables:** user related default api params ([#1626](https://github.com/DivanteLtd/shopware-pwa/issues/1626)) ([4351828](https://github.com/DivanteLtd/shopware-pwa/commit/43518285a6675fbfef37d26993222c7566b893c5))
+* **nuxt-module:** overwrite API defaults with more control ([9583293](https://github.com/DivanteLtd/shopware-pwa/commit/9583293730b103c5a1c1dc7b29e872f8a5f422d9))
+* added name property to property_group in listing api calls ([#1585](https://github.com/DivanteLtd/shopware-pwa/issues/1585)) ([2f2bf32](https://github.com/DivanteLtd/shopware-pwa/commit/2f2bf320754c851e09b74da95c343082c16cb3b0))
+* open api client errors ([#1582](https://github.com/DivanteLtd/shopware-pwa/issues/1582)) ([c8b7c83](https://github.com/DivanteLtd/shopware-pwa/commit/c8b7c8321b18da5ba15a5ca4071f9a7ca0c8235b))
+* simplify page resolver logic, shared useCms loading and error state ([#1592](https://github.com/DivanteLtd/shopware-pwa/issues/1592)) ([6acd63e](https://github.com/DivanteLtd/shopware-pwa/commit/6acd63ee9d6971a8ff4c8170c77299557ee4d837))
+* **composables:** vue 3 compatibility ([#1509](https://github.com/DivanteLtd/shopware-pwa/issues/1509)) ([43d33e0](https://github.com/DivanteLtd/shopware-pwa/commit/43d33e07f387a0a165b66db32b7ff8617790272e))
+* **default-theme:** added support for shopware landing pages ([#1587](https://github.com/DivanteLtd/shopware-pwa/issues/1587)) ([d96204a](https://github.com/DivanteLtd/shopware-pwa/commit/d96204ab58cb3405a5767cbedad16252987b6bb5))
+
+
+
 ## [0.9.2](https://github.com/DivanteLtd/shopware-pwa/compare/v0.9.1...v0.9.2) (2021-08-05)
 
 ### Bug Fixes

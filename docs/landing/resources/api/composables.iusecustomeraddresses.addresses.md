@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-addresses: Ref<CustomerAddress[] | null>;
+addresses: ComputedRef<CustomerAddress[]>;
 ```

@@ -1,5 +1,4 @@
 import {
-  CmsPageType,
   CmsSlotType,
   SectionType,
   SizingMode,
@@ -8,12 +7,6 @@ import {
 } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
 describe("Interfaces - CmsPage", () => {
-  it("should contain valid values for CmsPageType", async () => {
-    expect(CmsPageType.DEFAULT).toEqual("default");
-    expect(CmsPageType.LANDING_PAGE).toEqual("landingpage");
-    expect(CmsPageType.PRODUCT_LISTING).toEqual("product_list");
-  });
-
   it("should contain valid values for CmsSlotType", async () => {
     expect(CmsSlotType.IMAGE).toEqual("image");
     expect(CmsSlotType.PRODUCT_BOX).toEqual("product-box");

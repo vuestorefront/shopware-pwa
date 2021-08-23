@@ -1,4 +1,4 @@
-import { Ref, UnwrapRef, computed, reactive } from "vue-demi";
+import { ComputedRef, UnwrapRef, computed, reactive } from "vue-demi";
 import {
   getCustomerAddresses,
   setDefaultCustomerBillingAddress,
@@ -19,8 +19,9 @@ import {
   useSharedState,
   useUser,
   useDefaults,
+  getApplicationContext,
+  ApplicationVueContext,
 } from "@shopware-pwa/composables";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
@@ -36,7 +37,7 @@ export interface IUseCustomerAddresses {
     updateAddress: ShopwareError[];
     deleteAddress: ShopwareError[];
   }>;
-  addresses: Ref<CustomerAddress[] | null>;
+  addresses: ComputedRef<CustomerAddress[]>;
   loadAddresses: () => Promise<void>;
   addAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
   updateAddress: (
@@ -64,13 +65,14 @@ export function useCustomerAddresses(
     rootContext,
     "useCustomerAddresses"
   );
-  const { getDefaults } = useDefaults(rootContext, "useCustomerAddresses");
+  const { getDefaults } = useDefaults(rootContext, contextName);
 
   const { refreshUser } = useUser(rootContext);
 
   const { sharedRef } = useSharedState(rootContext);
   const storeAddresses = sharedRef<CustomerAddress[]>(
-    `${contextName}-addresses`
+    `${contextName}-addresses`,
+    []
   );
 
   const errors: UnwrapRef<{
@@ -86,7 +88,7 @@ export function useCustomerAddresses(
     deleteAddress: [],
     loadAddresses: [],
   });
-  const addresses = computed(() => storeAddresses.value);
+  const addresses = computed(() => storeAddresses.value || []);
 
   /**
    * Set address as default
@@ -180,7 +182,7 @@ export function useCustomerAddresses(
         Object.assign({}, getDefaults(), params),
         apiInstance
       );
-      storeAddresses.value = response?.elements;
+      storeAddresses.value = response.elements;
     } catch (e) {
       const err: ClientApiError = e;
       errors.loadAddresses = err.messages;

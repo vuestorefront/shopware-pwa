@@ -18,6 +18,7 @@ import { EntityResult } from '@shopware-pwa/commons/interfaces/response/EntityRe
 import { Language } from '@shopware-pwa/commons/interfaces/models/framework/language/Language';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
+import { OrderState } from '@shopware-pwa/commons/interfaces/models/checkout/order/OrderState';
 import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
@@ -50,7 +51,16 @@ export function addProductToCart(productId: string, quantity?: number, contextIn
 export function addPromotionCode(promotionCode: string, contextInstance?: ShopwareApiInstance): Promise<Cart>;
 
 // @beta
+export function cancelOrder(orderId: string, contextInstance?: ShopwareApiInstance): Promise<OrderState>;
+
+// @beta
 export function changeCartItemQuantity(itemId: string, newQuantity?: number, contextInstance?: ShopwareApiInstance): Promise<Cart>;
+
+// @beta
+export function changeOrderPaymentMethod(orderId: string, paymentMethodId: string, contextInstance?: ShopwareApiInstance): Promise<{
+    apiAlias: string;
+    success: boolean;
+}>;
 
 // @beta
 export function clearCart(contextInstance?: ShopwareApiInstance): Promise<ContextTokenResponse>;
@@ -181,6 +191,9 @@ export function getAvailableShippingMethods(contextInstance?: ShopwareApiInstanc
     onlyAvailable?: boolean;
 }): Promise<EntityResult<"shipping_method", ShippingMethod[]>>;
 
+// @beta (undocumented)
+export const getCancelOrderEndpoint: () => string;
+
 // @beta
 export function getCart(contextInstance?: ShopwareApiInstance): Promise<Cart>;
 
@@ -201,6 +214,9 @@ export const getCategoryProducts: (categoryId: string, criteria?: ShopwareSearch
 
 // @beta @deprecated
 export const getCategoryProductsListing: (categoryId: string, searchCriteria?: SearchCriteria | undefined, contextInstance?: ShopwareApiInstance) => Promise<ProductListingResult>;
+
+// @beta (undocumented)
+export const getChangeOrderPaymentMethodEndpoint: () => string;
 
 // @beta (undocumented)
 export const getCheckoutCartEndpoint: () => string;
@@ -242,7 +258,7 @@ export const getContextSalutationEndpoint: () => string;
 export const getContextShippingMethodEndpoint: () => string;
 
 // @beta
-export function getCustomer(contextInstance?: ShopwareApiInstance): Promise<Customer | null>;
+export function getCustomer(parameters?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<Customer | null>;
 
 // @beta (undocumented)
 export const getCustomerAddAddressEndpoint: () => string;
@@ -274,7 +290,7 @@ export const getCustomerLoginEndpoint: () => string;
 // @beta (undocumented)
 export const getCustomerLogoutEndpoint: () => string;
 
-// @beta
+// @beta @deprecated
 export function getCustomerOrderDetails(orderId: string, contextInstance?: ShopwareApiInstance, additionalQueryParams?: string): Promise<Order | undefined>;
 
 // @beta (undocumented)
@@ -308,6 +324,9 @@ export const getNewsletterSubscribeEndpoint: () => string;
 
 // @beta (undocumented)
 export const getNewsletterUnsubscribeEndpoint: () => string;
+
+// @beta
+export function getOrderDetails(orderId: string, params?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<Order | undefined>;
 
 // @beta (undocumented)
 export function getPage(path: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<PageResolverResult<CmsPage>>;

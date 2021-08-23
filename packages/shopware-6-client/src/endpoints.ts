@@ -144,6 +144,17 @@ export const getCheckoutCartLineItemEndpoint = () =>
  */
 export const getCheckoutOrderEndpoint = () => `/store-api/checkout/order`;
 
+/**
+ * @beta
+ */
+export const getCancelOrderEndpoint = () => `/store-api/order/state/cancel`;
+
+/**
+ * @beta
+ */
+export const getChangeOrderPaymentMethodEndpoint = () =>
+  `/store-api/order/payment`;
+
 // context
 
 /**

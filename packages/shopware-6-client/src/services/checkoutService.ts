@@ -1,6 +1,15 @@
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
-import { getCheckoutOrderEndpoint, handlePaymentEndpoint } from "../endpoints";
+import {
+  getCheckoutOrderEndpoint,
+  handlePaymentEndpoint,
+  getCustomerOrderEndpoint,
+  getCancelOrderEndpoint,
+  getChangeOrderPaymentMethodEndpoint,
+} from "../endpoints";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
+import { OrderState } from "@shopware-pwa/commons/interfaces/models/checkout/order/OrderState";
+import { SearchFilterType } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
+import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
  * Creates an order for logged in users
@@ -37,5 +46,72 @@ export async function handlePayment(
     params: { orderId, finishUrl, errorUrl },
   });
 
+  return resp.data;
+}
+
+/**
+ * Get order details
+ *
+ * @throws ClientApiError
+ * @beta
+ */
+export async function getOrderDetails(
+  orderId: string,
+  params?: ShopwareSearchParams,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<Order | undefined> {
+  const resp = await contextInstance.invoke.post(
+    getCustomerOrderEndpoint(),
+    Object.assign({}, params, {
+      filter: [
+        {
+          // filter order's collection by given id
+          type: SearchFilterType.EQUALS,
+          field: "id",
+          value: orderId,
+        },
+      ],
+    })
+  );
+  return resp.data?.orders?.elements?.[0];
+}
+
+/**
+ * Cancel an order
+ *
+ * @throws ClientApiError
+ * @beta
+ */
+export async function cancelOrder(
+  orderId: string,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<OrderState> {
+  const resp = await contextInstance.invoke.post(getCancelOrderEndpoint(), {
+    orderId,
+  });
+  return resp.data;
+}
+
+/**
+ * Change payment method for given order
+ *
+ * @throws ClientApiError
+ * @beta
+ */
+export async function changeOrderPaymentMethod(
+  orderId: string,
+  paymentMethodId: string,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<{
+  apiAlias: string;
+  success: boolean;
+}> {
+  const resp = await contextInstance.invoke.post(
+    getChangeOrderPaymentMethodEndpoint(),
+    {
+      orderId,
+      paymentMethodId,
+    }
+  );
   return resp.data;
 }

@@ -1,6 +1,8 @@
-import { ApplicationVueContext } from "@shopware-pwa/composables";
+import {
+  ApplicationVueContext,
+  getApplicationContext,
+} from "@shopware-pwa/composables";
 import { getCurrentInstance, onUnmounted } from "vue-demi";
-import { getApplicationContext } from "../appContext";
 
 /**
  * Keys used accross composables with the description of incommint parameters.
@@ -57,6 +59,27 @@ export const INTERCEPTOR_KEYS = {
    * - order object
    */
   ORDER_PLACE: "onOrderPlace",
+
+  /**
+   * Broadcasted by useOrderDetauils, changePaymentMethod method.
+   */
+  ORDER_PAYMENT_METHOD_CHANGED: "onOrderPaymentMethodChanged",
+
+  /**
+   * Broadcasted by useOrderDetauils, cancel method.
+   */
+  ORDER_CANCELLED: "onOrderCanceled",
+
+  /**
+   * Broadcasted by useOrderDetauils, loadOrderDetails method.
+   */
+  ORDER_DETAILS_LOADED: "onOrderDetailsLoaded",
+
+  /**
+   * Broadcasted by useOrderDetauils, handlePayment method.
+   */
+  ORDER_HANDLE_PAYMENT: "onOrderHandlePayment",
+
   /**
    * Broadcasted by useSessionContext, setCurrency method.
    * As a parameter passes:

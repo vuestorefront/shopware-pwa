@@ -4,9 +4,10 @@ import {
   useSessionContext,
   useCart,
   useSharedState,
+  ApplicationVueContext,
+  getApplicationContext,
 } from "@shopware-pwa/composables";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
 /**
  * @beta

@@ -9,7 +9,10 @@ import {
   invokePost,
   getProductDetailsEndpoint,
 } from "@shopware-pwa/shopware-6-client";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import {
+  ApplicationVueContext,
+  getApplicationContext,
+} from "@shopware-pwa/composables";
 
 /**
  * interface for {@link IUseProductAssociations} composable

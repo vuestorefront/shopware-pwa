@@ -43,8 +43,11 @@ import {
   useSharedState,
   useSessionContext,
   useCart,
+  ApplicationVueContext,
+  getApplicationContext,
+  useDefaults,
 } from "@shopware-pwa/composables";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
  * interface for {@link useUser} composable
@@ -157,6 +160,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   const { broadcast, intercept } = useIntercept(rootContext);
   const { refreshSessionContext } = useSessionContext(rootContext);
   const { refreshCart } = useCart(rootContext);
+  const { getDefaults } = useDefaults(rootContext, "useUser");
 
   const { sharedRef } = useSharedState(rootContext);
   const storeUser = sharedRef<Partial<Customer>>(`${contextName}-user`);
@@ -271,9 +275,14 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   const onUserRegister = (fn: IInterceptorCallbackFunction) =>
     intercept(INTERCEPTOR_KEYS.USER_REGISTER, fn);
 
-  const refreshUser = async (): Promise<void> => {
+  const refreshUser = async (
+    params: ShopwareSearchParams = {}
+  ): Promise<void> => {
     try {
-      const user = await getCustomer(apiInstance);
+      const user = await getCustomer(
+        Object.assign({}, getDefaults(), params),
+        apiInstance
+      );
       storeUser.value = user || {};
     } catch (e) {
       storeUser.value = {};

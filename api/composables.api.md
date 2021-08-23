@@ -11,6 +11,7 @@ import { BillingAddress } from '@shopware-pwa/commons/interfaces/models/checkout
 import { Breadcrumb } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
 import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { CmsPageType } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { ComponentInstance } from 'vue-demi';
 import { ComputedRef } from 'vue-demi';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
@@ -86,8 +87,11 @@ export function createListingComposable<ELEMENTS_TYPE>({ rootContext, searchMeth
     listingKey: string;
 }): IUseListing<ELEMENTS_TYPE>;
 
+// @alpha
+export function extendScopeContext(scope: any, app: any): void;
+
 // @beta (undocumented)
-export function getApplicationContext(rootContext: ApplicationVueContext, key?: string): {
+export function getApplicationContext(rootContext: ApplicationVueContext | undefined | null, key?: string): {
     apiInstance: ShopwareApiInstance | undefined;
     vuexStore: any;
     router: any;
@@ -96,9 +100,8 @@ export function getApplicationContext(rootContext: ApplicationVueContext, key?: 
     cookies: any;
     shopwareDefaults: any;
     interceptors: any;
-    routing: Routing;
+    routing: any;
     sharedStore: any;
-    instanceStore: any;
     isServer: boolean;
     contextName: string;
 };
@@ -123,6 +126,10 @@ export const INTERCEPTOR_KEYS: {
     WARNING: string;
     NOTICE: string;
     ORDER_PLACE: string;
+    ORDER_PAYMENT_METHOD_CHANGED: string;
+    ORDER_CANCELLED: string;
+    ORDER_DETAILS_LOADED: string;
+    ORDER_HANDLE_PAYMENT: string;
     SESSION_SET_CURRENCY: string;
     SESSION_SET_PAYMENT_METHOD: string;
     SESSION_SET_SHIPPING_METHOD: string;
@@ -223,7 +230,7 @@ export interface IUseCustomerAddresses {
     // (undocumented)
     addAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
     // (undocumented)
-    addresses: Ref<CustomerAddress[] | null>;
+    addresses: ComputedRef<CustomerAddress[]>;
     // (undocumented)
     deleteAddress: (addressId: string) => Promise<boolean>;
     // (undocumented)
@@ -553,10 +560,10 @@ export interface Routing {
 export type Search = (path: string, associations?: any) => any;
 
 // @beta
-export const useAddToCart: (rootContext: ApplicationVueContext, product: Product) => IUseAddToCart;
+export const useAddToCart: (rootContext: ApplicationVueContext_2, product: Product) => IUseAddToCart;
 
 // @beta
-export function useBreadcrumbs(rootContext: ApplicationVueContext, params?: {
+export function useBreadcrumbs(rootContext?: ApplicationVueContext_2 | null | undefined, params?: {
     hideHomeLink: boolean;
 }): {
     breadcrumbs: ComputedRef<Breadcrumb[]>;
@@ -568,15 +575,19 @@ export function useBreadcrumbs(rootContext: ApplicationVueContext, params?: {
 export const useCart: (rootContext: ApplicationVueContext) => IUseCart;
 
 // @beta @deprecated (undocumented)
-export const useCategoryFilters: (rootContext: ApplicationVueContext) => any;
+export const useCategoryFilters: (rootContext: ApplicationVueContext_2) => any;
 
 // @beta
-export const useCheckout: (rootContext: ApplicationVueContext) => IUseCheckout;
+export const useCheckout: (rootContext: ApplicationVueContext_2) => IUseCheckout;
 
 // @beta (undocumented)
-export function useCms(rootContext: ApplicationVueContext): {
+export function useCms(options?: {
+    cmsContextName?: string;
+}): {
     page: ComputedRef<PageResolverProductResult | PageResolverResult<CmsPage> | null>;
     categoryId: ComputedRef<string | null>;
+    resourceType: ComputedRef<CmsPageType | null>;
+    resourceIdentifier: ComputedRef<string | null>;
     currentSearchPathKey: ComputedRef<string | null>;
     loading: Ref<boolean>;
     search: (path: string, query?: any) => Promise<void>;
@@ -597,7 +608,7 @@ export interface UseCountries {
 }
 
 // @beta (undocumented)
-export const useCountries: (rootContext: ApplicationVueContext) => UseCountries;
+export const useCountries: (rootContext: ApplicationVueContext_2) => UseCountries;
 
 // @beta (undocumented)
 export interface UseCountry {
@@ -629,19 +640,19 @@ export interface UseCurrency {
 }
 
 // @beta (undocumented)
-export const useCurrency: (rootContext: ApplicationVueContext) => UseCurrency;
+export const useCurrency: (rootContext: ApplicationVueContext_2) => UseCurrency;
 
 // @beta
-export function useCustomerAddresses(rootContext: ApplicationVueContext): IUseCustomerAddresses;
+export function useCustomerAddresses(rootContext: ApplicationVueContext_2): IUseCustomerAddresses;
 
 // @beta
-export const useCustomerOrders: (rootContext: ApplicationVueContext) => IUseCustomerOrders;
+export const useCustomerOrders: (rootContext: ApplicationVueContext_2) => IUseCustomerOrders;
 
 // @beta
-export function useCustomerPassword(rootContext: ApplicationVueContext): IUseCustomerPassword;
+export function useCustomerPassword(rootContext: ApplicationVueContext_2): IUseCustomerPassword;
 
 // @beta
-export const useDefaults: (rootContext: ApplicationVueContext, defaultsKey: string) => {
+export const useDefaults: (rootContext: ApplicationVueContext_2 | null | undefined, defaultsKey: string) => {
     getIncludesConfig: () => Includes;
     getAssociationsConfig: () => Association[];
     getDefaults: () => ShopwareSearchParams;
@@ -654,12 +665,12 @@ export const useIntercept: (rootContext: ApplicationVueContext_2) => IUseInterce
 export const useListing: (rootContext: ApplicationVueContext_2, listingKey?: listingKey) => IUseListing_2<Product>;
 
 // @beta
-export const useNavigation: (rootContext: ApplicationVueContext, params?: {
+export const useNavigation: (rootContext: ApplicationVueContext_2, params?: {
     type: StoreNavigationType;
 }) => IUseNavigation;
 
 // @beta (undocumented)
-export const useNotifications: (rootContext: ApplicationVueContext) => {
+export const useNotifications: (rootContext: ApplicationVueContext_2) => {
     notifications: ComputedRef<Notification_2[]>;
     removeOne: (id: number) => void;
     removeAll: () => void;
@@ -667,6 +678,35 @@ export const useNotifications: (rootContext: ApplicationVueContext) => {
     pushWarning: (message: string, options?: any) => void;
     pushError: (message: string, options?: any) => void;
     pushSuccess: (message: string, options?: any) => void;
+};
+
+// @beta
+export function useOrderDetails(rootContext: ApplicationVueContext_2, order: Order): {
+    order: ComputedRef<Order | undefined | null>;
+    status: ComputedRef<string | undefined>;
+    total: ComputedRef<number | undefined>;
+    subtotal: ComputedRef<number | undefined>;
+    shippingCosts: ComputedRef<number | undefined>;
+    shippingAddress: ComputedRef<ShippingAddress | undefined>;
+    billingAddress: ComputedRef<BillingAddress | undefined>;
+    personalDetails: ComputedRef<{
+        email: string | undefined;
+        firstName: string | undefined;
+        lastName: string | undefined;
+    }>;
+    paymentUrl: Ref<null | string>;
+    shippingMethod: ComputedRef<ShippingMethod | undefined | null>;
+    paymentMethod: ComputedRef<PaymentMethod | undefined | null>;
+    errors: UnwrapRef<{
+        [key: string]: ShopwareError[];
+    }>;
+    loaders: UnwrapRef<{
+        [key: string]: boolean;
+    }>;
+    loadOrderDetails: () => void;
+    handlePayment: (successUrl?: string, errorUrl?: string) => void;
+    cancel: () => Promise<void>;
+    changePaymentMethod: (paymentMethodId: string) => Promise<void>;
 };
 
 // @beta (undocumented)
@@ -687,10 +727,10 @@ export interface UseProduct<PRODUCT, SEARCH> {
 export const useProduct: (rootContext: ApplicationVueContext, loadedProduct?: any) => UseProduct<Product, Search>;
 
 // @beta
-export function useProductAssociations(rootContext: ApplicationVueContext, product: Product, association: "cross-selling" | "reviews"): IUseProductAssociations;
+export function useProductAssociations(rootContext: ApplicationVueContext_2, product: Product, association: "cross-selling" | "reviews"): IUseProductAssociations;
 
 // @beta
-export const useProductConfigurator: (rootContext: ApplicationVueContext, product: Product) => IUseProductConfigurator;
+export const useProductConfigurator: (rootContext: ApplicationVueContext_2, product: Product) => IUseProductConfigurator;
 
 // @beta (undocumented)
 export const useProductQuickSearch: (rootContext: ApplicationVueContext_2) => IUseProductQuickSearch;
@@ -708,28 +748,34 @@ export interface UseSalutations {
 }
 
 // @beta (undocumented)
-export const useSalutations: (rootContext: ApplicationVueContext) => UseSalutations;
+export const useSalutations: (rootContext: ApplicationVueContext_2) => UseSalutations;
 
 // @beta
-export const useSessionContext: (rootContext: ApplicationVueContext) => IUseSessionContext;
+export const useSessionContext: (rootContext: ApplicationVueContext_2) => IUseSessionContext;
 
 // @beta
-export function useSharedState(rootContext: ApplicationVueContext): {
+export function useSharedState(rootContext?: ApplicationVueContext_2): {
     sharedRef: <T>(uniqueKey: string, defaultValue?: T | undefined) => WritableComputedRef<T | null>;
     preloadRef: (refObject: Ref<unknown>, callback: () => Promise<void>) => Promise<void>;
 };
 
 // @beta
-export const useUIState: (rootContext: ApplicationVueContext, stateName?: string | undefined) => {
+export const useUIState: (rootContext: ApplicationVueContext_2, stateName?: string | undefined) => {
     isOpen: ComputedRef<boolean>;
     switchState: (to?: boolean | undefined) => void;
 };
 
 // @beta
-export const useUser: (rootContext: ApplicationVueContext) => IUseUser;
+export const useUser: (rootContext: ApplicationVueContext_2) => IUseUser;
+
+// @alpha
+export function useVueContext(): {
+    isVueComponent: boolean;
+    isVueScope: boolean;
+};
 
 // @beta (undocumented)
-export const useWishlist: (rootContext: ApplicationVueContext, product?: Product | undefined) => IUseWishlist;
+export const useWishlist: (rootContext: ApplicationVueContext_2, product?: Product | undefined) => IUseWishlist;
 
 // (No @packageDocumentation comment for this package)
 
