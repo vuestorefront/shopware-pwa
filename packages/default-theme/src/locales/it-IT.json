@@ -236,5 +236,13 @@
   "Choose your shipping method": "Scegli il tuo metodo di spedizione",
   "Logged in as": "Accesso come {0}",
   "Guest session": "Sessione ospite",
-  "Login / Register": "Accedi / Registrati"
+  "Login / Register": "Accedi / Registrati",
+  "Cancel the order": "Cancella l'ordine",
+  "In progress...": "In corso...",
+  "Yes, cancel the order": "Sì, annulla l'ordine",
+  "No, thanks": "No grazie",
+  "Change payment method": "Cambia metodo di pagamento",
+  "Choose a new payment method": "Scegli un nuovo metodo di pagamento",
+  "Apply": "Applicare",
+  "Your order will be canceled": "Il tuo ordine verrà annullato"
 }

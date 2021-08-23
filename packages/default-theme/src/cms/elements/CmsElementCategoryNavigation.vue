@@ -90,7 +90,7 @@ export default {
       root,
       "CmsElementCategoryNavigation"
     )
-    const { categoryId } = useCms(root)
+    const { resourceIdentifier } = useCms()
     const navTitle = ref(root.$t("Subcategories"))
     const navigationElements = ref([])
     const navigation = computed(() => navigationElements.value)
@@ -99,8 +99,8 @@ export default {
       try {
         const response = await getStoreNavigation(
           {
-            requestActiveId: categoryId.value,
-            requestRootId: categoryId.value,
+            requestActiveId: resourceIdentifier.value,
+            requestRootId: resourceIdentifier.value,
           },
           apiInstance
         )

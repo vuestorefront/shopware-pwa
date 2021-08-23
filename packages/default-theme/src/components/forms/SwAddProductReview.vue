@@ -7,7 +7,7 @@
         :level="4"
       />
       <form
-        v-if="isLoggedIn"
+        v-if="canAddReview"
         action=""
         class="add-review-form"
         @submit.prevent="submitForm"
@@ -45,7 +45,7 @@
       </form>
 
       <SwButton
-        v-if="!isLoggedIn"
+        v-if="!canAddReview"
         class="login button color"
         @click="switchLoginModalState"
       >
@@ -89,7 +89,7 @@ export default {
     },
   },
   setup(props, { root }) {
-    const { isLoggedIn } = useUser(root)
+    const { isLoggedIn, isGuestSession } = useUser(root)
     const { apiInstance } = getApplicationContext(root, "SwAddProductReview")
     const { switchState: switchLoginModalState } = useUIState(
       root,
@@ -107,6 +107,9 @@ export default {
       content: reviewContent.value,
       points: reviewRating.value,
     }))
+    const canAddReview = computed(
+      () => isLoggedIn.value && !isGuestSession.value
+    )
     const setCurrentRating = (rating) => {
       reviewRating.value = rating
     }
@@ -127,7 +130,6 @@ export default {
     }
 
     return {
-      isLoggedIn,
       switchLoginModalState,
       reviewTitle,
       reviewContent,
@@ -137,6 +139,7 @@ export default {
       setCurrentRating,
       wasReviewSent,
       isSending,
+      canAddReview,
     }
   },
 }

@@ -23,6 +23,7 @@ import {
   SfQuantitySelector,
 } from "@storefront-ui/vue"
 import { usePriceFilter } from "@/logic/usePriceFilter.js"
+import { computed } from "@vue/composition-api"
 
 export default {
   name: "OrderItem",

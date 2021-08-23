@@ -1,270 +1,13 @@
 import { isArray, mergeWith, set, get } from "lodash";
-import { ApiDefaults } from "@shopware-pwa/commons";
+import { getDefaultApiParams } from "@shopware-pwa/composables";
 function _customizer(objValue: Object, srcValue: string[]) {
   if (isArray(objValue)) {
     return [...new Set([...objValue, ...srcValue])];
   }
 }
 
-const defaultConfig: ApiDefaults = {
-  useCms: {
-    limit: 10,
-    associations: {
-      manufacturer: {
-        associations: {
-          media: {},
-        },
-      },
-      media: {
-        sort: [
-          {
-            field: "position",
-            order: "ASC",
-            naturalSorting: false,
-          },
-        ],
-      },
-      productReviews: {},
-      crossSellings: {
-        associations: {
-          assignedProducts: {
-            associations: {
-              product: {
-                associations: {
-                  media: {},
-                  cover: {},
-                  seoUrls: {},
-                },
-              },
-            },
-          },
-        },
-      },
-      properties: {
-        associations: {
-          group: {},
-        },
-      },
-    },
-    includes: {
-      cms_page_slot: [
-        "id",
-        "type",
-        "slot",
-        "blockId",
-        "config",
-        "data",
-        "backgroundMediaMode",
-        "backgroundMedia",
-      ],
-      cms_page_block: [
-        "slots",
-        "type",
-        "id",
-        "backgroundColor",
-        "backgroundMedia",
-        "sectionPosition",
-      ],
-      cms_page_section: [
-        "id",
-        "backgroundMedia",
-        "blocks",
-        "type",
-        "sizingMode",
-      ],
-      cms_page: ["id", "name", "sections", "type", "config"],
-      product: [
-        "media",
-        "productReviews",
-        "name",
-        "description",
-        "ratingAverage",
-        "calculatedPrice",
-        "calculatedPrices",
-        "calculatedListingPrice",
-        "cover",
-        "parentId",
-        "id",
-        "translated",
-        "optionIds",
-        "properties",
-        "manufacturer",
-        "seoUrls",
-        "crossSellings",
-        "availableStock",
-        "customFields",
-        "stock",
-      ],
-      product_media: ["media"],
-      media: ["thumbnails", "width", "height", "url"],
-      media_thumbnail: ["url", "width", "height", "id"],
-      calculated_price: ["unitPrice", "quantity", "listPrice"],
-      product_group_option: ["id", "group", "translated", "name"],
-      product_group: ["id", "translated", "name"],
-      product_listing: [
-        "sorting",
-        "currentFilters",
-        "elements",
-        "page",
-        "limit",
-        "sortings",
-        "availableSortings",
-        "total",
-        "aggregations",
-      ],
-      property_group: ["id", "translated", "options", "name"],
-      property_group_option: [
-        "translated",
-        "name",
-        "id",
-        "colorHexCode",
-        "media",
-        "group",
-      ],
-      product_manufacturer: ["translated", "link", "name"],
-    },
-  },
-  useProductListing: {
-    limit: 10,
-    includes: {
-      product: [
-        "name",
-        "ratingAverage",
-        "calculatedPrice",
-        "calculatedPrices",
-        "calculatedListingPrice",
-        "cover",
-        "id",
-        "translated",
-        "options",
-        "seoUrls",
-      ],
-      product_media: ["media"],
-      media: ["thumbnails", "width", "height", "url"],
-      calculated_price: ["unitPrice", "quantity", "listPrice"],
-      product_group_option: ["name", "id", "group", "translated"],
-      product_group: ["id", "name", "options", "translated"],
-      property_group: ["id", "translated", "options", "name"],
-      property_group_option: [
-        "translated",
-        "name",
-        "id",
-        "colorHexCode",
-        "media",
-        "group",
-      ],
-    },
-  },
-  useProductQuickSearch: {
-    limit: 10,
-    includes: {
-      calculated_price: ["unitPrice", "quantity", "listPrice"],
-    },
-  },
-  useListing: {
-    limit: 10,
-    includes: {
-      product: [
-        "name",
-        "ratingAverage",
-        "calculatedPrice",
-        "calculatedPrices",
-        "calculatedListingPrice",
-        "cover",
-        "id",
-        "translated",
-        "options",
-        "seoUrls",
-      ],
-      product_media: ["media"],
-      media: ["thumbnails", "width", "height", "url"],
-      calculated_price: ["unitPrice", "quantity", "listPrice"],
-      product_group_option: ["name", "id", "group", "translated"],
-      product_group: ["id", "name", "options", "translated"],
-      property_group: ["id", "translated", "options", "name"],
-      property_group_option: [
-        "name",
-        "translated",
-        "id",
-        "colorHexCode",
-        "media",
-        "group",
-      ],
-    },
-  },
-  useProduct: {
-    associations: {
-      crossSellings: {
-        associations: {
-          assignedProducts: {
-            associations: {
-              product: {
-                associations: {
-                  media: {},
-                  cover: {},
-                  seoUrls: {},
-                },
-              },
-            },
-          },
-        },
-      },
-      media: {
-        sort: [
-          {
-            field: "position",
-            order: "ASC",
-            naturalSorting: false,
-          },
-        ],
-      },
-    },
-    includes: {
-      product: [
-        "name",
-        "ratingAverage",
-        "calculatedPrice",
-        "calculatedPrices",
-        "calculatedListingPrice",
-        "cover",
-        "id",
-        "parentId",
-        "translated",
-        "media",
-        "seoUrls",
-        "crossSellings",
-        "availableStock",
-        "customFields",
-      ],
-      product_media: ["media"],
-      media: ["url"],
-      media_thumbnail: ["url", "width", "height", "id"],
-      calculated_price: ["unitPrice", "quantity", "listPrice"],
-      product_group_option: ["name", "id", "group", "translated"],
-      product_group: ["id", "name", "translated"],
-    },
-  },
-  useNavigation: {
-    associations: {
-      seoUrls: {},
-    },
-    includes: {
-      category: [
-        "seoUrls",
-        "externalLink",
-        "name",
-        "id",
-        "children",
-        "translated",
-        "type",
-      ],
-      seo_url: ["pathInfo", "seoPathInfo"],
-    },
-  },
-};
-
 function _getDefaultConfig() {
-  return JSON.parse(JSON.stringify(defaultConfig));
+  return JSON.parse(JSON.stringify(getDefaultApiParams()));
 }
 
 let finalConfig = _getDefaultConfig();
@@ -276,7 +19,9 @@ export default function defaultsConfigBuilder() {
      */
     add: (key: string, config: unknown) => {
       const property = get(finalConfig, key);
-      if (Array.isArray(property) && !Array.isArray(config)) {
+      if (!property) {
+        set(finalConfig, key, config);
+      } else if (Array.isArray(property) && !Array.isArray(config)) {
         mergeWith(property, [config], _customizer);
       } else {
         mergeWith(property, config, _customizer);
@@ -299,10 +44,10 @@ export default function defaultsConfigBuilder() {
         if (Array.isArray(property)) {
           const newValue = property.filter((item) => item !== value);
           set(finalConfig, key, newValue);
+          return defaultsConfigBuilder();
         }
-      } else {
-        set(finalConfig, key, undefined);
       }
+      set(finalConfig, key, undefined);
       return defaultsConfigBuilder();
     },
     /**

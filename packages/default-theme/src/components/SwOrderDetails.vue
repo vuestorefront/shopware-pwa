@@ -1,96 +1,193 @@
 <template>
-  <div v-if="order" class="sw-order-details">
-    <SfHeading
-      class="sw-order-details__header full-width"
-      :level="3"
-      :title="`${$t('Order no.')} ${order.orderNumber}`"
-    />
-    <div class="sw-order-details__totals">
-      <SfTable class="sf-table--bordered table">
-        <SfTableHeading class="table__row">
-          <SfTableHeader
-            v-for="tableHeader in tableHeaders"
-            :key="tableHeader"
-            class="table__header"
-            :class="{
-              table__description: tableHeader === 'Item',
-              table__quantity: tableHeader === 'Quantity',
-              table__amount: tableHeader === 'Amount',
-              table__price: tableHeader === 'Price',
-            }"
-            >{{ tableHeader }}</SfTableHeader
-          >
-        </SfTableHeading>
-        <SwOrderDetailsItem
-          v-for="item in order.lineItems"
-          :key="item.id"
-          :product="item"
-        />
-      </SfTable>
+  <SfLoader :loading="isOrderDetailsLoading" class="sw-order-details-loader">
+    <div v-if="order" class="sw-order-details">
       <SfHeading
-        :title="$t('Totals')"
-        :level="2"
-        class="sf-heading--left sf-heading--no-underline sw-totals__title"
+        class="sw-order-details__header full-width"
+        :level="3"
+        :title="`${$t('Order no.')} ${order.orderNumber}`"
       />
-      <SwTotals :shipping="shippingCosts" :total="total" :subtotal="subtotal" />
-    </div>
-    <div class="sw-order-details__addresses">
-      <SwPersonalDetails :personal-details="personalDetails" class="content" />
-      <SwAddress
-        v-if="billingAddress"
-        :address="billingAddress"
-        :address-title="$t('Billing address')"
-        class="content"
-      />
-
-      <SwAddress
-        v-if="shippingAddress"
-        :address="shippingAddress"
-        :address-title="$t('Shipping address')"
-        class="content"
-      />
-
-      <SwPluginSlot
-        name="order-details-payment-method"
-        :slot-context="paymentMethod"
-      >
-        <SwCheckoutMethod
-          v-if="paymentMethod"
-          :method="paymentMethod"
-          :label="$t('Payment method')"
-          class="content"
-        />
-      </SwPluginSlot>
-
-      <SwPluginSlot
-        name="order-details-shipping-method"
-        :slot-context="shippingMethod"
-      >
-        <SwCheckoutMethod
-          v-if="shippingMethod"
-          :method="shippingMethod"
-          :label="$t('Shipping method')"
-          class="content"
-        />
-      </SwPluginSlot>
-      <SfProperty :name="$t('Order status')" :value="status" />
-      <SfLoader
-        :loading="isPaymentButtonLoading"
-        class="sw-order-details__loader"
-      >
-        <template #loader>{{ $t("Checking payment status...") }}</template>
-        <div v-if="paymentUrl">
-          <a :href="paymentUrl">
-            <SwButton
-              class="sf-button sf-button--full-width pay-button color-danger"
+      <div class="sw-order-details__totals">
+        <SfTable class="sf-table--bordered table">
+          <SfTableHeading class="table__row">
+            <SfTableHeader
+              v-for="tableHeader in tableHeaders"
+              :key="tableHeader"
+              class="table__header"
+              :class="{
+                table__description: tableHeader === 'Item',
+                table__quantity: tableHeader === 'Quantity',
+                table__amount: tableHeader === 'Amount',
+                table__price: tableHeader === 'Price',
+              }"
+              >{{ tableHeader }}</SfTableHeader
             >
-              {{ $t("Pay for your order") }}
-            </SwButton>
-          </a>
+          </SfTableHeading>
+          <SwOrderDetailsItem
+            v-for="item in order.lineItems"
+            :key="item.id"
+            :product="item"
+          />
+        </SfTable>
+        <SfHeading
+          :title="$t('Totals')"
+          :level="2"
+          class="sf-heading--left sf-heading--no-underline sw-totals__title"
+        />
+        <SwTotals
+          :shipping="shippingCosts"
+          :total="total"
+          :subtotal="subtotal"
+        />
+      </div>
+      <div class="sw-order-details__sidebar">
+        <SwPersonalDetails
+          :personal-details="personalDetails"
+          class="content"
+        />
+        <SwAddress
+          v-if="billingAddress"
+          :address="billingAddress"
+          :address-title="$t('Billing address')"
+          class="content"
+        />
+
+        <SwAddress
+          v-if="shippingAddress"
+          :address="shippingAddress"
+          :address-title="$t('Shipping address')"
+          class="content"
+        />
+
+        <SwPluginSlot
+          name="order-details-payment-method"
+          :slot-context="paymentMethod"
+        >
+          <SwCheckoutMethod
+            v-if="paymentMethod"
+            :method="paymentMethod"
+            :label="$t('Payment method')"
+            class="content"
+          />
+        </SwPluginSlot>
+
+        <SwPluginSlot
+          name="order-details-shipping-method"
+          :slot-context="shippingMethod"
+        >
+          <SwCheckoutMethod
+            v-if="shippingMethod"
+            :method="shippingMethod"
+            :label="$t('Shipping method')"
+            class="content"
+          />
+        </SwPluginSlot>
+        <SfProperty :name="$t('Order status')" :value="status" />
+
+        <div
+          class="sw-order-details__sidebar--actions"
+          v-if="!isOrderCancelled"
+        >
+          <h4 class="sw-order-details__title">{{ $t("Actions") }}</h4>
+          <SfLoader
+            :loading="isPaymentButtonLoading"
+            class="sw-order-details__loader"
+          >
+            <template #loader>{{ $t("Checking payment status...") }}</template>
+            <div v-if="paymentUrl">
+              <a :href="paymentUrl">
+                <SwButton
+                  class="sf-button sf-button--full-width pay-button color-info"
+                >
+                  {{ $t("Pay for your order") }}
+                </SwButton>
+              </a>
+            </div>
+          </SfLoader>
+          <!--- CANCEL ORDER -->
+          <SwButton
+            class="
+              sf-button sf-button--underlined sf-button--full-width
+              pay-button
+              color-danger
+            "
+            @click="cancelModalVisible = true"
+          >
+            {{ $t("Cancel the order") }}
+          </SwButton>
+          <SfBottomModal
+            class="sw-order-details-modal sw-cancel-order-modal"
+            :title="$t('Your order will be canceled')"
+            :is-open="cancelModalVisible"
+            @click:close="cancelModalVisible = false"
+          >
+            <div class="center-content sw-cancel-order-modal__actions">
+              <SwButton @click="cancelOrder" class="sf-button color-secondary">
+                {{
+                  cancelLoader
+                    ? $t("In progress...")
+                    : $t("Yes, cancel the order")
+                }}
+              </SwButton>
+              <SwButton
+                @click="cancelModalVisible = false"
+                :disabled="cancelLoader"
+                class="sf-button color-light"
+              >
+                {{ $t("No, thanks") }}
+              </SwButton>
+            </div>
+          </SfBottomModal>
+          <!--- CHANGE PAYMENT METHOD -->
+          <SwButton
+            class="
+              sf-button sf-button--underlined sf-button--full-width
+              pay-button
+              color-danger
+            "
+            @click="openChangePaymentMethodModal"
+          >
+            {{ $t("Change payment method") }}
+          </SwButton>
+          <SfBottomModal
+            class="sw-change-payment-method-modal"
+            :title="$t('Choose a new payment method')"
+            :is-open="changePaymentMethodModalVisible"
+            @click:close="changePaymentMethodModalVisible = false"
+          >
+            <div class="center-content sw-order-details-modal__actions">
+              <SfSelect
+                class="payment-methods-select"
+                v-model="selectedPaymentMethod"
+              >
+                <SfSelectOption
+                  v-for="option in availablePaymentMethods"
+                  :key="option.id"
+                  :value="option.id"
+                >
+                  {{ option.name }}
+                  <span
+                    class="payment-methods-select__current"
+                    v-if="paymentMethod.id === option.id"
+                    >({{ $t("current") }})</span
+                  >
+                </SfSelectOption>
+              </SfSelect>
+              <SwButton
+                @click="changePaymentMethod"
+                class="sf-button color-secondary"
+              >
+                {{
+                  isChangePaymentMethodLoading
+                    ? $t("In progress...")
+                    : $t("Apply")
+                }}
+              </SwButton>
+            </div>
+          </SfBottomModal>
         </div>
-      </SfLoader>
+      </div>
     </div>
-  </div>
+  </SfLoader>
 </template>
 
 <script>
@@ -100,11 +197,14 @@ import {
   SfHeading,
   SfLoader,
   SfCharacteristic,
-  SfModal,
+  SfBottomModal,
+  SfDivider,
+  SfSelect,
 } from "@storefront-ui/vue"
 import {
+  useCheckout,
   useNotifications,
-  useUser,
+  useOrderDetails,
   getApplicationContext,
 } from "@shopware-pwa/composables"
 import { ref, onMounted, computed, watch } from "@vue/composition-api"
@@ -141,7 +241,9 @@ export default {
     SwTotals,
     SwPluginSlot,
     SfCharacteristic,
-    SfModal,
+    SfBottomModal,
+    SfDivider,
+    SfSelect,
   },
   props: {
     orderId: {
@@ -164,80 +266,64 @@ export default {
       ],
     }
   },
-  // TODO: move this logic into separate service;
-  // details: https://github.com/DivanteLtd/shopware-pwa/issues/781
   setup({ orderId }, { root }) {
-    const { apiInstance } = getApplicationContext(root, "SwOrderDetails")
-    const { getOrderDetails, loading, error: userError } = useUser(root)
+    const { getPaymentMethods } = useCheckout(root)
     const { pushWarning } = useNotifications(root)
-    const order = ref(null)
-    const paymentMethod = computed(
-      () => order.value?.transactions?.[0]?.paymentMethod
-    )
-    const shippingMethod = computed(
-      () => order.value?.deliveries?.[0]?.shippingMethod
-    )
-    const paymentUrl = ref(null)
-    const isPaymentButtonLoading = ref(false)
+    const {
+      order,
+      status,
+      total,
+      subtotal,
+      shippingCosts,
+      shippingAddress,
+      billingAddress,
+      personalDetails,
+      isPaymentButtonLoading,
+      paymentUrl,
+      shippingMethod,
+      paymentMethod,
+      loaders,
+      loadOrderDetails,
+      handlePayment,
+      cancel,
+      changePaymentMethod: doChangePaymentMethod,
+    } = useOrderDetails(root, { id: orderId })
 
-    const personalDetails = computed(
-      () =>
-        order.value && {
-          email: order.value.orderCustomer.email,
-          firstName: order.value.orderCustomer.firstName,
-          lastName: order.value.orderCustomer.lastName,
-        }
+    const cancelModalVisible = ref(false)
+    const changePaymentMethodModalVisible = ref(false)
+    const selectedPaymentMethod = ref(paymentMethod.value?.id)
+    const availablePaymentMethods = ref([])
+
+    const cancelOrder = async () => {
+      await cancel()
+      cancelModalVisible.value = false
+    }
+
+    const openChangePaymentMethodModal = async () => {
+      availablePaymentMethods.value = (await getPaymentMethods())?.value
+      changePaymentMethodModalVisible.value = true
+    }
+
+    const changePaymentMethod = async () => {
+      await doChangePaymentMethod(selectedPaymentMethod.value)
+      await handlePayment()
+      changePaymentMethodModalVisible.value = false
+    }
+
+    const isOrderCancelled = computed(
+      () => order.value?.stateMachineState?.technicalName === "cancelled"
     )
-    const billingAddress = computed(
-      () =>
-        order.value &&
-        order.value.addresses &&
-        order.value.addresses.find(
-          ({ id }) => id == order.value.billingAddressId
-        )
-    )
-    const shippingAddress = computed(
-      () => order.value?.deliveries?.[0]?.shippingOrderAddress
+    const cancelLoader = computed(() => loaders.cancel)
+    const changePaymentMethodLoader = computed(
+      () => loaders.changePaymentMethod
     )
 
-    const shippingCosts = computed(
-      () => order.value && order.value.shippingCosts.totalPrice
-    )
-    const subtotal = computed(
-      () => order.value && order.value.price.positionPrice
-    )
-    const total = computed(() => order.value && order.value.price.totalPrice)
-    const status = computed(
-      () => order.value && order.value.stateMachineState.name
-    )
-
-    onMounted(async () => {
-      try {
-        isPaymentButtonLoading.value = true
-        order.value = await getOrderDetails(orderId)
-        const resp = await handlePayment(
-          orderId,
-          root.$routing.getAbsoluteUrl(
-            `${PAGE_ORDER_SUCCESS}?orderId=${orderId}`
-          ),
-          root.$routing.getAbsoluteUrl(
-            `${PAGE_ORDER_PAYMENT_FAILURE}?orderId=${orderId}`
-          ),
-          apiInstance
-        )
-        paymentUrl.value = resp.redirectUrl
-      } catch (e) {
-        pushWarning(
-          root.$t(
-            "An error occred during checking the payment status. Please try again later."
-          )
-        )
-      }
-      isPaymentButtonLoading.value = false
+    onMounted(() => {
+      loadOrderDetails()
+      handlePayment()
     })
 
     return {
-      userError,
       order,
       personalDetails,
       billingAddress,
@@ -249,7 +335,18 @@ export default {
       total,
       status,
       paymentUrl,
-      isPaymentButtonLoading,
+      isPaymentButtonLoading: computed(() => loaders.handlePayment),
+      isOrderDetailsLoading: computed(() => loaders.loadOrderDetails),
+      isChangePaymentMethodLoading: computed(() => loaders.changePaymentMethod),
+      cancelLoader,
+      cancelModalVisible,
+      cancelOrder,
+      isOrderCancelled,
+      changePaymentMethod,
+      openChangePaymentMethodModal,
+      changePaymentMethodModalVisible,
+      selectedPaymentMethod,
+      availablePaymentMethods,
     }
   },
 }
@@ -257,10 +354,11 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/variables";
-
+.sw-order-details-loader {
+  max-width: 70vw;
+}
 .sw-order-details {
   padding: 1rem;
-  width: 60%;
   display: flex;
   flex-wrap: wrap;
 
@@ -271,6 +369,7 @@ export default {
   }
 
   &__loader {
+    height: auto;
     margin-top: var(--spacer-base);
   }
 
@@ -278,6 +377,14 @@ export default {
     text-align: left;
     width: 100%;
     margin: 0 0 var(--spacer-base) 0;
+  }
+
+  &__title {
+    text-align: center;
+    margin-top: var(--spacer-base);
+    color: var(--c-text);
+    font-size: var(--font-size--sm);
+    margin-bottom: var(--spacer-sm);
   }
 
   &__totals {
@@ -298,9 +405,9 @@ export default {
     }
   }
 
-  &__addresses {
+  &__sidebar {
     flex: 1;
-    box-sizing: border-box;
+    //box-sizing: border-box;
     width: 100%;
     background-color: #f1f2f3;
     padding: var(--spacer-xl);
@@ -367,5 +474,34 @@ export default {
   display: flex;
   margin-top: var(--spacer-base);
   margin-bottom: 0;
+}
+
+.center-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sw-cancel-order-modal {
+  &__actions {
+    :first-child {
+      margin-right: var(--spacer-xs);
+    }
+  }
+}
+
+.sw-change-payment-method-modal {
+  .sw-order-details-modal__actions {
+    flex-direction: column;
+  }
+
+  .payment-methods-select {
+    &__current {
+      font-size: 0.8rem;
+    }
+    .sf-select__label {
+      font-size: 2rem;
+    }
+  }
 }
 </style>

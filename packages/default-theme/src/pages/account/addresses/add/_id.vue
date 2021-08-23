@@ -12,7 +12,7 @@
 
 <script>
 import SwAddressForm from "@/components/forms/SwAddressForm.vue"
-import { useUser } from "@shopware-pwa/composables"
+import { useCustomerAddresses, useUser } from "@shopware-pwa/composables"
 
 export default {
   components: { SwAddressForm },
@@ -22,14 +22,10 @@ export default {
     }
   },
   setup(props, { root }) {
-    const {
-      addresses,
-      loadAddresses,
-      country,
-      loadCountry,
-      salutation,
-      loadSalutation,
-    } = useUser(root)
+    const { addresses, loadAddresses } = useCustomerAddresses(root)
+
+    const { country, loadCountry, salutation, loadSalutation } = useUser(root)
+
     return {
       loadAddresses,
       addresses,

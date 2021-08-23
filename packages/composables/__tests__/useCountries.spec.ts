@@ -12,11 +12,10 @@ jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 
 import { useCountries } from "../src/hooks/useCountries";
+import { prepareRootContextMock } from "./contextRunner";
 
 describe("Composables - useCountries", () => {
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-  };
+  const rootContextMock = prepareRootContextMock();
   const stateSharedRef = ref();
 
   beforeEach(() => {
@@ -27,6 +26,12 @@ describe("Composables - useCountries", () => {
         sharedRef: () => stateSharedRef,
       } as any;
     });
+
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
   });
 
   describe("refs", () => {});

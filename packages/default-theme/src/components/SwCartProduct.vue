@@ -80,20 +80,20 @@ export default {
       default: false,
     },
   },
-  setup({ product, additionalItemsData }, { root }) {
+  setup(props, { root }) {
     const { apiInstance } = getApplicationContext(root, "SwCartProduct")
     const { removeProduct, changeProductQuantity } = useCart(root)
 
     // get the URL from async loaded product data - passed by the parent component
     const productUrl = computed(() => {
-      const matchingProductAdditionalData = additionalItemsData.find(
-        ({ id }) => id === product.referencedId
+      const matchingProductAdditionalData = props.additionalItemsData.find(
+        ({ id }) => id === props.product.referencedId
       )
       return getProductUrl(matchingProductAdditionalData)
     })
-    const quantity = ref(product.quantity)
+    const quantity = ref(props.product.quantity)
     const productImage = computed(() =>
-      getResizedImage(getProductMainImageUrl(product), {
+      getResizedImage(getProductMainImageUrl(props.product), {
         width: 140,
         height: 200,
       })
@@ -101,28 +101,29 @@ export default {
     // it's not 1:1 to Product entity interface
     const regularPrice = computed(
       () =>
-        (product.price.listPrice && product.price.listPrice.price) ||
-        product.price.unitPrice
+        (props.product.price.listPrice &&
+          props.product.price.listPrice.price) ||
+        props.product.price.unitPrice
     )
     const specialPrice = computed(
-      () => product.price.listPrice && product.price.unitPrice
+      () => props.product.price.listPrice && props.product.price.unitPrice
     )
 
     const options = computed(
-      () => (product.payload && product.payload.options) || []
+      () => (props.product.payload && props.product.payload.options) || []
     )
 
-    const stock = computed(() => product?.deliveryInformation?.stock)
+    const stock = computed(() => props.product?.deliveryInformation?.stock)
 
-    const isPromotion = computed(() => product?.type === "promotion")
+    const isPromotion = computed(() => props.product?.type === "promotion")
 
     watch(quantity, async (qty) => {
       // in future we may want to have debounce here
-      if (qty === product.quantity) return
-      await changeProductQuantity({ id: product.id, quantity: qty })
+      if (qty === props.product.quantity) return
+      await changeProductQuantity({ id: props.product.id, quantity: qty })
     })
     watch(
-      () => product.quantity,
+      () => props.product.quantity,
       (qty) => {
         quantity.value = qty
       }

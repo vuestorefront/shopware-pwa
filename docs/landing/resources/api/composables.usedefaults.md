@@ -12,7 +12,7 @@ Returns default config depending on config key. It is used in composables, so de
 <b>Signature:</b>
 
 ```typescript
-useDefaults: (rootContext: ApplicationVueContext, defaultsKey: string) => {
+useDefaults: (rootContext: ApplicationVueContext | null | undefined, defaultsKey: string) => {
     getIncludesConfig: () => Includes;
     getAssociationsConfig: () => Association[];
     getDefaults: () => ShopwareSearchParams;

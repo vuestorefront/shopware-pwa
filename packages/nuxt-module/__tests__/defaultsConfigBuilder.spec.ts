@@ -52,6 +52,17 @@ describe("nuxt-module - defaultsConfigBuilder", () => {
         associations: { media: {}, something: {} },
       });
     });
+
+    it("should add new key to config", () => {
+      const result = defaultsConfigBuilder()
+        .add("myNewKey", {
+          someConfig: 123,
+        })
+        .get();
+      expect(result.myNewKey).toEqual({
+        someConfig: 123,
+      });
+    });
   });
 
   describe("replace", () => {
@@ -94,6 +105,13 @@ describe("nuxt-module - defaultsConfigBuilder", () => {
         .get();
       expect(result.useCms?.includes?.cms_page_slot).not.toBeUndefined();
       expect(result.useCms?.includes?.cms_page_slot).not.toContain("blockId");
+    });
+
+    it("should ignore additional property when removing key property is not an array", () => {
+      const result = defaultsConfigBuilder()
+        .remove("useCms.limit", "notFromArray")
+        .get();
+      expect(result.useCms?.limit).toBeUndefined();
     });
   });
 

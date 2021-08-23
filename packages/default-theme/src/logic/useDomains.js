@@ -44,13 +44,11 @@ export const useDomains = (rootContext) => {
     if (isRouteStatic.value) {
       path += getCurrentPathWithoutDomain()
     } else {
-      // categoryId name is misleading - in fact it's related to "resourceIdentifier" within the page resolver's response.
-      // will be replaced within TODO: https://github.com/vuestorefront/shopware-pwa/issues/1308
-      const { categoryId, page } = useCms(rootContext)
+      const { resourceIdentifier, page } = useCms()
       try {
         // find the correspoding URL for current page if it comes from page resolver - dynamically generated
         const seoResponse = await getSeoUrls(
-          categoryId.value,
+          resourceIdentifier.value,
           domain.languageId,
           apiInstance
         )

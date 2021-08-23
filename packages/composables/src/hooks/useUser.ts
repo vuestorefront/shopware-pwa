@@ -43,8 +43,11 @@ import {
   useSharedState,
   useSessionContext,
   useCart,
+  ApplicationVueContext,
+  getApplicationContext,
+  useDefaults,
 } from "@shopware-pwa/composables";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
  * interface for {@link useUser} composable
@@ -61,7 +64,13 @@ export interface IUseUser {
   }) => Promise<boolean>;
   register: ({}: CustomerRegistrationParams) => Promise<boolean>;
   user: ComputedRef<Partial<Customer> | null>;
+  /**
+   * @deprecated use orders from {@link useCustomerOrders} composable
+   */
   orders: Ref<Order[] | null>;
+  /**
+   * @deprecated use addresses computed from {@link useCustomerAddresses} composable
+   */
   addresses: Ref<CustomerAddress[] | null>;
   loading: Ref<boolean>;
   error: Ref<any>;
@@ -79,26 +88,50 @@ export interface IUseUser {
   salutation: Ref<Salutation | null>;
   refreshUser: () => Promise<void>;
   logout: () => Promise<void>;
+  /**
+   * @deprecated use loadOrders method from {@link useCustomerOrders} composable
+   */
   loadOrders: () => Promise<void>;
   getOrderDetails: (orderId: string) => Promise<Order | undefined>;
+  /**
+   * @deprecated use loadAddresses method from {@link useCustomerAddresses} composable
+   */
   loadAddresses: () => Promise<void>;
   loadCountry: (countryId: string) => Promise<void>;
   loadSalutation: (salutationId: string) => Promise<void>;
+  /**
+   * @deprecated use addAddress method from {@link useCustomerAddresses} composable
+   */
   addAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
+  /**
+   * @deprecated use updateAddress method from {@link useCustomerAddresses} composable
+   */
   updateAddress: (
     params: Partial<CustomerAddress>
   ) => Promise<string | undefined>;
+  /**
+   * @deprecated use deleteAddress method from {@link useCustomerAddresses} composable
+   */
   deleteAddress: (addressId: string) => Promise<boolean>;
   updatePersonalInfo: (
     personals: CustomerUpdateProfileParam
   ) => Promise<boolean>;
   updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
+  /**
+   * @deprecated use updatePassword from useCustomerPassword composable
+   */
   updatePassword: (
     updatePasswordData: CustomerUpdatePasswordParam
   ) => Promise<boolean>;
+  /**
+   * @deprecated use resetPassword from useCustomerPassword composable
+   */
   resetPassword: (
     resetPasswordData: CustomerResetPasswordParam
   ) => Promise<boolean>;
+  /**
+   * @deprecated use loadAddresses method from {@link useCustomerAddresses} composable
+   */
   markAddressAsDefault: ({
     addressId,
     type,
@@ -127,6 +160,7 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   const { broadcast, intercept } = useIntercept(rootContext);
   const { refreshSessionContext } = useSessionContext(rootContext);
   const { refreshCart } = useCart(rootContext);
+  const { getDefaults } = useDefaults(rootContext, "useUser");
 
   const { sharedRef } = useSharedState(rootContext);
   const storeUser = sharedRef<Partial<Customer>>(`${contextName}-user`);
@@ -149,6 +183,9 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     updatePassword: [],
     updateEmail: [],
   });
+  /**
+   * @deprecated use orders from {@link useCustomerOrders} composable
+   */
   const orders: Ref<Order[] | null> = ref(null);
   const addresses = computed(() => storeAddresses.value);
   const country: Ref<Country | null> = ref(null);
@@ -238,27 +275,37 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
   const onUserRegister = (fn: IInterceptorCallbackFunction) =>
     intercept(INTERCEPTOR_KEYS.USER_REGISTER, fn);
 
-  const refreshUser = async (): Promise<void> => {
+  const refreshUser = async (
+    params: ShopwareSearchParams = {}
+  ): Promise<void> => {
     try {
-      const user = await getCustomer(apiInstance);
+      const user = await getCustomer(
+        Object.assign({}, getDefaults(), params),
+        apiInstance
+      );
       storeUser.value = user || {};
     } catch (e) {
       storeUser.value = {};
       console.error("[useUser][refreshUser]", e);
     }
   };
-
+  /**
+   * @deprecated use loadOrders method from {@link useCustomerOrders} composable
+   */
   const loadOrders = async (): Promise<void> => {
-    const fetchedOrders = await getCustomerOrders(apiInstance);
+    const fetchedOrders = await getCustomerOrders({}, apiInstance);
     orders.value = fetchedOrders;
   };
 
   const getOrderDetails = async (orderId: string): Promise<Order | undefined> =>
     getCustomerOrderDetails(orderId, apiInstance);
 
+  /**
+   * @deprecated use loadAddresses method from {@link useCustomerAddresses} composable
+   */
   const loadAddresses = async (): Promise<void> => {
     try {
-      const response = await getCustomerAddresses(apiInstance);
+      const response = await getCustomerAddresses({}, apiInstance);
       storeAddresses.value = response?.elements;
     } catch (e) {
       const err: ClientApiError = e;
@@ -284,6 +331,9 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     }
   };
 
+  /**
+   * @deprecated use markAddressAsDefault method from {@link useCustomerAddresses} composable
+   */
   const markAddressAsDefault = async ({
     addressId,
     type,
@@ -316,6 +366,9 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     return true;
   };
 
+  /**
+   * @deprecated use updateAddress method from {@link useCustomerAddresses} composable
+   */
   const updateAddress = async (
     params: Partial<CustomerAddress>
   ): Promise<string | undefined> => {
@@ -328,6 +381,9 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     }
   };
 
+  /**
+   * @deprecated use addAddress method from {@link useCustomerAddresses} composable
+   */
   const addAddress = async (
     params: Partial<CustomerAddress>
   ): Promise<string | undefined> => {
@@ -340,6 +396,9 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     }
   };
 
+  /**
+   * @deprecated use deleteAddress method from {@link useCustomerAddresses} composable
+   */
   const deleteAddress = async (addressId: string): Promise<boolean> => {
     try {
       await deleteCustomerAddress(addressId, apiInstance);
@@ -364,6 +423,9 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     return true;
   };
 
+  /**
+   * @deprecated use updatePassword from useCustomerPassword composable
+   */
   const updatePassword = async (
     updatePasswordData: CustomerUpdatePasswordParam
   ): Promise<boolean> => {
@@ -377,6 +439,9 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     return true;
   };
 
+  /**
+   * @deprecated use resetPassword from useCustomerPassword composable
+   */
   const resetPassword = async (
     resetPasswordData: CustomerResetPasswordParam
   ): Promise<boolean> => {
