@@ -13,14 +13,15 @@ const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 import { useCheckout } from "../src/logic/useCheckout";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
+import { prepareRootContextMock } from "./contextRunner";
 
 describe("Composables - useCheckout", () => {
   let isLoggedIn = ref(false);
   const stateContext: Ref<Partial<SessionContext> | null> = ref(null);
   const sessionContextMock: Ref<Partial<SessionContext> | null> = ref(null);
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-  };
+  const rootContextMock = prepareRootContextMock({
+    contextName: "useCheckout",
+  });
   const interceptMock = jest.fn();
   const broadcastMock = jest.fn();
   const refreshCartMock = jest.fn(async () => {});
@@ -31,7 +32,7 @@ describe("Composables - useCheckout", () => {
     jest.resetAllMocks();
     isLoggedIn.value = false;
     sessionContextMock.value = null;
-    rootContextMock.$sharedStore = reactive({});
+    rootContextMock.sharedStore = reactive({});
 
     mockedComposables.useUser.mockImplementation(() => {
       return {
@@ -64,6 +65,11 @@ describe("Composables - useCheckout", () => {
         },
       } as any;
     });
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
 
     stateContext.value = null;
     consoleErrorSpy.mockImplementationOnce(() => {});

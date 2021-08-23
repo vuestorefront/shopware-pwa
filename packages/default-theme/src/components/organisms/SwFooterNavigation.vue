@@ -77,7 +77,7 @@ export default {
       return names
     })
 
-    const { preloadRef } = useSharedState(root)
+    const { preloadRef } = useSharedState()
     preloadRef(navigationElements, async () => {
       await loadNavigationElements({ depth: 2 })
     })

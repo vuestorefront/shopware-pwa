@@ -3,8 +3,11 @@ import {
   ErrorLevel,
 } from "@shopware-pwa/commons/interfaces/models/common/EntityError";
 
-import { INTERCEPTOR_KEYS, useIntercept } from "@shopware-pwa/composables";
-import { ApplicationVueContext } from "../appContext";
+import {
+  INTERCEPTOR_KEYS,
+  useIntercept,
+  ApplicationVueContext,
+} from "@shopware-pwa/composables";
 
 /**
  * @beta

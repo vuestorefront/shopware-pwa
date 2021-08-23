@@ -1,12 +1,12 @@
 import { ref, Ref, computed, onMounted } from "vue-demi";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { ApplicationVueContext } from "../appContext";
 import {
   INTERCEPTOR_KEYS,
   useIntercept,
   IInterceptorCallbackFunction,
   getApplicationContext,
   useSharedState,
+  ApplicationVueContext,
 } from "@shopware-pwa/composables";
 
 /**

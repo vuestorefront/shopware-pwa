@@ -5,22 +5,20 @@ import * as Composables from "@shopware-pwa/composables";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 import * as ApiClient from "@shopware-pwa/shopware-6-client";
+import { prepareRootContextMock } from "./contextRunner";
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedApiClient = ApiClient as jest.Mocked<typeof ApiClient>;
 
 describe("Composables - useListing", () => {
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-  };
-  const mockedCategoryId = ref();
+  const rootContextMock = prepareRootContextMock();
+  const mockedResourceIdentifier = ref();
 
   let returnedSearchMethod: any = null;
-  const apiInstanceMock = jest.fn();
 
   beforeEach(() => {
     jest.resetAllMocks();
     returnedSearchMethod = null;
-    mockedCategoryId.value = "321";
+    mockedResourceIdentifier.value = "321";
     mockedComposables.createListingComposable = jest
       .fn()
       .mockImplementation(({ searchMethod }) => {
@@ -35,16 +33,13 @@ describe("Composables - useListing", () => {
         getDefaults: getDefaultsMock,
       } as any;
     });
-    mockedComposables.getApplicationContext.mockImplementation(() => {
-      return {
-        apiInstance: apiInstanceMock,
-      } as any;
-    });
     mockedComposables.useCms.mockImplementation(() => {
       return {
-        categoryId: mockedCategoryId,
+        resourceIdentifier: mockedResourceIdentifier,
       } as any;
     });
+
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
   });
 
   it("should use categoryListing by default", () => {
@@ -68,12 +63,12 @@ describe("Composables - useListing", () => {
     expect(mockedApiClient.getCategoryProducts).toBeCalledWith(
       "321",
       { limit: 8 },
-      apiInstanceMock
+      rootContextMock.apiInstance
     );
   });
 
-  it("should throw an error inside search method, when categoryId is not provided", async () => {
-    mockedCategoryId.value = null;
+  it("should throw an error inside search method, when resourceIdentifier is not provided", async () => {
+    mockedResourceIdentifier.value = null;
     useListing(rootContextMock, "categoryListing");
     expect(returnedSearchMethod).toBeTruthy();
     await expect(returnedSearchMethod({ limit: 8 })).rejects.toThrow(
@@ -89,7 +84,7 @@ describe("Composables - useListing", () => {
     expect(mockedApiClient.getCategoryProducts).not.toBeCalled();
     expect(mockedApiClient.searchProducts).toBeCalledWith(
       { limit: 8 },
-      apiInstanceMock
+      rootContextMock.apiInstance
     );
   });
 });

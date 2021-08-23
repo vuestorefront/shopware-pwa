@@ -8,8 +8,8 @@ import {
   useDefaults,
   getApplicationContext,
   useSharedState,
+  ApplicationVueContext,
 } from "@shopware-pwa/composables";
-import { ApplicationVueContext } from "../appContext";
 
 /**
  * interface for {@link useNavigation} composable

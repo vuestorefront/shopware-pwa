@@ -93,6 +93,11 @@ const defaultConfig: NuxtConfig = {
       plugins: [["@babel/plugin-proposal-private-methods", { loose: true }]],
     },
   },
+  render: {
+    bundleRenderer: {
+      runInNewContext: false,
+    },
+  },
 };
 
 const configs: NuxtConfig[] = [defaultConfig];

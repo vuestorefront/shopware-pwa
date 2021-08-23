@@ -4,6 +4,7 @@ import * as Composables from "@shopware-pwa/composables";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 import { useAddToCart } from "../src/logic/useAddToCart";
+import { prepareRootContextMock } from "./contextRunner";
 
 describe("Composables - useAddToCart", () => {
   const stateCart: Ref<Object | null> = ref(null);
@@ -11,9 +12,9 @@ describe("Composables - useAddToCart", () => {
   const pushErrorMock = jest.fn(() => {});
   const pushSuccessMock = jest.fn(() => {});
   const cartItemsMock: Ref<any[]> = ref([]);
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-  };
+  const rootContextMock = prepareRootContextMock({
+    contextName: "useAddToCart",
+  });
 
   const interceptMock = jest.fn();
   const broadcastMock = jest.fn();
@@ -40,6 +41,12 @@ describe("Composables - useAddToCart", () => {
         intercept: interceptMock,
       } as any;
     });
+
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
   });
 
   describe("computed", () => {
