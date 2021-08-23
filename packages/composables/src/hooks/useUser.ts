@@ -43,9 +43,10 @@ import {
   useSharedState,
   useSessionContext,
   useCart,
+  ApplicationVueContext,
+  getApplicationContext,
+  useDefaults,
 } from "@shopware-pwa/composables";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
-import { useDefaults } from "../logic/useDefaults";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**

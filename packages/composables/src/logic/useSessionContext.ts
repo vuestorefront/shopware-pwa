@@ -20,8 +20,8 @@ import {
   useIntercept,
   IInterceptorCallbackFunction,
   useSharedState,
+  ApplicationVueContext,
 } from "@shopware-pwa/composables";
-import { ApplicationVueContext } from "../appContext";
 /**
  * interface for {@link useSessionContext} composable
  *

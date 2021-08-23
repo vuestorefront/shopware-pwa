@@ -1,6 +1,9 @@
 import { computed, ComputedRef, ref, Ref } from "vue-demi";
-import { useSharedState } from "@shopware-pwa/composables";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import {
+  useSharedState,
+  ApplicationVueContext,
+  getApplicationContext,
+} from "@shopware-pwa/composables";
 
 /**
  * Simple state management for UI purposes.

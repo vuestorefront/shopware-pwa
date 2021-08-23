@@ -103,6 +103,14 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     expect(mockedUtils.loadConfig).toBeCalledWith(moduleObject);
   });
 
+  it("should display a meesage when default config cannot be fetched", async () => {
+    await runModule(moduleObject, {});
+    expect(consoleErrorSpy).toBeCalledWith(
+      "Cannot resolve API defaults config",
+      expect.anything()
+    );
+  });
+
   it("should invoke useThemeAndProjectFiles", async () => {
     await runModule(moduleObject, {});
     expect(mockedTheme.useThemeAndProjectFiles).toBeCalledWith({

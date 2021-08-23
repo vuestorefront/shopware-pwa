@@ -1,6 +1,8 @@
-import { ApplicationVueContext } from "@shopware-pwa/composables";
+import {
+  ApplicationVueContext,
+  getApplicationContext,
+} from "@shopware-pwa/composables";
 import { getCurrentInstance, onUnmounted } from "vue-demi";
-import { getApplicationContext } from "../appContext";
 
 /**
  * Keys used accross composables with the description of incommint parameters.

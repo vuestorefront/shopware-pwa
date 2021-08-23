@@ -1,5 +1,9 @@
 import { computed } from "vue-demi";
-import { useCms, getApplicationContext } from "@shopware-pwa/composables";
+import {
+  useCms,
+  getApplicationContext,
+  ApplicationVueContext,
+} from "@shopware-pwa/composables";
 import {
   getCategoryAvailableFilters,
   getCategoryAvailableSorting,
@@ -7,7 +11,6 @@ import {
   UiCategorySorting,
   SwSorting,
 } from "@shopware-pwa/helpers";
-import { ApplicationVueContext } from "../../appContext";
 import { deprecationWarning } from "@shopware-pwa/commons";
 
 /**
@@ -21,7 +24,7 @@ export const useCategoryFilters = (rootContext: ApplicationVueContext): any => {
     packageName: "composables",
   });
   getApplicationContext(rootContext, "useCategoryFilters");
-  const { page } = useCms(rootContext);
+  const { page } = useCms();
 
   const activeFilters = computed(() => {
     if (!page || !page.value || !(page.value as any).listingConfiguration) {

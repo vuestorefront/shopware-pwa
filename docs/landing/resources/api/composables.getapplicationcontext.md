@@ -11,7 +11,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getApplicationContext(rootContext: ApplicationVueContext, key?: string): {
+export declare function getApplicationContext(rootContext: ApplicationVueContext | undefined | null, key?: string): {
     apiInstance: ShopwareApiInstance | undefined;
     vuexStore: any;
     router: any;
@@ -20,9 +20,8 @@ export declare function getApplicationContext(rootContext: ApplicationVueContext
     cookies: any;
     shopwareDefaults: any;
     interceptors: any;
-    routing: Routing;
+    routing: any;
     sharedStore: any;
-    instanceStore: any;
     isServer: boolean;
     contextName: string;
 };
@@ -32,10 +31,10 @@ export declare function getApplicationContext(rootContext: ApplicationVueContext
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
+|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) \| undefined \| null |  |
 |  key | string |  |
 
 <b>Returns:</b>
 
-{ apiInstance: ShopwareApiInstance \| undefined; vuexStore: any; router: any; route: any; i18n: any; cookies: any; shopwareDefaults: any; interceptors: any; routing: [Routing](./composables.routing.md)<!-- -->; sharedStore: any; instanceStore: any; isServer: boolean; contextName: string; }
+{ apiInstance: ShopwareApiInstance \| undefined; vuexStore: any; router: any; route: any; i18n: any; cookies: any; shopwareDefaults: any; interceptors: any; routing: any; sharedStore: any; isServer: boolean; contextName: string; }
 

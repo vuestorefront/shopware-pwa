@@ -16,8 +16,9 @@ import {
   useIntercept,
   IInterceptorCallbackFunction,
   useSharedState,
+  ApplicationVueContext,
+  getApplicationContext,
 } from "@shopware-pwa/composables";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
 import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress";
 
 /**

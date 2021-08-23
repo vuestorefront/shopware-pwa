@@ -35,14 +35,18 @@ export const useListing = (
       return searchProducts(searchCriteria, apiInstance);
     };
   } else {
-    const { categoryId } = useCms(rootContext);
+    const { resourceIdentifier } = useCms();
     searchMethod = async (searchCriteria: Partial<ShopwareSearchParams>) => {
-      if (!categoryId.value) {
+      if (!resourceIdentifier.value) {
         throw new Error(
           "[useListing][search] Search category id does not exist."
         );
       }
-      return getCategoryProducts(categoryId.value, searchCriteria, apiInstance);
+      return getCategoryProducts(
+        resourceIdentifier.value,
+        searchCriteria,
+        apiInstance
+      );
     };
   }
 

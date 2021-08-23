@@ -1,4 +1,9 @@
-import { ComputedRef, getCurrentInstance, ComponentInstance } from "vue-demi";
+import {
+  ComputedRef,
+  getCurrentInstance,
+  ComponentInstance,
+  getCurrentScope,
+} from "vue-demi";
 import { ShopwareApiInstance } from "@shopware-pwa/shopware-6-client";
 
 /**
@@ -75,16 +80,18 @@ function checkAppContext(
  * @beta
  */
 export function getApplicationContext(
-  rootContext: ApplicationVueContext,
+  rootContext: ApplicationVueContext | undefined | null,
   key: string = "getApplicationContext"
 ) {
-  let context =
-    (getCurrentInstance()?.proxy as ApplicationVueContext) || rootContext;
+  const injectedContext = getCurrentInstance()?.proxy as ApplicationVueContext;
+  const scopeContext = (getCurrentScope?.() as any)?.vm;
+  let context = scopeContext || injectedContext || rootContext;
   if (!checkAppContext(key, context)) {
     console.error(`[${key}] No Vue instance detected!`);
   }
   return {
-    apiInstance: context?.$shopwareApiInstance || context?.shopwareApiInstance,
+    apiInstance: (context?.$shopwareApiInstance ||
+      context?.shopwareApiInstance) as ShopwareApiInstance | undefined,
     vuexStore: context?.$store || context?.store,
     router: context?.$router || context?.router,
     route: context?.$route || context?.route,
@@ -94,7 +101,6 @@ export function getApplicationContext(
     interceptors: context?.$interceptors || context?.interceptors || {},
     routing: context?.$routing || context?.routing,
     sharedStore: context?.$sharedStore || context?.sharedStore,
-    instanceStore: context?.$instanceStore || context?.instanceStore,
     isServer: !!(
       context?.$isServer ||
       context?.isServer ||

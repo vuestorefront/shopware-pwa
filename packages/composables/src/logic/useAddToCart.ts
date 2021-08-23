@@ -5,9 +5,10 @@ import {
   INTERCEPTOR_KEYS,
   useIntercept,
   IInterceptorCallbackFunction,
+  ApplicationVueContext,
+  getApplicationContext,
 } from "@shopware-pwa/composables";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
 
 /**
  * interface for {@link useAddToCart} composable
