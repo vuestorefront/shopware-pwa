@@ -7,10 +7,10 @@ import {
 import { getSeoUrls } from "@shopware-pwa/shopware-6-client"
 import { getCmsTechnicalPath } from "@shopware-pwa/helpers"
 
-// the "last-chance route always has a name starting with `all_` - nuxt default"
-const PAGE_RESOLVER_ROUTE_PREFIX = "all_"
+export const useDomains = (rootContext = null) => {
+  // the "last-chance route always has a name starting with `all` - nuxt default"
+  const PAGE_RESOLVER_ROUTE_PREFIX = "all"
 
-export const useDomains = (rootContext) => {
   const { router, routing, apiInstance } = getApplicationContext(
     rootContext,
     "useDomains"
@@ -39,12 +39,13 @@ export const useDomains = (rootContext) => {
     return !rootContext.$route.name.startsWith(PAGE_RESOLVER_ROUTE_PREFIX)
   })
   const getNewDomainUrl = async (domain) => {
+    const { resourceIdentifier, page } = useCms()
+
     let url = `${domain.pathPrefix !== "/" ? `${domain.pathPrefix}` : ""}`
     let path = ""
     if (isRouteStatic.value) {
       path += getCurrentPathWithoutDomain()
     } else {
-      const { resourceIdentifier, page } = useCms()
       try {
         // find the correspoding URL for current page if it comes from page resolver - dynamically generated
         const seoResponse = await getSeoUrls(

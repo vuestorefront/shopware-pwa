@@ -14,7 +14,7 @@ const domainsList = Object.values(domains).filter(
 );
 
 // register domains based routing and configuration
-export default async ({ app, route }, inject) => {
+export default async ({ app, route, req }, inject) => {
   const scope = effectScope();
   extendScopeContext(scope, app);
 
@@ -175,6 +175,9 @@ export default async ({ app, route }, inject) => {
           - on initial request on the server (also change of origin)
           - on change of prefixPath
          */
+        if (!domainConfig) {
+          return;
+        }
         const { languageId, languageLocaleCode, currencyId } = domainConfig;
         app.routing.setCurrentDomain(domainConfig);
         languageId && app.$shopwareApiInstance.update({ languageId });
