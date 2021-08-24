@@ -6,7 +6,7 @@ import {
   Includes,
   ShopwareSearchParams,
 } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { Association } from "@shopware-pwa/commons/interfaces/search/Association";
+import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Association";
 import { warning } from "@shopware-pwa/commons";
 
 /**
@@ -33,14 +33,14 @@ import { warning } from "@shopware-pwa/commons";
  *
  * @beta
  */
-export const useDefaults = (
+export function useDefaults(
   rootContext: ApplicationVueContext | null | undefined,
   defaultsKey: string
 ): {
   getIncludesConfig: () => Includes;
-  getAssociationsConfig: () => Association[];
+  getAssociationsConfig: () => ShopwareAssociation;
   getDefaults: () => ShopwareSearchParams;
-} => {
+} {
   const { shopwareDefaults } = getApplicationContext(
     rootContext,
     "useDefaults"
@@ -65,7 +65,7 @@ export const useDefaults = (
 
   const getIncludesConfig = () => getDefaultsFor(defaultsKey)?.includes || {};
   const getAssociationsConfig = () =>
-    getDefaultsFor(defaultsKey)?.associations || [];
+    getDefaultsFor(defaultsKey)?.associations || {};
   const getDefaults = () => getDefaultsFor(defaultsKey) || {};
 
   return {
@@ -73,4 +73,4 @@ export const useDefaults = (
     getAssociationsConfig,
     getDefaults,
   };
-};
+}

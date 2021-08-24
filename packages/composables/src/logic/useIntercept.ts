@@ -153,9 +153,9 @@ export interface IUseIntercept {
  *
  * @beta
  */
-export const useIntercept = (
+export function useIntercept(
   rootContext: ApplicationVueContext
-): IUseIntercept => {
+): IUseIntercept {
   const { interceptors } = getApplicationContext(rootContext, "useIntercept");
 
   const localSubscribers: any[] = [];
@@ -203,4 +203,4 @@ export const useIntercept = (
     intercept,
     disconnect,
   };
-};
+}

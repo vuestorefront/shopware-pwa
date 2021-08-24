@@ -509,11 +509,9 @@ describe("SearchConverter - convertSearchCriteria", () => {
         const result = convertSearchCriteria({
           searchCriteria: {
             configuration: {
-              associations: [
-                {
-                  name: "media",
-                },
-              ],
+              associations: {
+                media: {},
+              },
             },
           },
           config,
@@ -525,7 +523,7 @@ describe("SearchConverter - convertSearchCriteria", () => {
         const result = convertSearchCriteria({
           searchCriteria: {
             configuration: {
-              associations: [],
+              associations: {},
             },
           },
           config,
@@ -565,19 +563,14 @@ describe("SearchConverter - convertSearchCriteria", () => {
         const result = convertSearchCriteria({
           searchCriteria: {
             configuration: {
-              associations: [
-                {
-                  name: "media",
-                  associations: [
-                    {
-                      name: "cover",
-                    },
-                  ],
+              associations: {
+                media: {
+                  associations: {
+                    cover: {},
+                  },
                 },
-                {
-                  name: "stock",
-                },
-              ],
+                stock: {},
+              },
             },
           },
           config,

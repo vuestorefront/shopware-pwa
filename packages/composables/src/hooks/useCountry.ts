@@ -13,10 +13,10 @@ export interface UseCountry {
 /**
  * @beta
  */
-export const useCountry = (
+export function useCountry(
   countryId: ComputedRef<string>,
   countries: ComputedRef<Country[]>
-): UseCountry => {
+): UseCountry {
   const currentCountry = computed(() => {
     if (!countryId.value) return null;
     return (
@@ -40,4 +40,4 @@ export const useCountry = (
     displayState,
     forceState,
   };
-};
+}

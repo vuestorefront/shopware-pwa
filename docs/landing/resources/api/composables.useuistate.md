@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useUIState](./composables.useuistate.md)
 
-## useUIState variable
+## useUIState() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -12,11 +12,22 @@ Simple state management for UI purposes.
 <b>Signature:</b>
 
 ```typescript
-useUIState: (rootContext: ApplicationVueContext, stateName?: string | undefined) => {
+export declare function useUIState(rootContext: ApplicationVueContext, stateName?: string): {
     isOpen: ComputedRef<boolean>;
-    switchState: (to?: boolean | undefined) => void;
-}
+    switchState: (to?: boolean) => void;
+};
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
+|  stateName | string |  |
+
+<b>Returns:</b>
+
+{ isOpen: ComputedRef&lt;boolean&gt;; switchState: (to?: boolean) =&gt; void; }
 
 ## Remarks
 

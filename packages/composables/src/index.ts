@@ -33,4 +33,6 @@ export {
   getApplicationContext,
   ApplicationVueContext,
   Routing,
+  SwRouting,
+  SwInterceptors,
 } from "./appContext";
