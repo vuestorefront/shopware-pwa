@@ -48,7 +48,7 @@ export interface SearchCriteria {
   configuration?: {
     displayParents?: boolean;
     grouping?: Grouping;
-    associations?: Association[];
+    associations?: Association[] | ShopwareAssociation;
     aggregations?: Aggregation[];
     totalCountMode?: TotalCountMode;
     includes?: Includes;

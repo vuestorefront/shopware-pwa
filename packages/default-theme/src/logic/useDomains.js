@@ -10,7 +10,7 @@ import { getCmsTechnicalPath } from "@shopware-pwa/helpers"
 // the "last-chance route always has a name starting with `all_` - nuxt default"
 const PAGE_RESOLVER_ROUTE_PREFIX = "all_"
 
-export const useDomains = (rootContext) => {
+export function useDomains(rootContext) {
   const { router, routing, apiInstance } = getApplicationContext(
     rootContext,
     "useDomains"

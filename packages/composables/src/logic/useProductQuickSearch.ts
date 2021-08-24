@@ -25,9 +25,9 @@ export interface IUseProductQuickSearch {
 /**
  * @beta
  */
-export const useProductQuickSearch = (
+export function useProductQuickSearch(
   rootContext: ApplicationVueContext
-): IUseProductQuickSearch => {
+): IUseProductQuickSearch {
   const { getDefaults } = useDefaults(rootContext, "useProductQuickSearch");
   const { apiInstance } = getApplicationContext(rootContext, "useListing");
 
@@ -67,4 +67,4 @@ export const useProductQuickSearch = (
     getProducts: listingComposable.getElements,
     getTotal: listingComposable.getTotal,
   };
-};
+}

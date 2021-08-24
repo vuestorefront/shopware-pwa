@@ -22,10 +22,10 @@ export type listingKey = "productSearchListing" | "categoryListing";
 /**
  * @beta
  */
-export const useListing = (
+export function useListing(
   rootContext: ApplicationVueContext,
   listingKey: listingKey = "categoryListing"
-): IUseListing<Product> => {
+): IUseListing<Product> {
   const { getDefaults } = useDefaults(rootContext, "useListing");
   const { apiInstance } = getApplicationContext(rootContext, "useListing");
 
@@ -56,4 +56,4 @@ export const useListing = (
     searchMethod,
     searchDefaults: getDefaults(),
   });
-};
+}

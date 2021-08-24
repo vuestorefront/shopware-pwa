@@ -25,9 +25,7 @@ export interface UseCurrency {
 /**
  * @beta
  */
-export const useCurrency = (
-  rootContext: ApplicationVueContext
-): UseCurrency => {
+export function useCurrency(rootContext: ApplicationVueContext): UseCurrency {
   const { apiInstance } = getApplicationContext(rootContext, "useCurrency");
   const { sharedRef } = useSharedState(rootContext);
   const _availableCurrencies: Ref<Currency[] | null> = sharedRef(
@@ -72,4 +70,4 @@ export const useCurrency = (
     currencySymbol,
     currency,
   };
-};
+}

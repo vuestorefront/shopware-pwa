@@ -13,4 +13,30 @@ describe("SearchConverter - convertAssociations", () => {
       some: {},
     });
   });
+
+  it("should return undefined when the array is provided", () => {
+    const result = convertAssociations([]);
+    expect(result).toBeUndefined();
+  });
+
+  it("should convert association", () => {
+    const result = convertAssociations([
+      {
+        name: "MyAssociation",
+      },
+    ]);
+    expect(result).toEqual({ MyAssociation: {} });
+  });
+
+  it("should convert nested associations", () => {
+    const result = convertAssociations([
+      {
+        name: "myAssociation",
+        associations: [{ name: "myNestedAssociation" }],
+      },
+    ]);
+    expect(result).toEqual({
+      myAssociation: { associations: { myNestedAssociation: {} } },
+    });
+  });
 });

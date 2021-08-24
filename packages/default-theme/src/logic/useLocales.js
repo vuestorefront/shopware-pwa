@@ -2,7 +2,7 @@ import { computed } from "@vue/composition-api"
 import languagesMap from "sw-plugins/languages"
 import { getApplicationContext } from "@shopware-pwa/composables"
 
-export const useLocales = (rootContext) => {
+export function useLocales(rootContext) {
   const { i18n, router } = getApplicationContext(rootContext, "useLocales")
 
   // TODO: consider using availabeDomains config to list the languages
