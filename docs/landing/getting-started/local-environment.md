@@ -120,7 +120,7 @@ Let's assume that you want to contribute a shopware-pwa project and you do have 
         module.exports = {
             shopwareEndpoint: "https://pwa-demo-api.shopware.com/prev/",
             shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
-            pwaHost: "https://pwa-demo-api.shopware.com/prev/",
+            shopwareDomainsAllowList: ["https://pwa-demo-api.shopware.com/prev/"],
         };
 
         ```
@@ -157,7 +157,7 @@ Let's assume that you want to contribute a shopware-pwa project and you do have 
 
     shopwareEndpoint: "https://pwa-demo-api.shopware.com/prev/",
     shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
-    pwaHost: "https://pwa-demo-api.shopware.com/prev/",
+    shopwareDomainsAllowList: ["https://pwa-demo-api.shopware.com/prev/"],
     
     ```
 
@@ -177,7 +177,7 @@ Let's assume that you want to contribute a shopware-pwa project and you do have 
 
             ![admin panel view](../assets/api_access_admin.png)
     
-    * **pwaHost** - is the hostname the shopware-pwa is hosted, locally it would be `http://localhost`
+    * **shopwareDomainsAllowList** - is the list of hostnames the shopware-pwa may be hosted, locally it would be `http://localhost:3000`, so an option would be: `shopwareDomainsAllowList: ["http://localhost:3000"]`
     
 
 8. Synchronize frontend with backend settings.

@@ -272,16 +272,20 @@ export default extendNuxtConfig({
 ## How to add another language <a id="no8"></a>
 
 ::: tip
-Before you start, [learn the details](../operations/migrations/0.6.x_to_0.7.x.md#domain-route-handling) regarding the mechanism itself.
+Before you start, learn about [routing in Shopware PWA](../concepts/routing.md) itself. As an additional resource [learn the details](../operations/migrations/0.6.x_to_0.7.x.md#domain-route-handling) regarding the mechanism itself. 
 :::
 
 ### Things that should be done in admin panel
 
 1. In admin panel, go to _Sales Channel_ (used by PWA) > _Domains_ tab
-2. Add domain. **It's important** that the URL should match the one used in your `shopware-pwa.config.js` under the `pwaHost`.
+2. Add domain. **It's important** that the URL should match the one used in your `shopware-pwa.config.js` under the `shopwareDomainsAllowList` (array of allowed hosts).
 
    Add a distinctive suffix pointing to language (or general config) you want to use. It may be `/de-DE`, `/en` or whatsoever like `/my/very/formal/english/site`, so the whole entry would be like:
-   `https://my-shopware-pwa.com/my/very/formal/english/site`
+   `https://my-shopware-pwa.com/my/very/formal/english/site`. 
+   
+   Domain host may be completely different, for instance:
+   - for en-GB `https://shopware.com`
+   - for de-DE `https://shopawre.de`
 
 3. Pick the other settings for your domain like language, currency.
 4. Save the domain and the sales channel afterwards.
