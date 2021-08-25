@@ -9,7 +9,7 @@
 
 > Warning: This API is now obsolete.
 > 
-> use loadOrders method from [useCustomerOrders](./composables.usecustomerorders.md) composable
+> use loadOrders method from [useCustomerOrders()](./composables.usecustomerorders.md) composable
 > 
 
 <b>Signature:</b>

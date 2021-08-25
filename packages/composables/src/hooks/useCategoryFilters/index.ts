@@ -17,7 +17,7 @@ import { deprecationWarning } from "@shopware-pwa/commons";
  * @beta
  * @deprecated please see useListing instead
  */
-export const useCategoryFilters = (rootContext: ApplicationVueContext): any => {
+export function useCategoryFilters(rootContext: ApplicationVueContext): any {
   deprecationWarning({
     methodName: "useCategoryFilters",
     newMethodName: "useListing",
@@ -65,4 +65,4 @@ export const useCategoryFilters = (rootContext: ApplicationVueContext): any => {
     availableSorting,
     activeSorting,
   };
-};
+}

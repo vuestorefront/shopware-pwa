@@ -152,7 +152,7 @@ export interface IUseUser {
  *
  * @beta
  */
-export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
+export function useUser(rootContext: ApplicationVueContext): IUseUser {
   const { contextName, apiInstance } = getApplicationContext(
     rootContext,
     "useUser"
@@ -505,4 +505,4 @@ export const useUser = (rootContext: ApplicationVueContext): IUseUser => {
     onUserLogin,
     onUserRegister,
   };
-};
+}

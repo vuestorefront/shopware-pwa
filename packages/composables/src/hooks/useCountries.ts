@@ -21,9 +21,7 @@ export interface UseCountries {
 /**
  * @beta
  */
-export const useCountries = (
-  rootContext: ApplicationVueContext
-): UseCountries => {
+export function useCountries(rootContext: ApplicationVueContext): UseCountries {
   const { apiInstance } = getApplicationContext(rootContext, "useCountries");
   const { sharedRef } = useSharedState(rootContext);
   const _sharedCountried: Ref<Country[] | null> = sharedRef(
@@ -59,4 +57,4 @@ export const useCountries = (
     getCountries,
     error,
   };
-};
+}

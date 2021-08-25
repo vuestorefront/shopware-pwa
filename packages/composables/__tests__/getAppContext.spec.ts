@@ -48,15 +48,6 @@ describe("Shopware composables - getAppContext", () => {
     expect(consoleErrorSpy).toBeCalledWith("[test4] No Vue instance detected!");
   });
 
-  it("should return alternative store from context", () => {
-    const rootContextMock: any = {
-      $shopwareApiInstance: jest.fn(),
-      store: 123,
-    };
-    const result = getApplicationContext(rootContextMock);
-    expect(result.vuexStore).toEqual(123);
-  });
-
   it("should return alternative router from context", () => {
     const rootContextMock: any = {
       $shopwareApiInstance: jest.fn(),

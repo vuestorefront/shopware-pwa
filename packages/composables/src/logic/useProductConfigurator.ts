@@ -47,10 +47,10 @@ export interface IUseProductConfigurator {
  * Product options - {@link IUseAddToCart}
  * @beta
  */
-export const useProductConfigurator = (
+export function useProductConfigurator(
   rootContext: ApplicationVueContext,
   product: Product
-): IUseProductConfigurator => {
+): IUseProductConfigurator {
   const { page } = useCms();
   const selected = ref({} as any);
   const isLoadingOptions = ref(!!product.options?.length);
@@ -146,4 +146,4 @@ export const useProductConfigurator = (
     getOptionGroups,
     getSelectedOptions: selected,
   };
-};
+}

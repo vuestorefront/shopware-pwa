@@ -27,10 +27,10 @@ export type Search = (path: string, associations?: any) => any;
 /**
  * @beta
  */
-export const useProduct = (
+export function useProduct(
   rootContext: ApplicationVueContext,
   loadedProduct?: any
-): UseProduct<Product, Search> => {
+): UseProduct<Product, Search> {
   const { apiInstance } = getApplicationContext(rootContext, "useProduct");
   const { getAssociationsConfig, getIncludesConfig } = useDefaults(
     rootContext,
@@ -83,4 +83,4 @@ export const useProduct = (
     error,
     loadAssociations,
   };
-};
+}

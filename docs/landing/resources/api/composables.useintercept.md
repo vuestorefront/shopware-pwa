@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useIntercept](./composables.useintercept.md)
 
-## useIntercept variable
+## useIntercept() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -12,5 +12,16 @@ Allows to broadcast and intercept events across application.
 <b>Signature:</b>
 
 ```typescript
-useIntercept: (rootContext: ApplicationVueContext) => IUseIntercept
+export declare function useIntercept(rootContext: ApplicationVueContext): IUseIntercept;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
+
+<b>Returns:</b>
+
+[IUseIntercept](./composables.iuseintercept.md)
+

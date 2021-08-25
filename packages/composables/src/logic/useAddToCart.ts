@@ -66,10 +66,10 @@ export interface IUseAddToCart {
  * ```
  * @beta
  */
-export const useAddToCart = (
+export function useAddToCart(
   rootContext: ApplicationVueContext,
   product: Product
-): IUseAddToCart => {
+): IUseAddToCart {
   const { contextName } = getApplicationContext(rootContext, "useAddToCart");
   const { addProduct, cartItems } = useCart(rootContext);
   const { broadcast, intercept } = useIntercept(rootContext);
@@ -132,4 +132,4 @@ export const useAddToCart = (
     isInCart,
     onAddToCart,
   };
-};
+}

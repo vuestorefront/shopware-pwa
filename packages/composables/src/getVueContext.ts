@@ -1,8 +1,5 @@
 import { getCurrentInstance, getCurrentScope } from "vue-demi";
-
-function _getFromProperty(object: { [key: string]: unknown }, name: string) {
-  return object[`$${name}`] || object[name] || null;
-}
+import { getContextProperty } from "./internalHelpers/getContextProperty";
 
 /**
  * Inject context into effect scope. Do not use this function directly, internal use only.
@@ -10,12 +7,12 @@ function _getFromProperty(object: { [key: string]: unknown }, name: string) {
  * @alpha
  */
 export function extendScopeContext(scope: any, app: any) {
-  scope.vm.shopwareApiInstance = _getFromProperty(app, "shopwareApiInstance");
-  scope.vm.sharedStore = _getFromProperty(app, "sharedStore");
-  scope.vm.interceptors = _getFromProperty(app, "interceptors");
-  scope.vm.shopwareDefaults = _getFromProperty(app, "shopwareDefaults");
-  scope.vm.i18n = _getFromProperty(app, "i18n");
-  scope.vm.routing = _getFromProperty(app, "routing");
+  scope.vm.shopwareApiInstance = getContextProperty(app, "shopwareApiInstance");
+  scope.vm.sharedStore = getContextProperty(app, "sharedStore");
+  scope.vm.interceptors = getContextProperty(app, "interceptors");
+  scope.vm.shopwareDefaults = getContextProperty(app, "shopwareDefaults");
+  scope.vm.i18n = getContextProperty(app, "i18n");
+  scope.vm.routing = getContextProperty(app, "routing");
 }
 
 /**

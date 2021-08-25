@@ -27,9 +27,9 @@ export interface IUseCustomerOrders {
  *
  * @beta
  */
-export const useCustomerOrders = (
+export function useCustomerOrders(
   rootContext: ApplicationVueContext
-): IUseCustomerOrders => {
+): IUseCustomerOrders {
   const { contextName, apiInstance } = getApplicationContext(
     rootContext,
     "useCustomerOrders"
@@ -59,4 +59,4 @@ export const useCustomerOrders = (
     loadOrders,
     errors,
   };
-};
+}
