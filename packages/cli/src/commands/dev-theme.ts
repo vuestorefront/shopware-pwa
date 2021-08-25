@@ -22,15 +22,15 @@ const command: GluegunCommand = {
         ignoreInitial: true,
       })
       .on("all", async (event, filePath) => {
-        toolbox.print.info("");
+        toolbox.print.info("[CLI > dev-theme]");
         const srcPath = filePath;
         const destPath = filePath.replace("src", "dist");
 
         if (["add", "change"].includes(event)) {
-          toolbox.print.info("Changed file: " + filePath);
+          toolbox.print.info("[CLI > dev-theme] Changed file: " + filePath);
           await fse.copy(srcPath, destPath);
         } else if (event === "unlink") {
-          toolbox.print.info("Removed file: " + filePath);
+          toolbox.print.info("[CLI > dev-theme] Removed file: " + filePath);
 
           // if we have base theme we should check if there is a component with that path
           if (baseTheme) {
@@ -54,7 +54,7 @@ const command: GluegunCommand = {
     // at the beginning we're running build and wtching for changes in src folder from now on
     await toolbox.runtime.run(`build-theme`);
 
-    toolbox.print.info(`Waiting for changes...\n`);
+    toolbox.print.info(`[CLI > dev-theme] Waiting for changes...\n`);
   },
 };
 

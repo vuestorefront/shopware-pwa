@@ -280,7 +280,7 @@ module.exports = (toolbox: GluegunToolbox) => {
 
   toolbox.loadPluginsAssets = async () => {
     const FETCH_ERROR_MESSAGE =
-      "Plugin settings are not fetched from shopware instance.";
+      "[CLI > plugins] Plugin settings are not fetched from shopware instance.";
 
     if (
       !toolbox.inputParameters.username ||

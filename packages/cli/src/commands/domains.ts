@@ -24,7 +24,7 @@ module.exports = {
 
     if (!isCIrun) {
       toolbox.print.info(`
-Synchronize the domain's related config from backend (in order to build a domains.json file)`);
+[CLI > domains] Synchronize the domain's related config from backend (in order to build a domains.json file)`);
 
       const shopwareUsernameQuestion = !inputParameters.username && {
         type: "input",
@@ -61,7 +61,7 @@ Synchronize the domain's related config from backend (in order to build a domain
 
     if ((!username || !password) && !toolbox.isDefaultDemoData()) {
       toolbox.print.error(
-        "Please provide your admin credentials using the --username and --password options or answering the questions."
+        "[CLI > domains] Please provide your admin credentials using the --username and --password options or answering the questions."
       );
       return;
     }
@@ -70,7 +70,7 @@ Synchronize the domain's related config from backend (in order to build a domain
     const authToken = await toolbox.auth.getAuthToken();
     if (!authToken) {
       toolbox.print.error(
-        `Please try again. This synchronization is required.`
+        `[CLI > domains] Please try again. This synchronization is required.`
       );
       return -1;
     }
@@ -103,7 +103,9 @@ Synchronize the domain's related config from backend (in order to build a domain
     try {
       // if the provided pwaHost value equals the default shopware api instance (fallback) and the domains are still blank - load default domains.json file from gist.
       if (!Object.keys(domainsMap).length && toolbox.isDefaultDemoData()) {
-        toolbox.print.warning("Loading default domains.json file.");
+        toolbox.print.warning(
+          "[CLI > domains] Loading default domains.json file."
+        );
         const defaultDomainsMap =
           await toolbox.domains.getDefaultDemoDomainsJson();
         if (defaultDomainsMap) {
@@ -111,9 +113,9 @@ Synchronize the domain's related config from backend (in order to build a domain
         }
       }
       await toolbox.filesystem.writeAsync(domainsFilePath, domainsMap);
-      toolbox.print.success("Shopware domains refreshed");
+      toolbox.print.success("[CLI > domains] Shopware domains refreshed");
     } catch (error) {
-      toolbox.print.error("Unable to save a domains.json.");
+      toolbox.print.error("[CLI > domains] Unable to save a domains.json.");
       console.error(error);
     }
   },

@@ -6,7 +6,7 @@ module.exports = {
   name: "init",
   alias: ["i"],
   description:
-    "Create new Shopware PWA project inside the current directory. Can be invoked multiple times for actualisations.",
+    "[CLI > init] Create new Shopware PWA project inside the current directory. Can be invoked multiple times for actualisations.",
   run: async (toolbox: GluegunToolbox) => {
     const {
       system: { run },
@@ -18,7 +18,7 @@ module.exports = {
     const isCIrun = inputParameters.ci;
 
     if (!toolbox.isProduction) {
-      warning(`You're running CLI in development mode!`);
+      warning(`[CLI > init] You're running CLI in development mode!`);
     }
 
     const currentSetup = await getDefaultConfigFile();
@@ -68,7 +68,7 @@ module.exports = {
     const isLocalSetup = inputParameters.stage === "local";
 
     const updateConfigSpinner = spin(
-      `Updating configuration for v: ${currentVersion}${
+      `[CLI > init] Updating configuration for v: ${currentVersion}${
         isLocalSetup ? " - CONTRIBUTION MODE (local setup)" : ""
       }`
     );
@@ -130,7 +130,7 @@ module.exports = {
     await run("yarn --check-files");
     updateConfigSpinner.succeed();
 
-    const generateFilesSpinner = spin("Generating project files");
+    const generateFilesSpinner = spin("[CLI > init] Generating project files");
     await toolbox.generateTemplateFiles();
     const copyPromisses = toolbox.themeFolders.map((themeFolder) =>
       toolbox.copyThemeFolder(themeFolder)
@@ -145,12 +145,14 @@ module.exports = {
     await toolbox.runtime.run(`languages`, inputParameters);
     await toolbox.runtime.run(`domains`, inputParameters);
 
-    const updateDependenciesSpinner = spin("Updating dependencies");
+    const updateDependenciesSpinner = spin(
+      "[CLI > init] Updating dependencies"
+    );
     // Loading additional packages
     await run(`yarn`);
     updateDependenciesSpinner.succeed();
 
-    success(`Generated Shopware PWA project!`);
-    info(`Type 'shopware-pwa dev' and start exploring`);
+    success(`[CLI > init] Generated Shopware PWA project!`);
+    info(`[CLI > init] Type 'shopware-pwa dev' and start exploring`);
   },
 };

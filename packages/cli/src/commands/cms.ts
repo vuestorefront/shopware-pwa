@@ -60,6 +60,6 @@ module.exports = {
       },
     });
 
-    toolbox.print.success(`CMS prepared`);
+    toolbox.print.success(`[CLI > cms] CMS prepared`);
   },
 };
