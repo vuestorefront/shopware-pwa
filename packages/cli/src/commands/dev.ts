@@ -13,7 +13,7 @@ const command: GluegunCommand = {
     const chokidar = require("chokidar");
     const jetpack = toolbox.filesystem;
 
-    info(`Starting Shopware PWA development project...`);
+    info(`[CLI > dev] Starting Shopware PWA development project...`);
 
     // Watch locales
     await jetpack.dirAsync("locales"); // create folder if not exist

@@ -11,7 +11,7 @@ const command: GluegunCommand = {
 
     const devMode = !!toolbox.inputParameters.devMode;
     info(
-      `Starting Shopware PWA project building (devMode: ${
+      `[CLI > build] Starting Shopware PWA project building (devMode: ${
         devMode ? "enabled" : "disabled"
       })...`
     );
@@ -24,7 +24,9 @@ const command: GluegunCommand = {
     const result = await spawn("yarn nuxt build", {
       stdio: "inherit",
     });
-    if (result.status !== 0) throw new Error("Unable to build project");
+    if (result.status !== 0) {
+      throw new Error("[CLI > build] Unable to build project");
+    }
   },
 };
 

@@ -7,10 +7,14 @@ const command: GluegunCommand = {
     const path = require("path");
     const fse = require("fs-extra");
     if (!toolbox.isProduction) {
-      toolbox.print.warning(`You're running CLI in development mode!`);
+      toolbox.print.warning(
+        `[CLI > build-theme] You're running CLI in development mode!`
+      );
     }
 
-    const buildingSpinner = toolbox.print.spin("Building theme...");
+    const buildingSpinner = toolbox.print.spin(
+      "[CLI > build-theme] Building theme..."
+    );
 
     const destinationDirectoryName = "dist";
 
@@ -25,7 +29,8 @@ const command: GluegunCommand = {
     await toolbox.filesystem.dirAsync(destinationDirectoryName);
 
     if (baseTheme) {
-      buildingSpinner.text = "Running with base theme: " + baseTheme;
+      buildingSpinner.text =
+        "[CLI > build-theme] Running with base theme: " + baseTheme;
       try {
         const themePath = toolbox.getThemePath(baseTheme);
         await fse.copy(themePath, destinationDirectoryName, {
@@ -70,7 +75,7 @@ const command: GluegunCommand = {
     await toolbox.filesystem.copyAsync("src", destinationDirectoryName, {
       overwrite: true,
     });
-    buildingSpinner.succeed("Theme built!");
+    buildingSpinner.succeed("[CLI > build-theme] Theme built!");
   },
 };
 

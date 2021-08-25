@@ -9,10 +9,12 @@ const command: GluegunCommand = {
     const execa = require("execa");
 
     if (!toolbox.isProduction) {
-      toolbox.print.warning(`You're running CLI in development mode!`);
+      toolbox.print.warning(
+        `[CLI > create-theme] You're running CLI in development mode!`
+      );
     }
 
-    toolbox.print.info(`Creating new theme project...`);
+    toolbox.print.info(`[CLI > create-theme] Creating new theme project...`);
 
     const themeNameAnswers = await toolbox.prompt.ask({
       type: "input",
@@ -27,7 +29,9 @@ const command: GluegunCommand = {
     // Validate
     const nameValidationResult = validatePackageName(themeName);
     if (!nameValidationResult.validForNewPackages) {
-      toolbox.print.error(`Cannot create new theme with name "${themeName}":`);
+      toolbox.print.error(
+        `[CLI > create-theme] Cannot create new theme with name "${themeName}":`
+      );
       nameValidationResult.warnings?.forEach((warning) =>
         toolbox.print.warning(`  -> ${warning}`)
       );
@@ -139,7 +143,7 @@ const command: GluegunCommand = {
     });
 
     toolbox.print.success(
-      `New theme generated! Go inside new folder and type "yarn dev" to start creation.`
+      `[CLI > create-theme] New theme generated! Go inside new folder and type "yarn dev" to start creation.`
     );
   },
 };
