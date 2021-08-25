@@ -76,7 +76,7 @@ module.exports = {
 
     if (!languages) {
       toolbox.print.error(
-        "Language config does not exist. Pleas run 'yarn shopware-pwa languages' first."
+        "[CLI > snippets] Language config does not exist. Pleas run 'yarn shopware-pwa languages' first."
       );
       return;
     }
@@ -87,7 +87,7 @@ module.exports = {
 
     if (!username || !password) {
       toolbox.print.error(
-        "Please provide your admin credentials using the --username and --password options."
+        "[CLI > snippets] Please provide your admin credentials using the --username and --password options."
       );
       return;
     }
@@ -115,7 +115,7 @@ module.exports = {
 
     if (!doExport) {
       toolbox.print.info(
-        "Stopping after import (run with --export option to export Snippets to Shopware)"
+        "[CLI > snippets] Stopping after import (run with --export option to export Snippets to Shopware)"
       );
       return;
     }
