@@ -10,7 +10,7 @@ The ordinary Nuxt routing is being enriched during the building step. The enrich
 
 ![building-a-routing](./../../assets/building-a-routing-flow.png)
 
-The prepared `domains.json` file and the metadata for each route can be read and used in further actions, described below.
+The prepared `domains.json` file and the metadata for each route can be read and used in further actions, described below. Moreover, each route is copied and prepared for the different domain as well to be recognisable by Nuxt.
 
 
 ## Routing plugin
