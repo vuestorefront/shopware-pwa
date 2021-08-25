@@ -393,7 +393,7 @@ jobs:
         run: |
           mkdir -p test-project
           cd ./test-project
-          ../packages/cli/bin/shopware-pwa init --username=${{ secrets.SHOPWARE_ADMIN_USER }} --password=${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --pwaHost=${{ env.PWA_HOST }} --ci --devMode --stage local
+          ../packages/cli/bin/shopware-pwa init --username=${{ secrets.SHOPWARE_ADMIN_USER }} --password=${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --shopwareDomainsAllowList=${{ env.PWA_HOST }} --ci --devMode --stage local
       - name: Build test project
         run: |
           node ./scripts/yalcPushPackages.js
