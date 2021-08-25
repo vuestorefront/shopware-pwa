@@ -61,9 +61,9 @@ export interface IUseSessionContext {
  *
  * @beta
  */
-export const useSessionContext = (
+export function useSessionContext(
   rootContext: ApplicationVueContext
-): IUseSessionContext => {
+): IUseSessionContext {
   const { apiInstance } = getApplicationContext(
     rootContext,
     "useSessionContext"
@@ -195,4 +195,4 @@ export const useSessionContext = (
     onPaymentMethodChange,
     onShippingMethodChange,
   };
-};
+}

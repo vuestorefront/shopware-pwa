@@ -21,9 +21,9 @@ export interface UseSalutations {
 /**
  * @beta
  */
-export const useSalutations = (
+export function useSalutations(
   rootContext: ApplicationVueContext
-): UseSalutations => {
+): UseSalutations {
   const { apiInstance } = getApplicationContext(rootContext, "useSalutations");
   const { sharedRef } = useSharedState(rootContext);
   const _salutations: Ref<Salutation[] | null> = sharedRef(
@@ -61,4 +61,4 @@ export const useSalutations = (
     getSalutations,
     error,
   };
-};
+}

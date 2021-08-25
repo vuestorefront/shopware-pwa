@@ -49,9 +49,7 @@ export interface IUseCheckout {
  *
  * @beta
  */
-export const useCheckout = (
-  rootContext: ApplicationVueContext
-): IUseCheckout => {
+export function useCheckout(rootContext: ApplicationVueContext): IUseCheckout {
   const { apiInstance, contextName } = getApplicationContext(
     rootContext,
     "useCheckout"
@@ -141,4 +139,4 @@ export const useCheckout = (
     onOrderPlace,
     loadings,
   };
-};
+}

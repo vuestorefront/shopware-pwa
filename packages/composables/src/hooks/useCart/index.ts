@@ -66,7 +66,7 @@ export interface IUseCart {
  *
  * @beta
  */
-export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
+export function useCart(rootContext: ApplicationVueContext): IUseCart {
   const { apiInstance, contextName } = getApplicationContext(
     rootContext,
     "useCart"
@@ -221,4 +221,4 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     subtotal,
     cartErrors,
   };
-};
+}

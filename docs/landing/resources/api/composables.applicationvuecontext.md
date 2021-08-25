@@ -15,8 +15,8 @@ Application Context for Shopware PWA. It's an extended Vue instance.
 export declare type ApplicationVueContext = ComponentInstance & {
     $shopwareApiInstance?: ShopwareApiInstance;
     shopwareApiInstance?: ShopwareApiInstance;
-    $routing: Routing;
-    routing: Routing;
+    $routing: SwRouting;
+    routing: SwRouting;
     $store?: any;
     store?: any;
     $route?: any;
@@ -29,8 +29,8 @@ export declare type ApplicationVueContext = ComponentInstance & {
     cookies?: any;
     shopwareDefaults?: any;
     $shopwareDefaults?: any;
-    $interceptors?: any;
-    interceptors?: any;
+    $interceptors?: SwInterceptors;
+    interceptors?: SwInterceptors;
     $sharedStore?: any;
     sharedStore?: any;
     $instanceStore?: any;
@@ -39,5 +39,5 @@ export declare type ApplicationVueContext = ComponentInstance & {
     isServer?: any;
 };
 ```
-<b>References:</b> [Routing](./composables.routing.md)
+<b>References:</b> [SwRouting](./composables.swrouting.md)<!-- -->, [SwInterceptors](./composables.swinterceptors.md)
 

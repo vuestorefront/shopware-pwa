@@ -28,10 +28,10 @@ export interface IUseWishlist {
  *
  * @beta
  */
-export const useWishlist = (
+export function useWishlist(
   rootContext: ApplicationVueContext,
   product?: Product
-): IUseWishlist => {
+): IUseWishlist {
   const { broadcast, intercept } = useIntercept(rootContext);
   getApplicationContext(rootContext, "useNotifications");
   const { sharedRef } = useSharedState(rootContext);
@@ -124,4 +124,4 @@ export const useWishlist = (
     count,
     onAddToWishlist,
   };
-};
+}

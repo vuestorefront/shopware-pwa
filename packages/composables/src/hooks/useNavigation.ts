@@ -44,14 +44,14 @@ export interface IUseNavigation {
  *
  * @beta
  */
-export const useNavigation = (
+export function useNavigation(
   rootContext: ApplicationVueContext,
   params: {
     type: StoreNavigationType;
   } = {
     type: "main-navigation",
   }
-): IUseNavigation => {
+): IUseNavigation {
   const { apiInstance } = getApplicationContext(rootContext, "useNavigation");
   const { sharedRef } = useSharedState(rootContext);
 
@@ -95,4 +95,4 @@ export const useNavigation = (
       loadNavigationElements({ depth }),
     loadNavigationElements,
   };
-};
+}

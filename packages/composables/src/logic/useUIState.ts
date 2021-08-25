@@ -38,10 +38,10 @@ import {
  *
  * @beta
  */
-export const useUIState = (
+export function useUIState(
   rootContext: ApplicationVueContext,
   stateName?: string
-): { isOpen: ComputedRef<boolean>; switchState: (to?: boolean) => void } => {
+): { isOpen: ComputedRef<boolean>; switchState: (to?: boolean) => void } {
   getApplicationContext(rootContext, "useUIState");
   const { sharedRef } = useSharedState(rootContext);
   const _sharedState = sharedRef(`sw-useUIState-${stateName}`);
@@ -65,4 +65,4 @@ export const useUIState = (
     isOpen,
     switchState,
   };
-};
+}

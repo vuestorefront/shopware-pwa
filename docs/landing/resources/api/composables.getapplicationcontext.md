@@ -7,21 +7,25 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
+Get the current application context values. The context is either a scope or a component instance. This method checks if the context contains all the necessary data.
+
+This method will likely change in future in order to provide full Vue3 compability.
 
 <b>Signature:</b>
 
 ```typescript
 export declare function getApplicationContext(rootContext: ApplicationVueContext | undefined | null, key?: string): {
-    apiInstance: ShopwareApiInstance | undefined;
-    vuexStore: any;
+    apiInstance: ShopwareApiInstance;
     router: any;
     route: any;
+    routing: Routing;
     i18n: any;
     cookies: any;
-    shopwareDefaults: any;
-    interceptors: any;
-    routing: any;
-    sharedStore: any;
+    shopwareDefaults: ApiDefaults;
+    interceptors: SwInterceptors;
+    sharedStore: {
+        [x: string]: any;
+    };
     isServer: boolean;
     contextName: string;
 };
@@ -36,5 +40,5 @@ export declare function getApplicationContext(rootContext: ApplicationVueContext
 
 <b>Returns:</b>
 
-{ apiInstance: ShopwareApiInstance \| undefined; vuexStore: any; router: any; route: any; i18n: any; cookies: any; shopwareDefaults: any; interceptors: any; routing: any; sharedStore: any; isServer: boolean; contextName: string; }
+{ apiInstance: ShopwareApiInstance; router: any; route: any; routing: [Routing](./composables.routing.md)<!-- -->; i18n: any; cookies: any; shopwareDefaults: ApiDefaults; interceptors: [SwInterceptors](./composables.swinterceptors.md)<!-- -->; sharedStore: { \[x: string\]: any; }; isServer: boolean; contextName: string; }
 
