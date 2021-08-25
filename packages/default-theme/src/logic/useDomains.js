@@ -10,6 +10,7 @@ import { getCmsTechnicalPath } from "@shopware-pwa/helpers"
 export const useDomains = (rootContext = null) => {
   // the "last-chance route always has a name starting with `all` - nuxt default"
   const PAGE_RESOLVER_ROUTE_PREFIX = "all"
+  const { resourceIdentifier, page } = useCms()
 
   const { router, routing, apiInstance } = getApplicationContext(
     rootContext,
@@ -19,12 +20,13 @@ export const useDomains = (rootContext = null) => {
   const availableDomains = computed(() => routing.availableDomains || [])
   const currentDomainId = computed(
     () =>
-      routing.getCurrentDomain.value && routing.getCurrentDomain.value.domainId
+      routing.getCurrentDomain?.value &&
+      routing.getCurrentDomain?.value?.domainId
   )
   const trimDomain = (url) =>
     url.replace(
       routing.getCurrentDomain.value
-        ? routing.getCurrentDomain.value.pathPrefix
+        ? routing.getCurrentDomain.value?.pathPrefix
         : "",
       ""
     )
@@ -39,8 +41,6 @@ export const useDomains = (rootContext = null) => {
     return !rootContext.$route.name.startsWith(PAGE_RESOLVER_ROUTE_PREFIX)
   })
   const getNewDomainUrl = async (domain) => {
-    const { resourceIdentifier, page } = useCms()
-
     let url = `${domain.pathPrefix !== "/" ? `${domain.pathPrefix}` : ""}`
     let path = ""
     if (isRouteStatic.value) {
@@ -53,8 +53,8 @@ export const useDomains = (rootContext = null) => {
           domain.languageId,
           apiInstance
         )
-        if (seoResponse.total > 0 && seoResponse.elements[0].seoPathInfo) {
-          path += seoResponse.elements[0].seoPathInfo
+        if (seoResponse.total > 0 && seoResponse.elements?.[0]?.seoPathInfo) {
+          path += seoResponse.elements?.[0]?.seoPathInfo
         } else {
           // prevent using the technical URL of a root category stick to homepage "/"
           path += !isHomePage() ? getCmsTechnicalPath(page.value) : ""
@@ -76,7 +76,7 @@ export const useDomains = (rootContext = null) => {
   const changeDomain = async (domainId) => {
     if (domainId === currentDomainId.value) return
 
-    const domainFound = availableDomains.value.find(
+    const domainFound = availableDomains.value?.find(
       (domain) => domain.domainId == domainId
     )
 
@@ -85,7 +85,7 @@ export const useDomains = (rootContext = null) => {
     }
 
     const newUrlPath = await getNewDomainUrl(domainFound)
-    if (domainFound.origin === routing.getCurrentDomain.value.origin) {
+    if (domainFound.origin === routing.getCurrentDomain?.value?.origin) {
       // Same Origin, use routing to push the new path
       router.push(newUrlPath)
     } else {

@@ -20,6 +20,8 @@ export default async ({ app, route, req }, inject) => {
 
   await scope.run(async () => {
     const { sharedRef } = useSharedState(app);
+    const { setCurrency } = useSessionContext(app);
+
     const currentDomainData = sharedRef("sw-current-domain");
 
     const routeDomainUrl = computed(() => route.meta?.[0]?.pathPrefix);
@@ -81,7 +83,7 @@ export default async ({ app, route, req }, inject) => {
 
     const routing = {
       // list of available domains from "domains.json" - output of "domains" CLI command
-      availableDomains: (domainsList && Object.values(domainsList)) || {},
+      availableDomains: (domainsList && Object.values(domainsList)) || [],
       fallbackDomain: FALLBACK_DOMAIN,
       fallbackLocale: FALLBACK_LOCALE,
       // set current domain's configuration
@@ -182,8 +184,6 @@ export default async ({ app, route, req }, inject) => {
         app.routing.setCurrentDomain(domainConfig);
         languageId && app.$shopwareApiInstance.update({ languageId });
         app.i18n.locale = languageLocaleCode;
-
-        const { setCurrency } = useSessionContext(app);
         const currencyPromise = setCurrency({ id: currencyId });
         Promise.all([currencyPromise]).catch((e) => {
           console.error("[MIDDLEWARE][DOMAINS]", e);

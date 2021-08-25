@@ -21,8 +21,8 @@ export default async function ({ app, route, redirect, from }) {
     const { search, currentSearchPathKey, page } = useCms()
     if (
       !isStaticPage(route) &&
-      (route.params.pathMatch !== currentSearchPathKey.value ||
-        from.meta[0].domainId !== route.meta[0].domainId)
+      (route.params?.pathMatch !== currentSearchPathKey.value ||
+        from.meta?.[0]?.domainId !== route?.meta?.[0]?.domainId)
     ) {
       // route path shouldn't have virtual domain's prefix included in URL
       // because it's no a part of URL in seo_urls SW6 table
@@ -30,9 +30,10 @@ export default async function ({ app, route, redirect, from }) {
       await search(pathMatch, route.query)
       // redirect to the cannnical URL if current path does not match the canonical one
       if (
+        pathMatch &&
         page.value &&
         page.value.canonicalPathInfo &&
-        pathMatch !== page.value.canonicalPathInfo
+        pathMatch !== page.value?.canonicalPathInfo
       ) {
         return redirect(app.$routing.getUrl(page.value.canonicalPathInfo))
       }

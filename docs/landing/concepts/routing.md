@@ -29,3 +29,10 @@ The plugin is accessible under `$routing` key, within Nuxt context. It provides 
     - Sets the locale within `i18n` plugin (`app.i18n.locale = languageLocaleCode`)
 
 Thanks to this process, the application is aware of the language and currency the customer is using at the moment.
+
+
+## Production setup
+
+If Shopware PWA application runs over a proxy (reverse proxy, load balancer, etc.) there is additional configuration required in order to tell Shopware PWA which domain (host) should be resolved. 
+
+To do so, provide [X-Forwarded-Host](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Host) header containing appropriate host (appearing between a proxy and Shopware PWA).
