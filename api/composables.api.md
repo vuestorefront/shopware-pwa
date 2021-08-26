@@ -92,8 +92,8 @@ export function createListingComposable<ELEMENTS_TYPE>({ searchMethod, searchDef
 export function extendScopeContext(scope: any, app: any): void;
 
 // @beta
-export function getApplicationContext(params: {
-    contextName: string;
+export function getApplicationContext(params?: {
+    contextName?: string;
 }): {
     apiInstance: ShopwareApiInstance;
     router: any;
