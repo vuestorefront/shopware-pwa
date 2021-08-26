@@ -64,15 +64,15 @@ export interface IUseSessionContext {
 export function useSessionContext(
   rootContext: ApplicationVueContext
 ): IUseSessionContext {
-  const { apiInstance } = getApplicationContext(
-    rootContext,
-    "useSessionContext"
-  );
+  const COMPOSABLE_NAME = "useSessionContext";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
   const { broadcast, intercept } = useIntercept(rootContext);
 
   const { sharedRef } = useSharedState(rootContext);
   const storeSessionContext = sharedRef<SessionContext>(
-    `useSessionContext-sessionContext`
+    `${contextName}-sessionContext`
   );
 
   const onCurrencyChange = (fn: IInterceptorCallbackFunction) =>

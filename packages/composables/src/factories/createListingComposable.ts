@@ -1,7 +1,6 @@
 import { getListingFilters, ListingFilter } from "@shopware-pwa/helpers";
 
 import {
-  ApplicationVueContext,
   getApplicationContext,
   useSharedState,
   useVueContext,
@@ -15,7 +14,7 @@ import { Sort } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 /**
  * Listing interface, can be used to display category products, search products or any other Shopware search interface (ex. orders with pagination)
  *
- * @beta
+ * @public
  */
 export interface IUseListing<ELEMENTS_TYPE> {
   getInitialListing: ComputedRef<ListingResult<ELEMENTS_TYPE> | null>;
@@ -50,15 +49,14 @@ export interface IUseListing<ELEMENTS_TYPE> {
  * Factory to create your own listing. By default you can use useListing composable, which provides you predefined listings for category(cms) listing and product search listing.
  * Using factory you can provide our own compatible search method and use it for example for creating listing of orders in my account.
  *
- * @beta
+ * @public
  */
 export function createListingComposable<ELEMENTS_TYPE>({
-  rootContext,
   searchMethod,
   searchDefaults,
   listingKey,
 }: {
-  rootContext: ApplicationVueContext;
+  rootContext?: any;
   searchMethod: (
     searchParams: Partial<ShopwareSearchParams>
   ) => Promise<ListingResult<ELEMENTS_TYPE>>;
@@ -68,7 +66,7 @@ export function createListingComposable<ELEMENTS_TYPE>({
   const COMPOSABLE_NAME = "createListingComposable";
   const contextName = COMPOSABLE_NAME;
 
-  const { router } = getApplicationContext(rootContext, contextName);
+  const { router } = getApplicationContext({ contextName });
 
   // Handle CMS context to be able to show different breadcrumbs for different CMS pages.
   const { isVueComponent } = useVueContext();

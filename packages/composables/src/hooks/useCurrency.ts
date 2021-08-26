@@ -26,10 +26,13 @@ export interface UseCurrency {
  * @beta
  */
 export function useCurrency(rootContext: ApplicationVueContext): UseCurrency {
-  const { apiInstance } = getApplicationContext(rootContext, "useCurrency");
+  const COMPOSABLE_NAME = "useCurrency";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
   const { sharedRef } = useSharedState(rootContext);
   const _availableCurrencies: Ref<Currency[] | null> = sharedRef(
-    "sw-useCurrency-availableCurrencies"
+    `sw-${contextName}-availableCurrencies`
   );
 
   const { currency, setCurrency: setContextCurrency } =

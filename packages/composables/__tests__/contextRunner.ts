@@ -11,6 +11,7 @@ export function prepareRootContextMock(extendContextMock?: any) {
       },
       $routing: jest.fn(),
       sharedStore: reactive({}),
+      interceptors: {},
     },
     extendContextMock || {}
   );

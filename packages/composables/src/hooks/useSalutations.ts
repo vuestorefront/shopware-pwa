@@ -24,10 +24,13 @@ export interface UseSalutations {
 export function useSalutations(
   rootContext: ApplicationVueContext
 ): UseSalutations {
-  const { apiInstance } = getApplicationContext(rootContext, "useSalutations");
+  const COMPOSABLE_NAME = "useSalutations";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
   const { sharedRef } = useSharedState(rootContext);
   const _salutations: Ref<Salutation[] | null> = sharedRef(
-    "sw-useSalutations-salutations"
+    `sw-${contextName}-salutations`
   );
 
   const error: Ref<any> = ref(null);

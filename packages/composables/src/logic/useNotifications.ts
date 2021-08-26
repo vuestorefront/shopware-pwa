@@ -26,10 +26,13 @@ export function useNotifications(rootContext: ApplicationVueContext): {
   pushError: (message: string, options?: any) => void;
   pushSuccess: (message: string, options?: any) => void;
 } {
-  getApplicationContext(rootContext, "useNotifications");
+  const COMPOSABLE_NAME = "useNotifications";
+  const contextName = COMPOSABLE_NAME;
+
+  getApplicationContext({ contextName });
   const { sharedRef } = useSharedState(rootContext);
   const _notifications: Ref<Notification[] | null> = sharedRef(
-    "sw-useNotifications-notifications"
+    `sw-${contextName}-notifications`
   );
 
   /**

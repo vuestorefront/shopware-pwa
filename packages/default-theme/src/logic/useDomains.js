@@ -8,14 +8,16 @@ import { getSeoUrls } from "@shopware-pwa/shopware-6-client"
 import { getCmsTechnicalPath } from "@shopware-pwa/helpers"
 
 export function useDomains(rootContext = null) {
+  const COMPOSABLE_NAME = "useBreadcrumbs"
+  const contextName = COMPOSABLE_NAME
+
   // the "last-chance route always has a name starting with `all` - nuxt default"
   const PAGE_RESOLVER_ROUTE_PREFIX = "all"
   const { resourceIdentifier, page } = useCms()
 
-  const { router, routing, apiInstance } = getApplicationContext(
-    rootContext,
-    "useDomains"
-  )
+  const { router, routing, apiInstance } = getApplicationContext({
+    contextName,
+  })
 
   const availableDomains = computed(() => routing.availableDomains || [])
   const currentDomainId = computed(

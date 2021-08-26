@@ -80,9 +80,9 @@ export type ApplicationVueContext = ComponentInstance & {
     isServer?: any;
 };
 
-// @beta
-export function createListingComposable<ELEMENTS_TYPE>({ rootContext, searchMethod, searchDefaults, listingKey, }: {
-    rootContext: ApplicationVueContext_2;
+// @public
+export function createListingComposable<ELEMENTS_TYPE>({ searchMethod, searchDefaults, listingKey, }: {
+    rootContext?: any;
     searchMethod: (searchParams: Partial<ShopwareSearchParams>) => Promise<ListingResult<ELEMENTS_TYPE>>;
     searchDefaults: ShopwareSearchParams;
     listingKey: string;
@@ -92,7 +92,9 @@ export function createListingComposable<ELEMENTS_TYPE>({ rootContext, searchMeth
 export function extendScopeContext(scope: any, app: any): void;
 
 // @beta
-export function getApplicationContext(rootContext: ApplicationVueContext | undefined | null, key?: string): {
+export function getApplicationContext(params?: {
+    contextName?: string;
+}): {
     apiInstance: ShopwareApiInstance;
     router: any;
     route: any;
@@ -286,7 +288,7 @@ export interface IUseIntercept {
     intercept: (broadcastKey: string, method: IInterceptorCallbackFunction) => void;
 }
 
-// @beta
+// @public
 export interface IUseListing<ELEMENTS_TYPE> {
     // (undocumented)
     changeCurrentPage: (pageNumber?: number | string) => Promise<void>;

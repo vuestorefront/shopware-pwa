@@ -70,7 +70,10 @@ export function useAddToCart(
   rootContext: ApplicationVueContext,
   product: Product
 ): IUseAddToCart {
-  const { contextName } = getApplicationContext(rootContext, "useAddToCart");
+  const COMPOSABLE_NAME = "useAddToCart";
+  const contextName = COMPOSABLE_NAME;
+
+  getApplicationContext({ contextName });
   const { addProduct, cartItems } = useCart(rootContext);
   const { broadcast, intercept } = useIntercept(rootContext);
   const quantity: Ref<number> = ref(1);

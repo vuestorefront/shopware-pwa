@@ -28,14 +28,13 @@ export function useBreadcrumbs(
   clear: () => void;
 } {
   const COMPOSABLE_NAME = "useBreadcrumbs";
+  const contextName = COMPOSABLE_NAME;
 
   // Handle CMS context to be able to show different breadcrumbs for different CMS pages.
   const { isVueComponent } = useVueContext();
   const cmsContext = isVueComponent && inject("swCmsContext", null);
 
-  const contextName = COMPOSABLE_NAME;
-
-  const { i18n } = getApplicationContext(null, contextName);
+  const { i18n } = getApplicationContext({ contextName });
   const { sharedRef } = useSharedState();
 
   const cacheKey = cmsContext

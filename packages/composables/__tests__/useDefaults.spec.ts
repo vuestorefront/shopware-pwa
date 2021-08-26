@@ -1,19 +1,28 @@
-import { useDefaults, getDefaultApiParams } from "@shopware-pwa/composables";
+import { useDefaults } from "../src/logic/useDefaults";
+import { getDefaultApiParams } from "../src/getDefaultApiParams";
+import { prepareRootContextMock } from "./contextRunner";
 const consoleWarnSpy = jest.spyOn(console, "warn");
 
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+
 describe("Composables - useDefaults", () => {
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-    $shopwareDefaults: getDefaultApiParams(),
-  };
+  const rootContextMock = prepareRootContextMock();
   beforeEach(() => {
     jest.resetAllMocks();
-    rootContextMock.$shopwareDefaults = getDefaultApiParams();
+    rootContextMock.shopwareDefaults = getDefaultApiParams();
     consoleWarnSpy.mockImplementation(() => {});
+
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
   });
   describe("validation", () => {
     it("should throw an error when shopwareDefaults are not set", async () => {
-      rootContextMock.$shopwareDefaults = undefined;
+      rootContextMock.shopwareDefaults = undefined;
       expect(() => useDefaults(rootContextMock, "anyKey")).toThrow(
         "[composables][useDefaults]: applicationContext does not have shopwareDefaults!"
       );

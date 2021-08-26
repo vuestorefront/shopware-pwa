@@ -3,7 +3,10 @@ import languagesMap from "sw-plugins/languages"
 import { getApplicationContext } from "@shopware-pwa/composables"
 
 export function useLocales(rootContext) {
-  const { i18n, router } = getApplicationContext(rootContext, "useLocales")
+  const COMPOSABLE_NAME = "useLocales"
+  const contextName = COMPOSABLE_NAME
+
+  const { i18n, router } = getApplicationContext({ contextName })
 
   // TODO: consider using availabeDomains config to list the languages
   const availableLanguages = computed(() => Object.values(languagesMap) || [])

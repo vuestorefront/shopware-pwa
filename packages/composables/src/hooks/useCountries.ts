@@ -22,10 +22,13 @@ export interface UseCountries {
  * @beta
  */
 export function useCountries(rootContext: ApplicationVueContext): UseCountries {
-  const { apiInstance } = getApplicationContext(rootContext, "useCountries");
+  const COMPOSABLE_NAME = "useCountries";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
   const { sharedRef } = useSharedState(rootContext);
   const _sharedCountried: Ref<Country[] | null> = sharedRef(
-    "sw-useCountries-countries"
+    `sw-${contextName}-countries`
   );
   const error: Ref<any> = ref(null);
 

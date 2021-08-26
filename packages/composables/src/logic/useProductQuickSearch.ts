@@ -28,8 +28,11 @@ export interface IUseProductQuickSearch {
 export function useProductQuickSearch(
   rootContext: ApplicationVueContext
 ): IUseProductQuickSearch {
-  const { getDefaults } = useDefaults(rootContext, "useProductQuickSearch");
-  const { apiInstance } = getApplicationContext(rootContext, "useListing");
+  const COMPOSABLE_NAME = "useProductQuickSearch";
+  const contextName = COMPOSABLE_NAME;
+
+  const { getDefaults } = useDefaults(rootContext, contextName);
+  const { apiInstance } = getApplicationContext({ contextName });
 
   const searchTerm = ref("");
 

@@ -51,6 +51,11 @@ export function useProductConfigurator(
   rootContext: ApplicationVueContext,
   product: Product
 ): IUseProductConfigurator {
+  const COMPOSABLE_NAME = "useProductConfigurator";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
+
   const { page } = useCms();
   const selected = ref({} as any);
   const isLoadingOptions = ref(!!product.options?.length);
@@ -81,10 +86,6 @@ export function useProductConfigurator(
   const findVariantForSelectedOptions = async (options?: {
     [code: string]: string;
   }) => {
-    const { apiInstance } = getApplicationContext(
-      rootContext,
-      "useProductConfigurator"
-    );
     const filter = [
       {
         type: "equals",

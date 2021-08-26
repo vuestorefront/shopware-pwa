@@ -61,10 +61,10 @@ export interface IUseCustomerAddresses {
 export function useCustomerAddresses(
   rootContext: ApplicationVueContext
 ): IUseCustomerAddresses {
-  const { contextName, apiInstance } = getApplicationContext(
-    rootContext,
-    "useCustomerAddresses"
-  );
+  const COMPOSABLE_NAME = "useCurrency";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
   const { getDefaults } = useDefaults(rootContext, contextName);
 
   const { refreshUser } = useUser(rootContext);
