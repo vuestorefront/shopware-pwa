@@ -2,9 +2,8 @@ import { ref, Ref } from "vue-demi";
 import { getProduct, getProductPage } from "@shopware-pwa/shopware-6-client";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { getApplicationContext } from "@shopware-pwa/composables";
+import { getApplicationContext, useDefaults } from "@shopware-pwa/composables";
 import { ApplicationVueContext } from "../../appContext";
-import { useDefaults } from "../../logic/useDefaults";
 const NO_PRODUCT_REFERENCE_ERROR =
   "Associations cannot be loaded for undefined product";
 
@@ -31,10 +30,13 @@ export function useProduct(
   rootContext: ApplicationVueContext,
   loadedProduct?: any
 ): UseProduct<Product, Search> {
-  const { apiInstance } = getApplicationContext(rootContext, "useProduct");
+  const COMPOSABLE_NAME = "useProduct";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
   const { getAssociationsConfig, getIncludesConfig } = useDefaults(
     rootContext,
-    "useProduct"
+    contextName
   );
 
   const loading: Ref<boolean> = ref(false);

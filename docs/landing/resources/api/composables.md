@@ -8,8 +8,8 @@
 
 |  Function | Description |
 |  --- | --- |
-|  [createListingComposable({ rootContext, searchMethod, searchDefaults, listingKey, })](./composables.createlistingcomposable.md) | <b><i>(BETA)</i></b> Factory to create your own listing. By default you can use useListing composable, which provides you predefined listings for category(cms) listing and product search listing. Using factory you can provide our own compatible search method and use it for example for creating listing of orders in my account. |
-|  [getApplicationContext(rootContext, key)](./composables.getapplicationcontext.md) | <b><i>(BETA)</i></b> Get the current application context values. The context is either a scope or a component instance. This method checks if the context contains all the necessary data.<!-- -->This method will likely change in future in order to provide full Vue3 compability. |
+|  [createListingComposable({ searchMethod, searchDefaults, listingKey, })](./composables.createlistingcomposable.md) | Factory to create your own listing. By default you can use useListing composable, which provides you predefined listings for category(cms) listing and product search listing. Using factory you can provide our own compatible search method and use it for example for creating listing of orders in my account. |
+|  [getApplicationContext(params)](./composables.getapplicationcontext.md) | <b><i>(BETA)</i></b> Get the current application context values. The context is either a scope or a component instance. This method checks if the context contains all the necessary data.<!-- -->This method will likely change in future in order to provide full Vue3 compability. |
 |  [getDefaultApiParams()](./composables.getdefaultapiparams.md) | <b><i>(BETA)</i></b> Returns default system API params |
 |  [useAddToCart(rootContext, product)](./composables.useaddtocart.md) | <b><i>(BETA)</i></b> Add product to cart. Options - [IUseAddToCart](./composables.iuseaddtocart.md) |
 |  [useBreadcrumbs(rootContext, params)](./composables.usebreadcrumbs.md) | <b><i>(BETA)</i></b> Composable for displaying and setting breadcrumbs for page. |
@@ -52,7 +52,7 @@
 |  [IUseCustomerOrders](./composables.iusecustomerorders.md) | <b><i>(BETA)</i></b> interface for [useCustomerOrders()](./composables.usecustomerorders.md) composable |
 |  [IUseCustomerPassword](./composables.iusecustomerpassword.md) | <b><i>(BETA)</i></b> interface for [useCustomerPassword()](./composables.usecustomerpassword.md) composable |
 |  [IUseIntercept](./composables.iuseintercept.md) | <b><i>(BETA)</i></b> interface for [useIntercept()](./composables.useintercept.md) composable |
-|  [IUseListing](./composables.iuselisting.md) | <b><i>(BETA)</i></b> Listing interface, can be used to display category products, search products or any other Shopware search interface (ex. orders with pagination) |
+|  [IUseListing](./composables.iuselisting.md) | Listing interface, can be used to display category products, search products or any other Shopware search interface (ex. orders with pagination) |
 |  [IUseNavigation](./composables.iusenavigation.md) | <b><i>(BETA)</i></b> interface for [useNavigation()](./composables.usenavigation.md) composable<!-- -->Provides state for navigation trees depending on navigation type. |
 |  [IUseProductAssociations](./composables.iuseproductassociations.md) | <b><i>(BETA)</i></b> interface for [IUseProductAssociations](./composables.iuseproductassociations.md) composable |
 |  [IUseProductConfigurator](./composables.iuseproductconfigurator.md) | <b><i>(BETA)</i></b> interface for [useProductConfigurator()](./composables.useproductconfigurator.md) composable |

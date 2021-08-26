@@ -53,10 +53,10 @@ export function useProductAssociations(
   product: Product,
   association: "cross-selling" | "reviews"
 ): IUseProductAssociations {
-  const { apiInstance } = getApplicationContext(
-    rootContext,
-    "useProductAssociations"
-  );
+  const COMPOSABLE_NAME = "useProductAssociations";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
   const isLoading = ref(false);
   const associations = ref([]);
   interface loadAssociationsParams {

@@ -26,7 +26,7 @@ export function useSharedState(rootContext?: ApplicationVueContext) {
   const COMPOSABLE_NAME = "useSharedState";
   const contextName = COMPOSABLE_NAME;
 
-  const { sharedStore, isServer } = getApplicationContext(null, contextName);
+  const { sharedStore, isServer } = getApplicationContext({ contextName });
 
   if (!sharedStore)
     throw new Error(

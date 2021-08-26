@@ -58,11 +58,14 @@ export function useOrderDetails(
   cancel: () => Promise<void>;
   changePaymentMethod: (paymentMethodId: string) => Promise<void>;
 } {
-  const { apiInstance } = getApplicationContext(rootContext, "useOrderDetails");
-  const { getDefaults } = useDefaults(rootContext, "useOrderDetails");
+  const COMPOSABLE_NAME = "useOrderDetails";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
+  const { getDefaults } = useDefaults(rootContext, contextName);
   const { broadcast } = useIntercept(rootContext);
   const { sharedRef } = useSharedState(rootContext);
-  const _sharedOrder = sharedRef("sw-useOrderDetails-order", order);
+  const _sharedOrder = sharedRef(`sw-${contextName}-order`, order);
   const errors: UnwrapRef<{
     loadOrderDetails: ShopwareError[];
     handlePayment: ShopwareError[];

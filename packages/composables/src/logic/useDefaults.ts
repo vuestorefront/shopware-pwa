@@ -41,10 +41,10 @@ export function useDefaults(
   getAssociationsConfig: () => ShopwareAssociation;
   getDefaults: () => ShopwareSearchParams;
 } {
-  const { shopwareDefaults } = getApplicationContext(
-    rootContext,
-    "useDefaults"
-  );
+  const COMPOSABLE_NAME = "useDefaults";
+  const contextName = COMPOSABLE_NAME;
+
+  const { shopwareDefaults } = getApplicationContext({ contextName });
   if (!shopwareDefaults) {
     throw new Error(
       "[composables][useDefaults]: applicationContext does not have shopwareDefaults!"
@@ -55,7 +55,7 @@ export function useDefaults(
     if (!shopwareDefaults[keyName]) {
       warning({
         packageName: "composables",
-        methodName: "useDefaults",
+        methodName: contextName,
         notes: `there is no defaults configuration for key: ${keyName}`,
       });
       return;

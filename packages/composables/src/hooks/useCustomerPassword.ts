@@ -40,10 +40,10 @@ export interface IUseCustomerPassword {
 export function useCustomerPassword(
   rootContext: ApplicationVueContext
 ): IUseCustomerPassword {
-  const { apiInstance } = getApplicationContext(
-    rootContext,
-    "useCustomerPassword"
-  );
+  const COMPOSABLE_NAME = "useCustomerPassword";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
 
   const errors: UnwrapRef<{
     resetPassword: ShopwareError[];

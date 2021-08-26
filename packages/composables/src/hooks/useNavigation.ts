@@ -52,12 +52,15 @@ export function useNavigation(
     type: "main-navigation",
   }
 ): IUseNavigation {
-  const { apiInstance } = getApplicationContext(rootContext, "useNavigation");
+  const COMPOSABLE_NAME = "useNavigation";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
   const { sharedRef } = useSharedState(rootContext);
 
   const { getIncludesConfig, getAssociationsConfig } = useDefaults(
     rootContext,
-    "useNavigation"
+    contextName
   );
 
   const sharedElements = sharedRef<StoreNavigationElement[]>(

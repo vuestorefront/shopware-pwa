@@ -32,11 +32,14 @@ export function useWishlist(
   rootContext: ApplicationVueContext,
   product?: Product
 ): IUseWishlist {
+  const COMPOSABLE_NAME = "useWishlist";
+  const contextName = COMPOSABLE_NAME;
+
   const { broadcast, intercept } = useIntercept(rootContext);
-  getApplicationContext(rootContext, "useNotifications");
+  getApplicationContext({ contextName });
   const { sharedRef } = useSharedState(rootContext);
   const _wishlistItems: Ref<string[] | null> = sharedRef(
-    "sw-useWishlist-items"
+    `sw-${contextName}-items`
   );
 
   const productId: Ref<string | undefined> = ref(product?.id);

@@ -50,10 +50,10 @@ export interface IUseCheckout {
  * @beta
  */
 export function useCheckout(rootContext: ApplicationVueContext): IUseCheckout {
-  const { apiInstance, contextName } = getApplicationContext(
-    rootContext,
-    "useCheckout"
-  );
+  const COMPOSABLE_NAME = "useCheckout";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
   const { broadcast, intercept } = useIntercept(rootContext);
   const { refreshCart } = useCart(rootContext);
   const { sessionContext } = useSessionContext(rootContext);

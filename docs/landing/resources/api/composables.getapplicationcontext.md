@@ -14,7 +14,9 @@ This method will likely change in future in order to provide full Vue3 compabili
 <b>Signature:</b>
 
 ```typescript
-export declare function getApplicationContext(rootContext: ApplicationVueContext | undefined | null, key?: string): {
+export declare function getApplicationContext(params: {
+    contextName: string;
+}): {
     apiInstance: ShopwareApiInstance;
     router: any;
     route: any;
@@ -35,8 +37,7 @@ export declare function getApplicationContext(rootContext: ApplicationVueContext
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) \| undefined \| null |  |
-|  key | string |  |
+|  params | { contextName: string; } |  |
 
 <b>Returns:</b>
 

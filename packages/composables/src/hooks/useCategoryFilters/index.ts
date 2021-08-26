@@ -18,12 +18,15 @@ import { deprecationWarning } from "@shopware-pwa/commons";
  * @deprecated please see useListing instead
  */
 export function useCategoryFilters(rootContext: ApplicationVueContext): any {
+  const COMPOSABLE_NAME = "useCategoryFilters";
+  const contextName = COMPOSABLE_NAME;
+
   deprecationWarning({
-    methodName: "useCategoryFilters",
+    methodName: contextName,
     newMethodName: "useListing",
     packageName: "composables",
   });
-  getApplicationContext(rootContext, "useCategoryFilters");
+  getApplicationContext({ contextName });
   const { page } = useCms();
 
   const activeFilters = computed(() => {

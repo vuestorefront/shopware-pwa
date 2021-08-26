@@ -56,7 +56,7 @@ export function useCms(options?: {
 
   const contextName = COMPOSABLE_NAME;
 
-  const { apiInstance } = getApplicationContext(null, contextName);
+  const { apiInstance } = getApplicationContext({ contextName });
 
   const cacheKey = cmsContext
     ? `${contextName}(cms-${cmsContext})`

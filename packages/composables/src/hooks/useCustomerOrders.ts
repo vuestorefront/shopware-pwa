@@ -30,10 +30,10 @@ export interface IUseCustomerOrders {
 export function useCustomerOrders(
   rootContext: ApplicationVueContext
 ): IUseCustomerOrders {
-  const { contextName, apiInstance } = getApplicationContext(
-    rootContext,
-    "useCustomerOrders"
-  );
+  const COMPOSABLE_NAME = "useCustomerOrders";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
 
   const { getDefaults } = useDefaults(rootContext, contextName);
 

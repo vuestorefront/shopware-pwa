@@ -26,8 +26,11 @@ export function useListing(
   rootContext: ApplicationVueContext,
   listingKey: listingKey = "categoryListing"
 ): IUseListing<Product> {
-  const { getDefaults } = useDefaults(rootContext, "useListing");
-  const { apiInstance } = getApplicationContext(rootContext, "useListing");
+  const COMPOSABLE_NAME = "useListing";
+  const contextName = COMPOSABLE_NAME;
+
+  const { getDefaults } = useDefaults(rootContext, contextName);
+  const { apiInstance } = getApplicationContext({ contextName });
 
   let searchMethod;
   if (listingKey === "productSearchListing") {

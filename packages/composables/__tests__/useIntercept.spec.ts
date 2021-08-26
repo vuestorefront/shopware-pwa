@@ -1,23 +1,27 @@
 import vueComp from "vue-demi";
 const mockedCompositionAPI = vueComp as jest.Mocked<typeof vueComp>;
 
+import * as Composables from "@shopware-pwa/composables";
+jest.mock("@shopware-pwa/composables");
+const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+
 import { useIntercept } from "../src/logic/useIntercept";
+import { prepareRootContextMock } from "./contextRunner";
 
 describe("Composables - useIntercept", () => {
   let registeredInterceptors: any = {};
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-    $interceptors: registeredInterceptors,
-  };
+  const rootContextMock = prepareRootContextMock();
 
-  mockedCompositionAPI.getCurrentInstance = jest.fn();
   mockedCompositionAPI.onUnmounted = jest.fn();
   beforeEach(() => {
     jest.resetAllMocks();
     registeredInterceptors = {};
-    rootContextMock.$interceptors = registeredInterceptors;
+    rootContextMock.interceptors = registeredInterceptors;
 
-    mockedCompositionAPI.getCurrentInstance.mockReturnValue(rootContextMock);
+    mockedCompositionAPI.getCurrentInstance = jest
+      .fn()
+      .mockReturnValue({} as any);
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
   });
 
   it("should register new interceptor", () => {

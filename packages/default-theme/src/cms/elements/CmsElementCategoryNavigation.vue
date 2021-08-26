@@ -86,10 +86,9 @@ export default {
     },
   },
   setup(props, { root }) {
-    const { apiInstance } = getApplicationContext(
-      root,
-      "CmsElementCategoryNavigation"
-    )
+    const { apiInstance } = getApplicationContext({
+      contextName: "CmsElementCategoryNavigation",
+    })
     const { resourceIdentifier } = useCms()
     const navTitle = ref(root.$t("Subcategories"))
     const navigationElements = ref([])

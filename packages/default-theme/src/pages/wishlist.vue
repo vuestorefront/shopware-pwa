@@ -65,7 +65,7 @@ export default {
   setup(props, { root }) {
     const { removeFromWishlist, items } = useWishlist(root)
     const { setBreadcrumbs } = useBreadcrumbs(root)
-    const { apiInstance } = getApplicationContext(root, "Wishlist")
+    const { apiInstance } = getApplicationContext({ contextName: "Wishlist" })
 
     const products = ref([])
     const isLoading = ref(false)

@@ -162,7 +162,9 @@ export default {
     },
   },
   setup(props, { root }) {
-    const { apiInstance } = getApplicationContext(root, "SwFooter")
+    const { apiInstance } = getApplicationContext({
+      contextName: "CmsElementContactForm",
+    })
     const { getSalutations, error: salutationsError } = useSalutations(root)
     const { resourceIdentifier } = useCms()
     const getMappedSalutations = computed(() =>

@@ -156,7 +156,10 @@ export interface IUseIntercept {
 export function useIntercept(
   rootContext: ApplicationVueContext
 ): IUseIntercept {
-  const { interceptors } = getApplicationContext(rootContext, "useIntercept");
+  const COMPOSABLE_NAME = "useIntercept";
+  const contextName = COMPOSABLE_NAME;
+
+  const { interceptors } = getApplicationContext({ contextName });
 
   const localSubscribers: any[] = [];
   const isVueInstance: boolean = !!getCurrentInstance();

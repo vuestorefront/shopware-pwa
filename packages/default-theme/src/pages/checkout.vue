@@ -147,7 +147,9 @@ export default {
     const { setBreadcrumbs } = useBreadcrumbs(root)
     const { isLoggedIn, register, errors } = useUser(root)
     const { createOrder: invokeCreateOrder, loadings } = useCheckout(root)
-    const { apiInstance } = getApplicationContext(root)
+    const { apiInstance } = getApplicationContext({
+      contextName: "CheckoutPage",
+    })
     const { refreshCart } = useCart(root)
     const errorMessages = ref([])
 

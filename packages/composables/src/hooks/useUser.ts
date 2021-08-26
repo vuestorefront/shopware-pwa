@@ -153,14 +153,14 @@ export interface IUseUser {
  * @beta
  */
 export function useUser(rootContext: ApplicationVueContext): IUseUser {
-  const { contextName, apiInstance } = getApplicationContext(
-    rootContext,
-    "useUser"
-  );
+  const COMPOSABLE_NAME = "useUser";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
   const { broadcast, intercept } = useIntercept(rootContext);
   const { refreshSessionContext } = useSessionContext(rootContext);
   const { refreshCart } = useCart(rootContext);
-  const { getDefaults } = useDefaults(rootContext, "useUser");
+  const { getDefaults } = useDefaults(rootContext, contextName);
 
   const { sharedRef } = useSharedState(rootContext);
   const storeUser = sharedRef<Partial<Customer>>(`${contextName}-user`);

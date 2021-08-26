@@ -112,7 +112,7 @@ export default {
     SwButton,
   },
   setup(props, { root }) {
-    const { apiInstance } = getApplicationContext(root, "SwCart")
+    const { apiInstance } = getApplicationContext({ contextName: "SwCart" })
     const { cartItems, count, totalPrice, removeProduct } = useCart(root)
     const { isOpen: isSidebarOpen, switchState: toggleSidebar } = useUIState(
       root,

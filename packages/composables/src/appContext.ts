@@ -103,13 +103,11 @@ interface Process extends NodeJS.Process {
  *
  * @beta
  */
-export function getApplicationContext(
-  rootContext: ApplicationVueContext | undefined | null,
-  key: string = "getApplicationContext"
-) {
+export function getApplicationContext(params?: { contextName?: string }) {
+  const key = params?.contextName || "getApplicationContext";
   const injectedContext = getCurrentInstance()?.proxy as ApplicationVueContext;
   const scopeContext = (getCurrentScope?.() as any)?.vm;
-  let context = scopeContext || injectedContext || rootContext;
+  let context = scopeContext || injectedContext;
   if (!checkAppContext(key, context)) {
     console.error(`[${key}] No Vue instance detected!`);
   }

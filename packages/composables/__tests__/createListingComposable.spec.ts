@@ -5,8 +5,9 @@ import { Ref, ref } from "vue-demi";
 
 import { createListingComposable } from "../src/factories/createListingComposable";
 
-import * as Composables from "@shopware-pwa/composables";
 import { prepareRootContextMock } from "./contextRunner";
+
+import * as Composables from "@shopware-pwa/composables";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 

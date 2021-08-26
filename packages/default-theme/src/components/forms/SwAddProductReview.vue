@@ -90,7 +90,9 @@ export default {
   },
   setup(props, { root }) {
     const { isLoggedIn, isGuestSession } = useUser(root)
-    const { apiInstance } = getApplicationContext(root, "SwAddProductReview")
+    const { apiInstance } = getApplicationContext({
+      contextName: "SwAddProductReview",
+    })
     const { switchState: switchLoginModalState } = useUIState(
       root,
       "LOGIN_MODAL_STATE"

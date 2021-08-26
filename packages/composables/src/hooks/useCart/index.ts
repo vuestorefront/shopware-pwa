@@ -67,10 +67,10 @@ export interface IUseCart {
  * @beta
  */
 export function useCart(rootContext: ApplicationVueContext): IUseCart {
-  const { apiInstance, contextName } = getApplicationContext(
-    rootContext,
-    "useCart"
-  );
+  const COMPOSABLE_NAME = "useCart";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
   const { broadcast } = useIntercept(rootContext);
 
   const loading: Ref<boolean> = ref(false);
