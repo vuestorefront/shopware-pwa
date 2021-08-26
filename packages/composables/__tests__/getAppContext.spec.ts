@@ -79,6 +79,7 @@ describe("Shopware composables - getAppContext", () => {
 
   it("should return getCurrentInstance if rootContext is not provided", () => {
     rootContextMock.$shopwareApiInstance = undefined;
+    mockedCompositionAPI.getCurrentInstance.mockReturnValue(null);
     const result = getApplicationContext({ contextName: "test1" });
     expect(result.apiInstance).toBe(undefined);
     expect(consoleErrorSpy).toHaveBeenCalledWith(
