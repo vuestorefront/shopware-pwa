@@ -30,6 +30,34 @@ The plugin is accessible under `$routing` key, within Nuxt context. It provides 
 
 Thanks to this process, the application is aware of the language and currency the customer is using at the moment.
 
+## Configuration
+Sample of configuration for developers
+### Backend
+Create and configure domains you want to be handled in Shopware PWA.
+
+In backend admin panel at **Sales channels > Your sales channel > Domains**
+
+
+| URL                        | Language      |  Snippet set | Currency |
+|----------------------------|:-------------:|:-------------| --------:|
+| http://localhost:3000      |  English      |    en-GB     |    Pound |
+| http://localhost:3000/de   |  Deutsch      |    de-DE     |    Euro  |
+
+
+### Shopware PWA
+Edit `shopware-pwa.config.js` in order to add previously created domains in the backend.
+
+```js
+// shopware-pwa.config.js
+module.exports = {
+  shopwareEndpoint: "http://local-backend:8000",
+  shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
+  shopwareDomainsAllowList: ["http://localhost:3000", "http://localhost:3000/de"]
+};
+```
+
+**Note that `shopwareDomainsAllowList` list should match the URLs configured previously in the backend if PWA needs to handle them.**
+
 
 ## Production setup
 
