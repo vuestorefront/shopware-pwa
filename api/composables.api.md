@@ -577,14 +577,16 @@ export { Notification_2 as Notification }
 
 // @beta @deprecated (undocumented)
 export interface Routing {
+    // Warning: (ae-forgotten-export) The symbol "ShopwareDomain" needs to be exported by the entry point index.d.ts
+    //
     // (undocumented)
-    availableDomains: any;
+    availableDomains: ShopwareDomain[];
     // (undocumented)
     fallbackDomain: string | undefined;
     // (undocumented)
     fallbackLocale: string | undefined;
     // (undocumented)
-    getCurrentDomain: ComputedRef<string>;
+    getCurrentDomain: ComputedRef<ShopwareDomain>;
     // (undocumented)
     getUrl: (path: string) => string;
     // (undocumented)

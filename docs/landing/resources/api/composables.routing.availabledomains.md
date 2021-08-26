@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-availableDomains: any;
+availableDomains: ShopwareDomain[];
 ```

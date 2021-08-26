@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-getCurrentDomain: ComputedRef<string>;
+getCurrentDomain: ComputedRef<ShopwareDomain>;
 ```
