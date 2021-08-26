@@ -61,7 +61,7 @@ export default defineComponent({
   },
   name: "DefaultLayout",
 
-  setup(props) {
+  setup(props, { root }) {
     const { breadcrumbs } = useBreadcrumbs()
     const { isOpen: isSidebarOpen } = useUIState({
       stateName: "CART_SIDEBAR_STATE",

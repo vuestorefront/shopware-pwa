@@ -1,4 +1,9 @@
-import { useIntercept, INTERCEPTOR_KEYS } from "@shopware-pwa/composables"
+import { effectScope } from "vue-demi"
+import {
+  useIntercept,
+  INTERCEPTOR_KEYS,
+  extendScopeContext,
+} from "@shopware-pwa/composables"
 import {
   addPromotionCodeNotification,
   addToCartNotification,
@@ -9,9 +14,9 @@ import {
 export default async ({ app }) => {
   const scope = effectScope()
   extendScopeContext(scope, app)
-  const { intercept } = useIntercept()
 
   scope.run(async () => {
+    const { intercept } = useIntercept()
     intercept(INTERCEPTOR_KEYS.ADD_TO_CART, addToCartNotification)
     intercept(INTERCEPTOR_KEYS.ADD_PROMOTION_CODE, addPromotionCodeNotification)
     intercept(INTERCEPTOR_KEYS.ADD_TO_WISHLIST, addToWishlistNotification)
