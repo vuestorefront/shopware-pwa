@@ -178,17 +178,18 @@ export default {
       try {
         // 1. place an order
         const order = await invokeCreateOrder()
+        const currentContextToken = apiInstance?.config?.contextToken
         // 2. call handle-payment endpoint for further actions
         const handledPaymentResponse = await handlePayment(
           order.id,
           // pass finishUrl as a success page (used only in async payment flow)
           root.$routing.getAbsoluteUrl(
-            `${PAGE_ORDER_SUCCESS}?orderId=${order.id}`
+            `${PAGE_ORDER_SUCCESS}?contextToken=${currentContextToken}&orderId=${order.id}`
           ),
           // pass errorUrl as a failure page when the payment isn't done successfully
           // (used only in async payment flow)
           root.$routing.getAbsoluteUrl(
-            `${PAGE_ORDER_PAYMENT_FAILURE}?orderId=${order.id}`
+            `${PAGE_ORDER_PAYMENT_FAILURE}?contextToken=${currentContextToken}&orderId=${order.id}`
           ),
           apiInstance
         )

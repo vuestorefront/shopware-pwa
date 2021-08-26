@@ -269,6 +269,10 @@ export default {
   setup({ orderId }, { root }) {
     const { getPaymentMethods } = useCheckout(root)
     const { pushWarning } = useNotifications(root)
+    const { apiInstance, routing } = getApplicationContext(root)
+    const currentContextToken = computed(
+      () => apiInstance?.config?.contextToken
+    )
     const {
       order,
       status,
@@ -306,7 +310,14 @@ export default {
 
     const changePaymentMethod = async () => {
       await doChangePaymentMethod(selectedPaymentMethod.value)
-      await handlePayment()
+      await handlePayment(
+        routing.getAbsoluteUrl(
+          `${PAGE_ORDER_SUCCESS}?contextToken=${currentContextToken.value}&orderId=${orderId}`
+        ),
+        routing.getAbsoluteUrl(
+          `${PAGE_ORDER_PAYMENT_FAILURE}?contextToken=${currentContextToken.value}&orderId=${orderId}`
+        )
+      )
       changePaymentMethodModalVisible.value = false
     }
 
@@ -320,7 +331,14 @@ export default {
 
     onMounted(() => {
       loadOrderDetails()
-      handlePayment()
+      handlePayment(
+        routing.getAbsoluteUrl(
+          `${PAGE_ORDER_SUCCESS}?contextToken=${currentContextToken.value}&orderId=${orderId}`
+        ),
+        routing.getAbsoluteUrl(
+          `${PAGE_ORDER_PAYMENT_FAILURE}?contextToken=${currentContextToken.value}&orderId=${orderId}`
+        )
+      )
     })
 
     return {

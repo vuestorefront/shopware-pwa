@@ -11,6 +11,8 @@ import { getCmsTechnicalPath } from "@shopware-pwa/helpers"
 const PAGE_RESOLVER_ROUTE_PREFIX = "all_"
 
 export function useDomains(rootContext) {
+  const { resourceIdentifier, page } = useCms()
+
   const { router, routing, apiInstance } = getApplicationContext(
     rootContext,
     "useDomains"
@@ -42,7 +44,6 @@ export function useDomains(rootContext) {
     if (isRouteStatic.value) {
       path += getCurrentPathWithoutDomain()
     } else {
-      const { resourceIdentifier, page } = useCms()
       try {
         // find the correspoding URL for current page if it comes from page resolver - dynamically generated
         const seoResponse = await getSeoUrls(

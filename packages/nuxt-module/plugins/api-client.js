@@ -2,11 +2,12 @@ import { createInstance } from "@shopware-pwa/shopware-6-client";
 import { useUser, useCart, useSessionContext } from "@shopware-pwa/composables";
 import { reactive } from "vue-demi";
 
-export default async ({ app }, inject) => {
+export default async ({ app, query }, inject) => {
   if (!app.$cookies) {
     throw "Error cookie-universal-nuxt module is not applied in nuxt.config.js";
   }
-  const contextToken = app.$cookies.get("sw-context-token") || "";
+  const contextToken =
+    query?.contextToken || app.$cookies.get("sw-context-token") || "";
   const languageId = app.$cookies.get("sw-language-id") || "";
 
   /**
