@@ -90,6 +90,14 @@ export async function runModule(
     );
   }
 
+  /* i18n plugin has to be registered before routing-plugin, because the execution order will be the other way round,
+   * as addPlugin() prepends to the plugins-array (https://nuxtjs.org/docs/2.x/internals-glossary/internals-module-container#addplugin-template)
+   * So by registering the i18n-plugin before the routing-plugin, the routing-plugin will be executed before the i18n-plugin
+   * and as a result the currentDomain will be set correctly in the i18n-plugin on initialization. This results in the SSR-result being
+   * in the correct locale.
+   */
+  extendLocales(moduleObject, shopwarePwaConfig);
+
   /* In here instantiate new routing */
   await setupDomains(moduleObject, shopwarePwaConfig);
 
@@ -131,9 +139,6 @@ export async function runModule(
       options: moduleOptions,
     });
   });
-
-  // locales
-  extendLocales(moduleObject, shopwarePwaConfig);
 
   moduleObject.addPlugin({
     fileName: "api-client.js",

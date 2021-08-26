@@ -40,6 +40,7 @@ module.exports = {
         "/landing/concepts/snippets",
         "/landing/concepts/interceptor",
         "/landing/concepts/api-client-errors",
+        "/landing/concepts/routing",
       ],
     },
     {

@@ -80,31 +80,36 @@ export async function setupDomains(
     routes.forEach((route) => {
       // skip route enrichment if there is domainId attached with other configuration
       if (!route.meta?.domainId || !domainsEntries.length) {
-        domainsEntries.forEach((domainConfig) => {
-          const routeName = dontUseNamedRoute(route)
-            ? ""
-            : `${route.name}_${route.path}_domainId_${domainConfig.domainId}`;
-          // create own routes table, based on the nuxt one
-          if (
-            !domainsRoutes.find((routeData) => routeData.name === routeName)
-          ) {
-            domainsRoutes.push({
-              ...route, // not lose not domain related data
-              path: `${domainConfig.url !== "/" ? domainConfig.url : ""}${
-                route.path
-              }`, // prefix each route with available domain
-              name: routeName, // add unique name
-              meta: domainConfig, // store additional information about the route like language id for corresponding domain - used in middleware and plugin
-              children:
-                route.children &&
-                appendChildrenWithUniqueName(
-                  route.children,
-                  `${domainConfig.domainId}_${route.name}`,
-                  domainConfig.domainId
-                ),
-            });
-          }
-        });
+        domainsEntries
+          .filter(({ url }) =>
+            shopwarePwaConfig.shopwareDomainsAllowList?.includes(url)
+          )
+          .forEach((domainConfig) => {
+            const routeName = dontUseNamedRoute(route)
+              ? ""
+              : `${route.name}_${route.path}_domainId_${domainConfig.domainId}`;
+            // create own routes table, based on the nuxt one
+            if (
+              !domainsRoutes.find((routeData) => routeData.name === routeName)
+            ) {
+              domainsRoutes.push({
+                ...route, // not lose not domain related data
+                // TODO: load path configured in page component
+                path: `${
+                  domainConfig.pathPrefix !== "/" ? domainConfig.pathPrefix : ""
+                }${route.path}`, // prefix each route with pathPrefix if available for this domain config
+                name: routeName, // add unique name
+                meta: domainConfig.pathPrefix !== "/" ? domainConfig : [], // store additional information about the route like language id for corresponding domain - used in middleware and plugin
+                children:
+                  route.children &&
+                  appendChildrenWithUniqueName(
+                    route.children,
+                    `${domainConfig.domainId}_${route.name}`,
+                    domainConfig.domainId
+                  ),
+              });
+            }
+          });
       }
     });
     if (domainsRoutes.length) {
@@ -135,7 +140,7 @@ export async function setupDomains(
     fileName: "domain.js",
     src: path.join(__dirname, "..", "plugins", "domain.js"),
     options: {
-      pwaHost: shopwarePwaConfig.pwaHost,
+      shopwareDomainsAllowList: shopwarePwaConfig.shopwareDomainsAllowList,
       fallbackDomain: shopwarePwaConfig.fallbackDomain || "/",
     },
   });

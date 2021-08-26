@@ -18,7 +18,6 @@ export interface Routing {
   availableDomains: any;
   fallbackDomain: string | undefined;
   fallbackLocale: string | undefined;
-  pwaHost: string | undefined;
   getCurrentDomain: ComputedRef<string>;
   setCurrentDomain: (domainData: any) => void;
   getUrl: (path: string) => string;
