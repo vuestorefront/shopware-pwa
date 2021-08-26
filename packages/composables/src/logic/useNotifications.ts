@@ -1,7 +1,6 @@
 import { computed, ComputedRef, Ref } from "vue-demi";
 import {
   useSharedState,
-  ApplicationVueContext,
   getApplicationContext,
 } from "@shopware-pwa/composables";
 
@@ -17,7 +16,7 @@ export interface Notification {
 /**
  * @beta
  */
-export function useNotifications(rootContext: ApplicationVueContext): {
+export function useNotifications(): {
   notifications: ComputedRef<Notification[]>;
   removeOne: (id: number) => void;
   removeAll: () => void;
@@ -30,7 +29,7 @@ export function useNotifications(rootContext: ApplicationVueContext): {
   const contextName = COMPOSABLE_NAME;
 
   getApplicationContext({ contextName });
-  const { sharedRef } = useSharedState(rootContext);
+  const { sharedRef } = useSharedState();
   const _notifications: Ref<Notification[] | null> = sharedRef(
     `sw-${contextName}-notifications`
   );

@@ -1,34 +1,39 @@
-import { useNotifications } from "@shopware-pwa/composables"
+import {
+  getApplicationContext,
+  useNotifications,
+} from "@shopware-pwa/composables"
 
-export const warningNotification = ({ warning }, rootContext) => {
-  const { pushWarning } = useNotifications(rootContext)
+export const warningNotification = ({ warning }) => {
+  const { pushWarning } = useNotifications()
+
   pushWarning(warning.message)
 }
 
-export const addToWishlistNotification = (payload, rootContext) => {
-  const { pushSuccess } = useNotifications(rootContext)
+export const addToWishlistNotification = (payload) => {
+  const { pushSuccess } = useNotifications()
+  const { i18n } = getApplicationContext()
   pushSuccess(
-    rootContext.$t(`{productName} has been added to wishlist.`, {
+    i18n.t(`{productName} has been added to wishlist.`, {
       productName: payload?.product?.translated?.name || payload?.product?.name,
     })
   )
 }
 
-export const addToCartNotification = (payload, rootContext) => {
-  const { pushSuccess } = useNotifications(rootContext)
+export const addToCartNotification = (payload) => {
+  const { pushSuccess } = useNotifications()
   pushSuccess(
-    rootContext.$t("{productName} has been added to cart.", {
+    i18n.t("{productName} has been added to cart.", {
       productName: payload?.product?.translated?.name || payload?.product?.name,
     })
   )
 }
 
-export const addPromotionCodeNotification = (payload, rootContext) => {
-  const { pushSuccess, pushError } = useNotifications(rootContext)
+export const addPromotionCodeNotification = (payload) => {
+  const { pushSuccess, pushError } = useNotifications()
   const { result, promotionCode } = payload
 
   if (!result.errors || !Object.keys(result.errors).length) {
-    return pushSuccess(rootContext.$t("Promotion code added successfully"))
+    return pushSuccess(i18n.t("Promotion code added successfully"))
   }
 
   const err = Object.values(result.errors).find(
@@ -37,7 +42,7 @@ export const addPromotionCodeNotification = (payload, rootContext) => {
   if (err) {
     switch (err.messageKey) {
       case "promotion-not-found":
-        pushError(rootContext.$t("Promotion code does not exist"))
+        pushError(i18n.t("Promotion code does not exist"))
         break
       default:
         pushError(err.message.toString())

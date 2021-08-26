@@ -165,7 +165,7 @@ export default {
     const { apiInstance } = getApplicationContext({
       contextName: "CmsElementContactForm",
     })
-    const { getSalutations, error: salutationsError } = useSalutations(root)
+    const { getSalutations, error: salutationsError } = useSalutations()
     const { resourceIdentifier } = useCms()
     const getMappedSalutations = computed(() =>
       mapSalutations(getSalutations.value)

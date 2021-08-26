@@ -16,7 +16,6 @@ import {
   useIntercept,
   IInterceptorCallbackFunction,
   useSharedState,
-  ApplicationVueContext,
   getApplicationContext,
 } from "@shopware-pwa/composables";
 import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress";
@@ -49,15 +48,15 @@ export interface IUseCheckout {
  *
  * @beta
  */
-export function useCheckout(rootContext: ApplicationVueContext): IUseCheckout {
+export function useCheckout(): IUseCheckout {
   const COMPOSABLE_NAME = "useCheckout";
   const contextName = COMPOSABLE_NAME;
 
   const { apiInstance } = getApplicationContext({ contextName });
-  const { broadcast, intercept } = useIntercept(rootContext);
-  const { refreshCart } = useCart(rootContext);
-  const { sessionContext } = useSessionContext(rootContext);
-  const { sharedRef } = useSharedState(rootContext);
+  const { broadcast, intercept } = useIntercept();
+  const { refreshCart } = useCart();
+  const { sessionContext } = useSessionContext();
+  const { sharedRef } = useSharedState();
   const storeShippingMethods = sharedRef<ShippingMethod[]>(
     `${contextName}-ShippingMethods`
   );

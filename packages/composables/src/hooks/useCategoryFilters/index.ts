@@ -1,9 +1,5 @@
 import { computed } from "vue-demi";
-import {
-  useCms,
-  getApplicationContext,
-  ApplicationVueContext,
-} from "@shopware-pwa/composables";
+import { useCms, getApplicationContext } from "@shopware-pwa/composables";
 import {
   getCategoryAvailableFilters,
   getCategoryAvailableSorting,
@@ -17,7 +13,7 @@ import { deprecationWarning } from "@shopware-pwa/commons";
  * @beta
  * @deprecated please see useListing instead
  */
-export function useCategoryFilters(rootContext: ApplicationVueContext): any {
+export function useCategoryFilters(): any {
   const COMPOSABLE_NAME = "useCategoryFilters";
   const contextName = COMPOSABLE_NAME;
 

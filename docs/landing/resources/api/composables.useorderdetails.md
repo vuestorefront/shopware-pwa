@@ -12,7 +12,9 @@ Composable for managing an existing order.
 <b>Signature:</b>
 
 ```typescript
-export declare function useOrderDetails(rootContext: ApplicationVueContext, order: Order): {
+export declare function useOrderDetails(params: {
+    order: Ref<Order> | Order;
+}): {
     order: ComputedRef<Order | undefined | null>;
     status: ComputedRef<string | undefined>;
     total: ComputedRef<number | undefined>;
@@ -45,8 +47,7 @@ export declare function useOrderDetails(rootContext: ApplicationVueContext, orde
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-|  order | Order |  |
+|  params | { order: Ref&lt;Order&gt; \| Order; } |  |
 
 <b>Returns:</b>
 

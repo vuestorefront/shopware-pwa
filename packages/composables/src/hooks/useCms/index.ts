@@ -22,7 +22,7 @@ import { PageBreadcrumb } from "@shopware-pwa/commons/interfaces/models/content/
 /**
  * @beta
  */
-export function useCms(options?: {
+export function useCms(params?: {
   /**
    * Additional context for CMS, use that if you need to display more that one CMS page on a single view (for example quickView).
    */
@@ -51,7 +51,7 @@ export function useCms(options?: {
   // Handle CMS context
   const { isVueComponent } = useVueContext();
   const cmsContext =
-    options?.cmsContextName || (isVueComponent && inject("swCmsContext", null));
+    params?.cmsContextName || (isVueComponent && inject("swCmsContext", null));
   isVueComponent && provide("swCmsContext", cmsContext);
 
   const contextName = COMPOSABLE_NAME;
@@ -71,7 +71,7 @@ export function useCms(options?: {
     PageResolverProductResult | PageResolverResult<CmsPage>
   >(`${cacheKey}-page`);
 
-  const { getDefaults } = useDefaults(null, COMPOSABLE_NAME);
+  const { getDefaults } = useDefaults({ defaultsKey: COMPOSABLE_NAME });
   const { setBreadcrumbs } = useBreadcrumbs();
   const page = computed(() => _storePage.value);
   /**

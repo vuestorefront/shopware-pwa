@@ -18,7 +18,6 @@ import {
   useIntercept,
   useSharedState,
 } from "@shopware-pwa/composables";
-import { ApplicationVueContext } from "../../appContext";
 import { broadcastErrors } from "../../internalHelpers/errorHandler";
 import { deprecationWarning } from "@shopware-pwa/commons";
 
@@ -66,17 +65,17 @@ export interface IUseCart {
  *
  * @beta
  */
-export function useCart(rootContext: ApplicationVueContext): IUseCart {
+export function useCart(): IUseCart {
   const COMPOSABLE_NAME = "useCart";
   const contextName = COMPOSABLE_NAME;
 
   const { apiInstance } = getApplicationContext({ contextName });
-  const { broadcast } = useIntercept(rootContext);
+  const { broadcast } = useIntercept();
 
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
 
-  const { sharedRef } = useSharedState(rootContext);
+  const { sharedRef } = useSharedState();
   const _storeCart = sharedRef<Cart>(`${contextName}-cart`);
 
   async function refreshCart(): Promise<void> {
@@ -154,7 +153,7 @@ export function useCart(rootContext: ApplicationVueContext): IUseCart {
         cartResult.errors || {}
       ).filter((entityError) => upcomingErrorsKeys.includes(entityError.key));
 
-      broadcastErrors(entityErrors, `[${contextName}][cartError]`, rootContext);
+      broadcastErrors(entityErrors, `[${contextName}][cartError]`);
     } catch (error) {
       console.error("[useCart][broadcastUpcomingErrors]", error);
     }

@@ -45,9 +45,9 @@ export default {
   middleware: authMiddleware,
 
   setup(props, { root }) {
-    const { logout, user } = useUser(root)
-    const { loadOrders, orders } = useCustomerOrders(root)
-    const { setBreadcrumbs } = useBreadcrumbs(root)
+    const { logout, user } = useUser()
+    const { loadOrders, orders } = useCustomerOrders()
+    const { setBreadcrumbs } = useBreadcrumbs()
     setBreadcrumbs([
       {
         name: root.$t("My Account"),

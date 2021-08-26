@@ -68,10 +68,12 @@ export default {
   },
 
   setup(props, { root }) {
-    const { breadcrumbs } = useBreadcrumbs(root)
-    const { isOpen: isSidebarOpen } = useUIState(root, "CART_SIDEBAR_STATE")
+    const { breadcrumbs } = useBreadcrumbs()
+    const { isOpen: isSidebarOpen } = useUIState({
+      stateName: "CART_SIDEBAR_STATE",
+    })
     const { isOpen: isLoginModalOpen, switchState: switchLoginModalState } =
-      useUIState(root, "LOGIN_MODAL_STATE")
+      useUIState({ stateName: "LOGIN_MODAL_STATE" })
 
     // Load cart component only when needed
     const loadSidebarComponent = ref(isSidebarOpen.value)

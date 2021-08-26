@@ -60,9 +60,9 @@ export default {
       default: () => ({}),
     },
   },
-  setup(props, { root }) {
+  setup(props) {
     const { product } = toRefs(props)
-    const { removeProduct, changeProductQuantity } = useCart(root)
+    const { removeProduct, changeProductQuantity } = useCart()
 
     const quantity = ref(product.value.quantity)
     const isPromotion = computed(() => product?.type === "promotion")

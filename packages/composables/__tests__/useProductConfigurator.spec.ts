@@ -51,9 +51,11 @@ describe("Composables - useProductConfigurator", () => {
           },
         ],
       };
-      const { getSelectedOptions } = useProductConfigurator(rootContextMock, {
-        optionIds: ["12345"],
-      } as any);
+      const { getSelectedOptions } = useProductConfigurator({
+        product: {
+          optionIds: ["12345"],
+        } as any,
+      });
       expect(getSelectedOptions.value).toStrictEqual({
         color: "12345",
       });
@@ -73,48 +75,49 @@ describe("Composables - useProductConfigurator", () => {
           },
         ],
       };
-      const { getSelectedOptions } = useProductConfigurator(rootContextMock, {
-        optionIds: ["12345"],
-      } as any);
+      const { getSelectedOptions } = useProductConfigurator({
+        product: {
+          optionIds: ["12345"],
+        } as any,
+      });
       expect(getSelectedOptions.value).toStrictEqual({});
     });
     it("should not have selected options if there is no configurator object", () => {
-      const { getSelectedOptions } = useProductConfigurator(
-        rootContextMock,
-        {} as any
-      );
+      const { getSelectedOptions } = useProductConfigurator({
+        product: {} as any,
+      });
       expect(getSelectedOptions.value).toStrictEqual({});
     });
     it("should not have selected options extracted from passed product if there are no required values", () => {
-      const { getSelectedOptions } = useProductConfigurator(rootContextMock, {
-        options: [
-          {
-            id: "12345",
-            group: {
-              translated: undefined,
+      const { getSelectedOptions } = useProductConfigurator({
+        product: {
+          options: [
+            {
+              id: "12345",
+              group: {
+                translated: undefined,
+              },
             },
-          },
-        ],
-      } as any);
+          ],
+        } as any,
+      });
       expect(getSelectedOptions.value).toStrictEqual({});
     });
   });
   describe("methods", () => {
     describe("handleChange", () => {
       it("should assign new selected option for given group", () => {
-        const { handleChange, getSelectedOptions } = useProductConfigurator(
-          rootContextMock,
-          {} as any
-        );
+        const { handleChange, getSelectedOptions } = useProductConfigurator({
+          product: {} as any,
+        });
         handleChange("color", "blue");
         expect(getSelectedOptions.value).toStrictEqual({ color: "blue" });
       });
 
       it("should invoke onChangeHandled callback after handling a change", () => {
-        const { handleChange } = useProductConfigurator(
-          rootContextMock,
-          {} as any
-        );
+        const { handleChange } = useProductConfigurator({
+          product: {} as any,
+        });
         const onChangeHandledCallback = jest.fn();
         handleChange("color", "blue", onChangeHandledCallback);
         expect(onChangeHandledCallback).toBeCalledTimes(1);
@@ -127,9 +130,11 @@ describe("Composables - useProductConfigurator", () => {
       it("should log error in console.error output", async () => {
         mockedAxios.invokePost.mockRejectedValueOnce("Something went wrong");
         const { findVariantForSelectedOptions, handleChange } =
-          useProductConfigurator(rootContextMock, {
-            parentId: "some-parent-id",
-          } as any);
+          useProductConfigurator({
+            product: {
+              parentId: "some-parent-id",
+            } as any,
+          });
 
         handleChange("color", "blue");
         await findVariantForSelectedOptions();
@@ -145,12 +150,11 @@ describe("Composables - useProductConfigurator", () => {
             data: undefined,
           },
         });
-        const { findVariantForSelectedOptions } = useProductConfigurator(
-          rootContextMock,
-          {
+        const { findVariantForSelectedOptions } = useProductConfigurator({
+          product: {
             parentId: "some-parent-id",
-          } as any
-        );
+          } as any,
+        });
 
         const variantFound = await findVariantForSelectedOptions();
         expect(variantFound).toBeUndefined();
@@ -160,12 +164,11 @@ describe("Composables - useProductConfigurator", () => {
         mockedAxios.invokePost.mockResolvedValue({
           data: undefined,
         });
-        const { findVariantForSelectedOptions } = useProductConfigurator(
-          rootContextMock,
-          {
+        const { findVariantForSelectedOptions } = useProductConfigurator({
+          product: {
             parentId: "some-parent-id",
-          } as any
-        );
+          } as any,
+        });
 
         const variantFound = await findVariantForSelectedOptions();
         expect(variantFound).toBeUndefined();
@@ -173,12 +176,11 @@ describe("Composables - useProductConfigurator", () => {
 
       it("should return undefined if the response does not match expected format", async () => {
         mockedAxios.invokePost.mockResolvedValue(undefined);
-        const { findVariantForSelectedOptions } = useProductConfigurator(
-          rootContextMock,
-          {
+        const { findVariantForSelectedOptions } = useProductConfigurator({
+          product: {
             parentId: "some-parent-id",
-          } as any
-        );
+          } as any,
+        });
 
         const variantFound = await findVariantForSelectedOptions();
         expect(variantFound).toBeUndefined();
@@ -195,9 +197,11 @@ describe("Composables - useProductConfigurator", () => {
           },
         });
         const { findVariantForSelectedOptions, handleChange } =
-          useProductConfigurator(rootContextMock, {
-            parentId: "some-parent-id",
-          } as any);
+          useProductConfigurator({
+            product: {
+              parentId: "some-parent-id",
+            } as any,
+          });
 
         handleChange("color", "blue");
 
@@ -242,20 +246,24 @@ describe("Composables - useProductConfigurator", () => {
   describe("computed", () => {
     describe("isLoadingOptions", () => {
       it("should start with true if there are options for given product", () => {
-        const { isLoadingOptions } = useProductConfigurator(rootContextMock, {
-          options: [
-            {
-              id: "optionId",
-            },
-          ],
-        } as any);
+        const { isLoadingOptions } = useProductConfigurator({
+          product: {
+            options: [
+              {
+                id: "optionId",
+              },
+            ],
+          } as any,
+        });
         expect(isLoadingOptions.value).toBe(true);
       });
     });
     it("should start with false if there are no options for given product", () => {
-      const { isLoadingOptions } = useProductConfigurator(rootContextMock, {
-        options: [],
-      } as any);
+      const { isLoadingOptions } = useProductConfigurator({
+        product: {
+          options: [],
+        } as any,
+      });
       expect(isLoadingOptions.value).toBe(false);
     });
 
@@ -272,10 +280,9 @@ describe("Composables - useProductConfigurator", () => {
           ],
         };
 
-        const { getOptionGroups } = useProductConfigurator(
-          rootContextMock,
-          {} as any
-        );
+        const { getOptionGroups } = useProductConfigurator({
+          product: {} as any,
+        });
         expect(getOptionGroups.value).toStrictEqual([
           { id: "group_1" },
           { id: "group_2" },
@@ -287,20 +294,18 @@ describe("Composables - useProductConfigurator", () => {
           configurator: undefined,
         };
 
-        const { getOptionGroups } = useProductConfigurator(
-          rootContextMock,
-          {} as any
-        );
+        const { getOptionGroups } = useProductConfigurator({
+          product: {} as any,
+        });
         expect(getOptionGroups.value).toStrictEqual([]);
       });
 
       it("should contain empty array if the page value is empty", () => {
         statePage.value = null;
 
-        const { getOptionGroups } = useProductConfigurator(
-          rootContextMock,
-          {} as any
-        );
+        const { getOptionGroups } = useProductConfigurator({
+          product: {} as any,
+        });
         expect(getOptionGroups.value).toStrictEqual([]);
       });
     });

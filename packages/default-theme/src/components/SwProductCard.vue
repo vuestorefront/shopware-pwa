@@ -39,16 +39,14 @@ export default {
   components: {
     SfProductCard,
   },
-  setup(props, { root }) {
+  setup(props) {
     const { product } = toRefs(props)
-    const { addToCart, quantity, getStock, isInCart } = useAddToCart(
-      root,
-      product.value
-    )
-    const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist(
-      root,
-      product.value
-    )
+    const { addToCart, quantity, getStock, isInCart } = useAddToCart({
+      product,
+    })
+    const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist({
+      product,
+    })
     return {
       quantity,
       addToCart,

@@ -3,7 +3,6 @@ import { getAvailableSalutations } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import {
   useSharedState,
-  ApplicationVueContext,
   getApplicationContext,
 } from "@shopware-pwa/composables";
 import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
@@ -11,7 +10,7 @@ import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salut
 /**
  * @beta
  */
-export interface UseSalutations {
+export interface IUseSalutations {
   mountedCallback: () => Promise<void>;
   getSalutations: ComputedRef<Salutation[]>;
   fetchSalutations: () => Promise<void>;
@@ -21,14 +20,12 @@ export interface UseSalutations {
 /**
  * @beta
  */
-export function useSalutations(
-  rootContext: ApplicationVueContext
-): UseSalutations {
+export function useSalutations(): IUseSalutations {
   const COMPOSABLE_NAME = "useSalutations";
   const contextName = COMPOSABLE_NAME;
 
   const { apiInstance } = getApplicationContext({ contextName });
-  const { sharedRef } = useSharedState(rootContext);
+  const { sharedRef } = useSharedState();
   const _salutations: Ref<Salutation[] | null> = sharedRef(
     `sw-${contextName}-salutations`
   );

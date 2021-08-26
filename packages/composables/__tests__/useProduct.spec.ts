@@ -37,43 +37,43 @@ describe("Composables - useProduct", () => {
   });
   describe("no reference to the product", () => {
     it("should have no value if search wasn't performed", async () => {
-      const { product } = useProduct(rootContextMock);
+      const { product } = useProduct();
       const response: any = {
         id: "3f637f17cd9f4891a2d7625d19fb37c9",
       };
       mockedAxios.getProductPage.mockResolvedValueOnce(response);
-      expect(product.value).toBeUndefined();
+      expect(product.value).toBeNull();
     });
   });
 
   describe("search", () => {
     it("should not have product under value if response search does not contain product property", async () => {
-      const { search, product } = useProduct(rootContextMock);
+      const { search, product } = useProduct();
       const response: any = undefined;
 
       mockedAxios.getProduct.mockResolvedValueOnce(response);
-      expect(product.value).toBeUndefined();
+      expect(product.value).toBeNull();
       await search("3f637f17cd9f4891a2d7625d19fb37c9");
       expect(product.value).toBeUndefined();
     });
     it("should have product under value if search was triggered", async () => {
-      const { search, product } = useProduct(rootContextMock);
+      const { search, product } = useProduct();
       const response: any = {
         product: {
           id: "3f637f17cd9f4891a2d7625d19fb37c9",
         },
       };
       mockedAxios.getProduct.mockResolvedValueOnce(response);
-      expect(product.value).toBeUndefined();
+      expect(product.value).toBeNull();
       await search("3f637f17cd9f4891a2d7625d19fb37c9");
       expect(product.value).toBeTruthy();
-      expect(product.value.id).toBe("3f637f17cd9f4891a2d7625d19fb37c9");
+      expect(product.value?.id).toBe("3f637f17cd9f4891a2d7625d19fb37c9");
     });
     it("should keep reference to passed product until search is executed", async () => {
       const passedProduct: any = {
         id: "some-old-id",
       };
-      const { search, product } = useProduct(rootContextMock, passedProduct);
+      const { search, product } = useProduct({ product: passedProduct });
       const response: any = {
         product: {
           id: "3f637f17cd9f4891a2d7625d19fb37c9",
@@ -81,10 +81,10 @@ describe("Composables - useProduct", () => {
       };
       mockedAxios.getProduct.mockResolvedValueOnce(response);
       expect(product.value).toBeTruthy();
-      expect(product.value.id).toBe("some-old-id");
+      expect(product.value?.id).toBe("some-old-id");
       await search("3f637f17cd9f4891a2d7625d19fb37c9");
       expect(product.value).toBeTruthy();
-      expect(product.value.id).toBe("3f637f17cd9f4891a2d7625d19fb37c9");
+      expect(product.value?.id).toBe("3f637f17cd9f4891a2d7625d19fb37c9");
     });
   });
 
@@ -95,7 +95,7 @@ describe("Composables - useProduct", () => {
         parentId: "1c3e927309014a67a07f3bb574f9e804",
       };
       mockedAxios.getProductPage.mockResolvedValueOnce({} as any);
-      const { loadAssociations } = useProduct(rootContextMock, loadedProduct);
+      const { loadAssociations } = useProduct({ product: loadedProduct });
       const includesParams = getDefaultsMock.includes;
       const associationsParams = getDefaultsMock.associations;
       loadAssociations({} as any);
@@ -115,10 +115,9 @@ describe("Composables - useProduct", () => {
       const loadedProduct: any = {
         id: "3f637f17cd9f4891a2d7625d19fb37c9",
       };
-      const { loadAssociations, product } = useProduct(
-        rootContextMock,
-        loadedProduct
-      );
+      const { loadAssociations, product } = useProduct({
+        product: loadedProduct,
+      });
       const responseLoadAssociations: any = {
         product: {
           id: "3f637f17cd9f4891a2d7625d19fb37c9",
@@ -132,7 +131,7 @@ describe("Composables - useProduct", () => {
       expect(product.value).toHaveProperty("crossSellings");
     });
     it("should have failed on empty product during loading associations", async () => {
-      const { loadAssociations, error } = useProduct(rootContextMock);
+      const { loadAssociations, error } = useProduct();
       try {
         await loadAssociations({});
       } catch (e) {
@@ -146,13 +145,13 @@ describe("Composables - useProduct", () => {
 
   describe("problems", () => {
     it("should have failed on bad url settings", async () => {
-      const { search, product, error } = useProduct(rootContextMock);
+      const { search, product, error } = useProduct();
       mockedAxios.getProduct.mockRejectedValueOnce({
         messages: [{ detail: "Something went wrong..." }],
       } as ClientApiError);
-      expect(product.value).toBeUndefined();
+      expect(product.value).toBeNull();
       await search("");
-      expect(product.value).toBeUndefined();
+      expect(product.value).toBeNull();
       expect(error.value).toEqual([{ detail: "Something went wrong..." }]);
     });
   });

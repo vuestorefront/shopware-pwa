@@ -1,7 +1,6 @@
 import { searchSuggestedProducts } from "@shopware-pwa/shopware-6-client";
 
 import {
-  ApplicationVueContext,
   getApplicationContext,
   useDefaults,
   createListingComposable,
@@ -25,13 +24,11 @@ export interface IUseProductQuickSearch {
 /**
  * @beta
  */
-export function useProductQuickSearch(
-  rootContext: ApplicationVueContext
-): IUseProductQuickSearch {
+export function useProductQuickSearch(): IUseProductQuickSearch {
   const COMPOSABLE_NAME = "useProductQuickSearch";
   const contextName = COMPOSABLE_NAME;
 
-  const { getDefaults } = useDefaults(rootContext, contextName);
+  const { getDefaults } = useDefaults({ defaultsKey: contextName });
   const { apiInstance } = getApplicationContext({ contextName });
 
   const searchTerm = ref("");
@@ -44,7 +41,6 @@ export function useProductQuickSearch(
   };
 
   const listingComposable = createListingComposable<Product>({
-    rootContext,
     listingKey,
     searchMethod,
     searchDefaults: getDefaults(),

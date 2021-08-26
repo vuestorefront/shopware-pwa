@@ -19,8 +19,8 @@ export default async ({ app, route, req }, inject) => {
   extendScopeContext(scope, app);
 
   await scope.run(async () => {
-    const { sharedRef } = useSharedState(app);
-    const { setCurrency } = useSessionContext(app);
+    const { sharedRef } = useSharedState();
+    const { setCurrency } = useSessionContext();
 
     const currentDomainData = sharedRef("sw-current-domain");
 

@@ -12,15 +12,8 @@ Composable for cart management. Options - [IUseCart](./composables.iusecart.md)
 <b>Signature:</b>
 
 ```typescript
-export declare function useCart(rootContext: ApplicationVueContext): IUseCart;
+export declare function useCart(): IUseCart;
 ```
-
-## Parameters
-
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-
 <b>Returns:</b>
 
 [IUseCart](./composables.iusecart.md)

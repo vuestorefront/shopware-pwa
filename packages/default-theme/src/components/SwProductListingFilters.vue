@@ -145,10 +145,9 @@ export default {
       getTotal,
     } = useListing(root, props.listingType)
 
-    const { isOpen: isListView, switchState: switchToListView } = useUIState(
-      root,
-      "PRODUCT_LISTING_STATE"
-    )
+    const { isOpen: isListView, switchState: switchToListView } = useUIState({
+      stateName: "PRODUCT_LISTING_STATE",
+    })
 
     const isMounted = ref(false)
     onMounted(() => {

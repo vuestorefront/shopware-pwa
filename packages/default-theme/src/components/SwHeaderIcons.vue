@@ -20,7 +20,10 @@
         <SfList v-if="isDropdownOpen" class="sw-dropdown">
           <SfListItem>
             <nuxt-link
-              class="sf-button sf-button--full-width sf-button--underlined sw-dropdown__item"
+              class="
+                sf-button sf-button--full-width sf-button--underlined
+                sw-dropdown__item
+              "
               :to="getPageAccount"
               data-cy="my-account-link"
               @click.native="isDropdownOpen = false"
@@ -30,7 +33,10 @@
           </SfListItem>
           <SfListItem>
             <SwButton
-              class="sf-button sf-button--full-width sf-button--underlined sw-dropdown__item"
+              class="
+                sf-button sf-button--full-width sf-button--underlined
+                sw-dropdown__item
+              "
               data-cy="logout-button"
               @click="logoutUser()"
             >
@@ -86,18 +92,16 @@ export default {
     SwPluginSlot,
     SfBadge,
   },
-  setup(props, { root }) {
-    const { isLoggedIn, isGuestSession, logout } = useUser(root)
-    const { count } = useCart(root)
-    const { count: wishlistCount } = useWishlist(root)
-    const { switchState: toggleSidebar } = useUIState(
-      root,
-      "CART_SIDEBAR_STATE"
-    )
-    const { switchState: switchLoginModalState } = useUIState(
-      root,
-      "LOGIN_MODAL_STATE"
-    )
+  setup() {
+    const { isLoggedIn, isGuestSession, logout } = useUser()
+    const { count } = useCart()
+    const { count: wishlistCount } = useWishlist()
+    const { switchState: toggleSidebar } = useUIState({
+      stateName: "CART_SIDEBAR_STATE",
+    })
+    const { switchState: switchLoginModalState } = useUIState({
+      stateName: "LOGIN_MODAL_STATE",
+    })
     const isMyAccountActive = computed(
       () => isLoggedIn.value && !isGuestSession.value
     )

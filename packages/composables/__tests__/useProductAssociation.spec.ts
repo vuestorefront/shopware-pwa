@@ -36,11 +36,10 @@ describe("Composables - useProductAssociations", () => {
   });
   describe("on init", () => {
     it("should have empty (array) associations computed property and isLoading to false", () => {
-      const { productAssociations, isLoading } = useProductAssociations(
-        rootContextMock,
-        { id: "product-id" } as any,
-        "cross-selling"
-      );
+      const { productAssociations, isLoading } = useProductAssociations({
+        product: { id: "product-id" } as any,
+        associationContext: "cross-selling",
+      });
       expect(isLoading.value).toBeFalsy();
       expect(productAssociations.value).toStrictEqual([]);
     });
@@ -51,11 +50,10 @@ describe("Composables - useProductAssociations", () => {
         mockedAxios.invokePost.mockRejectedValueOnce(
           new Error("An error occured")
         );
-        const { loadAssociations } = useProductAssociations(
-          rootContextMock,
-          { id: "product-id" } as any,
-          "cross-selling"
-        );
+        const { loadAssociations } = useProductAssociations({
+          product: { id: "product-id" } as any,
+          associationContext: "cross-selling",
+        });
         await loadAssociations(undefined as any);
         expect(consoleErrorSpy).toBeCalledWith(
           `[useProductAssociations][loadAssociations][error]:`,
@@ -69,11 +67,10 @@ describe("Composables - useProductAssociations", () => {
           },
         });
         const { loadAssociations, productAssociations } =
-          useProductAssociations(
-            rootContextMock,
-            { id: "product-id" } as any,
-            "cross-selling"
-          );
+          useProductAssociations({
+            product: { id: "product-id" } as any,
+            associationContext: "cross-selling",
+          });
         await loadAssociations(undefined as any);
         expect(mockedAxios.invokePost).toBeCalledWith(
           {
@@ -94,31 +91,28 @@ describe("Composables - useProductAssociations", () => {
       it("should not set incoming associations if response does not match for POST", async () => {
         mockedAxios.invokePost.mockResolvedValueOnce(undefined);
         const { loadAssociations, productAssociations } =
-          useProductAssociations(
-            rootContextMock,
-            { id: "product-id" } as any,
-            "cross-selling"
-          );
+          useProductAssociations({
+            product: { id: "product-id" } as any,
+            associationContext: "cross-selling",
+          });
         await loadAssociations(undefined as any);
         expect(productAssociations.value).toStrictEqual([]);
       });
       it("should set incoming associations if response matches for GET", async () => {
         mockedAxios.invokeGet.mockResolvedValueOnce({ data: 12345 });
         const { loadAssociations, productAssociations } =
-          useProductAssociations(
-            rootContextMock,
-            { id: "product-id" } as any,
-            "cross-selling"
-          );
+          useProductAssociations({
+            product: { id: "product-id" } as any,
+            associationContext: "cross-selling",
+          });
         await loadAssociations({ method: "get" } as any);
         expect(productAssociations.value).toStrictEqual(12345);
       });
       it("should invoke GET request  for given association within a product endpoint", async () => {
-        const { loadAssociations } = useProductAssociations(
-          rootContextMock,
-          { id: "product-id" } as any,
-          "cross-selling"
-        );
+        const { loadAssociations } = useProductAssociations({
+          product: { id: "product-id" } as any,
+          associationContext: "cross-selling",
+        });
         await loadAssociations({ method: "get" } as any);
         expect(mockedAxios.invokeGet).toBeCalledWith(
           {
@@ -133,11 +127,10 @@ describe("Composables - useProductAssociations", () => {
         );
       });
       it("should invoke GET request for given association within a product endpoint - including params", async () => {
-        const { loadAssociations } = useProductAssociations(
-          rootContextMock,
-          { id: "product-id" } as any,
-          "cross-selling"
-        );
+        const { loadAssociations } = useProductAssociations({
+          product: { id: "product-id" } as any,
+          associationContext: "cross-selling",
+        });
         await loadAssociations({
           method: "get",
           params: "?someParam=true",

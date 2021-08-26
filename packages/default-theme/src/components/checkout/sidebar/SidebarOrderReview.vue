@@ -69,11 +69,10 @@ export default {
     }
   },
   setup(props, { root }) {
-    const { createOrder, loadings } = useCheckout(root)
-    const { count, cartItems, removeProduct } = useCart(root)
+    const { createOrder, loadings } = useCheckout()
+    const { count, cartItems, removeProduct } = useCart()
 
-    const { appliedPromotionCodes, addPromotionCode, removeItem } =
-      useCart(root)
+    const { appliedPromotionCodes, addPromotionCode, removeItem } = useCart()
 
     const showPromotionCodes = computed(
       () => appliedPromotionCodes.value?.length > 0

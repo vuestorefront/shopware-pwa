@@ -32,7 +32,7 @@ export default {
   },
   setup(props, { root, emit }) {
     const $v = useVuelidate()
-    const { register, errors } = useUser(root)
+    const { register, errors } = useUser()
     const apiErrors = computed(() => errors.register)
     const registrationFormData = ref()
     async function invokeRegister() {

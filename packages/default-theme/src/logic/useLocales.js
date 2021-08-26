@@ -2,11 +2,13 @@ import { computed } from "@vue/composition-api"
 import languagesMap from "sw-plugins/languages"
 import { getApplicationContext } from "@shopware-pwa/composables"
 
-export function useLocales(rootContext) {
+export function useLocales() {
   const COMPOSABLE_NAME = "useLocales"
   const contextName = COMPOSABLE_NAME
 
-  const { i18n, router } = getApplicationContext({ contextName })
+  const { i18n, router, routing, route } = getApplicationContext({
+    contextName,
+  })
 
   // TODO: consider using availabeDomains config to list the languages
   const availableLanguages = computed(() => Object.values(languagesMap) || [])
@@ -15,14 +17,11 @@ export function useLocales(rootContext) {
 
   const changeLocale = async (localeCode) => {
     // look for current domain
-    const domainForLocaleFound = rootContext.$routing.availableDomains.find(
+    const domainForLocaleFound = routing.availableDomains.find(
       (domain) => domain.languageLocaleCode == localeCode
     )
     // remove domain
-    const cleanPath = rootContext.$route.fullPath.replace(
-      rootContext.$routing.getCurrentDomain().url,
-      ""
-    )
+    const cleanPath = route.fullPath.replace(routing.getCurrentDomain().url, "")
     // build the new url based on current domain
     const newUrl = `${
       domainForLocaleFound.url !== "/" ? `${domainForLocaleFound.url}` : ""

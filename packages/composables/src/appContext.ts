@@ -1,7 +1,6 @@
 import {
   ComputedRef,
   getCurrentInstance,
-  ComponentInstance,
   getCurrentScope,
   UnwrapRef,
 } from "vue-demi";
@@ -30,38 +29,6 @@ export interface Routing {
  */
 export type SwRouting = Routing;
 
-/**
- * Application Context for Shopware PWA. It's an extended Vue instance.
- *
- * @beta
- */
-export type ApplicationVueContext = ComponentInstance & {
-  $shopwareApiInstance?: ShopwareApiInstance;
-  shopwareApiInstance?: ShopwareApiInstance;
-  $routing: SwRouting;
-  routing: SwRouting;
-  $store?: any; // Vuex Store
-  store?: any; // Vuex Store
-  $route?: any; // Vue router
-  $router?: any; // Vue router
-  router?: any; // Vue router
-  route?: any; // Vue router
-  $i18n?: any; // Vue i18n plugin
-  i18n?: any; // Vue i18n plugin
-  $cookies?: any; // cookie-universal
-  cookies?: any; // cookie-universal
-  shopwareDefaults?: any; // defaults for API
-  $shopwareDefaults?: any; // defaults for API
-  $interceptors?: SwInterceptors;
-  interceptors?: SwInterceptors;
-  $sharedStore?: any;
-  sharedStore?: any;
-  $instanceStore?: any;
-  instanceStore?: any;
-  $isServer?: any;
-  isServer?: any;
-};
-
 type SharedStore = UnwrapRef<{ [storeKey: string]: any }>;
 
 /**
@@ -71,10 +38,7 @@ export type SwInterceptors = {
   [broadcastKey: string]: Array<IInterceptorCallbackFunction>;
 };
 
-function checkAppContext(
-  key: string,
-  rootContext: ApplicationVueContext
-): boolean {
+function checkAppContext(key: string, rootContext: any): boolean {
   if (!rootContext?.$shopwareApiInstance && !rootContext?.shopwareApiInstance) {
     process.env.NODE_ENV !== "production" &&
       console.warn(
@@ -105,7 +69,7 @@ interface Process extends NodeJS.Process {
  */
 export function getApplicationContext(params?: { contextName?: string }) {
   const key = params?.contextName || "getApplicationContext";
-  const injectedContext = getCurrentInstance()?.proxy as ApplicationVueContext;
+  const injectedContext = getCurrentInstance()?.proxy as any;
   const scopeContext = (getCurrentScope?.() as any)?.vm;
   let context = scopeContext || injectedContext;
   if (!checkAppContext(key, context)) {

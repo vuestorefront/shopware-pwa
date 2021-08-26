@@ -84,9 +84,9 @@ export default {
   name: "SwPassword",
   components: { SwInput, SwButton, SwErrorsList },
   props: {},
-  setup(props, { root }) {
-    const { updatePassword, errors } = useCustomerPassword(root)
-    const { user, refreshUser } = useUser(root)
+  setup() {
+    const { updatePassword, errors } = useCustomerPassword()
+    const { user, refreshUser } = useUser()
     const userErrorMessages = computed(() => errors.updatePassword || [])
 
     const state = reactive({

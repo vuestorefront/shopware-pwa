@@ -12,15 +12,8 @@ Composable for user management. Options - [IUseUser](./composables.iuseuser.md)
 <b>Signature:</b>
 
 ```typescript
-export declare function useUser(rootContext: ApplicationVueContext): IUseUser;
+export declare function useUser(): IUseUser;
 ```
-
-## Parameters
-
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-
 <b>Returns:</b>
 
 [IUseUser](./composables.iuseuser.md)

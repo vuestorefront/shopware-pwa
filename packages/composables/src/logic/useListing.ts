@@ -5,7 +5,6 @@ import {
 
 import {
   useCms,
-  ApplicationVueContext,
   getApplicationContext,
   useDefaults,
   createListingComposable,
@@ -17,23 +16,24 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 /**
  * @beta
  */
-export type listingKey = "productSearchListing" | "categoryListing";
+export type ListingType = "productSearchListing" | "categoryListing";
 
 /**
  * @beta
  */
-export function useListing(
-  rootContext: ApplicationVueContext,
-  listingKey: listingKey = "categoryListing"
-): IUseListing<Product> {
+export function useListing(params?: {
+  listingType: ListingType;
+}): IUseListing<Product> {
   const COMPOSABLE_NAME = "useListing";
   const contextName = COMPOSABLE_NAME;
 
-  const { getDefaults } = useDefaults(rootContext, contextName);
+  const listingType = params?.listingType || "categoryListing";
+
+  const { getDefaults } = useDefaults({ defaultsKey: contextName });
   const { apiInstance } = getApplicationContext({ contextName });
 
   let searchMethod;
-  if (listingKey === "productSearchListing") {
+  if (listingType === "productSearchListing") {
     searchMethod = async (searchCriteria: Partial<ShopwareSearchParams>) => {
       return searchProducts(searchCriteria, apiInstance);
     };
@@ -54,8 +54,7 @@ export function useListing(
   }
 
   return createListingComposable<Product>({
-    rootContext,
-    listingKey,
+    listingKey: listingType,
     searchMethod,
     searchDefaults: getDefaults(),
   });

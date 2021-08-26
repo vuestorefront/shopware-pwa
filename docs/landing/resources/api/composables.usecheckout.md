@@ -12,15 +12,8 @@ Composable for Checkout management. Options - [IUseCheckout](./composables.iusec
 <b>Signature:</b>
 
 ```typescript
-export declare function useCheckout(rootContext: ApplicationVueContext): IUseCheckout;
+export declare function useCheckout(): IUseCheckout;
 ```
-
-## Parameters
-
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-
 <b>Returns:</b>
 
 [IUseCheckout](./composables.iusecheckout.md)

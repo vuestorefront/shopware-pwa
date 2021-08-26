@@ -12,15 +12,16 @@ Product options - [IUseAddToCart](./composables.iuseaddtocart.md)
 <b>Signature:</b>
 
 ```typescript
-export declare function useProductConfigurator(rootContext: ApplicationVueContext, product: Product): IUseProductConfigurator;
+export declare function useProductConfigurator(params: {
+    product: Ref<Product> | Product;
+}): IUseProductConfigurator;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-|  product | Product |  |
+|  params | { product: Ref&lt;Product&gt; \| Product; } |  |
 
 <b>Returns:</b>
 

@@ -12,15 +12,8 @@ Composable for listing customer orders. Options - [IUseCustomerOrders](./composa
 <b>Signature:</b>
 
 ```typescript
-export declare function useCustomerOrders(rootContext: ApplicationVueContext): IUseCustomerOrders;
+export declare function useCustomerOrders(): IUseCustomerOrders;
 ```
-
-## Parameters
-
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-
 <b>Returns:</b>
 
 [IUseCustomerOrders](./composables.iusecustomerorders.md)

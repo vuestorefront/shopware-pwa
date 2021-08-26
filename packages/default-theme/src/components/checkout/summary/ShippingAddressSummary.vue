@@ -32,9 +32,9 @@ export default {
     // SwButton,
     SwPluginSlot,
   },
-  setup(props, { root }) {
-    const { shippingMethod, sessionContext } = useSessionContext(root)
-    const { shippingAddress } = useCheckout(root)
+  setup() {
+    const { shippingMethod, sessionContext } = useSessionContext()
+    const { shippingAddress } = useCheckout()
     return {
       shippingMethod,
       sessionContext,

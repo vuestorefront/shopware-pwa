@@ -38,10 +38,9 @@ export default {
     SfSearchBar,
     SwSuggestSearch,
   },
-  setup(props, { root }) {
-    const { searchTerm, search, getProducts, getTotal } = useProductQuickSearch(
-      root
-    )
+  setup() {
+    const { searchTerm, search, getProducts, getTotal } =
+      useProductQuickSearch()
 
     const typingQuery = ref("")
     const isSuggestBoxOpen = ref(false)

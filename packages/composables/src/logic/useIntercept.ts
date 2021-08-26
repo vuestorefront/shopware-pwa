@@ -1,7 +1,4 @@
-import {
-  ApplicationVueContext,
-  getApplicationContext,
-} from "@shopware-pwa/composables";
+import { getApplicationContext } from "@shopware-pwa/composables";
 import { getCurrentInstance, onUnmounted } from "vue-demi";
 
 /**
@@ -120,7 +117,7 @@ export const INTERCEPTOR_KEYS = {
  * @beta
  */
 export interface IInterceptorCallbackFunction {
-  (payload: any, rootContext?: ApplicationVueContext): void;
+  (payload: any): void;
 }
 
 /**
@@ -153,9 +150,7 @@ export interface IUseIntercept {
  *
  * @beta
  */
-export function useIntercept(
-  rootContext: ApplicationVueContext
-): IUseIntercept {
+export function useIntercept(): IUseIntercept {
   const COMPOSABLE_NAME = "useIntercept";
   const contextName = COMPOSABLE_NAME;
 
@@ -168,7 +163,7 @@ export function useIntercept(
     if (interceptors[broadcastKey]?.length) {
       interceptors[broadcastKey].forEach(
         (broadcastMethod: IInterceptorCallbackFunction) =>
-          broadcastMethod(value, rootContext)
+          broadcastMethod(value)
       );
     }
   };

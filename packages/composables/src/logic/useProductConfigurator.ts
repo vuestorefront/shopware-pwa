@@ -1,11 +1,7 @@
-import { ref, Ref, computed } from "vue-demi";
+import { ref, Ref, computed, unref } from "vue-demi";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { PropertyGroup } from "@shopware-pwa/commons/interfaces/models/content/property/PropertyGroup";
-import {
-  useCms,
-  ApplicationVueContext,
-  getApplicationContext,
-} from "@shopware-pwa/composables";
+import { useCms, getApplicationContext } from "@shopware-pwa/composables";
 import {
   invokePost,
   getProductEndpoint,
@@ -47,12 +43,13 @@ export interface IUseProductConfigurator {
  * Product options - {@link IUseAddToCart}
  * @beta
  */
-export function useProductConfigurator(
-  rootContext: ApplicationVueContext,
-  product: Product
-): IUseProductConfigurator {
+export function useProductConfigurator(params: {
+  product: Ref<Product> | Product;
+}): IUseProductConfigurator {
   const COMPOSABLE_NAME = "useProductConfigurator";
   const contextName = COMPOSABLE_NAME;
+
+  const product = unref(params.product);
 
   const { apiInstance } = getApplicationContext({ contextName });
 

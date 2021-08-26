@@ -56,7 +56,6 @@ export function createListingComposable<ELEMENTS_TYPE>({
   searchDefaults,
   listingKey,
 }: {
-  rootContext?: any;
   searchMethod: (
     searchParams: Partial<ShopwareSearchParams>
   ) => Promise<ListingResult<ELEMENTS_TYPE>>;

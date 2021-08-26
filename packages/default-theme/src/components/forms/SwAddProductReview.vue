@@ -88,15 +88,14 @@ export default {
       required: true,
     },
   },
-  setup(props, { root }) {
-    const { isLoggedIn, isGuestSession } = useUser(root)
+  setup(props) {
+    const { isLoggedIn, isGuestSession } = useUser()
     const { apiInstance } = getApplicationContext({
       contextName: "SwAddProductReview",
     })
-    const { switchState: switchLoginModalState } = useUIState(
-      root,
-      "LOGIN_MODAL_STATE"
-    )
+    const { switchState: switchLoginModalState } = useUIState({
+      stateName: "LOGIN_MODAL_STATE",
+    })
 
     const errorMessages = ref([])
     const reviewTitle = ref(null)

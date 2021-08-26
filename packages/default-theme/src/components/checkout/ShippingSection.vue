@@ -79,11 +79,11 @@ export default {
     SwPluginSlot,
     SfLoader,
   },
-  setup(props, { root }) {
-    const { getShippingMethods, shippingMethods } = useCheckout(root)
-    const { shippingMethod, setShippingMethod } = useSessionContext(root)
-    const { isGuestSession } = useUser(root)
-    const { refreshCart } = useCart(root)
+  setup() {
+    const { getShippingMethods, shippingMethods } = useCheckout()
+    const { shippingMethod, setShippingMethod } = useSessionContext()
+    const { isGuestSession } = useUser()
+    const { refreshCart } = useCart()
     const isLoading = ref(false)
     const activeShippingMethod = computed({
       get: () => shippingMethod.value && shippingMethod.value.id,

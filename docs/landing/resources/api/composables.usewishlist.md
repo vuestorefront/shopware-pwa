@@ -11,15 +11,16 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function useWishlist(rootContext: ApplicationVueContext, product?: Product): IUseWishlist;
+export declare function useWishlist(params?: {
+    product?: Product | Ref<Product>;
+}): IUseWishlist;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-|  product | Product |  |
+|  params | { product?: Product \| Ref&lt;Product&gt;; } |  |
 
 <b>Returns:</b>
 

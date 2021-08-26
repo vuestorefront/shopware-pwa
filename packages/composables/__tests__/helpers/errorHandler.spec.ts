@@ -19,7 +19,7 @@ describe("composables errorHandler", () => {
   });
   describe("broadcastErrors", () => {
     it("should do nothing if some of arguments does not match the interface", () => {
-      broadcastErrors(undefined as any, "testMethod", {} as any);
+      broadcastErrors(undefined as any, "testMethod");
       expect(broadcastMock).toBeCalledTimes(0);
     });
     it("should broadcast errors if any provided", () => {
@@ -55,7 +55,7 @@ describe("composables errorHandler", () => {
           messageKey: "product-stock-reached",
         },
       ];
-      broadcastErrors(errors, "testMethod", {} as any);
+      broadcastErrors(errors, "testMethod");
       expect(broadcastMock).toBeCalledTimes(3);
       expect(broadcastMock).toBeCalledWith("notice", {
         inputParams: {},

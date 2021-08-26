@@ -59,7 +59,7 @@ describe("Composables - useCurrency", () => {
 
   afterEach(async () => {
     // clear shared available currencies array
-    const { loadAvailableCurrencies } = useCurrency(rootContextMock);
+    const { loadAvailableCurrencies } = useCurrency();
     await loadAvailableCurrencies({ forceReload: true });
   });
 
@@ -67,30 +67,30 @@ describe("Composables - useCurrency", () => {
     describe("currency", () => {
       it("should return currency from useSessionContext", async () => {
         mockedCurrentCurrency.value = { symbol: "$$$" } as any;
-        const { currency } = useCurrency(rootContextMock);
+        const { currency } = useCurrency();
         expect(currency.value).toEqual({ symbol: "$$$" });
       });
     });
     describe("currencySymbol", () => {
       it("should return an empty string if currency symbol object is missing", async () => {
         mockedCurrentCurrency.value = {} as any;
-        const { currencySymbol } = useCurrency(rootContextMock);
+        const { currencySymbol } = useCurrency();
         expect(currencySymbol.value).toBe("");
       });
       it("should return an empty string if currency is null", async () => {
         mockedCurrentCurrency.value = null;
-        const { currencySymbol } = useCurrency(rootContextMock);
+        const { currencySymbol } = useCurrency();
         expect(currencySymbol.value).toBe("");
       });
       it("should return a symbol of current currency", async () => {
         mockedCurrentCurrency.value = { symbol: "$" } as any;
-        const { currencySymbol } = useCurrency(rootContextMock);
+        const { currencySymbol } = useCurrency();
         expect(currencySymbol.value).toEqual("$");
       });
     });
     describe("availableCurrencies", () => {
       it("should return empty array if there are no currencies loaded", async () => {
-        const { availableCurrencies } = useCurrency(rootContextMock);
+        const { availableCurrencies } = useCurrency();
         expect(availableCurrencies.value).toStrictEqual([]);
       });
 
@@ -103,8 +103,7 @@ describe("Composables - useCurrency", () => {
           ],
         } as any);
 
-        const { loadAvailableCurrencies, availableCurrencies } =
-          useCurrency(rootContextMock);
+        const { loadAvailableCurrencies, availableCurrencies } = useCurrency();
         await loadAvailableCurrencies();
         expect(availableCurrencies.value).toEqual([
           {
@@ -122,8 +121,7 @@ describe("Composables - useCurrency", () => {
           ],
         } as any);
 
-        const { loadAvailableCurrencies, availableCurrencies } =
-          useCurrency(rootContextMock);
+        const { loadAvailableCurrencies, availableCurrencies } = useCurrency();
         await loadAvailableCurrencies();
         mockedApiClient.getAvailableCurrencies.mockResolvedValueOnce(
           undefined as any
@@ -138,7 +136,7 @@ describe("Composables - useCurrency", () => {
 
       it("should return array with current currenry inside, when no currencies loaded", async () => {
         mockedCurrentCurrency.value = { symbol: "$$$" } as any;
-        const { availableCurrencies } = useCurrency(rootContextMock);
+        const { availableCurrencies } = useCurrency();
         expect(availableCurrencies.value).toEqual([{ symbol: "$$$" }]);
       });
     });
@@ -146,7 +144,7 @@ describe("Composables - useCurrency", () => {
   describe("methods", () => {
     describe("loadAvailableCurrencies", () => {
       it("should call apiClient:getAvailableCurrencies to fetch and set available currencies ", async () => {
-        const { loadAvailableCurrencies } = useCurrency(rootContextMock);
+        const { loadAvailableCurrencies } = useCurrency();
         await loadAvailableCurrencies();
         expect(mockedApiClient.getAvailableCurrencies).toBeCalledTimes(1);
       });
@@ -160,7 +158,7 @@ describe("Composables - useCurrency", () => {
           ],
         } as any);
 
-        const { loadAvailableCurrencies } = useCurrency(rootContextMock);
+        const { loadAvailableCurrencies } = useCurrency();
         await loadAvailableCurrencies();
         await loadAvailableCurrencies();
         expect(mockedApiClient.getAvailableCurrencies).toBeCalledTimes(1);
@@ -175,7 +173,7 @@ describe("Composables - useCurrency", () => {
           ],
         } as any);
 
-        const { loadAvailableCurrencies } = useCurrency(rootContextMock);
+        const { loadAvailableCurrencies } = useCurrency();
         await loadAvailableCurrencies();
         await loadAvailableCurrencies({ forceReload: true });
         expect(mockedApiClient.getAvailableCurrencies).toBeCalledTimes(2);
@@ -184,7 +182,7 @@ describe("Composables - useCurrency", () => {
 
     describe("setCurrency", () => {
       it("should call setCurrency from useSessionContext", async () => {
-        const { setCurrency } = useCurrency(rootContextMock);
+        const { setCurrency } = useCurrency();
         await setCurrency({ id: "some-currency-id" });
         expect(setCurrencyContextMock).toBeCalledWith({
           id: "some-currency-id",
@@ -192,7 +190,7 @@ describe("Composables - useCurrency", () => {
       });
 
       it("should call refreshCart from useCart", async () => {
-        const { setCurrency } = useCurrency(rootContextMock);
+        const { setCurrency } = useCurrency();
         await setCurrency({ id: "some-currency-id" });
         expect(refreshCartMock).toBeCalled();
       });
@@ -201,7 +199,7 @@ describe("Composables - useCurrency", () => {
         setCurrencyContextMock.mockRejectedValueOnce({
           message: "Some error",
         } as any);
-        const { setCurrency } = useCurrency(rootContextMock);
+        const { setCurrency } = useCurrency();
         await setCurrency({ id: "some-currency-id" });
         expect(setCurrencyContextMock).toBeCalled();
         expect(consoleErrorSpy).toBeCalledWith(

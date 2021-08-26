@@ -23,15 +23,15 @@ export default {
   components: {
     Address,
   },
-  setup(props, { root }) {
+  setup() {
     const {
       addresses,
       loadAddresses,
       markAddressAsDefault,
       deleteAddress: deleteCustomerAddress,
-    } = useCustomerAddresses(root)
+    } = useCustomerAddresses()
 
-    const { user, refreshUser } = useUser(root)
+    const { user, refreshUser } = useUser()
 
     loadAddresses()
     const selectedBilling = computed(() => user.value?.defaultBillingAddressId)

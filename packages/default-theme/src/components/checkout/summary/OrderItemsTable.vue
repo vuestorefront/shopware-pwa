@@ -42,8 +42,8 @@ export default {
       ],
     }
   },
-  setup(props, { root }) {
-    const { cartItems, removeProduct } = useCart(root)
+  setup() {
+    const { cartItems, removeProduct } = useCart()
     return {
       cartItems,
       removeProduct,

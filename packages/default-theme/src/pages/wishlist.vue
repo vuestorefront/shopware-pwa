@@ -63,7 +63,7 @@ export default {
     },
   },
   setup(props, { root }) {
-    const { removeFromWishlist, items } = useWishlist(root)
+    const { removeFromWishlist, items } = useWishlist()
     const { setBreadcrumbs } = useBreadcrumbs(root)
     const { apiInstance } = getApplicationContext({ contextName: "Wishlist" })
 

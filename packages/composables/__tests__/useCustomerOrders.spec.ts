@@ -44,7 +44,7 @@ describe("Composables - useCustomerOrders", () => {
         mockedApiClient.getCustomerOrders.mockResolvedValueOnce(
           ordersResponse as any
         );
-        const { orders, loadOrders } = useCustomerOrders(rootContextMock);
+        const { orders, loadOrders } = useCustomerOrders();
         expect(orders.value).toBeNull();
         await loadOrders();
         expect(orders.value).toHaveLength(1);

@@ -5,7 +5,7 @@ import { computed, watch } from "@vue/composition-api"
 export default {
   name: "SwOfflineMode",
   setup(props, { root }) {
-    const { pushError, pushInfo } = useNotifications(root)
+    const { pushError, pushInfo } = useNotifications()
     const isOffline = computed(() => root.isOffline)
     watch(
       () => isOffline.value,

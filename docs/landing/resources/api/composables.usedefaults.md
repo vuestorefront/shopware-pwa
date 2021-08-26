@@ -7,12 +7,14 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Returns default config depending on config key. It is used in composables, so defaultsKey is in most cases composable name (ex. `useDefaults(rootContext, "useCms")`<!-- -->)
+Returns default config depending on config key. It is used in composables, so defaultsKey is in most cases composable name (ex. `useDefaults({ defaultsKey: "useCms" })`<!-- -->)
 
 <b>Signature:</b>
 
 ```typescript
-export declare function useDefaults(rootContext: ApplicationVueContext | null | undefined, defaultsKey: string): {
+export declare function useDefaults(params: {
+    defaultsKey: string;
+}): {
     getIncludesConfig: () => Includes;
     getAssociationsConfig: () => ShopwareAssociation;
     getDefaults: () => ShopwareSearchParams;
@@ -23,8 +25,7 @@ export declare function useDefaults(rootContext: ApplicationVueContext | null | 
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) \| null \| undefined |  |
-|  defaultsKey | string |  |
+|  params | { defaultsKey: string; } |  |
 
 <b>Returns:</b>
 

@@ -303,11 +303,11 @@ export default {
     },
   },
   setup(props, { root, emit }) {
-    const { refreshSessionContext } = useSessionContext(root)
-    const { countryId } = useSessionContext(root)
-    const { login, loading } = useUser(root)
-    const { getCountries, error: countriesError } = useCountries(root)
-    const { getSalutations, error: salutationsError } = useSalutations(root)
+    const { refreshSessionContext } = useSessionContext()
+    const { countryId } = useSessionContext()
+    const { login, loading } = useUser()
+    const { getCountries, error: countriesError } = useCountries()
+    const { getSalutations, error: salutationsError } = useSalutations()
 
     // form data
     const doNotCreateAccount: Ref<boolean> = ref(false)

@@ -21,7 +21,7 @@ export default {
   },
   setup(props, { root }) {
     const { notifications, pushInfo, pushError, pushWarning, removeOne } =
-      useNotifications(root)
+      useNotifications()
 
     return {
       notifications,

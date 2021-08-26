@@ -4,7 +4,6 @@ import {
   useSharedState,
   useVueContext,
   getApplicationContext,
-  ApplicationVueContext,
 } from "@shopware-pwa/composables";
 
 /**
@@ -12,17 +11,14 @@ import {
  *
  * @beta
  */
-export function useBreadcrumbs(
-  rootContext?: ApplicationVueContext | null | undefined,
-  params?: {
-    /**
-     * Define if you want to show/hide link to Home in breadcrumbs.
-     *
-     * By default we show Home link.
-     */
-    hideHomeLink: boolean;
-  }
-): {
+export function useBreadcrumbs(params?: {
+  /**
+   * Define if you want to show/hide link to Home in breadcrumbs.
+   *
+   * By default we show Home link.
+   */
+  hideHomeLink: boolean;
+}): {
   breadcrumbs: ComputedRef<Breadcrumb[]>;
   setBreadcrumbs: (breadcrumbs: Breadcrumb[]) => void;
   clear: () => void;

@@ -81,8 +81,8 @@ export default {
       default: false,
     },
   },
-  setup(props, { root }) {
-    const { removeProduct, changeProductQuantity } = useCart(root)
+  setup(props) {
+    const { removeProduct, changeProductQuantity } = useCart()
 
     // get the URL from async loaded product data - passed by the parent component
     const productUrl = computed(() => {

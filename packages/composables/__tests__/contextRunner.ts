@@ -28,7 +28,7 @@ export async function runInVueContext(
   extendScopeContext(scope, rootContextMock);
 
   await scope.run(async () => {
-    await method(rootContextMock);
+    await method();
   });
   scope.stop();
 }

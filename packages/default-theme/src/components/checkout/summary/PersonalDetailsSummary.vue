@@ -23,7 +23,7 @@ export default {
     // SwButton,
   },
   setup(props, { root }) {
-    const { user } = useUser(root)
+    const { user } = useUser()
 
     return {
       personalDetails: computed(() => ({
