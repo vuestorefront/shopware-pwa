@@ -47,7 +47,7 @@ describe("Language switcher", () => {
     if (domains.length <= 1) {
       return;
     }
-    cy.location("pathname").should("not.eq", `${domains[1].url}/`);
+    cy.location("pathname").should("not.eq", `${domains[1].pathPrefix}/`);
     cy.window()
       .its("$nuxt")
       .its("$routing")
@@ -58,7 +58,7 @@ describe("Language switcher", () => {
     cy.get("[data-cy=language-switcher-select]")
       .find("select")
       .select(domains[1].languageLabel);
-    cy.location("pathname").should("eq", `${domains[1].url}/`);
+    cy.location("pathname").should("eq", `${domains[1].pathPrefix}/`);
     cy.window()
       .its("$nuxt")
       .its("$routing")
