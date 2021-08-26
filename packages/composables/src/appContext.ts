@@ -9,15 +9,29 @@ import { getContextProperty } from "./internalHelpers/getContextProperty";
 import { ApiDefaults } from "@shopware-pwa/commons";
 import { IInterceptorCallbackFunction } from "./logic/useIntercept";
 
+export interface ShopwareDomain {
+  url: string;
+  origin: string;
+  host: string;
+  pathPrefix: string;
+  domainId: string;
+  currencyId: string;
+  snippetSetId: string;
+  languageId: string;
+  languageName: string;
+  languageLabel: string;
+  languageLocaleCode: string;
+}
+
 /**
  * @beta
  * @deprecated use type SwRouting instead
  */
 export interface Routing {
-  availableDomains: any;
+  availableDomains: ShopwareDomain[];
   fallbackDomain: string | undefined;
   fallbackLocale: string | undefined;
-  getCurrentDomain: ComputedRef<string>;
+  getCurrentDomain: ComputedRef<ShopwareDomain>;
   setCurrentDomain: (domainData: any) => void;
   getUrl: (path: string) => string;
 }
