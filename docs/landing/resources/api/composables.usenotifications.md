@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useNotifications](./composables.usenotifications.md)
 
-## useNotifications variable
+## useNotifications() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -11,7 +11,7 @@
 <b>Signature:</b>
 
 ```typescript
-useNotifications: (rootContext: ApplicationVueContext) => {
+export declare function useNotifications(rootContext: ApplicationVueContext): {
     notifications: ComputedRef<Notification[]>;
     removeOne: (id: number) => void;
     removeAll: () => void;
@@ -19,5 +19,16 @@ useNotifications: (rootContext: ApplicationVueContext) => {
     pushWarning: (message: string, options?: any) => void;
     pushError: (message: string, options?: any) => void;
     pushSuccess: (message: string, options?: any) => void;
-}
+};
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
+
+<b>Returns:</b>
+
+{ notifications: ComputedRef&lt;Notification\[\]&gt;; removeOne: (id: number) =&gt; void; removeAll: () =&gt; void; pushInfo: (message: string, options?: any) =&gt; void; pushWarning: (message: string, options?: any) =&gt; void; pushError: (message: string, options?: any) =&gt; void; pushSuccess: (message: string, options?: any) =&gt; void; }
+

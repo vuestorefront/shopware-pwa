@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useDefaults](./composables.usedefaults.md)
 
-## useDefaults variable
+## useDefaults() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -12,12 +12,23 @@ Returns default config depending on config key. It is used in composables, so de
 <b>Signature:</b>
 
 ```typescript
-useDefaults: (rootContext: ApplicationVueContext | null | undefined, defaultsKey: string) => {
+export declare function useDefaults(rootContext: ApplicationVueContext | null | undefined, defaultsKey: string): {
     getIncludesConfig: () => Includes;
-    getAssociationsConfig: () => Association[];
+    getAssociationsConfig: () => ShopwareAssociation;
     getDefaults: () => ShopwareSearchParams;
-}
+};
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) \| null \| undefined |  |
+|  defaultsKey | string |  |
+
+<b>Returns:</b>
+
+{ getIncludesConfig: () =&gt; Includes; getAssociationsConfig: () =&gt; ShopwareAssociation; getDefaults: () =&gt; ShopwareSearchParams; }
 
 ## Remarks
 

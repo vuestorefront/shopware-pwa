@@ -3,7 +3,7 @@ import { useSharedState } from "@shopware-pwa/composables";
 
 const allowDevMode = "true" === "<%= props.allowDevMode %>";
 
-export const usePlugins = (rootContext) => {
+export function usePlugins(rootContext) {
   const { sharedRef } = useSharedState(rootContext);
   const visibleDevSlots = sharedRef("sw-usePlugins-visibleDevSlots");
 
@@ -17,4 +17,4 @@ export const usePlugins = (rootContext) => {
   return {
     showPluginSlots,
   };
-};
+}

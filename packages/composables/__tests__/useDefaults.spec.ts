@@ -38,12 +38,12 @@ describe("Composables - useDefaults", () => {
       expect(getIncludesConfig()).toEqual({});
     });
 
-    it("should return an empty array for associations when there is no config", async () => {
+    it("should return an empty object for associations when there is no config", async () => {
       const { getAssociationsConfig } = useDefaults(
         rootContextMock,
         "somethingNotExisting"
       );
-      expect(getAssociationsConfig()).toEqual([]);
+      expect(getAssociationsConfig()).toEqual({});
     });
   });
   describe("CMS", () => {
@@ -93,7 +93,7 @@ describe("Composables - useDefaults", () => {
         "useProductListing"
       );
       expect(getAssociationsConfig()).toStrictEqual(
-        getDefaultApiParams()?.["useProductListing"]?.associations || []
+        getDefaultApiParams()?.["useProductListing"]?.associations || {}
       );
     });
   });

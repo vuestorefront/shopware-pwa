@@ -69,3 +69,11 @@ Learn [the details](../cookbook/#how-to-add-another-language) how to set the new
 
 - Check if there are entries in `.shopware-pwa/sw-plugins/domains.json`.
 - If not, run `npx @shopware-pwa/cli@canary domains` command.
+
+
+### Issue: There's no "thank you page" on Apple devices
+
+- The issue is described broadly [here](https://github.com/vuestorefront/shopware-pwa/issues/1638).
+- The possible solution in your project may look like in the [PR](https://github.com/vuestorefront/shopware-pwa/pull/1644):
+  - copy `api-client.js` plugin from (`%PROJECT_DIR%/node_modules/@shopware-pwa/nuxt-module/plugins/api-client.js`), do the changes from mentioned PR and put it in your project's `src/plugins` folder (you will lose the compatibility on further upgrades)
+  - adjust every `handlePayment` usages to pass the context token parameter as a part of success/failure URL.

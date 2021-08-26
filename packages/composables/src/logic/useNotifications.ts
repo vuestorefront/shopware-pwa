@@ -17,9 +17,7 @@ export interface Notification {
 /**
  * @beta
  */
-export const useNotifications = (
-  rootContext: ApplicationVueContext
-): {
+export function useNotifications(rootContext: ApplicationVueContext): {
   notifications: ComputedRef<Notification[]>;
   removeOne: (id: number) => void;
   removeAll: () => void;
@@ -27,7 +25,7 @@ export const useNotifications = (
   pushWarning: (message: string, options?: any) => void;
   pushError: (message: string, options?: any) => void;
   pushSuccess: (message: string, options?: any) => void;
-} => {
+} {
   getApplicationContext(rootContext, "useNotifications");
   const { sharedRef } = useSharedState(rootContext);
   const _notifications: Ref<Notification[] | null> = sharedRef(
@@ -87,4 +85,4 @@ export const useNotifications = (
       pushNotification(message, { ...options, type: "danger" }),
     notifications: computed(() => _notifications.value || []),
   };
-};
+}
