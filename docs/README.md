@@ -12,7 +12,7 @@ sidebar: false
 
 ```bash
 npx @shopware-pwa/cli init 		# Initialize project
-yarn dev 								# start dev server
+yarn dev 						# start dev server
 ```
 
 <center>
@@ -40,9 +40,11 @@ Quickstart and finding your way around
 
 Get to understand the core components of the application
 
-### [Cookbook](/landing/cookbook/) <Badge text="new" type="info"/> <small>not for contribution</small>
+### [Cookbook](/landing/cookbook/)
 
 See how to work with the project in specific cases
+
+- [FAQ & Troubleshooting](/landing/resources/troubleshooting/)
 
 </div>
 
@@ -58,6 +60,9 @@ Best practices, release notes, [migration guides](/landing/operations/migrations
 ### [Resources](/landing/resources/)
 
 Roadmap, Package API references and related projects
+
+- [Composables API docs](/landing/resources/api/composables/)
+- [Shopware 6 API client](/landing/resources/api/shopware-6-client/)
 
 </div>
 
