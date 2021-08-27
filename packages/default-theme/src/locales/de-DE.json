@@ -239,5 +239,13 @@
   "Change payment method": "Bezahlungsmethode ändern",
   "Choose a new payment method": "Wählen Sie eine neue Zahlungsmethode",
   "Apply": "Anwenden",
-  "Your order will be canceled": "Ihre Bestellung wird storniert"
+  "Your order will be canceled": "Ihre Bestellung wird storniert",
+  "Edit address": "Edit address",
+  "Choose address": "Choose address",
+  "Shipping and billing address do not match.": "Shipping and billing address do not match.",
+  "Checkout": "Checkout",
+  "Order summary": "Order summary",
+  "Close": "Close",
+  "Street and house number": "Street and house number",
+  "Read all": "Read all"
 }
