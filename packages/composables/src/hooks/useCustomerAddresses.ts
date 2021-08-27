@@ -58,7 +58,7 @@ export interface IUseCustomerAddresses {
  * @beta
  */
 export function useCustomerAddresses(): IUseCustomerAddresses {
-  const COMPOSABLE_NAME = "useCurrency";
+  const COMPOSABLE_NAME = "useCustomerAddresses";
   const contextName = COMPOSABLE_NAME;
 
   const { apiInstance } = getApplicationContext({ contextName });

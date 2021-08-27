@@ -31,7 +31,8 @@ export function useNotifications(): {
   getApplicationContext({ contextName });
   const { sharedRef } = useSharedState();
   const _notifications: Ref<Notification[] | null> = sharedRef(
-    `sw-${contextName}-notifications`
+    `sw-${contextName}-notifications`,
+    []
   );
 
   /**

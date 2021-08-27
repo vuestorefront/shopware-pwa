@@ -78,6 +78,10 @@ export default async ({ app, route, req }, inject) => {
           });
 
         if (matchingDomainConfig) return matchingDomainConfig;
+
+        console.error(
+          `[Error][Shopware PWA] There is no domain configuration for ${hostname} - add this host to config and run domains configuration. (https://shopware-pwa-docs.vuestorefront.io/landing/cookbook/#how-to-add-another-language)`
+        );
       }
     };
 
@@ -108,7 +112,7 @@ export default async ({ app, route, req }, inject) => {
     };
 
     const currentDomainConfig = getDomainConfigFromRequest(req);
-    routing.setCurrentDomain(currentDomainConfig);
+    currentDomainConfig && routing.setCurrentDomain(currentDomainConfig);
 
     // public plugin within the context
     app.routing = routing;

@@ -12,7 +12,7 @@
       promotion: isPromotion,
       'sw-collected-product--hidden-remove-btn': hiddenRemoveButton,
     }"
-    @click:remove="removeProduct(product)"
+    @click:remove="removeItem(product)"
   >
     <template #configuration>
       <div class="sw-collected-product__configuration" v-if="options">
@@ -82,7 +82,7 @@ export default {
     },
   },
   setup(props) {
-    const { removeProduct, changeProductQuantity } = useCart()
+    const { removeItem, changeProductQuantity } = useCart()
 
     // get the URL from async loaded product data - passed by the parent component
     const productUrl = computed(() => {
@@ -130,7 +130,7 @@ export default {
     )
     return {
       productImage,
-      removeProduct,
+      removeItem,
       quantity,
       regularPrice,
       specialPrice,
