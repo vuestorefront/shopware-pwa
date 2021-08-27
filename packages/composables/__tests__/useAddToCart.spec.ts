@@ -52,45 +52,50 @@ describe("Composables - useAddToCart", () => {
   describe("computed", () => {
     describe("getStock", () => {
       it("should return null when no product", () => {
-        const { getStock } = useAddToCart(rootContextMock, null as any);
+        const { getStock } = useAddToCart({ product: null as any });
         expect(getStock.value).toBeNull();
       });
 
       it("should return null when no product stock", () => {
-        const { getStock } = useAddToCart(rootContextMock, {
-          stock: null,
-        } as any);
+        const { getStock } = useAddToCart({
+          product: {
+            stock: null,
+          } as any,
+        });
         expect(getStock.value).toBeNull();
       });
 
       it("should return a proper product stock", () => {
-        const { getStock } = useAddToCart(rootContextMock, {
-          stock: 22,
-        } as any);
+        const { getStock } = useAddToCart({
+          product: {
+            stock: 22,
+          } as any,
+        });
         expect(getStock.value).toEqual(22);
       });
     });
 
     describe("getAvailableStock", () => {
       it("should return null when no product", () => {
-        const { getAvailableStock } = useAddToCart(
-          rootContextMock,
-          null as any
-        );
+        const { getAvailableStock } = useAddToCart({ product: null as any });
         expect(getAvailableStock.value).toBeNull();
       });
 
       it("should return null when no product available stock", () => {
-        const { getAvailableStock } = useAddToCart(rootContextMock, {
-          availableStock: null,
-        } as any);
+        const { getAvailableStock } = useAddToCart({
+          product: {
+            availableStock: null,
+          } as any,
+        });
         expect(getAvailableStock.value).toBeNull();
       });
 
       it("should return a proper product available stock", () => {
-        const { getAvailableStock } = useAddToCart(rootContextMock, {
-          availableStock: 21,
-        } as any);
+        const { getAvailableStock } = useAddToCart({
+          product: {
+            availableStock: 21,
+          } as any,
+        });
         expect(getAvailableStock.value).toEqual(21);
       });
     });
@@ -98,9 +103,11 @@ describe("Composables - useAddToCart", () => {
     describe("isInCart", () => {
       it("should show that product is in cart", () => {
         cartItemsMock.value = [{ referencedId: "qwe" }];
-        const { isInCart } = useAddToCart(rootContextMock, {
-          id: "qwe",
-        } as any);
+        const { isInCart } = useAddToCart({
+          product: {
+            id: "qwe",
+          } as any,
+        });
         expect(isInCart.value).toBeTruthy();
       });
 
@@ -108,9 +115,11 @@ describe("Composables - useAddToCart", () => {
         stateCart.value = {
           lineItems: [{ referencedId: "qwert" }],
         };
-        const { isInCart } = useAddToCart(rootContextMock, {
-          id: "qwe",
-        } as any);
+        const { isInCart } = useAddToCart({
+          product: {
+            id: "qwe",
+          } as any,
+        });
         expect(isInCart.value).toBeFalsy();
       });
     });
@@ -119,9 +128,11 @@ describe("Composables - useAddToCart", () => {
   describe("methods", () => {
     describe("addToCart", () => {
       it("should add product without quantity to cart", async () => {
-        const { addToCart, error, quantity } = useAddToCart(rootContextMock, {
-          id: "qwe",
-        } as any);
+        const { addToCart, error, quantity } = useAddToCart({
+          product: {
+            id: "qwe",
+          } as any,
+        });
         quantity.value = null as any;
         await addToCart();
         expect(error.value).toBeNull();
@@ -130,9 +141,11 @@ describe("Composables - useAddToCart", () => {
       });
 
       it("should add product with quantity to cart and reset quantity", async () => {
-        const { addToCart, error, quantity } = useAddToCart(rootContextMock, {
-          id: "qwe",
-        } as any);
+        const { addToCart, error, quantity } = useAddToCart({
+          product: {
+            id: "qwe",
+          } as any,
+        });
         quantity.value = 4;
         await addToCart();
         expect(error.value).toBeNull();
@@ -143,9 +156,11 @@ describe("Composables - useAddToCart", () => {
       it("should contain error message when product cannot be added", async () => {
         addProductMock.mockRejectedValueOnce("Error message");
 
-        const { addToCart, error, quantity } = useAddToCart(rootContextMock, {
-          id: "qwe",
-        } as any);
+        const { addToCart, error, quantity } = useAddToCart({
+          product: {
+            id: "qwe",
+          } as any,
+        });
         quantity.value = 4;
         await addToCart();
         expect(error.value).toEqual("Error message");
@@ -154,10 +169,9 @@ describe("Composables - useAddToCart", () => {
       });
 
       it("should not try add to cart on empty product", async () => {
-        const { addToCart, error, quantity } = useAddToCart(
-          rootContextMock,
-          null as any
-        );
+        const { addToCart, error, quantity } = useAddToCart({
+          product: null as any,
+        });
         quantity.value = 4;
         await addToCart();
         expect(error.value).toEqual(
@@ -168,9 +182,11 @@ describe("Composables - useAddToCart", () => {
       });
 
       it("should broadcast message after success", async () => {
-        const { addToCart } = useAddToCart(rootContextMock, {
-          id: "qwe",
-        } as any);
+        const { addToCart } = useAddToCart({
+          product: {
+            id: "qwe",
+          } as any,
+        });
         await addToCart();
         expect(broadcastMock).toBeCalledWith("addToCart", {
           product: { id: "qwe" },
@@ -181,9 +197,11 @@ describe("Composables - useAddToCart", () => {
       it("should broadcast error message in case of error", async () => {
         addProductMock.mockRejectedValueOnce("Error message");
 
-        const { addToCart } = useAddToCart(rootContextMock, {
-          id: "qwe",
-        } as any);
+        const { addToCart } = useAddToCart({
+          product: {
+            id: "qwe",
+          } as any,
+        });
         await addToCart();
         expect(broadcastMock).toBeCalledWith("error", {
           methodName: "[useAddToCart][addToCart]",
@@ -200,7 +218,7 @@ describe("Composables - useAddToCart", () => {
 
     describe("onAddToCart", () => {
       it("should add interceptor method", () => {
-        const { onAddToCart } = useAddToCart(rootContextMock, null as any);
+        const { onAddToCart } = useAddToCart({ product: null as any });
         onAddToCart(() => {});
         expect(interceptMock).toHaveBeenCalledWith(
           "addToCart",

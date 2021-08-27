@@ -2,11 +2,7 @@ import { ref, Ref, UnwrapRef, reactive } from "vue-demi";
 import { getCustomerOrders } from "@shopware-pwa/shopware-6-client";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import { ShopwareError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import {
-  useDefaults,
-  ApplicationVueContext,
-  getApplicationContext,
-} from "@shopware-pwa/composables";
+import { useDefaults, getApplicationContext } from "@shopware-pwa/composables";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
@@ -27,15 +23,13 @@ export interface IUseCustomerOrders {
  *
  * @beta
  */
-export function useCustomerOrders(
-  rootContext: ApplicationVueContext
-): IUseCustomerOrders {
+export function useCustomerOrders(): IUseCustomerOrders {
   const COMPOSABLE_NAME = "useCustomerOrders";
   const contextName = COMPOSABLE_NAME;
 
   const { apiInstance } = getApplicationContext({ contextName });
 
-  const { getDefaults } = useDefaults(rootContext, contextName);
+  const { getDefaults } = useDefaults({ defaultsKey: contextName });
 
   const errors: UnwrapRef<{
     loadOrders: ShopwareError[];

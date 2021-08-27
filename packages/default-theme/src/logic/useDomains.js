@@ -7,15 +7,16 @@ import {
 import { getSeoUrls } from "@shopware-pwa/shopware-6-client"
 import { getCmsTechnicalPath } from "@shopware-pwa/helpers"
 
-export function useDomains(rootContext = null) {
+export function useDomains() {
   const COMPOSABLE_NAME = "useBreadcrumbs"
   const contextName = COMPOSABLE_NAME
 
   // the "last-chance route always has a name starting with `all` - nuxt default"
   const PAGE_RESOLVER_ROUTE_PREFIX = "all"
   const { resourceIdentifier, page } = useCms()
+  const { pushWarning } = useNotifications()
 
-  const { router, routing, apiInstance } = getApplicationContext({
+  const { router, route, routing, apiInstance, i18n } = getApplicationContext({
     contextName,
   })
 
@@ -32,15 +33,14 @@ export function useDomains(rootContext = null) {
         : "",
       ""
     )
-  const getCurrentPathWithoutDomain = () =>
-    trimDomain(rootContext.$route.fullPath)
+  const getCurrentPathWithoutDomain = () => trimDomain(route.fullPath)
   const isHomePage = () => {
     const currentPath = getCurrentPathWithoutDomain()
     return currentPath === "/" || currentPath === ""
   }
 
   const isRouteStatic = computed(() => {
-    return !rootContext.$route.name.startsWith(PAGE_RESOLVER_ROUTE_PREFIX)
+    return !route.name.startsWith(PAGE_RESOLVER_ROUTE_PREFIX)
   })
   const getNewDomainUrl = async (domain) => {
     let url = `${domain.pathPrefix !== "/" ? `${domain.pathPrefix}` : ""}`
@@ -62,11 +62,8 @@ export function useDomains(rootContext = null) {
           path += !isHomePage() ? getCmsTechnicalPath(page.value) : ""
         }
       } catch (error) {
-        const { pushWarning } = useNotifications(rootContext)
         pushWarning(
-          rootContext.$t(
-            "An error occured during changing the current language."
-          )
+          i18n.t("An error occured during changing the current language.")
         )
         return
       }

@@ -1,4 +1,4 @@
-import { ref, computed, ComputedRef } from "vue-demi";
+import { ref, computed, ComputedRef, Ref, unref } from "vue-demi";
 import {
   Product,
   CrossSelling,
@@ -9,10 +9,7 @@ import {
   invokePost,
   getProductDetailsEndpoint,
 } from "@shopware-pwa/shopware-6-client";
-import {
-  ApplicationVueContext,
-  getApplicationContext,
-} from "@shopware-pwa/composables";
+import { getApplicationContext } from "@shopware-pwa/composables";
 
 /**
  * interface for {@link IUseProductAssociations} composable
@@ -41,20 +38,22 @@ export interface IUseProductAssociations {
  * Example of possibilities:
  *
  * ```ts
- * const { loading, loadAssociations, productAssociations } = useProductAssociation(root, product, "cross-selling")
+ * const { loading, loadAssociations, productAssociations } = useProductAssociation({product, associationContext: "cross-selling"})
  * if (!productAssociations.value) {
  *    await loadAssociations()
  * }
  * ```
  * @beta
  */
-export function useProductAssociations(
-  rootContext: ApplicationVueContext,
-  product: Product,
-  association: "cross-selling" | "reviews"
-): IUseProductAssociations {
+export function useProductAssociations(params: {
+  product: Ref<Product> | Product;
+  associationContext: "cross-selling" | "reviews";
+}): IUseProductAssociations {
   const COMPOSABLE_NAME = "useProductAssociations";
   const contextName = COMPOSABLE_NAME;
+
+  const product = unref(params.product);
+  const association = params.associationContext;
 
   const { apiInstance } = getApplicationContext({ contextName });
   const isLoading = ref(false);

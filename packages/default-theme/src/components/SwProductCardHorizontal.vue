@@ -31,10 +31,9 @@ import { usePriceFilter } from "@/logic/usePriceFilter.js"
 export default {
   components: { SfProductCardHorizontal },
   setup(props, { root }) {
-    const { addToCart, quantity, getStock, isInCart } = useAddToCart(
-      root,
-      props.product
-    )
+    const { addToCart, quantity, getStock, isInCart } = useAddToCart({
+      product: props.product,
+    })
     return {
       quantity,
       addToCart,

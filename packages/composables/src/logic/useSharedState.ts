@@ -7,10 +7,7 @@ import {
   toRef,
   WritableComputedRef,
 } from "vue-demi";
-import {
-  ApplicationVueContext,
-  getApplicationContext,
-} from "@shopware-pwa/composables";
+import { getApplicationContext } from "@shopware-pwa/composables";
 
 const localSharedState: {
   [key: string]: Ref<any>;
@@ -22,7 +19,7 @@ const localSharedState: {
  *
  * @beta
  */
-export function useSharedState(rootContext?: ApplicationVueContext) {
+export function useSharedState() {
   const COMPOSABLE_NAME = "useSharedState";
   const contextName = COMPOSABLE_NAME;
 

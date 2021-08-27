@@ -3,7 +3,6 @@ import { getAvailableCountries } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import {
   useSharedState,
-  ApplicationVueContext,
   getApplicationContext,
 } from "@shopware-pwa/composables";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
@@ -11,7 +10,7 @@ import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/
 /**
  * @beta
  */
-export interface UseCountries {
+export interface IUseCountries {
   mountedCallback: () => Promise<void>;
   getCountries: ComputedRef<Country[]>;
   fetchCountries: () => Promise<void>;
@@ -21,12 +20,12 @@ export interface UseCountries {
 /**
  * @beta
  */
-export function useCountries(rootContext: ApplicationVueContext): UseCountries {
+export function useCountries(): IUseCountries {
   const COMPOSABLE_NAME = "useCountries";
   const contextName = COMPOSABLE_NAME;
 
   const { apiInstance } = getApplicationContext({ contextName });
-  const { sharedRef } = useSharedState(rootContext);
+  const { sharedRef } = useSharedState();
   const _sharedCountried: Ref<Country[] | null> = sharedRef(
     `sw-${contextName}-countries`
   );

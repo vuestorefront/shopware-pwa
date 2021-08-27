@@ -59,8 +59,8 @@ export default {
       emailSent: false,
     }
   },
-  setup(props, { root }) {
-    const { resetPassword, errors } = useCustomerPassword(root)
+  setup() {
+    const { resetPassword, errors } = useCustomerPassword()
     return {
       resetPassword,
       $v: useVuelidate(),

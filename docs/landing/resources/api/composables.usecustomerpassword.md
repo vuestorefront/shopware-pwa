@@ -12,15 +12,8 @@ Composable for customer password management. Options - [IUseCustomerPassword](./
 <b>Signature:</b>
 
 ```typescript
-export declare function useCustomerPassword(rootContext: ApplicationVueContext): IUseCustomerPassword;
+export declare function useCustomerPassword(): IUseCustomerPassword;
 ```
-
-## Parameters
-
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-
 <b>Returns:</b>
 
 [IUseCustomerPassword](./composables.iusecustomerpassword.md)

@@ -12,15 +12,8 @@ Composable for session management. Options - [IUseSessionContext](./composables.
 <b>Signature:</b>
 
 ```typescript
-export declare function useSessionContext(rootContext: ApplicationVueContext): IUseSessionContext;
+export declare function useSessionContext(): IUseSessionContext;
 ```
-
-## Parameters
-
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-
 <b>Returns:</b>
 
 [IUseSessionContext](./composables.iusesessioncontext.md)

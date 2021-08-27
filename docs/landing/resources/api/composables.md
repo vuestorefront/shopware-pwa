@@ -11,34 +11,34 @@
 |  [createListingComposable({ searchMethod, searchDefaults, listingKey, })](./composables.createlistingcomposable.md) | Factory to create your own listing. By default you can use useListing composable, which provides you predefined listings for category(cms) listing and product search listing. Using factory you can provide our own compatible search method and use it for example for creating listing of orders in my account. |
 |  [getApplicationContext(params)](./composables.getapplicationcontext.md) | <b><i>(BETA)</i></b> Get the current application context values. The context is either a scope or a component instance. This method checks if the context contains all the necessary data.<!-- -->This method will likely change in future in order to provide full Vue3 compability. |
 |  [getDefaultApiParams()](./composables.getdefaultapiparams.md) | <b><i>(BETA)</i></b> Returns default system API params |
-|  [useAddToCart(rootContext, product)](./composables.useaddtocart.md) | <b><i>(BETA)</i></b> Add product to cart. Options - [IUseAddToCart](./composables.iuseaddtocart.md) |
-|  [useBreadcrumbs(rootContext, params)](./composables.usebreadcrumbs.md) | <b><i>(BETA)</i></b> Composable for displaying and setting breadcrumbs for page. |
-|  [useCart(rootContext)](./composables.usecart.md) | <b><i>(BETA)</i></b> Composable for cart management. Options - [IUseCart](./composables.iusecart.md) |
-|  [useCategoryFilters(rootContext)](./composables.usecategoryfilters.md) | <b><i>(BETA)</i></b> |
-|  [useCheckout(rootContext)](./composables.usecheckout.md) | <b><i>(BETA)</i></b> Composable for Checkout management. Options - [IUseCheckout](./composables.iusecheckout.md) |
-|  [useCms(options)](./composables.usecms.md) | <b><i>(BETA)</i></b> |
-|  [useCountries(rootContext)](./composables.usecountries.md) | <b><i>(BETA)</i></b> |
-|  [useCountry(countryId, countries)](./composables.usecountry.md) | <b><i>(BETA)</i></b> |
-|  [useCurrency(rootContext)](./composables.usecurrency.md) | <b><i>(BETA)</i></b> |
-|  [useCustomerAddresses(rootContext)](./composables.usecustomeraddresses.md) | <b><i>(BETA)</i></b> Composable for user's addresses management. Options - [IUseCustomerAddresses](./composables.iusecustomeraddresses.md) |
-|  [useCustomerOrders(rootContext)](./composables.usecustomerorders.md) | <b><i>(BETA)</i></b> Composable for listing customer orders. Options - [IUseCustomerOrders](./composables.iusecustomerorders.md) |
-|  [useCustomerPassword(rootContext)](./composables.usecustomerpassword.md) | <b><i>(BETA)</i></b> Composable for customer password management. Options - [IUseCustomerPassword](./composables.iusecustomerpassword.md) |
-|  [useDefaults(rootContext, defaultsKey)](./composables.usedefaults.md) | <b><i>(BETA)</i></b> Returns default config depending on config key. It is used in composables, so defaultsKey is in most cases composable name (ex. <code>useDefaults(rootContext, &quot;useCms&quot;)</code>) |
-|  [useIntercept(rootContext)](./composables.useintercept.md) | <b><i>(BETA)</i></b> Allows to broadcast and intercept events across application. |
-|  [useListing(rootContext, listingKey)](./composables.uselisting.md) | <b><i>(BETA)</i></b> |
-|  [useNavigation(rootContext, params)](./composables.usenavigation.md) | <b><i>(BETA)</i></b> Composable for navigation. Options - [IUseNavigation](./composables.iusenavigation.md) |
-|  [useNotifications(rootContext)](./composables.usenotifications.md) | <b><i>(BETA)</i></b> |
-|  [useOrderDetails(rootContext, order)](./composables.useorderdetails.md) | <b><i>(BETA)</i></b> Composable for managing an existing order. |
-|  [useProduct(rootContext, loadedProduct)](./composables.useproduct.md) | <b><i>(BETA)</i></b> |
-|  [useProductAssociations(rootContext, product, association)](./composables.useproductassociations.md) | <b><i>(BETA)</i></b> Get product association entity. Options - [IUseProductAssociations](./composables.iuseproductassociations.md) |
-|  [useProductConfigurator(rootContext, product)](./composables.useproductconfigurator.md) | <b><i>(BETA)</i></b> Product options - [IUseAddToCart](./composables.iuseaddtocart.md) |
-|  [useProductQuickSearch(rootContext)](./composables.useproductquicksearch.md) | <b><i>(BETA)</i></b> |
-|  [useSalutations(rootContext)](./composables.usesalutations.md) | <b><i>(BETA)</i></b> |
-|  [useSessionContext(rootContext)](./composables.usesessioncontext.md) | <b><i>(BETA)</i></b> Composable for session management. Options - [IUseSessionContext](./composables.iusesessioncontext.md) |
-|  [useSharedState(rootContext)](./composables.usesharedstate.md) | <b><i>(BETA)</i></b> Replacement for Vuex. Composable, which enables you to use shared state in your application. State is shared both on server and client side. |
-|  [useUIState(rootContext, stateName)](./composables.useuistate.md) | <b><i>(BETA)</i></b> Simple state management for UI purposes. |
-|  [useUser(rootContext)](./composables.useuser.md) | <b><i>(BETA)</i></b> Composable for user management. Options - [IUseUser](./composables.iuseuser.md) |
-|  [useWishlist(rootContext, product)](./composables.usewishlist.md) | <b><i>(BETA)</i></b> |
+|  [useAddToCart(params)](./composables.useaddtocart.md) | <b><i>(BETA)</i></b> Add product to cart. Options - [IUseAddToCart](./composables.iuseaddtocart.md) |
+|  [useBreadcrumbs(params)](./composables.usebreadcrumbs.md) | <b><i>(BETA)</i></b> Composable for displaying and setting breadcrumbs for page. |
+|  [useCart()](./composables.usecart.md) | <b><i>(BETA)</i></b> Composable for cart management. Options - [IUseCart](./composables.iusecart.md) |
+|  [useCategoryFilters()](./composables.usecategoryfilters.md) | <b><i>(BETA)</i></b> |
+|  [useCheckout()](./composables.usecheckout.md) | <b><i>(BETA)</i></b> Composable for Checkout management. Options - [IUseCheckout](./composables.iusecheckout.md) |
+|  [useCms(params)](./composables.usecms.md) | <b><i>(BETA)</i></b> |
+|  [useCountries()](./composables.usecountries.md) | <b><i>(BETA)</i></b> |
+|  [useCountry(props)](./composables.usecountry.md) | <b><i>(BETA)</i></b> |
+|  [useCurrency()](./composables.usecurrency.md) | <b><i>(BETA)</i></b> |
+|  [useCustomerAddresses()](./composables.usecustomeraddresses.md) | <b><i>(BETA)</i></b> Composable for user's addresses management. Options - [IUseCustomerAddresses](./composables.iusecustomeraddresses.md) |
+|  [useCustomerOrders()](./composables.usecustomerorders.md) | <b><i>(BETA)</i></b> Composable for listing customer orders. Options - [IUseCustomerOrders](./composables.iusecustomerorders.md) |
+|  [useCustomerPassword()](./composables.usecustomerpassword.md) | <b><i>(BETA)</i></b> Composable for customer password management. Options - [IUseCustomerPassword](./composables.iusecustomerpassword.md) |
+|  [useDefaults(params)](./composables.usedefaults.md) | <b><i>(BETA)</i></b> Returns default config depending on config key. It is used in composables, so defaultsKey is in most cases composable name (ex. <code>useDefaults({ defaultsKey: &quot;useCms&quot; })</code>) |
+|  [useIntercept()](./composables.useintercept.md) | <b><i>(BETA)</i></b> Allows to broadcast and intercept events across application. |
+|  [useListing(params)](./composables.uselisting.md) | <b><i>(BETA)</i></b> |
+|  [useNavigation(params)](./composables.usenavigation.md) | <b><i>(BETA)</i></b> Composable for navigation. Options - [IUseNavigation](./composables.iusenavigation.md) |
+|  [useNotifications()](./composables.usenotifications.md) | <b><i>(BETA)</i></b> |
+|  [useOrderDetails(params)](./composables.useorderdetails.md) | <b><i>(BETA)</i></b> Composable for managing an existing order. |
+|  [useProduct(params)](./composables.useproduct.md) | <b><i>(BETA)</i></b> |
+|  [useProductAssociations(params)](./composables.useproductassociations.md) | <b><i>(BETA)</i></b> Get product association entity. Options - [IUseProductAssociations](./composables.iuseproductassociations.md) |
+|  [useProductConfigurator(params)](./composables.useproductconfigurator.md) | <b><i>(BETA)</i></b> Product options - [IUseAddToCart](./composables.iuseaddtocart.md) |
+|  [useProductQuickSearch()](./composables.useproductquicksearch.md) | <b><i>(BETA)</i></b> |
+|  [useSalutations()](./composables.usesalutations.md) | <b><i>(BETA)</i></b> |
+|  [useSessionContext()](./composables.usesessioncontext.md) | <b><i>(BETA)</i></b> Composable for session management. Options - [IUseSessionContext](./composables.iusesessioncontext.md) |
+|  [useSharedState()](./composables.usesharedstate.md) | <b><i>(BETA)</i></b> Replacement for Vuex. Composable, which enables you to use shared state in your application. State is shared both on server and client side. |
+|  [useUIState(params)](./composables.useuistate.md) | <b><i>(BETA)</i></b> Simple state management for UI purposes. |
+|  [useUser()](./composables.useuser.md) | <b><i>(BETA)</i></b> Composable for user management. Options - [IUseUser](./composables.iuseuser.md) |
+|  [useWishlist(params)](./composables.usewishlist.md) | <b><i>(BETA)</i></b> |
 
 ## Interfaces
 
@@ -48,25 +48,25 @@
 |  [IUseAddToCart](./composables.iuseaddtocart.md) | <b><i>(BETA)</i></b> interface for [useAddToCart()](./composables.useaddtocart.md) composable |
 |  [IUseCart](./composables.iusecart.md) | <b><i>(BETA)</i></b> interface for [useCart()](./composables.usecart.md) composable |
 |  [IUseCheckout](./composables.iusecheckout.md) | <b><i>(BETA)</i></b> interface for [useCheckout()](./composables.usecheckout.md) composable |
+|  [IUseCountries](./composables.iusecountries.md) | <b><i>(BETA)</i></b> |
+|  [IUseCountry](./composables.iusecountry.md) | <b><i>(BETA)</i></b> |
+|  [IUseCurrency](./composables.iusecurrency.md) | <b><i>(BETA)</i></b> |
 |  [IUseCustomerAddresses](./composables.iusecustomeraddresses.md) | <b><i>(BETA)</i></b> interface for [useCustomerAddresses()](./composables.usecustomeraddresses.md) composable |
 |  [IUseCustomerOrders](./composables.iusecustomerorders.md) | <b><i>(BETA)</i></b> interface for [useCustomerOrders()](./composables.usecustomerorders.md) composable |
 |  [IUseCustomerPassword](./composables.iusecustomerpassword.md) | <b><i>(BETA)</i></b> interface for [useCustomerPassword()](./composables.usecustomerpassword.md) composable |
 |  [IUseIntercept](./composables.iuseintercept.md) | <b><i>(BETA)</i></b> interface for [useIntercept()](./composables.useintercept.md) composable |
 |  [IUseListing](./composables.iuselisting.md) | Listing interface, can be used to display category products, search products or any other Shopware search interface (ex. orders with pagination) |
 |  [IUseNavigation](./composables.iusenavigation.md) | <b><i>(BETA)</i></b> interface for [useNavigation()](./composables.usenavigation.md) composable<!-- -->Provides state for navigation trees depending on navigation type. |
+|  [IUseProduct](./composables.iuseproduct.md) | <b><i>(BETA)</i></b> |
 |  [IUseProductAssociations](./composables.iuseproductassociations.md) | <b><i>(BETA)</i></b> interface for [IUseProductAssociations](./composables.iuseproductassociations.md) composable |
 |  [IUseProductConfigurator](./composables.iuseproductconfigurator.md) | <b><i>(BETA)</i></b> interface for [useProductConfigurator()](./composables.useproductconfigurator.md) composable |
 |  [IUseProductQuickSearch](./composables.iuseproductquicksearch.md) | <b><i>(BETA)</i></b> |
+|  [IUseSalutations](./composables.iusesalutations.md) | <b><i>(BETA)</i></b> |
 |  [IUseSessionContext](./composables.iusesessioncontext.md) | <b><i>(BETA)</i></b> interface for [useSessionContext()](./composables.usesessioncontext.md) composable |
 |  [IUseUser](./composables.iuseuser.md) | <b><i>(BETA)</i></b> interface for [useUser()](./composables.useuser.md) composable |
 |  [IUseWishlist](./composables.iusewishlist.md) | <b><i>(BETA)</i></b> interface for [useWishlist()](./composables.usewishlist.md) composable |
 |  [Notification\_2](./composables.notification_2.md) | <b><i>(BETA)</i></b> |
 |  [Routing](./composables.routing.md) | <b><i>(BETA)</i></b> |
-|  [UseCountries](./composables.usecountries.md) | <b><i>(BETA)</i></b> |
-|  [UseCountry](./composables.usecountry.md) | <b><i>(BETA)</i></b> |
-|  [UseCurrency](./composables.usecurrency.md) | <b><i>(BETA)</i></b> |
-|  [UseProduct](./composables.useproduct.md) | <b><i>(BETA)</i></b> |
-|  [UseSalutations](./composables.usesalutations.md) | <b><i>(BETA)</i></b> |
 
 ## Variables
 
@@ -78,8 +78,7 @@
 
 |  Type Alias | Description |
 |  --- | --- |
-|  [ApplicationVueContext](./composables.applicationvuecontext.md) | <b><i>(BETA)</i></b> Application Context for Shopware PWA. It's an extended Vue instance. |
-|  [listingKey](./composables.listingkey.md) | <b><i>(BETA)</i></b> |
+|  [ListingType](./composables.listingtype.md) | <b><i>(BETA)</i></b> |
 |  [Search](./composables.search.md) | <b><i>(BETA)</i></b> |
 |  [SwInterceptors](./composables.swinterceptors.md) | <b><i>(BETA)</i></b> |
 |  [SwRouting](./composables.swrouting.md) | <b><i>(BETA)</i></b> Routing type for Shopware SEO path resolvers. |

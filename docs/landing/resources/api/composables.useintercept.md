@@ -12,15 +12,8 @@ Allows to broadcast and intercept events across application.
 <b>Signature:</b>
 
 ```typescript
-export declare function useIntercept(rootContext: ApplicationVueContext): IUseIntercept;
+export declare function useIntercept(): IUseIntercept;
 ```
-
-## Parameters
-
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-
 <b>Returns:</b>
 
 [IUseIntercept](./composables.iuseintercept.md)

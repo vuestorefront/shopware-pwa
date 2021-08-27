@@ -32,7 +32,7 @@ describe("Composables - useCategoryFilters", () => {
   });
 
   it("should display deprecation info on invocation", () => {
-    useCategoryFilters(rootContextMock);
+    useCategoryFilters();
     expect(consoleWarnSpy).toBeCalledWith(
       '[DEPRECATED][@shopware-pwa/composables][useCategoryFilters] This method has been deprecated. Use "useListing" instead.'
     );
@@ -41,12 +41,12 @@ describe("Composables - useCategoryFilters", () => {
   describe("computed", () => {
     describe("availableFilters", () => {
       it("should return empty array if there is no page loaded", () => {
-        const { availableFilters } = useCategoryFilters(rootContextMock);
+        const { availableFilters } = useCategoryFilters();
         expect(availableFilters.value).toBeTruthy();
         expect(availableFilters.value).toHaveLength(0);
       });
       it("should return array filters if there is page loaded", () => {
-        const { availableFilters } = useCategoryFilters(rootContextMock);
+        const { availableFilters } = useCategoryFilters();
         expect(availableFilters.value).toBeTruthy();
         expect(availableFilters.value).toHaveLength(0);
         statePage.value = {
@@ -70,13 +70,13 @@ describe("Composables - useCategoryFilters", () => {
     });
     describe("activeFilters", () => {
       it("should return empty array if there is no page loaded", () => {
-        const { activeFilters } = useCategoryFilters(rootContextMock);
+        const { activeFilters } = useCategoryFilters();
         expect(activeFilters.value).toBeTruthy();
         expect(activeFilters.value).toHaveLength(0);
       });
       it("should return array of active filters if there is a page loaded", () => {
         statePage.value = {};
-        const { activeFilters } = useCategoryFilters(rootContextMock);
+        const { activeFilters } = useCategoryFilters();
         expect(activeFilters.value).toBeTruthy();
         expect(activeFilters.value).toHaveLength(0);
         statePage.value = {
@@ -105,7 +105,7 @@ describe("Composables - useCategoryFilters", () => {
 
     describe("availableSorting", () => {
       it("should return empty array if there is no page loaded", () => {
-        const { availableSorting } = useCategoryFilters(rootContextMock);
+        const { availableSorting } = useCategoryFilters();
         expect(availableSorting.value).toBeTruthy();
         expect(availableSorting.value).toHaveLength(0);
       });
@@ -128,7 +128,7 @@ describe("Composables - useCategoryFilters", () => {
 
         statePage.value = listingConfiguration;
 
-        const { availableSorting } = useCategoryFilters(rootContextMock);
+        const { availableSorting } = useCategoryFilters();
         expect(availableSorting.value).toBeTruthy();
         expect(availableSorting.value).toHaveLength(2);
         expect(availableSorting.value).toStrictEqual([
@@ -140,7 +140,7 @@ describe("Composables - useCategoryFilters", () => {
 
     describe("activeSorting", () => {
       it("should return no sorting when any is active", () => {
-        const { activeSorting } = useCategoryFilters(rootContextMock);
+        const { activeSorting } = useCategoryFilters();
         expect(activeSorting.value).toBeFalsy();
       });
 
@@ -162,7 +162,7 @@ describe("Composables - useCategoryFilters", () => {
 
         statePage.value = listingConfiguration;
 
-        const { activeSorting } = useCategoryFilters(rootContextMock);
+        const { activeSorting } = useCategoryFilters();
         expect(activeSorting.value).toEqual({
           name: "name-asc",
           field: "name",

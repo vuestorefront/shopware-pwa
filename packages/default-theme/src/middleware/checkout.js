@@ -15,7 +15,7 @@ export default async function ({ route, redirect, app }) {
     if (route.name !== CHECKOUT_ROUTE_NAME) {
       return
     }
-    const { cartItems } = useCart(app)
+    const { cartItems } = useCart()
     if (cartItems.value < 1) {
       redirect(NO_ITEMS_ROUTE_PATH)
     }

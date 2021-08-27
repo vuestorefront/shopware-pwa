@@ -11,7 +11,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function useCms(options?: {
+export declare function useCms(params?: {
     cmsContextName?: string;
 }): {
     page: ComputedRef<PageResolverProductResult | PageResolverResult<CmsPage> | null>;
@@ -30,7 +30,7 @@ export declare function useCms(options?: {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  options | { cmsContextName?: string; } |  |
+|  params | { cmsContextName?: string; } |  |
 
 <b>Returns:</b>
 

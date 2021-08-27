@@ -56,8 +56,8 @@ export default {
   name: "SwLogin",
   components: { SwButton, SwInput, SfAlert, SwPluginSlot, SwErrorsList },
   setup(props, { root }) {
-    const { login, loading, errors } = useUser(root)
-    const { refreshSessionContext } = useSessionContext(root)
+    const { login, loading, errors } = useUser()
+    const { refreshSessionContext } = useSessionContext()
     const loginErrors = computed(() => errors.login || [])
     const state = reactive({
       email: "",

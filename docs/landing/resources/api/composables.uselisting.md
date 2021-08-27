@@ -11,15 +11,16 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function useListing(rootContext: ApplicationVueContext, listingKey?: listingKey): IUseListing<Product>;
+export declare function useListing(params?: {
+    listingType: ListingType;
+}): IUseListing<Product>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-|  listingKey | [listingKey](./composables.listingkey.md) |  |
+|  params | { listingType: [ListingType](./composables.listingtype.md)<!-- -->; } |  |
 
 <b>Returns:</b>
 

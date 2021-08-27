@@ -42,7 +42,7 @@ describe("Composables - useCustomerPassword", () => {
         mockedApiClient.updatePassword.mockImplementationOnce(async () =>
           Promise.resolve(undefined)
         );
-        const { updatePassword } = useCustomerPassword(rootContextMock);
+        const { updatePassword } = useCustomerPassword();
         const response = await updatePassword({
           password: "qweqweqwe",
           newPassword: "qweqweqwe1",
@@ -55,7 +55,7 @@ describe("Composables - useCustomerPassword", () => {
         mockedApiClient.updatePassword.mockRejectedValueOnce({
           messages: [{ detail: "Password must be at least 8 characters long" }],
         });
-        const { updatePassword, errors } = useCustomerPassword(rootContextMock);
+        const { updatePassword, errors } = useCustomerPassword();
         const response = await updatePassword({
           password: "qweqweqwe",
           newPassword: "qwe",
@@ -73,7 +73,7 @@ describe("Composables - useCustomerPassword", () => {
         mockedApiClient.resetPassword.mockImplementationOnce(async () =>
           Promise.resolve(undefined)
         );
-        const { resetPassword } = useCustomerPassword(rootContextMock);
+        const { resetPassword } = useCustomerPassword();
         const response = await resetPassword({
           email: "qweqwe@qwe.com",
         });
@@ -84,7 +84,7 @@ describe("Composables - useCustomerPassword", () => {
         mockedApiClient.resetPassword.mockRejectedValueOnce({
           messages: [{ detail: "Email does not fit to any in Sales Channel" }],
         });
-        const { resetPassword, errors } = useCustomerPassword(rootContextMock);
+        const { resetPassword, errors } = useCustomerPassword();
         const response = await resetPassword({
           email: "qweqwe@qwe.com",
         });

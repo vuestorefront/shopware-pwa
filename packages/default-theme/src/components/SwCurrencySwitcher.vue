@@ -40,7 +40,7 @@ export default {
       setCurrency,
       loadAvailableCurrencies,
       availableCurrencies,
-    } = useCurrency(root)
+    } = useCurrency()
 
     // TODO: loaded on mounted only untill fixed issue: https://github.com/DivanteLtd/storefront-ui/issues/1097
     onMounted(async () => {

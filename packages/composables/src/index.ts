@@ -31,7 +31,6 @@ export * from "./logic/useOrderDetails";
 export * from "./getVueContext";
 export {
   getApplicationContext,
-  ApplicationVueContext,
   Routing,
   SwRouting,
   SwInterceptors,

@@ -20,7 +20,6 @@ import {
   useUser,
   useDefaults,
   getApplicationContext,
-  ApplicationVueContext,
 } from "@shopware-pwa/composables";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
@@ -58,18 +57,16 @@ export interface IUseCustomerAddresses {
  *
  * @beta
  */
-export function useCustomerAddresses(
-  rootContext: ApplicationVueContext
-): IUseCustomerAddresses {
-  const COMPOSABLE_NAME = "useCurrency";
+export function useCustomerAddresses(): IUseCustomerAddresses {
+  const COMPOSABLE_NAME = "useCustomerAddresses";
   const contextName = COMPOSABLE_NAME;
 
   const { apiInstance } = getApplicationContext({ contextName });
-  const { getDefaults } = useDefaults(rootContext, contextName);
+  const { getDefaults } = useDefaults({ defaultsKey: contextName });
 
-  const { refreshUser } = useUser(rootContext);
+  const { refreshUser } = useUser();
 
-  const { sharedRef } = useSharedState(rootContext);
+  const { sharedRef } = useSharedState();
   const storeAddresses = sharedRef<CustomerAddress[]>(
     `${contextName}-addresses`,
     []

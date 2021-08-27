@@ -57,15 +57,16 @@ export default {
       default: () => ({}),
     },
   },
-  setup(props, { root }) {
-    const { isLoggedIn } = useUser(root)
-    const { switchState: switchLoginModalState } = useUIState(
-      root,
-      "LOGIN_MODAL_STATE"
-    )
+  setup(props) {
+    const { isLoggedIn } = useUser()
+    const { switchState: switchLoginModalState } = useUIState({
+      stateName: "LOGIN_MODAL_STATE",
+    })
     const product = computed(() => props.page.product)
     const cmsPage = computed(() => props.page.cmsPage)
-    const { getIncludesConfig } = useDefaults(root, "useProductListing")
+    const { getIncludesConfig } = useDefaults({
+      defaultsKey: "useProductListing",
+    })
 
     return {
       isLoggedIn,

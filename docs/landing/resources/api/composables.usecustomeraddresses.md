@@ -12,15 +12,8 @@ Composable for user's addresses management. Options - [IUseCustomerAddresses](./
 <b>Signature:</b>
 
 ```typescript
-export declare function useCustomerAddresses(rootContext: ApplicationVueContext): IUseCustomerAddresses;
+export declare function useCustomerAddresses(): IUseCustomerAddresses;
 ```
-
-## Parameters
-
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-
 <b>Returns:</b>
 
 [IUseCustomerAddresses](./composables.iusecustomeraddresses.md)

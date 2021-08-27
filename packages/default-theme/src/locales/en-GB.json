@@ -245,5 +245,13 @@
   "Change payment method": "Change payment method",
   "Choose a new payment method": "Choose a new payment method",
   "Apply": "Apply",
-  "Your order will be canceled": "Your order will be canceled"
+  "Your order will be canceled": "Your order will be canceled",
+  "Edit address": "Edit address",
+  "Choose address": "Choose address",
+  "Shipping and billing address do not match.": "Shipping and billing address do not match.",
+  "Checkout": "Checkout",
+  "Order summary": "Order summary",
+  "Close": "Close",
+  "Street and house number": "Street and house number",
+  "Read all": "Read all"
 }

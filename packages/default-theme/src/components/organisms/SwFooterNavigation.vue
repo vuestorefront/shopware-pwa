@@ -58,13 +58,13 @@ export default {
     SfList,
     SfMenuItem,
   },
-  setup(props, { root }) {
-    const { loadNavigationElements, navigationElements } = useNavigation(root, {
+  setup() {
+    const { loadNavigationElements, navigationElements } = useNavigation({
       type: "footer-navigation",
     })
     const isLoadingFooterData = ref(false)
 
-    const { currentDomainId } = useDomains(root)
+    const { currentDomainId } = useDomains()
 
     const column = ref(4)
 

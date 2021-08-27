@@ -85,7 +85,6 @@ describe("Composables - createListingComposable", () => {
 
   it("should return composable with all values", () => {
     const resultComposable = createListingComposable({
-      rootContext: rootContextMock as any,
       listingKey: "testKey",
       searchDefaults: { limit: 7 },
       searchMethod: searchMethodMock,
@@ -116,7 +115,6 @@ describe("Composables - createListingComposable", () => {
   describe("getInitialListing", () => {
     it("should return null if key not found", () => {
       const { getInitialListing } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -126,7 +124,6 @@ describe("Composables - createListingComposable", () => {
     it("should return initialListing from store", () => {
       mockedInitialListing.value = { limit: 15 };
       const { getInitialListing } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -139,7 +136,6 @@ describe("Composables - createListingComposable", () => {
     it("should change initial and applied listing", async () => {
       searchMethodMock.mockReturnValueOnce(() => {});
       const { setInitialListing } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -151,7 +147,6 @@ describe("Composables - createListingComposable", () => {
     it("should invoke set initial listing action with no aggregations if searchMethod's result is falsy", async () => {
       searchMethodMock.mockReturnValueOnce(undefined);
       const { setInitialListing } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -174,7 +169,6 @@ describe("Composables - createListingComposable", () => {
         }
       });
       const { setInitialListing } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -200,7 +194,6 @@ describe("Composables - createListingComposable", () => {
         },
       });
       const { search } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: {
           properties: "12221212122",
@@ -218,7 +211,6 @@ describe("Composables - createListingComposable", () => {
     it("should invoke searchMethod for 2 times and change shared listing on invocation for initial and applied listing once currentFilters have applied filters", async () => {
       searchMethodMock.mockReturnValue(undefined);
       const { search } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: {
           properties: "12221212122",
@@ -235,7 +227,6 @@ describe("Composables - createListingComposable", () => {
     it("should return applied listing if exist", () => {
       mockedAppliedListing.value = { limit: 15 };
       const { getCurrentListing } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -250,7 +241,6 @@ describe("Composables - createListingComposable", () => {
         limit: 17,
       };
       const { getCurrentListing } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -264,7 +254,6 @@ describe("Composables - createListingComposable", () => {
   describe("getElements", () => {
     it("should return an empty array when there is no currentListing", () => {
       const { getElements } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -277,7 +266,6 @@ describe("Composables - createListingComposable", () => {
         elements: [1, 2, 3],
       };
       const { getElements } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -289,7 +277,6 @@ describe("Composables - createListingComposable", () => {
   describe("getTotal", () => {
     it("should return 0 when there is no currentListing", () => {
       const { getTotal } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -302,7 +289,6 @@ describe("Composables - createListingComposable", () => {
         total: 55,
       };
       const { getTotal } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -314,7 +300,6 @@ describe("Composables - createListingComposable", () => {
   describe("getLimit", () => {
     it("should return 10 when there is no configuration set", () => {
       const { getLimit } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -324,7 +309,6 @@ describe("Composables - createListingComposable", () => {
 
     it("should return limit from search defaults when there is no listing", () => {
       const { getLimit } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: {
           limit: 4,
@@ -339,7 +323,6 @@ describe("Composables - createListingComposable", () => {
         limit: 2,
       };
       const { getLimit } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -351,7 +334,6 @@ describe("Composables - createListingComposable", () => {
   describe("getTotalPagesCount", () => {
     it("should return 0 when there is no currentListing", () => {
       const { getTotalPagesCount } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -364,7 +346,6 @@ describe("Composables - createListingComposable", () => {
         total: 55,
       };
       const { getTotalPagesCount } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -376,7 +357,6 @@ describe("Composables - createListingComposable", () => {
   describe("getSortingOrders", () => {
     it("should return empty object when there is no currentListing", () => {
       const { getSortingOrders } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -389,7 +369,6 @@ describe("Composables - createListingComposable", () => {
         availableSortings: [1, 2],
       };
       const { getSortingOrders } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -402,7 +381,6 @@ describe("Composables - createListingComposable", () => {
         sortings: { key1: 1, key2: 2 },
       };
       const { getSortingOrders } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -414,7 +392,6 @@ describe("Composables - createListingComposable", () => {
   describe("getCurrentSortingOrder", () => {
     it("should return null when there is no currentListing", () => {
       const { getCurrentSortingOrder } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -427,7 +404,6 @@ describe("Composables - createListingComposable", () => {
         sorting: "name-asc",
       };
       const { getCurrentSortingOrder } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -439,7 +415,6 @@ describe("Composables - createListingComposable", () => {
   describe("changeCurrentSortingOrder", () => {
     it("should invoke search with changed order", async () => {
       const { changeCurrentSortingOrder } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -455,7 +430,6 @@ describe("Composables - createListingComposable", () => {
         order: "some-old-order",
       };
       const { changeCurrentSortingOrder } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -471,7 +445,6 @@ describe("Composables - createListingComposable", () => {
   describe("getCurrentPage", () => {
     it("should return 1 when there is no currentListing", () => {
       const { getCurrentPage } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -484,7 +457,6 @@ describe("Composables - createListingComposable", () => {
         page: 4,
       };
       const { getCurrentPage } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -496,7 +468,6 @@ describe("Composables - createListingComposable", () => {
   describe("changeCurrentPage", () => {
     it("should invoke search with changed page number", async () => {
       const { changeCurrentPage } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -512,7 +483,6 @@ describe("Composables - createListingComposable", () => {
         p: 3,
       };
       const { changeCurrentPage } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -526,7 +496,6 @@ describe("Composables - createListingComposable", () => {
 
     it("should invoke search with first page if argument not provided", async () => {
       const { changeCurrentPage } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -540,7 +509,6 @@ describe("Composables - createListingComposable", () => {
   describe("getAvailableFilters", () => {
     it("should return an empty array when there is no currentListing", () => {
       const { getAvailableFilters } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -557,7 +525,6 @@ describe("Composables - createListingComposable", () => {
         },
       };
       const { getAvailableFilters } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -575,7 +542,6 @@ describe("Composables - createListingComposable", () => {
   describe("getCurrentFilters", () => {
     it("should return an empty object when there is no filters", () => {
       const { getCurrentFilters } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -591,7 +557,6 @@ describe("Composables - createListingComposable", () => {
         manufacturer: "nike",
       };
       const { getCurrentFilters } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -608,7 +573,6 @@ describe("Composables - createListingComposable", () => {
         property: false,
       };
       const { getCurrentFilters } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -624,7 +588,6 @@ describe("Composables - createListingComposable", () => {
         navigationId: "qwe",
       };
       const { getCurrentFilters } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -643,7 +606,6 @@ describe("Composables - createListingComposable", () => {
         },
       };
       const { getCurrentFilters } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -663,7 +625,6 @@ describe("Composables - createListingComposable", () => {
         },
       };
       const { getCurrentFilters } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -682,7 +643,6 @@ describe("Composables - createListingComposable", () => {
         },
       };
       const { getCurrentFilters } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -699,7 +659,6 @@ describe("Composables - createListingComposable", () => {
         p: "3",
       };
       const { getCurrentFilters } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -713,7 +672,6 @@ describe("Composables - createListingComposable", () => {
   describe("initSearch", () => {
     it("should invoke search method", async () => {
       const { initSearch } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -725,7 +683,6 @@ describe("Composables - createListingComposable", () => {
     it("should invoke setInitialListing after search", async () => {
       searchMethodMock.mockResolvedValueOnce({ limit: 77, currentFilters: {} });
       const { initSearch } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -739,7 +696,6 @@ describe("Composables - createListingComposable", () => {
 
     it("should show loading on searching", (resolve) => {
       const { initSearch, loading } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -755,7 +711,6 @@ describe("Composables - createListingComposable", () => {
     it("should stop loading after throwing error", async () => {
       searchMethodMock.mockRejectedValueOnce(new Error("something's wrong"));
       const { initSearch, loading } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -771,7 +726,6 @@ describe("Composables - createListingComposable", () => {
   describe("search", () => {
     it("should invoke search method", async () => {
       const { search } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -783,7 +737,6 @@ describe("Composables - createListingComposable", () => {
     it("should set applied listing after search", async () => {
       searchMethodMock.mockResolvedValueOnce({ limit: 77 });
       const { search } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -797,7 +750,6 @@ describe("Composables - createListingComposable", () => {
 
     it("should silently fail if router throws error", async () => {
       const { search } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -810,7 +762,6 @@ describe("Composables - createListingComposable", () => {
 
     it("should by default change route with passed criteria", async () => {
       const { search } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -821,7 +772,6 @@ describe("Composables - createListingComposable", () => {
 
     it("should change route when search options doesn't contains preventRouteChange flag", async () => {
       const { search } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -832,7 +782,6 @@ describe("Composables - createListingComposable", () => {
 
     it("should not change route when search options contains preventRouteChange flag", async () => {
       const { search } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -843,7 +792,6 @@ describe("Composables - createListingComposable", () => {
 
     it("should show loading on searching", (resolve) => {
       const { search, loading } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -859,7 +807,6 @@ describe("Composables - createListingComposable", () => {
     it("should stop loading after throwing error", async () => {
       searchMethodMock.mockRejectedValueOnce(new Error("something's wrong"));
       const { search, loading } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -877,7 +824,6 @@ describe("Composables - createListingComposable", () => {
         elements: [{ id: 1, name: "shoe" }],
       });
       const { loadMore } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -892,7 +838,6 @@ describe("Composables - createListingComposable", () => {
         elements: [{ id: 1, name: "shoe" }],
       });
       const { loadMore } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -910,7 +855,6 @@ describe("Composables - createListingComposable", () => {
         elements: [{ id: 1, name: "shoe" }],
       });
       const { loadMore, loadingMore } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -926,7 +870,6 @@ describe("Composables - createListingComposable", () => {
     it("should stop loading after throwing error", async () => {
       searchMethodMock.mockRejectedValueOnce(new Error("something's wrong"));
       const { loadMore, loadingMore } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -946,7 +889,6 @@ describe("Composables - createListingComposable", () => {
         elements: [{ id: 1, name: "shoe" }],
       });
       const { loadMore } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,
@@ -968,7 +910,6 @@ describe("Composables - createListingComposable", () => {
         elements: [{ id: 1, name: "shoe" }],
       });
       const { loadMore } = createListingComposable({
-        rootContext: rootContextMock as any,
         listingKey: "testKey",
         searchDefaults: null as any,
         searchMethod: searchMethodMock,

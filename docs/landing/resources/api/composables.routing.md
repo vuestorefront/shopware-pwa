@@ -22,10 +22,10 @@ export interface Routing
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [availableDomains](./composables.routing.availabledomains.md) | any | <b><i>(BETA)</i></b> |
+|  [availableDomains](./composables.routing.availabledomains.md) | ShopwareDomain\[\] | <b><i>(BETA)</i></b> |
 |  [fallbackDomain](./composables.routing.fallbackdomain.md) | string \| undefined | <b><i>(BETA)</i></b> |
 |  [fallbackLocale](./composables.routing.fallbacklocale.md) | string \| undefined | <b><i>(BETA)</i></b> |
-|  [getCurrentDomain](./composables.routing.getcurrentdomain.md) | ComputedRef&lt;string&gt; | <b><i>(BETA)</i></b> |
+|  [getCurrentDomain](./composables.routing.getcurrentdomain.md) | ComputedRef&lt;ShopwareDomain&gt; | <b><i>(BETA)</i></b> |
 |  [getUrl](./composables.routing.geturl.md) | (path: string) =&gt; string | <b><i>(BETA)</i></b> |
 |  [setCurrentDomain](./composables.routing.setcurrentdomain.md) | (domainData: any) =&gt; void | <b><i>(BETA)</i></b> |
 

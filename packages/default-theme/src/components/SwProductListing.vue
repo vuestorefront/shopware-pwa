@@ -137,7 +137,9 @@ export default {
       )
     }
 
-    const { isOpen: isListView } = useUIState(root, "PRODUCT_LISTING_STATE")
+    const { isOpen: isListView } = useUIState({
+      stateName: "PRODUCT_LISTING_STATE",
+    })
 
     const changePage = async (pageNumber) => {
       if (pageNumber > getTotalPagesCount.value) {

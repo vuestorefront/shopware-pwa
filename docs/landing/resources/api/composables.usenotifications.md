@@ -11,7 +11,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function useNotifications(rootContext: ApplicationVueContext): {
+export declare function useNotifications(): {
     notifications: ComputedRef<Notification[]>;
     removeOne: (id: number) => void;
     removeAll: () => void;
@@ -21,13 +21,6 @@ export declare function useNotifications(rootContext: ApplicationVueContext): {
     pushSuccess: (message: string, options?: any) => void;
 };
 ```
-
-## Parameters
-
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-
 <b>Returns:</b>
 
 { notifications: ComputedRef&lt;Notification\[\]&gt;; removeOne: (id: number) =&gt; void; removeAll: () =&gt; void; pushInfo: (message: string, options?: any) =&gt; void; pushWarning: (message: string, options?: any) =&gt; void; pushError: (message: string, options?: any) =&gt; void; pushSuccess: (message: string, options?: any) =&gt; void; }

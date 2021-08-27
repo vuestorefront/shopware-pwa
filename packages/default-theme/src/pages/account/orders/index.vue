@@ -49,8 +49,8 @@ export default {
       ],
     }
   },
-  setup(props, { root }) {
-    const { orders, loadOrders } = useCustomerOrders(root)
+  setup() {
+    const { orders, loadOrders } = useCustomerOrders()
     loadOrders()
     return {
       orders,

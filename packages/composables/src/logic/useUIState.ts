@@ -1,7 +1,6 @@
-import { computed, ComputedRef, ref, Ref } from "vue-demi";
+import { computed, ComputedRef, ref, Ref, unref } from "vue-demi";
 import {
   useSharedState,
-  ApplicationVueContext,
   getApplicationContext,
 } from "@shopware-pwa/composables";
 
@@ -9,18 +8,18 @@ import {
  * Simple state management for UI purposes.
  *
  * @remarks
- * If you pase `stateName` on composable invocation (ex. `useUIState(root, 'sidebarCart')`), then
+ * If you pase `stateName` on composable invocation (ex. `useUIState({stateName: 'sidebarCart'})`), then
  * state is shared between all instances with this key.
- * Otherwise state is local, so multiple `useUIState(root)` will not share state
+ * Otherwise state is local, so multiple `useUIState()` will not share state
  *
  * @example
  * ```ts
  * // Component1
- * const {isOpen, switchState} = useUIState(root, 'SIDEBAR_STATE')
+ * const {isOpen, switchState} = useUIState({stateName: 'SIDEBAR_STATE'})
  * switchState()
  *
  * // Component 2
- * const {isOpen} = useUIState(root, 'SIDEBAR_STATE')
+ * const {isOpen} = useUIState({stateName: 'SIDEBAR_STATE'})
  * // isOpen will be true
  * ```
  *
@@ -28,25 +27,27 @@ import {
  *
  * ```ts
  * // Component1
- * const {isOpen, switchState} = useUIState(root)
+ * const {isOpen, switchState} = useUIState()
  * switchState()
  *
  * // Component 2
- * const {isOpen} = useUIState(root)
+ * const {isOpen} = useUIState()
  * // isOpen will be false
  * ```
  *
  * @beta
  */
-export function useUIState(
-  rootContext: ApplicationVueContext,
-  stateName?: string
-): { isOpen: ComputedRef<boolean>; switchState: (to?: boolean) => void } {
+export function useUIState(params?: { stateName?: Ref<string> | string }): {
+  isOpen: ComputedRef<boolean>;
+  switchState: (to?: boolean) => void;
+} {
   const COMPOSABLE_NAME = "useUIState";
   const contextName = COMPOSABLE_NAME;
 
+  const stateName = unref(params?.stateName);
+
   getApplicationContext({ contextName });
-  const { sharedRef } = useSharedState(rootContext);
+  const { sharedRef } = useSharedState();
   const _sharedState = sharedRef(`sw-${contextName}-${stateName}`);
   const localState: Ref<boolean> = ref(false);
 

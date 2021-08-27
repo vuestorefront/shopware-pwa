@@ -179,7 +179,7 @@ In general, the generated project is a [Nuxtjs](https://nuxtjs.org/) project. Th
 
    export default ({ app }) => {
      // import a disconnect method from useIntercept composable
-     const { disconnect } = useIntercept(app);
+     const { disconnect } = useIntercept();
      // pass the interceptor key you want to change, and pass the function to be removed from event dispatcher
      disconnect(INTERCEPTOR_KEYS.ADD_TO_CART, addToCartNotification);
    };
@@ -272,7 +272,7 @@ export default extendNuxtConfig({
 ## How to add another language <a id="no8"></a>
 
 ::: tip
-Before you start, learn about [routing in Shopware PWA](../concepts/routing.md) itself. As an additional resource [learn the details](../operations/migrations/0.6.x_to_0.7.x.md#domain-route-handling) regarding the mechanism itself. 
+Before you start, learn about [routing in Shopware PWA](../concepts/routing.md) itself. As an additional resource [learn the details](../operations/migrations/0.6.x_to_0.7.x.md#domain-route-handling) regarding the mechanism itself.
 :::
 
 ### Things that should be done in admin panel
@@ -281,9 +281,10 @@ Before you start, learn about [routing in Shopware PWA](../concepts/routing.md) 
 2. Add domain. **It's important** that the URL should match the one used in your `shopware-pwa.config.js` under the `shopwareDomainsAllowList` (array of allowed hosts).
 
    Add a distinctive suffix pointing to language (or general config) you want to use. It may be `/de-DE`, `/en` or whatsoever like `/my/very/formal/english/site`, so the whole entry would be like:
-   `https://my-shopware-pwa.com/my/very/formal/english/site`. 
-   
+   `https://my-shopware-pwa.com/my/very/formal/english/site`.
+
    Domain host may be completely different, for instance:
+
    - for en-GB `https://shopware.com`
    - for de-DE `https://shopawre.de`
 

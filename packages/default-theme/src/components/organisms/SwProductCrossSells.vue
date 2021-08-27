@@ -47,11 +47,16 @@ export default {
     }
 
     // Load product associations otherwise
-    const { getIncludesConfig } = useDefaults(root, "useProductListing")
+    const { getIncludesConfig } = useDefaults({
+      defaultsKey: "useProductListing",
+    })
     const {
       loadAssociations: loadCrossSells,
       productAssociations: crossSellCollection,
-    } = useProductAssociations(root, props.product, "cross-selling")
+    } = useProductAssociations({
+      product: props.product,
+      associationContext: "cross-selling",
+    })
 
     onMounted(async () => {
       isLoading.value = true

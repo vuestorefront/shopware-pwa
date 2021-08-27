@@ -1,11 +1,10 @@
-import { ref, Ref, computed } from "vue-demi";
+import { ref, Ref, computed, unref } from "vue-demi";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import {
   useCart,
   INTERCEPTOR_KEYS,
   useIntercept,
   IInterceptorCallbackFunction,
-  ApplicationVueContext,
   getApplicationContext,
 } from "@shopware-pwa/composables";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
@@ -55,10 +54,10 @@ export interface IUseAddToCart {
  * Add product to cart. Options - {@link IUseAddToCart}
  *
  * @example
- * Example of possibilities:
+ * Example usage:
  *
  * ```ts
- * const {isInCart, quantity, addToCart} = useAddToCart(root, product)
+ * const {isInCart, quantity, addToCart} = useAddToCart({ product })
  * if (!isInCart.value) {
  *    quantity.value = 5
  *    await addToCart()
@@ -66,16 +65,17 @@ export interface IUseAddToCart {
  * ```
  * @beta
  */
-export function useAddToCart(
-  rootContext: ApplicationVueContext,
-  product: Product
-): IUseAddToCart {
+export function useAddToCart(params: {
+  product: Ref<Product> | Product;
+}): IUseAddToCart {
   const COMPOSABLE_NAME = "useAddToCart";
   const contextName = COMPOSABLE_NAME;
 
+  const product = unref(params.product);
+
   getApplicationContext({ contextName });
-  const { addProduct, cartItems } = useCart(rootContext);
-  const { broadcast, intercept } = useIntercept(rootContext);
+  const { addProduct, cartItems } = useCart();
+  const { broadcast, intercept } = useIntercept();
   const quantity: Ref<number> = ref(1);
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);

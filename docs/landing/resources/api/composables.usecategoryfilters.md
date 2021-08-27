@@ -15,15 +15,8 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function useCategoryFilters(rootContext: ApplicationVueContext): any;
+export declare function useCategoryFilters(): any;
 ```
-
-## Parameters
-
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-
 <b>Returns:</b>
 
 any

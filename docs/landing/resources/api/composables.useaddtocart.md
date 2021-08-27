@@ -12,15 +12,16 @@ Add product to cart. Options - [IUseAddToCart](./composables.iuseaddtocart.md)
 <b>Signature:</b>
 
 ```typescript
-export declare function useAddToCart(rootContext: ApplicationVueContext, product: Product): IUseAddToCart;
+export declare function useAddToCart(params: {
+    product: Ref<Product> | Product;
+}): IUseAddToCart;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-|  product | Product |  |
+|  params | { product: Ref&lt;Product&gt; \| Product; } |  |
 
 <b>Returns:</b>
 
@@ -28,10 +29,10 @@ export declare function useAddToCart(rootContext: ApplicationVueContext, product
 
 ## Example
 
-Example of possibilities:
+Example usage:
 
 ```ts
-const {isInCart, quantity, addToCart} = useAddToCart(root, product)
+const {isInCart, quantity, addToCart} = useAddToCart({ product })
 if (!isInCart.value) {
    quantity.value = 5
    await addToCart()

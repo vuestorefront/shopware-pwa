@@ -1,10 +1,11 @@
 import { computed, ComputedRef } from "vue-demi";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
+import { useCountries } from "@shopware-pwa/composables";
 
 /**
  * @beta
  */
-export interface UseCountry {
+export interface IUseCountry {
   currentCountry: ComputedRef<Country | null>;
   displayState: ComputedRef<boolean>;
   forceState: ComputedRef<boolean>;
@@ -13,14 +14,16 @@ export interface UseCountry {
 /**
  * @beta
  */
-export function useCountry(
-  countryId: ComputedRef<string>,
-  countries: ComputedRef<Country[]>
-): UseCountry {
+export function useCountry(props: {
+  countryId: ComputedRef<string>;
+}): IUseCountry {
+  const { getCountries } = useCountries();
+  const countryId = props.countryId;
   const currentCountry = computed(() => {
     if (!countryId.value) return null;
     return (
-      countries.value.find((country) => country.id === countryId.value) ?? null
+      getCountries.value.find((country) => country.id === countryId.value) ??
+      null
     );
   });
 

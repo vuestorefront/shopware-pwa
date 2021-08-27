@@ -11,15 +11,8 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function useProductQuickSearch(rootContext: ApplicationVueContext): IUseProductQuickSearch;
+export declare function useProductQuickSearch(): IUseProductQuickSearch;
 ```
-
-## Parameters
-
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-
 <b>Returns:</b>
 
 [IUseProductQuickSearch](./composables.iuseproductquicksearch.md)

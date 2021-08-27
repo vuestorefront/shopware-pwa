@@ -56,7 +56,7 @@ describe("Composables - useCart", () => {
     describe("cartErrors", () => {
       it("should return default value [] (empty array) if cart is empty", () => {
         stateCart.value = undefined as any;
-        const { cartErrors } = useCart(rootContextMock);
+        const { cartErrors } = useCart();
         expect(cartErrors.value).toStrictEqual([]);
       });
       it("should return array of {EntityError} typed Objects", () => {
@@ -70,7 +70,7 @@ describe("Composables - useCart", () => {
             },
           },
         } as any;
-        const { cartErrors } = useCart(rootContextMock);
+        const { cartErrors } = useCart();
         expect(cartErrors.value).toStrictEqual([
           {
             key: "error-1",
@@ -84,14 +84,14 @@ describe("Composables - useCart", () => {
       describe("shippingTotal", () => {
         it("should return default value 0 (zero) if cart is empty", () => {
           stateCart.value = undefined as any;
-          const { shippingTotal } = useCart(rootContextMock);
+          const { shippingTotal } = useCart();
           expect(shippingTotal.value).toBe(0);
         });
         it("should return default value 0 (zero) if there is no delivery in cart", () => {
           stateCart.value = {
             deliveries: undefined,
           };
-          const { shippingTotal } = useCart(rootContextMock);
+          const { shippingTotal } = useCart();
           expect(shippingTotal.value).toBe(0);
         });
         it("should return default value 0 (zero) if shipping costs are empty", () => {
@@ -102,7 +102,7 @@ describe("Composables - useCart", () => {
               },
             ],
           };
-          const { shippingTotal } = useCart(rootContextMock);
+          const { shippingTotal } = useCart();
           expect(shippingTotal.value).toBe(0);
         });
         it("should return total price from shipping cost of the first delivery from cart", () => {
@@ -115,33 +115,33 @@ describe("Composables - useCart", () => {
               },
             ],
           };
-          const { shippingTotal } = useCart(rootContextMock);
+          const { shippingTotal } = useCart();
           expect(shippingTotal.value).toBe(199.5);
         });
       });
     describe("cart", () => {
       it("should be null on not loaded cart", () => {
         stateCart.value = null;
-        const { cart } = useCart(rootContextMock);
+        const { cart } = useCart();
         expect(cart.value).toBeNull();
       });
 
       it("should return a cart object", () => {
         stateCart.value = {};
-        const { cart } = useCart(rootContextMock);
+        const { cart } = useCart();
         expect(cart.value).toEqual({});
       });
     });
 
     describe("cartItems", () => {
       it("should return an empty array of cartItems", () => {
-        const { cartItems } = useCart(rootContextMock);
+        const { cartItems } = useCart();
         expect(cartItems.value).toEqual([]);
       });
 
       it("should return an empty array of cartItems when empty lineItems", () => {
         stateCart.value = {};
-        const { cartItems } = useCart(rootContextMock);
+        const { cartItems } = useCart();
         expect(cartItems.value).toEqual([]);
       });
 
@@ -149,14 +149,14 @@ describe("Composables - useCart", () => {
         stateCart.value = {
           lineItems: [{ id: 1 }],
         };
-        const { cartItems } = useCart(rootContextMock);
+        const { cartItems } = useCart();
         expect(cartItems.value).toEqual([{ id: 1 }]);
       });
     });
 
     describe("count", () => {
       it("should show items count as 0", () => {
-        const { count } = useCart(rootContextMock);
+        const { count } = useCart();
         expect(count.value).toEqual(0);
       });
 
@@ -168,14 +168,14 @@ describe("Composables - useCart", () => {
             { quantity: 1, type: "promotion" },
           ],
         };
-        const { count } = useCart(rootContextMock);
+        const { count } = useCart();
         expect(count.value).toEqual(5);
       });
     });
 
     describe("totalPrice", () => {
       it("should show items totalPrice as 0", () => {
-        const { totalPrice } = useCart(rootContextMock);
+        const { totalPrice } = useCart();
         expect(totalPrice.value).toEqual(0);
       });
 
@@ -183,7 +183,7 @@ describe("Composables - useCart", () => {
         stateCart.value = {
           price: {},
         };
-        const { totalPrice } = useCart(rootContextMock);
+        const { totalPrice } = useCart();
         expect(totalPrice.value).toEqual(0);
       });
 
@@ -191,13 +191,13 @@ describe("Composables - useCart", () => {
         stateCart.value = {
           price: { totalPrice: 123 },
         };
-        const { totalPrice } = useCart(rootContextMock);
+        const { totalPrice } = useCart();
         expect(totalPrice.value).toEqual(123);
       });
     });
     describe("subtotal", () => {
       it("should show items totalPrice as 0", () => {
-        const { subtotal } = useCart(rootContextMock);
+        const { subtotal } = useCart();
         expect(subtotal.value).toEqual(0);
       });
 
@@ -205,7 +205,7 @@ describe("Composables - useCart", () => {
         stateCart.value = {
           price: {},
         };
-        const { subtotal } = useCart(rootContextMock);
+        const { subtotal } = useCart();
         expect(subtotal.value).toEqual(0);
       });
 
@@ -213,20 +213,20 @@ describe("Composables - useCart", () => {
         stateCart.value = {
           price: { positionPrice: 123 },
         };
-        const { subtotal } = useCart(rootContextMock);
+        const { subtotal } = useCart();
         expect(subtotal.value).toEqual(123);
       });
     });
     describe("appliedPromotionCodes", () => {
       it("should be empty array on not loaded cart", () => {
         stateCart.value = null;
-        const { appliedPromotionCodes } = useCart(rootContextMock);
+        const { appliedPromotionCodes } = useCart();
         expect(appliedPromotionCodes.value).toEqual([]);
       });
 
       it("should return an array", () => {
         stateCart.value = {};
-        const { appliedPromotionCodes } = useCart(rootContextMock);
+        const { appliedPromotionCodes } = useCart();
         expect(appliedPromotionCodes.value).toEqual([]);
       });
 
@@ -238,7 +238,7 @@ describe("Composables - useCart", () => {
             { quantity: 1, type: "promotion" },
           ],
         };
-        const { appliedPromotionCodes } = useCart(rootContextMock);
+        const { appliedPromotionCodes } = useCart();
         expect(appliedPromotionCodes.value.length).toEqual(1);
       });
     });
@@ -247,7 +247,7 @@ describe("Composables - useCart", () => {
   describe("methods", () => {
     describe("refreshCart", () => {
       it("should correctly refresh the cart", async () => {
-        const { count, refreshCart } = useCart(rootContextMock);
+        const { count, refreshCart } = useCart();
         expect(count.value).toEqual(0);
         mockedShopwareClient.getCart.mockResolvedValueOnce({
           lineItems: [{ quantity: 1, type: "product" }],
@@ -257,7 +257,7 @@ describe("Composables - useCart", () => {
       });
 
       it("should show an error when cart is not refreshed", async () => {
-        const { count, refreshCart, error } = useCart(rootContextMock);
+        const { count, refreshCart, error } = useCart();
         mockedShopwareClient.getCart.mockRejectedValueOnce({
           messages: [{ detail: "Some problem" }],
         });
@@ -269,7 +269,7 @@ describe("Composables - useCart", () => {
 
     describe("addProduct", () => {
       it("should add product to cart", async () => {
-        const { count, addProduct } = useCart(rootContextMock);
+        const { count, addProduct } = useCart();
         expect(count.value).toEqual(0);
         mockedShopwareClient.addProductToCart.mockResolvedValueOnce({
           lineItems: [{ quantity: 1, type: "product" }],
@@ -279,7 +279,7 @@ describe("Composables - useCart", () => {
       });
 
       it("should add product with quantity", async () => {
-        const { addProduct } = useCart(rootContextMock);
+        const { addProduct } = useCart();
         mockedShopwareClient.addProductToCart.mockResolvedValueOnce({} as any);
         await addProduct({ id: "qwe", quantity: 5 });
         expect(mockedShopwareClient.addProductToCart).toBeCalledWith(
@@ -292,7 +292,7 @@ describe("Composables - useCart", () => {
 
     describe("removeProduct", () => {
       it("should add product to cart", async () => {
-        const { count, removeProduct } = useCart(rootContextMock);
+        const { count, removeProduct } = useCart();
         stateCart.value = {
           lineItems: [{ quantity: 3, type: "product" }],
         };
@@ -305,7 +305,7 @@ describe("Composables - useCart", () => {
       });
 
       it("should invoke client with correct params", async () => {
-        const { removeProduct } = useCart(rootContextMock);
+        const { removeProduct } = useCart();
         mockedShopwareClient.removeCartItem.mockResolvedValueOnce({} as any);
         await removeProduct({ id: "qwe" });
         expect(mockedShopwareClient.removeCartItem).toBeCalledWith(
@@ -315,7 +315,7 @@ describe("Composables - useCart", () => {
       });
 
       it("should display deprecation message", async () => {
-        const { count, removeProduct } = useCart(rootContextMock);
+        const { count, removeProduct } = useCart();
         stateCart.value = {
           lineItems: [{ quantity: 3, type: "product" }],
         };
@@ -331,7 +331,7 @@ describe("Composables - useCart", () => {
     });
     describe("submitPromotionCode", () => {
       it("should execute the addPromotionCode method if promotion code is not falsy", async () => {
-        const { addPromotionCode } = useCart(rootContextMock);
+        const { addPromotionCode } = useCart();
         await addPromotionCode("PROMO-CODE-123!");
         mockedShopwareClient.addPromotionCode.mockResolvedValueOnce({
           lineItems: [{ quantity: 1, type: "promotion" }],
@@ -339,15 +339,14 @@ describe("Composables - useCart", () => {
         expect(mockedShopwareClient.addPromotionCode).toBeCalledTimes(1);
       });
       it("should not execute the addPromotionCode method if promotion code is undefined or null", async () => {
-        const { addPromotionCode } = useCart(rootContextMock);
+        const { addPromotionCode } = useCart();
         await addPromotionCode(undefined as any);
         expect(mockedShopwareClient.addPromotionCode).toBeCalledTimes(0);
       });
     });
     describe("addPromotionCode", () => {
       it("should add promotion code to cart", async () => {
-        const { appliedPromotionCodes, addPromotionCode } =
-          useCart(rootContextMock);
+        const { appliedPromotionCodes, addPromotionCode } = useCart();
         expect(appliedPromotionCodes.value).toEqual([]);
         mockedShopwareClient.addPromotionCode.mockResolvedValueOnce({
           lineItems: [{ quantity: 1, type: "promotion" }],
@@ -359,7 +358,7 @@ describe("Composables - useCart", () => {
 
     describe("removeItem", () => {
       it("should remove promotion code from cart", async () => {
-        const { appliedPromotionCodes, removeItem } = useCart(rootContextMock);
+        const { appliedPromotionCodes, removeItem } = useCart();
         stateCart.value = {
           lineItems: [{ quantity: 1, type: "promotion" }],
         };
@@ -372,7 +371,7 @@ describe("Composables - useCart", () => {
       });
 
       it("should invoke client with correct params", async () => {
-        const { removeProduct } = useCart(rootContextMock);
+        const { removeProduct } = useCart();
         mockedShopwareClient.removeCartItem.mockResolvedValueOnce({} as any);
         await removeProduct({ id: "qwe" });
         expect(mockedShopwareClient.removeCartItem).toBeCalledWith(
@@ -384,7 +383,7 @@ describe("Composables - useCart", () => {
 
     describe("changeProductQuantity", () => {
       it("should change product quantity in cart", async () => {
-        const { count, changeProductQuantity } = useCart(rootContextMock);
+        const { count, changeProductQuantity } = useCart();
         stateCart.value = {
           lineItems: [{ quantity: 3, type: "product" }],
         };
@@ -397,7 +396,7 @@ describe("Composables - useCart", () => {
       });
 
       it("should correctly invoke changing product quantity", async () => {
-        const { changeProductQuantity } = useCart(rootContextMock);
+        const { changeProductQuantity } = useCart();
         mockedShopwareClient.changeCartItemQuantity.mockResolvedValueOnce(
           {} as any
         );
@@ -411,7 +410,7 @@ describe("Composables - useCart", () => {
     });
     describe("broadcastUpcomingErrors", () => {
       it("should catch the exception while the errors are trying to be broadcasted", async () => {
-        const { addProduct } = useCart(rootContextMock);
+        const { addProduct } = useCart();
         mockedShopwareClient.addProductToCart.mockResolvedValueOnce({
           errors: {
             "error-1": {
@@ -429,7 +428,7 @@ describe("Composables - useCart", () => {
         );
       });
       it("should not invoke broadcastErrors helper when there is no new cart result - changeCartItemQuantity", async () => {
-        const { changeProductQuantity } = useCart(rootContextMock);
+        const { changeProductQuantity } = useCart();
         mockedShopwareClient.changeCartItemQuantity.mockResolvedValueOnce(
           undefined as any
         );
@@ -437,7 +436,7 @@ describe("Composables - useCart", () => {
         expect(mockedErrorHandler.broadcastErrors).toBeCalledTimes(0);
       });
       it("should not invoke broadcastErrors helper when there is no new cart result - addProduct", async () => {
-        const { addProduct } = useCart(rootContextMock);
+        const { addProduct } = useCart();
         mockedShopwareClient.addProductToCart.mockResolvedValueOnce(
           undefined as any
         );
@@ -445,7 +444,7 @@ describe("Composables - useCart", () => {
         expect(mockedErrorHandler.broadcastErrors).toBeCalledTimes(0);
       });
       it("should not invoke broadcastErrors helper when there is no new cart result - removeItem", async () => {
-        const { removeItem } = useCart(rootContextMock);
+        const { removeItem } = useCart();
         mockedShopwareClient.removeCartItem.mockResolvedValueOnce(
           undefined as any
         );
@@ -453,7 +452,7 @@ describe("Composables - useCart", () => {
         expect(mockedErrorHandler.broadcastErrors).toBeCalledTimes(0);
       });
       it("should invoke broadcastErrors helper once there is a new error in cart response", async () => {
-        const { removeItem } = useCart(rootContextMock);
+        const { removeItem } = useCart();
         mockedShopwareClient.removeCartItem.mockResolvedValueOnce({
           errors: {
             "error-id": {

@@ -79,7 +79,7 @@ import {
 } from "@shopware-pwa/composables";
 
 export default async ({ app }) => {
-  const { intercept } = useIntercept(app);
+  const { intercept } = useIntercept();
   const { pushSuccess } = useNotifications(app);
   intercept(INTERCEPTOR_KEYS.ADD_TO_CART, ({ product }) => {
     pushSuccess(
@@ -139,7 +139,7 @@ You might want to stop listening on the event at some point though, for example,
 import { useIntercept, INTERCEPTOR_KEYS } from "@shopware-pwa/composables";
 
 export default async ({ app }) => {
-  const { intercept, disconnect } = useIntercept(app);
+  const { intercept, disconnect } = useIntercept();
 
   const myOnAddToCartMethod = ({ product }) => {
     // do something with event

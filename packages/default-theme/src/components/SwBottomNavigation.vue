@@ -164,13 +164,12 @@ export default {
     }
   },
   setup(props, { root }) {
-    const { switchState: toggleSidebar, isOpen: isSidebarOpen } = useUIState(
-      root,
-      "CART_SIDEBAR_STATE"
-    )
+    const { switchState: toggleSidebar, isOpen: isSidebarOpen } = useUIState({
+      stateName: "CART_SIDEBAR_STATE",
+    })
     const { switchState: toggleModal } = useUIState(root, "LOGIN_MODAL_STATE")
-    const { isLoggedIn, isGuestSession, logout } = useUser(root)
-    const { count } = useCart(root)
+    const { isLoggedIn, isGuestSession, logout } = useUser()
+    const { count } = useCart()
     const isMyAccountActive = computed(() => isLoggedIn.value)
     const userIconDescription = computed(() => {
       if (!isLoggedIn.value) return root.$t("Login / Register")

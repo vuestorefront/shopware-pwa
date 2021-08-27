@@ -97,7 +97,7 @@ describe("Composables - useBreadcrumbs", () => {
     });
 
     it("should return breadcrumbs object without Home link from cms page if any available", () => {
-      const { breadcrumbs, setBreadcrumbs } = useBreadcrumbs(null, {
+      const { breadcrumbs, setBreadcrumbs } = useBreadcrumbs({
         hideHomeLink: true,
       });
       setBreadcrumbs([
@@ -135,7 +135,7 @@ describe("Composables - useBreadcrumbs", () => {
     });
 
     it("should return local breadcrumbs without Home link if there are any assigned", () => {
-      const { setBreadcrumbs, breadcrumbs } = useBreadcrumbs(null, {
+      const { setBreadcrumbs, breadcrumbs } = useBreadcrumbs({
         hideHomeLink: true,
       });
       setBreadcrumbs([
@@ -155,7 +155,7 @@ describe("Composables - useBreadcrumbs", () => {
   });
 
   it("should set an empty array if no value set", () => {
-    const { setBreadcrumbs, breadcrumbs } = useBreadcrumbs(null, {
+    const { setBreadcrumbs, breadcrumbs } = useBreadcrumbs({
       hideHomeLink: true,
     });
     setBreadcrumbs(null as any);

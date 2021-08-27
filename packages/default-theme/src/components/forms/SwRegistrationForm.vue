@@ -277,6 +277,7 @@ import {
   useSalutations,
   useSessionContext,
   useUser,
+  getApplicationContext,
 } from "@shopware-pwa/composables"
 import { mapCountries, mapSalutations } from "@shopware-pwa/helpers"
 import SwInput from "@/components/atoms/SwInput.vue"
@@ -302,12 +303,13 @@ export default {
       default: () => ({}),
     },
   },
-  setup(props, { root, emit }) {
-    const { refreshSessionContext } = useSessionContext(root)
-    const { countryId } = useSessionContext(root)
-    const { login, loading } = useUser(root)
-    const { getCountries, error: countriesError } = useCountries(root)
-    const { getSalutations, error: salutationsError } = useSalutations(root)
+  setup(props, { emit }) {
+    const { refreshSessionContext } = useSessionContext()
+    const { countryId } = useSessionContext()
+    const { login, loading } = useUser()
+    const { getCountries, error: countriesError } = useCountries()
+    const { getSalutations, error: salutationsError } = useSalutations()
+    const { routing } = getApplicationContext()
 
     // form data
     const doNotCreateAccount: Ref<boolean> = ref(false)
@@ -354,7 +356,10 @@ export default {
         password: state.password,
         guest: doNotCreateAccount.value,
         salutationId: state.salutationId || getDefaultSalutationId.value,
-        storefrontUrl: root.$routing.getCurrentDomain.value.url,
+        storefrontUrl:
+          routing.getCurrentDomain.value?.url ||
+          (process.client && window.location.origin) ||
+          "",
         billingAddress: {
           firstName: state.firstName,
           salutationId: state.salutationId || getDefaultSalutationId.value,

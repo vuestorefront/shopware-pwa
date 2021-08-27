@@ -10,7 +10,6 @@ Factory to create your own listing. By default you can use useListing composable
 
 ```typescript
 export declare function createListingComposable<ELEMENTS_TYPE>({ searchMethod, searchDefaults, listingKey, }: {
-    rootContext?: any;
     searchMethod: (searchParams: Partial<ShopwareSearchParams>) => Promise<ListingResult<ELEMENTS_TYPE>>;
     searchDefaults: ShopwareSearchParams;
     listingKey: string;
@@ -21,7 +20,7 @@ export declare function createListingComposable<ELEMENTS_TYPE>({ searchMethod, s
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { searchMethod, searchDefaults, listingKey, } | { rootContext?: any; searchMethod: (searchParams: Partial&lt;ShopwareSearchParams&gt;) =&gt; Promise&lt;ListingResult&lt;ELEMENTS\_TYPE&gt;&gt;; searchDefaults: ShopwareSearchParams; listingKey: string; } |  |
+|  { searchMethod, searchDefaults, listingKey, } | { searchMethod: (searchParams: Partial&lt;ShopwareSearchParams&gt;) =&gt; Promise&lt;ListingResult&lt;ELEMENTS\_TYPE&gt;&gt;; searchDefaults: ShopwareSearchParams; listingKey: string; } |  |
 
 <b>Returns:</b>
 

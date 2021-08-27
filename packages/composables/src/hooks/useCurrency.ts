@@ -4,7 +4,6 @@ import {
   useSessionContext,
   useCart,
   useSharedState,
-  ApplicationVueContext,
   getApplicationContext,
 } from "@shopware-pwa/composables";
 import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
@@ -12,7 +11,7 @@ import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currenc
 /**
  * @beta
  */
-export interface UseCurrency {
+export interface IUseCurrency {
   loadAvailableCurrencies: (options?: {
     forceReload: boolean;
   }) => Promise<void>;
@@ -25,19 +24,18 @@ export interface UseCurrency {
 /**
  * @beta
  */
-export function useCurrency(rootContext: ApplicationVueContext): UseCurrency {
+export function useCurrency(): IUseCurrency {
   const COMPOSABLE_NAME = "useCurrency";
   const contextName = COMPOSABLE_NAME;
 
   const { apiInstance } = getApplicationContext({ contextName });
-  const { sharedRef } = useSharedState(rootContext);
+  const { sharedRef } = useSharedState();
   const _availableCurrencies: Ref<Currency[] | null> = sharedRef(
     `sw-${contextName}-availableCurrencies`
   );
 
-  const { currency, setCurrency: setContextCurrency } =
-    useSessionContext(rootContext);
-  const { refreshCart } = useCart(rootContext);
+  const { currency, setCurrency: setContextCurrency } = useSessionContext();
+  const { refreshCart } = useCart();
   const currencySymbol = computed(() => currency.value?.symbol || "");
   const availableCurrencies = computed(() => {
     if (_availableCurrencies.value?.length) {

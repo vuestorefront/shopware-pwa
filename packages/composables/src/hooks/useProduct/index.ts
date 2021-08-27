@@ -1,17 +1,16 @@
-import { ref, Ref } from "vue-demi";
+import { ref, Ref, unref } from "vue-demi";
 import { getProduct, getProductPage } from "@shopware-pwa/shopware-6-client";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { getApplicationContext, useDefaults } from "@shopware-pwa/composables";
-import { ApplicationVueContext } from "../../appContext";
 const NO_PRODUCT_REFERENCE_ERROR =
   "Associations cannot be loaded for undefined product";
 
 /**
  * @beta
  */
-export interface UseProduct<PRODUCT, SEARCH> {
-  product: Ref<PRODUCT>;
+export interface IUseProduct<PRODUCT, SEARCH> {
+  product: Ref<PRODUCT | null>;
   search: SEARCH;
   loading: Ref<boolean>;
   error: Ref<any>;
@@ -26,21 +25,19 @@ export type Search = (path: string, associations?: any) => any;
 /**
  * @beta
  */
-export function useProduct(
-  rootContext: ApplicationVueContext,
-  loadedProduct?: any
-): UseProduct<Product, Search> {
+export function useProduct(params?: {
+  product?: Ref<Product> | Product;
+}): IUseProduct<Product, Search> {
   const COMPOSABLE_NAME = "useProduct";
   const contextName = COMPOSABLE_NAME;
 
   const { apiInstance } = getApplicationContext({ contextName });
-  const { getAssociationsConfig, getIncludesConfig } = useDefaults(
-    rootContext,
-    contextName
-  );
+  const { getAssociationsConfig, getIncludesConfig } = useDefaults({
+    defaultsKey: contextName,
+  });
 
   const loading: Ref<boolean> = ref(false);
-  const product: Ref<Product> = ref(loadedProduct);
+  const product: Ref<Product | null> = ref(unref(params?.product) || null);
   const error: Ref<any> = ref(null);
 
   const loadAssociations = async () => {

@@ -12,8 +12,8 @@ Composable for navigation. Options - [IUseNavigation](./composables.iusenavigati
 <b>Signature:</b>
 
 ```typescript
-export declare function useNavigation(rootContext: ApplicationVueContext, params?: {
-    type: StoreNavigationType;
+export declare function useNavigation(params?: {
+    type?: StoreNavigationType;
 }): IUseNavigation;
 ```
 
@@ -21,8 +21,7 @@ export declare function useNavigation(rootContext: ApplicationVueContext, params
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-|  params | { type: StoreNavigationType; } |  |
+|  params | { type?: StoreNavigationType; } |  |
 
 <b>Returns:</b>
 
@@ -33,9 +32,9 @@ export declare function useNavigation(rootContext: ApplicationVueContext, params
 
 ```
 // get main navigation
-useNavigation( root )
+useNavigation()
 // get footer navigation
-useNavigation( root, { type: "footer-navigation" } )
+useNavigation({ type: "footer-navigation" } )
 
 ```
 

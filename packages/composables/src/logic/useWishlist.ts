@@ -1,4 +1,4 @@
-import { ref, Ref, computed, onMounted } from "vue-demi";
+import { ref, Ref, computed, onMounted, unref } from "vue-demi";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import {
   INTERCEPTOR_KEYS,
@@ -6,7 +6,6 @@ import {
   IInterceptorCallbackFunction,
   getApplicationContext,
   useSharedState,
-  ApplicationVueContext,
 } from "@shopware-pwa/composables";
 
 /**
@@ -28,16 +27,17 @@ export interface IUseWishlist {
  *
  * @beta
  */
-export function useWishlist(
-  rootContext: ApplicationVueContext,
-  product?: Product
-): IUseWishlist {
+export function useWishlist(params?: {
+  product?: Product | Ref<Product>;
+}): IUseWishlist {
   const COMPOSABLE_NAME = "useWishlist";
   const contextName = COMPOSABLE_NAME;
 
-  const { broadcast, intercept } = useIntercept(rootContext);
+  const product = unref(params?.product);
+
+  const { broadcast, intercept } = useIntercept();
   getApplicationContext({ contextName });
-  const { sharedRef } = useSharedState(rootContext);
+  const { sharedRef } = useSharedState();
   const _wishlistItems: Ref<string[] | null> = sharedRef(
     `sw-${contextName}-items`
   );

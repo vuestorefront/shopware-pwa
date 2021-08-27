@@ -1,9 +1,16 @@
-import { computed, ComputedRef, reactive, Ref, ref, UnwrapRef } from "vue-demi";
+import {
+  computed,
+  ComputedRef,
+  reactive,
+  Ref,
+  ref,
+  unref,
+  UnwrapRef,
+} from "vue-demi";
 import {
   useSharedState,
   useDefaults,
   INTERCEPTOR_KEYS,
-  ApplicationVueContext,
   getApplicationContext,
   useIntercept,
 } from "@shopware-pwa/composables";
@@ -28,10 +35,7 @@ import {
  *
  * @beta
  */
-export function useOrderDetails(
-  rootContext: ApplicationVueContext,
-  order: Order
-): {
+export function useOrderDetails(params: { order: Ref<Order> | Order }): {
   order: ComputedRef<Order | undefined | null>;
   status: ComputedRef<string | undefined>;
   total: ComputedRef<number | undefined>;
@@ -61,10 +65,12 @@ export function useOrderDetails(
   const COMPOSABLE_NAME = "useOrderDetails";
   const contextName = COMPOSABLE_NAME;
 
+  const order = unref(params.order);
+
   const { apiInstance } = getApplicationContext({ contextName });
-  const { getDefaults } = useDefaults(rootContext, contextName);
-  const { broadcast } = useIntercept(rootContext);
-  const { sharedRef } = useSharedState(rootContext);
+  const { getDefaults } = useDefaults({ defaultsKey: contextName });
+  const { broadcast } = useIntercept();
+  const { sharedRef } = useSharedState();
   const _sharedOrder = sharedRef(`sw-${contextName}-order`, order);
   const errors: UnwrapRef<{
     loadOrderDetails: ShopwareError[];

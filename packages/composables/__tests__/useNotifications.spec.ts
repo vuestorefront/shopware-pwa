@@ -6,9 +6,6 @@ const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 import { useNotifications } from "../src/logic/useNotifications";
 
 describe("Composables - useNotifications", () => {
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-  };
   const stateSharedRef = ref();
 
   beforeEach(() => {
@@ -24,7 +21,7 @@ describe("Composables - useNotifications", () => {
   describe("pushNotifications", () => {
     it("should not remove a notification with persistant option after timout", () => {
       jest.useFakeTimers();
-      const { pushError, notifications } = useNotifications(rootContextMock);
+      const { pushError, notifications } = useNotifications();
       pushError("An error occured", {
         persistent: true,
       });
@@ -33,35 +30,35 @@ describe("Composables - useNotifications", () => {
       expect(notifications.value).toHaveLength(1);
     });
     it("should add a notification with all required fields", () => {
-      const { pushError, notifications } = useNotifications(rootContextMock);
+      const { pushError, notifications } = useNotifications();
       pushError("An error occured");
       expect(notifications.value[0]).toHaveProperty("id");
       expect(notifications.value[0]).toHaveProperty("message");
       expect(notifications.value[0]).toHaveProperty("type");
     });
     it("should have an danger type notification", () => {
-      const { pushError, notifications } = useNotifications(rootContextMock);
+      const { pushError, notifications } = useNotifications();
       pushError("An error occured");
       const notification = notifications.value.pop();
       expect(notification?.message).toEqual("An error occured");
       expect(notification?.type).toEqual("danger");
     });
     it("should have an info type notification", () => {
-      const { pushInfo, notifications } = useNotifications(rootContextMock);
+      const { pushInfo, notifications } = useNotifications();
       pushInfo("Some info");
       const notification = notifications.value.pop();
       expect(notification?.message).toEqual("Some info");
       expect(notification?.type).toEqual("info");
     });
     it("should have a warning type notification", () => {
-      const { pushWarning, notifications } = useNotifications(rootContextMock);
+      const { pushWarning, notifications } = useNotifications();
       pushWarning("Some warning");
       const notification = notifications.value.pop();
       expect(notification?.message).toEqual("Some warning");
       expect(notification?.type).toEqual("warning");
     });
     it("should have a success type notification", () => {
-      const { pushSuccess, notifications } = useNotifications(rootContextMock);
+      const { pushSuccess, notifications } = useNotifications();
       pushSuccess("Some success");
       const notification = notifications.value.pop();
       expect(notification?.message).toEqual("Some success");
@@ -71,8 +68,7 @@ describe("Composables - useNotifications", () => {
 
   describe("removeAll", () => {
     it("should reset the notifications list", () => {
-      const { pushError, notifications, removeAll } =
-        useNotifications(rootContextMock);
+      const { pushError, notifications, removeAll } = useNotifications();
       pushError("An error occured");
       expect(notifications.value).toHaveLength(1);
       removeAll();
@@ -82,8 +78,7 @@ describe("Composables - useNotifications", () => {
   describe("removeOne", () => {
     it("should remove a notification by its ID", () => {
       jest.spyOn(Date.prototype, "getTime").mockReturnValue(1600081318135);
-      const { pushError, notifications, removeOne } =
-        useNotifications(rootContextMock);
+      const { pushError, notifications, removeOne } = useNotifications();
       pushError("An error occured");
       expect(notifications.value).toHaveLength(1);
       removeOne(1600081318135);
@@ -92,7 +87,7 @@ describe("Composables - useNotifications", () => {
     it("should remove an item after the given timeout", () => {
       jest.useFakeTimers();
       jest.spyOn(Date.prototype, "getTime").mockReturnValue(1600081318135);
-      const { pushError, notifications } = useNotifications(rootContextMock);
+      const { pushError, notifications } = useNotifications();
       pushError("An error occured", { persistent: false });
       expect(notifications.value).toHaveLength(1);
       jest.runOnlyPendingTimers();
@@ -100,7 +95,7 @@ describe("Composables - useNotifications", () => {
     });
 
     it("should do nothing on not existing notification removal", () => {
-      const { removeOne, notifications } = useNotifications(rootContextMock);
+      const { removeOne, notifications } = useNotifications();
       expect(notifications.value).toHaveLength(0);
       removeOne(1600081318135);
       expect(notifications.value).toHaveLength(0);

@@ -43,7 +43,6 @@ import {
   useSharedState,
   useSessionContext,
   useCart,
-  ApplicationVueContext,
   getApplicationContext,
   useDefaults,
 } from "@shopware-pwa/composables";
@@ -152,17 +151,17 @@ export interface IUseUser {
  *
  * @beta
  */
-export function useUser(rootContext: ApplicationVueContext): IUseUser {
+export function useUser(): IUseUser {
   const COMPOSABLE_NAME = "useUser";
   const contextName = COMPOSABLE_NAME;
 
   const { apiInstance } = getApplicationContext({ contextName });
-  const { broadcast, intercept } = useIntercept(rootContext);
-  const { refreshSessionContext } = useSessionContext(rootContext);
-  const { refreshCart } = useCart(rootContext);
-  const { getDefaults } = useDefaults(rootContext, contextName);
+  const { broadcast, intercept } = useIntercept();
+  const { refreshSessionContext } = useSessionContext();
+  const { refreshCart } = useCart();
+  const { getDefaults } = useDefaults({ defaultsKey: contextName });
 
-  const { sharedRef } = useSharedState(rootContext);
+  const { sharedRef } = useSharedState();
   const storeUser = sharedRef<Partial<Customer>>(`${contextName}-user`);
   const storeAddresses = sharedRef<CustomerAddress[]>(
     `${contextName}-addresses`

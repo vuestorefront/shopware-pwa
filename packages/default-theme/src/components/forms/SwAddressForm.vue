@@ -184,11 +184,11 @@ export default {
       }),
     },
   },
-  setup(props, { root }) {
-    const { pushError, pushSuccess } = useNotifications(root)
-    const { getSalutations } = useSalutations(root)
-    const { addAddress, updateAddress, error: userError } = useUser(root)
-    const { getCountries, error: countriesError } = useCountries(root)
+  setup(props) {
+    const { pushError, pushSuccess } = useNotifications()
+    const { getSalutations } = useSalutations()
+    const { addAddress, updateAddress, error: userError } = useUser()
+    const { getCountries, error: countriesError } = useCountries()
     // simplify entities
     const getMappedCountries = computed(() => mapCountries(getCountries.value))
     const getMappedSalutations = computed(() =>
@@ -218,10 +218,9 @@ export default {
         props.address.salutationId
     )
     // check whether state is required
-    const { displayState, forceState } = useCountry(
-      selectedCountryId,
-      getCountries
-    )
+    const { displayState, forceState } = useCountry({
+      countryId: selectedCountryId,
+    })
 
     // address model ready to be sent to API
     const getAddressModel = computed(() => ({

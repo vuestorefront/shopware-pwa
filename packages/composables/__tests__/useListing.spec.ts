@@ -4,6 +4,7 @@ import { useListing } from "../src/logic/useListing";
 import * as Composables from "@shopware-pwa/composables";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
+
 import * as ApiClient from "@shopware-pwa/shopware-6-client";
 import { prepareRootContextMock } from "./contextRunner";
 jest.mock("@shopware-pwa/shopware-6-client");
@@ -43,10 +44,20 @@ describe("Composables - useListing", () => {
   });
 
   it("should use categoryListing by default", () => {
-    useListing(rootContextMock, undefined as any);
+    useListing({ listingType: undefined as any });
     expect(mockedComposables.createListingComposable).toBeCalledWith({
       listingKey: "categoryListing",
-      rootContext: rootContextMock,
+      searchDefaults: {
+        limit: 5,
+      },
+      searchMethod: expect.any(Function),
+    });
+  });
+
+  it("should use categoryListing by default", () => {
+    useListing();
+    expect(mockedComposables.createListingComposable).toBeCalledWith({
+      listingKey: "categoryListing",
       searchDefaults: {
         limit: 5,
       },
@@ -55,7 +66,7 @@ describe("Composables - useListing", () => {
   });
 
   it("should invoke proper search method for categoryListing", async () => {
-    useListing(rootContextMock, "categoryListing");
+    useListing({ listingType: "categoryListing" });
     expect(mockedComposables.createListingComposable).toBeCalled();
     expect(returnedSearchMethod).toBeTruthy();
     await returnedSearchMethod({ limit: 8 });
@@ -69,7 +80,7 @@ describe("Composables - useListing", () => {
 
   it("should throw an error inside search method, when resourceIdentifier is not provided", async () => {
     mockedResourceIdentifier.value = null;
-    useListing(rootContextMock, "categoryListing");
+    useListing({ listingType: "categoryListing" });
     expect(returnedSearchMethod).toBeTruthy();
     await expect(returnedSearchMethod({ limit: 8 })).rejects.toThrow(
       "[useListing][search] Search category id does not exist."
@@ -77,7 +88,7 @@ describe("Composables - useListing", () => {
   });
 
   it("should invoke proper search method for productSearchListing", async () => {
-    useListing(rootContextMock, "productSearchListing");
+    useListing({ listingType: "productSearchListing" });
     expect(mockedComposables.createListingComposable).toBeCalled();
     expect(returnedSearchMethod).toBeTruthy();
     await returnedSearchMethod({ limit: 8 });

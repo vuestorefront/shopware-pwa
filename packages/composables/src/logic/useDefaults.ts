@@ -1,7 +1,4 @@
-import {
-  ApplicationVueContext,
-  getApplicationContext,
-} from "@shopware-pwa/composables";
+import { getApplicationContext } from "@shopware-pwa/composables";
 import {
   Includes,
   ShopwareSearchParams,
@@ -11,7 +8,7 @@ import { warning } from "@shopware-pwa/commons";
 
 /**
  * Returns default config depending on config key.
- * It is used in composables, so defaultsKey is in most cases composable name (ex. `useDefaults(rootContext, "useCms")`)
+ * It is used in composables, so defaultsKey is in most cases composable name (ex. `useDefaults({ defaultsKey: "useCms" })`)
  *
  * @remarks
  * To extend defaults you need to add configuration to `shopware-pwa.config.js` file.
@@ -33,16 +30,15 @@ import { warning } from "@shopware-pwa/commons";
  *
  * @beta
  */
-export function useDefaults(
-  rootContext: ApplicationVueContext | null | undefined,
-  defaultsKey: string
-): {
+export function useDefaults(params: { defaultsKey: string }): {
   getIncludesConfig: () => Includes;
   getAssociationsConfig: () => ShopwareAssociation;
   getDefaults: () => ShopwareSearchParams;
 } {
   const COMPOSABLE_NAME = "useDefaults";
   const contextName = COMPOSABLE_NAME;
+
+  const defaultsKey = params.defaultsKey;
 
   const { shopwareDefaults } = getApplicationContext({ contextName });
   if (!shopwareDefaults) {

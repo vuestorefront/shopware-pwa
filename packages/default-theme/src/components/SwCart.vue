@@ -111,13 +111,12 @@ export default {
     SwPluginSlot,
     SwButton,
   },
-  setup(props, { root }) {
+  setup() {
     const { apiInstance } = getApplicationContext({ contextName: "SwCart" })
-    const { cartItems, count, totalPrice, removeProduct } = useCart(root)
-    const { isOpen: isSidebarOpen, switchState: toggleSidebar } = useUIState(
-      root,
-      "CART_SIDEBAR_STATE"
-    )
+    const { cartItems, count, totalPrice, removeProduct } = useCart()
+    const { isOpen: isSidebarOpen, switchState: toggleSidebar } = useUIState({
+      stateName: "CART_SIDEBAR_STATE",
+    })
     const additionalItemsData = ref([])
     // Load additional info: seoUrls
     // TODO: move that logic into useCart composable or create global solution for "entity enrichment" maybe during adding to cart

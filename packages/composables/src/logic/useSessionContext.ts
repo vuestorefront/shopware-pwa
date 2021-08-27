@@ -20,7 +20,6 @@ import {
   useIntercept,
   IInterceptorCallbackFunction,
   useSharedState,
-  ApplicationVueContext,
 } from "@shopware-pwa/composables";
 /**
  * interface for {@link useSessionContext} composable
@@ -61,16 +60,14 @@ export interface IUseSessionContext {
  *
  * @beta
  */
-export function useSessionContext(
-  rootContext: ApplicationVueContext
-): IUseSessionContext {
+export function useSessionContext(): IUseSessionContext {
   const COMPOSABLE_NAME = "useSessionContext";
   const contextName = COMPOSABLE_NAME;
 
   const { apiInstance } = getApplicationContext({ contextName });
-  const { broadcast, intercept } = useIntercept(rootContext);
+  const { broadcast, intercept } = useIntercept();
 
-  const { sharedRef } = useSharedState(rootContext);
+  const { sharedRef } = useSharedState();
   const storeSessionContext = sharedRef<SessionContext>(
     `${contextName}-sessionContext`
   );
