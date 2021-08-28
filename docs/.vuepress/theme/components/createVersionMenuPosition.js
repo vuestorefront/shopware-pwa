@@ -3,19 +3,29 @@ import axios from "axios";
 export async function createVersionMenuPosition() {
   const hostname = location.hostname;
 
-  const compatibilityResponse = await axios.get(
-    `https://raw.githubusercontent.com/vuestorefront/shopware-pwa/master/compatibility.json`
+  const cachedVersions = JSON.parse(
+    localStorage.getItem("docVersions") || "[]"
   );
-  const versions = compatibilityResponse.data?.docVersions;
-  if (versions) {
-    let currentVersion = versions.find((v) => v.link.includes(hostname));
-    if (!currentVersion) {
-      currentVersion = versions.find((v) => v.text === "current");
-    }
-    const children = versions.filter((v) => v.text !== currentVersion.text);
-    currentVersion.items = children;
-    return [currentVersion];
-  }
+  let apiVersions = null;
 
-  return [];
+  try {
+    const compatibilityResponse = await axios.get(
+      `https://raw.githubusercontent.com/vuestorefront/shopware-pwa/master/compatibility.json`
+    );
+    apiVersions = compatibilityResponse.data.docVersions;
+    localStorage.setItem("docVersions", JSON.stringify(apiVersions || []));
+  } catch (error) {
+    console.error("[DOC versions] Cannot fetch API versions.", error);
+  }
+  const versions = apiVersions || cachedVersions;
+  let currentVersion = versions?.find((v) => v.link.includes(hostname));
+
+  if (!currentVersion) {
+    currentVersion = {
+      text: "Other versions",
+    };
+  }
+  const children = versions.filter((v) => v.text !== currentVersion.text);
+  currentVersion.items = children;
+  return [currentVersion];
 }
