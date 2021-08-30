@@ -1,3 +1,9 @@
+/**
+ * Vue's composables to be used in Shopware frontend application.
+ *
+ * @packageDocumentation
+ */
+
 export * from "./hooks/useCms";
 export * from "./hooks/useProduct";
 export * from "./hooks/useCart";
@@ -32,6 +38,7 @@ export * from "./getVueContext";
 export {
   getApplicationContext,
   Routing,
+  ShopwareDomain,
   SwRouting,
   SwInterceptors,
 } from "./appContext";

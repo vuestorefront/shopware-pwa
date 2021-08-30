@@ -24,7 +24,6 @@ import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
 import { EntityError } from '@shopware-pwa/commons/interfaces/models/common/EntityError';
 import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
-import { IUseListing as IUseListing_2 } from '@shopware-pwa/composables';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
 import { ListingFilter } from '@shopware-pwa/helpers';
 import { ListingResult } from '@shopware-pwa/commons/interfaces/response/ListingResult';
@@ -577,8 +576,6 @@ export { Notification_2 as Notification }
 
 // @beta @deprecated (undocumented)
 export interface Routing {
-    // Warning: (ae-forgotten-export) The symbol "ShopwareDomain" needs to be exported by the entry point index.d.ts
-    //
     // (undocumented)
     availableDomains: ShopwareDomain[];
     // (undocumented)
@@ -595,6 +592,32 @@ export interface Routing {
 
 // @beta (undocumented)
 export type Search = (path: string, associations?: any) => any;
+
+// @beta (undocumented)
+export interface ShopwareDomain {
+    // (undocumented)
+    currencyId: string;
+    // (undocumented)
+    domainId: string;
+    // (undocumented)
+    host: string;
+    // (undocumented)
+    languageId: string;
+    // (undocumented)
+    languageLabel: string;
+    // (undocumented)
+    languageLocaleCode: string;
+    // (undocumented)
+    languageName: string;
+    // (undocumented)
+    origin: string;
+    // (undocumented)
+    pathPrefix: string;
+    // (undocumented)
+    snippetSetId: string;
+    // (undocumented)
+    url: string;
+}
 
 // @beta (undocumented)
 export type SwInterceptors = {
@@ -677,7 +700,7 @@ export function useIntercept(): IUseIntercept;
 // @beta (undocumented)
 export function useListing(params?: {
     listingType: ListingType;
-}): IUseListing_2<Product>;
+}): IUseListing<Product>;
 
 // @beta
 export function useNavigation(params?: {
@@ -778,7 +801,5 @@ export function useVueContext(): {
 export function useWishlist(params?: {
     product?: Product | Ref<Product>;
 }): IUseWishlist;
-
-// (No @packageDocumentation comment for this package)
 
 ```

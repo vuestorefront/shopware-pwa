@@ -9,6 +9,9 @@ import { getContextProperty } from "./internalHelpers/getContextProperty";
 import { ApiDefaults } from "@shopware-pwa/commons";
 import { IInterceptorCallbackFunction } from "./logic/useIntercept";
 
+/**
+ * @beta
+ */
 export interface ShopwareDomain {
   url: string;
   origin: string;

@@ -4,6 +4,8 @@
 
 ## composables package
 
+Vue's composables to be used in Shopware frontend application.
+
 ## Functions
 
 |  Function | Description |
@@ -67,6 +69,7 @@
 |  [IUseWishlist](./composables.iusewishlist.md) | <b><i>(BETA)</i></b> interface for [useWishlist()](./composables.usewishlist.md) composable |
 |  [Notification\_2](./composables.notification_2.md) | <b><i>(BETA)</i></b> |
 |  [Routing](./composables.routing.md) | <b><i>(BETA)</i></b> |
+|  [ShopwareDomain](./composables.shopwaredomain.md) | <b><i>(BETA)</i></b> |
 
 ## Variables
 
