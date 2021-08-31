@@ -252,5 +252,15 @@
   "Order summary": "Order summary",
   "Close": "Close",
   "Street and house number": "Street and house number",
-  "Read all": "Read all"
+  "Read all": "Read all",
+  "Size": "Size",
+  "Min": "Min",
+  "Color": "Color",
+  "color": "color",
+  "Properties": "Properties",
+  "Promotion code": "Promotion code",
+  "found": "found",
+  "content": "content",
+  "Actions": "Actions",
+  "Unit price": "Unit price"
 }
