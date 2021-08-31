@@ -52,7 +52,7 @@ export async function getProductPage(
 ): Promise<PageResolverProductResult> {
   const resp = await contextInstance.invoke.post(getPageResolverEndpoint(), {
     path: path,
-    criteria,
+    ...(criteria || {}),
   });
 
   return resp.data;

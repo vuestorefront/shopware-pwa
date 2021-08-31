@@ -73,7 +73,11 @@ export interface ListingQueryParams {
 export type ShopwareSearchParams = {
   p?: number | undefined;
   limit?: number | undefined;
+  /**
+   *  @deprecated use order property instead
+   */
   sort?: string | undefined;
+  order?: string | undefined;
   term?: string | undefined;
   ids?: string[];
   associations?: ShopwareAssociation;
