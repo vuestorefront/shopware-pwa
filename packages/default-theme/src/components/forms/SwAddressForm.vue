@@ -154,6 +154,7 @@ import {
   useUser,
   useSalutations,
   useNotifications,
+  useCustomerAddresses,
 } from "@shopware-pwa/composables"
 import { mapCountries, mapSalutations } from "@shopware-pwa/helpers"
 import SwButton from "@/components/atoms/SwButton.vue"
@@ -187,7 +188,7 @@ export default {
   setup(props) {
     const { pushError, pushSuccess } = useNotifications()
     const { getSalutations } = useSalutations()
-    const { addAddress, updateAddress, error: userError } = useUser()
+    const { addAddress, updateAddress, errors } = useCustomerAddresses()
     const { getCountries, error: countriesError } = useCountries()
     // simplify entities
     const getMappedCountries = computed(() => mapCountries(getCountries.value))
@@ -252,7 +253,7 @@ export default {
       saveAddress,
       pushError,
       pushSuccess,
-      formErrors: userError,
+      formErrors: errors.updateAddress,
       existingAddress,
       $v: useVuelidate({ $scope: "addressForm", $stopPropagation: true }),
     }
