@@ -150,7 +150,7 @@ export async function runModule(
     },
   });
 
-  let config = merge({}, getDefaultApiParams(), shopwarePwaConfig.apiDefaults);
+  let config = merge({}, getDefaultApiParams());
   try {
     /* istanbul ignore next */
     const defaultsConfigBuilder =

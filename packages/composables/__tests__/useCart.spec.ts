@@ -290,9 +290,9 @@ describe("Composables - useCart", () => {
       });
     });
 
-    describe("removeProduct", () => {
+    describe("removeItem", () => {
       it("should add product to cart", async () => {
-        const { count, removeProduct } = useCart();
+        const { count, removeItem } = useCart();
         stateCart.value = {
           lineItems: [{ quantity: 3, type: "product" }],
         };
@@ -300,33 +300,31 @@ describe("Composables - useCart", () => {
         mockedShopwareClient.removeCartItem.mockResolvedValueOnce({
           lineItems: [],
         } as any);
-        await removeProduct({ id: "qwe" });
+        await removeItem({ id: "qwe" } as LineItem);
         expect(count.value).toEqual(0);
       });
 
       it("should invoke client with correct params", async () => {
-        const { removeProduct } = useCart();
+        const { removeItem } = useCart();
         mockedShopwareClient.removeCartItem.mockResolvedValueOnce({} as any);
-        await removeProduct({ id: "qwe" });
+        await removeItem({ id: "qwe" } as LineItem);
         expect(mockedShopwareClient.removeCartItem).toBeCalledWith(
           "qwe",
           rootContextMock.$shopwareApiInstance
         );
       });
 
-      it("should display deprecation message", async () => {
-        const { count, removeProduct } = useCart();
+      it("should remove promotion code from cart", async () => {
+        const { appliedPromotionCodes, removeItem } = useCart();
         stateCart.value = {
-          lineItems: [{ quantity: 3, type: "product" }],
+          lineItems: [{ quantity: 1, type: "promotion" }],
         };
-        expect(count.value).toEqual(3);
+        expect(appliedPromotionCodes.value.length).toEqual(1);
         mockedShopwareClient.removeCartItem.mockResolvedValueOnce({
           lineItems: [],
         } as any);
-        await removeProduct({ id: "qwe" });
-        expect(consoleWarnSpy).toBeCalledWith(
-          '[DEPRECATED][@shopware-pwa/composables][removeProduct] This method has been deprecated. Use "removeItem" instead.'
-        );
+        await removeItem({ id: "qwe" } as LineItem);
+        expect(appliedPromotionCodes.value.length).toEqual(0);
       });
     });
     describe("submitPromotionCode", () => {
@@ -353,31 +351,6 @@ describe("Composables - useCart", () => {
         } as any);
         await addPromotionCode("test-code");
         expect(appliedPromotionCodes.value.length).toEqual(1);
-      });
-    });
-
-    describe("removeItem", () => {
-      it("should remove promotion code from cart", async () => {
-        const { appliedPromotionCodes, removeItem } = useCart();
-        stateCart.value = {
-          lineItems: [{ quantity: 1, type: "promotion" }],
-        };
-        expect(appliedPromotionCodes.value.length).toEqual(1);
-        mockedShopwareClient.removeCartItem.mockResolvedValueOnce({
-          lineItems: [],
-        } as any);
-        await removeItem({ id: "qwe" } as LineItem);
-        expect(appliedPromotionCodes.value.length).toEqual(0);
-      });
-
-      it("should invoke client with correct params", async () => {
-        const { removeProduct } = useCart();
-        mockedShopwareClient.removeCartItem.mockResolvedValueOnce({} as any);
-        await removeProduct({ id: "qwe" });
-        expect(mockedShopwareClient.removeCartItem).toBeCalledWith(
-          "qwe",
-          rootContextMock.$shopwareApiInstance
-        );
       });
     });
 

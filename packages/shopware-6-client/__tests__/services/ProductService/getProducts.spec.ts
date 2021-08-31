@@ -1,6 +1,5 @@
 import { getProducts } from "@shopware-pwa/shopware-6-client";
 import { defaultInstance } from "../../../src/apiService";
-import { Sort } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 const consoleWarnSpy = jest.spyOn(console, "warn");
 
 jest.mock("../../../src/apiService");
@@ -30,11 +29,7 @@ describe("ProductService - getProducts", () => {
     mockedPost.mockResolvedValueOnce({
       data: { total: 3, data: [1, 2, 3] },
     });
-    const pagination = {
-      page: 1,
-      limit: 5,
-    };
-    await getProducts({ pagination });
+    await getProducts({ p: 1, limit: 5 });
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith("/store-api/product", {
       limit: 5,
@@ -45,15 +40,7 @@ describe("ProductService - getProducts", () => {
     mockedPost.mockResolvedValueOnce({
       data: { total: 3, data: [1, 2, 3] },
     });
-    const pagination = {
-      page: 1,
-      limit: 75,
-    };
-    const sort: Sort = {
-      field: `name`,
-      desc: true,
-    };
-    await getProducts({ pagination, sort });
+    await getProducts({ p: 1, limit: 75, sort: "name-asc" });
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith("/store-api/product", {
       limit: 75,

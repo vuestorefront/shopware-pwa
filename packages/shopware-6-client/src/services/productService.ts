@@ -21,10 +21,9 @@ export const getProducts = async function (
   criteria?: ShopwareSearchParams,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<EntityResult<"product", Product[]>> {
-  const resp = await contextInstance.invoke.post(
-    `${getProductEndpoint()}`,
-    criteria
-  );
+  const resp = await contextInstance.invoke.post(`${getProductEndpoint()}`, {
+    ...(criteria || {}),
+  });
   return resp.data;
 };
 

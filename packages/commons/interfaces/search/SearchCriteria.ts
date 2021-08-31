@@ -70,7 +70,7 @@ export interface ListingQueryParams {
 /**
  * @beta
  */
-export interface ShopwareSearchParams {
+export type ShopwareSearchParams = {
   p?: number | undefined;
   limit?: number | undefined;
   sort?: string | undefined;
@@ -82,4 +82,4 @@ export interface ShopwareSearchParams {
   manufacturer?: string | undefined | never[];
   includes?: Includes;
   query?: string;
-}
+};

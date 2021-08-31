@@ -256,9 +256,7 @@ describe("Composables - useOrderDetails", () => {
         expect(order.value).toBeNull();
       });
       it("should return undefined for computed values that depends on order object fetched from order details endpoint - in case of undefined response", async () => {
-        mockedAxios.getCustomerOrderDetails.mockResolvedValueOnce(
-          undefined as any
-        );
+        mockedAxios.getOrderDetails.mockResolvedValueOnce(undefined as any);
         const {
           loadOrderDetails,
           order,
