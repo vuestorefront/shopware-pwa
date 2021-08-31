@@ -1,3 +1,23 @@
+# [1.0.0-RC.1](https://github.com/DivanteLtd/shopware-pwa/compare/v0.10.0...v1.0.0-RC.1) (2021-08-31)
+
+
+### Bug Fixes
+
+* **client:** pass parameters correctly within getProduct method ([#1616](https://github.com/DivanteLtd/shopware-pwa/issues/1616)) ([d402333](https://github.com/DivanteLtd/shopware-pwa/commit/d402333b2bd23c4c0978c9cffeee509686c51dc2))
+* **default-theme:** static page detection ([#1630](https://github.com/DivanteLtd/shopware-pwa/issues/1630)) ([b3c40c5](https://github.com/DivanteLtd/shopware-pwa/commit/b3c40c550606d039e4ebcba98485c15eb5656d4b))
+* **nuxt-module:** language switcher ([#1636](https://github.com/DivanteLtd/shopware-pwa/issues/1636)) ([6304681](https://github.com/DivanteLtd/shopware-pwa/commit/6304681b5a7d1ba48f7dffa151c96487cb2eb243))
+* **nuxt-module:** resolve single vue instance + bump dependencies ([#1631](https://github.com/DivanteLtd/shopware-pwa/issues/1631)) ([91c730b](https://github.com/DivanteLtd/shopware-pwa/commit/91c730bf351833b215ee82ef04c400d286ac3d08))
+
+
+### Features
+
+* **composables:** remove the need for rootContext and add cms context in useCms ([#1637](https://github.com/DivanteLtd/shopware-pwa/issues/1637)) ([8806738](https://github.com/DivanteLtd/shopware-pwa/commit/8806738c63be04059d5c510c3ace8bfbe1033997))
+* **docs:** add docs versioning ([f049304](https://github.com/DivanteLtd/shopware-pwa/commit/f0493048550843370fa06d756a7976d918b20296))
+* **docs:** cache doc versions ([343dd3b](https://github.com/DivanteLtd/shopware-pwa/commit/343dd3bcbeccbee4317f9783d777565bbc3e4b85))
+* allow different domains for different locales ([#1577](https://github.com/DivanteLtd/shopware-pwa/issues/1577)) ([16be35d](https://github.com/DivanteLtd/shopware-pwa/commit/16be35d2e4d68f3f21f7a3c91ea38ecf4f565bac))
+
+
+
 # [0.10.0](https://github.com/DivanteLtd/shopware-pwa/compare/v0.9.1...v0.10.0) (2021-08-12)
 
 
