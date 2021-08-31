@@ -21,66 +21,10 @@ import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCr
 import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 
 // @alpha (undocumented)
-export interface CategoryFilterEntityValue {
-    // (undocumented)
-    colorHexCode: null | string;
-    // (undocumented)
-    customFields: any;
-    // (undocumented)
-    description: string | null;
-    // (undocumented)
-    name: string;
-}
-
-// @alpha (undocumented)
-export interface CategoryFilterEntityValues {
-    // (undocumented)
-    [valueId: string]: CategoryFilterEntityValue;
-}
-
-// @alpha (undocumented)
-export interface CategoryFilterRangeValues {
-    // (undocumented)
-    max: string;
-    // (undocumented)
-    min: string;
-}
-
-// @alpha (undocumented)
-export interface CategoryFilterTermValue {
-    // (undocumented)
-    count: number;
-    // (undocumented)
-    extensions: any;
-    // (undocumented)
-    key: string;
-}
-
-// @alpha (undocumented)
 export function debounce<T extends (...args: any[]) => any>(fn: T, delay?: number): T;
 
 // @alpha (undocumented)
 export function exportUrlQuery(searchCriteria: SearchCriteria): string | undefined;
-
-// @alpha (undocumented)
-export interface Filter {
-    // (undocumented)
-    [filterCode: string]: {
-        type: UiCategoryFilterType;
-        name: string;
-        values: CategoryFilterRangeValues | CategoryFilterEntityValues | CategoryFilterTermValue[];
-    };
-}
-
-// @alpha (undocumented)
-export function getCategoryAvailableFilters({ filters, }?: {
-    filters?: Filter;
-}): UiCategoryFilter[];
-
-// @alpha (undocumented)
-export function getCategoryAvailableSorting({ sorting, }?: {
-    sorting?: Sorting;
-}): UiCategorySorting[];
 
 // @beta
 export const getCategoryUrl: (category: Partial<Category>) => string;
@@ -255,15 +199,6 @@ export function mapSalutations(salutations: Salutation[]): MappedSalutation[];
 
 // @alpha (undocumented)
 export function parseUrlQuery(query: any): SearchCriteria;
-
-// @alpha (undocumented)
-export interface Sorting {
-    // (undocumented)
-    [sortingCode: string]: {
-        key: string;
-        active: boolean;
-    };
-}
 
 // @alpha (undocumented)
 export interface SwSorting {
