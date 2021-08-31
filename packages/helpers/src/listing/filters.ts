@@ -143,8 +143,6 @@ export const getSortingSearchCriteria = (selectedSorting: SwSorting): Sort => {
  * @beta
  */
 export function toggleSearchFilter(currentFilters: any, filter: ListingFilter) {
-  console.error("current filter", currentFilters);
-  console.error("filter to toggle", filter);
   let resultFilterValue = undefined;
   if (["range", "max"].includes(filter.type || "")) {
     if (filter.value) resultFilterValue = filter.value;

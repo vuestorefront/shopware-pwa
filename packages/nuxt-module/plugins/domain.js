@@ -52,6 +52,7 @@ export default async ({ app, route, req }, inject) => {
         const detectedHost =
           req.headers["x-forwarded-host"] || req.headers.host;
         hostname = Array.isArray(detectedHost) ? detectedHost[0] : detectedHost;
+        hostname = hostname?.split(":")?.[0]; // remove port
         pathname = req.originalUrl;
       }
 
@@ -80,7 +81,8 @@ export default async ({ app, route, req }, inject) => {
         if (matchingDomainConfig) return matchingDomainConfig;
 
         console.error(
-          `[Error][Shopware PWA] There is no domain configuration for ${hostname} - add this host to config and run domains configuration. (https://shopware-pwa-docs.vuestorefront.io/landing/cookbook/#how-to-add-another-language)`
+          `[Error][Shopware PWA] There is no domain configuration for ${hostname} - add this host to config and run domains configuration. (https://shopware-pwa-docs.vuestorefront.io/landing/cookbook/#how-to-add-another-language)`,
+          domainsList
         );
       }
     };

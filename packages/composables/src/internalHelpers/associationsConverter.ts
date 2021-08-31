@@ -1,4 +1,4 @@
-import { Association } from "@shopware-pwa/commons/interfaces/search/Association";
+import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Association";
 
 const extractSubProperties = (associations: any, aggregator: string[]) => {
   if (!Array.isArray(associations)) {
@@ -11,7 +11,9 @@ const extractSubProperties = (associations: any, aggregator: string[]) => {
   }
 };
 
-export const convertAssociationsToGetParams = (associations: Association[]) => {
+export const convertAssociationsToGetParams = (
+  associations: ShopwareAssociation[]
+) => {
   if (!Array.isArray(associations)) {
     return;
   }

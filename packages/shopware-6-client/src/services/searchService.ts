@@ -1,29 +1,7 @@
 import { getSuggestSearchEndpoint, getSearchEndpoint } from "../endpoints";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
-import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { convertShopwareSearchCriteria } from "../helpers/searchConverter";
 import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-
-/**
- * @throws ClientApiError
- * @deprecated use searchProducts instead
- * @beta
- */
-export async function getSearchResults(
-  term: string,
-  searchCriteria?: SearchCriteria,
-  contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<ProductListingResult> {
-  const resp = await contextInstance.invoke.post(
-    `${getSearchEndpoint()}?search=${term}`,
-    {
-      ...convertShopwareSearchCriteria(searchCriteria),
-    }
-  );
-
-  return resp.data;
-}
 
 /**
  * Search for products based on criteria.

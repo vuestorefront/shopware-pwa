@@ -82,9 +82,7 @@ export default {
       try {
         const result = await getProducts(
           {
-            configuration: {
-              ids: itemIds || items.value,
-            },
+            ids: itemIds || items.value,
           },
           apiInstance
         )

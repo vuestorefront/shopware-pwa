@@ -4,14 +4,6 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 import { Aggregation } from "@shopware-pwa/commons/interfaces/search/Aggregation";
 
 /**
- * @deprecated use CmsPageType instead
- */
-export enum PageType {
-  PRODUCT_DETAIL_PAGE = "frontend.detail.page",
-  NAVIGATION_PAGE = "frontend.navigation.page",
-}
-
-/**
  * Cms page resource type
  *
  * @beta

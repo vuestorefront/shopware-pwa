@@ -4,8 +4,7 @@ import {
   StoreNavigationElement,
   StoreNavigationType,
 } from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
-import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { convertSearchCriteria, ApiType } from "../helpers/searchConverter";
+import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
  * @alpha
@@ -24,7 +23,7 @@ export interface GetStoreNavigationParams {
   requestRootId: StoreNavigationType;
   depth?: number;
   buildTree?: boolean;
-  searchCriteria?: SearchCriteria;
+  searchCriteria?: ShopwareSearchParams;
 }
 
 /**
@@ -44,11 +43,7 @@ export async function getStoreNavigation(
   const resp = await contextInstance.invoke.post(
     getStoreNavigationEndpoint(requestActiveId, requestRootId),
     {
-      ...convertSearchCriteria({
-        searchCriteria,
-        apiType: ApiType.store,
-        config: contextInstance.config,
-      }),
+      ...(searchCriteria || {}),
       ...{
         depth,
         buildTree,

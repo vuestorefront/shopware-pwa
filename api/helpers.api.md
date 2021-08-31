@@ -18,9 +18,7 @@ import { Product } from '@shopware-pwa/commons/interfaces/models/content/product
 import { PropertyGroupOption } from '@shopware-pwa/commons/interfaces/models/content/property/PropertyGroupOption';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
-import { ShopwareError } from '@shopware-pwa/commons/interfaces/errors/ApiError';
 import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
-import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 
 // @alpha (undocumented)
 export interface CategoryFilterEntityValue {
@@ -111,9 +109,6 @@ export function getListingAvailableFilters(aggregations: Aggregations | undefine
 // @beta (undocumented)
 export function getListingFilters(aggregations: Aggregations | undefined | null): ListingFilter[];
 
-// @alpha @deprecated
-export function getMessagesFromErrorsArray(errors: ShopwareError[]): string[];
-
 // @alpha
 export function getOrderPaymentMethodId(order: Order): string | undefined;
 
@@ -176,16 +171,10 @@ export function getProductProperties({ product, }?: {
 // @alpha
 export function getProductRatingAverage(product: Product): number | null;
 
-// @beta @deprecated
-export function getProductRegularPrice(product: Product): number | undefined;
-
 // @alpha (undocumented)
 export function getProductReviews({ product, }?: {
     product?: Product;
 }): UiProductReview[];
-
-// @alpha @deprecated
-export function getProductSpecialPrice(product: Product): number | undefined;
 
 // @beta
 export function getProductThumbnailUrl(product: Product): string;
@@ -199,9 +188,6 @@ export function getProductUrl(product: Product | null): string;
 // @alpha (undocumented)
 export const getSortingSearchCriteria: (selectedSorting: SwSorting) => Sort;
 
-// @beta @deprecated (undocumented)
-export function getStoreNavigationRoutes(navigationElements: StoreNavigationElement[]): StoreNavigationRoute[];
-
 // @alpha (undocumented)
 export function getVariantOptionsLabel({ product, }?: {
     product?: Product;
@@ -209,11 +195,6 @@ export function getVariantOptionsLabel({ product, }?: {
 
 // @beta (undocumented)
 export const isLinkCategory: (category: Partial<Category>) => boolean;
-
-// @beta @deprecated
-export function isOptionAvailableForSelectedOptions(currentAttribute: string, selectedOptionId: string, { code: optionId }: UiProductOption | undefined, allOptions: any, allSelectedOptions: {
-    [key: string]: string;
-}): boolean;
 
 // @beta (undocumented)
 export function isProductSimple({ product, }?: {
@@ -282,18 +263,6 @@ export interface Sorting {
         key: string;
         active: boolean;
     };
-}
-
-// @beta (undocumented)
-export interface StoreNavigationRoute {
-    // (undocumented)
-    children?: StoreNavigationRoute[] | null;
-    // (undocumented)
-    isExternal: boolean;
-    // (undocumented)
-    routeLabel: string;
-    // (undocumented)
-    routePath: string | undefined;
 }
 
 // @alpha (undocumented)

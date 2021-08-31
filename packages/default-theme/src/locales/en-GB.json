@@ -253,5 +253,10 @@
   "Order summary": "Order summary",
   "Close": "Close",
   "Street and house number": "Street and house number",
-  "Read all": "Read all"
+  "Read all": "Read all",
+  "Size": "Size",
+  "Min": "Min",
+  "Color": "Color",
+  "Properties": "Properties",
+  "Promotion code": "Promotion code"
 }

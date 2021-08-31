@@ -46,10 +46,8 @@ export function useProduct(params?: {
     }
 
     const searchCriteria = {
-      configuration: {
-        includes: getIncludesConfig(),
-        associations: getAssociationsConfig(),
-      },
+      includes: getIncludesConfig(),
+      associations: getAssociationsConfig(),
     };
 
     const urlPath = `detail/${product.value.parentId || product.value.id}`;

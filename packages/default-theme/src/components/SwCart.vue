@@ -131,15 +131,13 @@ export default {
       try {
         const result = await getProducts(
           {
-            configuration: {
-              ids: cartItems.value.map(({ referencedId }) => referencedId),
-              includes: {
-                product: ["id", "seoUrls"],
-                seo_url: ["seoPathInfo"],
-              },
-              associations: {
-                seoUrls: {},
-              },
+            ids: cartItems.value.map(({ referencedId }) => referencedId),
+            includes: {
+              product: ["id", "seoUrls"],
+              seo_url: ["seoPathInfo"],
+            },
+            associations: {
+              seoUrls: {},
             },
           },
           apiInstance

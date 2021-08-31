@@ -12,5 +12,5 @@ Get default amount of products
 <b>Signature:</b>
 
 ```typescript
-getProducts: (searchCriteria?: SearchCriteria | undefined, contextInstance?: ShopwareApiInstance) => Promise<EntityResult<"product", Product[]>>
+getProducts: (criteria?: ShopwareSearchParams | undefined, contextInstance?: ShopwareApiInstance) => Promise<EntityResult<"product", Product[]>>
 ```

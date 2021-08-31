@@ -17,7 +17,6 @@ import {
   useVueContext,
 } from "@shopware-pwa/composables";
 import merge from "lodash/merge";
-import { PageBreadcrumb } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
 /**
  * @beta
@@ -31,20 +30,12 @@ export function useCms(params?: {
   page: ComputedRef<
     PageResolverProductResult | PageResolverResult<CmsPage> | null
   >;
-  /**
-   * @deprecated - use resourceIdentifier computed property instead
-   */
-  categoryId: ComputedRef<string | null>;
   resourceType: ComputedRef<CmsPageType | null>;
   resourceIdentifier: ComputedRef<string | null>;
   currentSearchPathKey: ComputedRef<string | null>;
   loading: Ref<boolean>;
   search: (path: string, query?: any) => Promise<void>;
   error: Ref<any>;
-  /**
-   * @deprecated use useBreadcrumbs instead. Remove after v0.8
-   */
-  getBreadcrumbsObject: ComputedRef<PageBreadcrumb>;
 } {
   const COMPOSABLE_NAME = "useCms";
 
@@ -74,10 +65,8 @@ export function useCms(params?: {
   const { getDefaults } = useDefaults({ defaultsKey: COMPOSABLE_NAME });
   const { setBreadcrumbs } = useBreadcrumbs();
   const page = computed(() => _storePage.value);
-  /**
-   * @deprecated - use resourceIdentifier computed property instead
-   */
-  const categoryId = computed(() => {
+
+  const resourceIdentifier = computed(() => {
     // each cms page is in relation one-to-one with categoryId (resourceIdentifier)
     return page.value?.resourceIdentifier || null;
   });
@@ -108,18 +97,11 @@ export function useCms(params?: {
 
   return {
     page,
-    categoryId,
     loading: computed(() => _cmsLoading.value || false),
     search,
     currentSearchPathKey: computed(() => _searchPath.value),
     error: computed(() => _cmsError.value),
-    /**
-     * @deprecated use useBreadcrumbs instead. Remove after v0.8
-     */
-    getBreadcrumbsObject: computed(
-      () => (page.value && (page.value as any).breadcrumb) || {}
-    ),
     resourceType: computed(() => page.value?.resourceType || null),
-    resourceIdentifier: categoryId,
+    resourceIdentifier,
   };
 }

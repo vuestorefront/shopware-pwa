@@ -5,7 +5,6 @@ import {
   MultiFilter,
   EqualsAnyFilter,
 } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
-import { Association } from "@shopware-pwa/commons/interfaces/search/Association";
 import { Aggregation } from "@shopware-pwa/commons/interfaces/search/Aggregation";
 import { TotalCountMode } from "@shopware-pwa/commons/interfaces/search/TotalCountMode";
 import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Association";
@@ -48,7 +47,7 @@ export interface SearchCriteria {
   configuration?: {
     displayParents?: boolean;
     grouping?: Grouping;
-    associations?: Association[] | ShopwareAssociation;
+    associations?: ShopwareAssociation;
     aggregations?: Aggregation[];
     totalCountMode?: TotalCountMode;
     includes?: Includes;
@@ -76,6 +75,7 @@ export interface ShopwareSearchParams {
   limit?: number | undefined;
   sort?: string | undefined;
   term?: string | undefined;
+  ids?: string[];
   associations?: ShopwareAssociation;
   grouping?: Grouping;
   properties?: string | undefined | never[];

@@ -15,14 +15,12 @@ export declare function useCms(params?: {
     cmsContextName?: string;
 }): {
     page: ComputedRef<PageResolverProductResult | PageResolverResult<CmsPage> | null>;
-    categoryId: ComputedRef<string | null>;
     resourceType: ComputedRef<CmsPageType | null>;
     resourceIdentifier: ComputedRef<string | null>;
     currentSearchPathKey: ComputedRef<string | null>;
     loading: Ref<boolean>;
     search: (path: string, query?: any) => Promise<void>;
     error: Ref<any>;
-    getBreadcrumbsObject: ComputedRef<PageBreadcrumb>;
 };
 ```
 
@@ -34,5 +32,5 @@ export declare function useCms(params?: {
 
 <b>Returns:</b>
 
-{ page: ComputedRef&lt;PageResolverProductResult \| PageResolverResult&lt;CmsPage&gt; \| null&gt;; categoryId: ComputedRef&lt;string \| null&gt;; resourceType: ComputedRef&lt;CmsPageType \| null&gt;; resourceIdentifier: ComputedRef&lt;string \| null&gt;; currentSearchPathKey: ComputedRef&lt;string \| null&gt;; loading: Ref&lt;boolean&gt;; search: (path: string, query?: any) =&gt; Promise&lt;void&gt;; error: Ref&lt;any&gt;; getBreadcrumbsObject: ComputedRef&lt;PageBreadcrumb&gt;; }
+{ page: ComputedRef&lt;PageResolverProductResult \| PageResolverResult&lt;CmsPage&gt; \| null&gt;; resourceType: ComputedRef&lt;CmsPageType \| null&gt;; resourceIdentifier: ComputedRef&lt;string \| null&gt;; currentSearchPathKey: ComputedRef&lt;string \| null&gt;; loading: Ref&lt;boolean&gt;; search: (path: string, query?: any) =&gt; Promise&lt;void&gt;; error: Ref&lt;any&gt;; }
 
