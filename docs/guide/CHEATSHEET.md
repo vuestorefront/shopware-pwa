@@ -41,7 +41,7 @@ Note: You can skip this section if you just want to try the PWA. It will be prec
 2.  Run `yarn` in the root and then `yarn build --types`.
 3.  Go anywhere outside the project
 4.  Create your own project directory `mkdir my-project` and go inside `cd my-project`
-5.  run `npx @shopware-pwa/cli@canary init` or `shopware-pwa init` for the globally installed package
+5.  run `npx @shopware-pwa/cli init` or `shopware-pwa init` for the globally installed package
 6.  run `yarn dev`
 7.  Your application will be available on [http://localhost:3000](http://localhost:3000)
 
@@ -59,7 +59,7 @@ module.exports = {
 };
 ```
 
-3. run again `npx @shopware-pwa/cli@canary init` (or `shopware-pwa init`) and then `yarn dev`
+3. run again `npx @shopware-pwa/cli init` (or `shopware-pwa init`) and then `yarn dev`
 
 ##### Developing Shopware PWA
 

@@ -31,7 +31,7 @@ cd ./my-shopware-pwa
 initialize project inside directory
 
 ```bash
-npx @shopware-pwa/cli@canary init
+npx @shopware-pwa/cli init
 ```
 
 after this you're connected to our test shopware instance and ready to run project locally

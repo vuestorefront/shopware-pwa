@@ -49,7 +49,7 @@ This token protects highly sensitive data and should never be persisted in other
 The Admin API is used to synchronise your PWA project with your Shopware 6 backend. This connection is only required during build time when running one of the following commands. The `shopware-pwa` CLI uses it to request resources from Shopware plugins and install them.
 
 ```sh
-$ npx @shopware-pwa/cli@canary init 		# Initialize a new project
+$ npx @shopware-pwa/cli init 		# Initialize a new project
 $ yarn shopware-pwa plugins 		        # Refresh plugins from SW instance
 ```
 
@@ -77,37 +77,7 @@ $ npx shopware-pwa/cli plugins --ci --username [user] --password [pass]
 
 ## Context-Awareness <Badge text="new (0.2.0)" type="info"/>
 
-As described above, `universal` applications may share the data between different server requests. It's very important to keep this in mind. To ensure, that data is always assiociated with the correct invocation we introduced `context awareness` for both - client and composables logic.
-
-### Composables
-
-To ensure, that the whole logic is connected, we now require that every composable usage needs to have th `Vue` context as its first parameter. It's effortless and straightforward but ensures that all data is secured.
-
-```js
-import { useUser } from "@shopware-pwa/composables"
-
-// later in component
-setup(props, { root }) {
-  const { isLoggedIn } = useUser(root) // you're passing root to any composable as a first argument
-}
-```
-
-`root` is an equivalent of the component context `this`, so we're passing our Vue instance. In asyncData and Nuxt plugins, we use `app` instead.
-
-```js
-import { useUser } from "@shopware-pwa/composables"
-
-// later in component
-asyncData: async ({ params, app, }) => {
-  const { isLoggedIn } = useUser(app)
-})
-```
-
-If you don't pass the Vue instance context to the composable, you'll see the following security warning.
-
-![composables context security warning](../../assets/composables-context-security-warning.png)
-
-It means that somewhere you're invoking `useAddToCart` without passing the root. Find that in your code and add the context to fix it.
+As described above, `universal` applications may share the data between different server requests. It's very important to keep this in mind. To ensure, that data is always assiociated with the correct invocation we introduced `context awareness` forclient logic.
 
 ### API Client
 
@@ -136,6 +106,40 @@ setup(params, {root}) {
 ```
 
 You should check all your imports for `@shopware-pwa/shopware-6-client` and add `apiInstance` as the last parameter.
+
+### Composables
+
+::: warning Deprecated section
+From `1.0.0-RC.1` Context awareness in composables is handled automatically. You don't need to add the `root` property to your composable.
+:::
+
+To ensure, that the whole logic is connected, we now require that every composable usage needs to have th `Vue` context as its first parameter. It's effortless and straightforward but ensures that all data is secured.
+
+```js
+import { useUser } from "@shopware-pwa/composables"
+
+// later in component
+setup(props, { root }) {
+  const { isLoggedIn } = useUser(root) // you're passing root to any composable as a first argument
+}
+```
+
+`root` is an equivalent of the component context `this`, so we're passing our Vue instance. In asyncData and Nuxt plugins, we use `app` instead.
+
+```js
+import { useUser } from "@shopware-pwa/composables"
+
+// later in component
+asyncData: async ({ params, app, }) => {
+  const { isLoggedIn } = useUser(app)
+})
+```
+
+If you don't pass the Vue instance context to the composable, you'll see the following security warning.
+
+![composables context security warning](../../assets/composables-context-security-warning.png)
+
+It means that somewhere you're invoking `useAddToCart` without passing the root. Find that in your code and add the context to fix it.
 
 **Additional resources**
 

@@ -20,7 +20,7 @@ cd ./my-shopware-pwa
 Initialize the project inside the directory by running
 
 ```bash
-npx @shopware-pwa/cli@canary init
+npx @shopware-pwa/cli init
 ```
 
 It will ask for the address to your shopware instance, access token, and admin credentials to load plugins. Only the first two are required to start the instance, and default settings will point to our demo instance.
@@ -41,6 +41,25 @@ After roughly 30 seconds, your application will be available locally on [http://
 
 ![shopware-pwa after init](./../assets/shopware_pwa_init.png)
 
+### Create project with specific version
+
+You can initialize a project with a specific version of shopware-pwa by passing the version in CLI invocation.
+
+```bash
+npx @shopware-pwa/cli init # latest stable version (recommended for production)
+
+npx @shopware-pwa/cli@canary init # latest canary version (master branch) for development
+npx @shopware-pwa/cli@0.9.2 init # specific choosen version
+```
+
+after the project is initialized you can invoke CLI commands by tying:
+
+```bash
+yarn shopware-pwa <command>
+```
+
+this will take the version, which is defined in your `package.json` file. When you'll upgrade the version in your `package.json` file, you can use the `yarn shopware-pwa init` command to update the project configuration.
+
 ### Configure the backend connection
 
 Instead of using the interactive CLI to configure your backend connection, you can also define the parameters in a file
@@ -52,9 +71,10 @@ Instead of using the interactive CLI to configure your backend connection, you c
 module.exports = {
   shopwareEndpoint: "https://shopware6-demo.vuestorefront.io",
   shopwareAccessToken: "SWSCVJJET0RQAXFNBMTDZTV1OQ",
-  shopwareApiClient: { // optional, allow to override the default settings
+  shopwareApiClient: {
+    // optional, allow to override the default settings
     timeout: 5000, // timeout limit in ms
-  }
+  },
 };
 ```
 

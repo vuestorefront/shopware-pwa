@@ -6,12 +6,12 @@ The only Official Progressive Web App for <a href="https://github.com/shopware/p
 
 &nbsp;
 
-
 ### Supported versions of Shopware 6
-| Shopware PWA version                                                | Shopware 6 version                                                                                                                |
-| :------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------- |
-| [![shopware-ver](https://img.shields.io/badge/shopware&#8211;pwa-0.10.x-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v0.10.0)                                                               | [![shopware-ver](https://img.shields.io/badge/Shopware-6.4.x-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.3.x-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.3.0)        |
-| [![shopware-ver](https://img.shields.io/badge/shopware&#8211;pwa-0.8.2-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v0.8.2)                                                               | [![shopware-ver](https://img.shields.io/badge/Shopware-6.3.x-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.2.1-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.2.1)       |
+
+| Shopware PWA version                                                                                                                          | Shopware 6 version                                                                                                                                                                                                                                                     |
+| :-------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [![shopware-ver](https://img.shields.io/badge/shopware–pwa-0.10.x-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v0.10.0) | [![shopware-ver](https://img.shields.io/badge/Shopware-6.4.x-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.3.x-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.3.0) |
+| [![shopware-ver](https://img.shields.io/badge/shopware–pwa-0.8.2-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v0.8.2)   | [![shopware-ver](https://img.shields.io/badge/Shopware-6.3.x-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.2.1-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.2.1) |
 
 &nbsp;
 
@@ -20,7 +20,6 @@ The only Official Progressive Web App for <a href="https://github.com/shopware/p
 See the [official documentation](https://shopware-pwa-docs.vuestorefront.io) to get started.
 
 You can find there: fundamentials, concepts, migration guides, cookbook, troubleshooting and many many more.
-
 
 &nbsp;
 
@@ -78,7 +77,7 @@ cd ./my-shopware-pwa
 initialize project inside the directory
 
 ```bash
-npx @shopware-pwa/cli@canary init
+npx @shopware-pwa/cli init
 ```
 
 It will ask for the address to yous shopware instance, access token, and admin credentials to load plugins. Only the first two are required to start the instance, and default settings will point to our demo instance. Then you can just begin local development by typing:
@@ -106,7 +105,7 @@ module.exports = {
 };
 ```
 
-3. run again `npx @shopware-pwa/cli@canary init` (to refresh plugins from instance) and then `yarn dev`
+3. run again `npx @shopware-pwa/cli init` (to refresh plugins from instance) and then `yarn dev`
 
 Read full instruction in `CHEATSHEET.md` file.
 
@@ -115,7 +114,7 @@ Read full instruction in `CHEATSHEET.md` file.
 If you already have some Shopware PWA plugins installed (like [HelloCody](https://github.com/elkmod/SwagHelloCody) plugin example), then you can generate plugin files
 
 ```bash
-npx @shopware-pwa/cli@canary init
+npx @shopware-pwa/cli init
 ```
 
 or, for CLI installed globally
@@ -136,7 +135,6 @@ To see the project, go to `./test-project` and run `yarn dev`. The project will 
 You can test changes directly in ignored test-project directory or make changes inside packages (for example default-theme).
 
 A more advanced development guide will be available soon.
-
 
 ---
 

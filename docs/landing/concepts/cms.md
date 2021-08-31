@@ -145,7 +145,7 @@ Now that we have a proper understanding of all the components involved, we can l
 
 ## Implementation and Extension
 
-After that introduction we can start finding our way around `shopware-pwa`. After you have initialized a new project using the `npx @shopware-pwa/cli@canary init` command, you will find a directory named `/cms` in your root. This will be your working area for the custom cms components (or the ones you override). Let's put that aside at the beginning and take a look into the internals to help us understand the process.
+After that introduction we can start finding our way around `shopware-pwa`. After you have initialized a new project using the `npx @shopware-pwa/cli init` command, you will find a directory named `/cms` in your root. This will be your working area for the custom cms components (or the ones you override). Let's put that aside at the beginning and take a look into the internals to help us understand the process.
 
 :::warning NOTE
 The CMS implementation as well as the extension mechanism for it is part of the default-theme implementation. If you are creating a custom theme from scratch, be aware that you won't be able to use the mechanics described below.

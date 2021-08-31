@@ -113,8 +113,8 @@ export default async ({ app }) => {
 You can broadcast your custom events accross application. Your custom event will not be defined in `INTERCEPTOR_KEYS`, so you can broadcast your event like this:
 
 ```js
-  setup(props, { root }) {
-    const { broadcast } = useIntercept(root)
+  setup(props) {
+    const { broadcast } = useIntercept()
 
     const yourMethod = async () => {
       // ...some action

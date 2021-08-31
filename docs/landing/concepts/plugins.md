@@ -1,10 +1,10 @@
 # Plugins
 
-`npx @shopware-pwa/cli@canary init` (or `shopware-pwa init`) will take the resources from each plugin `Resources/app/pwa` directory and place it in your project. Plugin installation date determines whether it's "on top" of other plugins (newest installation date means that plugin is on top if there are more than one plugin injected to theme slot)
+`npx @shopware-pwa/cli init` will take the resources from each plugin `Resources/app/pwa` directory and place it in your project. Plugin installation date determines whether it's "on top" of other plugins (newest installation date means that plugin is on top if there are more than one plugin injected to theme slot)
 
 ## Creating plugin
 
-Plugin development can be easily made locally. First, we need to choose where would we want to plug into. To see all available plugin slots we may want to select `yes` during `npx @shopware-pwa/cli@canary init` (or `shopware-pwa init`) command when it asks to allow dev mode.
+Plugin development can be easily made locally. First, we need to choose where would we want to plug into. To see all available plugin slots we may want to select `yes` during `npx @shopware-pwa/cli init` command when it asks to allow dev mode.
 
 ![cli plugin dev mode](./../../assets/cli-plugin-dev-mode.png)
 
