@@ -113,7 +113,7 @@ export default {
   },
   setup() {
     const { apiInstance } = getApplicationContext({ contextName: "SwCart" })
-    const { cartItems, count, totalPrice, removeProduct } = useCart()
+    const { cartItems, count, totalPrice } = useCart()
     const { isOpen: isSidebarOpen, switchState: toggleSidebar } = useUIState({
       stateName: "CART_SIDEBAR_STATE",
     })
@@ -169,7 +169,6 @@ export default {
       cartItems: getCartProducts,
       count,
       totalPrice,
-      removeProduct,
       additionalItemsData,
       filterPrice: usePriceFilter(),
     }

@@ -43,10 +43,9 @@ export default {
     }
   },
   setup() {
-    const { cartItems, removeProduct } = useCart()
+    const { cartItems } = useCart()
     return {
       cartItems,
-      removeProduct,
     }
   },
 }

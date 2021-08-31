@@ -59,7 +59,6 @@ import { clickOutside } from "@storefront-ui/vue/src/utilities/directives"
 import SwButton from "@/components/atoms/SwButton.vue"
 import {
   getProductMainImageUrl,
-  getProductRegularPrice,
   getProductUrl,
   getProductCalculatedListingPrice,
   getProductCalculatedPrice,
