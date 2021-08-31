@@ -2,7 +2,7 @@ import { PaymentMethod } from "./PaymentMethod";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface PaymentMethodTranslation {
   paymentMethodId: string;

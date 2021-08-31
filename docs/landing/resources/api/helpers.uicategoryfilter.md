@@ -4,9 +4,6 @@
 
 ## UiCategoryFilter interface
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 
 <b>Signature:</b>
 
@@ -18,7 +15,7 @@ export interface UiCategoryFilter
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [name](./helpers.uicategoryfilter.name.md) | string | <b><i>(BETA)</i></b> |
-|  [options](./helpers.uicategoryfilter.options.md) | [UiCategoryFilterOption](./helpers.uicategoryfilteroption.md)<!-- -->\[\] \| [UiCategoryRangeFilterOption](./helpers.uicategoryrangefilteroption.md) \| any | <b><i>(BETA)</i></b> |
-|  [type](./helpers.uicategoryfilter.type.md) | [UiCategoryFilterType](./helpers.uicategoryfiltertype.md) | <b><i>(BETA)</i></b> |
+|  [name](./helpers.uicategoryfilter.name.md) | string |  |
+|  [options](./helpers.uicategoryfilter.options.md) | [UiCategoryFilterOption](./helpers.uicategoryfilteroption.md)<!-- -->\[\] \| [UiCategoryRangeFilterOption](./helpers.uicategoryrangefilteroption.md) \| any |  |
+|  [type](./helpers.uicategoryfilter.type.md) | [UiCategoryFilterType](./helpers.uicategoryfiltertype.md) |  |
 

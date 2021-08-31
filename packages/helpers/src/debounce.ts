@@ -1,5 +1,7 @@
 /**
- * @alpha
+ * Debouce helper to invoke a method with a delay
+ *
+ * @public
  */
 export function debounce<T extends (...args: any[]) => any>(
   fn: T,

@@ -5,7 +5,7 @@ import { Currency } from "../currency/Currency";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface SalesChannelDomain {
   url: string;

@@ -1,7 +1,7 @@
 import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
 
 /**
- * @alpha
+ * @public
  */
 export interface MappedSalutation {
   name: string | null;
@@ -12,7 +12,7 @@ export interface MappedSalutation {
  * Map available salutations to (`name`: string, `id`: string) format
  *
  * @returns MappedSalutations
- * @alpha
+ * @public
  **/
 export function mapSalutations(salutations: Salutation[]): MappedSalutation[] {
   if (!salutations?.length) return [];

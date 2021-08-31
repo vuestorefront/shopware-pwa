@@ -1,7 +1,7 @@
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface CustomerGroup {
   id: string;

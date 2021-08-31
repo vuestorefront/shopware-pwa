@@ -17,7 +17,7 @@ interface Error {
 }
 
 /**
- * @alpha
+ * @public
  */
 export interface ErrorResponse {
   errors: Error[];

@@ -6,7 +6,7 @@ import { Media } from "../../content/media/Media";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface OrderLineItem {
   orderId: string;

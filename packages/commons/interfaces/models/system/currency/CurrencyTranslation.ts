@@ -2,7 +2,7 @@ import { Currency } from "./Currency";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface CurrencyTranslation {
   currencyId: string;

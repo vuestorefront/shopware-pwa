@@ -3,7 +3,7 @@ import { TaxRule } from "../../../system/tax/TaxRule";
 import { ReferencePrice } from "./ReferencePrice";
 
 /**
- * @alpha
+ * @public
  */
 export interface CalculatedPrice {
   unitPrice: number;

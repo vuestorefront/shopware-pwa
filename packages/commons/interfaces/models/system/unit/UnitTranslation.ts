@@ -2,7 +2,7 @@ import { Unit } from "./Unit";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface UnitTranslation {
   unitId: string;

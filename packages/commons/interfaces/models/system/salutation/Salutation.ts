@@ -1,7 +1,7 @@
 import { SalutationTranslation } from "./SalutationTranslation";
 
 /**
- * @alpha
+ * @public
  */
 export interface Salutation {
   salutationKey: string;

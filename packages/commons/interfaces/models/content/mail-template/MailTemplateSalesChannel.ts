@@ -2,7 +2,7 @@ import { SalesChannel } from "../../system/sales-channel/SalesChannel";
 import { MailTemplateType } from "./MailTemplateType";
 
 /**
- * @alpha
+ * @public
  */
 export interface MailTemplateSalesChannel {
   mailTemplateId: string;

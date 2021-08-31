@@ -3,7 +3,7 @@ import { SalesChannelDomain } from "../../system/sales-channel/SalesChannelDomai
 import { Snippet } from "./Snippet";
 
 /**
- * @alpha
+ * @public
  */
 export interface SnippetSet {
   name: string;

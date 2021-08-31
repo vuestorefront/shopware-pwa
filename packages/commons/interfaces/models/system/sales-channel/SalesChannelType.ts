@@ -3,7 +3,7 @@ import { SalesChannelTypeTranslation } from "./SalesChannelTypeTranslation";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface SalesChannelType {
   name: string | null;

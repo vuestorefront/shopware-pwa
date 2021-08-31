@@ -2,7 +2,7 @@ import { Product } from "./Product";
 import { Language } from "../../framework/language/Language";
 
 /**
- * @alpha
+ * @public
  */
 export interface ProductSearchKeyword {
   languageId: string;

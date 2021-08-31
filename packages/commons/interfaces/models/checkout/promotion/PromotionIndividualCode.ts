@@ -1,7 +1,7 @@
 import { Promotion } from "./Promotion";
 
 /**
- * @alpha
+ * @public
  */
 export interface PromotionIndividualCode {
   promotionId: string;

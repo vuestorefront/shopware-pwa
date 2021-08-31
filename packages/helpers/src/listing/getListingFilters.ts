@@ -1,7 +1,7 @@
 import { Aggregations } from "@shopware-pwa/commons/interfaces/search/Aggregations";
 
 /**
- * @beta
+ * @public
  */
 export interface ListingFilter {
   label: string;

@@ -8,7 +8,7 @@ import { StateMachineStateTranslation } from "./StateMachineStateTranslation";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface StateMachineState {
   name: string;

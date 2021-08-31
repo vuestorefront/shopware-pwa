@@ -2,7 +2,7 @@ import { SalesChannelType } from "./SalesChannelType";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface SalesChannelTypeTranslation {
   salesChannelTypeId: string;

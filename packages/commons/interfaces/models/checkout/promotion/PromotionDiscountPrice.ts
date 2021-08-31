@@ -2,7 +2,7 @@ import { PromotionDiscount } from "./PromotionDiscount";
 import { Currency } from "../../system/currency/Currency";
 
 /**
- * @alpha
+ * @public
  */
 export interface PromotionDiscountPrice {
   currencyId: string;

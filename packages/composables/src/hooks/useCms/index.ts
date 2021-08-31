@@ -2,7 +2,7 @@ import { Ref, computed, ComputedRef, provide, inject } from "vue-demi";
 import { getCmsPage } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { CmsPageType } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
-import { parseUrlQuery } from "@shopware-pwa/helpers";
+import { _parseUrlQuery } from "@shopware-pwa/helpers";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import {
   CmsPage,
@@ -79,7 +79,7 @@ export function useCms(params?: {
     _cmsError.value = null;
     _searchPath.value = path;
 
-    const criteria: SearchCriteria = parseUrlQuery(query);
+    const criteria: SearchCriteria = _parseUrlQuery(query);
     const searchCriteria = merge({}, getDefaults(), criteria);
 
     try {

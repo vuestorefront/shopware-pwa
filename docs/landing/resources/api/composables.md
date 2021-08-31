@@ -36,7 +36,7 @@ Vue's composables to be used in Shopware frontend application.
 |  [useProductQuickSearch()](./composables.useproductquicksearch.md) | <b><i>(BETA)</i></b> |
 |  [useSalutations()](./composables.usesalutations.md) | <b><i>(BETA)</i></b> |
 |  [useSessionContext()](./composables.usesessioncontext.md) | <b><i>(BETA)</i></b> Composable for session management. Options - [IUseSessionContext](./composables.iusesessioncontext.md) |
-|  [useSharedState()](./composables.usesharedstate.md) | <b><i>(BETA)</i></b> Replacement for Vuex. Composable, which enables you to use shared state in your application. State is shared both on server and client side. |
+|  [useSharedState()](./composables.usesharedstate.md) | Replacement for Vuex. Composable, which enables you to use shared state in your application. State is shared both on server and client side. |
 |  [useUIState(params)](./composables.useuistate.md) | <b><i>(BETA)</i></b> Simple state management for UI purposes. |
 |  [useUser()](./composables.useuser.md) | <b><i>(BETA)</i></b> Composable for user management. Options - [IUseUser](./composables.iuseuser.md) |
 |  [useWishlist(params)](./composables.usewishlist.md) | <b><i>(BETA)</i></b> |

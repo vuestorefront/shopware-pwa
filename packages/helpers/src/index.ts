@@ -6,6 +6,5 @@ export * from "./cms";
 export * from "./urlHelpers";
 export * from "./listing";
 export * from "./salutation";
-export * from "./order";
 export * from "./plugins";
 export * from "./debounce";

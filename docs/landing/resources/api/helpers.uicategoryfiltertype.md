@@ -4,9 +4,6 @@
 
 ## UiCategoryFilterType enum
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 
 <b>Signature:</b>
 
@@ -18,8 +15,8 @@ export declare enum UiCategoryFilterType
 
 |  Member | Value | Description |
 |  --- | --- | --- |
-|  entity | <code>&quot;entity&quot;</code> | <b><i>(BETA)</i></b> |
-|  max | <code>&quot;max&quot;</code> | <b><i>(BETA)</i></b> |
-|  range | <code>&quot;range&quot;</code> | <b><i>(BETA)</i></b> |
-|  term | <code>&quot;term&quot;</code> | <b><i>(BETA)</i></b> |
+|  entity | <code>&quot;entity&quot;</code> |  |
+|  max | <code>&quot;max&quot;</code> |  |
+|  range | <code>&quot;range&quot;</code> |  |
+|  term | <code>&quot;term&quot;</code> |  |
 

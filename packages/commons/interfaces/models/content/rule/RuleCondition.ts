@@ -2,7 +2,7 @@ import { Rule } from "./Rule";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface RuleCondition {
   type: string;

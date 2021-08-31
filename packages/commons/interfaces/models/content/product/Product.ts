@@ -16,7 +16,7 @@ import { Tag } from "../../system/tag/Tag";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface SeoUrl {
   reatedAt: Date;
@@ -64,7 +64,7 @@ export interface CrossSelling {
 }
 
 /**
- * @alpha
+ * @public
  */
 export interface Product {
   calculatedListingPrice: ListingPrice;

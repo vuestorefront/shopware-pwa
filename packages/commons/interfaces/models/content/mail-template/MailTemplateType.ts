@@ -3,7 +3,7 @@ import { MailTemplateTypeTranslation } from "./MailTemplateTypeTranslation";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface MailTemplateType {
   name: string;
