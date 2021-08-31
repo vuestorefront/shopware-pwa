@@ -3,6 +3,6 @@ export interface CustomFields {
 }
 
 /**
- * @alpha
+ * @public
  */
 export interface CustomField {}

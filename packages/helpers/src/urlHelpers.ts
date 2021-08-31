@@ -1,10 +1,9 @@
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import queryString from "query-string";
 
 /**
- * @alpha
+ * @internal
  */
-export function parseUrlQuery(query: any): SearchCriteria {
+export function _parseUrlQuery(query: any): SearchCriteria {
   const searchCriteria: any = {};
   if (!query || typeof query !== "object") {
     return searchCriteria;
@@ -25,21 +24,4 @@ export function parseUrlQuery(query: any): SearchCriteria {
   });
 
   return searchCriteria;
-}
-
-/**
- * @alpha
- */
-export function exportUrlQuery(
-  searchCriteria: SearchCriteria
-): string | undefined {
-  if (!searchCriteria) {
-    return;
-  }
-  const sC: any = searchCriteria;
-  const query: any = {};
-  Object.keys(searchCriteria).forEach((key: string) => {
-    query[key] = JSON.stringify(sC[key]);
-  });
-  return queryString.stringify(query);
 }

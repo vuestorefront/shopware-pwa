@@ -2,7 +2,7 @@ import { PropertyGroupOption } from "./PropertyGroupOption";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface PropertyGroupOptionTranslation {
   propertyGroupOptionId: string;

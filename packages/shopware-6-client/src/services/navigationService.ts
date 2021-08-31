@@ -7,14 +7,6 @@ import {
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
- * @alpha
- */
-export interface GetNavigationParams {
-  depth: number;
-  rootNode?: string;
-}
-
-/**
  * More about the navigation parameters: https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/navigation?category=shopware-platform-dev-en/store-api-guide
  * @beta
  */

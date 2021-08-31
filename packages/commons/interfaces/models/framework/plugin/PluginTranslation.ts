@@ -2,7 +2,7 @@ import { Plugin } from "./Plugin";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface PluginTranslation {
   pluginId: string;

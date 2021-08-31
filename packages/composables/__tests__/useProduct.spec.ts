@@ -102,10 +102,8 @@ describe("Composables - useProduct", () => {
       expect(mockedAxios.getProductPage).toBeCalledWith(
         "detail/1c3e927309014a67a07f3bb574f9e804",
         {
-          configuration: {
-            includes: includesParams,
-            associations: associationsParams,
-          },
+          includes: includesParams,
+          associations: associationsParams,
         },
         rootContextMock.apiInstance
       );

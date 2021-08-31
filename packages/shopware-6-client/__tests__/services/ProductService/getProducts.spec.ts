@@ -33,19 +33,19 @@ describe("ProductService - getProducts", () => {
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith("/store-api/product", {
       limit: 5,
-      page: 1,
+      p: 1,
     });
   });
   it("should invoke api with limit and sort", async () => {
     mockedPost.mockResolvedValueOnce({
       data: { total: 3, data: [1, 2, 3] },
     });
-    await getProducts({ p: 1, limit: 75, sort: "name-asc" });
+    await getProducts({ p: 1, limit: 75, order: "name-asc" });
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith("/store-api/product", {
       limit: 75,
-      page: 1,
-      sort: "-name",
+      p: 1,
+      order: "name-asc",
     });
   });
   // it("should show deprecation info on this method", async () => {

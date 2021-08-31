@@ -2,7 +2,7 @@ import { SalesChannel } from "../../system/sales-channel/SalesChannel";
 import { Promotion } from "./Promotion";
 
 /**
- * @alpha
+ * @public
  */
 export interface PromotionSalesChannel {
   promotionId: string;

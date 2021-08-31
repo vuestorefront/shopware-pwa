@@ -2,7 +2,7 @@ import { UnitTranslation } from "./UnitTranslation";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface Unit {
   shortCode: string | null;

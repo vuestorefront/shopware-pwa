@@ -1,7 +1,7 @@
 import { MailHeaderFooter } from "./MailHeaderFooter";
 
 /**
- * @alpha
+ * @public
  */
 export interface MailHeaderFooterTranslation {
   name: string | null;

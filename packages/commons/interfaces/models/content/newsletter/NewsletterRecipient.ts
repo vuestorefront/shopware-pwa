@@ -5,7 +5,7 @@ import { Salutation } from "../../system/salutation/Salutation";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface NewsletterRecipient {
   email: string;

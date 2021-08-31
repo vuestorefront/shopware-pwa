@@ -730,7 +730,7 @@ export function useSalutations(): IUseSalutations;
 // @beta
 export function useSessionContext(): IUseSessionContext;
 
-// @beta
+// @public
 export function useSharedState(): {
     sharedRef: <T>(uniqueKey: string, defaultValue?: T | undefined) => WritableComputedRef<T | null>;
     preloadRef: (refObject: Ref<unknown>, callback: () => Promise<void>) => Promise<void>;

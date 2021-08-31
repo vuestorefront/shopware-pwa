@@ -2,7 +2,9 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 import { UiMediaGalleryItem } from "../ui-interfaces";
 
 /**
- * @alpha
+ * Get the media gallery of a product as ui-interfaces
+ *
+ * @public
  */
 export function getProductMediaGallery({
   product,

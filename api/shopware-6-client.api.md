@@ -303,14 +303,6 @@ export const getCustomerUpdateEmailEndpoint: () => string;
 // @beta (undocumented)
 export const getCustomerUpdatePasswordEndpoint: () => string;
 
-// @alpha (undocumented)
-export interface GetNavigationParams {
-    // (undocumented)
-    depth: number;
-    // (undocumented)
-    rootNode?: string;
-}
-
 // @beta (undocumented)
 export const getNewsletterSubscribeEndpoint: () => string;
 

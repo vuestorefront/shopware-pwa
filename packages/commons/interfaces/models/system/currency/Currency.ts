@@ -7,7 +7,7 @@ import { SalesChannelDomain } from "../sales-channel/SalesChannelDomain";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface Currency {
   id: string;

@@ -4,9 +4,6 @@
 
 ## useSharedState() function
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 Replacement for Vuex. Composable, which enables you to use shared state in your application. State is shared both on server and client side.
 
 <b>Signature:</b>

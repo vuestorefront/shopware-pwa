@@ -4,9 +4,6 @@
 
 ## ListingFilter interface
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 
 <b>Signature:</b>
 
@@ -18,7 +15,7 @@ export interface ListingFilter
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [code](./helpers.listingfilter.code.md) | string | <b><i>(BETA)</i></b> |
-|  [label](./helpers.listingfilter.label.md) | string | <b><i>(BETA)</i></b> |
-|  [type?](./helpers.listingfilter.type.md) | "range" \| "max" | <b><i>(BETA)</i></b> <i>(Optional)</i> |
+|  [code](./helpers.listingfilter.code.md) | string |  |
+|  [label](./helpers.listingfilter.label.md) | string |  |
+|  [type?](./helpers.listingfilter.type.md) | "range" \| "max" | <i>(Optional)</i> |
 

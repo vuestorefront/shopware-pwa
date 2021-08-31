@@ -54,7 +54,7 @@ export interface PageResolverProductResult {
 }
 
 /**
- * @alpha
+ * @public
  */
 export interface CmsPage {
   category: Category;
@@ -88,7 +88,7 @@ export enum CmsSlotType {
 }
 
 /**
- * @alpha
+ * @public
  */
 export interface CmsFieldConfig {
   name: string;
@@ -97,7 +97,7 @@ export interface CmsFieldConfig {
 }
 
 /**
- * @alpha
+ * @public
  */
 export interface CmsSlot {
   type: CmsSlotType;
@@ -120,7 +120,7 @@ export interface CmsSlot {
 }
 
 /**
- * @alpha
+ * @public
  */
 export interface CmsBlock {
   name: string;

@@ -4,7 +4,7 @@ import { Product } from "./Product";
 import { Customer } from "../../checkout/customer/Customer";
 
 /**
- * @alpha
+ * @public
  */
 export interface ProductReview {
   id: string;

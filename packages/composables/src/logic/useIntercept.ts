@@ -155,9 +155,6 @@ export function useIntercept(): IUseIntercept {
   const contextName = COMPOSABLE_NAME;
 
   const { interceptors } = getApplicationContext({ contextName });
-  if (!interceptors) {
-    console.error("there are no interceptors!");
-  }
 
   const localSubscribers: any[] = [];
   const isVueInstance: boolean = !!getCurrentInstance();

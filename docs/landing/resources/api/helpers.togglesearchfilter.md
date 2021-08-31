@@ -4,9 +4,6 @@
 
 ## toggleSearchFilter() function
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 It creates new selected filters object based on the filter existence
 
 <b>Signature:</b>

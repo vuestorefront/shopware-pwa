@@ -103,10 +103,10 @@ export function useCustomerAddresses(): IUseCustomerAddresses {
 
     try {
       switch (type) {
-        case AddressType.billing:
+        case "billing":
           await setDefaultCustomerBillingAddress(addressId, apiInstance);
           break;
-        case AddressType.shipping:
+        case "shipping":
           await setDefaultCustomerShippingAddress(addressId, apiInstance);
           break;
         default:
@@ -124,7 +124,6 @@ export function useCustomerAddresses(): IUseCustomerAddresses {
 
   /**
    * Edit address
-   * @returns
    */
   const updateAddress = async (
     params: Partial<CustomerAddress>

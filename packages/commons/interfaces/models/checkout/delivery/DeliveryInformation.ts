@@ -1,7 +1,7 @@
 import { DeliveryTime } from "./DeliveryTime";
 
 /**
- * @alpha
+ * @public
  */
 export interface DeliveryInformation {
   stock: number;

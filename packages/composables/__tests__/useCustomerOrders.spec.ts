@@ -50,5 +50,20 @@ describe("Composables - useCustomerOrders", () => {
         expect(orders.value).toHaveLength(1);
       });
     });
+
+    describe("getOrderDetails", () => {
+      it("should return order details for given orderId", async () => {
+        const orderResponse = {
+          id: "12345",
+          orderNumber: "100123",
+        };
+        mockedApiClient.getOrderDetails.mockResolvedValueOnce(
+          orderResponse as any
+        );
+        const { getOrderDetails } = useCustomerOrders();
+        const orderDetails = await getOrderDetails("12345");
+        expect(orderDetails).toBe(orderResponse);
+      });
+    });
   });
 });

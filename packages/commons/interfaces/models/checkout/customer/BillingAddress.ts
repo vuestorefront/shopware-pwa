@@ -1,6 +1,6 @@
 import { CustomerAddress } from "./CustomerAddress";
 
 /**
- * @alpha
+ * @public
  */
 export interface BillingAddress extends CustomerAddress {}

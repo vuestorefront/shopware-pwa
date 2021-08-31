@@ -5,7 +5,7 @@ import { OrderAddress } from "../../checkout/order/OrderAddress";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface CountryState {
   countryId: string;

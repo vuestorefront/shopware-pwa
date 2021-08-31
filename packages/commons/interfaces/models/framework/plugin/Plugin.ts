@@ -3,7 +3,7 @@ import { PaymentMethod } from "../../checkout/payment/PaymentMethod";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface Plugin {
   baseClass: string;

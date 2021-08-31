@@ -10,16 +10,15 @@ import { TotalCountMode } from "@shopware-pwa/commons/interfaces/search/TotalCou
 import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Association";
 
 /**
- * @alpha
+ * @public
  */
 export interface Sort {
-  field: string;
-  name?: string; // TODO: https://github.com/DivanteLtd/shopware-pwa/issues/834
-  desc?: boolean;
-  order?: string;
+  key: string;
+  priority: number;
+  label: string;
 }
 /**
- * @alpha
+ * @public
  */
 export interface Grouping {
   field: string;
@@ -34,7 +33,7 @@ export interface Includes {
 
 /**
  * configutarion.displayParents: true - if you want to show all the products
- * @alpha
+ * @beta
  */
 export interface SearchCriteria {
   filters?: Array<EqualsFilter | EqualsAnyFilter | RangeFilter | MultiFilter>;
@@ -58,22 +57,14 @@ export interface SearchCriteria {
 /**
  * @beta
  */
-export interface ListingQueryParams {
-  query: string;
-  page?: number;
-  limit?: number;
-  sort?: string;
-  manufacturer?: string | string[];
-  properties?: string | string[];
-}
-
-/**
- * @beta
- */
 export type ShopwareSearchParams = {
   p?: number | undefined;
   limit?: number | undefined;
+  /**
+   *  @deprecated use order property instead
+   */
   sort?: string | undefined;
+  order?: string | undefined;
   term?: string | undefined;
   ids?: string[];
   associations?: ShopwareAssociation;

@@ -3,7 +3,7 @@ import { Currency } from "../../system/currency/Currency";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface ShippingMethodPrice {
   shippingMethodId: string;
