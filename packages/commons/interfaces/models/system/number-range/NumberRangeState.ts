@@ -1,7 +1,7 @@
 import { NumberRange } from "./NumberRange";
 
 /**
- * @alpha
+ * @public
  */
 export interface NumberRangeState {
   numberRangeId: string;

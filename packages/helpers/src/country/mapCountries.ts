@@ -1,20 +1,15 @@
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 
 /**
- * @alpha
- */
-export interface MappedCountry {
-  name: string | null;
-  id: string;
-}
-
-/**
  * Map available countries to (`name`: string | null, id: `string`) format
  *
  * @returns MappedCountries
- * @alpha
+ * @public
  **/
-export function mapCountries(countries: Country[]): MappedCountry[] {
+export function mapCountries(countries: Country[]): Array<{
+  name: string | null;
+  id: string;
+}> {
   if (!countries?.length) return [];
   const mappedCountries = countries.map((country: Country) => ({
     name: country.translated?.name || country.name,

@@ -16,7 +16,6 @@ Vue's composables to be used in Shopware frontend application.
 |  [useAddToCart(params)](./composables.useaddtocart.md) | <b><i>(BETA)</i></b> Add product to cart. Options - [IUseAddToCart](./composables.iuseaddtocart.md) |
 |  [useBreadcrumbs(params)](./composables.usebreadcrumbs.md) | <b><i>(BETA)</i></b> Composable for displaying and setting breadcrumbs for page. |
 |  [useCart()](./composables.usecart.md) | <b><i>(BETA)</i></b> Composable for cart management. Options - [IUseCart](./composables.iusecart.md) |
-|  [useCategoryFilters()](./composables.usecategoryfilters.md) | <b><i>(BETA)</i></b> |
 |  [useCheckout()](./composables.usecheckout.md) | <b><i>(BETA)</i></b> Composable for Checkout management. Options - [IUseCheckout](./composables.iusecheckout.md) |
 |  [useCms(params)](./composables.usecms.md) | <b><i>(BETA)</i></b> |
 |  [useCountries()](./composables.usecountries.md) | <b><i>(BETA)</i></b> |
@@ -37,7 +36,7 @@ Vue's composables to be used in Shopware frontend application.
 |  [useProductQuickSearch()](./composables.useproductquicksearch.md) | <b><i>(BETA)</i></b> |
 |  [useSalutations()](./composables.usesalutations.md) | <b><i>(BETA)</i></b> |
 |  [useSessionContext()](./composables.usesessioncontext.md) | <b><i>(BETA)</i></b> Composable for session management. Options - [IUseSessionContext](./composables.iusesessioncontext.md) |
-|  [useSharedState()](./composables.usesharedstate.md) | <b><i>(BETA)</i></b> Replacement for Vuex. Composable, which enables you to use shared state in your application. State is shared both on server and client side. |
+|  [useSharedState()](./composables.usesharedstate.md) | Replacement for Vuex. Composable, which enables you to use shared state in your application. State is shared both on server and client side. |
 |  [useUIState(params)](./composables.useuistate.md) | <b><i>(BETA)</i></b> Simple state management for UI purposes. |
 |  [useUser()](./composables.useuser.md) | <b><i>(BETA)</i></b> Composable for user management. Options - [IUseUser](./composables.iuseuser.md) |
 |  [useWishlist(params)](./composables.usewishlist.md) | <b><i>(BETA)</i></b> |
@@ -68,7 +67,6 @@ Vue's composables to be used in Shopware frontend application.
 |  [IUseUser](./composables.iuseuser.md) | <b><i>(BETA)</i></b> interface for [useUser()](./composables.useuser.md) composable |
 |  [IUseWishlist](./composables.iusewishlist.md) | <b><i>(BETA)</i></b> interface for [useWishlist()](./composables.usewishlist.md) composable |
 |  [Notification\_2](./composables.notification_2.md) | <b><i>(BETA)</i></b> |
-|  [Routing](./composables.routing.md) | <b><i>(BETA)</i></b> |
 |  [ShopwareDomain](./composables.shopwaredomain.md) | <b><i>(BETA)</i></b> |
 
 ## Variables
@@ -84,5 +82,5 @@ Vue's composables to be used in Shopware frontend application.
 |  [ListingType](./composables.listingtype.md) | <b><i>(BETA)</i></b> |
 |  [Search](./composables.search.md) | <b><i>(BETA)</i></b> |
 |  [SwInterceptors](./composables.swinterceptors.md) | <b><i>(BETA)</i></b> |
-|  [SwRouting](./composables.swrouting.md) | <b><i>(BETA)</i></b> Routing type for Shopware SEO path resolvers. |
+|  [SwRouting](./composables.swrouting.md) | <b><i>(BETA)</i></b> Routing type for Shopware SEO path resolvers |
 

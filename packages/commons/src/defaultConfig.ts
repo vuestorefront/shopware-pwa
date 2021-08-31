@@ -59,12 +59,6 @@ export interface ShopwarePwaConfigFile {
    * {ShopwareApiClientConfig}
    */
   shopwareApiClient?: ShopwareApiClientConfig;
-  /**
-   * set of includes, associations depending on use context (see: useDefaults composable)
-   *
-   * @deprecated use defaultsConfigBuilder instead
-   */
-  apiDefaults?: ApiDefaults;
 }
 
 export interface CompatibilityTable {

@@ -1,12 +1,12 @@
 /**
- * @alpha
+ * @public
  */
 export interface UiMediaGalleryItemUrl {
   url: string;
 }
 
 /**
- * @alpha
+ * @public
  */
 export interface UiMediaGalleryItem {
   icon: UiMediaGalleryItemUrl;
@@ -15,7 +15,7 @@ export interface UiMediaGalleryItem {
 }
 
 /**
- * @beta
+ * @public
  */
 export interface UiProductOption {
   label: string;
@@ -25,7 +25,7 @@ export interface UiProductOption {
 }
 
 /**
- * @alpha
+ * @public
  */
 export interface UiProductProperty {
   name: string;
@@ -33,7 +33,7 @@ export interface UiProductProperty {
 }
 
 /**
- * @alpha
+ * @public
  */
 export interface UiProductReview {
   id: string;
@@ -44,7 +44,7 @@ export interface UiProductReview {
 }
 
 /**
- * @beta
+ * @public
  */
 export enum UiCategoryFilterType {
   range = "range",
@@ -54,7 +54,7 @@ export enum UiCategoryFilterType {
 }
 
 /**
- * @beta
+ * @public
  */
 export interface UiCategoryFilterOption {
   color: boolean | string;
@@ -64,7 +64,7 @@ export interface UiCategoryFilterOption {
 }
 
 /**
- * @beta
+ * @public
  */
 export interface UiCategoryRangeFilterOption {
   max: string;
@@ -72,20 +72,10 @@ export interface UiCategoryRangeFilterOption {
 }
 
 /**
- * @beta
+ * @public
  */
 export interface UiCategoryFilter {
   name: string;
   type: UiCategoryFilterType;
   options: UiCategoryFilterOption[] | UiCategoryRangeFilterOption | any; // TODO when the feature is fully implemented on SW side.
-}
-
-/**
- * @alpha
- */
-export interface UiCategorySorting {
-  name: string;
-  active: boolean;
-  field: string;
-  order: string;
 }

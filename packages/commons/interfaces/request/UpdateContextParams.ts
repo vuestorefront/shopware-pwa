@@ -1,5 +1,5 @@
 /**
- * @alpha
+ * @public
  */
 export interface UpdateContextParams {
   currencyId?: string;

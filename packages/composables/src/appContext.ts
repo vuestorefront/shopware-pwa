@@ -27,24 +27,18 @@ export interface ShopwareDomain {
 }
 
 /**
- * @beta
- * @deprecated use type SwRouting instead
- */
-export interface Routing {
-  availableDomains: ShopwareDomain[];
-  fallbackDomain: string | undefined;
-  fallbackLocale: string | undefined;
-  getCurrentDomain: ComputedRef<ShopwareDomain>;
-  setCurrentDomain: (domainData: any) => void;
-  getUrl: (path: string) => string;
-}
-
-/**
- * Routing type for Shopware SEO path resolvers.
+ * Routing type for Shopware SEO path resolvers
  *
  * @beta
  */
-export type SwRouting = Routing;
+export type SwRouting = {
+  availableDomains: ShopwareDomain[];
+  fallbackDomain?: string;
+  fallbackLocale?: string;
+  getCurrentDomain: ComputedRef<ShopwareDomain>;
+  setCurrentDomain: (domainData: any) => void;
+  getUrl: (path: string) => string;
+};
 
 type SharedStore = UnwrapRef<{ [storeKey: string]: any }>;
 

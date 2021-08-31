@@ -37,7 +37,7 @@ import { CustomField } from "../../common/CustomField";
 import { Collection } from "../../common/Collection";
 
 /**
- * @alpha
+ * @public
  */
 export interface Language {
   parentId: string | null;

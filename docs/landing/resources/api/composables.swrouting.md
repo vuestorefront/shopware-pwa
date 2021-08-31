@@ -7,12 +7,19 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Routing type for Shopware SEO path resolvers.
+Routing type for Shopware SEO path resolvers
 
 <b>Signature:</b>
 
 ```typescript
-export declare type SwRouting = Routing;
+export declare type SwRouting = {
+    availableDomains: ShopwareDomain[];
+    fallbackDomain?: string;
+    fallbackLocale?: string;
+    getCurrentDomain: ComputedRef<ShopwareDomain>;
+    setCurrentDomain: (domainData: any) => void;
+    getUrl: (path: string) => string;
+};
 ```
-<b>References:</b> [Routing](./composables.routing.md)
+<b>References:</b> [ShopwareDomain](./composables.shopwaredomain.md)
 

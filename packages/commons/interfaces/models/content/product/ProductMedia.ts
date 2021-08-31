@@ -3,7 +3,7 @@ import { Product } from "./Product";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface ProductMedia {
   productId: string;

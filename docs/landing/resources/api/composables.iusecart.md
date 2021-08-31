@@ -31,7 +31,6 @@ export interface IUseCart
 |  [loading](./composables.iusecart.loading.md) | ComputedRef&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [refreshCart](./composables.iusecart.refreshcart.md) | () =&gt; void | <b><i>(BETA)</i></b> |
 |  [removeItem](./composables.iusecart.removeitem.md) | ({ id }: LineItem) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
-|  [removeProduct](./composables.iusecart.removeproduct.md) | ({ id }: Partial&lt;Product&gt;) =&gt; void | <b><i>(BETA)</i></b> |
 |  [shippingTotal](./composables.iusecart.shippingtotal.md) | ComputedRef&lt;number&gt; | <b><i>(BETA)</i></b> |
 |  [subtotal](./composables.iusecart.subtotal.md) | ComputedRef&lt;number&gt; | <b><i>(BETA)</i></b> |
 |  [totalPrice](./composables.iusecart.totalprice.md) | ComputedRef&lt;number&gt; | <b><i>(BETA)</i></b> |

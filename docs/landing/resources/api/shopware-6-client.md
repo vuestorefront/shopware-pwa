@@ -34,14 +34,12 @@
 |  [getCustomer(parameters, contextInstance)](./shopware-6-client.getcustomer.md) | <b><i>(BETA)</i></b> Get customer's object |
 |  [getCustomerAddress(addressId, contextInstance)](./shopware-6-client.getcustomeraddress.md) | <b><i>(BETA)</i></b> Get the customer's address by id |
 |  [getCustomerAddresses(parameters, contextInstance)](./shopware-6-client.getcustomeraddresses.md) | <b><i>(BETA)</i></b> Get all customer's addresses |
-|  [getCustomerOrderDetails(orderId, contextInstance, additionalQueryParams)](./shopware-6-client.getcustomerorderdetails.md) | <b><i>(BETA)</i></b> Get order details |
 |  [getCustomerOrders(parameters, contextInstance)](./shopware-6-client.getcustomerorders.md) | <b><i>(BETA)</i></b> Get all customer's orders |
 |  [getOrderDetails(orderId, params, contextInstance)](./shopware-6-client.getorderdetails.md) | <b><i>(BETA)</i></b> Get order details |
-|  [getPage(path, searchCriteria, contextInstance)](./shopware-6-client.getpage.md) | <b><i>(BETA)</i></b> |
+|  [getPage(path, criteria, contextInstance)](./shopware-6-client.getpage.md) | <b><i>(BETA)</i></b> |
 |  [getPaymentMethodDetails(paymentId, contextInstance)](./shopware-6-client.getpaymentmethoddetails.md) | <b><i>(BETA)</i></b> |
 |  [getProduct(productId, params, contextInstance)](./shopware-6-client.getproduct.md) | <b><i>(BETA)</i></b> Get the product with passed productId |
-|  [getProductPage(path, searchCriteria, contextInstance)](./shopware-6-client.getproductpage.md) | <b><i>(BETA)</i></b> |
-|  [getSearchResults(term, searchCriteria, contextInstance)](./shopware-6-client.getsearchresults.md) | <b><i>(BETA)</i></b> |
+|  [getProductPage(path, criteria, contextInstance)](./shopware-6-client.getproductpage.md) | <b><i>(BETA)</i></b> |
 |  [getSeoUrls(entityId, languageId, contextInstance)](./shopware-6-client.getseourls.md) | <b><i>(BETA)</i></b> Returns an array of SEO URLs for given entity Can be used for other languages as well by providing the languageId |
 |  [getSessionContext(contextInstance)](./shopware-6-client.getsessioncontext.md) | <b><i>(BETA)</i></b> Loads session context, containing all session-related data. |
 |  [getShippingMethodDetails(shippingId, contextInstance)](./shopware-6-client.getshippingmethoddetails.md) | <b><i>(BETA)</i></b> |
@@ -99,7 +97,6 @@
 |  [getCategoryDetailsEndpoint](./shopware-6-client.getcategorydetailsendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCategoryEndpoint](./shopware-6-client.getcategoryendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCategoryProducts](./shopware-6-client.getcategoryproducts.md) | <b><i>(BETA)</i></b> Get default amount of products and listing configuration for given category |
-|  [getCategoryProductsListing](./shopware-6-client.getcategoryproductslisting.md) | <b><i>(BETA)</i></b> Get default amount of products and listing configuration for given category |
 |  [getChangeOrderPaymentMethodEndpoint](./shopware-6-client.getchangeorderpaymentmethodendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCheckoutCartEndpoint](./shopware-6-client.getcheckoutcartendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCheckoutCartLineItemEndpoint](./shopware-6-client.getcheckoutcartlineitemendpoint.md) | <b><i>(BETA)</i></b> |

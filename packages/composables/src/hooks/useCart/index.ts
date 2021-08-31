@@ -10,7 +10,6 @@ import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError
 import { Cart } from "@shopware-pwa/commons/interfaces/models/checkout/cart/Cart";
 import { EntityError } from "@shopware-pwa/commons/interfaces/models/common/EntityError";
 
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
 import {
   getApplicationContext,
@@ -19,7 +18,6 @@ import {
   useSharedState,
 } from "@shopware-pwa/composables";
 import { broadcastErrors } from "../../internalHelpers/errorHandler";
-import { deprecationWarning } from "@shopware-pwa/commons";
 
 /**
  * interface for {@link useCart} composable
@@ -50,10 +48,6 @@ export interface IUseCart {
   loading: ComputedRef<boolean>;
   refreshCart: () => void;
   removeItem: ({ id }: LineItem) => Promise<void>;
-  /**
-   * @deprecated use removeItem method instead
-   */
-  removeProduct: ({ id }: Partial<Product>) => void;
   totalPrice: ComputedRef<number>;
   shippingTotal: ComputedRef<number>;
   subtotal: ComputedRef<number>;
@@ -110,16 +104,6 @@ export function useCart(): IUseCart {
     _storeCart.value = result;
   }
 
-  // TODO: remove in 1.0
-  async function removeProduct({ id }: Product) {
-    deprecationWarning({
-      methodName: "removeProduct",
-      newMethodName: "removeItem",
-      packageName: "composables",
-    });
-    return removeItem({ id } as LineItem);
-  }
-
   async function changeProductQuantity({ id, quantity }: any) {
     const result = await changeCartItemQuantity(id, quantity, apiInstance);
     broadcastUpcomingErrors(result);
@@ -153,7 +137,7 @@ export function useCart(): IUseCart {
         cartResult.errors || {}
       ).filter((entityError) => upcomingErrorsKeys.includes(entityError.key));
 
-      broadcastErrors(entityErrors, `[${contextName}][cartError]`);
+      broadcastErrors(entityErrors, `[${contextName}][cartError]`, broadcast);
     } catch (error) {
       console.error("[useCart][broadcastUpcomingErrors]", error);
     }
@@ -213,7 +197,6 @@ export function useCart(): IUseCart {
     error,
     loading,
     refreshCart,
-    removeProduct,
     removeItem,
     totalPrice,
     shippingTotal,

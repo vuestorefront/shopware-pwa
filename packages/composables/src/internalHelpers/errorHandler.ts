@@ -3,19 +3,19 @@ import {
   ErrorLevel,
 } from "@shopware-pwa/commons/interfaces/models/common/EntityError";
 
-import { INTERCEPTOR_KEYS, useIntercept } from "@shopware-pwa/composables";
+import { INTERCEPTOR_KEYS } from "@shopware-pwa/composables";
 
 /**
- * @beta
+ * @internal
  */
 export const broadcastErrors = (
   errors: EntityError[],
-  methodName: string
+  methodName: string,
+  broadcast: Function
 ): void => {
   if (!Array.isArray(errors) || !errors.length || !methodName) {
     return;
   }
-  const { broadcast } = useIntercept();
 
   errors.forEach((error) => {
     let interceptorKey;

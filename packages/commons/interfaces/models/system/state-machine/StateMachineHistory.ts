@@ -3,7 +3,7 @@ import { StateMachine } from "./StateMachine";
 import { User } from "../user/User";
 
 /**
- * @alpha
+ * @public
  */
 export interface StateMachineHistory {
   stateMachineId: string;

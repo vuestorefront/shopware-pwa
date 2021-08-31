@@ -11,78 +11,14 @@ import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/Cms
 import { CmsSection } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { CmsSlot } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
-import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
 import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
-import { PropertyGroupOption } from '@shopware-pwa/commons/interfaces/models/content/property/PropertyGroupOption';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
-import { ShopwareError } from '@shopware-pwa/commons/interfaces/errors/ApiError';
-import { Sort } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
-import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
 
-// @alpha (undocumented)
-export interface CategoryFilterEntityValue {
-    // (undocumented)
-    colorHexCode: null | string;
-    // (undocumented)
-    customFields: any;
-    // (undocumented)
-    description: string | null;
-    // (undocumented)
-    name: string;
-}
-
-// @alpha (undocumented)
-export interface CategoryFilterEntityValues {
-    // (undocumented)
-    [valueId: string]: CategoryFilterEntityValue;
-}
-
-// @alpha (undocumented)
-export interface CategoryFilterRangeValues {
-    // (undocumented)
-    max: string;
-    // (undocumented)
-    min: string;
-}
-
-// @alpha (undocumented)
-export interface CategoryFilterTermValue {
-    // (undocumented)
-    count: number;
-    // (undocumented)
-    extensions: any;
-    // (undocumented)
-    key: string;
-}
-
-// @alpha (undocumented)
+// @public
 export function debounce<T extends (...args: any[]) => any>(fn: T, delay?: number): T;
-
-// @alpha (undocumented)
-export function exportUrlQuery(searchCriteria: SearchCriteria): string | undefined;
-
-// @alpha (undocumented)
-export interface Filter {
-    // (undocumented)
-    [filterCode: string]: {
-        type: UiCategoryFilterType;
-        name: string;
-        values: CategoryFilterRangeValues | CategoryFilterEntityValues | CategoryFilterTermValue[];
-    };
-}
-
-// @alpha (undocumented)
-export function getCategoryAvailableFilters({ filters, }?: {
-    filters?: Filter;
-}): UiCategoryFilter[];
-
-// @alpha (undocumented)
-export function getCategoryAvailableSorting({ sorting, }?: {
-    sorting?: Sorting;
-}): UiCategorySorting[];
 
 // @beta
 export const getCategoryUrl: (category: Partial<Category>) => string;
@@ -90,20 +26,14 @@ export const getCategoryUrl: (category: Partial<Category>) => string;
 // @beta (undocumented)
 export function getCmsLayoutConfiguration(content: CmsBlock | CmsSection): LayoutConfiguration;
 
-// @alpha (undocumented)
+// @public
 export function getCmsLink(content?: CmsSlot): String;
 
-// @alpha (undocumented)
+// @public
 export function getCmsLinkTarget(content?: CmsSlot): String;
-
-// @alpha (undocumented)
-export function getCmsSections(content: CmsPage): CmsSection[];
 
 // @beta (undocumented)
 export function getCmsTechnicalPath(page: PageResolverResult<CmsPage> | PageResolverProductResult): string | undefined;
-
-// @alpha (undocumented)
-export const getFilterSearchCriteria: (selectedFilters: any) => any[];
 
 // @beta (undocumented)
 export function getListingAvailableFilters(aggregations: Aggregations | undefined | null): UiCategoryFilter[];
@@ -111,28 +41,19 @@ export function getListingAvailableFilters(aggregations: Aggregations | undefine
 // @beta (undocumented)
 export function getListingFilters(aggregations: Aggregations | undefined | null): ListingFilter[];
 
-// @alpha @deprecated
-export function getMessagesFromErrorsArray(errors: ShopwareError[]): string[];
-
-// @alpha
-export function getOrderPaymentMethodId(order: Order): string | undefined;
-
-// @alpha
-export function getOrderShippingMethodId(order: Order): string | undefined;
-
 // @beta
 export function getProductCalculatedListingPrice(product: Product): number | undefined;
 
 // @beta
 export function getProductCalculatedPrice(product: Product): number | undefined;
 
-// @alpha
+// @public
 export function getProductFreeShipping(product?: Product): boolean;
 
-// @alpha
+// @public
 export function getProductMainImageUrl(product: Product): string;
 
-// @alpha (undocumented)
+// @public
 export function getProductMediaGallery({ product, }?: {
     product?: Product;
 }): UiMediaGalleryItem[];
@@ -142,25 +63,13 @@ export function getProductName({ product }?: {
     product?: Product;
 }): string | null;
 
-// @alpha
+// @public
 export function getProductNumber(product: Product): string | null;
 
-// @alpha (undocumented)
-export function getProductOption({ product, attribute, }?: {
-    product?: Product;
-    attribute?: string;
-}): PropertyGroupOption | undefined;
-
-// @beta (undocumented)
+// @public
 export function getProductOptions({ product, }?: {
     product?: Product;
 }): UiProductOption[];
-
-// @alpha (undocumented)
-export function getProductOptionsUrl({ product, options, }?: {
-    product?: Product;
-    options?: string[];
-}): string | undefined;
 
 // @beta
 export function getProductPriceDiscount(product: Product): number | undefined;
@@ -168,24 +77,18 @@ export function getProductPriceDiscount(product: Product): number | undefined;
 // @beta
 export function getProductPriceDiscountPercentage(product: Product): number | undefined;
 
-// @alpha (undocumented)
+// @public
 export function getProductProperties({ product, }?: {
     product?: Product;
 }): UiProductProperty[];
 
-// @alpha
+// @public
 export function getProductRatingAverage(product: Product): number | null;
 
-// @beta @deprecated
-export function getProductRegularPrice(product: Product): number | undefined;
-
-// @alpha (undocumented)
+// @public
 export function getProductReviews({ product, }?: {
     product?: Product;
 }): UiProductReview[];
-
-// @alpha @deprecated
-export function getProductSpecialPrice(product: Product): number | undefined;
 
 // @beta
 export function getProductThumbnailUrl(product: Product): string;
@@ -193,27 +96,11 @@ export function getProductThumbnailUrl(product: Product): string;
 // @beta
 export function getProductTierPrices(product: Product): TierPrice[];
 
-// @alpha (undocumented)
+// @public
 export function getProductUrl(product: Product | null): string;
-
-// @alpha (undocumented)
-export const getSortingSearchCriteria: (selectedSorting: SwSorting) => Sort;
-
-// @beta @deprecated (undocumented)
-export function getStoreNavigationRoutes(navigationElements: StoreNavigationElement[]): StoreNavigationRoute[];
-
-// @alpha (undocumented)
-export function getVariantOptionsLabel({ product, }?: {
-    product?: Product;
-}): string | null;
 
 // @beta (undocumented)
 export const isLinkCategory: (category: Partial<Category>) => boolean;
-
-// @beta @deprecated
-export function isOptionAvailableForSelectedOptions(currentAttribute: string, selectedOptionId: string, { code: optionId }: UiProductOption | undefined, allOptions: any, allSelectedOptions: {
-    [key: string]: string;
-}): boolean;
 
 // @beta (undocumented)
 export function isProductSimple({ product, }?: {
@@ -235,7 +122,7 @@ export interface LayoutConfiguration {
     };
 }
 
-// @beta (undocumented)
+// @public (undocumented)
 export interface ListingFilter {
     // (undocumented)
     [key: string]: any;
@@ -250,18 +137,13 @@ export interface ListingFilter {
 // @beta
 export function loadScript(src: string): Promise<void>;
 
-// @alpha
-export function mapCountries(countries: Country[]): MappedCountry[];
-
-// @alpha (undocumented)
-export interface MappedCountry {
-    // (undocumented)
-    id: string;
-    // (undocumented)
+// @public
+export function mapCountries(countries: Country[]): Array<{
     name: string | null;
-}
+    id: string;
+}>;
 
-// @alpha (undocumented)
+// @public (undocumented)
 export interface MappedSalutation {
     // (undocumented)
     id: string;
@@ -269,46 +151,11 @@ export interface MappedSalutation {
     name: string | null;
 }
 
-// @alpha
+// @public
 export function mapSalutations(salutations: Salutation[]): MappedSalutation[];
 
-// @alpha (undocumented)
-export function parseUrlQuery(query: any): SearchCriteria;
-
-// @alpha (undocumented)
-export interface Sorting {
-    // (undocumented)
-    [sortingCode: string]: {
-        key: string;
-        active: boolean;
-    };
-}
-
-// @beta (undocumented)
-export interface StoreNavigationRoute {
-    // (undocumented)
-    children?: StoreNavigationRoute[] | null;
-    // (undocumented)
-    isExternal: boolean;
-    // (undocumented)
-    routeLabel: string;
-    // (undocumented)
-    routePath: string | undefined;
-}
-
-// @alpha (undocumented)
-export interface SwSorting {
-    // (undocumented)
-    active: boolean;
-    // (undocumented)
-    field: string;
-    // (undocumented)
-    name: string;
-    // (undocumented)
-    order: string;
-    // (undocumented)
-    translated: any;
-}
+// @internal (undocumented)
+export function _parseUrlQuery(query: any): SearchCriteria;
 
 // @beta (undocumented)
 export interface TierPrice {
@@ -320,10 +167,10 @@ export interface TierPrice {
     unitPrice: number;
 }
 
-// @beta
+// @public
 export function toggleSearchFilter(currentFilters: any, filter: ListingFilter): any;
 
-// @beta (undocumented)
+// @public (undocumented)
 export interface UiCategoryFilter {
     // (undocumented)
     name: string;
@@ -333,7 +180,7 @@ export interface UiCategoryFilter {
     type: UiCategoryFilterType;
 }
 
-// @beta (undocumented)
+// @public (undocumented)
 export interface UiCategoryFilterOption {
     // (undocumented)
     color: boolean | string;
@@ -345,7 +192,7 @@ export interface UiCategoryFilterOption {
     value: string;
 }
 
-// @beta (undocumented)
+// @public (undocumented)
 export enum UiCategoryFilterType {
     // (undocumented)
     entity = "entity",
@@ -357,7 +204,7 @@ export enum UiCategoryFilterType {
     term = "term"
 }
 
-// @beta (undocumented)
+// @public (undocumented)
 export interface UiCategoryRangeFilterOption {
     // (undocumented)
     max: string;
@@ -365,19 +212,7 @@ export interface UiCategoryRangeFilterOption {
     min: string;
 }
 
-// @alpha (undocumented)
-export interface UiCategorySorting {
-    // (undocumented)
-    active: boolean;
-    // (undocumented)
-    field: string;
-    // (undocumented)
-    name: string;
-    // (undocumented)
-    order: string;
-}
-
-// @alpha (undocumented)
+// @public (undocumented)
 export interface UiMediaGalleryItem {
     // (undocumented)
     desktop: UiMediaGalleryItemUrl;
@@ -387,13 +222,13 @@ export interface UiMediaGalleryItem {
     mobile: UiMediaGalleryItemUrl;
 }
 
-// @alpha (undocumented)
+// @public (undocumented)
 export interface UiMediaGalleryItemUrl {
     // (undocumented)
     url: string;
 }
 
-// @beta (undocumented)
+// @public (undocumented)
 export interface UiProductOption {
     // (undocumented)
     code: string;
@@ -405,7 +240,7 @@ export interface UiProductOption {
     value: string;
 }
 
-// @alpha (undocumented)
+// @public (undocumented)
 export interface UiProductProperty {
     // (undocumented)
     name: string;
@@ -413,7 +248,7 @@ export interface UiProductProperty {
     value: string | null;
 }
 
-// @alpha (undocumented)
+// @public (undocumented)
 export interface UiProductReview {
     // (undocumented)
     author: string;

@@ -1,7 +1,7 @@
 import { SalesChannel } from "../sales-channel/SalesChannel";
 
 /**
- * @alpha
+ * @public
  */
 export interface SystemConfig {
   configurationKey: string;

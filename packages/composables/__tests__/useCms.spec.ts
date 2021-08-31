@@ -244,22 +244,6 @@ describe("Composables - useCms", () => {
     });
   });
 
-  it("should return activeCategoryId if it's included within the page object", async () => {
-    const { categoryId, search } = useCms();
-    const response: PageResolverResult<any> = {
-      breadcrumb: {},
-      cmsPage: { name: "super category", type: "product_list" },
-      resourceIdentifier: "3f637f17cd9f4891a2d7625d19fb37c9",
-      resourceType: "frontend.navigation.page",
-      listingConfiguration: {},
-      apiAlias: "pwa_page_result",
-    } as any;
-    mockedGetPage.getCmsPage.mockResolvedValueOnce(response);
-    expect(categoryId.value).toBeNull();
-    await search(undefined as any);
-    expect(categoryId.value).toEqual("3f637f17cd9f4891a2d7625d19fb37c9");
-  });
-
   it("should return resourceIdentifier if it's included within the page object", async () => {
     const { resourceIdentifier, search } = useCms();
     const response: PageResolverResult<any> = {
@@ -310,33 +294,6 @@ describe("Composables - useCms", () => {
         const { loading } = useCms();
         stateLoading.value = true;
         expect(loading.value).toEqual(true);
-      });
-    });
-    describe("getBreadcrumbsObject", () => {
-      it("should return page breadcrumbs after search", async () => {
-        const { getBreadcrumbsObject, search } = useCms();
-        const response: PageResolverResult<any> = {
-          breadcrumb: {
-            qwe: {
-              name: "Some Category",
-              path: "/some/category",
-            },
-          },
-          cmsPage: { name: "super category", type: "product_list" },
-          resourceIdentifier: "3f637f17cd9f4891a2d7625d19fb37c9",
-          resourceType: "frontend.navigation.page",
-          listingConfiguration: {},
-          apiAlias: "pwa_page_result",
-        } as any;
-        mockedGetPage.getCmsPage.mockResolvedValueOnce(response);
-        expect(getBreadcrumbsObject.value).toEqual({});
-        await search(undefined as any);
-        expect(getBreadcrumbsObject.value).toEqual({
-          qwe: {
-            name: "Some Category",
-            path: "/some/category",
-          },
-        });
       });
     });
   });

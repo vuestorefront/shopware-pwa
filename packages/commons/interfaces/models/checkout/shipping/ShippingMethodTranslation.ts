@@ -2,7 +2,7 @@ import { ShippingMethod } from "./ShippingMethod";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface ShippingMethodTranslation {
   shippingMethodId: string;

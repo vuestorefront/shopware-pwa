@@ -17,7 +17,7 @@ const localSharedState: {
  * Replacement for Vuex. Composable, which enables you to use shared state in your application.
  * State is shared both on server and client side.
  *
- * @beta
+ * @public
  */
 export function useSharedState() {
   const COMPOSABLE_NAME = "useSharedState";
@@ -36,7 +36,7 @@ export function useSharedState() {
    * `uniqueKey` is used to identify value after sending it from the server.
    * You can use the same key to reach this value, but setting the same keys on different values will cause values override.
    *
-   * @beta
+   * @public
    */
   function sharedRef<T>(
     uniqueKey: string,

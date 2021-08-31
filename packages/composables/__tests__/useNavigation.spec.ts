@@ -74,21 +74,6 @@ describe("Composables - useNavigation", () => {
         expect(navigationElements.value).toHaveLength(3);
       });
 
-      it("should resolve deprecated fetchNavigationElements into loadNavigationElements", async () => {
-        mockedGetPage.getStoreNavigation.mockResolvedValueOnce([
-          { name: "Clothin", route: { path: "clothing/" } },
-          { name: "Sports", route: { path: "sports/" } },
-          {
-            name: "Accessories & Others",
-            route: { path: "accessories-others/" },
-          },
-        ] as any);
-
-        const { navigationElements, fetchNavigationElements } = useNavigation();
-        await fetchNavigationElements(2);
-        expect(navigationElements.value).toHaveLength(3);
-      });
-
       it("should return an empty array for navigation if ther is no children", async () => {
         mockedGetPage.getStoreNavigation.mockResolvedValueOnce([] as any);
         const { navigationElements, loadNavigationElements } = useNavigation();

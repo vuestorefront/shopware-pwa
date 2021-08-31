@@ -5,7 +5,7 @@ import { ShippingLocation } from "../../delivery/ShippingLocation";
 import { DeliveryDate } from "../../delivery/DeliveryDate";
 
 /**
- * @alpha
+ * @public
  */
 export interface Delivery {
   positions: OrderDeliveryPosition[];

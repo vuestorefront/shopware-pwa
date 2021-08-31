@@ -24,7 +24,6 @@ describe("PageService - getProductPage", () => {
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith("/store-api/pwa/page", {
       path: "detail/b218f861361042f3a58a2a9d1b3575b5",
-      limit: 10,
     });
     expect(result).toHaveProperty("product");
     expect(result.product.id).toEqual("b218f861361042f3a58a2a9d1b3575b5");

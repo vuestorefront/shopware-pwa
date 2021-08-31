@@ -3,7 +3,7 @@ import { Rule } from "../rule/Rule";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface ProductPrice {
   productId: number;

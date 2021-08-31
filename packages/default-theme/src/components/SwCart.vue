@@ -113,7 +113,7 @@ export default {
   },
   setup() {
     const { apiInstance } = getApplicationContext({ contextName: "SwCart" })
-    const { cartItems, count, totalPrice, removeProduct } = useCart()
+    const { cartItems, count, totalPrice } = useCart()
     const { isOpen: isSidebarOpen, switchState: toggleSidebar } = useUIState({
       stateName: "CART_SIDEBAR_STATE",
     })
@@ -131,15 +131,13 @@ export default {
       try {
         const result = await getProducts(
           {
-            configuration: {
-              ids: cartItems.value.map(({ referencedId }) => referencedId),
-              includes: {
-                product: ["id", "seoUrls"],
-                seo_url: ["seoPathInfo"],
-              },
-              associations: {
-                seoUrls: {},
-              },
+            ids: cartItems.value.map(({ referencedId }) => referencedId),
+            includes: {
+              product: ["id", "seoUrls"],
+              seo_url: ["seoPathInfo"],
+            },
+            associations: {
+              seoUrls: {},
             },
           },
           apiInstance
@@ -171,7 +169,6 @@ export default {
       cartItems: getCartProducts,
       count,
       totalPrice,
-      removeProduct,
       additionalItemsData,
       filterPrice: usePriceFilter(),
     }

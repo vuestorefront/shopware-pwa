@@ -2,7 +2,7 @@ import { CustomerGroup } from "./CustomerGroup";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface CustomerGroupTranslation {
   customerGroupId: string;

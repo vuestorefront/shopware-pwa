@@ -11,7 +11,6 @@ export * from "./logic/useAddToCart";
 export * from "./logic/useCheckout";
 export * from "./logic/useSessionContext";
 export * from "./logic/useUIState";
-export * from "./hooks/useCategoryFilters";
 export * from "./hooks/useCurrency";
 export * from "./hooks/useNavigation";
 export * from "./hooks/useSalutations";
@@ -37,7 +36,6 @@ export * from "./logic/useOrderDetails";
 export * from "./getVueContext";
 export {
   getApplicationContext,
-  Routing,
   ShopwareDomain,
   SwRouting,
   SwInterceptors,

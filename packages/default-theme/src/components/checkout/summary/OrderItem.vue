@@ -62,7 +62,7 @@ export default {
   },
   setup(props) {
     const { product } = toRefs(props)
-    const { removeProduct, changeProductQuantity } = useCart()
+    const { changeProductQuantity } = useCart()
 
     const quantity = ref(product.value.quantity)
     const isPromotion = computed(() => product?.type === "promotion")
@@ -77,7 +77,6 @@ export default {
     }
 
     return {
-      removeProduct,
       quantity,
       getImageUrl,
       isPromotion,

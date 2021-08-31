@@ -4,9 +4,6 @@
 
 ## UiCategoryFilterOption interface
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 
 <b>Signature:</b>
 
@@ -18,8 +15,8 @@ export interface UiCategoryFilterOption
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [color](./helpers.uicategoryfilteroption.color.md) | boolean \| string | <b><i>(BETA)</i></b> |
-|  [count?](./helpers.uicategoryfilteroption.count.md) | number | <b><i>(BETA)</i></b> <i>(Optional)</i> |
-|  [label](./helpers.uicategoryfilteroption.label.md) | string | <b><i>(BETA)</i></b> |
-|  [value](./helpers.uicategoryfilteroption.value.md) | string | <b><i>(BETA)</i></b> |
+|  [color](./helpers.uicategoryfilteroption.color.md) | boolean \| string |  |
+|  [count?](./helpers.uicategoryfilteroption.count.md) | number | <i>(Optional)</i> |
+|  [label](./helpers.uicategoryfilteroption.label.md) | string |  |
+|  [value](./helpers.uicategoryfilteroption.value.md) | string |  |
 

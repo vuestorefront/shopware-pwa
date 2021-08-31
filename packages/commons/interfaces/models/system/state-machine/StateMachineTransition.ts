@@ -2,7 +2,7 @@ import { StateMachineState } from "./StateMachineState";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface StateMachineTransition {
   actionName: string;

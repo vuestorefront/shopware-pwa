@@ -2,7 +2,7 @@ import { SnippetSet } from "./SnippetSet";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface Snippet {
   setId: string;

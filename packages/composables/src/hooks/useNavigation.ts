@@ -19,10 +19,6 @@ import {
  */
 export interface IUseNavigation {
   navigationElements: ComputedRef<StoreNavigationElement[] | null>;
-  /**
-   * @deprecated use loadNavigationElements instead. Remove after v0.8
-   */
-  fetchNavigationElements: (depth: number) => Promise<void>;
 
   /**
    * Load navigation elements
@@ -70,10 +66,8 @@ export function useNavigation(params?: {
           requestActiveId: type,
           requestRootId: type,
           searchCriteria: {
-            configuration: {
-              includes: getIncludesConfig(),
-              associations: getAssociationsConfig(),
-            },
+            includes: getIncludesConfig(),
+            associations: getAssociationsConfig(),
           },
           depth,
         },
@@ -89,8 +83,6 @@ export function useNavigation(params?: {
 
   return {
     navigationElements,
-    fetchNavigationElements: (depth: number) =>
-      loadNavigationElements({ depth }),
     loadNavigationElements,
   };
 }

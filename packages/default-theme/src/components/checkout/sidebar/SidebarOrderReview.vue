@@ -70,7 +70,7 @@ export default {
   },
   setup(props, { root }) {
     const { createOrder, loadings } = useCheckout()
-    const { count, cartItems, removeProduct } = useCart()
+    const { count, cartItems } = useCart()
 
     const { appliedPromotionCodes, addPromotionCode, removeItem } = useCart()
 

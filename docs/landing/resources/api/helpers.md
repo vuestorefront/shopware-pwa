@@ -8,43 +8,57 @@
 
 |  Enumeration | Description |
 |  --- | --- |
-|  [UiCategoryFilterType](./helpers.uicategoryfiltertype.md) | <b><i>(BETA)</i></b> |
+|  [UiCategoryFilterType](./helpers.uicategoryfiltertype.md) |  |
 
 ## Functions
 
 |  Function | Description |
 |  --- | --- |
+|  [debounce(fn, delay)](./helpers.debounce.md) | Debouce helper to invoke a method with a delay |
 |  [getCmsLayoutConfiguration(content)](./helpers.getcmslayoutconfiguration.md) | <b><i>(BETA)</i></b> |
+|  [getCmsLink(content)](./helpers.getcmslink.md) | Gets the link of a cms slot |
+|  [getCmsLinkTarget(content)](./helpers.getcmslinktarget.md) | Return the target attribute for the cms link |
 |  [getCmsTechnicalPath(page)](./helpers.getcmstechnicalpath.md) | <b><i>(BETA)</i></b> |
 |  [getListingAvailableFilters(aggregations)](./helpers.getlistingavailablefilters.md) | <b><i>(BETA)</i></b> |
 |  [getListingFilters(aggregations)](./helpers.getlistingfilters.md) | <b><i>(BETA)</i></b> |
 |  [getProductCalculatedListingPrice(product)](./helpers.getproductcalculatedlistingprice.md) | <b><i>(BETA)</i></b> Get the calculated list price |
 |  [getProductCalculatedPrice(product)](./helpers.getproductcalculatedprice.md) | <b><i>(BETA)</i></b> Get the calculated list price |
+|  [getProductFreeShipping(product)](./helpers.getproductfreeshipping.md) | Get product free shipping property |
+|  [getProductMainImageUrl(product)](./helpers.getproductmainimageurl.md) | gets the cover image |
+|  [getProductMediaGallery({ product, })](./helpers.getproductmediagallery.md) | Get the media gallery of a product as ui-interfaces |
 |  [getProductName({ product })](./helpers.getproductname.md) | <b><i>(BETA)</i></b> |
-|  [getProductOptions({ product, })](./helpers.getproductoptions.md) | <b><i>(BETA)</i></b> |
+|  [getProductNumber(product)](./helpers.getproductnumber.md) | Get product number propety |
+|  [getProductOptions({ product, })](./helpers.getproductoptions.md) | Get product options as ui-interfaces |
 |  [getProductPriceDiscount(product)](./helpers.getproductpricediscount.md) | <b><i>(BETA)</i></b> Get value of price discount |
 |  [getProductPriceDiscountPercentage(product)](./helpers.getproductpricediscountpercentage.md) | <b><i>(BETA)</i></b> Get the percentage value of discount |
-|  [getProductRegularPrice(product)](./helpers.getproductregularprice.md) | <b><i>(BETA)</i></b> Get the price for 1 unit of a product |
+|  [getProductProperties({ product, })](./helpers.getproductproperties.md) | Get product properties as ui-interfaces |
+|  [getProductRatingAverage(product)](./helpers.getproductratingaverage.md) | Get product rating average property |
+|  [getProductReviews({ product, })](./helpers.getproductreviews.md) | Format product reviews to ui-interfaces |
 |  [getProductThumbnailUrl(product)](./helpers.getproductthumbnailurl.md) | <b><i>(BETA)</i></b> get the thumbnail image URL with the smallest width |
 |  [getProductTierPrices(product)](./helpers.getproducttierprices.md) | <b><i>(BETA)</i></b> Get the prices depending on quantity added to cart. Tier prices can be set in <code>Advanced pricing</code> tab in <code>Product view</code> (admin panel) |
-|  [getStoreNavigationRoutes(navigationElements)](./helpers.getstorenavigationroutes.md) | <b><i>(BETA)</i></b> |
-|  [isOptionAvailableForSelectedOptions(currentAttribute, selectedOptionId, { code: optionId }, allOptions, allSelectedOptions)](./helpers.isoptionavailableforselectedoptions.md) | <b><i>(BETA)</i></b> Check if the current optionId is also present in matching option ids of other available variants. |
+|  [getProductUrl(product)](./helpers.getproducturl.md) | Get product url. The priority is SEO url and then technical url. |
 |  [isProductSimple({ product, })](./helpers.isproductsimple.md) | <b><i>(BETA)</i></b> |
 |  [loadScript(src)](./helpers.loadscript.md) | <b><i>(BETA)</i></b> Helper for plugins to load external scripts for plugins |
-|  [toggleSearchFilter(currentFilters, filter)](./helpers.togglesearchfilter.md) | <b><i>(BETA)</i></b> It creates new selected filters object based on the filter existence |
+|  [mapCountries(countries)](./helpers.mapcountries.md) | Map available countries to (<code>name</code>: string \| null, id: <code>string</code>) format |
+|  [mapSalutations(salutations)](./helpers.mapsalutations.md) | Map available salutations to (<code>name</code>: string, <code>id</code>: string) format |
+|  [toggleSearchFilter(currentFilters, filter)](./helpers.togglesearchfilter.md) | It creates new selected filters object based on the filter existence |
 
 ## Interfaces
 
 |  Interface | Description |
 |  --- | --- |
 |  [LayoutConfiguration](./helpers.layoutconfiguration.md) | <b><i>(BETA)</i></b> |
-|  [ListingFilter](./helpers.listingfilter.md) | <b><i>(BETA)</i></b> |
-|  [StoreNavigationRoute](./helpers.storenavigationroute.md) | <b><i>(BETA)</i></b> |
+|  [ListingFilter](./helpers.listingfilter.md) |  |
+|  [MappedSalutation](./helpers.mappedsalutation.md) |  |
 |  [TierPrice](./helpers.tierprice.md) | <b><i>(BETA)</i></b> |
-|  [UiCategoryFilter](./helpers.uicategoryfilter.md) | <b><i>(BETA)</i></b> |
-|  [UiCategoryFilterOption](./helpers.uicategoryfilteroption.md) | <b><i>(BETA)</i></b> |
-|  [UiCategoryRangeFilterOption](./helpers.uicategoryrangefilteroption.md) | <b><i>(BETA)</i></b> |
-|  [UiProductOption](./helpers.uiproductoption.md) | <b><i>(BETA)</i></b> |
+|  [UiCategoryFilter](./helpers.uicategoryfilter.md) |  |
+|  [UiCategoryFilterOption](./helpers.uicategoryfilteroption.md) |  |
+|  [UiCategoryRangeFilterOption](./helpers.uicategoryrangefilteroption.md) |  |
+|  [UiMediaGalleryItem](./helpers.uimediagalleryitem.md) |  |
+|  [UiMediaGalleryItemUrl](./helpers.uimediagalleryitemurl.md) |  |
+|  [UiProductOption](./helpers.uiproductoption.md) |  |
+|  [UiProductProperty](./helpers.uiproductproperty.md) |  |
+|  [UiProductReview](./helpers.uiproductreview.md) |  |
 
 ## Variables
 

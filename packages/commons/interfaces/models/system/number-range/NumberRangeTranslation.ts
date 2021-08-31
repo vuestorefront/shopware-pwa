@@ -2,7 +2,7 @@ import { NumberRange } from "./NumberRange";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface NumberRangeTranslation {
   numberRangeId: string;

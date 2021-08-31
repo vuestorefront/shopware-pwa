@@ -1,7 +1,7 @@
 import { Language } from "../language/Language";
 
 /**
- * @alpha
+ * @public
  */
 export interface Translation {
   languageId: string;

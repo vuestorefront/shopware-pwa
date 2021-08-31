@@ -26,8 +26,6 @@ import { Product } from '@shopware-pwa/commons/interfaces/models/content/product
 import { ProductListingResult } from '@shopware-pwa/commons/interfaces/response/ProductListingResult';
 import { ProductResponse } from '@shopware-pwa/commons/interfaces/response/ProductResult';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
-import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
-import { SearchResult } from '@shopware-pwa/commons/interfaces/response/SearchResult';
 import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
 import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
@@ -212,9 +210,6 @@ export const getCategoryEndpoint: () => string;
 // @beta
 export const getCategoryProducts: (categoryId: string, criteria?: ShopwareSearchParams | undefined, contextInstance?: ShopwareApiInstance) => Promise<ProductListingResult>;
 
-// @beta @deprecated
-export const getCategoryProductsListing: (categoryId: string, searchCriteria?: SearchCriteria | undefined, contextInstance?: ShopwareApiInstance) => Promise<ProductListingResult>;
-
 // @beta (undocumented)
 export const getChangeOrderPaymentMethodEndpoint: () => string;
 
@@ -290,9 +285,6 @@ export const getCustomerLoginEndpoint: () => string;
 // @beta (undocumented)
 export const getCustomerLogoutEndpoint: () => string;
 
-// @beta @deprecated
-export function getCustomerOrderDetails(orderId: string, contextInstance?: ShopwareApiInstance, additionalQueryParams?: string): Promise<Order | undefined>;
-
 // @beta (undocumented)
 export const getCustomerOrderEndpoint: () => string;
 
@@ -311,14 +303,6 @@ export const getCustomerUpdateEmailEndpoint: () => string;
 // @beta (undocumented)
 export const getCustomerUpdatePasswordEndpoint: () => string;
 
-// @alpha (undocumented)
-export interface GetNavigationParams {
-    // (undocumented)
-    depth: number;
-    // (undocumented)
-    rootNode?: string;
-}
-
 // @beta (undocumented)
 export const getNewsletterSubscribeEndpoint: () => string;
 
@@ -329,7 +313,7 @@ export const getNewsletterUnsubscribeEndpoint: () => string;
 export function getOrderDetails(orderId: string, params?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<Order | undefined>;
 
 // @beta (undocumented)
-export function getPage(path: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<PageResolverResult<CmsPage>>;
+export function getPage(path: string, criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<PageResolverResult<CmsPage>>;
 
 // @beta (undocumented)
 export const getPageResolverEndpoint: () => string;
@@ -350,19 +334,13 @@ export const getProductEndpoint: () => string;
 export const getProductListingEndpoint: (categoryId: string) => string;
 
 // @beta (undocumented)
-export function getProductPage(path: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<PageResolverProductResult>;
+export function getProductPage(path: string, criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<PageResolverProductResult>;
 
 // @beta
-export const getProducts: (searchCriteria?: SearchCriteria | undefined, contextInstance?: ShopwareApiInstance) => Promise<EntityResult<"product", Product[]>>;
-
-// @alpha @deprecated
-export const getProductsIds: (options?: any, contextInstance?: ShopwareApiInstance) => Promise<SearchResult<string[]>>;
+export const getProducts: (criteria?: ShopwareSearchParams | undefined, contextInstance?: ShopwareApiInstance) => Promise<EntityResult<"product", Product[]>>;
 
 // @beta (undocumented)
 export const getSearchEndpoint: () => string;
-
-// @beta @deprecated (undocumented)
-export function getSearchResults(term: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 
 // @beta (undocumented)
 export const getSeoUrlEndpoint: () => string;
@@ -396,7 +374,7 @@ export interface GetStoreNavigationParams {
     // (undocumented)
     requestRootId: StoreNavigationType;
     // (undocumented)
-    searchCriteria?: SearchCriteria;
+    searchCriteria?: ShopwareSearchParams;
 }
 
 // @beta (undocumented)

@@ -4,9 +4,6 @@
 
 ## UiCategoryRangeFilterOption interface
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 
 <b>Signature:</b>
 
@@ -18,6 +15,6 @@ export interface UiCategoryRangeFilterOption
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [max](./helpers.uicategoryrangefilteroption.max.md) | string | <b><i>(BETA)</i></b> |
-|  [min](./helpers.uicategoryrangefilteroption.min.md) | string | <b><i>(BETA)</i></b> |
+|  [max](./helpers.uicategoryrangefilteroption.max.md) | string |  |
+|  [min](./helpers.uicategoryrangefilteroption.min.md) | string |  |
 

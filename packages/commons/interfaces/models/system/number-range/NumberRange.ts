@@ -5,7 +5,7 @@ import { NumberRangeState } from "./NumberRangeState";
 import { NumberRangeTranslation } from "./NumberRangeTranslation";
 
 /**
- * @alpha
+ * @public
  */
 export interface NumberRange {
   typeId: string | null;

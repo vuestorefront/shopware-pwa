@@ -1,5 +1,5 @@
 import { warning } from "@shopware-pwa/commons";
-describe("helpers", () => {
+describe("commons", () => {
   const originalWarn = console.warn;
   afterEach(() => (console.warn = originalWarn));
   const OLD_ENV = process.env;

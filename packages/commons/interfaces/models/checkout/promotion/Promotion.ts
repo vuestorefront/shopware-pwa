@@ -8,7 +8,7 @@ import { PromotionTranslation } from "./PromotionTranslation";
 import { Customer } from "../customer/Customer";
 
 /**
- * @alpha
+ * @public
  */
 export interface Promotion {
   name: string | null;

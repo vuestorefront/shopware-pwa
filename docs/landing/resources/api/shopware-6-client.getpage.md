@@ -10,7 +10,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getPage(path: string, searchCriteria?: SearchCriteria, contextInstance?: ShopwareApiInstance): Promise<PageResolverResult<CmsPage>>;
+export declare function getPage(path: string, criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<PageResolverResult<CmsPage>>;
 ```
 
 ## Parameters
@@ -18,7 +18,7 @@ export declare function getPage(path: string, searchCriteria?: SearchCriteria, c
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  path | string |  |
-|  searchCriteria | SearchCriteria |  |
+|  criteria | ShopwareSearchParams |  |
 |  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 <b>Returns:</b>

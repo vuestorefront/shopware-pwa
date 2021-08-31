@@ -20,6 +20,7 @@ export interface IUseCustomerOrders
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [errors](./composables.iusecustomerorders.errors.md) | UnwrapRef&lt;{ loadOrders: ShopwareError\[\]; }&gt; | <b><i>(BETA)</i></b> |
+|  [getOrderDetails](./composables.iusecustomerorders.getorderdetails.md) | (orderId: string) =&gt; Promise&lt;Order \| undefined&gt; | <b><i>(BETA)</i></b> |
 |  [loadOrders](./composables.iusecustomerorders.loadorders.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [orders](./composables.iusecustomerorders.orders.md) | Ref&lt;Order\[\] \| null&gt; | <b><i>(BETA)</i></b> |
 

@@ -2,7 +2,9 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 import { UiProductReview } from "../ui-interfaces";
 
 /**
- * @alpha
+ * Format product reviews to ui-interfaces
+ *
+ * @public
  */
 export function getProductReviews({
   product,

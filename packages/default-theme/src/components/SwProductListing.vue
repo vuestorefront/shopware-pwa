@@ -124,7 +124,7 @@ export default {
       loading,
       loadMore,
       loadingMore,
-    } = useListing(root, props.listingType)
+    } = useListing({ listingType: props.listingType })
 
     if (props.initialListing) {
       setInitialListing(props.initialListing)

@@ -28,7 +28,6 @@ import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/
 import { ListingFilter } from '@shopware-pwa/helpers';
 import { ListingResult } from '@shopware-pwa/commons/interfaces/response/ListingResult';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
-import { PageBreadcrumb } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
@@ -66,7 +65,7 @@ export function getApplicationContext(params?: {
     apiInstance: ShopwareApiInstance;
     router: any;
     route: any;
-    routing: Routing;
+    routing: SwRouting;
     i18n: any;
     cookies: any;
     shopwareDefaults: ApiDefaults;
@@ -157,8 +156,6 @@ export interface IUseCart {
     refreshCart: () => void;
     // (undocumented)
     removeItem: ({ id }: LineItem) => Promise<void>;
-    // @deprecated (undocumented)
-    removeProduct: ({ id }: Partial<Product>) => void;
     // (undocumented)
     shippingTotal: ComputedRef<number>;
     // (undocumented)
@@ -269,6 +266,8 @@ export interface IUseCustomerOrders {
         loadOrders: ShopwareError[];
     }>;
     // (undocumented)
+    getOrderDetails: (orderId: string) => Promise<Order | undefined>;
+    // (undocumented)
     loadOrders: () => Promise<void>;
     // (undocumented)
     orders: Ref<Order[] | null>;
@@ -343,8 +342,6 @@ export interface IUseListing<ELEMENTS_TYPE> {
 
 // @beta
 export interface IUseNavigation {
-    // @deprecated (undocumented)
-    fetchNavigationElements: (depth: number) => Promise<void>;
     loadNavigationElements: (params: {
         depth: number;
     }) => Promise<void>;
@@ -463,40 +460,26 @@ export interface IUseSessionContext {
 
 // @beta
 export interface IUseUser {
-    // @deprecated (undocumented)
-    addAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
-    // @deprecated (undocumented)
-    addresses: Ref<CustomerAddress[] | null>;
     // (undocumented)
     country: Ref<Country | null>;
-    // @deprecated (undocumented)
-    deleteAddress: (addressId: string) => Promise<boolean>;
     // (undocumented)
-    error: Ref<any>;
+    error: ComputedRef<any>;
     // (undocumented)
     errors: UnwrapRef<{
         login: ShopwareError[];
         register: ShopwareError[];
-        resetPassword: ShopwareError[];
-        updatePassword: ShopwareError[];
         updateEmail: ShopwareError[];
     }>;
-    // (undocumented)
-    getOrderDetails: (orderId: string) => Promise<Order | undefined>;
     // (undocumented)
     isCustomerSession: ComputedRef<boolean>;
     // (undocumented)
     isGuestSession: ComputedRef<boolean>;
     // (undocumented)
     isLoggedIn: ComputedRef<boolean>;
-    // @deprecated (undocumented)
-    loadAddresses: () => Promise<void>;
     // (undocumented)
     loadCountry: (countryId: string) => Promise<void>;
     // (undocumented)
-    loading: Ref<boolean>;
-    // @deprecated (undocumented)
-    loadOrders: () => Promise<void>;
+    loading: ComputedRef<boolean>;
     // (undocumented)
     loadSalutation: (salutationId: string) => Promise<void>;
     // (undocumented)
@@ -506,11 +489,6 @@ export interface IUseUser {
     }) => Promise<boolean>;
     // (undocumented)
     logout: () => Promise<void>;
-    // @deprecated (undocumented)
-    markAddressAsDefault: ({ addressId, type, }: {
-        addressId?: string;
-        type?: AddressType;
-    }) => Promise<string | boolean>;
     onLogout: (fn: () => void) => void;
     // (undocumented)
     onUserLogin: (fn: (params: {
@@ -518,22 +496,14 @@ export interface IUseUser {
     }) => void) => void;
     // (undocumented)
     onUserRegister: (fn: () => void) => void;
-    // @deprecated (undocumented)
-    orders: Ref<Order[] | null>;
     // (undocumented)
     refreshUser: () => Promise<void>;
     // (undocumented)
     register: ({}: CustomerRegistrationParams) => Promise<boolean>;
-    // @deprecated (undocumented)
-    resetPassword: (resetPasswordData: CustomerResetPasswordParam) => Promise<boolean>;
     // (undocumented)
     salutation: Ref<Salutation | null>;
-    // @deprecated (undocumented)
-    updateAddress: (params: Partial<CustomerAddress>) => Promise<string | undefined>;
     // (undocumented)
     updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
-    // @deprecated (undocumented)
-    updatePassword: (updatePasswordData: CustomerUpdatePasswordParam) => Promise<boolean>;
     // (undocumented)
     updatePersonalInfo: (personals: CustomerUpdateProfileParam) => Promise<boolean>;
     // (undocumented)
@@ -574,22 +544,6 @@ interface Notification_2 {
 }
 export { Notification_2 as Notification }
 
-// @beta @deprecated (undocumented)
-export interface Routing {
-    // (undocumented)
-    availableDomains: ShopwareDomain[];
-    // (undocumented)
-    fallbackDomain: string | undefined;
-    // (undocumented)
-    fallbackLocale: string | undefined;
-    // (undocumented)
-    getCurrentDomain: ComputedRef<ShopwareDomain>;
-    // (undocumented)
-    getUrl: (path: string) => string;
-    // (undocumented)
-    setCurrentDomain: (domainData: any) => void;
-}
-
 // @beta (undocumented)
 export type Search = (path: string, associations?: any) => any;
 
@@ -625,7 +579,14 @@ export type SwInterceptors = {
 };
 
 // @beta
-export type SwRouting = Routing;
+export type SwRouting = {
+    availableDomains: ShopwareDomain[];
+    fallbackDomain?: string;
+    fallbackLocale?: string;
+    getCurrentDomain: ComputedRef<ShopwareDomain>;
+    setCurrentDomain: (domainData: any) => void;
+    getUrl: (path: string) => string;
+};
 
 // @beta
 export function useAddToCart(params: {
@@ -644,9 +605,6 @@ export function useBreadcrumbs(params?: {
 // @beta
 export function useCart(): IUseCart;
 
-// @beta @deprecated (undocumented)
-export function useCategoryFilters(): any;
-
 // @beta
 export function useCheckout(): IUseCheckout;
 
@@ -655,14 +613,12 @@ export function useCms(params?: {
     cmsContextName?: string;
 }): {
     page: ComputedRef<PageResolverProductResult | PageResolverResult<CmsPage> | null>;
-    categoryId: ComputedRef<string | null>;
     resourceType: ComputedRef<CmsPageType | null>;
     resourceIdentifier: ComputedRef<string | null>;
     currentSearchPathKey: ComputedRef<string | null>;
     loading: Ref<boolean>;
     search: (path: string, query?: any) => Promise<void>;
     error: Ref<any>;
-    getBreadcrumbsObject: ComputedRef<PageBreadcrumb>;
 };
 
 // @beta (undocumented)
@@ -774,7 +730,7 @@ export function useSalutations(): IUseSalutations;
 // @beta
 export function useSessionContext(): IUseSessionContext;
 
-// @beta
+// @public
 export function useSharedState(): {
     sharedRef: <T>(uniqueKey: string, defaultValue?: T | undefined) => WritableComputedRef<T | null>;
     preloadRef: (refObject: Ref<unknown>, callback: () => Promise<void>) => Promise<void>;

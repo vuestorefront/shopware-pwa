@@ -24,7 +24,7 @@ import { ProductReview } from "../../content/product/ProductReview";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface SalesChannel {
   typeId: string;

@@ -20,9 +20,11 @@ import { SfProductCardHorizontal } from "@storefront-ui/vue"
 import { useAddToCart } from "@shopware-pwa/composables"
 import {
   getProductMainImageUrl,
-  getProductRegularPrice,
+  getProductTierPrices,
   getProductUrl,
-  getProductSpecialPrice,
+  getProductCalculatedPrice,
+  getProductCalculatedListingPrice,
+  getProductPriceDiscount,
   getProductName,
 } from "@shopware-pwa/helpers"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
@@ -63,10 +65,21 @@ export default {
       return this.$routing.getUrl(getProductUrl(this.product))
     },
     getRegularPrice() {
-      return getProductRegularPrice(this.product)
+      return (
+        (this.tierPrices.length &&
+          this.tierPrices[0] &&
+          this.tierPrices[0].unitPrice) ||
+        getProductCalculatedListingPrice(this.product)
+      )
     },
     getSpecialPrice() {
-      return getProductSpecialPrice(this.product)
+      return this.tierPrices.length
+        ? undefined
+        : getProductPriceDiscount(this.product) &&
+            getProductCalculatedPrice(this.product)
+    },
+    tierPrices() {
+      return getProductTierPrices(this.product)
     },
     getImageUrl() {
       return getResizedImage(getProductMainImageUrl(this.product), {
