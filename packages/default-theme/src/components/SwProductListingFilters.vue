@@ -143,7 +143,7 @@ export default {
       search,
       getCurrentFilters,
       getTotal,
-    } = useListing(root, props.listingType)
+    } = useListing({ listingType: props.listingType })
 
     const { isOpen: isListView, switchState: switchToListView } = useUIState({
       stateName: "PRODUCT_LISTING_STATE",

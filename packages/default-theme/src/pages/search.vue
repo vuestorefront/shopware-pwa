@@ -19,9 +19,13 @@
 </template>
 <script>
 import { SfLoader } from "@storefront-ui/vue"
-import { useUIState, useListing } from "@shopware-pwa/composables"
+import {
+  useUIState,
+  useListing,
+  extendScopeContext,
+} from "@shopware-pwa/composables"
 
-import { computed, ref } from "@vue/composition-api"
+import { computed, ref, effectScope } from "vue-demi"
 import SwProductListing from "@/components/SwProductListing.vue"
 import SwProductListingFilters from "@/components/SwProductListingFilters.vue"
 
@@ -36,21 +40,27 @@ export default {
     SwProductListingFilters,
   },
   asyncData: async ({ app, query }) => {
-    const { initSearch } = useListing(app, "productSearchListing")
+    const scope = effectScope()
+    extendScopeContext(scope, app)
 
-    try {
-      await initSearch(query)
-    } catch (e) {
-      console.error("[search] Problem with initial search", e.messages)
-    }
+    await scope.run(async () => {
+      const { initSearch } = useListing({ listingType: "productSearchListing" })
+
+      try {
+        await initSearch(query)
+      } catch (e) {
+        console.error("[search] Problem with initial search", e)
+      }
+    })
+
+    scope.stop()
 
     return {}
   },
   setup(props, { root }) {
-    const { getElements, loading, getCurrentFilters } = useListing(
-      root,
-      "productSearchListing"
-    )
+    const { getElements, loading, getCurrentFilters } = useListing({
+      listingType: "productSearchListing",
+    })
 
     const getSearchTerm = computed(() => getCurrentFilters.value?.search)
 
