@@ -23,7 +23,7 @@ jobs:
         run: |
           mkdir test-project
           cd ./test-project
-          npx @shopware-pwa/cli@latest init --ci --devMode
+          npx @shopware-pwa/cli@latest init --ci --devMode --shopwareDomainsAllowList=${{ env.RELEASE_URL }} --shopwareDomainsAllowList=${{ env.RELEASE_URL }}/de
           yarn build
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@2.14
