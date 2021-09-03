@@ -5,7 +5,7 @@ import { StateMachineStateTranslation } from "./StateMachineStateTranslation";
 import { StateMachineHistory } from "./StateMachineHistory";
 
 /**
- * @alpha
+ * @public
  */
 export interface StateMachine {
   technicalName: string;

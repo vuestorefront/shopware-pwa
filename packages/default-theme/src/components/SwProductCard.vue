@@ -39,16 +39,14 @@ export default {
   components: {
     SfProductCard,
   },
-  setup(props, { root }) {
+  setup(props) {
     const { product } = toRefs(props)
-    const { addToCart, quantity, getStock, isInCart } = useAddToCart(
-      root,
-      product.value
-    )
-    const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist(
-      root,
-      product.value
-    )
+    const { addToCart, quantity, getStock, isInCart } = useAddToCart({
+      product,
+    })
+    const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist({
+      product,
+    })
     return {
       quantity,
       addToCart,
@@ -113,5 +111,9 @@ export default {
 .sw-product-card {
   width: 100%;
   padding: 0.3rem;
+
+  ::v-deep .sf-product-card__image-wrapper {
+    min-height: 50px;
+  }
 }
 </style>

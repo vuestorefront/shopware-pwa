@@ -19,9 +19,8 @@
 
 - In your Shopware platform: Assign the categories and the products to the right Sales Channel, related to the `shopwareAccessToken` you have set in _shopware-pwa.config.js_.
 
-- It might be, that your local PWA version is out of date. 
-Try to use the `npx @shopware-pwa/cli` command instead to have always latest version of the package or 
-try updating it using `npm -g install @shopware-pwa/cli@canary --force` and re-run `shopware-pwa init` selecting the `canary` version, if you're unsure about the correct version to use.
+- It might be, that your local PWA version is out of date.
+  Try to use the `npx @shopware-pwa/cli` command instead to have always latest version of the package.
 
 ---
 
@@ -55,9 +54,10 @@ See: [Context-awareness](/landing/fundamentals/security.html#context-awareness) 
 
 - Edit _shopware-pwa.config.js_ file
 - Add entry:
+
 ```js
 shopwareApiClient: {
-  timeout: 10000 // 10 seconds of axios timeout setting
+  timeout: 10000; // 10 seconds of axios timeout setting
 }
 ```
 
@@ -68,4 +68,11 @@ Learn [the details](../cookbook/#how-to-add-another-language) how to set the new
 :::
 
 - Check if there are entries in `.shopware-pwa/sw-plugins/domains.json`.
-- If not, run `npx @shopware-pwa/cli@canary domains` command.
+- If not, run `yarn shopware-pwa domains` command.
+
+### Issue: There's no "thank you page" on Apple devices
+
+- The issue is described broadly [here](https://github.com/vuestorefront/shopware-pwa/issues/1638).
+- The possible solution in your project may look like in the [PR](https://github.com/vuestorefront/shopware-pwa/pull/1644):
+  - copy `api-client.js` plugin from (`%PROJECT_DIR%/node_modules/@shopware-pwa/nuxt-module/plugins/api-client.js`), do the changes from mentioned PR and put it in your project's `src/plugins` folder (you will lose the compatibility on further upgrades)
+  - adjust every `handlePayment` usages to pass the context token parameter as a part of success/failure URL.

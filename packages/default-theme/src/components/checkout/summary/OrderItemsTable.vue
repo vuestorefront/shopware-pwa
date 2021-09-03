@@ -42,11 +42,10 @@ export default {
       ],
     }
   },
-  setup(props, { root }) {
-    const { cartItems, removeProduct } = useCart(root)
+  setup() {
+    const { cartItems } = useCart()
     return {
       cartItems,
-      removeProduct,
     }
   },
 }

@@ -3,7 +3,7 @@ import { Order } from "./Order";
 import { Salutation } from "../../system/salutation/Salutation";
 
 /**
- * @alpha
+ * @public
  */
 export interface OrderCustomer {
   email: string;

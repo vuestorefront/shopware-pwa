@@ -111,7 +111,7 @@ module.exports = {
           languagesMap[language.code] = language;
         });
       } catch (e) {
-        console.error("[CLI] There is a problem with languages", e);
+        console.error("[CLI > languages] There is a problem with languages", e);
       } finally {
         // Write merged map to file
         await toolbox.filesystem.writeAsync(
@@ -121,6 +121,6 @@ module.exports = {
       }
     }
 
-    toolbox.print.success(`Shopware languages refreshed`);
+    toolbox.print.success(`[CLI > languages] Shopware languages refreshed`);
   },
 };

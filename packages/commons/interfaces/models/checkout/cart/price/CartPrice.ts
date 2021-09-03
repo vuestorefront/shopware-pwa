@@ -2,7 +2,7 @@ import { CalculatedTax } from "../../../system/tax/CalculatedTax";
 import { TaxRule } from "../../../system/tax/TaxRule";
 
 /**
- * @alpha
+ * @public
  */
 export interface CartPrice {
   netPrice: number;

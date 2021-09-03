@@ -4,16 +4,12 @@
 
 ## createListingComposable() function
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 Factory to create your own listing. By default you can use useListing composable, which provides you predefined listings for category(cms) listing and product search listing. Using factory you can provide our own compatible search method and use it for example for creating listing of orders in my account.
 
 <b>Signature:</b>
 
 ```typescript
-export declare function createListingComposable<ELEMENTS_TYPE>({ rootContext, searchMethod, searchDefaults, listingKey, }: {
-    rootContext: ApplicationVueContext;
+export declare function createListingComposable<ELEMENTS_TYPE>({ searchMethod, searchDefaults, listingKey, }: {
     searchMethod: (searchParams: Partial<ShopwareSearchParams>) => Promise<ListingResult<ELEMENTS_TYPE>>;
     searchDefaults: ShopwareSearchParams;
     listingKey: string;
@@ -24,7 +20,7 @@ export declare function createListingComposable<ELEMENTS_TYPE>({ rootContext, se
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { rootContext, searchMethod, searchDefaults, listingKey, } | { rootContext: [ApplicationVueContext](./composables.applicationvuecontext.md)<!-- -->; searchMethod: (searchParams: Partial&lt;ShopwareSearchParams&gt;) =&gt; Promise&lt;ListingResult&lt;ELEMENTS\_TYPE&gt;&gt;; searchDefaults: ShopwareSearchParams; listingKey: string; } |  |
+|  { searchMethod, searchDefaults, listingKey, } | { searchMethod: (searchParams: Partial&lt;ShopwareSearchParams&gt;) =&gt; Promise&lt;ListingResult&lt;ELEMENTS\_TYPE&gt;&gt;; searchDefaults: ShopwareSearchParams; listingKey: string; } |  |
 
 <b>Returns:</b>
 

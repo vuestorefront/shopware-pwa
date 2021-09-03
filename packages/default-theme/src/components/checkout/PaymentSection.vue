@@ -71,10 +71,10 @@ export default {
     SwPluginSlot,
     SfLoader,
   },
-  setup(props, { root }) {
-    const { getPaymentMethods, paymentMethods } = useCheckout(root)
-    const { paymentMethod, setPaymentMethod } = useSessionContext(root)
-    const { refreshCart } = useCart(root)
+  setup(props) {
+    const { getPaymentMethods, paymentMethods } = useCheckout()
+    const { paymentMethod, setPaymentMethod } = useSessionContext()
+    const { refreshCart } = useCart()
     const isLoading = ref(false)
     const activePaymentMethod = computed({
       get: () => paymentMethod.value && paymentMethod.value.id,

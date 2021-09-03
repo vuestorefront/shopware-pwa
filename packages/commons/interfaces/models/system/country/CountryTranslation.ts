@@ -2,7 +2,7 @@ import { Country } from "./Country";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface CountryTranslation {
   countryId: string;

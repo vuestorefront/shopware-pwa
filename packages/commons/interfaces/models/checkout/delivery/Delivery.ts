@@ -6,7 +6,7 @@ import { DeliveryDate } from "./DeliveryDate";
 import { StateMachineState } from "../../system/state-machine/StateMachineState";
 
 /**
- * @alpha
+ * @public
  */
 export interface Delivery {
   shippingMethodId: string;

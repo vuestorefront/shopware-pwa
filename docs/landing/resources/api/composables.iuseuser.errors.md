@@ -13,8 +13,6 @@
 errors: UnwrapRef<{
         login: ShopwareError[];
         register: ShopwareError[];
-        resetPassword: ShopwareError[];
-        updatePassword: ShopwareError[];
         updateEmail: ShopwareError[];
     }>;
 ```

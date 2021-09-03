@@ -9,7 +9,7 @@ import { RuleCondition } from "../../content/rule/RuleCondition";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface Rule {
   name: string;

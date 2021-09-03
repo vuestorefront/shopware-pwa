@@ -5,51 +5,57 @@ import {
 
 import {
   useCms,
-  ApplicationVueContext,
   getApplicationContext,
   useDefaults,
   createListingComposable,
-  IUseListing,
 } from "@shopware-pwa/composables";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import { IUseListing } from "../factories/createListingComposable";
 
 /**
  * @beta
  */
-export type listingKey = "productSearchListing" | "categoryListing";
+export type ListingType = "productSearchListing" | "categoryListing";
 
 /**
  * @beta
  */
-export const useListing = (
-  rootContext: ApplicationVueContext,
-  listingKey: listingKey = "categoryListing"
-): IUseListing<Product> => {
-  const { getDefaults } = useDefaults(rootContext, "useListing");
-  const { apiInstance } = getApplicationContext(rootContext, "useListing");
+export function useListing(params?: {
+  listingType: ListingType;
+}): IUseListing<Product> {
+  const COMPOSABLE_NAME = "useListing";
+  const contextName = COMPOSABLE_NAME;
+
+  const listingType = params?.listingType || "categoryListing";
+
+  const { getDefaults } = useDefaults({ defaultsKey: contextName });
+  const { apiInstance } = getApplicationContext({ contextName });
 
   let searchMethod;
-  if (listingKey === "productSearchListing") {
+  if (listingType === "productSearchListing") {
     searchMethod = async (searchCriteria: Partial<ShopwareSearchParams>) => {
       return searchProducts(searchCriteria, apiInstance);
     };
   } else {
-    const { categoryId } = useCms(rootContext);
+    const { resourceIdentifier } = useCms();
     searchMethod = async (searchCriteria: Partial<ShopwareSearchParams>) => {
-      if (!categoryId.value) {
+      if (!resourceIdentifier.value) {
         throw new Error(
           "[useListing][search] Search category id does not exist."
         );
       }
-      return getCategoryProducts(categoryId.value, searchCriteria, apiInstance);
+      return getCategoryProducts(
+        resourceIdentifier.value,
+        searchCriteria,
+        apiInstance
+      );
     };
   }
 
   return createListingComposable<Product>({
-    rootContext,
-    listingKey,
+    listingKey: listingType,
     searchMethod,
     searchDefaults: getDefaults(),
   });
-};
+}

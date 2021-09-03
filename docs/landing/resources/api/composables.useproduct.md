@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useProduct](./composables.useproduct.md)
 
-## useProduct variable
+## useProduct() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -11,5 +11,18 @@
 <b>Signature:</b>
 
 ```typescript
-useProduct: (rootContext: ApplicationVueContext, loadedProduct?: any) => UseProduct<Product, Search>
+export declare function useProduct(params?: {
+    product?: Ref<Product> | Product;
+}): IUseProduct<Product, Search>;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  params | { product?: Ref&lt;Product&gt; \| Product; } |  |
+
+<b>Returns:</b>
+
+[IUseProduct](./composables.iuseproduct.md)<!-- -->&lt;Product, [Search](./composables.search.md)<!-- -->&gt;
+

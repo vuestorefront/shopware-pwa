@@ -9,7 +9,7 @@ import { ShippingMethodTranslation } from "./ShippingMethodTranslation";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface ShippingMethod {
   id: string;

@@ -46,6 +46,14 @@ export async function runModule(
       "@vue/composition-api/dist/vue-composition-api.esm.js"
     );
 
+  moduleObject.options.alias["vue"] =
+    moduleObject.options.alias["vue"] ||
+    (moduleObject.options.dev
+      ? moduleObject.nuxt.resolver.resolveModule("vue/dist/vue.common.dev.js")
+      : moduleObject.nuxt.resolver.resolveModule(
+          "vue/dist/vue.runtime.esm.js"
+        ));
+
   const TARGET_SOURCE: string = getTargetSourcePath(moduleObject);
   const THEME_SOURCE: string = getThemeSourcePath(
     moduleObject,
@@ -81,6 +89,14 @@ export async function runModule(
       "Please change your shopwareEndpoint in shopware-pwa.config.js to contain just domain, example: https://github.com/DivanteLtd/shopware-pwa#running-shopware-pwa-on-custom-shopware-instance"
     );
   }
+
+  /* i18n plugin has to be registered before routing-plugin, because the execution order will be the other way round,
+   * as addPlugin() prepends to the plugins-array (https://nuxtjs.org/docs/2.x/internals-glossary/internals-module-container#addplugin-template)
+   * So by registering the i18n-plugin before the routing-plugin, the routing-plugin will be executed before the i18n-plugin
+   * and as a result the currentDomain will be set correctly in the i18n-plugin on initialization. This results in the SSR-result being
+   * in the correct locale.
+   */
+  extendLocales(moduleObject, shopwarePwaConfig);
 
   /* In here instantiate new routing */
   await setupDomains(moduleObject, shopwarePwaConfig);
@@ -124,9 +140,6 @@ export async function runModule(
     });
   });
 
-  // locales
-  extendLocales(moduleObject, shopwarePwaConfig);
-
   moduleObject.addPlugin({
     fileName: "api-client.js",
     src: path.join(__dirname, "..", "plugins", "api-client.js"),
@@ -137,10 +150,12 @@ export async function runModule(
     },
   });
 
-  let config = merge({}, getDefaultApiParams(), shopwarePwaConfig.apiDefaults);
+  let config = merge({}, getDefaultApiParams());
   try {
+    /* istanbul ignore next */
     const defaultsConfigBuilder =
       require("@shopware-pwa/nuxt-module/api-defaults").default;
+    /* istanbul ignore next */
     config = defaultsConfigBuilder().get();
   } catch (e) {
     console.error("Cannot resolve API defaults config", e);

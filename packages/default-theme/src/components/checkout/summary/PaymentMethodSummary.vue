@@ -22,7 +22,7 @@ export default {
     // SwButton,
   },
   setup(props, { root }) {
-    const { sessionContext } = useSessionContext(root)
+    const { sessionContext } = useSessionContext()
     const paymentMethod = computed(() => sessionContext.value.paymentMethod)
     return {
       paymentMethod,

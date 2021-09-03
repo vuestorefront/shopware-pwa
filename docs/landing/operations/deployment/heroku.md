@@ -4,13 +4,13 @@ To deploy your app to Heroku, you need to follow a few simple steps and you are 
 
 This guide assumes you have
 
- * [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed and configured
- * created a working local project with `npx @shopware-pwa/cli@canary init` (or `shopware-pwa init` )
- * created a new application in your Heroku dashboard
+- [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed and configured
+- created a working local project with `npx @shopware-pwa/cli init`
+- created a new application in your Heroku dashboard
 
 ## Heroku Setup
 
-According to the Nuxt.js documentation on deploying to Heroku, you have to set two environment variables in your Heroku App. You can set those in your Applications' *Settings* tab in the *Config Vars* section:
+According to the Nuxt.js documentation on deploying to Heroku, you have to set two environment variables in your Heroku App. You can set those in your Applications' _Settings_ tab in the _Config Vars_ section:
 
 ![Heroku Configuration](./../../../assets/heroku_config_vars.png)
 
@@ -42,7 +42,7 @@ You can alternatively use npm if you specify a npm version instead.
 
 ## Build command
 
-Heroku automatically invokes our `build` script when we deploy, so we have to add the `npx @shopware-pwa/cli@canary init` (or `shopware-pwa init`) command to that step.
+Heroku automatically invokes our `build` script when we deploy, so we have to add the `npx @shopware-pwa/cli init` command to that step.
 
 Replace your current `build` script inside your `package.json` with the following:
 
@@ -52,7 +52,7 @@ Make sure, the `@shopware-pwa/cli` version matches the version you've used to cr
 
 ```json
 "scripts": {
-  "build": "npx @shopware-pwa/cli@canary init --ci && nuxt build",
+  "build": "yarn shopware-pwa --ci && nuxt build",
   ...
 ```
 
@@ -99,9 +99,9 @@ heroku logs --tail -a my-pwa-project
 
 **Common errors**
 
- * Wrong or missing Node.js or Package manager version
- * Wrong version of `shopware-pwa/cli` in you `build` command
- * Not using the `HOST` or `PORT` variable in your `nuxt.config.js` configuration.
+- Wrong or missing Node.js or Package manager version
+- Wrong version of `shopware-pwa/cli` in you `build` command
+- Not using the `HOST` or `PORT` variable in your `nuxt.config.js` configuration.
 
 ## Known issues
 
@@ -111,5 +111,5 @@ Currenty the handling of the user context is broken, so logging in and using the
 
 ## Resources
 
- * [How to deploy on Heroku by Nuxt.js](https://nuxtjs.org/faq/heroku-deployment/)
- * [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
+- [How to deploy on Heroku by Nuxt.js](https://nuxtjs.org/faq/heroku-deployment/)
+- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)

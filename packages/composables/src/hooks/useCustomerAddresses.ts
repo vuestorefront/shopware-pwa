@@ -19,8 +19,8 @@ import {
   useSharedState,
   useUser,
   useDefaults,
+  getApplicationContext,
 } from "@shopware-pwa/composables";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
@@ -57,18 +57,16 @@ export interface IUseCustomerAddresses {
  *
  * @beta
  */
-export function useCustomerAddresses(
-  rootContext: ApplicationVueContext
-): IUseCustomerAddresses {
-  const { contextName, apiInstance } = getApplicationContext(
-    rootContext,
-    "useCustomerAddresses"
-  );
-  const { getDefaults } = useDefaults(rootContext, contextName);
+export function useCustomerAddresses(): IUseCustomerAddresses {
+  const COMPOSABLE_NAME = "useCustomerAddresses";
+  const contextName = COMPOSABLE_NAME;
 
-  const { refreshUser } = useUser(rootContext);
+  const { apiInstance } = getApplicationContext({ contextName });
+  const { getDefaults } = useDefaults({ defaultsKey: contextName });
 
-  const { sharedRef } = useSharedState(rootContext);
+  const { refreshUser } = useUser();
+
+  const { sharedRef } = useSharedState();
   const storeAddresses = sharedRef<CustomerAddress[]>(
     `${contextName}-addresses`,
     []
@@ -105,10 +103,10 @@ export function useCustomerAddresses(
 
     try {
       switch (type) {
-        case AddressType.billing:
+        case "billing":
           await setDefaultCustomerBillingAddress(addressId, apiInstance);
           break;
-        case AddressType.shipping:
+        case "shipping":
           await setDefaultCustomerShippingAddress(addressId, apiInstance);
           break;
         default:
@@ -126,7 +124,6 @@ export function useCustomerAddresses(
 
   /**
    * Edit address
-   * @returns
    */
   const updateAddress = async (
     params: Partial<CustomerAddress>
@@ -177,7 +174,6 @@ export function useCustomerAddresses(
     params: ShopwareSearchParams = {}
   ): Promise<void> => {
     try {
-      console.warn("loadAddresses", getDefaults());
       const response = await getCustomerAddresses(
         Object.assign({}, getDefaults(), params),
         apiInstance

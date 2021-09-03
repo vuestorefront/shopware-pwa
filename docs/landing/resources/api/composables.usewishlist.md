@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useWishlist](./composables.usewishlist.md)
 
-## useWishlist variable
+## useWishlist() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -11,5 +11,18 @@
 <b>Signature:</b>
 
 ```typescript
-useWishlist: (rootContext: ApplicationVueContext, product?: Product | undefined) => IUseWishlist
+export declare function useWishlist(params?: {
+    product?: Product | Ref<Product>;
+}): IUseWishlist;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  params | { product?: Product \| Ref&lt;Product&gt;; } |  |
+
+<b>Returns:</b>
+
+[IUseWishlist](./composables.iusewishlist.md)
+

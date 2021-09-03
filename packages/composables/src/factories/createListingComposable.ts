@@ -1,11 +1,11 @@
 import { getListingFilters, ListingFilter } from "@shopware-pwa/helpers";
 
 import {
-  ApplicationVueContext,
   getApplicationContext,
   useSharedState,
+  useVueContext,
 } from "@shopware-pwa/composables";
-import { computed, ComputedRef, ref } from "vue-demi";
+import { computed, ComputedRef, inject, ref } from "vue-demi";
 import merge from "lodash/merge";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { ListingResult } from "@shopware-pwa/commons/interfaces/response/ListingResult";
@@ -14,7 +14,7 @@ import { Sort } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 /**
  * Listing interface, can be used to display category products, search products or any other Shopware search interface (ex. orders with pagination)
  *
- * @beta
+ * @public
  */
 export interface IUseListing<ELEMENTS_TYPE> {
   getInitialListing: ComputedRef<ListingResult<ELEMENTS_TYPE> | null>;
@@ -49,35 +49,40 @@ export interface IUseListing<ELEMENTS_TYPE> {
  * Factory to create your own listing. By default you can use useListing composable, which provides you predefined listings for category(cms) listing and product search listing.
  * Using factory you can provide our own compatible search method and use it for example for creating listing of orders in my account.
  *
- * @beta
+ * @public
  */
 export function createListingComposable<ELEMENTS_TYPE>({
-  rootContext,
   searchMethod,
   searchDefaults,
   listingKey,
 }: {
-  rootContext: ApplicationVueContext;
   searchMethod: (
     searchParams: Partial<ShopwareSearchParams>
   ) => Promise<ListingResult<ELEMENTS_TYPE>>;
   searchDefaults: ShopwareSearchParams;
   listingKey: string;
 }): IUseListing<ELEMENTS_TYPE> {
-  const { router, contextName } = getApplicationContext(
-    rootContext,
-    "createListingComposable"
-  );
+  const COMPOSABLE_NAME = "createListingComposable";
+  const contextName = COMPOSABLE_NAME;
+
+  const { router } = getApplicationContext({ contextName });
+
+  // Handle CMS context to be able to show different breadcrumbs for different CMS pages.
+  const { isVueComponent } = useVueContext();
+  const cmsContext = isVueComponent && inject("swCmsContext", null);
+  const cacheKey = cmsContext
+    ? `${contextName}(cms-${cmsContext})`
+    : contextName;
 
   const loading = ref(false);
   const loadingMore = ref(false);
 
-  const { sharedRef } = useSharedState(rootContext);
+  const { sharedRef } = useSharedState();
   const _storeInitialListing = sharedRef<ListingResult<ELEMENTS_TYPE>>(
-    `${contextName}-initialListing-${listingKey}`
+    `${cacheKey}-initialListing-${listingKey}`
   );
   const _storeAppliedListing = sharedRef<Partial<ListingResult<ELEMENTS_TYPE>>>(
-    `${contextName}-appliedListing-${listingKey}`
+    `${cacheKey}-appliedListing-${listingKey}`
   );
 
   const getInitialListing = computed(() => _storeInitialListing.value);
@@ -125,7 +130,7 @@ export function createListingComposable<ELEMENTS_TYPE>({
     }
   ): Promise<void> => {
     loading.value = true;
-    const changeRoute = options?.preventRouteChange !== true;
+    const changeRoute = options?.preventRouteChange !== true && !cmsContext;
     try {
       // replace URL query params with currently selected criteria
       changeRoute &&

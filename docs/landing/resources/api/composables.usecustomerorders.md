@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useCustomerOrders](./composables.usecustomerorders.md)
 
-## useCustomerOrders variable
+## useCustomerOrders() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -12,5 +12,9 @@ Composable for listing customer orders. Options - [IUseCustomerOrders](./composa
 <b>Signature:</b>
 
 ```typescript
-useCustomerOrders: (rootContext: ApplicationVueContext) => IUseCustomerOrders
+export declare function useCustomerOrders(): IUseCustomerOrders;
 ```
+<b>Returns:</b>
+
+[IUseCustomerOrders](./composables.iusecustomerorders.md)
+

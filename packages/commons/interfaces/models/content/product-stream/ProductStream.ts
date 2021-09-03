@@ -3,7 +3,7 @@ import { ProductStreamFilter } from "./ProductStreamFilter";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface ProductStream {
   name: string;

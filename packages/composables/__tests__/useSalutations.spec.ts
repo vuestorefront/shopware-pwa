@@ -12,11 +12,10 @@ jest.mock("@shopware-pwa/shopware-6-client");
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 
 import { useSalutations } from "../src/hooks/useSalutations";
+import { prepareRootContextMock } from "./contextRunner";
 
 describe("Composables - useSalutations", () => {
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-  };
+  const rootContextMock = prepareRootContextMock();
   const stateSharedRef = ref();
   mockedCompositionAPI.getCurrentInstance = jest.fn();
   mockedCompositionAPI.onMounted = jest.fn();
@@ -32,6 +31,12 @@ describe("Composables - useSalutations", () => {
         sharedRef: () => stateSharedRef,
       } as any;
     });
+
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
   });
   describe("computed", () => {
     describe("getMappedSalutations", () => {
@@ -39,14 +44,12 @@ describe("Composables - useSalutations", () => {
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce(
           null as any
         );
-        const { getSalutations, fetchSalutations } =
-          useSalutations(rootContextMock);
+        const { getSalutations, fetchSalutations } = useSalutations();
         await fetchSalutations();
         expect(getSalutations.value).toEqual([]);
       });
       it("should contain properly fetched salutations", async () => {
-        const { getSalutations, fetchSalutations } =
-          useSalutations(rootContextMock);
+        const { getSalutations, fetchSalutations } = useSalutations();
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
           elements: [
             {
@@ -88,7 +91,7 @@ describe("Composables - useSalutations", () => {
         mockedApiClient.getAvailableSalutations.mockRejectedValueOnce({
           messages: [{ detail: "Couldn't fetch available salutations." }],
         });
-        const { fetchSalutations, error } = useSalutations(rootContextMock);
+        const { fetchSalutations, error } = useSalutations();
         await fetchSalutations();
         expect(error.value).toStrictEqual([
           { detail: "Couldn't fetch available salutations." },
@@ -97,7 +100,7 @@ describe("Composables - useSalutations", () => {
     });
     describe("onMounted", () => {
       it("should call onMounted at composable call", () => {
-        useSalutations(rootContextMock);
+        useSalutations();
         expect(vueComp.onMounted).toBeCalled();
       });
     });
@@ -107,7 +110,7 @@ describe("Composables - useSalutations", () => {
           elements: null,
         } as any);
         const { mountedCallback, getSalutations, fetchSalutations } =
-          useSalutations(rootContextMock);
+          useSalutations();
         await fetchSalutations();
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
           elements: [
@@ -159,7 +162,7 @@ describe("Composables - useSalutations", () => {
           ],
         } as any);
         const { mountedCallback, getSalutations, fetchSalutations } =
-          useSalutations(rootContextMock);
+          useSalutations();
         await fetchSalutations();
         mockedApiClient.getAvailableSalutations.mockReturnValueOnce({
           elements: [

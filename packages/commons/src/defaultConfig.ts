@@ -32,9 +32,9 @@ export interface ApiDefaults {
  */
 export interface ShopwarePwaConfigFile {
   /**
-   * shopware-pwa host URL
+   * list of allowed domains for this pwa instance from saleschannel configuration
    */
-  pwaHost?: string;
+  shopwareDomainsAllowList?: string[];
   /**
    * default domain prefix
    */
@@ -59,12 +59,6 @@ export interface ShopwarePwaConfigFile {
    * {ShopwareApiClientConfig}
    */
   shopwareApiClient?: ShopwareApiClientConfig;
-  /**
-   * set of includes, associations depending on use context (see: useDefaults composable)
-   *
-   * @deprecated use defaultsConfigBuilder instead
-   */
-  apiDefaults?: ApiDefaults;
 }
 
 export interface CompatibilityTable {

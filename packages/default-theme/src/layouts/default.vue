@@ -36,13 +36,18 @@ import SwBottomNavigation from "@/components/SwBottomNavigation.vue"
 import SwFooter from "@/components/SwFooter.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { useBreadcrumbs, useUIState } from "@shopware-pwa/composables"
-import { computed, ref, watchEffect } from "@vue/composition-api"
+import {
+  computed,
+  ref,
+  watchEffect,
+  defineComponent,
+} from "@vue/composition-api"
 import SwLoginModal from "@/components/modals/SwLoginModal.vue"
 import SwNotifications from "@/components/SwNotifications.vue"
 import SwOfflineMode from "@/components/SwOfflineMode.vue"
 const SwCart = () => import("@/components/SwCart.vue")
 
-export default {
+export default defineComponent({
   components: {
     SfBreadcrumbs,
     SwHeader,
@@ -57,10 +62,12 @@ export default {
   name: "DefaultLayout",
 
   setup(props, { root }) {
-    const { breadcrumbs } = useBreadcrumbs(root)
-    const { isOpen: isSidebarOpen } = useUIState(root, "CART_SIDEBAR_STATE")
+    const { breadcrumbs } = useBreadcrumbs()
+    const { isOpen: isSidebarOpen } = useUIState({
+      stateName: "CART_SIDEBAR_STATE",
+    })
     const { isOpen: isLoginModalOpen, switchState: switchLoginModalState } =
-      useUIState(root, "LOGIN_MODAL_STATE")
+      useUIState({ stateName: "LOGIN_MODAL_STATE" })
 
     // Load cart component only when needed
     const loadSidebarComponent = ref(isSidebarOpen.value)
@@ -72,13 +79,15 @@ export default {
     })
 
     const getBreadcrumbs = computed(() => {
-      return breadcrumbs.value.map((breadcrumb) => {
-        return {
-          // map to SFUI type
-          text: breadcrumb.name,
-          link: root.$routing.getUrl(breadcrumb.path),
-        }
-      })
+      return (
+        breadcrumbs.value?.map((breadcrumb) => {
+          return {
+            // map to SFUI type
+            text: breadcrumb.name,
+            link: root.$routing.getUrl(breadcrumb.path),
+          }
+        }) || []
+      )
     })
 
     return {
@@ -94,7 +103,7 @@ export default {
       return this.$router.push(this.$routing.getUrl(route.link))
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

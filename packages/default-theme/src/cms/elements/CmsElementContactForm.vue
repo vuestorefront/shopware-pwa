@@ -162,9 +162,11 @@ export default {
     },
   },
   setup(props, { root }) {
-    const { apiInstance } = getApplicationContext(root, "SwFooter")
-    const { getSalutations, error: salutationsError } = useSalutations(root)
-    const { categoryId } = useCms(root)
+    const { apiInstance } = getApplicationContext({
+      contextName: "CmsElementContactForm",
+    })
+    const { getSalutations, error: salutationsError } = useSalutations()
+    const { resourceIdentifier } = useCms()
     const getMappedSalutations = computed(() =>
       mapSalutations(getSalutations.value)
     )
@@ -193,7 +195,7 @@ export default {
         await sendContactForm(
           {
             ...state,
-            navigationId: categoryId.value,
+            navigationId: resourceIdentifier.value,
           },
           apiInstance
         )
@@ -245,7 +247,7 @@ export default {
       getConfirmationText,
       sendForm,
       errorMessages,
-      categoryId,
+      resourceIdentifier,
       formSent,
       $v,
       ...toRefs(state),

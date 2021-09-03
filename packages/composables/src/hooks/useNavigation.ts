@@ -9,7 +9,6 @@ import {
   getApplicationContext,
   useSharedState,
 } from "@shopware-pwa/composables";
-import { ApplicationVueContext } from "../appContext";
 
 /**
  * interface for {@link useNavigation} composable
@@ -20,10 +19,6 @@ import { ApplicationVueContext } from "../appContext";
  */
 export interface IUseNavigation {
   navigationElements: ComputedRef<StoreNavigationElement[] | null>;
-  /**
-   * @deprecated use loadNavigationElements instead. Remove after v0.8
-   */
-  fetchNavigationElements: (depth: number) => Promise<void>;
 
   /**
    * Load navigation elements
@@ -37,31 +32,30 @@ export interface IUseNavigation {
  * @example
  * ```
  * // get main navigation
- * useNavigation( root )
+ * useNavigation()
  * // get footer navigation
- * useNavigation( root, { type: "footer-navigation" } )
+ * useNavigation({ type: "footer-navigation" } )
  * ```
  *
  * @beta
  */
-export const useNavigation = (
-  rootContext: ApplicationVueContext,
-  params: {
-    type: StoreNavigationType;
-  } = {
-    type: "main-navigation",
-  }
-): IUseNavigation => {
-  const { apiInstance } = getApplicationContext(rootContext, "useNavigation");
-  const { sharedRef } = useSharedState(rootContext);
+export function useNavigation(params?: {
+  type?: StoreNavigationType;
+}): IUseNavigation {
+  const COMPOSABLE_NAME = "useNavigation";
+  const contextName = COMPOSABLE_NAME;
 
-  const { getIncludesConfig, getAssociationsConfig } = useDefaults(
-    rootContext,
-    "useNavigation"
-  );
+  const type = params?.type || "main-navigation";
+
+  const { apiInstance } = getApplicationContext({ contextName });
+  const { sharedRef } = useSharedState();
+
+  const { getIncludesConfig, getAssociationsConfig } = useDefaults({
+    defaultsKey: contextName,
+  });
 
   const sharedElements = sharedRef<StoreNavigationElement[]>(
-    `useNavigation-${params.type}`
+    `useNavigation-${type}`
   );
   const navigationElements = computed(() => sharedElements.value);
 
@@ -69,13 +63,11 @@ export const useNavigation = (
     try {
       const navigationResponse = await getStoreNavigation(
         {
-          requestActiveId: params.type,
-          requestRootId: params.type,
+          requestActiveId: type,
+          requestRootId: type,
           searchCriteria: {
-            configuration: {
-              includes: getIncludesConfig(),
-              associations: getAssociationsConfig(),
-            },
+            includes: getIncludesConfig(),
+            associations: getAssociationsConfig(),
           },
           depth,
         },
@@ -91,8 +83,6 @@ export const useNavigation = (
 
   return {
     navigationElements,
-    fetchNavigationElements: (depth: number) =>
-      loadNavigationElements({ depth }),
     loadNavigationElements,
   };
-};
+}

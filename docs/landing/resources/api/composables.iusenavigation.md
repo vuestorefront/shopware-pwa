@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-interface for [useNavigation](./composables.usenavigation.md) composable
+interface for [useNavigation()](./composables.usenavigation.md) composable
 
 Provides state for navigation trees depending on navigation type.
 
@@ -21,7 +21,6 @@ export interface IUseNavigation
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [fetchNavigationElements](./composables.iusenavigation.fetchnavigationelements.md) | (depth: number) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [loadNavigationElements](./composables.iusenavigation.loadnavigationelements.md) | (params: { depth: number; }) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> Load navigation elements |
 |  [navigationElements](./composables.iusenavigation.navigationelements.md) | ComputedRef&lt;StoreNavigationElement\[\] \| null&gt; | <b><i>(BETA)</i></b> |
 

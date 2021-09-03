@@ -2,7 +2,7 @@ import { Product } from "./Product";
 import { SalesChannel } from "../../system/sales-channel/SalesChannel";
 
 /**
- * @alpha
+ * @public
  */
 export interface ProductVisibility {
   visibility: number;

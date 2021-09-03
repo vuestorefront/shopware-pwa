@@ -5,7 +5,7 @@ import { CustomerAddress } from "../../checkout/customer/CustomerAddress";
 import { SalesChannel } from "../sales-channel/SalesChannel";
 
 /**
- * @alpha
+ * @public
  */
 export interface Country {
   active: boolean;

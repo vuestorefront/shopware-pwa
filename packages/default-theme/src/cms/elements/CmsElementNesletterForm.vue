@@ -97,7 +97,9 @@ export default {
     }
   },
   setup(props, { root }) {
-    const { apiInstance } = getApplicationContext(root, "SwFooter")
+    const { apiInstance } = getApplicationContext({
+      contextName: "CmsElementNewsletterForm",
+    })
     const errorMessages = ref([])
     const email = ref(null)
     const formSent = ref(false)

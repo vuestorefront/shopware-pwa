@@ -119,7 +119,7 @@ export default {
       updatePersonalInfo,
       refreshUser,
       updateEmail,
-    } = useUser(root)
+    } = useUser()
 
     return {
       refreshUser,

@@ -21,10 +21,10 @@ export default {
       address: "",
     }
   },
-  setup(props, { root }) {
-    const { addresses, loadAddresses } = useCustomerAddresses(root)
+  setup() {
+    const { addresses, loadAddresses } = useCustomerAddresses()
 
-    const { country, loadCountry, salutation, loadSalutation } = useUser(root)
+    const { country, loadCountry, salutation, loadSalutation } = useUser()
 
     return {
       loadAddresses,

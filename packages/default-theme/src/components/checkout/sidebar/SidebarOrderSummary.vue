@@ -50,9 +50,8 @@ export default {
     SwCartProduct,
     TotalsSummary,
   },
-  setup(props, { root }) {
-    const { cartItems, count, subtotal, shippingTotal, totalPrice } =
-      useCart(root)
+  setup() {
+    const { cartItems, count, subtotal, shippingTotal, totalPrice } = useCart()
 
     return {
       count,

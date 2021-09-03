@@ -54,7 +54,7 @@ export interface ContainsFilter extends SearchFilter {
 }
 
 /**
- * @beta
+ * @public
  */
 export interface RangeFilter extends SearchFilter {
   field: string;

@@ -1,5 +1,5 @@
 /**
- * @alpha
+ * @public
  */
 export interface Pagination {
   limit?: number;

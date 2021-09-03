@@ -70,7 +70,7 @@ import {
   useNotifications,
 } from "@shopware-pwa/composables"
 import { getProductUrl } from "@shopware-pwa/helpers"
-import { computed, onMounted, watch } from "@vue/composition-api"
+import { computed, onMounted, watch, toRefs } from "@vue/composition-api"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 
@@ -91,16 +91,17 @@ export default {
       type: Object,
     },
   },
-  setup({ product }, { root }) {
-    const { addToCart, quantity } = useAddToCart(root, product)
-    const { pushInfo } = useNotifications(root)
+  setup(props, { root }) {
+    const { product } = toRefs(props)
+    const { addToCart, quantity } = useAddToCart({ product })
+    const { pushInfo } = useNotifications()
     const {
       isLoadingOptions,
       handleChange,
       getOptionGroups,
       getSelectedOptions,
       findVariantForSelectedOptions,
-    } = useProductConfigurator(root, product)
+    } = useProductConfigurator({ product })
 
     const description = computed(
       () =>

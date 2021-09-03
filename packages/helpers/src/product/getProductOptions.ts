@@ -2,7 +2,9 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 import { UiProductOption } from "../ui-interfaces";
 
 /**
- * @beta
+ * Get product options as ui-interfaces
+ *
+ * @public
  */
 export function getProductOptions({
   product,

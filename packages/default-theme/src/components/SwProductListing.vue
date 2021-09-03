@@ -2,7 +2,7 @@
   <div class="cms-element-product-listing">
     <SfLoader :loading="loading" class="cms-element-product-listing__loader" />
     <div v-if="getElements.length" class="cms-element-product-listing__wrapper">
-      <transition-group
+      <div
         tag="div"
         appear
         name="cms-element-product-listing__slide"
@@ -12,7 +12,7 @@
         <template v-if="!isListView">
           <SwProductCard
             v-for="(product, i) in getElements"
-            :key="product.id"
+            :key="i + product.id"
             class="cms-element-product-listing__product-card"
             :product="product"
             :style="{ '--index': i }"
@@ -21,14 +21,14 @@
         <template v-else>
           <SwProductCardHorizontal
             v-for="(product, i) in getElements"
-            :key="product.id"
+            :key="i + product.id"
             class="cms-element-product-listing__product-card-horizontal"
             :product="product"
             :style="{ '--index': i }"
           />
         </template>
         <div key="holder" class="cms-element-product-listing__place-holder" />
-      </transition-group>
+      </div>
       <SfPagination
         v-if="getCurrentPage && !isListView"
         class="cms-element-product-listing__pagination"
@@ -124,7 +124,7 @@ export default {
       loading,
       loadMore,
       loadingMore,
-    } = useListing(root, props.listingType)
+    } = useListing({ listingType: props.listingType })
 
     if (props.initialListing) {
       setInitialListing(props.initialListing)
@@ -137,7 +137,9 @@ export default {
       )
     }
 
-    const { isOpen: isListView } = useUIState(root, "PRODUCT_LISTING_STATE")
+    const { isOpen: isListView } = useUIState({
+      stateName: "PRODUCT_LISTING_STATE",
+    })
 
     const changePage = async (pageNumber) => {
       if (pageNumber > getTotalPagesCount.value) {

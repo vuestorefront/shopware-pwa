@@ -1,6 +1,6 @@
 describe("Shopping happy path", () => {
   beforeEach(() => {
-    cy.intercept("GET", "*/store-api/currency").as("getCurrencies");
+    cy.intercept("GET", "**/store-api/currency").as("getCurrencies");
     cy.visit("/");
     cy.wait("@getCurrencies");
   });

@@ -12,7 +12,7 @@
       promotion: isPromotion,
       'sw-collected-product--hidden-remove-btn': hiddenRemoveButton,
     }"
-    @click:remove="removeProduct(product)"
+    @click:remove="removeItem(product)"
   >
     <template #configuration>
       <div class="sw-collected-product__configuration" v-if="options">
@@ -53,7 +53,7 @@
 </template>
 <script>
 import { getProductMainImageUrl, getProductUrl } from "@shopware-pwa/helpers"
-import { useCart, getApplicationContext } from "@shopware-pwa/composables"
+import { useCart } from "@shopware-pwa/composables"
 import { ref, watch, computed, onMounted } from "@vue/composition-api"
 import { SfCollectedProduct, SfProperty } from "@storefront-ui/vue"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
@@ -61,6 +61,7 @@ import SwImage from "@/components/atoms/SwImage.vue"
 import { usePriceFilter } from "@/logic/usePriceFilter.js"
 
 export default {
+  name: "SwCartProduct",
   components: {
     SfCollectedProduct,
     SfProperty,
@@ -80,9 +81,8 @@ export default {
       default: false,
     },
   },
-  setup(props, { root }) {
-    const { apiInstance } = getApplicationContext(root, "SwCartProduct")
-    const { removeProduct, changeProductQuantity } = useCart(root)
+  setup(props) {
+    const { removeItem, changeProductQuantity } = useCart()
 
     // get the URL from async loaded product data - passed by the parent component
     const productUrl = computed(() => {
@@ -130,7 +130,7 @@ export default {
     )
     return {
       productImage,
-      removeProduct,
+      removeItem,
       quantity,
       regularPrice,
       specialPrice,

@@ -48,7 +48,9 @@ export default {
         path: "/reset-password",
       },
     ])
-    const { apiInstance } = getApplicationContext(root, "NewsletterConfirm")
+    const { apiInstance } = getApplicationContext({
+      contextName: "ResetPassword",
+    })
     const {
       context: {
         query: { hash },

@@ -1,14 +1,16 @@
 import { computed, Ref, ref, onMounted, ComputedRef } from "vue-demi";
 import { getAvailableCountries } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { useSharedState } from "@shopware-pwa/composables";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import {
+  useSharedState,
+  getApplicationContext,
+} from "@shopware-pwa/composables";
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 
 /**
  * @beta
  */
-export interface UseCountries {
+export interface IUseCountries {
   mountedCallback: () => Promise<void>;
   getCountries: ComputedRef<Country[]>;
   fetchCountries: () => Promise<void>;
@@ -18,13 +20,14 @@ export interface UseCountries {
 /**
  * @beta
  */
-export const useCountries = (
-  rootContext: ApplicationVueContext
-): UseCountries => {
-  const { apiInstance } = getApplicationContext(rootContext, "useCountries");
-  const { sharedRef } = useSharedState(rootContext);
+export function useCountries(): IUseCountries {
+  const COMPOSABLE_NAME = "useCountries";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
+  const { sharedRef } = useSharedState();
   const _sharedCountried: Ref<Country[] | null> = sharedRef(
-    "sw-useCountries-countries"
+    `sw-${contextName}-countries`
   );
   const error: Ref<any> = ref(null);
 
@@ -56,4 +59,4 @@ export const useCountries = (
     getCountries,
     error,
   };
-};
+}

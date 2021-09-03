@@ -2,7 +2,7 @@ import { ProductStream } from "./ProductStream";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface ProductStreamTranslation {
   productStreamId: string;

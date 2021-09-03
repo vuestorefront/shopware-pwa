@@ -6,7 +6,7 @@ import { OrderAddress } from "./OrderAddress";
 import { OrderDeliveryPosition } from "./OrderDeliveryPosition";
 
 /**
- * @alpha
+ * @public
  */
 export interface OrderDelivery {
   orderId: string;

@@ -1,6 +1,8 @@
 import { computed, ComputedRef, Ref } from "vue-demi";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
-import { useSharedState } from "@shopware-pwa/composables";
+import {
+  useSharedState,
+  getApplicationContext,
+} from "@shopware-pwa/composables";
 
 /**
  * @beta
@@ -14,9 +16,7 @@ export interface Notification {
 /**
  * @beta
  */
-export const useNotifications = (
-  rootContext: ApplicationVueContext
-): {
+export function useNotifications(): {
   notifications: ComputedRef<Notification[]>;
   removeOne: (id: number) => void;
   removeAll: () => void;
@@ -24,11 +24,15 @@ export const useNotifications = (
   pushWarning: (message: string, options?: any) => void;
   pushError: (message: string, options?: any) => void;
   pushSuccess: (message: string, options?: any) => void;
-} => {
-  getApplicationContext(rootContext, "useNotifications");
-  const { sharedRef } = useSharedState(rootContext);
+} {
+  const COMPOSABLE_NAME = "useNotifications";
+  const contextName = COMPOSABLE_NAME;
+
+  getApplicationContext({ contextName });
+  const { sharedRef } = useSharedState();
   const _notifications: Ref<Notification[] | null> = sharedRef(
-    "sw-useNotifications-notifications"
+    `sw-${contextName}-notifications`,
+    []
   );
 
   /**
@@ -84,4 +88,4 @@ export const useNotifications = (
       pushNotification(message, { ...options, type: "danger" }),
     notifications: computed(() => _notifications.value || []),
   };
-};
+}

@@ -16,6 +16,7 @@
           <SfBottomNavigationItem
             v-if="availableCurrencies.length > 1"
             label="Currency"
+            data-cy="mobile-currency-switcher"
           >
             <template #icon>
               <SfIcon icon="credits" size="20px" @click="changeCurrency" />
@@ -25,9 +26,15 @@
           <SfBottomNavigationItem
             v-if="availableDomains.length > 1"
             label="Language"
+            data-cy="mobile-language-switcher"
           >
             <template #icon>
-              <SfIcon icon="marker" size="20px" @click="changeLanguage" />
+              <SfIcon
+                icon="marker"
+                size="20px"
+                @click="changeLanguage"
+                data-cy="mobile-language-switcher-button"
+              />
             </template>
           </SfBottomNavigationItem>
 
@@ -39,7 +46,7 @@
         </div>
 
         <div v-if="showLanguage">
-          <SfList>
+          <SfList data-cy="mobile-language-switcher-list">
             <SfListItem
               v-for="domain in availableDomains"
               :key="domain.domainId"
@@ -95,13 +102,10 @@ export default {
       showLanguage: false,
     }
   },
-  setup(props, { root }) {
-    const { availableDomains, changeDomain } = useDomains(root)
-    const {
-      setCurrency,
-      loadAvailableCurrencies,
-      availableCurrencies,
-    } = useCurrency(root)
+  setup() {
+    const { availableDomains, changeDomain } = useDomains()
+    const { setCurrency, loadAvailableCurrencies, availableCurrencies } =
+      useCurrency()
 
     // TODO: loaded on mounted only untill fixed issue: https://github.com/DivanteLtd/storefront-ui/issues/1097
     onMounted(async () => {

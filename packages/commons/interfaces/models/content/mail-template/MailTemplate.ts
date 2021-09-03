@@ -4,7 +4,7 @@ import { MailTemplateType } from "./MailTemplateType";
 import { MailTemplateTranslation } from "./MailTemplateTranslation";
 
 /**
- * @alpha
+ * @public
  */
 export interface MailTemplate {
   mailTemplateTypeId: string | null;

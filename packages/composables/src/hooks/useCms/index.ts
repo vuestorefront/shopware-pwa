@@ -1,7 +1,8 @@
-import { Ref, computed, ComputedRef } from "vue-demi";
+import { Ref, computed, ComputedRef, provide, inject } from "vue-demi";
 import { getCmsPage } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { parseUrlQuery } from "@shopware-pwa/helpers";
+import { CmsPageType } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
+import { _parseUrlQuery } from "@shopware-pwa/helpers";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import {
   CmsPage,
@@ -13,48 +14,59 @@ import {
   useDefaults,
   useBreadcrumbs,
   useSharedState,
+  useVueContext,
 } from "@shopware-pwa/composables";
-import { ApplicationVueContext } from "../../appContext";
 import merge from "lodash/merge";
-import { PageBreadcrumb } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
 /**
  * @beta
  */
-export function useCms(rootContext: ApplicationVueContext): {
+export function useCms(params?: {
+  /**
+   * Additional context for CMS, use that if you need to display more that one CMS page on a single view (for example quickView).
+   */
+  cmsContextName?: string;
+}): {
   page: ComputedRef<
     PageResolverProductResult | PageResolverResult<CmsPage> | null
   >;
-  categoryId: ComputedRef<string | null>;
+  resourceType: ComputedRef<CmsPageType | null>;
+  resourceIdentifier: ComputedRef<string | null>;
   currentSearchPathKey: ComputedRef<string | null>;
   loading: Ref<boolean>;
   search: (path: string, query?: any) => Promise<void>;
   error: Ref<any>;
-  /**
-   * @deprecated use useBreadcrumbs instead. Remove after v0.8
-   */
-  getBreadcrumbsObject: ComputedRef<PageBreadcrumb>;
 } {
-  const { apiInstance, contextName } = getApplicationContext(
-    rootContext,
-    "useCms"
-  );
+  const COMPOSABLE_NAME = "useCms";
 
-  const { sharedRef } = useSharedState(rootContext);
-  const _searchPath = sharedRef<string>(`${contextName}-searchPath`);
-  const _cmsError = sharedRef<any>(`${contextName}-cmsError`, null);
-  const _cmsLoading = sharedRef(`${contextName}-cmsLoading`, false);
+  // Handle CMS context
+  const { isVueComponent } = useVueContext();
+  const cmsContext =
+    params?.cmsContextName || (isVueComponent && inject("swCmsContext", null));
+  isVueComponent && provide("swCmsContext", cmsContext);
+
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
+
+  const cacheKey = cmsContext
+    ? `${contextName}(cms-${cmsContext})`
+    : contextName;
+
+  const { sharedRef } = useSharedState();
+  const _searchPath = sharedRef<string>(`${cacheKey}-searchPath`);
+  const _cmsError = sharedRef<any>(`${cacheKey}-cmsError`, null);
+  const _cmsLoading = sharedRef(`${cacheKey}-cmsLoading`, false);
 
   const _storePage = sharedRef<
     PageResolverProductResult | PageResolverResult<CmsPage>
-  >(`${contextName}-page`);
+  >(`${cacheKey}-page`);
 
-  const { getDefaults } = useDefaults(rootContext, "useCms");
-  const { setBreadcrumbs } = useBreadcrumbs(rootContext);
+  const { getDefaults } = useDefaults({ defaultsKey: COMPOSABLE_NAME });
+  const { setBreadcrumbs } = useBreadcrumbs();
   const page = computed(() => _storePage.value);
-  // TODO: rename it to something more obvious, or just leav as resourceIdentifier
-  // TODO: https://github.com/vuestorefront/shopware-pwa/issues/1308
-  const categoryId = computed(() => {
+
+  const resourceIdentifier = computed(() => {
     // each cms page is in relation one-to-one with categoryId (resourceIdentifier)
     return page.value?.resourceIdentifier || null;
   });
@@ -67,7 +79,7 @@ export function useCms(rootContext: ApplicationVueContext): {
     _cmsError.value = null;
     _searchPath.value = path;
 
-    const criteria: SearchCriteria = parseUrlQuery(query);
+    const criteria: SearchCriteria = _parseUrlQuery(query);
     const searchCriteria = merge({}, getDefaults(), criteria);
 
     try {
@@ -85,16 +97,11 @@ export function useCms(rootContext: ApplicationVueContext): {
 
   return {
     page,
-    categoryId,
     loading: computed(() => _cmsLoading.value || false),
     search,
     currentSearchPathKey: computed(() => _searchPath.value),
     error: computed(() => _cmsError.value),
-    /**
-     * @deprecated use useBreadcrumbs instead. Remove after v0.8
-     */
-    getBreadcrumbsObject: computed(
-      () => (page.value && (page.value as any).breadcrumb) || {}
-    ),
+    resourceType: computed(() => page.value?.resourceType || null),
+    resourceIdentifier,
   };
 }

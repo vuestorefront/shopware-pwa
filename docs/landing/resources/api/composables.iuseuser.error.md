@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-error: Ref<any>;
+error: ComputedRef<any>;
 ```

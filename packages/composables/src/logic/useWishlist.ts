@@ -1,6 +1,5 @@
-import { ref, Ref, computed, onMounted } from "vue-demi";
+import { ref, Ref, computed, onMounted, unref } from "vue-demi";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { ApplicationVueContext } from "../appContext";
 import {
   INTERCEPTOR_KEYS,
   useIntercept,
@@ -28,15 +27,19 @@ export interface IUseWishlist {
  *
  * @beta
  */
-export const useWishlist = (
-  rootContext: ApplicationVueContext,
-  product?: Product
-): IUseWishlist => {
-  const { broadcast, intercept } = useIntercept(rootContext);
-  getApplicationContext(rootContext, "useNotifications");
-  const { sharedRef } = useSharedState(rootContext);
+export function useWishlist(params?: {
+  product?: Product | Ref<Product>;
+}): IUseWishlist {
+  const COMPOSABLE_NAME = "useWishlist";
+  const contextName = COMPOSABLE_NAME;
+
+  const product = unref(params?.product);
+
+  const { broadcast, intercept } = useIntercept();
+  getApplicationContext({ contextName });
+  const { sharedRef } = useSharedState();
   const _wishlistItems: Ref<string[] | null> = sharedRef(
-    "sw-useWishlist-items"
+    `sw-${contextName}-items`
   );
 
   const productId: Ref<string | undefined> = ref(product?.id);
@@ -124,4 +127,4 @@ export const useWishlist = (
     count,
     onAddToWishlist,
   };
-};
+}

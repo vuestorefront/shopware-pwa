@@ -1,13 +1,13 @@
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
 import { CustomField } from "@shopware-pwa/commons/interfaces/models/common/CustomField";
 
-export enum AddressType {
-  billing = "billing",
-  shipping = "shipping",
-}
+/**
+ * @public
+ */
+export type AddressType = "billing" | "shipping";
 
 /**
- * @alpha
+ * @public
  */
 export interface CustomerAddress {
   customerId?: string;

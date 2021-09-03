@@ -9,7 +9,7 @@ Instead of installation we recommend to use `npx` to ensure, that you always use
 ```bash
 mkdir my-shopware-pwa
 cd ./my-shopware-pwa
-npx @shopware-pwa/cli@canary init
+npx @shopware-pwa/cli init
 ```
 
 ::: tip Canary version  
@@ -39,15 +39,6 @@ We encourage developers to use the `npx` rather global npm/yarn packages - to ha
 ```bash
 npx @shopware-pwa/cli <command_alias>
 ```
-
-::: tip Canary version  
-If you want to update to `canary` version, just add this to your command.
-
-```bash
-npx @shopware-pwa/cli@canary <command_alias>
-```
-
-:::
 
 ## License
 

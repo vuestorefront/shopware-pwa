@@ -9,10 +9,6 @@ jest.mock("@shopware-pwa/shopware-6-client");
 const mockedApiClient = ApiClient as jest.Mocked<typeof ApiClient>;
 
 describe("Composables - useProductQuickSearch", () => {
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-  };
-
   let returnedSearchMethod: any = null;
   const apiInstanceMock = jest.fn();
   const factorySearchMethodMock = jest.fn();
@@ -45,25 +41,19 @@ describe("Composables - useProductQuickSearch", () => {
         apiInstance: apiInstanceMock,
       } as any;
     });
-    // mockedComposables.useCms.mockImplementation(() => {
-    //   return {
-    //     categoryId: ref("321"),
-    //   } as any;
-    // });
   });
 
   it("should have searchTerm ref", () => {
-    const { searchTerm } = useProductQuickSearch(rootContextMock);
+    const { searchTerm } = useProductQuickSearch();
     expect(searchTerm.value).toEqual("");
     searchTerm.value = "new search value";
     expect(searchTerm.value).toEqual("new search value");
   });
 
   it("should use listingKey - productQuickSearch", () => {
-    useProductQuickSearch(rootContextMock);
+    useProductQuickSearch();
     expect(mockedComposables.createListingComposable).toBeCalledWith({
       listingKey: "productQuickSearch",
-      rootContext: rootContextMock,
       searchDefaults: {
         limit: 5,
       },
@@ -72,7 +62,7 @@ describe("Composables - useProductQuickSearch", () => {
   });
 
   it("should invoke API search method", async () => {
-    useProductQuickSearch(rootContextMock);
+    useProductQuickSearch();
     expect(mockedComposables.createListingComposable).toBeCalled();
     expect(returnedSearchMethod).toBeTruthy();
     await returnedSearchMethod({ limit: 8, query: "search term" });
@@ -83,7 +73,7 @@ describe("Composables - useProductQuickSearch", () => {
   });
 
   it("should invoke search method inside createListingComposable with preventing route change", async () => {
-    const { searchTerm, search } = useProductQuickSearch(rootContextMock);
+    const { searchTerm, search } = useProductQuickSearch();
     searchTerm.value = "someTerm";
     await search();
     expect(factorySearchMethodMock).toBeCalledWith(

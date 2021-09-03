@@ -4,12 +4,14 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 import { Aggregation } from "@shopware-pwa/commons/interfaces/search/Aggregation";
 
 /**
+ * Cms page resource type
+ *
  * @beta
  */
-export enum PageType {
-  PRODUCT_DETAIL_PAGE = "frontend.detail.page",
-  NAVIGATION_PAGE = "frontend.navigation.page",
-}
+export type CmsPageType =
+  | "frontend.navigation.page"
+  | "frontend.landing.page"
+  | "frontend.detail.page";
 
 /**
  * @beta
@@ -33,7 +35,7 @@ export interface PageResolverResult<T> {
   cmsPage: T;
   breadcrumb: PageBreadcrumb;
   listingConfiguration: any;
-  resourceType: PageType;
+  resourceType: CmsPageType;
   resourceIdentifier: string;
   apiAlias: string;
 }
@@ -45,20 +47,14 @@ export interface PageResolverProductResult {
   product: Partial<Product>;
   breadcrumb: PageBreadcrumb;
   aggregations: Aggregation[];
-  resourceType: PageType;
+  resourceType: CmsPageType;
   resourceIdentifier: string;
   cannonicalPathInfo: string;
   apiAlias: string;
 }
 
-export enum CmsPageType {
-  DEFAULT = "default",
-  PRODUCT_LISTING = "product_list",
-  LANDING_PAGE = "landingpage",
-}
-
 /**
- * @alpha
+ * @public
  */
 export interface CmsPage {
   category: Category;
@@ -92,7 +88,7 @@ export enum CmsSlotType {
 }
 
 /**
- * @alpha
+ * @public
  */
 export interface CmsFieldConfig {
   name: string;
@@ -101,7 +97,7 @@ export interface CmsFieldConfig {
 }
 
 /**
- * @alpha
+ * @public
  */
 export interface CmsSlot {
   type: CmsSlotType;
@@ -124,7 +120,7 @@ export interface CmsSlot {
 }
 
 /**
- * @alpha
+ * @public
  */
 export interface CmsBlock {
   name: string;

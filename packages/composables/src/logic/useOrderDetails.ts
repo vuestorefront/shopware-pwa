@@ -1,9 +1,18 @@
-import { computed, ComputedRef, reactive, Ref, ref, UnwrapRef } from "vue-demi";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import {
+  computed,
+  ComputedRef,
+  reactive,
+  Ref,
+  ref,
+  unref,
+  UnwrapRef,
+} from "vue-demi";
 import {
   useSharedState,
   useDefaults,
   INTERCEPTOR_KEYS,
+  getApplicationContext,
+  useIntercept,
 } from "@shopware-pwa/composables";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress";
@@ -20,17 +29,13 @@ import {
   getOrderDetails,
   handlePayment as apiHandlePayment,
 } from "@shopware-pwa/shopware-6-client";
-import { useIntercept } from "./useIntercept";
 
 /**
  * Composable for managing an existing order.
  *
  * @beta
  */
-export function useOrderDetails(
-  rootContext: ApplicationVueContext,
-  order: Order
-): {
+export function useOrderDetails(params: { order: Ref<Order> | Order }): {
   order: ComputedRef<Order | undefined | null>;
   status: ComputedRef<string | undefined>;
   total: ComputedRef<number | undefined>;
@@ -57,11 +62,16 @@ export function useOrderDetails(
   cancel: () => Promise<void>;
   changePaymentMethod: (paymentMethodId: string) => Promise<void>;
 } {
-  const { apiInstance } = getApplicationContext(rootContext, "useOrderDetails");
-  const { getDefaults } = useDefaults(rootContext, "useOrderDetails");
-  const { broadcast } = useIntercept(rootContext);
-  const { sharedRef } = useSharedState(rootContext);
-  const _sharedOrder = sharedRef("sw-useOrderDetails-order", order);
+  const COMPOSABLE_NAME = "useOrderDetails";
+  const contextName = COMPOSABLE_NAME;
+
+  const order = unref(params.order);
+
+  const { apiInstance } = getApplicationContext({ contextName });
+  const { getDefaults } = useDefaults({ defaultsKey: contextName });
+  const { broadcast } = useIntercept();
+  const { sharedRef } = useSharedState();
+  const _sharedOrder = sharedRef(`sw-${contextName}-order`, order);
   const errors: UnwrapRef<{
     loadOrderDetails: ShopwareError[];
     handlePayment: ShopwareError[];

@@ -23,7 +23,7 @@
 
 > Prepare your Shopware6 instance, first. To do so, check required steps [here](../../guide/CHEATSHEET.md) _(Shopware setup paragraph)_.
 
-1. Being in empty directory, run `npx @shopware-pwa/cli@canary init`
+1. Being in empty directory, run `npx @shopware-pwa/cli init`
 2. Answer a few basic questions:
 
    ![Core team](./../../assets/init_questions.png)
@@ -58,7 +58,7 @@ module.exports = {
 ## 4. How to upgrade an existing project <a id="no4"></a>
 
 1. shopware-pwa is hidden under only one module named `@shopware-pwa/nuxt-module` with all its dependencies.
-2. You can upgrade the `package.json` directly, or just init the project once again with `npx @shopware-pwa/cli@canary init` command.
+2. You can upgrade the `package.json` directly, or just init the project once again with `npx @shopware-pwa/cli init` command.
 3. After doing this, visit [Upgrade page](../getting-started/upgrade.md) for more information if there are some additional steps needed.
 
 ## 5. How to customize default shopware-pwa look <a id="no5"></a>
@@ -98,7 +98,7 @@ In general, the generated project is a [Nuxtjs](https://nuxtjs.org/) project. Th
 
    > See how to customize an existing Vue component using shopware-pwa CLI [here](../../guide/TROUBLESHOOTING.md#question-how-can-i-override-theme-component)
 
-   - use `npx @shopware-pwa/cli@canary override` command
+   - use `npx @shopware-pwa/cli override` command
    - pick up the `/SwProductTabs.vue` component
    - the component is being copied from `@shopware-pwa/default-theme` package, and then placed in `src/components` ready to edit.
    - now your shopware-pwa project uses your local `SwProductTabs.vue` instead of the one from default-theme.
@@ -179,7 +179,7 @@ In general, the generated project is a [Nuxtjs](https://nuxtjs.org/) project. Th
 
    export default ({ app }) => {
      // import a disconnect method from useIntercept composable
-     const { disconnect } = useIntercept(app);
+     const { disconnect } = useIntercept();
      // pass the interceptor key you want to change, and pass the function to be removed from event dispatcher
      disconnect(INTERCEPTOR_KEYS.ADD_TO_CART, addToCartNotification);
    };
@@ -209,7 +209,7 @@ module.exports = {
 
 ### How create a custom theme
 
-1. Being in project's root directory use a CLI command to generate the theme: `npx @shopware-pwa/cli@canary create-theme`
+1. Being in project's root directory use a CLI command to generate the theme: `npx @shopware-pwa/cli create-theme`
 
    ![create-theme command](../../assets/cli_create-theme.png)
 
@@ -272,16 +272,21 @@ export default extendNuxtConfig({
 ## How to add another language <a id="no8"></a>
 
 ::: tip
-Before you start, [learn the details](../operations/migrations/0.6.x_to_0.7.x.md#domain-route-handling) regarding the mechanism itself.
+Before you start, learn about [routing in Shopware PWA](../concepts/routing.md) itself. As an additional resource [learn the details](../operations/migrations/0.6.x_to_0.7.x.md#domain-route-handling) regarding the mechanism itself.
 :::
 
 ### Things that should be done in admin panel
 
 1. In admin panel, go to _Sales Channel_ (used by PWA) > _Domains_ tab
-2. Add domain. **It's important** that the URL should match the one used in your `shopware-pwa.config.js` under the `pwaHost`.
+2. Add domain. **It's important** that the URL should match the one used in your `shopware-pwa.config.js` under the `shopwareDomainsAllowList` (array of allowed hosts).
 
    Add a distinctive suffix pointing to language (or general config) you want to use. It may be `/de-DE`, `/en` or whatsoever like `/my/very/formal/english/site`, so the whole entry would be like:
-   `https://my-shopware-pwa.com/my/very/formal/english/site`
+   `https://my-shopware-pwa.com/my/very/formal/english/site`.
+
+   Domain host may be completely different, for instance:
+
+   - for en-GB `https://shopware.com`
+   - for de-DE `https://shopawre.de`
 
 3. Pick the other settings for your domain like language, currency.
 4. Save the domain and the sales channel afterwards.
@@ -289,7 +294,7 @@ Before you start, [learn the details](../operations/migrations/0.6.x_to_0.7.x.md
 ### Things that should be done in shopware-pwa app
 
 1. Go to project's root directory.
-2. Run `npx @shopware-pwa/cli@canary domains`.
+2. Run `npx @shopware-pwa/cli domains`.
 3. Pass the credentials for your admin credentials.
 4. In the end the _Shopware domains refreshed_ notice should be displayed.
 5. the `.shopware-pwa/sw-plugins/domains.json` should contain the previously created.domain as an another entry.

@@ -144,11 +144,13 @@ export default {
   },
   setup(props, { root }) {
     const isCreatingOrder = ref(false)
-    const { setBreadcrumbs } = useBreadcrumbs(root)
-    const { isLoggedIn, register, errors } = useUser(root)
-    const { createOrder: invokeCreateOrder, loadings } = useCheckout(root)
-    const { apiInstance } = getApplicationContext(root)
-    const { refreshCart } = useCart(root)
+    const { setBreadcrumbs } = useBreadcrumbs()
+    const { isLoggedIn, register, errors } = useUser()
+    const { createOrder: invokeCreateOrder, loadings } = useCheckout()
+    const { apiInstance } = getApplicationContext({
+      contextName: "CheckoutPage",
+    })
+    const { refreshCart } = useCart()
     const errorMessages = ref([])
 
     const registrationFormData = ref()
@@ -226,10 +228,9 @@ export default {
       },
     ])
 
-    const { switchState: switchLoginModalState } = useUIState(
-      root,
-      "LOGIN_MODAL_STATE"
-    )
+    const { switchState: switchLoginModalState } = useUIState({
+      stateName: "LOGIN_MODAL_STATE",
+    })
 
     const $v = useVuelidate() as any // until vuelidate fix types
 

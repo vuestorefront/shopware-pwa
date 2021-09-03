@@ -1,33 +1,44 @@
-import { computed, ComputedRef, Ref } from "vue-demi";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import { computed, ComputedRef, Ref, inject } from "vue-demi";
 import { Breadcrumb } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
-import { useSharedState } from "@shopware-pwa/composables";
+import {
+  useSharedState,
+  useVueContext,
+  getApplicationContext,
+} from "@shopware-pwa/composables";
 
 /**
  * Composable for displaying and setting breadcrumbs for page.
  *
  * @beta
  */
-export function useBreadcrumbs(
-  rootContext: ApplicationVueContext,
-  params?: {
-    /**
-     * Define if you want to show/hide link to Home in breadcrumbs.
-     *
-     * By default we show Home link.
-     */
-    hideHomeLink: boolean;
-  }
-): {
+export function useBreadcrumbs(params?: {
+  /**
+   * Define if you want to show/hide link to Home in breadcrumbs.
+   *
+   * By default we show Home link.
+   */
+  hideHomeLink: boolean;
+}): {
   breadcrumbs: ComputedRef<Breadcrumb[]>;
   setBreadcrumbs: (breadcrumbs: Breadcrumb[]) => void;
   clear: () => void;
 } {
-  const { i18n } = getApplicationContext(rootContext, "useBreadcrumbs");
-  const { sharedRef } = useSharedState(rootContext);
+  const COMPOSABLE_NAME = "useBreadcrumbs";
+  const contextName = COMPOSABLE_NAME;
+
+  // Handle CMS context to be able to show different breadcrumbs for different CMS pages.
+  const { isVueComponent } = useVueContext();
+  const cmsContext = isVueComponent && inject("swCmsContext", null);
+
+  const { i18n } = getApplicationContext({ contextName });
+  const { sharedRef } = useSharedState();
+
+  const cacheKey = cmsContext
+    ? `${contextName}(cms-${cmsContext})`
+    : contextName;
 
   const _sharedBreadcrumbs: Ref<Breadcrumb[] | null> = sharedRef(
-    "sw-useBreadcrumbs-breadcrumbs"
+    `${cacheKey}-breadcrumbs`
   );
 
   /**

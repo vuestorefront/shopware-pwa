@@ -1,6 +1,5 @@
-import { ApplicationVueContext } from "@shopware-pwa/composables";
+import { getApplicationContext } from "@shopware-pwa/composables";
 import { getCurrentInstance, onUnmounted } from "vue-demi";
-import { getApplicationContext } from "../appContext";
 
 /**
  * Keys used accross composables with the description of incommint parameters.
@@ -118,7 +117,7 @@ export const INTERCEPTOR_KEYS = {
  * @beta
  */
 export interface IInterceptorCallbackFunction {
-  (payload: any, rootContext?: ApplicationVueContext): void;
+  (payload: any): void;
 }
 
 /**
@@ -151,10 +150,11 @@ export interface IUseIntercept {
  *
  * @beta
  */
-export const useIntercept = (
-  rootContext: ApplicationVueContext
-): IUseIntercept => {
-  const { interceptors } = getApplicationContext(rootContext, "useIntercept");
+export function useIntercept(): IUseIntercept {
+  const COMPOSABLE_NAME = "useIntercept";
+  const contextName = COMPOSABLE_NAME;
+
+  const { interceptors } = getApplicationContext({ contextName });
 
   const localSubscribers: any[] = [];
   const isVueInstance: boolean = !!getCurrentInstance();
@@ -163,7 +163,7 @@ export const useIntercept = (
     if (interceptors[broadcastKey]?.length) {
       interceptors[broadcastKey].forEach(
         (broadcastMethod: IInterceptorCallbackFunction) =>
-          broadcastMethod(value, rootContext)
+          broadcastMethod(value)
       );
     }
   };
@@ -201,4 +201,4 @@ export const useIntercept = (
     intercept,
     disconnect,
   };
-};
+}

@@ -4,7 +4,7 @@ import { Language } from "../../framework/language/Language";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface Locale {
   code: string;

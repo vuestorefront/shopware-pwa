@@ -4,7 +4,7 @@ import { CustomField } from "../../common/CustomField";
 import { NumberRangeTypeTranslation } from "./NumberRangeTypeTranslation";
 
 /**
- * @alpha
+ * @public
  */
 export interface NumberRangeType {
   typeName: string;

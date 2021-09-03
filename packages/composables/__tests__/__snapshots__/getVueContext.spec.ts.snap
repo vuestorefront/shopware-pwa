@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Shopware composables - getVueContext extendScopeContext should extend scope context 1`] = `
+Object {
+  "vm": Object {
+    "i18n": undefined,
+    "interceptors": undefined,
+    "routing": undefined,
+    "sharedStore": undefined,
+    "shopwareApiInstance": undefined,
+    "shopwareDefaults": undefined,
+  },
+}
+`;

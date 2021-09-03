@@ -1,123 +1,202 @@
 import Middleware from "./middleware";
-import { computed } from "vue-demi";
-import { useSessionContext, useSharedState } from "@shopware-pwa/composables";
+import { computed, effectScope } from "vue-demi";
+import {
+  useSessionContext,
+  useSharedState,
+  extendScopeContext,
+} from "@shopware-pwa/composables";
 const FALLBACK_DOMAIN = "<%= options.fallbackDomain %>" || "/";
 const FALLBACK_LOCALE = "<%= options.fallbackLocale %>";
-const PWA_HOST = "<%= options.pwaHost %>";
-const domainsList = require("sw-plugins/domains");
+const SHOPWARE_DOMAINS_ALLOW_LIST = "<%= options.shopwareDomainsAllowList %>";
+const domains = require("sw-plugins/domains");
+const domainsList = Object.values(domains).filter(
+  ({ url }) => SHOPWARE_DOMAINS_ALLOW_LIST?.includes(url) // TODO: possibly problematic with prefix paths
+);
 
 // register domains based routing and configuration
-export default ({ app, route }, inject) => {
-  const { sharedRef } = useSharedState(app);
-  const currentDomainData = sharedRef("sw-current-domain");
+export default async ({ app, route, req }, inject) => {
+  const scope = effectScope();
+  extendScopeContext(scope, app);
 
-  const routeDomainUrl = computed(() => route.meta?.[0]?.url);
-  const routeDomain = computed(() =>
-    Object.values(domainsList).find(
-      (domain) => domain.url === routeDomainUrl.value
-    )
-  );
+  await scope.run(async () => {
+    const { sharedRef } = useSharedState();
+    const { setCurrency } = useSessionContext();
 
-  const getCurrentDomain = computed(
-    () => currentDomainData.value || routeDomain.value
-  );
+    const currentDomainData = sharedRef("sw-current-domain");
 
-  const getNormalizedDomainPath = computed(() =>
-    getCurrentDomain.value && getCurrentDomain.value?.url !== "/"
-      ? getCurrentDomain.value?.url
-      : ""
-  );
-
-  const routing = {
-    // list of available domains from "domains.json" - output of "domains" CLI command
-    availableDomains: (domainsList && Object.values(domainsList)) || {},
-    fallbackDomain: FALLBACK_DOMAIN,
-    fallbackLocale: FALLBACK_LOCALE,
-    pwaHost: PWA_HOST,
-    // set current domain's configuration
-    setCurrentDomain: (domainData) => {
-      currentDomainData.value = domainData;
-    },
-    // get current domain's configuration
-    getCurrentDomain,
-    // get route for current domain
-    getUrl: (path) => {
-      if (!path) {
-        return "";
-      }
-      return getNormalizedDomainPath.value
-        ? `${getNormalizedDomainPath.value}${path}`.replace(/^\/\/+/, "/")
-        : path;
-    },
-    getAbsoluteUrl: (path) =>
-      `${PWA_HOST}${getNormalizedDomainPath.value}${path}`,
-  };
-
-  // set the domain for current route
-  routing.setCurrentDomain(routeDomain.value);
-
-  // public plugin within the context
-  app.routing = routing;
-  inject("routing", routing);
-};
-
-// middleware to set languageId & currencyId for api client and i18n plugin
-Middleware.routing = function ({ isHMR, app, from, route, redirect }) {
-  if (isHMR) {
-    return;
-  }
-
-  // a route can have multiple metadata objects inside - find the one with domainId - it comes from compiled routes (domains nuxt-module)
-  const domainConfig =
-    Array.isArray(route.meta) && route.meta.find((data) => !!data.domainId);
-
-  // perform a redirection to the fallback domain if the current domain is not available
-  // for example: /Toys -> /germany/Toys if the "/" domain is not present
-  if (!domainConfig && app.routing.availableDomains.length) {
-    const fallbackDomainFound = app.routing.availableDomains.find(
-      ({ url }) => url === FALLBACK_DOMAIN
+    const routeDomainUrl = computed(() => route.meta?.[0]?.pathPrefix);
+    const routeDomain = computed(() =>
+      Object.values(domainsList).find(
+        (domain) => domain.pathPrefix === routeDomainUrl.value
+      )
     );
-    // if the fallback domain does not match - use the first available instead
-    const fallbackDomainPrefix =
-      (fallbackDomainFound && fallbackDomainFound.url) ||
-      app.routing.availableDomains.pop().url;
-    return redirect(`${fallbackDomainPrefix}${route.path}`);
-  }
 
-  if (!domainConfig) {
-    return;
-  }
+    const getCurrentDomain = computed(
+      () => currentDomainData.value || routeDomain.value
+    );
 
-  const { setup } = app;
-  app.setup = function (...args) {
-    let result = {};
-    if (setup instanceof Function) {
-      result = setup(...args) || {};
-    }
-    // set default currency for the current domain
-    const { setCurrency, currency } = useSessionContext();
-    let currencyId =
-      route.query.currencyId ||
-      (currency.value && currency.value.id) ||
-      domainConfig.currencyId;
-    // force change the currencyId to default one for changed domain
-    const fromDomain =
-      from &&
-      Array.isArray(from.meta) &&
-      from.meta.find((data) => !!data.domainId);
-    if (fromDomain && fromDomain.domainId !== domainConfig.domainId) {
-      currencyId = domainConfig.currencyId;
-    }
+    const getNormalizedDomainPath = computed(() =>
+      getCurrentDomain.value && getCurrentDomain.value?.url !== "/"
+        ? getCurrentDomain.value?.pathPrefix
+        : ""
+    );
 
-    const currencyPromise = setCurrency({ id: currencyId });
-    const { languageId, languageLocaleCode } = domainConfig;
-    app.routing.setCurrentDomain(domainConfig);
-    languageId && app.$shopwareApiInstance.update({ languageId });
-    app.i18n.locale = languageLocaleCode;
+    const getDomainConfigFromRequest = (req) => {
+      let hostname;
+      let pathname;
 
-    Promise.all([currencyPromise]).catch((e) => {
-      console.error("[MIDDLEWARE][DOMAINS]", e);
-    });
-    return result;
-  };
+      if (process.client) {
+        hostname = window.location.hostname;
+        pathname = window.location.pathname;
+      } else {
+        const detectedHost =
+          req.headers["x-forwarded-host"] || req.headers.host;
+        hostname = Array.isArray(detectedHost) ? detectedHost[0] : detectedHost;
+        hostname = hostname?.split(":")?.[0]; // remove port
+        pathname = req.originalUrl;
+      }
+
+      if (hostname) {
+        // first check the domains with prefix path as they are more specific than ones with just a hostname
+        let matchingDomainConfig = domainsList
+          .filter((domain) => domain.pathPrefix !== "/")
+          .find((domain) => {
+            const pathnameWithTrailingSlash = pathname + "/";
+            /* add trailing slash also to the comparison to be completely safe
+             * example: pathPrefix "/en" would otherwise also match /endless
+             */
+            const pathPrefixPartOfPathname =
+              pathnameWithTrailingSlash.startsWith(domain.pathPrefix + "/");
+            return pathPrefixPartOfPathname && domain.host === hostname;
+          });
+
+        if (matchingDomainConfig) return matchingDomainConfig;
+        // if there wasn't a match already, check the domains that only have a hostname
+        matchingDomainConfig = domainsList
+          .filter((domain) => domain.pathPrefix === "/")
+          .find((domain) => {
+            return domain.host === hostname;
+          });
+
+        if (matchingDomainConfig) return matchingDomainConfig;
+
+        console.error(
+          `[Error][Shopware PWA] There is no domain configuration for ${hostname} - add this host to config and run domains configuration. (https://shopware-pwa-docs.vuestorefront.io/landing/cookbook/#how-to-add-another-language)`,
+          domainsList
+        );
+      }
+    };
+
+    const routing = {
+      // list of available domains from "domains.json" - output of "domains" CLI command
+      availableDomains: (domainsList && Object.values(domainsList)) || [],
+      fallbackDomain: FALLBACK_DOMAIN,
+      fallbackLocale: FALLBACK_LOCALE,
+      // set current domain's configuration
+      setCurrentDomain: (domainData) => {
+        currentDomainData.value = domainData;
+      },
+      // get current domain's configuration
+      getCurrentDomain,
+      // get route for current domain
+      getUrl: (path) => {
+        if (!path) {
+          return "";
+        }
+        return getNormalizedDomainPath.value
+          ? `${getNormalizedDomainPath.value}${path}`.replace(/^\/\/+/, "/")
+          : path;
+      },
+      // get absolute url for current domain
+      getAbsoluteUrl: (path) => {
+        return `${currentDomainData.value.url}${path}`;
+      },
+    };
+
+    const currentDomainConfig = getDomainConfigFromRequest(req);
+    currentDomainConfig && routing.setCurrentDomain(currentDomainConfig);
+
+    // public plugin within the context
+    app.routing = routing;
+    inject("routing", routing);
+
+    // middleware to set languageId & currencyId for api client and i18n plugin
+    Middleware.routing = function ({ isHMR, app, from, route }) {
+      if (isHMR) {
+        return;
+      }
+
+      /**
+       * If the origin gets changed, this is always a initial request to the server.
+       * The currentDomain then is already set correctly by the plugin (see line 103).
+       *
+       * If the prefixPath gets changed, the corresponding domain-config can be detected from the route.
+       * The detected domain config from the new route has to be compared with the current one, if they don't match, the
+       * current domain config has to be changed to the config detected from the route
+       *
+       * Only routes with prefixPath have to have the domainConfig added in the meta-object
+       * Edgecase that is currently not supported: domains with the same prefixPath on different origins, because during route-building,
+       * only the domainConfig from the last origin gets added to the meta-object
+       */
+
+      // a route can have multiple metadata objects inside - find the one with domainId - it comes from compiled routes (domains nuxt-module)
+      let domainConfig =
+        Array.isArray(route.meta) && route.meta.find((data) => !!data.domainId);
+      if (!domainConfig) {
+        // If domainConfig is not set, this means that the route has no prefixPath and has to be loaded seperately
+        if (process.client) {
+          // During client-side navigation the domain config can be manually loaded through the location origin.
+          const currentOrigin = location.origin;
+          domainConfig = app.routing.availableDomains.find(
+            (data) => data.origin === currentOrigin && data.pathPrefix === "/"
+          );
+        } else {
+          // Server-side, the currentDomain then is already set correctly by the plugin (see line 103).
+          domainConfig = app.routing.getCurrentDomain.value;
+        }
+      }
+
+      let fromDomainConfig = from?.meta.find(
+        (metaEntry) => !!metaEntry.domainId
+      );
+      if (!fromDomainConfig) {
+        // If fromDomainConfig is not set, this means that the from-route had no prefixPath and has to be loaded seperately
+        if (process.client) {
+          // During client-side navigation the domain config can be manually loaded through the location origin,
+          // because the origin is still the same
+          const currentOrigin = location.origin;
+          fromDomainConfig = app.routing.availableDomains.find(
+            (data) => data.origin === currentOrigin && data.pathPrefix === "/"
+          );
+        }
+        // Note: There is no need to determine the fromDomainConfig on the server side request, so there is no else-case here
+        // This is because on the initial request the following has to run nevertheless
+      }
+
+      if (
+        process.server ||
+        (fromDomainConfig &&
+          domainConfig.domainId !== fromDomainConfig.domainId)
+      ) {
+        /*
+         This only runs:
+          - on initial request on the server (also change of origin)
+          - on change of prefixPath
+         */
+        if (!domainConfig) {
+          return;
+        }
+        const { languageId, languageLocaleCode, currencyId } = domainConfig;
+        app.routing.setCurrentDomain(domainConfig);
+        languageId && app.$shopwareApiInstance.update({ languageId });
+        app.i18n.locale = languageLocaleCode;
+        const currencyPromise = setCurrency({ id: currencyId });
+        Promise.all([currencyPromise]).catch((e) => {
+          console.error("[MIDDLEWARE][DOMAINS]", e);
+        });
+      }
+    };
+  });
+
+  scope.stop();
 };

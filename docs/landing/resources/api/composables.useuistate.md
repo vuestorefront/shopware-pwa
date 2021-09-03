@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useUIState](./composables.useuistate.md)
 
-## useUIState variable
+## useUIState() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -12,26 +12,38 @@ Simple state management for UI purposes.
 <b>Signature:</b>
 
 ```typescript
-useUIState: (rootContext: ApplicationVueContext, stateName?: string | undefined) => {
+export declare function useUIState(params?: {
+    stateName?: Ref<string> | string;
+}): {
     isOpen: ComputedRef<boolean>;
-    switchState: (to?: boolean | undefined) => void;
-}
+    switchState: (to?: boolean) => void;
+};
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  params | { stateName?: Ref&lt;string&gt; \| string; } |  |
+
+<b>Returns:</b>
+
+{ isOpen: ComputedRef&lt;boolean&gt;; switchState: (to?: boolean) =&gt; void; }
 
 ## Remarks
 
-If you pase `stateName` on composable invocation (ex. `useUIState(root, 'sidebarCart')`<!-- -->), then state is shared between all instances with this key. Otherwise state is local, so multiple `useUIState(root)` will not share state
+If you pase `stateName` on composable invocation (ex. `useUIState({stateName: 'sidebarCart'})`<!-- -->), then state is shared between all instances with this key. Otherwise state is local, so multiple `useUIState()` will not share state
 
 ## Example
 
 
 ```ts
 // Component1
-const {isOpen, switchState} = useUIState(root, 'SIDEBAR_STATE')
+const {isOpen, switchState} = useUIState({stateName: 'SIDEBAR_STATE'})
 switchState()
 
 // Component 2
-const {isOpen} = useUIState(root, 'SIDEBAR_STATE')
+const {isOpen} = useUIState({stateName: 'SIDEBAR_STATE'})
 // isOpen will be true
 
 ```
@@ -39,11 +51,11 @@ If you'll not use KEY on composable init, then state is only local
 
 ```ts
 // Component1
-const {isOpen, switchState} = useUIState(root)
+const {isOpen, switchState} = useUIState()
 switchState()
 
 // Component 2
-const {isOpen} = useUIState(root)
+const {isOpen} = useUIState()
 // isOpen will be false
 
 ```

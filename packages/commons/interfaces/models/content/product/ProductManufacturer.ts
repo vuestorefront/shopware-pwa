@@ -3,7 +3,7 @@ import { ProductManufacturerTranslation } from "./ProductManufacturerTranslation
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface ProductManufacturer {
   mediaId: string | null;

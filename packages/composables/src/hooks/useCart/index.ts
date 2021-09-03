@@ -10,7 +10,6 @@ import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError
 import { Cart } from "@shopware-pwa/commons/interfaces/models/checkout/cart/Cart";
 import { EntityError } from "@shopware-pwa/commons/interfaces/models/common/EntityError";
 
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
 import {
   getApplicationContext,
@@ -18,9 +17,7 @@ import {
   useIntercept,
   useSharedState,
 } from "@shopware-pwa/composables";
-import { ApplicationVueContext } from "../../appContext";
 import { broadcastErrors } from "../../internalHelpers/errorHandler";
-import { deprecationWarning } from "@shopware-pwa/commons";
 
 /**
  * interface for {@link useCart} composable
@@ -51,10 +48,6 @@ export interface IUseCart {
   loading: ComputedRef<boolean>;
   refreshCart: () => void;
   removeItem: ({ id }: LineItem) => Promise<void>;
-  /**
-   * @deprecated use removeItem method instead
-   */
-  removeProduct: ({ id }: Partial<Product>) => void;
   totalPrice: ComputedRef<number>;
   shippingTotal: ComputedRef<number>;
   subtotal: ComputedRef<number>;
@@ -66,17 +59,17 @@ export interface IUseCart {
  *
  * @beta
  */
-export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
-  const { apiInstance, contextName } = getApplicationContext(
-    rootContext,
-    "useCart"
-  );
-  const { broadcast } = useIntercept(rootContext);
+export function useCart(): IUseCart {
+  const COMPOSABLE_NAME = "useCart";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
+  const { broadcast } = useIntercept();
 
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
 
-  const { sharedRef } = useSharedState(rootContext);
+  const { sharedRef } = useSharedState();
   const _storeCart = sharedRef<Cart>(`${contextName}-cart`);
 
   async function refreshCart(): Promise<void> {
@@ -109,16 +102,6 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     const result = await removeCartItem(id, apiInstance);
     broadcastUpcomingErrors(result);
     _storeCart.value = result;
-  }
-
-  // TODO: remove in 1.0
-  async function removeProduct({ id }: Product) {
-    deprecationWarning({
-      methodName: "removeProduct",
-      newMethodName: "removeItem",
-      packageName: "composables",
-    });
-    return removeItem({ id } as LineItem);
   }
 
   async function changeProductQuantity({ id, quantity }: any) {
@@ -154,7 +137,7 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
         cartResult.errors || {}
       ).filter((entityError) => upcomingErrorsKeys.includes(entityError.key));
 
-      broadcastErrors(entityErrors, `[${contextName}][cartError]`, rootContext);
+      broadcastErrors(entityErrors, `[${contextName}][cartError]`, broadcast);
     } catch (error) {
       console.error("[useCart][broadcastUpcomingErrors]", error);
     }
@@ -214,11 +197,10 @@ export const useCart = (rootContext: ApplicationVueContext): IUseCart => {
     error,
     loading,
     refreshCart,
-    removeProduct,
     removeItem,
     totalPrice,
     shippingTotal,
     subtotal,
     cartErrors,
   };
-};
+}

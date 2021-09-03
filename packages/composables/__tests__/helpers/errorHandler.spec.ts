@@ -19,7 +19,8 @@ describe("composables errorHandler", () => {
   });
   describe("broadcastErrors", () => {
     it("should do nothing if some of arguments does not match the interface", () => {
-      broadcastErrors(undefined as any, "testMethod", {} as any);
+      const { broadcast } = mockedComposables.useIntercept();
+      broadcastErrors(undefined as any, "testMethod", broadcast);
       expect(broadcastMock).toBeCalledTimes(0);
     });
     it("should broadcast errors if any provided", () => {
@@ -55,7 +56,8 @@ describe("composables errorHandler", () => {
           messageKey: "product-stock-reached",
         },
       ];
-      broadcastErrors(errors, "testMethod", {} as any);
+      const { broadcast } = mockedComposables.useIntercept();
+      broadcastErrors(errors, "testMethod", broadcast);
       expect(broadcastMock).toBeCalledTimes(3);
       expect(broadcastMock).toBeCalledWith("notice", {
         inputParams: {},

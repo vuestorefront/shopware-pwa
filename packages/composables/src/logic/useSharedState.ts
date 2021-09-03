@@ -7,7 +7,7 @@ import {
   toRef,
   WritableComputedRef,
 } from "vue-demi";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import { getApplicationContext } from "@shopware-pwa/composables";
 
 const localSharedState: {
   [key: string]: Ref<any>;
@@ -17,13 +17,18 @@ const localSharedState: {
  * Replacement for Vuex. Composable, which enables you to use shared state in your application.
  * State is shared both on server and client side.
  *
- * @beta
+ * @public
  */
-export function useSharedState(rootContext: ApplicationVueContext) {
-  const { sharedStore, isServer } = getApplicationContext(
-    rootContext,
-    "useSharedState"
-  );
+export function useSharedState() {
+  const COMPOSABLE_NAME = "useSharedState";
+  const contextName = COMPOSABLE_NAME;
+
+  const { sharedStore, isServer } = getApplicationContext({ contextName });
+
+  if (!sharedStore)
+    throw new Error(
+      `[${COMPOSABLE_NAME}] sharedStore is not injected into Vue instance`
+    );
 
   /**
    * Extends Ref type to share it server->client and globally in client side.
@@ -31,7 +36,7 @@ export function useSharedState(rootContext: ApplicationVueContext) {
    * `uniqueKey` is used to identify value after sending it from the server.
    * You can use the same key to reach this value, but setting the same keys on different values will cause values override.
    *
-   * @beta
+   * @public
    */
   function sharedRef<T>(
     uniqueKey: string,

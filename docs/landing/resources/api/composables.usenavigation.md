@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useNavigation](./composables.usenavigation.md)
 
-## useNavigation variable
+## useNavigation() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -12,19 +12,29 @@ Composable for navigation. Options - [IUseNavigation](./composables.iusenavigati
 <b>Signature:</b>
 
 ```typescript
-useNavigation: (rootContext: ApplicationVueContext, params?: {
-    type: StoreNavigationType;
-}) => IUseNavigation
+export declare function useNavigation(params?: {
+    type?: StoreNavigationType;
+}): IUseNavigation;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  params | { type?: StoreNavigationType; } |  |
+
+<b>Returns:</b>
+
+[IUseNavigation](./composables.iusenavigation.md)
 
 ## Example
 
 
 ```
 // get main navigation
-useNavigation( root )
+useNavigation()
 // get footer navigation
-useNavigation( root, { type: "footer-navigation" } )
+useNavigation({ type: "footer-navigation" } )
 
 ```
 

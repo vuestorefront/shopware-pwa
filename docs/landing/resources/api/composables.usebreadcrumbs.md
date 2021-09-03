@@ -12,7 +12,7 @@ Composable for displaying and setting breadcrumbs for page.
 <b>Signature:</b>
 
 ```typescript
-export declare function useBreadcrumbs(rootContext: ApplicationVueContext, params?: {
+export declare function useBreadcrumbs(params?: {
     hideHomeLink: boolean;
 }): {
     breadcrumbs: ComputedRef<Breadcrumb[]>;
@@ -25,7 +25,6 @@ export declare function useBreadcrumbs(rootContext: ApplicationVueContext, param
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
 |  params | { hideHomeLink: boolean; } |  |
 
 <b>Returns:</b>

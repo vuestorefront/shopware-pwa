@@ -12,16 +12,17 @@ Get product association entity. Options - [IUseProductAssociations](./composable
 <b>Signature:</b>
 
 ```typescript
-export declare function useProductAssociations(rootContext: ApplicationVueContext, product: Product, association: "cross-selling" | "reviews"): IUseProductAssociations;
+export declare function useProductAssociations(params: {
+    product: Ref<Product> | Product;
+    associationContext: "cross-selling" | "reviews";
+}): IUseProductAssociations;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-|  product | Product |  |
-|  association | "cross-selling" \| "reviews" |  |
+|  params | { product: Ref&lt;Product&gt; \| Product; associationContext: "cross-selling" \| "reviews"; } |  |
 
 <b>Returns:</b>
 
@@ -32,7 +33,7 @@ export declare function useProductAssociations(rootContext: ApplicationVueContex
 Example of possibilities:
 
 ```ts
-const { loading, loadAssociations, productAssociations } = useProductAssociation(root, product, "cross-selling")
+const { loading, loadAssociations, productAssociations } = useProductAssociation({product, associationContext: "cross-selling"})
 if (!productAssociations.value) {
    await loadAssociations()
 }

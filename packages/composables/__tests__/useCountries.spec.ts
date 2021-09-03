@@ -12,11 +12,10 @@ jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 
 import { useCountries } from "../src/hooks/useCountries";
+import { prepareRootContextMock } from "./contextRunner";
 
 describe("Composables - useCountries", () => {
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-  };
+  const rootContextMock = prepareRootContextMock();
   const stateSharedRef = ref();
 
   beforeEach(() => {
@@ -27,6 +26,12 @@ describe("Composables - useCountries", () => {
         sharedRef: () => stateSharedRef,
       } as any;
     });
+
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
   });
 
   describe("refs", () => {});
@@ -36,7 +41,7 @@ describe("Composables - useCountries", () => {
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
           data: null,
         } as any);
-        const { getCountries, fetchCountries } = useCountries(rootContextMock);
+        const { getCountries, fetchCountries } = useCountries();
         await fetchCountries();
         expect(getCountries.value).toEqual([]);
       });
@@ -59,7 +64,7 @@ describe("Composables - useCountries", () => {
             },
           ],
         } as any);
-        const { fetchCountries, getCountries } = useCountries(rootContextMock);
+        const { fetchCountries, getCountries } = useCountries();
         await fetchCountries();
         expect(getCountries.value).toEqual([
           {
@@ -86,14 +91,14 @@ describe("Composables - useCountries", () => {
         mockedApiClient.getAvailableCountries.mockRejectedValueOnce({
           messages: "Couldn't fetch available countries.",
         });
-        const { fetchCountries, error } = useCountries(rootContextMock);
+        const { fetchCountries, error } = useCountries();
         await fetchCountries();
         expect(error.value).toEqual("Couldn't fetch available countries.");
       });
     });
     describe("onMounted", () => {
       it("should(call onMounted on useCountries mount", () => {
-        useCountries(rootContextMock);
+        useCountries();
         expect(vueComp.onMounted).toBeCalled();
       });
     });
@@ -103,7 +108,7 @@ describe("Composables - useCountries", () => {
           data: null,
         } as any);
         const { fetchCountries, mountedCallback, getCountries } =
-          useCountries(rootContextMock);
+          useCountries();
         await fetchCountries();
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
           elements: [
@@ -163,7 +168,7 @@ describe("Composables - useCountries", () => {
           ],
         } as any);
         const { fetchCountries, mountedCallback, getCountries } =
-          useCountries(rootContextMock);
+          useCountries();
         await fetchCountries();
         mockedApiClient.getAvailableCountries.mockReturnValueOnce({
           elements: [

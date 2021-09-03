@@ -4,26 +4,16 @@
 
 ## useSharedState() function
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 Replacement for Vuex. Composable, which enables you to use shared state in your application. State is shared both on server and client side.
 
 <b>Signature:</b>
 
 ```typescript
-export declare function useSharedState(rootContext: ApplicationVueContext): {
+export declare function useSharedState(): {
     sharedRef: <T>(uniqueKey: string, defaultValue?: T | undefined) => WritableComputedRef<T | null>;
     preloadRef: (refObject: Ref<unknown>, callback: () => Promise<void>) => Promise<void>;
 };
 ```
-
-## Parameters
-
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  rootContext | [ApplicationVueContext](./composables.applicationvuecontext.md) |  |
-
 <b>Returns:</b>
 
 { sharedRef: &lt;T&gt;(uniqueKey: string, defaultValue?: T \| undefined) =&gt; WritableComputedRef&lt;T \| null&gt;; preloadRef: (refObject: Ref&lt;unknown&gt;, callback: () =&gt; Promise&lt;void&gt;) =&gt; Promise&lt;void&gt;; }

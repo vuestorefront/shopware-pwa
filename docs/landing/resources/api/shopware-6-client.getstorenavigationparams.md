@@ -23,5 +23,5 @@ export interface GetStoreNavigationParams
 |  [depth?](./shopware-6-client.getstorenavigationparams.depth.md) | number | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 |  [requestActiveId](./shopware-6-client.getstorenavigationparams.requestactiveid.md) | StoreNavigationType | <b><i>(BETA)</i></b> |
 |  [requestRootId](./shopware-6-client.getstorenavigationparams.requestrootid.md) | StoreNavigationType | <b><i>(BETA)</i></b> |
-|  [searchCriteria?](./shopware-6-client.getstorenavigationparams.searchcriteria.md) | SearchCriteria | <b><i>(BETA)</i></b> <i>(Optional)</i> |
+|  [searchCriteria?](./shopware-6-client.getstorenavigationparams.searchcriteria.md) | ShopwareSearchParams | <b><i>(BETA)</i></b> <i>(Optional)</i> |
 

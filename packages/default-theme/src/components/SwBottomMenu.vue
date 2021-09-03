@@ -69,13 +69,14 @@ export default {
       menuTransitionName: "menu-slide-left",
     }
   },
-  setup(props, { root }) {
-    const { switchState: toggleSidebar, isOpen: isSidebarOpen } = useUIState(
-      root,
-      "CART_SIDEBAR_STATE"
-    )
-    const { loadNavigationElements, navigationElements } = useNavigation(root)
-    const { switchState: toggleModal } = useUIState(root, "LOGIN_MODAL_STATE")
+  setup() {
+    const { switchState: toggleSidebar, isOpen: isSidebarOpen } = useUIState({
+      stateName: "CART_SIDEBAR_STATE",
+    })
+    const { loadNavigationElements, navigationElements } = useNavigation()
+    const { switchState: toggleModal } = useUIState({
+      stateName: "LOGIN_MODAL_STATE",
+    })
 
     onMounted(async () => {
       try {

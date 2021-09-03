@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useSessionContext](./composables.usesessioncontext.md)
 
-## useSessionContext variable
+## useSessionContext() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -12,5 +12,9 @@ Composable for session management. Options - [IUseSessionContext](./composables.
 <b>Signature:</b>
 
 ```typescript
-useSessionContext: (rootContext: ApplicationVueContext) => IUseSessionContext
+export declare function useSessionContext(): IUseSessionContext;
 ```
+<b>Returns:</b>
+
+[IUseSessionContext](./composables.iusesessioncontext.md)
+

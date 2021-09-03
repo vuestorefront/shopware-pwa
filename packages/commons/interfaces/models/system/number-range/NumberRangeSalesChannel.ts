@@ -3,7 +3,7 @@ import { NumberRange } from "./NumberRange";
 import { NumberRangeType } from "./NumberRangeType";
 
 /**
- * @alpha
+ * @public
  */
 export interface NumberRangeSalesChannel {
   numberRangeId: string;

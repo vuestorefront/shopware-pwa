@@ -106,6 +106,13 @@ describe("nuxt-module - defaultsConfigBuilder", () => {
       expect(result.useCms?.includes?.cms_page_slot).not.toBeUndefined();
       expect(result.useCms?.includes?.cms_page_slot).not.toContain("blockId");
     });
+
+    it("should ignore additional property when removing key property is not an array", () => {
+      const result = defaultsConfigBuilder()
+        .remove("useCms.limit", "notFromArray")
+        .get();
+      expect(result.useCms?.limit).toBeUndefined();
+    });
   });
 
   it("should test the case from useDefaults documentation", () => {

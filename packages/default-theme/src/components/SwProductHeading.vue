@@ -49,9 +49,7 @@
 <script>
 import {
   getProductFreeShipping,
-  getProductRegularPrice,
   getProductReviews,
-  getProductSpecialPrice,
   getProductTierPrices,
   getProductRatingAverage,
   getProductCalculatedListingPrice,

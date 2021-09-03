@@ -6,7 +6,7 @@ import { Product } from "../product/Product";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface PropertyGroupOption {
   id: string;

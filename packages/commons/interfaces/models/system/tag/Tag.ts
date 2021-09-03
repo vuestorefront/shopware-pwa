@@ -6,7 +6,7 @@ import { NewsletterRecipient } from "../../content/newsletter/NewsletterRecipien
 import { ShippingMethod } from "../../checkout/shipping/ShippingMethod";
 
 /**
- * @alpha
+ * @public
  */
 export interface Tag {
   name: string;

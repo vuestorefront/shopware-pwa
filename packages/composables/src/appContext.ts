@@ -1,59 +1,55 @@
-import { ComputedRef, getCurrentInstance, ComponentInstance } from "vue-demi";
+import {
+  ComputedRef,
+  getCurrentInstance,
+  getCurrentScope,
+  UnwrapRef,
+} from "vue-demi";
 import { ShopwareApiInstance } from "@shopware-pwa/shopware-6-client";
+import { getContextProperty } from "./internalHelpers/getContextProperty";
+import { ApiDefaults } from "@shopware-pwa/commons";
+import { IInterceptorCallbackFunction } from "./logic/useIntercept";
 
 /**
  * @beta
  */
-export interface Routing {
-  availableDomains: any;
-  fallbackDomain: string | undefined;
-  fallbackLocale: string | undefined;
-  pwaHost: string | undefined;
-  getCurrentDomain: ComputedRef<string>;
-  setCurrentDomain: (domainData: any) => void;
-  getUrl: (path: string) => string;
-}
-
-interface Process extends NodeJS.Process {
-  server: boolean;
+export interface ShopwareDomain {
+  url: string;
+  origin: string;
+  host: string;
+  pathPrefix: string;
+  domainId: string;
+  currencyId: string;
+  snippetSetId: string;
+  languageId: string;
+  languageName: string;
+  languageLabel: string;
+  languageLocaleCode: string;
 }
 
 /**
- * Application Context for Shopware PWA. It's an extended Vue instance.
+ * Routing type for Shopware SEO path resolvers
  *
  * @beta
  */
-export type ApplicationVueContext = ComponentInstance & {
-  $shopwareApiInstance?: ShopwareApiInstance;
-  shopwareApiInstance?: ShopwareApiInstance;
-  $routing: Routing;
-  routing: Routing;
-  $store?: any; // Vuex Store
-  store?: any; // Vuex Store
-  $route?: any; // Vue router
-  $router?: any; // Vue router
-  router?: any; // Vue router
-  route?: any; // Vue router
-  $i18n?: any; // Vue i18n plugin
-  i18n?: any; // Vue i18n plugin
-  $cookies?: any; // cookie-universal
-  cookies?: any; // cookie-universal
-  shopwareDefaults?: any; // defaults for API
-  $shopwareDefaults?: any; // defaults for API
-  $interceptors?: any;
-  interceptors?: any;
-  $sharedStore?: any;
-  sharedStore?: any;
-  $instanceStore?: any;
-  instanceStore?: any;
-  $isServer?: any;
-  isServer?: any;
+export type SwRouting = {
+  availableDomains: ShopwareDomain[];
+  fallbackDomain?: string;
+  fallbackLocale?: string;
+  getCurrentDomain: ComputedRef<ShopwareDomain>;
+  setCurrentDomain: (domainData: any) => void;
+  getUrl: (path: string) => string;
 };
 
-function checkAppContext(
-  key: string,
-  rootContext: ApplicationVueContext
-): boolean {
+type SharedStore = UnwrapRef<{ [storeKey: string]: any }>;
+
+/**
+ * @beta
+ */
+export type SwInterceptors = {
+  [broadcastKey: string]: Array<IInterceptorCallbackFunction>;
+};
+
+function checkAppContext(key: string, rootContext: any): boolean {
   if (!rootContext?.$shopwareApiInstance && !rootContext?.shopwareApiInstance) {
     process.env.NODE_ENV !== "production" &&
       console.warn(
@@ -70,36 +66,46 @@ function checkAppContext(
   return true;
 }
 
+interface Process extends NodeJS.Process {
+  server: boolean;
+}
+
 /**
+ * Get the current application context values. The context is either a scope or a component instance.
+ * This method checks if the context contains all the necessary data.
+ *
+ * This method will likely change in future in order to provide full Vue3 compability.
  *
  * @beta
  */
-export function getApplicationContext(
-  rootContext: ApplicationVueContext,
-  key: string = "getApplicationContext"
-) {
-  let context =
-    (getCurrentInstance()?.proxy as ApplicationVueContext) || rootContext;
+export function getApplicationContext(params?: { contextName?: string }) {
+  const key = params?.contextName || "getApplicationContext";
+  const injectedContext = getCurrentInstance()?.proxy as any;
+  const scopeContext = (getCurrentScope?.() as any)?.vm;
+  let context = scopeContext || injectedContext;
   if (!checkAppContext(key, context)) {
     console.error(`[${key}] No Vue instance detected!`);
   }
+
   return {
-    apiInstance: context?.$shopwareApiInstance || context?.shopwareApiInstance,
-    vuexStore: context?.$store || context?.store,
-    router: context?.$router || context?.router,
-    route: context?.$route || context?.route,
-    i18n: context?.$i18n || context?.i18n,
-    cookies: context?.$cookies || context?.cookies,
-    shopwareDefaults: context?.$shopwareDefaults || context?.shopwareDefaults,
-    interceptors: context?.$interceptors || context?.interceptors || {},
-    routing: context?.$routing || context?.routing,
-    sharedStore: context?.$sharedStore || context?.sharedStore,
-    instanceStore: context?.$instanceStore || context?.instanceStore,
+    apiInstance: getContextProperty<ShopwareApiInstance>(
+      context,
+      "shopwareApiInstance"
+    ),
+    router: getContextProperty<any>(context, "router"),
+    route: getContextProperty<any>(context, "route"),
+    routing: getContextProperty<SwRouting>(context, "routing"),
+    i18n: getContextProperty<any>(context, "i18n"),
+    cookies: getContextProperty<any>(context, "cookies"),
+    shopwareDefaults: getContextProperty<ApiDefaults>(
+      context,
+      "shopwareDefaults"
+    ),
+    interceptors: getContextProperty<SwInterceptors>(context, "interceptors"),
+    sharedStore: getContextProperty<SharedStore>(context, "sharedStore"),
     isServer: !!(
-      context?.$isServer ||
-      context?.isServer ||
-      /* istanbul ignore next */
-      (process as Process)?.server
+      getContextProperty<boolean>(context, "isServer") ||
+      (typeof process !== "undefined" && !!(process as Process).server)
     ),
     contextName: key,
   };

@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useCurrency](./composables.usecurrency.md)
 
-## useCurrency variable
+## useCurrency() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -11,5 +11,9 @@
 <b>Signature:</b>
 
 ```typescript
-useCurrency: (rootContext: ApplicationVueContext) => UseCurrency
+export declare function useCurrency(): IUseCurrency;
 ```
+<b>Returns:</b>
+
+[IUseCurrency](./composables.iusecurrency.md)
+

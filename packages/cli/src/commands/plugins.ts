@@ -14,7 +14,7 @@ module.exports = {
 
     if (!isCIrun) {
       toolbox.print.info(
-        "Please provide username and password for plugins authentication. You can leave the fields empty if connecting to demo instance or if you don't need plugins :)"
+        "[CLI > plugins] Please provide username and password for plugins authentication. You can leave the fields empty if connecting to demo instance or if you don't need plugins :)"
       );
       const shopwareUsernameQuestion = !inputParameters.username && {
         type: "input",
@@ -50,7 +50,9 @@ module.exports = {
 
     await toolbox.loadPluginsAssets();
 
-    const generateFilesSpinner = spin("Generating plugins files");
+    const generateFilesSpinner = spin(
+      "[CLI > plugins] Generating plugins files"
+    );
 
     // remove plugin files
     // await toolbox.filesystem.removeAsync(`.shopware-pwa/sw-plugins`);
@@ -117,6 +119,6 @@ module.exports = {
     };
     await toolbox?.runtime?.run(`languages`, langParams);
 
-    success(`Plugins generated`);
+    success(`[CLI > plugins] Plugins generated`);
   },
 };

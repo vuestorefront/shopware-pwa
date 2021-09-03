@@ -111,13 +111,12 @@ export default {
     SwPluginSlot,
     SwButton,
   },
-  setup(props, { root }) {
-    const { apiInstance } = getApplicationContext(root, "SwCart")
-    const { cartItems, count, totalPrice, removeProduct } = useCart(root)
-    const { isOpen: isSidebarOpen, switchState: toggleSidebar } = useUIState(
-      root,
-      "CART_SIDEBAR_STATE"
-    )
+  setup() {
+    const { apiInstance } = getApplicationContext({ contextName: "SwCart" })
+    const { cartItems, count, totalPrice } = useCart()
+    const { isOpen: isSidebarOpen, switchState: toggleSidebar } = useUIState({
+      stateName: "CART_SIDEBAR_STATE",
+    })
     const additionalItemsData = ref([])
     // Load additional info: seoUrls
     // TODO: move that logic into useCart composable or create global solution for "entity enrichment" maybe during adding to cart
@@ -132,15 +131,13 @@ export default {
       try {
         const result = await getProducts(
           {
-            configuration: {
-              ids: cartItems.value.map(({ referencedId }) => referencedId),
-              includes: {
-                product: ["id", "seoUrls"],
-                seo_url: ["seoPathInfo"],
-              },
-              associations: {
-                seoUrls: {},
-              },
+            ids: cartItems.value.map(({ referencedId }) => referencedId),
+            includes: {
+              product: ["id", "seoUrls"],
+              seo_url: ["seoPathInfo"],
+            },
+            associations: {
+              seoUrls: {},
             },
           },
           apiInstance
@@ -172,7 +169,6 @@ export default {
       cartItems: getCartProducts,
       count,
       totalPrice,
-      removeProduct,
       additionalItemsData,
       filterPrice: usePriceFilter(),
     }

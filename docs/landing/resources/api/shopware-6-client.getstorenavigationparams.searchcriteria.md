@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-searchCriteria?: SearchCriteria;
+searchCriteria?: ShopwareSearchParams;
 ```

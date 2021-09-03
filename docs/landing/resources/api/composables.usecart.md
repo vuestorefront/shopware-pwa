@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useCart](./composables.usecart.md)
 
-## useCart variable
+## useCart() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -12,5 +12,9 @@ Composable for cart management. Options - [IUseCart](./composables.iusecart.md)
 <b>Signature:</b>
 
 ```typescript
-useCart: (rootContext: ApplicationVueContext) => IUseCart
+export declare function useCart(): IUseCart;
 ```
+<b>Returns:</b>
+
+[IUseCart](./composables.iusecart.md)
+

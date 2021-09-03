@@ -68,9 +68,9 @@ export default async ({ app }, inject) => {
     if (process.client) {
       const { refreshSessionContext } = useSessionContext();
       refreshSessionContext();
-      const { refreshUser } = useUser(app);
+      const { refreshUser } = useUser();
       refreshUser();
-      const { refreshCart } = useCart(app);
+      const { refreshCart } = useCart();
       refreshCart();
     }
     return result;

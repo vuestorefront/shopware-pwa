@@ -1,9 +1,11 @@
 import { ref, Ref, UnwrapRef, reactive } from "vue-demi";
-import { getCustomerOrders } from "@shopware-pwa/shopware-6-client";
+import {
+  getCustomerOrders,
+  getOrderDetails as apiGetOrderDetails,
+} from "@shopware-pwa/shopware-6-client";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import { ShopwareError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { useDefaults } from "@shopware-pwa/composables";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import { useDefaults, getApplicationContext } from "@shopware-pwa/composables";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
@@ -17,6 +19,7 @@ export interface IUseCustomerOrders {
     loadOrders: ShopwareError[];
   }>;
   loadOrders: () => Promise<void>;
+  getOrderDetails: (orderId: string) => Promise<Order | undefined>;
 }
 
 /**
@@ -24,15 +27,13 @@ export interface IUseCustomerOrders {
  *
  * @beta
  */
-export const useCustomerOrders = (
-  rootContext: ApplicationVueContext
-): IUseCustomerOrders => {
-  const { contextName, apiInstance } = getApplicationContext(
-    rootContext,
-    "useCustomerOrders"
-  );
+export function useCustomerOrders(): IUseCustomerOrders {
+  const COMPOSABLE_NAME = "useCustomerOrders";
+  const contextName = COMPOSABLE_NAME;
 
-  const { getDefaults } = useDefaults(rootContext, contextName);
+  const { apiInstance } = getApplicationContext({ contextName });
+
+  const { getDefaults } = useDefaults({ defaultsKey: contextName });
 
   const errors: UnwrapRef<{
     loadOrders: ShopwareError[];
@@ -51,9 +52,16 @@ export const useCustomerOrders = (
     orders.value = fetchedOrders;
   };
 
+  const getOrderDetails = async (
+    orderId: string,
+    params?: ShopwareSearchParams
+  ): Promise<Order | undefined> =>
+    apiGetOrderDetails(orderId, params, apiInstance);
+
   return {
     orders,
     loadOrders,
+    getOrderDetails,
     errors,
   };
-};
+}

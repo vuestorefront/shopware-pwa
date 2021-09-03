@@ -18,7 +18,7 @@ import { CustomField } from "../../common/CustomField";
 import { User } from "../../system/user/User";
 
 /**
- * @alpha
+ * @public
  */
 export interface Media {
   userId: string | null;

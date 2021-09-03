@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useCountry](./composables.usecountry.md)
 
-## useCountry variable
+## useCountry() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -11,5 +11,18 @@
 <b>Signature:</b>
 
 ```typescript
-useCountry: (countryId: ComputedRef<string>, countries: ComputedRef<Country[]>) => UseCountry
+export declare function useCountry(props: {
+    countryId: ComputedRef<string>;
+}): IUseCountry;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  props | { countryId: ComputedRef&lt;string&gt;; } |  |
+
+<b>Returns:</b>
+
+[IUseCountry](./composables.iusecountry.md)
+

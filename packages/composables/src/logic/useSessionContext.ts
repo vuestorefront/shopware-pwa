@@ -21,7 +21,6 @@ import {
   IInterceptorCallbackFunction,
   useSharedState,
 } from "@shopware-pwa/composables";
-import { ApplicationVueContext } from "../appContext";
 /**
  * interface for {@link useSessionContext} composable
  *
@@ -61,18 +60,16 @@ export interface IUseSessionContext {
  *
  * @beta
  */
-export const useSessionContext = (
-  rootContext: ApplicationVueContext
-): IUseSessionContext => {
-  const { apiInstance } = getApplicationContext(
-    rootContext,
-    "useSessionContext"
-  );
-  const { broadcast, intercept } = useIntercept(rootContext);
+export function useSessionContext(): IUseSessionContext {
+  const COMPOSABLE_NAME = "useSessionContext";
+  const contextName = COMPOSABLE_NAME;
 
-  const { sharedRef } = useSharedState(rootContext);
+  const { apiInstance } = getApplicationContext({ contextName });
+  const { broadcast, intercept } = useIntercept();
+
+  const { sharedRef } = useSharedState();
   const storeSessionContext = sharedRef<SessionContext>(
-    `useSessionContext-sessionContext`
+    `${contextName}-sessionContext`
   );
 
   const onCurrencyChange = (fn: IInterceptorCallbackFunction) =>
@@ -195,4 +192,4 @@ export const useSessionContext = (
     onPaymentMethodChange,
     onShippingMethodChange,
   };
-};
+}

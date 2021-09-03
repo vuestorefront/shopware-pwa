@@ -43,8 +43,8 @@ export default {
     PaymentSection,
     SwAddressManager,
   },
-  setup(props, { root }) {
-    const { addresses, loadAddresses } = useCustomerAddresses(root)
+  setup() {
+    const { addresses, loadAddresses } = useCustomerAddresses()
     loadAddresses()
 
     const {
@@ -52,7 +52,7 @@ export default {
       setActiveShippingAddress,
       activeBillingAddress,
       setActiveBillingAddress,
-    } = useSessionContext(root)
+    } = useSessionContext()
 
     const changeActiveShippingAddress = async (addressId) => {
       await setActiveShippingAddress({ id: addressId })

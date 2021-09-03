@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useAddToCart](./composables.useaddtocart.md)
 
-## useAddToCart variable
+## useAddToCart() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -12,15 +12,27 @@ Add product to cart. Options - [IUseAddToCart](./composables.iuseaddtocart.md)
 <b>Signature:</b>
 
 ```typescript
-useAddToCart: (rootContext: ApplicationVueContext, product: Product) => IUseAddToCart
+export declare function useAddToCart(params: {
+    product: Ref<Product> | Product;
+}): IUseAddToCart;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  params | { product: Ref&lt;Product&gt; \| Product; } |  |
+
+<b>Returns:</b>
+
+[IUseAddToCart](./composables.iuseaddtocart.md)
 
 ## Example
 
-Example of possibilities:
+Example usage:
 
 ```ts
-const {isInCart, quantity, addToCart} = useAddToCart(root, product)
+const {isInCart, quantity, addToCart} = useAddToCart({ product })
 if (!isInCart.value) {
    quantity.value = 5
    await addToCart()

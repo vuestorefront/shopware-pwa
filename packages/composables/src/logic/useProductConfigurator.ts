@@ -1,8 +1,7 @@
-import { ref, Ref, computed } from "vue-demi";
+import { ref, Ref, computed, unref } from "vue-demi";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { PropertyGroup } from "@shopware-pwa/commons/interfaces/models/content/property/PropertyGroup";
-import { useCms } from "@shopware-pwa/composables";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import { useCms, getApplicationContext } from "@shopware-pwa/composables";
 import {
   invokePost,
   getProductEndpoint,
@@ -44,16 +43,22 @@ export interface IUseProductConfigurator {
  * Product options - {@link IUseAddToCart}
  * @beta
  */
-export const useProductConfigurator = (
-  rootContext: ApplicationVueContext,
-  product: Product
-): IUseProductConfigurator => {
-  const { page } = useCms(rootContext);
+export function useProductConfigurator(params: {
+  product: Ref<Product> | Product;
+}): IUseProductConfigurator {
+  const COMPOSABLE_NAME = "useProductConfigurator";
+  const contextName = COMPOSABLE_NAME;
+
+  const product = unref(params.product);
+
+  const { apiInstance } = getApplicationContext({ contextName });
+
+  const { page } = useCms();
   const selected = ref({} as any);
   const isLoadingOptions = ref(!!product.options?.length);
   const parentProductId = computed(() => product.parentId);
   const getOptionGroups = computed(
-    () => (page.value as any).configurator || []
+    () => (page.value as any)?.configurator || []
   );
 
   const findGroupCodeForOption = (optionId: string) => {
@@ -78,10 +83,6 @@ export const useProductConfigurator = (
   const findVariantForSelectedOptions = async (options?: {
     [code: string]: string;
   }) => {
-    const { apiInstance } = getApplicationContext(
-      rootContext,
-      "useProductConfigurator"
-    );
     const filter = [
       {
         type: "equals",
@@ -143,4 +144,4 @@ export const useProductConfigurator = (
     getOptionGroups,
     getSelectedOptions: selected,
   };
-};
+}

@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useSalutations](./composables.usesalutations.md)
 
-## useSalutations variable
+## useSalutations() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -11,5 +11,9 @@
 <b>Signature:</b>
 
 ```typescript
-useSalutations: (rootContext: ApplicationVueContext) => UseSalutations
+export declare function useSalutations(): IUseSalutations;
 ```
+<b>Returns:</b>
+
+[IUseSalutations](./composables.iusesalutations.md)
+

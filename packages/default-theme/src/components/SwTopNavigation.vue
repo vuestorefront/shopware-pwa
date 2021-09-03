@@ -81,14 +81,13 @@ export default {
     SwPluginSlot,
     SwTopNavigationShowMore,
   },
-  setup(props, { root }) {
-    const { switchState: switchOverlay } = useUIState(
-      root,
-      "MEGA_MENU_OVERLAY_STATE"
-    )
-    const { loadNavigationElements, navigationElements } = useNavigation(root)
+  setup() {
+    const { switchState: switchOverlay } = useUIState({
+      stateName: "MEGA_MENU_OVERLAY_STATE",
+    })
+    const { loadNavigationElements, navigationElements } = useNavigation()
 
-    const { currentDomainId } = useDomains(root)
+    const { currentDomainId } = useDomains()
 
     const currentCategoryName = ref(null)
 
@@ -97,7 +96,7 @@ export default {
       switchOverlay(!!currentCategoryName.value)
     }
 
-    const { preloadRef } = useSharedState(root)
+    const { preloadRef } = useSharedState()
     preloadRef(navigationElements, async () => {
       await loadNavigationElements({ depth: 3 })
     })

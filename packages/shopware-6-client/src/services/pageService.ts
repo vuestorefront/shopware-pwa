@@ -1,16 +1,11 @@
 import { getPageResolverEndpoint, getSeoUrlEndpoint } from "../endpoints";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
-import {
-  SearchCriteria,
-  ShopwareSearchParams,
-} from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import {
   PageResolverResult,
   PageResolverProductResult,
   CmsPage,
 } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
-
-import { convertSearchCriteria } from "../helpers/searchConverter";
 
 /**
  * @throws ClientApiError
@@ -18,15 +13,12 @@ import { convertSearchCriteria } from "../helpers/searchConverter";
  */
 export async function getPage(
   path: string,
-  searchCriteria?: SearchCriteria,
+  criteria?: ShopwareSearchParams,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<PageResolverResult<CmsPage>> {
   const resp = await contextInstance.invoke.post(getPageResolverEndpoint(), {
     path: path,
-    ...convertSearchCriteria({
-      searchCriteria,
-      config: contextInstance.config,
-    }),
+    criteria,
   });
 
   return resp.data;
@@ -55,15 +47,12 @@ export async function getCmsPage(
  */
 export async function getProductPage(
   path: string,
-  searchCriteria?: SearchCriteria,
+  criteria?: ShopwareSearchParams,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<PageResolverProductResult> {
   const resp = await contextInstance.invoke.post(getPageResolverEndpoint(), {
     path: path,
-    ...convertSearchCriteria({
-      searchCriteria,
-      config: contextInstance.config,
-    }),
+    ...(criteria || {}),
   });
 
   return resp.data;

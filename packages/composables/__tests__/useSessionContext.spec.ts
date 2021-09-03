@@ -59,51 +59,51 @@ describe("Composables - useSessionContext", () => {
             countryId: "some-country-id",
           },
         } as any;
-        const { countryId } = useSessionContext(rootContextMock);
+        const { countryId } = useSessionContext();
         expect(countryId.value).toBe("some-country-id");
       });
 
       it("should return undefined if there's no sales channel's country id", () => {
         stateContext.value = undefined as any;
-        const { countryId } = useSessionContext(rootContextMock);
+        const { countryId } = useSessionContext();
         expect(countryId.value).toBeUndefined();
       });
     });
     describe("sessionContext", () => {
       it("should return null when no session context", () => {
-        const { sessionContext } = useSessionContext(rootContextMock);
+        const { sessionContext } = useSessionContext();
         expect(sessionContext.value).toBeNull();
       });
 
       it("should return a proper session context", () => {
         stateContext.value = { token: "qwe" };
-        const { sessionContext } = useSessionContext(rootContextMock);
+        const { sessionContext } = useSessionContext();
         expect(sessionContext.value).toEqual({ token: "qwe" });
       });
     });
 
     describe("shippingMethod", () => {
       it("should return null when there is no shipping method", () => {
-        const { shippingMethod } = useSessionContext(rootContextMock);
+        const { shippingMethod } = useSessionContext();
         expect(shippingMethod.value).toBeNull();
       });
 
       it("should return shipping method when is set", () => {
         stateContext.value = { shippingMethod: { id: "qwe" } as any };
-        const { shippingMethod } = useSessionContext(rootContextMock);
+        const { shippingMethod } = useSessionContext();
         expect(shippingMethod.value).toEqual({ id: "qwe" });
       });
     });
 
     describe("paymentMethod", () => {
       it("should return null when there is no shipping method", () => {
-        const { paymentMethod } = useSessionContext(rootContextMock);
+        const { paymentMethod } = useSessionContext();
         expect(paymentMethod.value).toBeNull();
       });
 
       it("should return shipping method when is set", () => {
         stateContext.value = { paymentMethod: { id: "qwe" } as any };
-        const { paymentMethod } = useSessionContext(rootContextMock);
+        const { paymentMethod } = useSessionContext();
         expect(paymentMethod.value).toEqual({ id: "qwe" });
       });
     });
@@ -111,18 +111,18 @@ describe("Composables - useSessionContext", () => {
     describe("currency", () => {
       it("should return null when session context value is null", () => {
         stateContext.value = null;
-        const { currency } = useSessionContext(rootContextMock);
+        const { currency } = useSessionContext();
         expect(currency.value).toBeNull();
       });
 
       it("should return null when session context doesn't have currency property", () => {
         stateContext.value = {};
-        const { currency } = useSessionContext(rootContextMock);
+        const { currency } = useSessionContext();
         expect(currency.value).toBeNull();
       });
       it("should return currency from context", () => {
         stateContext.value = { currency: { sign: "$$" } } as any;
-        const { currency } = useSessionContext(rootContextMock);
+        const { currency } = useSessionContext();
         expect(currency.value).toEqual({ sign: "$$" });
       });
     });
@@ -135,7 +135,7 @@ describe("Composables - useSessionContext", () => {
             },
           },
         } as any;
-        const { activeBillingAddress } = useSessionContext(rootContextMock);
+        const { activeBillingAddress } = useSessionContext();
         expect(activeBillingAddress.value).toStrictEqual({
           id: "address-billing-id",
         });
@@ -144,12 +144,12 @@ describe("Composables - useSessionContext", () => {
         stateContext.value = {
           customer: undefined,
         } as any;
-        const { activeBillingAddress } = useSessionContext(rootContextMock);
+        const { activeBillingAddress } = useSessionContext();
         expect(activeBillingAddress.value).toBeNull();
       });
       it("should not return activeBillingAddress from context if there is no context", () => {
         stateContext.value = null as any;
-        const { activeBillingAddress } = useSessionContext(rootContextMock);
+        const { activeBillingAddress } = useSessionContext();
         expect(activeBillingAddress.value).toBeNull();
       });
     });
@@ -162,7 +162,7 @@ describe("Composables - useSessionContext", () => {
             },
           },
         } as any;
-        const { activeShippingAddress } = useSessionContext(rootContextMock);
+        const { activeShippingAddress } = useSessionContext();
         expect(activeShippingAddress.value).toStrictEqual({
           id: "address-shipping-id",
         });
@@ -171,12 +171,12 @@ describe("Composables - useSessionContext", () => {
         stateContext.value = {
           customer: undefined,
         } as any;
-        const { activeShippingAddress } = useSessionContext(rootContextMock);
+        const { activeShippingAddress } = useSessionContext();
         expect(activeShippingAddress.value).toBeNull();
       });
       it("should not return activeShippingAddress from context if there is no context", () => {
         stateContext.value = null as any;
-        const { activeShippingAddress } = useSessionContext(rootContextMock);
+        const { activeShippingAddress } = useSessionContext();
         expect(activeShippingAddress.value).toBeNull();
       });
     });
@@ -185,7 +185,7 @@ describe("Composables - useSessionContext", () => {
   describe("methods", () => {
     describe("setCurrency", () => {
       it("should not call API client setCurrentCurrency with not argument provided", async () => {
-        const { setCurrency } = useSessionContext(rootContextMock);
+        const { setCurrency } = useSessionContext();
         try {
           await setCurrency(undefined as any);
         } catch (e) {
@@ -196,7 +196,7 @@ describe("Composables - useSessionContext", () => {
         expect(mockedApiClient.setCurrentCurrency).toBeCalledTimes(0);
       });
       it("should not call API client setCurrentCurrency ", async () => {
-        const { setCurrency } = useSessionContext(rootContextMock);
+        const { setCurrency } = useSessionContext();
         try {
           await setCurrency({ id: null } as any);
         } catch (e) {
@@ -207,7 +207,7 @@ describe("Composables - useSessionContext", () => {
         expect(mockedApiClient.setCurrentCurrency).toBeCalledTimes(0);
       });
       it("should call API client setCurrentCurrency ", async () => {
-        const { setCurrency } = useSessionContext(rootContextMock);
+        const { setCurrency } = useSessionContext();
         await setCurrency({ id: "euro-id" } as any);
 
         expect(mockedApiClient.setCurrentCurrency).toBeCalledTimes(1);
@@ -222,8 +222,7 @@ describe("Composables - useSessionContext", () => {
           mockedApiClient.getSessionContext.mockResolvedValueOnce({
             token: "qwe",
           } as any);
-          const { sessionContext, refreshSessionContext } =
-            useSessionContext(rootContextMock);
+          const { sessionContext, refreshSessionContext } = useSessionContext();
           await refreshSessionContext();
           expect(sessionContext.value).toEqual({ token: "qwe" });
         });
@@ -232,8 +231,7 @@ describe("Composables - useSessionContext", () => {
           mockedApiClient.getSessionContext.mockRejectedValueOnce({
             message: "Some error",
           } as any);
-          const { sessionContext, refreshSessionContext } =
-            useSessionContext(rootContextMock);
+          const { sessionContext, refreshSessionContext } = useSessionContext();
           await refreshSessionContext();
           expect(sessionContext.value).toBeNull();
           expect(stateContext.value).toBeNull();
@@ -253,7 +251,7 @@ describe("Composables - useSessionContext", () => {
             id: "qwe",
           },
         } as any);
-        const { setShippingMethod } = useSessionContext(rootContextMock);
+        const { setShippingMethod } = useSessionContext();
         await setShippingMethod({ id: "methodId" });
         expect(mockedApiClient.setCurrentShippingMethod).toBeCalledWith(
           "methodId",
@@ -265,21 +263,21 @@ describe("Composables - useSessionContext", () => {
         mockedApiClient.setCurrentShippingMethod.mockRejectedValueOnce({
           message: "Some error",
         } as any);
-        const { setShippingMethod } = useSessionContext(rootContextMock);
+        const { setShippingMethod } = useSessionContext();
         await expect(setShippingMethod({ id: "qwe" })).rejects.toEqual({
           message: "Some error",
         });
       });
 
       it("should throw an error if shipping method is not provided", async () => {
-        const { setShippingMethod } = useSessionContext(rootContextMock);
+        const { setShippingMethod } = useSessionContext();
         await expect(setShippingMethod(undefined as any)).rejects.toThrowError(
           "You need to provide shipping method id in order to set shipping method."
         );
       });
 
       it("should throw an error if shipping method is empty reference", async () => {
-        const { setShippingMethod } = useSessionContext(rootContextMock);
+        const { setShippingMethod } = useSessionContext();
         await expect(setShippingMethod(null as any)).rejects.toThrowError(
           "You need to provide shipping method id in order to set shipping method."
         );
@@ -293,7 +291,7 @@ describe("Composables - useSessionContext", () => {
             id: "qwe",
           },
         } as any);
-        const { setPaymentMethod } = useSessionContext(rootContextMock);
+        const { setPaymentMethod } = useSessionContext();
         await setPaymentMethod({ id: "methodId" });
         expect(mockedApiClient.setCurrentPaymentMethod).toBeCalledWith(
           "methodId",
@@ -305,21 +303,21 @@ describe("Composables - useSessionContext", () => {
         mockedApiClient.setCurrentPaymentMethod.mockRejectedValueOnce({
           message: "Some error",
         } as any);
-        const { setPaymentMethod } = useSessionContext(rootContextMock);
+        const { setPaymentMethod } = useSessionContext();
         await expect(setPaymentMethod({ id: "qwe" })).rejects.toEqual({
           message: "Some error",
         });
       });
 
       it("should throw an error if payment method is not provided", async () => {
-        const { setPaymentMethod } = useSessionContext(rootContextMock);
+        const { setPaymentMethod } = useSessionContext();
         await expect(setPaymentMethod(undefined as any)).rejects.toThrowError(
           "You need to provide payment method id in order to set payment method."
         );
       });
 
       it("should throw an error if payment method is empty reference", async () => {
-        const { setPaymentMethod } = useSessionContext(rootContextMock);
+        const { setPaymentMethod } = useSessionContext();
         await expect(setPaymentMethod(null as any)).rejects.toThrowError(
           "You need to provide payment method id in order to set payment method."
         );
@@ -328,7 +326,7 @@ describe("Composables - useSessionContext", () => {
 
     describe("setActiveShippingAddress", () => {
       it("should invoke a proper method if address has an id", async () => {
-        const { setActiveShippingAddress } = useSessionContext(rootContextMock);
+        const { setActiveShippingAddress } = useSessionContext();
         await setActiveShippingAddress({ id: "address-id" });
         expect(mockedApiClient.setCurrentShippingAddress).toBeCalledWith(
           "address-id",
@@ -336,7 +334,7 @@ describe("Composables - useSessionContext", () => {
         );
       });
       it("should throw an exception if there is no address.id provided", async () => {
-        const { setActiveShippingAddress } = useSessionContext(rootContextMock);
+        const { setActiveShippingAddress } = useSessionContext();
         await expect(
           setActiveShippingAddress(null as any)
         ).rejects.toThrowError(
@@ -347,7 +345,7 @@ describe("Composables - useSessionContext", () => {
     describe("setActiveBillingAddress", () => {
       it("should invoke a proper method if address has an id", async () => {
         mockedApiClient.getSessionContext.mockResolvedValueOnce({} as any);
-        const { setActiveBillingAddress } = useSessionContext(rootContextMock);
+        const { setActiveBillingAddress } = useSessionContext();
         await setActiveBillingAddress({ id: "address-id" });
         expect(mockedApiClient.setCurrentBillingAddress).toBeCalledWith(
           "address-id",
@@ -355,7 +353,7 @@ describe("Composables - useSessionContext", () => {
         );
       });
       it("should throw an exception if there is no address.id provided", async () => {
-        const { setActiveBillingAddress } = useSessionContext(rootContextMock);
+        const { setActiveBillingAddress } = useSessionContext();
         await expect(setActiveBillingAddress(null as any)).rejects.toThrowError(
           "You need to provide address id in order to set the address."
         );
@@ -363,7 +361,7 @@ describe("Composables - useSessionContext", () => {
     });
     describe("onCurrencyChange", () => {
       it("should add interceptor method", () => {
-        const { onCurrencyChange } = useSessionContext(rootContextMock);
+        const { onCurrencyChange } = useSessionContext();
         onCurrencyChange(() => {});
         expect(interceptMock).toHaveBeenCalledWith(
           "onCurrencyChange",
@@ -373,7 +371,7 @@ describe("Composables - useSessionContext", () => {
     });
     describe("onShippingMethodChange", () => {
       it("should add interceptor method", () => {
-        const { onShippingMethodChange } = useSessionContext(rootContextMock);
+        const { onShippingMethodChange } = useSessionContext();
         onShippingMethodChange(() => {});
         expect(interceptMock).toHaveBeenCalledWith(
           "onShippingMethodChange",
@@ -383,7 +381,7 @@ describe("Composables - useSessionContext", () => {
     });
     describe("onPaymentMethodChange", () => {
       it("should add interceptor method", () => {
-        const { onPaymentMethodChange } = useSessionContext(rootContextMock);
+        const { onPaymentMethodChange } = useSessionContext();
         onPaymentMethodChange(() => {});
         expect(interceptMock).toHaveBeenCalledWith(
           "onPaymentMethodChange",

@@ -2,7 +2,7 @@ import { Product } from "../../content/product/Product";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface Tax {
   taxRate: number;

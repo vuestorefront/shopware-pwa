@@ -1,14 +1,14 @@
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import { getApplicationContext } from "@shopware-pwa/composables";
 import {
   Includes,
   ShopwareSearchParams,
 } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { Association } from "@shopware-pwa/commons/interfaces/search/Association";
+import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Association";
 import { warning } from "@shopware-pwa/commons";
 
 /**
  * Returns default config depending on config key.
- * It is used in composables, so defaultsKey is in most cases composable name (ex. `useDefaults(rootContext, "useCms")`)
+ * It is used in composables, so defaultsKey is in most cases composable name (ex. `useDefaults({ defaultsKey: "useCms" })`)
  *
  * @remarks
  * To extend defaults you need to add configuration to `shopware-pwa.config.js` file.
@@ -30,18 +30,17 @@ import { warning } from "@shopware-pwa/commons";
  *
  * @beta
  */
-export const useDefaults = (
-  rootContext: ApplicationVueContext,
-  defaultsKey: string
-): {
+export function useDefaults(params: { defaultsKey: string }): {
   getIncludesConfig: () => Includes;
-  getAssociationsConfig: () => Association[];
+  getAssociationsConfig: () => ShopwareAssociation;
   getDefaults: () => ShopwareSearchParams;
-} => {
-  const { shopwareDefaults } = getApplicationContext(
-    rootContext,
-    "useDefaults"
-  );
+} {
+  const COMPOSABLE_NAME = "useDefaults";
+  const contextName = COMPOSABLE_NAME;
+
+  const defaultsKey = params.defaultsKey;
+
+  const { shopwareDefaults } = getApplicationContext({ contextName });
   if (!shopwareDefaults) {
     throw new Error(
       "[composables][useDefaults]: applicationContext does not have shopwareDefaults!"
@@ -52,7 +51,7 @@ export const useDefaults = (
     if (!shopwareDefaults[keyName]) {
       warning({
         packageName: "composables",
-        methodName: "useDefaults",
+        methodName: contextName,
         notes: `there is no defaults configuration for key: ${keyName}`,
       });
       return;
@@ -62,7 +61,7 @@ export const useDefaults = (
 
   const getIncludesConfig = () => getDefaultsFor(defaultsKey)?.includes || {};
   const getAssociationsConfig = () =>
-    getDefaultsFor(defaultsKey)?.associations || [];
+    getDefaultsFor(defaultsKey)?.associations || {};
   const getDefaults = () => getDefaultsFor(defaultsKey) || {};
 
   return {
@@ -70,4 +69,4 @@ export const useDefaults = (
     getAssociationsConfig,
     getDefaults,
   };
-};
+}

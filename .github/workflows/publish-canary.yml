@@ -392,7 +392,7 @@ jobs:
         run: |
           mkdir app
           cd ./app
-          npx @shopware-pwa/cli@canary init --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --pwaHost=${{ env.PWA_HOST }} --ci --devMode --stage canary
+          npx @shopware-pwa/cli@canary init --u ${{ secrets.SHOPWARE_ADMIN_USER }} --p ${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --shopwareDomainsAllowList=${{ env.PWA_HOST }} --shopwareDomainsAllowList=${{ env.PWA_HOST }}/germany --ci --devMode --stage canary
           yarn build
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@master

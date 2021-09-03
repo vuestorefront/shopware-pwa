@@ -11,11 +11,10 @@ const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 const consoleErrorSpy = jest.spyOn(console, "error");
 
 import { useCustomerPassword } from "../src/hooks/useCustomerPassword";
+import { prepareRootContextMock } from "./contextRunner";
 describe("Composables - useCustomerPassword", () => {
   const stateUser: Ref<Object | null> = ref(null);
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-  };
+  const rootContextMock = prepareRootContextMock();
 
   const refreshSessionContextMock = jest.fn();
 
@@ -28,6 +27,12 @@ describe("Composables - useCustomerPassword", () => {
       } as any;
     });
 
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
+
     consoleErrorSpy.mockImplementationOnce(() => {});
   });
 
@@ -37,7 +42,7 @@ describe("Composables - useCustomerPassword", () => {
         mockedApiClient.updatePassword.mockImplementationOnce(async () =>
           Promise.resolve(undefined)
         );
-        const { updatePassword } = useCustomerPassword(rootContextMock);
+        const { updatePassword } = useCustomerPassword();
         const response = await updatePassword({
           password: "qweqweqwe",
           newPassword: "qweqweqwe1",
@@ -50,7 +55,7 @@ describe("Composables - useCustomerPassword", () => {
         mockedApiClient.updatePassword.mockRejectedValueOnce({
           messages: [{ detail: "Password must be at least 8 characters long" }],
         });
-        const { updatePassword, errors } = useCustomerPassword(rootContextMock);
+        const { updatePassword, errors } = useCustomerPassword();
         const response = await updatePassword({
           password: "qweqweqwe",
           newPassword: "qwe",
@@ -68,7 +73,7 @@ describe("Composables - useCustomerPassword", () => {
         mockedApiClient.resetPassword.mockImplementationOnce(async () =>
           Promise.resolve(undefined)
         );
-        const { resetPassword } = useCustomerPassword(rootContextMock);
+        const { resetPassword } = useCustomerPassword();
         const response = await resetPassword({
           email: "qweqwe@qwe.com",
         });
@@ -79,7 +84,7 @@ describe("Composables - useCustomerPassword", () => {
         mockedApiClient.resetPassword.mockRejectedValueOnce({
           messages: [{ detail: "Email does not fit to any in Sales Channel" }],
         });
-        const { resetPassword, errors } = useCustomerPassword(rootContextMock);
+        const { resetPassword, errors } = useCustomerPassword();
         const response = await resetPassword({
           email: "qweqwe@qwe.com",
         });

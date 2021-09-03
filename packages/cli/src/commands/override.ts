@@ -35,10 +35,10 @@ module.exports = {
     try {
       await toolbox.filesystem.copyAsync(copyFrom, copyTo);
       toolbox.print.success(
-        `Component overrided. You can edit it in ${copyTo}`
+        `[CLI > override] Component overrided. You can edit it in ${copyTo}`
       );
     } catch (e) {
-      toolbox.print.error(e.message);
+      toolbox.print.error(`[CLI > override] ${e.message}`);
     }
   },
 };

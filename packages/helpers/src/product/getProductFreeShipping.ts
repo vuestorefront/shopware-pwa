@@ -3,7 +3,7 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 /**
  * Get product free shipping property
  *
- * @alpha
+ * @public
  */
 export function getProductFreeShipping(product?: Product): boolean {
   return product?.shippingFree || false;

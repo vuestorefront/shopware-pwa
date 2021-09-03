@@ -63,9 +63,9 @@ export default {
     },
   },
   setup(props, { root }) {
-    const { removeFromWishlist, items } = useWishlist(root)
+    const { removeFromWishlist, items } = useWishlist()
     const { setBreadcrumbs } = useBreadcrumbs(root)
-    const { apiInstance } = getApplicationContext(root, "Wishlist")
+    const { apiInstance } = getApplicationContext({ contextName: "Wishlist" })
 
     const products = ref([])
     const isLoading = ref(false)
@@ -82,9 +82,7 @@ export default {
       try {
         const result = await getProducts(
           {
-            configuration: {
-              ids: itemIds || items.value,
-            },
+            ids: itemIds || items.value,
           },
           apiInstance
         )

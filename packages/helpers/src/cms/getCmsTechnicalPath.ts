@@ -1,5 +1,4 @@
 import {
-  PageType,
   PageResolverResult,
   PageResolverProductResult,
   CmsPage,
@@ -29,9 +28,9 @@ export function getCmsTechnicalPath(
   }
 
   switch (page.resourceType) {
-    case PageType.NAVIGATION_PAGE:
+    case "frontend.navigation.page":
       return getNavigationTechnicalPath(page as PageResolverResult<CmsPage>);
-    case PageType.PRODUCT_DETAIL_PAGE:
+    case "frontend.detail.page":
       return getProductTechnicalPath(
         (page as PageResolverProductResult).product
       );

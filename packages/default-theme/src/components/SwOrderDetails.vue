@@ -266,9 +266,9 @@ export default {
       ],
     }
   },
-  setup({ orderId }, { root }) {
-    const { getPaymentMethods } = useCheckout(root)
-    const { pushWarning } = useNotifications(root)
+  setup(props) {
+    const { getPaymentMethods } = useCheckout()
+    const { pushWarning } = useNotifications()
     const {
       order,
       status,
@@ -287,7 +287,7 @@ export default {
       handlePayment,
       cancel,
       changePaymentMethod: doChangePaymentMethod,
-    } = useOrderDetails(root, { id: orderId })
+    } = useOrderDetails({ order: { id: props.orderId } })
 
     const cancelModalVisible = ref(false)
     const changePaymentMethodModalVisible = ref(false)

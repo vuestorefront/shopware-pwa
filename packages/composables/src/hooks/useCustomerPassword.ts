@@ -9,7 +9,7 @@ import {
   ClientApiError,
   ShopwareError,
 } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { ApplicationVueContext, getApplicationContext } from "../appContext";
+import { getApplicationContext } from "@shopware-pwa/composables";
 
 /**
  * interface for {@link useCustomerPassword} composable
@@ -34,13 +34,11 @@ export interface IUseCustomerPassword {
  *
  * @beta
  */
-export function useCustomerPassword(
-  rootContext: ApplicationVueContext
-): IUseCustomerPassword {
-  const { apiInstance } = getApplicationContext(
-    rootContext,
-    "useCustomerPassword"
-  );
+export function useCustomerPassword(): IUseCustomerPassword {
+  const COMPOSABLE_NAME = "useCustomerPassword";
+  const contextName = COMPOSABLE_NAME;
+
+  const { apiInstance } = getApplicationContext({ contextName });
 
   const errors: UnwrapRef<{
     resetPassword: ShopwareError[];

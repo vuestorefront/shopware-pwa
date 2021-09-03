@@ -4,7 +4,7 @@ import { Product } from "./Product";
 import { CustomField } from "../../common/CustomField";
 
 /**
- * @alpha
+ * @public
  */
 export interface ProductConfiguratorSetting {
   productId: number;

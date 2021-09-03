@@ -2,7 +2,7 @@ import { MailHeaderFooterTranslation } from "./MailHeaderFooterTranslation";
 import { SalesChannel } from "../../system/sales-channel/SalesChannel";
 
 /**
- * @alpha
+ * @public
  */
 export interface MailHeaderFooter {
   name: string | null;

@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useProductQuickSearch](./composables.useproductquicksearch.md)
 
-## useProductQuickSearch variable
+## useProductQuickSearch() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -11,5 +11,9 @@
 <b>Signature:</b>
 
 ```typescript
-useProductQuickSearch: (rootContext: ApplicationVueContext) => IUseProductQuickSearch
+export declare function useProductQuickSearch(): IUseProductQuickSearch;
 ```
+<b>Returns:</b>
+
+[IUseProductQuickSearch](./composables.iuseproductquicksearch.md)
+

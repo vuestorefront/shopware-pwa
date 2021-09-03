@@ -3,7 +3,7 @@ import { CountryState } from "../../system/country/CountryState";
 import { CustomerAddress } from "../customer/CustomerAddress";
 
 /**
- * @alpha
+ * @public
  */
 export interface ShippingLocation {
   country: Country;

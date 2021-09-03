@@ -13,11 +13,10 @@ const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 const consoleErrorSpy = jest.spyOn(console, "error");
 
 import { useCustomerAddresses } from "../src/hooks/useCustomerAddresses";
+import { prepareRootContextMock } from "./contextRunner";
 describe("Composables - useCustomerAddresses", () => {
   const stateUser: Ref<Object | null> = ref(null);
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-  };
+  const rootContextMock = prepareRootContextMock();
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -39,6 +38,12 @@ describe("Composables - useCustomerAddresses", () => {
       } as any;
     });
 
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
+    mockedComposables.getApplicationContext.mockReturnValue(rootContextMock);
+
     consoleErrorSpy.mockImplementationOnce(() => {});
   });
 
@@ -48,7 +53,7 @@ describe("Composables - useCustomerAddresses", () => {
         mockedApiClient.updateCustomerAddress.mockResolvedValueOnce({
           id: "updated-id",
         } as any);
-        const { updateAddress } = useCustomerAddresses(rootContextMock);
+        const { updateAddress } = useCustomerAddresses();
         const response = await updateAddress({
           id: "some-address-id",
           city: "Wrocław",
@@ -60,7 +65,7 @@ describe("Composables - useCustomerAddresses", () => {
         mockedApiClient.updateCustomerAddress.mockRejectedValueOnce(
           new Error("not ok")
         );
-        const { updateAddress } = useCustomerAddresses(rootContextMock);
+        const { updateAddress } = useCustomerAddresses();
         const response = await updateAddress({
           id: "some-address-id",
           city: "Wrocław",
@@ -74,7 +79,7 @@ describe("Composables - useCustomerAddresses", () => {
         mockedApiClient.createCustomerAddress.mockResolvedValueOnce({
           id: "added-id",
         } as any);
-        const { addAddress } = useCustomerAddresses(rootContextMock);
+        const { addAddress } = useCustomerAddresses();
         const response = await addAddress({ city: "Wrocław" });
         expect(mockedApiClient.createCustomerAddress).toBeCalledTimes(1);
         expect(response).toBe("added-id");
@@ -83,7 +88,7 @@ describe("Composables - useCustomerAddresses", () => {
         mockedApiClient.createCustomerAddress.mockRejectedValueOnce({
           messages: [{ detail: "There is no address provided" }],
         } as ClientApiError);
-        const { addAddress, errors } = useCustomerAddresses(rootContextMock);
+        const { addAddress, errors } = useCustomerAddresses();
         const response = await addAddress(null as any);
         expect(mockedApiClient.createCustomerAddress).toBeCalledTimes(1);
         expect(response).toBeUndefined();
@@ -96,7 +101,7 @@ describe("Composables - useCustomerAddresses", () => {
     describe("deleteAddress", () => {
       it("should invoke client deleteCustomerAddress method and return true on success", async () => {
         mockedApiClient.deleteCustomerAddress.mockResolvedValueOnce();
-        const { deleteAddress } = useCustomerAddresses(rootContextMock);
+        const { deleteAddress } = useCustomerAddresses();
         const response = await deleteAddress("address-1234");
         expect(mockedApiClient.deleteCustomerAddress).toBeCalledTimes(1);
         expect(response).toBe(true);
@@ -105,7 +110,7 @@ describe("Composables - useCustomerAddresses", () => {
         mockedApiClient.deleteCustomerAddress.mockRejectedValueOnce(
           "Cannot delete the provided address"
         );
-        const { deleteAddress } = useCustomerAddresses(rootContextMock);
+        const { deleteAddress } = useCustomerAddresses();
         const response = await deleteAddress("address-unknown");
         expect(mockedApiClient.deleteCustomerAddress).toBeCalledTimes(1);
         expect(response).toBe(false);
@@ -121,8 +126,7 @@ describe("Composables - useCustomerAddresses", () => {
             },
           ],
         } as any);
-        const { addresses, loadAddresses, errors } =
-          useCustomerAddresses(rootContextMock);
+        const { addresses, loadAddresses, errors } = useCustomerAddresses();
         await loadAddresses();
         expect(mockedApiClient.getCustomerAddresses).toBeCalledTimes(1);
         expect(errors.loadAddresses).toHaveLength(0);
@@ -137,8 +141,7 @@ describe("Composables - useCustomerAddresses", () => {
         mockedApiClient.getCustomerAddresses.mockResolvedValue(
           undefined as any
         );
-        const { addresses, loadAddresses, errors } =
-          useCustomerAddresses(rootContextMock);
+        const { addresses, loadAddresses, errors } = useCustomerAddresses();
         await loadAddresses();
         expect(mockedApiClient.getCustomerAddresses).toBeCalledTimes(1);
         expect(errors.loadAddresses).toBeUndefined();
@@ -149,7 +152,7 @@ describe("Composables - useCustomerAddresses", () => {
         mockedApiClient.getCustomerAddresses.mockRejectedValueOnce({
           messages: [{ detail: "Something went wrong..." }],
         });
-        const { loadAddresses, errors } = useCustomerAddresses(rootContextMock);
+        const { loadAddresses, errors } = useCustomerAddresses();
         await loadAddresses();
         expect(mockedApiClient.getCustomerAddresses).toBeCalledTimes(1);
         expect(errors.loadAddresses).toStrictEqual([
@@ -162,7 +165,7 @@ describe("Composables - useCustomerAddresses", () => {
         mockedApiClient.setDefaultCustomerBillingAddress.mockResolvedValue(
           "address-1234"
         );
-        const { markAddressAsDefault } = useCustomerAddresses(rootContextMock);
+        const { markAddressAsDefault } = useCustomerAddresses();
         const response = await markAddressAsDefault({
           addressId: "address-1234",
           type: "billing",
@@ -177,7 +180,7 @@ describe("Composables - useCustomerAddresses", () => {
         mockedApiClient.setDefaultCustomerShippingAddress.mockResolvedValue(
           "address-1234"
         );
-        const { markAddressAsDefault } = useCustomerAddresses(rootContextMock);
+        const { markAddressAsDefault } = useCustomerAddresses();
         const response = await markAddressAsDefault({
           addressId: "address-1234",
           type: "shipping",
@@ -189,13 +192,13 @@ describe("Composables - useCustomerAddresses", () => {
       });
 
       it("should return false when no argument is provided", async () => {
-        const { markAddressAsDefault } = useCustomerAddresses(rootContextMock);
+        const { markAddressAsDefault } = useCustomerAddresses();
         const response = await markAddressAsDefault({} as any);
         expect(response).toBe(false);
       });
 
       it("should return false when address type is unknown", async () => {
-        const { markAddressAsDefault } = useCustomerAddresses(rootContextMock);
+        const { markAddressAsDefault } = useCustomerAddresses();
         const response = await markAddressAsDefault({
           type: "unknown",
           addressId: "someId",
@@ -209,8 +212,7 @@ describe("Composables - useCustomerAddresses", () => {
             messages: [{ detail: "Error occured" }],
           }
         );
-        const { markAddressAsDefault, errors } =
-          useCustomerAddresses(rootContextMock);
+        const { markAddressAsDefault, errors } = useCustomerAddresses();
         const response = await markAddressAsDefault({
           type: "shipping",
           addressId: "someId",

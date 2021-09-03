@@ -29,7 +29,7 @@ export default {
     SwButton,
   },
   setup(props, { root }) {
-    const { isGuestSession, isLoggedIn, logout, user } = useUser(root)
+    const { isGuestSession, isLoggedIn, logout, user } = useUser()
 
     return {
       isGuestSession,

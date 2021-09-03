@@ -34,10 +34,6 @@ describe("Composables - useNavigation", () => {
     } as any;
   });
 
-  const rootContextMock: any = {
-    $shopwareApiInstance: jest.fn(),
-  };
-
   beforeEach(() => {
     jest.clearAllMocks();
     consoleErrorSpy.mockImplementation(() => {});
@@ -45,7 +41,17 @@ describe("Composables - useNavigation", () => {
   describe("computed", () => {
     describe("navigationElements", () => {
       it("should get undefined when navigationElements are not fetched", () => {
-        const { navigationElements } = useNavigation(rootContextMock);
+        const { navigationElements } = useNavigation();
+        expect(navigationElements.value).toBeUndefined();
+      });
+
+      it("should not fail on empty param type", () => {
+        const { navigationElements } = useNavigation({});
+        expect(navigationElements.value).toBeUndefined();
+      });
+
+      it("should not fail on undefined type", () => {
+        const { navigationElements } = useNavigation({ type: undefined });
         expect(navigationElements.value).toBeUndefined();
       });
     });
@@ -63,32 +69,14 @@ describe("Composables - useNavigation", () => {
           },
         ] as any);
 
-        const { navigationElements, loadNavigationElements } =
-          useNavigation(rootContextMock);
+        const { navigationElements, loadNavigationElements } = useNavigation();
         await loadNavigationElements({ depth: 2 });
-        expect(navigationElements.value).toHaveLength(3);
-      });
-
-      it("should resolve deprecated fetchNavigationElements into loadNavigationElements", async () => {
-        mockedGetPage.getStoreNavigation.mockResolvedValueOnce([
-          { name: "Clothin", route: { path: "clothing/" } },
-          { name: "Sports", route: { path: "sports/" } },
-          {
-            name: "Accessories & Others",
-            route: { path: "accessories-others/" },
-          },
-        ] as any);
-
-        const { navigationElements, fetchNavigationElements } =
-          useNavigation(rootContextMock);
-        await fetchNavigationElements(2);
         expect(navigationElements.value).toHaveLength(3);
       });
 
       it("should return an empty array for navigation if ther is no children", async () => {
         mockedGetPage.getStoreNavigation.mockResolvedValueOnce([] as any);
-        const { navigationElements, loadNavigationElements } =
-          useNavigation(rootContextMock);
+        const { navigationElements, loadNavigationElements } = useNavigation();
         await loadNavigationElements({ depth: 2 });
         expect(navigationElements.value).toEqual([]);
       });
@@ -97,8 +85,7 @@ describe("Composables - useNavigation", () => {
         mockedGetPage.getStoreNavigation.mockResolvedValueOnce(
           undefined as any
         );
-        const { navigationElements, loadNavigationElements } =
-          useNavigation(rootContextMock);
+        const { navigationElements, loadNavigationElements } = useNavigation();
         await loadNavigationElements({ depth: 2 });
         expect(navigationElements.value).toEqual([]);
       });
@@ -107,8 +94,7 @@ describe("Composables - useNavigation", () => {
         mockedGetPage.getStoreNavigation.mockRejectedValueOnce({
           messages: [{ detail: "some error" }],
         });
-        const { navigationElements, loadNavigationElements } =
-          useNavigation(rootContextMock);
+        const { navigationElements, loadNavigationElements } = useNavigation();
         await loadNavigationElements({ depth: 2 });
         expect(navigationElements.value).toEqual([]);
         expect(consoleErrorSpy).toBeCalledWith(

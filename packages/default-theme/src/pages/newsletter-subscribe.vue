@@ -51,7 +51,9 @@ export default {
         path: "/newsletter-subscribe",
       },
     ])
-    const { apiInstance } = getApplicationContext(root, "NewsletterConfirm")
+    const { apiInstance } = getApplicationContext({
+      contextName: "NewsletterConfirm",
+    })
     const {
       context: {
         query: { em, hash },

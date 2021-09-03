@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/composables](./composables.md) &gt; [useListing](./composables.uselisting.md)
 
-## useListing variable
+## useListing() function
 
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
@@ -11,5 +11,18 @@
 <b>Signature:</b>
 
 ```typescript
-useListing: (rootContext: ApplicationVueContext, listingKey?: listingKey) => IUseListing<Product>
+export declare function useListing(params?: {
+    listingType: ListingType;
+}): IUseListing<Product>;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  params | { listingType: [ListingType](./composables.listingtype.md)<!-- -->; } |  |
+
+<b>Returns:</b>
+
+[IUseListing](./composables.iuselisting.md)<!-- -->&lt;Product&gt;
+
