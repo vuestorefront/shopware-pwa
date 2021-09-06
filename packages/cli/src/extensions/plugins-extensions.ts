@@ -1,6 +1,8 @@
 import { GluegunToolbox } from "gluegun";
 import axios from "axios";
 import { join } from "path";
+import { Open } from "unzipper";
+import request from "request";
 
 module.exports = (toolbox: GluegunToolbox) => {
   toolbox.plugins = {};
@@ -78,7 +80,6 @@ module.exports = (toolbox: GluegunToolbox) => {
             toolbox.inputParameters.shopwareEndpoint
           )}/${asset}`;
 
-    const request = require("request");
     const loadFile = function () {
       return new Promise((resolve, reject) => {
         request(
@@ -101,10 +102,7 @@ module.exports = (toolbox: GluegunToolbox) => {
   };
 
   toolbox.unzipPluginsAssetsFile = async () => {
-    const unzipper = require("unzipper");
-    const assetsFile = await unzipper.Open.file(
-      ".shopware-pwa/pwa-bundles-assets.zip"
-    );
+    const assetsFile = await Open.file(".shopware-pwa/pwa-bundles-assets.zip");
     await assetsFile.extract({
       path: ".shopware-pwa/pwa-bundles-assets",
     });

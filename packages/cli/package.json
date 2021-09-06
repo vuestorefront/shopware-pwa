@@ -33,7 +33,7 @@
     "chokidar": "^3.5.2",
     "dotenv": "^10.0.0",
     "gluegun": "^4.6.1",
-    "md5-hex": "^4.0.0",
+    "md5-hex": "^3.0.1",
     "request": "^2.88.2",
     "unzipper": "^0.10.11",
     "validate-npm-package-name": "^3.0.0"
