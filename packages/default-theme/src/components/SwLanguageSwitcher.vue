@@ -31,8 +31,8 @@ export default {
     SfSelect,
   },
 
-  setup(props, { root }) {
-    const { availableDomains, currentDomainId, changeDomain } = useDomains(root)
+  setup() {
+    const { availableDomains, currentDomainId, changeDomain } = useDomains()
     return {
       availableDomains,
       currentDomainId,

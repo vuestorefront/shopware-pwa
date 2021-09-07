@@ -22,9 +22,8 @@ export default {
       terms: false,
     }
   },
-  setup(props, { root }) {
-    const { cartItems, subtotal, totalPrice, shippingTotal, cart } =
-      useCart(root)
+  setup() {
+    const { cartItems, subtotal, totalPrice, shippingTotal, cart } = useCart()
     return {
       cartItems,
       subtotal,

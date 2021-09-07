@@ -15,8 +15,8 @@ import { computed } from "vue-demi";
 export default {
   name: "DynamicRoute",
   components: {},
-  setup(props, { root }) {
-    const { page, error, loading } = useCms(root);
+  setup() {
+    const { page, error, loading } = useCms();
 
     const cmsPage = computed(() => page.value?.cmsPage);
     const cmsPageName = computed(() => cmsPage.value?.name);
