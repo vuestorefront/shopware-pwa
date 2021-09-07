@@ -1,5 +1,6 @@
 import { GluegunToolbox } from "gluegun";
 import axios from "axios";
+import md5Hex from "md5-hex";
 
 module.exports = (toolbox: GluegunToolbox) => {
   toolbox.snippets = {};
@@ -122,7 +123,6 @@ module.exports = (toolbox: GluegunToolbox) => {
     authToken: string
   ) => {
     let payload = [];
-    const md5Hex = require("md5-hex");
 
     for (let [key, value] of Object.entries(snippetSet)) {
       payload.push({
