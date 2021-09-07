@@ -4,12 +4,6 @@
 
 ## helpers package
 
-## Enumerations
-
-|  Enumeration | Description |
-|  --- | --- |
-|  [UiCategoryFilterType](./helpers.uicategoryfiltertype.md) |  |
-
 ## Functions
 
 |  Function | Description |
@@ -19,7 +13,6 @@
 |  [getCmsLink(content)](./helpers.getcmslink.md) | Gets the link of a cms slot |
 |  [getCmsLinkTarget(content)](./helpers.getcmslinktarget.md) | Return the target attribute for the cms link |
 |  [getCmsTechnicalPath(page)](./helpers.getcmstechnicalpath.md) | <b><i>(BETA)</i></b> |
-|  [getListingAvailableFilters(aggregations)](./helpers.getlistingavailablefilters.md) | <b><i>(BETA)</i></b> |
 |  [getListingFilters(aggregations)](./helpers.getlistingfilters.md) | <b><i>(BETA)</i></b> |
 |  [getProductCalculatedListingPrice(product)](./helpers.getproductcalculatedlistingprice.md) | <b><i>(BETA)</i></b> Get the calculated list price |
 |  [getProductCalculatedPrice(product)](./helpers.getproductcalculatedprice.md) | <b><i>(BETA)</i></b> Get the calculated list price |
@@ -51,9 +44,6 @@
 |  [ListingFilter](./helpers.listingfilter.md) |  |
 |  [MappedSalutation](./helpers.mappedsalutation.md) |  |
 |  [TierPrice](./helpers.tierprice.md) | <b><i>(BETA)</i></b> |
-|  [UiCategoryFilter](./helpers.uicategoryfilter.md) |  |
-|  [UiCategoryFilterOption](./helpers.uicategoryfilteroption.md) |  |
-|  [UiCategoryRangeFilterOption](./helpers.uicategoryrangefilteroption.md) |  |
 |  [UiMediaGalleryItem](./helpers.uimediagalleryitem.md) |  |
 |  [UiMediaGalleryItemUrl](./helpers.uimediagalleryitemurl.md) |  |
 |  [UiProductOption](./helpers.uiproductoption.md) |  |

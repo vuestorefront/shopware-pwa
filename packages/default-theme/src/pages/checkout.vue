@@ -205,7 +205,7 @@ export default {
         // perform a redirection to the external payment gateway
         window.location.href = redirectUrl
       } catch (error) {
-        // TODO
+        // TODO https://github.com/vuestorefront/shopware-pwa/issues/1648
         errorMessages.value = [
           root.$t("Your order cannot be placed. Please try again later."),
         ]

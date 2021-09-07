@@ -143,7 +143,6 @@
         @blur="$v.$reset()"
       />
 
-      <!-- TODO: create smaller components for this form after vuelidate upgrade: https://github.com/vuestorefront/shopware-pwa/issues/1472 -->
       <div class="sw-form" v-if="isDifferentShippingAddress">
         <div class="inputs-group">
           <SfSelect

@@ -82,14 +82,6 @@ export async function runModule(
     THEME_SOURCE,
   });
 
-  // Warning about wrong API address
-  // TODO: remove in 1.0
-  if (shopwarePwaConfig.shopwareEndpoint?.includes("/sales-channel-api/v1")) {
-    console.error(
-      "Please change your shopwareEndpoint in shopware-pwa.config.js to contain just domain, example: https://github.com/DivanteLtd/shopware-pwa#running-shopware-pwa-on-custom-shopware-instance"
-    );
-  }
-
   /* i18n plugin has to be registered before routing-plugin, because the execution order will be the other way round,
    * as addPlugin() prepends to the plugins-array (https://nuxtjs.org/docs/2.x/internals-glossary/internals-module-container#addplugin-template)
    * So by registering the i18n-plugin before the routing-plugin, the routing-plugin will be executed before the i18n-plugin
