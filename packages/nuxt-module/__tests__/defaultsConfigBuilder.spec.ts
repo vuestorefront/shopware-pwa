@@ -63,6 +63,22 @@ describe("nuxt-module - defaultsConfigBuilder", () => {
         someConfig: 123,
       });
     });
+
+    it("should not remove unit price with direct key", () => {
+      const testKey = "useCms.includes.calculated_price";
+      const previousValue = defaultsConfigBuilder().get(testKey);
+      const result = defaultsConfigBuilder().add(testKey, ["referencePrice"]);
+      expect(result.get(testKey)).toEqual([...previousValue, "referencePrice"]);
+    });
+
+    it("should not remove unit price without direct key", () => {
+      const testKey = "useCms.includes.calculated_price";
+      const previousValue = defaultsConfigBuilder().get(testKey);
+      const result = defaultsConfigBuilder().add("useCms", {
+        includes: { calculated_price: ["referencePrice"] },
+      });
+      expect(result.get(testKey)).toEqual([...previousValue, "referencePrice"]);
+    });
   });
 
   describe("replace", () => {

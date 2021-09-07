@@ -8,7 +8,7 @@ import { getSeoUrls } from "@shopware-pwa/shopware-6-client"
 import { getCmsTechnicalPath } from "@shopware-pwa/helpers"
 
 export function useDomains() {
-  const COMPOSABLE_NAME = "useBreadcrumbs"
+  const COMPOSABLE_NAME = "useDomains"
   const contextName = COMPOSABLE_NAME
 
   // the "last-chance route always has a name starting with `all` - nuxt default"

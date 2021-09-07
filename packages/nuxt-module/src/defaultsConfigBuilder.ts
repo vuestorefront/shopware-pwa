@@ -1,7 +1,7 @@
-import { isArray, mergeWith, set, get } from "lodash";
+import { mergeWith, set, get } from "lodash";
 import { getDefaultApiParams } from "@shopware-pwa/composables";
 function _customizer(objValue: Object, srcValue: string[]) {
-  if (isArray(objValue)) {
+  if (Array.isArray(objValue)) {
     return [...new Set([...objValue, ...srcValue])];
   }
 }
@@ -21,8 +21,10 @@ export default function defaultsConfigBuilder() {
       const property = get(finalConfig, key);
       if (!property) {
         set(finalConfig, key, config);
-      } else if (Array.isArray(property) && !Array.isArray(config)) {
-        mergeWith(property, [config], _customizer);
+      } else if (Array.isArray(property)) {
+        const newArray = Array.isArray(config) ? config : [config];
+        const combinedArray = [...property, ...newArray];
+        set(finalConfig, key, [...new Set(combinedArray)]);
       } else {
         mergeWith(property, config, _customizer);
       }
