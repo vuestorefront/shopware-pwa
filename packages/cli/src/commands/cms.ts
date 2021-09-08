@@ -13,6 +13,7 @@ module.exports = {
 
     const swCmsPath = path.join(".shopware-pwa", "sw-cms");
     const swPluginsPath = path.join(".shopware-pwa", "pwa-bundles-assets");
+    const swLocalPluginsPath = path.join("sw-plugins");
 
     // Aliases and componentsMap to save
     const aliases = {};
@@ -35,6 +36,24 @@ module.exports = {
       for (let index = 0; index < pluginsList.length; index++) {
         await toolbox.resolveCms(
           path.join(swPluginsPath, pluginsList[index], "cms"),
+          aliases,
+          cmsComponentsMap
+        );
+      }
+    }
+
+    // Overwrite CMS by active local plugins
+    const localPluginsConfig = await toolbox.plugins.getPluginsConfig({
+      localPlugins: true,
+    });
+    if (localPluginsConfig) {
+      // get only active local plugins
+      const localPluginsList = Object.entries(localPluginsConfig)
+        .filter((entry) => !!entry[1])
+        .map((entry) => entry[0]);
+      for (let index = 0; index < localPluginsList.length; index++) {
+        await toolbox.resolveCms(
+          path.join(swLocalPluginsPath, localPluginsList[index], "cms"),
           aliases,
           cmsComponentsMap
         );
